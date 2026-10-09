@@ -15,11 +15,13 @@ jobs:
       - run: npm install -g npm@11      # trusted publishing (OIDC) needs npm >= 11.5.1; Node 22 ships npm 10
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo run check --filter='./packages/*'   # the published packages (the catalogue is checked by CI)
-      - uses: changesets/action@v1
+      # changesets/action v2 = Changesets CLI v3 (v1 reads the v3 pre-release folder `.changeset/pre/` as a v1 changeset
+      # and fails). Inputs are kebab-case; the token goes through `github-token`.
+      - uses: changesets/action@v2
         with:
-          version: pnpm changeset version
-          publish: pnpm changeset publish   # → npm publish --provenance ; tags @krizaka/ui@2.0.0, @krizaka/tokens@1.0.0…
-          title: "chore: version packages"
+          version-script: pnpm changeset version
+          publish-script: pnpm changeset publish   # → npm publish --provenance ; tags @krizaka/ui@2.0.0, @krizaka/tokens@1.0.0…
+          pr-title: "chore: version packages"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: "true"
