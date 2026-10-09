@@ -10,13 +10,14 @@
 krizaka-ui/                 # pnpm workspace + Turborepo
 ├─ apps/                    # not published (Storybook catalogue, to come)
 ├─ packages/
+│  ├─ tokens/               # @krizaka/tokens — the semantic --kz-* tokens (CSS, TS, native), from DTCG sources
 │  └─ ui/                   # @krizaka/ui — the marks, the motion signature (web, /native)
 ├─ .changeset/              # one file per change that ships
 ├─ turbo.json · pnpm-workspace.yaml · package.json
 └─ .github/workflows/{ci,release}.yml
 ```
 
-Planned next to `ui`: `tokens` (`@krizaka/tokens`), `tailwind` (`@krizaka/tailwind`), `intl`, `i18n`, `config`.
+Planned next to `tokens` and `ui`: `tailwind` (`@krizaka/tailwind`), `intl`, `i18n`, `config`.
 A new package is a folder in `packages/` with its own `package.json`, `AGENTS.md`, tests, `size-limit` budget and
 `publint` script.
 
@@ -55,7 +56,8 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
    and tags each package `@krizaka/<name>@x.y.z`. No `v*` tags any more.
 
 Each package must be declared once on npmjs.com as trusted publisher: repository `krizaka/krizaka-ui`, workflow
-`release.yml`. `tokens`, `tailwind` and `ui` will form one `fixed` group in `.changeset/config.json` once they exist.
+`release.yml`. `tokens` and `ui` form one `fixed` group in `.changeset/config.json` (one shared version);
+`tailwind` joins it when it exists.
 
 ## 5. Definition of done
 
