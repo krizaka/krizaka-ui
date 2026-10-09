@@ -1,0 +1,28 @@
+{
+  "name": "krizaka-ui-monorepo",
+  "private": true,
+  "description": "The Krizaka front-end platform: shared packages published on npm under @krizaka/*.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git"
+  },
+  "packageManager": "pnpm@10.34.6",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "check": "turbo run check",
+    "changeset": "changeset",
+    "release": "turbo run check && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^1.0.1",
+    "@changesets/cli": "^3.0.3",
+    "turbo": "^2.11.7"
+  }
+}

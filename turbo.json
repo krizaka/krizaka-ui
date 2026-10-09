@@ -1,0 +1,13 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build":     { "dependsOn": ["^build"], "outputs": ["dist/**", "tailwind.css", "registry/**"] },
+    "typecheck": { "dependsOn": ["^build"] },
+    "lint":      {},
+    "test":      { "dependsOn": ["^build"], "outputs": ["coverage/**"] },
+    "size":      { "dependsOn": ["build"] },
+    "publint":   { "dependsOn": ["build"] },
+    "check":     { "dependsOn": ["lint", "typecheck", "test", "build", "size", "publint"] },
+    "storybook:build": { "dependsOn": ["^build"], "outputs": ["storybook-static/**"] }
+  }
+}
