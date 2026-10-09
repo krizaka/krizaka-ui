@@ -2,9 +2,19 @@
   "$schema": "https://unpkg.com/@changesets/config@4.0.1/schema.json",
   "baseBranch": "main",
   "access": "public",
-  "changelog": ["@changesets/changelog-github", { "repo": "krizaka/krizaka-ui" }],
+  "changelog": [
+    "@changesets/changelog-github",
+    {
+      "repo": "krizaka/krizaka-ui"
+    }
+  ],
   "commit": false,
-  "fixed": [],
+  "fixed": [
+    [
+      "@krizaka/tokens",
+      "@krizaka/ui"
+    ]
+  ],
   "linked": [],
   "ignore": [],
   "updateInternalDependencies": "patch"
