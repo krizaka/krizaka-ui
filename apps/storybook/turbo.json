@@ -4,7 +4,8 @@
   "tasks": {
     "test": {
       "dependsOn": ["$TURBO_EXTENDS$", "storybook:build"],
-      "outputs": []
+      "outputs": [],
+      "passThroughEnv": ["PLAYWRIGHT_*", "XDG_CACHE_HOME"]
     }
   }
 }
