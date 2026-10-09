@@ -59,7 +59,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run --coverage",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only && tsc -p test/dist/tsconfig.json",
+    "publint": "publint && attw --pack . --profile esm-only && tsc -p test/consumer/tsconfig.json",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
