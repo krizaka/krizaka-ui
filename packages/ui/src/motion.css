@@ -88,7 +88,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(420px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(168, 85, 247, 0.16), transparent 45%);
+  background: radial-gradient(420px circle at var(--spot-x, 50%) var(--spot-y, 50%), color-mix(in oklab, var(--kz-accent, #a855f7) 16%, transparent), transparent 45%);
   opacity: 0;
   transition: opacity 0.35s var(--kz-ease);
   pointer-events: none;
@@ -105,7 +105,7 @@
 @media (hover: hover) {
   .kz-lift:hover {
     transform: translateY(-4px);
-    box-shadow: 0 18px 40px -18px rgba(124, 58, 237, 0.45);
+    box-shadow: 0 18px 40px -18px color-mix(in oklab, var(--kz-accent, #7c3aed) 45%, transparent);
   }
 }
 
