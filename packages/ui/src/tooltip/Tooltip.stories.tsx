@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import TooltipDemo from "../../registry/demos/tooltip";
 import { IconButton } from "../button/button";
 import { Tooltip } from "./tooltip";
 
@@ -34,7 +35,7 @@ const trigger = (
 );
 
 /** Open at load, above its trigger. */
-export const Top: Story = { render: (args) => <Tooltip {...args}>{trigger}</Tooltip> };
+export const Top: Story = { render: () => <TooltipDemo defaultOpen /> };
 
 /** `side="right"`. */
 export const Right: Story = { render: (args) => <Tooltip {...args} side="right">{trigger}</Tooltip> };

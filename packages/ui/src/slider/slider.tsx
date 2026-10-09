@@ -28,7 +28,9 @@ export type SliderProps<V extends SliderValue = number> = Omit<
 > & {
   /** One number (a thumb) or two (a range). Controlled with `onValueChange`. */
   value?: V;
+  /** The value at first, uncontrolled: one number, or two for a range. */
   defaultValue?: V;
+  /** Called on every move, with one number or two. */
   onValueChange?: (value: V) => void;
   /** Called once the drag or the key press ends. */
   onValueCommit?: (value: V) => void;

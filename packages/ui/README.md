@@ -152,6 +152,7 @@ Colours are roles of the preset (`bg-surface-2`, `text-fg-secondary`, `border-bo
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
 | `@krizaka/ui/native` | the marks for React Native (unchanged) | native |
 | `@krizaka/ui/motion.css`, `@krizaka/ui/tailwind.css` | the motion signature; the `@source` of the primitives' classes | CSS |
+| `@krizaka/ui/registry/<name>`, `@krizaka/ui/registry/demos/<name>` | the registry (JSON) and the demos — see [Registry](#registry) | data · client |
 
 The theme is one mechanism for every product: dark by default, `html.light` for light, `html.theme-<name>` for a named
 theme, persisted as `kz-theme` (and `kz-theme-name`).
@@ -165,6 +166,35 @@ theme, persisted as `kz-theme` (and `kz-theme-name`).
 
 <ThemeToggle label={(mode) => t(`theme.${mode}`)} />
 ```
+
+## Registry
+
+Every primitive is also published as data, for documentation sites (krizaka.com's `/docs/ui`: live preview, copyable
+code, props table) and, later, a `npx @krizaka/cli add <name>` that copies a primitive into a product which forks it
+knowingly. Built by `scripts/build-registry.mjs` after tsup, from `src/<name>/` (all primitives; not the marks, the
+motion or `native`):
+
+| Path | What |
+| :-- | :-- |
+| `@krizaka/ui/registry/index` | `{ name, version, items: [{ name, type, description, dependencies, registryDependencies }] }` |
+| `@krizaka/ui/registry/<name>` | `{ name, type: "primitive", description, files: [{ path, content }], dependencies, registryDependencies, demo: { path, content }, props }` |
+| `@krizaka/ui/registry/demos/<name>` | the demo, compiled (ESM, `"use client"`, `default` export) — its source ships beside it as `registry/demos/<name>.tsx` |
+
+- `files` are the sources (paths from `src/`); `dependencies` are npm `name@range` (React aside); `registryDependencies`
+  are the other primitives it imports (`cn`, `button`…).
+- `props` is one entry per exported component — `{ component, description, props: [{ name, type, default, description,
+  required }] }` — read by `react-docgen-typescript` from the JSDoc of the props types: the component's own props,
+  its variants included; inherited DOM and Radix props are left out. A test fails on a prop without a description.
+- A demo is ≤ 40 lines, imports the primitives as a product does (`@krizaka/ui/<name>`) and is the default story of
+  the primitive: Storybook and the docs show the same code. A demo that opens over the page takes `defaultOpen` (the
+  story opens it for the screenshot; the docs leave it closed).
+
+```ts
+import card from "@krizaka/ui/registry/card" with { type: "json" };
+import CardDemo from "@krizaka/ui/registry/demos/card";
+```
+
+A site that renders the demos adds them to Tailwind's sources: `@source "../node_modules/@krizaka/ui/registry/demos";`.
 
 ## React Native
 

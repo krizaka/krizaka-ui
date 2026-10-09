@@ -10,7 +10,13 @@ export const kbdVariants = tv({
   defaultVariants: { size: "md" },
 });
 
-export type KbdProps = React.ComponentProps<"kbd"> & VariantProps<typeof kbdVariants>;
+export type KbdProps = React.ComponentProps<"kbd"> & {
+  /**
+   * sm · md.
+   * @default "md"
+   */
+  size?: VariantProps<typeof kbdVariants>["size"];
+};
 
 export function Kbd({ size, className, ...props }: KbdProps) {
   return <kbd className={kbdVariants({ size, className })} {...props} />;

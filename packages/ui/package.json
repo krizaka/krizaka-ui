@@ -168,10 +168,20 @@
       "types": "./dist/native.d.ts",
       "import": "./dist/native.js"
     },
+    "./registry/demos/*": {
+      "types": "./registry/demos/*.d.ts",
+      "import": "./registry/demos/*.js"
+    },
+    "./registry/*": "./registry/*.json",
     "./package.json": "./package.json"
   },
   "files": [
     "dist",
+    "registry/*.json",
+    "registry/demos/*.tsx",
+    "registry/demos/*.js",
+    "registry/demos/*.d.ts",
+    "!registry/demos/*.test.*",
     "tailwind.css",
     "README.md",
     "LICENSE"
@@ -180,7 +190,7 @@
     "*.css"
   ],
   "scripts": {
-    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css')\"",
+    "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/demos'))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/demos/'+f)\" && tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css')\" && node scripts/build-registry.mjs",
     "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -212,6 +222,7 @@
     "happy-dom": "^20.0.0",
     "publint": "^0.3.25",
     "react": "^19.2.0",
+    "react-docgen-typescript": "^2.4.0",
     "react-dom": "^19.2.0",
     "react-native": "^0.86.3",
     "react-native-svg": "^15.15.4",

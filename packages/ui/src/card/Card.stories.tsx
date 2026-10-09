@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Badge } from "../badge/badge";
+import CardDemo from "../../registry/demos/card";
 import { MotionObserver } from "../motion/MotionObserver";
 import { Card } from "./card";
 
@@ -40,30 +40,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** A media card: the image, badges on the media (invariant scrim), the title, a description, a footer. */
-export const MediaCard: Story = {
-  render: (args) => (
-    <Card.Root {...args}>
-      <Card.Media>
-        <Card.Image src={COVER} />
-        <Card.Overlay>
-          <Badge tone="scrim">4K</Badge>
-        </Card.Overlay>
-        <Card.Overlay corner="bottom-right">
-          <Badge tone="scrim">12:04</Badge>
-        </Card.Overlay>
-      </Card.Media>
-      <Card.Body>
-        <Card.Title>Night ride across the city</Card.Title>
-        <Card.Description>Ten minutes of neon, rain and empty avenues, filmed in one take.</Card.Description>
-        <Card.Footer>
-          <span>1.2k views</span>
-          <span aria-hidden>·</span>
-          <span>2 days ago</span>
-        </Card.Footer>
-      </Card.Body>
-    </Card.Root>
-  ),
-};
+export const MediaCard: Story = { render: () => <CardDemo /> };
 
 /** No image: the `fallback` (an icon on the accent gradient), hidden from assistive technology. */
 export const MediaFallback: Story = {

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import StatDemo from "../../registry/demos/stat";
 import { Stat } from "./stat";
 
 /**
@@ -15,7 +16,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Up: Story = { args: { trend: "up", trendLabel: "+12 %" } };
+/** The demo of the registry (`registry/demos/stat.tsx`). */
+export const Up: Story = { render: () => <StatDemo /> };
 
 export const Down: Story = { args: { trend: "down", trendLabel: "−4 %" } };
 

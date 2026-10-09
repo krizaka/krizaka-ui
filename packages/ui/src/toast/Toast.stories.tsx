@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect } from "react";
 import { expect, waitFor } from "storybook/test";
 
+import ToastDemo from "../../registry/demos/toast";
 import { Avatar } from "../avatar/avatar";
 import { Button } from "../button/button";
 import { toast, Toaster } from "./toast";
@@ -40,25 +41,9 @@ function Show({ run }: { run: () => void }) {
 }
 
 // sonner's queue is global: each story has its own toaster (`id` + `toasterId`), so no toast leaks from one story into
-// the next one's screenshot.
-const tones = () => {
-  const toasterId = "tones";
-  toast("Draft saved", { toasterId, description: "Autosaved a moment ago." });
-  toast.success("Payment received", { toasterId, description: "€12.00 from @maya." });
-  toast.warning("Your balance is low", { toasterId, description: "Two tips left before a top-up." });
-  toast.error("Upload failed", { toasterId, description: "The connection dropped at 64 %.", action: { label: "Retry", onClick: () => {} } });
-};
-
+// the next one's screenshot. The tones are the demo of the registry (`registry/demos/toast.tsx`).
 /** The tones: default, success, warning, danger (error) — a tinted edge and a coloured icon, the text stays legible. */
-export const Tones: Story = {
-  render: (args) => (
-    <>
-      <Toaster {...args} id="tones" />
-      <Show run={tones} />
-    </>
-  ),
-  play: settled(4),
-};
+export const Tones: Story = { render: () => <ToastDemo defaultOpen />, play: settled(4) };
 
 const custom = () => {
   toast.custom(() => (

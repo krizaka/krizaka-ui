@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import TabsDemo from "../../registry/demos/tabs";
 import { Tabs } from "./tabs";
 
 /**
@@ -49,7 +50,7 @@ const Example: Story["render"] = (args) => (
 );
 
 /** The sections of a page: a line under the list, the active tab underlined in the accent. A disabled tab is skipped. */
-export const Underline: Story = { render: Example };
+export const Underline: Story = { render: () => <TabsDemo /> };
 
 /** A view switch: equal segments in a track, the active one filled. */
 export const Segmented: Story = {

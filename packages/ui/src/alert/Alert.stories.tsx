@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import AlertDemo from "../../registry/demos/alert";
 import { Button } from "../button/button";
 import { Alert } from "./alert";
 
@@ -33,7 +34,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Info: Story = {};
+/** The demo of the registry (`registry/demos/alert.tsx`): what krizaka.com shows. */
+export const Info: Story = { render: () => <AlertDemo /> };
 
 export const Success: Story = { args: { tone: "success", icon: CHECK, title: "Account verified", children: "You can now receive payouts." } };
 

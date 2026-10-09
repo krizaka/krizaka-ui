@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import SwitchDemo from "../../registry/demos/switch";
 import { Field } from "../field/field";
 import { Switch } from "./switch";
 
@@ -13,7 +14,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Off: Story = {};
+/** The demo of the registry (`registry/demos/switch.tsx`). */
+export const Off: Story = { render: () => <SwitchDemo /> };
 
 export const On: Story = { args: { defaultChecked: true } };
 

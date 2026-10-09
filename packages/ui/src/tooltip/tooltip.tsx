@@ -14,8 +14,11 @@ export type TooltipProps = Omit<React.ComponentProps<typeof TooltipPrimitive.Con
   content: React.ReactNode;
   /** The trigger, rendered as is (`asChild`): a focusable element. */
   children: React.ReactNode;
+  /** Open or closed (controlled), with `onOpenChange`. */
   open?: boolean;
+  /** Open at first, uncontrolled. */
   defaultOpen?: boolean;
+  /** Called when it opens or closes. */
   onOpenChange?: (open: boolean) => void;
   /** Hover delay in ms before it opens (300 by default). */
   delayDuration?: number;

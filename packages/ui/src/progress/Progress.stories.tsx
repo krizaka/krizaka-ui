@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import ProgressDemo from "../../registry/demos/progress";
 import { Progress } from "./progress";
 
 /**
@@ -22,7 +23,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Bar: Story = {};
+/** The demo of the registry (`registry/demos/progress.tsx`). */
+export const Bar: Story = { render: () => <ProgressDemo /> };
 
 /** sm · md · lg. */
 export const BarSizes: Story = {

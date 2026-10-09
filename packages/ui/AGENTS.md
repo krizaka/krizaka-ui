@@ -51,8 +51,14 @@
   `./field`, `./theme`, `./skeleton`, `./empty-state`, `./spinner`, `./countdown`, `./card`, `./dialog`, `./toast`,
   `./popover`, `./dropdown-menu`, `./tooltip`, `./stat`, `./page-header`, `./alert`, `./separator`, `./kbd`, `./tabs`,
   `./chip`, `./switch`, `./slider`, `./checkbox`, `./radio-group`, `./command`, `./confirm-button`, `./progress`), `./native`, `./motion.css`,
-  `./tailwind.css`, `./package.json`; files `dist`, `tailwind.css`, `README.md`, `LICENSE`. Adding an entry is a
-  minor; removing or renaming one is a breaking change.
+  `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/demos/*` (the compiled demos), `./package.json`;
+  files `dist`, `registry` (JSON, demos as `.tsx`, `.js`, `.d.ts`), `tailwind.css`, `README.md`, `LICENSE`. Adding an
+  entry is a minor; removing or renaming one is a breaking change.
+- **The registry** (`scripts/build-registry.mjs`, run by `build`): one `registry/<name>.json` per primitive (sources,
+  dependencies, demo, props from `react-docgen-typescript`) and `registry/index.json`. A new primitive comes with
+  `registry/demos/<name>.tsx` (≤ 40 lines, imports `@krizaka/ui/<name>`, its default story renders it) and a JSDoc on
+  every prop it declares — `scripts/registry.test.mjs` fails otherwise. The JSON and the compiled demos are build
+  output (git-ignored).
 
 ## 4. Release
 

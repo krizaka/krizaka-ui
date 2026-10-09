@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Button } from "../button/button";
-import { Field, Input } from "../field/field";
+import PopoverDemo from "../../registry/demos/popover";
 import { Popover } from "./popover";
 
 /**
@@ -25,30 +24,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Open at load: a small form next to its trigger. */
-export const Open: Story = {
-  render: (args) => (
-    <Popover.Root defaultOpen>
-      <Popover.Trigger asChild>
-        <Button variant="outline">Set a goal</Button>
-      </Popover.Trigger>
-      <Popover.Content {...args} aria-label="Set a goal" align="center">
-        <div className="flex flex-col gap-3">
-          <Field.Root>
-            <Field.Label htmlFor="goal-amount">Amount</Field.Label>
-            <Input id="goal-amount" defaultValue="250" />
-          </Field.Root>
-          <div className="flex justify-end gap-2">
-            <Popover.Close asChild>
-              <Button size="sm" variant="ghost">
-                Cancel
-              </Button>
-            </Popover.Close>
-            <Button size="sm" variant="primary">
-              Save
-            </Button>
-          </div>
-        </div>
-      </Popover.Content>
-    </Popover.Root>
-  ),
-};
+export const Open: Story = { render: () => <PopoverDemo defaultOpen /> };

@@ -131,8 +131,11 @@ export const Command = {
 };
 
 export type CommandDialogProps = Omit<CommandRootProps, "title"> & {
+  /** Open or closed (controlled), with `onOpenChange`. */
   open?: boolean;
+  /** Open at first, uncontrolled. */
   defaultOpen?: boolean;
+  /** Called when it opens or closes (Escape, a click outside, a shortcut of the product). */
   onOpenChange?: (open: boolean) => void;
   /** Under the palette, inside the dialog: shortcuts, a "see all results" link. */
   footer?: React.ReactNode;

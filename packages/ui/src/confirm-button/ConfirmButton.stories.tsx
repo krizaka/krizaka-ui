@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
+import ConfirmButtonDemo from "../../registry/demos/confirm-button";
 import { ConfirmButton } from "./confirm-button";
 
 function Trash() {
@@ -25,8 +26,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** Idle: an icon, named by `label`. */
-export const Idle: Story = {};
+/** Idle: an icon, named by `label`. The demo of the registry (`registry/demos/confirm-button.tsx`). */
+export const Idle: Story = { render: () => <ConfirmButtonDemo /> };
 
 /** Armed after the first press: the danger border and tint, the words legible. */
 export const Armed: Story = {

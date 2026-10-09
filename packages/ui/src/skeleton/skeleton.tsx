@@ -10,7 +10,13 @@ export const skeletonVariants = tv({
   defaultVariants: { shape: "text" },
 });
 
-export type SkeletonProps = React.ComponentProps<"span"> & VariantProps<typeof skeletonVariants>;
+export type SkeletonProps = React.ComponentProps<"span"> & {
+  /**
+   * text (a line) · circle (an avatar; give it a height) · rect (a media; give it a height).
+   * @default "text"
+   */
+  shape?: VariantProps<typeof skeletonVariants>["shape"];
+};
 
 /** A pulsing shape the size of what is loading. Announce the wait elsewhere (aria-busy on the region, a Spinner). */
 export function Skeleton({ shape, className, ...props }: SkeletonProps) {

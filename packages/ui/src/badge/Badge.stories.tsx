@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import BadgeDemo from "../../registry/demos/badge";
 import { Badge } from "./badge";
 
 /** A short status. `tone` × `size`, an optional `dot` (pulsing with `pulse`); the tone is exposed as `data-tone`. */
@@ -12,7 +13,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Neutral: Story = {};
+/** The demo of the registry (`registry/demos/badge.tsx`). */
+export const Neutral: Story = { render: () => <BadgeDemo /> };
 
 export const Accent: Story = { args: { tone: "accent", dot: true } };
 

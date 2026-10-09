@@ -24,8 +24,10 @@ export const switchVariants = tv({
 export type SwitchVariants = VariantProps<typeof switchVariants>;
 
 type Named =
-  /** The accessible name — required when no visible label names it, passed translated. */
-  | { label: string }
+  | {
+      /** The accessible name — required when no visible label names it, passed translated. */
+      label: string;
+    }
   /** Named by a visible `<label htmlFor={id}>` (e.g. `Field.Label`). */
   | { label?: undefined; id: string }
   /** Named by another element. */
@@ -34,6 +36,11 @@ type Named =
 export type SwitchProps = Omit<React.ComponentProps<typeof SwitchPrimitive.Root>, "children"> &
   SwitchVariants &
   Named & {
+    /**
+     * sm · md.
+     * @default "md"
+     */
+    size?: SwitchVariants["size"];
     /** Marks it invalid: aria-invalid and data-invalid. */
     invalid?: boolean;
   };

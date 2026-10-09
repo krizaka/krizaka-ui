@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import CommandDemo from "../../registry/demos/command";
 import { Kbd } from "../kbd/kbd";
 import { Command, CommandDialog } from "./command";
 
@@ -40,16 +41,7 @@ const Items = () => (
 );
 
 /** Inline, in a card. */
-export const Inline: Story = {
-  render: (args) => (
-    <Command.Root {...args} className="w-[28rem] max-w-full rounded-xl border border-border-default shadow-lg">
-      <Command.Input placeholder="Type a command or search" />
-      <Command.List label="Suggestions">
-        <Items />
-      </Command.List>
-    </Command.Root>
-  ),
-};
+export const Inline: Story = { render: () => <CommandDemo /> };
 
 /** What `emptyLabel` says when nothing matches. */
 export const Empty: Story = {

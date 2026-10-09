@@ -59,6 +59,16 @@ export type DialogContentProps = React.ComponentProps<typeof DialogPrimitive.Con
   DialogVariants &
   CloseButtonProps & {
     /**
+     * center · bottom (a sheet on a phone, centred from `sm` up) · right (a side panel, full height).
+     * @default "center"
+     */
+    placement?: DialogVariants["placement"];
+    /**
+     * sm · md · lg: the width of the dialog.
+     * @default "md"
+     */
+    size?: DialogVariants["size"];
+    /**
      * `false`: Escape and a click outside do not close it (a gate the user must answer: age, terms). It still closes
      * through `open` / `onOpenChange` and any `Dialog.Close` inside. Default `true`.
      */

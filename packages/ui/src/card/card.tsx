@@ -38,6 +38,18 @@ const slots = card();
 
 export type CardRootProps = React.ComponentProps<"div"> &
   Pick<CardVariants, "radius" | "tone" | "interactive"> & {
+    /**
+     * md · lg · xl.
+     * @default "xl"
+     */
+    radius?: CardVariants["radius"];
+    /**
+     * default (the base surface) · elevated (raised, a shadow) · glass (translucent, blurred).
+     * @default "default"
+     */
+    tone?: CardVariants["tone"];
+    /** The spotlight that follows the pointer and the lift on hover: for a card that is a link. */
+    interactive?: CardVariants["interactive"];
     /** Renders the child (a link, an article) instead of the <div>, with props, classes and ref merged. */
     asChild?: boolean;
     /** Enters on scroll (MotionObserver): the index in the grid becomes the delay (50 ms a step, 8 steps at most). */
@@ -60,13 +72,17 @@ export function CardRoot({ asChild, reveal, radius, tone, interactive, className
 }
 
 const ASPECT = { video: "aspect-video", square: "aspect-square", portrait: "aspect-[3/4]", auto: "" } as const;
-export type CardMediaProps = React.ComponentProps<"div"> & { aspect?: keyof typeof ASPECT };
+export type CardMediaProps = React.ComponentProps<"div"> & {
+  /** The ratio of the media: video (16:9) · square · portrait (3:4) · auto (the content's). */
+  aspect?: keyof typeof ASPECT;
+};
 
 export function CardMedia({ aspect = "video", className, ...props }: CardMediaProps) {
   return <div data-aspect={aspect} className={slots.media({ className: cn(ASPECT[aspect], className) })} {...props} />;
 }
 
 export type CardImageProps = Omit<React.ComponentProps<"img">, "src"> & {
+  /** The image's URL; `null` or nothing shows the `fallback`. */
   src?: string | null;
   /** Shown when there is no image: an icon, an illustration (decorative). */
   fallback?: React.ReactNode;
@@ -90,20 +106,32 @@ const CORNER = {
   "bottom-left": "bottom-2.5 left-2.5",
   "bottom-right": "bottom-2.5 right-2.5",
 } as const;
-export type CardOverlayProps = React.ComponentProps<"div"> & { corner?: keyof typeof CORNER };
+export type CardOverlayProps = React.ComponentProps<"div"> & {
+  /** The corner of the media it sits in. */
+  corner?: keyof typeof CORNER;
+};
 
 /** What sits on the media (badges, a caption). `scrim` and `fg-on-media` are invariant: nothing to do for light. */
 export function CardOverlay({ corner = "top-left", className, ...props }: CardOverlayProps) {
   return <div data-corner={corner} className={slots.overlay({ className: cn(CORNER[corner], className) })} {...props} />;
 }
 
-export type CardBodyProps = React.ComponentProps<"div"> & Pick<CardVariants, "padding">;
+export type CardBodyProps = React.ComponentProps<"div"> & {
+  /**
+   * none · sm · md · lg.
+   * @default "md"
+   */
+  padding?: CardVariants["padding"];
+};
 
 export function CardBody({ padding, className, ...props }: CardBodyProps) {
   return <div className={card({ padding }).body({ className })} {...props} />;
 }
 
-export type CardTitleProps = React.ComponentProps<"h3"> & { as?: "h2" | "h3" | "h4" };
+export type CardTitleProps = React.ComponentProps<"h3"> & {
+  /** The heading level, to fit the page's outline. */
+  as?: "h2" | "h3" | "h4";
+};
 
 export function CardTitle({ as: Tag = "h3", className, ...props }: CardTitleProps) {
   return <Tag className={slots.title({ className })} {...props} />;
@@ -113,7 +141,10 @@ export function CardDescription({ className, ...props }: React.ComponentProps<"p
   return <p className={slots.description({ className })} {...props} />;
 }
 
-export type CardStatProps = React.ComponentProps<"div"> & { label: React.ReactNode };
+export type CardStatProps = React.ComponentProps<"div"> & {
+  /** What the figure is, in small capitals above it (the figure is the children). */
+  label: React.ReactNode;
+};
 
 /** A figure put forward: the label in capitals, the value in tabular digits. */
 export function CardStat({ label, className, children, ...props }: CardStatProps) {

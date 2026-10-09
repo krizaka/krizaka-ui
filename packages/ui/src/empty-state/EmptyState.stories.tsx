@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import EmptyStateDemo from "../../registry/demos/empty-state";
 import { Button } from "../button/button";
 import { EmptyState } from "./empty-state";
 
@@ -27,7 +28,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = { args: { icon: Icon } };
+/** The demo of the registry (`registry/demos/empty-state.tsx`). */
+export const Default: Story = { render: () => <EmptyStateDemo /> };
 
 /** With what to do next. */
 export const WithAction: Story = {

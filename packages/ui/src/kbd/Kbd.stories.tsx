@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import KbdDemo from "../../registry/demos/kbd";
 import { Kbd } from "./kbd";
 
 /** A key or a shortcut: `<Kbd>⌘</Kbd><Kbd>K</Kbd>`. `size` sm · md. */
@@ -12,7 +13,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Key: Story = {};
+/** The demo of the registry (`registry/demos/kbd.tsx`). */
+export const Key: Story = { render: () => <KbdDemo /> };
 
 export const Small: Story = { args: { size: "sm" } };
 

@@ -10,6 +10,11 @@ export const spinnerVariants = tv({
 
 export type SpinnerProps = Omit<React.ComponentProps<"svg">, "children"> &
   VariantProps<typeof spinnerVariants> & {
+    /**
+     * sm · md · lg.
+     * @default "md"
+     */
+    size?: VariantProps<typeof spinnerVariants>["size"];
     /** The accessible name of the wait, e.g. "Loading" — passed translated. */
     label: string;
   };

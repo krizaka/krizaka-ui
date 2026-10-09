@@ -62,7 +62,12 @@ function applyName(previous: string | null, next: string | null) {
  * In <head>, before anything renders: applies the persisted mode and named theme, so the page never flashes.
  * `nonce` for a strict Content-Security-Policy.
  */
-export function ThemeScript({ nonce }: { nonce?: string }) {
+export function ThemeScript({
+  nonce,
+}: {
+  /** The nonce of a strict Content-Security-Policy (`script-src 'nonce-…'`). */
+  nonce?: string;
+}) {
   const js =
     `(function(){try{var m=localStorage.getItem("${MODE_KEY}")||"system";var n=localStorage.getItem("${NAME_KEY}");` +
     `var d=matchMedia("${DARK_QUERY}").matches;var c=document.documentElement.classList;` +
@@ -142,6 +147,13 @@ const ICONS: Record<Mode, React.ReactNode> = {
 
 export type ThemeToggleProps = Omit<React.ComponentProps<"button">, "onClick" | "children"> &
   Pick<ButtonVariants, "variant" | "shape"> & {
+    /** Any `Button` variant. */
+    variant?: ButtonVariants["variant"];
+    /**
+     * rounded · pill.
+     * @default "rounded"
+     */
+    shape?: ButtonVariants["shape"];
     /** The accessible name — a string, or one per current mode (e.g. `(mode) => t("theme." + mode)`). */
     label: string | ((mode: Mode) => string);
   };

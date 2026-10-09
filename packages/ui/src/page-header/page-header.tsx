@@ -16,7 +16,9 @@ export const pageHeader = tv({
 const s = pageHeader();
 
 export type PageHeaderProps = Omit<React.ComponentProps<"div">, "title"> & {
+  /** The title of the page (an `h1`, or `as="h2"`). */
   title: React.ReactNode;
+  /** A sentence under the title. */
   description?: React.ReactNode;
   /** The page's actions: Buttons, a DropdownMenu. */
   actions?: React.ReactNode;

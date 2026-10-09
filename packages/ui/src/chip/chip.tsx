@@ -38,12 +38,20 @@ function RemoveIcon() {
 
 type ToggleChipProps = Omit<React.ComponentProps<"button">, "value" | "defaultValue"> &
   ChipVariants & {
+    /**
+     * sm · md (inside `Chip.Group`, the group's size by default).
+     * @default "md"
+     */
+    size?: ChipVariants["size"];
     /** Inside `Chip.Group`: the value this chip stands for (required there, ignored alone). */
     value?: string;
     /** Alone: pressed or not (`defaultSelected` uncontrolled), `onSelectedChange` on every press. */
     selected?: boolean;
+    /** Alone: pressed at first, uncontrolled. */
     defaultSelected?: boolean;
+    /** Alone: called with the new state on every press. */
     onSelectedChange?: (selected: boolean) => void;
+    /** A pressable chip (the default); `true` makes it a static chip with a remove button. */
     removable?: false;
   };
 
@@ -53,7 +61,9 @@ type RemovableChipProps = Omit<React.ComponentProps<"span">, "onSelect"> &
     removable: true;
     /** The accessible name of the remove button — passed translated, e.g. "Remove #night". */
     removeLabel: string;
+    /** Runs when the remove button is pressed. */
     onRemove: () => void;
+    /** Disables the remove button. */
     disabled?: boolean;
   };
 
@@ -93,11 +103,18 @@ function ChipBase(props: ChipProps) {
 
 type GroupBase = Omit<React.ComponentProps<"div">, "defaultValue" | "dir"> &
   ChipVariants & {
+    /**
+     * sm · md: the size of every chip of the group.
+     * @default "md"
+     */
+    size?: ChipVariants["size"];
     /** The group's accessible name — passed translated ("Filter by format"). */
     label?: string;
+    /** The arrow keys that move: left / right (horizontal, a row) or up / down (vertical, a column). */
     orientation?: "horizontal" | "vertical";
     /** Arrow keys wrap from the last chip to the first (default `true`). */
     loop?: boolean;
+    /** Disables every chip of the group. */
     disabled?: boolean;
   };
 
@@ -105,8 +122,11 @@ export type ChipGroupProps =
   | (GroupBase & {
       /** One choice: the chips behave as radios. */
       type: "single";
+      /** The chosen value (controlled), `""` when none. */
       value?: string;
+      /** The value chosen at first, uncontrolled. */
       defaultValue?: string;
+      /** Called with the new value on every choice. */
       onValueChange?: (value: string) => void;
       /** Keeps one chip selected: pressing the selected chip does not clear it (default `false`). */
       required?: boolean;
@@ -114,8 +134,11 @@ export type ChipGroupProps =
   | (GroupBase & {
       /** Any number of choices: the chips are pressed buttons. */
       type: "multiple";
+      /** The chosen values (controlled). */
       value?: string[];
+      /** The values chosen at first, uncontrolled. */
       defaultValue?: string[];
+      /** Called with the new values on every press. */
       onValueChange?: (value: string[]) => void;
       required?: never;
     });

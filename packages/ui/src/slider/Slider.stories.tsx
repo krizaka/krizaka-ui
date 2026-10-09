@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import SliderDemo from "../../registry/demos/slider";
 import { Slider } from "./slider";
 
 /**
@@ -23,8 +24,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The thumb alone, named by `label`. */
-export const Default: Story = {};
+/** The thumb alone, named by `label`. The demo of the registry (`registry/demos/slider.tsx`). */
+export const Default: Story = { render: () => <SliderDemo /> };
 
 /** `showLabel`: the label and the formatted value above the track. */
 export const WithLabel: Story = {

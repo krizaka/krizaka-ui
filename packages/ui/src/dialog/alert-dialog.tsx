@@ -10,16 +10,23 @@ import { dialog } from "./dialog";
 const s = dialog({ placement: "center", size: "sm" });
 
 export type AlertDialogProps = {
+  /** Open or closed (controlled), with `onOpenChange`. */
   open?: boolean;
+  /** Open at first, uncontrolled. */
   defaultOpen?: boolean;
+  /** Called when it opens or closes (never while `onConfirm` is pending). */
   onOpenChange?: (open: boolean) => void;
   /** The element that opens the dialog (rendered as is, `asChild`): a Button, an IconButton. */
   trigger?: React.ReactNode;
+  /** The question asked ("Delete this video?"): the dialog's accessible name. */
   title: React.ReactNode;
+  /** What the action does and what it costs: the dialog's description. */
   description?: React.ReactNode;
   /** More content between the description and the actions. */
   children?: React.ReactNode;
+  /** The words of the confirm button — passed translated. */
   confirmLabel: string;
+  /** The words of the cancel button (it takes the focus at open) — passed translated. */
   cancelLabel: string;
   /** `danger` for a destructive action (delete, leave, cancel a payment). */
   tone?: "danger" | "primary";
@@ -27,6 +34,7 @@ export type AlertDialogProps = {
   onConfirm: () => void | Promise<unknown>;
   /** The element the portal renders into (default: document.body). */
   container?: HTMLElement | null;
+  /** Classes of the dialog's content, merged last. */
   className?: string;
 };
 

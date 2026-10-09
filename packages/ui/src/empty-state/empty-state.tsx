@@ -16,7 +16,9 @@ const s = emptyState();
 export type EmptyStateProps = Omit<React.ComponentProps<"div">, "title"> & {
   /** A decorative icon (hidden from assistive technology). */
   icon?: React.ReactNode;
+  /** What is empty, in a few words ("No videos yet"). */
   title: React.ReactNode;
+  /** Why, or what will fill it. */
   description?: React.ReactNode;
   /** What to do next: a Button, a link. */
   action?: React.ReactNode;
