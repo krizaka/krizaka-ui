@@ -1,7 +1,7 @@
 # .github/workflows/release.yml (krizaka-ui)
 name: Release
 on: { push: { branches: [main] } }
-permissions: { contents: write, pull-requests: write, id-token: write }
+permissions: { contents: write, pull-requests: write, id-token: write, actions: write }
 concurrency: { group: release, cancel-in-progress: false }
 jobs:
   release:
@@ -17,7 +17,8 @@ jobs:
       - run: pnpm turbo run check --filter='./packages/*'   # the published packages (the catalogue is checked by CI)
       # changesets/action v2 = Changesets CLI v3 (v1 reads the v3 pre-release folder `.changeset/pre/` as a v1 changeset
       # and fails). Inputs are kebab-case; the token goes through `github-token`.
-      - uses: changesets/action@v2
+      - id: changesets
+        uses: changesets/action@v2
         with:
           version-script: pnpm changeset version
           publish-script: pnpm changeset publish   # → npm publish --provenance ; tags @krizaka/ui@2.0.0, @krizaka/tokens@1.0.0…
@@ -25,3 +26,13 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
           NPM_CONFIG_PROVENANCE: "true"
+      # Tags pushed with GITHUB_TOKEN start no workflow: dispatch storybook.yml on the new @krizaka/ui tag so the
+      # versioned catalogue reaches ui.krizaka.com (a workflow_dispatch is the one event GITHUB_TOKEN may start).
+      - name: Mirror the released catalogue (ui.krizaka.com)
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISHED: ${{ steps.changesets.outputs.publishedPackages }}
+        run: |
+          version=$(jq -r '.[] | select(.name == "@krizaka/ui") | .version' <<< "$PUBLISHED")
+          if [ -n "$version" ]; then gh workflow run storybook.yml --ref "@krizaka/ui@$version"; fi

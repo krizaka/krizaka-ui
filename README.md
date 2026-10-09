@@ -27,7 +27,9 @@
 
 [**krizaka.github.io/krizaka-ui/latest**](https://krizaka.github.io/krizaka-ui/latest/) — every primitive in dark and
 light, under each product identity, audited by axe. Built from [`apps/storybook`](apps/storybook) on every push to
-`main`.
+`main`. Each release of `@krizaka/ui` is also mirrored on [**ui.krizaka.com**](https://ui.krizaka.com/latest/)
+(`/latest/` and `/<version>/`, Bunny CDN) — secrets and cache policy in the
+[Storybook README](apps/storybook/README.md#the-bunny-mirror--scriptsbunny-uploadmjs).
 
 ## Develop
 

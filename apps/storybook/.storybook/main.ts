@@ -8,6 +8,8 @@ const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../../../packages/ui/src/**/*.stories.tsx"],
   addons: ["@storybook/addon-docs", "@storybook/addon-a11y", "@storybook/addon-themes"],
   core: { disableTelemetry: true },
+  // The public home of the catalogue is the Bunny mirror; every version and the Pages copy point search engines to it.
+  managerHead: (head) => `${head}\n<link rel="canonical" href="https://ui.krizaka.com/latest/" />`,
   viteFinal: async (vite) => ({ ...vite, plugins: [...(vite.plugins ?? []), react(), tailwindcss()] }),
 };
 

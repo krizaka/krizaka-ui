@@ -9,7 +9,7 @@
 ```text
 krizaka-ui/                 # pnpm workspace + Turborepo
 ├─ apps/
-│  └─ storybook/            # not published — the catalogue: stories, a11y + dark/light screenshot tests, Pages
+│  └─ storybook/            # not published — the catalogue: stories, a11y + dark/light screenshot tests, Pages + ui.krizaka.com
 ├─ packages/
 │  ├─ tokens/               # @krizaka/tokens — the semantic --kz-* tokens (CSS, TS, native), from DTCG sources
 │  ├─ tailwind/             # @krizaka/tailwind — the Tailwind v4 preset: tokens as utilities, variants, easing
