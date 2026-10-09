@@ -10,7 +10,8 @@
     "storybook:build": "storybook build --quiet",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit",
-    "test": "node scripts/test.mjs",
+    "test": "node --test scripts/*.test.mjs && node scripts/test.mjs",
+    "test:unit": "node --test scripts/*.test.mjs",
     "test:update": "node scripts/test.mjs --update",
     "test:update:linux": "node scripts/test-linux.mjs"
   },
