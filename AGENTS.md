@@ -12,13 +12,15 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 ├─ packages/
 │  ├─ tokens/               # @krizaka/tokens — the semantic --kz-* tokens (CSS, TS, native), from DTCG sources
 │  ├─ tailwind/             # @krizaka/tailwind — the Tailwind v4 preset: tokens as utilities, variants, easing
-│  └─ ui/                   # @krizaka/ui — the marks, the motion signature (web, /native)
+│  ├─ ui/                   # @krizaka/ui — the marks, the motion signature (web, /native)
+│  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
 ├─ .changeset/              # one file per change that ships
+├─ eslint.config.mjs       # the monorepo lints itself with @krizaka/config
 ├─ turbo.json · pnpm-workspace.yaml · package.json
 └─ .github/workflows/{ci,release}.yml
 ```
 
-Planned next to `tokens`, `tailwind` and `ui`: `intl`, `i18n`, `config`.
+Planned next to `tokens`, `tailwind`, `ui` and `config`: `intl`, `i18n`.
 A new package is a folder in `packages/` with its own `package.json`, `AGENTS.md`, tests, `size-limit` budget and
 `publint` script.
 
@@ -42,6 +44,9 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 
 - **pnpm only** (version pinned by `packageManager`), Node ≥ 22. `pnpm install --frozen-lockfile` must pass.
 - Every task goes through Turborepo: `pnpm turbo run check` = lint · typecheck · test · build · size · publint.
+- The monorepo uses what it publishes: `eslint.config.mjs` is `@krizaka/config` (base everywhere, the four UI rules
+  strict on `packages/ui`), every package's `lint` runs `eslint . --max-warnings 0`, and its `tsconfig.json` extends
+  a base of `@krizaka/config`.
 - No code without a test, no component without a story (once `apps/storybook` exists).
 - No raw Tailwind palette colour, no `light:` variant, no hard-coded colour: components read `var(--kz-*)`.
 - Every published package passes `publint` and `@arethetypeswrong/cli` and stays under its `size-limit` budget.
@@ -58,7 +63,7 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 
 Each package must be declared once on npmjs.com as trusted publisher: repository `krizaka/krizaka-ui`, workflow
 `release.yml`. `tokens`, `tailwind` and `ui` form one `fixed` group in `.changeset/config.json` (one shared
-version).
+version); `config` versions on its own.
 
 ## 5. Definition of done
 

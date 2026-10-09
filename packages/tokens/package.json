@@ -47,7 +47,7 @@
   ],
   "scripts": {
     "build": "node scripts/build.mjs",
-    "lint": "tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
@@ -56,8 +56,10 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "workspace:*",
     "@size-limit/preset-small-lib": "^14.2.0",
     "@types/node": "^22.15.0",
+    "eslint": "^9.39.0",
     "publint": "^0.3.25",
     "size-limit": "^14.2.0",
     "typescript": "^5.9.0",

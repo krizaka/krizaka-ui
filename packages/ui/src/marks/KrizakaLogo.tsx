@@ -1,4 +1,4 @@
-import { a11y, neutral, useIds, type MarkProps } from "./shared";
+import { a11y, type MarkProps, neutral, useIds } from "./shared";
 
 const CSS = `
 .kzm-spin { transform-origin: 180px 180px; animation: kzm-spin 30s linear infinite; }
