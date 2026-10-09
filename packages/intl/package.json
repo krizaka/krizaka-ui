@@ -1,0 +1,93 @@
+{
+  "name": "@krizaka/intl",
+  "version": "0.0.0",
+  "description": "Money, numbers, dates and plurals formatted the same way in every Krizaka product: zero dependency, built on Intl, money from integer minor units only.",
+  "keywords": [
+    "krizaka",
+    "intl",
+    "i18n",
+    "money",
+    "currency",
+    "number-format",
+    "relative-time",
+    "plural"
+  ],
+  "homepage": "https://github.com/krizaka/krizaka-ui/tree/main/packages/intl#readme",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/intl"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./money": {
+      "types": "./dist/money.d.ts",
+      "import": "./dist/money.js"
+    },
+    "./number": {
+      "types": "./dist/number.d.ts",
+      "import": "./dist/number.js"
+    },
+    "./date": {
+      "types": "./dist/date.d.ts",
+      "import": "./dist/date.js"
+    },
+    "./plural": {
+      "types": "./dist/plural.d.ts",
+      "import": "./dist/plural.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsup",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "workspace:*",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@types/node": "^22.15.0",
+    "@vitest/coverage-v8": "4.1.11",
+    "eslint": "^9.39.0",
+    "publint": "^0.3.25",
+    "size-limit": "^14.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": ".",
+      "path": "dist/index.js",
+      "limit": "2 kB",
+      "gzip": true
+    }
+  ]
+}

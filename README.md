@@ -20,6 +20,7 @@
 | [`@krizaka/tokens`](packages/tokens) | [![npm](https://img.shields.io/npm/v/@krizaka/tokens?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/tokens) | The semantic `--kz-*` tokens: CSS (dark, light, media invariants), typed constants, React Native themes. |
 | [`@krizaka/tailwind`](packages/tailwind) | [![npm](https://img.shields.io/npm/v/@krizaka/tailwind?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/tailwind) | The Tailwind CSS v4 preset: the tokens as utilities, illustration-only `light:`/`dark:`, the Krizaka easing. |
 | [`@krizaka/ui`](packages/ui) | [![npm](https://img.shields.io/npm/v/@krizaka/ui?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/ui) | The Krizaka marks and motion signature, for React and React Native. |
+| [`@krizaka/intl`](packages/intl) | [![npm](https://img.shields.io/npm/v/@krizaka/intl/beta?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/intl) | Money (from integer minor units), numbers, dates, relative times and plurals on `Intl`: zero dependency. |
 | [`@krizaka/config`](packages/config) | [![npm](https://img.shields.io/npm/v/@krizaka/config?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/config) | ESLint (base, Next.js, the four UI rules), tsconfig bases, Prettier, and `krizaka-ratchet`, the UI debt counter. |
 
 ## Catalogue
