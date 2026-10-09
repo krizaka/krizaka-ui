@@ -1,0 +1,125 @@
+{
+  "name": "@krizaka/i18n",
+  "version": "0.0.0",
+  "description": "The i18n engine of every Krizaka app: typed message keys and placeholders from en.json, format(), plurals through @krizaka/intl, <Rich> (<b>, <a>), a React provider, and the krizaka-i18n CLI that checks catalogues and finds hard-coded strings.",
+  "keywords": [
+    "krizaka",
+    "i18n",
+    "translation",
+    "messages",
+    "typed-keys",
+    "plural",
+    "react",
+    "cli"
+  ],
+  "homepage": "https://github.com/krizaka/krizaka-ui/tree/main/packages/i18n#readme",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/i18n"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./rich": {
+      "types": "./dist/rich.d.ts",
+      "import": "./dist/rich.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    },
+    "./check": {
+      "types": "./dist/check.d.ts",
+      "import": "./dist/check.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "krizaka-i18n": "./dist/bin.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsup",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "@krizaka/intl": "workspace:^"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "typescript": "^5"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "workspace:*",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitest/coverage-v8": "4.1.11",
+    "eslint": "^9.39.0",
+    "publint": "^0.3.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "size-limit": "^14.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": ".",
+      "path": "dist/index.js",
+      "limit": "1.5 kB",
+      "gzip": true
+    },
+    {
+      "name": "./rich",
+      "path": "dist/rich.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": ["react"]
+    },
+    {
+      "name": "./react",
+      "path": "dist/react.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": ["react"]
+    }
+  ]
+}

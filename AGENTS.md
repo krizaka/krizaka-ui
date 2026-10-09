@@ -15,6 +15,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ tailwind/             # @krizaka/tailwind — the Tailwind v4 preset: tokens as utilities, variants, easing
 │  ├─ ui/                   # @krizaka/ui — the primitives, the marks, the motion signature (web, /native)
 │  ├─ intl/                 # @krizaka/intl — money, numbers, dates, plurals on Intl (zero dependency, no UI)
+│  ├─ i18n/                 # @krizaka/i18n — typed messages, format, <Rich>, React provider, the krizaka-i18n CLI
 │  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
 ├─ .changeset/              # one file per change that ships
 ├─ eslint.config.mjs       # the monorepo lints itself with @krizaka/config
@@ -22,7 +23,6 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 └─ .github/workflows/{ci,release,storybook}.yml
 ```
 
-Planned next to `tokens`, `tailwind`, `ui`, `intl` and `config`: `i18n`.
 A new package is a folder in `packages/` with its own `package.json`, `AGENTS.md`, tests, `size-limit` budget and
 `publint` script.
 
@@ -68,7 +68,7 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 
 Each package must be declared once on npmjs.com as trusted publisher: repository `krizaka/krizaka-ui`, workflow
 `release.yml`. `tokens`, `tailwind` and `ui` form one `fixed` group in `.changeset/config.json` (one shared
-version); `config` and `intl` version on their own.
+version); `config`, `intl` and `i18n` version on their own.
 
 ## 5. Definition of done
 
