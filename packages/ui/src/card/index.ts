@@ -1,0 +1,21 @@
+/** @krizaka/ui/card — `Card.*`, `card` (the slots). Server-safe. */
+export {
+  Card,
+  card,
+  CardBody,
+  type CardBodyProps,
+  CardDescription,
+  CardFooter,
+  CardImage,
+  type CardImageProps,
+  CardMedia,
+  type CardMediaProps,
+  CardOverlay,
+  type CardOverlayProps,
+  CardRoot,
+  type CardRootProps,
+  CardStat,
+  type CardStatProps,
+  CardTitle,
+  type CardTitleProps,
+} from "./card";
