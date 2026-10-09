@@ -31,6 +31,9 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: |
+          ls node_modules/.pnpm | grep swc; node -v; which node; cat /etc/os-release | head -2
+          cd apps/storybook && node -e 'try{require(require.resolve("@swc/core",{paths:[require.resolve("@storybook/test-runner")]}));console.log("SWC_OK")}catch(e){console.log(e.cause)}'
       - run: pnpm turbo run check
       - name: Upload the screenshot diffs
         if: failure()
