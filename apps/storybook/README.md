@@ -75,7 +75,9 @@ pnpm --filter storybook test:update:linux   # the CI baselines, in the Playwrigh
 ```
 
 `test:update:linux` needs Docker; it runs the official `mcr.microsoft.com/playwright` image matching the installed
-Playwright version and rebuilds everything inside it.
+Playwright version and rebuilds everything inside it. CI (`ci.yml`, `storybook.yml`) runs in that same image, so the
+fonts and Chromium are identical: when `playwright` is bumped, bump the `container:` tag of both workflows and
+re-run `test:update:linux`.
 
 ## Deployment
 

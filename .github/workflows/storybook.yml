@@ -10,13 +10,13 @@ concurrency: { group: "storybook-${{ github.ref }}", cancel-in-progress: true }
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.64.0-noble   # same image as CI and the Linux screenshots
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter storybook exec playwright install --with-deps chromium
       - run: pnpm turbo run storybook:build --filter=storybook   # → apps/storybook/storybook-static (after @krizaka/ui...)
       - run: pnpm --filter storybook test   # test-runner : a11y + captures dark/light
       - run: |

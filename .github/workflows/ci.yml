@@ -20,6 +20,9 @@ jobs:
     # The job name is the required status check on main: keep it.
     name: Type-check, test, build
     runs-on: ubuntu-latest
+    # The Storybook screenshots are compared pixel by pixel: run in the Playwright image the Linux baselines were made
+    # in (same fonts, same Chromium). Keep the tag equal to the `playwright` version of apps/storybook.
+    container: mcr.microsoft.com/playwright:v1.64.0-noble
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -28,8 +31,6 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      # The Storybook test-runner (a11y + dark/light screenshots) is part of `check`: it needs Chromium.
-      - run: pnpm --filter storybook exec playwright install --with-deps chromium
       - run: pnpm turbo run check
       - name: Upload the screenshot diffs
         if: failure()
