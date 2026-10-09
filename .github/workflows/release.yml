@@ -1,0 +1,25 @@
+# .github/workflows/release.yml (krizaka-ui)
+name: Release
+on: { push: { branches: [main] } }
+permissions: { contents: write, pull-requests: write, id-token: write }
+concurrency: { group: release, cancel-in-progress: false }
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm, registry-url: https://registry.npmjs.org }
+      - run: npm install -g npm@11      # trusted publishing (OIDC) needs npm >= 11.5.1; Node 22 ships npm 10
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo run check          # lint + typecheck + test + build + size + publint, en cache
+      - uses: changesets/action@v1
+        with:
+          version: pnpm changeset version
+          publish: pnpm changeset publish   # → npm publish --provenance ; tags @krizaka/ui@2.0.0, @krizaka/tokens@1.0.0…
+          title: "chore: version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
