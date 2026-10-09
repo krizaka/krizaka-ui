@@ -1,5 +1,13 @@
 # @krizaka/i18n
 
+## 0.1.0-beta.1
+
+### Patch Changes
+
+- [#23](https://github.com/krizaka/krizaka-ui/pull/23) [`c97c6e4`](https://github.com/krizaka/krizaka-ui/commit/c97c6e4bf0cc9a09dc0c298226cc088433fe42f3) Thanks [@oussamaABID](https://github.com/oussamaABID)! - One set of declarations for every entry: `./react` now imports the `I18n` type from `.` instead of carrying its own
+  copy, so `createI18nReact(createI18n(…))` type-checks in an app (the two copies of the conditional `Translate` type did
+  not match). The publint step compiles a consumer against `dist/` to keep it that way.
+
 ## 0.1.0-beta.0
 
 ### Minor Changes
