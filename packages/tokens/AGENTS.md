@@ -31,5 +31,4 @@
 ## 4. Release
 
 A changeset for every change to a source (`minor` for a new or changed value, `major` for a removal or rename).
-`@krizaka/tokens` is in the `fixed` group with `@krizaka/ui` (and `@krizaka/tailwind` once it exists): they share one
-version.
+`@krizaka/tokens` is in the `fixed` group with `@krizaka/tailwind` and `@krizaka/ui`: they share one version.
