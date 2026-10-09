@@ -185,7 +185,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./tailwind.css",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./tailwind.css && node scripts/consumer.mjs",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {

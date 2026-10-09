@@ -61,6 +61,33 @@ html.light {
   --kz-shadow-lg: 0 8px 24px hsl(240 6% 0% / 0.10), 0 4px 8px hsl(240 6% 0% / 0.05); /* Dialogue, feuille */
 }
 
+/* `.theme-light` : les valeurs claires, alias compris, sur un sous-arbre — un aperçu reste clair dans une page
+   sombre (pendant de `.theme-dark`). */
+.theme-light {
+  color-scheme: light;
+  --kz-surface-0: hsl(0 0% 98%); /* Fond de page */
+  --kz-surface-1: hsl(0 0% 100%); /* Carte, panneau */
+  --kz-surface-2: hsl(240 6% 95%); /* Élément surélevé, champ, survol */
+  --kz-surface-3: hsl(240 5% 90%); /* Élément actif, puce, piste */
+  --kz-media: hsl(240 6% 92%); /* fond d'un média avant chargement */
+  --kz-border-subtle: hsl(240 6% 0% / 0.06); /* Séparateur discret */
+  --kz-border-default: hsl(240 6% 0% / 0.10); /* Contour de carte, de champ */
+  --kz-border-strong: hsl(240 6% 0% / 0.16); /* Contour au survol, focus non clavier */
+  --kz-text-primary: hsl(240 6% 10%); /* Titres, corps de texte */
+  --kz-text-secondary: hsl(240 4% 41%); /* Texte d'appui, libellés */
+  --kz-text-muted: hsl(240 4% 52%); /* Métadonnées, placeholders, désactivé (≥ 3:1) */
+  --kz-accent: hsl(217 92% 50%); /* Action principale, lien, sélection */
+  --kz-accent-hover: hsl(217 88% 42%); /* Accent au survol */
+  --kz-accent-soft: hsl(217 92% 50% / 0.08); /* Fond teinté (sélection, badge) */
+  --kz-accent-2: var(--kz-accent); /* 2e accent (dégradés) ; égal à l'accent par défaut */
+  --kz-ring: var(--kz-accent); /* Anneau de focus clavier */
+  --kz-info: var(--kz-accent); /* Statut : information */
+  --kz-shadow-sm: 0 1px 3px hsl(240 6% 0% / 0.06), 0 1px 2px hsl(240 6% 0% / 0.04); /* Champ, bouton au repos */
+  --kz-shadow-md: 0 4px 12px hsl(240 6% 0% / 0.08), 0 2px 4px hsl(240 6% 0% / 0.04); /* Menu, popover, carte au survol */
+  --kz-shadow-lg: 0 8px 24px hsl(240 6% 0% / 0.10), 0 4px 8px hsl(240 6% 0% / 0.05); /* Dialogue, feuille */
+  --kz-font-display: var(--kz-font-sans); /* Titres ; égal à sans par défaut, surchargé par le thème produit */
+}
+
 /* Invariants : identiques dans les deux thèmes. Tout ce qui se pose SUR un média les utilise. */
 :root {
   /* Texte */
