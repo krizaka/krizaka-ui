@@ -9,7 +9,7 @@ Storybook 10 (`@storybook/react-vite`, addons `docs`, `a11y`, `themes`), Tailwin
 
 ```bash
 pnpm --filter storybook dev               # http://localhost:6006
-pnpm turbo run storybook:build --filter=storybook   # → storybook-static/ (builds @krizaka/ui first)
+pnpm turbo run storybook:build --filter=@krizaka/storybook   # → storybook-static/ (builds @krizaka/ui first)
 pnpm --filter storybook test              # a11y + screenshots, against storybook-static/ (build it first)
 ```
 
