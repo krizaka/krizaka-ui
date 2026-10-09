@@ -46,4 +46,20 @@ describe("Rich", () => {
     expect(out).toBe('<em data-href="/a">a</em> <em data-href="none">b</em>');
     expect(seen).toEqual([["/a", 0], [undefined, 1]]);
   });
+
+  it("puts nodes in place of {slots}, in plain text, bold and links", () => {
+    const slots = { email: <em>a@b.c</em>, n: 3 };
+    expect(html(<Rich text="Sent to {email}, {n} times; {other} stays." slots={slots} />)).toBe(
+      "Sent to <em>a@b.c</em>, 3 times; {other} stays.",
+    );
+    expect(html(<Rich text="<b>{email}</b> <a>{n}</a>" href="/x" slots={slots} />)).toBe(
+      '<strong><em>a@b.c</em></strong> <a href="/x">3</a>',
+    );
+    expect(html(<Rich text="{toString}" slots={{}} />)).toBe("{toString}");
+    expect(html(<Rich text="{email}" />)).toBe("{email}");
+  });
+
+  it("hands each <b> to renderBold", () => {
+    expect(html(<Rich text="a <b>b</b>" renderBold={(children) => <b className="x">{children}</b>} />)).toBe('a <b class="x">b</b>');
+  });
 });

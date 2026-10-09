@@ -25,7 +25,7 @@ Node ≥ 20, ESM only. React (≥ 18) only for `./rich` and `./react`; TypeScrip
 | Entry | What | React |
 | :-- | :-- | :-- |
 | `@krizaka/i18n` | `createI18n`, `format`, `placeholdersOf`, `isPluralMessage`, the types | no |
-| `@krizaka/i18n/rich` | `<Rich text href? renderLink?>` | no hook — Server Components too |
+| `@krizaka/i18n/rich` | `<Rich text href? renderLink? renderBold? slots?>` | no hook — Server Components too |
 | `@krizaka/i18n/react` | `createI18nReact(i18n)` → `I18nProvider`, `useI18n` | client (`"use client"`) |
 | `@krizaka/i18n/check` | `checkMessages`, `findUnused`, `scanHardcoded`, `main` (the CLI, programmatic) | no |
 | `krizaka-i18n` (bin) | `check` · `scan` | no |
@@ -93,8 +93,14 @@ import { Rich } from "@krizaka/i18n/rich";
 <Rich text={t("legal.read")} href={["/terms", "/privacy"]} renderLink={({ href, children }) => <Link href={href!}>{children}</Link>} />
 ```
 
+```tsx
+<Rich text={t("auth.sent")} slots={{ email: <strong className="break-all">{email}</strong> }} />   // "{email}" → the node
+<Rich text={t("home.lead")} renderBold={(children) => <strong className="font-semibold text-fg">{children}</strong>} />
+```
+
 Messages are text, never HTML: an unknown or unbalanced tag is shown as written. Each `<a>` takes the next `href`; a
-link without one renders its words only. `<b>` and `<a>` may hold each other.
+link without one renders its words only. `<b>` and `<a>` may hold each other. `slots` puts a node in place of a
+`{name}` placeholder (one without a slot stays as written); `renderBold` styles the `<b>`.
 
 ## The CLI
 
