@@ -59,7 +59,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run --coverage",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only",
+    "publint": "publint && attw --pack . --profile esm-only && tsc -p test/consumer/tsconfig.json",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
@@ -112,14 +112,18 @@
       "path": "dist/rich.js",
       "limit": "1 kB",
       "gzip": true,
-      "ignore": ["react"]
+      "ignore": [
+        "react"
+      ]
     },
     {
       "name": "./react",
       "path": "dist/react.js",
       "limit": "2 kB",
       "gzip": true,
-      "ignore": ["react"]
+      "ignore": [
+        "react"
+      ]
     }
   ]
 }

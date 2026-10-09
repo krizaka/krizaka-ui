@@ -1,0 +1,5 @@
+{
+  "extends": "@krizaka/config/tsconfig/react-library.json",
+  "compilerOptions": { "noEmit": true, "types": [] },
+  "include": ["consumer.ts"]
+}
