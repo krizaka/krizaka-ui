@@ -77,6 +77,41 @@ describe("Dialog", () => {
     expect(screen.queryByRole("dialog")).toBeNull();
   });
 
+  it("leaves the close button out with hideClose", () => {
+    render(
+      <Dialog.Root defaultOpen>
+        <Dialog.Content hideClose>
+          <Dialog.Title>Story</Dialog.Title>
+        </Dialog.Content>
+      </Dialog.Root>,
+    );
+    expect(screen.getByRole("dialog").querySelector("button")).toBeNull();
+  });
+
+  it("is not dismissed by Escape or an outside click when dismissible={false}, but closes through Dialog.Close", async () => {
+    const user = userEvent.setup({ pointerEventsCheck: 0 });
+    const onOpenChange = vi.fn();
+    const onEscapeKeyDown = vi.fn();
+    render(
+      <Dialog.Root defaultOpen onOpenChange={onOpenChange}>
+        <Dialog.Content hideClose dismissible={false} onEscapeKeyDown={onEscapeKeyDown}>
+          <Dialog.Title>Are you 18 or older?</Dialog.Title>
+          <Dialog.Close>Yes</Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Root>,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(dialog.dataset.dismissible).toBe("false");
+    await user.keyboard("{Escape}");
+    expect(onEscapeKeyDown).toHaveBeenCalledOnce();
+    await user.click(document.querySelector(".kz-overlay") as HTMLElement);
+    expect(screen.getByRole("dialog")).toBeTruthy();
+    expect(onOpenChange).not.toHaveBeenCalled();
+    await user.click(screen.getByRole("button", { name: "Yes" }));
+    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(onOpenChange).toHaveBeenLastCalledWith(false);
+  });
+
   it("anchors a Sheet at the bottom and a panel on the right", () => {
     render(
       <Dialog.Root defaultOpen>

@@ -63,7 +63,7 @@ export const SheetForm: Story = {
       <Dialog.Trigger asChild>
         <Button>Edit</Button>
       </Dialog.Trigger>
-      <Sheet closeLabel={args.closeLabel} size="lg">
+      <Sheet closeLabel={args.closeLabel ?? "Close"} size="lg">
         <Dialog.Header>
           <Dialog.Title>Edit the video</Dialog.Title>
           <Dialog.Description>The title and the description are public.</Dialog.Description>
@@ -105,5 +105,28 @@ export const AlertDestructive: Story = {
       tone="danger"
       onConfirm={() => new Promise((resolve) => setTimeout(resolve, 1200))}
     />
+  ),
+};
+
+/**
+ * A gate the user must answer (age, terms): `hideClose` and `dismissible={false}` — no close button, Escape and the
+ * overlay do nothing; it closes through its own actions.
+ */
+export const Gate: Story = {
+  render: () => (
+    <Dialog.Root defaultOpen>
+      <Dialog.Content hideClose dismissible={false} size="sm">
+        <Dialog.Header className="pr-5">
+          <Dialog.Title>Are you 18 or older?</Dialog.Title>
+          <Dialog.Description>This channel shows content for adults only.</Dialog.Description>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Button variant="ghost">Leave</Button>
+          <Dialog.Close asChild>
+            <Button variant="primary">I am 18 or older</Button>
+          </Dialog.Close>
+        </Dialog.Footer>
+      </Dialog.Content>
+    </Dialog.Root>
   ),
 };

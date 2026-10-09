@@ -51,6 +51,7 @@ const t: Theme = scheme === "light" ? themes.light : themes.dark;
 | :-- | :-- |
 | `:root`, `.theme-dark` | Dark — the default. `.theme-dark` re-declares the dark values, so a player, an editor or a media stays dark inside a light page without one `light:` class in its subtree. |
 | `html.light` | Light. Toggle the `light` class on `<html>`. |
+| `.theme-light` | Light on a subtree (a theme preview inside a dark page): the light values and the aliases, the counterpart of `.theme-dark`. |
 | `:root` (invariants) | Identical in both themes: what sits **on** a media (scrims, text on media, dialog overlay), statuses, `on-accent`, radii, easing, font stacks. |
 
 `color-scheme` follows the theme, so scrollbars and native controls match.

@@ -46,30 +46,75 @@ function CloseIcon() {
   );
 }
 
+type CloseButtonProps =
+  | {
+      /** The accessible name of the close button — passed translated. */
+      closeLabel: string;
+      /** Leaves the close button out (the content brings its own way out, or none: see `dismissible`). */
+      hideClose?: false;
+    }
+  | { closeLabel?: string; hideClose: true };
+
 export type DialogContentProps = React.ComponentProps<typeof DialogPrimitive.Content> &
-  DialogVariants & {
-    /** The accessible name of the close button — passed translated. */
-    closeLabel: string;
+  DialogVariants &
+  CloseButtonProps & {
+    /**
+     * `false`: Escape and a click outside do not close it (a gate the user must answer: age, terms). It still closes
+     * through `open` / `onOpenChange` and any `Dialog.Close` inside. Default `true`.
+     */
+    dismissible?: boolean;
     /** The element the portal renders into (default: document.body). */
     container?: HTMLElement | null;
   };
 
+const prevent = (event: Event) => event.preventDefault();
+
 /** The dialog itself, portalled over a dimmed overlay, with a close button. Give it a `Dialog.Title`. */
-export function DialogContent({ placement, size, closeLabel, container, className, children, ...props }: DialogContentProps) {
+export function DialogContent({
+  placement,
+  size,
+  closeLabel,
+  hideClose,
+  dismissible = true,
+  container,
+  className,
+  children,
+  onEscapeKeyDown,
+  onPointerDownOutside,
+  onInteractOutside,
+  ...props
+}: DialogContentProps) {
   const v = dialog({ placement, size });
   return (
     <DialogPrimitive.Portal container={container}>
       <DialogPrimitive.Overlay className={v.overlay()} />
-      <DialogPrimitive.Content data-placement={placement ?? "center"} className={v.content({ className })} {...props}>
+      <DialogPrimitive.Content
+        data-placement={placement ?? "center"}
+        data-dismissible={dismissible ? undefined : "false"}
+        className={v.content({ className })}
+        onEscapeKeyDown={dismissible ? onEscapeKeyDown : chain(onEscapeKeyDown, prevent)}
+        onPointerDownOutside={dismissible ? onPointerDownOutside : chain(onPointerDownOutside, prevent)}
+        onInteractOutside={dismissible ? onInteractOutside : chain(onInteractOutside, prevent)}
+        {...props}
+      >
         {children}
-        <DialogPrimitive.Close asChild>
-          <IconButton label={closeLabel} variant="ghost" shape="pill" className={v.close()}>
-            <CloseIcon />
-          </IconButton>
-        </DialogPrimitive.Close>
+        {!hideClose && (
+          <DialogPrimitive.Close asChild>
+            <IconButton label={closeLabel as string} variant="ghost" shape="pill" className={v.close()}>
+              <CloseIcon />
+            </IconButton>
+          </DialogPrimitive.Close>
+        )}
       </DialogPrimitive.Content>
     </DialogPrimitive.Portal>
   );
+}
+
+function chain<E extends Event>(handler: ((event: E) => void) | undefined, then: (event: E) => void) {
+  return (event: E) => {
+    handler?.(event);
+    then(event);
+  };
 }
 
 export function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
@@ -105,7 +150,10 @@ export const Dialog = {
   Footer: DialogFooter,
 };
 
-export type SheetProps = Omit<DialogContentProps, "placement">;
+/** `Omit` that keeps the close-button union (`closeLabel` required unless `hideClose`). */
+type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
+
+export type SheetProps = DistributiveOmit<DialogContentProps, "placement">;
 
 /** A sheet is a dialog anchored at the bottom (centred from `sm` up): `Dialog.Content placement="bottom"`. */
 export function Sheet(props: SheetProps) {

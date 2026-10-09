@@ -7,6 +7,9 @@
 //   `:root, .theme-dark` — themed tokens and aliases (a `var()` must be re-declared under `.theme-dark` to resolve
 //                          against the dark values there);
 //   `html.light`         — the light values;
+//   `.theme-light`       — the light values and the aliases, for a subtree that stays light inside a dark page (a
+//                          theme preview) — the counterpart of `.theme-dark`. A separate block: re-declaring the
+//                          aliases on `html.light` would override a product's `:root` overrides (html.light wins);
 //   `:root`              — the invariants: literal values identical in both themes (media overlays, statuses, radii…).
 
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -195,6 +198,9 @@ export function compile(sources) {
       "/* Dark : la valeur par défaut. `.theme-dark` reprend exactement les mêmes valeurs : un lecteur, un éditeur ou un\n   média reste sombre dans les deux thèmes sans une seule classe `light:` dans son sous-arbre. */"),
     "",
     block(plain(light), "html.light", "light", (t) => /** @type {RawValue} */ (t.light), target, "/* Light. */"),
+    "",
+    block(plain(themed), ".theme-light", "light", (t) => /** @type {RawValue} */ (t.light ?? t.dark), target,
+      "/* `.theme-light` : les valeurs claires, alias compris, sur un sous-arbre — un aperçu reste clair dans une page\n   sombre (pendant de `.theme-dark`). */"),
     "",
     block(invariant, ":root", null, (t) => t.dark, target,
       "/* Invariants : identiques dans les deux thèmes. Tout ce qui se pose SUR un média les utilise. */"),

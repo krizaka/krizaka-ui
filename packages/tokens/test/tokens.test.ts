@@ -19,6 +19,7 @@ function declarations(selector: string): Map<string, string> {
 }
 const dark = declarations(":root, .theme-dark");
 const light = declarations("html.light");
+const lightIsland = declarations(".theme-light");
 const invariant = declarations(":root");
 
 /** A colour token's raw value in a theme, aliases followed. */
@@ -38,7 +39,7 @@ describe("tokens.css", () => {
   it("is marked as generated and orders its blocks dark, light, invariants", () => {
     expect(css.split("\n")[0]).toContain("GÉNÉRÉ");
     expect(css.split("\n")[0]).toContain("ne pas éditer");
-    const order = [":root, .theme-dark {", "html.light {", "\n:root {"].map((s) => css.indexOf(s));
+    const order = [":root, .theme-dark {", "html.light {", ".theme-light {", "\n:root {"].map((s) => css.indexOf(s));
     expect(order.every((i) => i > -1)).toBe(true);
     expect([...order].sort((a, b) => a - b)).toEqual(order);
     expect(css).toMatch(/:root, \.theme-dark \{\n {2}color-scheme: dark;/);
@@ -53,6 +54,14 @@ describe("tokens.css", () => {
   it("declares each token in exactly one of the dark or invariant blocks", () => {
     for (const name of invariant.keys()) expect(dark.has(name), `${name} is declared twice`).toBe(false);
     expect(dark.size + invariant.size).toBe(tokens.length);
+  });
+
+  it("gives .theme-light the light values of every token .theme-dark declares, aliases included (parity)", () => {
+    expect([...lightIsland.keys()].sort()).toEqual([...dark.keys()].sort());
+    for (const [name, value] of light) expect(lightIsland.get(name), name).toBe(value);
+    for (const [name, value] of lightIsland) if (!light.has(name)) expect(value, name).toBe(dark.get(name));
+    expect(lightIsland.get("--kz-ring")).toBe("var(--kz-accent)");
+    expect(css).toMatch(/\.theme-light \{\n {2}color-scheme: light;/);
   });
 
   it("keeps aliases in the dark block so they re-resolve under .theme-dark", () => {

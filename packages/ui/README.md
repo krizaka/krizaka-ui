@@ -27,8 +27,9 @@ is one CSS file. The primitives: **React 19** and Tailwind CSS v4 with the Kriza
 
 ## Primitives
 
-> 2.0 beta: the atoms, then the structure of a page and what opens over it (cards, dialogs, sheets, toasts, popovers,
-> menus, tooltips). Tabs, chips, switches and the command palette follow in the next betas.
+> 2.0 beta: the atoms, the structure of a page and what opens over it (cards, dialogs, sheets, toasts, popovers,
+> menus, tooltips), then navigation and input (tabs, chips, switches, sliders, checkboxes, radios, the command palette,
+> the two-step confirm button, progress).
 
 ### Install
 
@@ -129,7 +130,7 @@ Colours are roles of the preset (`bg-surface-2`, `text-fg-secondary`, `border-bo
 | `@krizaka/ui/spinner` | `Spinner` (`label`, `size`) | server |
 | `@krizaka/ui/countdown` | `Countdown` (`target`, `label`, `units`, `size`, `urgentBelowMs`, `skewMs`), `useCountdown`, `splitDuration` | client |
 | `@krizaka/ui/card` | `Card.Root` (`asChild`, `reveal`, `radius` md·lg·xl, `tone` default·elevated·glass, `interactive`), `Card.Media` (`aspect` video·square·portrait·auto), `Card.Image` (`fallback`), `Card.Overlay` (`corner`), `Card.Body` (`padding`), `Card.Title` (`as`), `Card.Description`, `Card.Stat` (`label`), `Card.Footer`; `card` (the slots) | server |
-| `@krizaka/ui/dialog` | `Dialog.Root/Trigger/Content/Header/Title/Description/Body/Footer/Close` (`placement` center·bottom·right, `size` sm·md·lg, `closeLabel` required), `Sheet` (= `placement="bottom"`), `AlertDialog` (`title`, `description`, `confirmLabel`, `cancelLabel`, `tone` danger·primary, async `onConfirm`, `trigger`) | client |
+| `@krizaka/ui/dialog` | `Dialog.Root/Trigger/Content/Header/Title/Description/Body/Footer/Close` (`placement` center·bottom·right, `size` sm·md·lg, `closeLabel` required unless `hideClose`, `dismissible={false}`: no close on Escape or outside click), `Sheet` (= `placement="bottom"`), `AlertDialog` (`title`, `description`, `confirmLabel`, `cancelLabel`, `tone` danger·primary, async `onConfirm`, `trigger`) | client |
 | `@krizaka/ui/toast` | `Toaster` (sonner styled by roles: `label`, `closeLabel`, `position`, `closeButton`; `richColors` off), `toast` (`.success/.warning/.error/.info/.custom`…) | client |
 | `@krizaka/ui/popover` | `Popover.Root/Trigger/Anchor/Content/Close` | client |
 | `@krizaka/ui/dropdown-menu` | `DropdownMenu.Root/Trigger/Content/Item/CheckboxItem/Label/Separator/Group` (`Item` `tone` default·danger), `menu` (the slots) | client |
@@ -139,6 +140,15 @@ Colours are roles of the preset (`bg-surface-2`, `text-fg-secondary`, `border-bo
 | `@krizaka/ui/alert` | `Alert` (`tone` info·success·warning·danger, `icon`, `title`, `action`; `role="alert"` for danger and warning, `status` otherwise), `alertVariants` | server |
 | `@krizaka/ui/separator` | `Separator` (`orientation`, `decorative`, Radix), `separatorVariants` | server |
 | `@krizaka/ui/kbd` | `Kbd` (`size` sm·md), `kbdVariants` | server |
+| `@krizaka/ui/tabs` | `Tabs.Root/List/Trigger/Content` (`variant` underline·segmented·pills on the root, `orientation`, `value`/`defaultValue` + `onValueChange`), `tabs` (the slots) | client |
+| `@krizaka/ui/chip` | `Chip` (`selected`/`defaultSelected` + `onSelectedChange`, `size` sm·md; `removable` + `removeLabel` + `onRemove`), `Chip.Group` (`type` single·multiple, `label`, `required` for single), `chip` (the slots) | client |
+| `@krizaka/ui/switch` | `Switch` (`checked`/`defaultChecked` + `onCheckedChange`, `label` unless a visible label names it, `size` sm·md, `invalid`), `switchVariants` | client |
+| `@krizaka/ui/slider` | `Slider` (`value`: a number or a `[min, max]` range, `onValueChange`, `onValueCommit`, `label`, `thumbLabels`, `formatValue` → aria-valuetext, `showLabel`, `origin`), `slider` (the slots) | client |
+| `@krizaka/ui/checkbox` | `Checkbox` (`checked` true·false·"indeterminate" + `onCheckedChange`, `invalid`, its words as children) — sits in a `Field` | client |
+| `@krizaka/ui/radio-group` | `RadioGroup.Root` (`label`, `orientation`, `invalid`), `RadioGroup.Item` (a dot and its words), `RadioGroup.Card` (a whole card is the radio) | client |
+| `@krizaka/ui/command` | `Command.Root` (`label`, `shouldFilter`…) `/Input` (`placeholder`, `trailing`) `/List` (`label`) `/Empty` (`emptyLabel`) `/Loading/Group/Item/Separator/Shortcut` on cmdk; `CommandDialog` (`label`, `open`/`onOpenChange`, `footer`, `contentProps`) | client |
+| `@krizaka/ui/confirm-button` | `ConfirmButton` (two presses: `confirmLabel`, `onConfirm`, `timeoutMs` 4000, `label` for an icon, `armedContent`; the `Button` variants), `confirmArmed` | client |
+| `@krizaka/ui/progress` | `Progress` (`variant` bar·ring, `size` sm·md·lg, `value`/`max`, indeterminate without a value, `label`, `valueText`, a ring's centre as children) | server |
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
 | `@krizaka/ui/native` | the marks for React Native (unchanged) | native |
 | `@krizaka/ui/motion.css`, `@krizaka/ui/tailwind.css` | the motion signature; the `@source` of the primitives' classes | CSS |
@@ -208,6 +218,7 @@ import { MotionObserver, RotatingWord } from "@krizaka/ui";
 | `kz-lift` | A card rising under the pointer |
 | `kz-gradient-text`, `kz-marquee` | Drifting gradient text, endless bands |
 | `kz-overlay`, `kz-dialog`, `kz-pop`, `kz-fade` | Backdrops, dialogs (from the bottom on phones), menus, views swapped in place |
+| `kz-progress` | The indeterminate progress bar's travelling segment |
 
 With Tailwind CSS v4, give every transition the same easing:
 

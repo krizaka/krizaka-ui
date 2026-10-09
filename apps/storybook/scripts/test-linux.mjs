@@ -16,6 +16,8 @@ execFileSync(
     "-v", `${repo}:/repo`,
     "-v", "/repo/node_modules", "-v", "/repo/apps/storybook/node_modules", "-v", "/repo/packages/ui/node_modules",
     "-v", "/repo/packages/tokens/node_modules", "-v", "/repo/packages/tailwind/node_modules", "-v", "/repo/packages/config/node_modules",
+    // tsup's declaration build runs out of the default heap under amd64 emulation (Apple silicon): give it room.
+    "-e", "NODE_OPTIONS=--max-old-space-size=8192",
     "-w", "/repo",
     `mcr.microsoft.com/playwright:v${version}-noble`,
     "bash", "-c",
