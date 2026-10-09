@@ -150,7 +150,7 @@ Colours are roles of the preset (`bg-surface-2`, `text-fg-secondary`, `border-bo
 | `@krizaka/ui/confirm-button` | `ConfirmButton` (two presses: `confirmLabel`, `onConfirm`, `timeoutMs` 4000, `label` for an icon, `armedContent`; the `Button` variants), `confirmArmed` | client |
 | `@krizaka/ui/progress` | `Progress` (`variant` bar·ring, `size` sm·md·lg, `value`/`max`, indeterminate without a value, `label`, `valueText`, a ring's centre as children) | server |
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
-| `@krizaka/ui/native` | the marks for React Native (unchanged) | native |
+| `@krizaka/ui/native` | React Native: `ThemeProvider`/`useTheme`, `Txt`, `Button`, `IconButton`, `Card.*`, `Badge`, `Chip` (+ `Group`), `Avatar` (+ `Group`), `Skeleton`, `EmptyState`, `Spinner`, `Countdown`, `Segmented`, `Progress`, `Toaster`/`toast`, the marks — see [React Native](#react-native) | native |
 | `@krizaka/ui/motion.css`, `@krizaka/ui/tailwind.css` | the motion signature; the `@source` of the primitives' classes | CSS |
 | `@krizaka/ui/registry/<name>`, `@krizaka/ui/registry/demos/<name>` | the registry (JSON) and the demos — see [Registry](#registry) | data · client |
 
@@ -198,16 +198,78 @@ A site that renders the demos adds them to Tailwind's sources: `@source "../node
 
 ## React Native
 
-The marks have one geometry; `@krizaka/ui/native` draws it with `react-native-svg` for the apps
-([orochia-mobile](https://github.com/krizaka/orochia-mobile)). The orbit turns and the flame breathes on the native
-driver, and stay still when the system asks to reduce motion. `react-dom`, `react-native` and `react-native-svg` are
+`@krizaka/ui/native` is the platform for the React Native apps
+([orochia-mobile](https://github.com/krizaka/orochia-mobile)): the same primitives as the web, **the same prop names
+where the concept is the same**, the same tokens — `StyleSheet` only, no NativeWind, no dependency beyond
+`react-native` (≥ 0.76) and `react-native-svg` (≥ 15), which the apps already have. The `@krizaka/tokens/native` values
+are inlined in the bundle: the app installs nothing else. `react-dom`, `react-native` and `react-native-svg` are
 optional peers: a web app never installs the native ones, a native app never installs `react-dom`.
 
-```tsx
-import { OrochiaMark } from "@krizaka/ui/native";
-
-<OrochiaMark size={72} title="Orochia" neutral={theme.border} />
+```bash
+npm install @krizaka/ui   # react, react-native and react-native-svg come from the app
 ```
+
+### Theme
+
+Once, at the root. `mode` is `dark` · `light` · `system` (followed through `useColorScheme`); `overrides` are a
+product's roles over the platform's, per theme — e.g. `nativeTheme` from `@krizaka/orochia-design-system/tokens`.
+Without a provider, `useTheme()` follows the system with the platform's roles. No storage dependency: the app
+persists the choice in `onModeChange`.
+
+```tsx
+import { ThemeProvider, Toaster, useTheme } from "@krizaka/ui/native";
+import { nativeTheme } from "@krizaka/orochia-design-system/tokens";
+
+<ThemeProvider mode={mode} onModeChange={saveMode} overrides={nativeTheme} fonts={{ display: "Outfit-Bold" }}>
+  <App />
+  <Toaster closeLabel={t("common.close")} offset={insets.top + 8} />
+</ThemeProvider>;
+
+const { theme, scheme, mode, setMode, radius } = useTheme(); // theme.surface1, theme.textPrimary, theme.accent…
+```
+
+### Components
+
+| Native | Props (same names as the web unless noted) | Differences with the web |
+| :-- | :-- | :-- |
+| `Txt` | `variant` display·title·body·caption·label·mono, `tone` text·secondary·muted·accent·success·warning·danger·onAccent·onMedia | Native only (the web uses classes). `title`/`display` are headings. |
+| `Button`, `IconButton` | `variant` primary·secondary·outline·ghost·danger, `size` sm·md·lg, `shape` rounded·pill, `loading`, `disabled`, `onPress`; `IconButton`: `label` required, `icon` | The text is `label` (a string), not children; `icon` before it; no `asChild`. Haptics stay in the app's `onPress`. |
+| `Card.Root/Media/Image/Overlay/Body/Title/Description/Footer` | `tone` default·elevated, `radius`, `Media aspect`, `Image src`/`fallback`, `Overlay corner`, `Body padding` | `Root onPress` makes the card a button (the web uses `asChild` + a link). No `Stat`, no `reveal`. |
+| `Badge` | `tone` neutral·accent·success·warning·danger·scrim, `size` sm·md, `dot`, `pulse` | — |
+| `Chip`, `Chip.Group` | `selected`/`defaultSelected`/`onSelectedChange`, `value`, `size`, `removable` + `removeLabel` + `onRemove`; Group: `type` single·multiple, `value`/`defaultValue`/`onValueChange` | A toggle chip is a `checkbox` (web: a pressed button). `Group scrollable`: one horizontal row. |
+| `Avatar`, `Avatar.Group` | `src`, `alt`, `fallback`, `size` xs·sm·md·lg·xl; Group `max` | `size` also takes points; the default fallback is the initial of `alt`. |
+| `Skeleton` | `shape` text·circle·rect | `width`, `height` as props (no classes). |
+| `EmptyState` | `icon`, `title`, `description`, `action` | `title`/`description` are strings. |
+| `Spinner` | `label`, `size` sm·md·lg | The platform's `ActivityIndicator`. |
+| `Countdown` | `target`, `skewMs`, `units`, `urgentBelowMs`, `size`, `label` | Same clock (`countdown/core`): one interval for every countdown on screen. |
+| `Segmented` | `options` (`value`, `label`, `disabled`), `value`, `onValueChange`, `size` | The web `Tabs variant="segmented"` (a tab list). To filter, `Chip.Group`. |
+| `Progress` | `variant` bar·ring, `size`, `value`/`max`, `label`, `valueText`, a ring's centre as children | The fill is the `accent` → `accent2` gradient (react-native-svg); it animates to each new value. |
+| `Toaster`, `toast` | `toast(title, { description, tone, icon, action, onPress, id, duration, onDismiss })`, `toast.success/warning/error/info`, `toast.dismiss(id?)`; `Toaster closeLabel position offset duration max` | No sonner: a light queue of its own. `offset` takes the safe-area inset (no safe-area dependency). |
+| `OrochiaMark` | `size`, `animated`, `title`, `neutral` | The mark, drawn with react-native-svg. |
+
+Every animation (skeleton, badge dot, urgent countdown, progress, toast entrance, the marks) stops when the system
+asks to reduce motion (`useReducedMotion()`). Accessibility goes through `role` and `aria-*` (RN ≥ 0.71): headings,
+`button`, `checkbox`/`radio`/`radiogroup`, `tab`/`tablist`, `progressbar` with its value, `timer`, a polite live
+region for the toasts.
+
+```tsx
+import { Button, Card, Countdown, OrochiaMark } from "@krizaka/ui/native";
+
+<Card.Root onPress={open}>
+  <Card.Body>
+    <Card.Title>{item.title}</Card.Title>
+    <Countdown target={item.endsAt} skewMs={skew} units={units} label={t("item.endsIn")} size="sm" />
+    <Button variant="primary" label={t("item.join")} onPress={join} />
+  </Card.Body>
+</Card.Root>
+
+<OrochiaMark size={72} title="Orochia" neutral={theme.borderDefault} />
+```
+
+The native stories (`Native/*` in the catalogue) render through react-native-web in the web Storybook: audited by axe
+and screenshot-compared in dark and light like the web ones. Tests run on Jest with React Native's preset and
+Testing Library (`src/native/*.test.tsx`); `scripts/native-dist.mjs` checks that `dist/native.js` carries no
+`"use client"`, no DOM and no import beyond React, `react-native` and `react-native-svg`.
 
 ## The marks
 

@@ -10,6 +10,10 @@
   `stat`, `page-header`, `alert`, `separator`, `kbd`, `tabs`, `chip`, `switch`, `slider`, `checkbox`, `radio-group`,
   `command`, `confirm-button`, `progress` — one entry each, built with `tailwind-variants` on the preset's
   roles, Radix UI for non-trivial interactions. They follow the 12-point component contract (README, "Primitives").
+- The **native platform** (`./native`, `src/native`): the theme (`ThemeProvider`/`useTheme` on the
+  `@krizaka/tokens/native` roles + a product's `overrides`) and the same primitives for React Native — `Txt`,
+  `Button`, `IconButton`, `Card.*`, `Badge`, `Chip`, `Avatar`, `Skeleton`, `EmptyState`, `Spinner`, `Countdown`,
+  `Segmented`, `Progress`, `Toaster`/`toast` — with the web's prop names where the concept is the same.
 - The **brand layer shared by every Krizaka product**: the animated marks (`KrizakaLogo`, `OrazakaLogo`,
   `OrochiaLogo`, `ProductLogo`) and the **Krizaka motion signature** (`motion.css`, `MotionObserver`, `RotatingWord`).
 - Nothing product-specific: a product's components live in its own design system (`@krizaka/orochia-design-system`,
@@ -24,6 +28,12 @@
   shares Radix's Dialog with `./dialog`). Colours are roles only (lint `krizakaUi`, strict);
   words are props (`label`, `units`…), never `t()`; state is `data-*`; `className` is merged last.
 - **Server by default**: an entry gets `"use client"` only when it holds a hook or a portal (tsup client group).
+- **Native: `StyleSheet` and the theme's roles only** — no NativeWind, no dependency beyond `react-native` and
+  `react-native-svg` (the token values are inlined by tsup; their types are declared in `src/native/theme.tsx` and
+  checked against `@krizaka/tokens/native` by a test). Accessibility through `role` and `aria-*` (what
+  react-native-web maps to ARIA). `dist/native.js` has no `"use client"`, no DOM, no other import
+  (`scripts/native-dist.mjs`, run by `publint`). Its stories (`src/native/<Name>.stories.tsx`, `Native/<Name>`, with
+  the `nativeFrame` decorator) render in the web Storybook through react-native-web.
 - **Both themes**: neutral strokes read the host's `--kz-*` tokens and fall back to the text colour.
 - **Unique ids per instance** (`useId`); decorative by default, an accessible image with `title`.
 - **A story per component** (`src/**/<Name>.stories.tsx`, one per variant), rendered and tested by `apps/storybook`.
@@ -33,8 +43,10 @@
 
 ## 3. Quality gates
 
-- `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest, happy-dom), build (tsup), size, publint.
-- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB, `./native` ≤ 6 kB; the shared runtime
+- `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest + happy-dom for the web; Jest with React
+  Native's preset and Testing Library for `src/native`), build (tsup), size, publint.
+- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 10.5 kB (Metro
+  bundles it into the app, nothing is downloaded: a regression guard, not a budget); the shared runtime
   (`./cn`: clsx + tailwind-variants and its merge engine, paid once per app) ≤ 14 kB; each primitive is measured
   without that runtime (Radix included): `./button` ≤ 3 kB, `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
   `./slot` ≤ 2 kB, `./field` ≤ 1.5 kB, `./card` ≤ 3 kB, `./separator` ≤ 2 kB (Radix's `Primitive` and `Slot`),
