@@ -48,7 +48,10 @@ type Variant = NonNullable<TabsVariants["variant"]>;
 
 const VariantContext = React.createContext<Variant>("underline");
 
-export type TabsRootProps = React.ComponentProps<typeof TabsPrimitive.Root> & TabsVariants;
+export type TabsRootProps = React.ComponentProps<typeof TabsPrimitive.Root> & {
+  /** underline (the sections of a page) · segmented (a view switch) · pills (a feed's sections). */
+  variant?: TabsVariants["variant"];
+};
 
 /** `value`/`defaultValue` + `onValueChange`, `orientation` (horizontal by default), `variant` for the list. */
 export function TabsRoot({ variant = "underline", className, ...props }: TabsRootProps) {

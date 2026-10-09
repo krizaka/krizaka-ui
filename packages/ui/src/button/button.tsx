@@ -28,6 +28,21 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
 
 export type ButtonProps = React.ComponentProps<"button"> &
   ButtonVariants & {
+    /**
+     * The look: `primary` (the accent), `secondary` (a raised surface), `outline`, `ghost`, `danger`.
+     * @default "secondary"
+     */
+    variant?: ButtonVariants["variant"];
+    /**
+     * sm · md · lg, or `icon` (a square).
+     * @default "md"
+     */
+    size?: ButtonVariants["size"];
+    /**
+     * rounded · pill.
+     * @default "rounded"
+     */
+    shape?: ButtonVariants["shape"];
     /** Renders the child (e.g. a <Link>) instead of the <button>, with props, classes and ref merged. */
     asChild?: boolean;
     /** Disables and signals the wait (aria-busy, data-loading) — the product adds a spinner if it wants one. */
@@ -53,6 +68,10 @@ export function Button({ asChild, loading, variant, size, shape, className, disa
 export type IconButtonProps = Omit<ButtonProps, "size"> & {
   /** The accessible name (and tooltip) of the button — required, passed translated. */
   label: string;
+  /**
+   * sm · md · lg, or `icon` (a square).
+   * @default "icon"
+   */
   size?: ButtonProps["size"];
 };
 

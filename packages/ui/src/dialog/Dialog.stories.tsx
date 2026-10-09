@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import DialogDemo from "../../registry/demos/dialog";
 import { Button } from "../button/button";
 import { Field, Input, Textarea } from "../field/field";
 import { AlertDialog } from "./alert-dialog";
@@ -48,7 +49,7 @@ const Example: Story["render"] = (args) => (
 );
 
 /** Centred, `size="md"`. */
-export const Center: Story = { render: Example };
+export const Center: Story = { render: () => <DialogDemo defaultOpen /> };
 
 /** `placement="bottom"`: a sheet on a phone, centred from `sm` up. */
 export const Bottom: Story = { render: Example, args: { placement: "bottom" } };

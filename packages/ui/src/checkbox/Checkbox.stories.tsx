@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import CheckboxDemo from "../../registry/demos/checkbox";
 import { Field } from "../field/field";
 import { Checkbox } from "./checkbox";
 
@@ -16,7 +17,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Unchecked: Story = {};
+/** The demo of the registry (`registry/demos/checkbox.tsx`). */
+export const Unchecked: Story = { render: () => <CheckboxDemo /> };
 
 export const Checked: Story = { args: { defaultChecked: true } };
 

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import SeparatorDemo from "../../registry/demos/separator";
 import { Separator } from "./separator";
 
 /** A line between groups (Radix Separator): decorative by default, `decorative={false}` for a real separator. */
@@ -11,15 +12,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Horizontal: Story = {
-  render: (args) => (
-    <div className="flex w-72 flex-col gap-3 text-sm text-fg">
-      <p>Account</p>
-      <Separator {...args} />
-      <p className="text-fg-secondary">Notifications</p>
-    </div>
-  ),
-};
+export const Horizontal: Story = { render: () => <SeparatorDemo /> };
 
 export const Vertical: Story = {
   render: (args) => (

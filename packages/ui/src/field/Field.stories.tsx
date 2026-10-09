@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import FieldDemo from "../../registry/demos/field";
 import { Field, Input, Select, Textarea } from "./field";
 
 /**
@@ -22,15 +23,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  render: (args) => (
-    <Field.Root>
-      <Field.Label htmlFor="email">Email</Field.Label>
-      <Input id="email" type="email" aria-describedby="email-hint" {...args} />
-      <Field.Hint id="email-hint">We never share it.</Field.Hint>
-    </Field.Root>
-  ),
-};
+export const Default: Story = { render: () => <FieldDemo /> };
 
 export const Invalid: Story = {
   render: (args) => (

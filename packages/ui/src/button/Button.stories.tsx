@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import ButtonDemo from "../../registry/demos/button";
 import { Button, IconButton } from "./button";
 
 /** The action. `variant` × `size` × `shape`, `loading`, `asChild`; `buttonVariants` styles a link without the component. */
@@ -12,8 +13,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The main action of a view: the accent. */
-export const Primary: Story = { args: { variant: "primary" } };
+/** The main action of a view: the accent. The demo of the registry (`registry/demos/button.tsx`). */
+export const Primary: Story = { render: () => <ButtonDemo /> };
 
 /** The default: a raised surface. */
 export const Secondary: Story = {};

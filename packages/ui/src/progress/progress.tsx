@@ -43,8 +43,13 @@ export type ProgressVariants = VariantProps<typeof progress>;
 
 export type ProgressProps = Omit<React.ComponentProps<"div">, "children"> &
   ProgressVariants & {
+    /** bar · ring (a ring holds its `children` in the centre). */
+    variant?: ProgressVariants["variant"];
+    /** sm · md · lg: the bar's thickness, the ring's diameter. */
+    size?: ProgressVariants["size"];
     /** How far, between 0 and `max`. `null` or absent: indeterminate (a wait of unknown length). */
     value?: number | null;
+    /** The value that means complete. */
     max?: number;
     /** The accessible name — passed translated ("Upload", "Raised towards the goal"). */
     label: string;

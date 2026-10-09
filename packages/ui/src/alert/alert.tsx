@@ -28,9 +28,11 @@ export const alertVariants = tv({
 export type AlertTone = NonNullable<VariantProps<typeof alertVariants>["tone"]>;
 
 export type AlertProps = Omit<React.ComponentProps<"div">, "title"> & {
+  /** The tone: `danger` and `warning` are announced at once (`role="alert"`), `info` and `success` politely. */
   tone?: AlertTone;
   /** A decorative icon (hidden from assistive technology). */
   icon?: React.ReactNode;
+  /** The headline, in bold above the text. */
   title?: React.ReactNode;
   /** What to do: a Button, a link. */
   action?: React.ReactNode;

@@ -17,6 +17,7 @@ const countdown = tv({
 });
 
 export type CountdownProps = {
+  /** The moment it counts down to: a Date, an ISO string or epoch milliseconds. */
   target: Date | string | number;
   /** Server clock − this clock, in milliseconds. */
   skewMs?: number;
@@ -24,9 +25,11 @@ export type CountdownProps = {
   units: CountdownUnits;
   /** Below this many milliseconds it turns urgent (`text-danger`, the last segment pulses). Default 60 s. */
   urgentBelowMs?: number;
+  /** sm · md · lg (the danger role is large-text safe from `md`). */
   size?: "sm" | "md" | "lg";
   /** Accessible name, e.g. "Ends in". */
   label: string;
+  /** Classes merged last, over the primitive's. */
   className?: string;
 };
 

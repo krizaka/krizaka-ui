@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import ChipDemo from "../../registry/demos/chip";
 import { Chip } from "./chip";
 
 /**
@@ -16,15 +17,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Alone, off and on. */
-export const Toggle: Story = {
-  render: () => (
-    <div className="flex gap-2">
-      <Chip>Subtitles</Chip>
-      <Chip defaultSelected>HD</Chip>
-      <Chip disabled>4K</Chip>
-    </div>
-  ),
-};
+export const Toggle: Story = { render: () => <ChipDemo /> };
 
 /** One choice (radios): a filter. `required` keeps one chosen. */
 export const Single: Story = {

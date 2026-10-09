@@ -5,6 +5,8 @@
 
 /* The stories' own layout classes (they are not in @krizaka/ui's dist). */
 @source "../../../packages/ui/src/**/*.stories.tsx";
+/* …and the registry's demos, which the default stories render. */
+@source "../../../packages/ui/registry/demos/*.tsx";
 
 /* Demonstration product identities (study §2.5): a theme is a set of tokens, so a primitive is seen under each brand.
    The real themes ship with the product design systems; these blocks only mirror their accents. */

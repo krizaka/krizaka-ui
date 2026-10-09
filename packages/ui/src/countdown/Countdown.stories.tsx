@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import CountdownDemo from "../../registry/demos/countdown";
 import { Countdown } from "./countdown";
 
 // The clock is frozen for the stories, so the screenshots are stable: every target is relative to NOW.
@@ -26,8 +27,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** Hours, minutes, seconds. */
-export const Hours: Story = {};
+/** Hours, minutes, seconds. The demo of the registry (`registry/demos/countdown.tsx`). */
+export const Hours: Story = { render: () => <CountdownDemo /> };
 
 /** Days, hours, minutes. */
 export const Days: Story = { args: { target: NOW + ((2 * 24 + 4) * 3600 + 13 * 60) * 1000 } };

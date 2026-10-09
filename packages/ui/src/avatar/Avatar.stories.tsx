@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import AvatarDemo from "../../registry/demos/avatar";
 import { Avatar } from "./avatar";
 
 // A self-contained portrait (no network in the screenshot tests).
@@ -20,7 +21,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const WithImage: Story = { args: { src: PORTRAIT, alt: "Oussama" } };
+/** The demo of the registry (`registry/demos/avatar.tsx`). */
+export const WithImage: Story = { render: () => <AvatarDemo /> };
 
 /** No image: the fallback. */
 export const Fallback: Story = {};

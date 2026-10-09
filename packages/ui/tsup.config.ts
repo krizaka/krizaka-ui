@@ -6,7 +6,9 @@ import { defineConfig, type Options } from "tsup";
  * - client: a "use client" banner on every file (the marks and the motion, avatar, theme, countdown, and everything
  *   that opens in a portal: dialog, toast, popover, dropdown-menu, tooltip; and every control with a state or a context: tabs, chip, switch,
  *   slider, checkbox, radio-group, command, confirm-button);
- * - native: React Native (react-native-svg), no directive, never loads react-dom.
+ * - native: React Native (react-native-svg), no directive, never loads react-dom;
+ * - demos: the registry's demos (`registry/demos/<name>.tsx` → `.js` + `.d.ts` beside them), client, importing the
+ *   primitives through the package's own entries (`@krizaka/ui/<name>`, external): one copy of each primitive.
  * `dist/` is emptied by the build script, not by tsup: the three builds run side by side.
  */
 const shared = {
@@ -65,5 +67,13 @@ export default defineConfig([
     ...shared,
     entry: { native: "src/native/index.ts" },
     external: [...shared.external, "react-native", "react-native-svg"],
+  },
+  {
+    ...shared,
+    entry: ["registry/demos/*.tsx", "!registry/demos/*.test.tsx"],
+    outDir: "registry/demos",
+    sourcemap: false,
+    external: [...shared.external, /^@krizaka\/ui\//],
+    banner: { js: '"use client";' },
   },
 ]);

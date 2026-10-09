@@ -39,7 +39,10 @@ export function DropdownMenuContent({ sideOffset = 6, align = "end", collisionPa
   );
 }
 
-export type DropdownMenuItemProps = React.ComponentProps<typeof MenuPrimitive.Item> & { tone?: "default" | "danger" };
+export type DropdownMenuItemProps = React.ComponentProps<typeof MenuPrimitive.Item> & {
+  /** `danger` for a destructive action: the icon and the highlight carry the danger, the label stays legible. */
+  tone?: "default" | "danger";
+};
 
 /** An action. `tone="danger"` for a destructive one; `onSelect` runs it (the menu closes). */
 export function DropdownMenuItem({ tone, className, ...props }: DropdownMenuItemProps) {

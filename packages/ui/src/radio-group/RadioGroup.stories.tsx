@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import RadioGroupDemo from "../../registry/demos/radio-group";
 import { RadioGroup } from "./radio-group";
 
 /**
@@ -15,18 +16,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Items: Story = {
-  render: (args) => (
-    <RadioGroup.Root {...args}>
-      <RadioGroup.Item value="instant">Instantly</RadioGroup.Item>
-      <RadioGroup.Item value="daily">Once a day</RadioGroup.Item>
-      <RadioGroup.Item value="weekly">Once a week</RadioGroup.Item>
-      <RadioGroup.Item value="never" disabled>
-        Never
-      </RadioGroup.Item>
-    </RadioGroup.Root>
-  ),
-};
+export const Items: Story = { render: () => <RadioGroupDemo /> };
 
 /** Whole cards: the chosen one carries the accent border and tint. */
 export const Cards: Story = {

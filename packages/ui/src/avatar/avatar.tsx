@@ -25,11 +25,16 @@ const avatar = tv({
 export type AvatarSize = NonNullable<VariantProps<typeof avatar>["size"]>;
 
 export type AvatarProps = Omit<React.ComponentProps<"span">, "children"> & {
+  /** The image's URL; `null` or nothing shows the `fallback`. */
   src?: string | null;
   /** The image's text alternative (the person's name); empty when a visible name sits next to the avatar. */
   alt?: string;
   /** Shown while the image loads, when it fails or when there is none: initials, an icon. */
   fallback?: React.ReactNode;
+  /**
+   * xs · sm · md · lg · xl.
+   * @default "md"
+   */
   size?: AvatarSize;
 };
 

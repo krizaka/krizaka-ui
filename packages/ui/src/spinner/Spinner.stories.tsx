@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import SpinnerDemo from "../../registry/demos/spinner";
 import { Spinner } from "./spinner";
 
 /** An indeterminate wait (`role="status"`, named by `label`). It stops turning under reduced motion. */
@@ -12,7 +13,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+/** The demo of the registry (`registry/demos/spinner.tsx`). */
+export const Default: Story = { render: () => <SpinnerDemo /> };
 
 /** sm · md · lg. */
 export const Sizes: Story = {

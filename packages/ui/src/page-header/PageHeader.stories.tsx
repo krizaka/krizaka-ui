@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import PageHeaderDemo from "../../registry/demos/page-header";
 import { Button } from "../button/button";
 import { PageHeader } from "./page-header";
 
@@ -20,7 +21,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+/** The demo of the registry (`registry/demos/page-header.tsx`). */
+export const Default: Story = { render: () => <PageHeaderDemo /> };
 
 /** With the page's actions. */
 export const WithActions: Story = {

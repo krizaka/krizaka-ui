@@ -26,6 +26,18 @@ export type BadgeVariants = VariantProps<typeof badgeVariants>;
 
 export type BadgeProps = React.ComponentProps<"span"> &
   BadgeVariants & {
+    /**
+     * neutral · accent · success · warning · danger (soft tints, the text stays a text role) · scrim (on a media).
+     * @default "neutral"
+     */
+    tone?: BadgeVariants["tone"];
+    /**
+     * sm · md.
+     * @default "sm"
+     */
+    size?: BadgeVariants["size"];
+    /** Makes the `dot` pulse (stopped under reduced motion). */
+    pulse?: BadgeVariants["pulse"];
     /** A small dot before the text, in the tone's colour (pulsing with `pulse`). */
     dot?: boolean;
   };

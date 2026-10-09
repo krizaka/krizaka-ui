@@ -27,7 +27,9 @@ export type StatTrend = "up" | "down" | "flat";
 const ARROW: Record<StatTrend, string> = { up: "M7 17 17 7M8 7h9v9", down: "M7 7l10 10M17 8v9H8", flat: "M5 12h14M13 6l6 6-6 6" };
 
 export type StatProps = Omit<React.ComponentProps<"div">, "children"> & {
+  /** What the figure is ("Revenue"), above it. */
   label: React.ReactNode;
+  /** The figure, formatted by the app, in tabular digits. */
   value: React.ReactNode;
   /** A line under the value: the period, the comparison. */
   hint?: React.ReactNode;
