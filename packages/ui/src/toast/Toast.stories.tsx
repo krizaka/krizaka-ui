@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect } from "react";
+import { expect, waitFor } from "storybook/test";
 
 import { Avatar } from "../avatar/avatar";
 import { Button } from "../button/button";
@@ -20,6 +21,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+/** Waits until exactly `count` toasts are mounted (the screenshot is taken after `play`). */
+const settled = (count: number): Story["play"] =>
+  async ({ canvasElement }) => {
+    await waitFor(() => expect(canvasElement.ownerDocument.querySelectorAll("[data-sonner-toast][data-mounted=true]")).toHaveLength(count));
+  };
+
 function Show({ run }: { run: () => void }) {
   useEffect(() => {
     toast.dismiss();
@@ -32,21 +39,25 @@ function Show({ run }: { run: () => void }) {
   );
 }
 
+// sonner's queue is global: each story has its own toaster (`id` + `toasterId`), so no toast leaks from one story into
+// the next one's screenshot.
 const tones = () => {
-  toast("Draft saved", { description: "Autosaved a moment ago." });
-  toast.success("Payment received", { description: "€12.00 from @maya." });
-  toast.warning("Your balance is low", { description: "Two tips left before a top-up." });
-  toast.error("Upload failed", { description: "The connection dropped at 64 %.", action: { label: "Retry", onClick: () => {} } });
+  const toasterId = "tones";
+  toast("Draft saved", { toasterId, description: "Autosaved a moment ago." });
+  toast.success("Payment received", { toasterId, description: "€12.00 from @maya." });
+  toast.warning("Your balance is low", { toasterId, description: "Two tips left before a top-up." });
+  toast.error("Upload failed", { toasterId, description: "The connection dropped at 64 %.", action: { label: "Retry", onClick: () => {} } });
 };
 
 /** The tones: default, success, warning, danger (error) — a tinted edge and a coloured icon, the text stays legible. */
 export const Tones: Story = {
   render: (args) => (
     <>
-      <Toaster {...args} />
+      <Toaster {...args} id="tones" />
       <Show run={tones} />
     </>
   ),
+  play: settled(4),
 };
 
 const custom = () => {
@@ -58,15 +69,16 @@ const custom = () => {
         <span className="text-xs font-normal text-fg-secondary">Just now</span>
       </div>
     </div>
-  ));
+  ), { toasterId: "custom" });
 };
 
 /** `toast.custom`: arbitrary JSX in the platform's shell — the live notifications of a product. */
 export const Custom: Story = {
   render: (args) => (
     <>
-      <Toaster {...args} />
+      <Toaster {...args} id="custom" />
       <Show run={custom} />
     </>
   ),
+  play: settled(1),
 };
