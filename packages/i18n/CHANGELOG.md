@@ -1,5 +1,13 @@
 # @krizaka/i18n
 
+## 0.1.0-beta.2
+
+### Minor Changes
+
+- [#26](https://github.com/krizaka/krizaka-ui/pull/26) [`440f052`](https://github.com/krizaka/krizaka-ui/commit/440f052ba070f73fd7cf4c968ece3e61a6a47054) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `<Rich>` takes `slots` (nodes in place of `{name}` placeholders — a link, an emphasised value — in plain text, bold and
+  links; a placeholder without a slot stays as written) and `renderBold` (style the `<b>`, default `<strong>`): what
+  Orochia's own `Rich` did, so it can re-export this one.
+
 ## 0.1.0-beta.1
 
 ### Patch Changes
