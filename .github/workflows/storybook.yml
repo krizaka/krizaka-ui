@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
-      - run: pnpm turbo run storybook:build --filter=storybook   # → apps/storybook/storybook-static (after @krizaka/ui...)
+      - run: pnpm turbo run storybook:build --filter=@krizaka/storybook   # → apps/storybook/storybook-static (after @krizaka/ui...)
       - run: pnpm --filter storybook test   # test-runner : a11y + captures dark/light
       - run: |
           mkdir -p site/latest && cp -r apps/storybook/storybook-static/. site/latest/
