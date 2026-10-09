@@ -1,0 +1,9 @@
+{
+  "font": {
+    "$type": "fontFamily",
+    "$description": "Typographie",
+    "sans": { "$value": ["Inter", "system-ui", "sans-serif"], "$description": "Interface et texte courant" },
+    "display": { "$value": "{font.sans}", "$description": "Titres ; égal à sans par défaut, surchargé par le thème produit" },
+    "mono": { "$value": ["JetBrains Mono", "ui-monospace", "monospace"], "$description": "Code, montants alignés" }
+  }
+}

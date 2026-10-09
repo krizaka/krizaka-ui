@@ -1,0 +1,39 @@
+{
+  "shadow": {
+    "$type": "shadow",
+    "$description": "Ombres (web uniquement)",
+    "sm": {
+      "$description": "Champ, bouton au repos",
+      "$value": [
+        { "color": "hsl(0 0% 0% / 0.12)", "offsetX": "0", "offsetY": "1px", "blur": "3px" },
+        { "color": "hsl(0 0% 0% / 0.06)", "offsetX": "0", "offsetY": "1px", "blur": "2px" }
+      ],
+      "$extensions": { "com.krizaka": { "light": [
+        { "color": "hsl(240 6% 0% / 0.06)", "offsetX": "0", "offsetY": "1px", "blur": "3px" },
+        { "color": "hsl(240 6% 0% / 0.04)", "offsetX": "0", "offsetY": "1px", "blur": "2px" }
+      ] } }
+    },
+    "md": {
+      "$description": "Menu, popover, carte au survol",
+      "$value": [
+        { "color": "hsl(0 0% 0% / 0.15)", "offsetX": "0", "offsetY": "4px", "blur": "12px" },
+        { "color": "hsl(0 0% 0% / 0.08)", "offsetX": "0", "offsetY": "2px", "blur": "4px" }
+      ],
+      "$extensions": { "com.krizaka": { "light": [
+        { "color": "hsl(240 6% 0% / 0.08)", "offsetX": "0", "offsetY": "4px", "blur": "12px" },
+        { "color": "hsl(240 6% 0% / 0.04)", "offsetX": "0", "offsetY": "2px", "blur": "4px" }
+      ] } }
+    },
+    "lg": {
+      "$description": "Dialogue, feuille",
+      "$value": [
+        { "color": "hsl(0 0% 0% / 0.18)", "offsetX": "0", "offsetY": "8px", "blur": "24px" },
+        { "color": "hsl(0 0% 0% / 0.08)", "offsetX": "0", "offsetY": "4px", "blur": "8px" }
+      ],
+      "$extensions": { "com.krizaka": { "light": [
+        { "color": "hsl(240 6% 0% / 0.10)", "offsetX": "0", "offsetY": "8px", "blur": "24px" },
+        { "color": "hsl(240 6% 0% / 0.05)", "offsetX": "0", "offsetY": "4px", "blur": "8px" }
+      ] } }
+    }
+  }
+}
