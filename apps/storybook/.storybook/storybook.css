@@ -1,0 +1,34 @@
+/* The catalogue reads the platform exactly as a product does: Tailwind, the preset, then the primitives' classes. */
+@import "tailwindcss";
+@import "@krizaka/tailwind";
+@import "@krizaka/ui/tailwind.css";
+
+/* The stories' own layout classes (they are not in @krizaka/ui's dist). */
+@source "../../../packages/ui/src/**/*.stories.tsx";
+
+/* Demonstration product identities (study §2.5): a theme is a set of tokens, so a primitive is seen under each brand.
+   The real themes ship with the product design systems; these blocks only mirror their accents. */
+.brand-orochia {
+  --kz-accent: #8b5cf6;
+  --kz-accent-hover: #7c3aed;
+  --kz-accent-soft: rgb(139 92 246 / 0.12);
+  --kz-accent-2: #ec4899;
+  --kz-ring: #a78bfa;
+}
+html.light .brand-orochia {
+  --kz-accent: #7c3aed;
+  --kz-accent-hover: #6d28d9;
+  --kz-accent-soft: rgb(124 58 237 / 0.08);
+  --kz-accent-2: #db2777;
+}
+.brand-orazaka {
+  --kz-accent: hsl(217 92% 60%);
+}
+
+/* The canvas follows the theme: the page is a surface, the text a role. */
+html,
+body {
+  background: var(--kz-surface-0);
+  color: var(--kz-text-primary);
+  font-family: var(--kz-font-sans);
+}

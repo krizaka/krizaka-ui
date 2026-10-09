@@ -32,6 +32,7 @@
       "import": "./dist/index.js"
     },
     "./motion.css": "./dist/motion.css",
+    "./tailwind.css": "./tailwind.css",
     "./package.json": "./package.json",
     "./native": {
       "types": "./dist/native.d.ts",
@@ -40,6 +41,7 @@
   },
   "files": [
     "dist",
+    "tailwind.css",
     "README.md",
     "LICENSE"
   ],
@@ -52,7 +54,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./tailwind.css",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
@@ -65,6 +67,7 @@
     "@arethetypeswrong/cli": "^0.18.5",
     "@krizaka/config": "workspace:*",
     "@size-limit/preset-small-lib": "^14.2.0",
+    "@storybook/react-vite": "10.6.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.3.0",
     "@types/node": "^22.15.0",
@@ -78,6 +81,7 @@
     "react-native": "^0.86.3",
     "react-native-svg": "^15.15.4",
     "size-limit": "^14.2.0",
+    "storybook": "10.6.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.0",
     "vitest": "^4.1.11"

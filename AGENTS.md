@@ -8,7 +8,8 @@
 
 ```text
 krizaka-ui/                 # pnpm workspace + Turborepo
-├─ apps/                    # not published (Storybook catalogue, to come)
+├─ apps/
+│  └─ storybook/            # not published — the catalogue: stories, a11y + dark/light screenshot tests, Pages
 ├─ packages/
 │  ├─ tokens/               # @krizaka/tokens — the semantic --kz-* tokens (CSS, TS, native), from DTCG sources
 │  ├─ tailwind/             # @krizaka/tailwind — the Tailwind v4 preset: tokens as utilities, variants, easing
@@ -17,7 +18,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 ├─ .changeset/              # one file per change that ships
 ├─ eslint.config.mjs       # the monorepo lints itself with @krizaka/config
 ├─ turbo.json · pnpm-workspace.yaml · package.json
-└─ .github/workflows/{ci,release}.yml
+└─ .github/workflows/{ci,release,storybook}.yml
 ```
 
 Planned next to `tokens`, `tailwind`, `ui` and `config`: `intl`, `i18n`.
@@ -47,7 +48,10 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 - The monorepo uses what it publishes: `eslint.config.mjs` is `@krizaka/config` (base everywhere, the four UI rules
   strict on `packages/ui`), every package's `lint` runs `eslint . --max-warnings 0`, and its `tsconfig.json` extends
   a base of `@krizaka/config`.
-- No code without a test, no component without a story (once `apps/storybook` exists).
+- No code without a test, no component without a story: `packages/ui/src/**/<Name>.stories.tsx`, one story per
+  variant, rendered by `apps/storybook` (see its README). Every story is audited by axe and screenshot-compared in
+  dark and light by `pnpm --filter storybook test`, which `check` runs; a visual change commits its new screenshots
+  (`test:update` for the current platform, `test:update:linux` for the CI baselines).
 - No raw Tailwind palette colour, no `light:` variant, no hard-coded colour: components read `var(--kz-*)`.
 - Every published package passes `publint` and `@arethetypeswrong/cli` and stays under its `size-limit` budget.
 - Conventional Commits; `main` is protected (pull request + required CI, squash merge only). Never push to `main`.

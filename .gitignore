@@ -6,3 +6,4 @@ storybook-static
 *.tgz
 *.log
 .DS_Store
+apps/storybook/__screenshots__/__diff__

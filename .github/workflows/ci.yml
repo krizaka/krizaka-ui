@@ -20,6 +20,11 @@ jobs:
     # The job name is the required status check on main: keep it.
     name: Type-check, test, build
     runs-on: ubuntu-latest
+    # The Storybook screenshots are compared pixel by pixel: run in the Playwright image the Linux baselines were made
+    # in (same fonts, same Chromium). Keep the tag equal to the `playwright` version of apps/storybook.
+    container: mcr.microsoft.com/playwright:v1.64.0-noble
+    # SWC (the test-runner's transform) refuses to cache its native addon under /github/home (writable by others): a private cache root.
+    env: { XDG_CACHE_HOME: /root/.cache }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -29,3 +34,10 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo run check
+      - name: Upload the screenshot diffs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-screenshot-diffs
+          path: apps/storybook/__screenshots__/__diff__
+          if-no-files-found: ignore

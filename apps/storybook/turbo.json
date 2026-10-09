@@ -1,0 +1,11 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "test": {
+      "dependsOn": ["$TURBO_EXTENDS$", "storybook:build"],
+      "outputs": [],
+      "passThroughEnv": ["PLAYWRIGHT_*", "XDG_CACHE_HOME"]
+    }
+  }
+}
