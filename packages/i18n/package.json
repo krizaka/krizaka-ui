@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/i18n",
-  "version": "0.0.0",
+  "version": "0.1.0-beta.0",
   "description": "The i18n engine of every Krizaka app: typed message keys and placeholders from en.json, format(), plurals through @krizaka/intl, <Rich> (<b>, <a>), a React provider, and the krizaka-i18n CLI that checks catalogues and finds hard-coded strings.",
   "keywords": [
     "krizaka",
