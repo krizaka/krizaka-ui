@@ -1,0 +1,7 @@
+packages:
+  - "packages/*"
+  - "apps/*"
+
+# pnpm 10 runs no install scripts unless allowed: esbuild (tsup, size-limit) needs its binary check.
+onlyBuiltDependencies:
+  - esbuild

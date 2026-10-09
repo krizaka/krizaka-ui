@@ -1,0 +1,113 @@
+{
+  "name": "@krizaka/ui",
+  "version": "1.1.0",
+  "description": "The Krizaka brand layer shared by every product: the animated marks (Krizaka, Orazaka, Orochia) and the Krizaka motion signature, in CSS and React.",
+  "keywords": [
+    "krizaka",
+    "orazaka",
+    "orochia",
+    "react",
+    "logo",
+    "motion",
+    "animation",
+    "design-system",
+    "brand"
+  ],
+  "homepage": "https://github.com/krizaka/krizaka-ui#readme",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/ui"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./motion.css": "./dist/motion.css",
+    "./package.json": "./package.json",
+    "./native": {
+      "types": "./dist/native.d.ts",
+      "import": "./dist/native.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css')\"",
+    "lint": "tsc --noEmit --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css",
+    "prepublishOnly": "pnpm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "react-native": ">=0.76",
+    "react-native-svg": ">=15"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "happy-dom": "^20.0.0",
+    "publint": "^0.3.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-native": "^0.86.3",
+    "react-native-svg": "^15.15.4",
+    "size-limit": "^14.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependenciesMeta": {
+    "react-dom": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    },
+    "react-native-svg": {
+      "optional": true
+    }
+  },
+  "size-limit": [
+    {
+      "name": ".",
+      "path": "dist/index.js",
+      "limit": "8 kB",
+      "gzip": true
+    },
+    {
+      "name": "./native",
+      "path": "dist/native.js",
+      "limit": "6 kB",
+      "gzip": true
+    }
+  ]
+}

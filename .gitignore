@@ -1,4 +1,8 @@
 node_modules
 dist
+coverage
+storybook-static
+.turbo
 *.tgz
+*.log
 .DS_Store
