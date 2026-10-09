@@ -1,5 +1,9 @@
 # @krizaka/tokens
 
+## 2.0.0-beta.0
+
+No changes in this release.
+
 ## 1.3.0
 
 No changes in this release.
