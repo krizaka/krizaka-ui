@@ -21,6 +21,7 @@
 | [`@krizaka/tailwind`](packages/tailwind) | [![npm](https://img.shields.io/npm/v/@krizaka/tailwind?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/tailwind) | The Tailwind CSS v4 preset: the tokens as utilities, illustration-only `light:`/`dark:`, the Krizaka easing. |
 | [`@krizaka/ui`](packages/ui) | [![npm](https://img.shields.io/npm/v/@krizaka/ui?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/ui) | The Krizaka marks and motion signature, for React and React Native. |
 | [`@krizaka/intl`](packages/intl) | [![npm](https://img.shields.io/npm/v/@krizaka/intl/beta?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/intl) | Money (from integer minor units), numbers, dates, relative times and plurals on `Intl`: zero dependency. |
+| [`@krizaka/i18n`](packages/i18n) | [![npm](https://img.shields.io/npm/v/@krizaka/i18n/beta?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/i18n) | Typed message keys and placeholders from `en.json`, `format`, plurals, `<Rich>`, a React provider, and the `krizaka-i18n` CLI (catalogue check, hard-coded strings). |
 | [`@krizaka/config`](packages/config) | [![npm](https://img.shields.io/npm/v/@krizaka/config?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/config) | ESLint (base, Next.js, the four UI rules), tsconfig bases, Prettier, and `krizaka-ratchet`, the UI debt counter. |
 
 ## Catalogue
