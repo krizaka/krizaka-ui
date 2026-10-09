@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/tokens",
-  "version": "0.1.0",
+  "version": "1.2.0",
   "description": "The Krizaka semantic design tokens (--kz-*): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
   "keywords": [
     "krizaka",
