@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { AccessibilityInfo, Animated, Easing, View } from "react-native";
 import Svg, { Circle, Defs, Ellipse, G as Group, LinearGradient, Path, RadialGradient, Stop } from "react-native-svg";
+
 import { OROCHIA as G } from "../marks/orochia-geometry";
 
 export interface NativeMarkProps {
@@ -22,8 +23,8 @@ const CENTER = G.offset + 180;
  * breathe, the serpent stays still.
  */
 export function OrochiaMark({ size = 48, animated = true, title, neutral = "rgba(255,255,255,0.35)" }: NativeMarkProps) {
-  const spin = useRef(new Animated.Value(0)).current;
-  const pulse = useRef(new Animated.Value(0)).current;
+  const [spin] = useState(() => new Animated.Value(0));
+  const [pulse] = useState(() => new Animated.Value(0));
   useEffect(() => {
     if (!animated) return;
     let loops: Animated.CompositeAnimation[] = [];

@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react";
-import { KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, RotatingWord, cx } from "./index";
+
+import { cx, KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, RotatingWord } from "./index";
 
 describe("marks", () => {
   it.each([

@@ -48,7 +48,7 @@
   ],
   "scripts": {
     "build": "tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css')\"",
-    "lint": "tsc --noEmit --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
@@ -63,12 +63,14 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "workspace:*",
     "@size-limit/preset-small-lib": "^14.2.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.3.0",
     "@types/node": "^22.15.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "eslint": "^9.39.0",
     "happy-dom": "^20.0.0",
     "publint": "^0.3.25",
     "react": "^19.2.0",

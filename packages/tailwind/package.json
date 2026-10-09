@@ -36,7 +36,7 @@
   ],
   "sideEffects": true,
   "scripts": {
-    "lint": "tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
@@ -48,11 +48,13 @@
     "tailwindcss": "^4.1"
   },
   "devDependencies": {
+    "@krizaka/config": "workspace:*",
     "@krizaka/tokens": "workspace:^",
     "@krizaka/ui": "workspace:^",
     "@size-limit/file": "^14.2.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^22.15.0",
+    "eslint": "^9.39.0",
     "postcss": "^8.5.29",
     "publint": "^0.3.25",
     "size-limit": "^14.2.0",

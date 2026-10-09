@@ -1,5 +1,5 @@
-import { a11y, neutral, useIds, type MarkProps } from "./shared";
 import { OROCHIA as G } from "./orochia-geometry";
+import { a11y, type MarkProps, neutral, useIds } from "./shared";
 
 const CSS = `
 .orom-spin { transform-origin: 180px 180px; animation: orom-spin 30s linear infinite; }

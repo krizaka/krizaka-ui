@@ -1,4 +1,4 @@
-import { a11y, neutral, useIds, type MarkProps } from "./shared";
+import { a11y, type MarkProps, neutral, useIds } from "./shared";
 
 const CSS = `
 .ozm-orbit { transform-box: view-box; transform-origin: 0 0; animation: ozm-orbit 35s linear infinite; }
