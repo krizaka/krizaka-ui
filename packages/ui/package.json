@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/ui",
   "version": "2.0.0-beta.1",
-  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia) and the motion signature — web and /native.",
+  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
     "orazaka",
@@ -16,7 +16,9 @@
     "tailwindcss",
     "components",
     "dialog",
-    "toast"
+    "toast",
+    "tabs",
+    "command-palette"
   ],
   "homepage": "https://github.com/krizaka/krizaka-ui#readme",
   "bugs": "https://github.com/krizaka/krizaka-ui/issues",
@@ -123,6 +125,42 @@
     "./kbd": {
       "types": "./dist/kbd.d.ts",
       "import": "./dist/kbd.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs.d.ts",
+      "import": "./dist/tabs.js"
+    },
+    "./chip": {
+      "types": "./dist/chip.d.ts",
+      "import": "./dist/chip.js"
+    },
+    "./switch": {
+      "types": "./dist/switch.d.ts",
+      "import": "./dist/switch.js"
+    },
+    "./slider": {
+      "types": "./dist/slider.d.ts",
+      "import": "./dist/slider.js"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox.d.ts",
+      "import": "./dist/checkbox.js"
+    },
+    "./radio-group": {
+      "types": "./dist/radio-group.d.ts",
+      "import": "./dist/radio-group.js"
+    },
+    "./command": {
+      "types": "./dist/command.d.ts",
+      "import": "./dist/command.js"
+    },
+    "./confirm-button": {
+      "types": "./dist/confirm-button.d.ts",
+      "import": "./dist/confirm-button.js"
+    },
+    "./progress": {
+      "types": "./dist/progress.d.ts",
+      "import": "./dist/progress.js"
     },
     "./motion.css": "./dist/motion.css",
     "./tailwind.css": "./tailwind.css",
@@ -435,10 +473,101 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./tabs",
+      "path": "dist/tabs.js",
+      "limit": "10 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./chip",
+      "path": "dist/chip.js",
+      "limit": "10 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./switch",
+      "path": "dist/switch.js",
+      "limit": "6 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./slider",
+      "path": "dist/slider.js",
+      "limit": "12 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./checkbox",
+      "path": "dist/checkbox.js",
+      "limit": "6 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./radio-group",
+      "path": "dist/radio-group.js",
+      "limit": "11 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./command",
+      "path": "dist/command.js",
+      "limit": "21 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./confirm-button",
+      "path": "dist/confirm-button.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./progress",
+      "path": "dist/progress.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
     }
   ],
   "dependencies": {
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
     "radix-ui": "^1.7.0",
     "sonner": "^2.0.8",
     "tailwind-variants": "^3.3.1"

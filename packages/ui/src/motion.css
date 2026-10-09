@@ -145,12 +145,18 @@
     from { opacity: 0; transform: translateY(12px) scale(0.97); }
   }
 }
+/* An indeterminate progress bar: a segment that crosses the track (Progress, variant bar). */
+.kz-progress[data-state="indeterminate"] { animation: kz-progress-slide 1.4s var(--kz-ease) infinite; }
+@keyframes kz-progress-slide {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
 @keyframes kz-pop-in {
   from { opacity: 0; transform: translateY(-6px) scale(0.96); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade { animation: none !important; }
+  .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress { animation: none !important; }
   [data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }
   .kz-sheen::after { display: none; }
   .kz-lift, .kz-lift:hover { transform: none; transition: none; }

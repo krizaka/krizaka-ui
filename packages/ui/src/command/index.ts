@@ -1,0 +1,20 @@
+/** @krizaka/ui/command — `Command.*` (cmdk) and `CommandDialog`, `command` (the slots). Client ("use client"). */
+export {
+  Command,
+  command,
+  CommandDialog,
+  type CommandDialogProps,
+  CommandEmpty,
+  type CommandEmptyProps,
+  CommandGroup,
+  CommandInput,
+  type CommandInputProps,
+  CommandItem,
+  CommandList,
+  type CommandListProps,
+  CommandLoading,
+  CommandRoot,
+  type CommandRootProps,
+  CommandSeparator,
+  CommandShortcut,
+} from "./command";

@@ -4,7 +4,8 @@ import { defineConfig, type Options } from "tsup";
  * ESM + types, one entry per primitive, in three groups (study §2.8):
  * - server: no directive — no hook, no context: usable in a Server Component as they are;
  * - client: a "use client" banner on every file (the marks and the motion, avatar, theme, countdown, and everything
- *   that opens in a portal: dialog, toast, popover, dropdown-menu, tooltip);
+ *   that opens in a portal: dialog, toast, popover, dropdown-menu, tooltip; and every control with a state or a context: tabs, chip, switch,
+ *   slider, checkbox, radio-group, command, confirm-button);
  * - native: React Native (react-native-svg), no directive, never loads react-dom.
  * `dist/` is emptied by the build script, not by tsup: the three builds run side by side.
  */
@@ -34,6 +35,7 @@ export default defineConfig([
       alert: "src/alert/index.ts",
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",
+      progress: "src/progress/index.ts",
     },
   },
   {
@@ -48,6 +50,14 @@ export default defineConfig([
       popover: "src/popover/index.ts",
       "dropdown-menu": "src/dropdown-menu/index.ts",
       tooltip: "src/tooltip/index.ts",
+      tabs: "src/tabs/index.ts",
+      chip: "src/chip/index.ts",
+      switch: "src/switch/index.ts",
+      slider: "src/slider/index.ts",
+      checkbox: "src/checkbox/index.ts",
+      "radio-group": "src/radio-group/index.ts",
+      command: "src/command/index.ts",
+      "confirm-button": "src/confirm-button/index.ts",
     },
     banner: { js: '"use client";' },
   },
