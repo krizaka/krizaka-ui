@@ -1,0 +1,77 @@
+{
+  "name": "@krizaka/tailwind",
+  "version": "0.1.0",
+  "description": "The Krizaka Tailwind CSS v4 preset: the semantic --kz-* tokens as utilities (bg-surface-1, text-fg-secondary, border-border-default, text-accent, rounded-xl…), illustration-only light/dark variants and the Krizaka easing.",
+  "keywords": [
+    "krizaka",
+    "tailwindcss",
+    "tailwind-preset",
+    "design-tokens",
+    "theme",
+    "dark-mode",
+    "design-system"
+  ],
+  "homepage": "https://github.com/krizaka/krizaka-ui/tree/main/packages/tailwind#readme",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/tailwind"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "style": "./index.css",
+  "exports": {
+    ".": {
+      "style": "./index.css",
+      "default": "./index.css"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.css",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": true,
+  "scripts": {
+    "lint": "tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "size": "size-limit",
+    "publint": "publint"
+  },
+  "peerDependencies": {
+    "@krizaka/tokens": "workspace:^",
+    "@krizaka/ui": "workspace:^",
+    "tailwindcss": "^4.1"
+  },
+  "devDependencies": {
+    "@krizaka/tokens": "workspace:^",
+    "@krizaka/ui": "workspace:^",
+    "@size-limit/file": "^14.2.0",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.15.0",
+    "postcss": "^8.5.29",
+    "publint": "^0.3.25",
+    "size-limit": "^14.2.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": ".",
+      "path": "index.css",
+      "limit": "1 kB",
+      "gzip": true
+    }
+  ]
+}
