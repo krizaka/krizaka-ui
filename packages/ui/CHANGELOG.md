@@ -1,5 +1,13 @@
 # @krizaka/ui
 
+## 1.3.0
+
+### Minor Changes
+
+- [#9](https://github.com/krizaka/krizaka-ui/pull/9) [`559b9b7`](https://github.com/krizaka/krizaka-ui/commit/559b9b70478e3e42c98f6dd220515d477d3f0b78) Thanks [@oussamaABID](https://github.com/oussamaABID)! - New export `@krizaka/ui/tailwind.css`: import it after the `@krizaka/tailwind` preset and Tailwind generates the classes
+  the components use (`@source "./dist"`). Every component now has stories, published at
+  https://krizaka.github.io/krizaka-ui/latest/.
+
 ## 1.2.0
 
 ### Patch Changes
