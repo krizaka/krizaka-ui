@@ -1,0 +1,11 @@
+{
+  "radius": {
+    "$type": "dimension",
+    "$description": "Rayons",
+    "sm": { "$value": "8px", "$description": "Champ, puce" },
+    "md": { "$value": "12px", "$description": "Bouton, menu" },
+    "lg": { "$value": "16px", "$description": "Carte" },
+    "xl": { "$value": "20px", "$description": "Dialogue, feuille" },
+    "full": { "$value": "9999px", "$description": "Pastille, avatar" }
+  }
+}
