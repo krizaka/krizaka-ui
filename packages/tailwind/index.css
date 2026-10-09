@@ -1,0 +1,70 @@
+/* packages/tailwind/index.css — dans l'app : @import "tailwindcss"; @import "@krizaka/tailwind"; */
+@import "@krizaka/tokens/tokens.css";
+@import "@krizaka/ui/motion.css";      /* signature de mouvement (keyframes, [data-reveal], .kz-*) */
+
+@theme inline {
+  --color-surface-0: var(--kz-surface-0);
+  --color-surface-1: var(--kz-surface-1);
+  --color-surface-2: var(--kz-surface-2);
+  --color-surface-3: var(--kz-surface-3);
+  --color-media: var(--kz-media);
+  --color-scrim: var(--kz-scrim);
+  --color-scrim-strong: var(--kz-scrim-strong);
+  --color-overlay: var(--kz-overlay);
+
+  --color-border-subtle: var(--kz-border-subtle);
+  --color-border-default: var(--kz-border-default);
+  --color-border-strong: var(--kz-border-strong);
+
+  --color-fg: var(--kz-text-primary);
+  --color-fg-secondary: var(--kz-text-secondary);
+  --color-fg-muted: var(--kz-text-muted);
+  --color-fg-on-media: var(--kz-text-on-media);
+
+  --color-accent: var(--kz-accent);
+  --color-accent-hover: var(--kz-accent-hover);
+  --color-accent-soft: var(--kz-accent-soft);
+  --color-accent-2: var(--kz-accent-2);
+  --color-on-accent: var(--kz-on-accent);
+  --color-ring: var(--kz-ring);
+
+  --color-success: var(--kz-success);
+  --color-warning: var(--kz-warning);
+  --color-danger: var(--kz-danger);
+  --color-info: var(--kz-info);
+
+  --radius-sm: var(--kz-radius-sm);
+  --radius-md: var(--kz-radius-md);
+  --radius-lg: var(--kz-radius-lg);
+  --radius-xl: var(--kz-radius-xl);
+  --radius-full: var(--kz-radius-full);
+
+  --shadow-sm: var(--kz-shadow-sm);
+  --shadow-md: var(--kz-shadow-md);
+  --shadow-lg: var(--kz-shadow-lg);
+
+  --font-sans: var(--kz-font-sans);
+  --font-display: var(--kz-font-display);
+  --font-mono: var(--kz-font-mono);
+
+  --ease-kz: var(--kz-ease);
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: var(--kz-ease);
+}
+
+/* Variantes de thème : réservées aux illustrations et aux images. Interdites par lint dans les produits
+   (les tokens font le travail). `.theme-dark` reste un îlot sombre dans les deux thèmes. */
+@custom-variant light {
+  html.light &:where(:not(.theme-dark, .theme-dark *)) { @slot; }
+}
+@custom-variant dark {
+  :root:not(.light) & { @slot; }
+  .theme-dark & { @slot; }
+}
+
+/* Rendu v3 des bordures (Tailwind v4 utilise currentColor par défaut). */
+@layer base {
+  *, ::before, ::after, ::backdrop { border-color: var(--kz-border-default); }
+  button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+  ::placeholder { color: var(--kz-text-muted); }
+}
