@@ -13,7 +13,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 ├─ packages/
 │  ├─ tokens/               # @krizaka/tokens — the semantic --kz-* tokens (CSS, TS, native), from DTCG sources
 │  ├─ tailwind/             # @krizaka/tailwind — the Tailwind v4 preset: tokens as utilities, variants, easing
-│  ├─ ui/                   # @krizaka/ui — the marks, the motion signature (web, /native)
+│  ├─ ui/                   # @krizaka/ui — the primitives, the marks, the motion signature (web, /native)
 │  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
 ├─ .changeset/              # one file per change that ships
 ├─ eslint.config.mjs       # the monorepo lints itself with @krizaka/config
