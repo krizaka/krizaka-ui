@@ -86,12 +86,17 @@ With Tailwind CSS v4, give every transition the same easing:
 
 ## Develop
 
+This package lives in the [`krizaka-ui`](https://github.com/krizaka/krizaka-ui) monorepo (pnpm + Turborepo), in
+`packages/ui`. From the repository root:
+
 ```bash
-npm install
-npm run check      # type-check, tests, build
+pnpm install
+pnpm turbo run check --filter=@krizaka/ui   # lint, type-check, tests, build, size, publint
 ```
 
-Releases: a `v*` tag publishes to npm from CI with provenance.
+Releases go through [Changesets](https://github.com/changesets/changesets): a pull request adds a
+`.changeset/*.md`; merging the "Version Packages" pull request publishes to npm with provenance and tags
+`@krizaka/ui@x.y.z`.
 
 ## Used by
 

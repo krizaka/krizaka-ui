@@ -1,7 +1,7 @@
 # @krizaka/ui — Repository Contract (agent-neutral)
 
 > Scope of [`krizaka/krizaka-ui`](https://github.com/krizaka/krizaka-ui), published on npm as **`@krizaka/ui`**.
-> `CLAUDE.md` only imports this file.
+> Lives in `packages/ui` of the krizaka-ui monorepo: the root [`AGENTS.md`](../../AGENTS.md) applies first.
 
 ## 1. What belongs here
 
@@ -20,7 +20,17 @@
 - A change to a mark is a change to the brand: it ships as a new version that every app adopts — the apps never
   keep a copy.
 
-## 3. Release
+## 3. Quality gates
 
-`npm run check` (type-check, tests, build) must pass. A `v*` tag publishes to npm from CI with provenance
-(`.github/workflows/ci.yml`); semantic versioning — a visual change to a mark is at least a minor.
+- `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest, happy-dom), build (tsup), size, publint.
+- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB, `./native` ≤ 6 kB.
+- **publint + attw** with the `esm-only` profile: the package is ESM only by design; `./motion.css` is a CSS export
+  and is not resolved as a module.
+- The published surface is fixed: exports `.`, `./native`, `./motion.css`, `./package.json`; files `dist`, `README.md`,
+  `LICENSE`. Changing it is a breaking change.
+
+## 4. Release
+
+Through Changesets (root `AGENTS.md` §4): add a `.changeset/*.md` for `@krizaka/ui`; merging the "Version Packages"
+pull request publishes with provenance and tags `@krizaka/ui@x.y.z`. Semantic versioning — a visual change to a mark
+is at least a minor.
