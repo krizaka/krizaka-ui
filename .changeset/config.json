@@ -12,6 +12,7 @@
   "fixed": [
     [
       "@krizaka/tokens",
+      "@krizaka/tailwind",
       "@krizaka/ui"
     ]
   ],
