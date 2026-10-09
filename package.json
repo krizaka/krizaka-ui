@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/ui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "The Krizaka brand layer shared by every product: the animated marks (Krizaka, Orazaka, Orochia) and the Krizaka motion signature, in CSS and React.",
   "keywords": [
     "krizaka",
@@ -31,7 +31,11 @@
       "import": "./dist/index.js"
     },
     "./motion.css": "./dist/motion.css",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./native": {
+      "types": "./dist/native.d.ts",
+      "import": "./dist/native.js"
+    }
   },
   "files": [
     "dist",
@@ -50,7 +54,9 @@
   },
   "peerDependencies": {
     "react": ">=18",
-    "react-dom": ">=18"
+    "react-dom": ">=18",
+    "react-native": ">=0.76",
+    "react-native-svg": ">=15"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
@@ -60,6 +66,8 @@
     "happy-dom": "^20.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-native": "^0.86.3",
+    "react-native-svg": "^15.15.4",
     "tsup": "^8.5.1",
     "typescript": "^5.9.0",
     "vitest": "^4.1.11"
@@ -69,5 +77,16 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "peerDependenciesMeta": {
+    "react-dom": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    },
+    "react-native-svg": {
+      "optional": true
+    }
   }
 }
