@@ -28,4 +28,13 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # The Storybook test-runner (a11y + dark/light screenshots) is part of `check`: it needs Chromium.
+      - run: pnpm --filter storybook exec playwright install --with-deps chromium
       - run: pnpm turbo run check
+      - name: Upload the screenshot diffs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-screenshot-diffs
+          path: apps/storybook/__screenshots__/__diff__
+          if-no-files-found: ignore

@@ -84,6 +84,21 @@ With Tailwind CSS v4, give every transition the same easing:
 }
 ```
 
+## With Tailwind CSS v4
+
+The components are styled with the [`@krizaka/tailwind`](https://www.npmjs.com/package/@krizaka/tailwind) utilities.
+Import the preset, then `@krizaka/ui/tailwind.css`: it points Tailwind at the package (`@source "./dist"`), so the
+classes the components use are generated in your stylesheet.
+
+```css
+@import "tailwindcss";
+@import "@krizaka/tailwind";
+@import "@krizaka/ui/tailwind.css";
+```
+
+Every component, in dark and light and under each product identity:
+[krizaka.github.io/krizaka-ui/latest](https://krizaka.github.io/krizaka-ui/latest/).
+
 ## Develop
 
 This package lives in the [`krizaka-ui`](https://github.com/krizaka/krizaka-ui) monorepo (pnpm + Turborepo), in

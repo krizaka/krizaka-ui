@@ -5,3 +5,8 @@ packages:
 # pnpm 10 runs no install scripts unless allowed: esbuild (tsup, size-limit) needs its binary check.
 onlyBuiltDependencies:
   - esbuild
+
+# @storybook/test-runner (end of support upstream) loads its config through Storybook's importModule, which calls
+# node:module register(); jest-runtime >= 30.5 refuses it. Hold the runtime at 30.4 until the runner moves on.
+overrides:
+  jest-runtime: 30.4.2

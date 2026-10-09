@@ -16,6 +16,7 @@
   classes (`kzm-`, `ozm-`, `orom-`); the signature is plain CSS with `kz-` classes and `--kz-*` variables.
 - **Both themes**: neutral strokes read the host's `--kz-*` tokens and fall back to the text colour.
 - **Unique ids per instance** (`useId`); decorative by default, an accessible image with `title`.
+- **A story per component** (`src/**/<Name>.stories.tsx`, one per variant), rendered and tested by `apps/storybook`.
 - **Reduced motion**: every animation stops under `prefers-reduced-motion`; marks also take `animated={false}`.
 - A change to a mark is a change to the brand: it ships as a new version that every app adopts — the apps never
   keep a copy.
@@ -24,10 +25,10 @@
 
 - `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest, happy-dom), build (tsup), size, publint.
 - **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB, `./native` ≤ 6 kB.
-- **publint + attw** with the `esm-only` profile: the package is ESM only by design; `./motion.css` is a CSS export
-  and is not resolved as a module.
-- The published surface is fixed: exports `.`, `./native`, `./motion.css`, `./package.json`; files `dist`, `README.md`,
-  `LICENSE`. Changing it is a breaking change.
+- **publint + attw** with the `esm-only` profile: the package is ESM only by design; `./motion.css` and
+  `./tailwind.css` are CSS exports and are not resolved as modules.
+- The published surface is fixed: exports `.`, `./native`, `./motion.css`, `./tailwind.css`, `./package.json`; files `dist`,
+  `tailwind.css`, `README.md`, `LICENSE`. Changing it is a breaking change.
 
 ## 4. Release
 

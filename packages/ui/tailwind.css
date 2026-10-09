@@ -1,0 +1,3 @@
+/* @krizaka/ui/tailwind.css — imported by the app after the preset (@import "@krizaka/tailwind"):
+   Tailwind generates the classes the primitives use, read from the built package. */
+@source "./dist";
