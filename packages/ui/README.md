@@ -4,9 +4,10 @@
 
 # @krizaka/ui
 
-**The Krizaka brand layer, shared by every product.**
-The animated marks of Krizaka, Orazaka and Orochia, and the Krizaka motion signature — one easing, one way to enter,
-reveal, roll, shine and open.
+**The Krizaka front-end platform's components, shared by every product.**
+The primitives (button, badge, avatar, field, theme, countdown…) on the semantic `--kz-*` tokens, the animated marks
+of Krizaka, Orazaka and Orochia, and the Krizaka motion signature — one easing, one way to enter, reveal, roll, shine
+and open.
 
 [![npm](https://img.shields.io/npm/v/@krizaka/ui?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/ui)
 [![CI](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml)
@@ -20,8 +21,102 @@ reveal, roll, shine and open.
 npm install @krizaka/ui
 ```
 
-React 18 or 19. No framework, no CSS library required: the marks carry their own styles, the motion is one CSS file.
+The marks and the motion: React 18 or 19, no framework, no CSS library — the marks carry their own styles, the motion
+is one CSS file. The primitives: **React 19** and Tailwind CSS v4 with the Krizaka preset (below).
 
+
+## Primitives
+
+> 2.0 beta: the first layer (atoms). Cards, dialogs, tabs, toasts and menus follow in the next betas.
+
+### Install
+
+```bash
+npm install @krizaka/ui@beta @krizaka/tailwind@beta @krizaka/tokens@beta tailwindcss
+```
+
+```css
+/* app/globals.css — the preset (tokens as utilities), then the classes the primitives use */
+@import "tailwindcss";
+@import "@krizaka/tailwind";
+@import "@krizaka/ui/tailwind.css";
+```
+
+```tsx
+import { Button, IconButton } from "@krizaka/ui/button";
+import { Badge } from "@krizaka/ui/badge";
+import { Field, Input } from "@krizaka/ui/field";
+import { ThemeProvider, ThemeScript, ThemeToggle } from "@krizaka/ui/theme";
+
+<Button variant="primary" loading={saving}>{t("save")}</Button>
+<Button asChild variant="outline"><Link href="/docs">{t("docs")}</Link></Button>
+<Badge tone="danger" dot pulse>{t("endsSoon")}</Badge>
+<Field.Root>
+  <Field.Label htmlFor="email">{t("email")}</Field.Label>
+  <Input id="email" invalid={!!error} aria-describedby="email-error" />
+  {error && <Field.Error id="email-error">{error}</Field.Error>}
+</Field.Root>
+```
+
+**React 19 is required by the primitives** (`ref` is a prop, no `forwardRef`). The package keeps `react >= 18` as its
+peer range, because the marks and the motion still run on React 18: one `package.json` cannot hold both ranges.
+`tailwindcss` and `@krizaka/tailwind` are optional peers — a native app or a marks-only site never installs them.
+
+### The component contract (12 points)
+
+1. **Composed when there is structure** (`Field.*`, `Avatar.Group`), **flat for an atom** (`Button`, `Badge`, `Input`).
+2. **Variants exported next to the component** (`buttonVariants`, `badgeVariants`): a `<Link>` or a Server Component
+   is styled without importing the component.
+3. **`asChild`** (Radix `Slot`) rather than `as`: props, `className` and `ref` are merged into the child.
+4. **`className` is always merged last** (tailwind-merge, through `cn`): the product's override wins.
+5. **Words are props** (`label`, `closeLabel`, `units`, `title`) — there is no `t()` in the kit. Each app re-exports the
+   primitives with its words from its own `components/ui/`.
+6. **Controlled and uncontrolled**: `value`/`defaultValue` + `onValueChange`, `open`/`defaultOpen` + `onOpenChange`.
+7. **State is exposed as `data-*`** (`data-tone`, `data-loading`, `data-invalid`, `data-urgent`, `data-mode`): a
+   product styles a state without a new variant.
+8. **Server by default**: `"use client"` only on the entries with a hook or a portal (`avatar`, `theme`, `countdown`).
+   One build entry per component; the directive is kept per entry.
+9. **React 19 minimum for the primitives**; the marks stay `react >= 18`.
+10. **Accessibility is delegated**: non-trivial interactions on Radix UI (`radix-ui`), the command palette on cmdk,
+    toasts on sonner — no hand-written focus trap.
+11. **Every primitive ships** types, a story (every variant, dark and light, screenshot-tested), an RTL + axe test and
+    an entry here.
+12. **Motion**: `prefers-reduced-motion` is honoured (`motion-safe:`); no component animates a layout property.
+
+Colours are roles of the preset (`bg-surface-2`, `text-fg-secondary`, `border-border-default`, `text-accent`,
+`text-danger`), never a palette step nor `light:`: a theme — dark, light or a product's — is a set of tokens.
+
+### Entries
+
+| Entry | Exports | Runs |
+| :-- | :-- | :-- |
+| `@krizaka/ui/cn` | `cn(...classes)` — clsx + tailwind-merge (the engine `tailwind-variants` ships) | server |
+| `@krizaka/ui/slot` | `Slot`, `VisuallyHidden` (Radix) | server |
+| `@krizaka/ui/button` | `Button` (`variant` primary·secondary·outline·ghost·danger, `size` sm·md·lg·icon, `shape` rounded·pill, `loading`, `asChild`), `IconButton` (`label` required), `buttonVariants` | server |
+| `@krizaka/ui/badge` | `Badge` (`tone` neutral·accent·success·warning·danger·scrim, `size` sm·md, `dot`, `pulse`), `badgeVariants` | server |
+| `@krizaka/ui/avatar` | `Avatar` (`src`, `alt`, `fallback`, `size` xs·sm·md·lg·xl), `Avatar.Group` (`max`) | client |
+| `@krizaka/ui/field` | `Field.Root/Label/Hint/Error`, `Input`, `Textarea`, `Select` (native, styled) — `invalid` | server |
+| `@krizaka/ui/theme` | `ThemeScript` (in `<head>`, no flash), `ThemeProvider`, `useTheme()` → `{ mode, setMode, theme, setTheme }`, `ThemeToggle` (`label`) | client |
+| `@krizaka/ui/skeleton` | `Skeleton` (`shape` text·circle·rect) | server |
+| `@krizaka/ui/empty-state` | `EmptyState` (`icon`, `title`, `description`, `action`) | server |
+| `@krizaka/ui/spinner` | `Spinner` (`label`, `size`) | server |
+| `@krizaka/ui/countdown` | `Countdown` (`target`, `label`, `units`, `size`, `urgentBelowMs`, `skewMs`), `useCountdown`, `splitDuration` | client |
+| `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
+| `@krizaka/ui/native` | the marks for React Native (unchanged) | native |
+| `@krizaka/ui/motion.css`, `@krizaka/ui/tailwind.css` | the motion signature; the `@source` of the primitives' classes | CSS |
+
+The theme is one mechanism for every product: dark by default, `html.light` for light, `html.theme-<name>` for a named
+theme, persisted as `kz-theme` (and `kz-theme-name`).
+
+```tsx
+// app/layout.tsx
+<html lang={locale} suppressHydrationWarning>
+  <head><ThemeScript /></head>
+  <body><ThemeProvider>{children}</ThemeProvider></body>
+</html>
+
+<ThemeToggle label={(mode) => t(`theme.${mode}`)} />
+```
 
 ## React Native
 
