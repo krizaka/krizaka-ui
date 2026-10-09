@@ -1,5 +1,23 @@
 # @krizaka/ui
 
+## 2.0.0-beta.3
+
+### Minor Changes
+
+- [#28](https://github.com/krizaka/krizaka-ui/pull/28) [`8147bb6`](https://github.com/krizaka/krizaka-ui/commit/8147bb658fa2841f53e81230d216d6882a182e4b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - The registry: every primitive published as data, for documentation sites and a future `npx @krizaka/cli add`.
+  
+  - `@krizaka/ui/registry/<name>` (JSON): its sources, npm dependencies, the primitives it builds on, its demo and the
+    documentation of its props (react-docgen-typescript: name, type, default, description, required);
+    `@krizaka/ui/registry/index` lists them all.
+  - `@krizaka/ui/registry/demos/<name>`: one demo per primitive (ESM, client, ≤ 40 lines, the `.tsx` source beside it),
+    the very code of its default story. Demos that open over the page take `defaultOpen`.
+  - Every prop a primitive declares has a JSDoc description (the variants included), so editors show it too.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@2.0.0-beta.3
+
 ## 2.0.0-beta.2
 
 ### Minor Changes
