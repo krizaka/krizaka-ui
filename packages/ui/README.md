@@ -27,7 +27,8 @@ is one CSS file. The primitives: **React 19** and Tailwind CSS v4 with the Kriza
 
 ## Primitives
 
-> 2.0 beta: the first layer (atoms). Cards, dialogs, tabs, toasts and menus follow in the next betas.
+> 2.0 beta: the atoms, then the structure of a page and what opens over it (cards, dialogs, sheets, toasts, popovers,
+> menus, tooltips). Tabs, chips, switches and the command palette follow in the next betas.
 
 ### Install
 
@@ -47,6 +48,9 @@ import { Button, IconButton } from "@krizaka/ui/button";
 import { Badge } from "@krizaka/ui/badge";
 import { Field, Input } from "@krizaka/ui/field";
 import { ThemeProvider, ThemeScript, ThemeToggle } from "@krizaka/ui/theme";
+import { Card } from "@krizaka/ui/card";
+import { AlertDialog, Dialog } from "@krizaka/ui/dialog";
+import { toast, Toaster } from "@krizaka/ui/toast";
 
 <Button variant="primary" loading={saving}>{t("save")}</Button>
 <Button asChild variant="outline"><Link href="/docs">{t("docs")}</Link></Button>
@@ -56,6 +60,27 @@ import { ThemeProvider, ThemeScript, ThemeToggle } from "@krizaka/ui/theme";
   <Input id="email" invalid={!!error} aria-describedby="email-error" />
   {error && <Field.Error id="email-error">{error}</Field.Error>}
 </Field.Root>
+
+<Card.Root asChild interactive reveal={index}>
+  <Link href={href}>
+    <Card.Media><Card.Image src={cover} fallback={<PlayIcon />} /></Card.Media>
+    <Card.Body><Card.Title>{title}</Card.Title></Card.Body>
+  </Link>
+</Card.Root>
+
+<Dialog.Root>
+  <Dialog.Trigger asChild><Button>{t("edit")}</Button></Dialog.Trigger>
+  <Dialog.Content closeLabel={t("close")} placement="bottom">
+    <Dialog.Header><Dialog.Title>{t("editTitle")}</Dialog.Title></Dialog.Header>
+    <Dialog.Body>…</Dialog.Body>
+  </Dialog.Content>
+</Dialog.Root>
+
+<AlertDialog tone="danger" trigger={<Button variant="danger">{t("delete")}</Button>} title={t("deleteTitle")}
+  confirmLabel={t("delete")} cancelLabel={t("cancel")} onConfirm={() => deleteVideo(id)} />
+
+// once, in the root layout — then toast.success(t("saved")) anywhere on the client
+<Toaster label={t("notifications")} closeLabel={t("dismiss")} />
 ```
 
 **React 19 is required by the primitives** (`ref` is a prop, no `forwardRef`). The package keeps `react >= 18` as its
@@ -64,7 +89,8 @@ peer range, because the marks and the motion still run on React 18: one `package
 
 ### The component contract (12 points)
 
-1. **Composed when there is structure** (`Field.*`, `Avatar.Group`), **flat for an atom** (`Button`, `Badge`, `Input`).
+1. **Composed when there is structure** (`Card.*`, `Dialog.*`, `Field.*`, `Avatar.Group`), **flat for an atom**
+   (`Button`, `Badge`, `Input`, `Stat`).
 2. **Variants exported next to the component** (`buttonVariants`, `badgeVariants`): a `<Link>` or a Server Component
    is styled without importing the component.
 3. **`asChild`** (Radix `Slot`) rather than `as`: props, `className` and `ref` are merged into the child.
@@ -74,7 +100,8 @@ peer range, because the marks and the motion still run on React 18: one `package
 6. **Controlled and uncontrolled**: `value`/`defaultValue` + `onValueChange`, `open`/`defaultOpen` + `onOpenChange`.
 7. **State is exposed as `data-*`** (`data-tone`, `data-loading`, `data-invalid`, `data-urgent`, `data-mode`): a
    product styles a state without a new variant.
-8. **Server by default**: `"use client"` only on the entries with a hook or a portal (`avatar`, `theme`, `countdown`).
+8. **Server by default**: `"use client"` only on the entries with a hook or a portal (`avatar`, `theme`, `countdown`,
+   `dialog`, `toast`, `popover`, `dropdown-menu`, `tooltip`).
    One build entry per component; the directive is kept per entry.
 9. **React 19 minimum for the primitives**; the marks stay `react >= 18`.
 10. **Accessibility is delegated**: non-trivial interactions on Radix UI (`radix-ui`), the command palette on cmdk,
@@ -101,6 +128,17 @@ Colours are roles of the preset (`bg-surface-2`, `text-fg-secondary`, `border-bo
 | `@krizaka/ui/empty-state` | `EmptyState` (`icon`, `title`, `description`, `action`) | server |
 | `@krizaka/ui/spinner` | `Spinner` (`label`, `size`) | server |
 | `@krizaka/ui/countdown` | `Countdown` (`target`, `label`, `units`, `size`, `urgentBelowMs`, `skewMs`), `useCountdown`, `splitDuration` | client |
+| `@krizaka/ui/card` | `Card.Root` (`asChild`, `reveal`, `radius` md·lg·xl, `tone` default·elevated·glass, `interactive`), `Card.Media` (`aspect` video·square·portrait·auto), `Card.Image` (`fallback`), `Card.Overlay` (`corner`), `Card.Body` (`padding`), `Card.Title` (`as`), `Card.Description`, `Card.Stat` (`label`), `Card.Footer`; `card` (the slots) | server |
+| `@krizaka/ui/dialog` | `Dialog.Root/Trigger/Content/Header/Title/Description/Body/Footer/Close` (`placement` center·bottom·right, `size` sm·md·lg, `closeLabel` required), `Sheet` (= `placement="bottom"`), `AlertDialog` (`title`, `description`, `confirmLabel`, `cancelLabel`, `tone` danger·primary, async `onConfirm`, `trigger`) | client |
+| `@krizaka/ui/toast` | `Toaster` (sonner styled by roles: `label`, `closeLabel`, `position`, `closeButton`; `richColors` off), `toast` (`.success/.warning/.error/.info/.custom`…) | client |
+| `@krizaka/ui/popover` | `Popover.Root/Trigger/Anchor/Content/Close` | client |
+| `@krizaka/ui/dropdown-menu` | `DropdownMenu.Root/Trigger/Content/Item/CheckboxItem/Label/Separator/Group` (`Item` `tone` default·danger), `menu` (the slots) | client |
+| `@krizaka/ui/tooltip` | `Tooltip` (`content`, `delayDuration` 300, `side`, `open`/`defaultOpen`), `TooltipProvider` | client |
+| `@krizaka/ui/stat` | `Stat` (`label`, `value`, `hint`, `trend` up·down·flat, `trendLabel`) | server |
+| `@krizaka/ui/page-header` | `PageHeader` (`title`, `description`, `actions`, `breadcrumb`, `as` h1·h2) | server |
+| `@krizaka/ui/alert` | `Alert` (`tone` info·success·warning·danger, `icon`, `title`, `action`; `role="alert"` for danger and warning, `status` otherwise), `alertVariants` | server |
+| `@krizaka/ui/separator` | `Separator` (`orientation`, `decorative`, Radix), `separatorVariants` | server |
+| `@krizaka/ui/kbd` | `Kbd` (`size` sm·md), `kbdVariants` | server |
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
 | `@krizaka/ui/native` | the marks for React Native (unchanged) | native |
 | `@krizaka/ui/motion.css`, `@krizaka/ui/tailwind.css` | the motion signature; the `@source` of the primitives' classes | CSS |

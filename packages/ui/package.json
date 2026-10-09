@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/ui",
   "version": "2.0.0-beta.0",
-  "description": "The Krizaka front-end platform's components: the primitives (button, badge, avatar, field, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia) and the motion signature — web and /native.",
+  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
     "orazaka",
@@ -14,7 +14,9 @@
     "brand",
     "primitives",
     "tailwindcss",
-    "components"
+    "components",
+    "dialog",
+    "toast"
   ],
   "homepage": "https://github.com/krizaka/krizaka-ui#readme",
   "bugs": "https://github.com/krizaka/krizaka-ui/issues",
@@ -77,6 +79,50 @@
     "./countdown": {
       "types": "./dist/countdown.d.ts",
       "import": "./dist/countdown.js"
+    },
+    "./card": {
+      "types": "./dist/card.d.ts",
+      "import": "./dist/card.js"
+    },
+    "./dialog": {
+      "types": "./dist/dialog.d.ts",
+      "import": "./dist/dialog.js"
+    },
+    "./toast": {
+      "types": "./dist/toast.d.ts",
+      "import": "./dist/toast.js"
+    },
+    "./popover": {
+      "types": "./dist/popover.d.ts",
+      "import": "./dist/popover.js"
+    },
+    "./dropdown-menu": {
+      "types": "./dist/dropdown-menu.d.ts",
+      "import": "./dist/dropdown-menu.js"
+    },
+    "./tooltip": {
+      "types": "./dist/tooltip.d.ts",
+      "import": "./dist/tooltip.js"
+    },
+    "./stat": {
+      "types": "./dist/stat.d.ts",
+      "import": "./dist/stat.js"
+    },
+    "./page-header": {
+      "types": "./dist/page-header.d.ts",
+      "import": "./dist/page-header.js"
+    },
+    "./alert": {
+      "types": "./dist/alert.d.ts",
+      "import": "./dist/alert.js"
+    },
+    "./separator": {
+      "types": "./dist/separator.d.ts",
+      "import": "./dist/separator.js"
+    },
+    "./kbd": {
+      "types": "./dist/kbd.d.ts",
+      "import": "./dist/kbd.js"
     },
     "./motion.css": "./dist/motion.css",
     "./tailwind.css": "./tailwind.css",
@@ -279,11 +325,122 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./card",
+      "path": "dist/card.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./dialog",
+      "path": "dist/dialog.js",
+      "limit": "16.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./toast",
+      "path": "dist/toast.js",
+      "limit": "11 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./popover",
+      "path": "dist/popover.js",
+      "limit": "25 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./dropdown-menu",
+      "path": "dist/dropdown-menu.js",
+      "limit": "32 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./tooltip",
+      "path": "dist/tooltip.js",
+      "limit": "20 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./stat",
+      "path": "dist/stat.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./page-header",
+      "path": "dist/page-header.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./alert",
+      "path": "dist/alert.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./separator",
+      "path": "dist/separator.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./kbd",
+      "path": "dist/kbd.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
     }
   ],
   "dependencies": {
     "clsx": "^2.1.1",
     "radix-ui": "^1.7.0",
+    "sonner": "^2.0.8",
     "tailwind-variants": "^3.3.1"
   }
 }
