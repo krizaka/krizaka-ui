@@ -22,6 +22,20 @@ npm install @krizaka/ui
 
 React 18 or 19. No framework, no CSS library required: the marks carry their own styles, the motion is one CSS file.
 
+
+## React Native
+
+The marks have one geometry; `@krizaka/ui/native` draws it with `react-native-svg` for the apps
+([orochia-mobile](https://github.com/krizaka/orochia-mobile)). The orbit turns and the flame breathes on the native
+driver, and stay still when the system asks to reduce motion. `react-dom`, `react-native` and `react-native-svg` are
+optional peers: a web app never installs the native ones, a native app never installs `react-dom`.
+
+```tsx
+import { OrochiaMark } from "@krizaka/ui/native";
+
+<OrochiaMark size={72} title="Orochia" neutral={theme.border} />
+```
+
 ## The marks
 
 ```tsx
