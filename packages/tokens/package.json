@@ -1,0 +1,93 @@
+{
+  "name": "@krizaka/tokens",
+  "version": "0.1.0",
+  "description": "The Krizaka semantic design tokens (--kz-*): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
+  "keywords": [
+    "krizaka",
+    "design-tokens",
+    "dtcg",
+    "css-variables",
+    "theme",
+    "dark-mode",
+    "react-native",
+    "design-system"
+  ],
+  "homepage": "https://github.com/krizaka/krizaka-ui/tree/main/packages/tokens#readme",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/tokens"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./tokens.css": "./dist/tokens.css",
+    "./native": {
+      "types": "./dist/native.d.ts",
+      "import": "./dist/native.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "lint": "tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@types/node": "^22.15.0",
+    "publint": "^0.3.25",
+    "size-limit": "^14.2.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": "./tokens.css",
+      "path": "dist/tokens.css",
+      "limit": "2.5 kB",
+      "gzip": true,
+      "rolldown": false
+    },
+    {
+      "name": ".",
+      "path": "dist/index.js",
+      "limit": "1.5 kB",
+      "gzip": true
+    },
+    {
+      "name": "./native",
+      "path": "dist/native.js",
+      "limit": "1 kB",
+      "gzip": true
+    }
+  ]
+}
