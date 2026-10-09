@@ -23,6 +23,8 @@ jobs:
     # The Storybook screenshots are compared pixel by pixel: run in the Playwright image the Linux baselines were made
     # in (same fonts, same Chromium). Keep the tag equal to the `playwright` version of apps/storybook.
     container: mcr.microsoft.com/playwright:v1.64.0-noble
+    # SWC (the test-runner's transform) refuses to cache its native addon under /github/home, writable by others.
+    env: { SWC_NATIVE_BINDING_CACHE: /root/.cache/swc }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -31,9 +33,6 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: |
-          ls node_modules/.pnpm | grep swc; node -v; which node; cat /etc/os-release | head -2
-          cd apps/storybook && node -e 'try{require(require.resolve("@swc/core",{paths:[require.resolve("@storybook/test-runner")]}));console.log("SWC_OK")}catch(e){console.log(e.cause)}'
       - run: pnpm turbo run check
       - name: Upload the screenshot diffs
         if: failure()

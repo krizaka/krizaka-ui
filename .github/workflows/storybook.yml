@@ -11,6 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.64.0-noble   # same image as CI and the Linux screenshots
+    env: { SWC_NATIVE_BINDING_CACHE: /root/.cache/swc }     # see ci.yml
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
