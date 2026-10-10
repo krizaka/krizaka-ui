@@ -38,7 +38,6 @@ export const meta = {
     imports: ["Command", "CommandDialog"],
     examples: [
       { name: "inline", title: "Inline", description: "In a card: the input, groups, shortcuts, a disabled item." },
-      { name: "empty", title: "No result", description: "What `emptyLabel` says when nothing matches." },
       { name: "dialog", title: "In a dialog", description: "`CommandDialog`: the palette of an app, opened from a button or a shortcut." },
     ],
   },

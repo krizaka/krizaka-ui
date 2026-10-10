@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import DialogExample from "../../registry/examples/command/dialog";
-import EmptyExample from "../../registry/examples/command/empty";
 import InlineExample from "../../registry/examples/command/inline";
 import { Command } from "./command";
 
@@ -20,5 +19,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Inline: Story = { render: () => <InlineExample /> };
-export const Empty: Story = { render: () => <EmptyExample /> };
 export const Dialog: Story = { render: () => <DialogExample defaultOpen />, parameters: { capture: "viewport" } };
