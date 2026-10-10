@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { describe, it } from "node:test";
 
-import { classify, conceptOf, definitions, inventory, issueBody, REPOS, sourceFiles, toMarkdown } from "./inventory.mjs";
+import { classify, conceptOf, definitions, doorSources, inventory, issueBody, readDoor, REPOS, sourceFiles, toMarkdown } from "./inventory.mjs";
 
 const tree = (files) => {
   const dir = mkdtempSync(join(tmpdir(), "kz-inventory-"));
@@ -58,6 +58,52 @@ describe("classify", () => {
     assert.deepEqual(classify("export function Overlay() { return createPortal(<div />, document.body); }"), []);
     assert.equal(classify('export function Shell() { return <div role="dialog" aria-modal="true" />; }')[0].concept, "dialog");
     assert.equal(classify('import { Command } from "cmdk";\nexport function Finder() {}')[0].concept, "command");
+  });
+});
+
+describe("the product's door", () => {
+  const web = "products/orochia/apps/web";
+  const files = {
+    [`${web}/components/ui/index.ts`]: [
+      'export { Card } from "@krizaka/ui/card";',
+      'export { LiveBadge } from "@krizaka/orochia-design-system";',
+      'export { Button, type ButtonProps, IconButton } from "./Button";',
+      'export { Dialog, Sheet, countdownUnits } from "./client";',
+    ].join("\n"),
+    [`${web}/components/ui/Button.tsx`]: 'import { Button as UiButton, IconButton as UiIconButton } from "@krizaka/ui/button";\nexport function Button() {}\nexport function IconButton() {}',
+    [`${web}/components/ui/client.tsx`]: 'import { Dialog as UiDialog, Sheet as UiSheet } from "@krizaka/ui/dialog";\nimport React from "react";\nexport const Dialog = {};\nexport function Sheet() {}',
+    [`${web}/components/VideoCard.tsx`]: 'import { Button, Card } from "@/components/ui";\nexport function VideoCard() {}',
+    [`${web}/components/money/WithdrawSheet.tsx`]: 'import { Button, Sheet } from "../ui";\nexport function WithdrawSheet() {}',
+    [`${web}/components/challenges/StageBadge.tsx`]: 'import { LiveBadge } from "@/components/ui";\nexport function ChallengeStageBadge() {}',
+    [`${web}/components/TagChip.tsx`]: 'import { Button } from "@/components/ui";\nexport function TagChip() {}',
+    [`${web}/components/Player.tsx`]: 'import { Card } from "@/components/ui";\nexport function Player() { return <input type="range" />; }',
+  };
+
+  it("maps every name it exports to the package module it comes from, through its own files too", () => {
+    const base = tree(files);
+    const door = readDoor(sourceFiles(join(base, web)));
+    assert.deepEqual(Object.fromEntries(door.names), {
+      Card: "@krizaka/ui/card",
+      LiveBadge: "@krizaka/orochia-design-system",
+      Button: "@krizaka/ui/button",
+      IconButton: "@krizaka/ui/button",
+      Dialog: "@krizaka/ui/dialog",
+      Sheet: "@krizaka/ui/dialog",
+    });
+    const file = join(base, web, "components/money/WithdrawSheet.tsx");
+    assert.deepEqual(doorSources(files[`${web}/components/money/WithdrawSheet.tsx`], file, join(base, web), door), ["@krizaka/ui/button", "@krizaka/ui/dialog"]);
+  });
+
+  it("a component importing the concept's primitive through the door is a composite; another primitive is not enough", () => {
+    const report = inventory({ base: tree(files) });
+    const web = report.repos.find((r) => r.name === "orochia-web");
+    const status = Object.fromEntries(web.findings.map((f) => [f.symbol, [f.status, f.why]]));
+    assert.deepEqual(status.VideoCard, ["composite", "importe la primitive par la porte du produit"]);
+    assert.equal(status.WithdrawSheet[0], "composite");
+    assert.deepEqual(status.ChallengeStageBadge, ["composite", "sur le design system produit"]);
+    assert.equal(status.TagChip[0], "doublon");
+    assert.equal(status.Player[0], "signature");
+    assert.equal(status.Button[0], "adaptateur");
   });
 });
 

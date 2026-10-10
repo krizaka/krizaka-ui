@@ -15,9 +15,13 @@
 //   - "doublon"     — a local implementation that imports neither: to migrate onto @krizaka/ui;
 //   - "signature"   — no catalogue name, but the file re-does what a primitive does (role="dialog", role="switch",
 //                     role="tablist", a theme class toggled by hand, cmdk used directly): a duplicate too.
+//
+// A product that imports the primitives through its own door (`components/ui/index.ts`, which re-exports
+// `@krizaka/ui/*` and gives them the product's words) builds on them as much as a direct import does: a name imported
+// from the door counts as an import of the module the door takes it from (`doorSources`).
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { homedir } from "node:os";
-import { isAbsolute, join, relative, resolve, sep } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 
@@ -229,13 +233,94 @@ export function conceptOf(name) {
   return undefined;
 }
 
+/** The named items of an import or export clause (`{ A, B as C, type D }`): `[{ name, as }]`. */
+function clauseItems(clause) {
+  const braces = /\{([^}]*)\}/.exec(clause);
+  if (!braces) return [];
+  return braces[1]
+    .split(",")
+    .map((item) => item.trim().replace(/^type\s+/, ""))
+    .filter(Boolean)
+    .map((item) => {
+      const [name, as = name] = item.split(/\s+as\s+/).map((x) => x.trim());
+      return { name, as };
+    });
+}
+
+const IMPORTS = /import\s+(?:type\s+)?([^;]*?)\s+from\s+["']([^"']+)["']/g;
+const EXPORTS_FROM = /export\s+(?:type\s+)?(\{[^}]*\})\s+from\s+["']([^"']+)["']/g;
+const DOOR = /(^|\/)components\/ui\/index\.(tsx?|jsx?|mjs)$/;
+const EXTENSIONS = ["", ".ts", ".tsx", ".js", ".jsx", ".mjs", "/index.ts", "/index.tsx", "/index.js"];
+
+/** The imports of a file: `[{ spec, names: [{ name, as }] }]`. */
+export function importsOf(text) {
+  return [...text.matchAll(IMPORTS)].map((m) => ({ spec: m[2], names: clauseItems(m[1]) }));
+}
+
+/** A module specifier as a path without extension, when it is local (relative, `@/` or `~/`). */
+function localPath(spec, file, root) {
+  if (spec.startsWith(".")) return resolve(dirname(file), spec);
+  if (spec.startsWith("@/") || spec.startsWith("~/")) return join(root, spec.slice(2));
+  return undefined;
+}
+
+function readModule(path) {
+  for (const ext of EXTENSIONS) {
+    const p = path + ext;
+    if (existsSync(p) && statSync(p).isFile()) return { path: p, text: readFileSync(p, "utf8") };
+  }
+  return undefined;
+}
+
 /**
- * Classifies one file: its definitions that bear a concept, then the concepts it re-does without one.
+ * The product's door to the platform (`components/ui/index.ts`): every name it exports and the package module it
+ * comes from — directly (`export { Card } from "@krizaka/ui/card"`) or through one of its own files that imports it
+ * (`export { Button } from "./Button"`, where `Button.tsx` imports `Button` from `@krizaka/ui/button`).
+ * @returns {{ path: string, dir: string, names: Map<string, string> } | undefined}
+ */
+export function readDoor(files) {
+  const index = files.find((f) => DOOR.test(f.split(sep).join("/")));
+  if (!index) return undefined;
+  const names = new Map();
+  for (const m of readFileSync(index, "utf8").matchAll(EXPORTS_FROM)) {
+    const spec = m[2];
+    const local = spec.startsWith(".") ? readModule(resolve(dirname(index), spec)) : undefined;
+    for (const { name, as } of clauseItems(m[1])) {
+      if (!local) {
+        names.set(as, spec);
+        continue;
+      }
+      const from = importsOf(local.text).find((i) => !i.spec.startsWith(".") && i.names.some((n) => n.name === name));
+      if (from) names.set(as, from.spec);
+    }
+  }
+  return { path: index, dir: dirname(index), names };
+}
+
+/** The package modules a file reaches through the door: one per name it imports from it. */
+export function doorSources(text, file, root, door) {
+  if (!door) return [];
+  const out = [];
+  for (const { spec, names } of importsOf(text)) {
+    const path = localPath(spec, file, root);
+    if (path === undefined) continue;
+    const target = [path, join(root, "src", spec.slice(2))].some((p) => p === door.dir || p === join(door.dir, "index") || p === door.path);
+    if (!target) continue;
+    for (const { name } of names) if (door.names.has(name)) out.push(door.names.get(name));
+  }
+  return out;
+}
+
+/**
+ * Classifies one file: its definitions that bear a concept, then the concepts it re-does without one. `door` lists
+ * the package modules the file reaches through the product's door (`doorSources`).
  * @returns {{ symbol: string, concept: string, status: "adaptateur" | "composite" | "doublon" | "signature", why: string }[]}
  */
-export function classify(text) {
+export function classify(text, door = []) {
   const findings = [];
-  const builds = (c) => c.primitive.test(text) || NATIVE.test(text);
+  const direct = (c) => c.primitive.test(text) || NATIVE.test(text);
+  const builds = (c) => direct(c) || door.some((spec) => c.primitive.test(spec));
+  const onKit = PRODUCT_KIT.test(text) || door.some((spec) => PRODUCT_KIT.test(spec));
   const seen = new Set();
   for (const symbol of definitions(text)) {
     const hit = conceptOf(symbol);
@@ -243,8 +328,8 @@ export function classify(text) {
     const { concept: c, by } = hit;
     seen.add(c.id);
     if (COMPOSITES.has(symbol)) findings.push({ symbol, concept: c.id, status: "composite", why: "listé en §2.2" });
-    else if (builds(c)) findings.push({ symbol, concept: c.id, status: by === "name" ? "adaptateur" : "composite", why: "importe la primitive" });
-    else if (by === "suffix" && PRODUCT_KIT.test(text)) findings.push({ symbol, concept: c.id, status: "composite", why: "sur le design system produit" });
+    else if (builds(c)) findings.push({ symbol, concept: c.id, status: by === "name" ? "adaptateur" : "composite", why: direct(c) ? "importe la primitive" : "importe la primitive par la porte du produit" });
+    else if (by === "suffix" && onKit) findings.push({ symbol, concept: c.id, status: "composite", why: "sur le design system produit" });
     else findings.push({ symbol, concept: c.id, status: "doublon", why: "n'importe pas la primitive" });
   }
   for (const c of CONCEPTS) {
@@ -267,10 +352,12 @@ export function inventory({ base = join(homedir(), "krizaka-com"), overrides = {
     }
     const files = sourceFiles(path, repo.skip);
     const findings = [];
+    const door = readDoor(files);
     for (const file of files) {
       const rel = relative(path, file).split(sep).join("/");
       if (ILLUSTRATION.test(rel)) continue;
-      for (const f of classify(readFileSync(file, "utf8"))) findings.push({ ...f, file: rel });
+      const text = readFileSync(file, "utf8");
+      for (const f of classify(text, doorSources(text, file, path, door))) findings.push({ ...f, file: rel });
     }
     repos.push({ ...repo, path, missing: false, files: files.length, findings });
   }
