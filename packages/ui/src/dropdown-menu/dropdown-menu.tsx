@@ -18,9 +18,9 @@ export const menu = tv({
     separator: "-mx-1 my-1 h-px bg-border-subtle",
   },
   variants: {
-    // The danger token is too light for small text on a light surface: the label stays a text role, the icon and the
-    // highlight carry the danger.
-    tone: { default: {}, danger: { item: "data-highlighted:bg-danger/15 [&>svg]:text-danger" } },
+    // The label reads in the danger text role (≥ 4.5:1 on the menu surface, both themes); the icon and the highlight
+    // carry the danger fill.
+    tone: { default: {}, danger: { item: "text-fg-danger data-highlighted:bg-danger/15 [&>svg]:text-danger" } },
   },
   defaultVariants: { tone: "default" },
 });

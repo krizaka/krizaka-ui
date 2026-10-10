@@ -1,6 +1,6 @@
 # @krizaka/icons
 
-**The Krizaka signature icons.** 67 icons drawn for the Krizaka products — the vocabulary of Orochia (tips, unlocks,
+**The Krizaka signature icons.** 70 icons drawn for the Krizaka products — the vocabulary of Orochia (tips, unlocks,
 auctions, challenges, 24 h stories, payouts, the 90 % share) and of Orazaka (sovereign chat, agents, studio, packs,
 automations, knowledge, local and self-hosted) plus the usual interface — in one drawing language. React
 (tree-shakable, server-safe) and React Native (react-native-svg), the same names and drawings.
@@ -57,7 +57,7 @@ The drawing is code: `scripts/glyphs.mjs` (helpers `cut`, `hex`, `arc`) → `pnp
 | :-- | :-- |
 | product (31) | `TipIcon` · `UnlockIcon` · `PaidIcon` · `AuctionIcon` · `ChallengeIcon` · `GoalIcon` · `CreatorIcon` · `StoryIcon` · `Story24hIcon` · `PayoutIcon` · `WalletIcon` · `Share90Icon` · `LockIcon` · `FollowIcon` · `MessageIcon` · `UploadIcon` · `VideoIcon` · `ImageIcon` · `HeartIcon` · `ChatIcon` · `AiIcon` · `AgentIcon` · `StudioIcon` · `PackIcon` · `AutomationIcon` · `KnowledgeIcon` · `ShieldIcon` · `LocalIcon` · `ServerIcon` · `BillingIcon` · `CreditsIcon` |
 | system (15) | `ThemeIcon` · `SunIcon` · `MoonIcon` · `SearchIcon` · `SettingsIcon` · `NotificationIcon` · `UserIcon` · `UsersIcon` · `CalendarIcon` · `ClockIcon` · `GlobeIcon` · `EyeIcon` · `EyeOffIcon` · `InfoIcon` · `WarningIcon` |
-| interface (21) | `PlayIcon` · `PauseIcon` · `HomeIcon` · `MenuIcon` · `CloseIcon` · `BackIcon` · `ForwardIcon` · `ChevronDownIcon` · `ChevronRightIcon` · `PlusIcon` · `CheckIcon` · `MoreIcon` · `ExternalIcon` · `LinkIcon` · `FilterIcon` · `EditIcon` · `TrashIcon` · `CopyIcon` · `DownloadIcon` · `LogoutIcon` · `BookmarkIcon` |
+| interface (24) | `PlayIcon` · `PauseIcon` · `HomeIcon` · `MenuIcon` · `CloseIcon` · `BackIcon` · `ForwardIcon` · `ChevronDownIcon` · `ChevronRightIcon` · `PlusIcon` · `CheckIcon` · `MoreIcon` · `ExternalIcon` · `LinkIcon` · `FilterIcon` · `EditIcon` · `TrashIcon` · `CopyIcon` · `DownloadIcon` · `LogoutIcon` · `BookmarkIcon` · `SoundIcon` · `MuteIcon` · `FlagIcon` |
 
 Catalogue (dark, light, every brand): Storybook, *Icons/Catalogue* and *Icons/Native*.
 

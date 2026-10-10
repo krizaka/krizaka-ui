@@ -36,6 +36,25 @@ function lookup(dictionary: Dictionary, key: string): unknown {
 }
 
 /**
+ * A translator over one catalogue: `messages` for `locale` (its plural rules), then `fallback` for a missing key, then
+ * the key itself. `createI18n` builds its translators with it; `@krizaka/i18n/react` uses it for a provider given only
+ * the active catalogue (`<I18nProvider messages>`).
+ */
+export function createTranslator<D extends Dictionary>(locale: string, messages: D, fallback?: Dictionary): Translate<D> {
+  const translate = (key: string, values?: Values): string => {
+    let message = lookup(messages, key);
+    if (message === undefined && fallback) message = lookup(fallback, key);
+    if (typeof message === "string") return format(message, values);
+    if (isPluralMessage(message)) {
+      const count = Number(values?.count);
+      return format(Number.isFinite(count) ? plural(count, locale, message) : message.other, values);
+    }
+    return key;
+  };
+  return translate as Translate<D>;
+}
+
+/**
  * The i18n engine of a Krizaka app, bound to its catalogues:
  *
  * ```ts
@@ -66,17 +85,7 @@ export function createI18n<D extends Dictionary, L extends string = string>(
 
   const translator = (locale: unknown): Translate<D> => {
     const current = asLocale(locale);
-    const translate = (key: string, values?: Values): string => {
-      let message = lookup(dictionaries[current], key);
-      if (message === undefined && current !== defaultLocale) message = lookup(dictionaries[defaultLocale], key);
-      if (typeof message === "string") return format(message, values);
-      if (isPluralMessage(message)) {
-        const count = Number(values?.count);
-        return format(Number.isFinite(count) ? plural(count, current, message) : message.other, values);
-      }
-      return key;
-    };
-    return translate as Translate<D>;
+    return createTranslator(current, dictionaries[current], current === defaultLocale ? undefined : dictionaries[defaultLocale]);
   };
 
   return {

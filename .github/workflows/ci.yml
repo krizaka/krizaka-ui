@@ -34,6 +34,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo run check
+      - run: pnpm test:tools   # tools/ (the inventory): node:test, no build
       - name: Upload the screenshot diffs
         if: failure()
         uses: actions/upload-artifact@v4

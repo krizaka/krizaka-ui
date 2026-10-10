@@ -86,10 +86,16 @@ export type CardImageProps = Omit<React.ComponentProps<"img">, "src"> & {
   src?: string | null;
   /** Shown when there is no image: an icon, an illustration (decorative). */
   fallback?: React.ReactNode;
+  /**
+   * When the browser loads it: `lazy` (default, a card in a list or below the fold) or `eager` for the first cards
+   * of a page — the image that is the largest contentful paint must not wait (add `fetchPriority="high"`).
+   * @default "lazy"
+   */
+  loading?: "lazy" | "eager";
 };
 
 /** The image of a media, or its `fallback` when there is none. `alt` is empty by default: the title names the card. */
-export function CardImage({ src, alt = "", fallback, className, ...props }: CardImageProps) {
+export function CardImage({ src, alt = "", fallback, loading = "lazy", className, ...props }: CardImageProps) {
   if (!src) {
     return (
       <div data-fallback="" aria-hidden className={slots.fallback({ className })}>
@@ -97,7 +103,7 @@ export function CardImage({ src, alt = "", fallback, className, ...props }: Card
       </div>
     );
   }
-  return <img src={src} alt={alt} loading="lazy" decoding="async" className={slots.image({ className })} {...props} />;
+  return <img src={src} alt={alt} loading={loading} decoding="async" className={slots.image({ className })} {...props} />;
 }
 
 const CORNER = {

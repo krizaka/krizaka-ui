@@ -46,4 +46,39 @@ describe("createI18nReact", () => {
     expect(last?.locale).toBe("en");
     expect(I18nContext.displayName).toBe("I18nContext");
   });
+
+  it("takes the active catalogue as `messages` (over an engine: a missing key falls back to the default catalogue)", () => {
+    const partial = { greeting: "Salut {name}" } as unknown as typeof en;
+    expect(renderToStaticMarkup(<I18nProvider locale="fr" messages={partial}><Probe /></I18nProvider>)).toBe(
+      "<p>fr|Salut {name}|Salut Ada|2 bids|1</p>",
+    );
+  });
+});
+
+describe("createI18nReact from the locales alone (one language shipped to the client)", () => {
+  const light = createI18nReact<typeof en, "en" | "fr">({ locales: ["en", "fr"], defaultLocale: "en" });
+  function LightProbe() {
+    const { locale, messages, t } = light.useI18n();
+    return (
+      <p>
+        {locale}|{messages.greeting}|{t("greeting", { name: "Ada" })}|{t("bids", { count: 1 })}|{t("bids", { count: 2 })}|
+        {t("nope" as "greeting")}
+      </p>
+    );
+  }
+
+  it("translates with the catalogue the server passed, the plural rules of its locale, the key when unknown", () => {
+    expect(renderToStaticMarkup(<light.I18nProvider locale="fr" messages={fr}><LightProbe /></light.I18nProvider>)).toBe(
+      "<p>fr|Bonjour {name}|Bonjour Ada|1 enchère|2 enchères|nope</p>",
+    );
+  });
+
+  it("narrows an unknown locale to the default one", () => {
+    expect(renderToStaticMarkup(<light.I18nProvider locale={"de" as "en"} messages={en}><LightProbe /></light.I18nProvider>)).toContain("<p>en|");
+  });
+
+  it("refuses a provider without messages, and useI18n outside a provider", () => {
+    expect(() => renderToStaticMarkup(<light.I18nProvider locale="en"><LightProbe /></light.I18nProvider>)).toThrow(/messages/);
+    expect(() => renderToStaticMarkup(<LightProbe />)).toThrow(/inside <I18nProvider>/);
+  });
 });

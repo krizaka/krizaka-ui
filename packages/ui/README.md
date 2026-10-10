@@ -112,7 +112,8 @@ peer range, because the marks and the motion still run on React 18: one `package
 12. **Motion**: `prefers-reduced-motion` is honoured (`motion-safe:`); no component animates a layout property.
 
 Colours are roles of the preset (`bg-surface-2`, `text-fg-secondary`, `border-border-default`, `text-accent`,
-`text-danger`), never a palette step nor `light:`: a theme — dark, light or a product's — is a set of tokens.
+`text-fg-danger` for an error as text, `bg-danger/10` for its tint), never a palette step nor `light:`: a theme — dark,
+light or a product's — is a set of tokens.
 
 ### Entries
 
@@ -120,7 +121,7 @@ Colours are roles of the preset (`bg-surface-2`, `text-fg-secondary`, `border-bo
 | :-- | :-- | :-- |
 | `@krizaka/ui/cn` | `cn(...classes)` — clsx + tailwind-merge (the engine `tailwind-variants` ships) | server |
 | `@krizaka/ui/slot` | `Slot`, `VisuallyHidden` (Radix) | server |
-| `@krizaka/ui/button` | `Button` (`variant` primary·secondary·outline·ghost·danger, `size` sm·md·lg·icon, `shape` rounded·pill, `loading`, `asChild`), `IconButton` (`label` required), `buttonVariants` | server |
+| `@krizaka/ui/button` | `Button` (`variant` primary·gradient·secondary·outline·ghost·danger, `size` sm·md·lg·icon, `shape` rounded·pill, `loading`, `asChild`), `IconButton` (`label` required), `buttonVariants` | server |
 | `@krizaka/ui/badge` | `Badge` (`tone` neutral·accent·success·warning·danger·scrim, `size` sm·md, `dot`, `pulse`), `badgeVariants` | server |
 | `@krizaka/ui/avatar` | `Avatar` (`src`, `alt`, `fallback`, `size` xs·sm·md·lg·xl), `Avatar.Group` (`max`) | client |
 | `@krizaka/ui/field` | `Field.Root/Label/Hint/Error`, `Input`, `Textarea`, `Select` (native, styled) — `invalid` | server |
@@ -128,7 +129,7 @@ Colours are roles of the preset (`bg-surface-2`, `text-fg-secondary`, `border-bo
 | `@krizaka/ui/skeleton` | `Skeleton` (`shape` text·circle·rect) | server |
 | `@krizaka/ui/empty-state` | `EmptyState` (`icon`, `title`, `description`, `action`) | server |
 | `@krizaka/ui/spinner` | `Spinner` (`label`, `size`) | server |
-| `@krizaka/ui/countdown` | `Countdown` (`target`, `label`, `units`, `size`, `urgentBelowMs`, `skewMs`), `useCountdown`, `splitDuration` | client |
+| `@krizaka/ui/countdown` | `Countdown` (`target`, `label`, `showLabel`, `units`, `size`, `urgentBelowMs`, `skewMs`), `useCountdown`, `splitDuration` | client |
 | `@krizaka/ui/card` | `Card.Root` (`asChild`, `reveal`, `radius` md·lg·xl, `tone` default·elevated·glass, `interactive`), `Card.Media` (`aspect` video·square·portrait·auto), `Card.Image` (`fallback`), `Card.Overlay` (`corner`), `Card.Body` (`padding`), `Card.Title` (`as`), `Card.Description`, `Card.Stat` (`label`), `Card.Footer`; `card` (the slots) | server |
 | `@krizaka/ui/dialog` | `Dialog.Root/Trigger/Content/Header/Title/Description/Body/Footer/Close` (`placement` center·bottom·right, `size` sm·md·lg, `closeLabel` required unless `hideClose`, `dismissible={false}`: no close on Escape or outside click), `Sheet` (= `placement="bottom"`), `AlertDialog` (`title`, `description`, `confirmLabel`, `cancelLabel`, `tone` danger·primary, async `onConfirm`, `trigger`) | client |
 | `@krizaka/ui/toast` | `Toaster` (sonner styled by roles: `label`, `closeLabel`, `position`, `closeButton`; `richColors` off), `toast` (`.success/.warning/.error/.info/.custom`…) | client |
@@ -248,15 +249,15 @@ const { theme, scheme, mode, setMode, radius } = useTheme(); // theme.surface1, 
 | Native | Props (same names as the web unless noted) | Differences with the web |
 | :-- | :-- | :-- |
 | `Txt` | `variant` display·title·body·caption·label·mono, `tone` text·secondary·muted·accent·success·warning·danger·onAccent·onMedia | Native only (the web uses classes). `title`/`display` are headings. |
-| `Button`, `IconButton` | `variant` primary·secondary·outline·ghost·danger, `size` sm·md·lg, `shape` rounded·pill, `loading`, `disabled`, `onPress`; `IconButton`: `label` required, `icon` | The text is `label` (a string), not children; `icon` before it; no `asChild`. Haptics stay in the app's `onPress`. |
+| `Button`, `IconButton` | `variant` primary·gradient·secondary·outline·ghost·danger, `size` sm·md·lg, `shape` rounded·pill, `loading`, `disabled`, `onPress`; `IconButton`: `label` required, `icon` | The text is `label` (a string), not children; `icon` before it; no `asChild`. Haptics stay in the app's `onPress`. |
 | `Card.Root/Media/Image/Overlay/Body/Title/Description/Footer` | `tone` default·elevated, `radius`, `Media aspect`, `Image src`/`fallback`, `Overlay corner`, `Body padding` | `Root onPress` makes the card a button (the web uses `asChild` + a link). No `Stat`, no `reveal`. |
 | `Badge` | `tone` neutral·accent·success·warning·danger·scrim, `size` sm·md, `dot`, `pulse` | — |
 | `Chip`, `Chip.Group` | `selected`/`defaultSelected`/`onSelectedChange`, `value`, `size`, `removable` + `removeLabel` + `onRemove`; Group: `type` single·multiple, `value`/`defaultValue`/`onValueChange` | A toggle chip is a `checkbox` (web: a pressed button). `Group scrollable`: one horizontal row. |
-| `Avatar`, `Avatar.Group` | `src`, `alt`, `fallback`, `size` xs·sm·md·lg·xl; Group `max` | `size` also takes points; the default fallback is the initial of `alt`. |
+| `Avatar`, `Avatar.Group` | `src`, `svg`, `alt`, `fallback`, `size` xs·sm·md·lg·xl; Group `max` | `size` also takes points; the default fallback is the initial of `alt`; an SVG `src` is drawn by react-native-svg. |
 | `Skeleton` | `shape` text·circle·rect | `width`, `height` as props (no classes). |
 | `EmptyState` | `icon`, `title`, `description`, `action` | `title`/`description` are strings. |
 | `Spinner` | `label`, `size` sm·md·lg | The platform's `ActivityIndicator`. |
-| `Countdown` | `target`, `skewMs`, `units`, `urgentBelowMs`, `size`, `label` | Same clock (`countdown/core`): one interval for every countdown on screen. |
+| `Countdown` | `target`, `skewMs`, `units`, `urgentBelowMs`, `size`, `label`, `showLabel` | Same clock (`countdown/core`): one interval for every countdown on screen. |
 | `Segmented` | `options` (`value`, `label`, `disabled`), `value`, `onValueChange`, `size` | The web `Tabs variant="segmented"` (a tab list). To filter, `Chip.Group`. |
 | `Progress` | `variant` bar·ring, `size`, `value`/`max`, `label`, `valueText`, a ring's centre as children | The fill is the `accent` → `accent2` gradient (react-native-svg); it animates to each new value. |
 | `Toaster`, `toast` | `toast(title, { description, tone, icon, action, onPress, id, duration, onDismiss })`, `toast.success/warning/error/info`, `toast.dismiss(id?)`; `Toaster closeLabel position offset duration max` | No sonner: a light queue of its own. `offset` takes the safe-area inset (no safe-area dependency). |

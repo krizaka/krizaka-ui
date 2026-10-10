@@ -42,6 +42,7 @@ export const meta = {
       "The fallback is the initial of `alt` when `fallback` is not given.",
       "`size` also takes a number of points.",
       "`src` is a URI string (an `Image` source), not a URL object.",
+      "An SVG `src` (`….svg`, `data:image/svg+xml,…`, or any URI with `svg`) is drawn by react-native-svg — `Image` cannot.",
     ],
     examples: [
       { name: "sizes", title: "Sizes", description: "Without an image: the initial of `alt`, from `xs` to `xl`." },

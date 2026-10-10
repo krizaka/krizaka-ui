@@ -38,12 +38,21 @@ describe("Countdown", () => {
     render(<Countdown target={NOW + 3000} units={units} label="Ends in" urgentBelowMs={10_000} />);
     const timer = screen.getByRole("timer");
     expect(timer.hasAttribute("data-urgent")).toBe(true);
-    expect(timer.className).toContain("text-danger");
+    expect(timer.className).toContain("text-fg-danger");
     act(() => vi.advanceTimersByTime(1000));
     expect(timer.textContent).toBe("00h00m02s");
     act(() => vi.advanceTimersByTime(3000));
     expect(timer.hasAttribute("data-ended")).toBe(true);
     expect(timer.hasAttribute("data-urgent")).toBe(false);
+  });
+
+  it("shows its label when asked, still named once (aria-label), with no axe violation", async () => {
+    const { container } = render(<Countdown target={NOW + 3_723_000} units={units} label="Ends in" showLabel />);
+    const timer = screen.getByRole("timer", { name: "Ends in" });
+    expect(timer.textContent).toBe("Ends in01h02m03s");
+    expect(screen.getByText("Ends in").getAttribute("aria-hidden")).toBe("true");
+    vi.useRealTimers();
+    expect(await axeViolations(container)).toEqual([]);
   });
 
   it("corrects the clock with skewMs", () => {

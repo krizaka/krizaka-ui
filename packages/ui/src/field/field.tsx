@@ -13,8 +13,8 @@ export const field = tv({
       "transition-[border-color,box-shadow] focus-visible:border-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
       "disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-danger aria-invalid:ring-danger/30",
     hint: "text-xs text-fg-secondary",
-    // The danger token is too light for small text on a light surface: the message is a text role, the dot says danger.
-    error: "flex items-center gap-1.5 text-xs font-medium text-fg before:h-1.5 before:w-1.5 before:shrink-0 before:rounded-full before:bg-danger",
+    // The message reads in the danger text role (≥ 4.5:1 on every surface, both themes); the dot is the danger fill.
+    error: "flex items-center gap-1.5 text-xs font-medium text-fg-danger before:h-1.5 before:w-1.5 before:shrink-0 before:rounded-full before:bg-danger",
     selectWrap: "relative flex w-full",
     chevron: "pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-fg-secondary",
   },

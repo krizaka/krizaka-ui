@@ -1,7 +1,9 @@
 // The primitives with a state: Chip (+ Group), Segmented, Countdown, Progress, Toast.
 import { afterEach, beforeEach, describe, expect, jest, test } from "@jest/globals";
+import { themes } from "@krizaka/tokens/native";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import * as React from "react";
+import { StyleSheet } from "react-native";
 
 import { Chip } from "./chip";
 import { Countdown } from "./countdown";
@@ -99,6 +101,15 @@ describe("Countdown", () => {
   test("a timer named by its label and the time left", async () => {
     await render(<Countdown target="2026-10-11T15:30:00Z" units={units} label="Ends in" />);
     expect(screen.getByRole("timer", { name: "Ends in 02d 03h 30m" })).toBeOnTheScreen();
+  });
+
+  test("showLabel writes the label before the segments; urgent uses the danger text role", async () => {
+    await render(<Countdown target="2026-10-09T12:00:30Z" units={units} label="Ends in" showLabel />);
+    expect(screen.getByText("Ends in")).toBeOnTheScreen();
+    expect(screen.getByRole("timer", { name: "Ends in 00h 00m 30s" })).toBeOnTheScreen();
+    const value = screen.getByText("30");
+    // The test renderer's colour scheme is light: the light danger text role.
+    expect(StyleSheet.flatten(value.props.style).color).toBe(themes.light.dangerText);
   });
 
   test("ticks every second, on the server's clock", async () => {

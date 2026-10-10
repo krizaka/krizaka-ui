@@ -136,3 +136,9 @@ export const DownloadIcon = /* @__PURE__ */ createIcon("DownloadIcon", g.downloa
 export const LogoutIcon = /* @__PURE__ */ createIcon("LogoutIcon", g.logout);
 /** bookmark save later */
 export const BookmarkIcon = /* @__PURE__ */ createIcon("BookmarkIcon", g.bookmark);
+/** sound volume audio unmute speaker */
+export const SoundIcon = /* @__PURE__ */ createIcon("SoundIcon", g.sound);
+/** mute sound off silent volume speaker */
+export const MuteIcon = /* @__PURE__ */ createIcon("MuteIcon", g.mute);
+/** flag report abuse moderation */
+export const FlagIcon = /* @__PURE__ */ createIcon("FlagIcon", g.flag);

@@ -10,9 +10,10 @@
   --kz-on-accent: hsl(0 0% 100%);
   --kz-ring: var(--kz-accent);
   --kz-info: var(--kz-accent);
+  --kz-info-text: var(--kz-accent-text);
   --kz-brand-gradient-from: hsl(222 45% 10%);
   --kz-brand-gradient-via: hsl(232 24% 7%);
-  --kz-brand-gradient-to: hsl(240 6% 5%);
+  --kz-brand-gradient-to: var(--kz-surface-0);
 }
 html.light .brand-krizaka, html .theme-light .brand-krizaka, html .brand-krizaka.theme-light {
   --kz-accent: hsl(217 92% 50%);
@@ -23,9 +24,10 @@ html.light .brand-krizaka, html .theme-light .brand-krizaka, html .brand-krizaka
   --kz-on-accent: hsl(0 0% 100%);
   --kz-ring: var(--kz-accent);
   --kz-info: var(--kz-accent);
+  --kz-info-text: var(--kz-accent-text);
   --kz-brand-gradient-from: hsl(214 95% 93%);
   --kz-brand-gradient-via: hsl(220 60% 97%);
-  --kz-brand-gradient-to: hsl(0 0% 98%);
+  --kz-brand-gradient-to: var(--kz-surface-0);
 }
 html .theme-dark .brand-krizaka, html .brand-krizaka.theme-dark {
   --kz-accent: hsl(217 92% 53%);
@@ -36,9 +38,10 @@ html .theme-dark .brand-krizaka, html .brand-krizaka.theme-dark {
   --kz-on-accent: hsl(0 0% 100%);
   --kz-ring: var(--kz-accent);
   --kz-info: var(--kz-accent);
+  --kz-info-text: var(--kz-accent-text);
   --kz-brand-gradient-from: hsl(222 45% 10%);
   --kz-brand-gradient-via: hsl(232 24% 7%);
-  --kz-brand-gradient-to: hsl(240 6% 5%);
+  --kz-brand-gradient-to: var(--kz-surface-0);
 }
 
 .brand-orazaka {
@@ -50,9 +53,10 @@ html .theme-dark .brand-krizaka, html .brand-krizaka.theme-dark {
   --kz-on-accent: hsl(240 6% 5%);
   --kz-ring: var(--kz-accent);
   --kz-info: hsl(217 92% 60%);
+  --kz-info-text: hsl(217 92% 68%);
   --kz-brand-gradient-from: hsl(24 55% 10%);
   --kz-brand-gradient-via: hsl(34 30% 7%);
-  --kz-brand-gradient-to: hsl(240 6% 5%);
+  --kz-brand-gradient-to: var(--kz-surface-0);
 }
 html.light .brand-orazaka, html .theme-light .brand-orazaka, html .brand-orazaka.theme-light {
   --kz-accent: hsl(26 90.5% 37.1%);
@@ -63,9 +67,10 @@ html.light .brand-orazaka, html .theme-light .brand-orazaka, html .brand-orazaka
   --kz-on-accent: hsl(0 0% 100%);
   --kz-ring: var(--kz-accent);
   --kz-info: hsl(217 92% 50%);
+  --kz-info-text: hsl(217 92% 42%);
   --kz-brand-gradient-from: hsl(30 100% 92%);
   --kz-brand-gradient-via: hsl(38 80% 96%);
-  --kz-brand-gradient-to: hsl(0 0% 98%);
+  --kz-brand-gradient-to: var(--kz-surface-0);
 }
 html .theme-dark .brand-orazaka, html .brand-orazaka.theme-dark {
   --kz-accent: hsl(26 92% 55%);
@@ -76,9 +81,10 @@ html .theme-dark .brand-orazaka, html .brand-orazaka.theme-dark {
   --kz-on-accent: hsl(240 6% 5%);
   --kz-ring: var(--kz-accent);
   --kz-info: hsl(217 92% 60%);
+  --kz-info-text: hsl(217 92% 68%);
   --kz-brand-gradient-from: hsl(24 55% 10%);
   --kz-brand-gradient-via: hsl(34 30% 7%);
-  --kz-brand-gradient-to: hsl(240 6% 5%);
+  --kz-brand-gradient-to: var(--kz-surface-0);
 }
 
 .brand-orochia {
@@ -90,9 +96,10 @@ html .theme-dark .brand-orazaka, html .brand-orazaka.theme-dark {
   --kz-on-accent: hsl(0 0% 100%);
   --kz-ring: hsl(255.1 91.7% 76.3%);
   --kz-info: var(--kz-accent);
+  --kz-info-text: var(--kz-accent-text);
   --kz-brand-gradient-from: hsl(266 50% 11%);
   --kz-brand-gradient-via: hsl(320 35% 8%);
-  --kz-brand-gradient-to: hsl(240 6% 5%);
+  --kz-brand-gradient-to: var(--kz-surface-0);
 }
 html.light .brand-orochia, html .theme-light .brand-orochia, html .brand-orochia.theme-light {
   --kz-accent: hsl(262.1 83.3% 57.8%);
@@ -103,9 +110,10 @@ html.light .brand-orochia, html .theme-light .brand-orochia, html .brand-orochia
   --kz-on-accent: hsl(0 0% 100%);
   --kz-ring: hsl(262.1 83.3% 57.8%);
   --kz-info: var(--kz-accent);
+  --kz-info-text: var(--kz-accent-text);
   --kz-brand-gradient-from: hsl(262 90% 95%);
   --kz-brand-gradient-via: hsl(330 80% 96%);
-  --kz-brand-gradient-to: hsl(0 0% 98%);
+  --kz-brand-gradient-to: var(--kz-surface-0);
 }
 html .theme-dark .brand-orochia, html .brand-orochia.theme-dark {
   --kz-accent: hsl(262.1 83.3% 57.8%);
@@ -116,7 +124,8 @@ html .theme-dark .brand-orochia, html .brand-orochia.theme-dark {
   --kz-on-accent: hsl(0 0% 100%);
   --kz-ring: hsl(255.1 91.7% 76.3%);
   --kz-info: var(--kz-accent);
+  --kz-info-text: var(--kz-accent-text);
   --kz-brand-gradient-from: hsl(266 50% 11%);
   --kz-brand-gradient-via: hsl(320 35% 8%);
-  --kz-brand-gradient-to: hsl(240 6% 5%);
+  --kz-brand-gradient-to: var(--kz-surface-0);
 }

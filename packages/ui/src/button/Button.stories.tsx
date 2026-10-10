@@ -4,6 +4,7 @@ import AsChildLinkExample from "../../registry/examples/button/as-child-link";
 import DangerExample from "../../registry/examples/button/danger";
 import DisabledExample from "../../registry/examples/button/disabled";
 import GhostExample from "../../registry/examples/button/ghost";
+import GradientExample from "../../registry/examples/button/gradient";
 import IconExample from "../../registry/examples/button/icon";
 import LoadingExample from "../../registry/examples/button/loading";
 import OutlineExample from "../../registry/examples/button/outline";
@@ -27,6 +28,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = { render: () => <PrimaryExample /> };
+export const Gradient: Story = { render: () => <GradientExample /> };
 export const Secondary: Story = { render: () => <SecondaryExample /> };
 export const Outline: Story = { render: () => <OutlineExample /> };
 export const Ghost: Story = { render: () => <GhostExample /> };

@@ -11,9 +11,9 @@ const TONE: Record<TxtTone, keyof Theme> = {
   secondary: "textSecondary",
   muted: "textMuted",
   accent: "accentText",
-  success: "success",
-  warning: "warning",
-  danger: "danger",
+  success: "successText",
+  warning: "warningText",
+  danger: "dangerText",
   onAccent: "onAccent",
   onMedia: "textOnMedia",
 };

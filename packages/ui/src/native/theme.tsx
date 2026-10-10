@@ -33,9 +33,13 @@ export type Theme = {
   readonly brandGradientVia: string;
   readonly brandGradientTo: string;
   readonly success: string;
+  readonly successText: string;
   readonly warning: string;
+  readonly warningText: string;
   readonly danger: string;
+  readonly dangerText: string;
   readonly info: string;
+  readonly infoText: string;
   readonly scrim: string;
   readonly scrimStrong: string;
   readonly overlay: string;

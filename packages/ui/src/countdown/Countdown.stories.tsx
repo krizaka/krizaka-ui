@@ -5,6 +5,7 @@ import EndedExample from "../../registry/examples/countdown/ended";
 import HoursExample from "../../registry/examples/countdown/hours";
 import SizesExample from "../../registry/examples/countdown/sizes";
 import UrgentExample from "../../registry/examples/countdown/urgent";
+import WithLabelExample from "../../registry/examples/countdown/with-label";
 import { Countdown } from "./countdown";
 
 // The clock is frozen for the stories, so the screenshots are stable.
@@ -35,3 +36,4 @@ export const Days: Story = { render: () => <DaysExample /> };
 export const Sizes: Story = { render: () => <SizesExample /> };
 export const Urgent: Story = { render: () => <UrgentExample /> };
 export const Ended: Story = { render: () => <EndedExample /> };
+export const WithLabel: Story = { render: () => <WithLabelExample /> };

@@ -3,7 +3,7 @@
 // `CommandDialog` puts it in the platform's Dialog. Words arrive as props.
 import { Command as CommandPrimitive } from "cmdk";
 import { Dialog as DialogPrimitive } from "radix-ui";
-import type * as React from "react";
+import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "../cn";
@@ -16,7 +16,7 @@ export const command = tv({
     icon: "h-5 w-5 shrink-0 text-fg-secondary",
     input:
       "h-13 w-full min-w-0 flex-1 bg-transparent text-sm text-fg outline-hidden placeholder:text-fg-muted disabled:cursor-not-allowed disabled:opacity-50 sm:text-base",
-    list: "max-h-[min(60dvh,26rem)] scroll-py-2 overflow-y-auto overscroll-contain p-2",
+    list: "max-h-[min(60dvh,26rem)] scroll-py-2 overflow-y-auto overscroll-contain p-2 [&:not(:has([cmdk-item]))]:p-0",
     empty: "px-3 py-8 text-center text-sm text-fg-secondary",
     loading: "px-3 py-6 text-center text-sm text-fg-secondary",
     group:
@@ -69,13 +69,29 @@ export function CommandInput({ className, placeholder, trailing, ...props }: Com
   );
 }
 
+// Set inside `Command.List`: a listbox may only hold options and groups (axe `aria-required-children`), so the empty
+// message must live beside it, not in it.
+const InsideList = React.createContext(false);
+
 export type CommandListProps = React.ComponentProps<typeof CommandPrimitive.List> & {
   /** The accessible name of the list of results — passed translated ("Suggestions", "Results"). */
   label: string;
+  /**
+   * Shown when nothing matches — passed translated. Rendered after the listbox, never inside it: an empty listbox is
+   * valid, a listbox holding text is not.
+   */
+  emptyLabel?: React.ReactNode;
 };
 
-export function CommandList({ className, ...props }: CommandListProps) {
-  return <CommandPrimitive.List className={s.list({ className })} {...props} />;
+export function CommandList({ className, emptyLabel, children, ...props }: CommandListProps) {
+  return (
+    <>
+      <CommandPrimitive.List className={s.list({ className })} {...props}>
+        <InsideList.Provider value>{children}</InsideList.Provider>
+      </CommandPrimitive.List>
+      {emptyLabel === undefined ? null : <CommandEmpty emptyLabel={emptyLabel} />}
+    </>
+  );
 }
 
 export type CommandEmptyProps = Omit<React.ComponentProps<typeof CommandPrimitive.Empty>, "children"> & {
@@ -83,8 +99,18 @@ export type CommandEmptyProps = Omit<React.ComponentProps<typeof CommandPrimitiv
   emptyLabel: React.ReactNode;
 };
 
-/** Shown by cmdk only when no item matches. */
+/**
+ * Shown by cmdk only when no item matches. Place it beside `Command.List` (or pass `emptyLabel` to the list), never
+ * inside it: inside, it is rendered as before but warns in development — the listbox then holds text, which axe
+ * refuses (`aria-required-children`).
+ */
 export function CommandEmpty({ className, emptyLabel, ...props }: CommandEmptyProps) {
+  const inside = React.useContext(InsideList);
+  React.useEffect(() => {
+    if (inside && typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
+      console.warn("@krizaka/ui/command: <Command.Empty> inside <Command.List> breaks the listbox (axe aria-required-children). Pass `emptyLabel` to <Command.List> instead.");
+    }
+  }, [inside]);
   return (
     <CommandPrimitive.Empty className={s.empty({ className })} {...props}>
       {emptyLabel}

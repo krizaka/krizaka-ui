@@ -23,7 +23,7 @@ export const SOURCES = ["color", "radius", "shadow", "motion", "typography"];
 /** The brands (src/brands/<id>.brand.json), in output order: the parent first. */
 export const BRANDS = ["krizaka", "orazaka", "orochia"];
 /** The roles a brand sets — all of them, so that a brand never inherits another brand's accent. */
-export const BRAND_ROLES = ["accent", "accent-hover", "accent-soft", "accent-text", "accent-2", "on-accent", "ring", "info", "brand-gradient-from", "brand-gradient-via", "brand-gradient-to"];
+export const BRAND_ROLES = ["accent", "accent-hover", "accent-soft", "accent-text", "accent-2", "on-accent", "ring", "info", "info-text", "brand-gradient-from", "brand-gradient-via", "brand-gradient-to"];
 const EXT = "com.krizaka";
 const PREFIX = "--kz-";
 const TYPES = new Set(["color", "dimension", "shadow", "cubicBezier", "fontFamily"]);
@@ -329,7 +329,8 @@ export declare const brands: { readonly [B in BrandId]: BrandTheme };\n`;
 
 /**
  * Compiles the brand themes. A brand is a DTCG file of colour tokens that must set exactly the accent family
- * (BRAND_ROLES) of the platform's tokens; its aliases point inside the brand. Outputs, per brand, `brands/<id>.css`
+ * (BRAND_ROLES) of the platform's tokens; its aliases point inside the brand, or to a platform token the brand does
+ * not set (`brand-gradient-to` → `{surface.0}`: the section ends on the page surface, whatever the app makes of it). Outputs, per brand, `brands/<id>.css`
  * (the app's theme: the same selectors as tokens.css, imported after it) and one `brands/scoped.css` (every brand as a
  * `.brand-<id>` class, for a page that shows several brands: the site, the catalogue).
  * @param {Token[]} base
@@ -349,7 +350,6 @@ export function compileBrands(base, brandSources) {
   const scoped = ["/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/*.brand.json par scripts/build.mjs : ne pas éditer.\n   Chaque marque en classe `.brand-<id>` : pour une page qui montre plusieurs marques (le site, le catalogue). */"];
   for (const id of ids) {
     const tokens = flatten({ [id]: brandSources[id] });
-    const { resolve, target } = resolver(tokens);
     for (const t of tokens) {
       if (!baseNames.has(t.name)) throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a platform token`);
       if (t.type !== "color" || baseNames.get(t.name)?.type !== "color") throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a colour`);
@@ -357,6 +357,8 @@ export function compileBrands(base, brandSources) {
     }
     const missing = BRAND_ROLES.filter((r) => !tokens.some((t) => t.name === r));
     if (missing.length) throw new Error(`brand ${id}: missing ${missing.map((r) => PREFIX + r).join(", ")}`);
+    const own = new Set(tokens.map((t) => t.name));
+    const { resolve, target } = resolver([...tokens, ...base.filter((t) => !own.has(t.name))]);
     const ordered = BRAND_ROLES.map((r) => /** @type {Token} */ (tokens.find((t) => t.name === r)));
     /** @param {"dark" | "light"} mode @param {boolean} aliases */
     const decls = (mode, aliases) =>

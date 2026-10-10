@@ -70,6 +70,12 @@ describe("tokens.css", () => {
     expect(dark.get("--kz-ring")).toBe("var(--kz-accent)");
   });
 
+  it("ends the section gradient on the page surface itself (an alias, so an app's own --kz-surface-0 follows)", () => {
+    expect(dark.get("--kz-brand-gradient-to")).toBe("var(--kz-surface-0)");
+    expect(lightIsland.get("--kz-brand-gradient-to")).toBe("var(--kz-surface-0)");
+    expect(light.has("--kz-brand-gradient-to")).toBe(false);
+  });
+
   it("keeps what sits on a media identical in both themes", () => {
     for (const name of ["--kz-scrim", "--kz-scrim-strong", "--kz-text-on-media", "--kz-overlay"]) {
       expect(invariant.has(name), name).toBe(true);
@@ -95,7 +101,16 @@ describe("contrast (WCAG 2.x)", () => {
       expect(ratio("--kz-on-accent", "--kz-accent", mode)).toBeGreaterThanOrEqual(4.5);
       for (const bg of surfaces) expect(ratio("--kz-accent-text", bg, mode), bg).toBeGreaterThanOrEqual(4.5);
     });
+    it(`${mode}: the status text roles (success, warning, danger, info) ≥ 4.5:1 on every surface — small text included`, () => {
+      for (const role of ["success", "warning", "danger", "info"]) {
+        for (const bg of surfaces) expect(ratio(`--kz-${role}-text`, bg, mode), `${role} on ${bg}`).toBeGreaterThanOrEqual(4.5);
+      }
+    });
   }
+
+  it("keeps the status fills ≥ 3:1 for non-text marks (dot, border, icon) on the dark surfaces", () => {
+    for (const role of ["--kz-success", "--kz-warning", "--kz-danger"]) expect(ratio(role, "--kz-surface-0", "dark"), role).toBeGreaterThanOrEqual(3);
+  });
 
   it("computes the reference ratios", () => {
     const black = parseHsl("hsl(0 0% 0%)");
@@ -270,6 +285,7 @@ describe("brands", async () => {
         const on = parseHsl(b.onAccent);
         for (const fill of [b.accent, b.accentHover, b.accent2]) expect(contrast(on, parseHsl(fill)), fill).toBeGreaterThanOrEqual(4.5);
         for (const s of surfaces) expect(contrast(parseHsl(b.accentText), parseHsl(page[s])), s).toBeGreaterThanOrEqual(4.5);
+        for (const s of surfaces) expect(contrast(parseHsl(b.infoText), parseHsl(page[s])), `info-text ${s}`).toBeGreaterThanOrEqual(4.5);
         expect(contrast(parseHsl(b.ring), parseHsl(page.surface0))).toBeGreaterThanOrEqual(3);
         // Text set on a section gradient reads at AA on every stop.
         for (const stop of [b.brandGradientFrom, b.brandGradientVia, b.brandGradientTo]) {
@@ -280,6 +296,15 @@ describe("brands", async () => {
       });
     }
   }
+
+  it("ends every brand's section gradient on the page surface (an alias, never a copy)", () => {
+    for (const id of BRANDS) {
+      expect(files[`brands/${id}.css`], id).toContain("--kz-brand-gradient-to: var(--kz-surface-0);");
+      expect(files[`brands/${id}.css`], id).not.toMatch(/--kz-brand-gradient-to: hsl/);
+      for (const mode of ["dark", "light"] as const) expect(index.brands[id][mode].brandGradientTo).toBe(index.values[mode].surface0);
+    }
+    expect(files["brands/scoped.css"]).not.toMatch(/--kz-brand-gradient-to: hsl/);
+  });
 
   it("keeps Orazaka's accent apart from the warning status", () => {
     const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);

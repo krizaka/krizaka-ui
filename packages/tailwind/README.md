@@ -44,7 +44,8 @@ The first two lines are enough to get the whole vocabulary. `@krizaka/ui/tailwin
 | Borders | `border-subtle` · `border-default` · `border-strong` → `border-border-default` | `--kz-border-*` |
 | Text | `fg` · `fg-secondary` · `fg-muted` · `fg-on-media` → `text-fg-secondary` | `--kz-text-*` |
 | Accent | `accent` · `accent-hover` · `accent-soft` · `accent-2` (gradients) · `on-accent` · `ring` | `--kz-accent*`, `--kz-on-accent`, `--kz-ring` |
-| Status | `success` · `warning` · `danger` · `info` | `--kz-success` … |
+| Status | `success` · `warning` · `danger` · `info` (fills, borders, dots, icons — ≥ 3:1) | `--kz-success` … |
+| Status text | `fg-success` · `fg-warning` · `fg-danger` · `fg-info` → `text-fg-danger` (small text, ≥ 4.5:1 on every surface, both themes) | `--kz-*-text` |
 | Radius | `rounded-sm` · `rounded-md` · `rounded-lg` · `rounded-xl` · `rounded-full` | `--kz-radius-*` |
 | Shadow | `shadow-sm` · `shadow-md` · `shadow-lg` | `--kz-shadow-*` |
 | Font | `font-sans` · `font-display` · `font-mono` | `--kz-font-*` |

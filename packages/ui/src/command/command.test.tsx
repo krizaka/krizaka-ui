@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import NoResultsExample from "../../registry/examples/command/no-results";
 import { axeViolations } from "../test/axe";
 import { Command, CommandDialog } from "./index";
 
@@ -8,8 +9,7 @@ function Palette({ onSelect = () => {} }: { onSelect?: (value: string) => void }
   return (
     <Command.Root label="Commands">
       <Command.Input placeholder="Type a command" />
-      <Command.List label="Suggestions">
-        <Command.Empty emptyLabel="Nothing found." />
+      <Command.List label="Suggestions" emptyLabel="Nothing found.">
         <Command.Group heading="Pages">
           <Command.Item onSelect={() => onSelect("home")}>Home</Command.Item>
           <Command.Item onSelect={() => onSelect("wallet")}>Wallet</Command.Item>
@@ -57,6 +57,34 @@ describe("Command", () => {
     await user.type(screen.getByRole("combobox"), "zzz");
     await waitFor(() => expect(screen.getByText("Nothing found.")).toBeTruthy());
   });
+
+  it("says nothing matches beside the listbox, never inside it — no axe violation (aria-required-children)", async () => {
+    const user = userEvent.setup();
+    const { container } = render(<Palette />);
+    await user.type(screen.getByRole("combobox"), "zzz");
+    const empty = await screen.findByText("Nothing found.");
+    expect(screen.getByRole("listbox").contains(empty)).toBe(false);
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("warns in development when Command.Empty is put inside Command.List", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    render(
+      <Command.Root label="Commands">
+        <Command.List label="Suggestions">
+          <Command.Empty emptyLabel="Nothing." />
+        </Command.List>
+      </Command.Root>,
+    );
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining("emptyLabel"));
+    warn.mockRestore();
+  });
+
+  it("renders the no-results example without an axe violation", async () => {
+    const { container } = render(<NoResultsExample />);
+    expect(await screen.findByText("Nothing matches “zzz”.")).toBeTruthy();
+    expect(await axeViolations(container)).toEqual([]);
+  });
 });
 
 describe("CommandDialog", () => {
@@ -66,8 +94,7 @@ describe("CommandDialog", () => {
     render(
       <CommandDialog defaultOpen label="Search" onOpenChange={onOpenChange} footer={<p>↑↓ to move</p>}>
         <Command.Input placeholder="Search creators, videos, tags" />
-        <Command.List label="Results">
-          <Command.Empty emptyLabel="No result." />
+        <Command.List label="Results" emptyLabel="No result.">
           <Command.Item>Night ride</Command.Item>
         </Command.List>
       </CommandDialog>,
