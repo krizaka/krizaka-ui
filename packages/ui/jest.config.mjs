@@ -13,6 +13,8 @@ export default {
   testEnvironmentOptions: { customExportConditions: ["require", "react-native"] },
   roots: ["<rootDir>/src/native"],
   testMatch: ["**/*.test.tsx"],
+  // The first suite pays React Native's Babel transform on a cold cache (CI, while turbo runs the other tasks).
+  testTimeout: 30_000,
   moduleNameMapper: {
     ...preset.moduleNameMapper,
     // ESM only (an `import` condition): Jest runs CommonJS, so it reads the built file and Babel transforms it.
