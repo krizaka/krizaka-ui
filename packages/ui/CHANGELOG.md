@@ -1,5 +1,22 @@
 # @krizaka/ui
 
+## 2.0.0-beta.5
+
+### Minor Changes
+
+- [#33](https://github.com/krizaka/krizaka-ui/pull/33) [`07eb219`](https://github.com/krizaka/krizaka-ui/commit/07eb2192da82fddd7525dc1dd382b262f9cbdc8b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - One family of marks. `KrizakaLogo` and `OrazakaLogo` are redrawn on the grammar of `OrochiaLogo` (unchanged): a bold
+  emblem in an orbit, a bright core, a crop below 48 px — Krizaka an ink hexagonal shield with a blue node and core,
+  Orazaka three solid shards in its orange. Native `KrizakaMark`, `OrazakaMark` and `ProductMark` join `OrochiaMark`,
+  whose neutral strokes now follow the theme. New primitive `@krizaka/ui/section-backdrop` (`SectionBackdrop`: the
+  brand's section gradient, light dome, perspective grid, blurred foreground, a 40 s drift that stops under reduced
+  motion). Words in the accent now use `text-fg-accent` (outline button hover, card title hover, menu indicator; native
+  `Txt tone="accent"`).
+
+### Patch Changes
+
+- Updated dependencies [[`07eb219`](https://github.com/krizaka/krizaka-ui/commit/07eb2192da82fddd7525dc1dd382b262f9cbdc8b)]:
+  - @krizaka/tailwind@2.0.0-beta.5
+
 ## 2.0.0-beta.4
 
 ### Patch Changes
