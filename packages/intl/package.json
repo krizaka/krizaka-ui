@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/intl",
-  "version": "0.1.0-beta.0",
+  "version": "0.1.0",
   "description": "Money, numbers, dates and plurals formatted the same way in every Krizaka product: zero dependency, built on Intl, money from integer minor units only.",
   "keywords": [
     "krizaka",
