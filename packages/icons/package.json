@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/icons",
-  "version": "0.0.0",
+  "version": "0.1.0-beta.0",
   "description": "The Krizaka signature icons: one drawing language (24 grid, cut corners, a node at the core) for every Krizaka product — React (tree-shakable, server-safe) and React Native (react-native-svg).",
   "keywords": [
     "krizaka",

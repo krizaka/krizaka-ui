@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/ui",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.5",
   "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
@@ -203,7 +203,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
-    "@krizaka/tailwind": ">=2.0.0-beta.4",
+    "@krizaka/tailwind": ">=2.0.0-beta.5",
     "react": ">=18",
     "react-dom": ">=18",
     "react-native": ">=0.76",
