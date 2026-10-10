@@ -1,19 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
 
+import DaysExample from "../../registry/examples/countdown/native/days";
+import HoursExample from "../../registry/examples/countdown/native/hours";
+import SizesExample from "../../registry/examples/countdown/native/sizes";
+import UrgentExample from "../../registry/examples/countdown/native/urgent";
 import { Countdown } from "./countdown";
 import { nativeFrame } from "./story-frame";
 
-// The clock is frozen for the stories, so the screenshots are stable: every target is relative to NOW.
+// The clock is frozen for the stories, so the screenshots are stable.
 const NOW = Date.UTC(2026, 9, 9, 12, 0, 0);
-const units = { d: "d", h: "h", m: "m", s: "s" };
 
-/** Native — time left, on the same clock as the web `Countdown`; under `urgentBelowMs`, the danger role. */
+/**
+ * Native — time left, on the same clock as the web `Countdown`. The clock is frozen here (`Date.now`).
+ * Each story renders a named example of the registry (`registry/examples/countdown/native/*`).
+ */
 const meta = {
   title: "Native/Countdown",
   component: Countdown,
   decorators: [nativeFrame],
-  args: { target: NOW + 3_723_000, units, label: "Ends in" },
+  args: { target: NOW + 3_723_000, units: { d: "d", h: "h", m: "m", s: "s" }, label: "Ends in" },
   beforeEach() {
     const realNow = Date.now;
     Date.now = () => NOW;
@@ -26,22 +31,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** Hours, minutes, seconds. */
-export const Hours: Story = {};
-
-/** Days, hours, minutes. */
-export const Days: Story = { args: { target: NOW + ((2 * 24 + 4) * 3600 + 13 * 60) * 1000 } };
-
-/** sm · md · lg. */
-export const Sizes: Story = {
-  render: (args) => (
-    <>
-      <Countdown {...args} size="sm" />
-      <Countdown {...args} size="md" />
-      <Countdown {...args} size="lg" />
-    </>
-  ),
-};
-
-/** Under a minute: the danger role, the last segment breathes (still under reduced motion). */
-export const Urgent: Story = { args: { target: NOW + 42_000, size: "lg" } };
+export const Hours: Story = { render: () => <HoursExample /> };
+export const Days: Story = { render: () => <DaysExample /> };
+export const Sizes: Story = { render: () => <SizesExample /> };
+export const Urgent: Story = { render: () => <UrgentExample /> };

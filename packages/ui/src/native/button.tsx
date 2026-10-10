@@ -30,12 +30,15 @@ const HEIGHT: Record<ButtonSize, number> = { sm: 32, md: 40, lg: 48 };
 const PADDING: Record<ButtonSize, number> = { sm: 12, md: 16, lg: 24 };
 
 type BaseProps = Omit<PressableProps, "children" | "style"> & {
+  /** The look: `primary`, `secondary` (default), `outline`, `ghost`, `danger` — as on the web. */
   variant?: ButtonVariant;
+  /** sm · md (default) · lg: 32, 40 or 48 points high. */
   size?: ButtonSize;
   /** `rounded` (default) or `pill`. */
   shape?: "rounded" | "pill";
   /** Disables, shows a spinner in place of the icon and says busy. */
   loading?: boolean;
+  /** Styles merged last, over the button's frame. */
   style?: StyleProp<ViewStyle>;
 };
 
@@ -87,6 +90,7 @@ export function Button({ label, icon, variant, size = "md", shape, loading = fal
 export type IconButtonProps = BaseProps & {
   /** The accessible name — required, passed translated. */
   label: string;
+  /** The icon (from the app's icon set); the button shows nothing else. */
   icon: React.ReactNode;
 };
 

@@ -9,8 +9,9 @@ import { defineConfig, type Options } from "tsup";
  * - native: React Native (react-native-svg), no directive, never loads react-dom. @krizaka/tokens/native is inlined (its
  *   values; the types are declared in src/native/theme.tsx and checked against it): /native adds no dependency to an
  *   app — tokens, tailwind and ui share one version anyway;
- * - demos: the registry's demos (`registry/demos/<name>.tsx` → `.js` + `.d.ts` beside them), client, importing the
- *   primitives through the package's own entries (`@krizaka/ui/<name>`, external): one copy of each primitive.
+ * - examples: the registry's named examples (`registry/examples/<name>/<example>.tsx`, and `…/native/<example>.tsx`
+ *   for React Native → `.js` + `.d.ts` beside them), client, importing the primitives through the package's own
+ *   entries (`@krizaka/ui/<name>`, `@krizaka/ui/native`, external): one copy of each primitive.
  * `dist/` is emptied by the build script, not by tsup: the three builds run side by side.
  */
 const shared = {
@@ -74,10 +75,13 @@ export default defineConfig([
   },
   {
     ...shared,
-    entry: ["registry/demos/*.tsx", "!registry/demos/*.test.tsx"],
-    outDir: "registry/demos",
+    entry: ["registry/examples/**/*.tsx"],
+    outDir: "registry/examples",
     sourcemap: false,
-    external: [...shared.external, /^@krizaka\/ui\//],
+    // ~170 entries: one declaration build would exhaust the heap. Every example has the same signature — a component,
+    // `defaultOpen` for those that open something — so build-registry.mjs writes their `.d.ts`.
+    dts: false,
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg"],
     banner: { js: '"use client";' },
   },
 ]);

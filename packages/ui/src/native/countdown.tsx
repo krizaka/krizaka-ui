@@ -7,6 +7,7 @@ import { useReducedMotion, useTheme } from "./theme";
 export type { CountdownUnits };
 
 export type CountdownProps = {
+  /** The moment it counts down to: a Date, an ISO string or epoch milliseconds. */
   target: Date | string | number;
   /** Server clock − this clock, in milliseconds. */
   skewMs?: number;
@@ -14,9 +15,11 @@ export type CountdownProps = {
   units: CountdownUnits;
   /** Below this many milliseconds it turns urgent (the danger role, the last segment breathes). Default 60 s. */
   urgentBelowMs?: number;
+  /** sm · md (default) · lg. */
   size?: "sm" | "md" | "lg";
   /** Accessible name, e.g. "Ends in". */
   label: string;
+  /** Styles merged last. */
   style?: StyleProp<ViewStyle>;
 };
 

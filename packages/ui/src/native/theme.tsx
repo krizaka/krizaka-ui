@@ -88,6 +88,7 @@ export type ThemeProviderProps = {
   onModeChange?: (mode: Mode) => void;
   /** The product's roles over the platform's, per theme. */
   overrides?: ThemeOverrides;
+  /** Font families the app has loaded (`expo-font`…); absent: the system font. */
   fonts?: ThemeFonts;
 };
 

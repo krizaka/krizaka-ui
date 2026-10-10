@@ -1,7 +1,7 @@
 # .github/workflows/release.yml (krizaka-ui)
 name: Release
 on: { push: { branches: [main] } }
-permissions: { contents: write, pull-requests: write, id-token: write, actions: write }
+permissions: { contents: write, pull-requests: write, id-token: write }
 concurrency: { group: release, cancel-in-progress: false }
 jobs:
   release:
@@ -26,13 +26,3 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
           NPM_CONFIG_PROVENANCE: "true"
-      # Tags pushed with GITHUB_TOKEN start no workflow: dispatch storybook.yml on the new @krizaka/ui tag so the
-      # versioned catalogue reaches ui.krizaka.com (a workflow_dispatch is the one event GITHUB_TOKEN may start).
-      - name: Mirror the released catalogue (ui.krizaka.com)
-        if: steps.changesets.outputs.published == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISHED: ${{ steps.changesets.outputs.publishedPackages }}
-        run: |
-          version=$(jq -r '.[] | select(.name == "@krizaka/ui") | .version' <<< "$PUBLISHED")
-          if [ -n "$version" ]; then gh workflow run storybook.yml --ref "@krizaka/ui@$version"; fi

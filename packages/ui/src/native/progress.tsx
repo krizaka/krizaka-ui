@@ -9,9 +9,11 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 export type ProgressProps = {
   /** `bar` (default) or `ring`. */
   variant?: "bar" | "ring";
+  /** sm · md (default) · lg: the bar's thickness or the ring's diameter. */
   size?: "sm" | "md" | "lg";
   /** How far, between 0 and `max`. `null` or absent: indeterminate (a wait of unknown length). */
   value?: number | null;
+  /** The value of a full bar. Default 100. */
   max?: number;
   /** The accessible name — passed translated ("Upload", "Raised towards the goal"). */
   label: string;
@@ -19,6 +21,7 @@ export type ProgressProps = {
   valueText?: string;
   /** A ring's centre: an amount, a percentage, an icon. */
   children?: React.ReactNode;
+  /** Styles merged last. */
   style?: StyleProp<ViewStyle>;
 };
 

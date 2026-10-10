@@ -1,50 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
-import { View } from "react-native";
 
+import NotificationExample from "../../registry/examples/toast/native/notification";
+import TonesExample from "../../registry/examples/toast/native/tones";
 import { nativeFrame } from "./story-frame";
-import { BellIcon } from "./story-icons";
-import { toast, Toaster } from "./toast";
+import { Toaster } from "./toast";
 
 /**
  * Native — `Toaster` (once, at the root; `offset` = the safe-area inset) and `toast`, `toast.success/warning/error/info`,
- * `toast.dismiss`: the web's names. `id` replaces a toast (a notification shown once), `onPress` opens what it is about.
+ * `toast.dismiss`: the web's names. Each story renders a named example of the registry
+ * (`registry/examples/toast/native/*`), its toasts shown at load (`defaultOpen`).
  */
 const meta = {
   title: "Native/Toast",
   component: Toaster,
   decorators: [nativeFrame],
-  args: { closeLabel: "Dismiss", duration: Number.POSITIVE_INFINITY },
+  args: { closeLabel: "Dismiss" },
 } satisfies Meta<typeof Toaster>;
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function Stage({ run, ...props }: React.ComponentProps<typeof Toaster> & { run: () => void }) {
-  React.useEffect(() => {
-    toast.dismiss();
-    run();
-    return () => toast.dismiss();
-  }, [run]);
-  return (
-    <View style={{ width: 360, height: 260 }}>
-      <Toaster {...props} />
-    </View>
-  );
-}
-
-const tones = () => {
-  toast("Draft saved", { description: "Autosaved a moment ago." });
-  toast.success("Payment received", { description: "€12.00 from @maya." });
-  toast.error("Upload failed", { description: "The connection dropped at 64 %.", action: { label: "Retry", onPress: () => undefined } });
-};
-
-/** default · success · error with an action. */
-export const Tones: Story = { render: (args) => <Stage {...args} run={tones} /> };
-
-const notification = () => {
-  toast("@maya started a live auction", { id: "n-42", icon: <BellIcon />, onPress: () => undefined });
-};
-
-/** A notification from the live stream: an icon, tap to open it — what Orochia's `LiveToast` did. */
-export const Notification: Story = { render: (args) => <Stage {...args} run={notification} /> };
+export const Tones: Story = { render: () => <TonesExample defaultOpen /> };
+export const Notification: Story = { render: () => <NotificationExample defaultOpen /> };

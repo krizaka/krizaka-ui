@@ -1,38 +1,30 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import BadgeDemo from "../../registry/demos/badge";
+import AccentExample from "../../registry/examples/badge/accent";
+import DangerExample from "../../registry/examples/badge/danger";
+import MediumExample from "../../registry/examples/badge/medium";
+import NeutralExample from "../../registry/examples/badge/neutral";
+import ScrimExample from "../../registry/examples/badge/scrim";
+import SuccessExample from "../../registry/examples/badge/success";
+import WarningExample from "../../registry/examples/badge/warning";
 import { Badge } from "./badge";
 
-/** A short status. `tone` × `size`, an optional `dot` (pulsing with `pulse`); the tone is exposed as `data-tone`. */
+/**
+ * A short status. `tone` × `size`, an optional `dot` (pulsing with `pulse`); the tone is exposed as `data-tone`.
+ * Each story renders a named example of the registry (`registry/examples/badge/*`).
+ */
 const meta = {
   title: "Primitives/Badge",
   component: Badge,
-  args: { children: "New" },
 } satisfies Meta<typeof Badge>;
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The demo of the registry (`registry/demos/badge.tsx`). */
-export const Neutral: Story = { render: () => <BadgeDemo /> };
-
-export const Accent: Story = { args: { tone: "accent", dot: true } };
-
-export const Success: Story = { args: { tone: "success", dot: true, children: "Paid" } };
-
-export const Warning: Story = { args: { tone: "warning", dot: true, children: "Pending" } };
-
-export const Danger: Story = { args: { tone: "danger", dot: true, pulse: true, children: "Ends soon" } };
-
-/** On a media: the veil and the text are invariant, identical in both themes. */
-export const Scrim: Story = {
-  args: { tone: "scrim", children: "4K" },
-  render: (args) => (
-    <div className="flex h-24 w-40 items-start bg-media p-2.5">
-      <Badge {...args} />
-    </div>
-  ),
-};
-
-/** `size="md"`. */
-export const Medium: Story = { args: { tone: "accent", size: "md", children: "Featured" } };
+export const Neutral: Story = { render: () => <NeutralExample /> };
+export const Accent: Story = { render: () => <AccentExample /> };
+export const Success: Story = { render: () => <SuccessExample /> };
+export const Warning: Story = { render: () => <WarningExample /> };
+export const Danger: Story = { render: () => <DangerExample /> };
+export const Scrim: Story = { render: () => <ScrimExample /> };
+export const Medium: Story = { render: () => <MediumExample /> };

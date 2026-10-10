@@ -7,6 +7,7 @@ export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
 const SIDE: Record<AvatarSize, number> = { xs: 20, sm: 32, md: 40, lg: 56, xl: 80 };
 
 export type AvatarProps = Omit<ViewProps, "children"> & {
+  /** The image URI; absent, `null` or failing: the fallback. */
   src?: string | null;
   /** The person's name: the image's accessible name and the source of the default initial. */
   alt?: string;

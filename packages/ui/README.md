@@ -153,7 +153,7 @@ Colours are roles of the preset (`bg-surface-2`, `text-fg-secondary`, `border-bo
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
 | `@krizaka/ui/native` | React Native: `ThemeProvider`/`useTheme`, `Txt`, `Button`, `IconButton`, `Card.*`, `Badge`, `Chip` (+ `Group`), `Avatar` (+ `Group`), `Skeleton`, `EmptyState`, `Spinner`, `Countdown`, `Segmented`, `Progress`, `Toaster`/`toast`, the marks — see [React Native](#react-native) | native |
 | `@krizaka/ui/motion.css`, `@krizaka/ui/tailwind.css` | the motion signature; the `@source` of the primitives' classes | CSS |
-| `@krizaka/ui/registry/<name>`, `@krizaka/ui/registry/demos/<name>` | the registry (JSON) and the demos — see [Registry](#registry) | data · client |
+| `@krizaka/ui/registry/<name>`, `@krizaka/ui/registry/examples/<name>/<example>` | the registry (JSON) and the examples — see [Registry](#registry--the-code-drives-the-documentation) | data · client |
 
 The theme is one mechanism for every product: dark by default, `html.light` for light, `html.theme-<name>` for a named
 theme, persisted as `kz-theme` (and `kz-theme-name`).
@@ -168,34 +168,48 @@ theme, persisted as `kz-theme` (and `kz-theme-name`).
 <ThemeToggle label={(mode) => t(`theme.${mode}`)} />
 ```
 
-## Registry
+## Registry — the code drives the documentation
 
-Every primitive is also published as data, for documentation sites (krizaka.com's `/docs/ui`: live preview, copyable
-code, props table) and, later, a `npx @krizaka/cli add <name>` that copies a primitive into a product which forks it
-knowingly. Built by `scripts/build-registry.mjs` after tsup, from `src/<name>/` (all primitives; not the marks, the
-motion or `native`):
+Every component is also published as data: **[krizaka.com/docs/ui](https://www.krizaka.com/docs/ui)** is generated
+from it at every build of the site (one page per component: when to use it, live examples with their code for the web
+and React Native, props, accessibility), and, later, a `npx @krizaka/cli add <name>` may copy a primitive into a
+product that forks it knowingly. Built by `scripts/build-registry.mjs` after tsup, from three sources in the code:
+
+- **`meta.ts`** beside each component (`src/<name>/meta.ts`, `src/cn.meta.ts`; a React-Native-only component:
+  `src/native/meta/<name>.ts`), typed by `src/meta.ts`: title, summary, status (`stable` · `beta`), category,
+  platforms (`web` · `native` · `both`), when to use it, when not (and what to use instead), best practices,
+  accessibility (keyboard, roles), related components, and per platform the names to import, the named examples and,
+  for React Native, what differs from the web API. A typed module rather than JSDoc tags: the fields are lists and
+  links between components, which the compiler checks; the file is plain data that Node reads without a build.
+- **Named examples**: `registry/examples/<name>/<example>.tsx` (web) and `registry/examples/<name>/native/<example>.tsx`
+  (React Native) — one per significant variant, ≤ 40 lines, importing what a product imports (`@krizaka/ui/<entry>`,
+  `@krizaka/ui/native`, `react-native`). The stories render them, so Storybook's visual tests and the docs show the
+  same code. An example that opens over the page takes `defaultOpen` (the story opens it; the docs leave it closed).
+- **Props** of the web and native components, read by `react-docgen-typescript` from the JSDoc of their props types:
+  own props only (inherited DOM, Radix and `Pressable` props are left out).
+
+`scripts/registry.test.mjs` fails when a component has no `meta.ts`, an empty section, an unknown related component, a
+platform that does not match its exports, an example missing or longer than 40 lines, or a prop without a
+description; `src/registry.test.tsx` (Vitest, axe) and `src/native/examples.test.tsx` (Jest) render every example.
 
 | Path | What |
 | :-- | :-- |
-| `@krizaka/ui/registry/index` | `{ name, version, items: [{ name, type, description, dependencies, registryDependencies }] }` |
-| `@krizaka/ui/registry/<name>` | `{ name, type: "primitive", description, files: [{ path, content }], dependencies, registryDependencies, demo: { path, content }, props }` |
-| `@krizaka/ui/registry/demos/<name>` | the demo, compiled (ESM, `"use client"`, `default` export) — its source ships beside it as `registry/demos/<name>.tsx` |
+| `@krizaka/ui/registry/index` | `{ name, version, items: [{ name, type, title, summary, status, category, platforms, examples: { web, native }, dependencies, registryDependencies }] }` |
+| `@krizaka/ui/registry/<name>` | the `meta.ts` fields, `web` and `native` (`{ entry, import, props, examples: [{ name, title, description, path, module, code }] }`, `native` adds `differences` and, per example, `screenshots: { dark, light }`), and for a web primitive `files: [{ path, content }]`, `dependencies`, `registryDependencies`, `demo` (its first example) and `props` |
+| `@krizaka/ui/registry/examples/<name>/<example>` | an example, compiled (ESM, `"use client"`, `default` export); its source ships beside it (`.tsx`), and a React Native example its screenshots (`<example>.dark.png`, `<example>.light.png`: the Linux baselines of its story — React Native has no live preview on the web) |
 
 - `files` are the sources (paths from `src/`); `dependencies` are npm `name@range` (React aside); `registryDependencies`
-  are the other primitives it imports (`cn`, `button`…).
+  are the other primitives it imports (`cn`, `button`…). `type` is `primitive` (a web entry) or `native` (React Native
+  only: `segmented`, `txt`).
 - `props` is one entry per exported component — `{ component, description, props: [{ name, type, default, description,
-  required }] }` — read by `react-docgen-typescript` from the JSDoc of the props types: the component's own props,
-  its variants included; inherited DOM and Radix props are left out. A test fails on a prop without a description.
-- A demo is ≤ 40 lines, imports the primitives as a product does (`@krizaka/ui/<name>`) and is the default story of
-  the primitive: Storybook and the docs show the same code. A demo that opens over the page takes `defaultOpen` (the
-  story opens it for the screenshot; the docs leave it closed).
+  required }] }`.
 
 ```ts
-import card from "@krizaka/ui/registry/card" with { type: "json" };
-import CardDemo from "@krizaka/ui/registry/demos/card";
+import button from "@krizaka/ui/registry/button" with { type: "json" };
+import Primary from "@krizaka/ui/registry/examples/button/primary";
 ```
 
-A site that renders the demos adds them to Tailwind's sources: `@source "../node_modules/@krizaka/ui/registry/demos";`.
+A site that renders the examples adds them to Tailwind's sources: `@source "../node_modules/@krizaka/ui/registry/examples";`.
 
 ## React Native
 
@@ -267,7 +281,8 @@ import { Button, Card, Countdown, OrochiaMark } from "@krizaka/ui/native";
 <OrochiaMark size={72} title="Orochia" neutral={theme.borderDefault} />
 ```
 
-The native stories (`Native/*` in the catalogue) render through react-native-web in the web Storybook: audited by axe
+The native stories (`Native/*`, rendering the `registry/examples/<name>/native` examples) render through
+react-native-web in the internal Storybook: audited by axe
 and screenshot-compared in dark and light like the web ones. Tests run on Jest with React Native's preset and
 Testing Library (`src/native/*.test.tsx`); `scripts/native-dist.mjs` checks that `dist/native.js` carries no
 `"use client"`, no DOM and no import beyond React, `react-native` and `react-native-svg`.
@@ -334,8 +349,8 @@ classes the components use are generated in your stylesheet.
 @import "@krizaka/ui/tailwind.css";
 ```
 
-Every component, in dark and light and under each product identity:
-[krizaka.github.io/krizaka-ui/latest](https://krizaka.github.io/krizaka-ui/latest/).
+Every component, with when to use it, live examples and their code (web and React Native) and its props:
+[krizaka.com/docs/ui](https://www.krizaka.com/docs/ui).
 
 ## Develop
 

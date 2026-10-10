@@ -6,9 +6,13 @@ import { useReducedMotion, useTheme } from "./theme";
 export type SkeletonProps = {
   /** `text` (a line), `circle` (an avatar), `rect` (a media, a card). */
   shape?: "text" | "circle" | "rect";
+  /** Points or a percentage; default: the shape's. */
   width?: DimensionValue;
+  /** Points or a percentage; default: the shape's. */
   height?: DimensionValue;
+  /** Styles merged last. */
   style?: StyleProp<ViewStyle>;
+  /** The id the tests find it by. */
   testID?: string;
 };
 

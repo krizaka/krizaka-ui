@@ -1,10 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import SwitchDemo from "../../registry/demos/switch";
-import { Field } from "../field/field";
+import DisabledExample from "../../registry/examples/switch/disabled";
+import OffExample from "../../registry/examples/switch/off";
+import OnExample from "../../registry/examples/switch/on";
+import SmallExample from "../../registry/examples/switch/small";
+import WithLabelExample from "../../registry/examples/switch/with-label";
 import { Switch } from "./switch";
 
-/** `Switch` on Radix: role="switch", Space toggles. `label` names it when no visible label does. `size` sm · md. */
+/**
+ * `Switch` on Radix: role="switch", Space toggles. `label` names it when no visible label does.
+ * Each story renders a named example of the registry (`registry/examples/switch/*`): the code krizaka.com/docs/ui shows.
+ */
 const meta = {
   title: "Primitives/Switch",
   component: Switch,
@@ -14,33 +20,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The demo of the registry (`registry/demos/switch.tsx`). */
-export const Off: Story = { render: () => <SwitchDemo /> };
-
-export const On: Story = { args: { defaultChecked: true } };
-
-export const Disabled: Story = {
-  render: () => (
-    <div className="flex gap-4">
-      <Switch label="Autoplay" disabled />
-      <Switch label="Loop" disabled defaultChecked />
-    </div>
-  ),
-};
-
-export const Small: Story = { args: { size: "sm", defaultChecked: true } };
-
-/** Named by a visible label (`Field.Label htmlFor`), with a hint. */
-export const WithLabel: Story = {
-  render: () => (
-    <Field.Root className="w-80">
-      <div className="flex items-center justify-between gap-4">
-        <Field.Label htmlFor="digest" className="text-sm text-fg">
-          Weekly digest
-        </Field.Label>
-        <Switch id="digest" defaultChecked aria-describedby="digest-hint" />
-      </div>
-      <Field.Hint id="digest-hint">One email on Monday with what you missed.</Field.Hint>
-    </Field.Root>
-  ),
-};
+export const Off: Story = { render: () => <OffExample /> };
+export const On: Story = { render: () => <OnExample /> };
+export const Disabled: Story = { render: () => <DisabledExample /> };
+export const Small: Story = { render: () => <SmallExample /> };
+export const WithLabel: Story = { render: () => <WithLabelExample /> };

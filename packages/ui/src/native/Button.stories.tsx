@@ -1,12 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
 
-import { Button, IconButton } from "./button";
+import DangerExample from "../../registry/examples/button/native/danger";
+import DisabledExample from "../../registry/examples/button/native/disabled";
+import GhostExample from "../../registry/examples/button/native/ghost";
+import IconExample from "../../registry/examples/button/native/icon";
+import IconOnlyExample from "../../registry/examples/button/native/icon-only";
+import LoadingExample from "../../registry/examples/button/native/loading";
+import OutlineExample from "../../registry/examples/button/native/outline";
+import PrimaryExample from "../../registry/examples/button/native/primary";
+import SecondaryExample from "../../registry/examples/button/native/secondary";
+import SizesExample from "../../registry/examples/button/native/sizes";
+import { Button } from "./button";
 import { nativeFrame } from "./story-frame";
-import { CloseIcon, PlusIcon } from "./story-icons";
-import { useTheme } from "./theme";
 
-/** Native — the action: `variant` × `size` × `shape`, `loading`, `icon`. `label` is the text and the accessible name. */
+/**
+ * Native — the action: `variant` × `size` × `shape`, `loading`, `icon`. `label` is the text and the accessible name.
+ * Each story renders a named example of the registry (`registry/examples/button/native/*`).
+ */
 const meta = {
   title: "Native/Button",
   component: Button,
@@ -17,46 +27,13 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = { args: { variant: "primary" } };
-export const Secondary: Story = {};
-export const Outline: Story = { args: { variant: "outline" } };
-export const Ghost: Story = { args: { variant: "ghost" } };
-export const Danger: Story = { args: { variant: "danger", label: "Delete" } };
-
-/** sm · md · lg, and `shape="pill"`. */
-export const Sizes: Story = {
-  render: (args) => (
-    <>
-      <Button {...args} size="sm" />
-      <Button {...args} size="md" />
-      <Button {...args} size="lg" shape="pill" />
-    </>
-  ),
-  args: { variant: "primary" },
-};
-
-function WithIcon() {
-  const { theme } = useTheme();
-  return <Button variant="primary" label="New set" icon={<PlusIcon color={theme.onAccent} />} />;
-}
-
-/** `icon` before the label. */
-export const Icon: Story = { render: () => <WithIcon /> };
-
-export const Disabled: Story = { args: { variant: "primary", disabled: true } };
-
-/** Disabled and busy, a spinner in place of the icon. */
-export const Loading: Story = { args: { variant: "primary", loading: true, label: "Saving…" } };
-
-function IconButtons() {
-  const { theme } = useTheme();
-  return (
-    <>
-      <IconButton label="Close" variant="ghost" icon={<CloseIcon />} />
-      <IconButton label="Add" variant="primary" shape="pill" icon={<PlusIcon color={theme.onAccent} />} />
-    </>
-  );
-}
-
-/** `IconButton`: `label` is required, it is the accessible name. */
-export const IconOnly: Story = { render: () => <IconButtons /> };
+export const Primary: Story = { render: () => <PrimaryExample /> };
+export const Secondary: Story = { render: () => <SecondaryExample /> };
+export const Outline: Story = { render: () => <OutlineExample /> };
+export const Ghost: Story = { render: () => <GhostExample /> };
+export const Danger: Story = { render: () => <DangerExample /> };
+export const Sizes: Story = { render: () => <SizesExample /> };
+export const Icon: Story = { render: () => <IconExample /> };
+export const Disabled: Story = { render: () => <DisabledExample /> };
+export const Loading: Story = { render: () => <LoadingExample /> };
+export const IconOnly: Story = { render: () => <IconOnlyExample /> };

@@ -1,38 +1,27 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import StatDemo from "../../registry/demos/stat";
+import DownExample from "../../registry/examples/stat/down";
+import FlatExample from "../../registry/examples/stat/flat";
+import PlainExample from "../../registry/examples/stat/plain";
+import RowExample from "../../registry/examples/stat/row";
+import UpExample from "../../registry/examples/stat/up";
 import { Stat } from "./stat";
 
 /**
- * A key figure: `label`, `value` (tabular digits), `hint`, `trend` up · down · flat with `trendLabel` — the change in
- * words, read and shown; the arrow is decorative and carries the colour.
+ * A key figure: `label`, `value` (tabular digits), `hint`, `trend` with `trendLabel` — the change in words.
+ * Each story renders a named example of the registry (`registry/examples/stat/*`): the code krizaka.com/docs/ui shows.
  */
 const meta = {
   title: "Primitives/Stat",
   component: Stat,
-  args: { label: "Revenue", value: "€4,812", hint: "vs last month" },
+  args: { label: "Revenue", value: "€4,812" },
 } satisfies Meta<typeof Stat>;
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The demo of the registry (`registry/demos/stat.tsx`). */
-export const Up: Story = { render: () => <StatDemo /> };
-
-export const Down: Story = { args: { trend: "down", trendLabel: "−4 %" } };
-
-export const Flat: Story = { args: { trend: "flat", trendLabel: "0 %" } };
-
-/** Label and value only. */
-export const Plain: Story = { args: { hint: undefined } };
-
-/** A row of stats, as a dashboard shows them. */
-export const Row: Story = {
-  render: () => (
-    <div className="grid grid-cols-3 gap-8 rounded-xl border border-border-default bg-surface-1 p-6">
-      <Stat label="Views" value="12.4k" trend="up" trendLabel="+8 %" hint="7 days" />
-      <Stat label="Supporters" value="318" trend="up" trendLabel="+21" hint="7 days" />
-      <Stat label="Payouts" value="€902" trend="down" trendLabel="−3 %" hint="7 days" />
-    </div>
-  ),
-};
+export const Up: Story = { render: () => <UpExample /> };
+export const Down: Story = { render: () => <DownExample /> };
+export const Flat: Story = { render: () => <FlatExample /> };
+export const Plain: Story = { render: () => <PlainExample /> };
+export const Row: Story = { render: () => <RowExample /> };

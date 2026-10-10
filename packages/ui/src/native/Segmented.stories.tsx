@@ -1,36 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
-import { View } from "react-native";
 
+import DefaultExample from "../../registry/examples/segmented/native/default";
+import SmallExample from "../../registry/examples/segmented/native/small";
 import { Segmented } from "./segmented";
 import { nativeFrame } from "./story-frame";
 
-const options = [
-  { value: "feed", label: "Feed" },
-  { value: "auctions", label: "Auctions" },
-  { value: "challenges", label: "Challenges" },
-] as const;
-
-/** Native — switches between views of a screen (the web `Tabs variant="segmented"`): a tab list. */
+/**
+ * Native — switches between views of a screen (the web `Tabs variant="segmented"`): a tab list.
+ * Each story renders a named example of the registry (`registry/examples/segmented/native/*`): the code krizaka.com/docs/ui shows.
+ */
 const meta = {
   title: "Native/Segmented",
   component: Segmented,
   decorators: [nativeFrame],
-  args: { options: [...options], value: "feed", onValueChange: () => undefined, "aria-label": "View" },
+  args: { options: [{ value: "feed", label: "Feed" }], value: "feed", onValueChange: () => undefined, "aria-label": "View" },
 } satisfies Meta<typeof Segmented>;
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function Controlled({ size }: { size?: "sm" | "md" }) {
-  const [value, setValue] = React.useState<(typeof options)[number]["value"]>("auctions");
-  return (
-    <View style={{ width: 320 }}>
-      <Segmented aria-label="View" options={options} value={value} onValueChange={setValue} size={size} />
-    </View>
-  );
-}
-
-export const Default: Story = { render: () => <Controlled /> };
-
-export const Small: Story = { render: () => <Controlled size="sm" /> };
+export const Default: Story = { render: () => <DefaultExample /> };
+export const Small: Story = { render: () => <SmallExample /> };

@@ -1,49 +1,26 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import CheckboxDemo from "../../registry/demos/checkbox";
-import { Field } from "../field/field";
+import CheckedExample from "../../registry/examples/checkbox/checked";
+import DisabledExample from "../../registry/examples/checkbox/disabled";
+import IndeterminateExample from "../../registry/examples/checkbox/indeterminate";
+import InvalidExample from "../../registry/examples/checkbox/invalid";
+import UncheckedExample from "../../registry/examples/checkbox/unchecked";
 import { Checkbox } from "./checkbox";
 
 /**
  * `Checkbox` on Radix: checked · unchecked · indeterminate, Space toggles. Its words as children make one clickable
- * label; in a `Field` it takes `Field.Label htmlFor`, `invalid` and a `Field.Error`.
+ * label. Each story renders a named example of the registry (`registry/examples/checkbox/*`).
  */
 const meta = {
   title: "Primitives/Checkbox",
   component: Checkbox,
-  args: { children: "I accept the terms of use" },
 } satisfies Meta<typeof Checkbox>;
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The demo of the registry (`registry/demos/checkbox.tsx`). */
-export const Unchecked: Story = { render: () => <CheckboxDemo /> };
-
-export const Checked: Story = { args: { defaultChecked: true } };
-
-/** `checked="indeterminate"`: some of a list. */
-export const Indeterminate: Story = { args: { checked: "indeterminate", children: "Select all videos" } };
-
-export const Disabled: Story = {
-  render: () => (
-    <div className="flex flex-col gap-3">
-      <Checkbox disabled>Email me the receipts</Checkbox>
-      <Checkbox disabled defaultChecked>
-        Keep me signed in
-      </Checkbox>
-    </div>
-  ),
-};
-
-/** In a `Field`, invalid, with its error. */
-export const Invalid: Story = {
-  render: () => (
-    <Field.Root className="w-80">
-      <Checkbox invalid aria-describedby="age-error">
-        I am 18 or older
-      </Checkbox>
-      <Field.Error id="age-error">You must be 18 or older to continue.</Field.Error>
-    </Field.Root>
-  ),
-};
+export const Unchecked: Story = { render: () => <UncheckedExample /> };
+export const Checked: Story = { render: () => <CheckedExample /> };
+export const Indeterminate: Story = { render: () => <IndeterminateExample /> };
+export const Disabled: Story = { render: () => <DisabledExample /> };
+export const Invalid: Story = { render: () => <InvalidExample /> };
