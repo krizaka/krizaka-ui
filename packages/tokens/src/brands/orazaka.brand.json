@@ -1,0 +1,96 @@
+{
+  "$description": "Orazaka — orange, pris dans le dégradé du logo (#f59e0b → #b45309, teintes 38 → 26). L'accent est à la teinte 26 (l'orange du logo, pas son ambre : la teinte 38 est celle de --kz-warning). Dark : orange clair sous texte quasi noir ; light : l'arrêt profond du logo exactement (#b45309) sous texte blanc. accent-2 prolonge le dégradé vers l'ambre. info reste bleu : un statut d'information orange se confondrait avec un avertissement.",
+  "accent": {
+    "$type": "color",
+    "$root": {
+      "$value": "hsl(26 92% 55%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(26 90.5% 37.1%)"
+        }
+      }
+    },
+    "hover": {
+      "$value": "hsl(26 92% 62%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(26 90% 31%)"
+        }
+      }
+    },
+    "soft": {
+      "$value": "hsl(26 92% 55% / 0.12)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(26 90.5% 37.1% / 0.08)"
+        }
+      }
+    },
+    "text": {
+      "$value": "hsl(26 92% 60%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(26 90% 32%)"
+        }
+      }
+    }
+  },
+  "accent-2": {
+    "$type": "color",
+    "$value": "hsl(37.7 92.1% 50.2%)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(32 95% 33%)"
+      }
+    }
+  },
+  "on-accent": {
+    "$type": "color",
+    "$value": "hsl(240 6% 5%)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(0 0% 100%)"
+      }
+    }
+  },
+  "ring": {
+    "$type": "color",
+    "$value": "{accent.$root}"
+  },
+  "info": {
+    "$type": "color",
+    "$value": "hsl(217 92% 60%)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(217 92% 50%)"
+      }
+    }
+  },
+  "brand-gradient": {
+    "$type": "color",
+    "from": {
+      "$value": "hsl(24 55% 10%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(30 100% 92%)"
+        }
+      }
+    },
+    "via": {
+      "$value": "hsl(34 30% 7%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(38 80% 96%)"
+        }
+      }
+    },
+    "to": {
+      "$value": "hsl(240 6% 5%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(0 0% 98%)"
+        }
+      }
+    }
+  }
+}

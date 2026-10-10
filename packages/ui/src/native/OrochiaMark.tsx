@@ -3,17 +3,8 @@ import { AccessibilityInfo, Animated, Easing, View } from "react-native";
 import Svg, { Circle, Defs, Ellipse, G as Group, LinearGradient, Path, RadialGradient, Stop } from "react-native-svg";
 
 import { OROCHIA as G } from "../marks/orochia-geometry";
-
-export interface NativeMarkProps {
-  /** Width and height in points. */
-  size?: number;
-  /** The orbit turns and the flame breathes; always still when the system asks to reduce motion. */
-  animated?: boolean;
-  /** An accessible name (the mark becomes an image); without it the mark is decorative. */
-  title?: string;
-  /** The neutral strokes (orbit, ring): the host's border colour. */
-  neutral?: string;
-}
+import { type NativeMarkProps } from "./mark-motion";
+import { useTheme } from "./theme";
 
 const CENTER = G.offset + 180;
 
@@ -22,7 +13,9 @@ const CENTER = G.offset + 180;
  * react-native-svg. Three layers so that the motion runs on the native driver: the orbit turns, the eye and the flame
  * breathe, the serpent stays still.
  */
-export function OrochiaMark({ size = 48, animated = true, title, neutral = "rgba(255,255,255,0.35)" }: NativeMarkProps) {
+export function OrochiaMark({ size = 48, animated = true, title, neutral: neutralProp }: NativeMarkProps) {
+  const { theme } = useTheme();
+  const neutral = neutralProp ?? theme.textMuted;
   const [spin] = useState(() => new Animated.Value(0));
   const [pulse] = useState(() => new Animated.Value(0));
   useEffect(() => {

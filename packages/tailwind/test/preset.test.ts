@@ -32,6 +32,8 @@ describe("@krizaka/tailwind", () => {
     [".rounded-xl", "border-radius", "--kz-radius-xl"],
     [".shadow-md", "--tw-shadow", "--kz-shadow-md"],
     [".text-accent", "color", "--kz-accent"],
+    [".text-fg-accent", "color", "--kz-accent-text"],
+    [".from-brand-from", "--tw-gradient-from", "--kz-brand-gradient-from"],
   ])("generates %s from the token, read at use time", (selector, property, token) => {
     const body = rule(selector);
     expect(body).toContain(property);

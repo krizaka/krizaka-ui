@@ -162,6 +162,10 @@
       "types": "./dist/progress.d.ts",
       "import": "./dist/progress.js"
     },
+    "./section-backdrop": {
+      "types": "./dist/section-backdrop.d.ts",
+      "import": "./dist/section-backdrop.js"
+    },
     "./motion.css": "./dist/motion.css",
     "./tailwind.css": "./tailwind.css",
     "./native": {
@@ -278,7 +282,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "10.5 kB",
+      "limit": "11.5 kB",
       "gzip": true
     },
     {
@@ -490,6 +494,16 @@
     {
       "name": "./kbd",
       "path": "dist/kbd.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./section-backdrop",
+      "path": "dist/section-backdrop.js",
       "limit": "1 kB",
       "gzip": true,
       "ignore": [

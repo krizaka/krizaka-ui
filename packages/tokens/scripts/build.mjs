@@ -20,6 +20,10 @@ import { parseHsl, toNative } from "./color.mjs";
 
 /** Source files, in output order. */
 export const SOURCES = ["color", "radius", "shadow", "motion", "typography"];
+/** The brands (src/brands/<id>.brand.json), in output order: the parent first. */
+export const BRANDS = ["krizaka", "orazaka", "orochia"];
+/** The roles a brand sets — all of them, so that a brand never inherits another brand's accent. */
+export const BRAND_ROLES = ["accent", "accent-hover", "accent-soft", "accent-text", "accent-2", "on-accent", "ring", "info", "brand-gradient-from", "brand-gradient-via", "brand-gradient-to"];
 const EXT = "com.krizaka";
 const PREFIX = "--kz-";
 const TYPES = new Set(["color", "dimension", "shadow", "cubicBezier", "fontFamily"]);
@@ -182,7 +186,7 @@ function block(tokens, selector, scheme, pick, target, intro) {
  * Builds every output from the sources.
  * @param {Record<string, unknown>} sources
  */
-export function compile(sources) {
+export function compile(sources, brandSources = {}) {
   const tokens = flatten(sources);
   const { resolve, target } = resolver(tokens);
   const themed = tokens.filter((t) => t.light !== undefined || isAlias(t.dark));
@@ -289,10 +293,115 @@ export declare const typography: ${literalType(typography)};
 export declare const motion: { readonly ease: readonly [number, number, number, number] };
 `;
 
-  return {
-    tokens,
-    files: { "tokens.css": tokensCss, "index.js": indexJs, "index.d.ts": indexDts, "native.js": nativeJs, "native.d.ts": nativeDts },
+  const brands = compileBrands(tokens, brandSources);
+  const brandsJs = brands.ids.length
+    ? `\n/** The brand themes: the accent family of each Krizaka brand, raw CSS per theme (aliases resolved). */
+export const brands = Object.freeze(${json(brands.values)});\n`
+    : "";
+  const brandsDts = `\n/** A Krizaka brand. */
+export type BrandId = ${brands.ids.length ? brands.ids.map((b) => json(b)).join(" | ") : "never"};
+/** The roles a brand theme sets. */
+export type BrandRole = ${BRAND_ROLES.map((r) => json(camel(r))).join(" | ")};
+/** The brand themes: the accent family of each Krizaka brand, raw CSS per theme (aliases resolved). */
+export declare const brands: { readonly [B in BrandId]: { readonly dark: { readonly [R in BrandRole]: string }; readonly light: { readonly [R in BrandRole]: string } } };\n`;
+  const brandsNativeJs = brands.ids.length
+    ? `\n/** The brand themes as ThemeProvider overrides (\`overrides={brands.orazaka}\`): the accent family per theme. */
+export const brands = Object.freeze(${json(brands.native)});\n`
+    : "";
+  const brandsNativeDts = `\n/** A Krizaka brand. */
+export type BrandId = ${brands.ids.length ? brands.ids.map((b) => json(b)).join(" | ") : "never"};
+/** The colour roles a brand theme sets, per theme. */
+export type BrandTheme = { readonly dark: { readonly [R in ${BRAND_ROLES.map((r) => json(camel(r))).join(" | ")}]: string }; readonly light: { readonly [R in ${BRAND_ROLES.map((r) => json(camel(r))).join(" | ")}]: string } };
+/** The brand themes as ThemeProvider overrides (\`overrides={brands.orazaka}\`): the accent family per theme. */
+export declare const brands: { readonly [B in BrandId]: BrandTheme };\n`;
+
+  /** @type {Record<string, string>} */
+  const files = {
+    "tokens.css": tokensCss,
+    "index.js": indexJs + brandsJs,
+    "index.d.ts": indexDts + brandsDts,
+    "native.js": nativeJs + brandsNativeJs,
+    "native.d.ts": nativeDts + brandsNativeDts,
+    ...brands.css,
   };
+  return { tokens, brands: brands.ids, files };
+}
+
+/**
+ * Compiles the brand themes. A brand is a DTCG file of colour tokens that must set exactly the accent family
+ * (BRAND_ROLES) of the platform's tokens; its aliases point inside the brand. Outputs, per brand, `brands/<id>.css`
+ * (the app's theme: the same selectors as tokens.css, imported after it) and one `brands/scoped.css` (every brand as a
+ * `.brand-<id>` class, for a page that shows several brands: the site, the catalogue).
+ * @param {Token[]} base
+ * @param {Record<string, unknown>} brandSources
+ */
+export function compileBrands(base, brandSources) {
+  const roles = new Set(BRAND_ROLES);
+  const baseNames = new Map(base.map((t) => [t.name, t]));
+  /** @type {Record<string, string>} */
+  const css = {};
+  /** @type {Record<string, { dark: Record<string, string>, light: Record<string, string> }>} */
+  const values = {};
+  /** @type {Record<string, { dark: Record<string, string>, light: Record<string, string> }>} */
+  const native = {};
+  const ids = Object.keys(brandSources);
+  /** @type {string[]} */
+  const scoped = ["/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/*.brand.json par scripts/build.mjs : ne pas éditer.\n   Chaque marque en classe `.brand-<id>` : pour une page qui montre plusieurs marques (le site, le catalogue). */"];
+  for (const id of ids) {
+    const tokens = flatten({ [id]: brandSources[id] });
+    const { resolve, target } = resolver(tokens);
+    for (const t of tokens) {
+      if (!baseNames.has(t.name)) throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a platform token`);
+      if (t.type !== "color" || baseNames.get(t.name)?.type !== "color") throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a colour`);
+      if (!roles.has(t.name)) throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a brand role (${BRAND_ROLES.join(", ")})`);
+    }
+    const missing = BRAND_ROLES.filter((r) => !tokens.some((t) => t.name === r));
+    if (missing.length) throw new Error(`brand ${id}: missing ${missing.map((r) => PREFIX + r).join(", ")}`);
+    const ordered = BRAND_ROLES.map((r) => /** @type {Token} */ (tokens.find((t) => t.name === r)));
+    /** @param {"dark" | "light"} mode @param {boolean} aliases */
+    const decls = (mode, aliases) =>
+      ordered
+        .filter((t) => aliases || !isAlias(t.dark))
+        .map((t) => `  ${PREFIX}${t.name}: ${isAlias(t.dark) ? `var(${PREFIX}${target(/** @type {string} */ (t.dark)).name})` : String(mode === "light" ? (t.light ?? t.dark) : t.dark)};`)
+        .join("\n");
+    const description = isObject(brandSources[id]) && typeof brandSources[id].$description === "string" ? brandSources[id].$description : id;
+    css[`brands/${id}.css`] = [
+      `/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/${id}.brand.json par scripts/build.mjs : ne pas éditer.`,
+      `   ${description}`,
+      `   Importé après tokens.css (ou @krizaka/tailwind) : l'identité ${id} sur toute l'app, dans les deux thèmes. */`,
+      "",
+      `:root, .theme-dark {\n${decls("dark", true)}\n}`,
+      "",
+      `html.light {\n${decls("light", false)}\n}`,
+      "",
+      `.theme-light {\n${decls("light", true)}\n}`,
+      "",
+    ].join("\n");
+    const cls = `.brand-${id}`;
+    scoped.push(
+      "",
+      `${cls} {\n${decls("dark", true)}\n}`,
+      `html.light ${cls}, html .theme-light ${cls}, html ${cls}.theme-light {\n${decls("light", true)}\n}`,
+      `html .theme-dark ${cls}, html ${cls}.theme-dark {\n${decls("dark", true)}\n}`,
+    );
+    /** @param {"dark" | "light"} mode */
+    const raw = (mode) => Object.fromEntries(ordered.map((t) => [t.key, /** @type {string} */ (resolve(t, mode))]));
+    values[id] = { dark: raw("dark"), light: raw("light") };
+    /** @param {"dark" | "light"} mode */
+    const hex = (mode) => Object.fromEntries(ordered.map((t) => [t.key, toNative(parseHsl(/** @type {string} */ (resolve(t, mode))))]));
+    native[id] = { dark: hex("dark"), light: hex("light") };
+  }
+  if (ids.length) css["brands/scoped.css"] = `${scoped.join("\n")}\n`;
+  return { ids, css, values, native };
+}
+
+/**
+ * Reads the brand sources from a directory, in BRANDS order.
+ * @param {string} dir
+ * @returns {Record<string, unknown>}
+ */
+export function loadBrands(dir) {
+  return Object.fromEntries(BRANDS.map((b) => [b, JSON.parse(readFileSync(join(dir, `${b}.brand.json`), "utf8"))]));
 }
 
 /**
@@ -301,13 +410,15 @@ export declare const motion: { readonly ease: readonly [number, number, number, 
  * @param {string} outDir
  */
 export function write(files, outDir) {
-  mkdirSync(outDir, { recursive: true });
-  for (const [name, content] of Object.entries(files)) writeFileSync(join(outDir, name), content);
+  for (const [name, content] of Object.entries(files)) {
+    mkdirSync(dirname(join(outDir, name)), { recursive: true });
+    writeFileSync(join(outDir, name), content);
+  }
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-  const { tokens, files } = compile(load(join(root, "src/tokens")));
+  const { tokens, brands, files } = compile(load(join(root, "src/tokens")), loadBrands(join(root, "src/brands")));
   write(files, join(root, "dist"));
-  console.log(`@krizaka/tokens: ${tokens.length} tokens → dist/{${Object.keys(files).join(",")}}`);
+  console.log(`@krizaka/tokens: ${tokens.length} tokens, ${brands.length} brands → dist/{${Object.keys(files).join(",")}}`);
 }

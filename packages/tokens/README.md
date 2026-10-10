@@ -27,7 +27,11 @@ npm install @krizaka/tokens
 | :-- | :-- | :-- |
 | `@krizaka/tokens/tokens.css` | Web (imported once, usually through `@krizaka/tailwind`) | The `--kz-*` custom properties. |
 | `@krizaka/tokens` | TS / JS on the web (canvas, charts, e-mails, inline styles) | `tokens` (`var(--kz-…)` references, camelCase keys), `values.dark` / `values.light` (raw CSS, aliases resolved), `TokenName`. |
-| `@krizaka/tokens/native` | React Native / Expo | `themes.dark` / `themes.light` (hex, `rgba()` when translucent), `radius` (dp), `typography`, `motion.ease`, type `Theme`. |
+| `@krizaka/tokens/native` | React Native / Expo | `themes.dark` / `themes.light` (hex, `rgba()` when translucent), `radius` (dp), `typography`, `motion.ease`, type `Theme`; `brands.<id>` (ThemeProvider overrides). |
+| `@krizaka/tokens/brands/<id>.css` | A product app (`krizaka`, `orazaka`, `orochia`), after the tokens | The brand's accent family and section gradient, dark and light. |
+| `@krizaka/tokens/brands/scoped.css` | A page showing several brands | `.brand-krizaka`, `.brand-orazaka`, `.brand-orochia`. |
+
+**Brands:** one colour per brand, its marks, icons and page language are in [`BRAND.md`](./BRAND.md).
 
 ```css
 @import "@krizaka/tokens/tokens.css";
@@ -80,9 +84,11 @@ under every product override.
 | `--kz-accent` | `accent` | Primary action, link, selection — the product's identity | `hsl(217 92% 53%)` | `hsl(217 92% 50%)` |
 | `--kz-accent-hover` | `accentHover` | Accent on hover | `hsl(217 88% 45%)` | `hsl(217 88% 42%)` |
 | `--kz-accent-soft` | `accentSoft` | Tinted background (selection, badge) | `hsl(217 92% 53% / 0.10)` | `hsl(217 92% 50% / 0.08)` |
+| `--kz-accent-text` | `accentText` | The accent as text (link, active label): ≥ 4.5:1 on every surface | `hsl(217 92% 68%)` | `hsl(217 92% 42%)` |
 | `--kz-accent-2` | `accent2` | Second accent (gradients) | → `accent` | → `accent` |
 | `--kz-on-accent` | `onAccent` | Text and icon on the accent (≥ 4.5:1) | `hsl(0 0% 100%)` | = dark |
 | `--kz-ring` | `ring` | Keyboard focus ring | → `accent` | → `accent` |
+| `--kz-brand-gradient-from` / `-via` / `-to` | `brandGradientFrom`… | Section gradient of the brand (tinted → page surface); text reads at AA on every stop | `hsl(222 45% 10%)` → `hsl(232 24% 7%)` → `hsl(240 6% 5%)` | `hsl(214 95% 93%)` → `hsl(220 60% 97%)` → `hsl(0 0% 98%)` |
 | `--kz-success` | `success` | Status: success | `hsl(160 84% 39%)` | = dark |
 | `--kz-warning` | `warning` | Status: warning | `hsl(38 92% 50%)` | = dark |
 | `--kz-danger` | `danger` | Status: error, destructive action | `hsl(0 84% 60%)` | = dark |
@@ -110,9 +116,8 @@ under every product override.
 
 Contrast is **tested**, not assumed: `pnpm turbo run check` fails if `text-primary` / `text-secondary` drop under 4.5:1 or
 `text-muted` under 3:1 on any surface, or `on-accent` under 4.5:1 on the accent, in either theme (WCAG 2.x).
-One trade-off is known: no blue can carry white text at 4.5:1 *and* be read at 4.5:1 as text on `surface-0`. The
-accent favours white text on it; for body-size links on dark, pair the accent with an underline or use it at
-≥ 18.66px bold (3:1).
+No accent can carry white text at 4.5:1 *and* be read at 4.5:1 as text on `surface-0`: the accent favours the text
+set on it, and `accent-text` (`text-fg-accent`) is the accent for words — tested at 4.5:1 on every surface.
 
 ## Add or change a token
 

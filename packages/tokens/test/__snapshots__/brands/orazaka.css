@@ -1,0 +1,44 @@
+/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/orazaka.brand.json par scripts/build.mjs : ne pas éditer.
+   Orazaka — orange, pris dans le dégradé du logo (#f59e0b → #b45309, teintes 38 → 26). L'accent est à la teinte 26 (l'orange du logo, pas son ambre : la teinte 38 est celle de --kz-warning). Dark : orange clair sous texte quasi noir ; light : l'arrêt profond du logo exactement (#b45309) sous texte blanc. accent-2 prolonge le dégradé vers l'ambre. info reste bleu : un statut d'information orange se confondrait avec un avertissement.
+   Importé après tokens.css (ou @krizaka/tailwind) : l'identité orazaka sur toute l'app, dans les deux thèmes. */
+
+:root, .theme-dark {
+  --kz-accent: hsl(26 92% 55%);
+  --kz-accent-hover: hsl(26 92% 62%);
+  --kz-accent-soft: hsl(26 92% 55% / 0.12);
+  --kz-accent-text: hsl(26 92% 60%);
+  --kz-accent-2: hsl(37.7 92.1% 50.2%);
+  --kz-on-accent: hsl(240 6% 5%);
+  --kz-ring: var(--kz-accent);
+  --kz-info: hsl(217 92% 60%);
+  --kz-brand-gradient-from: hsl(24 55% 10%);
+  --kz-brand-gradient-via: hsl(34 30% 7%);
+  --kz-brand-gradient-to: hsl(240 6% 5%);
+}
+
+html.light {
+  --kz-accent: hsl(26 90.5% 37.1%);
+  --kz-accent-hover: hsl(26 90% 31%);
+  --kz-accent-soft: hsl(26 90.5% 37.1% / 0.08);
+  --kz-accent-text: hsl(26 90% 32%);
+  --kz-accent-2: hsl(32 95% 33%);
+  --kz-on-accent: hsl(0 0% 100%);
+  --kz-info: hsl(217 92% 50%);
+  --kz-brand-gradient-from: hsl(30 100% 92%);
+  --kz-brand-gradient-via: hsl(38 80% 96%);
+  --kz-brand-gradient-to: hsl(0 0% 98%);
+}
+
+.theme-light {
+  --kz-accent: hsl(26 90.5% 37.1%);
+  --kz-accent-hover: hsl(26 90% 31%);
+  --kz-accent-soft: hsl(26 90.5% 37.1% / 0.08);
+  --kz-accent-text: hsl(26 90% 32%);
+  --kz-accent-2: hsl(32 95% 33%);
+  --kz-on-accent: hsl(0 0% 100%);
+  --kz-ring: var(--kz-accent);
+  --kz-info: hsl(217 92% 50%);
+  --kz-brand-gradient-from: hsl(30 100% 92%);
+  --kz-brand-gradient-via: hsl(38 80% 96%);
+  --kz-brand-gradient-to: hsl(0 0% 98%);
+}

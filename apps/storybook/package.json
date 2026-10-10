@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@krizaka/config": "workspace:*",
+    "@krizaka/icons": "workspace:*",
     "@krizaka/tailwind": "workspace:*",
     "@krizaka/tokens": "workspace:*",
     "@krizaka/ui": "workspace:*",

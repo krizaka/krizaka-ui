@@ -7,7 +7,7 @@ const preview: Preview = {
   decorators: [
     withThemeByClassName({ themes: { dark: "", light: "light" }, defaultTheme: "dark", parentSelector: "html" }),
     (Story, { globals }) => (
-      <div className={globals.brand === "orochia" ? "brand-orochia" : globals.brand === "orazaka" ? "brand-orazaka" : ""}>
+      <div className={`brand-${String(globals.brand ?? "krizaka")}`}>
         <Story />
       </div>
     ),

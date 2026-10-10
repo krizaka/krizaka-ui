@@ -12,7 +12,7 @@ export const buttonVariants = tv({
     variant: {
       primary: "bg-accent text-on-accent shadow-sm hover:bg-accent-hover",
       secondary: "border border-border-default bg-surface-2 text-fg hover:border-border-strong hover:bg-surface-3",
-      outline: "border border-border-default bg-transparent text-fg hover:border-accent hover:text-accent",
+      outline: "border border-border-default bg-transparent text-fg hover:border-accent hover:text-fg-accent",
       ghost: "text-fg-secondary hover:bg-surface-2 hover:text-fg",
       // The danger token is invariant and too light for small text on a light surface (3.6:1): the label stays a
       // text role, the border and the tint carry the danger.

@@ -1,0 +1,42 @@
+/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/krizaka.brand.json par scripts/build.mjs : ne pas éditer.
+   Krizaka — la marque mère. Ink (les surfaces et le texte neutres de la plateforme) et un seul accent, le bleu Krizaka du cœur du logo : il chapeaute les produits sans les concurrencer. Ce sont aussi les valeurs par défaut de tokens.css.
+   Importé après tokens.css (ou @krizaka/tailwind) : l'identité krizaka sur toute l'app, dans les deux thèmes. */
+
+:root, .theme-dark {
+  --kz-accent: hsl(217 92% 53%);
+  --kz-accent-hover: hsl(217 88% 45%);
+  --kz-accent-soft: hsl(217 92% 53% / 0.10);
+  --kz-accent-text: hsl(217 92% 68%);
+  --kz-accent-2: var(--kz-accent);
+  --kz-on-accent: hsl(0 0% 100%);
+  --kz-ring: var(--kz-accent);
+  --kz-info: var(--kz-accent);
+  --kz-brand-gradient-from: hsl(222 45% 10%);
+  --kz-brand-gradient-via: hsl(232 24% 7%);
+  --kz-brand-gradient-to: hsl(240 6% 5%);
+}
+
+html.light {
+  --kz-accent: hsl(217 92% 50%);
+  --kz-accent-hover: hsl(217 88% 42%);
+  --kz-accent-soft: hsl(217 92% 50% / 0.08);
+  --kz-accent-text: hsl(217 92% 42%);
+  --kz-on-accent: hsl(0 0% 100%);
+  --kz-brand-gradient-from: hsl(214 95% 93%);
+  --kz-brand-gradient-via: hsl(220 60% 97%);
+  --kz-brand-gradient-to: hsl(0 0% 98%);
+}
+
+.theme-light {
+  --kz-accent: hsl(217 92% 50%);
+  --kz-accent-hover: hsl(217 88% 42%);
+  --kz-accent-soft: hsl(217 92% 50% / 0.08);
+  --kz-accent-text: hsl(217 92% 42%);
+  --kz-accent-2: var(--kz-accent);
+  --kz-on-accent: hsl(0 0% 100%);
+  --kz-ring: var(--kz-accent);
+  --kz-info: var(--kz-accent);
+  --kz-brand-gradient-from: hsl(214 95% 93%);
+  --kz-brand-gradient-via: hsl(220 60% 97%);
+  --kz-brand-gradient-to: hsl(0 0% 98%);
+}

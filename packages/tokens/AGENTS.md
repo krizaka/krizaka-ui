@@ -7,7 +7,10 @@
 
 - The **semantic tokens** `--kz-*` (level 0 — foundations): roles, never palette steps. A token names what a value is
   *for* (`text-secondary`, `scrim`), not what it looks like (`zinc-400`).
-- No product word: product identities are **overrides** of these roles in the product design systems.
+- No product word in the roles. The **brand themes** (`src/brands/<id>.brand.json`: krizaka, orazaka, orochia) set
+  the accent family and the section gradient (`BRAND_ROLES` in `scripts/build.mjs`, all of them, nothing else) and
+  ship as `brands/<id>.css`, `brands/scoped.css`, `brands` (index, native). [`BRAND.md`](./BRAND.md) is the brand
+  system: colours, marks, icons, page language. A product theme imports its brand and overrides only what is its own.
 
 ## 2. Rules
 
@@ -24,8 +27,10 @@
 
 - `pnpm turbo run check --filter=@krizaka/tokens`: lint and type-check (`checkJs` on the scripts), tests (snapshot,
   parity, contrast), build, size, publint + attw (`esm-only`, `./tokens.css` excluded).
-- **Size budgets** (gzip): `tokens.css` ≤ 2.5 kB, `.` ≤ 1.5 kB, `./native` ≤ 1 kB.
-- Published surface: exports `.`, `./tokens.css`, `./native`, `./package.json`; files `dist`, `README.md`, `LICENSE`.
+- **Size budgets** (gzip): `tokens.css` ≤ 2.5 kB, a brand's CSS ≤ 0.75 kB, `brands/scoped.css` ≤ 1 kB, `.` ≤ 2 kB,
+  `./native` ≤ 1.5 kB.
+- Published surface: exports `.`, `./tokens.css`, `./brands/{krizaka,orazaka,orochia,scoped}.css`, `./native`,
+  `./package.json`; files `dist`, `README.md`, `BRAND.md`, `LICENSE`.
   Renaming or removing a token, or changing the surface, is a breaking change.
 
 ## 4. Release

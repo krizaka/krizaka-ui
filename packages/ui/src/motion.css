@@ -1,7 +1,7 @@
 /* @krizaka/ui — the Krizaka motion signature.
    One easing (--kz-ease); pages that enter; sections that rise into view ([data-reveal] + MotionObserver); words
    that roll (RotatingWord); a sheen across primary actions; a spotlight that follows the pointer; cards that lift;
-   bands that slide; and one vocabulary for what opens over the page (overlay, dialog, pop, fade).
+   bands that slide; section backdrops that glide from one brand tint to the next; and one vocabulary for what opens over the page (overlay, dialog, pop, fade).
    Plain CSS, no framework: import "@krizaka/ui/motion.css" once. Everything stops under prefers-reduced-motion.
    Tailwind v4: `--default-transition-timing-function: var(--kz-ease)` in @theme gives every transition the easing. */
 
@@ -155,8 +155,58 @@
   from { opacity: 0; transform: translateY(-6px) scale(0.96); }
 }
 
+/* Section backdrop (SectionBackdrop): the brand's section gradient (--kz-brand-gradient-*), sections that glide from
+   one temperature to the next (each ends on the page surface, so the next starts where it stopped), a light dome, a
+   perspective grid, a blurred foreground for depth of field, and a very slow drift. */
+.kz-backdrop {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--kz-brand-gradient-from), var(--kz-brand-gradient-via) 55%, var(--kz-brand-gradient-to));
+}
+.kz-backdrop[data-direction="up"] {
+  background: linear-gradient(0deg, var(--kz-brand-gradient-from), var(--kz-brand-gradient-via) 55%, var(--kz-brand-gradient-to));
+}
+.kz-backdrop > [data-backdrop-layer] { position: absolute; z-index: -1; pointer-events: none; }
+.kz-backdrop-drift {
+  inset: -20%;
+  background:
+    radial-gradient(38% 32% at 28% 30%, color-mix(in oklab, var(--kz-accent, #196df5) 14%, transparent), transparent 70%),
+    radial-gradient(34% 30% at 76% 22%, color-mix(in oklab, var(--kz-accent-2, #196df5) 10%, transparent), transparent 70%);
+  animation: kz-backdrop-drift 40s ease-in-out infinite alternate;
+}
+@keyframes kz-backdrop-drift {
+  to { transform: translate3d(6%, 4%, 0) rotate(6deg); }
+}
+.kz-backdrop-dome {
+  left: 50%;
+  top: -35%;
+  width: 110%;
+  aspect-ratio: 2 / 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--kz-accent, #196df5) 24%, transparent), transparent);
+  filter: blur(28px);
+}
+.kz-backdrop-grid {
+  inset: auto -50% 0 -50%;
+  height: 55%;
+  background-image:
+    linear-gradient(to right, var(--kz-border-default) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--kz-border-default) 1px, transparent 1px);
+  background-size: 48px 48px;
+  transform: perspective(640px) rotateX(62deg);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, #000 5%, transparent 85%);
+}
+.kz-backdrop-media {
+  inset: 0;
+  filter: blur(var(--kz-backdrop-blur, 18px));
+  opacity: 0.5;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress { animation: none !important; }
+  .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress { animation: none !important; }
   [data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }
   .kz-sheen::after { display: none; }
   .kz-lift, .kz-lift:hover { transform: none; transition: none; }

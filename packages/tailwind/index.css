@@ -20,6 +20,7 @@
   --color-fg-secondary: var(--kz-text-secondary);
   --color-fg-muted: var(--kz-text-muted);
   --color-fg-on-media: var(--kz-text-on-media);
+  --color-fg-accent: var(--kz-accent-text); /* l'accent en texte : lien, libellé actif (≥ 4.5:1 sur chaque surface) */
 
   --color-accent: var(--kz-accent);
   --color-accent-hover: var(--kz-accent-hover);
@@ -27,6 +28,10 @@
   --color-accent-2: var(--kz-accent-2);
   --color-on-accent: var(--kz-on-accent);
   --color-ring: var(--kz-ring);
+  /* le dégradé de section de la marque : bg-linear-to-b from-brand-from via-brand-via to-brand-to */
+  --color-brand-from: var(--kz-brand-gradient-from);
+  --color-brand-via: var(--kz-brand-gradient-via);
+  --color-brand-to: var(--kz-brand-gradient-to);
 
   --color-success: var(--kz-success);
   --color-warning: var(--kz-warning);

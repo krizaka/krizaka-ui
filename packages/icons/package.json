@@ -1,0 +1,124 @@
+{
+  "name": "@krizaka/icons",
+  "version": "0.0.0",
+  "description": "The Krizaka signature icons: one drawing language (24 grid, cut corners, a node at the core) for every Krizaka product — React (tree-shakable, server-safe) and React Native (react-native-svg).",
+  "keywords": [
+    "krizaka",
+    "icons",
+    "svg",
+    "react",
+    "react-native",
+    "react-native-svg",
+    "design-system",
+    "tree-shakable"
+  ],
+  "homepage": "https://github.com/krizaka/krizaka-ui/tree/main/packages/icons#readme",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/icons"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./native": {
+      "types": "./dist/native.d.ts",
+      "import": "./dist/native.js"
+    },
+    "./glyphs": {
+      "types": "./dist/glyphs.d.ts",
+      "import": "./dist/glyphs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "glyphs": "node scripts/glyphs.mjs",
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsup",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only",
+    "prepublishOnly": "pnpm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-native-svg": ">=15"
+  },
+  "peerDependenciesMeta": {
+    "react-native-svg": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "workspace:*",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@storybook/react-vite": "10.6.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "eslint": "^9.39.0",
+    "happy-dom": "^20.0.0",
+    "publint": "^0.3.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-native-svg": "^15.15.4",
+    "size-limit": "^14.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": "one icon (import { ChatIcon })",
+      "path": "dist/index.js",
+      "import": "{ ChatIcon }",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "react"
+      ]
+    },
+    {
+      "name": ". (every icon)",
+      "path": "dist/index.js",
+      "limit": "5 kB",
+      "gzip": true,
+      "ignore": [
+        "react"
+      ]
+    },
+    {
+      "name": "./native (every icon)",
+      "path": "dist/native.js",
+      "limit": "5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-native-svg"
+      ]
+    }
+  ]
+}

@@ -10,7 +10,7 @@ const TONE: Record<TxtTone, keyof Theme> = {
   text: "textPrimary",
   secondary: "textSecondary",
   muted: "textMuted",
-  accent: "accent",
+  accent: "accentText",
   success: "success",
   warning: "warning",
   danger: "danger",

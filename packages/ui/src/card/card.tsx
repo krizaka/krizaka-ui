@@ -16,7 +16,7 @@ export const card = tv({
     fallback: "flex h-full w-full items-center justify-center bg-linear-to-br from-accent/15 via-media to-accent-2/15 text-accent/60",
     overlay: "absolute z-10 flex items-center gap-1.5",
     body: "relative flex flex-1 flex-col gap-3",
-    title: "line-clamp-1 text-sm font-semibold text-fg transition-colors group-hover:text-accent",
+    title: "line-clamp-1 text-sm font-semibold text-fg transition-colors group-hover:text-fg-accent",
     description: "line-clamp-2 text-xs text-fg-secondary",
     stat: "min-w-0",
     statLabel: "text-[10px] font-semibold uppercase tracking-wider text-fg-secondary",
