@@ -46,6 +46,17 @@ export const Disabled: Story = { args: { disabled: true } };
   `#storybook-root`: it opens it at load (`defaultOpen`) and sets `parameters: { capture: "viewport" }` — the audit
   then covers the page (without axe's `region` rule, which belongs to an app's layout) and the screenshot the viewport.
 
+## Native stories (react-native-web)
+
+`@krizaka/ui/native` has no simulator in CI: its stories (`packages/ui/src/native/<Name>.stories.tsx`, titled
+`Native/<Name>`) render here through **react-native-web**. `.storybook/main.ts` resolves `react-native` to it and
+lets `.web.*` files win (react-native-svg then takes its DOM implementation); `@krizaka/ui` has react-native-web as a
+dev dependency so the docgen plugin follows the same path. Each native story declares the `nativeFrame` decorator
+(`packages/ui/src/native/story-frame.tsx`, never built): it wraps the story in the native `ThemeProvider` following
+`html.light` (the toolbar and the test-runner) and the toolbar's brand — so a native story is audited by axe and
+screenshot-compared in dark and light like a web one. What the web renderer cannot show (the native driver,
+platform fonts, haptics) stays covered by the Jest tests of `packages/ui/src/native`.
+
 ## Check dark, light and the brands
 
 The toolbar has two switches:
