@@ -146,7 +146,8 @@ function ToastView({ item, closeLabel, duration }: { item: ToastItem; closeLabel
     styles.toast,
     { backgroundColor: theme.surface2, borderColor: theme.borderDefault, borderLeftColor: edge, borderRadius: radius.lg, shadowColor: theme.scrimStrong },
   ];
-  const motion = { opacity: enter, transform: [{ translateY: enter.interpolate({ inputRange: [0, 1], outputRange: [-8, 0] }) }] };
+  // A slide only, never a fade: the text is legible (and its contrast measurable) from the first frame.
+  const motion = { transform: [{ translateY: enter.interpolate({ inputRange: [0, 1], outputRange: [-8, 0] }) }] };
   return (
     <Animated.View aria-live="polite" style={motion}>
       <View style={frame}>{body}</View>

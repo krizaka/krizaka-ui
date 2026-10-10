@@ -7,8 +7,9 @@ export default {
   ...preset,
   rootDir: import.meta.dirname,
   // The preset's environment is jest-environment-node 29; the workspace runs Jest 30 (see pnpm-workspace.yaml): the
-  // same environment, from Jest 30, with React Native's export conditions.
-  testEnvironment: "node",
+  // same environment, from Jest 30 (a direct dev dependency: no other copy is picked up), with React Native's
+  // export conditions.
+  testEnvironment: "jest-environment-node",
   testEnvironmentOptions: { customExportConditions: ["require", "react-native"] },
   roots: ["<rootDir>/src/native"],
   testMatch: ["**/*.test.tsx"],
