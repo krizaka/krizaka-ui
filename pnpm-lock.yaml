@@ -32,6 +32,9 @@ importers:
       '@krizaka/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@krizaka/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
       '@krizaka/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind
@@ -205,6 +208,60 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.3.0(react@19.3.0)
+      size-limit:
+        specifier: ^14.2.0
+        version: 14.2.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(jiti@2.7.0)(postcss@8.5.29)(typescript@5.9.3)(yaml@2.9.1)
+      typescript:
+        specifier: ^5.9.0
+        version: 5.9.3
+      vitest:
+        specifier: ^4.1.11
+        version: 4.1.11(@types/node@22.20.5)(@vitest/coverage-v8@4.1.11)(esbuild@0.27.7)(happy-dom@20.14.6)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)
+
+  packages/icons:
+    devDependencies:
+      '@arethetypeswrong/cli':
+        specifier: ^0.18.5
+        version: 0.18.5
+      '@krizaka/config':
+        specifier: workspace:*
+        version: link:../config
+      '@size-limit/preset-small-lib':
+        specifier: ^14.2.0
+        version: 14.2.0(size-limit@14.2.0)
+      '@storybook/react-vite':
+        specifier: 10.6.1
+        version: 10.6.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(rollup@4.64.3)(storybook@10.6.1(@types/react@19.3.0)(prettier@3.9.9)(react@19.3.0))(typescript@5.9.3)(vite@8.3.4(@types/node@22.20.5)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
+      '@testing-library/react':
+        specifier: ^16.3.0
+        version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@types/node':
+        specifier: ^22.15.0
+        version: 22.20.5
+      '@types/react':
+        specifier: ^19.2.0
+        version: 19.3.0
+      eslint:
+        specifier: ^9.39.0
+        version: 9.39.5(jiti@2.7.0)
+      happy-dom:
+        specifier: ^20.0.0
+        version: 20.14.6
+      publint:
+        specifier: ^0.3.25
+        version: 0.3.25
+      react:
+        specifier: ^19.2.0
+        version: 19.3.0
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.3.0(react@19.3.0)
+      react-native-svg:
+        specifier: ^15.15.4
+        version: 15.15.5(react-native@0.86.3(@babel/core@7.29.7)(@react-native/jest-preset@0.86.3(@babel/core@7.29.7)(react@19.3.0))(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)
       size-limit:
         specifier: ^14.2.0
         version: 14.2.0

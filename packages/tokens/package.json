@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/tokens",
   "version": "2.0.0-beta.4",
-  "description": "The Krizaka semantic design tokens (--kz-*): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
+  "description": "The Krizaka semantic design tokens (--kz-*) and the brand themes (Krizaka, Orazaka, Orochia): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
   "keywords": [
     "krizaka",
     "design-tokens",
@@ -10,7 +10,9 @@
     "theme",
     "dark-mode",
     "react-native",
-    "design-system"
+    "design-system",
+    "brand",
+    "theming"
   ],
   "homepage": "https://github.com/krizaka/krizaka-ui/tree/main/packages/tokens#readme",
   "bugs": "https://github.com/krizaka/krizaka-ui/issues",
@@ -31,6 +33,10 @@
       "import": "./dist/index.js"
     },
     "./tokens.css": "./dist/tokens.css",
+    "./brands/krizaka.css": "./dist/brands/krizaka.css",
+    "./brands/orazaka.css": "./dist/brands/orazaka.css",
+    "./brands/orochia.css": "./dist/brands/orochia.css",
+    "./brands/scoped.css": "./dist/brands/scoped.css",
     "./native": {
       "types": "./dist/native.d.ts",
       "import": "./dist/native.js"
@@ -40,6 +46,7 @@
   "files": [
     "dist",
     "README.md",
+    "BRAND.md",
     "LICENSE"
   ],
   "sideEffects": [
@@ -51,7 +58,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./brands/krizaka.css ./brands/orazaka.css ./brands/orochia.css ./brands/scoped.css",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
@@ -80,15 +87,29 @@
       "rolldown": false
     },
     {
+      "name": "./brands/<id>.css (each)",
+      "path": "dist/brands/orazaka.css",
+      "limit": "0.75 kB",
+      "gzip": true,
+      "rolldown": false
+    },
+    {
+      "name": "./brands/scoped.css",
+      "path": "dist/brands/scoped.css",
+      "limit": "1 kB",
+      "gzip": true,
+      "rolldown": false
+    },
+    {
       "name": ".",
       "path": "dist/index.js",
-      "limit": "1.5 kB",
+      "limit": "2 kB",
       "gzip": true
     },
     {
       "name": "./native",
       "path": "dist/native.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true
     }
   ]

@@ -40,6 +40,7 @@ export default defineConfig([
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",
       progress: "src/progress/index.ts",
+      "section-backdrop": "src/section-backdrop/index.ts",
     },
   },
   {

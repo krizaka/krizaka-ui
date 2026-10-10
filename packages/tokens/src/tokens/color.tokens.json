@@ -3,51 +3,240 @@
   "surface": {
     "$type": "color",
     "$description": "Surfaces (hiérarchie de profondeur)",
-    "0": { "$value": "hsl(240 6% 5%)", "$description": "Fond de page", "$extensions": { "com.krizaka": { "light": "hsl(0 0% 98%)" } } },
-    "1": { "$value": "hsl(240 5% 9%)", "$description": "Carte, panneau", "$extensions": { "com.krizaka": { "light": "hsl(0 0% 100%)" } } },
-    "2": { "$value": "hsl(240 5% 13%)", "$description": "Élément surélevé, champ, survol", "$extensions": { "com.krizaka": { "light": "hsl(240 6% 95%)" } } },
-    "3": { "$value": "hsl(240 4% 17%)", "$description": "Élément actif, puce, piste", "$extensions": { "com.krizaka": { "light": "hsl(240 5% 90%)" } } }
+    "0": {
+      "$value": "hsl(240 6% 5%)",
+      "$description": "Fond de page",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(0 0% 98%)"
+        }
+      }
+    },
+    "1": {
+      "$value": "hsl(240 5% 9%)",
+      "$description": "Carte, panneau",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(0 0% 100%)"
+        }
+      }
+    },
+    "2": {
+      "$value": "hsl(240 5% 13%)",
+      "$description": "Élément surélevé, champ, survol",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(240 6% 95%)"
+        }
+      }
+    },
+    "3": {
+      "$value": "hsl(240 4% 17%)",
+      "$description": "Élément actif, puce, piste",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(240 5% 90%)"
+        }
+      }
+    }
   },
   "media": {
     "$type": "color",
     "$value": "hsl(240 5% 11%)",
     "$description": "fond d'un média avant chargement",
-    "$extensions": { "com.krizaka": { "light": "hsl(240 6% 92%)" } }
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(240 6% 92%)"
+      }
+    }
   },
   "border": {
     "$type": "color",
     "$description": "Bordures",
-    "subtle": { "$value": "hsl(0 0% 100% / 0.06)", "$description": "Séparateur discret", "$extensions": { "com.krizaka": { "light": "hsl(240 6% 0% / 0.06)" } } },
-    "default": { "$value": "hsl(0 0% 100% / 0.10)", "$description": "Contour de carte, de champ", "$extensions": { "com.krizaka": { "light": "hsl(240 6% 0% / 0.10)" } } },
-    "strong": { "$value": "hsl(0 0% 100% / 0.16)", "$description": "Contour au survol, focus non clavier", "$extensions": { "com.krizaka": { "light": "hsl(240 6% 0% / 0.16)" } } }
+    "subtle": {
+      "$value": "hsl(0 0% 100% / 0.06)",
+      "$description": "Séparateur discret",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(240 6% 0% / 0.06)"
+        }
+      }
+    },
+    "default": {
+      "$value": "hsl(0 0% 100% / 0.10)",
+      "$description": "Contour de carte, de champ",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(240 6% 0% / 0.10)"
+        }
+      }
+    },
+    "strong": {
+      "$value": "hsl(0 0% 100% / 0.16)",
+      "$description": "Contour au survol, focus non clavier",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(240 6% 0% / 0.16)"
+        }
+      }
+    }
   },
   "text": {
     "$type": "color",
     "$description": "Texte",
-    "primary": { "$value": "hsl(0 0% 96%)", "$description": "Titres, corps de texte", "$extensions": { "com.krizaka": { "light": "hsl(240 6% 10%)" } } },
-    "secondary": { "$value": "hsl(240 4% 64%)", "$description": "Texte d'appui, libellés", "$extensions": { "com.krizaka": { "light": "hsl(240 4% 41%)" } } },
-    "muted": { "$value": "hsl(240 4% 47%)", "$description": "Métadonnées, placeholders, désactivé (≥ 3:1)", "$extensions": { "com.krizaka": { "light": "hsl(240 4% 52%)" } } },
-    "on-media": { "$value": "hsl(0 0% 100%)", "$description": "Texte posé sur une image ou une vidéo" }
+    "primary": {
+      "$value": "hsl(0 0% 96%)",
+      "$description": "Titres, corps de texte",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(240 6% 10%)"
+        }
+      }
+    },
+    "secondary": {
+      "$value": "hsl(240 4% 64%)",
+      "$description": "Texte d'appui, libellés",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(240 4% 41%)"
+        }
+      }
+    },
+    "muted": {
+      "$value": "hsl(240 4% 47%)",
+      "$description": "Métadonnées, placeholders, désactivé (≥ 3:1)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(240 4% 52%)"
+        }
+      }
+    },
+    "on-media": {
+      "$value": "hsl(0 0% 100%)",
+      "$description": "Texte posé sur une image ou une vidéo"
+    }
   },
   "accent": {
     "$type": "color",
-    "$description": "Accent : l'identité du produit. Surchargé par le thème produit, jamais par un composant.",
-    "$root": { "$value": "hsl(217 92% 53%)", "$description": "Action principale, lien, sélection", "$extensions": { "com.krizaka": { "light": "hsl(217 92% 50%)" } } },
-    "hover": { "$value": "hsl(217 88% 45%)", "$description": "Accent au survol", "$extensions": { "com.krizaka": { "light": "hsl(217 88% 42%)" } } },
-    "soft": { "$value": "hsl(217 92% 53% / 0.10)", "$description": "Fond teinté (sélection, badge)", "$extensions": { "com.krizaka": { "light": "hsl(217 92% 50% / 0.08)" } } }
+    "$description": "Accent : l'identité de la marque (Krizaka par défaut ; Orazaka, Orochia dans src/brands). Surchargé par un thème de marque, jamais par un composant.",
+    "$root": {
+      "$value": "hsl(217 92% 53%)",
+      "$description": "Action principale, lien, sélection",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(217 92% 50%)"
+        }
+      }
+    },
+    "hover": {
+      "$value": "hsl(217 88% 45%)",
+      "$description": "Accent au survol",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(217 88% 42%)"
+        }
+      }
+    },
+    "soft": {
+      "$value": "hsl(217 92% 53% / 0.10)",
+      "$description": "Fond teinté (sélection, badge)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(217 92% 50% / 0.08)"
+        }
+      }
+    },
+    "text": {
+      "$value": "hsl(217 92% 68%)",
+      "$description": "Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(217 92% 42%)"
+        }
+      }
+    }
   },
-  "accent-2": { "$type": "color", "$value": "{accent.$root}", "$description": "2e accent (dégradés) ; égal à l'accent par défaut" },
-  "on-accent": { "$type": "color", "$value": "hsl(0 0% 100%)", "$description": "Texte et icône posés sur l'accent" },
-  "ring": { "$type": "color", "$value": "{accent.$root}", "$description": "Anneau de focus clavier" },
-  "success": { "$type": "color", "$value": "hsl(160 84% 39%)", "$description": "Statut : succès (lisible dans les deux thèmes)" },
-  "warning": { "$type": "color", "$value": "hsl(38 92% 50%)", "$description": "Statut : avertissement" },
-  "danger": { "$type": "color", "$value": "hsl(0 84% 60%)", "$description": "Statut : erreur, action destructive" },
-  "info": { "$type": "color", "$value": "{accent.$root}", "$description": "Statut : information" },
+  "accent-2": {
+    "$type": "color",
+    "$value": "{accent.$root}",
+    "$description": "2e accent (dégradés) ; égal à l'accent par défaut"
+  },
+  "on-accent": {
+    "$type": "color",
+    "$value": "hsl(0 0% 100%)",
+    "$description": "Texte et icône posés sur l'accent"
+  },
+  "ring": {
+    "$type": "color",
+    "$value": "{accent.$root}",
+    "$description": "Anneau de focus clavier"
+  },
+  "brand-gradient": {
+    "$type": "color",
+    "$description": "Dégradé de section de la marque (from → via → to) : les fonds de section glissent d'une teinte à l'autre ; le texte reste lisible dessus (testé).",
+    "from": {
+      "$value": "hsl(222 45% 10%)",
+      "$description": "Section : la teinte de départ (haut de section, halo)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(214 95% 93%)"
+        }
+      }
+    },
+    "via": {
+      "$value": "hsl(232 24% 7%)",
+      "$description": "Section : la teinte intermédiaire",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(220 60% 97%)"
+        }
+      }
+    },
+    "to": {
+      "$value": "hsl(240 6% 5%)",
+      "$description": "Section : l'arrivée, la surface de page (la section suivante y enchaîne)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(0 0% 98%)"
+        }
+      }
+    }
+  },
+  "success": {
+    "$type": "color",
+    "$value": "hsl(160 84% 39%)",
+    "$description": "Statut : succès (lisible dans les deux thèmes)"
+  },
+  "warning": {
+    "$type": "color",
+    "$value": "hsl(38 92% 50%)",
+    "$description": "Statut : avertissement"
+  },
+  "danger": {
+    "$type": "color",
+    "$value": "hsl(0 84% 60%)",
+    "$description": "Statut : erreur, action destructive"
+  },
+  "info": {
+    "$type": "color",
+    "$value": "{accent.$root}",
+    "$description": "Statut : information"
+  },
   "scrim": {
     "$type": "color",
     "$description": "Voiles sur média : identiques dans les deux thèmes.",
-    "$root": { "$value": "hsl(0 0% 0% / 0.60)", "$description": "voile derrière un badge ou une légende sur image" },
-    "strong": { "$value": "hsl(0 0% 0% / 0.80)", "$description": "voile renforcé (texte long sur image)" }
+    "$root": {
+      "$value": "hsl(0 0% 0% / 0.60)",
+      "$description": "voile derrière un badge ou une légende sur image"
+    },
+    "strong": {
+      "$value": "hsl(0 0% 0% / 0.80)",
+      "$description": "voile renforcé (texte long sur image)"
+    }
   },
-  "overlay": { "$type": "color", "$value": "hsl(0 0% 0% / 0.70)", "$description": "fond d'un dialogue" }
+  "overlay": {
+    "$type": "color",
+    "$value": "hsl(0 0% 0% / 0.70)",
+    "$description": "fond d'un dialogue"
+  }
 }

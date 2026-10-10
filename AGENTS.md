@@ -14,6 +14,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ tokens/               # @krizaka/tokens — the semantic --kz-* tokens (CSS, TS, native), from DTCG sources
 │  ├─ tailwind/             # @krizaka/tailwind — the Tailwind v4 preset: tokens as utilities, variants, easing
 │  ├─ ui/                   # @krizaka/ui — the primitives, the marks, the motion signature (web, /native)
+│  ├─ icons/                # @krizaka/icons — the signature icons (React, /native), drawn in code
 │  ├─ intl/                 # @krizaka/intl — money, numbers, dates, plurals on Intl (zero dependency, no UI)
 │  ├─ i18n/                 # @krizaka/i18n — typed messages, format, <Rich>, React provider, the krizaka-i18n CLI
 │  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
@@ -68,7 +69,7 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 
 Each package must be declared once on npmjs.com as trusted publisher: repository `krizaka/krizaka-ui`, workflow
 `release.yml`. `tokens`, `tailwind` and `ui` form one `fixed` group in `.changeset/config.json` (one shared
-version); `config`, `intl` and `i18n` version on their own.
+version); `config`, `intl`, `i18n` and `icons` version on their own.
 
 ## 5. Definition of done
 

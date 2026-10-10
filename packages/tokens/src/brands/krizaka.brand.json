@@ -1,0 +1,81 @@
+{
+  "$description": "Krizaka — la marque mère. Ink (les surfaces et le texte neutres de la plateforme) et un seul accent, le bleu Krizaka du cœur du logo : il chapeaute les produits sans les concurrencer. Ce sont aussi les valeurs par défaut de tokens.css.",
+  "accent": {
+    "$type": "color",
+    "$root": {
+      "$value": "hsl(217 92% 53%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(217 92% 50%)"
+        }
+      }
+    },
+    "hover": {
+      "$value": "hsl(217 88% 45%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(217 88% 42%)"
+        }
+      }
+    },
+    "soft": {
+      "$value": "hsl(217 92% 53% / 0.10)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(217 92% 50% / 0.08)"
+        }
+      }
+    },
+    "text": {
+      "$value": "hsl(217 92% 68%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(217 92% 42%)"
+        }
+      }
+    }
+  },
+  "accent-2": {
+    "$type": "color",
+    "$value": "{accent.$root}"
+  },
+  "on-accent": {
+    "$type": "color",
+    "$value": "hsl(0 0% 100%)"
+  },
+  "ring": {
+    "$type": "color",
+    "$value": "{accent.$root}"
+  },
+  "info": {
+    "$type": "color",
+    "$value": "{accent.$root}"
+  },
+  "brand-gradient": {
+    "$type": "color",
+    "from": {
+      "$value": "hsl(222 45% 10%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(214 95% 93%)"
+        }
+      }
+    },
+    "via": {
+      "$value": "hsl(232 24% 7%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(220 60% 97%)"
+        }
+      }
+    },
+    "to": {
+      "$value": "hsl(240 6% 5%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(0 0% 98%)"
+        }
+      }
+    }
+  }
+}

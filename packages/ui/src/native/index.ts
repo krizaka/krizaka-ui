@@ -4,6 +4,7 @@
  * (react-native-svg). StyleSheet only: no dependency beyond react-native and react-native-svg.
  */
 export { splitDuration, useCountdown } from "../countdown/core";
+export { type BrandId } from "../marks/ProductLogo";
 export { Avatar, AvatarGroup, type AvatarGroupProps, type AvatarProps, AvatarRoot, type AvatarSize } from "./avatar";
 export { Badge, type BadgeProps, type BadgeTone } from "./badge";
 export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, IconButton, type IconButtonProps } from "./button";
@@ -26,7 +27,11 @@ export {
 export { Chip, type ChipGroupProps, type ChipProps, type ChipSize } from "./chip";
 export { Countdown, type CountdownProps, type CountdownUnits } from "./countdown";
 export { EmptyState, type EmptyStateProps } from "./empty-state";
-export { type NativeMarkProps, OrochiaMark } from "./OrochiaMark";
+export { KrizakaMark } from "./KrizakaMark";
+export { type NativeMarkProps } from "./mark-motion";
+export { OrazakaMark } from "./OrazakaMark";
+export { OrochiaMark } from "./OrochiaMark";
+export { ProductMark } from "./ProductMark";
 export { Progress, type ProgressProps } from "./progress";
 export { Segmented, type SegmentedOption, type SegmentedProps } from "./segmented";
 export { Skeleton, type SkeletonProps } from "./skeleton";

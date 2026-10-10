@@ -25,9 +25,13 @@ export type Theme = {
   readonly accent: string;
   readonly accentHover: string;
   readonly accentSoft: string;
+  readonly accentText: string;
   readonly accent2: string;
   readonly onAccent: string;
   readonly ring: string;
+  readonly brandGradientFrom: string;
+  readonly brandGradientVia: string;
+  readonly brandGradientTo: string;
   readonly success: string;
   readonly warning: string;
   readonly danger: string;

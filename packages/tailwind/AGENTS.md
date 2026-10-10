@@ -24,7 +24,7 @@
   compiled by `@tailwindcss/postcss` on `test/fixtures/fixture.html`: each utility exists, reads `var(--kz-…)`, and
   `light:` is scoped to `html.light … :not(.theme-dark, .theme-dark *)`; every mapped token exists in
   `@krizaka/tokens`), size, publint.
-- **Size budget** (gzip): `index.css` ≤ 1 kB.
+- **Size budget** (gzip): `index.css` ≤ 1.1 kB.
 - Published surface: exports `.` (`index.css`) and `./package.json`. Renaming or removing a utility is a breaking change.
 
 ## 4. Release

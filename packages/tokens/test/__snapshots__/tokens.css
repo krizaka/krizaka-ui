@@ -22,12 +22,18 @@
   --kz-text-secondary: hsl(240 4% 64%); /* Texte d'appui, libellés */
   --kz-text-muted: hsl(240 4% 47%); /* Métadonnées, placeholders, désactivé (≥ 3:1) */
 
-  /* Accent : l'identité du produit. Surchargé par le thème produit, jamais par un composant. */
+  /* Accent : l'identité de la marque (Krizaka par défaut ; Orazaka, Orochia dans src/brands). Surchargé par un thème de marque, jamais par un composant. */
   --kz-accent: hsl(217 92% 53%); /* Action principale, lien, sélection */
   --kz-accent-hover: hsl(217 88% 45%); /* Accent au survol */
   --kz-accent-soft: hsl(217 92% 53% / 0.10); /* Fond teinté (sélection, badge) */
+  --kz-accent-text: hsl(217 92% 68%); /* Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface */
   --kz-accent-2: var(--kz-accent); /* 2e accent (dégradés) ; égal à l'accent par défaut */
   --kz-ring: var(--kz-accent); /* Anneau de focus clavier */
+
+  /* Dégradé de section de la marque (from → via → to) : les fonds de section glissent d'une teinte à l'autre ; le texte reste lisible dessus (testé). */
+  --kz-brand-gradient-from: hsl(222 45% 10%); /* Section : la teinte de départ (haut de section, halo) */
+  --kz-brand-gradient-via: hsl(232 24% 7%); /* Section : la teinte intermédiaire */
+  --kz-brand-gradient-to: hsl(240 6% 5%); /* Section : l'arrivée, la surface de page (la section suivante y enchaîne) */
   --kz-info: var(--kz-accent); /* Statut : information */
 
   /* Ombres (web uniquement) */
@@ -56,6 +62,10 @@ html.light {
   --kz-accent: hsl(217 92% 50%); /* Action principale, lien, sélection */
   --kz-accent-hover: hsl(217 88% 42%); /* Accent au survol */
   --kz-accent-soft: hsl(217 92% 50% / 0.08); /* Fond teinté (sélection, badge) */
+  --kz-accent-text: hsl(217 92% 42%); /* Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface */
+  --kz-brand-gradient-from: hsl(214 95% 93%); /* Section : la teinte de départ (haut de section, halo) */
+  --kz-brand-gradient-via: hsl(220 60% 97%); /* Section : la teinte intermédiaire */
+  --kz-brand-gradient-to: hsl(0 0% 98%); /* Section : l'arrivée, la surface de page (la section suivante y enchaîne) */
   --kz-shadow-sm: 0 1px 3px hsl(240 6% 0% / 0.06), 0 1px 2px hsl(240 6% 0% / 0.04); /* Champ, bouton au repos */
   --kz-shadow-md: 0 4px 12px hsl(240 6% 0% / 0.08), 0 2px 4px hsl(240 6% 0% / 0.04); /* Menu, popover, carte au survol */
   --kz-shadow-lg: 0 8px 24px hsl(240 6% 0% / 0.10), 0 4px 8px hsl(240 6% 0% / 0.05); /* Dialogue, feuille */
@@ -79,8 +89,12 @@ html.light {
   --kz-accent: hsl(217 92% 50%); /* Action principale, lien, sélection */
   --kz-accent-hover: hsl(217 88% 42%); /* Accent au survol */
   --kz-accent-soft: hsl(217 92% 50% / 0.08); /* Fond teinté (sélection, badge) */
+  --kz-accent-text: hsl(217 92% 42%); /* Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface */
   --kz-accent-2: var(--kz-accent); /* 2e accent (dégradés) ; égal à l'accent par défaut */
   --kz-ring: var(--kz-accent); /* Anneau de focus clavier */
+  --kz-brand-gradient-from: hsl(214 95% 93%); /* Section : la teinte de départ (haut de section, halo) */
+  --kz-brand-gradient-via: hsl(220 60% 97%); /* Section : la teinte intermédiaire */
+  --kz-brand-gradient-to: hsl(0 0% 98%); /* Section : l'arrivée, la surface de page (la section suivante y enchaîne) */
   --kz-info: var(--kz-accent); /* Statut : information */
   --kz-shadow-sm: 0 1px 3px hsl(240 6% 0% / 0.06), 0 1px 2px hsl(240 6% 0% / 0.04); /* Champ, bouton au repos */
   --kz-shadow-md: 0 4px 12px hsl(240 6% 0% / 0.08), 0 2px 4px hsl(240 6% 0% / 0.04); /* Menu, popover, carte au survol */

@@ -16,7 +16,7 @@ const ui = resolve(import.meta.dirname, "../../../packages/ui/src");
 
 const config: StorybookConfig = {
   framework: { name: "@storybook/react-vite", options: {} },
-  stories: ["../src/**/*.mdx", "../../../packages/ui/src/**/*.stories.tsx"],
+  stories: ["../src/**/*.mdx", "../../../packages/ui/src/**/*.stories.tsx", "../../../packages/icons/src/**/*.stories.tsx"],
   addons: ["@storybook/addon-docs", "@storybook/addon-a11y", "@storybook/addon-themes"],
   core: { disableTelemetry: true },
   // The public home of the catalogue is the Bunny mirror; every version and the Pages copy point search engines to it.

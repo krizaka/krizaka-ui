@@ -3,11 +3,12 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
-import { camel, compile, flatten, load, write } from "../scripts/build.mjs";
+import { BRAND_ROLES, BRANDS, camel, compile, compileBrands, flatten, load, loadBrands, write } from "../scripts/build.mjs";
 import { contrast, parseHsl, toNative } from "../scripts/color.mjs";
 
 const sources = load(join(import.meta.dirname, "../src/tokens"));
-const { files, tokens } = compile(sources);
+const brandSources = loadBrands(join(import.meta.dirname, "../src/brands"));
+const { files, tokens } = compile(sources, brandSources);
 const css = files["tokens.css"];
 
 /** The `--kz-*` declarations of one CSS block, by its exact selector. */
@@ -90,8 +91,9 @@ describe("contrast (WCAG 2.x)", () => {
         expect(ratio("--kz-text-muted", bg, mode)).toBeGreaterThanOrEqual(3);
       });
     }
-    it(`${mode}: on-accent ≥ 4.5:1 on accent`, () => {
+    it(`${mode}: on-accent ≥ 4.5:1 on accent, accent-text ≥ 4.5:1 on every surface`, () => {
       expect(ratio("--kz-on-accent", "--kz-accent", mode)).toBeGreaterThanOrEqual(4.5);
+      for (const bg of surfaces) expect(ratio("--kz-accent-text", bg, mode), bg).toBeGreaterThanOrEqual(4.5);
     });
   }
 
@@ -209,5 +211,88 @@ describe("sources", () => {
         },
       }),
     ).toThrow(/Duplicate/);
+  });
+});
+
+describe("brands", async () => {
+  const out = mkdtempSync(join(tmpdir(), "kz-brands-"));
+  write(files, out);
+  const index = await import(pathToFileURL(join(out, "index.js")).href);
+  const native = await import(pathToFileURL(join(out, "native.js")).href);
+  const surfaces = ["surface0", "surface1", "surface2", "surface3"] as const;
+
+  it("compiles one theme per brand and the scoped classes", () => {
+    expect(BRANDS).toEqual(["krizaka", "orazaka", "orochia"]);
+    for (const id of BRANDS) expect(files[`brands/${id}.css`], id).toBeDefined();
+    expect(files["brands/scoped.css"]).toContain(".brand-orazaka {");
+    expect(Object.keys(index.brands)).toEqual(BRANDS);
+    expect(Object.keys(native.brands)).toEqual(BRANDS);
+  });
+
+  it("matches the snapshots", async () => {
+    for (const id of BRANDS) await expect(files[`brands/${id}.css`]).toMatchFileSnapshot(`./__snapshots__/brands/${id}.css`);
+    await expect(files["brands/scoped.css"]).toMatchFileSnapshot("./__snapshots__/brands/scoped.css");
+  });
+
+  it("sets every role of the accent family, in both themes, in every block", () => {
+    for (const id of BRANDS) {
+      for (const mode of ["dark", "light"] as const) {
+        expect(Object.keys(index.brands[id][mode])).toEqual(BRAND_ROLES.map(camel));
+      }
+      // html.light outweighs `:root`: it restates every literal role, or the platform's light accent would win.
+      const css = files[`brands/${id}.css`];
+      const block = (selector: string) => css.slice(css.indexOf(`${selector} {`), css.indexOf("}", css.indexOf(`${selector} {`)));
+      const literals = [...block(":root, .theme-dark").matchAll(/(--kz-[\w-]+): (?!var\()/g)].map(([, name]) => name);
+      expect(literals.length).toBeGreaterThan(0);
+      for (const name of literals) expect(block("html.light"), `${id} ${name}`).toContain(`${name}:`);
+    }
+  });
+
+  it("is the platform's default for krizaka: tokens.css already carries the Krizaka identity", () => {
+    for (const mode of ["dark", "light"] as const) {
+      for (const role of BRAND_ROLES) expect(index.brands.krizaka[mode][camel(role)], `${mode} ${role}`).toBe(index.values[mode][camel(role)]);
+    }
+  });
+
+  it("takes the Orazaka orange from its mark and keeps the Orochia values of its design system", () => {
+    expect(native.brands.orazaka.light.accent).toBe("#b45309"); // the deep stop of the Orazaka mark
+    expect(native.brands.orazaka.dark.accent2).toBe("#f59e0b"); // its light stop
+    expect(native.brands.orochia.dark.accent).toBe("#7c3aed");
+    expect(native.brands.orochia.light.accent2).toBe("#db2777");
+    expect(native.brands.orochia.dark.ring).toBe("#a78bfa");
+  });
+
+  for (const id of BRANDS) {
+    for (const mode of ["dark", "light"] as const) {
+      it(`${id} ${mode}: WCAG AA — on-accent on accent, hover and accent-2; accent-text on every surface; ring ≥ 3:1; text on the section gradient`, () => {
+        const b = index.brands[id][mode];
+        const page = index.values[mode];
+        const on = parseHsl(b.onAccent);
+        for (const fill of [b.accent, b.accentHover, b.accent2]) expect(contrast(on, parseHsl(fill)), fill).toBeGreaterThanOrEqual(4.5);
+        for (const s of surfaces) expect(contrast(parseHsl(b.accentText), parseHsl(page[s])), s).toBeGreaterThanOrEqual(4.5);
+        expect(contrast(parseHsl(b.ring), parseHsl(page.surface0))).toBeGreaterThanOrEqual(3);
+        // Text set on a section gradient reads at AA on every stop.
+        for (const stop of [b.brandGradientFrom, b.brandGradientVia, b.brandGradientTo]) {
+          expect(contrast(parseHsl(page.textPrimary), parseHsl(stop)), stop).toBeGreaterThanOrEqual(4.5);
+          expect(contrast(parseHsl(page.textSecondary), parseHsl(stop)), stop).toBeGreaterThanOrEqual(4.5);
+          expect(contrast(parseHsl(b.accentText), parseHsl(stop)), stop).toBeGreaterThanOrEqual(4.5);
+        }
+      });
+    }
+  }
+
+  it("keeps Orazaka's accent apart from the warning status", () => {
+    const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);
+    expect(Math.abs(hue(index.brands.orazaka.dark.accent) - hue(index.values.dark.warning))).toBeGreaterThanOrEqual(10);
+    expect(index.brands.orazaka.dark.info).not.toBe(index.brands.orazaka.dark.accent);
+  });
+
+  it("rejects a brand that sets a non-brand role, an unknown token or misses a role", () => {
+    const one = (tree: Record<string, unknown>) => () => compileBrands(tokens, { x: tree });
+    const full = brandSources.krizaka as Record<string, unknown>;
+    expect(one({ ...full, "surface-0": { $type: "color", $value: "hsl(0 0% 0%)" } })).toThrow(/not a brand role/);
+    expect(one({ ...full, nope: { $type: "color", $value: "hsl(0 0% 0%)" } })).toThrow(/not a platform token/);
+    const { info: _info, ...partial } = full;
+    expect(one(partial)).toThrow(/missing --kz-info/);
   });
 });
