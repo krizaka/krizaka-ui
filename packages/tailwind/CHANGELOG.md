@@ -1,5 +1,13 @@
 # @krizaka/tailwind
 
+## 2.0.0-beta.6
+
+### Patch Changes
+
+- Updated dependencies [[`5167bcb`](https://github.com/krizaka/krizaka-ui/commit/5167bcbb4857022b1e9562a10f17bc58e8691301)]:
+  - @krizaka/ui@2.0.0-beta.6
+  - @krizaka/tokens@2.0.0-beta.6
+
 ## 2.0.0-beta.5
 
 ### Minor Changes
