@@ -106,6 +106,9 @@ export const GLYPHS = {
   download: { group: "interface", keywords: "download save export", p: ["M12 4v11.5", "M7.5 11 12 15.5l4.5-4.5", "M4 14.5v4l2 2h12l2-2v-4"] },
   logout: { group: "interface", keywords: "logout sign out exit", p: ["M10 4H5.5L4 5.5v13L5.5 20H10", "M9.5 12h11", "M16.5 8l4 4-4 4"] },
   bookmark: { group: "interface", keywords: "bookmark save later", p: ["M6 3.5h12v17l-6-4.5-6 4.5z"] },
+  sound: { group: "interface", keywords: "sound volume audio unmute speaker", p: ["M3.5 9.5H7l5-4.5v14l-5-4.5H3.5z", "M15.5 9a4.2 4.2 0 0 1 0 6", "M18.3 6.3a8.2 8.2 0 0 1 0 11.4"] },
+  mute: { group: "interface", keywords: "mute sound off silent volume speaker", p: ["M3.5 9.5H7l5-4.5v14l-5-4.5H3.5z", "M16 9.5l5 5M21 9.5l-5 5"] },
+  flag: { group: "interface", keywords: "flag report abuse moderation", p: ["M5 21V3.5", "M5 4.5c2.3-1.4 4.7-1.4 7 0s4.7 1.4 7 0v8.5c-2.3 1.4-4.7 1.4-7 0s-4.7-1.4-7 0"] },
 };
 
 /** `story24h` → `Story24hIcon`. */

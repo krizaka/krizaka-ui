@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Button",
-  summary: "The action: a button in five looks (primary, secondary, outline, ghost, danger), three sizes and two shapes.",
+  summary: "The action: a button in six looks (primary, gradient, secondary, outline, ghost, danger), three sizes and two shapes.",
   status: "stable",
   category: "actions",
   platforms: "both",
@@ -39,6 +39,7 @@ export const meta = {
     imports: ["Button", "IconButton"],
     examples: [
       { name: "primary", title: "Primary", description: "The main action of a view: the accent." },
+      { name: "gradient", title: "Gradient", description: "The brand's signature, accent → accent-2: a hero or a closing call to action, once per page." },
       { name: "secondary", title: "Secondary", description: "The default: a raised surface, for the other actions." },
       { name: "outline", title: "Outline", description: "A lighter action next to a primary one." },
       { name: "ghost", title: "Ghost", description: "In toolbars and dense lists: no frame until hovered." },
@@ -58,9 +59,11 @@ export const meta = {
       "`onPress` instead of `onClick` (a `Pressable`); haptics, if any, belong to your `onPress`.",
       "`icon` places an icon before the label; there is no `asChild`.",
       "`loading` shows the platform's `ActivityIndicator` in place of the icon.",
+      "`variant=\"gradient\"` draws its fill with react-native-svg (React Native has no CSS gradient).",
     ],
     examples: [
       { name: "primary", title: "Primary", description: "The main action of a screen." },
+      { name: "gradient", title: "Gradient", description: "accent → accent-2, drawn with react-native-svg: the hero action of a screen." },
       { name: "secondary", title: "Secondary", description: "The default look." },
       { name: "outline", title: "Outline", description: "A lighter action." },
       { name: "ghost", title: "Ghost", description: "No frame: toolbars, headers." },

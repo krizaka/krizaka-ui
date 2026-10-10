@@ -18,6 +18,8 @@
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
     "changeset": "changeset",
+    "inventory": "node tools/inventory.mjs",
+    "test:tools": "node --test 'tools/*.test.mjs'",
     "release": "turbo run check && changeset publish"
   },
   "devDependencies": {

@@ -27,6 +27,13 @@ describe("Card", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
+  it("loads lazily by default, eagerly when asked (the first cards of a page)", () => {
+    const { container } = render(<Card.Image src="/hero.jpg" loading="eager" fetchPriority="high" />);
+    const img = container.querySelector("img");
+    expect(img?.getAttribute("loading")).toBe("eager");
+    expect(img?.getAttribute("fetchpriority")).toBe("high");
+  });
+
   it("shows the fallback, hidden from assistive technology, when there is no image", () => {
     const { container } = render(<Card.Image src={null} fallback={<svg />} />);
     const fallback = container.querySelector("[data-fallback]");

@@ -46,6 +46,10 @@
     "$type": "color",
     "$value": "{accent.$root}"
   },
+  "info-text": {
+    "$type": "color",
+    "$value": "{accent.text}"
+  },
   "brand-gradient": {
     "$type": "color",
     "from": {
@@ -65,12 +69,7 @@
       }
     },
     "to": {
-      "$value": "hsl(240 6% 5%)",
-      "$extensions": {
-        "com.krizaka": {
-          "light": "hsl(0 0% 98%)"
-        }
-      }
+      "$value": "{surface.0}"
     }
   }
 }

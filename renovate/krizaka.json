@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Krizaka platform updates for a product: one pull request per platform release (@krizaka/* on npm, com.krizaka on Maven Central), labelled, its changelog in the description; patches merge themselves once CI is green. Use: \"extends\": [\"github>krizaka/krizaka-ui//renovate/krizaka\"].",
+  "packageRules": [
+    {
+      "description": "One group for the whole platform: tokens, preset, primitives and the JVM BOM move together.",
+      "matchPackageNames": ["@krizaka/**", "com.krizaka:**"],
+      "groupName": "krizaka",
+      "groupSlug": "krizaka",
+      "labels": ["dependencies", "krizaka"],
+      "fetchChangeLogs": "pr"
+    },
+    {
+      "description": "Patches of the platform merge on green CI (the branch protection still requires the checks).",
+      "matchPackageNames": ["@krizaka/**", "com.krizaka:**"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    }
+  ]
+}

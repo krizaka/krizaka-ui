@@ -18,11 +18,19 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ intl/                 # @krizaka/intl — money, numbers, dates, plurals on Intl (zero dependency, no UI)
 │  ├─ i18n/                 # @krizaka/i18n — typed messages, format, <Rich>, React provider, the krizaka-i18n CLI
 │  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
+├─ tools/                   # not published — inventory.mjs (the duplicate audit of the products) and its tests
+├─ renovate/krizaka.json    # the Renovate preset the products extend (group krizaka, patches automerged)
 ├─ .changeset/              # one file per change that ships
 ├─ eslint.config.mjs       # the monorepo lints itself with @krizaka/config
 ├─ turbo.json · pnpm-workspace.yaml · package.json
 └─ .github/workflows/{ci,release}.yml
 ```
+
+**State (2.0.0, 2026-10-10).** Out of pre-release: `@krizaka/ui`, `@krizaka/tokens` and `@krizaka/tailwind` 2.0.0
+(one `fixed` group), `@krizaka/icons`, `@krizaka/intl`, `@krizaka/i18n` 0.1.0, `@krizaka/config` 0.1.0 — all on the
+`latest` dist-tag. The catalogue covers every concept of the study's inventory (§2.1), web and React Native; the
+products consume it through their design systems (theme + composites). Supported versions and the deprecation
+procedure: [`SUPPORT.md`](SUPPORT.md).
 
 A new package is a folder in `packages/` with its own `package.json`, `AGENTS.md`, tests, `size-limit` budget and
 `publint` script.
@@ -74,9 +82,30 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 
 Each package must be declared once on npmjs.com as trusted publisher: repository `krizaka/krizaka-ui`, workflow
 `release.yml`. `tokens`, `tailwind` and `ui` form one `fixed` group in `.changeset/config.json` (one shared
-version); `config`, `intl`, `i18n` and `icons` version on their own.
+version); `config`, `intl`, `i18n` and `icons` version on their own. Pre-releases (`pnpm changeset pre enter <tag>`)
+are for a coming major only; `main` is out of pre-release since 2.0.0.
 
-## 5. Definition of done
+## 5. Maintenance commands
+
+```bash
+pnpm install --frozen-lockfile && pnpm turbo run check       # everything CI runs (lint · types · tests · build · size · publint · stories)
+pnpm test:tools                                              # the tools/ tests (node:test)
+pnpm inventory                                               # duplicates left in the products (clones under ~/krizaka-com); --json, --strict
+pnpm inventory --repo krizaka-com=../krizaka-com-wt          # …with one repository read from another folder
+node packages/config/bin/krizaka-ratchet.mjs --json --root <app>   # the UI debt counters of an app (lint-ratchet.json)
+pnpm --filter @krizaka/icons glyphs                          # regenerate the icons from scripts/glyphs.mjs
+pnpm --filter @krizaka/tokens build                          # recompile the tokens (DTCG → CSS, TS, native, brands)
+pnpm --filter storybook test:update:linux                    # the CI screenshot baselines (Docker), after a visual change
+pnpm changeset                                               # describe a change that ships
+GITHUB_TOKEN=$(gh auth token) pnpm changeset version         # what CI's "version packages" PR does, locally (inspect, then reset)
+npm view @krizaka/ui dist-tags                               # what `npm install @krizaka/ui` resolves to
+```
+
+Publishing is CI's (`release.yml`, trusted publishing). While trusted publishing is not configured on npmjs.com, the
+fallback is local, from an up-to-date `main` after the "version packages" pull request is merged:
+`pnpm install --frozen-lockfile && pnpm turbo run build && pnpm changeset publish && git push origin --tags`.
+
+## 6. Definition of done
 
 1. `pnpm install --frozen-lockfile && pnpm turbo run check` is green.
 2. A changeset accompanies every change to published content.

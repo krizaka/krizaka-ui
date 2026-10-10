@@ -37,6 +37,11 @@
   --color-warning: var(--kz-warning);
   --color-danger: var(--kz-danger);
   --color-info: var(--kz-info);
+  /* statuts en texte : ≥ 4.5:1 */
+  --color-fg-success: var(--kz-success-text);
+  --color-fg-warning: var(--kz-warning-text);
+  --color-fg-danger: var(--kz-danger-text);
+  --color-fg-info: var(--kz-info-text);
 
   --radius-sm: var(--kz-radius-sm);
   --radius-md: var(--kz-radius-md);

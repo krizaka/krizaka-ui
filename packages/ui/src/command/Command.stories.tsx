@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import DialogExample from "../../registry/examples/command/dialog";
 import InlineExample from "../../registry/examples/command/inline";
+import NoResultsExample from "../../registry/examples/command/no-results";
 import { Command } from "./command";
 
 /**
@@ -19,4 +20,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Inline: Story = { render: () => <InlineExample /> };
+export const NoResults: Story = { render: () => <NoResultsExample /> };
 export const Dialog: Story = { render: () => <DialogExample defaultOpen />, parameters: { capture: "viewport" } };

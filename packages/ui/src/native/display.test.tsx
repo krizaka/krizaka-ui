@@ -1,11 +1,11 @@
 // The static primitives: Txt, Card, Badge, Avatar, Skeleton, EmptyState, Spinner.
 import { describe, expect, jest, test } from "@jest/globals";
 import { themes } from "@krizaka/tokens/native";
-import { fireEvent, render, screen } from "@testing-library/react-native";
+import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import * as React from "react";
 import { StyleSheet, Text } from "react-native";
 
-import { Avatar } from "./avatar";
+import { Avatar, isSvgUri } from "./avatar";
 import { Badge } from "./badge";
 import { Card } from "./card";
 import { EmptyState } from "./empty-state";
@@ -13,6 +13,14 @@ import { Skeleton } from "./skeleton";
 import { Spinner } from "./spinner";
 import { ThemeProvider } from "./theme";
 import { Txt } from "./txt";
+
+// SvgUri fetches its document; here it is a view that keeps its props (uri, onError) for the assertions.
+jest.mock("react-native-svg", () => {
+  const actual = jest.requireActual<Record<string, unknown>>("react-native-svg");
+  const { createElement } = jest.requireActual<typeof import("react")>("react");
+  const { View } = jest.requireActual<typeof import("react-native")>("react-native");
+  return { __esModule: true, ...actual, SvgUri: (props: { testID?: string }) => createElement(View, { ...props, testID: props.testID ?? "svg-uri" }) };
+});
 
 const color = (element: { props: { style?: unknown } }) => (StyleSheet.flatten(element.props.style as never) as { color?: string }).color;
 
@@ -90,6 +98,24 @@ describe("Avatar", () => {
     expect(screen.queryByText("B")).toBeNull();
     await fireEvent(screen.getByTestId("avatar.image"), "error");
     expect(screen.getByText("B")).toBeOnTheScreen();
+  });
+
+  test("an SVG source (generated avatars) is drawn by react-native-svg, not Image; failing, the initial", async () => {
+    await render(<Avatar src="https://api.example.com/avatar/ada.svg?seed=1" alt="Ada" testID="avatar" />);
+    const svg = screen.getByTestId("avatar.svg");
+    expect(svg.props.uri).toBe("https://api.example.com/avatar/ada.svg?seed=1");
+    expect(screen.queryByTestId("avatar.image")).toBeNull();
+    expect(screen.queryByText("A")).toBeNull();
+    await act(() => svg.props.onError(new Error("404")));
+    expect(screen.getByText("A")).toBeOnTheScreen();
+  });
+
+  test("svg forces the SVG renderer; data URIs are recognised", async () => {
+    expect(isSvgUri("data:image/svg+xml;base64,PHN2Zy8+")).toBe(true);
+    expect(isSvgUri("https://x.dev/a.SVG#v")).toBe(true);
+    expect(isSvgUri("https://x.dev/a.png?f=svg")).toBe(false);
+    await render(<Avatar src="https://api.example.com/avatar/bo" svg alt="Bo" />);
+    expect(screen.getByTestId("svg-uri").props.uri).toBe("https://api.example.com/avatar/bo");
   });
 
   test("without an image: the initial", async () => {

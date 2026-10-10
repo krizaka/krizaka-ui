@@ -88,11 +88,15 @@ under every product override.
 | `--kz-accent-2` | `accent2` | Second accent (gradients) | → `accent` | → `accent` |
 | `--kz-on-accent` | `onAccent` | Text and icon on the accent (≥ 4.5:1) | `hsl(0 0% 100%)` | = dark |
 | `--kz-ring` | `ring` | Keyboard focus ring | → `accent` | → `accent` |
-| `--kz-brand-gradient-from` / `-via` / `-to` | `brandGradientFrom`… | Section gradient of the brand (tinted → page surface); text reads at AA on every stop | `hsl(222 45% 10%)` → `hsl(232 24% 7%)` → `hsl(240 6% 5%)` | `hsl(214 95% 93%)` → `hsl(220 60% 97%)` → `hsl(0 0% 98%)` |
-| `--kz-success` | `success` | Status: success | `hsl(160 84% 39%)` | = dark |
+| `--kz-brand-gradient-from` / `-via` / `-to` | `brandGradientFrom`… | Section gradient of the brand (tinted → page surface); text reads at AA on every stop. `-to` is an alias of `surface-0`: an app that changes its page surface keeps a seamless section end | `hsl(222 45% 10%)` → `hsl(232 24% 7%)` → `surface-0` | `hsl(214 95% 93%)` → `hsl(220 60% 97%)` → `surface-0` |
+| `--kz-success` | `success` | Status: success — fills, borders, dots, icons (≥ 3:1) | `hsl(160 84% 39%)` | = dark |
+| `--kz-success-text` | `successText` | Success as small text: ≥ 4.5:1 on every surface | `hsl(158 64% 52%)` | `hsl(160 84% 24%)` |
 | `--kz-warning` | `warning` | Status: warning | `hsl(38 92% 50%)` | = dark |
+| `--kz-warning-text` | `warningText` | Warning as small text: ≥ 4.5:1 on every surface | `hsl(38 92% 55%)` | `hsl(32 95% 30%)` |
 | `--kz-danger` | `danger` | Status: error, destructive action | `hsl(0 84% 60%)` | = dark |
+| `--kz-danger-text` | `dangerText` | Error as small text (a field's message, an urgent countdown): ≥ 4.5:1 on every surface | `hsl(0 91% 71%)` | `hsl(0 72% 40%)` |
 | `--kz-info` | `info` | Status: information | → `accent` | → `accent` |
+| `--kz-info-text` | `infoText` | Information as small text (a brand role) | → `accent-text` | → `accent-text` |
 | `--kz-scrim` | `scrim` | Veil behind a badge or a caption on an image | `hsl(0 0% 0% / 0.60)` | = dark |
 | `--kz-scrim-strong` | `scrimStrong` | Stronger veil (long text on an image) | `hsl(0 0% 0% / 0.80)` | = dark |
 | `--kz-overlay` | `overlay` | Dialog backdrop | `hsl(0 0% 0% / 0.70)` | = dark |

@@ -13,6 +13,14 @@ describe("Button", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
+  it("draws the gradient look from the accent to the second accent, label on-accent", async () => {
+    const { container } = render(<Button variant="gradient">Start</Button>);
+    const button = screen.getByRole("button", { name: "Start" });
+    expect(button.dataset.variant).toBe("gradient");
+    for (const c of ["bg-linear-to-r", "from-accent", "to-accent-2", "text-on-accent"]) expect(button.className).toContain(c);
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
   it("signals loading: disabled, aria-busy, data-loading", () => {
     render(<Button loading>Saving</Button>);
     const button = screen.getByRole("button");

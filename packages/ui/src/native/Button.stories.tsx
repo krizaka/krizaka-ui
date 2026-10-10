@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import DangerExample from "../../registry/examples/button/native/danger";
 import DisabledExample from "../../registry/examples/button/native/disabled";
 import GhostExample from "../../registry/examples/button/native/ghost";
+import GradientExample from "../../registry/examples/button/native/gradient";
 import IconExample from "../../registry/examples/button/native/icon";
 import IconOnlyExample from "../../registry/examples/button/native/icon-only";
 import LoadingExample from "../../registry/examples/button/native/loading";
@@ -28,6 +29,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = { render: () => <PrimaryExample /> };
+export const Gradient: Story = { render: () => <GradientExample /> };
 export const Secondary: Story = { render: () => <SecondaryExample /> };
 export const Outline: Story = { render: () => <OutlineExample /> };
 export const Ghost: Story = { render: () => <GhostExample /> };

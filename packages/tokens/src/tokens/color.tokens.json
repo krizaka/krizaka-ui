@@ -1,8 +1,6 @@
 {
   "$description": "Couleurs sémantiques --kz-*. `$value` = dark (défaut), `$extensions[\"com.krizaka\"].light` = light ; sans extension, la valeur est la même dans les deux thèmes.",
   "surface": {
-    "$type": "color",
-    "$description": "Surfaces (hiérarchie de profondeur)",
     "0": {
       "$value": "hsl(240 6% 5%)",
       "$description": "Fond de page",
@@ -38,7 +36,9 @@
           "light": "hsl(240 5% 90%)"
         }
       }
-    }
+    },
+    "$type": "color",
+    "$description": "Surfaces (hiérarchie de profondeur)"
   },
   "media": {
     "$type": "color",
@@ -193,13 +193,8 @@
       }
     },
     "to": {
-      "$value": "hsl(240 6% 5%)",
-      "$description": "Section : l'arrivée, la surface de page (la section suivante y enchaîne)",
-      "$extensions": {
-        "com.krizaka": {
-          "light": "hsl(0 0% 98%)"
-        }
-      }
+      "$value": "{surface.0}",
+      "$description": "Section : l'arrivée, un alias de la surface de page — la section suivante y enchaîne, même quand un produit change --kz-surface-0"
     }
   },
   "success": {
@@ -207,20 +202,55 @@
     "$value": "hsl(160 84% 39%)",
     "$description": "Statut : succès (lisible dans les deux thèmes)"
   },
+  "success-text": {
+    "$type": "color",
+    "$value": "hsl(158 64% 52%)",
+    "$description": "Statut succès en texte (petit texte, libellé) : ≥ 4.5:1 sur chaque surface",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(160 84% 24%)"
+      }
+    }
+  },
   "warning": {
     "$type": "color",
     "$value": "hsl(38 92% 50%)",
     "$description": "Statut : avertissement"
+  },
+  "warning-text": {
+    "$type": "color",
+    "$value": "hsl(38 92% 55%)",
+    "$description": "Statut avertissement en texte : ≥ 4.5:1 sur chaque surface",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(32 95% 30%)"
+      }
+    }
   },
   "danger": {
     "$type": "color",
     "$value": "hsl(0 84% 60%)",
     "$description": "Statut : erreur, action destructive"
   },
+  "danger-text": {
+    "$type": "color",
+    "$value": "hsl(0 91% 71%)",
+    "$description": "Statut erreur en texte (message d'erreur, compte à rebours urgent) : ≥ 4.5:1 sur chaque surface",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(0 72% 40%)"
+      }
+    }
+  },
   "info": {
     "$type": "color",
     "$value": "{accent.$root}",
     "$description": "Statut : information"
+  },
+  "info-text": {
+    "$type": "color",
+    "$value": "{accent.text}",
+    "$description": "Statut information en texte : l'accent en texte par défaut (≥ 4.5:1)"
   },
   "scrim": {
     "$type": "color",

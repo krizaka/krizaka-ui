@@ -1,19 +1,23 @@
 import * as React from "react";
 import { ActivityIndicator, Pressable, type PressableProps, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
+import Svg, { Defs, LinearGradient, Rect, Stop } from "react-native-svg";
 
 import { alpha, type Theme, useTheme } from "./theme";
 import { Txt } from "./txt";
 
-export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "danger";
+export type ButtonVariant = "primary" | "gradient" | "secondary" | "outline" | "ghost" | "danger";
 export type ButtonSize = "sm" | "md" | "lg";
 
-type Look = { bg: string; fg: string; border: string };
+type Look = { bg: string; fg: string; border: string; gradient?: readonly [string, string] };
 
-/** The same five looks as the web `buttonVariants`, from the theme's roles. */
+/** The same six looks as the web `buttonVariants`, from the theme's roles. */
 function look(variant: ButtonVariant, t: Theme): Look {
   switch (variant) {
     case "primary":
       return { bg: t.accent, fg: t.onAccent, border: t.accent };
+    case "gradient":
+      // The brand's signature: accent → accent-2, left to right; on-accent reads on both stops (tested in tokens).
+      return { bg: t.accent, fg: t.onAccent, border: "transparent", gradient: [t.accent, t.accent2] };
     case "outline":
       return { bg: "transparent", fg: t.textPrimary, border: t.borderDefault };
     case "ghost":
@@ -30,7 +34,7 @@ const HEIGHT: Record<ButtonSize, number> = { sm: 32, md: 40, lg: 48 };
 const PADDING: Record<ButtonSize, number> = { sm: 12, md: 16, lg: 24 };
 
 type BaseProps = Omit<PressableProps, "children" | "style"> & {
-  /** The look: `primary`, `secondary` (default), `outline`, `ghost`, `danger` — as on the web. */
+  /** The look: `primary`, `gradient` (accent → accent-2), `secondary` (default), `outline`, `ghost`, `danger` — as on the web. */
   variant?: ButtonVariant;
   /** sm · md (default) · lg: 32, 40 or 48 points high. */
   size?: ButtonSize;
@@ -64,9 +68,26 @@ function useButton({ variant = "secondary", size = "md", shape = "rounded", load
   return { colors, inactive, frame };
 }
 
+/** The gradient fill behind the content (react-native-svg: no native gradient in React Native). */
+function Fill({ colors, id }: { colors: Look; id: string }) {
+  if (!colors.gradient) return null;
+  return (
+    <Svg aria-hidden pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%">
+      <Defs>
+        <LinearGradient id={id} x1="0" y1="0" x2="1" y2="0">
+          <Stop offset="0" stopColor={colors.gradient[0]} />
+          <Stop offset="1" stopColor={colors.gradient[1]} />
+        </LinearGradient>
+      </Defs>
+      <Rect width="100%" height="100%" fill={`url(#${id})`} />
+    </Svg>
+  );
+}
+
 /** The action. `variant` × `size` × `shape`, `loading`, `icon`; the haptics, if any, belong to the app's `onPress`. */
 export function Button({ label, icon, variant, size = "md", shape, loading = false, disabled, style, ...props }: ButtonProps) {
   const { colors, inactive, frame } = useButton({ variant, size, shape, loading, disabled });
+  const gradientId = `kz-button-${React.useId().replace(/:/g, "")}`;
   return (
     <Pressable
       role="button"
@@ -77,6 +98,7 @@ export function Button({ label, icon, variant, size = "md", shape, loading = fal
       disabled={inactive}
       style={({ pressed }) => [styles.base, { paddingHorizontal: PADDING[size] }, frame(pressed), style]}
     >
+      <Fill colors={colors} id={gradientId} />
       <View style={styles.row}>
         {loading ? <ActivityIndicator aria-hidden size="small" color={colors.fg} /> : icon}
         <Txt variant="label" numberOfLines={1} style={{ color: colors.fg, fontSize: size === "sm" ? 12 : 14 }}>
@@ -97,6 +119,7 @@ export type IconButtonProps = BaseProps & {
 /** A square button holding only an icon: `label` is required, it is its accessible name. */
 export function IconButton({ label, icon, variant, size = "md", shape, loading = false, disabled, style, ...props }: IconButtonProps) {
   const { colors, inactive, frame } = useButton({ variant, size, shape, loading, disabled });
+  const gradientId = `kz-button-${React.useId().replace(/:/g, "")}`;
   const side = HEIGHT[size];
   return (
     <Pressable
@@ -109,12 +132,13 @@ export function IconButton({ label, icon, variant, size = "md", shape, loading =
       disabled={inactive}
       style={({ pressed }) => [styles.base, frame(pressed), { width: side }, style]}
     >
+      <Fill colors={colors} id={gradientId} />
       {loading ? <ActivityIndicator aria-hidden size="small" color={colors.fg} /> : icon}
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  base: { alignItems: "center", justifyContent: "center", borderWidth: 1 },
+  base: { alignItems: "center", justifyContent: "center", borderWidth: 1, overflow: "hidden" },
   row: { flexDirection: "row", alignItems: "center", gap: 8 },
 });

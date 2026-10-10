@@ -13,12 +13,14 @@ export type CountdownProps = {
   skewMs?: number;
   /** The short unit labels, passed translated. */
   units: CountdownUnits;
-  /** Below this many milliseconds it turns urgent (the danger role, the last segment breathes). Default 60 s. */
+  /** Below this many milliseconds it turns urgent (the danger text role, the last segment breathes). Default 60 s. */
   urgentBelowMs?: number;
   /** sm · md (default) · lg. */
   size?: "sm" | "md" | "lg";
   /** Accessible name, e.g. "Ends in". */
   label: string;
+  /** Also show `label` before the segments, in the secondary text role (default: only read by screen readers). */
+  showLabel?: boolean;
   /** Styles merged last. */
   style?: StyleProp<ViewStyle>;
 };
@@ -28,9 +30,10 @@ const FONT = { sm: 14, md: 20, lg: 32 } as const;
 /**
  * Time left until a moment, as segments (2d 04h 13m — days only when there are some) in tabular figures, on the same
  * clock as the web `Countdown` (one interval for every countdown on screen). Under `urgentBelowMs` it turns to the
- * danger role and its last segment breathes (still when the system reduces motion).
+ * danger text role (≥ 4.5:1 in both themes) and its last segment breathes (still when the system reduces motion).
+ * `showLabel` writes `label` before the segments; it is the accessible name either way.
  */
-export function Countdown({ target, skewMs = 0, units, urgentBelowMs = 60_000, size = "md", label, style }: CountdownProps) {
+export function Countdown({ target, skewMs = 0, units, urgentBelowMs = 60_000, size = "md", label, showLabel = false, style }: CountdownProps) {
   const { theme, fonts } = useTheme();
   const reduce = useReducedMotion();
   const ms = useCountdown(target, skewMs);
@@ -51,7 +54,7 @@ export function Countdown({ target, skewMs = 0, units, urgentBelowMs = 60_000, s
       opacity.setValue(1);
     };
   }, [urgent, reduce, opacity]);
-  const color = urgent ? theme.danger : theme.textPrimary;
+  const color = urgent ? theme.dangerText : theme.textPrimary;
   const text = parts.map(([value, unit]) => `${String(value).padStart(2, "0")}${unit}`).join(" ");
   return (
     <Animated.View
@@ -60,6 +63,9 @@ export function Countdown({ target, skewMs = 0, units, urgentBelowMs = 60_000, s
       aria-label={`${label} ${text}`}
       style={[styles.root, style]}
     >
+      {showLabel ? (
+        <Text style={[styles.label, { color: theme.textSecondary, fontSize: Math.max(11, Math.round(FONT[size] * 0.6)) }]}>{label}</Text>
+      ) : null}
       {parts.map(([value, unit], i) => (
         <Animated.View key={unit} style={[styles.segment, urgent && i === parts.length - 1 ? { opacity } : null]}>
           <Text style={[styles.value, { color, fontSize: FONT[size] }, fonts.display ? { fontFamily: fonts.display } : null]}>
@@ -77,4 +83,5 @@ const styles = StyleSheet.create({
   segment: { flexDirection: "row", alignItems: "baseline" },
   value: { fontWeight: "900", fontVariant: ["tabular-nums"], letterSpacing: -0.3 },
   unit: { marginLeft: 2, fontWeight: "700", textTransform: "uppercase" },
+  label: { fontWeight: "600", marginRight: 2 },
 });

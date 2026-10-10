@@ -135,6 +135,12 @@ export const download: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 4v11.5",
 export const logout: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M10 4H5.5L4 5.5v13L5.5 20H10","M9.5 12h11","M16.5 8l4 4-4 4"] });
 /** bookmark save later */
 export const bookmark: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M6 3.5h12v17l-6-4.5-6 4.5z"] });
+/** sound volume audio unmute speaker */
+export const sound: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M3.5 9.5H7l5-4.5v14l-5-4.5H3.5z","M15.5 9a4.2 4.2 0 0 1 0 6","M18.3 6.3a8.2 8.2 0 0 1 0 11.4"] });
+/** mute sound off silent volume speaker */
+export const mute: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M3.5 9.5H7l5-4.5v14l-5-4.5H3.5z","M16 9.5l5 5M21 9.5l-5 5"] });
+/** flag report abuse moderation */
+export const flag: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5 21V3.5","M5 4.5c2.3-1.4 4.7-1.4 7 0s4.7 1.4 7 0v8.5c-2.3 1.4-4.7 1.4-7 0s-4.7-1.4-7 0"] });
 
 /** Every glyph's name, its group and its keywords — for catalogues and search (not for the components). */
 export const glyphIndex = {
@@ -472,5 +478,20 @@ export const glyphIndex = {
     "component": "BookmarkIcon",
     "group": "interface",
     "keywords": "bookmark save later"
+  },
+  "sound": {
+    "component": "SoundIcon",
+    "group": "interface",
+    "keywords": "sound volume audio unmute speaker"
+  },
+  "mute": {
+    "component": "MuteIcon",
+    "group": "interface",
+    "keywords": "mute sound off silent volume speaker"
+  },
+  "flag": {
+    "component": "FlagIcon",
+    "group": "interface",
+    "keywords": "flag report abuse moderation"
   }
 } as const;

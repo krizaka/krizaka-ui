@@ -19,7 +19,7 @@ export const meta = {
   bestPractices: [
     "Group the commands (`Command.Group heading`) and show their shortcuts with `Command.Shortcut`.",
     "Add `keywords` so a command is found by the words people type, not only by its label.",
-    "Always say what an empty search means with `Command.Empty emptyLabel`.",
+    "Always say what an empty search means with `emptyLabel` on `Command.List` (said beside the listbox, never inside it).",
   ],
   accessibility: {
     keyboard: [
@@ -38,6 +38,7 @@ export const meta = {
     imports: ["Command", "CommandDialog"],
     examples: [
       { name: "inline", title: "Inline", description: "In a card: the input, groups, shortcuts, a disabled item." },
+      { name: "no-results", title: "No results", description: "`emptyLabel` on `Command.List`: said beside the listbox when nothing matches." },
       { name: "dialog", title: "In a dialog", description: "`CommandDialog`: the palette of an app, opened from a button or a shortcut." },
     ],
   },

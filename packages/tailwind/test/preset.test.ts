@@ -33,6 +33,10 @@ describe("@krizaka/tailwind", () => {
     [".shadow-md", "--tw-shadow", "--kz-shadow-md"],
     [".text-accent", "color", "--kz-accent"],
     [".text-fg-accent", "color", "--kz-accent-text"],
+    [".text-fg-danger", "color", "--kz-danger-text"],
+    [".text-fg-success", "color", "--kz-success-text"],
+    [".text-fg-warning", "color", "--kz-warning-text"],
+    [".text-fg-info", "color", "--kz-info-text"],
     [".from-brand-from", "--tw-gradient-from", "--kz-brand-gradient-from"],
   ])("generates %s from the token, read at use time", (selector, property, token) => {
     const body = rule(selector);

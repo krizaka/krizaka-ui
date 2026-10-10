@@ -20,6 +20,7 @@ export const meta = {
     "Build product cards from these parts and override any of them with `className` — never fork the card.",
     "Keep one primary target per card: either the whole card is a link, or it holds buttons — not both.",
     "Give `Card.Media` a fixed `aspect` so a grid stays aligned while images load.",
+    "`Card.Image` loads lazily; pass `loading=\"eager\"` (and `fetchPriority=\"high\"`) to the first cards of a page, above the fold.",
     "`reveal={index}` with one `MotionObserver` per page for the entrance; it is shown at once under reduced motion.",
   ],
   accessibility: {

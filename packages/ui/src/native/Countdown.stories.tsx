@@ -4,6 +4,7 @@ import DaysExample from "../../registry/examples/countdown/native/days";
 import HoursExample from "../../registry/examples/countdown/native/hours";
 import SizesExample from "../../registry/examples/countdown/native/sizes";
 import UrgentExample from "../../registry/examples/countdown/native/urgent";
+import WithLabelExample from "../../registry/examples/countdown/native/with-label";
 import { Countdown } from "./countdown";
 import { nativeFrame } from "./story-frame";
 
@@ -35,3 +36,4 @@ export const Hours: Story = { render: () => <HoursExample /> };
 export const Days: Story = { render: () => <DaysExample /> };
 export const Sizes: Story = { render: () => <SizesExample /> };
 export const Urgent: Story = { render: () => <UrgentExample /> };
+export const WithLabel: Story = { render: () => <WithLabelExample /> };

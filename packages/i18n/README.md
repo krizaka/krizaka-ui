@@ -26,7 +26,7 @@ Node ≥ 20, ESM only. React (≥ 18) only for `./rich` and `./react`; TypeScrip
 | :-- | :-- | :-- |
 | `@krizaka/i18n` | `createI18n`, `format`, `placeholdersOf`, `isPluralMessage`, the types | no |
 | `@krizaka/i18n/rich` | `<Rich text href? renderLink? renderBold? slots?>` | no hook — Server Components too |
-| `@krizaka/i18n/react` | `createI18nReact(i18n)` → `I18nProvider`, `useI18n` | client (`"use client"`) |
+| `@krizaka/i18n/react` | `createI18nReact(i18n \| { locales, defaultLocale })` → `I18nProvider` (`messages`), `useI18n` | client (`"use client"`) |
 | `@krizaka/i18n/check` | `checkMessages`, `findUnused`, `scanHardcoded`, `main` (the CLI, programmatic) | no |
 | `krizaka-i18n` (bin) | `check` · `scan` | no |
 
@@ -83,6 +83,27 @@ export const { I18nProvider, useI18n } = createI18nReact(i18n);
 
 `setLocale` is the app's (a route, a cookie); outside a provider `useI18n()` reads the default locale. Server Components
 skip the context and call `getDictionary(locale)`.
+
+### Ship one language, not all of them
+
+Bound to the engine, the client bundle carries every catalogue. Bind the React side to the **locales alone** and let
+the server pass the active catalogue — the browser then downloads one language:
+
+```tsx
+// app/components/I18nProvider.tsx — no messages/*.json imported here
+"use client";
+import { createI18nReact } from "@krizaka/i18n/react";
+import type en from "@/messages/en.json";
+
+export const { I18nProvider, useI18n } = createI18nReact<typeof en, "en" | "fr">({ locales: ["en", "fr"], defaultLocale: "en" });
+
+// app/[locale]/layout.tsx (server)
+<I18nProvider locale={locale} messages={i18n.getDictionary(locale)}>{children}</I18nProvider>
+```
+
+`messages` is required in that mode (and `useI18n()` throws outside a provider); over a full engine it is optional and
+a key missing from it falls back to the default catalogue. `createTranslator(locale, messages, fallback?)` is the same
+translator, exported from `@krizaka/i18n`.
 
 ## `<Rich>` — `<b>` and `<a>`, nothing else
 

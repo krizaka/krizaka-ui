@@ -11,11 +11,13 @@ export const buttonVariants = tv({
   variants: {
     variant: {
       primary: "bg-accent text-on-accent shadow-sm hover:bg-accent-hover",
+      // The brand's signature: accent → accent-2 (on-accent reads on both stops, tested in @krizaka/tokens).
+      gradient: "bg-linear-to-r from-accent to-accent-2 text-on-accent shadow-sm hover:brightness-110",
       secondary: "border border-border-default bg-surface-2 text-fg hover:border-border-strong hover:bg-surface-3",
       outline: "border border-border-default bg-transparent text-fg hover:border-accent hover:text-fg-accent",
       ghost: "text-fg-secondary hover:bg-surface-2 hover:text-fg",
-      // The danger token is invariant and too light for small text on a light surface (3.6:1): the label stays a
-      // text role, the border and the tint carry the danger.
+      // The border and the tint carry the danger; the label stays the primary text role, legible on the tint at rest
+      // and hovered over every surface (`text-fg-danger` is for text set directly on a surface).
       danger: "border border-danger/50 bg-danger/10 text-fg hover:border-danger hover:bg-danger/20",
     },
     size: { sm: "h-8 px-3 text-xs", md: "h-10 px-4 text-sm", lg: "h-12 px-6 text-sm", icon: "h-10 w-10" },
@@ -29,7 +31,8 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
 export type ButtonProps = React.ComponentProps<"button"> &
   ButtonVariants & {
     /**
-     * The look: `primary` (the accent), `secondary` (a raised surface), `outline`, `ghost`, `danger`.
+     * The look: `primary` (the accent), `gradient` (accent → accent-2), `secondary` (a raised surface), `outline`,
+     * `ghost`, `danger`.
      * @default "secondary"
      */
     variant?: ButtonVariants["variant"];
