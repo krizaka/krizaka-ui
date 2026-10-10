@@ -19,8 +19,8 @@ const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../../../packages/ui/src/**/*.stories.tsx", "../../../packages/icons/src/**/*.stories.tsx"],
   addons: ["@storybook/addon-docs", "@storybook/addon-a11y", "@storybook/addon-themes"],
   core: { disableTelemetry: true },
-  // The public home of the catalogue is the Bunny mirror; every version and the Pages copy point search engines to it.
-  managerHead: (head) => `${head}\n<link rel="canonical" href="https://ui.krizaka.com/latest/" />`,
+  // Internal: never deployed (the public documentation is krizaka.com/docs/ui) — kept out of search engines anyway.
+  managerHead: (head) => `${head}\n<meta name="robots" content="noindex" />`,
   // The registry's demos (imported by the default stories) import `@krizaka/ui/<primitive>` as a product does: resolved
   // to the sources, like the stories themselves — one copy of each primitive, and live reload.
   viteFinal: async (vite) => ({
@@ -31,6 +31,7 @@ const config: StorybookConfig = {
       ...vite.resolve,
       alias: [
         ...toArray(vite.resolve?.alias),
+        { find: /^@krizaka\/ui$/, replacement: `${ui}/index.ts` },
         { find: /^@krizaka\/ui\/cn$/, replacement: `${ui}/cn.ts` },
         { find: /^@krizaka\/ui\/([a-z-]+)$/, replacement: `${ui}/$1/index.ts` },
         { find: /^react-native$/, replacement: reactNativeWeb },

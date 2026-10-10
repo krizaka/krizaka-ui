@@ -22,6 +22,9 @@ const config: TestRunnerConfig = {
     expect.extend({ toMatchImageSnapshot });
   },
   async preVisit(page) {
+    // Every story starts in dark: the previous story's light pass must not leak into the next one (the page is reused,
+    // and the native frame reads `html.light` when it mounts).
+    await page.evaluate(() => document.documentElement.classList.remove("light"));
     await injectAxe(page);
   },
   async postVisit(page, context) {
@@ -29,6 +32,8 @@ const config: TestRunnerConfig = {
     const viewport = story.parameters?.capture === "viewport";
     for (const theme of THEMES) {
       await page.evaluate((light) => document.documentElement.classList.toggle("light", light), theme === "light");
+      // The native frame follows `html.light` through a MutationObserver and a React state: let it re-render.
+      await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       await waitForPageReady(page);
       if (story.parameters?.a11y?.test !== "off" && !story.parameters?.a11y?.disable) {
         // A page-level audit: "region" (all content inside landmarks) belongs to the app's layout, not to a portal.

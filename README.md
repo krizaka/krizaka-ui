@@ -8,7 +8,7 @@
 `@krizaka/*`.
 
 [![CI](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml)
-[![Storybook](https://img.shields.io/badge/storybook-latest-ff4785)](https://krizaka.github.io/krizaka-ui/latest/)
+[![Docs](https://img.shields.io/badge/docs-krizaka.com%2Fdocs%2Fui-ff6a00)](https://www.krizaka.com/docs/ui)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 
 </div>
@@ -24,20 +24,22 @@
 | [`@krizaka/i18n`](packages/i18n) | [![npm](https://img.shields.io/npm/v/@krizaka/i18n/beta?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/i18n) | Typed message keys and placeholders from `en.json`, `format`, plurals, `<Rich>`, a React provider, and the `krizaka-i18n` CLI (catalogue check, hard-coded strings). |
 | [`@krizaka/config`](packages/config) | [![npm](https://img.shields.io/npm/v/@krizaka/config?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/config) | ESLint (base, Next.js, the four UI rules), tsconfig bases, Prettier, and `krizaka-ratchet`, the UI debt counter. |
 
-## Catalogue
+## Documentation
 
-[**krizaka.github.io/krizaka-ui/latest**](https://krizaka.github.io/krizaka-ui/latest/) — every primitive in dark and
-light, under each product identity, audited by axe. Built from [`apps/storybook`](apps/storybook) on every push to
-`main`. Each release of `@krizaka/ui` is also mirrored on [**ui.krizaka.com**](https://ui.krizaka.com/latest/)
-(`/latest/` and `/<version>/`, Bunny CDN) — secrets and cache policy in the
-[Storybook README](apps/storybook/README.md#the-bunny-mirror--scriptsbunny-uploadmjs).
+**[krizaka.com/docs/ui](https://www.krizaka.com/docs/ui)** — the one place to read about the platform and share a link:
+one page per component, generated at every build of the site from the registry this repository publishes with
+`@krizaka/ui`. The **code drives the documentation**: each component's `meta.ts` (summary, when to use it and when
+not, accessibility, web / React Native / both, status, related components), its named examples
+(`packages/ui/registry/examples`, rendered live with their code) and its props (from the types) — a primitive without
+them fails the tests. [`apps/storybook`](apps/storybook) is an internal tool: it renders the same examples to audit
+them (axe) and compare their screenshots in dark and light in CI; it is not deployed.
 
 ## Develop
 
 ```bash
 pnpm install
 pnpm turbo run check   # lint, type-check, tests, build, size budgets, publint
-pnpm --filter storybook dev   # the catalogue on http://localhost:6006
+pnpm --filter storybook dev   # the internal catalogue on http://localhost:6006
 pnpm changeset         # describe a change that ships
 ```
 

@@ -7,7 +7,9 @@ import { Txt } from "./txt";
 export type EmptyStateProps = Omit<ViewProps, "children"> & {
   /** A decorative icon (hidden from screen readers). */
   icon?: React.ReactNode;
+  /** What is empty, in a few words ("No notifications yet"). */
   title: string;
+  /** Why, or what will fill it. */
   description?: string;
   /** What to do next: a Button. */
   action?: React.ReactNode;

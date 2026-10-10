@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import PopoverDemo from "../../registry/demos/popover";
+import FormExample from "../../registry/examples/popover/form";
 import { Popover } from "./popover";
 
 /**
- * `Popover.Root/Trigger/Anchor/Content/Close` on Radix Popover: placed next to its trigger, closed by Escape and an
- * outside click, the focus returned. Content: `bg-surface-2`, a border, `shadow-lg`, the `kz-pop` entrance.
+ * `Popover` on Radix Popover: placed next to its trigger, closed by Escape and an outside click. The story renders
+ * the registry's example (`registry/examples/popover/form.tsx`), open at load.
  */
 const meta = {
   title: "Primitives/Popover",
@@ -23,5 +23,4 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** Open at load: a small form next to its trigger. */
-export const Open: Story = { render: () => <PopoverDemo defaultOpen /> };
+export const Form: Story = { render: () => <FormExample defaultOpen /> };

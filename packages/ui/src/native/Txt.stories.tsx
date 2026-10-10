@@ -1,10 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
 
+import TonesExample from "../../registry/examples/txt/native/tones";
+import VariantsExample from "../../registry/examples/txt/native/variants";
 import { nativeFrame } from "./story-frame";
 import { Txt } from "./txt";
 
-/** Native — text in the platform's scale, coloured by a role of the theme (`variant` × `tone`). */
+/**
+ * Native — text in the platform's scale, coloured by a role of the theme (`variant` × `tone`).
+ * Each story renders a named example of the registry (`registry/examples/txt/native/*`): the code krizaka.com/docs/ui shows.
+ */
 const meta = {
   title: "Native/Txt",
   component: Txt,
@@ -15,31 +19,5 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** display · title · body · caption · label · mono. */
-export const Variants: Story = {
-  render: (args) => (
-    <>
-      <Txt {...args} variant="display" />
-      <Txt {...args} variant="title" />
-      <Txt {...args} variant="body" />
-      <Txt {...args} variant="caption" />
-      <Txt {...args} variant="label" />
-      <Txt variant="mono">01:24:09</Txt>
-    </>
-  ),
-};
-
-/**
- * The text roles: text · secondary · accent; `muted` (placeholders, what is off) reaches AA only as large text, like the
- * status roles.
- */
-export const Tones: Story = {
-  render: (args) => (
-    <>
-      <Txt {...args} tone="text" />
-      <Txt {...args} tone="secondary" />
-      <Txt {...args} tone="muted" variant="display" />
-      <Txt {...args} tone="accent" variant="title" />
-    </>
-  ),
-};
+export const Variants: Story = { render: () => <VariantsExample /> };
+export const Tones: Story = { render: () => <TonesExample /> };

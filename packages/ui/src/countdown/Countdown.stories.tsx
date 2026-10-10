@@ -1,20 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import CountdownDemo from "../../registry/demos/countdown";
+import DaysExample from "../../registry/examples/countdown/days";
+import EndedExample from "../../registry/examples/countdown/ended";
+import HoursExample from "../../registry/examples/countdown/hours";
+import SizesExample from "../../registry/examples/countdown/sizes";
+import UrgentExample from "../../registry/examples/countdown/urgent";
 import { Countdown } from "./countdown";
 
-// The clock is frozen for the stories, so the screenshots are stable: every target is relative to NOW.
+// The clock is frozen for the stories, so the screenshots are stable.
 const NOW = Date.UTC(2026, 9, 9, 12, 0, 0);
-const units = { d: "d", h: "h", m: "m", s: "s" };
 
 /**
- * Time left until a moment, in tabular figures; days only when there are some. Under `urgentBelowMs` it turns to the
- * danger role (`data-urgent`) and its last segment pulses. `units` and `label` are the app's words.
+ * Time left until a moment, in tabular figures. The clock is frozen here (`Date.now`), so the screenshots are stable.
+ * Each story renders a named example of the registry (`registry/examples/countdown/*`).
  */
 const meta = {
   title: "Primitives/Countdown",
   component: Countdown,
-  args: { target: NOW + 3_723_000, units, label: "Ends in" },
+  args: { target: NOW + 3_723_000, units: { d: "d", h: "h", m: "m", s: "s" }, label: "Ends in" },
   beforeEach() {
     const realNow = Date.now;
     Date.now = () => NOW;
@@ -27,25 +30,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** Hours, minutes, seconds. The demo of the registry (`registry/demos/countdown.tsx`). */
-export const Hours: Story = { render: () => <CountdownDemo /> };
-
-/** Days, hours, minutes. */
-export const Days: Story = { args: { target: NOW + ((2 * 24 + 4) * 3600 + 13 * 60) * 1000 } };
-
-/** sm · md · lg. */
-export const Sizes: Story = {
-  render: (args) => (
-    <div className="flex flex-col items-start gap-3">
-      <Countdown {...args} size="sm" />
-      <Countdown {...args} size="md" />
-      <Countdown {...args} size="lg" />
-    </div>
-  ),
-};
-
-/** Under a minute: the danger role (large-text safe from `size="md"`). */
-export const Urgent: Story = { args: { target: NOW + 42_000 } };
-
-/** Past the target: zeros, `data-ended`. */
-export const Ended: Story = { args: { target: NOW - 1000 } };
+export const Hours: Story = { render: () => <HoursExample /> };
+export const Days: Story = { render: () => <DaysExample /> };
+export const Sizes: Story = { render: () => <SizesExample /> };
+export const Urgent: Story = { render: () => <UrgentExample /> };
+export const Ended: Story = { render: () => <EndedExample /> };

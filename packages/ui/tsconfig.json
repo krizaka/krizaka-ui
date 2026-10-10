@@ -2,12 +2,13 @@
   "extends": "@krizaka/config/tsconfig/react-library.json",
   "compilerOptions": {
     "types": ["node", "vitest/globals"],
-    // The demos of the registry import the primitives as a product does (`@krizaka/ui/button`): resolved to the
-    // sources here, in Vitest and in Storybook, so a demo never waits for a build.
+    // The examples of the registry import the primitives as a product does (`@krizaka/ui/button`): resolved to the
+    // sources here, in Vitest and in Storybook, so an example never waits for a build.
     "paths": {
+      "@krizaka/ui": ["./src/index.ts"],
       "@krizaka/ui/cn": ["./src/cn.ts"],
       "@krizaka/ui/*": ["./src/*/index.ts"]
     }
   },
-  "include": ["src", "registry/demos/*.tsx"]
+  "include": ["src", "registry/examples/**/*.tsx"]
 }

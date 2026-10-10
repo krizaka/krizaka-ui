@@ -6,6 +6,7 @@ import { useTheme } from "./theme";
 export type SpinnerProps = Omit<ActivityIndicatorProps, "size" | "color"> & {
   /** The accessible name of the wait, e.g. "Loading" — passed translated. */
   label: string;
+  /** sm · md (default) · lg. */
   size?: "sm" | "md" | "lg";
 };
 

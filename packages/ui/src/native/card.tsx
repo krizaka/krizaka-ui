@@ -7,6 +7,7 @@ import { Txt, type TxtProps } from "./txt";
 export type CardRootProps = ViewProps & {
   /** `default` (the raised surface) or `elevated` (one step higher, with a shadow). */
   tone?: "default" | "elevated";
+  /** The corner radius, from the theme: md · lg · xl (default). */
   radius?: "md" | "lg" | "xl";
   /**
    * Makes the whole card pressable: a button for screen readers, named by its content (an `aria-label`, if any, must
@@ -40,7 +41,10 @@ export function CardRoot({ tone = "default", radius = "xl", onPress, style, ...p
 
 const ASPECT = { video: 16 / 9, square: 1, portrait: 3 / 4 } as const;
 
-export type CardMediaProps = ViewProps & { aspect?: keyof typeof ASPECT | "auto" };
+export type CardMediaProps = ViewProps & {
+  /** video (default, 16:9) · square · portrait, or `auto` (the image's own). */
+  aspect?: keyof typeof ASPECT | "auto";
+};
 
 /** The media area at the top of a card: a fixed ratio, the `media` role behind (what shows while an image loads). */
 export function CardMedia({ aspect = "video", style, ...props }: CardMediaProps) {
@@ -49,6 +53,7 @@ export function CardMedia({ aspect = "video", style, ...props }: CardMediaProps)
 }
 
 export type CardImageProps = Omit<ImageProps, "source" | "src"> & {
+  /** The image URI; absent or `null`: the `fallback` on the media colour. */
   src?: string | null;
   /** Shown when there is no image: an icon, an illustration (decorative). */
   fallback?: React.ReactNode;
@@ -74,7 +79,10 @@ const CORNER: Record<"top-left" | "top-right" | "bottom-left" | "bottom-right", 
   "bottom-right": { bottom: 10, right: 10 },
 };
 
-export type CardOverlayProps = ViewProps & { corner?: keyof typeof CORNER };
+export type CardOverlayProps = ViewProps & {
+  /** The corner of the media it sits in: top-left (default) · top-right · bottom-left · bottom-right. */
+  corner?: keyof typeof CORNER;
+};
 
 /** What sits on the media (badges, a caption), in a corner. */
 export function CardOverlay({ corner = "top-left", style, ...props }: CardOverlayProps) {
@@ -83,7 +91,10 @@ export function CardOverlay({ corner = "top-left", style, ...props }: CardOverla
 
 const PADDING = { none: 0, sm: 12, md: 16, lg: 24 } as const;
 
-export type CardBodyProps = ViewProps & { padding?: keyof typeof PADDING };
+export type CardBodyProps = ViewProps & {
+  /** none · sm · md (default) · lg. */
+  padding?: keyof typeof PADDING;
+};
 
 export function CardBody({ padding = "md", style, ...props }: CardBodyProps) {
   return <View {...props} style={[styles.body, { padding: PADDING[padding] }, style]} />;

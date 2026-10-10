@@ -66,6 +66,7 @@ export const toast = Object.assign(show, {
 export type ToasterProps = {
   /** The accessible name of each toast's close button — passed translated. */
   closeLabel: string;
+  /** Where the toasts stack: `top` (default) or `bottom`. */
   position?: "top" | "bottom";
   /** Distance from the edge, e.g. the safe-area inset + a margin (no safe-area dependency here). */
   offset?: number;

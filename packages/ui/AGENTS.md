@@ -66,14 +66,19 @@
   `./field`, `./theme`, `./skeleton`, `./empty-state`, `./spinner`, `./countdown`, `./card`, `./dialog`, `./toast`,
   `./popover`, `./dropdown-menu`, `./tooltip`, `./stat`, `./page-header`, `./alert`, `./separator`, `./kbd`, `./tabs`,
   `./chip`, `./switch`, `./slider`, `./checkbox`, `./radio-group`, `./command`, `./confirm-button`, `./progress`, `./section-backdrop`), `./native`, `./motion.css`,
-  `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/demos/*` (the compiled demos), `./package.json`;
-  files `dist`, `registry` (JSON, demos as `.tsx`, `.js`, `.d.ts`), `tailwind.css`, `README.md`, `LICENSE`. Adding an
+  `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/examples/*` (the compiled examples), `./package.json`;
+  files `dist`, `registry` (JSON, examples as `.tsx`, `.js`, `.d.ts`), `tailwind.css`, `README.md`, `LICENSE`. Adding an
   entry is a minor; removing or renaming one is a breaking change.
-- **The registry** (`scripts/build-registry.mjs`, run by `build`): one `registry/<name>.json` per primitive (sources,
-  dependencies, demo, props from `react-docgen-typescript`) and `registry/index.json`. A new primitive comes with
-  `registry/demos/<name>.tsx` (≤ 40 lines, imports `@krizaka/ui/<name>`, its default story renders it) and a JSDoc on
-  every prop it declares — `scripts/registry.test.mjs` fails otherwise. The JSON and the compiled demos are build
-  output (git-ignored).
+- **The registry — the code drives the documentation** (`scripts/build-registry.mjs`, run by `build`): one
+  `registry/<name>.json` per component and `registry/index.json`, rendered by **krizaka.com/docs/ui** at every build
+  of the site (the only public documentation: Storybook is internal). A new component comes with:
+  - a `meta.ts` beside it (`src/<name>/meta.ts`; React Native only: `src/native/meta/<name>.ts`), typed by
+    `src/meta.ts` — summary, status, category, platforms, when to use / not, best practices, accessibility, related,
+    and per platform its imports and named examples (native: what differs from the web);
+  - its examples, `registry/examples/<name>/<example>.tsx` and `…/native/<example>.tsx` (≤ 40 lines, importing what a
+    product imports), one per significant variant, each rendered by a story;
+  - a JSDoc on every prop its web and native components declare.
+  `scripts/registry.test.mjs` fails otherwise. The JSON and the compiled examples are build output (git-ignored).
 
 ## 4. Release
 

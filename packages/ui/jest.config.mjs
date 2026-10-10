@@ -19,6 +19,8 @@ export default {
     ...preset.moduleNameMapper,
     // ESM only (an `import` condition): Jest runs CommonJS, so it reads the built file and Babel transforms it.
     "^@krizaka/tokens/native$": "<rootDir>/node_modules/@krizaka/tokens/dist/native.js",
+    // The registry's native examples import the package as an app does: resolved to the sources.
+    "^@krizaka/ui/native$": "<rootDir>/src/native/index.ts",
   },
   transform: {
     ...preset.transform,

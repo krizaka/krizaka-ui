@@ -1,9 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import SpinnerDemo from "../../registry/demos/spinner";
+import DefaultExample from "../../registry/examples/spinner/default";
+import MutedExample from "../../registry/examples/spinner/muted";
+import SizesExample from "../../registry/examples/spinner/sizes";
 import { Spinner } from "./spinner";
 
-/** An indeterminate wait (`role="status"`, named by `label`). It stops turning under reduced motion. */
+/**
+ * An indeterminate wait (`role="status"`, named by `label`). It stops turning under reduced motion.
+ * Each story renders a named example of the registry (`registry/examples/spinner/*`): the code krizaka.com/docs/ui shows.
+ */
 const meta = {
   title: "Primitives/Spinner",
   component: Spinner,
@@ -13,19 +18,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The demo of the registry (`registry/demos/spinner.tsx`). */
-export const Default: Story = { render: () => <SpinnerDemo /> };
-
-/** sm · md · lg. */
-export const Sizes: Story = {
-  render: (args) => (
-    <div className="flex items-center gap-4">
-      <Spinner {...args} size="sm" />
-      <Spinner {...args} size="md" />
-      <Spinner {...args} size="lg" />
-    </div>
-  ),
-};
-
-/** The colour follows `className` (here a text role). */
-export const Muted: Story = { args: { className: "text-fg-secondary" } };
+export const Default: Story = { render: () => <DefaultExample /> };
+export const Sizes: Story = { render: () => <SizesExample /> };
+export const Muted: Story = { render: () => <MutedExample /> };

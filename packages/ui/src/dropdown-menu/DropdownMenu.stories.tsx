@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import DropdownMenuDemo from "../../registry/demos/dropdown-menu";
+import ActionsExample from "../../registry/examples/dropdown-menu/actions";
 import { DropdownMenu } from "./dropdown-menu";
 
 /**
- * `DropdownMenu.Root/Trigger/Content/Item/CheckboxItem/Label/Separator/Group` on Radix: the arrows, Home/End,
- * typeahead, Escape and the focus return come from Radix. `tone="danger"` marks a destructive item (the icon and the
- * highlight carry the danger, the label stays legible).
+ * `DropdownMenu` on Radix: the arrows, Home/End, typeahead, Escape and the focus return come from Radix. The story
+ * renders the registry's example (`registry/examples/dropdown-menu/actions.tsx`), open at load.
  */
 const meta = {
   title: "Primitives/DropdownMenu",
@@ -24,5 +23,4 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** Open at load: a label, actions with icons, a checkbox item, a separator, a destructive item. */
-export const Open: Story = { render: () => <DropdownMenuDemo defaultOpen /> };
+export const Actions: Story = { render: () => <ActionsExample defaultOpen /> };

@@ -172,9 +172,9 @@
       "types": "./dist/native.d.ts",
       "import": "./dist/native.js"
     },
-    "./registry/demos/*": {
-      "types": "./registry/demos/*.d.ts",
-      "import": "./registry/demos/*.js"
+    "./registry/examples/*": {
+      "types": "./registry/examples/*.d.ts",
+      "import": "./registry/examples/*.js"
     },
     "./registry/*": "./registry/*.json",
     "./package.json": "./package.json"
@@ -182,10 +182,10 @@
   "files": [
     "dist",
     "registry/*.json",
-    "registry/demos/*.tsx",
-    "registry/demos/*.js",
-    "registry/demos/*.d.ts",
-    "!registry/demos/*.test.*",
+    "registry/examples/**/*.tsx",
+    "registry/examples/**/*.js",
+    "registry/examples/**/*.d.ts",
+    "registry/examples/**/*.png",
     "tailwind.css",
     "README.md",
     "LICENSE"
@@ -194,7 +194,7 @@
     "*.css"
   ],
   "scripts": {
-    "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/demos'))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/demos/'+f)\" && tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css')\" && node scripts/build-registry.mjs",
+    "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/examples',{recursive:true}))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/examples/'+f)\" && tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css')\" && node scripts/build-registry.mjs",
     "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
     "typecheck": "tsc --noEmit",
     "test": "vitest run && jest",

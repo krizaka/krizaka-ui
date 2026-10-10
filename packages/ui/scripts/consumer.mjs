@@ -1,7 +1,7 @@
 // The package as a product installs it: packed, installed alone (with its peers react / react-dom) in an empty
 // folder, then imported from there. Proves that `cn` and the variants merge classes — a product's className wins —
 // with nothing but what @krizaka/ui declares (the merge engine is tailwind-variants' own since 3.3: no
-// tailwind-merge to install) — and that the registry's JSON and compiled demos resolve. Run by `pnpm --filter @krizaka/ui publint` after the build.
+// tailwind-merge to install) — and that the registry's JSON and compiled examples resolve. Run by `pnpm --filter @krizaka/ui publint` after the build.
 import { execFileSync } from "node:child_process";
 import { mkdtempSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -29,11 +29,14 @@ assert.ok(button.includes("rounded-full") && !button.includes("rounded-lg"), "a 
 console.log("✓ @krizaka/ui installed alone: cn and the variants let the product's className win");
 const { default: registry } = await import("@krizaka/ui/registry/index", { with: { type: "json" } });
 const { default: card } = await import("@krizaka/ui/registry/card", { with: { type: "json" } });
-const { default: CardDemo } = await import("@krizaka/ui/registry/demos/card");
-assert.ok(registry.items.some((item) => item.name === "button"), "the registry lists the primitives");
-assert.ok(card.files.length > 0 && card.props.length > 0 && card.demo.content.includes("@krizaka/ui/card"), "an item carries its sources, props and demo");
-assert.equal(typeof CardDemo, "function", "a compiled demo is a component");
-console.log("✓ the registry (" + registry.items.length + " primitives) and its demos resolve from the package");
+const { default: buttonItem } = await import("@krizaka/ui/registry/button", { with: { type: "json" } });
+const { default: CardExample } = await import("@krizaka/ui/registry/examples/card/media-card");
+assert.ok(registry.items.some((item) => item.name === "button"), "the registry lists the components");
+assert.ok(card.files.length > 0 && card.props.length > 0 && card.demo.content.includes("@krizaka/ui/card"), "an item carries its sources, props and preview");
+assert.ok(buttonItem.whenToUse.length > 0 && buttonItem.web.examples.length > 0 && buttonItem.native.examples.length > 0, "an item carries its documentation and examples");
+assert.ok(buttonItem.web.examples[0].code.includes("@krizaka/ui/button") && buttonItem.native.examples[0].code.includes("@krizaka/ui/native"), "an example carries its code");
+assert.equal(typeof CardExample, "function", "a compiled example is a component");
+console.log("✓ the registry (" + registry.items.length + " components) and its examples resolve from the package");
 `,
   );
   process.stdout.write(run("node", ["check.mjs"], dir));

@@ -1,4 +1,5 @@
-# Written by the build (scripts/build-registry.mjs and tsup): the registry's JSON and the compiled demos.
+# Written by the build (scripts/build-registry.mjs and tsup): the registry's JSON and the compiled examples.
 registry/*.json
-registry/demos/*.js
-registry/demos/*.d.ts
+registry/examples/**/*.js
+registry/examples/**/*.d.ts
+registry/examples/**/*.png

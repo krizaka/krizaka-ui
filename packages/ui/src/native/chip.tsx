@@ -9,13 +9,16 @@ type GroupContext = {
   type: "single" | "multiple";
   isSelected: (value: string) => boolean;
   toggle: (value: string) => void;
+  /** sm · md (default); in a group, the group's size. */
   size?: ChipSize;
   disabled?: boolean;
 };
 const ChipGroupContext = React.createContext<GroupContext | null>(null);
 
 type CommonProps = Omit<PressableProps, "children" | "style" | "onPress"> & {
+  /** sm · md (default); in a group, the group's size. */
   size?: ChipSize;
+  /** Styles merged last. */
   style?: StyleProp<ViewStyle>;
   /** The text (passed translated) or a node (an icon and a text). */
   children: React.ReactNode;
@@ -26,7 +29,9 @@ type ToggleChipProps = CommonProps & {
   value?: string;
   /** Alone: pressed or not (`defaultSelected` uncontrolled), `onSelectedChange` on every press. */
   selected?: boolean;
+  /** Uncontrolled: selected at first (alone, outside a group). */
   defaultSelected?: boolean;
+  /** Alone: called with the new state when it is pressed. */
   onSelectedChange?: (selected: boolean) => void;
   removable?: false;
 };
@@ -36,6 +41,7 @@ type RemovableChipProps = CommonProps & {
   removable: true;
   /** The accessible name of the remove button — passed translated, e.g. "Remove #night". */
   removeLabel: string;
+  /** Called when its remove button is pressed. */
   onRemove: () => void;
 };
 
@@ -102,12 +108,14 @@ function ChipBase(props: ChipProps) {
 }
 
 type GroupBase = {
+  /** sm · md (default); in a group, the group's size. */
   size?: ChipSize;
   disabled?: boolean;
   /** One horizontal scrolling row (a filter bar) instead of wrapping lines. */
   scrollable?: boolean;
   /** The accessible name of the group — passed translated. */
   "aria-label"?: string;
+  /** Styles merged last. */
   style?: StyleProp<ViewStyle>;
   children: React.ReactNode;
 };

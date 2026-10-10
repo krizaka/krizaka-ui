@@ -24,7 +24,9 @@ function look(tone: BadgeTone, t: Theme): Look {
 }
 
 export type BadgeProps = ViewProps & {
+  /** neutral (default) · accent · success · warning · danger · scrim (on a media). */
   tone?: BadgeTone;
+  /** sm (default) · md. */
   size?: "sm" | "md";
   /** A small dot before the text, in the tone's colour. */
   dot?: boolean;

@@ -1,45 +1,28 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
-import ConfirmButtonDemo from "../../registry/demos/confirm-button";
+import ArmedExample from "../../registry/examples/confirm-button/armed";
+import IdleExample from "../../registry/examples/confirm-button/idle";
+import WithTextExample from "../../registry/examples/confirm-button/with-text";
 import { ConfirmButton } from "./confirm-button";
 
-function Trash() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" />
-    </svg>
-  );
-}
-
 /**
- * `ConfirmButton`: a destructive action in two presses, never `window.confirm`. The first arms it and says what will
- * happen (`confirmLabel`, announced politely), the second runs `onConfirm`; `timeoutMs`, Escape and a blur disarm it.
- * Takes the `Button` variants (`ghost` by default).
+ * `ConfirmButton`: a destructive action in two presses, never `window.confirm`. Each story renders a named example of
+ * the registry (`registry/examples/confirm-button/*`); `Armed` presses it once.
  */
 const meta = {
   title: "Primitives/ConfirmButton",
   component: ConfirmButton,
-  args: { label: "Delete the comment", confirmLabel: "Delete?", onConfirm: () => {}, size: "sm", children: <Trash /> },
+  args: { confirmLabel: "Delete?", onConfirm: () => {} },
 } satisfies Meta<typeof ConfirmButton>;
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** Idle: an icon, named by `label`. The demo of the registry (`registry/demos/confirm-button.tsx`). */
-export const Idle: Story = { render: () => <ConfirmButtonDemo /> };
-
-/** Armed after the first press: the danger border and tint, the words legible. */
-export const Armed: Story = {
-  args: { timeoutMs: 600_000 },
-  play: async ({ canvasElement }) => {
+export const Idle: Story = { render: () => <IdleExample /> };
+export const Armed: Story = { render: () => <ArmedExample />, play: async ({ canvasElement }) => {
     const button = within(canvasElement).getByRole("button");
     await userEvent.click(button);
     await expect(button).toHaveAttribute("data-armed");
-  },
-};
-
-/** With words: the armed content replaces them (`armedContent`). */
-export const WithText: Story = {
-  args: { variant: "outline", size: "md", label: undefined, children: "Leave the group", confirmLabel: "Leave for good?", armedContent: "Leave for good?" },
-};
+  }, };
+export const WithText: Story = { render: () => <WithTextExample /> };

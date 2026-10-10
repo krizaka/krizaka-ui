@@ -2,7 +2,7 @@
   "name": "@krizaka/storybook",
   "version": "0.0.0",
   "private": true,
-  "description": "The Krizaka platform catalogue: every primitive of @krizaka/ui in dark and light, under each product identity, checked for accessibility and visual regressions.",
+  "description": "The Krizaka platform's internal catalogue: every primitive of @krizaka/ui in dark and light, under each product identity, checked for accessibility and visual regressions in CI. Not published — the public documentation is krizaka.com/docs/ui.",
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
@@ -10,8 +10,7 @@
     "storybook:build": "storybook build --quiet",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit",
-    "test": "node --test scripts/*.test.mjs && node scripts/test.mjs",
-    "test:unit": "node --test scripts/*.test.mjs",
+    "test": "node scripts/test.mjs",
     "test:update": "node scripts/test.mjs --update",
     "test:update:linux": "node scripts/test-linux.mjs"
   },

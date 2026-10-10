@@ -9,7 +9,7 @@
 ```text
 krizaka-ui/                 # pnpm workspace + Turborepo
 ├─ apps/
-│  └─ storybook/            # not published — the catalogue: stories, a11y + dark/light screenshot tests, Pages + ui.krizaka.com
+│  └─ storybook/            # internal, never deployed — the stories: a11y + dark/light screenshot tests in CI
 ├─ packages/
 │  ├─ tokens/               # @krizaka/tokens — the semantic --kz-* tokens (CSS, TS, native), from DTCG sources
 │  ├─ tailwind/             # @krizaka/tailwind — the Tailwind v4 preset: tokens as utilities, variants, easing
@@ -21,7 +21,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 ├─ .changeset/              # one file per change that ships
 ├─ eslint.config.mjs       # the monorepo lints itself with @krizaka/config
 ├─ turbo.json · pnpm-workspace.yaml · package.json
-└─ .github/workflows/{ci,release,storybook}.yml
+└─ .github/workflows/{ci,release}.yml
 ```
 
 A new package is a folder in `packages/` with its own `package.json`, `AGENTS.md`, tests, `size-limit` budget and
@@ -50,8 +50,13 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 - The monorepo uses what it publishes: `eslint.config.mjs` is `@krizaka/config` (base everywhere, the four UI rules
   strict on `packages/ui`), every package's `lint` runs `eslint . --max-warnings 0`, and its `tsconfig.json` extends
   a base of `@krizaka/config`.
+- **The code drives the documentation.** The public documentation is **krizaka.com/docs/ui**, generated from the
+  registry `@krizaka/ui` publishes: every component has a `meta.ts` beside it (`packages/ui/src/meta.ts`: summary,
+  when to use / not, best practices, accessibility, platforms web · native · both, status, related) and named
+  examples in `packages/ui/registry/examples/<name>/` (≤ 40 lines, `native/` for React Native). The registry tests
+  fail on a missing or incomplete one. Never write a component's documentation anywhere else.
 - No code without a test, no component without a story: `packages/ui/src/**/<Name>.stories.tsx`, one story per
-  variant, rendered by `apps/storybook` (see its README). Every story is audited by axe and screenshot-compared in
+  example (the story renders the example), rendered by `apps/storybook` (see its README). Every story is audited by axe and screenshot-compared in
   dark and light by `pnpm --filter storybook test`, which `check` runs; a visual change commits its new screenshots
   (`test:update` for the current platform, `test:update:linux` for the CI baselines).
 - No raw Tailwind palette colour, no `light:` variant, no hard-coded colour: components read `var(--kz-*)`.

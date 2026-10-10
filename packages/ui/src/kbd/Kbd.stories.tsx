@@ -1,9 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import KbdDemo from "../../registry/demos/kbd";
+import KeyExample from "../../registry/examples/kbd/key";
+import ShortcutExample from "../../registry/examples/kbd/shortcut";
+import SmallExample from "../../registry/examples/kbd/small";
 import { Kbd } from "./kbd";
 
-/** A key or a shortcut: `<Kbd>⌘</Kbd><Kbd>K</Kbd>`. `size` sm · md. */
+/**
+ * A key or a shortcut: `<Kbd>⌘</Kbd><Kbd>K</Kbd>`. `size` sm · md.
+ * Each story renders a named example of the registry (`registry/examples/kbd/*`): the code krizaka.com/docs/ui shows.
+ */
 const meta = {
   title: "Primitives/Kbd",
   component: Kbd,
@@ -13,17 +18,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The demo of the registry (`registry/demos/kbd.tsx`). */
-export const Key: Story = { render: () => <KbdDemo /> };
-
-export const Small: Story = { args: { size: "sm" } };
-
-/** In a sentence. */
-export const Shortcut: Story = {
-  render: () => (
-    <p className="flex items-center gap-1.5 text-sm text-fg-secondary">
-      Search with <Kbd>⌘</Kbd>
-      <Kbd>K</Kbd>
-    </p>
-  ),
-};
+export const Key: Story = { render: () => <KeyExample /> };
+export const Small: Story = { render: () => <SmallExample /> };
+export const Shortcut: Story = { render: () => <ShortcutExample /> };

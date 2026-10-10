@@ -1,12 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
-import { View } from "react-native";
 
+import DotExample from "../../registry/examples/badge/native/dot";
+import ScrimExample from "../../registry/examples/badge/native/scrim";
+import TonesExample from "../../registry/examples/badge/native/tones";
 import { Badge } from "./badge";
 import { nativeFrame } from "./story-frame";
-import { useTheme } from "./theme";
 
-/** Native — a short status in capitals: `tone`, `size`, `dot` (pulsing with `pulse`, still under reduced motion). */
+/**
+ * Native — a short status in capitals: `tone`, `size`, `dot` (pulsing with `pulse`, still under reduced motion).
+ * Each story renders a named example of the registry (`registry/examples/badge/native/*`).
+ */
 const meta = {
   title: "Native/Badge",
   component: Badge,
@@ -17,39 +20,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** neutral · accent · success · warning · danger. */
-export const Tones: Story = {
-  render: (args) => (
-    <View style={{ flexDirection: "row", gap: 8 }}>
-      <Badge {...args} tone="neutral" />
-      <Badge {...args} tone="accent" />
-      <Badge {...args} tone="success" />
-      <Badge {...args} tone="warning" />
-      <Badge {...args} tone="danger" />
-    </View>
-  ),
-};
-
-/** sm · md, with a dot. */
-export const Dot: Story = {
-  render: (args) => (
-    <View style={{ flexDirection: "row", gap: 8 }}>
-      <Badge {...args} tone="danger" dot pulse />
-      <Badge {...args} tone="danger" size="md" dot pulse />
-    </View>
-  ),
-};
-
-function OnMedia() {
-  const { theme } = useTheme();
-  return (
-    <View style={{ backgroundColor: theme.media, padding: 24, borderRadius: 12 }}>
-      <Badge tone="scrim" dot>
-        Ending soon
-      </Badge>
-    </View>
-  );
-}
-
-/** `scrim`: on a media, identical in both themes. */
-export const Scrim: Story = { render: () => <OnMedia /> };
+export const Tones: Story = { render: () => <TonesExample /> };
+export const Dot: Story = { render: () => <DotExample /> };
+export const Scrim: Story = { render: () => <ScrimExample /> };

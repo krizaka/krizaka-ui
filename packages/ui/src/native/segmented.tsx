@@ -8,11 +8,15 @@ export type SegmentedOption<T extends string> = { value: T; label: string; disab
 export type SegmentedProps<T extends string> = {
   /** The views, in order; `label` passed translated. */
   options: readonly SegmentedOption<T>[];
+  /** The selected view (controlled). */
   value: T;
+  /** Called with the view pressed. */
   onValueChange: (value: T) => void;
+  /** sm · md (default). */
   size?: "sm" | "md";
   /** The accessible name of the tab list — passed translated. */
   "aria-label"?: string;
+  /** Styles merged last. */
   style?: StyleProp<ViewStyle>;
 };
 
