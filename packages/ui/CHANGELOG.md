@@ -1,5 +1,21 @@
 # @krizaka/ui
 
+## 2.7.0
+
+### Minor Changes
+
+- [#87](https://github.com/krizaka/krizaka-ui/pull/87) [`f88a70d`](https://github.com/krizaka/krizaka-ui/commit/f88a70dcb01bf141eacc9a5192f351b5593ae8f9) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/mascot-state` and `@krizaka/ui/native`: `MascotState` — a moment told by a bird of the flock (nothing yet,
+  a long task, done, it failed, welcome) beside the words and the next action — and its presets `ErrorState`,
+  `SuccessState`, `LoadingState`, `WelcomeState`. The bird is chosen by the job (owl reads, falcon watches, duck builds,
+  flamingo answers and gets paid, pigeon delivers), the mood by the moment. `role="alert"` for an error, `role="status"`
+  otherwise (`aria-busy` while thinking); a staged arrival (bird, words, action) that stops under reduced motion;
+  `stacked` or `inline`, `framed` for an empty list, `titleAs="h1"` for a full page.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@2.7.0
+
 ## 2.6.0
 
 ### Minor Changes
