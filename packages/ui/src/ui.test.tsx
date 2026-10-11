@@ -1,4 +1,4 @@
-import { brands } from "@krizaka/tokens/native";
+import { brands, marks } from "@krizaka/tokens/native";
 import { render } from "@testing-library/react";
 
 import { cx, KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, RotatingWord } from "./index";
@@ -51,9 +51,15 @@ describe("marks", () => {
   });
 
   it("draws each mark in its brand theme's colours (@krizaka/tokens brands)", () => {
+    expect(KRIZAKA.blue.stops).toEqual(marks.krizaka);
+    expect(ORAZAKA.gradient.stops).toEqual(marks.orazaka);
+    expect(OROCHIA.body.stops).toEqual(marks.orochia);
     expect(KRIZAKA.blue.stops.map(([, c]) => c)).toEqual([brands.krizaka.dark.accent, brands.krizaka.dark.accentText]);
-    expect(ORAZAKA.amber.stops.map(([, c]) => c)).toEqual([brands.orazaka.light.accent, brands.orazaka.dark.accent2]);
-    expect(OROCHIA.body.stops[0][1]).toBe(brands.orochia.dark.accent);
+    expect(OROCHIA.body.stops[0]![1]).toBe(brands.orochia.dark.accent);
+    // Orazaka: deep orange (its light accent) → orange — no amber left (#f59e0b was the old light stop).
+    expect(ORAZAKA.gradient.stops[0]![1]).toBe(brands.orazaka.light.accent);
+    expect(ORAZAKA.gradient.stops.map(([, c]) => c)).not.toContain("#f59e0b");
+    expect(ORAZAKA.glow.color).toBe(ORAZAKA.gradient.stops.at(-1)![1]);
   });
 
   it("picks a mark by id", () => {

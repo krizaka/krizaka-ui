@@ -1,13 +1,16 @@
+import { marks } from "@krizaka/tokens/native";
+
 /**
  * The Orochia mark's geometry — the one description of the serpent and its flame, drawn by the web mark (SVG in the
  * DOM, OrochiaLogo) and the native one (react-native-svg, @krizaka/ui/native). Coordinates are in the 360×360 artwork,
- * placed at (20, 20) in a 400×400 view box; below 48 px the view box crops to the serpent.
+ * placed at (20, 20) in a 400×400 view box; below 48 px the view box crops to the serpent. The body's gradient is the
+ * brand's mark gradient (`marks.orochia` of @krizaka/tokens).
  */
 export const OROCHIA = {
   viewBox: "0 0 400 400",
   croppedViewBox: "86 82 228 228",
   offset: 20,
-  body: { x1: 70, y1: 290, x2: 290, y2: 70, stops: [["0%", "#7c3aed"], ["55%", "#d946ef"], ["100%", "#f472b6"]] },
+  body: { x1: 70, y1: 290, x2: 290, y2: 70, stops: marks.orochia },
   flameGradient: { stops: [["0%", "#a855f7"], ["100%", "#f9a8d4"]] },
   glow: { color: "#d946ef", opacity: 0.18 },
   orbit: { r: 160, dash: "8 8", width: 1.5 },

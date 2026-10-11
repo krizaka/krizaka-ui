@@ -10,7 +10,7 @@ overrides). A product never re-invents its values: it imports its brand.
 | Brand | Identity | Why |
 | :-- | :-- | :-- |
 | **Krizaka** (parent) | **Ink + Krizaka blue.** The neutral surfaces and text of the platform carry the brand; one blue, the core of the Krizaka mark, is the only accent. | The parent frames its products without competing with them: ink is neutral next to orange and violet, and blue is the complement of the Orazaka orange. It is also the platform default (`tokens.css` = the Krizaka brand). |
-| **Orazaka** (sovereign AI) | **Orange**, taken from its own mark: the gradient `#f59e0b → #b45309` (hues 38 → 26). | The accent sits at hue 26 — the *orange* end of the mark, not its amber end: hue 38 is `--kz-warning`, and a primary button must never read as a warning. The light theme uses the mark's deep stop **exactly** (`#b45309`). `info` stays blue (an orange "info" would read as a warning). |
+| **Orazaka** (sovereign AI) | **Orange**, hue 26 — the accent and the mark share it. | Hue 38 (amber) is `--kz-warning`: a primary button, and since 2.1.0 the mark, must never read as a warning. The light theme's accent is the deep orange `#b45309`, also the first stop of the mark. `info` stays blue (an orange "info" would read as a warning). |
 | **Orochia** (creators) | **Velvet violet → magenta**, the serpent of its mark (unchanged). | The values of `@krizaka/orochia-design-system`, already adjusted to AA. |
 
 ### Palette (the accent family)
@@ -24,7 +24,7 @@ overrides). A product never re-invents its values: it imports its brand.
 | `accent-hover` | `hsl(217 88% 45%)` | `hsl(217 88% 42%)` | `hsl(26 92% 62%)` (lightens) | `hsl(26 90% 31%)` | #6d28d9 | #6d28d9 |
 | `on-accent` | white (4.6:1) | white (5.1:1) | near-black `hsl(240 6% 5%)` (7.4:1) | white (5.1:1) | white (5.7:1) | white (5.7:1) |
 | `accent-text` | `hsl(217 92% 68%)` #629cf8 | `hsl(217 92% 42%)` #0954ce | `hsl(26 92% 60%)` #f78c3b | `hsl(26 90% 32%)` #9b4808 | #a78bfa | #6d28d9 |
-| `accent-2` | = accent | = accent | #f59e0b (the mark's light stop) | `hsl(32 95% 33%)` | #db2777 | #db2777 |
+| `accent-2` | = accent | = accent | #f59e0b (closes the buttons' gradient) | `hsl(32 95% 33%)` | #db2777 | #db2777 |
 | `ring` | = accent | = accent | = accent | = accent | #a78bfa | #7c3aed |
 | `info` | = accent | = accent | `hsl(217 92% 60%)` | `hsl(217 92% 50%)` | = accent | = accent |
 
@@ -67,12 +67,14 @@ after in Storybook, *Brand/Evolution*):
 | Mark | Emblem | Change and reason |
 | :-- | :-- | :-- |
 | Krizaka | An **ink** hexagonal shield, open at its upper-right vertex where a **blue node** breaks out, around a blue core. | Before: hairline strokes and five hard-coded blues that vanished below 48 px and did not crop. Now the weight, crop and grammar of Orochia; ink + one blue, the brand palette. |
-| Orazaka | Three **solid** hexagonal shards in the mark's own orange gradient, orbiting a core. | Before: two grey outlines and one amber, 3.5-unit strokes — the mark read grey and thin next to Orochia. Same idea and colours, now solid, all orange, with the family's crop. |
+| Orazaka | Three **solid** hexagonal shards in the brand's orange gradient, orbiting a core. | Before: two grey outlines and one amber, 3.5-unit strokes — the mark read grey and thin next to Orochia. Same idea, now solid, with the family's crop. **2.1.0:** amber (`#b45309 → #f59e0b`, hues 26 → 38) becomes the brand's orange — deep orange `hsl(26 90.5% 37.1%)` #b45309 → orange `hsl(26 92% 45%)` #dc6509, one hue: the old light stop was the warning's hue and read at 2:1 on a light page; every stop now reads ≥ 3:1 on surfaces 0–2 in dark and light (a test). |
 | Orochia | The serpent coiled into an "O" around the flame. | Unchanged. |
 
 Web: `KrizakaLogo`, `OrazakaLogo`, `OrochiaLogo`, `ProductLogo id` (`@krizaka/ui`). Native: `KrizakaMark`,
 `OrazakaMark`, `OrochiaMark`, `ProductMark id` (`@krizaka/ui/native`). The geometry is shared
-(`packages/ui/src/marks/*-geometry.ts`) and its colours are tested against the brand themes.
+(`packages/ui/src/marks/*-geometry.ts`); the emblem gradients are **brand tokens** — `$extensions["com.krizaka"].mark` of
+each `src/brands/<id>.brand.json`, exported as `marks.<id>` (`@krizaka/tokens`, `/native`) — read by the geometry, never
+copied. A mark is the same in both themes: its stops are chosen to read on dark and light pages.
 
 ## 3. Icons — the signature
 

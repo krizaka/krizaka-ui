@@ -16,9 +16,9 @@ export function OrazakaMark({ size = 48, animated = true, title, neutral }: Nati
   const id = useSvgId("ozm");
   const viewBox = size < 48 ? G.croppedViewBox : G.viewBox;
   const stroke = neutral ?? theme.textMuted;
-  const amber = (
-    <LinearGradient id={`${id}a`} gradientUnits="userSpaceOnUse" x1={G.amber.x1} y1={G.amber.y1} x2={G.amber.x2} y2={G.amber.y2}>
-      {G.amber.stops.map(([offset, color]) => (
+  const gradient = (
+    <LinearGradient id={`${id}a`} gradientUnits="userSpaceOnUse" x1={G.gradient.x1} y1={G.gradient.y1} x2={G.gradient.x2} y2={G.gradient.y2}>
+      {G.gradient.stops.map(([offset, color]) => (
         <Stop key={offset} offset={offset} stopColor={color} />
       ))}
     </LinearGradient>
@@ -39,7 +39,7 @@ export function OrazakaMark({ size = 48, animated = true, title, neutral }: Nati
       </Svg>
       <Animated.View style={[layer, spinStyle]}>
         <Svg viewBox={viewBox} style={layer}>
-          <Defs>{amber}</Defs>
+          <Defs>{gradient}</Defs>
           {G.shards.map((d) => (
             <Path key={d} d={d} fill={fill} stroke={fill} strokeWidth={G.shardStroke} strokeLinejoin="round" />
           ))}
@@ -47,7 +47,7 @@ export function OrazakaMark({ size = 48, animated = true, title, neutral }: Nati
       </Animated.View>
       <Animated.View style={[layer, pulseStyle]}>
         <Svg viewBox={viewBox} style={layer}>
-          <Defs>{amber}</Defs>
+          <Defs>{gradient}</Defs>
           <Circle cx={G.center} cy={G.center} r={G.core.r} fill={fill} />
           <Circle cx={G.center} cy={G.center} r={G.core.inner} fill={G.highlight} />
         </Svg>
