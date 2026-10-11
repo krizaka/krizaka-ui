@@ -182,7 +182,7 @@ export function List<T>({
   ) : undefined;
   const separator = separators ? () => <View style={[styles.separator, { backgroundColor: theme.borderSubtle }]} /> : undefined;
   const skeletons = loading ? (
-    <View aria-busy accessible aria-label={label} style={styles.skeletons}>
+    <View role="progressbar" aria-busy accessible aria-label={label} style={styles.skeletons}>
       {Array.from({ length: loadingRows }, (_, i) => (
         <View key={i} style={styles.skeletonRow}>
           <Skeleton shape="circle" width={40} height={40} />

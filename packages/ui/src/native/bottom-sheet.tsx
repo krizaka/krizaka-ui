@@ -1,7 +1,7 @@
 import * as React from "react";
 import { AccessibilityInfo, Animated, KeyboardAvoidingView, Modal, PanResponder, Platform, Pressable, ScrollView, type StyleProp, StyleSheet, useWindowDimensions,View, type ViewStyle  } from "react-native";
 
-import { CloseButton, type Controlled, useOpen } from "./dialog";
+import { CloseButton, type Controlled, modalName, useOpen } from "./dialog";
 import { useReducedMotion, useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -83,13 +83,11 @@ export function BottomSheet({ title, hideTitle, snapPoints = [0.5], initialSnap 
     [snap, heights, offsetOf], // eslint-disable-line react-hooks/exhaustive-deps -- close/go are stable enough per render
   );
   return (
-    <Modal visible={open} transparent animationType="none" onRequestClose={close} statusBarTranslucent>
+    <Modal {...modalName(title)} visible={open} transparent animationType="none" onRequestClose={close} statusBarTranslucent>
       <Pressable aria-hidden accessible={false} style={[StyleSheet.absoluteFill, { backgroundColor: theme.scrim }]} onPress={close} />
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} style={styles.bottom} pointerEvents="box-none">
         <Animated.View
-          role="dialog"
-          aria-modal
-          aria-label={title}
+          accessibilityViewIsModal
           style={[
             styles.sheet,
             { height: max, backgroundColor: theme.surface1, borderColor: theme.borderDefault, borderTopLeftRadius: radius.xl, borderTopRightRadius: radius.xl, transform: [{ translateY: y }] },

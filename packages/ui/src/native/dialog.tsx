@@ -5,6 +5,12 @@ import { Button } from "./button";
 import { useTheme } from "./theme";
 import { Txt } from "./txt";
 
+/**
+ * The name of a `Modal`: react-native-web draws it as the page's `dialog` and forwards the props it does not know, so the
+ * dialog is named there; React Native ignores it (the content view carries the name and `accessibilityViewIsModal`).
+ */
+export const modalName = (label: string) => ({ "aria-label": label }) as object;
+
 export type Controlled = {
   /** Open (controlled). */
   open?: boolean;
@@ -50,10 +56,10 @@ export function Dialog({ title, description, children, actions, closeLabel, styl
     if (open) AccessibilityInfo.announceForAccessibility(title);
   }, [open, title]);
   return (
-    <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)} statusBarTranslucent>
+    <Modal {...modalName(title)} visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)} statusBarTranslucent>
       <View style={styles.centre}>
         <Pressable aria-hidden accessible={false} style={[StyleSheet.absoluteFill, { backgroundColor: theme.scrim }]} onPress={() => setOpen(false)} />
-        <View role="dialog" aria-modal aria-label={title} style={[styles.card, { backgroundColor: theme.surface1, borderColor: theme.borderDefault, borderRadius: radius.xl }, style]}>
+        <View accessibilityViewIsModal style={[styles.card, { backgroundColor: theme.surface1, borderColor: theme.borderDefault, borderRadius: radius.xl }, style]}>
           <View style={styles.head}>
             <View style={styles.headText}>
               <Txt variant="title">{title}</Txt>

@@ -18,7 +18,7 @@ export default function NativeHeaderLargeTitle() {
       <Header title="Earnings" subtitle="$1,990.40 this year" scrollY={scrollY} actions={<IconButton label="Withdraw" icon={plus} variant="ghost" />}>
         <SearchField label="Search payouts" placeholder="Search payouts" clearLabel="Clear" />
       </Header>
-      <Animated.ScrollView onScroll={onScroll} scrollEventThrottle={16}>
+      <Animated.ScrollView tabIndex={0} onScroll={onScroll} scrollEventThrottle={16}>
         {DAYS.map((day) => (
           <ListItem key={day} title={`Tips · ${day}`} description="From 4 fans" trailing="$24.00" />
         ))}

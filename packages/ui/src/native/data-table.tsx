@@ -157,7 +157,7 @@ export function DataTable<T>({ rows, columns, getRowId, caption, sort = null, on
       </View>
     ) : null;
   const placeholder = loading ? (
-    <View style={styles.gap} aria-busy accessible aria-label={caption}>
+    <View style={styles.gap} role="progressbar" aria-busy accessible aria-label={caption}>
       {Array.from({ length: 3 }, (_, i) => (
         <View key={i} style={[styles.card, { backgroundColor: theme.surface1, borderColor: theme.borderSubtle, borderRadius: radius.lg }]}>
           <Skeleton width="55%" height={16} />

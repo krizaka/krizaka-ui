@@ -57,7 +57,7 @@ export function Onboarding({ slides, labels, onDone, style }: OnboardingProps) {
       <View style={styles.top}>
         {!last ? <Button label={labels.skip} variant="ghost" size="sm" onPress={onDone} /> : <View style={styles.spacer} />}
       </View>
-      <ScrollView ref={scroller} horizontal pagingEnabled showsHorizontalScrollIndicator={false} onMomentumScrollEnd={onScroll} style={styles.flex}>
+      <ScrollView ref={scroller} tabIndex={0} horizontal pagingEnabled showsHorizontalScrollIndicator={false} onMomentumScrollEnd={onScroll} style={styles.flex}>
         {slides.map((slide, i) => (
           <View key={i} style={[styles.slide, { width: width || undefined }]} accessible aria-label={`${labels.position(i + 1, slides.length)}. ${slide.title}. ${slide.description}`} aria-hidden={i !== page}>
             {slide.visual ? <View style={styles.visual}>{slide.visual}</View> : null}

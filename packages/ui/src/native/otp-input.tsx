@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Pressable, type StyleProp, StyleSheet, TextInput, View, type ViewStyle } from "react-native";
+import { Platform, Pressable, type StyleProp, StyleSheet, TextInput, View, type ViewStyle } from "react-native";
 
 import { useTheme } from "./theme";
 import { Txt } from "./txt";
@@ -83,7 +83,7 @@ export function OtpInput({ label, length = 6, value, onValueChange, onComplete, 
         autoFocus={autoFocus}
         keyboardType={mode === "numeric" ? "number-pad" : "default"}
         textContentType="oneTimeCode"
-        autoComplete={mode === "numeric" ? "sms-otp" : "one-time-code"}
+        autoComplete={Platform.OS === "android" && mode === "numeric" ? "sms-otp" : "one-time-code"}
         autoCapitalize="characters"
         autoCorrect={false}
         caretHidden

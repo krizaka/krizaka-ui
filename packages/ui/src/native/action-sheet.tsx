@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Modal, Pressable, StyleSheet, View } from "react-native";
 
-import { type Controlled, useOpen } from "./dialog";
+import { type Controlled, modalName, useOpen } from "./dialog";
 import { useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -35,7 +35,7 @@ export function ActionSheet({ title, description, actions, cancelLabel, ...contr
   const { theme, radius, insets, haptics } = useTheme();
   const card = { backgroundColor: theme.surface1, borderColor: theme.borderDefault, borderRadius: radius.xl };
   return (
-    <Modal visible={open} transparent animationType="slide" onRequestClose={() => setOpen(false)} statusBarTranslucent>
+    <Modal {...modalName(title)} visible={open} transparent animationType="slide" onRequestClose={() => setOpen(false)} statusBarTranslucent>
       <Pressable aria-hidden accessible={false} style={[StyleSheet.absoluteFill, { backgroundColor: theme.scrim }]} onPress={() => setOpen(false)} />
       <View style={[styles.bottom, styles.actionWrap, { paddingBottom: 8 + insets.bottom }]} pointerEvents="box-none">
         <View role="menu" aria-label={title} style={[styles.actionCard, card]}>

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { AccessibilityInfo, Animated, Image, Modal, PanResponder, Pressable, StyleSheet, useWindowDimensions,View  } from "react-native";
 
+import { modalName } from "./dialog";
 import { useReducedMotion, useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -123,7 +124,7 @@ export function ImageViewer({ images, index, onIndexChange, closeLabel, position
   const image = images[index]!;
   const backdrop = dismiss.interpolate({ inputRange: [0, height / 2], outputRange: [1, 0.3], extrapolate: "clamp" });
   return (
-    <Modal visible transparent animationType="fade" onRequestClose={() => onIndexChange(null)} statusBarTranslucent>
+    <Modal {...modalName(image.alt)} visible transparent animationType="fade" onRequestClose={() => onIndexChange(null)} statusBarTranslucent>
       <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor: theme.media, opacity: backdrop }]} />
       <View
         style={StyleSheet.absoluteFill}
@@ -144,17 +145,19 @@ export function ImageViewer({ images, index, onIndexChange, closeLabel, position
         </Animated.View>
       </View>
       <View pointerEvents="box-none" style={[styles.top, { paddingTop: insets.top + 8 }]}>
-        <Txt variant="label" tone="onMedia" aria-hidden>
-          {positionLabel(index + 1, images.length)}
-        </Txt>
-        <Pressable role="button" aria-label={closeLabel} hitSlop={12} onPress={() => onIndexChange(null)} style={[styles.close, { backgroundColor: theme.scrim }]}>
+        <View aria-hidden style={[styles.counter, { backgroundColor: theme.scrimStrong }]}>
+          <Txt variant="label" tone="onMedia">
+            {positionLabel(index + 1, images.length)}
+          </Txt>
+        </View>
+        <Pressable role="button" aria-label={closeLabel} hitSlop={12} onPress={() => onIndexChange(null)} style={[styles.close, { backgroundColor: theme.scrimStrong }]}>
           <Txt tone="onMedia" style={styles.cross} aria-hidden>
             ×
           </Txt>
         </Pressable>
       </View>
       {image.caption ? (
-        <View pointerEvents="none" style={[styles.caption, { paddingBottom: insets.bottom + 16, backgroundColor: theme.scrim }]}>
+        <View pointerEvents="none" style={[styles.caption, { paddingBottom: insets.bottom + 16, backgroundColor: theme.scrimStrong }]}>
           <Txt tone="onMedia">{image.caption}</Txt>
         </View>
       ) : null}
@@ -170,6 +173,7 @@ export function prefetchNeighbours(images: readonly ViewerImage[], index: number
 
 const styles = StyleSheet.create({
   top: { position: "absolute", top: 0, left: 0, right: 0, flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 16 },
+  counter: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999 },
   close: { width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center" },
   cross: { fontSize: 24, lineHeight: 26 },
   caption: { position: "absolute", left: 0, right: 0, bottom: 0, paddingTop: 12, paddingHorizontal: 16 },

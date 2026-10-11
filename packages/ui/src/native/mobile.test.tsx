@@ -76,11 +76,10 @@ describe("overlays", () => {
   test("AlertDialog confirms, then closes", async () => {
     const onConfirm = jest.fn();
     await render(<AlertDialog defaultOpen title="Delete the video?" cancelLabel="Keep it" confirmLabel="Delete" destructive onConfirm={onConfirm} />);
-    // The dialog is a container (not one accessibility element): found by its name.
-    expect(screen.getByLabelText("Delete the video?").props.role).toBe("dialog");
+    expect(screen.getByRole("heading", { name: "Delete the video?" })).toBeTruthy();
     await fireEvent.press(screen.getByRole("button", { name: "Delete" }));
     expect(onConfirm).toHaveBeenCalled();
-    expect(screen.queryByLabelText("Delete the video?")).toBeNull();
+    expect(screen.queryByRole("heading", { name: "Delete the video?" })).toBeNull();
   });
 
   test("BottomSheet is a modal dialog named by its title; ActionSheet runs an action with a tick", async () => {
@@ -89,7 +88,7 @@ describe("overlays", () => {
         <Text>Nice</Text>
       </BottomSheet>,
     );
-    expect(screen.getByLabelText("Comments").props.role).toBe("dialog");
+    expect(screen.getByRole("heading", { name: "Comments" })).toBeTruthy();
     const { calls, wrap } = feedback();
     const share = jest.fn();
     await render(wrap(<ActionSheet defaultOpen title="Your video" cancelLabel="Cancel" actions={[{ label: "Share", onPress: share }, { label: "Delete", destructive: true, onPress: jest.fn() }]} />));

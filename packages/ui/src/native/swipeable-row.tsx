@@ -98,7 +98,7 @@ export function SwipeableRow({ children, trailing = [], leading = [], fullSwipe 
     <View aria-hidden style={[styles.side, edge === "left" ? { left: 0 } : { right: 0, flexDirection: "row-reverse" }]}>
       {actions.map((action, i) => (
         // eslint-disable-next-line react-hooks/refs -- runs on a press, never during render
-        <Pressable key={i} onPress={() => run(action)} style={[styles.action, { width: actionWidth, backgroundColor: toneColor(theme, action.tone) }]}>
+        <Pressable key={i} focusable={false} tabIndex={-1} onPress={() => run(action)} style={[styles.action, { width: actionWidth, backgroundColor: toneColor(theme, action.tone) }]}>
           {action.icon}
           <Txt variant="caption" tone={toneText(action.tone)} style={styles.actionText} numberOfLines={1}>
             {action.label}
