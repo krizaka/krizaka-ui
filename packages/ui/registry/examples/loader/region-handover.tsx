@@ -4,9 +4,9 @@ import { LoadingRegion } from "@krizaka/ui/loader";
 import { Skeleton } from "@krizaka/ui/skeleton";
 import { useState } from "react";
 
-// The region hands over: content → a skeleton of its shape → words when it lasts → the content, fading in.
+// Press “Load again”: the region hands over — a skeleton of its shape → words when it lasts → the content, fading in.
 export default function LoaderRegionHandover() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const card = "flex items-center gap-3 rounded-xl border border-border-default bg-surface-1 p-4";
   return (
     <div className="flex w-full max-w-sm flex-col gap-3">
