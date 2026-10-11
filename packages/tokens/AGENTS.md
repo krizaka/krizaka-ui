@@ -19,7 +19,12 @@
 - **Zero dependency** at build and at runtime: the build is plain Node.
 - The CSS keeps three blocks in this order: `:root, .theme-dark` (themed tokens and aliases), `html.light`,
   `:root` (literal invariants). An alias stays in the first block so it re-resolves under `.theme-dark`.
-- Every role in `tokens.css` exists in `native` (colours in `themes.*`, `radius`, `typography`); shadows are web only.
+- Every role in `tokens.css` exists in `native` (colours in `themes.*`, `radius`, `typography`, `typeScale`); shadows are
+  web only.
+- **Typography.** `font.*` names the three families of `@krizaka/fonts` (display, text = sans, mono), each followed by
+  its metric-matched fallback; `type.<step>` is the scale (size px, line height unitless, weight, tracking em, and the
+  role in `$extensions["com.krizaka"].role`), exported as `typeScale` (index: raw CSS; native: dp). The fonts are not a
+  dependency: an app loads them with `@krizaka/fonts`.
 - Contrast is a test: text-primary/secondary ≥ 4.5:1 and text-muted ≥ 3:1 on surface-0..3, on-accent ≥ 4.5:1 on
   accent, in both themes. A value that fails is corrected, never the threshold.
 
@@ -27,8 +32,8 @@
 
 - `pnpm turbo run check --filter=@krizaka/tokens`: lint and type-check (`checkJs` on the scripts), tests (snapshot,
   parity, contrast), build, size, publint + attw (`esm-only`, `./tokens.css` excluded).
-- **Size budgets** (gzip): `tokens.css` ≤ 2.5 kB, a brand's CSS ≤ 0.75 kB, `brands/scoped.css` ≤ 1 kB, `.` ≤ 2 kB,
-  `./native` ≤ 1.5 kB.
+- **Size budgets** (gzip): `tokens.css` ≤ 3.1 kB, a brand's CSS ≤ 0.75 kB, `brands/scoped.css` ≤ 1 kB, `.` ≤ 3 kB,
+  `./native` ≤ 1.5 kB. (2.3.0: +0.6 kB / +1 kB for the type scale — 14 steps × size, line height, weight, tracking.)
 - Published surface: exports `.`, `./tokens.css`, `./brands/{krizaka,orazaka,orochia,scoped}.css`, `./native`,
   `./package.json`; files `dist`, `README.md`, `BRAND.md`, `LICENSE`.
   Renaming or removing a token, or changing the surface, is a breaking change.

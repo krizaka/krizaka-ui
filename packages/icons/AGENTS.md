@@ -7,6 +7,8 @@
 
 - The **Krizaka signature icons** (level 1 — no product word in a component, a glyph is a shape): React and React
   Native, one named export per icon (`<Name>Icon`), the same names on both platforms.
+- The documentation of the set as data (`src/docs.ts`: `iconGroups`, `iconGuidelines`, exported by `./glyphs`):
+  krizaka.com/docs/ui/icons renders it with `glyphIndex`. Write it here, never on the site.
 - Not here: brand marks (`@krizaka/ui`), illustrations, product compositions.
 
 ## 2. Rules

@@ -32,7 +32,7 @@ const { theme } = useTheme();
 | :-- | :-- |
 | `@krizaka/icons` | `<Name>Icon` (React, `forwardRef` to the `<svg>`), `createIcon`, `IconProps`, `Glyph`. |
 | `@krizaka/icons/native` | `<Name>Icon` (react-native-svg), `createNativeIcon`, `NativeIconProps`. |
-| `@krizaka/icons/glyphs` | The raw glyphs (`chat`, `tip`…) and `glyphIndex` (component, group, keywords): catalogues, search, canvas. |
+| `@krizaka/icons/glyphs` | The raw glyphs (`chat`, `tip`…) and `glyphIndex` (component, group, keywords): catalogues, search, canvas. `iconGroups` and `iconGuidelines`: the words of [krizaka.com/docs/ui/icons](https://www.krizaka.com/en/docs/ui/icons). |
 
 **Props** (web): `size` (24), `strokeWidth` (1.75), `title`, `nodeColor` (`currentColor`), and every SVG attribute
 (`className`, `style`, `aria-*`…). Native: `size`, `color`, `strokeWidth`, `title`, `nodeColor`.
@@ -59,7 +59,8 @@ The drawing is code: `scripts/glyphs.mjs` (helpers `cut`, `hex`, `arc`) → `pnp
 | system (15) | `ThemeIcon` · `SunIcon` · `MoonIcon` · `SearchIcon` · `SettingsIcon` · `NotificationIcon` · `UserIcon` · `UsersIcon` · `CalendarIcon` · `ClockIcon` · `GlobeIcon` · `EyeIcon` · `EyeOffIcon` · `InfoIcon` · `WarningIcon` |
 | interface (24) | `PlayIcon` · `PauseIcon` · `HomeIcon` · `MenuIcon` · `CloseIcon` · `BackIcon` · `ForwardIcon` · `ChevronDownIcon` · `ChevronRightIcon` · `PlusIcon` · `CheckIcon` · `MoreIcon` · `ExternalIcon` · `LinkIcon` · `FilterIcon` · `EditIcon` · `TrashIcon` · `CopyIcon` · `DownloadIcon` · `LogoutIcon` · `BookmarkIcon` · `SoundIcon` · `MuteIcon` · `FlagIcon` |
 
-Catalogue (dark, light, every brand): Storybook, *Icons/Catalogue* and *Icons/Native*.
+Catalogue with search, copy and the rules of use: [krizaka.com/docs/ui/icons](https://www.krizaka.com/en/docs/ui/icons).
+A missing icon: an issue "icons: <name>" on krizaka/krizaka-ui (concept, where it is used, the closest icon).
 
 ## Size
 

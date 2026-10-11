@@ -54,8 +54,26 @@
   --shadow-lg: var(--kz-shadow-lg);
 
   --font-sans: var(--kz-font-sans);
+  --font-text: var(--kz-font-text);
   --font-display: var(--kz-font-display);
   --font-mono: var(--kz-font-mono);
+
+  /* l'échelle typographique (@krizaka/tokens, type.*) : text-display-xl porte taille, interlignage, graisse et approche ;
+     la famille vient de font-display / font-text / font-mono (la famille du rôle de l'étape, voir typeScale) */
+  --text-display-2xl: var(--kz-type-display-2xl-size); --text-display-2xl--line-height: var(--kz-type-display-2xl-line-height); --text-display-2xl--font-weight: var(--kz-type-display-2xl-weight); --text-display-2xl--letter-spacing: var(--kz-type-display-2xl-tracking);
+  --text-display-xl: var(--kz-type-display-xl-size); --text-display-xl--line-height: var(--kz-type-display-xl-line-height); --text-display-xl--font-weight: var(--kz-type-display-xl-weight); --text-display-xl--letter-spacing: var(--kz-type-display-xl-tracking);
+  --text-display-lg: var(--kz-type-display-lg-size); --text-display-lg--line-height: var(--kz-type-display-lg-line-height); --text-display-lg--font-weight: var(--kz-type-display-lg-weight); --text-display-lg--letter-spacing: var(--kz-type-display-lg-tracking);
+  --text-display-md: var(--kz-type-display-md-size); --text-display-md--line-height: var(--kz-type-display-md-line-height); --text-display-md--font-weight: var(--kz-type-display-md-weight); --text-display-md--letter-spacing: var(--kz-type-display-md-tracking);
+  --text-display-sm: var(--kz-type-display-sm-size); --text-display-sm--line-height: var(--kz-type-display-sm-line-height); --text-display-sm--font-weight: var(--kz-type-display-sm-weight); --text-display-sm--letter-spacing: var(--kz-type-display-sm-tracking);
+  --text-title-lg: var(--kz-type-title-lg-size); --text-title-lg--line-height: var(--kz-type-title-lg-line-height); --text-title-lg--font-weight: var(--kz-type-title-lg-weight); --text-title-lg--letter-spacing: var(--kz-type-title-lg-tracking);
+  --text-title-md: var(--kz-type-title-md-size); --text-title-md--line-height: var(--kz-type-title-md-line-height); --text-title-md--font-weight: var(--kz-type-title-md-weight); --text-title-md--letter-spacing: var(--kz-type-title-md-tracking);
+  --text-body-lg: var(--kz-type-body-lg-size); --text-body-lg--line-height: var(--kz-type-body-lg-line-height); --text-body-lg--font-weight: var(--kz-type-body-lg-weight); --text-body-lg--letter-spacing: var(--kz-type-body-lg-tracking);
+  --text-body-md: var(--kz-type-body-md-size); --text-body-md--line-height: var(--kz-type-body-md-line-height); --text-body-md--font-weight: var(--kz-type-body-md-weight); --text-body-md--letter-spacing: var(--kz-type-body-md-tracking);
+  --text-body-sm: var(--kz-type-body-sm-size); --text-body-sm--line-height: var(--kz-type-body-sm-line-height); --text-body-sm--font-weight: var(--kz-type-body-sm-weight); --text-body-sm--letter-spacing: var(--kz-type-body-sm-tracking);
+  --text-caption: var(--kz-type-caption-size); --text-caption--line-height: var(--kz-type-caption-line-height); --text-caption--font-weight: var(--kz-type-caption-weight); --text-caption--letter-spacing: var(--kz-type-caption-tracking);
+  --text-overline: var(--kz-type-overline-size); --text-overline--line-height: var(--kz-type-overline-line-height); --text-overline--font-weight: var(--kz-type-overline-weight); --text-overline--letter-spacing: var(--kz-type-overline-tracking);
+  --text-mono-md: var(--kz-type-mono-md-size); --text-mono-md--line-height: var(--kz-type-mono-md-line-height); --text-mono-md--font-weight: var(--kz-type-mono-md-weight); --text-mono-md--letter-spacing: var(--kz-type-mono-md-tracking);
+  --text-mono-sm: var(--kz-type-mono-sm-size); --text-mono-sm--line-height: var(--kz-type-mono-sm-line-height); --text-mono-sm--font-weight: var(--kz-type-mono-sm-weight); --text-mono-sm--letter-spacing: var(--kz-type-mono-sm-tracking);
 
   --ease-kz: var(--kz-ease);
   --default-transition-duration: 200ms;

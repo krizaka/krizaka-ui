@@ -1,0 +1,105 @@
+{
+  "name": "@krizaka/fonts",
+  "version": "0.0.0",
+  "description": "The Krizaka typefaces, self-hosted: Plus Jakarta Sans (display), Inter (text), JetBrains Mono (mono) — WOFF2 subsets (latin, latin-ext) with metric-matched fallbacks for the web, static TrueType for React Native / Expo, SIL OFL 1.1.",
+  "keywords": [
+    "krizaka",
+    "fonts",
+    "typography",
+    "woff2",
+    "font-face",
+    "self-hosted",
+    "inter",
+    "plus-jakarta-sans",
+    "jetbrains-mono",
+    "react-native",
+    "expo-font",
+    "design-system"
+  ],
+  "homepage": "https://www.krizaka.com/en/docs/ui/typography",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/fonts"
+  },
+  "license": "Apache-2.0 AND OFL-1.1",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "style": "./dist/fonts.css",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./css": {
+      "style": "./dist/fonts.css",
+      "default": "./dist/fonts.css"
+    },
+    "./native": {
+      "types": "./dist/native.d.ts",
+      "import": "./dist/native.js"
+    },
+    "./native/assets": {
+      "types": "./dist/native-assets.d.ts",
+      "react-native": "./dist/native-assets.js",
+      "import": "./dist/native-assets.js"
+    },
+    "./files/*": "./files/*",
+    "./licenses/*": "./licenses/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "files",
+    "licenses",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "subset": "uv run --with fonttools==4.66.1 --with brotli python scripts/subset.py",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./css ./native/assets",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "workspace:*",
+    "@size-limit/file": "^14.2.0",
+    "@types/node": "^22.15.0",
+    "eslint": "^9.39.0",
+    "publint": "^0.3.25",
+    "size-limit": "^14.2.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    { "name": "./css (fonts.css)", "path": "dist/fonts.css", "limit": "1 kB", "gzip": true },
+    { "name": ". (the data)", "path": "dist/index.js", "limit": "3.5 kB", "gzip": true },
+    { "name": "./native", "path": "dist/native.js", "limit": "0.75 kB", "gzip": true },
+    { "name": "display · latin (woff2)", "path": "files/web/plus-jakarta-sans-latin-wght.woff2", "limit": "28 kB", "gzip": false, "brotli": false },
+    { "name": "display · latin-ext (woff2)", "path": "files/web/plus-jakarta-sans-latin-ext-wght.woff2", "limit": "22 kB", "gzip": false, "brotli": false },
+    { "name": "text · latin (woff2)", "path": "files/web/inter-latin-wght.woff2", "limit": "54 kB", "gzip": false, "brotli": false },
+    { "name": "text · latin-ext (woff2)", "path": "files/web/inter-latin-ext-wght.woff2", "limit": "64 kB", "gzip": false, "brotli": false },
+    { "name": "mono · latin (woff2)", "path": "files/web/jetbrains-mono-latin-wght.woff2", "limit": "33 kB", "gzip": false, "brotli": false },
+    { "name": "mono · latin-ext (woff2)", "path": "files/web/jetbrains-mono-latin-ext-wght.woff2", "limit": "12 kB", "gzip": false, "brotli": false },
+    { "name": "native · one weight (ttf, largest: Inter)", "path": "files/native/Inter-Bold.ttf", "limit": "180 kB", "gzip": false, "brotli": false },
+    { "name": "native · every file (ttf)", "path": "files/native/*.ttf", "limit": "1.15 MB", "gzip": false, "brotli": false }
+  ]
+}

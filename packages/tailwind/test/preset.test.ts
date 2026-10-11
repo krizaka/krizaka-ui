@@ -45,6 +45,25 @@ describe("@krizaka/tailwind", () => {
     expect(body).not.toMatch(/#[0-9a-f]{3,8}\b|hsl\(|oklch\(/i);
   });
 
+  it.each([
+    [".font-display", "--kz-font-display"],
+    [".font-text", "--kz-font-text"],
+    [".font-mono", "--kz-font-mono"],
+  ])("generates %s from the family token", (selector, token) => {
+    expect(rule(selector)).toContain(`font-family: var(${token})`);
+  });
+
+  it.each(["display-2xl", "display-xl", "display-lg", "display-md", "display-sm", "title-lg", "title-md", "body-lg", "body-md", "body-sm", "caption", "overline", "mono-md", "mono-sm"])(
+    "text-%s carries size, line height, weight and tracking from the type scale",
+    (step) => {
+      const body = rule(`.text-${step}`);
+      expect(body).toContain(`font-size: var(--kz-type-${step}-size)`);
+      expect(body).toContain(`var(--kz-type-${step}-line-height)`);
+      expect(body).toContain(`var(--kz-type-${step}-weight)`);
+      expect(body).toContain(`var(--kz-type-${step}-tracking)`);
+    },
+  );
+
   it("generates the hover state on the accent", () => {
     expect(css).toMatch(/\.hover\\:bg-accent-hover:hover\s*\{[^}]*background-color:\s*var\(--kz-accent-hover\)/);
   });

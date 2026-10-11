@@ -32,6 +32,21 @@ describe("the set", () => {
   });
 });
 
+describe("the documentation (krizaka.com/docs/ui/icons)", () => {
+  it("describes every group the set uses, in reading order", () => {
+    const used = new Set(Object.values(catalog.glyphIndex).map((g) => g.group));
+    expect(catalog.iconGroups.map((g) => g.id).sort()).toEqual([...used].sort());
+    for (const g of catalog.iconGroups) expect(g.description.length).toBeGreaterThan(40);
+  });
+
+  it("covers grammar, sizes, colour, accessibility and how to ask for an icon", () => {
+    const { grammar, sizes, color, accessibility, request } = catalog.iconGuidelines;
+    for (const list of [grammar, color, accessibility, request]) expect(list.length).toBeGreaterThanOrEqual(3);
+    expect(sizes.map((s) => s.size)).toEqual([16, 20, 24, 32]);
+    expect(request.join(" ")).toContain("krizaka/krizaka-ui");
+  });
+});
+
 describe("the grammar", () => {
   it.each(names)("%s stays on the 24 grid, inside the 1..23 safe area", (name) => {
     const g = GLYPHS[name as keyof typeof GLYPHS] as { p?: string[]; c?: number[][]; n?: number[][] };

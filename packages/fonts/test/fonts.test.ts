@@ -1,0 +1,178 @@
+import { createHash } from "node:crypto";
+import { existsSync, readdirSync,readFileSync } from "node:fs";
+import { join } from "node:path";
+
+import { compile, fallbackMetrics, load, ROLES, TOKENS } from "../scripts/build.mjs";
+
+const root = join(import.meta.dirname, "..");
+const { source, faces } = load(root);
+const { families, files } = compile(source, faces);
+const css = files["fonts.css"];
+const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
+
+/** The @font-face blocks of the CSS, as maps of descriptors. */
+const blocks = [...css.matchAll(/@font-face \{([^}]+)\}/g)].map(
+  ([, body]) => new Map([...body.matchAll(/([\w-]+):\s*([^;]+);/g)].map(([, k, v]) => [k, v.trim()])),
+);
+
+describe("the families", () => {
+  it("are one display, one text and one mono face, in that order", () => {
+    expect(families.map((f) => f.role)).toEqual(["display", "text", "mono"]);
+    expect(families.map((f) => f.family)).toEqual(["Plus Jakarta Sans", "Inter", "JetBrains Mono"]);
+  });
+
+  it("each fills one token of @krizaka/tokens", () => {
+    for (const f of families) expect(f.token).toBe(TOKENS[f.role]);
+  });
+
+  it("carry the words of the documentation", () => {
+    for (const f of families) {
+      expect(f.description.length).toBeGreaterThan(20);
+      expect(f.why.length).toBeGreaterThan(40);
+      expect(f.use.length).toBeGreaterThan(0);
+      expect(f.avoid.length).toBeGreaterThan(0);
+    }
+    expect(source.rules.length).toBeGreaterThanOrEqual(5);
+  });
+
+  it("are pinned to an upstream commit", () => {
+    for (const f of families) expect(f.upstream.commit).toMatch(/^[0-9a-f]{40}$/);
+  });
+});
+
+describe("the files", () => {
+  const all = Object.values(faces).flatMap((face) => [...face.web, ...face.native]);
+
+  it("are the ones src/faces.json describes (bytes and sha256)", () => {
+    for (const file of all) {
+      const data = readFileSync(join(root, file.file));
+      expect(data.length, file.file).toBe(file.bytes);
+      expect(createHash("sha256").update(data).digest("hex"), file.file).toBe(file.sha256);
+    }
+  });
+
+  it("have no stray file next to them", () => {
+    const listed = new Set(all.map((f) => f.file));
+    for (const dir of ["files/web", "files/native"]) {
+      for (const name of readdirSync(join(root, dir))) expect(listed.has(`${dir}/${name}`), `${dir}/${name}`).toBe(true);
+    }
+  });
+
+  it("web: a WOFF2 per family and subset (latin, latin-ext)", () => {
+    for (const f of families) {
+      expect(f.web.map((w) => w.subset)).toEqual(["latin", "latin-ext"]);
+      for (const w of f.web) expect(readFileSync(join(root, w.path)).subarray(0, 4).toString("latin1")).toBe("wOF2");
+    }
+  });
+
+  it("native: a static TrueType per weight, named <Family>-<Style>", () => {
+    for (const f of families) {
+      expect(f.native.length).toBeGreaterThan(0);
+      for (const n of f.native) {
+        expect(n.path).toBe(`files/native/${n.name}.ttf`);
+        expect(readFileSync(join(root, n.path)).readUInt32BE(0)).toBe(0x00010000);
+      }
+    }
+  });
+
+  it("French is in the latin subset (é è à ç ô œ « » ’ …)", () => {
+    const ranges = source.subsets.latin.split(",").map((r) => r.trim().replace("U+", "").split("-").map((h) => parseInt(h, 16)));
+    const covered = (cp: number) => ranges.some(([lo, hi = lo]) => cp >= lo && cp <= hi);
+    for (const ch of "éèêëàâçôœÉÀÇ«»’…€—–→") expect(covered(ch.codePointAt(0)!), ch).toBe(true);
+  });
+});
+
+describe("fonts.css", () => {
+  it("declares every family once per subset, swap, with its unicode-range and weight range", () => {
+    for (const f of families) {
+      const faces = blocks.filter((b) => b.get("font-family")?.replaceAll('"', "") === f.family);
+      expect(faces).toHaveLength(2);
+      for (const [i, b] of faces.entries()) {
+        expect(b.get("font-display")).toBe("swap");
+        expect(b.get("font-weight")).toBe(`${f.weights.min} ${f.weights.max}`);
+        expect(b.get("unicode-range")).toBe(f.web[i].unicodeRange);
+        const url = /url\("\.\.\/([^"]+)"\) format\("woff2"\)/.exec(b.get("src") ?? "")?.[1];
+        expect(url).toBe(f.web[i].path);
+        expect(existsSync(join(root, url!))).toBe(true);
+      }
+    }
+  });
+
+  it("declares a metric-matched local fallback for every family (CLS 0)", () => {
+    for (const f of families) {
+      const b = blocks.find((x) => x.get("font-family") === `"${f.fallbackFamily}"`);
+      expect(b, f.fallbackFamily).toBeDefined();
+      expect(b!.get("src")).toMatch(/^local\(/);
+      for (const prop of ["size-adjust", "ascent-override", "descent-override", "line-gap-override"]) expect(b!.get(prop)).toMatch(/^\d+\.\d\d%$/);
+    }
+  });
+
+  it("the stacks start with the family and its fallback", () => {
+    for (const f of families) expect(f.stack.replaceAll('"', "").startsWith(`${f.family}, ${f.fallbackFamily}, `)).toBe(true);
+  });
+});
+
+describe("fallbackMetrics", () => {
+  it("matches next/font's Inter-on-Arial adjustment within half a percent", () => {
+    const inter = families.find((f) => f.family === "Inter")!;
+    const m = fallbackMetrics(inter.metrics, source.fallbacks.Arial);
+    // next/font (adjustFontFallback) for Inter: size-adjust 107.12%, ascent 90.44%, descent 22.52%.
+    expect(Math.abs(parseFloat(m.sizeAdjust) - 107.12)).toBeLessThan(0.5);
+    expect(Math.abs(parseFloat(m.ascentOverride) - 90.44)).toBeLessThan(0.5);
+    expect(Math.abs(parseFloat(m.descentOverride) - 22.52)).toBeLessThan(0.5);
+  });
+
+  it("a monospace fallback matches the advance exactly", () => {
+    const mono = families.find((f) => f.role === "mono")!;
+    expect(mono.metrics.avgWidth / mono.metrics.unitsPerEm).toBeCloseTo(0.6, 2);
+  });
+});
+
+describe("the licences", () => {
+  it("ship the SIL OFL 1.1 of every family, with its copyright", () => {
+    for (const f of families) {
+      const text = readFileSync(join(root, f.license.file), "utf8");
+      expect(text).toContain("SIL OPEN FONT LICENSE Version 1.1");
+      expect(text).toMatch(/^Copyright \d{4} The .+ Project Authors/);
+      expect(f.license.spdx).toBe("OFL-1.1");
+    }
+  });
+
+  it("are published (files, exports, license field)", () => {
+    expect(pkg.files).toEqual(expect.arrayContaining(["dist", "files", "licenses", "LICENSE"]));
+    expect(pkg.exports["./licenses/*"]).toBe("./licenses/*");
+    expect(pkg.license).toContain("OFL-1.1");
+  });
+});
+
+describe("the entries", () => {
+  it("export ., ./css, ./native, ./native/assets and the files", () => {
+    expect(Object.keys(pkg.exports)).toEqual([".", "./css", "./native", "./native/assets", "./files/*", "./licenses/*", "./package.json"]);
+    expect(pkg.exports["./css"].default).toBe("./dist/fonts.css");
+  });
+
+  it("index: the data, the rules, the preloads and fontStack", async () => {
+    const mod = await import(`data:text/javascript,${encodeURIComponent(files["index.js"])}`);
+    expect(mod.fonts.map((f: { role: string }) => f.role)).toEqual([...ROLES]);
+    expect(mod.preload).toHaveLength(3);
+    for (const p of mod.preload) expect(p).toMatch(/-latin-wght\.woff2$/);
+    expect(mod.fontStack("text")).toMatch(/^Inter, "Inter Fallback", /);
+    expect(() => mod.fontStack("serif")).toThrow();
+  });
+
+  it("native: the nearest shipped weight of a role", async () => {
+    const mod = await import(`data:text/javascript,${encodeURIComponent(files["native.js"])}`);
+    expect(mod.fontFamily("display", 800)).toBe("PlusJakartaSans-ExtraBold");
+    expect(mod.fontFamily("display")).toBe("PlusJakartaSans-SemiBold");
+    expect(mod.fontFamily("text")).toBe("Inter-Regular");
+    expect(mod.fontFamily("text", 650)).toBe("Inter-Bold");
+    expect(mod.fontFamily("mono", 500)).toBe("JetBrainsMono-Medium");
+    expect(() => mod.fontFamily("serif")).toThrow();
+  });
+
+  it("native/assets: one require per native file, keyed by its name", () => {
+    const js = files["native-assets.js"];
+    for (const f of families) for (const n of f.native) expect(js).toContain(`"${n.name}": require("../${n.path}"),`);
+    expect(files["native.d.ts"]).toContain('"Inter-Regular"');
+  });
+});
