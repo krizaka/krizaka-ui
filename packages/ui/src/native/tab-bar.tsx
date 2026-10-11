@@ -49,7 +49,6 @@ export function TabBar<T extends string>({ items, value, onValueChange, onResele
             key={item.value}
             role="tab"
             aria-selected={selected}
-            aria-label={[item.label, badge !== null ? item.badgeLabel : null].filter(Boolean).join(", ")}
             onPress={() => {
               haptics.selection();
               if (selected) onReselect?.(item.value);
@@ -65,9 +64,11 @@ export function TabBar<T extends string>({ items, value, onValueChange, onResele
                 </View>
               ) : null}
             </View>
-            <Text aria-hidden numberOfLines={1} style={[styles.label, { color, fontWeight: selected ? "700" : "500" }]}>
+            <Text numberOfLines={1} style={[styles.label, { color, fontWeight: selected ? "700" : "500" }]}>
               {item.label}
             </Text>
+            {/* The badge in words, read after the name and never seen (the digits on the icon are decorative). */}
+            {badge !== null && item.badgeLabel ? <Text style={styles.unseen}>{`, ${item.badgeLabel}`}</Text> : null}
           </Pressable>
         );
       })}
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
   item: { flex: 1, alignItems: "center", gap: 2, minHeight: 48, justifyContent: "center" },
   icon: { width: 28, height: 26, alignItems: "center", justifyContent: "center" },
   label: { fontSize: 11, lineHeight: 14 },
+  unseen: { position: "absolute", width: 1, height: 1, overflow: "hidden", opacity: 0 },
   count: { position: "absolute", top: -4, left: 16, minWidth: 18, height: 18, borderRadius: 9, paddingHorizontal: 4, alignItems: "center", justifyContent: "center", borderWidth: 2 },
   countText: { fontSize: 10, fontWeight: "800", lineHeight: 12 },
   dot: { position: "absolute", top: 0, right: 0, width: 10, height: 10, borderRadius: 5, borderWidth: 2 },

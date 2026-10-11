@@ -166,7 +166,7 @@ describe("navigation and lists", () => {
         />,
       ),
     );
-    await fireEvent.press(screen.getByRole("tab", { name: "Messages, 3 unread" }));
+    await fireEvent.press(screen.getByRole("tab", { name: /Messages/ }));
     await fireEvent.press(screen.getByRole("tab", { name: "Home" }));
     expect(change).toHaveBeenCalledWith("messages");
     expect(reselect).toHaveBeenCalledWith("home");

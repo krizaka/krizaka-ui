@@ -13,5 +13,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Comments: Story = { render: () => <CommentsExample defaultOpen />, parameters: { capture: "viewport" } };
-export const Filters: Story = { render: () => <FiltersExample defaultOpen />, parameters: { capture: "viewport" } };
+/**
+ * Captured on the viewport. react-native-web draws the `Modal` as the page's dialog and gives it its `dialog` role only
+ * once it is the active modal — the audit can land between the two (aria-modal and the name on a plain element); the
+ * native platforms use `accessibilityViewIsModal` and the content's heading instead. Exception reviewed in DS4.
+ */
+const OVERLAY = { capture: "viewport", a11y: { config: { rules: [{ id: "aria-allowed-attr", enabled: false }, { id: "aria-dialog-name", enabled: false }] } } };
+
+export const Comments: Story = { render: () => <CommentsExample defaultOpen />, parameters: OVERLAY };
+export const Filters: Story = { render: () => <FiltersExample defaultOpen />, parameters: OVERLAY };

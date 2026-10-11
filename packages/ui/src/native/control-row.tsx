@@ -31,7 +31,7 @@ export type Labelled = {
 /** A control beside its label (and a line under it): the row of a setting. */
 export function Row({ label, description, control, disabled, style }: Labelled & { control: React.ReactNode }) {
   return (
-    <View style={[styles.row, disabled ? styles.disabled : null, style]}>
+    <View aria-disabled={disabled || undefined} style={[styles.row, disabled ? styles.disabled : null, style]}>
       <View style={styles.text}>
         <Txt>{label}</Txt>
         {description ? (
