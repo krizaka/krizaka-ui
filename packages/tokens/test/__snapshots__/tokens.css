@@ -139,85 +139,85 @@ html.light {
   --kz-font-display: "Plus Jakarta Sans", "Plus Jakarta Sans Fallback", Inter, system-ui, sans-serif; /* Affichage : titres, chiffres (Plus Jakarta Sans) ; surchargé par le thème produit */
   --kz-font-mono: "JetBrains Mono", "JetBrains Mono Fallback", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; /* Code, identifiants, surtitres (JetBrains Mono) */
 
-  /* Le héros d'une page d'accueil */
+  /* The hero of a home page */
   --kz-type-display-2xl-size: 72px;
   --kz-type-display-2xl-line-height: 1.02;
   --kz-type-display-2xl-weight: 800;
   --kz-type-display-2xl-tracking: -0.035em;
 
-  /* Le héros d'une page */
+  /* The hero of a page */
   --kz-type-display-xl-size: 56px;
   --kz-type-display-xl-line-height: 1.05;
   --kz-type-display-xl-weight: 800;
   --kz-type-display-xl-tracking: -0.03em;
 
-  /* Le titre d'une page */
+  /* The title of a page */
   --kz-type-display-lg-size: 44px;
   --kz-type-display-lg-line-height: 1.1;
   --kz-type-display-lg-weight: 700;
   --kz-type-display-lg-tracking: -0.025em;
 
-  /* Le titre d'une section */
+  /* The title of a section */
   --kz-type-display-md-size: 34px;
   --kz-type-display-md-line-height: 1.15;
   --kz-type-display-md-weight: 700;
   --kz-type-display-md-tracking: -0.02em;
 
-  /* Une sous-section, un grand chiffre */
+  /* A sub-section, a big figure */
   --kz-type-display-sm-size: 26px;
   --kz-type-display-sm-line-height: 1.2;
   --kz-type-display-sm-weight: 700;
   --kz-type-display-sm-tracking: -0.015em;
 
-  /* Le titre d'une carte, d'un dialogue */
+  /* The title of a card or a dialog */
   --kz-type-title-lg-size: 20px;
   --kz-type-title-lg-line-height: 1.35;
   --kz-type-title-lg-weight: 700;
   --kz-type-title-lg-tracking: -0.01em;
 
-  /* Le titre d'une liste, d'un panneau */
+  /* The title of a list or a panel */
   --kz-type-title-md-size: 17px;
   --kz-type-title-md-line-height: 1.4;
   --kz-type-title-md-weight: 600;
   --kz-type-title-md-tracking: -0.012em;
 
-  /* Le chapeau, un paragraphe mis en avant */
+  /* The lead, a paragraph that stands out */
   --kz-type-body-lg-size: 18px;
   --kz-type-body-lg-line-height: 1.6;
   --kz-type-body-lg-weight: 400;
   --kz-type-body-lg-tracking: -0.014em;
 
-  /* Le texte courant */
+  /* Running text */
   --kz-type-body-md-size: 16px;
   --kz-type-body-md-line-height: 1.6;
   --kz-type-body-md-weight: 400;
   --kz-type-body-md-tracking: -0.011em;
 
-  /* L'interface dense, le texte secondaire */
+  /* Dense interface, secondary text */
   --kz-type-body-sm-size: 14px;
   --kz-type-body-sm-line-height: 1.5;
   --kz-type-body-sm-weight: 400;
   --kz-type-body-sm-tracking: -0.006em;
 
-  /* Légendes, aide, métadonnées */
+  /* Captions, help, metadata */
   --kz-type-caption-size: 12px;
   --kz-type-caption-line-height: 1.4;
   --kz-type-caption-weight: 500;
   --kz-type-caption-tracking: 0em;
 
-  /* Le surtitre d'une section, en capitales */
+  /* The overline of a section, uppercase */
   --kz-type-overline-size: 11px;
   --kz-type-overline-line-height: 1.3;
   --kz-type-overline-weight: 600;
   --kz-type-overline-tracking: 0.12em;
 
-  /* Les blocs de code */
+  /* Code blocks */
   --kz-type-mono-md-size: 14px;
   --kz-type-mono-md-line-height: 1.6;
   --kz-type-mono-md-weight: 400;
   --kz-type-mono-md-tracking: 0em;
 
-  /* Identifiants, points d'accès, versions */
+  /* Identifiers, endpoints, versions */
   --kz-type-mono-sm-size: 12px;
   --kz-type-mono-sm-line-height: 1.5;
   --kz-type-mono-sm-weight: 400;
