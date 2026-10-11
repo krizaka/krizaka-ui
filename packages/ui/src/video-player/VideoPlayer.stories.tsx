@@ -23,7 +23,9 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = { render: () => <DefaultExample /> };
+// Its poster is a remote picture of the Orochia app that is re-recorded as the product moves (and decoded differently
+// from one run to the next): audited, not screenshot-compared — the controls are covered by the other stories.
+export const Default: Story = { render: () => <DefaultExample />, parameters: { screenshot: false } };
 export const SignedSource: Story = { render: () => <SignedSourceExample /> };
 export const Vertical: Story = { render: () => <VerticalExample /> };
 export const Gated: Story = { render: () => <GatedExample /> };
