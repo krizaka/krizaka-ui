@@ -1,4 +1,5 @@
 import { act, render, renderHook, screen } from "@testing-library/react";
+import type * as React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
 import { axeViolations } from "../test/axe";
@@ -75,6 +76,65 @@ describe("useTheme", () => {
 
   it("refuses to run outside a provider", () => {
     expect(() => renderHook(() => useTheme())).toThrow(/ThemeProvider/);
+  });
+});
+
+/** Runs the inline script ThemeScript renders, as the browser does in <head>. */
+function runScript(element: React.ReactElement) {
+  const html = renderToStaticMarkup(element);
+  new Function(html.replace(/^<script[^>]*>/, "").replace(/<\/script>$/, ""))();
+  return html;
+}
+
+describe("defaultMode (ThemeScript and ThemeProvider agree)", () => {
+  it("is dark before any choice, even on a light system — no flash, and the provider reports the same mode", () => {
+    mockSystem(false);
+    runScript(<ThemeScript defaultMode="dark" />);
+    expect(document.documentElement.classList.contains("light")).toBe(false);
+    render(
+      <ThemeProvider defaultMode="dark">
+        <ThemeToggle label={(mode) => `Theme: ${mode}`} />
+      </ThemeProvider>,
+    );
+    const button = screen.getByRole("button", { name: "Theme: dark" });
+    expect(document.documentElement.classList.contains("light")).toBe(false);
+    act(() => button.click()); // the first toggle is visible: dark → light
+    expect(document.documentElement.classList.contains("light")).toBe(true);
+  });
+
+  it("lets the visitor's choice (kz-theme) win over the default", () => {
+    localStorage.setItem("kz-theme", "light");
+    runScript(<ThemeScript defaultMode="dark" />);
+    expect(document.documentElement.classList.contains("light")).toBe(true);
+    const { result } = renderHook(() => useTheme(), { wrapper: ({ children }) => <ThemeProvider defaultMode="dark">{children}</ThemeProvider> });
+    expect(result.current.mode).toBe("light");
+    expect(document.documentElement.classList.contains("light")).toBe(true);
+  });
+
+  it("ignores an unknown persisted value and falls back to the default", () => {
+    localStorage.setItem("kz-theme", "sepia");
+    document.documentElement.classList.add("light");
+    runScript(<ThemeScript defaultMode="dark" />);
+    expect(document.documentElement.classList.contains("light")).toBe(false);
+  });
+
+  it("follows the system by default, as before", () => {
+    mockSystem(false);
+    const html = runScript(<ThemeScript />);
+    expect(html).toContain('m="system"');
+    expect(document.documentElement.classList.contains("light")).toBe(true);
+  });
+
+  it("inlines only a known mode", () => {
+    const html = renderToStaticMarkup(<ThemeScript defaultMode={'x";alert(1);"' as never} />);
+    expect(html).toContain('m="system"');
+    expect(html).not.toContain("alert");
+  });
+
+  it("applies the default without ThemeScript too", () => {
+    mockSystem(false);
+    render(<ThemeProvider defaultMode="light">{null}</ThemeProvider>);
+    expect(document.documentElement.classList.contains("light")).toBe(true);
   });
 });
 

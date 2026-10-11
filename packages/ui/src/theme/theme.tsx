@@ -58,19 +58,26 @@ function applyName(previous: string | null, next: string | null) {
   if (next) classes.add(`theme-${next}`);
 }
 
-/**
- * In <head>, before anything renders: applies the persisted mode and named theme, so the page never flashes.
- * `nonce` for a strict Content-Security-Policy.
- */
-export function ThemeScript({
-  nonce,
-}: {
+export type ThemeScriptProps = {
   /** The nonce of a strict Content-Security-Policy (`script-src 'nonce-…'`). */
   nonce?: string;
-}) {
+  /**
+   * The mode before the visitor chooses one — pass the same value as `ThemeProvider`'s `defaultMode`. A persisted
+   * choice (`kz-theme`) always wins.
+   * @default "system"
+   */
+  defaultMode?: Mode;
+};
+
+/**
+ * In <head>, before anything renders: applies the persisted mode (else `defaultMode`) and named theme, so the page
+ * never flashes. `nonce` for a strict Content-Security-Policy.
+ */
+export function ThemeScript({ nonce, defaultMode = "system" }: ThemeScriptProps) {
+  const fallback = isMode(defaultMode) ? defaultMode : "system";
   const js =
-    `(function(){try{var m=localStorage.getItem("${MODE_KEY}")||"system";var n=localStorage.getItem("${NAME_KEY}");` +
-    `var d=matchMedia("${DARK_QUERY}").matches;var c=document.documentElement.classList;` +
+    `(function(){try{var m=localStorage.getItem("${MODE_KEY}");if(m!=="dark"&&m!=="light"&&m!=="system")m="${fallback}";` +
+    `var n=localStorage.getItem("${NAME_KEY}");var d=matchMedia("${DARK_QUERY}").matches;var c=document.documentElement.classList;` +
     `c.toggle("light",m==="light"||(m==="system"&&!d));if(n)c.add("theme-"+n)}catch(e){}})()`;
   return <script nonce={nonce} dangerouslySetInnerHTML={{ __html: js }} />;
 }
@@ -88,7 +95,10 @@ const ThemeContext = React.createContext<ThemeContextValue | null>(null);
 
 export type ThemeProviderProps = {
   children: React.ReactNode;
-  /** The mode before anything is persisted. */
+  /**
+   * The mode before the visitor chooses one (nothing persisted as `kz-theme`) — pass the same value to `ThemeScript`.
+   * @default "system"
+   */
   defaultMode?: Mode;
 };
 
@@ -97,6 +107,12 @@ export function ThemeProvider({ children, defaultMode = "system" }: ThemeProvide
   const stored = React.useSyncExternalStore(subscribe, () => read(MODE_KEY), () => null);
   const mode: Mode = isMode(stored) ? stored : defaultMode;
   const theme = React.useSyncExternalStore(subscribe, () => read(NAME_KEY), () => null);
+
+  // The same resolution as ThemeScript (a no-op after it), for an app that renders the provider without the script.
+  React.useEffect(() => {
+    const persisted = read(MODE_KEY);
+    applyMode(isMode(persisted) ? persisted : defaultMode);
+  }, [defaultMode]);
 
   // "system" follows the operating system while the page is open.
   React.useEffect(() => {

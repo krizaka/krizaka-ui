@@ -1,5 +1,13 @@
 {
-  "$description": "Orazaka — orange, pris dans le dégradé du logo (#f59e0b → #b45309, teintes 38 → 26). L'accent est à la teinte 26 (l'orange du logo, pas son ambre : la teinte 38 est celle de --kz-warning). Dark : orange clair sous texte quasi noir ; light : l'arrêt profond du logo exactement (#b45309) sous texte blanc. accent-2 prolonge le dégradé vers l'ambre. info reste bleu : un statut d'information orange se confondrait avec un avertissement.",
+  "$description": "Orazaka — orange, teinte 26 (pas 38 : la teinte 38 est celle de --kz-warning, un bouton principal ne doit jamais lire comme un avertissement). Dark : orange clair sous texte quasi noir ; light : orange profond (#b45309) sous texte blanc. accent-2 prolonge le dégradé des boutons vers l'ambre. info reste bleu : un statut d'information orange se confondrait avec un avertissement. Le logo (mark) est un dégradé orange profond → orange sur la même teinte 26, identique dans les deux thèmes et ≥ 3:1 sur les surfaces 0–2 des deux thèmes.",
+  "$extensions": {
+    "com.krizaka": {
+      "mark": [
+        ["0%", "hsl(26 90.5% 37.1%)"],
+        ["100%", "hsl(26 92% 45%)"]
+      ]
+    }
+  },
   "accent": {
     "$type": "color",
     "$root": {

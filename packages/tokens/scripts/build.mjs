@@ -296,31 +296,46 @@ export declare const motion: { readonly ease: readonly [number, number, number, 
   const brands = compileBrands(tokens, brandSources);
   const brandsJs = brands.ids.length
     ? `\n/** The brand themes: the accent family of each Krizaka brand, raw CSS per theme (aliases resolved). */
-export const brands = Object.freeze(${json(brands.values)});\n`
+export const brands = Object.freeze(${json(brands.values)});
+/** The marks' emblem gradients: [offset, colour] stops, the same in both themes (raw CSS). */
+export const marks = Object.freeze(${json(brands.marks)});\n`
     : "";
   const brandsDts = `\n/** A Krizaka brand. */
 export type BrandId = ${brands.ids.length ? brands.ids.map((b) => json(b)).join(" | ") : "never"};
 /** The roles a brand theme sets. */
 export type BrandRole = ${BRAND_ROLES.map((r) => json(camel(r))).join(" | ")};
 /** The brand themes: the accent family of each Krizaka brand, raw CSS per theme (aliases resolved). */
-export declare const brands: { readonly [B in BrandId]: { readonly dark: { readonly [R in BrandRole]: string }; readonly light: { readonly [R in BrandRole]: string } } };\n`;
+export declare const brands: { readonly [B in BrandId]: { readonly dark: { readonly [R in BrandRole]: string }; readonly light: { readonly [R in BrandRole]: string } } };
+/** A gradient stop of a mark: [offset, colour]. */
+export type MarkStop = readonly [offset: string, color: string];
+/** The marks' emblem gradients: [offset, colour] stops, the same in both themes (raw CSS). */
+export declare const marks: { readonly [B in BrandId]: readonly MarkStop[] };\n`;
   const brandsNativeJs = brands.ids.length
     ? `\n/** The brand themes as ThemeProvider overrides (\`overrides={brands.orazaka}\`): the accent family per theme. */
-export const brands = Object.freeze(${json(brands.native)});\n`
+export const brands = Object.freeze(${json(brands.native)});
+/** The marks' emblem gradients: [offset, #rrggbb] stops, the same in both themes. */
+export const marks = Object.freeze(${json(brands.marksNative)});\n`
     : "";
   const brandsNativeDts = `\n/** A Krizaka brand. */
 export type BrandId = ${brands.ids.length ? brands.ids.map((b) => json(b)).join(" | ") : "never"};
 /** The colour roles a brand theme sets, per theme. */
 export type BrandTheme = { readonly dark: { readonly [R in ${BRAND_ROLES.map((r) => json(camel(r))).join(" | ")}]: string }; readonly light: { readonly [R in ${BRAND_ROLES.map((r) => json(camel(r))).join(" | ")}]: string } };
 /** The brand themes as ThemeProvider overrides (\`overrides={brands.orazaka}\`): the accent family per theme. */
-export declare const brands: { readonly [B in BrandId]: BrandTheme };\n`;
+export declare const brands: { readonly [B in BrandId]: BrandTheme };
+/** A gradient stop of a mark: [offset, #rrggbb]. */
+export type MarkStop = readonly [offset: string, color: string];
+/** The marks' emblem gradients: [offset, #rrggbb] stops, the same in both themes. */
+export declare const marks: { readonly [B in BrandId]: readonly MarkStop[] };\n`;
 
+  // Every frozen constant is pure: a bundler drops the ones an app does not import (a mark needs `marks`, not `themes`).
+  /** @param {string} js */
+  const pure = (js) => js.replaceAll("Object.freeze(", "/* @__PURE__ */ Object.freeze(");
   /** @type {Record<string, string>} */
   const files = {
     "tokens.css": tokensCss,
-    "index.js": indexJs + brandsJs,
+    "index.js": pure(indexJs + brandsJs),
     "index.d.ts": indexDts + brandsDts,
-    "native.js": nativeJs + brandsNativeJs,
+    "native.js": pure(nativeJs + brandsNativeJs),
     "native.d.ts": nativeDts + brandsNativeDts,
     ...brands.css,
   };
@@ -332,7 +347,8 @@ export declare const brands: { readonly [B in BrandId]: BrandTheme };\n`;
  * (BRAND_ROLES) of the platform's tokens; its aliases point inside the brand, or to a platform token the brand does
  * not set (`brand-gradient-to` → `{surface.0}`: the section ends on the page surface, whatever the app makes of it). Outputs, per brand, `brands/<id>.css`
  * (the app's theme: the same selectors as tokens.css, imported after it) and one `brands/scoped.css` (every brand as a
- * `.brand-<id>` class, for a page that shows several brands: the site, the catalogue).
+ * `.brand-<id>` class, for a page that shows several brands: the site, the catalogue). A brand also carries its mark's
+ * emblem gradient (`$extensions["com.krizaka"].mark`: [offset, hsl()] stops, one value for both themes) → `marks`.
  * @param {Token[]} base
  * @param {Record<string, unknown>} brandSources
  */
@@ -345,6 +361,10 @@ export function compileBrands(base, brandSources) {
   const values = {};
   /** @type {Record<string, { dark: Record<string, string>, light: Record<string, string> }>} */
   const native = {};
+  /** @type {Record<string, [string, string][]>} */
+  const marks = {};
+  /** @type {Record<string, [string, string][]>} */
+  const marksNative = {};
   const ids = Object.keys(brandSources);
   /** @type {string[]} */
   const scoped = ["/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/*.brand.json par scripts/build.mjs : ne pas éditer.\n   Chaque marque en classe `.brand-<id>` : pour une page qui montre plusieurs marques (le site, le catalogue). */"];
@@ -392,9 +412,18 @@ export function compileBrands(base, brandSources) {
     /** @param {"dark" | "light"} mode */
     const hex = (mode) => Object.fromEntries(ordered.map((t) => [t.key, toNative(parseHsl(/** @type {string} */ (resolve(t, mode))))]));
     native[id] = { dark: hex("dark"), light: hex("light") };
+    const source = /** @type {Record<string, any>} */ (brandSources[id]);
+    const mark = isObject(source?.$extensions) ? source.$extensions[EXT]?.mark : undefined;
+    if (!Array.isArray(mark) || mark.length < 2) throw new Error(`brand ${id}: $extensions["${EXT}"].mark must list the mark's gradient stops`);
+    for (const stop of mark) {
+      if (!Array.isArray(stop) || stop.length !== 2 || !/^\d+(\.\d+)?%$/.test(String(stop[0])) || typeof stop[1] !== "string") throw new Error(`brand ${id}: a mark stop is ["<n>%", "hsl(...)"]`);
+      parseHsl(stop[1]);
+    }
+    marks[id] = mark.map(([offset, color]) => [offset, color]);
+    marksNative[id] = mark.map(([offset, color]) => [offset, toNative(parseHsl(color))]);
   }
   if (ids.length) css["brands/scoped.css"] = `${scoped.join("\n")}\n`;
-  return { ids, css, values, native };
+  return { ids, css, values, native, marks, marksNative };
 }
 
 /**

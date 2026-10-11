@@ -269,9 +269,9 @@ describe("brands", async () => {
     }
   });
 
-  it("takes the Orazaka orange from its mark and keeps the Orochia values of its design system", () => {
-    expect(native.brands.orazaka.light.accent).toBe("#b45309"); // the deep stop of the Orazaka mark
-    expect(native.brands.orazaka.dark.accent2).toBe("#f59e0b"); // its light stop
+  it("keeps the Orazaka orange and the Orochia values of its design system", () => {
+    expect(native.brands.orazaka.light.accent).toBe("#b45309"); // the deep orange, also the first stop of the mark
+    expect(native.brands.orazaka.dark.accent2).toBe("#f59e0b"); // the buttons' gradient closes on amber (not the mark)
     expect(native.brands.orochia.dark.accent).toBe("#7c3aed");
     expect(native.brands.orochia.light.accent2).toBe("#db2777");
     expect(native.brands.orochia.dark.ring).toBe("#a78bfa");
@@ -304,6 +304,45 @@ describe("brands", async () => {
       for (const mode of ["dark", "light"] as const) expect(index.brands[id][mode].brandGradientTo).toBe(index.values[mode].surface0);
     }
     expect(files["brands/scoped.css"]).not.toMatch(/--kz-brand-gradient-to: hsl/);
+  });
+
+  describe("marks", () => {
+    const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);
+
+    it("gives every brand its mark's gradient, raw and native", () => {
+      expect(Object.keys(index.marks)).toEqual(BRANDS);
+      expect(Object.keys(native.marks)).toEqual(BRANDS);
+      for (const id of BRANDS) {
+        expect(index.marks[id].length, id).toBeGreaterThanOrEqual(2);
+        expect(native.marks[id].map(([offset]: [string]) => offset)).toEqual(index.marks[id].map(([offset]: [string]) => offset));
+        for (const [, color] of native.marks[id]) expect(color, id).toMatch(/^#[0-9a-f]{6}$/);
+      }
+    });
+
+    it("draws each mark in its brand's colour", () => {
+      expect(index.marks.krizaka.map(([, c]: [string, string]) => c)).toEqual([index.brands.krizaka.dark.accent, index.brands.krizaka.dark.accentText]);
+      expect(native.marks.orochia[0][1]).toBe(native.brands.orochia.dark.accent);
+      expect(native.marks.orochia.map(([, c]: [string, string]) => c)).toEqual(["#7c3aed", "#d946ef", "#f472b6"]); // unchanged
+      // Orazaka: deep orange (its light accent) → orange, both on the accent's hue 26 — never the amber of --kz-warning.
+      expect(index.marks.orazaka[0][1]).toBe(index.brands.orazaka.light.accent);
+      for (const [, c] of index.marks.orazaka) {
+        expect(hue(c)).toBe(hue(index.brands.orazaka.dark.accent));
+        expect(Math.abs(hue(c) - hue(index.values.dark.warning))).toBeGreaterThanOrEqual(10);
+      }
+    });
+
+    it("keeps every stop of the Orazaka mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", () => {
+      for (const mode of ["dark", "light"] as const) {
+        for (const s of ["surface0", "surface1", "surface2"] as const) {
+          for (const [, c] of index.marks.orazaka) expect(contrast(parseHsl(c), parseHsl(index.values[mode][s])), `${mode} ${s} ${c}`).toBeGreaterThanOrEqual(3);
+        }
+      }
+    });
+
+    it("rejects a brand without a mark", () => {
+      const { $extensions: _ext, ...bare } = brandSources.orazaka as Record<string, unknown>;
+      expect(() => compileBrands(tokens, { x: bare })).toThrow(/mark/);
+    });
   });
 
   it("keeps Orazaka's accent apart from the warning status", () => {

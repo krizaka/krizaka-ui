@@ -17,6 +17,7 @@ export const meta = {
   ],
   bestPractices: [
     "Put `<ThemeScript />` in `<head>` and `suppressHydrationWarning` on `<html>`: the right theme is applied before the first paint.",
+    "A product that is dark (or light) first passes the same `defaultMode` to `ThemeScript` and `ThemeProvider`; the visitor's choice still wins.",
     "The choice is persisted as `kz-theme` and applied as `html.light`: every Krizaka app reads the same switch.",
     "Check every screen in both themes.",
   ],

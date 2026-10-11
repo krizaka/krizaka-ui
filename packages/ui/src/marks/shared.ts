@@ -20,3 +20,6 @@ export function useIds<K extends string>(prefix: string, keys: readonly K[]): Re
 }
 
 export const a11y = (title?: string) => (title ? { role: "img" as const, "aria-label": title } : { "aria-hidden": true as const });
+
+/** `#rrggbb` + an opacity → `#rrggbbaa` (a brand colour in a CSS shadow). */
+export const withAlpha = (hex: string, opacity: number) => `${hex}${Math.round(opacity * 255).toString(16).padStart(2, "0")}`;

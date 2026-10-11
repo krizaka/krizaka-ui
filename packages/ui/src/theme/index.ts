@@ -5,6 +5,7 @@ export {
   ThemeProvider,
   type ThemeProviderProps,
   ThemeScript,
+  type ThemeScriptProps,
   ThemeToggle,
   type ThemeToggleProps,
   useTheme,

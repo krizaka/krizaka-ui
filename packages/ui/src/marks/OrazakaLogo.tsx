@@ -1,30 +1,31 @@
 import { ORAZAKA as G } from "./orazaka-geometry";
-import { a11y, type MarkProps, neutral, useIds } from "./shared";
+import { a11y, type MarkProps, neutral, useIds, withAlpha } from "./shared";
 
 const CSS = `
 .ozm-orbit { transform-origin: 200px 200px; animation: ozm-orbit 35s linear infinite; }
 .ozm-core { transform-box: fill-box; transform-origin: center; animation: ozm-core 3.2s ease-in-out infinite; }
 @keyframes ozm-orbit { to { transform: rotate(360deg); } }
 @keyframes ozm-core {
-  0%, 100% { filter: drop-shadow(0 0 6px hsla(38, 92%, 50%, .3)); opacity: .9; }
-  50% { filter: drop-shadow(0 0 14px hsla(38, 92%, 50%, .6)); opacity: 1; }
+  0%, 100% { filter: drop-shadow(0 0 6px ${withAlpha(G.pulse.color, G.pulse.low)}); opacity: .9; }
+  50% { filter: drop-shadow(0 0 14px ${withAlpha(G.pulse.color, G.pulse.high)}); opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .ozm-orbit, .ozm-core { animation: none; } }
 `;
 
 /**
- * The Orazaka mark: three solid hexagonal shards in the Orazaka orange orbiting slowly around a core that breathes —
+ * The Orazaka mark: three solid hexagonal shards in the Orazaka orange (the brand's mark
+ * gradient of @krizaka/tokens, deep orange → orange, hue 26 — the same in dark and light) orbiting slowly around a core that breathes —
  * the family's grammar (dashed orbit, ring, bold emblem, bright core). Below 48 px it crops to the emblem.
  */
 export function OrazakaLogo({ size = 32, animated = true, title, className }: MarkProps) {
-  const id = useIds("ozm", ["amber", "glow"] as const);
-  const fill = `url(#${id.amber})`;
+  const id = useIds("ozm", ["gradient", "glow"] as const);
+  const fill = `url(#${id.gradient})`;
   return (
     <svg width={size} height={size} viewBox={size < 48 ? G.croppedViewBox : G.viewBox} fill="none" xmlns="http://www.w3.org/2000/svg" className={className} {...a11y(title)}>
       <style>{CSS}</style>
       <defs>
-        <linearGradient id={id.amber} gradientUnits="userSpaceOnUse" x1={G.amber.x1} y1={G.amber.y1} x2={G.amber.x2} y2={G.amber.y2}>
-          {G.amber.stops.map(([offset, color]) => (
+        <linearGradient id={id.gradient} gradientUnits="userSpaceOnUse" x1={G.gradient.x1} y1={G.gradient.y1} x2={G.gradient.x2} y2={G.gradient.y2}>
+          {G.gradient.stops.map(([offset, color]) => (
             <stop key={offset} offset={offset} stopColor={color} />
           ))}
         </linearGradient>

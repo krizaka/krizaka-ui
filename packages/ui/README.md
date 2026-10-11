@@ -157,13 +157,15 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/registry/<name>`, `@krizaka/ui/registry/examples/<name>/<example>` | the registry (JSON) and the examples — see [Registry](#registry--the-code-drives-the-documentation) | data · client |
 
 The theme is one mechanism for every product: dark by default, `html.light` for light, `html.theme-<name>` for a named
-theme, persisted as `kz-theme` (and `kz-theme-name`).
+theme, persisted as `kz-theme` (and `kz-theme-name`). Before the visitor chooses, the mode is `defaultMode`
+(`"system"` unless the product says otherwise): pass the **same** value to `ThemeScript` and `ThemeProvider` — the script
+applies it before the first paint (no flash), the provider reports it. A persisted choice always wins.
 
 ```tsx
-// app/layout.tsx
+// app/layout.tsx — a dark-first product (krizaka.com); omit defaultMode to follow the system
 <html lang={locale} suppressHydrationWarning>
-  <head><ThemeScript /></head>
-  <body><ThemeProvider>{children}</ThemeProvider></body>
+  <head><ThemeScript defaultMode="dark" /></head>
+  <body><ThemeProvider defaultMode="dark">{children}</ThemeProvider></body>
 </html>
 
 <ThemeToggle label={(mode) => t(`theme.${mode}`)} />
