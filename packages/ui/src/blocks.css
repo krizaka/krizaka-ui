@@ -9,7 +9,7 @@
      --kz-hue-text (small text, ≥ 4.5:1). Unset, every block falls back to the brand accent. */
 
 /* ─── Page: one frame for every page — the width, the gutters, the vertical rhythm ─── */
-.kz-page {
+.kz-frame {
   --kz-gutter: var(--kz-page-gutter, clamp(16px, 3.2vw, 32px));
   box-sizing: border-box;
   width: 100%;
@@ -17,17 +17,19 @@
   margin-inline: auto;
   padding-inline: var(--kz-gutter);
 }
-.kz-page[data-size="narrow"] { --kz-page-max: 48rem; }
-.kz-page[data-size="wide"] { --kz-page-max: 88rem; }
-.kz-page[data-size="full"] { max-width: none; }
+.kz-frame[data-size="narrow"] { --kz-page-max: 48rem; }
+.kz-frame[data-size="wide"] { --kz-page-max: 88rem; }
+.kz-frame[data-size="full"] { max-width: none; }
+/* A frame inside a frame (a Section in a TocLayout, a Page in a card) adds no second pair of gutters. */
+.kz-frame .kz-frame { --kz-gutter: 0px; }
 
 /* Section: the content in the frame, a space above and below; `divider` draws the hairline between two sections (the
    transition), inside the gutters. */
 .kz-section { --kz-section-space: clamp(48px, 7vw, 88px); position: relative; }
 .kz-section[data-spacing="sm"] { --kz-section-space: clamp(28px, 4vw, 40px); }
 .kz-section[data-spacing="lg"] { --kz-section-space: clamp(64px, 10vw, 128px); }
-.kz-section > .kz-page { position: relative; padding-block: var(--kz-section-space); }
-.kz-section[data-divider] > .kz-page {
+.kz-section > .kz-frame { position: relative; padding-block: var(--kz-section-space); }
+.kz-section[data-divider] > .kz-frame {
   background: linear-gradient(var(--kz-border-subtle), var(--kz-border-subtle)) top center / calc(100% - 2 * var(--kz-gutter)) 1px no-repeat;
 }
 .kz-section :is(h2, h3)[id] { scroll-margin-top: var(--kz-anchor-offset, 96px); }
@@ -123,7 +125,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-fact[data-tone="wip"] .kz-fact-dot { width: 8px; height: 8px; background: transparent; border: 2px solid var(--kz-warning); border-right-color: transparent; transform: rotate(45deg); }
 
 /* ─── PageHero: the first screen of a page — painted at once, never revealed ─── */
-.kz-hero > .kz-page {
+.kz-hero > .kz-frame {
   position: relative;
   padding-top: var(--kz-hero-top, clamp(112px, 14vw, 156px));
   padding-bottom: var(--kz-hero-bottom, 32px);
@@ -132,7 +134,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   gap: 24px;
   align-items: end;
 }
-.kz-hero[data-align="center"] > .kz-page { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+.kz-hero[data-align="center"] > .kz-frame { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
 .kz-hero[data-align="center"] .kz-hero-lead { margin-inline: auto; }
 .kz-hero-text { min-width: 0; }
 .kz-hero-back {
@@ -164,7 +166,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-hero-extra { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .kz-hero-aside { display: flex; justify-content: flex-end; }
 @media (max-width: 720px) {
-  .kz-hero > .kz-page { grid-template-columns: minmax(0, 1fr); }
+  .kz-hero > .kz-frame { grid-template-columns: minmax(0, 1fr); }
   .kz-hero-aside { order: -1; justify-content: flex-start; }
 }
 

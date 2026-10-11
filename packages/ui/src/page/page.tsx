@@ -20,7 +20,7 @@ export type PageProps = React.HTMLAttributes<HTMLElement> & {
 
 /** The page frame: centred, at most `--kz-page-max` wide, with the gutters of `--kz-page-gutter` (16 → 32 px). */
 export function Page({ size = "default", as: Tag = "div", className, ...props }: PageProps) {
-  return <Tag data-size={size === "default" ? undefined : size} className={cn("kz-page", className)} {...props} />;
+  return <Tag data-size={size === "default" ? undefined : size} className={cn("kz-frame", className)} {...props} />;
 }
 
 export type SectionHeadingProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {

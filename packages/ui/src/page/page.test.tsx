@@ -8,7 +8,7 @@ describe("Page", () => {
     const { container } = render(<Page size="narrow" as="main">x</Page>);
     const el = container.firstElementChild as HTMLElement;
     expect(el.tagName).toBe("MAIN");
-    expect(el.className).toContain("kz-page");
+    expect(el.className).toContain("kz-frame");
     expect(el.dataset.size).toBe("narrow");
   });
 
@@ -20,7 +20,7 @@ describe("Page", () => {
     );
     const section = screen.getByRole("region", { name: "Nothing leaves" });
     expect(section.hasAttribute("data-divider")).toBe(true);
-    expect(section.querySelector(".kz-page")).toBeTruthy();
+    expect(section.querySelector(".kz-frame")).toBeTruthy();
     expect(screen.getByRole("heading", { level: 2, name: "Nothing leaves" }).id).toBe("why");
     expect(await axeViolations(container)).toEqual([]);
   });
