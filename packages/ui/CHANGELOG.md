@@ -1,5 +1,39 @@
 # @krizaka/ui
 
+## 2.6.0
+
+### Minor Changes
+
+- [#77](https://github.com/krizaka/krizaka-ui/pull/77) [`a1d60b7`](https://github.com/krizaka/krizaka-ui/commit/a1d60b7cf3999e44e2a15f3141a36890b3ead7f0) Thanks [@oussamaABID](https://github.com/oussamaABID)! - **Page blocks** (W4 of [#49](https://github.com/krizaka/krizaka-ui/issues/49), closes [#63](https://github.com/krizaka/krizaka-ui/issues/63)): the pieces every page of a Krizaka site is made of, in a new `blocks` category
+  of krizaka.com/docs/ui — twelve entries, words as props, the brand through `.brand-<id>`, a subject's colour through
+  `--kz-hue`, styles in `@krizaka/ui/blocks.css`, imported once by the app (`import "@krizaka/ui/blocks.css"` in its root layout).
+  
+  - `@krizaka/ui/page` — `Page` (one width `--kz-page-max`, one pair of gutters `--kz-page-gutter`: the bar, the hero and
+    every section share their edges), `Section` (heading, `divider`, `spacing`, the brand's `backdrop`), `SectionHeading`,
+    `Facts`, `Ticks`.
+  - `@krizaka/ui/page-hero` — `PageHero`: back link, eyebrow, h1, lead, facts or actions, the page's bird; painted at once.
+  - `@krizaka/ui/card-grid` — `CardGrid`: responsive, equal rows, staggered reveal, the pointer's light.
+  - `@krizaka/ui/pointer-light` — `PointerLight`, `usePointerLight`.
+  - `@krizaka/ui/link-card` — `LinkCard`: an entry point, the whole card one link (icon, title, sentence, the way in).
+  - `@krizaka/ui/argument-card` — `ArgumentCard`, compact: the trap in one line, the way in; the long version in a panel.
+  - `@krizaka/ui/mascot-quote` — `MascotQuote`: a rule told by a bird (`inline`, `callout`).
+  - `@krizaka/ui/decision-list` — `DecisionList`: chose · refused · because · what it costs.
+  - `@krizaka/ui/code-block` — `CodeBlock` (file, highlighted code on the tokens, copy) and `CodeTabs` (Maven · Gradle · npm).
+  - `@krizaka/ui/action-bar` — `ActionBar`: link actions as buttons, or icon buttons with a CSS tooltip.
+  - `@krizaka/ui/cta-panel` — `CtaPanel`: the call to act at the end of a section or a page.
+  - `@krizaka/ui/toc` — `Toc` and `TocLayout`: the sections of a reading page, the one being read marked.
+
+- [#86](https://github.com/krizaka/krizaka-ui/pull/86) [`17bc58b`](https://github.com/krizaka/krizaka-ui/commit/17bc58ba6e84c79ff9d45cde656517c8e5680b97) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/terminal-replay` — `TerminalReplay`: a terminal session played back, each command typed at the prompt and
+  its output line by line, the screen following the last line. Rendered whole by the server (no JavaScript, reduced
+  motion and assistive technology read the full transcript), a fixed-height screen (no layout shift), starts when it
+  scrolls into view and waits off screen, play · pause · replay controls and an optional copy of the commands;
+  `autoPlay={false}` keeps it at rest. Web, beta.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@2.6.0
+
 ## 2.5.0
 
 ### Minor Changes
