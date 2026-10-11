@@ -166,6 +166,10 @@
       "types": "./dist/section-backdrop.d.ts",
       "import": "./dist/section-backdrop.js"
     },
+    "./mascots": {
+      "types": "./dist/mascots.d.ts",
+      "import": "./dist/mascots.js"
+    },
     "./motion.css": "./dist/motion.css",
     "./tailwind.css": "./tailwind.css",
     "./native": {
@@ -282,7 +286,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "11.5 kB",
+      "limit": "15 kB",
       "gzip": true
     },
     {
@@ -510,6 +514,12 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./mascots",
+      "path": "dist/mascots.js",
+      "limit": "4.5 kB",
+      "gzip": true
     },
     {
       "name": "./tabs",

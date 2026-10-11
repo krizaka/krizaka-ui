@@ -25,6 +25,7 @@ export type ComponentName =
   | "empty-state"
   | "field"
   | "kbd"
+  | "mascots"
   | "page-header"
   | "popover"
   | "progress"

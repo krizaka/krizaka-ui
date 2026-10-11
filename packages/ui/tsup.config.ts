@@ -64,6 +64,7 @@ export default defineConfig([
       "radio-group": "src/radio-group/index.ts",
       command: "src/command/index.ts",
       "confirm-button": "src/confirm-button/index.ts",
+      mascots: "src/mascots/index.ts",
     },
     banner: { js: '"use client";' },
   },
