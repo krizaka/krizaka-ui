@@ -194,7 +194,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/native/media-capture` | React Native `MediaCapture` on expo-camera (optional peer) | native |
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
 | `@krizaka/ui/native` | React Native: `ThemeProvider`/`useTheme`, `Txt`, `Button`, `IconButton`, `Card.*`, `Badge`, `Chip` (+ `Group`), `Avatar` (+ `Group`), `Skeleton`, `EmptyState`, `Spinner`, `Countdown`, `Segmented`, `Progress`, `Toaster`/`toast`, `Pagination`, `SearchField`, the marks — see [React Native](#react-native) | native |
-| `@krizaka/ui/motion.css`, `@krizaka/ui/blocks.css`, `@krizaka/ui/tailwind.css` | the motion signature; the page blocks' styles; the blocks' styles + the `@source` of the primitives' classes | CSS |
+| `@krizaka/ui/motion.css`, `@krizaka/ui/blocks.css`, `@krizaka/ui/tailwind.css` | the motion signature; the page blocks' styles (imported once by the app); the `@source` of the primitives' classes | CSS |
 | `@krizaka/ui/registry/<name>`, `@krizaka/ui/registry/examples/<name>/<example>` | the registry (JSON) and the examples — see [Registry](#registry--the-code-drives-the-documentation) | data · client |
 
 The theme is one mechanism for every product: dark by default, `html.light` for light, `html.theme-<name>` for a named
@@ -234,8 +234,8 @@ import { LinkCard } from "@krizaka/ui/link-card";
 - **One frame.** `Page` (and every `Section`, every `PageHero`) is at most `--kz-page-max` wide (72rem; `narrow` 48rem,
   `wide` 88rem) with the gutters of `--kz-page-gutter` (16 → 32 px). Give the site's navigation the same width: the bar,
   the hero and the sections share their edges at every width.
-- **Styles.** `@krizaka/ui/tailwind.css` imports `blocks.css` (plain CSS on the `--kz-*` tokens, `kz-*` classes); an app
-  without Tailwind imports `@krizaka/ui/blocks.css`. `--kz-hero-top` clears a fixed bar; `--kz-anchor-offset` places anchors.
+- **Styles.** `@krizaka/ui/blocks.css` (plain CSS on the `--kz-*` tokens, `kz-*` classes), imported once by the app —
+  `import "@krizaka/ui/blocks.css"` in its root layout (or `@import` by package path in its global stylesheet). `--kz-hero-top` clears a fixed bar; `--kz-anchor-offset` places anchors.
 - **A subject's colour.** Blocks read `--kz-hue` (rails, tiles, lights), `--kz-hue-2` and `--kz-hue-text` (small text,
   ≥ 4.5:1), falling back to the brand's accent: set them on a card or a wrapper; `.brand-<id>` sets the accent.
 - **Links.** Blocks that link take `linkAs` (Next's `Link`) for internal addresses; an absolute URL opens in a new tab.

@@ -4,7 +4,7 @@
 
 **Page blocks** (W4 of #49, closes #63): the pieces every page of a Krizaka site is made of, in a new `blocks` category
 of krizaka.com/docs/ui — twelve entries, words as props, the brand through `.brand-<id>`, a subject's colour through
-`--kz-hue`, styles in `blocks.css` (imported by `@krizaka/ui/tailwind.css`, or on its own as `@krizaka/ui/blocks.css`).
+`--kz-hue`, styles in `@krizaka/ui/blocks.css`, imported once by the app (`import "@krizaka/ui/blocks.css"` in its root layout).
 
 - `@krizaka/ui/page` — `Page` (one width `--kz-page-max`, one pair of gutters `--kz-page-gutter`: the bar, the hero and
   every section share their edges), `Section` (heading, `divider`, `spacing`, the brand's `backdrop`), `SectionHeading`,

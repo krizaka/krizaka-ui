@@ -17,6 +17,7 @@ export const meta = {
     { when: "To frame one item on a page.", use: "card" },
   ],
   bestPractices: [
+    "Import the blocks' stylesheet once, by package path, in the app's root layout: `import \"@krizaka/ui/blocks.css\"`.",
     "One frame per site: set `--kz-page-max` once (72rem by default) and give the navigation the same width.",
     "`size=\"narrow\"` for a column of text, `wide` for documentation with a sidebar — never a width of your own.",
     "Give every titled section an `id`: it is its anchor and, through `aria-labelledby`, its name.",

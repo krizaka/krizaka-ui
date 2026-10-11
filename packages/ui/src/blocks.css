@@ -1,6 +1,6 @@
 /* @krizaka/ui — the page blocks (Page, Section, PageHero, CardGrid, LinkCard, ArgumentCard, MascotQuote, DecisionList,
-   CodeBlock, ActionBar, CtaPanel, Toc, PointerLight). Imported with the primitives by `@krizaka/ui/tailwind.css` (or on
-   its own: `@krizaka/ui/blocks.css`). Plain CSS on the --kz-* tokens: dark and light alike, every brand (`.brand-<id>`)
+   CodeBlock, ActionBar, CtaPanel, Toc, PointerLight). The app imports it once, from its root layout or its global
+   stylesheet by package path: `import "@krizaka/ui/blocks.css"` — never through a relative @import of another file. Plain CSS on the --kz-* tokens: dark and light alike, every brand (`.brand-<id>`)
    through --kz-accent. Nothing here loops: the pointer lights, lifts and wakes; under reduced motion everything is still.
 
    Two contracts a page can set on any ancestor:
