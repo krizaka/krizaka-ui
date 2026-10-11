@@ -19,8 +19,7 @@ comes from above: what you press rises, what you fill sinks, what floats is glas
 - `@krizaka/tailwind`: `bg-sheen`, `bg-fill-shade`, `bg-halo`, `glass` (+ `bg-glass`, `border-glass-border`),
   `shadow-raised|floating|overlay`, `shadow-glow(-lg)` (the brand's glow, composed where used), `inset-shadow-edge`,
   `inset-shadow-edge-fill`, `inset-shadow-well`, `focus-ring` / `focus-ring-inset` (the signature focus ring),
-  `node` / `node-lit`, `ease-spring`, `bg-*-soft`, `rounded-xs` / `rounded-2xl`; every `transition-*` now defaults to
-  `--kz-duration-base` (200 ms, 0 under reduced motion).
+  `node` / `node-lit`, `ease-spring`, `bg-*-soft`, `rounded-xs` / `rounded-2xl`.
 - `@krizaka/ui/native`: `Theme`, `Radius` and `Motion` follow the new roles; `useTheme().motion.duration` is 0 ms when
   the system reduces motion.
 
