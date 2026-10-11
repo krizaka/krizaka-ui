@@ -10,7 +10,11 @@
 **The Krizaka front-end platform.** The shared packages every Krizaka product builds on, published on npm under
 `@krizaka/*`.
 
+**2.x is stable**: web primitives and their React Native counterparts, the Krizaka · Orazaka · Orochia marks and the
+signature icons — charts are next. Documented at [krizaka.com/docs/ui](https://www.krizaka.com/docs/ui).
+
 [![CI](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml)
+[![@krizaka/ui](https://img.shields.io/npm/v/@krizaka/ui?label=%40krizaka%2Fui&color=196df5)](https://www.npmjs.com/package/@krizaka/ui)
 [![Docs](https://img.shields.io/badge/docs-krizaka.com%2Fdocs%2Fui-196df5)](https://www.krizaka.com/docs/ui)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 
@@ -36,7 +40,7 @@ one page per component, generated at every build of the site from the registry t
 not, accessibility, web / React Native / both, status, related components), its named examples
 (`packages/ui/registry/examples`, rendered live with their code) and its props (from the types) — a primitive without
 them fails the tests. [`apps/storybook`](apps/storybook) is an internal tool: it renders the same examples to audit
-them (axe) and compare their screenshots in dark and light in CI; it is not deployed.
+them (axe) and compare their screenshots in dark and light in CI; it is not deployed — there is no public Storybook.
 
 ## For the products
 
