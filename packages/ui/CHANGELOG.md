@@ -1,5 +1,22 @@
 # @krizaka/ui
 
+## 2.2.0
+
+### Minor Changes
+
+- [#51](https://github.com/krizaka/krizaka-ui/pull/51) [`430dc6d`](https://github.com/krizaka/krizaka-ui/commit/430dc6dacf233e8c9f754d4e5ccc1ab8cbac23ce) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/mascots` — the Krizaka flock as a shared module: `Mascot` (web) and `Mascot` in `@krizaka/ui/native`. Five
+  birds (falcon, owl, duck, flamingo, pigeon) in five moods (`welcome`, `thinking`, `success`, `empty`, `error`), drawn on
+  one 120 × 120 grid from the site's original birds. `tone="brand"` (default) paints them in the host's accent
+  (`--kz-accent`, `--kz-accent-2`) — blue on krizaka.com, orange in Orazaka, violet in Orochia — and `tone="own"` in each
+  bird's signature colours of the Krizaka story. Light idle motion and a gesture per mood (wave, thinking dots, hop and
+  badge, shake), all off under `prefers-reduced-motion` or with `animated={false}`. Documented by its `meta.ts` and five
+  named examples (+ one native) on krizaka.com/docs/ui.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@2.2.0
+
 ## 2.1.0
 
 ### Minor Changes
