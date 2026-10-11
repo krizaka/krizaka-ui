@@ -18,7 +18,9 @@
     "dialog",
     "toast",
     "tabs",
-    "command-palette"
+    "command-palette",
+    "blocks",
+    "page-layout"
   ],
   "homepage": "https://github.com/krizaka/krizaka-ui#readme",
   "bugs": "https://github.com/krizaka/krizaka-ui/issues",
@@ -262,7 +264,56 @@
       "types": "./dist/image-cropper.d.ts",
       "import": "./dist/image-cropper.js"
     },
+    "./page": {
+      "types": "./dist/page.d.ts",
+      "import": "./dist/page.js"
+    },
+    "./page-hero": {
+      "types": "./dist/page-hero.d.ts",
+      "import": "./dist/page-hero.js"
+    },
+    "./card-grid": {
+      "types": "./dist/card-grid.d.ts",
+      "import": "./dist/card-grid.js"
+    },
+    "./pointer-light": {
+      "types": "./dist/pointer-light.d.ts",
+      "import": "./dist/pointer-light.js"
+    },
+    "./link-card": {
+      "types": "./dist/link-card.d.ts",
+      "import": "./dist/link-card.js"
+    },
+    "./argument-card": {
+      "types": "./dist/argument-card.d.ts",
+      "import": "./dist/argument-card.js"
+    },
+    "./mascot-quote": {
+      "types": "./dist/mascot-quote.d.ts",
+      "import": "./dist/mascot-quote.js"
+    },
+    "./decision-list": {
+      "types": "./dist/decision-list.d.ts",
+      "import": "./dist/decision-list.js"
+    },
+    "./code-block": {
+      "types": "./dist/code-block.d.ts",
+      "import": "./dist/code-block.js"
+    },
+    "./action-bar": {
+      "types": "./dist/action-bar.d.ts",
+      "import": "./dist/action-bar.js"
+    },
+    "./cta-panel": {
+      "types": "./dist/cta-panel.d.ts",
+      "import": "./dist/cta-panel.js"
+    },
+    "./toc": {
+      "types": "./dist/toc.d.ts",
+      "import": "./dist/toc.js"
+    },
     "./motion.css": "./dist/motion.css",
+    "./blocks.css": "./dist/blocks.css",
     "./tailwind.css": "./tailwind.css",
     "./native": {
       "types": "./dist/native.d.ts",
@@ -298,12 +349,12 @@
     "*.css"
   ],
   "scripts": {
-    "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/examples',{recursive:true}))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/examples/'+f)\" && tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css')\" && node scripts/build-registry.mjs",
+    "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/examples',{recursive:true}))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/examples/'+f)\" && tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css');require('node:fs').copyFileSync('src/blocks.css','dist/blocks.css')\" && node scripts/build-registry.mjs",
     "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
     "typecheck": "tsc --noEmit",
     "test": "vitest run && jest",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./tailwind.css && node scripts/consumer.mjs && node scripts/native-dist.mjs",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./blocks.css ./tailwind.css && node scripts/consumer.mjs && node scripts/native-dist.mjs",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
@@ -976,6 +1027,126 @@
         "expo-video",
         "expo-camera",
         "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./page",
+      "path": "dist/page.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./page-hero",
+      "path": "dist/page-hero.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./card-grid",
+      "path": "dist/card-grid.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./pointer-light",
+      "path": "dist/pointer-light.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./link-card",
+      "path": "dist/link-card.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./argument-card",
+      "path": "dist/argument-card.js",
+      "limit": "1.4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./mascot-quote",
+      "path": "dist/mascot-quote.js",
+      "limit": "4.8 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./decision-list",
+      "path": "dist/decision-list.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./code-block",
+      "path": "dist/code-block.js",
+      "limit": "12 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./action-bar",
+      "path": "dist/action-bar.js",
+      "limit": "1.4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./cta-panel",
+      "path": "dist/cta-panel.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./toc",
+      "path": "dist/toc.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
       ]
     }
   ],

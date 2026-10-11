@@ -124,3 +124,26 @@ export const SortGlyph = ({ direction, ...p }: GlyphProps & { direction?: "ascen
     {direction === "ascending" ? <path d="m7 14 5-5 5 5" /> : direction === "descending" ? <path d="m7 10 5 5 5-5" /> : <path d="m8 9 4-4 4 4M8 15l4 4 4-4" />}
   </Glyph>
 );
+export const ArrowGlyph = ({ direction = "right", ...p }: GlyphProps & { direction?: "left" | "right" }) => (
+  <Glyph {...p}>
+    <path d={direction === "left" ? "M19 12H5m0 0 6-6m-6 6 6 6" : "M5 12h14m0 0-6-6m6 6-6 6"} />
+  </Glyph>
+);
+export const ExternalGlyph = (p: GlyphProps) => (
+  <Glyph {...p}>
+    <path d="M14 4h6v6M20 4l-9 9" />
+    <path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4" />
+  </Glyph>
+);
+export const WarningGlyph = (p: GlyphProps) => (
+  <Glyph {...p}>
+    <path d="M12 4 2.5 20h19L12 4Z" />
+    <path d="M12 10v4M12 17.2v.1" />
+  </Glyph>
+);
+export const CopyGlyph = (p: GlyphProps) => (
+  <Glyph {...p}>
+    <rect x="9" y="9" width="11" height="11" rx="2" />
+    <path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3" />
+  </Glyph>
+);

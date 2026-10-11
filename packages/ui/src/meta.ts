@@ -9,22 +9,28 @@
 
 /** Every documented component: the web primitives (one entry of the package each) and the native-only ones. */
 export type ComponentName =
+  | "action-bar"
   | "alert"
+  | "argument-card"
   | "audio-player"
   | "avatar"
   | "badge"
   | "button"
   | "card"
+  | "card-grid"
   | "checkbox"
   | "chip"
   | "chip-link"
   | "cn"
+  | "code-block"
   | "combobox"
   | "command"
   | "confirm-button"
   | "countdown"
+  | "cta-panel"
   | "data-table"
   | "date-picker"
+  | "decision-list"
   | "dialog"
   | "dropdown-menu"
   | "empty-state"
@@ -35,15 +41,20 @@ export type ComponentName =
   | "image-cropper"
   | "iso"
   | "kbd"
+  | "link-card"
   | "loader"
   | "marquee"
+  | "mascot-quote"
   | "mascots"
   | "media-capture"
   | "meter"
   | "nav-bar"
   | "number-ticker"
+  | "page"
   | "page-header"
+  | "page-hero"
   | "pagination"
+  | "pointer-light"
   | "popover"
   | "progress"
   | "radio-group"
@@ -62,6 +73,7 @@ export type ComponentName =
   | "tag-input"
   | "theme"
   | "toast"
+  | "toc"
   | "tooltip"
   | "txt"
   | "video-player"
@@ -73,8 +85,11 @@ export type Platform = "web" | "native" | "both";
 /** `stable`: its API only changes in a major. `beta`: it may still change in a minor. */
 export type Status = "stable" | "beta";
 
-/** The group of the catalogue. `media`: video, sound, camera, files, cropping. */
-export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "media" | "layout" | "foundations";
+/**
+ * The group of the catalogue. `media`: video, sound, camera, files, cropping. `blocks`: the page blocks — the frame,
+ * the hero, sections, cards that lead or argue, decisions, code, calls to act — that every page of a site is made of.
+ */
+export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "media" | "blocks" | "layout" | "foundations";
 
 /**
  * A named example: the file `registry/examples/<component>/<name>.tsx` (web) or
