@@ -1,5 +1,12 @@
 # @krizaka/icons
 
+## 0.2.0
+
+### Minor Changes
+
+- [#66](https://github.com/krizaka/krizaka-ui/pull/66) [`1ebdb61`](https://github.com/krizaka/krizaka-ui/commit/1ebdb61ce394a3e584dce40c5740b3193da8ea5e) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `iconGroups` and `iconGuidelines` in `@krizaka/icons/glyphs`: the groups of the set, the sizes, colour and the node,
+  accessibility and how to ask for a new icon, as data — krizaka.com/docs/ui/icons renders them with `glyphIndex`.
+
 ## 0.1.0
 
 ### Minor Changes

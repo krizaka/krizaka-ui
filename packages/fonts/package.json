@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/fonts",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "The Krizaka typefaces, self-hosted: Plus Jakarta Sans (display), Inter (text), JetBrains Mono (mono) — WOFF2 subsets (latin, latin-ext) with metric-matched fallbacks for the web, static TrueType for React Native / Expo, SIL OFL 1.1.",
   "keywords": [
     "krizaka",
