@@ -5,7 +5,7 @@ export const meta = {
   summary: "An on/off setting that applies at once.",
   status: "beta",
   category: "forms",
-  platforms: "web",
+  platforms: "both",
   whenToUse: ["For a setting that takes effect immediately: autoplay, notifications, a weekly digest."],
   whenNotToUse: [
     { when: "For a choice submitted with a form, or an agreement.", use: "checkbox" },
@@ -33,5 +33,10 @@ export const meta = {
       { name: "small", title: "Small", description: "`size=\"sm\"`." },
       { name: "with-label", title: "With a visible label", description: "A label and a hint on the same line." },
     ],
+  },
+  native: {
+    imports: ["Switch"],
+    differences: ["The platform's switch, with `label` and `description` in its row.", "A selection tick when the app gives haptics."],
+    examples: [{ name: "settings", title: "Settings", description: "Notification settings, one disabled." }],
   },
 } satisfies ComponentMeta;

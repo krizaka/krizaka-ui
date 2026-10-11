@@ -18,9 +18,16 @@
 - The **native platform** (`./native`, `src/native`): the theme (`ThemeProvider`/`useTheme` on the
   `@krizaka/tokens/native` roles + a product's `overrides`) and the same primitives for React Native — `Txt`,
   `Button`, `IconButton`, `Card.*`, `Badge`, `Chip`, `Avatar`, `Skeleton`, `EmptyState`, `Spinner`, `Countdown`,
-  `Segmented`, `Progress`, `Toaster`/`toast`, `Mascot`, `Pagination`, `SearchField` — with the web's prop names where the
-  concept is the same. What needs an Expo module has its own entry, the module an **optional peer** installed only by
-  the apps that use it: `./native/video-player` (expo-video) and `./native/media-capture` (expo-camera); they import the
+  `Segmented`, `Progress`, `Toaster`/`toast`, `Mascot`, `Pagination`, `SearchField`, `Loader`, `Stepper`, `Meter`,
+  `NumberTicker`, `Dialog`/`AlertDialog`, `Field`/`Input`/`Textarea`/`Select`, `Tabs`, `Switch`, `Checkbox`, `RadioGroup`,
+  `Slider`, `DataTable` (cards) — with the web's prop names where the concept is the same — and the components **of the
+  phone** (native only): `TabBar`, `Header` (a large title that folds, `useCollapsingHeader`), `BottomSheet` (snap
+  points, drag, keyboard), `ActionSheet`, `List`/`ListItem` (sections, pull to refresh, swipe actions, skeletons, empty),
+  `SwipeableRow`, `PullToRefresh`, `Fab`, `OtpInput`, `ImageViewer` (pinch, swipe), `PermissionPrompt`, `Onboarding`.
+  Gestures on `PanResponder` and `Animated` (no gesture library); haptics and safe areas are **passed by the app** to
+  `ThemeProvider` (`haptics={hapticsFrom(Haptics)}` with expo-haptics, `insets={useSafeAreaInsets()}`) — no dependency. What needs an Expo module has its own entry, the module an **optional peer** installed only by
+  the apps that use it: `./native/video-player` (expo-video), `./native/media-capture` (expo-camera) and `./native/media-picker`
+  (expo-image-picker); they import the
   platform through `@krizaka/ui/native` (one theme context). Jest and Storybook render them on stand-ins
   (`src/native/mocks`).
 - The **brand layer shared by every Krizaka product**: the animated marks (`KrizakaLogo`, `OrazakaLogo`,
@@ -58,7 +65,7 @@
 
 - `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest + happy-dom for the web; Jest with React
   Native's preset and Testing Library for `src/native`), build (tsup), size, publint.
-- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 16 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens) (Metro
+- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 34 kB (with the flock's geometry, the material's roles and shadows of the inlined tokens, and the mobile components) (Metro
   bundles it into the app, nothing is downloaded: a regression guard, not a budget); the shared runtime
   (`./cn`: clsx + tailwind-variants and its merge engine, paid once per app) ≤ 14 kB; each primitive is measured
   without that runtime (Radix included): `./button` ≤ 3.5 kB (it draws the loader glyph), `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
@@ -77,7 +84,7 @@
   `./media-capture` ≤ 3.8 kB, `./file-upload` ≤ 5 kB (it draws `Progress`), `./data-table` ≤ 9.5 kB (Radix Checkbox),
   `./image-cropper` ≤ 12.5 kB and `./video-player` ≤ 15 kB (Radix Slider), `./combobox` ≤ 13 kB and `./tag-input` ≤
   13.5 kB (the chips' Radix Toggle), `./date-picker` ≤ 29 kB (Radix Popover), `./filter-bar` ≤ 34 kB (Radix
-  DropdownMenu); `./native/video-player` ≤ 2 kB, `./native/media-capture` ≤ 2.5 kB. The page blocks (their styles are
+  DropdownMenu); `./native/video-player` ≤ 2 kB, `./native/media-capture` ≤ 2.5 kB, `./native/media-picker` ≤ 2.5 kB. The page blocks (their styles are
   `blocks.css`, not counted): `./cta-panel`, `./card-grid`, `./pointer-light`, `./link-card`, `./decision-list`, `./toc` ≤ 1 kB,
   `./page`, `./page-hero` ≤ 1.2 kB, `./argument-card`, `./action-bar` ≤ 1.4 kB, `./mascot-quote` ≤ 4.8 kB (the bird's
   geometry), `./code-block` ≤ 12 kB (Radix Tabs for `CodeTabs`).

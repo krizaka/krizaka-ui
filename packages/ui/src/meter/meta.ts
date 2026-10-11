@@ -6,7 +6,7 @@ export const meta = {
     "A measure within a known range — a quota, a balance, a share: thresholds turn it to warning then danger (or the reverse when high is good), and split into parts it becomes a stacked bar or ring with its legend.",
   status: "beta",
   category: "data-display",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "Usage against a limit: storage, GPU minutes, API calls — with thresholds.",
     "A balance where low is bad: credits, a budget (`optimum=\"high\"`).",
@@ -36,6 +36,14 @@ export const meta = {
       { name: "split", title: "A split", description: "Where a €10 tip goes: 90 % to the creator — a ring and a bar, each with its legend." },
       { name: "quota", title: "Quotas", description: "Thresholds at 70 % and 90 %: calm, warning, danger, each value in words." },
       { name: "balance", title: "A balance", description: "`optimum=\"high\"`: credits turn to danger as they run low." },
+    ],
+  },
+  native: {
+    imports: ["Meter"],
+    differences: ["The parts' colours are the accent, then warning, success, secondary text and danger: apart in every brand.", "A group of parts is one element whose name lists each part and its value."],
+    examples: [
+      { name: "credits", title: "Credits and storage", description: "Thresholds turning the bar to warning; a thin bar for storage." },
+      { name: "split-ring", title: "Split ring", description: "Where a tip goes, as a ring of parts with its legend." },
     ],
   },
 } satisfies ComponentMeta;

@@ -33,7 +33,9 @@ export const meta = {
   },
   native: {
     imports: ["EmptyState"],
-    differences: ["The action is a native `Button` (with `label`).", "Style with `style`, not `className`."],
-    examples: [{ name: "default", title: "Default", description: "An icon, a header, a line and an action." }],
+    differences: ["The action is a native `Button` (with `label`).", "Style with `style`, not `className`.", "`mascot` puts a bird of the flock above the words (`mascotMood`)."],
+    examples: [{ name: "default", title: "Default", description: "An icon, a header, a line and an action." },
+      { name: "mascot", title: "With a bird", description: "`mascot`: the pigeon has nothing to deliver yet." },
+    ],
   },
 } satisfies ComponentMeta;

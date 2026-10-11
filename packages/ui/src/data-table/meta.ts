@@ -5,7 +5,7 @@ export const meta = {
   summary: "A table of records — sort, selection, loading, empty and error states — that turns into cards on a phone and renders only the rows in view when there are thousands.",
   status: "beta",
   category: "data-display",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "To compare records on the same columns: jobs, videos of a studio, users of an admin, invoices.",
     "When people sort, select several rows for a bulk action, or scan a status column.",
@@ -45,5 +45,14 @@ export const meta = {
       { name: "error", title: "Error", description: "The request failed: an alert with a retry, in place of the rows." },
       { name: "virtualized", title: "5,000 rows", description: "`virtualize`: only the rows in view are rendered, the header stays." },
     ],
+  },
+  native: {
+    imports: ["DataTable"],
+    differences: [
+      "Always cards (a phone has no room for columns): the `title` column heads each card.",
+      "Sort through a row of choices (`sortLabel`); no windowing prop — a FlatList virtualises already.",
+      "`onRowPress` opens a record; `selectLabel` names each card's checkbox.",
+    ],
+    examples: [{ name: "jobs", title: "Jobs", description: "Orazaka jobs as cards, a status badge, sortable by name and credits." }],
   },
 } satisfies ComponentMeta;

@@ -331,6 +331,10 @@
       "types": "./dist/native/media-capture.d.ts",
       "import": "./dist/native/media-capture.js"
     },
+    "./native/media-picker": {
+      "types": "./dist/native/media-picker.d.ts",
+      "import": "./dist/native/media-picker.js"
+    },
     "./registry/examples/*": {
       "types": "./registry/examples/*.d.ts",
       "import": "./registry/examples/*.js"
@@ -364,6 +368,7 @@
   "peerDependencies": {
     "@krizaka/tailwind": ">=2.5.0",
     "expo-camera": ">=16",
+    "expo-image-picker": ">=16",
     "expo-video": ">=2",
     "hls.js": ">=1.5",
     "react": ">=18",
@@ -394,6 +399,7 @@
     "eslint": "^9.39.0",
     "expect": "30.4.1",
     "expo-camera": "57.0.6",
+    "expo-image-picker": "57.0.20",
     "expo-modules-core": "^57.0.21",
     "expo-video": "57.0.5",
     "happy-dom": "^20.0.0",
@@ -427,6 +433,9 @@
     "expo-camera": {
       "optional": true
     },
+    "expo-image-picker": {
+      "optional": true
+    },
     "expo-video": {
       "optional": true
     },
@@ -456,7 +465,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "16 kB",
+      "limit": "34 kB",
       "gzip": true
     },
     {
@@ -1029,6 +1038,7 @@
       "ignore": [
         "expo-video",
         "expo-camera",
+        "expo-image-picker",
         "@krizaka/ui"
       ]
     },
@@ -1040,6 +1050,19 @@
       "ignore": [
         "expo-video",
         "expo-camera",
+        "expo-image-picker",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./native/media-picker (expo-image-picker is the app's)",
+      "path": "dist/native/media-picker.js",
+      "limit": "2.5 kB",
+      "gzip": true,
+      "ignore": [
+        "expo-video",
+        "expo-camera",
+        "expo-image-picker",
         "@krizaka/ui"
       ]
     },

@@ -5,7 +5,7 @@ export const meta = {
   summary: "One choice among a few options, all visible: dots with their words, or whole cards.",
   status: "beta",
   category: "forms",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "In a form, to choose exactly one of two to five options that should all be seen: a frequency, a quality.",
     "`RadioGroup.Card` when each option needs more than a line: an amount, a plan, a payment method.",
@@ -36,5 +36,10 @@ export const meta = {
       { name: "cards", title: "Cards", description: "Whole cards: the chosen one carries the accent." },
       { name: "horizontal", title: "Horizontal", description: "`orientation=\"horizontal\"`: the items in a row." },
     ],
+  },
+  native: {
+    imports: ["RadioGroup"],
+    differences: ["`options` (value, label, description) instead of the web's items."],
+    examples: [{ name: "visibility", title: "Visibility", description: "Who can see a story." }],
   },
 } satisfies ComponentMeta;

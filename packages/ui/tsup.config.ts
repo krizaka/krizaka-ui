@@ -130,8 +130,8 @@ export default defineConfig([
     // The native entries that need an Expo module (an optional peer): their own files, importing the platform through
     // `@krizaka/ui/native` (one theme context) and the module itself — never part of dist/native.js.
     ...shared,
-    entry: { "native/video-player": "src/native/video-player.tsx", "native/media-capture": "src/native/media-capture.tsx" },
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera"],
+    entry: { "native/video-player": "src/native/video-player.tsx", "native/media-capture": "src/native/media-capture.tsx", "native/media-picker": "src/native/media-picker.tsx" },
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "expo-image-picker"],
   },
   {
     ...shared,
@@ -141,7 +141,7 @@ export default defineConfig([
     // ~170 entries: one declaration build would exhaust the heap. Every example has the same signature — a component,
     // `defaultOpen` for those that open something — so build-registry.mjs writes their `.d.ts`.
     dts: false,
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera"],
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "expo-image-picker"],
     banner: { js: '"use client";' },
   },
 ]);

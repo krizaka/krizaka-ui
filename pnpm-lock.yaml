@@ -636,6 +636,9 @@ importers:
       expo-camera:
         specifier: 57.0.6
         version: 57.0.6(react-native-web@0.21.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-native@0.86.3(@babel/core@7.29.7)(@react-native/jest-preset@0.86.3(@babel/core@7.29.7)(react@19.3.0))(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)
+      expo-image-picker:
+        specifier: 57.0.20
+        version: 57.0.20
       expo-modules-core:
         specifier: ^57.0.21
         version: 57.0.21(react-native@0.86.3(@babel/core@7.29.7)(@react-native/jest-preset@0.86.3(@babel/core@7.29.7)(react@19.3.0))(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)
@@ -5092,6 +5095,16 @@ packages:
     peerDependenciesMeta:
       react-native-web:
         optional: true
+
+  expo-image-loader@57.0.1:
+    resolution: {integrity: sha512-uhrZKLT/cTl2mXyR28kPpVkS5O+PK9N1QA/07IFM4f5T4g0lTW1JHT3NEWwEEsGFldPmVX4j7LwUVVZxE+woug==}
+    peerDependencies:
+      expo: '*'
+
+  expo-image-picker@57.0.20:
+    resolution: {integrity: sha512-plgcGuMZMWqDchjXQW6S/WepYLB5KqfbZOzwC6xe0+j5IhY4ipvVuRZcXeP/0NgKgU0Jiu/XoTK4Bi8crtZ+sQ==}
+    peerDependencies:
+      expo: '*'
 
   expo-modules-core@57.0.21:
     resolution: {integrity: sha512-g0pf9/tQ6IdJWCzr6PDrEiYT8mTaOhMRnXm3T2XtSzJJaNYgnyyDonkkPN1wd2+PqojIBPhytqqzeLxjM5y/Wg==}
@@ -12699,6 +12712,12 @@ snapshots:
       react-native: 0.86.3(@babel/core@7.29.7)(@react-native/jest-preset@0.86.3(@babel/core@7.29.7)(react@19.3.0))(@types/react@19.3.0)(react@19.3.0)
     optionalDependencies:
       react-native-web: 0.21.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+
+  expo-image-loader@57.0.1: {}
+
+  expo-image-picker@57.0.20:
+    dependencies:
+      expo-image-loader: 57.0.1
 
   expo-modules-core@57.0.21(react-native@0.86.3(@babel/core@7.29.7)(@react-native/jest-preset@0.86.3(@babel/core@7.29.7)(react@19.3.0))(@types/react@19.3.0)(react@19.3.0))(react@19.3.0):
     dependencies:

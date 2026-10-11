@@ -5,7 +5,7 @@ export const meta = {
   summary: "A form field: a label, a hint and an error around an `Input`, a `Textarea` or a native `Select`.",
   status: "stable",
   category: "forms",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "For every text entry of a form: email, title, description, amount.",
     "`Select` for a choice among many options (a country): the platform's own menu, right on phones.",
@@ -37,6 +37,18 @@ export const meta = {
       { name: "disabled", title: "Disabled", description: "Not editable." },
       { name: "textarea", title: "Textarea", description: "A longer text." },
       { name: "select", title: "Select", description: "A native select." },
+    ],
+  },
+  native: {
+    imports: ["Field", "Input", "Textarea", "Select"],
+    differences: [
+      "`Field` takes `label`, `hint` and `error` as props and names the control inside it.",
+      "`Select` opens a bottom sheet of options (React Native has no system picker without a native module).",
+      "`Input` takes `leading` and `trailing` (a prefix, a unit, a button).",
+    ],
+    examples: [
+      { name: "profile", title: "A form", description: "Required, an error under the control, a hint, a prefix." },
+      { name: "select", title: "Select", description: "A choice in a sheet of options." },
     ],
   },
 } satisfies ComponentMeta;

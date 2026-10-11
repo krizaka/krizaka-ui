@@ -24,6 +24,7 @@ console.log(`✓ dist/native.js: no "use client", no DOM; imports ${[...new Set(
 for (const [entry, module] of [
   ["video-player", "expo-video"],
   ["media-capture", "expo-camera"],
+  ["media-picker", "expo-image-picker"],
 ]) {
   const code = readFileSync(resolve(dist, "native", `${entry}.js`), "utf8");
   const allowed = new Set([...ALLOWED, "@krizaka/ui/native", module]);

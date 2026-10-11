@@ -5,7 +5,7 @@ export const meta = {
   summary: "A window over the page — centred, a bottom sheet or a side panel — and `AlertDialog` for a confirmation.",
   status: "stable",
   category: "overlays",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "For a short task that must be finished or cancelled before going back: invite someone, edit a title.",
     "`AlertDialog` to confirm a destructive or irreversible action, with an async `onConfirm`.",
@@ -45,6 +45,18 @@ export const meta = {
       { name: "sheet-form", title: "Sheet with a form", description: "`Sheet`, `size=\"lg\"`." },
       { name: "alert-destructive", title: "Alert dialog", description: "`AlertDialog tone=\"danger\"` with an async `onConfirm`." },
       { name: "gate", title: "Gate", description: "No close button: it closes only through its actions." },
+    ],
+  },
+  native: {
+    imports: ["Dialog", "AlertDialog"],
+    differences: [
+      "One component with props (`title`, `description`, `actions`) instead of the web's parts.",
+      "For a sheet from the bottom edge, use `BottomSheet` (snap points, drag) — the native `Sheet`.",
+      "The back button and the scrim close it; there is no focus trap to manage on a phone.",
+    ],
+    examples: [
+      { name: "confirm", title: "Confirm", description: "`AlertDialog`: cancel or delete, the destructive look." },
+      { name: "form", title: "A short form", description: "A field and a save button in a dialog." },
     ],
   },
 } satisfies ComponentMeta;

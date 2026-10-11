@@ -5,7 +5,7 @@ export const meta = {
   summary: "A value or a range chosen by dragging a thumb along a track, with arrows and Page keys.",
   status: "beta",
   category: "forms",
-  platforms: "web",
+  platforms: "both",
   whenToUse: ["For a value chosen by feel within bounds: volume, speed, brightness.", "Two thumbs for a range: a price, a duration."],
   whenNotToUse: [
     { when: "For an exact number the user knows: an input of type number.", use: "field" },
@@ -36,5 +36,13 @@ export const meta = {
       { name: "range", title: "Range", description: "Two thumbs, each named." },
       { name: "disabled", title: "Disabled", description: "Not available." },
     ],
+  },
+  native: {
+    imports: ["Slider"],
+    differences: [
+      "One thumb (no range); `centred` fills from zero for settings around it.",
+      "`valueText` is a function; screen readers adjust it with swipes up and down.",
+    ],
+    examples: [{ name: "exposure", title: "Exposure and volume", description: "Centred around zero, and a plain volume." }],
   },
 } satisfies ComponentMeta;

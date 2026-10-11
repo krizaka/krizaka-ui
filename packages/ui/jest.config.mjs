@@ -25,6 +25,7 @@ export default {
     // The Expo modules of the entries that need one (optional peers): their native side does not exist under Jest.
     "^expo-video$": "<rootDir>/src/native/mocks/expo-video.tsx",
     "^expo-camera$": "<rootDir>/src/native/mocks/expo-camera.tsx",
+    "^expo-image-picker$": "<rootDir>/src/native/mocks/expo-image-picker.tsx",
   },
   transform: {
     ...preset.transform,

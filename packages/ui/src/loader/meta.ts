@@ -6,7 +6,7 @@ export const meta = {
     "A wait from start to end: nothing for the first instants, then the Krizaka glyph with its words, a percentage and an ETA, held long enough to read, ending on a check or a cross that is drawn and announced — and `LoadingRegion`, which hands a region over to a skeleton of its shape.",
   status: "beta",
   category: "feedback",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "Any wait whose length you do not control (a fetch, a refresh): the delay keeps fast answers from flashing a spinner.",
     "A wait that ends in a result worth saying — “12 invoices loaded”, “Could not publish”.",
@@ -42,6 +42,18 @@ export const meta = {
       { name: "overlay", title: "Over a region", description: "`variant=\"overlay\"`: the report stays readable behind frosted glass while it refreshes." },
       { name: "endings", title: "Endings", description: "`status`: a success and a failure, drawn in their colour and said in words." },
       { name: "minimal", title: "Minimal", description: "A label, nothing else: the defaults do the rest." },
+    ],
+  },
+  native: {
+    imports: ["Loader", "LoaderGlyph", "useDelayedWait"],
+    differences: [
+      "Announced with the platform's announcement (and a polite live region) instead of `role=\"status\"`.",
+      "No `LoadingRegion`: lists show their own skeleton rows (`List loading`).",
+      "`overlay` and `page` cover their parent with the theme's surface at 90 %; no backdrop blur.",
+    ],
+    examples: [
+      { name: "job-wait", title: "A job's wait", description: "Determinate, with the time left, ending on a check and its words." },
+      { name: "block", title: "Block", description: "The centre of a region whose content is on its way." },
     ],
   },
 } satisfies ComponentMeta;

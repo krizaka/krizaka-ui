@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import CancelExample from "../../registry/examples/search-field/native/cancel";
 import DefaultExample from "../../registry/examples/search-field/native/default";
 import { nativeFrame } from "./story-frame";
 
@@ -16,3 +17,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { render: () => <DefaultExample /> };
+export const Cancel: Story = { render: () => <CancelExample /> };

@@ -5,7 +5,7 @@ export const meta = {
   summary: "Views of the same page, one at a time: underlined sections, a segmented switch or pills — one light glides from the active tab to the next, in every variant.",
   status: "beta",
   category: "navigation",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "To split a page into sections the user switches between without leaving it: videos, stories, about.",
     "`variant=\"segmented\"` for a view switch (grid, list); `pills` for a feed's sections.",
@@ -37,6 +37,17 @@ export const meta = {
       { name: "segmented", title: "Segmented", description: "A view switch: equal segments in a track." },
       { name: "pills", title: "Pills", description: "A feed's sections, scrolling sideways on a phone." },
       { name: "vertical", title: "Vertical", description: "`orientation=\"vertical\"`: the list on the side." },
+    ],
+  },
+  native: {
+    imports: ["Tabs"],
+    differences: [
+      "`items` (value, label, count, content) instead of the web's parts.",
+      "The underlined tab list scrolls sideways when it does not fit; for the app's main sections use `TabBar`.",
+    ],
+    examples: [
+      { name: "sections", title: "Sections", description: "A creator's page: underlined tabs with counts." },
+      { name: "segmented", title: "Segmented", description: "Two views of the same content." },
     ],
   },
 } satisfies ComponentMeta;

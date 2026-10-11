@@ -5,7 +5,7 @@ export const meta = {
   summary: "A box to check: checked, unchecked or indeterminate, with its words as one clickable label.",
   status: "beta",
   category: "forms",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "In a form, for a choice that is submitted with it: accept the terms, subscribe to a list.",
     "For several independent options in a list, and “select all” (indeterminate when some are).",
@@ -38,5 +38,10 @@ export const meta = {
       { name: "disabled", title: "Disabled", description: "Not available, checked or not." },
       { name: "invalid", title: "Invalid", description: "In a `Field`, with its error." },
     ],
+  },
+  native: {
+    imports: ["Checkbox"],
+    differences: ["The whole row (box and label) is pressable; `hideLabel` keeps the box alone.", "`checked` takes `\"indeterminate\"`, said as mixed."],
+    examples: [{ name: "consent", title: "Consent", description: "Terms that unlock the button, and an option." }],
   },
 } satisfies ComponentMeta;

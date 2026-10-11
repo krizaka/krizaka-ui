@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import DefaultExample from "../../registry/examples/empty-state/native/default";
+import MascotExample from "../../registry/examples/empty-state/native/mascot";
 import { EmptyState } from "./empty-state";
 import { nativeFrame } from "./story-frame";
 
@@ -19,3 +20,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { render: () => <DefaultExample /> };
+export const Mascot: Story = { render: () => <MascotExample /> };

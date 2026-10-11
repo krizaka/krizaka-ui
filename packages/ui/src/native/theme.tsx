@@ -94,6 +94,47 @@ export type ThemeOverrides = { readonly dark?: Partial<Theme>; readonly light?: 
 /** Font families, when the app has loaded them (`expo-font`…). Absent: the system font. */
 export type ThemeFonts = { readonly sans?: string; readonly display?: string; readonly mono?: string };
 
+/**
+ * The device's feedback, passed by the app (no dependency here): `expo-haptics` adapted by `hapticsFrom(Haptics)`, or
+ * any engine. Absent: the components stay silent.
+ */
+export type Haptics = {
+  /** A light tick: a selection changed (a tab, a segment, a slider step). */
+  readonly selection?: () => void;
+  /** A tap of some weight: a sheet snapping, a row swiped past its threshold. */
+  readonly impact?: (weight: "light" | "medium" | "heavy") => void;
+  /** The outcome of an action: a toast's tone, a code accepted or refused. */
+  readonly notification?: (type: "success" | "warning" | "error") => void;
+};
+
+/** The screen's safe-area insets, in points (`useSafeAreaInsets()` of react-native-safe-area-context). */
+export type Insets = { readonly top: number; readonly right: number; readonly bottom: number; readonly left: number };
+
+const NO_INSETS: Insets = { top: 0, right: 0, bottom: 0, left: 0 };
+
+/**
+ * Adapts the `expo-haptics` module to `Haptics`: `<ThemeProvider haptics={hapticsFrom(Haptics)}>` with
+ * `import * as Haptics from "expo-haptics"` in the app. Errors (a device without a motor) are swallowed.
+ */
+export function hapticsFrom(module: {
+  selectionAsync: () => Promise<void>;
+  impactAsync: (style: never) => Promise<void>;
+  notificationAsync: (type: never) => Promise<void>;
+  ImpactFeedbackStyle: { Light: unknown; Medium: unknown; Heavy: unknown };
+  NotificationFeedbackType: { Success: unknown; Warning: unknown; Error: unknown };
+}): Haptics {
+  const quiet = (run: () => Promise<void>) => {
+    void run().catch(() => undefined);
+  };
+  const weights = { light: module.ImpactFeedbackStyle.Light, medium: module.ImpactFeedbackStyle.Medium, heavy: module.ImpactFeedbackStyle.Heavy };
+  const types = { success: module.NotificationFeedbackType.Success, warning: module.NotificationFeedbackType.Warning, error: module.NotificationFeedbackType.Error };
+  return {
+    selection: () => quiet(() => module.selectionAsync()),
+    impact: (weight) => quiet(() => module.impactAsync(weights[weight] as never)),
+    notification: (type) => quiet(() => module.notificationAsync(types[type] as never)),
+  };
+}
+
 export type ThemeContextValue = {
   /** The chosen mode: dark, light or follow the system. */
   mode: Mode;
@@ -105,6 +146,10 @@ export type ThemeContextValue = {
   radius: Radius;
   motion: Motion;
   fonts: ThemeFonts;
+  /** The device's feedback (no-ops when the app passed none). */
+  haptics: Required<Haptics>;
+  /** The safe-area insets the app passed (zero by default). */
+  insets: Insets;
 };
 
 const ThemeContext = React.createContext<ThemeContextValue | null>(null);
@@ -126,10 +171,14 @@ export type ThemeProviderProps = {
   overrides?: ThemeOverrides;
   /** Font families the app has loaded (`expo-font`…); absent: the system font. */
   fonts?: ThemeFonts;
+  /** The device's feedback: `hapticsFrom(Haptics)` with expo-haptics, or your own. Absent: silent. */
+  haptics?: Haptics;
+  /** The safe-area insets (`useSafeAreaInsets()`): the tab bar, the header, the sheets and the FAB keep clear of them. */
+  insets?: Insets;
 };
 
 /** Once, at the root of the app. Without it, `useTheme()` follows the system with the platform's roles. */
-export function ThemeProvider({ children, mode: controlled, defaultMode = "system", onModeChange, overrides, fonts }: ThemeProviderProps) {
+export function ThemeProvider({ children, mode: controlled, defaultMode = "system", onModeChange, overrides, fonts, haptics, insets }: ThemeProviderProps) {
   const system = useColorScheme();
   const [own, setOwn] = React.useState<Mode>(defaultMode);
   const mode = controlled ?? own;
@@ -144,14 +193,17 @@ export function ThemeProvider({ children, mode: controlled, defaultMode = "syste
   const override = overrides?.[scheme];
   const reduce = useReducedMotion();
   const theme = React.useMemo(() => (override ? { ...themes[scheme], ...override } : themes[scheme]), [scheme, override]);
+  const feedback = React.useMemo(() => withDefaults(haptics), [haptics]);
   const value = React.useMemo<ThemeContextValue>(
-    () => ({ mode, setMode, scheme, theme, radius, motion: reduce ? stillMotion : motion, fonts: fonts ?? {} }),
-    [mode, setMode, scheme, theme, fonts, reduce],
+    () => ({ mode, setMode, scheme, theme, radius, motion: reduce ? stillMotion : motion, fonts: fonts ?? {}, haptics: feedback, insets: insets ?? NO_INSETS }),
+    [mode, setMode, scheme, theme, fonts, reduce, feedback, insets],
   );
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 const noop = () => undefined;
+const SILENT: Required<Haptics> = { selection: noop, impact: noop, notification: noop };
+const withDefaults = (haptics?: Haptics): Required<Haptics> => (haptics ? { ...SILENT, ...haptics } : SILENT);
 
 /** The current theme: `{ mode, setMode, scheme, theme, radius, motion, fonts }`. */
 export function useTheme(): ThemeContextValue {
@@ -159,7 +211,7 @@ export function useTheme(): ThemeContextValue {
   const system = useColorScheme();
   if (context) return context;
   const scheme = resolve("system", system);
-  return { mode: "system", setMode: noop, scheme, theme: themes[scheme], radius, motion, fonts: {} };
+  return { mode: "system", setMode: noop, scheme, theme: themes[scheme], radius, motion, fonts: {}, haptics: SILENT, insets: NO_INSETS };
 }
 
 /** True while the system asks to reduce motion: every loop and transition of /native stops. */

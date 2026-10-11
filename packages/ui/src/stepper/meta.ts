@@ -6,7 +6,7 @@ export const meta = {
     "The steps of a journey or a job: done steps checked, the current one traced by the Krizaka glyph (growing to its value), failures crossed, connectors that fill — and every state said in words.",
   status: "beta",
   category: "navigation",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "A job the user follows in steps: an upload that is checked, transcoded and published; a payout; an import.",
     "A short journey with a known order: a checkout, an onboarding (`orientation=\"horizontal\"`).",
@@ -37,5 +37,10 @@ export const meta = {
       { name: "failed", title: "A failed step", description: "A cross, the danger colour, “Failed” in words — and the action that fixes it." },
       { name: "checkout", title: "A short journey", description: "`orientation=\"horizontal\"`: the connectors fill as it advances." },
     ],
+  },
+  native: {
+    imports: ["Stepper"],
+    differences: ["`statusLabels` gives the words read after each step (the web hides them in the markup).", "A `list` of `listitem`s, each named by its title and status."],
+    examples: [{ name: "run", title: "A studio run", description: "Two steps done, the current one tracing its progress with a bar under it." }],
   },
 } satisfies ComponentMeta;
