@@ -42,16 +42,36 @@
   --color-fg-warning: var(--kz-warning-text);
   --color-fg-danger: var(--kz-danger-text);
   --color-fg-info: var(--kz-info-text);
+  /* statuts en fond teinté : le texte primaire et le texte du statut y restent ≥ 4.5:1 */
+  --color-success-soft: var(--kz-success-soft);
+  --color-warning-soft: var(--kz-warning-soft);
+  --color-danger-soft: var(--kz-danger-soft);
+  /* le verre (BRAND.md §6) : bg-glass + border-glass-border, ou l'utilitaire glass qui ajoute le flou */
+  --color-glass: var(--kz-glass-bg);
+  --color-glass-border: var(--kz-glass-border);
 
+  --radius-xs: var(--kz-radius-xs);
   --radius-sm: var(--kz-radius-sm);
   --radius-md: var(--kz-radius-md);
   --radius-lg: var(--kz-radius-lg);
   --radius-xl: var(--kz-radius-xl);
+  --radius-2xl: var(--kz-radius-2xl);
   --radius-full: var(--kz-radius-full);
 
   --shadow-sm: var(--kz-shadow-sm);
   --shadow-md: var(--kz-shadow-md);
   --shadow-lg: var(--kz-shadow-lg);
+  /* la signature (BRAND.md §6) : ombres d'encre multi-couches, et la lueur de la marque sous ce qui agit — composée ici
+     pour que var(--kz-accent) se lise sur l'élément (une section .brand-<id> a sa propre lueur) */
+  --shadow-raised: var(--kz-shadow-raised);
+  --shadow-floating: var(--kz-shadow-floating);
+  --shadow-overlay: var(--kz-shadow-overlay);
+  --shadow-glow: 0 1px 2px color-mix(in oklab, var(--kz-accent) 28%, transparent), 0 6px 16px -6px color-mix(in oklab, var(--kz-accent) 55%, transparent);
+  --shadow-glow-lg: 0 2px 4px color-mix(in oklab, var(--kz-accent) 30%, transparent), 0 12px 28px -8px color-mix(in oklab, var(--kz-accent) 60%, transparent);
+  /* les arêtes : le haut d'une surface surélevée capte la lumière, un puits (champ, piste) se creuse */
+  --inset-shadow-edge: inset 0 1px 0 0 var(--kz-edge-light);
+  --inset-shadow-edge-fill: inset 0 1px 0 0 var(--kz-edge-on-fill);
+  --inset-shadow-well: inset 0 1px 2px 0 var(--kz-edge-well);
 
   --font-sans: var(--kz-font-sans);
   --font-text: var(--kz-font-text);
@@ -76,8 +96,62 @@
   --text-mono-sm: var(--kz-type-mono-sm-size); --text-mono-sm--line-height: var(--kz-type-mono-sm-line-height); --text-mono-sm--font-weight: var(--kz-type-mono-sm-weight); --text-mono-sm--letter-spacing: var(--kz-type-mono-sm-tracking);
 
   --ease-kz: var(--kz-ease);
-  --default-transition-duration: 200ms;
+  --ease-spring: var(--kz-ease-spring);
+  /* 200 ms, et 0 sous prefers-reduced-motion (@krizaka/tokens) : chaque transition-* devient instantanée */
+  --default-transition-duration: var(--kz-duration-base);
   --default-transition-timing-function: var(--kz-ease);
+}
+
+/* ─── Surfaces & matières (BRAND.md §6) : des utilitaires qui lisent les tokens, rien d'autre ─── */
+
+/* Le reflet : le haut d'une surface surélevée, sur sa couleur (bg-surface-2 bg-sheen). */
+@utility bg-sheen {
+  background-image: linear-gradient(to bottom, var(--kz-surface-sheen), transparent 70%);
+}
+/* Le bas d'un aplat (accent, statut) s'assombrit à peine : de la matière, on-accent reste ≥ 4.5:1 (testé). */
+@utility bg-fill-shade {
+  background-image: linear-gradient(to bottom, transparent 35%, var(--kz-fill-shade));
+}
+/* Un halo de la marque qui descend du haut d'une surface (la carte « spotlight ») : 16 %, texte secondaire ≥ 4.5:1. */
+@utility bg-halo {
+  background-image: radial-gradient(120% 90% at 50% -30%, color-mix(in oklab, var(--kz-accent) 16%, transparent), transparent 70%);
+}
+/* Le verre dépoli de ce qui flotte : fond, contour, flou. */
+@utility glass {
+  background-color: var(--kz-glass-bg);
+  border-color: var(--kz-glass-border);
+  -webkit-backdrop-filter: blur(var(--kz-glass-blur)) saturate(1.6);
+  backdrop-filter: blur(var(--kz-glass-blur)) saturate(1.6);
+}
+/* L'anneau de focus signature : net (--kz-ring), décollé de l'élément, dans un halo de la même couleur. L'outline suit
+   les coins (y compris les coins coupés), le halo s'ajoute aux ombres de l'élément sans les effacer. */
+@utility focus-ring {
+  outline: var(--kz-ring-width) solid var(--kz-ring);
+  outline-offset: var(--kz-ring-offset);
+  --tw-ring-shadow: 0 0 0 calc(var(--kz-ring-offset) + var(--kz-ring-width) + var(--kz-ring-halo)) color-mix(in oklab, var(--kz-ring) 22%, transparent);
+  box-shadow: var(--tw-inset-shadow, 0 0 #0000), var(--tw-inset-ring-shadow, 0 0 #0000), var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+/* …posé sur le contour (un champ, une cellule, un élément dans un conteneur qui rogne). */
+@utility focus-ring-inset {
+  outline: var(--kz-ring-width) solid var(--kz-ring);
+  outline-offset: calc(var(--kz-ring-width) * -1);
+  --tw-ring-shadow: 0 0 0 var(--kz-ring-halo) color-mix(in oklab, var(--kz-ring) 22%, transparent);
+  box-shadow: var(--tw-inset-shadow, 0 0 #0000), var(--tw-inset-ring-shadow, 0 0 #0000), var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+/* Le nœud : le cœur des marques, un losange qui marque un état. Éteint, il se tait ; node-lit l'allume dans l'accent. */
+@utility node {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  rotate: 45deg;
+  border-radius: 1.5px;
+  background-color: var(--kz-border-strong);
+  transition: background-color var(--kz-duration-fast) var(--kz-ease), box-shadow var(--kz-duration-base) var(--kz-ease);
+}
+@utility node-lit {
+  background-color: var(--kz-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--kz-accent) 22%, transparent), 0 0 10px color-mix(in oklab, var(--kz-accent) 70%, transparent);
 }
 
 /* Variantes de thème : réservées aux illustrations et aux images. Interdites par lint dans les produits

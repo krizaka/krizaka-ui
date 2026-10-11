@@ -35,15 +35,30 @@
   --kz-brand-gradient-via: hsl(232 24% 7%); /* Section : la teinte intermédiaire */
   --kz-brand-gradient-to: var(--kz-surface-0); /* Section : l'arrivée, un alias de la surface de page — la section suivante y enchaîne, même quand un produit change --kz-surface-0 */
   --kz-success-text: hsl(158 64% 52%); /* Statut succès en texte (petit texte, libellé) : ≥ 4.5:1 sur chaque surface */
+  --kz-success-soft: hsl(160 84% 39% / 0.14); /* Fond teinté success (texte primaire ≥ 4.5:1) */
   --kz-warning-text: hsl(38 92% 55%); /* Statut avertissement en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-warning-soft: hsl(38 92% 50% / 0.14); /* Fond teinté warning (texte primaire ≥ 4.5:1) */
   --kz-danger-text: hsl(0 91% 71%); /* Statut erreur en texte (message d'erreur, compte à rebours urgent) : ≥ 4.5:1 sur chaque surface */
+  --kz-danger-soft: hsl(0 84% 60% / 0.14); /* Fond teinté danger (texte primaire ≥ 4.5:1) */
   --kz-info: var(--kz-accent); /* Statut : information */
   --kz-info-text: var(--kz-accent-text); /* Statut information en texte : l'accent en texte par défaut (≥ 4.5:1) */
 
-  /* Ombres (web uniquement) */
+  /* Ombres (web uniquement) ; raised/floating/overlay : teintées d'encre, multi-couches */
   --kz-shadow-sm: 0 1px 3px hsl(0 0% 0% / 0.12), 0 1px 2px hsl(0 0% 0% / 0.06); /* Champ, bouton au repos */
   --kz-shadow-md: 0 4px 12px hsl(0 0% 0% / 0.15), 0 2px 4px hsl(0 0% 0% / 0.08); /* Menu, popover, carte au survol */
   --kz-shadow-lg: 0 8px 24px hsl(0 0% 0% / 0.18), 0 4px 8px hsl(0 0% 0% / 0.08); /* Dialogue, feuille */
+  --kz-shadow-raised: 0 1px 2px hsl(240 30% 2% / 0.45), 0 2px 6px -2px hsl(240 30% 2% / 0.3); /* Surélevé : bouton, carte */
+  --kz-shadow-floating: 0 2px 4px hsl(240 30% 2% / 0.35), 0 12px 24px -6px hsl(240 30% 2% / 0.45), 0 24px 48px -12px hsl(240 30% 2% / 0.35); /* Flottant : menu, popover, info-bulle */
+  --kz-shadow-overlay: 0 4px 8px hsl(240 30% 2% / 0.4), 0 24px 48px -12px hsl(240 30% 2% / 0.5), 0 48px 96px -24px hsl(240 30% 2% / 0.45); /* Au-dessus : dialogue, toast, palette */
+  --kz-surface-sheen: hsl(0 0% 100% / 0.045); /* Reflet en haut d'une surface (bg-sheen) */
+
+  /* Arêtes : un filet intérieur d'1 px */
+  --kz-edge-light: hsl(0 0% 100% / 0.07); /* Arête lumineuse du haut (inset-shadow-edge) */
+  --kz-edge-well: hsl(240 30% 2% / 0.5); /* Ombre intérieure d'un puits : champ, piste (inset-shadow-well) */
+
+  /* Verre dépoli de ce qui flotte : 88 %, texte secondaire ≥ 4.5:1 sur tout fond */
+  --kz-glass-bg: hsl(240 5% 12% / 0.88); /* Le fond du verre */
+  --kz-glass-border: hsl(0 0% 100% / 0.1); /* Le contour du verre */
 
   /* Typographie — les trois familles de @krizaka/fonts, chacune suivie de son repli aux métriques ajustées */
   --kz-font-text: var(--kz-font-sans); /* Alias de sans : le rôle texte */
@@ -70,11 +85,22 @@ html.light {
   --kz-brand-gradient-from: hsl(214 95% 93%); /* Section : la teinte de départ (haut de section, halo) */
   --kz-brand-gradient-via: hsl(220 60% 97%); /* Section : la teinte intermédiaire */
   --kz-success-text: hsl(160 84% 24%); /* Statut succès en texte (petit texte, libellé) : ≥ 4.5:1 sur chaque surface */
+  --kz-success-soft: hsl(160 84% 39% / 0.1); /* Fond teinté success (texte primaire ≥ 4.5:1) */
   --kz-warning-text: hsl(32 95% 30%); /* Statut avertissement en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-warning-soft: hsl(38 92% 50% / 0.12); /* Fond teinté warning (texte primaire ≥ 4.5:1) */
   --kz-danger-text: hsl(0 72% 40%); /* Statut erreur en texte (message d'erreur, compte à rebours urgent) : ≥ 4.5:1 sur chaque surface */
+  --kz-danger-soft: hsl(0 84% 60% / 0.1); /* Fond teinté danger (texte primaire ≥ 4.5:1) */
   --kz-shadow-sm: 0 1px 3px hsl(240 6% 0% / 0.06), 0 1px 2px hsl(240 6% 0% / 0.04); /* Champ, bouton au repos */
   --kz-shadow-md: 0 4px 12px hsl(240 6% 0% / 0.08), 0 2px 4px hsl(240 6% 0% / 0.04); /* Menu, popover, carte au survol */
   --kz-shadow-lg: 0 8px 24px hsl(240 6% 0% / 0.10), 0 4px 8px hsl(240 6% 0% / 0.05); /* Dialogue, feuille */
+  --kz-shadow-raised: 0 1px 2px hsl(232 25% 25% / 0.08), 0 2px 6px -2px hsl(232 25% 25% / 0.08); /* Surélevé : bouton, carte */
+  --kz-shadow-floating: 0 2px 4px hsl(232 25% 25% / 0.06), 0 12px 24px -6px hsl(232 25% 25% / 0.1), 0 24px 48px -12px hsl(232 25% 25% / 0.1); /* Flottant : menu, popover, info-bulle */
+  --kz-shadow-overlay: 0 4px 8px hsl(232 25% 25% / 0.08), 0 24px 48px -12px hsl(232 25% 25% / 0.14), 0 48px 96px -24px hsl(232 25% 25% / 0.14); /* Au-dessus : dialogue, toast, palette */
+  --kz-surface-sheen: hsl(0 0% 100% / 0.7); /* Reflet en haut d'une surface (bg-sheen) */
+  --kz-edge-light: hsl(0 0% 100% / 0.9); /* Arête lumineuse du haut (inset-shadow-edge) */
+  --kz-edge-well: hsl(232 25% 25% / 0.08); /* Ombre intérieure d'un puits : champ, piste (inset-shadow-well) */
+  --kz-glass-bg: hsl(0 0% 100% / 0.88); /* Le fond du verre */
+  --kz-glass-border: hsl(240 6% 0% / 0.08); /* Le contour du verre */
 }
 
 /* `.theme-light` : les valeurs claires, alias compris, sur un sous-arbre — un aperçu reste clair dans une page
@@ -102,13 +128,24 @@ html.light {
   --kz-brand-gradient-via: hsl(220 60% 97%); /* Section : la teinte intermédiaire */
   --kz-brand-gradient-to: var(--kz-surface-0); /* Section : l'arrivée, un alias de la surface de page — la section suivante y enchaîne, même quand un produit change --kz-surface-0 */
   --kz-success-text: hsl(160 84% 24%); /* Statut succès en texte (petit texte, libellé) : ≥ 4.5:1 sur chaque surface */
+  --kz-success-soft: hsl(160 84% 39% / 0.1); /* Fond teinté success (texte primaire ≥ 4.5:1) */
   --kz-warning-text: hsl(32 95% 30%); /* Statut avertissement en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-warning-soft: hsl(38 92% 50% / 0.12); /* Fond teinté warning (texte primaire ≥ 4.5:1) */
   --kz-danger-text: hsl(0 72% 40%); /* Statut erreur en texte (message d'erreur, compte à rebours urgent) : ≥ 4.5:1 sur chaque surface */
+  --kz-danger-soft: hsl(0 84% 60% / 0.1); /* Fond teinté danger (texte primaire ≥ 4.5:1) */
   --kz-info: var(--kz-accent); /* Statut : information */
   --kz-info-text: var(--kz-accent-text); /* Statut information en texte : l'accent en texte par défaut (≥ 4.5:1) */
   --kz-shadow-sm: 0 1px 3px hsl(240 6% 0% / 0.06), 0 1px 2px hsl(240 6% 0% / 0.04); /* Champ, bouton au repos */
   --kz-shadow-md: 0 4px 12px hsl(240 6% 0% / 0.08), 0 2px 4px hsl(240 6% 0% / 0.04); /* Menu, popover, carte au survol */
   --kz-shadow-lg: 0 8px 24px hsl(240 6% 0% / 0.10), 0 4px 8px hsl(240 6% 0% / 0.05); /* Dialogue, feuille */
+  --kz-shadow-raised: 0 1px 2px hsl(232 25% 25% / 0.08), 0 2px 6px -2px hsl(232 25% 25% / 0.08); /* Surélevé : bouton, carte */
+  --kz-shadow-floating: 0 2px 4px hsl(232 25% 25% / 0.06), 0 12px 24px -6px hsl(232 25% 25% / 0.1), 0 24px 48px -12px hsl(232 25% 25% / 0.1); /* Flottant : menu, popover, info-bulle */
+  --kz-shadow-overlay: 0 4px 8px hsl(232 25% 25% / 0.08), 0 24px 48px -12px hsl(232 25% 25% / 0.14), 0 48px 96px -24px hsl(232 25% 25% / 0.14); /* Au-dessus : dialogue, toast, palette */
+  --kz-surface-sheen: hsl(0 0% 100% / 0.7); /* Reflet en haut d'une surface (bg-sheen) */
+  --kz-edge-light: hsl(0 0% 100% / 0.9); /* Arête lumineuse du haut (inset-shadow-edge) */
+  --kz-edge-well: hsl(232 25% 25% / 0.08); /* Ombre intérieure d'un puits : champ, piste (inset-shadow-well) */
+  --kz-glass-bg: hsl(0 0% 100% / 0.88); /* Le fond du verre */
+  --kz-glass-border: hsl(240 6% 0% / 0.08); /* Le contour du verre */
   --kz-font-text: var(--kz-font-sans); /* Alias de sans : le rôle texte */
 }
 
@@ -127,12 +164,42 @@ html.light {
   --kz-overlay: hsl(0 0% 0% / 0.70); /* fond d'un dialogue */
 
   /* Rayons */
+  --kz-radius-xs: 6px; /* Case à cocher, touche, badge coupé */
   --kz-radius-sm: 8px; /* Champ, puce */
   --kz-radius-md: 12px; /* Bouton, menu */
   --kz-radius-lg: 16px; /* Carte */
   --kz-radius-xl: 20px; /* Dialogue, feuille */
+  --kz-radius-2xl: 28px; /* Feuille, grande surface flottante */
   --kz-radius-full: 9999px; /* Pastille, avatar */
+  --kz-fill-shade: hsl(0 0% 0% / 0.12); /* Bas d'un aplat (bg-fill-shade), on-accent ≥ 4.5:1 */
+
+  /* Arêtes : un filet intérieur d'1 px */
+  --kz-edge-on-fill: hsl(0 0% 100% / 0.22); /* Arête lumineuse sur un aplat */
+
+  /* Verre dépoli de ce qui flotte : 88 %, texte secondaire ≥ 4.5:1 sur tout fond */
+  --kz-glass-blur: 24px; /* Le flou de ce qui passe dessous */
+
+  /* Anneau de focus signature : net, décollé, dans un halo (focus-ring) */
+  --kz-ring-width: 2px; /* Épaisseur */
+  --kz-ring-offset: 2px; /* Écart */
+  --kz-ring-halo: 4px; /* Halo au-delà */
+
+  /* Hauteurs des contrôles ; resserrées sous [data-density=compact] */
+  --kz-control-sm: 32px; /* Petit bouton, onglet segmenté */
+  --kz-control-md: 40px; /* Bouton */
+  --kz-control-lg: 48px; /* Grand bouton */
+  --kz-control-field: 44px; /* Champ de saisie, sélecteur */
+
+  /* La griffe : le coin coupé à 45° (BRAND.md §6.1) ; --kz-cut-shape: round l'éteint pour une app */
+  --kz-cut-shape: bevel; /* La forme des coins signés : bevel (coupé) ou round */
+  --kz-cut-size: 10px; /* La taille de la coupe d'un contrôle */
   --kz-ease: cubic-bezier(0.16, 1, 0.3, 1); /* Courbe par défaut de la signature de mouvement */
+  --kz-ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1); /* Ressort court : pression, bascule, sélection */
+
+  /* Micro-interactions ≤ 200 ms ; 0 ms en mouvement réduit */
+  --kz-duration-instant: 90ms; /* La compression d'un clic */
+  --kz-duration-fast: 150ms; /* Survol, couleur, ombre */
+  --kz-duration-base: 200ms; /* Une bascule, un indicateur qui glisse */
 
   /* Typographie — les trois familles de @krizaka/fonts, chacune suivie de son repli aux métriques ajustées */
   --kz-font-sans: Inter, "Inter Fallback", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* Texte : interface et lecture (Inter) */
@@ -222,4 +289,21 @@ html.light {
   --kz-type-mono-sm-line-height: 1.5;
   --kz-type-mono-sm-weight: 400;
   --kz-type-mono-sm-tracking: 0em;
+}
+
+/* Densité compacte : [data-density="compact"] sur un sous-arbre resserre les contrôles (tableau dense, console). */
+[data-density="compact"] {
+  --kz-control-sm: 28px;
+  --kz-control-md: 34px;
+  --kz-control-lg: 40px;
+  --kz-control-field: 36px;
+}
+
+/* Mouvement réduit : les micro-interactions deviennent instantanées. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --kz-duration-instant: 0ms;
+    --kz-duration-fast: 0ms;
+    --kz-duration-base: 0ms;
+  }
 }

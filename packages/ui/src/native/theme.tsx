@@ -43,16 +43,48 @@ export type Theme = {
   readonly scrim: string;
   readonly scrimStrong: string;
   readonly overlay: string;
+  /** Status tints (a badge, an alert): the primary text reads ≥ 4.5:1 on them. */
+  readonly successSoft: string;
+  readonly warningSoft: string;
+  readonly dangerSoft: string;
+  /** The material (BRAND.md §6): the top of a raised surface catches the light… */
+  readonly surfaceSheen: string;
+  /** …the bottom of a fill is shaded a little… */
+  readonly fillShade: string;
+  /** …and a 1-pt edge of light runs along the top of what is raised (`edgeOnFill` on an accent fill)… */
+  readonly edgeLight: string;
+  readonly edgeOnFill: string;
+  /** …what you fill (a field, a track) is a well. */
+  readonly edgeWell: string;
+  /** Frosted glass: what floats over the screen (a toast, a sheet). */
+  readonly glassBg: string;
+  readonly glassBorder: string;
 };
 
 /** Corner radii, in points. */
-export type Radius = { readonly sm: number; readonly md: number; readonly lg: number; readonly xl: number; readonly full: number };
-/** Motion: the cubic-bezier control points of the platform's ease (`Easing.bezier(...motion.ease)`). */
-export type Motion = { readonly ease: readonly [number, number, number, number] };
+export type Radius = {
+  readonly xs: number;
+  readonly sm: number;
+  readonly md: number;
+  readonly lg: number;
+  readonly xl: number;
+  readonly "2xl": number;
+  readonly full: number;
+};
+/**
+ * Motion: the cubic-bezier control points of the platform's ease (`Easing.bezier(...motion.ease)`), the short spring of
+ * what answers the hand, and the micro-interaction durations in ms — `useTheme()` gives 0 ms when the system reduces motion.
+ */
+export type Motion = {
+  readonly ease: readonly [number, number, number, number];
+  readonly spring: readonly [number, number, number, number];
+  readonly duration: { readonly instant: number; readonly fast: number; readonly base: number };
+};
 
 const themes: Readonly<Record<ThemeName, Theme>> = tokenThemes;
 const radius: Radius = tokenRadius;
 const motion: Motion = tokenMotion;
+const stillMotion: Motion = { ...motion, duration: { instant: 0, fast: 0, base: 0 } };
 
 export type Mode = "dark" | "light" | "system";
 
@@ -110,10 +142,11 @@ export function ThemeProvider({ children, mode: controlled, defaultMode = "syste
   );
   const scheme = resolve(mode, system);
   const override = overrides?.[scheme];
+  const reduce = useReducedMotion();
   const theme = React.useMemo(() => (override ? { ...themes[scheme], ...override } : themes[scheme]), [scheme, override]);
   const value = React.useMemo<ThemeContextValue>(
-    () => ({ mode, setMode, scheme, theme, radius, motion, fonts: fonts ?? {} }),
-    [mode, setMode, scheme, theme, fonts],
+    () => ({ mode, setMode, scheme, theme, radius, motion: reduce ? stillMotion : motion, fonts: fonts ?? {} }),
+    [mode, setMode, scheme, theme, fonts, reduce],
   );
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }

@@ -1,3 +1,38 @@
 {
-  "ease": { "$type": "cubicBezier", "$value": [0.16, 1, 0.3, 1], "$description": "Courbe par défaut de la signature de mouvement" }
+  "ease": {
+    "$type": "cubicBezier",
+    "$value": [
+      0.16,
+      1,
+      0.3,
+      1
+    ],
+    "$description": "Courbe par défaut de la signature de mouvement"
+  },
+  "ease-spring": {
+    "$type": "cubicBezier",
+    "$value": [
+      0.34,
+      1.36,
+      0.64,
+      1
+    ],
+    "$description": "Ressort court : pression, bascule, sélection"
+  },
+  "duration": {
+    "$type": "duration",
+    "$description": "Micro-interactions ≤ 200 ms ; 0 ms en mouvement réduit",
+    "instant": {
+      "$value": "90ms",
+      "$description": "La compression d'un clic"
+    },
+    "fast": {
+      "$value": "150ms",
+      "$description": "Survol, couleur, ombre"
+    },
+    "base": {
+      "$value": "200ms",
+      "$description": "Une bascule, un indicateur qui glisse"
+    }
+  }
 }

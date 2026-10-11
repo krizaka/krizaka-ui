@@ -212,6 +212,16 @@
       }
     }
   },
+  "success-soft": {
+    "$type": "color",
+    "$value": "hsl(160 84% 39% / 0.14)",
+    "$description": "Fond teinté success (texte primaire ≥ 4.5:1)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(160 84% 39% / 0.1)"
+      }
+    }
+  },
   "warning": {
     "$type": "color",
     "$value": "hsl(38 92% 50%)",
@@ -227,6 +237,16 @@
       }
     }
   },
+  "warning-soft": {
+    "$type": "color",
+    "$value": "hsl(38 92% 50% / 0.14)",
+    "$description": "Fond teinté warning (texte primaire ≥ 4.5:1)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(38 92% 50% / 0.12)"
+      }
+    }
+  },
   "danger": {
     "$type": "color",
     "$value": "hsl(0 84% 60%)",
@@ -239,6 +259,16 @@
     "$extensions": {
       "com.krizaka": {
         "light": "hsl(0 72% 40%)"
+      }
+    }
+  },
+  "danger-soft": {
+    "$type": "color",
+    "$value": "hsl(0 84% 60% / 0.14)",
+    "$description": "Fond teinté danger (texte primaire ≥ 4.5:1)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(0 84% 60% / 0.1)"
       }
     }
   },

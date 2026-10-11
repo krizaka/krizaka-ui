@@ -4,12 +4,14 @@ import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { BRAND_ROLES, BRANDS, camel, compile, compileBrands, flatten, load, loadBrands, write } from "../scripts/build.mjs";
-import { contrast, parseHsl, toNative } from "../scripts/color.mjs";
+import { contrast, over, parseHsl, toNative } from "../scripts/color.mjs";
 
 const sources = load(join(import.meta.dirname, "../src/tokens"));
 const brandSources = loadBrands(join(import.meta.dirname, "../src/brands"));
 const { files, tokens } = compile(sources, brandSources);
 const css = files["tokens.css"];
+/** Each brand's raw accent family per theme (aliases resolved). */
+const brandsIndex = compileBrands(tokens, brandSources).values as Record<string, Record<"dark" | "light", Record<string, string>>>;
 
 /** The `--kz-*` declarations of one CSS block, by its exact selector. */
 function declarations(selector: string): Map<string, string> {
@@ -124,6 +126,76 @@ describe("contrast (WCAG 2.x)", () => {
   });
 });
 
+describe("surfaces & matières (BRAND.md §6)", () => {
+  const surfaces = ["--kz-surface-0", "--kz-surface-1", "--kz-surface-2", "--kz-surface-3"];
+  const raw = (name: string, mode: "dark" | "light") => parseHsl(color(name, mode));
+
+  for (const mode of ["dark", "light"] as const) {
+    it(`${mode}: text on glass keeps AA whatever passes under it (surfaces, the page's own text, the accent)`, () => {
+      const glass = raw("--kz-glass-bg", mode);
+      expect(glass.a).toBeGreaterThan(0);
+      expect(glass.a).toBeLessThan(1);
+      for (const under of [...surfaces, "--kz-text-primary", "--kz-accent", "--kz-accent-text"]) {
+        const bg = over(glass, raw(under, mode));
+        expect(contrast(raw("--kz-text-primary", mode), bg), `primary on glass over ${under}`).toBeGreaterThanOrEqual(4.5);
+        expect(contrast(raw("--kz-text-secondary", mode), bg), `secondary on glass over ${under}`).toBeGreaterThanOrEqual(4.5);
+      }
+    });
+
+    it(`${mode}: the primary text reads ≥ 4.5:1 on every status tint over every surface, the status text over surfaces 0–2`, () => {
+      for (const role of ["success", "warning", "danger"]) {
+        for (const s of surfaces) {
+          const bg = over(raw(`--kz-${role}-soft`, mode), raw(s, mode));
+          expect(contrast(raw("--kz-text-primary", mode), bg), `${role}-soft on ${s}`).toBeGreaterThanOrEqual(4.5);
+          // A tinted badge or alert sits on the page, a card or a raised element (0–2); surface-3 is a track or an active chip.
+          if (s !== "--kz-surface-3") expect(contrast(raw(`--kz-${role}-text`, mode), bg), `${role}-text on ${role}-soft over ${s}`).toBeGreaterThanOrEqual(4.5);
+        }
+      }
+    });
+
+    it(`${mode}: the sheen keeps the text roles AA at the top of every raised surface`, () => {
+      for (const s of surfaces) {
+        const top = over(raw("--kz-surface-sheen", mode), raw(s, mode));
+        expect(contrast(raw("--kz-text-primary", mode), top), s).toBeGreaterThanOrEqual(4.5);
+        expect(contrast(raw("--kz-text-secondary", mode), top), s).toBeGreaterThanOrEqual(4.5);
+      }
+    });
+  }
+
+  it("keeps on-accent ≥ 4.5:1 down to the shaded bottom of a fill, in every brand and both themes", () => {
+    for (const id of BRANDS) {
+      for (const mode of ["dark", "light"] as const) {
+        const b = brandsIndex[id][mode];
+        for (const fill of [b.accent, b.accentHover]) {
+          const shaded = over(raw("--kz-fill-shade", mode), parseHsl(fill));
+          expect(contrast(parseHsl(b.onAccent), shaded), `${id} ${mode} ${fill}`).toBeGreaterThanOrEqual(4.5);
+        }
+      }
+    }
+  });
+
+  it("collapses every duration to 0 ms under reduced motion, and keeps them ≤ 200 ms", () => {
+    const durations = tokens.filter((t) => t.type === "duration");
+    expect(durations.map((t) => t.name)).toEqual(["duration-instant", "duration-fast", "duration-base"]);
+    for (const t of durations) expect(Number.parseFloat(String(t.dark))).toBeLessThanOrEqual(200);
+    const reduced = css.slice(css.indexOf("@media (prefers-reduced-motion: reduce)"));
+    for (const t of durations) expect(reduced).toContain(`--kz-${t.name}: 0ms;`);
+  });
+
+  it("tightens the controls under [data-density=compact]", () => {
+    const block = css.slice(css.indexOf('[data-density="compact"] {'));
+    for (const step of ["sm", "md", "lg", "field"]) {
+      const normal = Number.parseFloat(String(invariant.get(`--kz-control-${step}`)));
+      const compact = Number.parseFloat(new RegExp(`--kz-control-${step}: ([\\d.]+)px`).exec(block)?.[1] ?? "NaN");
+      expect(compact, step).toBeLessThan(normal);
+    }
+  });
+
+  it("rejects a compact value on a non-dimension", () => {
+    expect(() => flatten({ x: { c: { $type: "color", $value: "hsl(0 0% 0%)", $extensions: { "com.krizaka": { compact: "1px" } } } } })).toThrow(/compact/);
+  });
+});
+
 describe("colour conversion", () => {
   it("converts hsl() to hex, and to rgba() when translucent", () => {
     expect(toNative(parseHsl("hsl(240 6% 5%)"))).toBe("#0c0c0e");
@@ -163,9 +235,8 @@ describe("generated modules", async () => {
 
   it("native: the same colour roles as tokens.css, in both themes", () => {
     const colorRoles = tokens.filter((t) => t.type === "color").map((t) => camel(t.name));
-    const cssColorRoles = allNames
-      .filter((n) => !/^--kz-(radius|shadow|font|ease|type)/.test(n))
-      .map((n) => camel(n.slice("--kz-".length)));
+    const nonColor = new Set(tokens.filter((t) => t.type !== "color").map((t) => `--kz-${t.name}`));
+    const cssColorRoles = allNames.filter((n) => !nonColor.has(n)).map((n) => camel(n.slice("--kz-".length)));
     expect(Object.keys(native.themes.dark).sort()).toEqual(cssColorRoles.sort());
     expect(Object.keys(native.themes.dark).sort()).toEqual(colorRoles.sort());
     expect(Object.keys(native.themes.light)).toEqual(Object.keys(native.themes.dark));
@@ -176,9 +247,20 @@ describe("generated modules", async () => {
       allNames.filter((n) => n.startsWith(`--kz-${prefix}-`)).map((n) => camel(n.slice(`--kz-${prefix}-`.length))).sort();
     expect(Object.keys(native.radius).sort()).toEqual(keysOf("radius"));
     expect(Object.keys(native.typography).sort()).toEqual(keysOf("font"));
-    expect(native.radius).toEqual({ sm: 8, md: 12, lg: 16, xl: 20, full: 9999 });
+    expect(native.radius).toEqual({ xs: 6, sm: 8, md: 12, lg: 16, xl: 20, "2xl": 28, full: 9999 });
     expect(native.typography).toEqual({ sans: "Inter", text: "Inter", display: "Plus Jakarta Sans", mono: "JetBrains Mono" });
     expect(native.motion.ease).toEqual([0.16, 1, 0.3, 1]);
+    expect(native.motion.spring).toEqual([0.34, 1.36, 0.64, 1]);
+    expect(native.motion.duration).toEqual({ instant: 90, fast: 150, base: 200 });
+  });
+
+  it("native: the shadows as boxShadow strings per theme, and the griffe's size", () => {
+    expect(Object.keys(native.shadows.dark)).toEqual(["sm", "md", "lg", "raised", "floating", "overlay"]);
+    expect(Object.keys(native.shadows.light)).toEqual(Object.keys(native.shadows.dark));
+    for (const v of Object.values(native.shadows.dark) as string[]) expect(v).toMatch(/^(-?[\d.]+(px)? ){4}rgba\([\d,.]+\)(, (-?[\d.]+(px)? ){4}rgba\([\d,.]+\))*$/);
+    expect(native.shadows.light.raised).not.toBe(native.shadows.dark.raised);
+    expect(native.cut).toEqual({ size: 10 });
+    expect(files["native.d.ts"]).toContain("export declare const shadows");
   });
 
   it("native: resolved hex and rgba values", () => {

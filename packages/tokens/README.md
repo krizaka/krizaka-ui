@@ -118,6 +118,23 @@ under every product override.
 | `--kz-font-display` | `fontDisplay` | Headings; a product theme may override it | → `font-sans` | → `font-sans` |
 | `--kz-font-mono` | `fontMono` | Code, aligned amounts | `"JetBrains Mono", ui-monospace, monospace` | = dark |
 
+### The material (BRAND.md §6)
+
+| Token | Key | Usage | Dark | Light |
+| :-- | :-- | :-- | :-- | :-- |
+| `--kz-radius-xs`, `--kz-radius-2xl` | `radiusXs`, `radius2xl` | Checkbox, key, cut badge · sheet | `6px`, `28px` | = dark |
+| `--kz-shadow-raised` · `-floating` · `-overlay` | `shadowRaised`… | Raised (button, card) · floating (menu, tooltip) · over the page (dialog, toast) — ink-tinted, 2–3 layers; native: `shadows.<theme>.raised` (`boxShadow`) | `hsl(240 30% 2% / …)` | `hsl(232 25% 25% / …)` |
+| `--kz-surface-sheen` | `surfaceSheen` | The top of a raised surface (`bg-sheen`) | `hsl(0 0% 100% / 0.045)` | `hsl(0 0% 100% / 0.7)` |
+| `--kz-fill-shade` | `fillShade` | The bottom of an accent or status fill (`bg-fill-shade`) | `hsl(0 0% 0% / 0.12)` | = dark |
+| `--kz-edge-light` · `-on-fill` · `-well` | `edgeLight`… | The 1-px top edge of a raised surface · of a fill · the inner shade of a well | `/ 0.07` · `/ 0.22` · ink `/ 0.5` | `/ 0.9` · = · ink `/ 0.08` |
+| `--kz-glass-bg` · `-border` · `-blur` | `glassBg`… | Frosted glass: menus, popovers, dialogs, toasts (88 %: text AA over anything) | `hsl(240 5% 12% / 0.88)` | `hsl(0 0% 100% / 0.88)` |
+| `--kz-success-soft` · `warning-soft` · `danger-soft` | `successSoft`… | Status tints: badges, alerts, rows | `/ 0.14` | `/ 0.10–0.12` |
+| `--kz-ring-width` · `-offset` · `-halo` | `ringWidth`… | The signature focus ring (`focus-ring`) | `2px` · `2px` · `4px` | = dark |
+| `--kz-control-sm` · `md` · `lg` · `field` | `controlSm`… | Control heights; `[data-density="compact"]` tightens them | `32` · `40` · `48` · `44px` | compact `28` · `34` · `40` · `36px` |
+| `--kz-cut-shape` · `--kz-cut-size` | `cutShape`, `cutSize` | **The griffe**: the 45° cut corner (`corner-shape`); `round` turns it off; native: `cut.size` | `bevel` · `10px` | = dark |
+| `--kz-ease-spring` | `easeSpring` | A short spring: a press, a toggle, a selection; native `motion.spring` | `cubic-bezier(0.34, 1.36, 0.64, 1)` | = dark |
+| `--kz-duration-instant` · `fast` · `base` | `durationFast`… | Micro-interactions ≤ 200 ms; **0 ms under `prefers-reduced-motion`**; native `motion.duration` | `90` · `150` · `200ms` | = dark |
+
 Contrast is **tested**, not assumed: `pnpm turbo run check` fails if `text-primary` / `text-secondary` drop under 4.5:1 or
 `text-muted` under 3:1 on any surface, or `on-accent` under 4.5:1 on the accent, in either theme (WCAG 2.x).
 No accent can carry white text at 4.5:1 *and* be read at 4.5:1 as text on `surface-0`: the accent favours the text

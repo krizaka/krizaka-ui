@@ -1,0 +1,141 @@
+{
+  "$description": "Surfaces & matières — la signature visuelle Krizaka (BRAND.md §6) : la lumière vient d'en haut. Ce qui se presse s'élève (reflet, arête lumineuse, ombre d'encre), ce qui se remplit se creuse (puits), ce qui flotte est en verre ; l'accent ne s'allume que sur ce qui agit.",
+  "surface-sheen": {
+    "$type": "color",
+    "$value": "hsl(0 0% 100% / 0.045)",
+    "$description": "Reflet en haut d'une surface (bg-sheen)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(0 0% 100% / 0.7)"
+      }
+    }
+  },
+  "fill-shade": {
+    "$type": "color",
+    "$value": "hsl(0 0% 0% / 0.12)",
+    "$description": "Bas d'un aplat (bg-fill-shade), on-accent ≥ 4.5:1"
+  },
+  "edge": {
+    "$type": "color",
+    "$description": "Arêtes : un filet intérieur d'1 px",
+    "light": {
+      "$value": "hsl(0 0% 100% / 0.07)",
+      "$description": "Arête lumineuse du haut (inset-shadow-edge)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(0 0% 100% / 0.9)"
+        }
+      }
+    },
+    "on-fill": {
+      "$value": "hsl(0 0% 100% / 0.22)",
+      "$description": "Arête lumineuse sur un aplat"
+    },
+    "well": {
+      "$value": "hsl(240 30% 2% / 0.5)",
+      "$description": "Ombre intérieure d'un puits : champ, piste (inset-shadow-well)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(232 25% 25% / 0.08)"
+        }
+      }
+    }
+  },
+  "glass": {
+    "$description": "Verre dépoli de ce qui flotte : 88 %, texte secondaire ≥ 4.5:1 sur tout fond",
+    "bg": {
+      "$type": "color",
+      "$value": "hsl(240 5% 12% / 0.88)",
+      "$description": "Le fond du verre",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(0 0% 100% / 0.88)"
+        }
+      }
+    },
+    "border": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100% / 0.1)",
+      "$description": "Le contour du verre",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(240 6% 0% / 0.08)"
+        }
+      }
+    },
+    "blur": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$description": "Le flou de ce qui passe dessous"
+    }
+  },
+  "ring": {
+    "$type": "dimension",
+    "$description": "Anneau de focus signature : net, décollé, dans un halo (focus-ring)",
+    "width": {
+      "$value": "2px",
+      "$description": "Épaisseur"
+    },
+    "offset": {
+      "$value": "2px",
+      "$description": "Écart"
+    },
+    "halo": {
+      "$value": "4px",
+      "$description": "Halo au-delà"
+    }
+  },
+  "control": {
+    "$type": "dimension",
+    "$description": "Hauteurs des contrôles ; resserrées sous [data-density=compact]",
+    "sm": {
+      "$value": "32px",
+      "$description": "Petit bouton, onglet segmenté",
+      "$extensions": {
+        "com.krizaka": {
+          "compact": "28px"
+        }
+      }
+    },
+    "md": {
+      "$value": "40px",
+      "$description": "Bouton",
+      "$extensions": {
+        "com.krizaka": {
+          "compact": "34px"
+        }
+      }
+    },
+    "lg": {
+      "$value": "48px",
+      "$description": "Grand bouton",
+      "$extensions": {
+        "com.krizaka": {
+          "compact": "40px"
+        }
+      }
+    },
+    "field": {
+      "$value": "44px",
+      "$description": "Champ de saisie, sélecteur",
+      "$extensions": {
+        "com.krizaka": {
+          "compact": "36px"
+        }
+      }
+    }
+  },
+  "cut": {
+    "$description": "La griffe : le coin coupé à 45° (BRAND.md §6.1) ; --kz-cut-shape: round l'éteint pour une app",
+    "shape": {
+      "$type": "cornerShape",
+      "$value": "bevel",
+      "$description": "La forme des coins signés : bevel (coupé) ou round"
+    },
+    "size": {
+      "$type": "dimension",
+      "$value": "10px",
+      "$description": "La taille de la coupe d'un contrôle"
+    }
+  }
+}
