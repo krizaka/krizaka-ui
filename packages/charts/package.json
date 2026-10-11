@@ -1,0 +1,522 @@
+{
+  "name": "@krizaka/charts",
+  "version": "0.0.0",
+  "description": "Krizaka's data visualisation: typed, declarative React charts (line, area, bar, pie, radar, heatmap, calendar, sankey, funnel, gauge, sparkline, candlestick, treemap, scatter, geo map, 3D globe) on the --kz-* tokens and the brand palettes — an accessible data table, a written summary and keyboard navigation in every chart, SSR without layout shift, and React Native for the simple types.",
+  "keywords": [
+    "krizaka",
+    "charts",
+    "data-visualization",
+    "dataviz",
+    "echarts",
+    "svg",
+    "react",
+    "react-native",
+    "accessibility",
+    "design-system",
+    "sparkline",
+    "heatmap",
+    "sankey",
+    "globe"
+  ],
+  "homepage": "https://www.krizaka.com/docs/ui",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/charts"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./provider": {
+      "types": "./dist/provider.d.ts",
+      "import": "./dist/provider.js"
+    },
+    "./line": {
+      "types": "./dist/line.d.ts",
+      "import": "./dist/line.js"
+    },
+    "./bar": {
+      "types": "./dist/bar.d.ts",
+      "import": "./dist/bar.js"
+    },
+    "./pie": {
+      "types": "./dist/pie.d.ts",
+      "import": "./dist/pie.js"
+    },
+    "./gauge": {
+      "types": "./dist/gauge.d.ts",
+      "import": "./dist/gauge.js"
+    },
+    "./sparkline": {
+      "types": "./dist/sparkline.d.ts",
+      "import": "./dist/sparkline.js"
+    },
+    "./geo": {
+      "types": "./dist/geo.d.ts",
+      "import": "./dist/geo.js"
+    },
+    "./globe": {
+      "types": "./dist/globe.d.ts",
+      "import": "./dist/globe.js"
+    },
+    "./radar": {
+      "types": "./dist/radar.d.ts",
+      "import": "./dist/radar.js"
+    },
+    "./heatmap": {
+      "types": "./dist/heatmap.d.ts",
+      "import": "./dist/heatmap.js"
+    },
+    "./sankey": {
+      "types": "./dist/sankey.d.ts",
+      "import": "./dist/sankey.js"
+    },
+    "./funnel": {
+      "types": "./dist/funnel.d.ts",
+      "import": "./dist/funnel.js"
+    },
+    "./candlestick": {
+      "types": "./dist/candlestick.d.ts",
+      "import": "./dist/candlestick.js"
+    },
+    "./treemap": {
+      "types": "./dist/treemap.d.ts",
+      "import": "./dist/treemap.js"
+    },
+    "./scatter": {
+      "types": "./dist/scatter.d.ts",
+      "import": "./dist/scatter.js"
+    },
+    "./chart": {
+      "types": "./dist/chart.d.ts",
+      "import": "./dist/chart.js"
+    },
+    "./native": {
+      "types": "./dist/native.d.ts",
+      "import": "./dist/native.js"
+    },
+    "./registry/examples/*": {
+      "types": "./registry/examples/*.d.ts",
+      "import": "./registry/examples/*.js"
+    },
+    "./registry/*": "./registry/*.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "registry/*.json",
+    "registry/examples/**/*.tsx",
+    "registry/examples/**/*.js",
+    "registry/examples/**/*.d.ts",
+    "registry/examples/**/*.png",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/examples',{recursive:true}))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/examples/'+f)\" && tsup && node scripts/build-registry.mjs",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run && jest",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only && node scripts/consumer.mjs && node scripts/dist-check.mjs",
+    "world": "node scripts/world.mjs",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "@krizaka/intl": "workspace:^",
+    "d3-geo": "^3.1.1",
+    "echarts": "^6.1.0",
+    "topojson-client": "^3.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19",
+    "react-native": ">=0.76",
+    "react-native-svg": ">=15"
+  },
+  "peerDependenciesMeta": {
+    "react-dom": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    },
+    "react-native-svg": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@babel/core": "^7.29.7",
+    "@jest/globals": "30.4.1",
+    "@krizaka/config": "workspace:*",
+    "@krizaka/tokens": "workspace:*",
+    "@react-native/babel-preset": "0.86.3",
+    "@react-native/jest-preset": "0.86.3",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@storybook/react-vite": "10.6.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/react-native": "^14.1.0",
+    "@testing-library/user-event": "^14.6.7",
+    "@types/d3-geo": "^3.1.0",
+    "@types/geojson": "^7946.0.16",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/topojson-client": "^3.1.5",
+    "@types/topojson-specification": "^1.0.5",
+    "axe-core": "^4.14.0",
+    "babel-jest": "30.4.1",
+    "eslint": "^9.39.0",
+    "happy-dom": "^20.0.0",
+    "i18n-iso-countries": "^7.14.0",
+    "jest": "30.4.2",
+    "jest-environment-node": "30.4.1",
+    "publint": "^0.3.25",
+    "react": "^19.2.0",
+    "react-docgen-typescript": "^2.4.0",
+    "react-dom": "^19.2.0",
+    "react-native": "^0.86.3",
+    "react-native-svg": "^15.15.4",
+    "react-native-web": "0.21.2",
+    "size-limit": "^14.2.0",
+    "storybook": "10.6.1",
+    "test-renderer": "^1.3.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11",
+    "world-atlas": "^2.0.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": "./line",
+      "path": "dist/line.js",
+      "limit": "13.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./bar",
+      "path": "dist/bar.js",
+      "limit": "13.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./pie",
+      "path": "dist/pie.js",
+      "limit": "9.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./gauge",
+      "path": "dist/gauge.js",
+      "limit": "8.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./sparkline",
+      "path": "dist/sparkline.js",
+      "limit": "10.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./geo (with the world, 38 kB, loaded when a map is drawn)",
+      "path": "dist/geo.js",
+      "limit": "57 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./globe (with the world, loaded when drawn)",
+      "path": "dist/globe.js",
+      "limit": "58 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./radar (with its ECharts engine, loaded when the chart nears the screen)",
+      "path": "dist/radar.js",
+      "limit": "175 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./heatmap (with its ECharts engine, loaded when the chart nears the screen)",
+      "path": "dist/heatmap.js",
+      "limit": "200 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./sankey (with its ECharts engine, loaded when the chart nears the screen)",
+      "path": "dist/sankey.js",
+      "limit": "176 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./funnel (with its ECharts engine, loaded when the chart nears the screen)",
+      "path": "dist/funnel.js",
+      "limit": "166 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./candlestick (with its ECharts engine, loaded when the chart nears the screen)",
+      "path": "dist/candlestick.js",
+      "limit": "212 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./treemap (with its ECharts engine, loaded when the chart nears the screen)",
+      "path": "dist/treemap.js",
+      "limit": "176 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./scatter (with its ECharts engine, loaded when the chart nears the screen)",
+      "path": "dist/scatter.js",
+      "limit": "205 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./chart (with all of ECharts by default: pass `modules`)",
+      "path": "dist/chart.js",
+      "limit": "392 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./provider",
+      "path": "dist/provider.js",
+      "limit": "2.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": ". (everything, lazy parts included)",
+      "path": "dist/index.js",
+      "limit": "476 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./native (bundled by Metro: a regression guard)",
+      "path": "dist/native.js",
+      "limit": "10.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./radar before the engine (what the page pays at load)",
+      "path": "dist/radar.js",
+      "limit": "15 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg",
+        "echarts",
+        "zrender"
+      ]
+    },
+    {
+      "name": "./heatmap before the engine (what the page pays at load)",
+      "path": "dist/heatmap.js",
+      "limit": "15 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg",
+        "echarts",
+        "zrender"
+      ]
+    },
+    {
+      "name": "./sankey before the engine (what the page pays at load)",
+      "path": "dist/sankey.js",
+      "limit": "15 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg",
+        "echarts",
+        "zrender"
+      ]
+    },
+    {
+      "name": "./funnel before the engine (what the page pays at load)",
+      "path": "dist/funnel.js",
+      "limit": "15 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg",
+        "echarts",
+        "zrender"
+      ]
+    },
+    {
+      "name": "./candlestick before the engine (what the page pays at load)",
+      "path": "dist/candlestick.js",
+      "limit": "15 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg",
+        "echarts",
+        "zrender"
+      ]
+    },
+    {
+      "name": "./treemap before the engine (what the page pays at load)",
+      "path": "dist/treemap.js",
+      "limit": "15 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg",
+        "echarts",
+        "zrender"
+      ]
+    },
+    {
+      "name": "./scatter before the engine (what the page pays at load)",
+      "path": "dist/scatter.js",
+      "limit": "15 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg",
+        "echarts",
+        "zrender"
+      ]
+    }
+  ]
+}

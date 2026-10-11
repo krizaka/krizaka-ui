@@ -1,0 +1,15 @@
+{
+  "extends": "@krizaka/config/tsconfig/react-library.json",
+  "compilerOptions": {
+    "types": ["node", "vitest/globals"],
+    "resolveJsonModule": true,
+    // The examples of the registry import the charts as a product does (`@krizaka/charts/line`): resolved to the
+    // sources here, in Vitest and in Storybook, so an example never waits for a build.
+    "paths": {
+      "@krizaka/charts": ["./src/index.ts"],
+      "@krizaka/charts/native": ["./src/native/index.ts"],
+      "@krizaka/charts/*": ["./src/*/index.ts"]
+    }
+  },
+  "include": ["src", "registry/examples/**/*.tsx", "tsup.config.ts", "vitest.config.ts"]
+}
