@@ -15,6 +15,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ tailwind/             # @krizaka/tailwind — the Tailwind v4 preset: tokens as utilities, variants, easing
 │  ├─ ui/                   # @krizaka/ui — the primitives, the marks, the motion signature (web, /native)
 │  ├─ icons/                # @krizaka/icons — the signature icons (React, /native), drawn in code
+│  ├─ charts/               # @krizaka/charts — data visualisation: SVG charts + ECharts on demand, accessible, /native
 │  ├─ intl/                 # @krizaka/intl — money, numbers, dates, plurals on Intl (zero dependency, no UI)
 │  ├─ i18n/                 # @krizaka/i18n — typed messages, format, <Rich>, React provider, the krizaka-i18n CLI
 │  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
@@ -82,7 +83,7 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 
 Each package must be declared once on npmjs.com as trusted publisher: repository `krizaka/krizaka-ui`, workflow
 `release.yml`. `tokens`, `tailwind` and `ui` form one `fixed` group in `.changeset/config.json` (one shared
-version); `config`, `intl`, `i18n` and `icons` version on their own. Pre-releases (`pnpm changeset pre enter <tag>`)
+version); `config`, `intl`, `i18n`, `icons` and `charts` version on their own. Pre-releases (`pnpm changeset pre enter <tag>`)
 are for a coming major only; `main` is out of pre-release since 2.0.0.
 
 ## 5. Maintenance commands

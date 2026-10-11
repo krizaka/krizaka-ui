@@ -30,10 +30,14 @@ const config: TestRunnerConfig = {
   async postVisit(page, context) {
     const story = await getStoryContext(page, context);
     const viewport = story.parameters?.capture === "viewport";
+    // @krizaka/charts: an ECharts engine and the world's countries load lazily (`data-pending` until drawn).
+    await page.waitForFunction(() => !document.querySelector("[data-pending]"), undefined, { timeout: 15_000 });
     for (const theme of THEMES) {
       await page.evaluate((light) => document.documentElement.classList.toggle("light", light), theme === "light");
       // The native frame follows `html.light` through a MutationObserver and a React state: let it re-render.
       await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+      // A canvas or ECharts chart re-reads its colours after a theme switch (a MutationObserver, then its own frame).
+      if (await page.locator("[data-kzc] .kzc-host").count()) await page.waitForTimeout(250);
       await waitForPageReady(page);
       if (story.parameters?.a11y?.test !== "off" && !story.parameters?.a11y?.disable) {
         // A page-level audit: "region" (all content inside landmarks) belongs to the app's layout, not to a portal.

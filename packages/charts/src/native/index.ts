@@ -1,0 +1,11 @@
+/**
+ * @krizaka/charts/native — the simple charts for React Native, with the web's names and props: LineChart, AreaChart,
+ * BarChart, PieChart, DonutChart, Gauge, Sparkline (react-native-svg, the same geometry as the web). The plot is one
+ * `adjustable` element: the screen reader hears the title and the written summary, and swipes through the points.
+ * Radar, heatmaps, sankey, funnel, candlestick, treemap, scatter, the map and the globe are web only.
+ */
+export { type ChartLabels, type ChartLabelsInput,DEFAULT_LABELS } from "../core/labels";
+export type * from "../core/types";
+export { AreaChart, BarChart, LineChart, type NativeAreaChartProps, type NativeBarChartProps, type NativeCartesianProps, type NativeLineChartProps } from "./cartesian";
+export { ChartsProvider, type ChartTheme, type NativeChartsSettings, type NativeFrameProps } from "./frame";
+export { DonutChart, Gauge, type NativeGaugeProps, type NativePieChartProps, type NativeSparklineProps, PieChart, Sparkline } from "./round";
