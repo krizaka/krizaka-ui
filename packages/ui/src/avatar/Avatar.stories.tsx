@@ -2,7 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import FallbackExample from "../../registry/examples/avatar/fallback";
 import GroupExample from "../../registry/examples/avatar/group";
+import PresenceRingExample from "../../registry/examples/avatar/presence-ring";
 import SizesExample from "../../registry/examples/avatar/sizes";
+import StatusExample from "../../registry/examples/avatar/status";
 import WithImageExample from "../../registry/examples/avatar/with-image";
 import { Avatar } from "./avatar";
 
@@ -22,3 +24,5 @@ export const WithImage: Story = { render: () => <WithImageExample /> };
 export const Fallback: Story = { render: () => <FallbackExample /> };
 export const Sizes: Story = { render: () => <SizesExample /> };
 export const Group: Story = { render: () => <GroupExample /> };
+export const Status: Story = { render: () => <StatusExample /> };
+export const PresenceRing: Story = { render: () => <PresenceRingExample /> };

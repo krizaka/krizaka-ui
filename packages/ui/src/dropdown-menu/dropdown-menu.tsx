@@ -1,26 +1,28 @@
 // Client (a portal). Radix does the roving focus, the arrows, Home/End, typeahead, Escape and the focus return.
 import { DropdownMenu as MenuPrimitive } from "radix-ui";
 import type * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { cn } from "../cn";
-import { floating } from "../floating";
+import { floating, rail } from "../floating";
+import { tv } from "../tv";
 
 export const menu = tv({
   slots: {
     content: cn(floating, "min-w-48 max-h-(--radix-dropdown-menu-content-available-height) overflow-y-auto p-1 origin-(--radix-dropdown-menu-content-transform-origin)"),
-    item:
-      "relative flex cursor-pointer select-none items-center gap-2 rounded-md px-2.5 py-2 text-sm text-fg outline-hidden transition-colors " +
-      "data-highlighted:bg-surface-3 data-disabled:pointer-events-none data-disabled:opacity-40 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:shrink-0 " +
-      "[&>svg]:text-fg-secondary",
+    item: cn(
+      rail,
+      "flex cursor-pointer select-none items-center gap-2 rounded-lg px-2.5 py-2 text-sm text-fg outline-hidden transition-colors duration-(--kz-duration-fast) " +
+      "data-highlighted:bg-accent-soft data-highlighted:before:opacity-100 data-disabled:pointer-events-none data-disabled:opacity-40 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:shrink-0 " +
+      "[&>svg]:text-fg-secondary data-highlighted:[&>svg]:text-fg",
+    ),
     indicator: "ml-auto flex h-4 w-4 items-center justify-center text-fg-accent",
-    label: "px-2.5 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
+    label: "px-2.5 pb-1 pt-2 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-fg-secondary",
     separator: "-mx-1 my-1 h-px bg-border-subtle",
   },
   variants: {
     // The label reads in the danger text role (≥ 4.5:1 on the menu surface, both themes); the icon and the highlight
     // carry the danger fill.
-    tone: { default: {}, danger: { item: "text-fg-danger data-highlighted:bg-danger/15 [&>svg]:text-danger" } },
+    tone: { default: {}, danger: { item: "text-fg-danger before:bg-danger data-highlighted:bg-danger-soft [&>svg]:text-danger data-highlighted:[&>svg]:text-danger" } },
   },
   defaultVariants: { tone: "default" },
 });

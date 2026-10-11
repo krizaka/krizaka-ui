@@ -2,7 +2,7 @@ import type { ComponentMeta } from "./meta";
 
 export const meta = {
   title: "cn",
-  summary: "Joins class names and resolves Tailwind conflicts: the last class wins.",
+  summary: "Joins class names and resolves Tailwind conflicts: the last class wins — and knows the Krizaka utilities (`twMergeConfig`: `bg-sheen` is a background image, `shadow-raised` a shadow).",
   status: "stable",
   category: "foundations",
   platforms: "web",
@@ -15,7 +15,7 @@ export const meta = {
   accessibility: { keyboard: [], notes: ["No effect on accessibility: it only computes a class string."] },
   related: ["slot", "theme"],
   web: {
-    imports: ["cn"],
+    imports: ["cn", "twMergeConfig"],
     examples: [{ name: "merge", title: "Merge", description: "The last class wins: `px-4` replaces `px-3`, the selected colours replace the idle ones." }],
   },
 } satisfies ComponentMeta;

@@ -1,11 +1,12 @@
 // Server-safe. What a list, a search or a panel says when it has nothing to show — every word is a prop.
 import type * as React from "react";
-import { tv } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const emptyState = tv({
   slots: {
     root: "flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-border-default px-6 py-10 text-center",
-    icon: "flex h-12 w-12 items-center justify-center rounded-full bg-surface-2 text-fg-secondary [&>svg]:h-6 [&>svg]:w-6",
+    icon: "flex h-12 w-12 items-center justify-center rounded-full bg-surface-2 bg-sheen text-fg-secondary shadow-raised inset-shadow-edge [&>svg]:h-6 [&>svg]:w-6",
     title: "text-sm font-semibold text-fg",
     description: "max-w-sm text-sm text-fg-secondary",
     action: "mt-1 flex flex-wrap items-center justify-center gap-2",

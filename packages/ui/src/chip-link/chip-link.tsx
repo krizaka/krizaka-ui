@@ -3,12 +3,14 @@
 // `chipVariants` styles anything else (a router link you render yourself).
 import { Slot } from "radix-ui";
 import type * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const chipVariants = tv({
   base:
     "inline-flex shrink-0 select-none items-center justify-center gap-1.5 whitespace-nowrap rounded-full border font-semibold no-underline transition-colors " +
-    "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+    "focus-visible:focus-ring",
   variants: {
     size: { sm: "h-7 px-3 text-xs", md: "h-9 px-3.5 text-xs" },
     selected: {

@@ -1,6 +1,7 @@
 // Server-safe. The top of a page: an optional breadcrumb, the title (h1), a description and the page's actions.
 import type * as React from "react";
-import { tv } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const pageHeader = tv({
   slots: {

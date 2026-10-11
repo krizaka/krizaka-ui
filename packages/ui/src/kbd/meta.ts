@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Kbd",
-  summary: "A key or a keyboard shortcut, set as keys: one `Kbd` per key.",
+  summary: "A key or a keyboard shortcut, set as raised keys lit from above: one `Kbd` per key.",
   status: "stable",
   category: "data-display",
   platforms: "web",

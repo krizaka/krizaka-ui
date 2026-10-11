@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Dropdown menu",
-  summary: "A menu of actions opened from a trigger: items with icons, checkbox items, labels, separators, a destructive item.",
+  summary: "A menu of actions opened from a trigger, on frosted glass: items with icons, checkbox items, labels, separators, a destructive item — the highlighted item lit by a rail of the brand.",
   status: "stable",
   category: "overlays",
   platforms: "web",

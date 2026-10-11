@@ -2,29 +2,29 @@
 // a clear button, a global shortcut that focuses it (⌘K on Apple devices, Ctrl+K elsewhere, shown as `Kbd`), and
 // optional suggestions through the shared combobox engine. `onSearch` is debounced; Enter submits.
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { CloseGlyph, SearchGlyph } from "../glyphs";
 import { Kbd } from "../kbd";
 import { useListbox } from "../listbox";
 import { useControllable, useDebouncedCallback } from "../media";
+import { tv } from "../tv";
 
 export const searchField = tv({
   slots: {
     root: "relative w-full",
     control:
-      "flex h-11 w-full items-center gap-2 rounded-lg border border-border-default bg-surface-2 pl-3 pr-1.5 text-sm text-fg " +
-      "transition-[border-color,box-shadow] focus-within:border-accent focus-within:ring-2 focus-within:ring-ring",
+      "flex h-(--kz-control-field) w-full items-center gap-2 rounded-lg border border-border-default bg-surface-2 pl-3 pr-1.5 text-sm text-fg " +
+      "inset-shadow-well transition-[border-color,box-shadow] duration-(--kz-duration-fast) hover:border-border-strong focus-within:border-ring focus-within:focus-ring-inset focus-within:[corner-top-right-shape:var(--kz-cut-shape)]",
     icon: "h-4 w-4 shrink-0 text-fg-secondary",
     input:
       "h-full min-w-0 flex-1 bg-transparent text-sm text-fg outline-hidden placeholder:text-fg-muted " +
       "[&::-webkit-search-cancel-button]:appearance-none",
     clear:
       "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-fg-secondary hover:bg-surface-3 hover:text-fg " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "focus-visible:focus-ring",
     shortcut: "hidden shrink-0 items-center gap-0.5 pr-1 sm:flex",
-    list: "absolute inset-x-0 top-full z-50 mt-1 max-h-72 overflow-y-auto rounded-lg border border-border-default bg-surface-2 p-1 shadow-lg",
-    option: "flex cursor-pointer select-none items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-fg data-[active]:bg-surface-3",
+    list: "absolute inset-x-0 top-full z-50 mt-1 max-h-72 overflow-y-auto rounded-xl border glass p-1 shadow-floating inset-shadow-edge",
+    option: "flex cursor-pointer select-none items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-fg data-[active]:bg-accent-soft",
     group: "px-2.5 pb-1 pt-2 text-[11px] font-semibold uppercase text-fg-muted",
   },
   variants: {

@@ -85,3 +85,14 @@ describe("DataTable", () => {
     expect(screen.getAllByRole("cell")[0]?.getAttribute("data-card")).toBe("title");
   });
 });
+
+describe("DataTable — sticky header", () => {
+  it("scrolls its body past maxHeight in a region the keyboard reaches, the header on top", async () => {
+    const { container } = render(<DataTable caption="Runs" rows={rows} columns={columns} getRowId={(r) => r.id} layout="table" maxHeight={120} />);
+    const region = screen.getByRole("region", { name: "Runs" });
+    expect(region.getAttribute("tabindex")).toBe("0");
+    expect(region.style.maxHeight).toBe("120px");
+    expect(screen.getAllByRole("columnheader")[0].className).toContain("sticky");
+    expect(await axeViolations(container)).toEqual([]);
+  });
+});

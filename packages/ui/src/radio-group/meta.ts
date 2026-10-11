@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Radio group",
-  summary: "One choice among a few options, all visible: dots with their words, or whole cards.",
+  summary: "One choice among a few options, all visible: radios whose node lights when chosen, with their words, or whole cards.",
   status: "beta",
   category: "forms",
   platforms: "web",

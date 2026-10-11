@@ -11,5 +11,5 @@
       "@krizaka/ui/*": ["./src/*/index.ts"]
     }
   },
-  "include": ["src", "registry/examples/**/*.tsx"]
+  "include": ["src", "registry/examples/**/*.tsx", "registry/showcase/*.tsx"]
 }

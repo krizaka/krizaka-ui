@@ -2,17 +2,21 @@
 // form. It sits in a `Field` like the other controls: `<Field.Label htmlFor={id}>`, `invalid`, aria-describedby.
 import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import type * as React from "react";
-import { tv } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const checkbox = tv({
   slots: {
     root:
-      "peer inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-border-strong bg-surface-1 text-on-accent transition-colors " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0 " +
+      // A small well; checked, it fills with the accent, lit from above, on the brand's glow — and springs a little.
+      "peer inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-(--kz-radius-xs) border border-border-strong bg-surface-1 text-on-accent inset-shadow-well " +
+      "transition-[background-color,border-color,box-shadow,scale] duration-(--kz-duration-fast) ease-spring active:scale-90 " +
+      "focus-visible:focus-ring " +
       "hover:border-accent disabled:cursor-not-allowed disabled:opacity-40 " +
-      "data-[state=checked]:border-accent data-[state=checked]:bg-accent data-[state=indeterminate]:border-accent data-[state=indeterminate]:bg-accent " +
+      "data-[state=checked]:border-accent data-[state=checked]:bg-accent data-[state=checked]:shadow-glow data-[state=checked]:inset-shadow-edge-fill " +
+      "data-[state=indeterminate]:border-accent data-[state=indeterminate]:bg-accent data-[state=indeterminate]:shadow-glow data-[state=indeterminate]:inset-shadow-edge-fill " +
       "aria-invalid:border-danger aria-invalid:ring-danger/30",
-    indicator: "flex items-center justify-center",
+    indicator: "flex items-center justify-center motion-safe:animate-[kz-check-in_var(--kz-duration-base)_var(--kz-ease-spring)]",
     label: "flex cursor-pointer items-start gap-3 text-sm text-fg has-disabled:cursor-not-allowed has-disabled:opacity-60",
   },
 });

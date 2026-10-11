@@ -42,3 +42,17 @@ describe("Tooltip", () => {
     }
   });
 });
+
+describe("Tooltip — rich", () => {
+  it("shows a title, the line under it and the shortcut as keys", async () => {
+    render(
+      <Tooltip title="Command palette" content="Search pages and actions." shortcut={["⌘", "K"]} defaultOpen>
+        <button type="button">Open</button>
+      </Tooltip>,
+    );
+    const tip = await screen.findAllByText("Command palette");
+    expect(tip.length).toBeGreaterThan(0);
+    const keys = document.querySelectorAll("kbd");
+    expect([...keys].map((k) => k.textContent).slice(0, 2)).toEqual(["⌘", "K"]);
+  });
+});

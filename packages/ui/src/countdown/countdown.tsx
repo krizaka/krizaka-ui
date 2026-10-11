@@ -1,6 +1,5 @@
 // Client: the clock is a hook.
-import { tv } from "tailwind-variants";
-
+import { tv } from "../tv";
 import { countdownParts, type CountdownUnits, useCountdown } from "./core";
 
 const countdown = tv({

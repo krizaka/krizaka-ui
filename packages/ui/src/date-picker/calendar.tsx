@@ -4,9 +4,9 @@
 // `@krizaka/intl` for the `locale` given — never the runtime's default.
 import { formatDate, getDateTimeFormat } from "@krizaka/intl";
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { ChevronGlyph } from "../glyphs";
+import { tv } from "../tv";
 
 /** A calendar date, `YYYY-MM-DD`. */
 export type IsoDate = string;
@@ -20,16 +20,19 @@ export const calendar = tv({
     title: "text-sm font-semibold capitalize",
     nav:
       "inline-flex h-8 w-8 items-center justify-center rounded-md text-fg-secondary hover:bg-surface-3 hover:text-fg " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-40",
+      "focus-visible:focus-ring disabled:pointer-events-none disabled:opacity-40",
     grid: "w-full border-collapse",
-    weekday: "h-8 w-10 text-center text-[11px] font-semibold uppercase text-fg-secondary",
+    weekday: "h-8 w-10 text-center font-mono text-[10px] font-medium uppercase tracking-[0.06em] text-fg-secondary",
     cell: "p-0 text-center",
     day:
-      "relative h-10 w-10 rounded-lg text-sm tabular-nums text-fg transition-colors hover:bg-surface-3 " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
+      "relative h-10 w-10 rounded-lg text-sm tabular-nums text-fg transition-[background-color,box-shadow,scale] duration-(--kz-duration-fast) ease-spring " +
+      "hover:bg-surface-3 active:scale-95 focus-visible:focus-ring-inset " +
+      // Today carries the node under its figure; the chosen day is the accent, lit from above, on the brand's glow.
       "data-[outside]:text-fg-secondary data-[today]:font-bold data-[today]:not-data-[selected]:text-fg-accent " +
+      "data-[today]:after:absolute data-[today]:after:bottom-1.5 data-[today]:after:left-1/2 data-[today]:after:size-1 data-[today]:after:-translate-x-1/2 " +
+      "data-[today]:after:rotate-45 data-[today]:after:rounded-[1px] data-[today]:after:bg-current " +
       "data-[in-range]:rounded-none data-[in-range]:bg-accent-soft " +
-      "data-[selected]:bg-accent data-[selected]:text-on-accent data-[selected]:hover:bg-accent " +
+      "data-[selected]:bg-accent data-[selected]:bg-fill-shade data-[selected]:text-on-accent data-[selected]:shadow-glow data-[selected]:inset-shadow-edge-fill data-[selected]:hover:bg-accent " +
       "disabled:cursor-not-allowed disabled:text-fg-muted disabled:line-through disabled:opacity-50 disabled:hover:bg-transparent",
   },
 });

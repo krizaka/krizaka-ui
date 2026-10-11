@@ -1,6 +1,6 @@
 // The native theme: the @krizaka/tokens roles (dark, light), a product's overrides on top, the mode chosen by the app
 // or followed from the system. Same names as the web `./theme` (`mode`, `setMode`, `ThemeProvider`, `useTheme`).
-import { motion as tokenMotion, radius as tokenRadius, themes as tokenThemes } from "@krizaka/tokens/native";
+import { cut as tokenCut, motion as tokenMotion, radius as tokenRadius, themes as tokenThemes } from "@krizaka/tokens/native";
 import * as React from "react";
 import { AccessibilityInfo, useColorScheme } from "react-native";
 
@@ -84,6 +84,8 @@ export type Motion = {
 const themes: Readonly<Record<ThemeName, Theme>> = tokenThemes;
 const radius: Radius = tokenRadius;
 const motion: Motion = tokenMotion;
+/** The griffe (BRAND.md §6.1): the size of the 45° cut corner of a control, in points. */
+export const CUT_SIZE: number = tokenCut.size;
 const stillMotion: Motion = { ...motion, duration: { instant: 0, fast: 0, base: 0 } };
 
 export type Mode = "dark" | "light" | "system";

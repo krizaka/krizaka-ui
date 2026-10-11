@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Tooltip",
-  summary: "A short label shown on hover and on keyboard focus, next to its trigger.",
+  summary: "A short label shown on hover and on keyboard focus, next to its trigger, on frosted glass — or a rich one with a title and the action's shortcut.",
   status: "stable",
   category: "overlays",
   platforms: "web",
@@ -29,6 +29,7 @@ export const meta = {
     examples: [
       { name: "top", title: "Top", description: "Above its trigger (the default)." },
       { name: "right", title: "Right", description: "`side=\"right\"`." },
+      { name: "rich", title: "Rich", description: "`title`, a line of explanation and the action's `shortcut`, on frosted glass." },
     ],
   },
 } satisfies ComponentMeta;

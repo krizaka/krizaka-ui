@@ -80,7 +80,7 @@ describe("Tabs", () => {
     const tab = screen.getByRole("tab");
     expect(tab.className).toContain("px-6");
     expect(tab.className).not.toContain("px-3");
-    expect(tab.className).toContain("data-[state=active]:bg-accent");
+    expect(tab.className).toContain("data-[state=active]:bg-surface-3");
   });
 
   it("glides one light to the active tab", async () => {
@@ -97,7 +97,7 @@ describe("Tabs", () => {
     );
     const list = screen.getByRole("tablist");
     expect(list.getAttribute("data-indicator")).toBe("on");
-    expect(list.className).toContain("before:bg-accent");
+    expect(list.className).toContain("before:bg-surface-3");
     await user.click(screen.getByRole("tab", { name: "B" }));
     expect(list.getAttribute("data-indicator")).toBe("on");
   });

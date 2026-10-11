@@ -134,6 +134,17 @@ export default defineConfig([
     external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera"],
   },
   {
+    // The showcase (krizaka.com/docs/ui shows it first): the web mosaic and the mobile screen, importing the primitives
+    // and @krizaka/charts (an optional peer) as a product does.
+    ...shared,
+    entry: { index: "registry/showcase/index.tsx", mobile: "registry/showcase/mobile.tsx" },
+    outDir: "registry/showcase",
+    sourcemap: false,
+    dts: false,
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, /^@krizaka\/charts(\/|$)/, "react-native", "react-native-svg"],
+    banner: { js: '"use client";' },
+  },
+  {
     ...shared,
     entry: ["registry/examples/**/*.tsx"],
     outDir: "registry/examples",

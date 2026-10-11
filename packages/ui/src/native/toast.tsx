@@ -145,7 +145,8 @@ function ToastView({ item, closeLabel, duration }: { item: ToastItem; closeLabel
   );
   const frame = [
     styles.toast,
-    { backgroundColor: theme.surface2, borderColor: theme.borderDefault, borderLeftColor: edge, borderRadius: radius.lg, shadowColor: theme.scrimStrong },
+    // Frosted glass over the screen (BRAND.md §6): the glass at 88 % (text AA whatever passes under it), its border.
+    { backgroundColor: theme.glassBg, borderColor: theme.glassBorder, borderLeftColor: edge, borderRadius: radius.lg, shadowColor: theme.scrimStrong },
   ];
   // A slide only, never a fade: the text is legible (and its contrast measurable) from the first frame.
   const motion = { transform: [{ translateY: enter.interpolate({ inputRange: [0, 1], outputRange: [-8, 0] }) }] };
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
     gap: 10,
     padding: 12,
     borderWidth: StyleSheet.hairlineWidth,
-    borderLeftWidth: 4,
+    borderLeftWidth: 3,
     shadowOpacity: 0.3,
     shadowRadius: 16,
     shadowOffset: { width: 0, height: 8 },

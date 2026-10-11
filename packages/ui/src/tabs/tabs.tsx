@@ -2,9 +2,10 @@
 // the roving focus (arrows, Home, End) and automatic activation: this file only holds the three looks.
 import { Tabs as TabsPrimitive } from "radix-ui";
 import * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
 
 import { useSlidingIndicator } from "../sliding-indicator";
+import { tv } from "../tv";
 
 export const tabs = tv({
   slots: {
@@ -13,19 +14,19 @@ export const tabs = tv({
     // (server render), each trigger carries its own active style.
     list:
       "group/tabs relative isolate flex shrink-0 data-[orientation=vertical]:flex-col " +
-      "before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:transition-[translate,width,height,opacity] before:duration-300 " +
+      "before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:transition-[translate,width,height,opacity] before:duration-(--kz-duration-base) before:ease-spring " +
       "motion-reduce:before:transition-none data-[indicator=on]:before:opacity-100",
     trigger:
       "inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap font-semibold transition-colors " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-40",
-    content: "kz-fade min-w-0 flex-1 rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "focus-visible:focus-ring-inset disabled:pointer-events-none disabled:opacity-40 duration-(--kz-duration-fast)",
+    content: "kz-fade min-w-0 flex-1 rounded-lg focus-visible:focus-ring",
   },
   variants: {
     variant: {
       /* The section of a page: a line under the list, the active tab underlined in the accent. */
       underline: {
         list:
-          "gap-1 border-border-default data-[orientation=horizontal]:border-b data-[orientation=vertical]:border-r before:rounded-full before:bg-accent " +
+          "gap-1 border-border-default data-[orientation=horizontal]:border-b data-[orientation=vertical]:border-r before:rounded-full before:bg-accent before:shadow-[0_0_12px_var(--kz-accent)] " +
           "data-[orientation=horizontal]:before:-bottom-px data-[orientation=horizontal]:before:left-0 data-[orientation=horizontal]:before:h-0.5 " +
           "data-[orientation=horizontal]:before:w-(--kz-ind-w) data-[orientation=horizontal]:before:translate-x-(--kz-ind-x) " +
           "data-[orientation=vertical]:before:-right-px data-[orientation=vertical]:before:top-0 data-[orientation=vertical]:before:w-0.5 " +
@@ -40,11 +41,13 @@ export const tabs = tv({
       /* A view switch: equal segments in a track, the active one filled. */
       segmented: {
         list:
-          "inline-grid auto-cols-fr grid-flow-col gap-1 self-start rounded-xl border border-border-default bg-surface-1 p-1 data-[orientation=vertical]:grid-flow-row " +
-          "before:left-0 before:top-0 before:h-(--kz-ind-h) before:w-(--kz-ind-w) before:translate-x-(--kz-ind-x) before:translate-y-(--kz-ind-y) before:rounded-lg before:bg-accent before:shadow-sm",
+          // A well, and in it a raised segment that glides on a short spring (BRAND.md §6).
+          "inline-grid auto-cols-fr grid-flow-col gap-1 self-start rounded-xl border border-border-default bg-surface-1 p-1 inset-shadow-well data-[orientation=vertical]:grid-flow-row " +
+          "before:left-0 before:top-0 before:h-(--kz-ind-h) before:w-(--kz-ind-w) before:translate-x-(--kz-ind-x) before:translate-y-(--kz-ind-y) before:rounded-lg " +
+          "before:border before:border-border-default before:bg-surface-3 before:bg-sheen before:shadow-raised before:inset-shadow-edge before:[corner-shape:var(--kz-cut-shape)]",
         trigger:
-          "min-h-8 rounded-lg px-3 py-1.5 text-xs text-fg-secondary hover:bg-surface-2 hover:text-fg " +
-          "data-[state=active]:bg-accent data-[state=active]:text-on-accent data-[state=active]:shadow-sm data-[state=active]:hover:bg-accent " +
+          "min-h-(--kz-control-sm) rounded-lg px-3 py-1.5 text-xs text-fg-secondary hover:text-fg " +
+          "data-[state=active]:bg-surface-3 data-[state=active]:text-fg data-[state=active]:shadow-raised " +
           "transition-colors group-data-[indicator=on]/tabs:data-[state=active]:bg-transparent group-data-[indicator=on]/tabs:data-[state=active]:shadow-none",
       },
       /* Pills that scroll sideways on a phone: a feed's sections. */
@@ -52,11 +55,13 @@ export const tabs = tv({
         list:
           "gap-1.5 overflow-x-auto overscroll-x-contain [scrollbar-width:none] data-[orientation=horizontal]:pb-1 " +
           "before:left-0 before:top-0 before:h-(--kz-ind-h) before:w-(--kz-ind-w) before:translate-x-(--kz-ind-x) before:translate-y-(--kz-ind-y) " +
-          "before:rounded-full before:border before:border-accent before:bg-accent-soft",
+          // The light of the active pill wears the griffe: a pill cut at 45° is the hexagon of the marks.
+          "before:rounded-full before:border before:border-accent/70 before:bg-accent-soft before:shadow-glow before:[corner-shape:var(--kz-cut-shape)]",
         trigger:
-          "h-9 rounded-full border border-border-default bg-surface-1 px-4 text-xs text-fg-secondary hover:border-border-strong hover:text-fg " +
+          "h-9 rounded-full border border-border-default bg-surface-1 bg-sheen px-4 text-xs text-fg-secondary shadow-raised inset-shadow-edge hover:border-border-strong hover:text-fg " +
           "data-[state=active]:border-accent data-[state=active]:bg-accent-soft data-[state=active]:text-fg " +
-          "group-data-[indicator=on]/tabs:data-[state=active]:border-transparent group-data-[indicator=on]/tabs:data-[state=active]:bg-transparent",
+          "group-data-[indicator=on]/tabs:data-[state=active]:border-transparent group-data-[indicator=on]/tabs:data-[state=active]:bg-transparent " +
+          "group-data-[indicator=on]/tabs:data-[state=active]:shadow-none group-data-[indicator=on]/tabs:data-[state=active]:inset-shadow-none group-data-[indicator=on]/tabs:data-[state=active]:bg-none",
       },
     },
   },

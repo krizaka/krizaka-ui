@@ -54,33 +54,44 @@
 - A change to a mark is a change to the brand: it ships as a new version that every app adopts — the apps never
   keep a copy.
 
+- **The Krizaka material (BRAND.md §6).** Every primitive wears it through the preset's utilities, never raw values:
+  raised surfaces `bg-sheen inset-shadow-edge shadow-raised`, wells `inset-shadow-well`, what floats `glass`
+  (`floating.ts`), what acts `shadow-glow`, the focus `focus-visible:focus-ring` (`focus-ring-inset` on a field or inside
+  a clipping container), state marks with the node, transitions on `--kz-duration-*` and `ease-spring`. The griffe (§6.1)
+  marks what matters — the CTA (`Button` `shape="auto"`), the status badge, the spotlight card, the active tab, the
+  focused field, the toast — through `--kz-cut-shape`, never everywhere. Build variants with `tv` from `src/tv.ts` (it
+  knows the signature classes), not from `tailwind-variants` directly.
+
 ## 3. Quality gates
 
 - `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest + happy-dom for the web; Jest with React
   Native's preset and Testing Library for `src/native`), build (tsup), size, publint.
-- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 16 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens) (Metro
+- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 16.5 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens) (Metro
   bundles it into the app, nothing is downloaded: a regression guard, not a budget); the shared runtime
   (`./cn`: clsx + tailwind-variants and its merge engine, paid once per app) ≤ 14 kB; each primitive is measured
-  without that runtime (Radix included): `./button` ≤ 3.5 kB (it draws the loader glyph), `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
-  `./slot` ≤ 2 kB, `./field` ≤ 1.5 kB, `./card` ≤ 3 kB, `./separator` ≤ 2 kB (Radix's `Primitive` and `Slot`),
-  `./confirm-button` ≤ 4 kB, `./progress` ≤ 1.8 kB, `./section-backdrop` ≤ 1 kB, `./mascots` ≤ 4.5 kB (five birds' geometry), `./iso` ≤ 4.5 kB (a hero with no
+  without that runtime (Radix included): `./button` ≤ 3.5 kB (it draws the loader glyph), `./avatar` ≤ 6 kB, `./theme` ≤ 2.4 kB, `./countdown` ≤ 2 kB,
+  `./slot` ≤ 2 kB, `./field` ≤ 1.8 kB (affixes, the floating label), `./card` ≤ 3.3 kB, `./separator` ≤ 2.2 kB (Radix's `Primitive` and `Slot`),
+  `./confirm-button` ≤ 4.4 kB, `./progress` ≤ 1.8 kB, `./section-backdrop` ≤ 1 kB, `./mascots` ≤ 4.5 kB (five birds' geometry), `./iso` ≤ 4.5 kB (a hero with no
   client JavaScript), `./loader`, `./meter`, `./stepper`, `./glow-card`, `./chip-link` ≤ 2 kB, `./motion`, `./number-ticker`,
   `./marquee` ≤ 1.5 kB, `./terminal-replay` ≤ 2.5 kB (its timer, observer and controls), the other atoms ≤ 1 kB. The controls carry Radix's roving focus
-  or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6 kB, `./chip` ≤ 10 kB, `./tabs` ≤ 10 kB, `./radio-group`
+  or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6.5 kB, `./chip` ≤ 10 kB, `./tabs` ≤ 10.5 kB, `./radio-group`
   ≤ 11 kB, `./slider` ≤ 12 kB. What opens over the page carries Radix's machinery (dismissable layer, focus scope, scroll lock,
   and Floating UI for what is placed next to a trigger) — shared between these entries in an app, but counted in
-  each: `./dialog` ≤ 16.5 kB, `./toast` ≤ 11.5 kB (sonner), `./nav-bar` ≤ 16 kB (Radix NavigationMenu), `./tooltip` ≤ 20 kB, `./popover` ≤ 25 kB,
+  each: `./dialog` ≤ 17 kB, `./toast` ≤ 11.5 kB (sonner), `./nav-bar` ≤ 16 kB (Radix NavigationMenu), `./tooltip` ≤ 20 kB, `./popover` ≤ 25 kB,
   `./dropdown-menu` ≤ 32 kB, `./command` ≤ 21 kB (cmdk alone is 14.9 kB: it imports Radix's Dialog itself; with
   `CommandDialog` on the platform's Dialog, 19 kB measured, +10 %). The data and media primitives (`@krizaka/intl`
   counted, the optional peers hls.js / expo-video / expo-camera never bundled — the app passes or installs them):
-  `./pagination` ≤ 2 kB, `./video-trimmer` ≤ 2.4 kB, `./audio-player` ≤ 2.8 kB, `./search-field` ≤ 3 kB,
-  `./media-capture` ≤ 3.8 kB, `./file-upload` ≤ 5 kB (it draws `Progress`), `./data-table` ≤ 9.5 kB (Radix Checkbox),
+  `./pagination` ≤ 2 kB, `./video-trimmer` ≤ 2.4 kB, `./audio-player` ≤ 2.8 kB, `./search-field` ≤ 3.2 kB,
+  `./media-capture` ≤ 3.8 kB, `./file-upload` ≤ 5.3 kB (it draws `Progress`), `./data-table` ≤ 9.5 kB (Radix Checkbox),
   `./image-cropper` ≤ 12.5 kB and `./video-player` ≤ 15 kB (Radix Slider), `./combobox` ≤ 13 kB and `./tag-input` ≤
   13.5 kB (the chips' Radix Toggle), `./date-picker` ≤ 29 kB (Radix Popover), `./filter-bar` ≤ 34 kB (Radix
   DropdownMenu); `./native/video-player` ≤ 2 kB, `./native/media-capture` ≤ 2.5 kB. The page blocks (their styles are
   `blocks.css`, not counted): `./cta-panel`, `./card-grid`, `./pointer-light`, `./link-card`, `./decision-list`, `./toc` ≤ 1 kB,
   `./page`, `./page-hero` ≤ 1.2 kB, `./argument-card`, `./action-bar` ≤ 1.4 kB, `./mascot-quote` ≤ 4.8 kB (the bird's
   geometry), `./code-block` ≤ 12 kB (Radix Tabs for `CodeTabs`).
+- 2.5.0, the material (BRAND.md §6): each entry carries the platform's `tv` taught the signature utilities
+  (`src/tv.ts`, `twMergeConfig`, ≈ 0.25 kB) — hence the small raises above; `./registry/showcase` is documentation, not
+  measured.
 - **publint + attw** with the `esm-only` profile: the package is ESM only by design; `./motion.css`, `./blocks.css` and
   `./tailwind.css` are CSS exports and are not resolved as modules.
 - The published surface: exports `.`, one entry per primitive (`./cn`, `./slot`, `./button`, `./badge`, `./avatar`,
@@ -92,8 +103,10 @@
   `./search-field`, `./video-player`, `./file-upload`, `./media-capture`, `./video-trimmer`, `./audio-player`,
   `./image-cropper`, `./page`, `./page-hero`, `./card-grid`, `./pointer-light`, `./link-card`, `./argument-card`,
   `./mascot-quote`, `./decision-list`, `./code-block`, `./action-bar`, `./cta-panel`, `./toc`), `./native`, `./native/video-player`, `./native/media-capture`, `./motion.css`,
-  `./blocks.css` (the page blocks' styles, imported once by the app), `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/examples/*` (the compiled examples), `./package.json`;
-  files `dist`, `registry` (JSON, examples as `.tsx`, `.js`, `.d.ts`), `tailwind.css`, `README.md`, `LICENSE`. Adding an
+  `./blocks.css` (the page blocks' styles, imported once by the app), `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/examples/*` (the compiled examples),
+  `./registry/showcase` and `./registry/showcase/mobile` (the showcase krizaka.com/docs/ui shows first; `@krizaka/charts`
+  is an optional peer for it), `./package.json`;
+  files `dist`, `registry` (JSON, examples as `.tsx`, `.js`, `.d.ts`, the showcase as `.js`, `.d.ts` and its mobile screenshots), `tailwind.css`, `README.md`, `LICENSE`. Adding an
   entry is a minor; removing or renaming one is a breaking change.
 - **The registry — the code drives the documentation** (`scripts/build-registry.mjs`, run by `build`): one
   `registry/<name>.json` per component and `registry/index.json`, rendered by **krizaka.com/docs/ui** at every build

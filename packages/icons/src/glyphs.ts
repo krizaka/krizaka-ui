@@ -105,6 +105,8 @@ export const menu: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M4 7h16M4 12h16M
 export const close: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M6 6l12 12M18 6 6 18"] });
 /** back arrow left previous */
 export const back: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M20 12H4.5","M10.5 6 4.5 12l6 6"] });
+/** send message paper plane submit composer */
+export const send: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M20.5 3.5 3.5 10l7 3.5 3.5 7z","M20.5 3.5l-10 10"] });
 /** forward arrow right next */
 export const forward: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M4 12h15.5","M13.5 6l6 6-6 6"] });
 /** chevron down expand */
@@ -403,6 +405,11 @@ export const glyphIndex = {
     "component": "BackIcon",
     "group": "interface",
     "keywords": "back arrow left previous"
+  },
+  "send": {
+    "component": "SendIcon",
+    "group": "interface",
+    "keywords": "send message paper plane submit composer"
   },
   "forward": {
     "component": "ForwardIcon",

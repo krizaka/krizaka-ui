@@ -3,7 +3,8 @@
 // split into parts (90 % to the creator, 10 % to the platform) it becomes a stacked bar or ring with its legend: the
 // text version of what it draws.
 import type * as React from "react";
-import { tv } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const meter = tv({
   slots: {
@@ -11,7 +12,7 @@ export const meter = tv({
     header: "flex items-baseline gap-2 text-xs",
     caption: "min-w-0 flex-1 truncate font-medium text-fg",
     figure: "shrink-0 tabular-nums text-fg-secondary",
-    track: "relative flex h-2 w-full gap-0.5 overflow-hidden rounded-full bg-surface-3",
+    track: "relative flex h-2 w-full gap-0.5 overflow-hidden rounded-full bg-surface-3 inset-shadow-well",
     fill: "h-full rounded-full transition-[width] duration-700 motion-reduce:transition-none",
     legend: "mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-fg-secondary",
     swatch: "inline-block h-2 w-2 shrink-0 rounded-full",

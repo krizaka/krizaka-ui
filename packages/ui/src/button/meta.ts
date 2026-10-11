@@ -3,7 +3,7 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Button",
   summary:
-    "The action: six looks, three sizes, three shapes (rounded, pill, the Krizaka cut corners) — and the whole life of an action built in: a wait traced by the loader glyph, its progress, a success or a failure drawn and announced.",
+    "The action: seven looks, three sizes, three shapes (rounded, pill, the Krizaka cut corners) — and the whole life of an action built in: a wait traced by the loader glyph, its progress, a success or a failure drawn and announced.",
   status: "stable",
   category: "actions",
   platforms: "both",
@@ -25,6 +25,7 @@ export const meta = {
     "End with `status` (`success` / `error`) and `announce` the result in words: sighted people see the check, everyone hears “Saved”. Clear the status after a moment.",
     "`shape=\"cut\"`, `shimmer` and `magnetic` are the signature: keep them for the one action a page is about.",
     "Style a link without the component with `buttonVariants({ variant, size })`.",
+    "The material is the Krizaka signature (BRAND.md §6): a raised button catches the light on its top edge, what acts glows in the brand's colour, a press compresses it on a short spring (instant under reduced motion).",
   ],
   accessibility: {
     keyboard: [
@@ -47,13 +48,15 @@ export const meta = {
       { name: "upload-progress", title: "An export with progress", description: "`progress`: the trace and a light fill grow across the button; it keeps its width and its colour." },
       { name: "error", title: "A failure", description: "`status=\"error\"`: a cross, one shake of the head, a ring of the danger colour — and the reason announced." },
       { name: "signature", title: "The signature action", description: "`shape=\"cut\"`, the gradient, `shimmer` and `magnetic`: the one call to action of a hero; the arrow leans forward on hover." },
-      { name: "primary", title: "Primary", description: "The main action of a view: the accent." },
+      { name: "primary", title: "Primary", description: "The main action of a view: the accent, lit along its top edge, on the brand's glow." },
       { name: "gradient", title: "Gradient", description: "The brand's signature, accent → accent-2: a hero or a closing call to action, once per page." },
-      { name: "secondary", title: "Secondary", description: "The default: a raised surface, for the other actions." },
+      { name: "secondary", title: "Secondary", description: "The default: a raised surface — the sheen, the edge of light, the ink shadow — for the other actions." },
+      { name: "soft", title: "Soft", description: "`variant=\"soft\"`: a tint of the accent — a second action that still carries the brand." },
       { name: "outline", title: "Outline", description: "A lighter action next to a primary one." },
       { name: "ghost", title: "Ghost", description: "In toolbars and dense lists: no frame until hovered." },
       { name: "danger", title: "Danger", description: "A destructive action: the border and the tint carry the danger, the label stays legible in both themes." },
       { name: "sizes", title: "Sizes", description: "`sm`, `md` (default) and `lg`." },
+      { name: "density", title: "Compact density", description: "`data-density=\"compact\"` on an ancestor tightens every control under it (the `--kz-control-*` tokens)." },
       { name: "pill", title: "Pill", description: "`shape=\"pill\"`: fully rounded." },
       { name: "disabled", title: "Disabled", description: "Not available yet: out of the tab order." },
       { name: "loading", title: "Loading", description: "While the action runs: disabled, `aria-busy`, `data-loading`, the glyph before the label." },
@@ -75,6 +78,7 @@ export const meta = {
       { name: "gradient", title: "Gradient", description: "accent → accent-2, drawn with react-native-svg: the hero action of a screen." },
       { name: "secondary", title: "Secondary", description: "The default look." },
       { name: "outline", title: "Outline", description: "A lighter action." },
+      { name: "soft", title: "Soft", description: "A tint of the accent, next to a primary." },
       { name: "ghost", title: "Ghost", description: "No frame: toolbars, headers." },
       { name: "danger", title: "Danger", description: "A destructive action." },
       { name: "sizes", title: "Sizes", description: "`sm`, `md`, `lg`, and `shape=\"pill\"`." },

@@ -5,6 +5,7 @@ import EmptyExample from "../../registry/examples/data-table/empty";
 import ErrorExample from "../../registry/examples/data-table/error";
 import JobsExample from "../../registry/examples/data-table/jobs";
 import LoadingExample from "../../registry/examples/data-table/loading";
+import StickyHeaderExample from "../../registry/examples/data-table/sticky-header";
 import VirtualizedExample from "../../registry/examples/data-table/virtualized";
 
 /**
@@ -31,3 +32,4 @@ export const Loading: Story = { render: () => <LoadingExample /> };
 export const Empty: Story = { render: () => <EmptyExample /> };
 export const Error: Story = { render: () => <ErrorExample /> };
 export const Virtualized: Story = { render: () => <VirtualizedExample /> };
+export const StickyHeader: Story = { render: () => <StickyHeaderExample /> };

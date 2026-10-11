@@ -1,7 +1,9 @@
 // Server-safe: no hook, no context. role="progressbar" with aria-valuenow / aria-valuemax (none when indeterminate),
 // named by `label`. A bar or a ring; the ring can hold content in its centre (an amount, a percentage).
 import * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const progress = tv({
   slots: {
@@ -18,9 +20,10 @@ export const progress = tv({
   variants: {
     variant: {
       bar: {
-        root: "relative isolate w-full overflow-hidden rounded-full bg-surface-3",
+        // A well, and a fill of the brand that glows (BRAND.md §6).
+        root: "relative isolate w-full overflow-hidden rounded-full bg-surface-3 inset-shadow-well",
         indicator:
-          "kz-progress h-full rounded-full bg-linear-to-r from-accent to-accent-2 transition-[width] duration-500 motion-reduce:transition-none " +
+          "kz-progress h-full rounded-full bg-linear-to-r from-accent to-accent-2 shadow-glow transition-[width] duration-500 motion-reduce:transition-none " +
           "data-[state=indeterminate]:w-2/5",
       },
       ring: {

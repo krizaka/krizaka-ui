@@ -2,9 +2,9 @@
 // step traces its hexagon (and grows to its `value` when known), a done step draws its check, a failed one its cross —
 // joined by connectors that fill as the journey advances. The state of every step is said in words, not only colour.
 import type * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { LoaderGlyph } from "../spinner/glyph";
+import { tv } from "../tv";
 
 export type StepStatus = "done" | "current" | "upcoming" | "error";
 

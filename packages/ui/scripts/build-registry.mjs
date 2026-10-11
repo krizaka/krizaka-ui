@@ -2,10 +2,10 @@
 // documentation (the `meta.ts` beside it), its named examples with their code, the props of its web and native
 // components, and for a web primitive its source and its npm and registry dependencies — and `registry/index.json`,
 // the catalogue. krizaka.com/docs/ui is generated from them at every build; a CLI may one day copy a primitive.
-import { copyFileSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { collectRegistry, EXAMPLES, nativeScreenshotsOf, PKG } from "./registry.mjs";
+import { collectRegistry, EXAMPLES, nativeScreenshotsOf, PKG, SCREENSHOTS } from "./registry.mjs";
 
 const out = join(PKG, "registry");
 const { version } = JSON.parse(readFileSync(join(PKG, "package.json"), "utf8"));
@@ -39,6 +39,31 @@ for (const item of items) {
     copyFileSync(shots.light, join(out, example.screenshots.light));
   }
 }
+// The showcase: its declarations, and the screenshots of the mobile screen (its story's Linux baselines) beside it.
+const SHOWCASE = join(out, "showcase");
+writeFileSync(
+  join(SHOWCASE, "index.d.ts"),
+  `import type { ComponentType } from "react";
+/** The showcase of @krizaka/ui: a mosaic of real primitives, the brand and the theme switched live (needs @krizaka/charts and @krizaka/tokens/brands/scoped.css). */
+export type ShowcaseProps = { defaultBrand?: "krizaka" | "orazaka" | "orochia"; defaultTheme?: "auto" | "dark" | "light"; className?: string };
+declare const Showcase: ComponentType<ShowcaseProps>;
+export default Showcase;
+export { Showcase };
+`,
+);
+writeFileSync(
+  join(SHOWCASE, "mobile.d.ts"),
+  `import type { ComponentType } from "react";
+/** The mobile showcase, on @krizaka/ui/native (inside its ThemeProvider). */
+declare const MobileShowcase: ComponentType;
+export default MobileShowcase;
+`,
+);
+for (const theme of ["dark", "light"]) {
+  const shot = join(SCREENSHOTS, `native-showcase--mobile--${theme}.png`);
+  if (existsSync(shot)) copyFileSync(shot, join(SHOWCASE, `mobile.${theme}.png`));
+}
+
 writeFileSync(
   join(out, "index.json"),
   `${JSON.stringify(

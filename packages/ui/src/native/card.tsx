@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Image, type ImageProps, Pressable, type PressableProps, type StyleProp, StyleSheet, View, type ViewProps, type ViewStyle } from "react-native";
 
+import { Material } from "./material";
 import { useTheme } from "./theme";
 import { Txt, type TxtProps } from "./txt";
 
@@ -17,25 +18,40 @@ export type CardRootProps = ViewProps & {
 };
 
 /** The frame: the theme's surface, a hairline border, rounded corners; `onPress` makes it a pressable card. */
-export function CardRoot({ tone = "default", radius = "xl", onPress, style, ...props }: CardRootProps) {
+export function CardRoot({ tone = "default", radius = "xl", onPress, style, children, ...props }: CardRootProps) {
   const { theme, radius: r } = useTheme();
   const frame: StyleProp<ViewStyle> = [
     styles.root,
     {
       backgroundColor: tone === "elevated" ? theme.surface2 : theme.surface1,
-      borderColor: theme.borderDefault,
+      borderColor: tone === "elevated" ? theme.borderSubtle : theme.borderDefault,
       borderRadius: r[radius],
     },
     tone === "elevated" ? [styles.shadow, { shadowColor: theme.scrimStrong }] : null,
   ];
-  if (!onPress) return <View {...props} style={[frame, style]} />;
+  // The material (BRAND.md §6): the sheen and the edge of light of a raised surface, under the content.
+  const content = (
+    <>
+      <Material sheen={theme.surfaceSheen} edge={theme.edgeLight} radius={r[radius]} />
+      {children}
+    </>
+  );
+  if (!onPress) {
+    return (
+      <View {...props} style={[frame, style]}>
+        {content}
+      </View>
+    );
+  }
   return (
     <Pressable
       role="button"
       onPress={onPress}
       {...props}
-      style={({ pressed }) => [frame, { opacity: pressed ? 0.92 : 1, transform: [{ scale: pressed ? 0.99 : 1 }] }, style]}
-    />
+      style={({ pressed }) => [frame, { opacity: pressed ? 0.94 : 1, transform: [{ scale: pressed ? 0.985 : 1 }] }, style]}
+    >
+      {content}
+    </Pressable>
   );
 }
 

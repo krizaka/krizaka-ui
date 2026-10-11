@@ -3,3 +3,6 @@ registry/*.json
 registry/examples/**/*.js
 registry/examples/**/*.d.ts
 registry/examples/**/*.png
+registry/showcase/*.js
+registry/showcase/*.d.ts
+registry/showcase/*.png

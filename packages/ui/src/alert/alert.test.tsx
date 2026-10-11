@@ -25,6 +25,7 @@ describe("Alert", () => {
     render(<Alert tone="danger">Payment failed.</Alert>);
     const alert = screen.getByRole("alert");
     expect(alert.className).toContain("text-fg");
-    expect(alert.className).toContain("border-danger/50");
+    expect(alert.className).toContain("border-danger/45");
+    expect(alert.className).toContain("bg-danger-soft");
   });
 });

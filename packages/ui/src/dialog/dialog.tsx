@@ -2,18 +2,22 @@
 // aria-labelledby / aria-describedby wiring and the focus return: this file only holds the shape.
 import { Dialog as DialogPrimitive } from "radix-ui";
 import type * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
 
 import { IconButton } from "../button/button";
+import { tv } from "../tv";
 
 export const dialog = tv({
   slots: {
-    overlay: "kz-overlay fixed inset-0 z-50 bg-overlay backdrop-blur-xs",
+    overlay: "kz-overlay fixed inset-0 z-50 bg-overlay backdrop-blur-sm",
+    // Frosted glass over the dimmed page (BRAND.md §6): the glass, its edge light, the overlay's ink shadow, and a
+    // hairline of the brand's light along the top edge.
     content:
-      "kz-dialog fixed z-50 flex flex-col overflow-hidden border border-border-default bg-surface-1 text-fg shadow-lg focus:outline-hidden",
+      "kz-dialog fixed z-50 flex flex-col overflow-hidden border glass text-fg shadow-overlay inset-shadow-edge focus:outline-hidden " +
+      "before:pointer-events-none before:absolute before:inset-x-10 before:top-0 before:h-px before:bg-linear-to-r before:from-transparent before:via-accent/70 before:to-transparent",
     close: "absolute right-3 top-3 h-9 w-9",
     header: "flex flex-col gap-1 px-5 pb-2 pr-14 pt-5",
-    title: "text-base font-bold text-fg",
+    title: "font-display text-lg font-bold tracking-[-0.015em] text-fg",
     description: "text-sm text-fg-secondary",
     body: "min-h-0 flex-1 overflow-y-auto px-5 pb-5",
     footer:

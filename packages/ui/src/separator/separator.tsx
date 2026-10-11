@@ -2,7 +2,8 @@
 // `role="separator"` with `decorative={false}`.
 import { Separator as SeparatorPrimitive } from "radix-ui";
 import type * as React from "react";
-import { tv } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const separatorVariants = tv({
   base: "shrink-0 bg-border-default",

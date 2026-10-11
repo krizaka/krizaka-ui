@@ -106,6 +106,8 @@ export const MenuIcon = /* @__PURE__ */ createIcon("MenuIcon", g.menu);
 export const CloseIcon = /* @__PURE__ */ createIcon("CloseIcon", g.close);
 /** back arrow left previous */
 export const BackIcon = /* @__PURE__ */ createIcon("BackIcon", g.back);
+/** send message paper plane submit composer */
+export const SendIcon = /* @__PURE__ */ createIcon("SendIcon", g.send);
 /** forward arrow right next */
 export const ForwardIcon = /* @__PURE__ */ createIcon("ForwardIcon", g.forward);
 /** chevron down expand */

@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Data table",
-  summary: "A table of records — sort, selection, loading, empty and error states — that turns into cards on a phone and renders only the rows in view when there are thousands.",
+  summary: "A table of records — sort, selection, loading, empty and error states, a sticky header in frosted glass, rows that light up under the pointer — that turns into cards on a phone and renders only the rows in view when there are thousands.",
   status: "beta",
   category: "data-display",
   platforms: "web",
@@ -44,6 +44,7 @@ export const meta = {
       { name: "empty", title: "Empty", description: "No record yet: an empty state with the next step." },
       { name: "error", title: "Error", description: "The request failed: an alert with a retry, in place of the rows." },
       { name: "virtualized", title: "5,000 rows", description: "`virtualize`: only the rows in view are rendered, the header stays." },
+      { name: "sticky-header", title: "Sticky header", description: "`maxHeight`: the body scrolls, the header stays on top in frosted glass; rows light up under the pointer." },
     ],
   },
 } satisfies ComponentMeta;

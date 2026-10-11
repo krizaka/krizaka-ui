@@ -9,6 +9,8 @@
 @source "../../../packages/ui/src/**/*.stories.tsx";
 /* …and the registry's examples, which the stories render. */
 @source "../../../packages/ui/registry/examples/**/*.tsx";
+/* …and the showcase (its mosaic, its mobile screen). */
+@source "../../../packages/ui/registry/showcase/*.tsx";
 /* …and the icons' stories. */
 @source "../../../packages/icons/src/**/*.stories.tsx";
 

@@ -54,7 +54,7 @@ The first two lines are enough to get the whole vocabulary. `@krizaka/ui/tailwin
 | Focus | `focus-visible:focus-ring` (a crisp ring off the element, in a halo) · `focus-ring-inset` (on the border) | `--kz-ring*` |
 | Node | `node` · `node-lit` — the core of the marks as a state mark | `--kz-accent` |
 | Font | `font-sans` · `font-display` · `font-mono` | `--kz-font-*` |
-| Motion | `ease-kz`, `ease-spring`; every `transition*` defaults to 200 ms on `--kz-ease`; `duration-(--kz-duration-fast)` for the micro-interactions (0 under reduced motion) | `--kz-ease*`, `--kz-duration-*` |
+| Motion | `ease-kz`, `ease-spring`; every `transition*` defaults to `--kz-duration-base` (200 ms, 0 under reduced motion) on `--kz-ease` | `--kz-ease*`, `--kz-duration-*` |
 
 The material is BRAND.md §6 of `@krizaka/tokens`. Merge these classes with `twMergeConfig` (`@krizaka/ui/cn`) in your own
 `twMerge`, or `bg-sheen` will be taken for a background colour. The griffe (the 45° cut corner) is `[corner-shape:var(--kz-cut-shape)]`

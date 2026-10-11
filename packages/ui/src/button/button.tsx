@@ -1,35 +1,77 @@
 // Server-safe: no hook, no context. `buttonVariants` styles a <Link> or a Server Component without the component.
 import { Slot } from "radix-ui";
 import type * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
 
 import { LoaderGlyph } from "../spinner/glyph";
+import { tv } from "../tv";
+
+const CUT_NODE =
+  "before:pointer-events-none before:absolute before:right-[5px] before:top-[5px] before:size-1 before:rotate-45 before:rounded-[1px] " +
+        "before:bg-current before:opacity-45 before:transition-[opacity,box-shadow] before:duration-(--kz-duration-fast) " +
+        "hover:before:opacity-100 hover:before:shadow-[0_0_6px_currentColor] data-loading:before:opacity-0";
 
 export const buttonVariants = tv({
+  // The Krizaka material (BRAND.md §6): light comes from above — a raised button catches it on its top edge and sits on
+  // an ink shadow; what acts glows in the brand's colour; a press compresses it on a short spring (0 ms under reduced
+  // motion); the focus is the signature ring, a crisp ring in a halo.
   base:
-    "inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all " +
-    "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0 " +
-    "disabled:pointer-events-none disabled:opacity-40 data-loading:cursor-progress active:scale-[0.98] " +
+    "relative inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap font-semibold tracking-[-0.006em] " +
+    "transition-[color,background-color,border-color,box-shadow,filter,scale] duration-(--kz-duration-fast) ease-spring " +
+    "focus-visible:focus-ring disabled:pointer-events-none disabled:opacity-40 data-loading:cursor-progress " +
+    "active:scale-[0.97] active:duration-(--kz-duration-instant) " +
     // Busy is not unavailable: a loading button keeps its colour (it is disabled only so it is not pressed twice).
     "[&[data-loading]]:opacity-100",
   variants: {
     variant: {
-      primary: "bg-accent text-on-accent shadow-sm hover:bg-accent-hover",
+      // The accent, lit from above (its top edge) and shaded at the bottom (on-accent stays ≥ 4.5:1), on the brand's glow.
+      primary: "bg-accent bg-fill-shade text-on-accent shadow-glow inset-shadow-edge-fill hover:bg-accent-hover hover:shadow-glow-lg",
       // The brand's signature: accent → accent-2 (on-accent reads on both stops, tested in @krizaka/tokens).
-      gradient: "bg-linear-to-r from-accent to-accent-2 text-on-accent shadow-sm hover:brightness-110",
-      secondary: "border border-border-default bg-surface-2 text-fg hover:border-border-strong hover:bg-surface-3",
-      outline: "border border-border-default bg-transparent text-fg hover:border-accent hover:text-fg-accent",
-      ghost: "text-fg-secondary hover:bg-surface-2 hover:text-fg",
+      gradient:
+        "bg-linear-to-r from-accent to-accent-2 text-on-accent shadow-glow inset-shadow-edge-fill hover:shadow-glow-lg hover:brightness-110",
+      // A raised surface: the sheen, the edge light, the ink shadow.
+      secondary:
+        "border border-border-default bg-surface-2 bg-sheen text-fg shadow-raised inset-shadow-edge hover:border-border-strong hover:bg-surface-3",
+      outline: "border border-border-default bg-transparent text-fg hover:border-accent hover:bg-accent-soft",
+      // A tint of the accent: a second action that still carries the brand.
+      soft: "bg-accent-soft text-fg inset-ring inset-ring-accent/25 hover:bg-accent/20 hover:inset-ring-accent/40",
+      ghost: "text-fg-secondary hover:bg-surface-2 hover:text-fg active:bg-surface-3",
       // The border and the tint carry the danger; the label stays the primary text role, legible on the tint at rest
       // and hovered over every surface (`text-fg-danger` is for text set directly on a surface).
-      danger: "border border-danger/50 bg-danger/10 text-fg hover:border-danger hover:bg-danger/20",
+      danger: "border border-danger/50 bg-danger-soft text-fg hover:border-danger hover:bg-danger/20",
     },
-    size: { sm: "h-8 px-3 text-xs", md: "h-10 px-4 text-sm", lg: "h-12 px-6 text-sm", icon: "h-10 w-10" },
+    // The heights are the control tokens: `[data-density="compact"]` on an ancestor tightens them.
+    size: {
+      sm: "h-(--kz-control-sm) px-3 text-xs",
+      md: "h-(--kz-control-md) px-4 text-sm",
+      lg: "h-(--kz-control-lg) px-6 text-sm",
+      icon: "h-(--kz-control-md) w-(--kz-control-md)",
+    },
     // `cut`: the Krizaka chamfer — 45° corners (CSS corner-shape, where supported; rounded elsewhere). The border, the
     // focus ring and the hover follow the cut, unlike a clip-path.
-    shape: { rounded: "rounded-lg", pill: "rounded-full", cut: "rounded-[10px] [corner-shape:bevel]" },
+    // `auto` (default): the griffe on the call to action — `primary` and `gradient` are cut (`--kz-cut-shape`, BRAND.md
+    // §6.1; `round` turns it off for an app), the other looks rounded.
+    shape: {
+      auto: "rounded-lg",
+      rounded: "rounded-lg",
+      pill: "rounded-full",
+      cut: "rounded-(--kz-cut-size) [corner-shape:bevel]",
+    },
   },
-  defaultVariants: { variant: "secondary", size: "md", shape: "rounded" },
+  compoundVariants: [
+    { variant: ["primary", "gradient"], shape: "auto", class: "rounded-(--kz-cut-size) [corner-shape:var(--kz-cut-shape)]" },
+    // A node in the cut corner, lit under the pointer: the core of the marks on the action.
+    {
+      shape: "cut",
+      class: CUT_NODE,
+    },
+    {
+      variant: ["primary", "gradient"],
+      shape: "auto",
+      class: CUT_NODE,
+    },
+  ],
+  defaultVariants: { variant: "secondary", size: "md", shape: "auto" },
 });
 
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
@@ -37,8 +79,8 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
 export type ButtonProps = React.ComponentProps<"button"> &
   ButtonVariants & {
     /**
-     * The look: `primary` (the accent), `gradient` (accent → accent-2), `secondary` (a raised surface), `outline`,
-     * `ghost`, `danger`.
+     * The look: `primary` (the accent, lit from above, on the brand's glow), `gradient` (accent → accent-2), `secondary`
+     * (a raised surface: sheen, edge light, ink shadow), `outline`, `soft` (a tint of the accent), `ghost`, `danger`.
      * @default "secondary"
      */
     variant?: ButtonVariants["variant"];
@@ -48,8 +90,9 @@ export type ButtonProps = React.ComponentProps<"button"> &
      */
     size?: ButtonVariants["size"];
     /**
-     * rounded · pill · cut (45° corners, the Krizaka chamfer).
-     * @default "rounded"
+     * auto (the griffe on the call to action: `primary` and `gradient` cut at 45°, the others rounded) · rounded · pill ·
+     * cut (45° corners, the Krizaka chamfer, on any look).
+     * @default "auto"
      */
     shape?: ButtonVariants["shape"];
     /** Renders the child (e.g. a <Link>) instead of the <button>, with props, classes and ref merged. */

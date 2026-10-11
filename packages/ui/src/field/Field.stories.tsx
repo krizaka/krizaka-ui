@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import AffixesExample from "../../registry/examples/field/affixes";
 import DefaultExample from "../../registry/examples/field/default";
 import DisabledExample from "../../registry/examples/field/disabled";
+import FloatingLabelExample from "../../registry/examples/field/floating-label";
 import InvalidExample from "../../registry/examples/field/invalid";
 import SelectExample from "../../registry/examples/field/select";
 import TextareaExample from "../../registry/examples/field/textarea";
@@ -31,3 +33,5 @@ export const Invalid: Story = { render: () => <InvalidExample /> };
 export const Disabled: Story = { render: () => <DisabledExample /> };
 export const Textarea: Story = { render: () => <TextareaExample /> };
 export const Select: Story = { render: () => <SelectExample /> };
+export const Affixes: Story = { render: () => <AffixesExample /> };
+export const FloatingLabel: Story = { render: () => <FloatingLabelExample /> };

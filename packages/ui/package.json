@@ -331,6 +331,14 @@
       "types": "./dist/native/media-capture.d.ts",
       "import": "./dist/native/media-capture.js"
     },
+    "./registry/showcase": {
+      "types": "./registry/showcase/index.d.ts",
+      "import": "./registry/showcase/index.js"
+    },
+    "./registry/showcase/mobile": {
+      "types": "./registry/showcase/mobile.d.ts",
+      "import": "./registry/showcase/mobile.js"
+    },
     "./registry/examples/*": {
       "types": "./registry/examples/*.d.ts",
       "import": "./registry/examples/*.js"
@@ -345,6 +353,9 @@
     "registry/examples/**/*.js",
     "registry/examples/**/*.d.ts",
     "registry/examples/**/*.png",
+    "registry/showcase/*.js",
+    "registry/showcase/*.d.ts",
+    "registry/showcase/*.png",
     "tailwind.css",
     "README.md",
     "LICENSE"
@@ -353,7 +364,7 @@
     "*.css"
   ],
   "scripts": {
-    "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/examples',{recursive:true}))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/examples/'+f)\" && tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css');require('node:fs').copyFileSync('src/blocks.css','dist/blocks.css')\" && node scripts/build-registry.mjs",
+    "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/examples',{recursive:true}))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/examples/'+f);for(const f of fs.readdirSync('registry/showcase'))if(/\\.(js|d\\.ts|png)$/.test(f))fs.rmSync('registry/showcase/'+f)\" && tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css');require('node:fs').copyFileSync('src/blocks.css','dist/blocks.css')\" && node scripts/build-registry.mjs",
     "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
     "typecheck": "tsc --noEmit",
     "test": "vitest run && jest",
@@ -362,6 +373,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
+    "@krizaka/charts": ">=0.1.0",
     "@krizaka/tailwind": ">=2.5.0",
     "expo-camera": ">=16",
     "expo-video": ">=2",
@@ -376,6 +388,7 @@
     "@arethetypeswrong/cli": "^0.18.5",
     "@babel/core": "^7.29.7",
     "@jest/globals": "30.4.1",
+    "@krizaka/charts": "workspace:*",
     "@krizaka/config": "workspace:*",
     "@krizaka/tokens": "workspace:*",
     "@react-native/babel-preset": "0.86.3",
@@ -421,6 +434,9 @@
     "access": "public"
   },
   "peerDependenciesMeta": {
+    "@krizaka/charts": {
+      "optional": true
+    },
     "@krizaka/tailwind": {
       "optional": true
     },
@@ -456,7 +472,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "16 kB",
+      "limit": "16.5 kB",
       "gzip": true
     },
     {
@@ -498,7 +514,7 @@
     {
       "name": "./field",
       "path": "dist/field.js",
-      "limit": "1.5 kB",
+      "limit": "1.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -508,7 +524,7 @@
     {
       "name": "./theme",
       "path": "dist/theme.js",
-      "limit": "2 kB",
+      "limit": "2.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -568,7 +584,7 @@
     {
       "name": "./card",
       "path": "dist/card.js",
-      "limit": "3 kB",
+      "limit": "3.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -578,7 +594,7 @@
     {
       "name": "./dialog",
       "path": "dist/dialog.js",
-      "limit": "16.5 kB",
+      "limit": "17 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -658,7 +674,7 @@
     {
       "name": "./separator",
       "path": "dist/separator.js",
-      "limit": "2 kB",
+      "limit": "2.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -694,7 +710,7 @@
     {
       "name": "./tabs",
       "path": "dist/tabs.js",
-      "limit": "10 kB",
+      "limit": "10.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -734,7 +750,7 @@
     {
       "name": "./checkbox",
       "path": "dist/checkbox.js",
-      "limit": "6 kB",
+      "limit": "6.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -764,7 +780,7 @@
     {
       "name": "./confirm-button",
       "path": "dist/confirm-button.js",
-      "limit": "4 kB",
+      "limit": "4.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -954,7 +970,7 @@
     {
       "name": "./search-field",
       "path": "dist/search-field.js",
-      "limit": "3 kB",
+      "limit": "3.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -974,7 +990,7 @@
     {
       "name": "./file-upload",
       "path": "dist/file-upload.js",
-      "limit": "5 kB",
+      "limit": "5.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

@@ -155,3 +155,29 @@ describe("Skeleton, EmptyState, Spinner", () => {
     expect(screen.getByRole("progressbar", { name: "Loading" })).toBeOnTheScreen();
   });
 });
+
+describe("Avatar — presence", () => {
+  test("a decorative status dot cut out of the surface, and the ring of the accent", async () => {
+    await render(
+      <ThemeProvider mode="dark">
+        <Avatar testID="eb" alt="Elena" status="online" ring />
+      </ThemeProvider>,
+    );
+    const dot = screen.getByTestId("eb.status", { includeHiddenElements: true });
+    const style = StyleSheet.flatten(dot.props.style);
+    expect(style.backgroundColor).toBe(themes.dark.success);
+    expect(style.borderColor).toBe(themes.dark.surface0);
+    expect(screen.getByRole("img", { name: "Elena" })).toBeOnTheScreen();
+  });
+
+  test("away: an amber ring", async () => {
+    await render(
+      <ThemeProvider mode="dark">
+        <Avatar testID="am" alt="Alex" status="away" surface="#ffffff" />
+      </ThemeProvider>,
+    );
+    const style = StyleSheet.flatten(screen.getByTestId("am.status", { includeHiddenElements: true }).props.style);
+    expect(style.borderColor).toBe(themes.dark.warning);
+    expect(style.backgroundColor).toBe("#ffffff");
+  });
+});

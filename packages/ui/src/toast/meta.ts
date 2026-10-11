@@ -3,7 +3,7 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Toast",
   summary:
-    "A short message that comes and goes — with the time it has left drawn and paused under the pointer, an undo that waits before an action is final, a long task updated in place, and repeats folded into one toast that counts.",
+    "A short message on frosted glass that comes and goes — its status a rail of light, with the time it has left drawn and paused under the pointer, an undo that waits before an action is final, a long task updated in place, and repeats folded into one toast that counts.",
   status: "stable",
   category: "feedback",
   platforms: "both",

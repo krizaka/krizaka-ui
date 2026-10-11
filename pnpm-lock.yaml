@@ -582,6 +582,9 @@ importers:
       '@jest/globals':
         specifier: 30.4.1
         version: 30.4.1
+      '@krizaka/charts':
+        specifier: workspace:*
+        version: link:../charts
       '@krizaka/config':
         specifier: workspace:*
         version: link:../config

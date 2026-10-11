@@ -4,10 +4,10 @@
 // `getUserMedia` (an old browser, an insecure page) → the file picker with `capture`, which opens the phone's own
 // camera. The tracks stop when it unmounts or the page is hidden.
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { CameraGlyph, FlipGlyph } from "../glyphs";
 import { formatClock, playSafely, usePrefersReducedMotion } from "../media";
+import { tv } from "../tv";
 
 export const mediaCapture = tv({
   slots: {
@@ -18,23 +18,23 @@ export const mediaCapture = tv({
     panelIcon: "flex h-12 w-12 items-center justify-center rounded-full bg-fg-on-media/15",
     primary:
       "inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-accent px-4 text-sm font-semibold text-on-accent hover:bg-accent-hover " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-media",
+      "focus-visible:focus-ring",
     secondary:
       "inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-fg-on-media/40 px-4 text-sm font-semibold text-fg-on-media hover:bg-fg-on-media/10 " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "focus-visible:focus-ring",
     bar: "absolute inset-x-0 bottom-0 flex items-center justify-center gap-6 bg-linear-to-t from-scrim-strong to-transparent px-4 pb-4 pt-10",
     shutter:
       "relative inline-flex h-16 w-16 items-center justify-center rounded-full border-4 border-fg-on-media bg-transparent " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-media " +
+      "focus-visible:focus-ring " +
       "after:h-12 after:w-12 after:rounded-full after:bg-fg-on-media after:transition-all motion-reduce:after:transition-none " +
       "data-[mode=video]:after:bg-danger data-[recording]:after:h-6 data-[recording]:after:w-6 data-[recording]:after:rounded-md",
     round:
       "inline-flex h-11 w-11 items-center justify-center rounded-full bg-scrim-strong text-fg-on-media hover:bg-scrim " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring disabled:invisible",
+      "focus-visible:focus-ring disabled:invisible",
     modes: "absolute inset-x-0 top-3 flex justify-center",
     mode:
       "rounded-full px-3 py-1 text-xs font-semibold text-fg-on-media/80 aria-pressed:bg-fg-on-media aria-pressed:text-media " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "focus-visible:focus-ring",
     timer:
       "absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-scrim-strong px-2.5 py-1 font-mono text-xs tabular-nums " +
       "before:h-2 before:w-2 before:rounded-full before:bg-danger before:animate-pulse motion-reduce:before:animate-none",

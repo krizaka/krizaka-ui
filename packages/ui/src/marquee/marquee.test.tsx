@@ -47,3 +47,19 @@ describe("Marquee", () => {
     expect((container.querySelector(".kz-marquee") as HTMLElement).style.getPropertyValue("--kz-marquee-duration")).toMatch(/s$/);
   });
 });
+
+describe("Marquee — the copy", () => {
+  it("keeps the duplicated copy inert: its links are neither focusable nor read, with no axe violation", async () => {
+    const { container } = render(
+      <Marquee label="Partners" pauseLabel="Pause" playLabel="Play">
+        <a href="/a">Alpha</a>
+        <a href="/b">Beta</a>
+      </Marquee>,
+    );
+    const copy = container.querySelector(".kz-band-copy") as HTMLElement;
+    expect(copy.hasAttribute("inert")).toBe(true);
+    expect(copy.getAttribute("aria-hidden")).toBe("true");
+    expect(screen.getAllByRole("link")).toHaveLength(2);
+    expect(await axeViolations(container)).toEqual([]);
+  });
+});

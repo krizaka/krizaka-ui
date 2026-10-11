@@ -3,7 +3,8 @@
 // shown next to a visible label.
 import { Slider as SliderPrimitive } from "radix-ui";
 import * as React from "react";
-import { tv } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const slider = tv({
   slots: {
@@ -12,11 +13,13 @@ export const slider = tv({
     value: "font-mono text-[11px] tabular-nums text-fg-secondary",
     control:
       "relative flex h-6 w-full touch-none select-none items-center data-disabled:cursor-not-allowed data-disabled:opacity-40",
-    track: "relative h-1.5 w-full grow overflow-hidden rounded-full bg-surface-3",
-    range: "absolute h-full rounded-full bg-linear-to-r from-accent to-accent-2",
+    track: "relative h-1.5 w-full grow overflow-hidden rounded-full bg-surface-3 inset-shadow-well",
+    range: "absolute h-full rounded-full bg-linear-to-r from-accent to-accent-2 shadow-glow",
     thumb:
-      "block h-5 w-5 cursor-grab rounded-full border border-border-strong bg-fg-on-media shadow-md transition-[box-shadow] " +
-      "focus-visible:outline-hidden focus-visible:ring-4 focus-visible:ring-ring/50 active:cursor-grabbing",
+      // A raised bead; its halo of the accent opens under the pointer and while it is held (on a short spring).
+      "block h-5 w-5 cursor-grab rounded-full border border-border-strong bg-fg-on-media shadow-raised " +
+      "transition-[box-shadow,scale] duration-(--kz-duration-fast) ease-spring hover:ring-4 hover:ring-accent/20 active:scale-110 active:ring-[6px] active:ring-accent/25 " +
+      "focus-visible:focus-ring active:cursor-grabbing",
   },
 });
 

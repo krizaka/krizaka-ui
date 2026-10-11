@@ -3,11 +3,11 @@
 // API; the button reads it in the `locale`'s own format through `@krizaka/intl`.
 import { formatDate, getDateTimeFormat } from "@krizaka/intl";
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { CalendarGlyph, CloseGlyph } from "../glyphs";
 import { useControllable } from "../media";
 import { Popover } from "../popover";
+import { tv } from "../tv";
 import { Calendar, type CalendarLabels, type CalendarProps, type DateRange, type IsoDate, toLocalDate } from "./calendar";
 
 export const datePicker = tv({
@@ -16,19 +16,19 @@ export const datePicker = tv({
     label: "text-xs font-semibold text-fg-secondary",
     row: "relative flex w-full",
     trigger:
-      "flex h-11 w-full items-center gap-2.5 rounded-lg border border-border-default bg-surface-2 px-3 text-left text-sm text-fg " +
-      "transition-[border-color,box-shadow] focus-visible:border-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
+      "flex h-(--kz-control-field) w-full items-center gap-2.5 rounded-lg border border-border-default bg-surface-2 px-3 text-left text-sm text-fg inset-shadow-well " +
+      "transition-[border-color,box-shadow] duration-(--kz-duration-fast) hover:border-border-strong focus-visible:border-ring focus-visible:focus-ring-inset focus-visible:[corner-top-right-shape:var(--kz-cut-shape)] " +
       "data-[placeholder]:text-fg-muted aria-invalid:border-danger disabled:cursor-not-allowed disabled:opacity-50 data-[clearable]:pr-10",
     icon: "h-4 w-4 shrink-0 text-fg-secondary",
     clear:
       "absolute right-1.5 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-fg-secondary hover:bg-surface-3 hover:text-fg " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "focus-visible:focus-ring",
     content: "w-auto p-3",
     layout: "flex flex-col gap-3 sm:flex-row",
     presets: "flex flex-wrap gap-1.5 sm:w-36 sm:flex-col sm:flex-nowrap sm:border-r sm:border-border-default sm:pr-3",
     preset:
       "rounded-md px-2.5 py-1.5 text-left text-xs font-semibold text-fg-secondary hover:bg-surface-3 hover:text-fg " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-pressed:bg-accent-soft aria-pressed:text-fg",
+      "focus-visible:focus-ring aria-pressed:bg-accent-soft aria-pressed:text-fg",
     hint: "text-xs text-fg-secondary",
     error: "flex items-center gap-1.5 text-xs font-medium text-fg-danger before:h-1.5 before:w-1.5 before:shrink-0 before:rounded-full before:bg-danger",
   },

@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Dialog",
-  summary: "A window over the page — centred, a bottom sheet or a side panel — and `AlertDialog` for a confirmation.",
+  summary: "A window of frosted glass over the page — centred, a bottom sheet or a side panel — and `AlertDialog` for a confirmation.",
   status: "stable",
   category: "overlays",
   platforms: "web",

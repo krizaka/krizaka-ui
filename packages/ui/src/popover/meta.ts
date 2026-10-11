@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Popover",
-  summary: "A floating panel next to its trigger, for a small form or details, closed by Escape or a click outside.",
+  summary: "A floating panel of frosted glass next to its trigger, for a small form or details, closed by Escape or a click outside.",
   status: "stable",
   category: "overlays",
   platforms: "web",

@@ -35,3 +35,18 @@ describe("Badge", () => {
     expect(badgeVariants({ tone: "scrim" })).toContain("bg-scrim");
   });
 });
+
+describe("Badge — the signature", () => {
+  it("speaks in the mono voice, its dot a node, and takes the cut shape", () => {
+    const { container } = render(
+      <Badge shape="cut" tone="success" dot>
+        Live
+      </Badge>,
+    );
+    const badge = container.firstElementChild as HTMLElement;
+    expect(badge.className).toContain("font-mono");
+    expect(badge.className).toContain("[corner-shape:bevel]");
+    expect(badge.className).toContain("bg-success-soft");
+    expect(badgeVariants()).toContain("rounded-full");
+  });
+});

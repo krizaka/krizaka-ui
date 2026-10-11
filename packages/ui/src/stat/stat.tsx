@@ -1,6 +1,7 @@
 // Server-safe. A key figure: a label, the value in tabular digits, a hint, a trend. Every word is a prop.
 import type * as React from "react";
-import { tv } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const stat = tv({
   slots: {

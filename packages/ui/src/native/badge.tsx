@@ -15,7 +15,7 @@ function look(tone: BadgeTone, t: Theme): Look {
     case "success":
     case "warning":
     case "danger":
-      return { bg: alpha(t[tone], 0.15), fg: t.textPrimary, border: alpha(t[tone], 0.4), dot: t[tone] };
+      return { bg: t[`${tone}Soft`], fg: t.textPrimary, border: alpha(t[tone], 0.4), dot: t[tone] };
     case "scrim":
       return { bg: t.scrim, fg: t.textOnMedia, border: "transparent", dot: t.textOnMedia };
     default:
@@ -28,7 +28,7 @@ export type BadgeProps = ViewProps & {
   tone?: BadgeTone;
   /** sm (default) · md. */
   size?: "sm" | "md";
-  /** A small dot before the text, in the tone's colour. */
+  /** A node before the text — the core of the Krizaka marks, a small diamond in the tone's colour. */
   dot?: boolean;
   /** The dot breathes (still when the system reduces motion). */
   pulse?: boolean;
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   root: { flexDirection: "row", alignItems: "center", alignSelf: "flex-start", gap: 4, borderRadius: 9999, borderWidth: 1 },
   sm: { paddingHorizontal: 8, paddingVertical: 2 },
   md: { paddingHorizontal: 10, paddingVertical: 4 },
-  dot: { width: 6, height: 6, borderRadius: 3 },
-  text: { fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.8 },
+  // The node: a small diamond (a square turned 45°), as on the web.
+  dot: { width: 6, height: 6, borderRadius: 1.5, transform: [{ rotate: "45deg" }] },
+  text: { fontWeight: "600", textTransform: "uppercase", letterSpacing: 0.6 },
 });

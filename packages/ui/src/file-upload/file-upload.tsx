@@ -9,25 +9,25 @@
 //   `abort()` / `start()`) or a multipart upload needs, without depending on either.
 import { getNumberFormat } from "@krizaka/intl";
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { CloseGlyph, FileGlyph, PauseGlyph, PlayGlyph, RetryGlyph, UploadGlyph } from "../glyphs";
 import { Progress } from "../progress";
+import { tv } from "../tv";
 
 export const fileUpload = tv({
   slots: {
     zone:
       "relative flex w-full flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-border-default bg-surface-1 px-6 py-10 text-center " +
       "transition-colors data-[dragging]:border-accent data-[dragging]:bg-accent-soft data-[disabled]:opacity-50 has-[:focus-visible]:border-accent",
-    zoneIcon: "flex h-12 w-12 items-center justify-center rounded-full bg-surface-3 text-fg-secondary",
+    zoneIcon: "flex h-12 w-12 items-center justify-center rounded-full bg-surface-3 bg-sheen text-fg-secondary shadow-raised inset-shadow-edge",
     zoneTitle: "text-sm font-semibold text-fg",
     zoneHint: "text-xs text-fg-secondary",
     browse:
       "inline-flex h-9 items-center justify-center rounded-lg bg-accent px-4 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-hover " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0 disabled:pointer-events-none",
+      "focus-visible:focus-ring disabled:pointer-events-none",
     refusals: "w-full text-left text-xs font-medium text-fg-danger",
     list: "flex w-full flex-col gap-2",
-    item: "flex items-center gap-3 rounded-xl border border-border-default bg-surface-1 p-3 data-[status=error]:border-danger/60",
+    item: "flex items-center gap-3 rounded-xl border border-border-default bg-surface-1 bg-sheen p-3 shadow-raised inset-shadow-edge data-[status=error]:border-danger/60",
     preview: "flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-surface-3 text-fg-secondary",
     body: "flex min-w-0 flex-1 flex-col gap-1.5",
     name: "truncate text-sm font-semibold text-fg",
@@ -36,7 +36,7 @@ export const fileUpload = tv({
     actions: "flex shrink-0 items-center gap-1",
     action:
       "inline-flex h-8 w-8 items-center justify-center rounded-md text-fg-secondary transition-colors hover:bg-surface-3 hover:text-fg " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "focus-visible:focus-ring",
   },
 });
 

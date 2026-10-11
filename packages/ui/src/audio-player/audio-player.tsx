@@ -3,27 +3,27 @@
 // The waveform is a `slider` (arrows ± 5 s, Page keys ± 30 s, Home / End) whose value is read as a time; the play
 // button and the speed are named by props. No animation but the played part's colour, and it pauses off screen.
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { PauseGlyph, PlayGlyph } from "../glyphs";
 import { clamp, formatClock, playSafely, useInView } from "../media";
+import { tv } from "../tv";
 
 export const audioPlayer = tv({
   slots: {
     root: "flex w-full items-center gap-3 rounded-xl border border-border-default bg-surface-1 p-3",
     play:
-      "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent text-on-accent transition-colors hover:bg-accent-hover " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-1",
+      "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent bg-fill-shade text-on-accent shadow-glow inset-shadow-edge-fill transition-[background-color,scale] ease-spring hover:bg-accent-hover active:scale-95 " +
+      "focus-visible:focus-ring",
     body: "flex min-w-0 flex-1 flex-col gap-1",
     title: "truncate text-sm font-semibold text-fg",
     wave:
       "relative flex h-10 w-full cursor-pointer touch-none items-center gap-[2px] rounded-md " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "focus-visible:focus-ring",
     bar: "min-w-[2px] flex-1 rounded-full bg-border-strong data-[played]:bg-accent",
     meta: "flex items-center justify-between font-mono text-[11px] tabular-nums text-fg-secondary",
     speed:
       "shrink-0 rounded-md px-2 py-1 text-xs font-semibold tabular-nums text-fg-secondary hover:bg-surface-3 hover:text-fg " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "focus-visible:focus-ring",
   },
 });
 

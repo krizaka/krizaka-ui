@@ -10,32 +10,36 @@ import { LoaderGlyph } from "../spinner/glyph";
 export type { ExternalToast } from "sonner";
 export { toast } from "sonner";
 
-const tone = (color: string) => cn("border-l-4", color);
+// The status: a rail of light along the left edge, glowing in the status colour, and the icon in that colour.
+const tone = (color: string) =>
+  cn("before:absolute before:inset-y-3 before:left-0 before:w-[3px] before:rounded-r-full before:shadow-[0_0_10px_var(--kz-rail)]", color);
 
 export const toastClassNames = {
   // `kz-toast`: a hairline at the bottom counts the time left, and pauses with the toast (hover, focus) — motion.css.
   toast:
-    "kz-toast group pointer-events-auto relative flex w-full items-start gap-3 overflow-hidden rounded-xl border border-border-default bg-surface-2 p-4 pr-10 " +
-    "text-sm text-fg shadow-lg",
+    // Frosted glass over the page (BRAND.md §6): the glass, its edge light, the overlay's ink shadow.
+    "kz-toast group pointer-events-auto relative flex w-full items-start gap-3 overflow-hidden rounded-xl border glass p-4 pr-10 " +
+    "[corner-top-right-shape:var(--kz-cut-shape)] " +
+    "text-sm text-fg shadow-overlay inset-shadow-edge",
   default: "",
   title: "font-semibold text-fg",
   description: "mt-0.5 text-xs text-fg-secondary",
   content: "flex min-w-0 flex-1 flex-col",
   icon: "mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center [&>svg]:h-4 [&>svg]:w-4",
-  success: tone("border-l-success [&_[data-icon]]:text-success"),
-  warning: tone("border-l-warning [&_[data-icon]]:text-warning"),
-  error: tone("border-l-danger [&_[data-icon]]:text-danger"),
-  info: tone("border-l-info [&_[data-icon]]:text-info"),
+  success: tone("[--kz-rail:var(--kz-success)] before:bg-success [&_[data-icon]]:text-success"),
+  warning: tone("[--kz-rail:var(--kz-warning)] before:bg-warning [&_[data-icon]]:text-warning"),
+  error: tone("[--kz-rail:var(--kz-danger)] before:bg-danger [&_[data-icon]]:text-danger"),
+  info: tone("[--kz-rail:var(--kz-info)] before:bg-info [&_[data-icon]]:text-info"),
   loading: "",
   actionButton:
-    "ml-auto shrink-0 self-center rounded-lg bg-accent px-3 py-1.5 text-xs font-semibold text-on-accent hover:bg-accent-hover " +
-    "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+    "ml-auto shrink-0 self-center rounded-lg bg-accent bg-fill-shade px-3 py-1.5 text-xs font-semibold text-on-accent shadow-glow inset-shadow-edge-fill hover:bg-accent-hover active:scale-[0.97] transition-[scale,background-color] ease-spring " +
+    "focus-visible:focus-ring",
   cancelButton:
     "shrink-0 self-center rounded-lg px-3 py-1.5 text-xs font-semibold text-fg-secondary hover:bg-surface-3 hover:text-fg " +
-    "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+    "focus-visible:focus-ring",
   closeButton:
     "absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full text-fg-secondary hover:bg-surface-3 hover:text-fg " +
-    "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring [&>svg]:h-3.5 [&>svg]:w-3.5",
+    "focus-visible:focus-ring [&>svg]:h-3.5 [&>svg]:w-3.5",
 } satisfies NonNullable<NonNullable<SonnerProps["toastOptions"]>["classNames"]>;
 
 export type ToasterProps = Omit<SonnerProps, "richColors" | "theme" | "containerAriaLabel" | "toastOptions"> & {

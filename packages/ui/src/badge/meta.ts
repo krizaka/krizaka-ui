@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Badge",
-  summary: "A short status or label: a tone, two sizes, an optional dot that can pulse.",
+  summary: "A short status or label in the mono voice: a tone, two sizes, two shapes (pill, cut corners), an optional node — the core of the Krizaka marks — that can pulse.",
   status: "stable",
   category: "data-display",
   platforms: "both",
@@ -40,6 +40,7 @@ export const meta = {
       { name: "danger", title: "Danger with pulse", description: "Urgent, happening now: the dot pulses." },
       { name: "scrim", title: "On a media", description: "`tone=\"scrim\"`: the veil and the text are identical in both themes." },
       { name: "medium", title: "Medium", description: "`size=\"md\"` for a badge next to a heading." },
+      { name: "cut", title: "Cut corners", description: "`shape=\"cut\"`: the Krizaka chamfer, like the cut buttons and cards; the dot is the node, lit in the tone." },
     ],
   },
   native: {

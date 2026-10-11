@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Switch",
-  summary: "An on/off setting that applies at once.",
+  summary: "An on/off setting that applies at once: the thumb springs across and its node lights when on.",
   status: "beta",
   category: "forms",
   platforms: "web",

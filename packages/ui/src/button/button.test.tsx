@@ -104,7 +104,7 @@ describe("Button", () => {
   });
 
   it("styles anything through buttonVariants", () => {
-    expect(buttonVariants({ variant: "ghost", size: "lg" })).toContain("h-12");
+    expect(buttonVariants({ variant: "ghost", size: "lg" })).toContain("h-(--kz-control-lg)");
   });
 });
 
@@ -117,7 +117,7 @@ describe("IconButton", () => {
     );
     const button = screen.getByRole("button", { name: "Close" });
     expect(button.getAttribute("title")).toBe("Close");
-    expect(button.className).toContain("w-10");
+    expect(button.className).toContain("w-(--kz-control-md)");
     expect(await axeViolations(container)).toEqual([]);
   });
 
@@ -129,5 +129,20 @@ describe("IconButton", () => {
     );
     expect(screen.queryByTestId("icon")).toBeNull();
     expect(screen.getByRole("button", { name: "Refresh" }).querySelector(".kz-loader-trace")).not.toBeNull();
+  });
+});
+
+describe("Button — the material", () => {
+  it("raises the secondary (its surface kept under the sheen), lights the primary, tints the soft", () => {
+    expect(buttonVariants()).toContain("bg-surface-2");
+    expect(buttonVariants()).toContain("bg-sheen");
+    expect(buttonVariants()).toContain("inset-shadow-edge");
+    expect(buttonVariants({ variant: "primary" })).toContain("shadow-glow");
+    expect(buttonVariants({ variant: "soft" })).toContain("bg-accent-soft");
+    expect(buttonVariants()).toContain("focus-visible:focus-ring");
+  });
+
+  it("reads its heights from the control tokens (compact density)", () => {
+    expect(buttonVariants({ size: "sm" })).toContain("h-(--kz-control-sm)");
   });
 });

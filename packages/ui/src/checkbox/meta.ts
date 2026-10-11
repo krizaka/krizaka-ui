@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Checkbox",
-  summary: "A box to check: checked, unchecked or indeterminate, with its words as one clickable label.",
+  summary: "A box to check — checked, unchecked or indeterminate, filling with the accent on a short spring — with its words as one clickable label.",
   status: "beta",
   category: "forms",
   platforms: "web",

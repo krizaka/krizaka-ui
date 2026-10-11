@@ -5,30 +5,30 @@
 // the bundle of a page that does not play HLS. A signed address can be resolved at the last moment (`src` as a
 // function), again after an error; the video pauses when it leaves the screen; autoplay waits under reduced motion.
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { CaptionsGlyph, FullscreenGlyph, PauseGlyph, PipGlyph, PlayGlyph, RetryGlyph, VolumeGlyph } from "../glyphs";
 import { clamp, formatClock, playSafely, useInView, usePrefersReducedMotion } from "../media";
 import { Slider } from "../slider";
+import { tv } from "../tv";
 
 export const videoPlayer = tv({
   slots: {
     root:
       "theme-dark group/player relative isolate w-full overflow-hidden rounded-xl bg-media text-fg-on-media " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring data-[idle]:cursor-none",
+      "focus-visible:focus-ring data-[idle]:cursor-none",
     video: "absolute inset-0 h-full w-full object-contain",
     poster: "pointer-events-none absolute inset-0 h-full w-full object-contain",
     big:
       "absolute left-1/2 top-1/2 z-10 inline-flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full " +
       "bg-scrim-strong text-fg-on-media shadow-lg backdrop-blur-sm transition-transform hover:scale-105 motion-reduce:transition-none motion-reduce:hover:scale-100 " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "focus-visible:focus-ring",
     bar:
       "absolute inset-x-0 bottom-0 z-20 flex flex-col gap-1 bg-linear-to-t from-scrim-strong via-scrim to-transparent px-3 pb-2 pt-10 " +
       "transition-opacity duration-300 motion-reduce:transition-none group-data-[idle]/player:opacity-0 group-focus-within/player:opacity-100",
     row: "flex items-center gap-1",
     button:
       "inline-flex h-9 min-w-9 shrink-0 items-center justify-center gap-1 rounded-md px-1.5 text-xs font-semibold text-fg-on-media " +
-      "transition-colors hover:bg-fg-on-media/15 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-pressed:bg-fg-on-media/20",
+      "transition-colors hover:bg-fg-on-media/15 focus-visible:focus-ring aria-pressed:bg-fg-on-media/20",
     time: "px-1.5 font-mono text-[11px] tabular-nums text-fg-on-media",
     volume: "hidden w-20 items-center sm:flex",
     status: "absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 bg-scrim-strong p-6 text-center text-sm",

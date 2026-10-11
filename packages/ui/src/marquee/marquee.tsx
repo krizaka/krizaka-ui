@@ -52,12 +52,12 @@ export function Marquee({ label, pauseLabel, playLabel, children, speed = 40, di
       {/* Focusable: the keyboard stops the band (focus-within) and, still under reduced motion, scrolls the row. */}
       <div
         tabIndex={0}
-        className="kz-band-viewport overflow-hidden rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
+        className="kz-band-viewport overflow-hidden rounded-lg focus-visible:focus-ring"
       >
         {/* Each copy ends with the gap: two copies are exactly twice one, so the loop never jumps. */}
         <div ref={track} className="kz-marquee kz-loop">
           <ul className="flex shrink-0 items-center gap-(--kz-band-gap) pr-(--kz-band-gap)">{wrap(children)}</ul>
-          <ul aria-hidden className="kz-band-copy flex shrink-0 items-center gap-(--kz-band-gap) pr-(--kz-band-gap)">
+          <ul aria-hidden inert className="kz-band-copy flex shrink-0 items-center gap-(--kz-band-gap) pr-(--kz-band-gap)">
             {wrap(children)}
           </ul>
         </div>
@@ -67,7 +67,7 @@ export function Marquee({ label, pauseLabel, playLabel, children, speed = 40, di
         aria-pressed={paused}
         aria-label={paused ? playLabel : pauseLabel}
         onClick={() => setPaused(!paused)}
-        className="absolute right-1 top-1/2 inline-flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-border-default bg-surface-1/90 text-fg-secondary opacity-0 shadow-sm transition-opacity hover:text-fg focus-visible:opacity-100 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring group-hover/marquee:opacity-100 aria-pressed:opacity-100 motion-reduce:hidden"
+        className="absolute right-1 top-1/2 inline-flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-border-default bg-surface-1/90 text-fg-secondary opacity-0 shadow-sm transition-opacity hover:text-fg focus-visible:opacity-100 focus-visible:focus-ring group-hover/marquee:opacity-100 aria-pressed:opacity-100 motion-reduce:hidden"
       >
         <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
           {paused ? <path d="M8 5.5v13l10-6.5Z" /> : <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" />}

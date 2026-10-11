@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import GroupExample from "../../registry/examples/avatar/native/group";
 import SizesExample from "../../registry/examples/avatar/native/sizes";
+import StatusExample from "../../registry/examples/avatar/native/status";
 import { Avatar } from "./avatar";
 import { nativeFrame } from "./story-frame";
 
@@ -21,3 +22,4 @@ type Story = StoryObj<typeof meta>;
 
 export const Sizes: Story = { render: () => <SizesExample /> };
 export const Group: Story = { render: () => <GroupExample /> };
+export const Status: Story = { render: () => <StatusExample /> };

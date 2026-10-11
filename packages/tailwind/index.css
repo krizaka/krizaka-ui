@@ -95,7 +95,8 @@
 
   --ease-kz: var(--kz-ease);
   --ease-spring: var(--kz-ease-spring);
-  --default-transition-duration: 200ms;
+  /* 200 ms, et 0 sous prefers-reduced-motion (@krizaka/tokens) : chaque transition-* devient instantanée */
+  --default-transition-duration: var(--kz-duration-base);
   --default-transition-timing-function: var(--kz-ease);
 }
 

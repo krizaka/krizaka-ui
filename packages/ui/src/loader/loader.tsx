@@ -3,9 +3,10 @@
 // check or a cross that is drawn and announced. `LoadingRegion` hands a region over from its content to a skeleton of
 // the same shape, then to words when the wait grows long, then back to the content.
 import * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
 
 import { LoaderGlyph } from "../spinner/glyph";
+import { tv } from "../tv";
 
 export const loader = tv({
   slots: {

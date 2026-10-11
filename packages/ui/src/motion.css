@@ -146,7 +146,7 @@
    Opacity and transform only, `backwards` fill: nothing stays transformed once in place. */
 .kz-overlay { animation: kz-fade-in 0.22s var(--kz-ease) backwards; }   /* the dimmed backdrop */
 .kz-dialog { animation: kz-dialog-in 0.42s var(--kz-ease) backwards; }  /* a dialog: rises from the bottom on phones */
-.kz-pop { animation: kz-pop-in 0.22s var(--kz-ease) backwards; transform-origin: top right; } /* menus, popovers */
+.kz-pop { animation: kz-pop-in 0.2s var(--kz-ease-spring, var(--kz-ease)) backwards; transform-origin: top right; } /* menus, popovers: a short spring */
 .kz-fade { animation: kz-fade-in 0.35s var(--kz-ease) backwards; }      /* a view swapped in place (tabs, filters) */
 @keyframes kz-fade-in {
   from { opacity: 0; }
@@ -181,6 +181,10 @@
 @keyframes kz-progress-slide {
   from { transform: translateX(-100%); }
   to { transform: translateX(250%); }
+}
+/* A check, a radio's node: they arrive on a short spring (Checkbox, RadioGroup) — nothing under reduced motion. */
+@keyframes kz-check-in {
+  from { scale: 0.4; opacity: 0; }
 }
 @keyframes kz-pop-in {
   from { opacity: 0; transform: translateY(-6px) scale(0.96); }

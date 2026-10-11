@@ -11,6 +11,7 @@ import OutlineExample from "../../registry/examples/button/native/outline";
 import PrimaryExample from "../../registry/examples/button/native/primary";
 import SecondaryExample from "../../registry/examples/button/native/secondary";
 import SizesExample from "../../registry/examples/button/native/sizes";
+import SoftExample from "../../registry/examples/button/native/soft";
 import { Button } from "./button";
 import { nativeFrame } from "./story-frame";
 
@@ -39,3 +40,4 @@ export const Icon: Story = { render: () => <IconExample /> };
 export const Disabled: Story = { render: () => <DisabledExample /> };
 export const Loading: Story = { render: () => <LoadingExample /> };
 export const IconOnly: Story = { render: () => <IconOnlyExample /> };
+export const Soft: Story = { render: () => <SoftExample /> };

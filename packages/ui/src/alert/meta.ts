@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Alert",
-  summary: "A message in the flow of the page: a tone, an icon, a title, a text and an optional action.",
+  summary: "A message in the flow of the page: a tone (a tint and a rail of its colour that glows), an icon, a title, a text and an optional action.",
   status: "stable",
   category: "feedback",
   platforms: "web",

@@ -14,9 +14,9 @@ describe("Toaster", () => {
     const li = item.closest("[data-sonner-toast]") as HTMLElement;
     expect(li.dataset.styled).toBe("false");
     expect(li.dataset.type).toBe("success");
-    expect(li.className).toContain("bg-surface-2");
-    expect(li.className).toContain("border-l-success");
-    expect(li.className).not.toContain("border-l-danger");
+    expect(li.className).toContain("glass");
+    expect(li.className).toContain("before:bg-success");
+    expect(li.className).not.toContain("before:bg-danger");
     expect(container.querySelector("section")?.getAttribute("aria-label")).toContain("Notifications");
     expect(await axeViolations(container)).toEqual([]);
   });
@@ -26,7 +26,7 @@ describe("Toaster", () => {
     render(<Toaster label="Notifications" closeLabel="Dismiss" />);
     act(() => void toast.error("Payment failed"));
     const li = (await screen.findByText("Payment failed")).closest("[data-sonner-toast]") as HTMLElement;
-    expect(li.className).toContain("border-l-danger");
+    expect(li.className).toContain("before:bg-danger");
     await user.click(screen.getByRole("button", { name: "Dismiss" }));
     await waitFor(() => expect(screen.queryByText("Payment failed")).toBeNull());
 
@@ -41,7 +41,7 @@ describe("Toaster", () => {
       const li = item.closest("[data-sonner-toast]") as HTMLElement;
       expect(li.className).toContain("rounded-none");
       expect(li.className).not.toContain("rounded-xl");
-      expect(toastClassNames.warning).toContain("border-l-warning");
+      expect(toastClassNames.warning).toContain("before:bg-warning");
     });
   });
 });

@@ -4,14 +4,15 @@
 import { Command as CommandPrimitive } from "cmdk";
 import { Dialog as DialogPrimitive } from "radix-ui";
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { cn } from "../cn";
 import { DialogContent, type DialogContentProps } from "../dialog/dialog";
+import { tv } from "../tv";
 
 export const command = tv({
   slots: {
-    root: "flex h-full w-full flex-col overflow-hidden bg-surface-1 text-fg",
+    // Transparent in its dialog (the dialog is the glass); standing alone, a raised surface.
+    root: "flex h-full w-full flex-col overflow-hidden bg-surface-1 text-fg in-[[role=dialog]]:bg-transparent",
     inputWrap: "flex items-center gap-3 border-b border-border-default px-4",
     icon: "h-5 w-5 shrink-0 text-fg-secondary",
     input:
@@ -21,11 +22,13 @@ export const command = tv({
     loading: "px-3 py-6 text-center text-sm text-fg-secondary",
     group:
       "[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:pb-1.5 [&_[cmdk-group-heading]]:pt-3 [&_[cmdk-group-heading]]:text-xs " +
-      "[&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider [&_[cmdk-group-heading]]:text-fg-secondary",
+      "[&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.08em] [&_[cmdk-group-heading]]:text-fg-secondary",
     item:
       "relative flex cursor-pointer select-none items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-fg outline-hidden transition-colors " +
-      "before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:rounded-full before:bg-transparent " +
-      "data-[selected=true]:bg-surface-2 data-[selected=true]:before:bg-accent data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-40",
+      "before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:rounded-full before:bg-transparent before:transition-colors " +
+      // The active item: the accent's tint and a rail of light that glows (the menus' highlight).
+      "data-[selected=true]:bg-accent-soft data-[selected=true]:before:bg-accent data-[selected=true]:before:shadow-[0_0_8px_var(--kz-accent)] " +
+      "data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-40",
     separator: "-mx-2 my-1 h-px bg-border-subtle",
     shortcut: "ml-auto text-xs tracking-widest text-fg-secondary",
   },

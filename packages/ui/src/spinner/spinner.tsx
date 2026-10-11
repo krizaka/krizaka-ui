@@ -1,8 +1,9 @@
 // Server-safe. An indeterminate wait: the Krizaka loader glyph (a hexagon traced by light around a node), announced as
 // a status with its `label`. For a wait with a delay, a value, an ETA or an ending, see `@krizaka/ui/loader`.
 import type * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
 
+import { tv } from "../tv";
 import { LoaderGlyph } from "./glyph";
 
 export const spinnerVariants = tv({

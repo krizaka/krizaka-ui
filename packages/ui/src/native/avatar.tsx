@@ -22,6 +22,15 @@ export type AvatarProps = Omit<ViewProps, "children"> & {
   fallback?: React.ReactNode;
   /** A size of the scale, or points. */
   size?: AvatarSize | number;
+  /**
+   * The person's presence: `online` (a green dot), `away` (an amber ring) in the bottom-right corner — decorative: say
+   * the status in words next to it or in the accessible name (`alt`). The dot is cut out by a ring of `surface`.
+   */
+  status?: "online" | "away" | null;
+  /** The presence ring: the accent around the avatar (someone live, a new story) — decorative too. */
+  ring?: boolean;
+  /** The colour the avatar sits on (the cut-out around the status dot and inside the ring). Default `theme.surface0`. */
+  surface?: string;
 };
 
 /** A round picture; the initial (or `fallback`) when there is none or it fails to load. */
@@ -30,7 +39,7 @@ export function isSvgUri(uri: string): boolean {
   return /^data:image\/svg\+xml[;,]/i.test(uri) || /\.svg(?:[?#]|$)/i.test(uri);
 }
 
-export function AvatarRoot({ src, svg, alt = "", fallback, size = "md", style, ...props }: AvatarProps) {
+export function AvatarRoot({ src, svg, alt = "", fallback, size = "md", status, ring, surface, style, ...props }: AvatarProps) {
   const { theme } = useTheme();
   // The source that failed to load: a new `src` gets its chance.
   const [failedSrc, setFailedSrc] = React.useState<string | null>(null);
@@ -38,7 +47,7 @@ export function AvatarRoot({ src, svg, alt = "", fallback, size = "md", style, .
   const side = typeof size === "number" ? size : SIDE[size];
   const initial = alt.trim().charAt(0).toUpperCase();
   const content = fallback ?? initial;
-  return (
+  const picture = (
     <View
       accessible={Boolean(alt)}
       role={alt ? "img" : undefined}
@@ -57,6 +66,34 @@ export function AvatarRoot({ src, svg, alt = "", fallback, size = "md", style, .
       ) : (
         content
       )}
+    </View>
+  );
+  if (!status && !ring) return picture;
+  const cutout = surface ?? theme.surface0;
+  const dot = Math.max(6, Math.round(side * 0.28));
+  const gap = ring ? 2 : 0;
+  return (
+    <View style={[styles.frame, ring ? { padding: 2, borderRadius: side, backgroundColor: theme.accent } : null]}>
+      {ring ? <View style={{ padding: gap, borderRadius: side, backgroundColor: cutout }}>{picture}</View> : picture}
+      {status ? (
+        <View
+          aria-hidden
+          testID={props.testID ? `${props.testID}.status` : undefined}
+          style={[
+            styles.status,
+            {
+              width: dot,
+              height: dot,
+              borderRadius: dot / 2,
+              borderColor: cutout,
+              right: ring ? 2 : 0,
+              bottom: ring ? 2 : 0,
+              backgroundColor: status === "online" ? theme.success : cutout,
+            },
+            status === "away" ? { borderWidth: 2, borderColor: theme.warning } : null,
+          ]}
+        />
+      ) : null}
     </View>
   );
 }
@@ -97,6 +134,8 @@ export const Avatar = Object.assign(AvatarRoot, { Group: AvatarGroup });
 
 const styles = StyleSheet.create({
   root: { overflow: "hidden", alignItems: "center", justifyContent: "center" },
+  frame: { position: "relative", alignSelf: "flex-start" },
+  status: { position: "absolute", borderWidth: 2 },
   initial: { fontWeight: "700" },
   group: { flexDirection: "row", alignItems: "center" },
 });

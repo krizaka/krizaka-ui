@@ -4,9 +4,9 @@
 // to the right of its value, the end handle to its left), so the frame encloses exactly what is kept. Every part
 // takes its own classes (`classNames`) and the handles their own content (`renderHandle`).
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { clamp, formatClock } from "../media";
+import { tv } from "../tv";
 
 export const videoTrimmer = tv({
   slots: {
@@ -20,12 +20,12 @@ export const videoTrimmer = tv({
     range: "pointer-events-none absolute inset-y-0 border-y-[3px] border-accent",
     handle:
       "absolute inset-y-0 z-10 flex w-6 cursor-ew-resize items-center justify-center bg-accent text-on-accent shadow-md " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0 " +
+      "focus-visible:focus-ring " +
       "data-[edge=start]:rounded-l-xl data-[edge=end]:-translate-x-full data-[edge=end]:rounded-r-xl",
     grip: "flex gap-[3px] [&>span]:h-5 [&>span]:w-[2px] [&>span]:rounded-sm [&>span]:bg-on-accent/70",
     playhead:
       "absolute -inset-y-1.5 z-20 w-[3px] -translate-x-1/2 cursor-ew-resize rounded-full bg-fg shadow-md " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "focus-visible:focus-ring",
   },
 });
 

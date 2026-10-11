@@ -39,7 +39,17 @@ const easeOut = (t: number) => 1 - Math.pow(1 - t, 4);
 
 /** A figure that climbs into view, or rolls digit by digit to each new value. */
 export function NumberTicker({ value, locale, format, trigger = "view", duration = 1100, announce, align = "end", className, ...props }: NumberTickerProps) {
-  const formatter = React.useMemo(() => new Intl.NumberFormat(locale, format), [locale, format]);
+  // While it climbs, a figure never shows more decimals than its final value has ("28.993" on the way to 29): the
+  // final value's decimals cap the format, unless `format` says otherwise.
+  const decimals = fractionDigits(value);
+  const formatter = React.useMemo(
+    () => {
+      if (format?.maximumFractionDigits !== undefined) return new Intl.NumberFormat(locale, format);
+      const { minimumFractionDigits = 0, maximumFractionDigits = 3 } = new Intl.NumberFormat(locale, format).resolvedOptions();
+      return new Intl.NumberFormat(locale, { ...format, maximumFractionDigits: Math.max(minimumFractionDigits, Math.min(maximumFractionDigits, decimals)) });
+    },
+    [locale, format, decimals],
+  );
   const text = formatter.format(value);
   const live = React.useRef<HTMLSpanElement>(null);
   // The previous value, kept in state (React's pattern for “adjusting state when a prop changes”): the trend of the last change.
@@ -113,4 +123,12 @@ export function NumberTicker({ value, locale, format, trigger = "view", duration
       </span>
     </span>
   );
+}
+
+/** The decimals of a number as written (`2.5` → 1, `29` → 0), at most 20. */
+function fractionDigits(value: number): number {
+  if (!Number.isFinite(value)) return 0;
+  const [mantissa, exponent] = String(value).split("e");
+  const digits = (mantissa.split(".")[1] ?? "").length - (exponent ? Number(exponent) : 0);
+  return Math.min(20, Math.max(0, digits));
 }

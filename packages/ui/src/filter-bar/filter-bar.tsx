@@ -4,11 +4,11 @@
 // `readFilterParams` / `writeFilterParams` helpers move them between a `URLSearchParams` and an object.
 import { DropdownMenu as MenuPrimitive } from "radix-ui";
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { Chip } from "../chip";
 import { DropdownMenu, menu } from "../dropdown-menu";
 import { ChevronGlyph } from "../glyphs";
+import { tv } from "../tv";
 
 export const filterBar = tv({
   slots: {
@@ -16,12 +16,12 @@ export const filterBar = tv({
     controls: "flex w-full flex-wrap items-center gap-2 [&>*]:min-w-0",
     active: "flex flex-wrap items-center gap-2",
     clear:
-      "rounded-md px-2 py-1 text-xs font-semibold text-fg-accent hover:bg-surface-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "rounded-md px-2 py-1 text-xs font-semibold text-fg-accent hover:bg-surface-2 focus-visible:focus-ring",
     results: "ml-auto text-xs text-fg-secondary tabular-nums",
     trigger:
-      "inline-flex h-11 shrink-0 items-center gap-2 rounded-lg border border-border-default bg-surface-1 px-3.5 text-sm font-semibold text-fg-secondary " +
-      "transition-colors hover:border-border-strong hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
-      "data-[active]:border-accent data-[active]:bg-accent-soft data-[active]:text-fg data-[state=open]:border-border-strong",
+      "inline-flex h-(--kz-control-field) shrink-0 items-center gap-2 rounded-lg border border-border-default bg-surface-1 bg-sheen px-3.5 text-sm font-semibold text-fg-secondary shadow-raised inset-shadow-edge " +
+      "transition-colors hover:border-border-strong hover:text-fg focus-visible:focus-ring " +
+      "data-[active]:border-accent data-[active]:bg-accent-soft data-[active]:bg-none data-[active]:text-fg data-[active]:shadow-glow data-[state=open]:border-border-strong",
     count: "inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1.5 text-[11px] font-bold tabular-nums text-on-accent",
     optionCount: "ml-auto pl-4 text-xs tabular-nums text-fg-secondary",
   },

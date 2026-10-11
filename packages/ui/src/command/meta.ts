@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Command",
-  summary: "A command palette on cmdk: a search input over a filtered list of commands, inline or in a dialog.",
+  summary: "A command palette on cmdk: a search input over a filtered list of commands, inline or in a dialog of frosted glass.",
   status: "beta",
   category: "navigation",
   platforms: "web",

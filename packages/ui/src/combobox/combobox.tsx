@@ -3,34 +3,34 @@
 // or `onSearch` (debounced, the previous request aborted) for a server's; one value or several (chips, Backspace
 // removes the last), and new values created from the query when `creatable`.
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { Chip } from "../chip";
 import { CheckGlyph, ChevronGlyph, CloseGlyph, PlusGlyph } from "../glyphs";
 import { useListbox } from "../listbox";
 import { useControllable, useDebouncedCallback } from "../media";
+import { tv } from "../tv";
 
 export const combobox = tv({
   slots: {
     root: "relative flex w-full flex-col gap-1.5",
     label: "text-xs font-semibold text-fg-secondary",
     control:
-      "flex min-h-11 w-full flex-wrap items-center gap-1.5 rounded-lg border border-border-default bg-surface-2 py-1.5 pl-2 pr-1 text-sm text-fg " +
-      "transition-[border-color,box-shadow] focus-within:border-accent focus-within:ring-2 focus-within:ring-ring " +
+      "flex min-h-(--kz-control-field) w-full flex-wrap items-center gap-1.5 rounded-lg border border-border-default bg-surface-2 py-1.5 pl-2 pr-1 text-sm text-fg " +
+      "inset-shadow-well transition-[border-color,box-shadow] duration-(--kz-duration-fast) hover:border-border-strong focus-within:border-ring focus-within:focus-ring-inset focus-within:[corner-top-right-shape:var(--kz-cut-shape)] " +
       "data-[invalid]:border-danger data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
     input: "h-8 min-w-24 flex-1 bg-transparent px-1 text-sm text-fg outline-hidden placeholder:text-fg-muted disabled:cursor-not-allowed",
     icon:
       "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-fg-secondary hover:bg-surface-3 hover:text-fg " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
-    list: "absolute inset-x-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-lg border border-border-default bg-surface-2 p-1 shadow-lg",
+      "focus-visible:focus-ring",
+    list: "absolute inset-x-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-xl border glass p-1 shadow-floating inset-shadow-edge",
     option:
       "flex cursor-pointer select-none items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-fg " +
-      "data-[active]:bg-surface-3 aria-disabled:cursor-not-allowed aria-disabled:opacity-40",
+      "data-[active]:bg-accent-soft aria-disabled:cursor-not-allowed aria-disabled:opacity-40",
     check: "h-4 w-4 shrink-0 text-fg-accent",
     description: "block text-xs text-fg-secondary",
     status: "px-2.5 py-3 text-sm text-fg-secondary",
     hint: "text-xs text-fg-secondary",
-    error: "flex items-center gap-1.5 text-xs font-medium text-fg-danger before:h-1.5 before:w-1.5 before:shrink-0 before:rounded-full before:bg-danger",
+    error: "flex items-center gap-1.5 text-xs font-medium text-fg-danger before:size-1.5 before:shrink-0 before:rotate-45 before:rounded-[1.5px] before:bg-danger",
   },
 });
 

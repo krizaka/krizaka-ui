@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import AccentExample from "../../registry/examples/badge/accent";
+import CutExample from "../../registry/examples/badge/cut";
 import DangerExample from "../../registry/examples/badge/danger";
 import MediumExample from "../../registry/examples/badge/medium";
 import NeutralExample from "../../registry/examples/badge/neutral";
@@ -28,3 +29,4 @@ export const Warning: Story = { render: () => <WarningExample /> };
 export const Danger: Story = { render: () => <DangerExample /> };
 export const Scrim: Story = { render: () => <ScrimExample /> };
 export const Medium: Story = { render: () => <MediumExample /> };
+export const Cut: Story = { render: () => <CutExample /> };

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Pressable, type StyleProp, StyleSheet, Text, View, type ViewStyle } from "react-native";
 
+import { Material } from "./material";
 import { useTheme } from "./theme";
 
 export type SegmentedOption<T extends string> = { value: T; label: string; disabled?: boolean };
@@ -30,7 +31,7 @@ export function Segmented<T extends string>({ options, value, onValueChange, siz
     <View
       role="tablist"
       aria-label={label}
-      style={[styles.track, { backgroundColor: theme.surface2, borderColor: theme.borderSubtle, borderRadius: radius.md, height: size === "sm" ? 32 : 40 }, style]}
+      style={[styles.track, { backgroundColor: theme.surface1, borderColor: theme.borderDefault, borderRadius: radius.md, height: size === "sm" ? 32 : 40 }, style]}
     >
       {options.map((option) => {
         const selected = option.value === value;
@@ -47,10 +48,12 @@ export function Segmented<T extends string>({ options, value, onValueChange, siz
             style={[
               styles.segment,
               { borderRadius: radius.sm },
-              selected ? { backgroundColor: theme.surface0, borderColor: theme.borderDefault } : null,
+              // The chosen segment is raised (BRAND.md §6): a lighter surface, its sheen and its edge of light.
+              selected ? { backgroundColor: theme.surface3, borderColor: theme.borderDefault } : null,
               option.disabled ? styles.disabled : null,
             ]}
           >
+            {selected ? <Material sheen={theme.surfaceSheen} edge={theme.edgeLight} radius={radius.sm} /> : null}
             <Text numberOfLines={1} style={[styles.label, { color: selected ? theme.textPrimary : theme.textSecondary, fontSize: size === "sm" ? 12 : 13 }]}>
               {option.label}
             </Text>
@@ -63,7 +66,7 @@ export function Segmented<T extends string>({ options, value, onValueChange, siz
 
 const styles = StyleSheet.create({
   track: { flexDirection: "row", padding: 3, gap: 3, borderWidth: StyleSheet.hairlineWidth },
-  segment: { flex: 1, alignItems: "center", justifyContent: "center", paddingHorizontal: 8, borderWidth: StyleSheet.hairlineWidth, borderColor: "transparent" },
+  segment: { flex: 1, alignItems: "center", justifyContent: "center", paddingHorizontal: 8, borderWidth: StyleSheet.hairlineWidth, borderColor: "transparent", overflow: "hidden" },
   label: { fontWeight: "600" },
   disabled: { opacity: 0.4 },
 });

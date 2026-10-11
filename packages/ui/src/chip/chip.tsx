@@ -3,19 +3,23 @@
 // buttons). A `removable` chip is a static label with its own remove button (two buttons cannot nest).
 import { Toggle as TogglePrimitive, ToggleGroup as ToggleGroupPrimitive } from "radix-ui";
 import * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const chip = tv({
   slots: {
     group: "flex flex-wrap items-center gap-2 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch",
     base:
-      "inline-flex shrink-0 select-none items-center justify-center gap-1.5 whitespace-nowrap rounded-full border font-semibold transition-colors " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-40 " +
-      "border-border-default bg-surface-1 text-fg-secondary hover:border-border-strong hover:text-fg " +
-      "data-[state=on]:border-accent data-[state=on]:bg-accent-soft data-[state=on]:text-fg",
+      // A raised pill (BRAND.md §6); chosen, the accent's tint, its border and glow, and a press on a short spring.
+      "inline-flex shrink-0 select-none items-center justify-center gap-1.5 whitespace-nowrap rounded-full border font-semibold " +
+      "transition-[color,background-color,border-color,box-shadow,scale] duration-(--kz-duration-fast) ease-spring active:scale-[0.96] " +
+      "focus-visible:focus-ring disabled:pointer-events-none disabled:opacity-40 " +
+      "border-border-default bg-surface-1 bg-sheen text-fg-secondary shadow-raised inset-shadow-edge hover:border-border-strong hover:text-fg " +
+      "data-[state=on]:border-accent/70 data-[state=on]:bg-accent-soft data-[state=on]:bg-none data-[state=on]:text-fg data-[state=on]:shadow-glow",
     remove:
       "-mr-1.5 inline-flex h-6 w-6 items-center justify-center rounded-full text-fg-secondary transition-colors hover:bg-surface-3 hover:text-fg " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "focus-visible:focus-ring",
   },
   variants: {
     size: { sm: { base: "h-7 px-3 text-xs" }, md: { base: "h-9 px-3.5 text-xs" } },

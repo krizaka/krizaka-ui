@@ -91,6 +91,7 @@ export const GLYPHS = {
   menu: { group: "interface", keywords: "menu hamburger navigation", p: ["M4 7h16M4 12h16M4 17h10"] },
   close: { group: "interface", keywords: "close dismiss x cancel", p: ["M6 6l12 12M18 6 6 18"] },
   back: { group: "interface", keywords: "back arrow left previous", p: ["M20 12H4.5", "M10.5 6 4.5 12l6 6"] },
+  send: { group: "interface", keywords: "send message paper plane submit composer", p: ["M20.5 3.5 3.5 10l7 3.5 3.5 7z", "M20.5 3.5l-10 10"] },
   forward: { group: "interface", keywords: "forward arrow right next", p: ["M4 12h15.5", "M13.5 6l6 6-6 6"] },
   chevronDown: { group: "interface", keywords: "chevron down expand", p: ["M6 9.5l6 6 6-6"] },
   chevronRight: { group: "interface", keywords: "chevron right open", p: ["M9.5 6l6 6-6 6"] },

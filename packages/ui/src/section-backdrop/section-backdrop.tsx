@@ -1,6 +1,7 @@
 // Server-safe. The backdrop of a page section in the brand's visual language (packages/tokens/BRAND.md).
 import type * as React from "react";
-import { tv } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const sectionBackdropVariants = tv({
   slots: {

@@ -48,3 +48,38 @@ describe("NumberTicker", () => {
     expect(container.querySelector(".sr-only")?.textContent).toBe("1,300");
   });
 });
+
+describe("NumberTicker — the climb", () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("never shows more decimals on its way than the final value has", () => {
+    let observed: (entries: { isIntersecting: boolean }[]) => void = () => undefined;
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        constructor(cb: (entries: { isIntersecting: boolean }[]) => void) {
+          observed = cb;
+        }
+        observe() {}
+        disconnect() {}
+      },
+    );
+    const frames: FrameRequestCallback[] = [];
+    vi.stubGlobal("requestAnimationFrame", (cb: FrameRequestCallback) => frames.push(cb));
+    vi.stubGlobal("cancelAnimationFrame", () => undefined);
+    const { container } = render(<NumberTicker value={29} locale="en" duration={1000} />);
+    observed([{ isIntersecting: false }]);
+    observed([{ isIntersecting: true }]);
+    frames.shift()?.(performance.now() + 437);
+    const climbing = [...container.querySelectorAll("[aria-hidden]")].map((el) => el.textContent ?? "");
+    expect(climbing.some((t) => t !== "29")).toBe(true);
+    for (const t of climbing) expect(t).toMatch(/^\d+$/);
+  });
+
+  it("keeps the final value's own decimals, and a format's explicit fraction digits", () => {
+    const { container } = render(<NumberTicker value={2.5} locale="en" />);
+    expect(container.querySelector(".sr-only")?.textContent).toBe("2.5");
+    const { container: money } = render(<NumberTicker value={12} locale="en" format={{ style: "currency", currency: "EUR" }} />);
+    expect(money.querySelector(".sr-only")?.textContent).toBe("€12.00");
+  });
+});

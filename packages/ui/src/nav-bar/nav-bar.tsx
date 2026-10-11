@@ -4,40 +4,40 @@
 // focus and rests on the current page, and a mobile panel that is a plain disclosure (no focus trap, Escape closes).
 import { NavigationMenu as Nav, Slot } from "radix-ui";
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { cn } from "../cn";
 import { useSlidingIndicator } from "../sliding-indicator";
+import { tv } from "../tv";
 
 export const navBar = tv({
   slots: {
     root:
       "group/nav relative z-40 mx-auto flex h-14 w-full items-center gap-2 border-border-subtle bg-surface-1/75 backdrop-blur-xl backdrop-saturate-150 " +
       "transition-[height,background-color,border-color,box-shadow] duration-300 motion-reduce:transition-none " +
-      "data-compact:h-12 data-compact:border-border-default data-compact:bg-surface-1/90 data-compact:shadow-lg",
+      "data-compact:h-12 data-compact:border-border-default data-compact:bg-glass data-compact:shadow-floating data-compact:inset-shadow-edge",
     brand:
       "mr-2 inline-flex shrink-0 items-center gap-2 font-display text-[15px] font-bold tracking-tight text-fg no-underline " +
-      "rounded-md focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "rounded-md focus-visible:focus-ring",
     items: "relative hidden md:block",
     list:
       "group/list relative isolate flex items-center gap-0.5 " +
       // The light: under the item that is pointed at or focused, resting on the current page.
       "before:absolute before:left-0 before:top-0 before:-z-10 before:h-(--kz-ind-h) before:w-(--kz-ind-w) before:translate-x-(--kz-ind-x) before:translate-y-(--kz-ind-y) " +
-      "before:rounded-full before:bg-surface-3 before:opacity-0 before:transition-[translate,width,opacity] before:duration-300 motion-reduce:before:transition-none " +
+      "before:rounded-full before:bg-surface-3 before:bg-sheen before:inset-shadow-edge before:opacity-0 before:transition-[translate,width,opacity] before:duration-300 motion-reduce:before:transition-none " +
       "data-[indicator=on]:before:opacity-100",
     item:
       "inline-flex h-9 select-none items-center gap-1 rounded-full px-3.5 text-sm font-medium text-fg-secondary no-underline transition-colors " +
-      "hover:text-fg data-active:text-fg data-[state=open]:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
+      "hover:text-fg data-active:text-fg data-[state=open]:text-fg focus-visible:focus-ring " +
       // Before the light is ready (server render), the current page carries its own tint.
       "group-not-data-[indicator=on]/list:data-active:bg-surface-3",
     chevron: "h-3.5 w-3.5 transition-transform duration-300 group-data-[state=open]/trigger:rotate-180 motion-reduce:transition-none",
     viewport:
       "kz-pop absolute left-0 top-full mt-2 h-(--radix-navigation-menu-viewport-height) w-(--radix-navigation-menu-viewport-width) origin-top-left overflow-hidden " +
-      "rounded-2xl border border-border-default bg-surface-1 shadow-lg transition-[width,height] duration-300 motion-reduce:transition-none",
+      "rounded-2xl border glass shadow-floating inset-shadow-edge transition-[width,height] duration-300 motion-reduce:transition-none",
     panel: "grid w-max max-w-[min(92vw,30rem)] gap-1 p-2",
     menuLink:
       "group/link flex items-start gap-3 rounded-xl p-3 text-left no-underline outline-hidden transition-colors " +
-      "hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:ring-2 focus-visible:ring-ring data-active:bg-accent-soft",
+      "hover:bg-surface-2 focus-visible:bg-surface-2 data-active:bg-accent-soft",
     menuIcon:
       "mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border-default bg-surface-2 text-fg-accent " +
       "transition-[transform,border-color] duration-300 group-hover/link:-translate-y-0.5 group-hover/link:border-accent [&>svg]:h-4.5 [&>svg]:w-4.5 motion-reduce:transform-none",
@@ -46,11 +46,11 @@ export const navBar = tv({
     actions: "ml-auto flex items-center gap-2",
     toggle:
       "inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-surface-2/60 text-fg md:hidden " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "focus-visible:focus-ring",
     mobile: "kz-pop absolute inset-x-0 top-full mt-2 grid gap-1 rounded-2xl border border-border-default bg-surface-1 p-2 shadow-lg md:hidden",
     mobileLink:
       "flex items-center justify-between rounded-xl px-3 py-3 text-[15px] font-medium text-fg no-underline hover:bg-surface-2 " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:text-fg-accent",
+      "focus-visible:focus-ring aria-[current=page]:text-fg-accent",
   },
   variants: {
     floating: {

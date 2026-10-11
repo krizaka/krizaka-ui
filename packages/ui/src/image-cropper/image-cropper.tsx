@@ -3,17 +3,17 @@
 // the screen, the same on the server — and `cropRect` turns it into pixels of the source. Keyboard: the frame takes the
 // focus, the arrows move (Shift: faster), + / − zoom; the zoom is also a slider. No motion but the person's own.
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { clamp } from "../media";
 import { Slider } from "../slider";
+import { tv } from "../tv";
 
 export const imageCropper = tv({
   slots: {
     root: "flex w-full flex-col gap-3",
     frame:
       "relative w-full cursor-grab touch-none overflow-hidden rounded-xl bg-media active:cursor-grabbing " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0",
+      "focus-visible:focus-ring",
     media: "pointer-events-none absolute max-w-none select-none",
     grid:
       "pointer-events-none absolute inset-0 rounded-xl border-2 border-fg-on-media/80 " +

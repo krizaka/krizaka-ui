@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import type * as React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
 import { axeViolations } from "../test/axe";
@@ -75,5 +76,27 @@ describe("Card", () => {
   it("renders on the server (no hook, no context) and exposes its slots", () => {
     expect(renderToStaticMarkup(<Card.Root tone="elevated">x</Card.Root>)).toContain("bg-surface-2");
     expect(card({ padding: "lg" }).body()).toContain("p-6");
+  });
+});
+
+describe("Card — the material", () => {
+  it("takes a variant: raised by default, spotlight with the brand's halo, glass, outline", () => {
+    const html = (node: React.ReactElement) => renderToStaticMarkup(node);
+    expect(html(<Card.Root>x</Card.Root>)).toContain("shadow-raised");
+    expect(html(<Card.Root>x</Card.Root>)).toContain("bg-surface-1");
+    expect(html(<Card.Root variant="spotlight">x</Card.Root>)).toContain("bg-halo");
+    expect(html(<Card.Root variant="glass">x</Card.Root>)).toContain("glass");
+    expect(html(<Card.Root variant="outline">x</Card.Root>)).not.toContain("shadow-raised");
+    expect(html(<Card.Root variant="elevated">x</Card.Root>)).toContain('data-variant="elevated"');
+  });
+
+  it("keeps tone as the former name of variant (2.x), variant winning", () => {
+    expect(renderToStaticMarkup(<Card.Root tone="glass">x</Card.Root>)).toContain('data-variant="glass"');
+    expect(renderToStaticMarkup(<Card.Root tone="glass" variant="outline">x</Card.Root>)).toContain('data-variant="outline"');
+    expect(card({ tone: "elevated" }).root()).toContain("bg-surface-2");
+  });
+
+  it("cuts its top-right corner at 45° with cut", () => {
+    expect(renderToStaticMarkup(<Card.Root cut>x</Card.Root>)).toContain("[corner-top-right-shape:bevel]");
   });
 });

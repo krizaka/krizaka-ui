@@ -3,30 +3,37 @@
 // roles written out so that the change of `display` never loses the table's semantics. Selection through
 // `@krizaka/ui/checkbox`; loading, empty and error states in the body; optional windowing for thousands of rows.
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { Checkbox } from "../checkbox";
 import { SortGlyph } from "../glyphs";
 import { useControllable } from "../media";
+import { tv } from "../tv";
 
 export const dataTable = tv({
   slots: {
-    root: "@container w-full overflow-hidden rounded-xl border border-border-default bg-surface-1",
+    // The material (BRAND.md §6): a raised surface; the header in the mono voice on frosted glass, sticky over the rows
+    // when the body scrolls (`maxHeight`); the rows come alive under the pointer — a rail of light on their left edge.
+    root: "@container w-full overflow-hidden rounded-xl border border-border-default bg-surface-1 shadow-raised inset-shadow-edge",
     scroller: "w-full overflow-x-auto",
     table: "w-full border-collapse text-left text-sm text-fg",
     caption: "px-4 pt-4 pb-2 text-left text-sm font-semibold text-fg",
-    thead: "bg-surface-2/60",
+    thead: "",
     headRow: "border-b border-border-default",
-    th: "whitespace-nowrap px-4 py-3 text-xs font-semibold text-fg-secondary",
+    th:
+      "sticky top-0 z-10 whitespace-nowrap bg-surface-2 px-4 py-3 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-fg-secondary " +
+      "supports-backdrop-filter:bg-glass supports-backdrop-filter:backdrop-blur-md",
     sortButton:
       "-mx-1.5 inline-flex items-center gap-1 rounded-md px-1.5 py-1 hover:bg-surface-3 hover:text-fg " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[pressed=true]:text-fg",
+      "focus-visible:focus-ring aria-[pressed=true]:text-fg",
     tbody: "",
-    tr: "border-b border-border-subtle transition-colors last:border-b-0 hover:bg-surface-2/50 data-[state=selected]:bg-accent-soft",
+    tr:
+      "border-b border-border-subtle transition-colors duration-(--kz-duration-fast) last:border-b-0 hover:bg-surface-2/60 " +
+      "[&>td:first-child]:transition-shadow hover:[&>td:first-child]:shadow-[inset_2px_0_0_var(--kz-border-strong)] " +
+      "data-[state=selected]:bg-accent-soft data-[state=selected]:[&>td:first-child]:shadow-[inset_2px_0_0_var(--kz-accent)]",
     td: "px-4 py-3 align-middle",
     select: "w-10",
     message: "px-4 py-10 text-center text-sm text-fg-secondary",
-    skeleton: "h-4 w-full max-w-40 animate-pulse rounded bg-surface-3 motion-reduce:animate-none",
+    skeleton: "kz-skeleton h-4 w-full max-w-40 rounded bg-surface-3",
     footer: "border-t border-border-default px-4 py-3",
   },
   variants: {
@@ -157,6 +164,8 @@ export type DataTableProps<T> = {
   density?: "comfortable" | "compact";
   /** Renders only the rows in view (fixed `rowHeight`, a scrolling body of `height` px). Forces the table layout. */
   virtualize?: { rowHeight: number; height: number; overscan?: number };
+  /** The body scrolls past this height (a number in px, or any CSS length) and the header stays on top of the rows. */
+  maxHeight?: number | string;
   /** Under the table: a `Pagination`, a total. */
   footer?: React.ReactNode;
   /** The words, passed translated; English by default. */
@@ -201,6 +210,7 @@ export function DataTable<T>({
   layout = "auto",
   density,
   virtualize,
+  maxHeight,
   footer,
   labels: given,
   className,
@@ -311,7 +321,7 @@ export function DataTable<T>({
         {caption}
         {loading ? <span className="sr-only">{` — ${labels.loading}`}</span> : null}
       </caption>
-      <thead role="rowgroup" className={s.thead({ className: virtualize ? "sticky top-0 z-10 bg-surface-2" : undefined })}>
+      <thead role="rowgroup" className={s.thead()}>
         <tr role="row" aria-rowindex={virtualize ? 1 : undefined} className={s.headRow()}>
           {selectable && (
             <th role="columnheader" scope="col" data-keep="" className={s.th({ className: s.select() })}>
@@ -374,10 +384,15 @@ export function DataTable<T>({
           tabIndex={0}
           role="region"
           aria-label={caption}
-          className={s.scroller({ className: "overflow-y-auto focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring" })}
+          className={s.scroller({ className: "overflow-y-auto focus-visible:focus-ring-inset" })}
           style={{ height: virtualize.height }}
           onScroll={(event) => setScrollTop(event.currentTarget.scrollTop)}
         >
+          {table}
+        </div>
+      ) : maxHeight !== undefined ? (
+        // A scrolling body the keyboard can reach (Tab lands on it, the arrows scroll it); the header stays on top.
+        <div tabIndex={0} role="region" aria-label={caption} className={s.scroller({ className: "overflow-y-auto overscroll-contain focus-visible:focus-ring-inset" })} style={{ maxHeight }}>
           {table}
         </div>
       ) : (

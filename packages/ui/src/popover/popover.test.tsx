@@ -20,7 +20,7 @@ describe("Popover", () => {
     const dialog = screen.getByRole("dialog", { name: "Share" });
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
     expect(dialog.className).toContain("kz-pop");
-    expect(dialog.className).toContain("bg-surface-2");
+    expect(dialog.className).toContain("glass");
     expect(await axeViolations(dialog)).toEqual([]);
     await user.keyboard("{Escape}");
     expect(screen.queryByRole("dialog")).toBeNull();

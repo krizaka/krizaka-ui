@@ -1,16 +1,22 @@
 // Client. Radix Switch: role="switch", aria-checked, Space and Enter toggle, a hidden input inside a form.
 import { Switch as SwitchPrimitive } from "radix-ui";
 import type * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const switchVariants = tv({
   slots: {
     root:
-      "peer relative inline-flex shrink-0 cursor-pointer items-center rounded-full border border-transparent bg-fg-muted transition-colors " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0 " +
+      // A well (its inner shade), the accent with its glow when on; the thumb is a raised bead that carries the node, lit when on.
+      "peer relative inline-flex shrink-0 cursor-pointer items-center rounded-full border border-transparent bg-fg-muted inset-shadow-well " +
+      "transition-[background-color,box-shadow] duration-(--kz-duration-fast) data-[state=checked]:shadow-glow " +
+      "focus-visible:focus-ring " +
       "disabled:cursor-not-allowed disabled:opacity-40 data-[state=checked]:bg-accent aria-invalid:border-danger",
     thumb:
-      "pointer-events-none block rounded-full bg-fg-on-media shadow-sm transition-transform data-[state=unchecked]:translate-x-0.5 motion-reduce:transition-none",
+      "pointer-events-none grid place-items-center rounded-full bg-fg-on-media shadow-raised transition-transform duration-(--kz-duration-base) ease-spring " +
+      "data-[state=unchecked]:translate-x-0.5 motion-reduce:transition-none " +
+      "after:size-1.5 after:rotate-45 after:rounded-[1.5px] after:bg-transparent after:transition-colors data-[state=checked]:after:bg-accent",
   },
   variants: {
     size: {

@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Slider",
-  summary: "A value or a range chosen by dragging a thumb along a track, with arrows and Page keys.",
+  summary: "A value or a range chosen by dragging a raised thumb along a well, the fill glowing in the brand — with arrows and Page keys.",
   status: "beta",
   category: "forms",
   platforms: "web",

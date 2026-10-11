@@ -1,9 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import CutExample from "../../registry/examples/card/cut";
+import GlassExample from "../../registry/examples/card/glass";
 import InteractiveLinkExample from "../../registry/examples/card/interactive-link";
 import MediaCardExample from "../../registry/examples/card/media-card";
 import MediaFallbackExample from "../../registry/examples/card/media-fallback";
+import OutlineExample from "../../registry/examples/card/outline";
 import RevealGridExample from "../../registry/examples/card/reveal-grid";
+import SpotlightExample from "../../registry/examples/card/spotlight";
 import StatCardExample from "../../registry/examples/card/stat-card";
 import { Card } from "./card";
 
@@ -32,3 +36,7 @@ export const MediaFallback: Story = { render: () => <MediaFallbackExample /> };
 export const InteractiveLink: Story = { render: () => <InteractiveLinkExample /> };
 export const StatCard: Story = { render: () => <StatCardExample /> };
 export const RevealGrid: Story = { render: () => <RevealGridExample />, parameters: { wide: true } };
+export const Spotlight: Story = { render: () => <SpotlightExample /> };
+export const Glass: Story = { render: () => <GlassExample /> };
+export const Outline: Story = { render: () => <OutlineExample /> };
+export const Cut: Story = { render: () => <CutExample /> };

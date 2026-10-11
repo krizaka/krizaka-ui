@@ -4,9 +4,9 @@
 // the page lives in the address — the right default for a list a search engine or a shared link should reach — or
 // buttons (`onPageChange`).
 import type * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { ChevronGlyph } from "../glyphs";
+import { tv } from "../tv";
 
 export const pagination = tv({
   slots: {
@@ -16,15 +16,15 @@ export const pagination = tv({
     compact: "px-2 text-xs font-semibold tabular-nums text-fg-secondary @md:hidden",
     item:
       "inline-flex h-9 min-w-9 select-none items-center justify-center gap-1.5 rounded-lg px-2.5 text-sm font-semibold tabular-nums text-fg-secondary " +
-      "transition-colors hover:bg-surface-2 hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
-      "aria-[current=page]:bg-accent aria-[current=page]:text-on-accent aria-[current=page]:hover:bg-accent " +
+      "transition-colors hover:bg-surface-2 hover:text-fg focus-visible:focus-ring " +
+      "aria-[current=page]:bg-accent aria-[current=page]:bg-fill-shade aria-[current=page]:text-on-accent aria-[current=page]:shadow-glow aria-[current=page]:inset-shadow-edge-fill aria-[current=page]:hover:bg-accent " +
       "aria-disabled:pointer-events-none aria-disabled:opacity-40 disabled:pointer-events-none disabled:opacity-40",
-    edge: "border border-border-default bg-surface-1 px-3",
+    edge: "border border-border-default bg-surface-1 bg-sheen px-3 shadow-raised inset-shadow-edge",
     ellipsis: "inline-flex h-9 min-w-6 items-end justify-center pb-2 text-fg-muted",
     status: "text-xs text-fg-secondary tabular-nums",
     size: "flex items-center gap-2 text-xs text-fg-secondary",
     select:
-      "h-9 rounded-lg border border-border-default bg-surface-2 px-2 text-sm text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+      "h-9 rounded-lg border border-border-default bg-surface-2 px-2 text-sm text-fg inset-shadow-well focus-visible:focus-ring-inset",
   },
 });
 

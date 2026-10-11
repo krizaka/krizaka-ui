@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import RichExample from "../../registry/examples/tooltip/rich";
 import RightExample from "../../registry/examples/tooltip/right";
 import TopExample from "../../registry/examples/tooltip/top";
 import { Tooltip } from "./tooltip";
@@ -27,3 +28,4 @@ type Story = StoryObj<typeof meta>;
 
 export const Top: Story = { render: () => <TopExample defaultOpen /> };
 export const Right: Story = { render: () => <RightExample defaultOpen /> };
+export const Rich: Story = { render: () => <RichExample defaultOpen /> };

@@ -113,6 +113,10 @@ describe("@krizaka/tailwind", () => {
     expect(rule(".focus-visible\\:focus-ring-inset:focus-visible")).toContain("outline-offset: calc(var(--kz-ring-width) * -1)");
   });
 
+  it("makes every default transition follow the duration token (0 ms under reduced motion)", () => {
+    expect(rule(".transition")).toContain("var(--tw-duration, var(--kz-duration-base))");
+  });
+
   it("gives every transition the Krizaka easing", () => {
     expect(rule(".transition")).toContain("var(--tw-ease, var(--kz-ease))");
     expect(rule(".ease-kz")).toContain("var(--kz-ease)");

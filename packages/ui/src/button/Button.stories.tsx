@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import AsChildLinkExample from "../../registry/examples/button/as-child-link";
 import DangerExample from "../../registry/examples/button/danger";
+import DensityExample from "../../registry/examples/button/density";
 import DisabledExample from "../../registry/examples/button/disabled";
 import FailureExample from "../../registry/examples/button/error";
 import GhostExample from "../../registry/examples/button/ghost";
@@ -15,6 +16,7 @@ import SaveFlowExample from "../../registry/examples/button/save-flow";
 import SecondaryExample from "../../registry/examples/button/secondary";
 import SignatureExample from "../../registry/examples/button/signature";
 import SizesExample from "../../registry/examples/button/sizes";
+import SoftExample from "../../registry/examples/button/soft";
 import UploadProgressExample from "../../registry/examples/button/upload-progress";
 import { Button } from "./button";
 
@@ -47,3 +49,5 @@ export const Disabled: Story = { render: () => <DisabledExample /> };
 export const Loading: Story = { render: () => <LoadingExample /> };
 export const AsChildLink: Story = { render: () => <AsChildLinkExample /> };
 export const Icon: Story = { render: () => <IconExample /> };
+export const Soft: Story = { render: () => <SoftExample /> };
+export const Density: Story = { render: () => <DensityExample /> };

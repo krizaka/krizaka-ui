@@ -3,7 +3,7 @@ import { Card } from "@krizaka/ui/card";
 // `Card.Stat`: the label in capitals, the value in tabular digits.
 export default function CardStatCard() {
   return (
-    <Card.Root tone="elevated">
+    <Card.Root variant="elevated">
       <Card.Body>
         <Card.Title>This month</Card.Title>
         <div className="grid grid-cols-2 gap-4">

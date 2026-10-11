@@ -2,7 +2,9 @@
 // the brand light crosses every skeleton of the page together (`background-attachment: fixed`), instead of each one
 // pulsing on its own; under reduced motion they rest, tinted.
 import type * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+
+import { tv } from "../tv";
 
 export const skeletonVariants = tv({
   base: "kz-skeleton block bg-surface-3",
