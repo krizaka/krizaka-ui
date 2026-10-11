@@ -70,6 +70,16 @@ ${tone("neutral", "var(--kz-text-secondary)")}${tone("accent", "var(--kz-accent)
 .kzc-live{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 .kzc-host{position:absolute;inset:0}
 .kzc-host>div{border-radius:inherit}
+.kzc-kpi{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;margin-top:4px}
+.kzc-kpi-value{font-family:var(--kz-font-display,inherit);font-size:24px;line-height:30px;font-weight:800;letter-spacing:-.01em;color:var(--kzc-text)}
+.kzc-kpi-label{font-size:13px;color:var(--kzc-text-2)}
+.kzc-kpi-delta{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--kzc-text)}
+.kzc-kpi-delta svg{width:12px;height:12px;flex:none;color:var(--kzc-tone)}
+.kzc-meter{position:relative;height:10px;border-radius:999px;background:var(--kz-surface-3);overflow:hidden;--kzc-tone:var(--kz-accent)}
+.kzc-meter>i{position:absolute;inset:0 auto 0 0;border-radius:inherit;background:var(--kzc-tone);transition:width .6s var(--kz-ease,ease-out)}
+.kzc-meter[data-tone=warning]{--kzc-tone:var(--kz-warning)}.kzc-meter[data-tone=danger]{--kzc-tone:var(--kz-danger)}
+.kzc-row{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px;margin:0;font-size:12px;line-height:18px;color:var(--kzc-text-2)}
+.kzc-row b{font-weight:600;color:var(--kzc-text)}
 @media (prefers-reduced-motion:no-preference){
 .kzc-skeleton i{animation:kzc-pulse 1.6s ease-in-out infinite}
 .kzc[data-inview] .kzc-enter-line{stroke-dasharray:1;stroke-dashoffset:1;animation:kzc-draw .9s var(--kz-ease,ease-out) forwards}
@@ -81,6 +91,8 @@ ${tone("neutral", "var(--kz-text-secondary)")}${tone("accent", "var(--kz-accent)
 .kzc[data-inview] .kzc-enter-pop{opacity:0;transform:scale(.92);transform-box:view-box;transform-origin:center;animation:kzc-pop .6s var(--kz-ease,ease-out) forwards}
 .kzc:not([data-inview]) .kzc-enter-line,.kzc:not([data-inview]) .kzc-enter-fade,.kzc:not([data-inview]) .kzc-enter-grow,.kzc:not([data-inview]) .kzc-enter-growx,.kzc:not([data-inview]) .kzc-enter-pop{visibility:hidden}
 .kzc[data-live] *{animation:none!important}
+.kzc[data-live] .kzc-enter-line{stroke-dasharray:none;stroke-dashoffset:0}
+.kzc[data-live] :is(.kzc-enter-fade,.kzc-enter-grow,.kzc-enter-growx,.kzc-enter-pop){opacity:1;transform:none;visibility:visible}
 }
 @keyframes kzc-draw{to{stroke-dashoffset:0}}
 @keyframes kzc-fade{to{opacity:1}}

@@ -4,6 +4,7 @@ export const meta = {
   title: "Area chart",
   summary: "A volume over time: a line over a soft wash, or stacked areas whose parts add up to a total.",
   status: "beta",
+  tier: "core",
   category: "charts",
   platforms: "both",
   engine: "svg",

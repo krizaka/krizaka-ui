@@ -113,6 +113,7 @@ export async function collectRegistry() {
       category: meta.category ?? "charts",
       platforms: meta.platforms ?? "web",
       engine: meta.engine ?? null,
+      tier: meta.tier ?? "core",
       whenToUse: meta.whenToUse ?? [],
       whenNotToUse: meta.whenNotToUse ?? [],
       bestPractices: meta.bestPractices ?? [],

@@ -4,6 +4,7 @@ export const meta = {
   title: "Candlestick",
   summary: "Open, high, low and close per period, rising candles hollow and falling ones filled, the volume in its own panel, zoom and thresholds.",
   status: "beta",
+  tier: "advanced",
   category: "charts",
   platforms: "web",
   engine: "echarts",

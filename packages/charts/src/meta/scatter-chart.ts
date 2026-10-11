@@ -4,6 +4,7 @@ export const meta = {
   title: "Scatter chart",
   summary: "The relation between two measures, a bubble's area for a third, a colour per group, and the correlation said in words.",
   status: "beta",
+  tier: "advanced",
   category: "charts",
   platforms: "web",
   engine: "echarts",

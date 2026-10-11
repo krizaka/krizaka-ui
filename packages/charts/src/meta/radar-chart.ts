@@ -4,6 +4,7 @@ export const meta = {
   title: "Radar chart",
   summary: "Several measures of a few entities at once — models compared on quality, speed, cost — on axes around a centre.",
   status: "beta",
+  tier: "advanced",
   category: "charts",
   platforms: "web",
   engine: "echarts",

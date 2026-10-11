@@ -4,6 +4,7 @@ export const meta = {
   title: "Bar chart",
   summary: "Amounts compared across categories: grouped, stacked or horizontal bars, each value written at its tip.",
   status: "beta",
+  tier: "core",
   category: "charts",
   platforms: "both",
   engine: "svg",

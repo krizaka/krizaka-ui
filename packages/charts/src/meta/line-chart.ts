@@ -4,6 +4,7 @@ export const meta = {
   title: "Line chart",
   summary: "Change over time: one line per series, the last value written at its end, thresholds, markers and a crosshair tooltip.",
   status: "beta",
+  tier: "core",
   category: "charts",
   platforms: "both",
   engine: "svg",

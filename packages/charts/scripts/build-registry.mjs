@@ -50,6 +50,7 @@ writeFileSync(
         type: item.type,
         package: item.package,
         engine: item.engine,
+        tier: item.tier,
         title: item.title,
         summary: item.summary,
         description: item.description,

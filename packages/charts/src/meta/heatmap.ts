@@ -4,6 +4,7 @@ export const meta = {
   title: "Heatmap",
   summary: "A measure across two dimensions — activity by weekday and hour — in one sequential hue, with a step legend.",
   status: "beta",
+  tier: "advanced",
   category: "charts",
   platforms: "web",
   engine: "echarts",

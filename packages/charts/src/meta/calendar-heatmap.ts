@@ -4,6 +4,7 @@ export const meta = {
   title: "Calendar heatmap",
   summary: "One cell a day over a year, weeks in columns, in one sequential hue: streaks, rhythms and gaps at a glance.",
   status: "beta",
+  tier: "advanced",
   category: "charts",
   platforms: "web",
   engine: "echarts",

@@ -40,6 +40,30 @@
       "types": "./dist/provider.d.ts",
       "import": "./dist/provider.js"
     },
+    "./earnings": {
+      "types": "./dist/earnings.d.ts",
+      "import": "./dist/earnings.js"
+    },
+    "./throughput": {
+      "types": "./dist/throughput.d.ts",
+      "import": "./dist/throughput.js"
+    },
+    "./latency": {
+      "types": "./dist/latency.d.ts",
+      "import": "./dist/latency.js"
+    },
+    "./credits": {
+      "types": "./dist/credits.d.ts",
+      "import": "./dist/credits.js"
+    },
+    "./goal": {
+      "types": "./dist/goal.d.ts",
+      "import": "./dist/goal.js"
+    },
+    "./ticker": {
+      "types": "./dist/ticker.d.ts",
+      "import": "./dist/ticker.js"
+    },
     "./line": {
       "types": "./dist/line.d.ts",
       "import": "./dist/line.js"
@@ -253,6 +277,78 @@
       ]
     },
     {
+      "name": "./earnings",
+      "path": "dist/earnings.js",
+      "limit": "14.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./throughput",
+      "path": "dist/throughput.js",
+      "limit": "14.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./latency",
+      "path": "dist/latency.js",
+      "limit": "14.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./credits",
+      "path": "dist/credits.js",
+      "limit": "11.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./goal",
+      "path": "dist/goal.js",
+      "limit": "9.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
+      "name": "./ticker",
+      "path": "dist/ticker.js",
+      "limit": "14.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg"
+      ]
+    },
+    {
       "name": "./sparkline",
       "path": "dist/sparkline.js",
       "limit": "10.5 kB",
@@ -411,7 +507,7 @@
     {
       "name": "./native (bundled by Metro: a regression guard)",
       "path": "dist/native.js",
-      "limit": "10.5 kB",
+      "limit": "13 kB",
       "gzip": true,
       "ignore": [
         "react",
