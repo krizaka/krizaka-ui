@@ -1,14 +1,29 @@
+# Lint, type-check, test, build, size and publint on every change — one `turbo run check`, cached per package.
+# Publishing is not here: release.yml (Changesets) versions, publishes and tags @krizaka/<pkg>@x.y.z.
 name: CI
+
 on:
   push:
-    branches: [feat/terminal-replay]
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check:
+    # The job name is the required status check on main: keep it.
     name: Type-check, test, build
     runs-on: ubuntu-latest
+    # The Storybook screenshots are compared pixel by pixel: run in the Playwright image the Linux baselines were made
+    # in (same fonts, same Chromium). Keep the tag equal to the `playwright` version of apps/storybook.
     container: mcr.microsoft.com/playwright:v1.64.0-noble
+    # SWC (the test-runner's transform) refuses to cache its native addon under /github/home (writable by others): a private cache root.
     env: { XDG_CACHE_HOME: /root/.cache }
     steps:
       - uses: actions/checkout@v4
@@ -18,9 +33,12 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm turbo run build --filter=@krizaka/storybook^... && pnpm --filter storybook storybook:build && pnpm --filter storybook test:update
-      - uses: actions/upload-artifact@v4
-        if: always()
+      - run: pnpm turbo run check
+      - run: pnpm test:tools   # tools/ (the inventory): node:test, no build
+      - name: Upload the screenshot diffs
+        if: failure()
+        uses: actions/upload-artifact@v4
         with:
-          name: linux-screenshots
-          path: apps/storybook/__screenshots__/linux
+          name: storybook-screenshot-diffs
+          path: apps/storybook/__screenshots__/__diff__
+          if-no-files-found: ignore
