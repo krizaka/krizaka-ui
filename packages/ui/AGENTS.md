@@ -87,7 +87,7 @@
   13.5 kB (the chips' Radix Toggle), `./date-picker` ≤ 29 kB (Radix Popover), `./filter-bar` ≤ 34 kB (Radix
   DropdownMenu); `./native/video-player` ≤ 2 kB, `./native/media-capture` ≤ 2.5 kB. The page blocks (their styles are
   `blocks.css`, not counted): `./cta-panel`, `./card-grid`, `./pointer-light`, `./link-card`, `./decision-list`, `./toc` ≤ 1 kB,
-  `./page`, `./page-hero` ≤ 1.2 kB, `./argument-card`, `./action-bar` ≤ 1.4 kB, `./mascot-quote` ≤ 4.8 kB (the bird's
+  `./page-hero` ≤ 1.2 kB, `./page` ≤ 1.3 kB, `./argument-card` ≤ 1.4 kB, `./action-bar` ≤ 1.8 kB (the buttons' configured `tv`), `./mascot-quote` ≤ 4.8 kB (the bird's
   geometry), `./code-block` ≤ 12 kB (Radix Tabs for `CodeTabs`).
 - 2.5.0, the material (BRAND.md §6): each entry carries the platform's `tv` taught the signature utilities
   (`src/tv.ts`, `twMergeConfig`, ≈ 0.25 kB) — hence the small raises above; `./registry/showcase` is documentation, not

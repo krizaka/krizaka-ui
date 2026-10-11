@@ -1062,7 +1062,7 @@
     {
       "name": "./page",
       "path": "dist/page.js",
-      "limit": "1.2 kB",
+      "limit": "1.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1152,7 +1152,7 @@
     {
       "name": "./action-bar",
       "path": "dist/action-bar.js",
-      "limit": "1.4 kB",
+      "limit": "1.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
