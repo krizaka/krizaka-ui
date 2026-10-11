@@ -1,0 +1,529 @@
+/* @krizaka/ui — the page blocks (Page, Section, PageHero, CardGrid, LinkCard, ArgumentCard, MascotQuote, DecisionList,
+   CodeBlock, ActionBar, CtaPanel, Toc, PointerLight). The app imports it once, from its root layout or its global
+   stylesheet by package path: `import "@krizaka/ui/blocks.css"` — never through a relative @import of another file. Plain CSS on the --kz-* tokens: dark and light alike, every brand (`.brand-<id>`)
+   through --kz-accent. Nothing here loops: the pointer lights, lifts and wakes; under reduced motion everything is still.
+
+   Two contracts a page can set on any ancestor:
+   - the frame: --kz-page-max (the width of the content, 72rem) and --kz-page-gutter (the side margin, 16 → 32 px);
+   - the hue of a subject: --kz-hue (rails, icon tiles, lights — decorative, ≥ 3:1), --kz-hue-2 (the end of its rail),
+     --kz-hue-text (small text, ≥ 4.5:1). Unset, every block falls back to the brand accent. */
+
+/* ─── Page: one frame for every page — the width, the gutters, the vertical rhythm ─── */
+.kz-frame {
+  --kz-gutter: var(--kz-page-gutter, clamp(16px, 3.2vw, 32px));
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--kz-page-max, 72rem) + 2 * var(--kz-gutter));
+  margin-inline: auto;
+  padding-inline: var(--kz-gutter);
+}
+.kz-frame[data-size="narrow"] { --kz-page-max: 48rem; }
+.kz-frame[data-size="wide"] { --kz-page-max: 88rem; }
+.kz-frame[data-size="full"] { max-width: none; }
+/* A frame inside a frame (a Section in a TocLayout, a Page in a card) adds no second pair of gutters. */
+.kz-frame .kz-frame { --kz-gutter: 0px; }
+
+/* Section: the content in the frame, a space above and below; `divider` draws the hairline between two sections (the
+   transition), inside the gutters. */
+.kz-section { --kz-section-space: clamp(48px, 7vw, 88px); position: relative; }
+.kz-section[data-spacing="sm"] { --kz-section-space: clamp(28px, 4vw, 40px); }
+.kz-section[data-spacing="lg"] { --kz-section-space: clamp(64px, 10vw, 128px); }
+.kz-section > .kz-frame { position: relative; padding-block: var(--kz-section-space); }
+.kz-section[data-divider] > .kz-frame {
+  background: linear-gradient(var(--kz-border-subtle), var(--kz-border-subtle)) top center / calc(100% - 2 * var(--kz-gutter)) 1px no-repeat;
+}
+.kz-section :is(h2, h3)[id] { scroll-margin-top: var(--kz-anchor-offset, 96px); }
+
+.kz-eyebrow {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--kz-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--kz-hue-text, var(--kz-accent-text));
+}
+.kz-label {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--kz-font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kz-text-secondary);
+}
+.kz-heading { margin-bottom: clamp(24px, 3vw, 36px); display: grid; gap: 12px; }
+.kz-heading[data-align="center"] { justify-items: center; text-align: center; }
+.kz-heading[data-actions] { grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 24px; }
+.kz-heading[data-actions] > :not(.kz-heading-actions) { grid-column: 1; }
+.kz-heading-actions { grid-column: 2; grid-row: 1 / span 3; display: flex; flex-wrap: wrap; gap: 8px; }
+.kz-heading-title {
+  margin: 0;
+  max-width: 24ch;
+  font-family: var(--kz-font-display);
+  font-size: clamp(1.6rem, 3.6vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 1.15;
+  color: var(--kz-text-primary);
+  text-wrap: balance;
+}
+.kz-heading[data-size="sm"] .kz-heading-title { font-size: clamp(1.25rem, 2.6vw, 1.6rem); letter-spacing: -0.02em; max-width: none; }
+.kz-heading-lead { margin: 0; max-width: 680px; font-size: 15.5px; line-height: 1.7; color: var(--kz-text-secondary); }
+@media (max-width: 640px) {
+  .kz-heading[data-actions] { grid-template-columns: minmax(0, 1fr); }
+  .kz-heading-actions { grid-column: 1; grid-row: auto; }
+}
+
+/* Ticks: a word between backticks in a sentence reads as code. */
+.kz-ic {
+  padding: 0.08em 0.38em;
+  border-radius: 6px;
+  font-family: var(--kz-font-mono);
+  font-size: 0.86em;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  color: var(--kz-text-primary);
+  background: var(--kz-surface-2);
+  border: 1px solid var(--kz-border-subtle);
+}
+
+/* Facts: a few mono words on one line (registry and version, a status said honestly). */
+.kz-facts { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.kz-fact {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-family: var(--kz-font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--kz-text-primary);
+  background: var(--kz-surface-2);
+  border: 1px solid var(--kz-border-subtle);
+  transition: border-color 0.2s var(--kz-ease, ease);
+}
+a.kz-fact:hover { border-color: var(--kz-border-strong); }
+a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; }
+.kz-fact-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; background: var(--kz-text-secondary); }
+.kz-fact[data-tone="ok"] .kz-fact-dot { background: var(--kz-success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--kz-success) 22%, transparent); }
+.kz-fact[data-tone="wip"] {
+  color: var(--kz-warning-text);
+  background: color-mix(in srgb, var(--kz-warning) 10%, var(--kz-surface-1));
+  border-color: color-mix(in srgb, var(--kz-warning) 30%, transparent);
+}
+.kz-fact[data-tone="wip"] .kz-fact-dot { width: 8px; height: 8px; background: transparent; border: 2px solid var(--kz-warning); border-right-color: transparent; transform: rotate(45deg); }
+
+/* ─── PageHero: the first screen of a page — painted at once, never revealed ─── */
+.kz-hero > .kz-frame {
+  position: relative;
+  padding-top: var(--kz-hero-top, clamp(112px, 14vw, 156px));
+  padding-bottom: var(--kz-hero-bottom, 32px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+}
+.kz-hero[data-align="center"] > .kz-frame { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+.kz-hero[data-align="center"] .kz-hero-lead { margin-inline: auto; }
+.kz-hero-text { min-width: 0; }
+.kz-hero-back {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--kz-text-secondary);
+  border-radius: 8px;
+}
+.kz-hero-back:hover { color: var(--kz-text-primary); }
+.kz-hero-back:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; }
+.kz-hero-title {
+  margin: 10px 0 0;
+  font-family: var(--kz-font-display);
+  font-size: clamp(2rem, 5.4vw, 3.1rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  color: var(--kz-text-primary);
+  text-wrap: balance;
+}
+.kz-hero-lead { margin: 16px 0 0; max-width: 680px; font-size: clamp(15px, 1.9vw, 17.5px); line-height: 1.7; color: var(--kz-text-secondary); }
+.kz-hero-extra { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.kz-hero-aside { display: flex; justify-content: flex-end; }
+@media (max-width: 720px) {
+  .kz-hero > .kz-frame { grid-template-columns: minmax(0, 1fr); }
+  .kz-hero-aside { order: -1; justify-content: flex-start; }
+}
+
+/* ─── CardGrid: one column on a phone, cells of a row share their height ─── */
+.kz-cards { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--kz-cards-gap, 16px);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--kz-cards-min, 300px)), 1fr)); }
+.kz-cards[data-fit] { grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--kz-cards-min, 300px)), 1fr)); }
+.kz-cards[data-align="start"] { align-items: start; }
+.kz-cards-cell { display: grid; min-width: 0; }
+
+/* The shared surface of the cards: a rail of the hue along the top, the light that follows the pointer (PointerLight
+   writes --kz-pointer-x/y), a lift and a lit border under the pointer or the focus. */
+.kz-block-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--kz-surface-1);
+  border: 1px solid var(--kz-border-default);
+  transition: transform 0.3s var(--kz-ease, ease), border-color 0.3s var(--kz-ease, ease), box-shadow 0.3s var(--kz-ease, ease);
+}
+.kz-block-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  z-index: 1;
+  background: linear-gradient(90deg, var(--kz-hue, var(--kz-accent)), var(--kz-hue-2, var(--kz-accent-2, var(--kz-accent))) 45%, transparent);
+  opacity: 0.85;
+}
+.kz-block-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(360px circle at var(--kz-pointer-x, 18%) var(--kz-pointer-y, 0%), color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 13%, transparent), transparent 62%);
+  transition: opacity 0.3s var(--kz-ease, ease);
+}
+.kz-block-card:focus-within,
+.kz-block-card:focus-visible { border-color: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 50%, var(--kz-border-default)); }
+.kz-block-card:is(:hover, :focus-within, :focus-visible)::after { opacity: 1; }
+@media (hover: hover) {
+  .kz-block-card:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 45%, var(--kz-border-default));
+    box-shadow: 0 24px 48px -30px color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 70%, transparent);
+  }
+}
+/* The icon tile of a card: the hue around it; the node of a signature icon lights under the pointer. */
+.kz-block-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  color: var(--kz-text-primary);
+  background: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 14%, var(--kz-surface-1));
+  border: 1px solid color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 30%, transparent);
+  transition: transform 0.3s var(--kz-ease, ease), box-shadow 0.3s var(--kz-ease, ease);
+}
+.kz-block-card :is(.kz-block-icon) svg [data-node] { transition: transform 0.3s var(--kz-ease, ease), filter 0.3s; transform-box: fill-box; transform-origin: center; }
+.kz-block-card:is(:hover, :focus-within, :focus-visible) .kz-block-icon svg [data-node] { transform: scale(1.5); filter: drop-shadow(0 0 3px var(--kz-hue, var(--kz-accent))); }
+@media (hover: hover) {
+  .kz-block-card:hover .kz-block-icon { transform: translateY(-2px) rotate(-3deg); box-shadow: 0 10px 22px -12px var(--kz-hue, var(--kz-accent)); }
+}
+
+/* ─── LinkCard: the whole card is the link — icon, title, one sentence, the way in ─── */
+.kz-link-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 4px 14px;
+  padding: 18px 20px;
+  text-decoration: none;
+  color: var(--kz-text-primary);
+}
+.kz-link-card[data-layout="stack"] { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.kz-link-card:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; }
+.kz-link-card > .kz-block-icon { grid-row: span 3; }
+.kz-link-card[data-layout="stack"] > .kz-block-icon { grid-row: auto; }
+.kz-link-card-body { display: grid; gap: 5px; min-width: 0; }
+.kz-link-card-meta { margin: 0; font-family: var(--kz-font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--kz-hue-text, var(--kz-accent-text)); }
+.kz-link-card-title { margin: 0; font-family: var(--kz-font-display); font-size: 16.5px; font-weight: 750; letter-spacing: -0.012em; line-height: 1.3; color: var(--kz-text-primary); }
+.kz-link-card-text { margin: 0; font-size: 14px; line-height: 1.55; color: var(--kz-text-secondary); }
+.kz-link-card-extra { margin-top: 6px; }
+.kz-link-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  width: fit-content;
+  font-size: 13.5px;
+  font-weight: 650;
+  color: var(--kz-hue-text, var(--kz-accent-text));
+}
+.kz-link-card-cta svg { transition: transform 0.25s var(--kz-ease, ease); }
+.kz-link-card:is(:hover, :focus-visible) .kz-link-card-cta svg { transform: translateX(3px); }
+
+/* ─── ArgumentCard, compact: icon · name · the bird in the corner → the trap in one line → facts → one short action ───
+   The long version is never on the face: on a detail page, or unfolded in place (a native <details>). A grid with
+   folds aligns its cards at the top, so opening one never stretches its neighbours. */
+.kz-arg { display: flex; flex-direction: column; gap: 12px; padding: 18px 20px 14px; }
+.kz-arg .kz-block-icon { width: 40px; height: 40px; }
+.kz-arg-head { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.kz-arg-id { min-width: 0; }
+.kz-arg-title { margin: 0; font-family: var(--kz-font-display); font-size: 17px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; color: var(--kz-text-primary); }
+.kz-arg-meta { margin: 3px 0 0; font-family: var(--kz-font-mono); font-size: 12px; color: var(--kz-text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kz-arg-mark { margin-left: auto; align-self: flex-start; margin-top: -6px; margin-right: -4px; flex-shrink: 0; --kz-accent: var(--kz-hue, var(--kz-accent)); }
+.kz-arg-line { margin: 0; font-size: 15px; font-weight: 500; line-height: 1.55; color: var(--kz-text-primary); text-wrap: pretty; }
+.kz-arg .kz-fact { min-height: 24px; padding: 0 9px; font-size: 11px; }
+.kz-arg-panel { margin-top: 2px; border-top: 1px solid var(--kz-border-subtle); }
+.kz-arg-panel > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding-top: 10px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 13.5px;
+  font-weight: 650;
+  color: var(--kz-hue-text, var(--kz-accent-text));
+  border-radius: 6px;
+}
+.kz-arg-panel > summary::-webkit-details-marker { display: none; }
+.kz-arg-panel > summary:hover { text-decoration: underline; text-underline-offset: 3px; }
+.kz-arg-panel > summary:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; }
+.kz-arg-panel > summary svg { transition: transform 0.25s var(--kz-ease, ease); }
+.kz-arg-panel[open] > summary svg { transform: rotate(180deg); }
+.kz-arg-panel-body { display: grid; gap: 16px; padding: 10px 0 4px; }
+.kz-arg-panel dl { margin: 0; display: grid; gap: 10px; }
+.kz-arg-panel dd { margin: 4px 0 0; font-size: 14px; line-height: 1.6; color: var(--kz-text-secondary); }
+.kz-arg-panel .kz-list { margin-top: 8px; }
+.kz-cards:has(.kz-arg-panel) { align-items: start; }
+.kz-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+.kz-list li { position: relative; padding-left: 18px; font-size: 14px; line-height: 1.55; color: var(--kz-text-secondary); }
+.kz-list li::before { content: ""; position: absolute; left: 2px; top: 0.6em; width: 7px; height: 7px; border-radius: 2px; background: var(--kz-hue, var(--kz-accent)); }
+.kz-arg-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--kz-border-subtle); }
+.kz-arg-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 4px 12px;
+  border-radius: 10px;
+  corner-shape: bevel; /* the Krizaka chamfer, like Button shape="cut" */
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.25;
+  text-decoration: none;
+  color: var(--kz-text-primary);
+  background: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 14%, var(--kz-surface-1));
+  border: 1px solid color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 38%, transparent);
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.kz-arg-more:hover { background: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 24%, var(--kz-surface-1)); border-color: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 55%, transparent); }
+.kz-arg-more:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; }
+.kz-arg-more svg { transition: transform 0.25s var(--kz-ease, ease); }
+.kz-arg-more:hover svg { transform: translateX(3px); }
+.kz-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* ─── MascotQuote: a sentence in a speech bubble, the bird under its tail ─── */
+.kz-quote { margin: 0; display: grid; gap: 4px; }
+.kz-quote blockquote {
+  position: relative;
+  margin: 0;
+  padding: 14px 16px 14px 44px;
+  border-radius: 16px 16px 16px 6px;
+  background: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 9%, var(--kz-surface-0));
+  border: 1px solid color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 30%, transparent);
+}
+.kz-quote blockquote::before {
+  content: "\201C";
+  position: absolute;
+  left: 12px;
+  top: 6px;
+  font-family: var(--kz-font-display), Georgia, serif;
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--kz-hue, var(--kz-accent));
+}
+.kz-quote blockquote::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  bottom: -7px;
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  background: inherit;
+  border-right: 1px solid color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 30%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 30%, transparent);
+}
+.kz-quote blockquote p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--kz-text-primary); }
+.kz-quote figcaption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 4px;
+  font-family: var(--kz-font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kz-hue-text, var(--kz-accent-text));
+}
+.kz-quote-bird { flex-shrink: 0; --kz-accent: var(--kz-hue, var(--kz-accent)); }
+.kz-quote[data-variant="callout"] blockquote { padding: 24px 26px 24px 68px; border-radius: 22px 22px 22px 8px; }
+.kz-quote[data-variant="callout"] blockquote::before { left: 18px; top: 12px; font-size: 72px; }
+.kz-quote[data-variant="callout"] blockquote::after { left: 36px; bottom: -8px; width: 14px; height: 14px; }
+.kz-quote[data-variant="callout"] blockquote p { font-family: var(--kz-font-display); font-size: clamp(16px, 2vw, 19px); font-weight: 600; line-height: 1.55; letter-spacing: -0.005em; }
+.kz-quote[data-variant="callout"] figcaption { gap: 12px; padding-left: 14px; font-size: 11px; }
+@media (max-width: 480px) {
+  .kz-quote[data-variant="callout"] blockquote { padding: 50px 20px 20px; }
+  .kz-quote[data-variant="callout"] blockquote::before { top: 6px; left: 16px; font-size: 58px; }
+}
+/* The bird answers the pointer once: a small hop toward the reader. */
+@keyframes kz-quote-hop { 0%, 100% { transform: translateY(0) rotate(0); } 35% { transform: translateY(-6px) rotate(-5deg); } 70% { transform: translateY(0) rotate(2deg); } }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  :is(.kz-block-card, .kz-quote):hover .kz-quote-bird { animation: kz-quote-hop 0.7s var(--kz-ease, ease) 1; }
+}
+
+/* ─── DecisionList: one card per decision — what was chosen, large; refused · because · what it costs, side by side ─── */
+.kz-decisions { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+.kz-decision { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; padding: 20px 22px; border-radius: 18px; background: var(--kz-surface-1); border: 1px solid var(--kz-border-default); }
+.kz-decision-n { font-family: var(--kz-font-display); font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: var(--kz-hue-text, var(--kz-accent-text)); }
+.kz-decision-body { display: grid; gap: 14px; min-width: 0; }
+.kz-decision-part p:not(.kz-label) { margin: 6px 0 0; font-size: 14px; line-height: 1.6; color: var(--kz-text-secondary); }
+.kz-decision-part[data-part="chose"] .kz-label { color: var(--kz-success-text); }
+.kz-decision-part[data-part="chose"] p:not(.kz-label) { font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--kz-text-primary); }
+.kz-decision-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.kz-decision-grid > .kz-decision-part { min-width: 0; padding: 12px 14px; border-radius: 12px; background: var(--kz-surface-0); border: 1px solid var(--kz-border-subtle); border-top: 2px solid var(--kz-border-strong); }
+.kz-decision-part[data-part="refused"] { border-top-color: var(--kz-danger); }
+.kz-decision-part[data-part="refused"] .kz-label { color: var(--kz-danger-text); }
+.kz-decision-part[data-part="because"] { border-top-color: var(--kz-hue, var(--kz-accent)); }
+.kz-decision-part[data-part="because"] .kz-label { color: var(--kz-hue-text, var(--kz-accent-text)); }
+.kz-decision-part[data-part="cost"] { border-top-color: var(--kz-warning); background: color-mix(in srgb, var(--kz-warning) 6%, var(--kz-surface-0)); }
+.kz-decision-part[data-part="cost"] .kz-label { color: var(--kz-warning-text); }
+@media (max-width: 900px) { .kz-decision-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) { .kz-decision { grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 18px; } .kz-decision-n { font-size: 22px; } }
+
+/* ─── CodeBlock · CodeTabs: a file name, code that scrolls sideways (never shrinks), a copy button ─── */
+.kz-code { margin: 0; min-width: 0; overflow: hidden; border-radius: 14px; background: var(--kz-surface-1); border: 1px solid var(--kz-border-default); box-shadow: inset 3px 0 0 var(--kz-hue, var(--kz-accent)); }
+.kz-code-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 40px;
+  padding: 5px 6px 5px 16px;
+  font-family: var(--kz-font-mono);
+  font-size: 11.5px;
+  color: var(--kz-text-secondary);
+  background: var(--kz-surface-2);
+  border-bottom: 1px solid var(--kz-border-subtle);
+}
+.kz-code-file { display: inline-flex; align-items: center; gap: 10px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kz-code-lang { padding: 2px 7px; border-radius: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--kz-text-primary); background: var(--kz-surface-3); }
+.kz-code pre { margin: 0; padding: 16px 18px; overflow-x: auto; font-family: var(--kz-font-mono); font-size: 12.5px; line-height: 1.7; color: var(--kz-text-primary); tab-size: 2; }
+.kz-code pre:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: -2px; }
+.kz-tk-comment { color: var(--kz-text-secondary); font-style: italic; }
+.kz-tk-string { color: var(--kz-success-text); }
+.kz-tk-annotation { color: var(--kz-warning-text); }
+.kz-tk-keyword, .kz-tk-tag { color: var(--kz-accent-text); font-weight: 600; }
+.kz-code-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font: 600 11.5px var(--kz-font-mono);
+  color: var(--kz-text-secondary);
+  background: var(--kz-surface-1);
+  border: 1px solid var(--kz-border-default);
+}
+.kz-code-copy:hover { color: var(--kz-text-primary); border-color: var(--kz-border-strong); }
+.kz-code-copy:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; }
+.kz-code-copy[data-copied] { color: var(--kz-success-text); }
+.kz-code-tabs { display: grid; gap: 10px; min-width: 0; }
+.kz-code-tabs [role="tablist"] { justify-self: start; width: auto; }
+
+/* ─── ActionBar · CtaPanel ─── */
+.kz-actions { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.kz-actions[data-variant="icons"] { gap: 2px; }
+.kz-actions a > svg:first-child { color: var(--kz-hue-text, var(--kz-accent-text)); }
+/* The words of an icon action, as a tooltip on hover and focus (no script, no portal): the accessible name says them too. */
+.kz-actions [data-tip] { position: relative; }
+.kz-actions [data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  z-index: 10;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  font: 600 12px/1.4 var(--kz-font-sans);
+  color: var(--kz-text-primary);
+  background: var(--kz-surface-3);
+  border: 1px solid var(--kz-border-default);
+  box-shadow: var(--kz-shadow-md);
+  opacity: 0;
+  transform: translate(-50%, 4px);
+  transition: opacity 0.15s, transform 0.15s var(--kz-ease, ease);
+}
+.kz-actions [data-tip]:is(:hover, :focus-visible)::after { opacity: 1; transform: translate(-50%, 0); }
+.kz-actions li:last-child [data-tip]::after { left: auto; right: 0; transform: translateY(4px); }
+.kz-actions li:last-child [data-tip]:is(:hover, :focus-visible)::after { transform: none; }
+
+.kz-cta {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 26px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 8%, var(--kz-surface-1));
+  border: 1px solid color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 30%, var(--kz-border-default));
+}
+.kz-cta-text { min-width: 0; flex: 1 1 320px; }
+.kz-cta-title { margin: 0 0 6px; font-family: var(--kz-font-display); font-size: 21px; font-weight: 800; letter-spacing: -0.015em; color: var(--kz-text-primary); scroll-margin-top: var(--kz-anchor-offset, 96px); }
+.kz-cta-body { margin: 0; max-width: 640px; font-size: 14.5px; line-height: 1.65; color: var(--kz-text-secondary); }
+.kz-cta-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ─── Toc: sticky beside the content on a wide screen, a row of chips on a phone ─── */
+.kz-toc-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 48px; align-items: start; }
+.kz-toc-aside { position: sticky; top: var(--kz-anchor-offset, 96px); padding-top: 4px; }
+.kz-toc ol { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 2px; border-left: 1px solid var(--kz-border-default); }
+.kz-toc a { position: relative; display: flex; align-items: center; min-height: 34px; padding: 4px 0 4px 14px; font-size: 13.5px; font-weight: 600; text-decoration: none; color: var(--kz-text-secondary); transition: color 0.2s; }
+.kz-toc a:hover, .kz-toc a[aria-current] { color: var(--kz-text-primary); }
+.kz-toc a[aria-current]::before { content: ""; position: absolute; left: -1px; top: 6px; bottom: 6px; width: 2px; border-radius: 2px; background: var(--kz-hue, var(--kz-accent)); }
+.kz-toc a:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; }
+.kz-toc-main { min-width: 0; }
+@media (max-width: 1023px) {
+  .kz-toc-layout { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .kz-toc-aside { position: static; padding-top: 0; margin-inline: calc(-1 * var(--kz-gutter, 16px)); }
+  .kz-toc { padding: 0 var(--kz-gutter, 16px) 4px; overflow-x: auto; scrollbar-width: none; }
+  .kz-toc .kz-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .kz-toc ol { margin: 0; display: flex; gap: 8px; width: max-content; border: 0; }
+  .kz-toc a { min-height: 36px; padding: 0 14px; border-radius: 999px; white-space: nowrap; background: var(--kz-surface-1); border: 1px solid var(--kz-border-default); }
+  .kz-toc a[aria-current] { border-color: var(--kz-hue, var(--kz-accent)); }
+  .kz-toc a[aria-current]::before { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kz-block-card, .kz-block-card::after, .kz-block-icon, .kz-block-icon svg [data-node], .kz-link-card-cta svg, .kz-arg-more svg, .kz-arg-panel > summary svg, .kz-actions [data-tip]::after { transition: none !important; }
+  .kz-block-card:hover, .kz-block-card:hover .kz-block-icon, .kz-link-card:hover .kz-link-card-cta svg, .kz-arg-more:hover svg { transform: none !important; }
+  .kz-quote-bird { animation: none !important; }
+}

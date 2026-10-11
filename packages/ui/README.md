@@ -178,11 +178,23 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/video-trimmer` | `VideoTrimmer` (`duration`, `value` [start, end], `minLength`, `step`/`largeStep`, `frames` or children, `time` + `onSeek`, `classNames` per part, `renderHandle`) | client |
 | `@krizaka/ui/audio-player` | `AudioPlayer` (a seekable waveform: `peaks` or `computePeaks`, `bars`, `playbackRates`, `duration`), `resamplePeaks`, `computeAudioPeaks` | client |
 | `@krizaka/ui/image-cropper` | `ImageCropper` (`aspect`, `round`, an image or a `<video>`, a focus point + zoom out, keyboard and zoom slider), `cropRect` | client |
+| `@krizaka/ui/page` | the page frame: `Page` (`size` narrow·default·wide·full, `as`), `Section` (`id`, `eyebrow`, `title`, `lead`, `actions`, `divider`, `spacing` sm·md·lg, `backdrop`, `size`, `reveal`), `SectionHeading`, `Facts` (`items`: `label`, `tone` ok·wip·neutral, `href`), `Ticks` (backticks read as code) — see [Page blocks](#page-blocks) | server |
+| `@krizaka/ui/page-hero` | `PageHero` (`title` → the h1, `eyebrow`, `lead`, `back`, `aside`, `backdrop` grid·plain·none, `align`, `size`, `linkAs`; facts or actions as children) | server |
+| `@krizaka/ui/card-grid` | `CardGrid` (`min`, `fit` fill·fit, `align`, `reveal` staggered by `columns`, `light`, `as` div·ul·ol) | client |
+| `@krizaka/ui/pointer-light` | `PointerLight` (`target`), `usePointerLight(ref, target)`: the light that follows the pointer over `[data-kz-light]` cards | client |
+| `@krizaka/ui/link-card` | `LinkCard` (the whole card one link: `href`, `icon`, `meta`, `title`, `titleAs`, `description`, `extra`, `cta`, `layout` row·stack, `linkAs`) | server |
+| `@krizaka/ui/argument-card` | `ArgumentCard` (compact: `icon`, `title`, `meta`, `facts`, `hook` — the trap in one line —, `more`, `actions`; in a panel: `points`, `rule`, `details`, `panelLabel`) | server |
+| `@krizaka/ui/mascot-quote` | `MascotQuote` (`bird`, `mood`, `label`, the sentence as children, `variant` inline·callout, `animated`) | client |
+| `@krizaka/ui/decision-list` | `DecisionList` (`decisions`: `chose`, `refused`, `because`, `cost`; `labels`, `reveal`) | server |
+| `@krizaka/ui/code-block` | `CodeBlock` (`code`, `language`, `file`, `copyLabel`, `copiedLabel`, `highlight`), `CodeTabs` (`label`, `tabs`), `highlight` | client |
+| `@krizaka/ui/action-bar` | `ActionBar` (`actions`: `href`, `label`, `icon`; `variant` buttons·icons — the words in a CSS tooltip —, `primaryFirst`, `size`, `label`, `linkAs`) | server |
+| `@krizaka/ui/cta-panel` | `CtaPanel` (`id`, `title`, `body`, the actions as children, `level`, `reveal`) | server |
+| `@krizaka/ui/toc` | `Toc` (`label`, `items`; the section being read marked), `TocLayout` (`toc`, the sections as children) | client |
 | `@krizaka/ui/native/video-player` | React Native `VideoPlayer` on expo-video (optional peer) | native |
 | `@krizaka/ui/native/media-capture` | React Native `MediaCapture` on expo-camera (optional peer) | native |
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
 | `@krizaka/ui/native` | React Native: `ThemeProvider`/`useTheme`, `Txt`, `Button`, `IconButton`, `Card.*`, `Badge`, `Chip` (+ `Group`), `Avatar` (+ `Group`), `Skeleton`, `EmptyState`, `Spinner`, `Countdown`, `Segmented`, `Progress`, `Toaster`/`toast`, `Pagination`, `SearchField`, the marks — see [React Native](#react-native) | native |
-| `@krizaka/ui/motion.css`, `@krizaka/ui/tailwind.css` | the motion signature; the `@source` of the primitives' classes | CSS |
+| `@krizaka/ui/motion.css`, `@krizaka/ui/blocks.css`, `@krizaka/ui/tailwind.css` | the motion signature; the page blocks' styles (imported once by the app); the `@source` of the primitives' classes | CSS |
 | `@krizaka/ui/registry/<name>`, `@krizaka/ui/registry/examples/<name>/<example>` | the registry (JSON) and the examples — see [Registry](#registry--the-code-drives-the-documentation) | data · client |
 
 The theme is one mechanism for every product: dark by default, `html.light` for light, `html.theme-<name>` for a named
@@ -199,6 +211,36 @@ applies it before the first paint (no flash), the provider reports it. A persist
 
 <ThemeToggle label={(mode) => t(`theme.${mode}`)} />
 ```
+
+## Page blocks
+
+> Category **blocks** of krizaka.com/docs/ui. The pieces every page of a Krizaka site is made of — one frame, one hero,
+> sections on one rhythm, cards that lead or argue, decisions, code, calls to act — so every page reads the same.
+
+```tsx
+import { Page, Section, Facts, Ticks } from "@krizaka/ui/page";
+import { PageHero } from "@krizaka/ui/page-hero";
+import { CardGrid } from "@krizaka/ui/card-grid";
+import { LinkCard } from "@krizaka/ui/link-card";
+
+<PageHero eyebrow={t("docs.kicker")} title={t("docs.title")} lead={t("docs.lead")} linkAs={Link} />
+<Section id="start" eyebrow={t("docs.start")} title={t("docs.startTitle")}>
+  <CardGrid min={280}>
+    {entries.map((e) => <LinkCard key={e.id} href={e.href} linkAs={Link} icon={e.icon} title={e.title} description={e.text} cta={t("open")} />)}
+  </CardGrid>
+</Section>
+```
+
+- **One frame.** `Page` (and every `Section`, every `PageHero`) is at most `--kz-page-max` wide (72rem; `narrow` 48rem,
+  `wide` 88rem) with the gutters of `--kz-page-gutter` (16 → 32 px). Give the site's navigation the same width: the bar,
+  the hero and the sections share their edges at every width.
+- **Styles.** `@krizaka/ui/blocks.css` (plain CSS on the `--kz-*` tokens, `kz-*` classes), imported once by the app —
+  `import "@krizaka/ui/blocks.css"` in its root layout (or `@import` by package path in its global stylesheet). `--kz-hero-top` clears a fixed bar; `--kz-anchor-offset` places anchors.
+- **A subject's colour.** Blocks read `--kz-hue` (rails, tiles, lights), `--kz-hue-2` and `--kz-hue-text` (small text,
+  ≥ 4.5:1), falling back to the brand's accent: set them on a card or a wrapper; `.brand-<id>` sets the accent.
+- **Links.** Blocks that link take `linkAs` (Next's `Link`) for internal addresses; an absolute URL opens in a new tab.
+- **Motion.** `reveal` uses `[data-reveal]` (MotionObserver): never on the first screen. The pointer's light, the lifts
+  and the hops stop under `prefers-reduced-motion`; nothing loops.
 
 ## Registry — the code drives the documentation
 

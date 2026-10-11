@@ -11,7 +11,9 @@
   `command`, `confirm-button`, `progress`, `section-backdrop`, `loader`, `meter`, `stepper`, `number-ticker`,
   `nav-bar`, `chip-link`, `glow-card`, `marquee`, `iso`, `mascots`, and the data and media primitives `pagination`,
   `data-table`, `filter-bar`, `combobox`, `tag-input`, `date-picker`, `search-field`, `video-player`, `file-upload`,
-  `media-capture`, `video-trimmer`, `audio-player`, `image-cropper` — one entry each, built with `tailwind-variants` on the preset's
+  `media-capture`, `video-trimmer`, `audio-player`, `image-cropper`, and the **page blocks** (category `blocks`) `page`,
+  `page-hero`, `card-grid`, `pointer-light`, `link-card`, `argument-card`, `mascot-quote`, `decision-list`, `code-block`,
+  `action-bar`, `cta-panel`, `toc` — one entry each, built with `tailwind-variants` on the preset's
   roles, Radix UI for non-trivial interactions. They follow the 12-point component contract (README, "Primitives").
 - The **native platform** (`./native`, `src/native`): the theme (`ThemeProvider`/`useTheme` on the
   `@krizaka/tokens/native` roles + a product's `overrides`) and the same primitives for React Native — `Txt`,
@@ -75,8 +77,11 @@
   `./media-capture` ≤ 3.8 kB, `./file-upload` ≤ 5 kB (it draws `Progress`), `./data-table` ≤ 9.5 kB (Radix Checkbox),
   `./image-cropper` ≤ 12.5 kB and `./video-player` ≤ 15 kB (Radix Slider), `./combobox` ≤ 13 kB and `./tag-input` ≤
   13.5 kB (the chips' Radix Toggle), `./date-picker` ≤ 29 kB (Radix Popover), `./filter-bar` ≤ 34 kB (Radix
-  DropdownMenu); `./native/video-player` ≤ 2 kB, `./native/media-capture` ≤ 2.5 kB.
-- **publint + attw** with the `esm-only` profile: the package is ESM only by design; `./motion.css` and
+  DropdownMenu); `./native/video-player` ≤ 2 kB, `./native/media-capture` ≤ 2.5 kB. The page blocks (their styles are
+  `blocks.css`, not counted): `./cta-panel`, `./card-grid`, `./pointer-light`, `./link-card`, `./decision-list`, `./toc` ≤ 1 kB,
+  `./page`, `./page-hero` ≤ 1.2 kB, `./argument-card`, `./action-bar` ≤ 1.4 kB, `./mascot-quote` ≤ 4.8 kB (the bird's
+  geometry), `./code-block` ≤ 12 kB (Radix Tabs for `CodeTabs`).
+- **publint + attw** with the `esm-only` profile: the package is ESM only by design; `./motion.css`, `./blocks.css` and
   `./tailwind.css` are CSS exports and are not resolved as modules.
 - The published surface: exports `.`, one entry per primitive (`./cn`, `./slot`, `./button`, `./badge`, `./avatar`,
   `./field`, `./theme`, `./skeleton`, `./empty-state`, `./spinner`, `./countdown`, `./card`, `./dialog`, `./toast`,
@@ -85,8 +90,9 @@
   `./section-backdrop`, `./iso`, `./motion`, `./loader`, `./nav-bar`, `./number-ticker`, `./glow-card`, `./marquee`, `./stepper`,
   `./meter`, `./mascots`, `./pagination`, `./data-table`, `./filter-bar`, `./combobox`, `./tag-input`, `./date-picker`,
   `./search-field`, `./video-player`, `./file-upload`, `./media-capture`, `./video-trimmer`, `./audio-player`,
-  `./image-cropper`), `./native`, `./native/video-player`, `./native/media-capture`, `./motion.css`,
-  `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/examples/*` (the compiled examples), `./package.json`;
+  `./image-cropper`, `./page`, `./page-hero`, `./card-grid`, `./pointer-light`, `./link-card`, `./argument-card`,
+  `./mascot-quote`, `./decision-list`, `./code-block`, `./action-bar`, `./cta-panel`, `./toc`), `./native`, `./native/video-player`, `./native/media-capture`, `./motion.css`,
+  `./blocks.css` (the page blocks' styles, imported once by the app), `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/examples/*` (the compiled examples), `./package.json`;
   files `dist`, `registry` (JSON, examples as `.tsx`, `.js`, `.d.ts`), `tailwind.css`, `README.md`, `LICENSE`. Adding an
   entry is a minor; removing or renaming one is a breaking change.
 - **The registry — the code drives the documentation** (`scripts/build-registry.mjs`, run by `build`): one

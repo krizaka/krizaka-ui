@@ -47,7 +47,27 @@ export default defineConfig([
       "chip-link": "src/chip-link/index.ts",
       meter: "src/meter/index.ts",
       pagination: "src/pagination/index.ts",
+      // The page blocks that hold no state: usable in a Server Component as they are.
+      page: "src/page/index.ts",
+      "page-hero": "src/page-hero/index.ts",
+      "link-card": "src/link-card/index.ts",
+      "argument-card": "src/argument-card/index.ts",
+      "decision-list": "src/decision-list/index.ts",
+      "action-bar": "src/action-bar/index.ts",
+      "cta-panel": "src/cta-panel/index.ts",
     },
+  },
+  {
+    // Client — the page blocks with a hook (the pointer's light, the bird's id, the copy button, the reading position).
+    ...shared,
+    entry: {
+      "card-grid": "src/card-grid/index.ts",
+      "pointer-light": "src/pointer-light/index.ts",
+      "mascot-quote": "src/mascot-quote/index.ts",
+      "code-block": "src/code-block/index.ts",
+      toc: "src/toc/index.ts",
+    },
+    banner: { js: '"use client";' },
   },
   {
     ...shared,
