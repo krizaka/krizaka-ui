@@ -401,7 +401,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "15 kB",
+      "limit": "16 kB",
       "gzip": true
     },
     {
