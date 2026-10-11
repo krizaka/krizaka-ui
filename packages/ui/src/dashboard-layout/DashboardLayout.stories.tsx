@@ -8,7 +8,7 @@ import { DashboardLayout } from "./dashboard-layout";
 const meta = {
   title: "Layouts/DashboardLayout",
   component: DashboardLayout,
-  parameters: { layout: "fullscreen" },
+  parameters: { layout: "padded" },
 } satisfies Meta<typeof DashboardLayout>;
 export default meta;
 

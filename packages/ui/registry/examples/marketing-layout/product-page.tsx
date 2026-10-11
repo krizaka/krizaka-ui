@@ -32,7 +32,7 @@ export default function MarketingLayoutProductPage() {
       <MarketingLayout
         skipLabel="Skip to content"
         header={
-          <NavBar.Root label="Main" compactAfter={false}>
+          <NavBar.Root label="Main" compactAfter={false} className="max-w-(--kz-page-max,72rem)">
             <NavBar.Brand href="#home"><ProductLogo id="orazaka" size={22} animated={false} /> Orazaka</NavBar.Brand>
             <NavBar.Items>
               <NavBar.Link href="#why" active>Why</NavBar.Link>
@@ -50,8 +50,8 @@ export default function MarketingLayoutProductPage() {
           <Facts items={[{ label: "Apache-2.0", tone: "ok" }, { label: "Law 25 · GDPR" }]} />
           <Button variant="primary" size="lg" shape="cut" shimmer>Install in three commands</Button>
         </PageHero>
-        <Section id="why" eyebrow="Why" title="Three traps it removes" reveal>
-          <CardGrid min={260} reveal={false}>
+        <Section id="why" eyebrow="Why" title="Three traps it removes">
+          <CardGrid min={260} fit="fit" reveal={false}>
             {WHY.map((w) => (
               <ArgumentCard
                 key={w.id}

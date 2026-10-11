@@ -8,7 +8,7 @@ import { SettingsLayout } from "./settings-layout";
 const meta = {
   title: "Layouts/SettingsLayout",
   component: SettingsLayout,
-  parameters: { layout: "fullscreen" },
+  parameters: { layout: "padded" },
 } satisfies Meta<typeof SettingsLayout>;
 export default meta;
 

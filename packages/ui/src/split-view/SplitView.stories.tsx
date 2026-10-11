@@ -8,7 +8,7 @@ import { SplitView } from "./split-view";
 const meta = {
   title: "Layouts/SplitView",
   component: SplitView,
-  parameters: { layout: "fullscreen" },
+  parameters: { layout: "padded" },
 } satisfies Meta<typeof SplitView>;
 export default meta;
 

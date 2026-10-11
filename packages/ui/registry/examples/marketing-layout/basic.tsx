@@ -9,7 +9,7 @@ export default function MarketingLayoutBasic() {
     <MarketingLayout
       skipLabel="Skip to content"
       header={
-        <NavBar.Root label="Main" compactAfter={false}>
+        <NavBar.Root label="Main" compactAfter={false} className="max-w-(--kz-page-max,72rem)">
           <NavBar.Brand href="#home">Krizaka</NavBar.Brand>
           <NavBar.Items>
             <NavBar.Link href="#products" active>Products</NavBar.Link>

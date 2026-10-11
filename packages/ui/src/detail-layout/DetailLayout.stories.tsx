@@ -8,7 +8,7 @@ import { DetailLayout } from "./detail-layout";
 const meta = {
   title: "Layouts/DetailLayout",
   component: DetailLayout,
-  parameters: { layout: "fullscreen" },
+  parameters: { layout: "padded" },
 } satisfies Meta<typeof DetailLayout>;
 export default meta;
 
