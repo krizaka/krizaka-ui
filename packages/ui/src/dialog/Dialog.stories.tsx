@@ -4,6 +4,7 @@ import AlertDestructiveExample from "../../registry/examples/dialog/alert-destru
 import BottomExample from "../../registry/examples/dialog/bottom";
 import CenterExample from "../../registry/examples/dialog/center";
 import GateExample from "../../registry/examples/dialog/gate";
+import LeftExample from "../../registry/examples/dialog/left";
 import RightExample from "../../registry/examples/dialog/right";
 import SheetFormExample from "../../registry/examples/dialog/sheet-form";
 import { Dialog } from "./dialog";
@@ -26,6 +27,7 @@ type Story = StoryObj<typeof meta>;
 export const Center: Story = { render: () => <CenterExample defaultOpen /> };
 export const Bottom: Story = { render: () => <BottomExample defaultOpen /> };
 export const Right: Story = { render: () => <RightExample defaultOpen /> };
+export const Left: Story = { render: () => <LeftExample defaultOpen /> };
 export const SheetForm: Story = { render: () => <SheetFormExample defaultOpen /> };
 export const AlertDestructive: Story = { render: () => <AlertDestructiveExample defaultOpen /> };
 export const Gate: Story = { render: () => <GateExample defaultOpen /> };

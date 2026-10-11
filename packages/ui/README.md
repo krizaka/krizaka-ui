@@ -124,18 +124,19 @@ light or a product's — is a set of tokens.
 | :-- | :-- | :-- |
 | `@krizaka/ui/cn` | `cn(...classes)` — clsx + tailwind-merge (the engine `tailwind-variants` ships) | server |
 | `@krizaka/ui/slot` | `Slot`, `VisuallyHidden` (Radix) | server |
-| `@krizaka/ui/button` | `Button` (`variant` primary·gradient·secondary·outline·ghost·danger, `size` sm·md·lg·icon, `shape` rounded·pill, `loading`, `asChild`), `IconButton` (`label` required), `buttonVariants` | server |
+| `@krizaka/ui/button` | `Button` (`variant` primary·gradient·secondary·outline·ghost·danger, `size` sm·md·lg·icon, `shape` rounded·pill·cut, `loading` (the loader glyph; `indicator={false}` to draw your own), `progress`, `status` success·error, `announce`, `shimmer`, `magnetic`, `asChild`), `IconButton` (`label` required; the glyph takes the icon's place), `buttonVariants` | server |
 | `@krizaka/ui/badge` | `Badge` (`tone` neutral·accent·success·warning·danger·scrim, `size` sm·md, `dot`, `pulse`), `badgeVariants` | server |
 | `@krizaka/ui/avatar` | `Avatar` (`src`, `alt`, `fallback`, `size` xs·sm·md·lg·xl), `Avatar.Group` (`max`) | client |
 | `@krizaka/ui/field` | `Field.Root/Label/Hint/Error`, `Input`, `Textarea`, `Select` (native, styled) — `invalid` | server |
 | `@krizaka/ui/theme` | `ThemeScript` (in `<head>`, no flash), `ThemeProvider`, `useTheme()` → `{ mode, setMode, theme, setTheme }`, `ThemeToggle` (`label`) | client |
-| `@krizaka/ui/skeleton` | `Skeleton` (`shape` text·circle·rect) | server |
+| `@krizaka/ui/skeleton` | `Skeleton` (`shape` text·circle·rect), `SkeletonText` (`lines`), `SkeletonShape` (the real component turned into its skeleton; `data-skeleton` marks a shape) — one brand reflection across the page | server |
 | `@krizaka/ui/empty-state` | `EmptyState` (`icon`, `title`, `description`, `action`) | server |
-| `@krizaka/ui/spinner` | `Spinner` (`label`, `size`) | server |
+| `@krizaka/ui/spinner` | `Spinner` (`label`, `size`, `value`): the Krizaka glyph (a hexagon traced by light around a node), `LoaderGlyph` (`state` loading·success·error, `value`) | server |
+| `@krizaka/ui/loader` | `Loader` (`label`, `status` loading·success·error, `successLabel`, `errorLabel`, `value`, `eta`, `delay` 250, `minDuration` 600, `endDuration` 1600, `variant` inline·block·overlay·page), `LoadingRegion` (`loading`, `skeleton`, `label`, `slowLabel`, `slowAfter`), `useDelayedWait` | client |
 | `@krizaka/ui/countdown` | `Countdown` (`target`, `label`, `showLabel`, `units`, `size`, `urgentBelowMs`, `skewMs`), `useCountdown`, `splitDuration` | client |
 | `@krizaka/ui/card` | `Card.Root` (`asChild`, `reveal`, `radius` md·lg·xl, `tone` default·elevated·glass, `interactive`), `Card.Media` (`aspect` video·square·portrait·auto), `Card.Image` (`fallback`), `Card.Overlay` (`corner`), `Card.Body` (`padding`), `Card.Title` (`as`), `Card.Description`, `Card.Stat` (`label`), `Card.Footer`; `card` (the slots) | server |
-| `@krizaka/ui/dialog` | `Dialog.Root/Trigger/Content/Header/Title/Description/Body/Footer/Close` (`placement` center·bottom·right, `size` sm·md·lg, `closeLabel` required unless `hideClose`, `dismissible={false}`: no close on Escape or outside click), `Sheet` (= `placement="bottom"`), `AlertDialog` (`title`, `description`, `confirmLabel`, `cancelLabel`, `tone` danger·primary, async `onConfirm`, `trigger`) | client |
-| `@krizaka/ui/toast` | `Toaster` (sonner styled by roles: `label`, `closeLabel`, `position`, `closeButton`; `richColors` off), `toast` (`.success/.warning/.error/.info/.custom`…) | client |
+| `@krizaka/ui/dialog` | `Dialog.Root/Trigger/Content/Header/Title/Description/Body/Footer/Close` (`placement` center·bottom·right·left, `size` sm·md·lg, `closeLabel` required unless `hideClose`, `dismissible={false}`: no close on Escape or outside click), `Sheet` (= `placement="bottom"`), `AlertDialog` (`title`, `description`, `confirmLabel`, `cancelLabel`, `tone` danger·primary, async `onConfirm`, `trigger`) | client |
+| `@krizaka/ui/toast` | `Toaster` (sonner styled by roles: `label`, `closeLabel`, `position`, `closeButton`; `richColors` off; a hairline counts each toast's time left), `toast` (`.success/.warning/.error/.info/.custom`…), `undoToast` (`undoLabel`, `onUndo`, `onCommit`), `progressToast` (`id`, `value`, `doneMessage`), `groupedToast` (`key`, `countLabel`) | client |
 | `@krizaka/ui/popover` | `Popover.Root/Trigger/Anchor/Content/Close` | client |
 | `@krizaka/ui/dropdown-menu` | `DropdownMenu.Root/Trigger/Content/Item/CheckboxItem/Label/Separator/Group` (`Item` `tone` default·danger), `menu` (the slots) | client |
 | `@krizaka/ui/tooltip` | `Tooltip` (`content`, `delayDuration` 300, `side`, `open`/`defaultOpen`), `TooltipProvider` | client |
@@ -144,17 +145,26 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/alert` | `Alert` (`tone` info·success·warning·danger, `icon`, `title`, `action`; `role="alert"` for danger and warning, `status` otherwise), `alertVariants` | server |
 | `@krizaka/ui/separator` | `Separator` (`orientation`, `decorative`, Radix), `separatorVariants` | server |
 | `@krizaka/ui/kbd` | `Kbd` (`size` sm·md), `kbdVariants` | server |
-| `@krizaka/ui/tabs` | `Tabs.Root/List/Trigger/Content` (`variant` underline·segmented·pills on the root, `orientation`, `value`/`defaultValue` + `onValueChange`), `tabs` (the slots) | client |
+| `@krizaka/ui/tabs` | `Tabs.Root/List/Trigger/Content` (`variant` underline·segmented·pills on the root, `orientation`, `value`/`defaultValue` + `onValueChange`; one light glides to the active tab), `tabs` (the slots) | client |
+| `@krizaka/ui/nav-bar` | `NavBar.Root` (`label`, `compactAfter`, `floating`) `/Brand/Items/Link` (`active`) `/Menu` (`label`, `columns`) `/MenuLink` (`title`, `description`, `icon`) `/Actions/Mobile` (`openLabel`, `closeLabel`) `/MobileLink`, `navBar` (the slots) | client |
 | `@krizaka/ui/chip` | `Chip` (`selected`/`defaultSelected` + `onSelectedChange`, `size` sm·md; `removable` + `removeLabel` + `onRemove`), `Chip.Group` (`type` single·multiple, `label`, `required` for single), `chip` (the slots) | client |
+| `@krizaka/ui/chip-link` | `ChipLink` (a filter that is a link: `selected`, `current`, `size`, `asChild`), `chipVariants` (`size`, `selected`) | server |
 | `@krizaka/ui/switch` | `Switch` (`checked`/`defaultChecked` + `onCheckedChange`, `label` unless a visible label names it, `size` sm·md, `invalid`), `switchVariants` | client |
 | `@krizaka/ui/slider` | `Slider` (`value`: a number or a `[min, max]` range, `onValueChange`, `onValueCommit`, `label`, `thumbLabels`, `formatValue` → aria-valuetext, `showLabel`, `origin`), `slider` (the slots) | client |
 | `@krizaka/ui/checkbox` | `Checkbox` (`checked` true·false·"indeterminate" + `onCheckedChange`, `invalid`, its words as children) — sits in a `Field` | client |
 | `@krizaka/ui/radio-group` | `RadioGroup.Root` (`label`, `orientation`, `invalid`), `RadioGroup.Item` (a dot and its words), `RadioGroup.Card` (a whole card is the radio) | client |
 | `@krizaka/ui/command` | `Command.Root` (`label`, `shouldFilter`…) `/Input` (`placeholder`, `trailing`) `/List` (`label`) `/Empty` (`emptyLabel`) `/Loading/Group/Item/Separator/Shortcut` on cmdk; `CommandDialog` (`label`, `open`/`onOpenChange`, `footer`, `contentProps`) | client |
 | `@krizaka/ui/confirm-button` | `ConfirmButton` (two presses: `confirmLabel`, `onConfirm`, `timeoutMs` 4000, `label` for an icon, `armedContent`; the `Button` variants), `confirmArmed` | client |
-| `@krizaka/ui/progress` | `Progress` (`variant` bar·ring, `size` sm·md·lg, `value`/`max`, indeterminate without a value, `label`, `valueText`, a ring's centre as children) | server |
+| `@krizaka/ui/progress` | `Progress` (`variant` bar·ring, `size` sm·md·lg, `value`/`max`, indeterminate without a value, `label`, `valueText`, `showLabel`, `eta`, `buffer`, `segments`, `status` active·paused·error, a ring's centre as children) | server |
+| `@krizaka/ui/meter` | `Meter` (`label`, `value`/`min`/`max`, `valueText`, `thresholds`, `optimum` low·high, `parts` with their legend, `variant` bar·ring, `size`, `showLabel`), `MeterValue` | server |
+| `@krizaka/ui/stepper` | `Stepper` (`steps`: `title`, `description`, `status`, `value`, `content`; `current`, `labels` of the states, `orientation`) | server |
+| `@krizaka/ui/number-ticker` | `NumberTicker` (`value`, `locale`, `format`, `trigger` view·change, `duration`, `announce`, `align`) | client |
+| `@krizaka/ui/glow-card` | `GlowCard` (`glow` border·spotlight·both, `alive`, `asChild`) | client |
+| `@krizaka/ui/marquee` | `Marquee` (`label`, `pauseLabel`, `playLabel`, `speed` px/s, `direction`, `fade`, `defaultPaused`) | client |
 | `@krizaka/ui/section-backdrop` | `SectionBackdrop` (`as`, `direction` down·up, `dome`, `grid`, `media` blurred for depth of field, `animated`): a page section on the brand's section gradient — see `@krizaka/tokens` BRAND.md, "Visual language" | server |
 | `@krizaka/ui/mascots` | `Mascot` (`bird` falcon·owl·duck·flamingo·pigeon, `mood` welcome·thinking·success·empty·error, `tone` brand·own, `size`, `animated`, `title`), `MASCOT_BIRDS`, `MASCOT_MOODS`: the Krizaka flock, in the host brand's accent — one bird at a moment that matters (onboarding, a long wait, a success, an empty list, an error); native `Mascot` in `/native` | client |
+| `@krizaka/ui/iso` | the isometric kit: `IsoHub` (a hero driven by data: `layers`, `dome`, `satellites`, `highlight`), `IsoScene`, `IsoPrism`, `IsoStack`, `IsoDome`, `IsoTile`, `IsoLink`, `IsoNode`, `IsoLabel`, the projection helpers — static SVG animated by motion.css | server |
+| `@krizaka/ui/motion` | `MotionObserver` (reveal, off-screen pause, settle, spotlight, magnetism) and `RotatingWord` (no layout shift) | client |
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
 | `@krizaka/ui/native` | React Native: `ThemeProvider`/`useTheme`, `Txt`, `Button`, `IconButton`, `Card.*`, `Badge`, `Chip` (+ `Group`), `Avatar` (+ `Group`), `Skeleton`, `EmptyState`, `Spinner`, `Countdown`, `Segmented`, `Progress`, `Toaster`/`toast`, the marks — see [React Native](#react-native) | native |
 | `@krizaka/ui/motion.css`, `@krizaka/ui/tailwind.css` | the motion signature; the `@source` of the primitives' classes | CSS |

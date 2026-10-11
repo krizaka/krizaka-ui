@@ -29,6 +29,8 @@ export const dialog = tv({
           "sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[1.75rem]",
       },
       right: { content: "inset-y-0 right-0 h-full w-full max-w-md rounded-none border-y-0 border-r-0" },
+      /* A navigation drawer: full height, from the left, clear of the notch. */
+      left: { content: "inset-y-0 left-0 h-full w-full max-w-md rounded-none border-y-0 border-l-0 pl-[env(safe-area-inset-left)]" },
     },
     size: { sm: { content: "sm:max-w-sm" }, md: { content: "sm:max-w-md" }, lg: { content: "sm:max-w-2xl" } },
   },
@@ -59,7 +61,8 @@ export type DialogContentProps = React.ComponentProps<typeof DialogPrimitive.Con
   DialogVariants &
   CloseButtonProps & {
     /**
-     * center · bottom (a sheet on a phone, centred from `sm` up) · right (a side panel, full height).
+     * center · bottom (a sheet on a phone, centred from `sm` up) · right (a side panel, full height) · left (a
+     * navigation drawer, full height).
      * @default "center"
      */
     placement?: DialogVariants["placement"];

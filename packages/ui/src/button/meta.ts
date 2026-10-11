@@ -2,7 +2,8 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Button",
-  summary: "The action: a button in six looks (primary, gradient, secondary, outline, ghost, danger), three sizes and two shapes.",
+  summary:
+    "The action: six looks, three sizes, three shapes (rounded, pill, the Krizaka cut corners) — and the whole life of an action built in: a wait traced by the loader glyph, its progress, a success or a failure drawn and announced.",
   status: "stable",
   category: "actions",
   platforms: "both",
@@ -20,7 +21,9 @@ export const meta = {
   bestPractices: [
     "Name the action with a verb: “Save”, “Send the invitation” — not “OK” or “Yes”.",
     "One primary per view; the danger variant only for what destroys or cannot be undone.",
-    "`loading` while the action runs: the button is disabled and says it is busy; keep its width by keeping its words short.",
+    "`loading` while the action runs: the button is disabled, says it is busy and draws the glyph; add `progress` when you know how far it is.",
+    "End with `status` (`success` / `error`) and `announce` the result in words: sighted people see the check, everyone hears “Saved”. Clear the status after a moment.",
+    "`shape=\"cut\"`, `shimmer` and `magnetic` are the signature: keep them for the one action a page is about.",
     "Style a link without the component with `buttonVariants({ variant, size })`.",
   ],
   accessibility: {
@@ -32,12 +35,18 @@ export const meta = {
       "A native `<button type=\"button\">`: the role, the focus and the keyboard come from the platform.",
       "`IconButton` requires `label`: it becomes the `aria-label` of a button that shows no text.",
       "`loading` sets `aria-busy` and disables the button; `disabled` keeps it out of the tab order.",
+      "`announce` renders a polite live region next to the button: the result of the action is heard, not only seen.",
+      "Under `prefers-reduced-motion` nothing moves (no shake, no lean, no sheen): the check, the cross and the status colour still say it.",
     ],
   },
   related: ["confirm-button", "dialog", "dropdown-menu", "tooltip"],
   web: {
     imports: ["Button", "IconButton"],
     examples: [
+      { name: "save-flow", title: "Save, then confirm", description: "Press it: the glyph traces the wait, a check draws itself, “Changes saved” is announced, then it returns to rest." },
+      { name: "upload-progress", title: "An export with progress", description: "`progress`: the trace and a light fill grow across the button; it keeps its width and its colour." },
+      { name: "error", title: "A failure", description: "`status=\"error\"`: a cross, one shake of the head, a ring of the danger colour — and the reason announced." },
+      { name: "signature", title: "The signature action", description: "`shape=\"cut\"`, the gradient, `shimmer` and `magnetic`: the one call to action of a hero; the arrow leans forward on hover." },
       { name: "primary", title: "Primary", description: "The main action of a view: the accent." },
       { name: "gradient", title: "Gradient", description: "The brand's signature, accent → accent-2: a hero or a closing call to action, once per page." },
       { name: "secondary", title: "Secondary", description: "The default: a raised surface, for the other actions." },
@@ -47,7 +56,7 @@ export const meta = {
       { name: "sizes", title: "Sizes", description: "`sm`, `md` (default) and `lg`." },
       { name: "pill", title: "Pill", description: "`shape=\"pill\"`: fully rounded." },
       { name: "disabled", title: "Disabled", description: "Not available yet: out of the tab order." },
-      { name: "loading", title: "Loading", description: "While the action runs: disabled, `aria-busy`, `data-loading`." },
+      { name: "loading", title: "Loading", description: "While the action runs: disabled, `aria-busy`, `data-loading`, the glyph before the label." },
       { name: "as-child-link", title: "As a link", description: "`asChild` renders your `<a>` (or router link) with the button's look." },
       { name: "icon", title: "Icon button", description: "`IconButton`: a square button holding an icon; `label` is its accessible name." },
     ],

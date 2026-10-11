@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import DefaultExample from "../../registry/examples/spinner/default";
-import MutedExample from "../../registry/examples/spinner/muted";
 import SizesExample from "../../registry/examples/spinner/sizes";
+import ValueExample from "../../registry/examples/spinner/value";
 import { Spinner } from "./spinner";
 
 /**
@@ -19,5 +19,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { render: () => <DefaultExample /> };
+export const Value: Story = { render: () => <ValueExample /> };
 export const Sizes: Story = { render: () => <SizesExample /> };
-export const Muted: Story = { render: () => <MutedExample /> };

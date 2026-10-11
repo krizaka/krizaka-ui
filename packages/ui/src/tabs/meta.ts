@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Tabs",
-  summary: "Views of the same page, one at a time: underlined sections, a segmented switch or pills.",
+  summary: "Views of the same page, one at a time: underlined sections, a segmented switch or pills — one light glides from the active tab to the next, in every variant.",
   status: "beta",
   category: "navigation",
   platforms: "web",

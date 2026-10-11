@@ -41,16 +41,30 @@
   from { opacity: 0; transform: translateY(70%); filter: blur(6px); }
 }
 
-/* RotatingWord: the alternatives share one grid cell, the current one rolls in. */
+/* RotatingWord: every alternative shares one grid cell from the first paint (the line keeps the width of the longest
+   word: no layout shift); the current one is visible and rolls in each time it becomes current. */
 .kz-rotating {
   display: inline-grid;
   overflow: hidden;
   padding-bottom: 0.08em;
   vertical-align: bottom;
 }
-.kz-rotating > .kz-word {
+.kz-rotating > * {
   grid-area: 1 / 1;
   white-space: nowrap;
+}
+.kz-rotating > [data-active="false"] {
+  visibility: hidden;
+}
+.kz-rotating > [data-active="true"] {
+  animation: kz-word-in 0.6s var(--kz-ease) both;
+}
+
+/* A softer reveal for schemas and dense content: shorter travel, no blur. */
+[data-reveal="soft"] {
+  transform: translateY(12px);
+  filter: none;
+  transition-duration: 0.6s;
 }
 
 /* Sheen across a primary action on hover. */
@@ -140,6 +154,15 @@
 @keyframes kz-dialog-in {
   from { opacity: 0; transform: translateY(32px); }
 }
+/* Side panels and drawers slide in from their edge. */
+.kz-dialog[data-placement="right"] { animation-name: kz-drawer-right; }
+.kz-dialog[data-placement="left"] { animation-name: kz-drawer-left; }
+@keyframes kz-drawer-right {
+  from { opacity: 0.4; transform: translateX(48px); }
+}
+@keyframes kz-drawer-left {
+  from { opacity: 0.4; transform: translateX(-48px); }
+}
 @media (min-width: 640px) {
   @keyframes kz-dialog-in {
     from { opacity: 0; transform: translateY(12px) scale(0.97); }
@@ -147,6 +170,14 @@
 }
 /* An indeterminate progress bar: a segment that crosses the track (Progress, variant bar). */
 .kz-progress[data-state="indeterminate"] { animation: kz-progress-slide 1.4s var(--kz-ease) infinite; }
+/* A segmented bar (Progress `segments`): the steps are cut out of the bar, whatever the surface behind it. */
+.kz-progress-segmented {
+  mask-image: repeating-linear-gradient(90deg, #000 0 calc(100% / var(--kz-segments, 1) - 3px), transparent 0 calc(100% / var(--kz-segments, 1)));
+}
+/* A paused fill: diagonal stripes at rest. */
+.kz-progress-paused {
+  background-image: repeating-linear-gradient(-45deg, color-mix(in oklab, var(--kz-accent) 85%, transparent) 0 6px, color-mix(in oklab, var(--kz-accent) 45%, transparent) 6px 12px);
+}
 @keyframes kz-progress-slide {
   from { transform: translateX(-100%); }
   to { transform: translateX(250%); }
@@ -205,9 +236,369 @@
   opacity: 0.5;
 }
 
+/* ─── The conductor's states (MotionObserver) ───
+   - `[data-offscreen]` on a scope (`.kz-backdrop`, `.kz-iso`, `[data-motion-scope]`, a page's sections) while it is out
+     of view: every animation inside waits for it to come back — only what can be seen moves.
+   - `html[data-motion="settling"]` from the observer's mount until the page has loaded and settled (≈ 1.2 s after
+     `load`): the loops (`.kz-loop`, the backdrop's drift) hold their first frame, so nothing repaints the first screen
+     while it paints (LCP). Without the observer neither state is ever set: everything simply runs. */
+[data-offscreen] :is(*, *::before, *::after):not(.kz-backdrop-media) {
+  animation-play-state: paused !important;
+}
+html[data-motion="settling"] :is(.kz-loop, .kz-backdrop-drift, .kz-loop::before, .kz-loop::after) {
+  animation-play-state: paused !important;
+}
+
+/* The node of a signature icon (@krizaka/icons, `[data-node]`) lights up when the control that holds it is hovered or
+   focused; arrows lean toward where they lead. */
+svg[data-kz-icon] [data-node] {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 320ms var(--kz-ease), filter 320ms var(--kz-ease);
+}
+:is(a, button, [data-kz-lights]):is(:hover, :focus-visible) svg[data-kz-icon] [data-node] {
+  transform: scale(1.5);
+  filter: drop-shadow(0 0 3px var(--kz-accent, #196df5));
+}
+svg[data-kz-icon="ForwardIcon"],
+svg[data-kz-icon="ExternalIcon"] {
+  transition: transform 220ms var(--kz-ease);
+}
+:is(a, button):is(:hover, :focus-visible) svg[data-kz-icon="ForwardIcon"] {
+  transform: translateX(3px);
+}
+:is(a, button):is(:hover, :focus-visible) svg[data-kz-icon="ExternalIcon"] {
+  transform: translate(2px, -2px);
+}
+
+/* Magnetic (`data-kz-magnetic`, driven by MotionObserver): the element leans a few pixels toward a fine pointer. */
+[data-kz-magnetic] {
+  translate: var(--kz-mag-x, 0) var(--kz-mag-y, 0);
+  transition: translate 420ms var(--kz-ease);
+}
+
+/* A figure that climbs (NumberTicker): an invisible copy of the final value shares the grid cell and holds the width. */
+.kz-count {
+  display: inline-grid;
+  font-variant-numeric: tabular-nums;
+}
+.kz-count > * {
+  grid-area: 1 / 1;
+}
+.kz-count[data-align="end"] {
+  justify-items: end;
+}
+.kz-count-ghost {
+  visibility: hidden;
+}
+/* Inside gradient text every box carries the gradient itself: an inline-grid is not clipped with its parent's text. */
+.kz-count,
+.kz-count > *,
+.kz-count-roll,
+.kz-count-digit {
+  background: inherit;
+  -webkit-background-clip: inherit;
+  background-clip: inherit;
+}
+/* Rolling digits (NumberTicker on change): each digit is a column 0–9 that slides to its value. */
+.kz-count-roll {
+  display: inline-flex;
+  user-select: none;
+}
+.kz-count-digit {
+  display: inline-block;
+  height: 1lh;
+  overflow: hidden;
+}
+.kz-count-digit > span {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(var(--kz-digit, 0) * -10%));
+  transition: transform 0.9s var(--kz-ease);
+}
+.kz-count-digit > span > span {
+  height: 1lh;
+}
+.kz-count[data-trend="up"] .kz-count-roll {
+  animation: kz-count-flash-up 1.2s var(--kz-ease);
+}
+.kz-count[data-trend="down"] .kz-count-roll {
+  animation: kz-count-flash-down 1.2s var(--kz-ease);
+}
+@keyframes kz-count-flash-up {
+  from { color: var(--kz-success-text, currentColor); }
+}
+@keyframes kz-count-flash-down {
+  from { color: var(--kz-danger-text, currentColor); }
+}
+
+/* ─── Marquee: a band that slides at a speed, pauses for the reader, and is a still row under reduced motion ─── */
+.kz-band {
+  --kz-band-gap: 2.5rem;
+}
+.kz-band[data-fade] > .kz-band-viewport {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.kz-band[data-direction="right"] .kz-marquee {
+  animation-direction: reverse;
+}
+.kz-band:is([data-paused], :hover, :focus-within) .kz-marquee {
+  animation-play-state: paused;
+}
+
+/* ─── GlowCard: a bloom that follows the pointer, a ring of the brand gradient that turns ─── */
+@property --kz-glow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 135deg;
+}
+.kz-glow {
+  --kz-glow-x: 30%;
+  --kz-glow-y: 0%;
+}
+/* The ring: the brand gradient, cut to the border (mask), faint at rest, bright under the pointer or the focus. */
+.kz-glow:is([data-glow="border"], [data-glow="both"])::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--kz-glow-angle), transparent 0deg, var(--kz-accent) 70deg, var(--kz-accent-2, var(--kz-accent)) 140deg, transparent 210deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0.35;
+  transition: opacity 0.4s var(--kz-ease);
+  pointer-events: none;
+}
+.kz-glow[data-alive]::before,
+.kz-glow:is(:hover, :focus-within)::before {
+  animation: kz-glow-turn 6s linear infinite;
+}
+.kz-glow:is(:hover, :focus-within)::before {
+  opacity: 1;
+}
+/* The bloom: under the pointer, inside the card. */
+.kz-glow:is([data-glow="spotlight"], [data-glow="both"])::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(360px circle at var(--kz-glow-x) var(--kz-glow-y), color-mix(in oklab, var(--kz-accent) 16%, transparent), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s var(--kz-ease);
+  pointer-events: none;
+}
+.kz-glow:is(:hover, :focus-within)::after {
+  opacity: 1;
+}
+@keyframes kz-glow-turn {
+  to { --kz-glow-angle: 495deg; }
+}
+
+/* ─── Toasts: a hairline at the bottom counts the time left, and pauses with the toast ─── */
+.kz-toast::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--kz-accent), var(--kz-accent-2, var(--kz-accent)));
+  opacity: 0.7;
+  animation: kz-toast-time var(--kz-toast-duration, 4000ms) linear forwards;
+}
+.kz-toast:is([data-expanded="true"], :hover, :focus-within)::after {
+  animation-play-state: paused;
+}
+.kz-toast[data-type="loading"]::after {
+  display: none;
+}
+@keyframes kz-toast-time {
+  to { transform: scaleX(0); }
+}
+
+/* ─── Skeletons: one reflection of the brand light crosses every skeleton of the page at once ─── */
+.kz-skeleton,
+.kz-skeleton-shape :is(h1, h2, h3, h4, h5, h6, p, li, dt, dd, label, small, strong, b, em, time, a, button, img, svg, video, picture, canvas, [data-skeleton]) {
+  background-image: linear-gradient(100deg, transparent 30%, color-mix(in oklab, var(--kz-accent) 14%, transparent) 46%, color-mix(in oklab, var(--kz-text-primary) 8%, transparent) 50%, transparent 66%);
+  background-size: 200vw 100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  animation: kz-skeleton-sweep 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes kz-skeleton-sweep {
+  from { background-position: 100vw 0; }
+  to { background-position: -100vw 0; }
+}
+/* SkeletonShape: the real component's text, media and icons become shapes in place (its layout untouched). */
+.kz-skeleton-shape { pointer-events: none; user-select: none; }
+.kz-skeleton-shape :is(h1, h2, h3, h4, h5, h6, p, li, dt, dd, label, small, strong, b, em, time, a, button, [data-skeleton]) {
+  color: transparent !important;
+}
+/* Text becomes one bar per line, as tall as the letters, as wide as the words. */
+.kz-skeleton-shape :is(h1, h2, h3, h4, h5, h6, p, li, dt, dd, label, small, time) {
+  width: fit-content;
+  max-width: 100%;
+  -webkit-mask-image: repeating-linear-gradient(to bottom, transparent 0 0.18lh, #000 0.18lh 0.82lh, transparent 0.82lh 1lh);
+  mask-image: repeating-linear-gradient(to bottom, transparent 0 0.18lh, #000 0.18lh 0.82lh, transparent 0.82lh 1lh);
+  background-color: var(--kz-surface-3) !important;
+  border-radius: 3px;
+}
+.kz-skeleton-shape :is(a, button, [data-skeleton]) {
+  background-color: var(--kz-surface-3) !important;
+}
+.kz-skeleton-shape :is(img, svg, video, picture, canvas) {
+  background-color: var(--kz-surface-3);
+  opacity: 1;
+}
+.kz-skeleton-shape :is(img, video, picture, canvas) { object-position: -9999px; }
+.kz-skeleton-shape svg * { visibility: hidden; }
+.kz-skeleton-shape :is(p, li) :is(strong, b, em, a, time) { background: none; }
+
+/* ─── The loader glyph (Spinner, Loader, Button loading) ───
+   A segment of light travels around a hexagon while the node breathes; determinate, the trace grows to its value; done,
+   the trace closes and a check or a cross draws itself. */
+.kz-loader-trace {
+  stroke-dasharray: 24 76;
+  animation: kz-loader-trace 1.4s linear infinite;
+}
+[data-progress] > .kz-loader-trace {
+  animation: none;
+  transition: stroke-dasharray 0.6s var(--kz-ease);
+}
+.kz-loader-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kz-loader-node 1.4s var(--kz-ease) infinite;
+}
+.kz-loader-mark {
+  stroke-dasharray: 20;
+  animation: kz-loader-draw 0.5s var(--kz-ease) 0.12s backwards;
+}
+@keyframes kz-loader-trace { to { stroke-dashoffset: -100; } }
+@keyframes kz-loader-node { 50% { transform: scale(0.62); opacity: 0.55; } }
+@keyframes kz-loader-draw { from { stroke-dashoffset: 20; } }
+/* Once: a ring of the status colour opens around what just succeeded or failed; a failure shakes its head. */
+[data-kz-status="success"] { animation: kz-status-ring 0.9s var(--kz-ease); --kz-status: var(--kz-success); }
+[data-kz-status="error"] { animation: kz-status-ring 0.9s var(--kz-ease), kz-status-shake 0.42s var(--kz-ease); --kz-status: var(--kz-danger); }
+@keyframes kz-status-ring {
+  from { box-shadow: 0 0 0 0 color-mix(in oklab, var(--kz-status, currentColor) 55%, transparent); }
+  to { box-shadow: 0 0 0 10px transparent; }
+}
+@keyframes kz-status-shake {
+  20% { translate: -3px 0; }
+  45% { translate: 3px 0; }
+  70% { translate: -2px 0; }
+}
+
+/* ─── The isometric kit (@krizaka/ui/iso) ───
+   Objects built from the Krizaka vocabulary — hexagons, cut corners, the node — extruded in isometric projection and lit
+   from inside in the brand accent (a `.brand-<id>` ancestor re-points it). Faces read the surfaces, edges the accent
+   text: both themes. Motion: stages that stack once at the entrance, a dome that breathes, light that flows along the
+   links, satellites that float; the pointer lifts an object and shows its label. */
+/* Unlayered CSS beats Tailwind's layers: the kit sets no size, the app's classes do (`w-full max-w-xl`). */
+.kz-iso {
+  overflow: visible;
+}
+/* Light, glass and floor never catch the pointer: the objects under the dome stay reachable. */
+:is(.kz-iso-floor, .kz-iso-rim, .kz-iso-dome, .kz-iso-dome-sheen, .kz-iso-link, .kz-iso-particle, .kz-iso-link-label, .kz-iso-shadow, .kz-iso-tether, .kz-iso-breathe) {
+  pointer-events: none;
+}
+.kz-iso-floor { fill: none; stroke: var(--kz-border-strong); stroke-width: 0.8; }
+.kz-iso-face { stroke: color-mix(in oklab, var(--kz-accent-text) 40%, transparent); stroke-width: 0.8; stroke-linejoin: round; }
+.kz-iso-base .kz-iso-top { fill: var(--kz-surface-3); }
+.kz-iso-base .kz-iso-left { fill: var(--kz-surface-2); }
+.kz-iso-base .kz-iso-right { fill: var(--kz-surface-1); }
+.kz-iso-base .kz-iso-face { stroke: color-mix(in oklab, var(--kz-accent-text) 24%, var(--kz-border-default)); }
+.kz-iso-accent .kz-iso-top { fill: color-mix(in oklab, var(--kz-accent) 72%, var(--kz-surface-3)); }
+.kz-iso-accent .kz-iso-left { fill: color-mix(in oklab, var(--kz-accent) 50%, var(--kz-surface-1)); }
+.kz-iso-accent .kz-iso-right { fill: color-mix(in oklab, var(--kz-accent) 32%, var(--kz-surface-0)); }
+.kz-iso-accent2 .kz-iso-top { fill: color-mix(in oklab, var(--kz-accent-2) 70%, var(--kz-surface-3)); }
+.kz-iso-accent2 .kz-iso-left { fill: color-mix(in oklab, var(--kz-accent) 62%, var(--kz-surface-1)); }
+.kz-iso-accent2 .kz-iso-right { fill: color-mix(in oklab, var(--kz-accent-2) 40%, var(--kz-surface-0)); }
+.kz-iso-glass .kz-iso-face { fill: color-mix(in oklab, var(--kz-accent) 14%, var(--kz-surface-1)); fill-opacity: 0.92; }
+.kz-iso-glass .kz-iso-top { fill: color-mix(in oklab, var(--kz-accent) 10%, var(--kz-surface-2)); }
+.kz-iso-strip { fill: none; stroke: var(--kz-accent-text); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 2 7; opacity: 0.85; }
+.kz-iso-strip.kz-loop { animation: kz-iso-blink 2.8s steps(2, jump-none) infinite; animation-delay: calc(var(--kz-iso-i, 0) * -0.7s); }
+.kz-iso-glyph { fill: none; stroke: var(--kz-on-accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.9; }
+.kz-iso-base .kz-iso-glyph, .kz-iso-glass .kz-iso-glyph { stroke: var(--kz-text-secondary); }
+.kz-iso-glyph-fill { fill: var(--kz-on-accent); opacity: 0.9; }
+.kz-iso-base .kz-iso-glyph-fill, .kz-iso-glass .kz-iso-glyph-fill { fill: var(--kz-text-secondary); }
+.kz-iso-node { fill: var(--kz-accent-text); }
+.kz-iso-shadow { fill: color-mix(in oklab, var(--kz-accent) 9%, transparent); stroke: color-mix(in oklab, var(--kz-accent-text) 22%, transparent); stroke-width: 0.6; }
+.kz-iso-tether { stroke: color-mix(in oklab, var(--kz-accent-text) 45%, transparent); stroke-width: 1; stroke-dasharray: 1 4; stroke-linecap: round; }
+.kz-iso-glow-stop { stop-color: var(--kz-accent); }
+.kz-iso-rim { fill: color-mix(in oklab, var(--kz-accent) 6%, transparent); stroke: color-mix(in oklab, var(--kz-accent-text) 30%, transparent); stroke-width: 1; }
+.kz-iso-dome { fill: color-mix(in oklab, var(--kz-accent) 5%, transparent); stroke: color-mix(in oklab, var(--kz-accent-text) 34%, transparent); stroke-width: 1.2; }
+.kz-iso-dome-sheen { fill: none; stroke: color-mix(in oklab, var(--kz-accent-text) 55%, transparent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 40 400; }
+.kz-iso-dome-sheen.kz-loop { animation: kz-iso-sheen 9s var(--kz-ease) infinite; }
+.kz-iso-link { fill: none; stroke: var(--kz-accent-text); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 2 8; opacity: 0.7; }
+.kz-iso-link.kz-loop { animation: kz-iso-flow 2.4s linear infinite; }
+.kz-iso-link[data-direction="in"].kz-loop { animation-direction: reverse; }
+.kz-iso-particle {
+  fill: var(--kz-accent-text);
+  offset-rotate: 0deg;
+  offset-distance: var(--kz-iso-at, 50%);
+}
+.kz-iso-particle.kz-loop {
+  animation: kz-iso-travel var(--kz-iso-dur, 3.6s) cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation-delay: var(--kz-iso-delay, 0s);
+}
+.kz-iso-link-label rect { fill: var(--kz-surface-1); stroke: color-mix(in oklab, var(--kz-accent-text) 45%, var(--kz-border-default)); }
+.kz-iso-link-label text, .kz-iso-tip text {
+  fill: var(--kz-text-primary);
+  font: 600 12px/1 var(--kz-font-sans, system-ui), system-ui, sans-serif;
+  letter-spacing: 0.01em;
+}
+.kz-iso-link-label .kz-iso-strong { fill: var(--kz-accent-text); font-weight: 700; }
+.kz-iso-breathe.kz-loop { animation: kz-iso-breathe 5s ease-in-out infinite alternate; }
+.kz-iso-float.kz-loop { animation: kz-iso-float 8s ease-in-out infinite alternate; animation-delay: calc(var(--kz-iso-i, 0) * -2.3s); }
+/* `animated={false}` on a scene: the still frame, as prefers-reduced-motion shows it. */
+.kz-iso[data-animated="false"] :is(.kz-loop, .kz-iso-rise) { animation: none; }
+/* Entrance: each object rises into place once, in order (--kz-iso-i), when its scene first shows. */
+.kz-iso-rise { animation: kz-iso-rise 0.9s var(--kz-ease) backwards; animation-delay: calc(var(--kz-iso-i, 0) * 110ms + 120ms); }
+/* The pointer (or the focus, in an interactive scene) lifts an object and shows its label. */
+.kz-iso-item { outline: none; }
+.kz-iso-item > .kz-iso-lift { transition: translate 0.45s var(--kz-ease), filter 0.45s var(--kz-ease); }
+.kz-iso-tip { opacity: 0; transition: opacity 0.3s var(--kz-ease), translate 0.45s var(--kz-ease); pointer-events: none; }
+.kz-iso-leader { stroke: var(--kz-accent-text); stroke-width: 1; }
+.kz-iso-tip rect { fill: var(--kz-surface-1); stroke: var(--kz-border-strong); }
+@media (hover: hover) {
+  .kz-iso-item:hover > .kz-iso-lift { translate: 0 -8px; filter: drop-shadow(0 10px 14px color-mix(in oklab, var(--kz-accent) 35%, transparent)); }
+  .kz-iso-item:hover > .kz-iso-tip { opacity: 1; translate: 0 -8px; }
+}
+.kz-iso-item:focus-visible > .kz-iso-lift { translate: 0 -8px; filter: drop-shadow(0 0 6px var(--kz-ring, currentColor)); }
+.kz-iso-item:focus-visible > .kz-iso-tip { opacity: 1; translate: 0 -8px; }
+@keyframes kz-iso-rise { from { opacity: 0; transform: translateY(-34px); } }
+@keyframes kz-iso-flow { to { stroke-dashoffset: -40; } }
+@keyframes kz-iso-travel {
+  0% { offset-distance: 0%; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+@keyframes kz-iso-float { from { transform: translateY(0); } to { transform: translateY(-9px); } }
+@keyframes kz-iso-breathe { from { opacity: 0.6; } to { opacity: 1; } }
+@keyframes kz-iso-blink { 50% { opacity: 0.35; } }
+@keyframes kz-iso-sheen { 0% { stroke-dashoffset: 40; } 60%, 100% { stroke-dashoffset: -400; } }
+
 @media (prefers-reduced-motion: reduce) {
-  .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress { animation: none !important; }
+  .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
+  .kz-skeleton, .kz-skeleton-shape *, .kz-toast::after, .kz-glow::before,
+  .kz-rotating > *, .kz-loop, .kz-iso-rise, .kz-count-roll, .kz-loader-trace, .kz-loader-node, .kz-loader-mark,
+  [data-kz-status] { animation: none !important; }
+  /* At rest, the trace stands still where a reader expects it: a third of the hexagon from the top. */
+  .kz-loader-trace:not([stroke-dasharray]) { stroke-dashoffset: -8; }
   [data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }
   .kz-sheen::after { display: none; }
+  /* The band stands still and scrolls by hand; its copy goes. */
+  .kz-band > .kz-band-viewport { overflow-x: auto; scrollbar-width: thin; }
+  .kz-band-copy { display: none !important; }
   .kz-lift, .kz-lift:hover { transform: none; transition: none; }
+  [data-kz-magnetic] { translate: none; }
+  .kz-count-digit > span { transition: none; }
+  /* The still frame is a composed picture, not a cut animation: particles rest along their link, labels show. */
+  .kz-iso-item > .kz-iso-lift, .kz-iso-tip { transition: none; }
 }

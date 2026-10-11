@@ -8,7 +8,8 @@
 - The **primitives** (level 1 of the root contract): `cn`, `slot`, `button`, `badge`, `avatar`, `field`, `theme`,
   `skeleton`, `empty-state`, `spinner`, `countdown`, `card`, `dialog`, `toast`, `popover`, `dropdown-menu`, `tooltip`,
   `stat`, `page-header`, `alert`, `separator`, `kbd`, `tabs`, `chip`, `switch`, `slider`, `checkbox`, `radio-group`,
-  `command`, `confirm-button`, `progress`, `section-backdrop`, `mascots` — one entry each, built with `tailwind-variants` on the preset's
+  `command`, `confirm-button`, `progress`, `section-backdrop`, `loader`, `meter`, `stepper`, `number-ticker`,
+  `nav-bar`, `chip-link`, `glow-card`, `marquee`, `iso`, `mascots` — one entry each, built with `tailwind-variants` on the preset's
   roles, Radix UI for non-trivial interactions. They follow the 12-point component contract (README, "Primitives").
 - The **native platform** (`./native`, `src/native`): the theme (`ThemeProvider`/`useTheme` on the
   `@krizaka/tokens/native` roles + a product's `overrides`) and the same primitives for React Native — `Txt`,
@@ -17,8 +18,9 @@
 - The **brand layer shared by every Krizaka product**: the animated marks (`KrizakaLogo`, `OrazakaLogo`,
   `OrochiaLogo`, `ProductLogo`; native `KrizakaMark`, `OrazakaMark`, `OrochiaMark`, `ProductMark`), one family drawn from
   shared geometry (`marks/*-geometry.ts`, colours tested against the brand themes of `@krizaka/tokens`, see its
-  `BRAND.md`), and the **Krizaka motion signature** (`motion.css`, `MotionObserver`, `RotatingWord`, the section
-  backdrop's layers).
+  `BRAND.md`), and the **Krizaka motion signature** (`motion.css`, `./motion`: `MotionObserver` — reveal, off-screen
+  pause, settle, spotlight, magnetism — and `RotatingWord`; the section backdrop's layers; the loader glyph; the
+  isometric kit's `kz-iso-*`).
 - Nothing product-specific: a product's components live in its own design system (`@krizaka/orochia-design-system`,
   `@krizaka/orazaka-design-system`), which builds on this package.
 
@@ -51,13 +53,15 @@
 - **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 15 kB (with the flock's geometry) (Metro
   bundles it into the app, nothing is downloaded: a regression guard, not a budget); the shared runtime
   (`./cn`: clsx + tailwind-variants and its merge engine, paid once per app) ≤ 14 kB; each primitive is measured
-  without that runtime (Radix included): `./button` ≤ 3 kB, `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
+  without that runtime (Radix included): `./button` ≤ 3.5 kB (it draws the loader glyph), `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
   `./slot` ≤ 2 kB, `./field` ≤ 1.5 kB, `./card` ≤ 3 kB, `./separator` ≤ 2 kB (Radix's `Primitive` and `Slot`),
-  `./confirm-button` ≤ 3 kB, `./progress` ≤ 1.2 kB, `./section-backdrop` ≤ 1 kB, `./mascots` ≤ 4.5 kB (five birds' geometry), the other atoms ≤ 1 kB. The controls carry Radix's roving focus
+  `./confirm-button` ≤ 4 kB, `./progress` ≤ 1.8 kB, `./section-backdrop` ≤ 1 kB, `./mascots` ≤ 4.5 kB (five birds' geometry), `./iso` ≤ 4.5 kB (a hero with no
+  client JavaScript), `./loader`, `./meter`, `./stepper`, `./glow-card`, `./chip-link` ≤ 2 kB, `./motion`, `./number-ticker`,
+  `./marquee` ≤ 1.5 kB, the other atoms ≤ 1 kB. The controls carry Radix's roving focus
   or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6 kB, `./chip` ≤ 10 kB, `./tabs` ≤ 10 kB, `./radio-group`
   ≤ 11 kB, `./slider` ≤ 12 kB. What opens over the page carries Radix's machinery (dismissable layer, focus scope, scroll lock,
   and Floating UI for what is placed next to a trigger) — shared between these entries in an app, but counted in
-  each: `./dialog` ≤ 16.5 kB, `./toast` ≤ 11 kB (sonner), `./tooltip` ≤ 20 kB, `./popover` ≤ 25 kB,
+  each: `./dialog` ≤ 16.5 kB, `./toast` ≤ 11.5 kB (sonner), `./nav-bar` ≤ 16 kB (Radix NavigationMenu), `./tooltip` ≤ 20 kB, `./popover` ≤ 25 kB,
   `./dropdown-menu` ≤ 32 kB, `./command` ≤ 21 kB (cmdk alone is 14.9 kB: it imports Radix's Dialog itself; with
   `CommandDialog` on the platform's Dialog, 19 kB measured, +10 %).
 - **publint + attw** with the `esm-only` profile: the package is ESM only by design; `./motion.css` and
@@ -65,7 +69,9 @@
 - The published surface: exports `.`, one entry per primitive (`./cn`, `./slot`, `./button`, `./badge`, `./avatar`,
   `./field`, `./theme`, `./skeleton`, `./empty-state`, `./spinner`, `./countdown`, `./card`, `./dialog`, `./toast`,
   `./popover`, `./dropdown-menu`, `./tooltip`, `./stat`, `./page-header`, `./alert`, `./separator`, `./kbd`, `./tabs`,
-  `./chip`, `./switch`, `./slider`, `./checkbox`, `./radio-group`, `./command`, `./confirm-button`, `./progress`, `./section-backdrop`, `./mascots`), `./native`, `./motion.css`,
+  `./chip`, `./chip-link`, `./switch`, `./slider`, `./checkbox`, `./radio-group`, `./command`, `./confirm-button`, `./progress`,
+  `./section-backdrop`, `./iso`, `./motion`, `./loader`, `./nav-bar`, `./number-ticker`, `./glow-card`, `./marquee`, `./stepper`,
+  `./meter`, `./mascots`), `./native`, `./motion.css`,
   `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/examples/*` (the compiled examples), `./package.json`;
   files `dist`, `registry` (JSON, examples as `.tsx`, `.js`, `.d.ts`), `tailwind.css`, `README.md`, `LICENSE`. Adding an
   entry is a minor; removing or renaming one is a breaking change.

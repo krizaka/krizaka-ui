@@ -134,6 +134,10 @@
       "types": "./dist/chip.d.ts",
       "import": "./dist/chip.js"
     },
+    "./chip-link": {
+      "types": "./dist/chip-link.d.ts",
+      "import": "./dist/chip-link.js"
+    },
     "./switch": {
       "types": "./dist/switch.d.ts",
       "import": "./dist/switch.js"
@@ -169,6 +173,42 @@
     "./mascots": {
       "types": "./dist/mascots.d.ts",
       "import": "./dist/mascots.js"
+    },
+    "./iso": {
+      "types": "./dist/iso.d.ts",
+      "import": "./dist/iso.js"
+    },
+    "./motion": {
+      "types": "./dist/motion.d.ts",
+      "import": "./dist/motion.js"
+    },
+    "./loader": {
+      "types": "./dist/loader.d.ts",
+      "import": "./dist/loader.js"
+    },
+    "./nav-bar": {
+      "types": "./dist/nav-bar.d.ts",
+      "import": "./dist/nav-bar.js"
+    },
+    "./number-ticker": {
+      "types": "./dist/number-ticker.d.ts",
+      "import": "./dist/number-ticker.js"
+    },
+    "./glow-card": {
+      "types": "./dist/glow-card.d.ts",
+      "import": "./dist/glow-card.js"
+    },
+    "./marquee": {
+      "types": "./dist/marquee.d.ts",
+      "import": "./dist/marquee.js"
+    },
+    "./stepper": {
+      "types": "./dist/stepper.d.ts",
+      "import": "./dist/stepper.js"
+    },
+    "./meter": {
+      "types": "./dist/meter.d.ts",
+      "import": "./dist/meter.js"
     },
     "./motion.css": "./dist/motion.css",
     "./tailwind.css": "./tailwind.css",
@@ -298,7 +338,7 @@
     {
       "name": "./button",
       "path": "dist/button.js",
-      "limit": "3 kB",
+      "limit": "3.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -418,7 +458,7 @@
     {
       "name": "./toast",
       "path": "dist/toast.js",
-      "limit": "11 kB",
+      "limit": "11.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -594,7 +634,7 @@
     {
       "name": "./confirm-button",
       "path": "dist/confirm-button.js",
-      "limit": "3 kB",
+      "limit": "4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -604,7 +644,107 @@
     {
       "name": "./progress",
       "path": "dist/progress.js",
-      "limit": "1.2 kB",
+      "limit": "1.8 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./iso (a hero costs no client JavaScript: server components, static SVG)",
+      "path": "dist/iso.js",
+      "limit": "4.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./motion",
+      "path": "dist/motion.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./loader",
+      "path": "dist/loader.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./nav-bar (Radix NavigationMenu, Slot)",
+      "path": "dist/nav-bar.js",
+      "limit": "16 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./number-ticker",
+      "path": "dist/number-ticker.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./glow-card",
+      "path": "dist/glow-card.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./marquee",
+      "path": "dist/marquee.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./stepper",
+      "path": "dist/stepper.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./meter",
+      "path": "dist/meter.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./chip-link",
+      "path": "dist/chip-link.js",
+      "limit": "2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

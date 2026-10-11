@@ -1,9 +1,12 @@
-// Server-safe. An indeterminate wait: an SVG ring, announced as a status with its `label`.
+// Server-safe. An indeterminate wait: the Krizaka loader glyph (a hexagon traced by light around a node), announced as
+// a status with its `label`. For a wait with a delay, a value, an ETA or an ending, see `@krizaka/ui/loader`.
 import type * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
+import { LoaderGlyph } from "./glyph";
+
 export const spinnerVariants = tv({
-  base: "shrink-0 text-accent motion-safe:animate-spin",
+  base: "shrink-0 text-accent",
   variants: { size: { sm: "h-4 w-4", md: "h-6 w-6", lg: "h-10 w-10" } },
   defaultVariants: { size: "md" },
 });
@@ -17,22 +20,24 @@ export type SpinnerProps = Omit<React.ComponentProps<"svg">, "children"> &
     size?: VariantProps<typeof spinnerVariants>["size"];
     /** The accessible name of the wait, e.g. "Loading" — passed translated. */
     label: string;
+    /** Between 0 and 1: the trace grows to the value (a determinate wait). Absent: it travels around. */
+    value?: number | null;
   };
 
-/** A turning ring with `role="status"` (it stops turning under prefers-reduced-motion). */
-export function Spinner({ label, size, className, ...props }: SpinnerProps) {
+/**
+ * The Krizaka spinner: a hexagon traced by a segment of light around a breathing node, in `currentColor` (the accent by
+ * default). `role="status"`, named by `label`. Under prefers-reduced-motion it rests — a segment and the node lit.
+ */
+export function Spinner({ label, size, value, className, ...props }: SpinnerProps) {
   return (
-    <svg
+    <LoaderGlyph
       role="status"
       aria-label={label}
-      viewBox="0 0 24 24"
-      fill="none"
+      aria-hidden={undefined}
+      value={value}
       data-size={size ?? "md"}
       className={spinnerVariants({ size, className })}
       {...props}
-    >
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeOpacity="0.2" strokeWidth="3" />
-      <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-    </svg>
+    />
   );
 }

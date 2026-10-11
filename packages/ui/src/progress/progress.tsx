@@ -1,6 +1,6 @@
 // Server-safe: no hook, no context. role="progressbar" with aria-valuenow / aria-valuemax (none when indeterminate),
 // named by `label`. A bar or a ring; the ring can hold content in its centre (an amount, a percentage).
-import type * as React from "react";
+import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 export const progress = tv({
@@ -9,11 +9,16 @@ export const progress = tv({
     track: "",
     indicator: "",
     center: "absolute inset-0 flex flex-col items-center justify-center text-center",
+    buffer: "absolute inset-y-0 left-0 -z-10 rounded-full bg-accent/25 transition-[width] duration-500 motion-reduce:transition-none",
+    frame: "flex w-full flex-col gap-1.5",
+    header: "flex items-baseline gap-2 text-xs",
+    caption: "min-w-0 flex-1 truncate font-medium text-fg",
+    figure: "shrink-0 tabular-nums text-fg-secondary",
   },
   variants: {
     variant: {
       bar: {
-        root: "w-full overflow-hidden rounded-full bg-surface-3",
+        root: "relative isolate w-full overflow-hidden rounded-full bg-surface-3",
         indicator:
           "kz-progress h-full rounded-full bg-linear-to-r from-accent to-accent-2 transition-[width] duration-500 motion-reduce:transition-none " +
           "data-[state=indeterminate]:w-2/5",
@@ -27,6 +32,13 @@ export const progress = tv({
       },
     },
     size: { sm: {}, md: {}, lg: {} },
+    status: {
+      active: {},
+      // Paused: the fill rests, striped — the task is waiting for someone, not broken.
+      paused: { indicator: "kz-progress-paused opacity-70" },
+      // Failed: the fill turns to the danger colour where it stopped.
+      error: { indicator: "from-danger to-danger stroke-danger" },
+    },
   },
   compoundVariants: [
     { variant: "bar", size: "sm", class: { root: "h-1" } },
@@ -36,7 +48,7 @@ export const progress = tv({
     { variant: "ring", size: "md", class: { root: "h-20 w-20" } },
     { variant: "ring", size: "lg", class: { root: "h-36 w-36" } },
   ],
-  defaultVariants: { variant: "bar", size: "md" },
+  defaultVariants: { variant: "bar", size: "md", status: "active" },
 });
 
 export type ProgressVariants = VariantProps<typeof progress>;
@@ -57,13 +69,42 @@ export type ProgressProps = Omit<React.ComponentProps<"div">, "children"> &
     valueText?: string;
     /** A ring's centre: an amount, a percentage, an icon. */
     children?: React.ReactNode;
+    /** How far is already available beyond the value (a video buffered ahead), between 0 and `max` — bar only. */
+    buffer?: number;
+    /** Splits the bar or the ring into this many segments: the steps of a task, the parts of a goal. */
+    segments?: number;
+    /**
+     * active · paused (the fill rests, striped: waiting for someone) · error (the fill turns to the danger colour where it stopped).
+     * @default "active"
+     */
+    status?: ProgressVariants["status"];
+    /** Shows the label above the bar, with the percentage (or `valueText`) and `eta` — bar only. */
+    showLabel?: boolean;
+    /** The time left, in words (“About 2 min left”), shown with `showLabel` and read with the value — passed translated. */
+    eta?: string;
   };
 
 const STROKE = { sm: 12, md: 9, lg: 7 } as const;
 
 /** A progress bar or ring: `value` / `max`, indeterminate without a value. State: `data-state` (loading · complete · indeterminate). */
-export function Progress({ variant = "bar", size = "md", value, max = 100, label, valueText, className, children, ...props }: ProgressProps) {
-  const s = progress({ variant, size });
+export function Progress({
+  variant = "bar",
+  size = "md",
+  value,
+  max = 100,
+  label,
+  valueText,
+  className,
+  children,
+  buffer,
+  segments,
+  status = "active",
+  showLabel,
+  eta,
+  ...props
+}: ProgressProps) {
+  const s = progress({ variant, size, status });
+  const maskId = `kz-seg-${React.useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   const known = typeof value === "number" && Number.isFinite(value);
   const ratio = known ? Math.min(1, Math.max(0, value / (max || 1))) : 0;
   const percent = Math.round(ratio * 100);
@@ -74,8 +115,9 @@ export function Progress({ variant = "bar", size = "md", value, max = 100, label
     "aria-valuemin": known ? 0 : undefined,
     "aria-valuemax": known ? max : undefined,
     "aria-valuenow": known ? Math.min(max, Math.max(0, value)) : undefined,
-    "aria-valuetext": known ? (valueText ?? `${percent}%`) : valueText,
+    "aria-valuetext": [known ? (valueText ?? `${percent}%`) : valueText, eta].filter(Boolean).join(", ") || undefined,
     "data-state": state,
+    "data-status": status === "active" ? undefined : status,
     "data-value": known ? value : undefined,
     "data-variant": variant,
   };
@@ -85,6 +127,12 @@ export function Progress({ variant = "bar", size = "md", value, max = 100, label
     return (
       <div {...aria} className={s.root({ className })} {...props}>
         <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90" aria-hidden>
+          {segments && segments > 1 && (
+            <mask id={maskId}>
+              <circle cx="50" cy="50" r={r} fill="none" stroke="white" strokeWidth={stroke + 2} pathLength={100} strokeDasharray={`${100 / segments - 2} 2`} />
+            </mask>
+          )}
+          <g mask={segments && segments > 1 ? `url(#${maskId})` : undefined}>
           <circle cx="50" cy="50" r={r} fill="none" strokeWidth={stroke} className={s.track()} />
           <circle
             cx="50"
@@ -99,14 +147,29 @@ export function Progress({ variant = "bar", size = "md", value, max = 100, label
             data-state={state}
             className={s.indicator()}
           />
+          </g>
         </svg>
         {children !== undefined && <div className={s.center()}>{children}</div>}
       </div>
     );
   }
-  return (
-    <div {...aria} className={s.root({ className })} {...props}>
+  const segmented = segments && segments > 1 ? ({ "--kz-segments": segments } as React.CSSProperties) : undefined;
+  const bufferRatio = typeof buffer === "number" && Number.isFinite(buffer) ? Math.min(1, Math.max(0, buffer / (max || 1))) : null;
+  const bar = (
+    <div {...aria} className={s.root({ className: [segmented && "kz-progress-segmented", className].filter(Boolean).join(" ") || undefined })} style={segmented} {...props}>
       <div data-state={state} className={s.indicator()} style={known ? { width: `${ratio * 100}%` } : undefined} />
+      {bufferRatio !== null && <div aria-hidden className={s.buffer()} style={{ width: `${bufferRatio * 100}%` }} />}
+    </div>
+  );
+  if (!showLabel) return bar;
+  const figure = [known ? (valueText ?? `${percent} %`) : valueText, eta].filter(Boolean).join(" · ");
+  return (
+    <div className={s.frame()}>
+      <div aria-hidden className={s.header()}>
+        <span className={s.caption()}>{label}</span>
+        {figure && <span className={s.figure()}>{figure}</span>}
+      </div>
+      {bar}
     </div>
   );
 }
