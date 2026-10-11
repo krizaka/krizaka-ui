@@ -42,7 +42,7 @@ export function Fab({ label, icon, onPress, extended, placement = "end", offset 
           styles.fab,
           extended ? styles.extended : null,
           position,
-          { bottom: 16 + insets.bottom + offset, backgroundColor: pressed ? theme.accentHover : theme.accent, shadowColor: theme.scrimStrong },
+          { bottom: 16 + insets.bottom + offset, backgroundColor: pressed ? theme.accentHover : theme.accent, borderTopColor: theme.edgeOnFill, shadowColor: theme.scrimStrong },
           style,
         ]}
       >
@@ -60,7 +60,7 @@ export function Fab({ label, icon, onPress, extended, placement = "end", offset 
 const styles = StyleSheet.create({
   layer: { position: "absolute", top: 0, right: 0, bottom: 0, left: 0 },
   centre: { alignItems: "center" },
-  fab: { position: "absolute", minWidth: 56, height: 56, borderRadius: 28, alignItems: "center", justifyContent: "center", flexDirection: "row", gap: 8, shadowOpacity: 0.3, shadowRadius: 12, shadowOffset: { width: 0, height: 6 }, elevation: 6 },
+  fab: { borderTopWidth: 1, borderColor: "transparent", position: "absolute", minWidth: 56, height: 56, borderRadius: 28, alignItems: "center", justifyContent: "center", flexDirection: "row", gap: 8, shadowOpacity: 0.3, shadowRadius: 12, shadowOffset: { width: 0, height: 6 }, elevation: 6 },
   extended: { paddingHorizontal: 20 },
   label: { flexShrink: 0 },
 });

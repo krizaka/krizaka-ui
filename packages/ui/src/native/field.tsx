@@ -60,6 +60,8 @@ function useControlFrame(invalidProp?: boolean) {
     borderWidth: focused || invalid ? 2 : StyleSheet.hairlineWidth * 2,
     borderColor: invalid ? theme.danger : focused ? theme.ring : theme.borderDefault,
     backgroundColor: theme.surface2,
+    // The material: what you fill is a well.
+    borderTopColor: invalid ? theme.danger : focused ? theme.ring : theme.edgeWell,
   };
   return { field, theme, invalid, frame, focus: { onFocus: () => setFocused(true), onBlur: () => setFocused(false) } };
 }

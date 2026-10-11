@@ -59,7 +59,7 @@ export function Dialog({ title, description, children, actions, closeLabel, styl
     <Modal {...modalName(title)} visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)} statusBarTranslucent>
       <View style={styles.centre}>
         <Pressable aria-hidden accessible={false} style={[StyleSheet.absoluteFill, { backgroundColor: theme.scrim }]} onPress={() => setOpen(false)} />
-        <View accessibilityViewIsModal style={[styles.card, { backgroundColor: theme.surface1, borderColor: theme.borderDefault, borderRadius: radius.xl }, style]}>
+        <View accessibilityViewIsModal style={[styles.card, { backgroundColor: theme.surface1, borderColor: theme.borderDefault, borderTopColor: theme.edgeLight, borderRadius: radius.xl }, style]}>
           <View style={styles.head}>
             <View style={styles.headText}>
               <Txt variant="title">{title}</Txt>
@@ -75,7 +75,15 @@ export function Dialog({ title, description, children, actions, closeLabel, styl
   );
 }
 
-export function CloseButton({ label, onPress }: { label: string; onPress: () => void }) {
+export type CloseButtonProps = {
+  /** Its accessible name (“Close”) — passed translated. */
+  label: string;
+  /** Closes what it belongs to. */
+  onPress: () => void;
+};
+
+/** The × of a dialog or a sheet (shared by the overlays). */
+export function CloseButton({ label, onPress }: CloseButtonProps) {
   const { theme } = useTheme();
   return (
     <Pressable role="button" aria-label={label} hitSlop={10} onPress={onPress} style={styles.close}>

@@ -39,7 +39,7 @@ export type TabBarProps<T extends string> = {
 export function TabBar<T extends string>({ items, value, onValueChange, onReselect, "aria-label": label, style }: TabBarProps<T>) {
   const { theme, insets, haptics } = useTheme();
   return (
-    <View role="tablist" aria-label={label} style={[styles.bar, { backgroundColor: theme.surface1, borderTopColor: theme.borderSubtle, paddingBottom: Math.max(6, insets.bottom) }, style]}>
+    <View role="tablist" aria-label={label} style={[styles.bar, { backgroundColor: theme.glassBg, borderTopColor: theme.glassBorder, paddingBottom: Math.max(6, insets.bottom) }, style]}>
       {items.map((item) => {
         const selected = item.value === value;
         const color = selected ? theme.accentText : theme.textSecondary;

@@ -90,7 +90,7 @@ export function BottomSheet({ title, hideTitle, snapPoints = [0.5], initialSnap 
           accessibilityViewIsModal
           style={[
             styles.sheet,
-            { height: max, backgroundColor: theme.surface1, borderColor: theme.borderDefault, borderTopLeftRadius: radius.xl, borderTopRightRadius: radius.xl, transform: [{ translateY: y }] },
+            { height: max, backgroundColor: theme.surface1, borderColor: theme.borderDefault, borderTopColor: theme.edgeLight, borderTopLeftRadius: radius.xl, borderTopRightRadius: radius.xl, transform: [{ translateY: y }] },
             style,
           ]}
         >
