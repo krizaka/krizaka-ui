@@ -50,6 +50,11 @@ const config: TestRunnerConfig = {
           axeOptions: story.parameters?.a11y?.options,
         });
       }
+      // Remote pictures (a poster, a filmstrip) are in the screenshot only once loaded and decoded.
+      await page
+        .waitForFunction(() => [...document.images].every((img) => img.complete), undefined, { timeout: 15_000 })
+        .catch(() => undefined);
+      await page.evaluate(() => Promise.all([...document.images].map((img) => img.decode().catch(() => undefined))));
       // A story whose picture depends on a media decoder (a video frame) is audited but not screenshot-compared:
       // `parameters: { screenshot: false }`, with the reason beside it — exceptional, reviewed.
       if (story.parameters?.screenshot === false) continue;
