@@ -26,7 +26,7 @@ export const BRANDS = ["krizaka", "orazaka", "orochia"];
 export const BRAND_ROLES = ["accent", "accent-hover", "accent-soft", "accent-text", "accent-2", "on-accent", "ring", "info", "info-text", "brand-gradient-from", "brand-gradient-via", "brand-gradient-to"];
 const EXT = "com.krizaka";
 const PREFIX = "--kz-";
-const TYPES = new Set(["color", "dimension", "shadow", "cubicBezier", "fontFamily"]);
+const TYPES = new Set(["color", "dimension", "shadow", "cubicBezier", "fontFamily", "number", "fontWeight"]);
 
 /**
  * @typedef {{ color: string, offsetX: string, offsetY: string, blur: string, spread?: string }} ShadowLayer
@@ -182,6 +182,40 @@ function block(tokens, selector, scheme, pick, target, intro) {
   return lines.join("\n");
 }
 
+/** The roles of the type scale: the family a step is set in (`--kz-font-display`, `--kz-font-text`, `--kz-font-mono`). */
+export const TYPE_ROLES = ["display", "text", "mono"];
+
+/**
+ * The type scale (`type.<step>` of typography.tokens.json): each step's size, line height, weight and tracking, and the
+ * role whose family sets it (`$extensions["com.krizaka"].role`). Every step has the four values, a description and a role.
+ * @param {Record<string, unknown>} sources
+ */
+export function typeScale(sources) {
+  const tree = /** @type {Record<string, any>} */ (sources.typography)?.type;
+  if (!isObject(tree)) return [];
+  return Object.entries(tree)
+    .filter(([k]) => !k.startsWith("$"))
+    .map(([name, step]) => {
+      const role = step.$extensions?.[EXT]?.role;
+      if (!TYPE_ROLES.includes(role)) throw new Error(`type.${name}: $extensions["${EXT}"].role must be one of ${TYPE_ROLES.join(", ")}`);
+      if (typeof step.$description !== "string") throw new Error(`type.${name}: no $description`);
+      for (const k of ["size", "line-height", "weight", "tracking"]) if (!isObject(step[k]) || !("$value" in step[k])) throw new Error(`type.${name}: no ${k}`);
+      const size = String(step.size.$value);
+      const tracking = String(step.tracking.$value);
+      if (!/^\d+(\.\d+)?px$/.test(size)) throw new Error(`type.${name}: the size is in px`);
+      if (!/^-?\d+(\.\d+)?em$/.test(tracking)) throw new Error(`type.${name}: the tracking is in em`);
+      return {
+        name,
+        role,
+        description: step.$description,
+        size,
+        lineHeight: Number(step["line-height"].$value),
+        weight: Number(step.weight.$value),
+        tracking,
+      };
+    });
+}
+
 /**
  * Builds every output from the sources.
  * @param {Record<string, unknown>} sources
@@ -217,6 +251,7 @@ export function compile(sources, brandSources = {}) {
   const raw = (mode) => Object.fromEntries(tokens.map((t) => [t.key, css(t.type, resolve(t, mode), target)]));
   const values = { dark: raw("dark"), light: raw("light") };
   const header = "// @krizaka/tokens — GÉNÉRÉ depuis src/tokens/*.tokens.json par scripts/build.mjs : ne pas éditer.\n";
+  const scale = typeScale(sources);
   /** @param {unknown} o */
   const json = (o) => JSON.stringify(o, null, 2);
   /** @param {Record<string, string | number>} o @param {string} indent */
@@ -231,6 +266,9 @@ export const tokens = Object.freeze(${json(refs)});
 
 /** The raw CSS values per theme (aliases resolved), for canvas, charts and e-mails. */
 export const values = Object.freeze({ dark: Object.freeze(${json(values.dark)}), light: Object.freeze(${json(values.light)}) });
+
+/** The type scale: each step's role (the family), size, line height, weight and tracking — \`text-<name>\` in @krizaka/tailwind. */
+export const typeScale = Object.freeze(${json(scale)});
 `;
   const indexDts = `${header}
 /** Every token as a CSS reference, \`var(--kz-…)\`: follows the active theme. */
@@ -241,6 +279,23 @@ export type TokenName = keyof typeof tokens;
 export type TokenValues = { readonly [K in TokenName]: string };
 /** The raw CSS values per theme (aliases resolved), for canvas, charts and e-mails. */
 export declare const values: { readonly dark: TokenValues; readonly light: TokenValues };
+/** The role of a step of the type scale: the family it is set in. */
+export type TypeRole = "display" | "text" | "mono";
+/** A step of the type scale. */
+export interface TypeStep {
+  readonly name: ${scale.map((t) => json(t.name)).join(" | ") || "string"};
+  readonly role: TypeRole;
+  readonly description: string;
+  /** \`72px\`. */
+  readonly size: string;
+  /** Unitless: \`1.05\`. */
+  readonly lineHeight: number;
+  readonly weight: number;
+  /** \`-0.03em\`. */
+  readonly tracking: string;
+}
+/** The type scale: each step's role (the family), size, line height, weight and tracking — \`text-<name>\` in @krizaka/tailwind. */
+export declare const typeScale: readonly TypeStep[];
 `;
 
   // native — resolved colours (hex, rgba when translucent), radii in dp, the first font family, the easing curve.
@@ -264,6 +319,10 @@ export declare const values: { readonly dark: TokenValues; readonly light: Token
   const typography = byGroup("font", (t) => /** @type {string[]} */ (resolve(t, "dark"))[0]);
   const ease = /** @type {Token} */ (tokens.find((t) => t.name === "ease"));
   const motion = { ease: resolve(ease, "dark") };
+  const nativeScale = Object.fromEntries(scale.map((t) => {
+    const size = Number.parseFloat(t.size);
+    return [camel(t.name), { role: t.role, fontSize: size, lineHeight: Math.round(size * t.lineHeight), fontWeight: String(t.weight), letterSpacing: Math.round(size * Number.parseFloat(t.tracking) * 100) / 100 }];
+  }));
   const dark = theme("dark");
 
   const nativeJs = `${header}
@@ -278,6 +337,12 @@ export const typography = Object.freeze(${json(typography)});
 
 /** Motion: the cubic-bezier control points (\`Easing.bezier(...motion.ease)\`). */
 export const motion = Object.freeze({ ease: Object.freeze(${JSON.stringify(motion.ease)}) });
+
+/**
+ * The type scale in dp: fontSize, lineHeight and letterSpacing absolute (React Native has no em), fontWeight as a string,
+ * and the role whose family sets it — with @krizaka/fonts: \`{ ...typeScale.bodyMd, fontFamily: fontFamily(role, weight) }\`.
+ */
+export const typeScale = Object.freeze(${json(nativeScale)});
 `;
   const nativeDts = `${header}
 /** The colour roles of one theme. */
@@ -291,6 +356,16 @@ export declare const radius: ${literalType(radius)};
 export declare const typography: ${literalType(typography)};
 /** Motion: the cubic-bezier control points (\`Easing.bezier(...motion.ease)\`). */
 export declare const motion: { readonly ease: readonly [number, number, number, number] };
+/** A step of the type scale, in dp. */
+export interface NativeTypeStep {
+  readonly role: "display" | "text" | "mono";
+  readonly fontSize: number;
+  readonly lineHeight: number;
+  readonly fontWeight: "400" | "500" | "600" | "700" | "800";
+  readonly letterSpacing: number;
+}
+/** The type scale in dp (React Native): fontSize, lineHeight and letterSpacing absolute, the role whose family sets it. */
+export declare const typeScale: { readonly [K in ${Object.keys(nativeScale).map((k) => json(k)).join(" | ") || "string"}]: NativeTypeStep };
 `;
 
   const brands = compileBrands(tokens, brandSources);

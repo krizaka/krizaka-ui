@@ -164,7 +164,7 @@ describe("generated modules", async () => {
   it("native: the same colour roles as tokens.css, in both themes", () => {
     const colorRoles = tokens.filter((t) => t.type === "color").map((t) => camel(t.name));
     const cssColorRoles = allNames
-      .filter((n) => !/^--kz-(radius|shadow|font|ease)/.test(n))
+      .filter((n) => !/^--kz-(radius|shadow|font|ease|type)/.test(n))
       .map((n) => camel(n.slice("--kz-".length)));
     expect(Object.keys(native.themes.dark).sort()).toEqual(cssColorRoles.sort());
     expect(Object.keys(native.themes.dark).sort()).toEqual(colorRoles.sort());
@@ -177,7 +177,7 @@ describe("generated modules", async () => {
     expect(Object.keys(native.radius).sort()).toEqual(keysOf("radius"));
     expect(Object.keys(native.typography).sort()).toEqual(keysOf("font"));
     expect(native.radius).toEqual({ sm: 8, md: 12, lg: 16, xl: 20, full: 9999 });
-    expect(native.typography).toEqual({ sans: "Inter", display: "Inter", mono: "JetBrains Mono" });
+    expect(native.typography).toEqual({ sans: "Inter", text: "Inter", display: "Plus Jakarta Sans", mono: "JetBrains Mono" });
     expect(native.motion.ease).toEqual([0.16, 1, 0.3, 1]);
   });
 
@@ -193,9 +193,46 @@ describe("generated modules", async () => {
     expect(native.themes.light.ring).toBe(native.themes.light.accent);
   });
 
+  it("the type scale: four values per step, in CSS, the index and native", () => {
+    const steps = index.typeScale;
+    expect(steps.map((s: { name: string }) => s.name)).toEqual([
+      "display-2xl", "display-xl", "display-lg", "display-md", "display-sm", "title-lg", "title-md",
+      "body-lg", "body-md", "body-sm", "caption", "overline", "mono-md", "mono-sm",
+    ]);
+    const root = declarations(":root");
+    for (const s of steps) {
+      expect(root.get(`--kz-type-${s.name}-size`)).toBe(s.size);
+      expect(root.get(`--kz-type-${s.name}-line-height`)).toBe(String(s.lineHeight));
+      expect(root.get(`--kz-type-${s.name}-weight`)).toBe(String(s.weight));
+      expect(root.get(`--kz-type-${s.name}-tracking`)).toBe(s.tracking);
+      expect(["display", "text", "mono"]).toContain(s.role);
+      expect(s.description.length).toBeGreaterThan(5);
+      const n = native.typeScale[camel(s.name)];
+      expect(n.fontSize).toBe(Number.parseFloat(s.size));
+      expect(n.lineHeight).toBe(Math.round(Number.parseFloat(s.size) * s.lineHeight));
+      expect(n.fontWeight).toBe(String(s.weight));
+      expect(n.role).toBe(s.role);
+    }
+    // Sizes go down the scale, display then body.
+    const size = (name: string) => Number.parseFloat(steps.find((s: { name: string }) => s.name === name).size);
+    const descending = (names: string[]) => names.every((n, i) => i === 0 || size(names[i - 1]) > size(n));
+    expect(descending(["display-2xl", "display-xl", "display-lg", "display-md", "display-sm", "title-lg", "title-md"])).toBe(true);
+    expect(descending(["body-lg", "body-md", "body-sm", "caption", "overline"])).toBe(true);
+    for (const s of steps.filter((x: { role: string }) => x.role === "display")) expect(Number.parseFloat(s.size)).toBeGreaterThanOrEqual(20);
+    expect(native.typeScale.display2xl.letterSpacing).toBeCloseTo(-2.52, 2);
+  });
+
+  it("the font roles: text aliases sans; display and mono are their own families, with a metric-matched fallback", () => {
+    expect(dark.get("--kz-font-text")).toBe("var(--kz-font-sans)");
+    const root = declarations(":root");
+    expect(root.get("--kz-font-sans")).toMatch(/^Inter, "Inter Fallback", /);
+    expect(root.get("--kz-font-display")).toMatch(/^"Plus Jakarta Sans", "Plus Jakarta Sans Fallback", /);
+    expect(root.get("--kz-font-mono")).toMatch(/^"JetBrains Mono", "JetBrains Mono Fallback", /);
+  });
+
   it("type declarations name every export", () => {
-    for (const name of ["tokens", "values", "TokenName"]) expect(files["index.d.ts"]).toContain(name);
-    for (const name of ["themes", "radius", "typography", "motion", "Theme"]) expect(files["native.d.ts"]).toContain(name);
+    for (const name of ["tokens", "values", "TokenName", "typeScale", "TypeStep"]) expect(files["index.d.ts"]).toContain(name);
+    for (const name of ["themes", "radius", "typography", "motion", "Theme", "typeScale", "NativeTypeStep"]) expect(files["native.d.ts"]).toContain(name);
     expect(files["index.d.ts"]).toContain('readonly surface0: "var(--kz-surface-0)";');
   });
 });

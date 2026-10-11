@@ -1,7 +1,7 @@
 # The Krizaka brand system
 
-One identity for the parent and its products: **one colour per brand**, one family of marks, one icon language and one
-visual language for pages. The values live in `src/brands/<id>.brand.json` (DTCG) and ship as
+One identity for the parent and its products: **one colour per brand**, one family of marks, one icon language, one
+typography (§5) and one visual language for pages. The values live in `src/brands/<id>.brand.json` (DTCG) and ship as
 `@krizaka/tokens/brands/<id>.css`, `brands` (web, raw CSS) and `brands` (`@krizaka/tokens/native`, ThemeProvider
 overrides). A product never re-invents its values: it imports its brand.
 
@@ -103,3 +103,40 @@ What M2/M3/M4 (the homes of Orochia, Orazaka and krizaka.com) apply. Restrained,
   loops fast; everything stops under `prefers-reduced-motion`.
 - **Text on these backgrounds** uses the text roles (`text-fg`, `text-fg-secondary`, `text-fg-accent`): AA is tested
   on every gradient stop, in both themes.
+
+## 5. Typography — three families, one voice
+
+`@krizaka/fonts` (2026-10, session TY) ships them, self-hosted; `@krizaka/tokens` names them (`--kz-font-display`,
+`--kz-font-text` = `--kz-font-sans`, `--kz-font-mono`) and sets the scale (`type.*` → `text-display-xl`, `text-body-md`…
+in `@krizaka/tailwind`, `typeScale` in `/native`). Only faces under the **SIL Open Font License 1.1**: redistributable,
+bundled in apps, subset by us (no Reserved Font Name on any of the three).
+
+| Role | Family | Why this one |
+| :-- | :-- | :-- |
+| **Display** — headlines, figures, names | **Plus Jakarta Sans** (500–800) | Already the headline face of krizaka.com — no gratuitous change to the parent brand. Compact, slightly squared bowls and flat terminals: it echoes the cut corners of the marks and icons, and stays dense and premium at 800. |
+| **Text** — reading and interface | **Inter** (400–700, cut at the text optical size) | Drawn for screens: tall x-height, open apertures, tabular figures for amounts. Already the default of the tokens and Orazaka's text; krizaka.com's body already asked for its character variants (`cv02`–`cv04`). |
+| **Mono** — code, identifiers, overlines | **JetBrains Mono** (400–700) | Already on every Krizaka surface. Unambiguous 0/O and 1/l/I at 12 px; rectangular forms that sit next to the chamfers. |
+
+What we weighed:
+
+- **Continuity first.** The inventory (krizaka.com: Jakarta + JetBrains Mono; Orochia: Jakarta text + Outfit display;
+  Orazaka: Inter + Outfit as a stand-in "Krizaka Display" + JetBrains Mono; the tokens: Inter; the mobile apps: system
+  faces) has three faces in common use. The decision keeps all three and gives each one job, so every surface moves by
+  one role at most: krizaka.com changes its body (Jakarta → Inter), Orazaka its headlines (Outfit → Jakarta), Orochia its
+  body (Jakarta → Inter) — and **keeps Outfit as its product display face**, a theme override of `--kz-font-display`
+  like its violet.
+- **Outfit as the Krizaka display** was the alternative: rounder and friendlier, it reads as Orochia's voice, and moving
+  the parent's headlines to it is the visible change we wanted to avoid.
+- **Screen and French.** Every file covers latin and latin-ext (é è à ç ô œ « » ’ — French is in the latin file; the
+  browser fetches latin-ext only when a page needs it). Each family has a local fallback whose metrics are adjusted to
+  it (`… Fallback`, size-adjust and ascent/descent overrides): the text does not move when the font arrives (CLS 0).
+
+**Signature.** The Krizaka signature in type is the **wordmark**, drawn, inside the logo (`KrizakaLogo`) — never the name
+set in a font. No typeface is drawn from scratch: a cut-corner stylistic set (a chamfered `K`, `z`, `a` as alternates
+of the display face, under the OFL as a modified version with its own name) is a foundry project for later, tracked as
+an issue, not a dependency of anything today.
+
+Rules (also `rules` of `@krizaka/fonts`, on krizaka.com/docs/ui/typography): display speaks, text reads, mono labels;
+display from 20 px at 600–800, text from 12 px at 400–700; one display line per block; tabular figures for amounts; the
+scale, not one-off sizes; products may override the display role only.
+

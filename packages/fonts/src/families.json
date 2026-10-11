@@ -1,0 +1,93 @@
+{
+  "$comment": "The source of @krizaka/fonts, written by hand. scripts/subset.py reads it to cut the files (files/, src/faces.json); scripts/build.mjs merges both into dist/. The words (description, why, use, avoid, rules) are the documentation of krizaka.com/docs/ui/typography.",
+  "families": [
+    {
+      "role": "display",
+      "family": "Plus Jakarta Sans",
+      "slug": "plus-jakarta-sans",
+      "nativeName": "PlusJakartaSans",
+      "category": "sans-serif",
+      "designer": "Tokotype (Gumpita Rahayu)",
+      "upstream": {
+        "repository": "https://github.com/google/fonts",
+        "commit": "8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5",
+        "font": "ofl/plusjakartasans/PlusJakartaSans[wght].ttf",
+        "license": "ofl/plusjakartasans/OFL.txt",
+        "project": "https://github.com/tokotype/PlusJakartaSans"
+      },
+      "axes": { "wght": [500, 800] },
+      "nativeWeights": [600, 700, 800],
+      "fallback": "Arial",
+      "stack": ["system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+      "description": "The voice of the headlines: titles, hero lines, figures, the names of things.",
+      "why": "Already the headline face of krizaka.com: its compact, slightly squared bowls and flat terminals echo the cut corners of the marks and icons, and it stays tight and dense at 800 — premium without decoration. Keeping it means no gratuitous change to the parent brand.",
+      "use": ["Headings and hero lines (display-*, title-*)", "Big figures and prices", "Short labels that name a product or a section"],
+      "avoid": ["Paragraphs and long reading (use the text face)", "Sizes under 16 px", "Weights under 600: the display face speaks bold"]
+    },
+    {
+      "role": "text",
+      "family": "Inter",
+      "slug": "inter",
+      "nativeName": "Inter",
+      "category": "sans-serif",
+      "designer": "Rasmus Andersson",
+      "upstream": {
+        "repository": "https://github.com/google/fonts",
+        "commit": "0b58fb370093f9a9f4ff785d94405710b79de67c",
+        "font": "ofl/inter/Inter[opsz,wght].ttf",
+        "license": "ofl/inter/OFL.txt",
+        "project": "https://github.com/rsms/inter"
+      },
+      "axes": { "opsz": 14, "wght": [400, 700] },
+      "nativeWeights": [400, 500, 600, 700],
+      "fallback": "Arial",
+      "stack": ["system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+      "description": "The reading face: paragraphs, interface, forms, tables, captions.",
+      "why": "Drawn for screens: a tall x-height, open apertures and tabular figures that line up amounts. It was already the default of @krizaka/tokens and Orazaka's text face, and krizaka.com's body already asked for its character variants (cv02–cv04: open 4, 6 and 9). Cut at the text optical size (opsz 14).",
+      "use": ["Body text, interface, forms, tables (body-*, caption)", "Numbers that must align: `font-variant-numeric: tabular-nums`", "Every size from 12 px"],
+      "avoid": ["Hero headlines (use the display face)", "Letter-spacing on body sizes beyond the scale's own"]
+    },
+    {
+      "role": "mono",
+      "family": "JetBrains Mono",
+      "slug": "jetbrains-mono",
+      "nativeName": "JetBrainsMono",
+      "category": "monospace",
+      "designer": "JetBrains (Philipp Nurullin, Konstantin Bulenkov)",
+      "upstream": {
+        "repository": "https://github.com/google/fonts",
+        "commit": "6e4b84c976cadb3c49a40fd9a1c203e4f7fcf2da",
+        "font": "ofl/jetbrainsmono/JetBrainsMono[wght].ttf",
+        "license": "ofl/jetbrainsmono/OFL.txt",
+        "project": "https://github.com/JetBrains/JetBrainsMono"
+      },
+      "axes": { "wght": [400, 700] },
+      "nativeWeights": [400, 500, 600],
+      "fallback": "Courier New",
+      "stack": ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
+      "description": "Code, identifiers, endpoints, and the small uppercase overlines that label a section.",
+      "why": "Used by every Krizaka surface already (krizaka.com, Orazaka). A tall x-height and unambiguous 0/O, 1/l/I make code and identifiers readable at 12 px; its rectangular forms sit well next to the cut corners.",
+      "use": ["Code blocks and inline code (mono-*)", "Endpoints, ids, versions, keys", "Overlines: uppercase, tracked (overline)"],
+      "avoid": ["Paragraphs", "Headlines"]
+    }
+  ],
+  "subsets": {
+    "latin": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2190-2199, U+2212, U+2215, U+2248, U+2260, U+2264-2265, U+FEFF, U+FFFD",
+    "latin-ext": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF"
+  },
+  "fallbacks": {
+    "$comment": "Measured on the system files (Arial 7.00, Courier New 6.00 of macOS) by scripts/subset.py --measure-fallbacks: units per em and the weighted average advance (FREQUENCIES of subset.py).",
+    "Arial": { "local": ["Arial", "ArialMT", "Liberation Sans", "Arimo"], "unitsPerEm": 2048, "avgWidth": 915.73 },
+    "Courier New": { "local": ["Courier New", "CourierNewPSMT", "Liberation Mono", "Cousine"], "unitsPerEm": 2048, "avgWidth": 1229 }
+  },
+  "rules": [
+    "Three families, three jobs: display speaks (headlines, figures), text reads (everything else), mono labels and quotes code. Never a fourth family on a Krizaka surface.",
+    "Use the scale, not sizes: `text-display-xl`, `text-body-md`… carry size, line height, weight and tracking together. A one-off size is a missing step — ask for it.",
+    "Display from 20 px up, at 600–800; text from 12 px, at 400–700. Never a light weight (< 400) on a dark surface.",
+    "One display line per block. The rest is text: a page of headlines reads as noise.",
+    "Amounts, counters and tables use tabular figures (`tabular-nums`); prices keep the currency from @krizaka/intl, never a hand-written sign.",
+    "Measure: 60–75 characters per line for reading (`max-w-prose`).",
+    "Products may override the display role with their own face (Orochia: Outfit) through `--kz-font-display`; text and mono stay Krizaka's.",
+    "The Krizaka wordmark is drawn, inside the logo: never set the name in a font to imitate it."
+  ]
+}

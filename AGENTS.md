@@ -16,6 +16,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ ui/                   # @krizaka/ui — the primitives, the marks, the motion signature (web, /native)
 │  ├─ icons/                # @krizaka/icons — the signature icons (React, /native), drawn in code
 │  ├─ charts/               # @krizaka/charts — data visualisation: SVG charts + ECharts on demand, accessible, /native
+│  ├─ fonts/                # @krizaka/fonts — the Krizaka typefaces (WOFF2 + fallbacks, TrueType for Expo), SIL OFL
 │  ├─ intl/                 # @krizaka/intl — money, numbers, dates, plurals on Intl (zero dependency, no UI)
 │  ├─ i18n/                 # @krizaka/i18n — typed messages, format, <Rich>, React provider, the krizaka-i18n CLI
 │  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
@@ -60,6 +61,8 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
   strict on `packages/ui`), every package's `lint` runs `eslint . --max-warnings 0`, and its `tsconfig.json` extends
   a base of `@krizaka/config`.
 - **The code drives the documentation.** The public documentation is **krizaka.com/docs/ui**, generated from the
+  packages — the foundations from their data (`@krizaka/tokens` `typeScale`, `@krizaka/fonts` `fonts`/`rules`,
+  `@krizaka/icons/glyphs` `glyphIndex`/`iconGroups`/`iconGuidelines`), the components from the
   registry `@krizaka/ui` publishes: every component has a `meta.ts` beside it (`packages/ui/src/meta.ts`: summary,
   when to use / not, best practices, accessibility, platforms web · native · both, status, related) and named
   examples in `packages/ui/registry/examples/<name>/` (≤ 40 lines, `native/` for React Native). The registry tests
@@ -83,7 +86,7 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 
 Each package must be declared once on npmjs.com as trusted publisher: repository `krizaka/krizaka-ui`, workflow
 `release.yml`. `tokens`, `tailwind` and `ui` form one `fixed` group in `.changeset/config.json` (one shared
-version); `config`, `intl`, `i18n`, `icons` and `charts` version on their own. Pre-releases (`pnpm changeset pre enter <tag>`)
+version); `config`, `intl`, `i18n`, `icons`, `charts` and `fonts` version on their own. Pre-releases (`pnpm changeset pre enter <tag>`)
 are for a coming major only; `main` is out of pre-release since 2.0.0.
 
 ## 5. Maintenance commands
@@ -96,6 +99,7 @@ pnpm inventory --repo krizaka-com=../krizaka-com-wt          # …with one repos
 node packages/config/bin/krizaka-ratchet.mjs --json --root <app>   # the UI debt counters of an app (lint-ratchet.json)
 pnpm --filter @krizaka/icons glyphs                          # regenerate the icons from scripts/glyphs.mjs
 pnpm --filter @krizaka/tokens build                          # recompile the tokens (DTCG → CSS, TS, native, brands)
+pnpm --filter @krizaka/fonts subset                          # re-cut the font files from src/families.json (uv + fontTools, by hand)
 pnpm --filter storybook test:update:linux                    # the CI screenshot baselines (Docker), after a visual change
 pnpm changeset                                               # describe a change that ships
 GITHUB_TOKEN=$(gh auth token) pnpm changeset version         # what CI's "version packages" PR does, locally (inspect, then reset)
