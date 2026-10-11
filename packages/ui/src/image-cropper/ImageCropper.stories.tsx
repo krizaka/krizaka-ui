@@ -17,4 +17,5 @@ type Story = StoryObj<typeof meta>;
 
 export const Avatar: Story = { render: () => <AvatarExample /> };
 export const Banner: Story = { render: () => <BannerExample /> };
-export const VerticalVideo: Story = { render: () => <VerticalVideoExample /> };
+// A `<video>` frame is decoded by the browser at its own pace: audited, not screenshot-compared.
+export const VerticalVideo: Story = { render: () => <VerticalVideoExample />, parameters: { screenshot: false } };

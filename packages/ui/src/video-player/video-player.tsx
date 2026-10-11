@@ -17,6 +17,7 @@ export const videoPlayer = tv({
       "theme-dark group/player relative isolate w-full overflow-hidden rounded-xl bg-media text-fg-on-media " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring data-[idle]:cursor-none",
     video: "absolute inset-0 h-full w-full object-contain",
+    poster: "pointer-events-none absolute inset-0 h-full w-full object-contain",
     big:
       "absolute left-1/2 top-1/2 z-10 inline-flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full " +
       "bg-scrim-strong text-fg-on-media shadow-lg backdrop-blur-sm transition-transform hover:scale-105 motion-reduce:transition-none motion-reduce:hover:scale-100 " +
@@ -208,6 +209,9 @@ export function VideoPlayer({
   const [waiting, setWaiting] = React.useState(false);
   const [failed, setFailed] = React.useState(false);
   const [idle, setIdle] = React.useState(false);
+  // The poster is an image over the video until the first play: it loads like any image (lazy, decoded once), the
+  // same in every browser — the `poster` attribute is painted late and differently.
+  const [started, setStarted] = React.useState(false);
   const idleTimer = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const url = typeof src === "string" ? src : resolved?.attempt === attempt ? resolved.url : null;
@@ -381,7 +385,6 @@ export function VideoPlayer({
       <video
         ref={video}
         className={s.video()}
-        poster={poster}
         preload={preload}
         loop={loop}
         muted={muted}
@@ -389,6 +392,7 @@ export function VideoPlayer({
         crossOrigin={tracks.length ? "anonymous" : undefined}
         onClick={showControls ? toggle : undefined}
         onPlay={() => {
+          setStarted(true);
           setPlaying(true);
           wake();
           onPlay?.();
@@ -416,6 +420,8 @@ export function VideoPlayer({
           <track key={track.src} src={track.src} srcLang={track.srcLang} label={track.label} kind={track.kind ?? "subtitles"} default={track.default} />
         ))}
       </video>
+
+      {poster && !started ? <img src={poster} alt="" aria-hidden decoding="async" className={s.poster()} /> : null}
 
       {showControls && !playing && !failed && !waiting && (
         <button type="button" className={s.big()} aria-label={labels.play} onClick={play}>

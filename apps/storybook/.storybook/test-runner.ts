@@ -50,6 +50,9 @@ const config: TestRunnerConfig = {
           axeOptions: story.parameters?.a11y?.options,
         });
       }
+      // A story whose picture depends on a media decoder (a video frame) is audited but not screenshot-compared:
+      // `parameters: { screenshot: false }`, with the reason beside it — exceptional, reviewed.
+      if (story.parameters?.screenshot === false) continue;
       const image = viewport
         ? await page.screenshot({ animations: "disabled" })
         : await page.locator("#storybook-root").screenshot({ animations: "disabled" });
