@@ -10,6 +10,7 @@
 /** Every documented component: the web primitives (one entry of the package each) and the native-only ones. */
 export type ComponentName =
   | "alert"
+  | "audio-player"
   | "avatar"
   | "badge"
   | "button"
@@ -18,26 +19,35 @@ export type ComponentName =
   | "chip"
   | "chip-link"
   | "cn"
+  | "combobox"
   | "command"
   | "confirm-button"
   | "countdown"
+  | "data-table"
+  | "date-picker"
   | "dialog"
   | "dropdown-menu"
   | "empty-state"
   | "field"
+  | "file-upload"
+  | "filter-bar"
   | "glow-card"
+  | "image-cropper"
   | "iso"
   | "kbd"
   | "loader"
   | "marquee"
   | "mascots"
+  | "media-capture"
   | "meter"
   | "nav-bar"
   | "number-ticker"
   | "page-header"
+  | "pagination"
   | "popover"
   | "progress"
   | "radio-group"
+  | "search-field"
   | "section-backdrop"
   | "segmented"
   | "separator"
@@ -49,10 +59,13 @@ export type ComponentName =
   | "stepper"
   | "switch"
   | "tabs"
+  | "tag-input"
   | "theme"
   | "toast"
   | "tooltip"
-  | "txt";
+  | "txt"
+  | "video-player"
+  | "video-trimmer";
 
 /** Where a component exists: `@krizaka/ui/<name>` (web), `@krizaka/ui/native` (React Native), or both. */
 export type Platform = "web" | "native" | "both";
@@ -60,8 +73,8 @@ export type Platform = "web" | "native" | "both";
 /** `stable`: its API only changes in a major. `beta`: it may still change in a minor. */
 export type Status = "stable" | "beta";
 
-/** The group of the catalogue. */
-export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "layout" | "foundations";
+/** The group of the catalogue. `media`: video, sound, camera, files, cropping. */
+export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "media" | "layout" | "foundations";
 
 /**
  * A named example: the file `registry/examples/<component>/<name>.tsx` (web) or
@@ -87,6 +100,11 @@ export interface PlatformDocs {
 
 /** The React Native side: the same concept, and what differs from the web API. */
 export interface NativeDocs extends PlatformDocs {
+  /**
+   * The entry to import from when it is not `@krizaka/ui/native`: a component that needs an Expo module (an optional
+   * peer) has its own, `@krizaka/ui/native/<name>`, so an app that does not use it never installs the module.
+   */
+  readonly entry?: string;
   /** What differs from the web API (`label` instead of children…); empty for a native-only component. */
   readonly differences: readonly string[];
 }

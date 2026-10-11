@@ -245,8 +245,8 @@ export async function collectRegistry() {
         : null,
       native: meta?.native
         ? {
-            entry: "@krizaka/ui/native",
-            import: importLine(meta.native.imports, "@krizaka/ui/native"),
+            entry: meta.native.entry ?? "@krizaka/ui/native",
+            import: importLine(meta.native.imports, meta.native.entry ?? "@krizaka/ui/native"),
             differences: meta.native.differences,
             props: nativeProps[name] ?? [],
             examples: nativeExamples,

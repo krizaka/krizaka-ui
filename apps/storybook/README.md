@@ -47,6 +47,8 @@ export const Sizes: Story = { render: () => <SizesExample /> };
 - Layout around the component uses the preset's roles only (`bg-surface-1`, `text-fg-secondary`,
   `border-border-default`…): the four UI rules of `@krizaka/config` lint the stories too.
 - A story that must skip the audit says why: `parameters: { a11y: { test: "off" } }` — exceptional, reviewed.
+- A story whose picture depends on a media decoder (a `<video>` frame) skips the screenshot, not the audit:
+  `parameters: { screenshot: false }`, with the reason beside it.
 - A story that opens something in a portal (dialog, sheet, popover, menu, tooltip, toasts) renders it outside
   `#storybook-root`: it opens it at load (`defaultOpen`) and sets `parameters: { capture: "viewport" }` — the audit
   then covers the page (without axe's `region` rule, which belongs to an app's layout) and the screenshot the viewport.

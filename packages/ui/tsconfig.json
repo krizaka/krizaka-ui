@@ -7,6 +7,7 @@
     "paths": {
       "@krizaka/ui": ["./src/index.ts"],
       "@krizaka/ui/cn": ["./src/cn.ts"],
+      "@krizaka/ui/native/*": ["./src/native/*.tsx"],
       "@krizaka/ui/*": ["./src/*/index.ts"]
     }
   },

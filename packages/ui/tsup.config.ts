@@ -46,6 +46,7 @@ export default defineConfig([
       stepper: "src/stepper/index.ts",
       "chip-link": "src/chip-link/index.ts",
       meter: "src/meter/index.ts",
+      pagination: "src/pagination/index.ts",
     },
   },
   {
@@ -79,10 +80,37 @@ export default defineConfig([
     banner: { js: '"use client";' },
   },
   {
+    // Client too — the data and media primitives, in their own build: one declaration build for every client entry
+    // would exhaust the heap.
+    ...shared,
+    entry: {
+      "data-table": "src/data-table/index.ts",
+      "filter-bar": "src/filter-bar/index.ts",
+      combobox: "src/combobox/index.ts",
+      "tag-input": "src/tag-input/index.ts",
+      "date-picker": "src/date-picker/index.ts",
+      "search-field": "src/search-field/index.ts",
+      "video-player": "src/video-player/index.ts",
+      "file-upload": "src/file-upload/index.ts",
+      "media-capture": "src/media-capture/index.ts",
+      "video-trimmer": "src/video-trimmer/index.ts",
+      "audio-player": "src/audio-player/index.ts",
+      "image-cropper": "src/image-cropper/index.ts",
+    },
+    banner: { js: '"use client";' },
+  },
+  {
     ...shared,
     entry: { native: "src/native/index.ts" },
     external: [...shared.external, "react-native", "react-native-svg"],
     noExternal: ["@krizaka/tokens"],
+  },
+  {
+    // The native entries that need an Expo module (an optional peer): their own files, importing the platform through
+    // `@krizaka/ui/native` (one theme context) and the module itself — never part of dist/native.js.
+    ...shared,
+    entry: { "native/video-player": "src/native/video-player.tsx", "native/media-capture": "src/native/media-capture.tsx" },
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera"],
   },
   {
     ...shared,
@@ -92,7 +120,7 @@ export default defineConfig([
     // ~170 entries: one declaration build would exhaust the heap. Every example has the same signature — a component,
     // `defaultOpen` for those that open something — so build-registry.mjs writes their `.d.ts`.
     dts: false,
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg"],
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera"],
     banner: { js: '"use client";' },
   },
 ]);

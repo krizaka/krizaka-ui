@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/ui",
   "version": "2.3.0",
-  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia) and the motion signature — web and /native.",
+  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown\u2026) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia) and the motion signature \u2014 web and /native.",
   "keywords": [
     "krizaka",
     "orazaka",
@@ -210,11 +210,71 @@
       "types": "./dist/meter.d.ts",
       "import": "./dist/meter.js"
     },
+    "./pagination": {
+      "types": "./dist/pagination.d.ts",
+      "import": "./dist/pagination.js"
+    },
+    "./data-table": {
+      "types": "./dist/data-table.d.ts",
+      "import": "./dist/data-table.js"
+    },
+    "./filter-bar": {
+      "types": "./dist/filter-bar.d.ts",
+      "import": "./dist/filter-bar.js"
+    },
+    "./combobox": {
+      "types": "./dist/combobox.d.ts",
+      "import": "./dist/combobox.js"
+    },
+    "./tag-input": {
+      "types": "./dist/tag-input.d.ts",
+      "import": "./dist/tag-input.js"
+    },
+    "./date-picker": {
+      "types": "./dist/date-picker.d.ts",
+      "import": "./dist/date-picker.js"
+    },
+    "./search-field": {
+      "types": "./dist/search-field.d.ts",
+      "import": "./dist/search-field.js"
+    },
+    "./video-player": {
+      "types": "./dist/video-player.d.ts",
+      "import": "./dist/video-player.js"
+    },
+    "./file-upload": {
+      "types": "./dist/file-upload.d.ts",
+      "import": "./dist/file-upload.js"
+    },
+    "./media-capture": {
+      "types": "./dist/media-capture.d.ts",
+      "import": "./dist/media-capture.js"
+    },
+    "./video-trimmer": {
+      "types": "./dist/video-trimmer.d.ts",
+      "import": "./dist/video-trimmer.js"
+    },
+    "./audio-player": {
+      "types": "./dist/audio-player.d.ts",
+      "import": "./dist/audio-player.js"
+    },
+    "./image-cropper": {
+      "types": "./dist/image-cropper.d.ts",
+      "import": "./dist/image-cropper.js"
+    },
     "./motion.css": "./dist/motion.css",
     "./tailwind.css": "./tailwind.css",
     "./native": {
       "types": "./dist/native.d.ts",
       "import": "./dist/native.js"
+    },
+    "./native/video-player": {
+      "types": "./dist/native/video-player.d.ts",
+      "import": "./dist/native/video-player.js"
+    },
+    "./native/media-capture": {
+      "types": "./dist/native/media-capture.d.ts",
+      "import": "./dist/native/media-capture.js"
     },
     "./registry/examples/*": {
       "types": "./registry/examples/*.d.ts",
@@ -248,6 +308,9 @@
   },
   "peerDependencies": {
     "@krizaka/tailwind": ">=2.3.0",
+    "expo-camera": ">=16",
+    "expo-video": ">=2",
+    "hls.js": ">=1.5",
     "react": ">=18",
     "react-dom": ">=18",
     "react-native": ">=0.76",
@@ -275,6 +338,9 @@
     "babel-jest": "30.4.1",
     "eslint": "^9.39.0",
     "expect": "30.4.1",
+    "expo-camera": "57.0.6",
+    "expo-modules-core": "^57.0.21",
+    "expo-video": "57.0.5",
     "happy-dom": "^20.0.0",
     "jest": "30.4.2",
     "jest-environment-node": "30.4.1",
@@ -301,6 +367,15 @@
   },
   "peerDependenciesMeta": {
     "@krizaka/tailwind": {
+      "optional": true
+    },
+    "expo-camera": {
+      "optional": true
+    },
+    "expo-video": {
+      "optional": true
+    },
+    "hls.js": {
       "optional": true
     },
     "react-dom": {
@@ -750,9 +825,162 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./pagination",
+      "path": "dist/pagination.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./data-table",
+      "path": "dist/data-table.js",
+      "limit": "9.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./filter-bar",
+      "path": "dist/filter-bar.js",
+      "limit": "34 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./combobox",
+      "path": "dist/combobox.js",
+      "limit": "13 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./tag-input",
+      "path": "dist/tag-input.js",
+      "limit": "13.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./date-picker",
+      "path": "dist/date-picker.js",
+      "limit": "29 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./search-field",
+      "path": "dist/search-field.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./video-player",
+      "path": "dist/video-player.js",
+      "limit": "15 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./file-upload",
+      "path": "dist/file-upload.js",
+      "limit": "5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./media-capture",
+      "path": "dist/media-capture.js",
+      "limit": "3.8 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./video-trimmer",
+      "path": "dist/video-trimmer.js",
+      "limit": "2.4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./audio-player",
+      "path": "dist/audio-player.js",
+      "limit": "2.8 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./image-cropper",
+      "path": "dist/image-cropper.js",
+      "limit": "12.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./native/video-player (expo-video is the app's)",
+      "path": "dist/native/video-player.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "expo-video",
+        "expo-camera",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./native/media-capture (expo-camera is the app's)",
+      "path": "dist/native/media-capture.js",
+      "limit": "2.5 kB",
+      "gzip": true,
+      "ignore": [
+        "expo-video",
+        "expo-camera",
+        "@krizaka/ui"
+      ]
     }
   ],
   "dependencies": {
+    "@krizaka/intl": "^0.1.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "radix-ui": "^1.7.0",
