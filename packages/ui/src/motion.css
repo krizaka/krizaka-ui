@@ -584,11 +584,35 @@ svg[data-kz-icon="ExternalIcon"] {
 @keyframes kz-iso-blink { 50% { opacity: 0.35; } }
 @keyframes kz-iso-sheen { 0% { stroke-dashoffset: 40; } 60%, 100% { stroke-dashoffset: -400; } }
 
+/* A terminal session played back (TerminalReplay): a screen of a fixed number of lines (no layout shift while it
+   plays), a caret that blinks. Rendered whole by the server; while scripts take over an autoplaying replay, the whole
+   session stays out of sight (never a flash of it before it is typed) — and shows anyway after 2.5 s if they never do. */
+.kz-replay-screen {
+  height: calc(var(--kz-replay-rows, 18) * 1lh + 1.5rem);
+  scrollbar-width: thin;
+}
+.kz-replay-caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: kz-replay-blink 1.05s steps(1) infinite;
+}
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .kz-replay[data-state="final"][data-autoplay] .kz-replay-live {
+    animation: kz-replay-reveal 0s 2.5s both;
+  }
+}
+@keyframes kz-replay-blink { 50% { opacity: 0; } }
+@keyframes kz-replay-reveal { from { visibility: hidden; } }
+
 @media (prefers-reduced-motion: reduce) {
   .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
   .kz-skeleton, .kz-skeleton-shape *, .kz-toast::after, .kz-glow::before,
   .kz-rotating > *, .kz-loop, .kz-iso-rise, .kz-count-roll, .kz-loader-trace, .kz-loader-node, .kz-loader-mark,
-  [data-kz-status] { animation: none !important; }
+  [data-kz-status], .kz-replay-caret { animation: none !important; }
   /* At rest, the trace stands still where a reader expects it: a third of the hexagon from the top. */
   .kz-loader-trace:not([stroke-dasharray]) { stroke-dashoffset: -8; }
   [data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }

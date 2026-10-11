@@ -194,6 +194,10 @@
       "types": "./dist/number-ticker.d.ts",
       "import": "./dist/number-ticker.js"
     },
+    "./terminal-replay": {
+      "types": "./dist/terminal-replay.d.ts",
+      "import": "./dist/terminal-replay.js"
+    },
     "./glow-card": {
       "types": "./dist/glow-card.d.ts",
       "import": "./dist/glow-card.js"
@@ -770,6 +774,16 @@
       "name": "./number-ticker",
       "path": "dist/number-ticker.js",
       "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./terminal-replay",
+      "path": "dist/terminal-replay.js",
+      "limit": "2.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

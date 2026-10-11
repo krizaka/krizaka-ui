@@ -60,6 +60,7 @@ export type ComponentName =
   | "switch"
   | "tabs"
   | "tag-input"
+  | "terminal-replay"
   | "theme"
   | "toast"
   | "tooltip"

@@ -159,6 +159,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/meter` | `Meter` (`label`, `value`/`min`/`max`, `valueText`, `thresholds`, `optimum` low·high, `parts` with their legend, `variant` bar·ring, `size`, `showLabel`), `MeterValue` | server |
 | `@krizaka/ui/stepper` | `Stepper` (`steps`: `title`, `description`, `status`, `value`, `content`; `current`, `labels` of the states, `orientation`) | server |
 | `@krizaka/ui/number-ticker` | `NumberTicker` (`value`, `locale`, `format`, `trigger` view·change, `duration`, `announce`, `align`) | client |
+| `@krizaka/ui/terminal-replay` | `TerminalReplay` (`steps` command + output lines with a tone, `label`, `title`, `prompt`, `playLabel`/`pauseLabel`/`replayLabel`, `copyLabel`/`copiedLabel`, `typingSpeed`, `lineDelay`, `stepDelay`, `rows`, `autoPlay`) | client |
 | `@krizaka/ui/glow-card` | `GlowCard` (`glow` border·spotlight·both, `alive`, `asChild`) | client |
 | `@krizaka/ui/marquee` | `Marquee` (`label`, `pauseLabel`, `playLabel`, `speed` px/s, `direction`, `fade`, `defaultPaused`) | client |
 | `@krizaka/ui/section-backdrop` | `SectionBackdrop` (`as`, `direction` down·up, `dome`, `grid`, `media` blurred for depth of field, `animated`): a page section on the brand's section gradient — see `@krizaka/tokens` BRAND.md, "Visual language" | server |
