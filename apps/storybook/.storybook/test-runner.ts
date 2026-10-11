@@ -55,6 +55,10 @@ const config: TestRunnerConfig = {
         .waitForFunction(() => [...document.images].every((img) => img.complete), undefined, { timeout: 15_000 })
         .catch(() => undefined);
       await page.evaluate(() => Promise.all([...document.images].map((img) => img.decode().catch(() => undefined))));
+      // A video with a source that preloads its metadata shows its length once it has it: wait for it, as for the pictures.
+      await page
+        .waitForFunction(() => [...document.querySelectorAll("video")].every((v) => !v.currentSrc || v.preload === "none" || v.readyState >= 1 || v.error), undefined, { timeout: 15_000 })
+        .catch(() => undefined);
       // A story whose picture depends on a media decoder (a video frame) is audited but not screenshot-compared:
       // `parameters: { screenshot: false }`, with the reason beside it — exceptional, reviewed.
       if (story.parameters?.screenshot === false) continue;
