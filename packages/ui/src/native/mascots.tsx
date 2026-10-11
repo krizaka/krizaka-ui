@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AccessibilityInfo, Animated, Easing, View, type ViewStyle } from "react-native";
 import Svg, { Circle, Defs, Ellipse, G, LinearGradient, Path, Rect, Stop } from "react-native-svg";
 
-import { archEye, BIRDS, brow, lidEye, LIGHT, type MascotBird, type MascotMood, type MascotPalette, type MascotTone, MOOD_PARTS, OWN_PALETTES, PARCEL, SHADE } from "../mascots/geometry";
+import { archEye, BIRDS, brow, lidEye, LIGHT, type MascotBird, type MascotMood, type MascotPalette, type MascotTone, MOOD_PARTS, OWN_PALETTES, PARCEL, SHADE, upperLid } from "../mascots/geometry";
 import { markA11y } from "./mark-motion";
 import { useSvgId, useTheme } from "./theme";
 
@@ -97,7 +97,13 @@ export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 
           ))}
           {g.visor && <Rect x={g.visor.x} y={g.visor.y} width={g.visor.w} height={g.visor.h} rx={4} fill={theme.surface0} {...line} />}
           {g.eyes.at.map((at, i) =>
-            mood === "success" || mood === "empty" ? (
+            mood === "empty" && g.eyes.white > 0 ? (
+              <G key={i}>
+                <Circle cx={at[0]} cy={at[1]} r={g.eyes.white} fill={LIGHT} {...line} />
+                <Circle cx={at[0]} cy={at[1] + g.eyes.pupil * 0.7} r={g.eyes.pupil} fill={SHADE} />
+                <Path d={upperLid(at, g.eyes.white)} fill={p.detail} {...line} />
+              </G>
+            ) : mood === "success" || mood === "empty" ? (
               <Path key={i} d={mood === "success" ? archEye(at, eyeR * 0.85) : lidEye(at, eyeR * 0.8)} stroke={g.visor ? p.eye : outline} strokeWidth={2.2} strokeLinecap="round" fill="none" />
             ) : (
               <G key={i}>

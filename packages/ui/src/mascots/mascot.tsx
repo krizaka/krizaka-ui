@@ -2,7 +2,7 @@
 import type * as React from "react";
 import { useId } from "react";
 
-import { archEye, BIRDS, brow, lidEye, LIGHT, type MascotBird, type MascotMood, type MascotPalette, type MascotTone, MOOD_PARTS, OWN_PALETTES, PARCEL, SHADE } from "./geometry";
+import { archEye, BIRDS, brow, lidEye, LIGHT, type MascotBird, type MascotMood, type MascotPalette, type MascotTone, MOOD_PARTS, OWN_PALETTES, PARCEL, SHADE, upperLid } from "./geometry";
 
 const CSS = `
 .kzb-bird { transform-box: view-box; transform-origin: 60px 108px; }
@@ -75,6 +75,14 @@ export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 
   const eyes = g.eyes.at.map((at, i) => {
     const look = mood === "thinking" ? 1.4 : 0;
     if (mood === "success") return <path key={i} d={archEye(at, eyeR * 0.85)} stroke={g.visor ? p.eye : OUTLINE} strokeWidth={2.2} strokeLinecap="round" fill="none" />;
+    if (mood === "empty" && g.eyes.white > 0)
+      return (
+        <g key={i}>
+          <circle cx={at[0]} cy={at[1]} r={g.eyes.white} fill={LIGHT} {...line} />
+          <circle cx={at[0]} cy={at[1] + g.eyes.pupil * 0.7} r={g.eyes.pupil} fill={SHADE} />
+          <path d={upperLid(at, g.eyes.white)} fill={p.detail} {...line} />
+        </g>
+      );
     if (mood === "empty") return <path key={i} d={lidEye(at, eyeR * 0.8)} stroke={g.visor ? p.eye : OUTLINE} strokeWidth={2.2} strokeLinecap="round" fill="none" />;
     return (
       <g key={i} className="kzb-eye kzb-blink">

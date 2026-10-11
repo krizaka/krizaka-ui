@@ -154,6 +154,8 @@ export const MOOD_PARTS = {
 export const archEye = ([x, y]: Point, r: number) => `M${x - r} ${y + r * 0.45} Q${x} ${y - r * 1.15} ${x + r} ${y + r * 0.45}`;
 /** The lowered lid of `empty`: a line across the eye. */
 export const lidEye = ([x, y]: Point, r: number) => `M${x - r} ${y + 0.4} L${x + r} ${y + 0.4}`;
+/** The heavy lid of `empty` over an eye with a white: its upper half. */
+export const upperLid = ([x, y]: Point, r: number) => `M${x - r} ${y} A${r} ${r} 0 0 1 ${x + r} ${y} Z`;
 /** The worried brow of `error`, above one eye (`side` -1 left, 1 right). */
 export const brow = ([x, y]: Point, r: number, side: number) =>
   `M${x - r * 1.1} ${y - r * 1.25 - (side < 0 ? 0 : r * 0.7)} L${x + r * 1.1} ${y - r * 1.5 - (side < 0 ? r * 0.7 : 0)}`;
