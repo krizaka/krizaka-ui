@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["DashboardLayout", "Widget"],
     examples: [
-      { name: "orazaka-eric", title: "Orazaka · Eric's console", description: "An accountant's on-premise console: requests, latency, credits, running jobs and packs, the period in a segmented tab.", template: true },
+      { name: "orazaka-eric", title: "Orazaka · Eric's console", description: "An accountant's on-premise console: requests, latency, credits, running jobs and packs, the period in a chip group.", template: true },
       { name: "widgets", title: "The grid", description: "Four widgets of different spans." },
     ],
   },

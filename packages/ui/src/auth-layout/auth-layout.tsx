@@ -22,7 +22,7 @@ export const authLayout = tv({
     title: "font-display text-2xl font-extrabold tracking-tight text-fg",
     description: "text-sm text-fg-secondary",
     footer: "text-center text-sm text-fg-secondary",
-    legal: "text-center text-xs leading-relaxed text-fg-muted",
+    legal: "text-center text-xs leading-relaxed text-fg-secondary",
   },
 });
 const s = authLayout();

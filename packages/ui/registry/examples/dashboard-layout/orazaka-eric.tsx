@@ -1,10 +1,10 @@
 import { Badge } from "@krizaka/ui/badge";
 import { Button } from "@krizaka/ui/button";
+import { Chip } from "@krizaka/ui/chip";
 import { DashboardLayout, Widget } from "@krizaka/ui/dashboard-layout";
 import { Meter } from "@krizaka/ui/meter";
 import { Progress } from "@krizaka/ui/progress";
 import { Stat } from "@krizaka/ui/stat";
-import { Tabs } from "@krizaka/ui/tabs";
 
 const JOBS = [
   { name: "Catalogue summaries", studio: "Writing studio", value: 72, eta: "about 2 min" },
@@ -16,7 +16,7 @@ const PACKS = [
 ];
 
 // TEMPLATE — Orazaka's console, Eric's morning (an accountant who runs his firm's AI on its own server): what the
-// engine did, what is running now, the credits left, the packs at work. The period is a segmented tab above the grid;
+// engine did, what is running now, the credits left, the packs at work. The period is a single-choice chip group above the grid;
 // on a phone everything stacks in reading order, the running jobs first after the figures.
 export default function DashboardLayoutOrazakaEric() {
   return (
@@ -32,13 +32,11 @@ export default function DashboardLayoutOrazakaEric() {
           </>
         }
         toolbar={
-          <Tabs.Root defaultValue="7d" variant="segmented">
-            <Tabs.List aria-label="Period">
-              <Tabs.Trigger value="today">Today</Tabs.Trigger>
-              <Tabs.Trigger value="7d">7 days</Tabs.Trigger>
-              <Tabs.Trigger value="30d">30 days</Tabs.Trigger>
-            </Tabs.List>
-          </Tabs.Root>
+          <Chip.Group type="single" label="Period" defaultValue="7d" required>
+            <Chip value="today">Today</Chip>
+            <Chip value="7d">7 days</Chip>
+            <Chip value="30d">30 days</Chip>
+          </Chip.Group>
         }
       >
         <Widget title="Requests">
