@@ -4,6 +4,7 @@ export const meta = {
   title: "Chart (ECharts option)",
   summary: "Any ECharts option on the Krizaka frame: the theme resolved from the tokens, the lazy engine, the states, the table, the keyboard, the export.",
   status: "beta",
+  tier: "advanced",
   category: "charts",
   platforms: "web",
   engine: "echarts",

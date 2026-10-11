@@ -19,7 +19,7 @@ const sentence = (value) => typeof value === "string" && value.trim().length >= 
 describe("registry", () => {
   it("documents every chart of the package", () => {
     expect(all).toEqual(
-      expect.arrayContaining(["line-chart", "area-chart", "bar-chart", "pie-chart", "gauge", "sparkline", "geo-map", "globe", "radar-chart", "heatmap", "calendar-heatmap", "sankey", "funnel", "candlestick", "treemap", "scatter-chart", "chart", "charts-provider"]),
+      expect.arrayContaining(["line-chart", "area-chart", "bar-chart", "pie-chart", "gauge", "sparkline", "geo-map", "globe", "radar-chart", "heatmap", "calendar-heatmap", "sankey", "funnel", "candlestick", "treemap", "scatter-chart", "chart", "charts-provider", "earnings-chart", "job-throughput", "latency-chart", "credit-usage", "goal-progress", "price-ticker"]),
     );
     expect(registry.map((item) => item.name)).toEqual(all);
   });
@@ -46,6 +46,7 @@ describe("documentation carried by the code (src/meta)", () => {
     expect(sentence(meta.summary), "summary").toBe(true);
     expect(["stable", "beta"]).toContain(meta.status);
     expect(meta.category).toBe("charts");
+    expect(["ready-made", "core", "advanced"], "tier").toContain(meta.tier);
     expect(meta.platforms).toBe(meta.web && meta.native ? "both" : meta.native ? "native" : "web");
     for (const list of [meta.whenToUse, meta.whenNotToUse, meta.bestPractices, meta.accessibility.notes, meta.related]) expect(list.length).toBeGreaterThan(0);
     for (const text of [...meta.whenToUse, ...meta.bestPractices, ...meta.accessibility.notes]) expect(sentence(text), text).toBe(true);

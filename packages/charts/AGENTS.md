@@ -10,6 +10,14 @@
   `Heatmap`, `CalendarHeatmap`, `Sankey`, `Funnel`, `Candlestick`, `Treemap`, `ScatterChart` — the low-level `Chart`
   (any ECharts option on the same frame), `ChartsProvider` and `useSlidingWindow`; and `./native` (LineChart,
   AreaChart, BarChart, PieChart, DonutChart, Gauge, Sparkline on react-native-svg, the web's props).
+- **Needs first** (Oussama's rule: no component for the sake of components). The **ready-made** charts answer a screen
+  of the apps, named for it, with its defaults: `EarningsChart` (`./earnings`), `JobThroughput` (`./throughput`),
+  `LatencyChart` (`./latency`), `CreditUsage` (`./credits`), `GoalProgress` (`./goal`), `PriceTicker` (`./ticker`) —
+  built on the core charts, their arithmetic shared by the web and React Native (`src/needs`), each with its native
+  version (the key figure first, the chart under it). Every meta carries a `tier`: `ready-made`, `core` (line, area,
+  bar, pie, gauge, sparkline, provider) or `advanced` (radar, heatmap, calendar, sankey, funnel, candlestick, treemap,
+  scatter, `Chart`, the map, the globe: no product screen uses them today — offered last). A new chart starts from a
+  screen that needs it, and has a native version or a written reason.
 - Words are props (`title`, `labels`, column headers); figures and dates go through `@krizaka/intl` with an explicit
   `locale`. Never a product word, a `t()`, a network call.
 
@@ -59,7 +67,7 @@ fails on a missing meta, example, story, native screenshot or prop description. 
 - `pnpm turbo run check --filter=@krizaka/charts`: ESLint + `tsc`, Vitest (happy-dom: SSR, axe, keyboard, formats,
   palettes, registry) and Jest (React Native), build, size, publint + attw (`esm-only`) + `scripts/consumer.mjs` +
   `scripts/dist-check.mjs` (the SVG charts never reach ECharts).
-- **Size budgets** (`size-limit`, gzip, peers excluded): each SVG entry ≤ 13.5 kB; each ECharts entry ≤ 15 kB before
+- **Size budgets** (`size-limit`, gzip, peers excluded): each SVG entry ≤ 13.5 kB (the ready-made ones ≤ 14.5 kB: their core chart plus the headline; `./credits` ≤ 11.5 kB, `./goal` ≤ 9.5 kB); `./native` ≤ 13 kB (Metro bundles it: a regression guard); each ECharts entry ≤ 15 kB before
   its engine and ≤ 212 kB with it; geo and globe ≤ 58 kB with the world; `./chart` ≤ 392 kB (all of ECharts unless
   `modules` says less).
 - Stories are audited by axe and screenshot-compared in dark and light (`apps/storybook`).

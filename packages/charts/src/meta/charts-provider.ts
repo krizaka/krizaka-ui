@@ -4,6 +4,7 @@ export const meta = {
   title: "Charts provider",
   summary: "The locale, the brand palette and the words of every chart below it, set once; plus the sliding window for live data.",
   status: "beta",
+  tier: "core",
   category: "charts",
   platforms: "both",
   whenToUse: [

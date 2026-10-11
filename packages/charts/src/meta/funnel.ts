@@ -4,6 +4,7 @@ export const meta = {
   title: "Funnel",
   summary: "Stages that lose people on the way, with the conversion from each stage to the next and from the first written beside it.",
   status: "beta",
+  tier: "advanced",
   category: "charts",
   platforms: "web",
   engine: "echarts",

@@ -4,6 +4,7 @@ export const meta = {
   title: "Gauge",
   summary: "One value against its range on a 240° arc: zones that change its tone, a target tick, the value written in the middle.",
   status: "beta",
+  tier: "core",
   category: "charts",
   platforms: "both",
   engine: "svg",

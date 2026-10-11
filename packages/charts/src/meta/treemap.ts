@@ -4,6 +4,7 @@ export const meta = {
   title: "Treemap",
   summary: "Nested parts of a whole as rectangles — storage by project then by kind — a click zooming into a part.",
   status: "beta",
+  tier: "advanced",
   category: "charts",
   platforms: "web",
   engine: "echarts",

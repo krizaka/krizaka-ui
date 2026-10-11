@@ -6,6 +6,22 @@
  */
 export { type ChartLabels, type ChartLabelsInput,DEFAULT_LABELS } from "../core/labels";
 export type * from "../core/types";
+export { DEFAULT_STATUSES, type JobStatus } from "../needs/statuses";
+export { type Bid } from "../needs/ticker";
 export { AreaChart, BarChart, LineChart, type NativeAreaChartProps, type NativeBarChartProps, type NativeCartesianProps, type NativeLineChartProps } from "./cartesian";
 export { ChartsProvider, type ChartTheme, type NativeChartsSettings, type NativeFrameProps } from "./frame";
+export {
+  CreditUsage,
+  EarningsChart,
+  GoalProgress,
+  JobThroughput,
+  LatencyChart,
+  type NativeCreditUsageProps,
+  type NativeEarningsChartProps,
+  type NativeGoalProgressProps,
+  type NativeJobThroughputProps,
+  type NativeLatencyChartProps,
+  type NativePriceTickerProps,
+  PriceTicker,
+} from "./needs";
 export { DonutChart, Gauge, type NativeGaugeProps, type NativePieChartProps, type NativeSparklineProps, PieChart, Sparkline } from "./round";

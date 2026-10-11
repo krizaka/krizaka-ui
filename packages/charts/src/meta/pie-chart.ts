@@ -4,6 +4,7 @@ export const meta = {
   title: "Pie and donut chart",
   summary: "Part of a whole: slices sorted by size, folded into “Other” past six, each share written in the legend; a donut carries the total in its hole.",
   status: "beta",
+  tier: "core",
   category: "charts",
   platforms: "both",
   engine: "svg",

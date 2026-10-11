@@ -4,6 +4,7 @@ export const meta = {
   title: "Sparkline",
   summary: "A word-sized trend without axes — in a stat, a table cell or a sentence — drawn on the server when its width is known.",
   status: "beta",
+  tier: "core",
   category: "charts",
   platforms: "both",
   engine: "svg",

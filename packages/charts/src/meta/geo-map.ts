@@ -4,6 +4,7 @@ export const meta = {
   title: "Geo map",
   summary: "Where: a world choropleth in one sequential hue, bubbles on places, country names in the reader's language — plain SVG, the world loaded on demand.",
   status: "beta",
+  tier: "advanced",
   category: "charts",
   platforms: "web",
   engine: "svg",

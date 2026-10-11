@@ -4,6 +4,7 @@ export const meta = {
   title: "Globe",
   summary: "The world as a lit 3D sphere — places, great-circle arcs, tinted regions — turning slowly while on screen, dragged by hand, in SVG without WebGL.",
   status: "beta",
+  tier: "advanced",
   category: "charts",
   platforms: "web",
   engine: "svg",

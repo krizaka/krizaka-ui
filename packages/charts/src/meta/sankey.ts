@@ -4,6 +4,7 @@ export const meta = {
   title: "Sankey",
   summary: "Flows between stages — credits from plans to models to outcomes — with widths proportional to the amounts.",
   status: "beta",
+  tier: "advanced",
   category: "charts",
   platforms: "web",
   engine: "echarts",

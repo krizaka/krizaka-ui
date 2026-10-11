@@ -23,16 +23,32 @@ export type ComponentName =
   | "treemap"
   | "scatter-chart"
   | "chart"
-  | "charts-provider";
+  | "charts-provider"
+  | "earnings-chart"
+  | "job-throughput"
+  | "latency-chart"
+  | "credit-usage"
+  | "goal-progress"
+  | "price-ticker";
 
 /** The entries of the package a component is imported from. */
-export type Entry = "line" | "bar" | "pie" | "gauge" | "sparkline" | "geo" | "globe" | "radar" | "heatmap" | "sankey" | "funnel" | "candlestick" | "treemap" | "scatter" | "chart" | "provider";
+export type Entry = "earnings" | "throughput" | "latency" | "credits" | "goal" | "ticker" | "line" | "bar" | "pie" | "gauge" | "sparkline" | "geo" | "globe" | "radar" | "heatmap" | "sankey" | "funnel" | "candlestick" | "treemap" | "scatter" | "chart" | "provider";
 
 /** The group of the catalogue: every chart is a `chart`. */
 export type Category = "charts";
 
 /** Where a component exists: `@krizaka/charts/<entry>` (web), `@krizaka/charts/native` (React Native), or both. */
 export type Platform = "web" | "native" | "both";
+
+/**
+ * Where a chart sits in the catalogue — the needs of the Krizaka apps first:
+ * - `ready-made`: answers a need of a product screen (earnings, jobs, latency, credits, a goal, an auction's price),
+ *   with its formats, words and defaults chosen — reach for these first;
+ * - `core`: the general charts the ready-made ones are built on (line, bar, pie, gauge, sparkline), for the rest;
+ * - `advanced`: no product screen uses it today (radar, sankey, treemap, the map, the globe…): kept, documented, but
+ *   offered last — it needs a reason written in `whenToUse`.
+ */
+export type Tier = "ready-made" | "core" | "advanced";
 
 /** `stable`: its API only changes in a major. `beta`: it may still change in a minor. */
 export type Status = "stable" | "beta";
@@ -101,6 +117,8 @@ export interface ComponentMeta {
   };
   /** The components a reader of this page should know about. */
   readonly related: readonly ComponentName[];
+  /** Where it sits: ready-made for a need, a core chart, or advanced (no product use today). */
+  readonly tier: Tier;
   /** Web: drawn in plain SVG (no engine) or on ECharts (loaded when the chart nears the screen). */
   readonly engine?: "svg" | "echarts";
   readonly web?: WebDocs;

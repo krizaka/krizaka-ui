@@ -26,6 +26,12 @@ export default defineConfig([
     entry: {
       index: "src/index.ts",
       provider: "src/provider/index.ts",
+      earnings: "src/earnings/index.ts",
+      throughput: "src/throughput/index.ts",
+      latency: "src/latency/index.ts",
+      credits: "src/credits/index.ts",
+      goal: "src/goal/index.ts",
+      ticker: "src/ticker/index.ts",
       line: "src/line/index.ts",
       bar: "src/bar/index.ts",
       pie: "src/pie/index.ts",
