@@ -9,7 +9,7 @@ import * as React from "react";
 import { cn } from "../cn";
 import { CheckGlyph, PauseGlyph, PlayGlyph, RetryGlyph } from "../glyphs";
 
-/** The colour of an output line — the tokens' roles: secondary text, the accent, success, warning, danger. */
+/** The colour of an output line — the tokens' text roles, all AA on the screen: secondary, accent, success, warning, danger. */
 export type TerminalTone = "muted" | "accent" | "success" | "warning" | "danger";
 
 export interface TerminalLine {
@@ -83,7 +83,7 @@ interface Position {
 }
 
 const TONE: Record<TerminalTone, string> = {
-  muted: "text-fg-muted",
+  muted: "text-fg-secondary",
   accent: "text-fg-accent",
   success: "text-fg-success",
   warning: "text-fg-warning",
@@ -256,7 +256,7 @@ export function TerminalReplay({
                 {output.map((entry, j) => {
                   const { text, tone } = line(entry);
                   return (
-                    <div key={j} className={cn("min-h-[1lh] whitespace-pre", tone ? TONE[tone] : "text-fg-secondary")}>
+                    <div key={j} className={cn("min-h-[1lh] whitespace-pre", tone ? TONE[tone] : "text-fg")}>
                       {text}
                     </div>
                   );
