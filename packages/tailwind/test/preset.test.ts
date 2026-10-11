@@ -82,8 +82,6 @@ describe("@krizaka/tailwind", () => {
     [".bg-success-soft", "background-color", "--kz-success-soft"],
     [".bg-glass", "background-color", "--kz-glass-bg"],
     [".border-glass-border", "border-color", "--kz-glass-border"],
-    [".rounded-xs", "border-radius", "--kz-radius-xs"],
-    [".rounded-2xl", "border-radius", "--kz-radius-2xl"],
     [".shadow-raised", "--tw-shadow", "--kz-shadow-raised"],
     [".shadow-floating", "--tw-shadow", "--kz-shadow-floating"],
     [".shadow-overlay", "--tw-shadow", "--kz-shadow-overlay"],

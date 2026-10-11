@@ -47,7 +47,7 @@ The first two lines are enough to get the whole vocabulary. `@krizaka/ui/tailwin
 | Status | `success` · `warning` · `danger` · `info` (fills, borders, dots, icons — ≥ 3:1) | `--kz-success` … |
 | Status text | `fg-success` · `fg-warning` · `fg-danger` · `fg-info` → `text-fg-danger` (small text, ≥ 4.5:1 on every surface, both themes) | `--kz-*-text` |
 | Status tints | `success-soft` · `warning-soft` · `danger-soft` → `bg-danger-soft` (the primary and the status text ≥ 4.5:1 on them) | `--kz-*-soft` |
-| Radius | `rounded-xs` · `rounded-sm` · `rounded-md` · `rounded-lg` · `rounded-xl` · `rounded-2xl` · `rounded-full` | `--kz-radius-*` |
+| Radius | `rounded-sm` · `rounded-md` · `rounded-lg` · `rounded-xl` · `rounded-full`; `rounded-(--kz-radius-xs)`, `rounded-(--kz-radius-2xl)` (not mapped: Tailwind's own `xs` / `2xl` keep their sizes in the products) | `--kz-radius-*` |
 | Shadow | `shadow-sm` · `shadow-md` · `shadow-lg`; the signature: `shadow-raised` · `shadow-floating` · `shadow-overlay` (ink-tinted, multi-layer) · `shadow-glow` · `shadow-glow-lg` (the brand's light under what acts) | `--kz-shadow-*`, `--kz-accent` |
 | Edges | `inset-shadow-edge` (the top edge catches the light) · `inset-shadow-edge-fill` (on an accent fill) · `inset-shadow-well` (a field, a track) | `--kz-edge-*` |
 | Material | `bg-sheen` (the top of a raised surface) · `bg-fill-shade` (the bottom of a fill) · `bg-halo` (the brand from the top) · `glass` (+ `bg-glass`, `border-glass-border`) | `--kz-surface-sheen`, `--kz-fill-shade`, `--kz-glass-*` |

@@ -50,12 +50,10 @@
   --color-glass: var(--kz-glass-bg);
   --color-glass-border: var(--kz-glass-border);
 
-  --radius-xs: var(--kz-radius-xs);
   --radius-sm: var(--kz-radius-sm);
   --radius-md: var(--kz-radius-md);
   --radius-lg: var(--kz-radius-lg);
   --radius-xl: var(--kz-radius-xl);
-  --radius-2xl: var(--kz-radius-2xl);
   --radius-full: var(--kz-radius-full);
 
   --shadow-sm: var(--kz-shadow-sm);
