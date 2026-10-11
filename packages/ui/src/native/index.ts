@@ -29,6 +29,7 @@ export { Countdown, type CountdownProps, type CountdownUnits } from "./countdown
 export { EmptyState, type EmptyStateProps } from "./empty-state";
 export { KrizakaMark } from "./KrizakaMark";
 export { type NativeMarkProps } from "./mark-motion";
+export { Mascot, type MascotProps } from "./mascots";
 export { OrazakaMark } from "./OrazakaMark";
 export { OrochiaMark } from "./OrochiaMark";
 export { ProductMark } from "./ProductMark";
