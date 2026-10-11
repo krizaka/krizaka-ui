@@ -41,6 +41,7 @@ export const meta = {
       { name: "center", title: "Centred", description: "A short form, `size=\"md\"`." },
       { name: "bottom", title: "Bottom sheet", description: "`placement=\"bottom\"`: a sheet on a phone, centred from `sm` up." },
       { name: "right", title: "Side panel", description: "`placement=\"right\"`: full height, for details." },
+      { name: "left", title: "Navigation drawer", description: "`placement=\"left\"`: full height from the left, for an app's navigation on a phone." },
       { name: "sheet-form", title: "Sheet with a form", description: "`Sheet`, `size=\"lg\"`." },
       { name: "alert-destructive", title: "Alert dialog", description: "`AlertDialog tone=\"danger\"` with an async `onConfirm`." },
       { name: "gate", title: "Gate", description: "No close button: it closes only through its actions." },

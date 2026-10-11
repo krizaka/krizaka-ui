@@ -180,4 +180,19 @@ describe("AlertDialog", () => {
     expect(screen.queryByRole("alertdialog")).toBeNull();
     expect(onOpenChange).toHaveBeenLastCalledWith(false);
   });
+
+  it("opens a navigation drawer from the left", () => {
+    render(
+      <Dialog.Root defaultOpen>
+        <Dialog.Content closeLabel="Close" placement="left">
+          <Dialog.Title>Menu</Dialog.Title>
+          <Dialog.Description>Navigation</Dialog.Description>
+        </Dialog.Content>
+      </Dialog.Root>,
+    );
+    const dialog = screen.getByRole("dialog", { name: "Menu" });
+    expect(dialog.dataset.placement).toBe("left");
+    expect(dialog.className).toContain("left-0");
+    expect(dialog.className).not.toContain("right-0");
+  });
 });

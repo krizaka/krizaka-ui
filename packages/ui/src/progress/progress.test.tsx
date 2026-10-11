@@ -43,4 +43,30 @@ describe("Progress", () => {
     expect(screen.getByText("$250")).toBeTruthy();
     expect(await axeViolations(container)).toEqual([]);
   });
+
+  it("shows its words and time left, and speaks the time left with the value", () => {
+    const { container } = render(<Progress label="Upload" value={64} eta="About 40 s left" showLabel />);
+    const bar = screen.getByRole("progressbar", { name: "Upload" });
+    expect(bar.getAttribute("aria-valuetext")).toBe("64%, About 40 s left");
+    const header = container.querySelector("[aria-hidden]");
+    expect(header?.textContent).toBe("Upload64 % · About 40 s left");
+  });
+
+  it("draws a buffer, segments and a status", () => {
+    const { container } = render(<Progress label="Played" value={30} buffer={70} segments={5} status="paused" />);
+    const bar = screen.getByRole("progressbar");
+    expect(bar.dataset.status).toBe("paused");
+    expect(bar.className).toContain("kz-progress-segmented");
+    expect(bar.style.getPropertyValue("--kz-segments")).toBe("5");
+    expect((bar.firstElementChild as HTMLElement).className).toContain("kz-progress-paused");
+    expect(container.querySelectorAll<HTMLElement>("[aria-hidden]")[0]?.style.width).toBe("70%");
+  });
+
+  it("cuts a ring into segments with its own mask", () => {
+    const { container } = render(<Progress variant="ring" label="Goal" value={7} max={10} segments={10} status="error" />);
+    const mask = container.querySelector("mask");
+    expect(mask?.id).toMatch(/^kz-seg-/);
+    expect(container.querySelector("g")?.getAttribute("mask")).toBe(`url(#${mask?.id})`);
+    expect(container.querySelectorAll("circle")[2]?.getAttribute("class")).toContain("stroke-danger");
+  });
 });

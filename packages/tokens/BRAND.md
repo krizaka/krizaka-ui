@@ -95,7 +95,8 @@ What M2/M3/M4 (the homes of Orochia, Orazaka and krizaka.com) apply. Restrained,
 - **Luminous isometric illustrations**, original: objects built from our own vocabulary — the icons' cut-corner
   shapes, the marks' hexagons and nodes, the chat bubble — extruded in isometric projection, lit from inside in the
   brand colour (a core that glows, edges in `accent-text`), standing on a **perspective grid** (`grid`) that fades
-  into the page. One hero object per page, two or three satellites, no stock 3D.
+  into the page. One hero object per page, two or three satellites, no stock 3D. `@krizaka/ui/iso` draws them
+  (`IsoHub` from data, or its primitives): stages that stack at the entrance, a dome that breathes, light that flows.
 - **Depth of field**: a foreground element blurred (`media`, 18 px) between the reader and the content; the subject
   stays sharp. Never blur text.
 - **Slow motion**: the light drifts over 40 s, marks turn over 30–35 s, reveals rise once (`[data-reveal]`). Nothing

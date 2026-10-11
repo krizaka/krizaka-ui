@@ -56,7 +56,7 @@ describe("registry", () => {
   it("documents the props of the components (own props only, variants included, DOM and Radix props left out)", () => {
     const button = registry.find((i) => i.name === "button").props.find((c) => c.component === "Button");
     const props = Object.fromEntries(button.props.map((p) => [p.name, p]));
-    expect(Object.keys(props).sort()).toEqual(["asChild", "loading", "shape", "size", "variant"]);
+    expect(Object.keys(props).sort()).toEqual(["announce", "asChild", "indicator", "loading", "magnetic", "progress", "shape", "shimmer", "size", "status", "variant"]);
     expect(props.variant).toMatchObject({ default: "secondary", required: false });
     expect(props.variant.type).toContain('"primary"');
     const dialog = registry.find((i) => i.name === "dialog").props.find((c) => c.component === "AlertDialog");
@@ -163,7 +163,7 @@ describe("examples (registry/examples)", () => {
     const button = registry.find((i) => i.name === "button");
     expect(button.web.import).toBe('import { Button, IconButton } from "@krizaka/ui/button";');
     expect(button.native.import).toBe('import { Button, IconButton } from "@krizaka/ui/native";');
-    expect(button.web.examples[0]).toMatchObject({ name: "primary", module: "@krizaka/ui/registry/examples/button/primary" });
+    expect(button.web.examples[0]).toMatchObject({ name: "save-flow", module: "@krizaka/ui/registry/examples/button/save-flow" });
     expect(button.native.examples[0].path).toBe("examples/button/native/primary.tsx");
     expect(button.native.examples[0].code).toContain('from "@krizaka/ui/native"');
   });

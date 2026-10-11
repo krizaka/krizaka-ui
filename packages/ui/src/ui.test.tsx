@@ -73,7 +73,9 @@ describe("motion", () => {
   it("shows the first word and hides the roll from assistive tech", () => {
     window.matchMedia = ((q: string) => ({ matches: false, media: q })) as unknown as typeof window.matchMedia;
     const { container } = render(<RotatingWord words={["love", "follow"]} />);
-    expect(container.textContent).toBe("love");
+    // Every word shares the cell from the first paint (no layout shift); only the first is visible.
+    expect(container.textContent).toBe("lovefollow");
+    expect(container.querySelector("[data-active=true]")?.textContent).toBe("love");
     expect(container.firstElementChild?.getAttribute("aria-hidden")).toBe("true");
   });
 

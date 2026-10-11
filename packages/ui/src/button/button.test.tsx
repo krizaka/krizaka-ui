@@ -21,12 +21,65 @@ describe("Button", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
-  it("signals loading: disabled, aria-busy, data-loading", () => {
+  it("signals loading: disabled, aria-busy, data-loading, the glyph before the label", () => {
     render(<Button loading>Saving</Button>);
     const button = screen.getByRole("button");
     expect(button.hasAttribute("disabled")).toBe(true);
     expect(button.getAttribute("aria-busy")).toBe("true");
     expect(button.hasAttribute("data-loading")).toBe(true);
+    expect(button.querySelector("[data-slot=indicator] .kz-loader-trace")).not.toBeNull();
+    expect(button.textContent).toBe("Saving");
+  });
+
+  it("keeps the glyph out with indicator={false}, and out of asChild", () => {
+    const { rerender } = render(
+      <Button loading indicator={false}>
+        Saving
+      </Button>,
+    );
+    expect(screen.getByRole("button").querySelector("[data-slot=indicator]")).toBeNull();
+    rerender(
+      <Button asChild loading>
+        <a href="#x">Go</a>
+      </Button>,
+    );
+    expect(screen.getByRole("link").querySelector("[data-slot=indicator]")).toBeNull();
+  });
+
+  it("grows a fill and the trace with progress", () => {
+    render(
+      <Button loading progress={0.4}>
+        Exporting
+      </Button>,
+    );
+    const button = screen.getByRole("button");
+    expect(button.querySelector<HTMLElement>("span[style]")?.style.width).toBe("40%");
+    expect(button.querySelector("svg")?.getAttribute("data-progress")).toBe("40");
+  });
+
+  it("draws and announces how the action ended", async () => {
+    const { container } = render(
+      <Button status="error" announce="Payment declined">
+        Pay
+      </Button>,
+    );
+    const button = screen.getByRole("button", { name: "Pay" });
+    expect(button.dataset.kzStatus).toBe("error");
+    expect(button.querySelector("svg")?.getAttribute("data-state")).toBe("error");
+    expect(screen.getByRole("status").textContent).toBe("Payment declined");
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("wears the signature: cut corners, sheen, magnetism", () => {
+    render(
+      <Button shape="cut" shimmer magnetic>
+        Start
+      </Button>,
+    );
+    const button = screen.getByRole("button");
+    expect(button.className).toContain("[corner-shape:bevel]");
+    expect(button.className).toContain("kz-sheen");
+    expect(button.hasAttribute("data-kz-magnetic")).toBe(true);
   });
 
   it("lets the product's className win", () => {
@@ -66,5 +119,15 @@ describe("IconButton", () => {
     expect(button.getAttribute("title")).toBe("Close");
     expect(button.className).toContain("w-10");
     expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("puts the glyph in the icon's place while loading", () => {
+    render(
+      <IconButton label="Refresh" loading>
+        <svg data-testid="icon" aria-hidden />
+      </IconButton>,
+    );
+    expect(screen.queryByTestId("icon")).toBeNull();
+    expect(screen.getByRole("button", { name: "Refresh" }).querySelector(".kz-loader-trace")).not.toBeNull();
   });
 });

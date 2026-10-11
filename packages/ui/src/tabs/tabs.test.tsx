@@ -82,4 +82,23 @@ describe("Tabs", () => {
     expect(tab.className).not.toContain("px-3");
     expect(tab.className).toContain("data-[state=active]:bg-accent");
   });
+
+  it("glides one light to the active tab", async () => {
+    const user = userEvent.setup();
+    render(
+      <Tabs.Root defaultValue="a" variant="segmented">
+        <Tabs.List aria-label="Views">
+          <Tabs.Trigger value="a">A</Tabs.Trigger>
+          <Tabs.Trigger value="b">B</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="a">a</Tabs.Content>
+        <Tabs.Content value="b">b</Tabs.Content>
+      </Tabs.Root>,
+    );
+    const list = screen.getByRole("tablist");
+    expect(list.getAttribute("data-indicator")).toBe("on");
+    expect(list.className).toContain("before:bg-accent");
+    await user.click(screen.getByRole("tab", { name: "B" }));
+    expect(list.getAttribute("data-indicator")).toBe("on");
+  });
 });

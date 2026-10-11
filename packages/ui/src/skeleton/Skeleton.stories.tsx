@@ -2,7 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import CircleExample from "../../registry/examples/skeleton/circle";
 import CompositionExample from "../../registry/examples/skeleton/composition";
+import ParagraphExample from "../../registry/examples/skeleton/paragraph";
 import RectExample from "../../registry/examples/skeleton/rect";
+import ShapeOfContentExample from "../../registry/examples/skeleton/shape-of-content";
 import TextExample from "../../registry/examples/skeleton/text";
 import { Skeleton } from "./skeleton";
 
@@ -15,7 +17,7 @@ const meta = {
   component: Skeleton,
   decorators: [
     (Story) => (
-      <div className="w-72">
+      <div className="w-80">
         <Story />
       </div>
     ),
@@ -25,6 +27,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+export const ShapeOfContent: Story = { render: () => <ShapeOfContentExample /> };
+export const Paragraph: Story = { render: () => <ParagraphExample /> };
 export const Text: Story = { render: () => <TextExample /> };
 export const Circle: Story = { render: () => <CircleExample /> };
 export const Rect: Story = { render: () => <RectExample /> };

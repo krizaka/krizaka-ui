@@ -2,7 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, waitFor } from "storybook/test";
 
 import CustomExample from "../../registry/examples/toast/custom";
+import GroupedExample from "../../registry/examples/toast/grouped";
 import TonesExample from "../../registry/examples/toast/tones";
+import UndoExample from "../../registry/examples/toast/undo";
+import UploadProgressExample from "../../registry/examples/toast/upload-progress";
 import { Toaster } from "./toast";
 
 /**
@@ -28,5 +31,8 @@ const settled = (count: number): Story["play"] =>
 
 // sonner's queue is global: each example has its own toaster (`id` + `toasterId`), so no toast leaks into the next
 // story's screenshot.
+export const Undo: Story = { render: () => <UndoExample defaultOpen />, play: settled(1) };
+export const UploadProgress: Story = { render: () => <UploadProgressExample defaultOpen />, play: settled(1) };
+export const Grouped: Story = { render: () => <GroupedExample defaultOpen />, play: settled(1) };
 export const Tones: Story = { render: () => <TonesExample defaultOpen />, play: settled(4) };
 export const Custom: Story = { render: () => <CustomExample defaultOpen />, play: settled(1) };

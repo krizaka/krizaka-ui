@@ -2,7 +2,8 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Toast",
-  summary: "A short message that comes and goes: `toast()` from anywhere, one `Toaster` per app.",
+  summary:
+    "A short message that comes and goes — with the time it has left drawn and paused under the pointer, an undo that waits before an action is final, a long task updated in place, and repeats folded into one toast that counts.",
   status: "stable",
   category: "feedback",
   platforms: "both",
@@ -20,6 +21,9 @@ export const meta = {
     "Mount one `Toaster` in the root layout, with its `label` and `closeLabel` translated.",
     "A title in a few words, a description only if it adds something.",
     "Never put the only way to do something in a toast: it goes away.",
+    "For what can be undone, act now and commit later: `undoToast` with `onUndo` and `onCommit` — no confirmation dialog.",
+    "A background task: one `progressToast` updated with the same `id`, never a new toast per step.",
+    "Events that repeat (messages, retries): `groupedToast` with a `countLabel` — one toast that counts, not a pile.",
   ],
   accessibility: {
     keyboard: [
@@ -30,8 +34,11 @@ export const meta = {
   },
   related: ["alert", "dialog", "confirm-button"],
   web: {
-    imports: ["toast", "Toaster"],
+    imports: ["toast", "Toaster", "undoToast", "progressToast", "groupedToast"],
     examples: [
+      { name: "undo", title: "Undo before it is final", description: "`undoToast`: archived now, final when the hairline runs out — paused while you hover it." },
+      { name: "upload-progress", title: "A task in the background", description: "`progressToast`: one toast updated in place, the glyph and a bar growing, a success at 100 %." },
+      { name: "grouped", title: "Repeats fold", description: "`groupedToast`: five messages become one toast that counts “5 new messages”." },
       { name: "tones", title: "Tones", description: "Default, success, warning and error with an action." },
       { name: "custom", title: "Custom", description: "`toast.custom`: your JSX in the platform's shell." },
     ],
