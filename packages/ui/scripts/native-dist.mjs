@@ -18,3 +18,17 @@ for (const spec of specifiers(dts)) assert.ok(ALLOWED.has(spec), `dist/native.d.
 assert.ok(!/\b(document|window|HTMLElement|localStorage|matchMedia)\b/.test(js.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "")), "dist/native.js touches the DOM");
 assert.ok(specifiers(js).includes("react-native"), "dist/native.js does not import react-native");
 console.log(`✓ dist/native.js: no "use client", no DOM; imports ${[...new Set(specifiers(js))].join(", ")}`);
+
+// The native entries that need an Expo module: the platform through @krizaka/ui/native (one theme context), their own
+// module (an optional peer), nothing else — and no DOM either.
+for (const [entry, module] of [
+  ["video-player", "expo-video"],
+  ["media-capture", "expo-camera"],
+]) {
+  const code = readFileSync(resolve(dist, "native", `${entry}.js`), "utf8");
+  const allowed = new Set([...ALLOWED, "@krizaka/ui/native", module]);
+  assert.ok(!/["']use client["']/.test(code), `dist/native/${entry}.js carries a "use client" directive`);
+  for (const spec of specifiers(code)) assert.ok(allowed.has(spec), `dist/native/${entry}.js imports ${spec}`);
+  assert.ok(!/\b(document|window|HTMLElement|localStorage|matchMedia)\b/.test(code.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "")), `dist/native/${entry}.js touches the DOM`);
+  console.log(`✓ dist/native/${entry}.js: imports ${[...new Set(specifiers(code))].join(", ")}`);
+}

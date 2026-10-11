@@ -35,6 +35,10 @@ const config: StorybookConfig = {
         ...toArray(vite.resolve?.alias),
         { find: /^@krizaka\/ui$/, replacement: `${ui}/index.ts` },
         { find: /^@krizaka\/ui\/cn$/, replacement: `${ui}/cn.ts` },
+        // The native entries that need an Expo module, and those modules: stand-ins drawn with react-native-web.
+        { find: /^@krizaka\/ui\/native\/([a-z-]+)$/, replacement: `${ui}/native/$1.tsx` },
+        { find: /^expo-video$/, replacement: `${ui}/native/mocks/expo-video.tsx` },
+        { find: /^expo-camera$/, replacement: `${ui}/native/mocks/expo-camera.tsx` },
         { find: /^@krizaka\/ui\/([a-z-]+)$/, replacement: `${ui}/$1/index.ts` },
         { find: /^@krizaka\/charts$/, replacement: `${charts}/index.ts` },
         { find: /^@krizaka\/charts\/([a-z-]+)$/, replacement: `${charts}/$1/index.ts` },

@@ -21,6 +21,10 @@ export default {
     "^@krizaka/tokens/native$": "<rootDir>/node_modules/@krizaka/tokens/dist/native.js",
     // The registry's native examples import the package as an app does: resolved to the sources.
     "^@krizaka/ui/native$": "<rootDir>/src/native/index.ts",
+    "^@krizaka/ui/native/([a-z-]+)$": "<rootDir>/src/native/$1.tsx",
+    // The Expo modules of the entries that need one (optional peers): their native side does not exist under Jest.
+    "^expo-video$": "<rootDir>/src/native/mocks/expo-video.tsx",
+    "^expo-camera$": "<rootDir>/src/native/mocks/expo-camera.tsx",
   },
   transform: {
     ...preset.transform,

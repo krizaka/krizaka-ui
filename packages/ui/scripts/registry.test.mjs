@@ -17,8 +17,9 @@ const metas = Object.fromEntries(await Promise.all(all.map(async (name) => [name
 const nativeIndex = readFileSync(join(PKG, "src", "native", "index.ts"), "utf8");
 const nativeExports = new Set([...nativeIndex.matchAll(/\b([A-Za-z]\w*)\b/g)].map((m) => m[1]));
 const PLATFORMS = ["web", "native", "both"];
+const exportsOf = (file) => new Set([...readFileSync(file, "utf8").matchAll(/\bexport\s+(?:async\s+)?(?:function|const|type|class|interface)\s+([A-Za-z]\w*)/g)].map((m) => m[1]));
 const STATUSES = ["stable", "beta"];
-const CATEGORIES = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "layout", "foundations"];
+const CATEGORIES = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "media", "layout", "foundations"];
 
 /** Native examples without a story (so without a screenshot): the provider wraps every story already. */
 const NO_STORY = new Set(["theme/provider"]);
@@ -110,7 +111,11 @@ describe("documentation carried by the code (meta.ts)", () => {
     expect(Boolean(meta.web), "a web side ⇔ an entry of the package").toBe(names.includes(name));
     if (meta.native) {
       expect(existsSync(join(PKG, "src", "native", `${name}.tsx`)), `src/native/${name}.tsx`).toBe(true);
-      for (const imported of meta.native.imports) expect(nativeExports, `${imported} is exported by @krizaka/ui/native`).toContain(imported);
+      // A component with its own entry (`@krizaka/ui/native/<name>`: it needs an Expo module) exports from its file.
+      const own = meta.native.entry ? exportsOf(join(PKG, "src", "native", `${name}.tsx`)) : nativeExports;
+      if (meta.native.entry) expect(meta.native.entry).toBe(`@krizaka/ui/native/${name}`);
+      if (meta.native.entry) expect(pkg.exports[`./native/${name}`], `./native/${name} is an entry of the package`).toBeDefined();
+      for (const imported of meta.native.imports) expect(own, `${imported} is exported by ${meta.native.entry ?? "@krizaka/ui/native"}`).toContain(imported);
       if (meta.web) expect(meta.native.differences.length, "what differs from the web API").toBeGreaterThan(0);
     }
   });
@@ -141,7 +146,7 @@ describe("examples (registry/examples)", () => {
     const source = readFileSync(path, "utf8");
     expect(source.trimEnd().split("\n").length, "at most 40 lines").toBeLessThanOrEqual(40);
     expect(source).toContain("export default function");
-    const allowed = platform === "web" ? /^(@krizaka\/ui(\/[a-z-]+)?|react)$/ : /^(@krizaka\/ui\/native|react|react-native|react-native-svg)$/;
+    const allowed = platform === "web" ? /^(@krizaka\/ui(\/[a-z-]+)?|react)$/ : /^(@krizaka\/ui\/native(\/[a-z-]+)?|react|react-native|react-native-svg)$/;
     for (const [, specifier] of source.matchAll(/from\s+"([^"]+)"/g)) {
       expect(specifier, "an example imports what a product imports, never a relative path or Storybook").toMatch(allowed);
     }
