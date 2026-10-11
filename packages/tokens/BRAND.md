@@ -140,3 +140,47 @@ Rules (also `rules` of `@krizaka/fonts`, on krizaka.com/docs/ui/typography): dis
 display from 20 px at 600–800, text from 12 px at 400–700; one display line per block; tabular figures for amounts; the
 scale, not one-off sizes; products may override the display role only.
 
+
+## 6. Surfaces & materials — the signature of the components
+
+Session DSV (2026-10). The primitives had the right roles but read flat and interchangeable. The Krizaka signature is
+one idea, applied everywhere and always in tokens: **light comes from above.**
+
+| Lever | Rule | Tokens → utilities |
+| :-- | :-- | :-- |
+| **What you press rises** | A raised surface (button, card, chip, key, the active segment) carries a **sheen** — its top a little lighter — a **1-px edge of light** along its top, and an **ink-tinted shadow** in two or three layers. | `--kz-surface-sheen`, `--kz-edge-light`, `--kz-shadow-raised` → `bg-sheen inset-shadow-edge shadow-raised` |
+| **What you fill sinks** | A field, a track, a checkbox is a **well**: an inner shade at its top. | `--kz-edge-well` → `inset-shadow-well` |
+| **What floats is glass** | Menus, popovers, tooltips, dialogs, toasts, the sticky header of a table: frosted glass at 88 % — the text stays AA over anything that passes under (tested against the page's own text). | `--kz-glass-*` → `glass shadow-floating` / `shadow-overlay` |
+| **Only what acts glows** | The accent fill is lit along its top edge and shaded at its bottom (on-accent stays ≥ 4.5:1 there, tested in every brand) and sits on the **brand's glow** — composed where it is used, so a `.brand-<id>` section has its own. Selection, the checked box, the current page glow too; nothing else. | `--kz-fill-shade`, `--kz-edge-on-fill` → `bg-fill-shade inset-shadow-edge-fill shadow-glow` |
+| **The node marks a state** | The core of the marks, a small lit diamond: a badge's dot, the chosen radio, the switch's thumb when on, today in a calendar, an error's mark. | `node`, `node-lit` |
+| **The focus is the brand's ring** | A crisp ring of `--kz-ring`, 2 px off the element, in a halo of the same colour — it follows the corners, cut ones included. On a field it lies on the border. | `--kz-ring-*` → `focus-visible:focus-ring`, `focus-ring-inset` |
+| **Motion answers the hand** | A short spring (`ease-spring`), never more than 200 ms: a press compresses (0.97), a toggle springs across, a check pops in. Under `prefers-reduced-motion` every duration is 0 ms: instant, never absent. | `--kz-ease-spring`, `--kz-duration-*` |
+| **Type in three voices** | Display for titles (tracking tightened), text for reading, **mono for labels**: badges, table headers, menu labels, stat labels, weekdays. | `font-mono`, `tracking-[0.06em]` |
+| **Density** | Comfortable by default; `data-density="compact"` on a subtree tightens every control (a console, a dense table). | `--kz-control-*` |
+| **Status tints** | One tint per status, the primary text and the status text AA on it: badges, alerts, rows. A rail of the status colour that glows marks alerts and toasts. | `--kz-*-soft` |
+
+Restraint is part of it: a page has one spotlight card, one glowing call to action; the rest is quiet material.
+
+### 6.1 The griffe — the 45° cut corner
+
+The angle of the hexagon, the chamfer of the icons: **the cut corner is the claw mark of the brand.** It is
+`corner-shape: bevel` (the border, the edge light, the shadow and the focus ring all follow it; browsers without
+`corner-shape` show the rounded corner), sized by `--kz-cut-size` (10 px on a control), shaped by `--kz-cut-shape`.
+
+| Where | How |
+| :-- | :-- |
+| **The call to action** | `Button` `primary` and `gradient` are cut **by default** (`shape="auto"`, `--kz-cut-shape`); a node lights in the cut corner under the pointer. `rounded` / `pill` stay options. |
+| **The status badge** | `Badge` `success` / `warning` / `danger` are cut by default (`shape="auto"`); `shape="cut"` on any tone. |
+| **The card that matters** | `Card` `variant="spotlight"` has its top-right corner cut; `cut` on any card. |
+| **The active tab** | The raised segment of `Tabs variant="segmented"` and the light of `pills` are cut. |
+| **The focused field** | A field's top-right corner cuts itself when it has the focus. |
+| **The toast** | Its top-right corner is cut. |
+
+Sparingly: the griffe marks **what matters on the screen** — the action, the state, the chosen — never every box. An app
+that must not wear it (a third-party embed) sets `--kz-cut-shape: round`; everything returns to rounded corners.
+React Native has no `corner-shape`: the native primitives keep their rounded corners, and `cut.size` of
+`@krizaka/tokens/native` is there for a drawn shape (react-native-svg) where a product needs one.
+
+Captures of the material, the three brands in dark and light, are in the pull request that introduced it
+(krizaka/krizaka-ui, "signature visual language"); the living reference is the showcase at the top of
+[krizaka.com/docs/ui](https://www.krizaka.com/docs/ui).

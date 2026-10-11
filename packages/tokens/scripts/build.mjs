@@ -19,21 +19,21 @@ import { fileURLToPath } from "node:url";
 import { parseHsl, toNative } from "./color.mjs";
 
 /** Source files, in output order. */
-export const SOURCES = ["color", "radius", "shadow", "motion", "typography"];
+export const SOURCES = ["color", "radius", "shadow", "material", "motion", "typography"];
 /** The brands (src/brands/<id>.brand.json), in output order: the parent first. */
 export const BRANDS = ["krizaka", "orazaka", "orochia"];
 /** The roles a brand sets — all of them, so that a brand never inherits another brand's accent. */
 export const BRAND_ROLES = ["accent", "accent-hover", "accent-soft", "accent-text", "accent-2", "on-accent", "ring", "info", "info-text", "brand-gradient-from", "brand-gradient-via", "brand-gradient-to"];
 const EXT = "com.krizaka";
 const PREFIX = "--kz-";
-const TYPES = new Set(["color", "dimension", "shadow", "cubicBezier", "fontFamily", "number", "fontWeight"]);
+const TYPES = new Set(["color", "dimension", "shadow", "cubicBezier", "fontFamily", "number", "fontWeight", "duration", "cornerShape"]);
 
 /**
  * @typedef {{ color: string, offsetX: string, offsetY: string, blur: string, spread?: string }} ShadowLayer
  * @typedef {string | number[] | string[] | ShadowLayer[]} RawValue
  * @typedef {{
  *   path: string[], name: string, key: string, type: string, description?: string, group?: string,
- *   dark: RawValue, light?: RawValue
+ *   dark: RawValue, light?: RawValue, compact?: string
  * }} Token
  */
 
@@ -79,7 +79,9 @@ export function flatten(sources) {
       if (!ownType || !TYPES.has(ownType)) throw new Error(`${file}: ${path.join(".")} has no supported $type`);
       const name = cssName(path);
       const ext = isObject(node.$extensions) ? node.$extensions[EXT] : undefined;
-      out.push({ path, name, key: camel(name), type: ownType, description: node.$description, group, dark: node.$value, light: ext?.light });
+      const compact = ext?.compact;
+      if (compact !== undefined && (ownType !== "dimension" || typeof compact !== "string")) throw new Error(`${file}: ${path.join(".")}: a compact value is a dimension`);
+      out.push({ path, name, key: camel(name), type: ownType, description: node.$description, group, dark: node.$value, light: ext?.light, compact });
       return;
     }
     const heading = path.length > 0 && typeof node.$description === "string" ? node.$description : group;
@@ -182,6 +184,35 @@ function block(tokens, selector, scheme, pick, target, intro) {
   return lines.join("\n");
 }
 
+/**
+ * `[data-density="compact"]`: the tokens that carry a compact value (`$extensions["com.krizaka"].compact`), tightened on a
+ * subtree — a dense table, an admin console. Empty when no token has one.
+ * @param {Token[]} tokens
+ */
+function densityBlock(tokens) {
+  const dense = tokens.filter((t) => t.compact !== undefined);
+  if (!dense.length) return [];
+  return [
+    "/* Densité compacte : [data-density=\"compact\"] sur un sous-arbre resserre les contrôles (tableau dense, console). */",
+    `[data-density="compact"] {\n${dense.map((t) => `  ${PREFIX}${t.name}: ${t.compact};`).join("\n")}\n}`,
+    "",
+  ];
+}
+
+/**
+ * Under `prefers-reduced-motion: reduce` every duration token is 0 ms: a micro-interaction becomes instant.
+ * @param {Token[]} tokens
+ */
+function reducedMotionBlock(tokens) {
+  const durations = tokens.filter((t) => t.type === "duration");
+  if (!durations.length) return [];
+  return [
+    "/* Mouvement réduit : les micro-interactions deviennent instantanées. */",
+    `@media (prefers-reduced-motion: reduce) {\n  :root {\n${durations.map((t) => `    ${PREFIX}${t.name}: 0ms;`).join("\n")}\n  }\n}`,
+    "",
+  ];
+}
+
 /** The roles of the type scale: the family a step is set in (`--kz-font-display`, `--kz-font-text`, `--kz-font-mono`). */
 export const TYPE_ROLES = ["display", "text", "mono"];
 
@@ -243,6 +274,8 @@ export function compile(sources, brandSources = {}) {
     block(invariant, ":root", null, (t) => t.dark, target,
       "/* Invariants : identiques dans les deux thèmes. Tout ce qui se pose SUR un média les utilise. */"),
     "",
+    ...densityBlock(tokens),
+    ...reducedMotionBlock(tokens),
   ].join("\n");
 
   // index — CSS references and raw values (aliases resolved), keyed in camelCase.
@@ -318,12 +351,32 @@ export declare const typeScale: readonly TypeStep[];
   });
   const typography = byGroup("font", (t) => /** @type {string[]} */ (resolve(t, "dark"))[0]);
   const ease = /** @type {Token} */ (tokens.find((t) => t.name === "ease"));
-  const motion = { ease: resolve(ease, "dark") };
+  const spring = tokens.find((t) => t.name === "ease-spring");
+  /** @type {Record<string, number>} */
+  const durations = Object.fromEntries(
+    tokens.filter((t) => t.type === "duration").map((t) => [camel(cssName(t.path.slice(1))), Number.parseFloat(String(resolve(t, "dark")))]),
+  );
+  const motion = { ease: resolve(ease, "dark"), spring: spring ? resolve(spring, "dark") : resolve(ease, "dark"), duration: durations };
   const nativeScale = Object.fromEntries(scale.map((t) => {
     const size = Number.parseFloat(t.size);
     return [camel(t.name), { role: t.role, fontSize: size, lineHeight: Math.round(size * t.lineHeight), fontWeight: String(t.weight), letterSpacing: Math.round(size * Number.parseFloat(t.tracking) * 100) / 100 }];
   }));
   const dark = theme("dark");
+  // Shadows as React Native `boxShadow` strings (RN ≥ 0.76, the new architecture; react-native-web passes them to CSS):
+  // the same ink-tinted layers as the web, per theme, colours resolved to rgba().
+  const shadowTokens = tokens.filter((t) => t.type === "shadow");
+  /** @param {"dark" | "light"} mode */
+  const nativeShadows = (mode) =>
+    Object.fromEntries(
+      shadowTokens.map((t) => [
+        camel(cssName(t.path.slice(1))),
+        /** @type {ShadowLayer[]} */ (resolve(t, mode))
+          .map((l) => [l.offsetX, l.offsetY, l.blur, l.spread ?? "0", toNative(parseHsl(l.color))].join(" "))
+          .join(", "),
+      ]),
+    );
+  const cutSize = tokens.find((t) => t.name === "cut-size");
+  const cut = { size: cutSize ? Number.parseFloat(String(resolve(cutSize, "dark"))) : 10 };
 
   const nativeJs = `${header}
 /** Colour roles per theme, resolved for React Native (\`#rrggbb\`, \`rgba()\` when translucent). */
@@ -335,14 +388,26 @@ export const radius = Object.freeze(${json(radius)});
 /** Font families: the first family of each web stack (React Native takes a single name). */
 export const typography = Object.freeze(${json(typography)});
 
-/** Motion: the cubic-bezier control points (\`Easing.bezier(...motion.ease)\`). */
-export const motion = Object.freeze({ ease: Object.freeze(${JSON.stringify(motion.ease)}) });
+/**
+ * Motion: the cubic-bezier control points (\`Easing.bezier(...motion.ease)\`), the short spring of what answers the hand
+ * (\`motion.spring\`) and the micro-interaction durations in ms (\`motion.duration.fast\`) — 0 when the system reduces motion.
+ */
+export const motion = Object.freeze({ ease: Object.freeze(${JSON.stringify(motion.ease)}), spring: Object.freeze(${JSON.stringify(motion.spring)}), duration: Object.freeze(${JSON.stringify(motion.duration)}) });
 
 /**
  * The type scale in dp: fontSize, lineHeight and letterSpacing absolute (React Native has no em), fontWeight as a string,
  * and the role whose family sets it — with @krizaka/fonts: \`{ ...typeScale.bodyMd, fontFamily: fontFamily(role, weight) }\`.
  */
 export const typeScale = Object.freeze(${json(nativeScale)});
+
+/**
+ * The shadows per theme as React Native \`boxShadow\` strings (RN ≥ 0.76): \`raised\` (a button, a card), \`floating\`
+ * (a menu, a popover), \`overlay\` (a sheet, a toast) — ink-tinted, several layers, as on the web.
+ */
+export const shadows = Object.freeze({ dark: Object.freeze(${json(nativeShadows("dark"))}), light: Object.freeze(${json(nativeShadows("light"))}) });
+
+/** The griffe (BRAND.md §6.1): the size of the 45° cut corner of a control, in dp. */
+export const cut = Object.freeze(${json(cut)});
 `;
   const nativeDts = `${header}
 /** The colour roles of one theme. */
@@ -354,8 +419,12 @@ export declare const themes: { readonly dark: Theme; readonly light: Theme };
 export declare const radius: ${literalType(radius)};
 /** Font families: the first family of each web stack (React Native takes a single name). */
 export declare const typography: ${literalType(typography)};
-/** Motion: the cubic-bezier control points (\`Easing.bezier(...motion.ease)\`). */
-export declare const motion: { readonly ease: readonly [number, number, number, number] };
+/** Motion: the ease and the spring (cubic-bezier control points) and the micro-interaction durations, in ms. */
+export declare const motion: {
+  readonly ease: readonly [number, number, number, number];
+  readonly spring: readonly [number, number, number, number];
+  readonly duration: ${literalType(motion.duration)};
+};
 /** A step of the type scale, in dp. */
 export interface NativeTypeStep {
   readonly role: "display" | "text" | "mono";
@@ -366,6 +435,12 @@ export interface NativeTypeStep {
 }
 /** The type scale in dp (React Native): fontSize, lineHeight and letterSpacing absolute, the role whose family sets it. */
 export declare const typeScale: { readonly [K in ${Object.keys(nativeScale).map((k) => json(k)).join(" | ") || "string"}]: NativeTypeStep };
+/** The shadows of one theme, as React Native \`boxShadow\` strings. */
+export type Shadows = ${stringType(nativeShadows("dark"))};
+/** The shadows per theme as React Native \`boxShadow\` strings (RN ≥ 0.76). */
+export declare const shadows: { readonly dark: Shadows; readonly light: Shadows };
+/** The griffe: the size of the 45° cut corner of a control, in dp. */
+export declare const cut: { readonly size: number };
 `;
 
   const brands = compileBrands(tokens, brandSources);

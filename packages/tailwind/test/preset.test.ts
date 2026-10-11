@@ -78,6 +78,41 @@ describe("@krizaka/tailwind", () => {
     expect(css).toContain(".kz-spotlight");
   });
 
+  it.each([
+    [".bg-success-soft", "background-color", "--kz-success-soft"],
+    [".bg-glass", "background-color", "--kz-glass-bg"],
+    [".border-glass-border", "border-color", "--kz-glass-border"],
+    [".shadow-raised", "--tw-shadow", "--kz-shadow-raised"],
+    [".shadow-floating", "--tw-shadow", "--kz-shadow-floating"],
+    [".shadow-overlay", "--tw-shadow", "--kz-shadow-overlay"],
+    [".inset-shadow-edge", "--tw-inset-shadow", "--kz-edge-light"],
+    [".inset-shadow-edge-fill", "--tw-inset-shadow", "--kz-edge-on-fill"],
+    [".inset-shadow-well", "--tw-inset-shadow", "--kz-edge-well"],
+    [".bg-sheen", "background-image", "--kz-surface-sheen"],
+    [".bg-fill-shade", "background-image", "--kz-fill-shade"],
+    [".glass", "backdrop-filter", "--kz-glass-blur"],
+    [".node", "background-color", "--kz-border-strong"],
+    [".ease-spring", "transition-timing-function", "--kz-ease-spring"],
+  ])("generates the signature %s from the tokens (BRAND.md §6)", (selector, property, token) => {
+    const body = rule(selector);
+    expect(body).toContain(property);
+    expect(body).toContain(`var(${token})`);
+    expect(body).not.toMatch(/#[0-9a-f]{3,8}\b|hsl\(|oklch\(/i);
+  });
+
+  it("composes the brand glow and the halo where they are used, so a .brand-<id> section has its own", () => {
+    expect(rule(".shadow-glow")).toContain("color-mix(in oklab, var(--kz-accent)");
+    expect(rule(".bg-halo")).toContain("color-mix(in oklab, var(--kz-accent) 16%");
+  });
+
+  it("draws the signature focus ring: a crisp ring off the element, in a halo, added to the element's shadows", () => {
+    const ring = rule(".focus-visible\\:focus-ring:focus-visible");
+    expect(ring).toContain("outline: var(--kz-ring-width) solid var(--kz-ring)");
+    expect(ring).toContain("outline-offset: var(--kz-ring-offset)");
+    expect(ring).toContain("var(--tw-shadow, 0 0 #0000)");
+    expect(rule(".focus-visible\\:focus-ring-inset:focus-visible")).toContain("outline-offset: calc(var(--kz-ring-width) * -1)");
+  });
+
   it("gives every transition the Krizaka easing", () => {
     expect(rule(".transition")).toContain("var(--tw-ease, var(--kz-ease))");
     expect(rule(".ease-kz")).toContain("var(--kz-ease)");

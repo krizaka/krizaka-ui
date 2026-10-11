@@ -46,10 +46,19 @@ The first two lines are enough to get the whole vocabulary. `@krizaka/ui/tailwin
 | Accent | `accent` · `accent-hover` · `accent-soft` · `accent-2` (gradients) · `on-accent` · `ring` | `--kz-accent*`, `--kz-on-accent`, `--kz-ring` |
 | Status | `success` · `warning` · `danger` · `info` (fills, borders, dots, icons — ≥ 3:1) | `--kz-success` … |
 | Status text | `fg-success` · `fg-warning` · `fg-danger` · `fg-info` → `text-fg-danger` (small text, ≥ 4.5:1 on every surface, both themes) | `--kz-*-text` |
-| Radius | `rounded-sm` · `rounded-md` · `rounded-lg` · `rounded-xl` · `rounded-full` | `--kz-radius-*` |
-| Shadow | `shadow-sm` · `shadow-md` · `shadow-lg` | `--kz-shadow-*` |
+| Status tints | `success-soft` · `warning-soft` · `danger-soft` → `bg-danger-soft` (the primary and the status text ≥ 4.5:1 on them) | `--kz-*-soft` |
+| Radius | `rounded-sm` · `rounded-md` · `rounded-lg` · `rounded-xl` · `rounded-full`; `rounded-(--kz-radius-xs)`, `rounded-(--kz-radius-2xl)` (not mapped: Tailwind's own `xs` / `2xl` keep their sizes in the products) | `--kz-radius-*` |
+| Shadow | `shadow-sm` · `shadow-md` · `shadow-lg`; the signature: `shadow-raised` · `shadow-floating` · `shadow-overlay` (ink-tinted, multi-layer) · `shadow-glow` · `shadow-glow-lg` (the brand's light under what acts) | `--kz-shadow-*`, `--kz-accent` |
+| Edges | `inset-shadow-edge` (the top edge catches the light) · `inset-shadow-edge-fill` (on an accent fill) · `inset-shadow-well` (a field, a track) | `--kz-edge-*` |
+| Material | `bg-sheen` (the top of a raised surface) · `bg-fill-shade` (the bottom of a fill) · `bg-halo` (the brand from the top) · `glass` (+ `bg-glass`, `border-glass-border`) | `--kz-surface-sheen`, `--kz-fill-shade`, `--kz-glass-*` |
+| Focus | `focus-visible:focus-ring` (a crisp ring off the element, in a halo) · `focus-ring-inset` (on the border) | `--kz-ring*` |
+| Node | `node` · `node-lit` — the core of the marks as a state mark | `--kz-accent` |
 | Font | `font-sans` · `font-display` · `font-mono` | `--kz-font-*` |
-| Motion | `ease-kz`; every `transition*` defaults to 200 ms on `--kz-ease` | `--kz-ease` |
+| Motion | `ease-kz`, `ease-spring`; every `transition*` defaults to 200 ms on `--kz-ease`; `duration-(--kz-duration-fast)` for the micro-interactions (0 under reduced motion) | `--kz-ease*`, `--kz-duration-*` |
+
+The material is BRAND.md §6 of `@krizaka/tokens`. Merge these classes with `twMergeConfig` (`@krizaka/ui/cn`) in your own
+`twMerge`, or `bg-sheen` will be taken for a background colour. The griffe (the 45° cut corner) is `[corner-shape:var(--kz-cut-shape)]`
+with `rounded-(--kz-cut-size)`; `--kz-cut-shape: round` turns it off for an app.
 
 Opacity modifiers work on every colour: `bg-surface-1/70`, `shadow-accent/20`.
 
