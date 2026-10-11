@@ -13,7 +13,9 @@
   `data-table`, `filter-bar`, `combobox`, `tag-input`, `date-picker`, `search-field`, `video-player`, `file-upload`,
   `media-capture`, `video-trimmer`, `audio-player`, `image-cropper`, and the **page blocks** (category `blocks`) `page`,
   `page-hero`, `card-grid`, `pointer-light`, `link-card`, `argument-card`, `mascot-quote`, `decision-list`, `code-block`,
-  `action-bar`, `cta-panel`, `toc` — one entry each, built with `tailwind-variants` on the preset's
+  `action-bar`, `cta-panel`, `toc`, and the **layouts** (category `layouts`, with their templates) `app-shell`,
+  `dashboard-layout`, `settings-layout`, `auth-layout`, `detail-layout`, `split-view`, `marketing-layout`, `docs-layout` —
+  one entry each, built with `tailwind-variants` on the preset's
   roles, Radix UI for non-trivial interactions. They follow the 12-point component contract (README, "Primitives").
 - The **native platform** (`./native`, `src/native`): the theme (`ThemeProvider`/`useTheme` on the
   `@krizaka/tokens/native` roles + a product's `overrides`) and the same primitives for React Native — `Txt`,
@@ -80,7 +82,9 @@
   DropdownMenu); `./native/video-player` ≤ 2 kB, `./native/media-capture` ≤ 2.5 kB. The page blocks (their styles are
   `blocks.css`, not counted): `./cta-panel`, `./card-grid`, `./pointer-light`, `./link-card`, `./decision-list`, `./toc` ≤ 1 kB,
   `./page`, `./page-hero` ≤ 1.2 kB, `./argument-card`, `./action-bar` ≤ 1.4 kB, `./mascot-quote` ≤ 4.8 kB (the bird's
-  geometry), `./code-block` ≤ 12 kB (Radix Tabs for `CodeTabs`).
+  geometry), `./code-block` ≤ 12 kB (Radix Tabs for `CodeTabs`). The layouts: `./dashboard-layout`, `./settings-layout`,
+  `./detail-layout`, `./split-view`, `./marketing-layout`, `./docs-layout` ≤ 1 kB, `./auth-layout`, `./settings-layout` ≤ 1.2 kB,
+  `./app-shell` ≤ 16 kB (Radix Dialog for the drawer, as `./dialog`).
 - **publint + attw** with the `esm-only` profile: the package is ESM only by design; `./motion.css`, `./blocks.css` and
   `./tailwind.css` are CSS exports and are not resolved as modules.
 - The published surface: exports `.`, one entry per primitive (`./cn`, `./slot`, `./button`, `./badge`, `./avatar`,
@@ -91,7 +95,9 @@
   `./meter`, `./mascots`, `./pagination`, `./data-table`, `./filter-bar`, `./combobox`, `./tag-input`, `./date-picker`,
   `./search-field`, `./video-player`, `./file-upload`, `./media-capture`, `./video-trimmer`, `./audio-player`,
   `./image-cropper`, `./page`, `./page-hero`, `./card-grid`, `./pointer-light`, `./link-card`, `./argument-card`,
-  `./mascot-quote`, `./decision-list`, `./code-block`, `./action-bar`, `./cta-panel`, `./toc`), `./native`, `./native/video-player`, `./native/media-capture`, `./motion.css`,
+  `./mascot-quote`, `./decision-list`, `./code-block`, `./action-bar`, `./cta-panel`, `./toc`, `./app-shell`,
+  `./dashboard-layout`, `./settings-layout`, `./auth-layout`, `./detail-layout`, `./split-view`, `./marketing-layout`,
+  `./docs-layout`), `./native`, `./native/video-player`, `./native/media-capture`, `./motion.css`,
   `./blocks.css` (the page blocks' styles, imported once by the app), `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/examples/*` (the compiled examples), `./package.json`;
   files `dist`, `registry` (JSON, examples as `.tsx`, `.js`, `.d.ts`), `tailwind.css`, `README.md`, `LICENSE`. Adding an
   entry is a minor; removing or renaming one is a breaking change.
@@ -102,7 +108,8 @@
     `src/meta.ts` — summary, status, category, platforms, when to use / not, best practices, accessibility, related,
     and per platform its imports and named examples (native: what differs from the web);
   - its examples, `registry/examples/<name>/<example>.tsx` and `…/native/<example>.tsx` (≤ 40 lines, importing what a
-    product imports), one per significant variant, each rendered by a story;
+    product imports), one per significant variant, each rendered by a story; a layout's **templates** are examples
+    flagged `template: true` (≤ 160 lines, a whole screen) with a phone story too (`parameters: { phone: true }`);
   - a JSDoc on every prop its web and native components declare.
   `scripts/registry.test.mjs` fails otherwise. The JSON and the compiled examples are build output (git-ignored).
 

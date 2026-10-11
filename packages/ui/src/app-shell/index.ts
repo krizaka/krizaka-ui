@@ -1,0 +1,2 @@
+/** @krizaka/ui/app-shell — `AppShell.Root/Sidebar/Group/Item/Body/Header/Main`: an application screen (sidebar that collapses, header, drawer on a phone). Client. */
+export { AppShell, appShell, AppShellBody, AppShellGroup, type AppShellGroupProps, AppShellHeader, type AppShellHeaderProps, AppShellItem, type AppShellItemProps, AppShellMain, AppShellRoot, type AppShellRootProps, AppShellSidebar, type AppShellSidebarProps } from "./app-shell";

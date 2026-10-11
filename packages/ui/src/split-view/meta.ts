@@ -1,0 +1,27 @@
+import type { ComponentMeta } from "../meta";
+
+export const meta = {
+  title: "Split view",
+  summary: "A list and its open item: two panes on a desktop; on a phone one at a time, the open item with the way back — chosen by showDetail, from the address.",
+  status: "beta",
+  category: "layouts",
+  platforms: "web",
+  whenToUse: ["Messages, moderation queues, jobs, notifications.", "Any list the user works through item by item."],
+  whenNotToUse: [
+    { when: "For an object reached from elsewhere.", use: "detail-layout" },
+    { when: "For rows to sort and select.", use: "data-table" },
+  ],
+  bestPractices: ["Put the open item in the address (`?thread=lea`) and pass `showDetail` from it: back and forward work, a link can be shared.", "Mark the open item in the list with `aria-current`.", "Say what to do when nothing is open (`empty`)."],
+  accessibility: {
+    keyboard: [],
+    notes: ["Each pane is a `section`; the list's title is an `h2`.", "On a phone the hidden pane is not rendered visibly (display none): it is not read either."],
+  },
+  related: ["detail-layout", "data-table", "app-shell"],
+  web: {
+    imports: ["SplitView"],
+    examples: [
+      { name: "messages", title: "Messages", description: "A creator's inbox: threads beside the open one, a reply box at its foot.", template: true },
+      { name: "empty", title: "Nothing open", description: "The list, and what to do while nothing is open." },
+    ],
+  },
+} satisfies ComponentMeta;
