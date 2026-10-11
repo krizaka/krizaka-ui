@@ -45,6 +45,7 @@ export type ComponentName =
   | "loader"
   | "marquee"
   | "mascot-quote"
+  | "mascot-state"
   | "mascots"
   | "media-capture"
   | "meter"

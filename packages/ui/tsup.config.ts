@@ -90,6 +90,7 @@ export default defineConfig([
       command: "src/command/index.ts",
       "confirm-button": "src/confirm-button/index.ts",
       mascots: "src/mascots/index.ts",
+      "mascot-state": "src/mascot-state/index.ts",
       motion: "src/motion/index.ts",
       loader: "src/loader/index.ts",
       "nav-bar": "src/nav-bar/index.ts",

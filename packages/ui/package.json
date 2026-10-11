@@ -176,6 +176,10 @@
       "types": "./dist/mascots.d.ts",
       "import": "./dist/mascots.js"
     },
+    "./mascot-state": {
+      "types": "./dist/mascot-state.d.ts",
+      "import": "./dist/mascot-state.js"
+    },
     "./iso": {
       "types": "./dist/iso.d.ts",
       "import": "./dist/iso.js"
@@ -690,6 +694,16 @@
       "path": "dist/mascots.js",
       "limit": "4.5 kB",
       "gzip": true
+    },
+    {
+      "name": "./mascot-state",
+      "path": "dist/mascot-state.js",
+      "limit": "6 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
     },
     {
       "name": "./tabs",
