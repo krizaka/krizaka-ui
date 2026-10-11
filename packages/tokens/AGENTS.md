@@ -33,7 +33,7 @@
 - `pnpm turbo run check --filter=@krizaka/tokens`: lint and type-check (`checkJs` on the scripts), tests (snapshot,
   parity, contrast), build, size, publint + attw (`esm-only`, `./tokens.css` excluded).
 - **Size budgets** (gzip): `tokens.css` ≤ 3.1 kB, a brand's CSS ≤ 0.75 kB, `brands/scoped.css` ≤ 1 kB, `.` ≤ 3 kB,
-  `./native` ≤ 1.5 kB. (2.3.0: +0.6 kB / +1 kB for the type scale — 14 steps × size, line height, weight, tracking.)
+  `./native` ≤ 1.5 kB. (2.4.0: +0.6 kB / +1 kB for the type scale — 14 steps × size, line height, weight, tracking.)
 - Published surface: exports `.`, `./tokens.css`, `./brands/{krizaka,orazaka,orochia,scoped}.css`, `./native`,
   `./package.json`; files `dist`, `README.md`, `BRAND.md`, `LICENSE`.
   Renaming or removing a token, or changing the surface, is a breaking change.
