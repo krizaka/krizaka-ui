@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/charts",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Krizaka's data visualisation: typed, declarative React charts (line, area, bar, pie, radar, heatmap, calendar, sankey, funnel, gauge, sparkline, candlestick, treemap, scatter, geo map, 3D globe) on the --kz-* tokens and the brand palettes — an accessible data table, a written summary and keyboard navigation in every chart, SSR without layout shift, and React Native for the simple types.",
   "keywords": [
     "krizaka",
