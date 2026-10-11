@@ -8,7 +8,7 @@
 - The **primitives** (level 1 of the root contract): `cn`, `slot`, `button`, `badge`, `avatar`, `field`, `theme`,
   `skeleton`, `empty-state`, `spinner`, `countdown`, `card`, `dialog`, `toast`, `popover`, `dropdown-menu`, `tooltip`,
   `stat`, `page-header`, `alert`, `separator`, `kbd`, `tabs`, `chip`, `switch`, `slider`, `checkbox`, `radio-group`,
-  `command`, `confirm-button`, `progress`, `section-backdrop`, `loader`, `meter`, `stepper`, `number-ticker`,
+  `command`, `confirm-button`, `progress`, `section-backdrop`, `loader`, `meter`, `stepper`, `number-ticker`, `terminal-replay`,
   `nav-bar`, `chip-link`, `glow-card`, `marquee`, `iso`, `mascots`, and the data and media primitives `pagination`,
   `data-table`, `filter-bar`, `combobox`, `tag-input`, `date-picker`, `search-field`, `video-player`, `file-upload`,
   `media-capture`, `video-trimmer`, `audio-player`, `image-cropper`, and the **page blocks** (category `blocks`) `page`,
@@ -65,7 +65,7 @@
   `./slot` ≤ 2 kB, `./field` ≤ 1.5 kB, `./card` ≤ 3 kB, `./separator` ≤ 2 kB (Radix's `Primitive` and `Slot`),
   `./confirm-button` ≤ 4 kB, `./progress` ≤ 1.8 kB, `./section-backdrop` ≤ 1 kB, `./mascots` ≤ 4.5 kB (five birds' geometry), `./iso` ≤ 4.5 kB (a hero with no
   client JavaScript), `./loader`, `./meter`, `./stepper`, `./glow-card`, `./chip-link` ≤ 2 kB, `./motion`, `./number-ticker`,
-  `./marquee` ≤ 1.5 kB, the other atoms ≤ 1 kB. The controls carry Radix's roving focus
+  `./marquee` ≤ 1.5 kB, `./terminal-replay` ≤ 2.5 kB (its timer, observer and controls), the other atoms ≤ 1 kB. The controls carry Radix's roving focus
   or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6 kB, `./chip` ≤ 10 kB, `./tabs` ≤ 10 kB, `./radio-group`
   ≤ 11 kB, `./slider` ≤ 12 kB. What opens over the page carries Radix's machinery (dismissable layer, focus scope, scroll lock,
   and Floating UI for what is placed next to a trigger) — shared between these entries in an app, but counted in
@@ -87,7 +87,7 @@
   `./field`, `./theme`, `./skeleton`, `./empty-state`, `./spinner`, `./countdown`, `./card`, `./dialog`, `./toast`,
   `./popover`, `./dropdown-menu`, `./tooltip`, `./stat`, `./page-header`, `./alert`, `./separator`, `./kbd`, `./tabs`,
   `./chip`, `./chip-link`, `./switch`, `./slider`, `./checkbox`, `./radio-group`, `./command`, `./confirm-button`, `./progress`,
-  `./section-backdrop`, `./iso`, `./motion`, `./loader`, `./nav-bar`, `./number-ticker`, `./glow-card`, `./marquee`, `./stepper`,
+  `./section-backdrop`, `./iso`, `./motion`, `./loader`, `./nav-bar`, `./number-ticker`, `./terminal-replay`, `./glow-card`, `./marquee`, `./stepper`,
   `./meter`, `./mascots`, `./pagination`, `./data-table`, `./filter-bar`, `./combobox`, `./tag-input`, `./date-picker`,
   `./search-field`, `./video-player`, `./file-upload`, `./media-capture`, `./video-trimmer`, `./audio-player`,
   `./image-cropper`, `./page`, `./page-hero`, `./card-grid`, `./pointer-light`, `./link-card`, `./argument-card`,
