@@ -22,6 +22,8 @@ export default {
     // The registry's native examples import the package as an app does: resolved to the sources.
     "^@krizaka/ui/native$": "<rootDir>/src/native/index.ts",
     "^@krizaka/ui/native/([a-z-]+)$": "<rootDir>/src/native/$1.tsx",
+    // @krizaka/query (the native list's server state): the workspace build (ESM, transformed by Babel like the tokens).
+    "^@krizaka/query$": "<rootDir>/node_modules/@krizaka/query/dist/index.js",
     // The Expo modules of the entries that need one (optional peers): their native side does not exist under Jest.
     "^expo-video$": "<rootDir>/src/native/mocks/expo-video.tsx",
     "^expo-camera$": "<rootDir>/src/native/mocks/expo-camera.tsx",
@@ -32,5 +34,7 @@ export default {
   },
   // pnpm keeps packages under node_modules/.pnpm/<name>@<version>/node_modules/<name>: React Native ships Flow and
   // untranspiled ESM, so it and its satellites go through Babel; the rest is plain CommonJS.
-  transformIgnorePatterns: ["node_modules/(?!(\\.pnpm|(jest-)?react-native|@react-native(-community)?|react-native-svg)/)"],
+  transformIgnorePatterns: ["node_modules/(?!(\\.pnpm|(jest-)?react-native|@react-native(-community)?|react-native-svg|@shopify/flash-list)/)"],
+  // FlashList v2 measures its views through the native layout: its own setup gives them a size under Jest.
+  setupFiles: [...(preset.setupFiles ?? []), "@shopify/flash-list/jestSetup"],
 };

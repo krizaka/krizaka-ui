@@ -45,6 +45,28 @@ export const CONCEPTS = [
     signature: /from\s+["']cmdk["']/,
   },
   {
+    // PS2: a table with its own engine (sorting, selection, filters written by hand, or TanStack Table imported by the
+    // app) is a duplicate of @krizaka/ui/data-table v2. A plain <table> of text (a schema's text version) is not.
+    id: "table",
+    label: "Table de données",
+    target: "@krizaka/ui/data-table",
+    names: ["DataTable", "DataGrid", "Table", "SortableTable"],
+    suffix: /(DataTable|DataGrid|SortableTable)$/,
+    primitive: /@krizaka\/ui\/data-table\b/,
+    signature: /from\s+["']@tanstack\/(react-)?table(-core)?["']/,
+  },
+  {
+    // PS2: a virtualised list or an infinite feed written by hand (or on TanStack Virtual / FlashList imported by the
+    // app) is a duplicate of @krizaka/ui/virtual (web) and @krizaka/ui/native/list (React Native).
+    id: "list",
+    label: "Liste longue / virtualisée",
+    target: "@krizaka/ui/virtual · native/list",
+    names: ["VirtualList", "VirtualGrid", "InfiniteList", "VirtualizedList"],
+    suffix: /(VirtualList|VirtualGrid|InfiniteList|VirtualizedList)$/,
+    primitive: /@krizaka\/ui\/(virtual|native\/list)\b/,
+    signature: /from\s+["'](@tanstack\/(react-)?virtual(-core)?|@shopify\/flash-list|react-window|react-virtualized)["']/,
+  },
+  {
     id: "theme",
     label: "Thème (provider, bascule)",
     target: "@krizaka/ui/theme",

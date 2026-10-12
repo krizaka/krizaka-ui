@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { axeViolations } from "../test/axe";
@@ -78,21 +78,50 @@ describe("Combobox", () => {
   });
 
   it("searches a server once typing pauses, aborting the stale request", async () => {
-    const user = userEvent.setup();
-    const signals: AbortSignal[] = [];
-    const onSearch = vi.fn(async (query: string, signal: AbortSignal) => {
-      signals.push(signal);
-      return FRUITS.filter((f) => f.label.toLowerCase().startsWith(query.toLowerCase()));
-    });
-    render(<Combobox label="Fruit" onSearch={onSearch} debounce={40} />);
-    await user.type(screen.getByRole("combobox"), "ap");
-    expect(onSearch).not.toHaveBeenCalled();
-    await waitFor(() => expect(onSearch).toHaveBeenCalledTimes(1));
-    expect(onSearch).toHaveBeenLastCalledWith("ap", expect.any(AbortSignal));
-    expect(await screen.findAllByRole("option")).toHaveLength(2);
-    await user.type(screen.getByRole("combobox"), "r");
-    await waitFor(() => expect(onSearch).toHaveBeenCalledTimes(2));
-    expect(signals[0]?.aborted).toBe(true);
+    // The clock is the test's (krizaka-ui#115): with real timers, a keystroke gap longer than the debounce — a loaded CI
+    // runner — searched "a" before "ap". The text now changes at known instants, and the pause is advanced on purpose.
+    vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
+    try {
+      const signals: AbortSignal[] = [];
+      const onSearch = vi.fn(async (query: string, signal: AbortSignal) => {
+        signals.push(signal);
+        return FRUITS.filter((f) => f.label.toLowerCase().startsWith(query.toLowerCase()));
+      });
+      render(<Combobox label="Fruit" onSearch={onSearch} debounce={40} />);
+      const input = screen.getByRole("combobox");
+      fireEvent.change(input, { target: { value: "a" } });
+      fireEvent.change(input, { target: { value: "ap" } });
+      await act(async () => vi.advanceTimersByTime(39));
+      expect(onSearch).not.toHaveBeenCalled();
+      await act(async () => vi.advanceTimersByTime(1));
+      expect(onSearch).toHaveBeenCalledTimes(1);
+      expect(onSearch).toHaveBeenLastCalledWith("ap", expect.any(AbortSignal));
+      expect(screen.getAllByRole("option")).toHaveLength(2);
+      fireEvent.change(input, { target: { value: "apr" } });
+      await act(async () => vi.advanceTimersByTime(40));
+      expect(onSearch).toHaveBeenCalledTimes(2);
+      expect(signals[0]?.aborted).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("searches what was typed so far when typing pauses longer than the debounce", async () => {
+    // What made #115 flaky is the debounce working as designed: a pause longer than `debounce` between two keys
+    // searches the text typed so far.
+    vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
+    try {
+      const onSearch = vi.fn(async (_query: string) => FRUITS);
+      render(<Combobox label="Fruit" onSearch={onSearch} debounce={40} />);
+      const input = screen.getByRole("combobox");
+      fireEvent.change(input, { target: { value: "a" } });
+      await act(async () => vi.advanceTimersByTime(60));
+      fireEvent.change(input, { target: { value: "ap" } });
+      await act(async () => vi.advanceTimersByTime(40));
+      expect(onSearch.mock.calls.map(([query]) => query)).toEqual(["a", "ap"]);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it("wires the hint and the error to the input", () => {

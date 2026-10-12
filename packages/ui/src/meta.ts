@@ -63,6 +63,7 @@ export type ComponentName =
   | "landscape"
   | "legal-page"
   | "link-card"
+  | "list"
   | "loader"
   | "longform-page"
   | "marketing-layout"
@@ -111,7 +112,8 @@ export type ComponentName =
   | "tooltip"
   | "txt"
   | "video-player"
-  | "video-trimmer";
+  | "video-trimmer"
+  | "virtual";
 
 /** Where a component exists: `@krizaka/ui/<name>` (web), `@krizaka/ui/native` (React Native), or both. */
 export type Platform = "web" | "native" | "both";

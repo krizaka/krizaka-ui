@@ -38,6 +38,25 @@ describe("definitions and concepts", () => {
   });
 });
 
+describe("tables and long lists (PS2)", () => {
+  it("a table with its own engine, or TanStack imported by the app, is a duplicate of data-table v2", () => {
+    assert.equal(conceptOf("JobsDataTable").concept.id, "table");
+    assert.equal(classify("export function DataTable() { return <table />; }")[0].status, "doublon");
+    assert.equal(classify('import { DataTable } from "@krizaka/ui/data-table";\nexport function JobsDataTable() {}')[0].status, "composite");
+    const sig = classify('import { useReactTable } from "@tanstack/react-table";\nexport function Jobs() {}');
+    assert.deepEqual(sig.map((x) => [x.concept, x.status]), [["table", "signature"]]);
+    assert.deepEqual(classify("export function Legend() { return <table><caption>Layers</caption></table>; }"), []);
+  });
+
+  it("a virtualised list or an infinite feed by hand, or on FlashList / TanStack Virtual directly, is a duplicate", () => {
+    assert.equal(classify("export function MessagesVirtualList() {}")[0].status, "doublon");
+    assert.equal(classify('import { VirtualList } from "@krizaka/ui/virtual";\nexport function MessagesVirtualList() {}')[0].status, "composite");
+    assert.equal(classify('import { List } from "@krizaka/ui/native/list";\nexport function FeedInfiniteList() {}')[0].status, "composite");
+    assert.deepEqual(classify('import { FlashList } from "@shopify/flash-list";\nexport function Feed() {}').map((x) => x.concept), ["list"]);
+    assert.deepEqual(classify('import { useVirtualizer } from "@tanstack/react-virtual";\nexport function Gallery() {}').map((x) => x.concept), ["list"]);
+  });
+});
+
 describe("classify", () => {
   it("a catalogue name over the primitive is an adapter", () => {
     const f = classify('import { Button as Base } from "@krizaka/ui/button";\nexport function Button() {}');

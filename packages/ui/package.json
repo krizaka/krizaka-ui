@@ -25,7 +25,12 @@
     "page-layout",
     "layouts",
     "templates",
-    "app-shell"
+    "app-shell",
+    "data-table",
+    "virtual-list",
+    "flashlist",
+    "tanstack",
+    "tanstack-intent"
   ],
   "homepage": "https://github.com/krizaka/krizaka-ui#readme",
   "bugs": "https://github.com/krizaka/krizaka-ui/issues",
@@ -232,6 +237,10 @@
     "./data-table": {
       "types": "./dist/data-table.d.ts",
       "import": "./dist/data-table.js"
+    },
+    "./virtual": {
+      "types": "./dist/virtual.d.ts",
+      "import": "./dist/virtual.js"
     },
     "./filter-bar": {
       "types": "./dist/filter-bar.d.ts",
@@ -469,6 +478,10 @@
       "types": "./dist/native/media-capture.d.ts",
       "import": "./dist/native/media-capture.js"
     },
+    "./native/list": {
+      "types": "./dist/native/list.d.ts",
+      "import": "./dist/native/list.js"
+    },
     "./registry/examples/*": {
       "types": "./registry/examples/*.d.ts",
       "import": "./registry/examples/*.js"
@@ -483,6 +496,7 @@
     "registry/examples/**/*.js",
     "registry/examples/**/*.d.ts",
     "registry/examples/**/*.png",
+    "skills",
     "tailwind.css",
     "README.md",
     "LICENSE"
@@ -500,7 +514,9 @@
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
+    "@krizaka/query": ">=0.1.0",
     "@krizaka/tailwind": ">=2.10.0",
+    "@shopify/flash-list": ">=2",
     "expo-camera": ">=16",
     "expo-video": ">=2",
     "hls.js": ">=1.5",
@@ -515,9 +531,11 @@
     "@babel/core": "^7.29.7",
     "@jest/globals": "30.4.1",
     "@krizaka/config": "workspace:*",
+    "@krizaka/query": "workspace:*",
     "@krizaka/tokens": "workspace:*",
     "@react-native/babel-preset": "0.86.3",
     "@react-native/jest-preset": "0.86.3",
+    "@shopify/flash-list": "2.3.3",
     "@size-limit/preset-small-lib": "^14.2.0",
     "@storybook/react-vite": "10.6.1",
     "@testing-library/dom": "^10.4.0",
@@ -559,7 +577,13 @@
     "access": "public"
   },
   "peerDependenciesMeta": {
+    "@krizaka/query": {
+      "optional": true
+    },
     "@krizaka/tailwind": {
+      "optional": true
+    },
+    "@shopify/flash-list": {
       "optional": true
     },
     "expo-camera": {
@@ -1050,9 +1074,31 @@
       ]
     },
     {
-      "name": "./data-table",
+      "name": "./data-table: DataTable (TanStack Table v9, the windowing of TanStack Virtual, Radix Checkbox, the pagination)",
       "path": "dist/data-table.js",
-      "limit": "9.5 kB",
+      "import": "{ DataTable }",
+      "limit": "44 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./data-table: the toolbar (FilterBar on Radix DropdownMenu, SearchField, the columns menu, the export)",
+      "path": "dist/data-table.js",
+      "import": "{ DataTableFilters, DataTableColumnsMenu, DataTableExport }",
+      "limit": "40 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./virtual (TanStack Virtual v3)",
+      "path": "dist/virtual.js",
+      "limit": "12 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1189,6 +1235,18 @@
         "expo-video",
         "expo-camera",
         "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./native/list (FlashList and @krizaka/query are the app's)",
+      "path": "dist/native/list.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "@shopify/flash-list",
+        "@krizaka/query",
+        "@krizaka/ui",
+        "react-native"
       ]
     },
     {
@@ -1649,6 +1707,8 @@
   ],
   "dependencies": {
     "@krizaka/intl": "^0.1.0",
+    "@tanstack/react-table": "9.2.8",
+    "@tanstack/react-virtual": "3.14.15",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "radix-ui": "^1.7.0",
