@@ -1,5 +1,38 @@
 # @krizaka/ui
 
+## 2.9.0
+
+### Minor Changes
+
+- [#94](https://github.com/krizaka/krizaka-ui/pull/94) [`815e47e`](https://github.com/krizaka/krizaka-ui/commit/815e47e3f0e58232016c5449dfd8c5cce6893291) Thanks [@oussamaABID](https://github.com/oussamaABID)! - **Layouts and templates** (W4 of [#49](https://github.com/krizaka/krizaka-ui/issues/49)): the shells of the products' screens, in a new `layouts` category of
+  krizaka.com/docs/ui — `app-shell` (`AppShell`: a sidebar that collapses to its icons, a sticky header, a drawer on a
+  phone), `dashboard-layout` (`DashboardLayout`, `Widget`), `settings-layout` (`SettingsLayout`, `SettingsSection`),
+  `auth-layout` (`AuthLayout`), `detail-layout` (`DetailLayout`), `split-view` (`SplitView`), `marketing-layout`
+  (`MarketingLayout`) and `docs-layout` (`DocsLayout`). Eleven **templates** — examples flagged `template: true`, whole
+  screens with real words and a phone story: Orochia's creator studio, an administration console, Orazaka's console for
+  Eric, sign-in, onboarding, account settings, a video's page, messages, a product page, pricing and credits, a
+  documentation hub.
+
+- [#95](https://github.com/krizaka/krizaka-ui/pull/95) [`3336895`](https://github.com/krizaka/krizaka-ui/commit/33368951b781d41323e086e24d8548c8c2801a11) Thanks [@oussamaABID](https://github.com/oussamaABID)! - A finer Yazakia mark: **two voices** — two solid speech bubbles, mirrored, that overlap, the left a shade deeper;
+  where they overlap, a lens lit from above is the bright core that breathes. A filled glyph of Orochia's weight that
+  reads at 16–24 px in a navigation chip (the first mark read as a thin "Y") and stays rich at 128 px. Same API
+  (`YazakiaLogo`, `YazakiaMark`, `ProductLogo`/`ProductMark id="yazakia"`: `size`, `animated`, `title`), same gradient
+  (`marks.yazakia` of @krizaka/tokens), same motion (the orbit and the pair turn, the core breathes; still under
+  reduced motion), web and native drawn from one geometry without masks.
+
+- [#106](https://github.com/krizaka/krizaka-ui/pull/106) [`32bf2c4`](https://github.com/krizaka/krizaka-ui/commit/32bf2c45beb6960b23bdacf318cb71c4b55ee819) Thanks [@oussamaABID](https://github.com/oussamaABID)! - The storytelling kit, generalised from krizaka.com/story: `ScrollStage` + `Scene` (chapters played once as they scroll
+  in, one loop each while on screen), `ChoiceGrid` (choices as tiles, a radio group with roving focus when selectable),
+  `ProfileCard` + `StatGauge` (web and native), `StageBanner`, `PromiseCard`, `GoalGauge` (a goal in steps; web and native), `ContinuePrompt`,
+  `Achievement` + `AchievementList` + `Emblem`, and `Landscape` (the Krizaka valley at dusk, own or brand tone). Sober
+  and professional by default; `variant="arcade"` (on a component or once on its stage) is the opt-in cabinet flavour.
+  Styles in `@krizaka/ui/story.css`, imported once by the app. Reduced motion: everything still and visible. The flock
+  gains `Phoenix` (web and native), the comeback.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@2.9.0
+
 ## 2.8.0
 
 ### Minor Changes
