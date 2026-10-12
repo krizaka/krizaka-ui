@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/realtime",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Realtime for Node apps behind one interface: a bus (publish / subscribe by channel) and presence (who is connected, by heartbeat and TTL), with memory, PostgreSQL LISTEN/NOTIFY and Redis / Valkey adapters, plus Server-Sent Events framing.",
   "keywords": [
     "krizaka",
