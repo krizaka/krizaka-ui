@@ -16,50 +16,26 @@ import { marks } from "@krizaka/tokens/native";
 /** The bright end of the gradient (turquoise): the halo and the core's glow. */
 const turquoise = marks.yazakia[marks.yazakia.length - 1]![1];
 
-/** A bubble's radius, the centres' height and half the distance between the two centres; the gap around the lens. */
-const R = 80;
-const CY = 184;
-const DX = 36;
-const GAP = 7;
-
-const round = (n: number) => Math.round(n * 10) / 10;
-/** Where two circles of radius R and r, centred DX on either side of x = 200, cross: (x, half the chord). */
-const cross = (r: number) => {
-  const x = 200 - DX + (R * R - r * r + 4 * DX * DX) / (4 * DX);
-  return [round(x), round(Math.sqrt(R * R - (x - (200 - DX)) ** 2))] as const;
-};
-const [, lensHalf] = cross(R);
-const [cutX, cutHalf] = cross(R + GAP);
-const top = round(CY - cutHalf);
-const bottom = round(CY + cutHalf);
-
-/**
- * A voice — its circle with the lens (and the gap) cut out, and its tail, down and out. `side` −1 is the left voice,
- * +1 its mirror (x ↦ 400 − x, arcs turning the other way).
+/*
+ * How the paths are drawn (literal, so the native bundle carries no geometry code): each bubble is a circle of radius 80
+ * centred at y 184, 36 on either side of x = 200 (164 and 236); they overlap in the lens (x = 200, y 112.6 → 255.4).
+ * Each bubble is cut by the other's circle grown by the gap (r 87): the cut runs from (191.9, 109) to (191.9, 259) on
+ * the left, mirrored on the right. Each tail is a curved point from the bubble's lower outer side, down and out to
+ * (88, 294) — mirrored (312, 294).
  */
-const voice = (side: -1 | 1) => {
-  const x = (v: number) => round(side < 0 ? v : 400 - v);
-  const [outer, inner] = side < 0 ? [0, 1] : [1, 0];
-  return {
-    body: `M${x(cutX)} ${top} A${R} ${R} 0 1 ${outer} ${x(cutX)} ${bottom} A${R + GAP} ${R + GAP} 0 0 ${inner} ${x(cutX)} ${top} Z`,
-    tail: `M${x(98)} 230 Q${x(104)} 268 ${x(88)} 294 Q${x(122)} 288 ${x(144)} 262 L${x(130)} 200 Z`,
-  };
-};
-
 export const YAZAKIA = {
   viewBox: "0 0 400 400",
   croppedViewBox: "80 80 240 240",
   center: 200,
   /** The two voices, left then right: each a bubble (cut around the lens) and its tail. */
-  voices: [voice(-1), voice(1)] as const,
+  voices: [
+    { body: "M191.9 109 A80 80 0 1 0 191.9 259 A87 87 0 0 1 191.9 109 Z", tail: "M98 230 Q104 268 88 294 Q122 288 144 262 L130 200 Z" },
+    { body: "M208.1 109 A80 80 0 1 1 208.1 259 A87 87 0 0 0 208.1 109 Z", tail: "M302 230 Q296 268 312 294 Q278 288 256 262 L270 200 Z" },
+  ] as const,
   /** The left voice, a shade deeper: the depth between the two. */
   shade: { color: "#000", opacity: 0.22 },
   /** Where the bubbles overlap: the core, lit from above. */
-  lens: {
-    d: `M200 ${round(CY - lensHalf)} A${R} ${R} 0 0 1 200 ${round(CY + lensHalf)} A${R} ${R} 0 0 1 200 ${round(CY - lensHalf)} Z`,
-    y1: round(CY - lensHalf),
-    y2: round(CY + lensHalf),
-  },
+  lens: { d: "M200 112.6 A80 80 0 0 1 200 255.4 A80 80 0 0 1 200 112.6 Z", y1: 112.6, y2: 255.4 },
   gradient: { x1: 110, y1: 300, x2: 290, y2: 100, stops: marks.yazakia },
   /** The light on the lens: bright at the top, fading down. */
   highlight: { color: "#f0fdfa", from: 0.75, to: 0.2 },
