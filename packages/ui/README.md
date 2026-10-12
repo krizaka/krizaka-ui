@@ -393,7 +393,7 @@ import { KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, YazakiaLogo } from 
 <OrochiaLogo size={36} />                       // decorative (aria-hidden)
 <KrizakaLogo size={48} title="Krizaka" />       // an image with an accessible name
 <ProductLogo id="orazaka" animated={false} />   // by id, still
-<YazakiaLogo size={32} />                       // Yazakia: emerald → turquoise, two who meet
+<YazakiaLogo size={32} />                       // Yazakia: emerald → turquoise, two voices that meet
 ```
 
 Neutral strokes follow the host's `--kz-*` tokens when they exist (`--kz-border-strong`, `--kz-text-muted`…) and the

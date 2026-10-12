@@ -13,13 +13,14 @@ const CSS = `
 `;
 
 /**
- * The Yazakia mark: a "Y" drawn as two people who lean in and meet — two arms ending in round heads, joined at a
- * core that breathes, one stem below — in the Yazakia gradient (emerald → turquoise, the brand's mark gradient of
- * @krizaka/tokens, the same in dark and light). The pair, two nodes on the dashed orbit, turns slowly around it — the
- * family's grammar (orbit, ring, bold emblem, bright core). Below 48 px it crops to the emblem.
+ * The Yazakia mark: two voices — two solid speech bubbles that overlap, the left a shade deeper — in the Yazakia
+ * gradient (emerald → turquoise, the brand's mark gradient of @krizaka/tokens, the same in dark and light). Where they
+ * overlap, what the two share, is the bright core: a lens lit from above that breathes. The pair, two nodes on the
+ * dashed orbit, turns slowly around it — the family's grammar (orbit, ring, bold emblem, bright core). Below 48 px it
+ * crops to the emblem.
  */
 export function YazakiaLogo({ size = 32, animated = true, title, className }: MarkProps) {
-  const id = useIds("yzm", ["gradient", "glow"] as const);
+  const id = useIds("yzm", ["gradient", "light", "glow"] as const);
   const fill = `url(#${id.gradient})`;
   return (
     <svg width={size} height={size} viewBox={size < 48 ? G.croppedViewBox : G.viewBox} fill="none" xmlns="http://www.w3.org/2000/svg" className={className} {...a11y(title)}>
@@ -29,6 +30,10 @@ export function YazakiaLogo({ size = 32, animated = true, title, className }: Ma
           {G.gradient.stops.map(([offset, color]) => (
             <stop key={offset} offset={offset} stopColor={color} />
           ))}
+        </linearGradient>
+        <linearGradient id={id.light} gradientUnits="userSpaceOnUse" x1="0" y1={G.lens.y1} x2="0" y2={G.lens.y2}>
+          <stop offset="0%" stopColor={G.highlight.color} stopOpacity={G.highlight.from} />
+          <stop offset="100%" stopColor={G.highlight.color} stopOpacity={G.highlight.to} />
         </linearGradient>
         <radialGradient id={id.glow} cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor={G.glow.color} stopOpacity={G.glow.opacity} />
@@ -43,16 +48,16 @@ export function YazakiaLogo({ size = 32, animated = true, title, className }: Ma
           <circle key={cx} cx={cx} cy={cy} r={G.pair.r} fill={fill} />
         ))}
       </g>
-      {G.arms.map((d) => (
-        <path key={d} d={d} stroke={fill} strokeWidth={G.stroke} strokeLinecap="round" />
-      ))}
-      <path d={G.stem} stroke={fill} strokeWidth={G.stroke} strokeLinecap="round" />
-      {G.heads.map((h) => (
-        <circle key={h.cx} cx={h.cx} cy={h.cy} r={h.r} fill={fill} />
+      {G.voices.map((v, i) => (
+        <g key={v.body}>
+          <path d={v.body} fill={fill} />
+          <path d={v.tail} fill={fill} />
+          {i === 0 ? <path d={`${v.body} ${v.tail}`} fill={G.shade.color} opacity={G.shade.opacity} /> : null}
+        </g>
       ))}
       <g className={animated ? "yzm-core" : undefined}>
-        <circle cx={G.core.cx} cy={G.core.cy} r={G.core.r} fill={fill} />
-        <circle cx={G.core.cx} cy={G.core.cy} r={G.core.inner} fill={G.highlight} />
+        <path d={G.lens.d} fill={fill} />
+        <path d={G.lens.d} fill={`url(#${id.light})`} />
       </g>
     </svg>
   );

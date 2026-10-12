@@ -68,11 +68,17 @@ describe("marks", () => {
     expect(YAZAKIA.glow.color).toBe(YAZAKIA.gradient.stops.at(-1)![1]);
   });
 
-  it("draws the Yazakia emblem: two heads, two arms and a stem in the brand gradient, the pair on the orbit (snapshot)", async () => {
+  it("draws the Yazakia emblem: two voices, the left a shade deeper, a lit lens where they overlap, the pair on the orbit (snapshot)", async () => {
     const { container } = render(<YazakiaLogo size={96} animated={false} />);
     const svg = container.querySelector("svg")!;
-    expect(svg.querySelectorAll("path")).toHaveLength(YAZAKIA.arms.length + 1);
-    expect(svg.querySelectorAll("circle")).toHaveLength(1 + 2 + YAZAKIA.pair.at.length + YAZAKIA.heads.length + 2);
+    // Each voice: its bubble and its tail; the left one's shade; the lens and its light.
+    expect(svg.querySelectorAll("path")).toHaveLength(YAZAKIA.voices.length * 2 + 1 + 2);
+    // Halo, ring, orbit and the pair.
+    expect(svg.querySelectorAll("circle")).toHaveLength(3 + YAZAKIA.pair.at.length);
+    // The voices are mirrors of each other, and the lens sits on the axis.
+    const [left, right] = YAZAKIA.voices;
+    expect(right.body.replace(/[\d.]+/g, "n")).toBe(left.body.replace(/[\d.]+/g, "n"));
+    expect(YAZAKIA.lens.d.startsWith("M200 ")).toBe(true);
     // The SVG, ids normalised (they are unique per instance).
     await expect(svg.outerHTML.replace(/yzm-(\w+)-[\w-]+?(?=[")])/g, "yzm-$1")).toMatchFileSnapshot("./marks/__snapshots__/YazakiaLogo.svg");
   });
