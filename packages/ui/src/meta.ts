@@ -21,6 +21,8 @@ export type ComponentName =
   | "button"
   | "card"
   | "card-grid"
+  | "catalogue-page"
+  | "changelog-page"
   | "checkbox"
   | "chip"
   | "chip-link"
@@ -29,7 +31,9 @@ export type ComponentName =
   | "code-block"
   | "combobox"
   | "command"
+  | "component-page"
   | "confirm-button"
+  | "contact-page"
   | "continue-prompt"
   | "countdown"
   | "cta-panel"
@@ -39,20 +43,28 @@ export type ComponentName =
   | "decision-list"
   | "detail-layout"
   | "dialog"
+  | "docs-article-page"
+  | "docs-hub-page"
   | "docs-layout"
   | "dropdown-menu"
   | "empty-state"
+  | "error-page"
   | "field"
   | "file-upload"
   | "filter-bar"
+  | "gallery-page"
   | "glow-card"
   | "goal-gauge"
+  | "how-it-works-page"
   | "image-cropper"
   | "iso"
   | "kbd"
+  | "landing-page"
   | "landscape"
+  | "legal-page"
   | "link-card"
   | "loader"
+  | "longform-page"
   | "marketing-layout"
   | "marquee"
   | "mascot-quote"
@@ -68,6 +80,8 @@ export type ComponentName =
   | "pagination"
   | "pointer-light"
   | "popover"
+  | "pricing-page"
+  | "product-page"
   | "profile-card"
   | "progress"
   | "promise-card"
@@ -85,6 +99,7 @@ export type ComponentName =
   | "split-view"
   | "stage-banner"
   | "stat"
+  | "status-page"
   | "stepper"
   | "switch"
   | "tabs"
@@ -108,9 +123,11 @@ export type Status = "stable" | "beta";
  * The group of the catalogue. `media`: video, sound, camera, files, cropping. `blocks`: the page blocks — the frame,
  * the hero, sections, cards that lead or argue, decisions, code, calls to act — that every page of a site is made of.
  * `layouts`: the shells of whole screens — an application, a dashboard, settings, sign-in, an object, a list and its
- * item, a site's page, a documentation page — each with its templates.
+ * item, a site's page, a documentation page — each with its screens. `templates`: the page templates — whole pages of a
+ * site (a landing, a product, a docs hub, a long read, a changelog, pricing, status, an error…), each a distinct
+ * composition of the blocks, words and content as props.
  */
-export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "media" | "blocks" | "layouts" | "layout" | "foundations";
+export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "media" | "blocks" | "layouts" | "templates" | "layout" | "foundations";
 
 /**
  * A named example: the file `registry/examples/<component>/<name>.tsx` (web) or

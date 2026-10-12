@@ -1,0 +1,26 @@
+import type { ComponentMeta } from "../meta";
+
+export const meta = {
+  title: "Changelog page",
+  summary: "What changed and why: each entry with its date and version sticking beside it, its changes by kind in words and colour, its reasons under it.",
+  status: "beta",
+  category: "templates",
+  platforms: "web",
+  whenToUse: ["Release notes, a product's changelog, a decisions log.", "Any history read newest first."],
+  whenNotToUse: [
+    { when: "For the decisions of one product, compared.", use: "decision-list" },
+    { when: "For where things stand now.", use: "status-page" },
+  ],
+  bestPractices: ["Newest first; one entry per release.", "Say the kind of each change (added, changed, fixed, removed) — the colour only repeats it.", "Words and content arrive as props; the motion is the platform's (`[data-reveal]`, still under reduced motion)."],
+  accessibility: {
+    keyboard: [],
+    notes: ["The log is a named ordered list; each date a `time` with its ISO value.", "Kinds are words, not only colours."],
+  },
+  related: ["decision-list", "status-page", "docs-article-page"],
+  web: {
+    imports: ["ChangelogPage"],
+    examples: [
+      { name: "releases", title: "Krizaka UI releases", description: "Two releases with their changes by kind.", template: true },
+    ],
+  },
+} satisfies ComponentMeta;

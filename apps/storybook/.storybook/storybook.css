@@ -26,3 +26,6 @@ body {
   color: var(--kz-text-primary);
   font-family: var(--kz-font-sans);
 }
+
+/* The catalogue has no MotionObserver: what a page reveals on scroll ([data-reveal]) is shown at once, as it ends up. */
+[data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; }

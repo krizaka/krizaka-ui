@@ -72,6 +72,29 @@ export default defineConfig([
     },
   },
   {
+    // Server — the page templates: whole pages composed of the blocks and layouts, which they import through the
+    // package's own entries (external), so a block's client boundary ("use client") stays where it is.
+    ...shared,
+    entry: {
+      "landing-page": "src/landing-page/index.ts",
+      "product-page": "src/product-page/index.ts",
+      "how-it-works-page": "src/how-it-works-page/index.ts",
+      "gallery-page": "src/gallery-page/index.ts",
+      "docs-hub-page": "src/docs-hub-page/index.ts",
+      "docs-article-page": "src/docs-article-page/index.ts",
+      "component-page": "src/component-page/index.ts",
+      "catalogue-page": "src/catalogue-page/index.ts",
+      "longform-page": "src/longform-page/index.ts",
+      "changelog-page": "src/changelog-page/index.ts",
+      "contact-page": "src/contact-page/index.ts",
+      "legal-page": "src/legal-page/index.ts",
+      "status-page": "src/status-page/index.ts",
+      "error-page": "src/error-page/index.ts",
+      "pricing-page": "src/pricing-page/index.ts",
+    },
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/],
+  },
+  {
     // Client — the page blocks with a hook (the pointer's light, the bird's id, the copy button, the reading position).
     ...shared,
     entry: {

@@ -392,6 +392,66 @@
       "types": "./dist/landscape.d.ts",
       "import": "./dist/landscape.js"
     },
+    "./landing-page": {
+      "types": "./dist/landing-page.d.ts",
+      "import": "./dist/landing-page.js"
+    },
+    "./product-page": {
+      "types": "./dist/product-page.d.ts",
+      "import": "./dist/product-page.js"
+    },
+    "./how-it-works-page": {
+      "types": "./dist/how-it-works-page.d.ts",
+      "import": "./dist/how-it-works-page.js"
+    },
+    "./gallery-page": {
+      "types": "./dist/gallery-page.d.ts",
+      "import": "./dist/gallery-page.js"
+    },
+    "./docs-hub-page": {
+      "types": "./dist/docs-hub-page.d.ts",
+      "import": "./dist/docs-hub-page.js"
+    },
+    "./docs-article-page": {
+      "types": "./dist/docs-article-page.d.ts",
+      "import": "./dist/docs-article-page.js"
+    },
+    "./component-page": {
+      "types": "./dist/component-page.d.ts",
+      "import": "./dist/component-page.js"
+    },
+    "./catalogue-page": {
+      "types": "./dist/catalogue-page.d.ts",
+      "import": "./dist/catalogue-page.js"
+    },
+    "./longform-page": {
+      "types": "./dist/longform-page.d.ts",
+      "import": "./dist/longform-page.js"
+    },
+    "./changelog-page": {
+      "types": "./dist/changelog-page.d.ts",
+      "import": "./dist/changelog-page.js"
+    },
+    "./contact-page": {
+      "types": "./dist/contact-page.d.ts",
+      "import": "./dist/contact-page.js"
+    },
+    "./legal-page": {
+      "types": "./dist/legal-page.d.ts",
+      "import": "./dist/legal-page.js"
+    },
+    "./status-page": {
+      "types": "./dist/status-page.d.ts",
+      "import": "./dist/status-page.js"
+    },
+    "./error-page": {
+      "types": "./dist/error-page.d.ts",
+      "import": "./dist/error-page.js"
+    },
+    "./pricing-page": {
+      "types": "./dist/pricing-page.d.ts",
+      "import": "./dist/pricing-page.js"
+    },
     "./motion.css": "./dist/motion.css",
     "./blocks.css": "./dist/blocks.css",
     "./story.css": "./dist/story.css",
@@ -1418,6 +1478,171 @@
       "ignore": [
         "tailwind-variants",
         "clsx"
+      ]
+    },
+    {
+      "name": "./landing-page",
+      "path": "dist/landing-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./product-page",
+      "path": "dist/product-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./how-it-works-page",
+      "path": "dist/how-it-works-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./gallery-page",
+      "path": "dist/gallery-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./docs-hub-page",
+      "path": "dist/docs-hub-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./docs-article-page",
+      "path": "dist/docs-article-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./component-page",
+      "path": "dist/component-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./catalogue-page",
+      "path": "dist/catalogue-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./longform-page",
+      "path": "dist/longform-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./changelog-page",
+      "path": "dist/changelog-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./contact-page",
+      "path": "dist/contact-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./legal-page",
+      "path": "dist/legal-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./status-page",
+      "path": "dist/status-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./error-page",
+      "path": "dist/error-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./pricing-page",
+      "path": "dist/pricing-page.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
       ]
     }
   ],
