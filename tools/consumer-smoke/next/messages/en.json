@@ -1,0 +1,7 @@
+{
+  "home": {
+    "title": "Krizaka, from npm",
+    "lead": "Every <b>published</b> package, in a fresh Next.js app.",
+    "count": { "one": "{count} example", "other": "{count} examples" }
+  }
+}

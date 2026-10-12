@@ -1,0 +1,7 @@
+{
+  "home": {
+    "title": "Krizaka, depuis npm",
+    "lead": "Chaque paquet <b>publié</b>, dans une app Next.js neuve.",
+    "count": { "one": "{count} exemple", "other": "{count} exemples" }
+  }
+}

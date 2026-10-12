@@ -19,7 +19,8 @@
     "check": "turbo run check",
     "changeset": "changeset",
     "inventory": "node tools/inventory.mjs",
-    "test:tools": "node --test 'tools/*.test.mjs'",
+    "test:tools": "node --test 'tools/**/*.test.mjs'",
+    "smoke:consumers": "node tools/consumer-smoke/run.mjs",
     "release": "turbo run check && changeset publish"
   },
   "devDependencies": {

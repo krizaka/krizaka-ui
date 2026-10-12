@@ -1,0 +1,17 @@
+/* The documented setup (@krizaka/ui README): Tailwind v4, the Krizaka preset, the classes of the primitives. */
+@import "tailwindcss";
+@import "@krizaka/tailwind";
+@import "@krizaka/ui/tailwind.css";
+@import "@krizaka/ui/motion.css";
+@import "@krizaka/ui/blocks.css";
+@import "@krizaka/tokens/brands/scoped.css";
+@import "@krizaka/fonts/css";
+
+@source "../node_modules/@krizaka/ui/dist";
+@source "../node_modules/@krizaka/ui/registry/examples";
+@source "../node_modules/@krizaka/charts/registry/examples";
+
+body {
+  background: var(--kz-surface-0);
+  color: var(--kz-text-primary);
+}
