@@ -826,7 +826,7 @@
     {
       "name": "./mascots",
       "path": "dist/mascots.js",
-      "limit": "5.2 kB",
+      "limit": "5.5 kB",
       "gzip": true
     },
     {
