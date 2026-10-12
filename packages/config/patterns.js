@@ -61,7 +61,7 @@ export function importSource(specifiers) {
   if (specifiers.length === 0) return "(?!)"; // nothing listed: matches nothing
   const escape = (/** @type {string} */ s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const names = specifiers.map((s) => (s.endsWith("/") ? `${escape(s)}[^"']+` : `${escape(s)}(?:/[^"']*)?`));
-  return String.raw`(?:\bfrom|\bimport|\brequire)\s*\(?\s*["'](?:${names.join("|")})["']`;
+  return String.raw`(?:\bfrom|\bimport|\brequire)\s*(?:\(\s*)?["'](?:${names.join("|")})["']`;
 }
 
 /** A `<table` or `<form` element written in an app (JSX or HTML). */
@@ -75,7 +75,7 @@ export const FORM_FIELD_TAGS = Object.freeze([
 ]);
 
 /** `<input type="hidden|submit|button|reset|image">` holds no value the user types. */
-const NOT_A_FIELD = /\btype\s*=\s*\{?\s*["'](hidden|submit|button|reset|image)["']/;
+const NOT_A_FIELD = /\btype=(?:\{\s?)?["'](?:hidden|submit|button|reset|image)["']/;
 
 /**
  * The value-holding fields inside a form's source text.
