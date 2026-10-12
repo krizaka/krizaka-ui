@@ -58,9 +58,16 @@ export function configureKrizakaFetch(next: KrizakaFetchConfig): () => void {
   };
 }
 
+/** The base URL without its trailing slashes (a loop: no regular expression on configured input). */
+function trimSlashes(value: string): string {
+  let end = value.length;
+  while (end > 0 && value[end - 1] === "/") end--;
+  return value.slice(0, end);
+}
+
 function buildUrl(input: string | URL, query: QueryParams | undefined): string {
   let url = typeof input === "string" ? input : input.toString();
-  if (config.baseUrl && !/^[a-z][a-z0-9+.-]*:/i.test(url)) url = config.baseUrl.replace(/\/+$/, "") + (url.startsWith("/") ? url : `/${url}`);
+  if (config.baseUrl && !/^[a-z][a-z0-9+.-]*:/i.test(url)) url = trimSlashes(config.baseUrl) + (url.startsWith("/") ? url : `/${url}`);
   if (!query) return url;
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(query)) {
