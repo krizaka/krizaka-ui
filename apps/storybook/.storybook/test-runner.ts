@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { platform } from "node:os";
 import { join } from "node:path";
 
@@ -15,6 +16,17 @@ import { toMatchImageSnapshot } from "jest-image-snapshot";
  * the whole page.
  */
 const SCREENSHOTS = join(process.cwd(), "__screenshots__", platform());
+/**
+ * The stories never touch the network (krizaka-ui#115 follow-up: a poster from www.krizaka.com that did not arrive in
+ * time made a native story 88 % different on CI). A request to another host is answered from `fixtures/<host>/<path>`
+ * when the file exists (the tour's posters and clips, copied from krizaka.com), and refused otherwise — the example
+ * hosts (`example.com`, `api.example.com`…) are unreachable on purpose. A refused krizaka.com asset fails the story:
+ * add its fixture.
+ */
+const FIXTURES = join(process.cwd(), "fixtures");
+const FIRST_PARTY = /(^|\.)krizaka\.com$/;
+const routed = new WeakSet<object>();
+const missing: string[] = [];
 const THEMES = ["dark", "light"] as const;
 
 const config: TestRunnerConfig = {
@@ -25,10 +37,23 @@ const config: TestRunnerConfig = {
     // Every story starts in dark: the previous story's light pass must not leak into the next one (the page is reused,
     // and the native frame reads `html.light` when it mounts).
     await page.evaluate(() => document.documentElement.classList.remove("light"));
+    if (!routed.has(page)) {
+      routed.add(page);
+      await page.route(/^https?:\/\/(?!127\.0\.0\.1|localhost)/, (route) => {
+        const url = new URL(route.request().url());
+        const file = join(FIXTURES, url.host, decodeURIComponent(url.pathname));
+        if (existsSync(file)) return route.fulfill({ path: file });
+        if (FIRST_PARTY.test(url.host)) missing.push(url.href);
+        return route.abort("blockedbyclient");
+      });
+    }
+    missing.length = 0;
     await injectAxe(page);
   },
   async postVisit(page, context) {
     const story = await getStoryContext(page, context);
+    // A first-party asset without its fixture in apps/storybook/fixtures.
+    expect({ missingFixtures: missing }).toEqual({ missingFixtures: [] });
     const viewport = story.parameters?.capture === "viewport";
     // A template's phone story (`parameters.phone`): the page is laid out and captured at a phone's width, then the
     // viewport is put back for the next story.

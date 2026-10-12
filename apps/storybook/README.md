@@ -85,6 +85,10 @@ The **Accessibility** panel shows the axe result live; `a11y.test` is `"error"`,
    with `__screenshots__/<platform>/<story-id>--<theme>.png` — more than **0.1 %** of different pixels fails, and the
    diff is written to `__screenshots__/__diff__/` (uploaded as an artifact by CI).
 
+**Offline.** The runner answers every request to another host from `fixtures/<host>/<path>` (the tour's posters and
+clips of www.krizaka.com, copied as served) and refuses the rest (`example.com` and friends are unreachable on purpose):
+a screenshot never waits on the network. A story that asks a krizaka.com asset with no fixture fails — add the file.
+
 `turbo run check` runs these tests (the `test` task of this app depends on `storybook:build`), so CI compares the
 **Linux** screenshots. Fonts and anti-aliasing differ between systems, hence one folder per platform.
 
