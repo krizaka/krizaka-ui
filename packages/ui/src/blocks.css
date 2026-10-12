@@ -773,3 +773,4 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-tpl-caption { padding: 12px 14px 4px; text-align: left; caption-side: top; }
 .kz-tpl-plan .kz-tpl-collection-head { justify-content: space-between; }
 .kz-tpl-scroll:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; }
+.kz-tpl-prose > p, .kz-tpl-prose > ul, .kz-tpl-prose > ol { margin: 0 0 1em; }

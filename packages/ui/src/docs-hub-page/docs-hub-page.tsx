@@ -64,8 +64,8 @@ function List({ items, linkAs: Link = "a" }: { items: readonly DocsHubLink[]; li
   const L = Link as React.ElementType;
   return (
     <ul className="kz-tpl-links">
-      {items.map((item) => (
-        <li key={item.href}>
+      {items.map((item, i) => (
+        <li key={`${i}:${item.href}`}>
           <L href={item.href}>
             <strong>{item.title}</strong>
             {item.meta && <small>{item.meta}</small>}
