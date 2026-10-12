@@ -160,6 +160,15 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/stepper` | `Stepper` (`steps`: `title`, `description`, `status`, `value`, `content`; `current`, `labels` of the states, `orientation`) | server |
 | `@krizaka/ui/number-ticker` | `NumberTicker` (`value`, `locale`, `format`, `trigger` view·change, `duration`, `announce`, `align`) | client |
 | `@krizaka/ui/terminal-replay` | `TerminalReplay` (`steps` command + output lines with a tone, `label`, `title`, `prompt`, `playLabel`/`pauseLabel`/`replayLabel`, `copyLabel`/`copiedLabel`, `typingSpeed`, `lineDelay`, `stepDelay`, `rows`, `autoPlay`) | client |
+| `@krizaka/ui/scroll-stage` | `ScrollStage` (`variant`, `threshold`, `as`) and `Scene` (`brand`, `as`): chapters played once as they scroll in, one loop each while on screen — the storytelling kit, styles in `@krizaka/ui/story.css` | client |
+| `@krizaka/ui/choice-grid` | `ChoiceGrid` (`items` with `badge`/`eyebrow`/`extra`/`meta`/`href`, `label`, `tag`, `caption`, `prompt`, `value`/`defaultValue`/`onValueChange`, `linkAs`, `columns`, `variant`, `brand`): choices as tiles — a radio group when selectable, links with `href` | client |
+| `@krizaka/ui/profile-card` | `ProfileCard` (`visual`, `name`, `statLabel`/`value`/`figure`, `stats`, `caption`, `variant`, `brand`): a profile at a glance; `StatGauge` (`label`, `value`, `max`, `valueText`, `figure`): one measured strength; native too | server |
+| `@krizaka/ui/stage-banner` | `StageBanner` (`stage`, `name`, `size="lg"` with `title`/`subtitle`, `variant`) | server |
+| `@krizaka/ui/goal-gauge` | `GoalGauge` (`label`, `segments`, `value`, `mode` fill · drain, `variant`): a goal in steps, a meter; native too | server |
+| `@krizaka/ui/promise-card` | `PromiseCard` (`label`, `promise`, `keys`, `bearer`, `bearerLabel`, `bearerName`, `variant`): a promise, the keys that call it, who carries it | server |
+| `@krizaka/ui/continue-prompt` | `ContinuePrompt` (`title`, `count`/`countdown`, children, `actionLabel`, `onAction`/`href`, `actionKey`, `highlight`, `hint`, `status`, `variant`) | server |
+| `@krizaka/ui/achievement` | `Achievement` (`title`, `eyebrow`, `badge`, `replaced`, `locked`), `AchievementList`, `Emblem` (`sword` · `mirror` · `jewel`) | server |
+| `@krizaka/ui/landscape` | `Landscape` (`tone` own · brand, `flock`, `phoenix`, `animated`, `position`, `fade`): the Krizaka valley at dusk, decorative | client |
 | `@krizaka/ui/glow-card` | `GlowCard` (`glow` border·spotlight·both, `alive`, `asChild`) | client |
 | `@krizaka/ui/marquee` | `Marquee` (`label`, `pauseLabel`, `playLabel`, `speed` px/s, `direction`, `fade`, `defaultPaused`) | client |
 | `@krizaka/ui/section-backdrop` | `SectionBackdrop` (`as`, `direction` down·up, `dome`, `grid`, `media` blurred for depth of field, `animated`): a page section on the brand's section gradient — see `@krizaka/tokens` BRAND.md, "Visual language" | server |

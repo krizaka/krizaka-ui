@@ -138,6 +138,28 @@ export default defineConfig([
     banner: { js: '"use client";' },
   },
   {
+    // The storytelling kit (story.css) without a hook: usable in a Server Component as it is.
+    ...shared,
+    entry: {
+      "profile-card": "src/profile-card/index.ts",
+      "stage-banner": "src/stage-banner/index.ts",
+      "goal-gauge": "src/goal-gauge/index.ts",
+      "continue-prompt": "src/continue-prompt/index.ts",
+      achievement: "src/achievement/index.ts",
+      "promise-card": "src/promise-card/index.ts",
+    },
+  },
+  {
+    // Client — the storytelling kit's conductor, the selectable grid and the landscape (an id per instance).
+    ...shared,
+    entry: {
+      "scroll-stage": "src/scroll-stage/index.ts",
+      "choice-grid": "src/choice-grid/index.ts",
+      landscape: "src/landscape/index.ts",
+    },
+    banner: { js: '"use client";' },
+  },
+  {
     ...shared,
     entry: { native: "src/native/index.ts" },
     external: [...shared.external, "react-native", "react-native-svg"],

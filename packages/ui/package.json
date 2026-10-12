@@ -356,8 +356,45 @@
       "types": "./dist/docs-layout.d.ts",
       "import": "./dist/docs-layout.js"
     },
+    "./scroll-stage": {
+      "types": "./dist/scroll-stage.d.ts",
+      "import": "./dist/scroll-stage.js"
+    },
+    "./choice-grid": {
+      "types": "./dist/choice-grid.d.ts",
+      "import": "./dist/choice-grid.js"
+    },
+    "./profile-card": {
+      "types": "./dist/profile-card.d.ts",
+      "import": "./dist/profile-card.js"
+    },
+    "./stage-banner": {
+      "types": "./dist/stage-banner.d.ts",
+      "import": "./dist/stage-banner.js"
+    },
+    "./goal-gauge": {
+      "types": "./dist/goal-gauge.d.ts",
+      "import": "./dist/goal-gauge.js"
+    },
+    "./continue-prompt": {
+      "types": "./dist/continue-prompt.d.ts",
+      "import": "./dist/continue-prompt.js"
+    },
+    "./achievement": {
+      "types": "./dist/achievement.d.ts",
+      "import": "./dist/achievement.js"
+    },
+    "./promise-card": {
+      "types": "./dist/promise-card.d.ts",
+      "import": "./dist/promise-card.js"
+    },
+    "./landscape": {
+      "types": "./dist/landscape.d.ts",
+      "import": "./dist/landscape.js"
+    },
     "./motion.css": "./dist/motion.css",
     "./blocks.css": "./dist/blocks.css",
+    "./story.css": "./dist/story.css",
     "./tailwind.css": "./tailwind.css",
     "./native": {
       "types": "./dist/native.d.ts",
@@ -393,12 +430,12 @@
     "*.css"
   ],
   "scripts": {
-    "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/examples',{recursive:true}))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/examples/'+f)\" && tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css');require('node:fs').copyFileSync('src/blocks.css','dist/blocks.css')\" && node scripts/build-registry.mjs",
+    "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/examples',{recursive:true}))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/examples/'+f)\" && tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css');require('node:fs').copyFileSync('src/blocks.css','dist/blocks.css');require('node:fs').copyFileSync('src/story.css','dist/story.css')\" && node scripts/build-registry.mjs",
     "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
     "typecheck": "tsc --noEmit",
     "test": "vitest run && jest",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./blocks.css ./tailwind.css && node scripts/consumer.mjs && node scripts/native-dist.mjs",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./blocks.css ./story.css ./tailwind.css && node scripts/consumer.mjs && node scripts/native-dist.mjs",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
@@ -496,7 +533,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "16.75 kB",
+      "limit": "18.5 kB",
       "gzip": true
     },
     {
@@ -728,7 +765,7 @@
     {
       "name": "./mascots",
       "path": "dist/mascots.js",
-      "limit": "4.5 kB",
+      "limit": "5.2 kB",
       "gzip": true
     },
     {
@@ -1287,6 +1324,96 @@
       "name": "./docs-layout",
       "path": "dist/docs-layout.js",
       "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./scroll-stage",
+      "path": "dist/scroll-stage.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./choice-grid",
+      "path": "dist/choice-grid.js",
+      "limit": "1.6 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./profile-card",
+      "path": "dist/profile-card.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./stage-banner",
+      "path": "dist/stage-banner.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./goal-gauge",
+      "path": "dist/goal-gauge.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./continue-prompt",
+      "path": "dist/continue-prompt.js",
+      "limit": "4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./achievement",
+      "path": "dist/achievement.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./promise-card",
+      "path": "dist/promise-card.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./landscape",
+      "path": "dist/landscape.js",
+      "limit": "8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
