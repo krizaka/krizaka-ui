@@ -4,6 +4,8 @@
 @import "@krizaka/ui/tailwind.css";
 /* The page blocks' stylesheet (plain CSS, imported once by the app, like a product does). */
 @import "@krizaka/ui/blocks.css";
+/* The storytelling kit's stylesheet (ScrollStage, ChoiceGrid, ProfileCard, StageBanner, GoalGauge…), the same way. */
+@import "@krizaka/ui/story.css";
 
 /* The stories' own layout classes (they are not in @krizaka/ui's dist). */
 @source "../../../packages/ui/src/**/*.stories.tsx";

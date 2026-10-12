@@ -14,7 +14,9 @@
   `media-capture`, `video-trimmer`, `audio-player`, `image-cropper`, and the **page blocks** (category `blocks`) `page`,
   `page-hero`, `card-grid`, `pointer-light`, `link-card`, `argument-card`, `mascot-quote`, `decision-list`, `code-block`,
   `action-bar`, `cta-panel`, `toc`, and the **layouts** (category `layouts`, with their templates) `app-shell`,
-  `dashboard-layout`, `settings-layout`, `auth-layout`, `detail-layout`, `split-view`, `marketing-layout`, `docs-layout` —
+  `dashboard-layout`, `settings-layout`, `auth-layout`, `detail-layout`, `split-view`, `marketing-layout`, `docs-layout`, and the **storytelling kit** (`story.css`, sober by default, `variant="arcade"` opt-in)
+  `scroll-stage`, `choice-grid`, `profile-card`, `stage-banner`, `goal-gauge`, `continue-prompt`, `achievement`,
+  `promise-card`, `landscape` —
   one entry each, built with `tailwind-variants` on the preset's
   roles, Radix UI for non-trivial interactions. They follow the 12-point component contract (README, "Primitives").
 - The **native platform** (`./native`, `src/native`): the theme (`ThemeProvider`/`useTheme` on the
@@ -60,12 +62,12 @@
 
 - `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest + happy-dom for the web; Jest with React
   Native's preset and Testing Library for `src/native`), build (tsup), size, publint.
-- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 16.75 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the Yazakia mark and the lovebird; 2.9: the finer Yazakia mark — two voices and a lit lens, +0.15 kB) (Metro
+- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 18.5 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the Yazakia mark and the lovebird; 2.9: the finer Yazakia mark — two voices and a lit lens, +0.15 kB; the storytelling kit's ProfileCard, GoalGauge and the phoenix) (Metro
   bundles it into the app, nothing is downloaded: a regression guard, not a budget); the shared runtime
   (`./cn`: clsx + tailwind-variants and its merge engine, paid once per app) ≤ 14 kB; each primitive is measured
   without that runtime (Radix included): `./button` ≤ 3.5 kB (it draws the loader glyph), `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
   `./slot` ≤ 2 kB, `./field` ≤ 1.5 kB, `./card` ≤ 3 kB, `./separator` ≤ 2 kB (Radix's `Primitive` and `Slot`),
-  `./confirm-button` ≤ 4 kB, `./progress` ≤ 1.8 kB, `./section-backdrop` ≤ 1 kB, `./mascots` ≤ 4.5 kB (six birds' geometry), `./iso` ≤ 4.5 kB (a hero with no
+  `./confirm-button` ≤ 4 kB, `./progress` ≤ 1.8 kB, `./section-backdrop` ≤ 1 kB, `./mascots` ≤ 5.2 kB (six birds' geometry and the phoenix), `./iso` ≤ 4.5 kB (a hero with no
   client JavaScript), `./loader`, `./meter`, `./stepper`, `./glow-card`, `./chip-link` ≤ 2 kB, `./motion`, `./number-ticker`,
   `./marquee` ≤ 1.5 kB, `./terminal-replay` ≤ 2.5 kB (its timer, observer and controls), the other atoms ≤ 1 kB. The controls carry Radix's roving focus
   or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6 kB, `./chip` ≤ 10 kB, `./tabs` ≤ 10 kB, `./radio-group`
@@ -84,7 +86,9 @@
   `./page`, `./page-hero` ≤ 1.2 kB, `./argument-card`, `./action-bar` ≤ 1.4 kB, `./mascot-quote` ≤ 4.8 kB (the bird's
   geometry), `./code-block` ≤ 12 kB (Radix Tabs for `CodeTabs`). The layouts: `./dashboard-layout`, `./settings-layout`,
   `./detail-layout`, `./split-view`, `./marketing-layout`, `./docs-layout` ≤ 1 kB, `./auth-layout`, `./settings-layout` ≤ 1.2 kB,
-  `./app-shell` ≤ 16 kB (Radix Dialog for the drawer, as `./dialog`).
+  `./app-shell` ≤ 16 kB (Radix Dialog for the drawer, as `./dialog`). The storytelling kit (its styles are `story.css`, not counted):
+  `./profile-card`, `./stage-banner`, `./goal-gauge`, `./promise-card` ≤ 1 kB, `./scroll-stage`, `./achievement` ≤ 1.2 kB,
+  `./continue-prompt` ≤ 4 kB (it draws `Button`), `./choice-grid` ≤ 1.6 kB (its roving focus), `./landscape` ≤ 8 kB (the valley's geometry).
 - **publint + attw** with the `esm-only` profile: the package is ESM only by design; `./motion.css`, `./blocks.css` and
   `./tailwind.css` are CSS exports and are not resolved as modules.
 - The published surface: exports `.`, one entry per primitive (`./cn`, `./slot`, `./button`, `./badge`, `./avatar`,
@@ -97,8 +101,9 @@
   `./image-cropper`, `./page`, `./page-hero`, `./card-grid`, `./pointer-light`, `./link-card`, `./argument-card`,
   `./mascot-quote`, `./decision-list`, `./code-block`, `./action-bar`, `./cta-panel`, `./toc`, `./app-shell`,
   `./dashboard-layout`, `./settings-layout`, `./auth-layout`, `./detail-layout`, `./split-view`, `./marketing-layout`,
-  `./docs-layout`), `./native`, `./native/video-player`, `./native/media-capture`, `./motion.css`,
-  `./blocks.css` (the page blocks' styles, imported once by the app), `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/examples/*` (the compiled examples), `./package.json`;
+  `./docs-layout`, `./scroll-stage`, `./choice-grid`, `./profile-card`, `./stage-banner`, `./goal-gauge`, `./continue-prompt`,
+  `./achievement`, `./promise-card`, `./landscape`), `./native`, `./native/video-player`, `./native/media-capture`, `./motion.css`,
+  `./blocks.css` (the page blocks' styles, imported once by the app), `./story.css` (the storytelling kit's, the same way), `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/examples/*` (the compiled examples), `./package.json`;
   files `dist`, `registry` (JSON, examples as `.tsx`, `.js`, `.d.ts`), `tailwind.css`, `README.md`, `LICENSE`. Adding an
   entry is a minor; removing or renaming one is a breaking change.
 - **The registry — the code drives the documentation** (`scripts/build-registry.mjs`, run by `build`): one

@@ -6,6 +6,7 @@ import LongTaskExample from "../../registry/examples/mascots/long-task";
 import LovebirdExample from "../../registry/examples/mascots/lovebird";
 import MoodsExample from "../../registry/examples/mascots/moods";
 import OwnToneExample from "../../registry/examples/mascots/own-tone";
+import PhoenixExample from "../../registry/examples/mascots/phoenix";
 import { Mascot } from "./mascot";
 
 /**
@@ -28,3 +29,4 @@ export const InAnEmptyState: Story = { render: () => <EmptyStateExample /> };
 export const DuringALongTask: Story = { render: () => <LongTaskExample /> };
 /** The lovebird — "l'inséparable présente": the bird of introductions (Yazakia). */
 export const Lovebird: Story = { render: () => <LovebirdExample /> };
+export const PhoenixStory: Story = { name: "Phoenix", render: () => <PhoenixExample /> };

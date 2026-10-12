@@ -27,6 +27,7 @@ export {
 export { Chip, type ChipGroupProps, type ChipProps, type ChipSize } from "./chip";
 export { Countdown, type CountdownProps, type CountdownUnits } from "./countdown";
 export { EmptyState, type EmptyStateProps } from "./empty-state";
+export { GoalGauge, type GoalGaugeProps } from "./goal-gauge";
 export { KrizakaMark } from "./KrizakaMark";
 export { type NativeMarkProps } from "./mark-motion";
 export { ErrorState, LoadingState, MascotState, type MascotStateProps, SuccessState, WelcomeState } from "./mascot-state";
@@ -34,7 +35,9 @@ export { Mascot, type MascotProps } from "./mascots";
 export { OrazakaMark } from "./OrazakaMark";
 export { OrochiaMark } from "./OrochiaMark";
 export { Pagination, type PaginationLabels, type PaginationProps } from "./pagination";
+export { Phoenix, type PhoenixProps } from "./phoenix";
 export { ProductMark } from "./ProductMark";
+export { ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
 export { Progress, type ProgressProps } from "./progress";
 export { SearchField, type SearchFieldProps } from "./search-field";
 export { Segmented, type SegmentedOption, type SegmentedProps } from "./segmented";
