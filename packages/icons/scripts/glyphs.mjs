@@ -75,7 +75,7 @@ export const GLYPHS = {
   intro: { group: "product", keywords: "intro introduction meet mutual match conversation two people", p: ["M2.5 4.5 4 3h8.5L14 4.5v5L12.5 11H8l-3 2.5V11h-1L2.5 9.5z", "M21.5 12.5 20 11h-8.5L10 12.5v5l1.5 1.5H16l3 2.5V19h1l1.5-1.5z"], n: [[12, 11]] },
 
   // ── Product: listening — a moment that stops, the thread that carries on, what you keep ──
-  moment: { group: "product", keywords: "moment time limited duration listening presence stops", p: [arc(12, 12.5, 8.5, -60, 240), "M12 2v3.5"], n: [[12, 12.5]] },
+  moment: { group: "product", keywords: "moment time limited duration listening presence stops", c: [[12, 12.5, 8.5]], p: ["M12 4v2.5"], n: [[12, 12.5]] },
   thread: { group: "product", keywords: "thread continuity memory context carry on follow up", p: ["M2.5 16c2.5 0 3.5-7.5 6.5-7.5s3.5 9 6.5 9 3-4 5-4.5"] , n: [[20.5, 13]] },
   keep: { group: "product", keywords: "keep save hold open hand notebook summary", p: [cut(2.5, 13, 3, 8, 1), "M5.5 19.5H14l6.4-3.9a1.6 1.6 0 0 0-1.7-2.7L14.5 15", "M5.5 14.5 8 13h4.5a1.5 1.5 0 0 1 0 3H9.5"], n: [[13, 8]] },
 
