@@ -74,6 +74,12 @@ export const BatchIcon = /* @__PURE__ */ createNativeIcon("BatchIcon", g.batch);
 export const DebriefIcon = /* @__PURE__ */ createNativeIcon("DebriefIcon", g.debrief);
 /** intro introduction meet mutual match conversation two people */
 export const IntroIcon = /* @__PURE__ */ createNativeIcon("IntroIcon", g.intro);
+/** moment time limited duration listening presence stops */
+export const MomentIcon = /* @__PURE__ */ createNativeIcon("MomentIcon", g.moment);
+/** thread continuity memory context carry on follow up */
+export const ThreadIcon = /* @__PURE__ */ createNativeIcon("ThreadIcon", g.thread);
+/** keep save hold open hand notebook summary */
+export const KeepIcon = /* @__PURE__ */ createNativeIcon("KeepIcon", g.keep);
 /** theme appearance dark light contrast */
 export const ThemeIcon = /* @__PURE__ */ createNativeIcon("ThemeIcon", g.theme);
 /** light mode sun */

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import CraneExample from "../../registry/examples/mascots/crane";
 import EmptyStateExample from "../../registry/examples/mascots/empty-state";
 import FlockExample from "../../registry/examples/mascots/flock";
 import LongTaskExample from "../../registry/examples/mascots/long-task";
@@ -10,7 +11,7 @@ import PhoenixExample from "../../registry/examples/mascots/phoenix";
 import { Mascot } from "./mascot";
 
 /**
- * The Krizaka flock: six birds, five moods, in the brand colours of the toolbar's product. Each story renders a named
+ * The Krizaka flock: seven birds, five moods, in the brand colours of the toolbar's product. Each story renders a named
  * example of the registry (`registry/examples/mascots/*`). Still in the screenshots (reduced motion).
  */
 const meta = {
@@ -30,3 +31,5 @@ export const DuringALongTask: Story = { render: () => <LongTaskExample /> };
 /** The lovebird — "l'inséparable présente": the bird of introductions (Yazakia). */
 export const Lovebird: Story = { render: () => <LovebirdExample /> };
 export const PhoenixStory: Story = { name: "Phoenix", render: () => <PhoenixExample /> };
+/** The crane — "la grue écoute": posed, unhurried, one line; the bird of listening (Yororis). */
+export const Crane: Story = { render: () => <CraneExample /> };

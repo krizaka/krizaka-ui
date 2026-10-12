@@ -13,6 +13,7 @@ overrides). A product never re-invents its values: it imports its brand.
 | **Orazaka** (sovereign AI) | **Orange**, hue 26 — the accent and the mark share it. | Hue 38 (amber) is `--kz-warning`: a primary button, and since 2.1.0 the mark, must never read as a warning. The light theme's accent is the deep orange `#b45309`, also the first stop of the mark. `info` stays blue (an orange "info" would read as a warning). |
 | **Orochia** (creators) | **Velvet violet → magenta**, the serpent of its mark (unchanged). | The values of `@krizaka/orochia-design-system`, already adjusted to AA. |
 | **Yazakia** (dating, talk first) | **Emerald → turquoise.** The accent is the turquoise (hue 174); the emerald (hue 152–156) is the mark's first stop and `accent-2`. | Green is the family's free colour and takes the opposite view of the red and pink of dating apps. `--kz-success` is emerald (hue 160): a primary button must never read as a success, so the accent sits 14° away on the turquoise (a test) and the emerald stays in the mark and the gradients. Dark: light turquoise under near-black text (11:1); light: deep turquoise under white (5.9:1). `info` stays blue. |
+| **Yororis** (a listening space) | **Sand → sage.** A warm neutral that slides into a soft grey green: calm. The accent is the sage (hue 98–100); the sand (hue 34–36) is the mark's first stop, the core's light and `accent-2`. | Apart from every other brand (Yazakia's emerald and turquoise, the blue, the orange, the violet) and from every status: the sage sits ≥ 60° from `--kz-success` (160) and `--kz-warning` (38). The sand shares the warning's hue family, so it is told apart by its chroma — at most half the warning's saturation (≤ 40 % vs 92 %, a test) — and it never fills a primary button alone. Dark: light sage under near-black text (8.6:1); light: deep sage under white (6.9:1). `info` stays blue. |
 
 ### Palette (the accent family)
 
@@ -28,6 +29,18 @@ overrides). A product never re-invents its values: it imports its brand.
 | `accent-2` | = accent | = accent | #f59e0b (closes the buttons' gradient) | `hsl(32 95% 33%)` | #db2777 | #db2777 | emerald `hsl(152 70% 45%)` #22c378 | `hsl(152 76% 26%)` #107546 |
 | `ring` | = accent | = accent | = accent | = accent | #a78bfa | #7c3aed | = accent | = accent |
 | `info` | = accent | = accent | `hsl(217 92% 60%)` | `hsl(217 92% 50%)` | = accent | = accent | `hsl(217 92% 60%)` | `hsl(217 92% 50%)` |
+
+Yororis (a table of its own so the row above stays readable):
+
+| Role | Yororis dark | Yororis light |
+| :-- | :-- | :-- |
+| `accent` | `hsl(98 24% 62%)` #98b587 | `hsl(100 28% 30%)` #456237 |
+| `accent-hover` | `hsl(98 26% 70%)` (lightens) | `hsl(100 30% 25%)` |
+| `on-accent` | near-black (8.6:1) | white (6.9:1) |
+| `accent-text` | `hsl(98 28% 68%)` #a7c497 | `hsl(100 28% 28%)` #415b33 |
+| `accent-2` | sand `hsl(36 38% 62%)` #c3a579 | `hsl(34 38% 33%)` #745834 |
+| `ring` | = accent | = accent |
+| `info` | `hsl(217 92% 60%)` | `hsl(217 92% 50%)` |
 
 Every pair is a test (`test/tokens.test.ts`, "brands"): `on-accent` ≥ 4.5:1 on `accent`, `accent-hover` and
 `accent-2`; `accent-text` ≥ 4.5:1 on surfaces 0–3 and on every section-gradient stop; `ring` ≥ 3:1 on the page;
@@ -71,9 +84,10 @@ after in Storybook, *Brand/Evolution*):
 | Orazaka | Three **solid** hexagonal shards in the brand's orange gradient, orbiting a core. | Before: two grey outlines and one amber, 3.5-unit strokes — the mark read grey and thin next to Orochia. Same idea, now solid, with the family's crop. **2.1.0:** amber (`#b45309 → #f59e0b`, hues 26 → 38) becomes the brand's orange — deep orange `hsl(26 90.5% 37.1%)` #b45309 → orange `hsl(26 92% 45%)` #dc6509, one hue: the old light stop was the warning's hue and read at 2:1 on a light page; every stop now reads ≥ 3:1 on surfaces 0–2 in dark and light (a test). |
 | Orochia | The serpent coiled into an "O" around the flame. | Unchanged. |
 | Yazakia | **Two voices**: two **solid** speech bubbles, mirrored, that overlap — the left a shade deeper, each tail pointing down and out. Where they overlap, what the two share once they have talked, is the bright core: a lens lit from above that breathes, set apart by a thin gap. The pair, two nodes, rides the dashed orbit. | New (3rd product, 2026-10). Emerald `hsl(156 92% 32%)` #079d61 → turquoise `hsl(178 90% 32%)` #089b96, mid-tones chosen so that every stop reads ≥ 3:1 on surfaces 0–2 in dark and light (a test): one mark for both themes. **2.9:** the first mark (a "Y" of two thin arms ending in heads) read as a plain thin "Y" at 16–24 px, weak next to Orochia; the bubbles are a filled glyph of Orochia's weight, readable in a nav chip, and say the product — talk first, both ways — without a heart. |
+| Yororis | **The hold**: two **filled** leaves — open hands — rise from one stem into a "Y" and cup a warm core that rests *inside* them (not on the junction): held, given room, listened to. A vein of light runs along each leaf (depth, like the serpent's scales); one node, the moment, rides the dashed orbit — it comes round, then it goes. The slowest breath of the family (4.2 s). | New (4th product, 2026-10). Chosen over a standing crane and a bowing crane (captures in the pull request): the only one that stays a clear "Y" with its core at 20 px. Sand `hsl(34 46% 44%)` #a4773d → sage `hsl(104 28% 42%)` #5d894d, every stop ≥ 3:1 on surfaces 0–2 in dark and light (a test); the core rises from the sand to a light sand #e6c993. |
 
-Web: `KrizakaLogo`, `OrazakaLogo`, `OrochiaLogo`, `YazakiaLogo`, `ProductLogo id` (`@krizaka/ui`). Native: `KrizakaMark`,
-`OrazakaMark`, `OrochiaMark`, `YazakiaMark`, `ProductMark id` (`@krizaka/ui/native`). The geometry is shared
+Web: `KrizakaLogo`, `OrazakaLogo`, `OrochiaLogo`, `YazakiaLogo`, `YororisLogo`, `ProductLogo id` (`@krizaka/ui`). Native: `KrizakaMark`,
+`OrazakaMark`, `OrochiaMark`, `YazakiaMark`, `YororisMark`, `ProductMark id` (`@krizaka/ui/native`). The geometry is shared
 (`packages/ui/src/marks/*-geometry.ts`); the emblem gradients are **brand tokens** — `$extensions["com.krizaka"].mark` of
 each `src/brands/<id>.brand.json`, exported as `marks.<id>` (`@krizaka/tokens`, `/native`) — read by the geometry, never
 copied. A mark is the same in both themes: its stops are chosen to read on dark and light pages.

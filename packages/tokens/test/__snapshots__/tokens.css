@@ -22,7 +22,7 @@
   --kz-text-secondary: hsl(240 4% 64%); /* Texte d'appui, libellés */
   --kz-text-muted: hsl(240 4% 47%); /* Métadonnées, placeholders, désactivé (≥ 3:1) */
 
-  /* Accent : l'identité de la marque (Krizaka par défaut ; Orazaka, Orochia, Yazakia dans src/brands). Surchargé par un thème de marque, jamais par un composant. */
+  /* Accent : l'identité de la marque (Krizaka par défaut ; Orazaka, Orochia, Yazakia, Yororis dans src/brands). Surchargé par un thème de marque, jamais par un composant. */
   --kz-accent: hsl(217 92% 53%); /* Action principale, lien, sélection */
   --kz-accent-hover: hsl(217 88% 45%); /* Accent au survol */
   --kz-accent-soft: hsl(217 92% 53% / 0.10); /* Fond teinté (sélection, badge) */

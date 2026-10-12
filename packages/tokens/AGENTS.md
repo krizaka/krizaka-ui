@@ -7,7 +7,7 @@
 
 - The **semantic tokens** `--kz-*` (level 0 — foundations): roles, never palette steps. A token names what a value is
   *for* (`text-secondary`, `scrim`), not what it looks like (`zinc-400`).
-- No product word in the roles. The **brand themes** (`src/brands/<id>.brand.json`: krizaka, orazaka, orochia, yazakia) set
+- No product word in the roles. The **brand themes** (`src/brands/<id>.brand.json`: krizaka, orazaka, orochia, yazakia, yororis) set
   the accent family and the section gradient (`BRAND_ROLES` in `scripts/build.mjs`, all of them, nothing else) and
   ship as `brands/<id>.css`, `brands/scoped.css`, `brands` (index, native). [`BRAND.md`](./BRAND.md) is the brand
   system: colours, marks, icons, page language. A product theme imports its brand and overrides only what is its own.
@@ -37,12 +37,12 @@
 
 - `pnpm turbo run check --filter=@krizaka/tokens`: lint and type-check (`checkJs` on the scripts), tests (snapshot,
   parity, contrast), build, size, publint + attw (`esm-only`, `./tokens.css` excluded).
-- **Size budgets** (gzip): `tokens.css` ≤ 4.3 kB, a brand's CSS ≤ 0.75 kB, `brands/scoped.css` ≤ 1 kB, `.` ≤ 3.5 kB,
-  `./native` ≤ 1.85 kB. (2.4.0: +0.6 kB / +1 kB for the type scale — 14 steps × size, line height, weight, tracking.
+- **Size budgets** (gzip): `tokens.css` ≤ 4.3 kB, a brand's CSS ≤ 0.75 kB, `brands/scoped.css` ≤ 1 kB, `.` ≤ 3.7 kB,
+  `./native` ≤ 2 kB. (2.9.0: +0.2 kB / +0.15 kB for a fifth brand, Yororis — its accent family dark and light and its mark. 2.4.0: +0.6 kB / +1 kB for the type scale — 14 steps × size, line height, weight, tracking.
   2.5.0: +1.1 kB / +0.35 kB / +0.3 kB for the material of BRAND.md §6 — sheen, edges, glass, three ink shadows in three
   blocks, focus ring, control heights and their compact density, durations and their reduced-motion block, the griffe;
   native gains the shadows as `boxShadow` strings and `cut`.)
-- Published surface: exports `.`, `./tokens.css`, `./brands/{krizaka,orazaka,orochia,yazakia,scoped}.css`, `./native`,
+- Published surface: exports `.`, `./tokens.css`, `./brands/{krizaka,orazaka,orochia,yazakia,yororis,scoped}.css`, `./native`,
   `./package.json`; files `dist`, `README.md`, `BRAND.md`, `LICENSE`.
   Renaming or removing a token, or changing the surface, is a breaking change.
 

@@ -47,7 +47,7 @@ const OUTLINE = "var(--kz-border-strong, color-mix(in srgb, currentColor 35%, tr
 const SURFACE = "var(--kz-surface-0)";
 
 export type MascotProps = Omit<React.ComponentProps<"svg">, "children"> & {
-  /** Which bird of the flock: `falcon` (watch, security), `owl` (reading, documents), `duck` (building, code), `flamingo` (answers, support), `pigeon` (delivery, notifications), `lovebird` (introductions, two people who meet). */
+  /** Which bird of the flock: `falcon` (watch, security), `owl` (reading, documents), `duck` (building, code), `flamingo` (answers, support), `pigeon` (delivery, notifications), `lovebird` (introductions, two people who meet), `crane` (listening, a calm moment). */
   bird?: MascotBird;
   /** What the moment is: `welcome` (onboarding), `thinking` (a long task running), `success` (it is done), `empty` (nothing here yet), `error` (it failed). */
   mood?: MascotMood;
@@ -62,7 +62,7 @@ export type MascotProps = Omit<React.ComponentProps<"svg">, "children"> & {
 };
 
 /**
- * One of the six Krizaka birds in one mood — for the moments a product speaks to a person: a welcome, a long wait,
+ * One of the seven Krizaka birds in one mood — for the moments a product speaks to a person: a welcome, a long wait,
  * a success, an empty list, an error. Drawn in the host's brand colours by default (`tone="own"` for the story's).
  */
 export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 96, animated = true, title, className, ...props }: MascotProps) {

@@ -69,7 +69,7 @@ platform fonts, haptics) stays covered by the Jest tests of `packages/ui/src/nat
 The toolbar has two switches:
 
 - **Theme** (`@storybook/addon-themes`): `dark` (no class) or `light` (`html.light`), the same switch as the products.
-- **Brand**: `krizaka`, `orochia`, `orazaka`, `yazakia` — wraps the story in `.brand-orochia` / `.brand-orazaka` / `.brand-yazakia`, demonstration
+- **Brand**: `krizaka`, `orochia`, `orazaka`, `yazakia`, `yororis` — wraps the story in `.brand-orochia` / `.brand-orazaka` / `.brand-yazakia` / `.brand-yororis`, demonstration
   blocks in `.storybook/storybook.css` that override the accent tokens (study §2.5). A primitive that does not follow
   the brand reads a raw colour instead of a token.
 

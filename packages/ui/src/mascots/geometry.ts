@@ -1,9 +1,9 @@
 /**
  * The Krizaka flock — the geometry of the mascots, drawn by the web `Mascot` (`./mascot.tsx`) and the native one
  * (`../native/mascots.tsx`). Five birds that have carried the Krizaka story since the first site (the sentry falcon,
- * the owl that reads, the developer duck, the flamingo that answers, the carrier pigeon) and the lovebird that
- * introduces (2026-10, with Yazakia: "l'inséparable présente"), redrawn on one 120 × 120 grid so that any bird can
- * wear any mood.
+ * the owl that reads, the developer duck, the flamingo that answers, the carrier pigeon), the lovebird that
+ * introduces (2026-10, with Yazakia: "l'inséparable présente") and the crane that listens (2026-10, with Yororis:
+ * "la grue écoute"), redrawn on one 120 × 120 grid so that any bird can wear any mood.
  *
  * Colours are roles, never fixed: `brand` (the default) paints a bird in the host's accent (`--kz-accent`,
  * `--kz-accent-2`), so the same falcon is blue on krizaka.com, orange in Orazaka and violet in Orochia; `own` gives
@@ -11,7 +11,7 @@
  * and highlights are black and white at a low opacity over the role, so they hold in both themes.
  */
 
-export const MASCOT_BIRDS = ["falcon", "owl", "duck", "flamingo", "pigeon", "lovebird"] as const;
+export const MASCOT_BIRDS = ["falcon", "owl", "duck", "flamingo", "pigeon", "lovebird", "crane"] as const;
 export type MascotBird = (typeof MASCOT_BIRDS)[number];
 
 export const MASCOT_MOODS = ["welcome", "thinking", "success", "empty", "error"] as const;
@@ -150,6 +150,26 @@ export const BIRDS: Readonly<Record<MascotBird, BirdGeometry>> = {
     beak: "M55 44 C55 40 65 40 65 44 C65 50 62 54 60 55 C58 54 55 50 55 44 Z",
     eyes: { at: [[51, 36], [69, 36]], white: 4.6, pupil: 2.4 },
   },
+  /**
+   * The crane — the one that listens: posed, unhurried, drawn in one line. A tall wader seen in profile, standing still
+   * on two straight legs, the neck a single stroke up to a small head with its crown (the detail colour) and a long,
+   * straight beak; the folded wings low on its back. The flamingo bends and answers; the crane stands and listens.
+   */
+  crane: {
+    shadow: [62, 110, 20, 3],
+    legs: ["M56 87 L55 108 M51 108 L59 108", "M67 87 L68 108 M64 108 L73 108"],
+    body: "M40 66 C38 54 84 54 86 68 C88 82 76 88 62 88 C48 88 40 80 40 66 Z",
+    belly: "M48 70 C48 62 78 62 79 70 C80 79 72 84 63 84 C54 84 48 79 48 70 Z",
+    wings: [
+      { d: "M44 62 C33 68 35 82 49 83 C45 76 45 69 44 62 Z", pivot: [44, 62] },
+      { d: "M82 62 C93 67 96 82 80 84 C83 76 83 69 82 62 Z", pivot: [82, 62] },
+    ],
+    neck: { d: "M52 62 C48 47 52 37 48 26", width: 6 },
+    head: { cx: 47, cy: 21, r: 8.5 },
+    details: ["M41 16.5 C42 11 52 11 53 16.5 C50 14.6 44 14.6 41 16.5 Z"],
+    beak: "M40.5 18.5 L19 22.5 L40.5 25.5 Z",
+    eyes: { at: [[45.5, 19.5]], white: 2.8, pupil: 1.6 },
+  },
 };
 
 /** What a mood adds around the bird: a badge, a thought, an empty tray. */
@@ -201,6 +221,8 @@ export const OWN_PALETTES: Readonly<Record<MascotBird, MascotPalette>> = {
   flamingo: { from: "#f9a8d4", to: "#db2777", wing: "#ec4899", detail: "#be185d", beak: "#fbbf24", eye: "#1f2937" },
   pigeon: { from: "#22d3ee", to: "#6366f1", wing: "#a855f7", detail: "#4338ca", beak: "#f59e0b", eye: "#1f2937" },
   lovebird: { from: "#6ee7b7", to: "#059669", wing: "#047857", detail: "#fb7185", beak: "#f97316", eye: "#1f2937" },
+  // The sandhill crane (grue du Canada): sand-grey plumage, its red crown, dark legs and beak.
+  crane: { from: "#ebe3d6", to: "#9c8f80", wing: "#7d7266", detail: "#dc2626", beak: "#44403c", eye: "#1f2937" },
 };
 
 /** Fixed light and shade, laid at a low opacity over a role (they read on both themes). */

@@ -61,3 +61,4 @@ export {
 export { toast, Toaster, type ToasterProps, type ToastItem, type ToastOptions, type ToastTone } from "./toast";
 export { textStyles, Txt, type TxtProps, type TxtTone, type TxtVariant } from "./txt";
 export { YazakiaMark } from "./YazakiaMark";
+export { YororisMark } from "./YororisMark";

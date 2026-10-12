@@ -74,6 +74,11 @@ export const GLYPHS = {
   debrief: { group: "product", keywords: "debrief feedback review answered questions check", p: ["M6 4h12l2.5 2.5v8L18 17h-6.5L7 20.5V17H6l-2.5-2.5v-8z", "M8.5 10.5l2.5 2.5 4.5-4.5"], n: [[11, 13]] },
   intro: { group: "product", keywords: "intro introduction meet mutual match conversation two people", p: ["M2.5 4.5 4 3h8.5L14 4.5v5L12.5 11H8l-3 2.5V11h-1L2.5 9.5z", "M21.5 12.5 20 11h-8.5L10 12.5v5l1.5 1.5H16l3 2.5V19h1l1.5-1.5z"], n: [[12, 11]] },
 
+  // ── Product: listening — a moment that stops, the thread that carries on, what you keep ──
+  moment: { group: "product", keywords: "moment time limited duration listening presence stops", c: [[12, 12.5, 8.5]], p: ["M12 4v2.5"], n: [[12, 12.5]] },
+  thread: { group: "product", keywords: "thread continuity memory context carry on follow up", p: ["M2.5 16c2.5 0 3.5-7.5 6.5-7.5s3.5 9 6.5 9 3-4 5-4.5"] , n: [[20.5, 13]] },
+  keep: { group: "product", keywords: "keep save hold open hand notebook summary", p: [cut(2.5, 13, 3, 8, 1), "M5.5 19.5H14l6.4-3.9a1.6 1.6 0 0 0-1.7-2.7L14.5 15", "M5.5 14.5 8 13h4.5a1.5 1.5 0 0 1 0 3H9.5"], n: [[13, 8]] },
+
   // ── System ──
   theme: { group: "system", keywords: "theme appearance dark light contrast", c: [[12, 12, 8.5]], p: ["M12 3.5v17", "M12 3.5a8.5 8.5 0 0 1 0 17z"] },
   sun: { group: "system", keywords: "light mode sun", p: [hex(12, 12, 4), "M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"], n: [[12, 12]] },
