@@ -1,5 +1,25 @@
 # @krizaka/ui
 
+## 2.10.0
+
+### Minor Changes
+
+- [#107](https://github.com/krizaka/krizaka-ui/pull/107) [`05d097f`](https://github.com/krizaka/krizaka-ui/commit/05d097f1dde51092b9f86d54abede4fe0553cd11) Thanks [@oussamaABID](https://github.com/oussamaABID)! - **Page templates** (W4 of [#49](https://github.com/krizaka/krizaka-ui/issues/49)): every page of a Krizaka site has its template — a new `templates` category of
+  krizaka.com/docs/ui with fifteen entries, each a distinct composition of the blocks (bento, split hero with the product
+  alive, timeline, staggered gallery, sticky filters, editorial chapters, changelog with a sticky date…): `landing-page`,
+  `product-page`, `how-it-works-page`, `gallery-page`, `docs-hub-page`, `docs-article-page`, `component-page`,
+  `catalogue-page`, `longform-page`, `changelog-page`, `contact-page`, `legal-page`, `status-page` (also « under
+  construction »), `error-page` and `pricing-page`. Words and content as props, the product's brand through `brand`, cut
+  calls to action, staged motion, one column on a phone (each example has a phone story). Templates are Server
+  Components: they import the blocks through the package's entries, keeping each block's client boundary.
+
+- [#105](https://github.com/krizaka/krizaka-ui/pull/105) [`dc6156f`](https://github.com/krizaka/krizaka-ui/commit/dc6156fcac67f6285b966c2a27d56af75fc8db10) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Yororis brand: mark, theme, mascot, icons. `@krizaka/tokens`: the `yororis` brand — `brands/yororis.css`, `.brand-yororis` in `brands/scoped.css`, `brands.yororis` and `marks.yororis` (web and native) — sand → sage, the accent on sage (≥ 60° from `--kz-success` and `--kz-warning`), the sand (mark, `accent-2`) told apart from the warning amber by its chroma, AA-tested in dark and light. `@krizaka/ui`: `YororisLogo` (web) and `YororisMark` (native) — "the hold": two filled leaves rising into a "Y" that cup a warm core, one node, the moment, on the orbit — `ProductLogo` / `ProductMark` accept `id="yororis"`, the "Brand family" story shows Krizaka and its four products; the flock gains the `crane` ("la grue écoute", the bird of listening). `@krizaka/icons`: `MomentIcon`, `ThreadIcon`, `KeepIcon`.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@2.10.0
+
 ## 2.9.0
 
 ### Minor Changes
