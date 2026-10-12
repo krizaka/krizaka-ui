@@ -208,6 +208,21 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/split-view` | `SplitView` (`listTitle`, `listActions`, `list`, `detailHead`, `detail`, `empty`, `showDetail`, `back`) | server |
 | `@krizaka/ui/marketing-layout` | `MarketingLayout` (`header`, `footer`, `skipLabel`) | server |
 | `@krizaka/ui/docs-layout` | `DocsLayout` (`sidebar`, `sidebarLabel`, `toc`) | server |
+| `@krizaka/ui/landing-page` | `LandingPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/product-page` | `ProductPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/how-it-works-page` | `HowItWorksPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/gallery-page` | `GalleryPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/docs-hub-page` | `DocsHubPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/docs-article-page` | `DocsArticlePage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/component-page` | `ComponentPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/catalogue-page` | `CataloguePage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/longform-page` | `LongformPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/changelog-page` | `ChangelogPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/contact-page` | `ContactPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/legal-page` | `LegalPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/status-page` | `StatusPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/error-page` | `ErrorPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/pricing-page` | `PricingPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/native/video-player` | React Native `VideoPlayer` on expo-video (optional peer) | native |
 | `@krizaka/ui/native/media-capture` | React Native `MediaCapture` on expo-camera (optional peer) | native |
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
@@ -260,7 +275,27 @@ import { LinkCard } from "@krizaka/ui/link-card";
 - **Motion.** `reveal` uses `[data-reveal]` (MotionObserver): never on the first screen. The pointer's light, the lifts
   and the hops stop under `prefers-reduced-motion`; nothing loops.
 
-## Layouts and templates
+## Page templates
+
+> Category **templates** of krizaka.com/docs/ui: every page of a Krizaka site has its template.
+
+Fifteen templates, each a **distinct composition** of the blocks — not the same card grid everywhere: `LandingPage`
+(split hero with the product alive, a band of proofs, a bento), `ProductPage` (split hero in the product's brand,
+compact argument cards, decisions, the bird's promise), `HowItWorksPage` (a numbered timeline, the visuals
+alternating), `GalleryPage` (filters, staggered columns of media), `DocsHubPage` (search first, the collections in
+their brand with quick links, quick starts, most read, what is new), `DocsArticlePage` (pages · article · contents,
+pager), `ComponentPage` (preview, install, sections, related), `CataloguePage` (sticky filters beside the results),
+`LongformPage` (chapters with outlined numbers, pull quotes in the margin), `ChangelogPage` (a sticky date beside each
+entry, changes by kind), `ContactPage` (channels beside the form, what happens next), `LegalPage` (summary, sections,
+contents), `StatusPage` (the state in words, each service — or « under construction »), `ErrorPage` (the code drawn,
+the bird, a search, the ways back) and `PricingPage` (plans, comparison, credits, questions).
+
+Words and content are props or slots; `brand` puts a page under `.brand-<id>`; calls to action use the cut button;
+what rises does so with `[data-reveal]` (still under reduced motion); every one reads in one column on a phone, and
+each example has a phone story. The templates import the blocks through the package's own entries, so a block's client
+boundary stays where it is: a template is a Server Component.
+
+## Layouts and screens
 
 > Category **layouts** of krizaka.com/docs/ui, and **templates**: whole screens composed from the platform.
 

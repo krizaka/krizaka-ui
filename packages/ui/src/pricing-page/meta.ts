@@ -1,0 +1,26 @@
+import type { ComponentMeta } from "../meta";
+
+export const meta = {
+  title: "Pricing page",
+  summary: "Plans and what they cost: the plans side by side with the featured one lifted, the comparison as a table, what a credit buys, the questions people ask.",
+  status: "beta",
+  category: "templates",
+  platforms: "web",
+  whenToUse: ["Pricing, credits, plans.", "Any choice between offers."],
+  whenNotToUse: [
+    { when: "For the credits left inside an app.", use: "meter" },
+    { when: "For a product's overview.", use: "product-page" },
+  ],
+  bestPractices: ["Three plans at most; the featured one says why (`Most chosen`).", "Say what a credit buys in units people know.", "Words and content arrive as props; the motion is the platform's (`[data-reveal]`, still under reduced motion)."],
+  accessibility: {
+    keyboard: [],
+    notes: ["The plans are a named list; the comparison a table with a caption and header cells.", "Questions are native disclosures."],
+  },
+  related: ["meter", "glow-card", "product-page"],
+  web: {
+    imports: ["PricingPage"],
+    examples: [
+      { name: "credits", title: "Orazaka plans and credits", description: "Three plans, the comparison, credits and two questions.", template: true },
+    ],
+  },
+} satisfies ComponentMeta;

@@ -16,7 +16,8 @@
   `action-bar`, `cta-panel`, `toc`, and the **layouts** (category `layouts`, with their templates) `app-shell`,
   `dashboard-layout`, `settings-layout`, `auth-layout`, `detail-layout`, `split-view`, `marketing-layout`, `docs-layout`, and the **storytelling kit** (`story.css`, sober by default, `variant="arcade"` opt-in)
   `scroll-stage`, `choice-grid`, `profile-card`, `stage-banner`, `goal-gauge`, `continue-prompt`, `achievement`,
-  `promise-card`, `landscape` —
+  `promise-card`, `landscape`,
+  and the **page templates** (category `templates`) `landing-page`, `product-page`, `how-it-works-page`, `gallery-page`, `docs-hub-page`, `docs-article-page`, `component-page`, `catalogue-page`, `longform-page`, `changelog-page`, `contact-page`, `legal-page`, `status-page`, `error-page`, `pricing-page` —
   one entry each, built with `tailwind-variants` on the preset's
   roles, Radix UI for non-trivial interactions. They follow the 12-point component contract (README, "Primitives").
 - The **native platform** (`./native`, `src/native`): the theme (`ThemeProvider`/`useTheme` on the
@@ -89,6 +90,7 @@
   `./app-shell` ≤ 16 kB (Radix Dialog for the drawer, as `./dialog`). The storytelling kit (its styles are `story.css`, not counted):
   `./profile-card`, `./stage-banner`, `./goal-gauge`, `./promise-card` ≤ 1 kB, `./scroll-stage`, `./achievement` ≤ 1.2 kB,
   `./continue-prompt` ≤ 4 kB (it draws `Button`), `./choice-grid` ≤ 1.6 kB (its roving focus), `./landscape` ≤ 8 kB (the valley's geometry).
+  The page templates ≤ 1.5 kB each (the blocks they import through the package's own entries are not counted).
 - **publint + attw** with the `esm-only` profile: the package is ESM only by design; `./motion.css`, `./blocks.css` and
   `./tailwind.css` are CSS exports and are not resolved as modules.
 - The published surface: exports `.`, one entry per primitive (`./cn`, `./slot`, `./button`, `./badge`, `./avatar`,

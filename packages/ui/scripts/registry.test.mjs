@@ -19,7 +19,7 @@ const nativeExports = new Set([...nativeIndex.matchAll(/\b([A-Za-z]\w*)\b/g)].ma
 const PLATFORMS = ["web", "native", "both"];
 const exportsOf = (file) => new Set([...readFileSync(file, "utf8").matchAll(/\bexport\s+(?:async\s+)?(?:function|const|type|class|interface)\s+([A-Za-z]\w*)/g)].map((m) => m[1]));
 const STATUSES = ["stable", "beta"];
-const CATEGORIES = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "media", "blocks", "layouts", "layout", "foundations"];
+const CATEGORIES = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "media", "blocks", "layouts", "templates", "layout", "foundations"];
 
 /** Native examples without a story (so without a screenshot): the provider wraps every story already. */
 const NO_STORY = new Set(["theme/provider"]);

@@ -92,6 +92,11 @@ function collectSources(name, versions) {
           files.add(target);
           queue.push(target);
         }
+      } else if (/^@krizaka\/ui\/[a-z-]+$/.test(specifier)) {
+        // A page template imports the blocks through the package's own entries (their client boundary stays): a
+        // registry dependency, not an npm one.
+        const entry = specifier.slice("@krizaka/ui/".length);
+        if (entry !== name && entry !== "cn") registryDependencies.add(entry);
       } else {
         const pkg = packageName(specifier);
         if (PEERS.has(pkg)) continue;
