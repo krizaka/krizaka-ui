@@ -29,6 +29,7 @@ export default function Home() {
       <ul>
         <li><a href="/ui">@krizaka/ui examples</a></li>
         <li><a href="/charts">@krizaka/charts examples</a></li>
+        <li><a href="/query">@krizaka/query (prefetch + hydration)</a></li>
       </ul>
     </main>
   );
