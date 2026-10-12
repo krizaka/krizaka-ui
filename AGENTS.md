@@ -23,7 +23,8 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ query/                # @krizaka/query — server state: TanStack Query behind the facade, typed fetch, live invalidation (no UI)
 │  ├─ push/                 # @krizaka/push — mobile push through the Expo Push Service (FCM / APNs), pure (no UI)
 │  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
-├─ tools/                   # not published — inventory.mjs (the duplicate audit of the products) and its tests
+├─ tools/                   # not published — inventory.mjs (the duplicate audit of the products), consumer-smoke/ (the published
+│                           #   packages in fresh Next.js · Expo · Node apps), and their tests
 ├─ docs/adr/                # the architecture decisions (ADR-001: TanStack under @krizaka facades)
 ├─ renovate/krizaka.json    # the Renovate preset the products extend (group krizaka, patches automerged)
 ├─ .changeset/              # one file per change that ships
@@ -80,10 +81,17 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
   when to use / not, best practices, accessibility, platforms web · native · both, status, related) and named
   examples in `packages/ui/registry/examples/<name>/` (≤ 40 lines, `native/` for React Native). The registry tests
   fail on a missing or incomplete one. Never write a component's documentation anywhere else.
-- No code without a test, no component without a story: `packages/ui/src/**/<Name>.stories.tsx`, one story per
-  example (the story renders the example), rendered by `apps/storybook` (see its README). Every story is audited by axe and screenshot-compared in
-  dark and light by `pnpm --filter storybook test`, which `check` runs; a visual change commits its new screenshots
-  (`test:update` for the current platform, `test:update:linux` for the CI baselines).
+- **No test, not done.** Every feature and every fix ships with its tests in the same pull request: a unit test for
+  logic (Vitest), a story for a component — `packages/ui/src/**/<Name>.stories.tsx`, one story per example (the story
+  renders the example), rendered by `apps/storybook` (see its README). Every story is audited by axe and
+  screenshot-compared in dark and light by `pnpm --filter storybook test`, which `check` runs; a visual change commits
+  its new screenshots (`test:update` for the current platform, `test:update:linux` for the CI baselines). **A fix
+  starts with a failing test** that reproduces the bug. CI runs them and must be green; a test is never skipped or
+  weakened to get there.
+- **The published packages are proven in a consumer.** `.github/workflows/consumer-smoke.yml` installs them from npm
+  (never the workspace) into a fresh Next.js 16 App Router app (every web example of the registries prerendered by
+  `next build`), an Expo SDK 57 app (every React Native example, `tsc` + `expo export`) and a Node script
+  (`realtime`, `push`) — every day and after each release. A red run is fixed in the package and released.
 - No raw Tailwind palette colour, no `light:` variant, no hard-coded colour: components read `var(--kz-*)`.
 - Every published package passes `publint` and `@arethetypeswrong/cli` and stays under its `size-limit` budget.
 - Conventional Commits; `main` is protected (pull request + required CI, squash merge only). Never push to `main`.
@@ -107,6 +115,7 @@ are for a coming major only; `main` is out of pre-release since 2.0.0.
 ```bash
 pnpm install --frozen-lockfile && pnpm turbo run check       # everything CI runs (lint · types · tests · build · size · publint · stories)
 pnpm test:tools                                              # the tools/ tests (node:test)
+pnpm smoke:consumers --only next,expo,node --keep            # the published packages in fresh apps (npm, ~2 min)
 pnpm inventory                                               # duplicates left in the products (clones under ~/krizaka-com); --json, --strict
 pnpm inventory --repo krizaka-com=../krizaka-com-wt          # …with one repository read from another folder
 node packages/config/bin/krizaka-ratchet.mjs --json --root <app>   # the UI debt counters of an app (lint-ratchet.json)
@@ -127,7 +136,8 @@ fallback is local, from an up-to-date `main` after the "version packages" pull r
 
 1. `pnpm install --frozen-lockfile && pnpm turbo run check` is green.
 2. A changeset accompanies every change to published content.
-3. CI is green on the pull request.
+3. CI is green on the pull request, and the change ships with its tests (§3: no test, not done).
+4. After a release, the consumer smoke is green on the published versions.
 
 <!-- BEGIN:turborepo-agent-rules -->
 
