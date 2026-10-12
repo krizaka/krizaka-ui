@@ -76,7 +76,7 @@ describe("nativeApp", () => {
     const source = nativeApp(examplesOf(registry(), "native").found);
     assert.match(source, /import Example0 from "@krizaka\/ui\/registry\/examples\/button\/native\/primary";/);
     assert.match(source, /<ThemeProvider defaultMode="dark">/);
-    for (const entry of ["@krizaka/ui/native", "@krizaka/tokens/native", "@krizaka/icons/native", "@krizaka/fonts/native", "@krizaka/fonts/native/assets"]) {
+    for (const entry of ["@krizaka/ui/native", "@krizaka/tokens/native", "@krizaka/icons/native", "@krizaka/fonts/native", "@krizaka/fonts/native/assets", "@krizaka/query", "@krizaka/query/persist"]) {
       assert.ok(source.includes(`from "${entry}"`), entry);
     }
   });

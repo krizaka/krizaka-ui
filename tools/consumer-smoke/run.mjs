@@ -3,7 +3,7 @@
 // throwaway apps outside this repository and built the way a product builds them:
 //   next  a Next.js 16 App Router app: the documented setup (tailwind preset, tokens, fonts, theme, i18n, icons), every
 //         published web example of @krizaka/ui and @krizaka/charts as a Server Component page, an SSE route on
-//         @krizaka/realtime — `next build` (type-check + prerender) must pass;
+//         @krizaka/realtime, a @krizaka/query page (prefetch + KrizakaHydration) — `next build` (type-check + prerender) must pass;
 //   expo  an Expo SDK 57 app (create-expo-app): every published React Native example inside @krizaka/ui/native's
 //         ThemeProvider, tokens/native, icons/native, fonts/native — `tsc --noEmit` and `expo export` must pass;
 //   node  a Node ESM script on @krizaka/realtime and @krizaka/push, asserting their documented contract.
