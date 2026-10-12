@@ -42,3 +42,33 @@ jobs:
           name: storybook-screenshot-diffs
           path: apps/storybook/__screenshots__/__diff__
           if-no-files-found: ignore
+
+  realtime:
+    # @krizaka/realtime against real servers: two buses per adapter standing for two app instances (PostgreSQL
+    # LISTEN/NOTIFY through pgChannel, Redis protocol on Valkey). Not a required check; it fails the run like any job.
+    name: Realtime adapters (PostgreSQL, Valkey)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: { POSTGRES_PASSWORD: rt }
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 10
+      valkey:
+        image: valkey/valkey:8-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "valkey-cli ping" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @krizaka/realtime test:integration
+        env:
+          DATABASE_URL: postgresql://postgres:rt@localhost:5432/postgres
+          REDIS_URL: redis://localhost:6379

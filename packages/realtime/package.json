@@ -1,0 +1,155 @@
+{
+  "name": "@krizaka/realtime",
+  "version": "0.0.0",
+  "description": "Realtime for Node apps behind one interface: a bus (publish / subscribe by channel) and presence (who is connected, by heartbeat and TTL), with memory, PostgreSQL LISTEN/NOTIFY and Redis / Valkey adapters, plus Server-Sent Events framing.",
+  "keywords": [
+    "krizaka",
+    "realtime",
+    "server-sent-events",
+    "sse",
+    "presence",
+    "pubsub",
+    "postgresql",
+    "listen-notify",
+    "redis",
+    "valkey"
+  ],
+  "homepage": "https://github.com/krizaka/krizaka-ui/tree/main/packages/realtime#readme",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/realtime"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./sse": {
+      "types": "./dist/sse.d.ts",
+      "import": "./dist/sse.js"
+    },
+    "./postgres": {
+      "types": "./dist/postgres.d.ts",
+      "import": "./dist/postgres.js"
+    },
+    "./pg": {
+      "types": "./dist/pg.d.ts",
+      "import": "./dist/pg.js"
+    },
+    "./redis": {
+      "types": "./dist/redis.d.ts",
+      "import": "./dist/redis.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsup",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "test:integration": "REALTIME_IT=1 vitest run test/bus.integration.test.ts",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only",
+    "prepublishOnly": "pnpm run build"
+  },
+  "peerDependencies": {
+    "ioredis": "^5.4.0",
+    "pg": "^8.11.0"
+  },
+  "peerDependenciesMeta": {
+    "ioredis": {
+      "optional": true
+    },
+    "pg": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "workspace:*",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@types/node": "^22.15.0",
+    "@types/pg": "^8.15.0",
+    "@vitest/coverage-v8": "4.1.11",
+    "eslint": "^9.39.0",
+    "ioredis": "^5.11.1",
+    "pg": "^8.16.0",
+    "publint": "^0.3.25",
+    "size-limit": "^14.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": ".",
+      "path": "dist/index.js",
+      "limit": "4 kB",
+      "gzip": true,
+      "ignore": [
+        "node:crypto",
+        "node:events",
+        "crypto",
+        "events"
+      ]
+    },
+    {
+      "name": "./sse",
+      "path": "dist/sse.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "node:crypto",
+        "node:events",
+        "crypto",
+        "events"
+      ]
+    },
+    {
+      "name": "./pg",
+      "path": "dist/pg.js",
+      "ignore": [
+        "pg",
+        "node:crypto",
+        "node:events",
+        "crypto",
+        "events"
+      ],
+      "limit": "2 kB",
+      "gzip": true
+    },
+    {
+      "name": "./redis",
+      "path": "dist/redis.js",
+      "ignore": [
+        "ioredis",
+        "node:crypto",
+        "node:events",
+        "crypto",
+        "events"
+      ],
+      "limit": "3 kB",
+      "gzip": true
+    }
+  ]
+}

@@ -11,7 +11,7 @@ security, accessibility) for **6 months after N is released**; after that, only 
 | Package | N (current) | N-1 | N-1 fixes until |
 | :-- | :-- | :-- | :-- |
 | `@krizaka/ui`, `@krizaka/tokens`, `@krizaka/tailwind` (one `fixed` group, one version) | **2.x** (2.0.0, 2026-10-10) | `@krizaka/ui` 1.x (marks and motion) | 2027-04-10 |
-| `@krizaka/icons`, `@krizaka/intl`, `@krizaka/i18n`, `@krizaka/config` | **0.x** — the latest minor | — | — |
+| `@krizaka/icons`, `@krizaka/intl`, `@krizaka/i18n`, `@krizaka/config`, `@krizaka/realtime`, `@krizaka/push` | **0.x** — the latest minor | — | — |
 
 A `0.x` package may change its API in a minor (semantic versioning for `0.x`); its changelog says how to migrate. It
 moves to 1.0.0 once the products have adopted it without a breaking change for a full minor.
