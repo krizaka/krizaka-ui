@@ -20,6 +20,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ intl/                 # @krizaka/intl — money, numbers, dates, plurals on Intl (zero dependency, no UI)
 │  ├─ i18n/                 # @krizaka/i18n — typed messages, format, <Rich>, React provider, the krizaka-i18n CLI
 │  ├─ realtime/             # @krizaka/realtime — server realtime: bus + presence (memory · PostgreSQL · Redis), SSE (no UI)
+│  ├─ query/                # @krizaka/query — server state: TanStack Query behind the facade, typed fetch, live invalidation (no UI)
 │  ├─ push/                 # @krizaka/push — mobile push through the Expo Push Service (FCM / APNs), pure (no UI)
 │  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
 ├─ tools/                   # not published — inventory.mjs (the duplicate audit of the products) and its tests
@@ -48,7 +49,7 @@ a copy between a product and this repository — the version is the contract.
 | Level | Where | Goes in | Never goes in |
 | :-- | :-- | :-- | :-- |
 | **0 — Foundations** | `@krizaka/tokens`, `@krizaka/tailwind` | Semantic tokens, preset, variants, `cn`, `Slot`, `VisuallyHidden`, theme. | Components. |
-| **0 — Platform bricks** | `@krizaka/intl`, `@krizaka/i18n`, `@krizaka/realtime`, `@krizaka/push` | Code without UI that every product needs the same way: formatting, messages, the realtime bus + presence + SSE (`realtime`), mobile push (`push`). Drivers (`pg`, `ioredis`) are optional peers; connections and URLs are injected by the app, never read from its environment. | A product word, a product's channel or key name, a table, a route. |
+| **0 — Platform bricks** | `@krizaka/intl`, `@krizaka/i18n`, `@krizaka/realtime`, `@krizaka/query`, `@krizaka/push` | Code without UI that every product needs the same way: formatting, messages, the realtime bus + presence + SSE (`realtime`), server state on the client (`query`), mobile push (`push`). Drivers (`pg`, `ioredis`) are optional peers; connections and URLs are injected by the app, never read from its environment. | A product word, a product's channel or key name, a table, a route. |
 | **1 — Primitives** | `@krizaka/ui/*` | Any component **without product vocabulary**: button, card, dialog, field, tabs, badge, avatar, toast, skeleton, countdown, command palette. Words arrive as props. | `t()`, domain types, network calls, palette colours, `light:`. |
 | **2 — Product composites** | `@krizaka/<product>-design-system` (own repositories) | The product theme (`--kz-*` overrides) and the components that carry its vocabulary. | A copied or forked primitive. |
 | **3 — App features** | the product apps | Screens, panels, editors, business forms, orchestration. | A generic component another product could reuse. |
@@ -98,7 +99,7 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 
 Each package must be declared once on npmjs.com as trusted publisher: repository `krizaka/krizaka-ui`, workflow
 `release.yml`. `tokens`, `tailwind` and `ui` form one `fixed` group in `.changeset/config.json` (one shared
-version); `config`, `intl`, `i18n`, `icons`, `charts`, `fonts`, `realtime` and `push` version on their own. Pre-releases (`pnpm changeset pre enter <tag>`)
+version); `config`, `intl`, `i18n`, `icons`, `charts`, `fonts`, `realtime`, `query` and `push` version on their own. Pre-releases (`pnpm changeset pre enter <tag>`)
 are for a coming major only; `main` is out of pre-release since 2.0.0.
 
 ## 5. Maintenance commands

@@ -1,0 +1,185 @@
+{
+  "name": "@krizaka/query",
+  "version": "0.0.0",
+  "description": "Server state for every Krizaka app: TanStack Query v5 with the Krizaka defaults, a typed fetch that reads RFC 9457 Problem Details, typed query keys, live invalidation from a realtime stream, App Router hydration and an offline persister for Expo.",
+  "keywords": [
+    "krizaka",
+    "react-query",
+    "tanstack-query",
+    "server-state",
+    "fetch",
+    "problem-details",
+    "server-sent-events",
+    "hydration",
+    "react-native",
+    "offline"
+  ],
+  "homepage": "https://github.com/krizaka/krizaka-ui/tree/main/packages/query#readme",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/query"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js"
+    },
+    "./persist": {
+      "types": "./dist/persist.d.ts",
+      "import": "./dist/persist.js"
+    },
+    "./native": {
+      "types": "./dist/native.d.ts",
+      "import": "./dist/native.js"
+    },
+    "./devtools": {
+      "types": "./dist/devtools.d.ts",
+      "import": "./dist/devtools.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "SKILL.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsup",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit && tsc -p examples/next-app-router && tsc -p examples/expo",
+    "test": "vitest run --coverage",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "@krizaka/realtime": "workspace:^",
+    "@tanstack/query-async-storage-persister": "5.104.2",
+    "@tanstack/react-query": "5.104.2",
+    "@tanstack/react-query-devtools": "5.104.2",
+    "@tanstack/react-query-persist-client": "5.104.2"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "workspace:*",
+    "@react-native-async-storage/async-storage": "^3.1.1",
+    "@react-native-community/netinfo": "^12.0.1",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitest/coverage-v8": "4.1.11",
+    "eslint": "^9.39.0",
+    "happy-dom": "^20.0.0",
+    "publint": "^0.3.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-native": "^0.86.3",
+    "size-limit": "^14.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11",
+    "zod": "^4.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": ".",
+      "path": "dist/index.js",
+      "limit": "4 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react/jsx-runtime",
+        "@tanstack/react-query",
+        "@tanstack/react-query-devtools",
+        "@tanstack/react-query-persist-client",
+        "@tanstack/query-async-storage-persister",
+        "@krizaka/realtime"
+      ]
+    },
+    {
+      "name": "./server",
+      "path": "dist/server.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react/jsx-runtime",
+        "@tanstack/react-query",
+        "@tanstack/react-query-devtools",
+        "@tanstack/react-query-persist-client",
+        "@tanstack/query-async-storage-persister",
+        "@krizaka/realtime"
+      ]
+    },
+    {
+      "name": "./persist",
+      "path": "dist/persist.js",
+      "limit": "600 B",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react/jsx-runtime",
+        "@tanstack/react-query",
+        "@tanstack/react-query-devtools",
+        "@tanstack/react-query-persist-client",
+        "@tanstack/query-async-storage-persister",
+        "@krizaka/realtime"
+      ]
+    },
+    {
+      "name": "./native",
+      "path": "dist/native.js",
+      "limit": "500 B",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react/jsx-runtime",
+        "@tanstack/react-query",
+        "@tanstack/react-query-devtools",
+        "@tanstack/react-query-persist-client",
+        "@tanstack/query-async-storage-persister",
+        "@krizaka/realtime"
+      ]
+    },
+    {
+      "name": "./devtools",
+      "path": "dist/devtools.js",
+      "limit": "300 B",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react/jsx-runtime",
+        "@tanstack/react-query",
+        "@tanstack/react-query-devtools",
+        "@tanstack/react-query-persist-client",
+        "@tanstack/query-async-storage-persister",
+        "@krizaka/realtime"
+      ]
+    }
+  ]
+}
