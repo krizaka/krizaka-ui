@@ -30,6 +30,13 @@ const config: TestRunnerConfig = {
   async postVisit(page, context) {
     const story = await getStoryContext(page, context);
     const viewport = story.parameters?.capture === "viewport";
+    // A template's phone story (`parameters.phone`): the page is laid out and captured at a phone's width, then the
+    // viewport is put back for the next story.
+    const before = page.viewportSize();
+    if (story.parameters?.phone) {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    }
     // @krizaka/charts: an ECharts engine and the world's countries load lazily (`data-pending` until drawn).
     await page.waitForFunction(() => !document.querySelector("[data-pending]"), undefined, { timeout: 15_000 });
     for (const theme of THEMES) {
@@ -73,6 +80,7 @@ const config: TestRunnerConfig = {
         customDiffDir: join(process.cwd(), "__screenshots__", "__diff__"),
       });
     }
+    if (story.parameters?.phone && before) await page.setViewportSize(before);
   },
 };
 

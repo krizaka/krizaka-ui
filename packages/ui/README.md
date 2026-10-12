@@ -191,6 +191,14 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/action-bar` | `ActionBar` (`actions`: `href`, `label`, `icon`; `variant` buttons·icons — the words in a CSS tooltip —, `primaryFirst`, `size`, `label`, `linkAs`) | server |
 | `@krizaka/ui/cta-panel` | `CtaPanel` (`id`, `title`, `body`, the actions as children, `level`, `reveal`) | server |
 | `@krizaka/ui/toc` | `Toc` (`label`, `items`; the section being read marked), `TocLayout` (`toc`, the sections as children) | client |
+| `@krizaka/ui/app-shell` | `AppShell.Root` (`defaultCollapsed`, `collapsed` + `onCollapsedChange`) `/Sidebar` (`label`, `brand`, `footer`, `collapseLabels`, `closeLabel`; a drawer on a phone) `/Group/Item` (`icon`, `label`, `current`, `badge`, `asChild`) `/Body/Header` (`title`, `menuLabel`, `actions`) `/Main` — see [Layouts and templates](#layouts-and-templates) | client |
+| `@krizaka/ui/dashboard-layout` | `DashboardLayout` (`title`, `eyebrow`, `description`, `actions`, `toolbar`, `headingAs`), `Widget` (`title`, `description`, `action`, `span` 1·2·3·full, `level`) | server |
+| `@krizaka/ui/settings-layout` | `SettingsLayout` (`title`, `description`, `nav`, `navLabel`, `linkAs`), `SettingsSection` (`title`, `description`, `footer`) | server |
+| `@krizaka/ui/auth-layout` | `AuthLayout` (`brand`, `title`, `description`, `footer`, `legal`, `promise`, `aside`, `asideFooter`) | server |
+| `@krizaka/ui/detail-layout` | `DetailLayout` (`back`, `media`, `eyebrow`, `title`, `status`, `meta`, `actions`, `tabs`, `aside`) | server |
+| `@krizaka/ui/split-view` | `SplitView` (`listTitle`, `listActions`, `list`, `detailHead`, `detail`, `empty`, `showDetail`, `back`) | server |
+| `@krizaka/ui/marketing-layout` | `MarketingLayout` (`header`, `footer`, `skipLabel`) | server |
+| `@krizaka/ui/docs-layout` | `DocsLayout` (`sidebar`, `sidebarLabel`, `toc`) | server |
 | `@krizaka/ui/native/video-player` | React Native `VideoPlayer` on expo-video (optional peer) | native |
 | `@krizaka/ui/native/media-capture` | React Native `MediaCapture` on expo-camera (optional peer) | native |
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
@@ -242,6 +250,21 @@ import { LinkCard } from "@krizaka/ui/link-card";
 - **Links.** Blocks that link take `linkAs` (Next's `Link`) for internal addresses; an absolute URL opens in a new tab.
 - **Motion.** `reveal` uses `[data-reveal]` (MotionObserver): never on the first screen. The pointer's light, the lifts
   and the hops stop under `prefers-reduced-motion`; nothing loops.
+
+## Layouts and templates
+
+> Category **layouts** of krizaka.com/docs/ui, and **templates**: whole screens composed from the platform.
+
+The shells of the products' screens, read from their real screens (Orochia web, admin and mobile; Orazaka web-client,
+web-admin and mobile; krizaka.com): `AppShell` (sidebar that collapses, header, drawer on a phone), `DashboardLayout`
+(a grid of widgets), `SettingsLayout`, `AuthLayout`, `DetailLayout`, `SplitView`, and for a site `MarketingLayout` and
+`DocsLayout`. Every layout is responsive by construction — one column, a drawer, chips or a disclosure on a phone.
+
+A **template** is an example flagged `template: true` in its layout's `meta.ts` (≤ 160 lines): a complete screen with
+real words — Orochia's creator studio, Orazaka's console for Eric, an administration console, sign-in, onboarding,
+settings, a video's page, messages, a product page, pricing and credits, a documentation hub. Each has a phone story
+(`parameters.phone`: captured at 390 × 844). Copy one into the product, keep its structure, change the words. The
+React Native shells are `@krizaka/ui/native`'s (DS4): same names where the concept is the same.
 
 ## Registry — the code drives the documentation
 

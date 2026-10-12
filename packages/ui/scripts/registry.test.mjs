@@ -19,7 +19,7 @@ const nativeExports = new Set([...nativeIndex.matchAll(/\b([A-Za-z]\w*)\b/g)].ma
 const PLATFORMS = ["web", "native", "both"];
 const exportsOf = (file) => new Set([...readFileSync(file, "utf8").matchAll(/\bexport\s+(?:async\s+)?(?:function|const|type|class|interface)\s+([A-Za-z]\w*)/g)].map((m) => m[1]));
 const STATUSES = ["stable", "beta"];
-const CATEGORIES = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "media", "blocks", "layout", "foundations"];
+const CATEGORIES = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "media", "blocks", "layouts", "layout", "foundations"];
 
 /** Native examples without a story (so without a screenshot): the provider wraps every story already. */
 const NO_STORY = new Set(["theme/provider"]);
@@ -144,7 +144,8 @@ describe("examples (registry/examples)", () => {
     const path = exampleFileOf(name, platform, file);
     expect(existsSync(path), relative(PKG, path)).toBe(true);
     const source = readFileSync(path, "utf8");
-    expect(source.trimEnd().split("\n").length, "at most 40 lines").toBeLessThanOrEqual(40);
+    const max = example.template ? 160 : 40;
+    expect(source.trimEnd().split("\n").length, `at most ${max} lines`).toBeLessThanOrEqual(max);
     expect(source).toContain("export default function");
     const allowed = platform === "web" ? /^(@krizaka\/ui(\/[a-z-]+)?|react)$/ : /^(@krizaka\/ui\/native(\/[a-z-]+)?|react|react-native|react-native-svg)$/;
     for (const [, specifier] of source.matchAll(/from\s+"([^"]+)"/g)) {

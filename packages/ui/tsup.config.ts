@@ -58,6 +58,20 @@ export default defineConfig([
     },
   },
   {
+    // Server too — the layouts that hold no state (the shells of whole screens), in their own build: one declaration
+    // build for every server entry would exhaust the heap.
+    ...shared,
+    entry: {
+      "dashboard-layout": "src/dashboard-layout/index.ts",
+      "settings-layout": "src/settings-layout/index.ts",
+      "auth-layout": "src/auth-layout/index.ts",
+      "detail-layout": "src/detail-layout/index.ts",
+      "split-view": "src/split-view/index.ts",
+      "marketing-layout": "src/marketing-layout/index.ts",
+      "docs-layout": "src/docs-layout/index.ts",
+    },
+  },
+  {
     // Client — the page blocks with a hook (the pointer's light, the bird's id, the copy button, the reading position).
     ...shared,
     entry: {
@@ -66,6 +80,8 @@ export default defineConfig([
       "mascot-quote": "src/mascot-quote/index.ts",
       "code-block": "src/code-block/index.ts",
       toc: "src/toc/index.ts",
+      // The application shell: its collapse and its drawer (Radix Dialog).
+      "app-shell": "src/app-shell/index.ts",
     },
     banner: { js: '"use client";' },
   },

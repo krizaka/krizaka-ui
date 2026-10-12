@@ -21,7 +21,10 @@
     "tabs",
     "command-palette",
     "blocks",
-    "page-layout"
+    "page-layout",
+    "layouts",
+    "templates",
+    "app-shell"
   ],
   "homepage": "https://github.com/krizaka/krizaka-ui#readme",
   "bugs": "https://github.com/krizaka/krizaka-ui/issues",
@@ -320,6 +323,38 @@
     "./toc": {
       "types": "./dist/toc.d.ts",
       "import": "./dist/toc.js"
+    },
+    "./app-shell": {
+      "types": "./dist/app-shell.d.ts",
+      "import": "./dist/app-shell.js"
+    },
+    "./dashboard-layout": {
+      "types": "./dist/dashboard-layout.d.ts",
+      "import": "./dist/dashboard-layout.js"
+    },
+    "./settings-layout": {
+      "types": "./dist/settings-layout.d.ts",
+      "import": "./dist/settings-layout.js"
+    },
+    "./auth-layout": {
+      "types": "./dist/auth-layout.d.ts",
+      "import": "./dist/auth-layout.js"
+    },
+    "./detail-layout": {
+      "types": "./dist/detail-layout.d.ts",
+      "import": "./dist/detail-layout.js"
+    },
+    "./split-view": {
+      "types": "./dist/split-view.d.ts",
+      "import": "./dist/split-view.js"
+    },
+    "./marketing-layout": {
+      "types": "./dist/marketing-layout.d.ts",
+      "import": "./dist/marketing-layout.js"
+    },
+    "./docs-layout": {
+      "types": "./dist/docs-layout.d.ts",
+      "import": "./dist/docs-layout.js"
     },
     "./motion.css": "./dist/motion.css",
     "./blocks.css": "./dist/blocks.css",
@@ -1171,6 +1206,86 @@
     {
       "name": "./toc",
       "path": "dist/toc.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./app-shell",
+      "path": "dist/app-shell.js",
+      "limit": "16 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./dashboard-layout",
+      "path": "dist/dashboard-layout.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./settings-layout",
+      "path": "dist/settings-layout.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./auth-layout",
+      "path": "dist/auth-layout.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./detail-layout",
+      "path": "dist/detail-layout.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./split-view",
+      "path": "dist/split-view.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./marketing-layout",
+      "path": "dist/marketing-layout.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./docs-layout",
+      "path": "dist/docs-layout.js",
       "limit": "1 kB",
       "gzip": true,
       "ignore": [

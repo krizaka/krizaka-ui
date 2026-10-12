@@ -11,8 +11,10 @@
 export type ComponentName =
   | "action-bar"
   | "alert"
+  | "app-shell"
   | "argument-card"
   | "audio-player"
+  | "auth-layout"
   | "avatar"
   | "badge"
   | "button"
@@ -28,10 +30,13 @@ export type ComponentName =
   | "confirm-button"
   | "countdown"
   | "cta-panel"
+  | "dashboard-layout"
   | "data-table"
   | "date-picker"
   | "decision-list"
+  | "detail-layout"
   | "dialog"
+  | "docs-layout"
   | "dropdown-menu"
   | "empty-state"
   | "field"
@@ -43,6 +48,7 @@ export type ComponentName =
   | "kbd"
   | "link-card"
   | "loader"
+  | "marketing-layout"
   | "marquee"
   | "mascot-quote"
   | "mascot-state"
@@ -63,10 +69,12 @@ export type ComponentName =
   | "section-backdrop"
   | "segmented"
   | "separator"
+  | "settings-layout"
   | "skeleton"
   | "slider"
   | "slot"
   | "spinner"
+  | "split-view"
   | "stat"
   | "stepper"
   | "switch"
@@ -90,8 +98,10 @@ export type Status = "stable" | "beta";
 /**
  * The group of the catalogue. `media`: video, sound, camera, files, cropping. `blocks`: the page blocks — the frame,
  * the hero, sections, cards that lead or argue, decisions, code, calls to act — that every page of a site is made of.
+ * `layouts`: the shells of whole screens — an application, a dashboard, settings, sign-in, an object, a list and its
+ * item, a site's page, a documentation page — each with its templates.
  */
-export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "media" | "blocks" | "layout" | "foundations";
+export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "media" | "blocks" | "layouts" | "layout" | "foundations";
 
 /**
  * A named example: the file `registry/examples/<component>/<name>.tsx` (web) or
@@ -105,6 +115,11 @@ export interface Example {
   readonly title: string;
   /** One or two sentences: when this variant is the right one. */
   readonly description: string;
+  /**
+   * A template: a whole screen of a product composed from the platform (a layout and its blocks, real words, its phone
+   * version thought out), copied as a starting point — at most 160 lines, listed on krizaka.com/docs/ui/templates.
+   */
+  readonly template?: boolean;
 }
 
 /** One platform's side of a component. */
