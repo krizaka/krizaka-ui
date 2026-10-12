@@ -23,6 +23,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ push/                 # @krizaka/push — mobile push through the Expo Push Service (FCM / APNs), pure (no UI)
 │  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
 ├─ tools/                   # not published — inventory.mjs (the duplicate audit of the products) and its tests
+├─ docs/adr/                # the architecture decisions (ADR-001: TanStack under @krizaka facades)
 ├─ renovate/krizaka.json    # the Renovate preset the products extend (group krizaka, patches automerged)
 ├─ .changeset/              # one file per change that ships
 ├─ eslint.config.mjs       # the monorepo lints itself with @krizaka/config
@@ -52,6 +53,14 @@ a copy between a product and this repository — the version is the contract.
 | **2 — Product composites** | `@krizaka/<product>-design-system` (own repositories) | The product theme (`--kz-*` overrides) and the components that carry its vocabulary. | A copied or forked primitive. |
 | **3 — App features** | the product apps | Screens, panels, editors, business forms, orchestration. | A generic component another product could reuse. |
 
+**Headless engines enter through a `@krizaka/*` package, never through a product**
+([ADR-001](docs/adr/ADR-001-tanstack-under-krizaka-facades.md)). TanStack (Query, Table, Form, Virtual, Pacer,
+Charts, Markdown, Highlight) is imported by the `@krizaka/*` packages only — `@krizaka/query`, `@krizaka/ui/data-table`,
+`@krizaka/ui/form`, `@krizaka/ui/virtual`, `@krizaka/pacer`… — and a product imports the facade, never `@tanstack/*`:
+the facade's version is the contract, a TanStack break is fixed here once. The same holds for any future engine. In the
+apps, `@krizaka/config` enforces it: `krizakaStack()` (ESLint, counted by `krizaka-ratchet`) and
+`@krizaka/config/dependency-cruiser`.
+
 Placement test: *"Could another product use it without changing a word or a type?"* Yes → level 1. *"Does it carry a
 product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 0 and 1 live in this repository.
 (Exception by design: the product **marks** in `@krizaka/ui` are the brand layer, see `packages/ui/AGENTS.md`.)
@@ -61,7 +70,7 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 - **pnpm only** (version pinned by `packageManager`), Node ≥ 22. `pnpm install --frozen-lockfile` must pass.
 - Every task goes through Turborepo: `pnpm turbo run check` = lint · typecheck · test · build · size · publint.
 - The monorepo uses what it publishes: `eslint.config.mjs` is `@krizaka/config` (base everywhere, the four UI rules
-  strict on `packages/ui`), every package's `lint` runs `eslint . --max-warnings 0`, and its `tsconfig.json` extends
+  strict on `packages/ui`, the three stack rules on `apps/`), every package's `lint` runs `eslint . --max-warnings 0`, and its `tsconfig.json` extends
   a base of `@krizaka/config`.
 - **The code drives the documentation.** The public documentation is **krizaka.com/docs/ui**, generated from the
   packages — the foundations from their data (`@krizaka/tokens` `typeScale`, `@krizaka/fonts` `fonts`/`rules`,
