@@ -1,0 +1,12 @@
+{
+  "extends": "@krizaka/config/tsconfig/react-library.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": [],
+    "paths": {
+      "@krizaka/query": ["../../src/index.ts"],
+      "@krizaka/query/*": ["../../src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
+}
