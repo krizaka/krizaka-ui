@@ -7,8 +7,9 @@ import { markA11y, type NativeMarkProps, useMarkMotion } from "./mark-motion";
 import { useSvgId, useTheme } from "./theme";
 
 /**
- * The Yazakia mark for React Native — the geometry of the web mark (marks/yazakia-geometry.ts): the orbit and the
- * pair turn slowly around the emblem, the core where the two arms meet breathes; still when the system reduces motion.
+ * The Yazakia mark for React Native — the geometry of the web mark (marks/yazakia-geometry.ts): two voices, two
+ * speech bubbles that overlap; the orbit and the pair turn slowly around them, the lens where they overlap breathes;
+ * still when the system reduces motion.
  */
 export function YazakiaMark({ size = 48, animated = true, title, neutral }: NativeMarkProps) {
   const { theme } = useTheme();
@@ -36,12 +37,12 @@ export function YazakiaMark({ size = 48, animated = true, title, neutral }: Nati
         </Defs>
         {size >= 48 ? <Circle cx={G.center} cy={G.center} r={190} fill={`url(#${id}g)`} /> : null /* cropped: the halo would show its square */}
         <Circle cx={G.center} cy={G.center} r={G.ring.r} stroke={stroke} strokeWidth={G.ring.width} opacity={0.35} fill="none" />
-        {G.arms.map((d) => (
-          <Path key={d} d={d} stroke={fill} strokeWidth={G.stroke} strokeLinecap="round" fill="none" />
-        ))}
-        <Path d={G.stem} stroke={fill} strokeWidth={G.stroke} strokeLinecap="round" fill="none" />
-        {G.heads.map((h) => (
-          <Circle key={h.cx} cx={h.cx} cy={h.cy} r={h.r} fill={fill} />
+        {G.voices.map((v, i) => (
+          <React.Fragment key={v.body}>
+            <Path d={v.body} fill={fill} />
+            <Path d={v.tail} fill={fill} />
+            {i === 0 ? <Path d={`${v.body} ${v.tail}`} fill={G.shade.color} opacity={G.shade.opacity} /> : null}
+          </React.Fragment>
         ))}
       </Svg>
       <Animated.View style={[layer, spinStyle]}>
@@ -55,9 +56,15 @@ export function YazakiaMark({ size = 48, animated = true, title, neutral }: Nati
       </Animated.View>
       <Animated.View style={[layer, pulseStyle]}>
         <Svg viewBox={viewBox} style={layer}>
-          <Defs>{gradient}</Defs>
-          <Circle cx={G.core.cx} cy={G.core.cy} r={G.core.r} fill={fill} />
-          <Circle cx={G.core.cx} cy={G.core.cy} r={G.core.inner} fill={G.highlight} />
+          <Defs>
+            {gradient}
+            <LinearGradient id={`${id}l`} gradientUnits="userSpaceOnUse" x1={0} y1={G.lens.y1} x2={0} y2={G.lens.y2}>
+              <Stop offset="0%" stopColor={G.highlight.color} stopOpacity={G.highlight.from} />
+              <Stop offset="100%" stopColor={G.highlight.color} stopOpacity={G.highlight.to} />
+            </LinearGradient>
+          </Defs>
+          <Path d={G.lens.d} fill={fill} />
+          <Path d={G.lens.d} fill={`url(#${id}l)`} />
         </Svg>
       </Animated.View>
     </View>
