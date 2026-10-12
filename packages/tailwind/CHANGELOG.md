@@ -1,5 +1,13 @@
 # @krizaka/tailwind
 
+## 2.10.0
+
+### Patch Changes
+
+- Updated dependencies [[`05d097f`](https://github.com/krizaka/krizaka-ui/commit/05d097f1dde51092b9f86d54abede4fe0553cd11), [`dc6156f`](https://github.com/krizaka/krizaka-ui/commit/dc6156fcac67f6285b966c2a27d56af75fc8db10)]:
+  - @krizaka/ui@2.10.0
+  - @krizaka/tokens@2.10.0
+
 ## 2.9.0
 
 ### Patch Changes
