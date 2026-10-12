@@ -22,6 +22,7 @@ import CreditFlow from "../registry/examples/sankey/credit-flow";
 import WatchTime from "../registry/examples/scatter-chart/watch-time";
 import StatTrend from "../registry/examples/sparkline/stat-trend";
 import Storage from "../registry/examples/treemap/storage";
+import { loadWorld } from "./geo/world";
 import { axeViolations } from "./test/axe";
 import { mockWidth } from "./test/setup";
 import { CSS } from "./web/styles";
@@ -47,6 +48,9 @@ const EXAMPLES: [string, ComponentType, string][] = [
 ];
 
 beforeEach(() => mockWidth(640, 320));
+// The map and the globe draw the world's countries, a lazy chunk: on a loaded runner its first import can outlast
+// `waitFor`'s second (krizaka-ui#115; src/geo/world-slow.test.tsx). Loaded once before the suite, whatever it takes.
+beforeAll(() => loadWorld(), 30_000);
 
 describe.each(EXAMPLES)("%s", (_name, Example, summary) => {
   it("renders on the server with its summary and its data table, without drawing", () => {
