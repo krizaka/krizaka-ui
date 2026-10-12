@@ -1,8 +1,8 @@
 # @krizaka/icons
 
-**The Krizaka signature icons.** 70 icons drawn for the Krizaka products — the vocabulary of Orochia (tips, unlocks,
+**The Krizaka signature icons.** 73 icons drawn for the Krizaka products — the vocabulary of Orochia (tips, unlocks,
 auctions, challenges, 24 h stories, payouts, the 90 % share) and of Orazaka (sovereign chat, agents, studio, packs,
-automations, knowledge, local and self-hosted) plus the usual interface — in one drawing language. React
+automations, knowledge, local and self-hosted), meeting people (small batches, debriefs, introductions) plus the usual interface — in one drawing language. React
 (tree-shakable, server-safe) and React Native (react-native-svg), the same names and drawings.
 
 [![npm](https://img.shields.io/npm/v/@krizaka/icons?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/icons)
@@ -55,7 +55,7 @@ The drawing is code: `scripts/glyphs.mjs` (helpers `cut`, `hex`, `arc`) → `pnp
 
 | Group | Icons |
 | :-- | :-- |
-| product (31) | `TipIcon` · `UnlockIcon` · `PaidIcon` · `AuctionIcon` · `ChallengeIcon` · `GoalIcon` · `CreatorIcon` · `StoryIcon` · `Story24hIcon` · `PayoutIcon` · `WalletIcon` · `Share90Icon` · `LockIcon` · `FollowIcon` · `MessageIcon` · `UploadIcon` · `VideoIcon` · `ImageIcon` · `HeartIcon` · `ChatIcon` · `AiIcon` · `AgentIcon` · `StudioIcon` · `PackIcon` · `AutomationIcon` · `KnowledgeIcon` · `ShieldIcon` · `LocalIcon` · `ServerIcon` · `BillingIcon` · `CreditsIcon` |
+| product (34) | `TipIcon` · `UnlockIcon` · `PaidIcon` · `AuctionIcon` · `ChallengeIcon` · `GoalIcon` · `CreatorIcon` · `StoryIcon` · `Story24hIcon` · `PayoutIcon` · `WalletIcon` · `Share90Icon` · `LockIcon` · `FollowIcon` · `MessageIcon` · `UploadIcon` · `VideoIcon` · `ImageIcon` · `HeartIcon` · `ChatIcon` · `AiIcon` · `AgentIcon` · `StudioIcon` · `PackIcon` · `AutomationIcon` · `KnowledgeIcon` · `ShieldIcon` · `LocalIcon` · `ServerIcon` · `BillingIcon` · `CreditsIcon` · `BatchIcon` · `DebriefIcon` · `IntroIcon` |
 | system (15) | `ThemeIcon` · `SunIcon` · `MoonIcon` · `SearchIcon` · `SettingsIcon` · `NotificationIcon` · `UserIcon` · `UsersIcon` · `CalendarIcon` · `ClockIcon` · `GlobeIcon` · `EyeIcon` · `EyeOffIcon` · `InfoIcon` · `WarningIcon` |
 | interface (24) | `PlayIcon` · `PauseIcon` · `HomeIcon` · `MenuIcon` · `CloseIcon` · `BackIcon` · `ForwardIcon` · `ChevronDownIcon` · `ChevronRightIcon` · `PlusIcon` · `CheckIcon` · `MoreIcon` · `ExternalIcon` · `LinkIcon` · `FilterIcon` · `EditIcon` · `TrashIcon` · `CopyIcon` · `DownloadIcon` · `LogoutIcon` · `BookmarkIcon` · `SoundIcon` · `MuteIcon` · `FlagIcon` |
 

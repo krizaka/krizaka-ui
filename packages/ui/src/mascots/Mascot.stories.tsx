@@ -3,12 +3,13 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import EmptyStateExample from "../../registry/examples/mascots/empty-state";
 import FlockExample from "../../registry/examples/mascots/flock";
 import LongTaskExample from "../../registry/examples/mascots/long-task";
+import LovebirdExample from "../../registry/examples/mascots/lovebird";
 import MoodsExample from "../../registry/examples/mascots/moods";
 import OwnToneExample from "../../registry/examples/mascots/own-tone";
 import { Mascot } from "./mascot";
 
 /**
- * The Krizaka flock: five birds, five moods, in the brand colours of the toolbar's product. Each story renders a named
+ * The Krizaka flock: six birds, five moods, in the brand colours of the toolbar's product. Each story renders a named
  * example of the registry (`registry/examples/mascots/*`). Still in the screenshots (reduced motion).
  */
 const meta = {
@@ -25,3 +26,5 @@ export const Flock: Story = { render: () => <FlockExample /> };
 export const OwnTone: Story = { render: () => <OwnToneExample /> };
 export const InAnEmptyState: Story = { render: () => <EmptyStateExample /> };
 export const DuringALongTask: Story = { render: () => <LongTaskExample /> };
+/** The lovebird — "l'inséparable présente": the bird of introductions (Yazakia). */
+export const Lovebird: Story = { render: () => <LovebirdExample /> };

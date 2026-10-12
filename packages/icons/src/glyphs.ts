@@ -67,6 +67,12 @@ export const server: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5.3 3.5H18.7L
 export const billing: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5 3.5h14v17l-2.3-1.5-2.4 1.5-2.3-1.5-2.3 1.5-2.4-1.5L5 20.5z","M8.5 8h7M8.5 11.5h7M8.5 15h3.5"], n: [[15.5,15]] });
 /** credits coins tokens balance */
 export const credits: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M9.5 3.5L15.13 6.75L15.13 13.25L9.5 16.5L3.87 13.25L3.87 6.75Z","M14.6 6.3a6.5 6.5 0 0 1 2.4 12.6 6.5 6.5 0 0 1-5.3-.4"], n: [[9.5,10]] });
+/** batch small set cards profiles matches deck */
+export const batch: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5.5 9H13L15 11V19.5L13 21.5H5.5L3.5 19.5V11Z","M7 9V7.5L8.5 6h8L18 7.5V17l-1.5 1.5H15","M10.5 6V4.5L12 3h8l1.5 1.5V14L20 15.5h-2"], n: [[9.25,15.25]] });
+/** debrief feedback review answered questions check */
+export const debrief: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M6 4h12l2.5 2.5v8L18 17h-6.5L7 20.5V17H6l-2.5-2.5v-8z","M8.5 10.5l2.5 2.5 4.5-4.5"], n: [[11,13]] });
+/** intro introduction meet mutual match conversation two people */
+export const intro: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M2.5 4.5 4 3h8.5L14 4.5v5L12.5 11H8l-3 2.5V11h-1L2.5 9.5z","M21.5 12.5 20 11h-8.5L10 12.5v5l1.5 1.5H16l3 2.5V19h1l1.5-1.5z"], n: [[12,11]] });
 /** theme appearance dark light contrast */
 export const theme: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 3.5v17","M12 3.5a8.5 8.5 0 0 1 0 17z"], c: [[12,12,8.5]] });
 /** light mode sun */
@@ -308,6 +314,21 @@ export const glyphIndex = {
     "component": "CreditsIcon",
     "group": "product",
     "keywords": "credits coins tokens balance"
+  },
+  "batch": {
+    "component": "BatchIcon",
+    "group": "product",
+    "keywords": "batch small set cards profiles matches deck"
+  },
+  "debrief": {
+    "component": "DebriefIcon",
+    "group": "product",
+    "keywords": "debrief feedback review answered questions check"
+  },
+  "intro": {
+    "component": "IntroIcon",
+    "group": "product",
+    "keywords": "intro introduction meet mutual match conversation two people"
   },
   "theme": {
     "component": "ThemeIcon",

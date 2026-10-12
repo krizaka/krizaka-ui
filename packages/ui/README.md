@@ -9,7 +9,7 @@
 
 **The Krizaka front-end platform's components, shared by every product.**
 The primitives (button, badge, avatar, field, theme, countdown…) on the semantic `--kz-*` tokens, the animated marks
-of Krizaka, Orazaka and Orochia, and the Krizaka motion signature — one easing, one way to enter, reveal, roll, shine
+of Krizaka, Orazaka, Orochia and Yazakia, and the Krizaka motion signature — one easing, one way to enter, reveal, roll, shine
 and open.
 
 [![npm](https://img.shields.io/npm/v/@krizaka/ui?color=196df5&label=npm)](https://www.npmjs.com/package/@krizaka/ui)
@@ -163,7 +163,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/glow-card` | `GlowCard` (`glow` border·spotlight·both, `alive`, `asChild`) | client |
 | `@krizaka/ui/marquee` | `Marquee` (`label`, `pauseLabel`, `playLabel`, `speed` px/s, `direction`, `fade`, `defaultPaused`) | client |
 | `@krizaka/ui/section-backdrop` | `SectionBackdrop` (`as`, `direction` down·up, `dome`, `grid`, `media` blurred for depth of field, `animated`): a page section on the brand's section gradient — see `@krizaka/tokens` BRAND.md, "Visual language" | server |
-| `@krizaka/ui/mascots` | `Mascot` (`bird` falcon·owl·duck·flamingo·pigeon, `mood` welcome·thinking·success·empty·error, `tone` brand·own, `size`, `animated`, `title`), `MASCOT_BIRDS`, `MASCOT_MOODS`: the Krizaka flock, in the host brand's accent — one bird at a moment that matters (onboarding, a long wait, a success, an empty list, an error); native `Mascot` in `/native` | client |
+| `@krizaka/ui/mascots` | `Mascot` (`bird` falcon·owl·duck·flamingo·pigeon·lovebird, `mood` welcome·thinking·success·empty·error, `tone` brand·own, `size`, `animated`, `title`), `MASCOT_BIRDS`, `MASCOT_MOODS`: the Krizaka flock, in the host brand's accent — one bird at a moment that matters (onboarding, a long wait, a success, an empty list, an error); native `Mascot` in `/native` | client |
 | `@krizaka/ui/iso` | the isometric kit: `IsoHub` (a hero driven by data: `layers`, `dome`, `satellites`, `highlight`), `IsoScene`, `IsoPrism`, `IsoStack`, `IsoDome`, `IsoTile`, `IsoLink`, `IsoNode`, `IsoLabel`, the projection helpers — static SVG animated by motion.css | server |
 | `@krizaka/ui/motion` | `MotionObserver` (reveal, off-screen pause, settle, spotlight, magnetism) and `RotatingWord` (no layout shift) | client |
 | `@krizaka/ui/pagination` | `Pagination` (pages: `page`, `pageCount`, `onPageChange` or `getHref` for links; cursor: `hasPrevious`/`hasNext`, `onPrevious`/`onNext`; `status`, `pageSize` + `pageSizeOptions`, `siblings`, `boundaries`, `labels`; folds into "Page 3 of 12" in a narrow container), `pageRange` | server |
@@ -335,7 +335,7 @@ const { theme, scheme, mode, setMode, radius } = useTheme(); // theme.surface1, 
 | `Segmented` | `options` (`value`, `label`, `disabled`), `value`, `onValueChange`, `size` | The web `Tabs variant="segmented"` (a tab list). To filter, `Chip.Group`. |
 | `Progress` | `variant` bar·ring, `size`, `value`/`max`, `label`, `valueText`, a ring's centre as children | The fill is the `accent` → `accent2` gradient (react-native-svg); it animates to each new value. |
 | `Toaster`, `toast` | `toast(title, { description, tone, icon, action, onPress, id, duration, onDismiss })`, `toast.success/warning/error/info`, `toast.dismiss(id?)`; `Toaster closeLabel position offset duration max` | No sonner: a light queue of its own. `offset` takes the safe-area inset (no safe-area dependency). |
-| `KrizakaMark`, `OrazakaMark`, `OrochiaMark`, `ProductMark` (`id`) | `size`, `animated`, `title`, `neutral` (default `theme.textMuted`) | The brand marks, drawn with react-native-svg from the web marks' geometry. |
+| `KrizakaMark`, `OrazakaMark`, `OrochiaMark`, `YazakiaMark`, `ProductMark` (`id`) | `size`, `animated`, `title`, `neutral` (default `theme.textMuted`) | The brand marks, drawn with react-native-svg from the web marks' geometry. |
 
 Every animation (skeleton, badge dot, urgent countdown, progress, toast entrance, the marks) stops when the system
 asks to reduce motion (`useReducedMotion()`). Accessibility goes through `role` and `aria-*` (RN ≥ 0.71): headings,
@@ -365,11 +365,12 @@ Testing Library (`src/native/*.test.tsx`); `scripts/native-dist.mjs` checks that
 ## The marks
 
 ```tsx
-import { KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo } from "@krizaka/ui";
+import { KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, YazakiaLogo } from "@krizaka/ui";
 
 <OrochiaLogo size={36} />                       // decorative (aria-hidden)
 <KrizakaLogo size={48} title="Krizaka" />       // an image with an accessible name
 <ProductLogo id="orazaka" animated={false} />   // by id, still
+<YazakiaLogo size={32} />                       // Yazakia: emerald → turquoise, two who meet
 ```
 
 Neutral strokes follow the host's `--kz-*` tokens when they exist (`--kz-border-strong`, `--kz-text-muted`…) and the

@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/tokens",
   "version": "2.7.0",
-  "description": "The Krizaka semantic design tokens (--kz-*) and the brand themes (Krizaka, Orazaka, Orochia): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
+  "description": "The Krizaka semantic design tokens (--kz-*) and the brand themes (Krizaka, Orazaka, Orochia, Yazakia): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
   "keywords": [
     "krizaka",
     "design-tokens",
@@ -36,6 +36,7 @@
     "./brands/krizaka.css": "./dist/brands/krizaka.css",
     "./brands/orazaka.css": "./dist/brands/orazaka.css",
     "./brands/orochia.css": "./dist/brands/orochia.css",
+    "./brands/yazakia.css": "./dist/brands/yazakia.css",
     "./brands/scoped.css": "./dist/brands/scoped.css",
     "./native": {
       "types": "./dist/native.d.ts",
@@ -58,7 +59,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./brands/krizaka.css ./brands/orazaka.css ./brands/orochia.css ./brands/scoped.css",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./brands/krizaka.css ./brands/orazaka.css ./brands/orochia.css ./brands/yazakia.css ./brands/scoped.css",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {

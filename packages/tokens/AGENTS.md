@@ -7,7 +7,7 @@
 
 - The **semantic tokens** `--kz-*` (level 0 — foundations): roles, never palette steps. A token names what a value is
   *for* (`text-secondary`, `scrim`), not what it looks like (`zinc-400`).
-- No product word in the roles. The **brand themes** (`src/brands/<id>.brand.json`: krizaka, orazaka, orochia) set
+- No product word in the roles. The **brand themes** (`src/brands/<id>.brand.json`: krizaka, orazaka, orochia, yazakia) set
   the accent family and the section gradient (`BRAND_ROLES` in `scripts/build.mjs`, all of them, nothing else) and
   ship as `brands/<id>.css`, `brands/scoped.css`, `brands` (index, native). [`BRAND.md`](./BRAND.md) is the brand
   system: colours, marks, icons, page language. A product theme imports its brand and overrides only what is its own.
@@ -42,7 +42,7 @@
   2.5.0: +1.1 kB / +0.35 kB / +0.3 kB for the material of BRAND.md §6 — sheen, edges, glass, three ink shadows in three
   blocks, focus ring, control heights and their compact density, durations and their reduced-motion block, the griffe;
   native gains the shadows as `boxShadow` strings and `cut`.)
-- Published surface: exports `.`, `./tokens.css`, `./brands/{krizaka,orazaka,orochia,scoped}.css`, `./native`,
+- Published surface: exports `.`, `./tokens.css`, `./brands/{krizaka,orazaka,orochia,yazakia,scoped}.css`, `./native`,
   `./package.json`; files `dist`, `README.md`, `BRAND.md`, `LICENSE`.
   Renaming or removing a token, or changing the surface, is a breaking change.
 

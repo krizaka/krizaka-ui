@@ -12,21 +12,22 @@ overrides). A product never re-invents its values: it imports its brand.
 | **Krizaka** (parent) | **Ink + Krizaka blue.** The neutral surfaces and text of the platform carry the brand; one blue, the core of the Krizaka mark, is the only accent. | The parent frames its products without competing with them: ink is neutral next to orange and violet, and blue is the complement of the Orazaka orange. It is also the platform default (`tokens.css` = the Krizaka brand). |
 | **Orazaka** (sovereign AI) | **Orange**, hue 26 — the accent and the mark share it. | Hue 38 (amber) is `--kz-warning`: a primary button, and since 2.1.0 the mark, must never read as a warning. The light theme's accent is the deep orange `#b45309`, also the first stop of the mark. `info` stays blue (an orange "info" would read as a warning). |
 | **Orochia** (creators) | **Velvet violet → magenta**, the serpent of its mark (unchanged). | The values of `@krizaka/orochia-design-system`, already adjusted to AA. |
+| **Yazakia** (dating, talk first) | **Emerald → turquoise.** The accent is the turquoise (hue 174); the emerald (hue 152–156) is the mark's first stop and `accent-2`. | Green is the family's free colour and takes the opposite view of the red and pink of dating apps. `--kz-success` is emerald (hue 160): a primary button must never read as a success, so the accent sits 14° away on the turquoise (a test) and the emerald stays in the mark and the gradients. Dark: light turquoise under near-black text (11:1); light: deep turquoise under white (5.9:1). `info` stays blue. |
 
 ### Palette (the accent family)
 
 `on-accent` is the text and icon colour on the accent; `accent-text` is the accent **as text** (links, active labels),
 ≥ 4.5:1 on every surface; `accent-2` closes gradients.
 
-| Role | Krizaka dark | Krizaka light | Orazaka dark | Orazaka light | Orochia dark | Orochia light |
-| :-- | :-- | :-- | :-- | :-- | :-- | :-- |
-| `accent` | `hsl(217 92% 53%)` #196df5 | `hsl(217 92% 50%)` #0a64f5 | `hsl(26 92% 55%)` #f67e23 | `hsl(26 90.5% 37.1%)` #b45309 | #7c3aed | #7c3aed |
-| `accent-hover` | `hsl(217 88% 45%)` | `hsl(217 88% 42%)` | `hsl(26 92% 62%)` (lightens) | `hsl(26 90% 31%)` | #6d28d9 | #6d28d9 |
-| `on-accent` | white (4.6:1) | white (5.1:1) | near-black `hsl(240 6% 5%)` (7.4:1) | white (5.1:1) | white (5.7:1) | white (5.7:1) |
-| `accent-text` | `hsl(217 92% 68%)` #629cf8 | `hsl(217 92% 42%)` #0954ce | `hsl(26 92% 60%)` #f78c3b | `hsl(26 90% 32%)` #9b4808 | #a78bfa | #6d28d9 |
-| `accent-2` | = accent | = accent | #f59e0b (closes the buttons' gradient) | `hsl(32 95% 33%)` | #db2777 | #db2777 |
-| `ring` | = accent | = accent | = accent | = accent | #a78bfa | #7c3aed |
-| `info` | = accent | = accent | `hsl(217 92% 60%)` | `hsl(217 92% 50%)` | = accent | = accent |
+| Role | Krizaka dark | Krizaka light | Orazaka dark | Orazaka light | Orochia dark | Orochia light | Yazakia dark | Yazakia light |
+| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
+| `accent` | `hsl(217 92% 53%)` #196df5 | `hsl(217 92% 50%)` #0a64f5 | `hsl(26 92% 55%)` #f67e23 | `hsl(26 90.5% 37.1%)` #b45309 | #7c3aed | #7c3aed | `hsl(174 72% 50%)` #24dbc9 | `hsl(175 85% 24%)` #097169 |
+| `accent-hover` | `hsl(217 88% 45%)` | `hsl(217 88% 42%)` | `hsl(26 92% 62%)` (lightens) | `hsl(26 90% 31%)` | #6d28d9 | #6d28d9 | `hsl(174 72% 58%)` (lightens) | `hsl(175 85% 20%)` |
+| `on-accent` | white (4.6:1) | white (5.1:1) | near-black `hsl(240 6% 5%)` (7.4:1) | white (5.1:1) | white (5.7:1) | white (5.7:1) | near-black (11.2:1) | white (5.9:1) |
+| `accent-text` | `hsl(217 92% 68%)` #629cf8 | `hsl(217 92% 42%)` #0954ce | `hsl(26 92% 60%)` #f78c3b | `hsl(26 90% 32%)` #9b4808 | #a78bfa | #6d28d9 | `hsl(174 72% 56%)` #3ee0cf | `hsl(175 85% 23%)` #096d64 |
+| `accent-2` | = accent | = accent | #f59e0b (closes the buttons' gradient) | `hsl(32 95% 33%)` | #db2777 | #db2777 | emerald `hsl(152 70% 45%)` #22c378 | `hsl(152 76% 26%)` #107546 |
+| `ring` | = accent | = accent | = accent | = accent | #a78bfa | #7c3aed | = accent | = accent |
+| `info` | = accent | = accent | `hsl(217 92% 60%)` | `hsl(217 92% 50%)` | = accent | = accent | `hsl(217 92% 60%)` | `hsl(217 92% 50%)` |
 
 Every pair is a test (`test/tokens.test.ts`, "brands"): `on-accent` ≥ 4.5:1 on `accent`, `accent-hover` and
 `accent-2`; `accent-text` ≥ 4.5:1 on surfaces 0–3 and on every section-gradient stop; `ring` ≥ 3:1 on the page;
@@ -69,9 +70,10 @@ after in Storybook, *Brand/Evolution*):
 | Krizaka | An **ink** hexagonal shield, open at its upper-right vertex where a **blue node** breaks out, around a blue core. | Before: hairline strokes and five hard-coded blues that vanished below 48 px and did not crop. Now the weight, crop and grammar of Orochia; ink + one blue, the brand palette. |
 | Orazaka | Three **solid** hexagonal shards in the brand's orange gradient, orbiting a core. | Before: two grey outlines and one amber, 3.5-unit strokes — the mark read grey and thin next to Orochia. Same idea, now solid, with the family's crop. **2.1.0:** amber (`#b45309 → #f59e0b`, hues 26 → 38) becomes the brand's orange — deep orange `hsl(26 90.5% 37.1%)` #b45309 → orange `hsl(26 92% 45%)` #dc6509, one hue: the old light stop was the warning's hue and read at 2:1 on a light page; every stop now reads ≥ 3:1 on surfaces 0–2 in dark and light (a test). |
 | Orochia | The serpent coiled into an "O" around the flame. | Unchanged. |
+| Yazakia | Two **solid** arms that lean in and meet — a "Y", two people who find each other — each ending in a round head, the stem below, a bright core where they join. Two nodes, the pair, ride the dashed orbit. | New (3rd product, 2026-10). Emerald `hsl(156 92% 32%)` #079d61 → turquoise `hsl(178 90% 32%)` #089b96, mid-tones chosen so that every stop reads ≥ 3:1 on surfaces 0–2 in dark and light (a test): one mark for both themes. |
 
-Web: `KrizakaLogo`, `OrazakaLogo`, `OrochiaLogo`, `ProductLogo id` (`@krizaka/ui`). Native: `KrizakaMark`,
-`OrazakaMark`, `OrochiaMark`, `ProductMark id` (`@krizaka/ui/native`). The geometry is shared
+Web: `KrizakaLogo`, `OrazakaLogo`, `OrochiaLogo`, `YazakiaLogo`, `ProductLogo id` (`@krizaka/ui`). Native: `KrizakaMark`,
+`OrazakaMark`, `OrochiaMark`, `YazakiaMark`, `ProductMark id` (`@krizaka/ui/native`). The geometry is shared
 (`packages/ui/src/marks/*-geometry.ts`); the emblem gradients are **brand tokens** — `$extensions["com.krizaka"].mark` of
 each `src/brands/<id>.brand.json`, exported as `marks.<id>` (`@krizaka/tokens`, `/native`) — read by the geometry, never
 copied. A mark is the same in both themes: its stops are chosen to read on dark and light pages.

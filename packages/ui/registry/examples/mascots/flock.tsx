@@ -1,6 +1,6 @@
 import { Mascot,MASCOT_BIRDS } from "@krizaka/ui/mascots";
 
-// The five birds in the host's brand colours: blue on Krizaka, orange in Orazaka, violet in Orochia.
+// The six birds in the host's brand colours: blue on Krizaka, orange in Orazaka, violet in Orochia, turquoise in Yazakia.
 export default function MascotFlock() {
   return (
     <div className="flex flex-wrap items-end gap-6">

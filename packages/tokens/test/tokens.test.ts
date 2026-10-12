@@ -356,7 +356,7 @@ describe("brands", async () => {
   const surfaces = ["surface0", "surface1", "surface2", "surface3"] as const;
 
   it("compiles one theme per brand and the scoped classes", () => {
-    expect(BRANDS).toEqual(["krizaka", "orazaka", "orochia"]);
+    expect(BRANDS).toEqual(["krizaka", "orazaka", "orochia", "yazakia"]);
     for (const id of BRANDS) expect(files[`brands/${id}.css`], id).toBeDefined();
     expect(files["brands/scoped.css"]).toContain(".brand-orazaka {");
     expect(Object.keys(index.brands)).toEqual(BRANDS);
@@ -442,6 +442,8 @@ describe("brands", async () => {
       expect(index.marks.krizaka.map(([, c]: [string, string]) => c)).toEqual([index.brands.krizaka.dark.accent, index.brands.krizaka.dark.accentText]);
       expect(native.marks.orochia[0][1]).toBe(native.brands.orochia.dark.accent);
       expect(native.marks.orochia.map(([, c]: [string, string]) => c)).toEqual(["#7c3aed", "#d946ef", "#f472b6"]); // unchanged
+      // Yazakia: emerald → turquoise, the turquoise end on the accent's hue family.
+      expect(index.marks.yazakia.map(([, c]: [string, string]) => hue(c))).toEqual([156, 178]);
       // Orazaka: deep orange (its light accent) → orange, both on the accent's hue 26 — never the amber of --kz-warning.
       expect(index.marks.orazaka[0][1]).toBe(index.brands.orazaka.light.accent);
       for (const [, c] of index.marks.orazaka) {
@@ -450,10 +452,10 @@ describe("brands", async () => {
       }
     });
 
-    it("keeps every stop of the Orazaka mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", () => {
+    it.each(["orazaka", "yazakia"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
       for (const mode of ["dark", "light"] as const) {
         for (const s of ["surface0", "surface1", "surface2"] as const) {
-          for (const [, c] of index.marks.orazaka) expect(contrast(parseHsl(c), parseHsl(index.values[mode][s])), `${mode} ${s} ${c}`).toBeGreaterThanOrEqual(3);
+          for (const [, c] of index.marks[id]) expect(contrast(parseHsl(c), parseHsl(index.values[mode][s])), `${mode} ${s} ${c}`).toBeGreaterThanOrEqual(3);
         }
       }
     });
@@ -462,6 +464,23 @@ describe("brands", async () => {
       const { $extensions: _ext, ...bare } = brandSources.orazaka as Record<string, unknown>;
       expect(() => compileBrands(tokens, { x: bare })).toThrow(/mark/);
     });
+  });
+
+  it("keeps Yazakia's turquoise accent apart from the success status (its emerald is the mark and accent-2 only)", () => {
+    const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);
+    for (const mode of ["dark", "light"] as const) {
+      expect(Math.abs(hue(index.brands.yazakia[mode].accent) - hue(index.values[mode].success)), mode).toBeGreaterThanOrEqual(10);
+      expect(index.brands.yazakia[mode].info).not.toBe(index.brands.yazakia[mode].accent);
+    }
+  });
+
+  it("gives Yazakia the same roles as every brand, dark, light and native (key parity)", () => {
+    for (const mode of ["dark", "light"] as const) {
+      expect(Object.keys(index.brands.yazakia[mode])).toEqual(Object.keys(index.brands.orochia[mode]));
+      expect(Object.keys(native.brands.yazakia[mode])).toEqual(Object.keys(native.brands.orochia[mode]));
+    }
+    expect(files["brands/scoped.css"]).toContain(".brand-yazakia {");
+    expect(files["brands/scoped.css"]).toContain("html.light .brand-yazakia");
   });
 
   it("keeps Orazaka's accent apart from the warning status", () => {
