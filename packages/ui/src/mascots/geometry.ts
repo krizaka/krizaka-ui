@@ -1,8 +1,9 @@
 /**
  * The Krizaka flock — the geometry of the mascots, drawn by the web `Mascot` (`./mascot.tsx`) and the native one
  * (`../native/mascots.tsx`). Five birds that have carried the Krizaka story since the first site (the sentry falcon,
- * the owl that reads, the developer duck, the flamingo that answers, the carrier pigeon), redrawn on one 120 × 120
- * grid so that any bird can wear any mood.
+ * the owl that reads, the developer duck, the flamingo that answers, the carrier pigeon) and the lovebird that
+ * introduces (2026-10, with Yazakia: "l'inséparable présente"), redrawn on one 120 × 120 grid so that any bird can
+ * wear any mood.
  *
  * Colours are roles, never fixed: `brand` (the default) paints a bird in the host's accent (`--kz-accent`,
  * `--kz-accent-2`), so the same falcon is blue on krizaka.com, orange in Orazaka and violet in Orochia; `own` gives
@@ -10,7 +11,7 @@
  * and highlights are black and white at a low opacity over the role, so they hold in both themes.
  */
 
-export const MASCOT_BIRDS = ["falcon", "owl", "duck", "flamingo", "pigeon"] as const;
+export const MASCOT_BIRDS = ["falcon", "owl", "duck", "flamingo", "pigeon", "lovebird"] as const;
 export type MascotBird = (typeof MASCOT_BIRDS)[number];
 
 export const MASCOT_MOODS = ["welcome", "thinking", "success", "empty", "error"] as const;
@@ -130,6 +131,25 @@ export const BIRDS: Readonly<Record<MascotBird, BirdGeometry>> = {
     eyes: { at: [[52, 33], [68, 33]], white: 5, pupil: 2.4 },
     parcel: ["M60 100 L71 105 L60 110 L49 105 Z", "M49 105 L60 110 L60 118 L49 113 Z", "M71 105 L60 110 L60 118 L71 113 Z"],
   },
+  /**
+   * The lovebird — the inseparable that introduces two people. A plump little parrot: a short tail, a round head
+   * with its coloured face (the detail colour), the white eye-rings of the species and a short hooked beak.
+   */
+  lovebird: {
+    shadow: [60, 110, 23, 3.5],
+    legs: ["M53 96 L52 106 M48 106 L56 106", "M67 96 L68 106 M64 106 L72 106"],
+    back: ["M74 90 C82 98 88 104 95 103 C91 98 86 91 82 84 Z"],
+    body: "M32 66 C32 46 88 46 88 66 C88 90 76 100 60 100 C44 100 32 90 32 66 Z",
+    belly: "M42 70 C42 59 78 59 78 70 C78 85 70 92 60 92 C50 92 42 85 42 70 Z",
+    wings: [
+      { d: "M33 60 C20 68 22 88 40 90 C35 80 34 70 33 60 Z", pivot: [33, 60] },
+      { d: mirror("M33 60 C20 68 22 88 40 90 C35 80 34 70 33 60 Z"), pivot: [87, 60] },
+    ],
+    head: { cx: 60, cy: 38, r: 21 },
+    details: ["M43 40 C42 28 51 22 60 22 C69 22 78 28 77 40 C76 50 68 55 60 55 C52 55 44 50 43 40 Z"],
+    beak: "M55 44 C55 40 65 40 65 44 C65 50 62 54 60 55 C58 54 55 50 55 44 Z",
+    eyes: { at: [[51, 36], [69, 36]], white: 4.6, pupil: 2.4 },
+  },
 };
 
 /** What a mood adds around the bird: a badge, a thought, an empty tray. */
@@ -180,6 +200,7 @@ export const OWN_PALETTES: Readonly<Record<MascotBird, MascotPalette>> = {
   duck: { from: "#f43f5e", to: "#be123c", wing: "#db2777", detail: "#9f1239", beak: "#fbbf24", eye: "#1f2937" },
   flamingo: { from: "#f9a8d4", to: "#db2777", wing: "#ec4899", detail: "#be185d", beak: "#fbbf24", eye: "#1f2937" },
   pigeon: { from: "#22d3ee", to: "#6366f1", wing: "#a855f7", detail: "#4338ca", beak: "#f59e0b", eye: "#1f2937" },
+  lovebird: { from: "#6ee7b7", to: "#059669", wing: "#047857", detail: "#fb7185", beak: "#f97316", eye: "#1f2937" },
 };
 
 /** Fixed light and shade, laid at a low opacity over a role (they read on both themes). */

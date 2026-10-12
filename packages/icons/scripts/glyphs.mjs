@@ -29,7 +29,7 @@ export const arc = (cx, cy, r, a0, a1) => {
 
 /**
  * name → { p: path d[], c: [cx, cy, r][] (stroked circles), n: [cx, cy][] (nodes), group, keywords }.
- * Groups: product (the vocabulary of Orochia and Orazaka), interface (navigation and actions), system.
+ * Groups: product (the vocabulary of the products), interface (navigation and actions), system.
  */
 export const GLYPHS = {
   // ── Product: creators and audiences (Orochia) ──
@@ -68,6 +68,11 @@ export const GLYPHS = {
   server: { group: "product", keywords: "server self-hosted infrastructure node", p: [cut(3.5, 3.5, 17, 7, 1.8), cut(3.5, 13.5, 17, 7, 1.8), "M7 7h4M7 17h4"], n: [[16.5, 17]] },
   billing: { group: "product", keywords: "billing invoice receipt", p: ["M5 3.5h14v17l-2.3-1.5-2.4 1.5-2.3-1.5-2.3 1.5-2.4-1.5L5 20.5z", "M8.5 8h7M8.5 11.5h7M8.5 15h3.5"], n: [[15.5, 15]] },
   credits: { group: "product", keywords: "credits coins tokens balance", p: [hex(9.5, 10, 6.5), "M14.6 6.3a6.5 6.5 0 0 1 2.4 12.6 6.5 6.5 0 0 1-5.3-.4"], n: [[9.5, 10]] },
+
+  // ── Product: meeting people — talk first, small batches, debriefs, introductions ──
+  batch: { group: "product", keywords: "batch small set cards profiles matches deck", p: [cut(3.5, 9, 11.5, 12.5, 2), "M7 9V7.5L8.5 6h8L18 7.5V17l-1.5 1.5H15", "M10.5 6V4.5L12 3h8l1.5 1.5V14L20 15.5h-2"], n: [[9.25, 15.25]] },
+  debrief: { group: "product", keywords: "debrief feedback review answered questions check", p: ["M6 4h12l2.5 2.5v8L18 17h-6.5L7 20.5V17H6l-2.5-2.5v-8z", "M8.5 10.5l2.5 2.5 4.5-4.5"], n: [[11, 13]] },
+  intro: { group: "product", keywords: "intro introduction meet mutual match conversation two people", p: ["M2.5 4.5 4 3h8.5L14 4.5v5L12.5 11H8l-3 2.5V11h-1L2.5 9.5z", "M21.5 12.5 20 11h-8.5L10 12.5v5l1.5 1.5H16l3 2.5V19h1l1.5-1.5z"], n: [[12, 11]] },
 
   // ── System ──
   theme: { group: "system", keywords: "theme appearance dark light contrast", c: [[12, 12, 8.5]], p: ["M12 3.5v17", "M12 3.5a8.5 8.5 0 0 1 0 17z"] },

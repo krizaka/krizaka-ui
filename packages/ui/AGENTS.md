@@ -24,7 +24,7 @@
   platform through `@krizaka/ui/native` (one theme context). Jest and Storybook render them on stand-ins
   (`src/native/mocks`).
 - The **brand layer shared by every Krizaka product**: the animated marks (`KrizakaLogo`, `OrazakaLogo`,
-  `OrochiaLogo`, `ProductLogo`; native `KrizakaMark`, `OrazakaMark`, `OrochiaMark`, `ProductMark`), one family drawn from
+  `OrochiaLogo`, `YazakiaLogo`, `ProductLogo`; native `KrizakaMark`, `OrazakaMark`, `OrochiaMark`, `YazakiaMark`, `ProductMark`), one family drawn from
   shared geometry (`marks/*-geometry.ts`, colours tested against the brand themes of `@krizaka/tokens`, see its
   `BRAND.md`), and the **Krizaka motion signature** (`motion.css`, `./motion`: `MotionObserver` — reveal, off-screen
   pause, settle, spotlight, magnetism — and `RotatingWord`; the section backdrop's layers; the loader glyph; the
@@ -35,7 +35,7 @@
 ## 2. Rules
 
 - **Marks and motion: no framework, no CSS library.** Marks embed their own CSS with prefixed classes (`kzm-`, `ozm-`,
-  `orom-`); the signature is plain CSS with `kz-` classes and `--kz-*` variables. They run on React 18 and 19.
+  `orom-`, `yzm-`); the signature is plain CSS with `kz-` classes and `--kz-*` variables. They run on React 18 and 19.
 - **Primitives: React 19, Tailwind v4 + `@krizaka/tailwind`.** Dependencies: `radix-ui`, `tailwind-variants` (its
   merge engine is the one `cn` uses — a single copy), `clsx`, `sonner` (the toasts), `cmdk` (the command palette; it
   shares Radix's Dialog with `./dialog`). Colours are roles only (lint `krizakaUi`, strict);
@@ -58,12 +58,12 @@
 
 - `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest + happy-dom for the web; Jest with React
   Native's preset and Testing Library for `src/native`), build (tsup), size, publint.
-- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 16 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens) (Metro
+- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 16.5 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the Yazakia mark and the lovebird) (Metro
   bundles it into the app, nothing is downloaded: a regression guard, not a budget); the shared runtime
   (`./cn`: clsx + tailwind-variants and its merge engine, paid once per app) ≤ 14 kB; each primitive is measured
   without that runtime (Radix included): `./button` ≤ 3.5 kB (it draws the loader glyph), `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
   `./slot` ≤ 2 kB, `./field` ≤ 1.5 kB, `./card` ≤ 3 kB, `./separator` ≤ 2 kB (Radix's `Primitive` and `Slot`),
-  `./confirm-button` ≤ 4 kB, `./progress` ≤ 1.8 kB, `./section-backdrop` ≤ 1 kB, `./mascots` ≤ 4.5 kB (five birds' geometry), `./iso` ≤ 4.5 kB (a hero with no
+  `./confirm-button` ≤ 4 kB, `./progress` ≤ 1.8 kB, `./section-backdrop` ≤ 1 kB, `./mascots` ≤ 4.5 kB (six birds' geometry), `./iso` ≤ 4.5 kB (a hero with no
   client JavaScript), `./loader`, `./meter`, `./stepper`, `./glow-card`, `./chip-link` ≤ 2 kB, `./motion`, `./number-ticker`,
   `./marquee` ≤ 1.5 kB, `./terminal-replay` ≤ 2.5 kB (its timer, observer and controls), the other atoms ≤ 1 kB. The controls carry Radix's roving focus
   or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6 kB, `./chip` ≤ 10 kB, `./tabs` ≤ 10 kB, `./radio-group`

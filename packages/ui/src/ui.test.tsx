@@ -1,16 +1,18 @@
 import { brands, marks } from "@krizaka/tokens/native";
 import { render } from "@testing-library/react";
 
-import { cx, KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, RotatingWord } from "./index";
+import { cx, KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, RotatingWord, YazakiaLogo } from "./index";
 import { KRIZAKA } from "./marks/krizaka-geometry";
 import { ORAZAKA } from "./marks/orazaka-geometry";
 import { OROCHIA } from "./marks/orochia-geometry";
+import { YAZAKIA } from "./marks/yazakia-geometry";
 
 describe("marks", () => {
   it.each([
     ["Krizaka", KrizakaLogo],
     ["Orazaka", OrazakaLogo],
     ["Orochia", OrochiaLogo],
+    ["Yazakia", YazakiaLogo],
   ])("%s is decorative by default and named with a title", (name, Mark) => {
     const { container, rerender } = render(<Mark />);
     expect(container.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
@@ -30,7 +32,7 @@ describe("marks", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it.each([KrizakaLogo, OrazakaLogo, OrochiaLogo])("stops moving with animated={false} (%#)", (Mark) => {
+  it.each([KrizakaLogo, OrazakaLogo, OrochiaLogo, YazakiaLogo])("stops moving with animated={false} (%#)", (Mark) => {
     const { container } = render(<Mark animated={false} />);
     expect(container.querySelector("[class]:not(svg)")).toBeNull();
     const moving = render(<Mark />);
@@ -41,6 +43,7 @@ describe("marks", () => {
     [KrizakaLogo, KRIZAKA],
     [OrazakaLogo, ORAZAKA],
     [OrochiaLogo, OROCHIA],
+    [YazakiaLogo, YAZAKIA],
   ] as const)("shares the family frame and crops to the emblem below 48 px (%#)", (Mark, geometry) => {
     const { container, rerender } = render(<Mark size={24} />);
     expect(container.querySelector("svg")?.getAttribute("viewBox")).toBe(geometry.croppedViewBox);
@@ -60,6 +63,18 @@ describe("marks", () => {
     expect(ORAZAKA.gradient.stops[0]![1]).toBe(brands.orazaka.light.accent);
     expect(ORAZAKA.gradient.stops.map(([, c]) => c)).not.toContain("#f59e0b");
     expect(ORAZAKA.glow.color).toBe(ORAZAKA.gradient.stops.at(-1)![1]);
+    // Yazakia: emerald → turquoise, the mark gradient of its brand; the halo in the turquoise end.
+    expect(YAZAKIA.gradient.stops).toEqual(marks.yazakia);
+    expect(YAZAKIA.glow.color).toBe(YAZAKIA.gradient.stops.at(-1)![1]);
+  });
+
+  it("draws the Yazakia emblem: two heads, two arms and a stem in the brand gradient, the pair on the orbit (snapshot)", async () => {
+    const { container } = render(<YazakiaLogo size={96} animated={false} />);
+    const svg = container.querySelector("svg")!;
+    expect(svg.querySelectorAll("path")).toHaveLength(YAZAKIA.arms.length + 1);
+    expect(svg.querySelectorAll("circle")).toHaveLength(1 + 2 + YAZAKIA.pair.at.length + YAZAKIA.heads.length + 2);
+    // The SVG, ids normalised (they are unique per instance).
+    await expect(svg.outerHTML.replace(/yzm-(\w+)-[\w-]+?(?=[")])/g, "yzm-$1")).toMatchFileSnapshot("./marks/__snapshots__/YazakiaLogo.svg");
   });
 
   it("picks a mark by id", () => {

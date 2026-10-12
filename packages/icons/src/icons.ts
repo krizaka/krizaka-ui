@@ -68,6 +68,12 @@ export const ServerIcon = /* @__PURE__ */ createIcon("ServerIcon", g.server);
 export const BillingIcon = /* @__PURE__ */ createIcon("BillingIcon", g.billing);
 /** credits coins tokens balance */
 export const CreditsIcon = /* @__PURE__ */ createIcon("CreditsIcon", g.credits);
+/** batch small set cards profiles matches deck */
+export const BatchIcon = /* @__PURE__ */ createIcon("BatchIcon", g.batch);
+/** debrief feedback review answered questions check */
+export const DebriefIcon = /* @__PURE__ */ createIcon("DebriefIcon", g.debrief);
+/** intro introduction meet mutual match conversation two people */
+export const IntroIcon = /* @__PURE__ */ createIcon("IntroIcon", g.intro);
 /** theme appearance dark light contrast */
 export const ThemeIcon = /* @__PURE__ */ createIcon("ThemeIcon", g.theme);
 /** light mode sun */

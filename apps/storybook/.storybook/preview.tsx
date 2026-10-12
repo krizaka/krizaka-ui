@@ -12,7 +12,7 @@ const preview: Preview = {
       </div>
     ),
   ],
-  globalTypes: { brand: { description: "Identité produit", toolbar: { items: ["krizaka", "orochia", "orazaka"], dynamicTitle: true } } },
+  globalTypes: { brand: { description: "Identité produit", toolbar: { items: ["krizaka", "orochia", "orazaka", "yazakia"], dynamicTitle: true } } },
   initialGlobals: { brand: "krizaka" },
   parameters: { a11y: { test: "error" }, backgrounds: { disable: true } },
 };

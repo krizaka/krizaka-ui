@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import DefaultExample from "../../registry/examples/mascots/native/default";
+import LovebirdExample from "../../registry/examples/mascots/native/lovebird";
 import { Mascot } from "./mascots";
 import { nativeFrame } from "./story-frame";
 
@@ -19,3 +20,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { render: () => <DefaultExample /> };
+export const Lovebird: Story = { render: () => <LovebirdExample /> };

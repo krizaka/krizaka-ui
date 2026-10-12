@@ -1,11 +1,12 @@
 {
   "name": "@krizaka/ui",
   "version": "2.7.0",
-  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia) and the motion signature — web and /native.",
+  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia, Yazakia) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
     "orazaka",
     "orochia",
+    "yazakia",
     "react",
     "logo",
     "motion",
@@ -460,7 +461,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "16 kB",
+      "limit": "16.5 kB",
       "gzip": true
     },
     {
