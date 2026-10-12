@@ -73,6 +73,12 @@ export const batch: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5.5 9H13L15 11
 export const debrief: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M6 4h12l2.5 2.5v8L18 17h-6.5L7 20.5V17H6l-2.5-2.5v-8z","M8.5 10.5l2.5 2.5 4.5-4.5"], n: [[11,13]] });
 /** intro introduction meet mutual match conversation two people */
 export const intro: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M2.5 4.5 4 3h8.5L14 4.5v5L12.5 11H8l-3 2.5V11h-1L2.5 9.5z","M21.5 12.5 20 11h-8.5L10 12.5v5l1.5 1.5H16l3 2.5V19h1l1.5-1.5z"], n: [[12,11]] });
+/** moment time limited duration listening presence stops */
+export const moment: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M16.25 5.14A8.5 8.5 0 1 1 7.75 5.14","M12 2v3.5"], n: [[12,12.5]] });
+/** thread continuity memory context carry on follow up */
+export const thread: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M2.5 16c2.5 0 3.5-7.5 6.5-7.5s3.5 9 6.5 9 3-4 5-4.5"], n: [[20.5,13]] });
+/** keep save hold open hand notebook summary */
+export const keep: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M3.5 13H4.5L5.5 14V20L4.5 21H3.5L2.5 20V14Z","M5.5 19.5H14l6.4-3.9a1.6 1.6 0 0 0-1.7-2.7L14.5 15","M5.5 14.5 8 13h4.5a1.5 1.5 0 0 1 0 3H9.5"], n: [[13,8]] });
 /** theme appearance dark light contrast */
 export const theme: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 3.5v17","M12 3.5a8.5 8.5 0 0 1 0 17z"], c: [[12,12,8.5]] });
 /** light mode sun */
@@ -329,6 +335,21 @@ export const glyphIndex = {
     "component": "IntroIcon",
     "group": "product",
     "keywords": "intro introduction meet mutual match conversation two people"
+  },
+  "moment": {
+    "component": "MomentIcon",
+    "group": "product",
+    "keywords": "moment time limited duration listening presence stops"
+  },
+  "thread": {
+    "component": "ThreadIcon",
+    "group": "product",
+    "keywords": "thread continuity memory context carry on follow up"
+  },
+  "keep": {
+    "component": "KeepIcon",
+    "group": "product",
+    "keywords": "keep save hold open hand notebook summary"
   },
   "theme": {
     "component": "ThemeIcon",

@@ -356,7 +356,7 @@ describe("brands", async () => {
   const surfaces = ["surface0", "surface1", "surface2", "surface3"] as const;
 
   it("compiles one theme per brand and the scoped classes", () => {
-    expect(BRANDS).toEqual(["krizaka", "orazaka", "orochia", "yazakia"]);
+    expect(BRANDS).toEqual(["krizaka", "orazaka", "orochia", "yazakia", "yororis"]);
     for (const id of BRANDS) expect(files[`brands/${id}.css`], id).toBeDefined();
     expect(files["brands/scoped.css"]).toContain(".brand-orazaka {");
     expect(Object.keys(index.brands)).toEqual(BRANDS);
@@ -444,6 +444,9 @@ describe("brands", async () => {
       expect(native.marks.orochia.map(([, c]: [string, string]) => c)).toEqual(["#7c3aed", "#d946ef", "#f472b6"]); // unchanged
       // Yazakia: emerald → turquoise, the turquoise end on the accent's hue family.
       expect(index.marks.yazakia.map(([, c]: [string, string]) => hue(c))).toEqual([156, 178]);
+      // Yororis: sand → sage, the sage end on the accent's hue.
+      expect(index.marks.yororis.map(([, c]: [string, string]) => hue(c))).toEqual([34, 104]);
+      expect(Math.abs(hue(index.marks.yororis.at(-1)[1]) - hue(index.brands.yororis.dark.accent))).toBeLessThanOrEqual(10);
       // Orazaka: deep orange (its light accent) → orange, both on the accent's hue 26 — never the amber of --kz-warning.
       expect(index.marks.orazaka[0][1]).toBe(index.brands.orazaka.light.accent);
       for (const [, c] of index.marks.orazaka) {
@@ -452,7 +455,7 @@ describe("brands", async () => {
       }
     });
 
-    it.each(["orazaka", "yazakia"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
+    it.each(["orazaka", "yazakia", "yororis"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
       for (const mode of ["dark", "light"] as const) {
         for (const s of ["surface0", "surface1", "surface2"] as const) {
           for (const [, c] of index.marks[id]) expect(contrast(parseHsl(c), parseHsl(index.values[mode][s])), `${mode} ${s} ${c}`).toBeGreaterThanOrEqual(3);
@@ -481,6 +484,34 @@ describe("brands", async () => {
     }
     expect(files["brands/scoped.css"]).toContain(".brand-yazakia {");
     expect(files["brands/scoped.css"]).toContain("html.light .brand-yazakia");
+  });
+
+  it("keeps Yororis' sage accent apart from every status, and its sand (accent-2, mark) apart from the warning amber", () => {
+    const hsl = (v: string) => /hsl\(([\d.]+) ([\d.]+)%/.exec(v)!.slice(1).map(Number) as [number, number];
+    const gap = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
+    for (const mode of ["dark", "light"] as const) {
+      const [accent] = hsl(index.brands.yororis[mode].accent);
+      for (const status of ["success", "warning", "danger"] as const) {
+        expect(gap(accent, hsl(index.values[mode][status])[0]), `${mode} ${status}`).toBeGreaterThanOrEqual(30);
+      }
+      // The sand shares the amber's hue family: it is told apart by its chroma — at most half the warning's saturation.
+      const [, warningSat] = hsl(index.values[mode].warning);
+      for (const sand of [index.brands.yororis[mode].accent2, index.marks.yororis[0][1]]) {
+        expect(hsl(sand)[1], `${mode} ${sand}`).toBeLessThanOrEqual(warningSat / 2);
+      }
+      expect(index.brands.yororis[mode].info).not.toBe(index.brands.yororis[mode].accent);
+    }
+    // Apart from Yazakia's turquoise and emerald too: two products, two colours.
+    expect(gap(hsl(index.brands.yororis.dark.accent)[0], hsl(index.brands.yazakia.dark.accent2)[0])).toBeGreaterThanOrEqual(30);
+  });
+
+  it("gives Yororis the same roles as every brand, dark, light and native (key parity)", () => {
+    for (const mode of ["dark", "light"] as const) {
+      expect(Object.keys(index.brands.yororis[mode])).toEqual(Object.keys(index.brands.orochia[mode]));
+      expect(Object.keys(native.brands.yororis[mode])).toEqual(Object.keys(native.brands.orochia[mode]));
+    }
+    expect(files["brands/scoped.css"]).toContain(".brand-yororis {");
+    expect(files["brands/scoped.css"]).toContain("html.light .brand-yororis");
   });
 
   it("keeps Orazaka's accent apart from the warning status", () => {

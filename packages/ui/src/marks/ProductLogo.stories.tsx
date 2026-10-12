@@ -7,7 +7,7 @@ const meta = {
   title: "Brand/ProductLogo",
   component: ProductLogo,
   args: { id: "krizaka", size: 96, animated: true },
-  argTypes: { id: { control: "inline-radio", options: ["krizaka", "orazaka", "orochia", "yazakia"] } },
+  argTypes: { id: { control: "inline-radio", options: ["krizaka", "orazaka", "orochia", "yazakia", "yororis"] } },
 } satisfies Meta<typeof ProductLogo>;
 export default meta;
 
@@ -17,6 +17,7 @@ export const Krizaka: Story = {};
 export const Orazaka: Story = { args: { id: "orazaka" } };
 export const Orochia: Story = { args: { id: "orochia" } };
 export const Yazakia: Story = { args: { id: "yazakia" } };
+export const Yororis: Story = { args: { id: "yororis" } };
 
 /** Every mark, still (`animated={false}`). */
 export const AllStill: Story = {
@@ -26,6 +27,7 @@ export const AllStill: Story = {
       <ProductLogo {...args} id="orazaka" />
       <ProductLogo {...args} id="orochia" />
       <ProductLogo {...args} id="yazakia" />
+      <ProductLogo {...args} id="yororis" />
     </div>
   ),
   args: { animated: false },

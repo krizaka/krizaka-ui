@@ -1,7 +1,7 @@
 // Client (the bird has an id per instance). A rule, a promise or a decision told by a bird (blocks.css): the sentence in
 // a speech bubble — an opening quote mark, the hue around it — and under its tail the bird and who speaks. One bird per
 // idea (Mascot's rule): the falcon watches, the owl reads, the duck builds, the flamingo answers or gets paid, the
-// pigeon delivers, the lovebird introduces.
+// pigeon delivers, the lovebird introduces, the crane listens.
 import type * as React from "react";
 
 import { cn } from "../cn";

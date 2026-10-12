@@ -4,9 +4,10 @@ import { KrizakaLogo } from "./KrizakaLogo";
 import { OrazakaLogo } from "./OrazakaLogo";
 import { OrochiaLogo } from "./OrochiaLogo";
 import { YazakiaLogo } from "./YazakiaLogo";
+import { YororisLogo } from "./YororisLogo";
 
 /**
- * The brand family side by side — Krizaka and its three products, Orazaka, Orochia and Yazakia: the same orbit, ring,
+ * The brand family side by side — Krizaka and its four products, Orazaka, Orochia, Yazakia and Yororis: the same orbit, ring,
  * weight and core, one colour per brand. Rendered (and screenshot-tested) in dark and light.
  */
 const meta = {
@@ -22,9 +23,10 @@ const FAMILY = [
   ["Orazaka", OrazakaLogo],
   ["Orochia", OrochiaLogo],
   ["Yazakia", YazakiaLogo],
+  ["Yororis", YororisLogo],
 ] as const;
 
-/** The four marks at 128 px, then cropped to their emblems at 32 px (navigation). Still. */
+/** The five marks at 128 px, then cropped to their emblems at 32 px (navigation). Still. */
 export const Family: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
