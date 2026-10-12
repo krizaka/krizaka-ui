@@ -146,6 +146,7 @@ export default defineConfig([
     ...shared,
     entry: {
       "data-table": "src/data-table/index.ts",
+      virtual: "src/virtual/index.ts",
       "filter-bar": "src/filter-bar/index.ts",
       combobox: "src/combobox/index.ts",
       "tag-input": "src/tag-input/index.ts",
@@ -189,11 +190,16 @@ export default defineConfig([
     noExternal: ["@krizaka/tokens"],
   },
   {
-    // The native entries that need an Expo module (an optional peer): their own files, importing the platform through
-    // `@krizaka/ui/native` (one theme context) and the module itself — never part of dist/native.js.
+    // The native entries that need a module of their own (an optional peer): their own files, importing the platform
+    // through `@krizaka/ui/native` (one theme context) and the module itself — never part of dist/native.js. The list
+    // takes FlashList and @krizaka/query (one QueryClient context: the app's).
     ...shared,
-    entry: { "native/video-player": "src/native/video-player.tsx", "native/media-capture": "src/native/media-capture.tsx" },
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera"],
+    entry: {
+      "native/video-player": "src/native/video-player.tsx",
+      "native/media-capture": "src/native/media-capture.tsx",
+      "native/list": "src/native/list.tsx",
+    },
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "@shopify/flash-list", "@krizaka/query"],
   },
   {
     ...shared,
@@ -203,7 +209,7 @@ export default defineConfig([
     // ~170 entries: one declaration build would exhaust the heap. Every example has the same signature — a component,
     // `defaultOpen` for those that open something — so build-registry.mjs writes their `.d.ts`.
     dts: false,
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera"],
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "@shopify/flash-list", "@krizaka/query"],
     banner: { js: '"use client";' },
   },
 ]);

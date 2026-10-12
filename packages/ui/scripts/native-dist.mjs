@@ -19,14 +19,16 @@ assert.ok(!/\b(document|window|HTMLElement|localStorage|matchMedia)\b/.test(js.r
 assert.ok(specifiers(js).includes("react-native"), "dist/native.js does not import react-native");
 console.log(`✓ dist/native.js: no "use client", no DOM; imports ${[...new Set(specifiers(js))].join(", ")}`);
 
-// The native entries that need an Expo module: the platform through @krizaka/ui/native (one theme context), their own
-// module (an optional peer), nothing else — and no DOM either.
-for (const [entry, module] of [
+// The native entries that need a module of their own: the platform through @krizaka/ui/native (one theme context), their
+// own modules (optional peers), nothing else — and no DOM either.
+for (const [entry, ...modules] of [
   ["video-player", "expo-video"],
   ["media-capture", "expo-camera"],
+  // The list: FlashList v2 and the app's @krizaka/query (one QueryClient context) — never @tanstack/* directly.
+  ["list", "@shopify/flash-list", "@krizaka/query"],
 ]) {
   const code = readFileSync(resolve(dist, "native", `${entry}.js`), "utf8");
-  const allowed = new Set([...ALLOWED, "@krizaka/ui/native", module]);
+  const allowed = new Set([...ALLOWED, "@krizaka/ui/native", ...modules]);
   assert.ok(!/["']use client["']/.test(code), `dist/native/${entry}.js carries a "use client" directive`);
   for (const spec of specifiers(code)) assert.ok(allowed.has(spec), `dist/native/${entry}.js imports ${spec}`);
   assert.ok(!/\b(document|window|HTMLElement|localStorage|matchMedia)\b/.test(code.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "")), `dist/native/${entry}.js touches the DOM`);

@@ -10,7 +10,7 @@
   `stat`, `page-header`, `alert`, `separator`, `kbd`, `tabs`, `chip`, `switch`, `slider`, `checkbox`, `radio-group`,
   `command`, `confirm-button`, `progress`, `section-backdrop`, `loader`, `meter`, `stepper`, `number-ticker`, `terminal-replay`,
   `nav-bar`, `chip-link`, `glow-card`, `marquee`, `iso`, `mascots`, and the data and media primitives `pagination`,
-  `data-table`, `filter-bar`, `combobox`, `tag-input`, `date-picker`, `search-field`, `video-player`, `file-upload`,
+  `data-table` (TanStack Table v9), `virtual` (TanStack Virtual v3), `filter-bar`, `combobox`, `tag-input`, `date-picker`, `search-field`, `video-player`, `file-upload`,
   `media-capture`, `video-trimmer`, `audio-player`, `image-cropper`, and the **page blocks** (category `blocks`) `page`,
   `page-hero`, `card-grid`, `pointer-light`, `link-card`, `argument-card`, `mascot-quote`, `decision-list`, `code-block`,
   `action-bar`, `cta-panel`, `toc`, and the **layouts** (category `layouts`, with their templates) `app-shell`,
@@ -25,7 +25,8 @@
   `Button`, `IconButton`, `Card.*`, `Badge`, `Chip`, `Avatar`, `Skeleton`, `EmptyState`, `Spinner`, `Countdown`,
   `Segmented`, `Progress`, `Toaster`/`toast`, `Mascot`, `Pagination`, `SearchField` — with the web's prop names where the
   concept is the same. What needs an Expo module has its own entry, the module an **optional peer** installed only by
-  the apps that use it: `./native/video-player` (expo-video) and `./native/media-capture` (expo-camera); they import the
+  the apps that use it: `./native/video-player` (expo-video), `./native/media-capture` (expo-camera) and `./native/list`
+  (FlashList v2 and `@krizaka/query`: `List` + `useInfiniteList`, the app's QueryClient context); they import the
   platform through `@krizaka/ui/native` (one theme context). Jest and Storybook render them on stand-ins
   (`src/native/mocks`).
 - The **brand layer shared by every Krizaka product**: the animated marks (`KrizakaLogo`, `OrazakaLogo`,
@@ -43,7 +44,9 @@
   `orom-`, `yzm-`, `yrm-`); the signature is plain CSS with `kz-` classes and `--kz-*` variables. They run on React 18 and 19.
 - **Primitives: React 19, Tailwind v4 + `@krizaka/tailwind`.** Dependencies: `radix-ui`, `tailwind-variants` (its
   merge engine is the one `cn` uses — a single copy), `clsx`, `sonner` (the toasts), `cmdk` (the command palette; it
-  shares Radix's Dialog with `./dialog`). Colours are roles only (lint `krizakaUi`, strict);
+  shares Radix's Dialog with `./dialog`), and the headless engines behind the facade (ADR-001, pinned exactly):
+  `@tanstack/react-table` (`./data-table`) and `@tanstack/react-virtual` (`./virtual`) — a product never imports them;
+  `useDataTable()` and `useVirtualizer` are the escape hatches. Colours are roles only (lint `krizakaUi`, strict);
   words are props (`label`, `units`…), never `t()`; state is `data-*`; `className` is merged last.
 - **Server by default**: an entry gets `"use client"` only when it holds a hook or a portal (tsup client group).
 - **Native: `StyleSheet` and the theme's roles only** — no NativeWind, no dependency beyond `react-native` and
@@ -79,10 +82,10 @@
   `CommandDialog` on the platform's Dialog, 19 kB measured, +10 %). The data and media primitives (`@krizaka/intl`
   counted, the optional peers hls.js / expo-video / expo-camera never bundled — the app passes or installs them):
   `./pagination` ≤ 2 kB, `./video-trimmer` ≤ 2.4 kB, `./audio-player` ≤ 2.8 kB, `./search-field` ≤ 3 kB,
-  `./media-capture` ≤ 3.8 kB, `./file-upload` ≤ 5 kB (it draws `Progress`), `./data-table` ≤ 9.5 kB (Radix Checkbox),
+  `./media-capture` ≤ 3.8 kB, `./file-upload` ≤ 5 kB (it draws `Progress`), `./data-table` ≤ 44 kB for `DataTable` (TanStack Table v9 with every feature registered, the windowing of TanStack Virtual, Radix Checkbox, the pagination) and ≤ 40 kB for its toolbar (`FilterBar` on Radix DropdownMenu, `SearchField`), `./virtual` ≤ 12 kB (TanStack Virtual),
   `./image-cropper` ≤ 12.5 kB and `./video-player` ≤ 15 kB (Radix Slider), `./combobox` ≤ 13 kB and `./tag-input` ≤
   13.5 kB (the chips' Radix Toggle), `./date-picker` ≤ 29 kB (Radix Popover), `./filter-bar` ≤ 34 kB (Radix
-  DropdownMenu); `./native/video-player` ≤ 2 kB, `./native/media-capture` ≤ 2.5 kB. The page blocks (their styles are
+  DropdownMenu); `./native/video-player` ≤ 2 kB, `./native/media-capture` ≤ 2.5 kB, `./native/list` ≤ 2 kB (FlashList and @krizaka/query are the app's). The page blocks (their styles are
   `blocks.css`, not counted): `./cta-panel`, `./card-grid`, `./pointer-light`, `./link-card`, `./decision-list`, `./toc` ≤ 1 kB,
   `./page`, `./page-hero` ≤ 1.2 kB, `./argument-card`, `./action-bar` ≤ 1.4 kB, `./mascot-quote` ≤ 4.8 kB (the bird's
   geometry), `./code-block` ≤ 12 kB (Radix Tabs for `CodeTabs`). The layouts: `./dashboard-layout`, `./settings-layout`,
@@ -104,7 +107,7 @@
   `./mascot-quote`, `./decision-list`, `./code-block`, `./action-bar`, `./cta-panel`, `./toc`, `./app-shell`,
   `./dashboard-layout`, `./settings-layout`, `./auth-layout`, `./detail-layout`, `./split-view`, `./marketing-layout`,
   `./docs-layout`, `./scroll-stage`, `./choice-grid`, `./profile-card`, `./stage-banner`, `./goal-gauge`, `./continue-prompt`,
-  `./achievement`, `./promise-card`, `./landscape`), `./native`, `./native/video-player`, `./native/media-capture`, `./motion.css`,
+  `./achievement`, `./promise-card`, `./landscape`, `./virtual`), `./native`, `./native/video-player`, `./native/media-capture`, `./native/list`, `./motion.css`,
   `./blocks.css` (the page blocks' styles, imported once by the app), `./story.css` (the storytelling kit's, the same way), `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/examples/*` (the compiled examples), `./package.json`;
   files `dist`, `registry` (JSON, examples as `.tsx`, `.js`, `.d.ts`), `tailwind.css`, `README.md`, `LICENSE`. Adding an
   entry is a minor; removing or renaming one is a breaking change.
