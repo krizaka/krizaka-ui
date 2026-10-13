@@ -10,6 +10,28 @@ export const CONSUMERS = {
   node: ["realtime", "push"],
 };
 
+/** The native modules the Expo consumer installs with `expo install` (the optional peers the examples need). */
+export const NATIVE_PEERS = ["react-native-svg", "expo-video", "expo-camera", "expo-font", "@shopify/flash-list"];
+
+/**
+ * The entries each consumer must find in the published @krizaka/ui (PS2: the data table v2 on TanStack Table, the
+ * virtual lists, the native list on FlashList + @krizaka/query) — beside their examples, which the apps render.
+ */
+export const ENTRY_POINTS = {
+  next: ["./data-table", "./virtual"],
+  expo: ["./native/list"],
+};
+
+/** The entries of `entries` that a published package does not export, or whose files are missing. */
+export function missingEntries(pkgDir, entries) {
+  const pkg = JSON.parse(readFileSync(join(pkgDir, "package.json"), "utf8"));
+  return entries.filter((entry) => {
+    const target = pkg.exports?.[entry];
+    const files = target && typeof target === "object" ? Object.values(target) : [target];
+    return !target || files.some((file) => typeof file !== "string" || !existsSync(join(pkgDir, file)));
+  });
+}
+
 /** Every package any consumer installs, once, in a stable order. */
 export const PACKAGES = [...new Set(Object.values(CONSUMERS).flat())];
 
