@@ -494,6 +494,34 @@
       "types": "./dist/pricing-page.d.ts",
       "import": "./dist/pricing-page.js"
     },
+    "./chat": {
+      "types": "./dist/chat.d.ts",
+      "import": "./dist/chat.js"
+    },
+    "./swipe-deck": {
+      "types": "./dist/swipe-deck.d.ts",
+      "import": "./dist/swipe-deck.js"
+    },
+    "./match-dialog": {
+      "types": "./dist/match-dialog.d.ts",
+      "import": "./dist/match-dialog.js"
+    },
+    "./tag-selector": {
+      "types": "./dist/tag-selector.d.ts",
+      "import": "./dist/tag-selector.js"
+    },
+    "./step-progress": {
+      "types": "./dist/step-progress.d.ts",
+      "import": "./dist/step-progress.js"
+    },
+    "./verified-badge": {
+      "types": "./dist/verified-badge.d.ts",
+      "import": "./dist/verified-badge.js"
+    },
+    "./photo-grid": {
+      "types": "./dist/photo-grid.d.ts",
+      "import": "./dist/photo-grid.js"
+    },
     "./motion.css": "./dist/motion.css",
     "./blocks.css": "./dist/blocks.css",
     "./story.css": "./dist/story.css",
@@ -677,7 +705,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "46 kB",
+      "limit": "47.5 kB",
       "gzip": true
     },
     {
@@ -1877,6 +1905,76 @@
         "expo-camera",
         "expo-image-picker",
         "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./photo-grid",
+      "path": "dist/photo-grid.js",
+      "limit": "2.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./swipe-deck",
+      "path": "dist/swipe-deck.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./verified-badge",
+      "path": "dist/verified-badge.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./match-dialog",
+      "path": "dist/match-dialog.js",
+      "limit": "20 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./tag-selector",
+      "path": "dist/tag-selector.js",
+      "limit": "10 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./step-progress",
+      "path": "dist/step-progress.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./chat",
+      "path": "dist/chat.js",
+      "limit": "7 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
       ]
     }
   ],
