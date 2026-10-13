@@ -24,9 +24,12 @@ export {
   type CardRootProps,
   CardTitle,
 } from "./card";
+export { Checkbox, type CheckboxProps } from "./checkbox";
 export { Chip, type ChipGroupProps, type ChipProps, type ChipSize } from "./chip";
 export { Countdown, type CountdownProps, type CountdownUnits } from "./countdown";
+export { composeDate, DateField, type DateFieldLabels, dateFieldLabels, type DateFieldProps, datePartsOrder } from "./date-picker";
 export { EmptyState, type EmptyStateProps } from "./empty-state";
+export { TextField, type TextFieldProps } from "./field";
 export { GoalGauge, type GoalGaugeProps } from "./goal-gauge";
 export { KrizakaMark } from "./KrizakaMark";
 export { type NativeMarkProps } from "./mark-motion";

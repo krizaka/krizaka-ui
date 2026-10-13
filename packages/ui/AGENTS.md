@@ -23,7 +23,7 @@
 - The **native platform** (`./native`, `src/native`): the theme (`ThemeProvider`/`useTheme` on the
   `@krizaka/tokens/native` roles + a product's `overrides`) and the same primitives for React Native — `Txt`,
   `Button`, `IconButton`, `Card.*`, `Badge`, `Chip`, `Avatar`, `Skeleton`, `EmptyState`, `Spinner`, `Countdown`,
-  `Segmented`, `Progress`, `Toaster`/`toast`, `Mascot`, `Pagination`, `SearchField` — with the web's prop names where the
+  `Segmented`, `Progress`, `Toaster`/`toast`, `Mascot`, `Pagination`, `SearchField`, the form fields `TextField`, `Checkbox`, `DateField` — with the web's prop names where the
   concept is the same. What needs an Expo module has its own entry, the module an **optional peer** installed only by
   the apps that use it: `./native/video-player` (expo-video), `./native/media-capture` (expo-camera) and `./native/list`
   (FlashList v2 and `@krizaka/query`: `List` + `useInfiniteList`, the app's QueryClient context); they import the
@@ -66,7 +66,7 @@
 
 - `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest + happy-dom for the web; Jest with React
   Native's preset and Testing Library for `src/native`), build (tsup), size, publint.
-- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 19.4 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the Yazakia mark and the lovebird; 2.9: the finer Yazakia mark — two voices and a lit lens, +0.15 kB; the storytelling kit's ProfileCard, GoalGauge and the phoenix; the Yororis mark, the crane and the fifth brand's inlined tokens, +0.7 kB) (Metro
+- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 21 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the Yazakia mark and the lovebird; 2.9: the finer Yazakia mark — two voices and a lit lens, +0.15 kB; the storytelling kit's ProfileCard, GoalGauge and the phoenix; the Yororis mark, the crane and the fifth brand's inlined tokens, +0.7 kB; 3.1: the form fields TextField, Checkbox and DateField, +1.4 kB) (Metro
   bundles it into the app, nothing is downloaded: a regression guard, not a budget); the shared runtime
   (`./cn`: clsx + tailwind-variants and its merge engine, paid once per app) ≤ 14 kB; each primitive is measured
   without that runtime (Radix included): `./button` ≤ 3.5 kB (it draws the loader glyph), `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
