@@ -241,11 +241,14 @@ export function ConversationItem({ name, avatar, presence, presenceLabel, previe
   return (
     <Pressable
       role="button"
-      aria-label={[name, presence ? presenceLabel : null, preview, time, unread > 0 ? (unreadLabel ?? String(unread)) : null].filter(Boolean).join(", ")}
+      // The words in the order they are seen (name, time, preview, count), then the presence — the picture is hidden.
+      aria-label={[name, time, preview, unread > 0 ? (unreadLabel ?? String(unread)) : null, presence ? presenceLabel : null].filter(Boolean).join(", ")}
       onPress={onPress}
       style={({ pressed }) => [styles.item, { backgroundColor: pressed ? theme.surface2 : theme.surface0 }, style]}
     >
-      <Avatar src={avatar} alt={name} size="lg" presence={presence} presenceLabel={presenceLabel} />
+      <View aria-hidden>
+        <Avatar src={avatar} alt={name} size="lg" presence={presence} presenceLabel={presenceLabel} />
+      </View>
       <View style={styles.flex}>
         <View style={styles.top}>
           <Txt variant="label" numberOfLines={1} style={[styles.flex, unread > 0 ? styles.bold : null]}>

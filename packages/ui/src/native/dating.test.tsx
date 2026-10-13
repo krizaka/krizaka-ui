@@ -64,7 +64,7 @@ describe("dating kit (native)", () => {
     await fireEvent.press(screen.getByRole("button", { name: "Hi, 19:02, Not sent. Tap to retry" }));
     expect(retry).toHaveBeenCalled();
     await render(<ConversationItem name="Elena" preview="typing…" typing unread={2} unreadLabel="2 unread" time="19:06" />);
-    expect(screen.getByRole("button", { name: "Elena, typing…, 19:06, 2 unread" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Elena, 19:06, typing…, 2 unread" })).toBeTruthy();
   });
 
 });
