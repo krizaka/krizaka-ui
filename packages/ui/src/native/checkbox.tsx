@@ -5,7 +5,7 @@ import Svg, { Path } from "react-native-svg";
 import { useTheme } from "./theme";
 
 export type CheckboxProps = {
-  /** The words next to the box, pressable with it: text, or a `Txt` with links inside (terms, privacy). */
+  /** The words next to the box: text (pressable with it), or a `Txt` with links inside (terms, privacy) — then the box alone is pressed and `label` names it. */
   children?: React.ReactNode;
   /** The accessible name when `children` is not plain text (a sentence with links), passed translated. */
   label?: string;
@@ -35,35 +35,50 @@ export function Checkbox({ children, label, checked, defaultChecked = false, onC
     if (checked === undefined) setOwn(!on);
     onCheckedChange?.(!on);
   };
+  const box = (
+    <View
+      style={[
+        styles.box,
+        { borderRadius: radius.xs + 2, borderColor: error ? theme.danger : on ? theme.accent : theme.borderStrong, backgroundColor: on ? theme.accent : theme.surface1 },
+      ]}
+    >
+      {on ? (
+        <Svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke={theme.onAccent} strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <Path d="M20 6 9 17l-5-5" />
+        </Svg>
+      ) : null}
+    </View>
+  );
+  const plain = children === undefined || typeof children === "string";
+  const a11y = {
+    role: "checkbox" as const,
+    "aria-checked": on,
+    "aria-disabled": disabled || undefined,
+    "aria-label": label ?? (typeof children === "string" ? children : undefined),
+    accessibilityHint: error,
+    disabled,
+    onPress: toggle,
+  };
   return (
     <View style={[styles.root, style]}>
-      <Pressable
-        role="checkbox"
-        aria-checked={on}
-        aria-disabled={disabled || undefined}
-        aria-label={label ?? (typeof children === "string" ? children : undefined)}
-        accessibilityHint={error}
-        disabled={disabled}
-        onPress={toggle}
-        hitSlop={4}
-        style={[styles.row, disabled ? styles.disabled : null]}
-      >
-        <View
-          style={[
-            styles.box,
-            { borderRadius: radius.xs + 2, borderColor: error ? theme.danger : on ? theme.accent : theme.borderStrong, backgroundColor: on ? theme.accent : theme.surface1 },
-          ]}
-        >
-          {on ? (
-            <Svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke={theme.onAccent} strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <Path d="M20 6 9 17l-5-5" />
-            </Svg>
+      {plain ? (
+        <Pressable {...a11y} hitSlop={4} style={[styles.row, disabled ? styles.disabled : null]}>
+          {box}
+          {children !== undefined ? (
+            <View style={styles.text}>
+              <Text style={[styles.label, { color: theme.textPrimary }]}>{children}</Text>
+            </View>
           ) : null}
+        </Pressable>
+      ) : (
+        // Words with links: the box alone is the control (a 44-pt target, named by `label`), the links stay links.
+        <View style={[styles.row, disabled ? styles.disabled : null]}>
+          <Pressable {...a11y} hitSlop={11} style={styles.target}>
+            {box}
+          </Pressable>
+          <View style={styles.text}>{children}</View>
         </View>
-        {children !== undefined ? (
-          <View style={styles.text}>{typeof children === "string" ? <Text style={[styles.label, { color: theme.textPrimary }]}>{children}</Text> : children}</View>
-        ) : null}
-      </Pressable>
+      )}
       {error ? (
         <Text role="alert" aria-live="polite" style={[styles.error, { color: theme.dangerText }]}>
           {error}
@@ -76,6 +91,7 @@ export function Checkbox({ children, label, checked, defaultChecked = false, onC
 const styles = StyleSheet.create({
   root: { gap: 2, alignSelf: "stretch" },
   row: { flexDirection: "row", alignItems: "center", gap: 12, minHeight: 44 },
+  target: { minHeight: 44, justifyContent: "center" },
   box: { width: 22, height: 22, borderWidth: 1.5, alignItems: "center", justifyContent: "center" },
   text: { flex: 1 },
   label: { fontSize: 15, lineHeight: 21 },

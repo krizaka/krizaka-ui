@@ -34,7 +34,7 @@ function SignUp({ onSubmit, check }: { onSubmit: (v: unknown) => unknown; check?
         label="Username"
         transform={(v) => v.toLowerCase()}
         availableHint="Free"
-        asyncDebounceMs={10}
+        asyncDebounceMs={200}
         validateAsync={check && (async (u, signal) => ((await check(u, signal)) ? null : { key: "signUp.username.taken", values: { username: u }, suggestion: { label: `Use @${u}_2`, value: `${u}_2` } }))}
       />
       <form.DateField name="dateOfBirth" label="Date of birth" entry="parts" />
@@ -150,7 +150,7 @@ describe("a form", () => {
     render(<SignUp onSubmit={() => undefined} check={check} />);
     await user.type(screen.getByLabelText("Username"), "eric");
     expect(await screen.findByText("@eric is taken.")).toBeTruthy();
-    expect(check).toHaveBeenCalledTimes(1);
+    expect(check.mock.calls.map(([u]) => u)).toEqual(["eric"]);
     await user.click(screen.getByRole("button", { name: "Use @eric_2" }));
     expect((screen.getByLabelText("Username") as HTMLInputElement).value).toBe("eric_2");
     expect(await screen.findByText("Free")).toBeTruthy();

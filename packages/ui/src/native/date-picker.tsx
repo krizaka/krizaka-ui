@@ -1,5 +1,5 @@
 import * as React from "react";
-import { type StyleProp, StyleSheet, Text, TextInput, View, type ViewStyle } from "react-native";
+import { Platform, type StyleProp, StyleSheet, Text, TextInput, type TextInputProps, View, type ViewStyle } from "react-native";
 
 import { composeDate, DATE_PART_LENGTH, type DatePart, datePartsOrder, splitDate as split } from "../date-picker/parts";
 import { useTheme } from "./theme";
@@ -97,7 +97,7 @@ export function DateField({ label, hint, error, value, defaultValue, onValueChan
               keyboardType="number-pad"
               inputMode="numeric"
               maxLength={LENGTH[part]}
-              autoComplete={autoComplete === "bday" ? (`birthdate-${part}` as const) : "off"}
+              autoComplete={autoComplete === "bday" ? ((Platform.OS === "web" ? `bday-${part}` : `birthdate-${part}`) as TextInputProps["autoComplete"]) : "off"}
               returnKeyType={i === order.length - 1 ? returnKeyType : "next"}
               submitBehavior={i === order.length - 1 && returnKeyType !== "next" ? "blurAndSubmit" : "submit"}
               onSubmitEditing={() => {

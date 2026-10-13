@@ -23,7 +23,7 @@ export default function NativeFormSignUp() {
   return (
     <form.Form aria-label="Create your account" style={{ width: 312 }}>
       <form.TextField name="email" label="E-mail" keyboardType="email-address" autoComplete="email" autoCapitalize="none" textContentType="emailAddress" />
-      <form.TextField name="username" label="Username" autoCapitalize="none" autoComplete="username-new" transform={(v) => v.toLowerCase().replace(/\s+/g, "_")} availableHint="Free" validateAsync={async (u) => ((await taken(u)) ? { key: "signUp.username.taken", suggestion: { label: `Use @${u}_${u.length}`, value: `${u}_${u.length}` } } : null)} />
+      <form.TextField name="username" label="Username" autoCapitalize="none" autoComplete="username" transform={(v) => v.toLowerCase().replace(/\s+/g, "_")} availableHint="Free" validateAsync={async (u) => ((await taken(u)) ? { key: "signUp.username.taken", suggestion: { label: `Use @${u}_${u.length}`, value: `${u}_${u.length}` } } : null)} />
       <form.TextField name="password" label="Password" secureTextEntry autoComplete="new-password" textContentType="newPassword" hint="At least 8 characters." />
       <form.DateField name="dateOfBirth" label="Date of birth" autoComplete="bday" hint="Private, never shown." />
       <form.Checkbox name="acceptTerms" label="I accept the terms and the privacy policy" />

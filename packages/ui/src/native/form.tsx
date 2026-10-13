@@ -276,6 +276,7 @@ export function Switch({ name, label, hint, disabled, style }: Base) {
         }}
         trackColor={{ false: theme.surface3, true: theme.accent }}
         thumbColor={theme.textOnMedia}
+        {...{ activeThumbColor: theme.textOnMedia }}
         ios_backgroundColor={theme.surface3}
       />
     </View>

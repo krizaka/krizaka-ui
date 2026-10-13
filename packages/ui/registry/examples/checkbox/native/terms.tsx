@@ -14,11 +14,11 @@ export default function NativeCheckboxTerms() {
       <Checkbox checked={terms} onCheckedChange={setTerms} label="I accept the terms and the privacy policy" error={terms ? undefined : "Accept the terms to create your account."}>
         <Txt>
           I accept the{" "}
-          <Txt tone="accent" role="link" onPress={() => undefined}>
+          <Txt tone="accent" role="link" style={{ textDecorationLine: "underline" }} onPress={() => undefined}>
             terms
           </Txt>{" "}
           and the{" "}
-          <Txt tone="accent" role="link" onPress={() => undefined}>
+          <Txt tone="accent" role="link" style={{ textDecorationLine: "underline" }} onPress={() => undefined}>
             privacy policy
           </Txt>
         </Txt>
