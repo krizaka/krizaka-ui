@@ -224,13 +224,14 @@ export default defineConfig([
     entry: {
       "native/video-player": "src/native/video-player.tsx",
       "native/media-capture": "src/native/media-capture.tsx",
+      "native/media-picker": "src/native/media-picker.tsx",
       "native/list": "src/native/list.tsx",
       // The form: TanStack Form (a dependency, as on the web) on the native fields of @krizaka/ui/native.
       "native/form": "src/native/form.tsx",
       // The map: MapLibre Native (an optional peer) with the web's style, generated from the tokens (inlined).
       "native/map": "src/native/map.tsx",
     },
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "@shopify/flash-list", "@krizaka/query", "@maplibre/maplibre-react-native", "@protomaps/basemaps"],
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "expo-image-picker", "@shopify/flash-list", "@krizaka/query", "@maplibre/maplibre-react-native", "@protomaps/basemaps"],
     noExternal: ["@krizaka/tokens"],
   },
   {
@@ -241,7 +242,7 @@ export default defineConfig([
     // ~170 entries: one declaration build would exhaust the heap. Every example has the same signature — a component,
     // `defaultOpen` for those that open something — so build-registry.mjs writes their `.d.ts`.
     dts: false,
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "@shopify/flash-list", "@krizaka/query", "zod", "@maplibre/maplibre-react-native"],
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "expo-image-picker", "@shopify/flash-list", "@krizaka/query", "zod", "@maplibre/maplibre-react-native"],
     banner: { js: '"use client";' },
   },
 ]);

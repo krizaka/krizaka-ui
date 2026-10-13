@@ -47,7 +47,11 @@ export const meta = {
     differences: [
       "No shortcut and no suggestions: the keyboard's search key submits, and results are a screen of their own.",
       "`clearLabel` is required; `role=\"searchbox\"` names the input.",
+      "`cancelLabel` with `onCancel` adds the platform's Cancel button beside the field.",
     ],
-    examples: [{ name: "default", title: "Default", description: "The glyph, the query, the clear button and the keyboard's search key." }],
+    examples: [
+      { name: "default", title: "Default", description: "The glyph, the query, the clear button and the keyboard's search key." },
+      { name: "cancel", title: "With Cancel", description: "The iOS search bar: a Cancel button that clears and closes the keyboard." },
+    ],
   },
 } satisfies ComponentMeta;
