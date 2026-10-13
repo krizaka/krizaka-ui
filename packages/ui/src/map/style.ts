@@ -5,7 +5,7 @@
 import { brands, themes } from "@krizaka/tokens/native";
 import { type Flavor, layers, namedFlavor } from "@protomaps/basemaps";
 
-import { MAP_ATTRIBUTION, MAP_GLYPHS, MAP_TILES } from "./assets";
+import { MAP_ATTRIBUTION, mapAssets } from "./assets";
 
 /** A product of the family: its accent paints the map. */
 export type MapBrand = keyof typeof brands;
@@ -153,7 +153,7 @@ export const REGION_FROM_ZOOM = 6.5;
  * painted from the tokens. The `pmtiles://` sources need the PMTiles protocol (the web `Map` registers it; MapLibre
  * Native reads it as it is).
  */
-export function mapStyle({ scheme, brand, lang = "en", world = { url: MAP_TILES.world, maxzoom: 6 }, region = { url: MAP_TILES.quebec, maxzoom: 14 }, glyphs = MAP_GLYPHS }: MapStyleOptions) {
+export function mapStyle({ scheme, brand, lang = "en", world = { url: mapAssets().tiles.world, maxzoom: 6 }, region = { url: mapAssets().tiles.quebec, maxzoom: 14 }, glyphs = mapAssets().glyphs }: MapStyleOptions) {
   const flavor = mapFlavor(scheme, brand);
   const attribution = `<a href="${MAP_ATTRIBUTION.protomapsUrl}">${MAP_ATTRIBUTION.protomaps}</a> · <a href="${MAP_ATTRIBUTION.osmUrl}">${MAP_ATTRIBUTION.osm}</a>`;
   const sources: Record<string, unknown> = {};

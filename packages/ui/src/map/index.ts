@@ -4,7 +4,7 @@
  * style (`mapStyle`, `mapPalette`) and the geometry (`distanceMeters`, `circlePolygon`, `formatDistance`). maplibre-gl
  * and pmtiles are optional peers, loaded when a map is shown. Client ("use client").
  */
-export { MAP_ATTRIBUTION, MAP_GLYPHS, MAP_TILES } from "./assets";
+export { MAP_ATTRIBUTION, MAP_GLYPHS, MAP_TILES, mapAssets, setMapAssetsBase } from "./assets";
 export { circlePolygon, distanceMeters, formatDistance, type LngLat, project } from "./geo";
 export { LocationPicker, locationPicker, type LocationPickerLabels, locationPickerLabels, type LocationPickerProps } from "./location-picker";
 export {

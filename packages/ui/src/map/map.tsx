@@ -12,7 +12,7 @@ import { createPortal } from "react-dom";
 
 import { usePrefersReducedMotion } from "../media";
 import { tv } from "../tv";
-import { MAP_ATTRIBUTION } from "./assets";
+import { MAP_ATTRIBUTION, setMapAssetsBase } from "./assets";
 import { circlePolygon, type LngLat } from "./geo";
 import { type MapBrand, mapPalette, type MapRegion, mapStyle } from "./style";
 
@@ -70,9 +70,11 @@ let workerUrl: string | null = null;
  * by default the worker of the very version the app installed is imported from jsDelivr (free, open source, no key)
  * through a module worker of the page's own origin. An app with a strict CSP serves it itself —
  * `configureMaps({ workerUrl: "/maplibre-gl-worker.mjs" })` (with `maplibre-gl-shared.mjs` beside it), once, before a map.
+ * `assetsBase` reads the tiles and glyphs through a same-origin proxy of the CDN (`setMapAssetsBase`).
  */
-export function configureMaps(options: { workerUrl?: string }) {
+export function configureMaps(options: { workerUrl?: string; assetsBase?: string }) {
   if (options.workerUrl) workerUrl = options.workerUrl;
+  if (options.assetsBase) setMapAssetsBase(options.assetsBase);
 }
 
 /** MapLibre, its worker and the PMTiles protocol, loaded once for the page. */
@@ -214,6 +216,11 @@ export function Map({
         created.getCanvas().setAttribute("aria-hidden", "true");
         created.getCanvas().setAttribute("tabindex", "-1");
         created.on("load", () => alive && setReady(true));
+        // The basemap cannot be read (offline, a blocked request): the fallback comes back rather than an empty map.
+        created.on("error", (e) => {
+          const source = (e as { sourceId?: string }).sourceId;
+          if (alive && (source === "world" || source === "region")) setFailed(true);
+        });
         created.on("moveend", () => {
           const c = created!.getCenter();
           latest.current.onMoveEnd?.({ center: [c.lng, c.lat], zoom: created!.getZoom() });

@@ -169,3 +169,15 @@ describe("LocationPicker", () => {
     webgl.mockRestore();
   });
 });
+
+describe("the assets' base", () => {
+  it("reads the tiles and glyphs through a same-origin proxy when one is set", async () => {
+    const { setMapAssetsBase } = await import("./index");
+    setMapAssetsBase("https://www.krizaka.com/maps/v1");
+    const style = mapStyle({ scheme: "light" });
+    expect((style.sources.world as { url: string }).url).toMatch(/^pmtiles:\/\/https:\/\/www\.krizaka\.com\/maps\/v1\/tiles\/world-/);
+    expect(style.glyphs).toBe("https://www.krizaka.com/maps/v1/fonts/{fontstack}/{range}.pbf");
+    setMapAssetsBase(null);
+    expect(mapStyle({ scheme: "light" }).glyphs).toContain("b-cdn.net");
+  });
+});
