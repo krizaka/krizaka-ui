@@ -53,7 +53,7 @@ export function realtimeBus() {
     postgres: pgChannel({ listen: process.env.DATABASE_DIRECT_URL!, notify: pool }),
     channel: "myapp_events",                              // one NOTIFY channel per app
     redisBus,
-    redisUrl: process.env.REDIS_URL,
+    redisUrl: process.env.REALTIME_REDIS_URL,
     prefix: "myapp:rt:",                                  // one key prefix per app on a shared server
   }));
 }
@@ -109,7 +109,7 @@ Both run `postgres` by default and keep `redis` one variable away.
 `pnpm --filter @krizaka/realtime test` covers every adapter without a server (100 % enforced): the PostgreSQL bus over
 an in-memory channel, `pgChannel` over a fake driver. The contract against real servers — two instances per adapter,
 delivery under a second, order of a burst, presence announced once — runs with `REALTIME_IT=1`
-(`pnpm --filter @krizaka/realtime test:integration`, `DATABASE_URL` and `REDIS_URL`), in CI's "Realtime adapters" job.
+(`pnpm --filter @krizaka/realtime test:integration`, `DATABASE_URL` and `REALTIME_REDIS_URL`), in CI's "Realtime adapters" job.
 
 ## License
 
