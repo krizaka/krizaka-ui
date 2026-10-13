@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { describe, it } from "node:test";
 
-import { CONSUMERS, examplesOf, nativeApp, PACKAGES, parseArgs, parseSpec, summaryMarkdown, webPages } from "./lib.mjs";
+import { CONSUMERS, ENTRY_POINTS, examplesOf, missingEntries, NATIVE_PEERS, nativeApp, PACKAGES, parseArgs, parseSpec, summaryMarkdown, webPages } from "./lib.mjs";
 
 const tree = (files) => {
   const dir = mkdtempSync(join(tmpdir(), "kz-consumer-smoke-"));
@@ -110,5 +110,22 @@ describe("summaryMarkdown", () => {
     assert.match(markdown, /\| next \| pass \| ✅ next build \(40s\) \|/);
     assert.match(markdown, /\| node \| \*\*fail\*\* \| ❌ node smoke\.mjs \|/);
     assert.match(markdown, /\| `@krizaka\/ui` \| 2\.10\.0 \|/);
+  });
+});
+
+describe("entry points (PS2)", () => {
+  it("lists the data table, the virtual lists and the native list, and FlashList among the native peers", () => {
+    assert.deepEqual(ENTRY_POINTS.next, ["./data-table", "./virtual"]);
+    assert.deepEqual(ENTRY_POINTS.expo, ["./native/list"]);
+    assert.ok(NATIVE_PEERS.includes("@shopify/flash-list"));
+  });
+
+  it("finds an entry that is not exported, or whose file is missing", () => {
+    const dir = tree({
+      "package.json": { exports: { "./virtual": { types: "./dist/virtual.d.ts", import: "./dist/virtual.js" }, "./data-table": { import: "./dist/data-table.js" } } },
+      "dist/virtual.d.ts": "",
+      "dist/virtual.js": "",
+    });
+    assert.deepEqual(missingEntries(dir, ["./virtual", "./data-table", "./native/list"]), ["./data-table", "./native/list"]);
   });
 });
