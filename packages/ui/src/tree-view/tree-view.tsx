@@ -99,7 +99,7 @@ export function TreeView({
   const rows = flatten(nodes, open);
   const [active, setActive] = React.useState<string | null>(null);
   const focusId = active && rows.some((r) => r.node.id === active) ? active : (selected ?? rows[0]?.node.id ?? null);
-  const refs = React.useRef(new Map<string, HTMLLIElement>());
+  const refs = React.useRef(new Map<string, HTMLDivElement>());
   const move = (id: string | undefined) => {
     if (!id) return;
     setActive(id);
@@ -149,32 +149,31 @@ export function TreeView({
       const isOpen = open.has(node.id);
       const loading = isOpen && node.hasChildren && !node.children;
       return (
-        <li
-          key={node.id}
-          ref={(el) => {
-            if (el) refs.current.set(node.id, el);
-            else refs.current.delete(node.id);
-          }}
-          role="treeitem"
-          aria-labelledby={node.meta ? `${uid}-${node.id} ${uid}-${node.id}-meta` : `${uid}-${node.id}`}
-          aria-level={level}
-          aria-posinset={row.posinset}
-          aria-setsize={row.setsize}
-          aria-expanded={branch ? isOpen : undefined}
-          aria-selected={selected === node.id}
-          aria-disabled={node.disabled || undefined}
-          aria-busy={loading || undefined}
-          tabIndex={node.id === focusId ? 0 : -1}
-          onKeyDown={(e) => {
-            if (e.target === e.currentTarget) onKeyDown(e, i);
-          }}
-          onFocus={(e) => {
-            if (e.target === e.currentTarget) setActive(node.id);
-          }}
-          className="outline-hidden focus-visible:[&>div]:ring-2 focus-visible:[&>div]:ring-ring"
-        >
+        // The row is the treeitem (its name is its own words, never its children's); the group of children hangs
+        // from it with aria-owns, in the `li` that holds both.
+        <li key={node.id} role="none">
           <div
-            className={s.row()}
+            ref={(el) => {
+              if (el) refs.current.set(node.id, el);
+              else refs.current.delete(node.id);
+            }}
+            role="treeitem"
+            aria-level={level}
+            aria-posinset={row.posinset}
+            aria-setsize={row.setsize}
+            aria-expanded={branch ? isOpen : undefined}
+            aria-selected={selected === node.id}
+            aria-disabled={node.disabled || undefined}
+            aria-busy={loading || undefined}
+            aria-owns={branch && isOpen ? `${uid}-${node.id}-group` : undefined}
+            tabIndex={node.id === focusId ? 0 : -1}
+            onKeyDown={(e) => {
+              if (e.target === e.currentTarget) onKeyDown(e, i);
+            }}
+            onFocus={(e) => {
+              if (e.target === e.currentTarget) setActive(node.id);
+            }}
+            className={s.row({ className: "outline-hidden focus-visible:ring-2 focus-visible:ring-ring" })}
             data-selected={selected === node.id || undefined}
             data-disabled={node.disabled || undefined}
             style={{ paddingLeft: `${(level - 1) * 1.25 + 0.25}rem` }}
@@ -188,17 +187,11 @@ export function TreeView({
               {branch ? <ChevronGlyph direction={isOpen ? "down" : "right"} /> : null}
             </span>
             {node.icon ? <span className={s.icon()} aria-hidden>{node.icon}</span> : null}
-            <span id={`${uid}-${node.id}`} className={s.label()}>
-              {node.label}
-            </span>
-            {node.meta ? (
-              <span id={`${uid}-${node.id}-meta`} className={s.meta()}>
-                {node.meta}
-              </span>
-            ) : null}
+            <span className={s.label()}>{node.label}</span>
+            {node.meta ? <span className={s.meta()}>{node.meta}</span> : null}
           </div>
           {branch && isOpen ? (
-            <ul role="group" className={s.group()}>
+            <ul role="group" id={`${uid}-${node.id}-group`} className={s.group()}>
               {loading ? (
                 <li role="none" className="py-1 text-xs text-fg-secondary" style={{ paddingLeft: `${level * 1.25 + 1.75}rem` }}>
                   {loadingLabel}
