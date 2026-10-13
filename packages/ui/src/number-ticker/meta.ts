@@ -6,7 +6,7 @@ export const meta = {
     "A figure that climbs into view once, or rolls digit by digit to each new value — server-rendered at its final value, its width held from the first paint, read once by assistive technology.",
   status: "beta",
   category: "data-display",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "The key figures of a page (90 %, 12,480 creators): they climb once as they come into view.",
     "A live total that changes while it is watched — an auction's highest bid, a tip jar, a credit balance (`trigger=\"change\"`).",
@@ -38,5 +38,10 @@ export const meta = {
       { name: "live-total", title: "A live total", description: "`trigger=\"change\"`: the highest bid rolls digit by digit, a rise flashes, the amount is announced." },
       { name: "gradient", title: "In gradient text", description: "The digits stay painted by the gradient while they climb." },
     ],
+  },
+  native: {
+    imports: ["NumberTicker"],
+    differences: ["`trigger` is `mount` or `change` (a screen has no viewport to enter).", "`variant` and `tone` pick the type scale and the text role (`Txt`)."],
+    examples: [{ name: "balance", title: "A live balance", description: "Rolls on every tip received, and says the new value." }],
   },
 } satisfies ComponentMeta;
