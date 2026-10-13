@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/push",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Mobile push without an SDK: the Expo Push Service relays to FCM (Android) and APNs (iOS) from one HTTP call. Pure and dependency-free: batches by 100, never throws, reports the dead tokens to forget.",
   "keywords": [
     "krizaka",
