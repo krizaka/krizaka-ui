@@ -4,11 +4,11 @@ import SheetExample from "../../registry/examples/dialog/native/sheet";
 import { nativeFrame } from "./story-frame";
 
 /**
- * Native — Sheet through react-native-web. Each story renders a named example of the registry
+ * Native — Dialog (the bottom sheet) through react-native-web. Each story renders a named example of the registry
  * (`registry/examples/dialog/native/*`): the code krizaka.com/docs/ui shows, with these screenshots.
  */
 const meta = {
-  title: "Native/Sheet",
+  title: "Native/Dialog",
   decorators: [nativeFrame],
 } satisfies Meta;
 export default meta;

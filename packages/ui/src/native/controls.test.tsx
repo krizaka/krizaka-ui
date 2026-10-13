@@ -3,8 +3,8 @@ import { describe, expect, jest, test } from "@jest/globals";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import * as React from "react";
 
+import { Combobox, Select } from "./combobox";
 import { RadioGroup } from "./radio-group";
-import { Combobox, Select } from "./select";
 import { Slider } from "./slider";
 import { Switch } from "./switch";
 import { type HapticKind, ThemeProvider } from "./theme";

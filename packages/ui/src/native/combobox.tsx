@@ -2,7 +2,7 @@ import * as React from "react";
 import { Pressable, ScrollView, type StyleProp, StyleSheet, Text, TextInput, View, type ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
-import { Sheet } from "./sheet";
+import { Sheet } from "./dialog";
 import { useTheme } from "./theme";
 
 /** An option: the value stored and its words (passed translated), a line under them. */
