@@ -71,4 +71,4 @@ jobs:
       - run: pnpm --filter @krizaka/realtime test:integration
         env:
           DATABASE_URL: postgresql://postgres:rt@localhost:5432/postgres
-          REDIS_URL: redis://localhost:6379
+          REALTIME_REDIS_URL: redis://localhost:6379

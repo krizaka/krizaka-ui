@@ -48,7 +48,7 @@ describe("configuration", () => {
   });
 
   it("refuses redis without a URL rather than falling back", () => {
-    expect(() => createBus({ kind: "redis" })).toThrow(/REDIS_URL/);
+    expect(() => createBus({ kind: "redis" })).toThrow(/REALTIME_REDIS_URL/);
     expect(createBus({ kind: "memory" }).kind).toBe("memory");
   });
 });

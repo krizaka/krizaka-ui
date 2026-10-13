@@ -1,6 +1,6 @@
 /**
  * The bus contract against real servers, with two buses in one process standing for two app instances.
- * Runs when REALTIME_IT=1: PostgreSQL from DATABASE_URL, Redis / Valkey from REDIS_URL (CI: the "Realtime adapters" job's
+ * Runs when REALTIME_IT=1: PostgreSQL from DATABASE_URL, Redis / Valkey from REALTIME_REDIS_URL (CI: the "Realtime adapters" job's
  * services; locally: `docker run -p 5439:5432 -e POSTGRES_PASSWORD=rt postgres:16-alpine` and
  * `docker run -p 6390:6379 valkey/valkey:8-alpine`, then `pnpm --filter @krizaka/realtime test:integration`).
  */
@@ -103,7 +103,7 @@ contract("postgres", async () => {
 });
 
 contract("redis", async () => {
-  const url = process.env.REDIS_URL ?? "redis://localhost:6390";
+  const url = process.env.REALTIME_REDIS_URL ?? "redis://localhost:6390";
   const prefix = `it:${randomUUID()}:`;
   return [redisBus({ url, prefix, graceMs: 300 }), redisBus({ url, prefix, graceMs: 300 })];
 });

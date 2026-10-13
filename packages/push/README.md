@@ -22,7 +22,7 @@ if (!isExpoPushToken(token)) return badRequest();
 // When something happens: one message per device, sent in batches of 100.
 const outcome = await sendExpoPush(
   devices.map((d) => ({ to: d.token, title, body, data: { path: "/inbox/42" } })),
-  { fetch, accessToken: process.env.EXPO_ACCESS_TOKEN },   // the token: only with "enhanced push security" on
+  { fetch, accessToken: process.env.PUSH_ACCESS_TOKEN },   // the token: only with "enhanced push security" on
 );
 await forgetTokens(outcome.deadTokens);                     // uninstalled app, revoked permission
 if (outcome.errors.length) log.warn(outcome.errors[0]);

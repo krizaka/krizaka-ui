@@ -37,7 +37,7 @@ export function createBus(config: BusConfig): RealtimeBus {
     return postgresBus({ ...config, db: config.postgres });
   }
   if (config.kind === "redis") {
-    if (!config.redisUrl) throw new Error("REALTIME_BUS=redis needs REDIS_URL");
+    if (!config.redisUrl) throw new Error("REALTIME_BUS=redis needs REALTIME_REDIS_URL");
     if (!config.redisBus) throw new Error("REALTIME_BUS=redis needs redisBus from @krizaka/realtime/redis");
     return config.redisBus({ ...config, url: config.redisUrl });
   }

@@ -16,7 +16,7 @@
 - **No product word** anywhere in this folder, code or docs: channel and prefix defaults are generic
   (`DEFAULT_CHANNEL`, `DEFAULT_PREFIX`), the app passes its own.
 - **Nothing read from the environment.** Connection strings, channel, prefix and timings arrive as arguments; error
-  messages may name the conventional variables (`REALTIME_BUS`, `REDIS_URL`) the apps use.
+  messages may name the conventional variables (`REALTIME_BUS`, `REALTIME_REDIS_URL`) the apps use.
 - **The root entry loads no driver.** `pg` and `ioredis` are optional peer dependencies, imported only by `./pg` and
   `./redis`; `createBus` receives `redisBus` rather than importing it. Never a static import of a driver from
   `src/index.ts`, `src/postgres.ts`, `src/memory.ts`, `src/presence.ts` or `src/sse.ts`.
