@@ -12,6 +12,7 @@ export const stat = tv({
     // the direction's colour.
     trend: "inline-flex items-center gap-1 font-semibold text-fg [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:shrink-0",
     hint: "text-fg-secondary",
+    chart: "mt-2 h-10 w-full min-w-0",
   },
   variants: {
     trend: {
@@ -37,9 +38,11 @@ export type StatProps = Omit<React.ComponentProps<"div">, "children"> & {
   trend?: StatTrend;
   /** The change, in words, as read and shown (e.g. "+12 % vs last week") — the arrow alone says nothing. */
   trendLabel?: React.ReactNode;
+  /** Under the figure: a `Sparkline` of @krizaka/charts (its own accessible summary), a `Meter`. */
+  chart?: React.ReactNode;
 };
 
-export function Stat({ label, value, hint, trend, trendLabel, className, ...props }: StatProps) {
+export function Stat({ label, value, hint, trend, trendLabel, chart, className, ...props }: StatProps) {
   const s = stat({ trend });
   return (
     <div data-trend={trend} className={s.root({ className })} {...props}>
@@ -58,6 +61,30 @@ export function Stat({ label, value, hint, trend, trendLabel, className, ...prop
           {hint && <span className={s.hint()}>{hint}</span>}
         </p>
       )}
+      {chart ? <div className={s.chart()}>{chart}</div> : null}
     </div>
   );
+}
+
+export const statGrid = tv({
+  base: "grid w-full grid-cols-[repeat(auto-fit,minmax(var(--kz-stat-min,11rem),1fr))] overflow-hidden rounded-xl border border-border-default bg-surface-1",
+  variants: {
+    divided: {
+      true: "gap-px bg-border-subtle [&>*]:bg-surface-1 [&>*]:p-5",
+      false: "gap-6 p-5",
+    },
+  },
+  defaultVariants: { divided: true },
+});
+
+export type StatGridProps = React.ComponentProps<"div"> & {
+  /** Hairlines between the stats (default) or space only. */
+  divided?: boolean;
+  /** The narrowest a stat may be before the row wraps, in rem. Default 11. */
+  minWidth?: number;
+};
+
+/** A row of key figures that wraps with the width: a dashboard's head. The stats are its children. */
+export function StatGrid({ divided, minWidth = 11, className, style, ...props }: StatGridProps) {
+  return <div className={statGrid({ divided, className })} style={{ ...style, ["--kz-stat-min" as string]: `${minWidth}rem` }} {...props} />;
 }

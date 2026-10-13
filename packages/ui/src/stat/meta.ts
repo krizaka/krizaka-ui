@@ -14,6 +14,7 @@ export const meta = {
   ],
   bestPractices: [
     "Format the value in the app (currency, compact numbers) with `@krizaka/intl`.",
+    "Put a `Sparkline` of @krizaka/charts (or a `Meter`) in `chart`: the figure first, its shape under it.",
     "Say the change in `trendLabel` (“+12 %”) and the period in `hint`: the arrow alone says nothing.",
   ],
   accessibility: {
@@ -22,13 +23,14 @@ export const meta = {
   },
   related: ["card", "badge", "progress"],
   web: {
-    imports: ["Stat"],
+    imports: ["Stat", "StatGrid"],
     examples: [
       { name: "up", title: "Up", description: "A rise, with its period." },
       { name: "down", title: "Down", description: "A fall, said in words next to the arrow." },
       { name: "flat", title: "Flat", description: "No change." },
       { name: "plain", title: "Plain", description: "Label and value only." },
       { name: "row", title: "Row", description: "A row of stats, as a dashboard shows them." },
+      { name: "grid", title: "Grid", description: "`StatGrid`: figures that wrap, hairlines between them, a meter under one (or a `Sparkline` of @krizaka/charts in `chart`)." },
     ],
   },
 } satisfies ComponentMeta;

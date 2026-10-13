@@ -298,6 +298,26 @@
       "types": "./dist/image-cropper.d.ts",
       "import": "./dist/image-cropper.js"
     },
+    "./list": {
+      "types": "./dist/list.d.ts",
+      "import": "./dist/list.js"
+    },
+    "./description-list": {
+      "types": "./dist/description-list.d.ts",
+      "import": "./dist/description-list.js"
+    },
+    "./activity-feed": {
+      "types": "./dist/activity-feed.d.ts",
+      "import": "./dist/activity-feed.js"
+    },
+    "./tree-view": {
+      "types": "./dist/tree-view.d.ts",
+      "import": "./dist/tree-view.js"
+    },
+    "./kanban": {
+      "types": "./dist/kanban.d.ts",
+      "import": "./dist/kanban.js"
+    },
     "./page": {
       "types": "./dist/page.d.ts",
       "import": "./dist/page.js"
@@ -1257,6 +1277,56 @@
       "name": "./image-cropper",
       "path": "dist/image-cropper.js",
       "limit": "12.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./list",
+      "path": "dist/list.js",
+      "limit": "8 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./description-list",
+      "path": "dist/description-list.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./activity-feed",
+      "path": "dist/activity-feed.js",
+      "limit": "2.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./tree-view",
+      "path": "dist/tree-view.js",
+      "limit": "2.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./kanban",
+      "path": "dist/kanban.js",
+      "limit": "3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
