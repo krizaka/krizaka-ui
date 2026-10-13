@@ -73,6 +73,17 @@ function resolveImport(from, specifier) {
 const packageName = (specifier) => specifier.split("/").slice(0, specifier.startsWith("@") ? 2 : 1).join("/");
 
 /** Files, npm dependencies and registry dependencies of a primitive, following its relative imports. */
+/** A workspace dependency (`workspace:^`) as it is published: the range of the sibling package's version. */
+function published(dependencies) {
+  return Object.fromEntries(
+    Object.entries(dependencies).map(([name, range]) => {
+      if (!String(range).startsWith("workspace:")) return [name, range];
+      const sibling = JSON.parse(readFileSync(join(PKG, "..", name.replace(/^@krizaka\//, ""), "package.json"), "utf8"));
+      return [name, `^${sibling.version}`];
+    }),
+  );
+}
+
 function collectSources(name, versions) {
   const own = name === "cn" ? [entryOf("cn")] : readdirSync(join(SRC, name), { recursive: true }).map((f) => join(SRC, name, f)).filter(isSource);
   const files = new Set(own);
@@ -265,7 +276,7 @@ export async function collectRegistry() {
     const first = webExamples[0];
     items.push({
       ...doc,
-      ...collectSources(name, pkg.dependencies ?? {}),
+      ...collectSources(name, published(pkg.dependencies ?? {})),
       // The preview: the first web example (what `demo` was before the examples).
       demo: first ? { path: first.path, content: first.code } : null,
       props: props[name],

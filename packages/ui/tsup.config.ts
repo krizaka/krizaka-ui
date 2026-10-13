@@ -170,6 +170,15 @@ export default defineConfig([
     banner: { js: '"use client";' },
   },
   {
+    // Client — the map (MapLibre GL JS and PMTiles loaded on demand, optional peers): the style is generated from the
+    // tokens, inlined like /native's.
+    ...shared,
+    entry: { map: "src/map/index.ts" },
+    external: [...shared.external, "maplibre-gl", "pmtiles", "@protomaps/basemaps"],
+    noExternal: ["@krizaka/tokens"],
+    banner: { js: '"use client";' },
+  },
+  {
     // Server — the form's server side (a Server Action re-validating with the form's schema): no React, no directive.
     ...shared,
     entry: { "form/server": "src/form/server.ts" },
@@ -213,8 +222,11 @@ export default defineConfig([
       "native/list": "src/native/list.tsx",
       // The form: TanStack Form (a dependency, as on the web) on the native fields of @krizaka/ui/native.
       "native/form": "src/native/form.tsx",
+      // The map: MapLibre Native (an optional peer) with the web's style, generated from the tokens (inlined).
+      "native/map": "src/native/map.tsx",
     },
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "@shopify/flash-list", "@krizaka/query"],
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "@shopify/flash-list", "@krizaka/query", "@maplibre/maplibre-react-native", "@protomaps/basemaps"],
+    noExternal: ["@krizaka/tokens"],
   },
   {
     ...shared,
@@ -224,7 +236,7 @@ export default defineConfig([
     // ~170 entries: one declaration build would exhaust the heap. Every example has the same signature — a component,
     // `defaultOpen` for those that open something — so build-registry.mjs writes their `.d.ts`.
     dts: false,
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "@shopify/flash-list", "@krizaka/query", "zod"],
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "@shopify/flash-list", "@krizaka/query", "zod", "@maplibre/maplibre-react-native"],
     banner: { js: '"use client";' },
   },
 ]);
