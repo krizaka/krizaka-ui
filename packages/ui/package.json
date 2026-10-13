@@ -631,7 +631,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "21.5 kB",
+      "limit": "26.5 kB",
       "gzip": true
     },
     {
@@ -1169,7 +1169,7 @@
     {
       "name": "./date-picker",
       "path": "dist/date-picker.js",
-      "limit": "29 kB",
+      "limit": "35 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1354,7 +1354,7 @@
     {
       "name": "./mascot-quote",
       "path": "dist/mascot-quote.js",
-      "limit": "4.8 kB",
+      "limit": "5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

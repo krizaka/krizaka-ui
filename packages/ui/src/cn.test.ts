@@ -12,3 +12,11 @@ describe("cn", () => {
     expect(cn("bg-surface-1", "bg-accent")).toBe("bg-accent");
   });
 });
+
+describe("the material", () => {
+  it("keeps a surface under its sheen and a fill under its shade; a shadow of the material replaces another", () => {
+    expect(cn("bg-surface-2 bg-sheen")).toBe("bg-surface-2 bg-sheen");
+    expect(cn("data-[selected]:bg-accent data-[selected]:bg-fill-shade")).toBe("data-[selected]:bg-accent data-[selected]:bg-fill-shade");
+    expect(cn("shadow-raised inset-shadow-edge", "shadow-glow")).toBe("inset-shadow-edge shadow-glow");
+  });
+});

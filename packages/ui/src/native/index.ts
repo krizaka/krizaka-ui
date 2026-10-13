@@ -4,7 +4,24 @@
  * (react-native-svg). StyleSheet only: no dependency beyond react-native and react-native-svg.
  */
 export { splitDuration, useCountdown } from "../countdown/core";
-export { composeDate, type DatePart, datePartsOrder, isRealDate, latestBirthDate } from "../date-picker/parts";
+export {
+  addDays,
+  addMonths,
+  ageOn,
+  composeDate,
+  type DatePart,
+  datePartsOrder,
+  daysInMonth,
+  formatTime,
+  isRealDate,
+  latestBirthDate,
+  monthNames,
+  timeSlots,
+  timeToMinutes,
+  type TimeValue,
+  todayIso,
+  uses12Hours,
+} from "../date-picker/parts";
 export { type BrandId } from "../marks/ProductLogo";
 export { Avatar, AvatarGroup, type AvatarGroupProps, type AvatarProps, AvatarRoot, type AvatarSize } from "./avatar";
 export { Badge, type BadgeProps, type BadgeTone } from "./badge";
@@ -29,6 +46,21 @@ export { Checkbox, type CheckboxProps } from "./checkbox";
 export { Chip, type ChipGroupProps, type ChipProps, type ChipSize } from "./chip";
 export { Countdown, type CountdownProps, type CountdownUnits } from "./countdown";
 export { DateField, type DateFieldLabels, dateFieldLabels, type DateFieldProps } from "./date-picker";
+export {
+  Calendar,
+  type CalendarLabels,
+  calendarLabels,
+  type CalendarProps,
+  DateWheel,
+  type DateWheelProps,
+  DayStrip,
+  type DayStripProps,
+  MonthPicker,
+  type MonthPickerProps,
+  TimePicker,
+  type TimePickerLabels,
+  type TimePickerProps,
+} from "./date-time";
 export { EmptyState, type EmptyStateProps } from "./empty-state";
 export { TextField, type TextFieldProps } from "./field";
 export { GoalGauge, type GoalGaugeProps } from "./goal-gauge";
@@ -49,6 +81,7 @@ export { Skeleton, type SkeletonProps } from "./skeleton";
 export { Spinner, type SpinnerProps } from "./spinner";
 export {
   alpha,
+  type HapticKind,
   type Mode,
   type Motion,
   type Radius,
@@ -64,5 +97,6 @@ export {
 } from "./theme";
 export { toast, Toaster, type ToasterProps, type ToastItem, type ToastOptions, type ToastTone } from "./toast";
 export { textStyles, Txt, type TxtProps, type TxtTone, type TxtVariant } from "./txt";
+export { Wheel, WheelDivider, type WheelOption, WheelPicker, type WheelPickerProps, type WheelProps } from "./wheel";
 export { YazakiaMark } from "./YazakiaMark";
 export { YororisMark } from "./YororisMark";

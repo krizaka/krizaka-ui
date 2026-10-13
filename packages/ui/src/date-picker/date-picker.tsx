@@ -3,32 +3,34 @@
 // API; the button reads it in the `locale`'s own format through `@krizaka/intl`.
 import { formatDate, getDateTimeFormat } from "@krizaka/intl";
 import * as React from "react";
-import { tv } from "tailwind-variants";
 
 import { CalendarGlyph, CloseGlyph } from "../glyphs";
 import { useControllable } from "../media";
 import { Popover } from "../popover";
-import { Calendar, type CalendarLabels, type CalendarProps, type DateRange, type IsoDate, toLocalDate } from "./calendar";
+import { tv } from "../tv";
+import { Calendar, type CalendarLabels, calendarLabels, type CalendarProps, type DateRange, type IsoDate, toLocalDate } from "./calendar";
 
 export const datePicker = tv({
   slots: {
     root: "flex w-full flex-col gap-1.5",
     label: "text-xs font-semibold text-fg-secondary",
     row: "relative flex w-full",
+    // The field is a well (inset), the calendar opens on a raised, lit surface.
     trigger:
-      "flex h-11 w-full items-center gap-2.5 rounded-lg border border-border-default bg-surface-2 px-3 text-left text-sm text-fg " +
-      "transition-[border-color,box-shadow] focus-visible:border-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
-      "data-[placeholder]:text-fg-muted aria-invalid:border-danger disabled:cursor-not-allowed disabled:opacity-50 data-[clearable]:pr-10",
-    icon: "h-4 w-4 shrink-0 text-fg-secondary",
+      "group flex h-11 w-full items-center gap-2.5 rounded-lg border border-border-default bg-surface-2 px-3 text-left text-sm text-fg inset-shadow-well " +
+      "transition-[border-color,box-shadow] hover:border-border-strong focus-visible:border-accent focus-visible:outline-hidden focus-visible:focus-ring-inset " +
+      "data-[state=open]:border-accent data-[placeholder]:text-fg-muted aria-invalid:border-danger disabled:cursor-not-allowed disabled:opacity-50 data-[clearable]:pr-10",
+    icon: "h-4 w-4 shrink-0 text-fg-secondary transition-colors group-data-[state=open]:text-fg-accent",
     clear:
       "absolute right-1.5 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-fg-secondary hover:bg-surface-3 hover:text-fg " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
-    content: "w-auto p-3",
-    layout: "flex flex-col gap-3 sm:flex-row",
-    presets: "flex flex-wrap gap-1.5 sm:w-36 sm:flex-col sm:flex-nowrap sm:border-r sm:border-border-default sm:pr-3",
+      "focus-visible:outline-hidden focus-visible:focus-ring",
+    content: "w-auto rounded-2xl bg-sheen p-4 shadow-floating inset-shadow-edge",
+    layout: "flex flex-col gap-4 sm:flex-row",
+    presets: "flex gap-1.5 overflow-x-auto pb-1 sm:w-40 sm:flex-col sm:overflow-visible sm:border-r sm:border-border-subtle sm:pb-0 sm:pr-4",
     preset:
-      "rounded-md px-2.5 py-1.5 text-left text-xs font-semibold text-fg-secondary hover:bg-surface-3 hover:text-fg " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-pressed:bg-accent-soft aria-pressed:text-fg",
+      "inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-lg px-2.5 py-2 text-left text-xs font-semibold text-fg-secondary transition-colors " +
+      "hover:bg-surface-3 hover:text-fg focus-visible:outline-hidden focus-visible:focus-ring aria-pressed:bg-accent-soft aria-pressed:text-fg",
+    presetNode: "node shrink-0 group-aria-pressed:node-lit",
     hint: "text-xs text-fg-secondary",
     error: "flex items-center gap-1.5 text-xs font-medium text-fg-danger before:h-1.5 before:w-1.5 before:shrink-0 before:rounded-full before:bg-danger",
   },
@@ -39,7 +41,7 @@ export type DatePickerLabels = CalendarLabels & {
   clear: string;
 };
 
-export const datePickerLabels: DatePickerLabels = { previousMonth: "Previous month", nextMonth: "Next month", clear: "Clear date" };
+export const datePickerLabels: DatePickerLabels = { ...calendarLabels, clear: "Clear date" };
 
 type Shared = Pick<CalendarProps, "locale" | "min" | "max" | "isDateDisabled" | "weekStartsOn" | "today"> & {
   /** The visible label, passed translated (also the button's accessible name, with the value). */
@@ -193,6 +195,8 @@ export type DateRangePickerProps = Shared & {
   onValueChange?: (value: { start: IsoDate; end: IsoDate } | null) => void;
   /** Ranges one click away ("Last 7 days", "This month"), beside the calendar. */
   presets?: readonly DateRangePreset[];
+  /** Two months side by side (default, from a phone's width up) or one. */
+  numberOfMonths?: 1 | 2;
 };
 
 /** Formats a range as the locale writes one ("Oct 1 – 11, 2026"), through Intl's `formatRange` where available. */
@@ -204,7 +208,7 @@ function formatRange(locale: string, start: IsoDate, end: IsoDate, style: "short
 }
 
 /** A period field: two clicks on one calendar (the days between tinted as you hover), optional presets. */
-export function DateRangePicker({ value: valueProp, defaultValue = null, onValueChange, presets, defaultOpen = false, ...shared }: DateRangePickerProps) {
+export function DateRangePicker({ value: valueProp, defaultValue = null, onValueChange, presets, numberOfMonths = 2, defaultOpen = false, ...shared }: DateRangePickerProps) {
   const [value, setValue] = useControllable(valueProp, defaultValue, onValueChange);
   const [draft, setDraft] = React.useState<DateRange | null>(null);
   const [open, setOpenState] = React.useState(defaultOpen);
@@ -241,18 +245,19 @@ export function DateRangePicker({ value: valueProp, defaultValue = null, onValue
                 key={preset.label}
                 type="button"
                 aria-pressed={value?.start === preset.start && value?.end === preset.end}
-                className={s.preset()}
+                className={s.preset({ className: "group" })}
                 onClick={() => {
                   setValue({ start: preset.start, end: preset.end });
                   setOpen(false);
                 }}
               >
+                <span aria-hidden className={s.presetNode()} />
                 {preset.label}
               </button>
             ))}
           </div>
         ) : null}
-        <Calendar {...shared} autoFocus range={shown} onSelect={pick} />
+        <Calendar {...shared} autoFocus range={shown} onSelect={pick} numberOfMonths={numberOfMonths} />
       </div>
     </Field>
   );

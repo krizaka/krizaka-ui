@@ -1,7 +1,23 @@
 import { type ClassValue, clsx } from "clsx";
-import { cn as merge } from "tailwind-variants";
+import { cnMerge, type TWMergeConfig } from "tailwind-variants";
 
 export type { ClassValue };
+
+/**
+ * The preset's own utilities, told to the merge engine: the material (BRAND.md §6: `bg-sheen`, `bg-fill-shade`,
+ * `bg-halo` are background images; `shadow-raised` · `-floating` · `-overlay` · `-glow` are shadows; `inset-shadow-edge`
+ * · `-edge-fill` · `-well` are inset shadows). Unknown, tailwind-merge would take `bg-sheen` for a colour and drop the
+ * `bg-surface-2` it lies on.
+ */
+export const twMergeConfig: TWMergeConfig = {
+  extend: {
+    classGroups: {
+      "bg-image": ["bg-sheen", "bg-fill-shade", "bg-halo"],
+      shadow: ["shadow-raised", "shadow-floating", "shadow-overlay", "shadow-glow", "shadow-glow-lg"],
+      "inset-shadow": ["inset-shadow-edge", "inset-shadow-edge-fill", "inset-shadow-well"],
+    },
+  },
+};
 
 /**
  * Merges Tailwind classes: the last one wins — a product's `className` overrides the primitive's. The merge engine is
@@ -11,5 +27,5 @@ export type { ClassValue };
  * install of the packed package.
  */
 export function cn(...inputs: ClassValue[]): string {
-  return merge(clsx(inputs)) ?? "";
+  return cnMerge(clsx(inputs))({ twMergeConfig }) ?? "";
 }
