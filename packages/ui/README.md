@@ -228,7 +228,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/native/list` | React Native `List` on FlashList v2 and `useInfiniteList` on `useInfiniteQuery` of `@krizaka/query` (optional peers): separators, skeleton rows, empty/error, pull to refresh, the next page near the end | native |
 | `@krizaka/ui/native/media-capture` | React Native `MediaCapture` on expo-camera (optional peer) | native |
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
-| `@krizaka/ui/native` | React Native: `ThemeProvider`/`useTheme`, `Txt`, `Button`, `IconButton`, `Card.*`, `Badge`, `Chip` (+ `Group`), `Avatar` (+ `Group`), `Skeleton`, `EmptyState`, `Spinner`, `Countdown`, `Segmented`, `Progress`, `Toaster`/`toast`, `Pagination`, `SearchField`, the marks — see [React Native](#react-native) | native |
+| `@krizaka/ui/native` | React Native: `ThemeProvider`/`useTheme`, `Txt`, `Button`, `IconButton`, `Card.*`, `Badge`, `Chip` (+ `Group`), `Avatar` (+ `Group`), `Skeleton`, `EmptyState`, `Spinner`, `Countdown`, `Segmented`, `Progress`, `Toaster`/`toast`, `Pagination`, `SearchField`, `TextField`, `Checkbox`, `DateField` (day · month · year), the marks — see [React Native](#react-native) | native |
 | `@krizaka/ui/motion.css`, `@krizaka/ui/blocks.css`, `@krizaka/ui/tailwind.css` | the motion signature; the page blocks' styles (imported once by the app); the `@source` of the primitives' classes | CSS |
 | `@krizaka/ui/registry/<name>`, `@krizaka/ui/registry/examples/<name>/<example>` | the registry (JSON) and the examples — see [Registry](#registry--the-code-drives-the-documentation) | data · client |
 

@@ -5,7 +5,7 @@ export const meta = {
   summary: "A date or a period chosen on a calendar — ISO values (`2026-10-11`) the form, the address and the API share, read in the locale's own words through @krizaka/intl.",
   status: "beta",
   category: "forms",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "To schedule something on a day: a publication, an auction's end, a reminder.",
     "With `DateRangePicker` for a period: an earnings report, an audit log, a campaign — with presets.",
@@ -45,6 +45,16 @@ export const meta = {
       { name: "range", title: "Period with presets", description: "`DateRangePicker` for an earnings report: presets beside the calendar." },
       { name: "french", title: "In French", description: "`locale=\"fr-CA\"`: the names, the order and the first day of the week follow." },
       { name: "calendar", title: "Calendar alone", description: "`Calendar` inline: the month is the interface, weekends unavailable." },
+    ],
+  },
+  native: {
+    imports: ["DateField", "datePartsOrder", "composeDate"],
+    differences: [
+      "`DateField` is a date typed as day, month and year (a memorable date: a birth date, an expiry), not a calendar: numeric keypads, the boxes in the locale's order, the next one focused when a box is full.",
+      "The value is a `YYYY-MM-DD` string of what was typed (`\"\"` when empty), real date or not: the form's schema decides (and the server again). No native module.",
+    ],
+    examples: [
+      { name: "birth-date", title: "Date of birth", description: "Day, month and year with `autoComplete=\"bday\"`, and the error of an under-18 date." },
     ],
   },
 } satisfies ComponentMeta;

@@ -52,6 +52,7 @@ export type ComponentName =
   | "field"
   | "file-upload"
   | "filter-bar"
+  | "form"
   | "gallery-page"
   | "glow-card"
   | "goal-gauge"

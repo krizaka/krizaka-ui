@@ -1,0 +1,5 @@
+---
+"@krizaka/ui": minor
+---
+
+`@krizaka/ui/form` and `@krizaka/ui/native/form` — forms on TanStack Form v1 behind the facade (PS3): `createKrizakaForm({ schema, defaultValues, i18n })` on a zod 4 (Standard Schema) schema shared with the server; typed fields wired to the current primitives through thin adapters (`TextField` with a debounced `validateAsync` and a suggestion, `TextArea`, `Checkbox`, `Switch`, `RadioGroup`, `Select`, `Combobox`, `DateField` — calendar or day · month · year —, `TagInput`, `FileUpload`, `Money` in integer cents, `Slider`), `Submit`, `FormError`, `FieldArray`, `Watch`, `FormField`; errors shown once a field is left and gone as soon as fixed, as i18n keys (`form.errors.*`, never the engine's English); server Problem Details `fields` (and `codeFields`) onto their fields; `useFormWithAction` for Server Actions and `@krizaka/ui/form/server` (`validateForm`, `formProblem`). Native: the same definitions on `TextField`, `Checkbox`, `DateField`, chips and the system's switch, the return key walking the fields, `scroll` above the keyboard, the product's mark as the submit's loader. Also `latestBirthDate`, `isRealDate`, `parseMoney`.

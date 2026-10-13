@@ -5,7 +5,7 @@ export const meta = {
   summary: "A form field: a label, a hint and an error around an `Input`, a `Textarea` or a native `Select`.",
   status: "stable",
   category: "forms",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "For every text entry of a form: email, title, description, amount.",
     "`Select` for a choice among many options (a country): the platform's own menu, right on phones.",
@@ -37,6 +37,17 @@ export const meta = {
       { name: "disabled", title: "Disabled", description: "Not editable." },
       { name: "textarea", title: "Textarea", description: "A longer text." },
       { name: "select", title: "Select", description: "A native select." },
+    ],
+  },
+  native: {
+    imports: ["TextField"],
+    differences: [
+      "One component, `TextField`: the label, the input, the hint or the error together (no `Field.*` parts, no `htmlFor`).",
+      "Every `TextInput` prop passes through (`secureTextEntry`, `keyboardType`, `autoComplete`, `returnKeyType`); `multiline` is the text area; `onValueChange` gives the text.",
+      "`end` holds an adornment (a spinner, a check, a show-password button); `inputRef` focuses the input. No `Select`: a choice is a `Chip.Group` or a screen.",
+    ],
+    examples: [
+      { name: "default", title: "Sign-up fields", description: "E-mail and password: the right keyboards, autofill, a hint, then an error in place of the hint." },
     ],
   },
 } satisfies ComponentMeta;
