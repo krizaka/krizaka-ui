@@ -9,8 +9,8 @@
 import { formatDate, getDateTimeFormat } from "@krizaka/intl";
 import * as React from "react";
 
-import { tv } from "../tv";
 import { ChevronGlyph } from "../glyphs";
+import { tv } from "../tv";
 import { MonthPicker } from "./month-picker";
 import { addDays, addMonths, toIsoDate, toLocalDate, weekStartOf } from "./parts";
 

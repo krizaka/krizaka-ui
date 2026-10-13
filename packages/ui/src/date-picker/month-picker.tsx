@@ -3,8 +3,8 @@
 // The calendar's title opens it, so a year away is two clicks, not twelve pages.
 import * as React from "react";
 
-import { tv } from "../tv";
 import { ChevronGlyph } from "../glyphs";
+import { tv } from "../tv";
 import { monthNames } from "./parts";
 
 /** A calendar month, `YYYY-MM`. */

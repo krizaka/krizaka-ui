@@ -4,8 +4,8 @@
 // The curve is a scroll-driven animation (CSS `animation-timeline: view()`): no script per frame, flat where unsupported.
 import * as React from "react";
 
-import { tv } from "../tv";
 import { usePrefersReducedMotion } from "../media";
+import { tv } from "../tv";
 
 /** A value of a wheel: what is stored, and its words (passed translated or formatted for the locale). */
 export type WheelOption = { value: string; label: string; disabled?: boolean };

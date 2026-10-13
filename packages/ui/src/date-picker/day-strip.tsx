@@ -4,9 +4,9 @@
 import { formatDate, getDateTimeFormat } from "@krizaka/intl";
 import * as React from "react";
 
-import { tv } from "../tv";
 import { ChevronGlyph } from "../glyphs";
 import { useControllable, usePrefersReducedMotion } from "../media";
+import { tv } from "../tv";
 import { addDays, type IsoDate, toIsoDate, toLocalDate } from "./calendar";
 
 export const dayStrip = tv({
