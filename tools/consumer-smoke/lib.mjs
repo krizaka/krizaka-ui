@@ -11,15 +11,19 @@ export const CONSUMERS = {
 };
 
 /** The native modules the Expo consumer installs with `expo install` (the optional peers the examples need). */
-export const NATIVE_PEERS = ["react-native-svg", "expo-video", "expo-camera", "expo-font", "@shopify/flash-list"];
+export const NATIVE_PEERS = ["react-native-svg", "expo-video", "expo-camera", "expo-font", "@shopify/flash-list", "@maplibre/maplibre-react-native"];
+
+/** The web peers the Next.js consumer installs (the optional peers the examples need: the map's engine). */
+export const WEB_PEERS = ["hls.js", "maplibre-gl@^6"];
 
 /**
  * The entries each consumer must find in the published @krizaka/ui (PS2: the data table v2 on TanStack Table, the
- * virtual lists, the native list on FlashList + @krizaka/query; PS3: the form on TanStack Form, its server side, the native form) — beside their examples, which the apps render.
+ * virtual lists, the native list on FlashList + @krizaka/query; PS3: the form on TanStack Form, its server side, the native form;
+ * DS5: the dates and times, the controls, the maps on MapLibre web and native) — beside their examples, which the apps render.
  */
 export const ENTRY_POINTS = {
-  next: ["./data-table", "./virtual", "./form", "./form/server"],
-  expo: ["./native/list", "./native/form"],
+  next: ["./data-table", "./virtual", "./form", "./form/server", "./date-picker", "./radio-group", "./slider", "./map"],
+  expo: ["./native/list", "./native/form", "./native/map"],
 };
 
 /** What the registry's examples import besides the packages (PS3: a form is a zod schema), installed in both apps. */

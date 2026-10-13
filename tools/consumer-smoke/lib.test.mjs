@@ -115,10 +115,11 @@ describe("summaryMarkdown", () => {
 
 describe("entry points (PS2)", () => {
   it("lists the data table, the virtual lists and the native list, and FlashList among the native peers", () => {
-    assert.deepEqual(ENTRY_POINTS.next, ["./data-table", "./virtual", "./form", "./form/server"]);
-    assert.deepEqual(ENTRY_POINTS.expo, ["./native/list", "./native/form"]);
+    assert.deepEqual(ENTRY_POINTS.next, ["./data-table", "./virtual", "./form", "./form/server", "./date-picker", "./radio-group", "./slider", "./map"]);
+    assert.deepEqual(ENTRY_POINTS.expo, ["./native/list", "./native/form", "./native/map"]);
     assert.deepEqual(EXAMPLE_DEPS, ["zod@^4"]);
     assert.ok(NATIVE_PEERS.includes("@shopify/flash-list"));
+    assert.ok(NATIVE_PEERS.includes("@maplibre/maplibre-react-native"));
   });
 
   it("finds an entry that is not exported, or whose file is missing", () => {
