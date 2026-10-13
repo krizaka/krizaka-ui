@@ -15,12 +15,15 @@ export const NATIVE_PEERS = ["react-native-svg", "expo-video", "expo-camera", "e
 
 /**
  * The entries each consumer must find in the published @krizaka/ui (PS2: the data table v2 on TanStack Table, the
- * virtual lists, the native list on FlashList + @krizaka/query) — beside their examples, which the apps render.
+ * virtual lists, the native list on FlashList + @krizaka/query; PS3: the form on TanStack Form, its server side, the native form) — beside their examples, which the apps render.
  */
 export const ENTRY_POINTS = {
-  next: ["./data-table", "./virtual"],
-  expo: ["./native/list"],
+  next: ["./data-table", "./virtual", "./form", "./form/server"],
+  expo: ["./native/list", "./native/form"],
 };
+
+/** What the registry's examples import besides the packages (PS3: a form is a zod schema), installed in both apps. */
+export const EXAMPLE_DEPS = ["zod@^4"];
 
 /** The entries of `entries` that a published package does not export, or whose files are missing. */
 export function missingEntries(pkgDir, entries) {

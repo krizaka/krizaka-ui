@@ -16,7 +16,7 @@ import { appendFileSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSyn
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 
-import { CONSUMERS, ENTRY_POINTS, examplesOf, missingEntries, NATIVE_PEERS, nativeApp, PACKAGES, parseArgs, summaryMarkdown, webPages } from "./lib.mjs";
+import { CONSUMERS, ENTRY_POINTS, EXAMPLE_DEPS, examplesOf, missingEntries, NATIVE_PEERS, nativeApp, PACKAGES, parseArgs, summaryMarkdown, webPages } from "./lib.mjs";
 
 const here = import.meta.dirname;
 const options = parseArgs(process.argv.slice(2));
@@ -91,8 +91,8 @@ function nextConsumer(versions) {
   cpSync(join(here, "next"), app, { recursive: true });
   writeFileSync(join(app, "package.json"), `${JSON.stringify({ name: "kz-smoke-next", private: true, scripts: { build: "next build" } }, null, 2)}\n`);
   const result = consumer("next", [
-    ["npm install (published packages)", () => sh("npm", ["install", ...NPM, "next@16", "react@19", "react-dom@19", "typescript@5", "@types/react@19", "@types/react-dom@19", "@types/node@22", "tailwindcss@4", "@tailwindcss/postcss@4", "hls.js", ...specs(versions, CONSUMERS.next)], app)],
-    ["entries of @krizaka/ui (data table v2, virtual)", () => entriesStep(app, ENTRY_POINTS.next)],
+    ["npm install (published packages)", () => sh("npm", ["install", ...NPM, "next@16", "react@19", "react-dom@19", "typescript@5", "@types/react@19", "@types/react-dom@19", "@types/node@22", "tailwindcss@4", "@tailwindcss/postcss@4", "hls.js", ...EXAMPLE_DEPS, ...specs(versions, CONSUMERS.next)], app)],
+    ["entries of @krizaka/ui (data table v2, virtual, form)", () => entriesStep(app, ENTRY_POINTS.next)],
     ["generate the example pages", () => {
       let count = 0;
       const missing = [];
@@ -120,8 +120,8 @@ function expoConsumer(versions) {
     ["create-expo-app (SDK 57, blank-typescript)", () => sh("npx", ["--yes", "create-expo-app@latest", "kz-smoke-expo", "--template", "blank-typescript@sdk-57", "--no-install"], work)],
     ["npm install", () => sh("npm", ["install", ...NPM], app)],
     ["expo install (native peers)", () => sh("npx", ["expo", "install", ...NATIVE_PEERS], app)],
-    ["npm install (published packages)", () => sh("npm", ["install", ...NPM, ...specs(versions, CONSUMERS.expo)], app)],
-    ["entries of @krizaka/ui (native list)", () => entriesStep(app, ENTRY_POINTS.expo)],
+    ["npm install (published packages)", () => sh("npm", ["install", ...NPM, ...EXAMPLE_DEPS, ...specs(versions, CONSUMERS.expo)], app)],
+    ["entries of @krizaka/ui (native list, native form)", () => entriesStep(app, ENTRY_POINTS.expo)],
     ["generate App.tsx", () => {
       const all = ["ui", "charts"].map((pkg) => examplesOf(join(app, "node_modules", "@krizaka", pkg), "native"));
       const missing = all.flatMap((r) => r.missing.map((e) => e.module));
