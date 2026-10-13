@@ -24,6 +24,7 @@ console.log(`✓ dist/native.js: no "use client", no DOM; imports ${[...new Set(
 for (const [entry, ...modules] of [
   ["video-player", "expo-video"],
   ["media-capture", "expo-camera"],
+  ["media-picker", "expo-image-picker"],
   // The list: FlashList v2 and the app's @krizaka/query (one QueryClient context) — never @tanstack/* directly.
   ["list", "@shopify/flash-list", "@krizaka/query"],
   // The form: TanStack Form behind the facade (a dependency of the package, as on the web) and @krizaka/intl (money).

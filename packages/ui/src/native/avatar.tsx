@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Image, StyleSheet, Text, View, type ViewProps } from "react-native";
-import { SvgUri } from "react-native-svg";
+import Svg, { Circle, Defs, LinearGradient, Stop, SvgUri } from "react-native-svg";
 
-import { useTheme } from "./theme";
+import { useSvgId, useTheme } from "./theme";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
 const SIDE: Record<AvatarSize, number> = { xs: 20, sm: 32, md: 40, lg: 56, xl: 80 };
@@ -22,6 +22,12 @@ export type AvatarProps = Omit<ViewProps, "children"> & {
   fallback?: React.ReactNode;
   /** A size of the scale, or points. */
   size?: AvatarSize | number;
+  /** A dot at the bottom right: `online` (success), `away` (warning), `busy` (danger), `offline` (hollow). */
+  presence?: "online" | "away" | "busy" | "offline";
+  /** The words of the presence for screen readers (“online”) — passed translated; read after the name. */
+  presenceLabel?: string;
+  /** A ring around it: `story` (an unseen story, in the accent gradient), `seen` (a story already watched), `live` (danger). */
+  ring?: "story" | "seen" | "live";
 };
 
 /** A round picture; the initial (or `fallback`) when there is none or it fails to load. */
@@ -30,21 +36,22 @@ export function isSvgUri(uri: string): boolean {
   return /^data:image\/svg\+xml[;,]/i.test(uri) || /\.svg(?:[?#]|$)/i.test(uri);
 }
 
-export function AvatarRoot({ src, svg, alt = "", fallback, size = "md", style, ...props }: AvatarProps) {
+export function AvatarRoot({ src, svg, alt = "", fallback, size = "md", presence, presenceLabel, ring, style, ...props }: AvatarProps) {
   const { theme } = useTheme();
+  const gradient = useSvgId("kz-ring-");
   // The source that failed to load: a new `src` gets its chance.
   const [failedSrc, setFailedSrc] = React.useState<string | null>(null);
   const failed = Boolean(src) && failedSrc === src;
   const side = typeof size === "number" ? size : SIDE[size];
   const initial = alt.trim().charAt(0).toUpperCase();
   const content = fallback ?? initial;
-  return (
+  const picture = (
     <View
-      accessible={Boolean(alt)}
-      role={alt ? "img" : undefined}
-      aria-label={alt || undefined}
-      {...props}
-      style={[styles.root, { width: side, height: side, borderRadius: side / 2, backgroundColor: theme.surface3 }, style]}
+      accessible={Boolean(alt) && !presence && !ring}
+      role={alt && !presence && !ring ? "img" : undefined}
+      aria-label={alt && !presence && !ring ? alt : undefined}
+      {...(presence || ring ? {} : props)}
+      style={[styles.root, { width: side, height: side, borderRadius: side / 2, backgroundColor: theme.surface3 }, presence || ring ? null : style]}
     >
       {src && !failed && (svg || isSvgUri(src)) ? (
         <View style={StyleSheet.absoluteFill} pointerEvents="none">
@@ -57,6 +64,44 @@ export function AvatarRoot({ src, svg, alt = "", fallback, size = "md", style, .
       ) : (
         content
       )}
+    </View>
+  );
+  if (!presence && !ring) return picture;
+  const gap = ring ? Math.max(2.5, Math.round(side * 0.07)) : 0;
+  const outer = side + gap * 4;
+  const dot = Math.max(8, Math.round(side * 0.28));
+  const dotColor = presence === "online" ? theme.success : presence === "away" ? theme.warning : presence === "busy" ? theme.danger : theme.surface0;
+  const name = [alt, presence ? presenceLabel : null].filter(Boolean).join(", ");
+  return (
+    <View accessible={Boolean(name)} role={name ? "img" : undefined} aria-label={name || undefined} {...props} style={[{ width: outer, height: outer, alignItems: "center", justifyContent: "center" }, style]}>
+      {ring ? (
+        <Svg width={outer} height={outer} style={StyleSheet.absoluteFill} aria-hidden>
+          <Defs>
+            <LinearGradient id={gradient} x1="0" y1="1" x2="1" y2="0">
+              <Stop offset="0" stopColor={theme.accent} />
+              <Stop offset="1" stopColor={theme.accent2} />
+            </LinearGradient>
+          </Defs>
+          <Circle
+            cx={outer / 2}
+            cy={outer / 2}
+            r={outer / 2 - gap / 2 - 0.5}
+            fill="none"
+            strokeWidth={gap}
+            stroke={ring === "story" ? `url(#${gradient})` : ring === "live" ? theme.danger : theme.borderStrong}
+          />
+        </Svg>
+      ) : null}
+      {picture}
+      {presence ? (
+        <View
+          aria-hidden
+          style={[
+            styles.dot,
+            { width: dot, height: dot, borderRadius: dot / 2, right: gap * 2, bottom: gap * 2, backgroundColor: dotColor, borderColor: presence === "offline" ? theme.textMuted : theme.surface0 },
+          ]}
+        />
+      ) : null}
     </View>
   );
 }
@@ -99,4 +144,5 @@ const styles = StyleSheet.create({
   root: { overflow: "hidden", alignItems: "center", justifyContent: "center" },
   initial: { fontWeight: "700" },
   group: { flexDirection: "row", alignItems: "center" },
+  dot: { position: "absolute", borderWidth: 2 },
 });

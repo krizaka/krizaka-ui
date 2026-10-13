@@ -30,6 +30,7 @@ export default {
     "^expo-video$": "<rootDir>/src/native/mocks/expo-video.tsx",
     "^expo-camera$": "<rootDir>/src/native/mocks/expo-camera.tsx",
     "^@maplibre/maplibre-react-native$": "<rootDir>/src/native/mocks/maplibre.tsx",
+    "^expo-image-picker$": "<rootDir>/src/native/mocks/expo-image-picker.tsx",
   },
   transform: {
     ...preset.transform,

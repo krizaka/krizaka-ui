@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import NotificationExample from "../../registry/examples/toast/native/notification";
+import SnackbarExample from "../../registry/examples/toast/native/snackbar";
 import TonesExample from "../../registry/examples/toast/native/tones";
 import { nativeFrame } from "./story-frame";
 import { Toaster } from "./toast";
@@ -22,3 +23,4 @@ type Story = StoryObj<typeof meta>;
 
 export const Tones: Story = { render: () => <TonesExample defaultOpen /> };
 export const Notification: Story = { render: () => <NotificationExample defaultOpen /> };
+export const Snackbar: Story = { render: () => <SnackbarExample defaultOpen /> };

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AccessibilityInfo, Animated, Pressable, StyleSheet, Text, View } from "react-native";
+import { AccessibilityInfo, Animated, PanResponder, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useReducedMotion, useTheme } from "./theme";
 import { Txt } from "./txt";
@@ -77,8 +77,27 @@ export type ToasterProps = {
 };
 
 function ToastView({ item, closeLabel, duration }: { item: ToastItem; closeLabel: string; duration: number }) {
-  const { theme, radius } = useTheme();
+  const { theme, radius, haptic } = useTheme();
   const reduce = useReducedMotion();
+  // A swipe sideways dismisses it (the close button stays for everyone else).
+  const [swipe] = React.useState(() => new Animated.Value(0));
+  const drag = React.useMemo(
+    () =>
+      PanResponder.create({
+        onMoveShouldSetPanResponder: (_, g) => Math.abs(g.dx) > 8 && Math.abs(g.dx) > Math.abs(g.dy),
+        onPanResponderMove: (_, g) => swipe.setValue(g.dx),
+        onPanResponderRelease: (_, g) => {
+          if (Math.abs(g.dx) > 96 || Math.abs(g.vx) > 0.9) {
+            Animated.timing(swipe, { toValue: Math.sign(g.dx) * 480, duration: 160, useNativeDriver: true }).start(() => dismiss(item.id));
+          } else Animated.spring(swipe, { toValue: 0, useNativeDriver: true }).start();
+        },
+      }),
+    [swipe, item.id],
+  );
+  React.useEffect(() => {
+    if (item.tone === "success" || item.tone === "warning") haptic(item.tone);
+    if (item.tone === "error") haptic("warning");
+  }, [item.id]); // eslint-disable-line react-hooks/exhaustive-deps -- once per toast
   const [enter] = React.useState(() => new Animated.Value(reduce ? 1 : 0));
   React.useEffect(() => {
     if (reduce) enter.setValue(1);
@@ -148,9 +167,9 @@ function ToastView({ item, closeLabel, duration }: { item: ToastItem; closeLabel
     { backgroundColor: theme.surface2, borderColor: theme.borderDefault, borderLeftColor: edge, borderRadius: radius.lg, shadowColor: theme.scrimStrong },
   ];
   // A slide only, never a fade: the text is legible (and its contrast measurable) from the first frame.
-  const motion = { transform: [{ translateY: enter.interpolate({ inputRange: [0, 1], outputRange: [-8, 0] }) }] };
+  const motion = { transform: [{ translateY: enter.interpolate({ inputRange: [0, 1], outputRange: [-8, 0] }) }, { translateX: swipe }] };
   return (
-    <Animated.View aria-live="polite" style={motion}>
+    <Animated.View aria-live="polite" style={motion} {...drag.panHandlers}>
       <View style={frame}>{body}</View>
     </Animated.View>
   );
