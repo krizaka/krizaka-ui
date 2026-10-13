@@ -64,8 +64,10 @@ export {
 } from "./date-time";
 export { Sheet, type SheetProps } from "./dialog";
 export { EmptyState, type EmptyStateProps } from "./empty-state";
+export { Fab, type FabProps } from "./fab";
 export { TextField, type TextFieldProps } from "./field";
 export { GoalGauge, type GoalGaugeProps } from "./goal-gauge";
+export { Header, type HeaderProps, useCollapsingHeader } from "./header";
 export { KrizakaMark } from "./KrizakaMark";
 export { type NativeMarkProps } from "./mark-motion";
 export { ErrorState, LoadingState, MascotState, type MascotStateProps, SuccessState, WelcomeState } from "./mascot-state";
@@ -84,9 +86,12 @@ export { Skeleton, type SkeletonProps } from "./skeleton";
 export { Slider, type SliderProps, type SliderValue } from "./slider";
 export { Spinner, type SpinnerProps } from "./spinner";
 export { Switch, type SwitchProps } from "./switch";
+export { TabBar, type TabBarItem, type TabBarProps } from "./tab-bar";
+export { type TabItem, Tabs, type TabsProps } from "./tabs";
 export {
   alpha,
   type HapticKind,
+  type Insets,
   type Mode,
   type Motion,
   type Radius,
