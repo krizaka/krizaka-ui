@@ -23,6 +23,7 @@ export {
   uses12Hours,
 } from "../date-picker/parts";
 export { type BrandId } from "../marks/ProductLogo";
+export { ActionSheet, type ActionSheetAction, type ActionSheetProps } from "./action-sheet";
 export { ActivityFeed, type ActivityFeedLabels, type ActivityFeedProps } from "./activity-feed";
 export { type ActivityEvent, type ActivityTone } from "./activity-feed";
 export { Avatar, AvatarGroup, type AvatarGroupProps, type AvatarProps, AvatarRoot, type AvatarSize } from "./avatar";
@@ -71,6 +72,7 @@ export { Fab, type FabProps } from "./fab";
 export { TextField, type TextFieldProps } from "./field";
 export { GoalGauge, type GoalGaugeProps } from "./goal-gauge";
 export { Header, type HeaderProps, useCollapsingHeader } from "./header";
+export { ImageViewer, type ImageViewerProps, prefetchNeighbours, type ViewerImage } from "./image-viewer";
 export { KrizakaMark } from "./KrizakaMark";
 export { Loader, LoaderGlyph, type LoaderGlyphProps, type LoaderProps, useDelayedWait } from "./loader";
 export { type NativeMarkProps } from "./mark-motion";
@@ -78,9 +80,11 @@ export { ErrorState, LoadingState, MascotState, type MascotStateProps, SuccessSt
 export { Mascot, type MascotProps } from "./mascots";
 export { Meter, type MeterPart, type MeterProps } from "./meter";
 export { NumberTicker, type NumberTickerProps } from "./number-ticker";
+export { Onboarding, type OnboardingProps, type OnboardingSlide } from "./onboarding";
 export { OrazakaMark } from "./OrazakaMark";
 export { OrochiaMark } from "./OrochiaMark";
 export { Pagination, type PaginationLabels, type PaginationProps } from "./pagination";
+export { PermissionPrompt, type PermissionPromptProps, type PermissionStatus } from "./permission-prompt";
 export { Phoenix, type PhoenixProps } from "./phoenix";
 export { ProductMark } from "./ProductMark";
 export { ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
