@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/tokens",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "The Krizaka semantic design tokens (--kz-*) and the brand themes (Krizaka, Orazaka, Orochia, Yazakia, Yororis): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
   "keywords": [
     "krizaka",
