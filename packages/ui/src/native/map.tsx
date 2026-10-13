@@ -40,8 +40,9 @@ export type MapProps = {
   brand?: BrandId;
   /** The language of the labels (`fr`, `en`). Default `en`. */
   lang?: string;
-  /** The detailed region and the world's low zooms (PMTiles); defaults: our extracts. */
+  /** The detailed region (PMTiles) drawn from zoom 6.5. Default: our Montréal–Québec extract (to zoom 14). */
   region?: MapRegion | null;
+  /** The world's low zooms (PMTiles). Default: our world extract (to zoom 6). */
   world?: MapRegion | null;
   /** Moves with the hand (default). */
   interactive?: boolean;
@@ -143,7 +144,6 @@ export function Marker({ position, label, onPress, selected, children }: MarkerP
       <Pressable
         role={onPress ? "button" : undefined}
         aria-label={label}
-        aria-selected={selected}
         disabled={!onPress}
         hitSlop={12}
         onPress={() => {
@@ -187,7 +187,7 @@ export function UserPosition({ position, label, accuracy }: UserPositionProps) {
     <>
       {accuracy ? <RadiusCircle center={position} radius={accuracy} tone="soft" /> : null}
       <MapMarker id={id} lngLat={[...position] as [number, number]} anchor="center">
-        <View aria-label={label} accessible style={styles.userSlot}>
+        <View role="img" aria-label={label} accessible style={styles.userSlot}>
           <Animated.View style={[styles.userHalo, { backgroundColor: palette.accent, opacity: pulse.interpolate({ inputRange: [0, 1], outputRange: [0.4, 0] }), transform: [{ scale: pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 3] }) }] }]} />
           <View style={[styles.user, { backgroundColor: palette.accent, borderColor: palette.halo }]} />
         </View>

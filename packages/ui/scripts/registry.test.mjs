@@ -44,7 +44,9 @@ describe("registry", () => {
     for (const dependency of item.registryDependencies) expect(names).toContain(dependency);
     for (const dependency of item.dependencies) {
       const [, pkgName, range] = dependency.match(/^(@?[^@]+)@(.+)$/);
-      expect(pkg.dependencies[pkgName]).toBe(range);
+      // A workspace sibling (`workspace:^`) is listed with the range it is published with.
+      const declared = pkg.dependencies[pkgName];
+      expect(String(declared).startsWith("workspace:") ? range.startsWith("^") : declared === range, `${pkgName}: ${declared} → ${range}`).toBe(true);
     }
   });
 

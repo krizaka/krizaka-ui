@@ -70,7 +70,7 @@ class FakeMarker {
     this.options.element.remove();
   }
 }
-vi.mock("maplibre-gl", () => ({ default: { Map: FakeMap, Marker: FakeMarker, addProtocol: () => calls.push("protocol") } }));
+vi.mock("maplibre-gl", () => ({ default: { Map: FakeMap, Marker: FakeMarker, addProtocol: () => calls.push("protocol"), getVersion: () => "6.11.2", setWorkerUrl: (u: string) => calls.push(`worker ${u.slice(0, 5)}`) } }));
 vi.mock("pmtiles", () => ({ Protocol: class { tile = () => undefined; } }));
 
 const withWebGL = () => vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({} as never);
@@ -131,6 +131,7 @@ describe("Map", () => {
     );
     await waitFor(() => expect(calls).toContain("map -73.58,45.52 12"));
     expect(calls).toContain("protocol");
+    expect(calls).toContain("worker blob:");
     const marker = await screen.findByRole("button", { name: "Café Olimpico" });
     expect(marker.getAttribute("aria-pressed")).toBe("false");
     await user.click(marker);

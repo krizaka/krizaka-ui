@@ -10,12 +10,11 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 
-import type { BrandId } from "../marks/ProductLogo";
 import { usePrefersReducedMotion } from "../media";
 import { tv } from "../tv";
 import { MAP_ATTRIBUTION } from "./assets";
 import { circlePolygon, type LngLat } from "./geo";
-import { mapPalette, type MapRegion,mapStyle } from "./style";
+import { type MapBrand, mapPalette, type MapRegion, mapStyle } from "./style";
 
 type MapLibre = typeof import("maplibre-gl");
 type MapInstance = import("maplibre-gl").Map;
@@ -64,12 +63,26 @@ function usePageScheme(): "dark" | "light" {
 }
 
 let protocolAdded = false;
-/** MapLibre and the PMTiles protocol, loaded once for the page. */
+let workerUrl: string | null = null;
+
+/**
+ * Where MapLibre's worker comes from. A bundler (Next.js, Vite) renames MapLibre's module and leaves its worker behind:
+ * by default the worker of the very version the app installed is imported from jsDelivr (free, open source, no key)
+ * through a module worker of the page's own origin. An app with a strict CSP serves it itself —
+ * `configureMaps({ workerUrl: "/maplibre-gl-worker.mjs" })` (with `maplibre-gl-shared.mjs` beside it), once, before a map.
+ */
+export function configureMaps(options: { workerUrl?: string }) {
+  if (options.workerUrl) workerUrl = options.workerUrl;
+}
+
+/** MapLibre, its worker and the PMTiles protocol, loaded once for the page. */
 async function loadEngine(): Promise<MapLibre> {
   const [lib, pmtiles] = await Promise.all([import("maplibre-gl"), import("pmtiles")]);
   const ml = ((lib as unknown as { default?: MapLibre }).default ?? lib) as MapLibre;
   if (!protocolAdded) {
     protocolAdded = true;
+    const remote = `https://cdn.jsdelivr.net/npm/maplibre-gl@${ml.getVersion()}/dist/maplibre-gl-worker.mjs`;
+    ml.setWorkerUrl(workerUrl ?? URL.createObjectURL(new Blob([`import ${JSON.stringify(remote)};`], { type: "text/javascript" })));
     ml.addProtocol("pmtiles", new pmtiles.Protocol().tile);
   }
   return ml;
@@ -107,11 +120,12 @@ export type MapProps = {
   /** The scheme. Default: the page's (`html.light`), followed. */
   scheme?: "dark" | "light";
   /** The product whose accent the map carries. Default `krizaka`. */
-  brand?: BrandId;
+  brand?: MapBrand;
   /** The language of the labels (`fr`, `en`). Default `en`. */
   lang?: string;
-  /** The detailed region (PMTiles) and the world's low zooms; defaults: our extracts (Montréal–Québec, the world to zoom 6). */
+  /** The detailed region (PMTiles) drawn from zoom 6.5. Default: our Montréal–Québec extract (to zoom 14). */
   region?: MapRegion | null;
+  /** The world's low zooms (PMTiles). Default: our world extract (to zoom 6). */
   world?: MapRegion | null;
   /** The zoom buttons (default) — the keyboard also zooms with + and − on the focused map. */
   controls?: boolean;
@@ -262,7 +276,7 @@ export function Map({
         }}
       >
         {!ready || failed ? <div className={s.fallback()}>{fallback}</div> : null}
-        <div ref={host} aria-hidden className={s.canvas()} style={{ visibility: failed ? "hidden" : undefined }} />
+        <div ref={host} className={s.canvas()} style={{ position: "absolute", inset: 0, visibility: failed ? "hidden" : undefined }} />
         {controls && interactive && !failed ? (
           <div className={s.controls()}>
             <button type="button" className={s.control()} aria-label={labels.zoomIn} disabled={!instance} onClick={() => zoomBy(1)}>

@@ -49,7 +49,7 @@ export const meta = {
   },
   native: {
     entry: "@krizaka/ui/native/map",
-    imports: ["Map", "Marker", "Cluster", "UserPosition", "RadiusCircle", "LocationPicker", "mapStyle", "distanceMeters"],
+    imports: ["Map", "Marker", "Cluster", "UserPosition", "RadiusCircle", "LocationPicker"],
     differences: [
       "MapLibre Native (`@maplibre/maplibre-react-native`, an optional peer, with its Expo config plugin): the same style and tiles as the web — it reads `pmtiles://` itself.",
       "A marker's details open in a `Sheet` (`@krizaka/ui/native`); markers and Near me play a haptic.",

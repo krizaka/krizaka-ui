@@ -5,8 +5,10 @@
 import { brands, themes } from "@krizaka/tokens/native";
 import { type Flavor, layers, namedFlavor } from "@protomaps/basemaps";
 
-import type { BrandId } from "../marks/ProductLogo";
 import { MAP_ATTRIBUTION, MAP_GLYPHS, MAP_TILES } from "./assets";
+
+/** A product of the family: its accent paints the map. */
+export type MapBrand = keyof typeof brands;
 
 /** A colour mixed into another (`#rrggbb` only): `t` = 0 gives `a`, 1 gives `b`. */
 export function mix(a: string, b: string, t: number): string {
@@ -16,7 +18,7 @@ export function mix(a: string, b: string, t: number): string {
 }
 
 /** The colours of the map in a scheme (and a brand): what the style, the markers and the static map share. */
-export function mapPalette(scheme: "dark" | "light", brand: BrandId = "krizaka") {
+export function mapPalette(scheme: "dark" | "light", brand: MapBrand = "krizaka") {
   const t = { ...themes[scheme], ...(brands as Record<string, Partial<Record<"dark" | "light", Partial<typeof themes.dark>>>>)[brand]?.[scheme] };
   const dark = scheme === "dark";
   const land = dark ? t.surface1 : t.surface0;
@@ -39,7 +41,7 @@ export function mapPalette(scheme: "dark" | "light", brand: BrandId = "krizaka")
 }
 
 /** The basemap flavour of a palette: every role of Protomaps' layers filled from the tokens. */
-export function mapFlavor(scheme: "dark" | "light", brand?: BrandId): Flavor {
+export function mapFlavor(scheme: "dark" | "light", brand?: MapBrand): Flavor {
   const c = mapPalette(scheme, brand);
   const base = namedFlavor(scheme);
   return {
@@ -132,7 +134,7 @@ export type MapStyleOptions = {
   /** `dark` or `light`: the scheme of the page or the app. */
   scheme: "dark" | "light";
   /** The product whose accent the map carries (its markers, its water's tint). Default `krizaka`. */
-  brand?: BrandId;
+  brand?: MapBrand;
   /** The language of the labels (`fr`, `en`): the place names in it where OpenStreetMap has them. Default `en`. */
   lang?: string;
   /** The low zooms of the whole world. Default: our world extract (zoom 0–6). */

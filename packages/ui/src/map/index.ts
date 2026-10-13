@@ -11,6 +11,7 @@ export {
   Cluster,
   type ClusterPoint,
   type ClusterProps,
+  configureMaps,
   Map,
   map,
   type MapLabels,
@@ -25,4 +26,4 @@ export {
   type UserPositionProps,
 } from "./map";
 export { StaticMap, staticMap, type StaticMapPlace, type StaticMapProps } from "./static-map";
-export { mapFlavor, mapPalette, type MapRegion, mapStyle, type MapStyleOptions, mix, REGION_FROM_ZOOM } from "./style";
+export { type MapBrand, mapFlavor, mapPalette, type MapRegion, mapStyle, type MapStyleOptions, mix, REGION_FROM_ZOOM } from "./style";
