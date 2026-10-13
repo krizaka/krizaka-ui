@@ -67,9 +67,12 @@ export { EmptyState, type EmptyStateProps } from "./empty-state";
 export { TextField, type TextFieldProps } from "./field";
 export { GoalGauge, type GoalGaugeProps } from "./goal-gauge";
 export { KrizakaMark } from "./KrizakaMark";
+export { Loader, LoaderGlyph, type LoaderGlyphProps, type LoaderProps, useDelayedWait } from "./loader";
 export { type NativeMarkProps } from "./mark-motion";
 export { ErrorState, LoadingState, MascotState, type MascotStateProps, SuccessState, WelcomeState } from "./mascot-state";
 export { Mascot, type MascotProps } from "./mascots";
+export { Meter, type MeterPart, type MeterProps } from "./meter";
+export { NumberTicker, type NumberTickerProps } from "./number-ticker";
 export { OrazakaMark } from "./OrazakaMark";
 export { OrochiaMark } from "./OrochiaMark";
 export { Pagination, type PaginationLabels, type PaginationProps } from "./pagination";
@@ -83,6 +86,7 @@ export { Segmented, type SegmentedOption, type SegmentedProps } from "./segmente
 export { Skeleton, type SkeletonProps } from "./skeleton";
 export { Slider, type SliderProps, type SliderValue } from "./slider";
 export { Spinner, type SpinnerProps } from "./spinner";
+export { type Step, Stepper, type StepperProps, type StepStatus } from "./stepper";
 export { Switch, type SwitchProps } from "./switch";
 export {
   alpha,
