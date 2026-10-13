@@ -23,6 +23,8 @@ export {
   uses12Hours,
 } from "../date-picker/parts";
 export { type BrandId } from "../marks/ProductLogo";
+export { ActivityFeed, type ActivityFeedLabels, type ActivityFeedProps } from "./activity-feed";
+export { type ActivityEvent, type ActivityTone } from "./activity-feed";
 export { Avatar, AvatarGroup, type AvatarGroupProps, type AvatarProps, AvatarRoot, type AvatarSize } from "./avatar";
 export { Badge, type BadgeProps, type BadgeTone } from "./badge";
 export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, IconButton, type IconButtonProps } from "./button";
@@ -62,6 +64,7 @@ export {
   type TimePickerLabels,
   type TimePickerProps,
 } from "./date-time";
+export { type DescriptionItem, DescriptionList, type DescriptionListProps } from "./description-list";
 export { Sheet, type SheetProps } from "./dialog";
 export { EmptyState, type EmptyStateProps } from "./empty-state";
 export { TextField, type TextFieldProps } from "./field";

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import DownExample from "../../registry/examples/stat/down";
 import FlatExample from "../../registry/examples/stat/flat";
+import GridExample from "../../registry/examples/stat/grid";
 import PlainExample from "../../registry/examples/stat/plain";
 import RowExample from "../../registry/examples/stat/row";
 import UpExample from "../../registry/examples/stat/up";
@@ -25,3 +26,4 @@ export const Down: Story = { render: () => <DownExample /> };
 export const Flat: Story = { render: () => <FlatExample /> };
 export const Plain: Story = { render: () => <PlainExample /> };
 export const Row: Story = { render: () => <RowExample /> };
+export const Grid: Story = { render: () => <GridExample /> };

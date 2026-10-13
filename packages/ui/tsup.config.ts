@@ -47,6 +47,7 @@ export default defineConfig([
       "chip-link": "src/chip-link/index.ts",
       meter: "src/meter/index.ts",
       pagination: "src/pagination/index.ts",
+      "description-list": "src/description-list/index.ts",
       // The page blocks that hold no state: usable in a Server Component as they are.
       page: "src/page/index.ts",
       "page-hero": "src/page-hero/index.ts",
@@ -158,6 +159,10 @@ export default defineConfig([
       "video-trimmer": "src/video-trimmer/index.ts",
       "audio-player": "src/audio-player/index.ts",
       "image-cropper": "src/image-cropper/index.ts",
+      list: "src/list/index.ts",
+      "activity-feed": "src/activity-feed/index.ts",
+      "tree-view": "src/tree-view/index.ts",
+      kanban: "src/kanban/index.ts",
     },
     banner: { js: '"use client";' },
   },
