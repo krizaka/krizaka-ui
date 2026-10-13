@@ -238,11 +238,12 @@ export type ConversationItemProps = {
 /** A conversation in the list: avatar and presence, name, the last message or typing, the time, the unread count. */
 export function ConversationItem({ name, avatar, presence, presenceLabel, preview, typing, time, unread = 0, unreadLabel, onPress, style }: ConversationItemProps) {
   const { theme, radius } = useTheme();
+  const said = [unread > 0 ? unreadLabel : null, presence ? presenceLabel : null].filter(Boolean).join(", ");
   return (
     <Pressable
       role="button"
-      // The words in the order they are seen (name, time, preview, count), then the presence — the picture is hidden.
-      aria-label={[name, time, preview, unread > 0 ? (unreadLabel ?? String(unread)) : null, presence ? presenceLabel : null].filter(Boolean).join(", ")}
+      // Named by its own words, in the order they are seen (the picture is hidden), then the words only read: how many
+      // unread, the presence.
       onPress={onPress}
       style={({ pressed }) => [styles.item, { backgroundColor: pressed ? theme.surface2 : theme.surface0 }, style]}
     >
@@ -265,7 +266,7 @@ export function ConversationItem({ name, avatar, presence, presenceLabel, previe
             {preview}
           </Txt>
           {unread > 0 ? (
-            <View style={[styles.count, { backgroundColor: theme.accent, borderRadius: radius.full }]}>
+            <View aria-hidden={unreadLabel ? true : undefined} style={[styles.count, { backgroundColor: theme.accent, borderRadius: radius.full }]}>
               <Txt variant="caption" tone="onAccent" style={styles.bold}>
                 {unread > 99 ? "99+" : unread}
               </Txt>
@@ -273,11 +274,13 @@ export function ConversationItem({ name, avatar, presence, presenceLabel, previe
           ) : null}
         </View>
       </View>
+      {said ? <Txt style={styles.readOnly}>{said}</Txt> : null}
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
+  readOnly: { position: "absolute", width: 1, height: 1, overflow: "hidden", opacity: 0 },
   row: { gap: 2 },
   mine: { alignItems: "flex-end" },
   theirs: { alignItems: "flex-start" },
