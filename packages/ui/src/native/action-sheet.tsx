@@ -2,7 +2,7 @@ import * as React from "react";
 import { Modal, Pressable, StyleSheet, View } from "react-native";
 
 import { type Controlled, modalName, useOpen } from "./overlay";
-import { useTheme } from "./theme";
+import { useReducedMotion, useTheme } from "./theme";
 import { Txt } from "./txt";
 
 export type ActionSheetAction = {
@@ -33,10 +33,11 @@ export type ActionSheetProps = Controlled & {
 export function ActionSheet({ title, description, actions, cancelLabel, ...controlled }: ActionSheetProps) {
   const [open, setOpen] = useOpen(controlled);
   const { theme, radius, insets, haptic } = useTheme();
+  const reduce = useReducedMotion();
   // The material: what floats over the screen is glass, its top edge catching the light.
   const card = { backgroundColor: theme.glassBg, borderColor: theme.glassBorder, borderTopColor: theme.edgeLight, borderRadius: radius.xl };
   return (
-    <Modal {...modalName(title)} visible={open} transparent animationType="slide" onRequestClose={() => setOpen(false)} statusBarTranslucent>
+    <Modal {...modalName(title)} visible={open} transparent animationType={reduce ? "none" : "slide"} onRequestClose={() => setOpen(false)} statusBarTranslucent>
       <Pressable aria-hidden accessible={false} style={[StyleSheet.absoluteFill, { backgroundColor: theme.scrim }]} onPress={() => setOpen(false)} />
       <View style={[styles.bottom, styles.actionWrap, { paddingBottom: 8 + insets.bottom }]} pointerEvents="box-none">
         <View role="menu" aria-label={title} style={[styles.actionCard, card]}>

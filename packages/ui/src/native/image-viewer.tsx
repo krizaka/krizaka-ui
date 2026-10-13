@@ -124,7 +124,7 @@ export function ImageViewer({ images, index, onIndexChange, closeLabel, position
   const image = images[index]!;
   const backdrop = dismiss.interpolate({ inputRange: [0, height / 2], outputRange: [1, 0.3], extrapolate: "clamp" });
   return (
-    <Modal {...modalName(image.alt)} visible transparent animationType="fade" onRequestClose={() => onIndexChange(null)} statusBarTranslucent>
+    <Modal {...modalName(image.alt)} visible transparent animationType={reduce ? "none" : "fade"} onRequestClose={() => onIndexChange(null)} statusBarTranslucent>
       <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor: theme.media, opacity: backdrop }]} />
       <View
         style={StyleSheet.absoluteFill}
