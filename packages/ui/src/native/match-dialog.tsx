@@ -39,13 +39,20 @@ export function MatchDialog({ open, onOpenChange, title, description, people, pr
     if (!open) return;
     haptic("success");
     AccessibilityInfo.announceForAccessibility([title, description].filter(Boolean).join(". "));
-    if (reduce) return t.setValue(1);
+    if (reduce) return;
     t.setValue(0);
     Animated.timing(t, { toValue: 1, duration: 520, easing: Easing.out(Easing.back(1.6)), useNativeDriver: true }).start();
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps -- once per opening
+  // Reduced motion (known a frame later): the cards stand where they land, whatever ran before.
+  React.useEffect(() => {
+    if (open && reduce) {
+      t.stopAnimation();
+      t.setValue(1);
+    }
+  }, [open, reduce, t]);
   const side = (dir: 1 | -1) => ({ transform: [{ translateX: t.interpolate({ inputRange: [0, 1], outputRange: [dir * 110, dir * 50] }) }, { rotate: dir === -1 ? "-8deg" : "8deg" }] });
   return (
-    <Modal {...modalName(title)} visible={open} transparent animationType="fade" onRequestClose={() => onOpenChange(false)} statusBarTranslucent>
+    <Modal {...modalName(title)} visible={open} transparent animationType={reduce ? "none" : "fade"} onRequestClose={() => onOpenChange(false)} statusBarTranslucent>
       <View accessibilityViewIsModal style={[styles.screen, { backgroundColor: theme.accent }]}>
         <View style={[StyleSheet.absoluteFill, { backgroundColor: theme.accent2, opacity: 0.55 }]} />
         <Txt variant="display" tone="onAccent" style={styles.title}>

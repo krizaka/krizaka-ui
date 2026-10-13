@@ -79,9 +79,9 @@ export { Loader, LoaderGlyph, type LoaderGlyphProps, type LoaderProps, useDelaye
 export { type NativeMarkProps } from "./mark-motion";
 export { ErrorState, LoadingState, MascotState, type MascotStateProps, SuccessState, WelcomeState } from "./mascot-state";
 export { Mascot, type MascotProps } from "./mascots";
+export { MatchDialog, type MatchDialogProps } from "./match-dialog";
 export { Meter, type MeterPart, type MeterProps } from "./meter";
 export { NumberTicker, type NumberTickerProps } from "./number-ticker";
-export { MatchDialog, type MatchDialogProps } from "./match-dialog";
 export { Onboarding, type OnboardingProps, type OnboardingSlide } from "./onboarding";
 export { OrazakaMark } from "./OrazakaMark";
 export { OrochiaMark } from "./OrochiaMark";
@@ -101,8 +101,8 @@ export { Segmented, type SegmentedOption, type SegmentedProps } from "./segmente
 export { Skeleton, type SkeletonProps } from "./skeleton";
 export { Slider, type SliderProps, type SliderValue } from "./slider";
 export { Spinner, type SpinnerProps } from "./spinner";
-export { type Step, Stepper, type StepperProps, type StepStatus } from "./stepper";
 export { StepProgress, type StepProgressProps } from "./step-progress";
+export { type Step, Stepper, type StepperProps, type StepStatus } from "./stepper";
 export { PersonCard, type PersonCardProps, SwipeDeck, type SwipeDeckLabels, type SwipeDeckProps, type SwipeDirection } from "./swipe-deck";
 export { SwipeableRow, type SwipeableRowProps,type SwipeAction } from "./swipeable-row";
 export { Switch, type SwitchProps } from "./switch";
