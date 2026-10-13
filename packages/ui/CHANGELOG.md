@@ -1,5 +1,54 @@
 # @krizaka/ui
 
+## 3.4.0
+
+### Minor Changes
+
+- [#149](https://github.com/krizaka/krizaka-ui/pull/149) [`4978908`](https://github.com/krizaka/krizaka-ui/commit/49789080247338b7009e0fde98884d8cb97f3381) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Data display, from the apps' screens: `List` (`./list`: records dense or comfortable, selectable, actions beside each
+  row, windowed, its states — the web side of the native list), `DescriptionList` and `KeyValueGrid`
+  (`./description-list`: term and value, stacked, inline like a receipt, a grid of figures), `ActivityFeed` and `Timeline`
+  (`./activity-feed`: by day, runs folded, “… ago” kept fresh, new events announced), `TreeView` (`./tree-view`: the ARIA
+  tree, branches loaded on demand) and `Kanban` (`./kanban`: drag and drop or Space and the arrows, every move announced).
+  `Stat` takes a `chart` and `StatGrid` lays figures out. React Native: `DescriptionList` and `ActivityFeed`.
+
+- [#144](https://github.com/krizaka/krizaka-ui/pull/144) [`fb1e90a`](https://github.com/krizaka/krizaka-ui/commit/fb1e90af44db93e2e571d8b4ef95178b3fa6b983) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Maps, open source and free (DS5): `@krizaka/ui/map` — `Map` on MapLibre GL JS over Protomaps PMTiles hosted on the
+  Krizaka CDN (the world to zoom 6, Montréal–Québec to 14; no API key, no metered service), its style generated from the
+  tokens in dark and light and the product's accent (`mapStyle`, `mapPalette`), `Marker` (a button when it does something),
+  `Cluster`, `UserPosition` (a pulse, still under reduced motion), `RadiusCircle`, `LocationPicker` (the pin, the distance
+  chip, Near me asking for the position only when pressed) and `StaticMap` (the fallback without WebGL, the picture of a
+  card) — the places read as a list in place of the canvas, the OpenStreetMap (ODbL) and Protomaps attribution always
+  drawn. `@krizaka/ui/native/map` brings the same on MapLibre Native (details in a `Sheet`). `maplibre-gl` and
+  `@maplibre/maplibre-react-native` are optional peers; `pmtiles`, `@protomaps/basemaps` and `@krizaka/tokens` are
+  dependencies. `tools/map-assets.mjs` publishes and checks the tiles and glyphs. The skill `skills/map/SKILL.md`.
+
+- [#145](https://github.com/krizaka/krizaka-ui/pull/145) [`96cc209`](https://github.com/krizaka/krizaka-ui/commit/96cc209e1089b58a4aa855e1622d7972e11e7f83) Thanks [@oussamaABID](https://github.com/oussamaABID)! - React Native gets the feedback Orazaka's Jobs tab waits for, with the web's props: `Loader` (+ `LoaderGlyph`,
+  `useDelayedWait`: shown after a delay, never blinking, announced, ending in words), `Stepper` (each step's status read),
+  `Meter` (thresholds, parts, bar or ring) and `NumberTicker` (the final value read from the first frame).
+
+- [#153](https://github.com/krizaka/krizaka-ui/pull/153) [`86eb46b`](https://github.com/krizaka/krizaka-ui/commit/86eb46b5de2fe74df388eaae5a2e8706e20a8e6d) Thanks [@oussamaABID](https://github.com/oussamaABID)! - React Native lists and inputs: `SwipeableRow` (actions under a swipe, a full swipe runs the outermost, the same actions
+  for screen readers), `PullToRefresh` (the platform's control in the accent), `OtpInput` (one input under the boxes: the
+  keyboard's code suggestion fills them all) and `MediaPicker` in its own entry `@krizaka/ui/native/media-picker`
+  (expo-image-picker, optional peer). `Avatar` takes `presence` and a story `ring`; a toast is swiped away, plays its
+  tone's haptic and can be a snackbar; `SearchField` takes a Cancel button.
+
+- [#146](https://github.com/krizaka/krizaka-ui/pull/146) [`097641a`](https://github.com/krizaka/krizaka-ui/commit/097641aa010f090e579d15e88a70e728be96a1df) Thanks [@oussamaABID](https://github.com/oussamaABID)! - React Native navigation: `TabBar` (the app's main sections, badges said in words, a tick, reselect), `Header` (a large
+  title that folds into the bar, `useCollapsingHeader`), `Tabs` (underlined or segmented, with their panels) and `Fab`.
+  `ThemeProvider` takes the safe-area `insets` (`useSafeAreaInsets()`): the bars and the floating button keep clear of them.
+
+- [#147](https://github.com/krizaka/krizaka-ui/pull/147) [`bf3bfb8`](https://github.com/krizaka/krizaka-ui/commit/bf3bfb8a2aeb4e425c781949e5ba737fb534bb60) Thanks [@oussamaABID](https://github.com/oussamaABID)! - React Native overlays and screens: `ActionSheet` (a short list of actions from the bottom edge, the destructive one in
+  danger, cancel apart), `ImageViewer` (full screen: pinch and double tap to zoom, swipe between images, swipe down to
+  close, moved by the screen reader's swipes), `PermissionPrompt` (why before the system asks, then the settings once
+  refused) and `Onboarding` (a first launch in a few slides).
+
+### Patch Changes
+
+- [#143](https://github.com/krizaka/krizaka-ui/pull/143) [`d0e43fd`](https://github.com/krizaka/krizaka-ui/commit/d0e43fd7defaba8be14d61c3b84799fec817dad5) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Package homepage points to the documentation on krizaka.com (the page the npm listing links to is the one that explains the package).
+- Updated dependencies [[`d0e43fd`](https://github.com/krizaka/krizaka-ui/commit/d0e43fd7defaba8be14d61c3b84799fec817dad5)]:
+  - @krizaka/intl@0.1.1
+  - @krizaka/query@0.1.1
+  - @krizaka/tailwind@3.4.0
+  - @krizaka/tokens@3.4.0
+
 ## 3.3.0
 
 ### Minor Changes

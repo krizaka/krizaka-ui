@@ -1,5 +1,14 @@
 # @krizaka/tailwind
 
+## 3.4.0
+
+### Patch Changes
+
+- [#143](https://github.com/krizaka/krizaka-ui/pull/143) [`d0e43fd`](https://github.com/krizaka/krizaka-ui/commit/d0e43fd7defaba8be14d61c3b84799fec817dad5) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Package homepage points to the documentation on krizaka.com (the page the npm listing links to is the one that explains the package).
+- Updated dependencies [[`4978908`](https://github.com/krizaka/krizaka-ui/commit/49789080247338b7009e0fde98884d8cb97f3381), [`fb1e90a`](https://github.com/krizaka/krizaka-ui/commit/fb1e90af44db93e2e571d8b4ef95178b3fa6b983), [`d0e43fd`](https://github.com/krizaka/krizaka-ui/commit/d0e43fd7defaba8be14d61c3b84799fec817dad5), [`96cc209`](https://github.com/krizaka/krizaka-ui/commit/96cc209e1089b58a4aa855e1622d7972e11e7f83), [`86eb46b`](https://github.com/krizaka/krizaka-ui/commit/86eb46b5de2fe74df388eaae5a2e8706e20a8e6d), [`097641a`](https://github.com/krizaka/krizaka-ui/commit/097641aa010f090e579d15e88a70e728be96a1df), [`bf3bfb8`](https://github.com/krizaka/krizaka-ui/commit/bf3bfb8a2aeb4e425c781949e5ba737fb534bb60)]:
+  - @krizaka/ui@3.4.0
+  - @krizaka/tokens@3.4.0
+
 ## 3.3.0
 
 ### Patch Changes
