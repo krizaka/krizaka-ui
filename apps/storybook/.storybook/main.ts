@@ -39,6 +39,7 @@ const config: StorybookConfig = {
         { find: /^@krizaka\/ui\/native\/([a-z-]+)$/, replacement: `${ui}/native/$1.tsx` },
         { find: /^expo-video$/, replacement: `${ui}/native/mocks/expo-video.tsx` },
         { find: /^expo-camera$/, replacement: `${ui}/native/mocks/expo-camera.tsx` },
+        { find: /^@maplibre\/maplibre-react-native$/, replacement: `${ui}/native/mocks/maplibre.tsx` },
         { find: /^@krizaka\/ui\/([a-z-]+)$/, replacement: `${ui}/$1/index.ts` },
         { find: /^@krizaka\/charts$/, replacement: `${charts}/index.ts` },
         { find: /^@krizaka\/charts\/([a-z-]+)$/, replacement: `${charts}/$1/index.ts` },

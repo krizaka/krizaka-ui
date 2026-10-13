@@ -203,6 +203,17 @@
   }
 }
 
+/* Maps (@krizaka/ui/map): what MapLibre needs to lay out its canvas and markers (its own stylesheet is not required),
+   and the person's position — a dot that pulses, still under reduced motion. */
+.maplibregl-map { overflow: hidden; -webkit-tap-highlight-color: transparent; }
+.maplibregl-canvas { position: absolute; left: 0; top: 0; }
+.maplibregl-canvas-container.maplibregl-interactive { cursor: grab; }
+.maplibregl-canvas-container.maplibregl-interactive:active { cursor: grabbing; }
+.maplibregl-marker { position: absolute; top: 0; left: 0; will-change: transform; }
+.kz-map-user { position: relative; width: 16px; height: 16px; border-radius: 9999px; background: var(--kz-accent); border: 3px solid var(--kz-surface-1); box-shadow: 0 1px 4px var(--kz-scrim); }
+.kz-map-user::after { content: ""; position: absolute; inset: -3px; border-radius: inherit; background: var(--kz-accent); opacity: 0.35; animation: kz-map-pulse 2s var(--kz-ease) infinite; }
+@keyframes kz-map-pulse { from { transform: scale(1); opacity: 0.4; } to { transform: scale(3.2); opacity: 0; } }
+
 /* Section backdrop (SectionBackdrop): the brand's section gradient (--kz-brand-gradient-*), sections that glide from
    one temperature to the next (each ends on the page surface, so the next starts where it stopped), a light dome, a
    perspective grid, a blurred foreground for depth of field, and a very slow drift. */
@@ -629,7 +640,7 @@ svg[data-kz-icon="ExternalIcon"] {
   .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
   .kz-skeleton, .kz-skeleton-shape *, .kz-toast::after, .kz-glow::before,
   .kz-rotating > *, .kz-loop, .kz-iso-rise, .kz-count-roll, .kz-loader-trace, .kz-loader-node, .kz-loader-mark,
-  [data-kz-status], .kz-replay-caret, .kz-month { animation: none !important; }
+  [data-kz-status], .kz-replay-caret, .kz-month, .kz-map-user::after { animation: none !important; }
   /* At rest, the trace stands still where a reader expects it: a third of the hexagon from the top. */
   .kz-loader-trace:not([stroke-dasharray]) { stroke-dashoffset: -8; }
   [data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }

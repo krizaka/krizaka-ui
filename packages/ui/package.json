@@ -266,6 +266,10 @@
       "types": "./dist/date-picker.d.ts",
       "import": "./dist/date-picker.js"
     },
+    "./map": {
+      "types": "./dist/map.d.ts",
+      "import": "./dist/map.js"
+    },
     "./search-field": {
       "types": "./dist/search-field.d.ts",
       "import": "./dist/search-field.js"
@@ -494,6 +498,10 @@
       "types": "./dist/native/form.d.ts",
       "import": "./dist/native/form.js"
     },
+    "./native/map": {
+      "types": "./dist/native/map.d.ts",
+      "import": "./dist/native/map.js"
+    },
     "./registry/examples/*": {
       "types": "./registry/examples/*.d.ts",
       "import": "./registry/examples/*.js"
@@ -528,10 +536,12 @@
   "peerDependencies": {
     "@krizaka/query": ">=0.1.0",
     "@krizaka/tailwind": ">=3.3.0",
+    "@maplibre/maplibre-react-native": ">=11",
     "@shopify/flash-list": ">=2",
     "expo-camera": ">=16",
     "expo-video": ">=2",
     "hls.js": ">=1.5",
+    "maplibre-gl": ">=6",
     "react": ">=18",
     "react-dom": ">=18",
     "react-native": ">=0.76",
@@ -544,7 +554,7 @@
     "@jest/globals": "30.4.1",
     "@krizaka/config": "workspace:*",
     "@krizaka/query": "workspace:*",
-    "@krizaka/tokens": "workspace:*",
+    "@maplibre/maplibre-react-native": "11.4.0",
     "@react-native/babel-preset": "0.86.3",
     "@react-native/jest-preset": "0.86.3",
     "@shopify/flash-list": "2.3.3",
@@ -567,6 +577,7 @@
     "happy-dom": "^20.0.0",
     "jest": "30.4.2",
     "jest-environment-node": "30.4.1",
+    "maplibre-gl": "6.11.2",
     "publint": "^0.3.25",
     "react": "^19.2.0",
     "react-docgen-typescript": "^2.4.0",
@@ -596,6 +607,9 @@
     "@krizaka/tailwind": {
       "optional": true
     },
+    "@maplibre/maplibre-react-native": {
+      "optional": true
+    },
     "@shopify/flash-list": {
       "optional": true
     },
@@ -606,6 +620,9 @@
       "optional": true
     },
     "hls.js": {
+      "optional": true
+    },
+    "maplibre-gl": {
       "optional": true
     },
     "react-dom": {
@@ -1745,15 +1762,44 @@
         "clsx",
         "@krizaka/ui"
       ]
+    },
+    {
+      "name": "./map",
+      "path": "dist/map.js",
+      "limit": "16 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "maplibre-gl",
+        "pmtiles",
+        "react-dom"
+      ]
+    },
+    {
+      "name": "./native/map",
+      "path": "dist/native/map.js",
+      "limit": "13.5 kB",
+      "gzip": true,
+      "ignore": [
+        "react-native",
+        "react-native-svg",
+        "@maplibre/maplibre-react-native",
+        "@krizaka/ui"
+      ]
     }
   ],
   "dependencies": {
     "@krizaka/intl": "^0.1.0",
+    "@krizaka/tokens": "workspace:^",
+    "@protomaps/basemaps": "5.7.2",
     "@tanstack/react-form": "1.33.5",
     "@tanstack/react-table": "9.2.8",
     "@tanstack/react-virtual": "3.14.15",
+    "@types/geojson": "7946.0.16",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "pmtiles": "4.5.0",
     "radix-ui": "^1.7.0",
     "sonner": "^2.0.8",
     "tailwind-variants": "^3.3.1"

@@ -66,6 +66,7 @@ export type ComponentName =
   | "link-card"
   | "list"
   | "loader"
+  | "map"
   | "longform-page"
   | "marketing-layout"
   | "marquee"

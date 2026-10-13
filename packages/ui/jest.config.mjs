@@ -29,6 +29,7 @@ export default {
     // The Expo modules of the entries that need one (optional peers): their native side does not exist under Jest.
     "^expo-video$": "<rootDir>/src/native/mocks/expo-video.tsx",
     "^expo-camera$": "<rootDir>/src/native/mocks/expo-camera.tsx",
+    "^@maplibre/maplibre-react-native$": "<rootDir>/src/native/mocks/maplibre.tsx",
   },
   transform: {
     ...preset.transform,
@@ -36,7 +37,7 @@ export default {
   },
   // pnpm keeps packages under node_modules/.pnpm/<name>@<version>/node_modules/<name>: React Native ships Flow and
   // untranspiled ESM, so it and its satellites go through Babel; the rest is plain CommonJS.
-  transformIgnorePatterns: ["node_modules/(?!(\\.pnpm|(jest-)?react-native|@react-native(-community)?|react-native-svg|@shopify/flash-list|@krizaka)/)"],
+  transformIgnorePatterns: ["node_modules/(?!(\\.pnpm|(jest-)?react-native|@react-native(-community)?|react-native-svg|@shopify/flash-list|@krizaka|@protomaps|pmtiles)/)"],
   // FlashList v2 measures its views through the native layout: its own setup gives them a size under Jest.
   setupFiles: [...(preset.setupFiles ?? []), "@shopify/flash-list/jestSetup"],
 };
