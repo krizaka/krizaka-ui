@@ -4,6 +4,7 @@
  * (react-native-svg). StyleSheet only: no dependency beyond react-native and react-native-svg.
  */
 export { splitDuration, useCountdown } from "../countdown/core";
+export { composeDate, type DatePart, datePartsOrder, isRealDate, latestBirthDate } from "../date-picker/parts";
 export { type BrandId } from "../marks/ProductLogo";
 export { Avatar, AvatarGroup, type AvatarGroupProps, type AvatarProps, AvatarRoot, type AvatarSize } from "./avatar";
 export { Badge, type BadgeProps, type BadgeTone } from "./badge";
@@ -27,7 +28,7 @@ export {
 export { Checkbox, type CheckboxProps } from "./checkbox";
 export { Chip, type ChipGroupProps, type ChipProps, type ChipSize } from "./chip";
 export { Countdown, type CountdownProps, type CountdownUnits } from "./countdown";
-export { composeDate, DateField, type DateFieldLabels, dateFieldLabels, type DateFieldProps, datePartsOrder } from "./date-picker";
+export { DateField, type DateFieldLabels, dateFieldLabels, type DateFieldProps } from "./date-picker";
 export { EmptyState, type EmptyStateProps } from "./empty-state";
 export { TextField, type TextFieldProps } from "./field";
 export { GoalGauge, type GoalGaugeProps } from "./goal-gauge";

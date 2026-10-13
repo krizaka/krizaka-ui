@@ -26,6 +26,8 @@ for (const [entry, ...modules] of [
   ["media-capture", "expo-camera"],
   // The list: FlashList v2 and the app's @krizaka/query (one QueryClient context) — never @tanstack/* directly.
   ["list", "@shopify/flash-list", "@krizaka/query"],
+  // The form: TanStack Form behind the facade (a dependency of the package, as on the web) and @krizaka/intl (money).
+  ["form", "@tanstack/react-form", "@krizaka/intl"],
 ]) {
   const code = readFileSync(resolve(dist, "native", `${entry}.js`), "utf8");
   const allowed = new Set([...ALLOWED, "@krizaka/ui/native", ...modules]);

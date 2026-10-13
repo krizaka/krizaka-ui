@@ -3,8 +3,9 @@ import { describe, expect, test } from "@jest/globals";
 import { fireEvent, render, screen } from "@testing-library/react-native";
 import * as React from "react";
 
+import { composeDate, datePartsOrder, isRealDate, latestBirthDate } from "../date-picker/parts";
 import { Checkbox } from "./checkbox";
-import { composeDate, DateField, datePartsOrder } from "./date-picker";
+import { DateField } from "./date-picker";
 import { TextField } from "./field";
 
 describe("TextField", () => {
@@ -68,6 +69,9 @@ describe("DateField", () => {
     expect(composeDate({ day: "", month: "", year: "" })).toBe("");
     expect(composeDate({ day: "7", month: "3", year: "1990" })).toBe("1990-03-07");
     expect(composeDate({ day: "31", month: "02", year: "19" })).toBe("19-02-31");
+    expect(isRealDate("1990-03-07")).toBe(true);
+    expect(isRealDate("2001-02-30")).toBe(false);
+    expect(latestBirthDate(18, new Date(2026, 9, 12))).toBe("2008-10-12");
   });
 
   test("typing gives YYYY-MM-DD; digits only, as long as the box", async () => {

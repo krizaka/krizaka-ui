@@ -162,6 +162,19 @@ export default defineConfig([
     banner: { js: '"use client";' },
   },
   {
+    // Client — the form (TanStack Form v1 behind the facade): its fields are adapters over the primitives, which they
+    // import through the package's own entries (external) — one copy of each primitive, swapped without touching a form.
+    ...shared,
+    entry: { form: "src/form/index.ts" },
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/],
+    banner: { js: '"use client";' },
+  },
+  {
+    // Server — the form's server side (a Server Action re-validating with the form's schema): no React, no directive.
+    ...shared,
+    entry: { "form/server": "src/form/server.ts" },
+  },
+  {
     // The storytelling kit (story.css) without a hook: usable in a Server Component as it is.
     ...shared,
     entry: {
@@ -198,6 +211,8 @@ export default defineConfig([
       "native/video-player": "src/native/video-player.tsx",
       "native/media-capture": "src/native/media-capture.tsx",
       "native/list": "src/native/list.tsx",
+      // The form: TanStack Form (a dependency, as on the web) on the native fields of @krizaka/ui/native.
+      "native/form": "src/native/form.tsx",
     },
     external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "@shopify/flash-list", "@krizaka/query"],
   },
@@ -209,7 +224,7 @@ export default defineConfig([
     // ~170 entries: one declaration build would exhaust the heap. Every example has the same signature — a component,
     // `defaultOpen` for those that open something — so build-registry.mjs writes their `.d.ts`.
     dts: false,
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "@shopify/flash-list", "@krizaka/query"],
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "@shopify/flash-list", "@krizaka/query", "zod"],
     banner: { js: '"use client";' },
   },
 ]);

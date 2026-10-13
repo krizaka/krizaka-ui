@@ -1,10 +1,11 @@
 import * as React from "react";
 import { type StyleProp, StyleSheet, Text, TextInput, View, type ViewStyle } from "react-native";
 
+import { composeDate, DATE_PART_LENGTH, type DatePart, datePartsOrder, splitDate as split } from "../date-picker/parts";
 import { useTheme } from "./theme";
 
-type Part = "day" | "month" | "year";
-const LENGTH: Record<Part, number> = { day: 2, month: 2, year: 4 };
+type Part = DatePart;
+const LENGTH = DATE_PART_LENGTH;
 
 export type DateFieldLabels = {
   /** The name of the day's box. */
@@ -16,30 +17,6 @@ export type DateFieldLabels = {
 };
 
 export const dateFieldLabels: DateFieldLabels = { day: "Day", month: "Month", year: "Year" };
-
-/** The order of day, month and year in a locale (`en-US` → month, day, year; `fr` → day, month, year). */
-export function datePartsOrder(locale: string): Part[] {
-  try {
-    const parts = new Intl.DateTimeFormat(locale, { day: "2-digit", month: "2-digit", year: "numeric" }).formatToParts(new Date(2001, 10, 22));
-    const order = parts.map((p) => p.type).filter((t): t is Part => t === "day" || t === "month" || t === "year");
-    if (order.length === 3) return order;
-  } catch {
-    // An engine without Intl's parts: day, month, year.
-  }
-  return ["day", "month", "year"];
-}
-
-/** The ISO-ordered value of what was typed: `""` when nothing is, `YYYY-MM-DD` otherwise (not necessarily a real date). */
-export function composeDate(parts: Record<Part, string>): string {
-  if (!parts.day && !parts.month && !parts.year) return "";
-  const pad = (v: string) => (v.length === 1 ? `0${v}` : v);
-  return `${parts.year}-${pad(parts.month)}-${pad(parts.day)}`;
-}
-
-const split = (value: string | undefined): Record<Part, string> => {
-  const m = /^(\d*)-(\d*)-(\d*)$/.exec(value ?? "");
-  return m ? { year: m[1]!, month: m[2]!, day: m[3]! } : { day: "", month: "", year: "" };
-};
 
 export type DateFieldProps = {
   /** The visible label of the date, passed translated (the group's accessible name). */
@@ -64,6 +41,12 @@ export type DateFieldProps = {
   autoComplete?: "bday" | "off";
   /** Not available. */
   disabled?: boolean;
+  /** The first box (in the locale's order), to focus the field from the one before it. */
+  inputRef?: React.Ref<TextInput>;
+  /** Called by the last box's return key (`returnKeyType`): move to the next field, or send the form. */
+  onSubmitEditing?: () => void;
+  /** The last box's return key. Default `done`. */
+  returnKeyType?: "next" | "done" | "go" | "send";
   /** Styles merged last, on the field. */
   style?: StyleProp<ViewStyle>;
 };
@@ -72,7 +55,7 @@ export type DateFieldProps = {
  * A date typed as day, month and year — a memorable date (a birth date, an expiry) that a calendar would make slow to
  * reach: numeric keypads, the boxes in the locale's order, the next box focused once one is full. No native module.
  */
-export function DateField({ label, hint, error, value, defaultValue, onValueChange, onBlur, locale = "en-US", labels: given, autoComplete, disabled, style }: DateFieldProps) {
+export function DateField({ label, hint, error, value, defaultValue, onValueChange, onBlur, locale = "en-US", labels: given, autoComplete, disabled, inputRef, onSubmitEditing, returnKeyType = "done", style }: DateFieldProps) {
   const { theme, radius } = useTheme();
   const labels = { ...dateFieldLabels, ...given };
   const order = React.useMemo(() => datePartsOrder(locale), [locale]);
@@ -100,7 +83,13 @@ export function DateField({ label, hint, error, value, defaultValue, onValueChan
           <View key={part} style={part === "year" ? styles.yearBox : styles.box}>
             <Text style={[styles.part, { color: theme.textSecondary }]}>{labels[part]}</Text>
             <TextInput
-              ref={refs[part]}
+              ref={(node) => {
+                refs[part].current = node;
+                if (i === 0 && inputRef) {
+                  if (typeof inputRef === "function") inputRef(node);
+                  else (inputRef as React.RefObject<TextInput | null>).current = node;
+                }
+              }}
               aria-label={`${label}, ${labels[part]}`}
               accessibilityHint={caption}
               value={parts[part]}
@@ -109,10 +98,12 @@ export function DateField({ label, hint, error, value, defaultValue, onValueChan
               inputMode="numeric"
               maxLength={LENGTH[part]}
               autoComplete={autoComplete === "bday" ? (`birthdate-${part}` as const) : "off"}
-              returnKeyType={i === order.length - 1 ? "done" : "next"}
+              returnKeyType={i === order.length - 1 ? returnKeyType : "next"}
+              submitBehavior={i === order.length - 1 && returnKeyType !== "next" ? "blurAndSubmit" : "submit"}
               onSubmitEditing={() => {
                 const following = order[i + 1];
                 if (following) refs[following].current?.focus();
+                else onSubmitEditing?.();
               }}
               onChangeText={(text) => change(part, text)}
               onFocus={() => setFocused(part)}

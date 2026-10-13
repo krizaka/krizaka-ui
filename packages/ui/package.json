@@ -246,6 +246,14 @@
       "types": "./dist/filter-bar.d.ts",
       "import": "./dist/filter-bar.js"
     },
+    "./form": {
+      "types": "./dist/form.d.ts",
+      "import": "./dist/form.js"
+    },
+    "./form/server": {
+      "types": "./dist/form/server.d.ts",
+      "import": "./dist/form/server.js"
+    },
     "./combobox": {
       "types": "./dist/combobox.d.ts",
       "import": "./dist/combobox.js"
@@ -482,6 +490,10 @@
       "types": "./dist/native/list.d.ts",
       "import": "./dist/native/list.js"
     },
+    "./native/form": {
+      "types": "./dist/native/form.d.ts",
+      "import": "./dist/native/form.js"
+    },
     "./registry/examples/*": {
       "types": "./registry/examples/*.d.ts",
       "import": "./registry/examples/*.js"
@@ -568,7 +580,8 @@
     "test-renderer": "^1.3.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.0",
-    "vitest": "^4.1.11"
+    "vitest": "^4.1.11",
+    "zod": "^4.6.5"
   },
   "engines": {
     "node": ">=20"
@@ -618,7 +631,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "21 kB",
+      "limit": "21.5 kB",
       "gzip": true
     },
     {
@@ -1116,6 +1129,24 @@
       ]
     },
     {
+      "name": "./form (TanStack Form v1; the fields import the primitives' own entries)",
+      "path": "dist/form.js",
+      "limit": "24.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/intl",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./form/server",
+      "path": "dist/form/server.js",
+      "limit": "1.5 kB",
+      "gzip": true
+    },
+    {
       "name": "./combobox",
       "path": "dist/combobox.js",
       "limit": "13 kB",
@@ -1246,6 +1277,17 @@
         "@shopify/flash-list",
         "@krizaka/query",
         "@krizaka/ui",
+        "react-native"
+      ]
+    },
+    {
+      "name": "./native/form (TanStack Form v1; the platform is the app's)",
+      "path": "dist/native/form.js",
+      "limit": "23 kB",
+      "gzip": true,
+      "ignore": [
+        "@krizaka/ui",
+        "@krizaka/intl",
         "react-native"
       ]
     },
@@ -1707,6 +1749,7 @@
   ],
   "dependencies": {
     "@krizaka/intl": "^0.1.0",
+    "@tanstack/react-form": "1.33.5",
     "@tanstack/react-table": "9.2.8",
     "@tanstack/react-virtual": "3.14.15",
     "clsx": "^2.1.1",

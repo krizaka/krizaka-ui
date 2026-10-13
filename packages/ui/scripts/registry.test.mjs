@@ -147,8 +147,8 @@ describe("examples (registry/examples)", () => {
     const max = example.template ? 160 : 40;
     expect(source.trimEnd().split("\n").length, `at most ${max} lines`).toBeLessThanOrEqual(max);
     expect(source).toContain("export default function");
-    // @krizaka/query too: a server table or an infinite list reads its data the way a product does.
-    const allowed = platform === "web" ? /^(@krizaka\/ui(\/[a-z-]+)?|@krizaka\/query|react)$/ : /^(@krizaka\/ui\/native(\/[a-z-]+)?|@krizaka\/query|react|react-native|react-native-svg)$/;
+    // @krizaka/query too: a server table or an infinite list reads its data the way a product does; zod: a form is a schema.
+    const allowed = platform === "web" ? /^(@krizaka\/ui(\/[a-z-]+)?|@krizaka\/query|react|zod)$/ : /^(@krizaka\/ui\/native(\/[a-z-]+)?|@krizaka\/query|react|react-native|react-native-svg|zod)$/;
     for (const [, specifier] of source.matchAll(/from\s+"([^"]+)"/g)) {
       expect(specifier, "an example imports what a product imports, never a relative path or Storybook").toMatch(allowed);
     }
