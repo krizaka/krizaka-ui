@@ -32,6 +32,12 @@ describe("Switch", () => {
   });
 });
 
+test("a switch alone is a 44-pt target at every size", async () => {
+  await render(<Switch label="Compact" size="sm" />);
+  const control = screen.getByRole("switch", { name: "Compact" });
+  expect(24 + control.props.hitSlop.top + control.props.hitSlop.bottom).toBeGreaterThanOrEqual(44);
+});
+
 describe("RadioGroup", () => {
   const sizes = [
     { value: "s", label: "S" },

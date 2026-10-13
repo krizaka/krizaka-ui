@@ -76,7 +76,7 @@ export function Switch({ label, checked, defaultChecked = false, onCheckedChange
   };
   if (!showLabel)
     return (
-      <Pressable {...a11y} hitSlop={8} style={[disabled ? styles.disabled : null, style]}>
+      <Pressable {...a11y} hitSlop={{ top: (44 - d.h) / 2, bottom: (44 - d.h) / 2, left: Math.max(0, (44 - d.w) / 2), right: Math.max(0, (44 - d.w) / 2) }} style={[disabled ? styles.disabled : null, style]}>
         {track}
       </Pressable>
     );
