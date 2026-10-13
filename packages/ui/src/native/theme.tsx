@@ -94,6 +94,12 @@ export type ThemeOverrides = { readonly dark?: Partial<Theme>; readonly light?: 
 /** Font families, when the app has loaded them (`expo-font`…). Absent: the system font. */
 export type ThemeFonts = { readonly sans?: string; readonly display?: string; readonly mono?: string };
 
+/**
+ * A touch the hand feels: `selection` (a wheel's value, a slider's step, a radio picked), `impact` (a tactile button
+ * pressed in), `success` / `warning` (an outcome).
+ */
+export type HapticKind = "selection" | "impact" | "success" | "warning";
+
 export type ThemeContextValue = {
   /** The chosen mode: dark, light or follow the system. */
   mode: Mode;
@@ -105,9 +111,12 @@ export type ThemeContextValue = {
   radius: Radius;
   motion: Motion;
   fonts: ThemeFonts;
+  /** Plays a haptic (the app's `haptics`, through expo-haptics or another module); nothing without one. */
+  haptic: (kind: HapticKind) => void;
 };
 
 const ThemeContext = React.createContext<ThemeContextValue | null>(null);
+const noop = () => undefined;
 
 function resolve(mode: Mode, system: string | null | undefined): ThemeName {
   if (mode === "system") return system === "light" ? "light" : "dark";
@@ -126,10 +135,16 @@ export type ThemeProviderProps = {
   overrides?: ThemeOverrides;
   /** Font families the app has loaded (`expo-font`…); absent: the system font. */
   fonts?: ThemeFonts;
+  /**
+   * Plays the haptics of the controls (a wheel's tick, a slider's step, a tactile button). The platform has no module:
+   * the app passes one — `(kind) => kind === "selection" ? Haptics.selectionAsync() : Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)`
+   * with expo-haptics. Absent: no haptics.
+   */
+  haptics?: (kind: HapticKind) => void;
 };
 
 /** Once, at the root of the app. Without it, `useTheme()` follows the system with the platform's roles. */
-export function ThemeProvider({ children, mode: controlled, defaultMode = "system", onModeChange, overrides, fonts }: ThemeProviderProps) {
+export function ThemeProvider({ children, mode: controlled, defaultMode = "system", onModeChange, overrides, fonts, haptics }: ThemeProviderProps) {
   const system = useColorScheme();
   const [own, setOwn] = React.useState<Mode>(defaultMode);
   const mode = controlled ?? own;
@@ -145,13 +160,11 @@ export function ThemeProvider({ children, mode: controlled, defaultMode = "syste
   const reduce = useReducedMotion();
   const theme = React.useMemo(() => (override ? { ...themes[scheme], ...override } : themes[scheme]), [scheme, override]);
   const value = React.useMemo<ThemeContextValue>(
-    () => ({ mode, setMode, scheme, theme, radius, motion: reduce ? stillMotion : motion, fonts: fonts ?? {} }),
-    [mode, setMode, scheme, theme, fonts, reduce],
+    () => ({ mode, setMode, scheme, theme, radius, motion: reduce ? stillMotion : motion, fonts: fonts ?? {}, haptic: haptics ?? noop }),
+    [mode, setMode, scheme, theme, fonts, reduce, haptics],
   );
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
-
-const noop = () => undefined;
 
 /** The current theme: `{ mode, setMode, scheme, theme, radius, motion, fonts }`. */
 export function useTheme(): ThemeContextValue {
@@ -159,7 +172,7 @@ export function useTheme(): ThemeContextValue {
   const system = useColorScheme();
   if (context) return context;
   const scheme = resolve("system", system);
-  return { mode: "system", setMode: noop, scheme, theme: themes[scheme], radius, motion, fonts: {} };
+  return { mode: "system", setMode: noop, scheme, theme: themes[scheme], radius, motion, fonts: {}, haptic: noop };
 }
 
 /** True while the system asks to reduce motion: every loop and transition of /native stops. */

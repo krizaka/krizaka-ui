@@ -186,6 +186,23 @@
   from { opacity: 0; transform: translateY(-6px) scale(0.96); }
 }
 
+/* The calendar turns its page: the month slides in from the side it comes from (Calendar, `data-dir`). */
+.kz-month[data-dir="next"] { animation: kz-month-next 0.28s var(--kz-ease) backwards; }
+.kz-month[data-dir="previous"] { animation: kz-month-previous 0.28s var(--kz-ease) backwards; }
+@keyframes kz-month-next { from { opacity: 0; transform: translateX(14px); } }
+@keyframes kz-month-previous { from { opacity: 0; transform: translateX(-14px); } }
+/* A wheel curves: each value tilts as it leaves the band — a scroll-driven animation, no script per frame, flat where
+   the browser has no view timelines (the fade is the list's mask: the words keep their contrast). Scroll-linked, not
+   timed: it stays under reduced motion. */
+@supports (animation-timeline: view()) {
+  .kz-wheel-item { animation: kz-wheel-turn linear both; animation-timeline: view(block); }
+  @keyframes kz-wheel-turn {
+    0% { transform: perspective(240px) rotateX(48deg) scale(0.9); }
+    50% { transform: none; }
+    100% { transform: perspective(240px) rotateX(-48deg) scale(0.9); }
+  }
+}
+
 /* Section backdrop (SectionBackdrop): the brand's section gradient (--kz-brand-gradient-*), sections that glide from
    one temperature to the next (each ends on the page surface, so the next starts where it stopped), a light dome, a
    perspective grid, a blurred foreground for depth of field, and a very slow drift. */
@@ -612,7 +629,7 @@ svg[data-kz-icon="ExternalIcon"] {
   .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
   .kz-skeleton, .kz-skeleton-shape *, .kz-toast::after, .kz-glow::before,
   .kz-rotating > *, .kz-loop, .kz-iso-rise, .kz-count-roll, .kz-loader-trace, .kz-loader-node, .kz-loader-mark,
-  [data-kz-status], .kz-replay-caret { animation: none !important; }
+  [data-kz-status], .kz-replay-caret, .kz-month { animation: none !important; }
   /* At rest, the trace stands still where a reader expects it: a third of the hexagon from the top. */
   .kz-loader-trace:not([stroke-dasharray]) { stroke-dashoffset: -8; }
   [data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }

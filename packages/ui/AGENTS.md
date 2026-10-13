@@ -66,7 +66,7 @@
 
 - `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest + happy-dom for the web; Jest with React
   Native's preset and Testing Library for `src/native`), build (tsup), size, publint.
-- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 21.5 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the Yazakia mark and the lovebird; 2.9: the finer Yazakia mark — two voices and a lit lens, +0.15 kB; the storytelling kit's ProfileCard, GoalGauge and the phoenix; the Yororis mark, the crane and the fifth brand's inlined tokens, +0.7 kB; 3.1: the form fields TextField, Checkbox and DateField and the date helpers, +1.7 kB) (Metro
+- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 26.5 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the Yazakia mark and the lovebird; 2.9: the finer Yazakia mark — two voices and a lit lens, +0.15 kB; the storytelling kit's ProfileCard, GoalGauge and the phoenix; the Yororis mark, the crane and the fifth brand's inlined tokens, +0.7 kB; 3.1: the form fields TextField, Checkbox and DateField and the date helpers, +1.7 kB; 3.2: the dates and times — Calendar, MonthPicker, DayStrip, the wheels, TimePicker, DateWheel — +4.9 kB) (Metro
   bundles it into the app, nothing is downloaded: a regression guard, not a budget); the shared runtime
   (`./cn`: clsx + tailwind-variants and its merge engine, paid once per app) ≤ 14 kB; each primitive is measured
   without that runtime (Radix included): `./button` ≤ 3.5 kB (it draws the loader glyph), `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
@@ -84,11 +84,11 @@
   `./pagination` ≤ 2 kB, `./video-trimmer` ≤ 2.4 kB, `./audio-player` ≤ 2.8 kB, `./search-field` ≤ 3 kB,
   `./media-capture` ≤ 3.8 kB, `./file-upload` ≤ 5 kB (it draws `Progress`), `./data-table` ≤ 44 kB for `DataTable` (TanStack Table v9 with every feature registered, the windowing of TanStack Virtual, Radix Checkbox, the pagination) and ≤ 40 kB for its toolbar (`FilterBar` on Radix DropdownMenu, `SearchField`), `./virtual` ≤ 12 kB (TanStack Virtual),
   `./image-cropper` ≤ 12.5 kB and `./video-player` ≤ 15 kB (Radix Slider), `./combobox` ≤ 13 kB and `./tag-input` ≤
-  13.5 kB (the chips' Radix Toggle), `./date-picker` ≤ 29 kB (Radix Popover), `./filter-bar` ≤ 34 kB (Radix
+  13.5 kB (the chips' Radix Toggle), `./date-picker` ≤ 35 kB (Radix Popover; 3.2: the month picker, the day strip, the wheels, the time picker, the typed date and the date wheel), `./filter-bar` ≤ 34 kB (Radix
   DropdownMenu); `./native/video-player` ≤ 2 kB, `./native/media-capture` ≤ 2.5 kB, `./native/list` ≤ 2 kB (FlashList and @krizaka/query are the app's), `./form` ≤ 24.5 kB and `./native/form` ≤ 23 kB (TanStack Form v1 and its store, ~20 kB measured; the fields import the primitives' entries), `./form/server` ≤ 1.5 kB. The page blocks (their styles are
   `blocks.css`, not counted): `./cta-panel`, `./card-grid`, `./pointer-light`, `./link-card`, `./decision-list`, `./toc` ≤ 1 kB,
-  `./page`, `./page-hero` ≤ 1.2 kB, `./argument-card`, `./action-bar` ≤ 1.4 kB, `./mascot-quote` ≤ 4.8 kB (the bird's
-  geometry), `./code-block` ≤ 12 kB (Radix Tabs for `CodeTabs`). The layouts: `./dashboard-layout`, `./settings-layout`,
+  `./page`, `./page-hero` ≤ 1.2 kB, `./argument-card`, `./action-bar` ≤ 1.4 kB, `./mascot-quote` ≤ 5 kB (the bird's
+  geometry; 3.2: the merge engine told the material's utilities), `./code-block` ≤ 12 kB (Radix Tabs for `CodeTabs`). The layouts: `./dashboard-layout`, `./settings-layout`,
   `./detail-layout`, `./split-view`, `./marketing-layout`, `./docs-layout` ≤ 1 kB, `./auth-layout`, `./settings-layout` ≤ 1.2 kB,
   `./app-shell` ≤ 16 kB (Radix Dialog for the drawer, as `./dialog`). The storytelling kit (its styles are `story.css`, not counted):
   `./profile-card`, `./stage-banner`, `./goal-gauge`, `./promise-card` ≤ 1 kB, `./scroll-stage`, `./achievement` ≤ 1.2 kB,
