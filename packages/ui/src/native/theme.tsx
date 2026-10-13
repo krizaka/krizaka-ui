@@ -100,6 +100,11 @@ export type ThemeFonts = { readonly sans?: string; readonly display?: string; re
  */
 export type HapticKind = "selection" | "impact" | "success" | "warning";
 
+/** The screen's safe-area insets, in points (`useSafeAreaInsets()` of react-native-safe-area-context). */
+export type Insets = { readonly top: number; readonly right: number; readonly bottom: number; readonly left: number };
+
+const NO_INSETS: Insets = { top: 0, right: 0, bottom: 0, left: 0 };
+
 export type ThemeContextValue = {
   /** The chosen mode: dark, light or follow the system. */
   mode: Mode;
@@ -113,6 +118,8 @@ export type ThemeContextValue = {
   fonts: ThemeFonts;
   /** Plays a haptic (the app's `haptics`, through expo-haptics or another module); nothing without one. */
   haptic: (kind: HapticKind) => void;
+  /** The safe-area insets the app passed (zero by default): the tab bar, the header and the FAB keep clear of them. */
+  insets: Insets;
 };
 
 const ThemeContext = React.createContext<ThemeContextValue | null>(null);
@@ -141,10 +148,12 @@ export type ThemeProviderProps = {
    * with expo-haptics. Absent: no haptics.
    */
   haptics?: (kind: HapticKind) => void;
+  /** The safe-area insets (`useSafeAreaInsets()` of react-native-safe-area-context): bars and floating buttons keep clear of them. */
+  insets?: Insets;
 };
 
 /** Once, at the root of the app. Without it, `useTheme()` follows the system with the platform's roles. */
-export function ThemeProvider({ children, mode: controlled, defaultMode = "system", onModeChange, overrides, fonts, haptics }: ThemeProviderProps) {
+export function ThemeProvider({ children, mode: controlled, defaultMode = "system", onModeChange, overrides, fonts, haptics, insets }: ThemeProviderProps) {
   const system = useColorScheme();
   const [own, setOwn] = React.useState<Mode>(defaultMode);
   const mode = controlled ?? own;
@@ -160,8 +169,8 @@ export function ThemeProvider({ children, mode: controlled, defaultMode = "syste
   const reduce = useReducedMotion();
   const theme = React.useMemo(() => (override ? { ...themes[scheme], ...override } : themes[scheme]), [scheme, override]);
   const value = React.useMemo<ThemeContextValue>(
-    () => ({ mode, setMode, scheme, theme, radius, motion: reduce ? stillMotion : motion, fonts: fonts ?? {}, haptic: haptics ?? noop }),
-    [mode, setMode, scheme, theme, fonts, reduce, haptics],
+    () => ({ mode, setMode, scheme, theme, radius, motion: reduce ? stillMotion : motion, fonts: fonts ?? {}, haptic: haptics ?? noop, insets: insets ?? NO_INSETS }),
+    [mode, setMode, scheme, theme, fonts, reduce, haptics, insets],
   );
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
@@ -172,7 +181,7 @@ export function useTheme(): ThemeContextValue {
   const system = useColorScheme();
   if (context) return context;
   const scheme = resolve("system", system);
-  return { mode: "system", setMode: noop, scheme, theme: themes[scheme], radius, motion, fonts: {}, haptic: noop };
+  return { mode: "system", setMode: noop, scheme, theme: themes[scheme], radius, motion, fonts: {}, haptic: noop, insets: NO_INSETS };
 }
 
 /** True while the system asks to reduce motion: every loop and transition of /native stops. */
