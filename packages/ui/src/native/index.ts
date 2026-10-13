@@ -75,10 +75,15 @@ export { Phoenix, type PhoenixProps } from "./phoenix";
 export { ProductMark } from "./ProductMark";
 export { ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
 export { Progress, type ProgressProps } from "./progress";
+export { RadioGroup, type RadioGroupProps, type RadioOption } from "./radio-group";
 export { SearchField, type SearchFieldProps } from "./search-field";
 export { Segmented, type SegmentedOption, type SegmentedProps } from "./segmented";
+export { Combobox, type ComboboxLabels, comboboxLabels, type ComboboxProps, Select, type SelectOption, type SelectProps } from "./select";
+export { Sheet, type SheetProps } from "./sheet";
 export { Skeleton, type SkeletonProps } from "./skeleton";
+export { Slider, type SliderProps, type SliderValue } from "./slider";
 export { Spinner, type SpinnerProps } from "./spinner";
+export { Switch, type SwitchProps } from "./switch";
 export {
   alpha,
   type HapticKind,

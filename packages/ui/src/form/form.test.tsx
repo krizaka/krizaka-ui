@@ -236,3 +236,36 @@ describe("arrays and actions", () => {
     expect(screen.getByLabelText("Link 1").getAttribute("aria-invalid")).toBe("true");
   });
 });
+
+describe("the controls of DS5 behind the same fields", () => {
+  it("a date on wheels, tactile keys, a segmented choice and a stepped slider: the same values in the form", async () => {
+    const user = userEvent.setup();
+    const onSubmit = vi.fn();
+    const prefs = createKrizakaForm({
+      schema: z.object({ dateOfBirth: z.iso.date(), size: z.enum(["s", "m", "l"]), billing: z.enum(["monthly", "yearly"]), share: z.number() }),
+      defaultValues: { dateOfBirth: "", size: "s" as "s" | "m" | "l", billing: "monthly" as "monthly" | "yearly", share: 50 },
+    });
+    function Prefs() {
+      const form = prefs.useForm({ onSubmit, i18n: { locale: "en-US" } });
+      return (
+        <form.Form aria-label="Preferences">
+          <form.DateField name="dateOfBirth" label="Date of birth" entry="wheel" max="2008-10-11" />
+          <form.RadioGroup name="size" label="Size" variant="buttons" options={[{ value: "s", label: "S" }, { value: "m", label: "M", description: "Most taken" }, { value: "l", label: "L" }]} />
+          <form.RadioGroup name="billing" label="Billing" variant="segmented" options={[{ value: "monthly", label: "Monthly" }, { value: "yearly", label: "Yearly" }]} />
+          <form.Slider name="share" label="Share" step={10} ticks />
+          <form.Submit>Save</form.Submit>
+        </form.Form>
+      );
+    }
+    const { container } = render(<Prefs />);
+    expect(await axeViolations(container)).toEqual([]);
+    screen.getByRole("spinbutton", { name: "Year" }).focus();
+    await user.keyboard("{ArrowDown}");
+    await user.click(screen.getByRole("radio", { name: "M Most taken" }));
+    await user.click(screen.getByRole("radio", { name: "Yearly" }));
+    screen.getByRole("slider", { name: "Share" }).focus();
+    await user.keyboard("{ArrowRight}");
+    await user.click(screen.getByRole("button", { name: "Save" }));
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledWith({ dateOfBirth: "2007-10-11", size: "m", billing: "yearly", share: 60 }));
+  });
+});

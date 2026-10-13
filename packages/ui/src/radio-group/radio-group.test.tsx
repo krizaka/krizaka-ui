@@ -49,3 +49,51 @@ describe("RadioGroup", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 });
+
+describe("RadioGroup looks", () => {
+  it("tactile keys: radios whose hint is part of the name, the chosen one pressed in", async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <RadioGroup.Root label="Tip" variant="buttons" defaultValue="15">
+        <RadioGroup.Button value="10" hint="$4.20">
+          10 %
+        </RadioGroup.Button>
+        <RadioGroup.Button value="15" hint="$6.30">
+          15 %
+        </RadioGroup.Button>
+      </RadioGroup.Root>,
+    );
+    expect(await axeViolations(container)).toEqual([]);
+    const chosen = screen.getByRole("radio", { name: "15 % $6.30" });
+    expect(chosen.getAttribute("data-state")).toBe("checked");
+    await user.click(screen.getByRole("radio", { name: "10 % $4.20" }));
+    expect(screen.getByRole("radio", { name: "10 % $4.20" }).getAttribute("aria-checked")).toBe("true");
+  });
+
+  it("segmented: a horizontal radio group of segments", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    const { container } = render(
+      <RadioGroup.Root label="Billing" variant="segmented" defaultValue="monthly" onValueChange={onValueChange}>
+        <RadioGroup.Segment value="monthly">Monthly</RadioGroup.Segment>
+        <RadioGroup.Segment value="yearly">Yearly</RadioGroup.Segment>
+      </RadioGroup.Root>,
+    );
+    expect(await axeViolations(container)).toEqual([]);
+    expect(screen.getByRole("radiogroup", { name: "Billing" }).getAttribute("aria-orientation")).toBe("horizontal");
+    await user.tab();
+    await user.keyboard("{ArrowRight>}");
+    await user.keyboard("{/ArrowRight}");
+    expect(onValueChange).toHaveBeenLastCalledWith("yearly");
+  });
+
+  it("cards carry a check that shows once chosen", () => {
+    const { container } = render(
+      <RadioGroup.Root label="Amount" variant="cards" defaultValue="20">
+        <RadioGroup.Card value="5">$5</RadioGroup.Card>
+        <RadioGroup.Card value="20">$20</RadioGroup.Card>
+      </RadioGroup.Root>,
+    );
+    expect(container.querySelectorAll('[role=radio] [data-state="checked"] svg')).toHaveLength(1);
+  });
+});

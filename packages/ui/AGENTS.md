@@ -23,7 +23,7 @@
 - The **native platform** (`./native`, `src/native`): the theme (`ThemeProvider`/`useTheme` on the
   `@krizaka/tokens/native` roles + a product's `overrides`) and the same primitives for React Native — `Txt`,
   `Button`, `IconButton`, `Card.*`, `Badge`, `Chip`, `Avatar`, `Skeleton`, `EmptyState`, `Spinner`, `Countdown`,
-  `Segmented`, `Progress`, `Toaster`/`toast`, `Mascot`, `Pagination`, `SearchField`, the form fields `TextField`, `Checkbox`, `DateField` — with the web's prop names where the
+  `Segmented`, `Progress`, `Toaster`/`toast`, `Mascot`, `Pagination`, `SearchField`, the form fields `TextField`, `Checkbox`, `DateField`, the controls `Switch`, `RadioGroup`, `Slider`, `Select`, `Combobox`, `Sheet`, the dates and times `Calendar`, `MonthPicker`, `DayStrip`, `TimePicker`, `DateWheel`, `WheelPicker` + `Wheel` (haptics through the provider's `haptics`, the app's module) — with the web's prop names where the
   concept is the same. What needs an Expo module has its own entry, the module an **optional peer** installed only by
   the apps that use it: `./native/video-player` (expo-video), `./native/media-capture` (expo-camera) and `./native/list`
   (FlashList v2 and `@krizaka/query`: `List` + `useInfiniteList`, the app's QueryClient context) and `./native/form` (the forms of `./form` on the native fields; TanStack Form is a dependency); they import the
@@ -66,7 +66,7 @@
 
 - `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest + happy-dom for the web; Jest with React
   Native's preset and Testing Library for `src/native`), build (tsup), size, publint.
-- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 26.5 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the Yazakia mark and the lovebird; 2.9: the finer Yazakia mark — two voices and a lit lens, +0.15 kB; the storytelling kit's ProfileCard, GoalGauge and the phoenix; the Yororis mark, the crane and the fifth brand's inlined tokens, +0.7 kB; 3.1: the form fields TextField, Checkbox and DateField and the date helpers, +1.7 kB; 3.2: the dates and times — Calendar, MonthPicker, DayStrip, the wheels, TimePicker, DateWheel — +4.9 kB) (Metro
+- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 31.5 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the Yazakia mark and the lovebird; 2.9: the finer Yazakia mark — two voices and a lit lens, +0.15 kB; the storytelling kit's ProfileCard, GoalGauge and the phoenix; the Yororis mark, the crane and the fifth brand's inlined tokens, +0.7 kB; 3.1: the form fields TextField, Checkbox and DateField and the date helpers, +1.7 kB; 3.2: the dates and times — Calendar, MonthPicker, DayStrip, the wheels, TimePicker, DateWheel — +4.9 kB; the controls — Switch, RadioGroup, Slider, Sheet, Select, Combobox — +4.9 kB) (Metro
   bundles it into the app, nothing is downloaded: a regression guard, not a budget); the shared runtime
   (`./cn`: clsx + tailwind-variants and its merge engine, paid once per app) ≤ 14 kB; each primitive is measured
   without that runtime (Radix included): `./button` ≤ 3.5 kB (it draws the loader glyph), `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
@@ -75,7 +75,7 @@
   client JavaScript), `./loader`, `./meter`, `./stepper`, `./glow-card`, `./chip-link` ≤ 2 kB, `./motion`, `./number-ticker`,
   `./marquee` ≤ 1.5 kB, `./terminal-replay` ≤ 2.5 kB (its timer, observer and controls), the other atoms ≤ 1 kB. The controls carry Radix's roving focus
   or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6 kB, `./chip` ≤ 10 kB, `./tabs` ≤ 10 kB, `./radio-group`
-  ≤ 11 kB, `./slider` ≤ 12 kB. What opens over the page carries Radix's machinery (dismissable layer, focus scope, scroll lock,
+  ≤ 12.5 kB (3.2: the tactile keys, the cards' check and the segments' gliding light), `./slider` ≤ 12 kB. What opens over the page carries Radix's machinery (dismissable layer, focus scope, scroll lock,
   and Floating UI for what is placed next to a trigger) — shared between these entries in an app, but counted in
   each: `./dialog` ≤ 16.5 kB, `./toast` ≤ 11.5 kB (sonner), `./nav-bar` ≤ 16 kB (Radix NavigationMenu), `./tooltip` ≤ 20 kB, `./popover` ≤ 25 kB,
   `./dropdown-menu` ≤ 32 kB, `./command` ≤ 21 kB (cmdk alone is 14.9 kB: it imports Radix's Dialog itself; with

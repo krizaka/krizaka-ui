@@ -5,7 +5,7 @@ export const meta = {
   summary: "A text field that suggests and completes — one value or several as chips, from a static list or a server, with values created from what was typed.",
   status: "beta",
   category: "forms",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "To choose among many values the person knows by name: a creator, a country, a model, a playlist.",
     "With `onSearch` when the values live on a server (debounced, the previous request aborted).",
@@ -45,6 +45,17 @@ export const meta = {
       { name: "multiple", title: "Several values", description: "Collaborators as chips; Backspace removes the last one, at most three." },
       { name: "creatable", title: "Create a value", description: "Pick a playlist or create one from what was typed." },
       { name: "invalid", title: "With an error", description: "A required choice left empty: the error is read with the field." },
+    ],
+  },
+  native: {
+    imports: ["Combobox"],
+    differences: [
+      "A field that opens a `Sheet` with a search box and the matching options: radios for one value, checkboxes and a Done button with `multiple`.",
+      "`onSearch(query, signal)` is debounced (250 ms) and aborted by a newer query, as on the web; no `creatable` yet.",
+    ],
+    examples: [
+      { name: "search", title: "Search", description: "Cities filtered as you type." },
+      { name: "multiple", title: "Several values", description: "Interests as checkboxes; the field lists them." },
     ],
   },
 } satisfies ComponentMeta;

@@ -1,21 +1,22 @@
 // Client. The form's fields for the web: thin adapters from a form field (useKrizakaField) to the platform's current
-// primitives — Field + Input, Checkbox, Switch, RadioGroup, Combobox, DatePicker, TagInput, Dropzone, Slider. A new look
-// for a primitive (a new date picker, a new radio) changes an adapter here, never a form.
+// primitives — Field + Input, Checkbox, Switch, RadioGroup (dots, cards, tactile keys, segments), Combobox, the date
+// pickers (calendar, typed, wheels), TagInput, Dropzone, Slider. A new look for a primitive changes an adapter here,
+// never a form.
 import { Alert } from "@krizaka/ui/alert";
 import { Button, type ButtonProps } from "@krizaka/ui/button";
 import { Checkbox as CheckboxControl } from "@krizaka/ui/checkbox";
 import { Combobox as ComboboxControl, type ComboboxLabels, type ComboboxOption } from "@krizaka/ui/combobox";
-import { DatePicker, type DatePickerLabels } from "@krizaka/ui/date-picker";
+import { DateField as DatePartsControl, DatePicker, type DatePickerLabels, DateWheel } from "@krizaka/ui/date-picker";
 import { Field, Input, Select as SelectControl, Textarea } from "@krizaka/ui/field";
 import { Dropzone, formatBytes } from "@krizaka/ui/file-upload";
 import { RadioGroup as RadioGroupControl } from "@krizaka/ui/radio-group";
-import { Slider as SliderControl, type SliderValue } from "@krizaka/ui/slider";
+import { Slider as SliderControl, type SliderMark, type SliderValue } from "@krizaka/ui/slider";
 import { Spinner } from "@krizaka/ui/spinner";
 import { Switch as SwitchControl } from "@krizaka/ui/switch";
 import { TagInput as TagInputControl, type TagInputProps } from "@krizaka/ui/tag-input";
 import * as React from "react";
 
-import { composeDate, DATE_PART_LENGTH, type DatePart, datePartsOrder, splitDate } from "../date-picker/parts";
+import type { DatePart } from "../date-picker/parts";
 import {
   type FieldCheck,
   FormContext,
@@ -249,8 +250,12 @@ export type FormOption = { value: string; label: string; description?: string; d
 export type RadioGroupProps = Base & {
   /** The choices, all visible (two to five). */
   options: readonly FormOption[];
-  /** `list` (a dot and its words, default) or `cards` (a whole card is the radio: an amount, a plan, an audience). */
-  variant?: "list" | "cards";
+  /**
+   * `list` (a dot and its words, default), `cards` (a whole card is the radio: an amount, a plan, an audience),
+   * `buttons` (tactile keys that press in: a size, a tip; `description` is the key's second line) or `segmented`
+   * (two to four short choices on one line).
+   */
+  variant?: "list" | "cards" | "buttons" | "segmented";
   /** `vertical` (default) or `horizontal`. */
   orientation?: "vertical" | "horizontal";
 };
@@ -273,7 +278,8 @@ export function RadioGroup({ name, label, hint, disabled, className, options, va
         invalid={Boolean(f.error)}
         aria-describedby={ids(f, hint)}
         name={name}
-        className={variant === "cards" ? "grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-2" : undefined}
+        variant={variant}
+        className={variant === "segmented" ? "self-start" : undefined}
       >
         {options.map((o) =>
           variant === "cards" ? (
@@ -281,6 +287,14 @@ export function RadioGroup({ name, label, hint, disabled, className, options, va
               <span className="font-semibold">{o.label}</span>
               {o.description ? <span className="text-xs text-fg-secondary">{o.description}</span> : null}
             </RadioGroupControl.Card>
+          ) : variant === "buttons" ? (
+            <RadioGroupControl.Button key={o.value} value={o.value} disabled={o.disabled} hint={o.description}>
+              {o.label}
+            </RadioGroupControl.Button>
+          ) : variant === "segmented" ? (
+            <RadioGroupControl.Segment key={o.value} value={o.value} disabled={o.disabled}>
+              {o.label}
+            </RadioGroupControl.Segment>
           ) : (
             <RadioGroupControl.Item key={o.value} value={o.value} disabled={o.disabled}>
               {o.label}
@@ -374,69 +388,38 @@ export function Combobox({ name, label, hint, disabled, className, options = [],
 }
 
 export type DateFieldProps = Base & {
-  /** `calendar` (default: a date near today — a publication, an appointment) or `parts` (day · month · year typed: a
-   * memorable date, a birth date). */
-  entry?: "calendar" | "parts";
-  /** The earliest date (ISO), for the calendar. */
+  /**
+   * `calendar` (default: a date near today — a publication, an appointment), `parts` (day · month · year typed: a
+   * memorable date, a birth date) or `wheel` (three wheels bounded by `min` / `max`: a birth date on a phone).
+   */
+  entry?: "calendar" | "parts" | "wheel";
+  /** The earliest date (ISO), for the calendar and the wheels. */
   min?: string;
-  /** The latest date (ISO), for the calendar (`latestBirthDate(18)` for an age gate). */
+  /** The latest date (ISO), for the calendar and the wheels (`latestBirthDate(18)` for an age gate). */
   max?: string;
-  /** The words of the calendar, or the names of the boxes (`day`, `month`, `year`), passed translated. */
+  /** The words of the calendar, or the names of the parts (`day`, `month`, `year`), passed translated. */
   labels?: Partial<DatePickerLabels> & Partial<Record<DatePart, string>>;
-  /** `bday` for a date of birth. */
+  /** `bday` for a date of birth: typed boxes are autofilled; the wheels rest on 1 January 2000 until turned. */
   autoComplete?: "bday" | "off";
 };
 
-const PART_NAMES: Record<DatePart, string> = { day: "Day", month: "Month", year: "Year" };
-
-/** A date of the form (`YYYY-MM-DD`, `""` for none): a calendar, or day · month · year typed in the locale's order. */
+/** A date of the form (`YYYY-MM-DD`, `""` for none): a calendar, day · month · year typed, or wheels. */
 export function DateField({ name, label, hint, disabled, className, entry = "calendar", min, max, labels, autoComplete }: DateFieldProps) {
   const f = useKrizakaField<string>(name);
+  const onBlur = (e: React.FocusEvent<HTMLElement>) => !e.currentTarget.contains(e.relatedTarget as Node | null) && f.onBlur();
   if (entry === "calendar")
     return (
-      <div className={className} onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node | null) && f.onBlur()}>
+      <div className={className} onBlur={onBlur}>
         <DatePicker label={label} hint={hint} error={f.error} disabled={disabled} name={name} locale={f.locale} min={min} max={max} labels={labels} value={f.value || null} onValueChange={(v) => f.setValue(v ?? "")} />
       </div>
     );
-  return <DateParts field={f} label={label} hint={hint} disabled={disabled} className={className} names={{ ...PART_NAMES, ...labels }} autoComplete={autoComplete} />;
-}
-
-function DateParts({ field: f, label, hint, disabled, className, names, autoComplete }: { field: KrizakaField<string>; label: string; hint?: string; disabled?: boolean; className?: string; names: Record<DatePart, string>; autoComplete?: string }) {
-  const order = React.useMemo(() => datePartsOrder(f.locale), [f.locale]);
-  const [parts, setParts] = React.useState(() => splitDate(f.value));
-  if ((f.value ?? "") !== composeDate(parts) && composeDate(splitDate(f.value)) === (f.value ?? "")) setParts(splitDate(f.value));
-  const refs = { day: React.useRef<HTMLInputElement>(null), month: React.useRef<HTMLInputElement>(null), year: React.useRef<HTMLInputElement>(null) };
-  return (
-    <fieldset className={className ?? "flex flex-col gap-1.5"} aria-describedby={ids(f, hint)} onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node | null) && f.onBlur()}>
-      <legend className="mb-1.5 text-xs font-semibold text-fg-secondary">{label}</legend>
-      <div className="flex gap-2">
-        {order.map((part) => (
-          <label key={part} className="flex flex-col gap-1 text-xs text-fg-secondary">
-            {names[part]}
-            <Input
-              ref={refs[part]}
-              inputMode="numeric"
-              autoComplete={autoComplete === "bday" ? `bday-${part}` : "off"}
-              maxLength={DATE_PART_LENGTH[part]}
-              value={parts[part]}
-              disabled={disabled}
-              invalid={Boolean(f.error)}
-              className={part === "year" ? "w-20 text-center tabular-nums" : "w-14 text-center tabular-nums"}
-              onChange={(e) => {
-                const digits = e.target.value.replace(/\D/g, "").slice(0, DATE_PART_LENGTH[part]);
-                const next = { ...parts, [part]: digits };
-                setParts(next);
-                f.setValue(composeDate(next));
-                const following = order[order.indexOf(part) + 1];
-                if (digits.length === DATE_PART_LENGTH[part] && following) refs[following].current?.focus();
-              }}
-            />
-          </label>
-        ))}
+  if (entry === "wheel")
+    return (
+      <div className={className} onBlur={onBlur}>
+        <DateWheel label={label} hint={hint} error={f.error} disabled={disabled} name={name} locale={f.locale} min={min} max={max} labels={labels} defaultView={autoComplete === "bday" ? "2000-01-01" : undefined} value={f.value || null} onValueChange={(v) => f.setValue(v)} />
       </div>
-      <Caption field={f} hint={hint} />
-    </fieldset>
-  );
+    );
+  return <DatePartsControl label={label} hint={hint} error={f.error} disabled={disabled} name={name} locale={f.locale} labels={labels} autoComplete={autoComplete} className={className} value={f.value ?? ""} onValueChange={(v) => f.setValue(v)} onBlur={f.onBlur} />;
 }
 
 export type TagsProps = Base & Pick<TagInputProps, "suggestions" | "normalize" | "max" | "separators" | "placeholder" | "labels">;
@@ -572,14 +555,18 @@ export type SliderProps = Base & {
   formatValue?: (value: number) => string;
   /** For a range (`[number, number]`): each thumb's name, passed translated. */
   thumbLabels?: [string, string];
+  /** A graduation per step (`true`) or at the values given. */
+  ticks?: boolean | readonly number[];
+  /** Words under the track at some values. */
+  marks?: readonly SliderMark[];
 };
 
-/** A number (or a range) of the form, chosen by feel: a share, a volume, a price range. */
-export function Slider({ name, label, hint, disabled, className, min, max, step, formatValue, thumbLabels }: SliderProps) {
+/** A number (or a range) of the form, chosen by feel: a share, a volume, a price range — the value floats while it is touched. */
+export function Slider({ name, label, hint, disabled, className, min, max, step, formatValue, thumbLabels, ticks, marks }: SliderProps) {
   const f = useKrizakaField<SliderValue>(name);
   return (
     <div className={className ?? "flex flex-col gap-1.5"}>
-      <SliderControl label={label} showLabel value={f.value} min={min} max={max} step={step} disabled={disabled} formatValue={formatValue} thumbLabels={thumbLabels} aria-describedby={ids(f, hint)} onValueChange={(v) => f.setValue(v)} onValueCommit={() => f.onBlur()} />
+      <SliderControl label={label} showLabel floatingValue value={f.value} min={min} max={max} step={step} ticks={ticks} marks={marks} disabled={disabled} formatValue={formatValue} thumbLabels={thumbLabels} aria-describedby={ids(f, hint)} onValueChange={(v) => f.setValue(v)} onValueCommit={() => f.onBlur()} />
       <Caption field={f} hint={hint} />
     </div>
   );

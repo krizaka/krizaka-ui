@@ -7,7 +7,7 @@ import { useTheme } from "./theme";
 export type WheelOption = { value: string; label: string; disabled?: boolean };
 
 const ITEM = 44;
-const VisibleContext = React.createContext(5);
+const FrameContext = React.createContext({ visible: 5, unset: false });
 
 export type WheelPickerProps = {
   /** The group's accessible name ("Departure time"), passed translated. */
@@ -18,15 +18,17 @@ export type WheelPickerProps = {
   visible?: 3 | 5 | 7;
   /** Marks the group invalid (a danger edge). */
   invalid?: boolean;
+  /** Nothing is chosen yet: the values under the band stay quiet (secondary) until a wheel is turned. */
+  unset?: boolean;
   /** Styles merged last. */
   style?: StyleProp<ViewStyle>;
 };
 
 /** The frame of one or several wheels: a raised surface, the lit band across them — the web `WheelPicker`. */
-export function WheelPicker({ label, children, visible = 5, invalid, style }: WheelPickerProps) {
+export function WheelPicker({ label, children, visible = 5, invalid, unset = false, style }: WheelPickerProps) {
   const { theme, radius } = useTheme();
   return (
-    <VisibleContext.Provider value={visible}>
+    <FrameContext.Provider value={React.useMemo(() => ({ visible, unset }), [visible, unset])}>
       <View
         role="group"
         aria-label={label}
@@ -35,7 +37,7 @@ export function WheelPicker({ label, children, visible = 5, invalid, style }: Wh
         <View pointerEvents="none" style={[styles.band, { top: (ITEM * (visible - 1)) / 2, height: ITEM, borderRadius: radius.lg, backgroundColor: theme.surface3, borderColor: theme.borderSubtle }]} />
         {children}
       </View>
-    </VisibleContext.Provider>
+    </FrameContext.Provider>
   );
 }
 
@@ -80,7 +82,7 @@ const nearestEnabled = (options: readonly WheelOption[], index: number) => {
  */
 export function Wheel({ label, options, value: valueProp, defaultValue, onValueChange, disabled, style }: WheelProps) {
   const { theme, haptic } = useTheme();
-  const visible = React.useContext(VisibleContext);
+  const { visible, unset } = React.useContext(FrameContext);
   const [own, setOwn] = React.useState(defaultValue ?? options[0]?.value ?? "");
   const value = valueProp ?? own;
   const index = Math.max(0, options.findIndex((o) => o.value === value));
@@ -165,8 +167,8 @@ export function Wheel({ label, options, value: valueProp, defaultValue, onValueC
                 style={[
                   styles.itemText,
                   {
-                    color: o.disabled ? theme.textMuted : i === shown ? theme.textPrimary : theme.textSecondary,
-                    fontWeight: i === shown ? "600" : "400",
+                    color: o.disabled ? theme.textMuted : i === shown && !unset ? theme.textPrimary : theme.textSecondary,
+                    fontWeight: i === shown && !unset ? "600" : "400",
                     opacity: distance === 0 ? 1 : distance === 1 ? 0.7 : 0.4,
                     transform: [{ scale: distance === 0 ? 1 : 0.92 }],
                     textDecorationLine: o.disabled ? "line-through" : "none",

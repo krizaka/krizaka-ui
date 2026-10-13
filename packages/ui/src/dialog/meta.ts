@@ -5,7 +5,7 @@ export const meta = {
   summary: "A window over the page — centred, a bottom sheet or a side panel — and `AlertDialog` for a confirmation.",
   status: "stable",
   category: "overlays",
-  platforms: "web",
+  platforms: "both",
   whenToUse: [
     "For a short task that must be finished or cancelled before going back: invite someone, edit a title.",
     "`AlertDialog` to confirm a destructive or irreversible action, with an async `onConfirm`.",
@@ -46,5 +46,13 @@ export const meta = {
       { name: "alert-destructive", title: "Alert dialog", description: "`AlertDialog tone=\"danger\"` with an async `onConfirm`." },
       { name: "gate", title: "Gate", description: "No close button: it closes only through its actions." },
     ],
+  },
+  native: {
+    imports: ["Sheet"],
+    differences: [
+      "One component, `Sheet`: a bottom sheet on React Native's `Modal` (focus kept inside, the back button and the scrim close it), its grip on top, rising with the theme's ease.",
+      "It holds what a phone shows over a screen: a choice (`Select`, `Combobox` use it), the details of a pin on a map, a short form.",
+    ],
+    examples: [{ name: "sheet", title: "Bottom sheet", description: "The details of a pick-up point over the dimmed screen." }],
   },
 } satisfies ComponentMeta;
