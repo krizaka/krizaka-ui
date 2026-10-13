@@ -49,10 +49,13 @@ export const meta = {
       "`Toaster` takes `offset` (the safe-area inset) instead of a position; mount it inside `ThemeProvider`.",
       "Actions take `onPress`; a toast takes `onPress` to open what it is about.",
       "No `toast.custom`: an `icon` before the text instead.",
+      "A sideways swipe dismisses a toast; its tone plays a haptic when the app gives `haptics`.",
+      "A snackbar is `Toaster position=\"bottom\"` with one `action`.",
     ],
     examples: [
       { name: "tones", title: "Tones", description: "Default, success, and error with an action." },
       { name: "notification", title: "Notification", description: "An icon, tap to open it; `id` shows it once." },
+      { name: "snackbar", title: "Snackbar", description: "At the bottom, one action, swiped away." },
     ],
   },
 } satisfies ComponentMeta;

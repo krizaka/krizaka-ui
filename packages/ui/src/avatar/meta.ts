@@ -43,10 +43,12 @@ export const meta = {
       "`size` also takes a number of points.",
       "`src` is a URI string (an `Image` source), not a URL object.",
       "An SVG `src` (`….svg`, `data:image/svg+xml,…`, or any URI with `svg`) is drawn by react-native-svg — `Image` cannot.",
+      "`presence` adds a dot (online, away, busy, offline) and `ring` a story ring (new, seen, live): mobile only for now.",
     ],
     examples: [
       { name: "sizes", title: "Sizes", description: "Without an image: the initial of `alt`, from `xs` to `xl`." },
       { name: "group", title: "Group", description: "`Avatar.Group max={3}`: the rest becomes `+n`." },
+      { name: "presence", title: "Presence and story rings", description: "A presence dot, a story ring (new or seen), said with the name." },
     ],
   },
 } satisfies ComponentMeta;

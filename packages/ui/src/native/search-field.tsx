@@ -3,6 +3,7 @@ import { Pressable, type StyleProp, StyleSheet, TextInput, type TextInputProps, 
 import Svg, { Circle, Path } from "react-native-svg";
 
 import { useTheme } from "./theme";
+import { Txt } from "./txt";
 
 export type SearchFieldProps = Omit<TextInputProps, "value" | "defaultValue" | "onChangeText" | "style" | "onSubmitEditing"> & {
   /** The accessible name of the input ("Search videos"), passed translated. */
@@ -21,6 +22,10 @@ export type SearchFieldProps = Omit<TextInputProps, "value" | "defaultValue" | "
   onSubmit?: (query: string) => void;
   /** The clear button's name ("Clear search"), passed translated. */
   clearLabel: string;
+  /** The words of a cancel button beside the field (“Cancel”, iOS search bars) — passed translated; with `onCancel` it shows while the field has the focus or a query. */
+  cancelLabel?: string;
+  /** Called by the cancel button: the query is cleared and the keyboard closes. */
+  onCancel?: () => void;
   /** Styles merged last, on the field's frame. */
   style?: StyleProp<ViewStyle>;
 };
@@ -29,7 +34,9 @@ export type SearchFieldProps = Omit<TextInputProps, "value" | "defaultValue" | "
  * A search box: the glyph, the input with the keyboard's search key, a clear button, and a debounced `onSearch` —
  * the web `SearchField` without the shortcut and the suggestions (a screen of results is the native idiom).
  */
-export function SearchField({ label, value, defaultValue = "", onValueChange, onSearch, debounce = 300, onSubmit, clearLabel, style, placeholder, ...props }: SearchFieldProps) {
+export function SearchField({ label, value, defaultValue = "", onValueChange, onSearch, debounce = 300, onSubmit, clearLabel, cancelLabel, onCancel, style, placeholder, onFocus, onBlur, ...props }: SearchFieldProps) {
+  const [focused, setFocused] = React.useState(false);
+  const input = React.useRef<TextInput>(null);
   const { theme, radius } = useTheme();
   const [own, setOwn] = React.useState(defaultValue);
   const query = value ?? own;
@@ -41,13 +48,14 @@ export function SearchField({ label, value, defaultValue = "", onValueChange, on
     clearTimeout(timer.current);
     if (onSearch) timer.current = setTimeout(() => onSearch(next), debounce);
   };
-  return (
+  const field = (
     <View style={[styles.frame, { borderRadius: radius.md, borderColor: theme.borderDefault, backgroundColor: theme.surface2 }, style]}>
       <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke={theme.textSecondary} strokeWidth={2} strokeLinecap="round" aria-hidden>
         <Circle cx={11} cy={11} r={7} />
         <Path d="m20 20-3.5-3.5" />
       </Svg>
       <TextInput
+        ref={input}
         role="searchbox"
         aria-label={label}
         value={query}
@@ -64,6 +72,14 @@ export function SearchField({ label, value, defaultValue = "", onValueChange, on
           onSubmit?.(query);
         }}
         style={[styles.input, { color: theme.textPrimary }]}
+        onFocus={(e) => {
+          setFocused(true);
+          onFocus?.(e);
+        }}
+        onBlur={(e) => {
+          setFocused(false);
+          onBlur?.(e);
+        }}
         {...props}
       />
       {query ? (
@@ -75,10 +91,35 @@ export function SearchField({ label, value, defaultValue = "", onValueChange, on
       ) : null}
     </View>
   );
+  if (!cancelLabel || !onCancel) return field;
+  return (
+    <View style={styles.bar}>
+      <View style={styles.grow}>{field}</View>
+      {focused || query ? (
+        <Pressable
+          role="button"
+          onPress={() => {
+            change("");
+            input.current?.blur();
+            onCancel();
+          }}
+          hitSlop={8}
+          style={styles.cancel}
+        >
+          <Txt variant="label" tone="accent">
+            {cancelLabel}
+          </Txt>
+        </Pressable>
+      ) : null}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   frame: { flexDirection: "row", alignItems: "center", gap: 8, height: 44, paddingLeft: 12, paddingRight: 6, borderWidth: StyleSheet.hairlineWidth },
   input: { flex: 1, height: "100%", fontSize: 15, paddingVertical: 0 },
+  bar: { flexDirection: "row", alignItems: "center", gap: 10 },
+  grow: { flex: 1 },
+  cancel: { minHeight: 44, justifyContent: "center" },
   clear: { width: 32, height: 32, alignItems: "center", justifyContent: "center" },
 });
