@@ -1,5 +1,18 @@
 # @krizaka/ui
 
+## 3.1.0
+
+### Minor Changes
+
+- [#127](https://github.com/krizaka/krizaka-ui/pull/127) [`3dca7b7`](https://github.com/krizaka/krizaka-ui/commit/3dca7b7d8e298fde5531506cc7c4dadfd64c85be) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/form` and `@krizaka/ui/native/form` — forms on TanStack Form v1 behind the facade (PS3): `createKrizakaForm({ schema, defaultValues, i18n })` on a zod 4 (Standard Schema) schema shared with the server; typed fields wired to the current primitives through thin adapters (`TextField` with a debounced `validateAsync` and a suggestion, `TextArea`, `Checkbox`, `Switch`, `RadioGroup`, `Select`, `Combobox`, `DateField` — calendar or day · month · year —, `TagInput`, `FileUpload`, `Money` in integer cents, `Slider`), `Submit`, `FormError`, `FieldArray`, `Watch`, `FormField`; errors shown once a field is left and gone as soon as fixed, as i18n keys (`form.errors.*`, never the engine's English); server Problem Details `fields` (and `codeFields`) onto their fields; `useFormWithAction` for Server Actions and `@krizaka/ui/form/server` (`validateForm`, `formProblem`). Native: the same definitions on `TextField`, `Checkbox`, `DateField`, chips and the system's switch, the return key walking the fields, `scroll` above the keyboard, the product's mark as the submit's loader. Also `latestBirthDate`, `isRealDate`, `parseMoney`.
+
+- [#127](https://github.com/krizaka/krizaka-ui/pull/127) [`3dca7b7`](https://github.com/krizaka/krizaka-ui/commit/3dca7b7d8e298fde5531506cc7c4dadfd64c85be) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Native form fields in `@krizaka/ui/native` ([#122](https://github.com/krizaka/krizaka-ui/issues/122)): `TextField` (label, hint, error, every `TextInput` prop, `multiline`, an `end` adornment), `Checkbox` (a 44-pt row, words as a node with links, its error) and `DateField` (a memorable date typed as day · month · year in the locale's order, numeric keypads, auto-advance, `YYYY-MM-DD`, no native module) — with `datePartsOrder` and `composeDate`.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.1.0
+
 ## 3.0.0
 
 ### Major Changes
