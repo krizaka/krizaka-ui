@@ -45,6 +45,7 @@ export {
   type CardRootProps,
   CardTitle,
 } from "./card";
+export { ConversationItem, type ConversationItemProps, MessageBubble, type MessageBubbleLabels, type MessageBubbleProps, MessageComposer, type MessageComposerProps, type MessageStatus, TypingIndicator, type TypingIndicatorProps } from "./chat";
 export { Checkbox, type CheckboxProps } from "./checkbox";
 export { Chip, type ChipGroupProps, type ChipProps, type ChipSize } from "./chip";
 export { Combobox, type ComboboxLabels, comboboxLabels, type ComboboxProps, Select, type SelectOption, type SelectProps } from "./combobox";
@@ -80,6 +81,7 @@ export { ErrorState, LoadingState, MascotState, type MascotStateProps, SuccessSt
 export { Mascot, type MascotProps } from "./mascots";
 export { Meter, type MeterPart, type MeterProps } from "./meter";
 export { NumberTicker, type NumberTickerProps } from "./number-ticker";
+export { MatchDialog, type MatchDialogProps } from "./match-dialog";
 export { Onboarding, type OnboardingProps, type OnboardingSlide } from "./onboarding";
 export { OrazakaMark } from "./OrazakaMark";
 export { OrochiaMark } from "./OrochiaMark";
@@ -87,21 +89,26 @@ export { OtpInput, type OtpInputProps } from "./otp-input";
 export { Pagination, type PaginationLabels, type PaginationProps } from "./pagination";
 export { PermissionPrompt, type PermissionPromptProps, type PermissionStatus } from "./permission-prompt";
 export { Phoenix, type PhoenixProps } from "./phoenix";
+export { type GridPhoto, PhotoGrid, type PhotoGridLabels, type PhotoGridProps } from "./photo-grid";
 export { ProductMark } from "./ProductMark";
 export { ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
 export { Progress, type ProgressProps } from "./progress";
 export { PullToRefresh, type PullToRefreshProps } from "./pull-to-refresh";
 export { RadioGroup, type RadioGroupProps, type RadioOption } from "./radio-group";
+export { Screen, type ScreenProps } from "./screen";
 export { SearchField, type SearchFieldProps } from "./search-field";
 export { Segmented, type SegmentedOption, type SegmentedProps } from "./segmented";
 export { Skeleton, type SkeletonProps } from "./skeleton";
 export { Slider, type SliderProps, type SliderValue } from "./slider";
 export { Spinner, type SpinnerProps } from "./spinner";
 export { type Step, Stepper, type StepperProps, type StepStatus } from "./stepper";
+export { StepProgress, type StepProgressProps } from "./step-progress";
+export { PersonCard, type PersonCardProps, SwipeDeck, type SwipeDeckLabels, type SwipeDeckProps, type SwipeDirection } from "./swipe-deck";
 export { SwipeableRow, type SwipeableRowProps,type SwipeAction } from "./swipeable-row";
 export { Switch, type SwitchProps } from "./switch";
 export { TabBar, type TabBarItem, type TabBarProps } from "./tab-bar";
 export { type TabItem, Tabs, type TabsProps } from "./tabs";
+export { type TagOption, TagSelector, type TagSelectorProps } from "./tag-selector";
 export {
   alpha,
   type HapticKind,
@@ -121,6 +128,7 @@ export {
 } from "./theme";
 export { toast, Toaster, type ToasterProps, type ToastItem, type ToastOptions, type ToastTone } from "./toast";
 export { textStyles, Txt, type TxtProps, type TxtTone, type TxtVariant } from "./txt";
+export { VerifiedBadge, type VerifiedBadgeProps } from "./verified-badge";
 export { Wheel, WheelDivider, type WheelOption, WheelPicker, type WheelPickerProps, type WheelProps } from "./wheel";
 export { YazakiaMark } from "./YazakiaMark";
 export { YororisMark } from "./YororisMark";
