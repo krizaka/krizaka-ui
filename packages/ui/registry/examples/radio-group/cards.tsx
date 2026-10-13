@@ -6,10 +6,10 @@ const AMOUNTS = [
   ["50", "$50", "A night out"],
 ];
 
-// Whole cards: the chosen one carries the accent border and tint.
+// Whole cards: the chosen one carries the accent border, its tint and its lit check.
 export default function RadioGroupCards() {
   return (
-    <RadioGroup.Root label="Amount" defaultValue="20" className="grid w-[30rem] max-w-full grid-cols-3 gap-3">
+    <RadioGroup.Root label="Amount" defaultValue="20" variant="cards" className="w-[30rem] max-w-full grid-cols-3">
       {AMOUNTS.map(([value, amount, hint]) => (
         <RadioGroup.Card key={value} value={value}>
           <span className="font-display text-lg font-bold">{amount}</span>

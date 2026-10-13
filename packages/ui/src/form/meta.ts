@@ -22,7 +22,7 @@ export const meta = {
     "Name refusals with keys in the schema (`z.string().regex(re, \"signUp.username.format\")`) and give the words in `messages/*.json`; the generic ones are `form.errors.*` (required, tooShort {minimum}…).",
     "Send with a mutation of @krizaka/query (`onSubmit: (v) => mutation.mutateAsync(v)`) or a Server Action (`useFormWithAction`): a thrown `KrizakaApiError` or `{ ok: false, problem }` puts its `fields` under their fields.",
     "Never disable the submit button for an invalid form: a refused submit shows every error and focuses the first.",
-    "Pick the field for the value: `DateField entry=\"parts\"` for a memorable date (a birth date), the calendar for a date near today; `Money` stores cents; `RadioGroup` for two to five visible choices, `Select` beyond.",
+    "Pick the field for the value: `DateField entry=\"parts\"` (typed) or `entry=\"wheel\"` for a memorable date (a birth date, bounded by `max`), the calendar for a date near today; `Money` stores cents; `RadioGroup` for two to five visible choices (`variant` list · cards · buttons · segmented), `Select` beyond.",
     "Need a control the package does not have? `form.Field` gives its value, setter, error and ids — never import @tanstack/* in a product.",
   ],
   accessibility: {
@@ -52,11 +52,11 @@ export const meta = {
   },
   native: {
     entry: "@krizaka/ui/native/form",
-    imports: ["createKrizakaForm", "TextField", "DateField", "Money", "Submit", "FormError"],
+    imports: ["createKrizakaForm", "TextField", "DateField", "Switch", "RadioGroup", "Select", "Combobox", "Slider", "Money", "Submit", "FormError"],
     differences: [
       "Import `createKrizakaForm` from `@krizaka/ui/native/form`: the same definition (schema, defaults, i18n), the same `useForm`, `form.*` fields drawn with the native ones.",
       "`form.Form` is a View; `form.Submit` takes `label` and announces the first error of a refused submit (no focus to move).",
-      "`DateField` is always day · month · year; `RadioGroup` and `Select` are chips (a radio group); `Switch` is the system's; `Money` uses the decimal keypad.",
+      "`DateField` is three wheels by default (`entry=\"parts\"`: typed day · month · year); `RadioGroup` has the native looks (`variant` list · cards · buttons · segmented); `Select` and `Combobox` open a `Sheet`; `Switch` is a settings row drawn by the theme; `Slider` floats its value; `Money` uses the decimal keypad. Each control plays its haptic when the app passes `haptics` to the `ThemeProvider`.",
       "No `Combobox`, `TagInput`, `FileUpload` or `Slider` field yet: a screen of its own (a picker) sets the value, or `form.Field` draws it.",
     ],
     examples: [

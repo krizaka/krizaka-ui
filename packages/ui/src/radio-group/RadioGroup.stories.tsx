@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import ButtonsExample from "../../registry/examples/radio-group/buttons";
 import CardsExample from "../../registry/examples/radio-group/cards";
 import HorizontalExample from "../../registry/examples/radio-group/horizontal";
 import ItemsExample from "../../registry/examples/radio-group/items";
+import SegmentedExample from "../../registry/examples/radio-group/segmented";
 import { RadioGroup } from "./radio-group";
 
 /**
@@ -21,3 +23,5 @@ type Story = StoryObj<typeof meta>;
 export const Items: Story = { render: () => <ItemsExample /> };
 export const Cards: Story = { render: () => <CardsExample /> };
 export const Horizontal: Story = { render: () => <HorizontalExample /> };
+export const Buttons: Story = { render: () => <ButtonsExample /> };
+export const Segmented: Story = { render: () => <SegmentedExample /> };

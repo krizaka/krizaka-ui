@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import Example from "../../registry/examples/field/native/default";
+import DefaultExample from "../../registry/examples/field/native/default";
+import SelectExample from "../../registry/examples/field/native/select";
 import { nativeFrame } from "./story-frame";
 
 /**
- * Native — TextField through react-native-web. Each story renders a named example of the registry
+ * Native — Field through react-native-web. Each story renders a named example of the registry
  * (`registry/examples/field/native/*`): the code krizaka.com/docs/ui shows, with these screenshots.
  */
 const meta = {
@@ -15,4 +16,5 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = { render: () => <Example /> };
+export const Default: Story = { render: () => <DefaultExample /> };
+export const Select: Story = { render: () => <SelectExample /> };

@@ -40,5 +40,8 @@ const form = signUp.useForm({ i18n: { t }, codeFields: { USERNAME_RESERVED: "use
 - Amounts: `form.Money name="amount" currency="EUR"` stores integer cents (`z.number().int()`).
 - Lists: `<form.FieldArray name="links">{(a) => a.items.map((_, i) => <form.TextField name={`links[${i}].url`} … />)}</form.FieldArray>`.
 - Conditional parts: `<form.Watch name="audience">{(v) => v === "subscribers" ? <form.Money name="price" … /> : null}</form.Watch>`.
+- Controls (DS5): `form.RadioGroup variant="buttons" | "segmented" | "cards"`, `form.DateField entry="wheel" max={latestBirthDate(18)}`,
+  `form.Slider ticks marks={…}` (the value floats while touched). Native: `DateField` is wheels by default, `Select` /
+  `Combobox` open a sheet, `Switch` is a settings row; pass `haptics` to the native `ThemeProvider` for the haptics.
 - Native: `<form.Form scroll>` makes the form the screen's scrolling content above the keyboard; the return key walks the
   text fields and the last one sends; `<form.Submit label=… brand="orochia" />` turns the product's mark while sending.

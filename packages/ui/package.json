@@ -631,7 +631,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "26.5 kB",
+      "limit": "31.5 kB",
       "gzip": true
     },
     {
@@ -929,7 +929,7 @@
     {
       "name": "./radio-group",
       "path": "dist/radio-group.js",
-      "limit": "11 kB",
+      "limit": "12.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

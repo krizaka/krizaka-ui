@@ -496,7 +496,7 @@ export function DateWheel({ label, locale, value: valueProp, defaultValue = null
       <Text aria-hidden style={[styles.fieldLabel, { color: theme.textSecondary }]}>
         {label}
       </Text>
-      <WheelPicker label={label} invalid={Boolean(error)}>
+      <WheelPicker label={label} invalid={Boolean(error)} unset={!value}>
         {datePartsOrder(locale).map((part) => columns[part])}
       </WheelPicker>
       {caption ? (

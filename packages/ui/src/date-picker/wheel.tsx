@@ -12,7 +12,7 @@ export type WheelOption = { value: string; label: string; disabled?: boolean };
 
 export const wheel = tv({
   slots: {
-    root: "relative inline-flex select-none items-stretch gap-1 rounded-2xl border border-border-default data-[invalid]:border-danger bg-surface-1 bg-sheen px-2 shadow-raised inset-shadow-edge",
+    root: "group/wheel relative inline-flex select-none items-stretch gap-1 rounded-2xl border border-border-default data-[invalid]:border-danger bg-surface-1 bg-sheen px-2 shadow-raised inset-shadow-edge",
     band: "pointer-events-none absolute inset-x-1.5 top-1/2 -translate-y-1/2 rounded-xl border border-border-subtle bg-surface-3 inset-shadow-well",
     column:
       "relative z-[1] min-w-14 flex-1 rounded-xl outline-hidden focus-visible:focus-ring-inset data-[disabled]:pointer-events-none data-[disabled]:opacity-40",
@@ -21,7 +21,8 @@ export const wheel = tv({
       "[mask-image:linear-gradient(to_bottom,transparent,#000_30%,#000_70%,transparent)]",
     item:
       "kz-wheel-item flex snap-center items-center justify-center px-2 text-base tabular-nums text-fg-secondary transition-colors " +
-      "data-[selected]:font-semibold data-[selected]:text-fg data-[disabled]:text-fg-muted data-[disabled]:line-through",
+      "data-[selected]:font-semibold data-[selected]:text-fg data-[disabled]:text-fg-muted data-[disabled]:line-through " +
+      "group-data-[unset]/wheel:data-[selected]:font-normal group-data-[unset]/wheel:data-[selected]:text-fg-secondary",
     divider: "z-[1] self-center text-base font-semibold text-fg-secondary",
   },
 });
@@ -56,6 +57,8 @@ export type WheelPickerProps = {
   "aria-describedby"?: string;
   /** Marks the group invalid (a danger edge): pair it with an error read through `aria-describedby`. */
   invalid?: boolean;
+  /** Nothing is chosen yet: the values under the band stay quiet until a wheel is turned. */
+  unset?: boolean;
   /** Classes merged on the root. */
   className?: string;
 };
@@ -63,11 +66,11 @@ export type WheelPickerProps = {
 const VisibleContext = React.createContext(5);
 
 /** The frame of one or several wheels: a raised surface, the lit band across them, a group named by `label`. */
-export function WheelPicker({ label, children, visible = 5, "aria-describedby": describedBy, invalid, className }: WheelPickerProps) {
+export function WheelPicker({ label, children, visible = 5, "aria-describedby": describedBy, invalid, unset, className }: WheelPickerProps) {
   const s = wheel();
   return (
     <VisibleContext.Provider value={visible}>
-      <div role="group" aria-label={label} aria-describedby={describedBy} data-invalid={invalid ? "" : undefined} className={s.root({ className })} style={{ height: ITEM * visible }}>
+      <div role="group" aria-label={label} aria-describedby={describedBy} data-invalid={invalid ? "" : undefined} data-unset={unset ? "" : undefined} className={s.root({ className })} style={{ height: ITEM * visible }}>
         <span aria-hidden className={s.band()} style={{ height: ITEM }} />
         {children}
       </div>

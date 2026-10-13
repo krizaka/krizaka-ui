@@ -5,7 +5,7 @@ export const meta = {
   summary: "An on/off setting that applies at once.",
   status: "beta",
   category: "forms",
-  platforms: "web",
+  platforms: "both",
   whenToUse: ["For a setting that takes effect immediately: autoplay, notifications, a weekly digest."],
   whenNotToUse: [
     { when: "For a choice submitted with a form, or an agreement.", use: "checkbox" },
@@ -32,6 +32,18 @@ export const meta = {
       { name: "disabled", title: "Disabled", description: "Off and on." },
       { name: "small", title: "Small", description: "`size=\"sm\"`." },
       { name: "with-label", title: "With a visible label", description: "A label and a hint on the same line." },
+    ],
+  },
+  native: {
+    imports: ["Switch"],
+    differences: [
+      "Drawn by the theme, not the system's: the same switch on iOS and Android, the accent when on, a `selection` haptic when it flips (the app's `haptics`).",
+      "`showLabel` makes it a settings row: the label and its `description` beside the switch, the whole row pressable, the description read as the hint.",
+      "`error` shows under the row and is announced.",
+    ],
+    examples: [
+      { name: "settings", title: "Settings rows", description: "Notification preferences: rows with a description, one disabled while push is off." },
+      { name: "default", title: "Alone", description: "Named by `label`; md and sm." },
     ],
   },
 } satisfies ComponentMeta;

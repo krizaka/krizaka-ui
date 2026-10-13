@@ -40,14 +40,15 @@ export const meta = {
     ],
   },
   native: {
-    imports: ["TextField"],
+    imports: ["TextField", "Select"],
     differences: [
       "One component, `TextField`: the label, the input, the hint or the error together (no `Field.*` parts, no `htmlFor`).",
       "Every `TextInput` prop passes through (`secureTextEntry`, `keyboardType`, `autoComplete`, `returnKeyType`); `multiline` is the text area; `onValueChange` gives the text.",
-      "`end` holds an adornment (a spinner, a check, a show-password button); `inputRef` focuses the input. No `Select`: a choice is a `Chip.Group` or a screen.",
+      "`end` holds an adornment (a spinner, a check, a show-password button); `inputRef` focuses the input. A choice among many is `Select`: a field that opens a `Sheet` of options.",
     ],
     examples: [
       { name: "default", title: "Sign-up fields", description: "E-mail and password: the right keyboards, autofill, a hint, then an error in place of the hint." },
+      { name: "select", title: "Select", description: "One choice among many: the field opens a sheet of options, picking one closes it." },
     ],
   },
 } satisfies ComponentMeta;

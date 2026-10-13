@@ -203,7 +203,7 @@ export function DateWheel({ label, locale, hint, error, disabled, name, labels: 
       <span aria-hidden className={dateField().legend()}>
         {label}
       </span>
-      <WheelPicker label={label} aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined} invalid={Boolean(error)}>{order.map((part) => columns[part])}</WheelPicker>
+      <WheelPicker label={label} aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined} invalid={Boolean(error)} unset={!value}>{order.map((part) => columns[part])}</WheelPicker>
       {name ? <input type="hidden" name={name} value={value ?? ""} /> : null}
       <Caption id={id} hint={hint} error={error} />
     </div>

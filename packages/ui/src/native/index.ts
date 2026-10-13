@@ -44,6 +44,7 @@ export {
 } from "./card";
 export { Checkbox, type CheckboxProps } from "./checkbox";
 export { Chip, type ChipGroupProps, type ChipProps, type ChipSize } from "./chip";
+export { Combobox, type ComboboxLabels, comboboxLabels, type ComboboxProps, Select, type SelectOption, type SelectProps } from "./combobox";
 export { Countdown, type CountdownProps, type CountdownUnits } from "./countdown";
 export { DateField, type DateFieldLabels, dateFieldLabels, type DateFieldProps } from "./date-picker";
 export {
@@ -61,6 +62,7 @@ export {
   type TimePickerLabels,
   type TimePickerProps,
 } from "./date-time";
+export { Sheet, type SheetProps } from "./dialog";
 export { EmptyState, type EmptyStateProps } from "./empty-state";
 export { TextField, type TextFieldProps } from "./field";
 export { GoalGauge, type GoalGaugeProps } from "./goal-gauge";
@@ -75,10 +77,13 @@ export { Phoenix, type PhoenixProps } from "./phoenix";
 export { ProductMark } from "./ProductMark";
 export { ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
 export { Progress, type ProgressProps } from "./progress";
+export { RadioGroup, type RadioGroupProps, type RadioOption } from "./radio-group";
 export { SearchField, type SearchFieldProps } from "./search-field";
 export { Segmented, type SegmentedOption, type SegmentedProps } from "./segmented";
 export { Skeleton, type SkeletonProps } from "./skeleton";
+export { Slider, type SliderProps, type SliderValue } from "./slider";
 export { Spinner, type SpinnerProps } from "./spinner";
+export { Switch, type SwitchProps } from "./switch";
 export {
   alpha,
   type HapticKind,

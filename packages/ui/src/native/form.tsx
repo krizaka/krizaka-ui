@@ -1,9 +1,30 @@
 // React Native: the same forms as the web (`createKrizakaForm`, the same schemas, the same errors' keys), on the native
-// fields — TextField, Checkbox, DateField, Chip.Group, the system's Switch. A form is a View; Submit is the platform's
-// Button; a refused submit announces its first error. Thin adapters: a new native control changes one here, never a form.
-import { type BrandId, Button, Checkbox as CheckboxControl, Chip, DateField as DateFieldControl, type DateFieldLabels, ProductMark, Spinner, TextField as TextFieldControl, type TextFieldProps as TextFieldControlProps, Txt, useTheme } from "@krizaka/ui/native";
+// fields — TextField, Checkbox, Switch, RadioGroup, Select, Combobox, DateWheel / DateField, Slider. A form is a View;
+// Submit is the platform's Button; a refused submit announces its first error. Thin adapters: a new native control
+// changes one here, never a form.
+import {
+  type BrandId,
+  Button,
+  Checkbox as CheckboxControl,
+  Combobox as ComboboxControl,
+  type ComboboxLabels,
+  DateField as DateFieldControl,
+  type DateFieldLabels,
+  DateWheel,
+  ProductMark,
+  RadioGroup as RadioGroupControl,
+  Select as SelectControl,
+  Slider as SliderControl,
+  type SliderValue,
+  Spinner,
+  Switch as SwitchControl,
+  TextField as TextFieldControl,
+  type TextFieldProps as TextFieldControlProps,
+  Txt,
+  useTheme,
+} from "@krizaka/ui/native";
 import * as React from "react";
-import { AccessibilityInfo, KeyboardAvoidingView, Platform, Pressable, ScrollView, type StyleProp, StyleSheet, Switch as SwitchControl, type TextInput, View, type ViewStyle } from "react-native";
+import { AccessibilityInfo, KeyboardAvoidingView, Platform, Pressable, ScrollView, type StyleProp, StyleSheet, type TextInput, View, type ViewStyle } from "react-native";
 
 import {
   type FieldCheck,
@@ -76,12 +97,13 @@ function useChain(ctx: FormContextValue): Chain {
 }
 
 /** A text input of the form in the return-key chain: its ref, its return key (`next`, or `go` for the last), what it does. */
-function useChained(override: { returnKeyType?: unknown; onSubmitEditing?: unknown }) {
+function useChained(override: { returnKeyType?: unknown; onSubmitEditing?: unknown }, skip = false) {
   const chain = React.useContext(ChainContext);
   const key = React.useId();
   const ref = React.useRef<TextInput>(null);
   const [last, setLast] = React.useState(false);
-  React.useLayoutEffect(() => chain?.register({ key, focus: () => ref.current?.focus(), setLast }), [chain, key]);
+  // A control without a keyboard (wheels) is not in the chain: the return key skips it.
+  React.useLayoutEffect(() => (skip ? undefined : chain?.register({ key, focus: () => ref.current?.focus(), setLast })), [chain, key, skip]);
   if (!chain || override.returnKeyType !== undefined || override.onSubmitEditing !== undefined) return { inputRef: ref };
   return {
     inputRef: ref,
@@ -247,107 +269,186 @@ export function Checkbox({ name, label, accessibleLabel, disabled, style }: Chec
   );
 }
 
-/** An on/off setting of the form (`boolean`): its label and hint beside the system's switch. */
+/** An on/off setting of the form (`boolean`): a settings row — the label and its hint beside the switch, all pressable. */
 export function Switch({ name, label, hint, disabled, style }: Base) {
   const f = useKrizakaField<boolean>(name);
-  const { theme } = useTheme();
   return (
-    <View style={[styles.switchRow, style]}>
-      <View style={styles.switchText}>
-        <Txt variant="label">{label}</Txt>
-        {f.error ? (
-          <Txt variant="caption" tone="danger" role="alert">
-            {f.error}
-          </Txt>
-        ) : hint ? (
-          <Txt variant="caption" tone="secondary">
-            {hint}
-          </Txt>
-        ) : null}
-      </View>
-      <SwitchControl
-        aria-label={label}
-        accessibilityHint={f.error ?? hint}
-        value={f.value === true}
-        disabled={disabled}
-        onValueChange={(on) => {
-          f.setValue(on);
-          f.onBlur();
-        }}
-        trackColor={{ false: theme.surface3, true: theme.accent }}
-        thumbColor={theme.textOnMedia}
-        {...{ activeThumbColor: theme.textOnMedia }}
-        ios_backgroundColor={theme.surface3}
-      />
-    </View>
+    <SwitchControl
+      label={label}
+      description={hint}
+      showLabel
+      error={f.error}
+      checked={f.value === true}
+      disabled={disabled}
+      style={style}
+      onCheckedChange={(on) => {
+        f.setValue(on);
+        f.onBlur();
+      }}
+    />
   );
 }
 
-/** A choice of the form: the value stored and its words (passed translated). */
-export type FormOption = { value: string; label: string; disabled?: boolean };
+/** A choice of the form: the value stored and its words (passed translated), a line under them. */
+export type FormOption = { value: string; label: string; description?: string; disabled?: boolean };
+
+function Caption({ field, hint }: { field: KrizakaField; hint?: string }) {
+  if (field.error)
+    return (
+      <Txt variant="caption" tone="danger" role="alert">
+        {field.error}
+      </Txt>
+    );
+  return hint ? (
+    <Txt variant="caption" tone="secondary">
+      {hint}
+    </Txt>
+  ) : null;
+}
 
 export type RadioGroupProps = Base & {
-  /** The choices, as chips (one chosen). */
+  /** The choices, all visible (two to five). */
   options: readonly FormOption[];
-  /** Scrolls the chips sideways instead of wrapping them (many choices). */
-  scrollable?: boolean;
+  /** `list` (dots, default), `cards`, `buttons` (tactile keys) or `segmented` — the native `RadioGroup`'s looks. */
+  variant?: "list" | "cards" | "buttons" | "segmented";
 };
 
-/** One choice among a few, as chips (a radio group). On native, `Select` is the same control. */
-export function RadioGroup({ name, label, hint, disabled, style, options, scrollable }: RadioGroupProps) {
+/** One choice among a few, all visible: the native `RadioGroup` (a haptic on each choice). */
+export function RadioGroup({ name, label, hint, disabled, style, options, variant = "list" }: RadioGroupProps) {
   const f = useKrizakaField<string>(name);
   return (
     <View style={[styles.field, style]}>
       <Txt variant="caption" tone="secondary" style={styles.groupLabel}>
         {label}
       </Txt>
-      <Chip.Group
-        type="single"
-        aria-label={label}
+      <RadioGroupControl
+        label={label}
+        variant={variant}
+        options={options}
         value={f.value ?? ""}
         disabled={disabled}
-        scrollable={scrollable}
         onValueChange={(v) => {
           f.setValue(v);
           f.onBlur();
         }}
-      >
-        {options.map((o) => (
-          <Chip key={o.value} value={o.value} disabled={o.disabled}>
-            {o.label}
-          </Chip>
-        ))}
-      </Chip.Group>
-      {f.error ? (
-        <Txt variant="caption" tone="danger" role="alert">
-          {f.error}
-        </Txt>
-      ) : hint ? (
-        <Txt variant="caption" tone="secondary">
-          {hint}
-        </Txt>
-      ) : null}
+      />
+      <Caption field={f} hint={hint} />
     </View>
   );
 }
 
-/** One choice among several (the web's `<select>`): chips on native, scrolled sideways when they are many. */
-export function Select(props: RadioGroupProps) {
-  return <RadioGroup scrollable={props.options.length > 4} {...props} />;
+export type SelectProps = Base & {
+  /** The choices, in a sheet. */
+  options: readonly FormOption[];
+  /** Shown while nothing is chosen ("Choose a category"), passed translated. */
+  placeholder?: string;
+};
+
+/** One choice among many (the web's `<select>`): a field that opens a sheet of options. */
+export function Select({ name, label, hint, disabled, style, options, placeholder }: SelectProps) {
+  const f = useKrizakaField<string>(name);
+  return <SelectControl label={label} hint={hint} error={f.error} disabled={disabled} style={style} options={options} placeholder={placeholder} value={f.value ?? ""} onValueChange={(v) => f.setValue(v)} onBlur={f.onBlur} />;
+}
+
+export type ComboboxProps = Base & {
+  /** The options, filtered as the person types. */
+  options?: readonly FormOption[];
+  /** Fetches the options for a query (debounced, aborted by a newer one). */
+  onSearch?: (query: string, signal: AbortSignal) => Promise<readonly FormOption[]>;
+  /** Several values (`string[]`); one (`string`) by default. */
+  multiple?: boolean;
+  /** Shown while nothing is chosen, passed translated. */
+  placeholder?: string;
+  /** The words of the control, passed translated. */
+  labels?: Partial<ComboboxLabels>;
+};
+
+/** A choice among many, searched in a sheet: one value (`string`) or several (`string[]`). */
+export function Combobox({ name, label, hint, disabled, style, options, onSearch, multiple, placeholder, labels }: ComboboxProps) {
+  const f = useKrizakaField<string | string[]>(name);
+  return (
+    <ComboboxControl
+      label={label}
+      hint={hint}
+      error={f.error}
+      disabled={disabled}
+      style={style}
+      options={options}
+      onSearch={onSearch}
+      multiple={multiple}
+      placeholder={placeholder}
+      labels={labels}
+      value={f.value ?? (multiple ? [] : "")}
+      onValueChange={(v) => f.setValue(v)}
+      onBlur={f.onBlur}
+    />
+  );
 }
 
 export type DateFieldProps = Base & {
-  /** The names of the boxes (`day`, `month`, `year`), passed translated. */
+  /** `wheel` (default: day, month and year as wheels) or `parts` (typed on the numeric keypad). */
+  entry?: "wheel" | "parts";
+  /** The earliest date (ISO) of the wheels. */
+  min?: string;
+  /** The latest date (ISO) of the wheels: `latestBirthDate(18)` for an age gate. */
+  max?: string;
+  /** The names of the wheels or boxes (`day`, `month`, `year`), passed translated. */
   labels?: Partial<DateFieldLabels>;
-  /** `bday` for a date of birth. */
+  /** `bday` for a date of birth: the wheels rest on 1 January 2000 until turned; typed boxes are autofilled. */
   autoComplete?: "bday" | "off";
 };
 
-/** A date of the form (`YYYY-MM-DD`): day, month and year typed in the locale's order — the schema checks it. */
-export function DateField({ name, label, hint, disabled, style, labels, autoComplete }: DateFieldProps) {
+/** A date of the form (`YYYY-MM-DD`): wheels in the locale's order (or day · month · year typed) — the schema checks it. */
+export function DateField({ name, label, hint, disabled, style, labels, autoComplete, entry = "wheel", min, max }: DateFieldProps) {
   const f = useKrizakaField<string>(name);
-  const chained = useChained({});
+  const chained = useChained({}, entry === "wheel");
+  if (entry === "wheel")
+    return (
+      <DateWheel
+        label={label}
+        hint={hint}
+        error={f.error}
+        disabled={disabled}
+        style={style}
+        labels={labels}
+        locale={f.locale}
+        min={min}
+        max={max}
+        defaultView={autoComplete === "bday" ? "2000-01-01" : undefined}
+        value={f.value ?? ""}
+        onValueChange={(v) => {
+          f.setValue(v);
+          f.onBlur();
+        }}
+      />
+    );
   return <DateFieldControl {...chained} returnKeyType={chained.returnKeyType} label={label} hint={hint} error={f.error} disabled={disabled} style={style} labels={labels} autoComplete={autoComplete} locale={f.locale} value={f.value ?? ""} onValueChange={(v) => f.setValue(v)} onBlur={f.onBlur} />;
+}
+
+export type SliderProps = Base & {
+  /** The lowest value. Default 0. */
+  min?: number;
+  /** The highest value. Default 100. */
+  max?: number;
+  /** The step. Default 1. */
+  step?: number;
+  /** The value as words ("15 %", "3 min"), shown and read. */
+  formatValue?: (value: number) => string;
+  /** For a range (`[number, number]`): each thumb's name, passed translated. */
+  thumbLabels?: [string, string];
+  /** A graduation per step (`true`) or at the values given. */
+  ticks?: boolean | readonly number[];
+};
+
+/** A number (or a range) of the form, chosen by feel: a share, a volume, a price range. */
+export function Slider({ name, label, hint, disabled, style, min, max, step, formatValue, thumbLabels, ticks }: SliderProps) {
+  const f = useKrizakaField<SliderValue>(name);
+  return (
+    <View style={[styles.field, style]}>
+      <SliderControl label={label} showLabel floatingValue value={f.value} min={min} max={max} step={step} disabled={disabled} formatValue={formatValue} thumbLabels={thumbLabels} ticks={ticks} onValueChange={(v) => f.setValue(v)} onValueCommit={() => f.onBlur()} />
+      <Caption field={f} hint={hint} />
+    </View>
+  );
 }
 
 export type MoneyProps = Base & {
@@ -432,7 +533,7 @@ export function Watch({ name, children }: WatchProps) {
   return <>{children(useFormValue(name))}</>;
 }
 
-const fields = { TextField, TextArea, Checkbox, Switch, RadioGroup, Select, DateField, Money, Field: FormField, FieldArray, Watch, Submit, FormError };
+const fields = { TextField, TextArea, Checkbox, Switch, RadioGroup, Select, Combobox, DateField, Money, Slider, Field: FormField, FieldArray, Watch, Submit, FormError };
 
 /** A form, defined once — the same schema and defaults as the web (`packages/core` of a product) — on native fields. */
 export const createKrizakaForm = makeCreateKrizakaForm(fields, FormRoot);
@@ -449,7 +550,5 @@ const styles = StyleSheet.create({
   field: { gap: 6, alignSelf: "stretch" },
   suggestion: { alignSelf: "flex-start", minHeight: 32, justifyContent: "center" },
   alert: { borderWidth: 1, padding: 12, gap: 4 },
-  switchRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 16, minHeight: 44 },
-  switchText: { flex: 1, gap: 2 },
   groupLabel: { fontWeight: "600" },
 });
