@@ -16,7 +16,7 @@ import { appendFileSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSyn
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 
-import { CONSUMERS, ENTRY_POINTS, EXAMPLE_DEPS, examplesOf, missingEntries, NATIVE_PEERS, nativeApp, PACKAGES, parseArgs, summaryMarkdown, WEB_PEERS, webPages } from "./lib.mjs";
+import { CONSUMERS, ENTRY_POINTS, EXAMPLE_DEPS, examplesOf, missingEntries, NATIVE_PEERS, nativeApp, PACKAGES, parseArgs, summaryMarkdown, webPages } from "./lib.mjs";
 
 const here = import.meta.dirname;
 const options = parseArgs(process.argv.slice(2));
@@ -91,7 +91,7 @@ function nextConsumer(versions) {
   cpSync(join(here, "next"), app, { recursive: true });
   writeFileSync(join(app, "package.json"), `${JSON.stringify({ name: "kz-smoke-next", private: true, scripts: { build: "next build" } }, null, 2)}\n`);
   const result = consumer("next", [
-    ["npm install (published packages)", () => sh("npm", ["install", ...NPM, "next@16", "react@19", "react-dom@19", "typescript@5", "@types/react@19", "@types/react-dom@19", "@types/node@22", "tailwindcss@4", "@tailwindcss/postcss@4", ...WEB_PEERS, ...EXAMPLE_DEPS, ...specs(versions, CONSUMERS.next)], app)],
+    ["npm install (published packages)", () => sh("npm", ["install", ...NPM, "next@16", "react@19", "react-dom@19", "typescript@5", "@types/react@19", "@types/react-dom@19", "@types/node@22", "tailwindcss@4", "@tailwindcss/postcss@4", "hls.js", ...EXAMPLE_DEPS, ...specs(versions, CONSUMERS.next)], app)],
     ["entries of @krizaka/ui (data table v2, virtual, form)", () => entriesStep(app, ENTRY_POINTS.next)],
     ["generate the example pages", () => {
       let count = 0;
