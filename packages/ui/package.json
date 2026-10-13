@@ -1881,7 +1881,7 @@
     }
   ],
   "dependencies": {
-    "@krizaka/intl": "^0.1.1",
+    "@krizaka/intl": "workspace:^",
     "@krizaka/tokens": "workspace:^",
     "@protomaps/basemaps": "5.7.2",
     "@tanstack/react-form": "1.33.5",

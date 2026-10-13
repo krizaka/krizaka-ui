@@ -721,8 +721,8 @@ importers:
   packages/ui:
     dependencies:
       '@krizaka/intl':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: workspace:^
+        version: link:../intl
       '@krizaka/tokens':
         specifier: workspace:^
         version: link:../tokens
@@ -2047,10 +2047,6 @@ packages:
     resolution: {integrity: sha512-jRVXr+zsVHxzDXRoh+CDeXzvCsFJ6uiHhqqNQ26Cw9ZsZ3D6nqPUBt1gGVtj2ZPmRL3a9Uk1v8D1aJ8/I12Dow==}
     peerDependencies:
       solid-js: ^1.8.8
-
-  '@krizaka/intl@0.1.0':
-    resolution: {integrity: sha512-lDGZtRtVpIBGao/wyFu/04alwfIM/WL7EbLPOzHTPYLGvFia71FqYNYY71KX2KVcbkI7vNqstRkoLmZilG8l6g==}
-    engines: {node: '>=20'}
 
   '@loaderkit/resolve@1.0.6':
     resolution: {integrity: sha512-G8FdIoF5CypfwmD9rl8BXod5HDn8JqB0CCNBXDTaRZ+yRYhARrrSToX1zg1zy9jX3zLqigsELwhT4gNtkdQAUg==}
@@ -10123,8 +10119,6 @@ snapshots:
       '@solid-primitives/refs': 1.1.4(solid-js@1.9.17)
       '@solid-primitives/utils': 6.4.1(solid-js@1.9.17)
       solid-js: 1.9.17
-
-  '@krizaka/intl@0.1.0': {}
 
   '@loaderkit/resolve@1.0.6':
     dependencies:
