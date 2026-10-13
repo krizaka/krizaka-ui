@@ -16,7 +16,7 @@
     "expo-font",
     "design-system"
   ],
-  "homepage": "https://www.krizaka.com/en/docs/ui/typography",
+  "homepage": "https://www.krizaka.com/en/docs/ui",
   "bugs": "https://github.com/krizaka/krizaka-ui/issues",
   "repository": {
     "type": "git",
