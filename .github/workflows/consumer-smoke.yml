@@ -36,8 +36,8 @@ jobs:
       matrix:
         consumer: [next, expo, node]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
       # On a release tag (@krizaka/ui@2.11.0), wait until npm serves that version, then test it.
