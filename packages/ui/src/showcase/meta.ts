@@ -21,7 +21,7 @@ export const meta = {
     "Pass `labels` translated — the controls, the counter (“Image 1 of 17”) and each slide's “n of N”; `getTitle` names the slide in the counter.",
     "5–8 seconds per slide for a picture and a sentence; the bar shows the time, so the reader can decide to stay.",
     "Type a text with `useTypedText` only when it is short, and keep the full text for assistive technology (`sr-only`).",
-    "Import `@krizaka/ui/motion.css`: the bar's fill is its animation, and its end moves the show.",
+    "The bar's fill is a CSS animation and its end moves the show: its rules ship with the component, nothing to import.",
   ],
   accessibility: {
     keyboard: [

@@ -1,13 +1,14 @@
 // Client (state, timers' observers, keys). A slideshow that advances by itself — and shows it: a segmented progress bar
 // (one segment per slide, the current one fills over the interval, each one a button) with a counter, previous / next and a
-// visible pause button (WCAG 2.2.2). The time IS the CSS animation of the current segment (`.kz-showcase-fill`, motion.css):
+// visible pause button (WCAG 2.2.2). The time IS the CSS animation of the current segment (`.kz-showcase-fill`):
 // when it ends, the next slide comes — so what you see filling is exactly what decides, and pausing the animation pauses
-// the show. It waits while the pointer is over it, while a keyboard focus is inside, while the tab is hidden and while it
+// the show. Its two rules travel with the component (a hoisted, deduplicated <style>): no stylesheet to import. It waits while the pointer is over it, while a keyboard focus is inside, while the tab is hidden and while it
 // is off screen; under reduced motion it never advances by itself. Slides are slots: any content.
 import * as React from "react";
 
 import { cn } from "../cn";
 
+const FILL_CSS = ".kz-showcase-fill{transform-origin:left;animation:kz-showcase-fill 6s linear forwards}@keyframes kz-showcase-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}";
 const REDUCED = "(prefers-reduced-motion: reduce)";
 const subscribeNothing = () => () => undefined;
 const readReduced = () => Boolean(typeof window !== "undefined" && window.matchMedia?.(REDUCED).matches);
@@ -190,6 +191,9 @@ export function Showcase<T>({
       }}
       {...props}
     >
+      <style href="kz-showcase" precedence="medium">
+        {FILL_CSS}
+      </style>
       <div aria-live={announce ? "polite" : "off"} className="grid">
         {items.map((slide, i) => {
           const active = i === current;

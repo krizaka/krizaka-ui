@@ -30,6 +30,13 @@ describe("Showcase", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
+  it("carries the rules of its fill animation: no stylesheet to import", () => {
+    render(show());
+    const css = [...document.querySelectorAll("style")].map((el) => el.textContent).join("");
+    expect(css).toContain("@keyframes kz-showcase-fill");
+    expect(css).toContain(".kz-showcase-fill");
+  });
+
   it("shows the counter with the slide's title and one segment per slide", () => {
     render(show());
     expect(screen.getByText("Golden hour", { selector: "span" })).toBeTruthy();
