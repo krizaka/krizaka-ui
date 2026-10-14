@@ -17,9 +17,9 @@ export const meta = {
       { keys: "Tab", action: "Moves through the sidebar's items, the collapse button and the header's actions." },
       { keys: "Esc", action: "Closes the drawer on a phone and returns the focus to the menu button." }
     ],
-    notes: ["The sidebar is a `nav` named by `label`; the current item carries `aria-current=\"page\"`.", "On a phone the drawer is a modal dialog (Radix): focus trapped inside, Escape and the overlay close it, the focus returns to the button.", "The header's title is the screen's `h1`; nested layouts use `headingAs=\"h2\"`."],
+    notes: ["`skipLabel` on `AppShell.Root` adds the skip link (WCAG 2.4.1): the first tab stop, landing on `AppShell.Main`.", "The sidebar is a `nav` named by `label`; the current item carries `aria-current=\"page\"`.", "On a phone the drawer is a modal dialog (Radix): focus trapped inside, Escape and the overlay close it, the focus returns to the button.", "The header's title is the screen's `h1`; nested layouts use `headingAs=\"h2\"`."],
   },
-  related: ["dashboard-layout", "nav-bar", "dialog"],
+  related: ["dashboard-layout", "nav-bar", "dialog", "skip-link"],
   web: {
     imports: ["AppShell"],
     examples: [

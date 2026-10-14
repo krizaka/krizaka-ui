@@ -2,6 +2,7 @@
 // admin and studio, Orazaka web-admin and web-client): a sidebar of sections that collapses to its icons on a desktop,
 // a header with the screen's title and actions, the content — and below `md` the sidebar becomes a drawer opened from
 // the header (Radix Dialog: focus trap, Escape, focus return). Words arrive as props; links through `asChild`.
+import { SkipLink } from "@krizaka/ui/skip-link";
 import { Dialog as DialogPrimitive, Slot } from "radix-ui";
 import * as React from "react";
 import { tv } from "tailwind-variants";
@@ -69,10 +70,12 @@ export type AppShellRootProps = React.ComponentProps<"div"> & {
   collapsed?: boolean;
   /** Called when the sidebar collapses or expands. */
   onCollapsedChange?: (collapsed: boolean) => void;
+  /** The words of the "skip to content" link (`Skip to content`), the first tab stop; it lands on `AppShell.Main`. Without it, no link. */
+  skipLabel?: string;
 };
 
 /** The shell: holds the collapse (desktop) and the drawer (phone) state. Children: Sidebar, then Body. */
-export function AppShellRoot({ defaultCollapsed = false, collapsed: controlled, onCollapsedChange, className, ...props }: AppShellRootProps) {
+export function AppShellRoot({ defaultCollapsed = false, collapsed: controlled, onCollapsedChange, skipLabel, className, children, ...props }: AppShellRootProps) {
   const [own, setOwn] = React.useState(defaultCollapsed);
   const [open, setOpen] = React.useState(false);
   const collapsed = controlled ?? own;
@@ -86,7 +89,10 @@ export function AppShellRoot({ defaultCollapsed = false, collapsed: controlled, 
   const value = React.useMemo(() => ({ collapsed, setCollapsed, open, setOpen, inDrawer: false }), [collapsed, setCollapsed, open]);
   return (
     <ShellContext.Provider value={value}>
-      <div className={s.root({ className })} {...props} />
+      <div className={s.root({ className })} {...props}>
+        {skipLabel && <SkipLink href="#content">{skipLabel}</SkipLink>}
+        {children}
+      </div>
     </ShellContext.Provider>
   );
 }
@@ -236,7 +242,7 @@ export function AppShellHeader({ title, menuLabel, actions, className, children,
 
 /** The screen's content. */
 export function AppShellMain({ className, ...props }: React.ComponentProps<"main">) {
-  return <main className={s.main({ className })} {...props} />;
+  return <main id="content" tabIndex={-1} className={s.main({ className })} {...props} />;
 }
 
 export const AppShell = {

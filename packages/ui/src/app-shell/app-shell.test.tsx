@@ -1,9 +1,10 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { axeViolations } from "../test/axe";
 import { AppShell } from "./index";
 
-function Shell(props: { defaultCollapsed?: boolean }) {
+function Shell(props: { defaultCollapsed?: boolean; skipLabel?: string }) {
   return (
     <AppShell.Root {...props}>
       <AppShell.Sidebar label="Studio" brand="Studio" collapseLabels={["Collapse", "Expand"]} closeLabel="Close the menu">
@@ -47,5 +48,19 @@ describe("AppShell", () => {
     const dialog = screen.getByRole("dialog");
     expect(dialog.textContent).toContain("Home");
     expect(screen.getByRole("button", { name: "Close the menu" })).toBeTruthy();
+  });
+
+  it("starts with a skip link that lands on the content, when it has the words for it", async () => {
+    const user = userEvent.setup();
+    render(<Shell skipLabel="Skip to content" />);
+    await user.tab();
+    expect(document.activeElement).toBe(screen.getByRole("link", { name: "Skip to content" }));
+    await user.keyboard("{Enter}");
+    expect(document.activeElement).toBe(screen.getByRole("main"));
+  });
+
+  it("has no skip link without words", () => {
+    render(<Shell />);
+    expect(screen.queryByRole("link", { name: /skip/i })).toBeNull();
   });
 });

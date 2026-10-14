@@ -112,6 +112,7 @@ export type ComponentName =
   | "separator"
   | "settings-layout"
   | "skeleton"
+  | "skip-link"
   | "slider"
   | "slot"
   | "spinner"
