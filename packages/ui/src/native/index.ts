@@ -3,6 +3,7 @@
  * the primitives with the web's names and props where the concept is the same, and the Krizaka marks
  * (react-native-svg). StyleSheet only: no dependency beyond react-native and react-native-svg.
  */
+export { type DefaultAvatar, type DefaultAvatarBrand, defaultAvatarUrl } from "../avatar/default-avatar";
 export { splitDuration, useCountdown } from "../countdown/core";
 export {
   addDays,

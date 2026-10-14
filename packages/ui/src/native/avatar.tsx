@@ -2,6 +2,7 @@ import * as React from "react";
 import { Image, StyleSheet, Text, View, type ViewProps } from "react-native";
 import Svg, { Circle, Defs, LinearGradient, Stop, SvgUri } from "react-native-svg";
 
+import { type DefaultAvatar, defaultAvatarUrl } from "../avatar/default-avatar";
 import { useSvgId, useTheme } from "./theme";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -20,6 +21,10 @@ export type AvatarProps = Omit<ViewProps, "children"> & {
   alt?: string;
   /** Shown while there is no image or when it fails: default, the first letter of `alt`. */
   fallback?: React.ReactNode;
+  /** The picture to show when `src` is missing or fails to load (an image URI); `fallback` still covers the case of no picture at all. */
+  fallbackSrc?: string;
+  /** The Krizaka default picture (the brand's gradient and a silhouette, one of six tones from `seed`) when there is no photo; `fallbackSrc` wins over it. */
+  defaultAvatar?: DefaultAvatar;
   /** A size of the scale, or points. */
   size?: AvatarSize | number;
   /** A dot at the bottom right: `online` (success), `away` (warning), `busy` (danger), `offline` (hollow). */
@@ -36,13 +41,15 @@ export function isSvgUri(uri: string): boolean {
   return /^data:image\/svg\+xml[;,]/i.test(uri) || /\.svg(?:[?#]|$)/i.test(uri);
 }
 
-export function AvatarRoot({ src, svg, alt = "", fallback, size = "md", presence, presenceLabel, ring, style, ...props }: AvatarProps) {
+export function AvatarRoot({ src, svg, alt = "", fallback, fallbackSrc, defaultAvatar, size = "md", presence, presenceLabel, ring, style, ...props }: AvatarProps) {
   const { theme } = useTheme();
   const gradient = useSvgId("kz-ring-");
   // The source that failed to load: a new `src` gets its chance.
-  const [failedSrc, setFailedSrc] = React.useState<string | null>(null);
-  const failed = Boolean(src) && failedSrc === src;
+  const [failedSrcs, setFailedSrcs] = React.useState<readonly string[]>([]);
+  const failedSrc = { has: (uri?: string) => Boolean(uri) && failedSrcs.includes(uri as string) };
   const side = typeof size === "number" ? size : SIDE[size];
+  const backup = fallbackSrc ?? (defaultAvatar ? defaultAvatarUrl(defaultAvatar, { size: side > 40 ? 512 : 256 }) : undefined);
+  const shown = src && !failedSrc.has(src) ? src : backup && !failedSrc.has(backup) ? backup : null;
   const initial = alt.trim().charAt(0).toUpperCase();
   const content = fallback ?? initial;
   const picture = (
@@ -53,12 +60,12 @@ export function AvatarRoot({ src, svg, alt = "", fallback, size = "md", presence
       {...(presence || ring ? {} : props)}
       style={[styles.root, { width: side, height: side, borderRadius: side / 2, backgroundColor: theme.surface3 }, presence || ring ? null : style]}
     >
-      {src && !failed && (svg || isSvgUri(src)) ? (
+      {shown && ((svg && shown === src) || isSvgUri(shown)) ? (
         <View style={StyleSheet.absoluteFill} pointerEvents="none">
-          <SvgUri testID={props.testID ? `${props.testID}.svg` : undefined} uri={src} width="100%" height="100%" preserveAspectRatio="xMidYMid slice" onError={() => setFailedSrc(src)} />
+          <SvgUri testID={props.testID ? `${props.testID}.svg` : undefined} uri={shown} width="100%" height="100%" preserveAspectRatio="xMidYMid slice" onError={() => setFailedSrcs((all) => [...all, shown])} />
         </View>
-      ) : src && !failed ? (
-        <Image testID={props.testID ? `${props.testID}.image` : undefined} source={{ uri: src }} onError={() => setFailedSrc(src)} resizeMode="cover" style={StyleSheet.absoluteFill} />
+      ) : shown ? (
+        <Image testID={props.testID ? `${props.testID}.image` : undefined} source={{ uri: shown }} onError={() => setFailedSrcs((all) => [...all, shown])} resizeMode="cover" style={StyleSheet.absoluteFill} />
       ) : typeof content === "string" ? (
         <Text style={[styles.initial, { color: theme.textSecondary, fontSize: Math.max(9, Math.round(side * 0.4)) }]}>{content}</Text>
       ) : (

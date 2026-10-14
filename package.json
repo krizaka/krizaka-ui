@@ -21,13 +21,15 @@
     "inventory": "node tools/inventory.mjs",
     "test:tools": "node --test 'tools/**/*.test.mjs'",
     "smoke:consumers": "node tools/consumer-smoke/run.mjs",
-    "release": "turbo run check && changeset publish"
+    "release": "turbo run check && changeset publish",
+    "export:brand": "node tools/export-brand.mjs"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.1",
     "@changesets/cli": "^3.0.3",
     "@krizaka/config": "workspace:*",
     "eslint": "^9.39.0",
+    "sharp": "^0.35.5",
     "turbo": "^2.11.7"
   }
 }

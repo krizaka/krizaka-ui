@@ -3,6 +3,8 @@ import { Avatar as AvatarPrimitive } from "radix-ui";
 import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
+import { type DefaultAvatar, defaultAvatarUrl } from "./default-avatar";
+
 const avatar = tv({
   slots: {
     root: "relative inline-flex shrink-0 overflow-hidden rounded-full bg-surface-3 align-middle",
@@ -31,6 +33,13 @@ export type AvatarProps = Omit<React.ComponentProps<"span">, "children"> & {
   alt?: string;
   /** Shown while the image loads, when it fails or when there is none: initials, an icon. */
   fallback?: React.ReactNode;
+  /** The picture to show instead when `src` is missing or fails to load (an image URL). The `fallback` still covers its own loading. */
+  fallbackSrc?: string;
+  /**
+   * The Krizaka default picture when the person has no photo (or it fails): their brand's gradient and a silhouette,
+   * one of six tones from `seed` — `defaultAvatar={{ brand: "orochia", seed: user.id }}`. `fallbackSrc` wins over it.
+   */
+  defaultAvatar?: DefaultAvatar;
   /**
    * xs · sm · md · lg · xl.
    * @default "md"
@@ -38,12 +47,25 @@ export type AvatarProps = Omit<React.ComponentProps<"span">, "children"> & {
   size?: AvatarSize;
 };
 
-export function AvatarRoot({ src, alt = "", fallback, size, className, ...props }: AvatarProps) {
+export function AvatarRoot({ src, alt = "", fallback, fallbackSrc, defaultAvatar, size, className, ...props }: AvatarProps) {
   const s = avatar({ size });
+  const [failed, setFailed] = React.useState<string | null>(null);
+  // 512 px for the big sizes, 256 for the others: sharp on a 2x screen either way.
+  const backup = fallbackSrc ?? (defaultAvatar ? defaultAvatarUrl(defaultAvatar, { size: size === "xl" || size === "lg" ? 512 : 256 }) : undefined);
+  const shown = src && failed !== src ? src : backup;
   return (
     <AvatarPrimitive.Root data-size={size ?? "md"} className={s.root({ className })} {...props}>
-      {src && <AvatarPrimitive.Image src={src} alt={alt} className={s.image()} />}
-      <AvatarPrimitive.Fallback delayMs={src ? 300 : 0} className={s.fallback()}>
+      {shown && (
+        <AvatarPrimitive.Image
+          src={shown}
+          alt={alt}
+          className={s.image()}
+          onLoadingStatusChange={(status) => {
+            if (status === "error" && shown === src) setFailed(src);
+          }}
+        />
+      )}
+      <AvatarPrimitive.Fallback delayMs={shown ? 300 : 0} className={s.fallback()}>
         {fallback}
       </AvatarPrimitive.Fallback>
     </AvatarPrimitive.Root>

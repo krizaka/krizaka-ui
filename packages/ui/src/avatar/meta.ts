@@ -16,6 +16,8 @@ export const meta = {
   ],
   bestPractices: [
     "Always pass a `fallback` (initials) on the web: images fail, and the layout should not jump.",
+    "A profile can lack a photo: pass `defaultAvatar={{ brand, seed: user.id }}` and the person gets the product's own default picture (a silhouette on the brand's gradient, one of six tones, always the same for the same id) instead of an empty circle. It also replaces a photo that fails to load. `fallbackSrc` is the same for your own image; `kind: \"plain\"` is the gradient alone, for initials.",
+    "The default pictures are generated from the code (`defaultAvatarSvg`) and served by the Krizaka CDN (`defaultAvatarUrl`, 256 and 512 px WebP, SVG): a product never draws its own.",
     "Use one size per list: `sm` in dense lists, `md` by default, `lg`/`xl` on a profile.",
     "In a group, set `max` so a long list ends with `+n` instead of overflowing.",
   ],
@@ -31,6 +33,7 @@ export const meta = {
     imports: ["Avatar"],
     examples: [
       { name: "with-image", title: "With an image", description: "A picture named by `alt`, with initials as `fallback`." },
+      { name: "default", title: "Default pictures", description: "No photo: `defaultAvatar={{ brand, seed }}` — the brand's gradient and a silhouette, one of six tones per person." },
       { name: "fallback", title: "Fallback", description: "No image: the initials." },
       { name: "sizes", title: "Sizes", description: "`xs`, `sm`, `md` (default), `lg`, `xl`." },
       { name: "group", title: "Group", description: "`Avatar.Group` with `max`: the others become `+n`." },
@@ -41,6 +44,7 @@ export const meta = {
     differences: [
       "The fallback is the initial of `alt` when `fallback` is not given.",
       "`size` also takes a number of points.",
+      "`defaultAvatar` and `fallbackSrc` work as on the web (the default pictures are WebP, drawn by `Image`); `defaultAvatarUrl` is exported from `@krizaka/ui/native`.",
       "`src` is a URI string (an `Image` source), not a URL object.",
       "An SVG `src` (`….svg`, `data:image/svg+xml,…`, or any URI with `svg`) is drawn by react-native-svg — `Image` cannot.",
       "`presence` adds a dot (online, away, busy, offline) and `ring` a story ring (new, seen, live): mobile only for now.",
