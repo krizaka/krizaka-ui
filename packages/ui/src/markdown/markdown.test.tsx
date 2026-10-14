@@ -166,6 +166,14 @@ describe("a text that arrives in pieces", () => {
     expect(healStreaming("A [b](c) done")).toBe("A [b](c) done");
   });
 
+  it("heals in linear time on hostile input (many brackets)", () => {
+    const started = Date.now();
+    healStreaming("[\\".repeat(50_000));
+    healStreaming("[](".repeat(50_000));
+    healStreaming("![".repeat(50_000));
+    expect(Date.now() - started).toBeLessThan(500);
+  });
+
   it("shows an open code fence as code as it comes, and drops an empty heading at the end", () => {
     expect(parseSource("```ts\nconst a =", { streaming: true })).toEqual([{ type: "code", lang: "ts", value: "const a =" }]);
     expect(parseSource("Text\n\n# ", { streaming: true })).toHaveLength(1);

@@ -16,13 +16,28 @@ export type ParseOptions = {
 
 const FENCE = /^ {0,3}(```|~~~)/gm;
 
+/** A link or image cut at its end: `[label`, `[label]`, `[label](http…` become `label`, an image is dropped. Linear: one scan of the last `[`. */
+function healLink(text: string): string {
+  const open = text.lastIndexOf("[");
+  if (open < 0) return text;
+  const rest = text.slice(open + 1);
+  if (rest.includes("\n")) return text;
+  const image = open > 0 && text[open - 1] === "!";
+  const close = rest.indexOf("]");
+  const after = close < 0 ? "" : rest.slice(close + 1);
+  const cut = close < 0 || after === "" || (after.startsWith("(") && !after.includes(")"));
+  if (!cut) return text;
+  const head = text.slice(0, image ? open - 1 : open);
+  return image ? head : head + (close < 0 ? rest : rest.slice(0, close));
+}
+
 /**
  * Closes what a text cut in the middle leaves open: an emphasis (`**`, `~~`) or a code span, a link or image whose
  * address has not arrived. Inside an open code fence nothing is healed — it is shown as code as it comes.
  */
 export function healStreaming(source: string): string {
   if (((source.match(FENCE) ?? []).length & 1) === 1) return source;
-  let out = source.replace(/!\[[^\]\n]*\]\([^)\n]*$/, "").replace(/\[([^\]\n]*)\](?:\([^)\n]*)?$/, "$1").replace(/\[([^\]\n]*)$/, "$1");
+  let out = healLink(source);
   const cut = out.lastIndexOf("\n\n");
   const block = cut < 0 ? out : out.slice(cut + 2);
   const open = (marker: string) => (block.split(marker).length - 1) % 2 === 1;
