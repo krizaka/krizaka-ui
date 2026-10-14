@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["LegalPage"],
     examples: [
-      { name: "privacy", title: "Privacy policy", description: "A summary and three sections with their contents.", template: true },
+      { name: "privacy", title: "Privacy policy", description: "A summary and three sections with their contents.", template: true, purpose: "explain", why: "A person finds a commitment in plain words, with a summary first and the detail by section." },
     ],
   },
 } satisfies ComponentMeta;

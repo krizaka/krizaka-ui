@@ -156,24 +156,48 @@ export type Status = "stable" | "beta";
  */
 export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "media" | "blocks" | "layouts" | "templates" | "layout" | "foundations";
 
+/** Why a reader needs a template: the seven intents the templates are grouped by (sidebar sub-headings, catalogue filter). */
+export type TemplatePurpose = "convince" | "explain" | "show" | "act" | "operate" | "converse" | "recover";
+
+/** The groups of templates, in reading order: the title, and the one line that says when to come to that group. */
+export const templatePurposes = {
+  convince: { title: "Convince", useWhen: "You come here when a visitor must decide: a landing, a product, a price, a comparison, a proof." },
+  explain: { title: "Explain", useWhen: "You come here when a reader must understand: how it works, a documentation hub or article, a changelog, a FAQ, a policy." },
+  show: { title: "Show", useWhen: "You come here when the work itself is the argument: a gallery, a story, a case study, an object and its details." },
+  act: { title: "Act", useWhen: "You come here when a person must do something once: reach the team, sign in or up, set up, pay." },
+  operate: { title: "Operate", useWhen: "You come here when a person works every day: a dashboard, a console with a table, settings, an app shell." },
+  converse: { title: "Converse", useWhen: "You come here when people talk: an inbox, a chat, comments, a notifications centre." },
+  recover: { title: "Recover", useWhen: "You come here when the way is blocked: an empty list, an error, a missing page, maintenance, a product still being built." },
+} as const satisfies Record<TemplatePurpose, { readonly title: string; readonly useWhen: string }>;
+
 /**
  * A named example: the file `registry/examples/<component>/<name>.tsx` (web) or
  * `registry/examples/<component>/native/<name>.tsx` (React Native) — at most 40 lines, imported by the stories and
  * shown (live, with its code) by the documentation.
  */
-export interface Example {
+interface ExampleBase {
   /** The file name, kebab-case (`primary`, `icon-button`). */
   readonly name: string;
   /** A short title (`Primary`, `Icon button`). */
   readonly title: string;
   /** One or two sentences: when this variant is the right one. */
   readonly description: string;
-  /**
-   * A template: a whole screen of a product composed from the platform (a layout and its blocks, real words, its phone
-   * version thought out), copied as a starting point — at most 160 lines, listed on krizaka.com/docs/ui/templates.
-   */
-  readonly template?: boolean;
 }
+
+/** A plain example, or a template: a whole screen with its intent (`purpose`) and the user goal its layout serves (`why`). */
+export type Example =
+  | (ExampleBase & { readonly template?: false; readonly purpose?: undefined; readonly why?: undefined })
+  | (ExampleBase & {
+      /**
+       * A template: a whole screen of a product composed from the platform (a layout and its blocks, real words, its
+       * phone version thought out), copied as a starting point — at most 160 lines, listed on krizaka.com/docs/ui/templates.
+       */
+      readonly template: true;
+      /** The intent that groups it: why you need this block. */
+      readonly purpose: TemplatePurpose;
+      /** Why this layout: the user goal it serves, in one sentence. */
+      readonly why: string;
+    });
 
 /** One platform's side of a component. */
 export interface PlatformDocs {

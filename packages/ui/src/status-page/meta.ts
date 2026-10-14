@@ -20,8 +20,8 @@ export const meta = {
   web: {
     imports: ["StatusPage"],
     examples: [
-      { name: "operational", title: "Status", description: "Three services, one slower than usual.", template: true },
-      { name: "building", title: "Under construction", description: "Yazakia on its way: progress and how to hear about it.", template: true },
+      { name: "operational", title: "Status", description: "Three services, one slower than usual.", template: true, purpose: "recover", why: "A person checks in one look whether the service works and which part is slow." },
+      { name: "building", title: "Under construction", description: "Yazakia on its way: progress and how to hear about it.", template: true, purpose: "recover", why: "A visitor learns honestly what is coming, how far it is and how to hear about it." },
     ],
   },
 } satisfies ComponentMeta;

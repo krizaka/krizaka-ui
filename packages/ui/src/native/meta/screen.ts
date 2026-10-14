@@ -20,12 +20,12 @@ export const meta = {
     imports: ["Screen"],
     differences: [],
     examples: [
-      { name: "app-shell", title: "App shell", description: "A header, a section's content, the tab bar." },
-      { name: "auth", title: "Sign in", description: "The mark, two fields, the main action pinned." },
-      { name: "profile", title: "Profile", description: "The photo and its ring, the facts, the interests." },
-      { name: "feed", title: "Feed", description: "A large title over a list of cards." },
-      { name: "chat", title: "Chat", description: "The person, the messages, the composer." },
-      { name: "settings", title: "Settings", description: "Sections of switches that apply at once." },
+      { name: "app-shell", title: "App shell", description: "A header, a section's content, the tab bar.", template: true, purpose: "operate", why: "A person moves between the main sections of the app with one thumb, the tab bar always in reach." },
+      { name: "auth", title: "Sign in", description: "The mark, two fields, the main action pinned.", template: true, purpose: "act", why: "A person signs in with the least typing: the brand, two fields, the main action pinned above the keyboard." },
+      { name: "profile", title: "Profile", description: "The photo and its ring, the facts, the interests.", template: true, purpose: "show", why: "A person is recognised at a glance: the photo first, then the facts and interests that start a conversation." },
+      { name: "feed", title: "Feed", description: "A large title over a list of cards.", template: true, purpose: "show", why: "A person scans what is new, one card per item, and stops where something matters." },
+      { name: "chat", title: "Chat", description: "The person, the messages, the composer.", template: true, purpose: "converse", why: "A person reads the thread and answers from the composer, which stays in reach." },
+      { name: "settings", title: "Settings", description: "Sections of switches that apply at once.", template: true, purpose: "operate", why: "A person changes a preference and sees it apply at once, grouped by what it concerns." },
     ],
   },
 } satisfies ComponentMeta;

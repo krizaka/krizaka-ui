@@ -7,7 +7,7 @@ import { join, relative } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import { collectRegistry, componentNames, exampleFileOf, EXAMPLES, metaFileOf, nativeOnlyNames, nativeScreenshotsOf, PKG, primitiveNames, readMeta } from "./registry.mjs";
+import { collectRegistry, collectTemplates, componentNames, exampleFileOf, EXAMPLES, metaFileOf, nativeOnlyNames, nativeScreenshotsOf, PKG, primitiveNames, readMeta, templatePurposes } from "./registry.mjs";
 
 const pkg = JSON.parse(readFileSync(join(PKG, "package.json"), "utf8"));
 const registry = await collectRegistry();
@@ -175,5 +175,37 @@ describe("examples (registry/examples)", () => {
     expect(button.web.examples[0]).toMatchObject({ name: "save-flow", module: "@krizaka/ui/registry/examples/button/save-flow" });
     expect(button.native.examples[0].path).toBe("examples/button/native/primary.tsx");
     expect(button.native.examples[0].code).toContain('from "@krizaka/ui/native"');
+  });
+});
+
+describe("templates grouped by intent", () => {
+  const templates = collectTemplates(registry);
+
+  it("gives every template a purpose and a why, and only templates", () => {
+    const purposes = Object.keys(templatePurposes);
+    expect(templates.length).toBeGreaterThan(0);
+    for (const t of templates) {
+      expect(purposes, `${t.component}/${t.name}: purpose`).toContain(t.purpose);
+      expect(sentence(t.why), `${t.component}/${t.name}: why`).toBe(true);
+    }
+    for (const item of registry) {
+      for (const example of [...(item.web?.examples ?? []), ...(item.native?.examples ?? [])]) {
+        if (!example.template) expect(example.purpose ?? example.why, `${item.name}/${example.name} is not a template`).toBeUndefined();
+      }
+    }
+  });
+
+  it("describes each group in one line, and every group holds at least one template", () => {
+    for (const [purpose, group] of Object.entries(templatePurposes)) {
+      expect(group.title.length, purpose).toBeGreaterThan(2);
+      expect(group.useWhen, purpose).toMatch(/^You come here when /);
+      expect(templates.filter((t) => t.purpose === purpose).length, `${purpose} has templates`).toBeGreaterThan(0);
+    }
+  });
+
+  it("lists the templates in the index, in the order of the groups", () => {
+    const order = Object.keys(templatePurposes);
+    const ranks = templates.map((t) => order.indexOf(t.purpose));
+    expect(ranks).toEqual([...ranks].sort((a, b) => a - b));
   });
 });

@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["ProductPage"],
     examples: [
-      { name: "orazaka", title: "Orazaka", description: "The sovereign AI engine's overview, in its orange.", template: true },
+      { name: "orazaka", title: "Orazaka", description: "The sovereign AI engine's overview, in its orange.", template: true, purpose: "convince", why: "A visitor understands what a product does, the traps it avoids and the decisions behind it, then acts." },
     ],
   },
 } satisfies ComponentMeta;

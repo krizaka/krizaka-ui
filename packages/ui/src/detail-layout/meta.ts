@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["DetailLayout"],
     examples: [
-      { name: "video", title: "A video", description: "Orochia's video page: thumbnail, status, facts, tabs and the sales beside.", template: true },
+      { name: "video", title: "A video", description: "Orochia's video page: thumbnail, status, facts, tabs and the sales beside.", template: true, purpose: "show", why: "A viewer sees the object itself first, with its facts and the actions that concern it beside it." },
       { name: "job", title: "A job", description: "An engine job without tabs or side panel." },
     ],
   },

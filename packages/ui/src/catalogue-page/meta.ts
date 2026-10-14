@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["CataloguePage"],
     examples: [
-      { name: "components", title: "Components", description: "Krizaka UI's components: search, platform filters, compact link cards.", template: true },
+      { name: "components", title: "Components", description: "Krizaka UI's components: search, platform filters, compact link cards.", template: true, purpose: "explain", why: "A reader looking for the right piece scans a filterable catalogue instead of reading every page." },
     ],
   },
 } satisfies ComponentMeta;

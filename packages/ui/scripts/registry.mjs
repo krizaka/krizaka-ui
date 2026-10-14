@@ -9,6 +9,10 @@ import { pathToFileURL } from "node:url";
 
 import docgen from "react-docgen-typescript";
 
+import { templatePurposes } from "../src/meta.ts";
+
+export { templatePurposes };
+
 export const PKG = resolve(import.meta.dirname, "..");
 const SRC = join(PKG, "src");
 const NATIVE = join(SRC, "native");
@@ -283,4 +287,29 @@ export async function collectRegistry() {
     });
   }
   return items;
+}
+
+/**
+ * The templates of the registry, flat and in reading order (purpose, then component, then example): what the site groups
+ * by intent. A template is an example flagged `template`, on either platform.
+ */
+export function collectTemplates(items) {
+  const order = Object.keys(templatePurposes);
+  return items
+    .flatMap((item) =>
+      ["web", "native"].flatMap((platform) =>
+        (item[platform]?.examples ?? [])
+          .filter((example) => example.template)
+          .map((example) => ({
+            component: item.name,
+            platform,
+            name: example.name,
+            title: example.title,
+            description: example.description,
+            purpose: example.purpose,
+            why: example.why,
+          })),
+      ),
+    )
+    .sort((a, b) => order.indexOf(a.purpose) - order.indexOf(b.purpose) || a.component.localeCompare(b.component) || a.name.localeCompare(b.name));
 }

@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["SplitView"],
     examples: [
-      { name: "messages", title: "Messages", description: "A creator's inbox: threads beside the open one, a reply box at its foot.", template: true },
+      { name: "messages", title: "Messages", description: "A creator's inbox: threads beside the open one, a reply box at its foot.", template: true, purpose: "converse", why: "A person reads a thread and replies without leaving the list of conversations." },
       { name: "empty", title: "Nothing open", description: "The list, and what to do while nothing is open." },
     ],
   },

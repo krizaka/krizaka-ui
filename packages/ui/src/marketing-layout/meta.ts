@@ -22,9 +22,9 @@ export const meta = {
   web: {
     imports: ["MarketingLayout"],
     examples: [
-      { name: "product-page", title: "A product page", description: "Orazaka's page: hero with facts, reasons, decisions, the owl's promise, the closing call.", template: true },
-      { name: "pricing", title: "Pricing and credits", description: "Plans side by side, what a credit buys, the credits left.", template: true },
-      { name: "docs-hub", title: "A documentation hub", description: "Groups of compact link cards under the hero.", template: true },
+      { name: "product-page", title: "A product page", description: "Orazaka's page: hero with facts, reasons, decisions, the owl's promise, the closing call.", template: true, purpose: "convince", why: "A visitor decides whether a product is for them: the promise first, the proof and the call after." },
+      { name: "pricing", title: "Pricing and credits", description: "Plans side by side, what a credit buys, the credits left.", template: true, purpose: "convince", why: "A buyer compares plans and sees what a credit buys before deciding to commit." },
+      { name: "docs-hub", title: "A documentation hub", description: "Groups of compact link cards under the hero.", template: true, purpose: "explain", why: "A newcomer finds the right documentation from one page of grouped entry points." },
       { name: "basic", title: "The layout alone", description: "Skip link, bar, hero, a section and a footer." },
     ],
   },

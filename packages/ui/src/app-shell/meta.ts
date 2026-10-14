@@ -23,8 +23,8 @@ export const meta = {
   web: {
     imports: ["AppShell"],
     examples: [
-      { name: "orochia-studio", title: "Orochia studio", description: "Elena's home in the creator studio: the shell around this week's figures, the payout, the auction and the sales.", template: true },
-      { name: "admin-console", title: "Administration console", description: "A review queue in a console: sections, counts and a sortable table with bulk actions (cards on a phone).", template: true },
+      { name: "orochia-studio", title: "Orochia studio", description: "Elena's home in the creator studio: the shell around this week's figures, the payout, the auction and the sales.", template: true, purpose: "operate", why: "A creator moves between the sections of an app and reads this week's figures at home." },
+      { name: "admin-console", title: "Administration console", description: "A review queue in a console: sections, counts and a sortable table with bulk actions (cards on a phone).", template: true, purpose: "operate", why: "An administrator works a queue: scans it, sorts it and acts on many rows at once." },
       { name: "basic", title: "The shell alone", description: "Sidebar with a group and a count, header with an action, the content." },
     ],
   },

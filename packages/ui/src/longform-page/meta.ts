@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["LongformPage"],
     examples: [
-      { name: "story", title: "Our story", description: "Krizaka's story in chapters, a pull quote and the flamingo's rule.", template: true },
+      { name: "story", title: "Our story", description: "Krizaka's story in chapters, a pull quote and the flamingo's rule.", template: true, purpose: "show", why: "A reader follows a story in chapters, at their own pace, with a break for the key line." },
     ],
   },
 } satisfies ComponentMeta;

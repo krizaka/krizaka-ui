@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["GalleryPage"],
     examples: [
-      { name: "made-here", title: "Made on this Mac", description: "Images Orazaka generated locally, with their prompt and seed.", template: true },
+      { name: "made-here", title: "Made on this Mac", description: "Images Orazaka generated locally, with their prompt and seed.", template: true, purpose: "show", why: "A visitor browses real results, each with how it was made." },
     ],
   },
 } satisfies ComponentMeta;

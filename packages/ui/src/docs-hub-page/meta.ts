@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["DocsHubPage"],
     examples: [
-      { name: "krizaka", title: "krizaka.com/docs", description: "The five collections, a quick start, the most read pages, what is new.", template: true },
+      { name: "krizaka", title: "krizaka.com/docs", description: "The five collections, a quick start, the most read pages, what is new.", template: true, purpose: "explain", why: "A newcomer picks a collection, starts quickly and sees what is new, from one hub." },
     ],
   },
 } satisfies ComponentMeta;

@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["ErrorPage"],
     examples: [
-      { name: "not-found", title: "Not found", description: "The pigeon, a search and three ways back.", template: true },
+      { name: "not-found", title: "Not found", description: "The pigeon, a search and three ways back.", template: true, purpose: "recover", why: "A lost visitor gets back on track with a search and a few ways out, never a dead end." },
     ],
   },
 } satisfies ComponentMeta;

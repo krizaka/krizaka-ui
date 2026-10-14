@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["PricingPage"],
     examples: [
-      { name: "credits", title: "Orazaka plans and credits", description: "Three plans, the comparison, credits and two questions.", template: true },
+      { name: "credits", title: "Orazaka plans and credits", description: "Three plans, the comparison, credits and two questions.", template: true, purpose: "convince", why: "A buyer compares three plans side by side and answers the last objections before choosing." },
     ],
   },
 } satisfies ComponentMeta;
