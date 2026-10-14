@@ -5,6 +5,7 @@ import type * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 import { IconButton } from "../button/button";
+import { useReturnFocus } from "./return-focus";
 
 export const dialog = tv({
   slots: {
@@ -82,6 +83,11 @@ export type DialogContentProps = React.ComponentProps<typeof DialogPrimitive.Con
 
 const prevent = (event: Event) => event.preventDefault();
 
+/** Radix's content, mounted only while open: it remembers the opener then and gives focus back on close (WCAG 2.4.3). */
+function ReturnFocusContent({ onCloseAutoFocus, ...props }: React.ComponentProps<typeof DialogPrimitive.Content>) {
+  return <DialogPrimitive.Content onCloseAutoFocus={useReturnFocus(onCloseAutoFocus)} {...props} />;
+}
+
 /** The dialog itself, portalled over a dimmed overlay, with a close button. Give it a `Dialog.Title`. */
 export function DialogContent({
   placement,
@@ -101,7 +107,7 @@ export function DialogContent({
   return (
     <DialogPrimitive.Portal container={container}>
       <DialogPrimitive.Overlay className={v.overlay()} />
-      <DialogPrimitive.Content
+      <ReturnFocusContent
         data-placement={placement ?? "center"}
         data-dismissible={dismissible ? undefined : "false"}
         className={v.content({ className })}
@@ -118,7 +124,7 @@ export function DialogContent({
             </IconButton>
           </DialogPrimitive.Close>
         )}
-      </DialogPrimitive.Content>
+      </ReturnFocusContent>
     </DialogPrimitive.Portal>
   );
 }
