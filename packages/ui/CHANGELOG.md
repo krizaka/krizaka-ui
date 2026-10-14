@@ -1,5 +1,34 @@
 # @krizaka/ui
 
+## 3.6.0
+
+### Minor Changes
+
+- [#160](https://github.com/krizaka/krizaka-ui/pull/160) [`76dfbba`](https://github.com/krizaka/krizaka-ui/commit/76dfbba54ba376ed47ee1b336f66518a529aeb8a) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Deprecation is a status of the registry: a component marked `deprecated` carries `{ since, removedIn, use, reason }` (checked by the registry test) and krizaka.com/docs/ui flags it. `TreeView` (`@krizaka/ui/tree-view`) is the first: no product uses it and no planned work needs it, it still works and goes in 4.0.0 — drill down with `List` instead.
+
+- [#157](https://github.com/krizaka/krizaka-ui/pull/157) [`1d23271`](https://github.com/krizaka/krizaka-ui/commit/1d232714beb074a958a723828ba93bfe035ef703) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `engines` is `node >=22` for every package: Node 20 reached end of life, and the products already run on Node 22. No compatibility shim.
+
+- [#163](https://github.com/krizaka/krizaka-ui/pull/163) [`6c576b0`](https://github.com/krizaka/krizaka-ui/commit/6c576b0c637187a15721a2d4ca553b8995f4ef40) Thanks [@oussamaABID](https://github.com/oussamaABID)! - More varied templates, each with its intent and its reason: a case study (`longform-page/case-study`), a FAQ (`docs-article-page/faq`), a tip checkout (`detail-layout/checkout`), an empty page (`empty-state/library`), planned maintenance (`status-page/maintenance`), a notifications centre and a "find a place nearby" map screen (`split-view/notifications`, `split-view/nearby`), and two native screens built on `Screen`: a map-centric one (`screen/native/map`, with the DS5 `Map` and a bottom sheet) and notifications.
+
+- [#162](https://github.com/krizaka/krizaka-ui/pull/162) [`9eef77f`](https://github.com/krizaka/krizaka-ui/commit/9eef77fdb3ab8b576aa4a713f905c5e5f0210038) Thanks [@oussamaABID](https://github.com/oussamaABID)! - fix(native): `PersonCard` draws one photo — the scrim under the name is sized in points from the overlay's own layout, so the photo is no longer cut in two (a dark band over the face and none under the name) on iOS.
+  
+  feat(ui): `MatchDialog` takes a `container` — draw the dialog inside a brand scope (`.brand-…`) so it wears the product's identity instead of the default one.
+
+- [#164](https://github.com/krizaka/krizaka-ui/pull/164) [`9c5c7ca`](https://github.com/krizaka/krizaka-ui/commit/9c5c7cabb8f78c07aefd5bbb52651a16a6a5fdf6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - New `SkipLink` (`@krizaka/ui/skip-link`): the standalone "skip to content" link for app shells that keep their own layout (WCAG 2.4.1). Visually hidden until focused, then a visible pill above everything in the brand ring; its label is passed translated, `href` defaults to `#content`, and Enter really moves focus to the target. `MarketingLayout` uses it, and `AppShell.Root` takes `skipLabel` (the link lands on `AppShell.Main`, now `id="content"`).
+
+- [#156](https://github.com/krizaka/krizaka-ui/pull/156) [`6695970`](https://github.com/krizaka/krizaka-ui/commit/669597042290c56c577dacd30204426c188a7092) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Templates are grouped by intent. Every template example now carries a `purpose` (Convince, Explain, Show, Act, Operate, Converse, Recover) and a `why` (the user goal its layout serves); `templatePurposes` gives each group its "you come here when…" line, and `registry/index.json` lists the `templates` in that order. The six React Native screens (app shell, sign-in, profile, feed, chat, settings) are templates too.
+
+### Patch Changes
+
+- [#158](https://github.com/krizaka/krizaka-ui/pull/158) [`73ea416`](https://github.com/krizaka/krizaka-ui/commit/73ea41619af7d5ef193a9a0856b8be0cdea609eb) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Dialog, Sheet and AlertDialog give focus back to the element that opened them when there is no `Dialog.Trigger` (a controlled `open` opened by a plain button): on Escape focus no longer falls to `<body>` (WCAG 2.4.3). A consumer's `onCloseAutoFocus` that prevents the default still wins.
+
+- [#166](https://github.com/krizaka/krizaka-ui/pull/166) [`debffad`](https://github.com/krizaka/krizaka-ui/commit/debffad6a764420e10415e1cd33f8c03f599339d) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `Marker` (the map) no longer breaks hydration: its host element was created in a `useState` initializer that differed between the server (nothing) and the browser (an element portalled into), so React threw away the server HTML of every page that drew a marker. It now uses `useSyncExternalStore` with a server snapshot — same first render on both sides. Test: render to a string with no `document`, hydrate, no recoverable error.
+- Updated dependencies [[`1d23271`](https://github.com/krizaka/krizaka-ui/commit/1d232714beb074a958a723828ba93bfe035ef703)]:
+  - @krizaka/tokens@3.6.0
+  - @krizaka/tailwind@3.6.0
+  - @krizaka/intl@0.2.0
+  - @krizaka/query@0.2.0
+
 ## 3.5.0
 
 ### Minor Changes

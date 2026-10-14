@@ -1,5 +1,16 @@
 # @krizaka/i18n
 
+## 0.2.0
+
+### Minor Changes
+
+- [#157](https://github.com/krizaka/krizaka-ui/pull/157) [`1d23271`](https://github.com/krizaka/krizaka-ui/commit/1d232714beb074a958a723828ba93bfe035ef703) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `engines` is `node >=22` for every package: Node 20 reached end of life, and the products already run on Node 22. No compatibility shim.
+
+### Patch Changes
+
+- Updated dependencies [[`1d23271`](https://github.com/krizaka/krizaka-ui/commit/1d232714beb074a958a723828ba93bfe035ef703)]:
+  - @krizaka/intl@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes
