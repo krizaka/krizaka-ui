@@ -15,6 +15,7 @@ export const IDENTITIES = [
   { id: "orochia", name: "Orochia" },
   { id: "yasakia", name: "Yasakia" },
   { id: "yororis", name: "Yororis" },
+  { id: "yomizaka", name: "Yomizaka" },
 ] as const;
 type Identity = (typeof IDENTITIES)[number]["id"];
 

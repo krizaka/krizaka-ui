@@ -8,6 +8,7 @@
     "orochia",
     "yasakia",
     "yororis",
+    "yomizaka",
     "react",
     "logo",
     "motion",
@@ -1119,7 +1120,7 @@
     {
       "name": "./nav-bar (Radix NavigationMenu, Slot, the family's marks)",
       "path": "dist/nav-bar.js",
-      "limit": "22 kB",
+      "limit": "22.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

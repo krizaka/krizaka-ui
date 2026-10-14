@@ -6,7 +6,7 @@
 // here in English and French (`familyLabels`) — a site passes the set of its locale, or its own translation.
 
 /** A site of the family. */
-export type SiteId = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "ui" | "java" | "github";
+export type SiteId = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka" | "ui" | "java" | "github";
 
 /** What a site is: the company, a product, or an open-source project. It chooses the footer's signature line. */
 export type SiteKind = "company" | "product" | "open-source";
@@ -21,7 +21,7 @@ export type SiteStatus = "released" | "upcoming" | "construction";
 export type SiteGroup = "krizaka" | "products" | "open-source" | "github";
 
 /** The mark a site wears: a brand of `ProductLogo` (Krizaka UI and Krizaka Java wear Krizaka's), or GitHub's. */
-export type SiteMark = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "github";
+export type SiteMark = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka" | "github";
 
 export interface Site {
   readonly id: SiteId;
@@ -48,6 +48,7 @@ export const sites: readonly Site[] = [
   site({ id: "orochia", name: "Orochia", url: "https://dev.orochia.com", kind: "product", group: "products", status: "released", mark: "orochia", repo: "https://github.com/krizaka/orochia" }),
   site({ id: "yasakia", name: "Yasakia", url: "https://dev.yasakia.com", kind: "product", group: "products", status: "upcoming", mark: "yasakia", repo: "https://github.com/krizaka/yasakia" }),
   site({ id: "yororis", name: "Yororis", url: "https://dev.yororis.com", kind: "product", group: "products", status: "construction", mark: "yororis", repo: "https://github.com/krizaka/yororis" }),
+  site({ id: "yomizaka", name: "Yomizaka", url: "https://dev.yomizaka.com", kind: "product", group: "products", status: "upcoming", mark: "yomizaka", repo: "https://github.com/krizaka/yomizaka" }),
   site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
   site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-build" }),
   site({ id: "github", name: "GitHub", url: "https://github.com/krizaka", kind: "open-source", group: "github", status: "released", mark: "github", repo: "https://github.com/krizaka" }),
@@ -104,6 +105,7 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       orochia: "A video platform for creators.",
       yasakia: "The dating app where you talk first.",
       yororis: "A listening space with a face and a voice.",
+      yomizaka: "Your documents, read and checked by Orazaka.",
       ui: "Components, tokens, icons and charts — web and React Native.",
       java: "Spring Boot building blocks on Maven Central.",
       github: "Every repository, in the open.",
@@ -123,6 +125,7 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       orochia: "Une plateforme vidéo pour les créateurs.",
       yasakia: "L’app de rencontre où l’on se parle d’abord.",
       yororis: "Un espace d’écoute avec un visage et une voix.",
+      yomizaka: "Vos documents, lus et vérifiés par Orazaka.",
       ui: "Composants, jetons, icônes et graphiques — web et React Native.",
       java: "Des briques Spring Boot sur Maven Central.",
       github: "Tous les dépôts, au grand jour.",

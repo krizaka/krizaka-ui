@@ -1,0 +1,108 @@
+{
+  "$description": "Yomizaka — l'indigo de l'encre (藍, ai) : la couleur de l'écrit et de la lecture, un bleu qui penche vers le violet. Distinct du bleu de Krizaka (217, saturé) par sa teinte (240, ≥ 20° — un test) et du violet d'Orochia (262, vif) par sa douceur ; loin de l'émeraude de Yasakia, de la sauge de Yororis, de l'orange d'Orazaka et de tous les statuts. Dark : indigo clair (pervenche) sous texte quasi noir ; light : indigo profond sous texte blanc. accent-2 est le bleu d'encre (232), le premier temps du logo et du dégradé des boutons. info reste le bleu de Krizaka. Le logo (mark) est un dégradé encre (232) → indigo (248) de teinte moyenne, identique dans les deux thèmes et ≥ 3:1 sur les surfaces 0–2 des deux thèmes.",
+  "$extensions": {
+    "com.krizaka": {
+      "mark": [
+        ["0%", "hsl(232 50% 55%)"],
+        ["100%", "hsl(248 50% 58%)"]
+      ]
+    }
+  },
+  "accent": {
+    "$type": "color",
+    "$root": {
+      "$value": "hsl(240 80% 74%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(242 52% 46%)"
+        }
+      }
+    },
+    "hover": {
+      "$value": "hsl(240 82% 80%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(242 55% 40%)"
+        }
+      }
+    },
+    "soft": {
+      "$value": "hsl(240 80% 74% / 0.12)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(242 52% 46% / 0.08)"
+        }
+      }
+    },
+    "text": {
+      "$value": "hsl(240 85% 78%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(242 52% 44%)"
+        }
+      }
+    }
+  },
+  "accent-2": {
+    "$type": "color",
+    "$value": "hsl(232 72% 74%)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(232 56% 40%)"
+      }
+    }
+  },
+  "on-accent": {
+    "$type": "color",
+    "$value": "hsl(240 6% 5%)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(0 0% 100%)"
+      }
+    }
+  },
+  "ring": {
+    "$type": "color",
+    "$value": "{accent.$root}"
+  },
+  "info": {
+    "$type": "color",
+    "$value": "hsl(217 92% 60%)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(217 92% 50%)"
+      }
+    }
+  },
+  "info-text": {
+    "$type": "color",
+    "$value": "hsl(217 92% 68%)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(217 92% 42%)"
+      }
+    }
+  },
+  "brand-gradient": {
+    "$type": "color",
+    "from": {
+      "$value": "hsl(236 30% 10%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(236 60% 95%)"
+        }
+      }
+    },
+    "via": {
+      "$value": "hsl(244 22% 8%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(244 50% 96%)"
+        }
+      }
+    },
+    "to": {
+      "$value": "{surface.0}"
+    }
+  }
+}
