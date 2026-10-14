@@ -19,6 +19,7 @@ export const meta = {
     "Set `min` to the narrowest a card still reads well; the grid does the rest at every width.",
     "`fit=\"fit\"` for two or three cards that should share the whole width; `fill` keeps a lone card at its size.",
     "Keep `reveal` on below the first screen, off on it; `columns` makes the stagger restart on each row.",
+    "The default `align=\"stretch\"` gives a row one height; the cards pin their foot to the bottom (`LinkCard` facts + way in, `ArgumentCard` actions) so the footers line up. `align=\"start\"` for cards that unfold.",
     "`as=\"ul\"` when the cards are a list of links.",
   ],
   accessibility: {
@@ -34,6 +35,7 @@ export const meta = {
     imports: ["CardGrid"],
     examples: [
       { name: "products", title: "Two halves", description: "`fit=\"fit\"`: two cards share the whole width." },
+      { name: "aligned", title: "An aligned row", description: "Cards with sentences of different lengths: one height, and the facts and the way in of every card on the same line." },
       { name: "reveal", title: "A list of sections", description: "`as=\"ul\"`, six links that rise staggered by column on a real page." },
     ],
   },
