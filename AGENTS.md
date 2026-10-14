@@ -93,6 +93,7 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
   `next build`), an Expo SDK 57 app (every React Native example, `tsc` + `expo export`) and a Node script
   (`realtime`, `push`) — every day and after each release. A red run is fixed in the package and released.
 - No raw Tailwind palette colour, no `light:` variant, no hard-coded colour: components read `var(--kz-*)`.
+- The packed-package check (`scripts/consumer.mjs` of `ui` and `charts`) installs the tarballs of the package **and of its `workspace:` dependencies** together (`tools/workspace-pack.mjs`): on a release pull request the next versions of `tokens`/`intl` are on no registry yet, and the check must not need them published first (tested in `tools/workspace-pack.test.mjs`).
 - Every published package passes `publint` and `@arethetypeswrong/cli` and stays under its `size-limit` budget.
 - Conventional Commits; `main` is protected (pull request + required CI, squash merge only). Never push to `main`.
 
