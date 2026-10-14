@@ -21,7 +21,7 @@ The locale is always passed: nothing reads the runtime's default, so a server re
 npm install @krizaka/intl
 ```
 
-Node ≥ 20 or any evergreen browser. ESM only. Sub-paths (`@krizaka/intl/money`, `/number`, `/date`, `/plural`) import
+Node ≥ 22 or any evergreen browser. ESM only. Sub-paths (`@krizaka/intl/money`, `/number`, `/date`, `/plural`) import
 one family; the root imports all of them (≈ 1.1 kB gzip).
 
 ## Functions

@@ -9,7 +9,7 @@ server.
 npm install @krizaka/push
 ```
 
-ESM only, Node ≥ 20, **zero dependency**: you pass `fetch` (the global one in production, a fake in tests).
+ESM only, Node ≥ 22, **zero dependency**: you pass `fetch` (the global one in production, a fake in tests).
 
 ## Use
 

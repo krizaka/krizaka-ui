@@ -13,7 +13,7 @@
 
 ## 2. Rules
 
-- **Zero runtime dependency**: `Intl` only (Node ≥ 20, every evergreen browser).
+- **Zero runtime dependency**: `Intl` only (Node ≥ 22, every evergreen browser).
 - **Money is integer minor units**, never a float: `formatMoney` refuses a non-integer or an unsafe integer
   (`TypeError`) and hands `Intl` an exact decimal string. The currency's digits come from `Intl` (JPY 0, USD 2, BHD 3).
 - **The locale is always explicit** (an argument, never the runtime default): server and client render the same text.
