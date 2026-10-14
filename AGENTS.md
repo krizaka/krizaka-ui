@@ -80,7 +80,9 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
   registry `@krizaka/ui` publishes: every component has a `meta.ts` beside it (`packages/ui/src/meta.ts`: summary,
   when to use / not, best practices, accessibility, platforms web · native · both, status, related) and named
   examples in `packages/ui/registry/examples/<name>/` (≤ 40 lines, `native/` for React Native). The registry tests
-  fail on a missing or incomplete one. Never write a component's documentation anywhere else.
+  fail on a missing or incomplete one. An example flagged `template` also carries its `purpose` (convince · explain · show · act ·
+  operate · converse · recover) and a `why` (the user goal its layout serves): krizaka.com/docs/ui groups the templates by them.
+  A component nobody uses and nothing plans is `status: deprecated` with `deprecated: { since, removedIn, reason }`. Never write a component's documentation anywhere else.
 - **No test, not done.** Every feature and every fix ships with its tests in the same pull request: a unit test for
   logic (Vitest), a story for a component — `packages/ui/src/**/<Name>.stories.tsx`, one story per example (the story
   renders the example), rendered by `apps/storybook` (see its README). Every story is audited by axe and

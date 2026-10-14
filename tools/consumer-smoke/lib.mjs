@@ -19,10 +19,10 @@ export const WEB_PEERS = ["hls.js", "maplibre-gl@^6"];
 /**
  * The entries each consumer must find in the published @krizaka/ui (PS2: the data table v2 on TanStack Table, the
  * virtual lists, the native list on FlashList + @krizaka/query; PS3: the form on TanStack Form, its server side, the native form;
- * DS5: the dates and times, the controls, the maps on MapLibre web and native) — beside their examples, which the apps render.
+ * DS5: the dates and times, the controls, the maps on MapLibre web and native; TPL: the skip link) — beside their examples, which the apps render.
  */
 export const ENTRY_POINTS = {
-  next: ["./data-table", "./virtual", "./form", "./form/server", "./date-picker", "./radio-group", "./slider", "./map"],
+  next: ["./data-table", "./virtual", "./form", "./form/server", "./date-picker", "./radio-group", "./slider", "./map", "./skip-link"],
   expo: ["./native/list", "./native/form", "./native/map"],
 };
 
