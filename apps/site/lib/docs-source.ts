@@ -171,7 +171,7 @@ function uiTree(source: DocsSource, t: TranslationDictionary, name: string): Pag
     children: [
       folder("get-started", written(GROUP_PAGES["get-started"])),
       folder("foundations", written(GROUP_PAGES.foundations)),
-      folder("components", jobs),
+      folder("components", [...written(["components"]), ...jobs]),
       folder("patterns", patterns),
       folder("templates", templates),
       folder("tooling", written(GROUP_PAGES.tooling)),

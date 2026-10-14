@@ -762,3 +762,68 @@ html.light .kz-catalog-shot .kz-shot-light { display: block; }
 html.light .kz-hero-strip .kz-shot-dark { display: none; }
 html.light .kz-hero-strip .kz-shot-light { display: block; }
 .kz-catalog-bar .kz-catalog-filter { flex-wrap: wrap; max-width: 100%; border-radius: 20px; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   The home of ui.krizaka.com (app/components/landing/Landing.tsx): hero, the live showcase, the ways in, the packages
+   ═══════════════════════════════════════════════════════════════════ */
+.kz-land { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(48px, 7vw, 88px); padding-block: 8px 24px; min-width: 0; }
+.kz-land > *, .kz-land-hero > *, .kz-land-section > * { min-width: 0; }
+.kz-land-hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; max-width: 54rem; }
+.kz-land-eyebrow { margin: 0; font-family: var(--kz-font-mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--kz-accent-text); }
+.kz-land-hero h1 { margin: 0; font-family: var(--kz-font-display); font-size: clamp(2rem, 4.6vw, 3.25rem); font-weight: 800; line-height: 1.08; letter-spacing: -.03em; text-wrap: balance; color: var(--kz-text-primary); }
+.kz-land-lead { margin: 0; max-width: 46rem; font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.6; color: var(--kz-text-secondary); }
+.kz-land-install { max-width: 40rem; }
+.kz-land-install pre { margin: 0; }
+.kz-land-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.kz-land-figures { display: flex; flex-wrap: wrap; gap: 14px 44px; margin: 10px 0 0; }
+.kz-land-figures > div { display: flex; flex-direction: column-reverse; }
+.kz-land-figures dt { font-size: 13px; color: var(--kz-text-secondary); }
+.kz-land-figures dd { margin: 0; font-family: var(--kz-font-display); font-size: clamp(1.7rem, 3.6vw, 2.3rem); font-weight: 800; letter-spacing: -.03em; color: var(--kz-text-primary); }
+.kz-land-figures .kz-land-version { font-family: var(--kz-font-mono); font-size: clamp(1.2rem, 2.6vw, 1.6rem); font-weight: 700; padding-top: .35rem; }
+
+.kz-land-section { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.kz-land-section h2 { margin: 0; font-family: var(--kz-font-display); font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 800; letter-spacing: -.02em; color: var(--kz-text-primary); }
+.kz-land-sub { margin: 0; max-width: 44rem; font-size: 15px; line-height: 1.6; color: var(--kz-text-secondary); }
+.kz-land-sub a { color: var(--kz-accent-text); font-weight: 600; text-decoration: none; }
+.kz-land-identities { flex-wrap: wrap; margin-top: 4px; }
+
+/* The showcase: a balanced grid, every tile the same surface and padding, its example cropped to the tile. */
+.kz-land-bento { display: grid; gap: 14px; margin-top: 6px; padding: 14px; border-radius: 24px; border: 1px solid var(--kz-border-subtle);
+  background: linear-gradient(180deg, var(--kz-brand-gradient-from, var(--kz-surface-1)), var(--kz-surface-0)); transition: background-color .3s;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-areas: "plans plans chat video" "form stepper chat video" "table table chart chart"; }
+.kz-land-tile { margin: 0; min-width: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; border-radius: 18px; border: 1px solid var(--kz-border-default);
+  background: var(--kz-surface-1); overflow: hidden; }
+.kz-land-tile[data-area="plans"] { grid-area: plans; }
+.kz-land-tile[data-area="chat"] { grid-area: chat; }
+.kz-land-tile[data-area="video"] { grid-area: video; }
+.kz-land-tile[data-area="form"] { grid-area: form; }
+.kz-land-tile[data-area="stepper"] { grid-area: stepper; }
+.kz-land-tile[data-area="table"] { grid-area: table; }
+.kz-land-tile[data-area="chart"] { grid-area: chart; }
+.kz-land-stage { position: relative; min-height: 0; height: var(--kz-land-h, 300px); overflow: hidden; padding: 18px; display: grid; place-items: start center;
+  -webkit-mask-image: linear-gradient(180deg, #000 82%, transparent); mask-image: linear-gradient(180deg, #000 82%, transparent); }
+.kz-land-stage > * { width: 100%; max-width: 100%; }
+.kz-land-tile[data-area="plans"], .kz-land-tile[data-area="form"], .kz-land-tile[data-area="stepper"] { --kz-land-h: 300px; }
+.kz-land-tile[data-area="chat"], .kz-land-tile[data-area="video"] { --kz-land-h: 100%; }
+.kz-land-tile[data-area="video"] .kz-land-stage { place-items: center; }
+.kz-land-tile[data-area="video"] .kz-land-stage > * { max-width: 260px; }
+.kz-land-tile[data-area="table"], .kz-land-tile[data-area="chart"] { --kz-land-h: 320px; }
+.kz-land-tile figcaption { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; padding: 12px 18px;
+  border-top: 1px solid var(--kz-border-subtle); font-size: 13px; color: var(--kz-text-secondary); }
+.kz-land-tile figcaption a { font-weight: 700; color: var(--kz-text-primary); text-decoration: none; }
+.kz-land-tile figcaption a:hover { color: var(--kz-accent-text); }
+@media (max-width: 1100px) {
+  .kz-land-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "plans plans" "chat video" "form stepper" "table table" "chart chart"; }
+  .kz-land-tile[data-area="chat"], .kz-land-tile[data-area="video"] { --kz-land-h: 460px; }
+}
+@media (max-width: 640px) {
+  .kz-land-bento { grid-template-columns: minmax(0, 1fr); grid-template-areas: "plans" "chat" "video" "form" "stepper" "table" "chart"; padding: 10px; }
+  .kz-land-stage { padding: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .kz-land-bento { transition: none; } }
+
+.kz-land-packages { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); gap: 8px 28px; }
+.kz-land-packages li { display: grid; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--kz-border-subtle); font-size: 13.5px; color: var(--kz-text-secondary); }
+.kz-land-packages a { text-decoration: none; }
+.kz-land-packages code { font-family: var(--kz-font-mono); font-size: 13.5px; font-weight: 600; color: var(--kz-accent-text); }

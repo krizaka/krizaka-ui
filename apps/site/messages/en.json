@@ -232,6 +232,10 @@
         "templates": {
           "title": "All templates",
           "description": "Whole pages and screens, grouped by what the person must do — each with the reason for its layout, live, with its phone version."
+        },
+        "components": {
+          "title": "Components",
+          "description": "Every component of Krizaka UI, by the job it does — web, React Native or both, with a live preview and filters."
         }
       }
     },
@@ -476,6 +480,76 @@
         "yasakia": "the dating app",
         "yororis": "the fourth product, in construction"
       }
+    }
+  },
+  "landing": {
+    "eyebrow": "Krizaka UI · open source",
+    "title": "One kit of accessible components, for the web and React Native.",
+    "lead": "Tokens, fonts, icons, charts and 150+ components, themed by values — every Krizaka product is built with it, and every page here is generated from its code.",
+    "install": "Install",
+    "copy": "Copy",
+    "copied": "Copied",
+    "start": "Get started",
+    "browse": "Browse components",
+    "facts": {
+      "components": "components",
+      "native": "also on iOS and Android",
+      "packages": "packages on npm",
+      "version": "@krizaka/ui"
+    },
+    "showcase": {
+      "title": "Live, in context",
+      "lead": "Real components from the package, rendered by this page. Switch the identity: the components stay, the brand changes.",
+      "identity": "Identity",
+      "stage": "Krizaka UI components in the {brand} identity",
+      "open": "Open {name}"
+    },
+    "tiles": {
+      "plans": "Plans and pricing",
+      "chat": "A conversation",
+      "signUp": "A form that validates",
+      "video": "A vertical clip",
+      "jobs": "A data table",
+      "chart": "Earnings over time",
+      "stepper": "A job, step by step"
+    },
+    "find": {
+      "title": "Find your way",
+      "lead": "Each place answers one moment of building a product."
+    },
+    "places": {
+      "start": {
+        "title": "Get started",
+        "text": "Install the packages and wear a product's identity."
+      },
+      "foundations": {
+        "title": "Foundations",
+        "text": "Tokens, typography, icons, motion and the brand marks."
+      },
+      "components": {
+        "title": "Components",
+        "text": "The catalogue, by the job each component does, with filters."
+      },
+      "patterns": {
+        "title": "Patterns",
+        "text": "Page blocks and screen layouts, when one component is not enough."
+      },
+      "templates": {
+        "title": "Templates",
+        "text": "Whole pages, grouped by what the person must do."
+      },
+      "mobile": {
+        "title": "Mobile",
+        "text": "What runs in React Native, and how it differs from the web."
+      },
+      "tooling": {
+        "title": "Tooling",
+        "text": "The packages without pixels: Tailwind, i18n, intl, query, realtime, push."
+      }
+    },
+    "packages": {
+      "title": "Where the pieces live",
+      "source": "Source and release notes on GitHub"
     }
   }
 }

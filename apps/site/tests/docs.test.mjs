@@ -30,7 +30,7 @@ test("an enrichment page belongs to a component, and the component pages need no
   const { readdirSync } = require("node:fs");
   const names = new Set(read("node_modules/@krizaka/ui/registry/index.json").items.map((item) => item.name));
   for (const file of readdirSync(new URL("content/docs/components/", root))) {
-    if (file.endsWith(".mdx")) assert.ok(names.has(file.replace(/\.mdx$/, "")), `content/docs/components/${file}`);
+    if (file.endsWith(".mdx") && file !== "index.mdx") assert.ok(names.has(file.replace(/\.mdx$/, "")), `content/docs/components/${file}`);
   }
   for (const lang of ["en", "fr"]) {
     const pages = read(`messages/${lang}.json`).docs.pages.ui;
@@ -51,8 +51,9 @@ test("every written page has its title/description in both languages", () => {
   const fr = read("messages/fr.json").docs.pages.ui;
   const walk = (dir) => readdirSync(new URL(dir, root), { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(`${dir}${e.name}/`) : [`${dir}${e.name}`]));
   for (const file of walk("content/docs/")) {
-    if (!file.endsWith(".mdx") || file.startsWith("content/docs/components/")) continue;
-    const key = file.split("/").at(-1).replace(/\.mdx$/, "");
+    if (!file.endsWith(".mdx") || (file.startsWith("content/docs/components/") && !file.endsWith("/index.mdx"))) continue;
+    const parts = file.replace(/\.mdx$/, "").split("/");
+    const key = parts.at(-1) === "index" && parts.length > 3 ? parts.at(-2) : parts.at(-1);
     assert.ok(en[key]?.title && en[key]?.description && fr[key]?.title && fr[key]?.description, file);
   }
 });

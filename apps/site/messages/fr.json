@@ -232,6 +232,10 @@
         "templates": {
           "title": "Tous les modèles",
           "description": "Des pages et des écrans entiers, rangés par ce que la personne doit faire — chacun avec la raison de sa mise en page, en direct, avec sa version téléphone."
+        },
+        "components": {
+          "title": "Composants",
+          "description": "Tous les composants de Krizaka UI, par le travail qu’ils font — web, React Native ou les deux, avec un aperçu en direct et des filtres."
         }
       }
     },
@@ -476,6 +480,76 @@
         "yasakia": "l'application de rencontres",
         "yororis": "le quatrième produit, en construction"
       }
+    }
+  },
+  "landing": {
+    "eyebrow": "Krizaka UI · open source",
+    "title": "Un seul kit de composants accessibles, pour le web et React Native.",
+    "lead": "Jetons, polices, icônes, graphiques et plus de 150 composants, thémés par des valeurs — chaque produit Krizaka en est fait, et chaque page ici est générée depuis son code.",
+    "install": "Installer",
+    "copy": "Copier",
+    "copied": "Copié",
+    "start": "Démarrer",
+    "browse": "Parcourir les composants",
+    "facts": {
+      "components": "composants",
+      "native": "aussi sur iOS et Android",
+      "packages": "paquets sur npm",
+      "version": "@krizaka/ui"
+    },
+    "showcase": {
+      "title": "En direct, en situation",
+      "lead": "De vrais composants du paquet, rendus par cette page. Changez d’identité : les composants restent, la marque change.",
+      "identity": "Identité",
+      "stage": "Composants Krizaka UI aux couleurs de {brand}",
+      "open": "Ouvrir {name}"
+    },
+    "tiles": {
+      "plans": "Forfaits et prix",
+      "chat": "Une conversation",
+      "signUp": "Un formulaire qui valide",
+      "video": "Un clip vertical",
+      "jobs": "Un tableau de données",
+      "chart": "Revenus dans le temps",
+      "stepper": "Une tâche, étape par étape"
+    },
+    "find": {
+      "title": "Trouver son chemin",
+      "lead": "Chaque endroit répond à un moment de la construction d’un produit."
+    },
+    "places": {
+      "start": {
+        "title": "Démarrer",
+        "text": "Installer les paquets et porter l’identité d’un produit."
+      },
+      "foundations": {
+        "title": "Fondations",
+        "text": "Jetons, typographie, icônes, mouvement et marques."
+      },
+      "components": {
+        "title": "Composants",
+        "text": "Le catalogue, par le travail de chaque composant, avec des filtres."
+      },
+      "patterns": {
+        "title": "Motifs",
+        "text": "Blocs de page et mises en page d’écran, quand un composant ne suffit pas."
+      },
+      "templates": {
+        "title": "Modèles",
+        "text": "Des pages entières, groupées par ce que la personne doit faire."
+      },
+      "mobile": {
+        "title": "Mobile",
+        "text": "Ce qui tourne en React Native, et ce qui change par rapport au web."
+      },
+      "tooling": {
+        "title": "Outillage",
+        "text": "Les paquets sans pixels : Tailwind, i18n, intl, query, temps réel, push."
+      }
+    },
+    "packages": {
+      "title": "Où vivent les pièces",
+      "source": "Code source et notes de version sur GitHub"
     }
   }
 }
