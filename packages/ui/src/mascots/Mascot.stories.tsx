@@ -28,7 +28,7 @@ export const Flock: Story = { render: () => <FlockExample /> };
 export const OwnTone: Story = { render: () => <OwnToneExample /> };
 export const InAnEmptyState: Story = { render: () => <EmptyStateExample /> };
 export const DuringALongTask: Story = { render: () => <LongTaskExample /> };
-/** The lovebird — "l'inséparable présente": the bird of introductions (Yazakia). */
+/** The lovebird — "l'inséparable présente": the bird of introductions (Yasakia). */
 export const Lovebird: Story = { render: () => <LovebirdExample /> };
 export const PhoenixStory: Story = { name: "Phoenix", render: () => <PhoenixExample /> };
 /** The crane — "la grue écoute": posed, unhurried, one line; the bird of listening (Yororis). */

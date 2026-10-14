@@ -2,16 +2,16 @@ import React from "react";
 import { View } from "react-native";
 import Svg, { Circle, Defs, LinearGradient, Path, RadialGradient, Stop } from "react-native-svg";
 
-import { YAZAKIA as G } from "../marks/yazakia-geometry";
+import { YASAKIA as G } from "../marks/yasakia-geometry";
 import { markA11y, type NativeMarkProps, useMarkMotion } from "./mark-motion";
 import { useSvgId, useTheme } from "./theme";
 
 /**
- * The Yazakia mark for React Native — the geometry of the web mark (marks/yazakia-geometry.ts): two voices, two
+ * The Yasakia mark for React Native — the geometry of the web mark (marks/yasakia-geometry.ts): two voices, two
  * speech bubbles that overlap; the orbit and the pair turn slowly around them, the lens where they overlap breathes;
  * still when the system reduces motion.
  */
-export function YazakiaMark({ size = 48, animated = true, title, neutral }: NativeMarkProps) {
+export function YasakiaMark({ size = 48, animated = true, title, neutral }: NativeMarkProps) {
   const { theme } = useTheme();
   const { Animated, layer, spinStyle, pulseStyle } = useMarkMotion(size, animated);
   const id = useSvgId("yzm");
@@ -70,3 +70,6 @@ export function YazakiaMark({ size = 48, animated = true, title, neutral }: Nati
     </View>
   );
 }
+
+/** @deprecated Yazakia was renamed Yasakia (2026-10): use `YasakiaMark`. Kept for one minor version. */
+export const YazakiaMark = YasakiaMark;

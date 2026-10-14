@@ -5,7 +5,7 @@ export { OrazakaLogo } from "./marks/OrazakaLogo";
 export { OrochiaLogo } from "./marks/OrochiaLogo";
 export { type BrandId, ProductLogo } from "./marks/ProductLogo";
 export type { MarkProps } from "./marks/shared";
-export { YazakiaLogo } from "./marks/YazakiaLogo";
+export { YasakiaLogo, YazakiaLogo } from "./marks/YasakiaLogo";
 export { YororisLogo } from "./marks/YororisLogo";
 export { MotionObserver } from "./motion/MotionObserver";
 export { RotatingWord } from "./motion/RotatingWord";

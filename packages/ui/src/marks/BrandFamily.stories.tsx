@@ -3,11 +3,11 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { KrizakaLogo } from "./KrizakaLogo";
 import { OrazakaLogo } from "./OrazakaLogo";
 import { OrochiaLogo } from "./OrochiaLogo";
-import { YazakiaLogo } from "./YazakiaLogo";
+import { YasakiaLogo } from "./YasakiaLogo";
 import { YororisLogo } from "./YororisLogo";
 
 /**
- * The brand family side by side — Krizaka and its four products, Orazaka, Orochia, Yazakia and Yororis: the same orbit, ring,
+ * The brand family side by side — Krizaka and its four products, Orazaka, Orochia, Yasakia and Yororis: the same orbit, ring,
  * weight and core, one colour per brand. Rendered (and screenshot-tested) in dark and light.
  */
 const meta = {
@@ -22,7 +22,7 @@ const FAMILY = [
   ["Krizaka", KrizakaLogo],
   ["Orazaka", OrazakaLogo],
   ["Orochia", OrochiaLogo],
-  ["Yazakia", YazakiaLogo],
+  ["Yasakia", YasakiaLogo],
   ["Yororis", YororisLogo],
 ] as const;
 

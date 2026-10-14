@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { YazakiaLogo } from "./YazakiaLogo";
+import { YasakiaLogo } from "./YasakiaLogo";
 
-/** The Yazakia mark. Decorative by default; `title` makes it an image with an accessible name. */
+/** The Yasakia mark. Decorative by default; `title` makes it an image with an accessible name. */
 const meta = {
-  title: "Brand/YazakiaLogo",
-  component: YazakiaLogo,
+  title: "Brand/YasakiaLogo",
+  component: YasakiaLogo,
   args: { size: 96, animated: true },
-} satisfies Meta<typeof YazakiaLogo>;
+} satisfies Meta<typeof YasakiaLogo>;
 export default meta;
 
 type Story = StoryObj<typeof meta>;
@@ -19,7 +19,7 @@ export const Animated: Story = {};
 export const Still: Story = { args: { animated: false } };
 
 /** Named: an image for assistive technology. */
-export const WithTitle: Story = { args: { title: "Yazakia" } };
+export const WithTitle: Story = { args: { title: "Yasakia" } };
 
 /** The small size used in navigation. */
 export const Small: Story = { args: { size: 24 } };

@@ -1,5 +1,5 @@
 import { a11y, type MarkProps, neutral, useIds, withAlpha } from "./shared";
-import { YAZAKIA as G } from "./yazakia-geometry";
+import { YASAKIA as G } from "./yasakia-geometry";
 
 const CSS = `
 .yzm-orbit { transform-origin: 200px 200px; animation: yzm-orbit 30s linear infinite; }
@@ -13,13 +13,13 @@ const CSS = `
 `;
 
 /**
- * The Yazakia mark: two voices — two solid speech bubbles that overlap, the left a shade deeper — in the Yazakia
+ * The Yasakia mark: two voices — two solid speech bubbles that overlap, the left a shade deeper — in the Yasakia
  * gradient (emerald → turquoise, the brand's mark gradient of @krizaka/tokens, the same in dark and light). Where they
  * overlap, what the two share, is the bright core: a lens lit from above that breathes. The pair, two nodes on the
  * dashed orbit, turns slowly around it — the family's grammar (orbit, ring, bold emblem, bright core). Below 48 px it
  * crops to the emblem.
  */
-export function YazakiaLogo({ size = 32, animated = true, title, className }: MarkProps) {
+export function YasakiaLogo({ size = 32, animated = true, title, className }: MarkProps) {
   const id = useIds("yzm", ["gradient", "light", "glow"] as const);
   const fill = `url(#${id.gradient})`;
   return (
@@ -62,3 +62,6 @@ export function YazakiaLogo({ size = 32, animated = true, title, className }: Ma
     </svg>
   );
 }
+
+/** @deprecated Yazakia was renamed Yasakia (2026-10): use `YasakiaLogo`. Kept for one minor version. */
+export const YazakiaLogo = YasakiaLogo;

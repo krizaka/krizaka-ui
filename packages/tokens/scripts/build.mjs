@@ -21,7 +21,7 @@ import { parseHsl, toNative } from "./color.mjs";
 /** Source files, in output order. */
 export const SOURCES = ["color", "radius", "shadow", "material", "motion", "typography"];
 /** The brands (src/brands/<id>.brand.json), in output order: the parent first. */
-export const BRANDS = ["krizaka", "orazaka", "orochia", "yazakia", "yororis"];
+export const BRANDS = ["krizaka", "orazaka", "orochia", "yasakia", "yororis"];
 /** The roles a brand sets — all of them, so that a brand never inherits another brand's accent. */
 export const BRAND_ROLES = ["accent", "accent-hover", "accent-soft", "accent-text", "accent-2", "on-accent", "ring", "info", "info-text", "brand-gradient-from", "brand-gradient-via", "brand-gradient-to"];
 const EXT = "com.krizaka";
@@ -571,6 +571,12 @@ export function compileBrands(base, brandSources) {
     }
     marks[id] = mark.map(([offset, color]) => [offset, color]);
     marksNative[id] = mark.map(([offset, color]) => [offset, toNative(parseHsl(color))]);
+  }
+  if (ids.includes("yasakia")) {
+    // Deprecated alias (Yazakia was renamed Yasakia, 2026-10): `brands/yazakia.css` and `.brand-yazakia` stay for one minor version.
+    css["brands/yazakia.css"] = css["brands/yasakia.css"].replace("/* @krizaka/tokens", "/* DEPRECATED — renamed Yasakia (import brands/yasakia.css); kept for one minor version.\n   @krizaka/tokens");
+    const dark = scoped.filter((b) => b.includes(".brand-yasakia"));
+    scoped.push("", "/* DEPRECATED — `.brand-yazakia` is `.brand-yasakia` (Yazakia was renamed Yasakia); kept for one minor version. */", ...dark.map((b) => b.replaceAll("yasakia", "yazakia")));
   }
   if (ids.length) css["brands/scoped.css"] = `${scoped.join("\n")}\n`;
   return { ids, css, values, native, marks, marksNative };
