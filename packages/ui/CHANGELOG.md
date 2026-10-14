@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.5.0
+
+### Minor Changes
+
+- [#150](https://github.com/krizaka/krizaka-ui/pull/150) [`7b63c08`](https://github.com/krizaka/krizaka-ui/commit/7b63c08ee6718a0106f983cc024417c43b9c75d1) Thanks [@oussamaABID](https://github.com/oussamaABID)! - A people kit, web and React Native: `Chat` (conversation item, message bubble with its status, composer, typing indicator), `SwipeDeck` with `PersonCard`, `MatchDialog`, `TagSelector`, `StepProgress`, `VerifiedBadge`, `PhotoGrid`; on React Native, `Screen` (header, content that rises with the keyboard, footer) and six templates built on it — app shell, sign-in, profile, feed, chat, settings. Dates, places and sliders come from the controls already published.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.5.0
+  - @krizaka/tokens@3.5.0
+
 ## 3.4.0
 
 ### Minor Changes
