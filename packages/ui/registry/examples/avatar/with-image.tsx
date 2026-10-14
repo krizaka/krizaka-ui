@@ -1,13 +1,6 @@
 import { Avatar } from "@krizaka/ui/avatar";
 
-// A self-contained portrait (no network).
-const PORTRAIT =
-  "data:image/svg+xml;utf8," +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" fill="#3b82f6"/>' +
-      '<circle cx="40" cy="31" r="14" fill="#dbeafe"/><path d="M12 80a28 24 0 0 1 56 0z" fill="#dbeafe"/></svg>',
-  );
-
+// A portrait: the image when it loads, the initials while it loads or when it fails.
 export default function AvatarWithImage() {
-  return <Avatar src={PORTRAIT} alt="Oussama" fallback="OA" />;
+  return <Avatar src="https://krizaka-assets.b-cdn.net/site/people/ui/ada-256.31a5ce640c.webp" alt="Ada Okafor" fallback="AO" />;
 }

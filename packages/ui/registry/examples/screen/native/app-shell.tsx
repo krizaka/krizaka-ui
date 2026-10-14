@@ -21,7 +21,7 @@ export default function NativeScreenAppShell() {
   return (
     <View style={{ width: 360, height: 640 }}>
       <Screen header={<Header title="Likes" subtitle="4 people liked you" />} footer={<TabBar aria-label="Main sections" items={TABS} value={tab} onValueChange={setTab} />} padding={0}>
-        {["Elena, 29", "Noah, 31", "Mina, 27", "Alex, 33"].map((name) => (
+        {["Camille, 29", "Tomás, 31", "Noor, 27", "Ada, 33"].map((name) => (
           <View key={name} style={{ gap: 2, paddingHorizontal: 16, paddingVertical: 12 }}>
             <Txt variant="label">{name}</Txt>
             <Txt variant="caption" tone="secondary">Liked you today</Txt>

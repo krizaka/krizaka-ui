@@ -6,9 +6,9 @@ export default function ProfileCardMatch() {
   return (
     <ProfileCard
       brand="yazakia"
-      visual={<Avatar fallback="AR" size="xl" />}
+      visual={<Avatar src="https://krizaka-assets.b-cdn.net/site/people/ui/camille-256.dc2943029a.webp" alt="Camille Roy" fallback="CR" size="xl" />}
       visualSize={88}
-      name="Alex, 29"
+      name="Camille, 29"
       stats={[
         { label: "Interests in common", value: 4, max: 6, valueText: "4 of 6" },
         { label: "Answers that match", value: 7, max: 10, valueText: "7 of 10" },

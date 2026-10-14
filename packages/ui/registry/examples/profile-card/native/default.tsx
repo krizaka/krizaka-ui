@@ -4,8 +4,8 @@ import { Avatar, Button, ProfileCard } from "@krizaka/ui/native";
 export default function NativeProfileCardDefault() {
   return (
     <ProfileCard
-      visual={<Avatar fallback="EM" size="xl" />}
-      name="Elena Marchetti"
+      visual={<Avatar src="https://krizaka-assets.b-cdn.net/site/people/ui/noor-256.c340c41421.webp" alt="Noor Haddad" fallback="NH" size="xl" />}
+      name="Noor Haddad"
       statLabel="Profile complete"
       value={80}
       stats={[
