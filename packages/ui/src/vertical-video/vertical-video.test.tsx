@@ -107,6 +107,16 @@ describe("ShortFeed", () => {
     expect(screen.getByRole("article", { name: "b" }).dataset.preload).toBe("auto");
   });
 
+  it("sizes its slides to the feed, not to the screen: a feed in a 34 rem box shows one slide at a time", () => {
+    const { container } = render(
+      <ShortFeed label="Videos" className="h-[34rem]" items={items} getId={(i) => i.id} renderItem={(i) => <article tabIndex={0} aria-label={i.id} />} />,
+    );
+    for (const slide of container.querySelectorAll("[aria-roledescription=slide]")) {
+      expect(slide.className).toContain("h-full");
+      expect(slide.className).not.toContain("h-dvh");
+    }
+  });
+
   it("goes to the next and previous slide with the arrows, the focus following", async () => {
     const scrolled: string[] = [];
     Element.prototype.scrollIntoView = function (this: Element) {
