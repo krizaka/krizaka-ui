@@ -253,6 +253,7 @@ export async function collectRegistry() {
       // `description`: the summary, under the name the first registry used.
       description: meta?.summary ?? (web ? summaryOf(name) : ""),
       status: meta?.status ?? "beta",
+      deprecated: meta?.deprecated ?? null,
       category: meta?.category ?? "foundations",
       platforms: meta?.platforms ?? (web ? "web" : "native"),
       whenToUse: meta?.whenToUse ?? [],

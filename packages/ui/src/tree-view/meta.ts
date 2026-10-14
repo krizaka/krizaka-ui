@@ -3,7 +3,13 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Tree view",
   summary: "A hierarchy the keyboard walks — the ARIA tree: one tab stop, the arrows move and open, a letter jumps, branches load on demand.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.6.0",
+    removedIn: "4.0.0",
+    use: "list",
+    reason: "No product uses it and no planned work needs it: the documentation tree is Fumadocs' and the datasets screens drill down with a list.",
+  },
   category: "navigation",
   platforms: "web",
   whenToUse: ["The documentation's sections (krizaka.com/docs).", "A studio's datasets, folders of files."],
