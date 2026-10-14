@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/pacer",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Cadence for every Krizaka app: debounce and throttle (functions and React hooks), a job queue with concurrency, priority, retries with backoff, pause and resume per job, and a client rate limiter that learns from a server's Problem Details — TanStack Pacer (beta) behind the Krizaka facade.",
   "keywords": [
     "krizaka",
