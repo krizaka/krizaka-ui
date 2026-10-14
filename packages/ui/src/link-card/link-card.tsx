@@ -31,12 +31,18 @@ export type LinkCardProps = Omit<React.ComponentProps<"a">, "title" | "href"> & 
    * @default "row"
    */
   layout?: "row" | "stack";
+  /**
+   * Where the facts (`extra`) and the way in (`cta`) sit when the card is taller than its text — a row of cards at one
+   * height: `bottom` pins them to the card's foot, so they share a line across the row; `top` leaves them under the text.
+   * @default "bottom"
+   */
+  footerAlign?: "bottom" | "top";
   /** The app's link component for internal addresses (Next's `Link`); an `<a>` otherwise. */
   linkAs?: LinkComponent;
 };
 
 /** An entry point: the whole card is one link — icon, title, sentence, the way in. Lifts and lights under the pointer. */
-export function LinkCard({ href, title, description, icon, meta, cta, extra, titleAs: Title = "h3", layout = "row", linkAs, className, ...props }: LinkCardProps) {
+export function LinkCard({ href, title, description, icon, meta, cta, extra, titleAs: Title = "h3", layout = "row", footerAlign = "bottom", linkAs, className, ...props }: LinkCardProps) {
   const external = isExternal(href);
   return (
     <BlockLink
@@ -46,6 +52,7 @@ export function LinkCard({ href, title, description, icon, meta, cta, extra, tit
       className={cn("kz-block-card kz-link-card", className)}
       data-kz-light=""
       data-layout={layout === "row" ? undefined : layout}
+      data-footer={footerAlign === "top" ? "top" : undefined}
       {...props}
     >
       {icon && (
@@ -57,12 +64,16 @@ export function LinkCard({ href, title, description, icon, meta, cta, extra, tit
         {meta && <p className="kz-link-card-meta">{meta}</p>}
         <Title className="kz-link-card-title">{title}</Title>
         {description && <p className="kz-link-card-text">{description}</p>}
-        {extra && <div className="kz-link-card-extra">{extra}</div>}
-        {(cta || external) && (
-          <span className="kz-link-card-cta">
-            {cta}
-            {external ? <ExternalGlyph className="h-3.5 w-3.5" /> : <ArrowGlyph className="h-3.5 w-3.5" />}
-          </span>
+        {(extra || cta || external) && (
+          <div className="kz-link-card-foot">
+            {extra && <div className="kz-link-card-extra">{extra}</div>}
+            {(cta || external) && (
+              <span className="kz-link-card-cta">
+                {cta}
+                {external ? <ExternalGlyph className="h-3.5 w-3.5" /> : <ArrowGlyph className="h-3.5 w-3.5" />}
+              </span>
+            )}
+          </div>
         )}
       </div>
     </BlockLink>

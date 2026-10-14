@@ -25,4 +25,16 @@ describe("LinkCard", () => {
     expect(link.dataset.layout).toBe("stack");
     expect(screen.queryByRole("heading")).toBeNull();
   });
+
+  it("keeps the facts and the way in in one foot, pinned to the bottom unless footerAlign is top", () => {
+    const { container, rerender } = render(<LinkCard href="/a" title="A" description="Text." extra={<span>Dev preview</span>} cta="Open" />);
+    const foot = container.querySelector(".kz-link-card-foot");
+    expect(foot?.textContent).toContain("Dev preview");
+    expect(foot?.textContent).toContain("Open");
+    expect(container.querySelector(".kz-link-card")?.hasAttribute("data-footer")).toBe(false);
+    rerender(<LinkCard href="/a" title="A" description="Text." cta="Open" footerAlign="top" />);
+    expect(container.querySelector(".kz-link-card")?.getAttribute("data-footer")).toBe("top");
+    rerender(<LinkCard href="/a" title="A" description="Text." />);
+    expect(container.querySelector(".kz-link-card-foot")).toBeNull();
+  });
 });

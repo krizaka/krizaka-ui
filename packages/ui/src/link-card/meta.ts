@@ -19,6 +19,7 @@ export const meta = {
     "One sentence of description; the title names the destination, the way in (`cta`) says the action.",
     "Use the product's mark or a signature icon as `icon`, never a placeholder.",
     "Pass the app's router link as `linkAs` (Next's `Link`) so internal links prefetch.",
+    "In a row of cards at one height (`CardGrid`), the facts (`extra`) and the way in (`cta`) are pinned to the foot of each card, so they share a line whatever the length of the sentences; `footerAlign=\"top\"` keeps them under the text.",
     "In a hub, keep the default `h3` titles under the section's `h2`; in a list of links, `titleAs=\"span\"`.",
   ],
   accessibility: {
