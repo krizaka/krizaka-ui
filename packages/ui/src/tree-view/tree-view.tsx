@@ -77,6 +77,8 @@ function flatten(nodes: readonly TreeNode[], open: Set<string>, level = 1, paren
 /**
  * A hierarchy to browse — documentation sections, a studio's datasets, folders: one tab stop, the arrows walk it (→
  * opens, ← closes or goes up), Home/End, a letter jumps to the next name; branches can load their children on demand.
+ *
+ * @deprecated Since 3.6.0, removed in 4.0.0: no product uses it. Drill down with `List` instead.
  */
 export function TreeView({
   nodes,

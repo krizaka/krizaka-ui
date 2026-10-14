@@ -18,7 +18,7 @@ const nativeIndex = readFileSync(join(PKG, "src", "native", "index.ts"), "utf8")
 const nativeExports = new Set([...nativeIndex.matchAll(/\b([A-Za-z]\w*)\b/g)].map((m) => m[1]));
 const PLATFORMS = ["web", "native", "both"];
 const exportsOf = (file) => new Set([...readFileSync(file, "utf8").matchAll(/\bexport\s+(?:async\s+)?(?:function|const|type|class|interface)\s+([A-Za-z]\w*)/g)].map((m) => m[1]));
-const STATUSES = ["stable", "beta"];
+const STATUSES = ["stable", "beta", "deprecated"];
 const CATEGORIES = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "media", "blocks", "layouts", "templates", "layout", "foundations"];
 
 /** Native examples without a story (so without a screenshot): the provider wraps every story already. */
@@ -89,6 +89,11 @@ describe("documentation carried by the code (meta.ts)", () => {
     expect(STATUSES).toContain(meta.status);
     expect(CATEGORIES).toContain(meta.category);
     expect(PLATFORMS).toContain(meta.platforms);
+    if (meta.status === "deprecated") {
+      expect(meta.deprecated, "a deprecated component says since, removedIn and why").toMatchObject({ since: expect.stringMatching(/^\d+\.\d+\.\d+$/), removedIn: expect.stringMatching(/^\d+\.0\.0$/) });
+      expect(sentence(meta.deprecated.reason), "deprecated.reason").toBe(true);
+      if (meta.deprecated.use) expect(all, `deprecated.use "${meta.deprecated.use}"`).toContain(meta.deprecated.use);
+    } else expect(meta.deprecated, "only a deprecated component has a deprecation").toBeUndefined();
     expect(meta.whenToUse.length, "whenToUse").toBeGreaterThan(0);
     expect(meta.whenNotToUse.length, "whenNotToUse").toBeGreaterThan(0);
     expect(meta.bestPractices.length, "bestPractices").toBeGreaterThan(0);

@@ -143,8 +143,23 @@ export type ComponentName =
 /** Where a component exists: `@krizaka/ui/<name>` (web), `@krizaka/ui/native` (React Native), or both. */
 export type Platform = "web" | "native" | "both";
 
-/** `stable`: its API only changes in a major. `beta`: it may still change in a minor. */
-export type Status = "stable" | "beta";
+/**
+ * `stable`: its API only changes in a major. `beta`: it may still change in a minor. `deprecated`: no product uses it and
+ * no work plans to — it still works, says what replaces it, and goes in the major named by `deprecated.removedIn`.
+ */
+export type Status = "stable" | "beta" | "deprecated";
+
+/** What a deprecated component says (required when `status` is `deprecated`, absent otherwise). */
+export interface Deprecation {
+  /** The version that deprecated it (`3.6.0`). */
+  readonly since: string;
+  /** The major that removes it (`4.0.0`). */
+  readonly removedIn: string;
+  /** What replaces it, when a component does. */
+  readonly use?: ComponentName;
+  /** Why it goes: no product uses it, no planned work needs it. */
+  readonly reason: string;
+}
 
 /**
  * The group of the catalogue. `media`: video, sound, camera, files, cropping. `blocks`: the page blocks — the frame,
@@ -231,6 +246,8 @@ export interface ComponentMeta {
   /** One sentence: what it is. */
   readonly summary: string;
   readonly status: Status;
+  /** Required for, and only for, a `deprecated` component. */
+  readonly deprecated?: Deprecation;
   readonly category: Category;
   /** Must match the sides below: `both` ⇔ `web` and `native`. */
   readonly platforms: Platform;
