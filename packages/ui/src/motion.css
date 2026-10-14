@@ -138,6 +138,10 @@
   width: max-content;
   animation: kz-marquee var(--kz-marquee-duration, 40s) linear infinite;
 }
+/* Showcase (@krizaka/ui/showcase): the current segment fills over the slide's interval, and its end advances the show.
+   Under reduced motion there is no fill and no advance — the segment is drawn full by the component. */
+.kz-showcase-fill { transform-origin: left; animation: kz-showcase-fill 6s linear forwards; }
+@keyframes kz-showcase-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes kz-marquee {
   to { transform: translateX(-50%); }
 }
@@ -637,7 +641,7 @@ svg[data-kz-icon="ExternalIcon"] {
 @keyframes kz-replay-reveal { from { visibility: hidden; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
+  .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-showcase-fill, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
   .kz-skeleton, .kz-skeleton-shape *, .kz-toast::after, .kz-glow::before,
   .kz-rotating > *, .kz-loop, .kz-iso-rise, .kz-count-roll, .kz-loader-trace, .kz-loader-node, .kz-loader-mark,
   [data-kz-status], .kz-replay-caret, .kz-month, .kz-map-user::after { animation: none !important; }

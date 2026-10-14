@@ -113,6 +113,7 @@ export type ComponentName =
   | "segmented"
   | "separator"
   | "settings-layout"
+  | "showcase"
   | "site-footer"
   | "sites"
   | "skeleton"

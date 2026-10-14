@@ -1,0 +1,5 @@
+---
+"@krizaka/ui": minor
+---
+
+`Showcase` (`@krizaka/ui/showcase`, native in `@krizaka/ui/native`): a slideshow that advances by itself and shows it. A segmented progress bar — the current segment fills over the `interval`, every segment is a button — with a counter (`labels.counter`, “Image 1 of 17”), previous / next and a visible pause / play button (WCAG 2.2.2). The fill is the timer (`.kz-showcase-fill` in `motion.css`), so what is seen is what decides; the show holds while the pointer is over it, while a keyboard focus is inside, while the tab is hidden and while it is off screen, and never advances under `prefers-reduced-motion` (manual only, the segment drawn full, no pause button). ←/→, Home/End; `aria-roledescription="carousel"` and `slide` groups named “n of N”; the live region is polite only after the visitor navigates. Slides are slots (`renderItem`, `getTitle`), `transition="fade" | "slide"`, `loop`, controlled `index`. `useTypedText` is the optional typed reveal of a text. Native: swipeable pages with the same bar, counter and buttons; the autoplay holds while dragging, in the background and with Reduce Motion on.

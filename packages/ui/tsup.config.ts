@@ -147,6 +147,7 @@ export default defineConfig([
       "number-ticker": "src/number-ticker/index.ts",
       "glow-card": "src/glow-card/index.ts",
       marquee: "src/marquee/index.ts",
+      showcase: "src/showcase/index.ts",
       "terminal-replay": "src/terminal-replay/index.ts",
     },
     banner: { js: '"use client";' },

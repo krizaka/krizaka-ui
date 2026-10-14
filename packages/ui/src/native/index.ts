@@ -98,6 +98,7 @@ export { RadioGroup, type RadioGroupProps, type RadioOption } from "./radio-grou
 export { Screen, type ScreenProps } from "./screen";
 export { SearchField, type SearchFieldProps } from "./search-field";
 export { Segmented, type SegmentedOption, type SegmentedProps } from "./segmented";
+export { Showcase, type ShowcaseLabels, showcaseLabels,type ShowcaseProps } from "./showcase";
 export { Skeleton, type SkeletonProps } from "./skeleton";
 export { Slider, type SliderProps, type SliderValue } from "./slider";
 export { Spinner, type SpinnerProps } from "./spinner";
