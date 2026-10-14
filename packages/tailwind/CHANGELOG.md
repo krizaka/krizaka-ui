@@ -1,5 +1,17 @@
 # @krizaka/tailwind
 
+## 3.6.0
+
+### Minor Changes
+
+- [#157](https://github.com/krizaka/krizaka-ui/pull/157) [`1d23271`](https://github.com/krizaka/krizaka-ui/commit/1d232714beb074a958a723828ba93bfe035ef703) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `engines` is `node >=22` for every package: Node 20 reached end of life, and the products already run on Node 22. No compatibility shim.
+
+### Patch Changes
+
+- Updated dependencies [[`76dfbba`](https://github.com/krizaka/krizaka-ui/commit/76dfbba54ba376ed47ee1b336f66518a529aeb8a), [`73ea416`](https://github.com/krizaka/krizaka-ui/commit/73ea41619af7d5ef193a9a0856b8be0cdea609eb), [`1d23271`](https://github.com/krizaka/krizaka-ui/commit/1d232714beb074a958a723828ba93bfe035ef703), [`debffad`](https://github.com/krizaka/krizaka-ui/commit/debffad6a764420e10415e1cd33f8c03f599339d), [`6c576b0`](https://github.com/krizaka/krizaka-ui/commit/6c576b0c637187a15721a2d4ca553b8995f4ef40), [`9eef77f`](https://github.com/krizaka/krizaka-ui/commit/9eef77fdb3ab8b576aa4a713f905c5e5f0210038), [`9c5c7ca`](https://github.com/krizaka/krizaka-ui/commit/9c5c7cabb8f78c07aefd5bbb52651a16a6a5fdf6), [`6695970`](https://github.com/krizaka/krizaka-ui/commit/669597042290c56c577dacd30204426c188a7092)]:
+  - @krizaka/ui@3.6.0
+  - @krizaka/tokens@3.6.0
+
 ## 3.5.0
 
 ### Patch Changes
