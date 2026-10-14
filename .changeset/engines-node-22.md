@@ -10,7 +10,6 @@
 "@krizaka/realtime": minor
 "@krizaka/query": minor
 "@krizaka/push": minor
-"@krizaka/config": minor
 ---
 
 `engines` is `node >=22` for every package: Node 20 reached end of life, and the products already run on Node 22. No compatibility shim.
