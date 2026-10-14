@@ -30,7 +30,8 @@ export const siteFooter = tv({
     bottom: "flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-border-subtle pt-6 text-xs text-fg-secondary",
     signature:
       "inline-flex items-center gap-2 rounded-md font-medium text-fg no-underline hover:text-fg-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
-    version: "rounded-full border border-border-subtle bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-fg-secondary",
+    version:
+      "rounded-full border border-border-subtle bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-fg-secondary",
     legal: "flex flex-wrap items-center gap-x-4 gap-y-2 sm:ml-auto",
   },
 });
@@ -50,12 +51,29 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
   version?: string;
   /** The environment, when it is not production (`DEV`). */
   env?: string;
+  /**
+   * Shows the family in columns (the Krizaka sites: www, ui., java.). A product is independent once deployed: pass
+   * `family={false}` and the footer holds only its own columns, the legal links, the version and one publisher line —
+   * “A Krizaka product”, linking to www.krizaka.com.
+   * @default true
+   */
+  family?: boolean;
   /** The end of the signature line: legal links, a language switch (`SiteFooter.Link`s or any inline content). */
   legal?: React.ReactNode;
 };
 
 /** The footer of a Krizaka site: its own columns, the family in columns, the signature, the version, Montréal. */
-export function SiteFooter({ current, labels = familyLabels.en, children, version, env, legal, className, ...props }: SiteFooterProps) {
+export function SiteFooter({
+  current,
+  labels = familyLabels.en,
+  children,
+  version,
+  env,
+  legal,
+  family = true,
+  className,
+  ...props
+}: SiteFooterProps) {
   const id = React.useId();
   const site = siteById(current);
   const krizaka = siteById("krizaka");
@@ -73,29 +91,31 @@ export function SiteFooter({ current, labels = familyLabels.en, children, versio
           </div>
           {children && <div className={s.own()}>{children}</div>}
         </div>
-        <nav aria-label={labels.family} className={s.family()}>
-          {sitesByGroup().map(({ group, sites }) => (
-            <div key={group} className={s.column()}>
-              <p id={`${id}-${group}`} className={s.title()}>
-                {labels.groups[group]}
-              </p>
-              <ul aria-labelledby={`${id}-${group}`} className={s.list()}>
-                {sites.map((item) => (
-                  <li key={item.id}>
-                    <a href={item.url} aria-current={item.id === current ? "true" : undefined} className={s.link()}>
-                      <span className={s.mark()}>
-                        <FamilyMark mark={item.mark} size={16} />
-                      </span>
-                      {item.name}
-                      {item.status !== "released" && <span className={s.tag()}>{labels.status[item.status]}</span>}
-                      {item.id === current && <span className="sr-only">({labels.current})</span>}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </nav>
+        {family && (
+          <nav aria-label={labels.family} className={s.family()}>
+            {sitesByGroup().map(({ group, sites }) => (
+              <div key={group} className={s.column()}>
+                <p id={`${id}-${group}`} className={s.title()}>
+                  {labels.groups[group]}
+                </p>
+                <ul aria-labelledby={`${id}-${group}`} className={s.list()}>
+                  {sites.map((item) => (
+                    <li key={item.id}>
+                      <a href={item.url} aria-current={item.id === current ? "true" : undefined} className={s.link()}>
+                        <span className={s.mark()}>
+                          <FamilyMark mark={item.mark} size={16} />
+                        </span>
+                        {item.name}
+                        {item.status !== "released" && <span className={s.tag()}>{labels.status[item.status]}</span>}
+                        {item.id === current && <span className="sr-only">({labels.current})</span>}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
+        )}
         <div className={s.bottom()}>
           <a href={krizaka.url} className={s.signature()}>
             <KrizakaLogo size={18} animated={false} />

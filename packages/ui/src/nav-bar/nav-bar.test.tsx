@@ -163,6 +163,17 @@ describe("NavBar.Family", () => {
     expect(within(group).getByRole("link", { name: /Yororis/ }).textContent).toContain("En construction");
   });
 
+  it("says the family once in the mobile panel — the company's own group carries no second, duplicate heading", async () => {
+    const user = userEvent.setup();
+    render(<FamilyBar />);
+    await user.click(screen.getByRole("button", { name: "Open the menu" }));
+    const panel = screen.getAllByRole("navigation", { name: "Main" }).find((n) => n.tagName === "NAV" && n.id)!;
+    const group = within(panel).getByRole("group", { name: "Krizaka family" });
+    expect(within(group).getAllByText("Krizaka family")).toHaveLength(1);
+    expect(within(group).queryByText(/^Krizaka$/, { selector: "p" })).toBeNull();
+    for (const name of ["Products", "Open source", "GitHub"]) expect(within(group).getByText(name, { selector: "p" })).toBeTruthy();
+  });
+
   it("shows the environment and the version, and the repository as a named icon link", () => {
     render(<FamilyBar />);
     expect(screen.getByText("DEV · v1.2.3")).toBeTruthy();

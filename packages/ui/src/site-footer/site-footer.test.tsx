@@ -62,4 +62,23 @@ describe("SiteFooter", () => {
     expect(screen.getByText("Fait à Montréal")).toBeTruthy();
     expect(screen.getByRole("link", { name: "Confidentialité" })).toBeTruthy();
   });
+
+  it("with family={false} holds no family column and no link to another site, only the publisher line", async () => {
+    const { container } = render(<Footer family={false} legal={<SiteFooter.Link href="#privacy">Privacy</SiteFooter.Link>} />);
+    expect(screen.queryByRole("navigation", { name: "Krizaka family" })).toBeNull();
+    expect(screen.getByRole("list", { name: "Orazaka" })).toBeTruthy();
+    const hrefs = screen.getAllByRole("link").map((a) => a.getAttribute("href"));
+    for (const other of ["orochia", "yasakia", "yororis", "ui.krizaka", "java.krizaka", "github.com"]) {
+      expect(hrefs.filter((h) => h?.includes(other))).toEqual([]);
+    }
+    expect(screen.getByRole("link", { name: /A Krizaka product/ }).getAttribute("href")).toBe("https://www.krizaka.com");
+    expect(screen.getByText("DEV · v1.2.3")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Privacy" })).toBeTruthy();
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("publisher line in French", () => {
+    render(<Footer family={false} labels={familyLabels.fr} />);
+    expect(screen.getByRole("link", { name: /Un produit Krizaka/ }).getAttribute("href")).toBe("https://www.krizaka.com");
+  });
 });
