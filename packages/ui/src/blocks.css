@@ -432,10 +432,62 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-code-lang { padding: 2px 7px; border-radius: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--kz-text-primary); background: var(--kz-surface-3); }
 .kz-code pre { margin: 0; padding: 16px 18px; overflow-x: auto; font-family: var(--kz-font-mono); font-size: 12.5px; line-height: 1.7; color: var(--kz-text-primary); tab-size: 2; }
 .kz-code pre:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: -2px; }
-.kz-tk-comment { color: var(--kz-text-secondary); font-style: italic; }
-.kz-tk-string { color: var(--kz-success-text); }
-.kz-tk-annotation { color: var(--kz-warning-text); }
-.kz-tk-keyword, .kz-tk-tag { color: var(--kz-accent-text); font-weight: 600; }
+/* The code's colours: TanStack Highlight's `th-*` classes on the tokens' text roles (each ≥ 4.5:1 on the code surface,
+   both themes) — comments quiet, strings green, keywords in the accent, types and numbers in the info colour. */
+.kz-code .th-comment { color: var(--kz-text-secondary); font-style: italic; }
+.kz-code .th-string, .kz-code .th-inserted { color: var(--kz-success-text); }
+.kz-code .th-attr, .kz-code .th-meta { color: var(--kz-warning-text); }
+.kz-code .th-keyword, .kz-code .th-tag, .kz-code .th-selector, .kz-code .th-command { color: var(--kz-accent-text); font-weight: 600; }
+.kz-code .th-type, .kz-code .th-function, .kz-code .th-number, .kz-code .th-literal { color: var(--kz-info-text); }
+.kz-code .th-deleted { color: var(--kz-danger-text); }
+.kz-code .th-heading, .kz-code .th-link { color: var(--kz-accent-text); font-weight: 700; }
+/* Lines (numbered or set apart): a band the width of the sample, edge to edge. */
+.kz-code .th-line { display: inline-block; box-sizing: border-box; min-width: calc(100% + 36px); width: max-content; margin-inline: -18px; padding-inline: 18px; position: relative; }
+.kz-code .th-code--line-numbers .th-line::before { content: attr(data-line); display: inline-block; width: 2.5em; margin-right: 1em; text-align: right; color: var(--kz-text-secondary); user-select: none; }
+.kz-code .kz-line-highlight { background: var(--kz-surface-3); box-shadow: inset 2px 0 0 var(--kz-hue, var(--kz-accent)); }
+.kz-code .kz-line-added { background: color-mix(in srgb, var(--kz-success) 14%, transparent); }
+.kz-code .kz-line-removed { background: color-mix(in srgb, var(--kz-danger) 14%, transparent); }
+.kz-code .kz-line-error { background: color-mix(in srgb, var(--kz-danger) 14%, transparent); box-shadow: inset 2px 0 0 var(--kz-danger); }
+.kz-code .kz-line-warning { background: color-mix(in srgb, var(--kz-warning) 14%, transparent); box-shadow: inset 2px 0 0 var(--kz-warning); }
+.kz-code .kz-line-added::after, .kz-code .kz-line-removed::after { position: absolute; left: 6px; top: 0; font-weight: 700; }
+.kz-code .kz-line-added::after { content: "+"; color: var(--kz-success-text); }
+.kz-code .kz-line-removed::after { content: "\2212"; color: var(--kz-danger-text); }
+.kz-code .kz-line-added .th-token, .kz-code .kz-line-removed .th-token, .kz-code .kz-line-error .th-token, .kz-code .kz-line-warning .th-token { color: inherit; }
+/* Dimmed, not faded: the line keeps the quiet text role (≥ 4.5:1), its colours go. */
+.kz-code .kz-line-dim, .kz-code pre[data-focus] .th-line:not(.kz-line-focus) { color: var(--kz-text-secondary); }
+.kz-code .kz-line-dim .th-token, .kz-code pre[data-focus] .th-line:not(.kz-line-focus) .th-token { color: inherit; font-weight: inherit; }
+/* Markdown (TanStack Markdown's AST on the tokens): reading text, nothing decorative. */
+.kz-md { min-width: 0; color: var(--kz-text-primary); font-size: 15px; line-height: 1.7; overflow-wrap: anywhere; }
+.kz-md > * { margin-block: 0; }
+.kz-md > * + * { margin-top: 0.9em; }
+.kz-md h1, .kz-md h2, .kz-md h3, .kz-md h4, .kz-md h5, .kz-md h6 { font-family: var(--kz-font-display); font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; }
+.kz-md > * + :is(h1, h2, h3) { margin-top: 1.6em; }
+.kz-md h1 { font-size: 1.7em; } .kz-md h2 { font-size: 1.35em; } .kz-md h3 { font-size: 1.15em; } .kz-md h4, .kz-md h5, .kz-md h6 { font-size: 1em; }
+.kz-md a { color: var(--kz-accent-text); text-decoration: underline; text-underline-offset: 3px; }
+.kz-md a:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; border-radius: 4px; }
+.kz-md ul, .kz-md ol { padding-inline-start: 1.5em; }
+.kz-md ul { list-style: disc; }
+.kz-md ol { list-style: decimal; }
+.kz-md ul[data-tasks] { list-style: none; padding-inline-start: 0; }
+.kz-md li + li { margin-top: 0.35em; }
+.kz-md li > :is(ul, ol), .kz-md li > p + * { margin-top: 0.35em; }
+.kz-md blockquote { padding-inline-start: 1em; color: var(--kz-text-secondary); border-inline-start: 3px solid var(--kz-hue, var(--kz-accent)); }
+.kz-md :not(pre) > code { padding: 0.12em 0.4em; border-radius: 6px; font-family: var(--kz-font-mono); font-size: 0.88em; background: var(--kz-surface-3); }
+.kz-md hr { border: 0; border-top: 1px solid var(--kz-border-default); }
+.kz-md img { max-width: 100%; height: auto; border-radius: 12px; }
+.kz-md-table { overflow-x: auto; }
+.kz-md-table table { width: 100%; border-collapse: collapse; font-size: 0.93em; }
+.kz-md-table :is(th, td) { padding: 0.55em 0.8em; text-align: start; border-bottom: 1px solid var(--kz-border-subtle); }
+.kz-md-table th { font-weight: 700; color: var(--kz-text-secondary); background: var(--kz-surface-2); }
+.kz-md [data-footnotes] { font-size: 0.9em; color: var(--kz-text-secondary); border-top: 1px solid var(--kz-border-subtle); padding-top: 0.8em; }
+/* A text still arriving: a caret where it goes on (still under reduced motion). */
+.kz-md[data-streaming] > :is(p, h1, h2, h3, h4, h5, h6):last-child::after,
+.kz-md[data-streaming] > :is(ul, ol):last-child > li:last-child::after { content: ""; display: inline-block; width: 0.5ch; height: 1.05em; margin-inline-start: 3px; vertical-align: -0.15em; background: var(--kz-accent-text); }
+@media (prefers-reduced-motion: no-preference) {
+  .kz-md[data-streaming] > :is(p, h1, h2, h3, h4, h5, h6):last-child::after,
+  .kz-md[data-streaming] > :is(ul, ol):last-child > li:last-child::after { animation: kz-md-caret 1s steps(2, start) infinite; }
+}
+@keyframes kz-md-caret { to { visibility: hidden; } }
 .kz-code-copy {
   display: inline-flex;
   align-items: center;

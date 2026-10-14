@@ -1,14 +1,18 @@
-// Client (the collapse, the drawer). The shell of an application screen, read from the products' consoles (Orochia
-// admin and studio, Orazaka web-admin and web-client): a sidebar of sections that collapses to its icons on a desktop,
-// a header with the screen's title and actions, the content — and below `md` the sidebar becomes a drawer opened from
-// the header (Radix Dialog: focus trap, Escape, focus return). Words arrive as props; links through `asChild`.
+// Client (the collapse, the drawer, the shortcuts). The shell of an application screen, read from the products' consoles
+// (Orochia admin and studio, Orazaka web-admin and web-client): a sidebar of sections that collapses to its icons on a
+// desktop, a header with the screen's title, a search that opens the app's command palette and its actions, the content —
+// and below `md` the sidebar becomes a drawer opened from the header (Radix Dialog: focus trap, Escape, focus return).
+// Keyboard: ⌘/Ctrl+B folds the sidebar, ⌘/Ctrl+K opens the search, `g` then a letter goes to a section (`shortcut` of an
+// item). Words arrive as props; links through `asChild`.
 import { SkipLink } from "@krizaka/ui/skip-link";
 import { Dialog as DialogPrimitive, Slot } from "radix-ui";
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "../cn";
-import { ChevronGlyph, CloseGlyph } from "../glyphs";
+import { ChevronGlyph, CloseGlyph, SearchGlyph } from "../glyphs";
+import { Kbd } from "../kbd";
+import { ariaKeyShortcuts, formatShortcut, useApple, useShortcuts } from "./shortcuts";
 
 export const appShell = tv({
   slots: {
@@ -29,6 +33,7 @@ export const appShell = tv({
       "aria-[current=page]:before:absolute aria-[current=page]:before:inset-y-2 aria-[current=page]:before:-left-2 aria-[current=page]:before:w-1 aria-[current=page]:before:rounded-full aria-[current=page]:before:bg-accent " +
       "[[data-collapsed]_&]:justify-center [[data-collapsed]_&]:px-0 [&>svg]:h-[18px] [&>svg]:w-[18px] [&>svg]:shrink-0",
     itemLabel: "min-w-0 flex-1 truncate [[data-collapsed]_&]:sr-only",
+    itemHint: "ml-auto hidden items-center gap-0.5 text-fg-secondary group-hover/item:flex group-focus-visible/item:flex [[data-collapsed]_&]:!hidden",
     itemBadge:
       "ml-auto inline-flex min-w-5 items-center justify-center rounded-full bg-accent px-1.5 text-[11px] font-bold text-on-accent " +
       "[[data-collapsed]_&]:absolute [[data-collapsed]_&]:right-1.5 [[data-collapsed]_&]:top-1 [[data-collapsed]_&]:min-w-4 [[data-collapsed]_&]:px-1 [[data-collapsed]_&]:text-[10px]",
@@ -43,6 +48,11 @@ export const appShell = tv({
       "inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border-subtle bg-surface-1 text-fg md:hidden " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     title: "min-w-0 flex-1 truncate font-display text-base font-bold tracking-tight",
+    search:
+      "inline-flex h-9 min-w-9 items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface-1 px-2.5 text-sm text-fg-secondary transition-colors " +
+      "hover:border-border-default hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring md:w-56 md:justify-start [&>svg]:h-4 [&>svg]:w-4 [&>svg]:shrink-0",
+    searchLabel: "sr-only md:not-sr-only md:flex-1 md:truncate md:text-left",
+    searchKeys: "hidden items-center gap-0.5 md:flex",
     actions: "ml-auto flex shrink-0 items-center gap-2",
     main: "min-w-0 flex-1 px-4 py-6 md:px-6 md:py-8",
   },
@@ -72,10 +82,16 @@ export type AppShellRootProps = React.ComponentProps<"div"> & {
   onCollapsedChange?: (collapsed: boolean) => void;
   /** The words of the "skip to content" link (`Skip to content`), the first tab stop; it lands on `AppShell.Main`. Without it, no link. */
   skipLabel?: string;
+  /**
+   * The shortcut that folds and unfolds the sidebar (a combination: `mod+b` is ⌘B on a Mac, Ctrl+B elsewhere), or `false`
+   * for none.
+   * @default "mod+b"
+   */
+  collapseShortcut?: string | false;
 };
 
 /** The shell: holds the collapse (desktop) and the drawer (phone) state. Children: Sidebar, then Body. */
-export function AppShellRoot({ defaultCollapsed = false, collapsed: controlled, onCollapsedChange, skipLabel, className, children, ...props }: AppShellRootProps) {
+export function AppShellRoot({ defaultCollapsed = false, collapsed: controlled, onCollapsedChange, skipLabel, collapseShortcut = "mod+b", className, children, ...props }: AppShellRootProps) {
   const [own, setOwn] = React.useState(defaultCollapsed);
   const [open, setOpen] = React.useState(false);
   const collapsed = controlled ?? own;
@@ -87,6 +103,7 @@ export function AppShellRoot({ defaultCollapsed = false, collapsed: controlled, 
     [controlled, onCollapsedChange],
   );
   const value = React.useMemo(() => ({ collapsed, setCollapsed, open, setOpen, inDrawer: false }), [collapsed, setCollapsed, open]);
+  useShortcuts(collapseShortcut ? { [collapseShortcut]: () => setCollapsed(!collapsed) } : {});
   return (
     <ShellContext.Provider value={value}>
       <div className={s.root({ className })} {...props}>
@@ -185,6 +202,11 @@ export type AppShellItemProps = Omit<React.ComponentProps<"a">, "children"> & {
   current?: boolean;
   /** A count beside it (unread, pending): a number or a few characters. */
   badge?: React.ReactNode;
+  /**
+   * A keyboard shortcut that goes to it: a sequence (`g d`: G then D) or a combination (`mod+1`). It clicks the item, so a
+   * router link navigates. The keys are shown on hover and focus when the sidebar is open.
+   */
+  shortcut?: string;
   /** Renders your link (Next's `Link`) with the item's look: pass it as the only child. */
   asChild?: boolean;
   /** Your link element when `asChild`. */
@@ -192,18 +214,31 @@ export type AppShellItemProps = Omit<React.ComponentProps<"a">, "children"> & {
 };
 
 /** A destination of the sidebar: icon, words, a count. */
-export function AppShellItem({ icon, label, current, badge, asChild, children, className, ...props }: AppShellItemProps) {
-  const { collapsed } = useShell();
+export function AppShellItem({ icon, label, current, badge, shortcut, asChild, children, className, ...props }: AppShellItemProps) {
+  const { collapsed, inDrawer } = useShell();
+  const element = React.useRef<HTMLAnchorElement>(null);
+  const apple = useApple();
+  // Only the sidebar's own items listen: the drawer holds a copy of them, open or not.
+  useShortcuts(shortcut && !inDrawer ? { [shortcut]: () => element.current?.click() } : {});
   const Comp = asChild ? Slot.Root : "a";
   const inner = (
     <>
       {icon}
       <span className={s.itemLabel()}>{label}</span>
       {badge != null && <span className={s.itemBadge()}>{badge}</span>}
+      {shortcut && !inDrawer ? (
+        <span className={s.itemHint()} aria-hidden>
+          {formatShortcut(shortcut, apple).map((key) => (
+            <Kbd key={key} size="sm">
+              {key}
+            </Kbd>
+          ))}
+        </span>
+      ) : null}
     </>
   );
   return (
-    <Comp aria-current={current ? "page" : undefined} title={collapsed ? label : undefined} className={s.item({ className })} {...props}>
+    <Comp ref={element} aria-current={current ? "page" : undefined} aria-keyshortcuts={shortcut ? ariaKeyShortcuts(shortcut, apple) : undefined} title={collapsed ? label : undefined} className={s.item({ className })} {...props}>
       {asChild && children ? React.cloneElement(children, undefined, inner) : inner}
     </Comp>
   );
@@ -240,6 +275,37 @@ export function AppShellHeader({ title, menuLabel, actions, className, children,
   );
 }
 
+export type AppShellSearchProps = Omit<React.ComponentProps<"button">, "children" | "onClick"> & {
+  /** The words ("Search", "Search creators"): the accessible name, shown beside the keys on a desktop. */
+  label: string;
+  /** Called when the button is pressed or the shortcut is typed: open your command palette (`CommandDialog`) here. */
+  onOpen: () => void;
+  /**
+   * The shortcut that opens it (a combination); shown on its keys.
+   * @default "mod+k"
+   */
+  shortcut?: string;
+};
+
+/** The header's search: a button that looks like a field (a magnifier, its words, ⌘K) and opens the app's command palette. */
+export function AppShellSearch({ label, onOpen, shortcut = "mod+k", className, ...props }: AppShellSearchProps) {
+  const apple = useApple();
+  useShortcuts({ [shortcut]: () => onOpen() });
+  return (
+    <button type="button" className={s.search({ className })} aria-keyshortcuts={ariaKeyShortcuts(shortcut, apple)} onClick={onOpen} {...props}>
+      <SearchGlyph />
+      <span className={s.searchLabel()}>{label}</span>
+      <span className={s.searchKeys()} aria-hidden>
+        {formatShortcut(shortcut, apple).map((key) => (
+          <Kbd key={key} size="sm">
+            {key}
+          </Kbd>
+        ))}
+      </span>
+    </button>
+  );
+}
+
 /** The screen's content. */
 export function AppShellMain({ className, ...props }: React.ComponentProps<"main">) {
   return <main id="content" tabIndex={-1} className={s.main({ className })} {...props} />;
@@ -252,5 +318,6 @@ export const AppShell = {
   Item: AppShellItem,
   Body: AppShellBody,
   Header: AppShellHeader,
+  Search: AppShellSearch,
   Main: AppShellMain,
 };

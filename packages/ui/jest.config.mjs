@@ -26,6 +26,12 @@ export default {
     "^@krizaka/query$": "<rootDir>/node_modules/@krizaka/query/dist/index.js",
     // @krizaka/intl (the form's money): ESM only too.
     "^@krizaka/intl$": "<rootDir>/node_modules/@krizaka/intl/dist/index.js",
+    // @krizaka/pacer (the debounce of the search field): ESM only, like the packages above.
+    "^@krizaka/pacer/react$": "<rootDir>/node_modules/@krizaka/pacer/dist/react.js",
+    "^@krizaka/pacer$": "<rootDir>/node_modules/@krizaka/pacer/dist/index.js",
+    // TanStack Markdown and Highlight (the markdown entry): ESM with an `import` condition only.
+    "^@tanstack/markdown/parser$": "<rootDir>/node_modules/@tanstack/markdown/dist/parser.js",
+    "^@tanstack/markdown/extensions/streaming$": "<rootDir>/node_modules/@tanstack/markdown/dist/extensions/streaming.js",
     // The Expo modules of the entries that need one (optional peers): their native side does not exist under Jest.
     "^expo-video$": "<rootDir>/src/native/mocks/expo-video.tsx",
     "^expo-camera$": "<rootDir>/src/native/mocks/expo-camera.tsx",
@@ -38,7 +44,7 @@ export default {
   },
   // pnpm keeps packages under node_modules/.pnpm/<name>@<version>/node_modules/<name>: React Native ships Flow and
   // untranspiled ESM, so it and its satellites go through Babel; the rest is plain CommonJS.
-  transformIgnorePatterns: ["node_modules/(?!(\\.pnpm|(jest-)?react-native|@react-native(-community)?|react-native-svg|@shopify/flash-list|@krizaka|@protomaps|pmtiles)/)"],
+  transformIgnorePatterns: ["node_modules/(?!(\\.pnpm|(jest-)?react-native|@react-native(-community)?|react-native-svg|@shopify/flash-list|@krizaka|@tanstack|@protomaps|pmtiles)/)"],
   // FlashList v2 measures its views through the native layout: its own setup gives them a size under Jest.
   setupFiles: [...(preset.setupFiles ?? []), "@shopify/flash-list/jestSetup"],
 };

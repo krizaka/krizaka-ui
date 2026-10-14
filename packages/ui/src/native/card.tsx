@@ -1,8 +1,12 @@
 import * as React from "react";
 import { Image, type ImageProps, Pressable, type PressableProps, type StyleProp, StyleSheet, View, type ViewProps, type ViewStyle } from "react-native";
 
+import { cardRecipe } from "../card/recipe";
+import { nativeRecipe } from "../recipes/native";
 import { useTheme } from "./theme";
 import { Txt, type TxtProps } from "./txt";
+
+const RECIPES = nativeRecipe(cardRecipe);
 
 export type CardRootProps = ViewProps & {
   /** `default` (the raised surface) or `elevated` (one step higher, with a shadow). */
@@ -19,11 +23,13 @@ export type CardRootProps = ViewProps & {
 /** The frame: the theme's surface, a hairline border, rounded corners; `onPress` makes it a pressable card. */
 export function CardRoot({ tone = "default", radius = "xl", onPress, style, ...props }: CardRootProps) {
   const { theme, radius: r } = useTheme();
+  // The surface and the border are the web's (card/recipe.ts), read on the theme; the radius is the theme's.
+  const { frame: look } = RECIPES.resolve({ tone }, theme).root!;
   const frame: StyleProp<ViewStyle> = [
     styles.root,
     {
-      backgroundColor: tone === "elevated" ? theme.surface2 : theme.surface1,
-      borderColor: theme.borderDefault,
+      backgroundColor: look.backgroundColor,
+      borderColor: look.borderColor,
       borderRadius: r[radius],
     },
     tone === "elevated" ? [styles.shadow, { shadowColor: theme.scrimStrong }] : null,
@@ -89,15 +95,16 @@ export function CardOverlay({ corner = "top-left", style, ...props }: CardOverla
   return <View {...props} style={[styles.overlay, CORNER[corner], style]} />;
 }
 
-const PADDING = { none: 0, sm: 12, md: 16, lg: 24 } as const;
-
 export type CardBodyProps = ViewProps & {
   /** none · sm · md (default) · lg. */
-  padding?: keyof typeof PADDING;
+  padding?: "none" | "sm" | "md" | "lg";
 };
 
 export function CardBody({ padding = "md", style, ...props }: CardBodyProps) {
-  return <View {...props} style={[styles.body, { padding: PADDING[padding] }, style]} />;
+  const { theme } = useTheme();
+  // The padding is the web's `p-0` · `p-3` · `p-4` · `p-6` (card/recipe.ts), in points.
+  const { frame } = RECIPES.resolve({ padding }, theme).body!;
+  return <View {...props} style={[styles.body, { padding: frame.padding }, style]} />;
 }
 
 /** The card's name: one line, a header for screen readers. */

@@ -98,4 +98,52 @@ describe("useUploadQueue", () => {
     await act(async () => calls[2]!.done());
     expect(result.current.items.map((i) => i.status)).toEqual(["done", "done"]);
   });
+
+  it("retries a failed upload by itself, with a backoff, and shows the error only when the tries are spent", async () => {
+    vi.useFakeTimers();
+    const upload = vi.fn((_f: File, ctx: { resumed: boolean }) => (ctx.resumed ? Promise.resolve() : Promise.reject(new Error("Connection lost"))));
+    const { result } = renderHook(() => useUploadQueue({ upload, previews: false, retries: 2, backoff: { kind: "fixed", baseMs: 100 } }));
+    act(() => result.current.add([file("a.mp4", "video/mp4", 100)]));
+    await act(async () => void (await vi.advanceTimersByTimeAsync(0)));
+    expect(upload).toHaveBeenCalledTimes(1);
+    expect(result.current.items[0]!.status).toBe("uploading");
+    await act(async () => void (await vi.advanceTimersByTimeAsync(100)));
+    expect(upload).toHaveBeenCalledTimes(2);
+    expect(result.current.items[0]).toMatchObject({ status: "done", progress: 1 });
+    vi.useRealTimers();
+  });
+
+  it("shows the error of an upload that is not retried, and retries it by hand", async () => {
+    let fail = true;
+    const upload = vi.fn(() => (fail ? Promise.reject(new Error("Disk full")) : Promise.resolve()));
+    const { result } = renderHook(() => useUploadQueue({ upload, previews: false, shouldRetry: () => false, retries: 3 }));
+    act(() => result.current.add([file("a.mp4", "video/mp4", 100)]));
+    await act(async () => undefined);
+    expect(result.current.items[0]).toMatchObject({ status: "error", error: "Disk full", speed: undefined });
+    fail = false;
+    act(() => result.current.retry(result.current.items[0]!.id));
+    await act(async () => undefined);
+    expect(result.current.items[0]!.status).toBe("done");
+  });
+
+  it("measures the speed while sending, and cancels an upload, revoking its preview", async () => {
+    const revoke = vi.fn();
+    const create = vi.fn(() => "blob:preview");
+    Object.assign(URL, { createObjectURL: create, revokeObjectURL: revoke });
+    vi.useFakeTimers();
+    const progress: Record<string, (n: number) => void> = {};
+    const upload = vi.fn((f: File, ctx: { onProgress: (n: number) => void }) => new Promise<void>(() => (progress[f.name] = ctx.onProgress)));
+    const { result, unmount } = renderHook(() => useUploadQueue({ upload }));
+    act(() => result.current.add([file("a.mp4", "video/mp4", 1000), file("b.mp4", "video/mp4", 1000)]));
+    expect(result.current.items[0]!.previewUrl).toBe("blob:preview");
+    await act(async () => void (await vi.advanceTimersByTimeAsync(1000)));
+    act(() => progress["a.mp4"]!(500));
+    expect(result.current.items[0]!.speed).toBeGreaterThan(0);
+    act(() => result.current.cancel(result.current.items[0]!.id));
+    expect(revoke).toHaveBeenCalledWith("blob:preview");
+    expect(result.current.items).toHaveLength(1);
+    unmount();
+    expect(revoke).toHaveBeenCalledTimes(2);
+    vi.useRealTimers();
+  });
 });

@@ -58,6 +58,8 @@ export default defineConfig([
       "decision-list": "src/decision-list/index.ts",
       "action-bar": "src/action-bar/index.ts",
       "cta-panel": "src/cta-panel/index.ts",
+      // The recipes: classes of the tokens, read by tv() on the web and by the phone's components (no React).
+      recipes: "src/recipes/index.ts",
     },
   },
   {
@@ -185,6 +187,13 @@ export default defineConfig([
     banner: { js: '"use client";' },
   },
   {
+    // Server — Markdown (TanStack Markdown): no hook, no directive; its code blocks are the client `code-block` entry,
+    // imported through the package's own entry (external) so the client boundary stays where it is.
+    ...shared,
+    entry: { markdown: "src/markdown/index.ts" },
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/],
+  },
+  {
     // Client — the map (MapLibre GL JS and PMTiles loaded on demand, optional peers): the style is generated from the
     // tokens, inlined like /native's.
     ...shared,
@@ -241,6 +250,8 @@ export default defineConfig([
       "native/form": "src/native/form.tsx",
       // The map: MapLibre Native (an optional peer) with the web's style, generated from the tokens (inlined).
       "native/map": "src/native/map.tsx",
+      // Markdown: TanStack Markdown and the code grammars (dependencies, as on the web), drawn in Text and View.
+      "native/markdown": "src/native/markdown.tsx",
     },
     external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "expo-image-picker", "@shopify/flash-list", "@krizaka/query", "@maplibre/maplibre-react-native", "@protomaps/basemaps"],
     noExternal: ["@krizaka/tokens"],

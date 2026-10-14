@@ -6,12 +6,16 @@
 //   retry, cancel, remove); the progress is a `progressbar`, a failure is announced;
 // - `useUploadQueue`: runs the app's `upload(file, { signal, onProgress, resumed })` with a concurrency, pauses by
 //   aborting the signal and resumes by calling it again with `resumed: true` — what a Tus client (tus-js-client's
-//   `abort()` / `start()`) or a multipart upload needs, without depending on either.
+//   `abort()` / `start()`) or a multipart upload needs, without depending on either. The line (concurrency, retries
+//   with backoff, pause per file) is `createQueue` of @krizaka/pacer.
 import { getNumberFormat } from "@krizaka/intl";
+import { type QueueOptions } from "@krizaka/pacer";
+import { useQueue, useQueueSnapshot } from "@krizaka/pacer/react";
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { CloseGlyph, FileGlyph, PauseGlyph, PlayGlyph, RetryGlyph, UploadGlyph } from "../glyphs";
+import { useLatest } from "../media";
 import { Progress } from "../progress";
 
 export const fileUpload = tv({
@@ -353,110 +357,102 @@ export type UploadQueueOptions = {
   upload: (file: File, context: UploadContext) => Promise<void>;
   /** How many files go at once. Default 2. */
   concurrency?: number;
+  /** How many times a failed upload is tried again by itself (with `backoff`) before it shows its error. Default 0. */
+  retries?: number;
+  /** The wait between retries: exponential from 1 s by default (`@krizaka/pacer`). */
+  backoff?: QueueOptions["backoff"];
+  /** Whether an error deserves another try (a 4xx never does). Default: every error does, up to `retries`. */
+  shouldRetry?: QueueOptions["shouldRetry"];
   /** Makes an object URL for each file to preview (revoked when it leaves). Default `true`. */
   previews?: boolean;
 };
 
-type Entry = { item: UploadItem; file: File; controller: AbortController | null; started: boolean; last?: { at: number; sent: number } };
+/** What the screen reads of an upload besides its status: the file, how far it got, how fast. */
+type UploadMeta = { file: File; progress: number; speed?: number; previewUrl?: string; last?: { at: number; sent: number } };
 
-/** The queue itself, outside React: entries, the pump that starts the next uploads, and the actions. */
-function createQueue(initial: UploadQueueOptions, emit: (items: UploadItem[]) => void) {
-  let current = initial;
-  const options = () => current;
-  const entries = new Map<string, Entry>();
-  const sync = () => emit([...entries.values()].map((e) => e.item));
-  const patch = (id: string, next: Partial<UploadItem>) => {
-    const entry = entries.get(id);
-    if (!entry) return;
-    entry.item = { ...entry.item, ...next };
-    sync();
-  };
-  const pump = () => {
-    const { upload, concurrency = 2 } = options();
-    const all = [...entries.values()];
-    let running = all.filter((e) => e.item.status === "uploading").length;
-    for (const entry of all) {
-      if (running >= concurrency) break;
-      if (entry.item.status !== "queued") continue;
-      running += 1;
-      const controller = new AbortController();
-      const resumed = entry.started;
-      entry.controller = controller;
-      entry.started = true;
-      entry.last = { at: Date.now(), sent: entry.item.progress * entry.item.size };
-      patch(entry.item.id, { status: "uploading", error: undefined });
-      upload(entry.file, {
-        signal: controller.signal,
-        resumed,
-        onProgress: (sent) => {
-          if (controller.signal.aborted) return;
-          const now = Date.now();
-          const last = entry.last ?? { at: now, sent };
-          const fresh = now - last.at > 400;
-          const speed = fresh ? ((sent - last.sent) / (now - last.at)) * 1000 : entry.item.speed;
-          if (fresh) entry.last = { at: now, sent };
-          patch(entry.item.id, { progress: entry.item.size ? Math.min(1, sent / entry.item.size) : 0, speed });
-        },
-      }).then(
-        () => {
-          if (controller.signal.aborted) return;
-          patch(entry.item.id, { status: "done", progress: 1, speed: undefined });
-          pump();
-        },
-        (error: unknown) => {
-          if (controller.signal.aborted) return;
-          patch(entry.item.id, { status: "error", error: error instanceof Error ? error.message : String(error), speed: undefined });
-          pump();
-        },
-      );
-    }
-  };
-  const release = (entry: Entry) => {
-    entry.controller?.abort();
-    if (entry.item.previewUrl) URL.revokeObjectURL(entry.item.previewUrl);
-  };
-  return {
-    configure(next: UploadQueueOptions) {
-      current = next;
-    },
-    add(files: readonly File[]) {
-      const { previews = true } = options();
+/**
+ * The state of an upload queue around the app's `upload` function: `add`, `pause`, `resume`, `retry`, `cancel`, `remove`.
+ * The line itself — concurrency, retries with backoff, pause by aborting the signal — is `createQueue` of
+ * `@krizaka/pacer`; this hook adds the files, their previews, their progress and their speed.
+ */
+export function useUploadQueue(options: UploadQueueOptions) {
+  const { concurrency, retries, backoff, shouldRetry } = options;
+  const latest = useLatest(options);
+  const queue = useQueue<UploadMeta>({ concurrency: concurrency ?? 2, retries, backoff, shouldRetry });
+  const jobs = useQueueSnapshot(queue);
+  const metas = useLatest(new Map(jobs.map((job) => [job.id, job.meta])));
+
+  const add = React.useCallback(
+    (files: readonly File[]) => {
+      const { previews = true } = latest.current;
       for (const file of files) {
         const id = `${file.name}-${file.size}-${Math.random().toString(36).slice(2, 8)}`;
         const previewUrl = previews && typeof URL.createObjectURL === "function" ? URL.createObjectURL(file) : undefined;
-        entries.set(id, { file, controller: null, started: false, item: { id, name: file.name, size: file.size, type: file.type, progress: 0, status: "queued", previewUrl } });
+        queue.add(
+          async ({ signal, resumed }) => {
+            queue.update(id, (m) => ({ ...m, last: { at: Date.now(), sent: m.progress * file.size } }));
+            try {
+              await latest.current.upload(file, {
+                signal,
+                resumed,
+                onProgress: (sent) => {
+                  if (signal.aborted) return;
+                  queue.update(id, (m) => {
+                    const now = Date.now();
+                    const last = m.last ?? { at: now, sent };
+                    const fresh = now - last.at > 400;
+                    return { ...m, progress: file.size ? Math.min(1, sent / file.size) : 0, speed: fresh ? ((sent - last.sent) / (now - last.at)) * 1000 : m.speed, last: fresh ? { at: now, sent } : last };
+                  });
+                },
+              });
+              if (!signal.aborted) queue.update(id, (m) => ({ ...m, progress: 1, speed: undefined }));
+            } catch (error) {
+              if (!signal.aborted) queue.update(id, (m) => ({ ...m, speed: undefined }));
+              throw error;
+            }
+          },
+          { id, meta: { file, progress: 0, previewUrl } },
+        );
       }
-      sync();
-      pump();
     },
-    pause(id: string) {
-      entries.get(id)?.controller?.abort();
-      patch(id, { status: "paused", speed: undefined });
-      pump();
+    [latest, queue],
+  );
+  const forget = React.useCallback(
+    (id: string) => {
+      const url = metas.current.get(id)?.previewUrl;
+      if (url) URL.revokeObjectURL(url);
+      queue.cancel(id);
     },
-    resume(id: string) {
-      patch(id, { status: "queued" });
-      pump();
+    [metas, queue],
+  );
+  React.useEffect(
+    () => () => {
+      for (const meta of metas.current.values()) if (meta.previewUrl) URL.revokeObjectURL(meta.previewUrl);
     },
-    remove(id: string) {
-      const entry = entries.get(id);
-      if (!entry) return;
-      release(entry);
-      entries.delete(id);
-      sync();
-      pump();
+    [metas],
+  );
+  const pause = React.useCallback(
+    (id: string) => {
+      queue.pause(id);
+      queue.update(id, (m) => ({ ...m, speed: undefined }));
     },
-    dispose() {
-      for (const entry of entries.values()) release(entry);
-    },
-  };
-}
+    [queue],
+  );
 
-/** The state of an upload queue around the app's `upload` function: `add`, `pause`, `resume`, `retry`, `cancel`, `remove`. */
-export function useUploadQueue(options: UploadQueueOptions) {
-  const [items, setItems] = React.useState<UploadItem[]>([]);
-  const [queue] = React.useState(() => createQueue(options, setItems));
-  React.useLayoutEffect(() => queue.configure(options));
-  React.useEffect(() => () => queue.dispose(), [queue]);
-  return { items, add: queue.add, pause: queue.pause, resume: queue.resume, retry: queue.resume, cancel: queue.remove, remove: queue.remove };
+  const items = React.useMemo<UploadItem[]>(
+    () =>
+      jobs.map(({ id, status, error, meta }) => ({
+        id,
+        name: meta.file.name,
+        size: meta.file.size,
+        type: meta.file.type,
+        progress: meta.progress,
+        status: status === "running" ? "uploading" : status,
+        error: error?.message,
+        previewUrl: meta.previewUrl,
+        speed: status === "running" ? meta.speed : undefined,
+      })),
+    [jobs],
+  );
+  return { items, add, pause, resume: queue.resume, retry: queue.retry, cancel: forget, remove: forget };
 }

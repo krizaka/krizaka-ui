@@ -1,9 +1,11 @@
 // The server-side packages, imported from npm by a plain Node ESM script, and exercised on their documented contract:
-// @krizaka/realtime (memory bus, SSE framing and the stream) and @krizaka/push (token check, batching, dead tokens).
+// @krizaka/realtime (memory bus, SSE framing and the stream), @krizaka/push (token check, batching, dead tokens) and
+// @krizaka/pacer (a queue with retries and a pause, a rate limiter held by a 429).
 import assert from "node:assert/strict";
 import { busKind, createBus, eventStream, memoryBus, sseFrame } from "@krizaka/realtime";
 import { sseFrame as sseFrameAlone } from "@krizaka/realtime/sse";
 import { EXPO_PUSH_BATCH, isExpoPushToken, sendExpoPush } from "@krizaka/push";
+import { createQueue, RateLimiter } from "@krizaka/pacer";
 
 // realtime — a published event reaches the subscriber of its channel only.
 const bus = memoryBus();
@@ -48,4 +50,22 @@ assert.deepEqual(outcome.deadTokens, [messages[0].to, messages[EXPO_PUSH_BATCH].
 const broken = await sendExpoPush(messages.slice(0, 1), { fetch: async () => { throw new Error("network down"); } });
 assert.deepEqual(broken, { sent: 0, deadTokens: [], errors: ["network down"] });
 
-console.log(JSON.stringify({ realtime: "ok", push: "ok", sent: outcome.sent, dead: outcome.deadTokens.length }));
+// pacer — a queue retries a failure, pauses a job by aborting its signal, and a limiter obeys a 429.
+const queue = createQueue({ concurrency: 1, retries: 1, backoff: { kind: "fixed", baseMs: 10 } });
+let attempts = 0;
+queue.add(async () => { attempts += 1; if (attempts < 2) throw new Error("flaky"); }, { id: "a", meta: null });
+const waiting = new Promise((resolve) => queue.subscribe(() => queue.snapshot().every((j) => j.status === "done") && resolve()));
+await waiting;
+assert.equal(attempts, 2);
+let aborted = false;
+queue.add(({ signal }) => new Promise((_, reject) => signal.addEventListener("abort", () => { aborted = true; reject(new Error("aborted")); })), { id: "b", meta: null });
+queue.pause("b");
+assert.equal(aborted, true);
+assert.equal(queue.snapshot().find((j) => j.id === "b").status, "paused");
+queue.dispose();
+const held = RateLimiter.fromProblemDetails({ retryAfterSeconds: 30 });
+assert.equal(held.tryAcquire(), false);
+assert.ok(held.msUntilAvailable() > 29_000);
+assert.equal(new RateLimiter({ limit: 1, windowMs: 1000 }).tryAcquire(), true);
+
+console.log(JSON.stringify({ realtime: "ok", push: "ok", pacer: "ok", sent: outcome.sent, dead: outcome.deadTokens.length }));

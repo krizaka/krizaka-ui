@@ -1,3 +1,4 @@
+import { useDebouncedCallback } from "@krizaka/pacer/react";
 import * as React from "react";
 import { Pressable, type StyleProp, StyleSheet, TextInput, type TextInputProps, View, type ViewStyle } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
@@ -40,13 +41,12 @@ export function SearchField({ label, value, defaultValue = "", onValueChange, on
   const { theme, radius } = useTheme();
   const [own, setOwn] = React.useState(defaultValue);
   const query = value ?? own;
-  const timer = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  React.useEffect(() => () => clearTimeout(timer.current), []);
+  const search = useDebouncedCallback((next: string) => onSearch?.(next), debounce);
   const change = (next: string) => {
     if (value === undefined) setOwn(next);
     onValueChange?.(next);
-    clearTimeout(timer.current);
-    if (onSearch) timer.current = setTimeout(() => onSearch(next), debounce);
+    search.cancel();
+    if (onSearch) search(next);
   };
   const field = (
     <View style={[styles.frame, { borderRadius: radius.md, borderColor: theme.borderDefault, backgroundColor: theme.surface2 }, style]}>
@@ -67,7 +67,7 @@ export function SearchField({ label, value, defaultValue = "", onValueChange, on
         clearButtonMode="never"
         onChangeText={change}
         onSubmitEditing={() => {
-          clearTimeout(timer.current);
+          search.cancel();
           onSearch?.(query);
           onSubmit?.(query);
         }}
