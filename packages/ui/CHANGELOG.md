@@ -1,5 +1,19 @@
 # @krizaka/ui
 
+## 3.11.0
+
+### Minor Changes
+
+- [#187](https://github.com/krizaka/krizaka-ui/pull/187) [`053b4fd`](https://github.com/krizaka/krizaka-ui/commit/053b4fd79deca79542a29774ecb56ced33c36e18) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `LinkCard` pins its foot (the facts in `extra`, then the way in `cta`) to the bottom of the card, so in a `CardGrid` row whose sentences have different lengths the status chips and the links sit on one line and the card bottoms line up. New `footerAlign="bottom" | "top"` (default `bottom`; `top` keeps the previous flow under the text) — a card that is already as tall as its content looks the same. The foot is one `.kz-link-card-foot` element wrapping `extra` and `cta`. New example `card-grid/aligned` and a story that measures the row in the browser (one height, facts and links on one line).
+
+- [#184](https://github.com/krizaka/krizaka-ui/pull/184) [`9deecc8`](https://github.com/krizaka/krizaka-ui/commit/9deecc88ac4cadfec76bb1029dd2a174cdb0f766) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `Showcase` (`@krizaka/ui/showcase`, native in `@krizaka/ui/native`): a slideshow that advances by itself and shows it. A segmented progress bar — the current segment fills over the `interval`, every segment is a button — with a counter (`labels.counter`, “Image 1 of 17”), previous / next and a visible pause / play button (WCAG 2.2.2). The fill is the timer (`.kz-showcase-fill`, its two rules shipped with the component), so what is seen is what decides; the show holds while the pointer is over it, while a keyboard focus is inside, while the tab is hidden and while it is off screen, and never advances under `prefers-reduced-motion` (manual only, the segment drawn full, no pause button). ←/→, Home/End; `aria-roledescription="carousel"` and `slide` groups named “n of N”; the live region is polite only after the visitor navigates. Slides are slots (`renderItem`, `getTitle`), `transition="fade" | "slide"`, `loop`, controlled `index`. `useTypedText` is the optional typed reveal of a text. Native: swipeable pages with the same bar, counter and buttons; the autoplay holds while dragging, in the background and with Reduce Motion on.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.11.0
+  - @krizaka/tokens@3.11.0
+
 ## 3.10.0
 
 ### Minor Changes
