@@ -234,6 +234,10 @@
       "types": "./dist/marquee.d.ts",
       "import": "./dist/marquee.js"
     },
+    "./showcase": {
+      "types": "./dist/showcase.d.ts",
+      "import": "./dist/showcase.js"
+    },
     "./stepper": {
       "types": "./dist/stepper.d.ts",
       "import": "./dist/stepper.js"
@@ -737,7 +741,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "53.5 kB",
+      "limit": "54.5 kB",
       "gzip": true
     },
     {
@@ -1172,6 +1176,16 @@
       "name": "./marquee",
       "path": "dist/marquee.js",
       "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./showcase",
+      "path": "dist/showcase.js",
+      "limit": "3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

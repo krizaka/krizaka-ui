@@ -52,6 +52,7 @@ export const PLANNED: Record<string, string> = {
   form: "PS3's form (TanStack Form): every business form of the products migrates to it.",
   "gallery-page": `${SITE}: the demo gallery.`,
   header: `${MOBILE}: the header of every screen.`,
+  showcase: "Orazaka's \"Prompt → image\" gallery on dev.orazaka.com (KZ-AUTOPLAY), and the demo galleries of the products.",
   "how-it-works-page": `${SITE}: the "how it works" pages of the products.`,
   kanban: "Orochia admin's moderation queue (to review, reviewing, resolved), moved by keyboard as well as by drag.",
   "image-viewer": `${MOBILE}: full-screen photos of a profile or a gallery.`,
