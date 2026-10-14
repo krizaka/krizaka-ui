@@ -20,21 +20,12 @@
       "darkMode": "Passer en mode sombre",
       "switchLanguage": "Read in English",
       "languageShort": "EN",
-      "projectAria": "Krizaka — la compagnie derrière Krizaka UI (www.krizaka.com)",
-      "by": "par Krizaka",
-      "versionTitle": "La version de @krizaka/ui que ce site documente"
+      "versionTitle": "La version de @krizaka/ui que ce site documente",
+      "openMenu": "Ouvrir le menu",
+      "closeMenu": "Fermer le menu"
     },
     "footer": {
-      "aria": "Pied de page",
-      "tagline": "Krizaka UI se construit au grand jour : chaque page de ce site est générée depuis le code des paquets, à chaque version.",
-      "project": "Un projet open source de Krizaka",
-      "krizaka": "Krizaka",
-      "java": "Krizaka Java",
-      "github": "GitHub",
-      "npm": "npm",
-      "issues": "Signaler un problème",
-      "license": "Licence Apache-2.0 · polices sous SIL OFL 1.1",
-      "version": "Construit depuis @krizaka/ui {version}"
+      "docs": "Documentation"
     },
     "notFound": {
       "title": "Cette page n’existe pas",
@@ -78,7 +69,8 @@
       "code": "Code",
       "label": "Aperçu en direct de {name}",
       "toLight": "Afficher en thème clair",
-      "toDark": "Afficher en thème sombre"
+      "toDark": "Afficher en thème sombre",
+      "mapSnapshot": "{name}, photographiée avec ses tuiles de carte"
     },
     "props": {
       "prop": "Prop",

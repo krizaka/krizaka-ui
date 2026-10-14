@@ -63,6 +63,11 @@ jobs:
           python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 &
           for i in $(seq 1 20); do curl -fsS -o /dev/null http://localhost:4600/ && break; sleep 0.5; done
           node apps/site/scripts/check-seo-family.mjs --base http://localhost:4600 --host https://ui.krizaka.com --limit 400
+      - name: The look of the top pages in a browser (desktop + phone, dark + light)
+        run: |
+          pnpm --filter @krizaka/storybook exec playwright install --with-deps chromium
+          curl -fsS -o /dev/null http://localhost:4600/ || { python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 & sleep 2; }
+          node apps/site/scripts/crawl-check.mjs --base http://localhost:4600 --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')"
 
   realtime:
     # @krizaka/realtime against real servers: two buses per adapter standing for two app instances (PostgreSQL

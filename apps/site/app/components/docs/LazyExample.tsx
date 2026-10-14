@@ -2,8 +2,11 @@
 
 import { Component, type ComponentType, type ReactNode, useEffect, useRef, useState } from "react";
 
+import { mapSnapshotOf } from "@/lib/map-gate";
 import { examplePropsOf } from "@/lib/ui-example-props";
 import { UI_EXAMPLES, type UiExampleKey } from "@/lib/ui-examples";
+
+import { MapGate } from "./MapGate";
 
 /* A named example of the registry, loaded when it scrolls into view: the catalogue shows 150 of them and ships none of
    their code until a card is near the screen. The heavy ones (maps, charts, media, whole pages) wait a moment more, once
@@ -20,6 +23,7 @@ class Guard extends Component<{ fallback: ReactNode; children: ReactNode }, { fa
 
 export function LazyExample({ exampleKey, heavy, placeholder }: { exampleKey: string; heavy: boolean; placeholder: ReactNode }) {
   const host = useRef<HTMLDivElement>(null);
+  const snapshot = mapSnapshotOf(exampleKey);
   const [wanted, setWanted] = useState(false);
   const [Example, setExample] = useState<ComponentType<Record<string, unknown>> | null>(null);
 
@@ -57,7 +61,13 @@ export function LazyExample({ exampleKey, heavy, placeholder }: { exampleKey: st
     <div ref={host} className="kz-catalog-live">
       {Example ? (
         <Guard fallback={placeholder}>
-          <Example {...examplePropsOf(exampleKey)} />
+          {snapshot ? (
+            <MapGate snapshot={snapshot} alt="">
+              <Example {...examplePropsOf(exampleKey)} />
+            </MapGate>
+          ) : (
+            <Example {...examplePropsOf(exampleKey)} />
+          )}
         </Guard>
       ) : (
         placeholder
