@@ -239,5 +239,5 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
     writeFileSync(join(outDir, path), body);
   }
   console.log(`${files.size} file(s) from @krizaka/ui@${version} written to ${outDir}`);
-  if (cfg) console.log(`${await send(cfg, files)} file(s) uploaded to ${cfg.pull || cfg.zone}`);
+  if (cfg) console.log(`${await send(cfg, files)} file(s) uploaded to the storage zone`);
 }
