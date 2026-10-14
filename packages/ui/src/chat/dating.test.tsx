@@ -29,8 +29,8 @@ describe("swipe deck", () => {
     const deck = screen.getByRole("group", { name: /Profiles/ });
     fireEvent.keyDown(deck, { key: "ArrowRight" });
     await act(async () => vi.advanceTimersByTime(300));
-    expect(screen.getByText("Elena: Like")).toBeTruthy();
-    expect(within(deck).getByRole("article", { name: "Noah, 31" })).toBeTruthy();
+    expect(screen.getByText("Camille: Like")).toBeTruthy();
+    expect(within(deck).getByRole("article", { name: "Tomás, 31" })).toBeTruthy();
     vi.useRealTimers();
     expect(await axeViolations(container)).toEqual([]);
   });

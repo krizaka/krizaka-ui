@@ -6,9 +6,9 @@ import { ProfileCard } from "@krizaka/ui/profile-card";
 export default function ProfileCardCreator() {
   return (
     <ProfileCard
-      visual={<Avatar fallback="EM" size="xl" />}
+      visual={<Avatar src="https://krizaka-assets.b-cdn.net/site/people/ui/noor-256.c340c41421.webp" alt="Noor Haddad" fallback="NH" size="xl" />}
       visualSize={96}
-      name="Elena Marchetti"
+      name="Noor Haddad"
       statLabel="Profile complete"
       value={80}
       stats={[
