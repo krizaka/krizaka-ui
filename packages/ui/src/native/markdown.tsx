@@ -172,7 +172,7 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
       );
     case "table":
       return (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} role="grid">
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={[styles.table, { borderColor: theme.borderSubtle }]}>
             {[node.header, ...node.rows].map((row, r) => (
               <View key={r} style={[styles.row, { borderBottomColor: theme.borderSubtle }, r === 0 ? { backgroundColor: theme.surface2 } : null]}>

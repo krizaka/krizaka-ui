@@ -18,7 +18,7 @@ export const meta = {
   bestPractices: [
     "Show the file the lines belong in (`pom.xml`, `application.yml`); `Terminal` for a command.",
     "Keep samples short enough to copy whole; link to the full file instead of pasting it.",
-    "Set lines apart with `annotations` (`focus` dims the rest, `added` / `removed` for a change, `highlight` for the line to read); number them with `lineNumbers` when the text refers to a line.",
+    "Set lines apart with `annotations` (`focus` greys the rest, `added` / `removed` for a change, `highlight` for the line to read); number them with `lineNumbers` when the text refers to a line.",
     "Name the language (`ts`, `bash`, `yaml`, `java`…); an unknown one is shown as plain text, never an error. The same grammars colour the code of `Markdown`.",
     "The copy words arrive as props (`copyLabel`, `copiedLabel`).",
   ],
@@ -29,7 +29,7 @@ export const meta = {
     ],
     notes: [
       "A `figure` whose caption is the file name; the button's label changes to the copied words in a polite live region.",
-      "The colours of the highlighter are the tokens' text roles (≥ 4.5:1 on the code surface, both themes); a line set apart never relies on colour alone (`added` and `removed` carry a + / − mark, `focus` an opacity and the line number stays readable).",
+      "The colours of the highlighter are the tokens' text roles (≥ 4.5:1 on the code surface, both themes); a line set apart never relies on colour alone (`added` and `removed` carry a + / − mark, `focus` greys the other lines to the quiet text role).",
     ],
   },
   related: ["tabs", "page", "kbd"],

@@ -115,8 +115,8 @@ describe("summaryMarkdown", () => {
 
 describe("entry points (PS2)", () => {
   it("lists the data table, the virtual lists and the native list, and FlashList among the native peers", () => {
-    assert.deepEqual(ENTRY_POINTS.next, ["./data-table", "./virtual", "./form", "./form/server", "./date-picker", "./radio-group", "./slider", "./map", "./skip-link", "./vertical-video"]);
-    assert.deepEqual(ENTRY_POINTS.expo, ["./native/list", "./native/form", "./native/map", "./native/vertical-video"]);
+    assert.deepEqual(ENTRY_POINTS.next, ["./data-table", "./virtual", "./form", "./form/server", "./date-picker", "./radio-group", "./slider", "./map", "./skip-link", "./vertical-video", "./markdown", "./recipes"]);
+    assert.deepEqual(ENTRY_POINTS.expo, ["./native/list", "./native/form", "./native/map", "./native/vertical-video", "./native/markdown"]);
     assert.deepEqual(EXAMPLE_DEPS, ["zod@^4"]);
     assert.ok(NATIVE_PEERS.includes("@shopify/flash-list"));
     assert.ok(NATIVE_PEERS.includes("@maplibre/maplibre-react-native"));

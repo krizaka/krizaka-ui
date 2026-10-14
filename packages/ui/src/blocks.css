@@ -453,8 +453,9 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-code .kz-line-added::after { content: "+"; color: var(--kz-success-text); }
 .kz-code .kz-line-removed::after { content: "\2212"; color: var(--kz-danger-text); }
 .kz-code .kz-line-added .th-token, .kz-code .kz-line-removed .th-token, .kz-code .kz-line-error .th-token, .kz-code .kz-line-warning .th-token { color: inherit; }
-.kz-code .kz-line-dim, .kz-code pre[data-focus] .th-line:not(.kz-line-focus) { opacity: 0.5; }
-@media (prefers-reduced-motion: no-preference) { .kz-code .th-line { transition: opacity 0.2s var(--kz-ease, ease); } }
+/* Dimmed, not faded: the line keeps the quiet text role (≥ 4.5:1), its colours go. */
+.kz-code .kz-line-dim, .kz-code pre[data-focus] .th-line:not(.kz-line-focus) { color: var(--kz-text-secondary); }
+.kz-code .kz-line-dim .th-token, .kz-code pre[data-focus] .th-line:not(.kz-line-focus) .th-token { color: inherit; font-weight: inherit; }
 /* Markdown (TanStack Markdown's AST on the tokens): reading text, nothing decorative. */
 .kz-md { min-width: 0; color: var(--kz-text-primary); font-size: 15px; line-height: 1.7; overflow-wrap: anywhere; }
 .kz-md > * { margin-block: 0; }
@@ -465,6 +466,8 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-md a { color: var(--kz-accent-text); text-decoration: underline; text-underline-offset: 3px; }
 .kz-md a:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; border-radius: 4px; }
 .kz-md ul, .kz-md ol { padding-inline-start: 1.5em; }
+.kz-md ul { list-style: disc; }
+.kz-md ol { list-style: decimal; }
 .kz-md ul[data-tasks] { list-style: none; padding-inline-start: 0; }
 .kz-md li + li { margin-top: 0.35em; }
 .kz-md li > :is(ul, ol), .kz-md li > p + * { margin-top: 0.35em; }
