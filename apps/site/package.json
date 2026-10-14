@@ -9,7 +9,7 @@
     "predev": "node scripts/gen-ui-docs.mjs",
     "dev": "next dev",
     "build": "node scripts/gen-ui-docs.mjs --strict && next build",
-    "lint": "eslint . --max-warnings 0 && krizaka-i18n check messages && node scripts/gen-ui-docs.mjs --check",
+    "lint": "eslint . --max-warnings 0 && node node_modules/@krizaka/i18n/dist/bin.js check messages && node scripts/gen-ui-docs.mjs --check",
     "typecheck": "fumadocs-mdx && node scripts/gen-ui-docs.mjs && tsc --noEmit",
     "test": "node --disable-warning=ExperimentalWarning --test tests/*.test.mjs",
     "ui:usage": "node scripts/scan-ui-usage.mjs",
