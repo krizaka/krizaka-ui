@@ -76,6 +76,8 @@ export const PLANNED: Record<string, string> = {
   segmented: `${MOBILE}: switching a view inside a screen.`,
   separator: "A primitive of the platform: dividers inside menus, lists and cards.",
   "settings-layout": `${WEB_APPS}: account and product settings.`,
+  "site-footer": "The family's adoption (NAV-SYS): the footer of www.krizaka.com, ui.krizaka.com, java.krizaka.com and every dev.<product> site.",
+  sites: "The family's adoption (NAV-SYS): the data behind NavBar.Family and SiteFooter on every Krizaka site.",
   "skip-link": "Every app shell that keeps its own layout — Orochia, Orazaka, Yasakia, Yororis (the accessibility pass, krizaka-ui#134); MarketingLayout and AppShell already use it.",
   slot: "The `asChild` mechanism: every primitive that renders your own link or element is built on it.",
   "splash-handoff": `${MOBILE}: the launch screen that dissolves into the product mark (krizaka-ui#137).`,
