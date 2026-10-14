@@ -2,6 +2,8 @@ import * as React from "react";
 import { AccessibilityInfo, Animated, Easing, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
 
+import type { BrandId } from "../marks/ProductLogo";
+import { ProductMark } from "./ProductMark";
 import { alpha, useReducedMotion, useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -90,6 +92,11 @@ export type LoaderProps = {
   endDuration?: number;
   /** inline (default) · block (a region's centre) · overlay (over its parent, frosted) · page (the whole screen). */
   variant?: "inline" | "block" | "overlay" | "page";
+  /**
+   * The product whose animated mark waits in place of the Krizaka glyph (`orochia`, `orazaka`, `yazakia`, `yororis`,
+   * `krizaka`). Still when the system reduces motion; the ending stays the check or the cross.
+   */
+  product?: BrandId;
   /** Styles merged last. */
   style?: StyleProp<ViewStyle>;
 };
@@ -97,7 +104,7 @@ export type LoaderProps = {
 const GLYPH = { inline: 20, block: 36, overlay: 36, page: 56 } as const;
 
 /** A wait from start to end — the web `Loader`: delayed, never blinking, announced when it shows and when it ends. */
-export function Loader({ label, status = "loading", successLabel, errorLabel, value, eta, delay = 250, minDuration = 600, endDuration = 1600, variant = "inline", style }: LoaderProps) {
+export function Loader({ label, status = "loading", successLabel, errorLabel, value, eta, delay = 250, minDuration = 600, endDuration = 1600, variant = "inline", product, style }: LoaderProps) {
   const { theme, radius } = useTheme();
   const waiting = useDelayedWait(status === "loading", delay, minDuration);
   const [ending, setEnding] = React.useState<"success" | "error" | null>(null);
@@ -128,7 +135,7 @@ export function Loader({ label, status = "loading", successLabel, errorLabel, va
   const stacked = variant !== "inline";
   const box = (
     <View style={[stacked ? styles.stacked : styles.inline, variant === "overlay" ? { backgroundColor: alpha(theme.surface1, 0.92), borderColor: theme.borderDefault, borderRadius: radius.lg, ...styles.card } : null]}>
-      <LoaderGlyph state={phase} value={known ? value : null} size={GLYPH[variant]} />
+      {product && phase === "loading" ? <ProductMark id={product} size={GLYPH[variant]} animated /> : <LoaderGlyph state={phase} value={known ? value : null} size={GLYPH[variant]} />}
       <View style={stacked ? styles.center : styles.text}>
         <Txt variant={variant === "page" ? "title" : "label"} style={stacked ? styles.centered : null}>
           {words}

@@ -93,7 +93,7 @@ export { type GridPhoto, PhotoGrid, type PhotoGridLabels, type PhotoGridProps } 
 export { ProductMark } from "./ProductMark";
 export { ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
 export { Progress, type ProgressProps } from "./progress";
-export { PullToRefresh, type PullToRefreshProps } from "./pull-to-refresh";
+export { BrandedRefresh, type BrandedRefreshProps, type BrandedRefreshScrollProps, PullToRefresh, type PullToRefreshProps } from "./pull-to-refresh";
 export { RadioGroup, type RadioGroupProps, type RadioOption } from "./radio-group";
 export { Screen, type ScreenProps } from "./screen";
 export { SearchField, type SearchFieldProps } from "./search-field";
@@ -101,6 +101,7 @@ export { Segmented, type SegmentedOption, type SegmentedProps } from "./segmente
 export { Skeleton, type SkeletonProps } from "./skeleton";
 export { Slider, type SliderProps, type SliderValue } from "./slider";
 export { Spinner, type SpinnerProps } from "./spinner";
+export { SplashHandoff, type SplashHandoffProps } from "./splash-handoff";
 export { StepProgress, type StepProgressProps } from "./step-progress";
 export { type Step, Stepper, type StepperProps, type StepStatus } from "./stepper";
 export { PersonCard, type PersonCardProps, SwipeDeck, type SwipeDeckLabels, type SwipeDeckProps, type SwipeDirection } from "./swipe-deck";

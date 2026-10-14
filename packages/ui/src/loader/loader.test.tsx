@@ -9,6 +9,20 @@ afterEach(() => vi.useRealTimers());
 const advance = (ms: number) => act(() => void vi.advanceTimersByTime(ms));
 
 describe("Loader", () => {
+  it("carries the product's mark while it waits, and its ending is still the check", () => {
+    const { container, rerender } = render(<Loader label="Loading videos" successLabel="Videos loaded" mark={<svg data-testid="orochia-mark" />} />);
+    advance(260);
+    expect(screen.getByTestId("orochia-mark")).toBeTruthy();
+    expect(container.querySelector("[data-mark]")?.getAttribute("aria-hidden")).toBe("true");
+    expect(container.querySelector(".kz-loader-mark")).toBeNull();
+    rerender(<Loader label="Loading videos" successLabel="Videos loaded" status="success" mark={<svg data-testid="orochia-mark" />} />);
+    advance(700);
+    advance(1);
+    expect(screen.queryByTestId("orochia-mark")).toBeNull();
+    expect(container.querySelector(".kz-loader-mark")).not.toBeNull();
+    expect(screen.getByRole("status").textContent).toBe("Videos loaded");
+  });
+
   it("shows nothing for a fast answer: the live region exists, empty", () => {
     const { rerender } = render(<Loader label="Loading invoices" successLabel="Loaded" />);
     const status = screen.getByRole("status");
