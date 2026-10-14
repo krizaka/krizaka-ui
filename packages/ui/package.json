@@ -134,6 +134,10 @@
       "types": "./dist/separator.d.ts",
       "import": "./dist/separator.js"
     },
+    "./skip-link": {
+      "types": "./dist/skip-link.d.ts",
+      "import": "./dist/skip-link.js"
+    },
     "./kbd": {
       "types": "./dist/kbd.d.ts",
       "import": "./dist/kbd.js"
@@ -908,6 +912,16 @@
       "name": "./separator",
       "path": "dist/separator.js",
       "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./skip-link",
+      "path": "dist/skip-link.js",
+      "limit": "1 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

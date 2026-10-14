@@ -108,6 +108,8 @@ export default defineConfig([
       toc: "src/toc/index.ts",
       // The application shell: its collapse and its drawer (Radix Dialog).
       "app-shell": "src/app-shell/index.ts",
+      // The skip link moves focus to its target.
+      "skip-link": "src/skip-link/index.ts",
     },
     banner: { js: '"use client";' },
   },

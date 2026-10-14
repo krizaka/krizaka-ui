@@ -144,6 +144,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/page-header` | `PageHeader` (`title`, `description`, `actions`, `breadcrumb`, `as` h1·h2) | server |
 | `@krizaka/ui/alert` | `Alert` (`tone` info·success·warning·danger, `icon`, `title`, `action`; `role="alert"` for danger and warning, `status` otherwise), `alertVariants` | server |
 | `@krizaka/ui/separator` | `Separator` (`orientation`, `decorative`, Radix), `separatorVariants` | server |
+| `@krizaka/ui/skip-link` | `SkipLink` (`href`, default `#content`; the label as children): the first tab stop, hidden until focused, Enter moves focus to the content (WCAG 2.4.1) | client |
 | `@krizaka/ui/kbd` | `Kbd` (`size` sm·md), `kbdVariants` | server |
 | `@krizaka/ui/tabs` | `Tabs.Root/List/Trigger/Content` (`variant` underline·segmented·pills on the root, `orientation`, `value`/`defaultValue` + `onValueChange`; one light glides to the active tab), `tabs` (the slots) | client |
 | `@krizaka/ui/nav-bar` | `NavBar.Root` (`label`, `compactAfter`, `floating`) `/Brand/Items/Link` (`active`) `/Menu` (`label`, `columns`) `/MenuLink` (`title`, `description`, `icon`) `/Actions/Mobile` (`openLabel`, `closeLabel`) `/MobileLink`, `navBar` (the slots) | client |
