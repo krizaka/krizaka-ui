@@ -278,6 +278,10 @@
       "types": "./dist/search-field.d.ts",
       "import": "./dist/search-field.js"
     },
+    "./vertical-video": {
+      "types": "./dist/vertical-video.d.ts",
+      "import": "./dist/vertical-video.js"
+    },
     "./video-player": {
       "types": "./dist/video-player.d.ts",
       "import": "./dist/video-player.js"
@@ -533,6 +537,10 @@
     "./native": {
       "types": "./dist/native.d.ts",
       "import": "./dist/native.js"
+    },
+    "./native/vertical-video": {
+      "types": "./dist/native/vertical-video.d.ts",
+      "import": "./dist/native/vertical-video.js"
     },
     "./native/video-player": {
       "types": "./dist/native/video-player.d.ts",
@@ -1275,6 +1283,18 @@
       ]
     },
     {
+      "name": "./vertical-video",
+      "path": "dist/vertical-video.js",
+      "limit": "6 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/intl",
+        "radix-ui"
+      ]
+    },
+    {
       "name": "./video-player",
       "path": "dist/video-player.js",
       "limit": "15 kB",
@@ -1382,6 +1402,20 @@
       "ignore": [
         "tailwind-variants",
         "clsx"
+      ]
+    },
+    {
+      "name": "./native/vertical-video (expo-video is the app's)",
+      "path": "dist/native/vertical-video.js",
+      "limit": "6 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-native",
+        "react-native-svg",
+        "expo-video",
+        "@krizaka/ui/native",
+        "@krizaka/intl"
       ]
     },
     {
