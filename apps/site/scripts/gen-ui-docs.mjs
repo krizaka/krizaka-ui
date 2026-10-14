@@ -76,7 +76,7 @@ for (const { pkg, items: packageItems } of Object.values(registries)) {
   }
 }
 for (const file of existsSync(enrichDir) ? readdirSync(enrichDir) : []) {
-  if (file.endsWith(".mdx") && !names.has(file.replace(/\.mdx$/, ""))) {
+  if (file.endsWith(".mdx") && file !== "index.mdx" && !names.has(file.replace(/\.mdx$/, ""))) {
     problems.push(`content/docs/components/${file}: no component of that name in the registry (an enrichment page needs one)`);
   }
 }

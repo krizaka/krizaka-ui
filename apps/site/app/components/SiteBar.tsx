@@ -25,7 +25,7 @@ import { useSiteTheme } from "./SiteTheme";
 const LINKS = [
   { id: "getStarted", path: "/installation", match: ["/installation", "/theming", "/packages", "/mobile"] },
   { id: "foundations", path: "/foundations/tokens", match: ["/foundations"] },
-  { id: "components", path: "/components/button", match: ["/components"] },
+  { id: "components", path: "/components", match: ["/components"] },
   { id: "templates", path: "/templates", match: ["/templates"] },
 ] as const;
 

@@ -106,6 +106,8 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 - **ui.krizaka.com is `apps/site`**: Next.js (App Router, `output: "export"`) + Fumadocs, built from the **workspace
   packages** (`workspace:*`, never npm) — the documentation of a commit is the documentation of its code. It is
   private (never published); the products still consume the packages from npm (§1, golden rule).
+- **The home** (`/`) is a designed page (`app/components/landing`): hero, a live bento of registry examples under the
+  identity switch, the ways in, the packages. The catalogue is `/components`.
 - **Generated, never written**: one page per component of the registries of `@krizaka/ui` and `@krizaka/charts`
   (`/components/<name>`: summary, platforms, status, when to use / not, install, every named example live + code, native
   screenshots, props, accessibility, related), the foundations from the packages' data (`/foundations/typography`,
