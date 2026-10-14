@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["DocsArticlePage"],
     examples: [
-      { name: "cli", title: "Orazaka's CLI", description: "An article with its pages, breadcrumb, facts, contents and pager.", template: true },
+      { name: "cli", title: "Orazaka's CLI", description: "An article with its pages, breadcrumb, facts, contents and pager.", template: true, purpose: "explain", why: "A reader follows one article, always knowing where they are, what it covers and what comes next." },
     ],
   },
 } satisfies ComponentMeta;

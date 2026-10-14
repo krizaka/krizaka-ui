@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["ChangelogPage"],
     examples: [
-      { name: "releases", title: "Krizaka UI releases", description: "Two releases with their changes by kind.", template: true },
+      { name: "releases", title: "Krizaka UI releases", description: "Two releases with their changes by kind.", template: true, purpose: "explain", why: "A user checks what changed in each release and whether it concerns them." },
     ],
   },
 } satisfies ComponentMeta;

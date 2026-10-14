@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["SettingsLayout", "SettingsSection"],
     examples: [
-      { name: "account", title: "Account settings", description: "Profile and notifications, each with its own save; the sections as chips on a phone.", template: true },
+      { name: "account", title: "Account settings", description: "Profile and notifications, each with its own save; the sections as chips on a phone.", template: true, purpose: "operate", why: "A person changes one setting at a time, saves it at once and knows where each lives." },
       { name: "sections", title: "One section per page", description: "A workspace's settings, the current section marked." },
     ],
   },

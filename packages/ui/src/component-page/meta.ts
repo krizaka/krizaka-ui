@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["ComponentPage"],
     examples: [
-      { name: "button", title: "Button", description: "The page of the Button, with its preview and its sections.", template: true },
+      { name: "button", title: "Button", description: "The page of the Button, with its preview and its sections.", template: true, purpose: "explain", why: "A builder decides whether a component fits, sees it live and copies it, all on one page." },
     ],
   },
 } satisfies ComponentMeta;

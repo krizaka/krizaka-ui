@@ -20,7 +20,7 @@ export const meta = {
   web: {
     imports: ["LandingPage"],
     examples: [
-      { name: "krizaka", title: "Krizaka", description: "The studio's landing: the promise, the console alive, proofs, three products in a bento.", template: true },
+      { name: "krizaka", title: "Krizaka", description: "The studio's landing: the promise, the console alive, proofs, three products in a bento.", template: true, purpose: "convince", why: "A visitor gets the promise in one screen, the product alive, the proofs and one call to act." },
     ],
   },
 } satisfies ComponentMeta;

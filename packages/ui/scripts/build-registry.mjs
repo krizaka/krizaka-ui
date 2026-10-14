@@ -5,7 +5,7 @@
 import { copyFileSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { collectRegistry, EXAMPLES, nativeScreenshotsOf, PKG } from "./registry.mjs";
+import { collectRegistry, collectTemplates, EXAMPLES, nativeScreenshotsOf, PKG, templatePurposes } from "./registry.mjs";
 
 const out = join(PKG, "registry");
 const { version } = JSON.parse(readFileSync(join(PKG, "package.json"), "utf8"));
@@ -45,6 +45,9 @@ writeFileSync(
     {
       name: "@krizaka/ui",
       version,
+      // The templates grouped by intent (krizaka.com/docs/ui/templates): the groups with their "you come here when…".
+      templatePurposes,
+      templates: collectTemplates(items),
       items: items.map((item) => ({
         name: item.name,
         type: item.type,
