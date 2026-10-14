@@ -20,7 +20,7 @@ carry.
 npm install @krizaka/i18n
 ```
 
-Node ≥ 20, ESM only. React (≥ 18) only for `./rich` and `./react`; TypeScript only for `krizaka-i18n scan`.
+Node ≥ 22, ESM only. React (≥ 18) only for `./rich` and `./react`; TypeScript only for `krizaka-i18n scan`.
 
 | Entry | What | React |
 | :-- | :-- | :-- |

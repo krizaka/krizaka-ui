@@ -10,7 +10,7 @@ npm install pg        # for the PostgreSQL adapter's pgChannel (optional peer)
 npm install ioredis   # for the Redis / Valkey adapter (optional peer)
 ```
 
-ESM only, Node ≥ 20. The root entry loads no driver.
+ESM only, Node ≥ 22. The root entry loads no driver.
 
 ## What is in it
 
