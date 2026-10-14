@@ -11,7 +11,7 @@ export const CONSUMERS = {
 };
 
 /** The native modules the Expo consumer installs with `expo install` (the optional peers the examples need). */
-export const NATIVE_PEERS = ["react-native-svg", "expo-video", "expo-camera", "expo-font", "@shopify/flash-list", "@maplibre/maplibre-react-native"];
+export const NATIVE_PEERS = ["react-native-svg", "expo-video", "expo-camera", "expo-font", "@shopify/flash-list", "@maplibre/maplibre-react-native", "expo-image-picker"];
 
 /** The web peers the Next.js consumer installs (the optional peers the examples need: the map's engine). */
 export const WEB_PEERS = ["hls.js", "maplibre-gl@^6"];
