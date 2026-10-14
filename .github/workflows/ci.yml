@@ -58,6 +58,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo run build --filter=@krizaka/site...
       - run: pnpm turbo run lint typecheck test --filter=@krizaka/site
+      - name: The family SEO contract on the export (krizaka-com AGENTS.md §2.4)
+        run: |
+          python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 &
+          for i in $(seq 1 20); do curl -fsS -o /dev/null http://localhost:4600/ && break; sleep 0.5; done
+          node apps/site/scripts/check-seo-family.mjs --base http://localhost:4600 --host https://ui.krizaka.com --limit 400
 
   realtime:
     # @krizaka/realtime against real servers: two buses per adapter standing for two app instances (PostgreSQL
