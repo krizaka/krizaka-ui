@@ -1,5 +1,7 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { hydrateRoot } from "react-dom/client";
+import { renderToString } from "react-dom/server";
 
 import { axeViolations } from "../test/axe";
 import { circlePolygon, distanceMeters, formatDistance, LocationPicker, Map, mapPalette, mapStyle, Marker, REGION_FROM_ZOOM, StaticMap } from "./index";
@@ -179,5 +181,33 @@ describe("the assets' base", () => {
     expect(style.glyphs).toBe("https://www.krizaka.com/maps/v1/fonts/{fontstack}/{range}.pbf");
     setMapAssetsBase(null);
     expect(mapStyle({ scheme: "light" }).glyphs).toContain("b-cdn.net");
+  });
+});
+
+describe("hydration", () => {
+  it("a Marker is the same on the server and on the first client render: the page's HTML is kept, no mismatch", async () => {
+    const app = (
+      <Map label="Pick-up points" center={[-73.59, 45.52]} zoom={12} fallback={<StaticMap label="Pick-up points" center={[-73.59, 45.52]} places={[]} />}>
+        <Marker position={[-73.6, 45.52]} label="Café Olimpico" onPress={() => undefined} selected />
+      </Map>
+    );
+    // The server has no document: render to a string the way Next.js does, then restore the browser before hydrating.
+    const document_ = globalThis.document;
+    vi.stubGlobal("document", undefined);
+    let html: string;
+    try {
+      html = renderToString(app);
+    } finally {
+      vi.stubGlobal("document", document_);
+    }
+    const container = document.createElement("div");
+    container.innerHTML = html;
+    document.body.appendChild(container);
+    const errors: unknown[] = [];
+    const root = hydrateRoot(container, app, { onRecoverableError: (error) => errors.push(error) });
+    await act(async () => undefined);
+    expect(errors, "a hydration mismatch is a recoverable error").toEqual([]);
+    root.unmount();
+    container.remove();
   });
 });

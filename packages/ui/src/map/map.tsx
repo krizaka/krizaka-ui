@@ -334,12 +334,21 @@ export type MarkerProps = {
   children?: React.ReactNode;
 };
 
+const noSubscription = () => () => undefined;
+
 /** A place on the map: an accent dot (or your content) that is a button when it does something. */
 export function Marker({ position, label, onPress, selected, size = 18, children }: MarkerProps) {
   const { map: m, lib, places } = useMap();
   const s = map();
   const id = React.useId();
-  const [el] = React.useState(() => (typeof document === "undefined" ? null : document.createElement("div")));
+  // The marker's host element exists only in a browser: the server and the hydration pass render nothing for it, then the
+  // client swaps in the element — `useSyncExternalStore`'s server snapshot, so hydration never sees a difference.
+  const host = React.useRef<HTMLElement | null>(null);
+  const el = React.useSyncExternalStore(
+    noSubscription,
+    () => (host.current ??= document.createElement("div")),
+    () => null,
+  );
   React.useEffect(() => {
     places.add(id, label);
     return () => places.remove(id);
