@@ -22,8 +22,8 @@ export const WEB_PEERS = ["hls.js", "maplibre-gl@^6"];
  * DS5: the dates and times, the controls, the maps on MapLibre web and native; TPL: the skip link) — beside their examples, which the apps render.
  */
 export const ENTRY_POINTS = {
-  next: ["./data-table", "./virtual", "./form", "./form/server", "./date-picker", "./radio-group", "./slider", "./map", "./skip-link"],
-  expo: ["./native/list", "./native/form", "./native/map"],
+  next: ["./data-table", "./virtual", "./form", "./form/server", "./date-picker", "./radio-group", "./slider", "./map", "./skip-link", "./vertical-video"],
+  expo: ["./native/list", "./native/form", "./native/map", "./native/vertical-video"],
 };
 
 /** What the registry's examples import besides the packages (PS3: a form is a zod schema), installed in both apps. */
