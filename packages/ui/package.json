@@ -210,6 +210,14 @@
       "types": "./dist/nav-bar.d.ts",
       "import": "./dist/nav-bar.js"
     },
+    "./site-footer": {
+      "types": "./dist/site-footer.d.ts",
+      "import": "./dist/site-footer.js"
+    },
+    "./sites": {
+      "types": "./dist/sites.d.ts",
+      "import": "./dist/sites.js"
+    },
     "./number-ticker": {
       "types": "./dist/number-ticker.d.ts",
       "import": "./dist/number-ticker.js"
@@ -1105,14 +1113,30 @@
       ]
     },
     {
-      "name": "./nav-bar (Radix NavigationMenu, Slot)",
+      "name": "./nav-bar (Radix NavigationMenu, Slot, the family's marks)",
       "path": "dist/nav-bar.js",
-      "limit": "16 kB",
+      "limit": "22 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./site-footer (the family's marks, still)",
+      "path": "dist/site-footer.js",
+      "limit": "10 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./sites (data)",
+      "path": "dist/sites.js",
+      "limit": "2 kB",
+      "gzip": true
     },
     {
       "name": "./number-ticker",

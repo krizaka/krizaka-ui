@@ -50,6 +50,8 @@ export default defineConfig([
       "description-list": "src/description-list/index.ts",
       "verified-badge": "src/verified-badge/index.ts",
       "step-progress": "src/step-progress/index.ts",
+      // The Krizaka family as data (the bar's switcher and the footer read it).
+      sites: "src/sites/index.ts",
       // The page blocks that hold no state: usable in a Server Component as they are.
       page: "src/page/index.ts",
       "page-hero": "src/page-hero/index.ts",
@@ -140,6 +142,8 @@ export default defineConfig([
       motion: "src/motion/index.ts",
       loader: "src/loader/index.ts",
       "nav-bar": "src/nav-bar/index.ts",
+      // The footer of the family's sites (its marks hold an id).
+      "site-footer": "src/site-footer/index.ts",
       "number-ticker": "src/number-ticker/index.ts",
       "glow-card": "src/glow-card/index.ts",
       marquee: "src/marquee/index.ts",

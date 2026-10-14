@@ -113,6 +113,8 @@ export type ComponentName =
   | "segmented"
   | "separator"
   | "settings-layout"
+  | "site-footer"
+  | "sites"
   | "skeleton"
   | "skip-link"
   | "slider"

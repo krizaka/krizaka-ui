@@ -1,0 +1,41 @@
+import type { ComponentMeta } from "../meta";
+
+export const meta = {
+  title: "Site footer",
+  summary:
+    "The footer shared by every site of the Krizaka family: the site's mark and line, its own columns, the family in columns (from `@krizaka/ui/sites`), and the signature line — “A Krizaka company / product / open-source project” — with the version and Montréal.",
+  status: "beta",
+  category: "navigation",
+  platforms: "web",
+  whenToUse: [
+    "The bottom of every page of a Krizaka site: www, ui., java., dev.<product>.",
+    "With `MarketingLayout`'s `footer` slot, under a bar of `@krizaka/ui/nav-bar` with `NavBar.Family`.",
+  ],
+  whenNotToUse: [
+    { when: "Inside an application screen or a console: the app shell holds its own navigation.", use: "app-shell" },
+    { when: "To list the family in the bar.", use: "nav-bar" },
+  ],
+  bestPractices: [
+    "Set `current` to the site's id: it chooses the mark, the line, the signature (company, product, open source) and marks the site in the family.",
+    "Two or three own columns at most (`SiteFooter.Column` + `SiteFooter.Link`), never a link to another site of the family: the family columns hold them.",
+    "Pass the version the site runs (`version`, and `env=\"DEV\"` on a dev environment) and the legal links in `legal`.",
+    "Pass the words translated: `labels={familyLabels[locale]}` from `@krizaka/ui/sites`.",
+  ],
+  accessibility: {
+    keyboard: [],
+    notes: [
+      "A `footer` landmark; the family is a `nav` named by `labels.family`, each column a list named by its heading.",
+      "The current site says `aria-current=\"true\"` and “You are here” to screen readers; a status is written, never only a colour.",
+      "The marks are decorative: every site's name is written beside its mark.",
+    ],
+  },
+  related: ["sites", "nav-bar", "marketing-layout"],
+  web: {
+    imports: ["SiteFooter", "SiteFooterColumn", "SiteFooterLink"],
+    examples: [
+      { name: "product", title: "A product", description: "dev.orazaka.com: the product's columns, the family, “A Krizaka product”, `DEV · v1.2.3`." },
+      { name: "company", title: "The company", description: "www.krizaka.com: “A Krizaka company”, the company's column, the legal links at the end of the signature line." },
+      { name: "open-source-fr", title: "Open source, in French", description: "ui.krizaka.com in French: « Un projet open source de Krizaka », the version of the packages." },
+    ],
+  },
+} satisfies ComponentMeta;

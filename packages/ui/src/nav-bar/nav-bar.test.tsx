@@ -1,6 +1,7 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { familyLabels, sites } from "../sites";
 import { axeViolations } from "../test/axe";
 import { NavBar } from "./index";
 
@@ -84,5 +85,87 @@ describe("NavBar", () => {
     const list = container.querySelector("ul")!;
     expect(list.getAttribute("data-indicator")).toBe("on");
     expect(list.style.getPropertyValue("--kz-ind-w")).toMatch(/px$/);
+  });
+});
+
+function FamilyBar({ labels = familyLabels.en }: { labels?: typeof familyLabels.en }) {
+  return (
+    <NavBar.Root label="Main">
+      <NavBar.Brand href="#home">Krizaka UI</NavBar.Brand>
+      <NavBar.Family current="ui" labels={labels} />
+      <NavBar.Badge env="DEV" version="v1.2.3" />
+      <NavBar.Items>
+        <NavBar.Link href="#components" active>
+          Components
+        </NavBar.Link>
+      </NavBar.Items>
+      <NavBar.Actions>
+        <NavBar.Repo href="https://github.com/krizaka/krizaka-ui" label="Source on GitHub" />
+        <NavBar.Mobile openLabel="Open the menu" closeLabel="Close the menu">
+          <NavBar.MobileLink href="#components">Components</NavBar.MobileLink>
+          <NavBar.Family current="ui" labels={labels} />
+        </NavBar.Mobile>
+      </NavBar.Actions>
+    </NavBar.Root>
+  );
+}
+
+describe("NavBar.Family", () => {
+  it("is its own named navigation with a chevron button, closed at first, and no axe violation", async () => {
+    const { container } = render(<FamilyBar />);
+    const family = screen.getByRole("navigation", { name: "Krizaka family" });
+    const trigger = within(family).getByRole("button", { name: "Krizaka family" });
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("opens with the keyboard, lists every site grouped, marks the current one, and Escape returns the focus", async () => {
+    const user = userEvent.setup();
+    render(<FamilyBar />);
+    const trigger = screen.getByRole("button", { name: "Krizaka family" });
+    trigger.focus();
+    await user.keyboard("{Enter}");
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+    const family = screen.getByRole("navigation", { name: "Krizaka family" });
+    const links = await within(family).findAllByRole("link");
+    expect(links.map((a) => a.getAttribute("href"))).toEqual(sites.map((s) => s.url));
+    for (const name of ["Krizaka", "Products", "Open source", "GitHub"]) expect(within(family).getByRole("list", { name })).toBeTruthy();
+    const ui = within(family).getByRole("link", { name: /Krizaka UI/ });
+    expect(ui.getAttribute("aria-current")).toBe("true");
+    expect(ui.textContent).toContain("You are here");
+    expect(within(family).getByRole("link", { name: /Yororis/ }).textContent).toContain("Under construction");
+    expect(within(family).getByRole("link", { name: /Yasakia/ }).textContent).toContain("Coming soon");
+    await user.keyboard("{Escape}");
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    expect(document.activeElement).toBe(trigger);
+  });
+
+  it("never opens on hover — a click opens it", async () => {
+    const user = userEvent.setup();
+    render(<FamilyBar />);
+    const trigger = screen.getByRole("button", { name: "Krizaka family" });
+    await user.hover(trigger);
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    await user.click(trigger);
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+  });
+
+  it("renders as the mobile panel's last group, in French with familyLabels.fr", async () => {
+    const user = userEvent.setup();
+    render(<FamilyBar labels={familyLabels.fr} />);
+    await user.click(screen.getByRole("button", { name: "Open the menu" }));
+    const panel = screen.getAllByRole("navigation", { name: "Main" }).find((n) => n.tagName === "NAV" && n.id)!;
+    const group = within(panel).getByRole("group", { name: "Famille Krizaka" });
+    expect(panel.lastElementChild).toBe(group);
+    expect(within(group).getAllByRole("link")).toHaveLength(sites.length);
+    expect(within(group).getByRole("list", { name: "Produits" })).toBeTruthy();
+    expect(within(group).getByRole("link", { name: /Krizaka UI/ }).getAttribute("aria-current")).toBe("true");
+    expect(within(group).getByRole("link", { name: /Yororis/ }).textContent).toContain("En construction");
+  });
+
+  it("shows the environment and the version, and the repository as a named icon link", () => {
+    render(<FamilyBar />);
+    expect(screen.getByText("DEV · v1.2.3")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Source on GitHub" }).getAttribute("href")).toBe("https://github.com/krizaka/krizaka-ui");
   });
 });
