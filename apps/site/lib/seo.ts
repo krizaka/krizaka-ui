@@ -25,7 +25,8 @@ export function localizedMetadata(locale: Locale, opts: { path: string; title: s
     title: opts.title,
     description: opts.description,
     alternates: buildAlternates(locale, opts.path),
-    openGraph: { title: opts.title, description: opts.description, url, type: "article" },
-    twitter: { card: "summary_large_image", title: opts.title, description: opts.description },
+    // A page's openGraph replaces the layout's (no deep merge): the card's image is repeated here.
+    openGraph: { title: opts.title, description: opts.description, url, type: "article", siteName: "Krizaka UI", images: [{ url: "/og.png", width: 1200, height: 630 }] },
+    twitter: { card: "summary_large_image", title: opts.title, description: opts.description, images: ["/og.png"] },
   };
 }
