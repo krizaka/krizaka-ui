@@ -281,7 +281,7 @@ export function VerticalVideo({
         <p className="flex items-center gap-1.5 text-sm font-bold">
           {name}
           {creator.verifiedLabel && <VerifiedBadge label={creator.verifiedLabel} onMedia size="sm" />}
-          {disclosure && <span className="rounded-full bg-scrim px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-fg-on-media backdrop-blur-md">{disclosure}</span>}
+          {disclosure && <span className="whitespace-nowrap rounded-full bg-scrim px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-fg-on-media backdrop-blur-md">{disclosure}</span>}
         </p>
         {caption && (
           <p className={cn("text-sm leading-snug", !open && "line-clamp-2")}>
