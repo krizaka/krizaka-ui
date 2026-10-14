@@ -8,7 +8,7 @@ import { StatusPage } from "@krizaka/ui/status-page";
 export default function StatusPageBuilding() {
   return (
     <StatusPage
-      eyebrow="Yazakia"
+      eyebrow="Yasakia"
       title="On its way"
       lead="Meet by talking first. The first build reaches testers this winter."
       aside={<Mascot bird="duck" mood="thinking" size={112} />}

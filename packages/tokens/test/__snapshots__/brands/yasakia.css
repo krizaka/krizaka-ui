@@ -1,6 +1,6 @@
-/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/yazakia.brand.json par scripts/build.mjs : ne pas éditer.
-   Yazakia — émeraude → turquoise, le vert libre de la famille, qui prend le contre-pied du rouge et du rose des applications de rencontre. L'accent (boutons, liens, anneau) est le turquoise, teinte 174 : à 14° de --kz-success (160, l'émeraude des statuts), pour qu'un bouton principal ne se lise jamais comme un succès. Dark : turquoise clair sous texte quasi noir ; light : turquoise profond sous texte blanc (5.9:1). accent-2 est l'émeraude (teinte 152), le second temps du dégradé des boutons et de la mascotte, jamais un statut. info reste bleu. Le logo (mark) est un dégradé émeraude (156) → turquoise (178) de teinte moyenne, identique dans les deux thèmes et ≥ 3:1 sur les surfaces 0–2 des deux thèmes.
-   Importé après tokens.css (ou @krizaka/tailwind) : l'identité yazakia sur toute l'app, dans les deux thèmes. */
+/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/yasakia.brand.json par scripts/build.mjs : ne pas éditer.
+   Yasakia — émeraude → turquoise, le vert libre de la famille, qui prend le contre-pied du rouge et du rose des applications de rencontre. L'accent (boutons, liens, anneau) est le turquoise, teinte 174 : à 14° de --kz-success (160, l'émeraude des statuts), pour qu'un bouton principal ne se lise jamais comme un succès. Dark : turquoise clair sous texte quasi noir ; light : turquoise profond sous texte blanc (5.9:1). accent-2 est l'émeraude (teinte 152), le second temps du dégradé des boutons et de la mascotte, jamais un statut. info reste bleu. Le logo (mark) est un dégradé émeraude (156) → turquoise (178) de teinte moyenne, identique dans les deux thèmes et ≥ 3:1 sur les surfaces 0–2 des deux thèmes.
+   Importé après tokens.css (ou @krizaka/tailwind) : l'identité yasakia sur toute l'app, dans les deux thèmes. */
 
 :root, .theme-dark {
   --kz-accent: hsl(174 72% 50%);

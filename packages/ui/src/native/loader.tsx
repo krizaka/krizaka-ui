@@ -93,7 +93,7 @@ export type LoaderProps = {
   /** inline (default) · block (a region's centre) · overlay (over its parent, frosted) · page (the whole screen). */
   variant?: "inline" | "block" | "overlay" | "page";
   /**
-   * The product whose animated mark waits in place of the Krizaka glyph (`orochia`, `orazaka`, `yazakia`, `yororis`,
+   * The product whose animated mark waits in place of the Krizaka glyph (`orochia`, `orazaka`, `yasakia`, `yororis`,
    * `krizaka`). Still when the system reduces motion; the ending stays the check or the cross.
    */
   product?: BrandId;

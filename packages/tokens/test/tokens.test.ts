@@ -356,7 +356,7 @@ describe("brands", async () => {
   const surfaces = ["surface0", "surface1", "surface2", "surface3"] as const;
 
   it("compiles one theme per brand and the scoped classes", () => {
-    expect(BRANDS).toEqual(["krizaka", "orazaka", "orochia", "yazakia", "yororis"]);
+    expect(BRANDS).toEqual(["krizaka", "orazaka", "orochia", "yasakia", "yororis"]);
     for (const id of BRANDS) expect(files[`brands/${id}.css`], id).toBeDefined();
     expect(files["brands/scoped.css"]).toContain(".brand-orazaka {");
     expect(Object.keys(index.brands)).toEqual(BRANDS);
@@ -442,8 +442,8 @@ describe("brands", async () => {
       expect(index.marks.krizaka.map(([, c]: [string, string]) => c)).toEqual([index.brands.krizaka.dark.accent, index.brands.krizaka.dark.accentText]);
       expect(native.marks.orochia[0][1]).toBe(native.brands.orochia.dark.accent);
       expect(native.marks.orochia.map(([, c]: [string, string]) => c)).toEqual(["#7c3aed", "#d946ef", "#f472b6"]); // unchanged
-      // Yazakia: emerald → turquoise, the turquoise end on the accent's hue family.
-      expect(index.marks.yazakia.map(([, c]: [string, string]) => hue(c))).toEqual([156, 178]);
+      // Yasakia: emerald → turquoise, the turquoise end on the accent's hue family.
+      expect(index.marks.yasakia.map(([, c]: [string, string]) => hue(c))).toEqual([156, 178]);
       // Yororis: sand → sage, the sage end on the accent's hue.
       expect(index.marks.yororis.map(([, c]: [string, string]) => hue(c))).toEqual([34, 104]);
       expect(Math.abs(hue(index.marks.yororis.at(-1)[1]) - hue(index.brands.yororis.dark.accent))).toBeLessThanOrEqual(10);
@@ -455,7 +455,7 @@ describe("brands", async () => {
       }
     });
 
-    it.each(["orazaka", "yazakia", "yororis"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
+    it.each(["orazaka", "yasakia", "yororis"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
       for (const mode of ["dark", "light"] as const) {
         for (const s of ["surface0", "surface1", "surface2"] as const) {
           for (const [, c] of index.marks[id]) expect(contrast(parseHsl(c), parseHsl(index.values[mode][s])), `${mode} ${s} ${c}`).toBeGreaterThanOrEqual(3);
@@ -469,21 +469,21 @@ describe("brands", async () => {
     });
   });
 
-  it("keeps Yazakia's turquoise accent apart from the success status (its emerald is the mark and accent-2 only)", () => {
+  it("keeps Yasakia's turquoise accent apart from the success status (its emerald is the mark and accent-2 only)", () => {
     const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);
     for (const mode of ["dark", "light"] as const) {
-      expect(Math.abs(hue(index.brands.yazakia[mode].accent) - hue(index.values[mode].success)), mode).toBeGreaterThanOrEqual(10);
-      expect(index.brands.yazakia[mode].info).not.toBe(index.brands.yazakia[mode].accent);
+      expect(Math.abs(hue(index.brands.yasakia[mode].accent) - hue(index.values[mode].success)), mode).toBeGreaterThanOrEqual(10);
+      expect(index.brands.yasakia[mode].info).not.toBe(index.brands.yasakia[mode].accent);
     }
   });
 
-  it("gives Yazakia the same roles as every brand, dark, light and native (key parity)", () => {
+  it("gives Yasakia the same roles as every brand, dark, light and native (key parity)", () => {
     for (const mode of ["dark", "light"] as const) {
-      expect(Object.keys(index.brands.yazakia[mode])).toEqual(Object.keys(index.brands.orochia[mode]));
-      expect(Object.keys(native.brands.yazakia[mode])).toEqual(Object.keys(native.brands.orochia[mode]));
+      expect(Object.keys(index.brands.yasakia[mode])).toEqual(Object.keys(index.brands.orochia[mode]));
+      expect(Object.keys(native.brands.yasakia[mode])).toEqual(Object.keys(native.brands.orochia[mode]));
     }
-    expect(files["brands/scoped.css"]).toContain(".brand-yazakia {");
-    expect(files["brands/scoped.css"]).toContain("html.light .brand-yazakia");
+    expect(files["brands/scoped.css"]).toContain(".brand-yasakia {");
+    expect(files["brands/scoped.css"]).toContain("html.light .brand-yasakia");
   });
 
   it("keeps Yororis' sage accent apart from every status, and its sand (accent-2, mark) apart from the warning amber", () => {
@@ -501,8 +501,8 @@ describe("brands", async () => {
       }
       expect(index.brands.yororis[mode].info).not.toBe(index.brands.yororis[mode].accent);
     }
-    // Apart from Yazakia's turquoise and emerald too: two products, two colours.
-    expect(gap(hsl(index.brands.yororis.dark.accent)[0], hsl(index.brands.yazakia.dark.accent2)[0])).toBeGreaterThanOrEqual(30);
+    // Apart from Yasakia's turquoise and emerald too: two products, two colours.
+    expect(gap(hsl(index.brands.yororis.dark.accent)[0], hsl(index.brands.yasakia.dark.accent2)[0])).toBeGreaterThanOrEqual(30);
   });
 
   it("gives Yororis the same roles as every brand, dark, light and native (key parity)", () => {

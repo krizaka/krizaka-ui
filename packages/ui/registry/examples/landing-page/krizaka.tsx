@@ -34,7 +34,7 @@ export default function LandingPageKrizaka() {
       features={[
         { id: "orazaka", size: "lg", title: "Orazaka — the AI that never leaves home", text: "Chat, image, voice and video on your own server, one governed pipeline." },
         { id: "orochia", title: "Orochia", text: "Creators paid 90 % of what fans spend." },
-        { id: "yazakia", title: "Yazakia", text: "Meet by talking first — coming." },
+        { id: "yasakia", title: "Yasakia", text: "Meet by talking first — coming." },
         { id: "blocks", size: "md", title: "Open building blocks", text: "Users, billing, notifications — on Maven Central and npm." },
         { id: "ui", size: "md", title: "One design system", text: "Krizaka UI, web and mobile, documented from its code." },
       ]}

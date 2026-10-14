@@ -2,7 +2,7 @@
  * The Krizaka flock — the geometry of the mascots, drawn by the web `Mascot` (`./mascot.tsx`) and the native one
  * (`../native/mascots.tsx`). Five birds that have carried the Krizaka story since the first site (the sentry falcon,
  * the owl that reads, the developer duck, the flamingo that answers, the carrier pigeon), the lovebird that
- * introduces (2026-10, with Yazakia: "l'inséparable présente") and the crane that listens (2026-10, with Yororis:
+ * introduces (2026-10, with Yasakia: "l'inséparable présente") and the crane that listens (2026-10, with Yororis:
  * "la grue écoute"), redrawn on one 120 × 120 grid so that any bird can wear any mood.
  *
  * Colours are roles, never fixed: `brand` (the default) paints a bird in the host's accent (`--kz-accent`,

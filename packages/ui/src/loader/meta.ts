@@ -49,7 +49,7 @@ export const meta = {
   native: {
     imports: ["Loader", "LoaderGlyph", "useDelayedWait"],
     differences: [
-      "`product` (`orochia`, `orazaka`, `yazakia`, `yororis`, `krizaka`) draws the product's animated `ProductMark`; on the web it is the `mark` slot.",
+      "`product` (`orochia`, `orazaka`, `yasakia`, `yororis`, `krizaka`) draws the product's animated `ProductMark`; on the web it is the `mark` slot.",
       "Announced with the platform's announcement (and a polite live region) instead of `role=\"status\"`.",
       "No `LoadingRegion`: lists show their own skeleton rows (`List loading`).",
       "`overlay` and `page` cover their parent with the theme's surface at 90 %; no backdrop blur.",

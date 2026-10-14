@@ -7,7 +7,7 @@ import { OrazakaMark } from "./OrazakaMark";
 import { OrochiaMark } from "./OrochiaMark";
 import { ProductMark } from "./ProductMark";
 import { nativeFrame } from "./story-frame";
-import { YazakiaMark } from "./YazakiaMark";
+import { YasakiaMark } from "./YasakiaMark";
 import { YororisMark } from "./YororisMark";
 
 /** Native — the brand marks (react-native-svg), the geometry of the web marks. Still here; they move on a device. */
@@ -21,14 +21,14 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The brand family at 96 pt: Krizaka, Orazaka, Orochia, Yazakia, Yororis. */
+/** The brand family at 96 pt: Krizaka, Orazaka, Orochia, Yasakia, Yororis. */
 export const Family: Story = {
   render: (args) => (
     <View style={{ flexDirection: "row", gap: 16 }}>
       <KrizakaMark {...args} title="Krizaka" />
       <OrazakaMark {...args} title="Orazaka" />
       <OrochiaMark {...args} title="Orochia" />
-      <YazakiaMark {...args} title="Yazakia" />
+      <YasakiaMark {...args} title="Yasakia" />
       <YororisMark {...args} title="Yororis" />
     </View>
   ),
@@ -41,7 +41,7 @@ export const Small: Story = {
       <ProductMark {...args} id="krizaka" size={28} />
       <ProductMark {...args} id="orazaka" size={28} />
       <ProductMark {...args} id="orochia" size={28} />
-      <ProductMark {...args} id="yazakia" size={28} />
+      <ProductMark {...args} id="yasakia" size={28} />
       <ProductMark {...args} id="yororis" size={28} />
     </View>
   ),

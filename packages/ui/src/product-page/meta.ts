@@ -6,7 +6,7 @@ export const meta = {
   status: "beta",
   category: "templates",
   platforms: "web",
-  whenToUse: ["The overview of each product (Orazaka, Orochia, Yazakia).", "A building block's page that argues its decisions."],
+  whenToUse: ["The overview of each product (Orazaka, Orochia, Yasakia).", "A building block's page that argues its decisions."],
   whenNotToUse: [
     { when: "For the whole company's home.", use: "landing-page" },
     { when: "For the steps of how it works.", use: "how-it-works-page" },

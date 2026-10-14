@@ -1,7 +1,7 @@
 import { marks } from "@krizaka/tokens/native";
 
 /**
- * The Yazakia mark's geometry — drawn by the web mark (YazakiaLogo) and the native one (YazakiaMark). The family's
+ * The Yasakia mark's geometry — drawn by the web mark (YasakiaLogo) and the native one (YasakiaMark). The family's
  * grammar (packages/tokens/BRAND.md, "Marks"): 400×400 view box, dashed orbit and ring, a bold emblem in the brand
  * gradient, a bright core; below 48 px the view box crops to the emblem.
  *
@@ -9,12 +9,12 @@ import { marks } from "@krizaka/tokens/native";
  * people share once they have talked — is the bright core, a lens lit from above that breathes. The left voice sits a
  * shade deeper than the right, so the pair reads as two, with depth, at 16 px as at 128 px. A thin gap (the page shows
  * through) separates each bubble from the lens: the paths are cut here, no mask, so web and native draw the same thing.
- * Two nodes, the pair, ride the dashed orbit. The gradient is the brand's mark gradient (`marks.yazakia` of
+ * Two nodes, the pair, ride the dashed orbit. The gradient is the brand's mark gradient (`marks.yasakia` of
  * @krizaka/tokens): emerald → turquoise, mid-tones that read ≥ 3:1 on the page surfaces of both themes (tested in
  * @krizaka/tokens), so one mark serves dark and light.
  */
 /** The bright end of the gradient (turquoise): the halo and the core's glow. */
-const turquoise = marks.yazakia[marks.yazakia.length - 1]![1];
+const turquoise = marks.yasakia[marks.yasakia.length - 1]![1];
 
 /*
  * How the paths are drawn (literal, so the native bundle carries no geometry code): each bubble is a circle of radius 80
@@ -23,7 +23,7 @@ const turquoise = marks.yazakia[marks.yazakia.length - 1]![1];
  * the left, mirrored on the right. Each tail is a curved point from the bubble's lower outer side, down and out to
  * (88, 294) — mirrored (312, 294).
  */
-export const YAZAKIA = {
+export const YASAKIA = {
   viewBox: "0 0 400 400",
   croppedViewBox: "80 80 240 240",
   center: 200,
@@ -36,7 +36,7 @@ export const YAZAKIA = {
   shade: { color: "#000", opacity: 0.22 },
   /** Where the bubbles overlap: the core, lit from above. */
   lens: { d: "M200 112.6 A80 80 0 0 1 200 255.4 A80 80 0 0 1 200 112.6 Z", y1: 112.6, y2: 255.4 },
-  gradient: { x1: 110, y1: 300, x2: 290, y2: 100, stops: marks.yazakia },
+  gradient: { x1: 110, y1: 300, x2: 290, y2: 100, stops: marks.yasakia },
   /** The light on the lens: bright at the top, fading down. */
   highlight: { color: "#f0fdfa", from: 0.75, to: 0.2 },
   /** The pair: two nodes on the orbit, opposite each other, that turn with it. */

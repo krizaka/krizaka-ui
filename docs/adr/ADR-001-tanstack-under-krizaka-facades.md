@@ -2,7 +2,7 @@
 
 - **Status:** accepted — 2026-10-12 (decision of 2026-10-11 23:30: complete migration, light validation)
 - **Scope:** every Krizaka JavaScript repository — the `@krizaka/*` packages of this monorepo and the product apps
-  (Orazaka, Orochia, Yazakia, Yororis, krizaka.com)
+  (Orazaka, Orochia, Yasakia, Yororis, krizaka.com)
 - **Enforced by:** `@krizaka/config` — `krizakaStack()` (ESLint), `@krizaka/config/dependency-cruiser`, `krizaka-ratchet`
 
 ## Context
@@ -64,7 +64,7 @@ break is fixed in one place.
 | S7 | Charts | **Migration**, no spike: `@krizaka/charts` moves to TanStack Charts (web), same public API if it holds, else the better one; ECharts removed; native stays our SVG, then Skia. |
 | S8 | Markdown & code | `@krizaka/ui/markdown` (TanStack Markdown), `code-block` on TanStack Highlight. Fumadocs stays on the site. |
 | S9 | Motion | Unchanged: CSS/WAAPI in `@krizaka/ui`; `framer-motion` leaves krizaka.com and Orazaka web-client; Aceternity is a reference, not a dependency; no R3F by default. Native: Reanimated + Skia for drawn surfaces. |
-| S10 | Product monorepo | pnpm + Turborepo, `apps/web` · `apps/mobile` · `packages/core` · `packages/*`, **no exception**: Yazakia, Yororis (mobile inside), Orochia (absorbs admin, mobile and design system by `git subtree`). Orazaka: JVM governance unchanged, its UI apps adopt in place. No Tamagui, Solito, NativeWind or react-native-web. |
+| S10 | Product monorepo | pnpm + Turborepo, `apps/web` · `apps/mobile` · `packages/core` · `packages/*`, **no exception**: Yasakia, Yororis (mobile inside), Orochia (absorbs admin, mobile and design system by `git subtree`). Orazaka: JVM governance unchanged, its UI apps adopt in place. No Tamagui, Solito, NativeWind or react-native-web. |
 | S11 | Boundary | `@tanstack/*` is imported **only** by `@krizaka/*` packages (dependency-cruiser in every app). |
 | S12 | Agent tooling | TanStack Intent: a SKILL.md in every `@krizaka/*` (generated from `meta.ts` and the registry examples, checked in CI, `intent stale` at release); `intent install` in every product; TanStack Devtools in development. |
 | S13 | Validation | **Light**: green CI (lint, typecheck, unit, existing e2e) + a dark/light glance. No lines-removed proof, no size-limit or Lighthouse per pull request, no intermediate report. The three ratchets are at **0 at the end of each app's adoption**. One final report. |

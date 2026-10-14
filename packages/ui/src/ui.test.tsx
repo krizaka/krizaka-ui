@@ -1,11 +1,11 @@
 import { brands, marks } from "@krizaka/tokens/native";
 import { render } from "@testing-library/react";
 
-import { cx, KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, RotatingWord, YazakiaLogo, YororisLogo } from "./index";
+import { cx, KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, RotatingWord, YasakiaLogo, YororisLogo } from "./index";
 import { KRIZAKA } from "./marks/krizaka-geometry";
 import { ORAZAKA } from "./marks/orazaka-geometry";
 import { OROCHIA } from "./marks/orochia-geometry";
-import { YAZAKIA } from "./marks/yazakia-geometry";
+import { YASAKIA } from "./marks/yasakia-geometry";
 import { YORORIS } from "./marks/yororis-geometry";
 
 describe("marks", () => {
@@ -13,7 +13,7 @@ describe("marks", () => {
     ["Krizaka", KrizakaLogo],
     ["Orazaka", OrazakaLogo],
     ["Orochia", OrochiaLogo],
-    ["Yazakia", YazakiaLogo],
+    ["Yasakia", YasakiaLogo],
     ["Yororis", YororisLogo],
   ])("%s is decorative by default and named with a title", (name, Mark) => {
     const { container, rerender } = render(<Mark />);
@@ -34,7 +34,7 @@ describe("marks", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it.each([KrizakaLogo, OrazakaLogo, OrochiaLogo, YazakiaLogo, YororisLogo])("stops moving with animated={false} (%#)", (Mark) => {
+  it.each([KrizakaLogo, OrazakaLogo, OrochiaLogo, YasakiaLogo, YororisLogo])("stops moving with animated={false} (%#)", (Mark) => {
     const { container } = render(<Mark animated={false} />);
     expect(container.querySelector("[class]:not(svg)")).toBeNull();
     const moving = render(<Mark />);
@@ -45,7 +45,7 @@ describe("marks", () => {
     [KrizakaLogo, KRIZAKA],
     [OrazakaLogo, ORAZAKA],
     [OrochiaLogo, OROCHIA],
-    [YazakiaLogo, YAZAKIA],
+    [YasakiaLogo, YASAKIA],
     [YororisLogo, YORORIS],
   ] as const)("shares the family frame and crops to the emblem below 48 px (%#)", (Mark, geometry) => {
     const { container, rerender } = render(<Mark size={24} />);
@@ -66,9 +66,9 @@ describe("marks", () => {
     expect(ORAZAKA.gradient.stops[0]![1]).toBe(brands.orazaka.light.accent);
     expect(ORAZAKA.gradient.stops.map(([, c]) => c)).not.toContain("#f59e0b");
     expect(ORAZAKA.glow.color).toBe(ORAZAKA.gradient.stops.at(-1)![1]);
-    // Yazakia: emerald → turquoise, the mark gradient of its brand; the halo in the turquoise end.
-    expect(YAZAKIA.gradient.stops).toEqual(marks.yazakia);
-    expect(YAZAKIA.glow.color).toBe(YAZAKIA.gradient.stops.at(-1)![1]);
+    // Yasakia: emerald → turquoise, the mark gradient of its brand; the halo in the turquoise end.
+    expect(YASAKIA.gradient.stops).toEqual(marks.yasakia);
+    expect(YASAKIA.glow.color).toBe(YASAKIA.gradient.stops.at(-1)![1]);
     // Yororis: sand → sage, the mark gradient of its brand; the halo in the sage end, the core's light rises from the sand.
     expect(YORORIS.gradient.stops).toEqual(marks.yororis);
     expect(YORORIS.glow.color).toBe(YORORIS.gradient.stops.at(-1)![1]);
@@ -85,19 +85,19 @@ describe("marks", () => {
     await expect(svg.outerHTML.replace(/yrm-(\w+)-[\w-]+?(?=[")])/g, "yrm-$1")).toMatchFileSnapshot("./marks/__snapshots__/YororisLogo.svg");
   });
 
-  it("draws the Yazakia emblem: two voices, the left a shade deeper, a lit lens where they overlap, the pair on the orbit (snapshot)", async () => {
-    const { container } = render(<YazakiaLogo size={96} animated={false} />);
+  it("draws the Yasakia emblem: two voices, the left a shade deeper, a lit lens where they overlap, the pair on the orbit (snapshot)", async () => {
+    const { container } = render(<YasakiaLogo size={96} animated={false} />);
     const svg = container.querySelector("svg")!;
     // Each voice: its bubble and its tail; the left one's shade; the lens and its light.
-    expect(svg.querySelectorAll("path")).toHaveLength(YAZAKIA.voices.length * 2 + 1 + 2);
+    expect(svg.querySelectorAll("path")).toHaveLength(YASAKIA.voices.length * 2 + 1 + 2);
     // Halo, ring, orbit and the pair.
-    expect(svg.querySelectorAll("circle")).toHaveLength(3 + YAZAKIA.pair.at.length);
+    expect(svg.querySelectorAll("circle")).toHaveLength(3 + YASAKIA.pair.at.length);
     // The voices are mirrors of each other, and the lens sits on the axis.
-    const [left, right] = YAZAKIA.voices;
+    const [left, right] = YASAKIA.voices;
     expect(right.body.replace(/[\d.]+/g, "n")).toBe(left.body.replace(/[\d.]+/g, "n"));
-    expect(YAZAKIA.lens.d.startsWith("M200 ")).toBe(true);
+    expect(YASAKIA.lens.d.startsWith("M200 ")).toBe(true);
     // The SVG, ids normalised (they are unique per instance).
-    await expect(svg.outerHTML.replace(/yzm-(\w+)-[\w-]+?(?=[")])/g, "yzm-$1")).toMatchFileSnapshot("./marks/__snapshots__/YazakiaLogo.svg");
+    await expect(svg.outerHTML.replace(/yzm-(\w+)-[\w-]+?(?=[")])/g, "yzm-$1")).toMatchFileSnapshot("./marks/__snapshots__/YasakiaLogo.svg");
   });
 
   it("picks a mark by id", () => {
