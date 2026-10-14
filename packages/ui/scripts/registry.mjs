@@ -62,7 +62,8 @@ export const entryOf = (name) => join(SRC, name === "cn" ? "cn.ts" : join(name, 
 /** The primitive a source file belongs to, or null for a shared file of `src/` (e.g. `floating.ts`). */
 function ownerOf(file) {
   const [first, ...rest] = posix(relative(SRC, file)).split("/");
-  if (rest.length > 0) return first;
+  // The brand layer (`marks`, `motion`) is not a primitive: a primitive that draws a mark carries its sources.
+  if (rest.length > 0) return EXCLUDED.has(first) ? null : first;
   return first === "cn.ts" ? "cn" : null;
 }
 

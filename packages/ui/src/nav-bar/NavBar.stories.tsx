@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import AppBarExample from "../../registry/examples/nav-bar/app-bar";
+import FamilyAdminExample from "../../registry/examples/nav-bar/family-admin";
+import FamilyJavaExample from "../../registry/examples/nav-bar/family-java";
+import FamilyProductExample from "../../registry/examples/nav-bar/family-product";
+import FamilyUiExample from "../../registry/examples/nav-bar/family-ui";
+import FamilyWwwExample from "../../registry/examples/nav-bar/family-www";
 import MenuOpenExample from "../../registry/examples/nav-bar/menu-open";
 import SiteExample from "../../registry/examples/nav-bar/site";
 import { NavBarRoot } from "./nav-bar";
@@ -30,3 +35,13 @@ export const MenuOpen: Story = {
   parameters: { a11y: { config: { rules: [{ id: "aria-hidden-focus", enabled: false }] } } },
 };
 export const AppBar: Story = { render: () => <AppBarExample /> };
+export const FamilyWww: Story = { render: () => <FamilyWwwExample /> };
+export const FamilyOpen: Story = {
+  render: () => <FamilyWwwExample defaultOpen />,
+  // The same Radix focus proxy as MenuOpen (see there).
+  parameters: { a11y: { config: { rules: [{ id: "aria-hidden-focus", enabled: false }] } } },
+};
+export const FamilyUi: Story = { render: () => <FamilyUiExample /> };
+export const FamilyJava: Story = { render: () => <FamilyJavaExample /> };
+export const FamilyProduct: Story = { render: () => <FamilyProductExample /> };
+export const FamilyAdmin: Story = { render: () => <FamilyAdminExample /> };
