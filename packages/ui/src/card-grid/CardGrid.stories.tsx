@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-
 import { expect } from "storybook/test";
 
 import AlignedExample from "../../registry/examples/card-grid/aligned";
