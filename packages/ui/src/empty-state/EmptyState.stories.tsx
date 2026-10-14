@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import DefaultExample from "../../registry/examples/empty-state/default";
+import LibraryExample from "../../registry/examples/empty-state/library";
 import TitleOnlyExample from "../../registry/examples/empty-state/title-only";
 import WithActionExample from "../../registry/examples/empty-state/with-action";
 import { EmptyState } from "./empty-state";
@@ -28,3 +29,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = { render: () => <DefaultExample /> };
 export const WithAction: Story = { render: () => <WithActionExample /> };
 export const TitleOnly: Story = { render: () => <TitleOnlyExample /> };
+export const Library: Story = { render: () => <LibraryExample /> };
+/** On a phone (390 × 844). */
+export const LibraryPhone: Story = { render: () => <LibraryExample />, parameters: { phone: true } };

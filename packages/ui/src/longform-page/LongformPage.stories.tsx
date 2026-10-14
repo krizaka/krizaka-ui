@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import CaseStudyExample from "../../registry/examples/longform-page/case-study";
 import StoryExample from "../../registry/examples/longform-page/story";
 import { LongformPage } from "./longform-page";
 
@@ -16,3 +17,6 @@ type Story = StoryObj;
 export const Story: Story = { render: () => <StoryExample /> };
 /** On a phone (390 × 844). */
 export const StoryPhone: Story = { render: () => <StoryExample />, parameters: { phone: true } };
+export const CaseStudy: Story = { render: () => <CaseStudyExample /> };
+/** On a phone (390 × 844). */
+export const CaseStudyPhone: Story = { render: () => <CaseStudyExample />, parameters: { phone: true } };

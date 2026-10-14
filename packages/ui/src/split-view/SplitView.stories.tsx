@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import EmptyExample from "../../registry/examples/split-view/empty";
 import MessagesExample from "../../registry/examples/split-view/messages";
+import NearbyExample from "../../registry/examples/split-view/nearby";
+import NotificationsExample from "../../registry/examples/split-view/notifications";
 import { SplitView } from "./split-view";
 
 /** Split view — a layout. Each story renders a named example; a template has its phone story too. */
@@ -18,3 +20,9 @@ export const Messages: Story = { render: () => <MessagesExample /> };
 /** The same template on a phone (390 × 844): the screenshot is taken at that width. */
 export const MessagesPhone: Story = { render: () => <MessagesExample />, parameters: { phone: true } };
 export const Empty: Story = { render: () => <EmptyExample /> };
+export const Notifications: Story = { render: () => <NotificationsExample /> };
+/** On a phone (390 × 844). */
+export const NotificationsPhone: Story = { render: () => <NotificationsExample />, parameters: { phone: true } };
+export const Nearby: Story = { render: () => <NearbyExample /> };
+/** On a phone (390 × 844). */
+export const NearbyPhone: Story = { render: () => <NearbyExample />, parameters: { phone: true } };

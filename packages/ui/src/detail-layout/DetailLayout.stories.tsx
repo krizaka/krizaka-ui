@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import CheckoutExample from "../../registry/examples/detail-layout/checkout";
 import JobExample from "../../registry/examples/detail-layout/job";
 import VideoExample from "../../registry/examples/detail-layout/video";
 import { DetailLayout } from "./detail-layout";
@@ -18,3 +19,6 @@ export const Video: Story = { render: () => <VideoExample /> };
 /** The same template on a phone (390 × 844): the screenshot is taken at that width. */
 export const VideoPhone: Story = { render: () => <VideoExample />, parameters: { phone: true } };
 export const Job: Story = { render: () => <JobExample /> };
+export const Checkout: Story = { render: () => <CheckoutExample /> };
+/** On a phone (390 × 844). */
+export const CheckoutPhone: Story = { render: () => <CheckoutExample />, parameters: { phone: true } };

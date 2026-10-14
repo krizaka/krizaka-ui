@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../../meta";
 
 export const meta = {
   title: "Screen",
-  summary: "A screen of the app — a header, the content (scrolling, rising with the keyboard), a footer — and the templates built on it: app shell, sign-in, profile, feed, chat, settings.",
+  summary: "A screen of the app — a header, the content (scrolling, rising with the keyboard), a footer — and the templates built on it: app shell, sign-in, profile, feed, chat, settings, a map, notifications.",
   status: "beta",
   category: "layout",
   platforms: "native",
@@ -26,6 +26,8 @@ export const meta = {
       { name: "feed", title: "Feed", description: "A large title over a list of cards.", template: true, purpose: "show", why: "A person scans what is new, one card per item, and stops where something matters." },
       { name: "chat", title: "Chat", description: "The person, the messages, the composer.", template: true, purpose: "converse", why: "A person reads the thread and answers from the composer, which stays in reach." },
       { name: "settings", title: "Settings", description: "Sections of switches that apply at once.", template: true, purpose: "operate", why: "A person changes a preference and sees it apply at once, grouped by what it concerns." },
+      { name: "map", title: "Map", description: "The map fills the screen; a marker opens its place in a bottom sheet with the one action.", template: true, purpose: "act", why: "A person chooses a place by where it is, with every marker also a named button." },
+      { name: "notifications", title: "Notifications", description: "What happened, newest first and by day, with mark-all-as-read as a button.", template: true, purpose: "converse", why: "A person catches up on what happened without hunting for it." },
     ],
   },
 } satisfies ComponentMeta;

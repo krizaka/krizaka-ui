@@ -29,6 +29,7 @@ export const meta = {
       { name: "default", title: "Default", description: "An icon, a title and a line." },
       { name: "with-action", title: "With an action", description: "What to do next." },
       { name: "title-only", title: "Title only", description: "A search without result." },
+      { name: "library", title: "An empty page", description: "A page with nothing in it yet: the bird, what will fill it, the first action.", template: true, purpose: "recover", why: "A person facing an empty page knows what belongs here and how to start." },
     ],
   },
   native: {
