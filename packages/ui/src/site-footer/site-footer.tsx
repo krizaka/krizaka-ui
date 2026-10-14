@@ -12,18 +12,18 @@ import { type FamilyLabels, familyLabels, siteById, type SiteId, sitesByGroup } 
 export const siteFooter = tv({
   slots: {
     root: "w-full border-t border-border-subtle bg-surface-0 text-fg",
-    inner: "mx-auto grid w-full max-w-(--kz-page-max,72rem) gap-10 px-(--kz-page-gutter,16px) py-12",
-    top: "grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]",
+    inner: "mx-auto grid w-full max-w-(--kz-page-max,72rem) grid-cols-[minmax(0,1fr)] gap-10 px-(--kz-page-gutter,16px) py-12",
+    top: "grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]",
     site: "grid content-start gap-3",
     siteName: "inline-flex items-center gap-2 font-display text-[15px] font-bold tracking-tight text-fg",
     siteText: "max-w-xs text-sm leading-relaxed text-fg-secondary",
     own: "grid grid-cols-2 gap-8 sm:grid-cols-3",
     family: "grid grid-cols-2 gap-8 border-t border-border-subtle pt-8 md:grid-cols-4",
-    column: "grid content-start gap-3",
+    column: "grid min-w-0 content-start gap-3",
     title: "text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
-    list: "grid gap-2",
+    list: "grid min-w-0 gap-2",
     link:
-      "inline-flex min-h-6 items-center gap-2 rounded-md text-sm text-fg-secondary no-underline transition-colors hover:text-fg " +
+      "inline-flex min-h-6 min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5 rounded-md text-sm [overflow-wrap:anywhere] text-fg-secondary no-underline transition-colors hover:text-fg " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:text-fg aria-[current=true]:text-fg aria-[current=true]:font-semibold",
     mark: "flex h-4 w-4 shrink-0 items-center justify-center text-fg",
     tag: "rounded-full bg-surface-3 px-1.5 py-px text-[10px] font-semibold uppercase tracking-wider text-fg-secondary",

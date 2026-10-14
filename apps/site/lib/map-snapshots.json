@@ -1,0 +1,17 @@
+{
+  "$comment": "Photographs of the map examples as they render with their tiles (dark and light, 2×), on the Krizaka CDN under ui/maps/. Shown while the live map cannot read the tiles — the CDN must answer cross-origin (Access-Control-Allow-Origin) for maps/v1. Retake them when an example changes.",
+  "examples": {
+    "map/places": {
+      "dark": "https://krizaka-assets.b-cdn.net/ui/maps/places-dark.02f3d51abe.png",
+      "light": "https://krizaka-assets.b-cdn.net/ui/maps/places-light.1419802b40.png"
+    },
+    "map/cluster": {
+      "dark": "https://krizaka-assets.b-cdn.net/ui/maps/cluster-dark.731f2c4fa2.png",
+      "light": "https://krizaka-assets.b-cdn.net/ui/maps/cluster-light.b3a0536dd6.png"
+    },
+    "map/location-picker": {
+      "dark": "https://krizaka-assets.b-cdn.net/ui/maps/location-picker-dark.278b8f2e83.png",
+      "light": "https://krizaka-assets.b-cdn.net/ui/maps/location-picker-light.bdc255dfd2.png"
+    }
+  }
+}

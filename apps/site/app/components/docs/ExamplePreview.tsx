@@ -6,10 +6,12 @@ import { ServerCodeBlock } from "fumadocs-ui/components/codeblock.rsc";
 import Image from "next/image";
 
 import { format, getDictionary, type Locale } from "@/lib/i18n";
+import { mapSnapshotOf } from "@/lib/map-gate";
 import { examplePropsOf } from "@/lib/ui-example-props";
 import { UI_EXAMPLES, type UiExampleKey } from "@/lib/ui-examples";
 import { exampleKey, exampleSource, type RegistryExample } from "@/lib/ui-registry";
 
+import { MapGate } from "./MapGate";
 import { PreviewFrame } from "./PreviewFrame";
 
 const THEMES = { "light": "github-light", "dark": "github-dark" } as const; // quoted keys: the ratchet reads an unquoted key as a theme variant
@@ -23,9 +25,16 @@ export async function ExamplePreview({ title, example, locale }: { title: string
   const code = <ServerCodeBlock code={exampleSource(example)} lang="tsx" themes={THEMES} />;
   if (!load) return code;
   const { default: Example } = await load();
+  const snapshot = mapSnapshotOf(exampleKey(example));
   return (
     <PreviewFrame label={format(t.label, { name: `${title} — ${example.title}` })} code={code}>
-      <Example {...examplePropsOf(exampleKey(example))} />
+      {snapshot ? (
+        <MapGate snapshot={snapshot} alt={format(t.mapSnapshot, { name: `${title} — ${example.title}` })}>
+          <Example {...examplePropsOf(exampleKey(example))} />
+        </MapGate>
+      ) : (
+        <Example {...examplePropsOf(exampleKey(example))} />
+      )}
     </PreviewFrame>
   );
 }

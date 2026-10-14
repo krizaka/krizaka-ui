@@ -682,18 +682,7 @@ html:not([data-motion="ready"]) :is(main > header, main > section:first-of-type)
 .kz-icons-actions button:hover { color: var(--kz-text-primary); border-color: var(--kz-border-strong); }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   The footer and the 404 of ui.krizaka.com
-   ═══════════════════════════════════════════════════════════════════ */
-.kz-ui-footer { margin-top: auto; border-top: 1px solid var(--kz-border-subtle); background: var(--kz-surface-0); }
-.kz-ui-footer-inner { max-width: var(--kz-page-max-docs); margin: 0 auto; padding: 32px var(--kz-page-gutter, clamp(16px, 3.2vw, 32px)); display: flex; flex-wrap: wrap; gap: 24px 48px; justify-content: space-between; }
-.kz-ui-footer-brand { display: grid; gap: 8px; max-width: 46ch; font-size: 14px; color: var(--kz-text-secondary); }
-.kz-ui-footer-project { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--kz-text-primary); text-decoration: none; }
-.kz-ui-footer-project:hover { color: var(--kz-accent-text); }
-.kz-ui-footer-meta { font-family: var(--kz-font-mono); font-size: 12px; }
-.kz-ui-footer-links { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 20px; align-content: flex-start; font-size: 14px; }
-.kz-ui-footer-links a { color: var(--kz-text-secondary); text-decoration: none; }
-.kz-ui-footer-links a:hover { color: var(--kz-text-primary); }
+/* ═══ The 404 of ui.krizaka.com (the footer is @krizaka/ui's SiteFooter) ═══ */
 .kz-not-found { display: grid; place-items: center; min-height: 100dvh; padding: 24px; text-align: center; }
 .kz-not-found main { display: grid; gap: 12px; max-width: 40ch; }
 .kz-not-found h1 { font-family: var(--kz-font-display); font-size: clamp(1.5rem, 4vw, 2.25rem); }
@@ -834,3 +823,15 @@ html.light .kz-hero-strip .kz-shot-light { display: block; }
 .kz-land-packages li { display: grid; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--kz-border-subtle); font-size: 13.5px; color: var(--kz-text-secondary); }
 .kz-land-packages a { text-decoration: none; }
 .kz-land-packages code { font-family: var(--kz-font-mono); font-size: 13.5px; font-weight: 600; color: var(--kz-accent-text); }
+
+/* A map example before its tiles can be read (MapGate): its photograph, in the theme of the page or of the preview. */
+.kz-map-snapshot { display: block; width: 100%; max-width: 36rem; margin-inline: auto; }
+.kz-map-snapshot .kz-shot { width: 100%; height: auto; border-radius: 16px; }
+.kz-map-snapshot .kz-shot-light { display: none; }
+html.light .kz-map-snapshot .kz-shot-light, .theme-light .kz-map-snapshot .kz-shot-light { display: block; }
+html.light .kz-map-snapshot .kz-shot-dark, .theme-light .kz-map-snapshot .kz-shot-dark { display: none; }
+.theme-dark .kz-map-snapshot .kz-shot-dark { display: block; }
+.theme-dark .kz-map-snapshot .kz-shot-light { display: none; }
+
+/* Code never runs off the edge of its block (a cut line reads as broken, on a phone first): long lines wrap. */
+pre, pre code { white-space: pre-wrap; overflow-wrap: anywhere; }

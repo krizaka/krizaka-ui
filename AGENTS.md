@@ -125,6 +125,12 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
   --filter=@krizaka/site`) and **deployed on every push to `main`** — so on every release — by DigitalOcean App Platform
   (app `krizaka-ui-site`, project `krizaka`, a static site: `apps/site/deploy/app.yaml`). No server: what needs one
   (redirects, a proxy) does not belong here.
+- **Never an empty map**: the maps read their tiles from the CDN cross-origin; until it answers with CORS headers, a map
+  example shows its photograph (`lib/map-snapshots.json`, `MapGate`) and turns live once the tiles can be read. Retake the
+  photographs when a map example changes.
+- **Its look is tested**: `scripts/crawl-check.mjs` (CI, on the export) opens the top pages at desktop and phone width, dark
+  and light, and fails on a sideways scroll, content or code cut at an edge, an example wider than its frame, an empty
+  canvas, a console error. The bar and the footer are NAV-SYS's (`NavBar.Family`, `NavBar.Badge`, `NavBar.Repo`, `SiteFooter`).
 - Run it: `pnpm turbo run build --filter=@krizaka/site...` once (the packages), then `pnpm --filter @krizaka/site dev`.
 
 ## 4. Release (Changesets)

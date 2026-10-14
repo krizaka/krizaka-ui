@@ -1,8 +1,8 @@
 "use client";
 
 /* The bar of ui.krizaka.com, on @krizaka/ui's NavBar, in the three zones every Krizaka site shares (NAV-SYS):
-   left, who this is — the Krizaka UI mark, then the family (until NavBar.Family ships: "by Krizaka", the way back to
-   www.krizaka.com; Krizaka Java and the rest of the family are in the footer); centre, this site — Get started ·
+   left, who this is — the Krizaka UI mark, then the family switcher (NavBar.Family: Krizaka, the products, Krizaka Java…);
+   centre, this site — Get started ·
    Foundations · Components · Templates and the version it documents; right, the tools — search (Fumadocs' dialog, ⌘K),
    the repository, the theme, the language. */
 
@@ -11,14 +11,14 @@ import { KrizakaLogo } from "@krizaka/ui";
 import { Button } from "@krizaka/ui/button";
 import { Kbd } from "@krizaka/ui/kbd";
 import { NavBar } from "@krizaka/ui/nav-bar";
+import { familyLabels } from "@krizaka/ui/sites";
 import { useSearchContext } from "fumadocs-ui/contexts/search";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { KRIZAKA_UI_REPO_URL, KRIZAKA_URL } from "@/lib/site";
+import { KRIZAKA_UI_REPO_URL } from "@/lib/site";
 import { localePath } from "@/lib/urls";
 
-import { GitHubMark } from "./GitHubMark";
 import { useI18n } from "./I18nProvider";
 import { useSiteTheme } from "./SiteTheme";
 
@@ -45,9 +45,7 @@ export function SiteBar({ version }: { version: string }) {
             {b.label}
           </Link>
         </NavBar.Brand>
-        <a href={KRIZAKA_URL} aria-label={b.projectAria} className="hidden text-xs font-medium text-fg-secondary hover:text-fg md:inline">
-          {b.by}
-        </a>
+        <NavBar.Family current="ui" labels={familyLabels[locale]} />
 
         <NavBar.Items>
           {LINKS.map((l) => (
@@ -56,9 +54,7 @@ export function SiteBar({ version }: { version: string }) {
             </NavBar.Link>
           ))}
         </NavBar.Items>
-        <span className="kz-chip-meta hidden font-mono lg:inline-flex" title={b.versionTitle}>
-          v{version}
-        </span>
+        <NavBar.Badge version={version} title={b.versionTitle} className="hidden lg:inline-flex" />
 
         <NavBar.Actions className="gap-1">
           <Button
@@ -78,11 +74,7 @@ export function SiteBar({ version }: { version: string }) {
 
           <span aria-hidden className="mx-1 hidden h-4 w-px bg-border-subtle lg:block" />
 
-          <Button asChild variant="ghost" size="icon" shape="pill" className="h-9 w-9">
-            <a href={KRIZAKA_UI_REPO_URL} target="_blank" rel="noopener noreferrer" aria-label={b.githubAria}>
-              <GitHubMark size={15} />
-            </a>
-          </Button>
+          <NavBar.Repo href={KRIZAKA_UI_REPO_URL} label={b.githubAria} />
 
           <Button type="button" variant="ghost" size="icon" shape="pill" onClick={toggleTheme} aria-label={theme === "dark" ? b.lightMode : b.darkMode} className="h-9 w-9">
             {theme === "dark" ? <SunIcon size={16} /> : <MoonIcon size={16} />}
@@ -99,6 +91,14 @@ export function SiteBar({ version }: { version: string }) {
             {b.languageShort}
           </Button>
 
+          <NavBar.Mobile openLabel={b.openMenu} closeLabel={b.closeMenu}>
+            {LINKS.map((l) => (
+              <NavBar.MobileLink key={l.id} href={localePath(locale, l.path)}>
+                {b[l.id]}
+              </NavBar.MobileLink>
+            ))}
+            <NavBar.Family current="ui" labels={familyLabels[locale]} />
+          </NavBar.Mobile>
         </NavBar.Actions>
       </NavBar.Root>
     </div>
