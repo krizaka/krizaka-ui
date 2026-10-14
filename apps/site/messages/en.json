@@ -478,7 +478,15 @@
         "orazaka": "the sovereign AI engine",
         "orochia": "the creator platform",
         "yasakia": "the dating app",
-        "yororis": "the fourth product, in construction"
+        "yororis": "the fourth product, in construction",
+        "downloads": "Downloads",
+        "svgDark": "SVG · dark",
+        "svgLight": "SVG · light",
+        "png": "PNG 1024 · transparent",
+        "avatar": "Account avatar",
+        "social": "Social preview",
+        "manifest": "All the files and their checksums (manifest.json)",
+        "note": "Generated from the code of @krizaka/ui by tools/export-brand.mjs — never hand-made. Logos and marks, dark and light, PNG 256/512/1024, avatars 500/1024, social previews 1280×640."
       }
     }
   },

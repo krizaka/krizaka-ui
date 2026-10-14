@@ -478,7 +478,15 @@
         "orazaka": "le moteur d'IA souverain",
         "orochia": "la plateforme de créateurs",
         "yasakia": "l'application de rencontres",
-        "yororis": "le quatrième produit, en construction"
+        "yororis": "le quatrième produit, en construction",
+        "downloads": "Téléchargements",
+        "svgDark": "SVG · sombre",
+        "svgLight": "SVG · clair",
+        "png": "PNG 1024 · transparent",
+        "avatar": "Avatar de compte",
+        "social": "Aperçu social",
+        "manifest": "Tous les fichiers et leurs empreintes (manifest.json)",
+        "note": "Générés depuis le code de @krizaka/ui par tools/export-brand.mjs — jamais dessinés à la main. Logos et marques, sombre et clair, PNG 256/512/1024, avatars 500/1024, aperçus sociaux 1280×640."
       }
     }
   },
