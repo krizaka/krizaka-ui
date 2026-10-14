@@ -31,6 +31,7 @@ export function PersonCard({ photos, name, age, badge, meta, bio, footer, photoL
   const { theme, radius } = useTheme();
   const [index, setIndex] = React.useState(0);
   const gradient = useSvgId("kz-profile-");
+  const [box, setBox] = React.useState<{ width: number; height: number } | null>(null);
   const photo = photos[index];
   return (
     <View
@@ -43,7 +44,7 @@ export function PersonCard({ photos, name, age, badge, meta, bio, footer, photoL
       aria-label={[`${name}${age !== undefined ? `, ${age}` : ""}`, bio, photos.length > 1 ? photoLabel(index + 1, photos.length) : null].filter(Boolean).join(". ")}
       style={[styles.card, { borderRadius: radius.xl, backgroundColor: theme.media }, style]}
     >
-      {photo ? <Image source={{ uri: photo.uri }} style={StyleSheet.absoluteFill} resizeMode="cover" /> : null}
+      {photo ? <Image testID="person-card-photo" source={{ uri: photo.uri }} style={StyleSheet.absoluteFill} resizeMode="cover" /> : null}
       {photos.length > 1 ? (
         <>
           <View style={styles.bars} aria-hidden>
@@ -55,17 +56,26 @@ export function PersonCard({ photos, name, age, badge, meta, bio, footer, photoL
           <Pressable aria-hidden accessible={false} focusable={false} tabIndex={-1} style={[styles.half, { right: 0 }]} onPress={() => setIndex((i) => Math.min(photos.length - 1, i + 1))} />
         </>
       ) : null}
-      <View pointerEvents="box-none" style={styles.bottom}>
-        <Svg style={StyleSheet.absoluteFill} width="100%" height="100%" aria-hidden>
-          <Defs>
-            <LinearGradient id={gradient} x1="0" y1="0" x2="0" y2="1">
-              <Stop offset="0" stopColor={theme.scrimStrong} stopOpacity={0} />
-              <Stop offset="0.5" stopColor={theme.scrimStrong} stopOpacity={0.8} />
-              <Stop offset="1" stopColor={theme.scrimStrong} stopOpacity={1} />
-            </LinearGradient>
-          </Defs>
-          <Rect width="100%" height="100%" fill={`url(#${gradient})`} />
-        </Svg>
+      <View
+        testID="person-card-overlay"
+        pointerEvents="box-none"
+        style={styles.bottom}
+        onLayout={(e) => setBox({ width: e.nativeEvent.layout.width, height: e.nativeEvent.layout.height })}
+      >
+        {/* The scrim over the same photo, sized in points from the overlay's own layout: a percentage-sized Svg can be
+            placed above its parent on iOS, which cut the photo in two (a dark band over the face, none under the name). */}
+        {box ? (
+          <Svg testID="person-card-scrim" style={styles.scrim} width={box.width} height={box.height} aria-hidden>
+            <Defs>
+              <LinearGradient id={gradient} x1="0" y1="0" x2="0" y2="1">
+                <Stop offset="0" stopColor={theme.scrimStrong} stopOpacity={0} />
+                <Stop offset="0.5" stopColor={theme.scrimStrong} stopOpacity={0.8} />
+                <Stop offset="1" stopColor={theme.scrimStrong} stopOpacity={1} />
+              </LinearGradient>
+            </Defs>
+            <Rect x={0} y={0} width={box.width} height={box.height} fill={`url(#${gradient})`} />
+          </Svg>
+        ) : null}
         <View style={styles.text}>
           <View style={styles.nameRow}>
             <Txt variant="display" tone="onMedia" style={styles.name} numberOfLines={1}>
@@ -239,6 +249,7 @@ const styles = StyleSheet.create({
   bar: { flex: 1, height: 3, borderRadius: 2 },
   half: { position: "absolute", top: 0, bottom: "40%", width: "40%" },
   bottom: { position: "absolute", left: 0, right: 0, bottom: 0, paddingTop: 80 },
+  scrim: { position: "absolute", top: 0, left: 0 },
   text: { padding: 16, gap: 6 },
   nameRow: { flexDirection: "row", alignItems: "center", gap: 8 },
   name: { flexShrink: 1, fontSize: 28, lineHeight: 34 },
