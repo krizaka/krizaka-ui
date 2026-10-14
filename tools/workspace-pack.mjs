@@ -7,6 +7,15 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { basename, join } from "node:path";
 
+/** Runs a command; a failure says what the command printed (an npm or pnpm error is in its output, not in its exit code). */
+function defaultRun(cmd, args, cwd) {
+  try {
+    return execFileSync(cmd, args, { cwd, stdio: ["ignore", "pipe", "pipe"], encoding: "utf8" });
+  } catch (error) {
+    throw new Error(`${cmd} ${args.join(" ")} (in ${cwd}) failed:\n${error.stderr ?? ""}${error.stdout ?? ""}`, { cause: error });
+  }
+}
+
 const readJson = (file) => JSON.parse(readFileSync(file, "utf8"));
 const isWorkspace = (range) => String(range).startsWith("workspace:");
 
@@ -47,7 +56,7 @@ export function workspaceDependencies(pkgDir) {
  * `pnpm pack` the package and its workspace dependencies into `outDir` (pnpm writes the real version ranges in place of
  * `workspace:`), and return the tarballs: the siblings first, the package last.
  */
-export function packWithSiblings(pkgDir, outDir, run = (cmd, args, cwd) => execFileSync(cmd, args, { cwd, stdio: ["ignore", "pipe", "inherit"], encoding: "utf8" })) {
+export function packWithSiblings(pkgDir, outDir, run = defaultRun) {
   const manifest = readJson(join(pkgDir, "package.json"));
   const targets = [...workspaceDependencies(pkgDir), { name: manifest.name, dir: pkgDir }];
   return targets.map(({ name, dir }) => {
