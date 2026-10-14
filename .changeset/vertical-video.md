@@ -1,0 +1,5 @@
+---
+"@krizaka/ui": minor
+---
+
+`VerticalVideo` and `ShortFeed` (`@krizaka/ui/vertical-video`, native `@krizaka/ui/native/vertical-video` on expo-video): a 9:16 short video with the action rail of a short-video feed on the right — the creator's avatar with follow (+), like, comments, share (counts compact in the viewer's locale), a `tipSlot` for the product's own action and `topStart` / `aboveCaption` slots — and the creator's caption bottom-left (name, seal, an "AI-GENERATED"-style `disclosure` pill, two-line caption that expands, tags, credit), a progress hairline, everything over the picture on the invariant `scrim` / `fg-on-media` tokens. Tap pauses, double tap (long press on a phone) likes, Space/K and L on the focused video; under reduced motion nothing autoplays. `ShortFeed` is a snap-scrolling feed (web: CSS scroll-snap, only the slides near the one in view mounted, the next preloaded, ↑/↓ move; native: a paging FlatList) that plays the one in view. All words are props; no media is hard-coded (`src` / `uri` are yours). The mobile `feed` template is now a vertical feed built on them.

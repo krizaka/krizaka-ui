@@ -23,6 +23,7 @@ console.log(`✓ dist/native.js: no "use client", no DOM; imports ${[...new Set(
 // own modules (optional peers), nothing else — and no DOM either.
 for (const [entry, ...modules] of [
   ["video-player", "expo-video"],
+  ["vertical-video", "@krizaka/ui/native/video-player", "@krizaka/intl"],
   ["media-capture", "expo-camera"],
   ["media-picker", "expo-image-picker"],
   // The list: FlashList v2 and the app's @krizaka/query (one QueryClient context) — never @tanstack/* directly.

@@ -158,6 +158,7 @@ export default defineConfig([
       "date-picker": "src/date-picker/index.ts",
       "search-field": "src/search-field/index.ts",
       "video-player": "src/video-player/index.ts",
+      "vertical-video": "src/vertical-video/index.ts",
       "file-upload": "src/file-upload/index.ts",
       "media-capture": "src/media-capture/index.ts",
       "video-trimmer": "src/video-trimmer/index.ts",
@@ -232,6 +233,7 @@ export default defineConfig([
     ...shared,
     entry: {
       "native/video-player": "src/native/video-player.tsx",
+      "native/vertical-video": "src/native/vertical-video.tsx",
       "native/media-capture": "src/native/media-capture.tsx",
       "native/media-picker": "src/native/media-picker.tsx",
       "native/list": "src/native/list.tsx",

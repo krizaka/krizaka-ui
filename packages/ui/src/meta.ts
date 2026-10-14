@@ -138,6 +138,7 @@ export type ComponentName =
   | "tree-view"
   | "txt"
   | "verified-badge"
+  | "vertical-video"
   | "video-player"
   | "video-trimmer"
   | "virtual";
