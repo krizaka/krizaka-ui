@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import BrandedExample from "../../registry/examples/loader/branded";
 import EndingsExample from "../../registry/examples/loader/endings";
 import FetchFlowExample from "../../registry/examples/loader/fetch-flow";
 import MinimalExample from "../../registry/examples/loader/minimal";
@@ -24,3 +25,4 @@ export const UploadEta: Story = { render: () => <UploadEtaExample /> };
 export const Overlay: Story = { render: () => <OverlayExample /> };
 export const Endings: Story = { render: () => <EndingsExample /> };
 export const Minimal: Story = { render: () => <MinimalExample /> };
+export const Branded: Story = { render: () => <BrandedExample /> };

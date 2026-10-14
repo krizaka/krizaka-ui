@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import BlockExample from "../../registry/examples/loader/native/block";
+import BrandedExample from "../../registry/examples/loader/native/branded";
 import JobWaitExample from "../../registry/examples/loader/native/job-wait";
 import { nativeFrame } from "./story-frame";
 
@@ -15,3 +16,4 @@ type Story = StoryObj<typeof meta>;
 
 export const JobWait: Story = { render: () => <JobWaitExample /> };
 export const Block: Story = { render: () => <BlockExample /> };
+export const Branded: Story = { render: () => <BrandedExample /> };

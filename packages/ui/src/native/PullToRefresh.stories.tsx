@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import BrandedExample from "../../registry/examples/pull-to-refresh/native/branded";
 import FeedExample from "../../registry/examples/pull-to-refresh/native/feed";
 import { nativeFrame } from "./story-frame";
 
@@ -13,3 +14,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Feed: Story = { render: () => <FeedExample /> };
+export const Branded: Story = { render: () => <BrandedExample /> };

@@ -12,24 +12,25 @@ export const loader = tv({
     root: "text-fg-secondary",
     box: "kz-fade flex items-center gap-3",
     glyph: "shrink-0 text-accent",
+    mark: "block shrink-0 [&>svg]:block [&>svg]:h-full [&>svg]:w-full",
     text: "flex min-w-0 flex-col",
     label: "font-medium text-fg",
     detail: "text-xs text-fg-secondary tabular-nums",
   },
   variants: {
     variant: {
-      inline: { box: "text-sm", glyph: "h-5 w-5" },
-      block: { box: "flex-col justify-center py-10 text-center text-sm", glyph: "h-9 w-9", text: "items-center" },
+      inline: { box: "text-sm", glyph: "h-5 w-5", mark: "h-5 w-5" },
+      block: { box: "flex-col justify-center py-10 text-center text-sm", glyph: "h-9 w-9", mark: "h-9 w-9", text: "items-center" },
       overlay: {
         root: "absolute inset-0 z-10 flex items-center justify-center rounded-[inherit] empty:hidden",
         box: "flex-col rounded-xl border border-border-default bg-surface-1/90 px-6 py-5 text-center text-sm shadow-lg backdrop-blur-sm",
-        glyph: "h-9 w-9",
+        glyph: "h-9 w-9", mark: "h-9 w-9",
         text: "items-center",
       },
       page: {
         root: "fixed inset-0 z-50 flex items-center justify-center bg-surface-0/80 backdrop-blur-sm empty:hidden",
         box: "flex-col text-center",
-        glyph: "h-14 w-14",
+        glyph: "h-14 w-14", mark: "h-14 w-14",
         text: "items-center",
         label: "font-display text-lg",
       },
@@ -100,6 +101,11 @@ export interface LoaderProps extends Omit<React.ComponentProps<"div">, "children
    * @default "inline"
    */
   variant?: LoaderVariants["variant"];
+  /**
+   * The product's mark in place of the Krizaka glyph while it waits — `<OrochiaLogo animated />` (or `ProductLogo`) of
+   * `@krizaka/ui`; it takes the loader's size. The ending (check or cross) stays the glyph's. Decorative: leave `title` off.
+   */
+  mark?: React.ReactNode;
 }
 
 /**
@@ -117,6 +123,7 @@ export function Loader({
   minDuration = 600,
   endDuration = 1600,
   variant,
+  mark,
   className,
   ...props
 }: LoaderProps) {
@@ -156,7 +163,13 @@ export function Loader({
     <div role="status" aria-live="polite" data-phase={phase ?? "idle"} className={s.root({ className })} {...props}>
       {phase && (
         <div className={s.box()}>
-          <LoaderGlyph state={phase} value={known ? value : null} className={s.glyph()} />
+          {mark && phase === "loading" ? (
+            <span aria-hidden className={s.mark()} data-mark="">
+              {mark}
+            </span>
+          ) : (
+            <LoaderGlyph state={phase} value={known ? value : null} className={s.glyph()} />
+          )}
           <span className={s.text()}>
             <span className={s.label()}>{words}</span>
             {detail && <span className={s.detail()}>{detail}</span>}

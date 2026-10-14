@@ -116,6 +116,7 @@ export type ComponentName =
   | "slot"
   | "spinner"
   | "split-view"
+  | "splash-handoff"
   | "stage-banner"
   | "stat"
   | "status-page"
