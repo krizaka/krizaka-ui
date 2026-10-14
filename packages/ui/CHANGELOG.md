@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 3.7.1
+
+### Patch Changes
+
+- [#173](https://github.com/krizaka/krizaka-ui/pull/173) [`3028240`](https://github.com/krizaka/krizaka-ui/commit/3028240cc34c0bfe3562d80102add8046c94943d) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `ShortFeed` sizes its slides to the feed (`h-full`) instead of the screen, so a feed in a box shows one video at a time; the "AI-generated" pill of `VerticalVideo` stays on one line.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.7.1
+  - @krizaka/tokens@3.7.1
+
 ## 3.7.0
 
 ### Minor Changes
