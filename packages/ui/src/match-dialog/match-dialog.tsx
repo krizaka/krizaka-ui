@@ -23,13 +23,15 @@ export type MatchDialogProps = {
   onPrimary: () => void;
   /** The way back (“Keep swiping”). */
   secondaryLabel: string;
+  /** Where it is drawn (the page's body by default): give an element inside a brand scope (`.brand-…`) so the dialog wears the brand too. */
+  container?: HTMLElement | null;
 };
 
 /** Two people choose each other: the avatars meet at a heart in the brand gradient, the next step under them. */
-export function MatchDialog({ open, onOpenChange, title, description, people, primaryLabel, onPrimary, secondaryLabel }: MatchDialogProps) {
+export function MatchDialog({ open, onOpenChange, title, description, people, primaryLabel, onPrimary, secondaryLabel, container }: MatchDialogProps) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
-      <Dialog.Content hideClose size="sm" className="overflow-hidden border-0 bg-gradient-to-br from-accent to-accent-2 text-center text-on-accent">
+      <Dialog.Content hideClose size="sm" container={container} className="overflow-hidden border-0 bg-gradient-to-br from-accent to-accent-2 text-center text-on-accent">
         <style href="krizaka-match" precedence="default">
           {"@media (prefers-reduced-motion:no-preference){[data-kz-match] [data-side=a]{animation:kz-match-a .55s cubic-bezier(.3,1.6,.5,1) both}[data-kz-match] [data-side=b]{animation:kz-match-b .55s cubic-bezier(.3,1.6,.5,1) both}[data-kz-match] [data-heart]{animation:kz-match-heart .45s .25s cubic-bezier(.3,1.6,.5,1) both}}@keyframes kz-match-a{from{transform:translateX(-60px) rotate(-8deg);opacity:0}}@keyframes kz-match-b{from{transform:translateX(60px) rotate(8deg);opacity:0}}@keyframes kz-match-heart{from{transform:scale(0)}}"}
         </style>

@@ -38,6 +38,16 @@ describe("dating kit (native)", () => {
     expect(calls).toContain("impact");
   });
 
+  test("PersonCard is one image with its scrim sized in points over it (never a percentage the native Svg can misplace)", async () => {
+    await render(<PersonCard photos={[{ uri: "a.png" }]} name="Inès" age={29} bio="Sunday cook." />);
+    expect(screen.getAllByTestId("person-card-photo")).toHaveLength(1);
+    expect(screen.getByTestId("person-card-photo").props.resizeMode).toBe("cover");
+    await act(async () => fireEvent(screen.getByTestId("person-card-overlay"), "layout", { nativeEvent: { layout: { x: 0, y: 0, width: 358, height: 190 } } }));
+    const scrim = screen.getByTestId("person-card-scrim", { includeHiddenElements: true });
+    expect(scrim.props.width ?? scrim.props.bbWidth).toBe(358);
+    expect(scrim.props.height ?? scrim.props.bbHeight).toBe(190);
+  });
+
   test("PhotoGrid moves a photo through its accessibility action", async () => {
     const changes: string[][] = [];
     await render(
