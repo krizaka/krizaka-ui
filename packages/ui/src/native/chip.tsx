@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Pressable, type PressableProps, ScrollView, type StyleProp, StyleSheet, Text, View, type ViewStyle } from "react-native";
 
+import { chipRecipe } from "../chip/recipe";
+import { nativeRecipe } from "../recipes/native";
 import { useTheme } from "./theme";
 
 export type ChipSize = "sm" | "md";
@@ -47,9 +49,11 @@ type RemovableChipProps = CommonProps & {
 
 export type ChipProps = ToggleChipProps | RemovableChipProps;
 
-function Label({ children, color, size }: { children: React.ReactNode; color: string; size: ChipSize }) {
+const RECIPE = nativeRecipe(chipRecipe);
+
+function Label({ children, color, fontSize }: { children: React.ReactNode; color: string; fontSize: number }) {
   if (typeof children !== "string" && typeof children !== "number") return <>{children}</>;
-  return <Text style={[styles.label, { color, fontSize: size === "sm" ? 12 : 13 }]}>{children}</Text>;
+  return <Text style={[styles.label, { color, fontSize }]}>{children}</Text>;
 }
 
 /** A selectable pill (`selected` / `onSelectedChange`), an item of `Chip.Group` (`value`), or `removable`. */
@@ -58,19 +62,24 @@ function ChipBase(props: ChipProps) {
   const { theme, radius } = useTheme();
   const [own, setOwn] = React.useState(props.removable ? false : (props.defaultSelected ?? false));
   const size = props.size ?? group?.size ?? "md";
+  // The colours and the size are the web's (chip/recipe.ts), read on the theme: `data-[state=on]:` is the chosen chip.
+  const look = RECIPE.resolve({ size }, theme).base!;
+  const fontSize = look.text.fontSize ?? 12;
   const frame = (on: boolean, pressed: boolean): ViewStyle => ({
-    height: size === "sm" ? 28 : 36,
+    height: look.frame.height,
+    paddingHorizontal: look.frame.paddingHorizontal,
     borderRadius: radius.full,
-    borderColor: on ? theme.accent : theme.borderDefault,
-    backgroundColor: on ? theme.accentSoft : theme.surface1,
+    borderColor: (on ? look.on.frame.borderColor : look.frame.borderColor) ?? "transparent",
+    backgroundColor: (on ? look.on.frame.backgroundColor : look.frame.backgroundColor) ?? "transparent",
     opacity: pressed ? 0.85 : 1,
   });
+  const labelColor = (on: boolean) => (on ? look.on.text.color : look.text.color) ?? theme.textPrimary;
 
   if (props.removable) {
     const { removable: _r, removeLabel, onRemove, disabled, size: _s, style, children, ...rest } = props;
     return (
       <View {...rest} style={[styles.base, frame(false, false), disabled ? styles.disabled : null, style]}>
-        <Label color={theme.textSecondary} size={size}>
+        <Label color={labelColor(false)} fontSize={fontSize}>
           {children}
         </Label>
         <Pressable role="button" aria-label={removeLabel} disabled={disabled ?? undefined} hitSlop={10} onPress={onRemove} style={styles.remove}>
@@ -100,7 +109,7 @@ function ChipBase(props: ChipProps) {
       onPress={press}
       style={({ pressed }) => [styles.base, frame(on, pressed), disabled ? styles.disabled : null, style]}
     >
-      <Label color={on ? theme.textPrimary : theme.textSecondary} size={size}>
+      <Label color={labelColor(on)} fontSize={fontSize}>
         {children}
       </Label>
     </Pressable>
@@ -164,7 +173,7 @@ function ChipGroup(props: ChipGroupProps) {
 export const Chip = Object.assign(ChipBase, { Group: ChipGroup });
 
 const styles = StyleSheet.create({
-  base: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, paddingHorizontal: 14, borderWidth: 1, alignSelf: "flex-start" },
+  base: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, borderWidth: 1, alignSelf: "flex-start" },
   label: { fontWeight: "600" },
   remove: { marginRight: -6, width: 24, height: 24, alignItems: "center", justifyContent: "center" },
   cross: { fontSize: 16, lineHeight: 18, fontWeight: "700" },

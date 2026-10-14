@@ -1,0 +1,19 @@
+import type { Meta, StoryObj } from "@storybook/react-vite";
+
+import AiStreamExample from "../../registry/examples/markdown/ai-stream";
+import BasicExample from "../../registry/examples/markdown/basic";
+import { Markdown } from "./markdown";
+
+/** Markdown — TanStack Markdown's AST on the tokens. Each story renders a named example of the registry. */
+const meta = {
+  title: "Primitives/Markdown",
+  component: Markdown,
+  args: { children: "" },
+} satisfies Meta<typeof Markdown>;
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = { render: () => <BasicExample /> };
+/** The answer rests mid-sentence: the open `**` is closed and a caret marks the end (animations are off for the screenshot). */
+export const AiStream: Story = { render: () => <AiStreamExample /> };

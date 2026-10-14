@@ -1,13 +1,14 @@
 // Client. A search input (`type="search"` inside a `role="search"` landmark when it stands alone): a leading glyph,
 // a clear button, a global shortcut that focuses it (⌘K on Apple devices, Ctrl+K elsewhere, shown as `Kbd`), and
 // optional suggestions through the shared combobox engine. `onSearch` is debounced; Enter submits.
+import { useDebouncedCallback } from "@krizaka/pacer/react";
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { CloseGlyph, SearchGlyph } from "../glyphs";
 import { Kbd } from "../kbd";
 import { useListbox } from "../listbox";
-import { useControllable, useDebouncedCallback } from "../media";
+import { useControllable } from "../media";
 
 export const searchField = tv({
   slots: {

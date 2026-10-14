@@ -52,29 +52,6 @@ export function useInView(ref: React.RefObject<Element | null>, onChange: (visib
   }, [ref, enabled, threshold, latest]);
 }
 
-/** A stable function that runs `callback` once `delay` ms have passed without a new call; `cancel()` drops the pending one. */
-export function useDebouncedCallback<A extends unknown[]>(callback: (...args: A) => void, delay: number) {
-  const latest = useLatest(callback);
-  const [debounced] = React.useState(() => {
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    let wait = delay;
-    const run = (...args: A) => {
-      clearTimeout(timer);
-      if (wait <= 0) latest.current(...args);
-      else timer = setTimeout(() => latest.current(...args), wait);
-    };
-    return Object.assign(run, {
-      cancel: () => clearTimeout(timer),
-      setDelay: (next: number) => {
-        wait = next;
-      },
-    });
-  });
-  React.useEffect(() => debounced.setDelay(delay), [debounced, delay]);
-  React.useEffect(() => () => debounced.cancel(), [debounced]);
-  return debounced;
-}
-
 /** A value controlled by a prop when it is given, held inside otherwise; `set` calls `onChange` either way. */
 export function useControllable<T>(value: T | undefined, defaultValue: T, onChange?: (next: T) => void) {
   const [inner, setInner] = React.useState(defaultValue);

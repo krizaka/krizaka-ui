@@ -2,36 +2,33 @@ import * as React from "react";
 import { ActivityIndicator, Pressable, type PressableProps, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import Svg, { Defs, LinearGradient, Rect, Stop } from "react-native-svg";
 
-import { alpha, type Theme, useTheme } from "./theme";
+import { buttonRecipe } from "../button/recipe";
+import { nativeRecipe,type NativeText } from "../recipes/native";
+import { type Theme, useTheme } from "./theme";
 import { Txt } from "./txt";
 
 export type ButtonVariant = "primary" | "gradient" | "secondary" | "outline" | "ghost" | "danger";
 export type ButtonSize = "sm" | "md" | "lg";
 
-type Look = { bg: string; fg: string; border: string; gradient?: readonly [string, string] };
+/** What a button wears: read from the same recipe as the web's `buttonVariants` (button/recipe.ts), on the theme's roles. */
+type Look = { bg: string; fg: string; border: string; gradient?: readonly [string, string]; height: number; paddingHorizontal: number; fontSize: number; fontWeight?: NativeText["fontWeight"] };
 
-/** The same six looks as the web `buttonVariants`, from the theme's roles. */
-function look(variant: ButtonVariant, t: Theme): Look {
-  switch (variant) {
-    case "primary":
-      return { bg: t.accent, fg: t.onAccent, border: t.accent };
-    case "gradient":
-      // The brand's signature: accent → accent-2, left to right; on-accent reads on both stops (tested in tokens).
-      return { bg: t.accent, fg: t.onAccent, border: "transparent", gradient: [t.accent, t.accent2] };
-    case "outline":
-      return { bg: "transparent", fg: t.textPrimary, border: t.borderDefault };
-    case "ghost":
-      return { bg: "transparent", fg: t.textSecondary, border: "transparent" };
-    case "danger":
-      // As on the web: the border and the tint carry the danger, the label stays a text role (legible in light).
-      return { bg: alpha(t.danger, 0.1), fg: t.textPrimary, border: alpha(t.danger, 0.5) };
-    default:
-      return { bg: t.surface2, fg: t.textPrimary, border: t.borderDefault };
-  }
+const RECIPE = nativeRecipe(buttonRecipe);
+
+function look(variant: ButtonVariant, size: ButtonSize, t: Theme): Look {
+  const { frame, text, gradient } = RECIPE.resolve({ variant, size }, t).base!;
+  return {
+    // The brand's signature, accent → accent-2, is drawn over this fill; on-accent reads on both stops (tested in tokens).
+    bg: frame.backgroundColor ?? gradient?.[0] ?? "transparent",
+    fg: text.color ?? t.textPrimary,
+    border: frame.borderColor ?? "transparent",
+    gradient,
+    height: frame.height ?? 40,
+    paddingHorizontal: frame.paddingHorizontal ?? 16,
+    fontSize: text.fontSize ?? 14,
+    fontWeight: text.fontWeight,
+  };
 }
-
-const HEIGHT: Record<ButtonSize, number> = { sm: 32, md: 40, lg: 48 };
-const PADDING: Record<ButtonSize, number> = { sm: 12, md: 16, lg: 24 };
 
 type BaseProps = Omit<PressableProps, "children" | "style"> & {
   /** The look: `primary`, `gradient` (accent → accent-2), `secondary` (default), `outline`, `ghost`, `danger` — as on the web. */
@@ -55,10 +52,10 @@ export type ButtonProps = BaseProps & {
 
 function useButton({ variant = "secondary", size = "md", shape = "rounded", loading, disabled }: BaseProps) {
   const { theme, radius } = useTheme();
-  const colors = look(variant, theme);
+  const colors = look(variant, size, theme);
   const inactive = Boolean(disabled || loading);
   const frame = (pressed: boolean): ViewStyle => ({
-    height: HEIGHT[size],
+    height: colors.height,
     borderRadius: shape === "pill" ? radius.full : radius.sm,
     backgroundColor: colors.bg,
     borderColor: colors.border,
@@ -96,12 +93,12 @@ export function Button({ label, icon, variant, size = "md", shape, loading = fal
       aria-busy={loading}
       {...props}
       disabled={inactive}
-      style={({ pressed }) => [styles.base, { paddingHorizontal: PADDING[size] }, frame(pressed), style]}
+      style={({ pressed }) => [styles.base, { paddingHorizontal: colors.paddingHorizontal }, frame(pressed), style]}
     >
       <Fill colors={colors} id={gradientId} />
       <View style={styles.row}>
         {loading ? <ActivityIndicator aria-hidden size="small" color={colors.fg} /> : icon}
-        <Txt variant="label" numberOfLines={1} style={{ color: colors.fg, fontSize: size === "sm" ? 12 : 14 }}>
+        <Txt variant="label" numberOfLines={1} style={{ color: colors.fg, fontSize: colors.fontSize, fontWeight: colors.fontWeight }}>
           {label}
         </Txt>
       </View>
@@ -120,7 +117,7 @@ export type IconButtonProps = BaseProps & {
 export function IconButton({ label, icon, variant, size = "md", shape, loading = false, disabled, style, ...props }: IconButtonProps) {
   const { colors, inactive, frame } = useButton({ variant, size, shape, loading, disabled });
   const gradientId = `kz-button-${React.useId().replace(/:/g, "")}`;
-  const side = HEIGHT[size];
+  const side = colors.height;
   return (
     <Pressable
       role="button"

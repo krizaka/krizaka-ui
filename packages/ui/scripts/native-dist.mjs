@@ -1,5 +1,5 @@
 // dist/native.js is for React Native: no "use client" directive, no react-dom, no DOM. It may import only React,
-// react-native and react-native-svg (the tokens are inlined), and its declarations only React and react-native.
+// react-native, react-native-svg and @krizaka/pacer/react (the tokens are inlined), and its declarations only React and react-native.
 // Run by `pnpm --filter @krizaka/ui publint` after the build.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -10,7 +10,8 @@ const js = readFileSync(resolve(dist, "native.js"), "utf8");
 const dts = readFileSync(resolve(dist, "native.d.ts"), "utf8");
 
 const specifiers = (source) => [...source.matchAll(/(?:^|\n)\s*(?:import|export)[^"';]*?from\s*["']([^"']+)["']/g)].map((m) => m[1]);
-const ALLOWED = new Set(["react", "react/jsx-runtime", "react-native", "react-native-svg"]);
+// @krizaka/pacer/react: the cadence (debounce) shared with the web, a dependency of this package like @krizaka/intl.
+const ALLOWED = new Set(["react", "react/jsx-runtime", "react-native", "react-native-svg", "@krizaka/pacer/react"]);
 
 assert.ok(!/["']use client["']/.test(js), "dist/native.js carries a \"use client\" directive");
 for (const spec of specifiers(js)) assert.ok(ALLOWED.has(spec), `dist/native.js imports ${spec}`);
@@ -30,11 +31,15 @@ for (const [entry, ...modules] of [
   ["list", "@shopify/flash-list", "@krizaka/query"],
   // The form: TanStack Form behind the facade (a dependency of the package, as on the web) and @krizaka/intl (money).
   ["form", "@tanstack/react-form", "@krizaka/intl"],
+  // Markdown: TanStack Markdown's parser and Highlight's grammars (dependencies of the package, as on the web) on the platform.
+  ["markdown", "@tanstack/markdown/parser", "@tanstack/markdown/extensions/streaming", "@tanstack/highlight/"],
 ]) {
   const code = readFileSync(resolve(dist, "native", `${entry}.js`), "utf8");
   const allowed = new Set([...ALLOWED, "@krizaka/ui/native", ...modules]);
   assert.ok(!/["']use client["']/.test(code), `dist/native/${entry}.js carries a "use client" directive`);
-  for (const spec of specifiers(code)) assert.ok(allowed.has(spec), `dist/native/${entry}.js imports ${spec}`);
+  // A module ending in "/" is a family of subpaths (the grammars of @tanstack/highlight, one import each).
+  const permitted = (spec) => allowed.has(spec) || modules.some((m) => m.endsWith("/") && spec.startsWith(m));
+  for (const spec of specifiers(code)) assert.ok(permitted(spec), `dist/native/${entry}.js imports ${spec}`);
   assert.ok(!/\b(document|window|HTMLElement|localStorage|matchMedia)\b/.test(code.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "")), `dist/native/${entry}.js touches the DOM`);
   console.log(`✓ dist/native/${entry}.js: imports ${[...new Set(specifiers(code))].join(", ")}`);
 }

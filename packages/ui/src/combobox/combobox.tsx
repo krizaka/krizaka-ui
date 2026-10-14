@@ -2,13 +2,14 @@
 // (`aria-activedescendant`), the number of results announced in a polite live region. Static options filtered here,
 // or `onSearch` (debounced, the previous request aborted) for a server's; one value or several (chips, Backspace
 // removes the last), and new values created from the query when `creatable`.
+import { useDebouncedCallback } from "@krizaka/pacer/react";
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { Chip } from "../chip";
 import { CheckGlyph, ChevronGlyph, CloseGlyph, PlusGlyph } from "../glyphs";
 import { useListbox } from "../listbox";
-import { useControllable, useDebouncedCallback } from "../media";
+import { useControllable } from "../media";
 
 export const combobox = tv({
   slots: {

@@ -3,7 +3,7 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Code block",
   summary:
-    "A code sample: its language and file name, the code highlighted on the tokens (it scrolls sideways, never shrinks) and a copy button that says it copied — `CodeTabs` puts several build tools side by side.",
+    "A code sample: its language and file name, the code highlighted by TanStack Highlight on the tokens (TS, TSX, JS, JSON, YAML, Bash, HTML, CSS, Java, Kotlin, diff — it scrolls sideways, never shrinks), numbered lines, lines set apart (highlighted, added, removed, in focus) and a copy button that says it copied — `CodeTabs` puts several build tools side by side.",
   status: "beta",
   category: "blocks",
   platforms: "web",
@@ -18,6 +18,8 @@ export const meta = {
   bestPractices: [
     "Show the file the lines belong in (`pom.xml`, `application.yml`); `Terminal` for a command.",
     "Keep samples short enough to copy whole; link to the full file instead of pasting it.",
+    "Set lines apart with `annotations` (`focus` dims the rest, `added` / `removed` for a change, `highlight` for the line to read); number them with `lineNumbers` when the text refers to a line.",
+    "Name the language (`ts`, `bash`, `yaml`, `java`…); an unknown one is shown as plain text, never an error. The same grammars colour the code of `Markdown`.",
     "The copy words arrive as props (`copyLabel`, `copiedLabel`).",
   ],
   accessibility: {
@@ -27,14 +29,15 @@ export const meta = {
     ],
     notes: [
       "A `figure` whose caption is the file name; the button's label changes to the copied words in a polite live region.",
-      "The colours of the highlighter are the tokens' text roles (≥ 4.5:1 on the code surface, both themes).",
+      "The colours of the highlighter are the tokens' text roles (≥ 4.5:1 on the code surface, both themes); a line set apart never relies on colour alone (`added` and `removed` carry a + / − mark, `focus` an opacity and the line number stays readable).",
     ],
   },
   related: ["tabs", "page", "kbd"],
   web: {
-    imports: ["CodeBlock", "CodeTabs", "highlight"],
+    imports: ["CodeBlock", "CodeTabs", "highlight", "normalizeCodeLanguage"],
     examples: [
       { name: "file", title: "A file", description: "A YAML sample in its file, with a comment and the copy button." },
+      { name: "annotated", title: "Numbered, annotated lines", description: "A TypeScript sample with numbered lines: one in focus (the rest dimmed), one added." },
       { name: "build-tools", title: "Build tools", description: "`CodeTabs`: Maven and Gradle side by side." },
     ],
   },
