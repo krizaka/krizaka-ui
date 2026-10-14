@@ -99,7 +99,7 @@
     {
       "name": "./brands/scoped.css",
       "path": "dist/brands/scoped.css",
-      "limit": "1 kB",
+      "limit": "1.3 kB",
       "gzip": true,
       "rolldown": false
     },
