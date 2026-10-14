@@ -38,7 +38,7 @@
 - `pnpm turbo run check --filter=@krizaka/tokens`: lint and type-check (`checkJs` on the scripts), tests (snapshot,
   parity, contrast), build, size, publint + attw (`esm-only`, `./tokens.css` excluded).
 - **Size budgets** (gzip): `tokens.css` ≤ 4.3 kB, a brand's CSS ≤ 0.75 kB, `brands/scoped.css` ≤ 1 kB, `.` ≤ 3.9 kB,
-  `./native` ≤ 2.2 kB. (3.12.0: +0.2 kB / +0.2 kB for a sixth brand, Yomizaka — its accent family dark and light and its mark. 2.9.0: +0.2 kB / +0.15 kB for a fifth brand, Yororis — its accent family dark and light and its mark. 2.4.0: +0.6 kB / +1 kB for the type scale — 14 steps × size, line height, weight, tracking.
+  `./native` ≤ 2.2 kB. (3.13.0: +0.2 kB / +0.2 kB for a sixth brand, Yomizaka — its accent family dark and light and its mark. 2.9.0: +0.2 kB / +0.15 kB for a fifth brand, Yororis — its accent family dark and light and its mark. 2.4.0: +0.6 kB / +1 kB for the type scale — 14 steps × size, line height, weight, tracking.
   2.5.0: +1.1 kB / +0.35 kB / +0.3 kB for the material of BRAND.md §6 — sheen, edges, glass, three ink shadows in three
   blocks, focus ring, control heights and their compact density, durations and their reduced-motion block, the griffe;
   native gains the shadows as `boxShadow` strings and `cut`.)
