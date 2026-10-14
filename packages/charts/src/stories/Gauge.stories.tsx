@@ -4,7 +4,7 @@ import ChallengeGoalExample from "../../registry/examples/gauge/challenge-goal";
 import CreditsQuotaExample from "../../registry/examples/gauge/credits-quota";
 import { chartFrame } from "./frame";
 
-/** Gauge. Each story renders a named example of the registry: the code krizaka.com/docs/ui shows. */
+/** Gauge. Each story renders a named example of the registry: the code ui.krizaka.com shows. */
 const meta = { title: "Charts/Gauge", decorators: [chartFrame] } satisfies Meta;
 export default meta;
 

@@ -5,7 +5,7 @@ import { nativeFrame } from "./story-frame";
 
 /**
  * Native — Header. Each story renders a named example of the registry (`registry/examples/header/native/*`): the code
- * krizaka.com/docs/ui shows, and the screenshots it shows beside it.
+ * ui.krizaka.com shows, and the screenshots it shows beside it.
  */
 const meta = { title: "Native/Header", decorators: [nativeFrame] } satisfies Meta;
 export default meta;

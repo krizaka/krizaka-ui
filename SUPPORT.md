@@ -26,7 +26,7 @@ An API lives **one complete minor deprecated** before it is removed, and it is o
 1. **Deprecate** (minor): `@deprecated` in the JSDoc (editors strike it through) with what replaces it, and a
    `console.warn` in development only (`process.env.NODE_ENV !== "production"`, guarded for environments without
    `process`), once per mount. The changeset says *what* replaces it and *for whom*. The registry `meta.ts` and the
-   page on krizaka.com/docs/ui say it too.
+   page on ui.krizaka.com say it too.
 2. **Codemod**: removing a primitive or renaming a prop comes with a codemod in `tools/codemods/<package>-<major>/`
    (jscodeshift or ts-morph, tested on fixtures), named in the changeset and in the migration notes of the major.
 3. **Remove** (next major): the major's changeset lists every removal and the codemod to run.

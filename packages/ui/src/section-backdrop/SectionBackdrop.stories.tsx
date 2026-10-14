@@ -9,7 +9,7 @@ import { SectionBackdrop } from "./section-backdrop";
 
 /**
  * The backdrop of a page section: the brand's gradient, a light dome, an optional grid and a blurred foreground.
- * Switch the toolbar's Brand to see each brand's temperature. Each story renders a named example of the registry (`registry/examples/section-backdrop/*`): the code krizaka.com/docs/ui shows.
+ * Switch the toolbar's Brand to see each brand's temperature. Each story renders a named example of the registry (`registry/examples/section-backdrop/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/SectionBackdrop",

@@ -7,7 +7,7 @@ import VerticalExample from "../../registry/examples/video-player/vertical";
 
 /**
  * VideoPlayer: each story renders a named example of the registry (`registry/examples/video-player/*`) — the code
- * krizaka.com/docs/ui shows.
+ * ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/VideoPlayer",

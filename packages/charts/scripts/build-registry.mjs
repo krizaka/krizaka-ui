@@ -1,7 +1,7 @@
 // Writes the registry of @krizaka/charts after tsup (`pnpm build`): `registry/<name>.json` for every documented
 // component — its documentation (src/meta/<name>.ts), its named examples with their code, the props of its web and
 // native components — and `registry/index.json`, the catalogue. The same shape as @krizaka/ui's registry (plus
-// `package`, `engine`, `source`, `install`): krizaka.com/docs/ui renders both.
+// `package`, `engine`, `source`, `install`): ui.krizaka.com renders both.
 import { copyFileSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 

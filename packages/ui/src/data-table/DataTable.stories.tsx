@@ -15,7 +15,7 @@ import VirtualizedExample from "../../registry/examples/data-table/virtualized";
 
 /**
  * DataTable: each story renders a named example of the registry (`registry/examples/data-table/*`) — the code
- * krizaka.com/docs/ui shows.
+ * ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/DataTable",

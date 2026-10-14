@@ -13,7 +13,7 @@ import { Progress } from "./progress";
 
 /**
  * `Progress` (server-safe): role="progressbar" named by `label`; `variant` bar · ring, `size` sm · md · lg.
- * Each story renders a named example of the registry (`registry/examples/progress/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/progress/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/Progress",

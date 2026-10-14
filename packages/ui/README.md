@@ -252,7 +252,7 @@ applies it before the first paint (no flash), the provider reports it. A persist
 
 ## Page blocks
 
-> Category **blocks** of krizaka.com/docs/ui. The pieces every page of a Krizaka site is made of — one frame, one hero,
+> Category **blocks** of ui.krizaka.com. The pieces every page of a Krizaka site is made of — one frame, one hero,
 > sections on one rhythm, cards that lead or argue, decisions, code, calls to act — so every page reads the same.
 
 ```tsx
@@ -282,7 +282,7 @@ import { LinkCard } from "@krizaka/ui/link-card";
 
 ## Page templates
 
-> Category **templates** of krizaka.com/docs/ui: every page of a Krizaka site has its template.
+> Category **templates** of ui.krizaka.com: every page of a Krizaka site has its template.
 
 Fifteen templates, each a **distinct composition** of the blocks — not the same card grid everywhere: `LandingPage`
 (split hero with the product alive, a band of proofs, a bento), `ProductPage` (split hero in the product's brand,
@@ -302,7 +302,7 @@ boundary stays where it is: a template is a Server Component.
 
 ## Layouts and screens
 
-> Category **layouts** of krizaka.com/docs/ui, and **templates**: whole screens composed from the platform.
+> Category **layouts** of ui.krizaka.com, and **templates**: whole screens composed from the platform.
 
 The shells of the products' screens, read from their real screens (Orochia web, admin and mobile; Orazaka web-client,
 web-admin and mobile; krizaka.com): `AppShell` (sidebar that collapses, header, drawer on a phone), `DashboardLayout`
@@ -317,7 +317,7 @@ React Native shells are `@krizaka/ui/native`'s (DS4): same names where the conce
 
 ## Registry — the code drives the documentation
 
-Every component is also published as data: **[krizaka.com/docs/ui](https://www.krizaka.com/docs/ui)** is generated
+Every component is also published as data: **[ui.krizaka.com](https://ui.krizaka.com)** is generated
 from it at every build of the site (one page per component: when to use it, live examples with their code for the web
 and React Native, props, accessibility), and, later, a `npx @krizaka/cli add <name>` may copy a primitive into a
 product that forks it knowingly. Built by `scripts/build-registry.mjs` after tsup, from three sources in the code:
@@ -499,7 +499,7 @@ classes the components use are generated in your stylesheet.
 ```
 
 Every component, with when to use it, live examples and their code (web and React Native) and its props:
-[krizaka.com/docs/ui](https://www.krizaka.com/docs/ui).
+[ui.krizaka.com](https://ui.krizaka.com).
 
 ## Develop
 

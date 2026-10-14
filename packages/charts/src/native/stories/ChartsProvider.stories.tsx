@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import FrenchOrazakaExample from "../../../registry/examples/charts-provider/native/french-orazaka";
 import { chartsNativeFrame } from "./frame";
 
-/** Native — Charts provider. Each story renders a named example of the registry: the code krizaka.com/docs/ui shows. */
+/** Native — Charts provider. Each story renders a named example of the registry: the code ui.krizaka.com shows. */
 const meta = { title: "Charts Native/ChartsProvider", decorators: [chartsNativeFrame] } satisfies Meta;
 export default meta;
 

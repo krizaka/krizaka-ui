@@ -5,7 +5,7 @@ import ProfilePhotoExample from "../../registry/examples/media-capture/profile-p
 
 /**
  * MediaCapture: each story renders a named example of the registry (`registry/examples/media-capture/*`) — the code
- * krizaka.com/docs/ui shows.
+ * ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/MediaCapture",

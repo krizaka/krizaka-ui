@@ -14,7 +14,7 @@
     "redis",
     "valkey"
   ],
-  "homepage": "https://www.krizaka.com/en/docs/ui",
+  "homepage": "https://ui.krizaka.com/packages/realtime",
   "bugs": "https://github.com/krizaka/krizaka-ui/issues",
   "repository": {
     "type": "git",

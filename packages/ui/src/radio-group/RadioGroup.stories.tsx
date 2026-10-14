@@ -9,7 +9,7 @@ import { RadioGroup } from "./radio-group";
 
 /**
  * `RadioGroup.Root/Item/Card` on Radix: one tab stop, the arrows move and choose.
- * Each story renders a named example of the registry (`registry/examples/radio-group/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/radio-group/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/RadioGroup",

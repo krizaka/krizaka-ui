@@ -8,7 +8,7 @@ import { Tabs } from "./tabs";
 
 /**
  * `Tabs.Root/List/Trigger/Content` on Radix Tabs: roles, roving focus, automatic activation.
- * Each story renders a named example of the registry (`registry/examples/tabs/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/tabs/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/Tabs",

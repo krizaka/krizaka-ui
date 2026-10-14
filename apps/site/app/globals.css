@@ -1,0 +1,714 @@
+@import "tailwindcss";
+/* The Krizaka preset: @krizaka/tokens (every --kz-* colour, radius, shadow, font of both themes) mapped to the
+   Tailwind theme (bg-surface-1, text-fg, border-border-default…) + the motion signature — the workspace packages. */
+@import "@krizaka/tailwind";
+/* One class per brand: the marks' page and the examples that wear a product's identity. */
+@import "@krizaka/tokens/brands/scoped.css";
+/* The classes the @krizaka/ui primitives use, read from the built package — and those of the registry examples that the
+   site renders live (both packages). */
+@import "@krizaka/ui/tailwind.css";
+@source "../node_modules/@krizaka/ui/registry/examples";
+@source "../node_modules/@krizaka/charts/registry/examples";
+@source "../node_modules/@krizaka/charts/dist";
+/* Fumadocs (docs layout, TOC, search, code blocks): its colours are mapped to --kz-* below. */
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+
+/* ═══════════════════════════════════════════════════════════════════
+   ui.krizaka.com — the site's own styles, on the Krizaka tokens. Ported from krizaka.com (/docs/ui), where the
+   documentation lived until it moved to the repository of the code it documents.
+   ═══════════════════════════════════════════════════════════════════ */
+/* ─── One frame for every page (@krizaka/ui/page, blocks.css) ───
+   The navigation bar, the heroes, every section and the documentation share one width and one pair of gutters, so
+   their edges line up at every width (no page drifts to one side on a wide screen). Pages build on the blocks of
+   @krizaka/ui (Page, Section, PageHero…); these values are the site's settings of their contract. */
+:root {
+  --kz-page-max: 72rem;                           /* the content of a page (1152 px) */
+  --kz-page-max-docs: 88rem;                      /* the documentation: sidebar · page · table of contents */
+  --kz-hero-top: clamp(112px, 14vw, 156px);       /* a hero clears the floating bar */
+  --kz-anchor-offset: 96px;                       /* an anchor lands under the bar */
+}
+/* The bar is as wide as the page under it (the frame of the docs on /docs): its edges are the content's edges. Not
+   in a layer, so it wins over NavBar's own max-width utilities; it keeps that width when it tightens on scroll. */
+.kz-site-bar-wrap { padding-inline: var(--kz-page-gutter, clamp(16px, 3.2vw, 32px)); }
+.kz-site-bar, .kz-site-bar[data-compact] { max-width: var(--kz-page-max); }
+.kz-site-bar[data-frame="docs"] { max-width: var(--kz-page-max-docs); }
+/* A subject's hue (a building block…): its rail, icon tile, bird, light and numbers — the --kz-hue contract of the
+   blocks. Krizaka palette only (blues and ink, never a product colour); --kz-hue is decorative (≥ 3:1 on the surfaces),
+   --kz-hue-text is for small text (≥ 4.5:1 on surface-0, -1 and -2, both themes). Without a hue, blocks fall back to
+   the page's accent, so a brand page stays on brand. */
+[data-hue="cobalt"] { --kz-hue: hsl(217 92% 60%); --kz-hue-2: hsl(206 92% 62%); --kz-hue-text: hsl(217 92% 74%); }
+[data-hue="sky"]    { --kz-hue: hsl(199 89% 52%); --kz-hue-2: hsl(190 85% 52%); --kz-hue-text: hsl(199 89% 66%); }
+[data-hue="cyan"]   { --kz-hue: hsl(186 72% 45%); --kz-hue-2: hsl(196 80% 52%); --kz-hue-text: hsl(186 70% 58%); }
+[data-hue="indigo"] { --kz-hue: hsl(234 85% 68%); --kz-hue-2: hsl(222 90% 64%); --kz-hue-text: hsl(234 90% 80%); }
+[data-hue="steel"]  { --kz-hue: hsl(212 32% 62%); --kz-hue-2: hsl(206 40% 70%); --kz-hue-text: hsl(212 36% 74%); }
+[data-hue="ink"]    { --kz-hue: hsl(220 16% 80%); --kz-hue-2: hsl(217 40% 70%); --kz-hue-text: hsl(220 16% 86%); }
+html.light [data-hue="cobalt"] { --kz-hue: hsl(217 92% 50%); --kz-hue-2: hsl(206 92% 48%); --kz-hue-text: hsl(217 92% 40%); }
+html.light [data-hue="sky"]    { --kz-hue: hsl(199 89% 40%); --kz-hue-2: hsl(190 85% 38%); --kz-hue-text: hsl(200 90% 29%); }
+html.light [data-hue="cyan"]   { --kz-hue: hsl(186 80% 32%); --kz-hue-2: hsl(196 80% 38%); --kz-hue-text: hsl(188 85% 24%); }
+html.light [data-hue="indigo"] { --kz-hue: hsl(234 66% 52%); --kz-hue-2: hsl(222 80% 52%); --kz-hue-text: hsl(234 60% 45%); }
+html.light [data-hue="steel"]  { --kz-hue: hsl(212 28% 46%); --kz-hue-2: hsl(206 34% 50%); --kz-hue-text: hsl(212 30% 34%); }
+html.light [data-hue="ink"]    { --kz-hue: hsl(222 30% 22%); --kz-hue-2: hsl(217 50% 40%); --kz-hue-text: hsl(222 30% 20%); }
+/* The bird and the icon node of a subject wear its hue. */
+[data-hue] :is(.kz-block-icon, .kz-arg-mark, .kz-quote-bird, .kz-hero-aside) { --kz-accent: var(--kz-hue); --kz-accent-2: var(--kz-hue-2); }
+
+:root {
+  /* The Krizaka typography: the files of @krizaka/fonts, loaded and preloaded by next/font/local in the locale layout
+     (--font-kz-*: hashed families with their own adjusted fallback), in the token roles. The site's older styles read
+     --font-display / --font-mono: they follow the tokens. */
+  --kz-font-sans: var(--font-kz-text), Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --kz-font-display: var(--font-kz-display), "Plus Jakarta Sans", var(--font-kz-text), system-ui, sans-serif;
+  --kz-font-mono: var(--font-kz-mono), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-display: var(--kz-font-display);
+  --font-mono: var(--kz-font-mono);
+
+  /* Focus halo around fields. */
+  --kz-accent-glow: 0 0 0 3px color-mix(in srgb, var(--kz-accent) 12%, transparent);
+
+  /* Spacing */
+  --kz-space-card: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
+
+  /* Grid */
+  --kz-grid-color: hsla(0, 0%, 100%, 0.025);
+
+  /* Transitions */
+  --kz-transition-fast: 150ms var(--kz-ease);
+  --kz-transition-smooth: 300ms var(--kz-ease);
+
+  /* Metallic headline sheen — top-lit brushed gradient. Built from the text
+     tokens so it adapts to dark/light automatically (custom props resolve
+     lazily against the cascade of the element). */
+  --kz-sheen: linear-gradient(
+    180deg,
+    var(--kz-text-primary) 0%,
+    color-mix(in srgb, var(--kz-text-primary) 64%, var(--kz-text-secondary)) 100%
+  );
+}
+
+html.light {
+  --kz-grid-color: hsla(240, 6%, 0%, 0.03);
+}
+
+html.light ::selection {
+  background: hsla(217, 92%, 50%, 0.18);
+  color: hsl(217, 92%, 30%);
+}
+
+/* Fumadocs reads its own colour variables: they follow the Krizaka tokens, so the docs switch theme with the site. */
+:root,
+.dark,
+html.light {
+  --color-fd-background: var(--kz-surface-0);
+  --color-fd-foreground: var(--kz-text-primary);
+  --color-fd-muted: var(--kz-surface-2);
+  --color-fd-muted-foreground: var(--kz-text-secondary);
+  --color-fd-popover: var(--kz-surface-1);
+  --color-fd-popover-foreground: var(--kz-text-primary);
+  --color-fd-card: var(--kz-surface-1);
+  --color-fd-card-foreground: var(--kz-text-primary);
+  --color-fd-border: var(--kz-border-default);
+  --color-fd-primary: var(--kz-accent);
+  --color-fd-primary-foreground: var(--kz-on-accent);
+  --color-fd-secondary: var(--kz-surface-2);
+  --color-fd-secondary-foreground: var(--kz-text-primary);
+  --color-fd-accent: var(--kz-accent-soft);
+  --color-fd-accent-foreground: var(--kz-text-primary);
+  --color-fd-ring: var(--kz-ring);
+  --color-fd-overlay: var(--kz-overlay);
+}
+/* Light theme: the active page of the Fumadocs sidebar and TOC is accent TEXT, so it takes the accent text role
+   (AA on the tinted row), not the raw accent (4.4:1). */
+html.light #nd-sidebar,
+html.light #nd-toc { --color-fd-primary: var(--kz-accent-text); }
+/* The page's breadcrumb (its category) is accent TEXT on the page surface: the text role in both themes (the raw accent
+   is 4.2:1 on the dark surface). */
+#nd-page .text-fd-primary { color: var(--kz-accent-text); }
+.dark #nd-sidebar {
+  --color-fd-muted: var(--kz-surface-2);
+  --color-fd-secondary: var(--kz-surface-2);
+  --color-fd-muted-foreground: var(--kz-text-secondary);
+}
+
+/* ─── Base Reset ─── */
+/* Kept in @layer base so Tailwind utilities (mx-auto, px-*, pt-*, gap is unaffected)
+   win over the margin/padding zeroing. Previously this reset was unlayered and beat
+   every Tailwind spacing utility, which is why layouts use inline styles. */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--kz-surface-0);
+  color: var(--kz-text-primary);
+  font-family: var(--kz-font-text);
+  font-feature-settings: 'cv02', 'cv03', 'cv04';
+  letter-spacing: -0.011em; /* Inter at 16 px (the body-md step of the type scale) */
+  min-height: 100dvh;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ─── Accessibility: Reduced Motion ─── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Accessibility: Focus Visible ─── */
+/* Keyboard users get a visible accent ring everywhere; it follows the active
+   theme via --kz-accent. Pointer interactions do not trigger it. */
+
+:focus-visible {
+  outline: 2px solid var(--kz-accent);
+  outline-offset: 2px;
+  border-radius: var(--kz-radius-sm, 6px);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* The search field of the command palette (@krizaka/ui/command) is its whole bar: the palette marks it, not a ring. */
+[cmdk-input]:focus-visible {
+  outline: none;
+}
+
+::selection {
+  background: hsla(217, 92%, 60%, 0.25);
+  color: hsl(217, 92%, 80%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Status dot pulse */
+@keyframes status-pulse {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 1; }
+}
+
+/* Cursor blink */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+/* Breathing glow — for active cards */
+@keyframes breathing-glow {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50%      { box-shadow: 0 0 0 1px hsla(217, 92%, 60%, 0.08), 0 0 16px hsla(217, 92%, 60%, 0.06); }
+}
+
+/* Stagger children fade-up */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Shimmer — data flow particle */
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+/* Orbit keyframe */
+@keyframes orbit-path {
+  from { offset-distance: 0%; }
+  to   { offset-distance: 100%; }
+}
+@keyframes radar-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes radar-pulse {
+  0%, 100% { opacity: 0.04; }
+  50%      { opacity: 0.08; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--kz-text-muted);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--kz-text-secondary);
+}
+
+/* Cursor-tracked spotlight — a soft accent bloom follows the pointer across
+   a card. --spot-x/--spot-y are written by an onMouseMove handler; they fall
+   back to the card centre so the hover still reads without JS. */
+.kz-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--kz-transition-smooth);
+  background: radial-gradient(
+    220px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    color-mix(in srgb, var(--kz-accent) 16%, transparent),
+    transparent 62%
+  );
+}
+@media (hover: hover) and (pointer: fine) {
+  .kz-spotlight:hover::after { opacity: 1; }
+}
+
+
+/* ─── Links of the organisation pages (sections, frame and headings come from @krizaka/ui/page) ─── */
+.kz-link-strong, .kz-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; text-decoration: none; }
+.kz-link-strong { color: var(--kz-accent-text); font-weight: 700; }
+.kz-link { color: var(--kz-text-secondary); }
+.kz-link:hover { color: var(--kz-text-primary); }
+
+/* RepositoryMap */
+
+
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   DOCUMENTATION (/docs — Fumadocs + live previews)
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* The fixed site navigation (12px offset + 52px bar) plus air: Fumadocs sticky sidebar and TOC start below it. */
+  --kz-docs-top: 76px;
+}
+
+.kz-docs {
+  padding-top: var(--kz-docs-top);
+  font-family: var(--kz-font-sans);
+  letter-spacing: normal;
+}
+/* The documentation in the frame (one shell with the rest of the site): Fumadocs' grid is as wide as the bar above it
+   (--kz-page-max-docs), centred between the page gutters; the sidebar is a panel inside the frame — its surface no
+   longer runs to the window's edge — and the page sits against it, never centred in an empty column when it has no
+   table of contents (the right-shifted pages of a wide screen). */
+.kz-docs { --fd-layout-width: var(--kz-page-max-docs); }
+@media (min-width: 768px) { .kz-docs { padding-inline: var(--kz-page-gutter, clamp(16px, 3.2vw, 32px)); } }
+.kz-docs #nd-sidebar:not([data-collapsed="true"]) { background: transparent; }
+.kz-docs [data-layout-main] { justify-items: start; }
+
+/* Live preview */
+.kz-preview {
+  margin: 1.5rem 0;
+  border: 1px solid var(--kz-border-default);
+  border-radius: var(--kz-radius-lg);
+  overflow: hidden;
+  background: var(--kz-surface-1);
+}
+.kz-preview-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--kz-border-subtle);
+}
+.kz-preview-theme {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--kz-radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--kz-text-secondary);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color var(--kz-transition-fast), background-color var(--kz-transition-fast);
+}
+.kz-preview-theme { width: 30px; padding: 0; justify-content: center; }
+.kz-preview-theme:hover { color: var(--kz-text-primary); background: var(--kz-surface-2); }
+.kz-preview-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-height: 240px;
+  padding: 40px 24px;
+  background: var(--kz-surface-0);
+  color: var(--kz-text-primary);
+}
+.kz-preview-stage > * { max-width: 100%; }
+.kz-preview-stage[hidden],
+.kz-preview-code[hidden] { display: none; }
+.kz-preview-code figure { margin: 0; border: 0; border-radius: 0; }
+
+/* Props and schema tables */
+.kz-props { margin: 1rem 0 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+.kz-props-component { font-family: var(--font-mono); font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.25rem; }
+.kz-props-description { color: var(--kz-text-secondary); font-size: 0.875rem; margin-bottom: 0.5rem; }
+.kz-table-scroll { overflow-x: auto; border: 1px solid var(--kz-border-subtle); border-radius: var(--kz-radius-md); }
+.kz-schema { margin: 1rem 0 1.5rem; }
+.kz-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.kz-table th,
+.kz-table td {
+  text-align: start;
+  vertical-align: top;
+  padding: 0.625rem 0.75rem;
+  border-bottom: 1px solid var(--kz-border-subtle);
+  line-height: 1.5;
+}
+.kz-table thead th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--kz-text-secondary);
+  background: var(--kz-surface-1);
+}
+.kz-table tbody tr:last-child > * { border-bottom: 0; }
+.kz-table tbody th { font-weight: 500; white-space: nowrap; }
+.kz-table td { color: var(--kz-text-secondary); }
+.kz-table code {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  padding: 0.0625rem 0.375rem;
+  border-radius: 6px;
+  background: var(--kz-surface-2);
+  color: var(--kz-text-primary);
+}
+.kz-table code.kz-type { color: var(--kz-accent-text); background: var(--kz-accent-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
+.kz-table td:has(> .kz-type) { min-width: 7.5rem; }
+.kz-required {
+  margin-inline-start: 6px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--kz-danger);
+}
+.kz-constraints { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+
+/* A component page (generated from the @krizaka/ui registry): badges, lists, examples, related */
+.kz-component-meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 1.5rem; }
+.kz-chip-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--kz-border-default);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--kz-text-secondary);
+  background: var(--kz-surface-1);
+}
+.kz-chip-meta[data-tone="accent"] { color: var(--kz-accent-text); border-color: color-mix(in srgb, var(--kz-accent) 40%, transparent); background: var(--kz-accent-soft); }
+.kz-chip-meta[data-tone="deprecated"] { color: var(--kz-danger-text); border-color: color-mix(in srgb, var(--kz-danger) 45%, transparent); background: color-mix(in srgb, var(--kz-danger) 10%, transparent); }
+.kz-chip-meta[data-tone="beta"] { color: var(--kz-text-primary); border-color: color-mix(in srgb, var(--kz-warning) 55%, transparent); background: color-mix(in srgb, var(--kz-warning) 12%, transparent); }
+.kz-chip-meta svg { width: 13px; height: 13px; }
+.kz-when { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin: 1rem 0 1.5rem; }
+.kz-when-card { border: 1px solid var(--kz-border-subtle); border-radius: var(--kz-radius-lg); padding: 16px 18px; background: var(--kz-surface-1); }
+.kz-when-card h2 { margin: 0 0 0.5rem; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+.kz-when-card ul { margin: 0; padding-inline-start: 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.9375rem; }
+.kz-when-card li { color: var(--kz-text-primary); }
+.kz-when-card [data-icon="do"] { color: var(--kz-success); }
+.kz-when-card [data-icon="dont"] { color: var(--kz-danger); }
+.kz-when-instead { display: block; color: var(--kz-text-secondary); font-size: 0.875rem; }
+.kz-when-instead a { color: var(--kz-accent-text); font-weight: 600; }
+.kz-example { margin: 1.75rem 0 0; }
+.kz-example > h3 { margin: 0 0 0.25rem; }
+.kz-example > p { margin: 0 0 0.75rem; color: var(--kz-text-secondary); }
+.kz-example .kz-preview { margin-top: 0.5rem; }
+.kz-example .kz-preview-stage { min-height: 160px; padding: 32px 24px; }
+.kz-when-card code,
+.kz-when-instead code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 0.0625rem 0.375rem;
+  border-radius: 6px;
+  background: var(--kz-surface-2);
+  color: var(--kz-text-primary);
+}
+.kz-native-code figure { margin: 0.5rem 0 0; }
+/* A React Native example: the screenshot of its story, in the theme of the frame, at its own size. */
+.kz-preview-stage.kz-preview-stage-shot { display: block; min-height: 0; padding: 0; overflow-x: auto; }
+.kz-shot { display: block; max-width: none; height: auto; }
+.kz-preview-stage-shot.theme-dark .kz-shot-light,
+.kz-preview-stage-shot.theme-light .kz-shot-dark { display: none; }
+.kz-related { list-style: none; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); margin: 1rem 0 1.5rem; }
+.kz-related a {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--kz-border-subtle);
+  border-radius: var(--kz-radius-lg);
+  background: var(--kz-surface-1);
+  color: var(--kz-text-primary);
+  text-decoration: none;
+  transition: border-color var(--kz-transition-fast), background-color var(--kz-transition-fast);
+}
+.kz-related a:hover { border-color: var(--kz-border-strong); background: var(--kz-surface-2); }
+.kz-related-title { font-weight: 700; font-size: 0.9375rem; }
+.kz-related-text { color: var(--kz-text-secondary); font-size: 0.8125rem; line-height: 1.5; }
+.kz-component-source { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--kz-border-subtle); color: var(--kz-text-secondary); font-size: 0.8125rem; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.kz-component-source a { color: var(--kz-accent-text); font-weight: 600; }
+
+/* Code comments of the dark code theme (github-dark #6A737D) are under AA on our surfaces: the secondary text role */
+[style*="--shiki-dark:#6A737D"] { --shiki-dark: var(--kz-text-secondary) !important; }
+
+/* In light, the docs set accent text on tinted chips, tabs and type cells: lifted towards the text colour (AA, 4.5:1) */
+html.light .kz-docs { --kz-accent-text: color-mix(in srgb, var(--kz-accent) 82%, var(--kz-text-primary)); }
+html.light .kz-docs .kz-required { color: color-mix(in srgb, var(--kz-danger) 70%, var(--kz-text-primary)); }
+
+/* The catalogue of /docs/ui: one list of components, filtered by platform */
+.kz-catalog { margin: 1rem 0 2rem; }
+.kz-catalog-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 1rem; }
+.kz-catalog-filter { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--kz-border-default); border-radius: 999px; background: var(--kz-surface-1); }
+.kz-catalog-filter button {
+  height: 30px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--kz-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.kz-catalog-filter button:hover { color: var(--kz-text-primary); }
+.kz-catalog-filter button[aria-pressed="true"] { background: var(--kz-surface-3); color: var(--kz-text-primary); }
+.kz-catalog-filter button:focus-visible { outline: 2px solid var(--kz-ring); outline-offset: 2px; }
+.kz-catalog-count { color: var(--kz-text-secondary); font-size: 0.8125rem; }
+.kz-catalog-group { margin-top: 1.25rem; }
+.kz-catalog-group > h3 { margin: 0 0 0.5rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--kz-text-secondary); }
+.kz-catalog-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); list-style: none; margin: 0; padding: 0; }
+.kz-catalog-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--kz-border-subtle);
+  border-radius: var(--kz-radius-lg);
+  background: var(--kz-surface-1);
+  color: var(--kz-text-primary);
+  text-decoration: none;
+  transition: border-color var(--kz-transition-fast), background-color var(--kz-transition-fast);
+}
+.kz-catalog-card:hover { border-color: var(--kz-border-strong); background: var(--kz-surface-2); }
+.kz-catalog-card-title { font-weight: 700; }
+.kz-catalog-card-text { color: var(--kz-text-secondary); font-size: 0.8125rem; line-height: 1.5; flex: 1; }
+.kz-catalog-card-text code,
+.kz-related-text code { font-family: var(--font-mono); font-size: 0.92em; color: var(--kz-text-primary); }
+.kz-catalog-card-foot { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Notes, intro, coming soon, product index */
+.kz-docs-note { color: var(--kz-text-secondary); font-size: 0.9375rem; }
+.kz-docs-note a { color: var(--kz-accent-text); font-weight: 600; }
+/* A recording in a doc (app/components/docs/DocVideo.tsx): a phone-height clip, centred, its caption under it. */
+.kz-doc-video { display: grid; justify-items: center; gap: 10px; margin: 24px 0 32px; }
+.kz-doc-video video { display: block; width: auto; max-width: 100%; max-height: min(640px, 80vh); border-radius: 18px;
+  border: 1px solid var(--kz-border-subtle); background: var(--kz-media); }
+.kz-doc-video figcaption { max-width: 34rem; text-align: center; font-size: 0.875rem; line-height: 1.5; color: var(--kz-text-secondary); }
+.kz-coming-soon {
+  display: flex;
+  gap: 12px;
+  margin: 1.5rem 0;
+  padding: 16px 18px;
+  border-radius: var(--kz-radius-lg);
+  border: 1px dashed var(--kz-border-strong);
+  background: var(--kz-surface-1);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--kz-text-secondary);
+}
+.kz-coming-soon-icon { flex-shrink: 0; margin-top: 3px; color: var(--kz-accent-text); }
+.kz-coming-soon-title { font-weight: 700; color: var(--kz-text-primary); }
+.kz-coming-soon a { color: var(--kz-accent-text); font-weight: 600; text-decoration: none; }
+
+/* ── Product kits (/docs/<product>/ui): generated from the kits' registries ── */
+.kz-deprecated {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+  margin: 1rem 0 1.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--kz-danger) 45%, transparent);
+  border-radius: var(--kz-radius-md);
+  background: color-mix(in srgb, var(--kz-danger) 8%, transparent);
+  color: var(--kz-text-primary);
+  font-size: 0.9375rem;
+}
+.kz-deprecated strong { color: var(--kz-danger-text); }
+.kz-deprecated a { color: var(--kz-accent-text); text-decoration: underline; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   SITE MOTION — what krizaka.com adds to the Krizaka motion signature
+   ─────────────────────────────────────────────────────────────────
+   The vocabulary is @krizaka/ui's (motion.css through @krizaka/tailwind; conducted by MotionObserver, mounted once in
+   the locale layout): `[data-reveal]` / `[data-reveal="soft"]` (lib/motion.ts `reveal(i)`), NumberTicker, the
+   off-screen pause (`data-offscreen`), the settle step (`html[data-motion]`), the node of the signature icons, magnetic
+   buttons. Below, only what is the site's own. No animation library, no permanent requestAnimationFrame, no canvas;
+   composited properties only; still under prefers-reduced-motion.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* The first screen is painted still (LCP): its loops wait for the page to settle (MotionObserver sets data-motion). */
+html:not([data-motion="ready"]) :is(main > header, main > section:first-of-type) :is(*, *::before, *::after):not(.kz-backdrop-media, [data-parallax]) {
+  animation-play-state: paused !important;
+}
+
+/* Depth: the blurred footage behind a hero drifts a little slower than the page (scroll-driven, no JS). */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    header.kz-backdrop > .kz-backdrop-media {
+      animation: kz-parallax linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 100vh;
+    }
+  }
+}
+@keyframes kz-parallax {
+  to { transform: translate3d(0, 14%, 0); }
+}
+
+/* Long reads: a hairline that fills with the page (docs; scroll-driven, no JS, absent where unsupported). */
+.kz-read-progress {
+  display: none;
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .kz-read-progress {
+      display: block;
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 60;
+      height: 2px;
+      pointer-events: none;
+      background: linear-gradient(90deg, var(--kz-accent), var(--kz-accent-2, var(--kz-accent)));
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      animation: kz-read linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+@keyframes kz-read {
+  to { transform: scaleX(1); }
+}
+
+/* The Orazaka terminal: its three commands are typed in, one after the other, when it arrives. */
+.bp-term[data-reveal] pre > div {
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.45s var(--kz-ease), transform 0.45s var(--kz-ease);
+}
+.bp-term.kz-in pre > div { opacity: 1; transform: none; }
+.bp-term.kz-in pre > div:nth-child(1) { transition-delay: 450ms; }
+.bp-term.kz-in pre > div:nth-child(2) { transition-delay: 900ms; }
+.bp-term.kz-in pre > div:nth-child(3) { transition-delay: 1350ms; }
+
+/* Reduced motion: still, and everything readable. */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal="soft"],
+  .bp-term[data-reveal] pre > div {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+/* ─── /docs/ui foundations: Typography and Icons (generated from @krizaka/fonts, @krizaka/tokens, @krizaka/icons) ─── */
+.kz-type-families { display: grid; gap: 16px; margin: 1rem 0 2rem; }
+.kz-type-family { border: 1px solid var(--kz-border-subtle); border-radius: var(--kz-radius-lg); background: var(--kz-surface-1); padding: 20px; min-width: 0; }
+.kz-type-family header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
+.kz-type-family header code { font-family: var(--kz-font-mono); font-size: 12px; color: var(--kz-text-secondary); }
+.kz-type-family h3 { margin: 0; font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem); line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; color: var(--kz-text-primary); }
+.kz-type-family p { margin: 8px 0 0; color: var(--kz-text-secondary); font-size: 0.9375rem; line-height: 1.6; }
+.kz-type-family .kz-type-glyphs { font-size: 1.375rem; line-height: 1.4; color: var(--kz-text-primary); overflow-wrap: anywhere; }
+.kz-type-family .kz-type-sample { font-size: 1.125rem; color: var(--kz-text-primary); }
+.kz-type-meta { color: var(--kz-text-secondary); font-size: 0.8125rem; }
+.kz-type-dl { margin: 12px 0 0; display: grid; gap: 4px; font-size: 0.875rem; color: var(--kz-text-secondary); }
+.kz-type-dl dt { font-weight: 600; color: var(--kz-text-primary); margin-top: 8px; }
+.kz-type-dl dd { margin: 0; }
+.kz-type-dl ul { margin: 4px 0 0; padding-left: 1.1rem; list-style: disc; }
+.kz-type-scale { list-style: none; padding: 0; margin: 1rem 0 1.5rem; display: grid; gap: 0; }
+.kz-type-scale li { border-top: 1px solid var(--kz-border-subtle); padding: 16px 0; min-width: 0; }
+.kz-type-scale li > p:first-of-type { margin: 6px 0 0; color: var(--kz-text-primary); overflow-wrap: anywhere; }
+.kz-type-step-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--kz-text-secondary); }
+.kz-type-step-meta code { font-family: var(--kz-font-mono); color: var(--kz-accent-text); }
+
+.kz-icons { margin: 1rem 0 2rem; }
+.kz-icons-tools { display: grid; gap: 12px; }
+.kz-icons-search { width: 100%; padding: 10px 14px; border-radius: var(--kz-radius-md); border: 1px solid var(--kz-border-default); background: var(--kz-surface-2); color: var(--kz-text-primary); font: inherit; font-size: 0.9375rem; }
+.kz-icons-search::placeholder { color: var(--kz-text-muted); }
+.kz-icons-search:focus-visible { outline: 2px solid var(--kz-ring); outline-offset: 2px; }
+.kz-icons-groups { display: flex; flex-wrap: wrap; gap: 6px; }
+.kz-icons-groups button, .kz-icons-actions button { padding: 6px 12px; border-radius: var(--kz-radius-full); border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); color: var(--kz-text-secondary); font-size: 0.8125rem; font-weight: 600; }
+.kz-icons-groups button[aria-pressed="true"] { background: var(--kz-accent-soft); color: var(--kz-accent-text); border-color: color-mix(in srgb, var(--kz-accent) 45%, transparent); }
+.kz-icons-groups button:focus-visible, .kz-icons-actions button:focus-visible, .kz-icons-grid button:focus-visible { outline: 2px solid var(--kz-ring); outline-offset: 2px; }
+.kz-icons-count { margin: 12px 0; font-size: 0.8125rem; color: var(--kz-text-secondary); }
+.kz-icons-layout { display: grid; gap: 16px; align-items: start; }
+@media (min-width: 900px) { .kz-icons-layout { grid-template-columns: minmax(0, 1fr) 17rem; } .kz-icons-detail { position: sticky; top: 88px; } }
+.kz-icons-grid { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr)); }
+.kz-icons-grid button { width: 100%; min-height: 84px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 10px 4px; border-radius: var(--kz-radius-md); border: 1px solid var(--kz-border-subtle); background: var(--kz-surface-1); color: var(--kz-text-primary); transition: background-color var(--kz-transition-fast), border-color var(--kz-transition-fast); }
+.kz-icons-grid button:hover { background: var(--kz-surface-2); border-color: var(--kz-border-default); }
+.kz-icons-grid button[aria-pressed="true"] { border-color: var(--kz-accent); background: var(--kz-accent-soft); }
+.kz-icons-grid span { font-size: 11px; color: var(--kz-text-secondary); text-align: center; overflow-wrap: anywhere; }
+.kz-icons-detail { border: 1px solid var(--kz-border-subtle); border-radius: var(--kz-radius-lg); background: var(--kz-surface-1); padding: 16px; display: grid; gap: 10px; min-width: 0; }
+.kz-icons-name code { font-family: var(--kz-font-mono); font-size: 0.9375rem; font-weight: 600; color: var(--kz-text-primary); }
+.kz-icons-keywords, .kz-icons-label { margin: 0; font-size: 0.8125rem; color: var(--kz-text-secondary); }
+.kz-icons-label { font-weight: 600; color: var(--kz-text-primary); }
+.kz-icons-sizes { display: flex; align-items: flex-end; gap: 16px; color: var(--kz-text-primary); }
+.kz-icons-sizes figure { margin: 0; display: grid; justify-items: center; gap: 4px; }
+.kz-icons-sizes figcaption { font-size: 11px; color: var(--kz-text-secondary); font-family: var(--kz-font-mono); }
+.kz-icons-code { margin: 0; padding: 10px 12px; border-radius: var(--kz-radius-sm); background: var(--kz-surface-2); font-family: var(--kz-font-mono); font-size: 12px; color: var(--kz-text-primary); white-space: pre-wrap; overflow-wrap: anywhere; }
+.kz-icons-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.kz-icons-actions button:hover { color: var(--kz-text-primary); border-color: var(--kz-border-strong); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   The footer and the 404 of ui.krizaka.com
+   ═══════════════════════════════════════════════════════════════════ */
+.kz-ui-footer { margin-top: auto; border-top: 1px solid var(--kz-border-subtle); background: var(--kz-surface-0); }
+.kz-ui-footer-inner { max-width: var(--kz-page-max-docs); margin: 0 auto; padding: 32px var(--kz-page-gutter, clamp(16px, 3.2vw, 32px)); display: flex; flex-wrap: wrap; gap: 24px 48px; justify-content: space-between; }
+.kz-ui-footer-brand { display: grid; gap: 8px; max-width: 46ch; font-size: 14px; color: var(--kz-text-secondary); }
+.kz-ui-footer-project { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--kz-text-primary); text-decoration: none; }
+.kz-ui-footer-project:hover { color: var(--kz-accent-text); }
+.kz-ui-footer-meta { font-family: var(--kz-font-mono); font-size: 12px; }
+.kz-ui-footer-links { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 20px; align-content: flex-start; font-size: 14px; }
+.kz-ui-footer-links a { color: var(--kz-text-secondary); text-decoration: none; }
+.kz-ui-footer-links a:hover { color: var(--kz-text-primary); }
+.kz-not-found { display: grid; place-items: center; min-height: 100dvh; padding: 24px; text-align: center; }
+.kz-not-found main { display: grid; gap: 12px; max-width: 40ch; }
+.kz-not-found h1 { font-family: var(--kz-font-display); font-size: clamp(1.5rem, 4vw, 2.25rem); }
+.kz-not-found p { color: var(--kz-text-secondary); }
+.kz-not-found a { color: var(--kz-accent-text); font-weight: 700; text-decoration: none; }
+.kz-not-found-code { font-family: var(--kz-font-mono); color: var(--kz-accent-text) !important; }

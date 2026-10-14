@@ -8,7 +8,7 @@ import { nativeFrame } from "./story-frame";
 
 /**
  * Native — Slider through react-native-web. Each story renders a named example of the registry
- * (`registry/examples/slider/native/*`): the code krizaka.com/docs/ui shows, with these screenshots.
+ * (`registry/examples/slider/native/*`): the code ui.krizaka.com shows, with these screenshots.
  */
 const meta = {
   title: "Native/Slider",

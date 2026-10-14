@@ -2,7 +2,7 @@
 // `meta.ts` beside it (src/meta.ts), its named examples (registry/examples), the props of its web and native
 // components (react-docgen-typescript) — and, for a web primitive, its source files, its npm dependencies and the
 // other primitives it builds on. Read by `build-registry.mjs` (which writes `registry/<name>.json` +
-// `registry/index.json`, rendered by krizaka.com/docs/ui) and by `registry.test.mjs`.
+// `registry/index.json`, rendered by ui.krizaka.com) and by `registry.test.mjs`.
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";

@@ -9,7 +9,7 @@ import SignUpExample from "../../registry/examples/form/sign-up";
 import UploadExample from "../../registry/examples/form/upload";
 
 /**
- * Form: each story renders a named example of the registry (`registry/examples/form/*`) — the code krizaka.com/docs/ui
+ * Form: each story renders a named example of the registry (`registry/examples/form/*`) — the code ui.krizaka.com
  * shows. The typical forms of the products: sign-up, profile, upload, amount, audience, settings, report.
  */
 const meta = {

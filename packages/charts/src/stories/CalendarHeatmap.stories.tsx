@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import PublishingExample from "../../registry/examples/calendar-heatmap/publishing";
 import { chartFrame } from "./frame";
 
-/** Calendar heatmap. Each story renders a named example of the registry: the code krizaka.com/docs/ui shows. */
+/** Calendar heatmap. Each story renders a named example of the registry: the code ui.krizaka.com shows. */
 const meta = { title: "Charts/CalendarHeatmap", decorators: [chartFrame] } satisfies Meta;
 export default meta;
 

@@ -9,6 +9,7 @@
 ```text
 krizaka-ui/                 # pnpm workspace + Turborepo
 ├─ apps/
+│  ├─ site/                 # ui.krizaka.com — the public documentation, generated from the workspace packages (§3.1)
 │  └─ storybook/            # internal, never deployed — the stories: a11y + dark/light screenshot tests in CI
 ├─ packages/
 │  ├─ tokens/               # @krizaka/tokens — the semantic --kz-* tokens (CSS, TS, native), from DTCG sources
@@ -75,14 +76,14 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 - The monorepo uses what it publishes: `eslint.config.mjs` is `@krizaka/config` (base everywhere, the four UI rules
   strict on `packages/ui`, the three stack rules on `apps/`), every package's `lint` runs `eslint . --max-warnings 0`, and its `tsconfig.json` extends
   a base of `@krizaka/config`.
-- **The code drives the documentation.** The public documentation is **krizaka.com/docs/ui**, generated from the
+- **The code drives the documentation.** The public documentation is **ui.krizaka.com**, generated from the
   packages — the foundations from their data (`@krizaka/tokens` `typeScale`, `@krizaka/fonts` `fonts`/`rules`,
   `@krizaka/icons/glyphs` `glyphIndex`/`iconGroups`/`iconGuidelines`), the components from the
   registry `@krizaka/ui` publishes: every component has a `meta.ts` beside it (`packages/ui/src/meta.ts`: summary,
   when to use / not, best practices, accessibility, platforms web · native · both, status, related) and named
   examples in `packages/ui/registry/examples/<name>/` (≤ 40 lines, `native/` for React Native). The registry tests
   fail on a missing or incomplete one. An example flagged `template` also carries its `purpose` (convince · explain · show · act ·
-  operate · converse · recover) and a `why` (the user goal its layout serves): krizaka.com/docs/ui groups the templates by them.
+  operate · converse · recover) and a `why` (the user goal its layout serves): ui.krizaka.com groups the templates by them.
   A component nobody uses and nothing plans is `status: deprecated` with `deprecated: { since, removedIn, reason }`. Never write a component's documentation anywhere else.
 - **No test, not done.** Every feature and every fix ships with its tests in the same pull request: a unit test for
   logic (Vitest), a story for a component — `packages/ui/src/**/<Name>.stories.tsx`, one story per example (the story
@@ -99,6 +100,30 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 - The packed-package check (`scripts/consumer.mjs` of `ui` and `charts`) installs the tarballs of the package **and of its `workspace:` dependencies** together (`tools/workspace-pack.mjs`): on a release pull request the next versions of `tokens`/`intl` are on no registry yet, and the check must not need them published first (tested in `tools/workspace-pack.test.mjs`).
 - Every published package passes `publint` and `@arethetypeswrong/cli` and stays under its `size-limit` budget.
 - Conventional Commits; `main` is protected (pull request + required CI, squash merge only). Never push to `main`.
+
+## 3.1 Documentation site — the code drives ui.krizaka.com
+
+- **ui.krizaka.com is `apps/site`**: Next.js (App Router, `output: "export"`) + Fumadocs, built from the **workspace
+  packages** (`workspace:*`, never npm) — the documentation of a commit is the documentation of its code. It is
+  private (never published); the products still consume the packages from npm (§1, golden rule).
+- **Generated, never written**: one page per component of the registries of `@krizaka/ui` and `@krizaka/charts`
+  (`/components/<name>`: summary, platforms, status, when to use / not, install, every named example live + code, native
+  screenshots, props, accessibility, related), the foundations from the packages' data (`/foundations/typography`,
+  `/foundations/icons`, `/foundations/brand-marks`), the templates by intent (`/templates`, `/templates/<intent>`) and
+  the mobile parity (`/mobile`). `apps/site/scripts/gen-ui-docs.mjs` writes the import map of the live examples and
+  copies the native screenshots (git-ignored); `--check` (in `lint`) fails on an incomplete registry.
+- **Written in `apps/site/content/docs`** (MDX, English): Get started (`/`, `/installation`, `/theming`), the prose of
+  `/foundations/{tokens,motion}` and the packages without UI (`/packages/<name>`). Titles, descriptions and the chrome are
+  messages (`apps/site/messages/{en,fr}.json`, checked by `krizaka-i18n check`). English at `/`, French under `/fr`.
+- **Addresses** live in `apps/site/lib/urls.ts` (tested). The old `www.krizaka.com/docs/ui/*` answer 308 to them from
+  krizaka.com (same map, in krizaka-com `lib/ui-redirects.ts`). The sidebar's groups and the inventory ("why is this
+  component here") are `lib/ui-ia.ts` and `lib/ui-inventory.ts`, guarded by `tests/docs-ia.test.mjs`; `lib/ui-usage.json`
+  is refreshed by hand (`pnpm --filter @krizaka/site ui:usage`).
+- **Built on every pull request** (CI job « Documentation site »: `turbo run build lint typecheck test
+  --filter=@krizaka/site`) and **deployed on every push to `main`** — so on every release — by DigitalOcean App Platform
+  (app `krizaka-ui-site`, project `krizaka`, a static site: `apps/site/deploy/app.yaml`). No server: what needs one
+  (redirects, a proxy) does not belong here.
+- Run it: `pnpm turbo run build --filter=@krizaka/site...` once (the packages), then `pnpm --filter @krizaka/site dev`.
 
 ## 4. Release (Changesets)
 

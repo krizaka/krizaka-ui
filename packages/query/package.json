@@ -14,7 +14,7 @@
     "react-native",
     "offline"
   ],
-  "homepage": "https://www.krizaka.com/en/docs/ui",
+  "homepage": "https://ui.krizaka.com/packages/query",
   "bugs": "https://github.com/krizaka/krizaka-ui/issues",
   "repository": {
     "type": "git",

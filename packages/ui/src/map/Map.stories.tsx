@@ -6,7 +6,7 @@ import PlacesExample from "../../registry/examples/map/places";
 import StaticExample from "../../registry/examples/map/static";
 
 /**
- * Map: each story renders a named example of the registry (`registry/examples/map/*`) — the code krizaka.com/docs/ui shows.
+ * Map: each story renders a named example of the registry (`registry/examples/map/*`) — the code ui.krizaka.com shows.
  * The live maps are audited but not screenshot-compared: their picture is WebGL over tiles from the CDN, which the
  * runner refuses (stories never touch the network); `Static` is the deterministic picture.
  */

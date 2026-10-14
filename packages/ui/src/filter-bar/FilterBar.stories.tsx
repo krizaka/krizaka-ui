@@ -6,7 +6,7 @@ import MenuExample from "../../registry/examples/filter-bar/menu";
 
 /**
  * FilterBar: each story renders a named example of the registry (`registry/examples/filter-bar/*`) — the code
- * krizaka.com/docs/ui shows.
+ * ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/FilterBar",

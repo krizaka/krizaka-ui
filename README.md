@@ -11,12 +11,12 @@
 `@krizaka/*`.
 
 **2.x is stable**: web primitives and their React Native counterparts, the Krizaka · Orazaka · Orochia · Yasakia · Yororis marks and the
-signature icons — charts are next. Documented at [krizaka.com/docs/ui](https://www.krizaka.com/docs/ui).
+signature icons — charts are next. Documented at [ui.krizaka.com](https://ui.krizaka.com).
 
 [![CI](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/krizaka/krizaka-ui/badge)](https://scorecard.dev/viewer/?uri=github.com/krizaka/krizaka-ui)
 [![@krizaka/ui](https://img.shields.io/npm/v/@krizaka/ui?label=%40krizaka%2Fui&color=196df5)](https://www.npmjs.com/package/@krizaka/ui)
-[![Docs](https://img.shields.io/badge/docs-krizaka.com%2Fdocs%2Fui-196df5)](https://www.krizaka.com/docs/ui)
+[![Docs](https://img.shields.io/badge/docs-ui.krizaka.com-196df5)](https://ui.krizaka.com)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 
 </div>
@@ -38,9 +38,9 @@ signature icons — charts are next. Documented at [krizaka.com/docs/ui](https:/
 
 ## Documentation
 
-**[krizaka.com/docs/ui](https://www.krizaka.com/docs/ui)** — the one place to read about the platform and share a link:
-one page per component, generated at every build of the site from the registry this repository publishes with
-`@krizaka/ui`. The **code drives the documentation**: each component's `meta.ts` (summary, when to use it and when
+**[ui.krizaka.com](https://ui.krizaka.com)** — the one place to read about the platform and share a link:
+one page per component, generated from the code of this repository by [`apps/site`](apps/site) (Next.js + Fumadocs, a
+static export) and deployed on every push to `main`, so the docs always match the code. The **code drives the documentation**: each component's `meta.ts` (summary, when to use it and when
 not, accessibility, web / React Native / both, status, related components), its named examples
 (`packages/ui/registry/examples`, rendered live with their code) and its props (from the types) — a primitive without
 them fails the tests. [`apps/storybook`](apps/storybook) is an internal tool: it renders the same examples to audit

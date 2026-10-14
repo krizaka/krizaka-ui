@@ -5,7 +5,7 @@ import StatTrendExample from "../../registry/examples/sparkline/stat-trend";
 import TableRowsExample from "../../registry/examples/sparkline/table-rows";
 import { chartFrame } from "./frame";
 
-/** Sparkline. Each story renders a named example of the registry: the code krizaka.com/docs/ui shows. */
+/** Sparkline. Each story renders a named example of the registry: the code ui.krizaka.com shows. */
 const meta = { title: "Charts/Sparkline", decorators: [chartFrame] } satisfies Meta;
 export default meta;
 

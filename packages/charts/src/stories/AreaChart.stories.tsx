@@ -4,7 +4,7 @@ import CreditsUsageExample from "../../registry/examples/area-chart/credits-usag
 import StorageExample from "../../registry/examples/area-chart/storage";
 import { chartFrame } from "./frame";
 
-/** Area chart. Each story renders a named example of the registry: the code krizaka.com/docs/ui shows. */
+/** Area chart. Each story renders a named example of the registry: the code ui.krizaka.com shows. */
 const meta = { title: "Charts/AreaChart", decorators: [chartFrame] } satisfies Meta;
 export default meta;
 

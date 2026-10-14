@@ -7,7 +7,7 @@ import { Kbd } from "./kbd";
 
 /**
  * A key or a shortcut: `<Kbd>⌘</Kbd><Kbd>K</Kbd>`. `size` sm · md.
- * Each story renders a named example of the registry (`registry/examples/kbd/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/kbd/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/Kbd",

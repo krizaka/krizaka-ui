@@ -2,7 +2,7 @@
   "name": "@krizaka/storybook",
   "version": "0.0.0",
   "private": true,
-  "description": "The Krizaka platform's internal catalogue: every primitive of @krizaka/ui and every chart of @krizaka/charts in dark and light, under each product identity, checked for accessibility and visual regressions in CI. Not published — the public documentation is krizaka.com/docs/ui.",
+  "description": "The Krizaka platform's internal catalogue: every primitive of @krizaka/ui and every chart of @krizaka/charts in dark and light, under each product identity, checked for accessibility and visual regressions in CI. Not published — the public documentation is ui.krizaka.com.",
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {

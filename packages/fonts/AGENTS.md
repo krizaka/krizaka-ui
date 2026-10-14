@@ -9,7 +9,7 @@
 - The **Krizaka typefaces** (level 0 — foundations): Plus Jakarta Sans (display), Inter (text), JetBrains Mono (mono),
   self-hosted. Web: WOFF2 variable files per subset (latin, latin-ext) and `fonts.css` (`@font-face`, `font-display:
   swap`, metric-matched local fallbacks). React Native: static TrueType per weight, `nativeFonts`, `fontFamily(role,
-  weight)`, `fontAssets` for expo-font. The words of krizaka.com/docs/ui/typography (`fonts[].why/use/avoid`, `rules`).
+  weight)`, `fontAssets` for expo-font. The words of ui.krizaka.com/foundations/typography (`fonts[].why/use/avoid`, `rules`).
 - Not here: the token values (`--kz-font-*`, the type scale: `@krizaka/tokens`), utilities (`@krizaka/tailwind`).
 - **Only SIL OFL 1.1 faces** with no Reserved Font Name (subsetting is a modification); their licence ships in
   `licenses/`. A face under another licence is refused.

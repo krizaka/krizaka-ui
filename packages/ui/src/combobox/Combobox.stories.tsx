@@ -7,7 +7,7 @@ import MultipleExample from "../../registry/examples/combobox/multiple";
 
 /**
  * Combobox: each story renders a named example of the registry (`registry/examples/combobox/*`) — the code
- * krizaka.com/docs/ui shows.
+ * ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/Combobox",

@@ -11,7 +11,7 @@ import { nativeFrame } from "./story-frame";
 
 /**
  * Native — the dates and times through react-native-web. Each story renders a named example of the registry
- * (`registry/examples/date-picker/native/*`): the code krizaka.com/docs/ui shows, with these screenshots.
+ * (`registry/examples/date-picker/native/*`): the code ui.krizaka.com shows, with these screenshots.
  */
 const meta = {
   title: "Native/DatePicker",

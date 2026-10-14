@@ -5,7 +5,7 @@ import VideoTagsExample from "../../registry/examples/tag-input/video-tags";
 
 /**
  * TagInput: each story renders a named example of the registry (`registry/examples/tag-input/*`) — the code
- * krizaka.com/docs/ui shows.
+ * ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/TagInput",

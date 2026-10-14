@@ -1,5 +1,5 @@
 // The documentation of a chart, carried by its code: each documented component has a file here (`src/meta/<name>.ts`)
-// typed by this module — the same shape as @krizaka/ui's `meta.ts`, so krizaka.com/docs/ui renders both registries
+// typed by this module — the same shape as @krizaka/ui's `meta.ts`, so ui.krizaka.com renders both registries
 // with one page template. Never built into the package: `scripts/build-registry.mjs` reads them into
 // `registry/<name>.json`, and `scripts/registry.test.mjs` fails when one is missing or incomplete. Plain data
 // (erasable TypeScript): Node reads it without a compiler.

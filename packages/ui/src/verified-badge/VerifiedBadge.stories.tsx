@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import VerifiedExample from "../../registry/examples/verified-badge/verified";
 
-/** VerifiedBadge. Each story renders a named example of the registry (`registry/examples/verified-badge/*`): the code krizaka.com/docs/ui shows. */
+/** VerifiedBadge. Each story renders a named example of the registry (`registry/examples/verified-badge/*`): the code ui.krizaka.com shows. */
 const meta = { title: "Primitives/VerifiedBadge" } satisfies Meta;
 export default meta;
 

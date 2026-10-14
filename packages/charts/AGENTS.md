@@ -60,7 +60,7 @@ Each documented component has `src/meta/<name>.ts` (typed by `src/meta/types.ts`
 named examples in `registry/examples/<name>/` (≤ 40 lines, realistic data, `native/` for React Native), each rendered
 by a story (`src/stories/<Name>.stories.tsx`, `src/native/stories/<Name>.stories.tsx`). `scripts/build-registry.mjs`
 writes `registry/<name>.json` + `registry/index.json` (`package: "@krizaka/charts"`); `scripts/registry.test.mjs`
-fails on a missing meta, example, story, native screenshot or prop description. krizaka.com/docs/ui renders it.
+fails on a missing meta, example, story, native screenshot or prop description. ui.krizaka.com renders it.
 
 ## 5. Quality gates
 

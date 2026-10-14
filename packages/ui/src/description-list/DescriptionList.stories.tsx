@@ -4,7 +4,7 @@ import JobDetailsExample from "../../registry/examples/description-list/job-deta
 import KeyValueGridExample from "../../registry/examples/description-list/key-value-grid";
 import ReceiptExample from "../../registry/examples/description-list/receipt";
 
-/** DescriptionList. Each story renders a named example of the registry (`registry/examples/description-list/*`): the code krizaka.com/docs/ui shows. */
+/** DescriptionList. Each story renders a named example of the registry (`registry/examples/description-list/*`): the code ui.krizaka.com shows. */
 const meta = { title: "Primitives/DescriptionList" } satisfies Meta;
 export default meta;
 

@@ -10,7 +10,7 @@ import { Alert } from "./alert";
 /**
  * A message in the flow of the page: `tone` info · success · warning · danger, an `icon` slot, a `title`, the text, an
  * `action`. danger and warning are `role="alert"`, info and success `role="status"`. Each story renders a named
- * example of the registry (`registry/examples/alert/*`): the code krizaka.com/docs/ui shows.
+ * example of the registry (`registry/examples/alert/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/Alert",

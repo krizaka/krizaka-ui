@@ -1,0 +1,24 @@
+# DigitalOcean App Platform — ui.krizaka.com (app `krizaka-ui-site`, project `krizaka`).
+# A static site component: the export of apps/site (Next.js `output: "export"`), built by App Platform from this
+# repository on every push to main — so on every release too. No server, no runtime cost beyond the static tier.
+# Apply: doctl apps update <app-id> --spec apps/site/deploy/app.yaml
+name: krizaka-ui-site
+region: tor
+domains:
+  - domain: ui.krizaka.com
+    type: PRIMARY
+static_sites:
+  - name: site
+    github:
+      repo: krizaka/krizaka-ui
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    environment_slug: node-js
+    build_command: corepack enable && pnpm install --frozen-lockfile && pnpm turbo run build --filter=@krizaka/site...
+    output_dir: apps/site/out
+    error_document: 404.html
+    envs:
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=6144
+        scope: BUILD_TIME

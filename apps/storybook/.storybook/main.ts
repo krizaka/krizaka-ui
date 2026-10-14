@@ -21,7 +21,7 @@ const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../../../packages/ui/src/**/*.stories.tsx", "../../../packages/icons/src/**/*.stories.tsx", "../../../packages/charts/src/**/*.stories.tsx"],
   addons: ["@storybook/addon-docs", "@storybook/addon-a11y", "@storybook/addon-themes"],
   core: { disableTelemetry: true },
-  // Internal: never deployed (the public documentation is krizaka.com/docs/ui) — kept out of search engines anyway.
+  // Internal: never deployed (the public documentation is ui.krizaka.com) — kept out of search engines anyway.
   managerHead: (head) => `${head}\n<meta name="robots" content="noindex" />`,
   // The registry's demos (imported by the default stories) import `@krizaka/ui/<primitive>` as a product does: resolved
   // to the sources, like the stories themselves — one copy of each primitive, and live reload.

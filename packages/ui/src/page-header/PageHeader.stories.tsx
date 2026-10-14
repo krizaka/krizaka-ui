@@ -7,7 +7,7 @@ import { PageHeader } from "./page-header";
 
 /**
  * The top of a page: `breadcrumb` (a slot), `title` (an h1, or `as="h2"`), `description`, `actions`.
- * Each story renders a named example of the registry (`registry/examples/page-header/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/page-header/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/PageHeader",

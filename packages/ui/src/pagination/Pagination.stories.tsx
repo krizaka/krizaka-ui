@@ -7,7 +7,7 @@ import TableFooterExample from "../../registry/examples/pagination/table-footer"
 
 /**
  * Pagination: each story renders a named example of the registry (`registry/examples/pagination/*`) — the code
- * krizaka.com/docs/ui shows.
+ * ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/Pagination",

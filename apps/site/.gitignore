@@ -1,0 +1,8 @@
+# Generated at every build (scripts/gen-ui-docs.mjs, fumadocs-mdx, next)
+lib/ui-examples.ts
+public/ui-examples/
+.source/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo

@@ -1,5 +1,5 @@
 {
-  "$comment": "The source of @krizaka/fonts, written by hand. scripts/subset.py reads it to cut the files (files/, src/faces.json); scripts/build.mjs merges both into dist/. The words (description, why, use, avoid, rules) are the documentation of krizaka.com/docs/ui/typography.",
+  "$comment": "The source of @krizaka/fonts, written by hand. scripts/subset.py reads it to cut the files (files/, src/faces.json); scripts/build.mjs merges both into dist/. The words (description, why, use, avoid, rules) are the documentation of ui.krizaka.com/foundations/typography.",
   "families": [
     {
       "role": "display",

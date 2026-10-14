@@ -4,7 +4,7 @@ import ChallengePotExample from "../../registry/examples/goal-progress/challenge
 import GoalReachedExample from "../../registry/examples/goal-progress/goal-reached";
 import { chartFrame } from "./frame";
 
-/** GoalProgress — a ready-made chart. Each story renders a named example of the registry: the code krizaka.com/docs/ui shows. */
+/** GoalProgress — a ready-made chart. Each story renders a named example of the registry: the code ui.krizaka.com shows. */
 const meta = { title: "Charts/GoalProgress", decorators: [chartFrame] } satisfies Meta;
 export default meta;
 

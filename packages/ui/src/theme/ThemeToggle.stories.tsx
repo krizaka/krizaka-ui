@@ -6,7 +6,7 @@ import { ThemeToggle } from "./theme";
 
 /**
  * `ThemeToggle` cycles dark → light → system through `ThemeProvider`. Clicking it here changes the catalogue's theme too.
- * Each story renders a named example of the registry (`registry/examples/theme/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/theme/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/ThemeToggle",
