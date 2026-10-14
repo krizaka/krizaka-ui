@@ -194,7 +194,7 @@ export function Showcase<T>({
       <style href="kz-showcase" precedence="medium">
         {FILL_CSS}
       </style>
-      <div aria-live={announce ? "polite" : "off"} className="grid">
+      <div aria-live={announce ? "polite" : "off"} className="grid grid-cols-[minmax(0,1fr)]">
         {items.map((slide, i) => {
           const active = i === current;
           const gap = Math.abs(i - current);
