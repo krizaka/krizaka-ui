@@ -28,7 +28,7 @@ export const meta = {
       { keys: "Esc", action: "Closes the dialog (unless `dismissible={false}`)." },
       { keys: "Tab / Shift+Tab", action: "Move within the dialog: the focus is trapped while it is open." },
     ],
-    notes: [
+    notes: ["Closing returns focus to what opened it — also when a plain button opened it (a controlled `open`), not only a `Dialog.Trigger`; your `onCloseAutoFocus` can still decide otherwise.", 
       "Radix Dialog: `role=\"dialog\"` (or `alertdialog`), `aria-modal`, named by its title and described by its description.",
       "The focus moves into the dialog when it opens and returns to the trigger when it closes; the page behind does not scroll.",
       "`AlertDialog` keeps the focus on the cancel button first.",

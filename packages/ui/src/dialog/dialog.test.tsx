@@ -1,5 +1,6 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import * as React from "react";
 
 import { axeViolations } from "../test/axe";
 import { AlertDialog, Dialog, Sheet } from "./index";
@@ -194,5 +195,60 @@ describe("AlertDialog", () => {
     expect(dialog.dataset.placement).toBe("left");
     expect(dialog.className).toContain("left-0");
     expect(dialog.className).not.toContain("right-0");
+  });
+});
+
+describe("focus return without a Dialog.Trigger (WCAG 2.4.3)", () => {
+  function Controlled({ kind }: { kind: "dialog" | "sheet" | "alert" }) {
+    const [open, setOpen] = React.useState(false);
+    return (
+      <>
+        <button type="button" onClick={() => setOpen(true)}>Open it</button>
+        {kind === "alert" ? (
+          <AlertDialog open={open} onOpenChange={setOpen} title="Delete?" confirmLabel="Delete" cancelLabel="Cancel" onConfirm={() => undefined} />
+        ) : (
+          <Dialog.Root open={open} onOpenChange={setOpen}>
+            {kind === "sheet" ? (
+              <Sheet closeLabel="Close"><Dialog.Title>Sheet</Dialog.Title></Sheet>
+            ) : (
+              <Dialog.Content closeLabel="Close"><Dialog.Title>Dialog</Dialog.Title></Dialog.Content>
+            )}
+          </Dialog.Root>
+        )}
+      </>
+    );
+  }
+
+  it.each(["dialog", "sheet", "alert"] as const)("a controlled %s opened by a plain button gives focus back to it on Escape", async (kind) => {
+    const user = userEvent.setup();
+    render(<Controlled kind={kind} />);
+    const opener = screen.getByRole("button", { name: "Open it" });
+    await user.click(opener);
+    expect(document.activeElement).not.toBe(opener);
+    await user.keyboard("{Escape}");
+    await waitFor(() => expect(screen.queryByRole(kind === "alert" ? "alertdialog" : "dialog")).toBeNull());
+    expect(document.activeElement).toBe(opener);
+  });
+
+  it("leaves focus to the consumer when its onCloseAutoFocus prevents the default", async () => {
+    const user = userEvent.setup();
+    function Prevented() {
+      const [open, setOpen] = React.useState(false);
+      return (
+        <>
+          <button type="button" onClick={() => setOpen(true)}>Open it</button>
+          <button type="button">Elsewhere</button>
+          <Dialog.Root open={open} onOpenChange={setOpen}>
+            <Dialog.Content closeLabel="Close" onCloseAutoFocus={(e) => { e.preventDefault(); screen.getByRole("button", { name: "Elsewhere" }).focus(); }}>
+              <Dialog.Title>Dialog</Dialog.Title>
+            </Dialog.Content>
+          </Dialog.Root>
+        </>
+      );
+    }
+    render(<Prevented />);
+    await user.click(screen.getByRole("button", { name: "Open it" }));
+    await user.keyboard("{Escape}");
+    await waitFor(() => expect(document.activeElement).toBe(screen.getByRole("button", { name: "Elsewhere" })));
   });
 });

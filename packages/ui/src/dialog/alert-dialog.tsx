@@ -6,8 +6,14 @@ import * as React from "react";
 
 import { Button } from "../button/button";
 import { dialog } from "./dialog";
+import { useReturnFocus } from "./return-focus";
 
 const s = dialog({ placement: "center", size: "sm" });
+
+/** Radix's content, mounted only while open: it remembers the opener then and gives focus back on close (WCAG 2.4.3). */
+function ReturnFocusContent({ onCloseAutoFocus, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Content>) {
+  return <AlertDialogPrimitive.Content onCloseAutoFocus={useReturnFocus(onCloseAutoFocus)} {...props} />;
+}
 
 export type AlertDialogProps = {
   /** Open or closed (controlled), with `onOpenChange`. */
@@ -79,7 +85,7 @@ export function AlertDialog({
       {trigger && <AlertDialogPrimitive.Trigger asChild>{trigger}</AlertDialogPrimitive.Trigger>}
       <AlertDialogPrimitive.Portal container={container}>
         <AlertDialogPrimitive.Overlay className={s.overlay()} />
-        <AlertDialogPrimitive.Content
+        <ReturnFocusContent
           data-tone={tone}
           aria-busy={pending || undefined}
           className={s.content({ className })}
@@ -100,7 +106,7 @@ export function AlertDialog({
               {confirmLabel}
             </Button>
           </div>
-        </AlertDialogPrimitive.Content>
+        </ReturnFocusContent>
       </AlertDialogPrimitive.Portal>
     </AlertDialogPrimitive.Root>
   );
