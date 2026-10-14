@@ -21,6 +21,7 @@ export const meta = {
     imports: ["DetailLayout"],
     examples: [
       { name: "video", title: "A video", description: "Orochia's video page: thumbnail, status, facts, tabs and the sales beside.", template: true, purpose: "show", why: "A viewer sees the object itself first, with its facts and the actions that concern it beside it." },
+      { name: "checkout", title: "Tip checkout", description: "Who is paid, the amount in one tap, an optional word, the total beside the pay button.", template: true, purpose: "act", why: "A person pays in a few taps and sees the exact total before committing." },
       { name: "job", title: "A job", description: "An engine job without tabs or side panel." },
     ],
   },

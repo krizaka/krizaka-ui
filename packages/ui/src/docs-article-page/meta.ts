@@ -21,6 +21,7 @@ export const meta = {
     imports: ["DocsArticlePage"],
     examples: [
       { name: "cli", title: "Orazaka's CLI", description: "An article with its pages, breadcrumb, facts, contents and pager.", template: true, purpose: "explain", why: "A reader follows one article, always knowing where they are, what it covers and what comes next." },
+      { name: "faq", title: "FAQ", description: "Questions as disclosures, each with a short answer, the contents beside them.", template: true, purpose: "explain", why: "A reader finds the one answer they came for without reading a page." },
     ],
   },
 } satisfies ComponentMeta;

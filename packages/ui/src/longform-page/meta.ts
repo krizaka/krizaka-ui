@@ -21,6 +21,7 @@ export const meta = {
     imports: ["LongformPage"],
     examples: [
       { name: "story", title: "Our story", description: "Krizaka's story in chapters, a pull quote and the flamingo's rule.", template: true, purpose: "show", why: "A reader follows a story in chapters, at their own pace, with a break for the key line." },
+      { name: "case-study", title: "Case study", description: "A customer's situation, what changed and the figures that prove it, in chapters.", template: true, purpose: "show", why: "A prospect trusts a result they can read: the before, the change, the proof in numbers." },
     ],
   },
 } satisfies ComponentMeta;

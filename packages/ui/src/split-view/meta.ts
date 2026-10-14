@@ -22,6 +22,8 @@ export const meta = {
     examples: [
       { name: "messages", title: "Messages", description: "A creator's inbox: threads beside the open one, a reply box at its foot.", template: true, purpose: "converse", why: "A person reads a thread and replies without leaving the list of conversations." },
       { name: "empty", title: "Nothing open", description: "The list, and what to do while nothing is open." },
+      { name: "notifications", title: "Notifications centre", description: "What happened, newest first and grouped by day; the selected one opens beside the list.", template: true, purpose: "converse", why: "A person catches up on what happened and acts on one item without losing the list." },
+      { name: "nearby", title: "Find a place nearby", description: "The map is the page; the list beside it says the same in words and moves with it.", template: true, purpose: "act", why: "A person picks a place by where it is, with the list as an equal way in." },
     ],
   },
 } satisfies ComponentMeta;
