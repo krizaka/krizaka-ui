@@ -37,6 +37,11 @@ describe("Showcase", () => {
     expect(css).toContain(".kz-showcase-fill");
   });
 
+  it("keeps wide slide content (a code block) inside its column", () => {
+    const { container } = render(show());
+    expect((container.querySelector("[aria-live]") as HTMLElement).className).toContain("grid-cols-[minmax(0,1fr)]");
+  });
+
   it("shows the counter with the slide's title and one segment per slide", () => {
     render(show());
     expect(screen.getByText("Golden hour", { selector: "span" })).toBeTruthy();
