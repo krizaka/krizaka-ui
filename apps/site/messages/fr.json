@@ -199,7 +199,7 @@
         },
         "brand-marks": {
           "title": "Marques",
-          "description": "Les cinq marques de la famille Krizaka — dessinées en code, animées, immobiles si le mouvement est réduit."
+          "description": "Les six marques de la famille Krizaka — dessinées en code, animées, immobiles si le mouvement est réduit."
         },
         "i18n": {
           "title": "i18n",
@@ -463,7 +463,7 @@
         "count": "{both} composants sur les deux plateformes, {native} sur mobile seulement, {web} sur le web seulement."
       },
       "brand": {
-        "intro": "Les cinq marques de la famille Krizaka, depuis @krizaka/ui. Chacune est dessinée en code (aucune image à livrer), animée quand la page le permet, et immobile si le mouvement est réduit. Un changement de marque se fait dans krizaka-ui, est publié, puis adopté.",
+        "intro": "Les six marques de la famille Krizaka, depuis @krizaka/ui. Chacune est dessinée en code (aucune image à livrer), animée quand la page le permet, et immobile si le mouvement est réduit. Un changement de marque se fait dans krizaka-ui, est publié, puis adopté.",
         "mark": "{name} : la marque de {role}",
         "use": "Utilisez la marque là où le produit est nommé : l'en-tête, la connexion, le chargement et l'écran de lancement — jamais une copie, jamais un substitut.",
         "krizaka": "le studio",
@@ -471,6 +471,7 @@
         "orochia": "la plateforme de créateurs",
         "yasakia": "l'application de rencontres",
         "yororis": "le quatrième produit, en construction",
+        "yomizaka": "les documents, lus et vérifiés",
         "downloads": "Téléchargements",
         "svgDark": "SVG · sombre",
         "svgLight": "SVG · clair",

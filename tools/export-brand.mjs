@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // The brand exports of the Krizaka family and the default profile pictures, generated from the code of @krizaka/ui —
-// never drawn by hand: the marks and logos (KrizakaLogo, OrazakaLogo, OrochiaLogo, YasakiaLogo, YororisLogo through
+// never drawn by hand: the marks and logos (KrizakaLogo, OrazakaLogo, OrochiaLogo, YasakiaLogo, YororisLogo, YomizakaLogo through
 // ProductLogo) rendered to SVG and PNG, the avatar and social-preview images composed from them, and the default avatars
 // of `@krizaka/ui/avatar` (defaultAvatarSvg) rendered to SVG and WebP. They are the media library of Bunny Storage:
 //
@@ -27,7 +27,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const UI = resolve(HERE, "../packages/ui");
 const TOKENS_CSS = resolve(HERE, "../packages/tokens/dist/tokens.css");
 
-export const BRANDS = ["krizaka", "orazaka", "orochia", "yasakia", "yororis"];
+export const BRANDS = ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka"];
 export const THEMES = ["dark", "light"];
 export const LOGO_SIZES = [256, 512, 1024];
 export const AVATAR_SIZES = [500, 1024];

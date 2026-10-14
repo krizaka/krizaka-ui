@@ -9,7 +9,7 @@ const MARKS: BrandId[] = ["krizaka", "orazaka", "orochia", "yasakia", "yororis",
 /** The scope each mark wears (the brand's colours), spelled out so the class is a literal. */
 const SCOPE: Record<BrandId, string> = { krizaka: "brand-krizaka", orazaka: "brand-orazaka", orochia: "brand-orochia", yasakia: "brand-yasakia", yororis: "brand-yororis", yomizaka: "brand-yomizaka" };
 
-/* /docs/ui/brand-marks — the five marks of the Krizaka family, drawn by @krizaka/ui (the same component the products and
+/* /docs/ui/brand-marks — the six marks of the Krizaka family, drawn by @krizaka/ui (the same component the products and
    this site's navigation use). Nothing is copied here: the marks are rendered, never re-drawn. */
 export function BrandMarksDoc({ locale }: { locale: Locale }) {
   const x = getDictionary(locale).docs.ia.brand;
