@@ -4,6 +4,7 @@
      /                          Krizaka UI — what it is, the catalogue
      /installation, /theming    get started
      /foundations/<page>        tokens · typography · icons · motion · brand-marks
+     /components                the catalogue: every component, filters, live previews
      /components/<name>         one page per component of the registries (@krizaka/ui, @krizaka/charts)
      /templates                 every template; /templates/<intent> one intent
      /packages/<package>        the packages without UI: tailwind · intl · i18n · query · realtime · push · config
