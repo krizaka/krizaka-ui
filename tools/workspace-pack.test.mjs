@@ -22,11 +22,14 @@ const NO_REGISTRY = ["--registry=http://127.0.0.1:9", "--no-audit", "--no-fund",
 before(() => {
   root = mkdtempSync(join(tmpdir(), "kz-workspace-pack-"));
   writeFileSync(join(root, "pnpm-workspace.yaml"), 'packages:\n  - "packages/*"\n');
+  writeFileSync(join(root, "package.json"), JSON.stringify({ name: "fixture-root", private: true }));
   // top → middle → leaf, versions that exist nowhere but here (the release pull request's bump).
   write(join(root, "packages", "leaf"), { name: "@kz-fixture/leaf", version: "9.9.9" });
   write(join(root, "packages", "middle"), { name: "@kz-fixture/middle", version: "9.9.9", dependencies: { "@kz-fixture/leaf": "workspace:^" } });
   write(join(root, "packages", "top"), { name: "@kz-fixture/top", version: "9.9.9", dependencies: { "@kz-fixture/middle": "workspace:^" }, devDependencies: { "@kz-fixture/leaf": "workspace:*" } });
   write(join(root, "packages", "alone"), { name: "@kz-fixture/alone", version: "9.9.9", devDependencies: { "@kz-fixture/leaf": "workspace:*" } });
+  // `pnpm pack` resolves `workspace:` from the installed workspace: link the fixture's packages (nothing to download).
+  sh("pnpm", ["install", "--offline", "--ignore-scripts", "--no-frozen-lockfile"], root);
 });
 after(() => rmSync(root, { recursive: true, force: true }));
 
