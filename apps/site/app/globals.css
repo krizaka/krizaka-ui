@@ -835,3 +835,6 @@ html.light .kz-map-snapshot .kz-shot-dark, .theme-light .kz-map-snapshot .kz-sho
 
 /* Code never runs off the edge of its block (a cut line reads as broken, on a phone first): long lines wrap. */
 pre, pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+/* A code block's copy button floats over its top-right corner: the lines keep clear of it (they wrap before it). */
+figure.shiki pre { width: 100%; min-width: 0; }  /* Fumadocs sizes it to its longest line (w-max): it wraps instead */
+figure.shiki > div.absolute ~ * pre, figure.shiki > div.absolute ~ pre { padding-inline-end: 2.75rem; }

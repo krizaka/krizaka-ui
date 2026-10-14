@@ -67,6 +67,29 @@ for (const theme of ["dark", "light"]) {
           if (pre.closest(".kz-preview-stage, .kz-land-stage, .kz-catalog-live")) continue;
           if (pre.scrollWidth > pre.clientWidth + 1) issues.push(`a line of code cut at the edge of its block: ${pre.textContent.trim().slice(0, 40)}`);
         }
+        // Text hidden under an overlay: a copy button (or any absolutely placed control) over the lines of its code block.
+        const blocks = new Set([...document.querySelectorAll("main pre")].filter((pre) => !pre.closest(".kz-preview-stage, .kz-land-stage, .kz-catalog-live")).map((pre) => pre.closest("figure") ?? pre.parentElement));
+        for (const block of blocks) {
+          const overlays = [...block.querySelectorAll("button, [role=button]")]
+            .filter((b) => ["absolute", "fixed", "sticky"].includes(getComputedStyle(b.closest("[class*=absolute]") ?? b).position))
+            .map((b) => b.getBoundingClientRect())
+            .filter((r) => r.width > 0 && r.height > 0);
+          if (!overlays.length) continue;
+          const walker = document.createTreeWalker(block.querySelector("pre") ?? block, NodeFilter.SHOW_TEXT);
+          let hidden = null;
+          for (let node = walker.nextNode(); node && !hidden; node = walker.nextNode()) {
+            if (!node.textContent.trim() || node.parentElement?.closest("button")) continue;
+            const range = document.createRange();
+            range.selectNodeContents(node);
+            for (const t of range.getClientRects()) {
+              if (overlays.some((o) => t.left < o.right - 1 && t.right > o.left + 1 && t.top < o.bottom - 1 && t.bottom > o.top + 1)) {
+                hidden = node.textContent.trim().slice(0, 40);
+                break;
+              }
+            }
+          }
+          if (hidden) issues.push(`text hidden under an overlay in a code block: ${hidden}`);
+        }
         for (const stage of document.querySelectorAll(".kz-preview-stage, .kz-land-stage, .kz-catalog-live")) {
           if (getComputedStyle(stage).overflowX === "visible" && stage.scrollWidth > stage.clientWidth + 1) issues.push(`an example wider than its frame (${stage.scrollWidth} > ${stage.clientWidth})`);
         }
