@@ -1,7 +1,7 @@
 // Writes the registry of @krizaka/ui after tsup (`pnpm build`): `registry/<name>.json` for every component — its
 // documentation (the `meta.ts` beside it), its named examples with their code, the props of its web and native
 // components, and for a web primitive its source and its npm and registry dependencies — and `registry/index.json`,
-// the catalogue. krizaka.com/docs/ui is generated from them at every build; a CLI may one day copy a primitive.
+// the catalogue. ui.krizaka.com is generated from them at every build; a CLI may one day copy a primitive.
 import { copyFileSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -45,7 +45,7 @@ writeFileSync(
     {
       name: "@krizaka/ui",
       version,
-      // The templates grouped by intent (krizaka.com/docs/ui/templates): the groups with their "you come here when…".
+      // The templates grouped by intent (ui.krizaka.com/templates): the groups with their "you come here when…".
       templatePurposes,
       templates: collectTemplates(items),
       items: items.map((item) => ({

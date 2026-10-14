@@ -10,7 +10,7 @@ import { Stat } from "./stat";
 
 /**
  * A key figure: `label`, `value` (tabular digits), `hint`, `trend` with `trendLabel` — the change in words.
- * Each story renders a named example of the registry (`registry/examples/stat/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/stat/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/Stat",

@@ -1,5 +1,5 @@
 // The registry of @krizaka/charts — the same shape as @krizaka/ui's (packages/ui/scripts/registry.mjs), so
-// krizaka.com/docs/ui renders both with one template: for every documented component, its documentation carried by
+// ui.krizaka.com renders both with one template: for every documented component, its documentation carried by
 // the code (`src/meta/<name>.ts`), its named examples (registry/examples) and the props of its web and native
 // components (react-docgen-typescript). Read by `build-registry.mjs` and `registry.test.mjs`.
 import { existsSync, readdirSync, readFileSync } from "node:fs";

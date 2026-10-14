@@ -1,4 +1,4 @@
-// Server-safe. The page of one component of a design system (what krizaka.com/docs/ui draws from the registry): its
+// Server-safe. The page of one component of a design system (what ui.krizaka.com draws from the registry): its
 // name, summary, status and platforms; the live preview with its code; installation; when to use it and when not; its
 // examples; its props; its accessibility — the facts in a side column that goes under the content on a phone.
 import { CodeBlock } from "@krizaka/ui/code-block";

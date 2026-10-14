@@ -1,0 +1,116 @@
+import { getDictionary } from "@/lib/i18n";
+/* ═══════════════════════════════════════════════════════════════════
+   Structured data (schema.org / JSON-LD) builders.
+
+   Entities are emitted as a single linked @graph and cross-referenced by
+   stable @id, so Google's Knowledge Graph reads Krizaka (Organization) and
+   ui.krizaka.com (WebSite, Krizaka UI) as one connected knowledge unit. The Organization names
+   the products in its description; each product's own site describes its
+   application (krizaka.com carries no product page, so no application node).
+   ═══════════════════════════════════════════════════════════════════ */
+import { CONTACT_EMAIL, GITHUB_ORG_URL, KRIZAKA_URL, NPM_ORG_URL,SITE_URL } from "@/lib/site";
+
+export type Locale = "fr" | "en";
+
+const ORG_ID = `${KRIZAKA_URL}/#organization`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
+const HREFLANG: Record<Locale, string> = { fr: "fr-CA", en: "en" };
+const hreflangOf = (locale: Locale) => HREFLANG[locale];
+
+/** Sitewide @graph: Organization. */
+export function buildSiteGraph(locale: Locale) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": ORG_ID,
+        name: "Krizaka",
+        url: KRIZAKA_URL,
+        description: getDictionary(locale).site.structuredData.organization,
+        foundingDate: "2024",
+        knowsAbout: [
+          "Open-source software",
+          "Design systems",
+          "React and React Native components",
+          "Spring Boot building blocks",
+          "Sovereign AI",
+          "Law 25 (Quebec)",
+          "GDPR compliance",
+        ],
+        logo: `${KRIZAKA_URL}/favicon.svg`,
+        email: CONTACT_EMAIL,
+        sameAs: [GITHUB_ORG_URL, NPM_ORG_URL],
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Montréal",
+          addressRegion: "QC",
+          addressCountry: "CA",
+        },
+        areaServed: [
+          { "@type": "Country", name: "Canada" },
+          { "@type": "AdministrativeArea", name: "Québec" },
+        ],
+        isAccessibleForFree: true,
+        codeRepository: GITHUB_ORG_URL,
+      },
+      {
+        "@type": "WebSite",
+        "@id": WEBSITE_ID,
+        url: SITE_URL,
+        name: "Krizaka UI",
+        inLanguage: hreflangOf(locale),
+        publisher: { "@id": ORG_ID },
+      },
+    ],
+  };
+}
+
+/** Page-scoped breadcrumb trail. Emit on the page whose path it describes. */
+export function buildBreadcrumbJsonLd(
+  items: ReadonlyArray<{ name: string; url: string }>,
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+/**
+ * FAQPage schema. Only emit this on a page that *visibly* renders the same Q&A —
+ * Google flags FAQ markup without matching on-page content.
+ */
+export function buildFaqJsonLd(
+  qa: ReadonlyArray<{ question: string; answer: string }>,
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: qa.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
+}
+
+/** A documentation page: TechArticle in the product's docs, with its breadcrumb. */
+export function buildTechArticleJsonLd(a: { locale: Locale; title: string; description: string; url: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: a.title,
+    description: a.description,
+    url: a.url,
+    inLanguage: hreflangOf(a.locale),
+    author: { "@id": ORG_ID },
+    publisher: { "@id": ORG_ID },
+    isPartOf: { "@id": WEBSITE_ID },
+  };
+}

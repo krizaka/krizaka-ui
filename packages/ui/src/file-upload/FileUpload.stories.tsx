@@ -7,7 +7,7 @@ import VideoExample from "../../registry/examples/file-upload/video";
 
 /**
  * FileUpload: each story renders a named example of the registry (`registry/examples/file-upload/*`) — the code
- * krizaka.com/docs/ui shows.
+ * ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/FileUpload",

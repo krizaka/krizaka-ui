@@ -6,7 +6,7 @@ import LiveJobsExample from "../../registry/examples/line-chart/live-jobs";
 import StatesExample from "../../registry/examples/line-chart/states";
 import { chartFrame } from "./frame";
 
-/** Line chart. Each story renders a named example of the registry: the code krizaka.com/docs/ui shows. */
+/** Line chart. Each story renders a named example of the registry: the code ui.krizaka.com shows. */
 const meta = { title: "Charts/LineChart", decorators: [chartFrame] } satisfies Meta;
 export default meta;
 

@@ -6,7 +6,7 @@ import { nativeFrame } from "./story-frame";
 
 /**
  * Native — Combobox through react-native-web. Each story renders a named example of the registry
- * (`registry/examples/combobox/native/*`): the code krizaka.com/docs/ui shows, with these screenshots.
+ * (`registry/examples/combobox/native/*`): the code ui.krizaka.com shows, with these screenshots.
  */
 const meta = {
   title: "Native/Combobox",

@@ -112,7 +112,7 @@
   files `dist`, `registry` (JSON, examples as `.tsx`, `.js`, `.d.ts`), `tailwind.css`, `README.md`, `LICENSE`. Adding an
   entry is a minor; removing or renaming one is a breaking change.
 - **The registry — the code drives the documentation** (`scripts/build-registry.mjs`, run by `build`): one
-  `registry/<name>.json` per component and `registry/index.json`, rendered by **krizaka.com/docs/ui** at every build
+  `registry/<name>.json` per component and `registry/index.json`, rendered by **ui.krizaka.com** at every build
   of the site (the only public documentation: Storybook is internal). A new component comes with:
   - a `meta.ts` beside it (`src/<name>/meta.ts`; React Native only: `src/native/meta/<name>.ts`), typed by
     `src/meta.ts` — summary, status, category, platforms, when to use / not, best practices, accessibility, related,

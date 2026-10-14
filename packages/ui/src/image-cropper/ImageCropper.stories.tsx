@@ -6,7 +6,7 @@ import VerticalVideoExample from "../../registry/examples/image-cropper/vertical
 
 /**
  * ImageCropper: each story renders a named example of the registry (`registry/examples/image-cropper/*`) — the code
- * krizaka.com/docs/ui shows.
+ * ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/ImageCropper",

@@ -7,7 +7,7 @@ import { Spinner } from "./spinner";
 
 /**
  * An indeterminate wait (`role="status"`, named by `label`). It stops turning under reduced motion.
- * Each story renders a named example of the registry (`registry/examples/spinner/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/spinner/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/Spinner",

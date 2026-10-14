@@ -5,7 +5,7 @@ import { nativeFrame } from "./story-frame";
 
 /**
  * Native — TabBar. Each story renders a named example of the registry (`registry/examples/tab-bar/native/*`): the code
- * krizaka.com/docs/ui shows, and the screenshots it shows beside it.
+ * ui.krizaka.com shows, and the screenshots it shows beside it.
  */
 const meta = { title: "Native/TabBar", decorators: [nativeFrame] } satisfies Meta;
 export default meta;

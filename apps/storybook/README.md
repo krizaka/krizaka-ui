@@ -4,7 +4,7 @@ Private app, **never deployed**: a tool for the people who build the primitives.
 `@krizaka/ui`, reads them exactly as a product does (`tailwindcss` → `@krizaka/tailwind` → `@krizaka/ui/tailwind.css`),
 and checks them in CI: an axe audit and a screenshot in **dark and light** for every story.
 
-**The public documentation is [krizaka.com/docs/ui](https://www.krizaka.com/docs/ui)**, generated from the same
+**The public documentation is [ui.krizaka.com](https://ui.krizaka.com)**, generated from the same
 code: each story renders a named example of the registry (`packages/ui/registry/examples`), which the site shows live
 with its code, next to the component's `meta.ts` (when to use it, accessibility, platforms) and its props.
 
@@ -20,7 +20,7 @@ pnpm --filter storybook test              # a11y + screenshots, against storyboo
 
 Stories live next to the component, in `packages/ui/src/**/<Name>.stories.tsx` (CSF 3, typed with
 `@storybook/react-vite`). A primitive's stories render its **named examples** — the files of
-`packages/ui/registry/examples/<name>/` listed in its `meta.ts`, the code krizaka.com/docs/ui shows and gives to copy —
+`packages/ui/registry/examples/<name>/` listed in its `meta.ts`, the code ui.krizaka.com shows and gives to copy —
 so the documentation and the visual tests never drift apart:
 
 ```tsx
@@ -107,7 +107,7 @@ re-run `test:update:linux`.
 ## Not deployed
 
 There is no public Storybook: GitHub Pages and the `ui.krizaka.com` mirror were retired when the documentation moved
-to krizaka.com/docs/ui (one link to share, one list of components). Run it locally with `pnpm --filter storybook dev`.
+to ui.krizaka.com (one link to share, one list of components). Run it locally with `pnpm --filter storybook dev`.
 
 ## Notes
 

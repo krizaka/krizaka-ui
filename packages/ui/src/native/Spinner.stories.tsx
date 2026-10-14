@@ -6,7 +6,7 @@ import { nativeFrame } from "./story-frame";
 
 /**
  * Native — the platform's indicator in the accent, named by `label`.
- * Each story renders a named example of the registry (`registry/examples/spinner/native/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/spinner/native/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Native/Spinner",

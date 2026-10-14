@@ -4,7 +4,7 @@ import ByCapabilityExample from "../../registry/examples/latency-chart/by-capabi
 import TimeToResultExample from "../../registry/examples/latency-chart/time-to-result";
 import { chartFrame } from "./frame";
 
-/** LatencyChart — a ready-made chart. Each story renders a named example of the registry: the code krizaka.com/docs/ui shows. */
+/** LatencyChart — a ready-made chart. Each story renders a named example of the registry: the code ui.krizaka.com shows. */
 const meta = { title: "Charts/LatencyChart", decorators: [chartFrame] } satisfies Meta;
 export default meta;
 

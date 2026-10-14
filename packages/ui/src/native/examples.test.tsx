@@ -1,5 +1,5 @@
 // The registry's React Native examples (registry/examples/<name>/native/*.tsx) render in React Native's renderer,
-// inside the app's ThemeProvider: the code krizaka.com/docs/ui gives to copy runs as written.
+// inside the app's ThemeProvider: the code ui.krizaka.com gives to copy runs as written.
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
 

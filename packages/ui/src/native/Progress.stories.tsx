@@ -8,7 +8,7 @@ import { nativeFrame } from "./story-frame";
 
 /**
  * Native — a bar or a ring in the accent gradient; indeterminate without a value.
- * Each story renders a named example of the registry (`registry/examples/progress/native/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/progress/native/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Native/Progress",

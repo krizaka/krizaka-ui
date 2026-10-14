@@ -6,7 +6,7 @@ import { nativeFrame } from "./story-frame";
 
 /**
  * Native — Field through react-native-web. Each story renders a named example of the registry
- * (`registry/examples/field/native/*`): the code krizaka.com/docs/ui shows, with these screenshots.
+ * (`registry/examples/field/native/*`): the code ui.krizaka.com shows, with these screenshots.
  */
 const meta = {
   title: "Native/Field",

@@ -4,7 +4,7 @@ import JobsExample from "../../registry/examples/list/jobs";
 import SelectableExample from "../../registry/examples/list/selectable";
 import VirtualizedExample from "../../registry/examples/list/virtualized";
 
-/** List. Each story renders a named example of the registry (`registry/examples/list/*`): the code krizaka.com/docs/ui shows. */
+/** List. Each story renders a named example of the registry (`registry/examples/list/*`): the code ui.krizaka.com shows. */
 const meta = { title: "Primitives/List" } satisfies Meta;
 export default meta;
 

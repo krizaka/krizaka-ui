@@ -15,7 +15,7 @@ import WheelExample from "../../registry/examples/date-picker/wheel";
 
 /**
  * DatePicker and the dates and times: each story renders a named example of the registry
- * (`registry/examples/date-picker/*`) — the code krizaka.com/docs/ui shows.
+ * (`registry/examples/date-picker/*`) — the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/DatePicker",

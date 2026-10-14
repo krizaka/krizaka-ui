@@ -5,7 +5,7 @@ import { nativeFrame } from "./story-frame";
 
 /**
  * Native — VideoPlayer through react-native-web. Each story renders a named example of the registry
- * (`registry/examples/video-player/native/*`): the code krizaka.com/docs/ui shows, with these screenshots.
+ * (`registry/examples/video-player/native/*`): the code ui.krizaka.com shows, with these screenshots.
  */
 const meta = {
   title: "Native/VideoPlayer",

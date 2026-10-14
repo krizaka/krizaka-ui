@@ -1,5 +1,5 @@
 /**
- * The documentation of the set, as data (krizaka.com/docs/ui/icons renders it with `glyphIndex`): the groups, the
+ * The documentation of the set, as data (ui.krizaka.com/foundations/icons renders it with `glyphIndex`): the groups, the
  * sizes, the node, accessibility, and how to ask for a new icon. Written here, beside the drawings — never on the site.
  */
 

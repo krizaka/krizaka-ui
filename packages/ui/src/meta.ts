@@ -1,7 +1,7 @@
 // The documentation of a component, carried by its code: each primitive has a `meta.ts` beside its source
 // (`src/<name>/meta.ts`; a component that exists only in React Native: `src/native/meta/<name>.ts`). Never built into
-// the package: `scripts/build-registry.mjs` reads them into `registry/<name>.json`, which krizaka.com renders as
-// /docs/ui/<name>, and `scripts/registry.test.mjs` fails when one is missing or incomplete.
+// the package: `scripts/build-registry.mjs` reads them into `registry/<name>.json`, which ui.krizaka.com (apps/site) renders as
+// ui.krizaka.com/components/<name>, and `scripts/registry.test.mjs` fails when one is missing or incomplete.
 //
 // Why a typed module and not JSDoc tags: the fields are lists and links (`related`, `whenNotToUse[].use`, examples),
 // which a type checks and a comment does not; the file is plain data (erasable TypeScript), so Node reads it without a
@@ -208,7 +208,7 @@ export type Example =
   | (ExampleBase & {
       /**
        * A template: a whole screen of a product composed from the platform (a layout and its blocks, real words, its
-       * phone version thought out), copied as a starting point — at most 160 lines, listed on krizaka.com/docs/ui/templates.
+       * phone version thought out), copied as a starting point — at most 160 lines, listed on ui.krizaka.com/templates.
        */
       readonly template: true;
       /** The intent that groups it: why you need this block. */

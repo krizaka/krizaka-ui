@@ -5,7 +5,7 @@ import PlansByQuarterExample from "../../registry/examples/bar-chart/plans-by-qu
 import TopSupportersExample from "../../registry/examples/bar-chart/top-supporters";
 import { chartFrame } from "./frame";
 
-/** Bar chart. Each story renders a named example of the registry: the code krizaka.com/docs/ui shows. */
+/** Bar chart. Each story renders a named example of the registry: the code ui.krizaka.com shows. */
 const meta = { title: "Charts/BarChart", decorators: [chartFrame] } satisfies Meta;
 export default meta;
 

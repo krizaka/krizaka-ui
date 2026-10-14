@@ -6,7 +6,7 @@ import ToolbarExample from "../../registry/examples/search-field/toolbar";
 
 /**
  * SearchField: each story renders a named example of the registry (`registry/examples/search-field/*`) — the code
- * krizaka.com/docs/ui shows.
+ * ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/SearchField",

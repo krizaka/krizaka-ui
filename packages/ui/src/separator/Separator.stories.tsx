@@ -6,7 +6,7 @@ import { Separator } from "./separator";
 
 /**
  * A line between groups (Radix Separator): decorative by default, `decorative={false}` for a real separator.
- * Each story renders a named example of the registry (`registry/examples/separator/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/separator/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/Separator",

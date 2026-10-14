@@ -5,7 +5,7 @@ import { nativeFrame } from "./story-frame";
 
 /**
  * Native — SwipeableRow. Each story renders a named example of the registry (`registry/examples/swipeable-row/native/*`): the code
- * krizaka.com/docs/ui shows, and the screenshots it shows beside it.
+ * ui.krizaka.com shows, and the screenshots it shows beside it.
  */
 const meta = { title: "Native/SwipeableRow", decorators: [nativeFrame] } satisfies Meta;
 export default meta;

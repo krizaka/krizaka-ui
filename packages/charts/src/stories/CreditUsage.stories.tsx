@@ -4,7 +4,7 @@ import MonthlyCreditsExample from "../../registry/examples/credit-usage/monthly-
 import StoragePlanExample from "../../registry/examples/credit-usage/storage-plan";
 import { chartFrame } from "./frame";
 
-/** CreditUsage — a ready-made chart. Each story renders a named example of the registry: the code krizaka.com/docs/ui shows. */
+/** CreditUsage — a ready-made chart. Each story renders a named example of the registry: the code ui.krizaka.com shows. */
 const meta = { title: "Charts/CreditUsage", decorators: [chartFrame] } satisfies Meta;
 export default meta;
 

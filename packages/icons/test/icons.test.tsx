@@ -32,7 +32,7 @@ describe("the set", () => {
   });
 });
 
-describe("the documentation (krizaka.com/docs/ui/icons)", () => {
+describe("the documentation (ui.krizaka.com/foundations/icons)", () => {
   it("describes every group the set uses, in reading order", () => {
     const used = new Set(Object.values(catalog.glyphIndex).map((g) => g.group));
     expect(catalog.iconGroups.map((g) => g.id).sort()).toEqual([...used].sort());

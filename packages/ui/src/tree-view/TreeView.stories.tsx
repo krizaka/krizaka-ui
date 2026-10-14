@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import DocsExample from "../../registry/examples/tree-view/docs";
 import LazyExample from "../../registry/examples/tree-view/lazy";
 
-/** TreeView. Each story renders a named example of the registry (`registry/examples/tree-view/*`): the code krizaka.com/docs/ui shows. */
+/** TreeView. Each story renders a named example of the registry (`registry/examples/tree-view/*`): the code ui.krizaka.com shows. */
 const meta = { title: "Primitives/TreeView" } satisfies Meta;
 export default meta;
 

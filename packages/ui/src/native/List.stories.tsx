@@ -8,7 +8,7 @@ import { nativeFrame } from "./story-frame";
 
 /**
  * Native — List (FlashList v2) through react-native-web. Each story renders a named example of the registry
- * (`registry/examples/list/native/*`): the code krizaka.com/docs/ui shows, with these screenshots.
+ * (`registry/examples/list/native/*`): the code ui.krizaka.com shows, with these screenshots.
  */
 const meta = {
   title: "Native/List",

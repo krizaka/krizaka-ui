@@ -1,0 +1,49 @@
+{
+  "name": "@krizaka/site",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ui.krizaka.com — the documentation of Krizaka UI, built from the workspace packages at every change: the code drives the docs. Static export, deployed on DigitalOcean App Platform.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/gen-ui-docs.mjs",
+    "dev": "next dev",
+    "build": "node scripts/gen-ui-docs.mjs --strict && next build",
+    "lint": "eslint . --max-warnings 0 && krizaka-i18n check messages && node scripts/gen-ui-docs.mjs --check",
+    "typecheck": "fumadocs-mdx && node scripts/gen-ui-docs.mjs && tsc --noEmit",
+    "test": "node --disable-warning=ExperimentalWarning --test tests/*.test.mjs",
+    "ui:usage": "node scripts/scan-ui-usage.mjs",
+    "postinstall": "fumadocs-mdx"
+  },
+  "dependencies": {
+    "@krizaka/charts": "workspace:*",
+    "@krizaka/fonts": "workspace:*",
+    "@krizaka/i18n": "workspace:*",
+    "@krizaka/icons": "workspace:*",
+    "@krizaka/query": "workspace:*",
+    "@krizaka/tailwind": "workspace:*",
+    "@krizaka/tokens": "workspace:*",
+    "@krizaka/ui": "workspace:*",
+    "fumadocs-core": "16.17.1",
+    "fumadocs-mdx": "15.4.7",
+    "fumadocs-ui": "16.17.1",
+    "lucide-react": "^1.17.0",
+    "maplibre-gl": "^6.14.0",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@krizaka/config": "workspace:*",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/mdast": "^4.0.4",
+    "@types/mdx": "^2.0.14",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.4.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  }
+}

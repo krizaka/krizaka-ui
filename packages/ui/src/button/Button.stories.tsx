@@ -21,7 +21,7 @@ import { Button } from "./button";
 /**
  * The action. `variant` × `size` × `shape`, `loading`, `asChild`; `buttonVariants` styles a link without the component.
  * Each story renders a named example of the registry (`registry/examples/button/*`, listed in `meta.ts`): the code
- * krizaka.com/docs/ui shows and gives to copy.
+ * ui.krizaka.com shows and gives to copy.
  */
 const meta = {
   title: "Primitives/Button",

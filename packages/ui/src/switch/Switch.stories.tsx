@@ -9,7 +9,7 @@ import { Switch } from "./switch";
 
 /**
  * `Switch` on Radix: role="switch", Space toggles. `label` names it when no visible label does.
- * Each story renders a named example of the registry (`registry/examples/switch/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/switch/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/Switch",

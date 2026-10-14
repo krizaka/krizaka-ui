@@ -2,7 +2,7 @@ import { Button } from "@krizaka/ui/button";
 import { ComponentPage } from "@krizaka/ui/component-page";
 import { LinkCard } from "@krizaka/ui/link-card";
 
-// TEMPLATE — a component's page (what krizaka.com/docs/ui generates from the registry): name, summary, status and
+// TEMPLATE — a component's page (what ui.krizaka.com generates from the registry): name, summary, status and
 // platforms, the live preview, the import line, its sections; related components aside (under it on a phone).
 export default function ComponentPageButton() {
   return (

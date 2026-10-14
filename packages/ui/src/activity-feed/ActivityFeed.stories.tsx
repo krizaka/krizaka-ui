@@ -4,7 +4,7 @@ import JobActivityExample from "../../registry/examples/activity-feed/job-activi
 import LiveExample from "../../registry/examples/activity-feed/live";
 import TimelineExample from "../../registry/examples/activity-feed/timeline";
 
-/** ActivityFeed. Each story renders a named example of the registry (`registry/examples/activity-feed/*`): the code krizaka.com/docs/ui shows. */
+/** ActivityFeed. Each story renders a named example of the registry (`registry/examples/activity-feed/*`): the code ui.krizaka.com shows. */
 const meta = { title: "Primitives/ActivityFeed" } satisfies Meta;
 export default meta;
 

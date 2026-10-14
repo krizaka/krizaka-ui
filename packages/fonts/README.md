@@ -6,7 +6,7 @@ with metric-matched fallbacks (CLS 0), and static TrueType for React Native / Ex
 
 [![npm](https://img.shields.io/npm/v/@krizaka/fonts?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/fonts)
 
-Documentation: [krizaka.com/docs/ui/typography](https://www.krizaka.com/en/docs/ui/typography) — specimen, scale, rules.
+Documentation: [ui.krizaka.com/foundations/typography](https://ui.krizaka.com/foundations/typography) — specimen, scale, rules.
 
 ## Web
 

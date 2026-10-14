@@ -33,7 +33,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm turbo run check
+      - run: pnpm turbo run check --filter='!@krizaka/site'   # the documentation site has its own job (below)
       - run: pnpm test:tools   # tools/ (the inventory): node:test, no build
       - name: Upload the screenshot diffs
         if: failure()
@@ -42,6 +42,22 @@ jobs:
           name: storybook-screenshot-diffs
           path: apps/storybook/__screenshots__/__diff__
           if-no-files-found: ignore
+
+  site:
+    # ui.krizaka.com (apps/site), built from the packages of this commit: lint (with gen-ui-docs --check), types, tests
+    # (the IA, the URL map, the registries' completeness) and the static export. Deployed by DigitalOcean on push to main.
+    name: Documentation site (ui.krizaka.com)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo run build --filter=@krizaka/site...
+      - run: pnpm turbo run lint typecheck test --filter=@krizaka/site
 
   realtime:
     # @krizaka/realtime against real servers: two buses per adapter standing for two app instances (PostgreSQL

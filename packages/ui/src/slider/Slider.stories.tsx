@@ -13,7 +13,7 @@ import { Slider } from "./slider";
 
 /**
  * `Slider` on Radix: one value or a range, arrows / Page Up / Page Down / Home / End.
- * Each story renders a named example of the registry (`registry/examples/slider/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/slider/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/Slider",

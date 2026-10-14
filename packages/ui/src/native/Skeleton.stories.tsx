@@ -6,7 +6,7 @@ import { nativeFrame } from "./story-frame";
 
 /**
  * Native — a pulsing placeholder the size of what is loading, hidden from screen readers.
- * Each story renders a named example of the registry (`registry/examples/skeleton/native/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/skeleton/native/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Native/Skeleton",

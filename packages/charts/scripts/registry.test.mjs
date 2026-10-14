@@ -1,7 +1,7 @@
 // The registry is complete and documented — by the code: every chart has its meta (summary, when to use and not,
 // best practices, accessibility, platforms, status, related), its named examples (short, importing as a product
 // does, with realistic data), and every prop of its web and native components has a JSDoc description. A chart
-// without its documentation fails here, before it can reach krizaka.com/docs/ui.
+// without its documentation fails here, before it can reach ui.krizaka.com.
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 

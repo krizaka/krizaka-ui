@@ -152,7 +152,7 @@ set in a font. No typeface is drawn from scratch: a cut-corner stylistic set (a 
 of the display face, under the OFL as a modified version with its own name) is a foundry project for later, tracked as
 an issue, not a dependency of anything today.
 
-Rules (also `rules` of `@krizaka/fonts`, on krizaka.com/docs/ui/typography): display speaks, text reads, mono labels;
+Rules (also `rules` of `@krizaka/fonts`, on ui.krizaka.com/foundations/typography): display speaks, text reads, mono labels;
 display from 20 px at 600–800, text from 12 px at 400–700; one display line per block; tabular figures for amounts; the
 scale, not one-off sizes; products may override the display role only.
 
@@ -199,4 +199,4 @@ React Native has no `corner-shape`: the native primitives keep their rounded cor
 
 Captures of the material, the three brands in dark and light, are in the pull request that introduced it
 (krizaka/krizaka-ui, "signature visual language"); the living reference is the showcase at the top of
-[krizaka.com/docs/ui](https://www.krizaka.com/docs/ui).
+[ui.krizaka.com](https://ui.krizaka.com).

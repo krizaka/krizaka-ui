@@ -1,7 +1,7 @@
 // The registry is complete and documented — by the code: every component has its `meta.ts` (summary, when to use and
 // not, best practices, accessibility, platforms, status, related components) and its named examples, every prop it
 // declares has a JSDoc description, and every example is short and imports the components the way a product does.
-// A primitive without its documentation fails here, before it can reach krizaka.com/docs/ui.
+// A primitive without its documentation fails here, before it can reach ui.krizaka.com.
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 

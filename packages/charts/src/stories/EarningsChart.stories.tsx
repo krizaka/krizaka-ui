@@ -4,7 +4,7 @@ import CreatorMonthExample from "../../registry/examples/earnings-chart/creator-
 import GrossAndNetExample from "../../registry/examples/earnings-chart/gross-and-net";
 import { chartFrame } from "./frame";
 
-/** EarningsChart — a ready-made chart. Each story renders a named example of the registry: the code krizaka.com/docs/ui shows. */
+/** EarningsChart — a ready-made chart. Each story renders a named example of the registry: the code ui.krizaka.com shows. */
 const meta = { title: "Charts/EarningsChart", decorators: [chartFrame] } satisfies Meta;
 export default meta;
 

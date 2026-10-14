@@ -5,7 +5,7 @@ chart libraries leave to you built in — a data table and a written summary in 
 loading / empty / error states, SSR without layout shift, export, thresholds, live data — and React Native for the
 simple types.
 
-**Documentation: [krizaka.com/docs/ui](https://www.krizaka.com/docs/ui)** (generated from this package's registry).
+**Documentation: [ui.krizaka.com](https://ui.krizaka.com)** (generated from this package's registry).
 
 ```bash
 npm install @krizaka/charts

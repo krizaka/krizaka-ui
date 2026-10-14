@@ -146,7 +146,7 @@ export function compile(source, faces) {
 /** The three Krizaka families — display, text, mono — as data: files, weights, licence, fallback, and how to use them. */
 export const fonts = Object.freeze(${json(families)});
 
-/** The usage rules of the Krizaka typography (krizaka.com/docs/ui/typography). */
+/** The usage rules of the Krizaka typography (ui.krizaka.com/foundations/typography). */
 export const rules = Object.freeze(${json(source.rules)});
 
 /** The files worth preloading: the latin subset of each family (paths inside the package). */
@@ -194,7 +194,7 @@ export interface Font {
 }
 /** The three Krizaka families — display, text, mono — as data: files, weights, licence, fallback, and how to use them. */
 export declare const fonts: readonly Font[];
-/** The usage rules of the Krizaka typography (krizaka.com/docs/ui/typography). */
+/** The usage rules of the Krizaka typography (ui.krizaka.com/foundations/typography). */
 export declare const rules: readonly string[];
 /** The files worth preloading: the latin subset of each family (paths inside the package). */
 export declare const preload: readonly string[];

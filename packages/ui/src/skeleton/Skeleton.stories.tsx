@@ -10,7 +10,7 @@ import { Skeleton } from "./skeleton";
 
 /**
  * A placeholder the shape of what is loading (decorative: announce the wait elsewhere). Still under reduced motion.
- * Each story renders a named example of the registry (`registry/examples/skeleton/*`): the code krizaka.com/docs/ui shows.
+ * Each story renders a named example of the registry (`registry/examples/skeleton/*`): the code ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/Skeleton",

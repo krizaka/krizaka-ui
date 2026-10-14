@@ -5,7 +5,7 @@ import VoiceNoteExample from "../../registry/examples/audio-player/voice-note";
 
 /**
  * AudioPlayer: each story renders a named example of the registry (`registry/examples/audio-player/*`) — the code
- * krizaka.com/docs/ui shows.
+ * ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/AudioPlayer",

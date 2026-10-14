@@ -6,7 +6,7 @@ import PlayheadExample from "../../registry/examples/video-trimmer/playhead";
 
 /**
  * VideoTrimmer: each story renders a named example of the registry (`registry/examples/video-trimmer/*`) — the code
- * krizaka.com/docs/ui shows.
+ * ui.krizaka.com shows.
  */
 const meta = {
   title: "Primitives/VideoTrimmer",

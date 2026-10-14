@@ -8,7 +8,7 @@
     "mono": { "$value": ["JetBrains Mono", "JetBrains Mono Fallback", "ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"], "$description": "Code, identifiants, surtitres (JetBrains Mono)" }
   },
   "type": {
-    "$description": "Échelle typographique — taille, interlignage, graisse, approche ; la famille est celle du rôle. Les descriptions des étapes sont en anglais : krizaka.com/docs/ui/typography les affiche",
+    "$description": "Échelle typographique — taille, interlignage, graisse, approche ; la famille est celle du rôle. Les descriptions des étapes sont en anglais : ui.krizaka.com/foundations/typography les affiche",
     "display-2xl": {
       "$description": "The hero of a home page",
       "$extensions": { "com.krizaka": { "role": "display" } },
