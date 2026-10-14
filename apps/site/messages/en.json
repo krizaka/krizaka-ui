@@ -550,6 +550,13 @@
     "packages": {
       "title": "Where the pieces live",
       "source": "Source and release notes on GitHub"
+    },
+    "chart": {
+      "title": "Earnings, last 6 months",
+      "description": "Video sales, before fees",
+      "month": "Month",
+      "series": "Video sales",
+      "threshold": "Payout threshold"
     }
   }
 }

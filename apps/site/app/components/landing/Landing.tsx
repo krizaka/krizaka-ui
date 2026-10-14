@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
+import { LineChart } from "@krizaka/charts/line";
 import { CalendarIcon, ForwardIcon, HomeIcon, PackIcon, SettingsIcon, StudioIcon, ThemeIcon, VideoIcon } from "@krizaka/icons";
 import { Button } from "@krizaka/ui/button";
 import { CardGrid } from "@krizaka/ui/card-grid";
@@ -8,7 +9,7 @@ import { CodeBlock } from "@krizaka/ui/code-block";
 import { LinkCard } from "@krizaka/ui/link-card";
 import { NumberTicker } from "@krizaka/ui/number-ticker";
 import Link from "next/link";
-import type { ComponentType } from "react";
+import type { ComponentType, CSSProperties } from "react";
 
 import { format, getDictionary, type Locale } from "@/lib/i18n";
 import { packageVersion } from "@/lib/package-version";
@@ -31,7 +32,6 @@ const TILES: { key: UiExampleKey; component: string; caption: keyof ReturnType<t
   { key: "form/sign-up", component: "form", caption: "signUp", area: "form" },
   { key: "stepper/job", component: "stepper", caption: "stepper", area: "stepper" },
   { key: "data-table/jobs", component: "data-table", caption: "jobs", area: "table" },
-  { key: "charts/line-chart/creator-earnings", component: "line-chart", caption: "chart", area: "chart" },
 ];
 
 const PLACES = [
@@ -58,6 +58,19 @@ const PACKAGES: { name: string; path?: string; dir: string }[] = [
   { name: "@krizaka/push", path: "/packages/push", dir: "push" },
   { name: "@krizaka/config", path: "/packages/config", dir: "config" },
 ];
+
+/** The chart tile: monthly earnings in cents (one series, so the value axis fits the data instead of starting at zero). */
+const EARNINGS = [
+  { month: "2026-04", earnings: 182_000 },
+  { month: "2026-05", earnings: 164_000 },
+  { month: "2026-06", earnings: 231_000 },
+  { month: "2026-07", earnings: 298_000 },
+  { month: "2026-08", earnings: 276_000 },
+  { month: "2026-09", earnings: 342_000 },
+];
+
+/** The poster of the vertical clip (the example's own, on the CDN): the blurred wash behind it. */
+const POSTER = "https://krizaka-assets.b-cdn.net/site/people/ui/camille-512.9573eaa0b8.webp";
 
 const INSTALL = "npm install @krizaka/ui @krizaka/tailwind @krizaka/tokens tailwindcss";
 
@@ -135,7 +148,7 @@ export async function Landing({ locale }: { locale: Locale }) {
         <p className="kz-land-sub">{t.showcase.lead}</p>
         <IdentityStage label={t.showcase.identity} stageLabel={t.showcase.stage}>
           {tiles.map(({ key, component, caption, area, title, Example }) => (
-            <figure key={key} className="kz-land-tile" data-area={area}>
+            <figure key={key} className="kz-land-tile" data-area={area} style={area === "video" ? ({ "--kz-land-poster": `url(${POSTER})` } as CSSProperties) : undefined}>
               <div className="kz-land-stage">
                 <Example {...examplePropsOf(key)} />
               </div>
@@ -147,6 +160,27 @@ export async function Landing({ locale }: { locale: Locale }) {
               </figcaption>
             </figure>
           ))}
+          <figure className="kz-land-tile" data-area="chart">
+            <div className="kz-land-stage">
+              <LineChart
+                title={t.chart.title}
+                description={t.chart.description}
+                data={EARNINGS}
+                x="month"
+                xLabel={t.chart.month}
+                series={[{ key: "earnings", label: t.chart.series }]}
+                format={{ style: "money", currency: "CAD" }}
+                thresholds={[{ value: 250_000, label: t.chart.threshold, tone: "success" }]}
+                zero={false}
+              />
+            </div>
+            <figcaption>
+              <span>{t.tiles.chart}</span>
+              <Link href={componentPath(locale, "line-chart")} aria-label={format(t.showcase.open, { name: getRegistryItem("line-chart").title })}>
+                {getRegistryItem("line-chart").title} →
+              </Link>
+            </figcaption>
+          </figure>
         </IdentityStage>
       </section>
 

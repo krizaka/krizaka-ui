@@ -550,6 +550,13 @@
     "packages": {
       "title": "Où vivent les pièces",
       "source": "Code source et notes de version sur GitHub"
+    },
+    "chart": {
+      "title": "Revenus, 6 derniers mois",
+      "description": "Ventes de vidéos, avant frais",
+      "month": "Mois",
+      "series": "Ventes de vidéos",
+      "threshold": "Seuil de versement"
     }
   }
 }
