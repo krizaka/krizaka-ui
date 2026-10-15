@@ -27,10 +27,10 @@ describe("sites — the Krizaka family", () => {
     ]);
   });
 
-  it("says each kind and status: the company, five products (Yasakia upcoming, Yomizaka in development, Yororis under construction), open source", () => {
+  it("says each kind and status: the company, five products (Yasakia and Yomizaka in development, Yororis under construction), open source", () => {
     expect(siteById("krizaka").kind).toBe("company");
     expect(sites.filter((s) => s.kind === "product").map((s) => s.id)).toEqual(["orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"]);
-    expect(siteById("yasakia").status).toBe("upcoming");
+    expect(siteById("yasakia").status).toBe("development");
     expect(siteById("yororis").status).toBe("construction");
     expect(siteById("yomizaka").status).toBe("development");
     // In development: nothing deployed — the address is the repository, never a dead dev link.
