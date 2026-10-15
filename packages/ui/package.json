@@ -87,6 +87,10 @@
       "types": "./dist/avatar.d.ts",
       "import": "./dist/avatar.js"
     },
+    "./avatar/defaults": {
+      "types": "./dist/avatar/defaults.d.ts",
+      "import": "./dist/avatar/defaults.js"
+    },
     "./theme": {
       "types": "./dist/theme.d.ts",
       "import": "./dist/theme.js"

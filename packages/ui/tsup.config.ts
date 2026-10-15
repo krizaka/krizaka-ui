@@ -50,6 +50,8 @@ export default defineConfig([
       "description-list": "src/description-list/index.ts",
       "verified-badge": "src/verified-badge/index.ts",
       "step-progress": "src/step-progress/index.ts",
+      // The default avatars' pure helpers (defaultAvatarUrl…): callable in a Server Component, unlike "avatar" (client).
+      "avatar/defaults": "src/avatar/defaults.ts",
       // The Krizaka family as data (the bar's switcher and the footer read it).
       sites: "src/sites/index.ts",
       // The page blocks that hold no state: usable in a Server Component as they are.
