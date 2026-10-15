@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.14.0
+
+### Minor Changes
+
+- [#193](https://github.com/krizaka/krizaka-ui/pull/193) [`24b4e1d`](https://github.com/krizaka/krizaka-ui/commit/24b4e1d8c96f6858708bc37cd357caaeae6ea3a1) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `SiteFooter` gets a product mode: `family={false}` drops the family columns — a deployed product is independent, so its footer holds only its own columns, the legal links, the version and one publisher line (“A Krizaka product” / « Un produit Krizaka », linking to www.krizaka.com). `NavBar.Family` in the phone panel no longer repeats its heading: the company's own group carries no second “Krizaka” title.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.14.0
+  - @krizaka/tokens@3.14.0
+
 ## 3.13.0
 
 ### Minor Changes
