@@ -356,7 +356,7 @@ describe("brands", async () => {
   const surfaces = ["surface0", "surface1", "surface2", "surface3"] as const;
 
   it("compiles one theme per brand and the scoped classes", () => {
-    expect(BRANDS).toEqual(["krizaka", "orazaka", "orochia", "yasakia", "yororis"]);
+    expect(BRANDS).toEqual(["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka"]);
     for (const id of BRANDS) expect(files[`brands/${id}.css`], id).toBeDefined();
     expect(files["brands/scoped.css"]).toContain(".brand-orazaka {");
     expect(Object.keys(index.brands)).toEqual(BRANDS);
@@ -455,7 +455,7 @@ describe("brands", async () => {
       }
     });
 
-    it.each(["orazaka", "yasakia", "yororis"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
+    it.each(["orazaka", "yasakia", "yororis", "yomizaka"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
       for (const mode of ["dark", "light"] as const) {
         for (const s of ["surface0", "surface1", "surface2"] as const) {
           for (const [, c] of index.marks[id]) expect(contrast(parseHsl(c), parseHsl(index.values[mode][s])), `${mode} ${s} ${c}`).toBeGreaterThanOrEqual(3);
@@ -512,6 +512,38 @@ describe("brands", async () => {
     }
     expect(files["brands/scoped.css"]).toContain(".brand-yororis {");
     expect(files["brands/scoped.css"]).toContain("html.light .brand-yororis");
+  });
+
+  it("keeps Yomizaka's indigo apart from the Krizaka blue, the Orochia violet, every other brand and every status", () => {
+    const hsl = (v: string) => /hsl\(([\d.]+) ([\d.]+)%/.exec(v)!.slice(1).map(Number) as [number, number];
+    const gap = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
+    for (const mode of ["dark", "light"] as const) {
+      const [accent] = hsl(index.brands.yomizaka[mode].accent);
+      // The ink indigo sits between the parent's blue and Orochia's violet, at least 20° from each.
+      expect(gap(accent, hsl(index.brands.krizaka[mode].accent)[0]), `${mode} krizaka`).toBeGreaterThanOrEqual(20);
+      expect(gap(accent, hsl(index.brands.orochia.dark.accent)[0]), `${mode} orochia`).toBeGreaterThanOrEqual(20);
+      for (const other of ["orazaka", "yasakia", "yororis"] as const) {
+        expect(gap(accent, hsl(index.brands[other][mode].accent)[0]), `${mode} ${other}`).toBeGreaterThanOrEqual(60);
+      }
+      for (const status of ["success", "warning", "danger"] as const) {
+        expect(gap(accent, hsl(index.values[mode][status])[0]), `${mode} ${status}`).toBeGreaterThanOrEqual(60);
+      }
+      expect(index.brands.yomizaka[mode].info).not.toBe(index.brands.yomizaka[mode].accent);
+    }
+    // Ink (232) → indigo (248): the mark's first stop is accent-2's hue, its last within 10° of the accent.
+    const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);
+    expect(index.marks.yomizaka.map(([, c]: [string, string]) => hue(c))).toEqual([232, 248]);
+    expect(hue(index.brands.yomizaka.dark.accent2)).toBe(232);
+    expect(Math.abs(hue(index.marks.yomizaka.at(-1)[1]) - hue(index.brands.yomizaka.dark.accent))).toBeLessThanOrEqual(10);
+  });
+
+  it("gives Yomizaka the same roles as every brand, dark, light and native (key parity)", () => {
+    for (const mode of ["dark", "light"] as const) {
+      expect(Object.keys(index.brands.yomizaka[mode])).toEqual(Object.keys(index.brands.orochia[mode]));
+      expect(Object.keys(native.brands.yomizaka[mode])).toEqual(Object.keys(native.brands.orochia[mode]));
+    }
+    expect(files["brands/scoped.css"]).toContain(".brand-yomizaka {");
+    expect(files["brands/scoped.css"]).toContain("html.light .brand-yomizaka");
   });
 
   it("keeps Orazaka's accent apart from the warning status", () => {

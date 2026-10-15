@@ -30,7 +30,7 @@
   platform through `@krizaka/ui/native` (one theme context). Jest and Storybook render them on stand-ins
   (`src/native/mocks`).
 - The **brand layer shared by every Krizaka product**: the animated marks (`KrizakaLogo`, `OrazakaLogo`,
-  `OrochiaLogo`, `YasakiaLogo`, `YororisLogo`, `ProductLogo`; native `KrizakaMark`, `OrazakaMark`, `OrochiaMark`, `YasakiaMark`, `YororisMark`, `ProductMark`), one family drawn from
+  `OrochiaLogo`, `YasakiaLogo`, `YororisLogo`, `YomizakaLogo`, `ProductLogo`; native `KrizakaMark`, `OrazakaMark`, `OrochiaMark`, `YasakiaMark`, `YororisMark`, `YomizakaMark`, `ProductMark`), one family drawn from
   shared geometry (`marks/*-geometry.ts`, colours tested against the brand themes of `@krizaka/tokens`, see its
   `BRAND.md`), and the **Krizaka motion signature** (`motion.css`, `./motion`: `MotionObserver` — reveal, off-screen
   pause, settle, spotlight, magnetism — and `RotatingWord`; the section backdrop's layers; the loader glyph; the
@@ -66,7 +66,7 @@
 
 - `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest + happy-dom for the web; Jest with React
   Native's preset and Testing Library for `src/native`), build (tsup), size, publint.
-- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 31.5 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the Yasakia mark and the lovebird; 2.9: the finer Yasakia mark — two voices and a lit lens, +0.15 kB; the storytelling kit's ProfileCard, GoalGauge and the phoenix; the Yororis mark, the crane and the fifth brand's inlined tokens, +0.7 kB; 3.1: the form fields TextField, Checkbox and DateField and the date helpers, +1.7 kB; 3.2: the dates and times — Calendar, MonthPicker, DayStrip, the wheels, TimePicker, DateWheel — +4.9 kB; the controls — Switch, RadioGroup, Slider, Sheet, Select, Combobox — +4.9 kB) (Metro
+- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 31.5 kB (with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the Yasakia mark and the lovebird; 2.9: the finer Yasakia mark — two voices and a lit lens, +0.15 kB; the storytelling kit's ProfileCard, GoalGauge and the phoenix; the Yororis mark, the crane and the fifth brand's inlined tokens, +0.7 kB; 3.13: the Yomizaka mark, +0.9 kB; 3.1: the form fields TextField, Checkbox and DateField and the date helpers, +1.7 kB; 3.2: the dates and times — Calendar, MonthPicker, DayStrip, the wheels, TimePicker, DateWheel — +4.9 kB; the controls — Switch, RadioGroup, Slider, Sheet, Select, Combobox — +4.9 kB) (Metro
   bundles it into the app, nothing is downloaded: a regression guard, not a budget); the shared runtime
   (`./cn`: clsx + tailwind-variants and its merge engine, paid once per app) ≤ 14 kB; each primitive is measured
   without that runtime (Radix included): `./button` ≤ 3.5 kB (it draws the loader glyph), `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
@@ -77,7 +77,7 @@
   or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6 kB, `./chip` ≤ 10 kB, `./tabs` ≤ 10 kB, `./radio-group`
   ≤ 12.5 kB (3.2: the tactile keys, the cards' check and the segments' gliding light), `./slider` ≤ 12 kB. What opens over the page carries Radix's machinery (dismissable layer, focus scope, scroll lock,
   and Floating UI for what is placed next to a trigger) — shared between these entries in an app, but counted in
-  each: `./dialog` ≤ 16.5 kB, `./toast` ≤ 11.5 kB (sonner), `./nav-bar` ≤ 16 kB (Radix NavigationMenu), `./tooltip` ≤ 20 kB, `./popover` ≤ 25 kB,
+  each: `./dialog` ≤ 16.5 kB, `./toast` ≤ 11.5 kB (sonner), `./nav-bar` ≤ 22.6 kB (Radix NavigationMenu and the family's marks — 3.13: +0.6 kB for the Yomizaka mark), `./tooltip` ≤ 20 kB, `./popover` ≤ 25 kB,
   `./dropdown-menu` ≤ 32 kB, `./command` ≤ 21 kB (cmdk alone is 14.9 kB: it imports Radix's Dialog itself; with
   `CommandDialog` on the platform's Dialog, 19 kB measured, +10 %). The data and media primitives (`@krizaka/intl`
   counted, the optional peers hls.js / expo-video / expo-camera never bundled — the app passes or installs them):

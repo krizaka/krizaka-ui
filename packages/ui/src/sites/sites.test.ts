@@ -2,7 +2,7 @@ import { familyLabels, siteById, siteGroups, sites, sitesByGroup } from "./index
 
 describe("sites — the Krizaka family", () => {
   it("lists every site once, with an https address and a repository on GitHub", () => {
-    expect(sites.map((s) => s.id)).toEqual(["krizaka", "orazaka", "orochia", "yasakia", "yororis", "ui", "java", "github"]);
+    expect(sites.map((s) => s.id)).toEqual(["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "ui", "java", "github"]);
     for (const site of sites) {
       expect(site.url).toMatch(/^https:\/\//);
       expect(site.repo).toMatch(/^https:\/\/github\.com\/krizaka(\/[a-z-]+)?$/);
@@ -18,17 +18,19 @@ describe("sites — the Krizaka family", () => {
       "dev.orochia.com",
       "dev.yasakia.com",
       "dev.yororis.com",
+      "dev.yomizaka.com",
       "ui.krizaka.com",
       "java.krizaka.com",
       "github.com/krizaka",
     ]);
   });
 
-  it("says each kind and status: the company, four products (Yasakia upcoming, Yororis under construction), open source", () => {
+  it("says each kind and status: the company, five products (Yasakia and Yomizaka upcoming, Yororis under construction), open source", () => {
     expect(siteById("krizaka").kind).toBe("company");
-    expect(sites.filter((s) => s.kind === "product").map((s) => s.id)).toEqual(["orazaka", "orochia", "yasakia", "yororis"]);
+    expect(sites.filter((s) => s.kind === "product").map((s) => s.id)).toEqual(["orazaka", "orochia", "yasakia", "yororis", "yomizaka"]);
     expect(siteById("yasakia").status).toBe("upcoming");
     expect(siteById("yororis").status).toBe("construction");
+    expect(siteById("yomizaka").status).toBe("upcoming");
     expect(siteById("ui").kind).toBe("open-source");
     expect(siteById("java").repo).toBe("https://github.com/krizaka/krizaka-build");
   });
@@ -37,7 +39,7 @@ describe("sites — the Krizaka family", () => {
     expect(siteGroups).toEqual(["krizaka", "products", "open-source", "github"]);
     expect(sitesByGroup().map((g) => [g.group, g.sites.map((s) => s.id)])).toEqual([
       ["krizaka", ["krizaka"]],
-      ["products", ["orazaka", "orochia", "yasakia", "yororis"]],
+      ["products", ["orazaka", "orochia", "yasakia", "yororis", "yomizaka"]],
       ["open-source", ["ui", "java"]],
       ["github", ["github"]],
     ]);

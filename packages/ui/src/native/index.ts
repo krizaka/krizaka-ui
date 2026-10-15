@@ -134,4 +134,5 @@ export { textStyles, Txt, type TxtProps, type TxtTone, type TxtVariant } from ".
 export { VerifiedBadge, type VerifiedBadgeProps } from "./verified-badge";
 export { Wheel, WheelDivider, type WheelOption, WheelPicker, type WheelPickerProps, type WheelProps } from "./wheel";
 export { YasakiaMark, YazakiaMark } from "./YasakiaMark";
+export { YomizakaMark } from "./YomizakaMark";
 export { YororisMark } from "./YororisMark";
