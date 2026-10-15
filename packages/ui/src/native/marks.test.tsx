@@ -1,8 +1,10 @@
-// The native brand marks: KrizakaMark, OrazakaMark, OrochiaMark, YasakiaMark, YororisMark, YomizakaMark, ProductMark.
+// The native brand marks: KrizakaMark, OrazakaMark, OrochiaMark, YasakiaMark, YororisMark, YomizakaMark, KachizakaMark, AkinazaMark, ProductMark.
 import { describe, expect, test } from "@jest/globals";
 import { render, screen } from "@testing-library/react-native";
 import * as React from "react";
 
+import { AkinazaMark } from "./AkinazaMark";
+import { KachizakaMark } from "./KachizakaMark";
 import { KrizakaMark } from "./KrizakaMark";
 import { OrazakaMark } from "./OrazakaMark";
 import { OrochiaMark } from "./OrochiaMark";
@@ -19,6 +21,8 @@ describe("marks", () => {
     ["Yasakia", YasakiaMark],
     ["Yororis", YororisMark],
     ["Yomizaka", YomizakaMark],
+    ["Kachizaka", KachizakaMark],
+    ["Akinaza", AkinazaMark],
   ])("%s is an image with a title, hidden without one", async (name, Mark) => {
     await render(<Mark title={name} animated={false} />);
     expect(screen.getByRole("image", { name })).toBeOnTheScreen();
@@ -35,6 +39,10 @@ describe("marks", () => {
     expect(screen.getByRole("image", { name: "Yororis" })).toBeOnTheScreen();
     await render(<ProductMark id="yomizaka" title="Yomizaka" size={24} />);
     expect(screen.getByRole("image", { name: "Yomizaka" })).toBeOnTheScreen();
+    await render(<ProductMark id="kachizaka" title="Kachizaka" size={24} />);
+    expect(screen.getByRole("image", { name: "Kachizaka" })).toBeOnTheScreen();
+    await render(<ProductMark id="akinaza" title="Akinaza" size={24} />);
+    expect(screen.getByRole("image", { name: "Akinaza" })).toBeOnTheScreen();
     await render(<ProductMark id="krizaka" title="Krizaka" />);
     expect(screen.getByRole("image", { name: "Krizaka" })).toBeOnTheScreen();
   });

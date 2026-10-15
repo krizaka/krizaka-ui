@@ -21,7 +21,7 @@ export const meta = {
     { when: "A plain empty list in a dense screen (a table, a sidebar).", use: "empty-state" },
   ],
   bestPractices: [
-    "Choose the bird by the job, not by the mood: the owl reads (documents, search), the falcon watches (security, verification), the duck builds (code, uploads), the flamingo answers and gets paid (support, payments), the pigeon delivers (messages, notifications), the lovebird introduces (matches, introductions), the crane listens (a quiet moment, taking one's time).",
+    "Choose the bird by the job, not by the mood: the owl reads (documents, search), the falcon watches (security, verification), the duck builds (code, uploads), the flamingo answers and gets paid (support, payments), the pigeon delivers (messages, notifications), the lovebird introduces (matches, introductions), the crane listens (a quiet moment, taking one's time), the magpie keeps the score (points, standings, trophies), the beaver builds the shop (bookings, invoices).",
     "One bird per screen: a moment, never decoration in working content.",
     "The title says what happened in a few words, the description what comes next; one action — the way out.",
     "`titleAs=\"h1\"` when the state is the whole page (a 404), so the page keeps a heading.",

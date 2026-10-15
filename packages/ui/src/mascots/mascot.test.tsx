@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 
 import { axeViolations } from "../test/axe";
-import { BIRDS } from "./geometry";
+import { BIRDS, OWN_PALETTES } from "./geometry";
 import { Mascot,MASCOT_BIRDS, MASCOT_MOODS } from "./index";
 
 describe("Mascot", () => {
@@ -50,5 +50,19 @@ describe("Mascot", () => {
 
   it("draws every bird on the 120 grid", () => {
     for (const g of Object.values(BIRDS)) for (const [x, y] of g.eyes.at) expect(x > 0 && x < 120 && y > 0 && y < 120).toBe(true);
+  });
+
+  it("welcomes the magpie (Kachizaka: the score) and the beaver (Akinaza: the shop), each with its own palette", () => {
+    expect(MASCOT_BIRDS.slice(-2)).toEqual(["magpie", "beaver"]);
+    for (const bird of ["magpie", "beaver"] as const) {
+      expect(OWN_PALETTES[bird]).toBeDefined();
+      // A long tail or a paddle tail behind it, drawn filled in the detail colour, inside the grid.
+      expect(BIRDS[bird].back?.[0]).toMatch(/Z$/);
+      for (const n of BIRDS[bird].back![0]!.match(/-?\d+(\.\d+)?/g)!.map(Number)) expect(n).toBeLessThanOrEqual(120);
+    }
+    // The beaver's two front teeth are its "beak": the beak colour, under the nose (a detail).
+    expect(BIRDS.beaver.details).toHaveLength(3);
+    const { container } = render(<Mascot bird="beaver" tone="own" animated={false} />);
+    expect(container.querySelector("svg")?.getAttribute("data-bird")).toBe("beaver");
   });
 });

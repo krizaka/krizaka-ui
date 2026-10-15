@@ -1,6 +1,8 @@
 import React from "react";
 
 import type { BrandId } from "../marks/ProductLogo";
+import { AkinazaMark } from "./AkinazaMark";
+import { KachizakaMark } from "./KachizakaMark";
 import { KrizakaMark } from "./KrizakaMark";
 import type { NativeMarkProps } from "./mark-motion";
 import { OrazakaMark } from "./OrazakaMark";
@@ -16,5 +18,7 @@ export function ProductMark({ id, ...props }: NativeMarkProps & { id: BrandId | 
   if (id === "yasakia" || id === "yazakia") return <YasakiaMark {...props} />;
   if (id === "yororis") return <YororisMark {...props} />;
   if (id === "yomizaka") return <YomizakaMark {...props} />;
+  if (id === "kachizaka") return <KachizakaMark {...props} />;
+  if (id === "akinaza") return <AkinazaMark {...props} />;
   return <OrochiaMark {...props} />;
 }

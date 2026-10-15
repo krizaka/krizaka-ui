@@ -41,7 +41,7 @@ const SIZE = { sm: 64, md: 96, lg: 128 } as const;
 export type MascotStateProps = Omit<React.ComponentProps<"div">, "title"> & {
   /**
    * The bird whose job the moment is about: `owl` (documents, reading), `falcon` (security, verification), `duck`
-   * (code, building), `flamingo` (answers, payments), `pigeon` (delivery, notifications), `lovebird` (introductions), `crane` (listening). One bird per idea.
+   * (code, building), `flamingo` (answers, payments), `pigeon` (delivery, notifications), `lovebird` (introductions), `crane` (listening), `magpie` (score, standings), `beaver` (the shop). One bird per idea.
    */
   bird?: MascotBird;
   /** The moment: `empty` (nothing yet), `thinking` (a long task runs), `success` (done), `error` (it failed), `welcome`. */

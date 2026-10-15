@@ -8,7 +8,7 @@ import { Txt } from "./txt";
 const SIZE = { sm: 64, md: 96, lg: 128 } as const;
 
 export type MascotStateProps = Omit<ViewProps, "children"> & {
-  /** The bird whose job the moment is about: `owl` (documents), `falcon` (security), `duck` (code), `flamingo` (answers, payments), `pigeon` (delivery), `lovebird` (introductions), `crane` (listening). */
+  /** The bird whose job the moment is about: `owl` (documents), `falcon` (security), `duck` (code), `flamingo` (answers, payments), `pigeon` (delivery), `lovebird` (introductions), `crane` (listening), `magpie` (score), `beaver` (shop). */
   bird?: MascotBird;
   /** The moment: `empty` (default), `thinking`, `success`, `error`, `welcome`. */
   mood?: MascotMood;

@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Mascots",
-  summary: "The Krizaka flock: seven birds (falcon, owl, duck, flamingo, pigeon, lovebird, crane) in five moods, drawn in the product's brand colours — and the phoenix, the comeback.",
+  summary: "The Krizaka flock: nine figures (falcon, owl, duck, flamingo, pigeon, lovebird, crane, magpie — and the beaver) in five moods, drawn in the product's brand colours — and the phoenix, the comeback.",
   status: "beta",
   category: "feedback",
   platforms: "both",
@@ -20,7 +20,7 @@ export const meta = {
   ],
   bestPractices: [
     "One mascot per screen, and only at a moment that matters: a welcome, a wait, a success, an empty list, an error.",
-    "Keep the bird's role: the owl reads (documents), the falcon watches (security), the duck builds (code), the flamingo answers (support), the pigeon delivers (notifications, packages), the lovebird introduces (matches, two people who meet), the crane listens (a quiet moment, someone who takes their time).",
+    "Keep the bird's role: the owl reads (documents), the falcon watches (security), the duck builds (code), the flamingo answers (support), the pigeon delivers (notifications, packages), the lovebird introduces (matches, two people who meet), the crane listens (a quiet moment, someone who takes their time), the magpie keeps the score (points, standings, trophies), the beaver builds the shop (a small business at work: bookings, invoices, the till).",
     "The phoenix (`Phoenix`) does no job: keep it for a comeback — a relaunch, a recovered account, a second chance — never as one more helper.",
     "Leave `tone=\"brand\"` in a product: the bird wears the product's accent; `own` is for the Krizaka story.",
     "The words stay beside it (a title, a line, an action): the mascot never carries the message alone.",
@@ -38,13 +38,15 @@ export const meta = {
     imports: ["Mascot", "MASCOT_BIRDS", "MASCOT_MOODS", "Phoenix"],
     examples: [
       { name: "moods", title: "Moods", description: "One bird in its five moods: welcome, thinking, success, empty, error." },
-      { name: "flock", title: "The flock", description: "The seven birds in the brand colours of the host." },
+      { name: "flock", title: "The flock", description: "The nine figures in the brand colours of the host." },
       { name: "own-tone", title: "Signature colours", description: "`tone=\"own\"`: each bird in its colours of the Krizaka story." },
       { name: "empty-state", title: "In an empty state", description: "The owl above an empty list, the words and the action beside it." },
       { name: "long-task", title: "During a long task", description: "The pigeon thinking beside the progress of a job." },
       { name: "lovebird", title: "An introduction", description: "The lovebird celebrates a mutual interest: two people who chose each other meet." },
       { name: "phoenix", title: "The phoenix", description: "The sixth figure: a comeback — a relaunch, a recovered account — in its own colours or the brand's." },
       { name: "crane", title: "Listening", description: "The crane stands still and listens: a calm opening, the words and one action beside it." },
+      { name: "magpie", title: "Keeping the score", description: "The magpie celebrates a win: the points counted, the standings moved, the words beside it." },
+      { name: "beaver", title: "At the shop", description: "The beaver at work: the day's bookings, the words and one action beside it." },
     ],
   },
   native: {

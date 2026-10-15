@@ -21,7 +21,7 @@ import { parseHsl, toNative } from "./color.mjs";
 /** Source files, in output order. */
 export const SOURCES = ["color", "radius", "shadow", "material", "motion", "typography"];
 /** The brands (src/brands/<id>.brand.json), in output order: the parent first. */
-export const BRANDS = ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka"];
+export const BRANDS = ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"];
 /** The roles a brand sets — all of them, so that a brand never inherits another brand's accent. */
 export const BRAND_ROLES = ["accent", "accent-hover", "accent-soft", "accent-text", "accent-2", "on-accent", "ring", "info", "info-text", "brand-gradient-from", "brand-gradient-via", "brand-gradient-to"];
 const EXT = "com.krizaka";

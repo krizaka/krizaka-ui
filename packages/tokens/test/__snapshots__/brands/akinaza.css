@@ -1,0 +1,46 @@
+/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/akinaza.brand.json par scripts/build.mjs : ne pas éditer.
+   Akinaza — le vert de la forêt laurentienne et le cuivre chaud. Le vert (130) porte l'accent : ≥ 20° de la sauge de Yororis (98), de l'émeraude de Yasakia (152), du statut succès (160) et de tous les accents (un test). Le cuivre (22) est le second temps (accent-2, le logo) : un métal mat, saturé à moins de 65 % — jamais l'orange vif d'Orazaka (26, 92 %), qu'il ne porte jamais seul. Dark : vert clair sous texte quasi noir ; light : vert profond sous texte blanc. info reste le bleu de Krizaka. Le logo est un dégradé forêt (140) → cuivre (22) de teinte moyenne, ≥ 3:1 sur les surfaces 0–2 des deux thèmes.
+   Importé après tokens.css (ou @krizaka/tailwind) : l'identité akinaza sur toute l'app, dans les deux thèmes. */
+
+:root, .theme-dark {
+  --kz-accent: hsl(130 44% 58%);
+  --kz-accent-hover: hsl(130 48% 66%);
+  --kz-accent-soft: hsl(130 44% 58% / 0.12);
+  --kz-accent-text: hsl(130 50% 66%);
+  --kz-accent-2: hsl(22 62% 64%);
+  --kz-on-accent: hsl(140 20% 5%);
+  --kz-ring: var(--kz-accent);
+  --kz-info: hsl(217 92% 60%);
+  --kz-info-text: hsl(217 92% 68%);
+  --kz-brand-gradient-from: hsl(140 28% 9%);
+  --kz-brand-gradient-via: hsl(24 20% 8%);
+  --kz-brand-gradient-to: var(--kz-surface-0);
+}
+
+html.light {
+  --kz-accent: hsl(132 52% 27%);
+  --kz-accent-hover: hsl(132 55% 22%);
+  --kz-accent-soft: hsl(132 52% 27% / 0.08);
+  --kz-accent-text: hsl(132 52% 26%);
+  --kz-accent-2: hsl(20 62% 36%);
+  --kz-on-accent: hsl(0 0% 100%);
+  --kz-info: hsl(217 92% 50%);
+  --kz-info-text: hsl(217 92% 42%);
+  --kz-brand-gradient-from: hsl(130 45% 94%);
+  --kz-brand-gradient-via: hsl(26 60% 95%);
+}
+
+.theme-light {
+  --kz-accent: hsl(132 52% 27%);
+  --kz-accent-hover: hsl(132 55% 22%);
+  --kz-accent-soft: hsl(132 52% 27% / 0.08);
+  --kz-accent-text: hsl(132 52% 26%);
+  --kz-accent-2: hsl(20 62% 36%);
+  --kz-on-accent: hsl(0 0% 100%);
+  --kz-ring: var(--kz-accent);
+  --kz-info: hsl(217 92% 50%);
+  --kz-info-text: hsl(217 92% 42%);
+  --kz-brand-gradient-from: hsl(130 45% 94%);
+  --kz-brand-gradient-via: hsl(26 60% 95%);
+  --kz-brand-gradient-to: var(--kz-surface-0);
+}

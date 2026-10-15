@@ -356,7 +356,7 @@ describe("brands", async () => {
   const surfaces = ["surface0", "surface1", "surface2", "surface3"] as const;
 
   it("compiles one theme per brand and the scoped classes", () => {
-    expect(BRANDS).toEqual(["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka"]);
+    expect(BRANDS).toEqual(["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"]);
     for (const id of BRANDS) expect(files[`brands/${id}.css`], id).toBeDefined();
     expect(files["brands/scoped.css"]).toContain(".brand-orazaka {");
     expect(Object.keys(index.brands)).toEqual(BRANDS);
@@ -455,7 +455,7 @@ describe("brands", async () => {
       }
     });
 
-    it.each(["orazaka", "yasakia", "yororis", "yomizaka"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
+    it.each(["orazaka", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
       for (const mode of ["dark", "light"] as const) {
         for (const s of ["surface0", "surface1", "surface2"] as const) {
           for (const [, c] of index.marks[id]) expect(contrast(parseHsl(c), parseHsl(index.values[mode][s])), `${mode} ${s} ${c}`).toBeGreaterThanOrEqual(3);
@@ -544,6 +544,57 @@ describe("brands", async () => {
     }
     expect(files["brands/scoped.css"]).toContain(".brand-yomizaka {");
     expect(files["brands/scoped.css"]).toContain("html.light .brand-yomizaka");
+  });
+
+  it("gives Kachizaka the only gold accent of the family, its cobalt second, ink on both (and says the cobalt alone is not distinct)", () => {
+    const hsl = (v: string) => /hsl\(([\d.]+) ([\d.]+)%/.exec(v)!.slice(1).map(Number) as [number, number];
+    const gap = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
+    for (const mode of ["dark", "light"] as const) {
+      const b = index.brands.kachizaka[mode];
+      const [gold] = hsl(b.accent);
+      const [cobalt] = hsl(b.accent2);
+      // The gold carries the identity: ≥ 10° from the warning amber (the Orazaka rule), ≥ 20° from every brand accent.
+      expect(gap(gold, hsl(index.values[mode].warning)[0]), `${mode} warning`).toBeGreaterThanOrEqual(10);
+      for (const other of ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "akinaza"] as const) {
+        expect(gap(gold, hsl(index.brands[other][mode].accent)[0]), `${mode} ${other}`).toBeGreaterThanOrEqual(20);
+      }
+      // The cobalt sits 9° from the Krizaka blue: never the accent, always paired with the gold (accent-2, gradient, mark).
+      expect(gap(cobalt, hsl(index.brands.krizaka[mode].accent)[0])).toBeLessThan(20);
+      expect(cobalt).toBe(226);
+      expect(b.onAccent).toBe(index.brands.kachizaka.dark.onAccent);
+      expect(b.info).not.toBe(b.accent);
+    }
+    // Cobalt (226) → gold (44): the mark pairs the two, its first stop on accent-2's hue.
+    const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);
+    expect(index.marks.kachizaka.map(([, c]: [string, string]) => hue(c))).toEqual([226, 44]);
+  });
+
+  it("gives Akinaza the forest green, apart from the sage, the emerald and success; a matte copper second, never Orazaka's orange", () => {
+    const hsl = (v: string) => /hsl\(([\d.]+) ([\d.]+)%/.exec(v)!.slice(1).map(Number) as [number, number];
+    const gap = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
+    for (const mode of ["dark", "light"] as const) {
+      const [green] = hsl(index.brands.akinaza[mode].accent);
+      for (const other of ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka"] as const) {
+        expect(gap(green, hsl(index.brands[other][mode].accent)[0]), `${mode} ${other}`).toBeGreaterThanOrEqual(20);
+      }
+      expect(gap(green, hsl(index.brands.yasakia[mode].accent2)[0]), `${mode} emerald`).toBeGreaterThanOrEqual(20);
+      expect(gap(green, hsl(index.values[mode].success)[0]), `${mode} success`).toBeGreaterThanOrEqual(20);
+      // The copper is a matte metal: saturation ≤ 65 %, where Orazaka's orange is ≥ 90 %.
+      const [, copperSat] = hsl(index.brands.akinaza[mode].accent2);
+      expect(copperSat).toBeLessThanOrEqual(65);
+      expect(hsl(index.brands.orazaka[mode].accent)[1]).toBeGreaterThanOrEqual(90);
+    }
+    const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);
+    expect(index.marks.akinaza.map(([, c]: [string, string]) => hue(c))).toEqual([140, 22]);
+  });
+
+  it.each(["kachizaka", "akinaza"] as const)("gives %s the same roles as every brand, dark, light and native (key parity)", (id) => {
+    for (const mode of ["dark", "light"] as const) {
+      expect(Object.keys(index.brands[id][mode])).toEqual(Object.keys(index.brands.orochia[mode]));
+      expect(Object.keys(native.brands[id][mode])).toEqual(Object.keys(native.brands.orochia[mode]));
+    }
+    expect(files["brands/scoped.css"]).toContain(`.brand-${id} {`);
+    expect(files["brands/scoped.css"]).toContain(`html.light .brand-${id}`);
   });
 
   it("keeps Orazaka's accent apart from the warning status", () => {

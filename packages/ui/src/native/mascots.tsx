@@ -7,7 +7,7 @@ import { markA11y } from "./mark-motion";
 import { useSvgId, useTheme } from "./theme";
 
 export interface MascotProps {
-  /** Which bird of the flock: `falcon` (watch), `owl` (reading), `duck` (building), `flamingo` (answers), `pigeon` (delivery), `lovebird` (introductions), `crane` (listening). */
+  /** Which bird of the flock: `falcon` (watch), `owl` (reading), `duck` (building), `flamingo` (answers), `pigeon` (delivery), `lovebird` (introductions), `crane` (listening), `magpie` (the score), `beaver` (the shop). */
   bird?: MascotBird;
   /** What the moment is: `welcome`, `thinking`, `success`, `empty` or `error`. */
   mood?: MascotMood;
@@ -45,7 +45,7 @@ function useBob(animated: boolean) {
 }
 
 /**
- * One of the seven Krizaka birds in one mood, for React Native — the geometry of the web `Mascot`
+ * One of the nine Krizaka figures in one mood, for React Native — the geometry of the web `Mascot`
  * (mascots/geometry.ts), in the theme's accent by default.
  */
 export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 96, animated = true, title, style }: MascotProps) {
