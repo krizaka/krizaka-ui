@@ -35,7 +35,7 @@ export const meta = {
   web: {
     imports: ["MediaGrid", "ShortsShelf", "VideoCard"],
     examples: [
-      { name: "feed", title: "A feed", description: "Three horizontal clips in the grid, five vertical on the shelf: every card of a row has one height." },
+      { name: "feed", title: "A feed", description: "Three horizontal clips in the grid, three vertical on the shelf: every card of a row has one height." },
       { name: "uniform", title: "One frame", description: "`mode=\"uniform\"`: vertical clips drawn whole over a blurred copy inside 16:9 cards." },
     ],
   },
