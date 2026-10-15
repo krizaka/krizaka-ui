@@ -266,3 +266,99 @@ describe("DataTable v2 — windowing, export, escape hatch", () => {
     expect(() => render(<Count />)).toThrow(/inside a DataTable/);
   });
 });
+
+describe("DataTable — typed columns and priorities (#222)", () => {
+  type Model = { id: string; name: string; maker: string; context: number; licence: string };
+  const models: Model[] = [
+    { id: "meta/llama", name: "Llama 3.3", maker: "Meta", context: 131072, licence: "Llama licence" },
+    { id: "mistral/small", name: "Mistral Small", maker: "Mistral AI", context: 32768, licence: "Apache-2.0" },
+  ];
+  const typed: DataTableColumn<Model>[] = [
+    { id: "name", header: "Model", type: "title", subtitle: (m) => m.id },
+    { id: "maker", header: "Maker", type: "text", priority: 3 },
+    { id: "licence", header: "Licence", type: "link", href: () => "https://example.test/licence", priority: 4 },
+    { id: "context", header: "Context", type: "number", unit: "tokens", priority: 2 },
+  ];
+  const view = (props: Partial<React.ComponentProps<typeof DataTable<Model>>> = {}) =>
+    render(<DataTable caption="Models" rows={models} columns={typed} getRowId={(m) => m.id} rowLabel={(m) => m.name} {...props} />);
+
+  it("renders a title with its mono id, a number with a muted unit, a link, and aligns numbers to the end", () => {
+    view();
+    const row = screen.getAllByRole("row")[1] as HTMLElement;
+    const [title, , , number] = within(row).getAllByRole("cell");
+    expect(title?.getAttribute("data-card")).toBe("title");
+    expect(within(title as HTMLElement).getByText("meta/llama").className).toContain("font-mono");
+    expect(number?.className).toContain("text-right");
+    expect(number?.className).toContain("tabular-nums");
+    expect(number?.textContent).toBe("131,072tokens");
+    expect(within(row).getByRole("link", { name: "Llama licence" }).getAttribute("href")).toBe("https://example.test/licence");
+  });
+
+  it("marks the columns that leave the row by their priority, on the cell and on the header", () => {
+    view();
+    const header = screen.getByRole("columnheader", { name: "Maker" });
+    expect(header.className).toContain("@max-3xl:hidden!");
+    expect(screen.getAllByRole("row")[1]?.querySelectorAll("td")[1]?.className).toContain("@max-3xl:hidden!");
+    expect(screen.getByRole("columnheader", { name: "Model" }).className).not.toContain("hidden!");
+  });
+
+  it("opens what left the row from a chevron in the first cell, named after the row, and lists those columns only", async () => {
+    const user = userEvent.setup();
+    view();
+    const toggle = screen.getByRole("button", { name: "Show more about Llama 3.3" });
+    expect(toggle.getAttribute("aria-expanded")).toBe("false");
+    await user.click(toggle);
+    expect(toggle.getAttribute("aria-expanded")).toBe("true");
+    const detail = document.querySelector("dl") as HTMLElement;
+    expect(within(detail).getAllByRole("term").map((t) => t.textContent)).toEqual(["Maker", "Licence", "Context"]);
+    expect(within(detail).getByText("Meta")).toBeTruthy();
+  });
+
+  it("has no chevron when every column is in the row, and keeps the legacy `renderDetail` button", async () => {
+    const user = userEvent.setup();
+    const { unmount } = view({ columns: typed.map((c) => ({ ...c, priority: 1 as const })) });
+    expect(screen.queryByRole("button", { name: /Show more/ })).toBeNull();
+    unmount();
+    view({ renderDetail: (m) => <p>Notes on {m.name}</p> });
+    await user.click(screen.getByRole("button", { name: "Show details of Llama 3.3" }));
+    expect(screen.getByText("Notes on Llama 3.3")).toBeTruthy();
+    expect(document.querySelectorAll("dl")).toHaveLength(1);
+  });
+
+  it("never scrolls sideways by default once columns are typed, and scrolls with fades only when asked", () => {
+    const { container, unmount } = view();
+    expect(container.querySelector("table")?.parentElement?.className).toContain("overflow-x-clip");
+    unmount();
+    const scrolling = view({ scroll: true });
+    expect(scrolling.container.querySelector("table")?.parentElement?.className).toContain("overflow-x-auto");
+    expect(scrolling.container.querySelector("table")?.parentElement?.className).toContain("no-repeat");
+    scrolling.unmount();
+    // untyped columns keep the old scroller, so existing tables do not change
+    const legacy = render(<DataTable caption="Videos" rows={rows} columns={columns} getRowId={(r) => r.id} />);
+    expect(legacy.container.querySelector("table")?.parentElement?.className).toContain("overflow-x-auto");
+  });
+
+  it("makes the header sticky, zebra rows and one row height per density on request", () => {
+    const { container } = view({ stickyHeader: 64, striped: true, density: "compact" });
+    const th = screen.getByRole("columnheader", { name: "Model" });
+    expect(th.className).toContain("@xl:sticky");
+    expect(th.style.getPropertyValue("--dt-top")).toBe("64px");
+    const tr = container.querySelector("tbody tr") as HTMLElement;
+    expect(tr.className).toContain("even:bg-surface-2/40");
+    expect(tr.querySelector("td")?.className).toContain("@xl:h-12");
+  });
+
+  it("clamps text to the lines asked and truncates one-line values, the full value on hover", () => {
+    view({ columns: [{ id: "maker", header: "Maker", type: "text", clamp: 1 }, { id: "licence", header: "Licence", nowrap: true }] });
+    const cells = screen.getAllByRole("row")[1]?.querySelectorAll("td") as NodeListOf<HTMLElement>;
+    expect(cells[0]?.querySelector("span")?.className).toContain("line-clamp-1");
+    expect(cells[0]?.querySelector("span")?.getAttribute("title")).toBe("Meta");
+    expect(cells[1]?.querySelector("span")?.className).toContain("truncate");
+  });
+
+  it("stays accessible: a real table, the detail button named and expanded, no axe violation", async () => {
+    const { container } = view();
+    expect(screen.getByRole("table", { name: "Models" })).toBeTruthy();
+    expect(await axeViolations(container)).toEqual([]);
+  });
+});

@@ -24,7 +24,8 @@ execFileSync(
     "-w", "/repo",
     `mcr.microsoft.com/playwright:v${version}-noble`,
     "bash", "-c",
-    "corepack enable && pnpm install --frozen-lockfile --store-dir /tmp/pnpm-store && pnpm turbo run build --filter=@krizaka/storybook^... && pnpm --filter storybook storybook:build && pnpm --filter storybook test:update",
+    // The packages' dist are built on the host when `--no-build` is passed (the emulated tsup build can run out of memory).
+    `corepack enable && pnpm install --frozen-lockfile --store-dir /tmp/pnpm-store && ${process.argv.includes("--no-build") ? "true" : "pnpm turbo run build --filter=@krizaka/storybook^..."} && pnpm --filter storybook storybook:build && pnpm --filter storybook test:update ${process.argv.slice(2).filter((arg) => arg !== "--no-build").join(" ")}`,
   ],
   { stdio: "inherit" },
 );

@@ -29,17 +29,22 @@ export type CataloguePageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"
   children: React.ReactNode;
   /** The app's link component (Next's `Link`). */
   linkAs?: LinkComponent;
+  /**
+   * From which window width the filters stay in their column beside the results. `default`: 900 px and above. `wide`:
+   * 1280 px and above — a wide table (DataTable) needs the room; under it the filters are a bar above the results.
+   */
+  railFrom?: "default" | "wide";
 };
 
 /** A catalogue: hero, sticky filters beside the results (folded on a phone), the count, the results. */
-export function CataloguePage({ back, eyebrow, title, lead, search, filters, filtersLabel, count, toolbar, linkAs, children, ...props }: CataloguePageProps) {
+export function CataloguePage({ back, eyebrow, title, lead, search, filters, filtersLabel, count, toolbar, linkAs, railFrom = "default", children, ...props }: CataloguePageProps) {
   return (
     <div {...props}>
       <PageHero back={back} linkAs={linkAs} eyebrow={eyebrow} title={title} lead={lead} backdrop="plain">
         {search}
       </PageHero>
       <Page className="kz-tpl-catalogue-frame">
-        <div className="kz-tpl-catalogue">
+        <div className="kz-tpl-catalogue" data-rail={railFrom}>
           <details className="kz-tpl-catalogue-filters" open>
             <summary>{filtersLabel}</summary>
             <div>{filters}</div>

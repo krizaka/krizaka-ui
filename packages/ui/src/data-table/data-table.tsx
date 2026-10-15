@@ -8,6 +8,7 @@ import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { Checkbox } from "../checkbox";
+import { cn } from "../cn";
 import { ChevronGlyph, SortGlyph } from "../glyphs";
 import { useControllable } from "../media";
 import { Pagination, type PaginationLabels } from "../pagination";
@@ -30,7 +31,7 @@ import {
 
 export const dataTable = tv({
   slots: {
-    root: "@container w-full overflow-hidden rounded-xl border border-border-default bg-surface-1",
+    root: "@container w-full overflow-clip rounded-xl border border-border-default bg-surface-1",
     toolbar: "border-b border-border-default p-3",
     scroller: "w-full overflow-x-auto",
     table: "w-full border-collapse text-left text-sm text-fg",
@@ -104,9 +105,81 @@ export const dataTable = tv({
       comfortable: {},
       compact: { th: "py-2", td: "py-1.5" },
     },
+    // The header stays in view while the page scrolls (table layouts only; `--dt-top` clears a fixed bar).
+    sticky: { true: {}, false: {} },
+    // Zebra rows (the table layouts); the cards keep their frame.
+    striped: { true: {}, false: {} },
+    // Typed columns: one height per row (`typed`); untyped tables keep the height of their content.
+    typed: { true: {}, false: {} },
   },
-  defaultVariants: { layout: "auto", density: "comfortable" },
+  compoundVariants: [
+    { layout: "table", sticky: true, class: { th: "sticky top-(--dt-top,0px) z-[3] bg-surface-2" } },
+    { layout: "auto", sticky: true, class: { th: "@xl:sticky @xl:top-(--dt-top,0px) @xl:z-[3] @xl:bg-surface-2" } },
+    { layout: "table", striped: true, class: { tr: "even:bg-surface-2/40" } },
+    { layout: "auto", striped: true, class: { tr: "@xl:even:bg-surface-2/40" } },
+    // One row height per density (a two-line row — a name and its id — is the tallest).
+    { layout: "table", density: "comfortable", typed: true, class: { td: "h-15" } },
+    { layout: "auto", density: "comfortable", typed: true, class: { td: "@xl:h-15" } },
+    { layout: "table", density: "compact", typed: true, class: { td: "h-12" } },
+    { layout: "auto", density: "compact", typed: true, class: { td: "@xl:h-12" } },
+  ],
+  defaultVariants: { layout: "auto", density: "comfortable", sticky: false, striped: false, typed: false },
 });
+
+// Column priorities. `priority: 1` (default) is always in the row; a higher number leaves the row when the table's own
+// width (a container query, not the window's) falls under its tier and goes to the row's detail — the same
+// `@container` that turns the table into cards. Written out in full: Tailwind finds a class only as a whole string.
+//   priority 2 → 42rem · 3 → 48rem · 4 → 56rem · 5 → 64rem · 6 → 72rem · 7 → 80rem
+// On the cards (under 36rem), priority 2 stays on the card's face and 3+ go to its detail.
+type Priority = 2 | 3 | 4 | 5 | 6 | 7;
+type ByLayout = { auto: Record<Priority, string>; table: Record<Priority, string>; cards: Record<Priority, string> };
+const NO_CLASS: Record<Priority, string> = { 2: "", 3: "", 4: "", 5: "", 6: "", 7: "" };
+/** The cell of a column that leaves the row. */
+const LEAVES: ByLayout = {
+  auto: { 2: "@xl:@max-2xl:hidden!", 3: "@max-3xl:hidden!", 4: "@max-4xl:hidden!", 5: "@max-5xl:hidden!", 6: "@max-6xl:hidden!", 7: "@max-7xl:hidden!" },
+  table: { 2: "@max-2xl:hidden!", 3: "@max-3xl:hidden!", 4: "@max-4xl:hidden!", 5: "@max-5xl:hidden!", 6: "@max-6xl:hidden!", 7: "@max-7xl:hidden!" },
+  cards: { 2: "", 3: "hidden!", 4: "hidden!", 5: "hidden!", 6: "hidden!", 7: "hidden!" },
+};
+/** Its header (the cards keep the sort buttons). */
+const LEAVES_HEAD: ByLayout = {
+  auto: { 2: "@xl:@max-2xl:hidden!", 3: "@xl:@max-3xl:hidden!", 4: "@xl:@max-4xl:hidden!", 5: "@xl:@max-5xl:hidden!", 6: "@xl:@max-6xl:hidden!", 7: "@xl:@max-7xl:hidden!" },
+  table: LEAVES.table,
+  cards: NO_CLASS,
+};
+/** Its line in the row's detail: shown exactly when the cell is not. */
+const IN_DETAIL: ByLayout = {
+  auto: { 2: "hidden @xl:@max-2xl:grid", 3: "hidden @max-3xl:grid", 4: "hidden @max-4xl:grid", 5: "hidden @max-5xl:grid", 6: "hidden @max-6xl:grid", 7: "hidden @max-7xl:grid" },
+  table: { 2: "hidden @max-2xl:grid", 3: "hidden @max-3xl:grid", 4: "hidden @max-4xl:grid", 5: "hidden @max-5xl:grid", 6: "hidden @max-6xl:grid", 7: "hidden @max-7xl:grid" },
+  cards: { 2: "hidden", 3: "grid", 4: "grid", 5: "grid", 6: "grid", 7: "grid" },
+};
+/** The button that opens the detail, and its panel, keyed by the highest priority of the table: seen only when something left the row. */
+const TOGGLE: ByLayout = {
+  auto: { 2: "hidden @xl:@max-2xl:inline-flex", 3: "hidden @max-3xl:inline-flex", 4: "hidden @max-4xl:inline-flex", 5: "hidden @max-5xl:inline-flex", 6: "hidden @max-6xl:inline-flex", 7: "hidden @max-7xl:inline-flex" },
+  table: { 2: "hidden @max-2xl:inline-flex", 3: "hidden @max-3xl:inline-flex", 4: "hidden @max-4xl:inline-flex", 5: "hidden @max-5xl:inline-flex", 6: "hidden @max-6xl:inline-flex", 7: "hidden @max-7xl:inline-flex" },
+  cards: { 2: "hidden", 3: "inline-flex", 4: "inline-flex", 5: "inline-flex", 6: "inline-flex", 7: "inline-flex" },
+};
+const PANEL: ByLayout = {
+  auto: { 2: "hidden @xl:@max-2xl:block", 3: "hidden @max-3xl:block", 4: "hidden @max-4xl:block", 5: "hidden @max-5xl:block", 6: "hidden @max-6xl:block", 7: "hidden @max-7xl:block" },
+  table: { 2: "hidden @max-2xl:block", 3: "hidden @max-3xl:block", 4: "hidden @max-4xl:block", 5: "hidden @max-5xl:block", 6: "hidden @max-6xl:block", 7: "hidden @max-7xl:block" },
+  cards: { 2: "hidden", 3: "block", 4: "block", 5: "block", 6: "block", 7: "block" },
+};
+
+export type DataTableColumnType = "title" | "badge" | "number" | "link" | "date" | "status" | "text";
+
+// What each type does to its cell. Sizes apply to the table layouts only (a card is not a column).
+//  title: the column that takes the slack, truncated, full value on hover · badge, status, number, date: as wide as
+//  their content, never stretched · link: truncated · text: wraps, two lines.
+const TYPE_CELL: Record<DataTableColumnType, ByLayoutString> = {
+  title: { auto: "@xl:w-full @xl:max-w-0 @xl:min-w-44", table: "w-full max-w-0 min-w-44", cards: "" },
+  badge: { auto: "@xl:w-px", table: "w-px", cards: "" },
+  status: { auto: "@xl:w-px @xl:whitespace-nowrap", table: "w-px whitespace-nowrap", cards: "" },
+  number: { auto: "@xl:w-px @xl:whitespace-nowrap tabular-nums", table: "w-px whitespace-nowrap tabular-nums", cards: "tabular-nums" },
+  date: { auto: "@xl:w-px @xl:whitespace-nowrap tabular-nums", table: "w-px whitespace-nowrap tabular-nums", cards: "tabular-nums" },
+  link: { auto: "@xl:min-w-28 @xl:max-w-56", table: "min-w-28 max-w-56", cards: "" },
+  text: { auto: "@xl:min-w-36", table: "min-w-36", cards: "" },
+};
+type ByLayoutString = { auto: string; table: string; cards: string };
+const CLAMP = { 1: "line-clamp-1", 2: "line-clamp-2", 3: "line-clamp-3" } as const;
 
 export type SortDirection = "ascending" | "descending";
 export type DataTableSort = { column: string; direction: SortDirection } | null;
@@ -146,7 +219,7 @@ export type DataTableColumn<T> = {
   align?: "start" | "center" | "end";
   /** The width, in px (the starting width when `resizing`). */
   width?: number;
-  /** The narrowest a resized column may be, in px. Default 64. */
+  /** The narrowest the column may be, in px (also what a resized one may shrink to). Default 64. */
   minWidth?: number;
   /** In a card: `title` (the heading of the card), `label` (default: "Header  value"), `hidden`. */
   card?: "title" | "label" | "hidden";
@@ -154,6 +227,29 @@ export type DataTableColumn<T> = {
   headerHidden?: boolean;
   /** Listed in `DataTableColumnsMenu`, so a person can hide it. Default `true`. */
   hideable?: boolean;
+  /**
+   * What the column holds, which sizes and aligns it: `title` (the name, takes the slack, truncated, `subtitle` under it in
+   * mono — and the card's heading), `badge` · `status` (as wide as the badge, never stretched), `number` (end-aligned,
+   * tabular), `date`, `link` (truncated, `href`), `text` (wraps, two lines). Untyped: as before.
+   */
+  type?: DataTableColumnType;
+  /**
+   * 1 (default) always in the row; 2 to 7 leave it when the table is narrower than 42 · 48 · 56 · 64 · 72 · 80 rem and
+   * go to the row's detail (a chevron opens it); under 36 rem (cards) 2 stays on the card, 3+ go to its detail.
+   */
+  priority?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  /** `title`: the line under the name (an id), in mono. */
+  subtitle?: (row: T) => React.ReactNode;
+  /** `link`: where the value leads. */
+  href?: (row: T) => string | undefined;
+  /** `number`: the unit after the value (muted). */
+  unit?: string;
+  /** The widest the column may be in the table layouts, in px; longer text is clamped, the full value on hover. */
+  maxWidth?: number;
+  /** One line only, truncated (the full value on hover). */
+  nowrap?: boolean;
+  /** Lines of text kept before the ellipsis (default 2 for `text`). */
+  clamp?: 1 | 2 | 3;
 };
 
 export type DataTableLabels = {
@@ -191,6 +287,8 @@ export type DataTableLabels = {
   rangeTo: (header: string) => string;
   /** The button of the columns menu ("Columns"). */
   columns: string;
+  /** The button that opens what left the row: `(name) => "Show more about " + name`. */
+  showMore: (name: string) => string;
   /** The export button ("Export CSV"). */
   export: string;
   /** The words of the pagination under the table. */
@@ -215,6 +313,7 @@ export const dataTableLabels: DataTableLabels = {
   rangeFrom: (header) => `${header} from`,
   rangeTo: (header) => `${header} to`,
   columns: "Columns",
+  showMore: (name) => `Show more about ${name}`,
   export: "Export CSV",
 };
 
@@ -318,8 +417,19 @@ export type DataTableProps<T> = {
 
   /** `auto` (default): a table, cards below 36rem of container width. `table` or `cards` to force one. */
   layout?: "auto" | "table" | "cards";
-  /** comfortable (default) · compact. */
+  /** comfortable (default) · compact — one row height per density. */
   density?: "comfortable" | "compact";
+  /** The header stays at the top of the window while the page scrolls (`--dt-top` on the table, or a number of px, clears a fixed bar). */
+  stickyHeader?: boolean | number;
+  /** Zebra rows. */
+  striped?: boolean;
+  /**
+   * The table never scrolls sideways by default once its columns have a `type` or a `priority`: what does not fit goes to
+   * the row's detail, then to cards. `true` opts in to a sideways scroll instead, with fades at the edges.
+   */
+  scroll?: boolean;
+  /** Keeps the first column in view while the table scrolls sideways (with `scroll`). */
+  stickyFirstColumn?: boolean;
   /** Renders only the rows in view, in a scrolling body of `height` px; rows are measured (`estimateRowHeight` is a guess). Forces the table layout. */
   virtualized?: { height: number; estimateRowHeight?: number; overscan?: number };
 
@@ -362,6 +472,12 @@ export function useDataTable<T extends RowData = object>() {
   };
 }
 
+const TRUNCATE = { auto: "@xl:truncate", table: "truncate", cards: "" } as const;
+const MIN = { auto: "@xl:min-w-(--dt-min)!", table: "min-w-(--dt-min)!", cards: "" } as const;
+const MAX = { auto: "@xl:max-w-(--dt-max)!", table: "max-w-(--dt-max)!", cards: "" } as const;
+// A sideways scroll asked for (`scroll`): the edges fade where there is more to see.
+const SHADOWS =
+  "[background:linear-gradient(to_right,var(--kz-surface-1),transparent)_left/24px_100%_no-repeat_local,linear-gradient(to_left,var(--kz-surface-1),transparent)_right/24px_100%_no-repeat_local,linear-gradient(to_right,rgb(0_0_0/0.18),transparent)_left/10px_100%_no-repeat_scroll,linear-gradient(to_left,rgb(0_0_0/0.18),transparent)_right/10px_100%_no-repeat_scroll]";
 const ALIGN = { start: "text-left", center: "text-center", end: "text-right" } as const;
 const NONE: readonly never[] = [];
 const NO_RECORD: Readonly<Record<string, never>> = {};
@@ -419,6 +535,10 @@ export function DataTable<T extends RowData>({
   empty,
   layout = "auto",
   density,
+  stickyHeader,
+  striped,
+  scroll,
+  stickyFirstColumn,
   virtualized,
   toolbar,
   footer,
@@ -427,7 +547,9 @@ export function DataTable<T extends RowData>({
 }: DataTableProps<T>) {
   const labels = { ...dataTableLabels, ...given };
   const effectiveLayout = virtualized ? "table" : layout;
-  const s = dataTable({ layout: effectiveLayout, density });
+  const L = effectiveLayout;
+  const typed = columns.some((c) => c.type || c.priority);
+  const s = dataTable({ layout: L, density, sticky: Boolean(stickyHeader), striped: Boolean(striped), typed });
 
   const [sort, setSort] = useControllable<DataTableSort>(sortProp, defaultSort, onSortChange);
   const [filters, setFiltersState] = useControllable<DataTableFilterState>(filtersProp, defaultFilters, onFiltersChange);
@@ -465,6 +587,11 @@ export function DataTable<T extends RowData>({
   };
 
   const hasExpander = Boolean(renderDetail || getSubRows);
+  // Columns that can leave the row: their lines go to the row's detail, opened by a chevron in the first cell.
+  const priorityOf = (column: DataTableColumn<T>): 1 | Priority => (column.priority && column.priority > 1 ? (column.priority as Priority) : 1);
+  const maxPriority = columns.reduce<1 | Priority>((max, column) => (priorityOf(column) > max ? priorityOf(column) : max), 1);
+  const inlineToggle = maxPriority > 1 && !hasExpander;
+  const detailed = Boolean(renderDetail) || inlineToggle;
   const defs = React.useMemo<ColumnDef<typeof features, T>[]>(
     () =>
       columns.map((column) => ({
@@ -485,6 +612,8 @@ export function DataTable<T extends RowData>({
     [columns, resizing],
   );
 
+  const firstId = columns[0]?.id;
+  const pinned = stickyFirstColumn && firstId && !pinning?.start?.length ? { ...pinning, start: [firstId] } : pinning;
   const pageIndex = Math.max(0, page - 1);
   const table = useTable<typeof features, T>({
     features,
@@ -492,7 +621,7 @@ export function DataTable<T extends RowData>({
     data: rows as T[],
     getRowId: (row) => getRowId(row),
     getSubRows: getSubRows ? (row) => getSubRows(row) as T[] | undefined : undefined,
-    getRowCanExpand: renderDetail ? () => true : undefined,
+    getRowCanExpand: detailed ? () => true : undefined,
     state: {
       sorting: sort ? [{ id: sort.column, desc: sort.direction === "descending" }] : [],
       columnFilters: Object.entries(filters).map(([id, value]) => ({ id, value })),
@@ -501,7 +630,7 @@ export function DataTable<T extends RowData>({
       columnVisibility: { ...visibility },
       expanded: { ...expanded },
       pagination: { pageIndex, pageSize: paginated ? pageSize : Math.max(1, rows.length) },
-      columnPinning: { start: [...(pinning?.start ?? [])], end: [...(pinning?.end ?? [])] },
+      columnPinning: { start: [...(pinned?.start ?? [])], end: [...(pinned?.end ?? [])] },
       columnSizing: sizing,
       ...(resizeState ? { columnResizing: resizeState } : {}),
     },
@@ -557,7 +686,8 @@ export function DataTable<T extends RowData>({
     setSelected(allChosen ? selected.filter((id) => !selectableIds.includes(id)) : [...new Set([...selected, ...selectableIds])]);
 
   const span = visibleColumns.length + (selectable ? 1 : 0) + (hasExpander ? 1 : 0);
-  const fixedLayout = Boolean(resizing || pinning?.start?.length || pinning?.end?.length);
+  const fixedLayout = Boolean(resizing || pinned?.start?.length || pinned?.end?.length);
+  const sideways = scroll ?? (!typed && !stickyHeader);
   const nameOf = (row: TableRow<T>) => (rowLabel ? rowLabel(row.original) : row.id);
 
   // Windowing: the rows in view, between two spacer rows that keep the scroll height.
@@ -594,12 +724,62 @@ export function DataTable<T extends RowData>({
     </tr>
   );
 
-  const cardOf = (column: DataTableColumn<T> | undefined) => (column?.card === "title" ? "title" : column?.card === "hidden" ? "hidden" : undefined);
+  const cardOf = (column: DataTableColumn<T> | undefined) =>
+    column?.card === "title" || (column && !column.card && column.type === "title") ? "title" : column?.card === "hidden" ? "hidden" : undefined;
+
+  // What a cell shows: the column's `cell`, or its value by type.
+  const contentOf = (column: DataTableColumn<T>, original: T): React.ReactNode => {
+    if (column.cell) return column.cell(original);
+    const value = valueOf(column, original);
+    const text = column.type === "date" && value instanceof Date ? value.toISOString().slice(0, 10) : display(value);
+    const cut = TRUNCATE[L];
+    switch (column.type) {
+      case "title": {
+        const sub = column.subtitle?.(original);
+        return (
+          <span className="block min-w-0">
+            <span className={cn("block font-semibold text-fg", cut)} title={text}>
+              {text}
+            </span>
+            {sub ? <span className={cn("block font-mono text-xs text-fg-tertiary", cut)}>{sub}</span> : null}
+          </span>
+        );
+      }
+      case "number":
+        return (
+          <span>
+            {typeof value === "number" ? value.toLocaleString("en") : text}
+            {column.unit ? <span className="ms-1 text-fg-secondary">{column.unit}</span> : null}
+          </span>
+        );
+      case "link": {
+        const href = column.href?.(original);
+        return href ? (
+          <a href={href} title={text} className={cn("block text-fg-accent underline-offset-2 hover:underline", cut)}>
+            {text}
+          </a>
+        ) : (
+          <span className={cn("block", cut)} title={text}>
+            {text}
+          </span>
+        );
+      }
+      default: {
+        const lines = column.clamp ?? (column.type === "text" ? 2 : undefined);
+        if (!column.nowrap && !lines) return text;
+        return (
+          <span className={column.nowrap ? cn("block", cut || "truncate") : CLAMP[lines as 1 | 2 | 3]} title={text}>
+            {text}
+          </span>
+        );
+      }
+    }
+  };
 
   const dataCell = (row: TableRow<T>, cell: TableCell<T>, first: boolean) => {
     const column = byId.get(cell.column.id);
     if (!column) return null;
-    const { style, ...pinned } = pin(cell.column);
+    const { style, ...pinnedProps } = pin(cell.column);
     let content: React.ReactNode;
     if (row.getIsGrouped()) {
       const leaves = row.getLeafRows().filter((r) => !r.getIsGrouped()).map((r) => r.original);
@@ -612,16 +792,48 @@ export function DataTable<T extends RowData>({
           </button>
         );
       } else content = column.aggregate ? column.aggregate(leaves) : null;
-    } else content = column.cell ? column.cell(row.original) : display(valueOf(column, row.original));
+    } else {
+      content = contentOf(column, row.original);
+      if (first && inlineToggle) {
+        content = (
+          <span className="flex min-w-0 items-center gap-1">
+            <button
+              type="button"
+              className={s.toggle({ className: TOGGLE[L][maxPriority as Priority] })}
+              aria-expanded={row.getIsExpanded()}
+              aria-label={labels.showMore(nameOf(row))}
+              onClick={row.getToggleExpandedHandler()}
+            >
+              <ChevronGlyph direction="right" className="h-4 w-4" />
+            </button>
+            <span className="min-w-0 flex-1">{content}</span>
+          </span>
+        );
+      }
+    }
+    const level = priorityOf(column);
+    const type = column.type;
+    const cellClass = [
+      ALIGN[column.align ?? (type === "number" ? "end" : "start")],
+      type ? TYPE_CELL[type][L] : "",
+      level > 1 ? LEAVES[L][level as Priority] : "",
+      (type || column.priority) && column.minWidth !== undefined ? MIN[L] : "",
+      column.maxWidth !== undefined ? MAX[L] : "",
+    ].join(" ");
     return (
       <td
         role="cell"
         key={cell.id}
         data-label={column.header}
         data-card={row.getIsGrouped() ? (cell.column.id === row.groupingColumnId ? "title" : column.aggregate ? undefined : "hidden") : cardOf(column)}
-        {...pinned}
-        className={s.td({ className: ALIGN[column.align ?? "start"] })}
-        style={{ ...style, ...(first && row.depth > 0 && !row.getIsGrouped() ? { paddingInlineStart: `${1 + row.depth * 1.25}rem` } : {}) }}
+        {...pinnedProps}
+        className={s.td({ className: cellClass })}
+        style={{
+          ...style,
+          ...(column.minWidth !== undefined ? { ["--dt-min" as string]: `${column.minWidth}px` } : {}),
+          ...(column.maxWidth !== undefined ? { ["--dt-max" as string]: `${column.maxWidth}px` } : {}),
+          ...(first && row.depth > 0 && !row.getIsGrouped() ? { paddingInlineStart: `${1 + row.depth * 1.25}rem` } : {}),
+        }}
       >
         {content}
       </td>
@@ -632,11 +844,11 @@ export function DataTable<T extends RowData>({
     const isChosen = chosen.has(row.id);
     const grouped = row.getIsGrouped();
     const canExpand = !grouped && (renderDetail ? true : row.getCanExpand());
+    const showDetail = detailed && !grouped && row.getIsExpanded() && !virtualized;
     const cells = row.getVisibleCells();
     const main = (
       <tr
         role="row"
-        key={row.id}
         data-index={windowItems ? index : undefined}
         ref={windowItems ? virtualizer.measureElement : undefined}
         aria-rowindex={virtualized ? index + 2 : undefined}
@@ -661,13 +873,28 @@ export function DataTable<T extends RowData>({
         {cells.map((cell, i) => dataCell(row, cell, i === 0))}
       </tr>
     );
-    if (!renderDetail || grouped || !row.getIsExpanded() || virtualized) return main;
+    // One Fragment keyed by the row either way: opening a row keeps its button (and the focus on it).
+    if (!showDetail) return <React.Fragment key={row.id}>{main}</React.Fragment>;
+    const left = visibleColumns.filter((c) => priorityOf(byId.get(c.id) as DataTableColumn<T>) > 1);
     return (
       <React.Fragment key={row.id}>
         {main}
         <tr role="row" className={s.tr({ className: "hover:bg-transparent" })}>
-          <td role="cell" colSpan={span} data-card="message" className={s.td({ className: s.detail() })}>
-            {renderDetail(row.original)}
+          <td role="cell" colSpan={span} data-card="message" className={s.td({ className: renderDetail ? s.detail() : "bg-surface-0 p-0 text-left" })}>
+            {left.length > 0 ? (
+              <dl className={cn("m-0 grid gap-3 text-left", renderDetail ? "mb-4" : cn("px-4 py-4", PANEL[L][maxPriority as Priority]))}>
+                {left.map((c) => {
+                  const column = byId.get(c.id) as DataTableColumn<T>;
+                  return (
+                    <div key={c.id} className={cn(IN_DETAIL[L][priorityOf(column) as Priority], "grid-cols-[minmax(5rem,8rem)_minmax(0,1fr)] items-baseline gap-3")}>
+                      <dt className="text-xs font-semibold text-fg-secondary">{column.header}</dt>
+                      <dd className="m-0 min-w-0 text-sm text-fg">{contentOf(column, row.original)}</dd>
+                    </div>
+                  );
+                })}
+              </dl>
+            ) : null}
+            {renderDetail ? renderDetail(row.original) : null}
           </td>
         </tr>
       </React.Fragment>
@@ -727,7 +954,8 @@ export function DataTable<T extends RowData>({
             if (!column) return null;
             const sorted = header.column.getIsSorted();
             const direction: SortDirection | undefined = sorted === "asc" ? "ascending" : sorted === "desc" ? "descending" : undefined;
-            const { style, ...pinned } = pin(header.column);
+            const { style, ...pinnedProps } = pin(header.column);
+            const level = priorityOf(column);
             return (
               <th
                 role="columnheader"
@@ -735,9 +963,9 @@ export function DataTable<T extends RowData>({
                 key={header.id}
                 aria-sort={column.sortable ? (direction ?? "none") : undefined}
                 data-keep={column.sortable ? "" : undefined}
-                {...pinned}
-                className={s.th({ className: ALIGN[column.align ?? "start"] })}
-                style={{ ...style, ...width(header.column) }}
+                {...pinnedProps}
+                className={s.th({ className: cn(ALIGN[column.align ?? (column.type === "number" ? "end" : "start")], level > 1 && LEAVES_HEAD[L][level as Priority]) })}
+                style={{ ...style, ...(typeof stickyHeader === "number" ? { ["--dt-top" as string]: `${stickyHeader}px` } : {}), ...width(header.column) }}
               >
                 {column.sortable ? (
                   <button type="button" aria-pressed={Boolean(direction)} className={s.sortButton()} onClick={() => header.column.toggleSorting(undefined, false)}>
@@ -822,7 +1050,7 @@ export function DataTable<T extends RowData>({
             {tableElement}
           </div>
         ) : (
-          <div className={s.scroller()}>{tableElement}</div>
+          <div className={s.scroller({ className: sideways ? (scroll ? SHADOWS : undefined) : "overflow-x-clip" })}>{tableElement}</div>
         )}
         {pagination || footer ? (
           <div className={s.footer({ className: "flex flex-col gap-3" })}>
