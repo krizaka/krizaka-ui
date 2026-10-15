@@ -32,7 +32,7 @@ describe("SiteFooter", () => {
     const current = within(family).getByRole("link", { name: /Orazaka/ });
     expect(current.getAttribute("aria-current")).toBe("true");
     expect(current.textContent).toContain("You are here");
-    expect(within(family).getByRole("link", { name: /Yasakia/ }).textContent).toContain("Coming soon");
+    expect(within(family).getByRole("link", { name: /Yasakia/ }).textContent).toContain("In development");
     expect(within(family).getByRole("link", { name: /Yororis/ }).textContent).toContain("Under construction");
   });
 

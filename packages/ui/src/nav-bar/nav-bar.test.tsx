@@ -134,7 +134,7 @@ describe("NavBar.Family", () => {
     expect(ui.getAttribute("aria-current")).toBe("true");
     expect(ui.textContent).toContain("You are here");
     expect(within(family).getByRole("link", { name: /Yororis/ }).textContent).toContain("Under construction");
-    expect(within(family).getByRole("link", { name: /Yasakia/ }).textContent).toContain("Coming soon");
+    expect(within(family).getByRole("link", { name: /Yasakia/ }).textContent).toContain("In development");
     await user.keyboard("{Escape}");
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
     expect(document.activeElement).toBe(trigger);
