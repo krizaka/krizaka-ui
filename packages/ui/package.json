@@ -333,6 +333,10 @@
       "types": "./dist/image-cropper.d.ts",
       "import": "./dist/image-cropper.js"
     },
+    "./document-viewer": {
+      "types": "./dist/document-viewer.d.ts",
+      "import": "./dist/document-viewer.js"
+    },
     "./list": {
       "types": "./dist/list.d.ts",
       "import": "./dist/list.js"
@@ -638,6 +642,7 @@
     "expo-video": ">=2",
     "hls.js": ">=1.5",
     "maplibre-gl": ">=6",
+    "pdfjs-dist": ">=5",
     "react": ">=18",
     "react-dom": ">=18",
     "react-native": ">=0.76",
@@ -675,6 +680,7 @@
     "jest": "30.4.2",
     "jest-environment-node": "30.4.1",
     "maplibre-gl": "6.11.2",
+    "pdfjs-dist": "6.4.299",
     "publint": "^0.3.25",
     "react": "^19.2.0",
     "react-docgen-typescript": "^2.4.0",
@@ -723,6 +729,9 @@
       "optional": true
     },
     "maplibre-gl": {
+      "optional": true
+    },
+    "pdfjs-dist": {
       "optional": true
     },
     "react-dom": {
@@ -1405,6 +1414,16 @@
       "name": "./image-cropper",
       "path": "dist/image-cropper.js",
       "limit": "12.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./document-viewer",
+      "path": "dist/document-viewer.js",
+      "limit": "5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

@@ -40,6 +40,7 @@ export const PLANNED: Record<string, string> = {
   combobox: "The form and tag input are built on it; Orazaka's model pickers use it through them.",
   "component-page": `${SITE}: the component pages of /docs.`,
   "contact-page": `${SITE}: /contact.`,
+  "document-viewer": "Yomizaka's document page (krizaka/yomizaka#6): the PDF beside Orazaka's findings, a quoted passage lit where it sits.",
   "dashboard-layout": `${WEB_APPS}: the creator and operator dashboards.`,
   "date-picker": "Orochia's scheduling and Yasakia's availability (DS5 dates), through the form.",
   "description-list": "Facts of an object: Orazaka's job details and Orochia's order pages.",
