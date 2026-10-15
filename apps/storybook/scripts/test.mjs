@@ -35,7 +35,7 @@ const server = createServer((req, res) => {
 server.listen(0, "127.0.0.1", () => {
   const { port } = server.address();
   const update = process.argv.includes("--update");
-  const args = ["--url", `http://127.0.0.1:${port}`, "--index-json", "--maxWorkers=2", update ? "-u" : "--ci"];
+  const args = ["--url", `http://127.0.0.1:${port}`, "--index-json", "--maxWorkers=2", update ? "-u" : "--ci", ...process.argv.slice(2).filter((arg) => arg !== "--update")]; // more args go to the test-runner (`--includeTags`…)
   const runner = spawn("test-storybook", args, { stdio: "inherit", shell: process.platform === "win32" });
   runner.on("exit", (code) => server.close(() => process.exit(code ?? 1)));
 });
