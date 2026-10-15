@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.16.0
+
+### Minor Changes
+
+- [#205](https://github.com/krizaka/krizaka-ui/pull/205) [`a2703e6`](https://github.com/krizaka/krizaka-ui/commit/a2703e6dc1205a7227d9322ac4804be40b13e16c) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/document-viewer` — `DocumentViewer`: a PDF drawn page by page with pdf.js (an optional peer the app loads with `loadPdfjs={() => import("pdfjs-dist")}`), and the passages of a report lit where they sit. `highlights` are quotes: `locateQuote` (pure, exported) finds them in the PDF's own text positions and gives one box per line in fractions of the page; `activeId` scrolls to a passage, a click on a box calls `onActiveChange`, `onLocate` tells the app what was placed. A passage the text layer cannot place is never drawn at a guessed place: the viewer goes to its page when known and shows the quote in a bar.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.16.0
+  - @krizaka/tokens@3.16.0
+
 ## 3.15.0
 
 ### Minor Changes
