@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.18.0
+
+### Minor Changes
+
+- [#231](https://github.com/krizaka/krizaka-ui/pull/231) [`a9a8dcf`](https://github.com/krizaka/krizaka-ui/commit/a9a8dcf098e6bc6d31b1ccb6aa6c3d7abc081c72) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Media grid ([#228](https://github.com/krizaka/krizaka-ui/issues/228)), web: `@krizaka/ui/media-grid` — `MediaGrid` for feeds of mixed orientations (`split`: the 9:16 clips on a `ShortsShelf`, the others in a uniform 16:9 grid; `uniform`: one frame, a clip of the other shape drawn whole over a blurred copy; `layout="list"`), `ShortsShelf` (equal-height 9:16 cards, scroll-snap, arrows with a mouse, a swipe on touch, “See all”) and an aspect-aware `VideoCard` (poster, animated preview on hover/focus, duration, badges, creator, count, one quick action; one body height so rows align; a single stretched link). The React Native counterpart and `masonry` stay on the issue.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.18.0
+  - @krizaka/tokens@3.18.0
+
 ## 3.17.0
 
 ### Minor Changes
