@@ -47,7 +47,7 @@ export const sites: readonly Site[] = [
   site({ id: "krizaka", name: "Krizaka", url: "https://www.krizaka.com", kind: "company", group: "krizaka", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-com" }),
   site({ id: "orazaka", name: "Orazaka", url: "https://dev.orazaka.com", kind: "product", group: "products", status: "released", mark: "orazaka", repo: "https://github.com/krizaka/orazaka" }),
   site({ id: "orochia", name: "Orochia", url: "https://dev.orochia.com", kind: "product", group: "products", status: "released", mark: "orochia", repo: "https://github.com/krizaka/orochia" }),
-  site({ id: "yasakia", name: "Yasakia", url: "https://dev.yasakia.com", kind: "product", group: "products", status: "upcoming", mark: "yasakia", repo: "https://github.com/krizaka/yasakia" }),
+  site({ id: "yasakia", name: "Yasakia", url: "https://dev.yasakia.com", kind: "product", group: "products", status: "development", mark: "yasakia", repo: "https://github.com/krizaka/yasakia" }),
   site({ id: "yororis", name: "Yororis", url: "https://dev.yororis.com", kind: "product", group: "products", status: "construction", mark: "yororis", repo: "https://github.com/krizaka/yororis" }),
   site({ id: "yomizaka", name: "Yomizaka", url: "https://dev.yomizaka.com", kind: "product", group: "products", status: "development", mark: "yomizaka", repo: "https://github.com/krizaka/yomizaka" }),
   // In development: nothing deployed yet, so the address is the repository (never a dead link to an unborn dev site).
