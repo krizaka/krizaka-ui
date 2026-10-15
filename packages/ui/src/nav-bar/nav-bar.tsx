@@ -355,10 +355,13 @@ export function NavBarFamily({ current, labels = familyLabels.en, defaultOpen, c
         </p>
         {groups.map(({ group, sites }) => (
           <div key={group}>
-            <p id={`${id}-${group}`} className={s.familyGroupTitle()}>
-              {labels.groups[group]}
-            </p>
-            <ul aria-labelledby={`${id}-${group}`} className="grid gap-0.5">
+            {/* The company's own group is named like the family itself: its heading would repeat the panel's. */}
+            {group !== "krizaka" && (
+              <p id={`${id}-${group}`} className={s.familyGroupTitle()}>
+                {labels.groups[group]}
+              </p>
+            )}
+            <ul aria-labelledby={group !== "krizaka" ? `${id}-${group}` : `${id}-family`} className="grid gap-0.5">
               {sites.map((site) => (
                 <li key={site.id}>
                   <a href={site.url} data-current={site.id === current ? "" : undefined} aria-current={site.id === current ? "true" : undefined} className={s.mobileFamilyLink()}>
