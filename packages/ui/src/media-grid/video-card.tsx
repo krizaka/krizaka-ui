@@ -100,6 +100,7 @@ export function VideoCard({
   const [live, setLive] = React.useState(false);
   const picture = live && previewSrc ? previewSrc : poster;
   const row = layout === "row";
+  const tall = aspect === "portrait" && !row;
   return (
     <article
       data-aspect={aspect}
@@ -133,21 +134,26 @@ export function VideoCard({
               {title}
             </BlockLink>
           </h3>
-          <div className="relative z-10 flex h-8 items-center gap-2 text-xs text-fg-secondary">
+          {/* A narrow card (9:16 on a shelf) puts the count and the action on a second line so the name is never cut to an initial. */}
+          <div className={cn("relative z-10 text-xs text-fg-secondary", tall ? "flex flex-col gap-1" : "flex h-8 items-center gap-2")}>
             {creator && (
-              <>
+              <div className="flex h-6 min-w-0 items-center gap-2">
                 <Avatar src={creator.avatarSrc} defaultAvatar={creator.defaultAvatar} alt="" fallback={creator.name.charAt(0)} size="xs" className="shrink-0" />
                 {creator.href ? (
-                  <BlockLink href={creator.href} linkAs={linkAs} className="truncate hover:text-fg">
+                  <BlockLink href={creator.href} linkAs={linkAs} className="min-w-0 truncate hover:text-fg">
                     {creator.name}
                   </BlockLink>
                 ) : (
-                  <span className="truncate">{creator.name}</span>
+                  <span className="min-w-0 truncate">{creator.name}</span>
                 )}
-              </>
+              </div>
             )}
-            {meta && <span className="ml-auto shrink-0 font-mono text-[11px] text-fg-muted">{meta}</span>}
-            {action && <span className="shrink-0">{action}</span>}
+            {(meta || action) && (
+              <div className={cn("flex items-center gap-2", tall ? "h-7 justify-between" : "ml-auto shrink-0")}>
+                {meta && <span className="shrink-0 font-mono text-[11px] text-fg-muted">{meta}</span>}
+                {action && <span className="shrink-0">{action}</span>}
+              </div>
+            )}
           </div>
         </Card.Body>
       </Card.Root>

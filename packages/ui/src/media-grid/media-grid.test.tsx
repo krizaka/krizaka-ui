@@ -73,6 +73,12 @@ describe("VideoCard", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
+  it("a 9:16 card puts the count and the action on a second line, a 16:9 card keeps one", () => {
+    const card = (aspect: "portrait" | "landscape") => render(<VideoCard href="/" title="Clip" aspect={aspect} creator={{ name: "Noor" }} meta="1K views" action={<button type="button">Tip</button>} />).container;
+    expect(card("portrait").querySelector(".flex-col.gap-1")).not.toBeNull();
+    expect(card("landscape").querySelector(".flex-col.gap-1")).toBeNull();
+  });
+
   it("swaps the picture for its animated preview while hovered, back after", () => {
     const { container } = render(<VideoCard href="/" title="Clip" poster="/still.jpg" previewSrc="/preview.webp" />);
     const article = container.querySelector("article") as HTMLElement;
