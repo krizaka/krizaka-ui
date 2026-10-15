@@ -103,3 +103,7 @@ pnpm + Turborepo, released with Changesets. The rules are in [AGENTS.md](AGENTS.
 ## License
 
 [Apache-2.0](LICENSE)
+
+---
+
+<sub>A Krizaka open-source project · [krizaka.com](https://www.krizaka.com) · Apache-2.0</sub>
