@@ -9,7 +9,7 @@ export const meta = {
   platforms: "web",
   whenToUse: [
     "To list or link the sites of the Krizaka family anywhere: a products page, an open-source hub, a README generator.",
-    "To know a site's status (released, coming soon, under construction) without writing it again.",
+    "To know a site's status (released, coming soon, under construction, in development) without writing it again.",
   ],
   whenNotToUse: [
     { when: "To draw the family in a bar: `NavBar.Family` already reads it.", use: "nav-bar" },

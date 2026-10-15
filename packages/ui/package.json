@@ -9,6 +9,8 @@
     "yasakia",
     "yororis",
     "yomizaka",
+    "kachizaka",
+    "akinaza",
     "react",
     "logo",
     "motion",
@@ -746,7 +748,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "55.5 kB",
+      "limit": "56.8 kB",
       "gzip": true
     },
     {
@@ -988,7 +990,7 @@
     {
       "name": "./mascots",
       "path": "dist/mascots.js",
-      "limit": "5.5 kB",
+      "limit": "6 kB",
       "gzip": true
     },
     {
@@ -1124,7 +1126,7 @@
     {
       "name": "./nav-bar (Radix NavigationMenu, Slot, the family's marks)",
       "path": "dist/nav-bar.js",
-      "limit": "22.6 kB",
+      "limit": "23.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1134,7 +1136,7 @@
     {
       "name": "./site-footer (the family's marks, still)",
       "path": "dist/site-footer.js",
-      "limit": "10 kB",
+      "limit": "10.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1581,7 +1583,7 @@
     {
       "name": "./mascot-quote",
       "path": "dist/mascot-quote.js",
-      "limit": "5 kB",
+      "limit": "5.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

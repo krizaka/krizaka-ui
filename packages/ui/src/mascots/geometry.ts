@@ -3,7 +3,10 @@
  * (`../native/mascots.tsx`). Five birds that have carried the Krizaka story since the first site (the sentry falcon,
  * the owl that reads, the developer duck, the flamingo that answers, the carrier pigeon), the lovebird that
  * introduces (2026-10, with Yasakia: "l'inséparable présente") and the crane that listens (2026-10, with Yororis:
- * "la grue écoute"), redrawn on one 120 × 120 grid so that any bird can wear any mood.
+ * "la grue écoute"), the magpie that keeps the score (2026-10, with Kachizaka: "la pie compte les points") and the
+ * beaver that builds the shop (2026-10, with Akinaza: "le castor artisan" — the one figure of the flock without
+ * feathers: its paws are drawn as wings, its paddle tail behind it), redrawn on one 120 × 120 grid so that any figure
+ * can wear any mood.
  *
  * Colours are roles, never fixed: `brand` (the default) paints a bird in the host's accent (`--kz-accent`,
  * `--kz-accent-2`), so the same falcon is blue on krizaka.com, orange in Orazaka and violet in Orochia; `own` gives
@@ -11,7 +14,7 @@
  * and highlights are black and white at a low opacity over the role, so they hold in both themes.
  */
 
-export const MASCOT_BIRDS = ["falcon", "owl", "duck", "flamingo", "pigeon", "lovebird", "crane"] as const;
+export const MASCOT_BIRDS = ["falcon", "owl", "duck", "flamingo", "pigeon", "lovebird", "crane", "magpie", "beaver"] as const;
 export type MascotBird = (typeof MASCOT_BIRDS)[number];
 
 export const MASCOT_MOODS = ["welcome", "thinking", "success", "empty", "error"] as const;
@@ -170,6 +173,46 @@ export const BIRDS: Readonly<Record<MascotBird, BirdGeometry>> = {
     beak: "M40.5 18.5 L19 22.5 L40.5 25.5 Z",
     eyes: { at: [[45.5, 19.5]], white: 2.8, pupil: 1.6 },
   },
+  /**
+   * The magpie — the one that keeps the score: it counts the points, remembers every trophy and chatters with the
+   * league. A sleek pied bird: a dark cap (the detail colour) over a round head, a white belly, a long tail behind it
+   * (the detail colour), a short straight beak. It watches no one (that is the falcon): it counts.
+   */
+  magpie: {
+    shadow: [58, 110, 24, 3.5],
+    legs: ["M53 95 L51 107 M47 107 L55 107", "M65 95 L67 107 M63 107 L71 107"],
+    back: ["M72 88 C84 94 96 102 106 108 C104 111 100 112 97 110 C88 104 78 98 68 94 Z"],
+    body: "M34 64 C34 44 84 44 84 64 C84 88 72 98 58 98 C44 98 34 88 34 64 Z",
+    belly: "M43 70 C43 60 73 60 73 70 C73 84 67 90 58 90 C49 90 43 84 43 70 Z",
+    wings: [
+      { d: "M35 58 C22 64 22 84 40 88 C36 78 35 68 35 58 Z", pivot: [35, 58] },
+      { d: "M83 58 C96 64 96 84 78 88 C82 78 83 68 83 58 Z", pivot: [83, 58] },
+    ],
+    head: { cx: 58, cy: 36, r: 19 },
+    details: ["M40 34 C40 22 48 16 58 16 C68 16 76 22 76 34 C70 29 64 28 58 28 C52 28 46 29 40 34 Z"],
+    beak: "M53 42 L63 42 L58 50 Z",
+    eyes: { at: [[50, 35], [66, 35]], white: 4.4, pupil: 2.3 },
+  },
+  /**
+   * The beaver — the artisan that builds the shop, Akinaza's figure (and Canada's). Round and sturdy, sitting up: two
+   * round ears and a nose (the detail colour), the two front teeth (the beak colour), small paws drawn as its wings,
+   * and its flat paddle tail lying behind it. No feathers, the same moods.
+   */
+  beaver: {
+    shadow: [62, 110, 30, 3.5],
+    legs: ["M50 100 L48 106 M43 106 L53 106", "M70 100 L72 106 M67 106 L77 106"],
+    back: ["M74 94 C86 92 104 96 108 103 C106 110 90 111 76 104 Z"],
+    body: "M30 72 C30 48 90 48 90 72 C90 96 78 104 60 104 C42 104 30 96 30 72 Z",
+    belly: "M42 76 C42 64 78 64 78 76 C78 92 70 98 60 98 C50 98 42 92 42 76 Z",
+    wings: [
+      { d: "M38 66 C28 70 30 84 42 84 C44 78 42 72 38 66 Z", pivot: [38, 66] },
+      { d: "M82 66 C92 70 90 84 78 84 C76 78 78 72 82 66 Z", pivot: [82, 66] },
+    ],
+    head: { cx: 60, cy: 40, r: 22 },
+    details: ["M37 30 C33 23 39 16 46 20 C43 23 40 26 37 30 Z", "M83 30 C87 23 81 16 74 20 C77 23 80 26 83 30 Z", "M55 45 C55 42 65 42 65 45 C65 48 62 49 60 49 C58 49 55 48 55 45 Z"],
+    beak: "M56 51 H64 V58 C64 59.5 63 60 62 60 H58 C57 60 56 59.5 56 58 Z",
+    eyes: { at: [[51, 36], [69, 36]], white: 4.6, pupil: 2.4 },
+  },
 };
 
 /** What a mood adds around the bird: a badge, a thought, an empty tray. */
@@ -223,6 +266,10 @@ export const OWN_PALETTES: Readonly<Record<MascotBird, MascotPalette>> = {
   lovebird: { from: "#6ee7b7", to: "#059669", wing: "#047857", detail: "#fb7185", beak: "#f97316", eye: "#1f2937" },
   // The sandhill crane (grue du Canada): sand-grey plumage, its red crown, dark legs and beak.
   crane: { from: "#ebe3d6", to: "#9c8f80", wing: "#7d7266", detail: "#dc2626", beak: "#44403c", eye: "#1f2937" },
+  // The Eurasian magpie (pie bavarde): slate and ink, the cobalt sheen of its wings, a dark beak.
+  magpie: { from: "#64748b", to: "#1e293b", wing: "#1d4ed8", detail: "#0f172a", beak: "#334155", eye: "#1f2937" },
+  // The North American beaver (castor du Canada): warm brown fur, a dark nose and tail, its orange front teeth.
+  beaver: { from: "#b07a4a", to: "#6b4226", wing: "#5c3a21", detail: "#3f2716", beak: "#f59e0b", eye: "#1f2937" },
 };
 
 /** Fixed light and shade, laid at a low opacity over a role (they read on both themes). */

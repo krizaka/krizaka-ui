@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/tokens",
   "version": "3.14.0",
-  "description": "The Krizaka semantic design tokens (--kz-*) and the brand themes (Krizaka, Orazaka, Orochia, Yasakia, Yororis, Yomizaka): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
+  "description": "The Krizaka semantic design tokens (--kz-*) and the brand themes (Krizaka, Orazaka, Orochia, Yasakia, Yororis, Yomizaka, Kachizaka, Akinaza): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
   "keywords": [
     "krizaka",
     "design-tokens",
@@ -40,6 +40,8 @@
     "./brands/yazakia.css": "./dist/brands/yazakia.css",
     "./brands/yororis.css": "./dist/brands/yororis.css",
     "./brands/yomizaka.css": "./dist/brands/yomizaka.css",
+    "./brands/kachizaka.css": "./dist/brands/kachizaka.css",
+    "./brands/akinaza.css": "./dist/brands/akinaza.css",
     "./brands/scoped.css": "./dist/brands/scoped.css",
     "./native": {
       "types": "./dist/native.d.ts",
@@ -62,7 +64,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./brands/krizaka.css ./brands/orazaka.css ./brands/orochia.css ./brands/yasakia.css ./brands/yazakia.css ./brands/yororis.css ./brands/yomizaka.css ./brands/scoped.css",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./brands/krizaka.css ./brands/orazaka.css ./brands/orochia.css ./brands/yasakia.css ./brands/yazakia.css ./brands/yororis.css ./brands/yomizaka.css ./brands/kachizaka.css ./brands/akinaza.css ./brands/scoped.css",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
@@ -100,20 +102,20 @@
     {
       "name": "./brands/scoped.css",
       "path": "dist/brands/scoped.css",
-      "limit": "1.3 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "rolldown": false
     },
     {
       "name": ".",
       "path": "dist/index.js",
-      "limit": "3.9 kB",
+      "limit": "4.2 kB",
       "gzip": true
     },
     {
       "name": "./native",
       "path": "dist/native.js",
-      "limit": "2.2 kB",
+      "limit": "2.5 kB",
       "gzip": true
     }
   ]

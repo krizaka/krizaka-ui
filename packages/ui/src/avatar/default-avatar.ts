@@ -2,12 +2,12 @@
 // They are generated from this file (tools/export-brand.mjs renders them to SVG and WebP and uploads them to Bunny,
 // `people/defaults/v1/<brand>/…`), so the pictures and the URLs that name them cannot drift apart.
 
-export type DefaultAvatarBrand = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka";
+export type DefaultAvatarBrand = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka" | "kachizaka" | "akinaza";
 /** `person`: a neutral silhouette. `plain`: the brand's gradient alone, ready for initials. */
 export type DefaultAvatarKind = "person" | "plain";
 export type DefaultAvatarSize = 256 | 512;
 
-export const DEFAULT_AVATAR_BRANDS: readonly DefaultAvatarBrand[] = ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka"];
+export const DEFAULT_AVATAR_BRANDS: readonly DefaultAvatarBrand[] = ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"];
 export const DEFAULT_AVATAR_KINDS: readonly DefaultAvatarKind[] = ["person", "plain"];
 export const DEFAULT_AVATAR_SIZES: readonly DefaultAvatarSize[] = [256, 512];
 /** How many tones each brand has: a person always gets the same one from their seed, so a list is not one colour. */
@@ -38,6 +38,8 @@ const BRANDS: Record<DefaultAvatarBrand, { from: [number, number, number]; to: [
   yasakia: { from: [156, 92, 32], to: [178, 90, 32], spread: 12 },
   yororis: { from: [34, 46, 44], to: [104, 28, 42], spread: 10 },
   yomizaka: { from: [232, 50, 55], to: [248, 50, 58], spread: 10 },
+  kachizaka: { from: [226, 80, 56], to: [44, 92, 33], spread: 10 },
+  akinaza: { from: [140, 48, 34], to: [22, 60, 46], spread: 10 },
 };
 
 /** White on top of a stop must stay visible: a stop is darkened until the contrast reaches this (WCAG 1.4.11, non-text). */

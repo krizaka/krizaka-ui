@@ -8,7 +8,7 @@ export const meta = {
   category: "blocks",
   platforms: "web",
   whenToUse: [
-    "To state the rule a feature stands for (the falcon watches, the owl reads, the duck builds, the flamingo answers or gets paid, the pigeon delivers, the lovebird introduces, the crane listens).",
+    "To state the rule a feature stands for (the falcon watches, the owl reads, the duck builds, the flamingo answers or gets paid, the pigeon delivers, the lovebird introduces, the crane listens, the magpie keeps the score, the beaver builds the shop).",
     "A promise that deserves its own moment in a section (`callout`).",
   ],
   whenNotToUse: [

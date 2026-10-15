@@ -309,6 +309,7 @@ export function NavBarMobileLink({ active, asChild, className, ...props }: NavBa
 const tagTone = {
   upcoming: "bg-accent-soft text-fg ring-1 ring-inset ring-accent/40",
   construction: "bg-warning/15 text-fg ring-1 ring-inset ring-warning/40",
+  development: "bg-surface-3 text-fg ring-1 ring-inset ring-border-strong",
   current: "bg-surface-3 text-fg-secondary",
 };
 

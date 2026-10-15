@@ -1,0 +1,10 @@
+<svg width="96" height="96" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><style>
+.kzm-orbit { transform-origin: 200px 200px; animation: kzm-orbit 28s linear infinite; }
+.kzm-seal { transform-box: fill-box; transform-origin: center; animation: kzm-seal 3.2s ease-in-out infinite; }
+@keyframes kzm-orbit { to { transform: rotate(360deg); } }
+@keyframes kzm-seal {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px #a2780759); }
+  50% { transform: scale(1.06); filter: drop-shadow(0 0 12px #a27807bf); }
+}
+@media (prefers-reduced-motion: reduce) { .kzm-orbit, .kzm-seal { animation: none; } }
+</style><defs><linearGradient id="kzm-gradient" gradientUnits="userSpaceOnUse" x1="136" y1="300" x2="264" y2="104"><stop offset="0%" stop-color="#355fe9"></stop><stop offset="100%" stop-color="#a27807"></stop></linearGradient><radialGradient id="kzm-glow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#a27807" stop-opacity="0.18"></stop><stop offset="100%" stop-color="#a27807" stop-opacity="0"></stop></radialGradient></defs><circle cx="200" cy="200" r="190" fill="url(#kzm-glow)"></circle><circle cx="200" cy="200" r="134" stroke="var(--kz-border-default, color-mix(in srgb, currentColor 30%, transparent))" stroke-width="1" opacity=".35"></circle><g><circle cx="200" cy="200" r="160" stroke="var(--kz-border-strong, color-mix(in srgb, currentColor 40%, transparent))" stroke-width="1.5" stroke-dasharray="8 8" opacity=".6"></circle><circle cx="200" cy="40" r="9" fill="url(#kzm-gradient)"></circle></g><path d="M138 128 C100 124 100 196 150 202 M262 128 C300 124 300 196 250 202" stroke="url(#kzm-gradient)" stroke-width="14" stroke-linecap="round"></path><path d="M190 244 H210 V272 H240 C244 272 248 276 248 280 V300 H152 V280 C152 276 156 272 160 272 H190 Z" fill="url(#kzm-gradient)"></path><path d="M136 104 H232 L264 136 V164 C264 214 236 242 200 246 C164 242 136 214 136 164 Z" fill="url(#kzm-gradient)"></path><path d="M200 142 L207.6 161.5 L228.5 162.7 L212.4 176 L217.6 196.3 L200 185 L182.4 196.3 L187.6 176 L171.5 162.7 L192.4 161.5 Z" fill="#fffbea"></path></svg>
