@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 3.16.1
+
+### Patch Changes
+
+- [#219](https://github.com/krizaka/krizaka-ui/pull/219) [`e5ef0fc`](https://github.com/krizaka/krizaka-ui/commit/e5ef0fc5c088235d279db1118169b2c159f03929) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/sites`: Yomizaka is "In development" (its repository is public and it has a dev site), not "Coming soon" — the same honest status as krizaka.com's product list, in the family switcher and every footer.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.16.1
+  - @krizaka/tokens@3.16.1
+
 ## 3.16.0
 
 ### Minor Changes
