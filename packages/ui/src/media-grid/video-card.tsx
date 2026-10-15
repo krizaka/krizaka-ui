@@ -59,6 +59,10 @@ export interface VideoCardProps extends Omit<React.ComponentProps<"article">, "t
   meta?: React.ReactNode;
   /** One quick action at the end of the footer (a tip, a save). Its clicks must not follow the card's link. */
   action?: React.ReactNode;
+  /** A sensitive picture: blurred and scaled so nothing shows (put the reveal button in `overlay`). */
+  blurred?: boolean;
+  /** Over the whole picture, above the card's link (a veil, a reveal button). */
+  overlay?: React.ReactNode;
   /** Shown instead of the picture while there is none. */
   fallback?: React.ReactNode;
   /** `eager` for the first cards of a page. */
@@ -83,6 +87,8 @@ export function VideoCard({
   meta,
   action,
   fallback,
+  blurred = false,
+  overlay,
   loading = "lazy",
   className,
   onMouseEnter,
@@ -108,7 +114,8 @@ export function VideoCard({
       <Card.Root interactive tone="glass" className={cn("h-full w-full max-w-full", row ? "flex-row" : "flex-col")}>
         <Card.Media aspect="auto" className={cn("shrink-0", FRAME[aspect], row && (aspect === "portrait" ? "w-24 sm:w-28" : "w-40 sm:w-56"))}>
           {fit === "contain" && picture && <img src={picture} alt="" aria-hidden loading="lazy" className="absolute inset-0 h-full w-full scale-125 object-cover opacity-70 blur-2xl" />}
-          <Card.Image src={picture} loading={loading} fallback={fallback} className={cn(fit === "contain" && "relative object-contain")} />
+          <Card.Image src={picture} loading={loading} fallback={fallback} className={cn(fit === "contain" && "relative object-contain", blurred && "scale-110 blur-xl")} />
+          {overlay && <div className="absolute inset-0 z-20 flex">{overlay}</div>}
           {badges && (
             <Card.Overlay corner="top-left" className="theme-dark flex-wrap">
               {badges}

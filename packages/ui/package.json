@@ -2054,7 +2054,7 @@
     {
       "name": "./media-grid",
       "path": "dist/media-grid.js",
-      "limit": "4 kB",
+      "limit": "5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

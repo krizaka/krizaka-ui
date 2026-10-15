@@ -83,6 +83,12 @@ describe("VideoCard", () => {
     expect(container.querySelector("img")?.getAttribute("src")).toBe("/still.jpg");
   });
 
+  it("blurs a sensitive picture and keeps the reveal control above the link", () => {
+    const { container } = render(<VideoCard href="/" title="Clip" poster="/s.jpg" blurred overlay={<button type="button">Reveal</button>} />);
+    expect(container.querySelector("img")?.className).toContain("blur-xl");
+    expect(screen.getByRole("button", { name: "Reveal" }).parentElement?.className).toContain("z-20");
+  });
+
   it("uses the app's router link when given", () => {
     const Link = ({ href, ...p }: { href: string; className?: string; children?: React.ReactNode }) => <a data-router href={href} {...p} />;
     const { container } = render(<VideoCard href="/watch/9" title="Clip" linkAs={Link} />);
