@@ -85,6 +85,7 @@ export type ComponentName =
   | "mascots"
   | "match-dialog"
   | "media-capture"
+  | "media-grid"
   | "media-picker"
   | "meter"
   | "nav-bar"

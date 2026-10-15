@@ -178,6 +178,7 @@ export default defineConfig([
       "activity-feed": "src/activity-feed/index.ts",
       "tree-view": "src/tree-view/index.ts",
       kanban: "src/kanban/index.ts",
+      "media-grid": "src/media-grid/index.ts",
       "photo-grid": "src/photo-grid/index.ts",
       "swipe-deck": "src/swipe-deck/index.ts",
       "match-dialog": "src/match-dialog/index.ts",

@@ -32,6 +32,7 @@ const COMMUNITY = "Yasakia's people screens (PY3/PY4) and Orochia's creator page
 export const PLANNED: Record<string, string> = {
   "action-sheet": `${MOBILE}: the menu of a long press and of "more" on a row.`,
   "activity-feed": "Orochia's notifications and Orazaka's job history (the adoption of Elements, PS-E).",
+  "media-grid": "Orochia's home feed, Explore and a profile's Videos tab (ORO-HOME-FEED): a Shorts shelf for the 9:16, a uniform grid for the 16:9.",
   "app-shell": `${WEB_APPS}: the shell of every authenticated web screen.`,
   "audio-player": "Yororis' voice moments and Orazaka's speech studio (audio outputs).",
   "auth-layout": `${WEB_APPS}: sign-in and sign-up screens.`,

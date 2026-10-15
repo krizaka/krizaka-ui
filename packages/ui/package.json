@@ -557,6 +557,10 @@
       "types": "./dist/verified-badge.d.ts",
       "import": "./dist/verified-badge.js"
     },
+    "./media-grid": {
+      "types": "./dist/media-grid.d.ts",
+      "import": "./dist/media-grid.js"
+    },
     "./photo-grid": {
       "types": "./dist/photo-grid.d.ts",
       "import": "./dist/photo-grid.js"
@@ -2044,6 +2048,21 @@
         "expo-video",
         "expo-camera",
         "expo-image-picker",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./media-grid",
+      "path": "dist/media-grid.js",
+      "limit": "5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "tailwind-merge",
+        "react",
+        "react-dom",
+        "radix-ui",
+        "clsx",
         "@krizaka/ui"
       ]
     },
