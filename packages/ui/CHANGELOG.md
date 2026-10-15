@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.17.0
+
+### Minor Changes
+
+- [#229](https://github.com/krizaka/krizaka-ui/pull/229) [`dad5abb`](https://github.com/krizaka/krizaka-ui/commit/dad5abb9324ae94a7fba575e868f770d960c2475) Thanks [@oussamaABID](https://github.com/oussamaABID)! - DataTable: responsive by itself ([#222](https://github.com/krizaka/krizaka-ui/issues/222)). Columns get a `type` (`title` · `badge` · `status` · `number` · `date` · `link` · `text`: sensible widths, alignment, truncation or line clamps, the full value on hover), a `priority` (2 to 7: the column leaves the row when the table's own width falls under its tier and goes to the row's detail, opened by a chevron; under 36 rem the rows are cards), `minWidth` / `maxWidth`, `nowrap`, `clamp`, `subtitle`, `href`, `unit`. New props: `stickyHeader` (or a px offset), `striped`, `scroll` (the sideways scroll is now an opt-in, with edge fades, once columns are typed), `stickyFirstColumn`; one row height per density. Opening a row no longer remounts it (the focus stays on its button). Tables without `type` / `priority` render as before. `CataloguePage` takes `railFrom="wide"` to keep its filters as a bar above the results under 1280 px. Three new examples: models catalogue, invoice list, admin runs.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.17.0
+  - @krizaka/tokens@3.17.0
+
 ## 3.16.1
 
 ### Patch Changes
