@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { assertWritable, avatarFiles, brandFiles, emblem, hslToRgba, standalone, tokensOf } from "./export-brand.mjs";
+import { assertWritable, avatarFiles, brandFiles, brandIndex, emblem, hslToRgba, standalone, tokensOf } from "./export-brand.mjs";
 
 test("reads the tokens of a theme block", () => {
   const css = ":root, .theme-dark {\n  --kz-text-primary: hsl(0 0% 96%); /* x */\n}\nhtml.light {\n  --kz-text-primary: hsl(240 6% 10%);\n}\n";
@@ -34,7 +34,8 @@ test("cuts the orbit and ring from an emblem and pads its viewBox", () => {
 test("names the files of the library", () => {
   const files = brandFiles();
   assert.ok(files.includes("logo-dark.svg") && files.includes("mark-light-1024.png") && files.includes("avatar-500.png") && files.includes("social-preview-1280x640.png"));
-  assert.equal(files.length, 2 * 2 * 4 + 3);
+  assert.equal(files.length, 2 * 2 * 5 + 3 + 4);
+  for (const f of ["mark-dark-64.png", "mark-light-512.png", "lockup-dark.svg", "lockup-light.svg", "favicon.svg", "og-mark.png"]) assert.ok(files.includes(f), f);
   assert.deepEqual(avatarFiles(["person"], [256], 2), ["person-1.svg", "person-1-256.webp", "person-2.svg", "person-2-256.webp"]);
 });
 
@@ -44,4 +45,17 @@ test("writes only brand/ and people/defaults/v1/", () => {
   assert.equal(assertWritable("brand/manifest.json"), "brand/manifest.json");
   assert.throws(() => assertWritable("site/home/x.png"));
   assert.throws(() => assertWritable("brand/../site/x.png"));
+});
+
+test("brand/index.json lists every URL and the producing version", () => {
+  const idx = brandIndex(["orazaka"], "9.9.9", "cdn.example");
+  assert.equal(idx.generatedFrom, "@krizaka/ui@9.9.9");
+  assert.equal(idx.brands.orazaka["mark-dark-64"], "https://cdn.example/brand/orazaka/mark-dark-64.png");
+  assert.equal(idx.brands.orazaka["favicon"], "https://cdn.example/brand/orazaka/favicon.svg");
+  assert.equal(assertWritable("brand/index.json"), "brand/index.json");
+});
+
+test("cuts the orbit and ring as React renders them (open and close tags)", () => {
+  const out = emblem('<svg viewBox="0 0 400 400"><circle r="1" stroke-dasharray="8 8" opacity=".6"></circle><circle r="2" opacity=".35"></circle><circle r="3"></circle></svg>');
+  assert.equal((out.match(/<circle/g) ?? []).length, 1);
 });
