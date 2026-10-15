@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 3.18.1
+
+### Patch Changes
+
+- [#233](https://github.com/krizaka/krizaka-ui/pull/233) [`f1c16df`](https://github.com/krizaka/krizaka-ui/commit/f1c16dfb7836ed394f96409f8383891614f8ccb5) Thanks [@oussamaABID](https://github.com/oussamaABID)! - VideoCard: on a 9:16 card the count and the quick action move to a second line, so the creator's name is no longer cut to an initial on a shelf.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.18.1
+  - @krizaka/tokens@3.18.1
+
 ## 3.18.0
 
 ### Minor Changes
