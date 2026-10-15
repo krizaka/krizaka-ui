@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 3.18.2
+
+### Patch Changes
+
+- [#243](https://github.com/krizaka/krizaka-ui/pull/243) [`1ceaa22`](https://github.com/krizaka/krizaka-ui/commit/1ceaa2202dce57169a698d0de7926dd6f1d832e4) Thanks [@oussamaABID](https://github.com/oussamaABID)! - fix(sites): Yasakia is in development, not coming soon.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.18.2
+  - @krizaka/tokens@3.18.2
+
 ## 3.18.1
 
 ### Patch Changes
