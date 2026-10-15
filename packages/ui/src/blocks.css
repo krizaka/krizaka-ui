@@ -720,6 +720,14 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   .kz-tpl-catalogue-filters > summary::-webkit-details-marker { display: none; }
   .kz-tpl-catalogue-filters > div { padding: 0 14px 14px; }
 }
+@media (max-width: 1279px) {
+  .kz-tpl-catalogue[data-rail="wide"] { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .kz-tpl-catalogue[data-rail="wide"] .kz-tpl-catalogue-filters { position: static; border-radius: 14px; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); }
+  .kz-tpl-catalogue[data-rail="wide"] .kz-tpl-catalogue-filters > summary { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 0 14px; cursor: pointer; list-style: none;
+    font-size: 14px; font-weight: 650; color: var(--kz-text-primary); }
+  .kz-tpl-catalogue[data-rail="wide"] .kz-tpl-catalogue-filters > summary::-webkit-details-marker { display: none; }
+  .kz-tpl-catalogue[data-rail="wide"] .kz-tpl-catalogue-filters > div { padding: 0 14px 14px; }
+}
 
 /* A long read: chapters with their big numbers, pull quotes in the margin, figures that break out. */
 .kz-tpl-chapters { display: grid; gap: clamp(40px, 7vw, 88px); }

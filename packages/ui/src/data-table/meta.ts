@@ -24,6 +24,8 @@ export const meta = {
     "Put `DataTableFilters` in `toolbar`; mark the columns it filters with `filter: \"text\" | \"facet\" | \"range\"`, and give a server table's facets their `options`.",
     "Server mode: keep the `DataTableQuery` from `onStateChange` in state (or the address), put it in the query key, and pass `rowCount` — `placeholderData: keepPreviousData` keeps the page while the next one loads.",
     "Say what failed in `error` with a way to retry; say what to do next in `empty` (an `EmptyState` with an action).",
+    "Type the columns (`type`: title · badge · status · number · date · link · text) and give the secondary ones a `priority` (2 to 7): the table then never scrolls sideways — columns leave the row for its detail, then the rows become cards. Scrolling is an opt-in (`scroll`).",
+    "A `title` column takes the slack and truncates (full value on hover); badges, statuses, numbers and dates are as wide as their content. Do not give a title column a `maxWidth`.",
     "Align amounts and counts to the end (`align: \"end\"`) in tabular numbers; pin the name column of a wide table.",
     "Need something the props do not cover? `useDataTable()` gives the TanStack instance — never import `@tanstack/*` in a product.",
   ],
@@ -47,6 +49,9 @@ export const meta = {
   web: {
     imports: ["DataTable", "DataTableFilters", "DataTableColumnsMenu", "DataTableExport", "useDataTable"],
     examples: [
+      { name: "catalogue", title: "Models catalogue", description: "Eight typed columns that never overflow: priorities move the maker, licence, context and date into the row's detail as the table narrows, then cards under 36 rem." },
+      { name: "invoices", title: "Invoice list", description: "Title, status and amount always in the row; dates and contact in the detail on a narrow screen; sticky header and zebra rows." },
+      { name: "runs", title: "Admin runs", description: "An admin console: filters, columns menu and CSV export in the toolbar, selection, a range filter on the duration, the error in the detail." },
       { name: "jobs", title: "Jobs", description: "Sortable columns, a status badge, row selection for a bulk action." },
       { name: "filters", title: "Filters, columns, export", description: "A search, facets with their counts, a range; the filters as chips; hide columns; export the rows shown as CSV." },
       { name: "server", title: "Server mode", description: "Sort, filters and page go to the API through `krizakaFetch` and `defineKeys` of @krizaka/query; the previous page stays while the next one loads." },

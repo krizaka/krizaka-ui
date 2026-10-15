@@ -1,15 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import CardsExample from "../../registry/examples/data-table/cards";
+import CatalogueExample from "../../registry/examples/data-table/catalogue";
 import DetailsExample from "../../registry/examples/data-table/details";
 import EmptyExample from "../../registry/examples/data-table/empty";
 import ErrorExample from "../../registry/examples/data-table/error";
 import FiltersExample from "../../registry/examples/data-table/filters";
 import GroupedExample from "../../registry/examples/data-table/grouped";
+import InvoicesExample from "../../registry/examples/data-table/invoices";
 import JobsExample from "../../registry/examples/data-table/jobs";
 import LoadingExample from "../../registry/examples/data-table/loading";
 import PaginatedExample from "../../registry/examples/data-table/paginated";
 import PinnedExample from "../../registry/examples/data-table/pinned";
+import RunsExample from "../../registry/examples/data-table/runs";
 import ServerExample from "../../registry/examples/data-table/server";
 import VirtualizedExample from "../../registry/examples/data-table/virtualized";
 
@@ -20,8 +23,8 @@ import VirtualizedExample from "../../registry/examples/data-table/virtualized";
 const meta = {
   title: "Primitives/DataTable",
   decorators: [
-    (Story) => (
-      <div className="w-[40rem] max-w-full">
+    (Story, { parameters }) => (
+      <div style={{ width: (parameters.width as string | undefined) ?? "40rem", maxWidth: "100%" }}>
         <Story />
       </div>
     ),
@@ -45,3 +48,14 @@ export const Empty: Story = { render: () => <EmptyExample /> };
 export const Error: Story = { render: () => <ErrorExample /> };
 /** 50,000 rows. */
 export const Virtualized: Story = { render: () => <VirtualizedExample /> };
+
+/** The models catalogue at a desktop's content width: eight columns in the row. */
+export const Catalogue: Story = { render: () => <CatalogueExample />, parameters: { width: "72rem" } };
+/** The same table at a laptop's: the licence, context and date go to the row's detail. */
+export const CatalogueMedium: Story = { render: () => <CatalogueExample />, parameters: { width: "56rem" } };
+/** On a phone: each row a card; priority 2 stays on its face, the rest behind the chevron. */
+export const CatalogueNarrow: Story = { render: () => <CatalogueExample />, parameters: { width: "22rem" } };
+export const Invoices: Story = { render: () => <InvoicesExample />, parameters: { width: "60rem" } };
+export const InvoicesNarrow: Story = { render: () => <InvoicesExample />, parameters: { width: "22rem" } };
+export const Runs: Story = { render: () => <RunsExample />, parameters: { width: "64rem" } };
+export const RunsNarrow: Story = { render: () => <RunsExample />, parameters: { width: "22rem" } };
