@@ -63,6 +63,7 @@ export type ComponentName =
   | "goal-gauge"
   | "header"
   | "how-it-works-page"
+  | "document-viewer"
   | "image-cropper"
   | "image-viewer"
   | "iso"

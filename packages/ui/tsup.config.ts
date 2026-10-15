@@ -173,6 +173,7 @@ export default defineConfig([
       "video-trimmer": "src/video-trimmer/index.ts",
       "audio-player": "src/audio-player/index.ts",
       "image-cropper": "src/image-cropper/index.ts",
+      "document-viewer": "src/document-viewer/index.ts",
       list: "src/list/index.ts",
       "activity-feed": "src/activity-feed/index.ts",
       "tree-view": "src/tree-view/index.ts",
