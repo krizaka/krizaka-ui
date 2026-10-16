@@ -50,3 +50,23 @@ export function useChartSettings(own: ChartsSettings): { locale: Locale; brand?:
     [own.locale, own.brand, own.labels, shared],
   );
 }
+
+/**
+ * What a `ChartCard` hands the chart inside it: the heading (title, insight, description) the card shows once, and the
+ * extra controls (a period switch) that sit beside the chart's actions menu. A chart outside a card has none.
+ */
+export interface ChartCardContextValue {
+  readonly title?: string;
+  readonly insight?: ReactNode;
+  readonly description?: ReactNode;
+  readonly extra?: ReactNode;
+}
+
+const CardContext = createContext<ChartCardContextValue | null>(null);
+
+export const ChartCardProvider = CardContext.Provider;
+
+/** The card the chart is drawn in, or null. */
+export function useChartCard(): ChartCardContextValue | null {
+  return useContext(CardContext);
+}

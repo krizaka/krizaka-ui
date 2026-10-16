@@ -96,7 +96,7 @@ describe("theme and locale", () => {
   it("writes the figures in the provider's locale and marks the brand on the chart", () => {
     const { container } = render(<FrenchOrazaka />);
     expect(container.querySelector("figure")!.getAttribute("data-brand")).toBe("orazaka");
-    expect(screen.getByRole("button", { name: "Voir les données" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: /Actions du graphique/ })).toBeTruthy();
     expect(container.textContent).toContain("Histogramme, 4 (juin 2026 – sept. 2026).");
   });
 

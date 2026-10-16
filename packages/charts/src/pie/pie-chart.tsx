@@ -7,10 +7,11 @@ import { type KeyboardEvent, useMemo, useState } from "react";
 import { read } from "../core/data";
 import { describeParts } from "../core/describe";
 import { shareFormatter, valueFormatter } from "../core/format";
+import { fill } from "../core/labels";
 import { arcPath, polar } from "../core/shape";
 import type { Accessor, Datum, SeriesColor, ValueFormat } from "../core/types";
 import { ChartFrame, type ChartFrameProps, useSettings } from "../web/frame";
-import { colorOf, Tooltip } from "../web/parts";
+import { colorOf, Legend, Tooltip, useToggles } from "../web/parts";
 
 export interface PieChartProps<T extends Datum> extends ChartFrameProps {
   /** One row per part. */
@@ -54,7 +55,7 @@ export function PieChart<T extends Datum>(props: PieChartProps<T>) {
   const { locale, labels } = useSettings(props);
   const fmt = useMemo(() => ({ value: valueFormatter(format, locale, labels.noValue), share: shareFormatter(locale) }), [format, locale, labels.noValue]);
 
-  const slices = useMemo<Slice<T>[]>(() => {
+  const allSlices = useMemo<Slice<T>[]>(() => {
     const rows = data
       .map((datum, index) => ({ datum, index, label: read(label, datum, index), value: Math.max(0, Number(read(value, datum, index)) || 0) }))
       .sort((a, b) => b.value - a.value);
@@ -67,16 +68,20 @@ export function PieChart<T extends Datum>(props: PieChartProps<T>) {
     return out;
   }, [data, label, value, color, maxSlices, otherLabel]);
 
+  const { off, toggle } = useToggles();
+  const allTotal = allSlices.reduce((sum, s) => sum + s.value, 0);
+  // What is drawn: the parts that are on. The summary and the table keep them all.
+  const slices = useMemo(() => allSlices.filter((s) => !off.has(s.label)), [allSlices, off]);
   const total = slices.reduce((sum, s) => sum + s.value, 0);
-  const isEmpty = total <= 0;
+  const isEmpty = allTotal <= 0;
   const kind = donut ? "donut" : "pie";
-  const summary = useMemo(() => (isEmpty ? labels.empty : describeParts(kind, slices, { labels, value: fmt.value, share: fmt.share })), [isEmpty, kind, slices, labels, fmt]);
+  const summary = useMemo(() => (isEmpty ? labels.empty : describeParts(kind, allSlices, { labels, value: fmt.value, share: fmt.share })), [isEmpty, kind, allSlices, labels, fmt]);
   const table = useMemo(
     () => ({
       columns: [labelHeader ?? labels.category, valueHeader ?? labels.value, "%"],
-      rows: [...slices.map((s) => [s.label, fmt.value(s.value), fmt.share(total ? s.value / total : 0)]), [labels.total, fmt.value(total), fmt.share(1)]],
+      rows: [...allSlices.map((s) => [s.label, fmt.value(s.value), fmt.share(allTotal ? s.value / allTotal : 0)]), [labels.total, fmt.value(allTotal), fmt.share(1)]],
     }),
-    [slices, fmt, total, labels, labelHeader, valueHeader],
+    [allSlices, fmt, allTotal, labels, labelHeader, valueHeader],
   );
 
   const [active, setActive] = useState<number | null>(null);
@@ -104,14 +109,13 @@ export function PieChart<T extends Datum>(props: PieChartProps<T>) {
   const say = (s: Slice<T>) => `${s.label}: ${fmt.value(s.value)} (${fmt.share(total ? s.value / total : 0)})`;
 
   const legend = (
-    <ul className="kzc-legend" aria-hidden>
-      {slices.map((s) => (
-        <li key={s.label}>
-          <span className="kzc-key" style={{ background: s.color }} />
-          {s.label} · {fmt.share(total ? s.value / total : 0)}
-        </li>
-      ))}
-    </ul>
+    <Legend
+      always
+      items={allSlices.map((s) => ({ label: s.label, color: s.color, detail: `${fmt.value(s.value)} · ${fmt.share(allTotal ? s.value / allTotal : 0)}` }))}
+      off={off}
+      onToggle={allSlices.length > 1 ? (label) => { setActive(null); toggle(label); } : undefined}
+      toggleName={(label) => fill(labels.toggleSeries, { label })}
+    />
   );
 
   return (

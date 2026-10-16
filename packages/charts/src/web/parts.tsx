@@ -1,6 +1,6 @@
 // The small pieces every chart shares: a series' colour, the legend and the tooltip (the surface of @krizaka/ui's
 // floating elements: raised surface, border, large shadow; text in the text roles, the colour on a key beside it).
-import type { ReactNode } from "react";
+import { type ReactNode, useCallback, useState } from "react";
 
 import type { SeriesColor, Tone } from "../core/types";
 
@@ -12,7 +12,8 @@ const TONES: Record<Tone, string> = {
   accent: "var(--kz-accent)",
   success: "var(--kz-success)",
   warning: "var(--kz-warning)",
-  danger: "var(--kz-danger)",
+  // A failure is stated, not shouted: the danger hue eased toward the muted text so a block of it stays calm.
+  danger: "color-mix(in oklab, var(--kz-danger) 78%, var(--kz-text-muted))",
   info: "var(--kz-info)",
 };
 
@@ -29,25 +30,85 @@ export interface LegendItem {
   readonly color: string;
   readonly shape?: "square" | "line";
   readonly dashed?: boolean;
+  /** Written after the name, muted: a value or a share (`42 %`). */
+  readonly detail?: string;
 }
 
-/** The legend: a key in the series' colour beside its name in the text colour. Shown from two series. */
-export function Legend({ items }: { items: readonly LegendItem[] }) {
-  if (items.length < 2) return null;
+export interface LegendProps {
+  readonly items: readonly LegendItem[];
+  /** Labels that are switched off (their chip reads as off). */
+  readonly off?: ReadonlySet<string>;
+  /** Makes the chips buttons that switch a series on and off. */
+  readonly onToggle?: (label: string) => void;
+  /** The chip's accessible name when it is a button: `Show or hide {label}`. */
+  readonly toggleName?: (label: string) => string;
+  /** Show it even for a single item (a donut's parts). Default: from two items. */
+  readonly always?: boolean;
+}
+
+/**
+ * The legend: a key in the series' colour beside its name in the text colour. Shown from two series. With `onToggle`
+ * the chips are buttons that filter the chart (`aria-pressed`); the last visible one cannot be switched off.
+ */
+export function Legend({ items, off, onToggle, toggleName, always }: LegendProps) {
+  if (items.length < 2 && !always) return null;
+  const live = items.filter((item) => !off?.has(item.label)).length;
   return (
-    <ul className="kzc-legend" aria-hidden>
-      {items.map((item) => (
-        <li key={item.label}>
+    <ul className="kzc-legend" aria-hidden={onToggle ? undefined : true}>
+      {items.map((item) => {
+        const isOff = off?.has(item.label) ?? false;
+        const key = (
           <span
             className="kzc-key"
             data-shape={item.shape}
             style={{ background: item.dashed ? `repeating-linear-gradient(90deg, ${item.color} 0 4px, transparent 4px 7px)` : item.color }}
           />
-          {item.label}
-        </li>
-      ))}
+        );
+        const text = (
+          <>
+            {item.label}
+            {item.detail && <span className="kzc-legend-detail">{item.detail}</span>}
+          </>
+        );
+        return (
+          <li key={item.label}>
+            {onToggle ? (
+              <button
+                type="button"
+                className="kzc-chip"
+                aria-pressed={!isOff}
+                title={toggleName?.(item.label)}
+                disabled={!isOff && live <= 1}
+                onClick={() => onToggle(item.label)}
+              >
+                {key}
+                {text}
+              </button>
+            ) : (
+              <>
+                {key}
+                {text}
+              </>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
+}
+
+/** The switched-off labels of a legend: `off` and `toggle`. */
+export function useToggles(): { off: ReadonlySet<string>; toggle: (label: string) => void } {
+  const [off, setOff] = useState<ReadonlySet<string>>(() => new Set());
+  const toggle = useCallback((label: string) => {
+    setOff((current) => {
+      const next = new Set(current);
+      if (next.has(label)) next.delete(label);
+      else next.add(label);
+      return next;
+    });
+  }, []);
+  return { off, toggle };
 }
 
 export interface TooltipRow {

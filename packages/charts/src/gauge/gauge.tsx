@@ -61,7 +61,7 @@ export function Gauge(props: GaugeProps) {
   ]
     .filter(Boolean)
     .join(" ");
-  const table = { columns: [labels.category, labels.value], rows: [[props.title, text], ["min", fmt(min)], ["max", fmt(max)], ...(target ? [[target.label, fmt(target.value)]] : [])] };
+  const table = { columns: [labels.category, labels.value], rows: [[props.title ?? "", text], ["min", fmt(min)], ["max", fmt(max)], ...(target ? [[target.label, fmt(target.value)]] : [])] };
   const at = (v: number) => START + ((Math.min(max, Math.max(min, v)) - min) / (max - min || 1)) * (END - START);
 
   return (

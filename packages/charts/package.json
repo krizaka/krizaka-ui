@@ -40,6 +40,10 @@
       "types": "./dist/provider.d.ts",
       "import": "./dist/provider.js"
     },
+    "./card": {
+      "types": "./dist/card.d.ts",
+      "import": "./dist/card.js"
+    },
     "./earnings": {
       "types": "./dist/earnings.d.ts",
       "import": "./dist/earnings.js"
@@ -163,6 +167,7 @@
     "topojson-client": "^3.1.0"
   },
   "peerDependencies": {
+    "@krizaka/ui": ">=3.18.2",
     "react": ">=19",
     "react-dom": ">=19",
     "react-native": ">=0.76",
@@ -185,6 +190,7 @@
     "@jest/globals": "30.4.1",
     "@krizaka/config": "workspace:*",
     "@krizaka/tokens": "workspace:*",
+    "@krizaka/ui": "workspace:*",
     "@react-native/babel-preset": "0.86.3",
     "@react-native/jest-preset": "0.86.3",
     "@size-limit/preset-small-lib": "^14.2.0",
@@ -229,159 +235,269 @@
   },
   "size-limit": [
     {
-      "name": "./line",
-      "path": "dist/line.js",
-      "limit": "13.5 kB",
+      "name": "./card",
+      "path": "dist/card.js",
+      "limit": "15 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
+      ]
+    },
+    {
+      "name": "./line",
+      "path": "dist/line.js",
+      "limit": "17 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./bar",
       "path": "dist/bar.js",
-      "limit": "13.5 kB",
+      "limit": "17 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./pie",
       "path": "dist/pie.js",
-      "limit": "9.5 kB",
+      "limit": "12.5 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./gauge",
       "path": "dist/gauge.js",
-      "limit": "8.5 kB",
+      "limit": "11 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./earnings",
       "path": "dist/earnings.js",
-      "limit": "14.5 kB",
+      "limit": "17.5 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./throughput",
       "path": "dist/throughput.js",
-      "limit": "14.5 kB",
+      "limit": "17.5 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./latency",
       "path": "dist/latency.js",
-      "limit": "14.5 kB",
+      "limit": "17.5 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./credits",
       "path": "dist/credits.js",
+      "limit": "14 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
+      ]
+    },
+    {
+      "name": "./goal",
+      "path": "dist/goal.js",
       "limit": "11.5 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
-      ]
-    },
-    {
-      "name": "./goal",
-      "path": "dist/goal.js",
-      "limit": "9.5 kB",
-      "gzip": true,
-      "ignore": [
-        "react",
-        "react-dom",
-        "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./ticker",
       "path": "dist/ticker.js",
-      "limit": "14.5 kB",
+      "limit": "17.5 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./sparkline",
       "path": "dist/sparkline.js",
-      "limit": "10.5 kB",
+      "limit": "13 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./geo (with the world, 38 kB, loaded when a map is drawn)",
       "path": "dist/geo.js",
-      "limit": "57 kB",
+      "limit": "58.5 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./globe (with the world, loaded when drawn)",
       "path": "dist/globe.js",
-      "limit": "58 kB",
+      "limit": "59.5 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -393,7 +509,14 @@
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -405,7 +528,14 @@
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -417,7 +547,14 @@
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -429,7 +566,14 @@
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -441,7 +585,14 @@
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -453,7 +604,14 @@
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -465,7 +623,14 @@
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -477,7 +642,14 @@
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -489,31 +661,52 @@
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": ". (everything, lazy parts included)",
       "path": "dist/index.js",
-      "limit": "476 kB",
+      "limit": "477.5 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./native (bundled by Metro: a regression guard)",
       "path": "dist/native.js",
-      "limit": "13 kB",
+      "limit": "13.5 kB",
       "gzip": true,
       "ignore": [
         "react",
         "react-dom",
         "react-native",
-        "react-native-svg"
+        "react-native-svg",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -527,13 +720,20 @@
         "react-native",
         "react-native-svg",
         "echarts",
-        "zrender"
+        "zrender",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
       "name": "./heatmap before the engine (what the page pays at load)",
       "path": "dist/heatmap.js",
-      "limit": "15 kB",
+      "limit": "15.5 kB",
       "gzip": true,
       "ignore": [
         "react",
@@ -541,7 +741,14 @@
         "react-native",
         "react-native-svg",
         "echarts",
-        "zrender"
+        "zrender",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -555,7 +762,14 @@
         "react-native",
         "react-native-svg",
         "echarts",
-        "zrender"
+        "zrender",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -569,7 +783,14 @@
         "react-native",
         "react-native-svg",
         "echarts",
-        "zrender"
+        "zrender",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -583,7 +804,14 @@
         "react-native",
         "react-native-svg",
         "echarts",
-        "zrender"
+        "zrender",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -597,7 +825,14 @@
         "react-native",
         "react-native-svg",
         "echarts",
-        "zrender"
+        "zrender",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     },
     {
@@ -611,7 +846,14 @@
         "react-native",
         "react-native-svg",
         "echarts",
-        "zrender"
+        "zrender",
+        "@krizaka/ui/button",
+        "@krizaka/ui/card",
+        "@krizaka/ui/data-table",
+        "@krizaka/ui/dialog",
+        "@krizaka/ui/dropdown-menu",
+        "@krizaka/ui/number-ticker",
+        "@krizaka/ui/stat"
       ]
     }
   ]

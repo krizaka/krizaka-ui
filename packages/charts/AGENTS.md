@@ -39,9 +39,14 @@
 
 - **Every chart goes through the frame** (`src/web/frame.tsx`; `src/echarts/host.tsx` for ECharts;
   `src/native/frame.tsx`): a title (the accessible name), a summary written from the data (`src/core/describe.ts`),
-  the data table (always in the page, visually hidden until "Show data"), one tab stop with the arrow keys walking the
-  points and a polite live region, the loading / empty / error states at the chart's height, the export (PNG, SVG,
-  CSV). A chart that skips the frame is not done.
+  the data table (always in the page, visually hidden), one tab stop with the arrow keys walking the
+  points and a polite live region, the loading / empty / error states at the chart's height, and the **actions menu
+  (⋯)** built from the kit (`src/web/actions.tsx`, lazy): view as table (the kit `DataTable` in a `Sheet`, loaded when it
+  opens), download CSV / PNG / SVG, copy. A chart that skips the frame is not done. `@krizaka/ui` is a peer of the
+  package; only the frame's lazy chunks and the `./card` entry import it.
+- **One card for every chart of a screen**: `ChartCard` (`./card`): title · one-line insight · chart · footer; the chart
+  inside takes its heading from it (`useChartCard`). `KpiStat` is the kit's `Stat` with a sparkline and a computed trend.
+  Legend chips filter (`useToggles`); `autoRange` zooms a time axis on the period that has data.
 - **SSR without layout shift**: the server renders the frame, the summary and the table, and a placeholder of the exact
   height; the browser draws once it knows the width (`useWidth`). A `Sparkline` with a `width` draws on the server.
 - **Colours: tokens and the palette only.** Components read `var(--kz-*)` and `var(--kzc-<slot>)`; the palette
@@ -67,7 +72,7 @@ fails on a missing meta, example, story, native screenshot or prop description. 
 - `pnpm turbo run check --filter=@krizaka/charts`: ESLint + `tsc`, Vitest (happy-dom: SSR, axe, keyboard, formats,
   palettes, registry) and Jest (React Native), build, size, publint + attw (`esm-only`) + `scripts/consumer.mjs` +
   `scripts/dist-check.mjs` (the SVG charts never reach ECharts).
-- **Size budgets** (`size-limit`, gzip, peers excluded): each SVG entry ≤ 13.5 kB (the ready-made ones ≤ 14.5 kB: their core chart plus the headline; `./credits` ≤ 11.5 kB, `./goal` ≤ 9.5 kB); `./native` ≤ 13 kB (Metro bundles it: a regression guard); each ECharts entry ≤ 15 kB before
+- **Size budgets** (`size-limit`, gzip, peers excluded): each SVG entry ≤ 17 kB (the ready-made ones ≤ 17.5 kB: their core chart plus the headline; `./credits` ≤ 14 kB, `./goal` ≤ 11.5 kB; the frame carries the actions menu's glue and the legend chips); `./native` ≤ 13 kB (Metro bundles it: a regression guard); each ECharts entry ≤ 15 kB before
   its engine and ≤ 212 kB with it; geo and globe ≤ 58 kB with the world; `./chart` ≤ 392 kB (all of ECharts unless
   `modules` says less).
 - Stories are audited by axe and screenshot-compared in dark and light (`apps/storybook`).

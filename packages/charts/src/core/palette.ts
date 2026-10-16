@@ -26,7 +26,7 @@ export type Hue = keyof typeof HUES;
 /** The order of the hues for each brand: slot 1 is the brand. */
 export const ORDERS: Record<BrandId, readonly Hue[]> = {
   krizaka: ["blue", "green", "magenta", "yellow", "aqua", "orange", "violet", "red"],
-  orazaka: ["orange", "aqua", "blue", "yellow", "magenta", "green", "violet", "red"],
+  orazaka: ["orange", "blue", "aqua", "yellow", "magenta", "green", "violet", "red"],
   orochia: ["violet", "magenta", "yellow", "aqua", "orange", "blue", "green", "red"],
 };
 
