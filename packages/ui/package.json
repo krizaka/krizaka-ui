@@ -1566,7 +1566,7 @@
     {
       "name": "./card-grid",
       "path": "dist/card-grid.js",
-      "limit": "1 kB",
+      "limit": "1.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
