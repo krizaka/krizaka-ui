@@ -51,4 +51,12 @@ describe("default avatars", () => {
     expect(person).toContain("<circle");
     expect(plain).not.toContain("<circle");
   });
+
+  it("trims the trailing slashes of a base in linear time", () => {
+    const start = performance.now();
+    const url = defaultAvatarUrl({ brand: "orochia", tone: 1 }, { base: `https://cdn.example/${"/".repeat(200_000)}x` });
+    expect(url.startsWith("https://cdn.example/")).toBe(true);
+    expect(performance.now() - start).toBeLessThan(500);
+    expect(defaultAvatarUrl({ brand: "orochia", tone: 1 }, { base: "https://cdn.example/a///" })).toBe("https://cdn.example/a/orochia/person-1-256.webp");
+  });
 });
