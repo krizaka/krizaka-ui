@@ -79,7 +79,7 @@ describe("LineChart", () => {
     const user = userEvent.setup();
     render(<LineChart title="Earnings" data={earnings} x="month" series={series} />);
     expect(screen.queryByRole("button", { name: "Show data" })).toBeNull();
-    const trigger = await screen.findByRole("button", { name: "Chart actions — Earnings" }, {}, { timeout: 15_000 });
+    const trigger = await screen.findByRole("button", { name: "Chart actions — Earnings" }, { timeout: 15_000 });
     await user.click(trigger);
     const items = (await screen.findAllByRole("menuitem", {}, { timeout: 15_000 })).map((item) => item.textContent);
     expect(items).toEqual(["View as table", "Download CSV", "Download PNG", "Download SVG", "Copy data"]);
@@ -93,7 +93,7 @@ describe("LineChart", () => {
   it("offers only the downloads asked for, and no table when dataTable is off", async () => {
     const user = userEvent.setup();
     render(<LineChart title="Earnings" data={earnings} x="month" series={series} exportable={["csv"]} dataTable={false} />);
-    await user.click(await screen.findByRole("button", { name: "Chart actions — Earnings" }, {}, { timeout: 15_000 }));
+    await user.click(await screen.findByRole("button", { name: "Chart actions — Earnings" }, { timeout: 15_000 }));
     expect((await screen.findAllByRole("menuitem", {}, { timeout: 15_000 })).map((item) => item.textContent)).toEqual(["Download CSV", "Copy data"]);
   });
 
