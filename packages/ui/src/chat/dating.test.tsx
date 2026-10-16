@@ -5,6 +5,7 @@ import userEvent from "@testing-library/user-event";
 
 import Conversation from "../../registry/examples/chat/conversation";
 import Inbox from "../../registry/examples/chat/inbox";
+import PillComposer from "../../registry/examples/chat/pill-composer";
 import ItsAMatch from "../../registry/examples/match-dialog/its-a-match";
 import ProfilePhotos from "../../registry/examples/photo-grid/profile-photos";
 import SignUp from "../../registry/examples/step-progress/sign-up";
@@ -65,5 +66,43 @@ describe("match, tags, steps, chat", () => {
     const elena = inbox.container.querySelector('a[href="#/chats/elena"]')!;
     expect(elena.textContent).toMatch(/Elena, online.*2 unread/);
     expect(await axeViolations(inbox.container)).toEqual([]);
+  });
+});
+
+describe("pill composer", () => {
+  it("sends with Enter, adds a line with Shift+Enter, holds the send while busy, and keeps its box", async () => {
+    const onSend = vi.fn();
+    const { MessageComposer } = await import("./chat");
+    const { rerender, container } = render(
+      <MessageComposer variant="pill" value="Hello" onValueChange={() => {}} onSend={onSend} placeholder="Ask" sendLabel="Send" status="Local" leading={<button type="button">Chat</button>} />,
+    );
+    const box = screen.getByRole("textbox", { name: "Ask" });
+    const send = screen.getByRole("button", { name: "Send" }) as HTMLButtonElement;
+    expect(send.disabled).toBe(false);
+    fireEvent.keyDown(box, { key: "Enter", shiftKey: true });
+    expect(onSend).not.toHaveBeenCalled();
+    fireEvent.keyDown(box, { key: "Enter" });
+    expect(onSend).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("status").textContent).toBe("Local");
+    // one border only: the textarea has none of its own
+    expect(box.className).toContain("border-0");
+    const pill = send.parentElement!;
+    rerender(<MessageComposer variant="pill" value="Hello" busy onValueChange={() => {}} onSend={onSend} placeholder="Ask" sendLabel="Send" status="Answering" leading={<button type="button">Chat</button>} />);
+    expect((screen.getByRole("button", { name: "Send" }) as HTMLButtonElement).disabled).toBe(true);
+    fireEvent.keyDown(screen.getByRole("textbox", { name: "Ask" }), { key: "Enter" });
+    expect(onSend).toHaveBeenCalledTimes(1);
+    expect(container.querySelector("form")!.getAttribute("aria-busy")).toBe("true");
+    expect(send.parentElement).toBe(pill);
+  });
+
+  it("can send an attachment alone (canSend) and has no axe violation", async () => {
+    const onSend = vi.fn();
+    const { MessageComposer } = await import("./chat");
+    const { container } = render(<MessageComposer variant="pill" value="" canSend onValueChange={() => {}} onSend={onSend} placeholder="Ask" sendLabel="Send" />);
+    await userEvent.click(screen.getByRole("button", { name: "Send" }));
+    expect(onSend).toHaveBeenCalledTimes(1);
+    expect(await axeViolations(container)).toEqual([]);
+    const ex = render(<PillComposer />);
+    expect(await axeViolations(ex.container)).toEqual([]);
   });
 });
