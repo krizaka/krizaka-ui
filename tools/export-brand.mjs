@@ -5,6 +5,8 @@
 // of `@krizaka/ui/avatar` (defaultAvatarSvg) rendered to SVG and WebP. They are the media library of Bunny Storage:
 //
 //   brand/<brand>/…                       logo + mark, SVG, PNG 256/512/1024 on transparent, dark & light, avatar, social preview
+//                                         + (#217) lockup-{dark,light}.svg, mark/logo -64.png, favicon.svg, og-mark.png (1200×630)
+//   brand/index.json                      every brand's public URLs + the @krizaka/ui version that produced them
 //   brand/manifest.json                   every file with its size and SHA-256
 //   people/defaults/v1/<brand>/…          the default profile pictures: person-<1-6>, plain-<1-6> × .svg / -256.webp / -512.webp
 //   people/defaults/v1/manifest.json
@@ -16,6 +18,9 @@
 // Credentials (environment or --env-file, never printed): MEDIA_STORAGE_API_KEY, MEDIA_STORAGE_ZONE,
 // MEDIA_STORAGE_ENDPOINT (default storage.bunnycdn.com), MEDIA_CDN_HOSTNAME. Names are stable (the library is "the latest
 // logo"); the default avatars are versioned by folder (`v1`): a changed picture is a new folder, never an overwrite.
+// Cache: the names are stable, so a changed file stays cached at the edge until the pull zone is purged (the storage key
+// cannot purge, and Bunny storage takes no per-object Cache-Control): set the pull zone's cache expiry for brand/* to 5 minutes
+// (dashboard → pull zone → Caching) or purge with the account API key. Release workflow: .github/workflows/release.yml.
 // The layout of the zone: krizaka-com scripts/bunny-layout.mjs, AGENTS.md §5.2.
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -29,7 +34,10 @@ const TOKENS_CSS = resolve(HERE, "../packages/tokens/dist/tokens.css");
 
 export const BRANDS = ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"];
 export const THEMES = ["dark", "light"];
-export const LOGO_SIZES = [256, 512, 1024];
+export const LOGO_SIZES = [64, 256, 512, 1024];
+/** The stable public names (krizaka/krizaka-ui#217), on top of the library: lockup = the whole logo, favicon.svg, og-mark.png. */
+export const OG = { width: 1200, height: 630 };
+export const DEFAULT_CDN = "krizaka-assets.b-cdn.net";
 export const AVATAR_SIZES = [500, 1024];
 export const SOCIAL = { width: 1280, height: 640 };
 /** The page behind the avatar and the social preview: the dark surface of the family. */
@@ -82,8 +90,8 @@ export function standalone(svg, tokens, size) {
  */
 export function emblem(svg, margin = 0.06) {
   return svg
-    .replace(/<circle\b[^>]*\bstroke-dasharray="[^"]*"[^>]*\/>/g, "")
-    .replace(/<circle\b[^>]*\bopacity="\.35"[^>]*\/>/g, "")
+    .replace(/<circle\b[^>]*\bstroke-dasharray="[^"]*"[^>]*(?:\/>|><\/circle>)/g, "")
+    .replace(/<circle\b[^>]*\bopacity="\.35"[^>]*(?:\/>|><\/circle>)/g, "")
     .replace(/viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"/, (_, x, y, w, h) => {
       const [X, Y, W, H] = [x, y, w, h].map(Number);
       const mx = W * margin;
@@ -103,7 +111,20 @@ export function brandFiles() {
   }
   for (const size of AVATAR_SIZES) files.push(`avatar-${size}.png`);
   files.push(`social-preview-${SOCIAL.width}x${SOCIAL.height}.png`);
+  for (const theme of THEMES) files.push(`lockup-${theme}.svg`);
+  files.push("favicon.svg", "og-mark.png");
   return files;
+}
+
+/** `brand/index.json`: every brand's public URLs and the @krizaka/ui version that produced them. */
+export function brandIndex(brands, version, cdn = DEFAULT_CDN) {
+  const base = `https://${cdn}/brand`;
+  return {
+    about: "Public, stable URLs of the logos and marks of the Krizaka family — generated from @krizaka/ui on every release, never hand-made",
+    generatedFrom: `@krizaka/ui@${version}`,
+    source: "https://github.com/krizaka/krizaka-ui/blob/main/tools/export-brand.mjs",
+    brands: Object.fromEntries(brands.map((b) => [b, Object.fromEntries(brandFiles().map((f) => [f.replace(/\.[a-z]+$/, ""), `${base}/${b}/${f}`]))])),
+  };
 }
 
 /** The files of one brand's default avatars, relative to `people/defaults/v1/<brand>/`. */
@@ -118,7 +139,7 @@ const encodePath = (p) => p.split("/").map(encodeURIComponent).join("/");
 
 /** Throws unless <path> is under one of the prefixes this script writes. */
 export function assertWritable(path) {
-  if (!/^(brand|people\/defaults\/v1)\/[a-z0-9-]+\/[A-Za-z0-9._-]+$|^(brand|people\/defaults\/v1)\/manifest\.json$/.test(path)) {
+  if (!/^(brand|people\/defaults\/v1)\/[a-z0-9-]+\/[A-Za-z0-9._-]+$|^(brand|people\/defaults\/v1)\/manifest\.json$|^brand\/index\.json$/.test(path)) {
     throw new Error(`${path} is outside brand/ and people/defaults/v1/ — this script writes only those (see the Bunny layout)`);
   }
   return path;
@@ -158,12 +179,16 @@ export async function build() {
     }
     for (const [name, svg] of Object.entries(svgs)) {
       out.set(`${dir}/${name}.svg`, Buffer.from(`${svg}\n`));
+      if (name.startsWith("logo-")) out.set(`${dir}/${name.replace("logo-", "lockup-")}.svg`, Buffer.from(`${svg}\n`));
       for (const size of LOGO_SIZES) out.set(`${dir}/${name}-${size}.png`, await png(svg, size));
     }
     // The avatar of an account (GitHub, npm, social): the mark on the family's dark surface, full-bleed square — the platform rounds it.
     const markDark = svgs["mark-dark"].replace(/^<svg /, '<svg x="15%" y="15%" ');
     const avatarSvg = (s) => `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 100 100"><rect width="100" height="100" fill="${INK}"/>${markDark.replace(/<svg x="15%" y="15%" width="\d+" height="\d+"/, '<svg x="15" y="15" width="70" height="70"')}</svg>`;
     for (const s of AVATAR_SIZES) out.set(`${dir}/avatar-${s}.png`, await png(avatarSvg(s), s));
+    // favicon.svg: the emblem on the family's dark surface (legible in any tab); og-mark.png: the same, 1200×630 for Open Graph.
+    out.set(`${dir}/favicon.svg`, Buffer.from(`${avatarSvg(100).replace(/ width="100" height="100"/, "").replace("<rect ", '<rect rx="22" ')}\n`));
+    out.set(`${dir}/og-mark.png`, await png(`<svg xmlns="http://www.w3.org/2000/svg" width="${OG.width}" height="${OG.height}" viewBox="0 0 ${OG.width} ${OG.height}"><rect width="${OG.width}" height="${OG.height}" fill="${INK}"/>${svgs["mark-dark"].replace(/^<svg width="400" height="400"/, `<svg x="${(OG.width - 360) / 2}" y="${(OG.height - 360) / 2}" width="360" height="360"`)}</svg>`, OG.width, OG.height));
     // The social preview: the whole logo, large, on the dark surface lit by the brand's halo.
     const { width: W, height: H } = SOCIAL;
     const logo = svgs["logo-dark"].replace(/^<svg width="400" height="400"/, `<svg x="${(W - 600) / 2}" y="${(H - 600) / 2}" width="600" height="600"`);
@@ -187,6 +212,7 @@ export async function build() {
     const files = [...out].filter(([p]) => p.startsWith(`${root}/`)).map(([p, b]) => ({ path: p, bytes: b.length, sha256: sha(b) }));
     out.set(`${root}/manifest.json`, Buffer.from(`${JSON.stringify({ about: label, generatedFrom: `@krizaka/ui@${k.version}`, source: "https://github.com/krizaka/krizaka-ui/blob/main/tools/export-brand.mjs", files }, null, 2)}\n`));
   }
+  out.set("brand/index.json", Buffer.from(`${JSON.stringify(brandIndex(BRANDS, k.version, process.env.MEDIA_CDN_HOSTNAME || DEFAULT_CDN), null, 2)}\n`));
   return { files: out, version: k.version };
 }
 
