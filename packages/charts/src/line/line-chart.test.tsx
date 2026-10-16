@@ -24,6 +24,11 @@ const money = { style: "money", currency: "EUR" } as const;
 beforeEach(() => mockWidth());
 
 describe("LineChart", () => {
+  // The menu and its sheet are lazy chunks: load them once up front so a busy runner never races the first click.
+  beforeAll(async () => {
+    await Promise.all([import("../web/actions"), import("../web/table-sheet")]);
+  }, 60_000);
+
   it("renders on the server: the frame, the summary and the data table, a placeholder of the exact height", () => {
     const html = renderToString(<LineChart title="Earnings" data={earnings} x="month" series={series} format={money} height={240} />);
     expect(html).toContain("Earnings");
