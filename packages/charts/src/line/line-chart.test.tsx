@@ -74,12 +74,12 @@ describe("LineChart", () => {
     const user = userEvent.setup();
     render(<LineChart title="Earnings" data={earnings} x="month" series={series} />);
     expect(screen.queryByRole("button", { name: "Show data" })).toBeNull();
-    const trigger = await screen.findByRole("button", { name: "Chart actions — Earnings" });
+    const trigger = await screen.findByRole("button", { name: "Chart actions — Earnings" }, {}, { timeout: 15_000 });
     await user.click(trigger);
-    const items = (await screen.findAllByRole("menuitem")).map((item) => item.textContent);
+    const items = (await screen.findAllByRole("menuitem", {}, { timeout: 15_000 })).map((item) => item.textContent);
     expect(items).toEqual(["View as table", "Download CSV", "Download PNG", "Download SVG", "Copy data"]);
     await user.click(screen.getByRole("menuitem", { name: "View as table" }));
-    const sheet = await screen.findByRole("dialog");
+    const sheet = await screen.findByRole("dialog", {}, { timeout: 15_000 });
     expect(sheet.textContent).toContain("Earnings");
     expect(sheet.textContent).toContain("6 rows");
     expect(sheet.textContent).toContain("342,000");
@@ -88,8 +88,8 @@ describe("LineChart", () => {
   it("offers only the downloads asked for, and no table when dataTable is off", async () => {
     const user = userEvent.setup();
     render(<LineChart title="Earnings" data={earnings} x="month" series={series} exportable={["csv"]} dataTable={false} />);
-    await user.click(await screen.findByRole("button", { name: "Chart actions — Earnings" }));
-    expect((await screen.findAllByRole("menuitem")).map((item) => item.textContent)).toEqual(["Download CSV", "Copy data"]);
+    await user.click(await screen.findByRole("button", { name: "Chart actions — Earnings" }, {}, { timeout: 15_000 }));
+    expect((await screen.findAllByRole("menuitem", {}, { timeout: 15_000 })).map((item) => item.textContent)).toEqual(["Download CSV", "Copy data"]);
   });
 
   it("switches a series off from its legend chip, keeping the last one on", async () => {

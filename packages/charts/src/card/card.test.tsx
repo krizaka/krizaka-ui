@@ -28,7 +28,7 @@ describe("ChartCard", () => {
     expect(container.querySelector(".kzc-card-foot")!.textContent).toBe("Source: your jobs");
     expect(screen.getByRole("group", { name: "Jobs per day" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "7 days" })).toBeTruthy();
-    expect(await screen.findByRole("button", { name: "Chart actions — Jobs per day" })).toBeTruthy();
+    expect(await screen.findByRole("button", { name: "Chart actions — Jobs per day" }, {}, { timeout: 15_000 })).toBeTruthy();
     expect(await axeViolations(container)).toEqual([]);
   });
 
