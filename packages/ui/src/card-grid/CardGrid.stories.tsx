@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
 
 import AlignedExample from "../../registry/examples/card-grid/aligned";
+import FoundationExample from "../../registry/examples/card-grid/foundation";
 import ProductsExample from "../../registry/examples/card-grid/products";
 import RevealExample from "../../registry/examples/card-grid/reveal";
 import { CardGrid } from "./card-grid";
@@ -16,6 +17,17 @@ export default meta;
 type Story = StoryObj;
 
 export const Products: Story = { render: () => <ProductsExample /> };
+export const Foundation: Story = {
+  render: () => <FoundationExample />,
+  play: async ({ canvasElement }) => {
+    const base = canvasElement.querySelector<HTMLElement>(".kz-foundation-base")!;
+    const group = canvasElement.querySelector<HTMLElement>(".kz-foundation-group")!;
+    // The foundation spans the width above the frame, and the cards are inside it.
+    expect(base.getBoundingClientRect().bottom).toBeLessThan(group.getBoundingClientRect().top);
+    expect(Math.round(base.getBoundingClientRect().width)).toBeGreaterThanOrEqual(Math.round(group.getBoundingClientRect().width) - 2);
+    expect(group.querySelectorAll(".kz-cards-cell")).toHaveLength(3);
+  },
+};
 export const Reveal: Story = { render: () => <RevealExample /> };
 
 /**

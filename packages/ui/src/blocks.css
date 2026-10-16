@@ -177,6 +177,17 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-cards[data-align="start"] { align-items: start; }
 .kz-cards-cell { display: grid; min-width: 0; }
 
+/* A foundation (CardGrid `foundation`): one wide card, a hairline stem, and a frame around the cards that stand on it. */
+.kz-foundation { --kz-rail: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 50%, var(--kz-border-default)); display: grid; }
+.kz-foundation-base { position: relative; display: grid; min-width: 0; }
+.kz-foundation-base::after { content: ""; position: absolute; left: 50%; top: 100%; width: 1px; height: 28px; background: var(--kz-rail); }
+.kz-foundation-group { position: relative; margin-top: 28px; padding: 22px 14px 14px; border: 1px solid var(--kz-rail); border-radius: 24px; }
+.kz-foundation-label { position: absolute; top: -9px; left: 22px; padding: 0 8px; font: 500 11px/18px var(--kz-font-mono, ui-monospace, monospace); letter-spacing: 0.06em; text-transform: uppercase; color: var(--kz-hue-text, var(--kz-accent-text)); background: var(--kz-surface-0); }
+.kz-foundation[data-position="end"] .kz-foundation-base { order: 2; }
+.kz-foundation[data-position="end"] .kz-foundation-group { order: 1; margin-top: 0; margin-bottom: 28px; }
+.kz-foundation[data-position="end"] .kz-foundation-base::after { top: auto; bottom: 100%; }
+@media (max-width: 640px) { .kz-foundation-group { padding: 20px 8px 8px; border-radius: 20px; } }
+
 /* The shared surface of the cards: a rail of the hue along the top, the light that follows the pointer (PointerLight
    writes --kz-pointer-x/y), a lift and a lit border under the pointer or the focus. */
 .kz-block-card {
