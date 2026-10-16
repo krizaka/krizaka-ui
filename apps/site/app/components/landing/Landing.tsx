@@ -9,30 +9,39 @@ import { CodeBlock } from "@krizaka/ui/code-block";
 import { LinkCard } from "@krizaka/ui/link-card";
 import { NumberTicker } from "@krizaka/ui/number-ticker";
 import Link from "next/link";
-import type { ComponentType } from "react";
+import type { ComponentType, CSSProperties, ReactNode } from "react";
 
 import { format, getDictionary, type Locale } from "@/lib/i18n";
 import { packageVersion } from "@/lib/package-version";
 import { examplePropsOf } from "@/lib/ui-example-props";
 import { UI_EXAMPLES, type UiExampleKey } from "@/lib/ui-examples";
-import { getRegistryItem, getRegistryItems } from "@/lib/ui-registry";
+import { exampleKey, exampleSource, getRegistryItem, getRegistryItems } from "@/lib/ui-registry";
 import { componentPath, localePath } from "@/lib/urls";
 
+import { CopyCode } from "./CopyCode";
 import { IdentityStage } from "./IdentityStage";
 
 /* The home of ui.krizaka.com: what Krizaka UI is (one sentence, the install line, two ways in, the figures read from the
    registries), a showcase of live components in context under a switchable identity, the ways into the docs, and where
    each package lives. Every component on it is a named example of the registry — the same code its page shows. */
 
-/** The showcase: one example per component, never two of the same, laid out on a four-column grid (`area`). */
+/** The showcase: one example per component, never two of the same, placed on the bento by `area` (globals.css, « The
+    showcase »), in reading order — the order of the single column on a phone and of the colour wave on a switch. */
 const TILES: { key: UiExampleKey; component: string; caption: keyof ReturnType<typeof getDictionary>["landing"]["tiles"]; area: string }[] = [
   { key: "glow-card/plans", component: "glow-card", caption: "plans", area: "plans" },
-  { key: "chat/conversation", component: "chat", caption: "chat", area: "chat" },
   { key: "vertical-video/rail", component: "vertical-video", caption: "video", area: "video" },
-  { key: "form/sign-up", component: "form", caption: "signUp", area: "form" },
+  { key: "chat/conversation", component: "chat", caption: "chat", area: "chat" },
   { key: "stepper/job", component: "stepper", caption: "stepper", area: "stepper" },
+  { key: "form/sign-up", component: "form", caption: "signUp", area: "form" },
   { key: "data-table/jobs", component: "data-table", caption: "jobs", area: "table" },
 ];
+
+/** The source a tile's "Code" copies: the registry example it renders, exactly as written. */
+function sourceOf(component: string, key: string): string {
+  const examples = getRegistryItem(component).web?.examples ?? [];
+  const example = examples.find((e) => exampleKey(e) === key) ?? examples[0];
+  return example ? exampleSource(example) : "";
+}
 
 const PLACES = [
   { id: "start", path: "/installation", Icon: HomeIcon },
@@ -101,7 +110,23 @@ export async function Landing({ locale }: { locale: Locale }) {
     { id: "packages", value: published.length, label: t.facts.packages },
   ];
   const tiles = await Promise.all(
-    TILES.map(async (tile) => ({ ...tile, title: getRegistryItem(tile.component).title, Example: (await UI_EXAMPLES[tile.key]()).default as ComponentType<Record<string, unknown>> })),
+    TILES.map(async (tile) => ({ ...tile, title: getRegistryItem(tile.component).title, code: sourceOf(tile.component, tile.key), Example: (await UI_EXAMPLES[tile.key]()).default as ComponentType<Record<string, unknown>> })),
+  );
+  const show = t.showcase;
+  /** One tile: the live example on its stage, then what it is, the way to copy its code and the way to its page. */
+  const tile = ({ area, index, component, title, code, caption, children }: { area: string; index: number; component: string; title: string; code: string; caption: string; children: ReactNode }) => (
+    <figure key={area} className="kz-land-tile" data-area={area} style={{ "--i": index } as CSSProperties}>
+      <div className="kz-land-stage">{children}</div>
+      <figcaption>
+        <span className="kz-land-tile-what">
+          <Link href={componentPath(locale, component)} aria-label={format(show.open, { name: title })}>
+            {title}
+          </Link>
+          <span>{caption}</span>
+        </span>
+        <CopyCode code={code} label={format(show.copyCode, { name: title })} idle={show.code} done={show.copied} />
+      </figcaption>
+    </figure>
   );
   const about = new Map(published.map((p) => [p.dir, p.description]));
 
@@ -140,25 +165,29 @@ export async function Landing({ locale }: { locale: Locale }) {
         </dl>
       </header>
 
-      <section className="kz-land-section" aria-labelledby="land-showcase">
-        <h2 id="land-showcase">{t.showcase.title}</h2>
-        <p className="kz-land-sub">{t.showcase.lead}</p>
-        <IdentityStage label={t.showcase.identity} stageLabel={t.showcase.stage}>
-          {tiles.map(({ key, component, caption, area, title, Example }) => (
-            <figure key={key} className="kz-land-tile" data-area={area}>
-              <div className="kz-land-stage">
-                <Example {...examplePropsOf(key)} />
-              </div>
-              <figcaption>
-                <span>{t.tiles[caption]}</span>
-                <Link href={componentPath(locale, component)} aria-label={format(t.showcase.open, { name: title })}>
-                  {title} →
-                </Link>
-              </figcaption>
-            </figure>
-          ))}
-          <figure className="kz-land-tile" data-area="chart">
-            <div className="kz-land-stage">
+      <section className="kz-land-section kz-land-showcase" aria-labelledby="land-showcase">
+        <h2 id="land-showcase">{show.title}</h2>
+        <p className="kz-land-sub">{show.lead}</p>
+        <IdentityStage label={show.identity} stageLabel={show.stage} wearing={show.wearing}>
+          {tiles.map(({ key, component, caption, area, title, code, Example }, index) =>
+            tile({
+              area,
+              index,
+              component,
+              title,
+              code,
+              caption: t.tiles[caption],
+              children: <Example {...examplePropsOf(key)} {...(area === "video" ? { fit: "fill" } : {})} />,
+            }),
+          )}
+          {tile({
+            area: "chart",
+            index: TILES.length,
+            component: "line-chart",
+            title: getRegistryItem("line-chart").title,
+            code: sourceOf("line-chart", ""),
+            caption: t.tiles.chart,
+            children: (
               <LineChart
                 title={t.chart.title}
                 description={t.chart.description}
@@ -170,14 +199,8 @@ export async function Landing({ locale }: { locale: Locale }) {
                 thresholds={[{ value: 250_000, label: t.chart.threshold, tone: "success" }]}
                 zero={false}
               />
-            </div>
-            <figcaption>
-              <span>{t.tiles.chart}</span>
-              <Link href={componentPath(locale, "line-chart")} aria-label={format(t.showcase.open, { name: getRegistryItem("line-chart").title })}>
-                {getRegistryItem("line-chart").title} →
-              </Link>
-            </figcaption>
-          </figure>
+            ),
+          })}
         </IdentityStage>
       </section>
 

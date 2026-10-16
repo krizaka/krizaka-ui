@@ -7,13 +7,14 @@ import { useState } from "react";
 const CDN = "https://krizaka-assets.b-cdn.net/site/people/ui";
 
 // One short video (`src` and `poster` are yours: a clip of your own): the rail on the right (follow, like, comments, share, your own tip button), the caption bottom-left.
-// Tap pauses, double tap likes, Space pauses and L likes on the focused video.
-export default function VerticalVideoRail({ src, poster = `${CDN}/camille-512.9573eaa0b8.webp` }: { src?: string; poster?: string } = {}) {
+// Tap pauses, double tap likes, Space pauses and L likes on the focused video. `fit="fill"` fills a box of its own size.
+export default function VerticalVideoRail({ src, poster = `${CDN}/camille-512.9573eaa0b8.webp`, fit = "frame" }: { src?: string; poster?: string; fit?: "frame" | "fill" } = {}) {
   const [liked, setLiked] = useState(false);
   const [following, setFollowing] = useState(false);
   return (
-    <div className="w-64">
+    <div className={fit === "fill" ? "h-full w-full" : "w-64"}>
       <VerticalVideo
+        fit={fit}
         title="Video: Night shoot, part 2"
         src={src}
         poster={poster}

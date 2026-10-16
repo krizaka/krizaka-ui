@@ -106,6 +106,12 @@ export interface VerticalVideoProps extends Omit<React.ComponentProps<"article">
   topStart?: React.ReactNode;
   /** Above the caption: a goal gauge, a challenge's progress. */
   aboveCaption?: React.ReactNode;
+  /**
+   * How it takes its space: `frame` draws its own 9:16 box from its width; `fill` fills the box it is given (a bento
+   * tile, a grid cell, a phone frame) — the clip covers it, cropped at the edges, the rail and the caption over it.
+   * @default "frame"
+   */
+  fit?: "frame" | "fill";
   /** The locale of the counts. Default `en`. */
   locale?: string;
   /** Every word, passed translated. */
@@ -160,6 +166,7 @@ export function VerticalVideo({
   tipSlot,
   topStart,
   aboveCaption,
+  fit = "frame",
   locale = "en",
   labels: custom,
   className,
@@ -207,7 +214,8 @@ export function VerticalVideo({
       aria-label={title}
       tabIndex={0}
       data-playing={playing ? "" : undefined}
-      className={cn("relative isolate aspect-[9/16] w-full overflow-hidden bg-surface-0 text-fg-on-media focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring", className)}
+      data-fit={fit}
+      className={cn("relative isolate w-full overflow-hidden", fit === "fill" ? "h-full min-h-0" : "aspect-[9/16]", "bg-surface-0 text-fg-on-media focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring", className)}
       onKeyDown={(event) => {
         onKeyDown?.(event);
         if (event.defaultPrevented || event.target !== event.currentTarget) return;
@@ -276,9 +284,9 @@ export function VerticalVideo({
         {onMore && <Rail label={labels.more} onClick={onMore}>{glyph(MORE)}</Rail>}
       </div>
 
-      <div className="absolute bottom-4 left-3 right-20 flex flex-col gap-1.5">
+      <div className="absolute bottom-4 left-3 right-16 flex min-w-0 flex-col gap-1.5">
         {aboveCaption}
-        <p className="flex items-center gap-1.5 text-sm font-bold">
+        <p className="flex min-w-0 flex-wrap items-center gap-x-1.5 gap-y-1 text-sm font-bold">
           {name}
           {creator.verifiedLabel && <VerifiedBadge label={creator.verifiedLabel} onMedia size="sm" />}
           {disclosure && <span className="whitespace-nowrap rounded-full bg-scrim px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-fg-on-media backdrop-blur-md">{disclosure}</span>}

@@ -69,4 +69,14 @@ describe("Progress", () => {
     expect(container.querySelector("g")?.getAttribute("mask")).toBe(`url(#${mask?.id})`);
     expect(container.querySelectorAll("circle")[2]?.getAttribute("class")).toContain("stroke-danger");
   });
+  it("never cuts a short label to make room for the figure: in a narrow box the figure goes under it", () => {
+    render(<Progress label="Transcoding" value={58} eta="About 2 min left" showLabel />);
+    const caption = screen.getByText("Transcoding");
+    const header = caption.parentElement!;
+    expect(header.className).toContain("flex-wrap");
+    // The label keeps its width (it does not shrink to "Tra…"); only a label wider than the whole box is cut.
+    expect(caption.className).toMatch(/\bshrink-0\b/);
+    expect(caption.className).toContain("max-w-full");
+    expect(caption.className).not.toMatch(/\bmin-w-0\b/);
+  });
 });

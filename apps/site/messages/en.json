@@ -505,7 +505,11 @@
       "lead": "Real components from the package, rendered by this page. Switch the identity: the components stay, the brand changes.",
       "identity": "Identity",
       "stage": "Krizaka UI components in the {brand} identity",
-      "open": "Open {name}"
+      "open": "Open {name}",
+      "wearing": "Wearing",
+      "copyCode": "Copy the code of {name}",
+      "code": "Code",
+      "copied": "Copied"
     },
     "tiles": {
       "plans": "Plans and pricing",

@@ -11,8 +11,8 @@ export const progress = tv({
     center: "absolute inset-0 flex flex-col items-center justify-center text-center",
     buffer: "absolute inset-y-0 left-0 -z-10 rounded-full bg-accent/25 transition-[width] duration-500 motion-reduce:transition-none",
     frame: "flex w-full flex-col gap-1.5",
-    header: "flex items-baseline gap-2 text-xs",
-    caption: "min-w-0 flex-1 truncate font-medium text-fg",
+    header: "flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-xs",
+    caption: "max-w-full shrink-0 grow truncate font-medium text-fg",
     figure: "shrink-0 tabular-nums text-fg-secondary",
   },
   variants: {
