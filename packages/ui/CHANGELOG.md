@@ -1,5 +1,19 @@
 # @krizaka/ui
 
+## 3.19.0
+
+### Minor Changes
+
+- [#254](https://github.com/krizaka/krizaka-ui/pull/254) [`97ea37e`](https://github.com/krizaka/krizaka-ui/commit/97ea37ea4c01e9a2265343124fed39f4c53cb1d2) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `CardGrid` takes a `foundation`: one wide card that the others stand on (an engine, a platform), a hairline stem joining it to a frame around the cards, an optional `foundationLabel` on the frame and `foundationPosition` (`start` above, `end` under). The cards still share one height and the pointer's light.
+
+- [#250](https://github.com/krizaka/krizaka-ui/pull/250) [`fc5e2e0`](https://github.com/krizaka/krizaka-ui/commit/fc5e2e0c539558873f15a3e2440bf4b43764d075) Thanks [@oussamaABID](https://github.com/oussamaABID)! - feat(chat): `MessageComposer variant="pill"` — one rounded field with `leading` (mode chip, attach) inside on the left, a round send inside on the right, a reserved `status` line under it; `busy` holds the send without moving the box, `canSend` allows an attachment alone, `inputProps`/`sendProps` forward attributes.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.19.0
+  - @krizaka/tokens@3.19.0
+
 ## 3.18.2
 
 ### Patch Changes

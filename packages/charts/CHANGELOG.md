@@ -1,5 +1,23 @@
 # @krizaka/charts
 
+## 0.4.0
+
+### Minor Changes
+
+- [#269](https://github.com/krizaka/krizaka-ui/pull/269) [`de51549`](https://github.com/krizaka/krizaka-ui/commit/de51549a3539596ced38aea3def2667a8d728c16) Thanks [@oussamaABID](https://github.com/oussamaABID)! - A next-generation visual language for charts ([#253](https://github.com/krizaka/krizaka-ui/issues/253)).
+  
+  - **`ChartCard`** (`@krizaka/charts/card`): one frame for every chart — title, a one-line **insight**, the chart, a footer — on the kit's Card; the chart inside takes its heading from the card. **`KpiStat`**: a key figure on the kit's `Stat`, its change against the previous period computed and written in words (`good="down"` for latency, spend), a sparkline of the period.
+  - **Actions menu (⋯)** on every chart, replacing the "Show data" and export buttons: *View as table* (the kit `DataTable` in a `Sheet`, loaded when it opens), *Download CSV / PNG / SVG*, *Copy data*. The accessible table stays in the page. `actionsMenu={false}` keeps the former inline buttons. `@krizaka/ui` (>= 3.18.2) is now a peer dependency.
+  - **Legend chips that filter**: line, area and bar legends, and the donut/pie legend (with each part's value and share), are toggle buttons (`aria-pressed`); the last visible one cannot be switched off.
+  - **Sparse and empty data**: `autoRange` (with `minPoints`) zooms a time axis on the period that has data and says how sparse it is; a calmer empty state.
+  - A designed Orazaka palette (orange with a cool counterpoint, colour-vision checks green), a softer `danger` tone for failed series, tabular numerals, staggered bar entrance. `title` is optional inside a `ChartCard`; new `insight` prop.
+
+### Patch Changes
+
+- [#271](https://github.com/krizaka/krizaka-ui/pull/271) [`ba7b7ec`](https://github.com/krizaka/krizaka-ui/commit/ba7b7ec412fbf212ce404e51d3f8fc192eb35358) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui` is a peer on the workspace protocol (`^3`), so the packed-package check installs it with the package on a release pull request.
+- Updated dependencies [[`97ea37e`](https://github.com/krizaka/krizaka-ui/commit/97ea37ea4c01e9a2265343124fed39f4c53cb1d2), [`fc5e2e0`](https://github.com/krizaka/krizaka-ui/commit/fc5e2e0c539558873f15a3e2440bf4b43764d075)]:
+  - @krizaka/ui@3.19.0
+
 ## 0.3.1
 
 ### Patch Changes
