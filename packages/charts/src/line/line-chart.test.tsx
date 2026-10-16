@@ -1,6 +1,8 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderToString } from "react-dom/server";
 
+import { BarChart } from "../bar";
 import { axeViolations } from "../test/axe";
 import { mockWidth } from "../test/setup";
 import { AreaChart, LineChart } from "./index";
@@ -59,13 +61,60 @@ describe("LineChart", () => {
     expect(container.querySelector("table")!.textContent).toContain("3 420,00 €".replace(/ /g, " ").replace(" €", " €"));
   });
 
-  it("shows the data table on demand", () => {
-    const { container } = render(<LineChart title="Earnings" data={earnings} x="month" series={series} />);
+  it("shows the data table on demand (the former inline buttons, actionsMenu={false})", () => {
+    const { container } = render(<LineChart title="Earnings" data={earnings} x="month" series={series} actionsMenu={false} />);
     const button = screen.getByRole("button", { name: "Show data" });
     expect(container.querySelector("table")!.parentElement!.className).toBe("kzc-sr");
     fireEvent.click(button);
     expect(button.getAttribute("aria-expanded")).toBe("true");
     expect(container.querySelector("table")!.parentElement!.className).toBe("kzc-table-wrap");
+  });
+
+  it("has an actions menu (⋯) instead: view as table, downloads, copy", async () => {
+    const user = userEvent.setup();
+    render(<LineChart title="Earnings" data={earnings} x="month" series={series} />);
+    expect(screen.queryByRole("button", { name: "Show data" })).toBeNull();
+    const trigger = await screen.findByRole("button", { name: "Chart actions — Earnings" });
+    await user.click(trigger);
+    const items = (await screen.findAllByRole("menuitem")).map((item) => item.textContent);
+    expect(items).toEqual(["View as table", "Download CSV", "Download PNG", "Download SVG", "Copy data"]);
+    await user.click(screen.getByRole("menuitem", { name: "View as table" }));
+    const sheet = await screen.findByRole("dialog");
+    expect(sheet.textContent).toContain("Earnings");
+    expect(sheet.textContent).toContain("6 rows");
+    expect(sheet.textContent).toContain("342,000");
+  });
+
+  it("offers only the downloads asked for, and no table when dataTable is off", async () => {
+    const user = userEvent.setup();
+    render(<LineChart title="Earnings" data={earnings} x="month" series={series} exportable={["csv"]} dataTable={false} />);
+    await user.click(await screen.findByRole("button", { name: "Chart actions — Earnings" }));
+    expect((await screen.findAllByRole("menuitem")).map((item) => item.textContent)).toEqual(["Download CSV", "Copy data"]);
+  });
+
+  it("switches a series off from its legend chip, keeping the last one on", async () => {
+    const user = userEvent.setup();
+    const { container } = render(<LineChart title="Earnings" data={earnings} x="month" series={series} />);
+    const chips = screen.getAllByRole("button", { pressed: true });
+    expect(chips).toHaveLength(2);
+    expect(container.querySelectorAll("path.kzc-line")).toHaveLength(2);
+    await user.click(chips[0]!);
+    expect(chips[0]!.getAttribute("aria-pressed")).toBe("false");
+    expect(container.querySelectorAll("path.kzc-line")).toHaveLength(1);
+    // the table in the page keeps every series
+    expect(container.querySelectorAll("table thead th")).toHaveLength(3);
+    expect((chips[1] as HTMLButtonElement).disabled).toBe(true);
+    await user.click(chips[0]!);
+    expect(container.querySelectorAll("path.kzc-line")).toHaveLength(2);
+  });
+
+  it("zooms the time axis on the period that has data and says it is sparse", () => {
+    const days = Array.from({ length: 30 }, (_, i) => ({ day: `2026-04-${String(i + 1).padStart(2, "0")}`, jobs: i === 27 ? 100 : 0 }));
+    const { container } = render(<BarChart title="Jobs" data={days} x="day" y="jobs" yLabel="Jobs" autoRange minPoints={7} />);
+    expect(container.querySelectorAll("table tbody tr")).toHaveLength(7);
+    expect(container.querySelector(".kzc-note")!.textContent).toBe("1 of 7 periods have data.");
+    const all = render(<BarChart title="Jobs" data={days} x="day" y="jobs" yLabel="Jobs" />);
+    expect(all.container.querySelectorAll("table tbody tr")).toHaveLength(30);
   });
 
   it("says loading, empty and error at the chart's height", () => {

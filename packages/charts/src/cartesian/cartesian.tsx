@@ -6,7 +6,7 @@
 // the keyboard.
 import { type KeyboardEvent, type PointerEvent, type ReactNode, useMemo, useState } from "react";
 
-import { extent, normalizeSeries, type Series, stack, type Table, tabulate } from "../core/data";
+import { extent, normalizeSeries, type Series, stack, type Table, tabulate, trimToActivity } from "../core/data";
 import { describeSeries } from "../core/describe";
 import { categoryFormatter, shareFormatter, valueFormatter } from "../core/format";
 import { type ChartKind, fill } from "../core/labels";
@@ -14,7 +14,7 @@ import { bandScale, linearScale, niceDomain, pointScale, thinLabels } from "../c
 import { areaPath, barPath, type Curve, linePath, type Point, segments } from "../core/shape";
 import type { Accessor, CategoryFormat, Datum, Marker, SeriesSpec, Threshold, ValueFormat } from "../core/types";
 import { ChartFrame, type ChartFrameProps, useSettings } from "../web/frame";
-import { colorOf, cx, Legend, Tooltip } from "../web/parts";
+import { colorOf, cx, Legend, Tooltip, useToggles } from "../web/parts";
 
 /** What every cartesian chart takes: rows, the category field, the series, the formats, thresholds and markers. */
 export interface CartesianProps<T extends Datum> extends ChartFrameProps {
@@ -44,6 +44,16 @@ export interface CartesianProps<T extends Datum> extends ChartFrameProps {
   zero?: boolean;
   /** Called with the row when a point or a bar is clicked (or Enter is pressed on it). */
   onSelect?: (datum: T, index: number) => void;
+  /**
+   * Zoom the time axis on the period that has data: the empty days before the first and after the last value are
+   * left out (never fewer than `minPoints`), and a sparse period says so under the chart instead of drawing 13 empty
+   * days around one bar. Default false.
+   */
+  autoRange?: boolean;
+  /** With `autoRange`, the fewest categories to keep so a short burst still has a time scale. Default 7. */
+  minPoints?: number;
+  /** The legend chips switch the series on and off. Default true. */
+  filterable?: boolean;
 }
 
 export interface CartesianOptions {
@@ -60,12 +70,16 @@ export interface CartesianOptions {
 const M = { top: 12, bottom: 26, right: 14 };
 
 export function Cartesian<T extends Datum>({ props, options }: { props: CartesianProps<T>; options: CartesianOptions }) {
-  const { data, x, y, yLabel, series: seriesProp, format, xFormat, xLabel, thresholds = [], markers = [], legend = true, zero, onSelect } = props;
+  const { data, x, y, yLabel, series: seriesProp, format, xFormat, xLabel, thresholds = [], markers = [], legend = true, zero, onSelect, autoRange = false, minPoints = 7, filterable = true } = props;
   const { kind, mode, stacked = false, horizontal = false } = options;
   const { locale, labels } = useSettings(props);
 
   const specs = useMemo(() => normalizeSeries(seriesProp, y, yLabel), [seriesProp, y, yLabel]);
-  const table = useMemo(() => tabulate(data, x, specs), [data, x, specs]);
+  const full = useMemo(() => tabulate(data, x, specs), [data, x, specs]);
+  const ranged = useMemo(() => (autoRange ? trimToActivity(full, minPoints) : { table: full, start: 0, active: 0, total: full.categories.length }), [autoRange, full, minPoints]);
+  const table = ranged.table;
+  const start = ranged.start;
+  const { off, toggle } = useToggles();
   const fmt = useMemo(() => {
     const category = categoryFormatter(xFormat, locale);
     return {
@@ -95,8 +109,17 @@ export function Cartesian<T extends Datum>({ props, options }: { props: Cartesia
 
   const colors = table.series.map((s) => colorOf(s.color, s.slot));
   const legendNode = legend ? (
-    <Legend items={table.series.map((s, i) => ({ label: s.label, color: colors[i]!, shape: mode === "bar" ? "square" : "line", dashed: s.dashed }))} />
+    <Legend
+      items={table.series.map((s, i) => ({ label: s.label, color: colors[i]!, shape: mode === "bar" ? "square" : "line", dashed: s.dashed }))}
+      off={off}
+      onToggle={filterable && table.series.length > 1 ? toggle : undefined}
+      toggleName={(label) => fill(labels.toggleSeries, { label })}
+    />
   ) : null;
+  // What is drawn: the series that are on. The summary and the table keep them all.
+  const plotTable = useMemo(() => ({ categories: table.categories, series: table.series.filter((s) => !off.has(s.label)) }), [table, off]);
+  const plotColors = colors.filter((_, i) => !off.has(table.series[i]!.label));
+  const sparse = autoRange && ranged.active > 0 && ranged.active <= Math.max(2, Math.floor(table.categories.length / 4)) && table.categories.length >= 5;
 
   const announce = active === null ? "" : `${fmt.category(table.categories[active])}: ${table.series.map((s) => `${s.label} ${fmt.value(s.values[active])}`).join(", ")}`;
 
@@ -113,7 +136,7 @@ export function Cartesian<T extends Datum>({ props, options }: { props: Cartesia
     };
     if (event.key === "Enter" && active !== null && onSelect) {
       event.preventDefault();
-      onSelect(data[active]!, active);
+      onSelect(data[start + active]!, start + active);
       return;
     }
     const next = keys[event.key];
@@ -131,6 +154,7 @@ export function Cartesian<T extends Datum>({ props, options }: { props: Cartesia
       summary={summary}
       isEmpty={isEmpty}
       legend={legendNode}
+      note={sparse ? fill(labels.sparse, { count: ranged.active, total: table.categories.length }) : undefined}
       announcement={announce}
       active={active !== null}
       handlers={{
@@ -144,12 +168,12 @@ export function Cartesian<T extends Datum>({ props, options }: { props: Cartesia
     >
       {(width, height) => (
         <Plot
-          table={table}
+          table={plotTable}
           width={width}
           height={height}
           options={options}
           fmt={fmt}
-          colors={colors}
+          colors={plotColors}
           thresholds={thresholds}
           markers={markers}
           zero={zero ?? (mode !== "line" || stacked)}
@@ -162,7 +186,7 @@ export function Cartesian<T extends Datum>({ props, options }: { props: Cartesia
             setActive(index);
             setPointer(at);
           }}
-          onSelect={onSelect ? (i) => onSelect(data[i]!, i) : undefined}
+          onSelect={onSelect ? (i) => onSelect(data[start + i]!, start + i) : undefined}
           labels={{ thresholdTemplate: labels.summaryThreshold, total: labels.total }}
         />
       )}
@@ -287,7 +311,7 @@ function Plot({ table, width, height, options, fmt, colors, thresholds, markers,
             className={cx("kzc-mark", horizontal ? "kzc-enter-growx" : "kzc-enter-grow")}
             data-negative={negative || undefined}
             data-dim={active !== null && active !== i ? "" : undefined}
-            style={{ fill: colors[k], cursor: onSelect ? "pointer" : undefined }}
+            style={{ fill: colors[k], cursor: onSelect ? "pointer" : undefined, ["--kzc-i" as string]: i }}
             onClick={onSelect ? () => onSelect(i) : undefined}
           />,
         );

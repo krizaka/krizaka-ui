@@ -238,6 +238,9 @@ importers:
       '@krizaka/tokens':
         specifier: workspace:*
         version: link:../tokens
+      '@krizaka/ui':
+        specifier: workspace:*
+        version: link:../ui
       '@react-native/babel-preset':
         specifier: 0.86.3
         version: 0.86.3(@babel/core@7.29.7)

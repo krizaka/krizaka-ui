@@ -104,6 +104,8 @@ export const PLANNED: Record<string, string> = {
   "latency-chart": "Orazaka's median and p95 latency per studio (PS-C).",
   "price-ticker": "Orochia's live auction price (PS-C).",
   chart: "The base the other charts are built on.",
+  "chart-card": "The one frame of every chart of Orazaka's dashboard and usage pages (#253).",
+  "kpi-stat": "Orazaka's dashboard head: jobs, success rate, time to a result, spend (#253).",
 };
 
 /** Charts no product will draw: retired by PS-C (the @krizaka/charts major), listed so the removal is a decision. */

@@ -118,3 +118,37 @@ export function summarize(series: Series, categories: readonly unknown[], writeC
   const trend = count < 2 || change === null ? (count < 2 ? "none" : last! > first! ? "up" : last! < first! ? "down" : "flat") : Math.abs(change) < 0.01 ? "flat" : change > 0 ? "up" : "down";
   return { label: series.label, count, min, max, first, last, total, change, trend };
 }
+
+/**
+ * The period that has data: the categories before the first and after the last value other than 0 or null are
+ * dropped, but never below `min` categories (the window grows backwards first — the recent past gives a short burst
+ * its scale — then forwards). `start` is the index of the first kept category in the table given; `active` the number
+ * of categories with a value; `total` the number given. Nothing to trim, or no activity at all: the table as is.
+ */
+export function trimToActivity(table: Table, min = 7): { table: Table; start: number; active: number; total: number } {
+  const total = table.categories.length;
+  const has = (i: number) => table.series.some((s) => {
+    const v = s.values[i];
+    return v != null && v !== 0;
+  });
+  let first = -1;
+  let last = -1;
+  let active = 0;
+  for (let i = 0; i < total; i += 1) {
+    if (!has(i)) continue;
+    active += 1;
+    if (first < 0) first = i;
+    last = i;
+  }
+  if (first < 0) return { table, start: 0, active: 0, total };
+  let from = first;
+  let to = last;
+  const want = Math.min(total, Math.max(1, min));
+  while (to - from + 1 < want) {
+    if (from > 0) from -= 1;
+    else if (to < total - 1) to += 1;
+    else break;
+  }
+  if (from === 0 && to === total - 1) return { table, start: 0, active, total };
+  return { table: { categories: table.categories.slice(from, to + 1), series: table.series.map((s) => ({ ...s, values: s.values.slice(from, to + 1) })) }, start: from, active, total };
+}

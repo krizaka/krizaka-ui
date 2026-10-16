@@ -34,7 +34,7 @@ export interface SparklineProps extends Omit<ChartFrameProps, "hideTitle" | "dat
 export function Sparkline(props: SparklineProps) {
   const { data, categories, variant = "line", color, trendTone, threshold, format, width: fixed, height = 32 } = props;
   const { locale, labels } = useSettings(props);
-  const table = useMemo(() => ({ categories: categories ?? data.map((_, i) => i + 1), series: [{ id: "v", label: props.title, values: data, slot: 1 }] }), [data, categories, props.title]);
+  const table = useMemo(() => ({ categories: categories ?? data.map((_, i) => i + 1), series: [{ id: "v", label: props.title ?? "", values: data, slot: 1 }] }), [data, categories, props.title]);
   const fmt = useMemo(() => ({ value: valueFormatter(format, locale, labels.noValue), category: categoryFormatter(undefined, locale), share: shareFormatter(locale) }), [format, locale, labels.noValue]);
   const values = data.filter((v): v is number => v != null);
   const isEmpty = values.length === 0;
@@ -50,7 +50,7 @@ export function Sparkline(props: SparklineProps) {
       kind="sparkline"
       frame={{ ...props, hideTitle: true, dataTable: false, height, style: { ...(fixed ? { width: fixed, display: "inline-flex" } : {}), ...props.style } }}
       defaultHeight={32}
-      table={{ columns: [labels.category, props.title], rows: table.categories.map((c, i) => [fmt.category(c), fmt.value(data[i])]) }}
+      table={{ columns: [labels.category, props.title ?? ""], rows: table.categories.map((c, i) => [fmt.category(c), fmt.value(data[i])]) }}
       summary={summary}
       isEmpty={isEmpty}
       navigable={false}

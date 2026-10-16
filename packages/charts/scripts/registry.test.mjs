@@ -19,7 +19,7 @@ const sentence = (value) => typeof value === "string" && value.trim().length >= 
 describe("registry", () => {
   it("documents every chart of the package", () => {
     expect(all).toEqual(
-      expect.arrayContaining(["line-chart", "area-chart", "bar-chart", "pie-chart", "gauge", "sparkline", "geo-map", "globe", "radar-chart", "heatmap", "calendar-heatmap", "sankey", "funnel", "candlestick", "treemap", "scatter-chart", "chart", "charts-provider", "earnings-chart", "job-throughput", "latency-chart", "credit-usage", "goal-progress", "price-ticker"]),
+      expect.arrayContaining(["line-chart", "area-chart", "bar-chart", "pie-chart", "gauge", "sparkline", "geo-map", "globe", "radar-chart", "heatmap", "calendar-heatmap", "sankey", "funnel", "candlestick", "treemap", "scatter-chart", "chart", "charts-provider", "earnings-chart", "job-throughput", "latency-chart", "credit-usage", "goal-progress", "price-ticker", "chart-card", "kpi-stat"]),
     );
     expect(registry.map((item) => item.name)).toEqual(all);
   });
@@ -35,7 +35,8 @@ describe("registry", () => {
     const line = registry.find((i) => i.name === "line-chart").web.props.find((c) => c.component === "LineChart");
     const names = line.props.map((p) => p.name);
     expect(names).toEqual(expect.arrayContaining(["data", "title", "x", "series", "format", "thresholds", "loading", "exportable", "locale", "brand"]));
-    expect(line.props.find((p) => p.name === "title")).toMatchObject({ required: true });
+    // The title is optional: inside a ChartCard the card's title is the chart's name.
+    expect(line.props.find((p) => p.name === "title")).toBeTruthy();
   });
 });
 
@@ -82,7 +83,7 @@ describe("examples (registry/examples)", () => {
     const source = readFileSync(path, "utf8");
     expect(source.trimEnd().split("\n").length, "at most 40 lines").toBeLessThanOrEqual(40);
     expect(source).toContain("export default function");
-    const allowed = platform === "web" ? /^(@krizaka\/charts(\/[a-z-]+)?|react|echarts\/(core|charts|components))$/ : /^(@krizaka\/charts\/native|react|react-native)$/;
+    const allowed = platform === "web" ? /^(@krizaka\/charts(\/[a-z-]+)?|@krizaka\/ui\/[a-z-]+|react|echarts\/(core|charts|components))$/ : /^(@krizaka\/charts\/native|react|react-native)$/;
     for (const [, specifier] of source.matchAll(/from\s+"([^"]+)"/g)) expect(specifier).toMatch(allowed);
     for (const [, specifier] of source.matchAll(/import\("([^"]+)"\)/g)) expect(specifier).toMatch(allowed);
     expect(source, "no hard-coded colour: the tokens").not.toMatch(/#[0-9a-f]{3,8}\b|rgba?\(/i);

@@ -13,6 +13,25 @@ export interface ChartLabels {
   exportPng: string;
   exportSvg: string;
   exportCsv: string;
+  /** The actions menu (⋯) of a chart: its accessible name, and its entries. */
+  actions: string;
+  viewTable: string;
+  downloadCsv: string;
+  downloadPng: string;
+  downloadSvg: string;
+  copyData: string;
+  /** Announced once the data is on the clipboard. */
+  copied: string;
+  /** The close button of the table sheet. */
+  close: string;
+  /** The sheet's description: `{count}` rows. */
+  tableRows: string;
+  /** Legend chips filter: the chip's accessible name, `{label}`. */
+  toggleSeries: string;
+  /** Sparse data: under the chart, `{count}` periods with data out of `{total}`. */
+  sparse: string;
+  /** A KPI's change: `{change}` (`+12 %`) against the previous period. */
+  trendVsPrevious: string;
   /** Announced while the data loads. */
   loading: string;
   /** Shown when there is nothing to draw. */
@@ -82,6 +101,18 @@ export const DEFAULT_LABELS: ChartLabels = {
   exportPng: "PNG",
   exportSvg: "SVG",
   exportCsv: "CSV",
+  actions: "Chart actions",
+  viewTable: "View as table",
+  downloadCsv: "Download CSV",
+  downloadPng: "Download PNG",
+  downloadSvg: "Download SVG",
+  copyData: "Copy data",
+  copied: "Data copied",
+  close: "Close",
+  tableRows: "{count} rows",
+  toggleSeries: "Show or hide {label}",
+  sparse: "{count} of {total} periods have data.",
+  trendVsPrevious: "{change} vs previous period",
   loading: "Loading chart…",
   empty: "No data for this period yet.",
   error: "The chart could not be loaded.",

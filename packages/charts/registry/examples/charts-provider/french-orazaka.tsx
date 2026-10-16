@@ -14,7 +14,7 @@ export default function FrenchOrazaka() {
     <ChartsProvider
       locale="fr-FR"
       brand="orazaka"
-      labels={{ showData: "Voir les données", hideData: "Masquer les données", empty: "Pas encore de données.", kinds: { bar: "Histogramme" } }}
+      labels={{ actions: "Actions du graphique", viewTable: "Voir en tableau", downloadCsv: "Télécharger le CSV", copyData: "Copier les données", empty: "Pas encore de données.", kinds: { bar: "Histogramme" } }}
     >
       <BarChart title="Crédits consommés par mois" data={months} x="month" xLabel="Mois" y="credits" yLabel="Crédits" format="compact" />
     </ChartsProvider>

@@ -9,24 +9,29 @@
 // - responsive (ResizeObserver) and SSR without layout shift: the server renders the frame, the summary, the table and
 //   a placeholder of the exact height; the browser draws once it knows the width;
 // - an entrance once on screen, none under reduced motion, none for live data;
-// - export to PNG, SVG and CSV.
-import { type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode, type RefObject, useCallback, useId, useMemo, useRef, useState } from "react";
+// - an actions menu (⋯, the kit's DropdownMenu): view as table (the kit DataTable in a Sheet), download CSV / PNG / SVG,
+//   copy the data.
+import { type CSSProperties, type KeyboardEvent, lazy, type PointerEvent, type ReactNode, type RefObject, Suspense, useCallback, useId, useMemo, useRef, useState } from "react";
 
 import type { ChartKind, ChartLabels } from "../core/labels";
 import { fill } from "../core/labels";
 import type { BrandId, Locale } from "../core/types";
-import { type ChartsSettings, useChartSettings } from "./context";
+import { type ChartsSettings, useChartCard, useChartSettings } from "./context";
 import { download, fileName, serializeSvg, svgToPng, toCsv } from "./export";
 import { useInView, useMounted, useWidth } from "./hooks";
 import { cx } from "./parts";
 import { ChartStyles } from "./styles";
 
+const ChartActions = lazy(() => import("./actions"));
+
 export type ExportFormat = "png" | "svg" | "csv";
 
 /** The props every web chart takes, on top of its data. */
 export interface ChartFrameProps extends ChartsSettings {
-  /** What the chart shows, in a few words: its accessible name, and its heading unless `hideTitle`. */
-  title: string;
+  /** What the chart shows, in a few words: its accessible name, and its heading unless `hideTitle`. Inside a `ChartCard`, the card's title is the default. */
+  title?: string;
+  /** One line that says what the chart shows, between the title and the chart: “100 jobs · +100 % vs last week”. */
+  insight?: ReactNode;
   /** A sentence under the title: the period, the unit, the source. */
   description?: ReactNode;
   /** Visually hide the title (it stays the chart's accessible name): a card that already has its heading. */
@@ -43,10 +48,12 @@ export interface ChartFrameProps extends ChartsSettings {
   summary?: "hidden" | "visible";
   /** Your own summary instead of the generated one (still read first by screen readers). */
   summaryText?: string;
-  /** The "Show data" button (the table is in the page for screen readers either way). Default true. */
+  /** “View as table” in the actions menu (the table is in the page for screen readers either way). Default true. */
   dataTable?: boolean;
-  /** Export buttons: `true` for PNG, SVG and CSV, or the formats you want. */
+  /** The downloads of the actions menu: all three by default, or the formats you want, or `false` for none. */
   exportable?: boolean | readonly ExportFormat[];
+  /** The ⋯ actions menu of the kit. `false`: the former “Show data” and export buttons, drawn in line. Default true. */
+  actionsMenu?: boolean;
   /** Streaming data (a job queue, an auction): no entrance on updates, no announcement of every new point. */
   live?: boolean;
   /** The id of the figure. */
@@ -81,6 +88,8 @@ interface FrameInternals {
   /** Draws the plot at the measured width (browser only). */
   readonly children: (width: number, height: number) => ReactNode;
   readonly legend?: ReactNode;
+  /** A calm line under the plot: sparse data, a caveat. */
+  readonly note?: ReactNode;
   readonly tooltip?: ReactNode;
   readonly announcement?: string;
   readonly handlers?: PlotHandlers;
@@ -112,6 +121,7 @@ export function ChartFrame({
   isEmpty,
   children,
   legend,
+  note,
   tooltip,
   announcement,
   handlers,
@@ -123,8 +133,12 @@ export function ChartFrame({
   compact,
   pending,
 }: FrameInternals) {
-  const { title, description, hideTitle, height = defaultHeight, loading, error, empty, summaryText, dataTable = true, exportable, live, id, className, style } = frame;
+  const card = useChartCard();
+  const { hideTitle, height = defaultHeight, loading, error, empty, summaryText, dataTable = true, exportable, actionsMenu = true, live, id, className, style } = frame;
   const { brand, labels } = useChartSettings(frame);
+  const title = frame.title ?? card?.title ?? labels.kinds[kind];
+  const insight = frame.insight ?? card?.insight;
+  const description = frame.description ?? card?.description;
   const uid = useId();
   const ids = { title: `${uid}-t`, summary: `${uid}-s`, hint: `${uid}-h`, table: `${uid}-d` };
   const ownRef = useRef<HTMLDivElement | null>(null);
@@ -136,7 +150,13 @@ export function ChartFrame({
   const inView = useInView(figureRef, { once: true });
   const [showTable, setShowTable] = useState(false);
 
-  const formats = useMemo<readonly ExportFormat[]>(() => (exportable === true ? ["png", "svg", "csv"] : exportable || []), [exportable]);
+  const [copied, setCopied] = useState(false);
+  // The menu offers every download unless told otherwise; the legacy inline buttons only the ones asked for.
+  const formats = useMemo<readonly ExportFormat[]>(() => {
+    const all: readonly ExportFormat[] = actionsMenu ? ["csv", "png", "svg"] : ["png", "svg", "csv"];
+    if (exportable === undefined) return actionsMenu ? all : [];
+    return exportable === true ? all : exportable || [];
+  }, [exportable, actionsMenu]);
   const state = error ? "error" : loading ? "loading" : isEmpty ? "empty" : "ready";
 
   const doExport = useCallback(
@@ -164,6 +184,17 @@ export function ChartFrame({
     [exportImage, ref, table, title],
   );
 
+  const doCopy = useCallback(async () => {
+    const text = [table.columns, ...table.rows].map((row) => row.join("\t")).join("\n");
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      setCopied(false);
+    }
+  }, [table]);
+
   const drawWidth = width || ssrWidth || 0;
   let plot: ReactNode;
   if (state === "loading") {
@@ -182,6 +213,9 @@ export function ChartFrame({
   } else if (state === "empty") {
     plot = empty ?? (
       <div className="kzc-state" data-state="empty" role="status">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />
+        </svg>
         {labels.empty}
       </div>
     );
@@ -216,31 +250,46 @@ export function ChartFrame({
       aria-labelledby={ids.title}
     >
       <ChartStyles />
-      {(
-        <div className={!hideTitle || description || (!compact && (dataTable || formats.length > 0)) ? "kzc-head" : "kzc-sr"}>
-          <div className="kzc-heading">
-            <p id={ids.title} className={hideTitle ? "kzc-sr" : "kzc-title"}>
-              {title}
-            </p>
-            {description && <p className="kzc-desc">{description}</p>}
-          </div>
-          {(dataTable || formats.length > 0) && !compact && state !== "loading" && state !== "error" && (
-            <div className="kzc-tools">
-              {dataTable && !isEmpty && (
-                <button type="button" className="kzc-btn" aria-expanded={showTable} aria-controls={ids.table} onClick={() => setShowTable((v) => !v)}>
-                  {showTable ? labels.hideData : labels.showData}
-                </button>
-              )}
-              {!isEmpty &&
-                formats.map((format) => (
-                  <button key={format} type="button" className="kzc-btn" onClick={() => void doExport(format)} aria-label={`${title} — ${format.toUpperCase()}`}>
-                    {format === "png" ? labels.exportPng : format === "svg" ? labels.exportSvg : labels.exportCsv}
-                  </button>
-                ))}
+      {(() => {
+        const tools = !compact && state !== "loading" && state !== "error";
+        const menu = actionsMenu && tools && !isEmpty && (dataTable || formats.length > 0);
+        const legacy = !actionsMenu && tools && (dataTable || formats.length > 0);
+        const visible = !hideTitle || description || insight || menu || legacy || card?.extra;
+        return (
+          <div className={visible ? "kzc-head" : "kzc-sr"}>
+            <div className="kzc-heading" data-insight={insight ? "" : undefined}>
+              <p id={ids.title} className={hideTitle ? "kzc-sr" : "kzc-title"}>
+                {title}
+              </p>
+              {insight && <p className="kzc-insight">{insight}</p>}
+              {description && <p className="kzc-desc">{description}</p>}
             </div>
-          )}
-        </div>
-      )}
+            {(menu || legacy || card?.extra) && (
+              <div className="kzc-tools">
+                {card?.extra}
+                {menu && mounted && (
+                  <Suspense fallback={<MoreButton label={labels.actions} />}>
+                    <ChartActions title={title} table={table} labels={labels} formats={formats} viewTable={dataTable} onExport={(format) => void doExport(format)} onCopy={() => void doCopy()} />
+                  </Suspense>
+                )}
+                {menu && !mounted && <MoreButton label={labels.actions} />}
+                {legacy && !isEmpty && dataTable && (
+                  <button type="button" className="kzc-btn" aria-expanded={showTable} aria-controls={ids.table} onClick={() => setShowTable((v) => !v)}>
+                    {showTable ? labels.hideData : labels.showData}
+                  </button>
+                )}
+                {legacy &&
+                  !isEmpty &&
+                  formats.map((format) => (
+                    <button key={format} type="button" className="kzc-btn" onClick={() => void doExport(format)} aria-label={`${title} — ${format.toUpperCase()}`}>
+                      {format === "png" ? labels.exportPng : format === "svg" ? labels.exportSvg : labels.exportCsv}
+                    </button>
+                  ))}
+              </div>
+            )}
+          </div>
+        );
+      })()}
       {legend}
       <div
         ref={ref}
@@ -260,6 +309,7 @@ export function ChartFrame({
         {plot}
         {ready && tooltip}
       </div>
+      {ready && note && <p className="kzc-note">{note}</p>}
       <p id={ids.summary} className={frame.summary === "visible" ? "kzc-summary" : "kzc-sr"}>
         {summaryText ?? summary}
       </p>
@@ -269,7 +319,7 @@ export function ChartFrame({
         </span>
       )}
       <div className="kzc-live" aria-live="polite" aria-atomic="true">
-        {live ? "" : announcement}
+        {copied ? labels.copied : live ? "" : announcement}
       </div>
       {!isEmpty && (
         <div id={ids.table} className={showTable ? "kzc-table-wrap" : "kzc-sr"}>
@@ -303,6 +353,19 @@ export function ChartFrame({
         </div>
       )}
     </figure>
+  );
+}
+
+/** The ⋯ button as the server and the first browser pass draw it, until the kit's menu has loaded. */
+function MoreButton({ label }: { label: string }) {
+  return (
+    <button type="button" className="kzc-more" aria-label={label} disabled>
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden width="16" height="16">
+        <circle cx="5" cy="12" r="1.8" />
+        <circle cx="12" cy="12" r="1.8" />
+        <circle cx="19" cy="12" r="1.8" />
+      </svg>
+    </button>
   );
 }
 

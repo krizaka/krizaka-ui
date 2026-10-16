@@ -6,6 +6,7 @@
  */
 export * from "./bar";
 export * from "./candlestick";
+export * from "./card";
 export * from "./chart";
 export * from "./credits";
 export * from "./earnings";
