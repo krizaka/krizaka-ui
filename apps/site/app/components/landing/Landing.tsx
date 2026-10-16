@@ -9,7 +9,7 @@ import { CodeBlock } from "@krizaka/ui/code-block";
 import { LinkCard } from "@krizaka/ui/link-card";
 import { NumberTicker } from "@krizaka/ui/number-ticker";
 import Link from "next/link";
-import type { ComponentType, CSSProperties } from "react";
+import type { ComponentType } from "react";
 
 import { format, getDictionary, type Locale } from "@/lib/i18n";
 import { packageVersion } from "@/lib/package-version";
@@ -68,9 +68,6 @@ const EARNINGS = [
   { month: "2026-08", earnings: 276_000 },
   { month: "2026-09", earnings: 342_000 },
 ];
-
-/** The poster of the vertical clip (the example's own, on the CDN): the blurred wash behind it. */
-const POSTER = "https://krizaka-assets.b-cdn.net/site/people/ui/camille-512.9573eaa0b8.webp";
 
 const INSTALL = "npm install @krizaka/ui @krizaka/tailwind @krizaka/tokens tailwindcss";
 
@@ -148,7 +145,7 @@ export async function Landing({ locale }: { locale: Locale }) {
         <p className="kz-land-sub">{t.showcase.lead}</p>
         <IdentityStage label={t.showcase.identity} stageLabel={t.showcase.stage}>
           {tiles.map(({ key, component, caption, area, title, Example }) => (
-            <figure key={key} className="kz-land-tile" data-area={area} style={area === "video" ? ({ "--kz-land-poster": `url(${POSTER})` } as CSSProperties) : undefined}>
+            <figure key={key} className="kz-land-tile" data-area={area}>
               <div className="kz-land-stage">
                 <Example {...examplePropsOf(key)} />
               </div>

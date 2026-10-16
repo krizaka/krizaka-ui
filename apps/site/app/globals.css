@@ -795,27 +795,35 @@ html.light .kz-hero-strip .kz-shot-light { display: block; }
 .kz-land-stage > * { width: 100%; max-width: 100%; }
 .kz-land-tile[data-area="plans"], .kz-land-tile[data-area="form"], .kz-land-tile[data-area="stepper"] { --kz-land-h: 300px; }
 .kz-land-tile[data-area="chat"], .kz-land-tile[data-area="video"] { --kz-land-h: 100%; }
-/* The clip sits in the middle of its tall tile, never pushed down; the chart's tile follows the chart (no crop). */
-/* The clip in the middle of its tall tile, on a blurred wash of its own poster: no dead space above or below it. */
-.kz-land-tile[data-area="video"] .kz-land-stage { display: flex; align-items: center; justify-content: center; isolation: isolate; -webkit-mask-image: none; mask-image: none; }
-.kz-land-tile[data-area="video"] .kz-land-stage::before { content: ""; position: absolute; inset: -24px; z-index: -1; background: var(--kz-land-poster) center / cover no-repeat;
-  filter: blur(28px) saturate(1.2); opacity: .55; }
-.kz-land-tile[data-area="video"] .kz-land-stage > * { width: 100%; max-width: 280px; }
+/* The clip is the tile: full bleed, edge to edge, like the screen of a phone — no small player floating on a wash. */
+.kz-land-tile[data-area="video"] { background: var(--kz-surface-0); }
+.kz-land-tile[data-area="video"] .kz-land-stage { padding: 0; display: block; -webkit-mask-image: none; mask-image: none; }
+.kz-land-tile[data-area="video"] .kz-land-stage > * { width: 100%; max-width: none; height: 100%; }
+.kz-land-tile[data-area="video"] .kz-land-stage > * > * { width: 100%; height: 100%; aspect-ratio: auto; }
+/* The chat is the tile too: one frame (the tile's), the thread anchored at the bottom above the composer, never faded out. */
+.kz-land-tile[data-area="chat"] .kz-land-stage { padding: 0; display: block; -webkit-mask-image: none; mask-image: none; }
+.kz-land-tile[data-area="chat"] .kz-land-stage > * { max-width: none; height: 100%; border: 0; border-radius: 0; background: transparent; }
+.kz-land-tile[data-area="chat"] .kz-land-stage > * > :first-child { flex: 1 1 auto; justify-content: flex-end; gap: 6px; padding: 18px 16px 12px; overflow: hidden;
+  background: radial-gradient(120% 60% at 100% 100%, color-mix(in oklab, var(--kz-accent) 10%, transparent), transparent 70%); }
+.kz-land-tile[data-area="chat"] .kz-land-stage > * > :last-child { border-top: 1px solid var(--kz-border-subtle); }
 .kz-land-tile[data-area="chart"] .kz-land-stage { -webkit-mask-image: none; mask-image: none; }
 .kz-land-tile[data-area="table"] { --kz-land-h: 380px; }
 .kz-land-tile[data-area="chart"] { --kz-land-h: auto; }
 .kz-land-tile figcaption { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; padding: 12px 18px;
   border-top: 1px solid var(--kz-border-subtle); font-size: 13px; color: var(--kz-text-secondary); }
+.kz-land-tile[data-area="video"] figcaption { border-top-color: transparent; background: var(--kz-surface-1); }
 .kz-land-tile figcaption a { font-weight: 700; color: var(--kz-text-primary); text-decoration: none; }
 .kz-land-tile figcaption a:hover { color: var(--kz-accent-text); }
 @media (max-width: 1100px) {
   .kz-land-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "plans plans" "chat video" "form stepper" "table table" "chart chart"; }
-  .kz-land-tile[data-area="chat"], .kz-land-tile[data-area="video"] { --kz-land-h: 460px; }
+  .kz-land-tile[data-area="chat"], .kz-land-tile[data-area="video"] { --kz-land-h: 560px; }
   .kz-land-tile[data-area="table"] { --kz-land-h: 320px; }
 }
 @media (max-width: 640px) {
   .kz-land-bento { grid-template-columns: minmax(0, 1fr); grid-template-areas: "plans" "chat" "video" "form" "stepper" "table" "chart"; padding: 10px; }
   .kz-land-stage { padding: 14px; }
+  .kz-land-tile[data-area="chat"] { --kz-land-h: 480px; }
+  .kz-land-tile[data-area="video"] { --kz-land-h: 600px; }
 }
 @media (prefers-reduced-motion: reduce) { .kz-land-bento { transition: none; } }
 
