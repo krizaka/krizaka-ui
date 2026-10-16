@@ -43,20 +43,48 @@ export type CardGridProps = Omit<React.HTMLAttributes<HTMLElement>, "children"> 
   light?: boolean;
   /** `ul` when the cards are a list (each cell an `li`). */
   as?: "div" | "ul" | "ol";
+  /**
+   * A foundation: one wide card that the cards of the grid stand on (an engine, a platform, a shared service). It spans
+   * the full width beside the grid, and a hairline joins it to a frame around the cards — "everything inside runs on it".
+   * The frame takes the hue of `className` (a `data-hue` or a brand class on the grid sets it for the whole block).
+   */
+  foundation?: React.ReactNode;
+  /**
+   * Where the foundation sits: above the cards, or under them.
+   * @default "start"
+   */
+  foundationPosition?: "start" | "end";
+  /** A short mono label on the frame's edge, naming the relation (`Powered by Orazaka`). Only with `foundation`. */
+  foundationLabel?: React.ReactNode;
 };
 
 /** A responsive grid of cards: equal rows, a staggered reveal, the pointer's light. */
-export function CardGrid({ children, min = 300, fit = "fill", align = "stretch", reveal = true, columns = 3, light = true, as: Tag = "div", className, style, ...props }: CardGridProps) {
+export function CardGrid({
+  children,
+  min = 300,
+  fit = "fill",
+  align = "stretch",
+  reveal = true,
+  columns = 3,
+  light = true,
+  as: Tag = "div",
+  foundation,
+  foundationPosition = "start",
+  foundationLabel,
+  className,
+  style,
+  ...props
+}: CardGridProps) {
   const ref = React.useRef<HTMLElement>(null);
   usePointerLight(light ? ref : NO_REF, POINTER_LIGHT_TARGET);
   const Cell = Tag === "div" ? "div" : "li";
-  return (
+  const grid = (
     <Tag
-      ref={ref as React.Ref<never>}
-      className={cn("kz-cards", className)}
+      ref={foundation ? undefined : (ref as React.Ref<never>)}
+      className={cn("kz-cards", !foundation && className)}
       data-fit={fit === "fit" ? "" : undefined}
       data-align={align === "start" ? "start" : undefined}
-      style={{ "--kz-cards-min": `${min}px`, ...style } as React.CSSProperties}
+      style={{ "--kz-cards-min": `${min}px`, ...(foundation ? null : style) } as React.CSSProperties}
       {...props}
     >
       {React.Children.toArray(children).map((child, i) => {
@@ -73,6 +101,18 @@ export function CardGrid({ children, min = 300, fit = "fill", align = "stretch",
         );
       })}
     </Tag>
+  );
+  if (!foundation) return grid;
+  return (
+    <div ref={ref as React.Ref<HTMLDivElement>} className={cn("kz-foundation", className)} data-position={foundationPosition} style={style}>
+      <div className="kz-foundation-base" data-reveal={reveal ? "" : undefined}>
+        {foundation}
+      </div>
+      <div className="kz-foundation-group">
+        {foundationLabel && <span className="kz-foundation-label">{foundationLabel}</span>}
+        {grid}
+      </div>
+    </div>
   );
 }
 

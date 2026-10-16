@@ -33,4 +33,27 @@ describe("CardGrid", () => {
     expect(container.firstElementChild?.hasAttribute("data-fit")).toBe(true);
     expect(await axeViolations(container)).toEqual([]);
   });
+
+  it("puts a foundation beside the frame of the cards, above by default and under with foundationPosition='end'", async () => {
+    const { container, rerender } = render(
+      <CardGrid foundation={<a href="#e">Engine</a>} foundationLabel="Powered by it" className="brand" reveal={false}>
+        <div>a</div>
+        <div>b</div>
+      </CardGrid>,
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root.className).toContain("kz-foundation");
+    expect(root.className).toContain("brand");
+    expect(root.getAttribute("data-position")).toBe("start");
+    expect(root.querySelector(".kz-foundation-base")?.textContent).toBe("Engine");
+    expect(root.querySelector(".kz-foundation-label")?.textContent).toBe("Powered by it");
+    expect(root.querySelectorAll(".kz-foundation-group .kz-cards-cell")).toHaveLength(2);
+    expect(await axeViolations(container)).toEqual([]);
+    rerender(
+      <CardGrid foundation={<a href="#e">Engine</a>} foundationPosition="end">
+        <div>a</div>
+      </CardGrid>,
+    );
+    expect((container.firstElementChild as HTMLElement).getAttribute("data-position")).toBe("end");
+  });
 });
