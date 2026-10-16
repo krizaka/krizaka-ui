@@ -21,6 +21,19 @@ export const chat = tv({
     send:
       "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-on-accent hover:bg-accent-hover focus-visible:outline-hidden " +
       "focus-visible:ring-2 focus-visible:ring-ring disabled:bg-surface-3 disabled:text-fg-muted [&>svg]:h-[18px] [&>svg]:w-[18px]",
+    pillRoot: "flex w-full flex-col gap-2",
+    pill:
+      "flex items-end gap-1.5 rounded-[1.75rem] border border-border-default bg-surface-1 py-1.5 pl-2 pr-1.5 transition-colors " +
+      "focus-within:border-accent focus-within:ring-2 focus-within:ring-ring",
+    pillLeading: "flex min-h-9 shrink-0 items-center gap-1 self-end",
+    pillInput:
+      "max-h-32 min-h-9 min-w-0 flex-1 resize-none border-0 bg-transparent px-1.5 py-[7px] text-sm leading-snug text-fg placeholder:text-fg-muted " +
+      "focus:outline-hidden focus-visible:outline-hidden",
+    pillSend:
+      "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-on-accent shadow-sm transition-colors hover:bg-accent-hover " +
+      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-1 " +
+      "disabled:cursor-not-allowed disabled:bg-surface-3 disabled:text-fg-muted disabled:shadow-none [&>svg]:h-4 [&>svg]:w-4",
+    pillStatus: "m-0 flex min-h-5 items-center gap-1.5 px-3 text-xs text-fg-secondary [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:shrink-0",
     item: "flex w-full items-center gap-3 px-4 py-2.5 text-left hover:bg-surface-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
     count: "inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1.5 text-xs font-extrabold text-on-accent",
   },
@@ -135,54 +148,108 @@ export type MessageComposerProps = {
   placeholder: string;
   /** The send button's name (“Send”). */
   sendLabel: string;
-  /** Before the input: an attach button. */
+  /** Before the input: an attach button (`bar`), or the mode/model chip and attach, inside the field (`pill`). */
   leading?: React.ReactNode;
   /** Cannot write: the reason in its place. */
   disabledReason?: string;
   /** The longest message. Default 4000. */
   maxLength?: number;
+  /** `bar`: a docked bar with a square-ish field. `pill`: one rounded field holding `leading`, the text and a round send button — no inner border. Default `bar`. */
+  variant?: "bar" | "pill";
+  /** `pill`: the quiet line under the field (privacy, cost estimate). Its row is always reserved, so a changing line never moves the field. Read politely. */
+  status?: React.ReactNode;
+  /** An answer is on its way: the send is held (and `aria-busy` is set) while the field stays where it is, size included. */
+  busy?: boolean;
+  /** Overrides “the draft has text” — e.g. an attachment alone can be sent. A busy composer never sends. */
+  canSend?: boolean;
+  /** Attributes (`data-testid`, `autoFocus`, `id`…) forwarded to the textarea. */
+  inputProps?: Omit<React.ComponentPropsWithoutRef<"textarea">, "value" | "onChange" | "placeholder" | "maxLength" | "className" | "rows">;
+  /** Attributes forwarded to the send button. */
+  sendProps?: Omit<React.ComponentPropsWithoutRef<"button">, "type" | "disabled" | "className" | "aria-label">;
   /** Classes merged on the root. */
   className?: string;
 };
 
-/** Where a message is written: a growing textarea (Enter sends, Shift+Enter a new line), an attach slot, a send button. */
-export function MessageComposer({ value, onValueChange, onSend, placeholder, sendLabel, leading, disabledReason, maxLength = 4000, className }: MessageComposerProps) {
+/** Where a message is written: a growing textarea (Enter sends, Shift+Enter a new line), an attach slot, a send button. The `pill` variant is the one-field look of the Krizaka chat card. */
+export function MessageComposer({
+  value,
+  onValueChange,
+  onSend,
+  placeholder,
+  sendLabel,
+  leading,
+  disabledReason,
+  maxLength = 4000,
+  variant = "bar",
+  status,
+  busy = false,
+  canSend,
+  inputProps,
+  sendProps,
+  className,
+}: MessageComposerProps) {
   const s = chat();
-  const ready = value.trim().length > 0;
-  return (
-    <form
-      className={s.composer({ className })}
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (ready) onSend();
+  const pill = variant === "pill";
+  const ready = !busy && (canSend ?? value.trim().length > 0);
+  const textarea = (
+    <textarea
+      aria-label={placeholder}
+      placeholder={placeholder}
+      rows={1}
+      maxLength={maxLength}
+      {...inputProps}
+      value={value}
+      onChange={(e) => onValueChange(e.target.value)}
+      onKeyDown={(e) => {
+        inputProps?.onKeyDown?.(e);
+        if (e.defaultPrevented) return;
+        if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+          e.preventDefault();
+          if (ready) onSend();
+        }
       }}
-    >
+      className={pill ? s.pillInput() : s.input()}
+      style={{ fieldSizing: "content" } as React.CSSProperties}
+    />
+  );
+  const send = (
+    <button type="submit" aria-label={sendLabel} {...sendProps} disabled={!ready} className={pill ? s.pillSend() : s.send()}>
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+        <path d="M4 12l16-8-6 16-2.5-6.5L4 12z" />
+      </svg>
+    </button>
+  );
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (ready) onSend();
+  };
+  if (pill) {
+    return (
+      <form className={s.pillRoot({ className })} onSubmit={submit} aria-busy={busy || undefined}>
+        {disabledReason ? (
+          <p className="m-0 rounded-[1.75rem] border border-border-default bg-surface-1 px-4 py-2.5 text-sm text-fg-secondary">{disabledReason}</p>
+        ) : (
+          <div className={s.pill()}>
+            {leading ? <div className={s.pillLeading()}>{leading}</div> : null}
+            {textarea}
+            {send}
+          </div>
+        )}
+        <p role="status" aria-live="polite" className={s.pillStatus()}>
+          {status}
+        </p>
+      </form>
+    );
+  }
+  return (
+    <form className={s.composer({ className })} onSubmit={submit} aria-busy={busy || undefined}>
       {disabledReason ? (
         <p className="m-0 flex-1 py-2 text-sm text-fg-secondary">{disabledReason}</p>
       ) : (
         <>
           {leading}
-          <textarea
-            aria-label={placeholder}
-            placeholder={placeholder}
-            rows={1}
-            maxLength={maxLength}
-            value={value}
-            onChange={(e) => onValueChange(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
-                e.preventDefault();
-                if (ready) onSend();
-              }
-            }}
-            className={s.input()}
-            style={{ fieldSizing: "content" } as React.CSSProperties}
-          />
-          <button type="submit" aria-label={sendLabel} disabled={!ready} className={s.send()}>
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-              <path d="M4 12l16-8-6 16-2.5-6.5L4 12z" />
-            </svg>
-          </button>
+          {textarea}
+          {send}
         </>
       )}
     </form>
