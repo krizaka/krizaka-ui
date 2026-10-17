@@ -1,0 +1,551 @@
+{
+ "_": "« Le monde de Krizaka : la tournée » — the generated shots of TREATMENT.md. Each shot: the birds placed on the canvas (x = centre, y = feet line, h = height, as fractions of the frame; flip = mirrored), the backdrop hint, the FLUX.2 [klein] edit prompt of its keyframe, and the Wan 2.2 I2V A14B motion prompt (guidance 1.0: everything positive, the KEEP line closes every prompt).",
+ "keep": "One single continuous shot. The characters keep their exact cartoon design, proportions and colours, rendered as feature-film CG characters with soft fine feather texture. Plain unbranded props, no lettering.",
+ "keyframeKeep": "Keep every character's exact shape, proportions, colours, eyes and features unchanged and in the same place, as stylised cartoon characters rendered in high-end feature-film CG with soft fine feather texture, subsurface light and contact shadows. No text, no logos, no people.",
+ "seedBase": 2026101700,
+ "shots": [
+  {
+   "id": "02-ridge-dawn",
+   "act": "prologue",
+   "seconds": 3.0,
+   "speed": 1.0,
+   "vertical": false,
+   "backdrop": [
+    "#f2b27a",
+    "#5f7f5a"
+   ],
+   "birds": [
+    {
+     "bird": "pigeon",
+     "x": 0.22,
+     "y": 0.8,
+     "h": 0.36
+    },
+    {
+     "bird": "flamingo",
+     "x": 0.36,
+     "y": 0.8,
+     "h": 0.46
+    },
+    {
+     "bird": "falcon",
+     "x": 0.5,
+     "y": 0.8,
+     "h": 0.4
+    },
+    {
+     "bird": "owl",
+     "x": 0.64,
+     "y": 0.8,
+     "h": 0.38
+    },
+    {
+     "bird": "duck",
+     "x": 0.78,
+     "y": 0.8,
+     "h": 0.36
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal frame: the five characters stand in a row on a grassy mountain ridge at dawn, a misty river valley and blue mountains far behind, the sun rising low behind them, golden backlight and rim light on their feathers, light mist, 35 mm, shallow depth of field.",
+   "motion": "Five stylised cartoon birds stand in a row on a grassy mountain ridge at dawn, wind ruffling their feathers; the falcon's black visor lights up with two cyan eyes, then all five turn their heads to the camera in unison. Slow dolly in, 35 mm. Golden backlight, rim light on soft feathers, mist drifting in the valley below, shallow depth of field. Calm, then a crisp beat."
+  },
+  {
+   "id": "03-club-walkon",
+   "act": "club",
+   "seconds": 4.5,
+   "speed": 1.0,
+   "vertical": false,
+   "backdrop": [
+    "#1a1411",
+    "#3a1d14"
+   ],
+   "birds": [
+    {
+     "bird": "falcon",
+     "x": 0.3,
+     "y": 0.86,
+     "h": 0.42
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal frame of a tiny smoky basement comedy club: a red brick wall behind, a lone vintage microphone on a stand at the centre of the small wooden stage, a single hard spotlight from above making a pool of warm light on the stage, haze in the beam, everything else in deep shadow; the falcon stands at the edge of the light, 28 mm.",
+   "motion": "The orange-red falcon character with a black visor and two glowing cyan eyes waddles from the edge of the light into the single spotlight of a tiny stage in front of a red brick wall, stops at the vintage microphone stand and adjusts its height with one wing. Static locked-off wide shot, 28 mm. Hard warm tungsten spotlight from above, deep black shadows, haze and dust floating in the beam. Unhurried, deadpan."
+  },
+  {
+   "id": "04-club-scan",
+   "act": "club",
+   "seconds": 5.0,
+   "speed": "ramp 1.0>0.6",
+   "vertical": true,
+   "backdrop": [
+    "#120d0b",
+    "#2b1610"
+   ],
+   "birds": [
+    {
+     "bird": "falcon",
+     "x": 0.5,
+     "y": 1.05,
+     "h": 0.95
+    }
+   ],
+   "birds9x16": [
+    {
+     "bird": "falcon",
+     "x": 0.5,
+     "y": 0.92,
+     "h": 0.55
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal medium close-up in a dark smoky comedy club: the falcon stands behind a vintage chrome microphone on a stand, a single hard spotlight from above, a red brick wall falling into darkness behind, warm candle bokeh, haze, 85 mm, very shallow depth of field.",
+   "motion": "The orange-red falcon character with a black visor and two glowing cyan eyes stands at a vintage microphone and holds a deadpan pause, then slowly turns its head left and right, scanning the room, its cyan eye lights narrowing like a scanner as a small shield-shaped reflection glides across the visor. Slow push-in, 85 mm. Single hard spotlight from above, warm tungsten, rim light on soft feathers, haze and dust in the beam, candle bokeh behind. Slow and deliberate."
+  },
+  {
+   "id": "05-club-audience",
+   "act": "club",
+   "seconds": 4.5,
+   "speed": 1.0,
+   "vertical": false,
+   "backdrop": [
+    "#24160f",
+    "#4a2a17"
+   ],
+   "birds": [
+    {
+     "bird": "owl",
+     "x": 0.15,
+     "y": 0.98,
+     "h": 0.62
+    },
+    {
+     "bird": "duck",
+     "x": 0.38,
+     "y": 1.0,
+     "h": 0.55
+    },
+    {
+     "bird": "lovebird",
+     "x": 0.62,
+     "y": 0.99,
+     "h": 0.55
+    },
+    {
+     "bird": "magpie",
+     "x": 0.86,
+     "y": 1.0,
+     "h": 0.62,
+     "flip": true
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal close shot in a nearly empty, very dark comedy club after hours: the characters sit side by side behind small round wooden cabaret tables, each with a flickering candle in a glass holder lighting them from below; behind them only pitch-black darkness and a few out-of-focus candle bokeh dots, 50 mm, shallow depth of field.",
+   "motion": "A cozy comedy club audience of stylised cartoon birds at small round candle-lit tables bursts into laughter: heads bobbing, feathers puffing up, the slate magpie tapping its table with a wing, the violet owl rocking back. Rack focus from the candle in the foreground to the birds, 50 mm. Warm candle practicals, haze, dark room. Lively, joyful."
+  },
+  {
+   "id": "06-dinner-wide",
+   "act": "dinner",
+   "seconds": 5.0,
+   "speed": 1.0,
+   "vertical": false,
+   "backdrop": [
+    "#2a1c10",
+    "#6b4a2a"
+   ],
+   "birds": [
+    {
+     "bird": "flamingo",
+     "x": 0.5,
+     "y": 0.66,
+     "h": 0.4
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal symmetrical wide frame of a 1970s family dinner in a wood-panelled dining room: a long table with a white tablecloth runs toward the camera, candles, bread, a big bowl of pasta, glass water carafes, a low hanging lamp; the flamingo sits at the far head of the table, back-lit, a single red carnation lies on the cloth before it; warm low-key tungsten light, smoke haze, sepia film look, 40 mm anamorphic.",
+   "motion": "The pink flamingo character sits perfectly still at the far head of a long candle-lit 1970s family dinner table, back-lit, a red carnation on the white tablecloth before it; candle flames flicker and smoke haze drifts through the lamp light. Very slow dolly in along the table, 40 mm anamorphic. Warm low-key tungsten, heavy shadows, sepia film look. Slow, grave, quiet."
+  },
+  {
+   "id": "07-dinner-owl",
+   "act": "dinner",
+   "seconds": 5.0,
+   "speed": "ramp 1.0>0.5",
+   "vertical": true,
+   "backdrop": [
+    "#20150c",
+    "#5a3d20"
+   ],
+   "birds": [
+    {
+     "bird": "owl",
+     "x": 0.5,
+     "y": 1.02,
+     "h": 0.92
+    }
+   ],
+   "birds9x16": [
+    {
+     "bird": "owl",
+     "x": 0.5,
+     "y": 0.9,
+     "h": 0.55
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal close-up at a candle-lit 1970s dinner table: the owl holds a long paper contract and reads it, a candle burns low in the foreground, warm light from below-left, dark wood panelling behind, dust in the air, sepia film look, 65 mm, shallow depth of field.",
+   "motion": "The violet owl character with big white eyes reads a long paper contract by candlelight, its eyes following the lines one by one, then it lifts a rubber stamp and stamps the page firmly; the ink mark is a green check. Static, 65 mm. Candle key light from below-left, deep shadows, dust floating in the air, sepia film look. Patient, then one firm beat."
+  },
+  {
+   "id": "08-dinner-answer",
+   "act": "dinner",
+   "seconds": 5.0,
+   "speed": 1.0,
+   "vertical": true,
+   "backdrop": [
+    "#22170d",
+    "#5e3f22"
+   ],
+   "birds": [
+    {
+     "bird": "flamingo",
+     "x": 0.4,
+     "y": 1.1,
+     "h": 1.0
+    },
+    {
+     "bird": "duck",
+     "x": 0.8,
+     "y": 1.02,
+     "h": 0.55,
+     "flip": true
+    }
+   ],
+   "birds9x16": [
+    {
+     "bird": "flamingo",
+     "x": 0.42,
+     "y": 0.9,
+     "h": 0.62
+    },
+    {
+     "bird": "duck",
+     "x": 0.78,
+     "y": 0.88,
+     "h": 0.32,
+     "flip": true
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal close-up at the head of a candle-lit 1970s dinner table: the flamingo sits gravely on the left; the small round duck with glasses sits on the table's right edge beside it, both facing each other; a white tablecloth in the foreground, candle light, dark wood panelling, smoke haze, sepia film look, 85 mm, very shallow depth of field.",
+   "motion": "The pink flamingo character listens gravely as the crimson duck with round glasses hops closer and leans toward its ear to whisper; the flamingo nods slowly, opens its beak to answer, then a single gold coin with a star embossed on it slides across the white tablecloth and stops in front of it. Slow push-in, 85 mm. Warm candle light, smoke haze, sepia film look, shallow depth of field. Slow, grave, with a wink of comedy."
+  },
+  {
+   "id": "09-studio-duck",
+   "act": "90s",
+   "seconds": 5.0,
+   "speed": 1.0,
+   "vertical": true,
+   "backdrop": [
+    "#1b2230",
+    "#3a2a22"
+   ],
+   "birds": [
+    {
+     "bird": "duck",
+     "x": 0.36,
+     "y": 0.92,
+     "h": 0.62
+    }
+   ],
+   "birds9x16": [
+    {
+     "bird": "duck",
+     "x": 0.5,
+     "y": 0.8,
+     "h": 0.36
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal frame of a cramped 1990s bedroom music studio: grey egg-crate foam on the walls, an unbranded drum machine with rubber pads on the desk in front of the duck, a chunky CRT monitor beside it glowing with blocks of code, a desk lamp, cables, big closed headphones around the duck's neck, 16 mm film grain, slightly faded colours, 24 mm.",
+   "motion": "The crimson duck character with round glasses and big headphones around its neck taps the rubber pads of an unbranded drum machine, nodding its head to the beat; on the CRT monitor beside it three glowing blocks of code stack up one by one and light up. Handheld slight sway, 24 mm. Practical desk lamp and cyan CRT glow, 16 mm film grain, slightly faded 1990s colours. Energetic, on the beat."
+  },
+  {
+   "id": "10-rooftop-cypher",
+   "act": "90s",
+   "seconds": 5.0,
+   "speed": 1.0,
+   "vertical": false,
+   "backdrop": [
+    "#7a4a7a",
+    "#2a2a3a"
+   ],
+   "birds": [
+    {
+     "bird": "duck",
+     "x": 0.2,
+     "y": 0.84,
+     "h": 0.34
+    },
+    {
+     "bird": "magpie",
+     "x": 0.42,
+     "y": 0.8,
+     "h": 0.38
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.62,
+     "y": 0.8,
+     "h": 0.34
+    },
+    {
+     "bird": "beaver",
+     "x": 0.82,
+     "y": 0.84,
+     "h": 0.36,
+     "flip": true
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal frame of a city rooftop at dusk: old wooden water towers, a generic city skyline with lit windows, string lights, a magenta and deep blue sky; the characters stand in a loose circle around an unbranded silver boombox on the tar roof, 16 mm film grain, 21 mm.",
+   "motion": "A circle of stylised cartoon birds on a rooftop at dusk bob their heads to the music around an unbranded boombox; the slate-and-cobalt magpie flips a small scoreboard where three bars rise and a gold star lands on the tallest. Slow orbit around the circle, 21 mm. Magenta and blue dusk sky, string lights, water towers, 16 mm film grain. Groovy, on the beat."
+  },
+  {
+   "id": "11-beach-crane",
+   "act": "beach",
+   "seconds": 4.5,
+   "speed": 1.0,
+   "vertical": true,
+   "backdrop": [
+    "#f2a65a",
+    "#d9b27a"
+   ],
+   "birds": [
+    {
+     "bird": "crane",
+     "x": 0.4,
+     "y": 0.9,
+     "h": 0.7
+    }
+   ],
+   "birds9x16": [
+    {
+     "bird": "crane",
+     "x": 0.5,
+     "y": 0.86,
+     "h": 0.48
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal frame of a golden beach at sunset: the crane stands at the water's edge, a small bamboo stage with a big wooden speaker behind it, palm trees, gentle waves, the low sun behind giving golden backlight and lens flare, warm haze, 50 mm.",
+   "motion": "The pale grey crane character with a red crown stands at the water's edge at sunset, closes its eyes and sways gently to the music from a big wooden speaker on a bamboo stage, palm leaves moving in the breeze, waves rolling in. Slow crane up, 50 mm. Golden hour backlight, lens flare, warm haze. Slow, peaceful, swaying."
+  },
+  {
+   "id": "12-beach-lovebirds",
+   "act": "beach",
+   "seconds": 4.0,
+   "speed": 1.0,
+   "vertical": false,
+   "backdrop": [
+    "#f0a050",
+    "#3a6a8a"
+   ],
+   "birds": [
+    {
+     "bird": "lovebird",
+     "x": 0.24,
+     "y": 0.8,
+     "h": 0.4
+    },
+    {
+     "bird": "lovebird",
+     "x": 0.76,
+     "y": 0.8,
+     "h": 0.4,
+     "flip": true
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal frame: the two round plush cartoon lovebird characters (exactly like the reference: chubby round bodies, big round cartoon eyes) sit at the two ends of a long driftwood log on a beach at sunset, the sea and the setting sun behind them, golden backlight, soft bokeh, 85 mm.",
+   "motion": "Two green lovebird characters with coral faces sit at the two ends of a driftwood log, then shuffle closer and closer to each other in time with the music until their shoulders touch, and a small glowing heart of light rises between them, the sun setting over the sea behind. Static, 85 mm. Golden backlight, soft bokeh. Sweet, rhythmic."
+  },
+  {
+   "id": "13-beach-beaver",
+   "act": "beach",
+   "seconds": 4.0,
+   "speed": 1.0,
+   "vertical": false,
+   "backdrop": [
+    "#e8a060",
+    "#7a5030"
+   ],
+   "birds": [
+    {
+     "bird": "beaver",
+     "x": 0.42,
+     "y": 0.95,
+     "h": 0.7
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal frame of a little wooden beach-shack counter at golden hour: the beaver stands behind the counter with a small vintage cash register, palm leaves, the sea behind, warm side light, 35 mm.",
+   "motion": "The brown beaver character with one big front tooth and a flat tail sways to the music behind a little wooden beach-shack counter, taps the keys of a small cash register, a paper receipt prints out and it stamps it with a green check. Slow push-in, 35 mm. Golden hour side light, warm haze. Cheerful, on the beat."
+  },
+  {
+   "id": "14-clay-leap",
+   "act": "tennis",
+   "seconds": 4.0,
+   "speed": 0.5,
+   "vertical": true,
+   "backdrop": [
+    "#b85a35",
+    "#c96b40"
+   ],
+   "birds": [
+    {
+     "bird": "pigeon",
+     "x": 0.5,
+     "y": 0.72,
+     "h": 0.3
+    }
+   ],
+   "birds9x16": [
+    {
+     "bird": "pigeon",
+     "x": 0.5,
+     "y": 0.7,
+     "h": 0.22
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal high broadcast-angle frame of an empty red clay tennis court in bright sun, white lines, plain dark green surrounds with no signage; the pigeon stands at the baseline holding its small orange parcel, hard sun and crisp shadows, 100 mm.",
+   "motion": "The sky-blue pigeon character holding a small orange parcel springs into a leap at the baseline of a red clay tennis court, red clay dust exploding around its feet in slow motion. Locked-off high broadcast angle, 100 mm. Hard bright sun, crisp shadows, clean broadcast colour. Slow motion, 120 fps look."
+  },
+  {
+   "id": "15-grass-flight",
+   "act": "tennis",
+   "seconds": 5.0,
+   "speed": "ramp 0.4>1.0",
+   "vertical": true,
+   "backdrop": [
+    "#3f7f3a",
+    "#a8c8e8"
+   ],
+   "birds": [
+    {
+     "bird": "pigeon",
+     "x": 0.45,
+     "y": 0.62,
+     "h": 0.42
+    }
+   ],
+   "birds9x16": [
+    {
+     "bird": "pigeon",
+     "x": 0.5,
+     "y": 0.62,
+     "h": 0.3
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal side frame at net height on a green grass tennis court: the pigeon flies across the white net with wings wide, holding its small orange parcel forward, bright sun, blurred background of plain green, 135 mm, shallow depth of field.",
+   "motion": "The sky-blue pigeon character with violet wings flies in full stretch across the net of a grass tennis court, holding its small orange parcel forward, wings wide, grass blades flying in slow motion. Fast lateral tracking shot, 135 mm. Bright sun, shallow depth of field, clean broadcast colour. Slow motion, 240 fps look."
+  },
+  {
+   "id": "16-line-call",
+   "act": "tennis",
+   "seconds": 4.0,
+   "speed": 0.35,
+   "vertical": true,
+   "backdrop": [
+    "#4a8a40",
+    "#2f5f2a"
+   ],
+   "birds": [
+    {
+     "bird": "pigeon",
+     "x": 0.5,
+     "y": 0.86,
+     "h": 0.62
+    }
+   ],
+   "birds9x16": [
+    {
+     "bird": "pigeon",
+     "x": 0.5,
+     "y": 0.8,
+     "h": 0.4
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal low close-up on a sunlit green grass tennis court: the pigeon stands right on a white chalk line, its small orange parcel set exactly on the line at its feet, bright sun, 100 mm macro, very shallow depth of field, plain green blurred background.",
+   "motion": "The sky-blue pigeon character with violet wings lands on the white chalk line of a grass tennis court and sets its small orange parcel down exactly on the line in a puff of chalk dust, then a green check of light appears above the parcel and the pigeon puffs its chest proudly. Static, 100 mm macro. Bright sun, very shallow depth of field. Extreme slow motion."
+  },
+  {
+   "id": "17-ridge-family",
+   "act": "finale",
+   "seconds": 5.0,
+   "speed": 1.0,
+   "vertical": false,
+   "backdrop": [
+    "#f2a65a",
+    "#4f7a50"
+   ],
+   "birds": [
+    {
+     "bird": "beaver",
+     "x": 0.08,
+     "y": 0.8,
+     "h": 0.22
+    },
+    {
+     "bird": "magpie",
+     "x": 0.18,
+     "y": 0.8,
+     "h": 0.25
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.28,
+     "y": 0.8,
+     "h": 0.24
+    },
+    {
+     "bird": "flamingo",
+     "x": 0.38,
+     "y": 0.8,
+     "h": 0.31
+    },
+    {
+     "bird": "falcon",
+     "x": 0.49,
+     "y": 0.8,
+     "h": 0.27
+    },
+    {
+     "bird": "owl",
+     "x": 0.6,
+     "y": 0.8,
+     "h": 0.26
+    },
+    {
+     "bird": "duck",
+     "x": 0.71,
+     "y": 0.8,
+     "h": 0.24
+    },
+    {
+     "bird": "crane",
+     "x": 0.81,
+     "y": 0.8,
+     "h": 0.33
+    },
+    {
+     "bird": "lovebird",
+     "x": 0.92,
+     "y": 0.8,
+     "h": 0.24
+    }
+   ],
+   "keyframe": "Re-light this scene as a photoreal frame: the whole flock of characters stands on a grassy mountain ridge at golden hour, a river winding through a wide valley far below, blue mountains, the sun low behind them giving golden backlight and rim light on their feathers, valley haze, 24 mm.",
+   "motion": "The whole flock of stylised cartoon birds stands in a row on a grassy mountain ridge at golden hour, feathers moving in the breeze, they look out over the valley together. Slow crane up and back revealing the river valley below, 24 mm. Golden backlight, rim light on feathers, valley haze. Warm, triumphant, calm.",
+   "_vertical": "The 9:16 keyframe kept drawing a crowd of duplicated birds (rejected 3×): the vertical film shows the 16:9 shot over its blurred enlargement."
+  }
+ ],
+ "birdLooks": {
+  "falcon": "the falcon: vivid orange-to-red body, pale peach belly, two pointed ear tufts, a glossy black visor band across its eyes with two glowing cyan round lights, a small yellow beak, yellow legs",
+  "owl": "the owl: bright violet-purple body, two pointed ear tufts, two big round white eyes with black pupils, a small orange beak",
+  "duck": "the duck: crimson red-pink round body, round thin-rimmed glasses over its eyes, a wide yellow bill, a small curl of feather on its head",
+  "flamingo": "the flamingo: bright candy-pink body, a long thin pink S-shaped neck, a small round pink head, a yellow beak with a dark tip, thin yellow legs",
+  "pigeon": "the pigeon: sky-blue to azure round body, violet wings and tail, a small violet crest, a small orange beak, a small orange parcel box at its feet",
+  "lovebird": "the lovebird: chubby round emerald green plush body, a round coral-red face ringed with green, big round cartoon eyes, a small orange beak, a coral tail tip",
+  "crane": "the crane: pale grey and cream body, a long thin neck, a small red cap on its head, a long grey beak, long dark legs",
+  "magpie": "the magpie: dark slate-grey body, a black cap, bright cobalt-blue wings, a long dark tail",
+  "beaver": "the beaver: warm brown round plush body, a lighter tan belly, small round ears, big round cartoon eyes, a small dark nose, its mouth closed under one single big flat orange buck tooth that hangs over its chin, no tongue, a flat dark-brown tail"
+ }
+}

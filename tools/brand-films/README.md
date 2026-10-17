@@ -98,3 +98,31 @@ Orazaka.* The loops have no sound.
 `stroke-dashoffset` 1 → 0 over ~1.4 s, ease in-out), the birds hop up to their places (`OUT` then `FALL`, 70–320 ms
 staggered), a light sweeps across the valley (105°, 2 s). Use the same easings (`EASE`, `OUT`, `POP`, `FALL` in
 `choreography.mjs`) so the site's intro and the films move alike.
+
+## The epic: « Le monde de Krizaka : la tournée » (`epic/`)
+
+The photoreal, much livelier sequel (~85 s, 16:9 + 9:16 + 15 s cut-downs): the flock on tour through five eras of pop
+culture, one promise per era. **The birds still come from the code**: each keyframe starts from the `Mascot` render of
+the loops (`loops/<bird>-alpha.webm`, frame 0), re-lit by FLUX.2 [klein] 4B, then animated by Wan 2.2 I2V A14B (4-step
+distill) on Orazaka's `cinema` GPU profile, upscaled by SeedVR2 3B. Every take passes the gate of `epic/TREATMENT.md` §5.
+
+| File | What it is |
+| :--- | :--- |
+| `TREATMENT.md` | the treatment, the 17-shot list with directed prompts, the guardrails, the quality gate |
+| `PROMPT-KIT.md` | the Krizaka cinematic prompt kit (Wan 2.2 at guidance 1.0: everything positive) |
+| `shots.json` | per shot: the birds' places on the canvas, the keyframe prompt, the motion prompt; the birds' looks |
+| `chosen.json` | the keyframe seeds that passed the gate |
+| `edl.json` | the cut: in/out, speed and ramps, the era grade, transitions, captions (the film's own lines), the music cues |
+| `compose.py` → `keyframes.py` → (Studio runs) → `review.py` → `upscale.sh` → `edit.py` + `medley.py` | the pipeline |
+
+```bash
+python3 epic/compose.py epic/shots.json <loops idle frames> canvas
+python3 epic/keyframes.py epic/shots.json canvas kf --url http://127.0.0.1:18086      # ssh tunnel to the pod's sd-server
+node <orazaka>/scripts/gpu-i2v-run.mjs --plan i2v-plan.json --out clips               # Studio runs, model wan2.2-i2v-a14b
+python3 epic/review.py clips kf-chosen review                                         # the gate, one sheet per shot
+epic/upscale.sh pod.sh sel16 clips16                                                  # SeedVR2 → 1080p
+python3 epic/edit.py epic/edl.json clips16 film-16x9.mp4 --aspect 16x9                # then medley.py, then mux
+```
+
+`epic.test.mjs` keeps the plan honest: flock birds only, no real person / artist / brand in any prompt, one camera move
+per shot, captions word for word from `FILM.cues`.
