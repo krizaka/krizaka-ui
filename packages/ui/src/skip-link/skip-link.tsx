@@ -7,7 +7,7 @@ import { tv } from "tailwind-variants";
 export const skipLink = tv({
   base:
     "sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-surface-1 focus:px-4 focus:py-2 " +
-    "focus:text-sm focus:font-semibold focus:text-fg focus:no-underline focus:shadow-lg focus:outline-hidden focus:ring-2 focus:ring-ring",
+    "focus:text-sm focus:font-semibold focus:text-fg focus:no-underline focus:shadow-lg focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
 });
 
 export type SkipLinkProps = Omit<React.ComponentProps<"a">, "href"> & {
