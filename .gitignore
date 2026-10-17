@@ -9,3 +9,5 @@ storybook-static
 apps/storybook/__screenshots__/__diff__
 __pycache__/
 *.pyc
+
+.preview/
