@@ -229,6 +229,10 @@
       "types": "./dist/language-switch.d.ts",
       "import": "./dist/language-switch.js"
     },
+    "./language-switch/server": {
+      "types": "./dist/language-switch/server.d.ts",
+      "import": "./dist/language-switch/server.js"
+    },
     "./site-footer": {
       "types": "./dist/site-footer.d.ts",
       "import": "./dist/site-footer.js"
@@ -1440,6 +1444,12 @@
       "name": "./form/server",
       "path": "dist/form/server.js",
       "limit": "1.5 kB",
+      "gzip": true
+    },
+    {
+      "name": "./language-switch/server",
+      "path": "dist/language-switch/server.js",
+      "limit": "1 kB",
       "gzip": true
     },
     {
