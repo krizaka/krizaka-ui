@@ -1,5 +1,18 @@
 # @krizaka/ui
 
+## 3.21.0
+
+### Minor Changes
+
+- [#297](https://github.com/krizaka/krizaka-ui/pull/297) [`74961d3`](https://github.com/krizaka/krizaka-ui/commit/74961d3a1d8c5745bc0a97b4a757315a070158a6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `UpdatePrompt` (the soft invitation to update), `ForceUpdateScreen` (the blocking screen after a `426` or `updateMode: force`) and `MaintenanceScreen` (the service is down on purpose) — web and `/native`, for the app-version contract of `@krizaka/app-config` (krizaka/.github#75). Every word is a prop; the screens decide nothing, the backend's parameters do.
+
+### Patch Changes
+
+- [#295](https://github.com/krizaka/krizaka-ui/pull/295) [`92d4fad`](https://github.com/krizaka/krizaka-ui/commit/92d4fade4897b966ae970661a93a0233d6dd8570) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Tabs (pills) and the other sideways-scrolling rows (settings nav, shorts shelf, date-picker presets, day strip, table of contents) no longer draw a vertical scrollbar. `overflow-x` forced `overflow-y` to `auto`, so a 1–2 px overhang (a focus ring, a border) showed a thin thumb at the end of the bar. These rows now clip vertically, keep the sideways scroll, hide their scrollbar, and get their focus ring room from padding.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.21.0
+  - @krizaka/tokens@3.21.0
+
 ## 3.20.0
 
 ### Minor Changes
