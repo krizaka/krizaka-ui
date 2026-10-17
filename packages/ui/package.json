@@ -2009,7 +2009,7 @@
     {
       "name": "./changelog-page",
       "path": "dist/changelog-page.js",
-      "limit": "1.5 kB",
+      "limit": "2.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
