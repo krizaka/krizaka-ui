@@ -1,0 +1,119 @@
+{
+  "common": {
+    "fallback": "If the button doesn't work, copy this link into your browser:",
+    "signatureTeam": "The {brand} team",
+    "signatureFounder": "Founder, Krizaka",
+    "footer": {
+      "unsubscribe": "Unsubscribe in one click",
+      "privacy": "Privacy",
+      "contact": "Contact",
+      "sender": "Sent by {legal}, {address}."
+    },
+    "hello": "Hello,",
+    "helloName": "Hello {name},",
+    "links": {
+      "site": "https://www.krizaka.com/",
+      "privacy": "https://www.krizaka.com/privacy",
+      "contact": "https://www.krizaka.com/contact",
+      "blog": "https://blog.krizaka.com/"
+    },
+    "address": "Montréal (Québec), Canada",
+    "legalName": "Technologies Krizaka Inc.",
+    "dateLocale": "en-CA"
+  },
+  "newsletterConfirm": {
+    "subject": "Confirm your subscription to the Krizaka blog",
+    "preheader": "One click to confirm. The link is valid for {hours} hours.",
+    "heading": "Confirm your subscription",
+    "body": "Someone, probably you, asked to receive the new posts of the Krizaka blog at this address.",
+    "button": "Confirm my subscription",
+    "expiry": "The link is valid for {hours} hours.",
+    "ignore": "If it wasn't you, ignore this email: nothing was recorded, and you won't hear from us again.",
+    "why": "You receive this email because this address was entered in the subscription form of blog.krizaka.com."
+  },
+  "newsletterWelcome": {
+    "subject": "You're subscribed to the Krizaka blog",
+    "preheader": "Thank you. A short email for each new post, nothing else.",
+    "heading": "Thank you, you're in",
+    "body": "You will get an email when a new post is published. Nothing else, no tracking, and you can leave in one click at the bottom of any of them.",
+    "button": "Read the blog",
+    "why": "You receive this email because you subscribed to the new posts of blog.krizaka.com and confirmed it."
+  },
+  "newPost": {
+    "subject": "New on the Krizaka blog: {title}",
+    "preheader": "{excerpt}",
+    "eyebrow": "New on the blog",
+    "button": "Read the post",
+    "why": "You receive this email because you subscribed to the new posts of blog.krizaka.com and confirmed it.",
+    "whyOn": "You receive this email because you subscribed to the new posts of blog.krizaka.com on {date} and confirmed it."
+  },
+  "newsletterUnsubscribed": {
+    "subject": "You're unsubscribed from the Krizaka blog",
+    "preheader": "Done. Your address is removed and nothing is kept.",
+    "heading": "You're unsubscribed",
+    "body": "Done: your address is removed from our list, and we keep nothing about it. You will not receive any more posts.",
+    "changedMind": "Changed your mind? You can subscribe again at any time.",
+    "button": "Subscribe again",
+    "why": "You receive this one-time email because you unsubscribed from blog.krizaka.com. It is the last one."
+  },
+  "contactAutoreply": {
+    "subject": "We received your message",
+    "preheader": "Thank you for writing to Krizaka. We read every message.",
+    "heading": "We received your message",
+    "body": "Thank you for writing to Krizaka. We read every message and answer it ourselves.",
+    "yourMessage": "Your message",
+    "button": "Back to krizaka.com",
+    "why": "You receive this email because you sent a message through the contact form of www.krizaka.com. It is a one-time confirmation."
+  },
+  "contactNotification": {
+    "subject": "[krizaka.com] {topic}: {name}",
+    "preheader": "{name} wrote through the contact form.",
+    "heading": "New message from the contact form",
+    "name": "Name",
+    "email": "Email",
+    "company": "Company",
+    "topic": "Topic",
+    "timeline": "Timeline",
+    "language": "Language",
+    "source": "Source",
+    "message": "Message",
+    "none": "—",
+    "button": "Reply to {name}",
+    "why": "Internal notification: a visitor used the contact form of www.krizaka.com."
+  },
+  "signInLink": {
+    "subject": "Your sign-in link for {brand}",
+    "preheader": "One use, valid for {minutes} minutes.",
+    "heading": "Sign in to {brand}",
+    "body": "Use the button below to sign in. The link works once and is valid for {minutes} minutes.",
+    "button": "Sign in",
+    "ignore": "If you didn't ask to sign in, ignore this email: nobody can get in without this link.",
+    "why": "You receive this email because someone asked for a sign-in link for this address."
+  },
+  "commentReply": {
+    "subject": "{name} replied to your comment",
+    "preheader": "{name} replied under « {title} ».",
+    "heading": "{name} replied to your comment",
+    "under": "Under « {title} »",
+    "button": "See the reply",
+    "why": "You receive this email because someone replied to a comment you wrote."
+  },
+  "accountDeletion": {
+    "subject": "Confirm the deletion of your {brand} account",
+    "preheader": "Nothing is deleted until you confirm. The link is valid for {hours} hours.",
+    "heading": "Confirm the deletion of your account",
+    "body": "You asked to delete your {brand} account and the data attached to it. This cannot be undone. Nothing is deleted until you confirm.",
+    "button": "Delete my account",
+    "expiry": "The link is valid for {hours} hours.",
+    "ignore": "If it wasn't you, ignore this email and your account stays as it is.",
+    "why": "You receive this email because the deletion of your account was requested."
+  },
+  "dataExport": {
+    "subject": "Your {brand} data export is ready",
+    "preheader": "The download is available for {days} days.",
+    "heading": "Your data export is ready",
+    "body": "You asked for a copy of your data. It is ready to download for {days} days, then it is deleted.",
+    "button": "Download my data",
+    "why": "You receive this email because a copy of your data was requested."
+  }
+}

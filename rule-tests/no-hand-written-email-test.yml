@@ -1,0 +1,17 @@
+id: no-hand-written-email
+valid:
+  - |
+    const email = await renderEmail("newsletterConfirm", { confirmUrl }, { locale: "fr" });
+  - |
+    await sendEmail("newPost", props, { to, locale });
+  - |
+    const page = { title: "Home", html: "<p>doc</p>" };
+invalid:
+  - |
+    await mailgun.send({ to, subject: "Hi", html: "<p>Hi</p>", text: "Hi" });
+  - |
+    const message = { "subject": "Hi", "html": body };
+  - |
+    form.append("html", body);
+  - |
+    form.set("html", body);

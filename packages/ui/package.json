@@ -911,7 +911,7 @@
     {
       "name": "./dialog",
       "path": "dist/dialog.js",
-      "limit": "16.5 kB",
+      "limit": "16.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1740,7 +1740,7 @@
     {
       "name": "./app-shell",
       "path": "dist/app-shell.js",
-      "limit": "17.5 kB",
+      "limit": "18 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

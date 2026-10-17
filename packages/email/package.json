@@ -1,0 +1,95 @@
+{
+  "name": "@krizaka/email",
+  "version": "0.0.0",
+  "description": "One email system for every Krizaka app: typed, branded, bilingual templates on React Email (email-safe HTML, a plain-text part always generated), brand themes from @krizaka/tokens, and a sendEmail() adapter with one-click unsubscribe headers, idempotency, a delivery log and bounce/complaint suppression.",
+  "keywords": [
+    "krizaka",
+    "email",
+    "react-email",
+    "transactional",
+    "newsletter",
+    "mailgun",
+    "dark-mode",
+    "i18n"
+  ],
+  "homepage": "https://ui.krizaka.com/packages/email",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/email"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "messages",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "gen": "node scripts/gen-themes.mjs",
+    "gen:check": "node scripts/gen-themes.mjs --check",
+    "preview": "node scripts/preview.mjs",
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && node scripts/gen-themes.mjs --check && tsup",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "publint": "publint && attw --pack . --profile esm-only",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "@krizaka/i18n": "workspace:^",
+    "@react-email/body": "0.3.0",
+    "@react-email/button": "0.2.1",
+    "@react-email/column": "0.0.14",
+    "@react-email/container": "0.0.16",
+    "@react-email/head": "0.0.13",
+    "@react-email/heading": "0.0.16",
+    "@react-email/hr": "0.0.12",
+    "@react-email/html": "0.0.12",
+    "@react-email/img": "0.0.12",
+    "@react-email/link": "0.0.13",
+    "@react-email/preview": "0.0.14",
+    "@react-email/render": "2.1.1",
+    "@react-email/row": "0.0.13",
+    "@react-email/section": "0.0.17",
+    "@react-email/text": "0.1.6",
+    "zod": "^4.6.7"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "workspace:*",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@vitest/coverage-v8": "4.1.11",
+    "eslint": "^9.39.0",
+    "playwright": "1.64.1",
+    "publint": "^0.3.25",
+    "react": "^19.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
