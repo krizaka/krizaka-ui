@@ -135,7 +135,8 @@ export function LanguageSwitch({ label, current, languages, variant = "menu", li
         className={s.trigger()}
       >
         <Globe className={s.glyph()} />
-        <span aria-hidden>{current}</span>
+        {/* Drawn by CSS: the code is no text of the button, so its name (`Language: English`) never mismatches what is visible. */}
+        <span aria-hidden data-code={current} className="after:content-[attr(data-code)]" />
       </button>
       {open && (
         <div id={id} role="group" aria-label={label} className={s.panel()}>

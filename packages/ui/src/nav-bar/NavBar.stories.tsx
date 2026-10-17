@@ -77,7 +77,8 @@ export const MenuLongText: Story = {
     const panel = await new Promise<HTMLElement>((resolve, reject) => {
       const t0 = Date.now();
       const tick = () => {
-        const el = doc.querySelector<HTMLElement>("[data-radix-navigation-menu-content]");
+        // The panel is the content around the first link (Radix sets no attribute we can rely on for it).
+        const el = doc.querySelector<HTMLAnchorElement>('a[href="#keep"]')?.closest<HTMLElement>("[data-state]");
         if (el) return resolve(el);
         if (Date.now() - t0 > 4000) return reject(new Error("the menu did not open"));
         requestAnimationFrame(tick);

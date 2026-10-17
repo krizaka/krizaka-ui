@@ -31,7 +31,7 @@ describe("LanguageSwitch", () => {
   it("shows the current code on a globe, never the other language", () => {
     render(<LanguageSwitch label="Langue" current="fr" languages={languages} />);
     const trigger = screen.getByRole("button", { name: "Langue: Français" });
-    expect(trigger.textContent).toBe("fr");
+    expect(trigger.querySelector("[data-code]")?.getAttribute("data-code")).toBe("fr");
     expect(trigger.textContent).not.toMatch(/english/i);
   });
 

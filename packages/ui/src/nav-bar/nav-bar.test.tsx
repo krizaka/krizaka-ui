@@ -187,7 +187,7 @@ describe("NavBar.Language — one switch in the bar and in the mobile panel", ()
   it("is a globe and the current code in the bar, never the other language", () => {
     render(<WithLanguage />);
     const trigger = screen.getByRole("button", { name: "Langue: Français" });
-    expect(trigger.textContent).toBe("fr");
+    expect(trigger.querySelector("[data-code]")?.getAttribute("data-code")).toBe("fr");
   });
 
   it("is a row of the languages by their own names inside the mobile panel's preferences", async () => {
