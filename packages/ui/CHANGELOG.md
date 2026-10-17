@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.27.0
+
+### Minor Changes
+
+- [#347](https://github.com/krizaka/krizaka-ui/pull/347) [`a38ba39`](https://github.com/krizaka/krizaka-ui/commit/a38ba39fbab4769d75f297f3377caa56bd0cca47) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/language-switch/server`: `languagesFor`, `languageHref` and `languageNames` without the "use client" banner, so a Server Component can call them (the `language-switch` entry stays client and re-exports them for compatibility).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.27.0
+  - @krizaka/tokens@3.27.0
+
 ## 3.26.0
 
 ### Minor Changes
