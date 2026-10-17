@@ -45,6 +45,22 @@ export function formatShortcut(shortcut: string, apple = isApple()): string[] {
   return [...shown, last];
 }
 
+/**
+ * The accelerator of a combination for a desktop app's native menu bar (Tauri's `MenuItem`, Electron's — ADR-002):
+ * `mod+k` → `CmdOrCtrl+K`, `shift+mod+/` → `Shift+CmdOrCtrl+/`. The menu and the shell then answer the same keys, and the
+ * menu shows them. A sequence (`g d`) has none: a menu item takes one chord.
+ */
+export function acceleratorOf(shortcut: string): string | undefined {
+  if (shortcut.trim().includes(" ")) return undefined;
+  const parts = shortcut.split("+").filter(Boolean);
+  const names: Record<string, string> = { mod: "CmdOrCtrl", meta: "Super", ctrl: "Ctrl", alt: "Alt", shift: "Shift" };
+  const raw = (parts.at(-1) ?? "").toLowerCase();
+  const key = ALIASES[raw] ?? raw;
+  const keys: Record<string, string> = { escape: "Escape", enter: "Enter", " ": "Space", arrowup: "Up", arrowdown: "Down", arrowleft: "Left", arrowright: "Right", delete: "Delete", backspace: "Backspace", tab: "Tab", "+": "Plus" };
+  const last = keys[key] ?? (key.length === 1 ? key.toUpperCase() : key.charAt(0).toUpperCase() + key.slice(1));
+  return [...parts.slice(0, -1).map((part) => names[part.toLowerCase()] ?? part), last].join("+");
+}
+
 const noop = () => () => undefined;
 
 /** Whether the person is on an Apple device — `false` on the server and in the first client render (no mismatch), then right. */

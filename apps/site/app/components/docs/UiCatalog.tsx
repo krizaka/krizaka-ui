@@ -4,14 +4,15 @@ import { format } from "@krizaka/i18n";
 import { Monitor, MonitorSmartphone, Smartphone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { type ReactNode,useMemo, useSyncExternalStore } from "react";
+import { type ReactNode, useMemo, useSyncExternalStore } from "react";
 
-import type { CatalogEntry } from "@/lib/ui-catalog";
+import type { CatalogEntry, CatalogFamily } from "@/lib/ui-catalog";
 import { FILTER_KEYS, JOBS, PATTERNS } from "@/lib/ui-ia";
 import { type Product,PRODUCT_NAMES, PRODUCTS } from "@/lib/ui-inventory";
 import type { Platform, Status } from "@/lib/ui-registry";
 
 import { useI18n } from "../I18nProvider";
+import { FamilyCards } from "./FamilyCards";
 import { InlineCode } from "./InlineCode";
 import { LazyExample } from "./LazyExample";
 
@@ -62,7 +63,7 @@ const writeFilters = (filters: ReturnType<typeof readFilters>) => {
   listeners.forEach((listener) => listener());
 };
 
-export function UiCatalog({ entries, usageDate }: { entries: CatalogEntry[]; usageDate: string }) {
+export function UiCatalog({ entries, families, usageDate }: { entries: CatalogEntry[]; families: CatalogFamily[]; usageDate: string }) {
   const { t } = useI18n();
   const c = t.docs.ia.catalog;
   const labels = t.docs.component;
@@ -113,7 +114,25 @@ export function UiCatalog({ entries, usageDate }: { entries: CatalogEntry[]; usa
       <h2 id="catalog-title" className="sr-only">
         {c.heading}
       </h2>
-      <p className="kz-docs-note">{c.lead}</p>
+      <nav className="kz-families" aria-labelledby="families-title">
+        <h2 id="families-title" className="kz-families-title">
+          {c.families.title}
+        </h2>
+        <FamilyCards
+          families={families}
+          titles={Object.fromEntries(families.map((family) => [family.key, sectionTitle(family.key).title]))}
+          hrefs={Object.fromEntries(families.map((family) => [family.key, `?group=${family.key}#catalog-list`]))}
+          current={filters.group}
+          onSelect={(key, event) => {
+            event.preventDefault();
+            writeFilters({ ...filters, group: key });
+            document.getElementById("catalog-list")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+          }}
+        />
+      </nav>
+      <p id="catalog-list" className="kz-docs-note">
+        {c.lead}
+      </p>
       <div className="kz-catalog-bar" role="search" aria-label={c.filters}>
         {chips(c.platform, filters.platform, PLATFORMS.map((value) => ({ value, label: t.docs.catalog[value] })), (v) => set("platform", v))}
         <label className="kz-catalog-select">

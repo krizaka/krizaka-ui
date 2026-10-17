@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { familyLabels, sites } from "../sites";
@@ -29,6 +29,109 @@ function Bar() {
   );
 }
 
+function ProductBar() {
+  return (
+    <div>
+      <p>The page</p>
+      <NavBar.Root label="Main">
+        <NavBar.Brand href="#home">Orazaka</NavBar.Brand>
+        <NavBar.Items>
+          <NavBar.Menu label="Product">
+            <NavBar.MenuLink href="#how" title="How it works" description="Install to first answer in three commands." />
+            <NavBar.MenuLink href="#studios" title="Studios" description="Ready-made workflows." />
+          </NavBar.Menu>
+          <NavBar.Link href="#docs">Docs</NavBar.Link>
+        </NavBar.Items>
+        <NavBar.Actions>
+          <NavBar.Mobile openLabel="Open the menu" closeLabel="Close the menu">
+            <NavBar.MobileGroup label="Product">
+              <NavBar.MobileLink href="#how">How it works</NavBar.MobileLink>
+              <NavBar.MobileLink href="#studios">Studios</NavBar.MobileLink>
+            </NavBar.MobileGroup>
+            <NavBar.MobileGroup label="Platforms">
+              <NavBar.MobileLink href="#mac">Mac</NavBar.MobileLink>
+            </NavBar.MobileGroup>
+          </NavBar.Mobile>
+        </NavBar.Actions>
+      </NavBar.Root>
+    </div>
+  );
+}
+
+describe("NavBar — the menus' intent and size", () => {
+  it("does not open a menu when the pointer only passes over its trigger", async () => {
+    const user = userEvent.setup();
+    render(<ProductBar />);
+    const trigger = screen.getByRole("button", { name: "Product" });
+    await user.hover(trigger);
+    await user.unhover(trigger);
+    await act(() => new Promise((r) => setTimeout(r, 120)));
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("closes the open menu when the pointer moves on to a plain link: one item lit at a time", async () => {
+    const user = userEvent.setup();
+    render(<ProductBar />);
+    const trigger = screen.getByRole("button", { name: "Product" });
+    await user.click(trigger);
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+    await user.hover(screen.getByRole("link", { name: "Docs" }));
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("keeps the light on the open menu's trigger while the pointer is in its panel", async () => {
+    const user = userEvent.setup();
+    const { container } = render(<ProductBar />);
+    const list = container.querySelector("ul")!;
+    await user.click(screen.getByRole("button", { name: "Product" }));
+    await user.hover(await screen.findByRole("link", { name: /Studios/ }));
+    expect(list.getAttribute("data-indicator")).toBe("on");
+  });
+
+  it("closes the open menu on a click outside", async () => {
+    const user = userEvent.setup();
+    render(<ProductBar />);
+    const trigger = screen.getByRole("button", { name: "Product" });
+    await user.click(trigger);
+    await user.click(screen.getByText("The page"));
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("draws a compact panel: icon · title · one line, at a set width", async () => {
+    const user = userEvent.setup();
+    render(<ProductBar />);
+    await user.click(screen.getByRole("button", { name: "Product" }));
+    const link = await screen.findByRole("link", { name: /How it works/ });
+    const panel = link.parentElement!;
+    expect(panel.className).toContain("w-[min(92vw,20rem)]");
+    expect(panel.className).not.toContain("w-max");
+    expect(link.querySelector("span span:last-child")!.className).toContain("truncate");
+  });
+});
+
+describe("NavBar.Mobile — groups and dismissal", () => {
+  it("groups the panel like the bar's menus, each group named by its heading, and no axe violation", async () => {
+    const user = userEvent.setup();
+    render(<ProductBar />);
+    await user.click(screen.getByRole("button", { name: "Open the menu" }));
+    const product = screen.getByRole("group", { name: "Product" });
+    expect(within(product).getAllByRole("link").map((a) => a.textContent)).toEqual(["How it works", "Studios"]);
+    expect(within(screen.getByRole("group", { name: "Platforms" })).getByRole("link", { name: "Mac" })).toBeTruthy();
+    // The panel itself (in a browser the desktop list, also named “Main”, is hidden below md — happy-dom has no CSS).
+    expect(await axeViolations(product.closest("nav")!)).toEqual([]);
+  });
+
+  it("closes on a press outside the panel", async () => {
+    const user = userEvent.setup();
+    render(<ProductBar />);
+    const toggle = screen.getByRole("button", { name: "Open the menu" });
+    await user.click(toggle);
+    expect(toggle.getAttribute("aria-expanded")).toBe("true");
+    await user.click(screen.getByText("The page"));
+    expect(toggle.getAttribute("aria-expanded")).toBe("false");
+  });
+});
+
 describe("NavBar", () => {
   it("is a named navigation with the current page marked, and no axe violation", async () => {
     const { container } = render(<Bar />);
@@ -47,8 +150,9 @@ describe("NavBar", () => {
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
     expect(await screen.findByRole("link", { name: /Orazaka/ })).toBeTruthy();
     await user.keyboard("{Escape}");
-    expect(trigger.getAttribute("aria-expanded")).toBe("false");
-    expect(document.activeElement).toBe(trigger);
+    // Radix closes on its own tick (and the hover-intent timer may still be pending on a loaded runner): wait, don't race.
+    await waitFor(() => expect(trigger.getAttribute("aria-expanded")).toBe("false"));
+    await waitFor(() => expect(document.activeElement).toBe(trigger));
   });
 
   it("tightens once the page scrolls", () => {
@@ -136,8 +240,9 @@ describe("NavBar.Family", () => {
     expect(within(family).getByRole("link", { name: /Yororis/ }).textContent).toContain("Under construction");
     expect(within(family).getByRole("link", { name: /Yasakia/ }).textContent).toContain("In development");
     await user.keyboard("{Escape}");
-    expect(trigger.getAttribute("aria-expanded")).toBe("false");
-    expect(document.activeElement).toBe(trigger);
+    // Radix closes on its own tick (and the hover-intent timer may still be pending on a loaded runner): wait, don't race.
+    await waitFor(() => expect(trigger.getAttribute("aria-expanded")).toBe("false"));
+    await waitFor(() => expect(document.activeElement).toBe(trigger));
   });
 
   it("never opens on hover — a click opens it", async () => {

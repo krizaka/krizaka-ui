@@ -20,7 +20,7 @@
   /* Texte */
   --kz-text-primary: hsl(0 0% 96%); /* Titres, corps de texte */
   --kz-text-secondary: hsl(240 4% 64%); /* Texte d'appui, libellés */
-  --kz-text-muted: hsl(240 4% 47%); /* Métadonnées, placeholders, désactivé (≥ 3:1) */
+  --kz-text-muted: hsl(240 4% 59%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
 
   /* Accent : l'identité de la marque (Krizaka par défaut ; Orazaka, Orochia, Yasakia, Yororis dans src/brands). Surchargé par un thème de marque, jamais par un composant. */
   --kz-accent: hsl(217 92% 53%); /* Action principale, lien, sélection */
@@ -76,8 +76,8 @@ html.light {
   --kz-border-default: hsl(240 6% 0% / 0.10); /* Contour de carte, de champ */
   --kz-border-strong: hsl(240 6% 0% / 0.16); /* Contour au survol, focus non clavier */
   --kz-text-primary: hsl(240 6% 10%); /* Titres, corps de texte */
-  --kz-text-secondary: hsl(240 4% 41%); /* Texte d'appui, libellés */
-  --kz-text-muted: hsl(240 4% 52%); /* Métadonnées, placeholders, désactivé (≥ 3:1) */
+  --kz-text-secondary: hsl(240 4% 35%); /* Texte d'appui, libellés */
+  --kz-text-muted: hsl(240 4% 41%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
   --kz-accent: hsl(217 92% 50%); /* Action principale, lien, sélection */
   --kz-accent-hover: hsl(217 88% 42%); /* Accent au survol */
   --kz-accent-soft: hsl(217 92% 50% / 0.08); /* Fond teinté (sélection, badge) */
@@ -116,8 +116,8 @@ html.light {
   --kz-border-default: hsl(240 6% 0% / 0.10); /* Contour de carte, de champ */
   --kz-border-strong: hsl(240 6% 0% / 0.16); /* Contour au survol, focus non clavier */
   --kz-text-primary: hsl(240 6% 10%); /* Titres, corps de texte */
-  --kz-text-secondary: hsl(240 4% 41%); /* Texte d'appui, libellés */
-  --kz-text-muted: hsl(240 4% 52%); /* Métadonnées, placeholders, désactivé (≥ 3:1) */
+  --kz-text-secondary: hsl(240 4% 35%); /* Texte d'appui, libellés */
+  --kz-text-muted: hsl(240 4% 41%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
   --kz-accent: hsl(217 92% 50%); /* Action principale, lien, sélection */
   --kz-accent-hover: hsl(217 88% 42%); /* Accent au survol */
   --kz-accent-soft: hsl(217 92% 50% / 0.08); /* Fond teinté (sélection, badge) */

@@ -1,4 +1,4 @@
-/** @krizaka/ui/nav-bar — `NavBar` (Root, Brand, Family, Badge, Items, Link, Menu, MenuLink, Actions, Repo, Mobile, MobileLink), `navBar`. Client. */
+/** @krizaka/ui/nav-bar — `NavBar` (Root, Brand, Family, Badge, Items, Link, Menu, MenuLink, Actions, Repo, Mobile, MobileGroup, MobileLink), `navBar`. Client. */
 export {
   NavBar,
   navBar,
@@ -10,6 +10,7 @@ export {
   NavBarFamily,
   type NavBarFamilyProps,
   NavBarItems,
+  type NavBarItemsProps,
   NavBarLink,
   type NavBarLinkProps,
   NavBarMenu,
@@ -17,6 +18,8 @@ export {
   type NavBarMenuLinkProps,
   type NavBarMenuProps,
   NavBarMobile,
+  NavBarMobileGroup,
+  type NavBarMobileGroupProps,
   NavBarMobileLink,
   type NavBarMobileLinkProps,
   type NavBarMobileProps,

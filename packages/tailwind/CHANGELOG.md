@@ -1,5 +1,22 @@
 # @krizaka/tailwind
 
+## 3.22.0
+
+### Patch Changes
+
+- [#308](https://github.com/krizaka/krizaka-ui/pull/308) [`284468a`](https://github.com/krizaka/krizaka-ui/commit/284468a656417b92e30eb9cb853c4546409b09f5) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Focus rings only for the keyboard. A mouse click on a link (the brand, a nav item, a card) no longer shows a blue outline: the preset's base layer hides the outline of any element that is focused without `:focus-visible`, and gives keyboard focus on an element without its own ring the token ring (`--kz-ring`, the signature offset). The skip link's ring follows `:focus-visible` too.
+- Updated dependencies [[`9c804b3`](https://github.com/krizaka/krizaka-ui/commit/9c804b3274ac5e3169138cd1290f653e642deb4a), [`284468a`](https://github.com/krizaka/krizaka-ui/commit/284468a656417b92e30eb9cb853c4546409b09f5), [`2cb1c7d`](https://github.com/krizaka/krizaka-ui/commit/2cb1c7d6e2a33d3a9cc0014744a0241419ef3fc1), [`d08b205`](https://github.com/krizaka/krizaka-ui/commit/d08b2052441939a4c6d6914d03b38bcf4125bd36), [`3c92001`](https://github.com/krizaka/krizaka-ui/commit/3c92001306cf61bfd15c533d2e447f203897bc53)]:
+  - @krizaka/ui@3.22.0
+  - @krizaka/tokens@3.22.0
+
+## 3.21.0
+
+### Patch Changes
+
+- Updated dependencies [[`74961d3`](https://github.com/krizaka/krizaka-ui/commit/74961d3a1d8c5745bc0a97b4a757315a070158a6), [`92d4fad`](https://github.com/krizaka/krizaka-ui/commit/92d4fade4897b966ae970661a93a0233d6dd8570)]:
+  - @krizaka/ui@3.21.0
+  - @krizaka/tokens@3.21.0
+
 ## 3.20.0
 
 ### Patch Changes

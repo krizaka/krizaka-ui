@@ -73,7 +73,7 @@ export function ShortsShelf<T>({ label, title, items, getId, renderItem, seeAll,
         // biome-ignore: a scroll container must take the keyboard focus to scroll with the arrow keys
         tabIndex={0}
         aria-labelledby={headingId}
-        className="m-0 flex list-none snap-x snap-mandatory items-stretch gap-3 overflow-x-auto overscroll-x-contain p-0 pb-2 [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-scrollbar]:hidden"
+        className="m-0 flex list-none snap-x snap-mandatory items-stretch gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain p-0 pt-1 -mt-1 pb-2 [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-scrollbar]:hidden"
       >
         {items.map((item, i) => (
           <li key={getId(item)} className="w-[9.5rem] shrink-0 snap-start sm:w-44">

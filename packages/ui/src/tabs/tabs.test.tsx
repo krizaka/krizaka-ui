@@ -101,4 +101,57 @@ describe("Tabs", () => {
     await user.click(screen.getByRole("tab", { name: "B" }));
     expect(list.getAttribute("data-indicator")).toBe("on");
   });
+
+  it("hides inactive tab panel when forceMount is true", () => {
+    render(
+      <Tabs.Root defaultValue="video">
+        <Tabs.List aria-label="Media">
+          <Tabs.Trigger value="video">Video</Tabs.Trigger>
+          <Tabs.Trigger value="image">Image</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="video" forceMount data-testid="panel-video">
+          Video content
+        </Tabs.Content>
+        <Tabs.Content value="image" forceMount data-testid="panel-image">
+          Image content
+        </Tabs.Content>
+      </Tabs.Root>,
+    );
+
+    const videoPanel = screen.getByTestId("panel-video");
+    const imagePanel = screen.getByTestId("panel-image");
+
+    expect(videoPanel.getAttribute("data-state")).toBe("active");
+    expect(videoPanel.className).toContain("data-[state=inactive]:hidden");
+    expect(imagePanel.getAttribute("data-state")).toBe("inactive");
+    expect(imagePanel.className).toContain("data-[state=inactive]:hidden");
+  });
+});
+
+describe("Tabs scroll container", () => {
+  // A scrolling list (pills on a phone) must never scroll vertically: with overflow-x set, overflow-y computes to auto,
+  // so a 1-2 px overhang (a focus ring, a border) draws a vertical scrollbar thumb at the end of the bar.
+  it("never scrolls vertically when it scrolls sideways", () => {
+    render(<Example variant="pills" />);
+    const list = screen.getByRole("tablist");
+    expect(list.className).toContain("overflow-x-auto");
+    expect(list.className).toContain("overflow-y-hidden");
+    expect(list.className).toContain("[&::-webkit-scrollbar]:hidden");
+    expect(list.className).toContain("[scrollbar-width:none]");
+  });
+
+  it("keeps the focus ring and the sliding light inside the list (padding, not overflow)", () => {
+    render(<Example variant="pills" />);
+    const list = screen.getByRole("tablist");
+    // The same box height as before (the old pb-1): the ring room sits in the padding, the flow does not change.
+    expect(list.className).toContain("pt-1");
+    expect(list.className).toContain("-mt-1");
+    expect(list.className).toContain("pb-1");
+  });
+
+  it("does not scroll on the other variants", () => {
+    render(<Example variant="underline" />);
+    const list = screen.getByRole("tablist");
+    expect(list.className).not.toMatch(/overflow-(x-|y-)?auto/);
+  });
 });

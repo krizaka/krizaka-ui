@@ -6,6 +6,7 @@
 
 /** Every documented component of @krizaka/charts. */
 export type ComponentName =
+  | "genui-catalog"
   | "line-chart"
   | "area-chart"
   | "bar-chart"
@@ -34,7 +35,7 @@ export type ComponentName =
   | "kpi-stat";
 
 /** The entries of the package a component is imported from. */
-export type Entry = "earnings" | "throughput" | "latency" | "credits" | "goal" | "ticker" | "line" | "bar" | "pie" | "gauge" | "sparkline" | "geo" | "globe" | "radar" | "heatmap" | "sankey" | "funnel" | "candlestick" | "treemap" | "scatter" | "chart" | "provider" | "card";
+export type Entry = "earnings" | "throughput" | "latency" | "credits" | "goal" | "ticker" | "line" | "bar" | "pie" | "gauge" | "sparkline" | "geo" | "globe" | "radar" | "heatmap" | "sankey" | "funnel" | "candlestick" | "treemap" | "scatter" | "chart" | "provider" | "card" | "genui";
 
 /** The group of the catalogue: every chart is a `chart`. */
 export type Category = "charts";

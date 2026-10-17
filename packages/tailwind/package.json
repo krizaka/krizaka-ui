@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/tailwind",
-  "version": "3.20.0",
+  "version": "3.22.0",
   "description": "The Krizaka Tailwind CSS v4 preset: the semantic --kz-* tokens as utilities (bg-surface-1, text-fg-secondary, border-border-default, text-accent, rounded-xl…), illustration-only light/dark variants and the Krizaka easing.",
   "keywords": [
     "krizaka",
@@ -72,7 +72,7 @@
     {
       "name": ".",
       "path": "index.css",
-      "limit": "3.1 kB",
+      "limit": "3.2 kB",
       "gzip": true
     }
   ]

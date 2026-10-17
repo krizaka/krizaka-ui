@@ -98,16 +98,16 @@
       "$description": "Texte d'appui, libellés",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(240 4% 41%)"
+          "light": "hsl(240 4% 35%)"
         }
       }
     },
     "muted": {
-      "$value": "hsl(240 4% 47%)",
-      "$description": "Métadonnées, placeholders, désactivé (≥ 3:1)",
+      "$value": "hsl(240 4% 59%)",
+      "$description": "Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus)",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(240 4% 52%)"
+          "light": "hsl(240 4% 41%)"
         }
       }
     },

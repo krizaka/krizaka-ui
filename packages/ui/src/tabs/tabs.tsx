@@ -18,7 +18,7 @@ export const tabs = tv({
     trigger:
       "inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap font-semibold transition-colors " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-40",
-    content: "kz-fade min-w-0 flex-1 rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+    content: "kz-fade min-w-0 flex-1 rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring data-[state=inactive]:hidden",
   },
   variants: {
     variant: {
@@ -50,7 +50,7 @@ export const tabs = tv({
       /* Pills that scroll sideways on a phone: a feed's sections. */
       pills: {
         list:
-          "gap-1.5 overflow-x-auto overscroll-x-contain [scrollbar-width:none] data-[orientation=horizontal]:pb-1 " +
+          "gap-1.5 overflow-x-auto overflow-y-hidden overscroll-x-contain pt-1 -mt-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden " +
           "before:left-0 before:top-0 before:h-(--kz-ind-h) before:w-(--kz-ind-w) before:translate-x-(--kz-ind-x) before:translate-y-(--kz-ind-y) " +
           "before:rounded-full before:border before:border-accent before:bg-accent-soft",
         trigger:

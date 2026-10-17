@@ -1,0 +1,124 @@
+{
+  "name": "@krizaka/app-config",
+  "version": "0.1.0",
+  "description": "App version compatibility for Krizaka apps and backends: one contract (min/latest version, update mode, maintenance, contract range, 426 Upgrade Required, N-1 with Deprecation/Sunset) for Next.js backends and mobile, desktop and web clients. Twin of the Java building block krizaka-app-config. Zero dependency.",
+  "keywords": [
+    "krizaka",
+    "app-config",
+    "force-update",
+    "version",
+    "426",
+    "expo",
+    "react-native",
+    "contract"
+  ],
+  "homepage": "https://ui.krizaka.com/packages/app-config",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/app-config"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    },
+    "./contract/app-config.schema.json": "./contract/app-config.schema.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "contract",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsup",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "workspace:*",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitest/coverage-v8": "4.1.11",
+    "eslint": "^9.39.0",
+    "happy-dom": "^20.0.0",
+    "publint": "^0.3.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "size-limit": "^14.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": ".",
+      "path": "dist/index.js",
+      "limit": "2 kB",
+      "gzip": true
+    },
+    {
+      "name": "./server",
+      "path": "dist/server.js",
+      "limit": "3.2 kB",
+      "gzip": true
+    },
+    {
+      "name": "./client",
+      "path": "dist/client.js",
+      "limit": "2 kB",
+      "gzip": true
+    },
+    {
+      "name": "./react",
+      "path": "dist/react.js",
+      "limit": "1 kB",
+      "gzip": true
+    }
+  ],
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  }
+}

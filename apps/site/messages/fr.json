@@ -143,7 +143,14 @@
       "nativeShot": "{name}, tel que React Native le rend",
       "deprecatedName": "{name} (déprécié)",
       "useInstead": "Utiliser à la place :",
-      "deprecatedSince": "Depuis {since}, retiré en {removedIn}."
+      "deprecatedSince": "Depuis {since}, retiré en {removedIn}.",
+      "installWays": {
+        "npm": "npm",
+        "manual": "Manuel",
+        "deps": "Installez ce sur quoi il repose :",
+        "files": "Copiez sa source dans votre projet (les mêmes fichiers que le paquet) :",
+        "also": "Il utilise ces parties de Krizaka UI — copiez-les de la même façon :"
+      }
     },
     "catalog": {
       "heading": "Tous les composants",
@@ -212,6 +219,10 @@
         "push": {
           "title": "Push",
           "description": "Notifications mobiles par le service Expo Push : lots, reçus et jetons morts, sans dépendance."
+        },
+        "app-config": {
+          "title": "App config",
+          "description": "Compatibilité de version entre les apps et les serveurs : version minimale et dernière, mises à jour douces et forcées, maintenance, 426 Upgrade Required et contrats N-1."
         },
         "config": {
           "title": "Config",
@@ -442,7 +453,14 @@
         },
         "heroLabel": "De vrais composants, en direct",
         "heroLead": "Ce sont les composants eux-mêmes, rendus par cette page — le code même que vous copiez.",
-        "scan": "Qui utilise quoi vient d'un relevé daté des dépôts des produits ({date})."
+        "scan": "Qui utilise quoi vient d'un relevé daté des dépôts des produits ({date}).",
+        "families": {
+          "title": "Parcourir par famille",
+          "component": "{count} composant",
+          "components": "{count} composants",
+          "examples": "{count} exemples",
+          "mobile": "{count} sur iOS et Android"
+        }
       },
       "templates": {
         "whyLayout": "Pourquoi cette mise en page",
@@ -464,7 +482,11 @@
         "no": "—",
         "onlyMobile": "Mobile seulement",
         "same": "Même API",
-        "count": "{both} composants sur les deux plateformes, {native} sur mobile seulement, {web} sur le web seulement."
+        "count": "{both} composants sur les deux plateformes, {native} sur mobile seulement, {web} sur le web seulement.",
+        "wall": {
+          "title": "Sur un téléphone",
+          "lead": "{count} histoires React Native à la largeur d’un téléphone — les écrans entiers d’abord, puis l’histoire la plus riche de chaque composant. Chacune est la capture de son histoire, refaite quand le code change ; ouvrez un composant pour son code."
+        }
       },
       "brand": {
         "intro": "Les huit marques de la famille Krizaka, depuis @krizaka/ui. Chacune est dessinée en code (aucune image à livrer), animée quand la page le permet, et immobile si le mouvement est réduit. Un changement de marque se fait dans krizaka-ui, est publié, puis adopté.",
@@ -485,7 +507,35 @@
         "avatar": "Avatar de compte",
         "social": "Aperçu social",
         "manifest": "Tous les fichiers et leurs empreintes (manifest.json)",
-        "note": "Générés depuis le code de @krizaka/ui par tools/export-brand.mjs — jamais dessinés à la main. Logos et marques, sombre et clair, PNG 256/512/1024, avatars 500/1024, aperçus sociaux 1280×640."
+        "note": "Générés depuis le code de @krizaka/ui par tools/export-brand.mjs — jamais dessinés à la main. Logos et marques, sombre et clair, PNG 256/512/1024, avatars 500/1024, aperçus sociaux 1280×640.",
+        "flock": {
+          "title": "La volée",
+          "intro": "Les oiseaux de Krizaka portent ses promesses — chacun a sa boucle, rendue depuis le code de @krizaka/ui (le même Mascot que dans les produits), en sombre et en clair, immobile si le mouvement est réduit.",
+          "loop": "{name} : {promise}",
+          "source": "Les boucles sont rendues par tools/brand-films : les vrais composants, filmés image par image dans un navigateur sans écran. Quand une marque ou un oiseau change, elles sont rendues à nouveau.",
+          "names": {
+            "falcon": "Le faucon",
+            "owl": "Le hibou",
+            "duck": "Le canard",
+            "flamingo": "Le flamant",
+            "pigeon": "Le pigeon",
+            "lovebird": "L’inséparable",
+            "crane": "La grue",
+            "magpie": "La pie",
+            "beaver": "Le castor"
+          },
+          "promises": {
+            "falcon": "veille — la sécurité",
+            "owl": "lit chaque page, reconnaît chaque visage",
+            "duck": "construit — le code",
+            "flamingo": "répond, et le paiement suit",
+            "pigeon": "livre",
+            "lovebird": "présente deux personnes — Yasakia",
+            "crane": "écoute — Yororis",
+            "magpie": "compte les points — Kachizaka",
+            "beaver": "monte la boutique — Akinaza"
+          }
+        }
       },
       "platforms": {
         "intro": "Krizaka UI est un seul design system sur trois plateformes : le web (React), le mobile (React Native et Expo) et le bureau (l'app Mac d'Orazaka, dont la fenêtre Tauri affiche les composants web). Chaque composant dit où il tourne et, là où il ne tourne pas, pourquoi — un manque à construire, suivi par une issue, ou une plateforme à laquelle il n'est pas destiné, avec ce qu'on y utilise.",
@@ -522,12 +572,32 @@
         },
         "issue": "issue"
       }
+    },
+    "stage": {
+      "label": "{name}, en direct",
+      "platforms": "Plateforme",
+      "web": "Web",
+      "ios": "iOS",
+      "android": "Android",
+      "play": "Changez ses props : le composant se redessine, le code suit.",
+      "planned": "La version React Native est prévue : cette place s’allume quand elle sort.",
+      "webOnly": "Web seulement : ce composant n’a pas de version React Native.",
+      "nativeOnly": "React Native seulement : voyez-le sur iOS et Android.",
+      "nativeCaption": "« {example} », son histoire React Native à la largeur d’un téléphone — le même code sur iOS et Android.",
+      "playground": {
+        "controls": "Props",
+        "text": "{prop}",
+        "number": "{prop}",
+        "code": "Le code de ce qui est affiché",
+        "copy": "Copier",
+        "copied": "Copié"
+      }
     }
   },
   "landing": {
     "eyebrow": "Krizaka UI · open source",
-    "title": "Un seul kit de composants accessibles, pour le web et React Native.",
-    "lead": "Jetons, polices, icônes, graphiques et plus de 150 composants, thémés par des valeurs — chaque produit Krizaka en est fait, et chaque page ici est générée depuis son code.",
+    "title": "Le kit derrière chaque produit Krizaka.",
+    "lead": "Orazaka, Orochia et Yomizaka sont construits avec ces {count} composants. Choisissez-en un plus bas : les deux écrans changent d’habit à partir d’un seul jeu de jetons — rien d’autre ne change.",
     "install": "Installer",
     "copy": "Copier",
     "copied": "Copié",
@@ -539,70 +609,270 @@
       "packages": "paquets sur npm",
       "version": "@krizaka/ui"
     },
-    "showcase": {
-      "title": "En direct, en situation",
-      "lead": "De vrais composants du paquet, rendus par cette page. Changez d’identité : les composants restent, la marque change.",
-      "identity": "Identité",
-      "stage": "Composants Krizaka UI aux couleurs de {brand}",
-      "open": "Ouvrir {name}",
-      "wearing": "Identité portée",
-      "copyCode": "Copier le code de {name}",
-      "code": "Code",
-      "copied": "Copié"
-    },
-    "tiles": {
-      "plans": "Forfaits et prix",
-      "chat": "Une conversation",
-      "signUp": "Un formulaire qui valide",
-      "video": "Un clip vertical",
-      "jobs": "Un tableau de données",
-      "chart": "Revenus dans le temps",
-      "stepper": "Une tâche, étape par étape"
-    },
-    "find": {
-      "title": "Trouver son chemin",
-      "lead": "Chaque endroit répond à un moment de la construction d’un produit."
-    },
-    "places": {
-      "start": {
-        "title": "Démarrer",
-        "text": "Installer les paquets et porter l’identité d’un produit."
-      },
-      "foundations": {
-        "title": "Fondations",
-        "text": "Jetons, typographie, icônes, mouvement et marques."
-      },
-      "components": {
-        "title": "Composants",
-        "text": "Le catalogue, par le travail de chaque composant, avec des filtres."
-      },
-      "patterns": {
-        "title": "Motifs",
-        "text": "Blocs de page et mises en page d’écran, quand un composant ne suffit pas."
-      },
-      "templates": {
-        "title": "Modèles",
-        "text": "Des pages entières, groupées par ce que la personne doit faire."
-      },
-      "mobile": {
-        "title": "Mobile",
-        "text": "Ce qui tourne en React Native, et ce qui change par rapport au web."
-      },
-      "tooling": {
-        "title": "Outillage",
-        "text": "Les paquets sans pixels : Tailwind, i18n, intl, query, temps réel, push."
-      }
-    },
     "packages": {
       "title": "Où vivent les pièces",
       "source": "Code source et notes de version sur GitHub"
     },
-    "chart": {
-      "title": "Revenus, 6 derniers mois",
-      "description": "Ventes de vidéos, avant frais",
-      "month": "Mois",
-      "series": "Ventes de vidéos",
-      "threshold": "Seuil de versement"
+    "dock": {
+      "label": "Porter une identité",
+      "taglines": {
+        "orazaka": "IA souveraine",
+        "orochia": "Vidéo de créateurs",
+        "yomizaka": "Documents",
+        "krizaka": "Par défaut"
+      },
+      "browse": "Parcourir les {count} composants"
+    },
+    "scene": {
+      "label": "{name}, construit avec Krizaka UI",
+      "window": "{name} sur le web",
+      "phone": "{name} sur un téléphone",
+      "parts": "Les mêmes AppShell, Stat, LineChart et DataTable sur le web ; Chat, VerticalVideo et DocumentViewer sur le téléphone.",
+      "menu": "Ouvrir le menu",
+      "close": "Fermer le menu",
+      "collapse": "Replier",
+      "expand": "Déplier",
+      "products": {
+        "orazaka": {
+          "nav": [
+            "Chat",
+            "Studios",
+            "Tâches",
+            "Packs",
+            "Modèles"
+          ],
+          "title": "Tâches",
+          "sub": "Tout ce que vos packs ont fait aujourd’hui",
+          "action": "Nouvelle tâche",
+          "stats": [
+            {
+              "label": "Exécutions du jour",
+              "hint": "+12 % sur hier"
+            },
+            {
+              "label": "Minutes GPU",
+              "hint": "à la demande"
+            },
+            {
+              "label": "Dépense",
+              "hint": "sur 5,00 $ par jour"
+            }
+          ],
+          "chart": {
+            "title": "Exécutions par heure",
+            "description": "Aujourd’hui, tous les packs",
+            "x": "Heure",
+            "series": "Exécutions"
+          },
+          "table": {
+            "caption": "Tâches récentes",
+            "name": "Tâche",
+            "detail": "Modèle",
+            "status": "État",
+            "rows": [
+              "Transcription du balado",
+              "Résumés du catalogue",
+              "Voix de la bande-annonce"
+            ],
+            "states": [
+              "En cours",
+              "Terminé",
+              "Échec"
+            ]
+          },
+          "phone": {
+            "messages": [
+              "Résume les trois contrats fournisseurs et signale ce qui sort de l’ordinaire.",
+              "Deux sont standards. Le troisième se renouvelle seul sauf résiliation 90 jours avant son terme.",
+              "Rédige la lettre de résiliation, en français et en anglais.",
+              "La voici — les deux versions, prêtes à signer."
+            ],
+            "typing": "Orazaka écrit",
+            "placeholder": "Message",
+            "send": "Envoyer"
+          }
+        },
+        "orochia": {
+          "nav": [
+            "Accueil",
+            "Studio",
+            "Revenus",
+            "Enchères",
+            "Réglages"
+          ],
+          "title": "Revenus",
+          "sub": "6 derniers mois, avant frais",
+          "action": "Nouvelle vidéo",
+          "stats": [
+            {
+              "label": "Revenus",
+              "hint": "+24 %"
+            },
+            {
+              "label": "Soutiens",
+              "hint": "+9 cette semaine"
+            },
+            {
+              "label": "Vues",
+              "hint": "+3,1 k"
+            }
+          ],
+          "chart": {
+            "title": "Ventes de vidéos",
+            "description": "Par mois, avant frais",
+            "x": "Mois",
+            "series": "Ventes"
+          },
+          "table": {
+            "caption": "Vidéos récentes",
+            "name": "Vidéo",
+            "detail": "Ventes",
+            "status": "État",
+            "rows": [
+              "Tournage de nuit, partie 2",
+              "Toit à l’aube",
+              "Séance en studio"
+            ],
+            "states": [
+              "En cours",
+              "Payée",
+              "Brouillon"
+            ]
+          },
+          "phone": {
+            "title": "Vidéo : Tournage de nuit, partie 2",
+            "caption": "Le toit, la pluie, la dernière prise à l’aube.",
+            "disclosure": "Générée par IA",
+            "verified": "Vérifiée",
+            "credit": "Son original — Camille",
+            "tip": "Pourboire"
+          }
+        },
+        "yomizaka": {
+          "nav": [
+            "Boîte",
+            "Documents",
+            "Vérifications",
+            "Règles",
+            "Réglages"
+          ],
+          "title": "Documents",
+          "sub": "Lus par Orazaka, vérifiés selon vos règles",
+          "action": "Téléverser",
+          "stats": [
+            {
+              "label": "Vérifiés aujourd’hui",
+              "hint": "38 s chacun"
+            },
+            {
+              "label": "À regarder",
+              "hint": "signalements"
+            },
+            {
+              "label": "Règles",
+              "hint": "baux du Québec"
+            }
+          ],
+          "chart": {
+            "title": "Documents par jour",
+            "description": "Vérifiés, cette semaine",
+            "x": "Jour",
+            "series": "Documents"
+          },
+          "table": {
+            "caption": "Documents récents",
+            "name": "Document",
+            "detail": "Type",
+            "status": "Verdict",
+            "rows": [
+              "Bail, Plateau 2027",
+              "Contrat fournisseur",
+              "Facture 0912"
+            ],
+            "states": [
+              "2 signalements",
+              "Conforme",
+              "Conforme"
+            ]
+          },
+          "phone": {
+            "title": "Bail, Plateau 2027",
+            "highlights": [
+              "Hausse de loyer",
+              "Dépôt"
+            ]
+          }
+        },
+        "krizaka": {
+          "nav": [
+            "Vue d’ensemble",
+            "Projets",
+            "Membres",
+            "Facturation",
+            "Réglages"
+          ],
+          "title": "Vue d’ensemble",
+          "sub": "Votre espace en un coup d’œil",
+          "action": "Inviter",
+          "stats": [
+            {
+              "label": "Projets",
+              "hint": "+2 ce mois-ci"
+            },
+            {
+              "label": "Membres",
+              "hint": "3 admins"
+            },
+            {
+              "label": "Disponibilité",
+              "hint": "30 derniers jours"
+            }
+          ],
+          "chart": {
+            "title": "Requêtes",
+            "description": "Par jour, tous les services",
+            "x": "Jour",
+            "series": "Requêtes"
+          },
+          "table": {
+            "caption": "Services",
+            "name": "Service",
+            "detail": "Environnement",
+            "status": "Santé",
+            "rows": [
+              "API de paiement",
+              "Worker média",
+              "Index de recherche"
+            ],
+            "states": [
+              "Sain",
+              "Déploiement",
+              "Dégradé"
+            ]
+          },
+          "phone": {
+            "messages": [
+              "Le worker média se déploie en préproduction.",
+              "Bien — préviens-moi quand l’index de recherche revient.",
+              "Il est dégradé, pas en panne : les lectures répondent.",
+              "Merci, je surveille."
+            ],
+            "typing": "Noah écrit",
+            "placeholder": "Message",
+            "send": "Envoyer"
+          }
+        }
+      }
+    },
+    "play": {
+      "title": "Jouez avec les vrais composants",
+      "lead": "Choisissez-en un, changez ses props, portez une identité, voyez-le sur iOS et Android. Le code dessous est celui que vous collez.",
+      "pick": "Composant"
+    },
+    "families": {
+      "title": "Parcourir le kit",
+      "lead": "Chaque famille, dessinée par ses propres composants.",
+      "all": "Les {count} composants"
     }
   }
 }

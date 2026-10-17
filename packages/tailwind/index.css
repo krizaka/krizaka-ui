@@ -164,6 +164,10 @@
 /* Rendu v3 des bordures (Tailwind v4 utilise currentColor par défaut). */
 @layer base {
   *, ::before, ::after, ::backdrop { border-color: var(--kz-border-default); }
+  /* Focus: a mouse click never shows a ring (no :focus-visible, no outline, no browser blue); the keyboard does, on the
+     token, wherever an element has no ring of its own (a component's focus-visible ring wins over this default). */
+  :focus:not(:focus-visible) { outline: none; }
+  :focus-visible { outline: var(--kz-ring-width) solid var(--kz-ring); outline-offset: var(--kz-ring-offset); }
   button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
   ::placeholder { color: var(--kz-text-muted); }
 }

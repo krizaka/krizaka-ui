@@ -1,0 +1,26 @@
+Confirm the deletion of your Krizaka account
+
+Krizaka
+
+
+CONFIRM THE DELETION OF YOUR ACCOUNT
+
+You asked to delete your Krizaka account and the data attached to it. This cannot be undone. Nothing is deleted until you confirm.
+
+Delete my account https://blog.krizaka.com/api/account/delete?t=example
+
+The link is valid for 24 hours.
+
+If it wasn't you, ignore this email and your account stays as it is.
+
+----------------------------------------
+
+Oussama
+
+Founder, Krizaka
+
+You receive this email because the deletion of your account was requested.
+
+Privacy https://www.krizaka.com/privacy · Contact https://www.krizaka.com/contact
+
+Sent by Technologies Krizaka Inc., Montréal (Québec), Canada.

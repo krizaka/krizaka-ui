@@ -33,6 +33,9 @@ export default defineConfig([
       field: "src/field/index.ts",
       skeleton: "src/skeleton/index.ts",
       "empty-state": "src/empty-state/index.ts",
+      "update-prompt": "src/update-prompt/index.ts",
+      "force-update-screen": "src/force-update-screen/index.ts",
+      "maintenance-screen": "src/maintenance-screen/index.ts",
       spinner: "src/spinner/index.ts",
       card: "src/card/index.ts",
       stat: "src/stat/index.ts",
@@ -48,6 +51,7 @@ export default defineConfig([
       meter: "src/meter/index.ts",
       pagination: "src/pagination/index.ts",
       "description-list": "src/description-list/index.ts",
+      "meta-row": "src/meta-row/index.ts",
       "verified-badge": "src/verified-badge/index.ts",
       "step-progress": "src/step-progress/index.ts",
       // The default avatars' pure helpers (defaultAvatarUrl…): callable in a Server Component, unlike "avatar" (client).
@@ -150,7 +154,9 @@ export default defineConfig([
       "number-ticker": "src/number-ticker/index.ts",
       "glow-card": "src/glow-card/index.ts",
       marquee: "src/marquee/index.ts",
+      "comparison-table": "src/comparison-table/index.ts",
       showcase: "src/showcase/index.ts",
+      "step-showcase": "src/step-showcase/index.ts",
       "terminal-replay": "src/terminal-replay/index.ts",
     },
     banner: { js: '"use client";' },
@@ -161,6 +167,8 @@ export default defineConfig([
     ...shared,
     entry: {
       "data-table": "src/data-table/index.ts",
+      // Data-driven UI (ADR-082): its base catalog draws a DataTable.
+      genui: "src/genui/index.ts",
       virtual: "src/virtual/index.ts",
       "filter-bar": "src/filter-bar/index.ts",
       combobox: "src/combobox/index.ts",

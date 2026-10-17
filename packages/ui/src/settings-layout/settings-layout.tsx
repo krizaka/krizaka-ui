@@ -11,7 +11,7 @@ export const settingsLayout = tv({
     title: "font-display text-2xl font-extrabold tracking-tight text-fg",
     description: "max-w-2xl text-sm text-fg-secondary",
     columns: "grid grid-cols-1 gap-6 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-10",
-    nav: "-mx-4 overflow-x-auto px-4 [scrollbar-width:none] lg:mx-0 lg:overflow-visible lg:px-0",
+    nav: "-mx-4 overflow-x-auto overflow-y-hidden px-4 py-1 -my-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:overflow-visible lg:px-0 lg:py-0 lg:my-0",
     navList: "flex w-max gap-2 lg:sticky lg:top-20 lg:w-auto lg:flex-col lg:gap-0.5",
     navLink:
       "flex h-9 items-center gap-2.5 whitespace-nowrap rounded-full border border-border-default bg-surface-1 px-3.5 text-sm font-medium text-fg-secondary no-underline " +

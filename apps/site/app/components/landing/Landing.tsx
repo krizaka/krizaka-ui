@@ -1,57 +1,32 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
-import { LineChart } from "@krizaka/charts/line";
-import { CalendarIcon, ForwardIcon, HomeIcon, PackIcon, SettingsIcon, StudioIcon, ThemeIcon, VideoIcon } from "@krizaka/icons";
-import { Button } from "@krizaka/ui/button";
-import { CardGrid } from "@krizaka/ui/card-grid";
 import { CodeBlock } from "@krizaka/ui/code-block";
-import { LinkCard } from "@krizaka/ui/link-card";
 import { NumberTicker } from "@krizaka/ui/number-ticker";
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "@krizaka/ui/tabs";
 import Link from "next/link";
-import type { ComponentType, CSSProperties, ReactNode } from "react";
 
 import { format, getDictionary, type Locale } from "@/lib/i18n";
 import { packageVersion } from "@/lib/package-version";
-import { examplePropsOf } from "@/lib/ui-example-props";
-import { UI_EXAMPLES, type UiExampleKey } from "@/lib/ui-examples";
-import { exampleKey, exampleSource, getRegistryItem, getRegistryItems } from "@/lib/ui-registry";
-import { componentPath, localePath } from "@/lib/urls";
+import { catalogEntries, catalogFamilies } from "@/lib/ui-catalog";
+import { FILTER_KEYS, JOBS, PATTERNS } from "@/lib/ui-ia";
+import { PLAYGROUNDS } from "@/lib/ui-playgrounds";
+import { getRegistryItem, getRegistryItems } from "@/lib/ui-registry";
+import { localePath } from "@/lib/urls";
 
-import { CopyCode } from "./CopyCode";
-import { IdentityStage } from "./IdentityStage";
+import { FamilyCards } from "../docs/FamilyCards";
+import { Stage } from "../docs/Stage";
+import { HomeStudio, SceneSweep } from "./HomeStudio";
+import { ProductScene } from "./ProductScene";
 
-/* The home of ui.krizaka.com: what Krizaka UI is (one sentence, the install line, two ways in, the figures read from the
-   registries), a showcase of live components in context under a switchable identity, the ways into the docs, and where
-   each package lives. Every component on it is a named example of the registry — the same code its page shows. */
-
-/** The showcase: one example per component, never two of the same, placed on the bento by `area` (globals.css, « The
-    showcase »), in reading order — the order of the single column on a phone and of the colour wave on a switch. */
-const TILES: { key: UiExampleKey; component: string; caption: keyof ReturnType<typeof getDictionary>["landing"]["tiles"]; area: string }[] = [
-  { key: "glow-card/plans", component: "glow-card", caption: "plans", area: "plans" },
-  { key: "vertical-video/rail", component: "vertical-video", caption: "video", area: "video" },
-  { key: "chat/conversation", component: "chat", caption: "chat", area: "chat" },
-  { key: "stepper/job", component: "stepper", caption: "stepper", area: "stepper" },
-  { key: "form/sign-up", component: "form", caption: "signUp", area: "form" },
-  { key: "data-table/jobs", component: "data-table", caption: "jobs", area: "table" },
-];
-
-/** The source a tile's "Code" copies: the registry example it renders, exactly as written. */
-function sourceOf(component: string, key: string): string {
-  const examples = getRegistryItem(component).web?.examples ?? [];
-  const example = examples.find((e) => exampleKey(e) === key) ?? examples[0];
-  return example ? exampleSource(example) : "";
-}
-
-const PLACES = [
-  { id: "start", path: "/installation", Icon: HomeIcon },
-  { id: "foundations", path: "/foundations/tokens", Icon: ThemeIcon },
-  { id: "components", path: "/components", Icon: StudioIcon },
-  { id: "patterns", path: "/components/page-hero", Icon: PackIcon },
-  { id: "templates", path: "/templates", Icon: CalendarIcon },
-  { id: "mobile", path: "/mobile", Icon: VideoIcon },
-  { id: "tooling", path: "/packages/tailwind", Icon: SettingsIcon },
-] as const;
+/* The home of ui.krizaka.com — « Built with it », then « Play with it », then the kit:
+   1. a short hero: the kit behind every Krizaka product, its figures read from the registries;
+   2. the scene: one product on the web and on a phone, both screens composed from the real components, re-skinned
+      live by the identity dock that floats at the bottom while the studio is in view (the one wow);
+   3. the playground: the component-page stage (props, web · iOS · Android, the code) for a few components, under the
+      same identity;
+   4. the families of the catalogue, live covers and counts from the registry;
+   5. where each package lives. */
 
 const PACKAGES: { name: string; path?: string; dir: string }[] = [
   { name: "@krizaka/ui", path: "/components", dir: "ui" },
@@ -65,17 +40,8 @@ const PACKAGES: { name: string; path?: string; dir: string }[] = [
   { name: "@krizaka/query", path: "/packages/query", dir: "query" },
   { name: "@krizaka/realtime", path: "/packages/realtime", dir: "realtime" },
   { name: "@krizaka/push", path: "/packages/push", dir: "push" },
+  { name: "@krizaka/app-config", path: "/packages/app-config", dir: "app-config" },
   { name: "@krizaka/config", path: "/packages/config", dir: "config" },
-];
-
-/** The chart tile: monthly earnings in cents (one series, so the value axis fits the data instead of starting at zero). */
-const EARNINGS = [
-  { month: "2026-04", earnings: 182_000 },
-  { month: "2026-05", earnings: 164_000 },
-  { month: "2026-06", earnings: 231_000 },
-  { month: "2026-07", earnings: 298_000 },
-  { month: "2026-08", earnings: 276_000 },
-  { month: "2026-09", earnings: 342_000 },
 ];
 
 const INSTALL = "npm install @krizaka/ui @krizaka/tailwind @krizaka/tokens tailwindcss";
@@ -101,54 +67,29 @@ function publishedPackages(): { dir: string; description: string }[] {
 }
 
 export async function Landing({ locale }: { locale: Locale }) {
-  const t = getDictionary(locale).landing;
+  const all = getDictionary(locale);
+  const t = all.landing;
   const items = getRegistryItems().filter((item) => item.status !== "deprecated");
   const published = publishedPackages();
+  const about = new Map(published.map((p) => [p.dir, p.description]));
+  const count = items.length;
   const figures = [
-    { id: "components", value: items.length, label: t.facts.components },
+    { id: "components", value: count, label: t.facts.components },
     { id: "native", value: items.filter((item) => item.platforms !== "web").length, label: t.facts.native },
     { id: "packages", value: published.length, label: t.facts.packages },
   ];
-  const tiles = await Promise.all(
-    TILES.map(async (tile) => ({ ...tile, title: getRegistryItem(tile.component).title, code: sourceOf(tile.component, tile.key), Example: (await UI_EXAMPLES[tile.key]()).default as ComponentType<Record<string, unknown>> })),
-  );
-  const show = t.showcase;
-  /** One tile: the live example on its stage, then what it is, the way to copy its code and the way to its page. */
-  const tile = ({ area, index, component, title, code, caption, children }: { area: string; index: number; component: string; title: string; code: string; caption: string; children: ReactNode }) => (
-    <figure key={area} className="kz-land-tile" data-area={area} style={{ "--i": index } as CSSProperties}>
-      <div className="kz-land-stage">{children}</div>
-      <figcaption>
-        <span className="kz-land-tile-what">
-          <Link href={componentPath(locale, component)} aria-label={format(show.open, { name: title })}>
-            {title}
-          </Link>
-          <span>{caption}</span>
-        </span>
-        <CopyCode code={code} label={format(show.copyCode, { name: title })} idle={show.code} done={show.copied} />
-      </figcaption>
-    </figure>
-  );
-  const about = new Map(published.map((p) => [p.dir, p.description]));
+  const entries = catalogEntries(locale, (name) => format(all.docs.ia.catalog.preview, { name }));
+  const families = catalogFamilies(entries, FILTER_KEYS);
+  const titleOf = (key: string) =>
+    (JOBS as readonly string[]).includes(key) ? all.docs.ia.jobs[key as (typeof JOBS)[number]].title : (PATTERNS as readonly string[]).includes(key) ? all.docs.ia.patterns[key as (typeof PATTERNS)[number]].title : all.docs.ia.groups.templates.title;
+  const playable = Object.keys(PLAYGROUNDS) as (keyof typeof PLAYGROUNDS)[];
 
   return (
-    <div className="kz-land not-prose">
-      <header className="kz-land-hero">
+    <div className="kz-home not-prose">
+      <header className="kz-home-hero">
         <p className="kz-land-eyebrow">{t.eyebrow}</p>
         <h1>{t.title}</h1>
-        <p className="kz-land-lead">{t.lead}</p>
-        <div className="kz-land-install" aria-label={t.install}>
-          <CodeBlock code={INSTALL} language="bash" copyLabel={t.copy} copiedLabel={t.copied} />
-        </div>
-        <div className="kz-land-actions">
-          <Button asChild variant="primary" size="lg" shape="cut" shimmer>
-            <Link href={localePath(locale, "/installation")}>
-              {t.start} <ForwardIcon size={16} aria-hidden />
-            </Link>
-          </Button>
-          <Button asChild variant="secondary" size="lg" shape="cut">
-            <Link href={localePath(locale, "/components")}>{t.browse}</Link>
-          </Button>
-        </div>
+        <p className="kz-land-lead">{format(t.lead, { count })}</p>
         <dl className="kz-land-figures">
           {figures.map((f) => (
             <div key={f.id}>
@@ -165,57 +106,53 @@ export async function Landing({ locale }: { locale: Locale }) {
         </dl>
       </header>
 
-      <section className="kz-land-section kz-land-showcase" aria-labelledby="land-showcase">
-        <h2 id="land-showcase">{show.title}</h2>
-        <p className="kz-land-sub">{show.lead}</p>
-        <IdentityStage label={show.identity} stageLabel={show.stage} wearing={show.wearing}>
-          {tiles.map(({ key, component, caption, area, title, code, Example }, index) =>
-            tile({
-              area,
-              index,
-              component,
-              title,
-              code,
-              caption: t.tiles[caption],
-              children: <Example {...examplePropsOf(key)} {...(area === "video" ? { fit: "fill" } : {})} />,
-            }),
-          )}
-          {tile({
-            area: "chart",
-            index: TILES.length,
-            component: "line-chart",
-            title: getRegistryItem("line-chart").title,
-            code: sourceOf("line-chart", ""),
-            caption: t.tiles.chart,
-            children: (
-              <LineChart
-                title={t.chart.title}
-                description={t.chart.description}
-                data={EARNINGS}
-                x="month"
-                xLabel={t.chart.month}
-                series={[{ key: "earnings", label: t.chart.series }]}
-                format={{ style: "money", currency: "CAD" }}
-                thresholds={[{ value: 250_000, label: t.chart.threshold, tone: "success" }]}
-                zero={false}
-              />
-            ),
-          })}
-        </IdentityStage>
-      </section>
+      <HomeStudio
+        words={{ ...t.dock, browse: format(t.dock.browse, { count }), start: t.start, startHref: localePath(locale, "/installation"), browseHref: localePath(locale, "/components") }}
+      >
+        <section className="kz-home-scene" id="scene" aria-label={t.scene.parts}>
+          <SceneSweep />
+          <ProductScene />
+          <p className="kz-home-note">{t.scene.parts}</p>
+        </section>
 
-      <section className="kz-land-section" aria-labelledby="land-find">
-        <h2 id="land-find">{t.find.title}</h2>
-        <p className="kz-land-sub">{t.find.lead}</p>
-        <CardGrid min={240} reveal={false}>
-          {PLACES.map(({ id, path: to, Icon }) => (
-            <LinkCard key={id} href={localePath(locale, to)} linkAs={Link} icon={<Icon size={22} aria-hidden />} title={t.places[id].title} description={t.places[id].text} />
-          ))}
-        </CardGrid>
-      </section>
+        <section className="kz-home-section" aria-labelledby="home-play">
+          <h2 id="home-play">{t.play.title}</h2>
+          <p className="kz-land-sub">{t.play.lead}</p>
+          <TabsRoot defaultValue="button" variant="pills" className="kz-home-play">
+            <TabsList aria-label={t.play.pick}>
+              {playable.map((name) => (
+                <TabsTrigger key={name} value={name}>
+                  {getRegistryItem(name).title}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            {playable.map((name) => (
+              <TabsContent key={name} value={name}>
+                <Stage item={getRegistryItem(name)} locale={locale} />
+              </TabsContent>
+            ))}
+          </TabsRoot>
+        </section>
 
-      <section className="kz-land-section" aria-labelledby="land-packages">
+        <section className="kz-home-section" aria-labelledby="home-families">
+          <div className="kz-home-head">
+            <div>
+              <h2 id="home-families">{t.families.title}</h2>
+              <p className="kz-land-sub">{t.families.lead}</p>
+            </div>
+            <Link className="kz-home-more" href={localePath(locale, "/components")}>
+              {format(t.families.all, { count })} →
+            </Link>
+          </div>
+          <FamilyCards families={families} titles={Object.fromEntries(families.map((family) => [family.key, titleOf(family.key)]))} hrefs={Object.fromEntries(families.map((family) => [family.key, `${localePath(locale, "/components")}?group=${family.key}#catalog-list`]))} />
+        </section>
+      </HomeStudio>
+
+      <section className="kz-home-section" aria-labelledby="land-packages">
         <h2 id="land-packages">{t.packages.title}</h2>
+        <div className="kz-land-install" aria-label={t.install}>
+          <CodeBlock code={INSTALL} language="bash" copyLabel={t.copy} copiedLabel={t.copied} />
+        </div>
         <ul className="kz-land-packages">
           {PACKAGES.map((p) => (
             <li key={p.name}>

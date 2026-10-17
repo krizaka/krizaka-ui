@@ -93,7 +93,7 @@ async function PageBody({ locale, page }: { locale: Locale; page: Page }) {
     const templates = foundation === TEMPLATE_PAGE || purpose !== null;
     const toc = foundation === ICONS_PAGE ? iconsToc(t) : templates ? templatesToc(t, purpose ?? undefined) : foundation === TYPOGRAPHY_PAGE ? typographyToc(t) : [];
     return (
-      <DocsPage toc={toc} full={purpose !== null}>
+      <DocsPage toc={toc} full={purpose !== null || foundation === MOBILE_PAGE}>
         <DocsTitle>{title}</DocsTitle>
         <DocsDescription>{description}</DocsDescription>
         <DocsBody>

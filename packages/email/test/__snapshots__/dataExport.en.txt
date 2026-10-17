@@ -1,0 +1,22 @@
+Your Krizaka data export is ready
+
+Krizaka
+
+
+YOUR DATA EXPORT IS READY
+
+You asked for a copy of your data. It is ready to download for 7 days, then it is deleted.
+
+Download my data https://blog.krizaka.com/api/account/export?t=example
+
+----------------------------------------
+
+Oussama
+
+Founder, Krizaka
+
+You receive this email because a copy of your data was requested.
+
+Privacy https://www.krizaka.com/privacy · Contact https://www.krizaka.com/contact
+
+Sent by Technologies Krizaka Inc., Montréal (Québec), Canada.

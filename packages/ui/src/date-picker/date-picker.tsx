@@ -26,7 +26,7 @@ export const datePicker = tv({
       "focus-visible:outline-hidden focus-visible:focus-ring",
     content: "w-auto rounded-2xl bg-sheen p-4 shadow-floating inset-shadow-edge",
     layout: "flex flex-col gap-4 sm:flex-row",
-    presets: "flex gap-1.5 overflow-x-auto pb-1 sm:w-40 sm:flex-col sm:overflow-visible sm:border-r sm:border-border-subtle sm:pb-0 sm:pr-4",
+    presets: "flex gap-1.5 overflow-x-auto overflow-y-hidden pt-1 -mt-1 pb-1 sm:w-40 sm:flex-col sm:overflow-visible sm:border-r sm:border-border-subtle sm:pb-0 sm:pr-4",
     preset:
       "inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-lg px-2.5 py-2 text-left text-xs font-semibold text-fg-secondary transition-colors " +
       "hover:bg-surface-3 hover:text-fg focus-visible:outline-hidden focus-visible:focus-ring aria-pressed:bg-accent-soft aria-pressed:text-fg",

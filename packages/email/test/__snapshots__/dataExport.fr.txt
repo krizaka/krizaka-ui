@@ -1,0 +1,22 @@
+Votre export de données Krizaka est prêt
+
+Krizaka
+
+
+VOTRE EXPORT DE DONNÉES EST PRÊT
+
+Vous avez demandé une copie de vos données. Elle est prête à télécharger pendant 7 jours, puis elle est supprimée.
+
+Télécharger mes données https://blog.krizaka.com/api/account/export?t=example
+
+----------------------------------------
+
+Oussama
+
+Fondateur, Krizaka
+
+Vous recevez ce courriel parce qu'une copie de vos données a été demandée.
+
+Confidentialité https://www.krizaka.com/fr/privacy · Contact https://www.krizaka.com/fr/contact
+
+Envoyé par Technologies Krizaka Inc., Montréal (Québec), Canada.

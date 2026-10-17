@@ -73,3 +73,52 @@ export function catalogEntries(locale: string, previewAlt: (name: string) => str
     };
   });
 }
+
+/** A family of the catalogue (a job, a pattern or the templates): its cover — a live example of one of its components —
+    and its counts, read from the registry. */
+export interface CatalogFamily {
+  key: string;
+  components: number;
+  examples: number;
+  mobile: number;
+  cover: { key: string; heavy: boolean; scale: number } | null;
+}
+
+/** The component whose example stands for its family on the family's card (its first web example unless named). */
+export const FAMILY_COVERS: Record<string, { component: string; example?: string; scale?: number }> = {
+  actions: { component: "button", example: "sizes", scale: 0.65 },
+  inputs: { component: "date-picker", example: "calendar" },
+  navigation: { component: "nav-bar", example: "site" },
+  overlays: { component: "command", example: "inline" },
+  feedback: { component: "alert", example: "warning", scale: 0.7 },
+  data: { component: "stat", example: "grid" },
+  media: { component: "media-grid", example: "uniform" },
+  maps: { component: "map", example: "places" },
+  charts: { component: "line-chart", example: "creator-earnings", scale: 0.55 },
+  brand: { component: "mascots", example: "flock" },
+  utilities: { component: "kbd", example: "shortcut", scale: 1 },
+  blocks: { component: "cta-panel", example: "discuss" },
+  layouts: { component: "app-shell", example: "console" },
+};
+
+export function catalogFamilies(entries: CatalogEntry[], keys: readonly string[]): CatalogFamily[] {
+  const items = new Map(getRegistryItems().map((item) => [item.name, item]));
+  return keys.flatMap((key) => {
+    const members = entries.filter((entry) => entry.group === key);
+    if (members.length === 0) return [];
+    const examples = members.reduce((n, entry) => n + (items.get(entry.name)?.web?.examples.length ?? 0) + (items.get(entry.name)?.native?.examples.length ?? 0), 0);
+    const wanted = FAMILY_COVERS[key];
+    const item = wanted && items.has(wanted.component) ? items.get(wanted.component)! : items.get(members.find((m) => m.preview?.kind === "live")?.name ?? "");
+    const example = item?.web?.examples.find((e) => e.name === wanted?.example) ?? item?.web?.examples[0];
+    // A cover that names a component or an example the registry no longer has fails the build: never a blank card.
+    if (wanted && (!items.has(wanted.component) || (wanted.example && example?.name !== wanted.example)))
+      throw new Error(`catalogue: the cover of "${key}" (${wanted.component}/${wanted.example ?? "first"}) is not in the registry`);
+    return [{
+      key,
+      components: members.length,
+      examples,
+      mobile: members.filter((entry) => entry.platforms !== "web").length,
+      cover: example && item ? { key: exampleKey(example), heavy: HEAVY_CATEGORIES.has(item.category) || HEAVY_NAMES.has(item.name), scale: wanted?.scale ?? 0.5 } : null,
+    }];
+  });
+}
