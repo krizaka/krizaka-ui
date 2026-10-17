@@ -1,6 +1,8 @@
 import { render, screen, within } from "@testing-library/react";
 
 import { familyLabels, sites } from "../sites";
+
+const labelsDescription = () => familyLabels.en.descriptions.orazaka;
 import { axeViolations } from "../test/axe";
 import { SiteFooter } from "./index";
 
@@ -80,5 +82,90 @@ describe("SiteFooter", () => {
   it("publisher line in French", () => {
     render(<Footer family={false} labels={familyLabels.fr} />);
     expect(screen.getByRole("link", { name: /Un produit Krizaka/ }).getAttribute("href")).toBe("https://www.krizaka.com");
+  });
+
+  it("renders no column for a group with no link (empty, null or false children), and no wrapper when no group is left", () => {
+    const { container } = render(
+      <SiteFooter current="kachizaka" family={false}>
+        <SiteFooter.Column title="Empty">{null}</SiteFooter.Column>
+        <SiteFooter.Column title="Falsy">{[false, undefined]}</SiteFooter.Column>
+      </SiteFooter>,
+    );
+    expect(screen.queryByText("Empty")).toBeNull();
+    expect(screen.queryByText("Falsy")).toBeNull();
+    expect(container.querySelectorAll("footer ul")).toHaveLength(0);
+  });
+
+  it("keeps a column with at least one link, and drops the falsy ones around it", () => {
+    render(
+      <SiteFooter current="kachizaka" family={false}>
+        <SiteFooter.Column title="Kachizaka">
+          {false}
+          <SiteFooter.Link href="#privacy">Privacy</SiteFooter.Link>
+          {null}
+        </SiteFooter.Column>
+      </SiteFooter>,
+    );
+    expect(within(screen.getByRole("list", { name: "Kachizaka" })).getAllByRole("listitem")).toHaveLength(1);
+  });
+
+  it("the site's own columns share the row (auto-fit), never a fixed 2/3-column grid that leaves empty cells", () => {
+    const { container } = render(<Footer family={false} />);
+    const own = container.querySelector("footer ul")!.parentElement!.parentElement!;
+    expect(own.className).toContain("auto-fit");
+    expect(own.className).not.toMatch(/grid-cols-2|sm:grid-cols-3/);
+  });
+
+  it("footer text uses the readable tokens only (fg / fg-secondary), never the muted or an unset colour", () => {
+    const { container } = render(<Footer />);
+    const cls = Array.from(container.querySelectorAll("footer, footer *")).map((e) => e.getAttribute("class") ?? "").join(" ");
+    expect(cls).not.toMatch(/text-fg-muted|text-muted/);
+    expect(container.querySelector("footer")!.className).toMatch(/bg-surface-0/);
+    expect(container.querySelector("footer")!.className).toMatch(/text-fg\b/);
+  });
+
+  it("sits on the page frame's edges: --kz-page-max plus the gutters, the same formula as .kz-frame", () => {
+    const { container, rerender } = render(<Footer />);
+    const inner = () => container.querySelector("footer > div") as HTMLElement;
+    expect(inner().className).toContain("max-w-[calc(var(--kz-page-max,72rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))]");
+    expect(inner().className).toContain("px-[var(--kz-page-gutter,clamp(16px,3.2vw,32px))]");
+    rerender(<Footer variant="docs" />);
+    expect(inner().className).toContain("max-w-[calc(var(--kz-page-max-docs,88rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))]");
+  });
+
+  describe("variants", () => {
+    const legal = <SiteFooter.Link href="#privacy">Privacy</SiteFooter.Link>;
+
+    it("app: one slim contentinfo — the publisher line, the version and the legal links; no columns, no family, no site block", async () => {
+      const { container } = render(<Footer variant="app" legal={legal} />);
+      expect(screen.getAllByRole("contentinfo")).toHaveLength(1);
+      expect(screen.getByRole("link", { name: /A Krizaka product/ }).getAttribute("href")).toBe("https://www.krizaka.com");
+      expect(screen.getByText("DEV · v1.2.3")).toBeTruthy();
+      expect(screen.getByRole("link", { name: "Privacy" })).toBeTruthy();
+      expect(screen.queryByRole("navigation")).toBeNull();
+      expect(screen.queryByRole("list")).toBeNull();
+      expect(screen.queryByText("Made in Montréal")).toBeNull();
+      expect(await axeViolations(container)).toEqual([]);
+    });
+
+    it("app: never lists the family even when asked to", () => {
+      render(<Footer variant="app" family />);
+      expect(screen.queryByRole("navigation", { name: "Krizaka family" })).toBeNull();
+    });
+
+    it("docs: the site's columns without the site block, never the family, one contentinfo", async () => {
+      const { container } = render(<Footer variant="docs" family legal={legal} />);
+      expect(screen.getAllByRole("contentinfo")).toHaveLength(1);
+      expect(screen.getByRole("list", { name: "Orazaka" })).toBeTruthy();
+      expect(screen.queryByRole("navigation", { name: "Krizaka family" })).toBeNull();
+      expect(screen.queryByText(labelsDescription())).toBeNull();
+      expect(screen.getByRole("link", { name: /A Krizaka product/ })).toBeTruthy();
+      expect(await axeViolations(container)).toEqual([]);
+    });
+
+    it("site (default) renders exactly one contentinfo", () => {
+      render(<Footer />);
+      expect(screen.getAllByRole("contentinfo")).toHaveLength(1);
+    });
   });
 });

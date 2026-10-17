@@ -12,12 +12,13 @@ import { type FamilyLabels, familyLabels, siteById, type SiteId, sitesByGroup } 
 export const siteFooter = tv({
   slots: {
     root: "w-full border-t border-border-subtle bg-surface-0 text-fg",
-    inner: "mx-auto grid w-full max-w-(--kz-page-max,72rem) grid-cols-[minmax(0,1fr)] gap-10 px-(--kz-page-gutter,16px) py-12",
+    inner:
+      "mx-auto grid w-full max-w-[calc(var(--kz-page-max,72rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))] grid-cols-[minmax(0,1fr)] gap-10 px-[var(--kz-page-gutter,clamp(16px,3.2vw,32px))] py-12",
     top: "grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]",
     site: "grid content-start gap-3",
     siteName: "inline-flex items-center gap-2 font-display text-[15px] font-bold tracking-tight text-fg",
     siteText: "max-w-xs text-sm leading-relaxed text-fg-secondary",
-    own: "grid grid-cols-2 gap-8 sm:grid-cols-3",
+    own: "grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-8",
     family: "grid grid-cols-2 gap-8 border-t border-border-subtle pt-8 md:grid-cols-4",
     column: "grid min-w-0 content-start gap-3",
     title: "text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
@@ -34,8 +35,25 @@ export const siteFooter = tv({
       "rounded-full border border-border-subtle bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-fg-secondary",
     legal: "flex flex-wrap items-center gap-x-4 gap-y-2 sm:ml-auto",
   },
+  variants: {
+    // `site`: the full footer. `docs`: no site block, the columns in one row, on the documentation's width. `app`: one
+    // slim line inside a signed-in product — signature, version, legal links.
+    variant: {
+      site: {},
+      docs: {
+        inner: "max-w-[calc(var(--kz-page-max-docs,88rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))] gap-6 py-8",
+        top: "lg:grid-cols-[minmax(0,1fr)]",
+        own: "sm:grid-cols-4",
+      },
+      app: {
+        root: "bg-transparent",
+        inner: "gap-0 py-3",
+        bottom: "border-t-0 pt-0",
+      },
+    },
+  },
+  defaultVariants: { variant: "site" },
 });
-const s = siteFooter();
 
 export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> & {
   /** The site this footer belongs to (`@krizaka/ui/sites`): its mark and line, its signature, marked in the family. */
@@ -60,6 +78,14 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
   family?: boolean;
   /** The end of the signature line: legal links, a language switch (`SiteFooter.Link`s or any inline content). */
   legal?: React.ReactNode;
+  /**
+   * `site` — the full footer of a marketing or company site. `docs` — a compact one for documentation pages (no site
+   * block, the columns in a row, the documentation's width; never the family). `app` — one slim line inside a signed-in
+   * product: the publisher line, the version and the legal links (no columns, no family); render it once, in the
+   * layout, and not at all where the app shell has a sidebar that holds them.
+   * @default "site"
+   */
+  variant?: "site" | "docs" | "app";
 };
 
 /** The footer of a Krizaka site: its own columns, the family in columns, the signature, the version, Montréal. */
@@ -70,27 +96,35 @@ export function SiteFooter({
   version,
   env,
   legal,
-  family = true,
+  family: familyProp = true,
+  variant = "site",
   className,
   ...props
 }: SiteFooterProps) {
   const id = React.useId();
+  const s = siteFooter({ variant });
+  const family = variant === "site" && familyProp;
+  const slim = variant === "app";
   const site = siteById(current);
   const krizaka = siteById("krizaka");
   const tag = [env, version && `v${version.replace(/^v/, "")}`].filter(Boolean).join(" · ");
   return (
     <footer className={s.root({ className })} {...props}>
       <div className={s.inner()}>
-        <div className={s.top()}>
-          <div className={s.site()}>
-            <a href={site.url} className={s.siteName()}>
-              <FamilyMark mark={site.mark} size={24} />
-              {site.name}
-            </a>
-            <p className={s.siteText()}>{labels.descriptions[site.id]}</p>
+        {!slim && (
+          <div className={s.top()}>
+            {variant === "site" && (
+              <div className={s.site()}>
+                <a href={site.url} className={s.siteName()}>
+                  <FamilyMark mark={site.mark} size={24} />
+                  {site.name}
+                </a>
+                <p className={s.siteText()}>{labels.descriptions[site.id]}</p>
+              </div>
+            )}
+            {React.Children.toArray(children).length > 0 && <div className={s.own()}>{children}</div>}
           </div>
-          {children && <div className={s.own()}>{children}</div>}
-        </div>
+        )}
         {family && (
           <nav aria-label={labels.family} className={s.family()}>
             {sitesByGroup().map(({ group, sites }) => (
@@ -127,7 +161,7 @@ export function SiteFooter({
               {tag}
             </span>
           )}
-          <span>{labels.place}</span>
+          {!slim && <span>{labels.place}</span>}
           {legal && <div className={s.legal()}>{legal}</div>}
         </div>
       </div>
@@ -145,13 +179,16 @@ export type SiteFooterColumnProps = Omit<React.ComponentProps<"div">, "title"> &
 /** One of the site's own columns: a heading and its links. */
 export function SiteFooterColumn({ title, children, className, ...props }: SiteFooterColumnProps) {
   const id = React.useId();
+  // A group with no link is not a column: only a heading over nothing.
+  if (React.Children.toArray(children).length === 0) return null;
+  const s = siteFooter();
   return (
     <div className={s.column({ className })} {...props}>
       <p id={id} className={s.title()}>
         {title}
       </p>
       <ul aria-labelledby={id} className={s.list()}>
-        {React.Children.map(children, (child) => (child ? <li>{child}</li> : null))}
+        {React.Children.toArray(children).map((child, i) => <li key={i}>{child}</li>)}
       </ul>
     </div>
   );
@@ -166,6 +203,7 @@ export type SiteFooterLinkProps = React.ComponentProps<"a"> & {
 
 /** A link of the footer. */
 export function SiteFooterLink({ active, asChild, className, ...props }: SiteFooterLinkProps) {
+  const s = siteFooter();
   const Comp = asChild ? Slot.Root : "a";
   return <Comp aria-current={active ? "page" : undefined} className={s.link({ className })} {...props} />;
 }
