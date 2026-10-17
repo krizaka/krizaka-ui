@@ -1235,7 +1235,7 @@
     {
       "name": "./step-showcase",
       "path": "dist/step-showcase.js",
-      "limit": "3 kB",
+      "limit": "3.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

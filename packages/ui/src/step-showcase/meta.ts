@@ -3,7 +3,7 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Step showcase",
   summary:
-    "A product's guided tour in one device frame — a phone, a browser window or a macOS window (`DeviceFrame`): the steps listed beside it (number · title · one line, a bar filling under the current one), the frame playing the step's recording muted then moving on, the recordings crossfading. It plays only in view, holds on hover and focus, keeps a play / pause button and never shows native video controls; posters load first, the video once seen. On a phone: dots, swipe, the same auto-advance.",
+    "A product's guided tour in one device frame — phone, browser or macOS window: the steps beside it, each real recording played muted then the next, crossfading; it plays only in view, holds on hover and focus, and keeps a pause button.",
   status: "beta",
   category: "blocks",
   platforms: "web",
