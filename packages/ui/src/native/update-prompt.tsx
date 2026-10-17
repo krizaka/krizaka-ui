@@ -45,7 +45,7 @@ export function UpdatePrompt({ title, message, versionLabel, mark, updateLabel, 
           <Txt variant="label">{title}</Txt>
           {message ? <Txt tone="secondary">{message}</Txt> : null}
           {versionLabel ? (
-            <Txt variant="mono" tone="muted">
+            <Txt variant="mono" tone="secondary">
               {versionLabel}
             </Txt>
           ) : null}

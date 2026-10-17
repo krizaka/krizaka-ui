@@ -1,12 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import DefaultExample from "../../registry/examples/update-prompt/default";
-import { UpdatePrompt } from "./update-prompt";
 
 /** UpdatePrompt. The story renders the named example of the registry (`registry/examples/update-prompt/default`). */
 const meta = {
   title: "Primitives/UpdatePrompt",
-  component: UpdatePrompt,
   decorators: [
     (Story) => (
       <div className="w-[28rem] max-w-full">
@@ -14,7 +12,7 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof UpdatePrompt>;
+} satisfies Meta;
 export default meta;
 
 type Story = StoryObj<typeof meta>;

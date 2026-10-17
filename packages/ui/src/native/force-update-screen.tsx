@@ -32,11 +32,7 @@ export type ForceUpdateScreenProps = {
 export function ForceUpdateScreen({ title, message, versionLabel, mark, updateLabel, onUpdate, retryLabel, onRetry, fill = true, style }: ForceUpdateScreenProps) {
   const { theme } = useTheme();
   return (
-    <View
-      aria-modal
-      accessibilityViewIsModal
-      style={[styles.root, fill ? styles.fill : null, { backgroundColor: theme.surface0 }, style]}
-    >
+    <View style={[styles.root, fill ? styles.fill : null, { backgroundColor: theme.surface0 }, style]}>
       {mark ? (
         <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={styles.mark}>
           {mark}
@@ -51,7 +47,7 @@ export function ForceUpdateScreen({ title, message, versionLabel, mark, updateLa
         </Txt>
       ) : null}
       {versionLabel ? (
-        <Txt variant="mono" tone="muted" style={styles.centred}>
+        <Txt variant="mono" tone="secondary" style={styles.centred}>
           {versionLabel}
         </Txt>
       ) : null}

@@ -1,12 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import DefaultExample from "../../registry/examples/force-update-screen/default";
-import { ForceUpdateScreen } from "./force-update-screen";
 
 /** ForceUpdateScreen. The story renders the named example of the registry (`registry/examples/force-update-screen/default`). */
 const meta = {
   title: "Primitives/ForceUpdateScreen",
-  component: ForceUpdateScreen,
   decorators: [
     (Story) => (
       <div className="w-[28rem] max-w-full">
@@ -14,7 +12,7 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof ForceUpdateScreen>;
+} satisfies Meta;
 export default meta;
 
 type Story = StoryObj<typeof meta>;
