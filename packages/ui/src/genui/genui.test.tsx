@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { axeViolations } from "../test/axe";
-import { baseGenUiCatalog, extractGenUi, GENUI_LIMITS, GenUiStream, GenUiSurface, readStream, sanitizeData, validateMessage } from "./index";
+import { baseGenUiCatalog, extractGenUi, leadingObject, GENUI_LIMITS, GenUiStream, GenUiSurface, readStream, sanitizeData, validateMessage } from "./index";
 
 const V = "v0.9";
 const line = (message: unknown) => JSON.stringify(message);
@@ -131,6 +131,19 @@ describe("GenUi — malicious and malformed specs are refused", () => {
     render(<GenUiStream text={text} catalog={baseGenUiCatalog} onError={(e) => errors.push(e)} />);
     expect(screen.getByText("kept")).toBeTruthy();
     expect(errors).toHaveLength(2);
+  });
+});
+
+describe("GenUi — what models get slightly wrong", () => {
+  it("keeps the object of a line that closes one brace too many (measured on dev), and nothing else", () => {
+    const extra = components([{ id: "root", component: "Text", text: "kept" }]) + "}";
+    const state = readStream(answer(create(), extra), baseGenUiCatalog);
+    expect(state.errors).toEqual([]);
+    expect(state.surfaces.get("s1")?.components.get("root")).toBeTruthy();
+    expect(leadingObject('{"a":"}"}}')).toBe('{"a":"}"}');
+    expect(leadingObject('{"a":1} {"b":2}')).toBeNull();
+    expect(leadingObject('{"a":1}; alert(1)')).toBeNull();
+    expect(leadingObject("not json")).toBeNull();
   });
 });
 

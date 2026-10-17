@@ -24,7 +24,7 @@ export {
   sanitizeData,
   validateMessage,
 } from "./spec";
-export { applyLine, applyMessage, emptyGenUiState, extractGenUi, type GenUiExtract, type GenUiState, type GenUiSurfaceState, readPath, readStream } from "./store";
+export { applyLine, applyMessage, leadingObject, emptyGenUiState, extractGenUi, type GenUiExtract, type GenUiState, type GenUiSurfaceState, readPath, readStream } from "./store";
 export {
   type GenUiCatalog,
   type GenUiEntry,
