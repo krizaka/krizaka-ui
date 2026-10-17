@@ -1,4 +1,4 @@
-import { anchorOf, changeFromTitle, changelogRss, draftFromTitles, kindOfTag, parseChangesets, parseReleaseBody, tagOf } from "./adapter";
+import { anchorOf, changeFromTitle, changelogRss, draftFromTitles, kindOfTag, parseChangesets, parseReleaseBody, releasesFromPulls, tagOf } from "./adapter";
 
 const MD = `# @krizaka/ui
 
@@ -47,5 +47,20 @@ describe("changelog adapter", () => {
     const xml = changelogRss({ releases: [rel], title: "t", description: "d", siteUrl: "https://s", pageUrl: "https://s/changelog", feedUrl: "https://s/f.xml", language: "en", tagLabel: { feature: "New", fix: "Fixed", security: "Security", breaking: "Breaking", change: "Changed" } });
     expect(xml).toContain('<rss version="2.0"');
     expect(xml).toContain(`https://s/changelog#${anchorOf(rel)}`);
+  });
+
+  it("groups merged pull requests by week for a repository without releases", () => {
+    const r = releasesFromPulls(
+      [
+        { title: "feat(chat): voice replies (#12)", html_url: "https://github.com/o/r/pull/12", merged_at: "2026-10-13T10:00:00Z" },
+        { title: "fix: export hang (#13)", html_url: "https://github.com/o/r/pull/13", merged_at: "2026-10-16T10:00:00Z" },
+        { title: "chore: bump", html_url: "https://github.com/o/r/pull/14", merged_at: "2026-10-16T11:00:00Z" },
+        { title: "feat: older (#9)", html_url: "https://github.com/o/r/pull/9", merged_at: "2026-10-06T10:00:00Z" },
+        { title: "feat: never merged", html_url: "https://github.com/o/r/pull/8", merged_at: null },
+      ],
+      "Yasakia",
+    );
+    expect(r.map((x) => [x.version, x.date, x.changes.length])).toEqual([["2026-10-12", "2026-10-16", 2], ["2026-10-05", "2026-10-06", 1]]);
+    expect(r[0].changes[0].pr?.number).toBe(12);
   });
 });
