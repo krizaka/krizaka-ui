@@ -1,5 +1,11 @@
 # @krizaka/i18n
 
+## 0.2.2
+
+### Patch Changes
+
+- [#274](https://github.com/krizaka/krizaka-ui/pull/274) [`ef85add`](https://github.com/krizaka/krizaka-ui/commit/ef85add0cacb882f358a689a6a19102bffa3a89c) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Linear-time trimming of trailing slashes (`defaultAvatarUrl`) and of array indices (`findUnused`): CodeQL polynomial-ReDoS findings. A compiled `.pyc` is no longer tracked.
+
 ## 0.2.1
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # @krizaka/ui
 
+## 3.20.0
+
+### Minor Changes
+
+- [#272](https://github.com/krizaka/krizaka-ui/pull/272) [`dbac304`](https://github.com/krizaka/krizaka-ui/commit/dbac304839ab3264c7f6af455b383f15294f80c1) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `VerticalVideo` takes `fit="fill"`: in a box that has its own size (a bento tile, a grid cell) the clip covers it edge to edge instead of drawing a small 9:16 frame inside it; the caption's name line wraps and stays clear of the action rail (the disclosure no longer runs under the share count). `Progress` never cuts a short label to make room for its figure: in a narrow box the figure goes under the label. The `glow-card/plans` example lays its columns out on its container (three side by side only when each has room), its buttons span their card on one line with short labels; the `chat/conversation` example, given a height, sits its messages on the composer.
+
+- [#283](https://github.com/krizaka/krizaka-ui/pull/283) [`e89d93a`](https://github.com/krizaka/krizaka-ui/commit/e89d93ab3c118674d756d363dbc3f12e0e40571b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Platform parity — web · native · desktop. Every component's meta now declares `parity`: why it is not on the platform it lacks (`gap` ✗ with the issue that tracks it, or `n/a` with the reason and the component that answers there) and its desktop form (the Orazaka Mac app renders the web components: `"web"`, `"desktop"` or an absence). The registries carry it (`registry/<name>.json` and `registry/index.json`: `parity.{web,native,desktop}.state`), ui.krizaka.com draws the matrix from it, and the registry tests fail on a component without a decision.
+
+- [#285](https://github.com/krizaka/krizaka-ui/pull/285) [`a3539a6`](https://github.com/krizaka/krizaka-ui/commit/a3539a6d5955303eb958ad2dd145b466b3cdc00a) Thanks [@oussamaABID](https://github.com/oussamaABID)! - media-grid: the whole `VideoCard` opens the video (the title's stretched link now covers the picture too; badges and duration let the click through), the animated preview is requested only after the pointer or focus rests `previewDelay` (200 ms), fades in over the poster and is removed on leave (on a phone only the most visible card plays it, never under Save-Data or reduced motion; none for a blurred picture), `posterPriority` for the first row, and new `VideoCardSkeleton`, `MediaGridSkeleton` (the real 16:9 and 9:16 shapes) and `LoadMore` (infinite scroll a screenful ahead, with the button as fallback).
+
+### Patch Changes
+
+- [#274](https://github.com/krizaka/krizaka-ui/pull/274) [`ef85add`](https://github.com/krizaka/krizaka-ui/commit/ef85add0cacb882f358a689a6a19102bffa3a89c) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Linear-time trimming of trailing slashes (`defaultAvatarUrl`) and of array indices (`findUnused`): CodeQL polynomial-ReDoS findings. A compiled `.pyc` is no longer tracked.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.20.0
+  - @krizaka/tokens@3.20.0
+
 ## 3.19.0
 
 ### Minor Changes
