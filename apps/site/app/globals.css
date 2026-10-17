@@ -695,6 +695,12 @@ html:not([data-motion="ready"]) :is(main > header, main > section:first-of-type)
 .kz-brand-marks { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); list-style: none; margin: 1.5rem 0; padding: 0; }
 .kz-brand-marks li { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 20px 12px; border: 1px solid var(--kz-border-subtle); border-radius: 14px; background: var(--kz-surface-1); text-align: center; }
 .kz-brand-marks li > span:first-of-type { font-weight: 700; }
+/* The flock's loops (tools/brand-films): one player per theme, the other one hidden — never loaded. */
+.kz-brand-flock { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); list-style: none; margin: 1.5rem 0; padding: 0; }
+.kz-brand-flock li { display: flex; flex-direction: column; gap: 6px; padding: 10px 10px 16px; border: 1px solid var(--kz-border-subtle); border-radius: 14px; background: var(--kz-surface-1); text-align: center; }
+.kz-brand-flock li > span:first-of-type { margin-top: 4px; font-weight: 700; }
+.kz-brand-flock-video { overflow: hidden; border-radius: 10px; }
+html.light .kz-brand-flock-video[data-theme-only="dark"], html:not(.light) .kz-brand-flock-video[data-theme-only="light"] { display: none; }
 
 /* The catalogue of ui.krizaka.com, v2: a picture on every card, four filters, the product that uses it. */
 .kz-catalog-bar { align-items: flex-start; }

@@ -120,7 +120,7 @@ export type VideoPlayerProps = {
   title: string;
   /** The picture shown before playback. */
   poster?: string;
-  /** Starts playing, muted (browsers refuse sound without a gesture) — not under reduced motion. */
+  /** Starts playing, muted (browsers refuse sound without a gesture), once on screen and again each time it comes back — not under reduced motion. */
   autoPlay?: boolean;
   /** Starts muted. */
   muted?: boolean;
@@ -270,12 +270,23 @@ export function VideoPlayer({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- `onError` and `loadHls` are callbacks
   }, [url, type]);
 
-  // Plays once the source is there, when it was asked for (a click before a signed source resolved, an autoplay).
+  // An autoplay waits for the player to be on screen (nothing is fetched before, with `preload="none"`), and plays
+  // again each time it comes back: a page of loops costs only the ones in view.
+  const [inView, setInView] = React.useState(() => !pauseWhenHidden || typeof IntersectionObserver === "undefined");
+
+  // Plays once the source is there, when it was asked for (a click before a signed source resolved).
   React.useEffect(() => {
     const element = video.current;
-    if (!element || !url || !(wanted || (autoPlay && !reduce))) return;
+    if (!element || !url || !wanted) return;
     playSafely(element);
-  }, [url, wanted, autoPlay, reduce]);
+  }, [url, wanted]);
+
+  // An autoplay: while in view, never under reduced motion.
+  React.useEffect(() => {
+    const element = video.current;
+    if (!element || !url || !autoPlay || reduce || !inView) return;
+    playSafely(element);
+  }, [url, autoPlay, reduce, inView]);
 
   React.useEffect(() => {
     if (video.current) showTrack(video.current, caption);
@@ -288,7 +299,14 @@ export function VideoPlayer({
   }, []);
   React.useEffect(() => () => clearTimeout(idleTimer.current), []);
 
-  useInView(root, (visible) => !visible && video.current && !video.current.paused && video.current.pause(), pauseWhenHidden);
+  useInView(
+    root,
+    (visible) => {
+      setInView(visible);
+      if (!visible && video.current && !video.current.paused) video.current.pause();
+    },
+    pauseWhenHidden,
+  );
 
   const play = () => {
     setWanted(true);

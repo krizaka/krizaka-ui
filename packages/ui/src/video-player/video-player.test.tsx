@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { axeViolations } from "../test/axe";
@@ -88,6 +88,30 @@ describe("VideoPlayer", () => {
     rerender(<VideoPlayer title="Video" src="/clip.mp4" overlay={<p>Sign in to watch</p>} />);
     expect(screen.queryByRole("slider")).toBeNull();
     expect(screen.getByText("Sign in to watch")).toBeTruthy();
+  });
+
+  it("autoplays only while on screen, and again when it comes back (a page of loops plays the ones in view)", () => {
+    const { play } = stubMedia();
+    const observers: IntersectionObserverCallback[] = [];
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        constructor(cb: IntersectionObserverCallback) {
+          observers.push(cb);
+        }
+        observe() {}
+        disconnect() {}
+      },
+    );
+    const see = (visible: boolean) => act(() => observers.forEach((cb) => cb([{ isIntersecting: visible } as IntersectionObserverEntry], {} as IntersectionObserver)));
+    render(<VideoPlayer title="Loop" src="/loop.mp4" autoPlay loop controls={false} preload="none" />);
+    expect(play).not.toHaveBeenCalled();
+    see(true);
+    expect(play).toHaveBeenCalledTimes(1);
+    see(false);
+    see(true);
+    expect(play).toHaveBeenCalledTimes(2);
+    vi.unstubAllGlobals();
   });
 
   it("does not autoplay under reduced motion", () => {
