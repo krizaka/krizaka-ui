@@ -73,7 +73,7 @@ describe("the action", () => {
     const url = (templates[id as TemplateId].example as Record<string, string>)[field]!;
     expect(en.html.match(/class="kz-btn"/g)).toHaveLength(1);
     expect(en.text).toContain(url);
-    expect(en.html).toContain(catalogues.en.common.fallback.replace("'", "&#x27;"));
+    expect(en.html).toContain(catalogues.en.common.fallback.replaceAll("'", "&#x27;"));
   });
 
   it("the newsletter confirmation has the exact words of the brief, in both languages", async () => {
