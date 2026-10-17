@@ -772,6 +772,8 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-tpl-log-kind[data-kind="changed"] { color: var(--kz-accent-text); }
 .kz-tpl-log-kind[data-kind="fixed"] { color: var(--kz-warning-text); }
 .kz-tpl-log-kind[data-kind="removed"] { color: var(--kz-danger-text); }
+.kz-tpl-log-kind[data-kind="breaking"] { color: var(--kz-danger-text); }
+.kz-tpl-log-kind[data-kind="security"] { color: var(--kz-warning-text); }
 @media (max-width: 720px) {
   .kz-tpl-log-entry { grid-template-columns: minmax(0, 1fr); gap: 10px; }
   .kz-tpl-log-when { position: static; grid-auto-flow: column; justify-content: start; align-items: center; gap: 10px; }
