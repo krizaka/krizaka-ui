@@ -67,7 +67,7 @@
   },
   "peerDependencies": {
     "react": ">=18",
-    "typescript": "^5"
+    "typescript": ">=5"
   },
   "peerDependenciesMeta": {
     "react": {
