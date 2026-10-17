@@ -36,20 +36,24 @@ export const navBar = tv({
     viewport:
       "kz-pop absolute left-0 top-full mt-2 h-(--radix-navigation-menu-viewport-height) w-(--radix-navigation-menu-viewport-width) origin-top-left overflow-hidden " +
       "rounded-2xl border border-border-default bg-surface-1 shadow-lg transition-[width,height] duration-300 motion-reduce:transition-none",
-    panel: "grid w-max max-w-[min(92vw,30rem)] gap-1 p-2",
+    // Compact: icon · title · one line. A sensible width (20rem, 36rem in two columns) — never a sheet over the page.
+    panel: "grid w-[min(92vw,20rem)] gap-0.5 p-1.5",
+    panelWide: "w-[min(92vw,36rem)] md:grid-cols-2",
     menuLink:
-      "group/link flex items-start gap-3 rounded-xl p-3 text-left no-underline outline-hidden transition-colors " +
+      "group/link flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-left no-underline outline-hidden transition-colors " +
       "hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:ring-2 focus-visible:ring-ring data-active:bg-accent-soft",
     menuIcon:
-      "mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border-default bg-surface-2 text-fg-accent " +
-      "transition-[transform,border-color] duration-300 group-hover/link:-translate-y-0.5 group-hover/link:border-accent [&>svg]:h-4.5 [&>svg]:w-4.5 motion-reduce:transform-none",
-    menuTitle: "block text-sm font-semibold text-fg",
-    menuText: "mt-0.5 block text-xs leading-relaxed text-fg-secondary",
+      "flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border-default bg-surface-2 text-fg-accent " +
+      "transition-[transform,border-color] duration-300 group-hover/link:-translate-y-0.5 group-hover/link:border-accent [&>svg]:h-4 [&>svg]:w-4 motion-reduce:transform-none",
+    menuTitle: "block truncate text-sm font-semibold leading-5 text-fg",
+    menuText: "block truncate text-xs leading-4 text-fg-secondary",
     actions: "ml-auto flex items-center gap-2",
     toggle:
       "inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-surface-2/60 text-fg md:hidden " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     mobile: "kz-pop absolute inset-x-0 top-full mt-2 grid gap-1 rounded-2xl border border-border-default bg-surface-1 p-2 shadow-lg md:hidden",
+    mobileGroup: "grid gap-0.5 [&+&]:mt-1 [&+&]:border-t [&+&]:border-border-subtle [&+&]:pt-2",
+    mobileGroupTitle: "px-3 pb-1 pt-1 text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
     mobileLink:
       "flex items-center justify-between rounded-xl px-3 py-3 text-[15px] font-medium text-fg no-underline hover:bg-surface-2 " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:text-fg-accent",
@@ -97,6 +101,8 @@ interface NavBarContext {
   panelId: string;
 }
 const Context = React.createContext<NavBarContext | null>(null);
+/** The open menu of `NavBar.Items` (`""`: none), so a plain link can close it when the pointer moves on to it. */
+const ItemsContext = React.createContext<{ close: () => void }>({ close: () => {} });
 /** True inside `NavBar.Mobile`: the family renders as the panel's last group instead of a switcher. */
 const MobileContext = React.createContext(false);
 const useNavBar = () => {
@@ -153,17 +159,41 @@ export function NavBarBrand({ asChild, className, ...props }: NavBarBrandProps) 
   return <Comp className={s.brand({ className })} {...props} />;
 }
 
-/** The desktop navigation: links and menus, with the light that glides between them. Hidden below `md` (see `NavBar.Mobile`). */
-export function NavBarItems({ className, children, ...props }: Omit<React.ComponentProps<typeof Nav.Root>, "orientation">) {
+export type NavBarItemsProps = Omit<React.ComponentProps<typeof Nav.Root>, "orientation">;
+
+/**
+ * The desktop navigation: links and menus, with the light that glides between them. Hidden below `md` (see
+ * `NavBar.Mobile`). A menu opens on click, Enter, Space or ↓ — or when the pointer rests on its trigger (hover intent,
+ * `delayDuration`, 200 ms): passing over the bar opens nothing. While a menu is open the light stays on its trigger;
+ * moving on to a plain link closes the menu, so the bar never shows two current items. A click outside or Escape closes.
+ */
+export function NavBarItems({ className, children, value: valueProp, defaultValue, onValueChange, delayDuration = 200, ...props }: NavBarItemsProps) {
   const { label } = useNavBar();
-  const { ref, handlers } = useSlidingIndicator<HTMLUListElement>({ item: "[data-nav-item]", active: "[data-nav-item][data-active]", follow: true });
+  const [inner, setInner] = React.useState(defaultValue ?? "");
+  const value = valueProp ?? inner;
+  const setValue = React.useCallback(
+    (next: string) => {
+      setInner(next);
+      onValueChange?.(next);
+    },
+    [onValueChange],
+  );
+  const items = React.useMemo(() => ({ close: () => setValue("") }), [setValue]);
+  const { ref, handlers } = useSlidingIndicator<HTMLUListElement>({
+    item: "[data-nav-item]",
+    active: "[data-nav-item][data-active]",
+    prefer: "[data-nav-item][data-state=open]",
+    follow: true,
+  });
   return (
-    <Nav.Root aria-label={label} className={s.items({ className })} delayDuration={80} {...props}>
-      <Nav.List ref={ref} className={s.list()} {...handlers}>
-        {children}
-      </Nav.List>
-      <Nav.Viewport className={s.viewport()} />
-    </Nav.Root>
+    <ItemsContext.Provider value={items}>
+      <Nav.Root aria-label={label} className={s.items({ className })} value={value} onValueChange={setValue} delayDuration={delayDuration} {...props}>
+        <Nav.List ref={ref} className={s.list()} {...handlers}>
+          {children}
+        </Nav.List>
+        <Nav.Viewport className={s.viewport()} />
+      </Nav.Root>
+    </ItemsContext.Provider>
   );
 }
 
@@ -173,10 +203,22 @@ export type NavBarLinkProps = Omit<React.ComponentProps<typeof Nav.Link>, "activ
 };
 
 /** A link of the bar. `asChild` renders your router's `<Link>`. */
-export function NavBarLink({ active, className, ...props }: NavBarLinkProps) {
+export function NavBarLink({ active, className, onPointerEnter, ...props }: NavBarLinkProps) {
+  const { close } = React.useContext(ItemsContext);
   return (
     <Nav.Item>
-      <Nav.Link data-nav-item="" data-active={active ? "" : undefined} active={active} aria-current={active ? "page" : undefined} className={s.item({ className })} {...props} />
+      <Nav.Link
+        data-nav-item=""
+        data-active={active ? "" : undefined}
+        active={active}
+        aria-current={active ? "page" : undefined}
+        className={s.item({ className })}
+        onPointerEnter={(e) => {
+          onPointerEnter?.(e);
+          close();
+        }}
+        {...props}
+      />
     </Nav.Item>
   );
 }
@@ -205,7 +247,7 @@ export function NavBarMenu({ label, active, columns = 1, children, className, ..
           <path d="m6 9 6 6 6-6" />
         </svg>
       </Nav.Trigger>
-      <Nav.Content className={cn(s.panel(), columns === 2 && "md:grid-cols-2")}>{children}</Nav.Content>
+      <Nav.Content className={cn(s.panel(), columns === 2 && s.panelWide())}>{children}</Nav.Content>
     </Nav.Item>
   );
 }
@@ -252,8 +294,9 @@ export type NavBarMobileProps = React.ComponentProps<"nav"> & {
 };
 
 /**
- * Below `md`: a toggle, and a panel under the bar with its links (`NavBar.MobileLink`). A disclosure: Escape and a click
- * on a link close it, the focus returns to the toggle.
+ * Below `md`: a toggle, and a panel under the bar with its links (`NavBar.MobileLink`), grouped like the bar's menus
+ * (`NavBar.MobileGroup`). A disclosure: Escape, a click on a link or a press outside close it; Escape returns the focus
+ * to the toggle.
  */
 export function NavBarMobile({ openLabel, closeLabel, className, children, ...props }: NavBarMobileProps) {
   const { label, open, setOpen, panelId } = useNavBar();
@@ -265,9 +308,19 @@ export function NavBarMobile({ openLabel, closeLabel, className, children, ...pr
       setOpen(false);
       toggle.current?.focus();
     };
+    // A press outside the panel and its toggle closes it (the page under it stays usable).
+    const onPress = (e: PointerEvent) => {
+      const target = e.target as Node | null;
+      if (!target || toggle.current?.contains(target) || document.getElementById(panelId)?.contains(target)) return;
+      setOpen(false);
+    };
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, setOpen]);
+    document.addEventListener("pointerdown", onPress);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPress);
+    };
+  }, [open, setOpen, panelId]);
   return (
     <>
       <button ref={toggle} type="button" aria-expanded={open} aria-controls={panelId} aria-label={open ? closeLabel : openLabel} onClick={() => setOpen(!open)} className={s.toggle()}>
@@ -289,6 +342,24 @@ export function NavBarMobile({ openLabel, closeLabel, className, children, ...pr
         </nav>
       )}
     </>
+  );
+}
+
+export type NavBarMobileGroupProps = Omit<React.ComponentProps<"div">, "title"> & {
+  /** The group's heading — the same words as the bar's menu (“Product”) — passed translated. */
+  label: string;
+};
+
+/** A group of the mobile panel: the links of one of the bar's menus under its name, in the same order. */
+export function NavBarMobileGroup({ label, className, children, ...props }: NavBarMobileGroupProps) {
+  const id = React.useId();
+  return (
+    <div role="group" aria-labelledby={id} className={s.mobileGroup({ className })} {...props}>
+      <p id={id} className={s.mobileGroupTitle()}>
+        {label}
+      </p>
+      {children}
+    </div>
   );
 }
 
@@ -461,7 +532,7 @@ export function NavBarRepo({ label, className, ...props }: NavBarRepoProps) {
 }
 
 /**
- * `NavBar.Root/Brand/Family/Badge/Items/Link/Menu/MenuLink/Actions/Repo/Mobile/MobileLink` — the Krizaka navigation bar,
+ * `NavBar.Root/Brand/Family/Badge/Items/Link/Menu/MenuLink/Actions/Repo/Mobile/MobileGroup/MobileLink` — the Krizaka navigation bar,
  * the same on every site of the family: floating, tightening on scroll, the family switcher on the brand, one light
  * gliding between its items, accessible menus, a mobile panel.
  */
@@ -477,5 +548,6 @@ export const NavBar = {
   Actions: NavBarActions,
   Repo: NavBarRepo,
   Mobile: NavBarMobile,
+  MobileGroup: NavBarMobileGroup,
   MobileLink: NavBarMobileLink,
 };
