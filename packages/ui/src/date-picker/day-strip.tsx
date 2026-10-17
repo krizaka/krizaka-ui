@@ -19,7 +19,7 @@ export const dayStrip = tv({
       "inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border-subtle bg-surface-2 bg-sheen text-fg-secondary inset-shadow-edge " +
       "transition-colors hover:border-border-strong hover:text-fg focus-visible:outline-hidden focus-visible:focus-ring disabled:pointer-events-none disabled:opacity-35",
     track:
-      "-mx-1 flex snap-x snap-mandatory gap-2 overflow-x-auto scroll-smooth px-1 py-1.5 [scrollbar-width:none] motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden",
+      "-mx-1 flex snap-x snap-mandatory gap-2 overflow-x-auto overflow-y-hidden scroll-smooth px-1 py-1.5 [scrollbar-width:none] motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden",
     day:
       "relative flex h-[4.5rem] w-14 shrink-0 snap-start flex-col items-center justify-center gap-0.5 rounded-2xl border border-border-default bg-surface-2 bg-sheen text-fg inset-shadow-edge " +
       "transition-[background-color,border-color,box-shadow,transform] duration-150 hover:border-border-strong active:scale-95 " +
