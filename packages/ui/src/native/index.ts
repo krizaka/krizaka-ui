@@ -85,6 +85,7 @@ export { type NativeMarkProps } from "./mark-motion";
 export { ErrorState, LoadingState, MascotState, type MascotStateProps, SuccessState, WelcomeState } from "./mascot-state";
 export { Mascot, type MascotProps } from "./mascots";
 export { MatchDialog, type MatchDialogProps } from "./match-dialog";
+export { MediaGrid, type MediaGridProps, type MediaGridState, ShortsShelf, type ShortsShelfProps, VideoCard, type VideoCardAspect, type VideoCardCreator, type VideoCardProps } from "./media-grid";
 export { Meter, type MeterPart, type MeterProps } from "./meter";
 export { NumberTicker, type NumberTickerProps } from "./number-ticker";
 export { Onboarding, type OnboardingProps, type OnboardingSlide } from "./onboarding";

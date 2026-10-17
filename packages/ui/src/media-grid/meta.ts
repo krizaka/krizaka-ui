@@ -5,8 +5,8 @@ export const meta = {
   summary: "A feed of videos in mixed orientations that never staggers: `MediaGrid` routes the 9:16 clips to a `ShortsShelf` (equal-height cards, snap scroll, arrows, “See all”) and lays the others in a uniform 16:9 grid; `VideoCard` is aspect-aware and gives every card the same body height so rows align.",
   status: "beta",
   category: "media",
-  platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#228", reason: "orochia-mobile hand-rolls its tiles and stories rail (Tiles, StoriesRail)." }, desktop: "web" },
+  platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "A home, an explore page or a profile's Videos tab where creators publish both vertical and horizontal video.",
     "A gallery whose items come from different sources (`uniform`: everything in one frame, the odd one drawn whole over a blurred copy).",
@@ -38,6 +38,19 @@ export const meta = {
     examples: [
       { name: "feed", title: "A feed", description: "Three horizontal clips in the grid, three vertical on the shelf: every card of a row has one height." },
       { name: "uniform", title: "One frame", description: "`mode=\"uniform\"`: vertical clips drawn whole over a blurred copy inside 16:9 cards." },
+    ],
+  },
+  native: {
+    imports: ["MediaGrid", "ShortsShelf", "VideoCard"],
+    differences: [
+      "A card opens with `onPress` (a button named by its title, creator, duration and count) instead of `href`; the creator is not a separate link.",
+      "The shelf has no arrows: it is swiped, and snaps card by card; `seeAll` takes `onPress`. Its cards get the shelf's `width` (`itemWidth`, 140 pt) through the grid's `state.width`.",
+      "The grid lays rows of `columns` (1 for 16:9 on a phone, 2 for 9:16): a section of a screen's scroll view. A long feed is the native `List` (FlashList) of `VideoCard`s.",
+      "No animated preview on hover; `blurred` uses the image's `blurRadius`.",
+    ],
+    examples: [
+      { name: "feed", title: "A feed", description: "The 9:16 clips on a swiped shelf, the 16:9 ones in the grid: every card of a row one height." },
+      { name: "list", title: "One frame, a list", description: "`uniform` and `list`: one row per video, the vertical clip drawn whole over a blurred copy." },
     ],
   },
 } satisfies ComponentMeta;
