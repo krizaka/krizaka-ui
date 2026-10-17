@@ -36,8 +36,9 @@ export const HoverQuiet: Story = {
   play: async ({ canvasElement }) => {
     const cards = [...canvasElement.querySelectorAll<HTMLElement>(".kz-arg")];
     expect(cards).toHaveLength(3);
+    // The grid is quiet; the cards inherit it through the stylesheet (they carry no class of their own).
+    expect(canvasElement.querySelector(".kz-cards")!.classList.contains("kz-hover-quiet")).toBe(true);
     for (const card of cards) {
-      expect(card.classList.contains("kz-hover-quiet")).toBe(true);
       expect(getComputedStyle(card, "::after").display).toBe("none");
     }
   },
