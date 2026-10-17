@@ -53,6 +53,8 @@ export default defineConfig([
       pagination: "src/pagination/index.ts",
       "description-list": "src/description-list/index.ts",
       "meta-row": "src/meta-row/index.ts",
+      // The header beside a RailNav: the name as text, the mark below md (server-safe).
+      "app-header": "src/app-header/index.ts",
       "verified-badge": "src/verified-badge/index.ts",
       "step-progress": "src/step-progress/index.ts",
       // The default avatars' pure helpers (defaultAvatarUrl…): callable in a Server Component, unlike "avatar" (client).
@@ -119,6 +121,8 @@ export default defineConfig([
       toc: "src/toc/index.ts",
       // The application shell: its collapse and its drawer (Radix Dialog).
       "app-shell": "src/app-shell/index.ts",
+      // The compact rail (a bottom tab bar on a phone): its expand state, its arrow keys and its tooltips.
+      "rail-nav": "src/rail-nav/index.ts",
       // The skip link moves focus to its target.
       "skip-link": "src/skip-link/index.ts",
     },
