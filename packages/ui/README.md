@@ -445,7 +445,7 @@ Testing Library (`src/native/*.test.tsx`); `scripts/native-dist.mjs` checks that
 ## The marks
 
 ```tsx
-import { AkinazaLogo, KachizakaLogo, KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, YasakiaLogo, YomizakaLogo, YororisLogo } from "@krizaka/ui";
+import { AkinazaLogo, KachizakaLogo, KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, WuSamaMark, YasakiaLogo, YomizakaLogo, YororisLogo } from "@krizaka/ui";
 
 <OrochiaLogo size={36} />                       // decorative (aria-hidden)
 <KrizakaLogo size={48} title="Krizaka" />       // an image with an accessible name
@@ -455,6 +455,7 @@ import { AkinazaLogo, KachizakaLogo, KrizakaLogo, OrazakaLogo, OrochiaLogo, Prod
 <YomizakaLogo size={32} />                      // Yomizaka: ink → indigo, the reading
 <KachizakaLogo size={32} />                     // Kachizaka: cobalt → gold, the sealed cup
 <AkinazaLogo size={32} />                       // Akinaza: forest → copper, the open shop
+<WuSamaMark size={32} title="Wu-sama" />         // the founder's byline mark (a person, not a product): a gold W in the Krizaka hexagon
 ```
 
 Neutral strokes follow the host's `--kz-*` tokens when they exist (`--kz-border-strong`, `--kz-text-muted`…) and the
