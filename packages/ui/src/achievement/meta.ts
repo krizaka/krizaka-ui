@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "Part of the storytelling kit of scroll-driven site pages; a phone app tells its first steps with Onboarding.", use: "mascot-state" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "Milestones of a creator or a member: what is done, what is next (`locked`).",
     "What a product removed for its users (“Paying 30 % to a platform” → “90 % to you”).",

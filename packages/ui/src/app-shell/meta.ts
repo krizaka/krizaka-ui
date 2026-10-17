@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "layouts",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "On a phone the app shell is a tab bar, a header and a screen.", use: "tab-bar" }, desktop: "web" },
   whenToUse: ["Every signed-in screen of a product: a studio, a console, an administration.", "When the app has more than four destinations — fewer fit a NavBar."],
   whenNotToUse: [
     { when: "For a public page of a site.", use: "marketing-layout" },

@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "data-display",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A phone has no keyboard shortcuts to show." }, desktop: "web" },
   whenToUse: [
     "To show a shortcut next to the action it runs: a menu item, a palette, a tooltip.",
     "In help text: “Press Esc to close”.",

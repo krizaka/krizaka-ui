@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "blocks",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "Behind the end of a told page or a home's first screen, under the last words.",
     "A product's about page, in its own accents (`tone=\"brand\"`, `flock={false}` for a calmer one).",

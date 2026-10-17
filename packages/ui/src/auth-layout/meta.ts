@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "layouts",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "orazaka-mobile-client hand-rolls it (src/ui/AuthShell.tsx)." }, desktop: "web" },
   whenToUse: ["Sign-in, sign-up, password reset, email verification.", "The first steps of an onboarding."],
   whenNotToUse: [
     { when: "For settings once signed in.", use: "settings-layout" },

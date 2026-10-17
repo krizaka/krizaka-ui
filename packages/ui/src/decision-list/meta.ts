@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "blocks",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "description-list" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "A product's or a building block's design decisions, explained to the people who will live with them.",
     "Any choice where the cost to the reader must be said as plainly as the benefit.",

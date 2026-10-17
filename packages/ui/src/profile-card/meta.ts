@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "A creator's card in a directory or beside their content (profile completeness, challenges met, response time).",
     "A match in a dating app: what two people share, said in words.",

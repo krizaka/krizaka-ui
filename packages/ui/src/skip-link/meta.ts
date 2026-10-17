@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "navigation",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "Screen readers on a phone move by headings and the rotor; there is no keyboard to skip with." }, desktop: "web" },
   whenToUse: [
     "At the top of every application shell that keeps its own navigation (`MarketingLayout` and `AppShell` already include it).",
     "On any page where several navigation stops come before the content.",

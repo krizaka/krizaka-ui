@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "feedback",
   platforms: "native",
+  parity: { web: { status: "n/a", reason: "A web page has no splash screen; a wait shows the loader.", use: "loader" }, desktop: { status: "n/a", reason: "The Mac app opens on its window; a wait shows the loader.", use: "loader" } },
   whenToUse: ["The start of an app: from the launch image to the first screen, while the session and the fonts load.", "Any cold start that takes longer than the blink of an eye."],
   whenNotToUse: [
     { when: "A wait inside the app, once a screen is showing.", use: "loader" },

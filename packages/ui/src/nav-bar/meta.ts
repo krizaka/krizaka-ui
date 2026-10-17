@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "navigation",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A site's top bar; an app on a phone navigates with its tab bar.", use: "tab-bar" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "The top navigation of a site or a product: a brand, a few links, one or two menus, actions on the right.",
     "A section bar inside an app (`floating={false}`): videos, earnings, auctions.",

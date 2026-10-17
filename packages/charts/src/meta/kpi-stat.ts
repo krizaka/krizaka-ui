@@ -7,6 +7,7 @@ export const meta = {
   tier: "ready-made",
   category: "charts",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "A phone dashboard's head writes its figures by hand today." }, desktop: "web" },
   whenToUse: [
     "The head of a dashboard: jobs, success rate, time to a result, spend.",
     "Anywhere a figure needs its direction and its shape at a glance.",

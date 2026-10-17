@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "overlays",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["A mutual like in a dating app.", "Two parties agree: a deal, a duo for a challenge."],
   whenNotToUse: [
     { when: "To confirm an action.", use: "dialog" },

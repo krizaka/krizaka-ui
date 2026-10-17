@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "native",
+  parity: { web: { status: "gap", issue: "krizaka/krizaka-ui#279", reason: "The web sign-in asks for verification codes too." }, desktop: { status: "gap", issue: "krizaka/krizaka-ui#279", reason: "The Mac app signs in with the web's form." } },
   whenToUse: ["Verifying a phone number or an email at sign-up.", "Confirming a payout with a code."],
   whenNotToUse: [
     { when: "For a password.", use: "field" },

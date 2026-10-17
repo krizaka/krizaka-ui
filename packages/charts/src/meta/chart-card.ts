@@ -7,6 +7,7 @@ export const meta = {
   tier: "ready-made",
   category: "charts",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "A phone dashboard frames its charts in a Card by hand today." }, desktop: "web" },
   whenToUse: [
     "Every chart of a dashboard or a usage page: the same frame, the same hierarchy, the same actions.",
     "A chart that needs a period switch or a filter beside its actions menu.",

@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "blocks",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "Code on a phone is read inside an answer: the native Markdown renders its code blocks.", use: "markdown" }, desktop: "web" },
   whenToUse: [
     "Installation lines, a configuration file, the few lines a reader copies to start.",
     "The same thing in Maven, Gradle and npm (`CodeTabs`).",

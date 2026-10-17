@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "media",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["A dating profile's photos, the first one shown first.", "A product's gallery to order before publishing."],
   whenNotToUse: [
     { when: "To pick the files themselves.", use: "media-picker" },

@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "foundations",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "The recipes are already shared: the native Button, Badge, Chip and Card read the same definitions through nativeRecipe." }, desktop: "web" },
   whenToUse: [
     "A component that exists on the web and on the phone, whose variants (a look, a size, a tone) must stay the same on both.",
     "A product composite that adds variants to a primitive and wants its React Native twin to follow.",

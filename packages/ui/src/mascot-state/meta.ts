@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "feedback",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "An empty list or search the person reaches for the first time (`mood=\"empty\"`, `framed`).",
     "A page or a panel that failed: a 404, a lost connection, a refused payment (`ErrorState`).",

@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "feedback",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "For a task with a known end: an upload, a processing step, a profile to complete.",
     "A ring with its amount in the centre for a goal: money raised, steps done.",

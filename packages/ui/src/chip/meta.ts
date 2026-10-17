@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "To filter a list with a few short options shown at once: format, genre, speed.",
     "`Chip.Group type=\"multiple\"` for several tags; `type=\"single\"` (with `required`) for one filter.",

@@ -7,6 +7,7 @@ export const meta = {
   tier: "advanced",
   category: "charts",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#280", reason: "Advanced tier: no phone screen needs it yet." }, desktop: "web" },
   engine: "echarts",
   whenToUse: ["Whether two measures move together: a video's length and its watch time, a job's input and its duration.", "Outliers in a population."],
   whenNotToUse: [{ when: "A trend over time.", use: "line-chart" }, { when: "Measures of a few entities on a common scale.", use: "radar-chart" }],

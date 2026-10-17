@@ -7,6 +7,7 @@ export const meta = {
   status: "stable",
   category: "feedback",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["While a list, a card or a profile loads, in its final layout: the page does not jump when it arrives."],
   whenNotToUse: [
     { when: "For an action the user is waiting on (a save).", use: "spinner" },

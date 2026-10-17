@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "A gallery of results that should move on its own — prompt and image, before and after, three steps of a product — where each slide is a small composition (a picture, words, an action).",
     "A landing page's proof: the reader sees it moving, can stop it and can jump to any slide.",

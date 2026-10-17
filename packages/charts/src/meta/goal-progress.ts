@@ -7,6 +7,7 @@ export const meta = {
   tier: "ready-made",
   category: "charts",
   platforms: "both",
+  parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
     "An Orochia challenge with a goal: what fans pledged so far, on the web and in the app.",

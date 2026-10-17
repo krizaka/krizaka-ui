@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "Usage against a limit: storage, GPU minutes, API calls — with thresholds.",
     "A balance where low is bad: credits, a budget (`optimum=\"high\"`).",

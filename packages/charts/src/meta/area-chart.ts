@@ -7,6 +7,7 @@ export const meta = {
   tier: "core",
   category: "charts",
   platforms: "both",
+  parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
     "A volume whose size matters, not only its direction: credits consumed, storage used.",

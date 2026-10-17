@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["A job's details in a side panel.", "A payout's or a tip's breakdown.", "An account's limits as a grid of figures."],
   whenNotToUse: [
     { when: "For many records.", use: "list" },

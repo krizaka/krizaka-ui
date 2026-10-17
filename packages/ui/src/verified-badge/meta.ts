@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "feedback",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["Beside a name on a profile, a card, a message header.", "On a photo (`onMedia` / `on=\"media\"`)."],
   whenNotToUse: [
     { when: "For a status that changes (online, live).", use: "badge" },

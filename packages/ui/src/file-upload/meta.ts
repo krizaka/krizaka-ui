@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "media",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "On a phone files come from the camera roll or the camera.", use: "media-picker" }, desktop: "web" },
   whenToUse: [
     "To send files: a video to publish, documents to index, pictures for a gallery.",
     "With `useUploadQueue` for large files that must survive a pause, a failure or a slow network (Tus, multipart).",

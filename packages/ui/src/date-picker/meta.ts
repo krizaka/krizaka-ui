@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "`DatePicker`: a day near today in a form — a publication, an auction's end, a reminder.",
     "`DateRangePicker`: a period — an earnings report, an audit log — with presets and two months side by side.",

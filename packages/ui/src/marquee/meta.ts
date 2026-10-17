@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "Decorative scrolling logos of a site's page." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "A band of logos, names or short quotes on a landing page: proof at a glance.",
     "Short cards that need no comparison (testimonials, recent payouts) — one band per page.",

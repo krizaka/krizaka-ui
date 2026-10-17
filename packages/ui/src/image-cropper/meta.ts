@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "media",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#278", reason: "Avatars and covers are sent uncropped from the phone today." }, desktop: "web" },
   whenToUse: [
     "To frame a profile picture or a cover before sending it.",
     "To choose what a vertical (9:16) or square version of a landscape video keeps.",

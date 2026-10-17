@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "foundations",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "The Krizaka family as data for the sites' bars; the apps are independent products." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "To list or link the sites of the Krizaka family anywhere: a products page, an open-source hub, a README generator.",
     "To know a site's status (released, coming soon, under construction, in development) without writing it again.",

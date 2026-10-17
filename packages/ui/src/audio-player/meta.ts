@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "media",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#278", reason: "Needs an Expo audio module as an optional peer; Yororis' voice moments will need it." }, desktop: "web" },
   whenToUse: [
     "For a voice note, a podcast extract, a generated voice, a music preview.",
     "When the shape of the sound helps to find a moment (speech and silences).",

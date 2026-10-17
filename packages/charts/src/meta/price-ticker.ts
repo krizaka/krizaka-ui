@@ -7,6 +7,7 @@ export const meta = {
   tier: "ready-made",
   category: "charts",
   platforms: "both",
+  parity: { desktop: "web" },
   engine: "svg",
   whenToUse: ["Orochia's auction room, on the web and in the app: the bids as they arrive.", "Any price that moves by discrete steps: a bid, a quote, an offer."],
   whenNotToUse: [

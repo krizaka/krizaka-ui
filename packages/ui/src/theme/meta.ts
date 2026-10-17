@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "foundations",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "Once per app, in the root layout: `ThemeScript` in `<head>`, `ThemeProvider` around the app.",
     "`ThemeToggle` in the header or the settings, to cycle dark → light → system.",

@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "layout",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "card" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "Cards that invite a choice: plans, products, the entry points of a landing page.",
     "One featured card among others (`alive`): its ring turns at rest.",

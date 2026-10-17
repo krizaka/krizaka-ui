@@ -7,6 +7,7 @@ export const meta = {
   tier: "advanced",
   category: "charts",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#280", reason: "Advanced tier: no phone screen needs it yet." }, desktop: "web" },
   engine: "echarts",
   whenToUse: ["A price that moves within each period: an auction's bids per hour, a credit's market price per day."],
   whenNotToUse: [{ when: "One value per period.", use: "line-chart" }],

@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "layouts",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "Documentation is read on the sites, not inside an app." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: ["A documentation without a docs engine, or around one.", "Guides and references of a product."],
   whenNotToUse: [
     { when: "For a reading page of a site without a list of pages.", use: "toc" },

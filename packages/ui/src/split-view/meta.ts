@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "layouts",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A phone shows one pane at a time: the list, then the item on its own screen.", use: "screen" }, desktop: "web" },
   whenToUse: ["Messages, moderation queues, jobs, notifications.", "Any list the user works through item by item."],
   whenNotToUse: [
     { when: "For an object reached from elsewhere.", use: "detail-layout" },

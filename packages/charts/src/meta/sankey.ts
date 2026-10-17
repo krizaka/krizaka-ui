@@ -7,6 +7,7 @@ export const meta = {
   tier: "advanced",
   category: "charts",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#280", reason: "Advanced tier: no phone screen needs it yet." }, desktop: "web" },
   engine: "echarts",
   whenToUse: ["Where an amount goes, in two or three steps: credits by plan, then by model, then by outcome.", "A journey with branches: viewers from sources to subscriptions."],
   whenNotToUse: [{ when: "A single sequence of stages that only loses people.", use: "funnel" }, { when: "A split at one level.", use: "pie-chart" }],

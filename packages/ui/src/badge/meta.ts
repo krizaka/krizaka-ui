@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "To label the state of an item: paid, pending, new, live, ending soon.",
     "On a media (`tone=\"scrim\"`): a duration, a quality, a live marker.",

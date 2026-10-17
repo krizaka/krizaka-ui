@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "templates",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: ["Release notes, a product's changelog, a decisions log.", "Any history read newest first."],
   whenNotToUse: [
     { when: "For the decisions of one product, compared.", use: "decision-list" },

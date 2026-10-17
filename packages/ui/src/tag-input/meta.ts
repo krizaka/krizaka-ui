@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "Typing free tags is a keyboard task; on a phone the tags are chosen.", use: "tag-selector" }, desktop: "web" },
   whenToUse: [
     "For keywords a person invents: the tags of a video, the topics of an article.",
     "For a list of values typed one after the other: e-mail recipients, domains, IP addresses.",

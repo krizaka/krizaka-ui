@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "blocks",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "button" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "The ways to answer at the end of a page or in a `CtaPanel`.",
     "Secondary actions at the foot of a card, where room is short (`variant=\"icons\"`).",

@@ -121,6 +121,10 @@
     product imports), one per significant variant, each rendered by a story; a layout's **templates** are examples
     flagged `template: true` (≤ 160 lines, a whole screen) with a phone story too (`parameters: { phone: true }`);
   - a JSDoc on every prop its web and native components declare.
+  - its **parity** (`parity` in the meta, `Parity` of `src/meta.ts`): the platform it lacks says why — `gap` (✗, the
+    issue that tracks it) or `n/a` (the reason, and `use`: the component that answers there) — and its desktop form (the
+    Orazaka Mac app renders the web components, ADR-002). `tools/parity.mjs` checks it; a new web component without a
+    native and a desktop decision fails `scripts/registry.test.mjs` with the shape to write.
   `scripts/registry.test.mjs` fails otherwise. The JSON and the compiled examples are build output (git-ignored).
 
 ## 4. Release

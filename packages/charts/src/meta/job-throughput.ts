@@ -7,6 +7,7 @@ export const meta = {
   tier: "ready-made",
   category: "charts",
   platforms: "both",
+  parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
     "Orazaka's insights and the console's supervision: jobs per day by status.",

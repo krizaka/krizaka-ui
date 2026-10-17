@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "feedback",
   platforms: "native",
+  parity: { web: { status: "n/a", reason: "The browser asks for a permission itself; the page explains it beforehand.", use: "alert" }, desktop: { status: "n/a", reason: "macOS asks for a permission itself; the app explains it beforehand.", use: "alert" } },
   whenToUse: ["Before the camera, the microphone, notifications, the photo library.", "When the permission was refused for good: the way to the settings."],
   whenNotToUse: [
     { when: "For a message that needs no permission.", use: "empty-state" },

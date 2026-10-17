@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "media",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A recorded terminal session shown on a site's page." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "Show how a command-line tool works from a recording of a real session: install, start, run.",
     "A getting-started page where the reader should see the order of the commands and what each one answers.",

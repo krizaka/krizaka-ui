@@ -7,6 +7,7 @@ export const meta = {
   status: "stable",
   category: "actions",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "To run an action: submit a form, open a dialog, start an upload, save a draft.",
     "One `primary` button for the main action of a view; `secondary`, `outline` or `ghost` for the others.",

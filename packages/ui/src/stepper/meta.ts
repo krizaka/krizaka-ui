@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "navigation",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "A job the user follows in steps: an upload that is checked, transcoded and published; a payout; an import.",
     "A short journey with a known order: a checkout, an onboarding (`orientation=\"horizontal\"`).",

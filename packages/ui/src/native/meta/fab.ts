@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "actions",
   platforms: "native",
+  parity: { web: { status: "n/a", reason: "A floating thumb-zone button is a touch idiom; a web screen puts its main action in the header.", use: "button" }, desktop: { status: "n/a", reason: "The Mac app puts its main action in the toolbar.", use: "button" } },
   whenToUse: ["Create on a list screen: a new challenge, a new message.", "Record on a camera-first screen."],
   whenNotToUse: [
     { when: "For a secondary action or several actions.", use: "button" },

@@ -154,6 +154,34 @@ export type ComponentName =
 export type Platform = "web" | "native" | "both";
 
 /**
+ * Why a component is not on a platform — a decision, never a silence (the parity matrix of ui.krizaka.com/platforms):
+ * - `gap` (✗): it belongs there and is not built yet; `issue` is the issue that tracks it (`krizaka/krizaka-ui#275`);
+ * - `n/a`: it is not meant for that platform (a site's page block on a phone, a swipe on a desktop); `use` names the
+ *   component that answers there, when one does.
+ */
+export type Absence =
+  | { readonly status: "gap"; readonly issue: string; readonly reason: string; readonly use?: undefined }
+  | { readonly status: "n/a"; readonly reason: string; readonly use?: ComponentName; readonly issue?: undefined };
+
+/**
+ * Desktop is the Orazaka Mac app (Tauri 2: the system WebView renders the web components — ADR-002). `web`: the web
+ * component runs there as it is; `desktop`: it also has a desktop form (a window's title bar, a denser layout…), said in
+ * its documentation; otherwise the absence and why.
+ */
+export type DesktopSupport = "web" | "desktop" | Absence;
+
+/**
+ * The three platforms of Krizaka UI — web · native (React Native, Expo) · desktop — for one component. The side a
+ * component has is `platforms`; the side it lacks says why here: `native` is required for (and only for) a web-only
+ * component, `web` for a native-only one; `desktop` always. `scripts/registry.test.mjs` fails on a missing decision.
+ */
+export interface Parity {
+  readonly web?: Absence;
+  readonly native?: Absence;
+  readonly desktop: DesktopSupport;
+}
+
+/**
  * `stable`: its API only changes in a major. `beta`: it may still change in a minor. `deprecated`: no product uses it and
  * no work plans to — it still works, says what replaces it, and goes in the major named by `deprecated.removedIn`.
  */
@@ -261,6 +289,8 @@ export interface ComponentMeta {
   readonly category: Category;
   /** Must match the sides below: `both` ⇔ `web` and `native`. */
   readonly platforms: Platform;
+  /** The platforms it is not on, and why; and its desktop form (see `Parity`). */
+  readonly parity: Parity;
   /** When to reach for it: concrete situations, one per item. */
   readonly whenToUse: readonly string[];
   /** When not to — and what to use instead (`use`), when another component is the answer. */

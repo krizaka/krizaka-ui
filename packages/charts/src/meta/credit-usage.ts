@@ -7,6 +7,7 @@ export const meta = {
   tier: "ready-made",
   category: "charts",
   platforms: "both",
+  parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
     "Orazaka's billing: the credits left this month and when they run out at the current pace.",

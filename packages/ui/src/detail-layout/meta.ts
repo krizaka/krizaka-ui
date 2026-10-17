@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "layouts",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A phone shows one object per screen, under its header.", use: "screen" }, desktop: "web" },
   whenToUse: ["A video, a job, an account, a pack, an order.", "Any object reached from a list."],
   whenNotToUse: [
     { when: "For a list and its item side by side.", use: "split-view" },

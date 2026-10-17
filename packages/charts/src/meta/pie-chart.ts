@@ -7,6 +7,7 @@ export const meta = {
   tier: "core",
   category: "charts",
   platforms: "both",
+  parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
     "How one total splits at one moment: credits spent by model this month, storage by kind.",

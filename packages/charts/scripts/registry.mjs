@@ -8,6 +8,8 @@ import { pathToFileURL } from "node:url";
 
 import docgen from "react-docgen-typescript";
 
+import { parityRow } from "../../../tools/parity.mjs";
+
 export const PKG = resolve(import.meta.dirname, "..");
 export const PACKAGE = "@krizaka/charts";
 const SRC = join(PKG, "src");
@@ -112,6 +114,8 @@ export async function collectRegistry() {
       status: meta.status ?? "beta",
       category: meta.category ?? "charts",
       platforms: meta.platforms ?? "web",
+      // web · native · desktop, each ✓ / ✗ (gap, its issue) / n/a (why, and what answers there): ui.krizaka.com/platforms.
+      parity: meta.parity ? parityRow(meta) : null,
       engine: meta.engine ?? null,
       tier: meta.tier ?? "core",
       whenToUse: meta.whenToUse ?? [],

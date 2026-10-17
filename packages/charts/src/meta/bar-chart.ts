@@ -7,6 +7,7 @@ export const meta = {
   tier: "core",
   category: "charts",
   platforms: "both",
+  parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
     "Counts per category or per period: jobs per day by status, revenue per plan.",

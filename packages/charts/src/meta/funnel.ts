@@ -7,6 +7,7 @@ export const meta = {
   tier: "advanced",
   category: "charts",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#280", reason: "Advanced tier: no phone screen needs it yet." }, desktop: "web" },
   engine: "echarts",
   whenToUse: ["A sign-up or purchase journey: visit, sign-up, verification, first video, first sale."],
   whenNotToUse: [{ when: "Flows that branch.", use: "sankey" }, { when: "Stages that do not contain each other.", use: "bar-chart" }],

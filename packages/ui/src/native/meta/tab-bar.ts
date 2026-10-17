@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "navigation",
   platforms: "native",
+  parity: { web: { status: "n/a", reason: "A web app navigates with its sidebar or a site's bar.", use: "app-shell" }, desktop: { status: "n/a", reason: "The Mac app navigates with its sidebar.", use: "app-shell" } },
   whenToUse: ["The root of a mobile app with two to five sections (Home, Auctions, Messages, Me).", "As the `tabBar` of expo-router or React Navigation."],
   whenNotToUse: [
     { when: "To switch between views of one screen.", use: "tabs" },

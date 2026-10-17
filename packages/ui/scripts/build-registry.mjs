@@ -57,6 +57,7 @@ writeFileSync(
         status: item.status,
         category: item.category,
         platforms: item.platforms,
+        parity: item.parity,
         examples: { web: item.web?.examples.length ?? 0, native: item.native?.examples.length ?? 0 },
         dependencies: item.dependencies,
         registryDependencies: item.registryDependencies,

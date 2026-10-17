@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "foundations",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "Class names are the web's styling; React Native styles with StyleSheet and the theme's roles." }, desktop: "web" },
   whenToUse: ["To build a `className` from conditions in a product component.", "To let a caller's `className` override a component's classes."],
   whenNotToUse: [
     { when: "To define the variants of a component: use `tv()` from tailwind-variants, like the primitives." },

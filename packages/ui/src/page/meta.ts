@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "blocks",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "screen" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "Around every block of a site's page, so the navigation, the hero and each section share the same edges at any width.",
     "To chain the sections of a page on one rhythm: `divider` for a transition on the same surface, `backdrop` for the brand's colour transition.",

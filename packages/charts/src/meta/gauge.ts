@@ -7,6 +7,7 @@ export const meta = {
   tier: "core",
   category: "charts",
   platforms: "both",
+  parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
     "A quota: credits used of a plan, with a warning zone before the limit.",

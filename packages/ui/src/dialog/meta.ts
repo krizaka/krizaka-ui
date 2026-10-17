@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "overlays",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "For a short task that must be finished or cancelled before going back: invite someone, edit a title.",
     "`AlertDialog` to confirm a destructive or irreversible action, with an async `onConfirm`.",

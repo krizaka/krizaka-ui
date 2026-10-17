@@ -7,6 +7,7 @@ export const meta = {
   tier: "core",
   category: "charts",
   platforms: "both",
+  parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
     "Beside a key figure: the last 30 days of a stat.",

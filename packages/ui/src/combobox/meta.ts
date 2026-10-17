@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "To choose among many values the person knows by name: a creator, a country, a model, a playlist.",
     "With `onSearch` when the values live on a server (debounced, the previous request aborted).",

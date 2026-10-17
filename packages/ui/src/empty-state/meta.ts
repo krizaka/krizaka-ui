@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "feedback",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "When a list is empty for the first time: say what will appear here and how to start.",
     "When a search or a filter returns nothing: say so, and how to widen it.",

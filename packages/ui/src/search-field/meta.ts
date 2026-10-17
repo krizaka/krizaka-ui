@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "At the top of a list or a page to find by words: videos, creators, jobs, users.",
     "With `shortcut` for the site's global search, reachable from anywhere with ⌘K.",

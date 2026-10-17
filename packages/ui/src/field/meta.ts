@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "forms",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "For every text entry of a form: email, title, description, amount.",
     "`Select` for a choice among many options (a country): the platform's own menu, right on phones.",

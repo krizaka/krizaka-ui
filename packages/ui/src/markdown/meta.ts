@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "An AI answer, a message, a release note, a description written by a person or a model.",
     "A text that arrives in pieces (`streaming`): the unfinished end is closed, so no `**` or half a link ever shows.",

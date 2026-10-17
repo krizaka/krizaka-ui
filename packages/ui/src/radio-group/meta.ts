@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "In a form, to choose exactly one of two to five options that should all be seen: a frequency, a quality.",
     "`RadioGroup.Card` when each option needs more than a line: an amount, a plan, a payment method.",

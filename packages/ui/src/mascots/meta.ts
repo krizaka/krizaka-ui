@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "feedback",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "To welcome a person on a first screen or an onboarding step (`welcome`).",
     "While a long task runs and the person waits for it (`thinking`), beside its progress.",

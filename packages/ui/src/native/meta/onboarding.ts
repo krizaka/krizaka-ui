@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "layout",
   platforms: "native",
+  parity: { web: { status: "n/a", reason: "A web first run is a few steps on one page.", use: "stepper" }, desktop: { status: "n/a", reason: "The Mac app's first run is the install wizard, a stepper.", use: "stepper" } },
   whenToUse: ["The first launch of an app: three promises, then the sign-in."],
   whenNotToUse: [
     { when: "To explain a single feature in place.", use: "permission-prompt" },
