@@ -81,4 +81,44 @@ describe("SiteFooter", () => {
     render(<Footer family={false} labels={familyLabels.fr} />);
     expect(screen.getByRole("link", { name: /Un produit Krizaka/ }).getAttribute("href")).toBe("https://www.krizaka.com");
   });
+
+  it("renders no column for a group with no link (empty, null or false children), and no wrapper when no group is left", () => {
+    const { container } = render(
+      <SiteFooter current="kachizaka" family={false}>
+        <SiteFooter.Column title="Empty">{null}</SiteFooter.Column>
+        <SiteFooter.Column title="Falsy">{[false, undefined]}</SiteFooter.Column>
+      </SiteFooter>,
+    );
+    expect(screen.queryByText("Empty")).toBeNull();
+    expect(screen.queryByText("Falsy")).toBeNull();
+    expect(container.querySelectorAll("footer ul")).toHaveLength(0);
+  });
+
+  it("keeps a column with at least one link, and drops the falsy ones around it", () => {
+    render(
+      <SiteFooter current="kachizaka" family={false}>
+        <SiteFooter.Column title="Kachizaka">
+          {false}
+          <SiteFooter.Link href="#privacy">Privacy</SiteFooter.Link>
+          {null}
+        </SiteFooter.Column>
+      </SiteFooter>,
+    );
+    expect(within(screen.getByRole("list", { name: "Kachizaka" })).getAllByRole("listitem")).toHaveLength(1);
+  });
+
+  it("the site's own columns share the row (auto-fit), never a fixed 2/3-column grid that leaves empty cells", () => {
+    const { container } = render(<Footer family={false} />);
+    const own = container.querySelector("footer ul")!.parentElement!.parentElement!;
+    expect(own.className).toContain("auto-fit");
+    expect(own.className).not.toMatch(/grid-cols-2|sm:grid-cols-3/);
+  });
+
+  it("footer text uses the readable tokens only (fg / fg-secondary), never the muted or an unset colour", () => {
+    const { container } = render(<Footer />);
+    const cls = Array.from(container.querySelectorAll("footer, footer *")).map((e) => e.getAttribute("class") ?? "").join(" ");
+    expect(cls).not.toMatch(/text-fg-muted|text-muted/);
+    expect(container.querySelector("footer")!.className).toMatch(/bg-surface-0/);
+    expect(container.querySelector("footer")!.className).toMatch(/text-fg\b/);
+  });
 });
