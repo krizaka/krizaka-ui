@@ -46,7 +46,8 @@ describe("brands", () => {
 describe("House of Brands: a product email never shows another product", () => {
   const names = (except: BrandId) => PRODUCTS.filter((p) => p !== except).map((p) => BRAND_NAMES[p]);
 
-  it.each(PRODUCTS)("%s", async (brand) => {
+  // Renders every template in both locales for one brand: heavy on a loaded CI runner, hence the explicit budget.
+  it.each(PRODUCTS)("%s", { timeout: 30_000 }, async (brand) => {
     for (const id of TEMPLATE_IDS.filter((t) => t !== "contactNotification")) {
       for (const locale of ["en", "fr"] as const) {
         const email = await renderEmail(id, { ...templates[id].example, brand } as never, { locale });
