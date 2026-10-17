@@ -165,6 +165,8 @@ export default defineConfig([
     ...shared,
     entry: {
       "data-table": "src/data-table/index.ts",
+      // Data-driven UI (ADR-082): its base catalog draws a DataTable.
+      genui: "src/genui/index.ts",
       virtual: "src/virtual/index.ts",
       "filter-bar": "src/filter-bar/index.ts",
       combobox: "src/combobox/index.ts",

@@ -269,6 +269,10 @@
       "types": "./dist/data-table.d.ts",
       "import": "./dist/data-table.js"
     },
+    "./genui": {
+      "types": "./dist/genui.d.ts",
+      "import": "./dist/genui.js"
+    },
     "./virtual": {
       "types": "./dist/virtual.d.ts",
       "import": "./dist/virtual.js"
@@ -2200,6 +2204,17 @@
       "name": "./maintenance-screen",
       "path": "dist/maintenance-screen.js",
       "limit": "3.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./genui: GenUiStream (A2UI v0.9 validator, store, surface, base catalog with DataTable)",
+      "path": "dist/genui.js",
+      "import": "{ GenUiStream, baseGenUiCatalog }",
+      "limit": "50 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

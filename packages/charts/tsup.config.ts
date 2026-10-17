@@ -48,6 +48,8 @@ export default defineConfig([
       treemap: "src/treemap/index.ts",
       scatter: "src/scatter/index.ts",
       chart: "src/chart/index.ts",
+      // Data-driven UI (ADR-082): KpiStat and ChartCard as entries of the genui catalog.
+      genui: "src/genui/index.ts",
     },
     splitting: true,
     banner: { js: '"use client";' },
