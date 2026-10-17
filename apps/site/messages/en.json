@@ -217,6 +217,10 @@
           "title": "Config",
           "description": "The ESLint, TypeScript and Prettier presets, and the ratchet that counts the UI debt of an app."
         },
+        "platforms": {
+          "title": "Web · mobile · desktop",
+          "description": "One design system on three platforms: where every component runs, why not elsewhere, and how to install each."
+        },
         "mobile": {
           "title": "Parity with the web",
           "description": "What exists in React Native, and how each component differs from its web twin."
@@ -325,9 +329,9 @@
           "title": "Tooling",
           "when": "You come here for the packages without pixels: the Tailwind preset, formatting, messages, server state, realtime, push and lint rules."
         },
-        "mobile": {
-          "title": "Mobile",
-          "when": "You come here to know what runs in React Native, and what differs from the web."
+        "platforms": {
+          "title": "Platforms",
+          "when": "You come here to know where a component runs — web, mobile, the desktop app — why it does not run elsewhere, and how to install each platform."
         }
       },
       "jobs": {
@@ -482,6 +486,41 @@
         "social": "Social preview",
         "manifest": "All the files and their checksums (manifest.json)",
         "note": "Generated from the code of @krizaka/ui by tools/export-brand.mjs — never hand-made. Logos and marks, dark and light, PNG 256/512/1024, avatars 500/1024, social previews 1280×640."
+      },
+      "platforms": {
+        "intro": "Krizaka UI is one design system on three platforms: the web (React), mobile (React Native and Expo) and the desktop (the Orazaka Mac app, whose Tauri window renders the web components). Every component says where it runs and, where it does not, why — a gap to build, tracked by an issue, or a platform it is not meant for, with what to use there.",
+        "count": "{yes} components · {gap} to build · {na} not meant for it",
+        "install": "Install",
+        "cards": {
+          "web": {
+            "title": "Web",
+            "what": "React 19 and Tailwind CSS v4: one entry per component, server-rendered by default, every token a CSS variable.",
+            "use": "Then, in your CSS"
+          },
+          "native": {
+            "title": "Mobile",
+            "what": "React Native and Expo: the same names and props from @krizaka/ui/native, on the same tokens, dark and light, with roles and labels for screen readers.",
+            "use": "Then, at the root of your app"
+          },
+          "desktop": {
+            "title": "Desktop",
+            "what": "The Orazaka Mac app is a Tauri 2 window: the web components run there as they are, and a few have a desktop form — the app shell's title bar, density and menu keys (ADR-002).",
+            "use": "Then, the window"
+          }
+        },
+        "matrix": "The parity matrix",
+        "matrixLead": "Every component of @krizaka/ui and @krizaka/charts, read from the parity its meta declares. A new web component without a mobile and a desktop decision does not build.",
+        "legend": "✓ runs there · ✗ to build (its issue) · n/a not meant for it (what to use). For how each mobile component differs from its web twin:",
+        "mobileLink": "parity with the web",
+        "caption": "Where every component runs: web, mobile, desktop",
+        "component": "Component",
+        "states": {
+          "yes": "✓",
+          "desktop": "✓ desktop form",
+          "gap": "✗ to build",
+          "na": "n/a"
+        },
+        "issue": "issue"
       }
     }
   },

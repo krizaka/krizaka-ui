@@ -1,7 +1,7 @@
 // Named exports: a Server Component cannot dot into a client module (`Tabs.Root`).
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "@krizaka/ui/tabs";
 import type { TOCItemType } from "fumadocs-core/toc";
-import { CheckCircle2, Monitor, MonitorSmartphone, Smartphone, XCircle } from "lucide-react";
+import { CheckCircle2, Globe, Monitor, Smartphone, XCircle } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -13,12 +13,12 @@ import {
   componentHref,
   getRegistryIndex,
   getRegistryItem,
-  type Platform,
   type RegistryItem,
 } from "@/lib/ui-registry";
 
 import { CodeBlock, ExamplePreview, NativeExamplePreview } from "./ExamplePreview";
 import { InlineCode } from "./InlineCode";
+import { cellTone, cellWord, issueUrl } from "./platform-cell";
 import { PropsTable } from "./PropsTable";
 
 /* A /docs/ui/<name> page, generated from the @krizaka/ui registry — the component's code drives every word of it:
@@ -26,13 +26,14 @@ import { PropsTable } from "./PropsTable";
    examples (rendered live, code to copy, web and React Native) and the props of its types. The page chrome is in
    messages; the documentation itself is English, as written in the code. Server Component. */
 
-const PLATFORM_ICON = { web: Monitor, native: Smartphone, both: MonitorSmartphone } satisfies Record<Platform, unknown>;
+const PARITY_PLATFORMS = ["web", "native", "desktop"] as const;
+const PARITY_ICON = { web: Globe, native: Smartphone, desktop: Monitor } as const;
 
-const WEB_INSTALL = "npm install @krizaka/ui @krizaka/tailwind @krizaka/tokens tailwindcss";
-const WEB_CSS = `@import "tailwindcss";
+export const WEB_INSTALL = "npm install @krizaka/ui @krizaka/tailwind @krizaka/tokens tailwindcss";
+export const WEB_CSS = `@import "tailwindcss";
 @import "@krizaka/tailwind";
 @import "@krizaka/ui/tailwind.css";`;
-const NATIVE_INSTALL = "npx expo install react-native-svg\nnpm install @krizaka/ui";
+export const NATIVE_INSTALL = "npx expo install react-native-svg\nnpm install @krizaka/ui";
 
 /** Where the documentation of a component is written: its meta.ts in krizaka-ui. */
 export function metaSourceUrl(item: RegistryItem): string {
@@ -59,19 +60,61 @@ export function componentToc(name: string, t: TranslationDictionary, hasNotes: b
   return entries.filter(([, title]) => title).map(([id, title]) => ({ title, url: `#${id}`, depth: 2 }));
 }
 
-export function PlatformBadges({ item, t }: { item: Pick<RegistryItem, "platforms" | "status" | "category">; t: TranslationDictionary }) {
+export function PlatformBadges({ item, t }: { item: Pick<RegistryItem, "platforms" | "status" | "category" | "parity">; t: TranslationDictionary }) {
   const c = t.docs.component;
-  const Icon = PLATFORM_ICON[item.platforms];
+  const words = t.docs.ia.platforms;
   return (
     <>
-      <span className="kz-chip-meta" data-tone="accent">
-        <Icon aria-hidden />
-        {c.platforms[item.platforms]}
-      </span>
+      {item.parity ? (
+        PARITY_PLATFORMS.map((p) => {
+          const cell = item.parity[p];
+          const Icon = PARITY_ICON[p];
+          return (
+            <span key={p} className="kz-chip-meta" data-tone={cellTone(cell)} title={cell.state === "gap" || cell.state === "n/a" ? cell.reason : undefined}>
+              <Icon aria-hidden />
+              {`${words.cards[p].title} · ${cellWord(cell, words.states)}`}
+            </span>
+          );
+        })
+      ) : (
+        <span className="kz-chip-meta" data-tone="accent">
+          {c.platforms[item.platforms]}
+        </span>
+      )}
       <span className="kz-chip-meta" data-tone={item.status}>
         {c.status[item.status]}
       </span>
     </>
+  );
+}
+
+/** Where the component is not, and why — the issue that tracks it, or what to use there (the parity of its meta). */
+function PlatformAbsences({ item, t, locale }: { item: RegistryItem; t: TranslationDictionary; locale: Locale }) {
+  const words = t.docs.ia.platforms;
+  const absent = PARITY_PLATFORMS.flatMap((p) => {
+    const cell = item.parity?.[p];
+    return cell && (cell.state === "gap" || cell.state === "n/a") ? [{ p, cell }] : [];
+  });
+  if (absent.length === 0) return null;
+  return (
+    <ul className="kz-parity-list">
+      {absent.map(({ p, cell }) => (
+        <li key={p}>
+          <strong>{`${words.cards[p].title} · ${cellWord(cell, words.states)}.`}</strong> <InlineCode text={cell.reason} />
+          {cell.state === "gap" ? (
+            <>
+              {" "}
+              <a href={issueUrl(cell.issue)}>{`${words.issue} #${cell.issue.split("#")[1]}`}</a>
+            </>
+          ) : cell.use ? (
+            <>
+              {" → "}
+              <Link href={componentHref(locale, cell.use)}>{getRegistryItem(cell.use).title}</Link>
+            </>
+          ) : null}
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -111,6 +154,7 @@ export async function ComponentDoc({ name, locale, notes }: { name: string; loca
       <p className="kz-docs-note">
         {format(c.platformsLong[item.platforms], { entry: (item.platforms === "native" ? item.native?.entry : item.web?.entry) ?? `@krizaka/ui/${item.name}` })} {c.statusLong[item.status]}
       </p>
+      <PlatformAbsences item={item} t={t} locale={locale} />
 
       {inventory?.why && (
         <p className="kz-docs-note">

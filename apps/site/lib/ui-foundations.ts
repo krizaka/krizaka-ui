@@ -7,7 +7,7 @@ import { fonts, rules } from "@krizaka/fonts";
 import { glyphIndex, iconGroups, iconGuidelines } from "@krizaka/icons/glyphs";
 import { typeScale } from "@krizaka/tokens";
 
-import { BRAND_PAGE, MOBILE_PAGE, TEMPLATE_PAGE, templatePurposeSlug } from "@/lib/ui-ia";
+import { BRAND_PAGE, MOBILE_PAGE, PLATFORMS_PAGE, TEMPLATE_PAGE, templatePurposeSlug } from "@/lib/ui-ia";
 import { getRegistryIndex, getRegistryItems, type RegistryExample, type RegistryIndex, type RegistryItem, type TemplatePurpose } from "@/lib/ui-registry";
 
 export { fonts, glyphIndex, iconGroups, iconGuidelines, rules, typeScale };
@@ -16,7 +16,7 @@ export { fonts, glyphIndex, iconGroups, iconGuidelines, rules, typeScale };
     intent: `templates/<purpose>`), the mobile parity and the brand marks — by slug. */
 export const TYPOGRAPHY_PAGE = "foundations/typography";
 export const ICONS_PAGE = "foundations/icons";
-export const FOUNDATIONS = [TYPOGRAPHY_PAGE, ICONS_PAGE, TEMPLATE_PAGE, MOBILE_PAGE, BRAND_PAGE] as const;
+export const FOUNDATIONS = [TYPOGRAPHY_PAGE, ICONS_PAGE, TEMPLATE_PAGE, PLATFORMS_PAGE, MOBILE_PAGE, BRAND_PAGE] as const;
 export type Foundation = (typeof FOUNDATIONS)[number] | `${typeof TEMPLATE_PAGE}/${TemplatePurpose}`;
 
 /** The intents the templates are grouped by, from the registry: the id, its title and its "you come here when…". */
@@ -74,6 +74,8 @@ export function foundationStructuredData(page: Foundation) {
   const contents =
     page === TEMPLATE_PAGE || page.startsWith(`${TEMPLATE_PAGE}/`)
       ? templateEntries(purposeOf(page) ?? undefined).map(({ item, example, why }) => `${example.title} (${item.title}): ${example.description} ${why}`)
+      : page === PLATFORMS_PAGE
+      ? getRegistryItems().flatMap((item) => (["web", "native", "desktop"] as const).flatMap((p) => { const cell = item.parity?.[p]; return cell && (cell.state === "gap" || cell.state === "n/a") ? [`${item.title} (${p}): ${cell.reason}`] : []; }))
       : page === MOBILE_PAGE || page === BRAND_PAGE
       ? []
       : page === TYPOGRAPHY_PAGE

@@ -7,7 +7,7 @@ import { getDictionary, type Locale } from "@/lib/i18n";
 import { localizedMetadata } from "@/lib/seo";
 import { buildBreadcrumbJsonLd, buildTechArticleJsonLd } from "@/lib/structured-data";
 import { ICONS_PAGE, purposeOf,TYPOGRAPHY_PAGE } from "@/lib/ui-foundations";
-import { BRAND_PAGE, MOBILE_PAGE, TEMPLATE_PAGE } from "@/lib/ui-ia";
+import { BRAND_PAGE, MOBILE_PAGE, PLATFORMS_PAGE, TEMPLATE_PAGE } from "@/lib/ui-ia";
 import { getRegistryItem } from "@/lib/ui-registry";
 import { absoluteUrl } from "@/lib/urls";
 
@@ -19,6 +19,7 @@ import { IconsDoc, iconsToc } from "./IconsDoc";
 import { InlineCode } from "./InlineCode";
 import { getMdxComponents } from "./mdx";
 import { MobileDoc } from "./MobileDoc";
+import { PlatformsDoc } from "./PlatformsDoc";
 import { TemplatesDoc, templatesToc } from "./TemplatesDoc";
 import { TypographyDoc, typographyToc } from "./TypographyDoc";
 
@@ -100,6 +101,8 @@ async function PageBody({ locale, page }: { locale: Locale; page: Page }) {
             <IconsDoc locale={locale} />
           ) : templates ? (
             <TemplatesDoc locale={locale} purpose={purpose ?? undefined} />
+          ) : foundation === PLATFORMS_PAGE ? (
+            <PlatformsDoc locale={locale} />
           ) : foundation === MOBILE_PAGE ? (
             <MobileDoc locale={locale} />
           ) : foundation === BRAND_PAGE ? (
