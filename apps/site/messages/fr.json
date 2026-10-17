@@ -217,6 +217,10 @@
           "title": "Config",
           "description": "Les presets ESLint, TypeScript et Prettier, et le cliquet qui compte la dette d'interface d'une application."
         },
+        "platforms": {
+          "title": "Web · mobile · bureau",
+          "description": "Un design system sur trois plateformes : où tourne chaque composant, pourquoi pas ailleurs, et comment installer chacune."
+        },
         "mobile": {
           "title": "Parité avec le web",
           "description": "Ce qui existe en React Native, et en quoi chaque composant diffère de son jumeau web."
@@ -325,9 +329,9 @@
           "title": "Outillage",
           "when": "Vous venez ici pour les paquets sans pixels : le preset Tailwind, le formatage, les messages, l'état serveur, le temps réel, les notifications push et les règles de lint."
         },
-        "mobile": {
-          "title": "Mobile",
-          "when": "Vous venez ici pour savoir ce qui tourne en React Native, et ce qui diffère du web."
+        "platforms": {
+          "title": "Plateformes",
+          "when": "Vous venez ici savoir où un composant tourne — web, mobile, l'app de bureau —, pourquoi il ne tourne pas ailleurs, et comment installer chaque plateforme."
         }
       },
       "jobs": {
@@ -482,6 +486,41 @@
         "social": "Aperçu social",
         "manifest": "Tous les fichiers et leurs empreintes (manifest.json)",
         "note": "Générés depuis le code de @krizaka/ui par tools/export-brand.mjs — jamais dessinés à la main. Logos et marques, sombre et clair, PNG 256/512/1024, avatars 500/1024, aperçus sociaux 1280×640."
+      },
+      "platforms": {
+        "intro": "Krizaka UI est un seul design system sur trois plateformes : le web (React), le mobile (React Native et Expo) et le bureau (l'app Mac d'Orazaka, dont la fenêtre Tauri affiche les composants web). Chaque composant dit où il tourne et, là où il ne tourne pas, pourquoi — un manque à construire, suivi par une issue, ou une plateforme à laquelle il n'est pas destiné, avec ce qu'on y utilise.",
+        "count": "{yes} composants · {gap} à construire · {na} sans objet",
+        "install": "Installer",
+        "cards": {
+          "web": {
+            "title": "Web",
+            "what": "React 19 et Tailwind CSS v4 : une entrée par composant, rendu serveur par défaut, chaque jeton une variable CSS.",
+            "use": "Puis, dans votre CSS"
+          },
+          "native": {
+            "title": "Mobile",
+            "what": "React Native et Expo : les mêmes noms et props depuis @krizaka/ui/native, sur les mêmes jetons, sombre et clair, avec rôles et libellés pour les lecteurs d'écran.",
+            "use": "Puis, à la racine de l'app"
+          },
+          "desktop": {
+            "title": "Bureau",
+            "what": "L'app Mac d'Orazaka est une fenêtre Tauri 2 : les composants web y tournent tels quels, et quelques-uns ont une forme bureau — la barre de titre, la densité et les touches de menu du shell d'application (ADR-002).",
+            "use": "Puis, la fenêtre"
+          }
+        },
+        "matrix": "La matrice de parité",
+        "matrixLead": "Chaque composant de @krizaka/ui et @krizaka/charts, lu dans la parité que déclare son meta. Un nouveau composant web sans décision mobile et bureau ne compile pas.",
+        "legend": "✓ y tourne · ✗ à construire (son issue) · n/a sans objet (quoi utiliser). Pour ce qui diffère entre chaque composant mobile et son jumeau web :",
+        "mobileLink": "parité avec le web",
+        "caption": "Où tourne chaque composant : web, mobile, bureau",
+        "component": "Composant",
+        "states": {
+          "yes": "✓",
+          "desktop": "✓ forme bureau",
+          "gap": "✗ à construire",
+          "na": "n/a"
+        },
+        "issue": "issue"
       }
     }
   },

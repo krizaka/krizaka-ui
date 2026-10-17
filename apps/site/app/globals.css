@@ -909,3 +909,19 @@ pre, pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
 /* A code block's copy button floats over its top-right corner: the lines keep clear of it (they wrap before it). */
 figure.shiki pre { width: 100%; min-width: 0; }  /* Fumadocs sizes it to its longest line (w-max): it wraps instead */
 figure.shiki > div.absolute ~ * pre, figure.shiki > div.absolute ~ pre { padding-inline-end: 2.75rem; }
+
+/* ── Platforms (/platforms and the component pages): web · mobile · desktop, from the parity of each meta ───────── */
+.kz-platforms { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); margin: 1.25rem 0 2rem; }
+.kz-platform { min-width: 0; border: 1px solid var(--kz-border-subtle); border-radius: var(--kz-radius-lg); padding: 18px; background: var(--kz-surface-1); }
+.kz-platform h2 { margin: 0 0 0.4rem; font-size: 1.125rem; }
+.kz-platform-what { margin: 0 0 0.6rem; color: var(--kz-text-secondary); font-size: 0.9375rem; }
+.kz-platform-count { margin: 0 0 0.9rem; font-size: 0.8125rem; font-weight: 600; color: var(--kz-text-primary); font-variant-numeric: tabular-nums; }
+.kz-platform-step { margin: 0.75rem 0 0.35rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--kz-text-secondary); }
+.kz-platform pre { max-width: 100%; overflow-x: auto; }
+.kz-chip-meta[data-tone="gap"] { color: var(--kz-text-primary); border-color: color-mix(in srgb, var(--kz-warning) 55%, transparent); background: color-mix(in srgb, var(--kz-warning) 12%, transparent); }
+.kz-chip-meta[data-tone="na"] { color: var(--kz-text-secondary); border-style: dashed; background: transparent; }
+.kz-parity-cell { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
+.kz-parity-why { font-size: 0.8125rem; line-height: 1.35; color: var(--kz-text-secondary); }
+.kz-parity-why a, .kz-parity-list a { color: var(--kz-accent-text); font-weight: 600; }
+.kz-parity-list { margin: 0.25rem 0 1rem; padding-inline-start: 1.1rem; display: grid; gap: 0.35rem; font-size: 0.875rem; color: var(--kz-text-secondary); }
+.kz-parity-list strong { color: var(--kz-text-primary); }

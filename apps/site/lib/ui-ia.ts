@@ -1,6 +1,6 @@
 /* The information architecture of ui.krizaka.com (krizaka-com#115): where every component sits, reader-first.
 
-     Get started → Foundations → Components (by the job they do) → Patterns → Templates (by intent) → Tooling → Mobile
+     Get started → Foundations → Components (by the job they do) → Patterns → Templates (by intent) → Tooling → Platforms
 
    Each group answers "you come here when…" (messages: docs.ia.groups.<id>.when); each job of the components too. The
    registry says what a component is (category, platforms, status); this file only decides where a reader looks for it.
@@ -9,7 +9,7 @@
 import type { Category, RegistryItem } from "./ui-registry";
 import { FOUNDATION_PAGES, GET_STARTED_PAGES, PACKAGE_PAGES } from "./urls.ts";
 
-export const GROUPS = ["get-started", "foundations", "components", "patterns", "templates", "tooling", "mobile"] as const;
+export const GROUPS = ["get-started", "foundations", "components", "patterns", "templates", "tooling", "platforms"] as const;
 export type Group = (typeof GROUPS)[number];
 
 /** The jobs a component does, in reading order. */
@@ -77,6 +77,8 @@ export const FILTER_KEYS = [...JOBS, ...PATTERNS, "templates"] as const;
 /** Paths (slugs joined by "/") of the generated pages that no MDX file writes (lib/urls.ts: the addresses). */
 export const TEMPLATE_PAGE = "templates";
 export const MOBILE_PAGE = "mobile";
+/** Web · mobile · desktop: the parity matrix of every component and how to install each platform. */
+export const PLATFORMS_PAGE = "platforms";
 export const BRAND_PAGE = "foundations/brand-marks";
 export const templatePurposeSlug = (purpose: string) => `${TEMPLATE_PAGE}/${purpose}`;
 
@@ -85,7 +87,7 @@ export const GROUP_PAGES: Record<Exclude<Group, "components" | "patterns" | "tem
   "get-started": ["index", ...GET_STARTED_PAGES],
   foundations: FOUNDATION_PAGES.map((page) => `foundations/${page}`),
   tooling: PACKAGE_PAGES.map((page) => `packages/${page}`),
-  mobile: [MOBILE_PAGE],
+  platforms: [PLATFORMS_PAGE, MOBILE_PAGE],
 };
 
 /** The words a heading of the sidebar may take (messages: docs.ia). */

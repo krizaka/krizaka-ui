@@ -23,6 +23,20 @@ export interface RegistryComponent {
 }
 
 export type Platform = "web" | "native" | "both";
+
+/** One platform of a component in the parity matrix (krizaka-ui tools/parity.mjs): there (`yes`, `desktop` = with a
+    desktop form), missing and tracked (`gap`, its issue), or not meant for it (`n/a`, why, and what answers there). */
+export type ParityCell =
+  | { state: "yes" | "desktop" }
+  | { state: "gap"; reason: string; issue: string }
+  | { state: "n/a"; reason: string; use?: string };
+
+/** web · native · desktop, as the registries carry them. */
+export interface Parity {
+  web: ParityCell;
+  native: ParityCell;
+  desktop: ParityCell;
+}
 export type Status = "stable" | "beta" | "deprecated";
 export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "media" | "charts" | "blocks" | "layouts" | "templates" | "layout" | "foundations";
 export const CATEGORIES: Category[] = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "media", "charts", "blocks", "layouts", "templates", "layout", "foundations"];
@@ -84,6 +98,8 @@ export interface RegistryItem {
   status: Status;
   category: Category;
   platforms: Platform;
+  /** The parity matrix's row: web · native · desktop. */
+  parity: Parity;
   whenToUse: string[];
   whenNotToUse: { when: string; use?: string }[];
   bestPractices: string[];

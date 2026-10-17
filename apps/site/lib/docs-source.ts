@@ -175,7 +175,7 @@ function uiTree(source: DocsSource, t: TranslationDictionary, name: string): Pag
       folder("patterns", patterns),
       folder("templates", templates),
       folder("tooling", written(GROUP_PAGES.tooling)),
-      folder("mobile", written(GROUP_PAGES.mobile)),
+      folder("platforms", written(GROUP_PAGES.platforms)),
     ],
   };
 }

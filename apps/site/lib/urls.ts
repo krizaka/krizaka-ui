@@ -8,7 +8,8 @@
      /components/<name>         one page per component of the registries (@krizaka/ui, @krizaka/charts)
      /templates                 every template; /templates/<intent> one intent
      /packages/<package>        the packages without UI: tailwind · intl · i18n · query · realtime · push · config
-     /mobile                    the React Native parity
+     /platforms                 web · mobile · desktop: the parity matrix, how to install each
+     /mobile                    the React Native parity: what differs from the web
 
    English has no prefix; French is the same address under /fr (/fr/components/button).
 
@@ -30,6 +31,7 @@ export function pathOfLegacySlug(slug: string): string {
   if ((FOUNDATION_PAGES as readonly string[]).includes(clean)) return `/foundations/${clean}`;
   if ((PACKAGE_PAGES as readonly string[]).includes(clean)) return `/packages/${clean}`;
   if (clean === "mobile") return "/mobile";
+  if (clean === "platforms") return "/platforms";
   if (clean === "templates" || clean === "screens") return "/templates";
   if (clean.startsWith("templates-")) return `/templates/${clean.slice("templates-".length)}`;
   return `/components/${clean}`;
