@@ -18,7 +18,7 @@ export const siteFooter = tv({
     site: "grid content-start gap-3",
     siteName: "inline-flex items-center gap-2 font-display text-[15px] font-bold tracking-tight text-fg",
     siteText: "max-w-xs text-sm leading-relaxed text-fg-secondary",
-    own: "grid grid-cols-2 gap-8 sm:grid-cols-3",
+    own: "grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-8",
     family: "grid grid-cols-2 gap-8 border-t border-border-subtle pt-8 md:grid-cols-4",
     column: "grid min-w-0 content-start gap-3",
     title: "text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
@@ -122,7 +122,7 @@ export function SiteFooter({
                 <p className={s.siteText()}>{labels.descriptions[site.id]}</p>
               </div>
             )}
-            {children && <div className={s.own()}>{children}</div>}
+            {React.Children.toArray(children).length > 0 && <div className={s.own()}>{children}</div>}
           </div>
         )}
         {family && (
@@ -179,6 +179,8 @@ export type SiteFooterColumnProps = Omit<React.ComponentProps<"div">, "title"> &
 /** One of the site's own columns: a heading and its links. */
 export function SiteFooterColumn({ title, children, className, ...props }: SiteFooterColumnProps) {
   const id = React.useId();
+  // A group with no link is not a column: only a heading over nothing.
+  if (React.Children.toArray(children).length === 0) return null;
   const s = siteFooter();
   return (
     <div className={s.column({ className })} {...props}>
@@ -186,7 +188,7 @@ export function SiteFooterColumn({ title, children, className, ...props }: SiteF
         {title}
       </p>
       <ul aria-labelledby={id} className={s.list()}>
-        {React.Children.map(children, (child) => (child ? <li>{child}</li> : null))}
+        {React.Children.toArray(children).map((child, i) => <li key={i}>{child}</li>)}
       </ul>
     </div>
   );
