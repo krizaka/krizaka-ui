@@ -21,7 +21,7 @@ export const FILM = {
   fps: 30,
   /** The still the page shows before play (and under reduced motion): the five on the ridge, together. */
   poster: 36.6,
-  aspects: { "16x9": [1920, 1080], "9x16": [1080, 1920] },
+  aspects: { "16x9": [1920, 1080], "9x16": [1080, 1920], "4x5": [1080, 1350] },
   cast: CAST,
   family: FAMILY,
   spotlight,
@@ -55,9 +55,10 @@ export const FILM = {
 /** Per aspect: the actors' places and sizes, the spotlight, the ridge, the captions and the end card, in pixels. */
 export function layout(aspect) {
   const [W, H] = FILM.aspects[aspect];
-  const vertical = aspect === "9x16";
-  const A = vertical ? 230 : 250;
-  const feet = vertical ? 1600 : 900;
+  const vertical = H > W;
+  const portrait = aspect === "4x5";
+  const A = portrait ? 210 : vertical ? 230 : 250;
+  const feet = portrait ? 1180 : vertical ? 1600 : 900;
   const famFeet = feet - (vertical ? 16 : 14);
   const castX = vertical ? [0.11, 0.305, 0.5, 0.695, 0.89] : [0.2, 0.35, 0.5, 0.65, 0.8];
   const famX = vertical ? [0.215, 0.405, 0.595, 0.785] : [0.275, 0.425, 0.575, 0.725];
@@ -86,7 +87,7 @@ export function layout(aspect) {
     hide: Math.round(A * 0.95),
     ridge: `M0 ${H} L0 ${ridgeY + 10} C${W * 0.22} ${ridgeY - 2} ${W * 0.4} ${ridgeY + 6} ${W * 0.5} ${ridgeY + 2} S${W * 0.82} ${ridgeY - 4} ${W} ${ridgeY + 8} L${W} ${H} Z`,
     ridgeEdge: `M0 ${ridgeY + 10} C${W * 0.22} ${ridgeY - 2} ${W * 0.4} ${ridgeY + 6} ${W * 0.5} ${ridgeY + 2} S${W * 0.82} ${ridgeY - 4} ${W} ${ridgeY + 8}`,
-    caption: vertical ? 1790 : 1000,
+    caption: portrait ? 1270 : vertical ? 1790 : 1000,
     /** The valley is lifted a little, so the ridge where the birds stand is low in the frame. */
     world: vertical ? 1.2 : 1.18,
     /** The phoenix stands at the centre of the valley: behind the row in the wide frame, in the middle bird's way in the tall one. */
@@ -171,4 +172,33 @@ export function vtt(lang, cues = FILM.cues) {
     return `${h}:${m}:${s}.${String(ms % 1000).padStart(3, "0")}`;
   };
   return `WEBVTT\n\n${cues.map((c) => `${c.id}\n${ts(c.start)} --> ${ts(c.end)}\n${c[lang]}\n`).join("\n")}`;
+}
+
+/**
+ * The home's ambient loop: the same valley and flock, no text, no spotlight — the birds breathe and blink, each one in
+ * turn makes a small gesture (a hop, a wave), a light crosses the valley once. Seamless over `seconds`; the valley's
+ * own loops are held still (their periods do not divide the loop), so only the birds and the light move.
+ */
+export const AMBIENT = {
+  name: "home-ambient",
+  seconds: 12,
+  fps: 30,
+  /** Where the page shows it: 16:9 on wide screens, 4:5 on phones. Encoded smaller than the stage (it is a backdrop). */
+  aspects: { "16x9": [1280, 720], "4x5": [720, 900] },
+  /** The still before play and under reduced motion / Save-Data: the five on the ridge, at rest. */
+  poster: 0,
+  /** Each bird's turn: its second in the loop. */
+  turns: Object.fromEntries(CAST.map((b, i) => [b, 0.8 + 2.3 * i])),
+  sweep: [7.6, 10.4],
+};
+
+/** The idle life of the loops (8 s) stretched to another period (the ambient's 12 s). */
+export const stretch = (stops, k) => stops.map(([t, d, e]) => [+(t * k).toFixed(3), d, e]);
+
+/** A bird's small gesture in the ambient loop: a hop and a wave of the right wing at `t`. */
+export function ambientGesture(t) {
+  return [
+    [".bf-move", [[0, "transform:translateY(0)"], [t, "transform:translateY(0)", OUT], [t + 0.22, "transform:translateY(-7px)", FALL], [t + 0.44, "transform:translateY(0)", EASE], [t + 0.56, "transform:translateY(-1px)", EASE], [t + 0.7, "transform:translateY(0)"]]],
+    [".kzb-wing-r", [[0, "transform:rotate(0deg)"], [t + 0.1, "transform:rotate(0deg)", EASE], [t + 0.4, "transform:rotate(-30deg)", EASE], [t + 0.7, "transform:rotate(-12deg)", EASE], [t + 1.0, "transform:rotate(-28deg)", EASE], [t + 1.4, "transform:rotate(0deg)"]]],
+  ];
 }

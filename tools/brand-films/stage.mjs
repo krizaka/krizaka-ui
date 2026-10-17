@@ -7,8 +7,8 @@ import { readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
-import { BASE_CSS, birdLoops, DEFAULT_VIEW, IDLE, LOOP, tracksCss } from "./choreography.mjs";
-import { FILM, layout } from "./film.mjs";
+import { BASE_CSS, birdLoops, DEFAULT_VIEW, EASE, IDLE, LOOP, tracksCss } from "./choreography.mjs";
+import { AMBIENT, ambientGesture, FILM, layout, stretch } from "./film.mjs";
 import { OWN_PALETTES } from "../../packages/ui/src/mascots/geometry.ts";
 
 /** React, the server renderer and the components, from the built package at <uiRoot> (pnpm turbo run build --filter=@krizaka/ui). */
@@ -168,6 +168,41 @@ export function drawable(svg) {
   const out = svg.replace(/<path d="([^"]*)" stroke="url\(/, '<path pathLength="1" d="$1" stroke="url(');
   if (out === svg) throw new Error("the mark has no stroked shield path to draw");
   return out;
+}
+
+/**
+ * The home's ambient loop: the valley held still, the five on the ridge breathing and blinking, one small gesture each
+ * in turn, a light across the valley once. No text. Its top and bottom melt into the page's surface (`theme`), so it
+ * sits in the hero's backdrop instead of in a box.
+ */
+export function ambientHtml({ kit, aspect, theme = "dark" }) {
+  const L = layout(aspect);
+  const [width, height] = FILM.aspects[aspect];
+  const k = AMBIENT.seconds / 8;
+  const css = [`body { background: var(--kz-surface-0); }
+.layer { position: absolute; inset: 0; }
+.bf-world { transform-origin: 50% 0%; transform: scale(${L.world}); }
+.bf-world .kzl * { animation: none !important; }
+.bf-ridge { z-index: 2; }
+.bf-actor { position: absolute; z-index: 1; }
+.bf-actor svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.bf-sweep { z-index: 6; background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,${theme === "light" ? ".22" : ".11"}) 50%, transparent 62%); mix-blend-mode: ${theme === "light" ? "soft-light" : "screen"}; transform: translateX(-110%); }
+.bf-melt { z-index: 7; background: linear-gradient(to bottom, var(--kz-surface-0) 0%, color-mix(in srgb, var(--kz-surface-0) 55%, transparent) 14%, transparent 34%, transparent 82%, var(--kz-surface-0) 100%); }`];
+  const body = [
+    `<div class="layer bf-world">${kit.landscape({ tone: "own", flock: false, phoenix: L.phoenix, animated: true, fade: false, position: "absolute" })}</div>`,
+    `<svg class="layer bf-ridge" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none"><path d="${L.ridge}" fill="var(--kz-surface-0)"/><path d="${L.ridgeEdge}" stroke="${theme === "light" ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.10)"}" stroke-width="2" fill="none"/></svg>`,
+  ];
+  FILM.cast.forEach((bird, i) => {
+    const a = L.actors[bird];
+    const svg = dress(kit.mascot(bird), { view: birdLoops()[bird].view, uid: bird });
+    body.push(`<div class="bf-actor bf-actor-${bird}" style="left:${a.x - a.size / 2}px; top:${a.y - a.size / 2}px; width:${a.size}px; height:${a.size}px">${svg}</div>`);
+    const idle = IDLE.map(([sel, stops]) => [sel, stretch(stops, k), { delay: -0.97 * i }]);
+    css.push(tracksCss([...idle, ...ambientGesture(AMBIENT.turns[bird])], { scope: `.bf-actor-${bird}`, prefix: `bf-${bird}`, total: AMBIENT.seconds }));
+  });
+  const [a, b] = AMBIENT.sweep;
+  css.push(tracksCss([[".bf-sweep", [[0, "transform:translateX(-110%)"], [a, "transform:translateX(-110%)", EASE], [b, "transform:translateX(110%)"], [AMBIENT.seconds - 0.01, "transform:translateX(110%)"]]]], { prefix: "bf-sweep", total: AMBIENT.seconds }));
+  body.push(`<div class="layer bf-sweep"></div>`, `<div class="layer bf-melt"></div>`);
+  return page({ kit, theme, width, height, css: css.join("\n"), body: body.join("\n") });
 }
 
 /** One caption, burned in the social cuts: a transparent frame with the line on a quiet pill. */

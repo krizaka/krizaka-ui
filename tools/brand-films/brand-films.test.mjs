@@ -117,3 +117,15 @@ test("the loops' hashes go from krizaka-com's manifest into the site module, and
   const src = "a\nexport const LOOP_HASHES: Record<string, string> = {};\nb";
   assert.equal(withHashes(src, { "owl-square-dark.mp4": "0123456789" }), 'a\nexport const LOOP_HASHES: Record<string, string> = {\n  "owl-square-dark.mp4": "0123456789",\n};\nb');
 });
+
+test("the home's ambient loop: 10–14 s, each bird's turn inside it, the sweep crossing once, every track closing", async () => {
+  const { AMBIENT, ambientGesture, stretch } = await import("./film.mjs");
+  assert.ok(AMBIENT.seconds >= 10 && AMBIENT.seconds <= 14);
+  assert.deepEqual(Object.keys(AMBIENT.turns), FILM.cast);
+  for (const t of Object.values(AMBIENT.turns)) {
+    assert.ok(t + 1.4 < AMBIENT.seconds);
+    assert.doesNotThrow(() => tracksCss([...IDLE.map(([s, st]) => [s, stretch(st, AMBIENT.seconds / LOOP.seconds)]), ...ambientGesture(t)], { total: AMBIENT.seconds }));
+  }
+  assert.ok(AMBIENT.sweep[0] > Math.max(...Object.values(AMBIENT.turns)) - 3 && AMBIENT.sweep[1] < AMBIENT.seconds);
+  for (const aspect of Object.keys(AMBIENT.aspects)) assert.ok(FILM.aspects[aspect], `${aspect} has a layout`);
+});
