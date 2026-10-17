@@ -507,7 +507,35 @@
         "avatar": "Account avatar",
         "social": "Social preview",
         "manifest": "All the files and their checksums (manifest.json)",
-        "note": "Generated from the code of @krizaka/ui by tools/export-brand.mjs — never hand-made. Logos and marks, dark and light, PNG 256/512/1024, avatars 500/1024, social previews 1280×640."
+        "note": "Generated from the code of @krizaka/ui by tools/export-brand.mjs — never hand-made. Logos and marks, dark and light, PNG 256/512/1024, avatars 500/1024, social previews 1280×640.",
+        "flock": {
+          "title": "The flock",
+          "intro": "The birds of Krizaka carry its promises — each one has a loop, rendered from the code of @krizaka/ui (the same Mascot the products use), dark and light, still under reduced motion.",
+          "loop": "{name}: {promise}",
+          "source": "The loops are rendered by tools/brand-films: the real components, filmed frame by frame in a headless browser. When a mark or a bird changes, they are rendered again.",
+          "names": {
+            "falcon": "The falcon",
+            "owl": "The owl",
+            "duck": "The duck",
+            "flamingo": "The flamingo",
+            "pigeon": "The pigeon",
+            "lovebird": "The lovebird",
+            "crane": "The crane",
+            "magpie": "The magpie",
+            "beaver": "The beaver"
+          },
+          "promises": {
+            "falcon": "keeps watch — security",
+            "owl": "reads every page, knows every face",
+            "duck": "builds — the code",
+            "flamingo": "answers, and the payment follows",
+            "pigeon": "delivers",
+            "lovebird": "introduces two people — Yasakia",
+            "crane": "listens — Yororis",
+            "magpie": "keeps the score — Kachizaka",
+            "beaver": "builds the shop — Akinaza"
+          }
+        }
       },
       "platforms": {
         "intro": "Krizaka UI is one design system on three platforms: the web (React), mobile (React Native and Expo) and the desktop (the Orazaka Mac app, whose Tauri window renders the web components). Every component says where it runs and, where it does not, why — a gap to build, tracked by an issue, or a platform it is not meant for, with what to use there.",

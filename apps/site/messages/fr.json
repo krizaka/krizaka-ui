@@ -507,7 +507,35 @@
         "avatar": "Avatar de compte",
         "social": "Aperçu social",
         "manifest": "Tous les fichiers et leurs empreintes (manifest.json)",
-        "note": "Générés depuis le code de @krizaka/ui par tools/export-brand.mjs — jamais dessinés à la main. Logos et marques, sombre et clair, PNG 256/512/1024, avatars 500/1024, aperçus sociaux 1280×640."
+        "note": "Générés depuis le code de @krizaka/ui par tools/export-brand.mjs — jamais dessinés à la main. Logos et marques, sombre et clair, PNG 256/512/1024, avatars 500/1024, aperçus sociaux 1280×640.",
+        "flock": {
+          "title": "La volée",
+          "intro": "Les oiseaux de Krizaka portent ses promesses — chacun a sa boucle, rendue depuis le code de @krizaka/ui (le même Mascot que dans les produits), en sombre et en clair, immobile si le mouvement est réduit.",
+          "loop": "{name} : {promise}",
+          "source": "Les boucles sont rendues par tools/brand-films : les vrais composants, filmés image par image dans un navigateur sans écran. Quand une marque ou un oiseau change, elles sont rendues à nouveau.",
+          "names": {
+            "falcon": "Le faucon",
+            "owl": "Le hibou",
+            "duck": "Le canard",
+            "flamingo": "Le flamant",
+            "pigeon": "Le pigeon",
+            "lovebird": "L’inséparable",
+            "crane": "La grue",
+            "magpie": "La pie",
+            "beaver": "Le castor"
+          },
+          "promises": {
+            "falcon": "veille — la sécurité",
+            "owl": "lit chaque page, reconnaît chaque visage",
+            "duck": "construit — le code",
+            "flamingo": "répond, et le paiement suit",
+            "pigeon": "livre",
+            "lovebird": "présente deux personnes — Yasakia",
+            "crane": "écoute — Yororis",
+            "magpie": "compte les points — Kachizaka",
+            "beaver": "monte la boutique — Akinaza"
+          }
+        }
       },
       "platforms": {
         "intro": "Krizaka UI est un seul design system sur trois plateformes : le web (React), le mobile (React Native et Expo) et le bureau (l'app Mac d'Orazaka, dont la fenêtre Tauri affiche les composants web). Chaque composant dit où il tourne et, là où il ne tourne pas, pourquoi — un manque à construire, suivi par une issue, ou une plateforme à laquelle il n'est pas destiné, avec ce qu'on y utilise.",
