@@ -37,4 +37,18 @@ describe("LinkCard", () => {
     rerender(<LinkCard href="/a" title="A" description="Text." />);
     expect(container.querySelector(".kz-link-card-foot")).toBeNull();
   });
+
+  it("is lit by the pointer by default, and says its hover: light or quiet, with no class when none is asked", () => {
+    const { container, rerender } = render(<LinkCard href="/a" title="A" />);
+    const card = () => container.querySelector(".kz-link-card") as HTMLElement;
+    expect(card().classList.contains("kz-hover-quiet")).toBe(false);
+    expect(card().classList.contains("kz-hover-light")).toBe(false);
+    rerender(<LinkCard href="/a" title="A" hover="quiet" />);
+    expect(card().classList.contains("kz-hover-quiet")).toBe(true);
+    expect(card().classList.contains("kz-hover-light")).toBe(false);
+    expect(card().hasAttribute("data-kz-light")).toBe(true);
+    rerender(<LinkCard href="/a" title="A" hover="light" />);
+    expect(card().classList.contains("kz-hover-light")).toBe(true);
+    expect(card().classList.contains("kz-hover-quiet")).toBe(false);
+  });
 });
