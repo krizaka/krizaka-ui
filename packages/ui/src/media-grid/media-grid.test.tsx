@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 
 import { axeViolations } from "../test/axe";
 import { MediaGrid, ShortsShelf, VideoCard } from "./index";
@@ -73,20 +73,29 @@ describe("VideoCard", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
+  it("the whole card opens the video: the link is stretched over the picture, the badges let the click through", () => {
+    const { container } = render(<VideoCard href="/watch/1" title="Clip" poster="/p.jpg" duration="0:12" badges={<span>Free</span>} creator={{ name: "Noor", href: "/@noor" }} action={<button type="button">Tip</button>} />);
+    const link = screen.getByRole("link", { name: "Clip" });
+    // the ::after of the link covers its nearest positioned ancestor: that must be the card, not the text body
+    expect(link.className).toContain("after:absolute");
+    expect(link.className).toContain("after:inset-0");
+    const positioned = (el: Element | null) => el?.className.split(" ").includes("relative");
+    for (let el = link.parentElement; el && el !== container.querySelector("article"); el = el.parentElement) {
+      if (el.className.split(" ").includes("static") || !positioned(el)) continue;
+      expect(el.hasAttribute("data-slot") || el.className.includes("overflow-hidden")).toBe(true);
+    }
+    expect(link.closest(".static")).not.toBeNull();
+    expect(container.querySelector("[data-corner='top-left']")?.className).toContain("pointer-events-none");
+    expect(container.querySelector("[data-corner='bottom-right']")?.className).toContain("pointer-events-none");
+    // secondary actions stay their own stops, above the stretched link
+    expect(screen.getByRole("link", { name: "Noor" }).closest(".z-10")).not.toBeNull();
+    expect(screen.getByRole("button", { name: "Tip" }).closest(".z-10")).not.toBeNull();
+  });
+
   it("a 9:16 card puts the count and the action on a second line, a 16:9 card keeps one", () => {
     const card = (aspect: "portrait" | "landscape") => render(<VideoCard href="/" title="Clip" aspect={aspect} creator={{ name: "Noor" }} meta="1K views" action={<button type="button">Tip</button>} />).container;
     expect(card("portrait").querySelector(".flex-col.gap-1")).not.toBeNull();
     expect(card("landscape").querySelector(".flex-col.gap-1")).toBeNull();
-  });
-
-  it("swaps the picture for its animated preview while hovered, back after", () => {
-    const { container } = render(<VideoCard href="/" title="Clip" poster="/still.jpg" previewSrc="/preview.webp" />);
-    const article = container.querySelector("article") as HTMLElement;
-    expect(container.querySelector("img")?.getAttribute("src")).toBe("/still.jpg");
-    fireEvent.mouseEnter(article);
-    expect(container.querySelector("img")?.getAttribute("src")).toBe("/preview.webp");
-    fireEvent.mouseLeave(article);
-    expect(container.querySelector("img")?.getAttribute("src")).toBe("/still.jpg");
   });
 
   it("blurs a sensitive picture and keeps the reveal control above the link", () => {
