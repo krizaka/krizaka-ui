@@ -63,6 +63,8 @@ def render_shot(s, clips, aspect, work, i, vclips=None):
     own = vclips / s["clip"] if vclips else None
     src = own if own and own.exists() else clips / s["clip"]
     wide = not (own and own.exists())
+    if s.get("out") == "end":  # a talking shot ends with its clip: its length is the line's, per language
+        s = {**s, "out": round(duration(src) - 0.02, 3)}
     if not wide:  # the shot's own vertical clip may need its own in/out (the code film's 9:16 render keeps its own timing)
         s = {**s, "in": s.get("in9x16", s["in"]), "out": s.get("out9x16", s["out"])}
     tail = f"minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1," if s.get("interpolate", True) else f"fps={FPS},"
