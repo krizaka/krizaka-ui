@@ -1,6 +1,6 @@
-import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { test } from "node:test";
 
 /* One footer, one contentinfo: @krizaka/ui's SiteFooter, rendered once by the root after the page. No page or template
    renders another. */
