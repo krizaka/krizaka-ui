@@ -442,7 +442,14 @@
         },
         "heroLabel": "Real components, live",
         "heroLead": "These are the components themselves, rendered by this page — the same code you copy.",
-        "scan": "Who uses what comes from a dated scan of the products' repositories ({date})."
+        "scan": "Who uses what comes from a dated scan of the products' repositories ({date}).",
+        "families": {
+          "title": "Browse by family",
+          "component": "{count} component",
+          "components": "{count} components",
+          "examples": "{count} examples",
+          "mobile": "{count} on iOS and Android"
+        }
       },
       "templates": {
         "whyLayout": "Why this layout",

@@ -442,7 +442,14 @@
         },
         "heroLabel": "De vrais composants, en direct",
         "heroLead": "Ce sont les composants eux-mêmes, rendus par cette page — le code même que vous copiez.",
-        "scan": "Qui utilise quoi vient d'un relevé daté des dépôts des produits ({date})."
+        "scan": "Qui utilise quoi vient d'un relevé daté des dépôts des produits ({date}).",
+        "families": {
+          "title": "Parcourir par famille",
+          "component": "{count} composant",
+          "components": "{count} composants",
+          "examples": "{count} exemples",
+          "mobile": "{count} sur iOS et Android"
+        }
       },
       "templates": {
         "whyLayout": "Pourquoi cette mise en page",

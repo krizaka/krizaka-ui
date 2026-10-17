@@ -925,3 +925,39 @@ figure.shiki > div.absolute ~ * pre, figure.shiki > div.absolute ~ pre { padding
 .kz-parity-why a, .kz-parity-list a { color: var(--kz-accent-text); font-weight: 600; }
 .kz-parity-list { margin: 0.25rem 0 1rem; padding-inline-start: 1.1rem; display: grid; gap: 0.35rem; font-size: 0.875rem; color: var(--kz-text-secondary); }
 .kz-parity-list strong { color: var(--kz-text-primary); }
+
+/* The catalogue's families (/components): one card per family, its cover a live example of one of its components laid
+   out at its real size and scaled into the card, its counts read from the registry. A click filters the list below. */
+.kz-families { margin: 0 0 2.5rem; }
+.kz-families-title { margin: 0 0 14px; font-family: var(--kz-font-display); font-size: 1.25rem; font-weight: 800; letter-spacing: -.01em; color: var(--kz-text-primary); }
+.kz-families ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr)); }
+@media (max-width: 640px) {
+  .kz-families ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .kz-family-thumb { height: 7.5rem; }
+  .kz-family-stage { transform: translateX(-50%) scale(calc(var(--kz-family-scale, .5) * .6)); width: calc(100% / (var(--kz-family-scale, .5) * .6)); top: 8px; }
+  .kz-family-text { padding: 10px 12px 12px; font-size: 12px; }
+  .kz-family-text a { font-size: 14px; }
+}
+.kz-families li.kz-family { position: relative; margin: 0; padding: 0; display: grid; grid-template-rows: auto 1fr; overflow: hidden; border-radius: 16px;
+  border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); transition: border-color .2s, transform .2s, box-shadow .2s; }
+.kz-families li.kz-family:hover { border-color: color-mix(in oklab, var(--kz-accent) 55%, var(--kz-border-default)); transform: translateY(-2px);
+  box-shadow: 0 14px 30px -20px color-mix(in oklab, var(--kz-accent) 60%, transparent); }
+.kz-families li.kz-family:focus-within { outline: 2px solid var(--kz-ring); outline-offset: 2px; }
+.kz-families li[data-current] { border-color: var(--kz-accent); }
+/* The whole card is the family's link: the name's link stretches over it (the cover is inert, nothing is nested). */
+.kz-family-text a { font-size: 15px; font-weight: 700; color: var(--kz-text-primary); text-decoration: none; outline: none; }
+.kz-family-text a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.kz-family-thumb { position: relative; display: block; height: 10.5rem; overflow: hidden; pointer-events: none; border-bottom: 1px solid var(--kz-border-subtle);
+  background: radial-gradient(120% 90% at 50% 0%, color-mix(in oklab, var(--kz-accent) 10%, var(--kz-surface-0)), var(--kz-surface-0) 70%); }
+.kz-family-thumb::after { content: ""; position: absolute; inset: auto 0 0; height: 28px; background: linear-gradient(180deg, transparent, var(--kz-surface-0)); }
+/* Laid out at twice the card's width, then halved: the component at its real proportions, centred in the frame. */
+.kz-family-stage { position: absolute; left: 50%; top: 14px; width: calc(100% / var(--kz-family-scale, .5)); transform: translateX(-50%) scale(var(--kz-family-scale, .5)); transform-origin: top center;
+  display: grid; justify-items: center; padding: 0 24px; }
+.kz-family-stage > * { width: 100%; max-width: 100%; }
+.kz-family-text { display: grid; align-content: start; gap: 4px; padding: 12px 16px 14px; font-size: 13px; color: var(--kz-text-secondary); }
+.kz-family-mobile { font-family: var(--kz-font-mono); font-size: 11.5px; color: var(--kz-accent-text); }
+@media (prefers-reduced-motion: reduce) { .kz-families li.kz-family { transition: none; } .kz-families li.kz-family:hover { transform: none; } }
+/* A component card's thumbnail: centred in its frame rather than pinned to the top-left corner. */
+.kz-catalog-stage { display: grid; justify-items: center; align-content: center; min-height: 19rem; }
+/* A thumbnail is a crop by design: the example is laid out at full width, centred, and cut at the card's edge. */
+.kz-catalog-stage > .kz-catalog-live, .kz-family-stage > .kz-catalog-live { width: 100%; display: grid; justify-items: center; overflow: hidden; }

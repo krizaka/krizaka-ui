@@ -1,5 +1,6 @@
 import { format, getDictionary, type Locale } from "@/lib/i18n";
-import { catalogEntries } from "@/lib/ui-catalog";
+import { catalogEntries, catalogFamilies } from "@/lib/ui-catalog";
+import { FILTER_KEYS } from "@/lib/ui-ia";
 import { USAGE } from "@/lib/ui-inventory";
 
 import { UiCatalog } from "./UiCatalog";
@@ -10,5 +11,6 @@ import { UiCatalog } from "./UiCatalog";
    Component: the filter and the lazy previews are the client part. */
 export function ComponentCatalog({ locale }: { locale: Locale }) {
   const t = getDictionary(locale).docs.ia;
-  return <UiCatalog entries={catalogEntries(locale, (name) => format(t.catalog.preview, { name }))} usageDate={USAGE.scannedAt} />;
+  const entries = catalogEntries(locale, (name) => format(t.catalog.preview, { name }));
+  return <UiCatalog entries={entries} families={catalogFamilies(entries, FILTER_KEYS)} usageDate={USAGE.scannedAt} />;
 }

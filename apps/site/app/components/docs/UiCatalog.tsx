@@ -4,9 +4,9 @@ import { format } from "@krizaka/i18n";
 import { Monitor, MonitorSmartphone, Smartphone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { type ReactNode,useMemo, useSyncExternalStore } from "react";
+import { type CSSProperties, type ReactNode, useMemo, useSyncExternalStore } from "react";
 
-import type { CatalogEntry } from "@/lib/ui-catalog";
+import type { CatalogEntry, CatalogFamily } from "@/lib/ui-catalog";
 import { FILTER_KEYS, JOBS, PATTERNS } from "@/lib/ui-ia";
 import { type Product,PRODUCT_NAMES, PRODUCTS } from "@/lib/ui-inventory";
 import type { Platform, Status } from "@/lib/ui-registry";
@@ -62,7 +62,7 @@ const writeFilters = (filters: ReturnType<typeof readFilters>) => {
   listeners.forEach((listener) => listener());
 };
 
-export function UiCatalog({ entries, usageDate }: { entries: CatalogEntry[]; usageDate: string }) {
+export function UiCatalog({ entries, families, usageDate }: { entries: CatalogEntry[]; families: CatalogFamily[]; usageDate: string }) {
   const { t } = useI18n();
   const c = t.docs.ia.catalog;
   const labels = t.docs.component;
@@ -113,7 +113,47 @@ export function UiCatalog({ entries, usageDate }: { entries: CatalogEntry[]; usa
       <h2 id="catalog-title" className="sr-only">
         {c.heading}
       </h2>
-      <p className="kz-docs-note">{c.lead}</p>
+      <nav className="kz-families" aria-labelledby="families-title">
+        <h2 id="families-title" className="kz-families-title">
+          {c.families.title}
+        </h2>
+        <ul>
+          {families.map((family, index) => {
+            const words = sectionTitle(family.key);
+            return (
+              <li key={family.key} className="kz-family" data-current={filters.group === family.key ? "" : undefined} style={{ "--i": index, "--kz-family-scale": family.cover?.scale ?? 0.5 } as CSSProperties}>
+                <span className="kz-family-thumb" aria-hidden inert>
+                  {family.cover ? (
+                    <span className="kz-family-stage">
+                      <LazyExample exampleKey={family.cover.key} heavy={family.cover.heavy} placeholder={<span className="kz-catalog-placeholder" />} />
+                    </span>
+                  ) : null}
+                </span>
+                <span className="kz-family-text">
+                  <a
+                    href={`?group=${family.key}#catalog-list`}
+                    aria-current={filters.group === family.key ? "true" : undefined}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      writeFilters({ ...filters, group: family.key });
+                      document.getElementById("catalog-list")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+                    }}
+                  >
+                    {words.title}
+                  </a>
+                  <span>
+                    {format(family.components === 1 ? c.families.component : c.families.components, { count: family.components })} · {format(c.families.examples, { count: family.examples })}
+                  </span>
+                  {family.mobile > 0 && <span className="kz-family-mobile">{format(c.families.mobile, { count: family.mobile })}</span>}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+      <p id="catalog-list" className="kz-docs-note">
+        {c.lead}
+      </p>
       <div className="kz-catalog-bar" role="search" aria-label={c.filters}>
         {chips(c.platform, filters.platform, PLATFORMS.map((value) => ({ value, label: t.docs.catalog[value] })), (v) => set("platform", v))}
         <label className="kz-catalog-select">
