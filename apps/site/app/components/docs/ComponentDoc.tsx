@@ -20,6 +20,7 @@ import { CodeBlock, ExamplePreview, NativeExamplePreview } from "./ExamplePrevie
 import { InlineCode } from "./InlineCode";
 import { cellTone, cellWord, issueUrl } from "./platform-cell";
 import { PropsTable } from "./PropsTable";
+import { Stage } from "./Stage";
 
 /* A /docs/ui/<name> page, generated from the @krizaka/ui registry — the component's code drives every word of it:
    its meta.ts (summary, when to use and not, best practices, accessibility, platforms, status, related), its named
@@ -144,6 +145,8 @@ export async function ComponentDoc({ name, locale, notes }: { name: string; loca
   const href = (other: string) => componentHref(locale, other);
   const titleOf = (other: string) => getRegistryItem(other).title;
   const inventory = inventoryOf(item.name, item.status, item.deprecated);
+  /** The source files a reader may copy instead of installing the package (a web primitive's, from the registry). */
+  const webFiles = ((item as RegistryItem & { files?: { path: string; content: string }[] }).files ?? []).filter((file) => !file.path.endsWith("meta.ts"));
 
   return (
     <>
@@ -151,6 +154,7 @@ export async function ComponentDoc({ name, locale, notes }: { name: string; loca
         <PlatformBadges item={item} t={t} />
         <span className="kz-chip-meta">{c.categories[item.category]}</span>
       </div>
+      <Stage item={item} locale={locale} />
       <p className="kz-docs-note">
         {format(c.platformsLong[item.platforms], { entry: (item.platforms === "native" ? item.native?.entry : item.web?.entry) ?? `@krizaka/ui/${item.name}` })} {c.statusLong[item.status]}
       </p>
@@ -219,19 +223,56 @@ export async function ComponentDoc({ name, locale, notes }: { name: string; loca
         t={t}
         web={
           item.web && (
-            <>
-              <p>{c.install}</p>
-              <CodeBlock code={item.install?.web ?? WEB_INSTALL} lang="bash" />
-              {/* A package that carries its own styles (@krizaka/charts: an embedded stylesheet) needs no CSS line. */}
-              {!item.install?.web && (
-                <>
-                  <p>{c.styles}</p>
-                  <CodeBlock code={WEB_CSS} lang="css" />
-                </>
+            <TabsRoot defaultValue="npm" variant="pills" className="kz-install-tabs">
+              <TabsList aria-label={c.installation}>
+                <TabsTrigger value="npm">{c.installWays.npm}</TabsTrigger>
+                {webFiles.length > 0 && <TabsTrigger value="manual">{c.installWays.manual}</TabsTrigger>}
+              </TabsList>
+              <TabsContent value="npm">
+                <p>{c.install}</p>
+                <CodeBlock code={item.install?.web ?? WEB_INSTALL} lang="bash" />
+                {/* A package that carries its own styles (@krizaka/charts: an embedded stylesheet) needs no CSS line. */}
+                {!item.install?.web && (
+                  <>
+                    <p>{c.styles}</p>
+                    <CodeBlock code={WEB_CSS} lang="css" />
+                  </>
+                )}
+                <p>{c.import}</p>
+                <CodeBlock code={item.web.import} lang="tsx" />
+              </TabsContent>
+              {webFiles.length > 0 && (
+                <TabsContent value="manual">
+                  {item.dependencies.length > 0 && (
+                    <>
+                      <p>{c.installWays.deps}</p>
+                      <CodeBlock code={`npm install ${item.dependencies.join(" ")}`} lang="bash" />
+                    </>
+                  )}
+                  <p>{c.installWays.files}</p>
+                  {webFiles.map((file) => (
+                    <details key={file.path} className="kz-manual-file">
+                      <summary>
+                        <code>{file.path}</code>
+                      </summary>
+                      <CodeBlock code={file.content} lang={file.path.endsWith(".tsx") ? "tsx" : "ts"} />
+                    </details>
+                  ))}
+                  {item.registryDependencies.length > 0 && (
+                    <p>
+                      {c.installWays.also}{" "}
+                      {item.registryDependencies.map((dep, i) => (
+                        <span key={dep}>
+                          {i > 0 && ", "}
+                          {index.items.some((entry) => entry.name === dep) ? <Link href={href(dep)}>{dep}</Link> : <code>{dep}</code>}
+                        </span>
+                      ))}
+                      .
+                    </p>
+                  )}
+                </TabsContent>
               )}
-              <p>{c.import}</p>
-              <CodeBlock code={item.web.import} lang="tsx" />
-            </>
+            </TabsRoot>
           )
         }
         native={

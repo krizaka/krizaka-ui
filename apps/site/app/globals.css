@@ -961,3 +961,62 @@ figure.shiki > div.absolute ~ * pre, figure.shiki > div.absolute ~ pre { padding
 .kz-catalog-stage { display: grid; justify-items: center; align-content: center; min-height: 19rem; }
 /* A thumbnail is a crop by design: the example is laid out at full width, centred, and cut at the card's edge. */
 .kz-catalog-stage > .kz-catalog-live, .kz-family-stage > .kz-catalog-live { width: 100%; display: grid; justify-items: center; overflow: hidden; }
+
+/* The stage of a component page: the component, large, on a quiet grid; its props to play with beside it; its code
+   under it; iOS and Android in a phone. */
+.kz-stage { margin: 18px 0 8px; border: 1px solid var(--kz-border-default); border-radius: 20px; overflow: hidden;
+  background: var(--kz-surface-1); }
+.kz-stage-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 10px 12px;
+  border-bottom: 1px solid var(--kz-border-subtle); }
+.kz-stage-hint { font-size: 12.5px; color: var(--kz-text-muted); }
+.kz-stage-panel { margin: 0; }
+.kz-stage-canvas, .kz-play-canvas { position: relative; display: grid; place-items: center; min-height: 18rem; padding: 32px 24px; min-width: 0;
+  background-color: var(--kz-surface-0);
+  background-image: radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--kz-text-primary) 10%, transparent) 1px, transparent 0);
+  background-size: 18px 18px; }
+.kz-stage-canvas > * { max-width: 100%; }
+.kz-play { display: grid; grid-template-columns: minmax(0, 1fr); }
+.kz-play-wait { width: 120px; height: 36px; border-radius: 10px; background: var(--kz-surface-2); }
+.kz-play-controls { display: grid; align-content: start; gap: 14px; padding: 18px; border-top: 1px solid var(--kz-border-subtle); background: var(--kz-surface-1); }
+.kz-play-row { display: grid; gap: 6px; min-width: 0; }
+.kz-play-row-inline { grid-template-columns: 1fr auto; align-items: center; }
+.kz-play-label { font-family: var(--kz-font-mono); font-size: 11.5px; color: var(--kz-text-secondary); }
+.kz-play-row [role="radiogroup"], .kz-play-row [role="group"] { flex-wrap: wrap; }
+.kz-play-code { grid-column: 1 / -1; border-top: 1px solid var(--kz-border-subtle); }
+.kz-play-code .kz-code { margin: 0; border: 0; border-radius: 0; }
+@media (min-width: 900px) {
+  .kz-play { grid-template-columns: minmax(0, 1fr) 17rem; }
+  .kz-play-controls { border-top: 0; border-left: 1px solid var(--kz-border-subtle); }
+}
+.kz-stage-slot { display: grid; place-items: center; align-content: center; gap: 10px; min-height: 18rem; padding: 32px; text-align: center; color: var(--kz-text-muted);
+  background: var(--kz-surface-0); }
+.kz-stage-slot svg { width: 28px; height: 28px; opacity: .7; }
+.kz-stage-slot p { margin: 0; max-width: 28rem; font-size: 14px; }
+.kz-stage-phone { display: grid; justify-items: center; gap: 12px; padding: 28px 16px 20px; background: var(--kz-surface-0); }
+.kz-stage-phone .kz-docs-note { margin: 0; max-width: 30rem; text-align: center; font-size: 12.5px; }
+
+/* A phone: the glass, the bezel, the island (iOS) or the punch hole (Android), a status line; the story at 360 points. */
+.kz-phone { --kz-phone-w: 280px; position: relative; margin: 0; width: var(--kz-phone-w); aspect-ratio: 9 / 19.5; padding: 10px; border-radius: 46px;
+  background: linear-gradient(160deg, #2a2d33, #0b0c0f); box-shadow: 0 0 0 1px color-mix(in oklab, var(--kz-text-primary) 14%, transparent), 0 30px 60px -30px rgb(0 0 0 / .6); }
+.kz-phone[data-os="android"] { border-radius: 30px; padding: 8px; }
+.kz-phone-screen { position: relative; height: 100%; overflow: hidden; border-radius: 36px; background: var(--kz-surface-0); }
+.kz-phone[data-os="android"] .kz-phone-screen { border-radius: 23px; }
+.kz-phone-status { display: flex; align-items: center; justify-content: space-between; height: 40px; padding: 0 22px; font-size: 12px; font-weight: 600; color: var(--kz-text-primary); }
+.kz-phone-status i { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); width: 84px; height: 24px; border-radius: 999px; background: #000; }
+.kz-phone[data-os="android"] .kz-phone-status { height: 30px; padding: 0 16px; }
+.kz-phone[data-os="android"] .kz-phone-status i { top: 9px; width: 12px; height: 12px; }
+.kz-phone-content { position: relative; height: calc(100% - 40px); overflow: hidden; }
+.kz-phone-shot { display: block; max-width: none; height: auto; }
+.kz-phone .kz-shot-light { display: none; }
+html.light .kz-phone .kz-shot-dark { display: none; }
+html.light .kz-phone .kz-shot-light { display: block; }
+html.light .kz-phone { background: linear-gradient(160deg, #d9dce2, #a9adb6); }
+@media (max-width: 640px) { .kz-phone { --kz-phone-w: 240px; } .kz-stage-canvas, .kz-play-canvas { min-height: 13rem; padding: 24px 14px; } }
+
+.kz-install-tabs [role="tabpanel"] { padding-top: 8px; }
+.kz-manual-file { margin: 8px 0; border: 1px solid var(--kz-border-subtle); border-radius: 12px; }
+.kz-manual-file summary { cursor: pointer; padding: 10px 14px; font-size: 13px; }
+.kz-manual-file[open] summary { border-bottom: 1px solid var(--kz-border-subtle); }
+.kz-stage [role="tabpanel"] { margin-top: 0; padding-top: 0; }
+.kz-play-canvas > * { max-width: min(100%, 28rem); }
+@media (max-width: 640px) { .kz-stage-hint { display: none; } }
