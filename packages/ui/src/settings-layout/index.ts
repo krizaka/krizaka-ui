@@ -1,2 +1,2 @@
-/** @krizaka/ui/settings-layout — `SettingsLayout` and `SettingsSection`: sections on the side, forms as titled cards. Server-safe. */
-export { SettingsLayout, settingsLayout, type SettingsLayoutProps, type SettingsNavItem, SettingsSection, type SettingsSectionProps } from "./settings-layout";
+/** @krizaka/ui/settings-layout — `SettingsLayout`, `SettingsSection` and `SettingsRow`: sections on the side, forms as titled cards or flat rows. Server-safe. */
+export { SettingsLayout, settingsLayout, type SettingsLayoutProps, type SettingsNavItem, SettingsRow, type SettingsRowProps, SettingsSection, type SettingsSectionProps } from "./settings-layout";
