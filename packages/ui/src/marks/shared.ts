@@ -23,3 +23,18 @@ export const a11y = (title?: string) => (title ? { role: "img" as const, "aria-l
 
 /** `#rrggbb` + an opacity → `#rrggbbaa` (a brand colour in a CSS shadow). */
 export const withAlpha = (hex: string, opacity: number) => `${hex}${Math.round(opacity * 255).toString(16).padStart(2, "0")}`;
+
+/**
+ * The family's motion (web), for a mark whose classes start with `prefix`: `<prefix>-orbit` turns the dashed orbit and
+ * its node, `<prefix>-core` makes the lit core breathe (a shadow in the brand colour). Still under prefers-reduced-motion.
+ */
+export const familyMotion = (prefix: string, { spin, breath, color, low, high }: { spin: number; breath: number; color: string; low: number; high: number }) => `
+.${prefix}-orbit { transform-origin: 200px 200px; animation: ${prefix}-orbit ${spin}s linear infinite; }
+.${prefix}-core { transform-box: fill-box; transform-origin: center; animation: ${prefix}-core ${breath}s ease-in-out infinite; }
+@keyframes ${prefix}-orbit { to { transform: rotate(360deg); } }
+@keyframes ${prefix}-core {
+  0%, 100% { filter: drop-shadow(0 0 6px ${withAlpha(color, low)}); opacity: .92; }
+  50% { filter: drop-shadow(0 0 16px ${withAlpha(color, high)}); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .${prefix}-orbit, .${prefix}-core { animation: none; } }
+`;
