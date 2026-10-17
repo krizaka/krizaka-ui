@@ -482,7 +482,11 @@
         "no": "—",
         "onlyMobile": "Mobile seulement",
         "same": "Même API",
-        "count": "{both} composants sur les deux plateformes, {native} sur mobile seulement, {web} sur le web seulement."
+        "count": "{both} composants sur les deux plateformes, {native} sur mobile seulement, {web} sur le web seulement.",
+        "wall": {
+          "title": "Sur un téléphone",
+          "lead": "{count} histoires React Native à la largeur d’un téléphone — les écrans entiers d’abord, puis l’histoire la plus riche de chaque composant. Chacune est la capture de son histoire, refaite quand le code change ; ouvrez un composant pour son code."
+        }
       },
       "brand": {
         "intro": "Les huit marques de la famille Krizaka, depuis @krizaka/ui. Chacune est dessinée en code (aucune image à livrer), animée quand la page le permet, et immobile si le mouvement est réduit. Un changement de marque se fait dans krizaka-ui, est publié, puis adopté.",
