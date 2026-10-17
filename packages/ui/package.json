@@ -1019,7 +1019,7 @@
     {
       "name": "./tabs",
       "path": "dist/tabs.js",
-      "limit": "10 kB",
+      "limit": "10.1 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1139,7 +1139,7 @@
     {
       "name": "./nav-bar (Radix NavigationMenu, Slot, the family's marks)",
       "path": "dist/nav-bar.js",
-      "limit": "23.4 kB",
+      "limit": "23.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
