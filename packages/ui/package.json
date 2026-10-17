@@ -241,6 +241,14 @@
       "types": "./dist/marquee.d.ts",
       "import": "./dist/marquee.js"
     },
+    "./comparison-table": {
+      "types": "./dist/comparison-table.d.ts",
+      "import": "./dist/comparison-table.js"
+    },
+    "./step-showcase": {
+      "types": "./dist/step-showcase.d.ts",
+      "import": "./dist/step-showcase.js"
+    },
     "./showcase": {
       "types": "./dist/showcase.d.ts",
       "import": "./dist/showcase.js"
@@ -1208,6 +1216,26 @@
       "name": "./marquee",
       "path": "dist/marquee.js",
       "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./comparison-table",
+      "path": "dist/comparison-table.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./step-showcase",
+      "path": "dist/step-showcase.js",
+      "limit": "3.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
