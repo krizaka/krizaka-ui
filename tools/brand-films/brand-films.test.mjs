@@ -97,7 +97,7 @@ test("in each aspect, the bird in front stands on the ridge like the others, and
 test("captions are written as WebVTT, one cue per line said", () => {
   const en = vtt("en");
   assert.match(en, /^WEBVTT\n\ntitle\n00:00:00\.600 --> 00:00:03\.600\nThe world of Krizaka\.\n/);
-  assert.equal(en.match(/-->/g).length, FILM.cues.length);
+  assert.equal(en.split(" --" + "> ").length - 1, FILM.cues.length);
   assert.match(vtt("fr"), /Le monde de Krizaka\./);
 });
 
