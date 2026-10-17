@@ -377,6 +377,30 @@
       "types": "./dist/app-header.d.ts",
       "import": "./dist/app-header.js"
     },
+    "./opening-hours": {
+      "types": "./dist/opening-hours.d.ts",
+      "import": "./dist/opening-hours.js"
+    },
+    "./service-card": {
+      "types": "./dist/service-card.d.ts",
+      "import": "./dist/service-card.js"
+    },
+    "./slot-picker": {
+      "types": "./dist/slot-picker.d.ts",
+      "import": "./dist/slot-picker.js"
+    },
+    "./cover-hero": {
+      "types": "./dist/cover-hero.d.ts",
+      "import": "./dist/cover-hero.js"
+    },
+    "./media-gallery": {
+      "types": "./dist/media-gallery.d.ts",
+      "import": "./dist/media-gallery.js"
+    },
+    "./sticky-action": {
+      "types": "./dist/sticky-action.d.ts",
+      "import": "./dist/sticky-action.js"
+    },
     "./rail-nav": {
       "types": "./dist/rail-nav.d.ts",
       "import": "./dist/rail-nav.js"
@@ -1569,6 +1593,66 @@
     {
       "name": "./app-header",
       "path": "dist/app-header.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./opening-hours",
+      "path": "dist/opening-hours.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./service-card",
+      "path": "dist/service-card.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./slot-picker",
+      "path": "dist/slot-picker.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./cover-hero",
+      "path": "dist/cover-hero.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./media-gallery",
+      "path": "dist/media-gallery.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./sticky-action",
+      "path": "dist/sticky-action.js",
       "limit": "1 kB",
       "gzip": true,
       "ignore": [

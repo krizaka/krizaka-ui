@@ -55,6 +55,10 @@ export default defineConfig([
       "meta-row": "src/meta-row/index.ts",
       // The header beside a RailNav: the name as text, the mark below md (server-safe).
       "app-header": "src/app-header/index.ts",
+      // A shop's storefront: the service card and the weekly hours (server-safe).
+      "service-card": "src/service-card/index.ts",
+      "opening-hours": "src/opening-hours/index.ts",
+      "sticky-action": "src/sticky-action/index.ts",
       "verified-badge": "src/verified-badge/index.ts",
       "step-progress": "src/step-progress/index.ts",
       // The default avatars' pure helpers (defaultAvatarUrl…): callable in a Server Component, unlike "avatar" (client).
@@ -124,6 +128,11 @@ export default defineConfig([
       "app-shell": "src/app-shell/index.ts",
       // The compact rail (a bottom tab bar on a phone): its expand state, its arrow keys and its tooltips.
       "rail-nav": "src/rail-nav/index.ts",
+      // The next free times: the chosen day is its state.
+      "slot-picker": "src/slot-picker/index.ts",
+      // The shop's cover and its gallery: loops that stop under reduced motion.
+      "cover-hero": "src/cover-hero/index.ts",
+      "media-gallery": "src/media-gallery/index.ts",
       // The skip link moves focus to its target.
       "skip-link": "src/skip-link/index.ts",
     },
