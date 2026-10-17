@@ -93,10 +93,10 @@ describe("contrast (WCAG 2.x)", () => {
 
   for (const mode of ["dark", "light"] as const) {
     for (const bg of surfaces) {
-      it(`${mode}: text-primary and text-secondary ≥ 4.5:1, text-muted ≥ 3:1 on ${bg}`, () => {
+      it(`${mode}: text-primary and text-secondary ≥ 4.5:1, text-muted ≥ 4.5:1 on ${bg} (small text, WCAG AA)`, () => {
         expect(ratio("--kz-text-primary", bg, mode)).toBeGreaterThanOrEqual(4.5);
         expect(ratio("--kz-text-secondary", bg, mode)).toBeGreaterThanOrEqual(4.5);
-        expect(ratio("--kz-text-muted", bg, mode)).toBeGreaterThanOrEqual(3);
+        expect(ratio("--kz-text-muted", bg, mode)).toBeGreaterThanOrEqual(4.5);
       });
     }
     it(`${mode}: on-accent ≥ 4.5:1 on accent, accent-text ≥ 4.5:1 on every surface`, () => {
@@ -405,11 +405,13 @@ describe("brands", async () => {
         for (const fill of [b.accent, b.accentHover, b.accent2]) expect(contrast(on, parseHsl(fill)), fill).toBeGreaterThanOrEqual(4.5);
         for (const s of surfaces) expect(contrast(parseHsl(b.accentText), parseHsl(page[s])), s).toBeGreaterThanOrEqual(4.5);
         for (const s of surfaces) expect(contrast(parseHsl(b.infoText), parseHsl(page[s])), `info-text ${s}`).toBeGreaterThanOrEqual(4.5);
+        for (const s of surfaces) expect(contrast(parseHsl(page.textMuted), parseHsl(page[s])), `text-muted ${s}`).toBeGreaterThanOrEqual(4.5);
         expect(contrast(parseHsl(b.ring), parseHsl(page.surface0))).toBeGreaterThanOrEqual(3);
         // Text set on a section gradient reads at AA on every stop.
         for (const stop of [b.brandGradientFrom, b.brandGradientVia, b.brandGradientTo]) {
           expect(contrast(parseHsl(page.textPrimary), parseHsl(stop)), stop).toBeGreaterThanOrEqual(4.5);
           expect(contrast(parseHsl(page.textSecondary), parseHsl(stop)), stop).toBeGreaterThanOrEqual(4.5);
+          expect(contrast(parseHsl(page.textMuted), parseHsl(stop)), `muted ${stop}`).toBeGreaterThanOrEqual(4.5);
           expect(contrast(parseHsl(b.accentText), parseHsl(stop)), stop).toBeGreaterThanOrEqual(4.5);
         }
       });
