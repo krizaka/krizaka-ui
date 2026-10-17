@@ -27,6 +27,7 @@ export type CaptchaProps = {
   theme?: "auto" | "light" | "dark";
   /** Words to say otherwise; the rest comes from the locale. */
   labels?: Partial<CaptchaLabels>;
+  /** Classes added to the root. */
   className?: string;
 };
 
@@ -114,12 +115,15 @@ export function Captcha({ siteKey, onToken, locale = "en", theme = "auto", label
 }
 
 export type CaptchaDisclosureProps = {
+  /** The language of the line: `"en"`, `"fr"`… @default "en" */
   locale?: string;
+  /** Words to say otherwise; the rest comes from the locale. */
   labels?: Partial<CaptchaLabels>;
   /** @default Cloudflare's privacy policy */
   privacyHref?: string;
   /** @default Cloudflare's website terms */
   termsHref?: string;
+  /** Classes added to the root. */
   className?: string;
 };
 

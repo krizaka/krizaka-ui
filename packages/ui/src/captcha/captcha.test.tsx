@@ -42,7 +42,7 @@ describe("Captcha", () => {
     expect(onToken).toHaveBeenLastCalledWith("tok");
     act(() => calls[0]["expired-callback"]());
     expect(onToken).toHaveBeenLastCalledWith(null);
-    expect(container.querySelector("[data-captcha]").getAttribute("data-captcha")).toBe("idle");
+    expect(container.querySelector("[data-captcha]")?.getAttribute("data-captcha")).toBe("idle");
     expect(screen.getByRole("group", { name: captchaMessages.fr.group })).toBeTruthy();
   });
 
@@ -53,11 +53,11 @@ describe("Captcha", () => {
     const box = container.querySelector("[data-captcha] > div:last-child") as HTMLElement;
     expect(box.style.height).toBe("0px");
     act(() => calls[0]["before-interactive-callback"]());
-    expect(container.querySelector("[data-captcha]").getAttribute("data-captcha")).toBe("interactive");
+    expect(container.querySelector("[data-captcha]")?.getAttribute("data-captcha")).toBe("interactive");
     expect(box.className).toContain("rounded-lg");
     expect(box.style.height).toBe("");
     act(() => calls[0]["after-interactive-callback"]());
-    expect(container.querySelector("[data-captcha]").getAttribute("data-captcha")).toBe("idle");
+    expect(container.querySelector("[data-captcha]")?.getAttribute("data-captcha")).toBe("idle");
   });
 
   it("says an accessible error and retries", async () => {

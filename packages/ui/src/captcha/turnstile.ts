@@ -27,7 +27,12 @@ export function loadTurnstile(): Promise<TurnstileApi> {
       loading = null;
       reject(new Error("turnstile"));
     };
-    document.head.appendChild(s);
+    try {
+      document.head.appendChild(s);
+    } catch {
+      loading = null;
+      reject(new Error("turnstile"));
+    }
   });
   return loading;
 }
