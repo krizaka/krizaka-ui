@@ -43,7 +43,8 @@
       "import": "./dist/react.js"
     },
     "./contract/app-config.schema.json": "./contract/app-config.schema.json",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./contract/krizaka-app-config-schema.sql": "./contract/krizaka-app-config-schema.sql"
   },
   "files": [
     "dist",
@@ -91,7 +92,7 @@
     {
       "name": ".",
       "path": "dist/index.js",
-      "limit": "2.5 kB",
+      "limit": "2 kB",
       "gzip": true
     },
     {

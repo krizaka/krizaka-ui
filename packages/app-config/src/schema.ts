@@ -1,8 +1,12 @@
 /**
- * The tables of the contract, for a Next.js backend's own migration. The same DDL ships with the Java
- * building block (`krizaka-app-config-schema.sql`): one schema, whichever stack serves it.
+ * The tables of the contract, for a Next.js backend's own migration. The same DDL ships with the Java building block
+ * (`krizaka-app-config-schema.sql`, copied verbatim to `contract/` and checked by a test): one schema, whichever stack
+ * serves it. Version 1 is seeded permissive (no minimum, no maintenance, one contract).
  */
-export const schemaSql = `CREATE TABLE IF NOT EXISTS app_config (
+export const schemaSql = `-- krizaka-app-config: the parameters of the app-version contract, one row per platform.
+-- Version 1 is seeded here (permissive: no minimum, no maintenance, one contract); a product's own
+-- migration publishes its real values through the admin API, never by editing the row by hand.
+CREATE TABLE IF NOT EXISTS app_config (
     platform              VARCHAR(16)  PRIMARY KEY,
     min_supported_version VARCHAR(32)  NOT NULL DEFAULT '0.0.0',
     latest_version        VARCHAR(32)  NOT NULL DEFAULT '0.0.0',
@@ -22,6 +26,7 @@ export const schemaSql = `CREATE TABLE IF NOT EXISTS app_config (
     CONSTRAINT app_config_contract_range CHECK (contract_min >= 1 AND contract_max >= contract_min)
 );
 
+-- Every published revision, append-only: the audit trail and the source of a rollback.
 CREATE TABLE IF NOT EXISTS app_config_history (
     id                    BIGSERIAL    PRIMARY KEY,
     platform              VARCHAR(16)  NOT NULL,
@@ -46,4 +51,13 @@ CREATE TABLE IF NOT EXISTS app_config_history (
 INSERT INTO app_config (platform)
 VALUES ('ios'), ('android'), ('macos'), ('windows'), ('linux'), ('web')
 ON CONFLICT (platform) DO NOTHING;
+
+INSERT INTO app_config_history (platform, revision, min_supported_version, latest_version, update_override,
+                                store_url, maintenance_on, maintenance_message, message, contract_min,
+                                contract_max, contract_sunset, flags, reason, changed_by, changed_at)
+SELECT platform, revision, min_supported_version, latest_version, update_override, store_url, maintenance_on,
+       maintenance_message, message, contract_min, contract_max, contract_sunset, flags, 'seed', updated_by,
+       updated_at
+FROM app_config
+ON CONFLICT (platform, revision) DO NOTHING;
 `;

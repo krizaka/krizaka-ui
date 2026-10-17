@@ -165,9 +165,10 @@ describe("cachedStore", () => {
 });
 
 describe("schemaSql", () => {
-  it("is the tables of the contract", () => {
+  it("is the tables of the contract, verbatim the Java building block's", async () => {
+    const { readFileSync } = await import("node:fs");
+    expect(schemaSql).toBe(readFileSync(new URL("../contract/krizaka-app-config-schema.sql", import.meta.url), "utf8"));
     expect(schemaSql).toContain("CREATE TABLE IF NOT EXISTS app_config ");
     expect(schemaSql).toContain("CREATE TABLE IF NOT EXISTS app_config_history");
-    expect(schemaSql).toContain("min_supported_version");
   });
 });

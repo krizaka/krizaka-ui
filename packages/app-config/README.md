@@ -7,8 +7,8 @@ same fixture (`test/cases.json`) and sharing one JSON schema (`contract/app-conf
 
 | Entry | For |
 |:---|:---|
-| `@krizaka/app-config` | the contract, pure: versions, the payload, `evaluateGuard`, `validateRecord`, `schemaSql` |
-| `@krizaka/app-config/server` | Next.js backends: `createAppConfigHandler`, `checkClientVersion`, `withClientVersionGuard`, `cachedStore`, `memoryStore` |
+| `@krizaka/app-config` | the contract, pure: versions, the payload, `evaluateGuard`, `validateRecord` |
+| `@krizaka/app-config/server` | Next.js backends: `createAppConfigHandler`, `checkClientVersion`, `withClientVersionGuard`, `cachedStore`, `memoryStore`, `schemaSql` (the tables) |
 | `@krizaka/app-config/client` | apps: `createAppConfigClient` (launch + resume checks, soft dismissal, the global 426 interceptor `client.fetch`), `decide` |
 | `@krizaka/app-config/react` | `useAppConfig`, `appStateResume(AppState)`, `visibilityResume(document)` |
 

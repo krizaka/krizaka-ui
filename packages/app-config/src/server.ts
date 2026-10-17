@@ -148,7 +148,6 @@ export async function checkClientVersion(request: Request, { store, problemBase 
         "content-type": "application/problem+json",
         "cache-control": "no-store",
         upgrade: `krizaka-app/${payload.minSupportedVersion}`,
-        connection: "Upgrade",
       },
     },
   );
