@@ -213,6 +213,10 @@
           "title": "Push",
           "description": "Mobile notifications through the Expo Push Service: batching, receipts and dead tokens, with no dependency."
         },
+        "app-config": {
+          "title": "App config",
+          "description": "Version compatibility between apps and backends: minimum and latest version, soft and forced updates, maintenance, 426 Upgrade Required and N-1 contracts."
+        },
         "config": {
           "title": "Config",
           "description": "The ESLint, TypeScript and Prettier presets, and the ratchet that counts the UI debt of an app."
