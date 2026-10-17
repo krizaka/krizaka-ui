@@ -584,7 +584,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 @media (max-width: 1023px) {
   .kz-toc-layout { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .kz-toc-aside { position: static; padding-top: 0; margin-inline: calc(-1 * var(--kz-gutter, 16px)); }
-  .kz-toc { padding: 0 var(--kz-gutter, 16px) 4px; overflow-x: auto; scrollbar-width: none; }
+  .kz-toc { padding: 0 var(--kz-gutter, 16px) 4px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
   .kz-toc .kz-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .kz-toc ol { margin: 0; display: flex; gap: 8px; width: max-content; border: 0; }
   .kz-toc a { min-height: 36px; padding: 0 14px; border-radius: 999px; white-space: nowrap; background: var(--kz-surface-1); border: 1px solid var(--kz-border-default); }

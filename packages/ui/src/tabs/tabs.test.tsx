@@ -102,3 +102,29 @@ describe("Tabs", () => {
     expect(list.getAttribute("data-indicator")).toBe("on");
   });
 });
+
+describe("Tabs scroll container", () => {
+  // A scrolling list (pills on a phone) must never scroll vertically: with overflow-x set, overflow-y computes to auto,
+  // so a 1-2 px overhang (a focus ring, a border) draws a vertical scrollbar thumb at the end of the bar.
+  it("never scrolls vertically when it scrolls sideways", () => {
+    render(<Example variant="pills" />);
+    const list = screen.getByRole("tablist");
+    expect(list.className).toContain("overflow-x-auto");
+    expect(list.className).toContain("overflow-y-hidden");
+    expect(list.className).toContain("[&::-webkit-scrollbar]:hidden");
+    expect(list.className).toContain("[scrollbar-width:none]");
+  });
+
+  it("keeps the focus ring and the sliding light inside the list (padding, not overflow)", () => {
+    render(<Example variant="pills" />);
+    const list = screen.getByRole("tablist");
+    expect(list.className).toContain("py-1");
+    expect(list.className).toContain("-my-1");
+  });
+
+  it("does not scroll on the other variants", () => {
+    render(<Example variant="underline" />);
+    const list = screen.getByRole("tablist");
+    expect(list.className).not.toMatch(/overflow-(x-|y-)?auto/);
+  });
+});
