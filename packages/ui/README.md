@@ -216,6 +216,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/split-view` | `SplitView` (`listTitle`, `listActions`, `list`, `detailHead`, `detail`, `empty`, `showDetail`, `back`) | server |
 | `@krizaka/ui/marketing-layout` | `MarketingLayout` (`header`, `footer`, `skipLabel`) | server |
 | `@krizaka/ui/docs-layout` | `DocsLayout` (`sidebar`, `sidebarLabel`, `toc`) | server |
+| `@krizaka/ui/docs-nav` | `DocsNav` (`label`, `groups`, `current`) | server |
 | `@krizaka/ui/landing-page` | `LandingPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/product-page` | `ProductPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/how-it-works-page` | `HowItWorksPage` — a page template, see [Page templates](#page-templates) | server |
