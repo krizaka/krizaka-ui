@@ -213,6 +213,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/app-header` | `AppHeader` (`name`, `mark`, `href` or `homeLink`, `chips`, `actions`): the bar beside a `RailNav` — the name as text, the mark below `md` only (the rail carries it above), so one mark shows at every width | server |
 | `@krizaka/ui/dashboard-layout` | `DashboardLayout` (`title`, `eyebrow`, `description`, `actions`, `toolbar`, `headingAs`), `Widget` (`title`, `description`, `action`, `span` 1·2·3·full, `level`) | server |
 | `@krizaka/ui/settings-layout` | `SettingsLayout` (`title`, `description`, `nav`, `navLabel`, `linkAs`), `SettingsSection` (`title`, `description`, `footer`) | server |
+| `@krizaka/ui/account-menu` | `AccountMenu` (`label`, `name`, `email`, `avatar`, `links`, `language`, `signOut`) | client |
 | `@krizaka/ui/auth-layout` | `AuthLayout` (`brand`, `title`, `description`, `footer`, `legal`, `promise`, `aside`, `asideFooter`) | server |
 | `@krizaka/ui/detail-layout` | `DetailLayout` (`back`, `media`, `eyebrow`, `title`, `status`, `meta`, `actions`, `tabs`, `aside`) | server |
 | `@krizaka/ui/split-view` | `SplitView` (`listTitle`, `listActions`, `list`, `detailHead`, `detail`, `empty`, `showDetail`, `back`) | server |

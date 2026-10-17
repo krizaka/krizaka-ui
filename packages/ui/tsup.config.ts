@@ -79,6 +79,7 @@ export default defineConfig([
     entry: {
       "dashboard-layout": "src/dashboard-layout/index.ts",
       "settings-layout": "src/settings-layout/index.ts",
+      "account-menu": "src/account-menu/index.ts",
       "auth-layout": "src/auth-layout/index.ts",
       "detail-layout": "src/detail-layout/index.ts",
       "split-view": "src/split-view/index.ts",

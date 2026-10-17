@@ -437,6 +437,10 @@
       "types": "./dist/dashboard-layout.d.ts",
       "import": "./dist/dashboard-layout.js"
     },
+    "./account-menu": {
+      "types": "./dist/account-menu.d.ts",
+      "import": "./dist/account-menu.js"
+    },
     "./settings-layout": {
       "types": "./dist/settings-layout.d.ts",
       "import": "./dist/settings-layout.js"
@@ -1784,6 +1788,18 @@
       "ignore": [
         "tailwind-variants",
         "clsx"
+      ]
+    },
+    {
+      "name": "./account-menu",
+      "path": "dist/account-menu.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "radix-ui",
+        "react"
       ]
     },
     {

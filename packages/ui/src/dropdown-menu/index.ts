@@ -7,6 +7,9 @@ export {
   DropdownMenuItem,
   type DropdownMenuItemProps,
   DropdownMenuLabel,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   menu,
 } from "./dropdown-menu";

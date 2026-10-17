@@ -122,6 +122,7 @@ export type ComponentName =
   | "segmented"
   | "separator"
   | "settings-layout"
+  | "account-menu"
   | "showcase"
   | "step-showcase"
   | "site-footer"
