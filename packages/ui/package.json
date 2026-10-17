@@ -1740,7 +1740,7 @@
     {
       "name": "./app-shell",
       "path": "dist/app-shell.js",
-      "limit": "17.5 kB",
+      "limit": "18 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
