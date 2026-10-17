@@ -101,3 +101,20 @@ export const MenuLongText: Story = {
     expect(panel.getBoundingClientRect().width).toBeLessThanOrEqual(28 * 16 + 1);
   },
 };
+
+/** Three links or fewer (Akinaza's Product: Overview · How it works · The demo shop) stand in the bar: no hidden list. */
+export const MenuInline: Story = {
+  render: () => (
+    <NavBar.Root label="Principal" floating={false}>
+      <NavBar.Brand href="#home">Akinaza</NavBar.Brand>
+      <NavBar.Items>
+        <NavBar.Menu label="Produit">
+          <NavBar.MenuLink href="#overview" title="Vue d'ensemble" active />
+          <NavBar.MenuLink href="#how" title="Comment ça marche" />
+          <NavBar.MenuLink href="#shop" title="La boutique de démo" />
+        </NavBar.Menu>
+        <NavBar.Link href="#docs">Docs</NavBar.Link>
+      </NavBar.Items>
+    </NavBar.Root>
+  ),
+};
