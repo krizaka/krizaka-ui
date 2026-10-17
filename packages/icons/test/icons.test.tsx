@@ -15,7 +15,7 @@ describe("the set", () => {
   it("covers the product vocabulary and the usual navigation (40–80 icons)", () => {
     expect(names.length).toBeGreaterThanOrEqual(40);
     expect(names.length).toBeLessThanOrEqual(80);
-    for (const word of ["tip", "unlock", "paid", "auction", "challenge", "goal", "creator", "story", "story24h", "payout", "wallet", "share90", "lock", "follow", "message", "upload", "video", "chat", "ai", "agent", "studio", "pack", "automation", "knowledge", "shield", "local", "server", "billing", "credits", "theme", "search", "settings", "notification"]) {
+    for (const word of ["tip", "unlock", "paid", "auction", "challenge", "goal", "creator", "story", "story24h", "payout", "wallet", "share90", "lock", "follow", "message", "upload", "video", "chat", "ai", "agent", "studio", "pack", "automation", "knowledge", "shield", "local", "server", "billing", "credits", "theme", "search", "settings", "notification", "soccer", "hockey", "basketball", "trophy"]) {
       expect(names, word).toContain(word);
     }
   });
