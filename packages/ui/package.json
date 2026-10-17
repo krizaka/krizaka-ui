@@ -97,6 +97,10 @@
       "types": "./dist/theme.d.ts",
       "import": "./dist/theme.js"
     },
+    "./captcha": {
+      "types": "./dist/captcha.d.ts",
+      "import": "./dist/captcha.js"
+    },
     "./countdown": {
       "types": "./dist/countdown.d.ts",
       "import": "./dist/countdown.js"
@@ -814,6 +818,16 @@
       "name": "./theme",
       "path": "dist/theme.js",
       "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./captcha",
+      "path": "dist/captcha.js",
+      "limit": "3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

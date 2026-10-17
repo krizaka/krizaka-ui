@@ -21,6 +21,7 @@ export type ComponentName =
   | "avatar"
   | "badge"
   | "button"
+  | "captcha"
   | "card"
   | "card-grid"
   | "catalogue-page"

@@ -126,6 +126,7 @@ export default defineConfig([
       avatar: "src/avatar/index.ts",
       theme: "src/theme/index.ts",
       countdown: "src/countdown/index.ts",
+      captcha: "src/captcha/index.ts",
       dialog: "src/dialog/index.ts",
       toast: "src/toast/index.ts",
       popover: "src/popover/index.ts",
