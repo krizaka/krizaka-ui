@@ -21,9 +21,15 @@ export type CaptchaProps = {
   siteKey: string;
   /** The token once the check passes; `null` when it expires, fails or the theme redraws the widget. */
   onToken: (token: string | null) => void;
-  /** The language of the widget and of the words: `"en"`, `"fr"`… @default "en" */
+  /**
+   * The language of the widget and of the words: `"en"`, `"fr"`…
+   * @default "en"
+   */
   locale?: string;
-  /** `auto` follows the page (`html.light` / `data-theme`, redrawn when it flips). @default "auto" */
+  /**
+   * `auto` follows the page (`html.light` / `data-theme`, redrawn when it flips).
+   * @default "auto"
+   */
   theme?: "auto" | "light" | "dark";
   /** Words to say otherwise; the rest comes from the locale. */
   labels?: Partial<CaptchaLabels>;
@@ -115,13 +121,16 @@ export function Captcha({ siteKey, onToken, locale = "en", theme = "auto", label
 }
 
 export type CaptchaDisclosureProps = {
-  /** The language of the line: `"en"`, `"fr"`… @default "en" */
+  /**
+   * The language of the line: `"en"`, `"fr"`…
+   * @default "en"
+   */
   locale?: string;
   /** Words to say otherwise; the rest comes from the locale. */
   labels?: Partial<CaptchaLabels>;
-  /** @default Cloudflare's privacy policy */
+  /** The privacy link; Cloudflare's privacy policy by default. */
   privacyHref?: string;
-  /** @default Cloudflare's website terms */
+  /** The terms link; Cloudflare's website terms by default. */
   termsHref?: string;
   /** Classes added to the root. */
   className?: string;
