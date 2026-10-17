@@ -361,6 +361,14 @@
       "types": "./dist/meta-row.d.ts",
       "import": "./dist/meta-row.js"
     },
+    "./app-header": {
+      "types": "./dist/app-header.d.ts",
+      "import": "./dist/app-header.js"
+    },
+    "./rail-nav": {
+      "types": "./dist/rail-nav.d.ts",
+      "import": "./dist/rail-nav.js"
+    },
     "./activity-feed": {
       "types": "./dist/activity-feed.d.ts",
       "import": "./dist/activity-feed.js"
@@ -1510,6 +1518,27 @@
       "ignore": [
         "tailwind-variants",
         "clsx"
+      ]
+    },
+    {
+      "name": "./app-header",
+      "path": "dist/app-header.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./rail-nav",
+      "path": "dist/rail-nav.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "radix-ui"
       ]
     },
     {
