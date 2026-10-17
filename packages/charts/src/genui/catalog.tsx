@@ -12,6 +12,7 @@ import { AreaChart, LineChart } from "../line/line-chart";
 import { PieChart } from "../pie/pie-chart";
 
 /** The most rows a generated chart draws (a year of days). */
+// @fixed: a safety bound of the renderer against an oversized model answer (one leap year of daily points), not a business parameter
 export const GENUI_CHART_ROWS = 366;
 const KINDS = ["line", "bar", "area", "pie"] as const;
 const first = (...problems: (string | null)[]) => problems.find((p) => p !== null) ?? null;
