@@ -596,8 +596,8 @@
   },
   "landing": {
     "eyebrow": "Krizaka UI · open source",
-    "title": "One kit of accessible components, for the web and React Native.",
-    "lead": "Tokens, fonts, icons, charts and 150+ components, themed by values — every Krizaka product is built with it, and every page here is generated from its code.",
+    "title": "The kit behind every Krizaka product.",
+    "lead": "Orazaka, Orochia and Yomizaka are built with these {count} components. Pick one below: both screens re-skin from one set of tokens — nothing else changes.",
     "install": "Install",
     "copy": "Copy",
     "copied": "Copied",
@@ -609,70 +609,270 @@
       "packages": "packages on npm",
       "version": "@krizaka/ui"
     },
-    "showcase": {
-      "title": "Live, in context",
-      "lead": "Real components from the package, rendered by this page. Switch the identity: the components stay, the brand changes.",
-      "identity": "Identity",
-      "stage": "Krizaka UI components in the {brand} identity",
-      "open": "Open {name}",
-      "wearing": "Wearing",
-      "copyCode": "Copy the code of {name}",
-      "code": "Code",
-      "copied": "Copied"
-    },
-    "tiles": {
-      "plans": "Plans and pricing",
-      "chat": "A conversation",
-      "signUp": "A form that validates",
-      "video": "A vertical clip",
-      "jobs": "A data table",
-      "chart": "Earnings over time",
-      "stepper": "A job, step by step"
-    },
-    "find": {
-      "title": "Find your way",
-      "lead": "Each place answers one moment of building a product."
-    },
-    "places": {
-      "start": {
-        "title": "Get started",
-        "text": "Install the packages and wear a product's identity."
-      },
-      "foundations": {
-        "title": "Foundations",
-        "text": "Tokens, typography, icons, motion and the brand marks."
-      },
-      "components": {
-        "title": "Components",
-        "text": "The catalogue, by the job each component does, with filters."
-      },
-      "patterns": {
-        "title": "Patterns",
-        "text": "Page blocks and screen layouts, when one component is not enough."
-      },
-      "templates": {
-        "title": "Templates",
-        "text": "Whole pages, grouped by what the person must do."
-      },
-      "mobile": {
-        "title": "Mobile",
-        "text": "What runs in React Native, and how it differs from the web."
-      },
-      "tooling": {
-        "title": "Tooling",
-        "text": "The packages without pixels: Tailwind, i18n, intl, query, realtime, push."
-      }
-    },
     "packages": {
       "title": "Where the pieces live",
       "source": "Source and release notes on GitHub"
     },
-    "chart": {
-      "title": "Earnings, last 6 months",
-      "description": "Video sales, before fees",
-      "month": "Month",
-      "series": "Video sales",
-      "threshold": "Payout threshold"
+    "dock": {
+      "label": "Wear an identity",
+      "taglines": {
+        "orazaka": "Sovereign AI",
+        "orochia": "Creator video",
+        "yomizaka": "Documents",
+        "krizaka": "The default"
+      },
+      "browse": "Browse {count} components"
+    },
+    "scene": {
+      "label": "{name}, built with Krizaka UI",
+      "window": "{name} on the web",
+      "phone": "{name} on a phone",
+      "parts": "The same AppShell, Stat, LineChart and DataTable on the web; Chat, VerticalVideo and DocumentViewer on the phone.",
+      "menu": "Open the menu",
+      "close": "Close the menu",
+      "collapse": "Collapse",
+      "expand": "Expand",
+      "products": {
+        "orazaka": {
+          "nav": [
+            "Chat",
+            "Studios",
+            "Jobs",
+            "Packs",
+            "Models"
+          ],
+          "title": "Jobs",
+          "sub": "Everything your packs ran today",
+          "action": "New job",
+          "stats": [
+            {
+              "label": "Runs today",
+              "hint": "+12 % on yesterday"
+            },
+            {
+              "label": "GPU minutes",
+              "hint": "on demand"
+            },
+            {
+              "label": "Spend",
+              "hint": "of $5.00 a day"
+            }
+          ],
+          "chart": {
+            "title": "Runs per hour",
+            "description": "Today, every pack",
+            "x": "Hour",
+            "series": "Runs"
+          },
+          "table": {
+            "caption": "Recent jobs",
+            "name": "Job",
+            "detail": "Model",
+            "status": "Status",
+            "rows": [
+              "Podcast transcript",
+              "Catalogue summaries",
+              "Trailer voice-over"
+            ],
+            "states": [
+              "Running",
+              "Done",
+              "Failed"
+            ]
+          },
+          "phone": {
+            "messages": [
+              "Summarise the three supplier contracts and flag anything unusual.",
+              "Two are standard. The third renews itself unless you cancel 90 days before its term.",
+              "Draft the cancellation letter, in French and English.",
+              "Here it is — both versions, ready to sign."
+            ],
+            "typing": "Orazaka is writing",
+            "placeholder": "Message",
+            "send": "Send"
+          }
+        },
+        "orochia": {
+          "nav": [
+            "Home",
+            "Studio",
+            "Earnings",
+            "Auctions",
+            "Settings"
+          ],
+          "title": "Earnings",
+          "sub": "Last 6 months, before fees",
+          "action": "New video",
+          "stats": [
+            {
+              "label": "Earnings",
+              "hint": "+24 %"
+            },
+            {
+              "label": "Supporters",
+              "hint": "+9 this week"
+            },
+            {
+              "label": "Views",
+              "hint": "+3.1K"
+            }
+          ],
+          "chart": {
+            "title": "Video sales",
+            "description": "Per month, before fees",
+            "x": "Month",
+            "series": "Sales"
+          },
+          "table": {
+            "caption": "Recent videos",
+            "name": "Video",
+            "detail": "Sales",
+            "status": "Status",
+            "rows": [
+              "Night shoot, part 2",
+              "Rooftop at dawn",
+              "Studio session"
+            ],
+            "states": [
+              "Live",
+              "Paid",
+              "Draft"
+            ]
+          },
+          "phone": {
+            "title": "Video: Night shoot, part 2",
+            "caption": "The rooftop, the rain, the last take at dawn.",
+            "disclosure": "AI-generated",
+            "verified": "Verified",
+            "credit": "Original sound — Camille",
+            "tip": "Tip"
+          }
+        },
+        "yomizaka": {
+          "nav": [
+            "Inbox",
+            "Documents",
+            "Checks",
+            "Rules",
+            "Settings"
+          ],
+          "title": "Documents",
+          "sub": "Read by Orazaka, checked against your rules",
+          "action": "Upload",
+          "stats": [
+            {
+              "label": "Checked today",
+              "hint": "38 s each"
+            },
+            {
+              "label": "Need a look",
+              "hint": "flags to review"
+            },
+            {
+              "label": "Rules",
+              "hint": "Québec leases"
+            }
+          ],
+          "chart": {
+            "title": "Documents per day",
+            "description": "Checked, this week",
+            "x": "Day",
+            "series": "Documents"
+          },
+          "table": {
+            "caption": "Recent documents",
+            "name": "Document",
+            "detail": "Kind",
+            "status": "Verdict",
+            "rows": [
+              "Lease, Plateau 2027",
+              "Supplier contract",
+              "Invoice 0912"
+            ],
+            "states": [
+              "2 flags",
+              "Clean",
+              "Clean"
+            ]
+          },
+          "phone": {
+            "title": "Lease, Plateau 2027",
+            "highlights": [
+              "Rent increase",
+              "Deposit"
+            ]
+          }
+        },
+        "krizaka": {
+          "nav": [
+            "Overview",
+            "Projects",
+            "Members",
+            "Billing",
+            "Settings"
+          ],
+          "title": "Overview",
+          "sub": "Your workspace at a glance",
+          "action": "Invite",
+          "stats": [
+            {
+              "label": "Projects",
+              "hint": "+2 this month"
+            },
+            {
+              "label": "Members",
+              "hint": "3 admins"
+            },
+            {
+              "label": "Uptime",
+              "hint": "last 30 days"
+            }
+          ],
+          "chart": {
+            "title": "Requests",
+            "description": "Per day, every service",
+            "x": "Day",
+            "series": "Requests"
+          },
+          "table": {
+            "caption": "Services",
+            "name": "Service",
+            "detail": "Environment",
+            "status": "Health",
+            "rows": [
+              "Payments API",
+              "Media worker",
+              "Search index"
+            ],
+            "states": [
+              "Healthy",
+              "Deploying",
+              "Degraded"
+            ]
+          },
+          "phone": {
+            "messages": [
+              "The media worker is deploying to staging.",
+              "Good — ping me when the search index is back.",
+              "It is degraded, not down: reads still answer.",
+              "Thanks, I will watch it."
+            ],
+            "typing": "Noah is writing",
+            "placeholder": "Message",
+            "send": "Send"
+          }
+        }
+      }
+    },
+    "play": {
+      "title": "Play with the real components",
+      "lead": "Pick one, change its props, wear an identity, see it on iOS and Android. The code under it is what you paste.",
+      "pick": "Component"
+    },
+    "families": {
+      "title": "Browse the kit",
+      "lead": "Every family, drawn by its own components.",
+      "all": "All {count} components"
     }
   }
 }
