@@ -19,6 +19,8 @@ export const twMergeConfig: TWMergeConfig = {
   },
 };
 
+const mergeConfig = { twMergeConfig };
+
 /**
  * Merges Tailwind classes: the last one wins — a product's `className` overrides the primitive's. The merge engine is
  * tailwind-merge as tailwind-variants ships it (the one `tv` uses), so the platform carries a single copy of it.
@@ -27,5 +29,6 @@ export const twMergeConfig: TWMergeConfig = {
  * install of the packed package.
  */
 export function cn(...inputs: ClassValue[]): string {
-  return cnMerge(clsx(inputs))({ twMergeConfig }) ?? "";
+  return cnMerge(clsx(inputs))(mergeConfig) ?? "";
 }
+
