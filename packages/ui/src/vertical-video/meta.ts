@@ -20,6 +20,7 @@ export const meta = {
     "Counts are compact in the viewer's `locale` (12.4K): pass numbers, not strings.",
     "In a `ShortFeed`, pass `active` and `preload` from `renderItem`: the one in view plays, the next preloads, the rest pause and stay unmounted.",
     "Put product actions in slots, never a fork: a tip, an unlock, a report.",
+    "In a box that has its own size (a bento tile, a grid cell), pass `fit=\"fill\"`: the clip covers the box edge to edge, never a small 9:16 floating in it.",
   ],
   accessibility: {
     keyboard: [

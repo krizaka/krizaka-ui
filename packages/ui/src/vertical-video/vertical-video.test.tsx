@@ -27,6 +27,28 @@ describe("VerticalVideo", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
+  it("frames itself 9:16 by default; with fit=\"fill\" it fills the box it is given (no aspect of its own, the clip covers it)", () => {
+    const { rerender } = render(clip());
+    expect(screen.getByRole("article").className).toContain("aspect-[9/16]");
+    rerender(clip({ fit: "fill" }));
+    const article = screen.getByRole("article");
+    expect(article.className).not.toContain("aspect-[9/16]");
+    expect(article.className).toMatch(/\bh-full\b/);
+    expect(article.className).toMatch(/\bw-full\b/);
+    expect(article.dataset.fit).toBe("fill");
+    expect(document.querySelector("video")!.className).toContain("object-cover");
+  });
+
+  it("keeps the caption clear of the rail: the name line wraps, the disclosure never runs under the counts", () => {
+    render(clip({ disclosure: "AI-generated", shares: 95 }));
+    const name = screen.getByText("AI-generated").parentElement!;
+    expect(name.className).toContain("flex-wrap");
+    const block = name.parentElement!;
+    // The rail is 44 px wide at right-2 (8 px): the caption block stops at least 64 px from the right edge.
+    expect(block.className).toMatch(/\bright-(16|20)\b/);
+    expect(block.className).toContain("min-w-0");
+  });
+
   it("plays when active and pauses when it leaves the screen", () => {
     const { rerender } = render(clip({ active: true }));
     expect(play).toHaveBeenCalled();

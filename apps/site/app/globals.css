@@ -611,7 +611,7 @@ html:not([data-motion="ready"]) :is(main > header, main > section:first-of-type)
       z-index: 60;
       height: 2px;
       pointer-events: none;
-      background: linear-gradient(90deg, var(--kz-accent), var(--kz-accent-2, var(--kz-accent)));
+      background: linear-gradient(90deg, var(--kz-accent), var(--kz-accent-2));
       transform-origin: 0 50%;
       transform: scaleX(0);
       animation: kz-read linear both;
@@ -755,7 +755,7 @@ html.light .kz-hero-strip .kz-shot-light { display: block; }
 /* ═══════════════════════════════════════════════════════════════════
    The home of ui.krizaka.com (app/components/landing/Landing.tsx): hero, the live showcase, the ways in, the packages
    ═══════════════════════════════════════════════════════════════════ */
-.kz-land { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(48px, 7vw, 88px); padding-block: 8px 24px; min-width: 0; }
+.kz-land { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(40px, 5vw, 64px); padding-block: 8px 24px; min-width: 0; }
 .kz-land > *, .kz-land-hero > *, .kz-land-section > * { min-width: 0; }
 .kz-land-hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; max-width: 54rem; }
 .kz-land-eyebrow { margin: 0; font-family: var(--kz-font-mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--kz-accent-text); }
@@ -774,15 +774,48 @@ html.light .kz-hero-strip .kz-shot-light { display: block; }
 .kz-land-section h2 { margin: 0; font-family: var(--kz-font-display); font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 800; letter-spacing: -.02em; color: var(--kz-text-primary); }
 .kz-land-sub { margin: 0; max-width: 44rem; font-size: 15px; line-height: 1.6; color: var(--kz-text-secondary); }
 .kz-land-sub a { color: var(--kz-accent-text); font-weight: 600; text-decoration: none; }
-.kz-land-identities { flex-wrap: wrap; margin-top: 4px; }
+/* The showcase — « Live, in context ». A studio: the identity switch is its toolbar (sticky while the tiles scroll by),
+   the bento its floor. The bento is laid out on the width it is given (a container query, not the screen: the docs
+   sidebar takes its share), every tile's height follows its content (no fixed heights, no fade-out mask: nothing is
+   cut), and the vertical clip fills its tile edge to edge (`fit="fill"`). Checked in a browser by
+   scripts/home-geometry.mjs. */
+@property --kz-land-aura { syntax: "<color>"; inherits: true; initial-value: transparent; }
+.kz-land-studio { position: relative; display: grid; gap: 14px; margin-top: 6px; container-type: inline-size; container-name: kz-studio;
+  --kz-land-aura: color-mix(in oklab, var(--kz-accent) 22%, transparent); transition: --kz-land-aura .7s ease; }
+/* The brand's light behind the floor: it changes colour with the identity (a registered colour, so it fades). */
+.kz-land-studio::before { content: ""; position: absolute; inset: 40px -4% -40px; z-index: -1; pointer-events: none;
+  background: radial-gradient(60% 50% at 30% 18%, var(--kz-land-aura), transparent 70%), radial-gradient(45% 40% at 85% 60%, color-mix(in oklab, var(--kz-land-aura) 70%, transparent), transparent 70%);
+  filter: blur(8px); }
 
-/* The showcase: a balanced grid, every tile the same surface and padding, its example cropped to the tile. */
-.kz-land-bento { display: grid; gap: 14px; margin-top: 6px; padding: 14px; border-radius: 24px; border: 1px solid var(--kz-border-subtle);
-  background: linear-gradient(180deg, var(--kz-brand-gradient-from, var(--kz-surface-1)), var(--kz-surface-0)); transition: background-color .3s;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-areas: "plans plans chat video" "form stepper chat video" "table table chart chart"; }
-.kz-land-tile { margin: 0; min-width: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; border-radius: 18px; border: 1px solid var(--kz-border-default);
-  background: var(--kz-surface-1); overflow: hidden; }
+/* The toolbar: what is worn (mark, name, the two accents, the class that carries them), then the identities. */
+.kz-land-switch { position: sticky; top: calc(var(--kz-docs-top) - 6px); z-index: 5; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px;
+  padding: 10px 12px 10px 14px; border-radius: 18px; border: 1px solid var(--kz-border-default);
+  background: color-mix(in oklab, var(--kz-surface-1) 82%, transparent); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--kz-accent) 30%, transparent) inset, 0 12px 32px -18px rgb(0 0 0 / .45); }
+.kz-land-now { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.kz-land-now-mark { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; flex: none;
+  background: color-mix(in oklab, var(--kz-accent) 14%, var(--kz-surface-2)); border: 1px solid color-mix(in oklab, var(--kz-accent) 35%, transparent); }
+.kz-land-now-text { display: grid; gap: 3px; line-height: 1.1; min-width: 9.5rem; }
+.kz-land-now-label { font-family: var(--kz-font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--kz-text-muted); }
+.kz-land-now-text strong { font-family: var(--kz-font-display); font-size: 20px; font-weight: 800; letter-spacing: -.02em; color: var(--kz-text-primary); }
+.kz-land-now-swatches { display: flex; }
+.kz-land-now-swatches i { width: 18px; height: 18px; border-radius: 999px; border: 2px solid var(--kz-surface-1); background: var(--kz-accent); transition: background-color .5s; }
+.kz-land-now-swatches i + i { margin-left: -6px; background: var(--kz-accent-2); }
+.kz-land-now-label code { font: inherit; text-transform: none; letter-spacing: 0; color: var(--kz-accent-text); background: none; padding: 0; white-space: nowrap; }
+.kz-land-identities { flex-wrap: wrap; flex: 1 1 24rem; min-width: 0; }
+/* Beside the readout, the eight identities in two even rows of four (one row when there is room), aligned to the end. */
+@container kz-studio (min-width: 560px) {
+  .kz-land-switch .kz-land-identities { display: grid; grid-template-columns: repeat(4, max-content); justify-content: end; }
+}
+@container kz-studio (min-width: 1180px) { .kz-land-switch .kz-land-identities { grid-template-columns: repeat(8, max-content); } }
+
+/* The floor. */
+.kz-land-bento { position: relative; display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "plans" "video" "chat" "stepper" "form" "chart" "table"; }
+.kz-land-tile { position: relative; margin: 0; min-width: 0; container: kz-tile / inline-size; display: grid; grid-template-rows: minmax(0, 1fr) auto; border-radius: 18px;
+  border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); overflow: hidden;
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--kz-text-primary) 6%, transparent) inset; transition: border-color .2s; }
+.kz-land-tile:hover { border-color: var(--kz-border-strong); }
 .kz-land-tile[data-area="plans"] { grid-area: plans; }
 .kz-land-tile[data-area="chat"] { grid-area: chat; }
 .kz-land-tile[data-area="video"] { grid-area: video; }
@@ -790,42 +823,72 @@ html.light .kz-hero-strip .kz-shot-light { display: block; }
 .kz-land-tile[data-area="stepper"] { grid-area: stepper; }
 .kz-land-tile[data-area="table"] { grid-area: table; }
 .kz-land-tile[data-area="chart"] { grid-area: chart; }
-.kz-land-stage { position: relative; min-height: 0; height: var(--kz-land-h, 300px); overflow: hidden; padding: 18px; display: grid; place-items: start center;
-  -webkit-mask-image: linear-gradient(180deg, #000 82%, transparent); mask-image: linear-gradient(180deg, #000 82%, transparent); }
-.kz-land-stage > * { width: 100%; max-width: 100%; }
-.kz-land-tile[data-area="plans"], .kz-land-tile[data-area="form"], .kz-land-tile[data-area="stepper"] { --kz-land-h: 300px; }
-.kz-land-tile[data-area="chat"], .kz-land-tile[data-area="video"] { --kz-land-h: 100%; }
-/* The clip is the tile: full bleed, edge to edge, like the screen of a phone — no small player floating on a wash. */
-.kz-land-tile[data-area="video"] { background: var(--kz-surface-0); }
-.kz-land-tile[data-area="video"] .kz-land-stage { padding: 0; display: block; -webkit-mask-image: none; mask-image: none; }
-.kz-land-tile[data-area="video"] .kz-land-stage > * { width: 100%; max-width: none; height: 100%; }
-.kz-land-tile[data-area="video"] .kz-land-stage > * > * { width: 100%; height: 100%; aspect-ratio: auto; }
-/* The chat is the tile too: one frame (the tile's), the thread anchored at the bottom above the composer, never faded out. */
-.kz-land-tile[data-area="chat"] .kz-land-stage { padding: 0; display: block; -webkit-mask-image: none; mask-image: none; }
-.kz-land-tile[data-area="chat"] .kz-land-stage > * { max-width: none; height: 100%; border: 0; border-radius: 0; background: transparent; }
-.kz-land-tile[data-area="chat"] .kz-land-stage > * > :first-child { flex: 1 1 auto; justify-content: flex-end; gap: 6px; padding: 18px 16px 12px; overflow: hidden;
+.kz-land-stage { position: relative; min-width: 0; padding: 20px; display: grid; align-content: center; justify-items: center; }
+.kz-land-stage > * { width: 100%; max-width: 100%; min-width: 0; }
+.kz-land-tile[data-area="form"] .kz-land-stage > * { max-width: 22rem; }
+/* The conversation is the tile: one frame (the tile's, no card in a card), the thread on the composer, a hint of the
+   brand's light behind it. */
+.kz-land-tile[data-area="chat"] .kz-land-stage { align-content: stretch; padding: 0; }
+.kz-land-tile[data-area="chat"] .kz-land-stage > * { max-width: none; border: 0; border-radius: 0; background: transparent; }
+.kz-land-tile[data-area="chat"] .kz-land-stage > * > :first-child { gap: 6px; padding: 18px 16px 12px;
   background: radial-gradient(120% 60% at 100% 100%, color-mix(in oklab, var(--kz-accent) 10%, transparent), transparent 70%); }
 .kz-land-tile[data-area="chat"] .kz-land-stage > * > :last-child { border-top: 1px solid var(--kz-border-subtle); }
-.kz-land-tile[data-area="chart"] .kz-land-stage { -webkit-mask-image: none; mask-image: none; }
-.kz-land-tile[data-area="table"] { --kz-land-h: 380px; }
-.kz-land-tile[data-area="chart"] { --kz-land-h: auto; }
-.kz-land-tile figcaption { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; padding: 12px 18px;
-  border-top: 1px solid var(--kz-border-subtle); font-size: 13px; color: var(--kz-text-secondary); }
-.kz-land-tile[data-area="video"] figcaption { border-top-color: transparent; background: var(--kz-surface-1); }
-.kz-land-tile figcaption a { font-weight: 700; color: var(--kz-text-primary); text-decoration: none; }
-.kz-land-tile figcaption a:hover { color: var(--kz-accent-text); }
-@media (max-width: 1100px) {
-  .kz-land-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "plans plans" "chat video" "form stepper" "table table" "chart chart"; }
-  .kz-land-tile[data-area="chat"], .kz-land-tile[data-area="video"] { --kz-land-h: 560px; }
-  .kz-land-tile[data-area="table"] { --kz-land-h: 320px; }
+/* The clip: the tile is its frame. On one column it is 9:16; beside other tiles it takes the height of its row(s). */
+.kz-land-tile[data-area="video"] .kz-land-stage { padding: 0; aspect-ratio: 9 / 16; background: var(--kz-surface-0); }
+.kz-land-tile[data-area="video"] .kz-land-stage > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+.kz-land-tile figcaption { display: flex; align-items: center; justify-content: space-between; gap: 8px 12px; padding: 10px 10px 10px 18px;
+  border-top: 1px solid var(--kz-border-subtle); font-size: 13px; color: var(--kz-text-secondary); min-width: 0; }
+.kz-land-tile-what { display: flex; align-items: baseline; gap: 10px; min-width: 0; white-space: nowrap; }
+/* A narrow tile keeps its caption on one line: the component's name and its code, the description goes. */
+@container kz-tile (max-width: 359px) { .kz-land-tile-what > span { display: none; } }
+.kz-land-tile-what a { font-weight: 700; color: var(--kz-text-primary); text-decoration: none; }
+.kz-land-tile-what a::after { content: " →"; color: var(--kz-accent-text); }
+.kz-land-tile-what a:hover { color: var(--kz-accent-text); }
+.kz-land-copy { flex: none; color: var(--kz-text-secondary); }
+.kz-land-copy[data-copied] { color: var(--kz-success-text); }
+
+/* Two columns: the plans across, the clip standing beside the conversation and the job. */
+@container kz-studio (min-width: 560px) {
+  .kz-land-bento { grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-areas: "plans plans plans plans plans plans" "video video video chat chat chat" "video video video stepper stepper stepper"
+      "chart chart chart chart chart chart" "form form form table table table"; }
+  .kz-land-tile[data-area="video"] .kz-land-stage { aspect-ratio: auto; min-height: 420px; }
 }
-@media (max-width: 640px) {
-  .kz-land-bento { grid-template-columns: minmax(0, 1fr); grid-template-areas: "plans" "chat" "video" "form" "stepper" "table" "chart"; padding: 10px; }
-  .kz-land-stage { padding: 14px; }
-  .kz-land-tile[data-area="chat"] { --kz-land-h: 480px; }
-  .kz-land-tile[data-area="video"] { --kz-land-h: 600px; }
+/* The full floor, in two columns of 8 and 4: on the left the wide things (the plans, the conversation and the job, the
+   chart, the data table), on the right the tall ones that a phone shows (the clip over the first two rows, the sign-up
+   form over the last two). */
+@container kz-studio (min-width: 880px) {
+  .kz-land-bento { grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-areas:
+      "plans plans plans plans plans plans plans plans video video video video"
+      "chat chat chat chat stepper stepper stepper stepper video video video video"
+      "chart chart chart chart chart chart chart chart form form form form"
+      "table table table table table table table table form form form form"; }
+  .kz-land-tile[data-area="video"] .kz-land-stage { min-height: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .kz-land-bento { transition: none; } }
+@container kz-studio (max-width: 559px) {
+  .kz-land-switch { position: relative; top: auto; }
+  .kz-land-now { flex: 1 1 100%; }
+  .kz-land-stage { padding: 16px; }
+}
+
+/* The switch: the new colours roll across the tiles in reading order, one band of the brand's light crosses the floor. */
+.kz-land-studio[data-switching] .kz-land-tile, .kz-land-studio[data-switching] .kz-land-tile * {
+  transition: color .45s ease, background-color .45s ease, border-color .45s ease, fill .45s ease, stroke .45s ease, box-shadow .45s ease;
+  transition-delay: calc(var(--i, 0) * 70ms); }
+.kz-land-sweep { position: absolute; inset: -8px; z-index: 4; pointer-events: none; border-radius: 22px;
+  background: linear-gradient(100deg, transparent 35%, color-mix(in oklab, var(--kz-accent) 22%, transparent) 48%, color-mix(in oklab, var(--kz-accent-2) 18%, transparent) 54%, transparent 66%);
+  background-size: 300% 100%; background-position: 100% 0; mix-blend-mode: screen; animation: kz-land-sweep .95s cubic-bezier(.2, .7, .2, 1) forwards; }
+html.light .kz-land-sweep { mix-blend-mode: multiply; opacity: .55; }
+@keyframes kz-land-sweep { from { background-position: 100% 0; opacity: 1; } to { background-position: 0 0; opacity: 0; } }
+.kz-land-now-mark { animation: kz-land-now .5s cubic-bezier(.2, .7, .2, 1); }
+@keyframes kz-land-now { from { transform: scale(.7) rotate(-12deg); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .kz-land-studio, .kz-land-now-swatches i { transition: none; }
+  .kz-land-studio[data-switching] .kz-land-tile, .kz-land-studio[data-switching] .kz-land-tile * { transition: none; }
+  .kz-land-sweep { display: none; }
+  .kz-land-now-mark { animation: none; }
+}
 
 .kz-land-packages { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); gap: 8px 28px; }
 .kz-land-packages li { display: grid; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--kz-border-subtle); font-size: 13.5px; color: var(--kz-text-secondary); }
