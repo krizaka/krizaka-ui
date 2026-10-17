@@ -243,6 +243,12 @@ export default defineConfig([
     entry: { "form/server": "src/form/server.ts" },
   },
   {
+    // Server — the language helpers (`languagesFor`, `languageHref`, `languageNames`): pure functions, usable in a Server Component
+    // (`@krizaka/ui/language-switch` is a client module: its banner would make them unimportable there).
+    ...shared,
+    entry: { "language-switch/server": "src/language-switch/server.ts" },
+  },
+  {
     // The storytelling kit (story.css) without a hook: usable in a Server Component as it is.
     ...shared,
     entry: {
