@@ -7,6 +7,7 @@ changes in the films at the next render.
 | What | Where it is used |
 | :--- | :--- |
 | **One loop per bird** (8 s, seamless): idle life (breathe, blink, ruffle) + its promise as a gesture | ui.krizaka.com's brand page; a product's page where its bird appears |
+| **Home ambient** (12 s, seamless, 16:9 + 4:5, dark + light, no text, 60–140 kB): the five idling on the valley, one small gesture each in turn, a light sweep — the valley's own loops held still | krizaka.com's home hero backdrop (`AmbientLoop`, poster first, only on screen, still under reduced motion / Save-Data) |
 | **« Le monde de Krizaka »** (44 s, 16:9 and 9:16): the flock on krizaka.com's hero scene, each bird stepping forward with its promise, the end on the Krizaka mark | krizaka.com `/story` (site cut, captions as WebVTT), social cuts (captions burned in, EN and FR) |
 
 ## The cast in the code
@@ -40,6 +41,7 @@ node tools/brand-films/render.mjs --out /tmp/films --only stills
 # Everything (heavy: take the Mac's heavy-task lock first)
 node tools/brand-films/render.mjs --out /tmp/films --music /tmp/films/bed.wav
 node tools/brand-films/render.mjs --out /tmp/films --only loops --birds owl,duck   # some loops only
+node tools/brand-films/render.mjs --out /tmp/films --only ambient                # the home's backdrop (`ambient-stills` to look first)
 ```
 
 Needs ffmpeg (libx264, libvpx-vp9, libopus) and Playwright's Chromium (the version `apps/storybook` pins). Each stage is
@@ -55,6 +57,7 @@ loops/<bird>-alpha.{webm,png}                                 transparent VP9 (7
 film/le-monde-de-krizaka-{16x9,9x16}.{mp4,webm,jpg}          site cut: no burned captions, music
 film/le-monde-de-krizaka-{16x9,9x16}-{en,fr}.mp4              social cuts: captions burned in
 film/le-monde-de-krizaka-{en,fr}.vtt · film/cues.json         the captions
+ambient/home-ambient-{16x9,4x5}-{dark,light}.{webm,mp4,jpg}   the home's backdrop (1280×720, 720×900)
 render-report.json                                            the @krizaka/ui version, timings, sizes
 ```
 

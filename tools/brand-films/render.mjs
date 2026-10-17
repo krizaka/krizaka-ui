@@ -24,8 +24,8 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { birdLoops, LOOP, LOOP_BIRDS } from "./choreography.mjs";
-import { FILM, vtt } from "./film.mjs";
-import { captionHtml, filmHtml, loadKit, loopBackgroundHtml, loopLayerHtml } from "./stage.mjs";
+import { AMBIENT, FILM, vtt } from "./film.mjs";
+import { ambientHtml, captionHtml, filmHtml, loadKit, loopBackgroundHtml, loopLayerHtml } from "./stage.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(HERE, "../..");
@@ -223,6 +223,35 @@ async function renderFilm(browser, kit, o, work, report) {
   }
 }
 
+/** The light encodings of the home's backdrop (a target under 1.5 MB per file). */
+export const AMBIENT_ENC = {
+  mp4: ["-c:v", "libx264", "-preset", "veryslow", "-crf", "27", "-pix_fmt", "yuv420p", "-tag:v", "avc1", "-movflags", "+faststart", "-an"],
+  webm: ["-c:v", "libvpx-vp9", "-crf", "40", "-b:v", "0", "-row-mt", "1", "-deadline", "good", "-cpu-used", "1", "-pix_fmt", "yuv420p", "-an"],
+};
+
+async function renderAmbient(browser, kit, o, work, report) {
+  const out = join(o.out, "ambient");
+  mkdirSync(out, { recursive: true });
+  for (const [aspect, [w, h]] of Object.entries(AMBIENT.aspects)) {
+    for (const theme of ["dark", "light"]) {
+      const t0 = Date.now();
+      const st = await stage(browser, work, `ambient-${aspect}-${theme}`, ambientHtml({ kit, aspect, theme }), FILM.aspects[aspect]);
+      const dir = join(work, `ambient-${aspect}-${theme}`);
+      const { frames, seamless, db } = await framesToDir(st, dir, { seconds: AMBIENT.seconds, fps: AMBIENT.fps, alpha: false });
+      await st.close();
+      if (!seamless) throw new Error(`ambient ${aspect} ${theme}: the last frame does not meet the first`);
+      const base = join(out, `${AMBIENT.name}-${aspect}-${theme}`);
+      const seq = ["-framerate", String(AMBIENT.fps), "-i", join(dir, "%05d.png"), "-vf", `scale=${w}:${h}:flags=lanczos`];
+      await ffmpeg([...seq, ...AMBIENT_ENC.mp4, `${base}.mp4`]);
+      await ffmpeg([...seq, ...AMBIENT_ENC.webm, `${base}.webm`]);
+      await ffmpeg(["-i", join(dir, `${pad(Math.round(AMBIENT.poster * AMBIENT.fps))}.png`), "-vf", `scale=${w}:${h}:flags=lanczos`, "-q:v", "4", `${base}.jpg`]);
+      rmSync(dir, { recursive: true });
+      report.ambient.push({ aspect, theme, frames, seamlessDb: db, seconds: Math.round((Date.now() - t0) / 1000), files: [`${base}.mp4`, `${base}.webm`, `${base}.jpg`] });
+      console.log(`ambient ${aspect} ${theme}: ${Math.round((Date.now() - t0) / 1000)} s`);
+    }
+  }
+}
+
 /** One frame per moment, as PNG — to look at the choreography before a full render. */
 async function renderStills(browser, kit, o, work) {
   const out = join(o.out, "stills");
@@ -238,6 +267,18 @@ async function renderStills(browser, kit, o, work) {
       }
       await st.close();
     }
+  }
+  if (o.only.includes("ambient-stills")) {
+    for (const aspect of Object.keys(AMBIENT.aspects))
+      for (const theme of ["dark", "light"]) {
+        const st = await stage(browser, work, `s-amb-${aspect}-${theme}`, ambientHtml({ kit, aspect, theme }), FILM.aspects[aspect]);
+        for (const t of [0, 1.2, 5.6, 9]) {
+          await st.at(t);
+          await st.page.screenshot({ path: join(out, `ambient-${aspect}-${theme}-${t}.jpg`), type: "jpeg", quality: 80 });
+        }
+        await st.close();
+      }
+    return;
   }
   for (const aspect of o.aspects) {
     const st = await stage(browser, work, `s-film-${aspect}`, filmHtml({ kit, aspect }), FILM.aspects[aspect]);
@@ -255,21 +296,22 @@ export async function main(argv) {
   const { chromium } = createRequire(resolve(o.ui, "../../apps/storybook/package.json"))("playwright");
   const browser = await chromium.launch();
   const work = mkdtempSync(join(tmpdir(), "brand-films-"));
-  const report = { ui: kit.version, fps: o.fps, music: o.music ? FILM.music : null, started: new Date().toISOString(), loops: [], film: [] };
+  const report = { ui: kit.version, fps: o.fps, music: o.music ? FILM.music : null, started: new Date().toISOString(), loops: [], film: [], ambient: [] };
   const t0 = Date.now();
   try {
-    if (o.only.includes("stills")) await renderStills(browser, kit, o, work);
+    if (o.only.some((x) => x.includes("stills"))) await renderStills(browser, kit, o, work);
     if (o.only.includes("loops")) await renderLoops(browser, kit, o, work, report);
     if (o.only.includes("film")) await renderFilm(browser, kit, o, work, report);
+    if (o.only.includes("ambient")) await renderAmbient(browser, kit, o, work, report);
   } finally {
     await browser.close();
     rmSync(work, { recursive: true });
   }
   report.totalSeconds = Math.round((Date.now() - t0) / 1000);
   const sizes = {};
-  for (const e of [...report.loops, ...report.film]) for (const f of e.files) sizes[f.slice(o.out.length + 1)] = statSync(f).size;
+  for (const e of [...report.loops, ...report.film, ...report.ambient]) for (const f of e.files) sizes[f.slice(o.out.length + 1)] = statSync(f).size;
   report.bytes = sizes;
-  if (!o.only.every((x) => x === "stills")) writeFileSync(join(o.out, "render-report.json"), `${JSON.stringify(report, null, 2)}\n`);
+  if (!o.only.every((x) => x.includes("stills"))) writeFileSync(join(o.out, "render-report.json"), `${JSON.stringify(report, null, 2)}\n`);
   console.log(`done in ${report.totalSeconds} s`);
 }
 
