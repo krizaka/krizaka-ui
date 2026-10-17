@@ -96,6 +96,7 @@ export type ComponentName =
   | "match-dialog"
   | "media-capture"
   | "media-grid"
+  | "language-switch"
   | "media-gallery"
   | "media-picker"
   | "meter"

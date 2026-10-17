@@ -8,8 +8,10 @@ import { tv } from "tailwind-variants";
 
 import { cn } from "../cn";
 import { FamilyMark, GitHubGlyph } from "../family-mark";
+import { LanguageSwitch, type LanguageSwitchProps } from "../language-switch/language-switch";
 import { type FamilyLabels, familyLabels, type Site, type SiteId, sitesByGroup } from "../sites/sites";
 import { useSlidingIndicator } from "../sliding-indicator";
+import { placePanel } from "./placement";
 
 export const navBar = tv({
   slots: {
@@ -34,19 +36,22 @@ export const navBar = tv({
       "group-not-data-[indicator=on]/list:data-active:bg-surface-3",
     chevron: "h-3.5 w-3.5 transition-transform duration-300 group-data-[state=open]/trigger:rotate-180 motion-reduce:transition-none",
     viewport:
-      "kz-pop absolute left-0 top-full mt-2 h-(--radix-navigation-menu-viewport-height) w-(--radix-navigation-menu-viewport-width) origin-top-left overflow-hidden " +
-      "rounded-2xl border border-border-default bg-surface-1 shadow-lg transition-[width,height] duration-300 motion-reduce:transition-none",
-    // Compact: icon · title · one line. A sensible width (20rem, 36rem in two columns) — never a sheet over the page.
-    panel: "grid w-[min(92vw,20rem)] gap-0.5 p-1.5",
-    panelWide: "w-[min(92vw,36rem)] md:grid-cols-2",
+      // `left` is set by NavBarItems (--kz-menu-left): the panel's edge under its trigger, kept inside the page.
+      "kz-pop absolute left-[var(--kz-menu-left,0px)] top-full mt-2 h-(--radix-navigation-menu-viewport-height) w-(--radix-navigation-menu-viewport-width) origin-top-left overflow-hidden " +
+      "rounded-2xl border border-border-default bg-surface-1 shadow-lg transition-[left,width,height] duration-300 motion-reduce:transition-none",
+    // Icon · title · a description of two lines at most. 28 rem (40 rem in two columns), never wider than the page
+    // between its gutters, and never taller than the screen.
+    panel: "grid w-[min(28rem,calc(100vw-2rem))] max-h-[calc(100dvh-6rem)] gap-0.5 overflow-y-auto p-1.5",
+    panelWide: "w-[min(40rem,calc(100vw-2rem))] md:grid-cols-2",
     menuLink:
-      "group/link flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-left no-underline outline-hidden transition-colors " +
+      "group/link flex items-start gap-3 rounded-lg px-2.5 py-2 text-left no-underline outline-hidden transition-colors " +
       "hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:ring-2 focus-visible:ring-ring data-active:bg-accent-soft",
     menuIcon:
       "flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border-default bg-surface-2 text-fg-accent " +
       "transition-[transform,border-color] duration-300 group-hover/link:-translate-y-0.5 group-hover/link:border-accent [&>svg]:h-4 [&>svg]:w-4 motion-reduce:transform-none",
-    menuTitle: "block truncate text-sm font-semibold leading-5 text-fg",
-    menuText: "block truncate text-xs leading-4 text-fg-secondary",
+    menuTitle: "block line-clamp-2 wrap-break-word text-sm font-semibold leading-5 text-fg",
+    // Two lines at most, wrapped at word boundaries — a longer one ends in an ellipsis, never cut mid-sentence.
+    menuText: "mt-0.5 block line-clamp-2 wrap-break-word text-xs leading-4 text-fg-secondary",
     actions: "ml-auto flex items-center gap-2",
     toggle:
       "inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-surface-2/60 text-fg md:hidden " +
@@ -185,13 +190,37 @@ export function NavBarItems({ className, children, value: valueProp, defaultValu
     prefer: "[data-nav-item][data-state=open]",
     follow: true,
   });
+  const root = React.useRef<HTMLElement>(null);
+  const viewport = React.useRef<HTMLDivElement>(null);
+  // The open panel sits under its trigger and stays inside the page (collision): measured when a menu opens, when
+  // the panel changes size (another menu) and when the window does.
+  React.useLayoutEffect(() => {
+    const panel = viewport.current;
+    const nav = root.current;
+    if (!panel || !nav || !value) return;
+    const place = () => {
+      const trigger = nav.querySelector<HTMLElement>("[data-nav-item][data-state=open]");
+      const width = Number.parseFloat(panel.style.getPropertyValue("--radix-navigation-menu-viewport-width"));
+      if (!trigger || !Number.isFinite(width)) return;
+      const left = `${placePanel({ trigger: trigger.getBoundingClientRect().left, root: nav.getBoundingClientRect().left, panel: width, window: document.documentElement.clientWidth })}px`;
+      if (panel.style.getPropertyValue("--kz-menu-left") !== left) panel.style.setProperty("--kz-menu-left", left);
+    };
+    place();
+    const watch = new MutationObserver(place);
+    watch.observe(panel, { attributes: true, attributeFilter: ["style"] });
+    window.addEventListener("resize", place);
+    return () => {
+      watch.disconnect();
+      window.removeEventListener("resize", place);
+    };
+  }, [value]);
   return (
     <ItemsContext.Provider value={items}>
-      <Nav.Root aria-label={label} className={s.items({ className })} value={value} onValueChange={setValue} delayDuration={delayDuration} {...props}>
+      <Nav.Root ref={root} aria-label={label} className={s.items({ className })} value={value} onValueChange={setValue} delayDuration={delayDuration} {...props}>
         <Nav.List ref={ref} className={s.list()} {...handlers}>
           {children}
         </Nav.List>
-        <Nav.Viewport className={s.viewport()} />
+        <Nav.Viewport ref={viewport} className={s.viewport()} />
       </Nav.Root>
     </ItemsContext.Provider>
   );
@@ -268,7 +297,7 @@ export function NavBarMenuLink({ title, description, icon, active, href, classNa
   const body = (
     <>
       {icon && <span className={s.menuIcon()}>{icon}</span>}
-      <span className="min-w-0">
+      <span className="min-w-0 flex-1">
         <span className={s.menuTitle()}>{title}</span>
         {description && <span className={s.menuText()}>{description}</span>}
       </span>
@@ -515,6 +544,35 @@ export function NavBarBadge({ env, version, className, children, ...props }: Nav
   );
 }
 
+export type NavBarLanguageProps = Omit<LanguageSwitchProps, "variant">;
+
+/**
+ * The language switch, the same on every site: in the bar a globe and the current code (FR) opening a short menu of
+ * the languages by their own names; inside `NavBar.Mobile` the same languages as a row in the preferences.
+ */
+export function NavBarLanguage(props: NavBarLanguageProps) {
+  const inMobile = React.useContext(MobileContext);
+  return <LanguageSwitch variant={inMobile ? "inline" : "menu"} {...props} />;
+}
+
+export type NavBarMobilePreferencesProps = Omit<React.ComponentProps<"div">, "title"> & {
+  /** The group's heading (“Preferences”) — passed translated. */
+  label: string;
+};
+
+/** The last group of the mobile panel: the preferences (theme, `NavBar.Language`), in a row under their heading. */
+export function NavBarMobilePreferences({ label, className, children, ...props }: NavBarMobilePreferencesProps) {
+  const id = React.useId();
+  return (
+    <div role="group" aria-labelledby={id} className={s.mobileGroup({ className })} {...props}>
+      <p id={id} className={s.mobileGroupTitle()}>
+        {label}
+      </p>
+      <div className="flex flex-wrap items-center gap-2 px-3 py-1">{children}</div>
+    </div>
+  );
+}
+
 export type NavBarRepoProps = Omit<React.ComponentProps<"a">, "children"> & {
   /** The repository the site is built from. */
   href: string;
@@ -532,7 +590,7 @@ export function NavBarRepo({ label, className, ...props }: NavBarRepoProps) {
 }
 
 /**
- * `NavBar.Root/Brand/Family/Badge/Items/Link/Menu/MenuLink/Actions/Repo/Mobile/MobileGroup/MobileLink` — the Krizaka navigation bar,
+ * `NavBar.Root/Brand/Family/Badge/Items/Link/Menu/MenuLink/Actions/Repo/Language/Mobile/MobileGroup/MobilePreferences/MobileLink` — the Krizaka navigation bar,
  * the same on every site of the family: floating, tightening on scroll, the family switcher on the brand, one light
  * gliding between its items, accessible menus, a mobile panel.
  */
@@ -547,7 +605,9 @@ export const NavBar = {
   MenuLink: NavBarMenuLink,
   Actions: NavBarActions,
   Repo: NavBarRepo,
+  Language: NavBarLanguage,
   Mobile: NavBarMobile,
+  MobilePreferences: NavBarMobilePreferences,
   MobileGroup: NavBarMobileGroup,
   MobileLink: NavBarMobileLink,
 };

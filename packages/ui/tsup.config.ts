@@ -165,6 +165,7 @@ export default defineConfig([
       motion: "src/motion/index.ts",
       loader: "src/loader/index.ts",
       "nav-bar": "src/nav-bar/index.ts",
+      "language-switch": "src/language-switch/index.ts",
       // The footer of the family's sites (its marks hold an id).
       "site-footer": "src/site-footer/index.ts",
       "number-ticker": "src/number-ticker/index.ts",

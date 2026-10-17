@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 
 import { familyLabels, sites } from "../sites";
 import { axeViolations } from "../test/axe";
-import { NavBar } from "./index";
+import { NavBar, placePanel } from "./index";
 
 function Bar() {
   return (
@@ -97,15 +97,107 @@ describe("NavBar — the menus' intent and size", () => {
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
   });
 
-  it("draws a compact panel: icon · title · one line, at a set width", async () => {
+  it("draws a panel wide enough for a description, never wider than the page between its gutters", async () => {
     const user = userEvent.setup();
     render(<ProductBar />);
     await user.click(screen.getByRole("button", { name: "Product" }));
     const link = await screen.findByRole("link", { name: /How it works/ });
     const panel = link.parentElement!;
-    expect(panel.className).toContain("w-[min(92vw,20rem)]");
+    expect(panel.className).toContain("w-[min(28rem,calc(100vw-2rem))]");
     expect(panel.className).not.toContain("w-max");
-    expect(link.querySelector("span span:last-child")!.className).toContain("truncate");
+    expect(panel.className).toContain("max-h-[calc(100dvh-6rem)]");
+  });
+
+  it("wraps a description on two lines at most, at word boundaries, with an ellipsis after that — never a single truncated line", async () => {
+    const user = userEvent.setup();
+    render(<ProductBar />);
+    await user.click(screen.getByRole("button", { name: "Product" }));
+    const link = await screen.findByRole("link", { name: /How it works/ });
+    const text = screen.getByText("Install to first answer in three commands.");
+    expect(text.className).toContain("line-clamp-2");
+    expect(text.className).not.toContain("truncate");
+    expect(text.className).toContain("wrap-break-word");
+    // The icon tile stays at the top of the link when the description takes two lines.
+    expect(link.className).toContain("items-start");
+  });
+
+  it("opens the panel under its trigger and keeps it inside the page", async () => {
+    const user = userEvent.setup();
+    const { container } = render(<ProductBar />);
+    await user.click(screen.getByRole("button", { name: "Product" }));
+    await screen.findByRole("link", { name: /How it works/ });
+    // happy-dom has no layout: the viewport carries the property the panel is placed with (set from measured rects).
+    const viewport = container.querySelector<HTMLElement>("[class*='--kz-menu-left']");
+    expect(viewport).toBeTruthy();
+  });
+});
+
+describe("placePanel — a panel under its trigger, inside the page", () => {
+  const panel = 448; // 28 rem
+  it("aligns the panel's left edge with its trigger's at 1280 px", () => {
+    expect(placePanel({ trigger: 300, root: 100, panel, window: 1280 })).toBe(200);
+  });
+
+  it("is pushed back from the right edge when it would overflow, with the gutter kept", () => {
+    const left = placePanel({ trigger: 1100, root: 100, panel, window: 1280 });
+    expect(100 + left + panel).toBeLessThanOrEqual(1280 - 16);
+    expect(left).toBe(1280 - 16 - panel - 100);
+  });
+
+  it("never leaves the left gutter", () => {
+    expect(placePanel({ trigger: 4, root: 0, panel, window: 1280 })).toBe(16);
+  });
+
+  it("fits at 360 px: a panel capped to the width between the gutters is placed at the left gutter", () => {
+    const capped = 360 - 32; // w-[min(28rem,calc(100vw-2rem))]
+    const left = placePanel({ trigger: 200, root: 0, panel: capped, window: 360 });
+    expect(left).toBeGreaterThanOrEqual(16);
+    expect(left + capped).toBeLessThanOrEqual(360 - 16);
+  });
+
+  it("fits the two-column panel at 768 px", () => {
+    const capped = Math.min(640, 768 - 32);
+    const left = placePanel({ trigger: 500, root: 24, panel: capped, window: 768 });
+    expect(24 + left).toBeGreaterThanOrEqual(16);
+    expect(24 + left + capped).toBeLessThanOrEqual(768 - 16);
+  });
+});
+
+describe("NavBar.Language — one switch in the bar and in the mobile panel", () => {
+  const languages = [
+    { code: "en", name: "English", href: "/en" },
+    { code: "fr", name: "Français", href: "/fr" },
+  ];
+  function WithLanguage() {
+    return (
+      <NavBar.Root label="Main">
+        <NavBar.Brand href="#home">Yomizaka</NavBar.Brand>
+        <NavBar.Actions>
+          <NavBar.Language label="Langue" current="fr" languages={languages} />
+          <NavBar.Mobile openLabel="Open the menu" closeLabel="Close the menu">
+            <NavBar.MobilePreferences label="Préférences">
+              <NavBar.Language label="Langue" current="fr" languages={languages} />
+            </NavBar.MobilePreferences>
+          </NavBar.Mobile>
+        </NavBar.Actions>
+      </NavBar.Root>
+    );
+  }
+
+  it("is a globe and the current code in the bar, never the other language", () => {
+    render(<WithLanguage />);
+    const trigger = screen.getByRole("button", { name: "Langue: Français" });
+    expect(trigger.querySelector("[data-code]")?.getAttribute("data-code")).toBe("fr");
+  });
+
+  it("is a row of the languages by their own names inside the mobile panel's preferences", async () => {
+    const user = userEvent.setup();
+    render(<WithLanguage />);
+    await user.click(screen.getByRole("button", { name: "Open the menu" }));
+    const preferences = screen.getByRole("group", { name: "Préférences" });
+    const row = within(preferences).getByRole("group", { name: "Langue" });
+    expect(within(row).getAllByRole("link").map((a) => a.textContent)).toEqual(["English", "Français"]);
+    expect(within(row).getByRole("link", { name: "English" }).getAttribute("hreflang")).toBe("en");
   });
 });
 

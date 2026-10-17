@@ -1,0 +1,61 @@
+---
+title: Navigation in the family
+description: One top bar for every Krizaka site and product — what is shared, what each product makes its own, the language switch, and the check that keeps them aligned.
+---
+
+A visitor who has seen one Krizaka bar knows them all. The bar is **custom where the product needs it, and always
+recognisably Krizaka**: the structure, the components and the behaviours are shared; the brand and the section names
+belong to the product. Nothing is hand-made — every bar is [`NavBar`](/components/nav-bar), and the language is always
+the [`LanguageSwitch`](/components/language-switch).
+
+## What is shared
+
+| | The rule |
+| :-- | :-- |
+| Structure | Left: the product's mark and name. Centre: the sections. Right: GitHub · theme · language · Sign in · the one primary action. |
+| Left, in order | Mark and name · **Product ▾** · **Platforms ▾** (only when there is more than one platform) · **Docs** · **Pricing** when it exists. Four entries at most. |
+| Never | A lone entry that belongs to a group (« Mobile », « Mac », « Demo » on their own), a dead link, a version chip in the bar, a family switcher on a product site. |
+| Components | `NavBar.Root / Brand / Items / Menu / MenuLink / Link / Actions / Mobile`, `ThemeToggle`, `Button` (`shape="cut"` for the primary action). |
+| Menu panel | 28 rem wide (40 rem in two columns), never wider than the page between its gutters, aligned under its trigger and kept inside the page. Icon tile · title · a description of **two lines at most**. |
+| Hover and focus | A quiet light under the item (`surface-3`), no blue glow; a 2 px focus ring on every control; the current page marked with `aria-current="page"`. |
+| Phone | A disclosure under the bar with the same groups in the same order, then the preferences (theme, language), then the primary action. |
+| Keyboard | Menus open on Enter, Space or ↓, ↑ ↓ walk them, Esc closes and returns the focus. |
+
+## The language switch
+
+One control everywhere: a globe and the code of the language you are **in** (`FR`), opening a short list of the
+languages, each named in its own language — *Français*, *English*. Each item is a link with `hreflang` to **the same
+page** in that language (query and hash kept). It replaces the pill that named the *other* language (« English » on a
+French page), which said what you were not in and looked different on every site.
+
+```tsx
+import { languagesFor } from "@krizaka/ui/language-switch";
+import { NavBar } from "@krizaka/ui/nav-bar";
+
+<NavBar.Language label={t("chrome.languageLabel")} current={locale} languages={languagesFor(pathname)} linkAs={Link} />
+```
+
+Inside `NavBar.Mobile` the same component renders as a row, in `NavBar.MobilePreferences` next to the theme. An app's
+account menu offers the same items (`languagesFor`) for consistency.
+
+## What is the product's own
+
+| | Per product |
+| :-- | :-- |
+| Brand | The accent colour of the primary action and the active states comes from the product's tokens (`.brand-<product>`), never a hard-coded colour. |
+| Mark | The product's animated mark (`OrazakaLogo`, `YomizakaLogo`…) beside its name. |
+| Sections | The names and the links of **Product ▾** suit the app: Studios and Packs for Orazaka, How it works and Verify for Yomizaka. Same groups, its own words. |
+| Chips | A status chip (`DEV`, « In development ») when the site is not released — in the bar's badge, not as a link. |
+| Actions | The primary action says what the product asks for: « Talk to us », « Explore ». One only. |
+
+## Signed-in apps
+
+The same principle, other components: `AppShell` with `RailNav` (a rail on a desktop, a bottom bar on a phone),
+`AppHeader` for the name of the screen, and `AccountMenu` for the person — theme and language in the account menu, the
+language through the same `languagesFor` items. A section bar inside an app is `NavBar` with `floating={false}`.
+
+## The check
+
+A product's repository fails its lint when its bar drifts: a navigation component not imported from
+`@krizaka/ui/nav-bar`, or a hand-made language pill (a link whose text is the other language's name). The rule is an
+ast-grep rule with a ratchet baseline (`no-hand-made-nav`), so the count of offenders only goes down.

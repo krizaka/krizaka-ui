@@ -225,6 +225,10 @@
       "types": "./dist/nav-bar.d.ts",
       "import": "./dist/nav-bar.js"
     },
+    "./language-switch": {
+      "types": "./dist/language-switch.d.ts",
+      "import": "./dist/language-switch.js"
+    },
     "./site-footer": {
       "types": "./dist/site-footer.d.ts",
       "import": "./dist/site-footer.js"
@@ -1235,7 +1239,17 @@
     {
       "name": "./nav-bar (Radix NavigationMenu, Slot, the family's marks)",
       "path": "dist/nav-bar.js",
-      "limit": "23.8 kB",
+      "limit": "24.6 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./language-switch (a disclosure)",
+      "path": "dist/language-switch.js",
+      "limit": "2.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

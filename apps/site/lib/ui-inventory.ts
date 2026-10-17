@@ -61,6 +61,7 @@ export const PLANNED: Record<string, string> = {
   "detail-layout": `${WEB_APPS}: the page of one video, job or account.`,
   "docs-article-page": `${SITE}: the product documentation pages.`,
   "docs-layout": "Builds the documentation article template.",
+  "language-switch": "Every product site and app bar (krizaka-ui#NAV-STD): replaces the « English » pill and the per-app language menus.",
   "docs-nav": "Groups the pages in the documentation sidebar.",
   fab: `${MOBILE}: the main creation action of a list screen.`,
   "file-upload": "Orochia's uploads and Orazaka's document intake, through the form.",

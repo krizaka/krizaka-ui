@@ -234,6 +234,10 @@
           "title": "Mouvement",
           "description": "Un seul système de mouvement : courbes, durées, l'arrivée des blocs, et la règle qui fige tout quand le mouvement est réduit."
         },
+        "navigation": {
+          "title": "Navigation de la famille",
+          "description": "Une seule barre pour chaque site et produit Krizaka : ce qui est commun, ce qui est propre à chaque produit, le sélecteur de langue, le contrôle."
+        },
         "brand-marks": {
           "title": "Marques",
           "description": "Les huit marques de la famille Krizaka — dessinées en code, animées, immobiles si le mouvement est réduit."
