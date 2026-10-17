@@ -149,6 +149,11 @@ describe("NavBar", () => {
     await user.click(trigger);
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
     expect(await screen.findByRole("link", { name: /Orazaka/ })).toBeTruthy();
+    // The pointer is still on the trigger: let the hover-intent timer (200 ms) run its course, or it would reopen the
+    // menu right after Escape closed it (what made this test flaky on slow runners).
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+    });
     await user.keyboard("{Escape}");
     // Radix closes on its own tick (and the hover-intent timer may still be pending on a loaded runner): wait, don't race.
     await waitFor(() => expect(trigger.getAttribute("aria-expanded")).toBe("false"));
