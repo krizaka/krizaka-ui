@@ -1,6 +1,8 @@
 import { render, screen, within } from "@testing-library/react";
 
 import { familyLabels, sites } from "../sites";
+
+const labelsDescription = () => familyLabels.en.descriptions.orazaka;
 import { axeViolations } from "../test/axe";
 import { SiteFooter } from "./index";
 
@@ -80,5 +82,41 @@ describe("SiteFooter", () => {
   it("publisher line in French", () => {
     render(<Footer family={false} labels={familyLabels.fr} />);
     expect(screen.getByRole("link", { name: /Un produit Krizaka/ }).getAttribute("href")).toBe("https://www.krizaka.com");
+  });
+
+  describe("variants", () => {
+    const legal = <SiteFooter.Link href="#privacy">Privacy</SiteFooter.Link>;
+
+    it("app: one slim contentinfo — the publisher line, the version and the legal links; no columns, no family, no site block", async () => {
+      const { container } = render(<Footer variant="app" legal={legal} />);
+      expect(screen.getAllByRole("contentinfo")).toHaveLength(1);
+      expect(screen.getByRole("link", { name: /A Krizaka product/ }).getAttribute("href")).toBe("https://www.krizaka.com");
+      expect(screen.getByText("DEV · v1.2.3")).toBeTruthy();
+      expect(screen.getByRole("link", { name: "Privacy" })).toBeTruthy();
+      expect(screen.queryByRole("navigation")).toBeNull();
+      expect(screen.queryByRole("list")).toBeNull();
+      expect(screen.queryByText("Made in Montréal")).toBeNull();
+      expect(await axeViolations(container)).toEqual([]);
+    });
+
+    it("app: never lists the family even when asked to", () => {
+      render(<Footer variant="app" family />);
+      expect(screen.queryByRole("navigation", { name: "Krizaka family" })).toBeNull();
+    });
+
+    it("docs: the site's columns without the site block, never the family, one contentinfo", async () => {
+      const { container } = render(<Footer variant="docs" family legal={legal} />);
+      expect(screen.getAllByRole("contentinfo")).toHaveLength(1);
+      expect(screen.getByRole("list", { name: "Orazaka" })).toBeTruthy();
+      expect(screen.queryByRole("navigation", { name: "Krizaka family" })).toBeNull();
+      expect(screen.queryByText(labelsDescription())).toBeNull();
+      expect(screen.getByRole("link", { name: /A Krizaka product/ })).toBeTruthy();
+      expect(await axeViolations(container)).toEqual([]);
+    });
+
+    it("site (default) renders exactly one contentinfo", () => {
+      render(<Footer />);
+      expect(screen.getAllByRole("contentinfo")).toHaveLength(1);
+    });
   });
 });
