@@ -84,6 +84,28 @@ export function applyMessage(state: GenUiState, message: GenUiMessage): GenUiSta
   return { ...state, surfaces };
 }
 
+/** The first complete JSON object of a line when only stray `}` / `]` follow it, else null. Strings are skipped. */
+export function leadingObject(text: string): string | null {
+  if (!text.startsWith("{")) return null;
+  let depth = 0;
+  let inString = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inString) {
+      if (c === "\\") i++;
+      else if (c === '"') inString = false;
+      continue;
+    }
+    if (c === '"') inString = true;
+    else if (c === "{" || c === "[") depth++;
+    else if (c === "}" || c === "]") {
+      depth--;
+      if (depth === 0) return /^[\s}\]]*$/.test(text.slice(i + 1)) ? text.slice(0, i + 1) : null;
+    }
+  }
+  return null;
+}
+
 /** The state after a line of JSON (one message), the line refused with its reason when it is not valid. */
 export function applyLine(state: GenUiState, line: string, catalog: Readonly<Record<string, { readonly check: GenUiPropsCheck }>>): GenUiState {
   const text = line.trim();
@@ -92,7 +114,15 @@ export function applyLine(state: GenUiState, line: string, catalog: Readonly<Rec
   try {
     json = JSON.parse(text);
   } catch {
-    return withError(state, "a line is not JSON");
+    // Models sometimes close one brace too many: the first complete object is kept when what follows it is only
+    // stray closing brackets. Anything else is not JSON and is refused. (The object is still validated as any other.)
+    const head = leadingObject(text);
+    if (head === null) return withError(state, "a line is not JSON");
+    try {
+      json = JSON.parse(head);
+    } catch {
+      return withError(state, "a line is not JSON");
+    }
   }
   const result = validateMessage(json, catalog);
   return result.ok ? applyMessage(state, result.value) : withError(state, result.error);
