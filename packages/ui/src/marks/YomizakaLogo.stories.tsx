@@ -12,7 +12,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** Orbit, scan and breath on (they stop under prefers-reduced-motion). */
+/** Orbit and breath on (they stop under prefers-reduced-motion). */
 export const Animated: Story = {};
 
 /** Still: `animated={false}`. */
