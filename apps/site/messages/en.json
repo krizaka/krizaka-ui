@@ -143,7 +143,14 @@
       "nativeShot": "{name}, as React Native renders it",
       "deprecatedName": "{name} (deprecated)",
       "useInstead": "Use instead:",
-      "deprecatedSince": "Since {since}, removed in {removedIn}."
+      "deprecatedSince": "Since {since}, removed in {removedIn}.",
+      "installWays": {
+        "npm": "npm",
+        "manual": "Manual",
+        "deps": "Install what it builds on:",
+        "files": "Copy its source into your project (the same files the package ships):",
+        "also": "It uses these Krizaka UI parts — copy them the same way:"
+      }
     },
     "catalog": {
       "heading": "All components",
@@ -532,6 +539,26 @@
           "na": "n/a"
         },
         "issue": "issue"
+      }
+    },
+    "stage": {
+      "label": "{name}, live",
+      "platforms": "Platform",
+      "web": "Web",
+      "ios": "iOS",
+      "android": "Android",
+      "play": "Change its props: the component re-renders, the code follows.",
+      "planned": "The React Native version is planned: this place lights up when it ships.",
+      "webOnly": "Web only: this component has no React Native version.",
+      "nativeOnly": "React Native only: see it on iOS and Android.",
+      "nativeCaption": "“{example}”, its React Native story at a phone's width — the same code on iOS and Android.",
+      "playground": {
+        "controls": "Props",
+        "text": "{prop}",
+        "number": "{prop}",
+        "code": "The code of what is shown",
+        "copy": "Copy",
+        "copied": "Copied"
       }
     }
   },
