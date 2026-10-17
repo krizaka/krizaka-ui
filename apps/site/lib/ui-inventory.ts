@@ -98,6 +98,7 @@ export const PLANNED: Record<string, string> = {
   "search-field": "The data table's search and every filtered list.",
   segmented: `${MOBILE}: switching a view inside a screen.`,
   separator: "A primitive of the platform: dividers inside menus, lists and cards.",
+  "account-menu": `${WEB_APPS}: the avatar menu of a signed-in app.`,
   "settings-layout": `${WEB_APPS}: account and product settings.`,
   "site-footer": "The family's adoption (NAV-SYS): the footer of www.krizaka.com, ui.krizaka.com, java.krizaka.com and every dev.<product> site.",
   sites: "The family's adoption (NAV-SYS): the data behind NavBar.Family and SiteFooter on every Krizaka site.",

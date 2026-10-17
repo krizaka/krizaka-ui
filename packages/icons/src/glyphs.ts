@@ -79,6 +79,14 @@ export const moment: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 4v2.5"], c
 export const thread: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M2.5 16c2.5 0 3.5-7.5 6.5-7.5s3.5 9 6.5 9 3-4 5-4.5"], n: [[20.5,13]] });
 /** keep save hold open hand notebook summary */
 export const keep: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M3.5 13H4.5L5.5 14V20L4.5 21H3.5L2.5 20V14Z","M5.5 19.5H14l6.4-3.9a1.6 1.6 0 0 0-1.7-2.7L14.5 15","M5.5 14.5 8 13h4.5a1.5 1.5 0 0 1 0 3H9.5"], n: [[13,8]] });
+/** soccer football ball match sport */
+export const soccer: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 8.2L15.29 10.1L15.29 13.9L12 15.8L8.71 13.9L8.71 10.1Z","M12 8.2V3","M15.3 10.1 19.8 7.5","M15.3 13.9 19.8 16.5","M12 15.8V21","M8.7 13.9 4.2 16.5","M8.7 10.1 4.2 7.5"], c: [[12,12,9]], n: [[12,12]] });
+/** hockey nhl stick puck ice sport */
+export const hockey: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5.5 3.5 12 17h7","M3.5 21.5h17"], n: [[7,18.7]] });
+/** basketball nba hoop ball sport */
+export const basketball: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 3v18","M3 12h18","M5.6 5.4c3.2 3.4 3.2 9.8 0 13.2","M18.4 5.4c-3.2 3.4-3.2 9.8 0 13.2"], c: [[12,12,9]], n: [[12,12]] });
+/** trophy cup season winner league champion */
+export const trophy: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M7 3.5h10v6a5 5 0 0 1-10 0z","M7 5.5H4v1.5a3.5 3.5 0 0 0 3.2 3.5","M17 5.5h3v1.5a3.5 3.5 0 0 1-3.2 3.5","M12 14.5V18","M8 20.5h8"], n: [[12,8.5]] });
 /** theme appearance dark light contrast */
 export const theme: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 3.5v17","M12 3.5a8.5 8.5 0 0 1 0 17z"], c: [[12,12,8.5]] });
 /** light mode sun */
@@ -350,6 +358,26 @@ export const glyphIndex = {
     "component": "KeepIcon",
     "group": "product",
     "keywords": "keep save hold open hand notebook summary"
+  },
+  "soccer": {
+    "component": "SoccerIcon",
+    "group": "product",
+    "keywords": "soccer football ball match sport"
+  },
+  "hockey": {
+    "component": "HockeyIcon",
+    "group": "product",
+    "keywords": "hockey nhl stick puck ice sport"
+  },
+  "basketball": {
+    "component": "BasketballIcon",
+    "group": "product",
+    "keywords": "basketball nba hoop ball sport"
+  },
+  "trophy": {
+    "component": "TrophyIcon",
+    "group": "product",
+    "keywords": "trophy cup season winner league champion"
   },
   "theme": {
     "component": "ThemeIcon",

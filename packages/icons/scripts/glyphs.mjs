@@ -79,6 +79,12 @@ export const GLYPHS = {
   thread: { group: "product", keywords: "thread continuity memory context carry on follow up", p: ["M2.5 16c2.5 0 3.5-7.5 6.5-7.5s3.5 9 6.5 9 3-4 5-4.5"] , n: [[20.5, 13]] },
   keep: { group: "product", keywords: "keep save hold open hand notebook summary", p: [cut(2.5, 13, 3, 8, 1), "M5.5 19.5H14l6.4-3.9a1.6 1.6 0 0 0-1.7-2.7L14.5 15", "M5.5 14.5 8 13h4.5a1.5 1.5 0 0 1 0 3H9.5"], n: [[13, 8]] },
 
+  // ── Product: predictions among friends — the games a league follows, the cup a season ends with ──
+  soccer: { group: "product", keywords: "soccer football ball match sport", c: [[12, 12, 9]], p: [hex(12, 12, 3.8), "M12 8.2V3", "M15.3 10.1 19.8 7.5", "M15.3 13.9 19.8 16.5", "M12 15.8V21", "M8.7 13.9 4.2 16.5", "M8.7 10.1 4.2 7.5"], n: [[12, 12]] },
+  hockey: { group: "product", keywords: "hockey nhl stick puck ice sport", p: ["M5.5 3.5 12 17h7", "M3.5 21.5h17"], n: [[7, 18.7]] },
+  basketball: { group: "product", keywords: "basketball nba hoop ball sport", c: [[12, 12, 9]], p: ["M12 3v18", "M3 12h18", "M5.6 5.4c3.2 3.4 3.2 9.8 0 13.2", "M18.4 5.4c-3.2 3.4-3.2 9.8 0 13.2"], n: [[12, 12]] },
+  trophy: { group: "product", keywords: "trophy cup season winner league champion", p: ["M7 3.5h10v6a5 5 0 0 1-10 0z", "M7 5.5H4v1.5a3.5 3.5 0 0 0 3.2 3.5", "M17 5.5h3v1.5a3.5 3.5 0 0 1-3.2 3.5", "M12 14.5V18", "M8 20.5h8"], n: [[12, 8.5]] },
+
   // ── System ──
   theme: { group: "system", keywords: "theme appearance dark light contrast", c: [[12, 12, 8.5]], p: ["M12 3.5v17", "M12 3.5a8.5 8.5 0 0 1 0 17z"] },
   sun: { group: "system", keywords: "light mode sun", p: [hex(12, 12, 4), "M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"], n: [[12, 12]] },
