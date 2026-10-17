@@ -1,5 +1,16 @@
 # @krizaka/charts
 
+## 0.6.0
+
+### Minor Changes
+
+- [#314](https://github.com/krizaka/krizaka-ui/pull/314) [`2cb1c7d`](https://github.com/krizaka/krizaka-ui/commit/2cb1c7d6e2a33d3a9cc0014744a0241419ef3fc1) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Data-driven UI (ADR-082, krizaka/orazaka#207): `@krizaka/ui/genui` draws the interface a model describes in A2UI v0.9 — `GenUiStream` (a model's answer, its prose and its `a2ui` fence, growing as it streams), `GenUiSurface`, the strict validator (`validateMessage`: catalog `krizaka:genui/v1` only, unknown components and properties refused, tree-only, prototype-safe JSON pointers, size and depth caps), the store (`readStream`, `applyMessage`) and the base catalog (`Column`, `Row`, `Text`, `Card`, `Callout`, `Table`). `@krizaka/charts/genui` adds `chartsGenUiCatalog` (`KpiStat`, `ChartCard` with line · bar · area · pie).
+
+### Patch Changes
+
+- Updated dependencies [[`9c804b3`](https://github.com/krizaka/krizaka-ui/commit/9c804b3274ac5e3169138cd1290f653e642deb4a), [`284468a`](https://github.com/krizaka/krizaka-ui/commit/284468a656417b92e30eb9cb853c4546409b09f5), [`2cb1c7d`](https://github.com/krizaka/krizaka-ui/commit/2cb1c7d6e2a33d3a9cc0014744a0241419ef3fc1), [`d08b205`](https://github.com/krizaka/krizaka-ui/commit/d08b2052441939a4c6d6914d03b38bcf4125bd36), [`3c92001`](https://github.com/krizaka/krizaka-ui/commit/3c92001306cf61bfd15c533d2e447f203897bc53)]:
+  - @krizaka/ui@3.22.0
+
 ## 0.5.0
 
 ### Minor Changes

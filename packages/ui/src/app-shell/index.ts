@@ -17,4 +17,4 @@ export {
   AppShellSidebar,
   type AppShellSidebarProps,
 } from "./app-shell";
-export { ariaKeyShortcuts, formatShortcut, matchesCombo, parseCombo, type ShortcutMap, useApple, useShortcuts } from "./shortcuts";
+export { acceleratorOf, ariaKeyShortcuts, formatShortcut, matchesCombo, parseCombo, type ShortcutMap, useApple, useShortcuts } from "./shortcuts";

@@ -3,6 +3,7 @@ import { Slot } from "radix-ui";
 import type * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
+import { cn } from "../cn";
 import { LoaderGlyph } from "../spinner/glyph";
 import { buttonRecipe } from "./recipe";
 
@@ -97,7 +98,7 @@ export function Button({
         variant,
         size,
         shape,
-        className: [known && "relative isolate overflow-hidden", shimmer && "kz-sheen", className].filter(Boolean).join(" ") || undefined,
+        className: cn(known && "relative isolate overflow-hidden", shimmer && "kz-sheen", className),
       })}
       {...props}
     >
@@ -115,7 +116,7 @@ export function Button({
               className="-my-1 grid grid-cols-[1fr] transition-[grid-template-columns,margin,opacity] duration-300 starting:-mr-2 starting:grid-cols-[0fr] starting:opacity-0"
             >
               <span className="overflow-hidden">
-                <LoaderGlyph state={glyph} value={known ? ratio : null} className={["h-4 w-4", glyph !== "loading" && !filled && STATUS_TEXT[glyph]].filter(Boolean).join(" ")} />
+                <LoaderGlyph state={glyph} value={known ? ratio : null} className={cn("h-4 w-4", glyph !== "loading" && !filled && STATUS_TEXT[glyph])} />
               </span>
             </span>
           )}
