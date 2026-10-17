@@ -113,6 +113,15 @@ describe("@krizaka/tailwind", () => {
     expect(rule(".focus-visible\\:focus-ring-inset:focus-visible")).toContain("outline-offset: calc(var(--kz-ring-width) * -1)");
   });
 
+  it("hides the outline of a mouse click, and keeps the keyboard ring on the token everywhere", () => {
+    // A click focuses an element without showing :focus-visible: the browser's blue outline must not appear.
+    expect(rule(":focus:not(:focus-visible)")).toContain("outline: none");
+    // Keyboard focus of any element without its own ring: the token ring, not the browser default.
+    const keyboard = rule(":focus-visible");
+    expect(keyboard).toContain("outline: var(--kz-ring-width) solid var(--kz-ring)");
+    expect(keyboard).toContain("outline-offset: var(--kz-ring-offset)");
+  });
+
   it("gives every transition the Krizaka easing", () => {
     expect(rule(".transition")).toContain("var(--tw-ease, var(--kz-ease))");
     expect(rule(".ease-kz")).toContain("var(--kz-ease)");

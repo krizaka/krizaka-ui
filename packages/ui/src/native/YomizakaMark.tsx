@@ -7,14 +7,12 @@ import { markA11y, type NativeMarkProps, useMarkMotion } from "./mark-motion";
 import { useSvgId, useTheme } from "./theme";
 
 /**
- * The Yomizaka mark for React Native — the geometry of the web mark (marks/yomizaka-geometry.ts), "the reading": a page
- * cut at its corner, three lines of text, and a lens resting on it. The orbit and its one node, a page, turn; the lens
- * breathes; still when the system reduces motion. (The web's scanning line stays on the web: a third loop on the native
- * driver for a 3-pixel line is not worth its cost.)
+ * The Yomizaka mark for React Native — the geometry of the web mark (marks/yomizaka-geometry.ts), "the watch": the owl's
+ * two lenses under one calm brow. The orbit and its node turn, the pupils breathe; still when the system reduces motion.
  */
 export function YomizakaMark({ size = 48, animated = true, title, neutral }: NativeMarkProps) {
   const { theme } = useTheme();
-  const { Animated, layer, spinStyle, pulseStyle } = useMarkMotion(size, animated, 32_000);
+  const { Animated, layer, spinStyle, pulseStyle } = useMarkMotion(size, animated, G.motion.spin * 1000);
   const id = useSvgId("ymm");
   const viewBox = size < 48 ? G.croppedViewBox : G.viewBox;
   const stroke = neutral ?? theme.textMuted;
@@ -38,9 +36,10 @@ export function YomizakaMark({ size = 48, animated = true, title, neutral }: Nat
         </Defs>
         {size >= 48 ? <Circle cx={G.center} cy={G.center} r={190} fill={`url(#${id}g)`} /> : null /* cropped: the halo would show its square */}
         <Circle cx={G.center} cy={G.center} r={G.ring.r} stroke={stroke} strokeWidth={G.ring.width} opacity={0.35} fill="none" />
-        <Path d={G.page} fill={fill} />
-        <Path d={G.lines} stroke={G.line.color} strokeOpacity={G.line.opacity} strokeWidth={G.line.width} strokeLinecap="round" fill="none" />
-        <Path d={G.handle} stroke={fill} strokeWidth={G.handleWidth} strokeLinecap="round" fill="none" />
+        <Path d={G.brow} stroke={fill} strokeWidth={G.stroke} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        {G.lenses.map((l) => (
+          <Circle key={l.cx} cx={l.cx} cy={l.cy} r={l.r} stroke={fill} strokeWidth={G.stroke} fill="none" />
+        ))}
       </Svg>
       <Animated.View style={[layer, spinStyle]}>
         <Svg viewBox={viewBox} style={layer}>
@@ -51,16 +50,13 @@ export function YomizakaMark({ size = 48, animated = true, title, neutral }: Nat
       </Animated.View>
       <Animated.View style={[layer, pulseStyle]}>
         <Svg viewBox={viewBox} style={layer}>
-          <Defs>
-            {gradient}
-            <LinearGradient id={`${id}c`} x1="50%" y1="100%" x2="50%" y2="0%">
-              {G.coreGradient.stops.map(([offset, color]) => (
-                <Stop key={offset} offset={offset} stopColor={color} />
-              ))}
-            </LinearGradient>
-          </Defs>
-          <Circle cx={G.lens.cx} cy={G.lens.cy} r={G.lens.r} stroke={fill} strokeWidth={G.lens.width} fill={`url(#${id}c)`} />
-          <Circle cx={G.lens.glint.cx} cy={G.lens.glint.cy} r={G.lens.glint.r} fill={G.highlight} />
+          <Defs>{gradient}</Defs>
+          {G.pupils.map((p) => (
+            <React.Fragment key={p.cx}>
+              <Circle cx={p.cx} cy={p.cy} r={p.r} fill={fill} />
+              <Circle cx={p.cx} cy={p.cy} r={p.inner} fill={G.highlight} />
+            </React.Fragment>
+          ))}
         </Svg>
       </Animated.View>
     </View>

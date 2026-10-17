@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import AdminConsoleExample from "../../registry/examples/app-shell/admin-console";
 import BasicExample from "../../registry/examples/app-shell/basic";
 import ConsoleExample from "../../registry/examples/app-shell/console";
+import DesktopExample from "../../registry/examples/app-shell/desktop";
 import OrochiaStudioExample from "../../registry/examples/app-shell/orochia-studio";
 import { AppShellRoot } from "./app-shell";
 
@@ -26,3 +27,5 @@ export const Console: Story = { render: () => <ConsoleExample /> };
 /** The console on a phone (390 × 844): the sidebar is a drawer, the table shows cards, the search is an icon. */
 export const ConsolePhone: Story = { render: () => <ConsoleExample />, parameters: { phone: true } };
 export const Basic: Story = { render: () => <BasicExample /> };
+/** The window of the Orazaka Mac app (Tauri 2): the desktop form of the shell (ADR-002). */
+export const Desktop: Story = { render: () => <DesktopExample /> };

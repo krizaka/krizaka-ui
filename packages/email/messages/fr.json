@@ -1,0 +1,119 @@
+{
+  "common": {
+    "fallback": "Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :",
+    "signatureTeam": "L'équipe {brand}",
+    "signatureFounder": "Fondateur, Krizaka",
+    "footer": {
+      "unsubscribe": "Se désinscrire en un clic",
+      "privacy": "Confidentialité",
+      "contact": "Contact",
+      "sender": "Envoyé par {legal}, {address}."
+    },
+    "hello": "Bonjour,",
+    "helloName": "Bonjour {name},",
+    "links": {
+      "site": "https://www.krizaka.com/fr",
+      "privacy": "https://www.krizaka.com/fr/privacy",
+      "contact": "https://www.krizaka.com/fr/contact",
+      "blog": "https://blog.krizaka.com/fr/"
+    },
+    "address": "Montréal (Québec), Canada",
+    "legalName": "Technologies Krizaka Inc.",
+    "dateLocale": "fr-CA"
+  },
+  "newsletterConfirm": {
+    "subject": "Confirmez votre inscription au blogue Krizaka",
+    "preheader": "Un clic pour confirmer. Le lien est valable {hours} heures.",
+    "heading": "Confirmez votre inscription",
+    "body": "Quelqu'un, sans doute vous, a demandé à recevoir les nouveaux billets du blogue Krizaka à cette adresse.",
+    "button": "Confirmer mon inscription",
+    "expiry": "Le lien est valable {hours} heures.",
+    "ignore": "Si ce n'était pas vous, ignorez ce courriel : rien n'a été enregistré, et vous n'entendrez plus parler de nous.",
+    "why": "Vous recevez ce courriel parce que cette adresse a été saisie dans le formulaire d'inscription de blog.krizaka.com."
+  },
+  "newsletterWelcome": {
+    "subject": "Vous êtes inscrit au blogue Krizaka",
+    "preheader": "Merci. Un court courriel par nouveau billet, rien d'autre.",
+    "heading": "Merci, c'est confirmé",
+    "body": "Vous recevrez un courriel à chaque nouveau billet. Rien d'autre, aucun suivi, et vous pouvez partir en un clic au bas de chacun.",
+    "button": "Lire le blogue",
+    "why": "Vous recevez ce courriel parce que vous vous êtes inscrit aux nouveaux billets de blog.krizaka.com et que vous l'avez confirmé."
+  },
+  "newPost": {
+    "subject": "Nouveau sur le blogue Krizaka : {title}",
+    "preheader": "{excerpt}",
+    "eyebrow": "Nouveau sur le blogue",
+    "button": "Lire le billet",
+    "why": "Vous recevez ce courriel parce que vous vous êtes inscrit aux nouveaux billets de blog.krizaka.com et que vous l'avez confirmé.",
+    "whyOn": "Vous recevez ce courriel parce que vous vous êtes inscrit aux nouveaux billets de blog.krizaka.com le {date} et que vous l'avez confirmé."
+  },
+  "newsletterUnsubscribed": {
+    "subject": "Vous êtes désinscrit du blogue Krizaka",
+    "preheader": "C'est fait. Votre adresse est retirée et rien n'est conservé.",
+    "heading": "Vous êtes désinscrit",
+    "body": "C'est fait : votre adresse est retirée de notre liste, et nous ne gardons rien à son sujet. Vous ne recevrez plus de billets.",
+    "changedMind": "Vous avez changé d'avis ? Vous pouvez vous réinscrire à tout moment.",
+    "button": "Me réinscrire",
+    "why": "Vous recevez ce courriel unique parce que vous vous êtes désinscrit de blog.krizaka.com. C'est le dernier."
+  },
+  "contactAutoreply": {
+    "subject": "Nous avons bien reçu votre message",
+    "preheader": "Merci d'avoir écrit à Krizaka. Nous lisons chaque message.",
+    "heading": "Nous avons bien reçu votre message",
+    "body": "Merci d'avoir écrit à Krizaka. Nous lisons chaque message et y répondons nous-mêmes.",
+    "yourMessage": "Votre message",
+    "button": "Retour à krizaka.com",
+    "why": "Vous recevez ce courriel parce que vous avez envoyé un message par le formulaire de contact de www.krizaka.com. C'est une confirmation unique."
+  },
+  "contactNotification": {
+    "subject": "[krizaka.com] {topic} : {name}",
+    "preheader": "{name} a écrit par le formulaire de contact.",
+    "heading": "Nouveau message du formulaire de contact",
+    "name": "Nom",
+    "email": "Courriel",
+    "company": "Entreprise",
+    "topic": "Sujet",
+    "timeline": "Échéance",
+    "language": "Langue",
+    "source": "Source",
+    "message": "Message",
+    "none": "—",
+    "button": "Répondre à {name}",
+    "why": "Notification interne : un visiteur a utilisé le formulaire de contact de www.krizaka.com."
+  },
+  "signInLink": {
+    "subject": "Votre lien de connexion à {brand}",
+    "preheader": "Un seul usage, valable {minutes} minutes.",
+    "heading": "Connexion à {brand}",
+    "body": "Utilisez le bouton ci-dessous pour vous connecter. Le lien ne sert qu'une fois et reste valable {minutes} minutes.",
+    "button": "Me connecter",
+    "ignore": "Si vous n'avez pas demandé à vous connecter, ignorez ce courriel : personne ne peut entrer sans ce lien.",
+    "why": "Vous recevez ce courriel parce que quelqu'un a demandé un lien de connexion pour cette adresse."
+  },
+  "commentReply": {
+    "subject": "{name} a répondu à votre commentaire",
+    "preheader": "{name} a répondu sous « {title} ».",
+    "heading": "{name} a répondu à votre commentaire",
+    "under": "Sous « {title} »",
+    "button": "Voir la réponse",
+    "why": "Vous recevez ce courriel parce que quelqu'un a répondu à un commentaire que vous avez écrit."
+  },
+  "accountDeletion": {
+    "subject": "Confirmez la suppression de votre compte {brand}",
+    "preheader": "Rien n'est supprimé tant que vous n'avez pas confirmé. Le lien est valable {hours} heures.",
+    "heading": "Confirmez la suppression de votre compte",
+    "body": "Vous avez demandé la suppression de votre compte {brand} et des données qui y sont attachées. Cette action est irréversible. Rien n'est supprimé tant que vous n'avez pas confirmé.",
+    "button": "Supprimer mon compte",
+    "expiry": "Le lien est valable {hours} heures.",
+    "ignore": "Si ce n'était pas vous, ignorez ce courriel : votre compte reste tel quel.",
+    "why": "Vous recevez ce courriel parce que la suppression de votre compte a été demandée."
+  },
+  "dataExport": {
+    "subject": "Votre export de données {brand} est prêt",
+    "preheader": "Le téléchargement est disponible {days} jours.",
+    "heading": "Votre export de données est prêt",
+    "body": "Vous avez demandé une copie de vos données. Elle est prête à télécharger pendant {days} jours, puis elle est supprimée.",
+    "button": "Télécharger mes données",
+    "why": "Vous recevez ce courriel parce qu'une copie de vos données a été demandée."
+  }
+}

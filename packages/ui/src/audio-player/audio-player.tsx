@@ -7,6 +7,9 @@ import { tv } from "tailwind-variants";
 
 import { PauseGlyph, PlayGlyph } from "../glyphs";
 import { clamp, formatClock, playSafely, useInView } from "../media";
+import { resamplePeaks } from "../waveform/bars";
+
+export { resamplePeaks };
 
 export const audioPlayer = tv({
   slots: {
@@ -70,18 +73,6 @@ export type AudioPlayerProps = {
   /** Classes merged on the root. */
   className?: string;
 };
-
-/** Resamples peaks to `count` bars (the maximum of each slice), normalised to the loudest. */
-export function resamplePeaks(peaks: readonly number[], count: number): number[] {
-  if (peaks.length === 0) return Array.from({ length: count }, () => 0.15);
-  const out = Array.from({ length: count }, (_, i) => {
-    const from = Math.floor((i / count) * peaks.length);
-    const to = Math.max(from + 1, Math.floor(((i + 1) / count) * peaks.length));
-    return Math.max(...peaks.slice(from, to).map(Math.abs));
-  });
-  const loudest = Math.max(...out, 0.0001);
-  return out.map((v) => Math.max(0.08, v / loudest));
-}
 
 /** The peaks of a sound file, computed with Web Audio (`count` of them). */
 export async function computeAudioPeaks(src: string, count = 200, signal?: AbortSignal): Promise<number[]> {

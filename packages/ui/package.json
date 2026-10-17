@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/ui",
-  "version": "3.21.0",
+  "version": "3.24.0",
   "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia, Yasakia, Yororis) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
@@ -97,6 +97,10 @@
       "types": "./dist/theme.d.ts",
       "import": "./dist/theme.js"
     },
+    "./captcha": {
+      "types": "./dist/captcha.d.ts",
+      "import": "./dist/captcha.js"
+    },
     "./countdown": {
       "types": "./dist/countdown.d.ts",
       "import": "./dist/countdown.js"
@@ -189,6 +193,10 @@
       "types": "./dist/progress.d.ts",
       "import": "./dist/progress.js"
     },
+    "./waveform": {
+      "types": "./dist/waveform.d.ts",
+      "import": "./dist/waveform.js"
+    },
     "./section-backdrop": {
       "types": "./dist/section-backdrop.d.ts",
       "import": "./dist/section-backdrop.js"
@@ -268,6 +276,10 @@
     "./data-table": {
       "types": "./dist/data-table.d.ts",
       "import": "./dist/data-table.js"
+    },
+    "./genui": {
+      "types": "./dist/genui.d.ts",
+      "import": "./dist/genui.js"
     },
     "./virtual": {
       "types": "./dist/virtual.d.ts",
@@ -357,6 +369,38 @@
       "types": "./dist/meta-row.d.ts",
       "import": "./dist/meta-row.js"
     },
+    "./app-header": {
+      "types": "./dist/app-header.d.ts",
+      "import": "./dist/app-header.js"
+    },
+    "./opening-hours": {
+      "types": "./dist/opening-hours.d.ts",
+      "import": "./dist/opening-hours.js"
+    },
+    "./service-card": {
+      "types": "./dist/service-card.d.ts",
+      "import": "./dist/service-card.js"
+    },
+    "./slot-picker": {
+      "types": "./dist/slot-picker.d.ts",
+      "import": "./dist/slot-picker.js"
+    },
+    "./cover-hero": {
+      "types": "./dist/cover-hero.d.ts",
+      "import": "./dist/cover-hero.js"
+    },
+    "./media-gallery": {
+      "types": "./dist/media-gallery.d.ts",
+      "import": "./dist/media-gallery.js"
+    },
+    "./sticky-action": {
+      "types": "./dist/sticky-action.d.ts",
+      "import": "./dist/sticky-action.js"
+    },
+    "./rail-nav": {
+      "types": "./dist/rail-nav.d.ts",
+      "import": "./dist/rail-nav.js"
+    },
     "./activity-feed": {
       "types": "./dist/activity-feed.d.ts",
       "import": "./dist/activity-feed.js"
@@ -425,6 +469,10 @@
       "types": "./dist/dashboard-layout.d.ts",
       "import": "./dist/dashboard-layout.js"
     },
+    "./account-menu": {
+      "types": "./dist/account-menu.d.ts",
+      "import": "./dist/account-menu.js"
+    },
     "./settings-layout": {
       "types": "./dist/settings-layout.d.ts",
       "import": "./dist/settings-layout.js"
@@ -448,6 +496,10 @@
     "./docs-layout": {
       "types": "./dist/docs-layout.d.ts",
       "import": "./dist/docs-layout.js"
+    },
+    "./docs-nav": {
+      "types": "./dist/docs-nav.d.ts",
+      "import": "./dist/docs-nav.js"
     },
     "./scroll-stage": {
       "types": "./dist/scroll-stage.d.ts",
@@ -662,7 +714,7 @@
   },
   "peerDependencies": {
     "@krizaka/query": ">=0.2.1",
-    "@krizaka/tailwind": ">=3.21.0",
+    "@krizaka/tailwind": ">=3.24.0",
     "@maplibre/maplibre-react-native": ">=11",
     "@shopify/flash-list": ">=2",
     "expo-camera": ">=16",
@@ -785,7 +837,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "58 kB",
+      "limit": "59 kB",
       "gzip": true
     },
     {
@@ -838,6 +890,16 @@
       "name": "./theme",
       "path": "dist/theme.js",
       "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./captcha",
+      "path": "dist/captcha.js",
+      "limit": "5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -907,7 +969,7 @@
     {
       "name": "./dialog",
       "path": "dist/dialog.js",
-      "limit": "16.5 kB",
+      "limit": "16.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1131,6 +1193,16 @@
       ]
     },
     {
+      "name": "./waveform",
+      "path": "dist/waveform.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
       "name": "./iso (a hero costs no client JavaScript: server components, static SVG)",
       "path": "dist/iso.js",
       "limit": "4.5 kB",
@@ -1173,7 +1245,7 @@
     {
       "name": "./site-footer (the family's marks, still)",
       "path": "dist/site-footer.js",
-      "limit": "10.5 kB",
+      "limit": "11 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1311,7 +1383,7 @@
       "name": "./data-table: the toolbar (FilterBar on Radix DropdownMenu, SearchField, the columns menu, the export)",
       "path": "dist/data-table.js",
       "import": "{ DataTableFilters, DataTableColumnsMenu, DataTableExport }",
-      "limit": "41 kB",
+      "limit": "42 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1509,6 +1581,87 @@
       ]
     },
     {
+      "name": "./app-header",
+      "path": "dist/app-header.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./opening-hours",
+      "path": "dist/opening-hours.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./service-card",
+      "path": "dist/service-card.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./slot-picker",
+      "path": "dist/slot-picker.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./cover-hero",
+      "path": "dist/cover-hero.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./media-gallery",
+      "path": "dist/media-gallery.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./sticky-action",
+      "path": "dist/sticky-action.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./rail-nav",
+      "path": "dist/rail-nav.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "radix-ui"
+      ]
+    },
+    {
       "name": "./activity-feed",
       "path": "dist/activity-feed.js",
       "limit": "2.5 kB",
@@ -1640,7 +1793,7 @@
     {
       "name": "./link-card",
       "path": "dist/link-card.js",
-      "limit": "1 kB",
+      "limit": "1.25 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1736,7 +1889,7 @@
     {
       "name": "./app-shell",
       "path": "dist/app-shell.js",
-      "limit": "17.5 kB",
+      "limit": "18 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1754,9 +1907,21 @@
       ]
     },
     {
+      "name": "./account-menu",
+      "path": "dist/account-menu.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "radix-ui",
+        "react"
+      ]
+    },
+    {
       "name": "./settings-layout",
       "path": "dist/settings-layout.js",
-      "limit": "1.2 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1807,6 +1972,16 @@
       "name": "./docs-layout",
       "path": "dist/docs-layout.js",
       "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./docs-nav",
+      "path": "dist/docs-nav.js",
+      "limit": "1.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2005,7 +2180,7 @@
     {
       "name": "./changelog-page",
       "path": "dist/changelog-page.js",
-      "limit": "1.5 kB",
+      "limit": "2.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2214,6 +2389,17 @@
       "name": "./maintenance-screen",
       "path": "dist/maintenance-screen.js",
       "limit": "3.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./genui: GenUiStream (A2UI v0.9 validator, store, surface, base catalog with DataTable)",
+      "path": "dist/genui.js",
+      "import": "{ GenUiStream, baseGenUiCatalog }",
+      "limit": "50 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

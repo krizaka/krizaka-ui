@@ -1,0 +1,24 @@
+Your sign-in link for Krizaka
+
+Krizaka
+
+
+SIGN IN TO KRIZAKA
+
+Use the button below to sign in. The link works once and is valid for 15 minutes.
+
+Sign in https://blog.krizaka.com/api/auth/signin?t=example
+
+If you didn't ask to sign in, ignore this email: nobody can get in without this link.
+
+----------------------------------------
+
+Oussama
+
+Founder, Krizaka
+
+You receive this email because someone asked for a sign-in link for this address.
+
+Privacy https://www.krizaka.com/privacy · Contact https://www.krizaka.com/contact
+
+Sent by Technologies Krizaka Inc., Montréal (Québec), Canada.

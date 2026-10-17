@@ -101,6 +101,31 @@ describe("Tabs", () => {
     await user.click(screen.getByRole("tab", { name: "B" }));
     expect(list.getAttribute("data-indicator")).toBe("on");
   });
+
+  it("hides inactive tab panel when forceMount is true", () => {
+    render(
+      <Tabs.Root defaultValue="video">
+        <Tabs.List aria-label="Media">
+          <Tabs.Trigger value="video">Video</Tabs.Trigger>
+          <Tabs.Trigger value="image">Image</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="video" forceMount data-testid="panel-video">
+          Video content
+        </Tabs.Content>
+        <Tabs.Content value="image" forceMount data-testid="panel-image">
+          Image content
+        </Tabs.Content>
+      </Tabs.Root>,
+    );
+
+    const videoPanel = screen.getByTestId("panel-video");
+    const imagePanel = screen.getByTestId("panel-image");
+
+    expect(videoPanel.getAttribute("data-state")).toBe("active");
+    expect(videoPanel.className).toContain("data-[state=inactive]:hidden");
+    expect(imagePanel.getAttribute("data-state")).toBe("inactive");
+    expect(imagePanel.className).toContain("data-[state=inactive]:hidden");
+  });
 });
 
 describe("Tabs scroll container", () => {

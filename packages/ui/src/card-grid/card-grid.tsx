@@ -4,6 +4,7 @@
 import * as React from "react";
 
 import { cn } from "../cn";
+import type { CardHover } from "../link-card/link-card";
 import { POINTER_LIGHT_TARGET, usePointerLight } from "../pointer-light/pointer-light";
 
 const STEP_MS = 70;
@@ -56,6 +57,12 @@ export type CardGridProps = Omit<React.HTMLAttributes<HTMLElement>, "children"> 
   foundationPosition?: "start" | "end";
   /** A short mono label on the frame's edge, naming the relation (`Powered by Orazaka`). Only with `foundation`. */
   foundationLabel?: React.ReactNode;
+  /**
+   * The hover of every card of the grid: `light` (the pointer's light, the default) or `quiet` (no glow, a 2 px lift, a
+   * ring on focus). A card that sets its own `hover` keeps it.
+   * @default "light"
+   */
+  hover?: CardHover;
 };
 
 /** A responsive grid of cards: equal rows, a staggered reveal, the pointer's light. */
@@ -71,6 +78,7 @@ export function CardGrid({
   foundation,
   foundationPosition = "start",
   foundationLabel,
+  hover = "light",
   className,
   style,
   ...props
@@ -81,7 +89,7 @@ export function CardGrid({
   const grid = (
     <Tag
       ref={foundation ? undefined : (ref as React.Ref<never>)}
-      className={cn("kz-cards", !foundation && className)}
+      className={cn("kz-cards", hover === "quiet" && "kz-hover-quiet", !foundation && className)}
       data-fit={fit === "fit" ? "" : undefined}
       data-align={align === "start" ? "start" : undefined}
       style={{ "--kz-cards-min": `${min}px`, ...(foundation ? null : style) } as React.CSSProperties}

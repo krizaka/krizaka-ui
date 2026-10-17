@@ -4,12 +4,15 @@ import * as React from "react";
 
 import { BlockLink, type LinkComponent } from "../block-link";
 import { cn } from "../cn";
+import { SectionHint, type SectionHintProps } from "./section-hint";
 
 export interface ShortsShelfProps<T> extends Omit<React.ComponentProps<"section">, "children" | "title"> {
   /** The shelf's accessible name ("Shorts"), passed translated; shown as its heading unless `title` is set. */
   label: string;
   /** A heading different from the name. */
   title?: React.ReactNode;
+  /** A small “i” beside the heading: the one-line definition of the section and a link to the glossary. */
+  hint?: SectionHintProps;
   /** The clips, in order. */
   items: readonly T[];
   /** A stable key for an item. */
@@ -34,7 +37,7 @@ const ARROW =
   "hidden h-9 w-9 items-center justify-center rounded-full border border-border-default bg-surface-1 text-fg shadow-sm transition-colors hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40 [@media(hover:hover)]:inline-flex";
 
 /** A Shorts shelf: equal-height 9:16 cards in a snap-scrolling row. */
-export function ShortsShelf<T>({ label, title, items, getId, renderItem, seeAll, previousLabel, nextLabel, className, ...props }: ShortsShelfProps<T>) {
+export function ShortsShelf<T>({ label, title, hint, items, getId, renderItem, seeAll, previousLabel, nextLabel, className, ...props }: ShortsShelfProps<T>) {
   const row = React.useRef<HTMLUListElement>(null);
   const [edge, setEdge] = React.useState({ start: true, end: false });
   const measure = React.useCallback(() => {
@@ -55,6 +58,7 @@ export function ShortsShelf<T>({ label, title, items, getId, renderItem, seeAll,
         <h2 id={headingId} className="m-0 mr-auto text-base font-bold text-fg">
           {title ?? label}
         </h2>
+        {hint && <SectionHint {...hint} />}
         {seeAll && (
           <BlockLink href={seeAll.href} linkAs={seeAll.linkAs} className="text-sm font-semibold text-fg-accent hover:underline">
             {seeAll.label}

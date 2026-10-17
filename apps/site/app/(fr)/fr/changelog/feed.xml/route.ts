@@ -1,0 +1,6 @@
+import { changelogFeed } from "@/lib/changelog-feed";
+
+// RSS 2.0 of the changelog, built once per deployment from the same releases as the page.
+export const dynamic = "force-static";
+
+export const GET = () => changelogFeed("fr");

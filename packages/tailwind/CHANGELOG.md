@@ -1,5 +1,30 @@
 # @krizaka/tailwind
 
+## 3.24.0
+
+### Patch Changes
+
+- Updated dependencies [[`0187e71`](https://github.com/krizaka/krizaka-ui/commit/0187e71b95394f0a77016316b182a42049e6f505)]:
+  - @krizaka/ui@3.24.0
+  - @krizaka/tokens@3.24.0
+
+## 3.23.0
+
+### Patch Changes
+
+- Updated dependencies [[`08aab96`](https://github.com/krizaka/krizaka-ui/commit/08aab961e16999c9ef393c7bca57acf499e6ba3f), [`9b7a4d7`](https://github.com/krizaka/krizaka-ui/commit/9b7a4d7c6b48ca69adaf51e3d2c7d65329b19e25), [`840cff6`](https://github.com/krizaka/krizaka-ui/commit/840cff69dcb2aaebbd9159058e67c6f0ebd06b29), [`c77236d`](https://github.com/krizaka/krizaka-ui/commit/c77236d8ddad35c2a49e861bcfee6d6dd5c45482), [`ffa3402`](https://github.com/krizaka/krizaka-ui/commit/ffa34028fa60befc174ab98f0b65cdf269755ee6), [`75762cc`](https://github.com/krizaka/krizaka-ui/commit/75762cce12331e3cd02ad084073c35ce9653e01d), [`80f530d`](https://github.com/krizaka/krizaka-ui/commit/80f530dcf40c077f54737ef7adb23087fb509fb3), [`ffa3402`](https://github.com/krizaka/krizaka-ui/commit/ffa34028fa60befc174ab98f0b65cdf269755ee6), [`5798ea6`](https://github.com/krizaka/krizaka-ui/commit/5798ea6b183d8b2fa6033b9fc5007b168a7e1993), [`fba8ca4`](https://github.com/krizaka/krizaka-ui/commit/fba8ca409e5bfc8a206f88c3243f0f1cc7757f63), [`4dfbbc9`](https://github.com/krizaka/krizaka-ui/commit/4dfbbc904efa0d97549f7b16bc939e94dd28bc22), [`e74e415`](https://github.com/krizaka/krizaka-ui/commit/e74e415348782780c8d06560d319cb016fffe04a), [`c10fd78`](https://github.com/krizaka/krizaka-ui/commit/c10fd78250a8ff8936b95b56626ec49b16c657aa), [`528be7e`](https://github.com/krizaka/krizaka-ui/commit/528be7ee412c18d5d79b6d34c260d469163e822a), [`4dfbbc9`](https://github.com/krizaka/krizaka-ui/commit/4dfbbc904efa0d97549f7b16bc939e94dd28bc22), [`07efd21`](https://github.com/krizaka/krizaka-ui/commit/07efd218c85f87f97be91b1081ad22215c013b53), [`57a123f`](https://github.com/krizaka/krizaka-ui/commit/57a123f5527aab2edcb091a0d40e2feb7ab21ad6)]:
+  - @krizaka/ui@3.23.0
+  - @krizaka/tokens@3.23.0
+
+## 3.22.0
+
+### Patch Changes
+
+- [#308](https://github.com/krizaka/krizaka-ui/pull/308) [`284468a`](https://github.com/krizaka/krizaka-ui/commit/284468a656417b92e30eb9cb853c4546409b09f5) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Focus rings only for the keyboard. A mouse click on a link (the brand, a nav item, a card) no longer shows a blue outline: the preset's base layer hides the outline of any element that is focused without `:focus-visible`, and gives keyboard focus on an element without its own ring the token ring (`--kz-ring`, the signature offset). The skip link's ring follows `:focus-visible` too.
+- Updated dependencies [[`9c804b3`](https://github.com/krizaka/krizaka-ui/commit/9c804b3274ac5e3169138cd1290f653e642deb4a), [`284468a`](https://github.com/krizaka/krizaka-ui/commit/284468a656417b92e30eb9cb853c4546409b09f5), [`2cb1c7d`](https://github.com/krizaka/krizaka-ui/commit/2cb1c7d6e2a33d3a9cc0014744a0241419ef3fc1), [`d08b205`](https://github.com/krizaka/krizaka-ui/commit/d08b2052441939a4c6d6914d03b38bcf4125bd36), [`3c92001`](https://github.com/krizaka/krizaka-ui/commit/3c92001306cf61bfd15c533d2e447f203897bc53)]:
+  - @krizaka/ui@3.22.0
+  - @krizaka/tokens@3.22.0
+
 ## 3.21.0
 
 ### Patch Changes

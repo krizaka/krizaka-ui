@@ -24,9 +24,28 @@ export const settingsLayout = tv({
     sectionDescription: "text-sm text-fg-secondary",
     sectionBody: "flex flex-col gap-4 px-5 py-5",
     sectionFooter: "flex flex-wrap items-center justify-end gap-2 border-t border-border-subtle bg-surface-2/40 px-5 py-3 rounded-b-xl",
+    // The flat look: no card, hairline-divided rows (Linear / Vercel / GitHub settings).
+    rows: "flex flex-col divide-y divide-border-subtle border-y border-border-subtle",
+    row: "flex flex-col gap-2 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6",
+    rowText: "flex min-w-0 flex-col gap-0.5",
+    rowLabel: "text-sm font-medium text-fg",
+    rowDescription: "text-sm text-fg-secondary",
+    rowControl: "flex min-w-0 shrink-0 items-center gap-2 text-sm text-fg sm:max-w-[60%] sm:justify-end",
   },
+  variants: {
+    variant: {
+      card: {},
+      flat: {
+        content: "max-w-[45rem] gap-10",
+        section: "rounded-none border-0 bg-transparent",
+        sectionHead: "gap-0.5 px-0 pb-3 pt-0",
+        sectionBody: "gap-0 px-0 py-0",
+        sectionFooter: "justify-start border-t-0 bg-transparent px-0 pb-0 pt-4",
+      },
+    },
+  },
+  defaultVariants: { variant: "card" },
 });
-const s = settingsLayout();
 
 export interface SettingsNavItem {
   /** Its id (the anchor of a section on one long page). */
@@ -52,12 +71,18 @@ export type SettingsLayoutProps = Omit<React.ComponentProps<"div">, "title"> & {
   navLabel: string;
   /** The app's link component for the sections (Next's `Link`); an `<a>` otherwise. */
   linkAs?: React.ElementType;
+  /**
+   * `card` (each form a titled card) or `flat` (one calm column of at most 45rem, rows divided by hairlines).
+   * @default "card"
+   */
+  variant?: "card" | "flat";
   /** The current section's forms (`SettingsSection`). */
   children: React.ReactNode;
 };
 
 /** A settings screen: sections on the left (chips on a phone), forms on the right. */
-export function SettingsLayout({ title, description, nav, navLabel, linkAs: Link = "a", className, children, ...props }: SettingsLayoutProps) {
+export function SettingsLayout({ title, description, nav, navLabel, linkAs: Link = "a", variant = "card", className, children, ...props }: SettingsLayoutProps) {
+  const s = settingsLayout({ variant });
   return (
     <div className={s.root({ className })} {...props}>
       {(title || description) && (
@@ -92,12 +117,18 @@ export type SettingsSectionProps = Omit<React.ComponentProps<"section">, "title"
   description?: React.ReactNode;
   /** At the foot: the section's own save (a Button), a note. */
   footer?: React.ReactNode;
-  /** The fields. */
+  /**
+   * `card` (a titled card) or `flat` (no card: a title, then hairline-divided `SettingsRow`s).
+   * @default "card"
+   */
+  variant?: "card" | "flat";
+  /** The fields (or, flat, the `SettingsRow`s). */
   children: React.ReactNode;
 };
 
-/** A group of settings: a titled card with its fields and its own save. */
-export function SettingsSection({ title, description, footer, id, className, children, ...props }: SettingsSectionProps) {
+/** A group of settings: a titled card with its fields and its own save, or flat rows under a title. */
+export function SettingsSection({ title, description, footer, variant = "card", id, className, children, ...props }: SettingsSectionProps) {
+  const s = settingsLayout({ variant });
   const auto = React.useId();
   const titleId = `${id ?? auto}-title`;
   return (
@@ -108,8 +139,38 @@ export function SettingsSection({ title, description, footer, id, className, chi
         </h2>
         {description && <p className={s.sectionDescription()}>{description}</p>}
       </div>
-      <div className={s.sectionBody()}>{children}</div>
+      <div className={variant === "flat" ? s.rows() : s.sectionBody()} data-settings-rows={variant === "flat" ? "" : undefined}>
+        {children}
+      </div>
       {footer && <div className={s.sectionFooter()}>{footer}</div>}
     </section>
+  );
+}
+
+export type SettingsRowProps = Omit<React.ComponentProps<"div">, "title"> & {
+  /** What the setting is (`Username`). */
+  label: React.ReactNode;
+  /** The help text under it, one sentence. */
+  description?: React.ReactNode;
+  /** The id of the control, so the label names it (a `<label htmlFor>`). Leave out for a plain value. */
+  htmlFor?: string;
+  /** The control or the value, on the right (stacked under the label on a phone). */
+  children?: React.ReactNode;
+};
+
+/** One setting: its label and help on the left, its control or value on the right. Put rows in a flat `SettingsSection`. */
+export function SettingsRow({ label, description, htmlFor, className, children, ...props }: SettingsRowProps) {
+  const s = settingsLayout();
+  const Label = htmlFor ? "label" : "span";
+  return (
+    <div className={s.row({ className })} {...props}>
+      <div className={s.rowText()}>
+        <Label className={s.rowLabel()} {...(htmlFor ? { htmlFor } : {})}>
+          {label}
+        </Label>
+        {description && <span className={s.rowDescription()}>{description}</span>}
+      </div>
+      {children !== undefined && <div className={s.rowControl()}>{children}</div>}
+    </div>
   );
 }

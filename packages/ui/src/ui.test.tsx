@@ -75,97 +75,95 @@ describe("marks", () => {
     expect(ORAZAKA.gradient.stops[0]![1]).toBe(brands.orazaka.light.accent);
     expect(ORAZAKA.gradient.stops.map(([, c]) => c)).not.toContain("#f59e0b");
     expect(ORAZAKA.glow.color).toBe(ORAZAKA.gradient.stops.at(-1)![1]);
-    // Yasakia: emerald → turquoise, the mark gradient of its brand; the halo in the turquoise end.
+    // Yasakia, Yomizaka: the brand's mark gradient; the halo and the core's breath in its last stop.
     expect(YASAKIA.gradient.stops).toEqual(marks.yasakia);
     expect(YASAKIA.glow.color).toBe(YASAKIA.gradient.stops.at(-1)![1]);
-    // Yororis: sand → sage, the mark gradient of its brand; the halo in the sage end, the core's light rises from the sand.
-    expect(YORORIS.gradient.stops).toEqual(marks.yororis);
-    expect(YORORIS.glow.color).toBe(YORORIS.gradient.stops.at(-1)![1]);
-    expect(YORORIS.coreGradient.stops[0][1]).toBe(YORORIS.gradient.stops[0]![1]);
-    // Yomizaka: ink → indigo, the mark gradient of its brand; the halo and the lens' breath in the indigo end.
     expect(YOMIZAKA.gradient.stops).toEqual(marks.yomizaka);
     expect(YOMIZAKA.glow.color).toBe(YOMIZAKA.gradient.stops.at(-1)![1]);
     expect(YOMIZAKA.pulse.color).toBe(YOMIZAKA.glow.color);
-    // Kachizaka: cobalt → gold; the halo and the seal's breath in the gold. Akinaza: forest → copper, the halo in copper.
-    expect(KACHIZAKA.gradient.stops).toEqual(marks.kachizaka);
-    expect(KACHIZAKA.glow.color).toBe(KACHIZAKA.gradient.stops.at(-1)![1]);
-    expect(KACHIZAKA.pulse.color).toBe(KACHIZAKA.glow.color);
-    expect(AKINAZA.gradient.stops).toEqual(marks.akinaza);
-    expect(AKINAZA.glow.color).toBe(AKINAZA.gradient.stops.at(-1)![1]);
+    // Two-colour brands keep their colours apart: each colour is one stop of the brand's mark gradient, never a blend.
+    expect([KACHIZAKA.cobalt, KACHIZAKA.gold]).toEqual(marks.kachizaka.map(([, c]) => c));
+    expect(KACHIZAKA.glow.color).toBe(KACHIZAKA.gold);
+    expect([AKINAZA.forest, AKINAZA.copper]).toEqual(marks.akinaza.map(([, c]) => c));
+    expect(AKINAZA.glow.color).toBe(AKINAZA.copper);
+    expect([YORORIS.sand, YORORIS.sage]).toEqual(marks.yororis.map(([, c]) => c));
+    expect(YORORIS.glow.color).toBe(YORORIS.sage);
   });
 
-  it("draws the Kachizaka emblem: the cup cut at its rim, the handles, the base, the seal (a star) that breathes (snapshot)", async () => {
-    const { container } = render(<KachizakaLogo size={96} animated={false} />);
-    const svg = container.querySelector("svg")!;
-    // Handles, base, cup, star.
-    expect(svg.querySelectorAll("path")).toHaveLength(4);
-    // Halo, ring, orbit, the ball.
-    expect(svg.querySelectorAll("circle")).toHaveLength(4);
-    // The rim's corner is the Krizaka chamfer (a 45° cut); the star is a ten-point path; all inside the cropped frame.
-    expect(KACHIZAKA.cup).toContain("H232 L264 136");
-    expect(KACHIZAKA.star.match(/L/g)).toHaveLength(9);
-    for (const n of `${KACHIZAKA.cup} ${KACHIZAKA.base} ${KACHIZAKA.handles}`.match(/\d+(\.\d+)?/g)!.map(Number)) expect(n >= 80 && n <= 320).toBe(true);
-    await expect(svg.outerHTML.replace(/kzm-(\w+)-[\w-]+?(?=[")])/g, "kzm-$1")).toMatchFileSnapshot("./marks/__snapshots__/KachizakaLogo.svg");
-    expect(render(<KachizakaLogo size={96} />).container.querySelector(".kzm-seal")).not.toBeNull();
-  });
+  /** Every number of a path: the emblem stays inside the cropped frame (80 → 320), a stroke's half-width included. */
+  const inFrame = (d: string, pad = 0) => d.replace(/A[\d.]+ [\d.]+ \d \d \d/g, "").match(/-?\d+(\.\d+)?/g)!.map(Number).every((n) => n - pad >= 80 && n + pad <= 320);
+  const normalise = (svg: SVGSVGElement, prefix: string) => svg.outerHTML.replace(new RegExp(`${prefix}-(\\w+)-[\\w-]+?(?=[")])`, "g"), `${prefix}-$1`);
 
-  it("draws the Akinaza emblem: the awning cut at its corner, its stripes, the front, the windows and the open door (snapshot)", async () => {
-    const { container } = render(<AkinazaLogo size={96} animated={false} />);
-    const svg = container.querySelector("svg")!;
-    // Awning, stripes, front, windows; the door is a rect.
-    expect(svg.querySelectorAll("path")).toHaveLength(4);
-    expect(svg.querySelectorAll("rect")).toHaveLength(1);
-    expect(AKINAZA.awning).toContain("H248 L276 136");
-    // The door is cut out of the front, and the light fills it.
-    expect(AKINAZA.front).toContain("V222 H178");
-    expect(AKINAZA.door.x).toBeGreaterThan(178);
-    expect(AKINAZA.door.x + AKINAZA.door.w).toBeLessThan(222);
-    await expect(svg.outerHTML.replace(/akm-(\w+)-[\w-]+?(?=[")])/g, "akm-$1")).toMatchFileSnapshot("./marks/__snapshots__/AkinazaLogo.svg");
-    expect(render(<AkinazaLogo size={96} />).container.querySelector(".akm-door")).not.toBeNull();
-  });
-
-  it("draws the Yomizaka emblem: a page cut at its corner and around the lens, its lines, the lens and its handle, one node on the orbit (snapshot)", async () => {
+  it("draws the Yomizaka emblem: the owl, two lenses under a calm brow, the pupils lit and breathing (snapshot)", async () => {
     const { container } = render(<YomizakaLogo size={96} animated={false} />);
     const svg = container.querySelector("svg")!;
-    // Still: the page, its lines, the handle (and the page again, as the clip of the reading line) — no scanning line.
-    expect(svg.querySelectorAll("path")).toHaveLength(3 + 1);
-    expect(svg.querySelector(".ymm-scan")).toBeNull();
-    // Halo, ring, orbit, the node, the lens and its glint.
-    expect(svg.querySelectorAll("circle")).toHaveLength(1 + 1 + 2 + 2);
-    // The cut corner is the Krizaka chamfer (a 45° cut), and the gap around the lens is wider than the lens' ring.
-    expect(YOMIZAKA.page).toContain("H228 L264 128");
-    expect(52).toBeGreaterThan(YOMIZAKA.lens.r + YOMIZAKA.lens.width / 2);
-    // The emblem stays inside the cropped frame (80 → 320), the handle's round cap included.
-    expect(304 + YOMIZAKA.handleWidth / 2).toBeLessThanOrEqual(320);
-    await expect(svg.outerHTML.replace(/ymm-(\w+)-[\w-]+?(?=[")])/g, "ymm-$1")).toMatchFileSnapshot("./marks/__snapshots__/YomizakaLogo.svg");
-    // Animated: the reading line scans the page, clipped to it.
-    const moving = render(<YomizakaLogo size={96} />);
-    expect(moving.container.querySelector(".ymm-scan")?.closest("g")?.getAttribute("clip-path")).toMatch(/^url\(#ymm-page-/);
+    expect(svg.querySelectorAll("path")).toHaveLength(1);
+    // Halo, ring, orbit, the node, two lenses, two pupils and their lights.
+    expect(svg.querySelectorAll("circle")).toHaveLength(4 + 2 + 4);
+    // The brow is two curves (calm), never a sharp V of straight lines.
+    expect(YOMIZAKA.brow).toMatch(/C.*C/);
+    expect(YOMIZAKA.brow).not.toMatch(/L/);
+    // The brow clears the lenses: its lowest point (the meeting over the beak) sits above their tops.
+    const browLow = Math.max(...YOMIZAKA.brow.match(/\d+(\.\d+)?/g)!.map(Number).filter((_, i) => i % 2 === 1));
+    expect(browLow + YOMIZAKA.stroke / 2).toBeLessThan(YOMIZAKA.lenses[0]!.cy - YOMIZAKA.lenses[0]!.r - YOMIZAKA.stroke / 2);
+    expect(inFrame(YOMIZAKA.brow, YOMIZAKA.stroke / 2)).toBe(true);
+    await expect(normalise(svg, "ymm")).toMatchFileSnapshot("./marks/__snapshots__/YomizakaLogo.svg");
+    expect(render(<YomizakaLogo size={96} />).container.querySelector(".ymm-core")).not.toBeNull();
   });
 
-  it("draws the Yororis emblem: two filled leaves and a stem in the brand gradient, the core held inside them, one node on the orbit (snapshot)", async () => {
+  it("draws the Kachizaka emblem: the podium, gold winner and cobalt steps cut at their corners, the lit diamond (snapshot)", async () => {
+    const { container } = render(<KachizakaLogo size={96} animated={false} />);
+    const svg = container.querySelector("svg")!;
+    // Three steps, the diamond and its light; halo, ring, orbit, the ball.
+    expect(svg.querySelectorAll("path")).toHaveLength(5);
+    expect(svg.querySelectorAll("circle")).toHaveLength(4);
+    // The winner is gold, the others cobalt; the outer corners are 45° cuts (equal runs in x and y).
+    expect([...svg.querySelectorAll("path")].map((p) => p.getAttribute("fill")).slice(0, 3)).toEqual([KACHIZAKA.cobalt, KACHIZAKA.gold, KACHIZAKA.cobalt]);
+    expect(KACHIZAKA.steps.second).toContain("M102 240 L122 220");
+    expect(KACHIZAKA.steps.third).toContain("H278 L298 268");
+    for (const d of Object.values(KACHIZAKA.steps)) expect(inFrame(d)).toBe(true);
+    // No class collides with Krizaka's ("kzm").
+    expect(render(<KachizakaLogo size={96} />).container.querySelector(".kcm-core")).not.toBeNull();
+    await expect(normalise(svg, "kcm")).toMatchFileSnapshot("./marks/__snapshots__/KachizakaLogo.svg");
+  });
+
+  it("draws the Akinaza emblem: the log cut at 45°, its copper face, the rings inside it, the copper heart (snapshot)", async () => {
+    const { container } = render(<AkinazaLogo size={96} animated={false} />);
+    const svg = container.querySelector("svg")!;
+    expect(svg.querySelectorAll("path")).toHaveLength(2);
+    // Halo, ring, orbit, the coin; two year rings; the heart and its light.
+    expect(svg.querySelectorAll("circle")).toHaveLength(4 + 2 + 2);
+    // The cut is a 45° chord (equal runs in x and y), and the rings stay clear of the copper face (chord at 58 from the centre).
+    expect(AKINAZA.log).toContain("M197 110 L290 203");
+    for (const r of AKINAZA.rings.r) expect(r + AKINAZA.rings.width / 2).toBeLessThan(58);
+    expect(inFrame(AKINAZA.log)).toBe(true);
+    await expect(normalise(svg, "akm")).toMatchFileSnapshot("./marks/__snapshots__/AkinazaLogo.svg");
+    expect(render(<AkinazaLogo size={96} />).container.querySelector(".akm-core")).not.toBeNull();
+  });
+
+  it("draws the Yororis emblem: two open hands cup a warm core without closing on it (snapshot)", async () => {
     const { container } = render(<YororisLogo size={96} animated={false} />);
     const svg = container.querySelector("svg")!;
-    expect(svg.querySelectorAll("path")).toHaveLength(1 + YORORIS.leaves.length + 1);
-    expect(svg.querySelectorAll("circle")).toHaveLength(1 + 2 + 1 + 2);
-    // The core rests in the hollow of the leaves, above the stem's junction.
-    expect(YORORIS.core.cy + YORORIS.core.r).toBeLessThan(244);
-    await expect(svg.outerHTML.replace(/yrm-(\w+)-[\w-]+?(?=[")])/g, "yrm-$1")).toMatchFileSnapshot("./marks/__snapshots__/YororisLogo.svg");
+    expect(svg.querySelectorAll("path")).toHaveLength(1);
+    expect(svg.querySelectorAll("circle")).toHaveLength(4 + 2);
+    // Two arcs of one circle, open at the bottom: the core is held, never enclosed, and sits inside the hands.
+    expect(YORORIS.hands.match(/A92 92/g)).toHaveLength(2);
+    expect(YORORIS.core.cy - YORORIS.core.r).toBeGreaterThan(136.6 - YORORIS.stroke);
+    expect(inFrame(YORORIS.hands, YORORIS.stroke / 2)).toBe(true);
+    await expect(normalise(svg, "yrm")).toMatchFileSnapshot("./marks/__snapshots__/YororisLogo.svg");
   });
 
-  it("draws the Yasakia emblem: two voices, the left a shade deeper, a lit lens where they overlap, the pair on the orbit (snapshot)", async () => {
+  it("draws the Yasakia emblem: one bubble with a tail on each side, turned 180° (never a face), the spark inside (snapshot)", async () => {
     const { container } = render(<YasakiaLogo size={96} animated={false} />);
     const svg = container.querySelector("svg")!;
-    // Each voice: its bubble and its tail; the left one's shade; the lens and its light.
-    expect(svg.querySelectorAll("path")).toHaveLength(YASAKIA.voices.length * 2 + 1 + 2);
-    // Halo, ring, orbit and the pair.
-    expect(svg.querySelectorAll("circle")).toHaveLength(3 + YASAKIA.pair.at.length);
-    // The voices are mirrors of each other, and the lens sits on the axis.
-    const [left, right] = YASAKIA.voices;
-    expect(right.body.replace(/[\d.]+/g, "n")).toBe(left.body.replace(/[\d.]+/g, "n"));
-    expect(YASAKIA.lens.d.startsWith("M200 ")).toBe(true);
-    // The SVG, ids normalised (they are unique per instance).
-    await expect(svg.outerHTML.replace(/yzm-(\w+)-[\w-]+?(?=[")])/g, "yzm-$1")).toMatchFileSnapshot("./marks/__snapshots__/YasakiaLogo.svg");
+    // Tails, spark; halo, ring, orbit, node, the bubble.
+    expect(svg.querySelectorAll("path")).toHaveLength(2);
+    expect(svg.querySelectorAll("circle")).toHaveLength(5);
+    // The second tail is the first turned 180° about the centre: (x, y) → (400 − x, 400 − y).
+    const [a, b] = YASAKIA.tails.map((d) => d.match(/\d+(\.\d+)?/g)!.map(Number));
+    expect(b!.map((n) => +(400 - n).toFixed(1))).toEqual(a);
+    for (const d of YASAKIA.tails) expect(inFrame(d)).toBe(true);
+    await expect(normalise(svg, "yzm")).toMatchFileSnapshot("./marks/__snapshots__/YasakiaLogo.svg");
   });
 
   it("picks a mark by id", () => {
@@ -174,7 +172,7 @@ describe("marks", () => {
     expect(container.querySelectorAll("path")).toHaveLength(ORAZAKA.shards.length);
     const yororis = render(<ProductLogo id="yororis" title="Yororis" size={64} />);
     expect(yororis.container.querySelector("svg")?.getAttribute("aria-label")).toBe("Yororis");
-    expect(yororis.container.querySelectorAll("path")).toHaveLength(YORORIS.leaves.length + 2);
+    expect(yororis.container.querySelectorAll("path")).toHaveLength(1);
     const yomizaka = render(<ProductLogo id="yomizaka" title="Yomizaka" size={64} animated={false} />);
     expect(yomizaka.container.querySelector("svg")?.getAttribute("aria-label")).toBe("Yomizaka");
   });

@@ -14,7 +14,7 @@
   `media-capture`, `video-trimmer`, `audio-player`, `image-cropper`, `document-viewer` (pdf.js, an optional peer loaded by the app; passages lit from the PDF's text positions), `map` (MapLibre over Protomaps PMTiles on the Krizaka CDN, the style generated from the tokens; `maplibre-gl` an optional peer, loaded on demand; native `./native/map` on `@maplibre/maplibre-react-native`, an optional peer), and the **page blocks** (category `blocks`) `page`,
   `page-hero`, `card-grid`, `pointer-light`, `link-card`, `argument-card`, `mascot-quote`, `decision-list`, `code-block` (TanStack Highlight), `markdown` (TanStack Markdown; `./native/markdown`), `recipes` (`defineRecipe`: the variants of Button, Badge, Chip and Card written once, read by `tv()` on the web and by `nativeRecipe` on the phone),
   `action-bar`, `cta-panel`, `toc`, and the **layouts** (category `layouts`, with their templates) `app-shell`,
-  `dashboard-layout`, `settings-layout`, `auth-layout`, `detail-layout`, `split-view`, `marketing-layout`, `docs-layout`, and the **storytelling kit** (`story.css`, sober by default, `variant="arcade"` opt-in)
+  `dashboard-layout`, `settings-layout`, `auth-layout`, `detail-layout`, `split-view`, `marketing-layout`, `docs-layout`, `docs-nav`, and the **storytelling kit** (`story.css`, sober by default, `variant="arcade"` opt-in)
   `scroll-stage`, `choice-grid`, `profile-card`, `stage-banner`, `goal-gauge`, `continue-prompt`, `achievement`,
   `promise-card`, `landscape`,
   and the **page templates** (category `templates`) `landing-page`, `product-page`, `how-it-works-page`, `gallery-page`, `docs-hub-page`, `docs-article-page`, `component-page`, `catalogue-page`, `longform-page`, `changelog-page`, `contact-page`, `legal-page`, `status-page`, `error-page`, `pricing-page` —
@@ -89,8 +89,8 @@
   `blocks.css`, not counted): `./cta-panel`, `./card-grid`, `./pointer-light`, `./link-card`, `./decision-list`, `./toc` ≤ 1 kB,
   `./page`, `./page-hero` ≤ 1.2 kB, `./argument-card`, `./action-bar` ≤ 1.4 kB, `./mascot-quote` ≤ 5 kB (the bird's
   geometry; 3.2: the merge engine told the material's utilities), `./code-block` ≤ 19.5 kB (Radix Tabs for `CodeTabs`, TanStack Highlight and its grammars), `./markdown` ≤ 17 kB (TanStack Markdown; its code blocks are `./code-block`), `./recipes` ≤ 3 kB. The layouts: `./dashboard-layout`, `./settings-layout`,
-  `./detail-layout`, `./split-view`, `./marketing-layout`, `./docs-layout` ≤ 1 kB, `./auth-layout`, `./settings-layout` ≤ 1.2 kB,
-  `./app-shell` ≤ 17.5 kB (Radix Dialog for the drawer, as `./dialog`). The storytelling kit (its styles are `story.css`, not counted):
+  `./detail-layout`, `./split-view`, `./marketing-layout`, `./docs-layout` ≤ 1 kB, `./docs-nav` ≤ 1.2 kB, `./auth-layout`, `./settings-layout` ≤ 1.2 kB,
+  `./app-shell` ≤ 18 kB (Radix Dialog for the drawer, as `./dialog`; the desktop window form and `acceleratorOf`, +0.12 kB). The storytelling kit (its styles are `story.css`, not counted):
   `./profile-card`, `./stage-banner`, `./goal-gauge`, `./promise-card` ≤ 1 kB, `./scroll-stage`, `./achievement` ≤ 1.2 kB,
   `./continue-prompt` ≤ 4 kB (it draws `Button`), `./choice-grid` ≤ 1.6 kB (its roving focus), `./landscape` ≤ 8 kB (the valley's geometry).
   The page templates ≤ 1.5 kB each (the blocks they import through the package's own entries are not counted).
@@ -106,7 +106,7 @@
   `./image-cropper`, `./page`, `./page-hero`, `./card-grid`, `./pointer-light`, `./link-card`, `./argument-card`,
   `./mascot-quote`, `./decision-list`, `./code-block`, `./markdown`, `./recipes`, `./action-bar`, `./cta-panel`, `./toc`, `./app-shell`,
   `./dashboard-layout`, `./settings-layout`, `./auth-layout`, `./detail-layout`, `./split-view`, `./marketing-layout`,
-  `./docs-layout`, `./scroll-stage`, `./choice-grid`, `./profile-card`, `./stage-banner`, `./goal-gauge`, `./continue-prompt`,
+  `./docs-layout`, `./docs-nav`, `./scroll-stage`, `./choice-grid`, `./profile-card`, `./stage-banner`, `./goal-gauge`, `./continue-prompt`,
   `./achievement`, `./promise-card`, `./landscape`, `./virtual`, `./form`, `./form/server`, `./map`), `./native`, `./native/video-player`, `./native/media-capture`, `./native/list`, `./native/form`, `./native/map`, `./native/markdown`, `./motion.css`,
   `./blocks.css` (the page blocks' styles, imported once by the app), `./story.css` (the storytelling kit's, the same way), `./tailwind.css`, `./registry/*` (the registry's JSON), `./registry/examples/*` (the compiled examples), `./package.json`;
   files `dist`, `registry` (JSON, examples as `.tsx`, `.js`, `.d.ts`), `tailwind.css`, `README.md`, `LICENSE`. Adding an
