@@ -248,6 +248,31 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   .kz-block-card:hover .kz-block-icon { transform: translateY(-2px) rotate(-3deg); box-shadow: 0 10px 22px -12px var(--kz-hue, var(--kz-accent)); }
 }
 
+/* The quiet hover (`hover="quiet"` on a card, or on CardGrid for the whole grid; a card's own `hover="light"` wins over
+   its grid): no glow, no halo, no accent border or title. The card lifts 2 px, its surface and hairline go one step up,
+   the title leans towards the accent text, and the focus is a ring on the whole card. Reduced motion: no lift. */
+:is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light))::after { display: none; }
+:is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)) {
+  transition: transform 0.3s var(--kz-ease, ease), background-color 0.3s var(--kz-ease, ease), border-color 0.3s var(--kz-ease, ease);
+}
+:is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):is(:hover, :focus-within, :focus-visible) .kz-block-icon svg [data-node] { transform: none; filter: none; }
+@media (hover: hover) {
+  :is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):hover {
+    transform: translateY(-2px);
+    background: var(--kz-surface-2);
+    border-color: var(--kz-border-strong);
+    box-shadow: none;
+  }
+  :is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):hover .kz-block-icon { transform: none; box-shadow: none; }
+  :is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):hover :is(.kz-link-card-title, .kz-arg-title) { color: color-mix(in srgb, var(--kz-text-primary) 72%, var(--kz-hue-text, var(--kz-accent-text))); }
+}
+:is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):is(:focus-within, :focus-visible) :is(.kz-link-card-title, .kz-arg-title) { color: color-mix(in srgb, var(--kz-text-primary) 72%, var(--kz-hue-text, var(--kz-accent-text))); }
+:is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):is(:focus-visible, :has(:focus-visible)) {
+  outline: 2px solid var(--kz-ring, var(--kz-accent));
+  outline-offset: 2px;
+}
+:is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):is(:focus-within, :focus-visible) { border-color: var(--kz-border-strong); }
+
 /* ─── LinkCard: the whole card is the link — icon, title, one sentence, the way in ─── */
 .kz-link-card {
   display: grid;
@@ -595,6 +620,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 @media (prefers-reduced-motion: reduce) {
   .kz-block-card, .kz-block-card::after, .kz-block-icon, .kz-block-icon svg [data-node], .kz-link-card-cta svg, .kz-arg-more svg, .kz-arg-panel > summary svg, .kz-actions [data-tip]::after { transition: none !important; }
   .kz-block-card:hover, .kz-block-card:hover .kz-block-icon, .kz-link-card:hover .kz-link-card-cta svg, .kz-arg-more:hover svg { transform: none !important; }
+  :is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):hover { transform: none !important; }
   .kz-quote-bird { animation: none !important; }
 }
 
