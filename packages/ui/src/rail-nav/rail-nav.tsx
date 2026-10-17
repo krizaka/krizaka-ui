@@ -38,7 +38,7 @@ export const railNav = tv({
     icon: "relative inline-flex shrink-0 items-center justify-center [&>svg]:h-5 [&>svg]:w-5",
     label: "max-w-full truncate leading-none md:sr-only md:text-sm md:leading-normal md:group-data-expanded/rail:not-sr-only",
     badge:
-      "absolute -right-2 -top-1.5 inline-flex min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold leading-4 text-on-accent",
+      "absolute -right-2 -top-1.5 inline-flex min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold leading-4 text-on-accent after:content-[attr(data-count)]",
     toggle:
       "hidden h-10 w-full items-center justify-center gap-3 text-xs font-medium text-fg-secondary hover:bg-surface-2 hover:text-fg focus-visible:outline-hidden focus-visible:focus-ring-inset md:flex " +
       "md:group-data-expanded/rail:justify-start md:group-data-expanded/rail:px-3.5",
@@ -180,7 +180,12 @@ export function RailNavItem({ icon, label, current, badge, badgeLabel, asChild, 
     <>
       <span className={s.icon()}>
         {icon}
-        {badge != null && <span className={s.badge()} aria-hidden>{badge}</span>}
+        {badge != null && (typeof badge === "string" || typeof badge === "number") ? (
+          // Drawn by CSS, so the count is no text of the link: the visible text stays the label, which the name `Chat, 2 unread` contains.
+          <span className={s.badge()} data-count={badge} aria-hidden />
+        ) : (
+          badge != null && <span className={s.badge()} aria-hidden>{badge}</span>
+        )}
       </span>
       <span className={s.label()}>{label}</span>
     </>
