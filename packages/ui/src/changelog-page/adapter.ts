@@ -174,3 +174,36 @@ export function changelogRss(opts: {
 /** The template's kind for a tag: feature → added, fix → fixed, security and breaking stay themselves, the rest → changed. */
 export const kindOfTag = (tag: ChangeTag): ChangeKind =>
   tag === "feature" ? "added" : tag === "fix" ? "fixed" : tag === "change" ? "changed" : tag;
+
+export interface MergedPull {
+  title: string;
+  html_url: string;
+  /** ISO timestamp, `null` for a pull request closed without merging. */
+  merged_at: string | null;
+}
+
+const mondayOf = (iso: string): string => {
+  const d = new Date(`${iso.slice(0, 10)}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7));
+  return d.toISOString().slice(0, 10);
+};
+
+/**
+ * For a repository that publishes no releases (a product still in development): its merged pull requests, by week.
+ * Each week is one entry (`version` = the Monday, `date` = the last merge), its changes the conventional titles in plain
+ * language — housekeeping (chore, ci, test, docs…) is left out, weeks with nothing to say are dropped.
+ */
+export function releasesFromPulls(pulls: readonly MergedPull[], source: string, url?: string): Release[] {
+  const weeks = new Map<string, { date: string; changes: ChangeItem[] }>();
+  for (const p of pulls) {
+    if (!p.merged_at) continue;
+    const item = changeFromTitle(p.title, p.html_url);
+    if (!item) continue;
+    const key = mondayOf(p.merged_at);
+    const week = weeks.get(key) ?? { date: p.merged_at.slice(0, 10), changes: [] };
+    if (p.merged_at.slice(0, 10) > week.date) week.date = p.merged_at.slice(0, 10);
+    week.changes.push(item);
+    weeks.set(key, week);
+  }
+  return [...weeks].map(([version, w]) => ({ source, version, date: w.date, url, changes: w.changes })).sort(newestFirst);
+}
