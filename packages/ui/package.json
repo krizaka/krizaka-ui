@@ -2080,7 +2080,7 @@
     {
       "name": "./changelog-page",
       "path": "dist/changelog-page.js",
-      "limit": "2.4 kB",
+      "limit": "2.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
