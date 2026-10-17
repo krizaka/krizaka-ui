@@ -192,6 +192,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/media-capture` | `MediaCapture` (`mode` photo·video·both, `facing`, `maxDuration`, permission asked on a gesture, the file picker as the way out, `onCapture({ blob, kind, url })`) | client |
 | `@krizaka/ui/video-trimmer` | `VideoTrimmer` (`duration`, `value` [start, end], `minLength`, `step`/`largeStep`, `frames` or children, `time` + `onSeek`, `classNames` per part, `renderHandle`) | client |
 | `@krizaka/ui/audio-player` | `AudioPlayer` (a seekable waveform: `peaks` or `computePeaks`, `bars`, `playbackRates`, `duration`), `resamplePeaks`, `computeAudioPeaks` | client |
+| `@krizaka/ui/waveform` | `Waveform` (`peaks`, `bars`, `size` sm·md·lg, `tone` accent·neutral, `playing`, `label`): the bars of a sound, decorative by default (`aria-hidden`), breathing gently while it plays, still under reduced motion and off screen; `/native` has the same | client |
 | `@krizaka/ui/image-cropper` | `ImageCropper` (`aspect`, `round`, an image or a `<video>`, a focus point + zoom out, keyboard and zoom slider), `cropRect` | client |
 | `@krizaka/ui/document-viewer` | `DocumentViewer` (a PDF drawn by pdf.js — `loadPdfjs={() => import("pdfjs-dist")}`, an optional peer — with `highlights` lit where their quotes sit, `activeId` / `onActiveChange`, `onLocate`; page + quote when the text layer cannot place one), `locateQuote` | client |
 | `@krizaka/ui/page` | the page frame: `Page` (`size` narrow·default·wide·full, `as`), `Section` (`id`, `eyebrow`, `title`, `lead`, `actions`, `divider`, `spacing` sm·md·lg, `backdrop`, `size`, `reveal`), `SectionHeading`, `Facts` (`items`: `label`, `tone` ok·wip·neutral, `href`), `Ticks` (backticks read as code) — see [Page blocks](#page-blocks) | server |
@@ -218,6 +219,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/split-view` | `SplitView` (`listTitle`, `listActions`, `list`, `detailHead`, `detail`, `empty`, `showDetail`, `back`) | server |
 | `@krizaka/ui/marketing-layout` | `MarketingLayout` (`header`, `footer`, `skipLabel`) | server |
 | `@krizaka/ui/docs-layout` | `DocsLayout` (`sidebar`, `sidebarLabel`, `toc`) | server |
+| `@krizaka/ui/docs-nav` | `DocsNav` (`label`, `groups`, `current`) | server |
 | `@krizaka/ui/landing-page` | `LandingPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/product-page` | `ProductPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/how-it-works-page` | `HowItWorksPage` — a page template, see [Page templates](#page-templates) | server |

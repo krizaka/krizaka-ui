@@ -44,6 +44,7 @@ export default defineConfig([
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",
       progress: "src/progress/index.ts",
+      waveform: "src/waveform/index.ts",
       "section-backdrop": "src/section-backdrop/index.ts",
       iso: "src/iso/index.ts",
       stepper: "src/stepper/index.ts",
@@ -84,6 +85,7 @@ export default defineConfig([
       "split-view": "src/split-view/index.ts",
       "marketing-layout": "src/marketing-layout/index.ts",
       "docs-layout": "src/docs-layout/index.ts",
+      "docs-nav": "src/docs-nav/index.ts",
     },
   },
   {
@@ -134,6 +136,7 @@ export default defineConfig([
       avatar: "src/avatar/index.ts",
       theme: "src/theme/index.ts",
       countdown: "src/countdown/index.ts",
+      captcha: "src/captcha/index.ts",
       dialog: "src/dialog/index.ts",
       toast: "src/toast/index.ts",
       popover: "src/popover/index.ts",

@@ -56,4 +56,21 @@ describe("CardGrid", () => {
     );
     expect((container.firstElementChild as HTMLElement).getAttribute("data-position")).toBe("end");
   });
+
+  it("lets a whole grid be quiet with hover='quiet' (a class on the grid, the cards inherit it), and is light by default", () => {
+    const { container, rerender } = render(
+      <CardGrid>
+        <div>a</div>
+      </CardGrid>,
+    );
+    const grid = () => container.firstElementChild as HTMLElement;
+    expect(grid().classList.contains("kz-hover-quiet")).toBe(false);
+    rerender(
+      <CardGrid hover="quiet">
+        <div>a</div>
+      </CardGrid>,
+    );
+    expect(grid().classList.contains("kz-hover-quiet")).toBe(true);
+    expect(grid().classList.contains("kz-hover-light")).toBe(false);
+  });
 });

@@ -3,6 +3,7 @@ import { expect } from "storybook/test";
 
 import AlignedExample from "../../registry/examples/card-grid/aligned";
 import FoundationExample from "../../registry/examples/card-grid/foundation";
+import HoverQuietExample from "../../registry/examples/card-grid/hover-quiet";
 import ProductsExample from "../../registry/examples/card-grid/products";
 import RevealExample from "../../registry/examples/card-grid/reveal";
 import { CardGrid } from "./card-grid";
@@ -45,5 +46,17 @@ export const Aligned: Story = {
     expect(new Set(cards.map((c) => Math.round(c.getBoundingClientRect().height))).size, "one height").toBe(1);
     expect(new Set(tops(".kz-fact")).size, "facts on one line").toBe(1);
     expect(new Set(tops(".kz-link-card-cta")).size, "the way in on one line").toBe(1);
+  },
+};
+
+/** `hover="quiet"` on the grid: every card of it is quiet (no glow, a ring on focus), none of them is lit by the light. */
+export const HoverQuiet: Story = {
+  render: () => <HoverQuietExample />,
+  play: async ({ canvasElement }) => {
+    const grid = canvasElement.querySelector<HTMLElement>(".kz-cards")!;
+    expect(grid.classList.contains("kz-hover-quiet")).toBe(true);
+    const cards = [...grid.querySelectorAll<HTMLElement>(".kz-link-card")];
+    expect(cards).toHaveLength(3);
+    for (const card of cards) expect(getComputedStyle(card, "::after").display).toBe("none");
   },
 };

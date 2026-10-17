@@ -11,10 +11,12 @@ export const meta = {
   whenToUse: [
     "The bottom of every page of a Krizaka site: www, ui., java. (the family in columns).",
     "The bottom of a deployed product (dev.<product>): `family={false}` — its own columns, the legal links, the version and one publisher line, no link to another product.",
+    "`variant=\"app\"` — inside a signed-in product: one slim line (publisher line, version, legal links), rendered once by the layout, and none where the app shell has a sidebar that holds them.",
+    "`variant=\"docs\"` — under documentation pages: the site's columns in a row on the documentation's width, no site block, no family.",
     "With `MarketingLayout`'s `footer` slot, under a bar of `@krizaka/ui/nav-bar` with `NavBar.Family`.",
   ],
   whenNotToUse: [
-    { when: "Inside an application screen or a console: the app shell holds its own navigation.", use: "app-shell" },
+    { when: "Twice on one page: a page that already sits under a layout's footer renders none of its own (one `contentinfo` per page).", use: "marketing-layout" },
     { when: "To list the family in the bar.", use: "nav-bar" },
   ],
   bestPractices: [
@@ -37,6 +39,8 @@ export const meta = {
     examples: [
       { name: "product", title: "A product", description: "dev.orazaka.com (`family={false}`): the product's columns, the legal links, “A Krizaka product” → www.krizaka.com, `DEV · v1.2.3` — no family columns." },
       { name: "company", title: "The company", description: "www.krizaka.com: “A Krizaka company”, the company's column, the legal links at the end of the signature line." },
+      { name: "app", title: "In a signed-in app", description: "`variant=\"app\"`: one slim line — “A Krizaka product”, `DEV · v1.2.3`, the legal links." },
+      { name: "docs", title: "Under documentation", description: "`variant=\"docs\"`: the site's columns in a row, no site block, no family." },
       { name: "open-source-fr", title: "Open source, in French", description: "ui.krizaka.com in French: « Un projet open source de Krizaka », the version of the packages." },
     ],
   },

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import AccountExample from "../../registry/examples/settings-layout/account";
+import FlatExample from "../../registry/examples/settings-layout/flat";
 import SectionsExample from "../../registry/examples/settings-layout/sections";
 import { SettingsLayout } from "./settings-layout";
 
@@ -18,3 +19,6 @@ export const Account: Story = { render: () => <AccountExample /> };
 /** The same template on a phone (390 × 844): the screenshot is taken at that width. */
 export const AccountPhone: Story = { render: () => <AccountExample />, parameters: { phone: true } };
 export const Sections: Story = { render: () => <SectionsExample /> };
+export const Flat: Story = { render: () => <FlatExample /> };
+/** The calm variant on a phone (390 × 844). */
+export const FlatPhone: Story = { render: () => <FlatExample />, parameters: { phone: true } };

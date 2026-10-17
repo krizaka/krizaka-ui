@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/ui",
-  "version": "3.22.0",
+  "version": "3.23.0",
   "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia, Yasakia, Yororis) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
@@ -97,6 +97,10 @@
       "types": "./dist/theme.d.ts",
       "import": "./dist/theme.js"
     },
+    "./captcha": {
+      "types": "./dist/captcha.d.ts",
+      "import": "./dist/captcha.js"
+    },
     "./countdown": {
       "types": "./dist/countdown.d.ts",
       "import": "./dist/countdown.js"
@@ -188,6 +192,10 @@
     "./progress": {
       "types": "./dist/progress.d.ts",
       "import": "./dist/progress.js"
+    },
+    "./waveform": {
+      "types": "./dist/waveform.d.ts",
+      "import": "./dist/waveform.js"
     },
     "./section-backdrop": {
       "types": "./dist/section-backdrop.d.ts",
@@ -461,6 +469,10 @@
       "types": "./dist/docs-layout.d.ts",
       "import": "./dist/docs-layout.js"
     },
+    "./docs-nav": {
+      "types": "./dist/docs-nav.d.ts",
+      "import": "./dist/docs-nav.js"
+    },
     "./scroll-stage": {
       "types": "./dist/scroll-stage.d.ts",
       "import": "./dist/scroll-stage.js"
@@ -674,7 +686,7 @@
   },
   "peerDependencies": {
     "@krizaka/query": ">=0.2.1",
-    "@krizaka/tailwind": ">=3.22.0",
+    "@krizaka/tailwind": ">=3.23.0",
     "@maplibre/maplibre-react-native": ">=11",
     "@shopify/flash-list": ">=2",
     "expo-camera": ">=16",
@@ -797,7 +809,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "58 kB",
+      "limit": "59 kB",
       "gzip": true
     },
     {
@@ -850,6 +862,16 @@
       "name": "./theme",
       "path": "dist/theme.js",
       "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./captcha",
+      "path": "dist/captcha.js",
+      "limit": "5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1143,6 +1165,16 @@
       ]
     },
     {
+      "name": "./waveform",
+      "path": "dist/waveform.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
       "name": "./iso (a hero costs no client JavaScript: server components, static SVG)",
       "path": "dist/iso.js",
       "limit": "4.5 kB",
@@ -1185,7 +1217,7 @@
     {
       "name": "./site-footer (the family's marks, still)",
       "path": "dist/site-footer.js",
-      "limit": "10.5 kB",
+      "limit": "11 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1673,7 +1705,7 @@
     {
       "name": "./link-card",
       "path": "dist/link-card.js",
-      "limit": "1 kB",
+      "limit": "1.25 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1789,7 +1821,7 @@
     {
       "name": "./settings-layout",
       "path": "dist/settings-layout.js",
-      "limit": "1.2 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1840,6 +1872,16 @@
       "name": "./docs-layout",
       "path": "dist/docs-layout.js",
       "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./docs-nav",
+      "path": "dist/docs-nav.js",
+      "limit": "1.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2038,7 +2080,7 @@
     {
       "name": "./changelog-page",
       "path": "dist/changelog-page.js",
-      "limit": "1.5 kB",
+      "limit": "2.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
