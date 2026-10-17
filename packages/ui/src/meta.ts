@@ -62,6 +62,7 @@ export type ComponentName =
   | "force-update-screen"
   | "form"
   | "gallery-page"
+  | "genui"
   | "glow-card"
   | "goal-gauge"
   | "header"

@@ -128,6 +128,10 @@
       "types": "./dist/chart.d.ts",
       "import": "./dist/chart.js"
     },
+    "./genui": {
+      "types": "./dist/genui.d.ts",
+      "import": "./dist/genui.js"
+    },
     "./native": {
       "types": "./dist/native.d.ts",
       "import": "./dist/native.js"
