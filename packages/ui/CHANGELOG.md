@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.26.0
+
+### Minor Changes
+
+- [#336](https://github.com/krizaka/krizaka-ui/pull/336) [`022a3cd`](https://github.com/krizaka/krizaka-ui/commit/022a3cd17ec971df4aa0fdf3a713e7bd8a418d17) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Navigation standard (NAV-STD). `NavBar` menus: the panel is 28 rem (40 rem in two columns, never wider than the page between its gutters), aligned under its trigger and kept inside the page (`placePanel`), its descriptions wrap on two lines at most instead of being cut on one, the icon tile stays at the top. New `@krizaka/ui/language-switch` — `LanguageSwitch`, `languagesFor(path)`, `languageHref(path, to)`: a globe and the current code (`FR`) opening a menu of the languages named in their own language, as links with `hreflang` that keep the page; `variant="inline"` for a panel. `NavBar.Language` (a menu in the bar, a row in the mobile panel) and `NavBar.MobilePreferences` (the panel's last group: theme, language) place it. It replaces the pill that names the other language.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.26.0
+  - @krizaka/tokens@3.26.0
+
 ## 3.25.0
 
 ### Minor Changes
