@@ -8,7 +8,7 @@ export default function ChangelogPageReleases() {
       eyebrow="Krizaka UI"
       title="What changed"
       lead="Every release, newest first — and why, when it was a decision."
-      kindLabels={{ added: "Added", changed: "Changed", fixed: "Fixed", removed: "Removed" }}
+      kindLabels={{ added: "Added", changed: "Changed", fixed: "Fixed", removed: "Removed", security: "Security", breaking: "Breaking" }}
       logLabel="Releases"
       entries={[
         {
