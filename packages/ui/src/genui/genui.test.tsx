@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { axeViolations } from "../test/axe";
-import { baseGenUiCatalog, extractGenUi, leadingObject, GENUI_LIMITS, GenUiStream, GenUiSurface, readStream, sanitizeData, validateMessage } from "./index";
+import { baseGenUiCatalog, extractGenUi, GENUI_LIMITS, GenUiStream, GenUiSurface, leadingObject, readStream, sanitizeData, validateMessage } from "./index";
 
 const V = "v0.9";
 const line = (message: unknown) => JSON.stringify(message);
