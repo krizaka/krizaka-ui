@@ -152,6 +152,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/site-footer` | `SiteFooter` (`current`, `labels`, `version`, `env`, `legal`; own columns as children) `.Column` (`title`) `.Link` (`active`, `asChild`): the footer of every Krizaka site — the family in columns, “A Krizaka company / product / open-source project”, the version, Montréal | client |
 | `@krizaka/ui/chip` | `Chip` (`selected`/`defaultSelected` + `onSelectedChange`, `size` sm·md; `removable` + `removeLabel` + `onRemove`), `Chip.Group` (`type` single·multiple, `label`, `required` for single), `chip` (the slots) | client |
 | `@krizaka/ui/chip-link` | `ChipLink` (a filter that is a link: `selected`, `current`, `size`, `asChild`), `chipVariants` (`size`, `selected`) | server |
+| `@krizaka/ui/meta-row` | `MetaRow` (`items`, `chips`, `size` sm·md): one quiet line of dot-separated facts with status chips at its end; a real list, dots hidden from assistive technology; `/native` has the same | server |
 | `@krizaka/ui/switch` | `Switch` (`checked`/`defaultChecked` + `onCheckedChange`, `label` unless a visible label names it, `size` sm·md, `invalid`), `switchVariants` | client |
 | `@krizaka/ui/slider` | `Slider` (`value`: a number or a `[min, max]` range, `onValueChange`, `onValueCommit`, `label`, `thumbLabels`, `formatValue` → aria-valuetext, `showLabel`, `origin`), `slider` (the slots) | client |
 | `@krizaka/ui/checkbox` | `Checkbox` (`checked` true·false·"indeterminate" + `onCheckedChange`, `invalid`, its words as children) — sits in a `Field` | client |
