@@ -118,8 +118,10 @@ describe("Tabs scroll container", () => {
   it("keeps the focus ring and the sliding light inside the list (padding, not overflow)", () => {
     render(<Example variant="pills" />);
     const list = screen.getByRole("tablist");
-    expect(list.className).toContain("py-1");
-    expect(list.className).toContain("-my-1");
+    // The same box height as before (the old pb-1): the ring room sits in the padding, the flow does not change.
+    expect(list.className).toContain("pt-1");
+    expect(list.className).toContain("-mt-1");
+    expect(list.className).toContain("pb-1");
   });
 
   it("does not scroll on the other variants", () => {

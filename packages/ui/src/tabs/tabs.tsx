@@ -50,7 +50,7 @@ export const tabs = tv({
       /* Pills that scroll sideways on a phone: a feed's sections. */
       pills: {
         list:
-          "gap-1.5 overflow-x-auto overflow-y-hidden overscroll-x-contain py-1 -my-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden " +
+          "gap-1.5 overflow-x-auto overflow-y-hidden overscroll-x-contain pt-1 -mt-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden " +
           "before:left-0 before:top-0 before:h-(--kz-ind-h) before:w-(--kz-ind-w) before:translate-x-(--kz-ind-x) before:translate-y-(--kz-ind-y) " +
           "before:rounded-full before:border before:border-accent before:bg-accent-soft",
         trigger:
