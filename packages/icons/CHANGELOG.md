@@ -1,5 +1,11 @@
 # @krizaka/icons
 
+## 0.6.0
+
+### Minor Changes
+
+- [#334](https://github.com/krizaka/krizaka-ui/pull/334) [`58947d9`](https://github.com/krizaka/krizaka-ui/commit/58947d918ed851483c5e35bf9865a28e87605b6e) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Four icons for a league of friends: `SoccerIcon`, `HockeyIcon`, `BasketballIcon` (the three games a multi-sport league follows) and `TrophyIcon` (the season's cup). Same grammar as the set: 24 grid, 1.75 stroke, cut corners, one node (the ball's centre, the puck, the cup's heart), web and native.
+
 ## 0.5.1
 
 ### Patch Changes

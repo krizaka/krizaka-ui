@@ -1,5 +1,21 @@
 # @krizaka/ui
 
+## 3.25.0
+
+### Minor Changes
+
+- [#333](https://github.com/krizaka/krizaka-ui/pull/333) [`5ffbac7`](https://github.com/krizaka/krizaka-ui/commit/5ffbac71e68bc3997124e4b16a708c2c86527b9e) Thanks [@oussamaABID](https://github.com/oussamaABID)! - New `@krizaka/ui/account-menu` — `AccountMenu`, the menu under a signed-in person's avatar: identity first (picture from `defaultAvatar` or `src`, name, e-mail), profile and settings links, the language as a compact submenu showing the current one, extra rows, and Sign out as a quiet item. `DropdownMenu` gains `Sub`, `SubTrigger`, `SubContent`, `RadioGroup` and `RadioItem`, and its panel is `overflow-x-hidden` with `overscroll-contain`, so it never draws a stray scrollbar at its natural height (it scrolls only when the screen is shorter).
+
+- [#338](https://github.com/krizaka/krizaka-ui/pull/338) [`aa04764`](https://github.com/krizaka/krizaka-ui/commit/aa04764f91992a81e5484e1ac8244470a5377f1b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/changelog-page` adds `releasesFromPulls`: for a repository that publishes no releases (a product in development), its merged pull requests become one changelog entry per week — conventional titles in plain language, housekeeping left out (krizaka/krizaka-ui#307).
+
+- [#343](https://github.com/krizaka/krizaka-ui/pull/343) [`d4ad371`](https://github.com/krizaka/krizaka-ui/commit/d4ad3712534f89e18c0d4e3bb69443082aa7af5d) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Six blocks for a shop's storefront (Akinaza): `ServiceCard` (`@krizaka/ui/service-card`) — a service as a card with icon or photo, duration, capacity, price (« from » when it varies), inclusions, a « Popular » tag and one way in (a link or a press); `SlotPicker` (`@krizaka/ui/slot-picker`) — the next free times as chips, a strip of days then the day's times, each a link or a toggle; `OpeningHours` (`@krizaka/ui/opening-hours`) — the weekly hours in one native-disclosure row (open now · closes at…) that unfolds into the week with today marked. Plus `CoverHero` (`@krizaka/ui/cover-hero`) — the shop's first screen over its photo or muted loop (a still under reduced motion; the brand's colours without a cover); `StickyAction` (`@krizaka/ui/sticky-action`) — the page's one action held at the bottom of a phone, pure CSS; `MediaGallery` (`@krizaka/ui/media-gallery`) — the shop's photos and loops in tiles, the first featured. Web (native: n/a, the storefront is a web page).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.25.0
+  - @krizaka/tokens@3.25.0
+
 ## 3.24.0
 
 ### Minor Changes
