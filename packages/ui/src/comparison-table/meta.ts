@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "blocks",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A block of a public site's landing page; a phone app does not argue against a competitor." }, desktop: "web" },
   whenToUse: [
     "A landing page's “why us”: three to six questions answered by you and by the usual alternative.",
     "Two or three options compared on the same few questions, one of them recommended.",

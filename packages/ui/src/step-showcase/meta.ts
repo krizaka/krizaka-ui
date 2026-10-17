@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "blocks",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A product site's tour of the app; inside the phone app the real screens are the tour." }, desktop: "web" },
   whenToUse: [
     "A landing page's “see it work”: three to five steps of the real app recorded on the device it runs on.",
     "The same tour on several devices: one `StepShowcase` per tab (Web · Mobile · Mac).",
