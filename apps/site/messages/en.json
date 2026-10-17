@@ -482,7 +482,11 @@
         "no": "—",
         "onlyMobile": "Mobile only",
         "same": "Same API",
-        "count": "{both} components on both platforms, {native} on mobile only, {web} on the web only."
+        "count": "{both} components on both platforms, {native} on mobile only, {web} on the web only.",
+        "wall": {
+          "title": "On a phone",
+          "lead": "{count} React Native stories at a phone's width — whole screens first, then the richest story of each component. Each one is the screenshot of its story, retaken when the code changes; open a component for its code."
+        }
       },
       "brand": {
         "intro": "The eight marks of the Krizaka family, from @krizaka/ui. Each is drawn in code (no image to ship), animated when the page allows it, and still under reduced motion. A change to a mark is made in krizaka-ui, released, then adopted.",

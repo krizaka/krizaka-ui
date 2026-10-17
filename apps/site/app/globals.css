@@ -1020,3 +1020,23 @@ html.light .kz-phone { background: linear-gradient(160deg, #d9dce2, #a9adb6); }
 .kz-stage [role="tabpanel"] { margin-top: 0; padding-top: 0; }
 .kz-play-canvas > * { max-width: min(100%, 28rem); }
 @media (max-width: 640px) { .kz-stage-hint { display: none; } }
+
+/* /mobile: the wall of phones — every component's richest React Native story at a phone's width, iOS and Android in turn. */
+.kz-wall { margin: 0 0 2.5rem; }
+.kz-wall h2 { margin: 0 0 6px; font-family: var(--kz-font-display); font-size: 1.35rem; font-weight: 800; color: var(--kz-text-primary); }
+.kz-wall ul { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 28px 18px; grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr)); }
+.kz-wall li { display: grid; justify-items: center; gap: 10px; margin: 0; padding: 0; }
+.kz-wall .kz-phone { --kz-phone-w: 100%; max-width: 15rem; transition: transform .25s; }
+.kz-wall li:hover .kz-phone { transform: translateY(-4px); }
+.kz-wall a { display: grid; justify-items: center; gap: 1px; text-align: center; text-decoration: none; font-size: 12.5px; color: var(--kz-text-secondary); }
+.kz-wall a strong { font-size: 14px; color: var(--kz-text-primary); }
+.kz-wall a:hover strong { color: var(--kz-accent-text); }
+@media (max-width: 640px) { .kz-wall ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; } .kz-wall .kz-phone { padding: 6px; border-radius: 28px; } .kz-wall .kz-phone-screen { border-radius: 22px; } .kz-wall .kz-phone-status { height: 26px; font-size: 10px; padding: 0 14px; } .kz-wall .kz-phone-status i { width: 56px; height: 16px; top: 6px; } }
+@media (prefers-reduced-motion: reduce) { .kz-wall .kz-phone { transition: none; } .kz-wall li:hover .kz-phone { transform: none; } }
+
+/* The side nav, dense and grouped (Tailwind, MUI): pages on tight rows, the groups as quiet headings, the families of
+   components as small caps. Fumadocs draws it; only its rhythm changes here. */
+.kz-docs #nd-sidebar a.relative, .kz-docs #nd-sidebar button.relative { padding-block: 5px; font-size: 13.5px; line-height: 1.35; }
+.kz-docs #nd-sidebar button.relative { margin-top: 10px; font-weight: 650; color: var(--kz-text-primary); }
+.kz-docs #nd-sidebar p { margin-top: 14px; margin-bottom: 2px; padding-inline: 8px; font-family: var(--kz-font-mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--kz-text-muted); }
