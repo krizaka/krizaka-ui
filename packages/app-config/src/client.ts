@@ -94,6 +94,13 @@ function normalise(payload: AppConfigPayload): AppConfigPayload {
   return { ...payload, flags: payload.flags ?? {}, message: payload.message ?? null, storeUrl: payload.storeUrl ?? null, locale: payload.locale ?? "en" };
 }
 
+/** `https://x//` → `https://x` (a loop, not a regular expression: no backtracking on a long run of slashes). */
+function withoutTrailingSlashes(url: string): string {
+  let end = url.length;
+  while (end > 0 && url.endsWith("/", end)) end -= 1;
+  return url.slice(0, end);
+}
+
 /** The caller's headers with ours added where it has not set them (names compare case-insensitively). A plain object stays one. */
 function withDefaults(given: NonNullable<RequestInit["headers"]> | undefined, defaults: Readonly<Record<string, string>>): NonNullable<RequestInit["headers"]> {
   if (given instanceof Headers) {
@@ -125,7 +132,7 @@ export interface AppConfigClient {
 }
 
 export function createAppConfigClient(options: AppConfigClientOptions): AppConfigClient {
-  const base = options.baseUrl.replace(/\/+$/, "");
+  const base = withoutTrailingSlashes(options.baseUrl);
   const doFetch = options.fetch ?? ((...args: Parameters<typeof fetch>) => fetch(...args));
   const now = options.now ?? Date.now;
   const interval = options.minIntervalMs ?? DEFAULT_MIN_INTERVAL_MS;

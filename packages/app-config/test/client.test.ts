@@ -80,6 +80,14 @@ describe("the client", () => {
     expect(fetchMock).toHaveBeenCalledTimes(3);
   });
 
+  it("accepts a base URL with or without trailing slashes", async () => {
+    for (const baseUrl of ["https://api.example", "https://api.example/", "https://api.example///"]) {
+      const { client, fetchMock } = make({ baseUrl });
+      await client.check();
+      expect((fetchMock.mock.calls[0] as unknown as [string])[0]).toMatch(/^https:\/\/api\.example\/api\/v1\/app-config\?/);
+    }
+  });
+
   it("takes the interval as an option", async () => {
     const { client, fetchMock, advance } = make({ minIntervalMs: 10 });
     await client.check();
