@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import FeedExample from "../../registry/examples/media-grid/feed";
+import LoadingExample from "../../registry/examples/media-grid/loading";
 import UniformExample from "../../registry/examples/media-grid/uniform";
 import { MediaGrid } from "./media-grid";
 
@@ -12,3 +13,4 @@ type Story = StoryObj;
 
 export const Feed: Story = { render: () => <FeedExample /> };
 export const Uniform: Story = { render: () => <UniformExample /> };
+export const Loading: Story = { render: () => <LoadingExample /> };
