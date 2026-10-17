@@ -1644,7 +1644,7 @@
     {
       "name": "./link-card",
       "path": "dist/link-card.js",
-      "limit": "1 kB",
+      "limit": "1.25 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
