@@ -1,0 +1,26 @@
+Confirmez la suppression de votre compte Krizaka
+
+Krizaka
+
+
+CONFIRMEZ LA SUPPRESSION DE VOTRE COMPTE
+
+Vous avez demandé la suppression de votre compte Krizaka et des données qui y sont attachées. Cette action est irréversible. Rien n'est supprimé tant que vous n'avez pas confirmé.
+
+Supprimer mon compte https://blog.krizaka.com/api/account/delete?t=example
+
+Le lien est valable 24 heures.
+
+Si ce n'était pas vous, ignorez ce courriel : votre compte reste tel quel.
+
+----------------------------------------
+
+Oussama
+
+Fondateur, Krizaka
+
+Vous recevez ce courriel parce que la suppression de votre compte a été demandée.
+
+Confidentialité https://www.krizaka.com/fr/privacy · Contact https://www.krizaka.com/fr/contact
+
+Envoyé par Technologies Krizaka Inc., Montréal (Québec), Canada.

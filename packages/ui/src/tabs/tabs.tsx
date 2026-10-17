@@ -18,7 +18,7 @@ export const tabs = tv({
     trigger:
       "inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap font-semibold transition-colors " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-40",
-    content: "kz-fade min-w-0 flex-1 rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+    content: "kz-fade min-w-0 flex-1 rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring data-[state=inactive]:hidden",
   },
   variants: {
     variant: {
