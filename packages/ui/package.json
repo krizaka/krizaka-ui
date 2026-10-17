@@ -469,6 +469,10 @@
       "types": "./dist/dashboard-layout.d.ts",
       "import": "./dist/dashboard-layout.js"
     },
+    "./account-menu": {
+      "types": "./dist/account-menu.d.ts",
+      "import": "./dist/account-menu.js"
+    },
     "./settings-layout": {
       "types": "./dist/settings-layout.d.ts",
       "import": "./dist/settings-layout.js"
@@ -1379,7 +1383,7 @@
       "name": "./data-table: the toolbar (FilterBar on Radix DropdownMenu, SearchField, the columns menu, the export)",
       "path": "dist/data-table.js",
       "import": "{ DataTableFilters, DataTableColumnsMenu, DataTableExport }",
-      "limit": "41 kB",
+      "limit": "42 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1900,6 +1904,18 @@
       "ignore": [
         "tailwind-variants",
         "clsx"
+      ]
+    },
+    {
+      "name": "./account-menu",
+      "path": "dist/account-menu.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "radix-ui",
+        "react"
       ]
     },
     {

@@ -129,6 +129,7 @@ export type ComponentName =
   | "separator"
   | "service-card"
   | "settings-layout"
+  | "account-menu"
   | "showcase"
   | "step-showcase"
   | "site-footer"
