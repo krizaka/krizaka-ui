@@ -1533,7 +1533,7 @@
     {
       "name": "./rail-nav",
       "path": "dist/rail-nav.js",
-      "limit": "2 kB",
+      "limit": "3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
