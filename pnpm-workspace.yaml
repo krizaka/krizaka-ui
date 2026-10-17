@@ -10,3 +10,6 @@ onlyBuiltDependencies:
 # node:module register(); jest-runtime >= 30.5 refuses it. Hold the runtime at 30.4 until the runner moves on.
 overrides:
   jest-runtime: 30.4.2
+  # Dependabot: patched releases of transitive dev tooling (uuid 8 via @storybook/test-runner, esbuild 0.27 via a build tool).
+  "uuid@<11.1.1": "^11.1.1"
+  "esbuild@<0.28.1": "^0.28.2"
