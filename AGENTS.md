@@ -20,6 +20,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ fonts/                # @krizaka/fonts — the Krizaka typefaces (WOFF2 + fallbacks, TrueType for Expo), SIL OFL
 │  ├─ intl/                 # @krizaka/intl — money, numbers, dates, plurals on Intl (zero dependency, no UI)
 │  ├─ i18n/                 # @krizaka/i18n — typed messages, format, <Rich>, React provider, the krizaka-i18n CLI
+│  ├─ email/                # @krizaka/email — every Krizaka email: typed templates, brand themes, sendEmail(), webhooks
 │  ├─ realtime/             # @krizaka/realtime — server realtime: bus + presence (memory · PostgreSQL · Redis), SSE (no UI)
 │  ├─ query/                # @krizaka/query — server state: TanStack Query behind the facade, typed fetch, live invalidation (no UI)
 │  ├─ push/                 # @krizaka/push — mobile push through the Expo Push Service (FCM / APNs), pure (no UI)

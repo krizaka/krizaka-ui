@@ -1,0 +1,24 @@
+Votre lien de connexion à Krizaka
+
+Krizaka
+
+
+CONNEXION À KRIZAKA
+
+Utilisez le bouton ci-dessous pour vous connecter. Le lien ne sert qu'une fois et reste valable 15 minutes.
+
+Me connecter https://blog.krizaka.com/api/auth/signin?t=example
+
+Si vous n'avez pas demandé à vous connecter, ignorez ce courriel : personne ne peut entrer sans ce lien.
+
+----------------------------------------
+
+Oussama
+
+Fondateur, Krizaka
+
+Vous recevez ce courriel parce que quelqu'un a demandé un lien de connexion pour cette adresse.
+
+Confidentialité https://www.krizaka.com/fr/privacy · Contact https://www.krizaka.com/fr/contact
+
+Envoyé par Technologies Krizaka Inc., Montréal (Québec), Canada.
