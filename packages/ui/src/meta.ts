@@ -80,6 +80,7 @@ export type ComponentName =
   | "maintenance-screen"
   | "map"
   | "markdown"
+  | "meta-row"
   | "marketing-layout"
   | "marquee"
   | "mascot-quote"

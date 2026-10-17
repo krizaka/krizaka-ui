@@ -51,6 +51,7 @@ export default defineConfig([
       meter: "src/meter/index.ts",
       pagination: "src/pagination/index.ts",
       "description-list": "src/description-list/index.ts",
+      "meta-row": "src/meta-row/index.ts",
       "verified-badge": "src/verified-badge/index.ts",
       "step-progress": "src/step-progress/index.ts",
       // The default avatars' pure helpers (defaultAvatarUrl…): callable in a Server Component, unlike "avatar" (client).

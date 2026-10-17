@@ -345,6 +345,10 @@
       "types": "./dist/description-list.d.ts",
       "import": "./dist/description-list.js"
     },
+    "./meta-row": {
+      "types": "./dist/meta-row.d.ts",
+      "import": "./dist/meta-row.js"
+    },
     "./activity-feed": {
       "types": "./dist/activity-feed.d.ts",
       "import": "./dist/activity-feed.js"
@@ -1459,6 +1463,16 @@
     {
       "name": "./description-list",
       "path": "dist/description-list.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./meta-row",
+      "path": "dist/meta-row.js",
       "limit": "1 kB",
       "gzip": true,
       "ignore": [
