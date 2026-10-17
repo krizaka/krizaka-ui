@@ -84,6 +84,15 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("link", { name: /Un produit Krizaka/ }).getAttribute("href")).toBe("https://www.krizaka.com");
   });
 
+  it("sits on the page frame's edges: --kz-page-max plus the gutters, the same formula as .kz-frame", () => {
+    const { container, rerender } = render(<Footer />);
+    const inner = () => container.querySelector("footer > div") as HTMLElement;
+    expect(inner().className).toContain("max-w-[calc(var(--kz-page-max,72rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))]");
+    expect(inner().className).toContain("px-[var(--kz-page-gutter,clamp(16px,3.2vw,32px))]");
+    rerender(<Footer variant="docs" />);
+    expect(inner().className).toContain("max-w-[calc(var(--kz-page-max-docs,88rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))]");
+  });
+
   describe("variants", () => {
     const legal = <SiteFooter.Link href="#privacy">Privacy</SiteFooter.Link>;
 

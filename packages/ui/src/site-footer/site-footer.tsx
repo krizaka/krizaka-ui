@@ -13,7 +13,7 @@ export const siteFooter = tv({
   slots: {
     root: "w-full border-t border-border-subtle bg-surface-0 text-fg",
     inner:
-      "mx-auto grid w-full max-w-(--kz-page-max,72rem) grid-cols-[minmax(0,1fr)] gap-10 px-(--kz-page-gutter,16px) py-12",
+      "mx-auto grid w-full max-w-[calc(var(--kz-page-max,72rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))] grid-cols-[minmax(0,1fr)] gap-10 px-[var(--kz-page-gutter,clamp(16px,3.2vw,32px))] py-12",
     top: "grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]",
     site: "grid content-start gap-3",
     siteName: "inline-flex items-center gap-2 font-display text-[15px] font-bold tracking-tight text-fg",
@@ -41,7 +41,7 @@ export const siteFooter = tv({
     variant: {
       site: {},
       docs: {
-        inner: "max-w-(--kz-page-max-docs,88rem) gap-6 py-8",
+        inner: "max-w-[calc(var(--kz-page-max-docs,88rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))] gap-6 py-8",
         top: "lg:grid-cols-[minmax(0,1fr)]",
         own: "sm:grid-cols-4",
       },
