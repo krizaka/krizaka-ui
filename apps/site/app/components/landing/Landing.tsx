@@ -65,6 +65,7 @@ const PACKAGES: { name: string; path?: string; dir: string }[] = [
   { name: "@krizaka/query", path: "/packages/query", dir: "query" },
   { name: "@krizaka/realtime", path: "/packages/realtime", dir: "realtime" },
   { name: "@krizaka/push", path: "/packages/push", dir: "push" },
+  { name: "@krizaka/app-config", path: "/packages/app-config", dir: "app-config" },
   { name: "@krizaka/config", path: "/packages/config", dir: "config" },
 ];
 

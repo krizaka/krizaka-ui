@@ -213,6 +213,10 @@
           "title": "Push",
           "description": "Notifications mobiles par le service Expo Push : lots, reçus et jetons morts, sans dépendance."
         },
+        "app-config": {
+          "title": "App config",
+          "description": "Compatibilité de version entre les apps et les serveurs : version minimale et dernière, mises à jour douces et forcées, maintenance, 426 Upgrade Required et contrats N-1."
+        },
         "config": {
           "title": "Config",
           "description": "Les presets ESLint, TypeScript et Prettier, et le cliquet qui compte la dette d'interface d'une application."

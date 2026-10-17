@@ -1,0 +1,51 @@
+---
+title: App config
+description: Version compatibility between apps and backends — minimum and latest version, soft and forced updates, maintenance, 426 Upgrade Required and N-1 contracts.
+---
+
+A mobile or desktop app outlives the API it calls: a person on an old build must never meet a broken screen. They must be
+told — and forced to update when the build can no longer work. `@krizaka/app-config` is the **one contract** for that,
+shared by the Java building block `krizaka-app-config` and every Next.js backend, and read by the clients (React Native,
+the Mac app, the web). Zero dependency.
+
+```ts
+// Backend (Next.js): app/api/v1/app-config/route.ts
+import { createAppConfigHandler } from "@krizaka/app-config/server";
+export const GET = createAppConfigHandler({ store }); // public, cached, ETag
+
+// …and the 426 on the API
+import { withClientVersionGuard } from "@krizaka/app-config/server";
+export const GET = withClientVersionGuard({ store }, handler);
+```
+
+```tsx
+// App (React Native / web): launch + resume, global 426
+import { createAppConfigClient } from "@krizaka/app-config/client";
+import { appStateResume, useAppConfig } from "@krizaka/app-config/react";
+
+const appConfig = createAppConfigClient({ baseUrl, platform: "ios", version: "1.4.0" });
+const api = appConfig.fetch; // sends the three headers, reports every 426
+const { decision, dismissSoft } = useAppConfig(appConfig, appStateResume(AppState));
+// decision.kind: "ok" | "soft" | "force" | "maintenance" → UpdatePrompt, ForceUpdateScreen, MaintenanceScreen
+```
+
+## The contract
+
+- **Headers** the app sends: `X-Client-Platform` (`ios` · `android` · `macos` · `windows` · `linux` · `web`),
+  `X-Client-Version` (`1.4.0`), `X-Contract-Version` (an integer).
+- **`GET /api/v1/app-config?platform=ios&version=1.4.0&locale=fr`** — public, `Cache-Control: public, max-age=60`,
+  `ETag`. `updateMode` is `force` below `minSupportedVersion`, `soft` below `latestVersion`, otherwise `none`; the
+  operator's override wins. The JSON schema is `@krizaka/app-config/contract/app-config.schema.json`.
+- **`426 Upgrade Required`** below the minimum or on a contract below `contractMin`: Problem Details with the
+  `appConfig` payload, before authentication.
+- **N-1**: a contract older than the newest but still served answers `Deprecation: true` and `Sunset`.
+- **Fail open**: an unreachable config endpoint never locks the app; the backend serves the last known value, then
+  permissive defaults.
+
+Every value is a **database parameter** (published with a reason, audited, reversible) — see `schemaSql` for the tables.
+The Java and TypeScript implementations both pass `contract/cases.json`.
+
+## Auto-resolve
+
+A JavaScript-only fix goes out over the air (`expo-updates`, one channel per runtime version); the runtime version is
+tied to the contract number, so a store update is asked for only when native code or the contract changes.

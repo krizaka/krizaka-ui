@@ -8,7 +8,7 @@ import { getRegistryItems } from "@/lib/ui-registry";
 import { absoluteUrl } from "@/lib/urls";
 
 /** The packages documented here, with the version this site was built from (the workspace packages). */
-const PACKAGES = ["ui", "tokens", "tailwind", "icons", "fonts", "charts", "intl", "i18n", "query", "realtime", "push", "config"];
+const PACKAGES = ["ui", "tokens", "tailwind", "icons", "fonts", "charts", "intl", "i18n", "query", "realtime", "push", "app-config", "config"];
 
 function packageLine(name: string): string {
   // The workspace package itself (packages/<name>): the version of this commit.

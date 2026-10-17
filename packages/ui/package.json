@@ -610,7 +610,19 @@
       "import": "./registry/examples/*.js"
     },
     "./registry/*": "./registry/*.json",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./update-prompt": {
+      "types": "./dist/update-prompt.d.ts",
+      "import": "./dist/update-prompt.js"
+    },
+    "./force-update-screen": {
+      "types": "./dist/force-update-screen.d.ts",
+      "import": "./dist/force-update-screen.js"
+    },
+    "./maintenance-screen": {
+      "types": "./dist/maintenance-screen.d.ts",
+      "import": "./dist/maintenance-screen.js"
+    }
   },
   "files": [
     "dist",
@@ -2130,6 +2142,36 @@
       "name": "./chat",
       "path": "dist/chat.js",
       "limit": "7 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./update-prompt",
+      "path": "dist/update-prompt.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./force-update-screen",
+      "path": "dist/force-update-screen.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./maintenance-screen",
+      "path": "dist/maintenance-screen.js",
+      "limit": "3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

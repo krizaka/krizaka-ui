@@ -7,7 +7,7 @@
      /components                the catalogue: every component, filters, live previews
      /components/<name>         one page per component of the registries (@krizaka/ui, @krizaka/charts)
      /templates                 every template; /templates/<intent> one intent
-     /packages/<package>        the packages without UI: tailwind · intl · i18n · query · realtime · push · config
+     /packages/<package>        the packages without UI: tailwind · intl · i18n · query · realtime · push · app-config · config
      /platforms                 web · mobile · desktop: the parity matrix, how to install each
      /mobile                    the React Native parity: what differs from the web
 
@@ -21,7 +21,7 @@ export const SITE_URL = "https://ui.krizaka.com";
 
 export const GET_STARTED_PAGES = ["installation", "theming"] as const;
 export const FOUNDATION_PAGES = ["tokens", "typography", "icons", "motion", "brand-marks"] as const;
-export const PACKAGE_PAGES = ["tailwind", "intl", "i18n", "query", "realtime", "push", "config"] as const;
+export const PACKAGE_PAGES = ["tailwind", "intl", "i18n", "query", "realtime", "push", "app-config", "config"] as const;
 
 /** The path (no locale) of a page of the old /docs/ui, by its slug there (`""` for /docs/ui itself). */
 export function pathOfLegacySlug(slug: string): string {
