@@ -4,6 +4,10 @@
 // and below `md` the sidebar becomes a drawer opened from the header (Radix Dialog: focus trap, Escape, focus return).
 // Keyboard: ⌘/Ctrl+B folds the sidebar, ⌘/Ctrl+K opens the search, `g` then a letter goes to a section (`shortcut` of an
 // item). Words arrive as props; links through `asChild`.
+// `desktop` (ADR-002): the shell is the window of a desktop app (the Orazaka Mac app, Tauri 2): the sidebar is always
+// there (a window has a minimum width, no drawer), its top clears the traffic lights, the header and the sidebar's top are
+// the title bar (`data-tauri-drag-region`: dragging them moves the window), the density is the desktop's (32 px rows,
+// 13 px text, a 48 px header), the chrome is not selectable, and the content scrolls under a fixed header.
 import { SkipLink } from "@krizaka/ui/skip-link";
 import { Dialog as DialogPrimitive, Slot } from "radix-ui";
 import * as React from "react";
@@ -16,14 +20,16 @@ import { ariaKeyShortcuts, formatShortcut, useApple, useShortcuts } from "./shor
 
 export const appShell = tv({
   slots: {
-    root: "flex min-h-dvh w-full bg-surface-0 text-fg",
+    root: "flex min-h-dvh w-full bg-surface-0 text-fg data-desktop:h-[var(--kz-window-height,100dvh)] data-desktop:overflow-hidden",
     sidebar:
       "sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-border-subtle bg-surface-1 transition-[width] duration-300 motion-reduce:transition-none md:flex " +
-      "w-64 data-collapsed:w-[4.25rem]",
+      "w-64 data-collapsed:w-[4.25rem] " +
+      "[[data-desktop]_&]:static [[data-desktop]_&]:flex [[data-desktop]_&]:h-auto [[data-desktop]_&]:w-60 [[data-desktop]_&]:select-none [[data-desktop]_&]:data-collapsed:w-[4.75rem]",
+    titlebar: "h-[var(--kz-titlebar-inset,1.75rem)] shrink-0",
     drawer:
       "kz-dialog fixed inset-y-0 left-0 z-50 flex w-[min(20rem,88vw)] flex-col border-r border-border-default bg-surface-1 pl-[env(safe-area-inset-left)] shadow-lg focus:outline-hidden",
     overlay: "kz-overlay fixed inset-0 z-50 bg-overlay backdrop-blur-xs",
-    brand: "flex h-14 shrink-0 items-center gap-2.5 px-4 font-display text-[15px] font-bold tracking-tight [[data-collapsed]_&]:justify-center [[data-collapsed]_&]:px-0",
+    brand: "flex h-14 shrink-0 items-center gap-2.5 px-4 font-display text-[15px] font-bold tracking-tight [[data-collapsed]_&]:justify-center [[data-collapsed]_&]:px-0 [[data-desktop]_&]:h-11",
     nav: "flex min-h-0 flex-1 flex-col gap-0.5 overflow-y-auto px-2 py-2",
     group: "mt-3 mb-1 px-3 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-fg-secondary [[data-collapsed]_&]:sr-only",
     item:
@@ -31,7 +37,8 @@ export const appShell = tv({
       "hover:bg-surface-2 hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
       "aria-[current=page]:bg-accent-soft aria-[current=page]:text-fg " +
       "aria-[current=page]:before:absolute aria-[current=page]:before:inset-y-2 aria-[current=page]:before:-left-2 aria-[current=page]:before:w-1 aria-[current=page]:before:rounded-full aria-[current=page]:before:bg-accent " +
-      "[[data-collapsed]_&]:justify-center [[data-collapsed]_&]:px-0 [&>svg]:h-[18px] [&>svg]:w-[18px] [&>svg]:shrink-0",
+      "[[data-collapsed]_&]:justify-center [[data-collapsed]_&]:px-0 [&>svg]:h-[18px] [&>svg]:w-[18px] [&>svg]:shrink-0 " +
+      "[[data-desktop]_&]:h-8 [[data-desktop]_&]:cursor-default [[data-desktop]_&]:rounded-md [[data-desktop]_&]:text-[13px] [[data-desktop]_&_svg]:h-4 [[data-desktop]_&_svg]:w-4",
     itemLabel: "min-w-0 flex-1 truncate [[data-collapsed]_&]:sr-only",
     itemHint: "ml-auto hidden items-center gap-0.5 text-fg-secondary group-hover/item:flex group-focus-visible/item:flex [[data-collapsed]_&]:!hidden",
     itemBadge:
@@ -41,20 +48,21 @@ export const appShell = tv({
     collapse:
       "hidden h-9 w-full items-center gap-2 rounded-lg px-3 text-xs font-medium text-fg-secondary hover:bg-surface-2 hover:text-fg md:flex " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring [[data-collapsed]_&]:justify-center [[data-collapsed]_&]:px-0",
-    body: "flex min-w-0 flex-1 flex-col",
+    body: "flex min-w-0 flex-1 flex-col [[data-desktop]_&]:min-h-0 [[data-desktop]_&]:overflow-y-auto",
     header:
-      "sticky top-0 z-30 flex h-14 shrink-0 items-center gap-3 border-b border-border-subtle bg-surface-0/85 px-4 backdrop-blur-xl md:px-6",
+      "sticky top-0 z-30 flex h-14 shrink-0 items-center gap-3 border-b border-border-subtle bg-surface-0/85 px-4 backdrop-blur-xl md:px-6 " +
+      "[[data-desktop]_&]:h-12 [[data-desktop]_&]:select-none [[data-desktop]_&]:px-5",
     menuButton:
-      "inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border-subtle bg-surface-1 text-fg md:hidden " +
+      "inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border-subtle bg-surface-1 text-fg md:hidden [[data-desktop]_&]:hidden " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
-    title: "min-w-0 flex-1 truncate font-display text-base font-bold tracking-tight",
+    title: "min-w-0 flex-1 truncate font-display text-base font-bold tracking-tight [[data-desktop]_&]:text-[15px]",
     search:
       "inline-flex h-9 min-w-9 items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface-1 px-2.5 text-sm text-fg-secondary transition-colors " +
       "hover:border-border-default hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring md:w-56 md:justify-start [&>svg]:h-4 [&>svg]:w-4 [&>svg]:shrink-0",
     searchLabel: "sr-only md:not-sr-only md:flex-1 md:truncate md:text-left",
     searchKeys: "hidden items-center gap-0.5 md:flex",
     actions: "ml-auto flex shrink-0 items-center gap-2",
-    main: "min-w-0 flex-1 px-4 py-6 md:px-6 md:py-8",
+    main: "min-w-0 flex-1 px-4 py-6 md:px-6 md:py-8 [[data-desktop]_&]:px-6 [[data-desktop]_&]:py-6",
   },
 });
 const s = appShell();
@@ -65,6 +73,7 @@ interface ShellState {
   open: boolean;
   setOpen: (value: boolean) => void;
   inDrawer: boolean;
+  desktop: boolean;
 }
 const ShellContext = React.createContext<ShellState | null>(null);
 const useShell = () => {
@@ -88,10 +97,16 @@ export type AppShellRootProps = React.ComponentProps<"div"> & {
    * @default "mod+b"
    */
   collapseShortcut?: string | false;
+  /**
+   * The shell is a desktop app's window (the Orazaka Mac app, Tauri 2 — ADR-002): no drawer, the sidebar's top clears the
+   * window's traffic lights (`--kz-titlebar-inset`, 28 px; the window's height is `--kz-window-height`, the viewport by default), the header and that top move the window
+   * (`data-tauri-drag-region`), a denser layout, the chrome not selectable. In a browser it is a fixed-height shell.
+   */
+  desktop?: boolean;
 };
 
 /** The shell: holds the collapse (desktop) and the drawer (phone) state. Children: Sidebar, then Body. */
-export function AppShellRoot({ defaultCollapsed = false, collapsed: controlled, onCollapsedChange, skipLabel, collapseShortcut = "mod+b", className, children, ...props }: AppShellRootProps) {
+export function AppShellRoot({ defaultCollapsed = false, collapsed: controlled, onCollapsedChange, skipLabel, collapseShortcut = "mod+b", desktop = false, className, children, ...props }: AppShellRootProps) {
   const [own, setOwn] = React.useState(defaultCollapsed);
   const [open, setOpen] = React.useState(false);
   const collapsed = controlled ?? own;
@@ -102,11 +117,11 @@ export function AppShellRoot({ defaultCollapsed = false, collapsed: controlled, 
     },
     [controlled, onCollapsedChange],
   );
-  const value = React.useMemo(() => ({ collapsed, setCollapsed, open, setOpen, inDrawer: false }), [collapsed, setCollapsed, open]);
+  const value = React.useMemo(() => ({ collapsed, setCollapsed, open, setOpen, inDrawer: false, desktop }), [collapsed, setCollapsed, open, desktop]);
   useShortcuts(collapseShortcut ? { [collapseShortcut]: () => setCollapsed(!collapsed) } : {});
   return (
     <ShellContext.Provider value={value}>
-      <div className={s.root({ className })} {...props}>
+      <div data-desktop={desktop ? "" : undefined} className={s.root({ className })} {...props}>
         {skipLabel && <SkipLink href="#content">{skipLabel}</SkipLink>}
         {children}
       </div>
@@ -130,10 +145,12 @@ export type AppShellSidebarProps = Omit<React.ComponentProps<"nav">, "children">
 };
 
 function SidebarContent({ brand, children, footer, collapseLabels, closeLabel }: Pick<AppShellSidebarProps, "brand" | "children" | "footer" | "collapseLabels" | "closeLabel">) {
-  const { collapsed, setCollapsed, inDrawer } = useShell();
+  const { collapsed, setCollapsed, inDrawer, desktop } = useShell();
+  const drag = desktop ? { "data-tauri-drag-region": "" } : {};
   return (
     <>
-      <div className={s.brand()}>
+      {desktop && <div aria-hidden className={s.titlebar()} {...drag} />}
+      <div className={s.brand()} {...drag}>
         {brand}
         {inDrawer && (
           <DialogPrimitive.Close className={cn(s.menuButton(), "ml-auto flex")} aria-label={closeLabel}>
@@ -166,6 +183,7 @@ export function AppShellSidebar({ label, brand, children, footer, collapseLabels
       <nav aria-label={label} data-collapsed={shell.collapsed ? "" : undefined} className={s.sidebar({ className })} {...props}>
         <SidebarContent {...content} />
       </nav>
+      {!shell.desktop && (
       <DialogPrimitive.Root open={shell.open} onOpenChange={shell.setOpen}>
         <DialogPrimitive.Portal>
           <DialogPrimitive.Overlay className={s.overlay()} />
@@ -179,6 +197,7 @@ export function AppShellSidebar({ label, brand, children, footer, collapseLabels
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
       </DialogPrimitive.Root>
+      )}
     </>
   );
 }
@@ -260,15 +279,20 @@ export type AppShellHeaderProps = Omit<React.ComponentProps<"header">, "title"> 
 
 /** The top of the screen: the drawer's button (phone), the title, the actions. Sticky. */
 export function AppShellHeader({ title, menuLabel, actions, className, children, ...props }: AppShellHeaderProps) {
-  const { open, setOpen } = useShell();
+  const { open, setOpen, desktop } = useShell();
+  const drag = desktop ? { "data-tauri-drag-region": "" } : {};
   return (
-    <header className={s.header({ className })} {...props}>
+    <header className={s.header({ className })} {...drag} {...props}>
       <button type="button" className={s.menuButton()} aria-label={menuLabel} aria-expanded={open} aria-haspopup="dialog" onClick={() => setOpen(true)}>
         <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
           <path d="M4 7h16M4 12h16M4 17h10" />
         </svg>
       </button>
-      {title && <h1 className={s.title()}>{title}</h1>}
+      {title && (
+        <h1 className={s.title()} {...drag}>
+          {title}
+        </h1>
+      )}
       {children}
       {actions && <div className={s.actions()}>{actions}</div>}
     </header>

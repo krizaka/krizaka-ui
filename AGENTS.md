@@ -27,7 +27,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
 ├─ tools/                   # not published — inventory.mjs (the duplicate audit of the products), consumer-smoke/ (the published
 │                           #   packages in fresh Next.js · Expo · Node apps), and their tests
-├─ docs/adr/                # the architecture decisions (ADR-001: TanStack under @krizaka facades)
+├─ docs/adr/                # the architecture decisions (ADR-001: TanStack under @krizaka facades; ADR-002: desktop is the web in a window)
 ├─ renovate/krizaka.json    # the Renovate preset the products extend (group krizaka, patches automerged)
 ├─ .changeset/              # one file per change that ships
 ├─ eslint.config.mjs       # the monorepo lints itself with @krizaka/config
