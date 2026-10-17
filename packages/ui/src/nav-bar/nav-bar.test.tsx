@@ -10,7 +10,7 @@ function Bar() {
     <NavBar.Root label="Main">
       <NavBar.Brand href="#home">Krizaka</NavBar.Brand>
       <NavBar.Items>
-        <NavBar.Menu label="Products">
+        <NavBar.Menu label="Products" inlineUpTo={0}>
           <NavBar.MenuLink href="#a" title="Orazaka" description="Sovereign AI." />
           <NavBar.MenuLink href="#b" title="Orochia" />
         </NavBar.Menu>
@@ -36,7 +36,7 @@ function ProductBar() {
       <NavBar.Root label="Main">
         <NavBar.Brand href="#home">Orazaka</NavBar.Brand>
         <NavBar.Items>
-          <NavBar.Menu label="Product">
+          <NavBar.Menu label="Product" inlineUpTo={0}>
             <NavBar.MenuLink href="#how" title="How it works" description="Install to first answer in three commands." />
             <NavBar.MenuLink href="#studios" title="Studios" description="Ready-made workflows." />
           </NavBar.Menu>
@@ -57,6 +57,60 @@ function ProductBar() {
     </div>
   );
 }
+
+describe("NavBar.Menu — three links or fewer stand in the bar", () => {
+  const Bar3 = ({ links = 3, inlineUpTo }: { links?: number; inlineUpTo?: number }) => (
+    <NavBar.Root label="Main">
+      <NavBar.Items>
+        <NavBar.Menu label="Product" inlineUpTo={inlineUpTo}>
+          {["Overview", "How it works", "The demo shop", "Pricing"].slice(0, links).map((title, i) => (
+            <NavBar.MenuLink key={title} href={`#${i}`} title={title} description="A line." active={i === 1} />
+          ))}
+        </NavBar.Menu>
+        <NavBar.Link href="#docs">Docs</NavBar.Link>
+      </NavBar.Items>
+    </NavBar.Root>
+  );
+
+  it("renders three links as plain links of the bar, the current one marked, with no dropdown trigger", () => {
+    render(<Bar3 />);
+    expect(screen.queryByRole("button", { name: "Product" })).toBeNull();
+    expect(screen.getAllByRole("link").map((a) => a.textContent)).toEqual(["Overview", "How it works", "The demo shop", "Docs"]);
+    expect(screen.getByRole("link", { name: "How it works" }).getAttribute("aria-current")).toBe("page");
+    expect(screen.getByRole("link", { name: "Overview" }).getAttribute("aria-current")).toBeNull();
+  });
+
+  it("keeps the dropdown above the limit", () => {
+    render(<Bar3 links={4} />);
+    expect(screen.getByRole("button", { name: "Product" })).toBeTruthy();
+    expect(screen.queryByRole("link", { name: "Overview" })).toBeNull();
+  });
+
+  it("takes the limit as a prop: 0 always makes a dropdown, a higher one inlines more", () => {
+    const { unmount } = render(<Bar3 inlineUpTo={0} />);
+    expect(screen.getByRole("button", { name: "Product" })).toBeTruthy();
+    unmount();
+    render(<Bar3 links={4} inlineUpTo={4} />);
+    expect(screen.queryByRole("button", { name: "Product" })).toBeNull();
+    expect(screen.getByRole("link", { name: "Pricing" })).toBeTruthy();
+  });
+
+  it("renders the router's link for asChild links", () => {
+    render(
+      <NavBar.Root label="Main">
+        <NavBar.Items>
+          <NavBar.Menu label="Product">
+            <NavBar.MenuLink asChild title="Overview">
+              <a data-router href="#o" />
+            </NavBar.MenuLink>
+          </NavBar.Menu>
+        </NavBar.Items>
+      </NavBar.Root>,
+    );
+    const link = screen.getByRole("link", { name: "Overview" });
+    expect(link.hasAttribute("data-router")).toBe(true);
+  });
+});
 
 describe("NavBar — the menus' intent and size", () => {
   it("does not open a menu when the pointer only passes over its trigger", async () => {
