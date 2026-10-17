@@ -10,7 +10,7 @@ export const dynamic = "force-static";
 const BUILT = new Date().toISOString().slice(0, 10);
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return allDocsPaths().flatMap((path) => {
+  return [...allDocsPaths(), "/changelog"].flatMap((path) => {
     const languages = { en: absoluteUrl("en", path), "fr-CA": absoluteUrl("fr", path), "x-default": absoluteUrl("en", path) };
     const priority = path === "/" ? 1 : path.startsWith("/components/") ? 0.7 : 0.8;
     return (["en", "fr"] as const).map((locale) => ({ url: absoluteUrl(locale, path), lastModified: BUILT, changeFrequency: "weekly" as const, priority, alternates: { languages } }));

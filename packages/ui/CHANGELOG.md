@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.24.0
+
+### Minor Changes
+
+- [#339](https://github.com/krizaka/krizaka-ui/pull/339) [`0187e71`](https://github.com/krizaka/krizaka-ui/commit/0187e71b95394f0a77016316b182a42049e6f505) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `WuSamaMark`: the founder's byline mark (Oussama's nickname, Wu-sama) — a gold W of five straight legs inside the Krizaka hexagon, split at its top and bottom vertices, ink and one amber, code-drawn SVG, still, cropped to the emblem below 48 px. An original mark, inspired by and not derived from the culture its name nods to: its geometry is measured on the Krizaka hexagon and guarded by tests (no curve, no bat-wing silhouette).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.24.0
+  - @krizaka/tokens@3.24.0
+
 ## 3.23.0
 
 ### Minor Changes
