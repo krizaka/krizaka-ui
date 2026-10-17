@@ -46,6 +46,8 @@ export const PLANNED: Record<string, string> = {
   "document-viewer": "Yomizaka's document page (krizaka/yomizaka#6): the PDF beside Orazaka's findings, a quoted passage lit where it sits.",
   "dashboard-layout": `${WEB_APPS}: the creator and operator dashboards.`,
   "date-picker": "Orochia's scheduling and Yasakia's availability (DS5 dates), through the form.",
+  "rail-nav": "Orazaka's web client first (its hand-made rail and drawer), then every product app with a hand-made rail or sidebar (KUI-ADOPT).",
+  "app-header": "Orazaka's web client (the bar beside the rail: the name, the status chip, the account), then the other product apps.",
   "meta-row": "The quiet line under a video's title in Orochia: quality, shape, duration, date, and an AI badge.",
   "description-list": "Facts of an object: Orazaka's job details and Orochia's order pages.",
   "detail-layout": `${WEB_APPS}: the page of one video, job or account.`,

@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { familyLabels, sites } from "../sites";
@@ -149,9 +149,15 @@ describe("NavBar", () => {
     await user.click(trigger);
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
     expect(await screen.findByRole("link", { name: /Orazaka/ })).toBeTruthy();
+    // The pointer is still on the trigger: let the hover-intent timer (200 ms) run its course, or it would reopen the
+    // menu right after Escape closed it (what made this test flaky on slow runners).
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+    });
     await user.keyboard("{Escape}");
-    expect(trigger.getAttribute("aria-expanded")).toBe("false");
-    expect(document.activeElement).toBe(trigger);
+    // Radix closes on its own tick (and the hover-intent timer may still be pending on a loaded runner): wait, don't race.
+    await waitFor(() => expect(trigger.getAttribute("aria-expanded")).toBe("false"));
+    await waitFor(() => expect(document.activeElement).toBe(trigger));
   });
 
   it("tightens once the page scrolls", () => {
@@ -239,8 +245,9 @@ describe("NavBar.Family", () => {
     expect(within(family).getByRole("link", { name: /Yororis/ }).textContent).toContain("Under construction");
     expect(within(family).getByRole("link", { name: /Yasakia/ }).textContent).toContain("In development");
     await user.keyboard("{Escape}");
-    expect(trigger.getAttribute("aria-expanded")).toBe("false");
-    expect(document.activeElement).toBe(trigger);
+    // Radix closes on its own tick (and the hover-intent timer may still be pending on a loaded runner): wait, don't race.
+    await waitFor(() => expect(trigger.getAttribute("aria-expanded")).toBe("false"));
+    await waitFor(() => expect(document.activeElement).toBe(trigger));
   });
 
   it("never opens on hover — a click opens it", async () => {

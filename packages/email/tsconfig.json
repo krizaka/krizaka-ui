@@ -1,0 +1,9 @@
+{
+  "extends": "@krizaka/config/tsconfig/react-library.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "types": ["node", "vitest/globals"]
+  },
+  "include": ["src", "test", "messages", "tsup.config.ts", "vitest.config.ts"]
+}
