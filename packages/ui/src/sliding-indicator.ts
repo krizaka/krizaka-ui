@@ -6,7 +6,12 @@ import * as React from "react";
 
 const useIsoLayoutEffect = typeof window === "undefined" ? React.useEffect : React.useLayoutEffect;
 
-export function useSlidingIndicator<T extends HTMLElement>({ item, active, follow = false }: { item: string; active: string; follow?: boolean }) {
+/**
+ * `item`: the selector of an item; `active`: of the current one, where the light rests; `prefer`: an item that, when
+ * present, holds the light before the current one (the NavBar's open menu); `follow`: the light follows the pointer
+ * and the focus — over anything that is not an item (an open menu's panel) it goes back to rest.
+ */
+export function useSlidingIndicator<T extends HTMLElement>({ item, active, prefer, follow = false }: { item: string; active: string; prefer?: string; follow?: boolean }) {
   const ref = React.useRef<T>(null);
   const place = React.useCallback((target: Element | null) => {
     const list = ref.current;
@@ -23,7 +28,20 @@ export function useSlidingIndicator<T extends HTMLElement>({ item, active, follo
     list.style.setProperty("--kz-ind-h", `${a.height}px`);
     list.setAttribute("data-indicator", "on");
   }, []);
-  const rest = React.useCallback(() => place(ref.current?.querySelector(active) ?? null), [place, active]);
+  const rest = React.useCallback(
+    () => {
+      const list = ref.current;
+      // An item re-rendered under a resting pointer (a menu closing) keeps the light the pointer gave it.
+      const hovered = follow ? list?.querySelector(`${item}:hover`) : null;
+      place((prefer ? list?.querySelector(prefer) : null) ?? hovered ?? list?.querySelector(active) ?? null);
+    },
+    [place, active, prefer, item, follow],
+  );
+  const follow_ = React.useCallback((target: EventTarget) => {
+    const hit = target instanceof Element ? target.closest(item) : null;
+    if (hit && ref.current?.contains(hit)) place(hit);
+    else rest();
+  }, [item, place, rest]);
 
   useIsoLayoutEffect(() => {
     const list = ref.current;
@@ -41,9 +59,9 @@ export function useSlidingIndicator<T extends HTMLElement>({ item, active, follo
 
   const handlers = follow
     ? {
-        onPointerOver: (e: React.PointerEvent) => place((e.target as Element).closest(item)),
+        onPointerOver: (e: React.PointerEvent) => follow_(e.target),
         onPointerLeave: rest,
-        onFocus: (e: React.FocusEvent) => place((e.target as Element).closest(item)),
+        onFocus: (e: React.FocusEvent) => follow_(e.target),
         onBlur: rest,
       }
     : {};
