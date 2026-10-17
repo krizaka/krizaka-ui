@@ -29,6 +29,7 @@ export interface AccountMenuProps {
   label: string;
   /** Their name; falls back to the e-mail. */
   name?: string;
+  /** Their e-mail, shown under the name. */
   email?: string;
   /** The picture: `src`, or `defaultAvatar` (`{ brand, seed }`) for the product's default person. */
   avatar?: Omit<AvatarProps, "size">;
@@ -42,7 +43,9 @@ export interface AccountMenuProps {
   language?: AccountMenuLanguage;
   /** Extra rows between the language and Sign out (a theme switch…). */
   children?: React.ReactNode;
+  /** The last row: its words, what it does, an optional icon. */
   signOut: { label: string; onSelect: () => void; icon?: React.ReactNode };
+  /** Classes for the trigger. */
   className?: string;
 }
 
