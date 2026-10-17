@@ -36,6 +36,7 @@ export const PLANNED: Record<string, string> = {
   "app-shell": `${WEB_APPS}: the shell of every authenticated web screen.`,
   "audio-player": "Yororis' voice moments and Orazaka's speech studio (audio outputs).",
   "auth-layout": `${WEB_APPS}: sign-in and sign-up screens.`,
+  captcha: "krizaka.com's contact form and the blog's newsletter form (the public forms, behind Cloudflare Turnstile).",
   "changelog-page": `${SITE}: /changelog.`,
   checkbox: "The form and data-table primitives are built on it (they import it); apps reach it through them.",
   combobox: "The form and tag input are built on it; Orazaka's model pickers use it through them.",
