@@ -8,12 +8,14 @@ export {
   type ChangeTag,
   draftFromTitles,
   kindOfTag,
+  type MergedPull,
   newestFirst,
   parseChangesets,
   parseReleaseBody,
   plain,
   prOf,
   type Release,
+  releasesFromPulls,
   tagOf,
 } from "./adapter";
 export { type ChangeKind,type ChangelogEntry, ChangelogPage, type ChangelogPageProps } from "./changelog-page";
