@@ -151,7 +151,8 @@ const wholeBranch = (branch: string): RegExp => new RegExp(`[.'"\`]${branch.repl
 export function findUnused(keys: readonly string[], sources: readonly string[]): string[] {
   const text = sources.flatMap((entry) => readSources(entry)).join("\n");
   return keys.filter((full) => {
-    const key = full.replace(/\[\d+\].*$/, "");
+    const arrayAt = full.search(/\[\d+\]/);
+    const key = arrayAt < 0 ? full : full.slice(0, arrayAt);
     if (text.includes(key)) return false;
     const parts = key.split(".");
     for (let i = parts.length - 1; i > 0; i--) {

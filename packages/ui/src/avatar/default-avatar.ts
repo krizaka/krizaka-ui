@@ -94,13 +94,20 @@ export function defaultAvatarFile(kind: DefaultAvatarKind, tone: number, size: D
   return size === "svg" ? `${kind}-${tone}.svg` : `${kind}-${tone}-${size}.webp`;
 }
 
+/** Linear on purpose: a `/\/+$/` regex backtracks quadratically on a long run of slashes. */
+function trimTrailingSlashes(value: string): string {
+  let end = value.length;
+  while (end > 0 && value.charCodeAt(end - 1) === 47) end--;
+  return value.slice(0, end);
+}
+
 /**
  * The URL of a default avatar: `defaultAvatarUrl({ brand: "orochia", seed: user.id })`.
  * @param size 256 for lists, 512 for a profile; `"svg"` for the vector.
  * @param base Another host or version of the set (a self-hosted copy); the default is the Krizaka CDN.
  */
 export function defaultAvatarUrl(avatar: DefaultAvatar, { size = 256, base = DEFAULT_AVATAR_BASE }: { size?: DefaultAvatarSize | "svg"; base?: string } = {}): string {
-  return `${base.replace(/\/+$/, "")}/${avatar.brand}/${defaultAvatarFile(avatar.kind ?? "person", resolveTone(avatar), size)}`;
+  return `${trimTrailingSlashes(base)}/${avatar.brand}/${defaultAvatarFile(avatar.kind ?? "person", resolveTone(avatar), size)}`;
 }
 
 /** The SVG source of a default avatar, 512 × 512 and square (the Avatar clips it round). */

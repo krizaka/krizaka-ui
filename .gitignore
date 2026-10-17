@@ -7,3 +7,5 @@ storybook-static
 *.log
 .DS_Store
 apps/storybook/__screenshots__/__diff__
+__pycache__/
+*.pyc
