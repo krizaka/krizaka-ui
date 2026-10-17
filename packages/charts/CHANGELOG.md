@@ -1,5 +1,16 @@
 # @krizaka/charts
 
+## 0.5.0
+
+### Minor Changes
+
+- [#283](https://github.com/krizaka/krizaka-ui/pull/283) [`e89d93a`](https://github.com/krizaka/krizaka-ui/commit/e89d93ab3c118674d756d363dbc3f12e0e40571b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Platform parity — web · native · desktop. Every component's meta now declares `parity`: why it is not on the platform it lacks (`gap` ✗ with the issue that tracks it, or `n/a` with the reason and the component that answers there) and its desktop form (the Orazaka Mac app renders the web components: `"web"`, `"desktop"` or an absence). The registries carry it (`registry/<name>.json` and `registry/index.json`: `parity.{web,native,desktop}.state`), ui.krizaka.com draws the matrix from it, and the registry tests fail on a component without a decision.
+
+### Patch Changes
+
+- Updated dependencies [[`dbac304`](https://github.com/krizaka/krizaka-ui/commit/dbac304839ab3264c7f6af455b383f15294f80c1), [`e89d93a`](https://github.com/krizaka/krizaka-ui/commit/e89d93ab3c118674d756d363dbc3f12e0e40571b), [`ef85add`](https://github.com/krizaka/krizaka-ui/commit/ef85add0cacb882f358a689a6a19102bffa3a89c), [`a3539a6`](https://github.com/krizaka/krizaka-ui/commit/a3539a6d5955303eb958ad2dd145b466b3cdc00a)]:
+  - @krizaka/ui@3.20.0
+
 ## 0.4.0
 
 ### Minor Changes
