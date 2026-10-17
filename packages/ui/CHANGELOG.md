@@ -1,5 +1,24 @@
 # @krizaka/ui
 
+## 3.22.0
+
+### Minor Changes
+
+- [#293](https://github.com/krizaka/krizaka-ui/pull/293) [`9c804b3`](https://github.com/krizaka/krizaka-ui/commit/9c804b3274ac5e3169138cd1290f653e642deb4a) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Two blocks for product landing pages. `ComparisonTable` (`@krizaka/ui/comparison-table`): a fair “versus” grid — every row aligned across the columns, your column a highlighted band of the same grid, an icon per question, a bold key phrase then the detail, neutral answers elsewhere; one card per question on a phone; rows rise in staggered. `StepShowcase` and `DeviceFrame` (`@krizaka/ui/step-showcase`): a guided tour in one device frame (phone, browser window, macOS window) — the steps beside it with a bar filling under the current one, each recording played muted then the next, crossfading; plays only in view, holds on hover and focus, a play / pause button, no native controls, posters first and the video once seen; dots and swipe on a phone; posters and manual steps under reduced motion.
+
+- [#314](https://github.com/krizaka/krizaka-ui/pull/314) [`2cb1c7d`](https://github.com/krizaka/krizaka-ui/commit/2cb1c7d6e2a33d3a9cc0014744a0241419ef3fc1) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Data-driven UI (ADR-082, krizaka/orazaka#207): `@krizaka/ui/genui` draws the interface a model describes in A2UI v0.9 — `GenUiStream` (a model's answer, its prose and its `a2ui` fence, growing as it streams), `GenUiSurface`, the strict validator (`validateMessage`: catalog `krizaka:genui/v1` only, unknown components and properties refused, tree-only, prototype-safe JSON pointers, size and depth caps), the store (`readStream`, `applyMessage`) and the base catalog (`Column`, `Row`, `Text`, `Card`, `Callout`, `Table`). `@krizaka/charts/genui` adds `chartsGenUiCatalog` (`KpiStat`, `ChartCard` with line · bar · area · pie).
+
+- [#309](https://github.com/krizaka/krizaka-ui/pull/309) [`d08b205`](https://github.com/krizaka/krizaka-ui/commit/d08b2052441939a4c6d6914d03b38bcf4125bd36) Thanks [@oussamaABID](https://github.com/oussamaABID)! - New `MetaRow` (`@krizaka/ui/meta-row`, web and `@krizaka/ui/native`): one quiet line of dot-separated facts ("HD 720p · 9:16 · 0:05 · 24 fps · Oct 16, 2026") with optional status chips at its end (a `Badge`). A real list whose dots are hidden from assistive technology; empty facts are dropped so no dot dangles. Server-safe on the web.
+
+- [#291](https://github.com/krizaka/krizaka-ui/pull/291) [`3c92001`](https://github.com/krizaka/krizaka-ui/commit/3c92001306cf61bfd15c533d2e447f203897bc53) Thanks [@oussamaABID](https://github.com/oussamaABID)! - NavBar: compact menus and one item lit. A menu link is icon · title · one line, in a 20 rem panel (36 rem in two columns) instead of a sheet over the page. Menus open on click, keyboard, or a pointer that rests 200 ms (`delayDuration`) — passing over the bar opens nothing; the light stays on the open menu's trigger, and moving on to a plain link closes the menu, so two items are never lit. A press outside closes the mobile panel. New `NavBar.MobileGroup` (a named group of the phone panel, the same groups as the bar's menus). `useSlidingIndicator` takes `prefer`. The `family-product` example and the docs follow the product-site standard: Product ▾ · Platforms ▾ · Docs.
+
+### Patch Changes
+
+- [#308](https://github.com/krizaka/krizaka-ui/pull/308) [`284468a`](https://github.com/krizaka/krizaka-ui/commit/284468a656417b92e30eb9cb853c4546409b09f5) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Focus rings only for the keyboard. A mouse click on a link (the brand, a nav item, a card) no longer shows a blue outline: the preset's base layer hides the outline of any element that is focused without `:focus-visible`, and gives keyboard focus on an element without its own ring the token ring (`--kz-ring`, the signature offset). The skip link's ring follows `:focus-visible` too.
+- Updated dependencies [[`284468a`](https://github.com/krizaka/krizaka-ui/commit/284468a656417b92e30eb9cb853c4546409b09f5)]:
+  - @krizaka/tailwind@3.22.0
+  - @krizaka/tokens@3.22.0
+
 ## 3.21.0
 
 ### Minor Changes
