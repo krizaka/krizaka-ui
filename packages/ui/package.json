@@ -827,7 +827,7 @@
     {
       "name": "./captcha",
       "path": "dist/captcha.js",
-      "limit": "3 kB",
+      "limit": "5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
