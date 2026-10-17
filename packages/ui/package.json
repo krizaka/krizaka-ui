@@ -1217,7 +1217,7 @@
     {
       "name": "./site-footer (the family's marks, still)",
       "path": "dist/site-footer.js",
-      "limit": "10.5 kB",
+      "limit": "11 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

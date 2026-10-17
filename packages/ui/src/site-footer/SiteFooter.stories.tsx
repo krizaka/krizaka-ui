@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import AppExample from "../../registry/examples/site-footer/app";
 import CompanyExample from "../../registry/examples/site-footer/company";
+import DocsExample from "../../registry/examples/site-footer/docs";
 import OpenSourceFrExample from "../../registry/examples/site-footer/open-source-fr";
 import ProductExample from "../../registry/examples/site-footer/product";
 import { SiteFooter } from "./site-footer";
@@ -25,3 +27,5 @@ type Story = StoryObj<typeof meta>;
 export const Product: Story = { render: () => <ProductExample /> };
 export const Company: Story = { render: () => <CompanyExample /> };
 export const OpenSourceFr: Story = { render: () => <OpenSourceFrExample /> };
+export const App: Story = { render: () => <AppExample /> };
+export const Docs: Story = { render: () => <DocsExample /> };
