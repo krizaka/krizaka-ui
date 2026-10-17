@@ -86,7 +86,7 @@ export interface CatalogFamily {
 
 /** The component whose example stands for its family on the family's card (its first web example unless named). */
 export const FAMILY_COVERS: Record<string, { component: string; example?: string; scale?: number }> = {
-  actions: { component: "button", example: "sizes", scale: 0.8 },
+  actions: { component: "button", example: "sizes", scale: 0.65 },
   inputs: { component: "date-picker", example: "calendar" },
   navigation: { component: "nav-bar", example: "site" },
   overlays: { component: "command", example: "inline" },

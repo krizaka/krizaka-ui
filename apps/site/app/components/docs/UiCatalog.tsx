@@ -4,7 +4,7 @@ import { format } from "@krizaka/i18n";
 import { Monitor, MonitorSmartphone, Smartphone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { type CSSProperties, type ReactNode, useMemo, useSyncExternalStore } from "react";
+import { type ReactNode, useMemo, useSyncExternalStore } from "react";
 
 import type { CatalogEntry, CatalogFamily } from "@/lib/ui-catalog";
 import { FILTER_KEYS, JOBS, PATTERNS } from "@/lib/ui-ia";
@@ -12,6 +12,7 @@ import { type Product,PRODUCT_NAMES, PRODUCTS } from "@/lib/ui-inventory";
 import type { Platform, Status } from "@/lib/ui-registry";
 
 import { useI18n } from "../I18nProvider";
+import { FamilyCards } from "./FamilyCards";
 import { InlineCode } from "./InlineCode";
 import { LazyExample } from "./LazyExample";
 
@@ -117,39 +118,17 @@ export function UiCatalog({ entries, families, usageDate }: { entries: CatalogEn
         <h2 id="families-title" className="kz-families-title">
           {c.families.title}
         </h2>
-        <ul>
-          {families.map((family, index) => {
-            const words = sectionTitle(family.key);
-            return (
-              <li key={family.key} className="kz-family" data-current={filters.group === family.key ? "" : undefined} style={{ "--i": index, "--kz-family-scale": family.cover?.scale ?? 0.5 } as CSSProperties}>
-                <span className="kz-family-thumb" aria-hidden inert>
-                  {family.cover ? (
-                    <span className="kz-family-stage">
-                      <LazyExample exampleKey={family.cover.key} heavy={family.cover.heavy} placeholder={<span className="kz-catalog-placeholder" />} />
-                    </span>
-                  ) : null}
-                </span>
-                <span className="kz-family-text">
-                  <a
-                    href={`?group=${family.key}#catalog-list`}
-                    aria-current={filters.group === family.key ? "true" : undefined}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      writeFilters({ ...filters, group: family.key });
-                      document.getElementById("catalog-list")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
-                    }}
-                  >
-                    {words.title}
-                  </a>
-                  <span>
-                    {format(family.components === 1 ? c.families.component : c.families.components, { count: family.components })} · {format(c.families.examples, { count: family.examples })}
-                  </span>
-                  {family.mobile > 0 && <span className="kz-family-mobile">{format(c.families.mobile, { count: family.mobile })}</span>}
-                </span>
-              </li>
-            );
-          })}
-        </ul>
+        <FamilyCards
+          families={families}
+          titles={Object.fromEntries(families.map((family) => [family.key, sectionTitle(family.key).title]))}
+          hrefs={Object.fromEntries(families.map((family) => [family.key, `?group=${family.key}#catalog-list`]))}
+          current={filters.group}
+          onSelect={(key, event) => {
+            event.preventDefault();
+            writeFilters({ ...filters, group: key });
+            document.getElementById("catalog-list")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+          }}
+        />
       </nav>
       <p id="catalog-list" className="kz-docs-note">
         {c.lead}
