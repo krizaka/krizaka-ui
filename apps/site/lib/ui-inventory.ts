@@ -41,6 +41,8 @@ export const PLANNED: Record<string, string> = {
   combobox: "The form and tag input are built on it; Orazaka's model pickers use it through them.",
   "component-page": `${SITE}: the component pages of /docs.`,
   "contact-page": `${SITE}: /contact.`,
+  "genui-catalog": "Orazaka's chat: the figures and charts of a generated dashboard (KpiStat, ChartCard) — ADR-082, krizaka/orazaka#207.",
+  genui: "Orazaka's chat: a model's answer drawn as a dashboard (A2UI v0.9, ADR-082, krizaka/orazaka#207) — the Data-driven UI Studio of the data-analytics pack.",
   "document-viewer": "Yomizaka's document page (krizaka/yomizaka#6): the PDF beside Orazaka's findings, a quoted passage lit where it sits.",
   "dashboard-layout": `${WEB_APPS}: the creator and operator dashboards.`,
   "date-picker": "Orochia's scheduling and Yasakia's availability (DS5 dates), through the form.",
