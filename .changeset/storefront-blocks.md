@@ -1,0 +1,5 @@
+---
+"@krizaka/ui": minor
+---
+
+Six blocks for a shop's storefront (Akinaza): `ServiceCard` (`@krizaka/ui/service-card`) — a service as a card with icon or photo, duration, capacity, price (« from » when it varies), inclusions, a « Popular » tag and one way in (a link or a press); `SlotPicker` (`@krizaka/ui/slot-picker`) — the next free times as chips, a strip of days then the day's times, each a link or a toggle; `OpeningHours` (`@krizaka/ui/opening-hours`) — the weekly hours in one native-disclosure row (open now · closes at…) that unfolds into the week with today marked. Plus `CoverHero` (`@krizaka/ui/cover-hero`) — the shop's first screen over its photo or muted loop (a still under reduced motion; the brand's colours without a cover); `StickyAction` (`@krizaka/ui/sticky-action`) — the page's one action held at the bottom of a phone, pure CSS; `MediaGallery` (`@krizaka/ui/media-gallery`) — the shop's photos and loops in tiles, the first featured. Web (native: n/a, the storefront is a web page).
