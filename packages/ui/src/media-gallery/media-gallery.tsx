@@ -7,9 +7,10 @@ export const mediaGallery = tv({
   slots: {
     root: "m-0 grid list-none grid-cols-2 gap-2 p-0 sm:gap-3 md:grid-cols-4",
     tile:
-      "group relative isolate m-0 overflow-hidden rounded-xl border border-border-default bg-media data-[featured]:col-span-2 data-[featured]:row-span-2 " +
-      "aspect-[3/4] data-[shape=wide]:aspect-[4/3] data-[featured]:aspect-auto",
-    media: "h-full w-full object-cover transition-transform duration-500 motion-safe:group-hover:scale-105",
+      "group relative isolate m-0 aspect-[3/4] overflow-hidden rounded-xl border border-border-default bg-media data-[shape=wide]:aspect-[4/3] " +
+      // The featured tile takes two columns; from md up it has no ratio of its own and stretches to the height of the row its neighbours set.
+      "data-[featured]:col-span-2 data-[featured]:aspect-[4/3] md:data-[featured]:aspect-auto",
+    media: "absolute inset-0 h-full w-full object-cover transition-transform duration-500 motion-safe:group-hover:scale-105",
     caption: "pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-scrim-strong to-transparent p-3 pt-8 text-xs font-semibold text-fg-on-media",
   },
 });
@@ -52,7 +53,7 @@ function Tile({ item, featured }: { item: GalleryMedia; featured: boolean }) {
       <figure className="m-0 h-full w-full">
         <img src={item.src} alt={item.alt} loading="lazy" decoding="async" className={s.media()} />
         {play && item.video && (
-          <video className={s.media({ className: "absolute inset-0" })} poster={item.src} autoPlay muted loop playsInline preload="none" aria-hidden tabIndex={-1}>
+          <video className={s.media()} poster={item.src} autoPlay muted loop playsInline preload="none" aria-hidden tabIndex={-1}>
             {item.video.webm && <source src={item.video.webm} type="video/webm" />}
             {item.video.mp4 && <source src={item.video.mp4} type="video/mp4" />}
           </video>
