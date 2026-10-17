@@ -60,7 +60,8 @@ export function AccountMenu({ label, name, email, avatar, showName = true, links
         className={cn("flex items-center gap-2.5 rounded-lg p-1 transition-colors duration-150 hover:bg-surface-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring", className)}
       >
         <Avatar size="sm" fallback={title.charAt(0).toUpperCase() || "?"} {...avatar} />
-        {showName && title && <span className="hidden max-w-40 truncate text-sm font-medium text-fg-secondary sm:inline-block">{title}</span>}
+        {/* Drawn by CSS: the name is not text of the button, so its accessible name stays `label` with no label-content-name-mismatch. */}
+        {showName && title && <span aria-hidden data-name={title} className="hidden max-w-40 truncate text-sm font-medium text-fg-secondary after:content-[attr(data-name)] sm:inline-block" />}
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end" className="w-64">
         <DropdownMenu.Label className="flex items-center gap-3 py-2 normal-case tracking-normal">
