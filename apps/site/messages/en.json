@@ -204,6 +204,10 @@
           "title": "Motion",
           "description": "One motion system: easing, durations, the arrival of blocks and the rule that stills it all under reduced motion."
         },
+        "navigation": {
+          "title": "Navigation in the family",
+          "description": "One top bar for every Krizaka site and product: what is shared, what each product makes its own, the language switch, the check."
+        },
         "brand-marks": {
           "title": "Brand marks",
           "description": "The eight marks of the Krizaka family — drawn in code, animated, still under reduced motion."

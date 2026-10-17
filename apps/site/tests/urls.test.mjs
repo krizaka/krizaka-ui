@@ -15,6 +15,7 @@ test("every old /docs/ui page has its new address", () => {
     typography: "/foundations/typography",
     icons: "/foundations/icons",
     motion: "/foundations/motion",
+    navigation: "/foundations/navigation",
     "brand-marks": "/foundations/brand-marks",
     tailwind: "/packages/tailwind",
     query: "/packages/query",

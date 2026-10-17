@@ -9,7 +9,7 @@
   `skeleton`, `empty-state`, `spinner`, `countdown`, `card`, `dialog`, `toast`, `popover`, `dropdown-menu`, `tooltip`,
   `stat`, `page-header`, `alert`, `separator`, `kbd`, `tabs`, `chip`, `switch`, `slider`, `checkbox`, `radio-group`,
   `command`, `confirm-button`, `progress`, `section-backdrop`, `loader`, `meter`, `stepper`, `number-ticker`, `terminal-replay`,
-  `nav-bar` (with the family switcher `NavBar.Family`), `sites` (the Krizaka family as data), `site-footer`, `chip-link`, `glow-card`, `marquee`, `iso`, `mascots`, and the data and media primitives `pagination`,
+  `nav-bar` (with the family switcher `NavBar.Family`), `language-switch` (the one language control of the family), `sites` (the Krizaka family as data), `site-footer`, `chip-link`, `glow-card`, `marquee`, `iso`, `mascots`, and the data and media primitives `pagination`,
   `data-table` (TanStack Table v9), `virtual` (TanStack Virtual v3), `form` (TanStack Form v1: `./form`, `./form/server`, `./native/form`), `filter-bar`, `combobox`, `tag-input`, `date-picker`, `search-field`, `video-player`, `file-upload`,
   `media-capture`, `video-trimmer`, `audio-player`, `image-cropper`, `document-viewer` (pdf.js, an optional peer loaded by the app; passages lit from the PDF's text positions), `map` (MapLibre over Protomaps PMTiles on the Krizaka CDN, the style generated from the tokens; `maplibre-gl` an optional peer, loaded on demand; native `./native/map` on `@maplibre/maplibre-react-native`, an optional peer), and the **page blocks** (category `blocks`) `page`,
   `page-hero`, `card-grid`, `pointer-light`, `link-card`, `argument-card`, `mascot-quote`, `decision-list`, `code-block` (TanStack Highlight), `markdown` (TanStack Markdown; `./native/markdown`), `recipes` (`defineRecipe`: the variants of Button, Badge, Chip and Card written once, read by `tv()` on the web and by `nativeRecipe` on the phone),
@@ -77,7 +77,7 @@
   or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6 kB, `./chip` ≤ 10 kB, `./tabs` ≤ 10 kB, `./radio-group`
   ≤ 12.5 kB (3.2: the tactile keys, the cards' check and the segments' gliding light), `./slider` ≤ 12 kB. What opens over the page carries Radix's machinery (dismissable layer, focus scope, scroll lock,
   and Floating UI for what is placed next to a trigger) — shared between these entries in an app, but counted in
-  each: `./dialog` ≤ 16.5 kB, `./toast` ≤ 11.5 kB (sonner), `./nav-bar` ≤ 23.4 kB (Radix NavigationMenu and the family's marks — 3.13: +0.6 kB for the Yomizaka mark; 3.15: +0.8 kB for Kachizaka and Akinaza), `./tooltip` ≤ 20 kB, `./popover` ≤ 25 kB,
+  each: `./dialog` ≤ 16.5 kB, `./toast` ≤ 11.5 kB (sonner), `./nav-bar` ≤ 24.6 kB (Radix NavigationMenu and the family's marks — 3.13: +0.6 kB for the Yomizaka mark; 3.15: +0.8 kB for Kachizaka and Akinaza; NAV-STD: +0.7 kB for the language switch and the panel placement), `./language-switch` ≤ 2.4 kB (a disclosure, no menu engine), `./tooltip` ≤ 20 kB, `./popover` ≤ 25 kB,
   `./dropdown-menu` ≤ 32 kB, `./command` ≤ 21 kB (cmdk alone is 14.9 kB: it imports Radix's Dialog itself; with
   `CommandDialog` on the platform's Dialog, 19 kB measured, +10 %). The data and media primitives (`@krizaka/intl`
   counted, the optional peers hls.js / expo-video / expo-camera never bundled — the app passes or installs them):
@@ -100,7 +100,7 @@
   `./field`, `./theme`, `./skeleton`, `./empty-state`, `./spinner`, `./countdown`, `./card`, `./dialog`, `./toast`,
   `./popover`, `./dropdown-menu`, `./tooltip`, `./stat`, `./page-header`, `./alert`, `./separator`, `./kbd`, `./tabs`,
   `./chip`, `./chip-link`, `./switch`, `./slider`, `./checkbox`, `./radio-group`, `./command`, `./confirm-button`, `./progress`,
-  `./section-backdrop`, `./iso`, `./motion`, `./loader`, `./nav-bar`, `./sites`, `./site-footer`, `./number-ticker`, `./terminal-replay`, `./glow-card`, `./marquee`, `./stepper`,
+  `./section-backdrop`, `./iso`, `./motion`, `./loader`, `./nav-bar`, `./language-switch`, `./sites`, `./site-footer`, `./number-ticker`, `./terminal-replay`, `./glow-card`, `./marquee`, `./stepper`,
   `./meter`, `./mascots`, `./pagination`, `./data-table`, `./filter-bar`, `./combobox`, `./tag-input`, `./date-picker`,
   `./search-field`, `./video-player`, `./file-upload`, `./media-capture`, `./video-trimmer`, `./audio-player`,
   `./image-cropper`, `./page`, `./page-hero`, `./card-grid`, `./pointer-light`, `./link-card`, `./argument-card`,
