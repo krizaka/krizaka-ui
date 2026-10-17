@@ -189,6 +189,10 @@
       "types": "./dist/progress.d.ts",
       "import": "./dist/progress.js"
     },
+    "./waveform": {
+      "types": "./dist/waveform.d.ts",
+      "import": "./dist/waveform.js"
+    },
     "./section-backdrop": {
       "types": "./dist/section-backdrop.d.ts",
       "import": "./dist/section-backdrop.js"
@@ -789,7 +793,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "58 kB",
+      "limit": "59 kB",
       "gzip": true
     },
     {
@@ -1128,6 +1132,16 @@
       "name": "./progress",
       "path": "dist/progress.js",
       "limit": "1.8 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./waveform",
+      "path": "dist/waveform.js",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

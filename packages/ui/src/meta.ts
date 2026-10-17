@@ -83,6 +83,7 @@ export type ComponentName =
   | "map"
   | "markdown"
   | "meta-row"
+  | "waveform"
   | "marketing-layout"
   | "marquee"
   | "mascot-quote"

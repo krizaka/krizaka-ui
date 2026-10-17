@@ -47,6 +47,7 @@ export const PLANNED: Record<string, string> = {
   "dashboard-layout": `${WEB_APPS}: the creator and operator dashboards.`,
   "date-picker": "Orochia's scheduling and Yasakia's availability (DS5 dates), through the form.",
   "meta-row": "The quiet line under a video's title in Orochia: quality, shape, duration, date, and an AI badge.",
+  waveform: "The bars of a voice or a sound, drawn on a product card: decorative, breathing while it plays (Yororis, Orochia).",
   "description-list": "Facts of an object: Orazaka's job details and Orochia's order pages.",
   "detail-layout": `${WEB_APPS}: the page of one video, job or account.`,
   "docs-article-page": `${SITE}: the product documentation pages.`,
