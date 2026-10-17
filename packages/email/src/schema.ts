@@ -25,6 +25,8 @@ export const baseSchema = z.object({
   address: line(200).optional(),
   /** The signature; default: Oussama for Krizaka, « The <brand> team » for a product. */
   signature: z.object({ name: line(80), role: line(120).optional(), avatarUrl: httpsUrl.optional() }).optional(),
+  /** Where the footer's privacy and contact links go, when the sender has pages of its own (the blog explains what its list keeps). */
+  links: z.object({ privacy: httpsUrl.optional(), contact: httpsUrl.optional() }).optional(),
   /** The one-click unsubscribe (required by marketing emails, and added as `List-Unsubscribe` headers). */
   unsubscribeUrl: httpsUrl.optional(),
 });

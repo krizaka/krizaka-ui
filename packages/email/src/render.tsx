@@ -55,7 +55,7 @@ export function unsubscribeHeaders(url: string): Record<string, string> {
  * Nothing the caller passes is rendered unescaped: React escapes the text, and URLs must be `https`.
  */
 export async function renderEmail<K extends TemplateId>(id: K, props: TemplateProps<K>, options: RenderOptions): Promise<RenderedEmail> {
-  const template = templates[id] as unknown as TemplateDefinition<z.ZodType<{ brand: "krizaka"; address?: string; signature?: EmailSignature; unsubscribeUrl?: string }>>;
+  const template = templates[id] as unknown as TemplateDefinition<z.ZodType<{ brand: "krizaka"; address?: string; signature?: EmailSignature; links?: { privacy?: string; contact?: string }; unsubscribeUrl?: string }>>;
   const parsed = template.schema.safeParse(props);
   if (!parsed.success) throw new EmailValidationError(id, [...new Set(parsed.error.issues.map((i) => i.path.join(".") || "(root)"))]);
   const p = parsed.data;
@@ -70,7 +70,7 @@ export async function renderEmail<K extends TemplateId>(id: K, props: TemplatePr
     locale,
     t,
     legal: { name: t("common.legalName"), address: p.address ?? t("common.address") },
-    links: { site: t("common.links.site"), privacy: t("common.links.privacy"), contact: t("common.links.contact") },
+    links: { site: t("common.links.site"), privacy: p.links?.privacy ?? t("common.links.privacy"), contact: p.links?.contact ?? t("common.links.contact") },
     signature,
     unsubscribeUrl: p.unsubscribeUrl,
     why: template.why(p, t),

@@ -105,6 +105,12 @@ describe("the action", () => {
     expect(email.html).toContain("https://cdn.example.com/brand/krizaka/mark-dark-256.png");
   });
 
+  it("the footer's privacy and contact links can be the sender's own", async () => {
+    const email = await renderEmail("newsletterConfirm", { ...templates.newsletterConfirm.example, links: { privacy: "https://blog.krizaka.com/newsletter/" } }, { locale: "en" });
+    expect(email.text).toContain("Privacy https://blog.krizaka.com/newsletter/");
+    expect(email.text).toContain("Contact https://www.krizaka.com/contact");
+  });
+
   it("long messages are echoed shortened in the auto-reply", async () => {
     const message = `${"mot ".repeat(600)}fin`;
     const email = await renderEmail("contactAutoreply", { name: "Camille", message }, { locale: "fr" });
