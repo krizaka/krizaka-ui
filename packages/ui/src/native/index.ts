@@ -138,6 +138,7 @@ export { toast, Toaster, type ToasterProps, type ToastItem, type ToastOptions, t
 export { textStyles, Txt, type TxtProps, type TxtTone, type TxtVariant } from "./txt";
 export { UpdatePrompt, type UpdatePromptProps } from "./update-prompt";
 export { VerifiedBadge, type VerifiedBadgeProps } from "./verified-badge";
+export { Waveform, type WaveformProps } from "./waveform";
 export { Wheel, WheelDivider, type WheelOption, WheelPicker, type WheelPickerProps, type WheelProps } from "./wheel";
 export { YasakiaMark, YazakiaMark } from "./YasakiaMark";
 export { YomizakaMark } from "./YomizakaMark";

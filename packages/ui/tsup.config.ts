@@ -44,6 +44,7 @@ export default defineConfig([
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",
       progress: "src/progress/index.ts",
+      waveform: "src/waveform/index.ts",
       "section-backdrop": "src/section-backdrop/index.ts",
       iso: "src/iso/index.ts",
       stepper: "src/stepper/index.ts",
