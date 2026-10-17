@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "Next to a name: comments, creators, members, the signed-in account in a header.",
     "`Avatar.Group` to show who takes part (followers, collaborators) in little space.",

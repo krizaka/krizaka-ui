@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "media",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "To play a video on a page: a watch page, a lesson, a product tour, a creator's clip.",
     "With `src` as a function when the address is signed and short-lived: it is fetched when needed, and again after an error.",

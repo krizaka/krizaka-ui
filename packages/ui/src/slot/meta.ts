@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "foundations",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "asChild merges props into a DOM child; React Native composes with Pressable instead." }, desktop: "web" },
   whenToUse: ["To give your own component an `asChild` prop.", "`VisuallyHidden` for words that only assistive technology needs: an icon button's name, a table caption."],
   whenNotToUse: [
     { when: "To style a link like a button: `asChild` on the button does it.", use: "button" },

@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "feedback",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "An inline message above a form or a list; the apps use an empty state or a toast instead today." }, desktop: "web" },
   whenToUse: [
     "To tell the reader something about the whole page or section: a new rule, an account state, a failed payment.",
     "When the message must stay visible until the situation changes (a low balance, an expired card).",

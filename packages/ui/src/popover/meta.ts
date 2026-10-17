@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "overlays",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A phone shows extra content in a sheet.", use: "dialog" }, desktop: "web" },
   whenToUse: ["For a small, optional task next to what it changes: set a goal, pick a filter, edit a name.", "To show details on demand without leaving the page."],
   whenNotToUse: [
     { when: "For a list of actions.", use: "dropdown-menu" },

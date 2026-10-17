@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["Discover in a dating app: like or pass, one profile at a time.", "Any one-by-one decision: approve or reject, keep or skip."],
   whenNotToUse: [
     { when: "To browse many items side by side.", use: "list" },

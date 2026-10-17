@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "layout",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "Behind the hero of a marketing page (`grid`, the dome).",
     "Behind a closing call to action (`direction=\"up\"`).",

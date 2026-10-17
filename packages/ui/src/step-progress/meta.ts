@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "navigation",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["The onboarding of a dating app: name, birth date, photos, interests, location.", "A checkout in several steps."],
   whenNotToUse: [
     { when: "For the steps of a running process.", use: "stepper" },

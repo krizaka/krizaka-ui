@@ -7,6 +7,7 @@ export const meta = {
   tier: "advanced",
   category: "charts",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#280", reason: "Advanced tier: no phone screen needs it yet." }, desktop: "web" },
   engine: "echarts",
   whenToUse: ["A hierarchy of amounts: storage by project and kind, credits by team and model."],
   whenNotToUse: [{ when: "A single level of a few parts.", use: "pie-chart" }, { when: "Flows from one level to the next.", use: "sankey" }],

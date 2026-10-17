@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "blocks",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A bird quoting a rule on a site's page; on a phone the bird carries a state.", use: "mascot-state" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "To state the rule a feature stands for (the falcon watches, the owl reads, the duck builds, the flamingo answers or gets paid, the pigeon delivers, the lovebird introduces, the crane listens, the magpie keeps the score, the beaver builds the shop).",
     "A promise that deserves its own moment in a section (`callout`).",

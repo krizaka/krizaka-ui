@@ -7,6 +7,7 @@ export const meta = {
   tier: "advanced",
   category: "charts",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "The ECharts escape hatch needs the DOM; a phone draws the SVG charts of the native entry.", use: "line-chart" }, desktop: "web" },
   engine: "echarts",
   whenToUse: ["A chart type the typed components do not cover: polar bars, a sunburst, a parallel axis, a graph."],
   whenNotToUse: [{ when: "A type the package has: its props say more and its summary is written for you.", use: "line-chart" }],

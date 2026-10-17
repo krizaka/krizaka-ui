@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["A profile's interests, up to five.", "Filters by topic with a limit."],
   whenNotToUse: [
     { when: "To type free tags.", use: "tag-input" },

@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "layout",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A phone screen's title and actions are its header.", use: "header" }, desktop: "web" },
   whenToUse: ["At the top of every page of an app: settings, dashboards, lists.", "With `actions` for what applies to the whole page: export, create, withdraw."],
   whenNotToUse: [
     { when: "For the hero of a marketing page: compose it with the brand backdrop.", use: "section-backdrop" },

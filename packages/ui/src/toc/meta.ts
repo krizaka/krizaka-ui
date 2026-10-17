@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "blocks",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A reading page's sticky contents; a phone screen is short and scrolls." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "A long page read in sections: a building block's page, a guide, a policy.",
     "When readers jump to one part (install, decisions, status) more than they read from the top.",

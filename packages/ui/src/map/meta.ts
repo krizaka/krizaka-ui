@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "To show where things are: pick-up points, creators near you, an event's venue.",
     "`Cluster` for many points (dozens to thousands): they group while close and open by zooming in.",

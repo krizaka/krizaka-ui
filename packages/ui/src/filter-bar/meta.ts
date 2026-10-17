@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#277", reason: "No phone list screen filters yet; when one does, chips and a sheet." }, desktop: "web" },
   whenToUse: [
     "Above a table or a grid people narrow with several criteria at once: status, type, owner, period, a query.",
     "When the filters must be visible and undoable one by one, and shared in a link.",

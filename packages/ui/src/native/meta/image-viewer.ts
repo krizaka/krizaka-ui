@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "media",
   platforms: "native",
+  parity: { web: { status: "gap", issue: "krizaka/krizaka-ui#279", reason: "The web galleries need a full-screen viewer too." }, desktop: { status: "gap", issue: "krizaka/krizaka-ui#279", reason: "The Mac app renders the web's viewer once it exists." } },
   whenToUse: ["The photos of a post or a message, opened full screen.", "A creator's gallery."],
   whenNotToUse: [
     { when: "For a video.", use: "video-player" },

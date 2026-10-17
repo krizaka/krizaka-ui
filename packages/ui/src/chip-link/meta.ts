@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "navigation",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "chip" }, desktop: "web" },
   whenToUse: ["Filters that change the address (`/explore?tag=night`): each tag is a link, shareable and server-rendered."],
   whenNotToUse: [
     { when: "To select options in a form or filter a list in place, without changing the address.", use: "chip" },

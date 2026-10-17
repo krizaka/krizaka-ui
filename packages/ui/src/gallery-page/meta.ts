@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "templates",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: ["What a product made (images, voices) or recordings of it.", "A portfolio of real work."],
   whenNotToUse: [
     { when: "For a catalogue of things to open and compare.", use: "catalogue-page" },

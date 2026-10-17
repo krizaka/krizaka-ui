@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "The native list windows its rows already (FlashList).", use: "list" }, desktop: "web" },
   whenToUse: [
     "A list of hundreds to millions of items loaded at once or page by page: messages, comments, logs, notifications.",
     "A gallery that grows as the person scrolls: videos, photos, products (`VirtualGrid`).",

@@ -7,6 +7,7 @@ export const meta = {
   tier: "advanced",
   category: "charts",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#280", reason: "Advanced tier: no phone screen needs it yet." }, desktop: "web" },
   engine: "echarts",
   whenToUse: ["A daily habit or activity over months: publications, contributions, active days."],
   whenNotToUse: [{ when: "Two categorical dimensions (weekday × hour).", use: "heatmap" }, { when: "A trend over time.", use: "line-chart" }],

@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "The key figures of a page (90 %, 12,480 creators): they climb once as they come into view.",
     "A live total that changes while it is watched — an auction's highest bid, a tip jar, a credit balance (`trigger=\"change\"`).",

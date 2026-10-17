@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["For a setting that takes effect immediately: autoplay, notifications, a weekly digest."],
   whenNotToUse: [
     { when: "For a choice submitted with a form, or an agreement.", use: "checkbox" },

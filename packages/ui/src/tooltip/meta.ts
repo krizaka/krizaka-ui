@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "overlays",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A phone has no hover: say it in the label or the hint." }, desktop: "web" },
   whenToUse: ["To name an icon button for sighted mouse users: copy, share, more.", "To show a shortcut next to an action."],
   whenNotToUse: [
     { when: "For information people need to complete a task: put it in the page.", use: "field" },

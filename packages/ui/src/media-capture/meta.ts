@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "media",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "To take a profile picture or a selfie for a verification without leaving the page.",
     "To record a short clip (a story, a reply, a proof) with a maximum length.",

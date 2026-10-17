@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "blocks",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "It follows a mouse pointer; a phone has none." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "Inside a group of cards that is not a `CardGrid` (a flex row, a list, a carousel).",
     "With `usePointerLight` in a component of your own that lays cards out.",

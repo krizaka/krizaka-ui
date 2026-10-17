@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "In a form, for a choice that is submitted with it: accept the terms, subscribe to a list.",
     "For several independent options in a list, and “select all” (indeterminate when some are).",

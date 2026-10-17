@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "A challenge's goal, counted in backers, dares or steps.",
     "What is left of something countable: seats, tickets, lives (`mode=\"drain\"`).",

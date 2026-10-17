@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "media",
   platforms: "native",
+  parity: { web: { status: "n/a", reason: "The web picks files with an upload field.", use: "file-upload" }, desktop: { status: "n/a", reason: "The Mac app picks files with the upload field and drag and drop.", use: "file-upload" } },
   whenToUse: ["The photos of a story, a post, a profile.", "A proof of delivery for a challenge."],
   whenNotToUse: [
     { when: "To film in the app itself.", use: "media-capture" },

@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "Orazaka's jobs, Orochia's viewers and tippers of a story, a creator's payouts.",
     "A long feed on a phone: sections by day, pull to refresh, swipe actions (React Native).",

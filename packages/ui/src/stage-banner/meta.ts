@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "blocks",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "Part of the storytelling kit of scroll-driven site pages; a phone app tells its first steps with Onboarding." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "Before a chapter's heading on a told page or a tour (“Step 02 · Payments”).",
     "To open a section that turns the story (`size=\"lg\"`): a final chapter, a reveal.",

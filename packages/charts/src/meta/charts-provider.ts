@@ -7,6 +7,7 @@ export const meta = {
   tier: "core",
   category: "charts",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "Once near the root of an app: its locale (`fr-FR`), its brand (`orazaka`), its translated words.",
     "An app that loads a brand stylesheet on `:root` rather than a `.brand-<id>` class: set `brand` here.",

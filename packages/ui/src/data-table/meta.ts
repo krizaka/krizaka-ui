@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "On a phone the rows are a list of cards, each with its fields as a description list — not a table to scroll sideways.", use: "list" }, desktop: "web" },
   whenToUse: [
     "To compare records on the same columns: jobs, videos of a studio, users of an admin, invoices, payouts.",
     "When people sort, filter, group, select several rows for a bulk action, or export what they see.",

@@ -7,6 +7,7 @@ import { join, relative } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
+import { parityProblems } from "../../../tools/parity.mjs";
 import { collectRegistry, componentNames, entryFileOf, exampleFileOf, metaFileOf, NATIVE_ENTRY, nativeScreenshotsOf, PKG, readMeta } from "./registry.mjs";
 
 const pkg = JSON.parse(readFileSync(join(PKG, "package.json"), "utf8"));
@@ -41,6 +42,11 @@ describe("registry", () => {
 });
 
 describe("documentation carried by the code (src/meta)", () => {
+  // The parity matrix (ui.krizaka.com/platforms): a new web chart without a native and a desktop decision fails here.
+  it.each(all)("%s: decides web · native · desktop (meta.parity)", (name) => {
+    expect(parityProblems(name, metas[name], all), "complete meta.parity (src/meta/types.ts: Parity)").toEqual([]);
+  });
+
   it.each(all)("%s has a complete meta", (name) => {
     const meta = metas[name];
     expect(meta, `${relative(PKG, metaFileOf(name))} exports \`meta\``).toBeTruthy();

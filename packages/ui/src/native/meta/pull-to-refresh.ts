@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "feedback",
   platforms: "native",
+  parity: { web: { status: "n/a", reason: "A web page refreshes by reloading or with a button.", use: "button" }, desktop: { status: "n/a", reason: "A desktop window refreshes with Cmd+R or a toolbar button.", use: "button" } },
   whenToUse: ["A ScrollView or a FlatList the app draws itself: a feed, a profile."],
   whenNotToUse: [
     { when: "In a `List`: its `onRefresh` draws it already.", use: "list" },

@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "Part of the storytelling kit of scroll-driven site pages; a phone app tells its first steps with Onboarding.", use: "radio-group" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "Choosing one of a few options that are best recognised by a picture: a plan, a persona, a team, an avatar, a side.",
     "Presenting a line-up at the top of a told page (products, characters, members), without selection.",

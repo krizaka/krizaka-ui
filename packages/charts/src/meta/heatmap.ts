@@ -7,6 +7,7 @@ export const meta = {
   tier: "advanced",
   category: "charts",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#280", reason: "Advanced tier: no phone screen needs it yet." }, desktop: "web" },
   engine: "echarts",
   whenToUse: ["When something happens: uploads by weekday and hour, errors by service and day.", "A matrix of two categorical dimensions with a value in each cell."],
   whenNotToUse: [

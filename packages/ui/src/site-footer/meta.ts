@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "navigation",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A site's footer; an app has none." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "The bottom of every page of a Krizaka site: www, ui., java. (the family in columns).",
     "The bottom of a deployed product (dev.<product>): `family={false}` — its own columns, the legal links, the version and one publisher line, no link to another product.",

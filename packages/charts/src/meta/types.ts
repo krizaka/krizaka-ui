@@ -43,6 +43,24 @@ export type Category = "charts";
 export type Platform = "web" | "native" | "both";
 
 /**
+ * Why a chart is not on a platform — a decision, never a silence (ui.krizaka.com/platforms): `gap` (✗, belongs there,
+ * not built yet, `issue` tracks it) or `n/a` (not meant for it; `use` names the chart that answers there).
+ */
+export type Absence =
+  | { readonly status: "gap"; readonly issue: string; readonly reason: string; readonly use?: undefined }
+  | { readonly status: "n/a"; readonly reason: string; readonly use?: ComponentName; readonly issue?: undefined };
+
+/** Desktop is the Orazaka Mac app (Tauri 2, the system WebView — krizaka-ui ADR-002): `web` runs as it is. */
+export type DesktopSupport = "web" | "desktop" | Absence;
+
+/** web · native · desktop: the side a chart lacks says why (`native` required for a web-only chart); `desktop` always. */
+export interface Parity {
+  readonly web?: Absence;
+  readonly native?: Absence;
+  readonly desktop: DesktopSupport;
+}
+
+/**
  * Where a chart sits in the catalogue — the needs of the Krizaka apps first:
  * - `ready-made`: answers a need of a product screen (earnings, jobs, latency, credits, a goal, an auction's price),
  *   with its formats, words and defaults chosen — reach for these first;
@@ -105,6 +123,8 @@ export interface ComponentMeta {
   readonly category: Category;
   /** Must match the sides below: `both` ⇔ `web` and `native`. */
   readonly platforms: Platform;
+  /** The platforms it is not on, and why; and its desktop form (see `Parity`). */
+  readonly parity: Parity;
   /** When to reach for it: concrete situations, one per item. */
   readonly whenToUse: readonly string[];
   /** When not to — and what to use instead (`use`), when another component is the answer. */

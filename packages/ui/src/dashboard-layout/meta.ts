@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "layouts",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A phone dashboard is one scrolling screen of cards.", use: "screen" }, desktop: "web" },
   whenToUse: ["The home of a signed-in product: figures, what is running, what needs attention.", "A console's overview above its tables."],
   whenNotToUse: [
     { when: "For one object's page.", use: "detail-layout" },

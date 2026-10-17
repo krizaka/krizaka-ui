@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["For a value chosen by feel within bounds: volume, speed, brightness.", "Two thumbs for a range: a price, a duration."],
   whenNotToUse: [
     { when: "For an exact number the user knows: an input of type number.", use: "field" },

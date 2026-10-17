@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "For a deadline the user acts against: an auction, an offer, a live event about to start.",
     "With the server's clock (`skewMs`) when the end is decided by the server.",

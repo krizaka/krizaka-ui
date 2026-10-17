@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "layout",
   platforms: "native",
+  parity: { web: { status: "n/a", reason: "A web screen's frame is the application shell.", use: "app-shell" }, desktop: { status: "n/a", reason: "The Mac app's window is the application shell.", use: "app-shell" } },
   whenToUse: ["Every screen of a React Native app.", "The starting point of a new app: copy a template and fill it."],
   whenNotToUse: [
     { when: "For a sheet over a screen.", use: "dialog" },

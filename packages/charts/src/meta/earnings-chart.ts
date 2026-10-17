@@ -7,6 +7,7 @@ export const meta = {
   tier: "ready-made",
   category: "charts",
   platforms: "both",
+  parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
     "A creator's earnings page: net earnings per month, with the minimum to withdraw (Orochia /earnings).",

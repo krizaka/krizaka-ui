@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "Part of the storytelling kit of scroll-driven site pages; a phone app tells its first steps with Onboarding.", use: "card" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "A product's guarantee stated once, with the bird of the flock that keeps it (“Your data never leaves home”).",
     "A keyboard shortcut taught where it matters, with what it does (`keys={[\"⌘\", \"K\"]}`).",

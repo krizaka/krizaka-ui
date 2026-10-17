@@ -7,6 +7,7 @@ export const meta = {
   tier: "advanced",
   category: "charts",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A WebGL globe for a site's hero; a phone shows a map or a list.", use: "bar-chart" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   engine: "svg",
   whenToUse: [
     "Deployment regions and their replication links, on a product or status page.",

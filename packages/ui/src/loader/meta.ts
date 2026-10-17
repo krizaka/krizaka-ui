@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "feedback",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "Any wait whose length you do not control (a fetch, a refresh): the delay keeps fast answers from flashing a spinner.",
     "A wait that ends in a result worth saying — “12 invoices loaded”, “Could not publish”.",

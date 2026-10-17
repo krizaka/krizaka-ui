@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "layouts",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#246", reason: "orazaka-mobile-client hand-rolls its settings rows and groups (src/ui/SettingsRow.tsx)." }, desktop: "web" },
   whenToUse: ["Account, workspace and administration settings.", "Any long form that splits into independent groups."],
   whenNotToUse: [
     { when: "For a step-by-step setup the user follows once.", use: "stepper" },

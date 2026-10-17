@@ -7,6 +7,7 @@ import { join, relative } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
+import { parityProblems } from "../../../tools/parity.mjs";
 import { collectRegistry, collectTemplates, componentNames, exampleFileOf, EXAMPLES, metaFileOf, nativeOnlyNames, nativeScreenshotsOf, PKG, primitiveNames, readMeta, templatePurposes } from "./registry.mjs";
 
 const pkg = JSON.parse(readFileSync(join(PKG, "package.json"), "utf8"));
@@ -125,6 +126,11 @@ describe("documentation carried by the code (meta.ts)", () => {
       for (const imported of meta.native.imports) expect(own, `${imported} is exported by ${meta.native.entry ?? "@krizaka/ui/native"}`).toContain(imported);
       if (meta.web) expect(meta.native.differences.length, "what differs from the web API").toBeGreaterThan(0);
     }
+  });
+
+  // The parity matrix (ui.krizaka.com/platforms): a new web component without a native and a desktop decision fails here.
+  it.each(all)("%s: decides web · native · desktop (meta.parity)", (name) => {
+    expect(parityProblems(name, metas[name], all), "complete meta.parity (src/meta.ts: Parity)").toEqual([]);
   });
 
   it.each(names)("%s: the web imports are exported by its entry", async (name) => {

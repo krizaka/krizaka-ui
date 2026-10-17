@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "navigation",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A command palette is a keyboard tool; a phone searches.", use: "search-field" }, desktop: "web" },
   whenToUse: [
     "To reach any page or action of an app from the keyboard (⌘K): `CommandDialog`.",
     "For a searchable list of choices inside a panel: `Command.Root` inline.",

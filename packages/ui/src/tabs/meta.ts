@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "navigation",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "To split a page into sections the user switches between without leaving it: videos, stories, about.",
     "`variant=\"segmented\"` for a view switch (grid, list); `pills` for a feed's sections.",

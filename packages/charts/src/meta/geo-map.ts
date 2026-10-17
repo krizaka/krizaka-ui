@@ -7,6 +7,7 @@ export const meta = {
   tier: "advanced",
   category: "charts",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A choropleth over the world; a phone shows the MapLibre map of @krizaka/ui/native/map or a ranked list.", use: "bar-chart" }, desktop: "web" },
   engine: "svg",
   whenToUse: [
     "An audience by country: a creator's viewers, a service's users.",

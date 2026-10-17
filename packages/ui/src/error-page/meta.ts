@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "templates",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: "web" },
   whenToUse: ["Not found (404), server error (500), offline.", "Any page that cannot show what was asked."],
   whenNotToUse: [
     { when: "For something not built yet.", use: "status-page" },

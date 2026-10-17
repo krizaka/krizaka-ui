@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "layout",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "To present one item of a collection: a video, a creator, a guide, a plan.",
     "As a link to the item (`asChild` + `interactive`): the whole card is one target.",

@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "overlays",
   platforms: "native",
+  parity: { web: { status: "n/a", reason: "The web opens a menu next to its trigger.", use: "dropdown-menu" }, desktop: { status: "n/a", reason: "The Mac app opens a menu next to its trigger.", use: "dropdown-menu" } },
   whenToUse: ["The “more” button of a video, a message, a comment.", "Choosing where a photo comes from: the library or the camera."],
   whenNotToUse: [
     { when: "For more than six actions or for content.", use: "dialog" },

@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "actions",
   platforms: "web",
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#276", reason: "A destructive action confirmed in place: no phone screen needs it yet beyond SwipeableRow." }, desktop: "web" },
   whenToUse: [
     "For a destructive action on one item, in place: delete a comment, remove a member, leave a group.",
     "When a dialog would be too heavy and an undo is not possible.",

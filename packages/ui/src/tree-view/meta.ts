@@ -12,6 +12,7 @@ export const meta = {
   },
   category: "navigation",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "Deprecated: no product uses it." }, desktop: { status: "n/a", reason: "Deprecated: no product uses it." } },
   whenToUse: ["The documentation's sections (krizaka.com/docs).", "A studio's datasets, folders of files."],
   whenNotToUse: [
     { when: "For two levels or fewer: a list with headings reads better.", use: "list" },

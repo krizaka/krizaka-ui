@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "overlays",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "A phone's menu of actions rises from the bottom.", use: "action-sheet" }, desktop: "web" },
   whenToUse: [
     "For the secondary actions of an item or a page: edit, share, download, delete (a “more” button).",
     "For a few options toggled from a toolbar (`CheckboxItem`).",

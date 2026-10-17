@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["Orazaka's job activity, Orochia's notifications and tips.", "The bids of a live auction (`live`).", "A payout's or a job's history (`Timeline`)."],
   whenNotToUse: [
     { when: "For the steps still to come of a process.", use: "stepper" },

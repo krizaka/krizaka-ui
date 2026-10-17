@@ -7,6 +7,7 @@ export const meta = {
   status: "stable",
   category: "feedback",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "To confirm the result of an action: saved, sent, payment received.",
     "For an event the user did not trigger but should know: a new follower, a live auction.",

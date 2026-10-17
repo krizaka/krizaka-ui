@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "Any form that sends something: sign-up, profile, upload details, an amount, an audience, a report, settings.",
     "When the server must re-check the same rules: the schema is shared (a product keeps it in `packages/core`) and `@krizaka/ui/form/server` parses with it in a Server Action.",

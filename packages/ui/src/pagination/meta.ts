@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "navigation",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "Under a table or a grid of results the person reads page by page: an admin list, search results, invoices.",
     "With `getHref` when the page belongs in the address — a search engine and a shared link reach page 4.",

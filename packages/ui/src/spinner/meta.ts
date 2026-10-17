@@ -6,6 +6,7 @@ export const meta = {
   status: "stable",
   category: "feedback",
   platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["For a short wait of unknown length: a search, a refresh, an infinite list loading more."],
   whenNotToUse: [
     { when: "When the layout of what is loading is known.", use: "skeleton" },

@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "native",
+  parity: { web: { status: "n/a", reason: "Swiping a row is a touch gesture; on the web a row's actions are a menu.", use: "dropdown-menu" }, desktop: { status: "n/a", reason: "On the Mac a row's actions are a menu.", use: "dropdown-menu" } },
   whenToUse: ["A conversation: pin, archive, delete.", "A notification: mark read, delete."],
   whenNotToUse: [
     { when: "For the only way to reach an action: offer it in the row's menu too.", use: "action-sheet" },

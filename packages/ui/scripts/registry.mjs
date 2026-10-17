@@ -9,6 +9,7 @@ import { pathToFileURL } from "node:url";
 
 import docgen from "react-docgen-typescript";
 
+import { parityRow } from "../../../tools/parity.mjs";
 import { templatePurposes } from "../src/meta.ts";
 
 export { templatePurposes };
@@ -257,6 +258,8 @@ export async function collectRegistry() {
       deprecated: meta?.deprecated ?? null,
       category: meta?.category ?? "foundations",
       platforms: meta?.platforms ?? (web ? "web" : "native"),
+      // web · native · desktop, each ✓ / ✗ (gap, its issue) / n/a (why, and what answers there): ui.krizaka.com/platforms.
+      parity: meta?.parity ? parityRow(meta) : null,
       whenToUse: meta?.whenToUse ?? [],
       whenNotToUse: meta?.whenNotToUse ?? [],
       bestPractices: meta?.bestPractices ?? [],

@@ -7,6 +7,7 @@ export const meta = {
   status: "beta",
   category: "layout",
   platforms: "web",
+  parity: { native: { status: "n/a", reason: "An isometric drawing of a site's hero." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [
     "The hero illustration of a product or marketing page: what the product is, drawn as one object with two to four satellites.",
     "To show a flow toward or out of something (requests into a server, support toward a creator) with values written on it.",

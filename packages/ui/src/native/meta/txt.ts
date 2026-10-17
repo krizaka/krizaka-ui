@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "foundations",
   platforms: "native",
+  parity: { web: { status: "n/a", reason: "Text on the web is HTML styled by the type scale's classes." }, desktop: { status: "n/a", reason: "The Mac app renders the web's HTML text." } },
   whenToUse: ["For every text of a React Native screen: titles, body, captions, labels, figures (`mono`)."],
   whenNotToUse: [
     { when: "On the web: use the preset's text utilities (`text-fg`, `font-display`).", use: "theme" },

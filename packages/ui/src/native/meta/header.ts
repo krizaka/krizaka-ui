@@ -6,6 +6,7 @@ export const meta = {
   status: "beta",
   category: "navigation",
   platforms: "native",
+  parity: { web: { status: "n/a", reason: "A web screen's title and actions are its page header.", use: "page-header" }, desktop: { status: "n/a", reason: "The Mac app's title bar is the shell's header.", use: "app-shell" } },
   whenToUse: ["The top of a section of the app: Earnings, Messages, Jobs.", "A detail screen with a back button (`size=\"inline\"`)."],
   whenNotToUse: [
     { when: "For the app's sections.", use: "tab-bar" },
