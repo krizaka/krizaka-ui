@@ -84,6 +84,7 @@ export default defineConfig([
       "split-view": "src/split-view/index.ts",
       "marketing-layout": "src/marketing-layout/index.ts",
       "docs-layout": "src/docs-layout/index.ts",
+      "docs-nav": "src/docs-nav/index.ts",
     },
   },
   {

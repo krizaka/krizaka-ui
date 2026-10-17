@@ -52,6 +52,7 @@ export type ComponentName =
   | "docs-article-page"
   | "docs-hub-page"
   | "docs-layout"
+  | "docs-nav"
   | "document-viewer"
   | "dropdown-menu"
   | "empty-state"

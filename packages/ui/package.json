@@ -461,6 +461,10 @@
       "types": "./dist/docs-layout.d.ts",
       "import": "./dist/docs-layout.js"
     },
+    "./docs-nav": {
+      "types": "./dist/docs-nav.d.ts",
+      "import": "./dist/docs-nav.js"
+    },
     "./scroll-stage": {
       "types": "./dist/scroll-stage.d.ts",
       "import": "./dist/scroll-stage.js"
@@ -1840,6 +1844,16 @@
       "name": "./docs-layout",
       "path": "dist/docs-layout.js",
       "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./docs-nav",
+      "path": "dist/docs-nav.js",
+      "limit": "1.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
