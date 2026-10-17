@@ -8,6 +8,7 @@ export { type ChartLabels, type ChartLabelsInput,DEFAULT_LABELS } from "../core/
 export type * from "../core/types";
 export { DEFAULT_STATUSES, type JobStatus } from "../needs/statuses";
 export { type Bid } from "../needs/ticker";
+export { ChartCard, KpiStat, type NativeChartCardProps, type NativeKpiStatProps } from "./card";
 export { AreaChart, BarChart, LineChart, type NativeAreaChartProps, type NativeBarChartProps, type NativeCartesianProps, type NativeLineChartProps } from "./cartesian";
 export { ChartsProvider, type ChartTheme, type NativeChartsSettings, type NativeFrameProps } from "./frame";
 export {

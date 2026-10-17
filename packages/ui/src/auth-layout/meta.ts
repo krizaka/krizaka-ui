@@ -5,8 +5,8 @@ export const meta = {
   summary: "An entry screen — sign in, sign up, verify, onboarding: the product's brand panel (its gradient, a promise, a quote) beside a calm form; one column on a phone with the mark above the form.",
   status: "beta",
   category: "layouts",
-  platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "orazaka-mobile-client hand-rolls it (src/ui/AuthShell.tsx)." }, desktop: "web" },
+  platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["Sign-in, sign-up, password reset, email verification.", "The first steps of an onboarding."],
   whenNotToUse: [
     { when: "For settings once signed in.", use: "settings-layout" },
@@ -25,5 +25,10 @@ export const meta = {
       { name: "onboarding", title: "Onboarding", description: "The steps in words above the current step's form.", template: true, purpose: "act", why: "A new person completes a setup one step at a time, knowing how many remain." },
       { name: "verify", title: "Verify an email", description: "The smallest entry screen: a code." },
     ],
+  },
+  native: {
+    imports: ["AuthLayout"],
+    differences: ["One centred column in the native `Screen` (safe areas, keyboard avoidance): no brand panel, so no `promise` or `aside`.", "`brand` is the product's native mark (`OrazakaMark`, `ProductMark`)."],
+    examples: [{ name: "sign-in", title: "Sign in", description: "The mark, a title and a line, the form, the other way and the fine print." }],
   },
 } satisfies ComponentMeta;

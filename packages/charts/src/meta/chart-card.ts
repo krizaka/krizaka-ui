@@ -6,8 +6,8 @@ export const meta = {
   status: "beta",
   tier: "ready-made",
   category: "charts",
-  platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "A phone dashboard frames its charts in a Card by hand today." }, desktop: "web" },
+  platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "Every chart of a dashboard or a usage page: the same frame, the same hierarchy, the same actions.",
     "A chart that needs a period switch or a filter beside its actions menu.",
@@ -41,5 +41,10 @@ export const meta = {
       { name: "sparse-and-empty", title: "Sparse and empty", description: "The time axis zoomed on the active period, and a calm empty state." },
       { name: "before-after", title: "Before and after", description: "The same chart bare, then in a ChartCard." },
     ],
+  },
+  native: {
+    imports: ["ChartCard"],
+    differences: ["No actions menu (table, CSV, PNG): a phone reads the chart's summary and walks its points; `actions` holds a period switch.", "Give the chart `hideTitle`: the card's title names it."],
+    examples: [{ name: "earnings", title: "Earnings", description: "Six months of earnings, the insight in one line, the source under it." }],
   },
 } satisfies ComponentMeta;

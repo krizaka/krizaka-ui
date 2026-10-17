@@ -28,10 +28,11 @@ export const meta = {
   },
   native: {
     imports: ["MessageBubble", "TypingIndicator", "MessageComposer", "ConversationItem"],
-    differences: ["The composer keeps clear of the home indicator; the send button plays a light tap.", "A failed bubble is itself the retry button.", "`ConversationItem` takes `presence` (a dot on the avatar) instead of `online`."],
+    differences: ["The composer keeps clear of the home indicator; the send button plays a light tap.", "A failed bubble is itself the retry button.", "`ConversationItem` takes `presence` (a dot on the avatar) instead of `online`.", "`MessageBubble` takes rich `children` (the native `Markdown`) in place of `text`, which stays the accessible name."],
     examples: [
       { name: "conversation", title: "Conversation", description: "Grouped runs, a read receipt, typing, the composer." },
       { name: "inbox", title: "Inbox", description: "Presence, typing, unread counts." },
+      { name: "rich-answer", title: "Rich answer", description: "A model's answer as Markdown inside the bubble (`children`), its plain words in `text`." },
     ],
   },
 } satisfies ComponentMeta;

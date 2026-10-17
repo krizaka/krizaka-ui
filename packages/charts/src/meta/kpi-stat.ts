@@ -6,8 +6,8 @@ export const meta = {
   status: "beta",
   tier: "ready-made",
   category: "charts",
-  platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "A phone dashboard's head writes its figures by hand today." }, desktop: "web" },
+  platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "The head of a dashboard: jobs, success rate, time to a result, spend.",
     "Anywhere a figure needs its direction and its shape at a glance.",
@@ -36,5 +36,10 @@ export const meta = {
       { name: "dashboard-row", title: "A dashboard row", description: "Four figures in a StatGrid, with sparklines and trends." },
       { name: "single", title: "One figure", description: "A rise in latency is bad: good=down." },
     ],
+  },
+  native: {
+    imports: ["KpiStat"],
+    differences: ["`trendLabel` and `hint` are strings: the figure, its change and the period are one element for a screen reader.", "The figure is written at once (no counting up on a phone).", "The colours come from the chart theme (`ChartsProvider` with `useTheme().theme` of @krizaka/ui/native)."],
+    examples: [{ name: "dashboard-head", title: "Dashboard head", description: "Two figures side by side, one better when it falls (`good=\"down\"`)." }],
   },
 } satisfies ComponentMeta;

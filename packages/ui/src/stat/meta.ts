@@ -5,8 +5,8 @@ export const meta = {
   summary: "A key figure: a label, a value in tabular digits, a hint and a trend said in words.",
   status: "stable",
   category: "data-display",
-  platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "The phone dashboards (Orochia earnings, Orazaka usage) write a figure and its caption by hand." }, desktop: "web" },
+  platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["On a dashboard: revenue, views, supporters.", "In a row of a few figures that compare over the same period."],
   whenNotToUse: [
     { when: "For figures inside an item's card.", use: "card" },
@@ -32,6 +32,14 @@ export const meta = {
       { name: "plain", title: "Plain", description: "Label and value only." },
       { name: "row", title: "Row", description: "A row of stats, as a dashboard shows them." },
       { name: "grid", title: "Grid", description: "`StatGrid`: figures that wrap, hairlines between them, a meter under one (or a `Sparkline` of @krizaka/charts in `chart`)." },
+    ],
+  },
+  native: {
+    imports: ["Stat", "StatGrid"],
+    differences: ["`label`, `value`, `hint` and `trendLabel` are strings (formatted by the app): the stat is one element for a screen reader, read in that order.", "`StatGrid` lays the stats in rows of `columns` (2 by default) instead of wrapping on a minimum width."],
+    examples: [
+      { name: "dashboard", title: "Dashboard head", description: "Four figures on one card, two per row, with their change in words." },
+      { name: "with-chart", title: "With a meter", description: "A figure with its shape under it: a Meter (or a Sparkline of @krizaka/charts/native)." },
     ],
   },
 } satisfies ComponentMeta;

@@ -5,8 +5,8 @@ export const meta = {
   summary: "A line between groups of content, horizontal or vertical, decorative by default.",
   status: "stable",
   category: "layout",
-  platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "A hairline between rows; Orazaka's settings group draws its own." }, desktop: "web" },
+  platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["Between groups of a list or a menu.", "Between items of a toolbar or a row of links (`orientation=\"vertical\"`)."],
   whenNotToUse: [
     { when: "To separate every item of a list: use spacing." },
@@ -24,5 +24,10 @@ export const meta = {
       { name: "horizontal", title: "Horizontal", description: "Between two groups." },
       { name: "vertical", title: "Vertical", description: "Between items of a row, as real separators." },
     ],
+  },
+  native: {
+    imports: ["Separator"],
+    differences: ["A hairline (`StyleSheet.hairlineWidth`) in the subtle border role.", "`inset` adds the space before and after the line."],
+    examples: [{ name: "rows", title: "Rows", description: "Hairlines between rows, and a vertical one inside a row." }],
   },
 } satisfies ComponentMeta;

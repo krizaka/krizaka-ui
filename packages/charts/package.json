@@ -693,7 +693,7 @@
     {
       "name": "./native (bundled by Metro: a regression guard)",
       "path": "dist/native.js",
-      "limit": "13.5 kB",
+      "limit": "14.5 kB",
       "gzip": true,
       "ignore": [
         "react",

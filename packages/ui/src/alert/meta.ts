@@ -5,8 +5,8 @@ export const meta = {
   summary: "A message in the flow of the page: a tone, an icon, a title, a text and an optional action.",
   status: "stable",
   category: "feedback",
-  platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "An inline message above a form or a list; the apps use an empty state or a toast instead today." }, desktop: "web" },
+  platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: [
     "To tell the reader something about the whole page or section: a new rule, an account state, a failed payment.",
     "When the message must stay visible until the situation changes (a low balance, an expired card).",
@@ -41,5 +41,10 @@ export const meta = {
       { name: "danger", title: "Danger", description: "Something went wrong: what failed and how to fix it." },
       { name: "title-only", title: "Title only", description: "A short message needs no icon and no text." },
     ],
+  },
+  native: {
+    imports: ["Alert"],
+    differences: ["`title` is a string; a string child is drawn as secondary text.", "The action sits under the text (a phone is narrow), not beside it.", "An urgent one (danger, warning) is announced once when it appears, and carries `aria-live` assertive."],
+    examples: [{ name: "tones", title: "Tones", description: "Info, success, warning and danger, one with its action." }],
   },
 } satisfies ComponentMeta;

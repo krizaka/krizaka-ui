@@ -28,6 +28,8 @@ export { ActionSheet, type ActionSheetAction, type ActionSheetProps } from "./ac
 export { ActivityFeed, type ActivityFeedLabels, type ActivityFeedProps } from "./activity-feed";
 export { type ActivityEvent, type ActivityTone } from "./activity-feed";
 export { AkinazaMark } from "./AkinazaMark";
+export { Alert, type AlertProps, type AlertTone } from "./alert";
+export { AuthLayout, type AuthLayoutProps } from "./auth-layout";
 export { Avatar, AvatarGroup, type AvatarGroupProps, type AvatarProps, AvatarRoot, type AvatarSize } from "./avatar";
 export { Badge, type BadgeProps, type BadgeTone } from "./badge";
 export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, IconButton, type IconButtonProps } from "./button";
@@ -101,11 +103,14 @@ export { RadioGroup, type RadioGroupProps, type RadioOption } from "./radio-grou
 export { Screen, type ScreenProps } from "./screen";
 export { SearchField, type SearchFieldProps } from "./search-field";
 export { Segmented, type SegmentedOption, type SegmentedProps } from "./segmented";
+export { Separator, type SeparatorProps } from "./separator";
+export { SettingsRow, type SettingsRowProps, SettingsSection, type SettingsSectionProps } from "./settings-layout";
 export { Showcase, type ShowcaseLabels, showcaseLabels,type ShowcaseProps } from "./showcase";
 export { Skeleton, type SkeletonProps } from "./skeleton";
 export { Slider, type SliderProps, type SliderValue } from "./slider";
 export { Spinner, type SpinnerProps } from "./spinner";
 export { SplashHandoff, type SplashHandoffProps } from "./splash-handoff";
+export { Stat, StatGrid, type StatGridProps, type StatProps, type StatTrend } from "./stat";
 export { StepProgress, type StepProgressProps } from "./step-progress";
 export { type Step, Stepper, type StepperProps, type StepStatus } from "./stepper";
 export { PersonCard, type PersonCardProps, SwipeDeck, type SwipeDeckLabels, type SwipeDeckProps, type SwipeDirection } from "./swipe-deck";

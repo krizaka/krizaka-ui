@@ -19,6 +19,11 @@ export type MessageBubbleLabels = {
 export type MessageBubbleProps = {
   /** The text. */
   text: string;
+  /**
+   * Rich content in place of the text, in the same bubble (a model's answer as the native `Markdown`). `text` stays its
+   * plain words: the accessible name, and what is copied.
+   */
+  children?: React.ReactNode;
   /** Yours (right, in the accent) or theirs (left). */
   mine?: boolean;
   /** The time, written by the app (“14:02”). */
@@ -42,7 +47,7 @@ export type MessageBubbleProps = {
 const STATUS: Record<MessageStatus, string> = { sending: "Sending", sent: "Sent", delivered: "Delivered", read: "Read", failed: "Not sent" };
 
 /** A message: yours in the accent on the right, theirs on the left, the time inside, the receipt under the last of yours. */
-export function MessageBubble({ text, mine, time, status, showStatus, context, onRetry, grouped = "single", labels, style }: MessageBubbleProps) {
+export function MessageBubble({ text, children, mine, time, status, showStatus, context, onRetry, grouped = "single", labels, style }: MessageBubbleProps) {
   const { theme, radius } = useTheme();
   const words = { ...STATUS, ...labels?.status };
   const failed = status === "failed";
@@ -66,7 +71,7 @@ export function MessageBubble({ text, mine, time, status, showStatus, context, o
           {context}
         </Txt>
       ) : null}
-      <Txt tone={tone}>{text}</Txt>
+      {children ?? <Txt tone={tone}>{text}</Txt>}
       {time ? (
         <Txt variant="caption" tone={tone} style={styles.time}>
           {time}
