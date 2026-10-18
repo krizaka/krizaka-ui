@@ -2,7 +2,7 @@
 """Silent cinematic shots at full quality (run on the GPU pod): Wan 2.2 I2V A14B through diffusers, 40 steps, real
 classifier-free guidance and a negative prompt — not the 4-step distill of v1 (its motion was stiff).
 
-    python i2v40.py <jobs.json> <out dir> --weights <Wan2.2-I2V-A14B-Diffusers dir> [--steps 40]
+    python i2v40.py <jobs.json> <out dir> --weights <Wan2.2-I2V-A14B-Diffusers dir> [--text-encoder <dir>] [--steps 40]
 
 jobs.json: [{"id", "image", "prompt", "seed", "width", "height"}]. Writes <out>/<id>.mp4 (16 fps, 81 frames) and
 <out>/<id>.json (seconds, steps, seed).
@@ -29,7 +29,11 @@ def main():
     jobs = json.loads(Path(sys.argv[1]).read_text())
     out = Path(sys.argv[2]); out.mkdir(parents=True, exist_ok=True)
     steps = int(arg("steps", "40"))
-    pipe = WanImageToVideoPipeline.from_pretrained(arg("weights"), torch_dtype=torch.bfloat16)
+    extra = {}
+    if arg("text-encoder"):  # the worker keeps one umt5-xxl (the 5B's) for every Wan model: load it from there
+        from transformers import UMT5EncoderModel
+        extra["text_encoder"] = UMT5EncoderModel.from_pretrained(arg("text-encoder"), torch_dtype=torch.bfloat16)
+    pipe = WanImageToVideoPipeline.from_pretrained(arg("weights"), torch_dtype=torch.bfloat16, **extra)
     pipe.enable_model_cpu_offload()
     for job in jobs:
         if (out / f"{job['id']}.mp4").exists():
