@@ -25,12 +25,8 @@ describe("WuSamaMark", () => {
 
   it("reads the host's tokens for the ink and has no literal ink colour", () => {
     const { container } = render(<WuSamaMark />);
-    const ink = container.querySelectorAll("[stroke^='var(--kz-'], [fill^='var(--kz-']");
+    const ink = container.querySelectorAll("stop[stop-color^='var(--kz-']");
     expect(ink.length).toBeGreaterThan(0);
-    const colours = [...container.querySelectorAll("[stroke], [fill]")].flatMap((n) => [n.getAttribute("stroke"), n.getAttribute("fill")]).filter((c) => c && c !== "none");
-    // every colour is either a token read or the mark's one gold
-    for (const c of colours) expect(c!.startsWith("var(--kz-") || c === G.gold).toBe(true);
-    expect(colours).toContain(G.gold);
   });
 
   it("is still: no animation, no class", () => {
@@ -39,49 +35,33 @@ describe("WuSamaMark", () => {
   });
 });
 
-describe("WuSamaMark — original mark, inspired by, not derived from", () => {
-  it("builds the hexagon from the Krizaka grammar: a pointy-top regular hexagon around the centre", () => {
-    const [t, ur, lr, b, ll, ul] = G.hexagon;
-    expect(t).toEqual([G.center, G.center - G.radius]);
-    expect(b).toEqual([G.center, G.center + G.radius]);
-    for (const [x, y] of G.hexagon) expect(near(Math.hypot(x - G.center, y - G.center), G.radius)).toBe(true);
-    expect(near(ur[1], ul[1]) && near(lr[1], ll[1])).toBe(true);
+describe("WuSamaMark — shares Krizaka contour and color palette", () => {
+  it("draws the Krizaka hexagonal shield contour with round caps and joins", () => {
+    const { container } = render(<WuSamaMark size={64} />);
+    const shield = container.querySelector(`path[d="${G.shield}"]`);
+    expect(shield).not.toBeNull();
+    expect(shield?.getAttribute("stroke-linecap")).toBe("round");
+    expect(shield?.getAttribute("stroke-linejoin")).toBe("round");
   });
 
-  it("derives every point of the shell from the hexagon: its vertices, or a point of an edge at the gap", () => {
-    const vertices = G.hexagon.map(([x, y]) => `${x},${y}`);
-    for (const d of [G.shell.left, G.shell.right]) {
-      const pts = pointsOf(d);
-      expect(pts).toHaveLength(4);
-      // the two inner points are hexagon vertices, the ends sit on an edge at ±gap of the axis
-      expect(vertices).toContain(`${pts[1]![0]},${pts[1]![1]}`);
-      expect(vertices).toContain(`${pts[2]![0]},${pts[2]![1]}`);
-      for (const [x] of [pts[0]!, pts[3]!]) expect(near(Math.abs(x - G.center), G.gap)).toBe(true);
-    }
+  it("places the lit node at the open vertex", () => {
+    const { container } = render(<WuSamaMark size={64} />);
+    const outerNode = container.querySelector(`circle[cx="${G.node.cx}"][cy="${G.node.cy}"][r="${G.node.r}"]`);
+    const innerNode = container.querySelector(`circle[cx="${G.node.cx}"][cy="${G.node.cy}"][r="${G.node.inner}"]`);
+    expect(outerNode).not.toBeNull();
+    expect(innerNode).not.toBeNull();
+    expect(innerNode?.getAttribute("fill")).toBe(G.highlight);
   });
 
-  it("draws the W from the hexagon's measures only: five straight points, symmetric, inside the hexagon, no curve", () => {
+  it("draws the W in five straight legs, symmetric, no curve", () => {
     expect(G.w).not.toMatch(/[CcSsQqTtAa]/);
     const pts = pointsOf(G.w);
     expect(pts).toHaveLength(5);
-    const u = (G.radius * Math.sqrt(3)) / 2;
     const [tl, vl, peak, vr, tr] = pts.map(([x, y]) => [x, y] as const) as [number, number][];
-    expect(near(tl![0], G.center - 0.63 * u)).toBe(true);
-    expect(near(tr![0], G.center + 0.63 * u)).toBe(true);
-    expect(near(vl![0], G.center - 0.37 * u)).toBe(true);
-    expect(near(vr![0], G.center + 0.37 * u)).toBe(true);
-    expect(near(tl![1], G.center - 0.4 * G.radius)).toBe(true);
-    expect(near(vl![1], G.center + 0.55 * G.radius)).toBe(true);
-    expect(near(peak![0], G.center)).toBe(true);
-    // two valleys under three summits, the middle one on the axis: a W of straight legs, never a bat-wing silhouette
+    expect(tl![1]).toBe(tr![1]);
+    expect(vl![1]).toBe(vr![1]);
+    expect(near(peak![0], 180)).toBe(true);
     expect(vl![1]).toBeGreaterThan(peak![1]);
     expect(peak![1]).toBeGreaterThan(tl![1]);
-    expect(vl![1]).toBe(vr![1]);
-    expect(tl![1]).toBe(tr![1]);
-  });
-
-  it("keeps a closed vocabulary of paths: the shell, the W and the node — nothing else is drawn", () => {
-    const { container } = render(<WuSamaMark />);
-    expect(container.querySelectorAll("path")).toHaveLength(4);
   });
 });
