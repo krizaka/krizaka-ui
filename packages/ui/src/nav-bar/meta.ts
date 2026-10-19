@@ -22,6 +22,7 @@ export const meta = {
   bestPractices: [
     "Five items at most on the bar; group the rest in a menu, each link with a name and one short line (`NavBar.MenuLink`, one line, ≤ 45 characters).",
     "A product's site (dev.<product>, see Navigation in the family): the product's mark alone (no `NavBar.Family`, no badge — the version goes in the footer), then **Product ▾** (what it does: how it works, its features, the demo) · **Platforms ▾** (web, mobile, desktop, self-host — omitted for a single-platform product) · **Docs** · Pricing when it exists; never a lone entry that belongs to a group (no top-level Demo, Mobile or Mac). The phone panel repeats the groups with `NavBar.MobileGroup`, in the same order.",
+    "A menu of three links or fewer is not a menu: `NavBar.Menu` puts them in the bar as plain links (the current one marked, no dropdown) — `inlineUpTo`, 3 by default, `0` to keep a dropdown. Above three, the dropdown. The phone panel groups them with `NavBar.MobileGroup` either way.",
     "Light one item at most: the group that holds the page (`active` on its `NavBar.Menu`), never two.",
     "Mark the current page with `active`: the light rests on it, `aria-current=\"page\"` says it.",
     "Use your router's link with `asChild` on `NavBar.Link`, `NavBar.MenuLink` and `NavBar.MobileLink`.",
