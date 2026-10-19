@@ -165,6 +165,10 @@
       "types": "./dist/chip-link.d.ts",
       "import": "./dist/chip-link.js"
     },
+    "./chip-row": {
+      "types": "./dist/chip-row.d.ts",
+      "import": "./dist/chip-row.js"
+    },
     "./switch": {
       "types": "./dist/switch.d.ts",
       "import": "./dist/switch.js"
@@ -1370,6 +1374,16 @@
       "name": "./chip-link",
       "path": "dist/chip-link.js",
       "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./chip-row",
+      "path": "dist/chip-row.js",
+      "limit": "3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
