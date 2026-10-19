@@ -264,10 +264,35 @@ export type NavBarMenuProps = Omit<React.ComponentProps<typeof Nav.Item>, "child
    * @default 1
    */
   columns?: 1 | 2;
+  /**
+   * A section with this many links or fewer needs no hidden list: they sit in the bar as plain links (the active one
+   * marked, no dropdown, `label` unused on the desktop). Above it, a dropdown. `0` always makes a dropdown.
+   * @default 3
+   */
+  inlineUpTo?: number;
 };
 
-/** A menu of the bar: its trigger, and its links in a panel that opens under the bar. */
-export function NavBarMenu({ label, active, columns = 1, children, className, ...props }: NavBarMenuProps) {
+/**
+ * A menu of the bar: its trigger, and its links in a panel that opens under the bar. A menu of `inlineUpTo` links or
+ * fewer (3 by default) is not a menu at all: its links stand in the bar, each with its active state — a hidden list of
+ * three is one click more for nothing. The phone's panel groups them as usual (`NavBar.MobileGroup`).
+ */
+export function NavBarMenu({ label, active, columns = 1, inlineUpTo = 3, children, className, ...props }: NavBarMenuProps) {
+  const links = React.Children.toArray(children);
+  if (links.length > 0 && links.length <= inlineUpTo && links.every((c) => React.isValidElement(c) && c.type === NavBarMenuLink)) {
+    return (
+      <>
+        {links.map((link) => {
+          const { title, href, active: here, asChild, children: child, icon: _icon, description: _description, className: linkClass, ...rest } = (link as React.ReactElement<NavBarMenuLinkProps>).props;
+          return (
+            <NavBarLink key={(link as React.ReactElement).key} asChild={asChild} href={asChild ? undefined : href} active={here} className={linkClass} {...rest}>
+              {asChild && React.isValidElement<{ children?: React.ReactNode }>(child) ? React.cloneElement(child, undefined, title) : title}
+            </NavBarLink>
+          );
+        })}
+      </>
+    );
+  }
   return (
     <Nav.Item className={className} {...props}>
       <Nav.Trigger data-nav-item="" data-active={active ? "" : undefined} className={cn(s.item(), "group/trigger")}>
