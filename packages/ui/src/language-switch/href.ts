@@ -20,8 +20,10 @@ export const languageNames: Readonly<Record<string, string>> = {
  * one of `locales`; an address without a language prefix gets one. Query and hash are kept.
  */
 export function languageHref(path: string, to: string, locales: readonly string[] = ["en", "fr"]): string {
-  const [, pathname = "/", rest = ""] = /^([^?#]*)(.*)$/.exec(path) ?? [];
-  const segments = pathname.split("/").filter(Boolean);
+  const splitIndex = path.search(/[?#]/);
+  const pathname = splitIndex === -1 ? path : path.slice(0, splitIndex);
+  const rest = splitIndex === -1 ? "" : path.slice(splitIndex);
+  const segments = (pathname || "/").split("/").filter(Boolean);
   if (segments[0] && locales.includes(segments[0])) segments.shift();
   return `/${[to, ...segments].join("/")}${rest}`;
 }
