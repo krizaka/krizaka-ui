@@ -48,6 +48,30 @@ function indexPage(items: readonly TextItem[]): Index {
   return { text, at };
 }
 
+// Proportional faces: "locataire" is not as wide as nine capitals. pdf.js gives one width per item, so a position inside an
+// item is shared out by the Helvetica advance widths (per 1000 em) — close for any sans text, far better than a flat share.
+const ADVANCE =
+  "278 278 355 556 556 889 667 191 333 333 389 584 278 333 278 278 556 556 556 556 556 556 556 556 556 556 278 278 584 584 584 556 1015 " +
+  "667 667 722 722 667 611 778 722 278 500 667 556 833 722 778 667 778 722 667 611 722 667 944 667 667 611 278 278 278 469 556 333 " +
+  "556 556 500 556 556 278 556 556 222 222 500 222 833 556 556 556 556 333 500 278 556 500 722 500 500 500";
+const ADVANCES = ADVANCE.split(" ").map(Number);
+function advance(ch: string): number {
+  const base = ch.normalize("NFD")[0] ?? ch;
+  const code = base.charCodeAt(0);
+  return code >= 32 && code <= 126 ? (ADVANCES[code - 32] ?? 556) : 556;
+}
+/** The share (0–1) of an item's width that lies before character `n` of `text`. */
+function shareBefore(text: string, n: number): number {
+  let before = 0;
+  let total = 0;
+  for (let i = 0; i < text.length; i++) {
+    const a = advance(text[i]!);
+    if (i < n) before += a;
+    total += a;
+  }
+  return total > 0 ? before / total : n / Math.max(1, text.length);
+}
+
 function boxesOf(page: PageText, index: Index, from: number, to: number): Box[] {
   const spans = new Map<number, [number, number]>();
   for (let k = from; k < to; k++) {
@@ -58,10 +82,9 @@ function boxesOf(page: PageText, index: Index, from: number, to: number): Box[] 
   const raw: Box[] = [];
   for (const [i, [c0, c1]] of [...spans].sort((a, b) => a[0] - b[0])) {
     const item = page.items[i]!;
-    const len = Math.max(1, item.str.length);
     const size = item.height || Math.abs(item.transform[3] ?? 0) || 10;
-    const x = (item.transform[4] ?? 0) + (item.width * c0) / len;
-    const w = (item.width * (c1 - c0)) / len;
+    const x = (item.transform[4] ?? 0) + item.width * shareBefore(item.str, c0);
+    const w = item.width * (shareBefore(item.str, c1) - shareBefore(item.str, c0));
     const top = page.height - ((item.transform[5] ?? 0) + size * 0.9);
     raw.push({ x: x / page.width, y: top / page.height, width: w / page.width, height: (size * 1.15) / page.height });
   }
