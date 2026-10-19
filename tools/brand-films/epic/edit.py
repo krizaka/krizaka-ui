@@ -18,7 +18,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 FPS = 30
-SIZES = {"16x9": (1920, 1080), "9x16": (1080, 1920)}
+SIZES = {"16x9": (1920, 1080), "9x16": (1080, 1920), "16x9-4k": (3840, 2160)}
 
 # One look per era: ffmpeg filters on 8-bit RGB after scaling. Sepia and grain are mixed, never full strength.
 GRADES = {
@@ -136,7 +136,8 @@ def main():
 
     rendered = []
     for i, s in enumerate(shots):
-        cache = work / f"{aspect}-{s['id']}.mp4"
+        src = clips / s["clip"]  # the cache follows the source file: EN and FR share their common shots, never a talking one
+        cache = work / f"{aspect}-{s['id']}-{src.stat().st_size if src.exists() else 0}.mp4"
         if not cache.exists():
             render_shot(s, clips, aspect, work, i, Path(arg("vclips")) if aspect == "9x16" and arg("vclips") else None).rename(cache)
         rendered.append(cache)
@@ -174,9 +175,13 @@ def main():
             if not s.get("caption"):
                 continue
             png = work / f"{aspect}-cap-{lang}-{k}.png"
-            px = int(short * (0.040 if aspect == "16x9" else 0.050))
-            text_png(png, size, wrap(s["caption"][lang], semi, px, size[0] * 0.84), semi, px, 0.84 if aspect == "16x9" else 0.78, box=True)
-            layers.append((png, starts[k] + s.get("captionAt", 0.25), min(starts[k] + s.get("captionAt", 0.25) + s.get("captionSeconds", 3.8), total)))
+            px = int(short * (0.040 if aspect.startswith("16x9") else 0.050))
+            text_png(png, size, wrap(s["caption"][lang], semi, px, size[0] * 0.84), semi, px, 0.84 if aspect.startswith("16x9") else 0.78, box=True)
+            end = min(starts[k] + s.get("captionAt", 0.25) + s.get("captionSeconds", 3.8), total)
+            nxt = next((starts[j] for j in range(k + 1, len(shots)) if shots[j].get("caption")), None)
+            if nxt is not None:  # a line never runs over the next one (they share a place on the screen)
+                end = min(end, nxt - 0.05)
+            layers.append((png, starts[k] + s.get("captionAt", 0.25), end))
     for j, (png, a, b) in enumerate(layers):
         inputs += ["-loop", "1", "-t", f"{total:.3f}", "-i", str(png)]
         idx = n + j
