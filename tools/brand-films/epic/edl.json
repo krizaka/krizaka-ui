@@ -1,0 +1,479 @@
+{
+ "_": "The cut of the epic (edit.py). Clips are named by shot id (the chosen take, upscaled to 1080p) plus code-film.mp4 (« Le monde de Krizaka », 16:9, rendered from code). Captions are the film's own lines (FILM.cues, checked by epic.test.mjs). `to` is the transition into the next shot.",
+ "shots": [
+  {
+   "id": "01-code-ridge",
+   "clip": "code-film.mp4",
+   "in": 35.0,
+   "out": 38.0,
+   "grade": "code",
+   "interpolate": false,
+   "to": "flash",
+   "in9x16": 37.0,
+   "out9x16": 40.0
+  },
+  {
+   "id": "02-ridge-dawn",
+   "clip": "02-ridge-dawn.mp4",
+   "in": 1.6,
+   "out": 5.0,
+   "grade": "dawn",
+   "to": "whip"
+  },
+  {
+   "id": "03-club-walkon",
+   "clip": "03-club-walkon.mp4",
+   "in": 0.4,
+   "out": 4.9,
+   "grade": "club",
+   "to": "cut"
+  },
+  {
+   "id": "04-club-scan",
+   "clip": "04-club-scan.mp4",
+   "in": 0.0,
+   "out": 5.0,
+   "ramp": [
+    2.4,
+    1.0,
+    0.6
+   ],
+   "grade": "club",
+   "to": "flash",
+   "caption": {
+    "en": "The falcon keeps watch: security comes first.",
+    "fr": "Le faucon veille : la sécurité d’abord."
+   },
+   "captionAt": 0.6,
+   "captionSeconds": 5.0
+  },
+  {
+   "id": "05-club-audience",
+   "clip": "05-club-audience.mp4",
+   "in": 0.5,
+   "out": 5.0,
+   "grade": "club",
+   "to": "black"
+  },
+  {
+   "id": "06-dinner-wide",
+   "clip": "06-dinner-wide.mp4",
+   "in": 0.0,
+   "out": 4.6,
+   "grade": "sepia",
+   "to": "dissolve"
+  },
+  {
+   "id": "07-dinner-owl",
+   "clip": "07-dinner-owl.mp4",
+   "in": 0.0,
+   "out": 5.0,
+   "ramp": [
+    3.4,
+    1.0,
+    0.5
+   ],
+   "grade": "sepia",
+   "to": "cut",
+   "caption": {
+    "en": "The owl reads every page and knows every face.",
+    "fr": "Le hibou lit chaque page et reconnaît chaque visage."
+   },
+   "captionAt": 0.4,
+   "captionSeconds": 5.4
+  },
+  {
+   "id": "08-dinner-answer",
+   "clip": "08-dinner-answer.mp4",
+   "in": 0.0,
+   "out": 5.0,
+   "grade": "sepia",
+   "to": "flash",
+   "caption": {
+    "en": "The flamingo answers, and the payment follows.",
+    "fr": "Le flamant répond, et le paiement suit."
+   },
+   "captionAt": 0.6,
+   "captionSeconds": 4.2
+  },
+  {
+   "id": "09-studio-duck",
+   "clip": "09-studio-duck.mp4",
+   "in": 0.0,
+   "out": 5.0,
+   "grade": "nineties",
+   "to": "whip",
+   "caption": {
+    "en": "The duck builds, line by line, in the open.",
+    "fr": "Le canard construit, ligne après ligne, en open source."
+   },
+   "captionAt": 0.5,
+   "captionSeconds": 4.3
+  },
+  {
+   "id": "10-rooftop-cypher",
+   "clip": "10-rooftop-cypher.mp4",
+   "in": 0.3,
+   "out": 5.0,
+   "grade": "nineties",
+   "to": "flash"
+  },
+  {
+   "id": "11-beach-crane",
+   "clip": "11-beach-crane.mp4",
+   "in": 0.3,
+   "out": 4.8,
+   "grade": "golden",
+   "to": "dissolve"
+  },
+  {
+   "id": "12-beach-lovebirds",
+   "clip": "12-beach-lovebirds.mp4",
+   "in": 0.6,
+   "out": 4.6,
+   "grade": "golden",
+   "to": "cut"
+  },
+  {
+   "id": "13-beach-beaver",
+   "clip": "13-beach-beaver.mp4",
+   "in": 0.6,
+   "out": 4.6,
+   "grade": "golden",
+   "to": "whip"
+  },
+  {
+   "id": "14-clay-leap",
+   "clip": "14-clay-leap.mp4",
+   "in": 0.4,
+   "out": 2.4,
+   "speed": 0.5,
+   "grade": "broadcast",
+   "to": "cut"
+  },
+  {
+   "id": "15-grass-flight",
+   "clip": "15-grass-flight.mp4",
+   "in": 0.2,
+   "out": 5.0,
+   "ramp": [
+    2.2,
+    0.4,
+    1.0
+   ],
+   "grade": "broadcast",
+   "to": "cut",
+   "caption": {
+    "en": "The pigeon delivers, every time.",
+    "fr": "Le pigeon livre, à chaque fois."
+   },
+   "captionAt": 0.6,
+   "captionSeconds": 6.5
+  },
+  {
+   "id": "16-line-call",
+   "clip": "16-line-call.mp4",
+   "in": 0.5,
+   "out": 1.9,
+   "speed": 0.35,
+   "grade": "broadcast",
+   "to": "flash"
+  },
+  {
+   "id": "17-ridge-family",
+   "clip": "17-ridge-family.mp4",
+   "in": 0.0,
+   "out": 5.0,
+   "grade": "dawn",
+   "to": "dissolve",
+   "caption": {
+    "en": "Each bird carries a promise.",
+    "fr": "Chaque oiseau porte une promesse."
+   },
+   "captionAt": 0.5,
+   "captionSeconds": 2.6
+  },
+  {
+   "id": "18-code-mark",
+   "clip": "code-film.mp4",
+   "in": 40.0,
+   "out": 44.0,
+   "grade": "code",
+   "interpolate": false,
+   "to": "cut",
+   "caption": {
+    "en": "And the family keeps growing.",
+    "fr": "Et la famille s’agrandit."
+   },
+   "captionAt": 0.0,
+   "captionSeconds": 2.0,
+   "in9x16": 40.0,
+   "out9x16": 44.0
+  }
+ ],
+ "titles": [
+  {
+   "shot": "02-ridge-dawn",
+   "lang": "en",
+   "text": "The World of Krizaka: On Tour",
+   "at": 0.4,
+   "seconds": 2.6,
+   "size": 0.085,
+   "y": 0.22
+  },
+  {
+   "shot": "02-ridge-dawn",
+   "lang": "fr",
+   "text": "Le monde de Krizaka : la tournée",
+   "at": 0.4,
+   "seconds": 2.6,
+   "size": 0.085,
+   "y": 0.22
+  },
+  {
+   "shot": "18-code-mark",
+   "lang": "en",
+   "text": "AI-generated · Music: ACE-Step 1.5 (MIT), generated with Orazaka",
+   "at": 2.2,
+   "seconds": 1.8,
+   "size": 0.022,
+   "y": 0.93
+  },
+  {
+   "shot": "18-code-mark",
+   "lang": "fr",
+   "text": "Généré par IA · Musique : ACE-Step 1.5 (MIT), générée avec Orazaka",
+   "at": 2.2,
+   "seconds": 1.8,
+   "size": 0.022,
+   "y": 0.93
+  }
+ ],
+ "music": [
+  {
+   "id": "prologue",
+   "from": "01-code-ridge",
+   "prompt": "warm whimsical cinematic underscore, gentle pizzicato strings, celesta and soft marimba, warm pads, hopeful, 92 bpm, instrumental",
+   "seed": 2026101801
+  },
+  {
+   "id": "club",
+   "from": "03-club-walkon",
+   "prompt": "smoky late-night jazz trio, upright bass walking line, brushed snare, muted piano chords, intimate club, 96 bpm, instrumental, ends on a rimshot",
+   "seed": 2026101802
+  },
+  {
+   "id": "dinner",
+   "from": "06-dinner-wide",
+   "prompt": "1970s Italian-American cinematic waltz, solo mandolin melody, warm string orchestra, slow and grave, 3/4 time, 76 bpm, instrumental",
+   "seed": 2026101803
+  },
+  {
+   "id": "nineties",
+   "from": "09-studio-duck",
+   "prompt": "1990s East Coast boom-bap hip-hop instrumental beat, dusty sampled piano loop, hard kick and snare, vinyl crackle, head-nodding groove, 90 bpm, no vocals",
+   "seed": 2026101804
+  },
+  {
+   "id": "beach",
+   "from": "11-beach-crane",
+   "prompt": "roots reggae one-drop instrumental, warm deep bass, offbeat guitar skank, organ bubble, sunny and relaxed, 75 bpm, no vocals",
+   "seed": 2026101805
+  },
+  {
+   "id": "finale",
+   "from": "14-clay-leap",
+   "prompt": "epic orchestral slow-motion build, low strings ostinato, timpani rolls, choir pads, rising to a warm triumphant major resolve, cinematic trailer, 84 bpm, instrumental",
+   "seed": 2026101806
+  }
+ ],
+ "cutdowns": {
+  "club": {
+   "music": "club.wav",
+   "shots": [
+    {
+     "id": "03-club-walkon",
+     "clip": "03-club-walkon.mp4",
+     "in": 2.0,
+     "out": 4.9,
+     "grade": "club",
+     "to": "cut"
+    },
+    {
+     "id": "04-club-scan",
+     "clip": "04-club-scan.mp4",
+     "in": 0.0,
+     "out": 5.0,
+     "ramp": [
+      2.4,
+      1.0,
+      0.6
+     ],
+     "grade": "club",
+     "to": "flash",
+     "caption": {
+      "en": "The falcon keeps watch: security comes first.",
+      "fr": "Le faucon veille : la sécurité d’abord."
+     },
+     "captionAt": 0.6,
+     "captionSeconds": 5.0
+    },
+    {
+     "id": "05-club-audience",
+     "clip": "05-club-audience.mp4",
+     "in": 0.8,
+     "out": 4.6,
+     "grade": "club",
+     "to": "flash"
+    },
+    {
+     "id": "18-code-mark",
+     "clip": "code-film.mp4",
+     "in": 41.5,
+     "out": 44.0,
+     "grade": "code",
+     "interpolate": false,
+     "to": "cut",
+     "captionAt": 0.0,
+     "captionSeconds": 2.0,
+     "in9x16": 41.5,
+     "out9x16": 44.0
+    }
+   ]
+  },
+  "dinner": {
+   "music": "dinner-1.wav",
+   "shots": [
+    {
+     "id": "06-dinner-wide",
+     "clip": "06-dinner-wide.mp4",
+     "in": 1.0,
+     "out": 3.6,
+     "grade": "sepia",
+     "to": "dissolve"
+    },
+    {
+     "id": "07-dinner-owl",
+     "clip": "07-dinner-owl.mp4",
+     "in": 0.6,
+     "out": 5.0,
+     "ramp": [
+      3.4,
+      1.0,
+      0.5
+     ],
+     "grade": "sepia",
+     "to": "cut",
+     "caption": {
+      "en": "The owl reads every page and knows every face.",
+      "fr": "Le hibou lit chaque page et reconnaît chaque visage."
+     },
+     "captionAt": 0.4,
+     "captionSeconds": 5.4
+    },
+    {
+     "id": "08-dinner-answer",
+     "clip": "08-dinner-answer.mp4",
+     "in": 0.8,
+     "out": 5.0,
+     "grade": "sepia",
+     "to": "flash",
+     "caption": {
+      "en": "The flamingo answers, and the payment follows.",
+      "fr": "Le flamant répond, et le paiement suit."
+     },
+     "captionAt": 0.6,
+     "captionSeconds": 4.2
+    },
+    {
+     "id": "18-code-mark",
+     "clip": "code-film.mp4",
+     "in": 41.5,
+     "out": 44.0,
+     "grade": "code",
+     "interpolate": false,
+     "to": "cut",
+     "captionAt": 0.0,
+     "captionSeconds": 2.0,
+     "in9x16": 41.5,
+     "out9x16": 44.0
+    }
+   ]
+  },
+  "rally": {
+   "music": "finale40-1.wav",
+   "shots": [
+    {
+     "id": "14-clay-leap",
+     "clip": "14-clay-leap.mp4",
+     "in": 0.4,
+     "out": 2.4,
+     "speed": 0.5,
+     "grade": "broadcast",
+     "to": "cut"
+    },
+    {
+     "id": "15-grass-flight",
+     "clip": "15-grass-flight.mp4",
+     "in": 0.6,
+     "out": 4.2,
+     "ramp": [
+      2.2,
+      0.4,
+      1.0
+     ],
+     "grade": "broadcast",
+     "to": "cut",
+     "caption": {
+      "en": "The pigeon delivers, every time.",
+      "fr": "Le pigeon livre, à chaque fois."
+     },
+     "captionAt": 0.6,
+     "captionSeconds": 6.5
+    },
+    {
+     "id": "16-line-call",
+     "clip": "16-line-call.mp4",
+     "in": 0.5,
+     "out": 1.7,
+     "speed": 0.35,
+     "grade": "broadcast",
+     "to": "flash"
+    },
+    {
+     "id": "18-code-mark",
+     "clip": "code-film.mp4",
+     "in": 41.5,
+     "out": 44.0,
+     "grade": "code",
+     "interpolate": false,
+     "to": "cut",
+     "captionAt": 0.0,
+     "captionSeconds": 2.0,
+     "in9x16": 41.5,
+     "out9x16": 44.0
+    }
+   ]
+  }
+ },
+ "cutdownTitles": [
+  {
+   "shot": "18-code-mark",
+   "lang": "en",
+   "text": "AI-generated · Music: ACE-Step 1.5 (MIT), generated with Orazaka",
+   "at": 0.3,
+   "seconds": 1.9,
+   "size": 0.022,
+   "y": 0.93
+  },
+  {
+   "shot": "18-code-mark",
+   "lang": "fr",
+   "text": "Généré par IA · Musique : ACE-Step 1.5 (MIT), générée avec Orazaka",
+   "at": 0.3,
+   "seconds": 1.9,
+   "size": 0.022,
+   "y": 0.93
+  }
+ ]
+}

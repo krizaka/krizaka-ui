@@ -25,7 +25,8 @@
       "closeMenu": "Fermer le menu"
     },
     "footer": {
-      "docs": "Documentation"
+      "docs": "Documentation",
+      "changelog": "v{version}"
     },
     "notFound": {
       "title": "Cette page n’existe pas",
@@ -34,6 +35,35 @@
     },
     "structuredData": {
       "organization": "Krizaka est un studio logiciel open source à Montréal, au Québec : Krizaka UI, Krizaka Java et les produits construits dessus."
+    },
+    "changelog": {
+      "metaTitle": "Journal des changements",
+      "metaDescription": "Ce qui a changé dans chaque paquet Krizaka UI, version par version : nouveautés, corrections, sécurité et ruptures, avec la pull request derrière chaque ligne.",
+      "back": "Krizaka UI",
+      "eyebrow": "Journal des changements",
+      "title": "Ce qui a été livré",
+      "lead": "Chaque version de chaque paquet Krizaka UI, la plus récente d'abord — lue dans les journaux des paquets eux-mêmes.",
+      "feed": "S'abonner (RSS)",
+      "logLabel": "Versions",
+      "kinds": {
+        "added": "Nouveau",
+        "changed": "Modifié",
+        "fixed": "Corrigé",
+        "removed": "Retiré",
+        "security": "Sécurité",
+        "breaking": "Rupture"
+      },
+      "tags": {
+        "feature": "Nouveau",
+        "fix": "Corrigé",
+        "security": "Sécurité",
+        "breaking": "Rupture",
+        "change": "Modifié"
+      },
+      "pull": "Pull request n° {number}",
+      "feedTitle": "Krizaka UI — journal des changements",
+      "feedDescription": "Ce qui a été livré dans Krizaka UI, version par version.",
+      "langTag": "fr-CA"
     }
   },
   "docs": {
@@ -203,6 +233,10 @@
         "motion": {
           "title": "Mouvement",
           "description": "Un seul système de mouvement : courbes, durées, l'arrivée des blocs, et la règle qui fige tout quand le mouvement est réduit."
+        },
+        "navigation": {
+          "title": "Navigation de la famille",
+          "description": "Une seule barre pour chaque site et produit Krizaka : ce qui est commun, ce qui est propre à chaque produit, le sélecteur de langue, le contrôle."
         },
         "brand-marks": {
           "title": "Marques",

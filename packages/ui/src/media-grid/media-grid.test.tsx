@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 
 import { axeViolations } from "../test/axe";
 import { MediaGrid, ShortsShelf, VideoCard } from "./index";
@@ -42,6 +42,30 @@ describe("MediaGrid split", () => {
     rerender(grid({ items: CLIPS.filter((c) => c.portrait) }));
     expect(container.querySelector("[data-grid-frame]")).toBeNull();
     expect(container.querySelectorAll("[data-shorts-shelf] article")).toHaveLength(2);
+  });
+});
+
+describe("MediaGrid headings and hints", () => {
+  const hint = (label: string, text: string) => ({ label, text, link: { href: "/docs/vocabulary", label: "More" } });
+
+  it("labels the grid like the shelf, and each heading has a definition one press away that links to the glossary", async () => {
+    const { container } = render(grid({ shelf: { ...shelf, hint: hint("What are Shorts?", "Vertical videos.") }, grid: { label: "Videos", hint: hint("What are Videos?", "Regular videos.") } }));
+    expect(screen.getByRole("heading", { name: "Shorts" })).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "Videos" })).toBeTruthy();
+    const button = screen.getByRole("button", { name: "What are Videos?" });
+    expect(button.getAttribute("aria-expanded")).toBe("false");
+    fireEvent.click(button);
+    expect(button.getAttribute("aria-expanded")).toBe("true");
+    expect(screen.getAllByRole("tooltip").find((t) => !t.hidden)?.textContent).toContain("Regular videos.");
+    expect(screen.getAllByRole("link", { name: "More" }).length).toBeGreaterThan(0);
+    fireEvent.keyDown(button, { key: "Escape" });
+    expect(button.getAttribute("aria-expanded")).toBe("false");
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("draws no grid heading unless asked", () => {
+    render(grid({}));
+    expect(screen.queryByRole("heading", { name: "Videos" })).toBeNull();
   });
 });
 

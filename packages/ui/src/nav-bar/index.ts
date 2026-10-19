@@ -11,6 +11,8 @@ export {
   type NavBarFamilyProps,
   NavBarItems,
   type NavBarItemsProps,
+  NavBarLanguage,
+  type NavBarLanguageProps,
   NavBarLink,
   type NavBarLinkProps,
   NavBarMenu,
@@ -22,9 +24,12 @@ export {
   type NavBarMobileGroupProps,
   NavBarMobileLink,
   type NavBarMobileLinkProps,
+  NavBarMobilePreferences,
+  type NavBarMobilePreferencesProps,
   type NavBarMobileProps,
   NavBarRepo,
   type NavBarRepoProps,
   NavBarRoot,
   type NavBarRootProps,
 } from "./nav-bar";
+export { type PlacePanel,placePanel } from "./placement";

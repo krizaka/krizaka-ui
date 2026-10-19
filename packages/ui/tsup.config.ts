@@ -44,6 +44,7 @@ export default defineConfig([
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",
       progress: "src/progress/index.ts",
+      waveform: "src/waveform/index.ts",
       "section-backdrop": "src/section-backdrop/index.ts",
       iso: "src/iso/index.ts",
       stepper: "src/stepper/index.ts",
@@ -54,6 +55,10 @@ export default defineConfig([
       "meta-row": "src/meta-row/index.ts",
       // The header beside a RailNav: the name as text, the mark below md (server-safe).
       "app-header": "src/app-header/index.ts",
+      // A shop's storefront: the service card and the weekly hours (server-safe).
+      "service-card": "src/service-card/index.ts",
+      "opening-hours": "src/opening-hours/index.ts",
+      "sticky-action": "src/sticky-action/index.ts",
       "verified-badge": "src/verified-badge/index.ts",
       "step-progress": "src/step-progress/index.ts",
       // The default avatars' pure helpers (defaultAvatarUrl…): callable in a Server Component, unlike "avatar" (client).
@@ -79,11 +84,13 @@ export default defineConfig([
     entry: {
       "dashboard-layout": "src/dashboard-layout/index.ts",
       "settings-layout": "src/settings-layout/index.ts",
+      "account-menu": "src/account-menu/index.ts",
       "auth-layout": "src/auth-layout/index.ts",
       "detail-layout": "src/detail-layout/index.ts",
       "split-view": "src/split-view/index.ts",
       "marketing-layout": "src/marketing-layout/index.ts",
       "docs-layout": "src/docs-layout/index.ts",
+      "docs-nav": "src/docs-nav/index.ts",
     },
   },
   {
@@ -122,6 +129,11 @@ export default defineConfig([
       "app-shell": "src/app-shell/index.ts",
       // The compact rail (a bottom tab bar on a phone): its expand state, its arrow keys and its tooltips.
       "rail-nav": "src/rail-nav/index.ts",
+      // The next free times: the chosen day is its state.
+      "slot-picker": "src/slot-picker/index.ts",
+      // The shop's cover and its gallery: loops that stop under reduced motion.
+      "cover-hero": "src/cover-hero/index.ts",
+      "media-gallery": "src/media-gallery/index.ts",
       // The skip link moves focus to its target.
       "skip-link": "src/skip-link/index.ts",
     },
@@ -134,6 +146,7 @@ export default defineConfig([
       avatar: "src/avatar/index.ts",
       theme: "src/theme/index.ts",
       countdown: "src/countdown/index.ts",
+      captcha: "src/captcha/index.ts",
       dialog: "src/dialog/index.ts",
       toast: "src/toast/index.ts",
       popover: "src/popover/index.ts",
@@ -152,6 +165,7 @@ export default defineConfig([
       motion: "src/motion/index.ts",
       loader: "src/loader/index.ts",
       "nav-bar": "src/nav-bar/index.ts",
+      "language-switch": "src/language-switch/index.ts",
       // The footer of the family's sites (its marks hold an id).
       "site-footer": "src/site-footer/index.ts",
       "number-ticker": "src/number-ticker/index.ts",
@@ -227,6 +241,12 @@ export default defineConfig([
     // Server — the form's server side (a Server Action re-validating with the form's schema): no React, no directive.
     ...shared,
     entry: { "form/server": "src/form/server.ts" },
+  },
+  {
+    // Server — the language helpers (`languagesFor`, `languageHref`, `languageNames`): pure functions, usable in a Server Component
+    // (`@krizaka/ui/language-switch` is a client module: its banner would make them unimportable there).
+    ...shared,
+    entry: { "language-switch/server": "src/language-switch/server.ts" },
   },
   {
     // The storytelling kit (story.css) without a hook: usable in a Server Component as it is.

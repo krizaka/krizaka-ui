@@ -38,4 +38,17 @@ describe("ArgumentCard", () => {
     expect(screen.getByRole("link", { name: /Details/ }).getAttribute("aria-describedby")).toBe("x");
     expect(screen.getByRole("heading", { level: 2, name: "X" })).toBeTruthy();
   });
+
+  it("says its hover as a class: quiet, light, or none when not asked", () => {
+    const base = { id: "q", title: "Q", hook: { label: "Trap", text: "T" } };
+    const { container, rerender } = render(<ArgumentCard {...base} />);
+    const card = () => container.querySelector("article") as HTMLElement;
+    expect(card().classList.contains("kz-hover-quiet")).toBe(false);
+    rerender(<ArgumentCard {...base} hover="quiet" />);
+    expect(card().classList.contains("kz-hover-quiet")).toBe(true);
+    expect(card().hasAttribute("data-kz-light")).toBe(true);
+    rerender(<ArgumentCard {...base} hover="light" />);
+    expect(card().classList.contains("kz-hover-light")).toBe(true);
+    expect(card().classList.contains("kz-hover-quiet")).toBe(false);
+  });
 });

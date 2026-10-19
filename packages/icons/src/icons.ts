@@ -80,6 +80,14 @@ export const MomentIcon = /* @__PURE__ */ createIcon("MomentIcon", g.moment);
 export const ThreadIcon = /* @__PURE__ */ createIcon("ThreadIcon", g.thread);
 /** keep save hold open hand notebook summary */
 export const KeepIcon = /* @__PURE__ */ createIcon("KeepIcon", g.keep);
+/** soccer football ball match sport */
+export const SoccerIcon = /* @__PURE__ */ createIcon("SoccerIcon", g.soccer);
+/** hockey nhl stick puck ice sport */
+export const HockeyIcon = /* @__PURE__ */ createIcon("HockeyIcon", g.hockey);
+/** basketball nba hoop ball sport */
+export const BasketballIcon = /* @__PURE__ */ createIcon("BasketballIcon", g.basketball);
+/** trophy cup season winner league champion */
+export const TrophyIcon = /* @__PURE__ */ createIcon("TrophyIcon", g.trophy);
 /** theme appearance dark light contrast */
 export const ThemeIcon = /* @__PURE__ */ createIcon("ThemeIcon", g.theme);
 /** light mode sun */

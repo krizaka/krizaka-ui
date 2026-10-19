@@ -1,5 +1,89 @@
 # @krizaka/ui
 
+## 3.26.0
+
+### Minor Changes
+
+- [#336](https://github.com/krizaka/krizaka-ui/pull/336) [`022a3cd`](https://github.com/krizaka/krizaka-ui/commit/022a3cd17ec971df4aa0fdf3a713e7bd8a418d17) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Navigation standard (NAV-STD). `NavBar` menus: the panel is 28 rem (40 rem in two columns, never wider than the page between its gutters), aligned under its trigger and kept inside the page (`placePanel`), its descriptions wrap on two lines at most instead of being cut on one, the icon tile stays at the top. New `@krizaka/ui/language-switch` — `LanguageSwitch`, `languagesFor(path)`, `languageHref(path, to)`: a globe and the current code (`FR`) opening a menu of the languages named in their own language, as links with `hreflang` that keep the page; `variant="inline"` for a panel. `NavBar.Language` (a menu in the bar, a row in the mobile panel) and `NavBar.MobilePreferences` (the panel's last group: theme, language) place it. It replaces the pill that names the other language.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.26.0
+  - @krizaka/tokens@3.26.0
+
+## 3.25.0
+
+### Minor Changes
+
+- [#333](https://github.com/krizaka/krizaka-ui/pull/333) [`5ffbac7`](https://github.com/krizaka/krizaka-ui/commit/5ffbac71e68bc3997124e4b16a708c2c86527b9e) Thanks [@oussamaABID](https://github.com/oussamaABID)! - New `@krizaka/ui/account-menu` — `AccountMenu`, the menu under a signed-in person's avatar: identity first (picture from `defaultAvatar` or `src`, name, e-mail), profile and settings links, the language as a compact submenu showing the current one, extra rows, and Sign out as a quiet item. `DropdownMenu` gains `Sub`, `SubTrigger`, `SubContent`, `RadioGroup` and `RadioItem`, and its panel is `overflow-x-hidden` with `overscroll-contain`, so it never draws a stray scrollbar at its natural height (it scrolls only when the screen is shorter).
+
+- [#338](https://github.com/krizaka/krizaka-ui/pull/338) [`aa04764`](https://github.com/krizaka/krizaka-ui/commit/aa04764f91992a81e5484e1ac8244470a5377f1b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/changelog-page` adds `releasesFromPulls`: for a repository that publishes no releases (a product in development), its merged pull requests become one changelog entry per week — conventional titles in plain language, housekeeping left out (krizaka/krizaka-ui#307).
+
+- [#343](https://github.com/krizaka/krizaka-ui/pull/343) [`d4ad371`](https://github.com/krizaka/krizaka-ui/commit/d4ad3712534f89e18c0d4e3bb69443082aa7af5d) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Six blocks for a shop's storefront (Akinaza): `ServiceCard` (`@krizaka/ui/service-card`) — a service as a card with icon or photo, duration, capacity, price (« from » when it varies), inclusions, a « Popular » tag and one way in (a link or a press); `SlotPicker` (`@krizaka/ui/slot-picker`) — the next free times as chips, a strip of days then the day's times, each a link or a toggle; `OpeningHours` (`@krizaka/ui/opening-hours`) — the weekly hours in one native-disclosure row (open now · closes at…) that unfolds into the week with today marked. Plus `CoverHero` (`@krizaka/ui/cover-hero`) — the shop's first screen over its photo or muted loop (a still under reduced motion; the brand's colours without a cover); `StickyAction` (`@krizaka/ui/sticky-action`) — the page's one action held at the bottom of a phone, pure CSS; `MediaGallery` (`@krizaka/ui/media-gallery`) — the shop's photos and loops in tiles, the first featured. Web (native: n/a, the storefront is a web page).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.25.0
+  - @krizaka/tokens@3.25.0
+
+## 3.24.0
+
+### Minor Changes
+
+- [#339](https://github.com/krizaka/krizaka-ui/pull/339) [`0187e71`](https://github.com/krizaka/krizaka-ui/commit/0187e71b95394f0a77016316b182a42049e6f505) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `WuSamaMark`: the founder's byline mark (Oussama's nickname, Wu-sama) — a gold W of five straight legs inside the Krizaka hexagon, split at its top and bottom vertices, ink and one amber, code-drawn SVG, still, cropped to the emblem below 48 px. An original mark, inspired by and not derived from the culture its name nods to: its geometry is measured on the Krizaka hexagon and guarded by tests (no curve, no bat-wing silhouette).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.24.0
+  - @krizaka/tokens@3.24.0
+
+## 3.23.0
+
+### Minor Changes
+
+- [#296](https://github.com/krizaka/krizaka-ui/pull/296) [`08aab96`](https://github.com/krizaka/krizaka-ui/commit/08aab961e16999c9ef393c7bca57acf499e6ba3f) Thanks [@oussamaABID](https://github.com/oussamaABID)! - New marks for Yomizaka, Kachizaka, Akinaza, Yororis and Yasakia (web and native, same geometry), chosen from three directions per brand: Yomizaka "the watch" (the owl, two lenses under a calm brow), Kachizaka "the podium" (gold winner, cobalt steps, a lit diamond), Akinaza "the cut log" (year rings, a 45° copper cut, a copper heart), Yororis "held" (two open hands cup a warm core), Yasakia "one conversation" (one bubble, a tail on each side, the spark inside). The family grammar is kept: dashed orbit and ring, the lit core breathes, everything still under reduced motion, and below 48 px the view box crops to the emblem. Two-colour brands keep their colours apart. The Kachizaka mark's classes move from `kzm-` (Krizaka's) to `kcm-`. `familyMotion` (marks/shared) is the shared web motion.
+
+- [#300](https://github.com/krizaka/krizaka-ui/pull/300) [`9b7a4d7`](https://github.com/krizaka/krizaka-ui/commit/9b7a4d7c6b48ca69adaf51e3d2c7d65329b19e25) Thanks [@oussamaABID](https://github.com/oussamaABID)! - captcha: new `Captcha` and `CaptchaDisclosure` (`@krizaka/ui/captcha`) — Cloudflare Turnstile that stays hidden unless a challenge is needed (managed mode, `appearance: "interaction-only"`), a framed box on the tokens when it does appear, the theme following the page, an accessible error with a retry, and the « Protected by Cloudflare Turnstile · Privacy · Terms » line (EN/FR) for under the submit button.
+
+- [#323](https://github.com/krizaka/krizaka-ui/pull/323) [`840cff6`](https://github.com/krizaka/krizaka-ui/commit/840cff69dcb2aaebbd9159058e67c6f0ebd06b29) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `ChangelogPage` gains the `security` and `breaking` kinds (words and colour, both themes), and `@krizaka/ui/changelog-page` ships its data adapter: `parseChangesets` (a changesets CHANGELOG.md), `parseReleaseBody` (a GitHub Release), `draftFromTitles` / `changeFromTitle` (conventional PR titles to a plain-language draft), `kindOfTag`, `anchorOf`, `newestFirst` and `changelogRss` (an RSS 2.0 feed) — one `Release` shape for every Krizaka site's changelog (krizaka/krizaka-ui#307).
+
+- [#292](https://github.com/krizaka/krizaka-ui/pull/292) [`c77236d`](https://github.com/krizaka/krizaka-ui/commit/c77236d8ddad35c2a49e861bcfee6d6dd5c45482) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Desktop (ADR-002: desktop is the web components in the Orazaka Mac app's Tauri window). `AppShell.Root desktop`: the shell is a desktop app's window — the header, its title and the sidebar's top are the title bar (`data-tauri-drag-region`, never on a control), the top clears the traffic lights (`--kz-titlebar-inset`), no drawer, the desktop's density (32 px rows, 13 px text, a 48 px header), the chrome not selectable, the content scrolling under a fixed header (`--kz-window-height`). `acceleratorOf` (from `@krizaka/ui/app-shell`) writes a shortcut as a native menu accelerator (`mod+k` → `CmdOrCtrl+K`) so the menu bar answers the shell's keys. AppShell is the first component with `desktop: "desktop"` in the parity matrix.
+
+- [#310](https://github.com/krizaka/krizaka-ui/pull/310) [`ffa3402`](https://github.com/krizaka/krizaka-ui/commit/ffa34028fa60befc174ab98f0b65cdf269755ee6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `DocsNav` (`@krizaka/ui/docs-nav`) — the pages of a documentation in quiet groups for the `sidebar` of `DocsLayout` / `DocsArticlePage`: each group folds, the group of the current page is open, only the current page is marked; one-line titles, no icon. Server-safe, native `details`.
+
+- [#310](https://github.com/krizaka/krizaka-ui/pull/310) [`ffa3402`](https://github.com/krizaka/krizaka-ui/commit/ffa34028fa60befc174ab98f0b65cdf269755ee6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `MediaGrid` can head its grid like its shelf (`grid={{ label: "Videos" }}`, the same heading style as “Shorts”), and both headings take a `hint`: a small “i” that opens the section's one-line definition and a link to the glossary (`SectionHint`, also exported). The section is a named landmark; the hint opens on a press or hover and closes on Escape.
+
+- [#281](https://github.com/krizaka/krizaka-ui/pull/281) [`4dfbbc9`](https://github.com/krizaka/krizaka-ui/commit/4dfbbc904efa0d97549f7b16bc939e94dd28bc22) Thanks [@oussamaABID](https://github.com/oussamaABID)! - SiteFooter: `variant` — `site` (the full footer, unchanged), `docs` (compact: the site's columns in a row on the documentation's width, no site block, never the family) and `app` (one slim line for a signed-in product: publisher line, version, legal links). One footer component for every Krizaka surface; a page renders exactly one `contentinfo`.
+
+- [#306](https://github.com/krizaka/krizaka-ui/pull/306) [`e74e415`](https://github.com/krizaka/krizaka-ui/commit/e74e415348782780c8d06560d319cb016fffe04a) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Cards get a quiet hover. `LinkCard` and `ArgumentCard` take `hover="light"` (the pointer's light and the coloured lift, still the default) or `hover="quiet"`: no coloured glow or halo, a 2 px lift, one step of surface and hairline, the title leaning towards the accent text, and a focus ring on the whole card. `CardGrid hover="quiet"` quiets every card of a grid; a card can still say `hover="light"`. Under `prefers-reduced-motion` the quiet card does not lift. Documented on ui.krizaka.com with both hovers side by side.
+
+- [#324](https://github.com/krizaka/krizaka-ui/pull/324) [`c10fd78`](https://github.com/krizaka/krizaka-ui/commit/c10fd78250a8ff8936b95b56626ec49b16c657aa) Thanks [@oussamaABID](https://github.com/oussamaABID)! - New `RailNav` (`@krizaka/ui/rail-nav`) and `AppHeader` (`@krizaka/ui/app-header`): the compact navigation of an application. `RailNav` is a vertical rail of icons on a desktop — the product's mark on top, a tooltip and an `aria-label` on each icon, an accent bar on the left edge of the current one, a footer slot for settings and the account, arrow keys / Home / End between items, the Krizaka focus ring — and becomes a bottom tab bar on a phone (same items, same order, clear of the home indicator). `expandable` widens it to show the words. `accent` scopes a product's brand tokens. `AppHeader` sits beside it with the product's name as text and optional chips; the mark is the rail's on a desktop and the header's on a phone, so exactly one brand mark is visible at every width (tested). Web; on a native phone the rail is the existing `TabBar` (parity noted), on the Mac the web form.
+
+- [#327](https://github.com/krizaka/krizaka-ui/pull/327) [`528be7e`](https://github.com/krizaka/krizaka-ui/commit/528be7ee412c18d5d79b6d34c260d469163e822a) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `settings-layout`: a calm, flat settings screen. New `SettingsRow` (label and help on the left, the control or value on the right, stacked on a phone), `SettingsSection variant="flat"` (no card: a title then hairline-divided rows) and `SettingsLayout variant="flat"` (one column of at most 45rem). The section list keeps its hidden scrollbars and `overflow-y-hidden` (tested: no stray scrollbar). The default `card` variant is unchanged.
+
+- [#318](https://github.com/krizaka/krizaka-ui/pull/318) [`57a123f`](https://github.com/krizaka/krizaka-ui/commit/57a123f5527aab2edcb091a0d40e2feb7ab21ad6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - New `Waveform` (`@krizaka/ui/waveform`, and `Waveform` on `@krizaka/ui/native`): the bars of a sound drawn on their own, for a card or a banner. `peaks` (resampled to `bars`), `size` (sm · md · lg), `tone` (accent · neutral), `playing` for a gentle idle motion. Decorative by default (`aria-hidden`); a `label` makes it an image. Still under `prefers-reduced-motion`, and paused off screen on the web. `AudioPlayer` now shares its bar resampling (`resamplePeaks`, unchanged).
+
+### Patch Changes
+
+- [#320](https://github.com/krizaka/krizaka-ui/pull/320) [`75762cc`](https://github.com/krizaka/krizaka-ui/commit/75762cce12331e3cd02ad084073c35ce9653e01d) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `--kz-text-muted` now reaches WCAG AA (4.5:1) for small text on every surface, in both themes and under every brand (it was 4.11:1 on dark and 3.91:1 on light, between 3.05 and 4.17 across the surfaces). Same hue (240°), lightness moved: dark 47% to 59%, light 52% to 41%. In the light theme `--kz-text-secondary` goes from 41% to 35% so the hierarchy primary > secondary > muted holds. A new contrast test covers text-muted on the four surfaces and on each brand's section gradient.
+
+- [#317](https://github.com/krizaka/krizaka-ui/pull/317) [`80f530d`](https://github.com/krizaka/krizaka-ui/commit/80f530dcf40c077f54737ef7adb23087fb509fb3) Thanks [@oussamaABID](https://github.com/oussamaABID)! - GenUi: a line that closes one brace too many keeps its first complete object (measured on Orazaka dev: a model's `updateComponents` line ended with `}}}`) — only stray `}` / `]` may follow, the object is validated as any other; `leadingObject` is exported.
+
+- [#331](https://github.com/krizaka/krizaka-ui/pull/331) [`5798ea6`](https://github.com/krizaka/krizaka-ui/commit/5798ea6b183d8b2fa6033b9fc5007b168a7e1993) Thanks [@oussamaABID](https://github.com/oussamaABID)! - NavBar test: let the hover-intent timer finish before Escape, so it cannot reopen the menu (red on every PR run on a slow runner).
+
+- [#328](https://github.com/krizaka/krizaka-ui/pull/328) [`fba8ca4`](https://github.com/krizaka/krizaka-ui/commit/fba8ca409e5bfc8a206f88c3243f0f1cc7757f63) Thanks [@oussamaABID](https://github.com/oussamaABID)! - NavBar test: the Escape assertion waits for Radix's close instead of racing it (flaky on loaded CI runners, red on main).
+
+- [#281](https://github.com/krizaka/krizaka-ui/pull/281) [`4dfbbc9`](https://github.com/krizaka/krizaka-ui/commit/4dfbbc904efa0d97549f7b16bc939e94dd28bc22) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `SiteFooter`: a `SiteFooter.Column` with no link (empty, `null` or `false` children) now renders nothing instead of a heading over an empty list, the site's own columns share the row with an auto-fit grid (it was a fixed 2/3-column grid that left empty cells beside a single column on the Kachizaka and Yomizaka dev sites), and falsy children are dropped one by one.
+
+- [#244](https://github.com/krizaka/krizaka-ui/pull/244) [`07efd21`](https://github.com/krizaka/krizaka-ui/commit/07efd218c85f87f97be91b1081ad22215c013b53) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Tabs: add missing `data-[state=inactive]:hidden` to `TabsContent` to prevent ghost rendering and vertical stacking under `forceMount` (fixes [#213](https://github.com/krizaka/krizaka-ui/issues/213)).
+  cn, Button: memoize `{ twMergeConfig }` in `cn()` at module scope and use `cn()` in `Button` (fixes [#211](https://github.com/krizaka/krizaka-ui/issues/211)).
+- Updated dependencies [[`75762cc`](https://github.com/krizaka/krizaka-ui/commit/75762cce12331e3cd02ad084073c35ce9653e01d)]:
+  - @krizaka/tokens@3.23.0
+  - @krizaka/tailwind@3.23.0
+
 ## 3.22.0
 
 ### Minor Changes

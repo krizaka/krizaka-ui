@@ -4,6 +4,7 @@
 import * as React from "react";
 
 import { cn } from "../cn";
+import { SectionHint, type SectionHintProps } from "./section-hint";
 import { ShortsShelf, type ShortsShelfProps } from "./shorts-shelf";
 import type { VideoCardAspect } from "./video-card";
 
@@ -35,7 +36,9 @@ export interface MediaGridProps<T> extends Omit<React.ComponentProps<"div">, "ch
   /** `grid` or `list` (one row per video). @default "grid" */
   layout?: "grid" | "list";
   /** The shelf of `split`: its name, "See all" and arrows, passed translated. */
-  shelf: Pick<ShortsShelfProps<unknown>, "label" | "title" | "seeAll" | "previousLabel" | "nextLabel">;
+  shelf: Pick<ShortsShelfProps<unknown>, "label" | "title" | "hint" | "seeAll" | "previousLabel" | "nextLabel">;
+  /** A heading for the grid of the others (“Videos”), in the style of the shelf's, with an optional definition. */
+  grid?: { label: string; hint?: SectionHintProps };
 }
 
 const GRID = {
@@ -44,7 +47,8 @@ const GRID = {
 } as const;
 
 /** A media grid that never mixes heights badly: a shelf for the 9:16, a uniform grid for the rest. */
-export function MediaGrid<T>({ items, getId, orientationOf, renderItem, mode = "split", frame = "landscape", layout = "grid", shelf, className, ...props }: MediaGridProps<T>) {
+export function MediaGrid<T>({ items, getId, orientationOf, renderItem, mode = "split", frame = "landscape", layout = "grid", shelf, grid, className, ...props }: MediaGridProps<T>) {
+  const gridHeading = React.useId();
   const row = layout === "list";
   const split = mode === "split";
   const verticals = split ? items.filter((i) => orientationOf(i) === "portrait") : [];
@@ -55,13 +59,23 @@ export function MediaGrid<T>({ items, getId, orientationOf, renderItem, mode = "
     <div data-media-grid={mode} className={cn("flex min-w-0 flex-col gap-8", className)} {...props}>
       {verticals.length > 0 && <ShortsShelf {...shelf} items={verticals} getId={getId} renderItem={(item) => renderItem(item, { ...state(item, "portrait"), layout: "stack" })} />}
       {rest.length > 0 && (
-        <ul data-grid-frame={gridFrame} className={cn("m-0 grid list-none auto-rows-fr gap-4 p-0", row ? "grid-cols-1" : GRID[gridFrame])}>
-          {rest.map((item) => (
-            <li key={getId(item)} className="min-w-0">
-              {renderItem(item, state(item, gridFrame))}
-            </li>
-          ))}
-        </ul>
+        <section aria-labelledby={grid ? gridHeading : undefined} data-media-grid-section className="min-w-0">
+          {grid && (
+            <div className="mb-3 flex items-center gap-2">
+              <h2 id={gridHeading} className="m-0 text-base font-bold text-fg">
+                {grid.label}
+              </h2>
+              {grid.hint && <SectionHint {...grid.hint} />}
+            </div>
+          )}
+          <ul data-grid-frame={gridFrame} className={cn("m-0 grid list-none auto-rows-fr gap-4 p-0", row ? "grid-cols-1" : GRID[gridFrame])}>
+            {rest.map((item) => (
+              <li key={getId(item)} className="min-w-0">
+                {renderItem(item, state(item, gridFrame))}
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
     </div>
   );

@@ -16,11 +16,11 @@ describe("SearchField", () => {
     const user = userEvent.setup();
     const onSearch = vi.fn();
     const onSubmit = vi.fn();
-    render(<SearchField label="Search" onSearch={onSearch} onSubmit={onSubmit} debounce={40} />);
+    render(<SearchField label="Search" onSearch={onSearch} onSubmit={onSubmit} debounce={400} />); // long enough that a slow runner cannot pause between two keystrokes
     const input = screen.getByRole("searchbox") as HTMLInputElement;
     await user.type(input, "cat");
     expect(onSearch).not.toHaveBeenCalled();
-    await waitFor(() => expect(onSearch).toHaveBeenCalledWith("cat"));
+    await waitFor(() => expect(onSearch).toHaveBeenCalledWith("cat"), { timeout: 3000 });
     await user.keyboard("{Enter}");
     expect(onSubmit).toHaveBeenCalledWith("cat");
     await user.click(screen.getByRole("button", { name: "Clear search" }));

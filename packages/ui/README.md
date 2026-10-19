@@ -147,7 +147,8 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/skip-link` | `SkipLink` (`href`, default `#content`; the label as children): the first tab stop, hidden until focused, Enter moves focus to the content (WCAG 2.4.1) | client |
 | `@krizaka/ui/kbd` | `Kbd` (`size` sm·md), `kbdVariants` | server |
 | `@krizaka/ui/tabs` | `Tabs.Root/List/Trigger/Content` (`variant` underline·segmented·pills on the root, `orientation`, `value`/`defaultValue` + `onValueChange`; one light glides to the active tab), `tabs` (the slots) | client |
-| `@krizaka/ui/nav-bar` | `NavBar.Root` (`label`, `compactAfter`, `floating`) `/Brand` `/Family` (`current`, `labels`, `defaultOpen`: the family switcher on the brand, the mobile panel's last group inside `Mobile`) `/Badge` (`env`, `version`) `/Items/Link` (`active`) `/Menu` (`label`, `columns`) `/MenuLink` (`title`, `description`, `icon`) `/Actions` `/Repo` (`href`, `label`) `/Mobile` (`openLabel`, `closeLabel`) `/MobileLink`, `navBar` (the slots) | client |
+| `@krizaka/ui/language-switch` | `LanguageSwitch` (`label`, `current`, `languages`, `variant`, `linkAs`), `languagesFor(path)`, `languageHref(path, to)` | client |
+| `@krizaka/ui/nav-bar` | `NavBar.Root` (`label`, `compactAfter`, `floating`) `/Brand` `/Family` (`current`, `labels`, `defaultOpen`: the family switcher on the brand, the mobile panel's last group inside `Mobile`) `/Badge` (`env`, `version`) `/Items/Link` (`active`) `/Menu` (`label`, `columns`) `/MenuLink` (`title`, `description`, `icon`) `/Actions` `/Repo` (`href`, `label`) `/Language` (the language switch: a menu in the bar, a row in the mobile panel) `/Mobile` (`openLabel`, `closeLabel`) `/MobilePreferences` (`label`) `/MobileLink`, `navBar` (the slots) | client |
 | `@krizaka/ui/sites` | The Krizaka family as data: `sites` (id, name, url, host, kind, group, status, mark, repo), `siteGroups`, `siteById`, `sitesByGroup`, `familyLabels` (`en`, `fr`) | server |
 | `@krizaka/ui/site-footer` | `SiteFooter` (`current`, `labels`, `version`, `env`, `legal`; own columns as children) `.Column` (`title`) `.Link` (`active`, `asChild`): the footer of every Krizaka site — the family in columns, “A Krizaka company / product / open-source project”, the version, Montréal | client |
 | `@krizaka/ui/chip` | `Chip` (`selected`/`defaultSelected` + `onSelectedChange`, `size` sm·md; `removable` + `removeLabel` + `onRemove`), `Chip.Group` (`type` single·multiple, `label`, `required` for single), `chip` (the slots) | client |
@@ -192,6 +193,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/media-capture` | `MediaCapture` (`mode` photo·video·both, `facing`, `maxDuration`, permission asked on a gesture, the file picker as the way out, `onCapture({ blob, kind, url })`) | client |
 | `@krizaka/ui/video-trimmer` | `VideoTrimmer` (`duration`, `value` [start, end], `minLength`, `step`/`largeStep`, `frames` or children, `time` + `onSeek`, `classNames` per part, `renderHandle`) | client |
 | `@krizaka/ui/audio-player` | `AudioPlayer` (a seekable waveform: `peaks` or `computePeaks`, `bars`, `playbackRates`, `duration`), `resamplePeaks`, `computeAudioPeaks` | client |
+| `@krizaka/ui/waveform` | `Waveform` (`peaks`, `bars`, `size` sm·md·lg, `tone` accent·neutral, `playing`, `label`): the bars of a sound, decorative by default (`aria-hidden`), breathing gently while it plays, still under reduced motion and off screen; `/native` has the same | client |
 | `@krizaka/ui/image-cropper` | `ImageCropper` (`aspect`, `round`, an image or a `<video>`, a focus point + zoom out, keyboard and zoom slider), `cropRect` | client |
 | `@krizaka/ui/document-viewer` | `DocumentViewer` (a PDF drawn by pdf.js — `loadPdfjs={() => import("pdfjs-dist")}`, an optional peer — with `highlights` lit where their quotes sit, `activeId` / `onActiveChange`, `onLocate`; page + quote when the text layer cannot place one), `locateQuote` | client |
 | `@krizaka/ui/page` | the page frame: `Page` (`size` narrow·default·wide·full, `as`), `Section` (`id`, `eyebrow`, `title`, `lead`, `actions`, `divider`, `spacing` sm·md·lg, `backdrop`, `size`, `reveal`), `SectionHeading`, `Facts` (`items`: `label`, `tone` ok·wip·neutral, `href`), `Ticks` (backticks read as code) — see [Page blocks](#page-blocks) | server |
@@ -211,13 +213,21 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/app-shell` | `AppShell.Root` (`defaultCollapsed`, `collapsed` + `onCollapsedChange`) `/Sidebar` (`label`, `brand`, `footer`, `collapseLabels`, `closeLabel`; a drawer on a phone) `/Group/Item` (`icon`, `label`, `current`, `badge`, `shortcut`, `asChild`) `/Body/Header` (`title`, `menuLabel`, `actions`) `/Search` (`label`, `onOpen`, `shortcut` ⌘K — opens the app's `CommandDialog`) `/Main`; `collapseShortcut` (⌘B), `useShortcuts` — see [Layouts and templates](#layouts-and-templates) | client |
 | `@krizaka/ui/rail-nav` | `RailNav.Shell/Root/Item/Body`: `Root` (`label`, `mark`, `accent`, `footer`, `expandable` + `expanded`/`onExpandedChange`, `expandLabels`) is a vertical rail of icons on a desktop — the mark on top, a tooltip per icon, an accent bar on the current item — and a bottom tab bar on a phone; `Item` (`icon`, `label`, `current`, `badge`, `badgeLabel`, `asChild`); arrow keys, Home and End move between items | client |
 | `@krizaka/ui/app-header` | `AppHeader` (`name`, `mark`, `href` or `homeLink`, `chips`, `actions`): the bar beside a `RailNav` — the name as text, the mark below `md` only (the rail carries it above), so one mark shows at every width | server |
+| `@krizaka/ui/service-card` | `ServiceCard` (`name`, `price`, `priceFrom`, `duration`, `capacity`, `description`, `included`, `tag`, `icon`, `media`, `selected`, `actionLabel`, `href` + `linkAs` or `onSelect`): a service a shop sells as a card with one way in | server |
+| `@krizaka/ui/slot-picker` | `SlotPicker` (`days` of `{ id, label, sub, slots }`, `label`, `emptyLabel`, `value`, `onValueChange`, `linkAs`): the next free times as chips by day — links (`slot.href`) or toggles | client |
+| `@krizaka/ui/opening-hours` | `OpeningHours` (`days`, `today`, `status`, `label`): the weekly hours in one row (open now · closes at…) that unfolds into the week, today marked | server |
+| `@krizaka/ui/cover-hero` | `CoverHero` (`cover` `{ src, alt, video }`, `eyebrow`, `title`, `lead`, `facts`, `actions`, `back`, `linkAs`): a shop's first screen over its photo or muted loop (a still under reduced motion), brand colours without a cover | client |
+| `@krizaka/ui/sticky-action` | `StickyAction`: the page's one action held at the bottom edge of a phone (pure CSS, last child of `main`, not drawn from `md`) | server |
+| `@krizaka/ui/media-gallery` | `MediaGallery` (`items` of `{ id, src, alt, video, caption, shape }`, `label`): a shop's photos and loops in tiles, the first featured, loops play while seen | client |
 | `@krizaka/ui/dashboard-layout` | `DashboardLayout` (`title`, `eyebrow`, `description`, `actions`, `toolbar`, `headingAs`), `Widget` (`title`, `description`, `action`, `span` 1·2·3·full, `level`) | server |
 | `@krizaka/ui/settings-layout` | `SettingsLayout` (`title`, `description`, `nav`, `navLabel`, `linkAs`), `SettingsSection` (`title`, `description`, `footer`) | server |
+| `@krizaka/ui/account-menu` | `AccountMenu` (`label`, `name`, `email`, `avatar`, `links`, `language`, `signOut`) | client |
 | `@krizaka/ui/auth-layout` | `AuthLayout` (`brand`, `title`, `description`, `footer`, `legal`, `promise`, `aside`, `asideFooter`) | server |
 | `@krizaka/ui/detail-layout` | `DetailLayout` (`back`, `media`, `eyebrow`, `title`, `status`, `meta`, `actions`, `tabs`, `aside`) | server |
 | `@krizaka/ui/split-view` | `SplitView` (`listTitle`, `listActions`, `list`, `detailHead`, `detail`, `empty`, `showDetail`, `back`) | server |
 | `@krizaka/ui/marketing-layout` | `MarketingLayout` (`header`, `footer`, `skipLabel`) | server |
 | `@krizaka/ui/docs-layout` | `DocsLayout` (`sidebar`, `sidebarLabel`, `toc`) | server |
+| `@krizaka/ui/docs-nav` | `DocsNav` (`label`, `groups`, `current`) | server |
 | `@krizaka/ui/landing-page` | `LandingPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/product-page` | `ProductPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/how-it-works-page` | `HowItWorksPage` — a page template, see [Page templates](#page-templates) | server |
@@ -443,7 +453,7 @@ Testing Library (`src/native/*.test.tsx`); `scripts/native-dist.mjs` checks that
 ## The marks
 
 ```tsx
-import { AkinazaLogo, KachizakaLogo, KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, YasakiaLogo, YomizakaLogo, YororisLogo } from "@krizaka/ui";
+import { AkinazaLogo, KachizakaLogo, KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, WuSamaMark, YasakiaLogo, YomizakaLogo, YororisLogo } from "@krizaka/ui";
 
 <OrochiaLogo size={36} />                       // decorative (aria-hidden)
 <KrizakaLogo size={48} title="Krizaka" />       // an image with an accessible name
@@ -453,6 +463,7 @@ import { AkinazaLogo, KachizakaLogo, KrizakaLogo, OrazakaLogo, OrochiaLogo, Prod
 <YomizakaLogo size={32} />                      // Yomizaka: ink → indigo, the reading
 <KachizakaLogo size={32} />                     // Kachizaka: cobalt → gold, the sealed cup
 <AkinazaLogo size={32} />                       // Akinaza: forest → copper, the open shop
+<WuSamaMark size={32} title="Wu-sama" />         // the founder's byline mark (a person, not a product): a gold W in the Krizaka hexagon
 ```
 
 Neutral strokes follow the host's `--kz-*` tokens when they exist (`--kz-border-strong`, `--kz-text-muted`…) and the

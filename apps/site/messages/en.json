@@ -25,7 +25,8 @@
       "closeMenu": "Close the menu"
     },
     "footer": {
-      "docs": "Documentation"
+      "docs": "Documentation",
+      "changelog": "v{version}"
     },
     "notFound": {
       "title": "This page does not exist",
@@ -34,6 +35,35 @@
     },
     "structuredData": {
       "organization": "Krizaka is an open-source software studio in Montréal, Québec: Krizaka UI, Krizaka Java and the products built on them."
+    },
+    "changelog": {
+      "metaTitle": "Changelog",
+      "metaDescription": "What changed in every Krizaka UI package, version by version: new, fixed, security and breaking, with the pull request behind each line.",
+      "back": "Krizaka UI",
+      "eyebrow": "Changelog",
+      "title": "What shipped",
+      "lead": "Every release of every Krizaka UI package, newest first — read from the packages' own changelogs.",
+      "feed": "Subscribe (RSS)",
+      "logLabel": "Releases",
+      "kinds": {
+        "added": "New",
+        "changed": "Changed",
+        "fixed": "Fixed",
+        "removed": "Removed",
+        "security": "Security",
+        "breaking": "Breaking"
+      },
+      "tags": {
+        "feature": "New",
+        "fix": "Fixed",
+        "security": "Security",
+        "breaking": "Breaking",
+        "change": "Changed"
+      },
+      "pull": "Pull request #{number}",
+      "feedTitle": "Krizaka UI — changelog",
+      "feedDescription": "What shipped in Krizaka UI, release by release.",
+      "langTag": "en"
     }
   },
   "docs": {
@@ -203,6 +233,10 @@
         "motion": {
           "title": "Motion",
           "description": "One motion system: easing, durations, the arrival of blocks and the rule that stills it all under reduced motion."
+        },
+        "navigation": {
+          "title": "Navigation in the family",
+          "description": "One top bar for every Krizaka site and product: what is shared, what each product makes its own, the language switch, the check."
         },
         "brand-marks": {
           "title": "Brand marks",

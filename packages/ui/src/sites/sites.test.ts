@@ -64,6 +64,16 @@ describe("sites — the Krizaka family", () => {
     expect(t.place).toMatch(/Montréal/);
   });
 
+  it("makes the product the subject of its line: no product line but Orazaka's names Orazaka (the engine, never the subject)", () => {
+    for (const t of Object.values(familyLabels)) {
+      for (const site of sites) {
+        if (site.id === "orazaka") continue;
+        expect(t.descriptions[site.id], `${site.id} must not name Orazaka`).not.toMatch(/orazaka/i);
+      }
+    }
+    expect(familyLabels.fr.descriptions.yomizaka).toBe("Yomizaka lit vos baux, contrats et factures.");
+  });
+
   it("keeps Orochia's line neutral and Yororis' within its lexicon (never care, therapy or a waiting list)", () => {
     for (const t of Object.values(familyLabels)) {
       expect(t.descriptions.orochia).not.toMatch(/18\+|adult|adulte|explicit|nsfw|sex/i);
