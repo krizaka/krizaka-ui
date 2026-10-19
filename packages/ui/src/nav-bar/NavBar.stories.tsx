@@ -63,7 +63,7 @@ export const MenuLongText: Story = {
     <NavBar.Root label="Principal" floating={false} className="mb-80">
       <NavBar.Brand href="#home">Yomizaka</NavBar.Brand>
       <NavBar.Items defaultValue="product">
-        <NavBar.Menu value="product" label="Produit">
+        <NavBar.Menu value="product" label="Produit" inlineUpTo={0}>
           {LONG.map(([href, title, text]) => (
             <NavBar.MenuLink key={href} href={href} title={title} description={text} />
           ))}
