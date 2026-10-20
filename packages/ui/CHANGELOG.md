@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.35.0
+
+### Minor Changes
+
+- [#412](https://github.com/krizaka/krizaka-ui/pull/412) [`4fca4cc`](https://github.com/krizaka/krizaka-ui/commit/4fca4ccb3e0696c31d4e49c2fcce274b4cdf7644) Thanks [@oussamaABID](https://github.com/oussamaABID)! - sites: Krizaka Motion (the motion lab, krizaka.github.io/krizaka-motion) joins the family's open-source group — every family switcher (`NavBar.Family`) and family footer (`SiteFooter`) lists it after a bump, in English and French.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.35.0
+  - @krizaka/tokens@3.35.0
+
 ## 3.34.0
 
 ### Minor Changes
