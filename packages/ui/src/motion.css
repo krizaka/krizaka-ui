@@ -294,7 +294,7 @@ svg[data-kz-icon="ExternalIcon"] {
   display: flex;
   flex-direction: column;
   transform: translateY(calc(var(--kz-digit, 0) * -10%));
-  transition: transform 0.9s var(--kz-ease);
+  transition: transform var(--kz-count-duration, 900ms) var(--kz-count-ease, var(--kz-ease));
 }
 .kz-count-digit > span > span {
   height: 1lh;

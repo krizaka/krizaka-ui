@@ -47,4 +47,21 @@ describe("NumberTicker", () => {
     expect(container.querySelector(".sr-only")?.getAttribute("aria-live")).toBe("polite");
     expect(container.querySelector(".sr-only")?.textContent).toBe("1,300");
   });
+
+  it("config vocabulary: `duration` and `easing` drive the roll as well as the climb (CSS variables on the figure)", () => {
+    const { container } = render(<NumberTicker value={1250} trigger="change" duration={2000} easing="linear" />);
+    const box = container.querySelector(".kz-count") as HTMLElement;
+    expect(box.style.getPropertyValue("--kz-count-duration")).toBe("2000ms");
+    expect(box.style.getPropertyValue("--kz-count-ease")).toBe("linear");
+    const defaults = render(<NumberTicker value={1} trigger="change" />).container.querySelector(".kz-count") as HTMLElement;
+    expect(defaults.style.getPropertyValue("--kz-count-duration")).toBe(""); // untouched: the stylesheet's 900 ms roll
+    expect(defaults.style.getPropertyValue("--kz-count-ease")).toBe("");
+  });
+
+  it("the stylesheet reads them for the roll", async () => {
+    const { readFileSync } = await import("node:fs");
+    const { join } = await import("node:path");
+    const css = readFileSync(join(import.meta.dirname, "../motion.css"), "utf8");
+    expect(css).toMatch(/\.kz-count-digit > span \{[^}]*transition: transform var\(--kz-count-duration, 900ms\) var\(--kz-count-ease, var\(--kz-ease\)\)/);
+  });
 });

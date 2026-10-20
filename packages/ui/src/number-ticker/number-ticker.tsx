@@ -22,10 +22,14 @@ export interface NumberTickerProps extends Omit<React.ComponentProps<"span">, "c
    */
   trigger?: "view" | "change";
   /**
-   * Milliseconds of the climb.
-   * @default 1100
+   * Milliseconds of the climb (`view`) or of each digit's roll (`change`). Unset: 1100 ms to climb, 900 ms to roll.
    */
   duration?: number;
+  /**
+   * The timing function of the climb and of the roll: `ease-out` (the climb's own curve), `linear`, `ease-in-out`, or any
+   * CSS `<easing-function>`. Unset: the platform's curve (`--kz-ease`).
+   */
+  easing?: "ease-out" | "linear" | "ease-in-out" | (string & {});
   /** Announce each new value politely (`trigger="change"`): a live total the reader should hear. */
   announce?: boolean;
   /**
@@ -36,9 +40,12 @@ export interface NumberTickerProps extends Omit<React.ComponentProps<"span">, "c
 }
 
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 4);
+const curves: Record<string, (t: number) => number> = { linear: (t) => t, "ease-in-out": (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2) };
 
 /** A figure that climbs into view, or rolls digit by digit to each new value. */
-export function NumberTicker({ value, locale, format, trigger = "view", duration = 1100, announce, align = "end", className, ...props }: NumberTickerProps) {
+export function NumberTicker({ value, locale, format, trigger = "view", duration, announce, align = "end", easing, className, style, ...props }: NumberTickerProps) {
+  const climb = duration ?? 1100;
+  const curve = (easing && curves[easing]) || easeOut;
   const formatter = React.useMemo(() => new Intl.NumberFormat(locale, format), [locale, format]);
   const text = formatter.format(value);
   const live = React.useRef<HTMLSpanElement>(null);
@@ -64,8 +71,8 @@ export function NumberTicker({ value, locale, format, trigger = "view", duration
         if (wasFirst) return; // already on screen at load: it stays, nothing drops to 0 in front of the reader
         const start = performance.now();
         const tick = (now: number) => {
-          const p = Math.min(1, (now - start) / duration);
-          el.textContent = formatter.format(value * easeOut(p));
+          const p = Math.min(1, (now - start) / climb);
+          el.textContent = formatter.format(value * curve(p));
           if (p < 1) frame = requestAnimationFrame(tick);
         };
         el.textContent = formatter.format(0);
@@ -79,10 +86,16 @@ export function NumberTicker({ value, locale, format, trigger = "view", duration
       cancelAnimationFrame(frame);
       el.textContent = formatter.format(value);
     };
-  }, [trigger, value, duration, formatter]);
+  }, [trigger, value, climb, curve, formatter]);
 
   return (
-    <span data-align={align} data-trend={trigger === "change" ? trend : undefined} className={cx("kz-count", className)} {...props}>
+    <span
+      data-align={align}
+      data-trend={trigger === "change" ? trend : undefined}
+      className={cx("kz-count", className)}
+      style={{ ...(duration !== undefined ? { "--kz-count-duration": `${duration}ms` } : null), ...(easing ? { "--kz-count-ease": easing } : null), ...style } as React.CSSProperties}
+      {...props}
+    >
       <span aria-hidden className="kz-count-ghost">
         {text}
       </span>
