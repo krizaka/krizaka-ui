@@ -1,0 +1,128 @@
+{
+ "01": {
+  "keyframe": "01-i60-s2026102101",
+  "rejected": []
+ },
+ "02": {
+  "keyframe": "02-i60-s2026102102",
+  "rejected": [
+   {
+    "take": "02-i60-s2026102002",
+    "why": "visor became goggles over separate eyes, body drifted toward a real bird"
+   },
+   {
+    "take": "02-edit-ref",
+    "why": "free FLUX edit: the falcon became an owl-like bird without its visor"
+   }
+  ]
+ },
+ "04": {
+  "keyframe": "04-i60-s2026102004",
+  "rejected": []
+ },
+ "05": {
+  "keyframe": "05-i60-s2026102005",
+  "rejected": [
+   {
+    "take": "05-i60-s2026102105",
+    "why": "the duck lost its round glasses and floats above the bench"
+   }
+  ]
+ },
+ "06": {
+  "keyframe": "06-i60-s2026102006",
+  "rejected": []
+ },
+ "08": {
+  "keyframe": "08-i60-s2026102008",
+  "rejected": [
+   {
+    "take": "08-i60-s2026102108",
+    "why": "the pigeon turned pale lavender, off its sky-blue"
+   }
+  ]
+ },
+ "10": {
+  "keyframe": "10-i60-s2026102010",
+  "rejected": [],
+  "keyframe_t1": "10-i70-s2026107110 (strength 0.70: bluer); rejected 10-i70-s2026107010 (two parcels)"
+ },
+ "11": {
+  "keyframe": "11-i80-s2026109111 (image strength 0.80: a group of five drifts at 0.60)",
+  "rejected": [
+   {
+    "take": "11-i60-s2026102011",
+    "why": "the duck's code-block prop became a sixth bird"
+   },
+   {
+    "take": "11-i60-s2026102111",
+    "why": "a sixth bird; the owl wears glasses"
+   },
+   {
+    "take": "11-i60 (3 seeds)",
+    "why": "falcon visor \u2192 sunglasses / eye patch, the owl holds a torch in a hand, glowing goggles, a second parcel"
+   },
+   {
+    "take": "11-i68 (3 seeds)",
+    "why": "same drifts"
+   },
+   {
+    "take": "11-i74 (2 seeds)",
+    "why": "falcon sunglasses, cyan lights on the bodies"
+   },
+   {
+    "take": "11-i80-s2026109011",
+    "why": "the owl wears glasses"
+   }
+  ]
+ },
+ "12": {
+  "keyframe": "12-i60-s2026102012",
+  "rejected": []
+ },
+ "13": {
+  "keyframe": "13-i60-s2026102013",
+  "rejected": []
+ },
+ "14": {
+  "keyframe": "14-i60-s2026102014",
+  "rejected": []
+ },
+ "15": {
+  "keyframe": "15-i60-s2026102015",
+  "rejected": []
+ },
+ "16": {
+  "keyframe": "16-i60-s2026102116",
+  "rejected": [
+   {
+    "take": "16-i60-s2026102016",
+    "why": "the phoenix became a parrot-like bird with a flame crest"
+   }
+  ]
+ },
+ "takes": {
+  "01-hook-visor-t0": "accepted (a faint smile line under the beak late in the take: reshoot candidate)",
+  "02-falcon-cliff-t0": "accepted, 56 of 81 frames (the runner was stopped during the encode)",
+  "04-owl-archive-t0": "accepted",
+  "05-duck-workshop-t0": "partly: 0.15\u20132.45 s kept (the block placed on the stack); after 2.5 s the duck leaps and its body twists: rejected",
+  "06-flamingo-lake-t0": "accepted (the beak tip reads darker than the render's: minor)",
+  "07-coin-splash-t0": "accepted",
+  "08-pigeon-takeoff-t0": "accepted: the pigeon launches with its parcel and the view tilts up into the sun (it leaves the frame at ~1.5 s)",
+  "09-pigeon-flight": "not made: it was chained to shot 8's last frame, an empty sky \u2014 the model would have had to invent the pigeon (off-model by construction). Cancelled 3 steps in; the edit goes from the takeoff to the landing.",
+  "03-valley-aerial-t0": "accepted, played reversed (the sun sinks behind the ridge: reversed, it rises for the dawn title)",
+  "17-storm-valley-t0": "accepted",
+  "18-sunrise-peaks-t0": "accepted",
+  "19-golden-valley-t0": "accepted for its first 2 s (then the sky washes out to white)",
+  "10-pigeon-doorstep-t0": "accepted with notes: the parcel is set on the step (the delivery reads) but the pigeon starts standing (no landing) and reads paler than its sky-blue (from its keyframe): reshoot candidate",
+  "11-five-on-the-ridge-t0": "accepted: five birds throughout, designs kept (the falcon's eye lights dim on a few frames, the visor stays)",
+  "12-lovebirds-t0": "accepted: they shuffle together, a heart of light rises (the wings pick up some blue; bodies and coral faces stay)",
+  "13-crane-listens-t0": "accepted: it closes its eyes and listens",
+  "14-magpie-podium-t0": "accepted: the gold star lands on the first place",
+  "15-beaver-shop-t0": "accepted: the till, the receipt",
+  "16-phoenix-dawn-t0": "accepted: the phoenix rises with the sun, its wings open (violet, gold, the core, the crest); the flock small on the ridge",
+  "01-hook-visor-t1": "accepted, replaces t0: the beak stays a closed triangle; the push-in ends in the visor with the valley reflected",
+  "05-duck-workshop-t1": "accepted, replaces t0: the duck stays on the bench, three blocks stack and light up (its gesture); glasses, bill, colour and curl kept; the body reads more upright than the render's",
+  "10-pigeon-doorstep-t1": "rejected: livelier (flutter, landing) but the parcel turns into a green glow; t0 stays"
+ }
+}

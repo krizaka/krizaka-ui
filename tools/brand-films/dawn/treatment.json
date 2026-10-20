@@ -1,0 +1,1002 @@
+{
+  "_": "« Le monde de Krizaka : l'aube » / The World of Krizaka: Dawn — the treatment as data. Read by `orazaka cinema plan` (orazaka-cli, the shot-list planner of orazaka#259): every shot names its duration, lens, camera, light, air, action, the birds it holds (continuity references: each one's Mascot render) and the model that makes it. compose.py lays the birds (x = centre, y = feet line, h = height, fractions of the frame) on the canvas a keyframe re-lights. TREATMENT.md is the prose version.",
+  "title": "The World of Krizaka: Dawn",
+  "logline": "Night falls over the valley; one bird keeps watch, each of the others keeps its promise, and the flock greets the dawn as the phoenix rises.",
+  "aspect": "16:9",
+  "grade": "teal-orange",
+  "style": "Premium feature-film CG animation, real-world light and lenses, shallow depth of field, anamorphic flares, filmic contrast, fine grain.",
+  "music": "epic modern cinematic score, felt piano ostinato and low pulse, building strings, deep taiko hits on downbeats, wide choir pads, rising to a warm triumphant major climax then a soft resolve, 90 bpm, instrumental",
+  "ambience": "wind",
+  "seedBase": 2026102000,
+  "keep": "One single continuous shot. The characters keep their exact cartoon design, proportions, colours and features, rendered as high-end feature-film CG characters with soft fine feather texture. Plain unbranded surfaces, no lettering.",
+  "keyframeKeep": "Keep every character's exact shape, proportions, colours, eyes and features unchanged, as stylised cartoon characters rendered in high-end feature-film CG with soft fine feather texture, subsurface light and contact shadows. No text, no logos, no people.",
+  "cues": {
+    "falcon": {
+      "en": "The falcon keeps watch: security comes first.",
+      "fr": "Le faucon veille : la sécurité d’abord."
+    },
+    "owl": {
+      "en": "The owl reads every page and knows every face.",
+      "fr": "Le hibou lit chaque page et reconnaît chaque visage."
+    },
+    "duck": {
+      "en": "The duck builds, line by line, in the open.",
+      "fr": "Le canard construit, ligne après ligne, en open source."
+    },
+    "flamingo": {
+      "en": "The flamingo answers, and the payment follows.",
+      "fr": "Le flamant répond, et le paiement suit."
+    },
+    "pigeon": {
+      "en": "The pigeon delivers, every time.",
+      "fr": "Le pigeon livre, à chaque fois."
+    },
+    "together": {
+      "en": "Each bird carries a promise.",
+      "fr": "Chaque oiseau porte une promesse."
+    },
+    "family": {
+      "en": "And the family keeps growing.",
+      "fr": "Et la famille s’agrandit."
+    }
+  },
+  "characters": [
+    {
+      "id": "falcon",
+      "reference": "falcon",
+      "description": "the orange-red falcon character with a black visor across its eyes holding two glowing cyan eye lights, small ear tufts"
+    },
+    {
+      "id": "owl",
+      "reference": "owl",
+      "description": "the violet owl character with two big round white eyes and pointed ear tufts"
+    },
+    {
+      "id": "duck",
+      "reference": "duck",
+      "description": "the crimson duck character with round glasses and a yellow bill"
+    },
+    {
+      "id": "flamingo",
+      "reference": "flamingo",
+      "description": "the pink flamingo character with a long curved neck and a yellow-tipped beak"
+    },
+    {
+      "id": "pigeon",
+      "reference": "pigeon",
+      "description": "the sky-blue pigeon character with violet wings carrying a small orange parcel"
+    },
+    {
+      "id": "lovebird",
+      "reference": "lovebird",
+      "description": "the green lovebird character with a coral-pink face"
+    },
+    {
+      "id": "crane",
+      "reference": "crane",
+      "description": "the slender pale grey crane character with a long neck, a long beak and a small red crown"
+    },
+    {
+      "id": "magpie",
+      "reference": "magpie",
+      "description": "the slate-grey magpie character with cobalt-blue wings and a long dark tail"
+    },
+    {
+      "id": "beaver",
+      "reference": "beaver",
+      "description": "the brown beaver character with one big front tooth and a flat dark tail"
+    },
+    {
+      "id": "phoenix",
+      "reference": "phoenix",
+      "description": "the phoenix, two flame-shaped wings, one violet and one gold, around a small dark body with one bright white core and a gold crest"
+    }
+  ],
+  "titles": [
+    {
+      "shot": 3,
+      "style": "hero",
+      "en": "The world of Krizaka.",
+      "fr": "Le monde de Krizaka."
+    }
+  ],
+  "shots": [
+    {
+      "id": 1,
+      "slug": "hook-visor",
+      "seconds": 2.0,
+      "characters": [
+        "falcon"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "100mm macro",
+      "camera": "very slow push-in",
+      "lighting": "near darkness, cold blue rim light, the eye lights as the only key",
+      "atmosphere": "fine rain drops beading on the visor, drifting mist",
+      "transition": "cut",
+      "speed": 1,
+      "rampAt": null,
+      "action": "the falcon's two cyan eye lights ignite behind its black visor",
+      "backdrop": [
+        "#05070d",
+        "#0b1424"
+      ],
+      "birds": [
+        {
+          "bird": "falcon",
+          "x": 0.5,
+          "y": 2.05,
+          "h": 1.95
+        }
+      ],
+      "vx": 0.5,
+      "keyframe": "Extreme macro close-up of the falcon character's black visor filling the frame in near darkness, cold blue rim light on its orange feathers, rain drops beading on the glossy visor, mist, very shallow depth of field.",
+      "motion": "Extreme close-up of the orange falcon character's black visor in the dark: the two round cyan eye lights behind the visor slowly ignite and brighten, rain drops glistening on the glossy visor, a cold reflection of a valley gliding across it. Its small yellow beak stays a simple closed triangle. Very slow push-in, 100 mm macro. Cold blue rim light, deep black shadows, fine mist. Slow and deliberate.",
+      "plate": "Extreme macro background in near darkness, rain drops falling, cold blue rim light, dark bokeh of distant lights, mist, very shallow depth of field.",
+      "light": {
+        "key": [
+          0,
+          -1
+        ],
+        "exposure": 0.42,
+        "rim": [
+          150,
+          190,
+          255
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "slug": "falcon-cliff",
+      "seconds": 5.0,
+      "characters": [
+        "falcon"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "35mm anamorphic",
+      "camera": "slow orbit right around the falcon",
+      "lighting": "blue hour, cold moonlight key, warm rim from distant village lights",
+      "atmosphere": "wind in the feathers, fog rolling through the valley far below",
+      "transition": "cut",
+      "speed": 1,
+      "rampAt": null,
+      "action": "the falcon stands on the cliff edge and turns its head left, then right, scanning the valley; a faint cyan scan line sweeps the visor",
+      "caption": "falcon",
+      "backdrop": [
+        "#0d1a33",
+        "#1b2433"
+      ],
+      "birds": [
+        {
+          "bird": "falcon",
+          "x": 0.75,
+          "y": 0.83,
+          "h": 0.5
+        }
+      ],
+      "vx": 0.72,
+      "keyframe": "Low-angle hero shot of the falcon character standing on the edge of a dark basalt cliff at blue hour, a vast misty mountain valley far below with a river and a few warm village lights, moonlight, wind, volumetric fog, anamorphic, shallow depth of field.",
+      "motion": "The orange falcon character with a black visor and two glowing cyan eyes stands on a basalt cliff edge at blue hour, wind ruffling its feathers; it slowly turns its head to the left, then to the right, scanning the valley, a faint cyan scan line sweeping across its visor. Slow orbit right around it, 35 mm anamorphic. Cold moonlight, warm rim light, fog rolling in the valley below. Calm, watchful.",
+      "light": {
+        "key": [
+          -0.6,
+          -1
+        ],
+        "exposure": 0.62,
+        "rim": [
+          190,
+          215,
+          255
+        ]
+      },
+      "plate": "Low-angle shot of the edge of a dark basalt cliff in the right half of the frame at blue hour, empty rocky ledge in the foreground, a vast misty mountain valley far below with a winding river and a few warm village lights, full moon, volumetric fog, anamorphic lens, shallow depth of field."
+    },
+    {
+      "id": 3,
+      "slug": "valley-aerial",
+      "seconds": 2.9,
+      "characters": [],
+      "model": "ltx-video-0.9.8-13b-distilled",
+      "lens": "24mm",
+      "camera": "fast aerial glide forward over the valley",
+      "lighting": "first light behind the mountains, deep blue valley",
+      "atmosphere": "low clouds, river mist",
+      "transition": "dissolve",
+      "speed": 1,
+      "rampAt": null,
+      "action": "the view glides over the sleeping valley toward the brightening horizon",
+      "backdrop": [
+        "#1a2a4a",
+        "#0e1a22"
+      ],
+      "birds": [],
+      "vx": 0.5,
+      "keyframe": "Aerial cinematic shot over a vast mountain valley before dawn, a winding river reflecting the sky, layers of low cloud, snow-capped peaks, the first orange light glowing behind the mountains, deep blue shadows, atmospheric haze, epic scale.",
+      "motion": "Aerial drone shot gliding fast and low over a vast mountain valley before dawn, the winding river reflecting the brightening sky, low clouds parting as the view flies forward toward the glowing horizon behind the peaks. Smooth forward motion, 24 mm. Deep blue shadows, first orange light, atmospheric haze. Majestic, steady.",
+      "plate": "Aerial cinematic shot over a vast mountain valley before dawn, a winding river reflecting the sky, layers of low cloud, snow-capped peaks, the first orange light glowing behind the mountains, deep blue shadows, atmospheric haze, epic scale."
+    },
+    {
+      "id": 4,
+      "slug": "owl-archive",
+      "seconds": 5.0,
+      "characters": [
+        "owl"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "50mm",
+      "camera": "slow dolly in",
+      "lighting": "warm lantern key, shafts of moonlight through tall arched windows",
+      "atmosphere": "dust motes in the light shafts",
+      "transition": "cut",
+      "speed": 1,
+      "rampAt": 3.2,
+      "action": "the owl reads a page line by line, its eyes following the lines, then a green check glows on the page",
+      "caption": "owl",
+      "backdrop": [
+        "#2a1d10",
+        "#120c08"
+      ],
+      "birds": [
+        {
+          "bird": "owl",
+          "x": 0.69,
+          "y": 0.745,
+          "h": 0.44
+        }
+      ],
+      "vx": 0.62,
+      "keyframe": "The owl character holding a page in a vast old archive at night, towering wooden shelves of books, tall arched windows with shafts of moonlight, a warm brass lantern beside it, floating dust motes, cinematic depth of field.",
+      "motion": "The violet owl character with big round white eyes reads the page it holds, its eyes moving across the lines one by one, then a soft green check mark glows on the page and it looks up with calm certainty. Slow dolly in, 50 mm. Warm lantern key light, shafts of moonlight through tall arched windows, dust motes drifting in the beams. Quiet and focused.",
+      "plate": "A vast old archive library at night seen at eye level, a heavy wooden reading desk in the centre foreground with an open book and a warm brass lantern on its left side, towering wooden bookshelves receding behind, tall arched windows with shafts of moonlight, floating dust motes, deep depth of field falling off, warm and cool light.",
+      "light": {
+        "key": [
+          -1,
+          -0.3
+        ],
+        "exposure": 0.72,
+        "rim": [
+          255,
+          210,
+          150
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "slug": "duck-workshop",
+      "seconds": 2.6,
+      "characters": [
+        "duck"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "35mm",
+      "camera": "slow push-in",
+      "lighting": "cyan glow of the blocks as key, warm amber desk lamp, first daylight through a skylight",
+      "atmosphere": "fine sparks and floating light particles",
+      "transition": "whip",
+      "speed": 1,
+      "rampAt": null,
+      "action": "the duck places glowing code blocks that stack up one by one and light up",
+      "caption": "duck",
+      "backdrop": [
+        "#10202a",
+        "#1c140c"
+      ],
+      "birds": [
+        {
+          "bird": "duck",
+          "x": 0.36,
+          "y": 0.69,
+          "h": 0.42
+        }
+      ],
+      "vx": 0.42,
+      "keyframe": "The duck character in a warm wooden maker's workshop at dawn, a workbench, glowing translucent cyan blocks stacked beside it, a brass desk lamp, a skylight with the first blue daylight, floating light particles, cinematic depth of field.",
+      "motion": "The crimson duck character with round glasses stands on the workbench beside a glowing cyan cube and, with its wing, carefully sets a glowing block on top of the cube; the stack locks together and lights up from bottom to top in bright cyan, small sparks rising. The duck stays standing on the bench the whole time. Slow push-in, 35 mm. Cyan glow as key light, warm amber lamp, first daylight from a skylight. Precise, calm, satisfying.",
+      "plate": "A warm wooden maker's workshop at dawn, a sturdy workbench in the centre foreground, glowing translucent cyan cubes on the bench, a brass desk lamp on the right, tools on a pegboard wall, a skylight with the first blue daylight, floating light particles, shallow depth of field.",
+      "light": {
+        "key": [
+          1,
+          -0.5
+        ],
+        "exposure": 0.78,
+        "rim": [
+          140,
+          230,
+          255
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "slug": "flamingo-lake",
+      "seconds": 5.0,
+      "characters": [
+        "flamingo"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "85mm",
+      "camera": "slow lateral tracking",
+      "lighting": "sunrise backlight, golden rim on the feathers, lens flare",
+      "atmosphere": "mist on a mirror-still lake",
+      "transition": "cut",
+      "speed": 1,
+      "rampAt": null,
+      "action": "the flamingo lifts its head and answers, a soft pink glow rising; a gold coin with a star drops into the water in front of it",
+      "caption": "flamingo",
+      "backdrop": [
+        "#f3a46b",
+        "#3a3f5c"
+      ],
+      "birds": [
+        {
+          "bird": "flamingo",
+          "x": 0.38,
+          "y": 0.93,
+          "h": 0.66
+        }
+      ],
+      "vx": 0.42,
+      "keyframe": "The flamingo character standing in a mirror-still mountain lake at sunrise, its reflection in the water, mist drifting on the surface, golden backlight, rim light on soft pink feathers, anamorphic flare, shallow depth of field.",
+      "motion": "The pink flamingo character standing in a mirror-still lake at sunrise lifts its head and opens its beak to answer, a soft pink glow rising from it; a single gold coin with an embossed star falls in front of it and drops into the water with a ring of ripples. Slow lateral tracking, 85 mm. Sunrise backlight, golden rim light, mist on the water, anamorphic flare. Graceful and assured.",
+      "plate": "A mirror-still mountain lake at sunrise, shallow water in the foreground, mist drifting on the surface, the sun just above the far mountains, golden backlight, anamorphic lens flare, reflections, shallow depth of field.",
+      "light": {
+        "key": [
+          0,
+          -1
+        ],
+        "exposure": 0.8,
+        "rim": [
+          255,
+          200,
+          140
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "slug": "coin-splash",
+      "seconds": 2.67,
+      "characters": [],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "100mm macro",
+      "camera": "static locked-off",
+      "lighting": "low golden backlight through the water drops",
+      "atmosphere": "droplets, mist",
+      "transition": "cut",
+      "speed": 0.5,
+      "rampAt": null,
+      "action": "a gold coin with a star hits the lake surface and throws a crown splash in slow motion",
+      "backdrop": [
+        "#e89a5c",
+        "#2a3550"
+      ],
+      "birds": [],
+      "vx": 0.5,
+      "keyframe": "Macro shot at water level of a mirror-still lake at sunrise, a single gold coin with an embossed star hanging just above the surface, golden backlight, bokeh of mist, extremely shallow depth of field.",
+      "motion": "Macro at water level: a single gold coin with an embossed star falls and hits the mirror-still lake surface, throwing up a glittering crown splash of droplets in slow motion, rings of ripples spreading. Static locked-off, 100 mm macro. Low golden backlight shining through the droplets, soft mist bokeh. 240 fps slow-motion look.",
+      "plate": "Macro shot at water level of a mirror-still lake at sunrise, a single gold coin with an embossed star hanging just above the surface in the centre, golden backlight, bokeh of mist, extremely shallow depth of field."
+    },
+    {
+      "id": 8,
+      "slug": "pigeon-takeoff",
+      "seconds": 2.67,
+      "characters": [
+        "pigeon"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "24mm",
+      "camera": "low angle, slow tilt up",
+      "lighting": "golden morning sun, long shadows",
+      "atmosphere": "warm haze, a few feathers drifting",
+      "transition": "cut",
+      "speed": 1,
+      "rampAt": null,
+      "action": "the pigeon grips its parcel, spreads its wings and launches into the air",
+      "backdrop": [
+        "#f2c27a",
+        "#7a5a44"
+      ],
+      "birds": [
+        {
+          "bird": "pigeon",
+          "x": 0.32,
+          "y": 0.8,
+          "h": 0.5
+        }
+      ],
+      "vx": 0.35,
+      "keyframe": "The pigeon character with its small orange parcel standing on the edge of an old terracotta rooftop at golden morning, a village of warm roofs and chimneys behind it, long shadows, warm haze, low angle.",
+      "motion": "The sky-blue pigeon character with violet wings holds its small orange parcel, crouches, spreads its wings wide and launches into the golden morning sky from a terracotta rooftop, a few feathers drifting. Low angle, slow tilt up, 24 mm. Golden morning sun, long shadows, warm haze. Energetic burst.",
+      "plate": "Low angle view of the edge of an old terracotta tiled rooftop in the foreground at golden morning, a village of warm roofs and chimneys below, clear warm sky, long shadows, warm haze.",
+      "light": {
+        "key": [
+          1,
+          -0.6
+        ],
+        "exposure": 0.9,
+        "rim": [
+          255,
+          215,
+          150
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "slug": "pigeon-flight",
+      "seconds": 2.67,
+      "characters": [
+        "pigeon"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "50mm",
+      "camera": "fast tracking alongside",
+      "lighting": "golden sun behind, rim light through the wing feathers",
+      "atmosphere": "clouds rushing past",
+      "transition": "cut",
+      "speed": 1,
+      "rampAt": null,
+      "continuous": true,
+      "action": "the pigeon flies fast above the valley holding its parcel, wings beating",
+      "caption": "pigeon",
+      "backdrop": [
+        "#f2c27a",
+        "#5c86b8"
+      ],
+      "birds": [
+        {
+          "bird": "pigeon",
+          "x": 0.5,
+          "y": 0.75,
+          "h": 0.5
+        }
+      ],
+      "vx": 0.5,
+      "keyframe": "The pigeon character flying high above a sunlit mountain valley holding its small orange parcel, wings wide, golden sun behind it, clouds below.",
+      "motion": "The sky-blue pigeon character with violet wings flies fast through the golden morning sky above the valley, holding its small orange parcel, wings beating strongly, clouds rushing past below. Fast tracking shot alongside it, 50 mm. Golden sun behind, rim light glowing through the wing feathers. Fast, determined.",
+      "plate": "High above a sunlit mountain valley in the golden morning sky, clouds below, golden sun behind, aerial.",
+      "light": {
+        "key": [
+          0,
+          -1
+        ],
+        "exposure": 0.9,
+        "rim": [
+          255,
+          215,
+          150
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "slug": "pigeon-doorstep",
+      "seconds": 3.0,
+      "characters": [
+        "pigeon"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "50mm",
+      "camera": "static, low at doorstep height",
+      "lighting": "warm morning sun raking across the step",
+      "atmosphere": "dust lifted by the wings",
+      "transition": "flash",
+      "speed": 1,
+      "rampAt": 1.4,
+      "action": "the pigeon lands on a doorstep and sets its parcel down exactly on the step; a green check of light appears",
+      "backdrop": [
+        "#d9a46a",
+        "#4a3a30"
+      ],
+      "birds": [
+        {
+          "bird": "pigeon",
+          "x": 0.42,
+          "y": 0.8,
+          "h": 0.46
+        }
+      ],
+      "vx": 0.45,
+      "keyframe": "The pigeon character landing on the stone doorstep of a blue wooden door, holding its small orange parcel, warm morning sun raking across the step, potted plants, dust in the air, shallow depth of field.",
+      "motion": "The sky-blue pigeon character with violet wings flutters down and lands softly on the stone doorstep in front of a blue wooden door, wings folding, and sets its small orange parcel down exactly on the step; a small green check of light glows above the parcel and the pigeon puffs its chest. Static low angle at doorstep height, 50 mm. Warm morning sun, dust lifted by the wings.",
+      "plate": "Low angle at doorstep height of a stone doorstep in front of a blue wooden door, potted plants on both sides, warm morning sun raking across the step, dust in the air, shallow depth of field.",
+      "light": {
+        "key": [
+          1,
+          -0.4
+        ],
+        "exposure": 0.9,
+        "rim": [
+          255,
+          220,
+          160
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "slug": "five-on-the-ridge",
+      "seconds": 5.0,
+      "characters": [
+        "falcon",
+        "owl",
+        "duck",
+        "flamingo",
+        "pigeon"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "35mm",
+      "camera": "slow push-in",
+      "lighting": "full golden hour backlight, rim light on every bird",
+      "atmosphere": "grass and feathers moving in the wind, valley haze",
+      "transition": "cut",
+      "speed": 1,
+      "rampAt": null,
+      "action": "the five birds stand in a row on the ridge; they turn their heads to the camera together",
+      "caption": "together",
+      "backdrop": [
+        "#f2b27a",
+        "#5f7f5a"
+      ],
+      "birds": [
+        {
+          "bird": "pigeon",
+          "x": 0.2,
+          "y": 0.92,
+          "h": 0.3
+        },
+        {
+          "bird": "flamingo",
+          "x": 0.35,
+          "y": 0.92,
+          "h": 0.42
+        },
+        {
+          "bird": "falcon",
+          "x": 0.5,
+          "y": 0.93,
+          "h": 0.36,
+          "crop": [
+            0,
+            0,
+            0.86,
+            1
+          ]
+        },
+        {
+          "bird": "owl",
+          "x": 0.65,
+          "y": 0.92,
+          "h": 0.33,
+          "crop": [
+            0,
+            0,
+            0.8,
+            1
+          ]
+        },
+        {
+          "bird": "duck",
+          "x": 0.8,
+          "y": 0.92,
+          "h": 0.32,
+          "crop": [
+            0,
+            0,
+            0.74,
+            1
+          ]
+        }
+      ],
+      "vx": 0.5,
+      "keyframe": "Five cartoon bird characters standing in a row on a grassy mountain ridge at golden hour, a vast valley with a river behind them, golden backlight, rim light, wind in the grass, valley haze, epic and warm.",
+      "motion": "Five stylised cartoon birds stand in a row on a grassy mountain ridge at golden hour, wind moving their feathers and the grass; together they turn their heads toward the camera. Slow push-in, 35 mm. Full golden backlight, rim light on every bird, valley haze. Proud, confident.",
+      "plate": "A grassy mountain ridge in the foreground at golden hour, a vast valley with a winding river and haze behind, the sun low behind the far mountains, golden backlight, wind in the grass, epic and warm, wide shot.",
+      "light": {
+        "key": [
+          0,
+          -1
+        ],
+        "exposure": 0.82,
+        "rim": [
+          255,
+          205,
+          140
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "slug": "lovebirds",
+      "seconds": 2.67,
+      "characters": [
+        "lovebird"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "85mm",
+      "camera": "static",
+      "lighting": "golden backlight, soft bloom",
+      "atmosphere": "pollen in the air",
+      "transition": "cut",
+      "speed": 1,
+      "rampAt": null,
+      "action": "two lovebirds on a branch shuffle closer until they touch; a small heart of light rises between them",
+      "caption": "family",
+      "backdrop": [
+        "#f0b878",
+        "#5c6a3a"
+      ],
+      "birds": [
+        {
+          "bird": "lovebird",
+          "x": 0.24,
+          "y": 0.38,
+          "h": 0.3
+        },
+        {
+          "bird": "lovebird",
+          "x": 0.74,
+          "y": 0.29,
+          "h": 0.3,
+          "flip": true
+        }
+      ],
+      "vx": 0.5,
+      "keyframe": "Two identical lovebird characters sitting at the two ends of a blossoming branch at golden hour, facing each other, golden backlight, soft bloom, pollen in the air, creamy bokeh.",
+      "motion": "Two green lovebird characters with coral faces sit on a blossoming branch and shuffle closer to each other until their shoulders touch, a small glowing heart of light rising between them. Static, 85 mm. Golden backlight, soft bloom, pollen drifting. Tender, gentle.",
+      "plate": "A blossoming branch crossing the frame horizontally at golden hour, soft pink blossoms, golden backlight, soft bloom, pollen in the air, creamy bokeh background.",
+      "light": {
+        "key": [
+          0,
+          -1
+        ],
+        "exposure": 0.85,
+        "rim": [
+          255,
+          215,
+          160
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "slug": "crane-listens",
+      "seconds": 2.67,
+      "characters": [
+        "crane"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "70mm",
+      "camera": "slow push-in",
+      "lighting": "pale dawn light, soft backlight",
+      "atmosphere": "mist over reeds",
+      "transition": "cut",
+      "speed": 1,
+      "rampAt": null,
+      "action": "soft ripples of sound reach the crane; it closes its eyes and listens",
+      "backdrop": [
+        "#c8d4dc",
+        "#5a6a58"
+      ],
+      "birds": [
+        {
+          "bird": "crane",
+          "x": 0.5,
+          "y": 0.93,
+          "h": 0.74
+        }
+      ],
+      "vx": 0.5,
+      "keyframe": "The crane character standing among tall reeds in a misty marsh at dawn, pale soft backlight, mist drifting, shallow depth of field.",
+      "motion": "The pale grey crane character with a red crown stands among misty reeds; faint glowing rings of sound ripple through the air toward it, it gently closes its eyes and tilts its head to listen. Slow push-in, 70 mm. Pale dawn backlight, drifting mist. Still and serene.",
+      "plate": "Tall reeds in a misty marsh at dawn, still water, pale soft backlight, mist drifting, shallow depth of field, an empty clearing among the reeds in the centre.",
+      "light": {
+        "key": [
+          0,
+          -1
+        ],
+        "exposure": 0.85,
+        "rim": [
+          235,
+          240,
+          255
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "slug": "magpie-podium",
+      "seconds": 2.67,
+      "characters": [
+        "magpie"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "35mm",
+      "camera": "slow orbit left",
+      "lighting": "warm spotlight from above, cool fill",
+      "atmosphere": "a few golden sparkles",
+      "transition": "cut",
+      "speed": 1,
+      "rampAt": null,
+      "action": "three bars of a small podium rise beside the magpie and a gold star lands on the first place",
+      "backdrop": [
+        "#20283a",
+        "#0e121c"
+      ],
+      "birds": [
+        {
+          "bird": "magpie",
+          "x": 0.45,
+          "y": 0.9,
+          "h": 0.58
+        }
+      ],
+      "vx": 0.55,
+      "keyframe": "The magpie character standing beside a small three-step wooden podium on a dark stage, a warm spotlight from above, cool blue fill light, a few golden sparkles in the air.",
+      "motion": "The slate-grey magpie character with cobalt wings watches as the three steps of a small podium rise beside it, then a gold star floats down and lands on the highest step; the magpie gives a small proud nod. Slow orbit left, 35 mm. Warm spotlight from above, cool fill, golden sparkles. Playful but elegant.",
+      "plate": "A small three-step wooden podium on a dark stage on the right of the centre, a warm spotlight from above, cool blue fill light, dark background, a few golden sparkles in the air.",
+      "light": {
+        "key": [
+          0,
+          -1
+        ],
+        "exposure": 0.8,
+        "rim": [
+          255,
+          220,
+          170
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "slug": "beaver-shop",
+      "seconds": 2.67,
+      "characters": [
+        "beaver"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "40mm",
+      "camera": "slow push-in",
+      "lighting": "morning sun through the shop window, warm",
+      "atmosphere": "dust in the sunbeam",
+      "transition": "dissolve",
+      "speed": 1,
+      "rampAt": null,
+      "action": "the beaver taps a small wooden till, a receipt prints out and it stamps it",
+      "backdrop": [
+        "#e0b07a",
+        "#5a3a24"
+      ],
+      "birds": [
+        {
+          "bird": "beaver",
+          "x": 0.55,
+          "y": 0.74,
+          "h": 0.42
+        }
+      ],
+      "vx": 0.62,
+      "keyframe": "The beaver character standing behind the wooden counter of a small cosy village shop in the morning, a small vintage wooden cash register, shelves of jars, morning sun through the window, dust in the sunbeam.",
+      "motion": "The brown beaver character with one big front tooth taps the keys of a small wooden cash register, a paper receipt prints out and it stamps it with a small green check. Slow push-in, 40 mm. Warm morning sun through the shop window, dust in the sunbeam. Cheerful, steady rhythm.",
+      "plate": "The inside of a small cosy village shop in the morning, a wooden counter in the foreground with a small vintage wooden cash register on its right, shelves of jars behind, morning sun through the window, dust in the sunbeam.",
+      "light": {
+        "key": [
+          1,
+          -0.6
+        ],
+        "exposure": 0.85,
+        "rim": [
+          255,
+          215,
+          160
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "slug": "phoenix-dawn",
+      "seconds": 5.0,
+      "characters": [
+        "phoenix",
+        "falcon",
+        "owl",
+        "duck",
+        "flamingo",
+        "pigeon",
+        "lovebird",
+        "crane",
+        "magpie",
+        "beaver"
+      ],
+      "model": "wan2.2-i2v-a14b-hq",
+      "lens": "24mm",
+      "camera": "slow crane up and back",
+      "lighting": "the sun rising behind the phoenix, god rays, rim light on the flock",
+      "atmosphere": "valley mist, glowing embers rising",
+      "transition": "fade",
+      "speed": 0.75,
+      "rampAt": null,
+      "action": "the phoenix rises from the centre of the valley with the sun, wings spread; the flock watches from the ridge",
+      "backdrop": [
+        "#f6b46a",
+        "#2a3a4a"
+      ],
+      "birds": [
+        {
+          "bird": "pigeon",
+          "x": 0.1,
+          "y": 0.98,
+          "h": 0.14
+        },
+        {
+          "bird": "flamingo",
+          "x": 0.18,
+          "y": 0.98,
+          "h": 0.19
+        },
+        {
+          "bird": "falcon",
+          "x": 0.26,
+          "y": 0.98,
+          "h": 0.16,
+          "crop": [
+            0,
+            0,
+            0.86,
+            1
+          ]
+        },
+        {
+          "bird": "owl",
+          "x": 0.34,
+          "y": 0.98,
+          "h": 0.15,
+          "crop": [
+            0,
+            0,
+            0.8,
+            1
+          ]
+        },
+        {
+          "bird": "duck",
+          "x": 0.66,
+          "y": 0.98,
+          "h": 0.14,
+          "crop": [
+            0,
+            0,
+            0.74,
+            1
+          ]
+        },
+        {
+          "bird": "lovebird",
+          "x": 0.74,
+          "y": 0.98,
+          "h": 0.14
+        },
+        {
+          "bird": "crane",
+          "x": 0.82,
+          "y": 0.98,
+          "h": 0.19
+        },
+        {
+          "bird": "magpie",
+          "x": 0.89,
+          "y": 0.98,
+          "h": 0.14
+        },
+        {
+          "bird": "beaver",
+          "x": 0.95,
+          "y": 0.98,
+          "h": 0.14
+        },
+        {
+          "bird": "phoenix",
+          "x": 0.5,
+          "y": 0.6,
+          "h": 0.44
+        }
+      ],
+      "vx": 0.5,
+      "keyframe": "Epic wide shot of a mountain valley at sunrise: the phoenix with one violet wing and one gold wing rising above the centre of the valley in front of the rising sun, god rays, glowing embers; in the foreground a row of small cartoon birds on a grassy ridge seen from behind and in silhouette with rim light, valley mist.",
+      "motion": "The phoenix with one violet flame wing and one gold flame wing rises slowly above the centre of the valley in front of the rising sun, its wings opening wide, glowing embers rising around it, god rays sweeping through the mist; in the foreground the row of small cartoon birds on the ridge watches. Slow crane up and back, 24 mm. Sunrise behind the phoenix, golden god rays, rim light on the flock. Majestic, triumphant.",
+      "plate": "Epic wide shot of a vast mountain valley at sunrise, the sun rising in the centre between the mountains, golden god rays through the valley mist, glowing embers in the air, a grassy ridge across the bottom of the frame in the foreground.",
+      "light": {
+        "key": [
+          0,
+          -1
+        ],
+        "exposure": 0.6,
+        "rim": [
+          255,
+          190,
+          120
+        ]
+      }
+    },
+    {
+      "id": 17,
+      "slug": "storm-valley",
+      "seconds": 3.0,
+      "characters": [],
+      "model": "ltx-video-0.9.8-13b-distilled",
+      "lens": "24mm",
+      "camera": "slow aerial push forward",
+      "lighting": "night, lightning flashes inside the clouds, moonlight",
+      "atmosphere": "rain curtains, low storm clouds",
+      "transition": "cut",
+      "speed": 1,
+      "rampAt": null,
+      "action": "the view pushes through a night storm over the sleeping valley, lightning lighting the clouds from inside",
+      "backdrop": [
+        "#0a1222",
+        "#05080f"
+      ],
+      "birds": [],
+      "vx": 0.5,
+      "plate": "Aerial view at night above a vast mountain valley in a storm, heavy rain curtains, lightning glowing inside low clouds, a few warm village lights far below, a winding river catching the moonlight, cinematic, epic scale.",
+      "keyframe": "Aerial view at night above a vast mountain valley in a storm, lightning inside low clouds, rain curtains, village lights far below.",
+      "motion": "Aerial shot pushing slowly forward through a night storm above a vast mountain valley, heavy rain curtains sweeping across, lightning flashing inside the low clouds and lighting them from within, warm village lights twinkling far below. Slow forward push, 24 mm. Cold moonlight, lightning flashes. Ominous and majestic."
+    },
+    {
+      "id": 18,
+      "slug": "sunrise-peaks",
+      "seconds": 3.0,
+      "characters": [],
+      "model": "ltx-video-0.9.8-13b-distilled",
+      "lens": "85mm",
+      "camera": "slow pan right",
+      "lighting": "the first sun breaking over the peaks, god rays",
+      "atmosphere": "clouds flowing over the ridges",
+      "transition": "dissolve",
+      "speed": 1,
+      "rampAt": null,
+      "action": "the sun breaks over the snowy peaks, rays sweeping across the clouds",
+      "backdrop": [
+        "#f2a96a",
+        "#3a4a6a"
+      ],
+      "birds": [],
+      "vx": 0.5,
+      "plate": "Telephoto view of snowy mountain peaks at the very moment of sunrise, the sun breaking over a ridge, golden god rays through flowing clouds, deep blue shadows, cinematic.",
+      "keyframe": "Snowy peaks at the moment of sunrise, the sun breaking over a ridge, god rays through flowing clouds.",
+      "motion": "Telephoto shot of snowy mountain peaks at sunrise: the sun breaks over the ridge and golden god rays sweep across the flowing clouds, the clouds streaming over the ridges like a timelapse. Slow pan right, 85 mm. Golden sunrise backlight, deep blue shadows. Awe, rising."
+    },
+    {
+      "id": 19,
+      "slug": "golden-valley",
+      "seconds": 3.0,
+      "characters": [],
+      "model": "ltx-video-0.9.8-13b-distilled",
+      "lens": "24mm",
+      "camera": "fast aerial glide forward and up",
+      "lighting": "full golden hour",
+      "atmosphere": "valley haze, birds of light",
+      "transition": "cut",
+      "speed": 1,
+      "rampAt": null,
+      "action": "the view glides fast over the golden valley toward a grassy ridge",
+      "backdrop": [
+        "#f2b27a",
+        "#5f7f5a"
+      ],
+      "birds": [],
+      "vx": 0.5,
+      "plate": "Aerial view gliding low over a golden mountain valley at golden hour, a winding river shining, green slopes, a grassy ridge ahead, warm haze, the sun low, epic and warm.",
+      "keyframe": "Aerial view low over a golden mountain valley at golden hour, a shining river, a grassy ridge ahead.",
+      "motion": "Aerial drone shot gliding fast and low over a golden mountain valley at golden hour, the winding river shining below, then rising toward a grassy ridge ahead, warm haze and long light. Fast forward glide rising, 24 mm. Full golden hour light. Exhilarating, triumphant."
+    }
+  ],
+  "endCard": {
+    "from": "film/le-monde-de-krizaka-16x9.mp4",
+    "start": 40.0,
+    "seconds": 4.0
+  }
+}

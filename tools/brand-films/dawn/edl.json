@@ -1,0 +1,146 @@
+{
+  "_": "The edit of « l'aube » (night: watch, read, build; the dawn and the title; day: answer, deliver; the flock, the family, the phoenix): each shot's take, in-point (s), screen time before the beat snap (s), speed or ramp, push-in, the handover into it, its caption cue (treatment.cues) and its 9:16 centre (vx, 0..1 of the width). finish.py snaps every cut to the score's beat grid.",
+  "grade": "teal-orange",
+  "ambience": "wind",
+  "shots": [
+    {
+      "take": "17-storm-valley-t0.mp4",
+      "in": 0.2,
+      "screen": 2.9,
+      "vx": 0.4
+    },
+    {
+      "take": "01-hook-visor-t1.mp4",
+      "in": 0.2,
+      "screen": 2.0,
+      "vx": 0.5
+    },
+    {
+      "take": "02-falcon-cliff-t0.mp4",
+      "in": 0.3,
+      "screen": 3.1,
+      "zoom": 1.03,
+      "caption": "falcon",
+      "vx": 0.72
+    },
+    {
+      "take": "04-owl-archive-t0.mp4",
+      "in": 0.3,
+      "screen": 4.8,
+      "rampAt": 3.6,
+      "rampSpeed": 0.5,
+      "caption": "owl",
+      "vx": 0.62
+    },
+    {
+      "take": "05-duck-workshop-t1.mp4",
+      "in": 0.2,
+      "screen": 2.7,
+      "transition": "whip",
+      "transitionSeconds": 0.3,
+      "caption": "duck",
+      "vx": 0.42
+    },
+    {
+      "take": "03-valley-aerial-t0-reversed.mp4",
+      "in": 0.2,
+      "screen": 2.8,
+      "transition": "dissolve",
+      "transitionSeconds": 0.5,
+      "vx": 0.5,
+      "reverse": true
+    },
+    {
+      "take": "18-sunrise-peaks-t0.mp4",
+      "in": 0.2,
+      "screen": 2.8,
+      "transition": "dissolve",
+      "transitionSeconds": 0.5,
+      "vx": 0.5
+    },
+    {
+      "take": "06-flamingo-lake-t0.mp4",
+      "in": 0.3,
+      "screen": 4.5,
+      "transition": "cut",
+      "caption": "flamingo",
+      "vx": 0.42
+    },
+    {
+      "take": "07-coin-splash-t0.mp4",
+      "in": 0.1,
+      "screen": 2.7,
+      "speed": 0.5,
+      "vx": 0.5
+    },
+    {
+      "take": "08-pigeon-takeoff-t0.mp4",
+      "in": 0.2,
+      "screen": 2.6,
+      "transition": "flash",
+      "transitionSeconds": 0.25,
+      "vx": 0.35,
+      "caption": "pigeon"
+    },
+    {
+      "take": "10-pigeon-doorstep-t0.mp4",
+      "in": 0.2,
+      "screen": 3.0,
+      "caption": "pigeon",
+      "vx": 0.45
+    },
+    {
+      "take": "19-golden-valley-t0.mp4",
+      "in": 0.2,
+      "screen": 2.0,
+      "transition": "flash",
+      "transitionSeconds": 0.25,
+      "vx": 0.6
+    },
+    {
+      "take": "11-five-on-the-ridge-t0.mp4",
+      "in": 0.3,
+      "screen": 4.5,
+      "transition": "cut",
+      "caption": "together",
+      "vx": 0.5
+    },
+    {
+      "take": "12-lovebirds-t0.mp4",
+      "in": 0.2,
+      "screen": 2.4,
+      "caption": "family",
+      "vx": 0.5
+    },
+    {
+      "take": "13-crane-listens-t0.mp4",
+      "in": 0.2,
+      "screen": 2.4,
+      "caption": "family",
+      "vx": 0.5
+    },
+    {
+      "take": "14-magpie-podium-t0.mp4",
+      "in": 0.2,
+      "screen": 2.4,
+      "caption": "family",
+      "vx": 0.5
+    },
+    {
+      "take": "15-beaver-shop-t0.mp4",
+      "in": 0.2,
+      "screen": 2.4,
+      "caption": "family",
+      "vx": 0.6
+    },
+    {
+      "take": "16-phoenix-dawn-t0.mp4",
+      "in": 0.2,
+      "screen": 6.0,
+      "speed": 0.75,
+      "transition": "dissolve",
+      "transitionSeconds": 0.5,
+      "vx": 0.5
+    }
+  ]
+}
