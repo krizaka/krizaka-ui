@@ -42,6 +42,13 @@ describe("locateQuote", () => {
     expect(found.boxes[0]!.width).toBeCloseTo(50 / 600);
   });
 
+  it("starts a mid-item quote where its glyphs start, not at an even share of the item (proportional faces, #209)", () => {
+    // Ten narrow "i" (222 each) then six wide "W" (944 each): the W's begin at 2220 / 7884 of the width, not at 10 / 16.
+    const found = locateQuote([page(1, [item("iiiiiiiiiiWWWWWW", 100, 500, 400)])], "WWWWWW")!;
+    expect(found.boxes[0]!.x).toBeCloseTo((100 + (400 * 2220) / 7884) / 600, 3);
+    expect(found.boxes[0]!.width).toBeCloseTo((400 * 5664) / 7884 / 600, 3);
+  });
+
   it("tries the hinted page first when a quote occurs twice", () => {
     const twice = [page(1, [item("Clause abusive.", 72, 700, 90)]), page(3, [item("Clause abusive.", 72, 700, 90)])];
     expect(locateQuote(twice, "Clause abusive.", 3)!.page).toBe(3);

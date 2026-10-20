@@ -124,11 +124,13 @@ export function ImageCropper({
 
   const x = clamp(value.x, halfX, 1 - halfX);
   const y = clamp(value.y, halfY, 1 - halfY);
+  // Rounded: float noise (5e-15) is not a length every parser takes, and a dropped `top` is a gap.
+  const pct = (n: number) => `${Math.round(n * 1e4) / 1e4}%`;
   const style: React.CSSProperties = {
-    width: `${widthPct}%`,
-    height: `${heightPct}%`,
-    left: `${50 - x * widthPct}%`,
-    top: `${50 - y * heightPct}%`,
+    width: pct(widthPct),
+    height: pct(heightPct),
+    left: pct(50 - x * widthPct),
+    top: pct(50 - y * heightPct),
   };
 
   return (
@@ -189,6 +191,10 @@ export function ImageCropper({
             draggable={false}
             className={s.media()}
             style={style}
+            // A picture already in the cache (or rendered on the server) is complete before React attaches: no load event.
+            ref={(img) => {
+              if (img?.complete && img.naturalWidth > 0) setLoaded((was) => (was?.width === img.naturalWidth && was.height === img.naturalHeight ? was : { width: img.naturalWidth, height: img.naturalHeight }));
+            }}
             onLoad={(event) => setLoaded({ width: event.currentTarget.naturalWidth, height: event.currentTarget.naturalHeight })}
           />
         ) : null}
