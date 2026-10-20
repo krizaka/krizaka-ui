@@ -59,10 +59,10 @@ function ProductBar() {
 }
 
 describe("NavBar.Menu — three links or fewer stand in the bar", () => {
-  const Bar3 = ({ links = 3, inlineUpTo }: { links?: number; inlineUpTo?: number }) => (
+  const Bar3 = ({ links = 3, inlineUpTo, inlineFrom = "md" }: { links?: number; inlineUpTo?: number; inlineFrom?: "md" | "lg" | "xl" }) => (
     <NavBar.Root label="Main">
       <NavBar.Items>
-        <NavBar.Menu label="Product" inlineUpTo={inlineUpTo}>
+        <NavBar.Menu label="Product" inlineUpTo={inlineUpTo} inlineFrom={inlineFrom}>
           {["Overview", "How it works", "The demo shop", "Pricing"].slice(0, links).map((title, i) => (
             <NavBar.MenuLink key={title} href={`#${i}`} title={title} description="A line." active={i === 1} />
           ))}
@@ -78,6 +78,30 @@ describe("NavBar.Menu — three links or fewer stand in the bar", () => {
     expect(screen.getAllByRole("link").map((a) => a.textContent)).toEqual(["Overview", "How it works", "The demo shop", "Docs"]);
     expect(screen.getByRole("link", { name: "How it works" }).getAttribute("aria-current")).toBe("page");
     expect(screen.getByRole("link", { name: "Overview" }).getAttribute("aria-current")).toBeNull();
+  });
+
+  it("stands in the bar only from `lg` by default: below it the section is the dropdown (long French labels, #tablet)", () => {
+    render(<Bar3 inlineFrom="lg" />);
+    // Both are in the markup; the classes choose by breakpoint (768 px: dropdown, 1024 px and up: the links).
+    const trigger = screen.getByRole("button", { name: "Product" });
+    expect(trigger.closest("li")?.className).toContain("lg:hidden");
+    for (const name of ["Overview", "How it works", "The demo shop"]) expect(screen.getByRole("link", { name }).closest("li")?.className).toContain("max-lg:hidden");
+  });
+
+  it("inlineFrom=\"xl\" moves the switch to xl; the default is lg", () => {
+    const { unmount } = render(<Bar3 inlineFrom="xl" />);
+    expect(screen.getByRole("link", { name: "Overview" }).closest("li")?.className).toContain("max-xl:hidden");
+    unmount();
+    render(
+      <NavBar.Root label="Main">
+        <NavBar.Items>
+          <NavBar.Menu label="Product">
+            <NavBar.MenuLink href="#a" title="A" />
+          </NavBar.Menu>
+        </NavBar.Items>
+      </NavBar.Root>,
+    );
+    expect(screen.getByRole("link", { name: "A" }).closest("li")?.className).toContain("max-lg:hidden");
   });
 
   it("keeps the dropdown above the limit", () => {
