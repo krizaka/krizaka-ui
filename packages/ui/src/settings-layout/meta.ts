@@ -5,8 +5,8 @@ export const meta = {
   summary: "Settings: the sections on the side (a row of chips that scrolls on a phone) and the current section's forms, as titled cards with their own save or, flat, as hairline-divided rows (`SettingsRow`).",
   status: "beta",
   category: "layouts",
-  platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#246", reason: "orazaka-mobile-client hand-rolls its settings rows and groups (src/ui/SettingsRow.tsx)." }, desktop: "web" },
+  platforms: "both",
+  parity: { desktop: "web" },
   whenToUse: ["Account, workspace and administration settings.", "Any long form that splits into independent groups."],
   whenNotToUse: [
     { when: "For a step-by-step setup the user follows once.", use: "stepper" },
@@ -18,6 +18,14 @@ export const meta = {
     notes: ["The sections are a `nav` named by `navLabel`; the current one has `aria-current` (page or location).", "Each section is a `section` named by its `h2`."],
   },
   related: ["field", "switch", "app-shell"],
+  native: {
+    imports: ["SettingsGroup", "SettingsRow"],
+    differences: [
+      "Only the rows: `SettingsGroup` (a titled card of hairline-divided rows) and `SettingsRow` (icon tile, label, help, value or control, a chevron when `onPress` opens something). The sections-on-the-side layout is a web idea; on a phone each section is a screen.",
+      "A row with `onPress` is a button named by its visible words; a row with a `trailing` control (a `Switch`) leaves the control as the thing to press.",
+    ],
+    examples: [{ name: "account", title: "Account settings", description: "A group of rows: a value, a link that opens a screen, a switch, a destructive action." }],
+  },
   web: {
     imports: ["SettingsLayout", "SettingsSection", "SettingsRow"],
     examples: [
