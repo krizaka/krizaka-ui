@@ -6,6 +6,7 @@ concurrency: { group: release, cancel-in-progress: false }
 jobs:
   release:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions: { contents: write, pull-requests: write, id-token: write }
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -15,7 +16,14 @@ jobs:
         with: { node-version: 22, cache: pnpm, registry-url: https://registry.npmjs.org }
       - run: npm install -g npm@11      # trusted publishing (OIDC) needs npm >= 11.5.1; Node 22 ships npm 10
       - run: pnpm install --frozen-lockfile
-      - run: pnpm turbo run check --filter='./packages/*'   # the published packages (the catalogue is checked by CI)
+      # The last gate before a publish: only when this push can publish — the merge of « chore: version packages » changes a
+      # package.json — or on demand. Every other push to main was re-running the whole check CI had just run (CI-COST); the
+      # step fails open (a git error runs the check).
+      - id: gate
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || ! git diff --quiet HEAD~1 HEAD -- 'packages/*/package.json'; then echo "check=true" >> "$GITHUB_OUTPUT"; else echo "No package.json changed: nothing to publish, check skipped"; fi
+      - if: steps.gate.outputs.check == 'true'
+        run: pnpm turbo run check --filter='./packages/*'   # the published packages (the catalogue is checked by CI)
       # changesets/action v2 = Changesets CLI v3 (v1 reads the v3 pre-release folder `.changeset/pre/` as a v1 changeset
       # and fails). Inputs are kebab-case; the token goes through `github-token`.
       - id: changesets
