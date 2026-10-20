@@ -11,12 +11,14 @@ import { circlePolygon, distanceMeters, formatDistance, LocationPicker, Map, map
 
 // The engine: a MapLibre stand-in that records what the components ask of it (happy-dom has no WebGL).
 const calls: string[] = [];
+let lastStyle: unknown;
 let lastMap: { sources: Record<string, { data: unknown }> } | undefined;
 class FakeMap {
   handlers: Record<string, (() => void)[]> = {};
   zoom = 12;
   constructor(public options: { center: [number, number]; zoom: number }) {
     calls.push(`map ${options.center.join(",")} ${options.zoom}`);
+    lastStyle = (options as { style?: unknown }).style;
     this.zoom = options.zoom;
     setTimeout(() => this.handlers.load?.forEach((h) => h()), 0);
   }
@@ -51,8 +53,9 @@ class FakeMap {
   panBy(by: number[]) {
     calls.push(`panBy ${by.join(",")}`);
   }
-  setStyle() {
+  setStyle(style: unknown) {
     calls.push("setStyle");
+    lastStyle = style;
   }
   sources: Record<string, { data: unknown; setData: (d: unknown) => void }> = {};
   getContainer() {
@@ -310,6 +313,20 @@ describe("Route, Pulse and Marker drop", () => {
     await waitFor(() => expect((document.querySelector("[data-kz-marker] > [data-drop]") as HTMLElement | null)?.style.getPropertyValue("--kz-map-drop-delay")).toBe("180ms"));
     const css = readFileSync(join(import.meta.dirname, "../motion.css"), "utf8");
     expect(css).toMatch(/\.kz-map-pulse::before, \.kz-map-pulse::after \{ animation: none !important; \}|\[data-drop\], \.kz-map-pulse::before, \.kz-map-pulse::after \{ animation: none !important; \}/);
+    webgl.mockRestore();
+  });
+});
+
+describe("Map follows the page's scheme", () => {
+  it("a theme that changes before the engine has loaded (the provider flips `html.light` after mount) still ends on the light style", async () => {
+    const webgl = withWebGL();
+    document.documentElement.classList.remove("light");
+    render(<Map label="Places" center={[-73.58, 45.52]} />);
+    document.documentElement.classList.add("light"); // before the engine's dynamic import resolves
+    await waitFor(() => expect(calls).toContain("map -73.58,45.52 12"));
+    await waitFor(() => expect(JSON.stringify(lastStyle)).toBe(JSON.stringify(mapStyle({ scheme: "light" }))));
+    document.documentElement.classList.remove("light");
+    await waitFor(() => expect(JSON.stringify(lastStyle)).toBe(JSON.stringify(mapStyle({ scheme: "dark" }))));
     webgl.mockRestore();
   });
 });

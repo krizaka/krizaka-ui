@@ -195,6 +195,14 @@ export function Map({
   });
   const styleOf = React.useCallback((sc: "dark" | "light") => mapStyle({ scheme: sc, brand, lang, ...(region !== undefined ? { region } : {}), ...(world !== undefined ? { world } : {}) }), [brand, lang, region, world]);
 
+  // The style the map wears now: the engine loads asynchronously, so the scheme it is created with is read when it is ready
+  // (the page's theme may have flipped since the first render), and the effect below applies whatever differs.
+  const wanted = React.useRef({ scheme, styleOf });
+  React.useEffect(() => {
+    wanted.current = { scheme, styleOf };
+  });
+  const applied = React.useRef<{ scheme: "dark" | "light"; styleOf: typeof styleOf } | null>(null);
+
   // The engine and the map, once (the style follows the scheme below).
   React.useEffect(() => {
     if (!host.current) return;
@@ -203,9 +211,10 @@ export function Map({
     (hasWebGL() ? loadEngine() : Promise.reject(new Error("no WebGL")))
       .then((ml) => {
         if (!alive || !host.current) return;
+        applied.current = wanted.current;
         created = new ml.Map({
           container: host.current,
-          style: styleOf(scheme) as never,
+          style: wanted.current.styleOf(wanted.current.scheme) as never,
           center: [...center] as [number, number],
           zoom,
           interactive,
@@ -242,13 +251,10 @@ export function Map({
   }, []);
 
   // The scheme (and the brand, the language) change the style, not the map.
-  const first = React.useRef(true);
   React.useEffect(() => {
     if (!instance) return;
-    if (first.current) {
-      first.current = false;
-      return;
-    }
+    if (applied.current?.scheme === scheme && applied.current.styleOf === styleOf) return;
+    applied.current = { scheme, styleOf };
     instance.setStyle(styleOf(scheme) as never);
   }, [instance, scheme, styleOf]);
 
