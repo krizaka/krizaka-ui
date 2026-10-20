@@ -852,9 +852,20 @@ html.light .kz-scene-window { box-shadow: 0 40px 80px -40px rgb(20 20 40 / .28);
 .kz-scene-chrome { display: flex; align-items: center; gap: 7px; height: 38px; padding: 0 14px; border-bottom: 1px solid var(--kz-border-subtle); background: var(--kz-surface-1); }
 .kz-scene-chrome i { width: 10px; height: 10px; border-radius: 50%; background: var(--kz-surface-3); }
 .kz-scene-chrome span { margin: 0 auto; padding: 3px 28px; border-radius: 8px; border: 1px solid var(--kz-border-subtle); background: var(--kz-surface-0); font: 12px var(--kz-font-mono); color: var(--kz-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%; }
+/* The window is a picture of the desktop screen at any page width: RailNav's phone layout (a tab bar) is a viewport query,
+   so here the rail keeps its desktop look — a column of icons, the mark on top, Settings at the foot — and the labels
+   stay in the tooltip and the accessible name. Labels and figures are set as the app sets them, not in capitals. */
 .kz-scene-app { min-height: 0; }
-.kz-scene-app > nav { height: auto; position: static; }
-.kz-scene-main { display: flex; flex-direction: column; gap: 18px; overflow: hidden; }
+.kz-scene-rail { position: static; inset: auto; width: 3.5rem; height: auto; flex-direction: column; flex-shrink: 0; padding-bottom: 0; border-top: 0; border-right: 1px solid var(--kz-border-subtle); }
+.kz-scene-rail > [data-brand-mark] { display: flex; width: 100%; height: 3.5rem; align-items: center; justify-content: center; }
+.kz-scene-rail > div:not([data-brand-mark]) { flex-direction: column; align-items: center; gap: 4px; padding: 8px 6px; }
+.kz-scene-rail > [data-brand-mark] + div { flex: 1; justify-content: flex-start; }
+.kz-scene-rail > div:last-child:not([data-brand-mark]) { border-top: 1px solid var(--kz-border-subtle); }
+.kz-scene-rail [data-rail-item] { height: 40px; width: 100%; flex: none; flex-direction: row; justify-content: center; border-radius: 0; padding: 0; }
+.kz-scene-rail [data-rail-item]::before { inset: 8px auto 8px 0; width: 3px; height: auto; border-radius: 0 999px 999px 0; }
+.kz-scene-rail [data-rail-item] > span:last-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.kz-scene, .kz-scene *, .kz-scene .kzc-heading[data-insight] .kzc-title { text-transform: none; letter-spacing: normal; }
+.kz-scene-main { display: flex; flex-direction: column; gap: 18px; overflow: hidden; padding: 20px 24px; }
 .kz-scene-main > * { flex-shrink: 0; }
 @media (min-width: 1101px) { .kz-scene-app .kz-scene-main { padding-right: 140px; } }
 .kz-scene-sub { margin: -6px 0 0; font-size: 13.5px; color: var(--kz-text-secondary); }
