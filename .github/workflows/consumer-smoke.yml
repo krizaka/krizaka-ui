@@ -1,7 +1,9 @@
 # The proof that the PUBLISHED packages work: tools/consumer-smoke installs @krizaka/* from npm (never the workspace)
 # into throwaway apps and builds them — a Next.js 16 App Router app (`next build`), an Expo SDK 57 app (`tsc` +
-# `expo export`), a Node script (@krizaka/realtime, @krizaka/push). Every day, after each release (the tags that
-# `changeset publish` pushes, and the Release workflow), and on demand. Not a required check: it tests npm, not the
+# `expo export`), a Node script (@krizaka/realtime, @krizaka/push). Every day, after each release of @krizaka/ui (its
+# tag; the other packages are installed at their latest by the same run), and on demand. Not after every push to main
+# (a `workflow_run` on Release ran 3 jobs per merge although nothing had been published) and not once per package tag
+# (a release pushes several: one run, the others cancelled — CI-COST). Not a required check: it tests npm, not the
 # branch (a pull request runs it only when the smoke itself changes). A failure is fixed in the package, released,
 # and this run goes green again.
 name: Consumer smoke
@@ -10,10 +12,7 @@ on:
   schedule:
     - cron: "17 5 * * *"
   push:
-    tags: ["@krizaka/*@*"]
-  workflow_run:
-    workflows: [Release]
-    types: [completed]
+    tags: ["@krizaka/ui@*"]
   workflow_dispatch:
   pull_request:
     paths: ["tools/consumer-smoke/**", ".github/workflows/consumer-smoke.yml"]
@@ -22,14 +21,13 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || 'published' }}
+  cancel-in-progress: true
 
 jobs:
   smoke:
     name: Published packages in a fresh ${{ matrix.consumer }} app
     runs-on: ubuntu-latest
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     timeout-minutes: 30
     strategy:
       fail-fast: false
