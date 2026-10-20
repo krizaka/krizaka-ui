@@ -1,5 +1,22 @@
 # @krizaka/ui
 
+## 3.30.0
+
+### Minor Changes
+
+- [#373](https://github.com/krizaka/krizaka-ui/pull/373) [`ec6d0cb`](https://github.com/krizaka/krizaka-ui/commit/ec6d0cb46cb7722b92f8620df19a86665baa5345) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/native` chat: `MessageBubble` takes `children` (a Markdown answer in the same bubble shape), `MessageComposer` takes a `meta` line and `ComposerMeta` draws the model chip and a status line with a shield (krizaka-ui#246, parts 2 and 3).
+
+- [#376](https://github.com/krizaka/krizaka-ui/pull/376) [`4bd80a7`](https://github.com/krizaka/krizaka-ui/commit/4bd80a762c03c0484fa71f12fa40e0d76892d8c8) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `NavBar.Menu`: the inline links of a short section (3 or fewer) now stand in the bar from `lg` up (`inlineFrom`, `"md" | "lg" | "xl"`, default `lg`); between the phone panel and that breakpoint the section is the dropdown, so long French labels no longer overflow a 768 px bar. Products can drop their `inlineUpTo={0}` overrides.
+
+### Patch Changes
+
+- [#375](https://github.com/krizaka/krizaka-ui/pull/375) [`b2bf5dd`](https://github.com/krizaka/krizaka-ui/commit/b2bf5dd7a50ba60f166001eb06d60e753e0f3af6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `export-brand`: the favicon's PNG sizes (`favicon-32.png`, `apple-touch-icon.png` 180, `icon-192.png`, `icon-512.png`) are exported next to `favicon.svg` for every brand, so a site's tab, home-screen and manifest icons come from the current mark.
+
+- [#375](https://github.com/krizaka/krizaka-ui/pull/375) [`b2bf5dd`](https://github.com/krizaka/krizaka-ui/commit/b2bf5dd7a50ba60f166001eb06d60e753e0f3af6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `sites`: Kachizaka and Akinaza now have their dev sites (`dev.kachizaka.com`, `dev.akinaza.com`), Yasakia's line says what it is (real people, introductions and photos checked before you see them) and Orazaka's is product-first, in English and French.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.30.0
+  - @krizaka/tokens@3.30.0
+
 ## 3.29.0
 
 ### Minor Changes
