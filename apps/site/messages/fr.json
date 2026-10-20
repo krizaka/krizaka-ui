@@ -686,20 +686,13 @@
       "label": "{name}, construit avec Krizaka UI",
       "window": "{name} sur le web",
       "phone": "{name} sur un téléphone",
-      "parts": "Les mêmes AppShell, Stat, LineChart et DataTable sur le web ; Chat, VerticalVideo et DocumentViewer sur le téléphone.",
+      "parts": "Les mêmes RailNav, AppHeader, Stat, LineChart et DataTable sur le web ; Chat, VerticalVideo et DocumentViewer sur le téléphone.",
       "menu": "Ouvrir le menu",
       "close": "Fermer le menu",
       "collapse": "Replier",
       "expand": "Déplier",
       "products": {
         "orazaka": {
-          "nav": [
-            "Chat",
-            "Studios",
-            "Tâches",
-            "Packs",
-            "Modèles"
-          ],
           "title": "Tâches",
           "sub": "Tout ce que vos packs ont fait aujourd’hui",
           "action": "Nouvelle tâche",
@@ -744,7 +737,7 @@
               "Résume les trois contrats fournisseurs et signale ce qui sort de l’ordinaire.",
               "Deux sont standards. Le troisième se renouvelle seul sauf résiliation 90 jours avant son terme.",
               "Rédige la lettre de résiliation, en français et en anglais.",
-              "La voici — les deux versions, prêtes à signer."
+              "La voici, les deux versions, prêtes à signer."
             ],
             "typing": "Orazaka écrit",
             "placeholder": "Message",
@@ -803,7 +796,7 @@
             "caption": "Le toit, la pluie, la dernière prise à l’aube.",
             "disclosure": "Générée par IA",
             "verified": "Vérifiée",
-            "credit": "Son original — Camille",
+            "credit": "Son original · Camille",
             "tip": "Pourboire"
           }
         },
@@ -912,7 +905,7 @@
           "phone": {
             "messages": [
               "Le worker média se déploie en préproduction.",
-              "Bien — préviens-moi quand l’index de recherche revient.",
+              "Bien. Préviens-moi quand l’index de recherche revient.",
               "Il est dégradé, pas en panne : les lectures répondent.",
               "Merci, je surveille."
             ],
@@ -921,7 +914,8 @@
             "send": "Envoyer"
           }
         }
-      }
+      },
+      "demo": "Données de démonstration"
     },
     "play": {
       "title": "Jouez avec les vrais composants",

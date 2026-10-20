@@ -7,21 +7,24 @@
 import { LineChart } from "@krizaka/charts/line";
 import { format } from "@krizaka/i18n";
 import { ProductLogo } from "@krizaka/ui";
-import { AppShell } from "@krizaka/ui/app-shell";
+import { AppHeader } from "@krizaka/ui/app-header";
 import { Badge } from "@krizaka/ui/badge";
 import { Button } from "@krizaka/ui/button";
 import { MessageBubble, MessageComposer, TypingIndicator } from "@krizaka/ui/chat";
 import { DataTable, type DataTableColumn } from "@krizaka/ui/data-table";
+import { RailNav } from "@krizaka/ui/rail-nav";
 import { Stat, StatGrid } from "@krizaka/ui/stat";
 import { VerticalVideo } from "@krizaka/ui/vertical-video";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 
 import { SCENE, type SceneId } from "@/lib/home-scene";
+import orazakaNav from "@/lib/orazaka-nav.json";
 import { examplePropsOf } from "@/lib/ui-example-props";
 
 import { useI18n } from "../I18nProvider";
 import { useIdentity } from "./HomeStudio";
+import { SCENE_ICONS } from "./scene-icons";
 
 /** The document viewer brings pdf.js: loaded only when Yomizaka is worn. */
 const DocumentPhone = dynamic(() => import("./DocumentPhone").then((m) => m.DocumentPhone), { ssr: false, loading: () => <div className="kz-phone-wait" /> });
@@ -29,21 +32,34 @@ const DocumentPhone = dynamic(() => import("./DocumentPhone").then((m) => m.Docu
 /** The width, in pixels, the window is laid out at when the page is narrower (then scaled to fit). */
 const LAPTOP = 720;
 const NAMES: Record<SceneId, string> = { orazaka: "Orazaka", orochia: "Orochia", yomizaka: "Yomizaka", krizaka: "Krizaka" };
-const dot = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-    <rect x="4" y="4" width="16" height="16" rx="4" />
-  </svg>
-);
+type RailItem = { id: string; icon: string; label: string };
 
 type Row = { id: string; name: string; detail: string; state: string; tone: "accent" | "success" | "warning" | "danger" };
 
+/** The rail's items. Orazaka's are the app's own (lib/orazaka-nav.json, copied from its source): its sections, icons and
+    words. The other products' words are messages and their icons are lib/home-scene.ts; the last item (Settings) is the foot. */
+function railOf(id: SceneId, locale: "en" | "fr", nav: readonly string[], icons: readonly string[]): { main: RailItem[]; foot: RailItem[] } {
+  if (id === "orazaka") {
+    const word = (s: { id: string; icon: string; label: Record<"en" | "fr", string> }) => ({ id: s.id, icon: s.icon, label: s.label[locale] });
+    return { main: orazakaNav.main.map(word), foot: orazakaNav.foot.map(word) };
+  }
+  const items = nav.map((label, i) => ({ id: `${id}-${i}`, icon: icons[i] ?? "", label }));
+  return { main: items.filter((item) => item.icon !== "SettingsIcon"), foot: items.filter((item) => item.icon === "SettingsIcon") };
+}
+
 export function ProductScene() {
   const { id } = useIdentity();
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const words = t.landing.scene;
   const p = words.products[id];
   const data = SCENE[id];
   const name = NAMES[id];
+  const rail = railOf(id, locale, "nav" in p ? p.nav : [], data.rail);
+  const current = id === "orazaka" ? "jobs" : (rail.main.concat(rail.foot)[data.current]?.id ?? "");
+  const railItem = (item: RailItem) => {
+    const Icon = SCENE_ICONS[item.icon];
+    return <RailNav.Item key={item.id} href="#scene" icon={Icon ? <Icon size={20} /> : null} label={item.label} current={item.id === current} onClick={(e) => e.preventDefault()} />;
+  };
   const rows: Row[] = data.rows.map((row, i) => ({ id: `${id}-${i}`, name: p.table.rows[i] ?? "", detail: row.detail, state: p.table.states[i] ?? "", tone: row.tone }));
   const columns: DataTableColumn<Row>[] = [
     { id: "name", header: p.table.name, card: "title" },
@@ -83,15 +99,17 @@ export function ProductScene() {
           <i />
           <span>{data.url}</span>
         </div>
-        <AppShell.Root className="kz-scene-app min-h-0" defaultCollapsed collapseShortcut={false}>
-          <AppShell.Sidebar label={name} brand={<ProductLogo id={id} size={26} animated={false} />} collapseLabels={[words.collapse, words.expand]} closeLabel={words.close} className="static h-auto">
-            {p.nav.map((item, i) => (
-              <AppShell.Item key={item} href="#scene" icon={dot} label={item} current={i === data.current} onClick={(e) => e.preventDefault()} />
-            ))}
-          </AppShell.Sidebar>
-          <AppShell.Body>
-            <AppShell.Header title={`${name} · ${p.title}`} menuLabel={words.menu} actions={<Button size="sm" variant="primary">{p.action}</Button>} />
-            <AppShell.Main className="kz-scene-main">
+        <RailNav.Shell className="kz-scene-app min-h-0">
+          <RailNav.Root className="kz-scene-rail" label={name} mark={<ProductLogo id={id} size={26} animated={false} />} footer={rail.foot.map(railItem)}>
+            {rail.main.map(railItem)}
+          </RailNav.Root>
+          <RailNav.Body>
+            <AppHeader
+              name={`${name} · ${p.title}`}
+              chips={<Badge tone="warning">{words.demo}</Badge>}
+              actions={<Button size="sm" variant="primary">{p.action}</Button>}
+            />
+            <main className="kz-scene-main">
               <p className="kz-scene-sub">{p.sub}</p>
               <StatGrid>
                 {p.stats.map((stat, i) => (
@@ -111,9 +129,9 @@ export function ProductScene() {
                 zero={false}
               />
               <DataTable caption={p.table.caption} rows={rows} columns={columns} getRowId={(row) => row.id} />
-            </AppShell.Main>
-          </AppShell.Body>
-        </AppShell.Root>
+            </main>
+          </RailNav.Body>
+        </RailNav.Shell>
       </figure>
       </div>
       <figure className="kz-scene-phone" aria-label={format(words.phone, { name })}>

@@ -1,0 +1,55 @@
+{
+  "source": "krizaka/orazaka-web-client src/core/config/app-sections.ts",
+  "main": [
+    {
+      "id": "studios",
+      "icon": "StudioIcon",
+      "label": {
+        "en": "Studios",
+        "fr": "Studios"
+      }
+    },
+    {
+      "id": "chat",
+      "icon": "ChatIcon",
+      "label": {
+        "en": "Chat",
+        "fr": "Chat"
+      }
+    },
+    {
+      "id": "jobs",
+      "icon": "ClockIcon",
+      "label": {
+        "en": "Jobs",
+        "fr": "Tâches"
+      }
+    },
+    {
+      "id": "packs",
+      "icon": "PackIcon",
+      "label": {
+        "en": "Plan",
+        "fr": "Offre"
+      }
+    },
+    {
+      "id": "usage",
+      "icon": "CreditsIcon",
+      "label": {
+        "en": "Usage & credits",
+        "fr": "Usage et crédits"
+      }
+    }
+  ],
+  "foot": [
+    {
+      "id": "settings",
+      "icon": "SettingsIcon",
+      "label": {
+        "en": "Settings",
+        "fr": "Paramètres"
+      }
+    }
+  ]
+}

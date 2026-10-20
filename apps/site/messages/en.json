@@ -686,20 +686,13 @@
       "label": "{name}, built with Krizaka UI",
       "window": "{name} on the web",
       "phone": "{name} on a phone",
-      "parts": "The same AppShell, Stat, LineChart and DataTable on the web; Chat, VerticalVideo and DocumentViewer on the phone.",
+      "parts": "The same RailNav, AppHeader, Stat, LineChart and DataTable on the web; Chat, VerticalVideo and DocumentViewer on the phone.",
       "menu": "Open the menu",
       "close": "Close the menu",
       "collapse": "Collapse",
       "expand": "Expand",
       "products": {
         "orazaka": {
-          "nav": [
-            "Chat",
-            "Studios",
-            "Jobs",
-            "Packs",
-            "Models"
-          ],
           "title": "Jobs",
           "sub": "Everything your packs ran today",
           "action": "New job",
@@ -744,7 +737,7 @@
               "Summarise the three supplier contracts and flag anything unusual.",
               "Two are standard. The third renews itself unless you cancel 90 days before its term.",
               "Draft the cancellation letter, in French and English.",
-              "Here it is — both versions, ready to sign."
+              "Here it is, both versions, ready to sign."
             ],
             "typing": "Orazaka is writing",
             "placeholder": "Message",
@@ -803,7 +796,7 @@
             "caption": "The rooftop, the rain, the last take at dawn.",
             "disclosure": "AI-generated",
             "verified": "Verified",
-            "credit": "Original sound — Camille",
+            "credit": "Original sound · Camille",
             "tip": "Tip"
           }
         },
@@ -912,7 +905,7 @@
           "phone": {
             "messages": [
               "The media worker is deploying to staging.",
-              "Good — ping me when the search index is back.",
+              "Good. Ping me when the search index is back.",
               "It is degraded, not down: reads still answer.",
               "Thanks, I will watch it."
             ],
@@ -921,7 +914,8 @@
             "send": "Send"
           }
         }
-      }
+      },
+      "demo": "Demo data"
     },
     "play": {
       "title": "Play with the real components",
