@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 3.33.1
+
+### Patch Changes
+
+- [`f552d5e`](https://github.com/krizaka/krizaka-ui/commit/f552d5eee4d81b66103b5e7492b450919805b1b5) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `.kz-grow` really grows a chart: it wipes the whole SVG in from the left (`kz-grow-wipe`) instead of drawing each path's stroke, which never matched the charts' markup (classes, not stroke attributes). Works on a Sparkline's line, area and bars alike.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.33.1
+  - @krizaka/tokens@3.33.1
+
 ## 3.33.0
 
 ### Minor Changes
