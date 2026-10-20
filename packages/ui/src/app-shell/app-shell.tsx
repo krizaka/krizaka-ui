@@ -36,13 +36,13 @@ export const appShell = tv({
       "group/item relative flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-fg-secondary no-underline transition-colors " +
       "hover:bg-surface-2 hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
       "aria-[current=page]:bg-accent-soft aria-[current=page]:text-fg " +
-      "aria-[current=page]:before:absolute aria-[current=page]:before:inset-y-2 aria-[current=page]:before:-left-2 aria-[current=page]:before:w-1 aria-[current=page]:before:rounded-full aria-[current=page]:before:bg-accent " +
+      "aria-[current=page]:before:absolute aria-[current=page]:before:inset-y-2 aria-[current=page]:before:-left-2 aria-[current=page]:before:w-1 aria-[current=page]:before:rounded-sm aria-[current=page]:before:bg-accent " +
       "[[data-collapsed]_&]:justify-center [[data-collapsed]_&]:px-0 [&>svg]:h-[18px] [&>svg]:w-[18px] [&>svg]:shrink-0 " +
       "[[data-desktop]_&]:h-8 [[data-desktop]_&]:cursor-default [[data-desktop]_&]:rounded-md [[data-desktop]_&]:text-[13px] [[data-desktop]_&_svg]:h-4 [[data-desktop]_&_svg]:w-4",
     itemLabel: "min-w-0 flex-1 truncate [[data-collapsed]_&]:sr-only",
     itemHint: "ml-auto hidden items-center gap-0.5 text-fg-secondary group-hover/item:flex group-focus-visible/item:flex [[data-collapsed]_&]:!hidden",
     itemBadge:
-      "ml-auto inline-flex min-w-5 items-center justify-center rounded-full bg-accent px-1.5 text-[11px] font-bold text-on-accent " +
+      "ml-auto inline-flex min-w-5 items-center justify-center rounded-sm bg-accent px-1.5 text-[11px] font-bold text-on-accent " +
       "[[data-collapsed]_&]:absolute [[data-collapsed]_&]:right-1.5 [[data-collapsed]_&]:top-1 [[data-collapsed]_&]:min-w-4 [[data-collapsed]_&]:px-1 [[data-collapsed]_&]:text-[10px]",
     footer: "shrink-0 border-t border-border-subtle p-2",
     collapse:

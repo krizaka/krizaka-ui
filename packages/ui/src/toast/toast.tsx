@@ -136,8 +136,8 @@ export function progressToast(message: React.ReactNode, { id, value, doneMessage
     description: (
       <span className="mt-1 flex flex-col gap-1.5">
         {typeof description === "function" ? description() : description}
-        <span aria-hidden className="block h-1 w-full overflow-hidden rounded-full bg-surface-3">
-          <span className="block h-full rounded-full bg-linear-to-r from-accent to-accent-2 transition-[width] duration-500" style={{ width: `${ratio * 100}%` }} />
+        <span aria-hidden className="block h-1 w-full overflow-hidden rounded-sm bg-surface-3">
+          <span className="block h-full rounded-sm bg-linear-to-r from-accent to-accent-2 transition-[width] duration-500" style={{ width: `${ratio * 100}%` }} />
         </span>
         <span className="tabular-nums">{Math.round(ratio * 100)} %</span>
       </span>

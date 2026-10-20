@@ -17,7 +17,7 @@ export const activityFeed = tv({
     rail: "absolute left-[4.5px] top-5 -bottom-1 w-px bg-border-default",
     body: "flex min-w-0 flex-1 flex-col",
     title: "text-sm text-fg",
-    count: "ml-1.5 inline-flex rounded-full bg-surface-3 px-1.5 text-xs font-semibold tabular-nums text-fg-secondary",
+    count: "ml-1.5 inline-flex rounded-sm bg-surface-3 px-1.5 text-xs font-semibold tabular-nums text-fg-secondary",
     description: "text-xs text-fg-secondary",
     time: "shrink-0 pt-0.5 text-xs tabular-nums text-fg-secondary",
     leading: "shrink-0",

@@ -25,7 +25,7 @@ export function StepProgress({ step, total, label, back, trailing, className }: 
         <div className="flex min-w-10 justify-start">{back}</div>
         <div role="progressbar" aria-label={words} aria-valuemin={1} aria-valuemax={total} aria-valuenow={step} aria-valuetext={words} className="flex flex-1 gap-1">
           {Array.from({ length: total }, (_, i) => (
-            <span key={i} className={["h-1 flex-1 rounded-full transition-colors motion-reduce:transition-none", i < step ? "bg-accent" : "bg-surface-3"].join(" ")} />
+            <span key={i} className={["h-1 flex-1 rounded-sm transition-colors motion-reduce:transition-none", i < step ? "bg-accent" : "bg-surface-3"].join(" ")} />
           ))}
         </div>
         <div className="flex min-w-10 justify-end">{trailing}</div>

@@ -14,7 +14,7 @@ export const settingsLayout = tv({
     nav: "-mx-4 overflow-x-auto overflow-y-hidden px-4 py-1 -my-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:overflow-visible lg:px-0 lg:py-0 lg:my-0",
     navList: "flex w-max gap-2 lg:sticky lg:top-20 lg:w-auto lg:flex-col lg:gap-0.5",
     navLink:
-      "flex h-9 items-center gap-2.5 whitespace-nowrap rounded-full border border-border-default bg-surface-1 px-3.5 text-sm font-medium text-fg-secondary no-underline " +
+      "flex h-9 items-center gap-2.5 whitespace-nowrap rounded-sm border border-border-default bg-surface-1 px-3.5 text-sm font-medium text-fg-secondary no-underline " +
       "hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-accent aria-[current]:text-fg " +
       "lg:rounded-lg lg:border-transparent lg:bg-transparent lg:px-3 lg:hover:bg-surface-2 lg:aria-[current]:bg-accent-soft [&>svg]:h-4 [&>svg]:w-4",
     content: "flex min-w-0 flex-col gap-6",
