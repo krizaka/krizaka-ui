@@ -14,6 +14,14 @@ describe("DocsHubPage", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
+  it("stacks the quick links of every collection with linksLayout=\"stack\", wraps them by default (#212)", () => {
+    const collections = [{ id: "a", title: "A", href: "#a", links: [{ href: "#x", label: "X" }] }];
+    const { container, rerender } = render(<DocsHubPage eyebrow="e" title="t" collectionsTitle="c" collections={collections} />);
+    expect(container.querySelector('.kz-tpl-collection[data-links="wrap"]')).toBeTruthy();
+    rerender(<DocsHubPage eyebrow="e" title="t" collectionsTitle="c" collections={collections} linksLayout="stack" />);
+    expect(container.querySelector('.kz-tpl-collection[data-links="stack"]')).toBeTruthy();
+  });
+
   it("is exported", () => {
     expect(typeof DocsHubPage).toBe("function");
   });
