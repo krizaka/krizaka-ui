@@ -58,9 +58,22 @@ const config: TestRunnerConfig = {
     // A template's phone story (`parameters.phone`): the page is laid out and captured at a phone's width, then the
     // viewport is put back for the next story.
     const before = page.viewportSize();
-    if (story.parameters?.phone) {
-      await page.setViewportSize({ width: 390, height: 844 });
+    // `parameters.viewportWidth`: the same at any width (a tablet's 768, a laptop's 1024).
+    const width: number | undefined = story.parameters?.viewportWidth ?? (story.parameters?.phone ? 390 : undefined);
+    if (width) {
+      await page.setViewportSize({ width, height: 844 });
       await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    }
+    // `parameters.noOverflow`: nothing of the page sticks out sideways at this width (a bar whose labels are too long).
+    if (story.parameters?.noOverflow) {
+      const out = await page.evaluate(() => {
+        const w = document.documentElement.clientWidth;
+        const bad = [...document.querySelectorAll<HTMLElement>("a,button")]
+          .filter((el) => el.getClientRects().length > 0 && el.getBoundingClientRect().right > w + 0.5)
+          .map((el) => el.textContent?.trim() ?? "");
+        return { pageOverflow: document.documentElement.scrollWidth > w, bad };
+      });
+      expect(out).toEqual({ pageOverflow: false, bad: [] });
     }
     // @krizaka/charts: an ECharts engine and the world's countries load lazily (`data-pending` until drawn).
     await page.waitForFunction(() => !document.querySelector("[data-pending]"), undefined, { timeout: 15_000 });
@@ -105,7 +118,7 @@ const config: TestRunnerConfig = {
         customDiffDir: join(process.cwd(), "__screenshots__", "__diff__"),
       });
     }
-    if (story.parameters?.phone && before) await page.setViewportSize(before);
+    if (width && before) await page.setViewportSize(before);
   },
 };
 

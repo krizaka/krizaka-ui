@@ -118,3 +118,26 @@ export const MenuInline: Story = {
     </NavBar.Root>
   ),
 };
+
+/** Akinaza's and Yasakia's French bar: three long labels in a section, a link, the actions. */
+const FrBar = () => (
+  <NavBar.Root label="Principal" floating={false}>
+    <NavBar.Brand href="#home">Akinaza</NavBar.Brand>
+    <NavBar.Items>
+      <NavBar.Menu label="Produit">
+        <NavBar.MenuLink href="#a" title="Prise de rendez-vous en ligne" />
+        <NavBar.MenuLink href="#b" title="Gestion des clients et des dossiers" />
+        <NavBar.MenuLink href="#c" title="Déclarations de revenus" />
+      </NavBar.Menu>
+      <NavBar.Link href="#tarifs">Tarifs et abonnements</NavBar.Link>
+    </NavBar.Items>
+    <NavBar.Actions>
+      <a href="#contact" className="text-sm font-medium">Nous joindre</a>
+    </NavBar.Actions>
+  </NavBar.Root>
+);
+
+/** At 768 px the long French section is the dropdown: nothing sticks out of the page. */
+export const InlineFrom768: Story = { render: () => <FrBar />, parameters: { capture: "viewport", viewportWidth: 768, noOverflow: true } };
+/** At 1024 px the section stands in the bar as links and still fits. */
+export const InlineFrom1024: Story = { render: () => <FrBar />, parameters: { capture: "viewport", viewportWidth: 1024, noOverflow: true } };

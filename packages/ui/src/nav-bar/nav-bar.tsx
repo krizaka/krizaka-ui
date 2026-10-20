@@ -229,13 +229,15 @@ export function NavBarItems({ className, children, value: valueProp, defaultValu
 export type NavBarLinkProps = Omit<React.ComponentProps<typeof Nav.Link>, "active"> & {
   /** The current page: `aria-current="page"`, and the light rests on it. */
   active?: boolean;
+  /** Classes on the list item around the link (to show it from a breakpoint only). */
+  itemClassName?: string;
 };
 
 /** A link of the bar. `asChild` renders your router's `<Link>`. */
-export function NavBarLink({ active, className, onPointerEnter, ...props }: NavBarLinkProps) {
+export function NavBarLink({ active, className, itemClassName, onPointerEnter, ...props }: NavBarLinkProps) {
   const { close } = React.useContext(ItemsContext);
   return (
-    <Nav.Item>
+    <Nav.Item className={itemClassName}>
       <Nav.Link
         data-nav-item=""
         data-active={active ? "" : undefined}
@@ -270,31 +272,28 @@ export type NavBarMenuProps = Omit<React.ComponentProps<typeof Nav.Item>, "child
    * @default 3
    */
   inlineUpTo?: number;
+  /**
+   * From which breakpoint the inline links stand in the bar. Below it (between the phone panel at `md` and this
+   * breakpoint) the section is the dropdown, so long labels never overflow a tablet-width bar. `md` inlines as soon as
+   * the bar is shown.
+   * @default "lg"
+   */
+  inlineFrom?: "md" | "lg" | "xl";
 };
+
+// Static class names (Tailwind reads them at build time).
+const INLINE_HIDE = { md: "", lg: "max-lg:hidden", xl: "max-xl:hidden" } as const;
+const DROPDOWN_HIDE = { md: "", lg: "lg:hidden", xl: "xl:hidden" } as const;
 
 /**
  * A menu of the bar: its trigger, and its links in a panel that opens under the bar. A menu of `inlineUpTo` links or
  * fewer (3 by default) is not a menu at all: its links stand in the bar, each with its active state — a hidden list of
  * three is one click more for nothing. The phone's panel groups them as usual (`NavBar.MobileGroup`).
  */
-export function NavBarMenu({ label, active, columns = 1, inlineUpTo = 3, children, className, ...props }: NavBarMenuProps) {
+export function NavBarMenu({ label, active, columns = 1, inlineUpTo = 3, inlineFrom = "lg", children, className, ...props }: NavBarMenuProps) {
   const links = React.Children.toArray(children);
-  if (links.length > 0 && links.length <= inlineUpTo && links.every((c) => React.isValidElement(c) && c.type === NavBarMenuLink)) {
-    return (
-      <>
-        {links.map((link) => {
-          const { title, href, active: here, asChild, children: child, icon: _icon, description: _description, className: linkClass, ...rest } = (link as React.ReactElement<NavBarMenuLinkProps>).props;
-          return (
-            <NavBarLink key={(link as React.ReactElement).key} asChild={asChild} href={asChild ? undefined : href} active={here} className={linkClass} {...rest}>
-              {asChild && React.isValidElement<{ children?: React.ReactNode }>(child) ? React.cloneElement(child, undefined, title) : title}
-            </NavBarLink>
-          );
-        })}
-      </>
-    );
-  }
-  return (
-    <Nav.Item className={className} {...props}>
+  const dropdown = (hide: string) => (
+    <Nav.Item className={cn(hide, className)} {...props}>
       <Nav.Trigger data-nav-item="" data-active={active ? "" : undefined} className={cn(s.item(), "group/trigger")}>
         {label}
         <svg viewBox="0 0 24 24" className={s.chevron()} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
@@ -304,6 +303,23 @@ export function NavBarMenu({ label, active, columns = 1, inlineUpTo = 3, childre
       <Nav.Content className={cn(s.panel(), columns === 2 && s.panelWide())}>{children}</Nav.Content>
     </Nav.Item>
   );
+  const inline = links.length > 0 && links.length <= inlineUpTo && links.every((c) => React.isValidElement(c) && c.type === NavBarMenuLink);
+  if (inline) {
+    return (
+      <>
+        {inlineFrom !== "md" && dropdown(DROPDOWN_HIDE[inlineFrom])}
+        {links.map((link) => {
+          const { title, href, active: here, asChild, children: child, icon: _icon, description: _description, className: linkClass, ...rest } = (link as React.ReactElement<NavBarMenuLinkProps>).props;
+          return (
+            <NavBarLink key={(link as React.ReactElement).key} asChild={asChild} href={asChild ? undefined : href} active={here} className={linkClass} itemClassName={INLINE_HIDE[inlineFrom]} {...rest}>
+              {asChild && React.isValidElement<{ children?: React.ReactNode }>(child) ? React.cloneElement(child, undefined, title) : title}
+            </NavBarLink>
+          );
+        })}
+      </>
+    );
+  }
+  return dropdown("");
 }
 
 export type NavBarMenuLinkProps = Omit<React.ComponentProps<typeof Nav.Link>, "title" | "active"> & {
