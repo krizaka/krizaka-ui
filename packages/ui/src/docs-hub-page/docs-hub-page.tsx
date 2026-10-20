@@ -58,6 +58,12 @@ export type DocsHubPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
   promise?: { label: React.ReactNode; text: React.ReactNode };
   /** The app's link component (Next's `Link`) for internal addresses. */
   linkAs?: LinkComponent;
+  /**
+   * How a collection's quick links sit: `wrap` (pills in a row that wraps) or `stack` (one pill per line, so the first
+   * link of every card starts at the same height).
+   * @default "wrap"
+   */
+  linksLayout?: "wrap" | "stack";
 };
 
 function List({ items, linkAs: Link = "a" }: { items: readonly DocsHubLink[]; linkAs?: LinkComponent }) {
@@ -77,7 +83,7 @@ function List({ items, linkAs: Link = "a" }: { items: readonly DocsHubLink[]; li
 }
 
 /** A documentation hub: search first, the collections in their brand, quick starts, popular and new pages. */
-export function DocsHubPage({ eyebrow, title, lead, search, searchHints, collectionsTitle, collections, quickstarts, popular, whatsNew, promise, linkAs, ...props }: DocsHubPageProps) {
+export function DocsHubPage({ eyebrow, title, lead, search, searchHints, collectionsTitle, collections, quickstarts, popular, whatsNew, promise, linkAs, linksLayout = "wrap", ...props }: DocsHubPageProps) {
   const L = (linkAs ?? "a") as React.ElementType;
   return (
     <div {...props}>
@@ -93,7 +99,7 @@ export function DocsHubPage({ eyebrow, title, lead, search, searchHints, collect
         <ul className="kz-tpl-collections">
           {collections.map((c) => (
             <li key={c.id} className={c.brand ? "brand-" + c.brand : undefined}>
-              <div className="kz-tpl-collection">
+              <div className="kz-tpl-collection" data-links={linksLayout}>
                 <div className="kz-tpl-collection-head">
                   {c.mark && <span aria-hidden>{c.mark}</span>}
                   <L href={c.href}>{c.title}</L>
