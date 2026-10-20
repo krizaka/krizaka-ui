@@ -5,7 +5,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { axeViolations } from "../test/axe";
-import { EngineFlow, type EngineFlowNode,flowGeometry, flowPositions } from "./index";
+import { EngineFlow, type EngineFlowNode, flowGeometry, flowPositions, photonCount } from "./index";
 
 const nodes: EngineFlowNode[] = [
   { id: "a", label: "Alpha", flow: "both", description: "Search, results back.", href: "https://a.example", linkLabel: "a.example", className: "brand-a" },
@@ -91,7 +91,7 @@ describe("EngineFlow", () => {
     expect(container.querySelector("figure")?.hasAttribute("data-motion-scope")).toBe(true);
     expect(container.querySelector(".kz-flow-photon")?.getAttribute("class")).toContain("kz-loop");
     const css = readFileSync(join(import.meta.dirname, "../motion.css"), "utf8");
-    expect(css).toMatch(/prefers-reduced-motion: reduce[^]*\.kz-flow-photon \{ animation: none !important; \}|\.kz-flow-photon \{ animation: none/);
+    expect(css).toMatch(/prefers-reduced-motion: reduce[^]*\.kz-flow-photon[^{]*\{ animation: none !important; \}/);
     const source = readFileSync(join(import.meta.dirname, "engine-flow.tsx"), "utf8");
     expect(source).not.toMatch(/requestAnimationFrame|<canvas|getContext/);
   });
@@ -114,5 +114,50 @@ describe("EngineFlow photons actually move (regression: they sat still on every 
     expect(css).toMatch(/@keyframes kz-flow-breathe/);
     const { container } = render(<EngineFlow label="x" hub={{ label: "Hub", mark: <svg /> }} nodes={nodes} />);
     expect(container.querySelector(".kz-flow-hub-mark")?.getAttribute("class")).toContain("kz-loop");
+  });
+});
+
+describe("EngineFlow config", () => {
+  const photons = (container: HTMLElement, id: number) => container.querySelectorAll(".kz-flow-link")[id]!.querySelectorAll(".kz-flow-photon:not([data-halo])");
+
+  it("density sets how many photons share a conduit: sparse < normal < dense, within bounds", () => {
+    for (const length of [10, 30, 60, 120]) {
+      const [a, b, c] = [photonCount(length, "sparse"), photonCount(length, "normal"), photonCount(length, "dense")];
+      expect(a).toBeLessThanOrEqual(b);
+      expect(b).toBeLessThanOrEqual(c);
+      expect(a).toBeGreaterThanOrEqual(1);
+      expect(c).toBeLessThanOrEqual(8);
+    }
+    expect(photonCount(60)).toBe(photonCount(60, "normal"));
+    // The count is the dash pattern's spacing (one path per lane): a denser conduit has a smaller gap.
+    const gap = (density: "sparse" | "dense") => parseFloat((photons(render(<EngineFlow label="x" hub={{ label: "Hub" }} nodes={nodes} compactLayout={false} density={density} />).container, 1)[0] as SVGElement).style.getPropertyValue("--kz-flow-gap"));
+    expect(gap("dense")).toBeLessThan(gap("sparse"));
+  });
+
+  it("speed, easing and stagger land on the photons' timing; stagger 0 sends every conduit together", () => {
+    const { container } = render(<EngineFlow label="x" hub={{ label: "Hub" }} nodes={nodes} compactLayout={false} speed={32} easing="ease-in-out" stagger={0} />);
+    const fast = (photons(container, 1)[0] as SVGElement).style;
+    const slow = (photons(render(<EngineFlow label="x" hub={{ label: "Hub" }} nodes={nodes} compactLayout={false} speed={8} />).container, 1)[0] as SVGElement).style;
+    expect(parseFloat(fast.animationDuration)).toBeLessThan(parseFloat(slow.animationDuration));
+    expect(fast.animationTimingFunction).toBe("ease-in-out");
+    const delays = [0, 1].map((i) => parseFloat((photons(container, i)[0] as SVGElement).style.animationDelay));
+    expect(delays[0]).toBe(delays[1]);
+    const staggered = render(<EngineFlow label="x" hub={{ label: "Hub" }} nodes={nodes} compactLayout={false} stagger={500} />).container;
+    expect(parseFloat((photons(staggered, 1)[0] as SVGElement).style.animationDelay)).not.toBe(parseFloat((photons(staggered, 0)[0] as SVGElement).style.animationDelay));
+  });
+
+  it("trigger is a data attribute the stylesheet reads: hover pauses at rest, active shows only the chosen conduit", () => {
+    const css = readFileSync(join(import.meta.dirname, "../motion.css"), "utf8");
+    expect(css).toMatch(/\.kz-flow\[data-trigger="hover"\]:not\(:hover, :focus-within\) \.kz-flow-photon \{ animation-play-state: paused; \}/);
+    expect(css).toMatch(/\.kz-flow\[data-trigger="active"\] \.kz-flow-link:not\(\[data-active\]\) \.kz-flow-photon \{ opacity: 0; \}/);
+    const hover = render(<EngineFlow label="x" hub={{ label: "Hub" }} nodes={nodes} trigger="hover" />).container;
+    expect(hover.querySelector("figure")?.getAttribute("data-trigger")).toBe("hover");
+    expect(render(<EngineFlow label="x" hub={{ label: "Hub" }} nodes={nodes} />).container.querySelector("figure")?.hasAttribute("data-trigger")).toBe(false);
+  });
+
+  it("breathe={false} leaves the engine's mark still", () => {
+    const mark = (breathe: boolean) => render(<EngineFlow label="x" hub={{ label: "Hub", mark: <svg /> }} nodes={nodes} breathe={breathe} />).container.querySelector(".kz-flow-hub-mark")!;
+    expect(mark(true).getAttribute("class")).toContain("kz-loop");
+    expect(mark(false).getAttribute("class")).not.toContain("kz-loop");
   });
 });

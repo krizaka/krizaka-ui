@@ -1,13 +1,17 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { hydrateRoot } from "react-dom/client";
 import { renderToString } from "react-dom/server";
 
 import { axeViolations } from "../test/axe";
-import { circlePolygon, distanceMeters, formatDistance, LocationPicker, Map, mapPalette, mapStyle, Marker, REGION_FROM_ZOOM, StaticMap } from "./index";
+import { circlePolygon, distanceMeters, formatDistance, LocationPicker, Map, mapPalette, mapStyle, Marker, pathLength, pointAlong, Pulse, REGION_FROM_ZOOM, Route, sliceLine, StaticMap } from "./index";
 
 // The engine: a MapLibre stand-in that records what the components ask of it (happy-dom has no WebGL).
 const calls: string[] = [];
+let lastMap: { sources: Record<string, { data: unknown }> } | undefined;
 class FakeMap {
   handlers: Record<string, (() => void)[]> = {};
   zoom = 12;
@@ -50,14 +54,27 @@ class FakeMap {
   setStyle() {
     calls.push("setStyle");
   }
-  getSource() {
-    return undefined;
+  sources: Record<string, { data: unknown; setData: (d: unknown) => void }> = {};
+  getContainer() {
+    return document.body;
+  }
+  getSource(id: string) {
+    return this.sources[id];
   }
   getStyle() {
     return { layers: [] };
   }
-  addSource() {}
+  addSource(id: string, source: { data: unknown }) {
+    const entry = { data: source.data, setData: (d: unknown) => void (entry.data = d) };
+    this.sources[id] = entry;
+    // eslint-disable-next-line @typescript-eslint/no-this-alias -- the test reads the sources of the map the component drew on
+    lastMap = this;
+  }
   addLayer() {}
+  removeLayer() {}
+  removeSource(id: string) {
+    delete this.sources[id];
+  }
 }
 class FakeMarker {
   constructor(public options: { element: HTMLElement }) {}
@@ -209,5 +226,90 @@ describe("hydration", () => {
     expect(errors, "a hydration mismatch is a recoverable error").toEqual([]);
     root.unmount();
     container.remove();
+  });
+});
+
+describe("geometry of a route", () => {
+  const path = [[-73.6, 45.5], [-73.6, 45.52], [-73.56, 45.52]] as const;
+  it("measures a path, finds the point at a fraction with its heading, and slices the first part as a line", () => {
+    const total = pathLength(path);
+    expect(total).toBeGreaterThan(3000);
+    expect(pointAlong(path, 0).position).toEqual([-73.6, 45.5]);
+    expect(pointAlong(path, 1).position).toEqual([-73.56, 45.52]);
+    expect(pointAlong(path, 0.1).heading).toBe(0); // heading north on the first leg
+    expect(Math.round(pointAlong(path, 0.99).heading)).toBe(90); // then east
+    expect(pointAlong(path, 2).position).toEqual([-73.56, 45.52]); // clamped
+    const half = sliceLine(path, 0.5).geometry.coordinates;
+    expect(half[0]).toEqual([-73.6, 45.5]);
+    expect(pathLength(half as never)).toBeCloseTo(total / 2, -1);
+    expect(sliceLine(path, 1).geometry.coordinates).toEqual(path.map((p) => [...p]));
+    expect(sliceLine(path, 0).geometry.coordinates).toHaveLength(2); // a line needs two points: a dot
+  });
+});
+
+describe("Route, Pulse and Marker drop", () => {
+  const route = [[-73.6, 45.5], [-73.58, 45.52], [-73.56, 45.51]] as const;
+  const reduced = (on: boolean) => vi.stubGlobal("matchMedia", (query: string) => ({ matches: on && query.includes("reduce"), media: query, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {}, onchange: null, dispatchEvent: () => false }));
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("draws the route over its duration, from nothing to the whole line, then stops (a finite animation)", async () => {
+    const webgl = withWebGL();
+    reduced(false);
+    const frames: FrameRequestCallback[] = [];
+    vi.stubGlobal("requestAnimationFrame", (cb: FrameRequestCallback) => frames.push(cb));
+    vi.stubGlobal("cancelAnimationFrame", () => undefined);
+    vi.stubGlobal("IntersectionObserver", class { constructor(private cb: IntersectionObserverCallback) { setTimeout(() => cb([{ isIntersecting: true } as IntersectionObserverEntry], this as never), 0); } observe() {} disconnect() {} });
+    render(
+      <Map label="Delivery" center={[-73.58, 45.51]}>
+        <Route path={route} label="Delivery from the studio to Mile End, 3 km" duration={1000} />
+      </Map>,
+    );
+    expect(await screen.findByText("Delivery from the studio to Mile End, 3 km")).toBeTruthy();
+    const source = () => Object.values(lastMap!.sources)[0]!.data as GeoJSON.Feature<GeoJSON.LineString>;
+    await waitFor(() => expect(frames.length).toBeGreaterThan(0));
+    expect(source().geometry.coordinates).toHaveLength(2); // starts as a dot
+    const now = performance.now();
+    await act(async () => frames.shift()!(now + 500)); // halfway
+    expect(pathLength(source().geometry.coordinates as never)).toBeGreaterThan(0);
+    expect(pathLength(source().geometry.coordinates as never)).toBeLessThan(pathLength(route));
+    await act(async () => { while (frames.length) frames.shift()!(now + 1200); });
+    expect(source().geometry.coordinates).toEqual(route.map((p) => [...p])); // whole
+    expect(frames).toHaveLength(0); // nothing keeps running
+    webgl.mockRestore();
+  });
+
+  it("under reduced motion the line is whole at once and the courier rests at the end, no frame asked", async () => {
+    const webgl = withWebGL();
+    reduced(true);
+    const raf = vi.fn(() => 0);
+    vi.stubGlobal("requestAnimationFrame", raf);
+    render(
+      <Map label="Delivery" center={[-73.58, 45.51]}>
+        <Route path={route} label="Delivery" courier />
+      </Map>,
+    );
+    await waitFor(() => expect(lastMap && Object.keys(lastMap.sources).length).toBeGreaterThan(0));
+    expect((Object.values(lastMap!.sources)[0]!.data as GeoJSON.Feature<GeoJSON.LineString>).geometry.coordinates).toEqual(route.map((p) => [...p]));
+    await waitFor(() => expect(document.querySelector(".kz-map-courier")).toBeTruthy());
+    expect(raf).not.toHaveBeenCalled();
+    webgl.mockRestore();
+  });
+
+  it("a Pulse is a decorative element read in the list of places; a Marker with `drop` carries its delay", async () => {
+    const webgl = withWebGL();
+    reduced(false);
+    render(
+      <Map label="Demand" center={[-73.58, 45.51]}>
+        <Pulse position={[-73.58, 45.51]} label="High demand in Mile End" size={64} />
+        <Marker position={[-73.6, 45.5]} label="Studio" drop={180} />
+      </Map>,
+    );
+    expect(await screen.findByText("High demand in Mile End")).toBeTruthy();
+    await waitFor(() => expect(document.querySelector(".kz-map-pulse")?.getAttribute("aria-hidden")).toBe("true"));
+    expect((document.querySelector(".kz-map-pulse") as HTMLElement).style.getPropertyValue("--kz-map-pulse-size")).toBe("64px");
+    await waitFor(() => expect((document.querySelector("[data-kz-marker] > [data-drop]") as HTMLElement | null)?.style.getPropertyValue("--kz-map-drop-delay")).toBe("180ms"));
+    const css = readFileSync(join(import.meta.dirname, "../motion.css"), "utf8");
+    expect(css).toMatch(/\.kz-map-pulse::before, \.kz-map-pulse::after \{ animation: none !important; \}|\[data-drop\], \.kz-map-pulse::before, \.kz-map-pulse::after \{ animation: none !important; \}/);
+    webgl.mockRestore();
   });
 });

@@ -212,6 +212,17 @@
 .maplibregl-marker { position: absolute; top: 0; left: 0; will-change: transform; }
 .kz-map-user { position: relative; width: 16px; height: 16px; border-radius: 9999px; background: var(--kz-accent); border: 3px solid var(--kz-surface-1); box-shadow: 0 1px 4px var(--kz-scrim); }
 .kz-map-user::after { content: ""; position: absolute; inset: -3px; border-radius: inherit; background: var(--kz-accent); opacity: 0.35; animation: kz-map-pulse 2s var(--kz-ease) infinite; }
+/* A pin dropped onto its place (`Marker drop={delay}`): falls from above, settles with a small bounce; once. */
+[data-kz-marker] > [data-drop] { animation: kz-map-drop 620ms cubic-bezier(0.34, 1.4, 0.64, 1) backwards; animation-delay: var(--kz-map-drop-delay, 0ms); }
+@keyframes kz-map-drop { from { opacity: 0; translate: 0 -28px; scale: 0.7; } 60% { opacity: 1; } to { opacity: 1; translate: 0 0; scale: 1; } }
+/* A heat pulse (`Pulse`): two rings swell and fade, half a beat apart; still rings under reduced motion. */
+.kz-map-pulse { position: relative; width: var(--kz-map-pulse-size, 56px); height: var(--kz-map-pulse-size, 56px); pointer-events: none; }
+.kz-map-pulse::before, .kz-map-pulse::after { content: ""; position: absolute; inset: 0; border-radius: 9999px; border: 2px solid var(--kz-accent); background: color-mix(in oklab, var(--kz-accent) 22%, transparent); animation: kz-map-heat 2.6s var(--kz-ease) infinite; }
+.kz-map-pulse::after { animation-delay: -1.3s; }
+.kz-map-pulse[data-tone="soft"]::before, .kz-map-pulse[data-tone="soft"]::after { border-width: 1px; background: color-mix(in oklab, var(--kz-accent) 10%, transparent); }
+@keyframes kz-map-heat { from { transform: scale(0.15); opacity: 0.9; } to { transform: scale(1); opacity: 0; } }
+/* The courier of a `Route`: an accent dot with a ring, moved along the line by the component. */
+.kz-map-courier { width: 14px; height: 14px; border-radius: 9999px; background: var(--kz-accent); border: 3px solid var(--kz-surface-1); box-shadow: 0 0 0 4px color-mix(in oklab, var(--kz-accent) 30%, transparent), 0 2px 6px var(--kz-scrim); }
 @keyframes kz-map-pulse { from { transform: scale(1); opacity: 0.4; } to { transform: scale(3.2); opacity: 0; } }
 
 /* Section backdrop (SectionBackdrop): the brand's section gradient (--kz-brand-gradient-*), sections that glide from
@@ -676,6 +687,11 @@ svg[data-kz-icon="ExternalIcon"] {
 }
 .kz-flow-photon[data-halo] { stroke-width: calc(var(--kz-flow-w) * 9); opacity: 0.22; }
 .kz-flow-photon[data-dir="out"] { stroke: var(--kz-flow-back); animation-name: kz-flow-out; }
+/* `trigger`: `hover` — the photons travel only while the pointer or focus is on the figure (they rest along the conduits);
+   `active` — only on the chosen node's conduit (the others show no photon). Off screen / settling still pause them above. */
+.kz-flow[data-trigger="hover"]:not(:hover, :focus-within) .kz-flow-photon { animation-play-state: paused; }
+.kz-flow[data-trigger="active"] .kz-flow-link:not([data-active]) .kz-flow-photon { opacity: 0; }
+.kz-flow[data-trigger="active"]:not([data-active]) .kz-flow-photon { opacity: 0; }
 .kz-flow[data-active] .kz-flow-link:not([data-active]) { opacity: 0.25; }
 .kz-flow-link[data-active] .kz-flow-wire { opacity: 0.9; }
 /* The gap carries its unit (`* -1px`): a bare number is not interpolable with the length it starts from, and the dot would
@@ -764,7 +780,8 @@ svg[data-kz-icon="ExternalIcon"] {
   .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
   .kz-skeleton, .kz-skeleton-shape *, .kz-toast::after, .kz-glow::before,
   .kz-rotating > *, .kz-loop, .kz-iso-rise, .kz-count-roll, .kz-loader-trace, .kz-loader-node, .kz-loader-mark,
-  [data-kz-status], .kz-replay-caret, .kz-month, .kz-map-user::after, .kz-flow-photon { animation: none !important; }
+  [data-kz-status], .kz-replay-caret, .kz-month, .kz-map-user::after, .kz-flow-photon, [data-kz-marker] > [data-drop], .kz-map-pulse::before, .kz-map-pulse::after { animation: none !important; }
+  .kz-map-pulse::before { opacity: 0.45; transform: scale(0.7); } .kz-map-pulse::after { opacity: 0.2; transform: scale(1); }
   .kz-flow-node-mark, .kz-flow-node, .kz-flow-link { transition: none; }
   /* At rest, the trace stands still where a reader expects it: a third of the hexagon from the top. */
   .kz-loader-trace:not([stroke-dasharray]) { stroke-dashoffset: -8; }
