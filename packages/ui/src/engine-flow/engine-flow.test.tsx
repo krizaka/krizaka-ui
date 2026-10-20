@@ -96,3 +96,23 @@ describe("EngineFlow", () => {
     expect(source).not.toMatch(/requestAnimationFrame|<canvas|getContext/);
   });
 });
+
+describe("EngineFlow photons actually move (regression: they sat still on every site)", () => {
+  // `calc(var(--gap) * -1)` is a plain number: against the length of the other keyframe (`0` → implicit `0px`) it is not
+  // interpolable, so the browser flips between the two at 50 % — and since the dash period is the gap, both offsets
+  // draw the dot in the same place: the photons looked frozen. The gap must carry its unit.
+  const css = readFileSync(join(import.meta.dirname, "../motion.css"), "utf8");
+  const keyframes = (name: string) => css.match(new RegExp(`@keyframes ${name} \\{.*\\}`))?.[0] ?? "";
+
+  it.each(["kz-flow-in", "kz-flow-out"])("%s animates a length, so the dash offset interpolates", (name) => {
+    const body = keyframes(name);
+    expect(body).toContain("stroke-dashoffset");
+    expect(body).toMatch(/var\(--kz-flow-gap[^)]*\) \* -1px/);
+  });
+
+  it("the hub breathes in the same loop system (held off screen and while settling, still under reduced motion)", () => {
+    expect(css).toMatch(/@keyframes kz-flow-breathe/);
+    const { container } = render(<EngineFlow label="x" hub={{ label: "Hub", mark: <svg /> }} nodes={nodes} />);
+    expect(container.querySelector(".kz-flow-hub-mark")?.getAttribute("class")).toContain("kz-loop");
+  });
+});
