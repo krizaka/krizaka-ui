@@ -1,11 +1,12 @@
 # .github/workflows/release.yml (krizaka-ui)
 name: Release
 on: { push: { branches: [main] }, workflow_dispatch: {} }
-permissions: { contents: write, pull-requests: write, id-token: write }
+permissions: { contents: read }   # write scopes live on the job (OpenSSF Scorecard, Token-Permissions)
 concurrency: { group: release, cancel-in-progress: false }
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions: { contents: write, pull-requests: write, id-token: write }
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with: { fetch-depth: 0 }
