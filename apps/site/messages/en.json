@@ -933,6 +933,10 @@
       "title": "Browse the kit",
       "lead": "Every family, drawn by its own components.",
       "all": "All {count} components"
+    },
+    "family": {
+      "title": "The rest of the family",
+      "lead": "Built by the same people, in the open: the Spring Boot building blocks, the motion lab, and the products themselves."
     }
   }
 }

@@ -2,7 +2,7 @@ import { familyLabels, siteById, siteGroups, sites, sitesByGroup } from "./index
 
 describe("sites — the Krizaka family", () => {
   it("lists every site once, with an https address and a repository on GitHub", () => {
-    expect(sites.map((s) => s.id)).toEqual(["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza", "ui", "java", "github"]);
+    expect(sites.map((s) => s.id)).toEqual(["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza", "ui", "java", "motion", "github"]);
     for (const site of sites) {
       expect(site.url).toMatch(/^https:\/\//);
       expect(site.repo).toMatch(/^https:\/\/github\.com\/krizaka(\/[a-z-]+)?$/);
@@ -23,6 +23,7 @@ describe("sites — the Krizaka family", () => {
       "dev.akinaza.com",
       "ui.krizaka.com",
       "java.krizaka.com",
+      "krizaka.github.io/krizaka-motion",
       "github.com/krizaka",
     ]);
   });
@@ -40,6 +41,8 @@ describe("sites — the Krizaka family", () => {
     }
     expect(siteById("ui").kind).toBe("open-source");
     expect(siteById("java").repo).toBe("https://github.com/krizaka/krizaka-build");
+    // The motion lab: Krizaka UI's motion played live, built in the open (GitHub Pages).
+    expect(siteById("motion")).toMatchObject({ kind: "open-source", group: "open-source", status: "development", url: "https://krizaka.github.io/krizaka-motion", repo: "https://github.com/krizaka/krizaka-motion" });
   });
 
   it("groups them in reading order: Krizaka · Products · Open source · GitHub", () => {
@@ -47,7 +50,7 @@ describe("sites — the Krizaka family", () => {
     expect(sitesByGroup().map((g) => [g.group, g.sites.map((s) => s.id)])).toEqual([
       ["krizaka", ["krizaka"]],
       ["products", ["orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"]],
-      ["open-source", ["ui", "java"]],
+      ["open-source", ["ui", "java", "motion"]],
       ["github", ["github"]],
     ]);
   });

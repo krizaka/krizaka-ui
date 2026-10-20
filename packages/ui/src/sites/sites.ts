@@ -6,7 +6,7 @@
 // here in English and French (`familyLabels`) — a site passes the set of its locale, or its own translation.
 
 /** A site of the family. */
-export type SiteId = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka" | "kachizaka" | "akinaza" | "ui" | "java" | "github";
+export type SiteId = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka" | "kachizaka" | "akinaza" | "ui" | "java" | "motion" | "github";
 
 /** What a site is: the company, a product, or an open-source project. It chooses the footer's signature line. */
 export type SiteKind = "company" | "product" | "open-source";
@@ -54,6 +54,8 @@ export const sites: readonly Site[] = [
   site({ id: "akinaza", name: "Akinaza", url: "https://dev.akinaza.com", kind: "product", group: "products", status: "development", mark: "akinaza", repo: "https://github.com/krizaka/akinaza" }),
   site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
   site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-build" }),
+  // The motion lab: built in the open on GitHub Pages; what proves itself there moves into Krizaka UI.
+  site({ id: "motion", name: "Krizaka Motion", url: "https://krizaka.github.io/krizaka-motion", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-motion" }),
   site({ id: "github", name: "GitHub", url: "https://github.com/krizaka", kind: "open-source", group: "github", status: "released", mark: "github", repo: "https://github.com/krizaka" }),
 ];
 
@@ -113,6 +115,7 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       akinaza: "Running a shop in Québec, for less — Loi 25 by design.",
       ui: "Components, tokens, icons and charts — web and React Native.",
       java: "Spring Boot building blocks on Maven Central.",
+      motion: "The motion lab: the kit's motion, played live with its knobs.",
       github: "Every repository, in the open.",
     },
     signature: { company: "A Krizaka company", product: "A Krizaka product", "open-source": "A Krizaka open-source project" },
@@ -135,6 +138,7 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       akinaza: "Tenir une boutique au Québec, pour moins cher — Loi 25 dès la conception.",
       ui: "Composants, jetons, icônes et graphiques — web et React Native.",
       java: "Des briques Spring Boot sur Maven Central.",
+      motion: "Le labo du mouvement : le mouvement du kit, joué en direct, avec ses réglages.",
       github: "Tous les dépôts, au grand jour.",
     },
     signature: { company: "Une compagnie Krizaka", product: "Un produit Krizaka", "open-source": "Un projet open source de Krizaka" },
