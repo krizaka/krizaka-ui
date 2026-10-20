@@ -16,6 +16,11 @@ Packages are versioned together by [Changesets](https://github.com/changesets/ch
 
 ## 1. Get the PRs green
 
+CI runs one `Type-check, test, build` at a time, about 20 minutes each: seven open PRs are hours. Keep few PRs open,
+never enable auto-merge on `changeset-release/main` (#321) or on other sessions' PRs, and re-run a failed job
+(`gh run rerun <id> --failed`, once the whole run has finished) before debugging a flake. Branch protection is not strict:
+a PR need not be up to date to merge.
+
 Typical reasons a PR is stuck, and the fix:
 
 | Symptom | Fix |
@@ -28,6 +33,9 @@ Typical reasons a PR is stuck, and the fix:
 | Conflicts | Rebase or merge `main`; for `meta.ts` / `AGENTS.md` keep both sides |
 
 ### Linux baselines (heavy)
+
+Docker Desktop must be running (`open -a Docker`). A native example needs a story named `Native/<ComponentName>` and its
+two baselines (`native-<name>--<example>--{dark,light}.png`); a test of `scripts/registry.test.mjs` checks both.
 
 Screenshots are compared on Linux. Use the heavy lock, build the packages on the host, then run the container with
 `--no-build` (building inside the container is killed for lack of memory):
@@ -59,7 +67,7 @@ Check the versions: `@krizaka/ui`, `tokens` and `tailwind` at X.Y.Z; other packa
 
 ## 3. Publish from the merge commit
 
-When the release PR is merged:
+When the release PR is merged (take the heavy lock for the build):
 
 ```bash
 git fetch origin --tags && git checkout --detach origin/main   # HEAD is the "chore: release X.Y.Z (#N)" commit
@@ -71,7 +79,8 @@ The CI publish job fails (trusted publishing is not configured): this local publ
 bounded wait (npm can take a few minutes to show a version):
 
 ```bash
-for i in $(seq 1 50); do [ "$(npm view @krizaka/ui version --prefer-online)" = X.Y.Z ] && break; sleep 10; done
+for i in $(seq 1 50); do npm view @krizaka/ui@X.Y.Z version --prefer-online 2>/dev/null | grep -q . && break; sleep 10; done
+npm view @krizaka/ui versions --json | tail -3    # the `version` dist-tag can lag a minute behind
 ```
 
 ## 4. After the release
