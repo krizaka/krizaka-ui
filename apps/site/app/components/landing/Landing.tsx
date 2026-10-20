@@ -1,12 +1,14 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
+import { Sparkline } from "@krizaka/charts/sparkline";
 import { CodeBlock } from "@krizaka/ui/code-block";
 import { NumberTicker } from "@krizaka/ui/number-ticker";
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "@krizaka/ui/tabs";
 import Link from "next/link";
 
 import { format, getDictionary, type Locale } from "@/lib/i18n";
+import { npmDownloads, sumKnown } from "@/lib/npm-downloads";
 import { packageVersion } from "@/lib/package-version";
 import { catalogEntries, catalogFamilies } from "@/lib/ui-catalog";
 import { FILTER_KEYS, JOBS, PATTERNS } from "@/lib/ui-ia";
@@ -73,6 +75,9 @@ export async function Landing({ locale }: { locale: Locale }) {
   const published = publishedPackages();
   const about = new Map(published.map((p) => [p.dir, p.description]));
   const count = items.length;
+  // Read from api.npmjs.org at build; a package npm could not answer for shows nothing (lib/npm-downloads.ts).
+  const downloads = await npmDownloads(PACKAGES.map((p) => p.name));
+  const weeklyTotal = sumKnown(PACKAGES.map((p) => downloads.get(p.name)?.weekly));
   const figures = [
     { id: "components", value: count, label: t.facts.components },
     { id: "native", value: items.filter((item) => item.platforms !== "web").length, label: t.facts.native },
@@ -99,6 +104,14 @@ export async function Landing({ locale }: { locale: Locale }) {
               </dd>
             </div>
           ))}
+          {weeklyTotal === undefined ? null : (
+            <div>
+              <dt>{t.facts.downloads}</dt>
+              <dd>
+                <NumberTicker value={weeklyTotal} locale={locale} />
+              </dd>
+            </div>
+          )}
           <div>
             <dt>{t.facts.version}</dt>
             <dd className="kz-land-version">{packageVersion("ui")}</dd>
@@ -160,6 +173,12 @@ export async function Landing({ locale }: { locale: Locale }) {
                 <code>{p.name}</code>
               </Link>
               <span>{about.get(p.dir)}</span>
+              {downloads.get(p.name) ? (
+                <span className="kz-land-downloads">
+                  {downloads.get(p.name)?.series ? <Sparkline data={downloads.get(p.name)?.series ?? []} variant="area" width={96} height={24} title={`${p.name} — ${t.packages.trend}`} /> : null}
+                  {format(t.packages.weekly, { count: new Intl.NumberFormat(locale).format(downloads.get(p.name)?.weekly ?? 0) })}
+                </span>
+              ) : null}
             </li>
           ))}
         </ul>

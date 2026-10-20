@@ -641,10 +641,13 @@
       "components": "components",
       "native": "also on iOS and Android",
       "packages": "packages on npm",
+      "downloads": "npm downloads last week",
       "version": "@krizaka/ui"
     },
     "packages": {
       "title": "Where the pieces live",
+      "weekly": "{count} / week on npm",
+      "trend": "Downloads over the last 12 weeks",
       "source": "Source and release notes on GitHub"
     },
     "dock": {
