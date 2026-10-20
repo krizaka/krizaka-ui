@@ -14,6 +14,13 @@ describe("@krizaka/ui/language-switch/server", () => {
     expect(languageHref("/baux", "fr")).toBe("/fr/baux");
   });
 
+  it("handles a pathologically long path in linear time (no ReDoS)", () => {
+    const long = `/${"a/".repeat(50_000)}?${"?#".repeat(50_000)}`;
+    const t0 = performance.now();
+    expect(languageHref(long, "fr").startsWith("/fr/")).toBe(true);
+    expect(performance.now() - t0).toBeLessThan(500);
+  });
+
   it("imports no React and is not a client module", () => {
     for (const file of ["server.ts", "href.ts"]) {
       const source = readFileSync(resolve(__dirname, file), "utf8");
