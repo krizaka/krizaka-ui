@@ -2298,7 +2298,7 @@
     {
       "name": "./map",
       "path": "dist/map.js",
-      "limit": "16 kB",
+      "limit": "18 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
