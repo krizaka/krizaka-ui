@@ -27,7 +27,9 @@ describe("Page", () => {
     expect(number.closest(".kz-heading")).toBeTruthy();
     const section = screen.getByRole("region", { name: "Products" });
     expect(section.dataset.paper).toBe("lines");
-    expect(section.hasAttribute("data-margin")).toBe(true);
+    // The margin is drawn once, on the frame — at the content's edge, not the window's.
+    expect(section.hasAttribute("data-margin")).toBe(false);
+    expect((section.querySelector(".kz-frame") as HTMLElement).hasAttribute("data-margin")).toBe(true);
   });
 
   it("frames its content, sized by data-size", () => {

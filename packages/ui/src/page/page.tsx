@@ -172,7 +172,6 @@ export function Section({
     "data-divider": divider ? "" : undefined,
     "data-spacing": spacing === "md" ? undefined : spacing,
     "data-paper": paper,
-    "data-margin": margin ? "" : undefined,
     ...props,
   };
   if (backdrop) {

@@ -31,7 +31,10 @@
 }
 [data-reveal].kz-in {
   opacity: 1;
-  clip-path: inset(0 0 0 0);
+}
+/* Only the ink reveal clips (while it writes): a settled block never clips what hangs outside it (a § in the margin). */
+[data-reveal="ink"].kz-in {
+  clip-path: inset(0 -100vw 0 -100vw);
 }
 
 /* A word that rolls in (RotatingWord). */
