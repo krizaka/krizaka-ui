@@ -44,4 +44,44 @@ describe("ImageCropper", () => {
     expect(img.style.width).toBe("100%");
     expect(img.style.height).toBe("300%");
   });
+
+  it.each([
+    ["portrait 9:16", { width: 900, height: 1600 }],
+    ["landscape 16:9", { width: 1600, height: 900 }],
+    ["square", { width: 1000, height: 1000 }],
+  ])("always covers the frame at any zoom and focus: %s (#172)", (_name, size) => {
+    for (const aspect of [1, 9 / 16, 3]) {
+      for (const zoom of [1, 1.5, 4]) {
+        for (const focus of [0, 0.5, 1]) {
+          const { unmount } = render(
+            <ImageCropper src="/a.jpg" alt="p" aspect={aspect} round={aspect === 1} naturalSize={size} value={{ x: focus, y: 1 - focus, zoom }} showZoom={false} />,
+          );
+          const img = screen.getByRole("img", { name: "p" });
+          const [w, h, l, t] = [img.style.width, img.style.height, img.style.left, img.style.top].map(Number.parseFloat);
+          expect(l!).toBeLessThanOrEqual(1e-6);
+          expect(t!).toBeLessThanOrEqual(1e-6);
+          expect(l! + w!).toBeGreaterThanOrEqual(100 - 1e-6);
+          expect(t! + h!).toBeGreaterThanOrEqual(100 - 1e-6);
+          unmount();
+        }
+      }
+    }
+  });
+
+  it("measures a picture that finished loading before React attached (cache hit, SSR): no onLoad ever fires (#172)", () => {
+    const complete = vi.spyOn(HTMLImageElement.prototype, "complete", "get").mockReturnValue(true);
+    const w = vi.spyOn(HTMLImageElement.prototype, "naturalWidth", "get").mockReturnValue(900);
+    const h = vi.spyOn(HTMLImageElement.prototype, "naturalHeight", "get").mockReturnValue(1600);
+    try {
+      render(<ImageCropper src="/portrait.jpg" alt="P" aspect={1} value={{ x: 0.5, y: 0.5, zoom: 2 }} showZoom={false} />);
+      const img = screen.getByRole("img", { name: "P" });
+      // A 9:16 picture in a square frame at zoom 2: 200 % wide, about 355.6 % high — it covers the frame.
+      expect(img.style.width).toBe("200%");
+      expect(Number.parseFloat(img.style.height)).toBeCloseTo(355.5556, 3);
+    } finally {
+      complete.mockRestore();
+      w.mockRestore();
+      h.mockRestore();
+    }
+  });
 });

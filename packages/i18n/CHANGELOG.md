@@ -1,5 +1,11 @@
 # @krizaka/i18n
 
+## 0.2.3
+
+### Patch Changes
+
+- [#332](https://github.com/krizaka/krizaka-ui/pull/332) [`057732b`](https://github.com/krizaka/krizaka-ui/commit/057732be1fdf99688163920b4bfc3550357e86e1) Thanks [@oussamaABID](https://github.com/oussamaABID)! - The TypeScript peer is `>=5`, not `^5`: an app on TypeScript 6 (orochia-mobile) installs it without an override.
+
 ## 0.2.2
 
 ### Patch Changes
