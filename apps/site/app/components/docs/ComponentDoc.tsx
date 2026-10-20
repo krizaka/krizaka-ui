@@ -17,6 +17,7 @@ import {
   type RegistryItem,
 } from "@/lib/ui-registry";
 
+import { CopyLine } from "./CopyLine";
 import { CodeBlock, ExamplePreview, NativeExamplePreview } from "./ExamplePreview";
 import { InlineCode } from "./InlineCode";
 import { cellTone, cellWord, issueUrl } from "./platform-cell";
@@ -154,6 +155,7 @@ export async function ComponentDoc({ name, locale, notes }: { name: string; loca
         <PlatformBadges item={item} t={t} />
         <span className="kz-chip-meta">{c.categories[item.category]}</span>
       </div>
+      {item.web?.import && <CopyLine code={item.web.import} label={c.useIt} copy={c.copyImport} copied={c.copiedImport} />}
       <Stage item={item} locale={locale} />
       <p className="kz-docs-note">
         {format(c.platformsLong[item.platforms], { entry: (item.platforms === "native" ? item.native?.entry : item.web?.entry) ?? `@krizaka/ui/${item.name}` })} {c.statusLong[item.status]}

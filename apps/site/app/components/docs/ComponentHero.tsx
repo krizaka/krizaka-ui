@@ -5,16 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { getDictionary, type Locale } from "@/lib/i18n";
-import { examplePropsOf } from "@/lib/ui-example-props";
-import { UI_EXAMPLES, type UiExampleKey } from "@/lib/ui-examples";
 import { getRegistryItem } from "@/lib/ui-registry";
 import { componentPath } from "@/lib/urls";
+
+import { LiveExample } from "./LiveExample";
 
 /* The strip under the intro of /docs/ui: real components, rendered by the page — the same code the component pages show —
    so the page opens on what it documents: the signature button, a date picker, a profile card, a chart, a map, and a
    phone. Server-rendered (static first); each one links to its page. The map is its static form (no engine), the phone a
    screenshot of its story in both themes (React Native has no live preview on the web). */
-const LIVE: { key: UiExampleKey; component: string }[] = [
+const LIVE: { key: string; component: string }[] = [
   { key: "button/signature", component: "button" },
   { key: "date-picker/day-strip", component: "date-picker" },
   { key: "profile-card/creator", component: "profile-card" },
@@ -29,14 +29,9 @@ function pngSize(file: string): { width: number; height: number } {
   return { width: header.readUInt32BE(0), height: header.readUInt32BE(4) };
 }
 
-export async function ComponentHero({ locale }: { locale: Locale }) {
+export function ComponentHero({ locale }: { locale: Locale }) {
   const t = getDictionary(locale).docs.ia.catalog;
-  const live = await Promise.all(
-    LIVE.map(async ({ key, component }) => {
-      const { default: Example } = await UI_EXAMPLES[key]();
-      return { key, component, title: getRegistryItem(component).title, Example };
-    }),
-  );
+  const live = LIVE.map(({ key, component }) => ({ key, component, title: getRegistryItem(component).title }));
   const phone = getRegistryItem(PHONE.component);
   const shot = phone.native?.examples.find((example) => example.name === PHONE.example)?.screenshots;
   const file = (theme: "dark" | "light") => (shot ? shot[theme].replace(/^examples\//, "") : "");
@@ -47,13 +42,13 @@ export async function ComponentHero({ locale }: { locale: Locale }) {
       </h2>
       <p className="kz-docs-note">{t.heroLead}</p>
       <ul className="kz-hero-strip">
-        {live.map(({ key, component, title, Example }) => (
+        {live.map(({ key, component, title }) => (
           <li key={key}>
             <Link href={`${componentPath(locale, component)}`} className="kz-hero-strip-label">
               {title}
             </Link>
             <div className="kz-hero-strip-stage">
-              <Example {...examplePropsOf(key)} />
+              <LiveExample exampleKey={key} />
             </div>
           </li>
         ))}

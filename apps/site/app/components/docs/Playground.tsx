@@ -26,6 +26,13 @@ const LOADERS: Record<PlaygroundName, () => Promise<AnyComponent>> = {
   chip: () => import("@krizaka/ui/chip").then((m) => m.Chip as unknown as AnyComponent),
   "verified-badge": () => import("@krizaka/ui/verified-badge").then((m) => m.VerifiedBadge as AnyComponent),
   loader: () => import("@krizaka/ui/loader").then((m) => m.Loader as unknown as AnyComponent),
+  card: () => import("@krizaka/ui/card").then((m) => m.CardRoot as unknown as AnyComponent),
+  checkbox: () => import("@krizaka/ui/checkbox").then((m) => m.Checkbox as unknown as AnyComponent),
+  kbd: () => import("@krizaka/ui/kbd").then((m) => m.Kbd as unknown as AnyComponent),
+  pagination: () => import("@krizaka/ui/pagination").then((m) => m.Pagination as unknown as AnyComponent),
+  "search-field": () => import("@krizaka/ui/search-field").then((m) => m.SearchField as unknown as AnyComponent),
+  slider: () => import("@krizaka/ui/slider").then((m) => m.Slider as unknown as AnyComponent),
+  spinner: () => import("@krizaka/ui/spinner").then((m) => m.Spinner as unknown as AnyComponent),
 };
 
 export interface PlaygroundWords {

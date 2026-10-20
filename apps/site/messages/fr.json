@@ -179,7 +179,10 @@
         "deps": "Installez ce sur quoi il repose :",
         "files": "Copiez sa source dans votre projet (les mêmes fichiers que le paquet) :",
         "also": "Il utilise ces parties de Krizaka UI — copiez-les de la même façon :"
-      }
+      },
+      "useIt": "L’utiliser",
+      "copyImport": "Copier",
+      "copiedImport": "Copié"
     },
     "catalog": {
       "heading": "Tous les composants",

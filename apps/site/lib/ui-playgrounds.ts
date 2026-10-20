@@ -29,6 +29,14 @@ export const PLAYGROUNDS = {
   chip: { component: "Chip", controls: ["size", "selected", "removable"], base: { removeLabel: "Remove" }, text: { prop: "children", value: "Subtitles" } },
   "verified-badge": { component: "VerifiedBadge", controls: ["size", "showLabel"], start: { size: "lg", showLabel: true }, base: {}, text: { prop: "label", value: "Verified" } },
   loader: { component: "Loader", controls: ["variant", "status"], exclude: { variant: ["page", "overlay"] }, base: { eta: "About 30 s left" }, text: { prop: "label", value: "Rendering your video" } },
+  // The next most used by the products (lib/ui-usage.json), each with the props a reader reaches for first (#406 b).
+  card: { component: "CardRoot", controls: ["tone", "radius", "interactive"], base: { className: "p-6" }, text: { prop: "children", value: "Night shift — final cut" } },
+  checkbox: { component: "Checkbox", controls: ["invalid"], base: { defaultChecked: true }, text: { prop: "children", value: "Email me the receipt" } },
+  kbd: { component: "Kbd", controls: ["size"], base: {}, text: { prop: "children", value: "⌘K" } },
+  pagination: { component: "Pagination", controls: ["disabled"], base: { pageCount: 12, status: "41–60 of 240" }, number: { prop: "page", value: 3, min: 1, max: 12 } },
+  "search-field": { component: "SearchField", controls: ["size"], base: { clearLabel: "Clear search" }, text: { prop: "label", value: "Search videos" } },
+  slider: { component: "Slider", controls: ["size", "tone", "showLabel"], base: { defaultValue: 40 }, text: { prop: "label", value: "Volume" } },
+  spinner: { component: "Spinner", controls: ["size"], base: {}, text: { prop: "label", value: "Loading" } },
 } satisfies Record<string, PlaygroundSpec>;
 
 export type PlaygroundName = keyof typeof PLAYGROUNDS;

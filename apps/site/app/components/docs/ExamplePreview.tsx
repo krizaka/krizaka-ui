@@ -7,33 +7,32 @@ import Image from "next/image";
 
 import { format, getDictionary, type Locale } from "@/lib/i18n";
 import { mapSnapshotOf } from "@/lib/map-gate";
-import { examplePropsOf } from "@/lib/ui-example-props";
-import { UI_EXAMPLES, type UiExampleKey } from "@/lib/ui-examples";
+import { UI_EXAMPLE_KEYS } from "@/lib/ui-example-keys";
 import { exampleKey, exampleSource, type RegistryExample } from "@/lib/ui-registry";
 
+import { LiveExample } from "./LiveExample";
 import { MapGate } from "./MapGate";
 import { PreviewFrame } from "./PreviewFrame";
 
 const THEMES = { "light": "github-light", "dark": "github-dark" } as const; // quoted keys: the ratchet reads an unquoted key as a theme variant
 
-/* A named example of @krizaka/ui, live: the compiled example of the package rendered in place, its source (exactly
-   what is rendered) in a copyable code block, and a dark/light switch on the frame only. Server Component: the source
-   is read at build time from the installed package. */
-export async function ExamplePreview({ title, example, locale }: { title: string; example: RegistryExample; locale: Locale }) {
-  const load = UI_EXAMPLES[exampleKey(example) as UiExampleKey];
+/* A named example of @krizaka/ui, live: the compiled example of the package rendered in place (LiveExample: in the
+   static HTML, its code a lazy chunk), its source (exactly what is rendered) in a copyable code block, and a dark/light
+   switch on the frame only. Server Component: the source is read at build time from the installed package. */
+export function ExamplePreview({ title, example, locale }: { title: string; example: RegistryExample; locale: Locale }) {
+  const key = exampleKey(example);
   const t = getDictionary(locale).docs.preview;
   const code = <ServerCodeBlock code={exampleSource(example)} lang="tsx" themes={THEMES} />;
-  if (!load) return code;
-  const { default: Example } = await load();
-  const snapshot = mapSnapshotOf(exampleKey(example));
+  if (!UI_EXAMPLE_KEYS.has(key)) return code;
+  const snapshot = mapSnapshotOf(key);
   return (
     <PreviewFrame label={format(t.label, { name: `${title} — ${example.title}` })} code={code}>
       {snapshot ? (
         <MapGate snapshot={snapshot} alt={format(t.mapSnapshot, { name: `${title} — ${example.title}` })}>
-          <Example {...examplePropsOf(exampleKey(example))} />
+          <LiveExample exampleKey={key} />
         </MapGate>
       ) : (
-        <Example {...examplePropsOf(exampleKey(example))} />
+        <LiveExample exampleKey={key} />
       )}
     </PreviewFrame>
   );
