@@ -314,7 +314,7 @@
       "$value": "hsl(8 64% 66%)",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(5 56% 47%)"
+          "light": "hsl(5 62% 40%)"
         }
       },
       "$description": "La marge rouge, et les repères de la marge (§, fig., p.)"

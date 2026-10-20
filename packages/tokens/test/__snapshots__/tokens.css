@@ -98,7 +98,7 @@ html.light {
   --kz-danger-soft: hsl(0 84% 60% / 0.1); /* Fond teinté danger (texte primaire ≥ 4.5:1) */
   --kz-paper-rule-major: hsl(214 40% 45% / 0.24); /* Réglure : la ligne forte (tous les 32 px) */
   --kz-paper-rule-minor: hsl(214 40% 45% / 0.10); /* Réglure : les lignes fines (tous les 8 px) */
-  --kz-paper-rule-margin: hsl(5 56% 47%); /* La marge rouge, et les repères de la marge (§, fig., p.) */
+  --kz-paper-rule-margin: hsl(5 62% 40%); /* La marge rouge, et les repères de la marge (§, fig., p.) */
   --kz-paper-tag: hsl(43 49% 84%); /* L'étiquette de spécimen (manille) */
   --kz-paper-tag-edge: hsl(43 30% 58%); /* Le bord et l'œillet de l'étiquette */
   --kz-paper-tag-ink: hsl(50 11% 14%); /* Le texte tapé sur l'étiquette */
@@ -149,7 +149,7 @@ html.light {
   --kz-info-text: var(--kz-accent-text); /* Statut information en texte : l'accent en texte par défaut (≥ 4.5:1) */
   --kz-paper-rule-major: hsl(214 40% 45% / 0.24); /* Réglure : la ligne forte (tous les 32 px) */
   --kz-paper-rule-minor: hsl(214 40% 45% / 0.10); /* Réglure : les lignes fines (tous les 8 px) */
-  --kz-paper-rule-margin: hsl(5 56% 47%); /* La marge rouge, et les repères de la marge (§, fig., p.) */
+  --kz-paper-rule-margin: hsl(5 62% 40%); /* La marge rouge, et les repères de la marge (§, fig., p.) */
   --kz-paper-tag: hsl(43 49% 84%); /* L'étiquette de spécimen (manille) */
   --kz-paper-tag-edge: hsl(43 30% 58%); /* Le bord et l'œillet de l'étiquette */
   --kz-paper-tag-ink: hsl(50 11% 14%); /* Le texte tapé sur l'étiquette */

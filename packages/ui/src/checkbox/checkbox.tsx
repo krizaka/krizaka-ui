@@ -13,7 +13,7 @@ export const checkbox = tv({
       "data-[state=checked]:border-accent data-[state=checked]:bg-accent data-[state=indeterminate]:border-accent data-[state=indeterminate]:bg-accent " +
       "aria-invalid:border-danger aria-invalid:ring-danger/30",
     indicator: "flex items-center justify-center",
-    label: "flex cursor-pointer items-start gap-3 text-sm text-fg has-disabled:cursor-not-allowed has-disabled:opacity-60",
+    label: "flex cursor-pointer items-start gap-3 text-sm text-fg has-disabled:cursor-not-allowed has-disabled:opacity-70",
   },
 });
 

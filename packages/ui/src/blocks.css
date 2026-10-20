@@ -963,6 +963,8 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-stamp[data-tone="wip"] { --kz-stamp-ink: var(--kz-text-secondary); }
 .kz-stamp[data-tone="construction"] { --kz-stamp-ink: var(--kz-paper-rule-margin); }
 .kz-tag .kz-stamp[data-tone="wip"], .kz-tag .kz-stamp[data-tone="neutral"] { --kz-stamp-ink: var(--kz-paper-tag-ink); }
+/* On the manila (or the slate tag), the margin's red is mixed with the tag's ink so a small stamp stays ≥ 4.5:1 (axe). */
+.kz-tag .kz-stamp[data-tone="construction"] { --kz-stamp-ink: color-mix(in oklab, var(--kz-paper-rule-margin) 72%, var(--kz-paper-tag-ink)); }
 
 /* BirdPlate and AnatomyPlate — a sheet of the field guide. */
 .kz-plate, .kz-anatomy {
