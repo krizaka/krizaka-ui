@@ -90,15 +90,32 @@ export function DayStrip({ label, locale, value: valueProp, defaultValue = null,
   const weekday = getDateTimeFormat(locale, { weekday: "short" });
   const monthTitle = getDateTimeFormat(locale, { month: "long", year: "numeric" }).format(toLocalDate(value ?? first));
 
+  // A day is brought into view by scrolling the strip sideways — never with scrollIntoView, which also scrolls the page
+  // (a strip low on a page would pull the whole page down to it when it appears).
+  const scrollTrackTo = (el: HTMLElement, where: "center" | "nearest", smooth: boolean) => {
+    const strip = track.current;
+    if (!strip) return;
+    const box = el.getBoundingClientRect();
+    const frame = strip.getBoundingClientRect();
+    const offset = box.left - frame.left;
+    let left = strip.scrollLeft;
+    if (where === "center") left += offset - (strip.clientWidth - box.width) / 2;
+    else if (offset < 0) left += offset;
+    else if (offset + box.width > strip.clientWidth) left += offset + box.width - strip.clientWidth;
+    if (left === strip.scrollLeft) return;
+    if (typeof strip.scrollTo === "function") strip.scrollTo({ left, behavior: smooth ? "smooth" : "auto" });
+    else strip.scrollLeft = left;
+  };
   const reveal = (iso: IsoDate, focus: boolean) => {
     const el = track.current?.querySelector<HTMLButtonElement>(`[data-date="${iso}"]`);
     if (!el) return;
     if (focus) el.focus({ preventScroll: true });
-    el.scrollIntoView?.({ block: "nearest", inline: "nearest", behavior: reduce ? "auto" : "smooth" });
+    scrollTrackTo(el, "nearest", !reduce);
   };
   // The chosen day is in view when the strip appears.
   React.useEffect(() => {
-    if (value) track.current?.querySelector<HTMLElement>(`[data-date="${value}"]`)?.scrollIntoView?.({ block: "nearest", inline: "center" });
+    const el = value ? track.current?.querySelector<HTMLElement>(`[data-date="${value}"]`) : null;
+    if (el) scrollTrackTo(el, "center", false);
     // Only once: afterwards the person scrolls.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -1,7 +1,9 @@
-// The home has its own route and stays light: a route ships the client code of every module its *server* components may
+// Every route stays light: a route ships the client code of every module its *server* components may
 // import — a server module that holds lib/ui-examples.ts (every example of the registry, ≈ 490 client modules, ~300 kB
 // gzip) puts them all in the route. Inside a client component ("use client") its dynamic imports are lazy chunks: fine.
-// Walks the server imports from each home route and fails if one reaches the map.
+// Server components render an example through LiveExample (a client component: React.lazy, still in the static HTML),
+// and check a key against lib/ui-example-keys.ts (strings only). Walks the server imports from each route and fails if
+// one reaches the map.
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
@@ -37,14 +39,15 @@ function graph(entry) {
   return seen;
 }
 
-for (const route of ["app/(en)/page.tsx", "app/(fr)/fr/page.tsx"]) {
-  test(`${route}: the home's own route never imports the registry's examples map`, () => {
+for (const route of ["app/(en)/page.tsx", "app/(fr)/fr/page.tsx", "app/(en)/[...slug]/page.tsx", "app/(fr)/fr/[...slug]/page.tsx"]) {
+  test(`${route}: the route's server graph never imports the registry's examples map`, () => {
     const entry = path.join(root, route);
     assert.ok(existsSync(entry), `${route} exists (the home is not a page of the docs catch-all)`);
     const reach = graph(entry);
     const chain = reach.get(FORBIDDEN);
     assert.equal(chain, undefined, `reached through ${chain?.map((f) => path.relative(root, f)).join(" → ")}`);
-    assert.ok(reach.has(path.join(root, "app/components/landing/Landing.tsx")), "the walker follows the home's imports");
+    const landmark = route.includes("[...slug]") ? "app/components/docs/ExamplePreview.tsx" : "app/components/landing/Landing.tsx";
+    assert.ok(reach.has(path.join(root, landmark)), `the walker follows the route's imports (reaches ${landmark})`);
   });
 }
 

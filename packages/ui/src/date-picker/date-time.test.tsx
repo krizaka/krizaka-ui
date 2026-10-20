@@ -122,6 +122,24 @@ describe("DayStrip", () => {
     expect(onValueChange).toHaveBeenLastCalledWith("2026-10-14");
     expect(document.activeElement?.getAttribute("data-date")).toBe("2026-10-14");
   });
+
+  it("brings the chosen day into view by scrolling the strip only, never the page (a docs page once opened 4 000 px down)", async () => {
+    const user = userEvent.setup();
+    const original = Element.prototype.scrollIntoView;
+    const scrollIntoView = vi.fn();
+    Element.prototype.scrollIntoView = scrollIntoView;
+    try {
+      render(<DayStrip label="Delivery day" locale="en-US" start="2026-10-11" today="2026-10-11" days={14} defaultValue="2026-10-20" />);
+      const group = screen.getByRole("radiogroup", { name: "Delivery day" });
+      expect(scrollIntoView).not.toHaveBeenCalled();
+      screen.getByRole("radio", { name: "October 20, 2026" }).focus();
+      await user.keyboard("{ArrowRight}");
+      expect(scrollIntoView).not.toHaveBeenCalled();
+      expect(group).toBeTruthy();
+    } finally {
+      Element.prototype.scrollIntoView = original;
+    }
+  });
 });
 
 describe("Wheel", () => {

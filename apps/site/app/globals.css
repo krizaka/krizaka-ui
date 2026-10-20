@@ -769,6 +769,12 @@ html.light .kz-hero-strip .kz-shot-light { display: block; }
 /* The hero: the words, the install line and the two ways in on the left; the live kit on the right (under them on a
    phone). The home is a landing, not a docs page: no sidebar, no second bar (Fumadocs' own) on it. */
 .kz-docs:has(.kz-home) { --fd-sidebar-width: 0px !important; --fd-header-height: 0px !important; }
+/* A docs page on a phone: the site's bar scrolls away with the page, the docs bar (the tree, the search) and the
+   page's contents stick at the top — 96 px of chrome while reading instead of 172. The home keeps its floating bar. */
+@media (max-width: 767.98px) {
+  html:not(:has(.kz-home)) .kz-site-bar-wrap { position: absolute; }
+  .kz-docs:not(:has(.kz-home)) { --fd-banner-height: 0px !important; }
+}
 .kz-docs:has(.kz-home) > [class*="grid-area:sidebar"], .kz-docs:has(.kz-home) > #nd-subnav, .kz-docs:has(.kz-home) > .fixed { display: none; }
 .kz-home-hero { display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: clamp(32px, 5vw, 64px); width: 100%; max-width: var(--kz-page-max, 72rem); margin: 0 auto; padding-top: clamp(8px, 3vw, 32px); }
 .kz-home-hero-text { display: grid; justify-items: start; gap: 18px; min-width: 0; }
@@ -1061,3 +1067,9 @@ html.light .kz-phone { background: linear-gradient(160deg, #d9dce2, #a9adb6); }
   letter-spacing: .08em; text-transform: uppercase; color: var(--kz-text-muted); }
 /* A family's cover is an inert crop: a scroller inside it (a table's) is clipped, never scrolled. */
 .kz-family-stage .overflow-x-auto, .kz-family-stage .overflow-auto { overflow: hidden; }
+
+/* A component page's import, one press to copy (CopyLine), under its badges. */
+.kz-copy-line { display: flex; align-items: center; gap: 8px; min-width: 0; margin: 12px 0 4px; padding: 4px 4px 4px 14px; border: 1px solid var(--kz-border-default); border-radius: 10px; background: var(--kz-surface-1); }
+.kz-copy-line code { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; font-family: var(--kz-font-mono); font-size: 12.5px; color: var(--kz-text-primary); scrollbar-width: none;
+  mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
+.kz-copy-line code::-webkit-scrollbar { display: none; }

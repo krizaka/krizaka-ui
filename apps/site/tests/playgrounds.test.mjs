@@ -39,3 +39,9 @@ test("the JSX names only what differs from the defaults", () => {
   const mc = playgroundControls(meter, registry("meter").web.props.find((p) => p.component === "Meter").props);
   assert.match(playgroundJsx(meter, mc, Object.fromEntries(mc.map((c) => [c.prop, c.initial])), "", 40), /^<Meter label="Storage" max=\{100\} value=\{40\} \/>$/);
 });
+
+test("the components the products use most can be played with (#406 b): 15 playgrounds, each loaded by the stage", () => {
+  for (const name of ["button", "badge", "progress", "meter", "switch", "chip", "verified-badge", "loader", "card", "checkbox", "kbd", "pagination", "search-field", "slider", "spinner"]) assert.ok(name in PLAYGROUNDS, name);
+  const client = readFileSync(new URL("../app/components/docs/Playground.tsx", import.meta.url), "utf8");
+  for (const name of Object.keys(PLAYGROUNDS)) assert.match(client, new RegExp(`(^|\\s)"?${name}"?: \\(\\) => import\\(`, "m"), `Playground.tsx loads ${name}`);
+});
