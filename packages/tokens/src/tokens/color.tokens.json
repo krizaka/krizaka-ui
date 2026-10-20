@@ -120,38 +120,38 @@
     "$type": "color",
     "$description": "Accent : l'identité de la marque (Krizaka par défaut ; Orazaka, Orochia, Yasakia, Yororis dans src/brands). Surchargé par un thème de marque, jamais par un composant.",
     "$root": {
-      "$value": "hsl(217 92% 53%)",
+      "$value": "hsl(208 46% 45%)",
       "$description": "Action principale, lien, sélection",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(217 92% 50%)"
+          "light": "hsl(208 54% 36%)"
         }
       }
     },
     "hover": {
-      "$value": "hsl(217 88% 45%)",
+      "$value": "hsl(208 48% 39%)",
       "$description": "Accent au survol",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(217 88% 42%)"
+          "light": "hsl(208 58% 29%)"
         }
       }
     },
     "soft": {
-      "$value": "hsl(217 92% 53% / 0.10)",
+      "$value": "hsl(208 46% 45% / 0.12)",
       "$description": "Fond teinté (sélection, badge)",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(217 92% 50% / 0.08)"
+          "light": "hsl(208 54% 36% / 0.08)"
         }
       }
     },
     "text": {
-      "$value": "hsl(217 92% 68%)",
+      "$value": "hsl(206 58% 72%)",
       "$description": "Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(217 92% 42%)"
+          "light": "hsl(208 54% 33%)"
         }
       }
     }
@@ -175,20 +175,20 @@
     "$type": "color",
     "$description": "Dégradé de section de la marque (from → via → to) : les fonds de section glissent d'une teinte à l'autre ; le texte reste lisible dessus (testé).",
     "from": {
-      "$value": "hsl(222 45% 10%)",
+      "$value": "hsl(210 30% 10%)",
       "$description": "Section : la teinte de départ (haut de section, halo)",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(214 95% 93%)"
+          "light": "hsl(208 36% 93%)"
         }
       }
     },
     "via": {
-      "$value": "hsl(232 24% 7%)",
+      "$value": "hsl(220 14% 7%)",
       "$description": "Section : la teinte intermédiaire",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(220 60% 97%)"
+          "light": "hsl(210 30% 97%)"
         }
       }
     },

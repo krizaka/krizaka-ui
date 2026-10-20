@@ -37,8 +37,8 @@ export default function AuthLayoutOnboarding() {
             <Field.Hint id="onboarding-iban-hint">Checked before your first payout.</Field.Hint>
           </Field.Root>
           <div className="flex gap-2">
-            <Button type="button" variant="secondary" size="lg" shape="cut" className="flex-1">Back</Button>
-            <Button type="submit" variant="primary" size="lg" shape="cut" className="flex-1">Continue</Button>
+            <Button type="button" variant="secondary" size="lg" className="flex-1">Back</Button>
+            <Button type="submit" variant="primary" size="lg" className="flex-1">Continue</Button>
           </div>
         </form>
       </AuthLayout>

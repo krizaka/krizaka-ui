@@ -43,7 +43,7 @@ export default function SplitViewMessages() {
               <Field.Label htmlFor="reply" className="sr-only">Reply to Léa</Field.Label>
               <Textarea id="reply" rows={2} placeholder="Write a reply…" />
             </Field.Root>
-            <Button type="submit" variant="primary" shape="cut">Send</Button>
+            <Button type="submit" variant="primary">Send</Button>
           </form>
         </div>
       }

@@ -95,7 +95,7 @@
     {
       "name": "./brands/<id>.css (each)",
       "path": "dist/brands/orazaka.css",
-      "limit": "0.75 kB",
+      "limit": "0.8 kB",
       "gzip": true,
       "rolldown": false
     },

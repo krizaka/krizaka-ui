@@ -1,7 +1,7 @@
 /* @krizaka/ui — the page blocks (Page, Section, PageHero, CardGrid, LinkCard, ArgumentCard, MascotQuote, DecisionList,
-   CodeBlock, ActionBar, CtaPanel, Toc, PointerLight). The app imports it once, from its root layout or its global
+   CodeBlock, ActionBar, CtaPanel, Toc). The app imports it once, from its root layout or its global
    stylesheet by package path: `import "@krizaka/ui/blocks.css"` — never through a relative @import of another file. Plain CSS on the --kz-* tokens: dark and light alike, every brand (`.brand-<id>`)
-   through --kz-accent. Nothing here loops: the pointer lights, lifts and wakes; under reduced motion everything is still.
+   through --kz-accent. Nothing here loops and nothing moves under the pointer (krizaka-ui#393): a hover changes a colour; under reduced motion everything is still.
 
    Two contracts a page can set on any ancestor:
    - the frame: --kz-page-max (the width of the content, 72rem) and --kz-page-gutter (the side margin, 16 → 32 px);
@@ -188,8 +188,9 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-foundation[data-position="end"] .kz-foundation-base::after { top: auto; bottom: 100%; }
 @media (max-width: 640px) { .kz-foundation-group { padding: 20px 8px 8px; border-radius: 20px; } }
 
-/* The shared surface of the cards: a rail of the hue along the top, the light that follows the pointer (PointerLight
-   writes --kz-pointer-x/y), a lift and a lit border under the pointer or the focus. */
+/* The shared surface of the cards: a rail of the hue along the top, and one quiet hover (krizaka-ui#393) — the surface
+   goes one step up and the hairline strengthens, in a short colour transition. Nothing moves, nothing follows the
+   pointer, nothing glows; the keyboard focus is a ring around the whole card. */
 .kz-block-card {
   position: relative;
   isolation: isolate;
@@ -197,7 +198,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   border-radius: 18px;
   background: var(--kz-surface-1);
   border: 1px solid var(--kz-border-default);
-  transition: transform 0.3s var(--kz-ease, ease), border-color 0.3s var(--kz-ease, ease), box-shadow 0.3s var(--kz-ease, ease);
+  transition: background-color 150ms var(--kz-ease, ease), border-color 150ms var(--kz-ease, ease);
 }
 .kz-block-card::before {
   content: "";
@@ -208,27 +209,18 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   background: linear-gradient(90deg, var(--kz-hue, var(--kz-accent)), var(--kz-hue-2, var(--kz-accent-2, var(--kz-accent))) 45%, transparent);
   opacity: 0.85;
 }
-.kz-block-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(360px circle at var(--kz-pointer-x, 18%) var(--kz-pointer-y, 0%), color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 13%, transparent), transparent 62%);
-  transition: opacity 0.3s var(--kz-ease, ease);
-}
-.kz-block-card:focus-within,
-.kz-block-card:focus-visible { border-color: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 50%, var(--kz-border-default)); }
-.kz-block-card:is(:hover, :focus-within, :focus-visible)::after { opacity: 1; }
 @media (hover: hover) {
   .kz-block-card:hover {
-    transform: translateY(-3px);
-    border-color: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 45%, var(--kz-border-default));
-    box-shadow: 0 24px 48px -30px color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 70%, transparent);
+    background-color: var(--kz-surface-2);
+    border-color: var(--kz-border-strong);
   }
 }
-/* The icon tile of a card: the hue around it; the node of a signature icon lights under the pointer. */
+.kz-block-card:focus-within { border-color: var(--kz-border-strong); }
+.kz-block-card:is(:focus-visible, :has(:focus-visible)) {
+  outline: 2px solid var(--kz-ring, var(--kz-accent));
+  outline-offset: 2px;
+}
+/* The icon tile of a card: the hue around it, still. */
 .kz-block-icon {
   display: inline-flex;
   align-items: center;
@@ -240,38 +232,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   color: var(--kz-text-primary);
   background: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 14%, var(--kz-surface-1));
   border: 1px solid color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 30%, transparent);
-  transition: transform 0.3s var(--kz-ease, ease), box-shadow 0.3s var(--kz-ease, ease);
 }
-.kz-block-card :is(.kz-block-icon) svg [data-node] { transition: transform 0.3s var(--kz-ease, ease), filter 0.3s; transform-box: fill-box; transform-origin: center; }
-.kz-block-card:is(:hover, :focus-within, :focus-visible) .kz-block-icon svg [data-node] { transform: scale(1.5); filter: drop-shadow(0 0 3px var(--kz-hue, var(--kz-accent))); }
-@media (hover: hover) {
-  .kz-block-card:hover .kz-block-icon { transform: translateY(-2px) rotate(-3deg); box-shadow: 0 10px 22px -12px var(--kz-hue, var(--kz-accent)); }
-}
-
-/* The quiet hover (`hover="quiet"` on a card, or on CardGrid for the whole grid; a card's own `hover="light"` wins over
-   its grid): no glow, no halo, no accent border or title. The card lifts 2 px, its surface and hairline go one step up,
-   the title leans towards the accent text, and the focus is a ring on the whole card. Reduced motion: no lift. */
-:is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light))::after { display: none; }
-:is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)) {
-  transition: transform 0.3s var(--kz-ease, ease), background-color 0.3s var(--kz-ease, ease), border-color 0.3s var(--kz-ease, ease);
-}
-:is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):is(:hover, :focus-within, :focus-visible) .kz-block-icon svg [data-node] { transform: none; filter: none; }
-@media (hover: hover) {
-  :is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):hover {
-    transform: translateY(-2px);
-    background: var(--kz-surface-2);
-    border-color: var(--kz-border-strong);
-    box-shadow: none;
-  }
-  :is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):hover .kz-block-icon { transform: none; box-shadow: none; }
-  :is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):hover :is(.kz-link-card-title, .kz-arg-title) { color: color-mix(in srgb, var(--kz-text-primary) 72%, var(--kz-hue-text, var(--kz-accent-text))); }
-}
-:is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):is(:focus-within, :focus-visible) :is(.kz-link-card-title, .kz-arg-title) { color: color-mix(in srgb, var(--kz-text-primary) 72%, var(--kz-hue-text, var(--kz-accent-text))); }
-:is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):is(:focus-visible, :has(:focus-visible)) {
-  outline: 2px solid var(--kz-ring, var(--kz-accent));
-  outline-offset: 2px;
-}
-:is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):is(:focus-within, :focus-visible) { border-color: var(--kz-border-strong); }
 
 /* ─── LinkCard: the whole card is the link — icon, title, one sentence, the way in ─── */
 .kz-link-card {
@@ -358,8 +319,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   gap: 8px;
   min-height: 32px;
   padding: 4px 12px;
-  border-radius: 10px;
-  corner-shape: bevel; /* the Krizaka chamfer, like Button shape="cut" */
+  border-radius: 8px;
   font-size: 13px;
   font-weight: 650;
   line-height: 1.25;
@@ -618,9 +578,8 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kz-block-card, .kz-block-card::after, .kz-block-icon, .kz-block-icon svg [data-node], .kz-link-card-cta svg, .kz-arg-more svg, .kz-arg-panel > summary svg, .kz-actions [data-tip]::after { transition: none !important; }
-  .kz-block-card:hover, .kz-block-card:hover .kz-block-icon, .kz-link-card:hover .kz-link-card-cta svg, .kz-arg-more:hover svg { transform: none !important; }
-  :is(.kz-block-card.kz-hover-quiet, .kz-cards.kz-hover-quiet .kz-block-card:not(.kz-hover-light)):hover { transform: none !important; }
+  .kz-block-card, .kz-link-card-cta svg, .kz-arg-more svg, .kz-arg-panel > summary svg, .kz-actions [data-tip]::after { transition: none !important; }
+  .kz-link-card:hover .kz-link-card-cta svg, .kz-arg-more:hover svg { transform: none !important; }
   .kz-quote-bird { animation: none !important; }
 }
 
@@ -713,8 +672,8 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-tpl-collection ul a:hover { border-color: var(--kz-accent); }
 .kz-tpl-collection ul a:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .kz-tpl-collection { transition: transform 0.3s var(--kz-ease, ease), box-shadow 0.3s var(--kz-ease, ease); }
-  .kz-tpl-collection:hover { transform: translateY(-3px); box-shadow: 0 24px 48px -30px var(--kz-accent); }
+  .kz-tpl-collection { transition: border-color 150ms var(--kz-ease, ease); }
+  .kz-tpl-collection:hover { border-color: var(--kz-border-strong); }
 }
 .kz-tpl-two { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; }
 @media (max-width: 900px) { .kz-tpl-two { grid-template-columns: minmax(0, 1fr); } }

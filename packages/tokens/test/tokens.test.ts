@@ -605,6 +605,41 @@ describe("brands", async () => {
     expect(index.brands.orazaka.dark.info).not.toBe(index.brands.orazaka.dark.accent);
   });
 
+  // krizaka-ui#393, ADR-003: the Krizaka accent is a steel blue, not the saturated electric blue every AI product wears.
+  it("gives Krizaka a steel blue: the complement of the Orazaka orange, muted, AA in both themes", () => {
+    const hsl3 = (v: string) => /hsl\(([\d.]+) ([\d.]+)% ([\d.]+)%/.exec(v)!.slice(1).map(Number);
+    for (const mode of ["dark", "light"] as const) {
+      const b = index.brands.krizaka[mode];
+      const page = index.values[mode];
+      for (const role of ["accent", "accentHover", "accentText", "ring", "info"] as const) {
+        const [h, s] = hsl3(b[role]);
+        expect(h, `${mode} ${role} hue`).toBeGreaterThanOrEqual(200);
+        expect(h, `${mode} ${role} hue`).toBeLessThanOrEqual(212);
+        expect(s, `${mode} ${role} saturation`).toBeLessThanOrEqual(60);
+      }
+      // ~180° from the Orazaka orange (26): the parent frames its products without competing with them.
+      expect(Math.abs(hsl3(b.accent)[0] - hsl3(index.brands.orazaka.dark.accent)[0] - 180)).toBeLessThanOrEqual(6);
+      // White on the button, at rest and hovered; the focus ring ≥ 3:1 where it is drawn; the accent as text ≥ 4.5:1.
+      for (const fill of [b.accent, b.accentHover]) expect(contrast(parseHsl(b.onAccent), parseHsl(fill)), `${mode} ${fill}`).toBeGreaterThanOrEqual(4.5);
+      for (const s of surfaces) {
+        // The ring sits on the page, a card or a field (surfaces 0–2); surface 3 is a pressed chip, never focused alone.
+        if (s !== "surface3") expect(contrast(parseHsl(b.ring), parseHsl(page[s])), `${mode} ring ${s}`).toBeGreaterThanOrEqual(3);
+        expect(contrast(parseHsl(b.accentText), parseHsl(page[s])), `${mode} accent-text ${s}`).toBeGreaterThanOrEqual(4.5);
+      }
+      // The platform default is the Krizaka brand: tokens.css carries the same values.
+      expect(page.accent).toBe(b.accent);
+    }
+    expect(toNative(parseHsl(index.brands.krizaka.dark.accent))).not.toBe("#196df5");
+    // A product whose `info` is not its own accent borrows the Krizaka steel, never the old electric blue.
+    for (const id of BRANDS)
+      for (const mode of ["dark", "light"] as const) {
+        const b = index.brands[id][mode];
+        if (b.info === b.accent) continue;
+        expect(hsl3(b.info)[0], `${id} ${mode} info hue`).toBeLessThanOrEqual(212);
+        expect(hsl3(b.info)[1], `${id} ${mode} info saturation`).toBeLessThanOrEqual(60);
+      }
+  });
+
   it("rejects a brand that sets a non-brand role, an unknown token or misses a role", () => {
     const one = (tree: Record<string, unknown>) => () => compileBrands(tokens, { x: tree });
     const full = brandSources.krizaka as Record<string, unknown>;

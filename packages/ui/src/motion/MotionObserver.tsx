@@ -3,7 +3,6 @@ import { useEffect } from "react";
 /** What gets `data-offscreen` while out of view: its animations pause (motion.css). */
 const SCOPES = ".kz-backdrop, .kz-iso, [data-motion-scope], main > section, main > header, footer";
 const REVEAL = "[data-reveal]:not(.kz-in)";
-const MAGNETIC = "[data-kz-magnetic]";
 /** How long after `load` the first screen's loops wait before they start (LCP first). */
 const SETTLE_MS = 1200;
 
@@ -27,8 +26,8 @@ export interface MotionObserverProps {
  * The Krizaka motion conductor. Mount it once at the root of the app; it renders nothing and keeps no animation frame
  * running. It reveals every `[data-reveal]` element once as it enters the viewport (including elements added later:
  * client navigation needs nothing more), pauses what is off screen, lets the first screen settle before its loops
- * start, feeds the pointer to `.kz-spotlight` cards (`--spot-x`, `--spot-y`) and to `[data-kz-magnetic]` elements
- * (`Button magnetic`). Under prefers-reduced-motion everything is revealed at once and nothing follows the pointer.
+ * start. Nothing follows the pointer (krizaka-ui#393: the spotlight and the magnetic buttons are retired). Under
+ * prefers-reduced-motion everything is revealed at once.
  */
 export function MotionObserver({ settle = true, pauseOffscreen = true }: MotionObserverProps = {}): null {
   useEffect(() => {
@@ -89,43 +88,6 @@ export function MotionObserver({ settle = true, pauseOffscreen = true }: MotionO
       mo.disconnect();
     };
   }, [settle, pauseOffscreen]);
-
-  useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    let magnet: HTMLElement | null = null;
-    const release = () => {
-      magnet?.style.removeProperty("--kz-mag-x");
-      magnet?.style.removeProperty("--kz-mag-y");
-      magnet = null;
-    };
-    const move = (e: PointerEvent) => {
-      const target = e.target as Element | null;
-      const card = target?.closest?.(".kz-spotlight") as HTMLElement | null;
-      if (card) {
-        const box = card.getBoundingClientRect();
-        card.style.setProperty("--spot-x", `${e.clientX - box.left}px`);
-        card.style.setProperty("--spot-y", `${e.clientY - box.top}px`);
-      }
-      if (reduce || !fine) return;
-      const el = target?.closest?.(MAGNETIC) as HTMLElement | null;
-      if (el !== magnet) release();
-      if (!el) return;
-      magnet = el;
-      const box = el.getBoundingClientRect();
-      // A lean of at most ~6 px, a fraction of the pointer's offset from the centre.
-      const pull = (offset: number, half: number) => `${(Math.max(-1, Math.min(1, offset / half)) * 6).toFixed(2)}px`;
-      el.style.setProperty("--kz-mag-x", pull(e.clientX - box.left - box.width / 2, box.width / 2));
-      el.style.setProperty("--kz-mag-y", pull(e.clientY - box.top - box.height / 2, box.height / 2));
-    };
-    document.addEventListener("pointermove", move, { passive: true });
-    document.addEventListener("pointerleave", release);
-    return () => {
-      document.removeEventListener("pointermove", move);
-      document.removeEventListener("pointerleave", release);
-      release();
-    };
-  }, []);
 
   return null;
 }

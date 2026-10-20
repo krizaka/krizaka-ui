@@ -34,7 +34,7 @@ test("the JSX names only what differs from the defaults", () => {
   const controls = playgroundControls(spec, registry("button").web.props.find((p) => p.component === "Button").props);
   const rest = Object.fromEntries(controls.map((c) => [c.prop, c.initial]));
   assert.equal(playgroundJsx(spec, controls, rest, "Save", 0), "<Button>Save</Button>");
-  assert.equal(playgroundJsx(spec, controls, { ...rest, variant: "primary", shape: "cut", shimmer: true }, "Go", 0), '<Button variant="primary" shape="cut" shimmer>Go</Button>');
+  assert.equal(playgroundJsx(spec, controls, { ...rest, variant: "primary", shape: "pill" }, "Go", 0), '<Button variant="primary" shape="pill">Go</Button>');
   const meter = PLAYGROUNDS.meter;
   const mc = playgroundControls(meter, registry("meter").web.props.find((p) => p.component === "Meter").props);
   assert.match(playgroundJsx(meter, mc, Object.fromEntries(mc.map((c) => [c.prop, c.initial])), "", 40), /^<Meter label="Storage" max=\{100\} value=\{40\} \/>$/);

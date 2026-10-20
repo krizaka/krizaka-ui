@@ -59,7 +59,7 @@ export default function AppShellOrochiaStudio() {
           <AppShell.Header
             title="Studio"
             menuLabel="Open the menu"
-            actions={<Button size="sm" variant="primary" shape="cut">Upload a video</Button>}
+            actions={<Button size="sm" variant="primary">Upload a video</Button>}
           />
           <AppShell.Main>
             <DashboardLayout headingAs="h2" eyebrow="This week" title="Good morning, Elena" description="Three sales since yesterday — your auction ends tonight.">

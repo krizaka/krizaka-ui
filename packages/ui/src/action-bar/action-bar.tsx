@@ -57,7 +57,7 @@ export function ActionBar({ actions, variant = "buttons", primaryFirst = false, 
                 external={external}
                 aria-label={a.label}
                 data-tip={a.label}
-                className={buttonVariants({ variant: "ghost", size: "icon", shape: "cut", className: size === "sm" ? "h-9 w-9" : undefined })}
+                className={buttonVariants({ variant: "ghost", size: "icon", className: size === "sm" ? "h-9 w-9" : undefined })}
               >
                 {a.icon}
               </BlockLink>
@@ -66,7 +66,7 @@ export function ActionBar({ actions, variant = "buttons", primaryFirst = false, 
                 href={a.href}
                 linkAs={linkAs}
                 external={external}
-                className={buttonVariants({ variant: primaryFirst && i === 0 ? "primary" : "secondary", size, shape: "cut", className: "gap-2" })}
+                className={buttonVariants({ variant: primaryFirst && i === 0 ? "primary" : "secondary", size, className: "gap-2" })}
               >
                 {a.icon}
                 {a.label}

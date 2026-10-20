@@ -29,7 +29,7 @@ export default function ContactPageTeam() {
             <Field.Label htmlFor="contact-message">Message</Field.Label>
             <Textarea id="contact-message" rows={4} />
           </Field.Root>
-          <Button type="submit" variant="primary" size="lg" shape="cut" shimmer>Send</Button>
+          <Button type="submit" variant="primary" size="lg">Send</Button>
         </form>
       }
       next={{ title: "What happens next", steps: [{ title: "We read it", text: "The same day, on working days." }, { title: "We answer", text: "Within two working days." }] }}

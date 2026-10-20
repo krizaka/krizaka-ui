@@ -21,7 +21,7 @@ export default function AppShellBasic() {
         <AppShell.Item href="#earnings" icon={dot} label="Earnings" />
       </AppShell.Sidebar>
       <AppShell.Body>
-        <AppShell.Header title="Home" menuLabel="Open the menu" actions={<Button size="sm" variant="primary" shape="cut">Upload</Button>} />
+        <AppShell.Header title="Home" menuLabel="Open the menu" actions={<Button size="sm" variant="primary">Upload</Button>} />
         <AppShell.Main>
           <p className="text-sm text-fg-secondary">The screen's content.</p>
         </AppShell.Main>

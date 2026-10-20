@@ -1,6 +1,6 @@
 import { Card } from "@krizaka/ui/card";
 
-// `asChild` + `<a>`: the whole card is one link; `interactive` adds the spotlight and the lift.
+// `asChild` + `<a>`: the whole card is one link; `interactive` adds the quiet hover (a hairline and surface step).
 export default function CardInteractiveLink() {
   return (
     <Card.Root asChild interactive>

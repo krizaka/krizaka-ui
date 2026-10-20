@@ -73,19 +73,19 @@
   },
   "info": {
     "$type": "color",
-    "$value": "hsl(217 92% 60%)",
+    "$value": "hsl(207 50% 58%)",
     "$extensions": {
       "com.krizaka": {
-        "light": "hsl(217 92% 50%)"
+        "light": "hsl(208 54% 36%)"
       }
     }
   },
   "info-text": {
     "$type": "color",
-    "$value": "hsl(217 92% 68%)",
+    "$value": "hsl(206 58% 72%)",
     "$extensions": {
       "com.krizaka": {
-        "light": "hsl(217 92% 42%)"
+        "light": "hsl(208 54% 33%)"
       }
     }
   },

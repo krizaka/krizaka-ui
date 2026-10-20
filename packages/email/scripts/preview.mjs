@@ -38,7 +38,7 @@ const index = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="
 <style>body{font:14px/1.4 system-ui,sans-serif;margin:0;background:#eef0f5;color:#12141a}header{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9dce6;padding:10px 16px;display:flex;gap:8px;align-items:center;z-index:1}
 main{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:16px;padding:16px}figure{margin:0;background:#fff;border:1px solid #d9dce6;border-radius:8px;overflow:hidden}figcaption{padding:8px 12px;font-weight:600;display:flex;justify-content:space-between}
 figcaption small{font-weight:400;color:#566073}iframe{width:100%;height:720px;border:0;display:block}button{font:inherit;padding:6px 12px;border:1px solid #b7bccb;background:#fff;border-radius:6px;cursor:pointer}
-main.phone iframe{width:375px;margin:0 auto}a{color:#0954ce}</style>
+main.phone iframe{width:375px;margin:0 auto}a{color:#275782}</style>
 <header><strong>Emails — ${esc(brand)}</strong><button id="dark">Dark</button><button id="phone">Phone width</button></header>
 <main>${rows.map((r) => `<figure><figcaption>${esc(r.id)} · ${r.locale}<small>${esc(r.category)} · <a href="${r.base}.txt">text</a></small></figcaption><div style="padding:0 12px 6px" class="subject">${esc(r.subject)}</div><iframe loading="lazy" title="${esc(r.base)}" src="${r.base}.html"></iframe></figure>`).join("")}</main>
 <script>

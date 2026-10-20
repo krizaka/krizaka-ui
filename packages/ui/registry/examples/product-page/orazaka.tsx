@@ -13,7 +13,7 @@ export default function ProductPageOrazaka() {
       title="The AI that never leaves home"
       lead="Chat, image, voice and video on your own server — one governed pipeline, nothing sent anywhere."
       facts={[{ label: "Apache-2.0", tone: "ok" }, { label: "Law 25 · GDPR" }]}
-      actions={<Button variant="primary" size="lg" shape="cut" shimmer>Install in three commands</Button>}
+      actions={<Button variant="primary" size="lg">Install in three commands</Button>}
       visualLabel="orazaka.local — chat"
       visual={<p className="p-6 text-sm text-fg-secondary">“Summarise the lease in plain French.” — answered locally in 1.8 s.</p>}
       reasonsHeading={{ eyebrow: "Why", title: "Three traps it removes" }}
@@ -30,7 +30,7 @@ export default function ProductPageOrazaka() {
         items: [{ id: "local", chose: "Local models by default.", refused: "A hosted API by default.", because: "A prompt that never leaves cannot leak.", cost: "A GPU, or patience." }],
       }}
       promise={{ bird: "owl", label: "The owl's promise", text: "Every personal record stays in Québec, and you can read who touched it." }}
-      closing={{ title: "Ready to run it at home?", actions: <Button variant="primary" size="lg" shape="cut">Install</Button> }}
+      closing={{ title: "Ready to run it at home?", actions: <Button variant="primary" size="lg">Install</Button> }}
     />
   );
 }

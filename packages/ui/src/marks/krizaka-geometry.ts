@@ -7,7 +7,7 @@ import { marks } from "@krizaka/tokens/native";
  * core, a dashed orbit and a ring; below 48 px the view box crops to the emblem.
  *
  * Krizaka is the parent: the hexagonal shield is **ink** (the host's text roles), the node and the core carry the
- * Krizaka blue (`marks.krizaka` of @krizaka/tokens: the brand's accent hsl(217 92% 53%) → its text tint hsl(217 92% 68%)).
+ * Krizaka blue (`marks.krizaka` of @krizaka/tokens: the brand's accent hsl(208 46% 45%) → its text tint hsl(206 58% 72%)).
  */
 export const KRIZAKA = {
   viewBox: "0 0 400 400",
@@ -21,8 +21,8 @@ export const KRIZAKA = {
   /** The vertex where the shield opens: a node (the serpent's head in Orochia's grammar). */
   node: { cx: 259.7, cy: 134, r: 19, inner: 6 },
   core: { cx: 180, cy: 180, r: 24, inner: 8 },
-  highlight: "#dbeafe",
-  glow: { color: "#196df5", opacity: 0.16 },
+  highlight: "#ddeaf4",
+  glow: { color: marks.krizaka[0]![1], opacity: 0.16 },
   orbit: { r: 160, dash: "8 8", width: 1.5 },
   ring: { r: 134, width: 1 },
 } as const;

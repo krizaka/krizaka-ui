@@ -21,7 +21,7 @@ export interface PlaygroundSpec {
 }
 
 export const PLAYGROUNDS = {
-  button: { component: "Button", controls: ["variant", "size", "shape", "shimmer", "loading"], exclude: { size: ["icon"] }, start: { variant: "primary", size: "lg", shape: "cut", shimmer: true }, base: {}, text: { prop: "children", value: "Save changes" } },
+  button: { component: "Button", controls: ["variant", "size", "shape", "loading"], exclude: { size: ["icon"] }, start: { variant: "primary", size: "lg" }, base: {}, text: { prop: "children", value: "Save changes" } },
   badge: { component: "Badge", controls: ["tone", "size", "dot", "pulse"], start: { tone: "success", dot: true, pulse: true }, base: {}, text: { prop: "children", value: "Live" } },
   progress: { component: "Progress", controls: ["variant", "size", "status", "showLabel"], start: { showLabel: true }, base: { label: "Upload", eta: "About 1 min left" }, number: { prop: "value", value: 64, min: 0, max: 100 } },
   meter: { component: "Meter", controls: ["variant", "size", "optimum", "showLabel"], start: { variant: "ring", size: "lg", showLabel: true }, base: { label: "Storage", max: 100 }, number: { prop: "value", value: 72, min: 0, max: 100 } },

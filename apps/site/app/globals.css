@@ -37,16 +37,16 @@
    blocks. Krizaka palette only (blues and ink, never a product colour); --kz-hue is decorative (≥ 3:1 on the surfaces),
    --kz-hue-text is for small text (≥ 4.5:1 on surface-0, -1 and -2, both themes). Without a hue, blocks fall back to
    the page's accent, so a brand page stays on brand. */
-[data-hue="cobalt"] { --kz-hue: hsl(217 92% 60%); --kz-hue-2: hsl(206 92% 62%); --kz-hue-text: hsl(217 92% 74%); }
-[data-hue="sky"]    { --kz-hue: hsl(199 89% 52%); --kz-hue-2: hsl(190 85% 52%); --kz-hue-text: hsl(199 89% 66%); }
+[data-hue="cobalt"] { --kz-hue: hsl(210 52% 60%); --kz-hue-2: hsl(200 45% 62%); --kz-hue-text: hsl(208 58% 74%); }
+[data-hue="sky"]    { --kz-hue: hsl(199 55% 55%); --kz-hue-2: hsl(190 50% 52%); --kz-hue-text: hsl(199 55% 70%); }
 [data-hue="cyan"]   { --kz-hue: hsl(186 72% 45%); --kz-hue-2: hsl(196 80% 52%); --kz-hue-text: hsl(186 70% 58%); }
-[data-hue="indigo"] { --kz-hue: hsl(234 85% 68%); --kz-hue-2: hsl(222 90% 64%); --kz-hue-text: hsl(234 90% 80%); }
+[data-hue="indigo"] { --kz-hue: hsl(232 50% 70%); --kz-hue-2: hsl(222 50% 66%); --kz-hue-text: hsl(232 60% 82%); }
 [data-hue="steel"]  { --kz-hue: hsl(212 32% 62%); --kz-hue-2: hsl(206 40% 70%); --kz-hue-text: hsl(212 36% 74%); }
 [data-hue="ink"]    { --kz-hue: hsl(220 16% 80%); --kz-hue-2: hsl(217 40% 70%); --kz-hue-text: hsl(220 16% 86%); }
-html.light [data-hue="cobalt"] { --kz-hue: hsl(217 92% 50%); --kz-hue-2: hsl(206 92% 48%); --kz-hue-text: hsl(217 92% 40%); }
-html.light [data-hue="sky"]    { --kz-hue: hsl(199 89% 40%); --kz-hue-2: hsl(190 85% 38%); --kz-hue-text: hsl(200 90% 29%); }
+html.light [data-hue="cobalt"] { --kz-hue: hsl(208 54% 40%); --kz-hue-2: hsl(200 50% 36%); --kz-hue-text: hsl(208 56% 32%); }
+html.light [data-hue="sky"]    { --kz-hue: hsl(199 60% 34%); --kz-hue-2: hsl(190 55% 32%); --kz-hue-text: hsl(200 62% 27%); }
 html.light [data-hue="cyan"]   { --kz-hue: hsl(186 80% 32%); --kz-hue-2: hsl(196 80% 38%); --kz-hue-text: hsl(188 85% 24%); }
-html.light [data-hue="indigo"] { --kz-hue: hsl(234 66% 52%); --kz-hue-2: hsl(222 80% 52%); --kz-hue-text: hsl(234 60% 45%); }
+html.light [data-hue="indigo"] { --kz-hue: hsl(232 45% 48%); --kz-hue-2: hsl(222 45% 46%); --kz-hue-text: hsl(232 45% 40%); }
 html.light [data-hue="steel"]  { --kz-hue: hsl(212 28% 46%); --kz-hue-2: hsl(206 34% 50%); --kz-hue-text: hsl(212 30% 34%); }
 html.light [data-hue="ink"]    { --kz-hue: hsl(222 30% 22%); --kz-hue-2: hsl(217 50% 40%); --kz-hue-text: hsl(222 30% 20%); }
 /* The bird and the icon node of a subject wear its hue. */
@@ -264,26 +264,6 @@ body {
   background: var(--kz-text-secondary);
 }
 
-/* Cursor-tracked spotlight — a soft accent bloom follows the pointer across
-   a card. --spot-x/--spot-y are written by an onMouseMove handler; they fall
-   back to the card centre so the hover still reads without JS. */
-.kz-spotlight::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--kz-transition-smooth);
-  background: radial-gradient(
-    220px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-    color-mix(in srgb, var(--kz-accent) 16%, transparent),
-    transparent 62%
-  );
-}
-@media (hover: hover) and (pointer: fine) {
-  .kz-spotlight:hover::after { opacity: 1; }
-}
 
 
 /* ─── Links of the organisation pages (sections, frame and headings come from @krizaka/ui/page) ─── */
@@ -574,8 +554,8 @@ html.light .kz-docs .kz-required { color: color-mix(in srgb, var(--kz-danger) 70
    ─────────────────────────────────────────────────────────────────
    The vocabulary is @krizaka/ui's (motion.css through @krizaka/tailwind; conducted by MotionObserver, mounted once in
    the locale layout): `[data-reveal]` / `[data-reveal="soft"]` (lib/motion.ts `reveal(i)`), NumberTicker, the
-   off-screen pause (`data-offscreen`), the settle step (`html[data-motion]`), the node of the signature icons, magnetic
-   buttons. Below, only what is the site's own. No animation library, no permanent requestAnimationFrame, no canvas;
+   off-screen pause (`data-offscreen`), the settle step (`html[data-motion]`), the node of the signature icons. Nothing
+   moves under the pointer (krizaka-ui#393). Below, only what is the site's own. No animation library, no permanent requestAnimationFrame, no canvas;
    composited properties only; still under prefers-reduced-motion.
    ═══════════════════════════════════════════════════════════════════ */
 
@@ -939,9 +919,8 @@ figure.shiki > div.absolute ~ * pre, figure.shiki > div.absolute ~ pre { padding
   .kz-family-text a { font-size: 14px; }
 }
 .kz-family { position: relative; margin: 0; padding: 0; display: grid; grid-template-rows: auto 1fr; overflow: hidden; border-radius: 16px;
-  border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); transition: border-color .2s, transform .2s, box-shadow .2s; }
-.kz-family:hover { border-color: color-mix(in oklab, var(--kz-accent) 55%, var(--kz-border-default)); transform: translateY(-2px);
-  box-shadow: 0 14px 30px -20px color-mix(in oklab, var(--kz-accent) 60%, transparent); }
+  border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); transition: border-color 150ms, background-color 150ms; }
+.kz-family:hover { border-color: var(--kz-border-strong); background: var(--kz-surface-2); }
 .kz-family:focus-within { outline: 2px solid var(--kz-ring); outline-offset: 2px; }
 .kz-families li[data-current] { border-color: var(--kz-accent); }
 /* The whole card is the family's link: the name's link stretches over it (the cover is inert, nothing is nested). */
@@ -956,7 +935,7 @@ figure.shiki > div.absolute ~ * pre, figure.shiki > div.absolute ~ pre { padding
 .kz-family-stage > * { width: 100%; max-width: 100%; }
 .kz-family-text { display: grid; align-content: start; gap: 4px; padding: 12px 16px 14px; font-size: 13px; color: var(--kz-text-secondary); }
 .kz-family-mobile { font-family: var(--kz-font-mono); font-size: 11.5px; color: var(--kz-accent-text); }
-@media (prefers-reduced-motion: reduce) { .kz-family { transition: none; } .kz-family:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .kz-family { transition: none; } }
 /* A component card's thumbnail: centred in its frame rather than pinned to the top-left corner. */
 .kz-catalog-stage { display: grid; justify-items: center; align-content: center; min-height: 19rem; }
 /* A thumbnail is a crop by design: the example is laid out at full width, centred, and cut at the card's edge. */
@@ -1026,13 +1005,12 @@ html.light .kz-phone { background: linear-gradient(160deg, #d9dce2, #a9adb6); }
 .kz-wall h2 { margin: 0 0 6px; font-family: var(--kz-font-display); font-size: 1.35rem; font-weight: 800; color: var(--kz-text-primary); }
 .kz-wall ul { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 28px 18px; grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr)); }
 .kz-wall li { display: grid; justify-items: center; gap: 10px; margin: 0; padding: 0; }
-.kz-wall .kz-phone { --kz-phone-w: 100%; max-width: 15rem; transition: transform .25s; }
-.kz-wall li:hover .kz-phone { transform: translateY(-4px); }
+.kz-wall .kz-phone { --kz-phone-w: 100%; max-width: 15rem; }
 .kz-wall a { display: grid; justify-items: center; gap: 1px; text-align: center; text-decoration: none; font-size: 12.5px; color: var(--kz-text-secondary); }
 .kz-wall a strong { font-size: 14px; color: var(--kz-text-primary); }
 .kz-wall a:hover strong { color: var(--kz-accent-text); }
 @media (max-width: 640px) { .kz-wall ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; } .kz-wall .kz-phone { padding: 6px; border-radius: 28px; } .kz-wall .kz-phone-screen { border-radius: 22px; } .kz-wall .kz-phone-status { height: 26px; font-size: 10px; padding: 0 14px; } .kz-wall .kz-phone-status i { width: 56px; height: 16px; top: 6px; } }
-@media (prefers-reduced-motion: reduce) { .kz-wall .kz-phone { transition: none; } .kz-wall li:hover .kz-phone { transform: none; } }
+@media (prefers-reduced-motion: reduce) { }
 
 /* The side nav, dense and grouped (Tailwind, MUI): pages on tight rows, the groups as quiet headings, the families of
    components as small caps. Fumadocs draws it; only its rhythm changes here. */

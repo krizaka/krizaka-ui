@@ -3,7 +3,7 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Card grid",
   summary:
-    "A responsive grid of cards: as many columns as the width allows (one on a phone), the cells of a row at one height, a staggered reveal and the light that follows the pointer.",
+    "A responsive grid of cards: as many columns as the width allows (one on a phone), the cells of a row at one height, a staggered reveal; each card keeps its own quiet hover.",
   status: "beta",
   category: "blocks",
   platforms: "web",
@@ -22,18 +22,17 @@ export const meta = {
     "Keep `reveal` on below the first screen, off on it; `columns` makes the stagger restart on each row.",
     "The default `align=\"stretch\"` gives a row one height; the cards pin their foot to the bottom (`LinkCard` facts + way in, `ArgumentCard` actions) so the footers line up. `align=\"start\"` for cards that unfold.",
     "`as=\"ul\"` when the cards are a list of links.",
-    "`hover=\"quiet\"` quiets every card of the grid (no glow, a 2 px lift, a ring on focus); a card may still say `hover=\"light\"`.",
     "`foundation` when one thing (an engine, a platform) carries all the others: it takes its own card, wide, above (`foundationPosition=\"end\"` for under), and the cards sit in a hairline frame joined to it. Say the relation with `foundationLabel`; set the hue on `className`.",
   ],
   accessibility: {
     keyboard: [],
     notes: [
       "The grid adds no role; `as=\"ul\"` makes it a list (each cell an `li`).",
-      "The pointer's light is decorative and never runs on touch screens or under `prefers-reduced-motion`.",
+      "Nothing follows the pointer: `light` and `hover` are deprecated since 3.31 (krizaka-ui#393) and do nothing.",
       "Revealed cells are only hidden visually until they enter the viewport; under reduced motion they never move.",
     ],
   },
-  related: ["link-card", "argument-card", "pointer-light"],
+  related: ["link-card", "argument-card"],
   web: {
     imports: ["CardGrid"],
     examples: [
@@ -41,7 +40,7 @@ export const meta = {
       { name: "aligned", title: "An aligned row", description: "Cards with sentences of different lengths: one height, and the facts and the way in of every card on the same line." },
       { name: "foundation", title: "A foundation", description: "`foundation`: one wide card the others stand on, a hairline to a frame around them." },
       { name: "reveal", title: "A list of sections", description: "`as=\"ul\"`, six links that rise staggered by column on a real page." },
-      { name: "hover-quiet", title: "A quiet grid", description: "`hover=\"quiet\"` on the grid: its cards lift without glow, with a ring on focus." },
+      { name: "hover-quiet", title: "The hover", description: "The grid adds no hover: each card's surface and hairline go one step up, a ring on focus." },
     ],
   },
 } satisfies ComponentMeta;

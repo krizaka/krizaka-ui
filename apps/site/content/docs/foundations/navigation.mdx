@@ -15,7 +15,7 @@ the [`LanguageSwitch`](/components/language-switch).
 | Structure | Left: the product's mark and name. Centre: the sections. Right: GitHub · theme · language · Sign in · the one primary action. |
 | Left, in order | Mark and name · **Product ▾** · **Platforms ▾** (only when there is more than one platform) · **Docs** · **Pricing** when it exists. Four entries at most. |
 | Never | A lone entry that belongs to a group (« Mobile », « Mac », « Demo » on their own), a dead link, a version chip in the bar, a family switcher on a product site. |
-| Components | `NavBar.Root / Brand / Items / Menu / MenuLink / Link / Actions / Mobile`, `ThemeToggle`, `Button` (`shape="cut"` for the primary action). |
+| Components | `NavBar.Root / Brand / Items / Menu / MenuLink / Link / Actions / Mobile`, `ThemeToggle`, `Button` (`variant="primary"` for the primary action). |
 | Three or fewer | A section of **three links or fewer** stands in the bar as plain links (the current one marked) — no hidden list for three entries. `NavBar.Menu` does it itself (`inlineUpTo`, 3 by default); above three it is a dropdown. On a phone the panel groups them as usual. |
 | Menu panel | 28 rem wide (40 rem in two columns), never wider than the page between its gutters, aligned under its trigger and kept inside the page. Icon tile · title · a description of **two lines at most**. |
 | Hover and focus | A quiet light under the item (`surface-3`), no blue glow; a 2 px focus ring on every control; the current page marked with `aria-current="page"`. |

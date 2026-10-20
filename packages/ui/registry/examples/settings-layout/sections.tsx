@@ -13,7 +13,7 @@ export default function SettingsLayoutSections() {
       ]}
       navLabel="Settings sections"
     >
-      <SettingsSection title="Workspace" footer={<Button size="sm" variant="primary" shape="cut">Save</Button>}>
+      <SettingsSection title="Workspace" footer={<Button size="sm" variant="primary">Save</Button>}>
         <Field.Root>
           <Field.Label htmlFor="sections-name">Name</Field.Label>
           <Input id="sections-name" defaultValue="Tremblay & associés" />

@@ -39,16 +39,16 @@ export const BRAND_COLOURS = {
   },
   "krizaka": {
     "accent": {
-      "light": "#0a64f5",
-      "dark": "#196df5"
+      "light": "#2a5f8d",
+      "dark": "#3e76a8"
     },
     "onAccent": {
       "light": "#ffffff",
       "dark": "#ffffff"
     },
     "link": {
-      "light": "#0954ce",
-      "dark": "#629cf8"
+      "light": "#275782",
+      "dark": "#8ebde1"
     }
   },
   "orazaka": {

@@ -1,5 +1,5 @@
 {
-  "$description": "Yomizaka — l'indigo de l'encre (藍, ai) : la couleur de l'écrit et de la lecture, un bleu qui penche vers le violet. Distinct du bleu de Krizaka (217, saturé) par sa teinte (240, ≥ 20° — un test) et du violet d'Orochia (262, vif) par sa douceur ; loin de l'émeraude de Yasakia, de la sauge de Yororis, de l'orange d'Orazaka et de tous les statuts. Dark : indigo clair (pervenche) sous texte quasi noir ; light : indigo profond sous texte blanc. accent-2 est le bleu d'encre (232), le premier temps du logo et du dégradé des boutons. info reste le bleu de Krizaka. Le logo (mark) est un dégradé encre (232) → indigo (248) de teinte moyenne, identique dans les deux thèmes et ≥ 3:1 sur les surfaces 0–2 des deux thèmes.",
+  "$description": "Yomizaka — l'indigo de l'encre (藍, ai) : la couleur de l'écrit et de la lecture, un bleu qui penche vers le violet. Distinct du bleu acier de Krizaka (208) par sa teinte (240, ≥ 20° — un test) et du violet d'Orochia (262, vif) par sa douceur ; loin de l'émeraude de Yasakia, de la sauge de Yororis, de l'orange d'Orazaka et de tous les statuts. Dark : indigo clair (pervenche) sous texte quasi noir ; light : indigo profond sous texte blanc. accent-2 est le bleu d'encre (232), le premier temps du logo et du dégradé des boutons. info reste le bleu de Krizaka. Le logo (mark) est un dégradé encre (232) → indigo (248) de teinte moyenne, identique dans les deux thèmes et ≥ 3:1 sur les surfaces 0–2 des deux thèmes.",
   "$extensions": {
     "com.krizaka": {
       "mark": [
@@ -67,19 +67,19 @@
   },
   "info": {
     "$type": "color",
-    "$value": "hsl(217 92% 60%)",
+    "$value": "hsl(207 50% 58%)",
     "$extensions": {
       "com.krizaka": {
-        "light": "hsl(217 92% 50%)"
+        "light": "hsl(208 54% 36%)"
       }
     }
   },
   "info-text": {
     "$type": "color",
-    "$value": "hsl(217 92% 68%)",
+    "$value": "hsl(206 58% 72%)",
     "$extensions": {
       "com.krizaka": {
-        "light": "hsl(217 92% 42%)"
+        "light": "hsl(208 54% 33%)"
       }
     }
   },

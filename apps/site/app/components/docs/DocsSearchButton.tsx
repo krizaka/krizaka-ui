@@ -11,7 +11,6 @@ export function DocsSearchButton({ label }: { label: string }) {
       type="button"
       variant="secondary"
       size="lg"
-      shape="cut"
       aria-keyshortcuts="Meta+K Control+K"
       className="w-full justify-between font-normal text-fg-secondary"
       onClick={() => window.dispatchEvent(new Event("kz:search"))}

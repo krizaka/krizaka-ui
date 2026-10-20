@@ -19,8 +19,8 @@ export const WU_SAMA = {
   /** The W: five straight legs in Krizaka blue. */
   w: "M132,142 L154,216 L180,166 L206,216 L228,142",
   wStroke: 18,
-  highlight: "#dbeafe",
-  glow: { color: "#196df5", opacity: 0.16 },
+  highlight: "#ddeaf4",
+  glow: { color: marks.krizaka[0]![1], opacity: 0.16 },
   orbit: { r: 160, dash: "8 8", width: 1.5 },
   ring: { r: 134, width: 1 },
 } as const;

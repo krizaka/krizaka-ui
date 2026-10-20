@@ -10,7 +10,7 @@ import { CheckGlyph } from "../glyphs";
 export const serviceCard = tv({
   slots: {
     root:
-      "group kz-spotlight kz-lift relative flex h-full min-w-0 flex-col overflow-hidden rounded-xl border border-border-default bg-surface-1 text-fg transition-colors " +
+      "group relative flex h-full min-w-0 flex-col overflow-hidden rounded-xl border border-border-default bg-surface-1 text-fg transition-colors duration-150 hover:border-border-strong hover:bg-surface-2 " +
       "hover:border-accent/50 focus-within:ring-2 focus-within:ring-ring data-[selected]:border-accent data-[selected]:bg-accent-soft",
     media: "relative aspect-[16/9] w-full overflow-hidden bg-media [&>img]:h-full [&>img]:w-full [&>img]:object-cover",
     body: "flex flex-1 flex-col gap-3 p-4 sm:p-5",

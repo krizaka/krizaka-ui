@@ -22,7 +22,7 @@ export const slider = tv({
     range: "absolute rounded-full data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full",
     thumb:
       "group/thumb relative block h-5 w-5 cursor-grab rounded-full border-2 border-accent bg-fg-on-media shadow-raised transition-[box-shadow,scale] duration-150 " +
-      "hover:scale-110 focus-visible:outline-hidden focus-visible:focus-ring active:scale-110 active:cursor-grabbing motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100",
+      "hover:ring-4 hover:ring-accent/15 focus-visible:outline-hidden focus-visible:focus-ring active:scale-110 active:cursor-grabbing motion-reduce:transition-none motion-reduce:active:scale-100",
     // The value over the thumb: shown while the thumb is hovered, focused or held.
     bubble:
       "pointer-events-none absolute bottom-full left-1/2 mb-2.5 -translate-x-1/2 whitespace-nowrap rounded-lg bg-fg px-2 py-1 font-mono text-[11px] font-semibold tabular-nums text-surface-0 opacity-0 shadow-floating " +

@@ -10,7 +10,7 @@ export const mediaGallery = tv({
       "group relative isolate m-0 aspect-[3/4] overflow-hidden rounded-xl border border-border-default bg-media data-[shape=wide]:aspect-[4/3] " +
       // The featured tile takes two columns; from md up it has no ratio of its own and stretches to the height of the row its neighbours set.
       "data-[featured]:col-span-2 data-[featured]:aspect-[4/3] md:data-[featured]:aspect-auto",
-    media: "absolute inset-0 h-full w-full object-cover transition-transform duration-500 motion-safe:group-hover:scale-105",
+    media: "absolute inset-0 h-full w-full object-cover",
     caption: "pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-scrim-strong to-transparent p-3 pt-8 text-xs font-semibold text-fg-on-media",
   },
 });

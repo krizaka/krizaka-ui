@@ -4,7 +4,7 @@ import { defineRecipe } from "../recipes/define";
 
 export const buttonRecipe = defineRecipe({
   base:
-    "inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all " +
+    "inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap font-semibold transition duration-150 " +
     "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0 " +
     "disabled:pointer-events-none disabled:opacity-40 data-loading:cursor-progress active:scale-[0.98] " +
     // Busy is not unavailable: a loading button keeps its colour (it is disabled only so it is not pressed twice).
@@ -22,9 +22,9 @@ export const buttonRecipe = defineRecipe({
       danger: "border border-danger/50 bg-danger/10 text-fg hover:border-danger hover:bg-danger/20",
     },
     size: { sm: "h-8 px-3 text-xs", md: "h-10 px-4 text-sm", lg: "h-12 px-6 text-sm", icon: "h-10 w-10" },
-    // `cut`: the Krizaka chamfer — 45° corners (CSS corner-shape, where supported; rounded elsewhere). The border, the
-    // focus ring and the hover follow the cut, unlike a clip-path.
-    shape: { rounded: "rounded-lg", pill: "rounded-full", cut: "rounded-[10px] [corner-shape:bevel]" },
+    // One clean shape (krizaka-ui#393): an 8 px radius (`--kz-radius-sm`, the radius of a field — a button beside an
+    // input lines up with it), the pill on demand. `cut` (the retired chamfer) is a deprecated alias of `rounded`.
+    shape: { rounded: "rounded-sm", pill: "rounded-full", cut: "rounded-sm" },
   },
   defaultVariants: { variant: "secondary", size: "md", shape: "rounded" },
 });

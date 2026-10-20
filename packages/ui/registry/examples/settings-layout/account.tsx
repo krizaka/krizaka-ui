@@ -19,7 +19,7 @@ export default function SettingsLayoutAccount() {
         id="profile"
         title="Profile"
         description="What your fans see."
-        footer={<Button size="sm" variant="primary" shape="cut">Save the profile</Button>}
+        footer={<Button size="sm" variant="primary">Save the profile</Button>}
       >
         <Field.Root>
           <Field.Label htmlFor="settings-name">Display name</Field.Label>

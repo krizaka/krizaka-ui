@@ -21,7 +21,7 @@ export default function DocsHubPageKrizaka() {
       title="Build with Krizaka"
       lead="Every building block the products are made of, documented from its source."
       search={
-        <Button variant="secondary" size="lg" shape="cut" className="w-full justify-between text-fg-secondary">
+        <Button variant="secondary" size="lg" className="w-full justify-between text-fg-secondary">
           Search the documentation <Kbd>⌘K</Kbd>
         </Button>
       }

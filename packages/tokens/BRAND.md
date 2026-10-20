@@ -9,13 +9,13 @@ overrides). A product never re-invents its values: it imports its brand.
 
 | Brand | Identity | Why |
 | :-- | :-- | :-- |
-| **Krizaka** (parent) | **Ink + Krizaka blue.** The neutral surfaces and text of the platform carry the brand; one blue, the core of the Krizaka mark, is the only accent. | The parent frames its products without competing with them: ink is neutral next to orange and violet, and blue is the complement of the Orazaka orange. It is also the platform default (`tokens.css` = the Krizaka brand). |
+| **Krizaka** (parent) | **Ink + Krizaka steel blue** (hue 208, saturation ≤ 60 %). The neutral surfaces and text of the platform carry the brand; one muted steel blue, the core of the Krizaka mark, is the only accent. | The parent frames its products without competing with them: ink is neutral next to orange and violet, and the steel sits at 182° from the Orazaka orange (26), its exact complement. It replaced the saturated electric blue (hue 217, 92 %) of every AI product in 3.31 (krizaka-ui#393, [ADR-003](../../docs/adr/ADR-003-steel-blue-and-quiet-surfaces.md)). It is also the platform default (`tokens.css` = the Krizaka brand). |
 | **Orazaka** (sovereign AI) | **Orange**, hue 26 — the accent and the mark share it. | Hue 38 (amber) is `--kz-warning`: a primary button, and since 2.1.0 the mark, must never read as a warning. The light theme's accent is the deep orange `#b45309`, also the first stop of the mark. `info` stays blue (an orange "info" would read as a warning). |
 | **Orochia** (creators) | **Velvet violet → magenta**, the serpent of its mark (unchanged). | The values of `@krizaka/orochia-design-system`, already adjusted to AA. |
 | **Yasakia** (dating, talk first) | **Emerald → turquoise.** The accent is the turquoise (hue 174); the emerald (hue 152–156) is the mark's first stop and `accent-2`. | Green is the family's free colour and takes the opposite view of the red and pink of dating apps. `--kz-success` is emerald (hue 160): a primary button must never read as a success, so the accent sits 14° away on the turquoise (a test) and the emerald stays in the mark and the gradients. Dark: light turquoise under near-black text (11:1); light: deep turquoise under white (5.9:1). `info` stays blue. |
 | **Yororis** (a listening space) | **Sand → sage.** A warm neutral that slides into a soft grey green: calm. The accent is the sage (hue 98–100); the sand (hue 34–36) is the mark's first stop, the core's light and `accent-2`. | Apart from every other brand (Yasakia's emerald and turquoise, the blue, the orange, the violet) and from every status: the sage sits ≥ 60° from `--kz-success` (160) and `--kz-warning` (38). The sand shares the warning's hue family, so it is told apart by its chroma — at most half the warning's saturation (≤ 40 % vs 92 %, a test) — and it never fills a primary button alone. Dark: light sage under near-black text (8.6:1); light: deep sage under white (6.9:1). `info` stays blue. |
-| **Yomizaka** (documents, read and checked) | **Ink indigo** (藍, *ai*): the colour of writing and reading, a blue that leans to violet. The accent is the indigo (hue 240–242); the ink blue (hue 232) is the mark's first stop and `accent-2`. | The wheel is full, so the indigo is placed by test: ≥ 20° from the Krizaka blue (217, saturated) and from the Orochia violet (262, vivid), ≥ 60° from every other brand and every status. Dark: periwinkle under near-black text (6.3:1); light: deep indigo under white (8.7:1). `info` stays the Krizaka blue. |
-| **Kachizaka** (predictions among friends, points only) | **Electric cobalt + victorious gold.** The **gold** (hue 48) carries the accent — the only gold of the family; the cobalt (hue 226) is `accent-2`, the section ground, the light theme's accent text and focus ring. | The cobalt alone is **not** distinct from the Krizaka blue (217: Δh 9°, OKLab ΔE 0.04 for the mark stop) — so it never leads; the pair does. Gold: ≥ 10° from warning (38), ≥ 20° from every brand accent (Orazaka 26 → 22°). Near-black text on gold and on cobalt in both themes (12.9:1 / 11.6:1 on the accent). `info` stays the Krizaka blue. |
+| **Yomizaka** (documents, read and checked) | **Ink indigo** (藍, *ai*): the colour of writing and reading, a blue that leans to violet. The accent is the indigo (hue 240–242); the ink blue (hue 232) is the mark's first stop and `accent-2`. | The wheel is full, so the indigo is placed by test: ≥ 20° from the Krizaka steel (208) and from the Orochia violet (262, vivid), ≥ 60° from every other brand and every status. Dark: periwinkle under near-black text (6.3:1); light: deep indigo under white (8.7:1). `info` stays the Krizaka blue. |
+| **Kachizaka** (predictions among friends, points only) | **Electric cobalt + victorious gold.** The **gold** (hue 48) carries the accent — the only gold of the family; the cobalt (hue 226) is `accent-2`, the section ground, the light theme's accent text and focus ring. | The cobalt alone sits close to the Krizaka steel (208: Δh 18°) — so it never leads; the pair does. Gold: ≥ 10° from warning (38), ≥ 20° from every brand accent (Orazaka 26 → 22°). Near-black text on gold and on cobalt in both themes (12.9:1 / 11.6:1 on the accent). `info` stays the Krizaka blue. |
 | **Akinaza** (the shop OS, Québec) | **Laurentian forest green + warm copper.** The green (hue 130) carries the accent; the copper (hue 20–22, saturation ≤ 62 %) is `accent-2` and the mark's end. | Green ≥ 20° from Yororis' sage (98), Yasakia's emerald (152), success (160) and every accent. The copper sits 4–6° from Orazaka's orange but is a matte metal (≤ 65 % vs ≥ 90 %, a test) and never stands alone. Dark: light green under near-black (8.9:1); light: deep green under white (6.7:1). |
 
 ### Palette (the accent family)
@@ -25,13 +25,13 @@ overrides). A product never re-invents its values: it imports its brand.
 
 | Role | Krizaka dark | Krizaka light | Orazaka dark | Orazaka light | Orochia dark | Orochia light | Yasakia dark | Yasakia light |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
-| `accent` | `hsl(217 92% 53%)` #196df5 | `hsl(217 92% 50%)` #0a64f5 | `hsl(26 92% 55%)` #f67e23 | `hsl(26 90.5% 37.1%)` #b45309 | #7c3aed | #7c3aed | `hsl(174 72% 50%)` #24dbc9 | `hsl(175 85% 24%)` #097169 |
-| `accent-hover` | `hsl(217 88% 45%)` | `hsl(217 88% 42%)` | `hsl(26 92% 62%)` (lightens) | `hsl(26 90% 31%)` | #6d28d9 | #6d28d9 | `hsl(174 72% 58%)` (lightens) | `hsl(175 85% 20%)` |
-| `on-accent` | white (4.6:1) | white (5.1:1) | near-black `hsl(240 6% 5%)` (7.4:1) | white (5.1:1) | white (5.7:1) | white (5.7:1) | near-black (11.2:1) | white (5.9:1) |
-| `accent-text` | `hsl(217 92% 68%)` #629cf8 | `hsl(217 92% 42%)` #0954ce | `hsl(26 92% 60%)` #f78c3b | `hsl(26 90% 32%)` #9b4808 | #a78bfa | #6d28d9 | `hsl(174 72% 56%)` #3ee0cf | `hsl(175 85% 23%)` #096d64 |
+| `accent` | `hsl(208 46% 45%)` #3e76a8 | `hsl(208 54% 36%)` #2a5e8d | `hsl(26 92% 55%)` #f67e23 | `hsl(26 90.5% 37.1%)` #b45309 | #7c3aed | #7c3aed | `hsl(174 72% 50%)` #24dbc9 | `hsl(175 85% 24%)` #097169 |
+| `accent-hover` | `hsl(208 48% 39%)` | `hsl(208 58% 29%)` | `hsl(26 92% 62%)` (lightens) | `hsl(26 90% 31%)` | #6d28d9 | #6d28d9 | `hsl(174 72% 58%)` (lightens) | `hsl(175 85% 20%)` |
+| `on-accent` | white (4.8:1) | white (6.7:1) | near-black `hsl(240 6% 5%)` (7.4:1) | white (5.1:1) | white (5.7:1) | white (5.7:1) | near-black (11.2:1) | white (5.9:1) |
+| `accent-text` | `hsl(206 58% 72%)` #8ebde1 | `hsl(208 54% 33%)` #275782 | `hsl(26 92% 60%)` #f78c3b | `hsl(26 90% 32%)` #9b4808 | #a78bfa | #6d28d9 | `hsl(174 72% 56%)` #3ee0cf | `hsl(175 85% 23%)` #096d64 |
 | `accent-2` | = accent | = accent | #f59e0b (closes the buttons' gradient) | `hsl(32 95% 33%)` | #db2777 | #db2777 | emerald `hsl(152 70% 45%)` #22c378 | `hsl(152 76% 26%)` #107546 |
 | `ring` | = accent | = accent | = accent | = accent | #a78bfa | #7c3aed | = accent | = accent |
-| `info` | = accent | = accent | `hsl(217 92% 60%)` | `hsl(217 92% 50%)` | = accent | = accent | `hsl(217 92% 60%)` | `hsl(217 92% 50%)` |
+| `info` | = accent | = accent | `hsl(207 50% 58%)` | `hsl(208 54% 36%)` | = accent | = accent | `hsl(207 50% 58%)` | `hsl(208 54% 36%)` |
 
 Yororis (a table of its own so the row above stays readable):
 
@@ -43,7 +43,7 @@ Yororis (a table of its own so the row above stays readable):
 | `accent-text` | `hsl(98 28% 68%)` #a7c497 | `hsl(100 28% 28%)` #415b33 |
 | `accent-2` | sand `hsl(36 38% 62%)` #c3a579 | `hsl(34 38% 33%)` #745834 |
 | `ring` | = accent | = accent |
-| `info` | `hsl(217 92% 60%)` | `hsl(217 92% 50%)` |
+| `info` | `hsl(207 50% 58%)` | `hsl(208 54% 36%)` |
 
 Yomizaka:
 
@@ -55,7 +55,7 @@ Yomizaka:
 | `accent-text` | `hsl(240 85% 78%)` #9797f7 | `hsl(242 52% 44%)` #3a36ab |
 | `accent-2` | ink `hsl(232 72% 74%)` #8d9aec | `hsl(232 56% 40%)` #2d3c9f |
 | `ring` | = accent | = accent |
-| `info` | `hsl(217 92% 60%)` | `hsl(217 92% 50%)` |
+| `info` | `hsl(207 50% 58%)` | `hsl(208 54% 36%)` |
 
 Every pair is a test (`test/tokens.test.ts`, "brands"): `on-accent` ≥ 4.5:1 on `accent`, `accent-hover` and
 `accent-2`; `accent-text` ≥ 4.5:1 on surfaces 0–3 and on every section-gradient stop; `ring` ≥ 3:1 on the page;
@@ -195,27 +195,24 @@ one idea, applied everywhere and always in tokens: **light comes from above.**
 | **Density** | Comfortable by default; `data-density="compact"` on a subtree tightens every control (a console, a dense table). | `--kz-control-*` |
 | **Status tints** | One tint per status, the primary text and the status text AA on it: badges, alerts, rows. A rail of the status colour that glows marks alerts and toasts. | `--kz-*-soft` |
 
-Restraint is part of it: a page has one spotlight card, one glowing call to action; the rest is quiet material.
+Restraint is part of it: a page has one call to action in the accent; the rest is quiet material.
 
-### 6.1 The griffe — the 45° cut corner
+### 6.1 The griffe — the 45° cut corner, drawn, never on a control
 
-The angle of the hexagon, the chamfer of the icons: **the cut corner is the claw mark of the brand.** It is
-`corner-shape: bevel` (the border, the edge light, the shadow and the focus ring all follow it; browsers without
-`corner-shape` show the rounded corner), sized by `--kz-cut-size` (10 px on a control), shaped by `--kz-cut-shape`.
+The angle of the hexagon, the chamfer of the icons: **the cut corner is the claw mark of the brand** — in what is
+*drawn*: the marks, the signature icons of `@krizaka/icons`, the isometric scenes, a mascot's frame. It is **not** on
+the controls any more (krizaka-ui#393, [ADR-003](../../docs/adr/ADR-003-steel-blue-and-quiet-surfaces.md)): a chamfered
+button read as a gimmick next to the products' own identities. A `Button` has one shape, an 8 px radius
+(`--kz-radius-sm`, the radius of a field, so a button beside an input lines up), and `pill` on demand; `shape="cut"`
+is a deprecated alias of it until 4.0. `--kz-cut-size` / `cut.size` (native) stay for a drawn shape that needs one.
 
-| Where | How |
-| :-- | :-- |
-| **The call to action** | `Button` `primary` and `gradient` are cut **by default** (`shape="auto"`, `--kz-cut-shape`); a node lights in the cut corner under the pointer. `rounded` / `pill` stay options. |
-| **The status badge** | `Badge` `success` / `warning` / `danger` are cut by default (`shape="auto"`); `shape="cut"` on any tone. |
-| **The card that matters** | `Card` `variant="spotlight"` has its top-right corner cut; `cut` on any card. |
-| **The active tab** | The raised segment of `Tabs variant="segmented"` and the light of `pills` are cut. |
-| **The focused field** | A field's top-right corner cuts itself when it has the focus. |
-| **The toast** | Its top-right corner is cut. |
+### 6.2 The quiet hover
 
-Sparingly: the griffe marks **what matters on the screen** — the action, the state, the chosen — never every box. An app
-that must not wear it (a third-party embed) sets `--kz-cut-shape: round`; everything returns to rounded corners.
-React Native has no `corner-shape`: the native primitives keep their rounded corners, and `cut.size` of
-`@krizaka/tokens/native` is there for a drawn shape (react-native-svg) where a product needs one.
+A hover changes **a colour, never a position** (krizaka-ui#393): a card's surface and hairline go one step up in
+150 ms, a button takes its hover colour. Nothing lifts, scales, leans toward the pointer or lights up under it
+(`PointerLight`, the spotlight, the sheen and `magnetic` are retired, deprecated no-ops until 4.0). The keyboard focus
+is a 2 px ring of `--kz-ring`. The only things that still move under the pointer are an arrow leaning where it leads and
+a tooltip sliding in. A test (`packages/ui/src/quiet-hover.test.ts`) refuses a hover that moves.
 
 Captures of the material, the three brands in dark and light, are in the pull request that introduced it
 (krizaka/krizaka-ui, "signature visual language"); the living reference is the showcase at the top of

@@ -18,7 +18,7 @@ export default function StatusPageBuilding() {
     >
       <div className="flex max-w-md flex-col gap-4">
         <Progress value={40} label="First build" showLabel valueText="4 of 10 milestones" />
-        <Button variant="primary" shape="cut" className="w-fit">Tell me when it is ready</Button>
+        <Button variant="primary" className="w-fit">Tell me when it is ready</Button>
       </div>
     </StatusPage>
   );

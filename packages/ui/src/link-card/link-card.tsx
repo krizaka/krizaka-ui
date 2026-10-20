@@ -39,22 +39,19 @@ export type LinkCardProps = Omit<React.ComponentProps<"a">, "title" | "href"> & 
   footerAlign?: "bottom" | "top";
   /** The app's link component for internal addresses (Next's `Link`); an `<a>` otherwise. */
   linkAs?: LinkComponent;
-  /**
-   * The hover of the card: `light` (the pointer's light, a coloured lift — the default) or `quiet` (no glow, a 2 px lift,
-   * one step of surface and border, the focus as a ring). Unset, a card follows its grid (`CardGrid hover`).
-   */
+  /** @deprecated Since 3.31 (krizaka-ui#393): does nothing — every card has the one quiet hover. Removed in 4.0. */
   hover?: CardHover;
 };
 
-/** The hover of a card (blocks.css): the pointer's light (`light`) or the quiet hover (`quiet`). */
+/** @deprecated Since 3.31 (krizaka-ui#393): a card has one quiet hover; the values are accepted and ignored. */
 export type CardHover = "light" | "quiet";
 
-/** The class that says a card's hover; none when it is not asked (the card then follows its grid, or the default). */
-export function cardHoverClass(hover: CardHover | undefined): string | undefined {
-  return hover === "quiet" ? "kz-hover-quiet" : hover === "light" ? "kz-hover-light" : undefined;
+/** @deprecated Since 3.31 (krizaka-ui#393): there is one hover, so no class says it. Always `undefined`. */
+export function cardHoverClass(_hover?: CardHover): string | undefined {
+  return undefined;
 }
 
-/** An entry point: the whole card is one link — icon, title, sentence, the way in. Lifts and lights under the pointer. */
+/** An entry point: the whole card is one link — icon, title, sentence, the way in. Its surface and hairline go one step up under the pointer; nothing moves. */
 export function LinkCard({ href, title, description, icon, meta, cta, extra, titleAs: Title = "h3", layout = "row", footerAlign = "bottom", linkAs, hover, className, ...props }: LinkCardProps) {
   const external = isExternal(href);
   return (
@@ -63,7 +60,6 @@ export function LinkCard({ href, title, description, icon, meta, cta, extra, tit
       linkAs={linkAs}
       external={external}
       className={cn("kz-block-card kz-link-card", cardHoverClass(hover), className)}
-      data-kz-light=""
       data-layout={layout === "row" ? undefined : layout}
       data-footer={footerAlign === "top" ? "top" : undefined}
       {...props}

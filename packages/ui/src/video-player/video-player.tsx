@@ -20,7 +20,7 @@ export const videoPlayer = tv({
     poster: "pointer-events-none absolute inset-0 h-full w-full object-contain",
     big:
       "absolute left-1/2 top-1/2 z-10 inline-flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full " +
-      "bg-scrim-strong text-fg-on-media shadow-lg backdrop-blur-sm transition-transform hover:scale-105 motion-reduce:transition-none motion-reduce:hover:scale-100 " +
+      "bg-scrim-strong text-fg-on-media shadow-lg backdrop-blur-sm transition-colors hover:bg-scrim motion-reduce:transition-none " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     bar:
       "absolute inset-x-0 bottom-0 z-20 flex flex-col gap-1 bg-linear-to-t from-scrim-strong via-scrim to-transparent px-3 pb-2 pt-10 " +

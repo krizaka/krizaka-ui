@@ -114,8 +114,8 @@ html.light {
 :root { --orochia-story-ring: linear-gradient(135deg, var(--kz-accent), var(--kz-accent-2)); }
 ```
 
-Every utility above follows, without one line in the components: `bg-accent` is velvet, the `kz-spotlight` and the
-`kz-lift` shadow of the motion signature mix the accent. An extra theme (`html.theme-cyberpunk { --kz-accent: … }`)
+Every utility above follows, without one line in the components: `bg-accent` is velvet, and so is every ring, tint and
+rail that mixes the accent. An extra theme (`html.theme-cyberpunk { --kz-accent: … }`)
 costs a CSS block, never a component.
 
 ## License

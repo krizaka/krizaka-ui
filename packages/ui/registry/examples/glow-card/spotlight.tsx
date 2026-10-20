@@ -1,6 +1,6 @@
 import { GlowCard } from "@krizaka/ui/glow-card";
 
-// `glow="spotlight"`: only the bloom under the pointer, for a dense grid where rings would be too much.
+// `glow="spotlight"` is deprecated (krizaka-ui#393): the bloom under the pointer is retired, so these cards draw no ring.
 export default function GlowCardSpotlight() {
   return (
     <div className="grid w-full max-w-lg grid-cols-2 gap-3">

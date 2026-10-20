@@ -9,7 +9,7 @@ import { Card } from "./card";
 
 /**
  * `Card.Root/Media/Image/Overlay/Body/Title/Description/Stat/Footer` — one `tv` definition with slots, server-safe.
- * `asChild` turns the card into a link, `interactive` adds the spotlight and the lift, `reveal` the entrance on scroll.
+ * `asChild` turns the card into a link, `interactive` adds the quiet hover (a hairline and surface step), `reveal` the entrance on scroll.
  * Each story renders a named example of the registry (`registry/examples/card/*`).
  */
 const meta = {

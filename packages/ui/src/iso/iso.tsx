@@ -102,7 +102,7 @@ export function IsoScene({ label, description, extent = 240, top = 260, grid = t
 const loop = (animated: boolean | undefined) => (animated === false ? undefined : "kz-loop");
 
 interface ItemProps {
-  /** The name shown when the pointer (or the focus) lifts the object — passed translated. It also makes it focusable. */
+  /** The name shown when the pointer (or the focus) is on the object — passed translated. It also makes it focusable. */
   label?: string;
   /**
    * Its rank in the entrance: objects rise into place one after the other.
@@ -118,7 +118,7 @@ interface ItemProps {
   className?: string;
 }
 
-/** An object of the scene: rises at the entrance, lifts under the pointer or the focus and shows its label. */
+/** An object of the scene: rises at the entrance, brightens under the pointer or the focus and shows its label. */
 function Item({ label, index = 0, animated, anchor, align = "center", className, children }: ItemProps & { anchor: Vec2; align?: "center" | "start"; children: React.ReactNode }) {
   const named = label ? { role: "img" as const, "aria-label": label, tabIndex: 0 } : {};
   return (

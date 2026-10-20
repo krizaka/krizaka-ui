@@ -23,16 +23,16 @@
   --kz-text-muted: hsl(240 4% 59%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
 
   /* Accent : l'identité de la marque (Krizaka par défaut ; Orazaka, Orochia, Yasakia, Yororis dans src/brands). Surchargé par un thème de marque, jamais par un composant. */
-  --kz-accent: hsl(217 92% 53%); /* Action principale, lien, sélection */
-  --kz-accent-hover: hsl(217 88% 45%); /* Accent au survol */
-  --kz-accent-soft: hsl(217 92% 53% / 0.10); /* Fond teinté (sélection, badge) */
-  --kz-accent-text: hsl(217 92% 68%); /* Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface */
+  --kz-accent: hsl(208 46% 45%); /* Action principale, lien, sélection */
+  --kz-accent-hover: hsl(208 48% 39%); /* Accent au survol */
+  --kz-accent-soft: hsl(208 46% 45% / 0.12); /* Fond teinté (sélection, badge) */
+  --kz-accent-text: hsl(206 58% 72%); /* Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface */
   --kz-accent-2: var(--kz-accent); /* 2e accent (dégradés) ; égal à l'accent par défaut */
   --kz-ring: var(--kz-accent); /* Anneau de focus clavier */
 
   /* Dégradé de section de la marque (from → via → to) : les fonds de section glissent d'une teinte à l'autre ; le texte reste lisible dessus (testé). */
-  --kz-brand-gradient-from: hsl(222 45% 10%); /* Section : la teinte de départ (haut de section, halo) */
-  --kz-brand-gradient-via: hsl(232 24% 7%); /* Section : la teinte intermédiaire */
+  --kz-brand-gradient-from: hsl(210 30% 10%); /* Section : la teinte de départ (haut de section, halo) */
+  --kz-brand-gradient-via: hsl(220 14% 7%); /* Section : la teinte intermédiaire */
   --kz-brand-gradient-to: var(--kz-surface-0); /* Section : l'arrivée, un alias de la surface de page — la section suivante y enchaîne, même quand un produit change --kz-surface-0 */
   --kz-success-text: hsl(158 64% 52%); /* Statut succès en texte (petit texte, libellé) : ≥ 4.5:1 sur chaque surface */
   --kz-success-soft: hsl(160 84% 39% / 0.14); /* Fond teinté success (texte primaire ≥ 4.5:1) */
@@ -78,12 +78,12 @@ html.light {
   --kz-text-primary: hsl(240 6% 10%); /* Titres, corps de texte */
   --kz-text-secondary: hsl(240 4% 35%); /* Texte d'appui, libellés */
   --kz-text-muted: hsl(240 4% 41%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
-  --kz-accent: hsl(217 92% 50%); /* Action principale, lien, sélection */
-  --kz-accent-hover: hsl(217 88% 42%); /* Accent au survol */
-  --kz-accent-soft: hsl(217 92% 50% / 0.08); /* Fond teinté (sélection, badge) */
-  --kz-accent-text: hsl(217 92% 42%); /* Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface */
-  --kz-brand-gradient-from: hsl(214 95% 93%); /* Section : la teinte de départ (haut de section, halo) */
-  --kz-brand-gradient-via: hsl(220 60% 97%); /* Section : la teinte intermédiaire */
+  --kz-accent: hsl(208 54% 36%); /* Action principale, lien, sélection */
+  --kz-accent-hover: hsl(208 58% 29%); /* Accent au survol */
+  --kz-accent-soft: hsl(208 54% 36% / 0.08); /* Fond teinté (sélection, badge) */
+  --kz-accent-text: hsl(208 54% 33%); /* Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface */
+  --kz-brand-gradient-from: hsl(208 36% 93%); /* Section : la teinte de départ (haut de section, halo) */
+  --kz-brand-gradient-via: hsl(210 30% 97%); /* Section : la teinte intermédiaire */
   --kz-success-text: hsl(160 84% 24%); /* Statut succès en texte (petit texte, libellé) : ≥ 4.5:1 sur chaque surface */
   --kz-success-soft: hsl(160 84% 39% / 0.1); /* Fond teinté success (texte primaire ≥ 4.5:1) */
   --kz-warning-text: hsl(32 95% 30%); /* Statut avertissement en texte : ≥ 4.5:1 sur chaque surface */
@@ -118,14 +118,14 @@ html.light {
   --kz-text-primary: hsl(240 6% 10%); /* Titres, corps de texte */
   --kz-text-secondary: hsl(240 4% 35%); /* Texte d'appui, libellés */
   --kz-text-muted: hsl(240 4% 41%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
-  --kz-accent: hsl(217 92% 50%); /* Action principale, lien, sélection */
-  --kz-accent-hover: hsl(217 88% 42%); /* Accent au survol */
-  --kz-accent-soft: hsl(217 92% 50% / 0.08); /* Fond teinté (sélection, badge) */
-  --kz-accent-text: hsl(217 92% 42%); /* Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface */
+  --kz-accent: hsl(208 54% 36%); /* Action principale, lien, sélection */
+  --kz-accent-hover: hsl(208 58% 29%); /* Accent au survol */
+  --kz-accent-soft: hsl(208 54% 36% / 0.08); /* Fond teinté (sélection, badge) */
+  --kz-accent-text: hsl(208 54% 33%); /* Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface */
   --kz-accent-2: var(--kz-accent); /* 2e accent (dégradés) ; égal à l'accent par défaut */
   --kz-ring: var(--kz-accent); /* Anneau de focus clavier */
-  --kz-brand-gradient-from: hsl(214 95% 93%); /* Section : la teinte de départ (haut de section, halo) */
-  --kz-brand-gradient-via: hsl(220 60% 97%); /* Section : la teinte intermédiaire */
+  --kz-brand-gradient-from: hsl(208 36% 93%); /* Section : la teinte de départ (haut de section, halo) */
+  --kz-brand-gradient-via: hsl(210 30% 97%); /* Section : la teinte intermédiaire */
   --kz-brand-gradient-to: var(--kz-surface-0); /* Section : l'arrivée, un alias de la surface de page — la section suivante y enchaîne, même quand un produit change --kz-surface-0 */
   --kz-success-text: hsl(160 84% 24%); /* Statut succès en texte (petit texte, libellé) : ≥ 4.5:1 sur chaque surface */
   --kz-success-soft: hsl(160 84% 39% / 0.1); /* Fond teinté success (texte primaire ≥ 4.5:1) */

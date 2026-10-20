@@ -26,7 +26,7 @@ export default function NavBarFamilyProduct() {
         <NavBar.Actions>
           <span className="hidden items-center gap-1 md:inline-flex">{theme}{language}</span>
           <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex"><a href="#sign-in">Sign in</a></Button>
-          <Button asChild variant="primary" size="sm" shape="cut" className="hidden md:inline-flex"><a href="#talk">Talk to us</a></Button>
+          <Button asChild variant="primary" size="sm" className="hidden md:inline-flex"><a href="#talk">Talk to us</a></Button>
           <NavBar.Mobile openLabel="Open the menu" closeLabel="Close the menu">
             {groups.map((g) => (
               <NavBar.MobileGroup key={g.id} label={g.label}>{g.links.map(([href, title]) => <NavBar.MobileLink key={href} href={href}>{title}</NavBar.MobileLink>)}</NavBar.MobileGroup>

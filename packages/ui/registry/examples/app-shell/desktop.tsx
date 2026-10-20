@@ -20,7 +20,7 @@ export default function AppShellDesktop() {
         <AppShell.Item href="#logs" icon={dot} label="Logs" />
       </AppShell.Sidebar>
       <AppShell.Body>
-        <AppShell.Header title="Models" menuLabel="Open the menu" actions={<Button size="sm" variant="primary" shape="cut">Add a model</Button>} />
+        <AppShell.Header title="Models" menuLabel="Open the menu" actions={<Button size="sm" variant="primary">Add a model</Button>} />
         <AppShell.Main className="space-y-4">
           <div className="flex items-center justify-between gap-3 rounded-lg border border-border-subtle bg-surface-1 p-4">
             <div className="min-w-0 flex-1 space-y-2">

@@ -9,8 +9,8 @@ describe("motion.css", () => {
     expect(css).not.toContain("rgba(124");
   });
 
-  it("mixes the spotlight and the lift shadow from --kz-accent, with a fallback for hosts without tokens", () => {
-    expect(css).toContain("color-mix(in oklab, var(--kz-accent, #a855f7) 16%, transparent)");
-    expect(css).toContain("color-mix(in oklab, var(--kz-accent, #7c3aed) 45%, transparent)");
+  it("retires the spotlight, the lift, the sheen and the magnet (krizaka-ui#393)", () => {
+    for (const gone of [".kz-spotlight", ".kz-lift", ".kz-sheen", "[data-kz-magnetic]", "kz-glow-turn"]) expect(css).not.toContain(`${gone} {`);
+    expect(css).not.toMatch(/kz-sheen-sweep|kz-glow-turn/);
   });
 });

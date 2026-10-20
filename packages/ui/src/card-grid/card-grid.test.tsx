@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import { axeViolations } from "../test/axe";
 import { CardGrid } from "./index";
@@ -57,20 +57,21 @@ describe("CardGrid", () => {
     expect((container.firstElementChild as HTMLElement).getAttribute("data-position")).toBe("end");
   });
 
-  it("lets a whole grid be quiet with hover='quiet' (a class on the grid, the cards inherit it), and is light by default", () => {
+  it("has one quiet hover: `hover` and `light` are deprecated no-ops, nothing follows the pointer", () => {
     const { container, rerender } = render(
       <CardGrid>
-        <div>a</div>
+        <div data-kz-light="">a</div>
       </CardGrid>,
     );
     const grid = () => container.firstElementChild as HTMLElement;
-    expect(grid().classList.contains("kz-hover-quiet")).toBe(false);
+    const cell = container.querySelector("[data-kz-light]") as HTMLElement;
+    fireEvent.pointerMove(cell, { clientX: 30, clientY: 12 });
+    expect(cell.style.getPropertyValue("--kz-pointer-x")).toBe("");
     rerender(
-      <CardGrid hover="quiet">
+      <CardGrid hover="light" light>
         <div>a</div>
       </CardGrid>,
     );
-    expect(grid().classList.contains("kz-hover-quiet")).toBe(true);
-    expect(grid().classList.contains("kz-hover-light")).toBe(false);
+    expect(grid().className).not.toMatch(/kz-hover-/);
   });
 });

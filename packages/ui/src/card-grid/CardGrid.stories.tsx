@@ -49,14 +49,17 @@ export const Aligned: Story = {
   },
 };
 
-/** `hover="quiet"` on the grid: every card of it is quiet (no glow, a ring on focus), none of them is lit by the light. */
+/** The grid adds no hover of its own: each card keeps the one quiet hover. */
 export const HoverQuiet: Story = {
   render: () => <HoverQuietExample />,
   play: async ({ canvasElement }) => {
-    const grid = canvasElement.querySelector<HTMLElement>(".kz-cards")!;
-    expect(grid.classList.contains("kz-hover-quiet")).toBe(true);
-    const cards = [...grid.querySelectorAll<HTMLElement>(".kz-link-card")];
+    const cards = [...canvasElement.querySelectorAll<HTMLElement>(".kz-link-card")];
     expect(cards).toHaveLength(3);
-    for (const card of cards) expect(getComputedStyle(card, "::after").display).toBe("none");
+    // One quiet hover (krizaka-ui#393): no class says it, no light layer, nothing follows the pointer.
+    for (const card of cards) {
+      expect(card.className).not.toMatch(/kz-hover-/);
+      expect(card.hasAttribute("data-kz-light")).toBe(false);
+      expect(getComputedStyle(card, "::after").content).toBe("none");
+    }
   },
 };

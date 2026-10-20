@@ -118,6 +118,27 @@ const config: TestRunnerConfig = {
         customDiffDir: join(process.cwd(), "__screenshots__", "__diff__"),
       });
     }
+    // krizaka-ui#393 — the quiet hover: a card or a button under a real pointer does not move (its transform, translate
+    // and scale are the same as at rest — a control may be centred by a translate) and no light layer appears.
+    const target = page.locator("#storybook-root :is(.kz-block-card, .kz-glow, button[data-variant])").first();
+    if ((await target.count()) && (await target.isVisible())) {
+      const read = () =>
+        target.evaluate((el) => {
+          const s = getComputedStyle(el);
+          return {
+            transform: s.transform,
+            translate: s.translate,
+            scale: s.scale,
+            light: el.classList.contains("kz-block-card") ? getComputedStyle(el, "::after").content : "none",
+            pointer: el.style.getPropertyValue("--kz-pointer-x") || el.style.getPropertyValue("--kz-glow-x"),
+          };
+        });
+      const rest = await read();
+      await target.hover({ timeout: 2_000 }).catch(() => undefined);
+      await page.waitForTimeout(200);
+      expect(await read()).toEqual({ ...rest, light: "none", pointer: "" });
+      await page.mouse.move(0, 0);
+    }
     if (width && before) await page.setViewportSize(before);
   },
 };
