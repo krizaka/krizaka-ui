@@ -13,8 +13,8 @@ export type SiteKind = "company" | "product" | "open-source";
 
 /**
  * `released`: open to visit. `upcoming`: announced, not released yet (said "Coming soon"). `construction`: under
- * construction — nothing deployed beyond its page, nothing offered. `development`: being built in the open, nothing
- * deployed yet — its address is its repository (said "In development").
+ * construction — nothing offered (a QA-only app may run; the public page says so). `development`: being built in the
+ * open, with a dev site (said "In development"). A site with none yet would use its repository as its address.
  */
 export type SiteStatus = "released" | "upcoming" | "construction" | "development";
 
@@ -50,9 +50,8 @@ export const sites: readonly Site[] = [
   site({ id: "yasakia", name: "Yasakia", url: "https://dev.yasakia.com", kind: "product", group: "products", status: "development", mark: "yasakia", repo: "https://github.com/krizaka/yasakia" }),
   site({ id: "yororis", name: "Yororis", url: "https://dev.yororis.com", kind: "product", group: "products", status: "construction", mark: "yororis", repo: "https://github.com/krizaka/yororis" }),
   site({ id: "yomizaka", name: "Yomizaka", url: "https://dev.yomizaka.com", kind: "product", group: "products", status: "development", mark: "yomizaka", repo: "https://github.com/krizaka/yomizaka" }),
-  // In development: nothing deployed yet, so the address is the repository (never a dead link to an unborn dev site).
-  site({ id: "kachizaka", name: "Kachizaka", url: "https://github.com/krizaka/kachizaka", kind: "product", group: "products", status: "development", mark: "kachizaka", repo: "https://github.com/krizaka/kachizaka" }),
-  site({ id: "akinaza", name: "Akinaza", url: "https://github.com/krizaka/akinaza", kind: "product", group: "products", status: "development", mark: "akinaza", repo: "https://github.com/krizaka/akinaza" }),
+  site({ id: "kachizaka", name: "Kachizaka", url: "https://dev.kachizaka.com", kind: "product", group: "products", status: "development", mark: "kachizaka", repo: "https://github.com/krizaka/kachizaka" }),
+  site({ id: "akinaza", name: "Akinaza", url: "https://dev.akinaza.com", kind: "product", group: "products", status: "development", mark: "akinaza", repo: "https://github.com/krizaka/akinaza" }),
   site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
   site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-build" }),
   site({ id: "github", name: "GitHub", url: "https://github.com/krizaka", kind: "open-source", group: "github", status: "released", mark: "github", repo: "https://github.com/krizaka" }),
@@ -105,9 +104,9 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
     current: "You are here",
     descriptions: {
       krizaka: "The company: our products, our open source, our story.",
-      orazaka: "Sovereign AI, on your own servers.",
+      orazaka: "Sovereign AI on your own servers: chat, documents, images and video — and the engine under the other products.",
       orochia: "A video platform for creators.",
-      yasakia: "The dating app where you talk first.",
+      yasakia: "Meet real people: introductions, and photos checked before you see them.",
       yororis: "A listening space with a face and a voice.",
       yomizaka: "Yomizaka reads your leases, contracts and invoices.",
       kachizaka: "Predictions among friends — live data, in real time.",
@@ -127,9 +126,9 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
     current: "Vous êtes ici",
     descriptions: {
       krizaka: "La compagnie : nos produits, notre open source, notre histoire.",
-      orazaka: "L’IA souveraine, sur vos propres serveurs.",
+      orazaka: "L’IA souveraine sur vos propres serveurs : conversation, documents, images et vidéo — et le moteur des autres produits.",
       orochia: "Une plateforme vidéo pour les créateurs.",
-      yasakia: "L’app de rencontre où l’on se parle d’abord.",
+      yasakia: "Rencontrez de vraies personnes : des présentations, et des photos vérifiées avant que vous les voyiez.",
       yororis: "Un espace d’écoute avec un visage et une voix.",
       yomizaka: "Yomizaka lit vos baux, contrats et factures.",
       kachizaka: "Les pronostics entre amis — des données en direct.",

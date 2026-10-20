@@ -19,8 +19,8 @@ describe("sites — the Krizaka family", () => {
       "dev.yasakia.com",
       "dev.yororis.com",
       "dev.yomizaka.com",
-      "github.com/krizaka/kachizaka",
-      "github.com/krizaka/akinaza",
+      "dev.kachizaka.com",
+      "dev.akinaza.com",
       "ui.krizaka.com",
       "java.krizaka.com",
       "github.com/krizaka",
@@ -33,10 +33,10 @@ describe("sites — the Krizaka family", () => {
     expect(siteById("yasakia").status).toBe("development");
     expect(siteById("yororis").status).toBe("construction");
     expect(siteById("yomizaka").status).toBe("development");
-    // In development: nothing deployed — the address is the repository, never a dead dev link.
+    // In development, with a dev site each (since 2026-10).
     for (const id of ["kachizaka", "akinaza"] as const) {
       expect(siteById(id).status).toBe("development");
-      expect(siteById(id).url).toBe(siteById(id).repo);
+      expect(siteById(id).url).toBe(`https://dev.${id}.com`);
     }
     expect(siteById("ui").kind).toBe("open-source");
     expect(siteById("java").repo).toBe("https://github.com/krizaka/krizaka-build");
