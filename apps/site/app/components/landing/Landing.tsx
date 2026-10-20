@@ -6,8 +6,8 @@ import { Button } from "@krizaka/ui/button";
 import { CardGrid } from "@krizaka/ui/card-grid";
 import { CodeBlock } from "@krizaka/ui/code-block";
 import { LinkCard } from "@krizaka/ui/link-card";
-import { familyLabels } from "@krizaka/ui/sites";
 import { NumberTicker } from "@krizaka/ui/number-ticker";
+import { familyLabels } from "@krizaka/ui/sites";
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "@krizaka/ui/tabs";
 import Link from "next/link";
 
