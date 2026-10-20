@@ -678,8 +678,13 @@ svg[data-kz-icon="ExternalIcon"] {
 .kz-flow-photon[data-dir="out"] { stroke: var(--kz-flow-back); animation-name: kz-flow-out; }
 .kz-flow[data-active] .kz-flow-link:not([data-active]) { opacity: 0.25; }
 .kz-flow-link[data-active] .kz-flow-wire { opacity: 0.9; }
-@keyframes kz-flow-in { to { stroke-dashoffset: calc(var(--kz-flow-gap, 12) * -1); } }
-@keyframes kz-flow-out { from { stroke-dashoffset: calc(var(--kz-flow-gap, 12) * -1); } to { stroke-dashoffset: 0; } }
+/* The gap carries its unit (`* -1px`): a bare number is not interpolable with the length it starts from, and the dot would
+   only flip between two equivalent offsets, i.e. stand still. */
+@keyframes kz-flow-in { from { stroke-dashoffset: 0px; } to { stroke-dashoffset: calc(var(--kz-flow-gap, 12) * -1px); } }
+@keyframes kz-flow-out { from { stroke-dashoffset: calc(var(--kz-flow-gap, 12) * -1px); } to { stroke-dashoffset: 0px; } }
+/* The engine breathes: a slow swell of its mark (compositor only), in the loop system (held off screen / while settling). */
+.kz-flow-hub-mark.kz-loop { animation: kz-flow-breathe 4.2s ease-in-out infinite alternate; }
+@keyframes kz-flow-breathe { from { scale: 1; } to { scale: 1.06; } }
 
 .kz-flow-nodes { margin: 0; padding: 0; list-style: none; }
 .kz-flow-nodes > li, .kz-flow-hub { position: absolute; translate: -50% -50%; }

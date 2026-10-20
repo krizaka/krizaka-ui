@@ -140,7 +140,7 @@ function Stage({
         })}
       </svg>
       <div className={cn("kz-flow-hub", hub.className)} style={{ left: pct(g.hub.x, g.width), top: pct(g.hub.y, g.height) }}>
-        {hub.mark ? <span className="kz-flow-hub-mark">{hub.mark}</span> : null}
+        {hub.mark ? <span className="kz-flow-hub-mark kz-loop">{hub.mark}</span> : null}
         <span className="kz-flow-hub-label">{hub.label}</span>
         {hub.caption ? <span className="kz-flow-hub-caption">{hub.caption}</span> : null}
       </div>
