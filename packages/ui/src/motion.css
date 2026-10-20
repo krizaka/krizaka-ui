@@ -29,11 +29,10 @@
   opacity: 1;
   clip-path: inset(0 100% 0 0);
 }
+/* A settled block keeps a clip that reaches far beyond its sides: nothing hanging in the margin (a §) is cut, and the
+   block keeps the same compositing as while it revealed (stable pixels). */
 [data-reveal].kz-in {
   opacity: 1;
-}
-/* Only the ink reveal clips (while it writes): a settled block never clips what hangs outside it (a § in the margin). */
-[data-reveal="ink"].kz-in {
   clip-path: inset(0 -100vw 0 -100vw);
 }
 
