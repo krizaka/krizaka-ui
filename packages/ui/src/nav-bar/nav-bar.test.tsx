@@ -406,6 +406,36 @@ describe("NavBar.Family", () => {
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
   });
 
+  it("closes on a click away and on a second click of the trigger (#261)", async () => {
+    const user = userEvent.setup();
+    render(
+      <div>
+        <FamilyBar />
+        <button type="button">Elsewhere</button>
+      </div>,
+    );
+    const trigger = screen.getByRole("button", { name: "Krizaka family" });
+    await user.click(trigger);
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+    await user.click(screen.getByRole("button", { name: "Elsewhere" }));
+    await waitFor(() => expect(trigger.getAttribute("aria-expanded")).toBe("false"));
+    await user.click(trigger);
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+    await user.click(trigger);
+    await waitFor(() => expect(trigger.getAttribute("aria-expanded")).toBe("false"));
+  });
+
+  it("closes when a family link is chosen (#261)", async () => {
+    const user = userEvent.setup();
+    render(<FamilyBar />);
+    const trigger = screen.getByRole("button", { name: "Krizaka family" });
+    await user.click(trigger);
+    const link = await screen.findByRole("link", { name: /Krizaka Java/ });
+    link.addEventListener("click", (e) => e.preventDefault());
+    await user.click(link);
+    await waitFor(() => expect(trigger.getAttribute("aria-expanded")).toBe("false"));
+  });
+
   it("renders as the mobile panel's last group, in French with familyLabels.fr", async () => {
     const user = userEvent.setup();
     render(<FamilyBar labels={familyLabels.fr} />);
