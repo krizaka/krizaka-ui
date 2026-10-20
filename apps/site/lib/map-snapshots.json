@@ -12,6 +12,10 @@
     "map/location-picker": {
       "dark": "https://krizaka-assets.b-cdn.net/ui/maps/location-picker-dark.278b8f2e83.png",
       "light": "https://krizaka-assets.b-cdn.net/ui/maps/location-picker-light.bdc255dfd2.png"
+    },
+    "map/route": {
+      "dark": "https://krizaka-assets.b-cdn.net/ui/maps/route-dark.eafa024a88.png",
+      "light": "https://krizaka-assets.b-cdn.net/ui/maps/route-light.d487c30a93.png"
     }
   }
 }
