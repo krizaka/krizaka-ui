@@ -92,7 +92,7 @@ export const PLANNED: Record<string, string> = {
   "maintenance-screen": "krizaka/.github#75: the maintenance state of every app, written by the operator in the admin.",
   "permission-prompt": `${MOBILE}: asking for the camera, the location, notifications — in words, before the system dialog.`,
   "photo-grid": `${COMMUNITY}.`,
-  "pointer-light": "Builds the card grid (the light that follows the pointer).",
+  "pointer-light": "Deprecated (krizaka-ui#393): the light that followed the pointer is retired.",
   "pricing-page": `${SITE}: /pricing of the products.`,
   "product-page": `${SITE}: the product pages.`,
   "pull-to-refresh": `${MOBILE}: lists and feeds (and BrandedRefresh, krizaka-ui#137).`,

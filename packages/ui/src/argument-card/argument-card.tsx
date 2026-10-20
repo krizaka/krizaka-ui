@@ -50,7 +50,7 @@ export type ArgumentCardProps = Omit<React.HTMLAttributes<HTMLElement>, "title">
   level?: 2 | 3 | 4;
   /** The app's link component for internal addresses (Next's `Link`); an `<a>` otherwise. */
   linkAs?: LinkComponent;
-  /** The hover of the card: `light` (the pointer's light, the default) or `quiet` (no glow, a lift, a ring on focus). */
+  /** @deprecated Since 3.31 (krizaka-ui#393): does nothing — every card has the one quiet hover. Removed in 4.0. */
   hover?: CardHover;
 };
 
@@ -63,7 +63,7 @@ export function ArgumentCard({ id, title, icon, meta, mark, facts, hook, points,
   const H = `h${level}` as "h2" | "h3" | "h4";
   const fold = !more && panelLabel && (points || rule || (details && details.length > 0));
   return (
-    <article className={cn("kz-block-card kz-arg", cardHoverClass(hover), className)} data-kz-light="" aria-labelledby={id} {...props}>
+    <article className={cn("kz-block-card kz-arg", cardHoverClass(hover), className)} aria-labelledby={id} {...props}>
       <div className="kz-arg-head">
         {icon && (
           <span className="kz-block-icon" aria-hidden>

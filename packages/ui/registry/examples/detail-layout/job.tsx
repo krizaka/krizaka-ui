@@ -12,7 +12,7 @@ export default function DetailLayoutJob() {
       title="Podcast transcript"
       status={<Badge tone="accent" dot>Running</Badge>}
       meta="Whisper large · started 5 min ago"
-      actions={<Button size="sm" variant="danger" shape="cut">Cancel</Button>}
+      actions={<Button size="sm" variant="danger">Cancel</Button>}
     >
       <p className="text-sm text-fg-secondary">The transcript appears here as it is written.</p>
     </DetailLayout>

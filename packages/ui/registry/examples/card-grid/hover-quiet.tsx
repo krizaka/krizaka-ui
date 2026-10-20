@@ -11,7 +11,7 @@ const shortcuts = [
 // A whole grid quiet: `hover="quiet"` on the grid, the cards inherit it (a card can still say `hover="light"`).
 export default function CardGridHoverQuiet() {
   return (
-    <CardGrid className="w-full max-w-4xl" min={260} reveal={false} hover="quiet">
+    <CardGrid className="w-full max-w-4xl" min={260} reveal={false}>
       {shortcuts.map((s) => (
         <LinkCard key={s.id} href={`#${s.id}`} icon={<ProductLogo id={s.logo} size={24} animated={false} />} title={s.title} description={s.text} cta="Open" />
       ))}

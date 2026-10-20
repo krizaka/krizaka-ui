@@ -42,7 +42,7 @@ export async function ChangelogView({ locale }: { locale: Locale }) {
       title={c.title}
       lead={c.lead}
       actions={
-        <Button asChild variant="secondary" size="md" shape="cut">
+        <Button asChild variant="secondary" size="md">
           <a href={`${localePath(locale, "/changelog")}/feed.xml`}>{c.feed}</a>
         </Button>
       }

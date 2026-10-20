@@ -7,12 +7,12 @@ import { LinkCard } from "./index";
 const RouterLink = ({ href, ...props }: { href: string; className?: string; children?: React.ReactNode }) => <a data-router="" href={href} {...props} />;
 
 describe("LinkCard", () => {
-  it("is one link named by its text, through the router, lit by the pointer, with no axe violation", async () => {
+  it("is one link named by its text, through the router, with no axe violation", async () => {
     const { container } = render(<LinkCard href="/docs/ui" linkAs={RouterLink} icon={<svg />} title="Krizaka UI" description="Live components." cta="Open" />);
     const link = screen.getByRole("link");
     expect(link.textContent).toContain("Krizaka UI");
     expect(link.hasAttribute("data-router")).toBe(true);
-    expect(link.hasAttribute("data-kz-light")).toBe(true);
+    expect(link.hasAttribute("data-kz-light")).toBe(false);
     expect(screen.getByRole("heading", { level: 3, name: "Krizaka UI" })).toBeTruthy();
     expect(await axeViolations(container)).toEqual([]);
   });
@@ -38,17 +38,13 @@ describe("LinkCard", () => {
     expect(container.querySelector(".kz-link-card-foot")).toBeNull();
   });
 
-  it("is lit by the pointer by default, and says its hover: light or quiet, with no class when none is asked", () => {
+  it("has one quiet hover: `hover` is a deprecated no-op, no pointer light", () => {
     const { container, rerender } = render(<LinkCard href="/a" title="A" />);
     const card = () => container.querySelector(".kz-link-card") as HTMLElement;
-    expect(card().classList.contains("kz-hover-quiet")).toBe(false);
-    expect(card().classList.contains("kz-hover-light")).toBe(false);
-    rerender(<LinkCard href="/a" title="A" hover="quiet" />);
-    expect(card().classList.contains("kz-hover-quiet")).toBe(true);
-    expect(card().classList.contains("kz-hover-light")).toBe(false);
-    expect(card().hasAttribute("data-kz-light")).toBe(true);
-    rerender(<LinkCard href="/a" title="A" hover="light" />);
-    expect(card().classList.contains("kz-hover-light")).toBe(true);
-    expect(card().classList.contains("kz-hover-quiet")).toBe(false);
+    for (const hover of [undefined, "quiet", "light"] as const) {
+      rerender(<LinkCard href="/a" title="A" hover={hover} />);
+      expect(card().className).not.toMatch(/kz-hover-/);
+      expect(card().hasAttribute("data-kz-light")).toBe(false);
+    }
   });
 });

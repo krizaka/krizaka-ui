@@ -48,7 +48,7 @@ export function ForceUpdateScreen({ title, message, versionLabel, mark, updateLa
       {message && <p className={s.message()}>{message}</p>}
       {versionLabel && <p className={s.version()}>{versionLabel}</p>}
       <div className={s.actions()}>
-        <Button variant="primary" size="lg" shape="cut" shimmer autoFocus onClick={onUpdate}>
+        <Button variant="primary" size="lg" autoFocus onClick={onUpdate}>
           {updateLabel}
         </Button>
         {retryLabel && onRetry && (

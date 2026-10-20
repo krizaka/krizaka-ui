@@ -13,8 +13,8 @@ export default function LandingPageKrizaka() {
       lead="Krizaka builds sovereign AI and a platform where creators are paid — open source, on your servers or ours."
       actions={
         <>
-          <Button variant="primary" size="lg" shape="cut" shimmer>See the products</Button>
-          <Button variant="secondary" size="lg" shape="cut">Read the docs</Button>
+          <Button variant="primary" size="lg">See the products</Button>
+          <Button variant="secondary" size="lg">Read the docs</Button>
         </>
       }
       visualLabel="orazaka.local — console"
@@ -38,7 +38,7 @@ export default function LandingPageKrizaka() {
         { id: "blocks", size: "md", title: "Open building blocks", text: "Users, billing, notifications — on Maven Central and npm." },
         { id: "ui", size: "md", title: "One design system", text: "Krizaka UI, web and mobile, documented from its code." },
       ]}
-      closing={{ title: "Something to build together?", body: "Tell us what you need; a person answers within two days.", actions: <Button variant="primary" size="lg" shape="cut">Contact us</Button> }}
+      closing={{ title: "Something to build together?", body: "Tell us what you need; a person answers within two days.", actions: <Button variant="primary" size="lg">Contact us</Button> }}
     />
   );
 }

@@ -1,5 +1,5 @@
 /* @krizaka/tokens — GÉNÉRÉ depuis src/brands/yomizaka.brand.json par scripts/build.mjs : ne pas éditer.
-   Yomizaka — l'indigo de l'encre (藍, ai) : la couleur de l'écrit et de la lecture, un bleu qui penche vers le violet. Distinct du bleu de Krizaka (217, saturé) par sa teinte (240, ≥ 20° — un test) et du violet d'Orochia (262, vif) par sa douceur ; loin de l'émeraude de Yasakia, de la sauge de Yororis, de l'orange d'Orazaka et de tous les statuts. Dark : indigo clair (pervenche) sous texte quasi noir ; light : indigo profond sous texte blanc. accent-2 est le bleu d'encre (232), le premier temps du logo et du dégradé des boutons. info reste le bleu de Krizaka. Le logo (mark) est un dégradé encre (232) → indigo (248) de teinte moyenne, identique dans les deux thèmes et ≥ 3:1 sur les surfaces 0–2 des deux thèmes.
+   Yomizaka — l'indigo de l'encre (藍, ai) : la couleur de l'écrit et de la lecture, un bleu qui penche vers le violet. Distinct du bleu acier de Krizaka (208) par sa teinte (240, ≥ 20° — un test) et du violet d'Orochia (262, vif) par sa douceur ; loin de l'émeraude de Yasakia, de la sauge de Yororis, de l'orange d'Orazaka et de tous les statuts. Dark : indigo clair (pervenche) sous texte quasi noir ; light : indigo profond sous texte blanc. accent-2 est le bleu d'encre (232), le premier temps du logo et du dégradé des boutons. info reste le bleu de Krizaka. Le logo (mark) est un dégradé encre (232) → indigo (248) de teinte moyenne, identique dans les deux thèmes et ≥ 3:1 sur les surfaces 0–2 des deux thèmes.
    Importé après tokens.css (ou @krizaka/tailwind) : l'identité yomizaka sur toute l'app, dans les deux thèmes. */
 
 :root, .theme-dark {
@@ -10,8 +10,8 @@
   --kz-accent-2: hsl(232 72% 74%);
   --kz-on-accent: hsl(240 6% 5%);
   --kz-ring: var(--kz-accent);
-  --kz-info: hsl(217 92% 60%);
-  --kz-info-text: hsl(217 92% 68%);
+  --kz-info: hsl(207 50% 58%);
+  --kz-info-text: hsl(206 58% 72%);
   --kz-brand-gradient-from: hsl(236 30% 10%);
   --kz-brand-gradient-via: hsl(244 22% 8%);
   --kz-brand-gradient-to: var(--kz-surface-0);
@@ -24,8 +24,8 @@ html.light {
   --kz-accent-text: hsl(242 52% 44%);
   --kz-accent-2: hsl(232 56% 40%);
   --kz-on-accent: hsl(0 0% 100%);
-  --kz-info: hsl(217 92% 50%);
-  --kz-info-text: hsl(217 92% 42%);
+  --kz-info: hsl(208 54% 36%);
+  --kz-info-text: hsl(208 54% 33%);
   --kz-brand-gradient-from: hsl(236 60% 95%);
   --kz-brand-gradient-via: hsl(244 50% 96%);
 }
@@ -38,8 +38,8 @@ html.light {
   --kz-accent-2: hsl(232 56% 40%);
   --kz-on-accent: hsl(0 0% 100%);
   --kz-ring: var(--kz-accent);
-  --kz-info: hsl(217 92% 50%);
-  --kz-info-text: hsl(217 92% 42%);
+  --kz-info: hsl(208 54% 36%);
+  --kz-info-text: hsl(208 54% 33%);
   --kz-brand-gradient-from: hsl(236 60% 95%);
   --kz-brand-gradient-via: hsl(244 50% 96%);
   --kz-brand-gradient-to: var(--kz-surface-0);

@@ -67,61 +67,8 @@
   transition-duration: 0.6s;
 }
 
-/* Sheen across a primary action on hover. */
-.kz-sheen {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-.kz-sheen::after {
-  content: "";
-  position: absolute;
-  inset: -20% auto -20% 0;
-  width: 40%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
-  opacity: 0;
-  pointer-events: none;
-}
-@media (hover: hover) and (pointer: fine) {
-  .kz-sheen:hover::after {
-    animation: kz-sheen-sweep 760ms var(--kz-ease);
-  }
-}
-@keyframes kz-sheen-sweep {
-  0% { opacity: 0; transform: translateX(-160%) skewX(-18deg); }
-  18% { opacity: 1; }
-  100% { opacity: 0; transform: translateX(360%) skewX(-18deg); }
-}
-
-/* Spotlight: a soft accent bloom follows the pointer across a card (MotionObserver writes --spot-x/--spot-y). */
-.kz-spotlight {
-  position: relative;
-}
-.kz-spotlight::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(420px circle at var(--spot-x, 50%) var(--spot-y, 50%), color-mix(in oklab, var(--kz-accent, #a855f7) 16%, transparent), transparent 45%);
-  opacity: 0;
-  transition: opacity 0.35s var(--kz-ease);
-  pointer-events: none;
-  z-index: 0;
-}
-.kz-spotlight:hover::before {
-  opacity: 1;
-}
-
-/* Lift: cards rise a little under the pointer. */
-.kz-lift {
-  transition: transform 0.35s var(--kz-ease), box-shadow 0.35s var(--kz-ease), border-color 0.35s var(--kz-ease);
-}
-@media (hover: hover) {
-  .kz-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px -18px color-mix(in oklab, var(--kz-accent, #7c3aed) 45%, transparent);
-  }
-}
+/* Retired (krizaka-ui#393): the sheen across a button, the spotlight that followed the pointer and the lift of a card.
+   The classes stay harmless (`.kz-sheen`, `.kz-spotlight`, `.kz-lift` draw nothing) so an old page does not break. */
 
 /* Gradient text that slowly drifts. */
 .kz-gradient-text {
@@ -230,8 +177,8 @@
 .kz-backdrop-drift {
   inset: -20%;
   background:
-    radial-gradient(38% 32% at 28% 30%, color-mix(in oklab, var(--kz-accent, #196df5) 14%, transparent), transparent 70%),
-    radial-gradient(34% 30% at 76% 22%, color-mix(in oklab, var(--kz-accent-2, #196df5) 10%, transparent), transparent 70%);
+    radial-gradient(38% 32% at 28% 30%, color-mix(in oklab, var(--kz-accent, #3e6f99) 14%, transparent), transparent 70%),
+    radial-gradient(34% 30% at 76% 22%, color-mix(in oklab, var(--kz-accent-2, #3e6f99) 10%, transparent), transparent 70%);
   animation: kz-backdrop-drift 40s ease-in-out infinite alternate;
 }
 @keyframes kz-backdrop-drift {
@@ -244,7 +191,7 @@
   aspect-ratio: 2 / 1;
   transform: translateX(-50%);
   border-radius: 50%;
-  background: radial-gradient(closest-side, color-mix(in oklab, var(--kz-accent, #196df5) 24%, transparent), transparent);
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--kz-accent, #3e6f99) 24%, transparent), transparent);
   filter: blur(28px);
 }
 .kz-backdrop-grid {
@@ -285,8 +232,7 @@ svg[data-kz-icon] [data-node] {
   transition: transform 320ms var(--kz-ease), filter 320ms var(--kz-ease);
 }
 :is(a, button, [data-kz-lights]):is(:hover, :focus-visible) svg[data-kz-icon] [data-node] {
-  transform: scale(1.5);
-  filter: drop-shadow(0 0 3px var(--kz-accent, #196df5));
+  filter: brightness(1.15);
 }
 svg[data-kz-icon="ForwardIcon"],
 svg[data-kz-icon="ExternalIcon"] {
@@ -299,11 +245,6 @@ svg[data-kz-icon="ExternalIcon"] {
   transform: translate(2px, -2px);
 }
 
-/* Magnetic (`data-kz-magnetic`, driven by MotionObserver): the element leans a few pixels toward a fine pointer. */
-[data-kz-magnetic] {
-  translate: var(--kz-mag-x, 0) var(--kz-mag-y, 0);
-  transition: translate 420ms var(--kz-ease);
-}
 
 /* A figure that climbs (NumberTicker): an invisible copy of the final value shares the grid cell and holds the width. */
 .kz-count {
@@ -374,17 +315,8 @@ svg[data-kz-icon="ExternalIcon"] {
   animation-play-state: paused;
 }
 
-/* ─── GlowCard: a bloom that follows the pointer, a ring of the brand gradient that turns ─── */
-@property --kz-glow-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 135deg;
-}
-.kz-glow {
-  --kz-glow-x: 30%;
-  --kz-glow-y: 0%;
-}
-/* The ring: the brand gradient, cut to the border (mask), faint at rest, bright under the pointer or the focus. */
+/* ─── GlowCard: a still hairline ring of the brand gradient (krizaka-ui#393: no bloom under the pointer, no turning
+   ring). Faint at rest, a step brighter under the pointer or the focus, fuller on a featured (`alive`) card. ─── */
 .kz-glow:is([data-glow="border"], [data-glow="both"])::before {
   content: "";
   position: absolute;
@@ -392,39 +324,19 @@ svg[data-kz-icon="ExternalIcon"] {
   z-index: -1;
   padding: 1px;
   border-radius: inherit;
-  background: conic-gradient(from var(--kz-glow-angle), transparent 0deg, var(--kz-accent) 70deg, var(--kz-accent-2, var(--kz-accent)) 140deg, transparent 210deg, transparent 360deg);
+  background: linear-gradient(135deg, var(--kz-accent), var(--kz-accent-2, var(--kz-accent)) 45%, transparent 75%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-  opacity: 0.35;
-  transition: opacity 0.4s var(--kz-ease);
+  opacity: 0.3;
+  transition: opacity 150ms var(--kz-ease);
   pointer-events: none;
 }
-.kz-glow[data-alive]::before,
-.kz-glow:is(:hover, :focus-within)::before {
-  animation: kz-glow-turn 6s linear infinite;
-}
-.kz-glow:is(:hover, :focus-within)::before {
-  opacity: 1;
-}
-/* The bloom: under the pointer, inside the card. */
-.kz-glow:is([data-glow="spotlight"], [data-glow="both"])::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: radial-gradient(360px circle at var(--kz-glow-x) var(--kz-glow-y), color-mix(in oklab, var(--kz-accent) 16%, transparent), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.4s var(--kz-ease);
-  pointer-events: none;
-}
-.kz-glow:is(:hover, :focus-within)::after {
-  opacity: 1;
-}
-@keyframes kz-glow-turn {
-  to { --kz-glow-angle: 495deg; }
-}
+.kz-glow { transition: border-color 150ms var(--kz-ease); }
+.kz-glow[data-alive]::before { opacity: 0.7; }
+.kz-glow:is(:hover, :focus-within) { border-color: var(--kz-border-strong); }
+.kz-glow:is(:hover, :focus-within)::before { opacity: 0.6; }
+.kz-glow[data-alive]:is(:hover, :focus-within)::before { opacity: 0.9; }
 
 /* ─── Toasts: a hairline at the bottom counts the time left, and pauses with the toast ─── */
 .kz-toast::after {
@@ -525,7 +437,7 @@ svg[data-kz-icon="ExternalIcon"] {
    Objects built from the Krizaka vocabulary — hexagons, cut corners, the node — extruded in isometric projection and lit
    from inside in the brand accent (a `.brand-<id>` ancestor re-points it). Faces read the surfaces, edges the accent
    text: both themes. Motion: stages that stack once at the entrance, a dome that breathes, light that flows along the
-   links, satellites that float; the pointer lifts an object and shows its label. */
+   links, satellites that float; the pointer brightens an object and shows its label. */
 /* Unlayered CSS beats Tailwind's layers: the kit sets no size, the app's classes do (`w-full max-w-xl`). */
 .kz-iso {
   overflow: visible;
@@ -587,18 +499,18 @@ svg[data-kz-icon="ExternalIcon"] {
 .kz-iso[data-animated="false"] :is(.kz-loop, .kz-iso-rise) { animation: none; }
 /* Entrance: each object rises into place once, in order (--kz-iso-i), when its scene first shows. */
 .kz-iso-rise { animation: kz-iso-rise 0.9s var(--kz-ease) backwards; animation-delay: calc(var(--kz-iso-i, 0) * 110ms + 120ms); }
-/* The pointer (or the focus, in an interactive scene) lifts an object and shows its label. */
+/* The pointer (or the focus, in an interactive scene) outlines an object and shows its label — nothing moves. */
 .kz-iso-item { outline: none; }
-.kz-iso-item > .kz-iso-lift { transition: translate 0.45s var(--kz-ease), filter 0.45s var(--kz-ease); }
-.kz-iso-tip { opacity: 0; transition: opacity 0.3s var(--kz-ease), translate 0.45s var(--kz-ease); pointer-events: none; }
+.kz-iso-item > .kz-iso-lift { transition: filter 150ms var(--kz-ease); }
+.kz-iso-tip { opacity: 0; transition: opacity 150ms var(--kz-ease); pointer-events: none; }
 .kz-iso-leader { stroke: var(--kz-accent-text); stroke-width: 1; }
 .kz-iso-tip rect { fill: var(--kz-surface-1); stroke: var(--kz-border-strong); }
 @media (hover: hover) {
-  .kz-iso-item:hover > .kz-iso-lift { translate: 0 -8px; filter: drop-shadow(0 10px 14px color-mix(in oklab, var(--kz-accent) 35%, transparent)); }
-  .kz-iso-item:hover > .kz-iso-tip { opacity: 1; translate: 0 -8px; }
+  .kz-iso-item:hover > .kz-iso-lift { filter: brightness(1.12); }
+  .kz-iso-item:hover > .kz-iso-tip { opacity: 1; }
 }
-.kz-iso-item:focus-visible > .kz-iso-lift { translate: 0 -8px; filter: drop-shadow(0 0 6px var(--kz-ring, currentColor)); }
-.kz-iso-item:focus-visible > .kz-iso-tip { opacity: 1; translate: 0 -8px; }
+.kz-iso-item:focus-visible > .kz-iso-lift { filter: drop-shadow(0 0 0 2px var(--kz-ring, currentColor)) drop-shadow(0 0 2px var(--kz-ring, currentColor)); }
+.kz-iso-item:focus-visible > .kz-iso-tip { opacity: 1; }
 @keyframes kz-iso-rise { from { opacity: 0; transform: translateY(-34px); } }
 @keyframes kz-iso-flow { to { stroke-dashoffset: -40; } }
 @keyframes kz-iso-travel {
@@ -706,15 +618,14 @@ svg[data-kz-icon="ExternalIcon"] {
   border-radius: 999px;
   background: var(--kz-surface-1);
   border: 1px solid color-mix(in oklab, var(--kz-accent) 45%, var(--kz-border-default, transparent));
-  transition: border-color 0.3s var(--kz-ease), box-shadow 0.3s var(--kz-ease), scale 0.3s var(--kz-ease);
+  transition: border-color 150ms var(--kz-ease), box-shadow 150ms var(--kz-ease);
 }
 .kz-flow-node-mark { width: var(--kz-flow-mark); height: var(--kz-flow-mark); }
 .kz-flow-node-mark > svg { width: 62%; height: 62%; }
 .kz-flow-node-label { font-size: 0.8125rem; font-weight: 600; line-height: 1.2; white-space: nowrap; }
 .kz-flow-node:is(:hover, :focus-visible, [data-active]) .kz-flow-node-mark {
   border-color: var(--kz-accent);
-  box-shadow: 0 0 0 4px var(--kz-accent-soft), 0 0 24px -6px var(--kz-accent);
-  scale: 1.06;
+  box-shadow: 0 0 0 4px var(--kz-accent-soft);
 }
 .kz-flow[data-active] .kz-flow-node:not([data-active]) { opacity: 0.6; }
 .kz-flow-node[data-planned] .kz-flow-node-mark { border-style: dashed; }
@@ -757,19 +668,16 @@ svg[data-kz-icon="ExternalIcon"] {
 
 @media (prefers-reduced-motion: reduce) {
   .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
-  .kz-skeleton, .kz-skeleton-shape *, .kz-toast::after, .kz-glow::before,
+  .kz-skeleton, .kz-skeleton-shape *, .kz-toast::after,
   .kz-rotating > *, .kz-loop, .kz-iso-rise, .kz-count-roll, .kz-loader-trace, .kz-loader-node, .kz-loader-mark,
   [data-kz-status], .kz-replay-caret, .kz-month, .kz-map-user::after, .kz-flow-photon { animation: none !important; }
   .kz-flow-node-mark, .kz-flow-node, .kz-flow-link { transition: none; }
   /* At rest, the trace stands still where a reader expects it: a third of the hexagon from the top. */
   .kz-loader-trace:not([stroke-dasharray]) { stroke-dashoffset: -8; }
   [data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }
-  .kz-sheen::after { display: none; }
   /* The band stands still and scrolls by hand; its copy goes. */
   .kz-band > .kz-band-viewport { overflow-x: auto; scrollbar-width: thin; }
   .kz-band-copy { display: none !important; }
-  .kz-lift, .kz-lift:hover { transform: none; transition: none; }
-  [data-kz-magnetic] { translate: none; }
   .kz-count-digit > span { transition: none; }
   /* The still frame is a composed picture, not a cut animation: particles rest along their link, labels show. */
   .kz-iso-item > .kz-iso-lift, .kz-iso-tip { transition: none; }

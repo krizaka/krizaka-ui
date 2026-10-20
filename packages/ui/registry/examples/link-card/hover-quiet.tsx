@@ -13,7 +13,7 @@ export default function LinkCardHoverQuiet() {
   return (
     <CardGrid className="w-full max-w-4xl" min={260} reveal={false}>
       {shortcuts.map((s) => (
-        <LinkCard key={s.id} hover="quiet" href={`#${s.id}`} icon={<ProductLogo id={s.logo} size={24} animated={false} />} title={s.title} description={s.text} cta="Open" />
+        <LinkCard key={s.id} href={`#${s.id}`} icon={<ProductLogo id={s.logo} size={24} animated={false} />} title={s.title} description={s.text} cta="Open" />
       ))}
     </CardGrid>
   );

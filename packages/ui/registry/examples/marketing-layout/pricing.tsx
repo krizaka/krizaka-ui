@@ -36,7 +36,7 @@ export default function MarketingLayoutPricing() {
                     <li key={x}>— {x}</li>
                   ))}
                 </ul>
-                <Button variant={p.featured ? "primary" : "secondary"} shape="cut" className="mt-auto w-full">
+                <Button variant={p.featured ? "primary" : "secondary"} className="mt-auto w-full">
                   Choose {p.name}
                 </Button>
               </GlowCard>

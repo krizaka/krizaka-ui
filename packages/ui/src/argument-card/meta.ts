@@ -22,14 +22,13 @@ export const meta = {
     "One idea per card; one bird per idea: small in the corner (`mark`), its quote (`rule`) where the card unfolds.",
     "Give each subject its hue with `--kz-hue` on the card (or a wrapper); the brand's accent otherwise.",
     "Secondary actions as an icon `ActionBar` in `actions`; the way in as `more`.",
-    "`hover=\"quiet\"` for reasons read as prose (a product's argument, a policy): no glow, a lift and a ring on focus. The default `light` keeps the pointer's light.",
   ],
   accessibility: {
     keyboard: [{ keys: "Enter / Space", action: "On the panel's summary, opens or closes the long version." }],
     notes: [
       "An `article` named by its title; the hook's label is read before the line (visually hidden); the fold is a native `details` element.",
       "The way in is described by the card's title (`aria-describedby`), so several `Read more` links stay distinct.",
-      "The lift, the light and the panel's chevron stop under `prefers-reduced-motion`; the quiet hover keeps its surface and ring, and never lifts.",
+      "One quiet hover (krizaka-ui#393): the surface and the hairline go one step up in a short colour transition — nothing moves, no light follows the pointer; a ring on the whole card when a link inside takes the keyboard focus. The panel's chevron stops under `prefers-reduced-motion`.",
     ],
   },
   related: ["card-grid", "mascot-quote", "action-bar"],
@@ -39,7 +38,6 @@ export const meta = {
       { name: "building-block", title: "A building block", description: "Compact: the duck in the corner, the trap in one line, facts, one short action and an icon action." },
       { name: "unfold", title: "Unfolded in place", description: "No detail page: `panelLabel` unfolds what it does, the cost and the pigeon's rule." },
       { name: "grid", title: "Three reasons", description: "A product's reasons side by side in a grid: the hook and the way in, no panel." },
-      { name: "hover-light", title: "The light hover", description: "`hover=\"light\"`, the default: the pointer's light and the coloured lift, said explicitly." },
       { name: "hover-quiet", title: "The quiet hover", description: "`hover=\"quiet\"` on a grid of reasons: no glow, a lift, a ring on focus." },
     ],
   },

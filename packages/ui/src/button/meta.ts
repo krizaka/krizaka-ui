@@ -3,7 +3,7 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Button",
   summary:
-    "The action: six looks, three sizes, three shapes (rounded, pill, the Krizaka cut corners) — and the whole life of an action built in: a wait traced by the loader glyph, its progress, a success or a failure drawn and announced.",
+    "The action: six looks, three sizes, two shapes (an 8 px radius, the pill) — and the whole life of an action built in: a wait traced by the loader glyph, its progress, a success or a failure drawn and announced.",
   status: "stable",
   category: "actions",
   platforms: "both",
@@ -24,7 +24,7 @@ export const meta = {
     "One primary per view; the danger variant only for what destroys or cannot be undone.",
     "`loading` while the action runs: the button is disabled, says it is busy and draws the glyph; add `progress` when you know how far it is.",
     "End with `status` (`success` / `error`) and `announce` the result in words: sighted people see the check, everyone hears “Saved”. Clear the status after a moment.",
-    "`shape=\"cut\"`, `shimmer` and `magnetic` are the signature: keep them for the one action a page is about.",
+    "One shape for every action (an 8 px radius, the radius of a field); the pill only for a chip-like action. The hover changes a colour, never the position. `shape=\"cut\"`, `shimmer` and `magnetic` are deprecated since 3.31 (krizaka-ui#393) and do nothing.",
     "Style a link without the component with `buttonVariants({ variant, size })`.",
   ],
   accessibility: {
@@ -47,7 +47,7 @@ export const meta = {
       { name: "save-flow", title: "Save, then confirm", description: "Press it: the glyph traces the wait, a check draws itself, “Changes saved” is announced, then it returns to rest." },
       { name: "upload-progress", title: "An export with progress", description: "`progress`: the trace and a light fill grow across the button; it keeps its width and its colour." },
       { name: "error", title: "A failure", description: "`status=\"error\"`: a cross, one shake of the head, a ring of the danger colour — and the reason announced." },
-      { name: "signature", title: "The signature action", description: "`shape=\"cut\"`, the gradient, `shimmer` and `magnetic`: the one call to action of a hero; the arrow leans forward on hover." },
+      { name: "signature", title: "The signature action", description: "The gradient beside a quiet outline: the one call to action of a hero; the arrow leans forward on hover, the button never moves." },
       { name: "primary", title: "Primary", description: "The main action of a view: the accent." },
       { name: "gradient", title: "Gradient", description: "The brand's signature, accent → accent-2: a hero or a closing call to action, once per page." },
       { name: "secondary", title: "Secondary", description: "The default: a raised surface, for the other actions." },

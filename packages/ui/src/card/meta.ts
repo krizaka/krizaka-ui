@@ -38,7 +38,7 @@ export const meta = {
     examples: [
       { name: "media-card", title: "Media card", description: "An image, badges on the media, a title, a description and a footer." },
       { name: "media-fallback", title: "Media fallback", description: "No image: the `fallback` on the accent gradient." },
-      { name: "interactive-link", title: "Interactive link", description: "`asChild` + `<a>`: the whole card is a link, with the spotlight and the lift." },
+      { name: "interactive-link", title: "Interactive link", description: "`asChild` + `<a>`: the whole card is a link; its hairline and surface go one step up under the pointer." },
       { name: "stat-card", title: "Stat card", description: "Figures put forward with `Card.Stat`, `tone=\"elevated\"`." },
       { name: "reveal-grid", title: "Reveal grid", description: "Cards entering in cascade with `reveal` and `MotionObserver`." },
     ],

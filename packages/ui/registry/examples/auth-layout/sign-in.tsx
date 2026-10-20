@@ -34,10 +34,10 @@ export default function AuthLayoutSignIn() {
             <Input id="sign-in-password" type="password" autoComplete="current-password" />
             <Field.Hint><a className="text-fg-accent" href="#reset">Forgot it?</a></Field.Hint>
           </Field.Root>
-          <Button type="submit" variant="primary" size="lg" shape="cut" shimmer className="w-full">
+          <Button type="submit" variant="primary" size="lg" className="w-full">
             Sign in
           </Button>
-          <Button type="button" variant="secondary" size="lg" shape="cut" className="w-full">
+          <Button type="button" variant="secondary" size="lg" className="w-full">
             Use a passkey
           </Button>
         </form>

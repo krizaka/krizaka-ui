@@ -12,7 +12,7 @@ export default function AuthLayoutVerify() {
           <Field.Label htmlFor="verify-code">Code</Field.Label>
           <Input id="verify-code" inputMode="numeric" autoComplete="one-time-code" maxLength={6} />
         </Field.Root>
-        <Button type="submit" variant="primary" size="lg" shape="cut" className="w-full">Verify</Button>
+        <Button type="submit" variant="primary" size="lg" className="w-full">Verify</Button>
       </form>
     </AuthLayout>
   );

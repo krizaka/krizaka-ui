@@ -7,7 +7,7 @@ export default function StickyActionPhone() {
     <main className="flex h-[28rem] flex-col overflow-auto">
       <p className="m-0 h-[40rem] p-4 text-fg-secondary">The page scrolls here…</p>
       <StickyAction>
-        <Button size="lg" shape="cut" variant="primary">Book</Button>
+        <Button size="lg" variant="primary">Book</Button>
       </StickyAction>
     </main>
   );

@@ -23,7 +23,7 @@ const DECISIONS = [
 ];
 const labels = { chose: "We chose", refused: "We refused", because: "Because", cost: "What it costs you" };
 
-// TEMPLATE — a product page (Orazaka): the hero with its facts and its main action (cut, shimmer), the reasons as compact
+// TEMPLATE — a product page (Orazaka): the hero with its facts and its main action, the reasons as compact
 // argument cards (the bird in the corner), the decisions with their cost, the owl's promise, the closing call. On a
 // phone the hero's bird goes above the title, the cards stack, the decisions' three parts stack under the choice.
 export default function MarketingLayoutProductPage() {
@@ -48,7 +48,7 @@ export default function MarketingLayoutProductPage() {
           aside={<Mascot bird="owl" mood="welcome" size={112} />}
         >
           <Facts items={[{ label: "Apache-2.0", tone: "ok" }, { label: "Law 25 · GDPR" }]} />
-          <Button variant="primary" size="lg" shape="cut" shimmer>Install in three commands</Button>
+          <Button variant="primary" size="lg">Install in three commands</Button>
         </PageHero>
         <Section id="why" eyebrow="Why" title="Three traps it removes">
           <CardGrid min={260} fit="fit" reveal={false}>

@@ -27,8 +27,8 @@ export default function DashboardLayoutOrazakaEric() {
         description="Nothing left your server this week: 1,284 requests, all answered locally."
         actions={
           <>
-            <Button size="sm" variant="secondary" shape="cut">Add a pack</Button>
-            <Button size="sm" variant="primary" shape="cut">New job</Button>
+            <Button size="sm" variant="secondary">Add a pack</Button>
+            <Button size="sm" variant="primary">New job</Button>
           </>
         }
         toolbar={

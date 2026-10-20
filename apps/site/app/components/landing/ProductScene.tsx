@@ -90,7 +90,7 @@ export function ProductScene() {
             ))}
           </AppShell.Sidebar>
           <AppShell.Body>
-            <AppShell.Header title={`${name} · ${p.title}`} menuLabel={words.menu} actions={<Button size="sm" variant="primary" shape="cut">{p.action}</Button>} />
+            <AppShell.Header title={`${name} · ${p.title}`} menuLabel={words.menu} actions={<Button size="sm" variant="primary">{p.action}</Button>} />
             <AppShell.Main className="kz-scene-main">
               <p className="kz-scene-sub">{p.sub}</p>
               <StatGrid>

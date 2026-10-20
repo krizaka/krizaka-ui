@@ -14,7 +14,7 @@ export default function CoverHeroShop() {
       title="Pattes de Saint-Henri"
       lead="Neighbourhood dog walks, with a photo and a note after each one."
       facts={<><Badge tone="success" dot size="md">Open now · closes at 5 pm</Badge><Badge tone="scrim" size="md">Saint-Henri</Badge></>}
-      actions={<Button size="lg" shape="cut" variant="primary">Book a walk</Button>}
+      actions={<Button size="lg" variant="primary">Book a walk</Button>}
     />
   );
 }

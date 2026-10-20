@@ -3,7 +3,7 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Link card",
   summary:
-    "An entry point where the whole card is one link: an icon tile, a title, one sentence and the way in — compact, the same on every page, lifting and lighting under the pointer or the focus.",
+    "An entry point where the whole card is one link: an icon tile, a title, one sentence and the way in — compact, the same on every page; under the pointer its surface and hairline go one step up, nothing moves.",
   status: "beta",
   category: "blocks",
   platforms: "web",
@@ -22,15 +22,14 @@ export const meta = {
     "Pass the app's router link as `linkAs` (Next's `Link`) so internal links prefetch.",
     "In a row of cards at one height (`CardGrid`), the facts (`extra`) and the way in (`cta`) are pinned to the foot of each card, so they share a line whatever the length of the sentences; `footerAlign=\"top\"` keeps them under the text.",
     "In a hub, keep the default `h3` titles under the section's `h2`; in a list of links, `titleAs=\"span\"`.",
-    "`hover=\"quiet\"` on a page of reading (a docs hub, a blog's index): no glow, a 2 px lift and a ring on focus, where the default `light` lights the card under the pointer. Set it on `CardGrid` to quiet a whole grid.",
   ],
   accessibility: {
-    keyboard: [{ keys: "Tab", action: "Focuses the card, which lights and draws the focus ring like the pointer does." }],
+    keyboard: [{ keys: "Tab", action: "Focuses the card: a 2 px ring of `--kz-ring` around it." }],
     notes: [
       "The card is a single link: its accessible name is its whole text — keep it short.",
       "An absolute address opens in a new tab with `rel=\"noopener noreferrer\"` and the external mark.",
-      "The icon and the arrow are decorative; the lift and the light stop under `prefers-reduced-motion`.",
-      "The quiet hover keeps the same text contrast in dark and light: it moves the surface and the hairline one step, and the title towards the accent text colour, never below it.",
+      "The icon and the arrow are decorative; the arrow's lean stops under `prefers-reduced-motion`.",
+      "The hover keeps the same text contrast in dark and light: it moves the surface and the hairline one step, never the text below AA. `hover` is deprecated since 3.31 (krizaka-ui#393): there is one hover.",
     ],
   },
   related: ["card-grid", "glow-card", "chip-link"],
@@ -40,8 +39,7 @@ export const meta = {
       { name: "docs-hub", title: "A documentation hub", description: "Three compact cards in a grid: a mark, a title, a sentence, `Open`." },
       { name: "stack", title: "Stacked, with facts", description: "`layout=\"stack\"`, a category above the title and facts under the text." },
       { name: "external", title: "An external link", description: "An absolute address: a new tab and the external mark." },
-      { name: "hover-light", title: "The light hover", description: "`hover=\"light\"`, the default: the pointer's light and the coloured lift, said explicitly." },
-      { name: "hover-quiet", title: "The quiet hover", description: "`hover=\"quiet\"`: no glow, a 2 px lift, one step of surface and border, a ring on focus." },
+      { name: "hover-quiet", title: "The hover", description: "One step of surface and border under the pointer, a ring on focus; nothing moves, no light." },
     ],
   },
 } satisfies ComponentMeta;

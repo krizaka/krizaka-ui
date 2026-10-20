@@ -9,33 +9,28 @@ import { cn } from "../cn";
 
 export type GlowCardProps = React.ComponentProps<"div"> & {
   /**
-   * What answers: `border` (the turning gradient ring), `spotlight` (the bloom under the pointer), or `both`.
+   * `border` (a still hairline ring of the brand gradient) or `both`. `spotlight` (the bloom under the pointer) is
+   * deprecated since 3.31 (krizaka-ui#393) and draws nothing.
    * @default "both"
    */
   glow?: "border" | "spotlight" | "both";
   /** Renders your element (a link, an article) with the card's look and behaviour. */
   asChild?: boolean;
   /**
-   * The ring turns slowly even at rest (a featured card). Otherwise it rests until hovered or focused.
+   * A featured card: the ring is fuller at rest. It never turns.
    * @default false
    */
   alive?: boolean;
 };
 
-/** A card lit by the brand: a bloom that follows the pointer, a gradient ring that turns. Content is yours. */
-export function GlowCard({ glow = "both", asChild, alive, className, onPointerMove, ...props }: GlowCardProps) {
+/** A card ringed by the brand: a still hairline of its gradient, a step brighter under the pointer. Content is yours. */
+export function GlowCard({ glow = "both", asChild, alive, className, ...props }: GlowCardProps) {
   const Comp = asChild ? Slot.Root : "div";
   return (
     <Comp
       data-glow={glow}
       data-alive={alive ? "" : undefined}
-      className={cn("kz-glow kz-loop relative isolate rounded-2xl border border-border-default bg-surface-1 p-6", className)}
-      onPointerMove={(e: React.PointerEvent<HTMLDivElement>) => {
-        const box = e.currentTarget.getBoundingClientRect();
-        e.currentTarget.style.setProperty("--kz-glow-x", `${e.clientX - box.left}px`);
-        e.currentTarget.style.setProperty("--kz-glow-y", `${e.clientY - box.top}px`);
-        onPointerMove?.(e);
-      }}
+      className={cn("kz-glow relative isolate rounded-2xl border border-border-default bg-surface-1 p-6", className)}
       {...props}
     />
   );

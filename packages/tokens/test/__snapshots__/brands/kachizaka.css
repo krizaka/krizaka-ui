@@ -1,5 +1,5 @@
 /* @krizaka/tokens — GÉNÉRÉ depuis src/brands/kachizaka.brand.json par scripts/build.mjs : ne pas éditer.
-   Kachizaka — le cobalt électrique et l'or de la victoire. L'or porte l'accent (boutons, sélection) : c'est la seule marque dorée de la famille (teinte 48, ≥ 10° du statut avertissement 38, ≥ 20° de l'orange d'Orazaka et de tous les autres accents — un test). Le cobalt (226) est le second temps : accent-2, le fond des sections, le texte d'accent en clair et l'anneau de focus en clair ; seul, il est trop proche du bleu de Krizaka (217, Δh 9°) pour porter l'identité — c'est le couple cobalt + or qui la porte. Texte quasi noir sur l'or et sur le cobalt, dans les deux thèmes. info reste le bleu de Krizaka. Le logo est un dégradé cobalt (226) → or (44) de teinte moyenne, ≥ 3:1 sur les surfaces 0–2 des deux thèmes.
+   Kachizaka — le cobalt électrique et l'or de la victoire. L'or porte l'accent (boutons, sélection) : c'est la seule marque dorée de la famille (teinte 48, ≥ 10° du statut avertissement 38, ≥ 20° de l'orange d'Orazaka et de tous les autres accents — un test). Le cobalt (226) est le second temps : accent-2, le fond des sections, le texte d'accent en clair et l'anneau de focus en clair ; seul, il est trop proche du bleu acier de Krizaka (208, Δh 18°) pour porter l'identité — c'est le couple cobalt + or qui la porte. Texte quasi noir sur l'or et sur le cobalt, dans les deux thèmes. info reste le bleu de Krizaka. Le logo est un dégradé cobalt (226) → or (44) de teinte moyenne, ≥ 3:1 sur les surfaces 0–2 des deux thèmes.
    Importé après tokens.css (ou @krizaka/tailwind) : l'identité kachizaka sur toute l'app, dans les deux thèmes. */
 
 :root, .theme-dark {
@@ -10,8 +10,8 @@
   --kz-accent-2: hsl(226 92% 72%);
   --kz-on-accent: hsl(230 30% 7%);
   --kz-ring: hsl(48 96% 56%);
-  --kz-info: hsl(217 92% 60%);
-  --kz-info-text: hsl(217 92% 68%);
+  --kz-info: hsl(207 50% 58%);
+  --kz-info-text: hsl(206 58% 72%);
   --kz-brand-gradient-from: hsl(226 42% 11%);
   --kz-brand-gradient-via: hsl(232 26% 8%);
   --kz-brand-gradient-to: var(--kz-surface-0);
@@ -25,8 +25,8 @@ html.light {
   --kz-accent-2: hsl(226 92% 68%);
   --kz-on-accent: hsl(230 30% 7%);
   --kz-ring: hsl(226 80% 46%);
-  --kz-info: hsl(217 92% 50%);
-  --kz-info-text: hsl(217 92% 42%);
+  --kz-info: hsl(208 54% 36%);
+  --kz-info-text: hsl(208 54% 33%);
   --kz-brand-gradient-from: hsl(226 80% 95%);
   --kz-brand-gradient-via: hsl(48 80% 95%);
 }
@@ -39,8 +39,8 @@ html.light {
   --kz-accent-2: hsl(226 92% 68%);
   --kz-on-accent: hsl(230 30% 7%);
   --kz-ring: hsl(226 80% 46%);
-  --kz-info: hsl(217 92% 50%);
-  --kz-info-text: hsl(217 92% 42%);
+  --kz-info: hsl(208 54% 36%);
+  --kz-info-text: hsl(208 54% 33%);
   --kz-brand-gradient-from: hsl(226 80% 95%);
   --kz-brand-gradient-via: hsl(48 80% 95%);
   --kz-brand-gradient-to: var(--kz-surface-0);

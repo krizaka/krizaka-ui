@@ -25,7 +25,7 @@ export type CardRootProps = React.ComponentProps<"div"> &
      * @default "default"
      */
     tone?: CardVariants["tone"];
-    /** The spotlight that follows the pointer and the lift on hover: for a card that is a link. */
+    /** The quiet hover — the hairline and the surface one step up, nothing moves (krizaka-ui#393): for a card that is a link. */
     interactive?: CardVariants["interactive"];
     /** Renders the child (a link, an article) instead of the <div>, with props, classes and ref merged. */
     asChild?: boolean;

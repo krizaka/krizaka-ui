@@ -200,8 +200,8 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/document-viewer` | `DocumentViewer` (a PDF drawn by pdf.js — `loadPdfjs={() => import("pdfjs-dist")}`, an optional peer — with `highlights` lit where their quotes sit, `activeId` / `onActiveChange`, `onLocate`; page + quote when the text layer cannot place one), `locateQuote` | client |
 | `@krizaka/ui/page` | the page frame: `Page` (`size` narrow·default·wide·full, `as`), `Section` (`id`, `eyebrow`, `title`, `lead`, `actions`, `divider`, `spacing` sm·md·lg, `backdrop`, `size`, `reveal`), `SectionHeading`, `Facts` (`items`: `label`, `tone` ok·wip·neutral, `href`), `Ticks` (backticks read as code) — see [Page blocks](#page-blocks) | server |
 | `@krizaka/ui/page-hero` | `PageHero` (`title` → the h1, `eyebrow`, `lead`, `back`, `aside`, `backdrop` grid·plain·none, `align`, `size`, `linkAs`; facts or actions as children) | server |
-| `@krizaka/ui/card-grid` | `CardGrid` (`min`, `fit` fill·fit, `align`, `reveal` staggered by `columns`, `light`, `as` div·ul·ol) | client |
-| `@krizaka/ui/pointer-light` | `PointerLight` (`target`), `usePointerLight(ref, target)`: the light that follows the pointer over `[data-kz-light]` cards | client |
+| `@krizaka/ui/card-grid` | `CardGrid` (`min`, `fit` fill·fit, `align`, `reveal` staggered by `columns`, `as` div·ul·ol; `light` and `hover` deprecated no-ops) | client |
+| `@krizaka/ui/pointer-light` | Deprecated since 3.31 (krizaka-ui#393): `PointerLight`, `usePointerLight` do nothing — the cards have one quiet hover | client |
 | `@krizaka/ui/link-card` | `LinkCard` (the whole card one link: `href`, `icon`, `meta`, `title`, `titleAs`, `description`, `extra`, `cta`, `layout` row·stack, `linkAs`) | server |
 | `@krizaka/ui/argument-card` | `ArgumentCard` (compact: `icon`, `title`, `meta`, `facts`, `hook` — the trap in one line —, `more`, `actions`; in a panel: `points`, `rule`, `details`, `panelLabel`) | server |
 | `@krizaka/ui/mascot-quote` | `MascotQuote` (`bird`, `mood`, `label`, the sentence as children, `variant` inline·callout, `animated`) | client |
@@ -295,8 +295,8 @@ import { LinkCard } from "@krizaka/ui/link-card";
 - **A subject's colour.** Blocks read `--kz-hue` (rails, tiles, lights), `--kz-hue-2` and `--kz-hue-text` (small text,
   ≥ 4.5:1), falling back to the brand's accent: set them on a card or a wrapper; `.brand-<id>` sets the accent.
 - **Links.** Blocks that link take `linkAs` (Next's `Link`) for internal addresses; an absolute URL opens in a new tab.
-- **Motion.** `reveal` uses `[data-reveal]` (MotionObserver): never on the first screen. The pointer's light, the lifts
-  and the hops stop under `prefers-reduced-motion`; nothing loops.
+- **Motion.** `reveal` uses `[data-reveal]` (MotionObserver): never on the first screen. A hover changes a colour, never
+  a position (krizaka-ui#393): no lift, no light under the pointer. The hops stop under `prefers-reduced-motion`; nothing loops.
 
 ## Page templates
 
@@ -483,7 +483,6 @@ import { MotionObserver, RotatingWord } from "@krizaka/ui";
 
 <h1>Creators you <RotatingWord words={["love", "follow", "support"]} /></h1>
 <section data-reveal style={{ "--kz-delay": "120ms" }}>…</section>
-<a className="kz-sheen">Get started</a>
 ```
 
 | Class / attribute | What it does |
@@ -492,9 +491,6 @@ import { MotionObserver, RotatingWord } from "@krizaka/ui";
 | `kz-page` | A page entering (put it on a route wrapper) |
 | `data-reveal` (+ `--kz-delay`) | Rises into place when it enters the viewport (`MotionObserver`) |
 | `RotatingWord` / `kz-word` | A word that rolls through alternatives |
-| `kz-sheen` | A light sweeping across a primary action on hover |
-| `kz-spotlight` | A soft bloom following the pointer across a card |
-| `kz-lift` | A card rising under the pointer |
 | `kz-gradient-text`, `kz-marquee` | Drifting gradient text, endless bands |
 | `kz-flow` | EngineFlow's conduits and photons: paused off screen, held while settling, still under reduced motion |
 | `kz-overlay`, `kz-dialog`, `kz-pop`, `kz-fade` | Backdrops, dialogs (from the bottom on phones), menus, views swapped in place |

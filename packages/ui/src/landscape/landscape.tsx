@@ -409,7 +409,7 @@ export function Landscape({ tone = "own", flock = true, phoenix = true, animated
             <stop offset="100%" stopColor="#be123c" />
           </linearGradient>
           <linearGradient id={`${u}-flamingo-grad`} x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="0%" stopColor="#3e76a8" />
             <stop offset="100%" stopColor="#1d4ed8" />
           </linearGradient>
           <linearGradient id={`${u}-owl-grad`} x1="0%" y1="0%" x2="0%" y2="100%">
@@ -895,8 +895,8 @@ export function Landscape({ tone = "own", flock = true, phoenix = true, animated
             <line x1="12" y1="105" x2="12" y2="160" stroke="var(--kz-border-strong)" strokeWidth="2.5" />
             <line x1="26" y1="105" x2="28" y2="160" stroke="var(--kz-border-strong)" strokeWidth="2.5" />
             {/* Joints */}
-            <circle cx="12" cy="130" r="2.5" fill="#3b82f6" />
-            <circle cx="27" cy="130" r="2.5" fill="#3b82f6" />
+            <circle cx="12" cy="130" r="2.5" fill="#3e76a8" />
+            <circle cx="27" cy="130" r="2.5" fill="#3e76a8" />
 
             {/* Body */}
             <path
@@ -949,7 +949,7 @@ export function Landscape({ tone = "own", flock = true, phoenix = true, animated
         {/* ─── Floating Glowing Tech Particles ─── */}
         <circle cx="340" cy="300" r="6" fill="#00f2fe" opacity="0.75" className="kzl-float-particle-1" />
         <circle cx="520" cy="220" r="5" fill="#a855f7" opacity="0.65" className="kzl-float-particle-2" />
-        <circle cx="710" cy="310" r="6.5" fill="#3b82f6" opacity="0.7" className="kzl-float-particle-3" />
+        <circle cx="710" cy="310" r="6.5" fill="#3e76a8" opacity="0.7" className="kzl-float-particle-3" />
         <circle cx="920" cy="250" r="5" fill="#00f2fe" opacity="0.8" className="kzl-float-particle-4" />
         </g>
       </svg>

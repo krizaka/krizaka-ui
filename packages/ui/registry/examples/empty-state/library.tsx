@@ -13,7 +13,7 @@ export default function EmptyStateLibrary() {
         icon={<Mascot bird="flamingo" mood="empty" size={96} />}
         title="Nothing here yet"
         description="Your videos, once published, wait here with their sales. The first one takes about ten minutes."
-        action={<Button variant="primary" shape="cut">Publish a first video</Button>}
+        action={<Button variant="primary">Publish a first video</Button>}
       />
     </Page>
   );

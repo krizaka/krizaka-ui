@@ -44,7 +44,7 @@ export default function AppShellAdminConsole() {
         <AppShell.Item href="#backups" icon={icon("M4 7c0-2 16-2 16 0v10c0 2-16 2-16 0zM4 12c0 2 16 2 16 0")} label="Backups" />
       </AppShell.Sidebar>
       <AppShell.Body>
-        <AppShell.Header title="Verification" menuLabel="Open the menu" actions={<Button size="sm" variant="secondary" shape="cut">Export</Button>} />
+        <AppShell.Header title="Verification" menuLabel="Open the menu" actions={<Button size="sm" variant="secondary">Export</Button>} />
         <AppShell.Main>
           <DashboardLayout headingAs="h2" title="Requests to review" description="Oldest first. A decision is logged with your name.">
             <Widget level={3} title="Pending" description="identity and payout">

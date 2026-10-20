@@ -13,9 +13,9 @@ export default function PricingPageCredits() {
       lead="Credits buy answers, images and minutes of video — never a seat you do not use."
       plansLabel="Plans"
       plans={[
-        { id: "community", name: "Community", price: "Free", unit: "self-hosted", features: ["Every feature", "Your hardware"], action: <Button variant="secondary" shape="cut" className="w-full">Install</Button> },
-        { id: "workspace", name: "Workspace", price: "CA$29", unit: "per month · 12,000 credits", features: ["Packs & Studios", "Shared workspaces"], featured: true, badge: "Most chosen", action: <Button variant="primary" shape="cut" shimmer className="w-full">Choose Workspace</Button> },
-        { id: "sovereign", name: "Sovereign", price: "Custom", unit: "on your servers", features: ["Installed with you", "A named engineer"], action: <Button variant="secondary" shape="cut" className="w-full">Talk to us</Button> },
+        { id: "community", name: "Community", price: "Free", unit: "self-hosted", features: ["Every feature", "Your hardware"], action: <Button variant="secondary" className="w-full">Install</Button> },
+        { id: "workspace", name: "Workspace", price: "CA$29", unit: "per month · 12,000 credits", features: ["Packs & Studios", "Shared workspaces"], featured: true, badge: "Most chosen", action: <Button variant="primary" className="w-full">Choose Workspace</Button> },
+        { id: "sovereign", name: "Sovereign", price: "Custom", unit: "on your servers", features: ["Installed with you", "A named engineer"], action: <Button variant="secondary" className="w-full">Talk to us</Button> },
       ]}
       compare={{
         caption: "Compare the plans",

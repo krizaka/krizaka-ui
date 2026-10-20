@@ -25,7 +25,8 @@ export type ButtonProps = React.ComponentProps<"button"> &
      */
     size?: ButtonVariants["size"];
     /**
-     * rounded · pill · cut (45° corners, the Krizaka chamfer).
+     * `rounded` (an 8 px radius, the radius of a field) · `pill`. `cut` is deprecated (krizaka-ui#393: the chamfer is
+     * retired) — it draws `rounded` and warns in development; it will be removed in 4.0.
      * @default "rounded"
      */
     shape?: ButtonVariants["shape"];
@@ -53,13 +54,21 @@ export type ButtonProps = React.ComponentProps<"button"> &
      * @default true
      */
     indicator?: boolean;
-    /** A sheen of light crosses the button on hover — for the one action a page is about. */
+    /** @deprecated Since 3.31 (krizaka-ui#393): does nothing — the hover is quiet. Removed in 4.0. */
     shimmer?: boolean;
-    /** The button leans a few pixels toward a fine pointer (driven by `MotionObserver`; never under reduced motion or on touch). */
+    /** @deprecated Since 3.31 (krizaka-ui#393): does nothing — a button never moves under the pointer. Removed in 4.0. */
     magnetic?: boolean;
   };
 
 const STATUS_TEXT = { success: "text-fg-success", error: "text-fg-danger" } as const;
+
+let warnedCut = false;
+/** `shape="cut"` (the chamfer) is retired: one warning per page in development, never in production. */
+function warnCut() {
+  if (warnedCut || typeof process === "undefined" || process.env.NODE_ENV === "production") return;
+  warnedCut = true;
+  console.warn('@krizaka/ui/button: shape="cut" is deprecated (krizaka-ui#393) and now draws the default rounded shape. Remove the prop.');
+}
 
 export function Button({
   asChild,
@@ -68,8 +77,8 @@ export function Button({
   status,
   announce,
   indicator = true,
-  shimmer,
-  magnetic,
+  shimmer: _shimmer,
+  magnetic: _magnetic,
   variant,
   size,
   shape,
@@ -79,6 +88,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot.Root : "button";
+  if (shape === "cut") warnCut();
   const known = loading && typeof progress === "number" && Number.isFinite(progress);
   const ratio = known ? Math.min(1, Math.max(0, progress)) : 0;
   const glyph = indicator && !asChild && (loading || status) ? (status ?? "loading") : null;
@@ -91,14 +101,13 @@ export function Button({
       data-loading={loading ? "" : undefined}
       data-variant={variant ?? "secondary"}
       data-kz-status={status ?? undefined}
-      data-kz-magnetic={magnetic ? "" : undefined}
       disabled={asChild ? undefined : disabled || loading}
       aria-disabled={asChild && (disabled || loading) ? true : undefined}
       className={buttonVariants({
         variant,
         size,
         shape,
-        className: cn(known && "relative isolate overflow-hidden", shimmer && "kz-sheen", className),
+        className: cn(known && "relative isolate overflow-hidden", className),
       })}
       {...props}
     >

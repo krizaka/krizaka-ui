@@ -23,7 +23,7 @@ export default function DetailLayoutCheckout() {
         aside={
           <div className="flex flex-col gap-4 rounded-xl border border-border-default bg-surface-1 p-4">
             <Stat label="You pay" value={`€${amount}`} hint="no fee added on top" />
-            <Button variant="primary" shape="cut" className="w-full">{`Tip €${amount}`}</Button>
+            <Button variant="primary" className="w-full">{`Tip €${amount}`}</Button>
           </div>
         }
       >

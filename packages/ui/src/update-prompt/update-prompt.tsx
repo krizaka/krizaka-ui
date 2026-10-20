@@ -54,7 +54,7 @@ export function UpdatePrompt({ title, message, versionLabel, mark, updateLabel, 
         <Button variant="ghost" size="sm" onClick={onLater}>
           {laterLabel}
         </Button>
-        <Button variant="primary" size="sm" shape="cut" onClick={onUpdate}>
+        <Button variant="primary" size="sm" onClick={onUpdate}>
           {updateLabel}
         </Button>
       </div>

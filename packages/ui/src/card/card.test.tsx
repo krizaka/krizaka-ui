@@ -52,7 +52,8 @@ describe("Card", () => {
       </Card.Root>,
     );
     const link = screen.getByRole("link");
-    expect(link.className).toContain("kz-spotlight");
+    expect(link.className).not.toContain("kz-spotlight");
+    expect(link.className).toContain("hover:border-border-strong");
     expect(link.className).toContain("rounded-none");
     expect(link.className).not.toContain("rounded-xl");
     expect(link.hasAttribute("data-interactive")).toBe(true);

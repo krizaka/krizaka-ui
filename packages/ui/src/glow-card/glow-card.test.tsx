@@ -17,12 +17,12 @@ describe("GlowCard", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
-  it("follows the pointer through two variables", () => {
+  it("no longer follows the pointer: no bloom variables (krizaka-ui#393)", () => {
     const { container } = render(<GlowCard>Hi</GlowCard>);
     const card = container.firstElementChild as HTMLElement;
     fireEvent.pointerMove(card, { clientX: 40, clientY: 25 });
-    expect(card.style.getPropertyValue("--kz-glow-x")).toMatch(/px$/);
-    expect(card.style.getPropertyValue("--kz-glow-y")).toMatch(/px$/);
+    expect(card.style.getPropertyValue("--kz-glow-x")).toBe("");
+    expect(card.style.getPropertyValue("--kz-glow-y")).toBe("");
   });
 
   it("becomes the link with asChild", () => {

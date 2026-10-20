@@ -1,43 +1,43 @@
 /* @krizaka/tokens — GÉNÉRÉ depuis src/brands/krizaka.brand.json par scripts/build.mjs : ne pas éditer.
-   Krizaka — la marque mère. Ink (les surfaces et le texte neutres de la plateforme) et un seul accent, le bleu Krizaka du cœur du logo : il chapeaute les produits sans les concurrencer. Ce sont aussi les valeurs par défaut de tokens.css.
+   Krizaka — la marque mère. Ink (les surfaces et le texte neutres de la plateforme) et un seul accent, le bleu acier Krizaka du cœur du logo (teinte 208, le complément exact de l'orange d'Orazaka, saturation ≤ 60 % : plus le bleu électrique « IA » — krizaka-ui#393, ADR-003) : il chapeaute les produits sans les concurrencer. Ce sont aussi les valeurs par défaut de tokens.css.
    Importé après tokens.css (ou @krizaka/tailwind) : l'identité krizaka sur toute l'app, dans les deux thèmes. */
 
 :root, .theme-dark {
-  --kz-accent: hsl(217 92% 53%);
-  --kz-accent-hover: hsl(217 88% 45%);
-  --kz-accent-soft: hsl(217 92% 53% / 0.10);
-  --kz-accent-text: hsl(217 92% 68%);
+  --kz-accent: hsl(208 46% 45%);
+  --kz-accent-hover: hsl(208 48% 39%);
+  --kz-accent-soft: hsl(208 46% 45% / 0.12);
+  --kz-accent-text: hsl(206 58% 72%);
   --kz-accent-2: var(--kz-accent);
   --kz-on-accent: hsl(0 0% 100%);
   --kz-ring: var(--kz-accent);
   --kz-info: var(--kz-accent);
   --kz-info-text: var(--kz-accent-text);
-  --kz-brand-gradient-from: hsl(222 45% 10%);
-  --kz-brand-gradient-via: hsl(232 24% 7%);
+  --kz-brand-gradient-from: hsl(210 30% 10%);
+  --kz-brand-gradient-via: hsl(220 14% 7%);
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
 
 html.light {
-  --kz-accent: hsl(217 92% 50%);
-  --kz-accent-hover: hsl(217 88% 42%);
-  --kz-accent-soft: hsl(217 92% 50% / 0.08);
-  --kz-accent-text: hsl(217 92% 42%);
+  --kz-accent: hsl(208 54% 36%);
+  --kz-accent-hover: hsl(208 58% 29%);
+  --kz-accent-soft: hsl(208 54% 36% / 0.08);
+  --kz-accent-text: hsl(208 54% 33%);
   --kz-on-accent: hsl(0 0% 100%);
-  --kz-brand-gradient-from: hsl(214 95% 93%);
-  --kz-brand-gradient-via: hsl(220 60% 97%);
+  --kz-brand-gradient-from: hsl(208 36% 93%);
+  --kz-brand-gradient-via: hsl(210 30% 97%);
 }
 
 .theme-light {
-  --kz-accent: hsl(217 92% 50%);
-  --kz-accent-hover: hsl(217 88% 42%);
-  --kz-accent-soft: hsl(217 92% 50% / 0.08);
-  --kz-accent-text: hsl(217 92% 42%);
+  --kz-accent: hsl(208 54% 36%);
+  --kz-accent-hover: hsl(208 58% 29%);
+  --kz-accent-soft: hsl(208 54% 36% / 0.08);
+  --kz-accent-text: hsl(208 54% 33%);
   --kz-accent-2: var(--kz-accent);
   --kz-on-accent: hsl(0 0% 100%);
   --kz-ring: var(--kz-accent);
   --kz-info: var(--kz-accent);
   --kz-info-text: var(--kz-accent-text);
-  --kz-brand-gradient-from: hsl(214 95% 93%);
-  --kz-brand-gradient-via: hsl(220 60% 97%);
+  --kz-brand-gradient-from: hsl(208 36% 93%);
+  --kz-brand-gradient-via: hsl(210 30% 97%);
   --kz-brand-gradient-to: var(--kz-surface-0);
 }

@@ -15,8 +15,8 @@ export default function ComponentPageButton() {
       facts={[{ label: "Web + Mobile", tone: "ok" }, { label: "Stable" }]}
       preview={
         <div className="flex flex-wrap items-center justify-center gap-3 p-8">
-          <Button variant="primary" shape="cut" shimmer>Publish</Button>
-          <Button variant="secondary" shape="cut">Save a draft</Button>
+          <Button variant="primary">Publish</Button>
+          <Button variant="secondary">Save a draft</Button>
         </div>
       }
       install={{ code: 'import { Button } from "@krizaka/ui/button";', language: "ts", copyLabel: "Copy", copiedLabel: "Copied" }}

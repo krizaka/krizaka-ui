@@ -1,11 +1,9 @@
-// Client (the pointer's light). A responsive grid of cards (blocks.css): one column on a phone, the cells of a row
-// share their height, each card rises once as it enters the viewport — staggered by column — and the pointer carries a
-// light over the card it is on.
+// A responsive grid of cards (blocks.css): one column on a phone, the cells of a row share their height, each card rises
+// once as it enters the viewport — staggered by column. The hover is the cards' own quiet one (krizaka-ui#393).
 import * as React from "react";
 
 import { cn } from "../cn";
 import type { CardHover } from "../link-card/link-card";
-import { POINTER_LIGHT_TARGET, usePointerLight } from "../pointer-light/pointer-light";
 
 const STEP_MS = 70;
 
@@ -37,10 +35,7 @@ export type CardGridProps = Omit<React.HTMLAttributes<HTMLElement>, "children"> 
    * @default 3
    */
   columns?: number;
-  /**
-   * The light that follows the pointer over the cards (`[data-kz-light]`).
-   * @default true
-   */
+  /** @deprecated Since 3.31 (krizaka-ui#393): does nothing — no light follows the pointer. Removed in 4.0. */
   light?: boolean;
   /** `ul` when the cards are a list (each cell an `li`). */
   as?: "div" | "ul" | "ol";
@@ -57,15 +52,11 @@ export type CardGridProps = Omit<React.HTMLAttributes<HTMLElement>, "children"> 
   foundationPosition?: "start" | "end";
   /** A short mono label on the frame's edge, naming the relation (`Powered by Orazaka`). Only with `foundation`. */
   foundationLabel?: React.ReactNode;
-  /**
-   * The hover of every card of the grid: `light` (the pointer's light, the default) or `quiet` (no glow, a 2 px lift, a
-   * ring on focus). A card that sets its own `hover` keeps it.
-   * @default "light"
-   */
+  /** @deprecated Since 3.31 (krizaka-ui#393): does nothing — every card has the one quiet hover. Removed in 4.0. */
   hover?: CardHover;
 };
 
-/** A responsive grid of cards: equal rows, a staggered reveal, the pointer's light. */
+/** A responsive grid of cards: equal rows, a staggered reveal. */
 export function CardGrid({
   children,
   min = 300,
@@ -73,23 +64,20 @@ export function CardGrid({
   align = "stretch",
   reveal = true,
   columns = 3,
-  light = true,
+  light: _light,
   as: Tag = "div",
   foundation,
   foundationPosition = "start",
   foundationLabel,
-  hover = "light",
+  hover: _hover,
   className,
   style,
   ...props
 }: CardGridProps) {
-  const ref = React.useRef<HTMLElement>(null);
-  usePointerLight(light ? ref : NO_REF, POINTER_LIGHT_TARGET);
   const Cell = Tag === "div" ? "div" : "li";
   const grid = (
     <Tag
-      ref={foundation ? undefined : (ref as React.Ref<never>)}
-      className={cn("kz-cards", hover === "quiet" && "kz-hover-quiet", !foundation && className)}
+      className={cn("kz-cards", !foundation && className)}
       data-fit={fit === "fit" ? "" : undefined}
       data-align={align === "start" ? "start" : undefined}
       style={{ "--kz-cards-min": `${min}px`, ...(foundation ? null : style) } as React.CSSProperties}
@@ -112,7 +100,7 @@ export function CardGrid({
   );
   if (!foundation) return grid;
   return (
-    <div ref={ref as React.Ref<HTMLDivElement>} className={cn("kz-foundation", className)} data-position={foundationPosition} style={style}>
+    <div className={cn("kz-foundation", className)} data-position={foundationPosition} style={style}>
       <div className="kz-foundation-base" data-reveal={reveal ? "" : undefined}>
         {foundation}
       </div>
@@ -124,4 +112,3 @@ export function CardGrid({
   );
 }
 
-const NO_REF: React.RefObject<HTMLElement | null> = { current: null };

@@ -23,8 +23,8 @@ export default function DetailLayoutVideo() {
           meta={<Facts items={[{ label: "12:48" }, { label: "Unlock €4.99" }, { label: "18+ checked", tone: "ok" }]} />}
           actions={
             <>
-              <Button size="sm" variant="secondary" shape="cut">Edit</Button>
-              <Button size="sm" variant="primary" shape="cut">Share</Button>
+              <Button size="sm" variant="secondary">Edit</Button>
+              <Button size="sm" variant="primary">Share</Button>
             </>
           }
           tabs={

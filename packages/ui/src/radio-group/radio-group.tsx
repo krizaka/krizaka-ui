@@ -29,17 +29,16 @@ export const radioGroup = tv({
     cardCheck:
       "absolute right-3.5 top-3.5 inline-flex h-5 w-5 items-center justify-center rounded-full border border-border-strong bg-surface-1 text-on-accent transition-colors " +
       "group-data-[state=checked]:border-accent group-data-[state=checked]:bg-accent",
-    // The tactile key: on a ledge (its lower edge), lifted on hover, pressed in while held and once chosen.
+    // The tactile key: on a ledge (its lower edge), its hairline stronger on hover, pressed in while held and once chosen.
     button:
       "relative inline-flex min-h-12 min-w-12 select-none flex-col items-center justify-center gap-0.5 rounded-xl border border-border-default bg-surface-2 bg-sheen px-4 py-2 " +
       "text-sm font-semibold text-fg inset-shadow-edge shadow-[0_4px_0_0_var(--kz-border-strong)] " +
       "transition-[transform,box-shadow,background-color,border-color,color] duration-100 ease-out motion-reduce:transition-none " +
-      "hover:-translate-y-px hover:shadow-[0_5px_0_0_var(--kz-border-strong)] " +
+      "hover:border-border-strong " +
       "active:translate-y-[3px] active:shadow-[0_1px_0_0_var(--kz-border-strong)] " +
-      "focus-visible:outline-hidden focus-visible:focus-ring disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 aria-invalid:border-danger " +
+      "focus-visible:outline-hidden focus-visible:focus-ring disabled:cursor-not-allowed disabled:opacity-40 aria-invalid:border-danger " +
       "data-[state=checked]:translate-y-[3px] data-[state=checked]:border-accent data-[state=checked]:bg-accent data-[state=checked]:bg-fill-shade " +
-      "data-[state=checked]:text-on-accent data-[state=checked]:inset-shadow-edge-fill data-[state=checked]:shadow-[0_1px_0_0_var(--kz-accent-hover)] " +
-      "data-[state=checked]:hover:translate-y-[3px]",
+      "data-[state=checked]:text-on-accent data-[state=checked]:inset-shadow-edge-fill data-[state=checked]:shadow-[0_1px_0_0_var(--kz-accent-hover)]",
     buttonHint: "text-[11px] font-medium text-fg-secondary group-data-[state=checked]:text-on-accent",
     segmented:
       "relative isolate inline-grid auto-cols-fr grid-flow-col gap-1 rounded-xl border border-border-default bg-surface-2 p-1 inset-shadow-well " +

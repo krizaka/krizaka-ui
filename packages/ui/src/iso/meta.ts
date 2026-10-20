@@ -26,7 +26,7 @@ export const meta = {
     "Pass words translated: labels, values on links, the highlight.",
   ],
   accessibility: {
-    keyboard: [{ keys: "Tab", action: "Visits each named object of the scene: it lifts and shows its label, as under the pointer." }],
+    keyboard: [{ keys: "Tab", action: "Visits each named object of the scene: it brightens and shows its label, as under the pointer." }],
     notes: [
       "A named scene is a `group` with its `label` and its `description` (`<desc>`); an unnamed one is decorative (`aria-hidden`).",
       "Each named object is an image (`role=\"img\"`) named by its label and focusable; the drawn labels are decorative copies.",

@@ -77,7 +77,7 @@ export function HomeStudio({ words, children }: { words: DockWords; children: Re
             ))}
           </div>
           <div className="kz-dock-actions">
-            <Button asChild variant="primary" shape="cut" size="sm">
+            <Button asChild variant="primary" size="sm">
               <Link href={words.startHref}>{words.start}</Link>
             </Button>
             <Button asChild variant="ghost" size="sm" className="kz-dock-browse">

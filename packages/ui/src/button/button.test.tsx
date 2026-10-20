@@ -70,16 +70,28 @@ describe("Button", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
-  it("wears the signature: cut corners, sheen, magnetism", () => {
+  it("has one clean shape: an 8 px radius by default (krizaka-ui#393), the pill on demand", () => {
+    expect(buttonVariants().split(" ")).toContain("rounded-sm");
+    expect(buttonVariants({ shape: "pill" }).split(" ")).toContain("rounded-full");
+    render(<Button>Save</Button>);
+    expect(screen.getByRole("button").className.split(" ")).toContain("rounded-sm");
+  });
+
+  it("retires the chamfer, the sheen and the magnetism: `cut` is the default shape (with a dev warning), shimmer and magnetic do nothing", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
     render(
       <Button shape="cut" shimmer magnetic>
         Start
       </Button>,
     );
     const button = screen.getByRole("button");
-    expect(button.className).toContain("[corner-shape:bevel]");
-    expect(button.className).toContain("kz-sheen");
-    expect(button.hasAttribute("data-kz-magnetic")).toBe(true);
+    expect(button.className).not.toContain("corner-shape");
+    expect(button.className.split(" ")).toContain("rounded-sm");
+    expect(buttonVariants({ shape: "cut" })).toBe(buttonVariants({ shape: "rounded" }));
+    expect(button.className).not.toContain("kz-sheen");
+    expect(button.hasAttribute("data-kz-magnetic")).toBe(false);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('shape="cut" is deprecated'));
+    warn.mockRestore();
   });
 
   it("lets the product's className win", () => {
