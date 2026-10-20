@@ -715,8 +715,6 @@ svg[data-kz-icon="ExternalIcon"] {
 @keyframes kz-grow-rise { from { opacity: 0; scale: 1 0.2; } to { opacity: 1; scale: 1 1; } }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-kz-arrive], tr:has([data-kz-arrive]), li:has(> [data-kz-arrive]), .kz-grow svg path { animation: none !important; }
-  .kz-grow svg path[stroke]:not([stroke="none"]) { stroke-dashoffset: 0; }
   .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
   .kz-skeleton, .kz-skeleton-shape *, .kz-toast::after,
   .kz-rotating > *, .kz-loop, .kz-iso-rise, .kz-count-roll, .kz-loader-trace, .kz-loader-node, .kz-loader-mark,
@@ -732,4 +730,6 @@ svg[data-kz-icon="ExternalIcon"] {
   .kz-count-digit > span { transition: none; }
   /* The still frame is a composed picture, not a cut animation: particles rest along their link, labels show. */
   .kz-iso-item > .kz-iso-lift, .kz-iso-tip { transition: none; }
+  [data-kz-arrive], tr:has([data-kz-arrive]), li:has(> [data-kz-arrive]), .kz-grow svg path { animation: none !important; }
+  .kz-grow svg path[stroke]:not([stroke="none"]) { stroke-dashoffset: 0; }
 }
