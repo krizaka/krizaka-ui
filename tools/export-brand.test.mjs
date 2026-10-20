@@ -34,7 +34,7 @@ test("cuts the orbit and ring from an emblem and pads its viewBox", () => {
 test("names the files of the library", () => {
   const files = brandFiles();
   assert.ok(files.includes("logo-dark.svg") && files.includes("mark-light-1024.png") && files.includes("avatar-500.png") && files.includes("social-preview-1280x640.png"));
-  assert.equal(files.length, 2 * 2 * 5 + 3 + 4);
+  assert.equal(files.length, 2 * 2 * 5 + 3 + 8);
   for (const f of ["mark-dark-64.png", "mark-light-512.png", "lockup-dark.svg", "lockup-light.svg", "favicon.svg", "og-mark.png"]) assert.ok(files.includes(f), f);
   assert.deepEqual(avatarFiles(["person"], [256], 2), ["person-1.svg", "person-1-256.webp", "person-2.svg", "person-2-256.webp"]);
 });

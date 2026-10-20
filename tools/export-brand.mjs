@@ -5,7 +5,7 @@
 // of `@krizaka/ui/avatar` (defaultAvatarSvg) rendered to SVG and WebP. They are the media library of Bunny Storage:
 //
 //   brand/<brand>/…                       logo + mark, SVG, PNG 256/512/1024 on transparent, dark & light, avatar, social preview
-//                                         + (#217) lockup-{dark,light}.svg, mark/logo -64.png, favicon.svg, og-mark.png (1200×630)
+//                                         + (#217) lockup-{dark,light}.svg, mark/logo -64.png, favicon.svg, favicon-32.png, apple-touch-icon.png, icon-192.png, icon-512.png, og-mark.png (1200×630)
 //   brand/index.json                      every brand's public URLs + the @krizaka/ui version that produced them
 //   brand/manifest.json                   every file with its size and SHA-256
 //   people/defaults/v1/<brand>/…          the default profile pictures: person-<1-6>, plain-<1-6> × .svg / -256.webp / -512.webp
@@ -36,6 +36,8 @@ export const BRANDS = ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "y
 export const THEMES = ["dark", "light"];
 export const LOGO_SIZES = [64, 256, 512, 1024];
 /** The stable public names (krizaka/krizaka-ui#217), on top of the library: lockup = the whole logo, favicon.svg, og-mark.png. */
+/** The PNG icons cut from favicon.svg: tab (32), apple-touch (180), manifest (192, 512). */
+export const FAVICON_PNGS = [["favicon-32.png", 32], ["apple-touch-icon.png", 180], ["icon-192.png", 192], ["icon-512.png", 512]];
 export const OG = { width: 1200, height: 630 };
 export const DEFAULT_CDN = "krizaka-assets.b-cdn.net";
 export const AVATAR_SIZES = [500, 1024];
@@ -112,7 +114,7 @@ export function brandFiles() {
   for (const size of AVATAR_SIZES) files.push(`avatar-${size}.png`);
   files.push(`social-preview-${SOCIAL.width}x${SOCIAL.height}.png`);
   for (const theme of THEMES) files.push(`lockup-${theme}.svg`);
-  files.push("favicon.svg", "og-mark.png");
+  files.push("favicon.svg", ...FAVICON_PNGS.map(([n]) => n), "og-mark.png");
   return files;
 }
 
@@ -188,6 +190,9 @@ export async function build() {
     for (const s of AVATAR_SIZES) out.set(`${dir}/avatar-${s}.png`, await png(avatarSvg(s), s));
     // favicon.svg: the emblem on the family's dark surface (legible in any tab); og-mark.png: the same, 1200×630 for Open Graph.
     out.set(`${dir}/favicon.svg`, Buffer.from(`${avatarSvg(100).replace(/ width="100" height="100"/, "").replace("<rect ", '<rect rx="22" ')}\n`));
+    // The tab, home-screen and manifest icons of every site, from the same favicon.svg (krizaka-com: a site's icons are these files, never redrawn).
+    const faviconSvg = out.get(`${dir}/favicon.svg`).toString();
+    for (const [name, size] of FAVICON_PNGS) out.set(`${dir}/${name}`, await png(faviconSvg.replace("<svg ", `<svg width="${size}" height="${size}" `), size));
     out.set(`${dir}/og-mark.png`, await png(`<svg xmlns="http://www.w3.org/2000/svg" width="${OG.width}" height="${OG.height}" viewBox="0 0 ${OG.width} ${OG.height}"><rect width="${OG.width}" height="${OG.height}" fill="${INK}"/>${svgs["mark-dark"].replace(/^<svg width="400" height="400"/, `<svg x="${(OG.width - 360) / 2}" y="${(OG.height - 360) / 2}" width="360" height="360"`)}</svg>`, OG.width, OG.height));
     // The social preview: the whole logo, large, on the dark surface lit by the brand's halo.
     const { width: W, height: H } = SOCIAL;
