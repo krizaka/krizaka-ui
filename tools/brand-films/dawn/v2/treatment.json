@@ -1,0 +1,2321 @@
+{
+ "_": "« Le monde de Krizaka : le relais » — v2 of the reference film (orazaka#289; Oussama's brief of 2026-10-20). A soft dawn, then a relay across places and cultures (Morocco, Mile End, the Alps of Grenoble, Québec, California) where the flock meets, argues, helps and hands off one glowing parcel; the score switches genre with each place. Each bird's role is shown by what it does, never by a lineup. `references` logs how every cultural nod is evoked by original means; `legal.never` lists the names the film never says or shows.",
+ "title": "The World of Krizaka: The Relay",
+ "logline": "One glowing parcel, passed wing to wing across the world: the falcon seals it, the owl argues and lets it through, the duck rebuilds its strap, the falcon catches it in the Alps, a Québec family saves the frozen pigeon, the flamingo pays its share in California, and at the beach the parcel opens and the phoenix returns.",
+ "theme": "A promise travels further when it is passed from wing to wing.",
+ "aspect": "16:9",
+ "grade": "teal-orange",
+ "style": "Premium feature-film CG animation, real-world light and lenses, shallow depth of field, anamorphic flares, filmic contrast, fine grain.",
+ "seedBase": 2026102600,
+ "keep": "One single continuous shot. The characters keep their exact cartoon design, proportions, colours and features, rendered as high-end feature-film CG characters with soft fine feather texture. Plain unbranded surfaces, no lettering.",
+ "keyframeKeep": "Keep every character's exact shape, proportions, colours, eyes and features unchanged, as stylised cartoon characters rendered in high-end feature-film CG with soft fine feather texture, subsurface light and contact shadows. No text, no logos, no people.",
+ "endCard": {
+  "from": "film/le-monde-de-krizaka-16x9.mp4",
+  "start": 40.0,
+  "seconds": 4.0
+ },
+ "arc": [
+  {
+   "beat": "hook",
+   "purpose": "dawn, a parcel sealed and entrusted",
+   "emotion": "calm, trust",
+   "intensity": 0.3
+  },
+  {
+   "beat": "journey",
+   "purpose": "a relay across places, with friction and help",
+   "emotion": "fun, momentum",
+   "intensity": 0.6
+  },
+  {
+   "beat": "turn",
+   "purpose": "frozen in Québec, saved and argued over by a family",
+   "emotion": "fear, then warmth and laughter",
+   "intensity": 0.4
+  },
+  {
+   "beat": "payoff",
+   "purpose": "California, the party, the parcel opens, the phoenix returns",
+   "emotion": "joy, pride",
+   "intensity": 0.8
+  }
+ ],
+ "characters": [
+  {
+   "id": "falcon",
+   "reference": "falcon",
+   "description": "the orange-red falcon character with a black visor across its eyes holding two glowing cyan eye lights, small ear tufts",
+   "promise": "keeps watch: security comes first",
+   "intention": "never lets the parcel or the pigeon out of its sight"
+  },
+  {
+   "id": "owl",
+   "reference": "owl",
+   "description": "the violet owl character with two big round white eyes and pointed ear tufts",
+   "promise": "reads every page and knows every face",
+   "intention": "checks the parcel and recognises a friend"
+  },
+  {
+   "id": "duck",
+   "reference": "duck",
+   "description": "the crimson duck character with round glasses and a yellow bill",
+   "promise": "builds, line by line, in the open",
+   "intention": "builds what the relay needs: a harness, a light show"
+  },
+  {
+   "id": "flamingo",
+   "reference": "flamingo",
+   "description": "the pink flamingo character with a long curved neck and a yellow-tipped beak",
+   "promise": "answers, and the payment follows",
+   "intention": "answers the pigeon's call and pays its share"
+  },
+  {
+   "id": "pigeon",
+   "reference": "pigeon",
+   "description": "the sky-blue pigeon character with violet wings carrying a small orange parcel",
+   "promise": "delivers, every time",
+   "intention": "carries the parcel across the world to the flock"
+  },
+  {
+   "id": "lovebird",
+   "reference": "lovebird",
+   "description": "the green lovebird character with a coral-pink face",
+   "promise": "the family (Yasakia)",
+   "intention": "keeps the family close"
+  },
+  {
+   "id": "crane",
+   "reference": "crane",
+   "description": "the slender pale grey crane character with a long neck, a long beak and a small red crown",
+   "promise": "the family (Yororis): listens",
+   "intention": "gives the party its sound"
+  },
+  {
+   "id": "magpie",
+   "reference": "magpie",
+   "description": "the slate-grey magpie character with cobalt-blue wings and a long dark tail",
+   "promise": "the family (Kachizaka): keeps the score",
+   "intention": "wins the argument, then the dance-off"
+  },
+  {
+   "id": "beaver",
+   "reference": "beaver",
+   "description": "the brown beaver character with one big front tooth and a flat dark tail",
+   "promise": "the family (Akinaza): runs the shop",
+   "intention": "takes in whoever is at the door"
+  },
+  {
+   "id": "phoenix",
+   "reference": "phoenix",
+   "description": "the phoenix, two flame-shaped wings, one violet and one gold, around a small dark body with one bright white core and a gold crest",
+   "promise": "the return, no task",
+   "intention": "rises when the promise is kept"
+  }
+ ],
+ "lines": [
+  {
+   "id": "falcon",
+   "shots": [
+    2,
+    3
+   ],
+   "en": "The falcon keeps watch: security comes first.",
+   "fr": "Le faucon veille : la sécurité d’abord.",
+   "direction": {
+    "emotion": "calm resolve",
+    "pace": "measured",
+    "emphasis": [
+     "keeps watch"
+    ],
+    "pauseAfter": 0.3
+   }
+  },
+  {
+   "id": "owl",
+   "shots": [
+    5,
+    6
+   ],
+   "en": "The owl reads every page and knows every face.",
+   "fr": "Le hibou lit chaque page et reconnaît chaque visage.",
+   "direction": {
+    "emotion": "warm, a smile",
+    "pace": "measured",
+    "emphasis": [
+     "every face"
+    ],
+    "pauseAfter": 0.3
+   }
+  },
+  {
+   "id": "duck",
+   "shots": [
+    9,
+    10
+   ],
+   "en": "The duck builds, line by line, in the open.",
+   "fr": "Le canard construit, ligne après ligne, en open source.",
+   "direction": {
+    "emotion": "quiet pride",
+    "pace": "rhythmic",
+    "emphasis": [
+     "line by line"
+    ],
+    "pauseAfter": 0.2
+   }
+  },
+  {
+   "id": "cold",
+   "shots": [
+    15,
+    16
+   ],
+   "en": "Then the night got cold…",
+   "fr": "Puis la nuit est devenue froide…",
+   "direction": {
+    "emotion": "hushed, sad",
+    "pace": "slow",
+    "emphasis": [
+     "cold"
+    ],
+    "pauseAfter": 0.6
+   }
+  },
+  {
+   "id": "quebec",
+   "shots": [
+    17,
+    18
+   ],
+   "en": "In Québec, they help you… then they argue about how.",
+   "fr": "Au Québec, on t’aide… pis on s’obstine sur comment.",
+   "direction": {
+    "emotion": "warm, amused, a smile",
+    "pace": "measured",
+    "emphasis": [
+     "argue"
+    ],
+    "pauseAfter": 0.3
+   }
+  },
+  {
+   "id": "flamingo",
+   "shots": [
+    20
+   ],
+   "en": "The flamingo answers, and the payment follows.",
+   "fr": "Le flamant répond, et le paiement suit.",
+   "direction": {
+    "emotion": "light, satisfied",
+    "pace": "measured",
+    "emphasis": [
+     "answers"
+    ],
+    "pauseAfter": 0.2
+   }
+  },
+  {
+   "id": "pigeon",
+   "shots": [
+    24
+   ],
+   "en": "The pigeon delivers, every time.",
+   "fr": "Le pigeon livre, à chaque fois.",
+   "direction": {
+    "emotion": "quiet pride, a smile",
+    "pace": "measured",
+    "emphasis": [
+     "every time"
+    ],
+    "pauseAfter": 0.3
+   }
+  },
+  {
+   "id": "together",
+   "shots": [
+    25
+   ],
+   "en": "Each bird carries a promise.",
+   "fr": "Chaque oiseau porte une promesse.",
+   "direction": {
+    "emotion": "warm, full",
+    "pace": "slow",
+    "emphasis": [
+     "promise"
+    ],
+    "pauseAfter": 0.4
+   }
+  }
+ ],
+ "music": {
+  "prompt": "an original score that changes genre with each place of the journey, instrumental, no vocals",
+  "cues": [
+   {
+    "shots": [
+     1,
+     3
+    ],
+    "genre": "soft",
+    "intensity": 0.28,
+    "prompt": "soft cinematic intro, felt piano and warm strings, gentle and hopeful, 72 bpm, instrumental, no vocals"
+   },
+   {
+    "shots": [
+     4,
+     7
+    ],
+    "genre": "hip-hop",
+    "intensity": 0.6,
+    "prompt": "original instrumental hip-hop boom-bap beat with oud melody and darbuka percussion, warm, groovy, 92 bpm, no vocals"
+   },
+   {
+    "shots": [
+     8,
+     10
+    ],
+    "genre": "electro",
+    "intensity": 0.6,
+    "prompt": "original playful electro, warm analog synth arpeggios, light four-on-the-floor kick, indie bounce, 118 bpm, instrumental, no vocals"
+   },
+   {
+    "shots": [
+     11,
+     13
+    ],
+    "genre": "rock",
+    "intensity": 0.75,
+    "prompt": "original driving instrumental rock, overdriven guitars, big drums, energetic chase, 140 bpm, no vocals"
+   },
+   {
+    "shots": [
+     14,
+     16
+    ],
+    "genre": "quiet",
+    "intensity": 0.3,
+    "prompt": "quiet, cold, sparse piano and soft strings in a minor key, sad and fragile, 66 bpm, instrumental, no vocals"
+   },
+   {
+    "shots": [
+     17,
+     18
+    ],
+    "genre": "folk",
+    "intensity": 0.5,
+    "prompt": "original lively folk dance tune with fiddle, accordion and foot-tapping percussion, warm and funny, 120 bpm, instrumental, no vocals"
+   },
+   {
+    "shots": [
+     19,
+     21
+    ],
+    "genre": "g-funk",
+    "intensity": 0.6,
+    "prompt": "original laid-back West Coast g-funk instrumental, deep bass, smooth synth lead, funky drums, sunny, 92 bpm, no vocals"
+   },
+   {
+    "shots": [
+     22,
+     23
+    ],
+    "genre": "dj",
+    "intensity": 0.82,
+    "prompt": "original high-energy house track with a big build and drop, party, 124 bpm, instrumental, no vocals"
+   },
+   {
+    "shots": [
+     24,
+     25
+    ],
+    "genre": "resolve",
+    "intensity": 0.45,
+    "prompt": "warm cinematic resolve, felt piano reprise over soft synth pads and strings, tender and proud, 72 bpm, instrumental, no vocals"
+   }
+  ]
+ },
+ "references": [
+  {
+   "evokes": "a journey across places and cultures (Morocco, Montréal's Mile End, Grenoble and the Alps, Québec, California)",
+   "how": "generic architecture and landscapes generated from scratch, no landmark's trademark, no shop name, sign or lettering"
+  },
+  {
+   "evokes": "West Coast G-funk",
+   "how": "original instrumental music in the genre, a candy-pink lowrider and palm trees as generic objects, the flamingo's attitude"
+  },
+  {
+   "evokes": "open-world game energy",
+   "how": "fast free-roam drone swoops and a neon city at night, original; no game, interface, HUD, logo or trade dress"
+  },
+  {
+   "evokes": "the spirit of a big rap rivalry",
+   "how": "a friendly dance-off between two of our own birds on original music, no lyrics, no names, no likeness"
+  },
+  {
+   "evokes": "Québec humour: bilingual stand-up franglais and a working-class sitcom family",
+   "how": "an original bilingual line written for the film and our own bird family arguing in a kitchen; no comedian, no show, no characters, no catchphrase"
+  },
+  {
+   "evokes": "a soft hip-hop, electro, rock and DJ journey",
+   "how": "original instrumental cues made by ACE-Step (MIT) from genre descriptions only, no artist, song or lyric named"
+  }
+ ],
+ "legal": {
+  "never": [
+   "Snoop Dogg",
+   "Kendrick Lamar",
+   "Sugar Sammy",
+   "Les Bougon",
+   "Bougon",
+   "GTA",
+   "Grand Theft Auto",
+   "Not Like Us",
+   "Rockstar",
+   "Drake"
+  ]
+ },
+ "titles": [
+  {
+   "kind": "main",
+   "shot": 25,
+   "en": "The World of Krizaka",
+   "fr": "Le monde de Krizaka",
+   "sub": {
+    "en": "The Relay",
+    "fr": "Le relais"
+   }
+  }
+ ],
+ "shots": [
+  {
+   "slug": "parcel-dew",
+   "seconds": 3.0,
+   "characters": [],
+   "beat": "hook",
+   "place": "the valley",
+   "framing": "establishing",
+   "model": "ltx-video-0.9.8-13b-distilled",
+   "purpose": "The hook: a small glowing parcel waits in the dew at sunrise — what is it, and who will carry it?",
+   "action": "macro: a dew drop slides down a blade of grass and falls onto the small glowing orange parcel as the first ray of sun reaches it and its glow pulses once, warm",
+   "plate": "Macro close-up of a small glowing orange parcel tied with a cyan ribbon resting in dewy grass on a mountain ridge at sunrise, the valley soft and out of focus behind, golden light, dew drops sparkling, no text.",
+   "keyframe": "Macro close-up of a small glowing orange parcel tied with a cyan ribbon resting in dewy grass on a mountain ridge at sunrise, the valley soft and out of focus behind, golden light, dew drops sparkling, no text.",
+   "motion": "Macro: a dew drop slides down a blade of grass and falls onto the small glowing orange parcel as the first ray of sun reaches it and its glow pulses once, warm. Slow push-in, 100 mm macro. Golden sunrise, sparkling dew.",
+   "camera": "slow macro push-in",
+   "lens": "100mm macro",
+   "lighting": "golden sunrise",
+   "atmosphere": "dew, morning mist",
+   "birds": [],
+   "backdrop": [
+    "#202020",
+    "#101010"
+   ],
+   "vx": 0.5,
+   "sound": [
+    {
+     "kind": "dawn",
+     "gain": -18
+    },
+    {
+     "kind": "drips",
+     "gain": -24
+    },
+    {
+     "kind": "chime",
+     "at": 1.6,
+     "gain": -18
+    }
+   ],
+   "id": 1,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "falcon-seals",
+   "seconds": 3.5,
+   "characters": [
+    "falcon",
+    "pigeon"
+   ],
+   "beat": "hook",
+   "place": "the valley",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "The relay begins: the falcon checks the glowing parcel, seals it, and entrusts it to the pigeon.",
+   "intent": "the falcon makes sure the parcel is safe before it leaves",
+   "gaze": "the falcon scans the parcel, then looks the pigeon in the eye",
+   "physics": "the visor's cyan scan line sweeps the parcel, one wing taps it shut, the pigeon stands up straight",
+   "interaction": "the falcon holds the parcel out; the pigeon takes it with both wings; a nod between them",
+   "action": "the falcon scans the glowing parcel with its visor, taps it shut with one wing, then holds it out to the pigeon, who takes it with both wings and stands up straight",
+   "plate": "A grassy mountain ridge at sunrise, soft golden light, a vast misty valley with a winding river behind, dew on the grass, shallow depth of field.",
+   "keyframe": "The falcon character and the pigeon character face each other on a grassy ridge at sunrise, the falcon holding a small glowing orange parcel between them, soft golden backlight, misty valley behind.",
+   "motion": "On a grassy ridge at sunrise, the orange falcon character with a black visor and glowing cyan eyes scans a small glowing orange parcel with a cyan scan line from its visor, taps it shut with one wing, then holds it out; the sky-blue pigeon character with violet wings takes it with both wings, stands up straight, eyes shining with pride, and gives one firm nod. Slow push-in, 50 mm. Soft golden backlight, morning mist. Gentle, trusting.",
+   "birds": [
+    {
+     "bird": "falcon",
+     "x": 0.36,
+     "y": 0.9,
+     "h": 0.5,
+     "crop": [
+      0,
+      0,
+      0.86,
+      1
+     ]
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.66,
+     "y": 0.9,
+     "h": 0.42,
+     "flip": true
+    }
+   ],
+   "camera": "slow push-in",
+   "lens": "50mm",
+   "lighting": "soft golden backlight, warm rim",
+   "atmosphere": "morning mist, dew",
+   "sound": [
+    {
+     "kind": "dawn",
+     "gain": -18
+    },
+    {
+     "kind": "ignite",
+     "at": 0.6,
+     "gain": -16
+    },
+    {
+     "kind": "tap",
+     "at": 1.4,
+     "gain": -14
+    },
+    {
+     "kind": "rustle",
+     "at": 2.4,
+     "gain": -18
+    }
+   ],
+   "light": {
+    "key": [
+     0,
+     -1
+    ],
+    "exposure": 0.85,
+    "rim": [
+     255,
+     210,
+     150
+    ]
+   },
+   "backdrop": [
+    "#e8b070",
+    "#405040"
+   ],
+   "vx": 0.5,
+   "interactionKind": "meet",
+   "id": 2,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "pigeon-departs",
+   "seconds": 2.6,
+   "characters": [
+    "pigeon",
+    "falcon"
+   ],
+   "beat": "hook",
+   "place": "the valley",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "The pigeon leaves with the parcel; the falcon will watch over it from afar.",
+   "intent": "the pigeon sets off on the relay",
+   "gaze": "up toward the far horizon",
+   "physics": "a crouch, a powerful leap, strong wing beats carrying the parcel, grass bending in the downdraft",
+   "interaction": "the falcon watches it go and raises one wing in farewell",
+   "action": "the pigeon crouches with the parcel, leaps and beats its wings up into the golden sky while the falcon raises one wing in farewell",
+   "plate": "A grassy mountain ridge at sunrise seen from a low angle, golden sky, soft clouds, the valley haze far below.",
+   "keyframe": "Low angle of the pigeon character holding a small glowing orange parcel crouched on a grassy ridge at sunrise, the falcon character beside it, golden sky.",
+   "motion": "Low angle on a grassy ridge at sunrise: the sky-blue pigeon character with violet wings crouches with its small glowing orange parcel, leaps and beats its wings hard, flying up into the golden sky, grass bending in its downdraft, while the orange falcon character with a black visor raises one wing in farewell. Tilt up following the pigeon, 24 mm. Golden sky. Hopeful lift.",
+   "birds": [
+    {
+     "bird": "pigeon",
+     "x": 0.42,
+     "y": 0.92,
+     "h": 0.42
+    },
+    {
+     "bird": "falcon",
+     "x": 0.72,
+     "y": 0.92,
+     "h": 0.46,
+     "crop": [
+      0,
+      0,
+      0.86,
+      1
+     ]
+    }
+   ],
+   "camera": "tilt up",
+   "lens": "24mm",
+   "lighting": "golden sunrise backlight",
+   "atmosphere": "grass and dew",
+   "sound": [
+    {
+     "kind": "flap",
+     "at": 0.6,
+     "gain": -8
+    },
+    {
+     "kind": "flap",
+     "at": 0.9,
+     "gain": -9
+    },
+    {
+     "kind": "whoosh",
+     "at": 1.0,
+     "gain": -14
+    },
+    {
+     "kind": "wind-soft",
+     "gain": -18
+    }
+   ],
+   "light": {
+    "key": [
+     0,
+     -1
+    ],
+    "exposure": 0.85,
+    "rim": [
+     255,
+     210,
+     150
+    ]
+   },
+   "backdrop": [
+    "#f0c080",
+    "#506040"
+   ],
+   "vx": 0.5,
+   "interactionKind": "handoff",
+   "id": 3,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "medina-dive",
+   "seconds": 2.4,
+   "characters": [
+    "pigeon"
+   ],
+   "beat": "journey",
+   "place": "a medina, Morocco",
+   "framing": "aerial, tracking",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "First stop: the pigeon dives into the medina's colour and light, looking for the owl's stall.",
+   "intent": "the pigeon looks for the stall where its parcel must be checked",
+   "gaze": "down into the alleys, searching",
+   "physics": "wings tucked into a dive, then flared to brake, the parcel held tight",
+   "interaction": "",
+   "action": "the pigeon carries its parcel in a dive between two sunlit rooftops, flares its wings to brake as a long orange fabric unfurls in its wake, and searches the alleys below",
+   "plate": "A sunlit old medina seen from above, terracotta and white rooftops, colourful fabrics drying on lines, brass lanterns, domes and palms, warm afternoon light, no people, no signs, no text.",
+   "keyframe": "The small pigeon character diving between sunlit medina rooftops holding its small orange parcel, colourful fabrics on lines, warm afternoon light.",
+   "motion": "The sky-blue pigeon character with violet wings, small in the frame, dives between two sunlit medina rooftops with its small orange parcel, then flares its wings to brake as a long orange fabric unfurls in its wake and brass lanterns swing; it looks down into the colourful alleys, searching. Fast drone dive following it, 24 mm. Warm afternoon light, dust. Exhilarating.",
+   "birds": [
+    {
+     "bird": "pigeon",
+     "x": 0.5,
+     "y": 0.42,
+     "h": 0.14
+    }
+   ],
+   "camera": "fast drone dive",
+   "lens": "24mm",
+   "lighting": "warm afternoon sun",
+   "atmosphere": "dust, fluttering fabrics",
+   "sound": [
+    {
+     "kind": "whoosh",
+     "at": 0.2,
+     "gain": -10
+    },
+    {
+     "kind": "flap",
+     "at": 1.2,
+     "gain": -12
+    },
+    {
+     "kind": "city",
+     "gain": -18
+    }
+   ],
+   "light": {
+    "key": [
+     1,
+     -1
+    ],
+    "exposure": 0.9,
+    "rim": [
+     255,
+     210,
+     150
+    ]
+   },
+   "backdrop": [
+    "#d09060",
+    "#f0e0c0"
+   ],
+   "vx": 0.5,
+   "id": 4,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "owl-checks",
+   "seconds": 3.0,
+   "characters": [
+    "owl",
+    "pigeon"
+   ],
+   "beat": "journey",
+   "place": "a medina, Morocco",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "Promise 2, with friction: the owl will not let the parcel pass before it reads the page and knows the face.",
+   "intent": "the owl checks every page before anything goes through",
+   "gaze": "the owl reads the page, then peers over it at the pigeon, suspicious",
+   "physics": "the owl holds up a hand-wing, the pigeon throws its wings up in impatience, both lean toward each other",
+   "interaction": "an argument: the pigeon pleads, the owl taps the page and refuses",
+   "action": "the pigeon lands at the owl's tiled stall and holds out the parcel; the owl reads its page, then peers over it, raises one wing to say wait, and the pigeon throws its wings up in impatience",
+   "plate": "A shaded riad courtyard stall in a Moroccan medina, a carved wooden counter with a blank open page on it, zellige tiles, brass lanterns, colourful fabrics, warm light through a carved screen, no text, shallow depth of field.",
+   "keyframe": "The owl character behind a carved wooden counter in a Moroccan riad holding an open blank page, and the pigeon character with its small orange parcel on the counter, zellige tiles, brass lanterns, warm light.",
+   "motion": "In a shaded Moroccan riad, the violet owl character with big round white eyes stands behind a carved counter reading an open page; the sky-blue pigeon character with violet wings lands on the counter and holds out its small orange parcel. The owl squints suspiciously over the page, raises one wing as if to say wait, and the pigeon throws its wings up in impatience, both leaning toward each other. Static medium two-shot, 35 mm. Warm light through a carved screen, dust in the air. Comic, tense.",
+   "birds": [
+    {
+     "bird": "owl",
+     "x": 0.3,
+     "y": 0.92,
+     "h": 0.5,
+     "crop": [
+      0,
+      0,
+      0.8,
+      1
+     ]
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.52,
+     "y": 0.6,
+     "h": 0.26,
+     "flip": true
+    }
+   ],
+   "camera": "static medium two-shot",
+   "lens": "35mm",
+   "lighting": "warm light through a carved screen",
+   "atmosphere": "dust in light beams",
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -24
+    },
+    {
+     "kind": "flap",
+     "at": 0.2,
+     "gain": -12
+    },
+    {
+     "kind": "paper",
+     "at": 1.0,
+     "gain": -14
+    },
+    {
+     "kind": "tap",
+     "at": 1.8,
+     "gain": -14
+    }
+   ],
+   "light": {
+    "key": [
+     -1,
+     -0.5
+    ],
+    "exposure": 0.8,
+    "rim": [
+     255,
+     200,
+     140
+    ]
+   },
+   "backdrop": [
+    "#c08850",
+    "#503020"
+   ],
+   "vx": 0.4,
+   "interactionKind": "argue",
+   "id": 5,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "owl-recognises",
+   "seconds": 2.6,
+   "characters": [
+    "owl",
+    "pigeon"
+   ],
+   "beat": "journey",
+   "place": "a medina, Morocco",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "The owl knows every face: it recognises the pigeon, laughs, stamps the page and lets it go.",
+   "intent": "the owl lets a friend through once it recognises it",
+   "gaze": "the owl's eyes widen as it recognises the pigeon",
+   "physics": "the owl's eyes widen, it laughs with its whole body, stamps the page with one firm tap",
+   "interaction": "recognition, a laugh, a stamp; the pigeon bows",
+   "action": "the owl's big eyes widen as it recognises the pigeon, it laughs, stamps the page with one firm tap and waves it on, and the pigeon bows quickly and turns to go",
+   "plate": "A shaded riad courtyard stall in a Moroccan medina, a carved wooden counter with a blank open page on it, zellige tiles, brass lanterns, colourful fabrics, warm light, no text.",
+   "keyframe": "Close medium shot of the owl character behind a carved counter in a Moroccan riad, laughing, and the pigeon character with its parcel on the counter.",
+   "motion": "Closer on the violet owl character with big round white eyes behind its carved counter: its eyes widen as it recognises the sky-blue pigeon character, it laughs with its whole body, stamps the page with one firm tap of its wing and waves the pigeon on; the pigeon bows quickly, grips its small orange parcel and turns to go. Slow push-in, 50 mm. Warm light, dust. Relieved, funny.",
+   "birds": [
+    {
+     "bird": "owl",
+     "x": 0.5,
+     "y": 0.94,
+     "h": 0.56,
+     "crop": [
+      0,
+      0,
+      0.8,
+      1
+     ]
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.78,
+     "y": 0.56,
+     "h": 0.26,
+     "flip": true
+    }
+   ],
+   "camera": "slow push-in",
+   "lens": "50mm",
+   "lighting": "warm light",
+   "atmosphere": "dust",
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -24
+    },
+    {
+     "kind": "block",
+     "at": 1.2,
+     "gain": -10
+    },
+    {
+     "kind": "chirp",
+     "at": 0.6,
+     "gain": -18
+    },
+    {
+     "kind": "flap",
+     "at": 2.1,
+     "gain": -12
+    }
+   ],
+   "light": {
+    "key": [
+     -1,
+     -0.5
+    ],
+    "exposure": 0.8,
+    "rim": [
+     255,
+     200,
+     140
+    ]
+   },
+   "backdrop": [
+    "#c08850",
+    "#503020"
+   ],
+   "vx": 0.62,
+   "interactionKind": "help",
+   "id": 6,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "pigeon-fabrics",
+   "seconds": 2.2,
+   "characters": [
+    "pigeon"
+   ],
+   "beat": "journey",
+   "place": "a medina, Morocco",
+   "framing": "medium, tracking",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "Momentum: the pigeon threads the medina's hanging fabrics at full speed.",
+   "intent": "the pigeon races to make up lost time",
+   "gaze": "straight ahead, eyes narrowed with focus",
+   "physics": "fast wing beats, banking left and right, fabrics whipping aside in its wake",
+   "interaction": "",
+   "action": "the pigeon carries its parcel at full speed, banks left, then right, between colourful hanging fabrics, which whip aside in its wake",
+   "plate": "A narrow sunlit medina alley seen along its length, colourful fabrics and carpets hanging across it on lines, warm light and shadow, no people, no text.",
+   "keyframe": "The pigeon character flying toward the camera along a narrow sunlit medina alley between colourful hanging fabrics, holding its small orange parcel.",
+   "motion": "The sky-blue pigeon character with violet wings flies fast toward the camera along a narrow sunlit medina alley, its small orange parcel held tight; it banks left, then right, between colourful hanging fabrics that whip aside in its wake. Tracking backward fast, 24 mm. Warm sun and shadow. Exhilarating.",
+   "birds": [
+    {
+     "bird": "pigeon",
+     "x": 0.5,
+     "y": 0.62,
+     "h": 0.34
+    }
+   ],
+   "camera": "fast tracking backward",
+   "lens": "24mm",
+   "lighting": "warm sun and shadow",
+   "atmosphere": "fabrics whipping",
+   "sound": [
+    {
+     "kind": "whoosh",
+     "at": 0.3,
+     "gain": -8
+    },
+    {
+     "kind": "flap",
+     "at": 0.7,
+     "gain": -10
+    },
+    {
+     "kind": "whoosh",
+     "at": 1.4,
+     "gain": -10
+    }
+   ],
+   "light": {
+    "key": [
+     1,
+     -1
+    ],
+    "exposure": 0.85,
+    "rim": [
+     255,
+     210,
+     150
+    ]
+   },
+   "backdrop": [
+    "#d09060",
+    "#604030"
+   ],
+   "vx": 0.5,
+   "id": 7,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "cafe-terrace",
+   "seconds": 2.0,
+   "characters": [],
+   "beat": "journey",
+   "place": "Mile End, Montréal",
+   "framing": "establishing",
+   "model": "ltx-video-0.9.8-13b-distilled",
+   "purpose": "Second stop: on a café terrace, a cup steams beside a little box of glowing blocks — someone is ready to build.",
+   "action": "a gust lifts a swirl of red maple leaves across the café table as steam curls from the cup and the cyan blocks in the open box glow brighter",
+   "plate": "A Montréal café terrace in autumn, a small round metal table with a steaming cup beside a small open wooden box of glowing cyan blocks, red brick wall with a large colourful abstract mural without letters, red maple leaves, morning light, no people, no text.",
+   "keyframe": "A Montréal café terrace in autumn, a small round metal table with a steaming cup beside a small open wooden box of glowing cyan blocks, red brick wall with a large colourful abstract mural without letters, red maple leaves, morning light, no people, no text.",
+   "motion": "A gust lifts a swirl of red maple leaves across the café table as steam curls from the cup and the cyan blocks in the open box glow brighter. Smooth lateral dolly, 35 mm. Crisp morning light.",
+   "camera": "lateral dolly",
+   "lens": "35mm",
+   "lighting": "crisp morning light",
+   "atmosphere": "steam, falling leaves",
+   "birds": [],
+   "backdrop": [
+    "#202020",
+    "#101010"
+   ],
+   "vx": 0.5,
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -16
+    },
+    {
+     "kind": "rustle",
+     "at": 0.6,
+     "gain": -18
+    },
+    {
+     "kind": "hum",
+     "at": 1.0,
+     "gain": -20
+    }
+   ],
+   "id": 8,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "duck-fixes",
+   "seconds": 3.0,
+   "characters": [
+    "duck",
+    "pigeon"
+   ],
+   "beat": "journey",
+   "place": "Mile End, Montréal",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "Promise 3: the parcel's strap broke; the duck builds a better one, right there on the café table.",
+   "intent": "the duck fixes what is broken so the pigeon can go on",
+   "gaze": "the duck looks over its glasses at the broken strap, then at its work",
+   "physics": "the duck snaps glowing blocks together into a harness with quick precise movements, the pigeon leans in, impressed",
+   "interaction": "the duck works while the pigeon watches, then fits the new harness onto the pigeon",
+   "action": "the duck snaps small glowing blocks together into a new harness on the café table, pushes up its glasses, then fits it onto the pigeon, who leans in impressed",
+   "plate": "A Montréal café terrace in autumn, a small round metal table with a few small glowing cyan blocks on it, red brick wall with an abstract mural behind, morning light, no text, shallow depth of field.",
+   "keyframe": "The duck character on a café table in Montréal assembling small glowing cyan blocks, the pigeon character with its small orange parcel beside it leaning in, brick wall with abstract mural behind, morning light.",
+   "motion": "On a Montréal café terrace, the crimson duck character with round glasses snaps small glowing cyan blocks together into a little harness with quick precise movements, pushes up its glasses with a proud little smile, then fits the harness onto the sky-blue pigeon character with violet wings, who leans in, wide-eyed and impressed. Slow push-in, 50 mm. Crisp morning light, mural behind. Clever, warm.",
+   "birds": [
+    {
+     "bird": "duck",
+     "x": 0.66,
+     "y": 0.64,
+     "h": 0.32,
+     "crop": [
+      0,
+      0,
+      0.74,
+      1
+     ]
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.84,
+     "y": 0.64,
+     "h": 0.26,
+     "flip": true
+    }
+   ],
+   "camera": "slow push-in",
+   "lens": "50mm",
+   "lighting": "crisp morning light",
+   "atmosphere": "steam, leaves",
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -22
+    },
+    {
+     "kind": "block",
+     "at": 0.6,
+     "gain": -12
+    },
+    {
+     "kind": "block",
+     "at": 1.1,
+     "gain": -12
+    },
+    {
+     "kind": "hum",
+     "at": 1.5,
+     "gain": -18
+    },
+    {
+     "kind": "tap",
+     "at": 2.3,
+     "gain": -14
+    }
+   ],
+   "light": {
+    "key": [
+     1,
+     -0.6
+    ],
+    "exposure": 0.85,
+    "rim": [
+     255,
+     220,
+     170
+    ]
+   },
+   "backdrop": [
+    "#b07050",
+    "#403030"
+   ],
+   "vx": 0.74,
+   "interactionKind": "help",
+   "id": 9,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "wing-bump",
+   "seconds": 2.0,
+   "characters": [
+    "duck",
+    "pigeon"
+   ],
+   "beat": "journey",
+   "place": "Mile End, Montréal",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "A beat of friendship before the road: they bump wings, the duck teases.",
+   "intent": "the duck sends its friend off, the harness it built fitted and tested",
+   "gaze": "they look at each other, grinning",
+   "physics": "a quick wing bump, the duck spins its glasses, the pigeon hops back",
+   "interaction": "a wing bump and a tease",
+   "action": "the duck and the pigeon bump wings, the duck twirls its glasses with a grin, and the pigeon hops back laughing, then takes off",
+   "plate": "A Montréal café terrace in autumn, a small round metal table, red brick wall with an abstract mural, morning light, no text.",
+   "keyframe": "The duck character and the pigeon character on a café table bumping wings, brick wall with abstract mural, morning light.",
+   "motion": "The crimson duck character with round glasses and the sky-blue pigeon character with violet wings bump wings on the café table; the duck twirls its glasses with a grin, the pigeon hops back laughing, then leaps into the air. Quick handheld, 35 mm. Crisp morning light. Playful.",
+   "birds": [
+    {
+     "bird": "duck",
+     "x": 0.22,
+     "y": 0.9,
+     "h": 0.4,
+     "crop": [
+      0,
+      0,
+      0.74,
+      1
+     ]
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.42,
+     "y": 0.9,
+     "h": 0.34,
+     "flip": true
+    }
+   ],
+   "camera": "quick handheld",
+   "lens": "35mm",
+   "lighting": "crisp morning light",
+   "atmosphere": "leaves",
+   "sound": [
+    {
+     "kind": "tap",
+     "at": 0.4,
+     "gain": -10
+    },
+    {
+     "kind": "chirp",
+     "at": 0.9,
+     "gain": -16
+    },
+    {
+     "kind": "flap",
+     "at": 1.5,
+     "gain": -10
+    }
+   ],
+   "light": {
+    "key": [
+     1,
+     -0.6
+    ],
+    "exposure": 0.85,
+    "rim": [
+     255,
+     220,
+     170
+    ]
+   },
+   "backdrop": [
+    "#b07050",
+    "#403030"
+   ],
+   "vx": 0.32,
+   "interactionKind": "celebrate",
+   "id": 10,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "alps-storm-front",
+   "seconds": 2.3,
+   "characters": [
+    "pigeon"
+   ],
+   "beat": "journey",
+   "place": "Grenoble, the Alps",
+   "framing": "aerial, tracking",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "Third stop: past the spherical cable cars, a storm front rolls over the peaks ahead of the pigeon.",
+   "intent": "the pigeon pushes on toward the peaks despite the storm",
+   "gaze": "ahead, at the dark storm front, worried",
+   "physics": "it beats harder against the rising wind, the parcel swinging on its harness",
+   "interaction": "",
+   "action": "the pigeon carries its parcel past a spherical cable car cabin, then beats harder against the rising wind as a dark storm front rolls over the peaks ahead",
+   "plate": "Spherical glass cable car cabins on a cable above a city in a wide valley ringed by snowy Alpine peaks, a dark storm front rolling over the peaks, cold afternoon, no people, no text.",
+   "keyframe": "The small pigeon character flying past a spherical cable car cabin toward snowy Alpine peaks under a dark storm front, holding its small orange parcel.",
+   "motion": "The sky-blue pigeon character with violet wings, small in the frame, flies past a spherical glass cable car cabin with its small orange parcel swinging on its harness, then beats its wings harder against the rising wind as a dark storm front rolls over the snowy peaks ahead. Tracking behind it, 24 mm. Cold light turning hard. Tense.",
+   "birds": [
+    {
+     "bird": "pigeon",
+     "x": 0.42,
+     "y": 0.5,
+     "h": 0.14
+    }
+   ],
+   "camera": "tracking behind",
+   "lens": "24mm",
+   "lighting": "cold light turning hard",
+   "atmosphere": "wind, spindrift",
+   "sound": [
+    {
+     "kind": "wind",
+     "gain": -10
+    },
+    {
+     "kind": "whoosh",
+     "at": 0.4,
+     "gain": -10
+    },
+    {
+     "kind": "flap",
+     "at": 1.4,
+     "gain": -10
+    },
+    {
+     "kind": "gust",
+     "at": 1.8,
+     "gain": -10
+    }
+   ],
+   "light": {
+    "key": [
+     1,
+     -1
+    ],
+    "exposure": 0.8,
+    "rim": [
+     210,
+     230,
+     255
+    ]
+   },
+   "backdrop": [
+    "#5070a0",
+    "#c0d0e0"
+   ],
+   "vx": 0.5,
+   "id": 11,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "falcon-escort",
+   "seconds": 2.7,
+   "characters": [
+    "falcon",
+    "pigeon"
+   ],
+   "beat": "journey",
+   "place": "Grenoble, the Alps",
+   "framing": "medium, tracking",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "The falcon has kept watch all along: when a gust throws the pigeon toward the rocks, it dives in beside it.",
+   "intent": "the falcon never lets the pigeon out of its sight",
+   "gaze": "the falcon locks onto the tumbling pigeon",
+   "physics": "a steep dive, wings tucked, then spread wide to block the gust; the pigeon steadies in its lee",
+   "interaction": "a rescue: the falcon shields the pigeon from the wind",
+   "action": "a gust throws the pigeon toward the rocks; the falcon dives in beside it, spreads its wings to block the wind, and the pigeon steadies in its shelter",
+   "plate": "Snowy Alpine ridge and rock faces in strong wind, spindrift blowing off the crest, deep blue sky, cold sun.",
+   "keyframe": "The falcon character and the pigeon character flying side by side close to a snowy Alpine ridge in strong wind, spindrift, deep blue sky.",
+   "motion": "Along a snowy Alpine ridge in a howling wind, the sky-blue pigeon character with violet wings and its small orange parcel is thrown toward the rocks by a gust; the orange falcon character with a black visor and glowing cyan eyes, its eyes flaring with alarm, dives in beside it, spreads its wings wide against the wind, and the pigeon steadies in its shelter, both flying fast. Tracking beside them, 35 mm. Cold sun, spindrift. Intense, protective.",
+   "birds": [
+    {
+     "bird": "falcon",
+     "x": 0.38,
+     "y": 0.6,
+     "h": 0.36,
+     "crop": [
+      0,
+      0,
+      0.86,
+      1
+     ]
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.64,
+     "y": 0.66,
+     "h": 0.3
+    }
+   ],
+   "camera": "tracking alongside",
+   "lens": "35mm",
+   "lighting": "cold sun, hard rim",
+   "atmosphere": "spindrift, wind",
+   "sound": [
+    {
+     "kind": "wind",
+     "gain": -8
+    },
+    {
+     "kind": "gust",
+     "at": 0.2,
+     "gain": -6
+    },
+    {
+     "kind": "whoosh",
+     "at": 1.0,
+     "gain": -8
+    },
+    {
+     "kind": "flap",
+     "at": 1.6,
+     "gain": -10
+    }
+   ],
+   "light": {
+    "key": [
+     1,
+     -1
+    ],
+    "exposure": 0.8,
+    "rim": [
+     210,
+     230,
+     255
+    ]
+   },
+   "backdrop": [
+    "#5070a0",
+    "#c0d0e0"
+   ],
+   "vx": 0.5,
+   "interactionKind": "rescue",
+   "id": 12,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "parcel-catch",
+   "seconds": 2.2,
+   "characters": [
+    "falcon",
+    "pigeon"
+   ],
+   "beat": "journey",
+   "place": "Grenoble, the Alps",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "The parcel slips; the falcon catches it mid-air and tosses it back. Security comes first.",
+   "intent": "the falcon saves the parcel",
+   "gaze": "both look down at the falling parcel",
+   "physics": "the falcon snatches the parcel in its talons mid-air and flips it back up into the pigeon's wings",
+   "interaction": "a mid-air catch and handoff",
+   "action": "the parcel slips from the pigeon's grip; the falcon snatches it mid-air and flips it back into the pigeon's wings",
+   "plate": "Snowy Alpine slope far below a deep blue sky, cold sun, spindrift.",
+   "keyframe": "The falcon character catching a small orange parcel in mid-air above snowy Alpine slopes, the pigeon character reaching for it, deep blue sky.",
+   "motion": "In mid-air above snowy Alpine slopes, the small orange parcel slips from the sky-blue pigeon character's wings; the orange falcon character with a black visor snatches it in its talons and flips it back up into the pigeon's wings. Slow-motion feel, 50 mm. Cold sun. Thrilling.",
+   "birds": [
+    {
+     "bird": "falcon",
+     "x": 0.44,
+     "y": 0.62,
+     "h": 0.36,
+     "crop": [
+      0,
+      0,
+      0.86,
+      1
+     ]
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.66,
+     "y": 0.5,
+     "h": 0.3
+    }
+   ],
+   "camera": "fast tilt down",
+   "lens": "50mm",
+   "lighting": "cold sun",
+   "atmosphere": "spindrift",
+   "sound": [
+    {
+     "kind": "whoosh",
+     "at": 0.3,
+     "gain": -8
+    },
+    {
+     "kind": "parcel",
+     "at": 1.0,
+     "gain": -10
+    },
+    {
+     "kind": "swell",
+     "at": 0.0,
+     "gain": -14
+    }
+   ],
+   "light": {
+    "key": [
+     1,
+     -1
+    ],
+    "exposure": 0.8,
+    "rim": [
+     210,
+     230,
+     255
+    ]
+   },
+   "backdrop": [
+    "#5070a0",
+    "#c0d0e0"
+   ],
+   "vx": 0.5,
+   "interactionKind": "handoff",
+   "id": 13,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "quebec-snow",
+   "seconds": 2.5,
+   "characters": [],
+   "beat": "turn",
+   "place": "Québec, winter",
+   "framing": "establishing",
+   "model": "ltx-video-0.9.8-13b-distilled",
+   "purpose": "Night and cold: the journey's lowest point.",
+   "action": "the view slowly cranes down the snowy old-town street at night, heavy snow falling past warm windows, and settles on a line of tiny bird footprints in the fresh snow, already filling in",
+   "plate": "A snowy old-town street at night in winter, stone houses with copper roofs and warm lit windows, snow falling heavily, a lamp post, deep drifts, a line of tiny bird footprints in the fresh snow, no people, no signs, no text.",
+   "keyframe": "A snowy old-town street at night in winter, stone houses with copper roofs and warm lit windows, snow falling heavily, a lamp post, deep drifts, a line of tiny bird footprints in the fresh snow, no people, no signs, no text.",
+   "motion": "The view slowly cranes down the snowy old-town street at night, heavy snow falling past warm windows, and settles on a line of tiny bird footprints in the fresh snow, already filling in. Slow crane down, 35 mm. Cold blue night, warm windows.",
+   "camera": "slow crane down",
+   "lens": "35mm",
+   "lighting": "cold blue night, warm windows",
+   "atmosphere": "heavy snowfall",
+   "birds": [],
+   "backdrop": [
+    "#202020",
+    "#101010"
+   ],
+   "vx": 0.5,
+   "sound": [
+    {
+     "kind": "wind",
+     "gain": -16
+    },
+    {
+     "kind": "room",
+     "gain": -30
+    }
+   ],
+   "id": 14,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "pigeon-frozen",
+   "seconds": 2.8,
+   "characters": [
+    "pigeon"
+   ],
+   "beat": "turn",
+   "place": "Québec, winter",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "The low point: frozen and exhausted, the pigeon lands in the snow; the parcel's glow dims.",
+   "intent": "the pigeon tries to keep going and cannot",
+   "gaze": "down at the dimming parcel",
+   "physics": "it lands heavily, sinks in the snow, shivers, folds over the parcel to warm it",
+   "interaction": "",
+   "action": "the pigeon lands heavily in the snow, sinks, shivers, and curls over the dimming parcel to keep it warm",
+   "plate": "A deep snowdrift on a snowy old-town street at night, a lit doorway with a wooden door nearby, snow falling, cold blue light, warm glow from the windows.",
+   "keyframe": "The pigeon character curled in a snowdrift at night holding its dim orange parcel, snow falling, a lit wooden door nearby.",
+   "motion": "At night in a snowy street, the sky-blue pigeon character with violet wings lands heavily in a snowdrift, sinks, shivers, and curls over its small orange parcel whose glow is dimming, its eyes half-closing, exhausted and afraid, snow settling on its feathers. Static low angle, 50 mm. Cold blue night, a warm doorway glow. Fragile, sad.",
+   "birds": [
+    {
+     "bird": "pigeon",
+     "x": 0.42,
+     "y": 0.86,
+     "h": 0.4
+    }
+   ],
+   "camera": "static low angle",
+   "lens": "50mm",
+   "lighting": "cold blue night, warm doorway glow",
+   "atmosphere": "snow settling",
+   "sound": [
+    {
+     "kind": "wind",
+     "gain": -12
+    },
+    {
+     "kind": "flap",
+     "at": 0.3,
+     "gain": -12
+    },
+    {
+     "kind": "rustle",
+     "at": 1.0,
+     "gain": -16
+    }
+   ],
+   "light": {
+    "key": [
+     1,
+     -0.3
+    ],
+    "exposure": 0.6,
+    "rim": [
+     255,
+     190,
+     130
+    ]
+   },
+   "backdrop": [
+    "#203048",
+    "#c0c8d8"
+   ],
+   "vx": 0.5,
+   "id": 15,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "beaver-door",
+   "seconds": 3.0,
+   "characters": [
+    "beaver",
+    "pigeon"
+   ],
+   "beat": "turn",
+   "place": "Québec, winter",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "Help arrives: the beaver opens its door, scoops the pigeon in, wraps it in a scarf.",
+   "intent": "the beaver takes care of whoever is at its door",
+   "gaze": "the beaver looks down at the pigeon, worried, then warm",
+   "physics": "the door swings open, warm light spills out, the beaver scoops the pigeon up and wraps a knitted scarf around it",
+   "interaction": "a rescue: scooped in from the cold",
+   "action": "the wooden door swings open in a spill of warm light, the beaver looks down, scoops the pigeon up out of the snow and wraps a knitted scarf around it",
+   "plate": "A wooden front door of a stone house at night open onto a snowy street, warm golden light spilling out onto the snow, snow falling.",
+   "keyframe": "The beaver character in an open wooden doorway at night with warm light behind it, the pigeon character in the snow at its feet, snow falling.",
+   "motion": "At night, a wooden door swings open in a spill of warm golden light; the brown beaver character with one big front tooth looks down, worried, scoops the sky-blue pigeon character with violet wings up out of the snow and wraps a red knitted scarf around it, the pigeon's eyes closing with relief as the beaver smiles warmly. Static, 35 mm. Warm light against cold blue night. Tender.",
+   "birds": [
+    {
+     "bird": "beaver",
+     "x": 0.2,
+     "y": 0.88,
+     "h": 0.5
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.38,
+     "y": 0.93,
+     "h": 0.26
+    }
+   ],
+   "camera": "static",
+   "lens": "35mm",
+   "lighting": "warm golden doorway light, cold blue night",
+   "atmosphere": "snow falling",
+   "sound": [
+    {
+     "kind": "wind",
+     "gain": -14
+    },
+    {
+     "kind": "tap",
+     "at": 0.2,
+     "gain": -12
+    },
+    {
+     "kind": "room",
+     "gain": -24
+    },
+    {
+     "kind": "rustle",
+     "at": 1.6,
+     "gain": -14
+    }
+   ],
+   "light": {
+    "key": [
+     0,
+     -0.3
+    ],
+    "exposure": 0.8,
+    "rim": [
+     255,
+     190,
+     120
+    ]
+   },
+   "backdrop": [
+    "#c08040",
+    "#203048"
+   ],
+   "vx": 0.5,
+   "interactionKind": "rescue",
+   "id": 16,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "kitchen-argue",
+   "seconds": 3.0,
+   "characters": [
+    "beaver",
+    "magpie",
+    "lovebird",
+    "pigeon"
+   ],
+   "beat": "turn",
+   "place": "Québec, winter",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "Québec humour: the family warms the pigeon up, then argues, loud and loving, about who carries the parcel next.",
+   "intent": "the family takes care of the pigeon, each its own way, and keeps the score of who is right",
+   "gaze": "they talk over each other, then all turn to the pigeon",
+   "physics": "the magpie points, the beaver waves a wooden spoon, the lovebirds flap, the pigeon sips something hot in its scarf",
+   "interaction": "a loud, loving family argument around the kitchen table",
+   "action": "around a cosy kitchen table, the beaver waves a wooden spoon, the magpie points the other way, the lovebirds flap in protest, while the pigeon in its scarf sips a hot drink and looks from one to the other",
+   "plate": "A cosy, cluttered family kitchen at night, a wooden table with mugs and a pot, warm lamp light, frosted window with snow outside, no text.",
+   "keyframe": "The beaver character, the magpie character and the lovebird character arguing around a wooden kitchen table, the pigeon character in a red scarf with a mug, warm lamp light.",
+   "motion": "In a cosy family kitchen at night, the brown beaver character waves a wooden spoon, the slate-grey magpie character with cobalt-blue wings points the other way, the green lovebird character with a coral-pink face flaps in protest, all talking at once, while the sky-blue pigeon character in a red scarf sips from a mug and looks from one to the other. Quick handheld, 35 mm. Warm lamp light, steam. Funny, warm.",
+   "birds": [
+    {
+     "bird": "beaver",
+     "x": 0.2,
+     "y": 0.97,
+     "h": 0.46
+    },
+    {
+     "bird": "magpie",
+     "x": 0.42,
+     "y": 0.97,
+     "h": 0.4
+    },
+    {
+     "bird": "lovebird",
+     "x": 0.62,
+     "y": 0.97,
+     "h": 0.3
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.82,
+     "y": 0.97,
+     "h": 0.32,
+     "flip": true
+    }
+   ],
+   "camera": "quick handheld",
+   "lens": "35mm",
+   "lighting": "warm lamp light",
+   "atmosphere": "steam from mugs",
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -20
+    },
+    {
+     "kind": "chirp",
+     "at": 0.3,
+     "gain": -14
+    },
+    {
+     "kind": "tap",
+     "at": 0.9,
+     "gain": -14
+    },
+    {
+     "kind": "chirp",
+     "at": 1.5,
+     "gain": -14
+    },
+    {
+     "kind": "chirp",
+     "at": 2.1,
+     "gain": -16
+    }
+   ],
+   "light": {
+    "key": [
+     0,
+     -0.6
+    ],
+    "exposure": 0.85,
+    "rim": [
+     255,
+     200,
+     140
+    ]
+   },
+   "backdrop": [
+    "#a06030",
+    "#402818"
+   ],
+   "vx": 0.5,
+   "interactionKind": "argue",
+   "id": 17,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "family-sendoff",
+   "seconds": 2.6,
+   "characters": [
+    "beaver",
+    "magpie",
+    "lovebird",
+    "pigeon"
+   ],
+   "beat": "turn",
+   "place": "Québec, winter",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "The family settles it together: the parcel glows again, and they send the pigeon off into the morning.",
+   "intent": "the family gives the pigeon its strength back",
+   "gaze": "all of them look at the parcel as it glows again",
+   "physics": "the lovebirds tuck the scarf tight, the beaver hands the glowing parcel back, the magpie flings the door open to the morning light",
+   "interaction": "a group handoff and a push out the door",
+   "action": "the parcel glows again in the pigeon's wings; the lovebird tightens its scarf, the beaver gives a thumbs-up with its wing and the magpie flings the door open onto a bright snowy morning",
+   "plate": "An open wooden front door from inside a cosy house onto a bright snowy morning street, warm interior, crisp blue sky.",
+   "keyframe": "The beaver, the magpie and the lovebird characters around the pigeon character in a red scarf holding a glowing orange parcel, at an open door onto a bright snowy morning.",
+   "motion": "Inside the cosy house by the open door, the small orange parcel glows again in the wings of the sky-blue pigeon character in its red scarf; the green lovebird character tightens the scarf, the brown beaver character gives a proud wing thumbs-up, and the slate-grey magpie character flings the door wide open onto a bright snowy morning; the pigeon runs out and leaps into the air. Slow dolly out, 28 mm. Warm interior, bright cold morning. Uplifting.",
+   "birds": [
+    {
+     "bird": "beaver",
+     "x": 0.16,
+     "y": 0.97,
+     "h": 0.44
+    },
+    {
+     "bird": "lovebird",
+     "x": 0.32,
+     "y": 0.96,
+     "h": 0.28
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.5,
+     "y": 0.96,
+     "h": 0.32
+    },
+    {
+     "bird": "magpie",
+     "x": 0.82,
+     "y": 0.96,
+     "h": 0.4
+    }
+   ],
+   "camera": "slow dolly out",
+   "lens": "28mm",
+   "lighting": "warm interior, bright cold morning",
+   "atmosphere": "cold air rushing in",
+   "sound": [
+    {
+     "kind": "ignite",
+     "at": 0.2,
+     "gain": -14
+    },
+    {
+     "kind": "tap",
+     "at": 1.0,
+     "gain": -14
+    },
+    {
+     "kind": "wind",
+     "at": 1.6,
+     "gain": -14
+    },
+    {
+     "kind": "flap",
+     "at": 2.2,
+     "gain": -10
+    }
+   ],
+   "light": {
+    "key": [
+     1,
+     -0.3
+    ],
+    "exposure": 0.85,
+    "rim": [
+     255,
+     220,
+     170
+    ]
+   },
+   "backdrop": [
+    "#c08040",
+    "#c0d0e0"
+   ],
+   "vx": 0.5,
+   "interactionKind": "handoff",
+   "id": 18,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "pacific-highway",
+   "seconds": 2.3,
+   "characters": [],
+   "beat": "payoff",
+   "place": "California",
+   "framing": "establishing",
+   "model": "ltx-video-0.9.8-13b-distilled",
+   "purpose": "Last stop: the coast, palm trees, the golden hour — the music turns West Coast.",
+   "action": "the view races low along the palm-lined coastal highway at golden hour, palm shadows flicking across the asphalt, and arrives at a candy-pink lowrider convertible that bounces once on its hydraulics",
+   "plate": "A coastal highway at golden hour lined with tall palm trees, the Pacific ocean glittering, a candy-pink lowrider convertible parked on the roadside, no people, no logos, no text.",
+   "keyframe": "A coastal highway at golden hour lined with tall palm trees, the Pacific ocean glittering, a candy-pink lowrider convertible parked on the roadside, no people, no logos, no text.",
+   "motion": "The view races low along the palm-lined coastal highway at golden hour, palm shadows flicking across the asphalt, and arrives at a candy-pink lowrider convertible that bounces once on its hydraulics. Low tracking glide, 24 mm. Golden hour, lens flare.",
+   "camera": "low tracking glide",
+   "lens": "24mm",
+   "lighting": "golden hour, lens flare",
+   "atmosphere": "warm haze",
+   "birds": [],
+   "backdrop": [
+    "#202020",
+    "#101010"
+   ],
+   "vx": 0.5,
+   "sound": [
+    {
+     "kind": "waves",
+     "gain": -16
+    },
+    {
+     "kind": "whoosh",
+     "at": 0.3,
+     "gain": -12
+    }
+   ],
+   "id": 19,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "flamingo-lowrider",
+   "seconds": 3.0,
+   "characters": [
+    "flamingo",
+    "pigeon"
+   ],
+   "beat": "payoff",
+   "place": "California",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "Promise 4: the flamingo answers the pigeon's call from its lowrider, bouncing on its hydraulics — the payment follows.",
+   "intent": "the flamingo answers and pays its share",
+   "gaze": "the flamingo lowers its head to the pigeon with a smile",
+   "physics": "the car bounces on its hydraulics, the flamingo turns from leaning on it, the pigeon lands on the hood, a gold coin flicked across",
+   "interaction": "a meeting and a payment",
+   "action": "the flamingo's candy-pink lowrider bounces on its hydraulics; the pigeon lands on the hood, the flamingo turns, answers with a smile and flicks it a gold coin",
+   "plate": "A candy-pink lowrider convertible on a palm-lined coastal highway at golden hour, chrome wheels, the ocean behind, no people, no logos, no text.",
+   "keyframe": "The flamingo character leaning against a candy-pink lowrider convertible on a coastal highway at golden hour, the pigeon character on the hood, palm trees and the ocean behind.",
+   "motion": "On a palm-lined coastal highway at golden hour, a candy-pink lowrider convertible bounces on its hydraulics; the pink flamingo character with a long curved neck, leaning against the car, turns with a smile as the sky-blue pigeon character lands on the hood, and flicks it a gold coin that spins through the air, the pigeon grinning as it catches it. Low angle, 35 mm. Golden hour, lens flare. Cool, funny.",
+   "birds": [
+    {
+     "bird": "flamingo",
+     "x": 0.76,
+     "y": 0.92,
+     "h": 0.56,
+     "flip": true
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.5,
+     "y": 0.62,
+     "h": 0.2
+    }
+   ],
+   "camera": "low angle",
+   "lens": "35mm",
+   "lighting": "golden hour, lens flare",
+   "atmosphere": "warm haze",
+   "sound": [
+    {
+     "kind": "waves",
+     "gain": -20
+    },
+    {
+     "kind": "tap",
+     "at": 0.3,
+     "gain": -10
+    },
+    {
+     "kind": "tap",
+     "at": 0.7,
+     "gain": -10
+    },
+    {
+     "kind": "coin",
+     "at": 2.0,
+     "gain": -10
+    },
+    {
+     "kind": "flap",
+     "at": 1.2,
+     "gain": -12
+    }
+   ],
+   "light": {
+    "key": [
+     1,
+     -0.5
+    ],
+    "exposure": 0.9,
+    "rim": [
+     255,
+     190,
+     140
+    ]
+   },
+   "backdrop": [
+    "#f0a070",
+    "#305060"
+   ],
+   "vx": 0.5,
+   "interactionKind": "meet",
+   "id": 20,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "neon-city",
+   "seconds": 2.0,
+   "characters": [],
+   "beat": "payoff",
+   "place": "California",
+   "framing": "establishing",
+   "model": "ltx-video-0.9.8-13b-distilled",
+   "purpose": "Night falls on a neon city: the party is close.",
+   "action": "the view swings fast over the neon city at night between palm silhouettes and dives toward the beach, where rows of string lights switch on one by one around a sand dance floor",
+   "plate": "A neon-lit city at night seen from a rooftop, palm tree silhouettes, purple and cyan glow, distant hills with lights, no logos, no signs with letters, no text.",
+   "keyframe": "A neon-lit city at night seen from a rooftop, palm tree silhouettes, purple and cyan glow, distant hills with lights, no logos, no signs with letters, no text.",
+   "motion": "The view swings fast over the neon city at night between palm silhouettes and dives toward the beach, where rows of string lights switch on one by one around a sand dance floor. Fast drone swing, 24 mm. Purple and cyan neon.",
+   "camera": "fast drone swing",
+   "lens": "24mm",
+   "lighting": "purple and cyan neon",
+   "atmosphere": "warm night haze",
+   "birds": [],
+   "backdrop": [
+    "#202020",
+    "#101010"
+   ],
+   "vx": 0.5,
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -14
+    },
+    {
+     "kind": "whoosh",
+     "at": 0.2,
+     "gain": -10
+    }
+   ],
+   "id": 21,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "dance-off",
+   "seconds": 2.6,
+   "characters": [
+    "magpie",
+    "flamingo"
+   ],
+   "beat": "payoff",
+   "place": "California",
+   "framing": "medium, orbit",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "A friendly rivalry: two of the flock face off in a dance battle on the beach, the crowd of birds hyping them.",
+   "intent": "each wants to win the crowd, all in fun",
+   "gaze": "they stare each other down, then grin",
+   "physics": "the magpie spins and freezes, the flamingo answers with a long-legged slide, sand flying",
+   "interaction": "a playful dance-off",
+   "action": "on the beach dance floor the magpie spins and freezes in a pose, then the flamingo answers with a long-legged slide, sand flying, and they point at each other grinning",
+   "plate": "A beach at night with a sand dance floor ringed by string lights and torches, purple and cyan party lights, palm trees, the ocean behind, no people, no text.",
+   "keyframe": "The magpie character and the flamingo character facing off in a dance battle on a lit beach dance floor at night, string lights and palm trees.",
+   "motion": "On a beach dance floor at night ringed by string lights, the slate-grey magpie character with cobalt-blue wings spins and freezes in a pose; the pink flamingo character answers with a long-legged slide, sand flying, and they point at each other, grinning. Quick handheld orbit, 28 mm. Purple and cyan party lights. Energetic, fun.",
+   "birds": [
+    {
+     "bird": "magpie",
+     "x": 0.36,
+     "y": 0.88,
+     "h": 0.42
+    },
+    {
+     "bird": "flamingo",
+     "x": 0.66,
+     "y": 0.9,
+     "h": 0.56,
+     "flip": true
+    }
+   ],
+   "camera": "quick handheld orbit",
+   "lens": "28mm",
+   "lighting": "purple and cyan party lights",
+   "atmosphere": "sand, torches",
+   "sound": [
+    {
+     "kind": "waves",
+     "gain": -24
+    },
+    {
+     "kind": "whoosh",
+     "at": 0.5,
+     "gain": -12
+    },
+    {
+     "kind": "steps",
+     "at": 1.2,
+     "gain": -12
+    },
+    {
+     "kind": "swell",
+     "at": 1.6,
+     "gain": -16
+    }
+   ],
+   "light": {
+    "key": [
+     0,
+     -1
+    ],
+    "exposure": 0.75,
+    "rim": [
+     200,
+     140,
+     255
+    ]
+   },
+   "backdrop": [
+    "#302050",
+    "#102030"
+   ],
+   "vx": 0.5,
+   "interactionKind": "compete",
+   "id": 22,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "crane-dj",
+   "seconds": 2.5,
+   "characters": [
+    "crane",
+    "duck"
+   ],
+   "beat": "payoff",
+   "place": "California",
+   "framing": "medium",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "The DJ moment: the crane, who listens to everything, drops the beat; the duck builds the light show.",
+   "intent": "the crane gives the party its sound",
+   "gaze": "eyes closed, listening, then a sharp look to the crowd",
+   "physics": "the crane bobs its long neck to the beat, lifts a wing and drops it; the duck taps glowing blocks that pulse with the beat",
+   "interaction": "together at the decks",
+   "action": "the crane at the decks bobs its long neck with its eyes closed, lifts a wing and drops the beat, and the duck beside it taps glowing blocks that pulse in time",
+   "plate": "A DJ booth on a beach at night, two turntables and a mixer on a wooden table, glowing cyan blocks stacked beside, purple and cyan lights, palm trees, no logos, no text.",
+   "keyframe": "The crane character at a DJ booth on a beach at night with turntables, the duck character beside it with glowing cyan blocks, purple and cyan lights.",
+   "motion": "At a beach DJ booth at night, the slender pale grey crane character with a small red crown bobs its long neck to the beat with its eyes closed, lifts one wing and drops it as the lights flash; the crimson duck character with round glasses beside it taps glowing cyan blocks that pulse in time. Push-in, 35 mm. Purple and cyan lights, flashes. Euphoric.",
+   "birds": [
+    {
+     "bird": "crane",
+     "x": 0.3,
+     "y": 0.96,
+     "h": 0.62
+    },
+    {
+     "bird": "duck",
+     "x": 0.74,
+     "y": 0.96,
+     "h": 0.4,
+     "crop": [
+      0,
+      0,
+      0.74,
+      1
+     ]
+    }
+   ],
+   "camera": "push-in",
+   "lens": "35mm",
+   "lighting": "purple and cyan lights, flashes",
+   "atmosphere": "haze",
+   "sound": [
+    {
+     "kind": "swell",
+     "at": 0.0,
+     "gain": -12
+    },
+    {
+     "kind": "hum",
+     "at": 1.2,
+     "gain": -14
+    },
+    {
+     "kind": "ignite",
+     "at": 1.4,
+     "gain": -12
+    }
+   ],
+   "light": {
+    "key": [
+     0,
+     -1
+    ],
+    "exposure": 0.75,
+    "rim": [
+     200,
+     140,
+     255
+    ]
+   },
+   "backdrop": [
+    "#302050",
+    "#102030"
+   ],
+   "vx": 0.5,
+   "interactionKind": "celebrate",
+   "id": 23,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "parcel-opens",
+   "seconds": 3.2,
+   "characters": [
+    "pigeon",
+    "falcon",
+    "owl",
+    "duck",
+    "flamingo"
+   ],
+   "beat": "payoff",
+   "place": "California",
+   "framing": "wide group",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "Promise 5 kept: the pigeon sets the parcel down in the middle of the flock; it opens into light and everyone cheers.",
+   "intent": "the pigeon delivers to the whole flock",
+   "gaze": "all eyes on the parcel as it opens",
+   "physics": "the pigeon sets the parcel down gently, steps back; light bursts out, the flock jumps and cheers, wings up",
+   "interaction": "the whole flock celebrates together around the parcel",
+   "action": "the pigeon sets the parcel down in the middle of the dance floor and steps back; it opens into a burst of warm light and the falcon, the owl, the duck and the flamingo jump and cheer, wings up",
+   "plate": "A beach dance floor at night ringed by string lights, purple and cyan party lights, palm trees, the ocean behind, no people, no text.",
+   "keyframe": "Five cartoon bird characters around a small glowing orange parcel on a beach dance floor at night, string lights, palm trees.",
+   "motion": "On the beach dance floor at night, the sky-blue pigeon character sets its small glowing orange parcel down in the middle of the flock and steps back; the parcel opens into a burst of warm golden light and the orange falcon, the violet owl, the crimson duck and the pink flamingo characters jump and cheer, wings up. Slow push-in then a quick crane up, 28 mm. Golden burst against purple night. Joyful.",
+   "birds": [
+    {
+     "bird": "falcon",
+     "x": 0.16,
+     "y": 0.92,
+     "h": 0.36,
+     "crop": [
+      0,
+      0,
+      0.86,
+      1
+     ]
+    },
+    {
+     "bird": "owl",
+     "x": 0.32,
+     "y": 0.92,
+     "h": 0.34,
+     "crop": [
+      0,
+      0,
+      0.8,
+      1
+     ]
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.5,
+     "y": 0.92,
+     "h": 0.32
+    },
+    {
+     "bird": "duck",
+     "x": 0.68,
+     "y": 0.92,
+     "h": 0.32,
+     "crop": [
+      0,
+      0,
+      0.74,
+      1
+     ]
+    },
+    {
+     "bird": "flamingo",
+     "x": 0.85,
+     "y": 0.92,
+     "h": 0.44,
+     "flip": true
+    }
+   ],
+   "camera": "push-in then crane up",
+   "lens": "28mm",
+   "lighting": "golden burst against purple night",
+   "atmosphere": "sparks, sand",
+   "sound": [
+    {
+     "kind": "parcel",
+     "at": 0.6,
+     "gain": -12
+    },
+    {
+     "kind": "ignite",
+     "at": 1.4,
+     "gain": -8
+    },
+    {
+     "kind": "chime",
+     "at": 1.5,
+     "gain": -12
+    },
+    {
+     "kind": "chirp",
+     "at": 1.9,
+     "gain": -12
+    },
+    {
+     "kind": "chirp",
+     "at": 2.3,
+     "gain": -12
+    }
+   ],
+   "light": {
+    "key": [
+     0,
+     -0.5
+    ],
+    "exposure": 0.8,
+    "rim": [
+     255,
+     200,
+     120
+    ]
+   },
+   "backdrop": [
+    "#302050",
+    "#102030"
+   ],
+   "vx": 0.5,
+   "interactionKind": "celebrate",
+   "id": 24,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  },
+  {
+   "slug": "phoenix-ocean",
+   "seconds": 4.0,
+   "characters": [
+    "phoenix",
+    "pigeon"
+   ],
+   "beat": "payoff",
+   "place": "California",
+   "framing": "extreme wide",
+   "model": "wan2.2-i2v-a14b-hq",
+   "purpose": "The return: from the parcel's light the phoenix rises over the ocean; the pigeon watches, proud.",
+   "intent": "the phoenix comes back to the flock",
+   "gaze": "the pigeon looks up at the phoenix",
+   "physics": "the phoenix's two flame wings unfold slowly as it rises, embers drifting down; the pigeon's feathers ruffle in the warm air",
+   "interaction": "the pigeon and the phoenix: a look between the one who carried and the one who returns",
+   "action": "the phoenix rises slowly from the light over the ocean, its violet and gold flame wings unfolding, and the pigeon in the foreground looks up, chest puffed with pride",
+   "plate": "A night beach with the dark ocean and a horizon glow, warm embers in the air, string lights blurred in the foreground sand, no people, no text.",
+   "keyframe": "The phoenix with one violet and one gold flame wing rising over the night ocean, the pigeon character seen from behind in the foreground on the sand looking up.",
+   "motion": "Over the night ocean, the phoenix with one violet flame wing and one gold flame wing rises slowly from a column of warm light, its wings unfolding wide, embers drifting down; in the foreground the sky-blue pigeon character looks up, its feathers ruffling in the warm air, chest puffed with pride. Slow crane up, 24 mm. Warm gold against deep blue. Majestic, tender.",
+   "birds": [
+    {
+     "bird": "phoenix",
+     "x": 0.5,
+     "y": 0.62,
+     "h": 0.5
+    },
+    {
+     "bird": "pigeon",
+     "x": 0.26,
+     "y": 0.96,
+     "h": 0.26
+    }
+   ],
+   "camera": "slow crane up",
+   "lens": "24mm",
+   "lighting": "warm gold against deep blue",
+   "atmosphere": "embers",
+   "sound": [
+    {
+     "kind": "swell",
+     "at": 0.0,
+     "gain": -12
+    },
+    {
+     "kind": "waves",
+     "gain": -18
+    },
+    {
+     "kind": "chime",
+     "at": 1.8,
+     "gain": -16
+    }
+   ],
+   "light": {
+    "key": [
+     0,
+     -1
+    ],
+    "exposure": 0.7,
+    "rim": [
+     255,
+     190,
+     120
+    ]
+   },
+   "backdrop": [
+    "#203050",
+    "#101828"
+   ],
+   "vx": 0.5,
+   "interactionKind": "celebrate",
+   "id": 25,
+   "transition": "cut",
+   "speed": 1,
+   "rampAt": null
+  }
+ ]
+}
