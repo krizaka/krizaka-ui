@@ -13,7 +13,7 @@ import { createPortal } from "react-dom";
 import { usePrefersReducedMotion } from "../media";
 import { tv } from "../tv";
 import { MAP_ATTRIBUTION, setMapAssetsBase } from "./assets";
-import { circlePolygon, type LngLat } from "./geo";
+import { circlePolygon, type LngLat, pointAlong, sliceLine } from "./geo";
 import { type MapBrand, mapPalette, type MapRegion, mapStyle } from "./style";
 
 type MapLibre = typeof import("maplibre-gl");
@@ -332,12 +332,14 @@ export type MarkerProps = {
   size?: number;
   /** What it draws instead of the accent dot (an avatar, an icon). */
   children?: React.ReactNode;
+  /** Drops onto its place once, after this many milliseconds (stagger several: `index * 90`). Still under reduced motion. */
+  drop?: number;
 };
 
 const noSubscription = () => () => undefined;
 
 /** A place on the map: an accent dot (or your content) that is a button when it does something. */
-export function Marker({ position, label, onPress, selected, size = 18, children }: MarkerProps) {
+export function Marker({ position, label, onPress, selected, size = 18, children, drop }: MarkerProps) {
   const { map: m, lib, places } = useMap();
   const s = map();
   const id = React.useId();
@@ -368,8 +370,9 @@ export function Marker({ position, label, onPress, selected, size = 18, children
       aria-hidden={onPress ? undefined : true}
       aria-pressed={onPress && selected !== undefined ? selected : undefined}
       data-selected={selected ? "" : undefined}
+      data-drop={drop === undefined ? undefined : ""}
       className={s.marker()}
-      style={children ? undefined : { width: size, height: size }}
+      style={{ ...(children ? null : { width: size, height: size }), ...(drop === undefined ? null : ({ "--kz-map-drop-delay": `${drop}ms` } as React.CSSProperties)) }}
       onClick={onPress}
     >
       {children}
@@ -405,6 +408,134 @@ export function UserPosition({ position, label, accuracy }: UserPositionProps) {
     return () => void marker.remove();
   }, [m, lib, position[0], position[1]]); // eslint-disable-line react-hooks/exhaustive-deps
   return accuracy ? <RadiusCircle center={position} radius={accuracy} tone="soft" /> : null;
+}
+
+export type PulseProps = {
+  /** Where it beats. */
+  position: LngLat;
+  /** Its words ("High demand in Mile End"), read in the list of places. */
+  label: string;
+  /** The rings' reach in pixels. Default 56. */
+  size?: number;
+  /** `accent` (a zone that matters) or `soft`. Default `accent`. */
+  tone?: "accent" | "soft";
+};
+
+/** A heat pulse: rings that swell and fade around a place (a hot spot, a demand peak). Still rings under reduced motion. */
+export function Pulse({ position, label, size = 56, tone = "accent" }: PulseProps) {
+  const { map: m, lib, places } = useMap();
+  const id = React.useId();
+  React.useEffect(() => {
+    places.add(id, label);
+    return () => places.remove(id);
+  }, [id, label, places]);
+  React.useEffect(() => {
+    if (!m || !lib) return;
+    const el = document.createElement("div");
+    el.className = "kz-map-pulse";
+    el.setAttribute("data-tone", tone);
+    el.setAttribute("aria-hidden", "true");
+    el.style.setProperty("--kz-map-pulse-size", `${size}px`);
+    const marker = new lib.Marker({ element: el, anchor: "center" }).setLngLat([...position] as [number, number]).addTo(m);
+    return () => void marker.remove();
+  }, [m, lib, tone, size, position[0], position[1]]); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
+}
+
+export type RouteProps = {
+  /** The path, as positions in order (a polyline: a delivery, a walk, a flight). */
+  path: readonly LngLat[];
+  /** Its words ("Delivery from the studio to Mile End, 2.4 km"), read in the list of places. */
+  label: string;
+  /** The line draws itself once, from its start, when the map is on screen; `false` shows it whole. Default `true`. */
+  draw?: boolean;
+  /** How long the drawing lasts, in milliseconds. Default 1400. */
+  duration?: number;
+  /** A dot that travels the route once drawn (`true`, or your own content: an avatar, an icon). */
+  courier?: boolean | React.ReactNode;
+  /** How long a trip takes, in milliseconds. Default 3200. */
+  tripDuration?: number;
+  /** Start the trips again after a pause (milliseconds), only while the map is on screen. Without it the courier makes one trip. */
+  repeatAfter?: number;
+  /** Changing it replays the drawing and the trip. */
+  replayKey?: string | number;
+  /** `accent` or `soft`. Default `accent`. */
+  tone?: "accent" | "soft";
+};
+
+type RouteSource = { setData?: (d: GeoJSON.GeoJSON) => void };
+
+/** A route on the map: a line that draws itself, and a courier that travels it. Under reduced motion the line is whole and the courier rests at the end. */
+export function Route({ path, label, draw = true, duration = 1400, courier, tripDuration = 3200, repeatAfter, replayKey, tone = "accent" }: RouteProps) {
+  const { map: m, lib, ready, reduce, places } = useMap();
+  const id = `kz-route-${React.useId().replace(/[^a-zA-Z0-9]/g, "")}`;
+  const animated = draw && !reduce;
+  // The drawing is done for this `replayKey` (a new key draws again); without animation the line is whole at once.
+  const token = replayKey ?? 0;
+  const [doneFor, setDoneFor] = React.useState<string | number | null>(null);
+  const drawn = !animated || doneFor === token;
+  const whole = React.useMemo(() => sliceLine(path, 1), [path]);
+  const start = React.useMemo(() => sliceLine(path, 0), [path]);
+  React.useEffect(() => {
+    places.add(id, label);
+    return () => places.remove(id);
+  }, [id, label, places]);
+  useGeoLayer(id, drawn ? whole : start, (c) => [
+    { id: `${id}-casing`, type: "line", source: id, layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.accent, "line-width": 9, "line-opacity": tone === "soft" ? 0.08 : 0.16, "line-blur": 3 } },
+    { id: `${id}-line`, type: "line", source: id, layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.accent, "line-width": tone === "soft" ? 2 : 3.5, "line-opacity": tone === "soft" ? 0.6 : 1 } },
+  ]);
+  // Is the map on screen? The drawing waits for it, and a repeating trip does not start while it is not.
+  const [visible, setVisible] = React.useState(() => typeof IntersectionObserver === "undefined");
+  React.useEffect(() => {
+    const el = m?.getContainer?.();
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([entry]) => setVisible(!!entry?.isIntersecting), { threshold: 0.25 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [m]);
+  // The drawing: a finite animation, one frame per paint for `duration` ms — no loop, nothing runs afterwards.
+  React.useEffect(() => {
+    if (!m || !ready || !animated || drawn || !visible) return;
+    const source = m.getSource(id) as RouteSource | undefined;
+    let frame = 0;
+    const began = performance.now();
+    const step = (now: number) => {
+      const t = Math.min(1, (now - began) / Math.max(1, duration));
+      source?.setData?.(sliceLine(path, 1 - (1 - t) ** 3));
+      if (t < 1) frame = requestAnimationFrame(step);
+      else setDoneFor(token);
+    };
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, [m, ready, animated, drawn, visible, id, path, duration, token]);
+  // The courier: one trip once the line is drawn (finite frames), again after `repeatAfter` while on screen.
+  const [trip, setTrip] = React.useState(0);
+  React.useEffect(() => {
+    if (!courier || !m || !lib || !ready || !drawn) return;
+    const el = document.createElement("div");
+    el.className = "kz-map-courier";
+    el.setAttribute("aria-hidden", "true");
+    const marker = new lib.Marker({ element: el, anchor: "center" }).setLngLat([...(path[reduce ? path.length - 1 : 0] ?? [0, 0])] as [number, number]).addTo(m);
+    let frame = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    if (!reduce && visible) {
+      const began = performance.now();
+      const step = (now: number) => {
+        const t = Math.min(1, (now - began) / Math.max(1, tripDuration));
+        const eased = t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
+        marker.setLngLat([...pointAlong(path, eased).position] as [number, number]);
+        if (t < 1) frame = requestAnimationFrame(step);
+        else if (repeatAfter !== undefined) timer = setTimeout(() => setTrip((n) => n + 1), repeatAfter);
+      };
+      frame = requestAnimationFrame(step);
+    } else if (!reduce) marker.setLngLat([...(path[path.length - 1] ?? [0, 0])] as [number, number]);
+    return () => {
+      cancelAnimationFrame(frame);
+      clearTimeout(timer);
+      marker.remove();
+    };
+  }, [courier, m, lib, ready, drawn, visible, reduce, path, tripDuration, repeatAfter, trip, token]);
+  return null;
 }
 
 /** Adds a GeoJSON source and its layers while the map has a style (again after a change of scheme). */

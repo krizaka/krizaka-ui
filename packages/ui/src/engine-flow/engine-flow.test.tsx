@@ -91,7 +91,7 @@ describe("EngineFlow", () => {
     expect(container.querySelector("figure")?.hasAttribute("data-motion-scope")).toBe(true);
     expect(container.querySelector(".kz-flow-photon")?.getAttribute("class")).toContain("kz-loop");
     const css = readFileSync(join(import.meta.dirname, "../motion.css"), "utf8");
-    expect(css).toMatch(/prefers-reduced-motion: reduce[^]*\.kz-flow-photon \{ animation: none !important; \}|\.kz-flow-photon \{ animation: none/);
+    expect(css).toMatch(/prefers-reduced-motion: reduce[^]*\.kz-flow-photon[^{]*\{ animation: none !important; \}/);
     const source = readFileSync(join(import.meta.dirname, "engine-flow.tsx"), "utf8");
     expect(source).not.toMatch(/requestAnimationFrame|<canvas|getContext/);
   });

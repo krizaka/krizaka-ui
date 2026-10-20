@@ -5,7 +5,7 @@
  * and pmtiles are optional peers, loaded when a map is shown. Client ("use client").
  */
 export { MAP_ATTRIBUTION, MAP_GLYPHS, MAP_TILES, mapAssets, setMapAssetsBase } from "./assets";
-export { circlePolygon, distanceMeters, formatDistance, type LngLat, project } from "./geo";
+export { circlePolygon, distanceMeters, formatDistance, type LngLat, pathLength, pointAlong, project, sliceLine } from "./geo";
 export { LocationPicker, locationPicker, type LocationPickerLabels, locationPickerLabels, type LocationPickerProps } from "./location-picker";
 export {
   Cluster,
@@ -19,8 +19,12 @@ export {
   type MapProps,
   Marker,
   type MarkerProps,
+  Pulse,
+  type PulseProps,
   RadiusCircle,
   type RadiusCircleProps,
+  Route,
+  type RouteProps,
   useMap,
   UserPosition,
   type UserPositionProps,
