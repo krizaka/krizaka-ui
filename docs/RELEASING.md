@@ -96,3 +96,9 @@ npm view @krizaka/ui versions --json | tail -3    # the `version` dist-tag can l
 - Never merge on red or pending; auto-merge only. Never print secrets.
 - A test is fixed, never skipped or weakened. A budget is raised only with a reason in the commit.
 - If a PR joins late, it goes in the next release (3.X+1): do not reopen a frozen branch.
+
+## CI on documentation-only changes
+
+A pull request that changes only root markdown, `docs/`, `.changeset/` or workflows other than `ci.yml` skips the three CI jobs
+(they report « Skipped », which satisfies the required checks). Anything else, including package markdown, runs them in full;
+so do pushes to main touching code, the nightly and manual runs. The gate is `krizaka/.github` `changes.yml` and fails open.
