@@ -1,5 +1,11 @@
 # @krizaka/icons
 
+## 0.7.0
+
+### Minor Changes
+
+- [#423](https://github.com/krizaka/krizaka-ui/pull/423) [`01cfb77`](https://github.com/krizaka/krizaka-ui/commit/01cfb7758294d04434af401f9ae92e292643e405) Thanks [@oussamaABID](https://github.com/oussamaABID)! - **A pen stroke (Cahier, ADR-004, [#417](https://github.com/krizaka/krizaka-ui/issues/417)):** the icons draw with a 1.5 stroke, square caps and mitred joins — a nib, not lucide's rounded marker. `strokeWidth` still overrides the width.
+
 ## 0.6.0
 
 ### Minor Changes
