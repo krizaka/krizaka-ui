@@ -467,12 +467,22 @@ export type RouteProps = {
   replayKey?: string | number;
   /** `accent` or `soft`. Default `accent`. */
   tone?: "accent" | "soft";
+  /** The timing function of the drawing and of the trips: `ease-out`, `linear`, `ease-in-out`. Default: out for the drawing, in-out for a trip. */
+  easing?: "ease-out" | "linear" | "ease-in-out";
+  /** Holds the drawing and the trips where they are (a controlled pause, on top of the off-screen one). */
+  paused?: boolean;
 };
+
+const ROUTE_CURVES = {
+  linear: (t: number) => t,
+  "ease-out": (t: number) => 1 - (1 - t) ** 3,
+  "ease-in-out": (t: number) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2),
+} as const;
 
 type RouteSource = { setData?: (d: GeoJSON.GeoJSON) => void };
 
 /** A route on the map: a line that draws itself, and a courier that travels it. Under reduced motion the line is whole and the courier rests at the end. */
-export function Route({ path, label, draw = true, duration = 1400, courier, tripDuration = 3200, repeatAfter, replayKey, tone = "accent" }: RouteProps) {
+export function Route({ path, label, draw = true, duration = 1400, courier, tripDuration = 3200, repeatAfter, replayKey, tone = "accent", easing, paused = false }: RouteProps) {
   const { map: m, lib, ready, reduce, places } = useMap();
   const id = `kz-route-${React.useId().replace(/[^a-zA-Z0-9]/g, "")}`;
   const animated = draw && !reduce;
@@ -491,11 +501,12 @@ export function Route({ path, label, draw = true, duration = 1400, courier, trip
     { id: `${id}-line`, type: "line", source: id, layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.accent, "line-width": tone === "soft" ? 2 : 3.5, "line-opacity": tone === "soft" ? 0.6 : 1 } },
   ]);
   // Is the map on screen? The drawing waits for it, and a repeating trip does not start while it is not.
-  const [visible, setVisible] = React.useState(() => typeof IntersectionObserver === "undefined");
+  const [seen, setSeen] = React.useState(() => typeof IntersectionObserver === "undefined");
+  const visible = seen && !paused;
   React.useEffect(() => {
     const el = m?.getContainer?.();
     if (!el || typeof IntersectionObserver === "undefined") return;
-    const io = new IntersectionObserver(([entry]) => setVisible(!!entry?.isIntersecting), { threshold: 0.25 });
+    const io = new IntersectionObserver(([entry]) => setSeen(!!entry?.isIntersecting), { threshold: 0.25 });
     io.observe(el);
     return () => io.disconnect();
   }, [m]);
@@ -507,13 +518,13 @@ export function Route({ path, label, draw = true, duration = 1400, courier, trip
     const began = performance.now();
     const step = (now: number) => {
       const t = Math.min(1, (now - began) / Math.max(1, duration));
-      source?.setData?.(sliceLine(path, 1 - (1 - t) ** 3));
+      source?.setData?.(sliceLine(path, ROUTE_CURVES[easing ?? "ease-out"](t)));
       if (t < 1) frame = requestAnimationFrame(step);
       else setDoneFor(token);
     };
     frame = requestAnimationFrame(step);
     return () => cancelAnimationFrame(frame);
-  }, [m, ready, animated, drawn, visible, id, path, duration, token]);
+  }, [m, ready, animated, drawn, visible, id, path, duration, token, easing]);
   // The courier: one trip once the line is drawn (finite frames), again after `repeatAfter` while on screen.
   const [trip, setTrip] = React.useState(0);
   React.useEffect(() => {
@@ -528,7 +539,7 @@ export function Route({ path, label, draw = true, duration = 1400, courier, trip
       const began = performance.now();
       const step = (now: number) => {
         const t = Math.min(1, (now - began) / Math.max(1, tripDuration));
-        const eased = t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
+        const eased = ROUTE_CURVES[easing ?? "ease-in-out"](t);
         marker.setLngLat([...pointAlong(path, eased).position] as [number, number]);
         if (t < 1) frame = requestAnimationFrame(step);
         else if (repeatAfter !== undefined) timer = setTimeout(() => setTrip((n) => n + 1), repeatAfter);
@@ -540,7 +551,7 @@ export function Route({ path, label, draw = true, duration = 1400, courier, trip
       clearTimeout(timer);
       marker.remove();
     };
-  }, [courier, m, lib, ready, drawn, visible, reduce, path, tripDuration, repeatAfter, trip, token]);
+  }, [courier, m, lib, ready, drawn, visible, reduce, path, tripDuration, repeatAfter, trip, token, easing]);
   return null;
 }
 

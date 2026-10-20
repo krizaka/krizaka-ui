@@ -329,4 +329,31 @@ describe("Map follows the page's scheme", () => {
     await waitFor(() => expect(JSON.stringify(lastStyle)).toBe(JSON.stringify(mapStyle({ scheme: "dark" }))));
     webgl.mockRestore();
   });
+
+  it("config vocabulary: `easing` shapes the drawing (linear is half the line at half the time) and `paused` holds every frame", async () => {
+    const webgl = withWebGL();
+    const route = [[-73.6, 45.5], [-73.58, 45.52], [-73.56, 45.51]] as const;
+    vi.stubGlobal("matchMedia", (query: string) => ({ matches: false, media: query, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {}, onchange: null, dispatchEvent: () => false }));
+    const frames: FrameRequestCallback[] = [];
+    vi.stubGlobal("requestAnimationFrame", (cb: FrameRequestCallback) => frames.push(cb));
+    vi.stubGlobal("cancelAnimationFrame", () => undefined);
+    vi.stubGlobal("IntersectionObserver", class { constructor(private cb: IntersectionObserverCallback) { setTimeout(() => cb([{ isIntersecting: true } as IntersectionObserverEntry], this as never), 0); } observe() {} disconnect() {} });
+    const el = (paused: boolean) => (
+      <Map label="Delivery" center={[-73.58, 45.51]}>
+        <Route path={route} label="Delivery" duration={1000} easing="linear" paused={paused} />
+      </Map>
+    );
+    const { rerender } = render(el(true));
+    await waitFor(() => expect(lastMap && Object.keys(lastMap.sources).length).toBeGreaterThan(0));
+    await act(async () => new Promise((r) => setTimeout(r, 30)));
+    expect(frames).toHaveLength(0); // paused: no frame is asked
+    rerender(el(false));
+    await waitFor(() => expect(frames.length).toBeGreaterThan(0));
+    const now = performance.now();
+    await act(async () => frames.shift()!(now + 500));
+    const source = Object.values(lastMap!.sources)[0]!.data as GeoJSON.Feature<GeoJSON.LineString>;
+    expect(pathLength(source.geometry.coordinates as never) / pathLength(route)).toBeCloseTo(0.5, 1);
+    vi.unstubAllGlobals();
+    webgl.mockRestore();
+  });
 });
