@@ -1,5 +1,26 @@
 # @krizaka/ui
 
+## 3.27.0
+
+### Minor Changes
+
+- [#347](https://github.com/krizaka/krizaka-ui/pull/347) [`a38ba39`](https://github.com/krizaka/krizaka-ui/commit/a38ba39fbab4769d75f297f3377caa56bd0cca47) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/language-switch/server`: `languagesFor`, `languageHref` and `languageNames` without the "use client" banner, so a Server Component can call them (the `language-switch` entry stays client and re-exports them for compatibility).
+
+- [#346](https://github.com/krizaka/krizaka-ui/pull/346) [`edce6c3`](https://github.com/krizaka/krizaka-ui/commit/edce6c3530393a5925b8dd3b97f37f706594eb90) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `NavBar.Menu`: a section of three links or fewer is not a dropdown any more — its links stand in the bar as plain links, the current one marked (`inlineUpTo`, 3 by default; `0` keeps a dropdown, above the limit it is a dropdown as before). The phone panel is unchanged. « Navigation in the family » says it.
+
+### Patch Changes
+
+- [#360](https://github.com/krizaka/krizaka-ui/pull/360) [`4b91705`](https://github.com/krizaka/krizaka-ui/commit/4b917052a32cb7e1f51f8159d93483774639af94) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `ImageCropper` (web): a picture that was already loaded before React attached (cache, server render) is measured on mount, so a portrait source covers the frame at any zoom; the box's percentages are rounded so float noise never drops a `top` / `left`.
+
+- [#359](https://github.com/krizaka/krizaka-ui/pull/359) [`159e685`](https://github.com/krizaka/krizaka-ui/commit/159e685ea5de50e1d3d968dfdd8aef96399881b1) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `locateQuote` (DocumentViewer): a quote starting in the middle of a text item is boxed from where its glyphs start (shared by sans-serif advance widths) instead of an even share of the item, so highlights no longer begin a few characters late.
+
+- [#357](https://github.com/krizaka/krizaka-ui/pull/357) [`df6aecb`](https://github.com/krizaka/krizaka-ui/commit/df6aecb8c58b527a0da24a8a76ccbba81060e72c) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `languageHref`: the path split no longer uses a backtracking regular expression (CodeQL polynomial ReDoS); a regression test guards a very long path.
+
+- [#350](https://github.com/krizaka/krizaka-ui/pull/350) [`b2688ce`](https://github.com/krizaka/krizaka-ui/commit/b2688cecb66c7260a3a2b7e867513a7fe9dd6378) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `WuSamaMark` shares Krizaka's contour: the hexagonal shield, the open vertex with a lit blue node and the centre W in Krizaka blue.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.27.0
+  - @krizaka/tokens@3.27.0
+
 ## 3.26.0
 
 ### Minor Changes
