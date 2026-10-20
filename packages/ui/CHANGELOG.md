@@ -1,5 +1,19 @@
 # @krizaka/ui
 
+## 3.28.0
+
+### Minor Changes
+
+- [#361](https://github.com/krizaka/krizaka-ui/pull/361) [`d4386c9`](https://github.com/krizaka/krizaka-ui/commit/d4386c9ac330cd25dc033742e0086619d74faa3f) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/chip-row`: `ChipRow` and `ChipRow.Item` — a row of chip links that scrolls sideways with scroll-snap on a phone (fading edge, no scrollbar) and wraps from `md`; 44 px targets, `aria-current`, a `badge` (« Soon »), arrow-key focus (krizaka-ui#342).
+
+- [#367](https://github.com/krizaka/krizaka-ui/pull/367) [`83f266f`](https://github.com/krizaka/krizaka-ui/commit/83f266f514bcc3b31574b5b64f00e4fd94c666c8) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/native`: `SettingsGroup` and `SettingsRow` — a titled card of hairline-divided rows (icon tile, label, help, value or control, a chevron when the row opens something; a button named by its visible words). The native twin of the web `SettingsRow` (krizaka-ui#246, part 1).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.28.0
+  - @krizaka/tokens@3.28.0
+
 ## 3.27.0
 
 ### Minor Changes
