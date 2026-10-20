@@ -133,8 +133,8 @@ describe("surfaces & matières (BRAND.md §6)", () => {
   for (const mode of ["dark", "light"] as const) {
     it(`${mode}: text on glass keeps AA whatever passes under it (surfaces, the page's own text, the accent)`, () => {
       const glass = raw("--kz-glass-bg", mode);
-      expect(glass.a).toBeGreaterThan(0);
-      expect(glass.a).toBeLessThan(1);
+      // Cahier (ADR-004): what floats is a sheet of paper, opaque — no frosted glass.
+      expect(glass.a).toBe(1);
       for (const under of [...surfaces, "--kz-text-primary", "--kz-accent", "--kz-accent-text"]) {
         const bg = over(glass, raw(under, mode));
         expect(contrast(raw("--kz-text-primary", mode), bg), `primary on glass over ${under}`).toBeGreaterThanOrEqual(4.5);
@@ -227,7 +227,7 @@ describe("generated modules", async () => {
   it("index: raw values per theme, aliases resolved", () => {
     expect(index.values.dark.surface0).toBe(dark.get("--kz-surface-0"));
     expect(index.values.light.surface0).toBe(light.get("--kz-surface-0"));
-    expect(index.values.light.radiusMd).toBe("12px");
+    expect(index.values.light.radiusMd).toBe("2px");
     expect(index.values.dark.ring).toBe(dark.get("--kz-accent"));
     expect(index.values.light.ring).toBe(light.get("--kz-accent"));
     expect(Object.keys(index.values.light)).toEqual(Object.keys(index.tokens));
@@ -247,9 +247,9 @@ describe("generated modules", async () => {
       allNames.filter((n) => n.startsWith(`--kz-${prefix}-`)).map((n) => camel(n.slice(`--kz-${prefix}-`.length))).sort();
     expect(Object.keys(native.radius).sort()).toEqual(keysOf("radius"));
     expect(Object.keys(native.typography).sort()).toEqual(keysOf("font"));
-    expect(native.radius).toEqual({ xs: 6, sm: 8, md: 12, lg: 16, xl: 20, "2xl": 28, full: 9999 });
-    expect(native.typography).toEqual({ sans: "Inter", text: "Inter", display: "Plus Jakarta Sans", mono: "JetBrains Mono" });
-    expect(native.motion.ease).toEqual([0.16, 1, 0.3, 1]);
+    expect(native.radius).toEqual({ xs: 2, sm: 2, md: 2, lg: 0, xl: 0, "2xl": 0, full: 9999 });
+    expect(native.typography).toEqual({ sans: "Atkinson Hyperlegible Next", text: "Atkinson Hyperlegible Next", display: "Young Serif", mono: "Courier Prime" });
+    expect(native.motion.ease).toEqual([0.45, 0, 0.2, 1]);
     expect(native.motion.spring).toEqual([0.34, 1.36, 0.64, 1]);
     expect(native.motion.duration).toEqual({ instant: 90, fast: 150, base: 200 });
   });
@@ -267,8 +267,8 @@ describe("generated modules", async () => {
     for (const theme of [native.themes.dark, native.themes.light]) {
       for (const v of Object.values(theme)) expect(v).toMatch(/^(#[0-9a-f]{6}|rgba\(\d+,\d+,\d+,[\d.]+\))$/);
     }
-    expect(native.themes.dark.surface0).toBe("#0c0c0e");
-    expect(native.themes.light.surface1).toBe("#ffffff");
+    expect(native.themes.dark.surface0).toBe("#151b18");
+    expect(native.themes.light.surface1).toMatch(/^#f[0-9a-f]{5}$/);
     expect(native.themes.dark.scrim).toBe("rgba(0,0,0,0.6)");
     expect(native.themes.light.scrim).toBe("rgba(0,0,0,0.6)");
     expect(native.themes.dark.ring).toBe(native.themes.dark.accent);
@@ -301,15 +301,15 @@ describe("generated modules", async () => {
     expect(descending(["display-2xl", "display-xl", "display-lg", "display-md", "display-sm", "title-lg", "title-md"])).toBe(true);
     expect(descending(["body-lg", "body-md", "body-sm", "caption", "overline"])).toBe(true);
     for (const s of steps.filter((x: { role: string }) => x.role === "display")) expect(Number.parseFloat(s.size)).toBeGreaterThanOrEqual(20);
-    expect(native.typeScale.display2xl.letterSpacing).toBeCloseTo(-2.52, 2);
+    expect(native.typeScale.display2xl.letterSpacing).toBeCloseTo(-0.72, 2);
   });
 
   it("the font roles: text aliases sans; display and mono are their own families, with a metric-matched fallback", () => {
     expect(dark.get("--kz-font-text")).toBe("var(--kz-font-sans)");
     const root = declarations(":root");
-    expect(root.get("--kz-font-sans")).toMatch(/^Inter, "Inter Fallback", /);
-    expect(root.get("--kz-font-display")).toMatch(/^"Plus Jakarta Sans", "Plus Jakarta Sans Fallback", /);
-    expect(root.get("--kz-font-mono")).toMatch(/^"JetBrains Mono", "JetBrains Mono Fallback", /);
+    expect(root.get("--kz-font-sans")).toMatch(/^"Atkinson Hyperlegible Next", "Atkinson Hyperlegible Next Fallback", /);
+    expect(root.get("--kz-font-display")).toMatch(/^"Young Serif", "Young Serif Fallback", Georgia/);
+    expect(root.get("--kz-font-mono")).toMatch(/^"Courier Prime", "Courier Prime Fallback", /);
   });
 
   it("type declarations name every export", () => {
@@ -647,5 +647,96 @@ describe("brands", async () => {
     expect(one({ ...full, nope: { $type: "color", $value: "hsl(0 0% 0%)" } })).toThrow(/not a platform token/);
     const { info: _info, ...partial } = full;
     expect(one(partial)).toThrow(/missing --kz-info/);
+  });
+});
+
+describe("Cahier (ADR-004, krizaka-ui#417): the template tells are gone at the source", () => {
+  const all = new Map([...dark, ...invariant]);
+  /** The layers of a box-shadow value: `x y blur spread color`. */
+  const layers = (value: string) => value.split(/,(?![^(]*\))/).map((l) => l.trim());
+
+  it("no shadow blurs: elevation is a solid offset of paper, in both themes", () => {
+    const shadows = [...all.keys()].filter((n) => n.startsWith("--kz-shadow-"));
+    expect(shadows.length).toBeGreaterThanOrEqual(6);
+    for (const mode of [dark, light]) {
+      for (const name of shadows) {
+        const value = mode.get(name) ?? all.get(name)!;
+        for (const layer of layers(value)) expect(layer.split(/\s+/)[2], `${name}: ${layer}`).toBe("0");
+      }
+    }
+  });
+
+  it("nothing frosted, nothing glossy: no backdrop blur, no sheen, no light edge", () => {
+    expect(invariant.get("--kz-glass-blur") ?? dark.get("--kz-glass-blur")).toBe("0px");
+    for (const mode of ["dark", "light"] as const) {
+      expect(parseHsl(color("--kz-surface-sheen", mode)).a, mode).toBe(0);
+      expect(parseHsl(color("--kz-edge-light", mode)).a, mode).toBe(0);
+    }
+  });
+
+  it("square paper: cards, dialogs and sheets are 0; controls at most 2 px; only the pill stays round", () => {
+    const px = (n: string) => Number.parseFloat(String(all.get(n)));
+    for (const step of ["lg", "xl", "2xl"]) expect(px(`--kz-radius-${step}`), step).toBe(0);
+    for (const step of ["xs", "sm", "md"]) expect(px(`--kz-radius-${step}`), step).toBeLessThanOrEqual(2);
+    expect(px("--kz-radius-full")).toBeGreaterThan(999);
+  });
+
+  it("no wash: the section gradient of every brand is the page surface, flat", () => {
+    for (const mode of ["dark", "light"] as const) {
+      expect(color("--kz-brand-gradient-from", mode)).toBe(color("--kz-surface-0", mode));
+      expect(color("--kz-brand-gradient-via", mode)).toBe(color("--kz-surface-0", mode));
+    }
+    for (const id of BRANDS) {
+      for (const mode of ["dark", "light"] as const) {
+        const b = brandsIndex[id][mode];
+        expect(b.brandGradientFrom, `${id} ${mode}`).toBe(b.brandGradientTo);
+        expect(b.brandGradientVia, `${id} ${mode}`).toBe(b.brandGradientTo);
+      }
+    }
+  });
+
+  it("ink on paper (light), chalk on slate (dark): the page is not near-black and the ink is blue", () => {
+    const hsl = (v: string) => {
+      const [h, s, l] = /^hsl\(([\d.]+) ([\d.]+)% ([\d.]+)%/.exec(v)!.slice(1).map(Number);
+      return { h, s, l };
+    };
+    const slate = hsl(color("--kz-surface-0", "dark"));
+    expect(slate.h).toBeGreaterThan(100);
+    expect(slate.h).toBeLessThan(180);
+    expect(slate.l).toBeGreaterThanOrEqual(9);
+    expect(slate.s).toBeGreaterThanOrEqual(8);
+    const ink = hsl(color("--kz-text-primary", "light"));
+    expect(ink.h).toBeGreaterThan(195);
+    expect(ink.h).toBeLessThan(225);
+    expect(ink.s).toBeGreaterThanOrEqual(35);
+    const paper = hsl(color("--kz-surface-0", "light"));
+    expect(paper.l).toBeGreaterThanOrEqual(95);
+    // never cream: the paper leans cool (green-grey), not warm.
+    expect(paper.h).toBeGreaterThan(60);
+    expect(paper.h).toBeLessThan(180);
+  });
+
+  it("the ruling and the specimen tag: their roles exist in both themes, the tag's ink reads ≥ 4.5:1", () => {
+    for (const role of ["rule-major", "rule-minor", "rule-margin", "tag", "tag-edge", "tag-ink"]) {
+      expect(dark.has(`--kz-paper-${role}`), role).toBe(true);
+      expect(light.has(`--kz-paper-${role}`), role).toBe(true);
+    }
+    for (const mode of ["dark", "light"] as const) {
+      expect(contrast(parseHsl(color("--kz-paper-tag-ink", mode)), parseHsl(color("--kz-paper-tag", mode))), mode).toBeGreaterThanOrEqual(4.5);
+      expect(contrast(parseHsl(color("--kz-paper-rule-margin", mode)), parseHsl(color("--kz-surface-0", mode))), mode).toBeGreaterThanOrEqual(3);
+    }
+    expect(invariant.get("--kz-paper-module")).toBe("32px");
+    expect(invariant.get("--kz-paper-line")).toBe("8px");
+  });
+
+  it("the display face has one weight: every display step is 400; the overline is a lower-case note, not tracked caps", () => {
+    for (const step of ["display-2xl", "display-xl", "display-lg", "display-md", "display-sm", "title-lg"]) {
+      expect(invariant.get(`--kz-type-${step}-weight`), step).toBe("400");
+    }
+    expect(Number.parseFloat(String(invariant.get("--kz-type-overline-tracking")))).toBe(0);
+  });
+
+  it("the motion personality is the ink stroke: an ease-in-out, not the overshooting fade-up", () => {
+    expect(invariant.get("--kz-ease") ?? dark.get("--kz-ease")).toBe("cubic-bezier(0.45, 0, 0.2, 1)");
   });
 });

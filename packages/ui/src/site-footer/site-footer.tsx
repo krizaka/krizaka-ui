@@ -21,13 +21,13 @@ export const siteFooter = tv({
     own: "grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-8",
     family: "grid grid-cols-2 gap-8 border-t border-border-subtle pt-8 md:grid-cols-4",
     column: "grid min-w-0 content-start gap-3",
-    title: "text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
+    title: "text-[11px] font-semibold text-fg-secondary",
     list: "grid min-w-0 gap-2",
     link:
       "inline-flex min-h-6 min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5 rounded-md text-sm [overflow-wrap:anywhere] text-fg-secondary no-underline transition-colors hover:text-fg " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:text-fg aria-[current=true]:text-fg aria-[current=true]:font-semibold",
     mark: "flex h-4 w-4 shrink-0 items-center justify-center text-fg",
-    tag: "rounded-full bg-surface-3 px-1.5 py-px text-[10px] font-semibold uppercase tracking-wider text-fg-secondary",
+    tag: "rounded-full bg-surface-3 px-1.5 py-px text-[10px] font-semibold text-fg-secondary",
     bottom: "flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-border-subtle pt-6 text-xs text-fg-secondary",
     signature:
       "inline-flex items-center gap-2 rounded-md font-medium text-fg no-underline hover:text-fg-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",

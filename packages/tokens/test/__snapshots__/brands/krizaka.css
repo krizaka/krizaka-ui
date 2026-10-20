@@ -12,8 +12,8 @@
   --kz-ring: var(--kz-accent);
   --kz-info: var(--kz-accent);
   --kz-info-text: var(--kz-accent-text);
-  --kz-brand-gradient-from: hsl(210 30% 10%);
-  --kz-brand-gradient-via: hsl(220 14% 7%);
+  --kz-brand-gradient-from: var(--kz-surface-0);
+  --kz-brand-gradient-via: var(--kz-surface-0);
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
 
@@ -23,8 +23,6 @@ html.light {
   --kz-accent-soft: hsl(208 54% 36% / 0.08);
   --kz-accent-text: hsl(208 54% 33%);
   --kz-on-accent: hsl(0 0% 100%);
-  --kz-brand-gradient-from: hsl(208 36% 93%);
-  --kz-brand-gradient-via: hsl(210 30% 97%);
 }
 
 .theme-light {
@@ -37,7 +35,7 @@ html.light {
   --kz-ring: var(--kz-accent);
   --kz-info: var(--kz-accent);
   --kz-info-text: var(--kz-accent-text);
-  --kz-brand-gradient-from: hsl(208 36% 93%);
-  --kz-brand-gradient-via: hsl(210 30% 97%);
+  --kz-brand-gradient-from: var(--kz-surface-0);
+  --kz-brand-gradient-via: var(--kz-surface-0);
   --kz-brand-gradient-to: var(--kz-surface-0);
 }

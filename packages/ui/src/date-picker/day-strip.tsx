@@ -26,7 +26,7 @@ export const dayStrip = tv({
       "motion-reduce:transition-none motion-reduce:active:scale-100 focus-visible:outline-hidden focus-visible:focus-ring " +
       "aria-checked:border-transparent aria-checked:bg-accent aria-checked:bg-fill-shade aria-checked:text-on-accent aria-checked:shadow-glow aria-checked:inset-shadow-edge-fill " +
       "disabled:cursor-not-allowed disabled:border-dashed disabled:bg-transparent disabled:bg-none disabled:text-fg-muted disabled:shadow-none",
-    weekday: "text-[11px] font-semibold uppercase tracking-wider text-fg-secondary group-aria-checked:text-on-accent group-disabled:text-fg-muted",
+    weekday: "text-[11px] font-semibold text-fg-secondary group-aria-checked:text-on-accent group-disabled:text-fg-muted",
     number: "text-lg font-semibold tabular-nums leading-none",
     // Today: the node of the marks above the number; a marked day: a dot under it.
     node: "absolute top-1.5 h-1 w-1 rotate-45 rounded-[1px] bg-accent group-aria-checked:bg-on-accent",

@@ -23,12 +23,12 @@ export const loader = tv({
       block: { box: "flex-col justify-center py-10 text-center text-sm", glyph: "h-9 w-9", mark: "h-9 w-9", text: "items-center" },
       overlay: {
         root: "absolute inset-0 z-10 flex items-center justify-center rounded-[inherit] empty:hidden",
-        box: "flex-col rounded-xl border border-border-default bg-surface-1/90 px-6 py-5 text-center text-sm shadow-lg backdrop-blur-sm",
+        box: "flex-col rounded-xl border border-border-default bg-surface-1 px-6 py-5 text-center text-sm shadow-lg",
         glyph: "h-9 w-9", mark: "h-9 w-9",
         text: "items-center",
       },
       page: {
-        root: "fixed inset-0 z-50 flex items-center justify-center bg-surface-0/80 backdrop-blur-sm empty:hidden",
+        root: "fixed inset-0 z-50 flex items-center justify-center bg-surface-0 empty:hidden",
         box: "flex-col text-center",
         glyph: "h-14 w-14", mark: "h-14 w-14",
         text: "items-center",

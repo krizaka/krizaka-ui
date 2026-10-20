@@ -461,6 +461,26 @@
       "types": "./dist/decision-list.d.ts",
       "import": "./dist/decision-list.js"
     },
+    "./specimen-tag": {
+      "types": "./dist/specimen-tag.d.ts",
+      "import": "./dist/specimen-tag.js"
+    },
+    "./bird-plate": {
+      "types": "./dist/bird-plate.d.ts",
+      "import": "./dist/bird-plate.js"
+    },
+    "./anatomy-plate": {
+      "types": "./dist/anatomy-plate.d.ts",
+      "import": "./dist/anatomy-plate.js"
+    },
+    "./page-index": {
+      "types": "./dist/page-index.d.ts",
+      "import": "./dist/page-index.js"
+    },
+    "./footnote": {
+      "types": "./dist/footnote.d.ts",
+      "import": "./dist/footnote.js"
+    },
     "./code-block": {
       "types": "./dist/code-block.d.ts",
       "import": "./dist/code-block.js"
@@ -1805,7 +1825,7 @@
     {
       "name": "./page",
       "path": "dist/page.js",
-      "limit": "1.2 kB",
+      "limit": "1.25 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1876,6 +1896,56 @@
       "name": "./decision-list",
       "path": "dist/decision-list.js",
       "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./specimen-tag",
+      "path": "dist/specimen-tag.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./anatomy-plate",
+      "path": "dist/anatomy-plate.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./page-index",
+      "path": "dist/page-index.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./footnote",
+      "path": "dist/footnote.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./bird-plate",
+      "path": "dist/bird-plate.js",
+      "limit": "5.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

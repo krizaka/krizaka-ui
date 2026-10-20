@@ -1,7 +1,8 @@
 # @krizaka/fonts
 
-**The Krizaka typefaces, self-hosted.** Three families, three jobs — **Plus Jakarta Sans** speaks (headlines, figures),
-**Inter** reads (text, interface), **JetBrains Mono** labels (code, identifiers, overlines) — as WOFF2 subsets for the web
+**The Krizaka typefaces, self-hosted.** Three families, three jobs — **Young Serif** names (headlines, one weight),
+**Atkinson Hyperlegible Next** reads (text, interface), **Courier Prime** types the notes (tags, captions, footnotes,
+code) — the Cahier identity (ADR-004) — as WOFF2 subsets for the web
 with metric-matched fallbacks (CLS 0), and static TrueType for React Native / Expo. All SIL OFL 1.1.
 
 [![npm](https://img.shields.io/npm/v/@krizaka/fonts?color=3b82f6&label=npm)](https://www.npmjs.com/package/@krizaka/fonts)
@@ -23,8 +24,8 @@ npm install @krizaka/fonts @krizaka/tokens @krizaka/tailwind
 
 ```html
 <h1 class="font-display text-display-xl">Sovereign AI, on your servers</h1>
-<p class="font-text text-body-md text-fg-secondary">Inter, 16/1.6, for everything you read.</p>
-<span class="font-mono text-overline uppercase text-fg-muted">Orazaka · v2</span>
+<p class="font-text text-body-md text-fg-secondary">Atkinson Hyperlegible Next, 16/1.5, for everything you read.</p>
+<span class="font-mono text-caption text-fg-muted">fig. 2 · Orazaka v2</span>
 ```
 
 The CSS points at the files with relative URLs: the bundler copies and fingerprints them. Only the latin files are
@@ -39,12 +40,12 @@ preloads too, load the files with `next/font/local` (its arguments must be liter
 import localFont from "next/font/local";
 
 const text = localFont({
-  src: "../node_modules/@krizaka/fonts/files/web/inter-latin-wght.woff2",
+  src: "../node_modules/@krizaka/fonts/files/web/atkinson-hyperlegible-next-latin-wght.woff2",
   weight: "400 700",
   variable: "--font-kz-text",
   display: "swap",
 });
-// :root { --kz-font-sans: var(--font-kz-text), "Inter Fallback", system-ui, sans-serif; }
+// :root { --kz-font-sans: var(--font-kz-text), "Atkinson Hyperlegible Next Fallback", system-ui, sans-serif; }
 ```
 
 `preload` (from `@krizaka/fonts`) lists the latin file of each family.
@@ -62,22 +63,22 @@ import { fontAssets } from "@krizaka/fonts/native/assets";
 import { fontFamily } from "@krizaka/fonts/native";
 import { typeScale } from "@krizaka/tokens/native";
 
-const [loaded] = useFonts(fontAssets);           // the 10 files, keyed by name ("Inter-Regular"…)
+const [loaded] = useFonts(fontAssets);           // the 6 files, keyed by name ("AtkinsonHyperlegibleNext-Regular"…)
 
 const { role, fontWeight, ...size } = typeScale.displayLg;
 <Text style={{ ...size, fontFamily: fontFamily(role, Number(fontWeight)) }}>Your earnings</Text>
-// fontFamily("display", 800) → "PlusJakartaSans-ExtraBold" — no fontWeight next to it (Android would bold it twice)
+// fontFamily("display") → "YoungSerif-Regular" — no fontWeight next to it (Android would bold it twice)
 ```
 
-Static files only (React Native takes no variable font): display 600 · 700 · 800, text 400 · 500 · 600 · 700,
-mono 400 · 500 · 600. To embed them at build time instead, list the same files in the `expo-font` config plugin.
+Static files only (React Native takes no variable font): display 400, text 400 · 600 · 700, mono 400 · 700. The
+faces before 0.3.0 (Plus Jakarta Sans, Inter, JetBrains Mono) are still in `files/` and listed in `legacyFonts`. To embed them at build time instead, list the same files in the `expo-font` config plugin.
 
 ## Entries
 
 | Entry | Gives |
 | :-- | :-- |
 | `@krizaka/fonts` | `fonts` (per role: family, stack, weights, files, licence, fallback metrics, why / use / avoid), `rules`, `preload`, `fontStack(role)`. |
-| `@krizaka/fonts/css` | The `@font-face` rules: each family × latin / latin-ext, `font-display: swap`, and `"<Family> Fallback"` (local Arial or Courier New, adjusted). |
+| `@krizaka/fonts/css` | The `@font-face` rules: each family × latin / latin-ext, `font-display: swap`, and `"<Family> Fallback"` (local Georgia, Arial or Courier New, adjusted). |
 | `@krizaka/fonts/native` | `nativeFonts`, `fontFamily(role, weight)`. |
 | `@krizaka/fonts/native/assets` | `fontAssets` for `useFonts` (React Native only: `require`s the TrueType files). |
 | `@krizaka/fonts/files/*` | The files: `files/web/<family>-<subset>-wght.woff2`, `files/native/<Family>-<Style>.ttf`. |

@@ -4,6 +4,32 @@ import { axeViolations } from "../test/axe";
 import { Facts, Page, Section, SectionHeading, Ticks } from "./index";
 
 describe("Page", () => {
+  it("lays the content on the notebook's ruling (Cahier, ADR-004): Seyès squares, lines only, and the red margin", () => {
+    const { container } = render(
+      <>
+        <Page paper="ruled" margin>a</Page>
+        <Page paper="lines">b</Page>
+        <Page>c</Page>
+      </>,
+    );
+    const [ruled, lines, plain] = [...container.children] as HTMLElement[];
+    expect(ruled.dataset.paper).toBe("ruled");
+    expect(ruled.hasAttribute("data-margin")).toBe(true);
+    expect(lines.dataset.paper).toBe("lines");
+    expect(plain.dataset.paper).toBeUndefined();
+    expect(plain.hasAttribute("data-margin")).toBe(false);
+  });
+
+  it("numbers a section in the margin, as a notebook does (§ 2), instead of an uppercase overline", () => {
+    render(<Section id="products" number="§ 2" title="Products" paper="lines" margin>x</Section>);
+    const number = screen.getByText("§ 2");
+    expect(number.className).toContain("kz-heading-number");
+    expect(number.closest(".kz-heading")).toBeTruthy();
+    const section = screen.getByRole("region", { name: "Products" });
+    expect(section.dataset.paper).toBe("lines");
+    expect(section.hasAttribute("data-margin")).toBe(true);
+  });
+
   it("frames its content, sized by data-size", () => {
     const { container } = render(<Page size="narrow" as="main">x</Page>);
     const el = container.firstElementChild as HTMLElement;

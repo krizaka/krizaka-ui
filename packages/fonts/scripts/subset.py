@@ -8,8 +8,8 @@ src/families.json (an upstream commit, an axis, a subset, a native weight), then
     uv run --with fonttools==4.66.1 --with brotli python packages/fonts/scripts/subset.py
     uv run --with fonttools==4.66.1 --with brotli python packages/fonts/scripts/subset.py --measure-fallbacks
 
-For each family of src/families.json:
-  - downloads the variable font and its OFL from google/fonts at the pinned commit (cached in .cache/);
+For each family of src/families.json (legacy ones too: their files stay published):
+  - downloads the variable font (or, for a static family, `upstream.fonts`: one file per weight) and its OFL from google/fonts at the pinned commit (cached in .cache/);
   - web: pins the axes that are not kept (Inter's opsz at 14), keeps the weight axis, and writes one WOFF2 per subset
     (latin, latin-ext), unhinted, every OpenType feature kept (kern, liga, tnum, cv01…);
   - native: one static TrueType per weight of `nativeWeights` (React Native takes no variable font), unhinted (iOS and
@@ -54,10 +54,33 @@ def fetch(url: str) -> bytes:
     return cached.read_bytes()
 
 
-def raw(family: dict, key: str) -> str:
+def raw(family: dict, key: str, path: str | None = None) -> str:
     up = family["upstream"]
-    path = up[key].replace("[", "%5B").replace("]", "%5D")
+    path = (path or up[key]).replace("[", "%5B").replace("]", "%5D")
     return f"https://raw.githubusercontent.com/google/fonts/{up['commit']}/{path}"
+
+
+def rename(static: TTFont, family: dict, weight: int, version: str) -> str:
+    """Names a static instance `<NativeName>-<Style>`: the PostScript name expo-font and the iOS/Android build register."""
+    postscript = f"{family['nativeName']}-{STYLE[weight]}"
+    ribbi = weight in (400, 700)
+    names = static["name"]
+    for record in [r for r in names.names if r.nameID in (1, 2, 3, 4, 6, 16, 17, 25)]:
+        names.removeNames(nameID=record.nameID)
+    for name_id, value in {
+        1: family["family"] if ribbi else f"{family['family']} {STYLE[weight]}",
+        2: "Bold" if weight == 700 else "Regular",
+        3: f"{version.split(';')[0].removeprefix('Version ')};KRIZAKA;{postscript}",
+        4: f"{family['family']} {STYLE[weight]}",
+        6: postscript,
+        16: family["family"],
+        17: STYLE[weight],
+    }.items():
+        names.setName(value, name_id, 3, 1, 0x409)
+    static["OS/2"].usWeightClass = weight
+    static["OS/2"].fsSelection = (static["OS/2"].fsSelection & ~0b1100001) | (0b100000 if weight == 700 else 0b1000000 if weight == 400 else 0)
+    static["head"].macStyle = 1 if weight == 700 else 0
+    return postscript
 
 
 def avg_width(font: TTFont) -> float:
@@ -121,7 +144,7 @@ def entry(path: Path, data: bytes) -> dict:
 def main() -> None:
     source = json.loads((ROOT / "src" / "families.json").read_text())
     if "--measure-fallbacks" in sys.argv:
-        for name, file in {"Arial": "Arial.ttf", "Courier New": "Courier New.ttf"}.items():
+        for name, file in {"Arial": "Arial.ttf", "Courier New": "Courier New.ttf", "Georgia": "Georgia.ttf"}.items():
             font = TTFont(f"/System/Library/Fonts/Supplemental/{file}")
             print(name, font["head"].unitsPerEm, avg_width(font))
         return
@@ -133,50 +156,50 @@ def main() -> None:
     licenses.mkdir(exist_ok=True)
 
     faces = {}
+    everything = unicodes(source["subsets"]["latin"]) + unicodes(source["subsets"]["latin-ext"])
     for family in source["families"]:
-        upstream = fetch(raw(family, "font"))
         (licenses / f"{family['nativeName']}-OFL.txt").write_bytes(fetch(raw(family, "license")))
-        variable = TTFont(BytesIO(upstream))
-        version = variable["name"].getDebugName(5)
+        statics = family["upstream"].get("fonts")
+        web, native = [], []
+        if statics:
+            # Static families (one file per weight upstream): one WOFF2 per weight and subset, the same files for native.
+            files = {int(w): fetch(raw(family, "fonts", path)) for w, path in statics.items()}
+            first = TTFont(BytesIO(files[min(files)]))
+            version = first["name"].getDebugName(5)
+            measured = first
+            for weight, data in sorted(files.items()):
+                for name, ranges in source["subsets"].items():
+                    cut_data = cut(data, unicodes(ranges), "woff2", hinting=False)
+                    web.append({"subset": name, "weight": weight, "unicodeRange": ranges, **entry(web_dir / f"{family['slug']}-{name}-{weight}.woff2", cut_data)})
+            for weight in family["nativeWeights"]:
+                static = TTFont(BytesIO(files[weight]))
+                postscript = rename(static, family, weight, version)
+                data = cut(to_bytes(static), everything, None, hinting=False)
+                native.append({"weight": weight, "name": postscript, **entry(native_dir / f"{postscript}.ttf", data)})
+        else:
+            upstream = fetch(raw(family, "font"))
+            variable = TTFont(BytesIO(upstream))
+            version = variable["name"].getDebugName(5)
 
-        # Web: the kept weight range, every other axis pinned.
-        limits = {tag: (tuple(v) if isinstance(v, list) else v) for tag, v in family["axes"].items()}
-        web_font = instancer.instantiateVariableFont(TTFont(BytesIO(upstream)), limits)
-        web_bytes = to_bytes(web_font)
-        web = []
-        for name, ranges in source["subsets"].items():
-            data = cut(web_bytes, unicodes(ranges), "woff2", hinting=False)
-            web.append({"subset": name, "unicodeRange": ranges, **entry(web_dir / f"{family['slug']}-{name}-wght.woff2", data)})
+            # Web: the kept weight range, every other axis pinned.
+            limits = {tag: (tuple(v) if isinstance(v, list) else v) for tag, v in family["axes"].items()}
+            web_font = instancer.instantiateVariableFont(TTFont(BytesIO(upstream)), limits)
+            measured = web_font
+            web_bytes = to_bytes(web_font)
+            for name, ranges in source["subsets"].items():
+                data = cut(web_bytes, unicodes(ranges), "woff2", hinting=False)
+                web.append({"subset": name, "unicodeRange": ranges, **entry(web_dir / f"{family['slug']}-{name}-wght.woff2", data)})
 
-        # Native: one static instance per weight, latin + latin-ext in one file.
-        everything = unicodes(source["subsets"]["latin"]) + unicodes(source["subsets"]["latin-ext"])
-        native = []
-        for weight in family["nativeWeights"]:
-            pinned = {tag: (weight if tag == "wght" else (v if not isinstance(v, list) else None)) for tag, v in family["axes"].items()}
-            pinned = {k: v for k, v in pinned.items() if v is not None}
-            static = instancer.instantiateVariableFont(TTFont(BytesIO(upstream)), pinned)
-            postscript = f"{family['nativeName']}-{STYLE[weight]}"
-            ribbi = weight in (400, 700)
-            names = static["name"]
-            for record in [r for r in names.names if r.nameID in (1, 2, 3, 4, 6, 16, 17, 25)]:
-                names.removeNames(nameID=record.nameID)
-            for name_id, value in {
-                1: family["family"] if ribbi else f"{family['family']} {STYLE[weight]}",
-                2: "Bold" if weight == 700 else "Regular",
-                3: f"{version.split(';')[0].removeprefix('Version ')};KRIZAKA;{postscript}",
-                4: f"{family['family']} {STYLE[weight]}",
-                6: postscript,
-                16: family["family"],
-                17: STYLE[weight],
-            }.items():
-                names.setName(value, name_id, 3, 1, 0x409)
-            static["OS/2"].usWeightClass = weight
-            static["OS/2"].fsSelection = (static["OS/2"].fsSelection & ~0b1100001) | (0b100000 if weight == 700 else 0b1000000 if weight == 400 else 0)
-            static["head"].macStyle = 1 if weight == 700 else 0
-            data = cut(to_bytes(static), everything, None, hinting=False)  # iOS and Android ignore TrueType hints
-            native.append({"weight": weight, "name": postscript, **entry(native_dir / f"{postscript}.ttf", data)})
+            # Native: one static instance per weight, latin + latin-ext in one file.
+            for weight in family["nativeWeights"]:
+                pinned = {tag: (weight if tag == "wght" else (v if not isinstance(v, list) else None)) for tag, v in family["axes"].items()}
+                pinned = {k: v for k, v in pinned.items() if v is not None}
+                static = instancer.instantiateVariableFont(TTFont(BytesIO(upstream)), pinned)
+                postscript = rename(static, family, weight, version)
+                data = cut(to_bytes(static), everything, None, hinting=False)  # iOS and Android ignore TrueType hints
+                native.append({"weight": weight, "name": postscript, **entry(native_dir / f"{postscript}.ttf", data)})
 
-        faces[family["role"]] = {"version": version, "metrics": metrics(web_font), "web": web, "native": native}
+        faces[family["slug"]] = {"version": version, "metrics": metrics(measured), "web": web, "native": native}
         print(f"{family['family']} {version}: " + ", ".join(f"{w['subset']} {w['bytes'] / 1024:.1f} kB" for w in web) + f"; native {len(native)} files")
 
     out = {"$comment": "GENERATED by scripts/subset.py from src/families.json — do not edit.", "faces": faces}

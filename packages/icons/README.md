@@ -34,12 +34,12 @@ const { theme } = useTheme();
 | `@krizaka/icons/native` | `<Name>Icon` (react-native-svg), `createNativeIcon`, `NativeIconProps`. |
 | `@krizaka/icons/glyphs` | The raw glyphs (`chat`, `tip`…) and `glyphIndex` (component, group, keywords): catalogues, search, canvas. `iconGroups` and `iconGuidelines`: the words of [ui.krizaka.com/foundations/icons](https://ui.krizaka.com/foundations/icons). |
 
-**Props** (web): `size` (24), `strokeWidth` (1.75), `title`, `nodeColor` (`currentColor`), and every SVG attribute
+**Props** (web): `size` (24), `strokeWidth` (1.5), `title`, `nodeColor` (`currentColor`), and every SVG attribute
 (`className`, `style`, `aria-*`…). Native: `size`, `color`, `strokeWidth`, `title`, `nodeColor`.
 
 ## Style — the signature
 
-- **Grid 24**, live area 2–22, **stroke 1.75**, round caps and joins; one weight across the set.
+- **Grid 24**, live area 2–22, **stroke 1.5**, square caps and mitred joins (a pen line, Cahier — ADR-004); one weight across the set.
 - **Cut corners.** Containers (cards, screens, wallet, server, calendar…) have 45° chamfers where other sets round
   them: the angle of the Krizaka hexagon, which also shapes the creator, pack, credits, settings and info glyphs.
 - **The node.** Every product icon has one filled dot — the core of the Krizaka, Orazaka and Orochia marks — at its

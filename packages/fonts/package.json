@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/fonts",
   "version": "0.2.1",
-  "description": "The Krizaka typefaces, self-hosted: Plus Jakarta Sans (display), Inter (text), JetBrains Mono (mono) — WOFF2 subsets (latin, latin-ext) with metric-matched fallbacks for the web, static TrueType for React Native / Expo, SIL OFL 1.1.",
+  "description": "The Krizaka typefaces, self-hosted: Young Serif (display), Atkinson Hyperlegible Next (text), Courier Prime (mono) — WOFF2 subsets (latin, latin-ext) with metric-matched fallbacks for the web, static TrueType for React Native / Expo, SIL OFL 1.1.",
   "keywords": [
     "krizaka",
     "fonts",
@@ -9,9 +9,9 @@
     "woff2",
     "font-face",
     "self-hosted",
-    "inter",
-    "plus-jakarta-sans",
-    "jetbrains-mono",
+    "young-serif",
+    "atkinson-hyperlegible-next",
+    "courier-prime",
     "react-native",
     "expo-font",
     "design-system"
@@ -90,16 +90,16 @@
     "access": "public"
   },
   "size-limit": [
-    { "name": "./css (fonts.css)", "path": "dist/fonts.css", "limit": "1 kB", "gzip": true },
-    { "name": ". (the data)", "path": "dist/index.js", "limit": "3.5 kB", "gzip": true },
+    { "name": "./css (fonts.css)", "path": "dist/fonts.css", "limit": "1.1 kB", "gzip": true },
+    { "name": ". (the data)", "path": "dist/index.js", "limit": "4 kB", "gzip": true },
     { "name": "./native", "path": "dist/native.js", "limit": "0.75 kB", "gzip": true },
-    { "name": "display · latin (woff2)", "path": "files/web/plus-jakarta-sans-latin-wght.woff2", "limit": "28 kB", "gzip": false, "brotli": false },
-    { "name": "display · latin-ext (woff2)", "path": "files/web/plus-jakarta-sans-latin-ext-wght.woff2", "limit": "22 kB", "gzip": false, "brotli": false },
-    { "name": "text · latin (woff2)", "path": "files/web/inter-latin-wght.woff2", "limit": "54 kB", "gzip": false, "brotli": false },
-    { "name": "text · latin-ext (woff2)", "path": "files/web/inter-latin-ext-wght.woff2", "limit": "64 kB", "gzip": false, "brotli": false },
-    { "name": "mono · latin (woff2)", "path": "files/web/jetbrains-mono-latin-wght.woff2", "limit": "33 kB", "gzip": false, "brotli": false },
-    { "name": "mono · latin-ext (woff2)", "path": "files/web/jetbrains-mono-latin-ext-wght.woff2", "limit": "12 kB", "gzip": false, "brotli": false },
-    { "name": "native · one weight (ttf, largest: Inter)", "path": "files/native/Inter-Bold.ttf", "limit": "180 kB", "gzip": false, "brotli": false },
-    { "name": "native · every file (ttf)", "path": "files/native/*.ttf", "limit": "1.15 MB", "gzip": false, "brotli": false }
+    { "name": "display · latin (woff2)", "path": "files/web/young-serif-latin-400.woff2", "limit": "20 kB", "gzip": false, "brotli": false },
+    { "name": "display · latin-ext (woff2)", "path": "files/web/young-serif-latin-ext-400.woff2", "limit": "12 kB", "gzip": false, "brotli": false },
+    { "name": "text · latin (woff2)", "path": "files/web/atkinson-hyperlegible-next-latin-wght.woff2", "limit": "22 kB", "gzip": false, "brotli": false },
+    { "name": "text · latin-ext (woff2)", "path": "files/web/atkinson-hyperlegible-next-latin-ext-wght.woff2", "limit": "13 kB", "gzip": false, "brotli": false },
+    { "name": "mono · latin, one weight (woff2)", "path": "files/web/courier-prime-latin-700.woff2", "limit": "13 kB", "gzip": false, "brotli": false },
+    { "name": "mono · latin-ext, one weight (woff2)", "path": "files/web/courier-prime-latin-ext-700.woff2", "limit": "8 kB", "gzip": false, "brotli": false },
+    { "name": "native · one weight (ttf, largest: Inter, legacy)", "path": "files/native/Inter-Bold.ttf", "limit": "180 kB", "gzip": false, "brotli": false },
+    { "name": "native · every file (ttf, with the legacy faces)", "path": "files/native/*.ttf", "limit": "1.6 MB", "gzip": false, "brotli": false }
   ]
 }

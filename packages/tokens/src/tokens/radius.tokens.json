@@ -3,32 +3,33 @@
     "$type": "dimension",
     "$description": "Rayons",
     "xs": {
-      "$value": "6px",
+      "$value": "2px",
       "$description": "Case à cocher, touche, badge coupé"
     },
     "sm": {
-      "$value": "8px",
+      "$value": "2px",
       "$description": "Champ, puce"
     },
     "md": {
-      "$value": "12px",
+      "$value": "2px",
       "$description": "Bouton, menu"
     },
     "lg": {
-      "$value": "16px",
+      "$value": "0px",
       "$description": "Carte"
     },
     "xl": {
-      "$value": "20px",
+      "$value": "0px",
       "$description": "Dialogue, feuille"
     },
     "2xl": {
-      "$value": "28px",
+      "$value": "0px",
       "$description": "Feuille, grande surface flottante"
     },
     "full": {
       "$value": "9999px",
       "$description": "Pastille, avatar"
     }
-  }
+  },
+  "$description": "Rayons — Cahier (ADR-004) : le papier est droit ; seule la pastille reste ronde"
 }

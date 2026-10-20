@@ -7,6 +7,16 @@ import { SectionBackdrop, type SectionBackdropProps } from "../section-backdrop/
 
 export type PageSize = "narrow" | "default" | "wide" | "full";
 
+/** The paper under a page or a section (Cahier, ADR-004): `ruled` (Seyès squares), `lines` (lines only), or plain. */
+export type PagePaper = "ruled" | "lines";
+
+type PaperProps = {
+  /** The notebook's ruling under the content: `ruled` (Seyès: 32 px squares, three fine lines), `lines` (lines only, a page to read). */
+  paper?: PagePaper;
+  /** The red margin line on the left, where section numbers and notes hang (`§ 2`, `fig. 1`). */
+  margin?: boolean;
+};
+
 export type PageProps = React.HTMLAttributes<HTMLElement> & {
   /**
    * The width of the content: `default` (72rem, `--kz-page-max`), `narrow` (48rem, a reading column), `wide`
@@ -16,18 +26,28 @@ export type PageProps = React.HTMLAttributes<HTMLElement> & {
   size?: PageSize;
   /** The element: `div` (default), `main`, `header`, `footer`, `section` or `article`. */
   as?: "div" | "main" | "header" | "footer" | "section" | "article";
-};
+} & PaperProps;
 
 /** The page frame: centred, at most `--kz-page-max` wide, with the gutters of `--kz-page-gutter` (16 → 32 px). */
-export function Page({ size = "default", as: Tag = "div", className, ...props }: PageProps) {
-  return <Tag data-size={size === "default" ? undefined : size} className={cn("kz-frame", className)} {...props} />;
+export function Page({ size = "default", as: Tag = "div", paper, margin, className, ...props }: PageProps) {
+  return (
+    <Tag
+      data-size={size === "default" ? undefined : size}
+      data-paper={paper}
+      data-margin={margin ? "" : undefined}
+      className={cn("kz-frame", className)}
+      {...props}
+    />
+  );
 }
 
 export type SectionHeadingProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {
   /** The id of the title: the section's anchor and its accessible name. */
   id?: string;
-  /** A short mono line above the title (the section's subject). */
+  /** A short note above the title (the section's subject), in the note face, lower case — never an uppercase overline. */
   eyebrow?: React.ReactNode;
+  /** The section's number, hung in the margin as a notebook numbers its pages (`§ 2`). */
+  number?: React.ReactNode;
   /** The title. */
   title: React.ReactNode;
   /** One or two sentences under the title. */
@@ -54,7 +74,7 @@ export type SectionHeadingProps = Omit<React.HTMLAttributes<HTMLDivElement>, "ti
 };
 
 /** The head of a section: eyebrow (mono, the accent), title, lead — and its actions on the right. */
-export function SectionHeading({ id, eyebrow, title, lead, actions, level = 2, size = "md", align = "start", reveal, className, ...props }: SectionHeadingProps) {
+export function SectionHeading({ id, eyebrow, number, title, lead, actions, level = 2, size = "md", align = "start", reveal, className, ...props }: SectionHeadingProps) {
   const H = level === 2 ? "h2" : "h3";
   return (
     <div
@@ -65,6 +85,7 @@ export function SectionHeading({ id, eyebrow, title, lead, actions, level = 2, s
       data-reveal={reveal ? "" : undefined}
       {...props}
     >
+      {number && <span className="kz-heading-number">{number}</span>}
       {eyebrow && <p className="kz-eyebrow">{eyebrow}</p>}
       <H id={id} className="kz-heading-title">
         {title}
@@ -80,6 +101,8 @@ export type SectionProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & {
   id?: string;
   /** The heading's eyebrow. */
   eyebrow?: React.ReactNode;
+  /** The section's number in the margin (`§ 2`). */
+  number?: React.ReactNode;
   /** The section's title: an `h2` (a `SectionHeading`), which names the section for assistive technology. */
   title?: React.ReactNode;
   /** The heading's lead. */
@@ -112,7 +135,7 @@ export type SectionProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & {
   size?: PageSize;
   /** The brand's colour transition behind the section (SectionBackdrop): `true`, or its props (`direction`, `grid`…). */
   backdrop?: boolean | Omit<SectionBackdropProps, "as" | "children">;
-};
+} & PaperProps;
 
 /**
  * A section of a page: full-bleed (its backdrop reaches the edges), its content in the page frame, its heading on top.
@@ -121,6 +144,7 @@ export type SectionProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & {
 export function Section({
   id,
   eyebrow,
+  number,
   title,
   lead,
   actions,
@@ -131,13 +155,15 @@ export function Section({
   spacing = "md",
   size,
   backdrop,
+  paper,
+  margin,
   className,
   children,
   ...props
 }: SectionProps) {
   const body = (
-    <Page size={size}>
-      {title && <SectionHeading id={id} eyebrow={eyebrow} title={title} lead={lead} actions={actions} size={headingSize} align={headingAlign} reveal={reveal} />}
+    <Page size={size} data-margin={margin ? "" : undefined}>
+      {title && <SectionHeading id={id} eyebrow={eyebrow} number={number} title={title} lead={lead} actions={actions} size={headingSize} align={headingAlign} reveal={reveal} />}
       {children}
     </Page>
   );
@@ -145,6 +171,8 @@ export function Section({
     "aria-labelledby": title && id ? id : undefined,
     "data-divider": divider ? "" : undefined,
     "data-spacing": spacing === "md" ? undefined : spacing,
+    "data-paper": paper,
+    "data-margin": margin ? "" : undefined,
     ...props,
   };
   if (backdrop) {

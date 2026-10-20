@@ -74,6 +74,11 @@ export default defineConfig([
       "decision-list": "src/decision-list/index.ts",
       "action-bar": "src/action-bar/index.ts",
       "cta-panel": "src/cta-panel/index.ts",
+      // The Cahier's signature blocks (ADR-004): the specimen tag, the anatomy plate, the index, the small print.
+      "specimen-tag": "src/specimen-tag/index.ts",
+      "anatomy-plate": "src/anatomy-plate/index.ts",
+      "page-index": "src/page-index/index.ts",
+      footnote: "src/footnote/index.ts",
       // The recipes: classes of the tokens, read by tv() on the web and by the phone's components (no React).
       recipes: "src/recipes/index.ts",
     },
@@ -124,6 +129,8 @@ export default defineConfig([
       "card-grid": "src/card-grid/index.ts",
       "pointer-light": "src/pointer-light/index.ts",
       "mascot-quote": "src/mascot-quote/index.ts",
+      // The bird plate: each bird has an id per instance (Mascot).
+      "bird-plate": "src/bird-plate/index.ts",
       "code-block": "src/code-block/index.ts",
       toc: "src/toc/index.ts",
       // The application shell: its collapse and its drawer (Radix Dialog).

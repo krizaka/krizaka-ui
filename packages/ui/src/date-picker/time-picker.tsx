@@ -18,7 +18,7 @@ export const timePicker = tv({
       "aria-checked:border-transparent aria-checked:bg-accent aria-checked:bg-fill-shade aria-checked:text-on-accent aria-checked:shadow-glow aria-checked:inset-shadow-edge-fill " +
       "disabled:cursor-not-allowed disabled:border-dashed disabled:bg-transparent disabled:bg-none disabled:font-normal disabled:text-fg-muted disabled:line-through disabled:shadow-none",
     group: "flex flex-col gap-2",
-    heading: "text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
+    heading: "text-[11px] font-semibold text-fg-secondary",
   },
 });
 

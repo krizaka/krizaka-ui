@@ -6,7 +6,7 @@ import { tv } from "tailwind-variants";
 
 export const appHeader = tv({
   slots: {
-    root: "sticky top-0 z-30 flex h-14 w-full shrink-0 items-center gap-3 border-b border-border-subtle bg-surface-1/90 px-4 backdrop-blur-xl md:bg-surface-1 md:pl-3 md:pr-5 md:backdrop-blur-none",
+    root: "sticky top-0 z-30 flex h-14 w-full shrink-0 items-center gap-3 border-b border-border-subtle bg-surface-1 px-4 md:bg-surface-1 md:pl-3 md:pr-5",
     // The rail's mark is 56 px tall and so is this bar: the word shares the mark's line, right after the rail.
     brand: "flex min-w-0 items-center gap-2 font-display text-sm font-bold tracking-tight text-fg no-underline",
     mark: "inline-flex shrink-0 md:hidden",

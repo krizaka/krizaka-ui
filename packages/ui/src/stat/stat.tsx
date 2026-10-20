@@ -5,7 +5,7 @@ import { tv } from "tailwind-variants";
 export const stat = tv({
   slots: {
     root: "flex min-w-0 flex-col gap-1",
-    label: "text-xs font-semibold uppercase tracking-wider text-fg-secondary",
+    label: "text-xs font-semibold text-fg-secondary",
     value: "font-display text-2xl font-black tabular-nums text-fg",
     meta: "flex flex-wrap items-center gap-x-2 gap-y-1 text-xs",
     // The status tokens are too light for small text on a light surface: the words stay a text role, the arrow carries

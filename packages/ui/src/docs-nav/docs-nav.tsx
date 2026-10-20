@@ -34,7 +34,7 @@ export function DocsNav({ label, groups, current, linkAs, className, ...props }:
         const open = g.items.some((i) => i.href === current) || !current;
         return (
           <details key={g.id} open={open} className="group py-1">
-            <summary className="flex cursor-pointer list-none items-center justify-between rounded-md px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-fg-muted marker:content-none hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring [&::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between rounded-md px-3 py-1.5 text-xs font-semibold text-fg-muted marker:content-none hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring [&::-webkit-details-marker]:hidden">
               {g.title}
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" className="h-3.5 w-3.5 fill-none stroke-current stroke-2 transition-transform group-open:rotate-180 motion-reduce:transition-none">
                 <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />

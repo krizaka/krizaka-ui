@@ -10,7 +10,7 @@ export const activityFeed = tv({
   slots: {
     root: "flex flex-col gap-5",
     group: "flex flex-col gap-1",
-    heading: "sticky top-0 z-10 bg-surface-0/90 py-1 text-xs font-semibold uppercase tracking-wider text-fg-secondary backdrop-blur-sm",
+    heading: "sticky top-0 z-10 bg-surface-0 py-1 text-xs font-semibold text-fg-secondary",
     ol: "m-0 flex list-none flex-col p-0",
     item: "relative flex gap-3 py-2.5",
     marker: "relative mt-1 flex h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--kz-af-tone)] ring-4 ring-surface-0",

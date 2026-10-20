@@ -5,7 +5,7 @@ import type * as React from "react";
 import { tv } from "tailwind-variants";
 
 export const stickyAction = tv({
-  base: "sticky bottom-0 z-30 border-t border-border-subtle bg-surface-1/90 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl md:hidden",
+  base: "sticky bottom-0 z-30 border-t border-border-subtle bg-surface-1 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 md:hidden",
 });
 
 export type StickyActionProps = React.ComponentProps<"div"> & {

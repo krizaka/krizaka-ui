@@ -19,13 +19,13 @@ export const serviceCard = tv({
     titles: "flex min-w-0 flex-1 flex-col gap-1",
     name: "m-0 font-display text-lg font-bold leading-tight tracking-tight text-fg",
     facts: "m-0 flex list-none flex-wrap gap-x-2 gap-y-0.5 p-0 text-xs text-fg-secondary",
-    tag: "shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-on-accent",
+    tag: "shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10px] font-extrabold text-on-accent",
     description: "m-0 text-sm leading-relaxed text-fg-secondary",
     included: "m-0 flex list-none flex-col gap-1.5 p-0 text-sm text-fg-secondary",
     includedItem: "flex items-start gap-2 [&>svg]:mt-0.5 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:shrink-0 [&>svg]:text-fg-accent",
     foot: "mt-auto flex items-end justify-between gap-3 border-t border-border-subtle pt-3",
     priceBlock: "flex flex-col leading-none",
-    from: "mb-1 text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
+    from: "mb-1 text-[11px] font-semibold text-fg-secondary",
     price: "font-display text-2xl font-black tabular-nums text-fg",
     action:
       "inline-flex min-h-9 items-center gap-1 rounded-full text-sm font-bold text-fg-accent no-underline " +

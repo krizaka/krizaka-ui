@@ -2,124 +2,382 @@
   "font": {
     "$type": "fontFamily",
     "$description": "Typographie — les trois familles de @krizaka/fonts, chacune suivie de son repli aux métriques ajustées",
-    "sans": { "$value": ["Inter", "Inter Fallback", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"], "$description": "Texte : interface et lecture (Inter)" },
-    "text": { "$value": "{font.sans}", "$description": "Alias de sans : le rôle texte" },
-    "display": { "$value": ["Plus Jakarta Sans", "Plus Jakarta Sans Fallback", "Inter", "system-ui", "sans-serif"], "$description": "Affichage : titres, chiffres (Plus Jakarta Sans) ; surchargé par le thème produit" },
-    "mono": { "$value": ["JetBrains Mono", "JetBrains Mono Fallback", "ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"], "$description": "Code, identifiants, surtitres (JetBrains Mono)" }
+    "sans": {
+      "$value": [
+        "Atkinson Hyperlegible Next",
+        "Atkinson Hyperlegible Next Fallback",
+        "system-ui",
+        "-apple-system",
+        "Segoe UI",
+        "Roboto",
+        "sans-serif"
+      ],
+      "$description": "Texte : interface et lecture (Atkinson Hyperlegible Next)"
+    },
+    "text": {
+      "$value": "{font.sans}",
+      "$description": "Alias de sans : le rôle texte"
+    },
+    "display": {
+      "$value": [
+        "Young Serif",
+        "Young Serif Fallback",
+        "Georgia",
+        "Times New Roman",
+        "serif"
+      ],
+      "$description": "Affichage : titres, noms, chiffres (Young Serif, une seule graisse) ; surchargé par le thème produit"
+    },
+    "mono": {
+      "$value": [
+        "Courier Prime",
+        "Courier Prime Fallback",
+        "Courier New",
+        "ui-monospace",
+        "Menlo",
+        "Consolas",
+        "monospace"
+      ],
+      "$description": "La machine à écrire : étiquettes, légendes, notes, code (Courier Prime)"
+    }
   },
   "type": {
     "$description": "Échelle typographique — taille, interlignage, graisse, approche ; la famille est celle du rôle. Les descriptions des étapes sont en anglais : ui.krizaka.com/foundations/typography les affiche",
     "display-2xl": {
       "$description": "The hero of a home page",
-      "$extensions": { "com.krizaka": { "role": "display" } },
-      "size": { "$type": "dimension", "$value": "72px" },
-      "line-height": { "$type": "number", "$value": 1.02 },
-      "weight": { "$type": "fontWeight", "$value": 800 },
-      "tracking": { "$type": "dimension", "$value": "-0.035em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "display"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "72px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.11
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "-0.01em"
+      }
     },
     "display-xl": {
       "$description": "The hero of a page",
-      "$extensions": { "com.krizaka": { "role": "display" } },
-      "size": { "$type": "dimension", "$value": "56px" },
-      "line-height": { "$type": "number", "$value": 1.05 },
-      "weight": { "$type": "fontWeight", "$value": 800 },
-      "tracking": { "$type": "dimension", "$value": "-0.03em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "display"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "56px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.143
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "-0.01em"
+      }
     },
     "display-lg": {
       "$description": "The title of a page",
-      "$extensions": { "com.krizaka": { "role": "display" } },
-      "size": { "$type": "dimension", "$value": "44px" },
-      "line-height": { "$type": "number", "$value": 1.1 },
-      "weight": { "$type": "fontWeight", "$value": 700 },
-      "tracking": { "$type": "dimension", "$value": "-0.025em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "display"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "44px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.09
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "-0.01em"
+      }
     },
     "display-md": {
       "$description": "The title of a section",
-      "$extensions": { "com.krizaka": { "role": "display" } },
-      "size": { "$type": "dimension", "$value": "34px" },
-      "line-height": { "$type": "number", "$value": 1.15 },
-      "weight": { "$type": "fontWeight", "$value": 700 },
-      "tracking": { "$type": "dimension", "$value": "-0.02em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "display"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "34px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.176
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "-0.01em"
+      }
     },
     "display-sm": {
       "$description": "A sub-section, a big figure",
-      "$extensions": { "com.krizaka": { "role": "display" } },
-      "size": { "$type": "dimension", "$value": "26px" },
-      "line-height": { "$type": "number", "$value": 1.2 },
-      "weight": { "$type": "fontWeight", "$value": 700 },
-      "tracking": { "$type": "dimension", "$value": "-0.015em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "display"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "26px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.23
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "0em"
+      }
     },
     "title-lg": {
       "$description": "The title of a card or a dialog",
-      "$extensions": { "com.krizaka": { "role": "display" } },
-      "size": { "$type": "dimension", "$value": "20px" },
-      "line-height": { "$type": "number", "$value": 1.35 },
-      "weight": { "$type": "fontWeight", "$value": 700 },
-      "tracking": { "$type": "dimension", "$value": "-0.01em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "display"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "20px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.2
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "0em"
+      }
     },
     "title-md": {
       "$description": "The title of a list or a panel",
-      "$extensions": { "com.krizaka": { "role": "text" } },
-      "size": { "$type": "dimension", "$value": "17px" },
-      "line-height": { "$type": "number", "$value": 1.4 },
-      "weight": { "$type": "fontWeight", "$value": 600 },
-      "tracking": { "$type": "dimension", "$value": "-0.012em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "text"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "17px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.4
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 600
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "-0.012em"
+      }
     },
     "body-lg": {
       "$description": "The lead, a paragraph that stands out",
-      "$extensions": { "com.krizaka": { "role": "text" } },
-      "size": { "$type": "dimension", "$value": "18px" },
-      "line-height": { "$type": "number", "$value": 1.6 },
-      "weight": { "$type": "fontWeight", "$value": 400 },
-      "tracking": { "$type": "dimension", "$value": "-0.014em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "text"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "18px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.6
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "-0.014em"
+      }
     },
     "body-md": {
       "$description": "Running text",
-      "$extensions": { "com.krizaka": { "role": "text" } },
-      "size": { "$type": "dimension", "$value": "16px" },
-      "line-height": { "$type": "number", "$value": 1.6 },
-      "weight": { "$type": "fontWeight", "$value": 400 },
-      "tracking": { "$type": "dimension", "$value": "-0.011em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "text"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.5
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "-0.011em"
+      }
     },
     "body-sm": {
       "$description": "Dense interface, secondary text",
-      "$extensions": { "com.krizaka": { "role": "text" } },
-      "size": { "$type": "dimension", "$value": "14px" },
-      "line-height": { "$type": "number", "$value": 1.5 },
-      "weight": { "$type": "fontWeight", "$value": 400 },
-      "tracking": { "$type": "dimension", "$value": "-0.006em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "text"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "14px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.43
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "-0.006em"
+      }
     },
     "caption": {
       "$description": "Captions, help, metadata",
-      "$extensions": { "com.krizaka": { "role": "text" } },
-      "size": { "$type": "dimension", "$value": "12px" },
-      "line-height": { "$type": "number", "$value": 1.4 },
-      "weight": { "$type": "fontWeight", "$value": 500 },
-      "tracking": { "$type": "dimension", "$value": "0em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "text"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.4
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 500
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "0em"
+      }
     },
     "overline": {
-      "$description": "The overline of a section, uppercase",
-      "$extensions": { "com.krizaka": { "role": "mono" } },
-      "size": { "$type": "dimension", "$value": "11px" },
-      "line-height": { "$type": "number", "$value": 1.3 },
-      "weight": { "$type": "fontWeight", "$value": 600 },
-      "tracking": { "$type": "dimension", "$value": "0.12em" }
+      "$description": "A note label in the note face, lower case: the margin's « § 2 », a tag's field (Cahier: no more uppercase overline)",
+      "$extensions": {
+        "com.krizaka": {
+          "role": "mono"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "11px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.45
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "0em"
+      }
     },
     "mono-md": {
       "$description": "Code blocks",
-      "$extensions": { "com.krizaka": { "role": "mono" } },
-      "size": { "$type": "dimension", "$value": "14px" },
-      "line-height": { "$type": "number", "$value": 1.6 },
-      "weight": { "$type": "fontWeight", "$value": 400 },
-      "tracking": { "$type": "dimension", "$value": "0em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "mono"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "14px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.6
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "0em"
+      }
     },
     "mono-sm": {
       "$description": "Identifiers, endpoints, versions",
-      "$extensions": { "com.krizaka": { "role": "mono" } },
-      "size": { "$type": "dimension", "$value": "12px" },
-      "line-height": { "$type": "number", "$value": 1.5 },
-      "weight": { "$type": "fontWeight", "$value": 400 },
-      "tracking": { "$type": "dimension", "$value": "0em" }
+      "$extensions": {
+        "com.krizaka": {
+          "role": "mono"
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.5
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$value": "0em"
+      }
     }
   }
 }

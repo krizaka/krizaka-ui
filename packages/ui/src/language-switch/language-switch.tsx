@@ -10,12 +10,12 @@ export const languageSwitch = tv({
   slots: {
     root: "relative inline-flex",
     trigger:
-      "group/language inline-flex h-9 shrink-0 select-none items-center gap-1.5 rounded-full px-2.5 font-mono text-xs font-semibold uppercase tracking-wide text-fg-secondary transition-colors " +
+      "group/language inline-flex h-9 shrink-0 select-none items-center gap-1.5 rounded-full px-2.5 font-mono text-xs font-semibold text-fg-secondary transition-colors " +
       "hover:bg-surface-3 hover:text-fg aria-expanded:bg-surface-3 aria-expanded:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     glyph: "h-4 w-4 shrink-0",
     panel:
       "kz-pop absolute right-0 top-full z-50 mt-2 grid min-w-44 max-w-[calc(100vw-2rem)] gap-0.5 rounded-xl border border-border-default bg-surface-1 p-1.5 shadow-lg",
-    heading: "px-2.5 pb-1 pt-1.5 text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
+    heading: "px-2.5 pb-1 pt-1.5 text-[11px] font-semibold text-fg-secondary",
     item:
       "flex min-h-9 items-center justify-between gap-6 rounded-lg px-2.5 py-2 text-sm font-medium text-fg no-underline outline-hidden transition-colors " +
       "hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:ring-2 focus-visible:ring-ring aria-[current=true]:bg-accent-soft",

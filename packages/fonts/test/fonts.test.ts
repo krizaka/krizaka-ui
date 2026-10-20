@@ -18,7 +18,19 @@ const blocks = [...css.matchAll(/@font-face \{([^}]+)\}/g)].map(
 describe("the families", () => {
   it("are one display, one text and one mono face, in that order", () => {
     expect(families.map((f) => f.role)).toEqual(["display", "text", "mono"]);
-    expect(families.map((f) => f.family)).toEqual(["Plus Jakarta Sans", "Inter", "JetBrains Mono"]);
+    expect(families.map((f) => f.family)).toEqual(["Young Serif", "Atkinson Hyperlegible Next", "Courier Prime"]);
+  });
+
+  it("keep the faces of the previous identity as legacy files, never as a role (#417)", () => {
+    const legacy = source.families.filter((f: { legacy?: boolean }) => f.legacy).map((f: { family: string }) => f.family);
+    expect(legacy).toEqual(["Plus Jakarta Sans", "Inter", "JetBrains Mono"]);
+    expect(css).not.toMatch(/Inter|Plus Jakarta Sans|JetBrains Mono/);
+  });
+
+  it("the display face has one weight and is never bold", () => {
+    const display = families.find((f) => f.role === "display")!;
+    expect(display.weights).toEqual({ min: 400, max: 400 });
+    expect(display.static).toBe(true);
   });
 
   it("each fills one token of @krizaka/tokens", () => {
@@ -58,9 +70,11 @@ describe("the files", () => {
     }
   });
 
-  it("web: a WOFF2 per family and subset (latin, latin-ext)", () => {
+  it("web: a WOFF2 per family, subset (latin, latin-ext) and, for a static family, weight", () => {
     for (const f of families) {
-      expect(f.web.map((w) => w.subset)).toEqual(["latin", "latin-ext"]);
+      const perWeight = f.static ? new Set(f.web.map((w) => w.weight)).size : 1;
+      expect(f.web).toHaveLength(2 * perWeight);
+      expect([...new Set(f.web.map((w) => w.subset))]).toEqual(["latin", "latin-ext"]);
       for (const w of f.web) expect(readFileSync(join(root, w.path)).subarray(0, 4).toString("latin1")).toBe("wOF2");
     }
   });
@@ -86,10 +100,10 @@ describe("fonts.css", () => {
   it("declares every family once per subset, swap, with its unicode-range and weight range", () => {
     for (const f of families) {
       const faces = blocks.filter((b) => b.get("font-family")?.replaceAll('"', "") === f.family);
-      expect(faces).toHaveLength(2);
+      expect(faces).toHaveLength(f.web.length);
       for (const [i, b] of faces.entries()) {
         expect(b.get("font-display")).toBe("swap");
-        expect(b.get("font-weight")).toBe(`${f.weights.min} ${f.weights.max}`);
+        expect(b.get("font-weight")).toBe(String(f.web[i].weight ?? `${f.weights.min} ${f.weights.max}`));
         expect(b.get("unicode-range")).toBe(f.web[i].unicodeRange);
         const url = /url\("\.\.\/([^"]+)"\) format\("woff2"\)/.exec(b.get("src") ?? "")?.[1];
         expect(url).toBe(f.web[i].path);
@@ -114,8 +128,7 @@ describe("fonts.css", () => {
 
 describe("fallbackMetrics", () => {
   it("matches next/font's Inter-on-Arial adjustment within half a percent", () => {
-    const inter = families.find((f) => f.family === "Inter")!;
-    const m = fallbackMetrics(inter.metrics, source.fallbacks.Arial);
+    const m = fallbackMetrics(faces.inter.metrics, source.fallbacks.Arial);
     // next/font (adjustFontFallback) for Inter: size-adjust 107.12%, ascent 90.44%, descent 22.52%.
     expect(Math.abs(parseFloat(m.sizeAdjust) - 107.12)).toBeLessThan(0.5);
     expect(Math.abs(parseFloat(m.ascentOverride) - 90.44)).toBeLessThan(0.5);
@@ -133,7 +146,7 @@ describe("the licences", () => {
     for (const f of families) {
       const text = readFileSync(join(root, f.license.file), "utf8");
       expect(text).toContain("SIL OPEN FONT LICENSE Version 1.1");
-      expect(text).toMatch(/^Copyright \d{4} The .+ Project Authors/);
+      expect(text).toMatch(/^Copyright \d{4}(-\d{4})? The .+ Project Authors/);
       expect(f.license.spdx).toBe("OFL-1.1");
     }
   });
@@ -155,24 +168,28 @@ describe("the entries", () => {
     const mod = await import(`data:text/javascript,${encodeURIComponent(files["index.js"])}`);
     expect(mod.fonts.map((f: { role: string }) => f.role)).toEqual([...ROLES]);
     expect(mod.preload).toHaveLength(3);
-    for (const p of mod.preload) expect(p).toMatch(/-latin-wght\.woff2$/);
-    expect(mod.fontStack("text")).toMatch(/^Inter, "Inter Fallback", /);
+    for (const p of mod.preload) expect(p).toMatch(/-latin-(wght|400)\.woff2$/);
+    expect(mod.fontStack("text")).toMatch(/^"Atkinson Hyperlegible Next", "Atkinson Hyperlegible Next Fallback", /);
+    expect(mod.fontStack("display")).toMatch(/^"Young Serif", "Young Serif Fallback", Georgia/);
+    expect(mod.legacyFonts.map((f: { family: string }) => f.family)).toEqual(["Plus Jakarta Sans", "Inter", "JetBrains Mono"]);
+    for (const f of mod.legacyFonts) for (const w of f.web) expect(existsSync(join(root, w.path)), w.path).toBe(true);
     expect(() => mod.fontStack("serif")).toThrow();
   });
 
   it("native: the nearest shipped weight of a role", async () => {
     const mod = await import(`data:text/javascript,${encodeURIComponent(files["native.js"])}`);
-    expect(mod.fontFamily("display", 800)).toBe("PlusJakartaSans-ExtraBold");
-    expect(mod.fontFamily("display")).toBe("PlusJakartaSans-SemiBold");
-    expect(mod.fontFamily("text")).toBe("Inter-Regular");
-    expect(mod.fontFamily("text", 650)).toBe("Inter-Bold");
-    expect(mod.fontFamily("mono", 500)).toBe("JetBrainsMono-Medium");
+    expect(mod.fontFamily("display", 800)).toBe("YoungSerif-Regular");
+    expect(mod.fontFamily("display")).toBe("YoungSerif-Regular");
+    expect(mod.fontFamily("text")).toBe("AtkinsonHyperlegibleNext-Regular");
+    expect(mod.fontFamily("text", 650)).toBe("AtkinsonHyperlegibleNext-Bold");
+    expect(mod.fontFamily("mono", 500)).toBe("CourierPrime-Regular");
+    expect(mod.fontFamily("mono", 700)).toBe("CourierPrime-Bold");
     expect(() => mod.fontFamily("serif")).toThrow();
   });
 
   it("native/assets: one require per native file, keyed by its name", () => {
     const js = files["native-assets.js"];
     for (const f of families) for (const n of f.native) expect(js).toContain(`"${n.name}": require("../${n.path}"),`);
-    expect(files["native.d.ts"]).toContain('"Inter-Regular"');
+    expect(files["native.d.ts"]).toContain('"AtkinsonHyperlegibleNext-Regular"');
   });
 });

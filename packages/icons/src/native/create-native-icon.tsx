@@ -24,7 +24,7 @@ export function createNativeIcon(displayName: string, glyph: Glyph) {
     return (
       <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" {...a11y}>
         {glyph.p?.map((d) => (
-          <Path key={d} d={d} stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <Path key={d} d={d} stroke={color} strokeWidth={strokeWidth} strokeLinecap="square" strokeLinejoin="miter" fill="none" />
         ))}
         {glyph.c?.map(([cx, cy, r]) => (
           <Circle key={`${cx},${cy},${r}`} cx={cx} cy={cy} r={r} stroke={color} strokeWidth={strokeWidth} fill="none" />

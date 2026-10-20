@@ -191,7 +191,7 @@ export function MeterValue({ value, caption }: MeterValueProps) {
   return (
     <>
       <span className="font-display text-lg font-semibold text-fg tabular-nums">{value}</span>
-      {caption && <span className="text-[10px] uppercase tracking-wide text-fg-secondary">{caption}</span>}
+      {caption && <span className="text-[10px] text-fg-secondary">{caption}</span>}
     </>
   );
 }

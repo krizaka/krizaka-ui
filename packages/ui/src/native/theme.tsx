@@ -56,9 +56,16 @@ export type Theme = {
   readonly edgeOnFill: string;
   /** …what you fill (a field, a track) is a well. */
   readonly edgeWell: string;
-  /** Frosted glass: what floats over the screen (a toast, a sheet). */
+  /** What floats over the screen (a toast, a sheet): an opaque sheet since Cahier (ADR-004). */
   readonly glassBg: string;
   readonly glassBorder: string;
+  /** The notebook (Cahier, ADR-004): the ruling, the red margin, the specimen tag. */
+  readonly paperRuleMajor: string;
+  readonly paperRuleMinor: string;
+  readonly paperRuleMargin: string;
+  readonly paperTag: string;
+  readonly paperTagEdge: string;
+  readonly paperTagInk: string;
 };
 
 /** Corner radii, in points. */

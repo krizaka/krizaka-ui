@@ -21,13 +21,13 @@ export const command = tv({
     loading: "px-3 py-6 text-center text-sm text-fg-secondary",
     group:
       "[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:pb-1.5 [&_[cmdk-group-heading]]:pt-3 [&_[cmdk-group-heading]]:text-xs " +
-      "[&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider [&_[cmdk-group-heading]]:text-fg-secondary",
+      "[&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:[&_[cmdk-group-heading]]:[&_[cmdk-group-heading]]:text-fg-secondary",
     item:
       "relative flex cursor-pointer select-none items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-fg outline-hidden transition-colors " +
       "before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:rounded-full before:bg-transparent " +
       "data-[selected=true]:bg-surface-2 data-[selected=true]:before:bg-accent data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-40",
     separator: "-mx-2 my-1 h-px bg-border-subtle",
-    shortcut: "ml-auto text-xs tracking-widest text-fg-secondary",
+    shortcut: "ml-auto text-xs text-fg-secondary",
   },
 });
 const s = command();

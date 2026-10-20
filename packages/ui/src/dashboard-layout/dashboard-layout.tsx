@@ -9,7 +9,7 @@ export const dashboardLayout = tv({
     root: "flex w-full flex-col gap-6",
     head: "flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between",
     text: "flex min-w-0 flex-col gap-1",
-    eyebrow: "font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-fg-accent",
+    eyebrow: "font-mono text-[11px] font-semibold text-fg-accent",
     title: "font-display text-2xl font-extrabold tracking-tight text-fg sm:text-[1.75rem]",
     description: "max-w-2xl text-sm text-fg-secondary",
     actions: "flex shrink-0 flex-wrap items-center gap-2",

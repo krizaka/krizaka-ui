@@ -12,4 +12,4 @@ export type Glyph = {
 export const NODE_RADIUS = 1.6;
 
 /** The default stroke, in grid units. */
-export const STROKE_WIDTH = 1.75;
+export const STROKE_WIDTH = 1.5;

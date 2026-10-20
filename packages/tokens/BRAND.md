@@ -114,68 +114,51 @@ copied. A mark is the same in both themes: its stops are chosen to read on dark 
 
 ## 3. Icons — the signature
 
-`@krizaka/icons` (see its README): a 24 grid, a 1.75 stroke, round caps; **cut corners** (45° chamfers) where other
+`@krizaka/icons` (see its README): a 24 grid, a 1.5 pen stroke with square caps and mitred joins (Cahier, ADR-004); **cut corners** (45° chamfers) where other
 sets round them — the angle of the hexagon; and on every product icon a **node**, the core of the marks, that can
 carry the brand accent (`nodeColor="var(--kz-accent)"`). Utility glyphs (arrows, close, plus, check, menu) stay bare.
 
-## 4. Visual language for pages
+## 4. Visual language for pages — the notebook (Cahier, ADR-004)
 
-What M2/M3/M4 (the homes of Orochia, Orazaka and krizaka.com) apply. Restrained, premium: depth and light, not noise.
+Since 2026-10-20 ([ADR-004](../../docs/adr/ADR-004-cahier.md), krizaka-ui#417) the language of Krizaka pages is a
+**field notebook**: paper and ink, the French Seyès ruling, a red margin, captions and specimen tags. It replaces the
+« depth and light » of the first identity (section washes, the dome, luminous isometric scenes on a perspective grid,
+depth of field), which read as a generated template.
 
-- **Sections glide from one temperature to the next.** Each section's background is the brand's section gradient
-  (`--kz-brand-gradient-from → via → to`), tinted at the top and ending on the page surface, so the next section starts
-  where the previous one stopped. Alternate `direction="down"` / `"up"` and brands (`.brand-<id>` on krizaka.com) to
-  give each part of a page its own temperature. Wide, soft gradients only — never a hard band.
-  `SectionBackdrop` (`@krizaka/ui/section-backdrop`) does it.
-- **A light dome over the hero**: a blurred ellipse of the accent above the content (`dome`, on by default).
-- **Luminous isometric illustrations**, original: objects built from our own vocabulary — the icons' cut-corner
-  shapes, the marks' hexagons and nodes, the chat bubble — extruded in isometric projection, lit from inside in the
-  brand colour (a core that glows, edges in `accent-text`), standing on a **perspective grid** (`grid`) that fades
-  into the page. One hero object per page, two or three satellites, no stock 3D. `@krizaka/ui/iso` draws them
-  (`IsoHub` from data, or its primitives): stages that stack at the entrance, a dome that breathes, light that flows.
-- **Depth of field**: a foreground element blurred (`media`, 18 px) between the reader and the content; the subject
-  stays sharp. Never blur text.
-- **Slow motion**: the light drifts over 40 s, marks turn over 30–35 s, reveals rise once (`[data-reveal]`). Nothing
-  loops fast; everything stops under `prefers-reduced-motion`.
-- **Text on these backgrounds** uses the text roles (`text-fg`, `text-fg-secondary`, `text-fg-accent`): AA is tested
-  on every gradient stop, in both themes.
+- **Paper, not light.** Light mode is cool paper with blue ink (`text-primary` is ink); dark mode is a slate with chalk.
+  No wash between sections (every brand's section gradient is the page surface), no dome, no grid floor, no blurred
+  photograph: a photograph behind a section is printed (desaturated, quiet).
+- **The ruling is the grid.** `Page`/`Section` take `paper="ruled"` (Seyès: a strong line every 32 px, three fine lines,
+  the verticals) or `paper="lines"`; line heights land on the 8 px line. Opt-in: showcases, docs and canvases — never
+  under a dense app screen.
+- **The margin carries the structure.** `margin` draws the red line; a section is numbered there (`number="§ 2"`), a
+  figure is captioned (`fig. 1`), a note hangs in it. No uppercase tracked overline above every heading.
+- **The birds organise, they do not decorate.** A bird is a specimen: on a plate with its promise line, on the tag of
+  the product it carries. One bird per subject (REFERENCE-PERSONNAGES-ET-DISCOURS §5).
+- **Motion is ink.** Blocks settle in place, a line is written left to right (`data-reveal="ink"`), a tag swings from its
+  hole, a stamp presses. Nothing rises, nothing blurs, nothing loops behind text; everything stops under
+  `prefers-reduced-motion`.
+- **Text on paper** uses the text roles; AA is tested on every surface, in both themes.
 
-## 5. Typography — three families, one voice
+## 5. Typography — three families, one voice (Cahier, ADR-004)
 
-`@krizaka/fonts` (2026-10, session TY) ships them, self-hosted; `@krizaka/tokens` names them (`--kz-font-display`,
-`--kz-font-text` = `--kz-font-sans`, `--kz-font-mono`) and sets the scale (`type.*` → `text-display-xl`, `text-body-md`…
-in `@krizaka/tailwind`, `typeScale` in `/native`). Only faces under the **SIL Open Font License 1.1**: redistributable,
-bundled in apps, subset by us (no Reserved Font Name on any of the three).
+`@krizaka/fonts` 0.3.0 ships them, self-hosted; `@krizaka/tokens` names them (`--kz-font-display`, `--kz-font-text` =
+`--kz-font-sans`, `--kz-font-mono`) and sets the scale (`type.*`). Only **SIL Open Font License 1.1** faces, with no
+Reserved Font Name (checked on each `OFL.txt`).
 
 | Role | Family | Why this one |
 | :-- | :-- | :-- |
-| **Display** — headlines, figures, names | **Plus Jakarta Sans** (500–800) | Already the headline face of krizaka.com — no gratuitous change to the parent brand. Compact, slightly squared bowls and flat terminals: it echoes the cut corners of the marks and icons, and stays dense and premium at 800. |
-| **Text** — reading and interface | **Inter** (400–700, cut at the text optical size) | Drawn for screens: tall x-height, open apertures, tabular figures for amounts. Already the default of the tokens and Orazaka's text; krizaka.com's body already asked for its character variants (`cv02`–`cv04`). |
-| **Mono** — code, identifiers, overlines | **JetBrains Mono** (400–700) | Already on every Krizaka surface. Unambiguous 0/O and 1/l/I at 12 px; rectangular forms that sit next to the chamfers. |
+| **Display** — titles, names, figures on a plate | **Young Serif** (400, one weight) | A heavy old-style serif with inked, rounded terminals: a title set in a notebook, not a software template. One weight on purpose — hierarchy comes from size and space; the browser never fakes a bold (`font-synthesis-weight: none`). |
+| **Text** — reading and interface | **Atkinson Hyperlegible Next** (400–700) | Drawn by the Braille Institute so every letter is told apart (I l 1, O 0, b d p q): accessibility as a visible trait, for a kit that promises WCAG 2.2 AA. |
+| **Mono** — tags, captions, footnotes, code | **Courier Prime** (400 · 700) | The typewriter of the notebook: a specimen tag, a caption under a plate, a page number in the margin; it sets code in lower case at reading size. |
 
-What we weighed:
+What we left: Plus Jakarta Sans, Inter and JetBrains Mono — the trio of a thousand templates (#417). Their files stay in
+the package as `legacyFonts` (out of `fonts.css`) so a pinned path keeps resolving while the apps move.
 
-- **Continuity first.** The inventory (krizaka.com: Jakarta + JetBrains Mono; Orochia: Jakarta text + Outfit display;
-  Orazaka: Inter + Outfit as a stand-in "Krizaka Display" + JetBrains Mono; the tokens: Inter; the mobile apps: system
-  faces) has three faces in common use. The decision keeps all three and gives each one job, so every surface moves by
-  one role at most: krizaka.com changes its body (Jakarta → Inter), Orazaka its headlines (Outfit → Jakarta), Orochia its
-  body (Jakarta → Inter) — and **keeps Outfit as its product display face**, a theme override of `--kz-font-display`
-  like its violet.
-- **Outfit as the Krizaka display** was the alternative: rounder and friendlier, it reads as Orochia's voice, and moving
-  the parent's headlines to it is the visible change we wanted to avoid.
-- **Screen and French.** Every file covers latin and latin-ext (é è à ç ô œ « » ’ — French is in the latin file; the
-  browser fetches latin-ext only when a page needs it). Each family has a local fallback whose metrics are adjusted to
-  it (`… Fallback`, size-adjust and ascent/descent overrides): the text does not move when the font arrives (CLS 0).
-
-**Signature.** The Krizaka signature in type is the **wordmark**, drawn, inside the logo (`KrizakaLogo`) — never the name
-set in a font. No typeface is drawn from scratch: a cut-corner stylistic set (a chamfered `K`, `z`, `a` as alternates
-of the display face, under the OFL as a modified version with its own name) is a foundry project for later, tracked as
-an issue, not a dependency of anything today.
-
-Rules (also `rules` of `@krizaka/fonts`, on ui.krizaka.com/foundations/typography): display speaks, text reads, mono labels;
-display from 20 px at 600–800, text from 12 px at 400–700; one display line per block; tabular figures for amounts; the
-scale, not one-off sizes; products may override the display role only.
-
+Rules (also `rules` of `@krizaka/fonts`, on ui.krizaka.com/foundations/typography): display names, text reads, mono types
+the notes; display at its one weight, never bold, never uppercase; no tracked overline above every heading (number the
+section in the margin, or nothing); one display line per block; tabular figures for amounts; the scale, not one-off
+sizes; products may override the display role only. The Krizaka wordmark is drawn, inside the logo.
 
 ## 6. Surfaces & materials — the signature of the components
 
@@ -184,14 +167,14 @@ one idea, applied everywhere and always in tokens: **light comes from above.**
 
 | Lever | Rule | Tokens → utilities |
 | :-- | :-- | :-- |
-| **What you press rises** | A raised surface (button, card, chip, key, the active segment) carries a **sheen** — its top a little lighter — a **1-px edge of light** along its top, and an **ink-tinted shadow** in two or three layers. | `--kz-surface-sheen`, `--kz-edge-light`, `--kz-shadow-raised` → `bg-sheen inset-shadow-edge shadow-raised` |
+| **What you press is a sheet** | Cahier (ADR-004): a raised surface is a sheet laid on another — a 1-px ink line under it and, when it floats, **a solid offset of paper** (`4px 5px 0 -2px`). No sheen, no edge of light, no blur (the tokens are kept, transparent). | `--kz-shadow-raised`, `--kz-shadow-floating` → `shadow-raised`, `shadow-floating` |
 | **What you fill sinks** | A field, a track, a checkbox is a **well**: an inner shade at its top. | `--kz-edge-well` → `inset-shadow-well` |
-| **What floats is glass** | Menus, popovers, tooltips, dialogs, toasts, the sticky header of a table: frosted glass at 88 % — the text stays AA over anything that passes under (tested against the page's own text). | `--kz-glass-*` → `glass shadow-floating` / `shadow-overlay` |
-| **Only what acts glows** | The accent fill is lit along its top edge and shaded at its bottom (on-accent stays ≥ 4.5:1 there, tested in every brand) and sits on the **brand's glow** — composed where it is used, so a `.brand-<id>` section has its own. Selection, the checked box, the current page glow too; nothing else. | `--kz-fill-shade`, `--kz-edge-on-fill` → `bg-fill-shade inset-shadow-edge-fill shadow-glow` |
+| **What floats is a sheet** | Menus, popovers, tooltips, dialogs, toasts, the sticky header of a table, the bar: an **opaque** sheet (Cahier: no frosted glass, `--kz-glass-blur` is 0). | `--kz-glass-*` → `glass shadow-floating` / `shadow-overlay` |
+| **Only what acts is inked** | The accent fill is the ink of the pen; `shadow-glow` is a 1 px line of the accent, `shadow-glow-lg` a solid offset of it — never a blurred glow (Cahier). | `--kz-fill-shade`, `--kz-edge-on-fill` → `bg-fill-shade shadow-glow` |
 | **The node marks a state** | The core of the marks, a small lit diamond: a badge's dot, the chosen radio, the switch's thumb when on, today in a calendar, an error's mark. | `node`, `node-lit` |
 | **The focus is the brand's ring** | A crisp ring of `--kz-ring`, 2 px off the element, in a halo of the same colour — it follows the corners, cut ones included. On a field it lies on the border. | `--kz-ring-*` → `focus-visible:focus-ring`, `focus-ring-inset` |
 | **Motion answers the hand** | A short spring (`ease-spring`), never more than 200 ms: a press compresses (0.97), a toggle springs across, a check pops in. Under `prefers-reduced-motion` every duration is 0 ms: instant, never absent. | `--kz-ease-spring`, `--kz-duration-*` |
-| **Type in three voices** | Display for titles (tracking tightened), text for reading, **mono for labels**: badges, table headers, menu labels, stat labels, weekdays. | `font-mono`, `tracking-[0.06em]` |
+| **Type in three voices** | Display for titles (one weight), text for reading, the **typewriter for notes**: tags, captions, footnotes, table headers — lower case, untracked (Cahier). | `font-mono`, `text-overline` |
 | **Density** | Comfortable by default; `data-density="compact"` on a subtree tightens every control (a console, a dense table). | `--kz-control-*` |
 | **Status tints** | One tint per status, the primary text and the status text AA on it: badges, alerts, rows. A rail of the status colour that glows marks alerts and toasts. | `--kz-*-soft` |
 

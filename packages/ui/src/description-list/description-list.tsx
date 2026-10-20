@@ -24,7 +24,7 @@ export const descriptionList = tv({
       grid: {
         root: "grid grid-cols-[repeat(auto-fill,minmax(var(--kz-kv-min,10rem),1fr))] gap-3",
         pair: "rounded-xl border border-border-default bg-surface-1 px-4 py-3",
-        term: "uppercase tracking-wider",
+        term: "",
         details: "mt-1 font-display text-lg font-bold tabular-nums",
       },
     },

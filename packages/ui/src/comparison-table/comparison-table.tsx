@@ -77,7 +77,7 @@ export function ComparisonTable({ label, topicLabel, columns, highlight, rows, r
           style={{ gridColumn: at + 2, gridRow: `1 / span ${rows.length + 1}` }}
         />
         <div role="row" className="contents">
-          <span role="columnheader" className="row-start-1 self-end px-4 pb-4 pt-5 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-fg-secondary" style={{ gridColumn: 1 }}>
+          <span role="columnheader" className="row-start-1 self-end px-4 pb-4 pt-5 font-mono text-xs font-semibold text-fg-secondary" style={{ gridColumn: 1 }}>
             {topicLabel}
           </span>
           {columns.map((c, i) => (
@@ -125,7 +125,7 @@ export function ComparisonTable({ label, topicLabel, columns, highlight, rows, r
             <dl className="mt-3 grid gap-2">
               {columns.map((c, i) => (
                 <div key={c.id} data-highlight={band(i) ? "" : undefined} className={cn("rounded-xl p-3 text-sm leading-relaxed", band(i) ? "border border-accent/35 bg-accent-soft" : "bg-surface-2/60")}>
-                  <dt className={cn("mb-1 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em]", band(i) ? "text-fg-accent" : "text-fg-secondary")}>
+                  <dt className={cn("mb-1 flex items-center gap-1.5 font-mono text-[11px] ", band(i) ? "text-fg-accent" : "text-fg-secondary")}>
                     {c.label}
                   </dt>
                   <dd>
