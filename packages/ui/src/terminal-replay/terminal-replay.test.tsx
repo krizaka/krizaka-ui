@@ -67,6 +67,21 @@ describe("TerminalReplay", () => {
     expect(live()).not.toContain("ready");
   });
 
+  it("config vocabulary: `speed` is a multiplier on every delay (×4 types four times as fast)", () => {
+    vi.useFakeTimers();
+    motion(false);
+    inView();
+    const typed = (speed?: number) => {
+      const { container, unmount } = render(<TerminalReplay steps={steps} {...words} typingSpeed={40} lineDelay={40} stepDelay={40} speed={speed} />);
+      for (let i = 0; i < 9; i++) act(() => void vi.advanceTimersByTime(5));
+      const text = container.querySelector(".kz-replay-live")!.textContent ?? "";
+      unmount();
+      return text.length;
+    };
+    expect(typed(4)).toBeGreaterThan(typed(1));
+    expect(typed(undefined)).toBe(typed(1));
+  });
+
   it("waits off screen, and pauses on demand", () => {
     vi.useFakeTimers();
     motion(false);

@@ -64,6 +64,11 @@ export type TerminalReplayProps = Omit<React.ComponentProps<"figure">, "children
    */
   stepDelay?: number;
   /**
+   * A multiplier on every delay (the motion vocabulary's `speed`): 2 plays twice as fast, 0.5 half as fast.
+   * @default 1
+   */
+  speed?: number;
+  /**
    * The screen's height, in lines; longer sessions scroll.
    * @default 18
    */
@@ -121,6 +126,7 @@ export function TerminalReplay({
   typingSpeed = 34,
   lineDelay = 70,
   stepDelay = 900,
+  speed = 1,
   rows = 18,
   autoPlay = true,
   className,
@@ -152,17 +158,19 @@ export function TerminalReplay({
     return () => io.disconnect();
   }, [autoPlay]);
 
-  const ended = phase === "playing" && !advance(steps, pos, { typing: typingSpeed, line: lineDelay, step: stepDelay });
+  const rate = Math.max(0.1, speed);
+  const timing = React.useMemo(() => ({ typing: typingSpeed / rate, line: lineDelay / rate, step: stepDelay / rate }), [typingSpeed, lineDelay, stepDelay, rate]);
+  const ended = phase === "playing" && !advance(steps, pos, timing);
   // The end of the session is where the replay stands, not an event: derived, never set from an effect.
   const state: Phase = ended ? "done" : phase;
 
   React.useEffect(() => {
     if (phase !== "playing" || !visible) return;
-    const next = advance(steps, pos, { typing: typingSpeed, line: lineDelay, step: stepDelay });
+    const next = advance(steps, pos, timing);
     if (!next) return;
     const timer = setTimeout(() => setPos(next[0]), next[1]);
     return () => clearTimeout(timer);
-  }, [phase, visible, pos, steps, typingSpeed, lineDelay, stepDelay]);
+  }, [phase, visible, pos, steps, timing]);
 
   // The screen follows the last line while it plays, like a terminal.
   React.useEffect(() => {
