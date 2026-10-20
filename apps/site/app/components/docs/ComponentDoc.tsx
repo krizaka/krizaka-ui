@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
 
 import Rich from "@/app/components/Rich";
 import { format, getDictionary, type Locale, type TranslationDictionary } from "@/lib/i18n";
+import { NATIVE_INSTALL, WEB_INSTALL } from "@/lib/install";
 import { KRIZAKA_UI_REPO_URL } from "@/lib/site";
 import { inventoryOf } from "@/lib/ui-inventory";
 import {
@@ -30,11 +31,10 @@ import { Stage } from "./Stage";
 const PARITY_PLATFORMS = ["web", "native", "desktop"] as const;
 const PARITY_ICON = { web: Globe, native: Smartphone, desktop: Monitor } as const;
 
-export const WEB_INSTALL = "npm install @krizaka/ui @krizaka/tailwind @krizaka/tokens tailwindcss";
+export { NATIVE_INSTALL, WEB_INSTALL };
 export const WEB_CSS = `@import "tailwindcss";
 @import "@krizaka/tailwind";
 @import "@krizaka/ui/tailwind.css";`;
-export const NATIVE_INSTALL = "npx expo install react-native-svg\nnpm install @krizaka/ui";
 
 /** Where the documentation of a component is written: its meta.ts in krizaka-ui. */
 export function metaSourceUrl(item: RegistryItem): string {

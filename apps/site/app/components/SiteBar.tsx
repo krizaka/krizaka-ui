@@ -4,18 +4,20 @@
    left, who this is — the Krizaka UI mark, then the family switcher (NavBar.Family: Krizaka, the products, Krizaka Java…);
    centre, this site — Get started ·
    Foundations · Components · Templates and the version it documents; right, the tools — search (Fumadocs' dialog, ⌘K),
-   the repository, the theme, the language. */
+   the repository, the theme, the language (NavBar.Language: the family's one switch). */
 
 import { MoonIcon, SearchIcon, SunIcon } from "@krizaka/icons";
 import { KrizakaLogo } from "@krizaka/ui";
 import { Button } from "@krizaka/ui/button";
 import { Kbd } from "@krizaka/ui/kbd";
+import { languageNames } from "@krizaka/ui/language-switch";
 import { NavBar } from "@krizaka/ui/nav-bar";
 import { familyLabels } from "@krizaka/ui/sites";
 import { useSearchContext } from "fumadocs-ui/contexts/search";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { LOCALES } from "@/lib/locales";
 import { KRIZAKA_UI_REPO_URL } from "@/lib/site";
 import { localePath } from "@/lib/urls";
 
@@ -30,11 +32,13 @@ const LINKS = [
 ] as const;
 
 export function SiteBar({ version }: { version: string }) {
-  const { t, locale, toggleLocale } = useI18n();
+  const { t, locale } = useI18n();
   const b = t.site.bar;
   const { theme, toggleTheme } = useSiteTheme();
   const { setOpenSearch } = useSearchContext();
   const path = (usePathname() ?? "/").replace(/^\/fr(?=\/|$)/, "") || "/";
+  // The same page in each language (English at the root, French under /fr), each named in its own language.
+  const language = { label: b.language, current: locale, languages: LOCALES.map((code) => ({ code, name: languageNames[code] ?? code, href: localePath(code, path) })) };
 
   return (
     <div className="kz-site-bar-wrap pointer-events-none fixed inset-x-0 top-3 z-50">
@@ -80,16 +84,7 @@ export function SiteBar({ version }: { version: string }) {
             {theme === "dark" ? <SunIcon size={16} /> : <MoonIcon size={16} />}
           </Button>
 
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={toggleLocale}
-            aria-label={b.switchLanguage}
-            className="h-7 w-9 px-0 font-mono text-[11px] font-semibold tracking-wide"
-          >
-            {b.languageShort}
-          </Button>
+<NavBar.Language {...language} className="hidden sm:inline-flex" />
 
           <NavBar.Mobile openLabel={b.openMenu} closeLabel={b.closeMenu}>
             {LINKS.map((l) => (
@@ -97,6 +92,7 @@ export function SiteBar({ version }: { version: string }) {
                 {b[l.id]}
               </NavBar.MobileLink>
             ))}
+            <NavBar.Language {...language} />
             <NavBar.Family current="ui" labels={familyLabels[locale]} />
           </NavBar.Mobile>
         </NavBar.Actions>

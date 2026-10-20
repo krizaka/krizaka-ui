@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 /* The home, measured in a real browser (Playwright) at 1550 and 1366 (desktop) and 390 (phone), dark and light:
+   - the first screen holds the install line (desktop) and the live kit's choices; the kit re-skins the scene too, and the
+     dock stays out of the way while the hero is on screen;
    - the scene is two real screens: in the window an AppShell with three figures, a chart and a table; on the phone the
      product's own screen (a chat, a vertical video filling the screen ± 1 px, or a document);
    - the identity dock floats at the bottom of the screen while the studio is in view, and each identity re-skins the
@@ -20,7 +22,8 @@ const require = createRequire(import.meta.url);
 const { chromium } = require(flag("--playwright", "playwright"));
 
 const WIDTHS = [1550, 1366, 390];
-const IDS = ["orazaka", "orochia", "yomizaka", "krizaka"];
+const IDS = ["krizaka", "orazaka", "orochia", "yomizaka"];
+const DEFAULT_ID = "krizaka";
 const NAMES = { orazaka: "Orazaka", orochia: "Orochia", yomizaka: "Yomizaka", krizaka: "Krizaka" };
 if (out) mkdirSync(out, { recursive: true });
 
@@ -66,6 +69,27 @@ for (const theme of ["dark", "light"]) {
     const page = await context.newPage();
     const where = `${theme} ${width}`;
     await page.goto(`${base}/`, { waitUntil: "networkidle" });
+
+    // The first screen: something to touch (the kit's choices) and, on a desktop, the install line to copy; no dock yet.
+    const first = await page.evaluate(() => {
+      const seen = (el) => { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.top >= 0 && r.bottom <= innerHeight; };
+      const dock = document.querySelector(".kz-dock");
+      return { kit: seen(document.querySelector(".kz-kit-controls")), install: seen(document.querySelector(".kz-home-install")), dockShown: !!dock && getComputedStyle(dock).visibility !== "hidden" && dock.getBoundingClientRect().top < innerHeight };
+    });
+    if (!first.kit) problems.push(`${where}: the live kit's choices are not on the first screen`);
+    if (width >= 1024 && !first.install) problems.push(`${where}: the install line is not on the first screen`);
+    if (first.dockShown) problems.push(`${where}: the dock shows over the hero`);
+    // The kit's identity is the home's identity: picking one there re-skins the scene, then back to the default.
+    const sceneAccent = () => page.evaluate(() => getComputedStyle(document.querySelector(".kz-scene")).getPropertyValue("--kz-accent").trim());
+    const before = await sceneAccent();
+    await page.locator('.kz-kit [data-kit-id="orochia"]').click();
+    await page.waitForTimeout(400);
+    if ((await sceneAccent()) === before) problems.push(`${where}: the kit's identity does not reach the scene`);
+    const kitScope = await page.locator(".kz-kit-card").getAttribute("class");
+    if (!kitScope?.includes("brand-orochia")) problems.push(`${where}: the kit does not wear the identity it shows (${kitScope})`);
+    await page.locator(`.kz-kit [data-kit-id="${DEFAULT_ID}"]`).click();
+    await page.waitForTimeout(400);
+
     await page.evaluate(() => { const s = document.querySelector("#scene"); if (s) scrollTo(0, s.getBoundingClientRect().top + scrollY - 80); });
     await page.waitForTimeout(600);
 
@@ -81,7 +105,7 @@ for (const theme of ["dark", "light"]) {
     const accent = () => page.evaluate(() => getComputedStyle(document.querySelector(".kz-scene")).getPropertyValue("--kz-accent").trim());
     const seen = new Set();
     for (const id of IDS) {
-      if (id !== "orazaka") await page.locator(`.kz-dock [data-id="${id}"]`).click({ force: true });
+      if (id !== DEFAULT_ID) await page.locator(`.kz-dock [data-id="${id}"]`).click({ force: true });
       await page.waitForTimeout(id === "yomizaka" ? 2500 : 1300);
       seen.add(await accent());
       for (const issue of await page.evaluate(measure, id)) problems.push(`${where} ${id}: ${issue}`);

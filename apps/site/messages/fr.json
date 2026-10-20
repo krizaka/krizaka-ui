@@ -18,8 +18,7 @@
       "githubAria": "Krizaka UI sur GitHub",
       "lightMode": "Passer en mode clair",
       "darkMode": "Passer en mode sombre",
-      "switchLanguage": "Read in English",
-      "languageShort": "EN",
+      "language": "Langue",
       "versionTitle": "La version de @krizaka/ui que ce site documente",
       "openMenu": "Ouvrir le menu",
       "closeMenu": "Fermer le menu"
@@ -631,7 +630,7 @@
   "landing": {
     "eyebrow": "Krizaka UI · open source",
     "title": "Le kit derrière chaque produit Krizaka.",
-    "lead": "Orazaka, Orochia et Yomizaka sont construits avec ces {count} composants. Choisissez-en un plus bas : les deux écrans changent d’habit à partir d’un seul jeu de jetons — rien d’autre ne change.",
+    "lead": "{count} composants pour React et React Native, ceux d’Orazaka, d’Orochia et de Yomizaka. Changez l’identité ou le thème : les mêmes composants changent de peau par leurs seuls tokens.",
     "install": "Installer",
     "copy": "Copier",
     "copied": "Copié",
@@ -640,12 +639,36 @@
     "facts": {
       "components": "composants",
       "native": "aussi sur iOS et Android",
-      "packages": "paquets sur npm",
-      "version": "@krizaka/ui"
+      "downloads": "téléchargements npm la semaine dernière",
+      "stars": "étoiles GitHub"
+    },
+    "kit": {
+      "label": "Le kit, en direct",
+      "hint": "Ce sont les vrais composants, pas une image.",
+      "identity": "Identité",
+      "theme": "Thème",
+      "themes": {
+        "dark": "Sombre",
+        "light": "Clair"
+      },
+      "card": {
+        "title": "Quart de nuit — montage final",
+        "status": "Prêt",
+        "upload": "Envoi",
+        "eta": "Environ 1 min restante",
+        "subtitles": "Sous-titres en français",
+        "quality": "Qualité",
+        "draft": "Enregistrer le brouillon",
+        "publish": "Publier",
+        "published": "Publié"
+      },
+      "code": "Tout le changement :"
     },
     "packages": {
       "title": "Où vivent les pièces",
-      "source": "Code source et notes de version sur GitHub"
+      "source": "Code source et notes de version sur GitHub",
+      "weekly": "{count} / semaine sur npm",
+      "trend": "Téléchargements des 12 dernières semaines"
     },
     "dock": {
       "label": "Porter une identité",
