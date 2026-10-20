@@ -16,6 +16,7 @@ signature icons — charts are next. Documented at [ui.krizaka.com](https://ui.k
 [![CI](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/krizaka/krizaka-ui/badge)](https://scorecard.dev/viewer/?uri=github.com/krizaka/krizaka-ui)
 [![@krizaka/ui](https://img.shields.io/npm/v/@krizaka/ui?label=%40krizaka%2Fui&color=196df5)](https://www.npmjs.com/package/@krizaka/ui)
+[![npm downloads](https://img.shields.io/npm/dw/@krizaka/ui?label=downloads&color=196df5)](https://www.npmjs.com/package/@krizaka/ui)
 [![Docs](https://img.shields.io/badge/docs-ui.krizaka.com-196df5)](https://ui.krizaka.com)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 
