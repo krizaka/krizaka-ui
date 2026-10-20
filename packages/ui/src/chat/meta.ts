@@ -27,11 +27,12 @@ export const meta = {
     ],
   },
   native: {
-    imports: ["MessageBubble", "TypingIndicator", "MessageComposer", "ConversationItem"],
-    differences: ["The composer keeps clear of the home indicator; the send button plays a light tap.", "A failed bubble is itself the retry button.", "`ConversationItem` takes `presence` (a dot on the avatar) instead of `online`."],
+    imports: ["MessageBubble", "TypingIndicator", "MessageComposer", "ComposerMeta", "ConversationItem"],
+    differences: ["The composer keeps clear of the home indicator; the send button plays a light tap.", "A failed bubble is itself the retry button.", "`ConversationItem` takes `presence` (a dot on the avatar) instead of `online`.", "`MessageBubble` takes `children` (a `Markdown` answer) in place of `text`; `MessageComposer` takes `meta`, usually a `ComposerMeta` (the model chip and a status line shown only when true)."],
     examples: [
       { name: "conversation", title: "Conversation", description: "Grouped runs, a read receipt, typing, the composer." },
       { name: "inbox", title: "Inbox", description: "Presence, typing, unread counts." },
+      { name: "assistant", title: "Assistant", description: "A Markdown answer in the bubble; the model chip and a privacy line above the composer." },
     ],
   },
 } satisfies ComponentMeta;
