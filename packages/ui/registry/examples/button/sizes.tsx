@@ -2,7 +2,7 @@ import { Button } from "@krizaka/ui/button";
 
 export default function ButtonSizes() {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex flex-wrap items-center gap-3">
       <Button variant="primary" size="sm">
         Continue
       </Button>

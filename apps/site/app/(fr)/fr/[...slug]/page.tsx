@@ -5,7 +5,7 @@ import { docsMetadata, DocsPageView, docsStaticParams } from "@/app/components/d
 export const dynamicParams = false;
 
 interface Props {
-  params: Promise<{ slug?: string[] }>;
+  params: Promise<{ slug: string[] }>;
 }
 
 export function generateStaticParams() {

@@ -1,13 +1,17 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
+import { Sparkline } from "@krizaka/charts/sparkline";
+import { Button } from "@krizaka/ui/button";
 import { CodeBlock } from "@krizaka/ui/code-block";
 import { NumberTicker } from "@krizaka/ui/number-ticker";
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "@krizaka/ui/tabs";
 import Link from "next/link";
 
+import { githubStars, showStars } from "@/lib/github-stars";
 import { format, getDictionary, type Locale } from "@/lib/i18n";
-import { packageVersion } from "@/lib/package-version";
+import { WEB_INSTALL } from "@/lib/install";
+import { npmDownloads, sumKnown } from "@/lib/npm-downloads";
 import { catalogEntries, catalogFamilies } from "@/lib/ui-catalog";
 import { FILTER_KEYS, JOBS, PATTERNS } from "@/lib/ui-ia";
 import { PLAYGROUNDS } from "@/lib/ui-playgrounds";
@@ -15,12 +19,15 @@ import { getRegistryItem, getRegistryItems } from "@/lib/ui-registry";
 import { localePath } from "@/lib/urls";
 
 import { FamilyCards } from "../docs/FamilyCards";
-import { Stage } from "../docs/Stage";
+import { PlayStage } from "../docs/StageFrame";
+import { HeroKit } from "./HeroKit";
 import { HomeStudio, SceneSweep } from "./HomeStudio";
 import { ProductScene } from "./ProductScene";
 
-/* The home of ui.krizaka.com — « Built with it », then « Play with it », then the kit:
-   1. a short hero: the kit behind every Krizaka product, its figures read from the registries;
+/* The home of ui.krizaka.com — « Touch it », « Built with it », « Play with it », then the kit:
+   1. the hero: who it is for, the install line to copy, the two ways in, the figures (registries, npm, GitHub — read at
+      build, a figure that could not be read is not shown) and, beside it, the live kit — real components under the
+      identity and the theme a visitor picks (HeroKit; the identity is the same one the dock and the scene wear);
    2. the scene: one product on the web and on a phone, both screens composed from the real components, re-skinned
       live by the identity dock that floats at the bottom while the studio is in view (the one wow);
    3. the playground: the component-page stage (props, web · iOS · Android, the code) for a few components, under the
@@ -43,8 +50,6 @@ const PACKAGES: { name: string; path?: string; dir: string }[] = [
   { name: "@krizaka/app-config", path: "/packages/app-config", dir: "app-config" },
   { name: "@krizaka/config", path: "/packages/config", dir: "config" },
 ];
-
-const INSTALL = "npm install @krizaka/ui @krizaka/tailwind @krizaka/tokens tailwindcss";
 
 /** A package's description, cut to its first clause (before a colon or a full stop), at most ~90 characters. */
 function short(text: string): string {
@@ -73,10 +78,14 @@ export async function Landing({ locale }: { locale: Locale }) {
   const published = publishedPackages();
   const about = new Map(published.map((p) => [p.dir, p.description]));
   const count = items.length;
+  // Read from api.npmjs.org and api.github.com at build; what could not be read is not shown (lib/npm-downloads.ts, lib/github-stars.ts).
+  const [downloads, stars] = await Promise.all([npmDownloads(PACKAGES.map((p) => p.name)), githubStars("krizaka/krizaka-ui")]);
+  const weeklyTotal = sumKnown(PACKAGES.map((p) => downloads.get(p.name)?.weekly));
   const figures = [
     { id: "components", value: count, label: t.facts.components },
     { id: "native", value: items.filter((item) => item.platforms !== "web").length, label: t.facts.native },
-    { id: "packages", value: published.length, label: t.facts.packages },
+    ...(weeklyTotal === undefined ? [] : [{ id: "downloads", value: weeklyTotal, label: t.facts.downloads }]),
+    ...(showStars(stars) ? [{ id: "stars", value: stars, label: t.facts.stars }] : []),
   ];
   const entries = catalogEntries(locale, (name) => format(all.docs.ia.catalog.preview, { name }));
   const families = catalogFamilies(entries, FILTER_KEYS);
@@ -86,28 +95,39 @@ export async function Landing({ locale }: { locale: Locale }) {
 
   return (
     <div className="kz-home not-prose">
-      <header className="kz-home-hero">
-        <p className="kz-land-eyebrow">{t.eyebrow}</p>
-        <h1>{t.title}</h1>
-        <p className="kz-land-lead">{format(t.lead, { count })}</p>
-        <dl className="kz-land-figures">
-          {figures.map((f) => (
-            <div key={f.id}>
-              <dt>{f.label}</dt>
-              <dd>
-                <NumberTicker value={f.value} locale={locale} />
-              </dd>
-            </div>
-          ))}
-          <div>
-            <dt>{t.facts.version}</dt>
-            <dd className="kz-land-version">{packageVersion("ui")}</dd>
-          </div>
-        </dl>
-      </header>
-
       <HomeStudio
         words={{ ...t.dock, browse: format(t.dock.browse, { count }), start: t.start, startHref: localePath(locale, "/installation"), browseHref: localePath(locale, "/components") }}
+        lead={
+            <header className="kz-home-hero">
+              <div className="kz-home-hero-text">
+                <p className="kz-land-eyebrow">{t.eyebrow}</p>
+                <h1>{t.title}</h1>
+                <p className="kz-land-lead">{format(t.lead, { count })}</p>
+                <div className="kz-home-install" aria-label={t.install}>
+                  <CodeBlock code={WEB_INSTALL} language="bash" copyLabel={t.copy} copiedLabel={t.copied} />
+                </div>
+                <div className="kz-home-actions">
+                  <Button asChild variant="primary" size="lg">
+                    <Link href={localePath(locale, "/installation")}>{t.start}</Link>
+                  </Button>
+                  <Button asChild variant="secondary" size="lg">
+                    <Link href={localePath(locale, "/components")}>{format(t.dock.browse, { count })}</Link>
+                  </Button>
+                </div>
+                <dl className="kz-land-figures">
+                  {figures.map((f) => (
+                    <div key={f.id} data-figure={f.id}>
+                      <dt>{f.label}</dt>
+                      <dd>
+                        <NumberTicker value={f.value} locale={locale} />
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <HeroKit words={t.kit} />
+            </header>
+        }
       >
         <section className="kz-home-scene" id="scene" aria-label={t.scene.parts}>
           <SceneSweep />
@@ -128,7 +148,7 @@ export async function Landing({ locale }: { locale: Locale }) {
             </TabsList>
             {playable.map((name) => (
               <TabsContent key={name} value={name}>
-                <Stage item={getRegistryItem(name)} locale={locale} />
+                <PlayStage item={getRegistryItem(name)} locale={locale} />
               </TabsContent>
             ))}
           </TabsRoot>
@@ -151,7 +171,7 @@ export async function Landing({ locale }: { locale: Locale }) {
       <section className="kz-home-section" aria-labelledby="land-packages">
         <h2 id="land-packages">{t.packages.title}</h2>
         <div className="kz-land-install" aria-label={t.install}>
-          <CodeBlock code={INSTALL} language="bash" copyLabel={t.copy} copiedLabel={t.copied} />
+          <CodeBlock code={WEB_INSTALL} language="bash" copyLabel={t.copy} copiedLabel={t.copied} />
         </div>
         <ul className="kz-land-packages">
           {PACKAGES.map((p) => (
@@ -160,6 +180,12 @@ export async function Landing({ locale }: { locale: Locale }) {
                 <code>{p.name}</code>
               </Link>
               <span>{about.get(p.dir)}</span>
+              {downloads.get(p.name) ? (
+                <span className="kz-land-downloads">
+                  {downloads.get(p.name)?.series ? <Sparkline data={downloads.get(p.name)?.series ?? []} variant="area" width={96} height={24} title={`${p.name} — ${t.packages.trend}`} /> : null}
+                  {format(t.packages.weekly, { count: new Intl.NumberFormat(locale).format(downloads.get(p.name)?.weekly ?? 0) })}
+                </span>
+              ) : null}
             </li>
           ))}
         </ul>

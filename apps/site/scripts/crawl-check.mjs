@@ -20,6 +20,8 @@ export const PAGES = ["/", "/components/", "/components/button/", "/components/m
 const VIEWS = [
   { name: "desktop", width: 1440, height: 900 },
   { name: "phone", width: 390, height: 844 },
+  // The narrowest phone in common use: the bar's tools must still fit (a wider control once cut the menu button).
+  { name: "small-phone", width: 360, height: 780 },
 ];
 const TOLERATED = [/krizaka-assets\.b-cdn\.net\/maps\/v1\/.*CORS|Failed to load resource: net::ERR_FAILED/];
 
@@ -138,5 +140,5 @@ for (const theme of ["dark", "light"]) {
 }
 await browser.close();
 for (const p of problems) console.log(`✗ ${p}`);
-console.log(problems.length ? `crawl: ${problems.length} problem(s) on ${base}` : `crawl: ${PAGES.length} pages × 2 widths × 2 themes on ${base} — all good`);
+console.log(problems.length ? `crawl: ${problems.length} problem(s) on ${base}` : `crawl: ${PAGES.length} pages × ${VIEWS.length} widths × 2 themes on ${base} — all good`);
 process.exit(problems.length ? 1 : 0);

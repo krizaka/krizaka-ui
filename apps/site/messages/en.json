@@ -18,8 +18,7 @@
       "githubAria": "Krizaka UI on GitHub",
       "lightMode": "Switch to light mode",
       "darkMode": "Switch to dark mode",
-      "switchLanguage": "Lire en français",
-      "languageShort": "FR",
+      "language": "Language",
       "versionTitle": "The version of @krizaka/ui this site documents",
       "openMenu": "Open the menu",
       "closeMenu": "Close the menu"
@@ -631,7 +630,7 @@
   "landing": {
     "eyebrow": "Krizaka UI · open source",
     "title": "The kit behind every Krizaka product.",
-    "lead": "Orazaka, Orochia and Yomizaka are built with these {count} components. Pick one below: both screens re-skin from one set of tokens — nothing else changes.",
+    "lead": "{count} components for React and React Native, the ones Orazaka, Orochia and Yomizaka ship. Change the identity or the theme: the same components re-skin from their tokens alone.",
     "install": "Install",
     "copy": "Copy",
     "copied": "Copied",
@@ -640,12 +639,36 @@
     "facts": {
       "components": "components",
       "native": "also on iOS and Android",
-      "packages": "packages on npm",
-      "version": "@krizaka/ui"
+      "downloads": "npm downloads last week",
+      "stars": "GitHub stars"
+    },
+    "kit": {
+      "label": "The kit, live",
+      "hint": "These are the real components, not a picture.",
+      "identity": "Identity",
+      "theme": "Theme",
+      "themes": {
+        "dark": "Dark",
+        "light": "Light"
+      },
+      "card": {
+        "title": "Night shift — final cut",
+        "status": "Ready",
+        "upload": "Upload",
+        "eta": "About 1 min left",
+        "subtitles": "French subtitles",
+        "quality": "Quality",
+        "draft": "Save draft",
+        "publish": "Publish",
+        "published": "Published"
+      },
+      "code": "The whole change:"
     },
     "packages": {
       "title": "Where the pieces live",
-      "source": "Source and release notes on GitHub"
+      "source": "Source and release notes on GitHub",
+      "weekly": "{count} / week on npm",
+      "trend": "Downloads over the last 12 weeks"
     },
     "dock": {
       "label": "Wear an identity",

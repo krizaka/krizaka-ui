@@ -12,7 +12,6 @@ import { getRegistryItem } from "@/lib/ui-registry";
 import { absoluteUrl } from "@/lib/urls";
 
 import { JsonLd } from "../JsonLd";
-import { Landing } from "../landing/Landing";
 import { BrandMarksDoc } from "./BrandMarksDoc";
 import { ComponentDoc, componentToc } from "./ComponentDoc";
 import { IconsDoc, iconsToc } from "./IconsDoc";
@@ -26,10 +25,13 @@ import { TypographyDoc, typographyToc } from "./TypographyDoc";
 /* Every page of ui.krizaka.com, in one language: the routes (app/(en)/[[...slug]], app/(fr)/fr/[[...slug]]) only say
    which language and which page. */
 
-/** Every page's slugs, for generateStaticParams (the same pages in both languages). */
+/** Every page's slugs but the home's, for generateStaticParams (the same pages in both languages). The home has its own
+    route (app/(en)/page.tsx, HomePageView): a route ships the client code of every component its pages may render, so the
+    home no longer carries the component pages' and the docs' code, nor they the home's. */
 export function docsStaticParams(locale: Locale) {
   return getSource(locale)
     .getPages()
+    .filter((page) => page.slugs.length > 0)
     .map((page) => ({ slug: page.slugs }));
 }
 
@@ -110,17 +112,6 @@ async function PageBody({ locale, page }: { locale: Locale; page: Page }) {
           ) : (
             <TypographyDoc locale={locale} />
           )}
-        </DocsBody>
-      </DocsPage>
-    );
-  }
-
-  // The home: a designed page (app/components/landing), the whole width, no table of contents.
-  if (page.slugs.length === 0) {
-    return (
-      <DocsPage full toc={[]} breadcrumb={{ enabled: false }} footer={{ enabled: false }}>
-        <DocsBody>
-          <Landing locale={locale} />
         </DocsBody>
       </DocsPage>
     );

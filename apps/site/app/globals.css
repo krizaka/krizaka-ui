@@ -766,10 +766,51 @@ html.light .kz-hero-strip .kz-shot-light { display: block; }
    families. No boxes in boxes: the window and the phone are the only frames. Checked by scripts/home-geometry.mjs. */
 .kz-home { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(72px, 9vw, 120px); padding-block: 8px 24px; min-width: 0; }
 .kz-home > * { min-width: 0; }
-.kz-home-hero { display: grid; justify-items: center; gap: 16px; text-align: center; max-width: 52rem; margin: 0 auto; padding-top: clamp(16px, 4vw, 40px); }
-.kz-home-hero h1 { margin: 0; font-family: var(--kz-font-display); font-size: clamp(2.3rem, 5.6vw, 4rem); font-weight: 800; line-height: 1.02; letter-spacing: -.045em; text-wrap: balance; color: var(--kz-text-primary); }
-.kz-home-hero .kz-land-lead { margin: 0 auto; }
-.kz-home-hero .kz-land-figures { justify-content: center; }
+/* The hero: the words, the install line and the two ways in on the left; the live kit on the right (under them on a
+   phone). The home is a landing, not a docs page: no sidebar, no second bar (Fumadocs' own) on it. */
+.kz-docs:has(.kz-home) { --fd-sidebar-width: 0px !important; --fd-header-height: 0px !important; }
+.kz-docs:has(.kz-home) > [class*="grid-area:sidebar"], .kz-docs:has(.kz-home) > #nd-subnav, .kz-docs:has(.kz-home) > .fixed { display: none; }
+.kz-home-hero { display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: clamp(32px, 5vw, 64px); width: 100%; max-width: var(--kz-page-max, 72rem); margin: 0 auto; padding-top: clamp(8px, 3vw, 32px); }
+.kz-home-hero-text { display: grid; justify-items: start; gap: 18px; min-width: 0; }
+.kz-home-hero h1 { margin: 0; font-family: var(--kz-font-display); font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 800; line-height: 1.03; letter-spacing: -.045em; text-wrap: balance; color: var(--kz-text-primary); }
+.kz-home-hero .kz-land-lead { max-width: 36rem; }
+.kz-home-install { width: 100%; max-width: 36rem; }
+.kz-home-install pre { margin: 0; }
+.kz-home-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.kz-home-hero .kz-land-figures { gap: 12px 32px; margin: 4px 0 0; }
+.kz-home-hero .kz-land-figures dd { font-size: clamp(1.4rem, 2.6vw, 1.8rem); }
+.kz-home-hero .kz-land-figures .kz-land-version { font-size: clamp(1.05rem, 2vw, 1.3rem); }
+@media (min-width: 1024px) { .kz-home-hero { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); } }
+/* Under 1024 px one column, and the kit comes right after the lead: something to touch on a phone's first screen. */
+@media (max-width: 1023.98px) {
+  .kz-home-hero { gap: 18px; justify-items: start; padding-top: 0; }
+  .kz-home-hero-text { display: contents; }
+  .kz-home-hero .kz-kit { order: 1; width: 100%; margin-block: 6px; }
+  .kz-home-install, .kz-home-actions, .kz-home-hero .kz-land-figures { order: 2; }
+}
+
+/* The live kit: two choices (identity, theme) over a card of real components wearing them, the classes printed under it. */
+.kz-kit { display: grid; gap: 12px; min-width: 0; }
+.kz-kit-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.kz-kit-controls > * { flex-wrap: wrap; }
+.kz-kit-card { display: grid; gap: 18px; padding: clamp(16px, 2.4vw, 24px); border-radius: 16px; border: 1px solid var(--kz-border-default);
+  background: var(--kz-surface-1); color: var(--kz-text-primary); color-scheme: dark; box-shadow: 0 30px 60px -36px rgb(0 0 0 / .55);
+  transition: background-color .45s ease, border-color .45s ease, color .45s ease, box-shadow .45s ease; }
+html.light .kz-kit-card:not(.theme-dark), .kz-kit-card.theme-light { color-scheme: light; box-shadow: 0 30px 60px -36px rgb(20 20 40 / .22); }
+.kz-kit-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 15px; }
+.kz-kit-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; font-size: 14px; color: var(--kz-text-secondary); }
+.kz-kit-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; padding-top: 2px; }
+.kz-kit-code, .kz-kit-hint { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--kz-text-muted); }
+.kz-kit-code code { font-family: var(--kz-font-mono); font-size: 12px; color: var(--kz-accent-text); overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: reduce) { .kz-kit-card { transition: none; } }
+
+/* The stretch the dock floats over: the scene, the playground, the families (the hero sits above it). */
+.kz-home-stage { display: grid; gap: clamp(72px, 9vw, 120px); min-width: 0; }
+.kz-home-stage > * { min-width: 0; }
+.kz-home-lead { min-width: 0; }
+.kz-dock { transition: opacity .3s ease, translate .3s ease; }
+.kz-home-stage[data-lead-in-view] .kz-dock { opacity: 0; translate: 0 12px; pointer-events: none; visibility: hidden; transition: opacity .3s ease, translate .3s ease, visibility 0s .3s; }
+@media (prefers-reduced-motion: reduce) { .kz-dock, .kz-home-stage[data-lead-in-view] .kz-dock { transition: none; } }
 .kz-home-section { display: grid; gap: 14px; min-width: 0; }
 .kz-home-section h2 { margin: 0; font-family: var(--kz-font-display); font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 800; letter-spacing: -.025em; color: var(--kz-text-primary); }
 .kz-home-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 24px; }
@@ -857,12 +898,12 @@ html.light .kz-land-sweep { mix-blend-mode: multiply; opacity: .55; }
   .kz-scene-phone { width: 200px; margin-top: -150px; margin-right: 4px; border-radius: 34px; padding: 6px; }
   .kz-home-note { font-size: 12px; }
   .kz-scene-screen { border-radius: 31px; }
-  .kz-dock { flex-direction: column; align-items: stretch; gap: 6px; padding: 5px; border-radius: 16px; width: calc(100vw - 20px); }
-  .kz-dock-ids { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .kz-dock-ids button { flex-direction: column; justify-content: center; gap: 2px; height: 46px; padding: 0 2px; font-size: 11px; text-align: center; }
-  .kz-dock-ids button svg { width: 18px; height: 18px; }
-  .kz-dock-ids button small { display: none; }
-  .kz-dock-actions { border-left: 0; border-top: 1px solid var(--kz-border-subtle); padding: 5px 2px 0; justify-content: space-between; }
+  /* On a phone the dock is the four marks only (their names stay their accessible names): the hero holds the ways in. */
+  .kz-dock { padding: 4px; border-radius: 16px; }
+  .kz-dock-ids button { justify-content: center; width: 52px; height: 44px; padding: 0; }
+  .kz-dock-ids button svg { width: 22px; height: 22px; }
+  .kz-dock-ids button > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .kz-dock-actions { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .kz-home-studio { transition: none; }

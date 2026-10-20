@@ -2,7 +2,7 @@
    the phone. Structure and numbers only; every word is a message (landing.scene.products.<id>). The figures are a
    product's demo data (fictional, honest in kind), never claims about Krizaka. */
 
-export const SCENE_IDS = ["orazaka", "orochia", "yomizaka", "krizaka"] as const;
+export const SCENE_IDS = ["krizaka", "orazaka", "orochia", "yomizaka"] as const;
 export type SceneId = (typeof SCENE_IDS)[number];
 
 export type Tone = "accent" | "success" | "warning" | "danger";
