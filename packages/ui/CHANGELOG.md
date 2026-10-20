@@ -1,5 +1,19 @@
 # @krizaka/ui
 
+## 3.29.0
+
+### Minor Changes
+
+- [#372](https://github.com/krizaka/krizaka-ui/pull/372) [`520c85a`](https://github.com/krizaka/krizaka-ui/commit/520c85aff59dfecf102afdda3990dd1e7fbf8afc) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `DocsHubPage`: `linksLayout="stack"` puts one quick link per line in every collection (default `wrap` unchanged), so the first link of each card starts at the same height (krizaka-ui#212).
+
+- [#371](https://github.com/krizaka/krizaka-ui/pull/371) [`2d7e80a`](https://github.com/krizaka/krizaka-ui/commit/2d7e80a8967b11727e1646e4c25b630b3e542de8) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/engine-flow`: `EngineFlow` — an engine at the hub and the apps it serves around it, with photons travelling each conduit in (requests), out (results) or both, in the app's brand going in and the hub's coming back; planned apps dim, dashed and still. Radial, top to bottom or left to right, with a compact layout under 560 px (top to bottom by default); S-shaped Bézier or straight conduits. SVG + CSS only (motion.css `kz-flow`): paused off screen, held while the page settles, a still frame under reduced motion — no animation frame, no canvas. Each node is a button; the detail line (polite live region) says the chosen node's line and link. The generic primitive of krizaka-motion's « Orazaka Neural Pipeline Flow ».
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.29.0
+  - @krizaka/tokens@3.29.0
+
 ## 3.28.0
 
 ### Minor Changes
