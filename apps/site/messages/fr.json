@@ -930,6 +930,10 @@
       "title": "Parcourir le kit",
       "lead": "Chaque famille, dessinée par ses propres composants.",
       "all": "Les {count} composants"
+    },
+    "family": {
+      "title": "Le reste de la famille",
+      "lead": "Faits par les mêmes personnes, au grand jour : les briques Spring Boot, le labo du mouvement, et les produits eux-mêmes."
     }
   }
 }

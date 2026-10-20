@@ -46,3 +46,12 @@ test("stars are a figure only once they inform: none when unread, none below the
   assert.equal(showStars(STARS_SHOWN_FROM - 1), false);
   assert.equal(showStars(STARS_SHOWN_FROM), true);
 });
+
+test("the home's « rest of the family » comes from @krizaka/ui/sites: the other open-source sites, then the company — never typed", async () => {
+  const { familyLinks } = await import("../lib/family-links.ts");
+  const { sites } = await import("@krizaka/ui/sites");
+  const links = familyLinks("ui");
+  assert.deepEqual(links.map((s) => s.id), [...sites.filter((s) => s.group === "open-source" && s.id !== "ui").map((s) => s.id), "krizaka"]);
+  assert.ok(links.some((s) => s.id === "java") && links.some((s) => s.id === "motion"));
+  assert.ok(links.every((s) => /^https:\/\//.test(s.url)));
+});

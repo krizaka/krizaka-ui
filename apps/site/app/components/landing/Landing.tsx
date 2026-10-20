@@ -3,11 +3,15 @@ import path from "node:path";
 
 import { Sparkline } from "@krizaka/charts/sparkline";
 import { Button } from "@krizaka/ui/button";
+import { CardGrid } from "@krizaka/ui/card-grid";
 import { CodeBlock } from "@krizaka/ui/code-block";
+import { LinkCard } from "@krizaka/ui/link-card";
+import { familyLabels } from "@krizaka/ui/sites";
 import { NumberTicker } from "@krizaka/ui/number-ticker";
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "@krizaka/ui/tabs";
 import Link from "next/link";
 
+import { familyLinks } from "@/lib/family-links";
 import { githubStars, showStars } from "@/lib/github-stars";
 import { format, getDictionary, type Locale } from "@/lib/i18n";
 import { WEB_INSTALL } from "@/lib/install";
@@ -192,6 +196,16 @@ export async function Landing({ locale }: { locale: Locale }) {
         <p className="kz-land-sub">
           <a href="https://github.com/krizaka/krizaka-ui">{t.packages.source} →</a>
         </p>
+      </section>
+
+      <section className="kz-home-section" aria-labelledby="land-family">
+        <h2 id="land-family">{t.family.title}</h2>
+        <p className="kz-land-sub">{t.family.lead}</p>
+        <CardGrid min={240} columns={3}>
+          {familyLinks("ui").map((site) => (
+            <LinkCard key={site.id} href={site.url} title={site.name} description={familyLabels[locale].descriptions[site.id]} meta={site.host} />
+          ))}
+        </CardGrid>
       </section>
     </div>
   );
