@@ -1,10 +1,14 @@
 ---
 title: Motion
-description: One motion system — easing, durations, the arrival of blocks — and the rule that stills it all under reduced motion.
+description: One motion system — easing, durations, one config vocabulary, the primitives that move — and the rule that stills it all under reduced motion.
 ---
 
-Krizaka moves little, and always the same way. Motion is a system of tokens, not a library: no component brings its own
-curve.
+Krizaka moves little, and always the same way. Motion is a system of tokens and a few primitives, not a library: no
+component brings its own curve, no hover moves a card, and no pointer light follows the cursor. A figure moves because it
+shows something — traffic on a route, a total climbing, a step completing — never to decorate.
+
+The [Krizaka Motion lab](https://krizaka.github.io/krizaka-motion/) plays every primitive on this page with live knobs, the
+code that follows them and the install line.
 
 ## The tokens
 
@@ -15,6 +19,54 @@ curve.
 | `--kz-duration-fast` | Micro-interactions: a press, a focus ring. `0` under reduced motion. |
 
 `@krizaka/tailwind` makes every `transition*` utility default to 200 ms on `--kz-ease`.
+
+## One vocabulary
+
+Every animated primitive takes the same optional props, so what you learn on one carries to the next. A primitive offers
+the ones that make sense for it:
+
+| Prop | Values | Meaning |
+| :-- | :-- | :-- |
+| `speed` | number | How fast a loop runs (photons in `EngineFlow`, in units a second). |
+| `duration` | ms | The length of a one-shot (a route drawing, a ticker's climb, a row arriving). |
+| `easing` | `linear`, `ease-in-out`, any CSS easing | The timing function; defaults come from `--kz-ease`. |
+| `stagger` | ms | The step between siblings; the platform's own is 70 ms (`reveal(i)`). |
+| `direction` | `radial`, `top-to-bottom`, `left-to-right` · `in`, `out`, `both` | Layout of a flow; which way things travel. |
+| `density` | `sparse`, `normal`, `dense` | How many photons, pins or rows. |
+| `trigger` | `always`, `hover`, `active`, `view`, `change` | When it plays. |
+| `reducedMotion` | `still` (default) | What a visitor who asks for less gets: the composed resting frame, never a blank. |
+| `hue` | a brand scope (`brand-orochia`) | Colour comes from the tokens, in both themes. |
+| `paused` | boolean | A controlled pause, on top of the off-screen pause. |
+
+`EngineFlow` offers `speed`, `density`, `trigger`, `easing`, `stagger`, `layout` and `breathe` today; the rest arrive
+primitive by primitive, tracked in [krizaka-motion#8](https://github.com/krizaka/krizaka-motion/issues/8).
+
+## The primitives that move
+
+| Primitive | What moves | Reduced motion |
+| :-- | :-- | :-- |
+| `EngineFlow` | Photons travel the conduits of an engine and its apps; the engine breathes. | Photons rest along their conduits. |
+| `Route`, `Pulse`, `Marker drop` (`@krizaka/ui/map`) | A route draws itself and a courier travels it; a heat pulse beats; pins drop in turn. | Everything is in place at once. |
+| `NumberTicker` | A figure climbs into view or rolls digit by digit to a new value. | The final figure. |
+| `TerminalReplay` | Commands are typed, output printed line by line. | The whole session, at rest. |
+| `Stepper` | The current step is traced and grows to its value; each state is said in words. | The states, without the trace. |
+| `Dialog`, `Sheet` | The panel enters from its edge. | It appears. |
+| `NavBar`, `Tabs` | One indicator slides under the active item. | It jumps. |
+| `data-kz-arrive` | A row, a cell or an item arrives once: `slide`, `fade` or `flash` (`data-kz-arrival`). | Present, no animation. |
+| `.kz-grow` | A Sparkline draws its stroke and raises its fill (`--kz-grow-duration`, `--kz-grow-ease`). | Drawn. |
+
+## What the conductor guarantees
+
+Mount `MotionObserver` once. Every primitive that loops is a `[data-motion-scope]`: it gets `data-offscreen` while off
+screen and **every animation inside it pauses**; the page's loops hold their first frame until it has settled
+(`html[data-motion="settling"]`), so the first screen paints undisturbed. Motion is CSS (`transform`, `opacity`, `translate`,
+`scale`, an SVG `stroke-dashoffset`) or the Web Animations API; there is no permanent `requestAnimationFrame` and no
+canvas — a finite one-shot (a route drawing for 1.4 s) may use frames and stops when it is done. A primitive that needs more
+says why in its page.
+
+Two rules keep it honest: an animated length always carries its unit (`calc(var(--gap) * -1px)`, never `* -1` — a unitless
+number cannot interpolate with a length and the animation silently freezes), and every animation is **checked in a real
+browser with reduced motion off** (it moves) **and on** (it rests).
 
 ## Arrival
 
@@ -28,9 +80,9 @@ Under `prefers-reduced-motion` entrances stop, loops rest on a still frame, and 
 words and the announcements stay. Every animated component of the platform is tested for it.
 
 ```tsx
-import { NumberTicker } from "@krizaka/ui/number-ticker";
+import { EngineFlow } from "@krizaka/ui/engine-flow";
 
-<NumberTicker value={1284} locale="en" />
+<EngineFlow label="Orazaka and the products it powers" hub={{ label: "Orazaka" }} nodes={nodes} density="dense" trigger="hover" />
 ```
 
 See also the [brand marks](/foundations/brand-marks), which are animated by the same rules.
