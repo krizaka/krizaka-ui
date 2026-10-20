@@ -132,7 +132,15 @@ def mix(score: Path, foley_from: Path, voice: list[tuple[Path, float]], seconds:
     else:
         parts.append("[music][fx]amix=inputs=2:normalize=0[sum]")
     parts.append(f"[sum]atrim=0:{seconds:.3f},afade=t=out:st={seconds - 3:.3f}:d=3,loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000[out]")
-    run(["ffmpeg", "-v", "error", "-y", *inputs, "-filter_complex", ";".join(parts), "-map", "[out]", "-c:a", "aac", "-b:a", "256k", str(out)])
+    first = out.with_name(out.stem + ".pass1.wav")
+    run(["ffmpeg", "-v", "error", "-y", *inputs, "-filter_complex", ";".join(parts), "-map", "[out]", str(first)])
+    # loudnorm in one pass lands near, not on, its target: measure the mix, then set it to -14 LUFS exactly.
+    report = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(first), "-af", "ebur128", "-f", "null", "-"],
+                            capture_output=True, text=True).stderr
+    measured = float(report.rsplit("Integrated loudness:", 1)[1].split("I:", 1)[1].split("LUFS", 1)[0])
+    run(["ffmpeg", "-v", "error", "-y", "-i", str(first), "-af", f"volume={-14.0 - measured:.2f}dB,alimiter=limit=0.89",
+         "-c:a", "aac", "-b:a", "256k", str(out)])
+    first.unlink()
 
 
 def main() -> None:
@@ -194,6 +202,20 @@ def main() -> None:
                                     font=arg("font") or cut.find_font(), provenance={"film": treatment["title"], "language": language})
             report["deliverables"].append({**facts, "language": language, "file": name.name})
             print(name.name, json.dumps(facts), flush=True)
+    # The site's cut (krizaka.com « Watch the film », /story): no narrator and no drawn text — the page gives the captions in
+    # its own language (WebVTT) and says the film is AI-generated; the file's metadata says so too. mp4, webm and a poster.
+    site_audio = out / "mix-site.m4a"
+    mix(score, foley, [], total, site_audio)
+    site = out / "dawn-16x9.mp4"
+    run(["ffmpeg", "-v", "error", "-y", "-i", str(master), "-i", str(site_audio), "-map", "0:v", "-map", "1:a", "-vf",
+         "scale=1920:1080:flags=lanczos", "-c:v", "libx264", "-preset", "slow", "-crf", "20", "-pix_fmt", "yuv420p",
+         "-c:a", "copy", "-shortest", "-metadata", "comment=AI-generated — made with Orazaka", "-movflags", "+faststart", str(site)])
+    run(["ffmpeg", "-v", "error", "-y", "-i", str(site), "-c:v", "libvpx-vp9", "-crf", "34", "-b:v", "0", "-row-mt", "1",
+         "-deadline", "good", "-cpu-used", "2", "-c:a", "libopus", "-b:a", "128k", str(out / "dawn-16x9.webm")])
+    poster_at = next(a + 0.3 for (a, _), s in zip(spans, edl["shots"]) if s["take"].startswith(edl.get("poster", "02-")))
+    run(["ffmpeg", "-v", "error", "-y", "-ss", f"{poster_at:.2f}", "-i", str(master), "-frames:v", "1", "-vf",
+         "scale=1920:1080:flags=lanczos", "-q:v", "3", str(out / "dawn-16x9.jpg")])
+    report["site"] = {"mp4": site.name, "webm": "dawn-16x9.webm", "poster": "dawn-16x9.jpg", "posterAt": round(poster_at, 2)}
     (out / "finish-report.json").write_text(json.dumps(report, indent=1, ensure_ascii=False))
 
 

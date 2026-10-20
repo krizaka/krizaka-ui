@@ -6,7 +6,7 @@
     {
       "take": "17-storm-valley-t0.mp4",
       "in": 0.2,
-      "screen": 2.9,
+      "screen": 3.3,
       "vx": 0.4
     },
     {
@@ -26,7 +26,7 @@
     {
       "take": "04-owl-archive-t0.mp4",
       "in": 0.3,
-      "screen": 4.8,
+      "screen": 5.3,
       "rampAt": 3.6,
       "rampSpeed": 0.5,
       "caption": "owl",
@@ -53,7 +53,7 @@
     {
       "take": "18-sunrise-peaks-t0.mp4",
       "in": 0.2,
-      "screen": 2.8,
+      "screen": 3.2,
       "transition": "dissolve",
       "transitionSeconds": 0.5,
       "vx": 0.5
@@ -69,7 +69,7 @@
     {
       "take": "07-coin-splash-t0.mp4",
       "in": 0.1,
-      "screen": 2.7,
+      "screen": 3.0,
       "speed": 0.5,
       "vx": 0.5
     },
@@ -92,7 +92,7 @@
     {
       "take": "19-golden-valley-t0.mp4",
       "in": 0.2,
-      "screen": 2.0,
+      "screen": 2.3,
       "transition": "flash",
       "transitionSeconds": 0.25,
       "vx": 0.6
@@ -100,7 +100,7 @@
     {
       "take": "11-five-on-the-ridge-t0.mp4",
       "in": 0.3,
-      "screen": 4.5,
+      "screen": 5.1,
       "transition": "cut",
       "caption": "together",
       "vx": 0.5
@@ -136,7 +136,7 @@
     {
       "take": "16-phoenix-dawn-t0.mp4",
       "in": 0.2,
-      "screen": 6.0,
+      "screen": 6.4,
       "speed": 0.75,
       "transition": "dissolve",
       "transitionSeconds": 0.5,
