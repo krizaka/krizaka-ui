@@ -55,3 +55,17 @@ test("the docs catch-all leaves the home to its route", () => {
   assert.ok(!existsSync(path.join(root, "app/(en)/[[...slug]]")), "an optional catch-all would also match / and take the home back");
   assert.ok(existsSync(path.join(root, "app/(en)/[...slug]/page.tsx")));
 });
+
+test("a preview frame never re-renders before its example hydrates: no site-theme hook in it (a sync update there threw the server HTML away)", () => {
+  const frame = readFileSync(path.join(root, "app/components/docs/PreviewFrame.tsx"), "utf8").replace(/\/\*[\s\S]*?\*\/|^\s*\/\/.*$/gm, "");
+  assert.doesNotMatch(frame, /useSiteTheme|useSyncExternalStore|useTheme\b/);
+});
+
+test("a live example hydrates without Suspense: the browser keeps the server's markup and wakes the example near the screen", () => {
+  const live = readFileSync(path.join(root, "app/components/docs/LiveExample.tsx"), "utf8");
+  // In the browser before it wakes: the server's markup kept as is (no hydration of the example, no boundary, no lazy).
+  assert.match(live, /suppressHydrationWarning dangerouslySetInnerHTML=\{\{ __html: "" \}\}/);
+  // lazy (and so Suspense) only on the server.
+  assert.match(live, /const SERVER_EXAMPLES = ON_SERVER\s*\?/);
+  assert.match(live, /IntersectionObserver/);
+});

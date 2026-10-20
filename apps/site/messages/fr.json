@@ -97,9 +97,8 @@
       "preview": "Aperçu",
       "code": "Code",
       "label": "Aperçu en direct de {name}",
-      "toLight": "Afficher en thème clair",
-      "toDark": "Afficher en thème sombre",
-      "mapSnapshot": "{name}, photographiée avec ses tuiles de carte"
+      "mapSnapshot": "{name}, photographiée avec ses tuiles de carte",
+      "switchTheme": "Changer le thème de l’aperçu"
     },
     "props": {
       "prop": "Prop",
