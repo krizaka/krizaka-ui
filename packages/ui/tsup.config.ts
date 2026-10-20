@@ -49,6 +49,7 @@ export default defineConfig([
       iso: "src/iso/index.ts",
       stepper: "src/stepper/index.ts",
       "chip-link": "src/chip-link/index.ts",
+      "chip-row": "src/chip-row/index.ts",
       meter: "src/meter/index.ts",
       pagination: "src/pagination/index.ts",
       "description-list": "src/description-list/index.ts",

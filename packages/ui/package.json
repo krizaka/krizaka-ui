@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/ui",
-  "version": "3.27.0",
+  "version": "3.28.0",
   "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia, Yasakia, Yororis) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
@@ -164,6 +164,10 @@
     "./chip-link": {
       "types": "./dist/chip-link.d.ts",
       "import": "./dist/chip-link.js"
+    },
+    "./chip-row": {
+      "types": "./dist/chip-row.d.ts",
+      "import": "./dist/chip-row.js"
     },
     "./switch": {
       "types": "./dist/switch.d.ts",
@@ -726,7 +730,7 @@
   },
   "peerDependencies": {
     "@krizaka/query": ">=0.2.1",
-    "@krizaka/tailwind": ">=3.27.0",
+    "@krizaka/tailwind": ">=3.28.0",
     "@maplibre/maplibre-react-native": ">=11",
     "@shopify/flash-list": ">=2",
     "expo-camera": ">=16",
@@ -1384,6 +1388,16 @@
       "name": "./chip-link",
       "path": "dist/chip-link.js",
       "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./chip-row",
+      "path": "dist/chip-row.js",
+      "limit": "3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
