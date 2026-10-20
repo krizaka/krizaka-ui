@@ -1,5 +1,24 @@
 # @krizaka/ui
 
+## 3.34.0
+
+### Minor Changes
+
+- [#414](https://github.com/krizaka/krizaka-ui/pull/414) [`bf46e00`](https://github.com/krizaka/krizaka-ui/commit/bf46e00276b5701fdeb7ccaafd2991d46d78009a) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `Route` joins the motion vocabulary: `easing` (`ease-out`, `linear`, `ease-in-out`) shapes the drawing and the trips, and `paused` holds both where they are (on top of the off-screen pause).
+
+- [#415](https://github.com/krizaka/krizaka-ui/pull/415) [`960fe68`](https://github.com/krizaka/krizaka-ui/commit/960fe68737cf6e4d8944bde1d7c255578ce006cf) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `TerminalReplay` joins the motion vocabulary: `speed`, a multiplier on every delay (typing, lines, between commands) — 2 plays twice as fast, 0.5 half as fast.
+
+- [#413](https://github.com/krizaka/krizaka-ui/pull/413) [`ba85188`](https://github.com/krizaka/krizaka-ui/commit/ba85188842da039c8bafc7af44da8201c88b4237) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `NumberTicker` joins the motion vocabulary: `duration` now drives the digit roll (`trigger="change"`) as well as the climb, and the new `easing` (`ease-out`, `linear`, `ease-in-out` or any CSS easing) shapes both, through `--kz-count-duration` / `--kz-count-ease` on the figure. Unset, nothing changes.
+
+### Patch Changes
+
+- [#408](https://github.com/krizaka/krizaka-ui/pull/408) [`4d0dec1`](https://github.com/krizaka/krizaka-ui/commit/4d0dec17a5e0ed3efd658cfc51d2e654b5d7938b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Button: the « Sizes » example wraps on a narrow phone (360 px) instead of running 2 px past its frame.
+
+- [#411](https://github.com/krizaka/krizaka-ui/pull/411) [`5bea576`](https://github.com/krizaka/krizaka-ui/commit/5bea576b1b4b38da2f9d7db86113050c3d495b30) Thanks [@oussamaABID](https://github.com/oussamaABID)! - DayStrip: bringing the chosen day into view scrolls the strip only, never the page. A strip low on a page used to pull the whole page down to it when it appeared (`scrollIntoView`).
+- Updated dependencies []:
+  - @krizaka/tailwind@3.34.0
+  - @krizaka/tokens@3.34.0
+
 ## 3.33.1
 
 ### Patch Changes
