@@ -1,5 +1,24 @@
 # @krizaka/ui
 
+## 3.31.0
+
+### Minor Changes
+
+- [#395](https://github.com/krizaka/krizaka-ui/pull/395) [`6d2f740`](https://github.com/krizaka/krizaka-ui/commit/6d2f740164267cd3583814c12011612a0507ab30) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `EngineFlow` config, the first of Krizaka Motion's shared vocabulary: `density` (`sparse` · `normal` · `dense`: photons per conduit), `trigger` (`always` · `hover` · `active`: when they travel), `easing` (`linear`, `ease-in-out` or any CSS easing), `stagger` (ms between conduits) and `breathe` (the engine's mark), next to `speed`, `layout`, `compactLayout`, `particles` and `conduit`. Exports `photonCount`, `FlowDensity`, `FlowTrigger`, `FlowEasing`.
+
+- [#395](https://github.com/krizaka/krizaka-ui/pull/395) [`6d2f740`](https://github.com/krizaka/krizaka-ui/commit/6d2f740164267cd3583814c12011612a0507ab30) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/map` motion: `Route` (a line that draws itself once when the map is on screen, and a `courier` that makes a trip — one, or `repeatAfter` while visible; finite frames, nothing runs afterwards), `Pulse` (a heat pulse around a hot spot), `Marker drop={delay}` (a pin that drops onto its place), and the geometry behind them (`pathLength`, `pointAlong`, `sliceLine`). Everything is in place at once under reduced motion; the route is read in the list of places. Example `map/route`.
+
+### Patch Changes
+
+- [#375](https://github.com/krizaka/krizaka-ui/pull/375) [`b2bf5dd`](https://github.com/krizaka/krizaka-ui/commit/b2bf5dd7a50ba60f166001eb06d60e753e0f3af6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `export-brand`: the favicon's PNG sizes (`favicon-32.png`, `apple-touch-icon.png` 180, `icon-192.png`, `icon-512.png`) are exported next to `favicon.svg` for every brand, so a site's tab, home-screen and manifest icons come from the current mark.
+
+- [#394](https://github.com/krizaka/krizaka-ui/pull/394) [`b1b2ee1`](https://github.com/krizaka/krizaka-ui/commit/b1b2ee1e4bc7f50d0096f474bd8a2b3878678fed) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `EngineFlow`: the photons travel again and the engine breathes. The `kz-flow-in/out` keyframes animated `stroke-dashoffset` to `calc(var(--kz-flow-gap) * -1)`, a unitless number the browser cannot interpolate with a length, so each dot only flipped between two equivalent offsets and looked frozen on every site; the gap now carries its unit (`* -1px`). The hub's mark swells slowly in the loop system (`kz-loop`: held off screen and while the page settles, still under reduced motion). The Storybook stories sample the dash offsets in a real browser and fail if nothing moves (or if something moves under reduced motion).
+
+- [#375](https://github.com/krizaka/krizaka-ui/pull/375) [`b2bf5dd`](https://github.com/krizaka/krizaka-ui/commit/b2bf5dd7a50ba60f166001eb06d60e753e0f3af6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `sites`: Kachizaka and Akinaza now have their dev sites (`dev.kachizaka.com`, `dev.akinaza.com`), Yasakia's line says what it is (real people, introductions and photos checked before you see them) and Orazaka's is product-first, in English and French.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.31.0
+  - @krizaka/tokens@3.31.0
+
 ## 3.30.0
 
 ### Minor Changes
