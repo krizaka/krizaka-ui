@@ -4,7 +4,12 @@ import userEvent from "@testing-library/user-event";
 import { axeViolations } from "../test/axe";
 import { groupedToast, progressToast, toast, toastClassNames, Toaster, undoToast } from "./index";
 
-afterEach(() => act(() => void toast.dismiss()));
+// Sonner removes a dismissed toast on a timer: wait for it while the Toaster is still mounted, or the timer fires after the
+// environment is torn down ("window is not defined", an unhandled error that fails the whole run — seen on CI).
+afterEach(async () => {
+  act(() => void toast.dismiss());
+  await waitFor(() => expect(document.querySelector("[data-sonner-toast]")).toBeNull());
+});
 
 describe("Toaster", () => {
   it("names its region and styles toasts by roles, sonner's own styling off", async () => {
