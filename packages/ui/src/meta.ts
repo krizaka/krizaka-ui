@@ -31,6 +31,7 @@ export type ComponentName =
   | "checkbox"
   | "chip"
   | "chip-link"
+  | "chip-row"
   | "choice-grid"
   | "cn"
   | "code-block"
