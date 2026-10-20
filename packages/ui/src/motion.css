@@ -636,11 +636,131 @@ svg[data-kz-icon="ExternalIcon"] {
 @keyframes kz-replay-blink { 50% { opacity: 0; } }
 @keyframes kz-replay-reveal { from { visibility: hidden; } }
 
+/* ─── EngineFlow: an engine at the hub, the apps around it, photons along the conduits ───
+   The stage keeps the geometry's aspect ratio (no layout shift); the conduits are SVG paths in a box 100 units wide,
+   their photons zero-length dashes whose offset slides one gap per period — so every conduit moves at one speed.
+   `--kz-flow-back` is read on the figure: the photons coming back wear the hub's accent, those going in the node's. */
+.kz-flow {
+  --kz-flow-back: var(--kz-accent);
+  --kz-flow-w: 0.22;
+  --kz-flow-mark: 3.25rem;
+  --kz-flow-hub: 5.75rem;
+  position: relative;
+  margin: 0;
+  container-type: inline-size;
+}
+.kz-flow-stage { position: relative; width: 100%; }
+.kz-flow-stage > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.kz-flow[data-compact] > .kz-flow-stage[data-variant="compact"] { display: none; }
+@container (max-width: 559.98px) {
+  .kz-flow[data-compact] > .kz-flow-stage[data-variant="wide"] { display: none; }
+  .kz-flow[data-compact] > .kz-flow-stage[data-variant="compact"] { display: block; }
+}
+.kz-flow-stage[data-variant="compact"] { --kz-flow-w: 0.5; --kz-flow-mark: 2.5rem; --kz-flow-hub: 4.5rem; }
+.kz-flow-link { transition: opacity 0.3s var(--kz-ease); }
+.kz-flow-wire {
+  fill: none;
+  stroke: color-mix(in oklab, var(--kz-accent) 55%, var(--kz-border-default, currentColor));
+  stroke-width: var(--kz-flow-w);
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+.kz-flow-link[data-planned] .kz-flow-wire { stroke-dasharray: calc(var(--kz-flow-w) * 3) calc(var(--kz-flow-w) * 5); opacity: 0.4; }
+.kz-flow-photon {
+  fill: none;
+  stroke: var(--kz-accent);
+  stroke-width: calc(var(--kz-flow-w) * 3.6);
+  stroke-linecap: round;
+  stroke-dasharray: 0.001 var(--kz-flow-gap, 12);
+  animation: kz-flow-in 2.4s linear infinite;
+}
+.kz-flow-photon[data-halo] { stroke-width: calc(var(--kz-flow-w) * 9); opacity: 0.22; }
+.kz-flow-photon[data-dir="out"] { stroke: var(--kz-flow-back); animation-name: kz-flow-out; }
+.kz-flow[data-active] .kz-flow-link:not([data-active]) { opacity: 0.25; }
+.kz-flow-link[data-active] .kz-flow-wire { opacity: 0.9; }
+@keyframes kz-flow-in { to { stroke-dashoffset: calc(var(--kz-flow-gap, 12) * -1); } }
+@keyframes kz-flow-out { from { stroke-dashoffset: calc(var(--kz-flow-gap, 12) * -1); } to { stroke-dashoffset: 0; } }
+
+.kz-flow-nodes { margin: 0; padding: 0; list-style: none; }
+.kz-flow-nodes > li, .kz-flow-hub { position: absolute; translate: -50% -50%; }
+.kz-flow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.25rem;
+  border: 0;
+  border-radius: 0.875rem;
+  background: none;
+  color: var(--kz-text-primary);
+  font: inherit;
+  cursor: pointer;
+  transition: opacity 0.3s var(--kz-ease);
+}
+.kz-flow-node:focus-visible { outline: 2px solid var(--kz-ring); outline-offset: 2px; }
+.kz-flow-node-mark, .kz-flow-hub-mark {
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--kz-surface-1);
+  border: 1px solid color-mix(in oklab, var(--kz-accent) 45%, var(--kz-border-default, transparent));
+  transition: border-color 0.3s var(--kz-ease), box-shadow 0.3s var(--kz-ease), scale 0.3s var(--kz-ease);
+}
+.kz-flow-node-mark { width: var(--kz-flow-mark); height: var(--kz-flow-mark); }
+.kz-flow-node-mark > svg { width: 62%; height: 62%; }
+.kz-flow-node-label { font-size: 0.8125rem; font-weight: 600; line-height: 1.2; white-space: nowrap; }
+.kz-flow-node:is(:hover, :focus-visible, [data-active]) .kz-flow-node-mark {
+  border-color: var(--kz-accent);
+  box-shadow: 0 0 0 4px var(--kz-accent-soft), 0 0 24px -6px var(--kz-accent);
+  scale: 1.06;
+}
+.kz-flow[data-active] .kz-flow-node:not([data-active]) { opacity: 0.6; }
+.kz-flow-node[data-planned] .kz-flow-node-mark { border-style: dashed; }
+.kz-flow-node[data-planned] .kz-flow-node-mark > * { opacity: 0.5; }
+.kz-flow-node[data-planned] .kz-flow-node-label { color: var(--kz-text-secondary); }
+/* On a phone the row of marks carries no names: the detail line says the chosen one. */
+.kz-flow-stage[data-layout="top-to-bottom"] .kz-flow-node-label {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.kz-flow-hub { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; pointer-events: none; }
+.kz-flow-hub-mark {
+  width: var(--kz-flow-hub);
+  height: var(--kz-flow-hub);
+  /* Opaque: the conduits end under the hub. */
+  background: radial-gradient(circle, var(--kz-accent-soft), transparent 72%), var(--kz-surface-1);
+  border-color: var(--kz-accent);
+  box-shadow: 0 0 40px -8px var(--kz-accent);
+}
+.kz-flow-hub-mark > svg { width: 64%; height: 64%; }
+.kz-flow-hub-label { font-weight: 700; font-size: 0.9375rem; color: var(--kz-text-primary); }
+.kz-flow-hub-caption { font-size: 0.75rem; color: var(--kz-text-secondary); }
+.kz-flow-detail {
+  min-height: 3lh;
+  max-width: 40rem;
+  margin: 1rem auto 0;
+  text-align: center;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--kz-text-secondary);
+}
+.kz-flow-detail strong { color: var(--kz-text-primary); }
+.kz-flow-status {
+  margin-left: 0.5rem;
+  padding: 0.0625rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--kz-border-default, currentColor);
+  font-size: 0.75rem;
+}
+.kz-flow-detail a { color: var(--kz-accent-text, var(--kz-accent)); font-weight: 600; text-underline-offset: 3px; }
+
 @media (prefers-reduced-motion: reduce) {
   .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
   .kz-skeleton, .kz-skeleton-shape *, .kz-toast::after, .kz-glow::before,
   .kz-rotating > *, .kz-loop, .kz-iso-rise, .kz-count-roll, .kz-loader-trace, .kz-loader-node, .kz-loader-mark,
-  [data-kz-status], .kz-replay-caret, .kz-month, .kz-map-user::after { animation: none !important; }
+  [data-kz-status], .kz-replay-caret, .kz-month, .kz-map-user::after, .kz-flow-photon { animation: none !important; }
+  .kz-flow-node-mark, .kz-flow-node, .kz-flow-link { transition: none; }
   /* At rest, the trace stands still where a reader expects it: a third of the hexagon from the top. */
   .kz-loader-trace:not([stroke-dasharray]) { stroke-dashoffset: -8; }
   [data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }

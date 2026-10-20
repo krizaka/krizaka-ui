@@ -175,6 +175,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/achievement` | `Achievement` (`title`, `eyebrow`, `badge`, `replaced`, `locked`), `AchievementList`, `Emblem` (`sword` · `mirror` · `jewel`) | server |
 | `@krizaka/ui/landscape` | `Landscape` (`tone` own · brand, `flock`, `phoenix`, `animated`, `position`, `fade`): the Krizaka valley at dusk, decorative | client |
 | `@krizaka/ui/glow-card` | `GlowCard` (`glow` border·spotlight·both, `alive`, `asChild`) | client |
+| `@krizaka/ui/engine-flow` | `EngineFlow` (`label`, `hub`, `nodes` with `flow` in·out·both, `planned`, `status`, `description`, `href`; `layout` radial·top-to-bottom·left-to-right, `compactLayout` under 560 px, `particles`, `conduit` bezier·straight, `hint`, `speed`): an engine and the apps it serves, photons along SVG conduits (motion.css), no animation frame | client |
 | `@krizaka/ui/marquee` | `Marquee` (`label`, `pauseLabel`, `playLabel`, `speed` px/s, `direction`, `fade`, `defaultPaused`) | client |
 | `@krizaka/ui/section-backdrop` | `SectionBackdrop` (`as`, `direction` down·up, `dome`, `grid`, `media` blurred for depth of field, `animated`): a page section on the brand's section gradient — see `@krizaka/tokens` BRAND.md, "Visual language" | server |
 | `@krizaka/ui/mascots` | `Mascot` (`bird` falcon·owl·duck·flamingo·pigeon·lovebird·crane, `mood` welcome·thinking·success·empty·error, `tone` brand·own, `size`, `animated`, `title`), `MASCOT_BIRDS`, `MASCOT_MOODS`: the Krizaka flock, in the host brand's accent — one bird at a moment that matters (onboarding, a long wait, a success, an empty list, an error); native `Mascot` in `/native` | client |
@@ -494,6 +495,7 @@ import { MotionObserver, RotatingWord } from "@krizaka/ui";
 | `kz-spotlight` | A soft bloom following the pointer across a card |
 | `kz-lift` | A card rising under the pointer |
 | `kz-gradient-text`, `kz-marquee` | Drifting gradient text, endless bands |
+| `kz-flow` | EngineFlow's conduits and photons: paused off screen, held while settling, still under reduced motion |
 | `kz-overlay`, `kz-dialog`, `kz-pop`, `kz-fade` | Backdrops, dialogs (from the bottom on phones), menus, views swapped in place |
 | `kz-progress` | The indeterminate progress bar's travelling segment |
 | `kz-backdrop`, `kz-backdrop-drift`, `-dome`, `-grid`, `-media` | The layers of `SectionBackdrop`: the brand's section gradient, the slow light drift (40 s), the dome, the perspective grid, the blurred foreground |

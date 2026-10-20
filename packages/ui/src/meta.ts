@@ -58,6 +58,7 @@ export type ComponentName =
   | "document-viewer"
   | "dropdown-menu"
   | "empty-state"
+  | "engine-flow"
   | "error-page"
   | "fab"
   | "field"

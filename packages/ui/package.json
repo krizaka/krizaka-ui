@@ -253,6 +253,10 @@
       "types": "./dist/glow-card.d.ts",
       "import": "./dist/glow-card.js"
     },
+    "./engine-flow": {
+      "types": "./dist/engine-flow.d.ts",
+      "import": "./dist/engine-flow.js"
+    },
     "./marquee": {
       "types": "./dist/marquee.d.ts",
       "import": "./dist/marquee.js"
@@ -1300,6 +1304,16 @@
       "name": "./glow-card",
       "path": "dist/glow-card.js",
       "limit": "2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./engine-flow",
+      "path": "dist/engine-flow.js",
+      "limit": "2.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

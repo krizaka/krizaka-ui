@@ -55,6 +55,7 @@ export const PLANNED: Record<string, string> = {
   "sticky-action": "Akinaza's shop storefront: « Book » held at the bottom of a phone.",
   "media-gallery": "Akinaza's shop storefront: the business's own photos and clips.",
   "app-header": "Orazaka's web client (the bar beside the rail: the name, the status chip, the account), then the other product apps.",
+  "engine-flow": "krizaka.com's home: Orazaka at the hub and the products it powers (radial; top to bottom on a phone), and the Krizaka Motion tile of its open-source section; then the products' own « Powered by Orazaka » sections.",
   "meta-row": "The quiet line under a video's title in Orochia: quality, shape, duration, date, and an AI badge.",
   waveform: "The bars of a voice or a sound, drawn on a product card: decorative, breathing while it plays (Yororis, Orochia).",
   "description-list": "Facts of an object: Orazaka's job details and Orochia's order pages.",
