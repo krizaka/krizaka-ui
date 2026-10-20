@@ -1,5 +1,18 @@
 # @krizaka/ui
 
+## 3.33.0
+
+### Minor Changes
+
+- [#401](https://github.com/krizaka/krizaka-ui/pull/401) [`719a57b`](https://github.com/krizaka/krizaka-ui/commit/719a57b1eab537ffa5a39e0a69cd9c49142e37f4) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `motion.css`: arrival and growth, moved out of the Krizaka Motion lab. `data-kz-arrive` on an element or a cell (its table row or list item follows) plays an arrival once — `slide` (default), `fade` or `flash`, chosen by `data-kz-arrival` on an ancestor, `--kz-arrive-duration`; `.kz-grow` around a Sparkline draws its stroke and raises its fill over `--kz-grow-duration` with `--kz-grow-ease`. CSS only, paused off screen, resting done under reduced motion.
+
+### Patch Changes
+
+- [#400](https://github.com/krizaka/krizaka-ui/pull/400) [`7a6103f`](https://github.com/krizaka/krizaka-ui/commit/7a6103f44af8af79627f304c717bf794742d9888) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `Map` follows the page's theme even when it flips before the engine has loaded: the map was created with the scheme of its first render and never corrected (a light page showed the dark basemap). The scheme is read when the engine is ready, and the effect applies any difference.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.33.0
+  - @krizaka/tokens@3.33.0
+
 ## 3.32.0
 
 ### Minor Changes
