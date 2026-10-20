@@ -88,7 +88,7 @@ npm view @krizaka/ui versions --json | tail -3    # the `version` dist-tag can l
 - Bump the consumers: one small auto-merge PR per repo (`chore(deps): @krizaka/ui, tokens, tailwind X.Y.Z`); list the
   laggards with `node scripts/check-ui-drift.mjs` in `krizaka/.github`.
 - Brand marks changed? Re-run `node tools/export-brand.mjs --out <dir> --upload` (credentials from the environment,
-  never printed), then purge the pull zone for `brand/*`.
+  never printed), then purge the pull zone for `brand/*`, then run `node tools/brand-propagate.mjs --apply`: every consumer's committed icons follow the new manifest in one small auto-merge PR each (otherwise their `brand-icons` guard fails at the next unrelated change, as after #393).
 - Append the release and what now waits on it to `company/orchestration/orchestration.md`.
 
 ## Rules
