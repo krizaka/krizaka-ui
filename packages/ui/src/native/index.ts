@@ -47,7 +47,7 @@ export {
   type CardRootProps,
   CardTitle,
 } from "./card";
-export { ConversationItem, type ConversationItemProps, MessageBubble, type MessageBubbleLabels, type MessageBubbleProps, MessageComposer, type MessageComposerProps, type MessageStatus, TypingIndicator, type TypingIndicatorProps } from "./chat";
+export { ComposerMeta, type ComposerMetaProps, ConversationItem, type ConversationItemProps, MessageBubble, type MessageBubbleLabels, type MessageBubbleProps, MessageComposer, type MessageComposerProps, type MessageStatus, TypingIndicator, type TypingIndicatorProps } from "./chat";
 export { Checkbox, type CheckboxProps } from "./checkbox";
 export { Chip, type ChipGroupProps, type ChipProps, type ChipSize } from "./chip";
 export { Combobox, type ComboboxLabels, comboboxLabels, type ComboboxProps, Select, type SelectOption, type SelectProps } from "./combobox";

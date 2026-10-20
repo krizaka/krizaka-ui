@@ -17,8 +17,10 @@ export type MessageBubbleLabels = {
 };
 
 export type MessageBubbleProps = {
-  /** The text. */
-  text: string;
+  /** The text. Optional when `children` is given (then it is only the bubble's spoken name). */
+  text?: string;
+  /** Rich content in the bubble's shape instead of `text` — a model's answer in `Markdown`. */
+  children?: React.ReactNode;
   /** Yours (right, in the accent) or theirs (left). */
   mine?: boolean;
   /** The time, written by the app (“14:02”). */
@@ -42,7 +44,7 @@ export type MessageBubbleProps = {
 const STATUS: Record<MessageStatus, string> = { sending: "Sending", sent: "Sent", delivered: "Delivered", read: "Read", failed: "Not sent" };
 
 /** A message: yours in the accent on the right, theirs on the left, the time inside, the receipt under the last of yours. */
-export function MessageBubble({ text, mine, time, status, showStatus, context, onRetry, grouped = "single", labels, style }: MessageBubbleProps) {
+export function MessageBubble({ text, children, mine, time, status, showStatus, context, onRetry, grouped = "single", labels, style }: MessageBubbleProps) {
   const { theme, radius } = useTheme();
   const words = { ...STATUS, ...labels?.status };
   const failed = status === "failed";
@@ -66,7 +68,7 @@ export function MessageBubble({ text, mine, time, status, showStatus, context, o
           {context}
         </Txt>
       ) : null}
-      <Txt tone={tone}>{text}</Txt>
+      {children ?? <Txt tone={tone}>{text}</Txt>}
       {time ? (
         <Txt variant="caption" tone={tone} style={styles.time}>
           {time}
@@ -74,7 +76,8 @@ export function MessageBubble({ text, mine, time, status, showStatus, context, o
       ) : null}
     </View>
   );
-  const name = [text, time, failed ? `${words.failed}. ${labels?.retry ?? ""}` : null].filter(Boolean).join(", ");
+  const rich = children !== undefined && !text;
+  const name = rich && !failed ? undefined : [text, time, failed ? `${words.failed}. ${labels?.retry ?? ""}` : null].filter(Boolean).join(", ");
   return (
     <View style={[styles.row, mine ? styles.mine : styles.theirs, style]}>
       {failed && onRetry ? (
@@ -160,6 +163,8 @@ export type MessageComposerProps = {
   leading?: React.ReactNode;
   /** Cannot write (blocked, read-only): the reason in its place. */
   disabledReason?: string;
+  /** A line above the input: a `ComposerMeta` (the model chip, a status), shown only when the app computes it true. */
+  meta?: React.ReactNode;
   /** The longest message. Default 4000. */
   maxLength?: number;
   /** Styles merged last. */
@@ -167,11 +172,13 @@ export type MessageComposerProps = {
 };
 
 /** Where a message is written: a growing input, an attach slot, a send button that wakes when there is something to send. */
-export function MessageComposer({ value, onValueChange, onSend, placeholder, sendLabel, leading, disabledReason, maxLength = 4000, style }: MessageComposerProps) {
+export function MessageComposer({ value, onValueChange, onSend, placeholder, sendLabel, leading, disabledReason, meta, maxLength = 4000, style }: MessageComposerProps) {
   const { theme, radius, insets, haptic } = useTheme();
   const ready = value.trim().length > 0;
   return (
-    <View style={[styles.composer, { borderTopColor: theme.borderSubtle, backgroundColor: theme.surface0, paddingBottom: 8 + insets.bottom }, style]}>
+    <View style={[styles.composerBox, { borderTopColor: theme.borderSubtle, backgroundColor: theme.surface0, paddingBottom: 8 + insets.bottom }, style]}>
+      {meta && !disabledReason ? <View style={styles.meta}>{meta}</View> : null}
+      <View style={styles.composer}>
       {disabledReason ? (
         <Txt tone="secondary" style={styles.flex}>
           {disabledReason}
@@ -206,6 +213,49 @@ export function MessageComposer({ value, onValueChange, onSend, placeholder, sen
           </Pressable>
         </>
       )}
+      </View>
+    </View>
+  );
+}
+
+export type ComposerMetaProps = {
+  /** The model in use: a chip that opens a choice. */
+  model?: { label: string; onPress: () => void; accessibilityLabel?: string };
+  /** A status line with a shield ("0 bytes left your network"): pass it only when the app computes it true. */
+  status?: string;
+};
+
+/** The line above a `MessageComposer`: the model chip and, only when true, a status line with a shield. */
+export function ComposerMeta({ model, status }: ComposerMetaProps) {
+  const { theme } = useTheme();
+  if (!model && !status) return null;
+  return (
+    <View style={styles.metaRow}>
+      {model ? (
+        <Pressable
+          role="button"
+          aria-label={model.accessibilityLabel ?? model.label}
+          onPress={model.onPress}
+          style={({ pressed }) => [styles.modelChip, { borderColor: theme.borderDefault, backgroundColor: pressed ? theme.surface3 : theme.surface1 }]}
+        >
+          <Txt variant="caption" tone="secondary" style={styles.bold}>
+            {model.label}
+          </Txt>
+          <Svg width={12} height={12} viewBox="0 0 24 24" aria-hidden>
+            <Path d="m6 9 6 6 6-6" fill="none" stroke={theme.textMuted} strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
+          </Svg>
+        </Pressable>
+      ) : null}
+      {status ? (
+        <View style={styles.statusLine}>
+          <Svg width={14} height={14} viewBox="0 0 24 24" aria-hidden>
+            <Path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" fill="none" stroke={theme.successText} strokeWidth={2} strokeLinejoin="round" />
+          </Svg>
+          <Txt variant="caption" tone="success">
+            {status}
+          </Txt>
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -292,7 +342,12 @@ const styles = StyleSheet.create({
   typingRow: { flexDirection: "row", alignItems: "center", gap: 8, alignSelf: "flex-start" },
   typing: { flexDirection: "row", gap: 4, paddingHorizontal: 14, paddingVertical: 12 },
   dot: { width: 7, height: 7, borderRadius: 4 },
-  composer: { flexDirection: "row", alignItems: "flex-end", gap: 8, paddingHorizontal: 12, paddingTop: 8, borderTopWidth: StyleSheet.hairlineWidth },
+  composerBox: { paddingTop: 8, borderTopWidth: StyleSheet.hairlineWidth },
+  composer: { flexDirection: "row", alignItems: "flex-end", gap: 8, paddingHorizontal: 12 },
+  meta: { paddingHorizontal: 12, paddingBottom: 6 },
+  metaRow: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: 8 },
+  modelChip: { flexDirection: "row", alignItems: "center", gap: 4, minHeight: 32, paddingHorizontal: 10, borderRadius: 16, borderWidth: StyleSheet.hairlineWidth },
+  statusLine: { flexDirection: "row", alignItems: "center", gap: 4 },
   input: { flex: 1, maxHeight: 120, minHeight: 40, borderWidth: 1, paddingHorizontal: 14, paddingTop: 10, paddingBottom: 10, fontSize: 16 },
   send: { width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center" },
   flex: { flex: 1 },
