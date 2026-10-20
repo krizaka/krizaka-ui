@@ -687,6 +687,33 @@ svg[data-kz-icon="ExternalIcon"] {
 }
 .kz-flow-detail a { color: var(--kz-accent-text, var(--kz-accent)); font-weight: 600; text-underline-offset: 3px; }
 
+/* ─── Arrival and growth (the data demos of Krizaka Motion) — CSS only, held by the conductor like every loop ───
+   `[data-kz-arrive]` on an element (or on a cell: its table row, `tr:has(…)`, its list item) plays an arrival once when it
+   is added: `slide` (default) falls into place, `fade`, `flash` (an accent wash that fades) — chosen on any ancestor by
+   `data-kz-arrival`. `--kz-arrive-duration` sets the length. `.kz-grow` around a Sparkline (or any SVG with a stroke and
+   a fill) draws its stroke over `--kz-grow-duration` with `--kz-grow-ease`, and raises the fill. No movement of layout:
+   `translate`/`scale`/`opacity` only. Off screen they pause (`[data-offscreen]`), under reduced motion they rest done. */
+[data-kz-arrive], tr:has([data-kz-arrive]), li:has(> [data-kz-arrive]) {
+  animation: kz-arrive-slide var(--kz-arrive-duration, 520ms) var(--kz-ease) both;
+}
+[data-kz-arrival="fade"] :is([data-kz-arrive], tr:has([data-kz-arrive]), li:has(> [data-kz-arrive])) { animation-name: kz-arrive-fade; }
+[data-kz-arrival="flash"] :is([data-kz-arrive], tr:has([data-kz-arrive]), li:has(> [data-kz-arrive])) { animation-name: kz-arrive-flash; animation-duration: calc(var(--kz-arrive-duration, 520ms) * 2); }
+@keyframes kz-arrive-slide { from { opacity: 0; translate: 0 -14px; } to { opacity: 1; translate: 0 0; } }
+@keyframes kz-arrive-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes kz-arrive-flash { from { background: color-mix(in oklab, var(--kz-accent) 24%, transparent); } to { background: transparent; } }
+.kz-grow svg path[stroke]:not([stroke="none"]) {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: kz-grow-draw var(--kz-grow-duration, 900ms) var(--kz-grow-ease, var(--kz-ease)) forwards;
+}
+.kz-grow svg path[fill]:not([fill="none"]) {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: kz-grow-rise var(--kz-grow-duration, 900ms) var(--kz-grow-ease, var(--kz-ease)) backwards;
+}
+@keyframes kz-grow-draw { to { stroke-dashoffset: 0; } }
+@keyframes kz-grow-rise { from { opacity: 0; scale: 1 0.2; } to { opacity: 1; scale: 1 1; } }
+
 @media (prefers-reduced-motion: reduce) {
   .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
   .kz-skeleton, .kz-skeleton-shape *, .kz-toast::after,
@@ -703,4 +730,6 @@ svg[data-kz-icon="ExternalIcon"] {
   .kz-count-digit > span { transition: none; }
   /* The still frame is a composed picture, not a cut animation: particles rest along their link, labels show. */
   .kz-iso-item > .kz-iso-lift, .kz-iso-tip { transition: none; }
+  [data-kz-arrive], tr:has([data-kz-arrive]), li:has(> [data-kz-arrive]), .kz-grow svg path { animation: none !important; }
+  .kz-grow svg path[stroke]:not([stroke="none"]) { stroke-dashoffset: 0; }
 }
