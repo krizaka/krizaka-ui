@@ -676,6 +676,11 @@ svg[data-kz-icon="ExternalIcon"] {
 }
 .kz-flow-photon[data-halo] { stroke-width: calc(var(--kz-flow-w) * 9); opacity: 0.22; }
 .kz-flow-photon[data-dir="out"] { stroke: var(--kz-flow-back); animation-name: kz-flow-out; }
+/* `trigger`: `hover` — the photons travel only while the pointer or focus is on the figure (they rest along the conduits);
+   `active` — only on the chosen node's conduit (the others show no photon). Off screen / settling still pause them above. */
+.kz-flow[data-trigger="hover"]:not(:hover, :focus-within) .kz-flow-photon { animation-play-state: paused; }
+.kz-flow[data-trigger="active"] .kz-flow-link:not([data-active]) .kz-flow-photon { opacity: 0; }
+.kz-flow[data-trigger="active"]:not([data-active]) .kz-flow-photon { opacity: 0; }
 .kz-flow[data-active] .kz-flow-link:not([data-active]) { opacity: 0.25; }
 .kz-flow-link[data-active] .kz-flow-wire { opacity: 0.9; }
 /* The gap carries its unit (`* -1px`): a bare number is not interpolable with the length it starts from, and the dot would

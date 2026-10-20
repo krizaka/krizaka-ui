@@ -24,6 +24,7 @@ export const meta = {
     "Give each node its brand scope (`className=\"brand-<id>\"`) and the figure the hub's: photons going in wear the app's colour, those coming back the engine's.",
     "Draw only what runs: `flow=\"both\"` where results really come back, `planned` (with a `status` word) where nothing is wired yet.",
     "Keep a text version (a list) in the page; give each node a one-line `description` and its `href`.",
+    "Tune the stream, not the story: `density` (sparse · normal · dense), `speed`, `easing`, `stagger`, and `trigger` (`always`, `hover`, `active`) change how the photons travel, never what the figure claims; `breathe={false}` keeps the engine still.",
     "Five to eight nodes: radial reads at a glance; on a phone the default `compactLayout` puts them in a row above the hub.",
   ],
   accessibility: {

@@ -78,7 +78,37 @@ export type EngineFlowProps = Omit<React.ComponentProps<"figure">, "children"> &
   /** Photon speed, in units per second (the stage is 100 units wide).
    * @default 16 */
   speed?: number;
+  /** How many photons share a conduit: `sparse` one or two, `normal` two to four, `dense` four to eight.
+   * @default "normal" */
+  density?: FlowDensity;
+  /** When the photons travel: `always`; `hover` only while the pointer or focus is on the figure (they rest along the
+   * conduits otherwise); `active` only on the conduit of the chosen node (the others show nothing). Off screen they
+   * are always paused, and still under reduced motion.
+   * @default "always" */
+  trigger?: FlowTrigger;
+  /** The photons' timing function: `linear` (a steady stream), `ease-in-out` (a pulse that swells and settles), or any
+   * CSS `<easing-function>` (`cubic-bezier(.2,0,0,1)`, `steps(6)`).
+   * @default "linear" */
+  easing?: FlowEasing;
+  /** Milliseconds between one conduit's photons and the next's: 0 sends them all together.
+   * @default 300 */
+  stagger?: number;
+  /** The engine's mark swells slowly (a loop, still under reduced motion).
+   * @default true */
+  breathe?: boolean;
 };
+
+export type FlowDensity = "sparse" | "normal" | "dense";
+export type FlowTrigger = "always" | "hover" | "active";
+export type FlowEasing = "linear" | "ease-in-out" | (string & {});
+
+/** How many photons a conduit of this length carries (evenly spaced, so the gap is `length / count`). */
+export function photonCount(length: number, density: FlowDensity = "normal"): number {
+  const base = Math.round(length / 16);
+  if (density === "sparse") return Math.min(2, Math.max(1, Math.round(base / 2)));
+  if (density === "dense") return Math.min(8, Math.max(4, base * 2));
+  return Math.min(4, Math.max(2, base));
+}
 
 function Stage({
   layout,
@@ -88,6 +118,10 @@ function Stage({
   conduit,
   particles,
   speed,
+  density,
+  easing,
+  stagger,
+  breathe,
   active,
   onActive,
   detailId,
@@ -99,6 +133,10 @@ function Stage({
   conduit: FlowConduit;
   particles: "photons" | "none";
   speed: number;
+  density: FlowDensity;
+  easing: FlowEasing;
+  stagger: number;
+  breathe: boolean;
   active: string | undefined;
   onActive: (id: string) => void;
   detailId: string;
@@ -111,13 +149,16 @@ function Stage({
         {nodes.map((node, i) => {
           const flow = node.flow ?? "in";
           const length = g.lengths[i] ?? 0;
-          // Two to four photons per conduit, evenly spaced; the same speed on every conduit.
-          const gap = length / Math.min(4, Math.max(2, Math.round(length / 16)));
+          // Photons per conduit (`density`), evenly spaced; the same speed on every conduit.
+          const gap = length / photonCount(length, density);
+          const period = gap / speed;
           const timing = (dir: "in" | "out") =>
             ({
               "--kz-flow-gap": gap.toFixed(3),
-              animationDuration: `${(gap / speed).toFixed(2)}s`,
-              animationDelay: `${(-((i * 0.37 + (dir === "out" ? 0.5 : 0)) % 1) * (gap / speed)).toFixed(2)}s`,
+              animationDuration: `${period.toFixed(2)}s`,
+              // Each conduit starts `stagger` ms after the previous (a negative delay: already under way); the way back is half a period behind.
+              animationDelay: `${(-(((i * stagger) / 1000 + (dir === "out" ? period / 2 : 0)) % period)).toFixed(2)}s`,
+              ...(easing !== "linear" ? { animationTimingFunction: easing } : {}),
             }) as React.CSSProperties;
           const lanes = node.planned || particles === "none" ? [] : flow === "both" ? (["in", "out"] as const) : [flow];
           return (
@@ -140,7 +181,7 @@ function Stage({
         })}
       </svg>
       <div className={cn("kz-flow-hub", hub.className)} style={{ left: pct(g.hub.x, g.width), top: pct(g.hub.y, g.height) }}>
-        {hub.mark ? <span className="kz-flow-hub-mark kz-loop">{hub.mark}</span> : null}
+        {hub.mark ? <span className={cn("kz-flow-hub-mark", breathe && "kz-loop")}>{hub.mark}</span> : null}
         <span className="kz-flow-hub-label">{hub.label}</span>
         {hub.caption ? <span className="kz-flow-hub-caption">{hub.caption}</span> : null}
       </div>
@@ -188,6 +229,11 @@ export function EngineFlow({
   hint,
   defaultActive,
   speed = 16,
+  density = "normal",
+  trigger = "always",
+  easing = "linear",
+  stagger = 300,
+  breathe = true,
   className,
   ...props
 }: EngineFlowProps) {
@@ -195,13 +241,15 @@ export function EngineFlow({
   const detailId = `${React.useId()}-detail`;
   const chosen = nodes.find((n) => n.id === active);
   const compact = compactLayout && compactLayout !== layout ? compactLayout : undefined;
-  const stage = { nodes, hub, conduit, particles, speed: Math.max(1, speed), active, onActive: setActive, detailId };
+  const stage = { nodes, hub, conduit, particles, speed: Math.max(1, speed), density, easing, stagger: Math.max(0, stagger), breathe, active, onActive: setActive, detailId };
   return (
     <figure
       aria-label={label}
       className={cn("kz-flow", className)}
       data-motion-scope=""
       data-active={chosen ? "" : undefined}
+      data-trigger={trigger === "always" ? undefined : trigger}
+      data-density={density === "normal" ? undefined : density}
       data-compact={compact ? "" : undefined}
       {...props}
     >
