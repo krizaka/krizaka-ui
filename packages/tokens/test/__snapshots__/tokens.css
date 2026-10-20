@@ -6,21 +6,21 @@
   color-scheme: dark;
 
   /* Surfaces (hiérarchie de profondeur) */
-  --kz-surface-0: hsl(240 6% 5%); /* Fond de page */
-  --kz-surface-1: hsl(240 5% 9%); /* Carte, panneau */
-  --kz-surface-2: hsl(240 5% 13%); /* Élément surélevé, champ, survol */
-  --kz-surface-3: hsl(240 4% 17%); /* Élément actif, puce, piste */
-  --kz-media: hsl(240 5% 11%); /* fond d'un média avant chargement */
+  --kz-surface-0: hsl(150 12% 9.5%); /* Fond de page : l'ardoise (sombre), le papier (clair) */
+  --kz-surface-1: hsl(148 11% 11%); /* Feuille posée : carte, panneau */
+  --kz-surface-2: hsl(148 10% 12.2%); /* Élément surélevé, champ, survol */
+  --kz-surface-3: hsl(148 9% 16.5%); /* Élément actif, puce, piste */
+  --kz-media: hsl(150 11% 13%); /* fond d'un média avant chargement */
 
   /* Bordures */
-  --kz-border-subtle: hsl(0 0% 100% / 0.06); /* Séparateur discret */
-  --kz-border-default: hsl(0 0% 100% / 0.10); /* Contour de carte, de champ */
-  --kz-border-strong: hsl(0 0% 100% / 0.16); /* Contour au survol, focus non clavier */
+  --kz-border-subtle: hsl(110 25% 92% / 0.07); /* Séparateur discret */
+  --kz-border-default: hsl(110 25% 92% / 0.12); /* Contour de carte, de champ */
+  --kz-border-strong: hsl(110 25% 92% / 0.20); /* Contour au survol, focus non clavier */
 
   /* Texte */
-  --kz-text-primary: hsl(0 0% 96%); /* Titres, corps de texte */
-  --kz-text-secondary: hsl(240 4% 64%); /* Texte d'appui, libellés */
-  --kz-text-muted: hsl(240 4% 59%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
+  --kz-text-primary: hsl(105 17% 93%); /* La craie (sombre), l'encre bleue (clair) */
+  --kz-text-secondary: hsl(140 10% 76%); /* Texte d'appui, libellés */
+  --kz-text-muted: hsl(140 8% 68%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
 
   /* Accent : l'identité de la marque (Krizaka par défaut ; Orazaka, Orochia, Yasakia, Yororis dans src/brands). Surchargé par un thème de marque, jamais par un composant. */
   --kz-accent: hsl(208 46% 45%); /* Action principale, lien, sélection */
@@ -31,8 +31,8 @@
   --kz-ring: var(--kz-accent); /* Anneau de focus clavier */
 
   /* Dégradé de section de la marque (from → via → to) : les fonds de section glissent d'une teinte à l'autre ; le texte reste lisible dessus (testé). */
-  --kz-brand-gradient-from: hsl(210 30% 10%); /* Section : la teinte de départ (haut de section, halo) */
-  --kz-brand-gradient-via: hsl(220 14% 7%); /* Section : la teinte intermédiaire */
+  --kz-brand-gradient-from: var(--kz-surface-0); /* Section : plus de lavis (Cahier, ADR-004) — la surface de page */
+  --kz-brand-gradient-via: var(--kz-surface-0); /* Section : plus de lavis — la surface de page */
   --kz-brand-gradient-to: var(--kz-surface-0); /* Section : l'arrivée, un alias de la surface de page — la section suivante y enchaîne, même quand un produit change --kz-surface-0 */
   --kz-success-text: hsl(158 64% 52%); /* Statut succès en texte (petit texte, libellé) : ≥ 4.5:1 sur chaque surface */
   --kz-success-soft: hsl(160 84% 39% / 0.14); /* Fond teinté success (texte primaire ≥ 4.5:1) */
@@ -43,21 +43,29 @@
   --kz-info: var(--kz-accent); /* Statut : information */
   --kz-info-text: var(--kz-accent-text); /* Statut information en texte : l'accent en texte par défaut (≥ 4.5:1) */
 
-  /* Ombres (web uniquement) ; raised/floating/overlay : teintées d'encre, multi-couches */
-  --kz-shadow-sm: 0 1px 3px hsl(0 0% 0% / 0.12), 0 1px 2px hsl(0 0% 0% / 0.06); /* Champ, bouton au repos */
-  --kz-shadow-md: 0 4px 12px hsl(0 0% 0% / 0.15), 0 2px 4px hsl(0 0% 0% / 0.08); /* Menu, popover, carte au survol */
-  --kz-shadow-lg: 0 8px 24px hsl(0 0% 0% / 0.18), 0 4px 8px hsl(0 0% 0% / 0.08); /* Dialogue, feuille */
-  --kz-shadow-raised: 0 1px 2px hsl(240 30% 2% / 0.45), 0 2px 6px -2px hsl(240 30% 2% / 0.3); /* Surélevé : bouton, carte */
-  --kz-shadow-floating: 0 2px 4px hsl(240 30% 2% / 0.35), 0 12px 24px -6px hsl(240 30% 2% / 0.45), 0 24px 48px -12px hsl(240 30% 2% / 0.35); /* Flottant : menu, popover, info-bulle */
-  --kz-shadow-overlay: 0 4px 8px hsl(240 30% 2% / 0.4), 0 24px 48px -12px hsl(240 30% 2% / 0.5), 0 48px 96px -24px hsl(240 30% 2% / 0.45); /* Au-dessus : dialogue, toast, palette */
-  --kz-surface-sheen: hsl(0 0% 100% / 0.045); /* Reflet en haut d'une surface (bg-sheen) */
+  /* Le cahier (ADR-004) : la réglure Seyès, la marge rouge, l'étiquette de spécimen */
+  --kz-paper-rule-major: hsl(140 25% 88% / 0.09); /* Réglure : la ligne forte (tous les 32 px) */
+  --kz-paper-rule-minor: hsl(140 25% 88% / 0.045); /* Réglure : les lignes fines (tous les 8 px) */
+  --kz-paper-rule-margin: hsl(8 64% 66%); /* La marge rouge, et les repères de la marge (§, fig., p.) */
+  --kz-paper-tag: hsl(147 11% 20%); /* L'étiquette de spécimen (manille) */
+  --kz-paper-tag-edge: hsl(145 9% 38%); /* Le bord et l'œillet de l'étiquette */
+  --kz-paper-tag-ink: hsl(105 17% 92%); /* Le texte tapé sur l'étiquette */
+
+  /* Ombres (web) — Cahier (ADR-004) : une feuille posée sur une autre, un décalage net, jamais de flou */
+  --kz-shadow-sm: 0 1px 0 hsl(150 30% 3% / 0.6); /* Champ, bouton au repos */
+  --kz-shadow-md: 0 1px 0 hsl(150 30% 3% / 0.6), 4px 5px 0 -2px hsl(150 30% 4% / 0.55); /* Menu, popover, carte au survol */
+  --kz-shadow-lg: 0 1px 0 hsl(150 30% 3% / 0.6), 6px 8px 0 -2px hsl(150 30% 4% / 0.55); /* Dialogue, feuille */
+  --kz-shadow-raised: 0 1px 0 hsl(150 30% 3% / 0.6); /* Surélevé : bouton, carte */
+  --kz-shadow-floating: 0 1px 0 hsl(150 30% 3% / 0.6), 4px 5px 0 -2px hsl(150 30% 4% / 0.55); /* Flottant : menu, popover, info-bulle */
+  --kz-shadow-overlay: 0 1px 0 hsl(150 30% 3% / 0.6), 8px 10px 0 -3px hsl(150 30% 4% / 0.55); /* Au-dessus : dialogue, toast, palette */
+  --kz-surface-sheen: hsl(0 0% 100% / 0); /* Plus de reflet (Cahier, ADR-004) : le papier est mat */
 
   /* Arêtes : un filet intérieur d'1 px */
-  --kz-edge-light: hsl(0 0% 100% / 0.07); /* Arête lumineuse du haut (inset-shadow-edge) */
+  --kz-edge-light: hsl(0 0% 100% / 0); /* Plus d'arête lumineuse : le papier est mat */
   --kz-edge-well: hsl(240 30% 2% / 0.5); /* Ombre intérieure d'un puits : champ, piste (inset-shadow-well) */
 
   /* Verre dépoli de ce qui flotte : 88 %, texte secondaire ≥ 4.5:1 sur tout fond */
-  --kz-glass-bg: hsl(240 5% 12% / 0.88); /* Le fond du verre */
+  --kz-glass-bg: hsl(148 11% 11%); /* Ce qui flotte est une feuille, opaque (Cahier) : plus de verre dépoli */
   --kz-glass-border: hsl(0 0% 100% / 0.1); /* Le contour du verre */
 
   /* Typographie — les trois familles de @krizaka/fonts, chacune suivie de son repli aux métriques ajustées */
@@ -67,39 +75,43 @@
 /* Light. */
 html.light {
   color-scheme: light;
-  --kz-surface-0: hsl(0 0% 98%); /* Fond de page */
-  --kz-surface-1: hsl(0 0% 100%); /* Carte, panneau */
-  --kz-surface-2: hsl(240 6% 95%); /* Élément surélevé, champ, survol */
-  --kz-surface-3: hsl(240 5% 90%); /* Élément actif, puce, piste */
-  --kz-media: hsl(240 6% 92%); /* fond d'un média avant chargement */
-  --kz-border-subtle: hsl(240 6% 0% / 0.06); /* Séparateur discret */
-  --kz-border-default: hsl(240 6% 0% / 0.10); /* Contour de carte, de champ */
-  --kz-border-strong: hsl(240 6% 0% / 0.16); /* Contour au survol, focus non clavier */
-  --kz-text-primary: hsl(240 6% 10%); /* Titres, corps de texte */
-  --kz-text-secondary: hsl(240 4% 35%); /* Texte d'appui, libellés */
-  --kz-text-muted: hsl(240 4% 41%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
+  --kz-surface-0: hsl(100 14% 96%); /* Fond de page : l'ardoise (sombre), le papier (clair) */
+  --kz-surface-1: hsl(90 17% 98.5%); /* Feuille posée : carte, panneau */
+  --kz-surface-2: hsl(100 11% 94.5%); /* Élément surélevé, champ, survol */
+  --kz-surface-3: hsl(100 9% 88%); /* Élément actif, puce, piste */
+  --kz-media: hsl(100 8% 90%); /* fond d'un média avant chargement */
+  --kz-border-subtle: hsl(212 49% 24% / 0.10); /* Séparateur discret */
+  --kz-border-default: hsl(212 49% 24% / 0.17); /* Contour de carte, de champ */
+  --kz-border-strong: hsl(212 49% 24% / 0.28); /* Contour au survol, focus non clavier */
+  --kz-text-primary: hsl(212 49% 22%); /* La craie (sombre), l'encre bleue (clair) */
+  --kz-text-secondary: hsl(212 22% 32%); /* Texte d'appui, libellés */
+  --kz-text-muted: hsl(212 14% 36%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
   --kz-accent: hsl(208 54% 36%); /* Action principale, lien, sélection */
   --kz-accent-hover: hsl(208 58% 29%); /* Accent au survol */
   --kz-accent-soft: hsl(208 54% 36% / 0.08); /* Fond teinté (sélection, badge) */
   --kz-accent-text: hsl(208 54% 33%); /* Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface */
-  --kz-brand-gradient-from: hsl(208 36% 93%); /* Section : la teinte de départ (haut de section, halo) */
-  --kz-brand-gradient-via: hsl(210 30% 97%); /* Section : la teinte intermédiaire */
   --kz-success-text: hsl(160 84% 24%); /* Statut succès en texte (petit texte, libellé) : ≥ 4.5:1 sur chaque surface */
   --kz-success-soft: hsl(160 84% 39% / 0.1); /* Fond teinté success (texte primaire ≥ 4.5:1) */
   --kz-warning-text: hsl(32 95% 30%); /* Statut avertissement en texte : ≥ 4.5:1 sur chaque surface */
   --kz-warning-soft: hsl(38 92% 50% / 0.12); /* Fond teinté warning (texte primaire ≥ 4.5:1) */
   --kz-danger-text: hsl(0 72% 40%); /* Statut erreur en texte (message d'erreur, compte à rebours urgent) : ≥ 4.5:1 sur chaque surface */
   --kz-danger-soft: hsl(0 84% 60% / 0.1); /* Fond teinté danger (texte primaire ≥ 4.5:1) */
-  --kz-shadow-sm: 0 1px 3px hsl(240 6% 0% / 0.06), 0 1px 2px hsl(240 6% 0% / 0.04); /* Champ, bouton au repos */
-  --kz-shadow-md: 0 4px 12px hsl(240 6% 0% / 0.08), 0 2px 4px hsl(240 6% 0% / 0.04); /* Menu, popover, carte au survol */
-  --kz-shadow-lg: 0 8px 24px hsl(240 6% 0% / 0.10), 0 4px 8px hsl(240 6% 0% / 0.05); /* Dialogue, feuille */
-  --kz-shadow-raised: 0 1px 2px hsl(232 25% 25% / 0.08), 0 2px 6px -2px hsl(232 25% 25% / 0.08); /* Surélevé : bouton, carte */
-  --kz-shadow-floating: 0 2px 4px hsl(232 25% 25% / 0.06), 0 12px 24px -6px hsl(232 25% 25% / 0.1), 0 24px 48px -12px hsl(232 25% 25% / 0.1); /* Flottant : menu, popover, info-bulle */
-  --kz-shadow-overlay: 0 4px 8px hsl(232 25% 25% / 0.08), 0 24px 48px -12px hsl(232 25% 25% / 0.14), 0 48px 96px -24px hsl(232 25% 25% / 0.14); /* Au-dessus : dialogue, toast, palette */
-  --kz-surface-sheen: hsl(0 0% 100% / 0.7); /* Reflet en haut d'une surface (bg-sheen) */
-  --kz-edge-light: hsl(0 0% 100% / 0.9); /* Arête lumineuse du haut (inset-shadow-edge) */
+  --kz-paper-rule-major: hsl(214 40% 45% / 0.24); /* Réglure : la ligne forte (tous les 32 px) */
+  --kz-paper-rule-minor: hsl(214 40% 45% / 0.10); /* Réglure : les lignes fines (tous les 8 px) */
+  --kz-paper-rule-margin: hsl(5 62% 40%); /* La marge rouge, et les repères de la marge (§, fig., p.) */
+  --kz-paper-tag: hsl(43 49% 84%); /* L'étiquette de spécimen (manille) */
+  --kz-paper-tag-edge: hsl(43 30% 58%); /* Le bord et l'œillet de l'étiquette */
+  --kz-paper-tag-ink: hsl(50 11% 14%); /* Le texte tapé sur l'étiquette */
+  --kz-shadow-sm: 0 1px 0 hsl(212 49% 24% / 0.12); /* Champ, bouton au repos */
+  --kz-shadow-md: 0 1px 0 hsl(212 49% 24% / 0.12), 4px 5px 0 -2px hsl(212 40% 30% / 0.14); /* Menu, popover, carte au survol */
+  --kz-shadow-lg: 0 1px 0 hsl(212 49% 24% / 0.12), 6px 8px 0 -2px hsl(212 40% 30% / 0.14); /* Dialogue, feuille */
+  --kz-shadow-raised: 0 1px 0 hsl(212 49% 24% / 0.12); /* Surélevé : bouton, carte */
+  --kz-shadow-floating: 0 1px 0 hsl(212 49% 24% / 0.12), 4px 5px 0 -2px hsl(212 40% 30% / 0.14); /* Flottant : menu, popover, info-bulle */
+  --kz-shadow-overlay: 0 1px 0 hsl(212 49% 24% / 0.12), 8px 10px 0 -3px hsl(212 40% 30% / 0.14); /* Au-dessus : dialogue, toast, palette */
+  --kz-surface-sheen: hsl(0 0% 100% / 0); /* Plus de reflet (Cahier, ADR-004) : le papier est mat */
+  --kz-edge-light: hsl(0 0% 100% / 0); /* Plus d'arête lumineuse : le papier est mat */
   --kz-edge-well: hsl(232 25% 25% / 0.08); /* Ombre intérieure d'un puits : champ, piste (inset-shadow-well) */
-  --kz-glass-bg: hsl(0 0% 100% / 0.88); /* Le fond du verre */
+  --kz-glass-bg: hsl(90 17% 98.5%); /* Ce qui flotte est une feuille, opaque (Cahier) : plus de verre dépoli */
   --kz-glass-border: hsl(240 6% 0% / 0.08); /* Le contour du verre */
 }
 
@@ -107,25 +119,25 @@ html.light {
    sombre (pendant de `.theme-dark`). */
 .theme-light {
   color-scheme: light;
-  --kz-surface-0: hsl(0 0% 98%); /* Fond de page */
-  --kz-surface-1: hsl(0 0% 100%); /* Carte, panneau */
-  --kz-surface-2: hsl(240 6% 95%); /* Élément surélevé, champ, survol */
-  --kz-surface-3: hsl(240 5% 90%); /* Élément actif, puce, piste */
-  --kz-media: hsl(240 6% 92%); /* fond d'un média avant chargement */
-  --kz-border-subtle: hsl(240 6% 0% / 0.06); /* Séparateur discret */
-  --kz-border-default: hsl(240 6% 0% / 0.10); /* Contour de carte, de champ */
-  --kz-border-strong: hsl(240 6% 0% / 0.16); /* Contour au survol, focus non clavier */
-  --kz-text-primary: hsl(240 6% 10%); /* Titres, corps de texte */
-  --kz-text-secondary: hsl(240 4% 35%); /* Texte d'appui, libellés */
-  --kz-text-muted: hsl(240 4% 41%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
+  --kz-surface-0: hsl(100 14% 96%); /* Fond de page : l'ardoise (sombre), le papier (clair) */
+  --kz-surface-1: hsl(90 17% 98.5%); /* Feuille posée : carte, panneau */
+  --kz-surface-2: hsl(100 11% 94.5%); /* Élément surélevé, champ, survol */
+  --kz-surface-3: hsl(100 9% 88%); /* Élément actif, puce, piste */
+  --kz-media: hsl(100 8% 90%); /* fond d'un média avant chargement */
+  --kz-border-subtle: hsl(212 49% 24% / 0.10); /* Séparateur discret */
+  --kz-border-default: hsl(212 49% 24% / 0.17); /* Contour de carte, de champ */
+  --kz-border-strong: hsl(212 49% 24% / 0.28); /* Contour au survol, focus non clavier */
+  --kz-text-primary: hsl(212 49% 22%); /* La craie (sombre), l'encre bleue (clair) */
+  --kz-text-secondary: hsl(212 22% 32%); /* Texte d'appui, libellés */
+  --kz-text-muted: hsl(212 14% 36%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
   --kz-accent: hsl(208 54% 36%); /* Action principale, lien, sélection */
   --kz-accent-hover: hsl(208 58% 29%); /* Accent au survol */
   --kz-accent-soft: hsl(208 54% 36% / 0.08); /* Fond teinté (sélection, badge) */
   --kz-accent-text: hsl(208 54% 33%); /* Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface */
   --kz-accent-2: var(--kz-accent); /* 2e accent (dégradés) ; égal à l'accent par défaut */
   --kz-ring: var(--kz-accent); /* Anneau de focus clavier */
-  --kz-brand-gradient-from: hsl(208 36% 93%); /* Section : la teinte de départ (haut de section, halo) */
-  --kz-brand-gradient-via: hsl(210 30% 97%); /* Section : la teinte intermédiaire */
+  --kz-brand-gradient-from: var(--kz-surface-0); /* Section : plus de lavis (Cahier, ADR-004) — la surface de page */
+  --kz-brand-gradient-via: var(--kz-surface-0); /* Section : plus de lavis — la surface de page */
   --kz-brand-gradient-to: var(--kz-surface-0); /* Section : l'arrivée, un alias de la surface de page — la section suivante y enchaîne, même quand un produit change --kz-surface-0 */
   --kz-success-text: hsl(160 84% 24%); /* Statut succès en texte (petit texte, libellé) : ≥ 4.5:1 sur chaque surface */
   --kz-success-soft: hsl(160 84% 39% / 0.1); /* Fond teinté success (texte primaire ≥ 4.5:1) */
@@ -135,16 +147,22 @@ html.light {
   --kz-danger-soft: hsl(0 84% 60% / 0.1); /* Fond teinté danger (texte primaire ≥ 4.5:1) */
   --kz-info: var(--kz-accent); /* Statut : information */
   --kz-info-text: var(--kz-accent-text); /* Statut information en texte : l'accent en texte par défaut (≥ 4.5:1) */
-  --kz-shadow-sm: 0 1px 3px hsl(240 6% 0% / 0.06), 0 1px 2px hsl(240 6% 0% / 0.04); /* Champ, bouton au repos */
-  --kz-shadow-md: 0 4px 12px hsl(240 6% 0% / 0.08), 0 2px 4px hsl(240 6% 0% / 0.04); /* Menu, popover, carte au survol */
-  --kz-shadow-lg: 0 8px 24px hsl(240 6% 0% / 0.10), 0 4px 8px hsl(240 6% 0% / 0.05); /* Dialogue, feuille */
-  --kz-shadow-raised: 0 1px 2px hsl(232 25% 25% / 0.08), 0 2px 6px -2px hsl(232 25% 25% / 0.08); /* Surélevé : bouton, carte */
-  --kz-shadow-floating: 0 2px 4px hsl(232 25% 25% / 0.06), 0 12px 24px -6px hsl(232 25% 25% / 0.1), 0 24px 48px -12px hsl(232 25% 25% / 0.1); /* Flottant : menu, popover, info-bulle */
-  --kz-shadow-overlay: 0 4px 8px hsl(232 25% 25% / 0.08), 0 24px 48px -12px hsl(232 25% 25% / 0.14), 0 48px 96px -24px hsl(232 25% 25% / 0.14); /* Au-dessus : dialogue, toast, palette */
-  --kz-surface-sheen: hsl(0 0% 100% / 0.7); /* Reflet en haut d'une surface (bg-sheen) */
-  --kz-edge-light: hsl(0 0% 100% / 0.9); /* Arête lumineuse du haut (inset-shadow-edge) */
+  --kz-paper-rule-major: hsl(214 40% 45% / 0.24); /* Réglure : la ligne forte (tous les 32 px) */
+  --kz-paper-rule-minor: hsl(214 40% 45% / 0.10); /* Réglure : les lignes fines (tous les 8 px) */
+  --kz-paper-rule-margin: hsl(5 62% 40%); /* La marge rouge, et les repères de la marge (§, fig., p.) */
+  --kz-paper-tag: hsl(43 49% 84%); /* L'étiquette de spécimen (manille) */
+  --kz-paper-tag-edge: hsl(43 30% 58%); /* Le bord et l'œillet de l'étiquette */
+  --kz-paper-tag-ink: hsl(50 11% 14%); /* Le texte tapé sur l'étiquette */
+  --kz-shadow-sm: 0 1px 0 hsl(212 49% 24% / 0.12); /* Champ, bouton au repos */
+  --kz-shadow-md: 0 1px 0 hsl(212 49% 24% / 0.12), 4px 5px 0 -2px hsl(212 40% 30% / 0.14); /* Menu, popover, carte au survol */
+  --kz-shadow-lg: 0 1px 0 hsl(212 49% 24% / 0.12), 6px 8px 0 -2px hsl(212 40% 30% / 0.14); /* Dialogue, feuille */
+  --kz-shadow-raised: 0 1px 0 hsl(212 49% 24% / 0.12); /* Surélevé : bouton, carte */
+  --kz-shadow-floating: 0 1px 0 hsl(212 49% 24% / 0.12), 4px 5px 0 -2px hsl(212 40% 30% / 0.14); /* Flottant : menu, popover, info-bulle */
+  --kz-shadow-overlay: 0 1px 0 hsl(212 49% 24% / 0.12), 8px 10px 0 -3px hsl(212 40% 30% / 0.14); /* Au-dessus : dialogue, toast, palette */
+  --kz-surface-sheen: hsl(0 0% 100% / 0); /* Plus de reflet (Cahier, ADR-004) : le papier est mat */
+  --kz-edge-light: hsl(0 0% 100% / 0); /* Plus d'arête lumineuse : le papier est mat */
   --kz-edge-well: hsl(232 25% 25% / 0.08); /* Ombre intérieure d'un puits : champ, piste (inset-shadow-well) */
-  --kz-glass-bg: hsl(0 0% 100% / 0.88); /* Le fond du verre */
+  --kz-glass-bg: hsl(90 17% 98.5%); /* Ce qui flotte est une feuille, opaque (Cahier) : plus de verre dépoli */
   --kz-glass-border: hsl(240 6% 0% / 0.08); /* Le contour du verre */
   --kz-font-text: var(--kz-font-sans); /* Alias de sans : le rôle texte */
 }
@@ -164,12 +182,12 @@ html.light {
   --kz-overlay: hsl(0 0% 0% / 0.70); /* fond d'un dialogue */
 
   /* Rayons */
-  --kz-radius-xs: 6px; /* Case à cocher, touche, badge coupé */
-  --kz-radius-sm: 8px; /* Champ, puce */
-  --kz-radius-md: 12px; /* Bouton, menu */
-  --kz-radius-lg: 16px; /* Carte */
-  --kz-radius-xl: 20px; /* Dialogue, feuille */
-  --kz-radius-2xl: 28px; /* Feuille, grande surface flottante */
+  --kz-radius-xs: 2px; /* Case à cocher, touche, badge coupé */
+  --kz-radius-sm: 2px; /* Champ, puce */
+  --kz-radius-md: 2px; /* Bouton, menu */
+  --kz-radius-lg: 0px; /* Carte */
+  --kz-radius-xl: 0px; /* Dialogue, feuille */
+  --kz-radius-2xl: 0px; /* Feuille, grande surface flottante */
   --kz-radius-full: 9999px; /* Pastille, avatar */
   --kz-fill-shade: hsl(0 0% 0% / 0.12); /* Bas d'un aplat (bg-fill-shade), on-accent ≥ 4.5:1 */
 
@@ -177,7 +195,7 @@ html.light {
   --kz-edge-on-fill: hsl(0 0% 100% / 0.22); /* Arête lumineuse sur un aplat */
 
   /* Verre dépoli de ce qui flotte : 88 %, texte secondaire ≥ 4.5:1 sur tout fond */
-  --kz-glass-blur: 24px; /* Le flou de ce qui passe dessous */
+  --kz-glass-blur: 0px; /* Plus de flou (Cahier, ADR-004) */
 
   /* Anneau de focus signature : net, décollé, dans un halo (focus-ring) */
   --kz-ring-width: 2px; /* Épaisseur */
@@ -193,8 +211,12 @@ html.light {
   /* La griffe : le coin coupé à 45° (BRAND.md §6.1) ; --kz-cut-shape: round l'éteint pour une app */
   --kz-cut-shape: bevel; /* La forme des coins signés : bevel (coupé) ou round */
   --kz-cut-size: 10px; /* La taille de la coupe d'un contrôle */
-  --kz-ease: cubic-bezier(0.16, 1, 0.3, 1); /* Courbe par défaut de la signature de mouvement */
-  --kz-ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1); /* Ressort court : pression, bascule, sélection */
+
+  /* La réglure Seyès (ADR-004) : le grand carreau et la ligne fine ; les interlignages tombent sur la ligne */
+  --kz-paper-module: 32px; /* Le grand carreau (8 mm) : le pas de la grille et de la marge */
+  --kz-paper-line: 8px; /* La ligne fine : trois par carreau */
+  --kz-ease: cubic-bezier(0.45, 0, 0.2, 1); /* Le trait d'encre (Cahier, ADR-004) : part doucement, se pose net ; plus de dépassement */
+  --kz-ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1); /* Le tampon : pression, bascule, sélection */
 
   /* Micro-interactions ≤ 200 ms ; 0 ms en mouvement réduit */
   --kz-duration-instant: 90ms; /* La compression d'un clic */
@@ -202,45 +224,45 @@ html.light {
   --kz-duration-base: 200ms; /* Une bascule, un indicateur qui glisse */
 
   /* Typographie — les trois familles de @krizaka/fonts, chacune suivie de son repli aux métriques ajustées */
-  --kz-font-sans: Inter, "Inter Fallback", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* Texte : interface et lecture (Inter) */
-  --kz-font-display: "Plus Jakarta Sans", "Plus Jakarta Sans Fallback", Inter, system-ui, sans-serif; /* Affichage : titres, chiffres (Plus Jakarta Sans) ; surchargé par le thème produit */
-  --kz-font-mono: "JetBrains Mono", "JetBrains Mono Fallback", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; /* Code, identifiants, surtitres (JetBrains Mono) */
+  --kz-font-sans: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible Next Fallback", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* Texte : interface et lecture (Atkinson Hyperlegible Next) */
+  --kz-font-display: "Young Serif", "Young Serif Fallback", Georgia, "Times New Roman", serif; /* Affichage : titres, noms, chiffres (Young Serif, une seule graisse) ; surchargé par le thème produit */
+  --kz-font-mono: "Courier Prime", "Courier Prime Fallback", "Courier New", ui-monospace, Menlo, Consolas, monospace; /* La machine à écrire : étiquettes, légendes, notes, code (Courier Prime) */
 
   /* The hero of a home page */
   --kz-type-display-2xl-size: 72px;
-  --kz-type-display-2xl-line-height: 1.02;
-  --kz-type-display-2xl-weight: 800;
-  --kz-type-display-2xl-tracking: -0.035em;
+  --kz-type-display-2xl-line-height: 1.11;
+  --kz-type-display-2xl-weight: 400;
+  --kz-type-display-2xl-tracking: -0.01em;
 
   /* The hero of a page */
   --kz-type-display-xl-size: 56px;
-  --kz-type-display-xl-line-height: 1.05;
-  --kz-type-display-xl-weight: 800;
-  --kz-type-display-xl-tracking: -0.03em;
+  --kz-type-display-xl-line-height: 1.143;
+  --kz-type-display-xl-weight: 400;
+  --kz-type-display-xl-tracking: -0.01em;
 
   /* The title of a page */
   --kz-type-display-lg-size: 44px;
-  --kz-type-display-lg-line-height: 1.1;
-  --kz-type-display-lg-weight: 700;
-  --kz-type-display-lg-tracking: -0.025em;
+  --kz-type-display-lg-line-height: 1.09;
+  --kz-type-display-lg-weight: 400;
+  --kz-type-display-lg-tracking: -0.01em;
 
   /* The title of a section */
   --kz-type-display-md-size: 34px;
-  --kz-type-display-md-line-height: 1.15;
-  --kz-type-display-md-weight: 700;
-  --kz-type-display-md-tracking: -0.02em;
+  --kz-type-display-md-line-height: 1.176;
+  --kz-type-display-md-weight: 400;
+  --kz-type-display-md-tracking: -0.01em;
 
   /* A sub-section, a big figure */
   --kz-type-display-sm-size: 26px;
-  --kz-type-display-sm-line-height: 1.2;
-  --kz-type-display-sm-weight: 700;
-  --kz-type-display-sm-tracking: -0.015em;
+  --kz-type-display-sm-line-height: 1.23;
+  --kz-type-display-sm-weight: 400;
+  --kz-type-display-sm-tracking: 0em;
 
   /* The title of a card or a dialog */
   --kz-type-title-lg-size: 20px;
-  --kz-type-title-lg-line-height: 1.35;
-  --kz-type-title-lg-weight: 700;
-  --kz-type-title-lg-tracking: -0.01em;
+  --kz-type-title-lg-line-height: 1.2;
+  --kz-type-title-lg-weight: 400;
+  --kz-type-title-lg-tracking: 0em;
 
   /* The title of a list or a panel */
   --kz-type-title-md-size: 17px;
@@ -256,13 +278,13 @@ html.light {
 
   /* Running text */
   --kz-type-body-md-size: 16px;
-  --kz-type-body-md-line-height: 1.6;
+  --kz-type-body-md-line-height: 1.5;
   --kz-type-body-md-weight: 400;
   --kz-type-body-md-tracking: -0.011em;
 
   /* Dense interface, secondary text */
   --kz-type-body-sm-size: 14px;
-  --kz-type-body-sm-line-height: 1.5;
+  --kz-type-body-sm-line-height: 1.43;
   --kz-type-body-sm-weight: 400;
   --kz-type-body-sm-tracking: -0.006em;
 
@@ -272,11 +294,11 @@ html.light {
   --kz-type-caption-weight: 500;
   --kz-type-caption-tracking: 0em;
 
-  /* The overline of a section, uppercase */
+  /* A note label in the note face, lower case: the margin's « § 2 », a tag's field (Cahier: no more uppercase overline) */
   --kz-type-overline-size: 11px;
-  --kz-type-overline-line-height: 1.3;
-  --kz-type-overline-weight: 600;
-  --kz-type-overline-tracking: 0.12em;
+  --kz-type-overline-line-height: 1.45;
+  --kz-type-overline-weight: 400;
+  --kz-type-overline-tracking: 0em;
 
   /* Code blocks */
   --kz-type-mono-md-size: 14px;

@@ -46,30 +46,46 @@
   --color-success-soft: var(--kz-success-soft);
   --color-warning-soft: var(--kz-warning-soft);
   --color-danger-soft: var(--kz-danger-soft);
-  /* le verre (BRAND.md §6) : bg-glass + border-glass-border, ou l'utilitaire glass qui ajoute le flou */
+  /* le verre (BRAND.md §6) : bg-glass + border-glass-border — Cahier (ADR-004) : une feuille opaque, sans flou */
   --color-glass: var(--kz-glass-bg);
   --color-glass-border: var(--kz-glass-border);
+  /* le cahier (ADR-004) : la réglure, la marge, l'étiquette de spécimen */
+  --color-rule-major: var(--kz-paper-rule-major);
+  --color-rule-minor: var(--kz-paper-rule-minor);
+  --color-margin: var(--kz-paper-rule-margin);
+  --color-tag: var(--kz-paper-tag);
+  --color-tag-edge: var(--kz-paper-tag-edge);
+  --color-fg-tag: var(--kz-paper-tag-ink);
 
+  /* Cahier (ADR-004): every Tailwind radius reads a token, so no default 16–24 px corner slips through. */
+  --radius-xs: var(--kz-radius-xs);
   --radius-sm: var(--kz-radius-sm);
   --radius-md: var(--kz-radius-md);
   --radius-lg: var(--kz-radius-lg);
   --radius-xl: var(--kz-radius-xl);
+  --radius-2xl: var(--kz-radius-2xl);
+  --radius-3xl: var(--kz-radius-2xl);
+  --radius-4xl: var(--kz-radius-2xl);
   --radius-full: var(--kz-radius-full);
 
   --shadow-sm: var(--kz-shadow-sm);
   --shadow-md: var(--kz-shadow-md);
   --shadow-lg: var(--kz-shadow-lg);
+  --shadow-xl: var(--kz-shadow-overlay);
+  --shadow-2xl: var(--kz-shadow-overlay);
   /* la signature (BRAND.md §6) : ombres d'encre multi-couches, et la lueur de la marque sous ce qui agit — composée ici
      pour que var(--kz-accent) se lise sur l'élément (une section .brand-<id> a sa propre lueur) */
   --shadow-raised: var(--kz-shadow-raised);
   --shadow-floating: var(--kz-shadow-floating);
   --shadow-overlay: var(--kz-shadow-overlay);
-  --shadow-glow: 0 1px 2px color-mix(in oklab, var(--kz-accent) 28%, transparent), 0 6px 16px -6px color-mix(in oklab, var(--kz-accent) 55%, transparent);
-  --shadow-glow-lg: 0 2px 4px color-mix(in oklab, var(--kz-accent) 30%, transparent), 0 12px 28px -8px color-mix(in oklab, var(--kz-accent) 60%, transparent);
+  /* Cahier (ADR-004): no glow. What acts sits on a solid offset of its own ink, like a stamp pressed on paper. */
+  --shadow-glow: 0 1px 0 color-mix(in oklab, var(--kz-accent) 40%, transparent);
+  --shadow-glow-lg: 3px 4px 0 -1px color-mix(in oklab, var(--kz-accent) 35%, transparent);
   /* les arêtes : le haut d'une surface surélevée capte la lumière, un puits (champ, piste) se creuse */
   --inset-shadow-edge: inset 0 1px 0 0 var(--kz-edge-light);
   --inset-shadow-edge-fill: inset 0 1px 0 0 var(--kz-edge-on-fill);
-  --inset-shadow-well: inset 0 1px 2px 0 var(--kz-edge-well);
+  --inset-shadow-well: inset 0 1px 0 0 var(--kz-edge-well);
+  --ease-ink: var(--kz-ease);
 
   --font-sans: var(--kz-font-sans);
   --font-text: var(--kz-font-text);
@@ -109,16 +125,32 @@
 @utility bg-fill-shade {
   background-image: linear-gradient(to bottom, transparent 35%, var(--kz-fill-shade));
 }
-/* Un halo de la marque qui descend du haut d'une surface (la carte « spotlight ») : 16 %, texte secondaire ≥ 4.5:1. */
+/* Retiré (Cahier, ADR-004) : le halo radial devient un filet d'encre en haut de la surface (la carte « en avant »). */
 @utility bg-halo {
-  background-image: radial-gradient(120% 90% at 50% -30%, color-mix(in oklab, var(--kz-accent) 16%, transparent), transparent 70%);
+  background-image: linear-gradient(var(--kz-accent), var(--kz-accent));
+  background-size: 100% 2px;
+  background-position: top;
+  background-repeat: no-repeat;
 }
-/* Le verre dépoli de ce qui flotte : fond, contour, flou. */
+/* Ce qui flotte (Cahier, ADR-004) : une feuille opaque et son contour ; plus de verre dépoli. */
 @utility glass {
   background-color: var(--kz-glass-bg);
   border-color: var(--kz-glass-border);
-  -webkit-backdrop-filter: blur(var(--kz-glass-blur)) saturate(1.6);
-  backdrop-filter: blur(var(--kz-glass-blur)) saturate(1.6);
+}
+/* La réglure Seyès (ADR-004) : le grand carreau de 32 px (une ligne forte), ses trois lignes fines, les verticales. */
+@utility ruled {
+  background-image:
+    linear-gradient(to bottom, var(--kz-paper-rule-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--kz-paper-rule-minor) 1px, transparent 1px),
+    linear-gradient(to right, var(--kz-paper-rule-minor) 1px, transparent 1px);
+  background-size: 100% var(--kz-paper-module), 100% var(--kz-paper-line), var(--kz-paper-module) 100%;
+}
+/* Les seules lignes horizontales, sans les verticales (une page à lire). */
+@utility ruled-lines {
+  background-image:
+    linear-gradient(to bottom, var(--kz-paper-rule-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--kz-paper-rule-minor) 1px, transparent 1px);
+  background-size: 100% var(--kz-paper-module), 100% var(--kz-paper-line);
 }
 /* L'anneau de focus signature : net (--kz-ring), décollé de l'élément, dans un halo de la même couleur. L'outline suit
    les coins (y compris les coins coupés), le halo s'ajoute aux ombres de l'élément sans les effacer. */
@@ -148,7 +180,7 @@
 }
 @utility node-lit {
   background-color: var(--kz-accent);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--kz-accent) 22%, transparent), 0 0 10px color-mix(in oklab, var(--kz-accent) 70%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--kz-accent) 22%, transparent);
 }
 
 /* Variantes de thème : réservées aux illustrations et aux images. Interdites par lint dans les produits
@@ -169,5 +201,7 @@
   :focus:not(:focus-visible) { outline: none; }
   :focus-visible { outline: var(--kz-ring-width) solid var(--kz-ring); outline-offset: var(--kz-ring-offset); }
   button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+  /* The display face has one weight (Young Serif, ADR-004): a bold heading is never faked by the browser. */
+  html { font-synthesis-weight: none; }
   ::placeholder { color: var(--kz-text-muted); }
 }

@@ -14,7 +14,7 @@ export const menu = tv({
       "data-highlighted:bg-surface-3 data-disabled:pointer-events-none data-disabled:opacity-40 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:shrink-0 " +
       "[&>svg]:text-fg-secondary",
     indicator: "ml-auto flex h-4 w-4 items-center justify-center text-fg-accent",
-    label: "px-2.5 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
+    label: "px-2.5 pb-1 pt-2 text-[11px] font-semibold text-fg-secondary",
     separator: "-mx-1 my-1 h-px bg-border-subtle",
   },
   variants: {

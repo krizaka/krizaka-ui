@@ -28,10 +28,10 @@ export const appShell = tv({
     titlebar: "h-[var(--kz-titlebar-inset,1.75rem)] shrink-0",
     drawer:
       "kz-dialog fixed inset-y-0 left-0 z-50 flex w-[min(20rem,88vw)] flex-col border-r border-border-default bg-surface-1 pl-[env(safe-area-inset-left)] shadow-lg focus:outline-hidden",
-    overlay: "kz-overlay fixed inset-0 z-50 bg-overlay backdrop-blur-xs",
+    overlay: "kz-overlay fixed inset-0 z-50 bg-overlay",
     brand: "flex h-14 shrink-0 items-center gap-2.5 px-4 font-display text-[15px] font-bold tracking-tight [[data-collapsed]_&]:justify-center [[data-collapsed]_&]:px-0 [[data-desktop]_&]:h-11",
     nav: "flex min-h-0 flex-1 flex-col gap-0.5 overflow-y-auto px-2 py-2",
-    group: "mt-3 mb-1 px-3 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-fg-secondary [[data-collapsed]_&]:sr-only",
+    group: "mt-3 mb-1 px-3 font-mono text-[10.5px] font-semibold text-fg-secondary [[data-collapsed]_&]:sr-only",
     item:
       "group/item relative flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-fg-secondary no-underline transition-colors " +
       "hover:bg-surface-2 hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
@@ -50,7 +50,7 @@ export const appShell = tv({
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring [[data-collapsed]_&]:justify-center [[data-collapsed]_&]:px-0",
     body: "flex min-w-0 flex-1 flex-col [[data-desktop]_&]:min-h-0 [[data-desktop]_&]:overflow-y-auto",
     header:
-      "sticky top-0 z-30 flex h-14 shrink-0 items-center gap-3 border-b border-border-subtle bg-surface-0/85 px-4 backdrop-blur-xl md:px-6 " +
+      "sticky top-0 z-30 flex h-14 shrink-0 items-center gap-3 border-b border-border-subtle bg-surface-0 px-4 md:px-6 " +
       "[[data-desktop]_&]:h-12 [[data-desktop]_&]:select-none [[data-desktop]_&]:px-5",
     menuButton:
       "inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border-subtle bg-surface-1 text-fg md:hidden [[data-desktop]_&]:hidden " +

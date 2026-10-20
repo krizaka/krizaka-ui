@@ -19,7 +19,7 @@ export const radioGroup = tv({
       "focus-visible:outline-hidden focus-visible:focus-ring hover:border-accent disabled:cursor-not-allowed disabled:opacity-40 " +
       "data-[state=checked]:border-accent data-[state=checked]:bg-accent data-[state=checked]:shadow-glow aria-invalid:border-danger",
     dot: "h-2 w-2 rounded-full bg-on-accent",
-    label: "flex cursor-pointer items-start gap-3 text-sm text-fg has-disabled:cursor-not-allowed has-disabled:opacity-60",
+    label: "flex cursor-pointer items-start gap-3 text-sm text-fg has-disabled:cursor-not-allowed has-disabled:opacity-70",
     card:
       "group relative flex min-w-0 flex-col items-start gap-1 rounded-2xl border border-border-default bg-surface-1 bg-sheen p-4 pr-10 text-left text-sm text-fg inset-shadow-edge " +
       "transition-[border-color,background-color,box-shadow,transform] duration-200 hover:border-border-strong active:scale-[0.99] motion-reduce:transition-none motion-reduce:active:scale-100 " +

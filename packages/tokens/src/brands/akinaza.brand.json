@@ -92,20 +92,10 @@
   "brand-gradient": {
     "$type": "color",
     "from": {
-      "$value": "hsl(140 28% 9%)",
-      "$extensions": {
-        "com.krizaka": {
-          "light": "hsl(130 45% 94%)"
-        }
-      }
+      "$value": "{surface.0}"
     },
     "via": {
-      "$value": "hsl(24 20% 8%)",
-      "$extensions": {
-        "com.krizaka": {
-          "light": "hsl(26 60% 95%)"
-        }
-      }
+      "$value": "{surface.0}"
     },
     "to": {
       "$value": "{surface.0}"

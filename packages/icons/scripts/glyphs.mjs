@@ -2,7 +2,7 @@
 // regenerates it and compares). Zero dependency.
 //
 // The grammar (README, "Style"):
-//   grid 24, live area 2..22, stroke 1.75 (the `strokeWidth` prop), round caps and joins;
+//   grid 24, live area 2..22, stroke 1.5 (the `strokeWidth` prop), square caps and mitred joins (a pen line, ADR-004);
 //   containers have CUT corners (45° chamfers, `cut`), never rounded ones — the angle of the Krizaka hexagon;
 //   one NODE per product icon (`n`): a filled dot r 1.6, the core of the marks — it can carry the accent
 //   (`nodeColor`); utility glyphs (arrows, chevrons, close, plus, check, menu) have none.

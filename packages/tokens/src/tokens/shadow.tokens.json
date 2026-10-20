@@ -1,37 +1,25 @@
 {
   "shadow": {
     "$type": "shadow",
-    "$description": "Ombres (web uniquement) ; raised/floating/overlay : teintées d'encre, multi-couches",
+    "$description": "Ombres (web) — Cahier (ADR-004) : une feuille posée sur une autre, un décalage net, jamais de flou",
     "sm": {
       "$description": "Champ, bouton au repos",
       "$value": [
         {
-          "color": "hsl(0 0% 0% / 0.12)",
+          "color": "hsl(150 30% 3% / 0.6)",
           "offsetX": "0",
           "offsetY": "1px",
-          "blur": "3px"
-        },
-        {
-          "color": "hsl(0 0% 0% / 0.06)",
-          "offsetX": "0",
-          "offsetY": "1px",
-          "blur": "2px"
+          "blur": "0"
         }
       ],
       "$extensions": {
         "com.krizaka": {
           "light": [
             {
-              "color": "hsl(240 6% 0% / 0.06)",
+              "color": "hsl(212 49% 24% / 0.12)",
               "offsetX": "0",
               "offsetY": "1px",
-              "blur": "3px"
-            },
-            {
-              "color": "hsl(240 6% 0% / 0.04)",
-              "offsetX": "0",
-              "offsetY": "1px",
-              "blur": "2px"
+              "blur": "0"
             }
           ]
         }
@@ -41,32 +29,34 @@
       "$description": "Menu, popover, carte au survol",
       "$value": [
         {
-          "color": "hsl(0 0% 0% / 0.15)",
+          "color": "hsl(150 30% 3% / 0.6)",
           "offsetX": "0",
-          "offsetY": "4px",
-          "blur": "12px"
+          "offsetY": "1px",
+          "blur": "0"
         },
         {
-          "color": "hsl(0 0% 0% / 0.08)",
-          "offsetX": "0",
-          "offsetY": "2px",
-          "blur": "4px"
+          "color": "hsl(150 30% 4% / 0.55)",
+          "offsetX": "4px",
+          "offsetY": "5px",
+          "blur": "0",
+          "spread": "-2px"
         }
       ],
       "$extensions": {
         "com.krizaka": {
           "light": [
             {
-              "color": "hsl(240 6% 0% / 0.08)",
+              "color": "hsl(212 49% 24% / 0.12)",
               "offsetX": "0",
-              "offsetY": "4px",
-              "blur": "12px"
+              "offsetY": "1px",
+              "blur": "0"
             },
             {
-              "color": "hsl(240 6% 0% / 0.04)",
-              "offsetX": "0",
-              "offsetY": "2px",
-              "blur": "4px"
+              "color": "hsl(212 40% 30% / 0.14)",
+              "offsetX": "4px",
+              "offsetY": "5px",
+              "blur": "0",
+              "spread": "-2px"
             }
           ]
         }
@@ -76,32 +66,34 @@
       "$description": "Dialogue, feuille",
       "$value": [
         {
-          "color": "hsl(0 0% 0% / 0.18)",
+          "color": "hsl(150 30% 3% / 0.6)",
           "offsetX": "0",
-          "offsetY": "8px",
-          "blur": "24px"
+          "offsetY": "1px",
+          "blur": "0"
         },
         {
-          "color": "hsl(0 0% 0% / 0.08)",
-          "offsetX": "0",
-          "offsetY": "4px",
-          "blur": "8px"
+          "color": "hsl(150 30% 4% / 0.55)",
+          "offsetX": "6px",
+          "offsetY": "8px",
+          "blur": "0",
+          "spread": "-2px"
         }
       ],
       "$extensions": {
         "com.krizaka": {
           "light": [
             {
-              "color": "hsl(240 6% 0% / 0.10)",
+              "color": "hsl(212 49% 24% / 0.12)",
               "offsetX": "0",
-              "offsetY": "8px",
-              "blur": "24px"
+              "offsetY": "1px",
+              "blur": "0"
             },
             {
-              "color": "hsl(240 6% 0% / 0.05)",
-              "offsetX": "0",
-              "offsetY": "4px",
-              "blur": "8px"
+              "color": "hsl(212 40% 30% / 0.14)",
+              "offsetX": "6px",
+              "offsetY": "8px",
+              "blur": "0",
+              "spread": "-2px"
             }
           ]
         }
@@ -111,34 +103,20 @@
       "$description": "Surélevé : bouton, carte",
       "$value": [
         {
-          "color": "hsl(240 30% 2% / 0.45)",
+          "color": "hsl(150 30% 3% / 0.6)",
           "offsetX": "0",
           "offsetY": "1px",
-          "blur": "2px"
-        },
-        {
-          "color": "hsl(240 30% 2% / 0.3)",
-          "offsetX": "0",
-          "offsetY": "2px",
-          "blur": "6px",
-          "spread": "-2px"
+          "blur": "0"
         }
       ],
       "$extensions": {
         "com.krizaka": {
           "light": [
             {
-              "color": "hsl(232 25% 25% / 0.08)",
+              "color": "hsl(212 49% 24% / 0.12)",
               "offsetX": "0",
               "offsetY": "1px",
-              "blur": "2px"
-            },
-            {
-              "color": "hsl(232 25% 25% / 0.08)",
-              "offsetX": "0",
-              "offsetY": "2px",
-              "blur": "6px",
-              "spread": "-2px"
+              "blur": "0"
             }
           ]
         }
@@ -148,48 +126,34 @@
       "$description": "Flottant : menu, popover, info-bulle",
       "$value": [
         {
-          "color": "hsl(240 30% 2% / 0.35)",
+          "color": "hsl(150 30% 3% / 0.6)",
           "offsetX": "0",
-          "offsetY": "2px",
-          "blur": "4px"
+          "offsetY": "1px",
+          "blur": "0"
         },
         {
-          "color": "hsl(240 30% 2% / 0.45)",
-          "offsetX": "0",
-          "offsetY": "12px",
-          "blur": "24px",
-          "spread": "-6px"
-        },
-        {
-          "color": "hsl(240 30% 2% / 0.35)",
-          "offsetX": "0",
-          "offsetY": "24px",
-          "blur": "48px",
-          "spread": "-12px"
+          "color": "hsl(150 30% 4% / 0.55)",
+          "offsetX": "4px",
+          "offsetY": "5px",
+          "blur": "0",
+          "spread": "-2px"
         }
       ],
       "$extensions": {
         "com.krizaka": {
           "light": [
             {
-              "color": "hsl(232 25% 25% / 0.06)",
+              "color": "hsl(212 49% 24% / 0.12)",
               "offsetX": "0",
-              "offsetY": "2px",
-              "blur": "4px"
+              "offsetY": "1px",
+              "blur": "0"
             },
             {
-              "color": "hsl(232 25% 25% / 0.1)",
-              "offsetX": "0",
-              "offsetY": "12px",
-              "blur": "24px",
-              "spread": "-6px"
-            },
-            {
-              "color": "hsl(232 25% 25% / 0.1)",
-              "offsetX": "0",
-              "offsetY": "24px",
-              "blur": "48px",
-              "spread": "-12px"
+              "color": "hsl(212 40% 30% / 0.14)",
+              "offsetX": "4px",
+              "offsetY": "5px",
+              "blur": "0",
+              "spread": "-2px"
             }
           ]
         }
@@ -199,48 +163,34 @@
       "$description": "Au-dessus : dialogue, toast, palette",
       "$value": [
         {
-          "color": "hsl(240 30% 2% / 0.4)",
+          "color": "hsl(150 30% 3% / 0.6)",
           "offsetX": "0",
-          "offsetY": "4px",
-          "blur": "8px"
+          "offsetY": "1px",
+          "blur": "0"
         },
         {
-          "color": "hsl(240 30% 2% / 0.5)",
-          "offsetX": "0",
-          "offsetY": "24px",
-          "blur": "48px",
-          "spread": "-12px"
-        },
-        {
-          "color": "hsl(240 30% 2% / 0.45)",
-          "offsetX": "0",
-          "offsetY": "48px",
-          "blur": "96px",
-          "spread": "-24px"
+          "color": "hsl(150 30% 4% / 0.55)",
+          "offsetX": "8px",
+          "offsetY": "10px",
+          "blur": "0",
+          "spread": "-3px"
         }
       ],
       "$extensions": {
         "com.krizaka": {
           "light": [
             {
-              "color": "hsl(232 25% 25% / 0.08)",
+              "color": "hsl(212 49% 24% / 0.12)",
               "offsetX": "0",
-              "offsetY": "4px",
-              "blur": "8px"
+              "offsetY": "1px",
+              "blur": "0"
             },
             {
-              "color": "hsl(232 25% 25% / 0.14)",
-              "offsetX": "0",
-              "offsetY": "24px",
-              "blur": "48px",
-              "spread": "-12px"
-            },
-            {
-              "color": "hsl(232 25% 25% / 0.14)",
-              "offsetX": "0",
-              "offsetY": "48px",
-              "blur": "96px",
-              "spread": "-24px"
+              "color": "hsl(212 40% 30% / 0.14)",
+              "offsetX": "8px",
+              "offsetY": "10px",
+              "blur": "0",
+              "spread": "-3px"
             }
           ]
         }

@@ -11,7 +11,7 @@ export const detailLayout = tv({
     header: "flex flex-col gap-4 border-b border-border-subtle pb-5 sm:flex-row sm:items-start",
     media: "shrink-0 overflow-hidden rounded-xl [&>img]:block [&>img]:h-full [&>img]:w-full [&>img]:object-cover",
     text: "flex min-w-0 flex-1 flex-col gap-2",
-    eyebrow: "font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-fg-accent",
+    eyebrow: "font-mono text-[11px] font-semibold text-fg-accent",
     titleRow: "flex flex-wrap items-center gap-2",
     title: "min-w-0 font-display text-2xl font-extrabold tracking-tight text-fg break-words",
     meta: "flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-fg-secondary",

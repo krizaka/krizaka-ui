@@ -24,7 +24,7 @@
   compiled by `@tailwindcss/postcss` on `test/fixtures/fixture.html`: each utility exists, reads `var(--kz-…)`, and
   `light:` is scoped to `html.light … :not(.theme-dark, .theme-dark *)`; every mapped token exists in
   `@krizaka/tokens`), size, publint.
-- **Size budget** (gzip): `index.css` ≤ 3.1 kB (2.4.0: the type scale, `text-display-2xl` … `text-mono-sm`; 2.5.0: the
+- **Size budget** (gzip): `index.css` ≤ 3.65 kB (3.36.0: the Cahier — the paper colours, every radius on a token, `ruled`, `ruled-lines`, ADR-004, +0.4 kB; 2.4.0: the type scale, `text-display-2xl` … `text-mono-sm`; 2.5.0: the
   material of BRAND.md §6 — `bg-sheen`, `bg-fill-shade`, `bg-halo`, `glass`, `focus-ring(-inset)`, `node(-lit)`, the
   signature shadows and inset edges, `ease-spring`, with their comments. The source is compiled by Tailwind at the app's
   build: an app ships only the utilities it uses).

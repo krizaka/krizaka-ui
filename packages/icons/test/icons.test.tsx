@@ -80,13 +80,15 @@ describe("the grammar", () => {
 });
 
 describe("<Icon>", () => {
-  it("is decorative by default: aria-hidden, currentColor, 24 px, stroke 1.75", () => {
+  it("is decorative by default: aria-hidden, currentColor, 24 px, a pen stroke 1.5 with square caps (not lucide's rounded marker)", () => {
     const { container } = render(<icons.ChatIcon />);
     const svg = container.querySelector("svg")!;
     expect(svg.getAttribute("aria-hidden")).toBe("true");
     expect(svg.getAttribute("width")).toBe("24");
     expect(svg.getAttribute("stroke")).toBe("currentColor");
-    expect(svg.getAttribute("stroke-width")).toBe("1.75");
+    expect(svg.getAttribute("stroke-width")).toBe("1.5");
+    expect(svg.getAttribute("stroke-linecap")).toBe("square");
+    expect(svg.getAttribute("stroke-linejoin")).toBe("miter");
     expect(svg.getAttribute("viewBox")).toBe("0 0 24 24");
     expect(svg.getAttribute("data-kz-icon")).toBe("ChatIcon");
   });

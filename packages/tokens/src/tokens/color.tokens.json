@@ -1,39 +1,39 @@
 {
-  "$description": "Couleurs sémantiques --kz-*. `$value` = dark (défaut), `$extensions[\"com.krizaka\"].light` = light ; sans extension, la valeur est la même dans les deux thèmes.",
+  "$description": "Couleurs sémantiques --kz-*. `$value` = dark (défaut), `$extensions[\"com.krizaka\"].light` = light ; sans extension, la valeur est la même dans les deux thèmes. Cahier (ADR-004, #417) : l'encre sur le papier (clair), la craie sur l'ardoise (sombre).",
   "surface": {
     "0": {
-      "$value": "hsl(240 6% 5%)",
-      "$description": "Fond de page",
+      "$value": "hsl(150 12% 9.5%)",
+      "$description": "Fond de page : l'ardoise (sombre), le papier (clair)",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(0 0% 98%)"
+          "light": "hsl(100 14% 96%)"
         }
       }
     },
     "1": {
-      "$value": "hsl(240 5% 9%)",
-      "$description": "Carte, panneau",
+      "$value": "hsl(148 11% 11%)",
+      "$description": "Feuille posée : carte, panneau",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(0 0% 100%)"
+          "light": "hsl(90 17% 98.5%)"
         }
       }
     },
     "2": {
-      "$value": "hsl(240 5% 13%)",
+      "$value": "hsl(148 10% 12.2%)",
       "$description": "Élément surélevé, champ, survol",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(240 6% 95%)"
+          "light": "hsl(100 11% 94.5%)"
         }
       }
     },
     "3": {
-      "$value": "hsl(240 4% 17%)",
+      "$value": "hsl(148 9% 16.5%)",
       "$description": "Élément actif, puce, piste",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(240 5% 90%)"
+          "light": "hsl(100 9% 88%)"
         }
       }
     },
@@ -42,11 +42,11 @@
   },
   "media": {
     "$type": "color",
-    "$value": "hsl(240 5% 11%)",
+    "$value": "hsl(150 11% 13%)",
     "$description": "fond d'un média avant chargement",
     "$extensions": {
       "com.krizaka": {
-        "light": "hsl(240 6% 92%)"
+        "light": "hsl(100 8% 90%)"
       }
     }
   },
@@ -54,29 +54,29 @@
     "$type": "color",
     "$description": "Bordures",
     "subtle": {
-      "$value": "hsl(0 0% 100% / 0.06)",
+      "$value": "hsl(110 25% 92% / 0.07)",
       "$description": "Séparateur discret",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(240 6% 0% / 0.06)"
+          "light": "hsl(212 49% 24% / 0.10)"
         }
       }
     },
     "default": {
-      "$value": "hsl(0 0% 100% / 0.10)",
+      "$value": "hsl(110 25% 92% / 0.12)",
       "$description": "Contour de carte, de champ",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(240 6% 0% / 0.10)"
+          "light": "hsl(212 49% 24% / 0.17)"
         }
       }
     },
     "strong": {
-      "$value": "hsl(0 0% 100% / 0.16)",
+      "$value": "hsl(110 25% 92% / 0.20)",
       "$description": "Contour au survol, focus non clavier",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(240 6% 0% / 0.16)"
+          "light": "hsl(212 49% 24% / 0.28)"
         }
       }
     }
@@ -85,29 +85,29 @@
     "$type": "color",
     "$description": "Texte",
     "primary": {
-      "$value": "hsl(0 0% 96%)",
-      "$description": "Titres, corps de texte",
+      "$value": "hsl(105 17% 93%)",
+      "$description": "La craie (sombre), l'encre bleue (clair)",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(240 6% 10%)"
+          "light": "hsl(212 49% 22%)"
         }
       }
     },
     "secondary": {
-      "$value": "hsl(240 4% 64%)",
+      "$value": "hsl(140 10% 76%)",
       "$description": "Texte d'appui, libellés",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(240 4% 35%)"
+          "light": "hsl(212 22% 32%)"
         }
       }
     },
     "muted": {
-      "$value": "hsl(240 4% 59%)",
+      "$value": "hsl(140 8% 68%)",
       "$description": "Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus)",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(240 4% 41%)"
+          "light": "hsl(212 14% 36%)"
         }
       }
     },
@@ -175,22 +175,12 @@
     "$type": "color",
     "$description": "Dégradé de section de la marque (from → via → to) : les fonds de section glissent d'une teinte à l'autre ; le texte reste lisible dessus (testé).",
     "from": {
-      "$value": "hsl(210 30% 10%)",
-      "$description": "Section : la teinte de départ (haut de section, halo)",
-      "$extensions": {
-        "com.krizaka": {
-          "light": "hsl(208 36% 93%)"
-        }
-      }
+      "$value": "{surface.0}",
+      "$description": "Section : plus de lavis (Cahier, ADR-004) — la surface de page"
     },
     "via": {
-      "$value": "hsl(220 14% 7%)",
-      "$description": "Section : la teinte intermédiaire",
-      "$extensions": {
-        "com.krizaka": {
-          "light": "hsl(210 30% 97%)"
-        }
-      }
+      "$value": "{surface.0}",
+      "$description": "Section : plus de lavis — la surface de page"
     },
     "to": {
       "$value": "{surface.0}",
@@ -298,5 +288,63 @@
     "$type": "color",
     "$value": "hsl(0 0% 0% / 0.70)",
     "$description": "fond d'un dialogue"
+  },
+  "paper": {
+    "$type": "color",
+    "$description": "Le cahier (ADR-004) : la réglure Seyès, la marge rouge, l'étiquette de spécimen",
+    "rule-major": {
+      "$value": "hsl(140 25% 88% / 0.09)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(214 40% 45% / 0.24)"
+        }
+      },
+      "$description": "Réglure : la ligne forte (tous les 32 px)"
+    },
+    "rule-minor": {
+      "$value": "hsl(140 25% 88% / 0.045)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(214 40% 45% / 0.10)"
+        }
+      },
+      "$description": "Réglure : les lignes fines (tous les 8 px)"
+    },
+    "rule-margin": {
+      "$value": "hsl(8 64% 66%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(5 62% 40%)"
+        }
+      },
+      "$description": "La marge rouge, et les repères de la marge (§, fig., p.)"
+    },
+    "tag": {
+      "$value": "hsl(147 11% 20%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(43 49% 84%)"
+        }
+      },
+      "$description": "L'étiquette de spécimen (manille)"
+    },
+    "tag-edge": {
+      "$value": "hsl(145 9% 38%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(43 30% 58%)"
+        }
+      },
+      "$description": "Le bord et l'œillet de l'étiquette"
+    },
+    "tag-ink": {
+      "$value": "hsl(105 17% 92%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(50 11% 14%)"
+        }
+      },
+      "$description": "Le texte tapé sur l'étiquette"
+    }
   }
 }

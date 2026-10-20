@@ -16,24 +16,24 @@ import { placePanel } from "./placement";
 export const navBar = tv({
   slots: {
     root:
-      "group/nav relative z-40 mx-auto flex h-14 w-full items-center gap-2 border-border-subtle bg-surface-1/75 backdrop-blur-xl backdrop-saturate-150 " +
+      "group/nav relative z-40 mx-auto flex h-14 w-full items-center gap-2 border-border-subtle bg-surface-1 " +
       "transition-[height,background-color,border-color,box-shadow] duration-300 motion-reduce:transition-none " +
-      "data-compact:h-12 data-compact:border-border-default data-compact:bg-surface-1/90 data-compact:shadow-lg",
+      "data-compact:h-12 data-compact:border-border-default data-compact:bg-surface-1 data-compact:shadow-lg",
     brand:
       "mr-2 inline-flex shrink-0 items-center gap-2 font-display text-[15px] font-bold tracking-tight text-fg no-underline " +
       "rounded-md focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     items: "relative hidden md:block",
     list:
       "group/list relative isolate flex items-center gap-0.5 " +
-      // The light: under the item that is pointed at or focused, resting on the current page.
-      "before:absolute before:left-0 before:top-0 before:-z-10 before:h-(--kz-ind-h) before:w-(--kz-ind-w) before:translate-x-(--kz-ind-x) before:translate-y-(--kz-ind-y) " +
-      "before:rounded-full before:bg-surface-3 before:opacity-0 before:transition-[translate,width,opacity] before:duration-300 motion-reduce:before:transition-none " +
+      // The ink rule (Cahier, ADR-004): a pen line under the item that is pointed at or focused, resting on the current page.
+      "before:absolute before:left-0 before:top-0 before:-z-10 before:h-0.5 before:w-(--kz-ind-w) before:translate-x-(--kz-ind-x) before:translate-y-[calc(var(--kz-ind-y)+var(--kz-ind-h)-6px)] " +
+      "before:scale-x-[0.72] before:bg-fg before:opacity-0 before:transition-[translate,width,opacity] before:duration-300 motion-reduce:before:transition-none " +
       "data-[indicator=on]:before:opacity-100",
     item:
-      "inline-flex h-9 select-none items-center gap-1 rounded-full px-3.5 text-sm font-medium text-fg-secondary no-underline transition-colors " +
+      "inline-flex h-9 select-none items-center gap-1 rounded-sm px-3.5 text-sm font-medium text-fg-secondary no-underline transition-colors " +
       "hover:text-fg data-active:text-fg data-[state=open]:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
       // Before the light is ready (server render), the current page carries its own tint.
-      "group-not-data-[indicator=on]/list:data-active:bg-surface-3",
+      "group-not-data-[indicator=on]/list:data-active:underline group-not-data-[indicator=on]/list:data-active:decoration-2 group-not-data-[indicator=on]/list:data-active:underline-offset-8",
     chevron: "h-3.5 w-3.5 transition-transform duration-300 group-data-[state=open]/trigger:rotate-180 motion-reduce:transition-none",
     viewport:
       // `left` is set by NavBarItems (--kz-menu-left): the panel's edge under its trigger, kept inside the page.
@@ -54,11 +54,11 @@ export const navBar = tv({
     menuText: "mt-0.5 block line-clamp-2 wrap-break-word text-xs leading-4 text-fg-secondary",
     actions: "ml-auto flex items-center gap-2",
     toggle:
-      "inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-surface-2/60 text-fg md:hidden " +
+      "inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-surface-2 text-fg md:hidden " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     mobile: "kz-pop absolute inset-x-0 top-full mt-2 grid gap-1 rounded-2xl border border-border-default bg-surface-1 p-2 shadow-lg md:hidden",
     mobileGroup: "grid gap-0.5 [&+&]:mt-1 [&+&]:border-t [&+&]:border-border-subtle [&+&]:pt-2",
-    mobileGroupTitle: "px-3 pb-1 pt-1 text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
+    mobileGroupTitle: "px-3 pb-1 pt-1 text-[11px] font-semibold text-fg-secondary",
     mobileLink:
       "flex items-center justify-between rounded-xl px-3 py-3 text-[15px] font-medium text-fg no-underline hover:bg-surface-2 " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:text-fg-accent",
@@ -71,14 +71,14 @@ export const navBar = tv({
       "kz-pop absolute left-0 top-full mt-2 h-(--radix-navigation-menu-viewport-height) w-(--radix-navigation-menu-viewport-width) origin-top-left overflow-hidden " +
       "rounded-2xl border border-border-default bg-surface-1 shadow-lg transition-[width,height] duration-300 motion-reduce:transition-none",
     familyPanel: "grid w-[min(92vw,42rem)] gap-x-2 gap-y-3 p-3 sm:grid-cols-2",
-    familyGroupTitle: "px-3 pb-1 pt-1 text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
+    familyGroupTitle: "px-3 pb-1 pt-1 text-[11px] font-semibold text-fg-secondary",
     familyLink:
       "group/link flex items-start gap-3 rounded-xl px-3 py-2.5 text-left no-underline outline-hidden transition-colors " +
       "hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:ring-2 focus-visible:ring-ring data-current:bg-accent-soft",
     familyMark: "mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center text-fg",
     familyName: "flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm font-semibold text-fg",
     familyText: "mt-0.5 block text-xs leading-relaxed text-fg-secondary",
-    familyTag: "rounded-full px-1.5 py-px text-[10px] font-semibold uppercase tracking-wider",
+    familyTag: "rounded-full px-1.5 py-px text-[10px] font-semibold",
     mobileFamily: "mt-1 grid gap-2 border-t border-border-subtle px-1 pb-1 pt-3",
     mobileFamilyLink:
       "flex min-h-11 items-center gap-3 rounded-xl px-2 py-2 text-[15px] font-medium text-fg no-underline hover:bg-surface-2 " +

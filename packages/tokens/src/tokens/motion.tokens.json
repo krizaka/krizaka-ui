@@ -2,12 +2,12 @@
   "ease": {
     "$type": "cubicBezier",
     "$value": [
-      0.16,
-      1,
-      0.3,
+      0.45,
+      0,
+      0.2,
       1
     ],
-    "$description": "Courbe par défaut de la signature de mouvement"
+    "$description": "Le trait d'encre (Cahier, ADR-004) : part doucement, se pose net ; plus de dépassement"
   },
   "ease-spring": {
     "$type": "cubicBezier",
@@ -17,7 +17,7 @@
       0.64,
       1
     ],
-    "$description": "Ressort court : pression, bascule, sélection"
+    "$description": "Le tampon : pression, bascule, sélection"
   },
   "duration": {
     "$type": "duration",

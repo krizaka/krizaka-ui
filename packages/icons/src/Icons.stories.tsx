@@ -8,7 +8,7 @@ const all = Object.entries(glyphIndex).map(([name, entry]) => ({ name, ...entry,
 const GROUPS = ["product", "system", "interface"] as const;
 
 /**
- * The Krizaka signature icons: a 24 grid, a 1.75 stroke, cut corners (the angle of the Krizaka hexagon) and, on every
+ * The Krizaka signature icons: a 24 grid, a 1.5 pen stroke with square caps, cut corners (the angle of the Krizaka hexagon) and, on every
  * product icon, a node — the core of the marks — that can carry the brand accent (`nodeColor`).
  */
 const meta = {
@@ -75,11 +75,11 @@ export const Sizes: Story = {
   ),
 };
 
-/** The stroke follows `strokeWidth` (1.25 · 1.75 default · 2.25). */
+/** The stroke follows `strokeWidth` (1.25 · 1.5 default · 2.25). */
 export const Strokes: Story = {
   render: () => (
     <div className="flex items-center gap-4 text-fg">
-      {[1.25, 1.75, 2.25].map((w) => (
+      {[1.25, 1.5, 2.25].map((w) => (
         <icons.WalletIcon key={w} size={40} strokeWidth={w} />
       ))}
     </div>

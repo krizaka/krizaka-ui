@@ -32,7 +32,7 @@ export const iconGroups: readonly IconGroup[] = /* @__PURE__ */ Object.freeze([
 /** The rules of use, by topic. */
 export const iconGuidelines = /* @__PURE__ */ Object.freeze({
   grammar: [
-    "A 24-unit grid, live area 2–22, one stroke (1.75) with round caps and joins.",
+    "A 24-unit grid, live area 2–22, one pen stroke (1.5) with square caps and mitred joins — a line drawn with a nib, not a rounded marker (Cahier, ADR-004).",
     "Containers have cut corners — 45° chamfers, the angle of the Krizaka hexagon — where other sets round them.",
     "A node (a filled dot, r 1.6) on every product icon, none on utility glyphs. No currency sign, no logo inside an icon.",
   ],

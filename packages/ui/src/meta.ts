@@ -10,6 +10,11 @@
 /** Every documented component: the web primitives (one entry of the package each) and the native-only ones. */
 export type ComponentName =
   | "achievement"
+  | "anatomy-plate"
+  | "bird-plate"
+  | "footnote"
+  | "page-index"
+  | "specimen-tag"
   | "action-bar"
   | "action-sheet"
   | "activity-feed"

@@ -17,12 +17,12 @@ export const ROLES = /** @type {const} */ (["display", "text", "mono"]);
 const LICENSE = { name: "SIL Open Font License 1.1", spdx: "OFL-1.1", url: "https://openfontlicense.org" };
 
 /**
- * @typedef {{ role: "display" | "text" | "mono", family: string, slug: string, nativeName: string, category: string,
+ * @typedef {{ role: "display" | "text" | "mono", legacy?: boolean, family: string, slug: string, nativeName: string, category: string,
  *   designer: string, upstream: Record<string, string>, axes: Record<string, number | number[]>, nativeWeights: number[],
  *   fallback: string, stack: string[], description: string, why: string, use: string[], avoid: string[] }} Family
  * @typedef {{ unitsPerEm: number, ascent: number, descent: number, lineGap: number, capHeight: number, xHeight: number, avgWidth: number }} Metrics
  * @typedef {{ file: string, bytes: number, sha256: string }} FileEntry
- * @typedef {{ version: string, metrics: Metrics, web: (FileEntry & { subset: string, unicodeRange: string })[],
+ * @typedef {{ version: string, metrics: Metrics, web: (FileEntry & { subset: string, unicodeRange: string, weight?: number })[],
  *   native: (FileEntry & { weight: number, name: string })[] }} Face
  * @typedef {{ families: Family[], subsets: Record<string, string>, fallbacks: Record<string, { local: string[], unitsPerEm: number, avgWidth: number }>, rules: string[] }} Source
  */
@@ -56,11 +56,16 @@ export function fallbackMetrics(metrics, fallback) {
   };
 }
 
-/** @param {Family} family @param {Face} face */
+/**
+ * The weight range of a family: a variable file keeps a range (`[400, 700]`), a static family lists the weights it
+ * ships (`400`, or `[400, 700]` with one file per weight in `upstream.fonts`).
+ * @param {Family} family @param {Face} face
+ */
 function weights(family, face) {
   const wght = family.axes.wght;
-  if (!Array.isArray(wght)) throw new Error(`${family.family}: the web file keeps a weight range`);
   if (!face) throw new Error(`${family.family}: no face in src/faces.json — run scripts/subset.py`);
+  if (typeof wght === "number") return /** @type {[number, number]} */ ([wght, wght]);
+  if (!Array.isArray(wght)) throw new Error(`${family.family}: no weight`);
   return /** @type {[number, number]} */ (wght);
 }
 
@@ -71,9 +76,9 @@ function weights(family, face) {
  */
 export function compile(source, faces) {
   const families = ROLES.map((role) => {
-    const family = source.families.find((f) => f.role === role);
+    const family = source.families.find((f) => f.role === role && !f.legacy);
     if (!family) throw new Error(`src/families.json: no ${role} family`);
-    const face = faces[role];
+    const face = faces[family.slug];
     const [min, max] = weights(family, face);
     const fallback = source.fallbacks[family.fallback];
     if (!fallback) throw new Error(`${family.family}: unknown fallback ${family.fallback}`);
@@ -97,7 +102,8 @@ export function compile(source, faces) {
       avoid: family.avoid,
       metrics: face.metrics,
       fallback: { local: fallback.local, ...fallbackMetrics(face.metrics, fallback) },
-      web: face.web.map(({ subset, file, bytes, unicodeRange }) => ({ subset, path: file, bytes, unicodeRange })),
+      static: Boolean(family.upstream.fonts),
+      web: face.web.map(({ subset, file, bytes, unicodeRange, weight }) => ({ subset, path: file, bytes, unicodeRange, ...(weight ? { weight } : {}) })),
       native: face.native.map(({ weight, name, file, bytes }) => ({ weight, name, path: file, bytes })),
     };
   });
@@ -105,7 +111,8 @@ export function compile(source, faces) {
   const header = "@krizaka/fonts — GÉNÉRÉ depuis src/families.json et src/faces.json par scripts/build.mjs : ne pas éditer.";
   const css = [
     `/* ${header}`,
-    "   Les trois familles Krizaka (SIL OFL 1.1, licences dans licenses/), auto-hébergées, en sous-ensembles latin et",
+    "   Les trois familles Krizaka — Young Serif, Atkinson Hyperlegible Next, Courier Prime (SIL OFL 1.1, licences dans",
+    "   licenses/) —, auto-hébergées, en sous-ensembles latin et",
     "   latin-ext (le navigateur ne charge latin-ext que si la page en a besoin), font-display: swap ; chaque famille a",
     "   un repli local aux métriques ajustées (« … Fallback ») : le texte ne bouge pas quand la police arrive. */",
     ...families.flatMap((f) => [
@@ -116,7 +123,7 @@ export function compile(source, faces) {
           "@font-face {",
           `  font-family: ${quote(f.family)};`,
           "  font-style: normal;",
-          `  font-weight: ${f.weights.min} ${f.weights.max};`,
+          `  font-weight: ${w.weight ?? `${f.weights.min} ${f.weights.max}`};`,
           "  font-display: swap;",
           `  src: url("../${w.path}") format("woff2");`,
           `  unicode-range: ${w.unicodeRange};`,
@@ -139,7 +146,14 @@ export function compile(source, faces) {
 
   const json = (/** @type {unknown} */ v) => JSON.stringify(v, null, 2);
   const pure = (/** @type {string} */ js) => js.replaceAll("Object.freeze(", "/* @__PURE__ */ Object.freeze(");
-  const preload = families.map((f) => /** @type {{ path: string }} */ (f.web.find((w) => w.subset === "latin")).path);
+  const preload = families.map((f) => /** @type {{ path: string }} */ (f.web.find((w) => w.subset === "latin" && (!w.weight || w.weight === 400))).path);
+  /** The faces of the previous identity, still shipped so a pinned path keeps resolving (data only: not in fonts.css). */
+  const legacy = source.families.filter((f) => f.legacy).map((f) => ({
+    role: f.role,
+    family: f.family,
+    web: faces[f.slug].web.map(({ subset, file }) => ({ subset, path: file })),
+    native: faces[f.slug].native.map(({ weight, name, file }) => ({ weight, name, path: file })),
+  }));
 
   const indexJs = pure(`// ${header}
 
@@ -148,6 +162,9 @@ export const fonts = Object.freeze(${json(families)});
 
 /** The usage rules of the Krizaka typography (ui.krizaka.com/foundations/typography). */
 export const rules = Object.freeze(${json(source.rules)});
+
+/** The faces before 0.3.0 (Plus Jakarta Sans, Inter, JetBrains Mono): their files stay in the package, out of fonts.css. */
+export const legacyFonts = Object.freeze(${json(legacy)});
 
 /** The files worth preloading: the latin subset of each family (paths inside the package). */
 export const preload = Object.freeze(${json(preload)});
@@ -162,7 +179,7 @@ export function fontStack(role) {
   const indexDts = `// ${header}
 
 export type FontRole = "display" | "text" | "mono";
-export interface FontFile { readonly subset: string; readonly path: string; readonly bytes: number; readonly unicodeRange: string }
+export interface FontFile { readonly subset: string; readonly path: string; readonly bytes: number; readonly unicodeRange: string; /** A static family: the weight of this file. */ readonly weight?: number }
 export interface NativeFontFile { readonly weight: number; readonly name: string; readonly path: string; readonly bytes: number }
 export interface Font {
   readonly role: FontRole;
@@ -177,8 +194,10 @@ export interface Font {
   readonly category: string;
   readonly designer: string;
   readonly version: string;
-  /** The weight range of the web (variable) files. */
+  /** The weight range of the web files (a static family: its lowest and highest weight). */
   readonly weights: { readonly min: number; readonly max: number };
+  /** One file per weight upstream (no variable axis). */
+  readonly static: boolean;
   readonly license: { readonly name: string; readonly spdx: "OFL-1.1"; readonly url: string; readonly file: string };
   readonly upstream: { readonly [key: string]: string };
   readonly description: string;
@@ -198,6 +217,8 @@ export declare const fonts: readonly Font[];
 export declare const rules: readonly string[];
 /** The files worth preloading: the latin subset of each family (paths inside the package). */
 export declare const preload: readonly string[];
+/** The faces before 0.3.0, still shipped (paths inside the package), not declared by fonts.css. */
+export declare const legacyFonts: readonly { readonly role: FontRole; readonly family: string; readonly web: readonly { readonly subset: string; readonly path: string }[]; readonly native: readonly { readonly weight: number; readonly name: string; readonly path: string }[] }[];
 /** The CSS font stack of a role. */
 export declare function fontStack(role: FontRole): string;
 `;
@@ -212,7 +233,7 @@ export const nativeFonts = Object.freeze(${json(nativeNames)});
 
 /**
  * The font name for a role and a weight on React Native (static files: one name per weight), the nearest weight the
- * package ships: \`fontFamily("display", 800)\` → \`"PlusJakartaSans-ExtraBold"\`. Pass it as \`fontFamily\`, without
+ * package ships: \`fontFamily("text", 700)\` → \`"AtkinsonHyperlegibleNext-Bold"\`. Pass it as \`fontFamily\`, without
  * \`fontWeight\` (Android would synthesise a second bold).
  */
 export function fontFamily(role, weight = 400) {

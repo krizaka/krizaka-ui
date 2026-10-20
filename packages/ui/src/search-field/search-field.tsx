@@ -26,7 +26,7 @@ export const searchField = tv({
     shortcut: "hidden shrink-0 items-center gap-0.5 pr-1 sm:flex",
     list: "absolute inset-x-0 top-full z-50 mt-1 max-h-72 overflow-y-auto rounded-lg border border-border-default bg-surface-2 p-1 shadow-lg",
     option: "flex cursor-pointer select-none items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-fg data-[active]:bg-surface-3",
-    group: "px-2.5 pb-1 pt-2 text-[11px] font-semibold uppercase text-fg-muted",
+    group: "px-2.5 pb-1 pt-2 text-[11px] font-semibold text-fg-muted",
   },
   variants: {
     size: { md: {}, sm: { control: "h-9", clear: "h-7 w-7" } },

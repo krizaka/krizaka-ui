@@ -11,7 +11,7 @@ export const swipeDeck = tv({
     root: "flex w-full flex-col items-center gap-5",
     stack: "relative aspect-[3/4] w-full max-w-sm outline-hidden focus-visible:rounded-2xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-surface-0",
     layer: "absolute inset-0 touch-pan-y select-none",
-    stamp: "pointer-events-none absolute top-8 rounded-lg border-[3px] px-2.5 py-0.5 font-display text-2xl font-black uppercase tracking-wide",
+    stamp: "pointer-events-none absolute top-8 rounded-lg border-[3px] px-2.5 py-0.5 font-display text-2xl font-black ",
     buttons: "flex items-center gap-7",
     button:
       "inline-flex h-16 w-16 items-center justify-center rounded-full border-2 bg-surface-1 shadow-md transition-transform active:scale-90 " +

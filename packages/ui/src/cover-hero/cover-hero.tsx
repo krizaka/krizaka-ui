@@ -16,7 +16,7 @@ export const coverHero = tv({
     plain: "absolute inset-0 -z-10 bg-linear-to-br from-accent/25 via-surface-1 to-accent-2/20",
     body: "flex flex-col gap-4 pb-8 pt-24 sm:pb-12",
     back: "inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-current no-underline opacity-90 hover:opacity-100",
-    eyebrow: "m-0 font-mono text-xs font-semibold uppercase tracking-widest opacity-90",
+    eyebrow: "m-0 font-mono text-xs font-semibold opacity-90",
     title: "m-0 max-w-3xl font-display text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl",
     lead: "m-0 max-w-2xl text-base leading-relaxed opacity-95 sm:text-lg",
     facts: "flex flex-wrap items-center gap-2",

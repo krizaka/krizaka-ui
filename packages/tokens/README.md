@@ -69,7 +69,7 @@ under every product override.
 
 | Token | Key | Usage | Dark | Light |
 | :-- | :-- | :-- | :-- | :-- |
-| `--kz-surface-0` | `surface0` | Page background | `hsl(240 6% 5%)` | `hsl(0 0% 98%)` |
+| `--kz-surface-0` | `surface0` | Page background: the slate (dark), the paper (light) | `hsl(150 12% 9.5%)` | `hsl(100 14% 96%)` |
 | `--kz-surface-1` | `surface1` | Card, panel | `hsl(240 5% 9%)` | `hsl(0 0% 100%)` |
 | `--kz-surface-2` | `surface2` | Raised element, field, hover | `hsl(240 5% 13%)` | `hsl(240 6% 95%)` |
 | `--kz-surface-3` | `surface3` | Active element, chip, track | `hsl(240 4% 17%)` | `hsl(240 5% 90%)` |
@@ -77,7 +77,7 @@ under every product override.
 | `--kz-border-subtle` | `borderSubtle` | Quiet separator | `hsl(0 0% 100% / 0.06)` | `hsl(240 6% 0% / 0.06)` |
 | `--kz-border-default` | `borderDefault` | Card and field outline | `hsl(0 0% 100% / 0.10)` | `hsl(240 6% 0% / 0.10)` |
 | `--kz-border-strong` | `borderStrong` | Hover outline, non-keyboard focus | `hsl(0 0% 100% / 0.16)` | `hsl(240 6% 0% / 0.16)` |
-| `--kz-text-primary` | `textPrimary` | Headings, body text (≥ 4.5:1 on every surface) | `hsl(0 0% 96%)` | `hsl(240 6% 10%)` |
+| `--kz-text-primary` | `textPrimary` | Headings, body text (≥ 4.5:1 on every surface): chalk, ink | `hsl(105 17% 93%)` | `hsl(212 49% 22%)` |
 | `--kz-text-secondary` | `textSecondary` | Supporting text, labels (≥ 4.5:1 on every surface) | `hsl(240 4% 64%)` | `hsl(240 4% 41%)` |
 | `--kz-text-muted` | `textMuted` | Metadata, placeholders, disabled (≥ 3:1 on every surface) | `hsl(240 4% 47%)` | `hsl(240 4% 52%)` |
 | `--kz-text-on-media` | `textOnMedia` | Text on an image or a video | `hsl(0 0% 100%)` | = dark |
@@ -88,7 +88,7 @@ under every product override.
 | `--kz-accent-2` | `accent2` | Second accent (gradients) | → `accent` | → `accent` |
 | `--kz-on-accent` | `onAccent` | Text and icon on the accent (≥ 4.5:1) | `hsl(0 0% 100%)` | = dark |
 | `--kz-ring` | `ring` | Keyboard focus ring | → `accent` | → `accent` |
-| `--kz-brand-gradient-from` / `-via` / `-to` | `brandGradientFrom`… | Section gradient of the brand (tinted → page surface); text reads at AA on every stop. `-to` is an alias of `surface-0`: an app that changes its page surface keeps a seamless section end | `hsl(222 45% 10%)` → `hsl(232 24% 7%)` → `surface-0` | `hsl(214 95% 93%)` → `hsl(220 60% 97%)` → `surface-0` |
+| `--kz-brand-gradient-from` / `-via` / `-to` | `brandGradientFrom`… | Section gradient of the brand — flat since Cahier (ADR-004): the page surface; text reads at AA on every stop. `-to` is an alias of `surface-0`: an app that changes its page surface keeps a seamless section end | `hsl(222 45% 10%)` → `hsl(232 24% 7%)` → `surface-0` | `hsl(214 95% 93%)` → `hsl(220 60% 97%)` → `surface-0` |
 | `--kz-success` | `success` | Status: success — fills, borders, dots, icons (≥ 3:1) | `hsl(160 84% 39%)` | = dark |
 | `--kz-success-text` | `successText` | Success as small text: ≥ 4.5:1 on every surface | `hsl(158 64% 52%)` | `hsl(160 84% 24%)` |
 | `--kz-warning` | `warning` | Status: warning | `hsl(38 92% 50%)` | = dark |
@@ -105,24 +105,33 @@ under every product override.
 
 | Token | Key | Usage | Dark | Light |
 | :-- | :-- | :-- | :-- | :-- |
-| `--kz-radius-sm` | `radiusSm` | Field, chip | `8px` | = dark |
-| `--kz-radius-md` | `radiusMd` | Button, menu | `12px` | = dark |
-| `--kz-radius-lg` | `radiusLg` | Card | `16px` | = dark |
-| `--kz-radius-xl` | `radiusXl` | Dialog, sheet | `20px` | = dark |
+| `--kz-radius-sm` | `radiusSm` | Field, chip | `2px` | = dark |
+| `--kz-radius-md` | `radiusMd` | Button, menu | `2px` | = dark |
+| `--kz-radius-lg` | `radiusLg` | Card (square paper) | `0px` | = dark |
+| `--kz-radius-xl` | `radiusXl` | Dialog, sheet | `0px` | = dark |
 | `--kz-radius-full` | `radiusFull` | Pill, avatar | `9999px` | = dark |
-| `--kz-shadow-sm` | `shadowSm` | Field, button at rest (web only) | `0 1px 3px hsl(0 0% 0% / 0.12), 0 1px 2px hsl(0 0% 0% / 0.06)` | `0 1px 3px hsl(240 6% 0% / 0.06), 0 1px 2px hsl(240 6% 0% / 0.04)` |
-| `--kz-shadow-md` | `shadowMd` | Menu, popover, card on hover (web only) | `0 4px 12px hsl(0 0% 0% / 0.15), 0 2px 4px hsl(0 0% 0% / 0.08)` | `0 4px 12px hsl(240 6% 0% / 0.08), 0 2px 4px hsl(240 6% 0% / 0.04)` |
-| `--kz-shadow-lg` | `shadowLg` | Dialog, sheet (web only) | `0 8px 24px hsl(0 0% 0% / 0.18), 0 4px 8px hsl(0 0% 0% / 0.08)` | `0 8px 24px hsl(240 6% 0% / 0.10), 0 4px 8px hsl(240 6% 0% / 0.05)` |
-| `--kz-ease` | `ease` | Default curve of the motion signature | `cubic-bezier(0.16, 1, 0.3, 1)` | = dark |
-| `--kz-font-sans` | `fontSans` | Interface and running text | `Inter, system-ui, sans-serif` | = dark |
+| `--kz-shadow-sm` | `shadowSm` | Field, button at rest (web only): a 1 px ink line, no blur | `0 1px 0 hsl(150 30% 3% / 0.6)` | `0 1px 0 hsl(212 49% 24% / 0.12)` |
+| `--kz-shadow-md` | `shadowMd` | Menu, popover (web only): a sheet on a sheet | `0 1px 0 …, 4px 5px 0 -2px hsl(150 30% 4% / 0.55)` | `0 1px 0 …, 4px 5px 0 -2px hsl(212 40% 30% / 0.14)` |
+| `--kz-shadow-lg` | `shadowLg` | Dialog, sheet (web only) | `0 1px 0 …, 6px 8px 0 -2px …` | `0 1px 0 …, 6px 8px 0 -2px …` |
+| `--kz-ease` | `ease` | The ink stroke: the default curve (Cahier) | `cubic-bezier(0.45, 0, 0.2, 1)` | = dark |
+| `--kz-font-sans` | `fontSans` | Interface and running text | `"Atkinson Hyperlegible Next", system-ui, sans-serif` | = dark |
 | `--kz-font-display` | `fontDisplay` | Headings; a product theme may override it | → `font-sans` | → `font-sans` |
-| `--kz-font-mono` | `fontMono` | Code, aligned amounts | `"JetBrains Mono", ui-monospace, monospace` | = dark |
+| `--kz-font-mono` | `fontMono` | Tags, captions, footnotes, code | `"Courier Prime", "Courier New", monospace` | = dark |
+
+### The paper (Cahier, ADR-004)
+
+| Token | Native | Role | Dark (slate) | Light (paper) |
+| :-- | :-- | :-- | :-- | :-- |
+| `--kz-paper-rule-major` / `-minor` | `paperRuleMajor`… | The Seyès ruling: a strong line every 32 px, three fine lines | chalk at 9 % / 4.5 % | ink blue at 24 % / 10 % |
+| `--kz-paper-rule-margin` | `paperRuleMargin` | The red margin line, section numbers in the margin (≥ 3:1) | `hsl(8 64% 66%)` | `hsl(5 56% 47%)` |
+| `--kz-paper-tag` / `-tag-edge` / `-tag-ink` | `paperTag`… | The specimen tag (manila), its edge and eyelet, its typed text (≥ 4.5:1) | slate tag, chalk ink | manila, near-black ink |
+| `--kz-paper-module` / `--kz-paper-line` | — | The ruling's square and line | `32px` / `8px` | = dark |
 
 ### The material (BRAND.md §6)
 
 | Token | Key | Usage | Dark | Light |
 | :-- | :-- | :-- | :-- | :-- |
-| `--kz-radius-xs`, `--kz-radius-2xl` | `radiusXs`, `radius2xl` | Checkbox, key, cut badge · sheet | `6px`, `28px` | = dark |
+| `--kz-radius-xs`, `--kz-radius-2xl` | `radiusXs`, `radius2xl` | Checkbox, key, cut badge · sheet | `2px`, `0px` | = dark |
 | `--kz-shadow-raised` · `-floating` · `-overlay` | `shadowRaised`… | Raised (button, card) · floating (menu, tooltip) · over the page (dialog, toast) — ink-tinted, 2–3 layers; native: `shadows.<theme>.raised` (`boxShadow`) | `hsl(240 30% 2% / …)` | `hsl(232 25% 25% / …)` |
 | `--kz-surface-sheen` | `surfaceSheen` | The top of a raised surface (`bg-sheen`) | `hsl(0 0% 100% / 0.045)` | `hsl(0 0% 100% / 0.7)` |
 | `--kz-fill-shade` | `fillShade` | The bottom of an accent or status fill (`bg-fill-shade`) | `hsl(0 0% 0% / 0.12)` | = dark |

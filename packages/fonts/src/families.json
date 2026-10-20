@@ -3,6 +3,141 @@
   "families": [
     {
       "role": "display",
+      "family": "Young Serif",
+      "slug": "young-serif",
+      "nativeName": "YoungSerif",
+      "category": "serif",
+      "designer": "Bastien Sozeau (noirblancrouge)",
+      "upstream": {
+        "repository": "https://github.com/google/fonts",
+        "commit": "47d54ca1ebb14fd864695f1d39dc734f39017c33",
+        "fonts": {
+          "400": "ofl/youngserif/YoungSerif-Regular.ttf"
+        },
+        "license": "ofl/youngserif/OFL.txt",
+        "project": "https://github.com/noirblancrouge/YoungSerif"
+      },
+      "axes": {
+        "wght": 400
+      },
+      "nativeWeights": [
+        400
+      ],
+      "fallback": "Georgia",
+      "stack": [
+        "Georgia",
+        "Times New Roman",
+        "serif"
+      ],
+      "description": "The voice of the headlines: titles, the names of things, figures on a plate. One weight, never bold.",
+      "why": "A heavy old-style serif with round, inked terminals: it reads like a title set in a notebook or a field guide, not like a software template. It has one weight on purpose — hierarchy comes from size and space, never from a bolder cut. It replaces Plus Jakarta Sans, the display face of a thousand templates (#417, ADR-004).",
+      "use": [
+        "Headings and hero lines (display-*, title-*)",
+        "Figures on a plate or a tag",
+        "The name of a product, a component, a section"
+      ],
+      "avoid": [
+        "Paragraphs and long reading (use the text face)",
+        "Sizes under 18 px",
+        "Bold or synthetic weights: it has one weight (font-synthesis is off)",
+        "Uppercase headlines"
+      ]
+    },
+    {
+      "role": "text",
+      "family": "Atkinson Hyperlegible Next",
+      "slug": "atkinson-hyperlegible-next",
+      "nativeName": "AtkinsonHyperlegibleNext",
+      "category": "sans-serif",
+      "designer": "Braille Institute, Applied Design Works, Elliott Scott, Megan Eiswerth, Linus Boman, Theodore Petrosky",
+      "upstream": {
+        "repository": "https://github.com/google/fonts",
+        "commit": "47d54ca1ebb14fd864695f1d39dc734f39017c33",
+        "font": "ofl/atkinsonhyperlegiblenext/AtkinsonHyperlegibleNext[wght].ttf",
+        "license": "ofl/atkinsonhyperlegiblenext/OFL.txt",
+        "project": "https://github.com/googlefonts/atkinson-hyperlegible-next"
+      },
+      "axes": {
+        "wght": [
+          400,
+          700
+        ]
+      },
+      "nativeWeights": [
+        400,
+        600,
+        700
+      ],
+      "fallback": "Arial",
+      "stack": [
+        "system-ui",
+        "-apple-system",
+        "Segoe UI",
+        "Roboto",
+        "sans-serif"
+      ],
+      "description": "The reading face: paragraphs, interface, forms, tables.",
+      "why": "Drawn by the Braille Institute so that every letter is told apart from its neighbours (I l 1, O 0, b d p q) by readers with low vision: accessibility as a visible trait, which suits a kit that promises WCAG 2.2 AA. Its quirky, distinct shapes give the text a voice Inter never had.",
+      "use": [
+        "Body text, interface, forms, tables (body-*, caption)",
+        "Numbers that must align: `font-variant-numeric: tabular-nums`",
+        "Every size from 12 px"
+      ],
+      "avoid": [
+        "Hero headlines (use the display face)",
+        "Weights under 400"
+      ]
+    },
+    {
+      "role": "mono",
+      "family": "Courier Prime",
+      "slug": "courier-prime",
+      "nativeName": "CourierPrime",
+      "category": "monospace",
+      "designer": "Alan Dague-Greene (Quote-Unquote Apps)",
+      "upstream": {
+        "repository": "https://github.com/google/fonts",
+        "commit": "47d54ca1ebb14fd864695f1d39dc734f39017c33",
+        "fonts": {
+          "400": "ofl/courierprime/CourierPrime-Regular.ttf",
+          "700": "ofl/courierprime/CourierPrime-Bold.ttf"
+        },
+        "license": "ofl/courierprime/OFL.txt",
+        "project": "https://github.com/quoteunquoteapps/CourierPrime"
+      },
+      "axes": {
+        "wght": [
+          400,
+          700
+        ]
+      },
+      "nativeWeights": [
+        400,
+        700
+      ],
+      "fallback": "Courier New",
+      "stack": [
+        "Courier New",
+        "ui-monospace",
+        "Menlo",
+        "Consolas",
+        "monospace"
+      ],
+      "description": "The typewriter of the notebook: specimen tags, captions, footnotes, marginalia, code.",
+      "why": "A Courier redrawn for screens: the typed label of a specimen tag, a caption under a plate, a page number in the margin. It sets code too, in lower case and at reading size. It replaces JetBrains Mono, whose uppercase tracked overlines were one of the template tells (#417).",
+      "use": [
+        "Specimen tags, captions, footnotes, marginalia (note, caption)",
+        "Code blocks and inline code (mono-*)",
+        "Identifiers, versions, run ids, page numbers"
+      ],
+      "avoid": [
+        "Uppercase tracked overlines above headings",
+        "Paragraphs",
+        "Headlines"
+      ]
+    },
+    {
+      "role": "display",
       "family": "Plus Jakarta Sans",
       "slug": "plus-jakarta-sans",
       "nativeName": "PlusJakartaSans",
@@ -15,14 +150,38 @@
         "license": "ofl/plusjakartasans/OFL.txt",
         "project": "https://github.com/tokotype/PlusJakartaSans"
       },
-      "axes": { "wght": [500, 800] },
-      "nativeWeights": [600, 700, 800],
+      "axes": {
+        "wght": [
+          500,
+          800
+        ]
+      },
+      "nativeWeights": [
+        600,
+        700,
+        800
+      ],
       "fallback": "Arial",
-      "stack": ["system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
-      "description": "The voice of the headlines: titles, hero lines, figures, the names of things.",
+      "stack": [
+        "system-ui",
+        "-apple-system",
+        "Segoe UI",
+        "Roboto",
+        "sans-serif"
+      ],
+      "description": "Legacy (before 0.3.0): The voice of the headlines: titles, hero lines, figures, the names of things.",
       "why": "Already the headline face of krizaka.com: its compact, slightly squared bowls and flat terminals echo the cut corners of the marks and icons, and it stays tight and dense at 800 — premium without decoration. Keeping it means no gratuitous change to the parent brand.",
-      "use": ["Headings and hero lines (display-*, title-*)", "Big figures and prices", "Short labels that name a product or a section"],
-      "avoid": ["Paragraphs and long reading (use the text face)", "Sizes under 16 px", "Weights under 600: the display face speaks bold"]
+      "use": [
+        "Headings and hero lines (display-*, title-*)",
+        "Big figures and prices",
+        "Short labels that name a product or a section"
+      ],
+      "avoid": [
+        "Paragraphs and long reading (use the text face)",
+        "Sizes under 16 px",
+        "Weights under 600: the display face speaks bold"
+      ],
+      "legacy": true
     },
     {
       "role": "text",
@@ -38,14 +197,39 @@
         "license": "ofl/inter/OFL.txt",
         "project": "https://github.com/rsms/inter"
       },
-      "axes": { "opsz": 14, "wght": [400, 700] },
-      "nativeWeights": [400, 500, 600, 700],
+      "axes": {
+        "opsz": 14,
+        "wght": [
+          400,
+          700
+        ]
+      },
+      "nativeWeights": [
+        400,
+        500,
+        600,
+        700
+      ],
       "fallback": "Arial",
-      "stack": ["system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
-      "description": "The reading face: paragraphs, interface, forms, tables, captions.",
+      "stack": [
+        "system-ui",
+        "-apple-system",
+        "Segoe UI",
+        "Roboto",
+        "sans-serif"
+      ],
+      "description": "Legacy (before 0.3.0): The reading face: paragraphs, interface, forms, tables, captions.",
       "why": "Drawn for screens: a tall x-height, open apertures and tabular figures that line up amounts. It was already the default of @krizaka/tokens and Orazaka's text face, and krizaka.com's body already asked for its character variants (cv02–cv04: open 4, 6 and 9). Cut at the text optical size (opsz 14).",
-      "use": ["Body text, interface, forms, tables (body-*, caption)", "Numbers that must align: `font-variant-numeric: tabular-nums`", "Every size from 12 px"],
-      "avoid": ["Hero headlines (use the display face)", "Letter-spacing on body sizes beyond the scale's own"]
+      "use": [
+        "Body text, interface, forms, tables (body-*, caption)",
+        "Numbers that must align: `font-variant-numeric: tabular-nums`",
+        "Every size from 12 px"
+      ],
+      "avoid": [
+        "Hero headlines (use the display face)",
+        "Letter-spacing on body sizes beyond the scale's own"
+      ],
+      "legacy": true
     },
     {
       "role": "mono",
@@ -61,14 +245,37 @@
         "license": "ofl/jetbrainsmono/OFL.txt",
         "project": "https://github.com/JetBrains/JetBrainsMono"
       },
-      "axes": { "wght": [400, 700] },
-      "nativeWeights": [400, 500, 600],
+      "axes": {
+        "wght": [
+          400,
+          700
+        ]
+      },
+      "nativeWeights": [
+        400,
+        500,
+        600
+      ],
       "fallback": "Courier New",
-      "stack": ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
-      "description": "Code, identifiers, endpoints, and the small uppercase overlines that label a section.",
+      "stack": [
+        "ui-monospace",
+        "SFMono-Regular",
+        "Menlo",
+        "Consolas",
+        "monospace"
+      ],
+      "description": "Legacy (before 0.3.0): Code, identifiers, endpoints, and the small uppercase overlines that label a section.",
       "why": "Used by every Krizaka surface already (krizaka.com, Orazaka). A tall x-height and unambiguous 0/O, 1/l/I make code and identifiers readable at 12 px; its rectangular forms sit well next to the cut corners.",
-      "use": ["Code blocks and inline code (mono-*)", "Endpoints, ids, versions, keys", "Overlines: uppercase, tracked (overline)"],
-      "avoid": ["Paragraphs", "Headlines"]
+      "use": [
+        "Code blocks and inline code (mono-*)",
+        "Endpoints, ids, versions, keys",
+        "Overlines: uppercase, tracked (overline)"
+      ],
+      "avoid": [
+        "Paragraphs",
+        "Headlines"
+      ],
+      "legacy": true
     }
   ],
   "subsets": {
@@ -77,16 +284,43 @@
   },
   "fallbacks": {
     "$comment": "Measured on the system files (Arial 7.00, Courier New 6.00 of macOS) by scripts/subset.py --measure-fallbacks: units per em and the weighted average advance (FREQUENCIES of subset.py).",
-    "Arial": { "local": ["Arial", "ArialMT", "Liberation Sans", "Arimo"], "unitsPerEm": 2048, "avgWidth": 915.73 },
-    "Courier New": { "local": ["Courier New", "CourierNewPSMT", "Liberation Mono", "Cousine"], "unitsPerEm": 2048, "avgWidth": 1229 }
+    "Arial": {
+      "local": [
+        "Arial",
+        "ArialMT",
+        "Liberation Sans",
+        "Arimo"
+      ],
+      "unitsPerEm": 2048,
+      "avgWidth": 915.73
+    },
+    "Courier New": {
+      "local": [
+        "Courier New",
+        "CourierNewPSMT",
+        "Liberation Mono",
+        "Cousine"
+      ],
+      "unitsPerEm": 2048,
+      "avgWidth": 1229
+    },
+    "Georgia": {
+      "local": [
+        "Georgia",
+        "Gelasio"
+      ],
+      "unitsPerEm": 2048,
+      "avgWidth": 909.89
+    }
   },
   "rules": [
-    "Three families, three jobs: display speaks (headlines, figures), text reads (everything else), mono labels and quotes code. Never a fourth family on a Krizaka surface.",
+    "Three families, three jobs: display names (Young Serif), text reads (Atkinson Hyperlegible Next), mono types the notes (Courier Prime: tags, captions, footnotes, code). Never a fourth family on a Krizaka surface.",
     "Use the scale, not sizes: `text-display-xl`, `text-body-md`… carry size, line height, weight and tracking together. A one-off size is a missing step — ask for it.",
-    "Display from 20 px up, at 600–800; text from 12 px, at 400–700. Never a light weight (< 400) on a dark surface.",
+    "Display has one weight (400) and is never bold, never uppercase: hierarchy comes from size and space. Text from 12 px, at 400–700.",
+    "No uppercase tracked overline above every heading: a section is numbered in the margin (§ 2) or not at all. A label is lower case, in the note face.",
     "One display line per block. The rest is text: a page of headlines reads as noise.",
     "Amounts, counters and tables use tabular figures (`tabular-nums`); prices keep the currency from @krizaka/intl, never a hand-written sign.",
-    "Measure: 60–75 characters per line for reading (`max-w-prose`).",
+    "Measure: 60–75 characters per line for reading (`max-w-prose`); line heights land on the 8 px ruling.",
     "Products may override the display role with their own face (Orochia: Outfit) through `--kz-font-display`; text and mono stay Krizaka's.",
     "The Krizaka wordmark is drawn, inside the logo: never set the name in a font to imitate it."
   ]

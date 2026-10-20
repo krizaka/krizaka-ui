@@ -7,7 +7,7 @@ const countdown = tv({
   slots: {
     root: "inline-flex items-baseline gap-1.5 font-display font-black tabular-nums tracking-tight text-fg",
     segment: "inline-flex items-baseline",
-    unit: "ml-0.5 text-[0.5em] font-bold uppercase text-fg-secondary",
+    unit: "ml-0.5 text-[0.5em] font-bold text-fg-secondary",
     label: "mr-0.5 self-center font-sans text-[0.6em] font-semibold tracking-normal text-fg-secondary",
   },
   variants: {

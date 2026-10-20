@@ -36,7 +36,7 @@ export const calendar = tv({
     month: "kz-month flex flex-col gap-2",
     monthTitle: "px-1 text-xs font-semibold capitalize text-fg-secondary",
     grid: "border-separate border-spacing-y-1",
-    weekday: "h-7 w-10 pb-1 text-center text-[11px] font-semibold uppercase tracking-wider text-fg-secondary",
+    weekday: "h-7 w-10 pb-1 text-center text-[11px] font-semibold text-fg-secondary",
     cell:
       "p-0 text-center data-[band]:bg-accent-soft data-[band=start]:rounded-l-xl data-[band=end]:rounded-r-xl data-[band=solo]:rounded-xl " +
       "data-[band=preview]:bg-surface-3",

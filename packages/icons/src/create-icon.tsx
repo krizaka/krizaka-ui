@@ -5,7 +5,7 @@ import { type Glyph, NODE_RADIUS, STROKE_WIDTH } from "./glyph";
 export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "ref" | "children"> {
   /** Width and height (px or any CSS length). Default 24. */
   size?: number | string;
-  /** The stroke, in grid units (the grid is 24). Default 1.75. */
+  /** The stroke, in grid units (the grid is 24). Default 1.5. */
   strokeWidth?: number;
   /** An accessible name: the icon becomes an image. Without it the icon is decorative (hidden from assistive technology). */
   title?: string;
@@ -32,8 +32,8 @@ export function createIcon(displayName: string, glyph: Glyph) {
         fill="none"
         stroke="currentColor"
         strokeWidth={strokeWidth}
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
         data-kz-icon={displayName}
         {...a11y}
         {...props}

@@ -29,7 +29,7 @@ export const map = tv({
       "inline-flex h-10 w-10 items-center justify-center text-lg font-semibold text-fg-secondary transition-colors hover:bg-surface-3 hover:text-fg " +
       "focus-visible:outline-hidden focus-visible:focus-ring-inset disabled:opacity-40 [&+&]:border-t [&+&]:border-border-subtle",
     attribution:
-      "absolute bottom-1.5 right-1.5 z-10 rounded-md bg-surface-1/85 px-1.5 py-0.5 text-[10px] text-fg-secondary backdrop-blur-sm [&_a]:underline-offset-2 hover:[&_a]:underline",
+      "absolute bottom-1.5 right-1.5 z-10 rounded-md bg-surface-1 px-1.5 py-0.5 text-[10px] text-fg-secondary [&_a]:underline-offset-2 hover:[&_a]:underline",
     places: "sr-only",
     marker:
       "group relative flex -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-2 border-on-accent bg-accent shadow-floating outline-hidden " +

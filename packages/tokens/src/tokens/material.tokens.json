@@ -2,11 +2,11 @@
   "$description": "Surfaces & matières — la signature visuelle Krizaka (BRAND.md §6) : la lumière vient d'en haut. Ce qui se presse s'élève (reflet, arête lumineuse, ombre d'encre), ce qui se remplit se creuse (puits), ce qui flotte est en verre ; l'accent ne s'allume que sur ce qui agit.",
   "surface-sheen": {
     "$type": "color",
-    "$value": "hsl(0 0% 100% / 0.045)",
-    "$description": "Reflet en haut d'une surface (bg-sheen)",
+    "$value": "hsl(0 0% 100% / 0)",
+    "$description": "Plus de reflet (Cahier, ADR-004) : le papier est mat",
     "$extensions": {
       "com.krizaka": {
-        "light": "hsl(0 0% 100% / 0.7)"
+        "light": "hsl(0 0% 100% / 0)"
       }
     }
   },
@@ -19,11 +19,11 @@
     "$type": "color",
     "$description": "Arêtes : un filet intérieur d'1 px",
     "light": {
-      "$value": "hsl(0 0% 100% / 0.07)",
-      "$description": "Arête lumineuse du haut (inset-shadow-edge)",
+      "$value": "hsl(0 0% 100% / 0)",
+      "$description": "Plus d'arête lumineuse : le papier est mat",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(0 0% 100% / 0.9)"
+          "light": "hsl(0 0% 100% / 0)"
         }
       }
     },
@@ -45,11 +45,11 @@
     "$description": "Verre dépoli de ce qui flotte : 88 %, texte secondaire ≥ 4.5:1 sur tout fond",
     "bg": {
       "$type": "color",
-      "$value": "hsl(240 5% 12% / 0.88)",
-      "$description": "Le fond du verre",
+      "$value": "hsl(148 11% 11%)",
+      "$description": "Ce qui flotte est une feuille, opaque (Cahier) : plus de verre dépoli",
       "$extensions": {
         "com.krizaka": {
-          "light": "hsl(0 0% 100% / 0.88)"
+          "light": "hsl(90 17% 98.5%)"
         }
       }
     },
@@ -65,8 +65,8 @@
     },
     "blur": {
       "$type": "dimension",
-      "$value": "24px",
-      "$description": "Le flou de ce qui passe dessous"
+      "$value": "0px",
+      "$description": "Plus de flou (Cahier, ADR-004)"
     }
   },
   "ring": {
@@ -136,6 +136,18 @@
       "$type": "dimension",
       "$value": "10px",
       "$description": "La taille de la coupe d'un contrôle"
+    }
+  },
+  "paper": {
+    "$type": "dimension",
+    "$description": "La réglure Seyès (ADR-004) : le grand carreau et la ligne fine ; les interlignages tombent sur la ligne",
+    "module": {
+      "$value": "32px",
+      "$description": "Le grand carreau (8 mm) : le pas de la grille et de la marge"
+    },
+    "line": {
+      "$value": "8px",
+      "$description": "La ligne fine : trois par carreau"
     }
   }
 }

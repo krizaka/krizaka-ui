@@ -43,6 +43,7 @@ const OVERRIDES: Partial<Record<string, Job | Pattern>> = {
   mascots: "brand",
   "mascot-state": "brand",
   "mascot-quote": "brand",
+  "bird-plate": "brand",
   iso: "brand",
   landscape: "brand",
   "glow-card": "brand",

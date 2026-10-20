@@ -9,7 +9,7 @@ import { useReturnFocus } from "./return-focus";
 
 export const dialog = tv({
   slots: {
-    overlay: "kz-overlay fixed inset-0 z-50 bg-overlay backdrop-blur-xs",
+    overlay: "kz-overlay fixed inset-0 z-50 bg-overlay",
     content:
       "kz-dialog fixed z-50 flex flex-col overflow-hidden border border-border-default bg-surface-1 text-fg shadow-lg focus:outline-hidden",
     close: "absolute right-3 top-3 h-9 w-9",

@@ -3,8 +3,14 @@
   "$extensions": {
     "com.krizaka": {
       "mark": [
-        ["0%", "hsl(208 46% 45%)"],
-        ["100%", "hsl(206 58% 72%)"]
+        [
+          "0%",
+          "hsl(208 46% 45%)"
+        ],
+        [
+          "100%",
+          "hsl(206 58% 72%)"
+        ]
       ]
     }
   },
@@ -66,20 +72,10 @@
   "brand-gradient": {
     "$type": "color",
     "from": {
-      "$value": "hsl(210 30% 10%)",
-      "$extensions": {
-        "com.krizaka": {
-          "light": "hsl(208 36% 93%)"
-        }
-      }
+      "$value": "{surface.0}"
     },
     "via": {
-      "$value": "hsl(220 14% 7%)",
-      "$extensions": {
-        "com.krizaka": {
-          "light": "hsl(210 30% 97%)"
-        }
-      }
+      "$value": "{surface.0}"
     },
     "to": {
       "$value": "{surface.0}"

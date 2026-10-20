@@ -92,7 +92,14 @@ describe("@krizaka/tailwind", () => {
     [".inset-shadow-well", "--tw-inset-shadow", "--kz-edge-well"],
     [".bg-sheen", "background-image", "--kz-surface-sheen"],
     [".bg-fill-shade", "background-image", "--kz-fill-shade"],
-    [".glass", "backdrop-filter", "--kz-glass-blur"],
+    [".glass", "background-color", "--kz-glass-bg"],
+    [".ruled", "background-image", "--kz-paper-rule-major"],
+    [".ruled-lines", "background-size", "--kz-paper-line"],
+    [".bg-tag", "background-color", "--kz-paper-tag"],
+    [".text-fg-tag", "color", "--kz-paper-tag-ink"],
+    [".text-margin", "color", "--kz-paper-rule-margin"],
+    [".rounded-2xl", "border-radius", "--kz-radius-2xl"],
+    [".rounded-3xl", "border-radius", "--kz-radius-2xl"],
     [".node", "background-color", "--kz-border-strong"],
     [".ease-spring", "transition-timing-function", "--kz-ease-spring"],
   ])("generates the signature %s from the tokens (BRAND.md §6)", (selector, property, token) => {
@@ -104,7 +111,15 @@ describe("@krizaka/tailwind", () => {
 
   it("composes the brand glow and the halo where they are used, so a .brand-<id> section has its own", () => {
     expect(rule(".shadow-glow")).toContain("color-mix(in oklab, var(--kz-accent)");
-    expect(rule(".bg-halo")).toContain("color-mix(in oklab, var(--kz-accent) 16%");
+    expect(rule(".bg-halo")).toContain("linear-gradient(var(--kz-accent), var(--kz-accent))");
+  });
+
+  it("Cahier (ADR-004): nothing frosted, nothing glowing — no backdrop blur, no blurred glow, no radial halo", () => {
+    expect(rule(".glass")).not.toContain("backdrop-filter");
+    expect(rule(".bg-halo")).not.toContain("radial-gradient");
+    expect(css).not.toMatch(/--shadow-glow(-lg)?:[^;]*\d+px \d+px [1-9]\d*px/);
+    expect(rule(".data-\\[on\\]\\:node-lit[data-on]")).not.toMatch(/(^|[,:]\s*)0 0 [1-9]\d*px/);
+    expect(css).toContain("font-synthesis-weight: none");
   });
 
   it("draws the signature focus ring: a crisp ring off the element, in a halo, added to the element's shadows", () => {
