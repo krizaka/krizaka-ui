@@ -97,9 +97,8 @@
       "preview": "Preview",
       "code": "Code",
       "label": "Live preview of {name}",
-      "toLight": "Show in light theme",
-      "toDark": "Show in dark theme",
-      "mapSnapshot": "{name}, photographed with its map tiles"
+      "mapSnapshot": "{name}, photographed with its map tiles",
+      "switchTheme": "Switch the preview's theme"
     },
     "props": {
       "prop": "Prop",

@@ -6,17 +6,19 @@ import { Tabs } from "@krizaka/ui/tabs";
 import { type ReactNode,useState } from "react";
 
 import { useI18n } from "../I18nProvider";
-import { useSiteTheme } from "../SiteTheme";
 
 /* The frame of a live preview: Preview / Code tabs (@krizaka/ui, segmented), and a theme switch that applies to the
-   frame only (`.theme-light` / `.theme-dark` of @krizaka/tokens re-declare the values on the subtree). */
+   frame only (`.theme-light` / `.theme-dark` of @krizaka/tokens re-declare the values on the subtree). Until it is
+   pressed the stage follows the page's theme by inheritance, and CSS shows the right glyph (html.light): the frame reads
+   no theme hook, so nothing re-renders it before its example (LiveExample) has hydrated — an update there made React
+   throw the server's HTML away and render every example again (tests/route-weight.test.mjs). */
 export function PreviewFrame({ label, code, children, stageClassName = "" }: { label: string; code: ReactNode; children: ReactNode; stageClassName?: string }) {
   const { t } = useI18n();
   const text = t.docs.preview;
-  const { theme: pageTheme } = useSiteTheme();
   const [frameTheme, setFrameTheme] = useState<"light" | "dark" | null>(null);
   const [tab, setTab] = useState("preview");
-  const theme = frameTheme ?? pageTheme;
+  // The theme shown, read when the switch is pressed: the frame's own, else the page's.
+  const shown = () => frameTheme ?? (document.documentElement.classList.contains("light") ? "light" : "dark");
 
   return (
     <Tabs.Root
@@ -36,15 +38,17 @@ export function PreviewFrame({ label, code, children, stageClassName = "" }: { l
           <button
             type="button"
             className="kz-preview-theme"
-            onClick={() => setFrameTheme(theme === "dark" ? "light" : "dark")}
-            aria-label={theme === "dark" ? text.toLight : text.toDark}
-            title={theme === "dark" ? text.toLight : text.toDark}
+            data-shown={frameTheme ?? undefined}
+            onClick={() => setFrameTheme(shown() === "dark" ? "light" : "dark")}
+            aria-label={text.switchTheme}
+            title={text.switchTheme}
           >
-            {theme === "dark" ? <SunIcon size={14} /> : <MoonIcon size={14} />}
+            <SunIcon size={14} className="kz-preview-to-light" aria-hidden />
+            <MoonIcon size={14} className="kz-preview-to-dark" aria-hidden />
           </button>
         )}
       </div>
-      <Tabs.Content value="preview" className={cn("kz-preview-stage rounded-none", "theme-" + theme, stageClassName)}>
+      <Tabs.Content value="preview" className={cn("kz-preview-stage rounded-none", frameTheme && "theme-" + frameTheme, stageClassName)}>
         {children}
       </Tabs.Content>
       <Tabs.Content value="code" className="kz-preview-code rounded-none">

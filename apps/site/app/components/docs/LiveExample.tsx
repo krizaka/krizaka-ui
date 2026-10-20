@@ -1,69 +1,76 @@
 "use client";
 
-import { type ComponentType, lazy, Suspense, useEffect, useRef } from "react";
+import { type ComponentType, lazy, Suspense, useEffect, useRef, useState } from "react";
 
 import { examplePropsOf } from "@/lib/ui-example-props";
 import { UI_EXAMPLES } from "@/lib/ui-examples";
 
-/* A named example of the registry, rendered where it stands — in the static HTML like before (the server waits for it) —
-   and brought to life when it nears the screen: its code is a chunk of its own, fetched then, so a page of twenty examples
-   does not hydrate them all in one long task. A client component on purpose: a Server Component that imported the
-   examples map would put all of them (≈ 490 modules) in its route's client code; here each `import()` is a lazy chunk,
-   fetched only by the pages that show it (tests/route-weight.test.mjs). Until then the server's HTML stays on screen. */
+/* A named example of the registry, in the static HTML and brought to life when it nears the screen.
+   - On the server it renders the example (React.lazy: the server waits for it), so the page's HTML holds it.
+   - In the browser that HTML is kept as it is and not hydrated: the wrapper hydrates as an empty
+     `dangerouslySetInnerHTML` (React leaves the server's markup alone), so no example costs anything at load — no
+     Suspense boundary, no lazy, no code. A page of 27 examples hydrated them all at once in one long task before.
+   - When the example nears the screen its code is fetched, then the live component replaces the markup in one commit.
+   A client component on purpose: a Server Component that imported the examples map would put all of them (≈ 490
+   modules) in its route's client code (tests/route-weight.test.mjs). The wrapper is `display: contents`: it adds no box. */
 
 type AnyExample = ComponentType<Record<string, unknown>>;
 
-/** One gate per example: open on the server (it renders at once), opened in the browser when the example nears the screen. */
-const gates = new Map<string, { opened: Promise<void>; open: () => void }>();
-function gate(key: string) {
-  let g = gates.get(key);
-  if (!g) {
-    let open = () => {};
-    const opened = typeof window === "undefined" ? Promise.resolve() : new Promise<void>((resolve) => (open = resolve));
-    g = { opened, open };
-    gates.set(key, g);
-  }
-  return g;
-}
-
-// One lazy wrapper per example, made once: nothing is fetched until its gate opens.
-const EXAMPLES = Object.fromEntries(
-  Object.entries(UI_EXAMPLES).map(([key, load]) => [
-    key,
-    lazy(async () => {
-      await gate(key).opened;
-      return { default: (await load()).default as AnyExample };
-    }),
-  ]),
-) as Partial<Record<string, AnyExample>>;
+// The server's renderers: one lazy wrapper per example, made once.
+const ON_SERVER = typeof window === "undefined";
+const SERVER_EXAMPLES = ON_SERVER
+  ? (Object.fromEntries(Object.entries(UI_EXAMPLES).map(([key, load]) => [key, lazy(async () => ({ default: (await load()).default as AnyExample }))])) as Partial<Record<string, AnyExample>>)
+  : {};
 
 export function LiveExample({ exampleKey }: { exampleKey: string }) {
-  const marker = useRef<HTMLSpanElement>(null);
+  const host = useRef<HTMLDivElement>(null);
+  const [Live, setLive] = useState<AnyExample | null>(null);
+
   useEffect(() => {
-    const frame = marker.current?.parentElement;
-    const { open } = gate(exampleKey);
-    if (!frame || typeof IntersectionObserver === "undefined") return open();
+    const frame = host.current?.parentElement;
+    const load = UI_EXAMPLES[exampleKey as keyof typeof UI_EXAMPLES];
+    if (!load) return;
+    let alive = true;
+    const wake = () => void load().then((module) => alive && setLive(() => module.default as AnyExample));
+    if (!frame || typeof IntersectionObserver === "undefined") {
+      wake();
+      return () => {
+        alive = false;
+      };
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry?.isIntersecting) return;
         observer.disconnect();
-        open();
+        wake();
       },
       { rootMargin: "400px 0px" },
     );
     observer.observe(frame);
-    return () => observer.disconnect();
+    return () => {
+      alive = false;
+      observer.disconnect();
+    };
   }, [exampleKey]);
 
-  const Example = EXAMPLES[exampleKey];
-  if (!Example) return null;
-  return (
-    <>
-      {/* Where the example stands: its frame is what the observer watches (a hidden marker adds no box). */}
-      <span ref={marker} hidden />
-      <Suspense fallback={null}>
-        <Example {...examplePropsOf(exampleKey)} />
-      </Suspense>
-    </>
-  );
+  if (ON_SERVER) {
+    const Example = SERVER_EXAMPLES[exampleKey];
+    if (!Example) return null;
+    return (
+      <div ref={host} className="kz-live-example">
+        <Suspense fallback={null}>
+          <Example {...examplePropsOf(exampleKey)} />
+        </Suspense>
+      </div>
+    );
+  }
+  if (Live) {
+    return (
+      <div ref={host} className="kz-live-example">
+        <Live {...examplePropsOf(exampleKey)} />
+      </div>
+    );
+  }
+  // Hydrates over the server's markup without touching it (the example stays as rendered until it wakes up).
+  return <div ref={host} className="kz-live-example" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: "" }} />;
 }
