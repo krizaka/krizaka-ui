@@ -172,6 +172,8 @@ export default defineConfig([
       "number-ticker": "src/number-ticker/index.ts",
       "glow-card": "src/glow-card/index.ts",
       marquee: "src/marquee/index.ts",
+      // The engine and the apps it serves: conduits and photons in SVG + CSS (motion.css), a node chosen by hover or focus.
+      "engine-flow": "src/engine-flow/index.ts",
       "comparison-table": "src/comparison-table/index.ts",
       showcase: "src/showcase/index.ts",
       "step-showcase": "src/step-showcase/index.ts",
