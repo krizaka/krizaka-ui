@@ -203,8 +203,7 @@
   button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
   /* The display face has one weight (Young Serif, ADR-004): a bold heading is never faked by the browser. */
   html { font-synthesis-weight: none; }
-  /* A figure is a lining figure (ADR-004): Young Serif draws old-style digits by default, so `tabular-nums` also lines
-     them up — every figure of the family sits on one baseline; `oldstyle-nums` beside it still wins (utilities layer). */
+  /* Lining figures (ADR-004) */
   .tabular-nums { --tw-numeric-figure: lining-nums; }
   ::placeholder { color: var(--kz-text-muted); }
 }
