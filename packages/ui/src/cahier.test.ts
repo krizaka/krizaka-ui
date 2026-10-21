@@ -59,4 +59,22 @@ describe("Cahier (ADR-004): no template tell in the primitives' classes", () => 
       expect(css, sheet).not.toMatch(/radial-gradient\((?!circle at 1px 1px)/);
     }
   });
+
+  it("every figure is a lining figure: the stylesheets ask for --kz-figures, native asks for lining-nums", () => {
+    for (const sheet of ["blocks.css", "motion.css", "story.css"]) {
+      const css = readFileSync(join(SRC, sheet), "utf8");
+      for (const m of css.matchAll(/font-variant-numeric:\s*([^;]+);/g)) expect(m[1], sheet).toContain("var(--kz-figures");
+    }
+    for (const sel of [".kz-count", ".kz-tpl-band dt", ".kz-tpl-price", ".kz-decision-n"]) {
+      const css = readFileSync(join(SRC, sel === ".kz-count" ? "motion.css" : "blocks.css"), "utf8");
+      const at = css.indexOf(sel + " {");
+      expect(at, sel).toBeGreaterThan(-1);
+      expect(css.slice(at, css.indexOf("}", at)), sel).toContain("var(--kz-figures");
+    }
+    const native = join(SRC, "native");
+    for (const name of readdirSync(native).filter((n) => n.endsWith(".tsx"))) {
+      const src = readFileSync(join(native, name), "utf8");
+      for (const m of src.matchAll(/fontVariant:\s*\[([^\]]*)\]/g)) if (m[1].includes("tabular-nums")) expect(m[1], name).toContain("lining-nums");
+    }
+  });
 });

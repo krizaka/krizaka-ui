@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
   rail: { position: "absolute", right: 8, bottom: 20, alignItems: "center", gap: 12 },
   railItem: { alignItems: "center", gap: 2 },
   railButton: { width: 44, height: 44, borderRadius: 22, alignItems: "center", justifyContent: "center" },
-  count: { fontVariant: ["tabular-nums"], fontWeight: "600" },
+  count: { fontVariant: ["lining-nums", "tabular-nums"], fontWeight: "600" },
   follow: { position: "absolute", bottom: -10, alignSelf: "center", width: 22, height: 22, borderRadius: 11, alignItems: "center", justifyContent: "center", overflow: "hidden" },
   caption: { position: "absolute", left: 12, right: 76, bottom: 16, gap: 6 },
   nameRow: { flexDirection: "row", alignItems: "center", gap: 6 },

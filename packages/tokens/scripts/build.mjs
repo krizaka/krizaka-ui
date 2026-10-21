@@ -26,7 +26,7 @@ export const BRANDS = ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "y
 export const BRAND_ROLES = ["accent", "accent-hover", "accent-soft", "accent-text", "accent-2", "on-accent", "ring", "info", "info-text", "brand-gradient-from", "brand-gradient-via", "brand-gradient-to"];
 const EXT = "com.krizaka";
 const PREFIX = "--kz-";
-const TYPES = new Set(["color", "dimension", "shadow", "cubicBezier", "fontFamily", "number", "fontWeight", "duration", "cornerShape"]);
+const TYPES = new Set(["color", "dimension", "shadow", "cubicBezier", "fontFamily", "number", "fontWeight", "duration", "cornerShape", "fontVariantNumeric"]);
 
 /**
  * @typedef {{ color: string, offsetX: string, offsetY: string, blur: string, spread?: string }} ShadowLayer

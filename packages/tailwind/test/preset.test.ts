@@ -122,6 +122,10 @@ describe("@krizaka/tailwind", () => {
     expect(css).toContain("font-synthesis-weight: none");
   });
 
+  it("Cahier (ADR-004): tabular-nums is also lining-nums, so every figure of the family sits on one baseline", () => {
+    expect(rule(".tabular-nums")).toContain("--tw-numeric-figure: lining-nums");
+  });
+
   it("draws the signature focus ring: a crisp ring off the element, in a halo, added to the element's shadows", () => {
     const ring = rule(".focus-visible\\:focus-ring:focus-visible");
     expect(ring).toContain("outline: var(--kz-ring-width) solid var(--kz-ring)");

@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   band: { position: "absolute", left: 6, right: 6, borderWidth: StyleSheet.hairlineWidth },
   column: { minWidth: 56, flexGrow: 1 },
   item: { alignItems: "center", justifyContent: "center", paddingHorizontal: 8 },
-  itemText: { fontSize: 18, fontVariant: ["tabular-nums"] },
+  itemText: { fontSize: 18, fontVariant: ["lining-nums", "tabular-nums"] },
   divider: { alignSelf: "center", fontSize: 18, fontWeight: "600" },
   disabled: { opacity: 0.4 },
 });

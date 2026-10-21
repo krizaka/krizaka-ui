@@ -57,7 +57,7 @@ export function NumberTicker({ value, locale, format, trigger = "mount", duratio
   }, [value, reduce, trigger, duration, announce, anim, writer]);
   const digits = Number.isInteger(value) ? Math.round(shown) : shown;
   return (
-    <Txt variant={variant} tone={tone} aria-label={writer.format(value)} style={[{ fontVariant: ["tabular-nums"] }, style]}>
+    <Txt variant={variant} tone={tone} aria-label={writer.format(value)} style={[{ fontVariant: ["lining-nums", "tabular-nums"] }, style]}>
       <Text aria-hidden>{writer.format(digits)}</Text>
     </Txt>
   );

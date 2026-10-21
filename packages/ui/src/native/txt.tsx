@@ -44,6 +44,6 @@ export const textStyles = StyleSheet.create({
   body: { fontSize: 15, lineHeight: 21 },
   caption: { fontSize: 12, lineHeight: 16 },
   label: { fontSize: 14, lineHeight: 18, fontWeight: "700" },
-  mono: { fontSize: 14, lineHeight: 18, fontWeight: "700", fontVariant: ["tabular-nums"] },
+  mono: { fontSize: 14, lineHeight: 18, fontWeight: "700", fontVariant: ["lining-nums", "tabular-nums"] },
 });
 const styles = textStyles;

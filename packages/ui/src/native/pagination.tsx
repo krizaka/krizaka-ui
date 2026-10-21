@@ -90,5 +90,5 @@ export function Pagination({ page = 1, pageCount, onPageChange, hasPrevious, has
 const styles = StyleSheet.create({
   row: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 12 },
   button: { width: 44, height: 44, alignItems: "center", justifyContent: "center", borderWidth: StyleSheet.hairlineWidth },
-  status: { fontSize: 13, fontWeight: "600", fontVariant: ["tabular-nums"] },
+  status: { fontSize: 13, fontWeight: "600", fontVariant: ["lining-nums", "tabular-nums"] },
 });
