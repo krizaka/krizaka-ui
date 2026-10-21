@@ -661,6 +661,23 @@
     },
     "family": {
       "title": "The rest of the family"
+    },
+    "sheet": {
+      "title": "Plate I · The kit, as drawn",
+      "subtitle": "real components, in this page’s theme",
+      "figure": "fig.",
+      "button": "Button, primary",
+      "buttonLabel": "Get started",
+      "field": "Field, with its hint",
+      "fieldLabel": "Email",
+      "fieldPlaceholder": "you@example.com",
+      "fieldHint": "We never share it.",
+      "badge": "Badge, status and news",
+      "badgeStable": "Stable",
+      "badgeNew": "New",
+      "card": "Card, one surface",
+      "cardTitle": "Spring invoice",
+      "cardText": "Paid, sent to the accountant."
     }
   }
 }

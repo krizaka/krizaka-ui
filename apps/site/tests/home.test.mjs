@@ -40,11 +40,32 @@ test("its first screen: one title, the install line, three ways in (components, 
   assert.match(hero, /<CardGrid [^>]*reveal=\{false\}/, "the first screen is painted at once, never revealed");
 });
 
+// The right half of the first screen (krizaka-ui#417, Cahier): one figure, never a collage, never a screenshot.
+test("the first screen's right-hand figure is ONE plate of real kit pieces, server-rendered, numbered, inert", () => {
+  const hero = landing.slice(landing.indexOf('<header className="kz-home-hero">'), landing.indexOf("</header>"));
+  assert.equal((hero.match(/<Sheet /g) ?? []).length, 1, "one figure in the hero");
+  assert.equal((landing.match(/<figure /g) ?? []).length, 1);
+  for (const piece of ["<Button ", "<Field.Root>", "<Input ", "<Badge ", "<CardRoot>"]) assert.ok(landing.includes(piece), `the plate draws a real ${piece.trim()}`);
+  assert.ok(!/^"use client"/m.test(landing), "the plate is a Server Component: no hydration");
+  assert.ok(!/<img|<Image|\.png|\.webp|<canvas|<video/.test(landing), "never a screenshot");
+  assert.match(landing, /className="kz-sheet-specimen" aria-hidden inert/, "the specimens are inert and hidden from assistive technology; the captions carry the text");
+  assert.equal((landing.match(/\{sheet\.figure\} \{i \+ 1\}/g) ?? []).length, 1, "each figure is numbered by its position");
+});
+
+test("the plate has no motion and no layout shift: no animation, no transition, no image, a fixed grid", () => {
+  const css = readFileSync(new URL("../app/globals.css", import.meta.url), "utf8");
+  const sheet = css.split("\n").filter((l) => /\.kz-sheet/.test(l)).join("\n");
+  assert.ok(sheet.length > 0);
+  assert.ok(!/animation|transition|@keyframes|backdrop-filter|blur\(/.test(sheet), "a still plate");
+  assert.match(css, /@media \(min-width: 1024px\) \{[^}]*\.kz-home-hero \{ grid-template-columns: minmax\(0, 1\.15fr\) minmax\(0, 1fr\)/, "two columns from 1024 px, one under it (the figure under the text)");
+});
+
 test("every word of the home is a message, in English and in French", () => {
   for (const locale of ["en", "fr"]) {
     const l = JSON.parse(readFileSync(new URL(`../messages/${locale}.json`, import.meta.url), "utf8")).landing;
     assert.deepEqual(Object.keys(l.ways).sort(), ["components", "foundations", "label", "templates"]);
     for (const k of ["title", "lead"]) assert.ok(l[k].length > 0);
     assert.ok(l.search.placeholder.length > 0);
+    for (const k of ["title", "subtitle", "figure", "button", "buttonLabel", "field", "fieldLabel", "fieldPlaceholder", "fieldHint", "badge", "badgeStable", "badgeNew", "card", "cardTitle", "cardText"]) assert.ok(l.sheet[k]?.length > 0, `landing.sheet.${k} in ${locale}`);
   }
 });

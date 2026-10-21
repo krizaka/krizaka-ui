@@ -661,6 +661,23 @@
     },
     "family": {
       "title": "Le reste de la famille"
+    },
+    "sheet": {
+      "title": "Planche I · Le kit, tel qu’il est dessiné",
+      "subtitle": "de vrais composants, dans le thème de cette page",
+      "figure": "fig.",
+      "button": "Button, principal",
+      "buttonLabel": "Commencer",
+      "field": "Field, avec son aide",
+      "fieldLabel": "Courriel",
+      "fieldPlaceholder": "vous@exemple.com",
+      "fieldHint": "Nous ne le partageons jamais.",
+      "badge": "Badge, état et nouveauté",
+      "badgeStable": "Stable",
+      "badgeNew": "Nouveau",
+      "card": "Card, une surface",
+      "cardTitle": "Facture de printemps",
+      "cardText": "Payée, envoyée au comptable."
     }
   }
 }

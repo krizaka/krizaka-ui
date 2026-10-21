@@ -1,8 +1,12 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
+import { Badge } from "@krizaka/ui/badge";
+import { Button } from "@krizaka/ui/button";
+import { CardBody, CardDescription, CardRoot, CardTitle } from "@krizaka/ui/card";
 import { CardGrid } from "@krizaka/ui/card-grid";
 import { CodeBlock } from "@krizaka/ui/code-block";
+import { Field, Input } from "@krizaka/ui/field";
 import { LinkCard } from "@krizaka/ui/link-card";
 import { familyLabels } from "@krizaka/ui/sites";
 import Link from "next/link";
@@ -19,8 +23,10 @@ import { HomeSearch } from "./HomeSearch";
 /* The home of ui.krizaka.com — the calmest page of the family (Cahier, ADR-004; peer review, krizaka-ui#434: « very AI
    and overloaded »). The first screen holds four things and nothing more: what it is (one title, one line), the install
    line, the three ways in (components, foundations, templates) and the search. Under it, quietly: where each package
-   lives, and the rest of the family. No figures, no live kit, no scene, no playground: each component's page has its
-   own stage. Checked by tests/home.test.mjs and, in a browser, scripts/home-geometry.mjs. */
+   lives, and the rest of the family. No counters, no live kit, no scene, no playground: each component's page has its
+   own stage. On a wide screen the right half holds ONE figure (krizaka-ui#417, Cahier): a plate of four specimens
+   drawn by the kit itself — server-rendered, still, inert — each with its figure number. Under the text on a phone and a
+   tablet. Checked by tests/home.test.mjs and, in a browser, scripts/home-geometry.mjs. */
 
 const WAYS = [
   { id: "components", path: "/components" },
@@ -66,6 +72,81 @@ function descriptions(): Map<string, string> {
   );
 }
 
+/** Plate I: four real pieces of the kit, drawn here by the kit, numbered like the plates of a field guide. */
+function Sheet({ sheet }: { sheet: ReturnType<typeof getDictionary>["landing"]["sheet"] }) {
+  const figures = [
+    {
+      key: "button",
+      caption: sheet.button,
+      specimen: (
+        <Button variant="primary" tabIndex={-1}>
+          {sheet.buttonLabel}
+        </Button>
+      ),
+    },
+    {
+      key: "field",
+      caption: sheet.field,
+      specimen: (
+        <Field.Root>
+          <Field.Label htmlFor="sheet-email">{sheet.fieldLabel}</Field.Label>
+          <Input id="sheet-email" type="email" tabIndex={-1} aria-describedby="sheet-email-hint" placeholder={sheet.fieldPlaceholder} />
+          <Field.Hint id="sheet-email-hint">{sheet.fieldHint}</Field.Hint>
+        </Field.Root>
+      ),
+    },
+    {
+      key: "badge",
+      caption: sheet.badge,
+      specimen: (
+        <span className="kz-sheet-row">
+          <Badge tone="success" dot>
+            {sheet.badgeStable}
+          </Badge>
+          <Badge tone="accent">{sheet.badgeNew}</Badge>
+        </span>
+      ),
+    },
+    {
+      key: "card",
+      caption: sheet.card,
+      specimen: (
+        <CardRoot>
+          <CardBody>
+            <CardTitle as="h3">{sheet.cardTitle}</CardTitle>
+            <CardDescription>{sheet.cardText}</CardDescription>
+          </CardBody>
+        </CardRoot>
+      ),
+    },
+  ];
+  return (
+    <figure className="kz-sheet" aria-labelledby="kz-sheet-title">
+      <figcaption className="kz-sheet-head">
+        <span id="kz-sheet-title" className="kz-sheet-title">
+          {sheet.title}
+        </span>
+        <span className="kz-sheet-sub">{sheet.subtitle}</span>
+      </figcaption>
+      <ol className="kz-sheet-figures">
+        {figures.map((f, i) => (
+          <li key={f.key} className="kz-sheet-figure">
+            <div className="kz-sheet-specimen" aria-hidden inert>
+              {f.specimen}
+            </div>
+            <p className="kz-sheet-caption">
+              <b>
+                {sheet.figure} {i + 1}
+              </b>{" "}
+              — {f.caption}
+            </p>
+          </li>
+        ))}
+      </ol>
+    </figure>
+  );
+}
+
 export async function Landing({ locale }: { locale: Locale }) {
   const t = getDictionary(locale).landing;
   const count = getRegistryItems().filter((item) => item.status !== "deprecated").length;
@@ -81,14 +162,15 @@ export async function Landing({ locale }: { locale: Locale }) {
         <div className="kz-home-install" aria-label={t.install}>
           <CodeBlock code={WEB_INSTALL} language="bash" copyLabel={t.copy} copiedLabel={t.copied} />
         </div>
+        <HomeSearch label={t.search.label} placeholder={t.search.placeholder} />
         <nav className="kz-home-ways" aria-label={t.ways.label}>
-          <CardGrid min={200} columns={3} reveal={false}>
+          <CardGrid min={200} columns={3} fit="fit" reveal={false}>
             {WAYS.map((w) => (
               <LinkCard key={w.id} href={localePath(locale, w.path)} title={t.ways[w.id].title} description={format(t.ways[w.id].description, { count })} titleAs="h2" linkAs={Link} />
             ))}
           </CardGrid>
         </nav>
-        <HomeSearch label={t.search.label} placeholder={t.search.placeholder} />
+        <Sheet sheet={t.sheet} />
       </header>
 
       <section className="kz-home-section" aria-labelledby="land-packages">
