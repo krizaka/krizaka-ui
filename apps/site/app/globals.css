@@ -766,12 +766,35 @@ html.light .kz-hero-strip .kz-shot-light { display: block; }
   .kz-docs:not(:has(.kz-home)) { --fd-banner-height: 0px !important; }
 }
 .kz-docs:has(.kz-home) > [class*="grid-area:sidebar"], .kz-docs:has(.kz-home) > #nd-subnav, .kz-docs:has(.kz-home) > .fixed { display: none; }
-.kz-home-hero { display: grid; justify-items: start; gap: 20px; width: 100%; max-width: 56rem; padding-top: clamp(8px, 4vw, 48px); }
-.kz-home-hero h1 { margin: 0; font-family: var(--kz-font-display); font-size: clamp(2rem, 4.6vw, 3.2rem); font-weight: 400; line-height: 1.08; text-wrap: balance; color: var(--kz-text-primary); }
+/* The first screen. On a phone and a tablet one column, the figure under the text; from 1024 px two columns — the text
+   on the left, ONE figure on the right (the specimen sheet), the three ways in running under both. */
+.kz-home-hero { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: start; gap: 20px; width: 100%; padding-top: clamp(8px, 4vw, 48px); }
+.kz-home-hero > * { min-width: 0; }
+.kz-home-hero h1 { margin: 0; max-width: 40rem; font-family: var(--kz-font-display); font-size: clamp(2rem, 4.6vw, 3.2rem); font-weight: 400; line-height: 1.08; text-wrap: balance; color: var(--kz-text-primary); }
 .kz-home-hero .kz-land-lead { max-width: 40rem; }
 .kz-home-install { width: 100%; max-width: 40rem; }
 .kz-home-install pre { margin: 0; }
 .kz-home-ways { width: 100%; }
+@media (min-width: 1024px) {
+  .kz-home-hero { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); column-gap: clamp(32px, 5vw, 72px); align-items: start; }
+  .kz-home-hero > h1, .kz-home-hero > .kz-land-lead, .kz-home-hero > .kz-home-install, .kz-home-hero > .kz-home-search { grid-column: 1; }
+  .kz-home-hero > .kz-sheet { grid-column: 2; grid-row: 1 / span 4; align-self: start; }
+  .kz-home-hero > .kz-home-ways { grid-column: 1 / -1; margin-top: 12px; }
+}
+/* Plate I — the specimen sheet: four real pieces of the kit drawn by the kit (server-rendered, inert, still), each
+   numbered like a plate of a field guide. A fixed-shape grid: nothing loads, nothing moves, no layout shift. */
+.kz-sheet { margin: 0; width: 100%; max-width: 36rem; padding: 20px 24px 24px; background: var(--kz-surface-1); border: 1px solid var(--kz-border-default); box-shadow: var(--kz-shadow-md); }
+.kz-sheet-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 16px; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--kz-border-subtle); }
+.kz-sheet-title { font-family: var(--kz-font-display); font-size: 20px; line-height: 28px; color: var(--kz-text-primary); }
+.kz-sheet-sub { font-family: var(--kz-font-mono); font-size: 12.5px; line-height: 16px; color: var(--kz-text-secondary); }
+.kz-sheet-figures { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 20px; }
+.kz-sheet-figure { display: grid; grid-template-rows: 1fr auto; gap: 10px; min-width: 0; }
+.kz-sheet-specimen { display: grid; align-content: center; justify-items: start; min-height: 112px; min-width: 0; padding: 14px; border: 1px dashed var(--kz-border-default); pointer-events: none; user-select: none; }
+.kz-sheet-specimen > * { min-width: 0; max-width: 100%; }
+.kz-sheet-specimen :where(.kz-sheet-row) { display: flex; flex-wrap: wrap; gap: 8px; }
+.kz-sheet-caption { margin: 0; font-family: var(--kz-font-mono); font-size: 12.5px; line-height: 16px; color: var(--kz-text-secondary); }
+.kz-sheet-caption b { font-weight: 700; color: var(--kz-text-primary); }
+@media (max-width: 479.98px) { .kz-sheet { padding: 16px; } .kz-sheet-figures { gap: 18px 12px; } .kz-sheet-specimen { padding: 10px; } }
 .kz-home-search { display: flex; align-items: center; gap: 10px; width: 100%; max-width: 40rem; min-height: 48px; padding: 0 12px 0 14px;
   border: 1px solid var(--kz-border-default); border-radius: var(--kz-radius-sm, 2px); background: var(--kz-surface-1);
   font: inherit; font-size: 15px; color: var(--kz-text-secondary); text-align: left; cursor: text; }
