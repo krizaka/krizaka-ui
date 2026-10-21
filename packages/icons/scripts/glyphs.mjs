@@ -85,6 +85,19 @@ export const GLYPHS = {
   basketball: { group: "product", keywords: "basketball nba hoop ball sport", c: [[12, 12, 9]], p: ["M12 3v18", "M3 12h18", "M5.6 5.4c3.2 3.4 3.2 9.8 0 13.2", "M18.4 5.4c-3.2 3.4-3.2 9.8 0 13.2"], n: [[12, 12]] },
   trophy: { group: "product", keywords: "trophy cup season winner league champion", p: ["M7 3.5h10v6a5 5 0 0 1-10 0z", "M7 5.5H4v1.5a3.5 3.5 0 0 0 3.2 3.5", "M17 5.5h3v1.5a3.5 3.5 0 0 1-3.2 3.5", "M12 14.5V18", "M8 20.5h8"], n: [[12, 8.5]] },
 
+  // ── Product: ranks and rewards (leagues, standings, badges) ──
+  medal: { group: "product", keywords: "medal rank place badge award reward", p: ["M8 2.5h8l-2.5 6.5h-3z", hex(12, 15.25, 6.5)], n: [[12, 15.25]] },
+  podium: { group: "product", keywords: "podium standings ranking leaderboard table places", p: ["M2.5 21h19", "M3.5 21v-7h5.5v7", "M9 21V9h6v12", "M15 21v-5h5.5v5"], n: [[12, 5.5]] },
+
+  // ── Emblems: simple symbols for marks, crests and badges (a star, a wave…) ──
+  star: { group: "emblem", keywords: "star favourite perfect best rating emblem", p: [`M${[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => pt(12, 12.8, i % 2 ? 4.4 : 10, -90 + i * 36)).join("L")}Z`], n: [[12, 12.8]] },
+  bolt: { group: "emblem", keywords: "bolt lightning fast energy power emblem", p: ["M14 2.5 5.5 13.5H11L10 21.5l8.5-11H13z"], n: [[12, 12]] },
+  wave: { group: "emblem", keywords: "wave water sea flow emblem", p: ["M2.5 11c3-4 6-4 9.5 0s6.5 4 9.5 0", "M2.5 17c3-4 6-4 9.5 0s6.5 4 9.5 0"], n: [[12, 6]] },
+  flame: { group: "emblem", keywords: "flame fire heat streak emblem", p: ["M12 2.5c1 3.5 6.5 6 6.5 12a6.5 6.5 0 0 1-13 0c0-2.5 1-4 2.5-5.5.2 2 .8 3 2 3.5C10 8.5 10.5 5 12 2.5z"], n: [[12, 16]] },
+  crown: { group: "emblem", keywords: "crown king champion royal emblem", p: ["M3.5 19V7.5L8 12l4-7 4 7 4.5-4.5V19z"], n: [[12, 15]] },
+  leaf: { group: "emblem", keywords: "leaf nature green growth emblem", p: ["M5 19C5 10 10 5 19.5 4.5 19 14 14 19 5 19z", "M5 19l8-8"], n: [[16, 8.5]] },
+  mountain: { group: "emblem", keywords: "mountain peak summit north emblem", p: ["M2.5 20 9.5 7l4 7 2-3 6 9z"], n: [[9.5, 12]] },
+
   // ── System ──
   theme: { group: "system", keywords: "theme appearance dark light contrast", c: [[12, 12, 8.5]], p: ["M12 3.5v17", "M12 3.5a8.5 8.5 0 0 1 0 17z"] },
   sun: { group: "system", keywords: "light mode sun", p: [hex(12, 12, 4), "M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"], n: [[12, 12]] },

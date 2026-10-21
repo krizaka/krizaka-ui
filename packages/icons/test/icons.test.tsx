@@ -12,10 +12,10 @@ const component = (name: string) => `${name[0].toUpperCase()}${name.slice(1)}Ico
 const allNumbers = (d: string) => [...d.matchAll(/-?\d*\.?\d+/g)].map(([n]) => Number(n));
 
 describe("the set", () => {
-  it("covers the product vocabulary and the usual navigation (40–80 icons)", () => {
+  it("covers the product vocabulary and the usual navigation (40–100 icons)", () => {
     expect(names.length).toBeGreaterThanOrEqual(40);
-    expect(names.length).toBeLessThanOrEqual(80);
-    for (const word of ["tip", "unlock", "paid", "auction", "challenge", "goal", "creator", "story", "story24h", "payout", "wallet", "share90", "lock", "follow", "message", "upload", "video", "chat", "ai", "agent", "studio", "pack", "automation", "knowledge", "shield", "local", "server", "billing", "credits", "theme", "search", "settings", "notification", "soccer", "hockey", "basketball", "trophy"]) {
+    expect(names.length).toBeLessThanOrEqual(100);
+    for (const word of ["tip", "unlock", "paid", "auction", "challenge", "goal", "creator", "story", "story24h", "payout", "wallet", "share90", "lock", "follow", "message", "upload", "video", "chat", "ai", "agent", "studio", "pack", "automation", "knowledge", "shield", "local", "server", "billing", "credits", "theme", "search", "settings", "notification", "soccer", "hockey", "basketball", "trophy", "medal", "podium", "star", "bolt", "wave", "flame", "crown", "leaf", "mountain"]) {
       expect(names, word).toContain(word);
     }
   });
@@ -71,7 +71,7 @@ describe("the grammar", () => {
 
   it("gives every product icon its node, and keeps the utility glyphs bare", () => {
     for (const [name, g] of Object.entries(GLYPHS) as [string, { group: string; n?: number[][] }][]) {
-      if (g.group === "product") expect(g.n?.length ?? 0, name).toBeGreaterThanOrEqual(1);
+      if (g.group === "product" || g.group === "emblem") expect(g.n?.length ?? 0, name).toBeGreaterThanOrEqual(1);
     }
     for (const name of ["close", "back", "forward", "chevronDown", "chevronRight", "plus", "check", "menu"]) {
       expect((GLYPHS as Record<string, { n?: unknown[] }>)[name].n, name).toBeUndefined();

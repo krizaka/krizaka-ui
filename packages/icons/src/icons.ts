@@ -88,6 +88,24 @@ export const HockeyIcon = /* @__PURE__ */ createIcon("HockeyIcon", g.hockey);
 export const BasketballIcon = /* @__PURE__ */ createIcon("BasketballIcon", g.basketball);
 /** trophy cup season winner league champion */
 export const TrophyIcon = /* @__PURE__ */ createIcon("TrophyIcon", g.trophy);
+/** medal rank place badge award reward */
+export const MedalIcon = /* @__PURE__ */ createIcon("MedalIcon", g.medal);
+/** podium standings ranking leaderboard table places */
+export const PodiumIcon = /* @__PURE__ */ createIcon("PodiumIcon", g.podium);
+/** star favourite perfect best rating emblem */
+export const StarIcon = /* @__PURE__ */ createIcon("StarIcon", g.star);
+/** bolt lightning fast energy power emblem */
+export const BoltIcon = /* @__PURE__ */ createIcon("BoltIcon", g.bolt);
+/** wave water sea flow emblem */
+export const WaveIcon = /* @__PURE__ */ createIcon("WaveIcon", g.wave);
+/** flame fire heat streak emblem */
+export const FlameIcon = /* @__PURE__ */ createIcon("FlameIcon", g.flame);
+/** crown king champion royal emblem */
+export const CrownIcon = /* @__PURE__ */ createIcon("CrownIcon", g.crown);
+/** leaf nature green growth emblem */
+export const LeafIcon = /* @__PURE__ */ createIcon("LeafIcon", g.leaf);
+/** mountain peak summit north emblem */
+export const MountainIcon = /* @__PURE__ */ createIcon("MountainIcon", g.mountain);
 /** theme appearance dark light contrast */
 export const ThemeIcon = /* @__PURE__ */ createIcon("ThemeIcon", g.theme);
 /** light mode sun */

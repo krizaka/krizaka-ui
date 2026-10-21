@@ -87,6 +87,24 @@ export const hockey: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5.5 3.5 12 17
 export const basketball: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 3v18","M3 12h18","M5.6 5.4c3.2 3.4 3.2 9.8 0 13.2","M18.4 5.4c-3.2 3.4-3.2 9.8 0 13.2"], c: [[12,12,9]], n: [[12,12]] });
 /** trophy cup season winner league champion */
 export const trophy: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M7 3.5h10v6a5 5 0 0 1-10 0z","M7 5.5H4v1.5a3.5 3.5 0 0 0 3.2 3.5","M17 5.5h3v1.5a3.5 3.5 0 0 1-3.2 3.5","M12 14.5V18","M8 20.5h8"], n: [[12,8.5]] });
+/** medal rank place badge award reward */
+export const medal: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M8 2.5h8l-2.5 6.5h-3z","M12 8.75L17.63 12L17.63 18.5L12 21.75L6.37 18.5L6.37 12Z"], n: [[12,15.25]] });
+/** podium standings ranking leaderboard table places */
+export const podium: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M2.5 21h19","M3.5 21v-7h5.5v7","M9 21V9h6v12","M15 21v-5h5.5v5"], n: [[12,5.5]] });
+/** star favourite perfect best rating emblem */
+export const star: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 2.8L14.59 9.24L21.51 9.71L16.18 14.16L17.88 20.89L12 17.2L6.12 20.89L7.82 14.16L2.49 9.71L9.41 9.24Z"], n: [[12,12.8]] });
+/** bolt lightning fast energy power emblem */
+export const bolt: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M14 2.5 5.5 13.5H11L10 21.5l8.5-11H13z"], n: [[12,12]] });
+/** wave water sea flow emblem */
+export const wave: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M2.5 11c3-4 6-4 9.5 0s6.5 4 9.5 0","M2.5 17c3-4 6-4 9.5 0s6.5 4 9.5 0"], n: [[12,6]] });
+/** flame fire heat streak emblem */
+export const flame: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 2.5c1 3.5 6.5 6 6.5 12a6.5 6.5 0 0 1-13 0c0-2.5 1-4 2.5-5.5.2 2 .8 3 2 3.5C10 8.5 10.5 5 12 2.5z"], n: [[12,16]] });
+/** crown king champion royal emblem */
+export const crown: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M3.5 19V7.5L8 12l4-7 4 7 4.5-4.5V19z"], n: [[12,15]] });
+/** leaf nature green growth emblem */
+export const leaf: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5 19C5 10 10 5 19.5 4.5 19 14 14 19 5 19z","M5 19l8-8"], n: [[16,8.5]] });
+/** mountain peak summit north emblem */
+export const mountain: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M2.5 20 9.5 7l4 7 2-3 6 9z"], n: [[9.5,12]] });
 /** theme appearance dark light contrast */
 export const theme: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 3.5v17","M12 3.5a8.5 8.5 0 0 1 0 17z"], c: [[12,12,8.5]] });
 /** light mode sun */
@@ -378,6 +396,51 @@ export const glyphIndex = {
     "component": "TrophyIcon",
     "group": "product",
     "keywords": "trophy cup season winner league champion"
+  },
+  "medal": {
+    "component": "MedalIcon",
+    "group": "product",
+    "keywords": "medal rank place badge award reward"
+  },
+  "podium": {
+    "component": "PodiumIcon",
+    "group": "product",
+    "keywords": "podium standings ranking leaderboard table places"
+  },
+  "star": {
+    "component": "StarIcon",
+    "group": "emblem",
+    "keywords": "star favourite perfect best rating emblem"
+  },
+  "bolt": {
+    "component": "BoltIcon",
+    "group": "emblem",
+    "keywords": "bolt lightning fast energy power emblem"
+  },
+  "wave": {
+    "component": "WaveIcon",
+    "group": "emblem",
+    "keywords": "wave water sea flow emblem"
+  },
+  "flame": {
+    "component": "FlameIcon",
+    "group": "emblem",
+    "keywords": "flame fire heat streak emblem"
+  },
+  "crown": {
+    "component": "CrownIcon",
+    "group": "emblem",
+    "keywords": "crown king champion royal emblem"
+  },
+  "leaf": {
+    "component": "LeafIcon",
+    "group": "emblem",
+    "keywords": "leaf nature green growth emblem"
+  },
+  "mountain": {
+    "component": "MountainIcon",
+    "group": "emblem",
+    "keywords": "mountain peak summit north emblem"
   },
   "theme": {
     "component": "ThemeIcon",

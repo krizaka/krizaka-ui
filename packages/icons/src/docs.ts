@@ -5,7 +5,7 @@
 
 /** A group of the set, in reading order. */
 export interface IconGroup {
-  readonly id: "product" | "system" | "interface";
+  readonly id: "product" | "emblem" | "system" | "interface";
   readonly title: string;
   readonly description: string;
 }
@@ -16,6 +16,12 @@ export const iconGroups: readonly IconGroup[] = /* @__PURE__ */ Object.freeze([
     title: "Product",
     description:
       "The vocabulary of the products — creators and audiences (Orochia), sovereign AI (Orazaka), meeting people (small batches, debriefs, introductions), listening (a moment, the thread, what you keep), money and trust. Every product icon carries a node, the core of the Krizaka marks, at its meaningful point.",
+  },
+  {
+    id: "emblem",
+    title: "Emblems",
+    description:
+      "Simple symbols to build marks, crests and badges from — a star, a bolt, a wave, a flame, a crown, a leaf, a mountain. They are shapes, never a logo of anyone; each carries a node like the product icons.",
   },
   {
     id: "system",
