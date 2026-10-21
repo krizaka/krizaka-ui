@@ -27,6 +27,11 @@ const PAGES = {
     <div style="width:3000px;height:10px"></div></main>
     <script>console.error("a console error on load")</script>`),
 };
+// A phone's fixed bottom bar (the site's RailNav) over a copy button that is already « visible »: not a broken button.
+PAGES["/covered/"] = shell(`<meta name="viewport" content="width=device-width, initial-scale=1"><main><h1>Covered</h1><div style="height:700px"></div>
+  <figure><pre>npm i x</pre><button aria-label="Copy" onclick="navigator.clipboard.writeText('npm i x')">c</button></figure>
+  <div style="height:1200px"></div></main>
+  <nav style="position:fixed;left:0;right:0;bottom:0;height:90px;background:#000;z-index:40"></nav>`);
 const sitemap = (base) => `<urlset>${Object.keys(PAGES).map((p) => `<url><loc>${base}${p}</loc></url>`).join("")}</urlset>`;
 
 const server = createServer((req, res) => {
@@ -39,9 +44,9 @@ await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 const base = `http://127.0.0.1:${server.address().port}`;
 
 // Asynchronous on purpose: this process also serves the pages.
-const run = (only) =>
+const run = (only, views = "desktop") =>
   new Promise((resolve) => {
-    const child = spawn(process.execPath, [fileURLToPath(new URL("./docs-crawl.mjs", import.meta.url)), "--base", base, "--playwright", playwright, "--only", only, "--views", "desktop", "--no-external", "--concurrency", "1"]);
+    const child = spawn(process.execPath, [fileURLToPath(new URL("./docs-crawl.mjs", import.meta.url)), "--base", base, "--playwright", playwright, "--only", only, "--views", views, "--no-external", "--concurrency", "1"]);
     let out = "";
     child.stdout.on("data", (d) => (out += d));
     child.stderr.on("data", (d) => (out += d));
@@ -51,6 +56,9 @@ const run = (only) =>
 try {
   const good = await run("/good/");
   assert.equal(good.status, 0, `the good page must pass:\n${good.out}`);
+  // The phone's bottom bar covers this button as it first appears: the crawler brings it to the middle of the screen before it presses.
+  const covered = await run("/covered/", "phone");
+  assert.equal(covered.status, 0, `a copy button under a fixed bar must still copy (the crawler centres it):\n${covered.out}`);
   const bad = await run("/bad/");
   assert.equal(bad.status, 1);
   const expected = ["console-error", "interaction-error", "empty-example", "knob-noop", "copy-empty", "dead-link", "dead-anchor", "overflow-x"];
