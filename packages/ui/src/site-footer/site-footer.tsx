@@ -1,7 +1,7 @@
 // Client (the marks hold an id). The footer shared by every site of the Krizaka family — one calm band (Cahier, ADR-004;
 // peer review krizaka-ui#434: « too much, a double footer »): the site's own columns and the family's columns side by
-// side — Products · Open source (GitHub with them) · Krizaka (our story, the blog, contact) — then one line: the
-// signature (“A Krizaka product”, by the kind of the current site, to www), the version, the place, the legal links.
+// side — Products · Open source (GitHub with them) · Krizaka (our story, the blog, contact) — then one line, with no
+// rule above it (a bottom bar under the columns read as a second footer, 2026-10-21): the signature (“A Krizaka product”, by the kind of the current site, to www), the version, the place, the legal links.
 // No site block (the bar already names the site), no column that lists only Krizaka, no link twice.
 import { Slot } from "radix-ui";
 import * as React from "react";
@@ -24,10 +24,10 @@ export const siteFooter = tv({
     list: "grid min-w-0 gap-2",
     link:
       "inline-flex min-h-6 min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5 rounded-md text-sm [overflow-wrap:anywhere] text-fg-secondary no-underline transition-colors hover:text-fg " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:text-fg aria-[current=true]:text-fg aria-[current=true]:font-semibold",
+      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:text-fg aria-[current=page]:font-semibold aria-[current=true]:text-fg aria-[current=true]:font-semibold",
     mark: "flex h-4 w-4 shrink-0 items-center justify-center text-fg",
     tag: "rounded-sm bg-surface-3 px-1.5 py-px text-[10px] font-semibold text-fg-secondary",
-    bottom: "flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-border-subtle pt-6 text-xs text-fg-secondary",
+    bottom: "flex flex-wrap items-center gap-x-5 gap-y-3 text-xs text-fg-secondary",
     signature:
       "inline-flex items-center gap-2 rounded-md font-medium text-fg no-underline hover:text-fg-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     version:
@@ -46,12 +46,30 @@ export const siteFooter = tv({
       app: {
         root: "bg-transparent",
         inner: "gap-0 py-3",
-        bottom: "border-t-0 pt-0",
       },
     },
   },
   defaultVariants: { variant: "site" },
 });
+
+const bare = (p: string) => p.replace(/^\/(en|fr)(?=\/|$)/, "").replace(/\/+$/, "") || "/";
+
+/** Is `href` (an absolute family address) the page `path` of the site at `siteUrl`? Locale prefix and trailing slash do not count. */
+function isThisPage(href: string, siteUrl: string, path: string): boolean {
+  try {
+    const target = new URL(href);
+    return target.host === new URL(siteUrl).host && bare(target.pathname) === bare(path.split(/[?#]/)[0]!);
+  } catch {
+    return false;
+  }
+}
+
+/** The link to the page you are on: no reload, back to the top (the browser would otherwise keep or restore the scroll). */
+function backToTop(event: React.MouseEvent<HTMLAnchorElement>) {
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+  event.preventDefault();
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
 
 export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> & {
   /** The site this footer belongs to (`@krizaka/ui/sites`): its mark and line, its signature, marked in the family. */
@@ -67,6 +85,11 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
   version?: string;
   /** The environment, when it is not production (`DEV`). */
   env?: string;
+  /**
+   * The path of the page being read on this site (`/en/story`, `/blog/…`): the company link that points to this very
+   * page says so (`aria-current="page"`, a visible state) and a click on it scrolls to the top instead of reloading.
+   */
+  path?: string;
   /**
    * Shows the family in columns (the Krizaka sites: www, ui., java.). A product is independent once deployed: pass
    * `family={false}` and the footer holds only its own columns, the legal links, the version and one publisher line —
@@ -93,6 +116,7 @@ export function SiteFooter({
   children,
   version,
   env,
+  path,
   legal,
   family: familyProp = true,
   variant = "site",
@@ -109,6 +133,7 @@ export function SiteFooter({
   const own = React.Children.toArray(children).length > 0;
   const lang = labels.lang ?? "en";
   const company = labels.company ?? familyLabels.en.company!;
+  const here = (href: string) => path !== undefined && isThisPage(href, site.url, path);
   // Products · Open source (GitHub, every repository, closes it) · Krizaka (the company's pages): three columns, no
   // column that lists only Krizaka.
   const groups = sitesByGroup();
@@ -152,7 +177,12 @@ export function SiteFooter({
                   <ul aria-labelledby={`${id}-krizaka`} className={s.list()}>
                     {companyLinks.map((l) => (
                       <li key={l.id}>
-                        <a href={l.url[lang]} className={s.link()}>
+                        <a
+                          href={l.url[lang]}
+                          aria-current={here(l.url[lang]) ? "page" : undefined}
+                          onClick={here(l.url[lang]) ? backToTop : undefined}
+                          className={s.link()}
+                        >
                           {company[l.id]}
                         </a>
                       </li>

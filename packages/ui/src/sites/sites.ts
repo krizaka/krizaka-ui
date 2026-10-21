@@ -48,7 +48,7 @@ export const sites: readonly Site[] = [
   site({ id: "orazaka", name: "Orazaka", url: "https://www.orazaka.com", kind: "product", group: "products", status: "released", mark: "orazaka", repo: "https://github.com/krizaka/orazaka" }),
   site({ id: "orochia", name: "Orochia", url: "https://www.orochia.com", kind: "product", group: "products", status: "released", mark: "orochia", repo: "https://github.com/krizaka/orochia" }),
   site({ id: "yasakia", name: "Yasakia", url: "https://www.yasakia.com", kind: "product", group: "products", status: "development", mark: "yasakia", repo: "https://github.com/krizaka/yasakia" }),
-  site({ id: "yororis", name: "Yororis", url: "https://www.yororis.com", kind: "product", group: "products", status: "construction", mark: "yororis", repo: "https://github.com/krizaka/yororis" }),
+  site({ id: "yororis", name: "Yororis", url: "https://www.yororis.com", kind: "product", group: "products", status: "development", mark: "yororis", repo: "https://github.com/krizaka/yororis" }),
   site({ id: "yomizaka", name: "Yomizaka", url: "https://www.yomizaka.com", kind: "product", group: "products", status: "development", mark: "yomizaka", repo: "https://github.com/krizaka/yomizaka" }),
   site({ id: "kachizaka", name: "Kachizaka", url: "https://www.kachizaka.com", kind: "product", group: "products", status: "development", mark: "kachizaka", repo: "https://github.com/krizaka/kachizaka" }),
   site({ id: "akinaza", name: "Akinaza", url: "https://www.akinaza.com", kind: "product", group: "products", status: "development", mark: "akinaza", repo: "https://github.com/krizaka/akinaza" }),

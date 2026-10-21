@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 
 import { companyLinks, familyLabels, sites } from "../sites";
 
@@ -60,7 +60,7 @@ describe("SiteFooter", () => {
     expect(current.getAttribute("aria-current")).toBe("true");
     expect(current.textContent).toContain("You are here");
     expect(within(family).getByRole("link", { name: /Yasakia/ }).textContent).toContain("In development");
-    expect(within(family).getByRole("link", { name: /Yororis/ }).textContent).toContain("Under construction");
+    expect(within(family).getByRole("link", { name: /Yororis/ }).textContent).toContain("In development");
   });
 
   it("renders the site's own columns, the signature by kind, the version and Montréal", () => {
@@ -192,5 +192,29 @@ describe("SiteFooter", () => {
       render(<Footer />);
       expect(screen.getAllByRole("contentinfo")).toHaveLength(1);
     });
+  });
+
+  it("is one band: the only rule is the footer's own top edge, no hairline under the columns (a bottom bar read as a second footer)", () => {
+    const { container } = render(<Footer />);
+    const footer = container.querySelector("footer")!;
+    const ruled = [footer, ...footer.querySelectorAll("*")].filter((el) => /(^|\s)border-t(\s|$)/.test(el.getAttribute("class") ?? ""));
+    expect(ruled).toEqual([footer]);
+  });
+
+  it("marks the company page you are on (aria-current) and a click on it scrolls to the top instead of reloading", () => {
+    const scrollTo = vi.fn();
+    window.scrollTo = scrollTo as unknown as typeof window.scrollTo;
+    render(<Footer current="krizaka" path="/en/story" />);
+    const story = screen.getByRole("link", { name: familyLabels.en.company!.story });
+    expect(story.getAttribute("aria-current")).toBe("page");
+    expect(screen.getByRole("link", { name: familyLabels.en.company!.contact }).getAttribute("aria-current")).toBeNull();
+    expect(story.className).toMatch(/aria-\[current=page\]:font-semibold/);
+    fireEvent.click(story);
+    expect(scrollTo).toHaveBeenCalledWith(expect.objectContaining({ top: 0 }));
+  });
+
+  it("marks no company page from another site (same path, other host) nor without a path", () => {
+    render(<Footer current="orazaka" path="/story" />);
+    expect(screen.getByRole("link", { name: familyLabels.en.company!.story }).getAttribute("aria-current")).toBeNull();
   });
 });
