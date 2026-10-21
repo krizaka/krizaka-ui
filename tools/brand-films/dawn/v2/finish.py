@@ -47,6 +47,22 @@ def shot_range(spec: str | None, count: int) -> list[int]:
     return list(range(a, b + 1))
 
 
+def parts(count: int, limit: int, cuts: list[bool]) -> list[list[int]]:
+    """The film in parts the worker can cut (at most ``limit`` shots each), as [start, end) shot indexes: balanced, and each
+    part after the first starting on a hard cut (``cuts[i]``: shot i comes in on a cut), so no transition spans two parts."""
+    if count <= limit:
+        return [[0, count]]
+    pieces = -(-count // limit)
+    bounds, start = [], 0
+    for k in range(1, pieces):
+        ideal = round(count * k / pieces)
+        at = min((i for i in range(start + 1, count) if cuts[i] and i - start <= limit and count - i <= limit * (pieces - k)),
+                 key=lambda i: abs(i - ideal))
+        bounds.append([start, at])
+        start = at
+    return bounds + [[start, count]]
+
+
 def vtt(texts: list[tuple[str, float, float]]) -> str:
     def stamp(t: float) -> str:
         return f"{int(t // 3600):02d}:{int(t % 3600 // 60):02d}:{t % 60:06.3f}"
@@ -105,11 +121,28 @@ def main() -> None:
         if item["transition"] != "cut":
             item["transitionSeconds"] = s.get("transitionSeconds", 0.5)
         raw["shots"].append(item)
-    edit = cut.parse_edit(raw, len(shots))
-    spans = [list(x) for x in cut.timeline(edit)]
+    # The worker cuts at most cut.MAX_SHOTS shots: a longer film is cut in parts at hard cuts, then joined end to end.
     body = out / f"body-{raw['master']}.mp4"
-    if not body.exists():
-        cut.cut([str(takes / s["take"]) for s in shots], edit, str(body), provenance={"film": treatment["title"], "edl": raw})
+    split = parts(len(shots), cut.MAX_SHOTS, [item["transition"] == "cut" for item in raw["shots"]])
+    spans, offset, pieces = [], 0.0, []
+    for k, (a, b) in enumerate(split):
+        part = dict(raw, shots=[dict(item, clip=i - a, transition=item["transition"] if i > a else "cut")
+                                for i, item in enumerate(raw["shots"][a:b], start=a)])
+        edit = cut.parse_edit(part, b - a)
+        piece = body if len(split) == 1 else out / f"body-{raw['master']}-part{k + 1}.mp4"
+        if not piece.exists() and not body.exists():
+            cut.cut([str(takes / s["take"]) for s in shots[a:b]], edit, str(piece), provenance={"film": treatment["title"], "edl": part})
+        planned = cut.timeline(edit)
+        # The spans on the file as cut (its measured length; the plan runs a few frames long per part).
+        real = seconds_of(piece) if piece.exists() else planned[-1][1]
+        scale = real / planned[-1][1]
+        spans += [[round(x * scale + offset, 3), round(y * scale + offset, 3)] for x, y in planned]
+        offset += real
+        pieces.append(piece)
+    if len(split) > 1 and not body.exists():
+        listing = out / "parts.txt"
+        listing.write_text("".join(f"file '{p.resolve()}'\n" for p in pieces))
+        run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(listing), "-c", "copy", str(body)])
     master = out / f"master-{raw['master']}.mp4"
     length = seconds_of(body)
     if endcard and not master.exists():

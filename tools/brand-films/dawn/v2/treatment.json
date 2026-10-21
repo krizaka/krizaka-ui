@@ -448,7 +448,7 @@
    "action": "the falcon scans the glowing parcel with its visor, taps it shut with one wing, then holds it out to the pigeon, who takes it with both wings and stands up straight",
    "plate": "A grassy mountain ridge at sunrise, soft golden light, a vast misty valley with a winding river behind, dew on the grass, shallow depth of field.",
    "keyframe": "The falcon character and the pigeon character face each other on a grassy ridge at sunrise, the falcon holding a small glowing orange parcel between them, soft golden backlight, misty valley behind.",
-   "motion": "On a grassy ridge at sunrise, the orange falcon character with a black visor and glowing cyan eyes scans a small glowing orange parcel with a cyan scan line from its visor, taps it shut with one wing, then holds it out; the sky-blue pigeon character with violet wings takes it with both wings, stands up straight, eyes shining with pride, and gives one firm nod. Slow push-in, 50 mm. Soft golden backlight, morning mist. Gentle, trusting.",
+   "motion": "On a grassy ridge at sunrise, the orange falcon character with a black visor and glowing cyan eyes scans a small glowing orange parcel with a cyan scan line from its visor, taps it shut with one wing, then holds it out and looks the pigeon straight in the eye; the sky-blue pigeon character with violet wings takes it with both wings, their wingtips touching for a moment, stands up straight, eyes shining with pride, and gives one firm nod. Slow push-in, 50 mm. Soft golden backlight, morning mist. Gentle, trusting.",
    "birds": [
     {
      "bird": "falcon",
@@ -537,7 +537,7 @@
    "action": "the pigeon crouches with the parcel, leaps and beats its wings up into the golden sky while the falcon raises one wing in farewell",
    "plate": "A grassy mountain ridge at sunrise seen from a low angle, golden sky, soft clouds, the valley haze far below.",
    "keyframe": "Low angle of the pigeon character holding a small glowing orange parcel crouched on a grassy ridge at sunrise, the falcon character beside it, golden sky.",
-   "motion": "Low angle on a grassy ridge at sunrise: the sky-blue pigeon character with violet wings crouches with its small glowing orange parcel, leaps and beats its wings hard, flying up into the golden sky, grass bending in its downdraft, while the orange falcon character with a black visor raises one wing in farewell. Tilt up following the pigeon, 24 mm. Golden sky. Hopeful lift.",
+   "motion": "Low angle on a grassy ridge at sunrise: the sky-blue pigeon character with violet wings crouches with its small glowing orange parcel gripped tight against its chest, leaps and beats its wings hard, carrying the parcel the whole time, flying up into the golden sky, grass bending in its downdraft, while the orange falcon character with a black visor watches it go, head tilting up to follow it, and raises one wing in farewell. Tilt up following the pigeon, 24 mm. Golden sky. Hopeful lift.",
    "birds": [
     {
      "bird": "pigeon",
@@ -624,7 +624,7 @@
    "action": "the pigeon carries its parcel in a dive between two sunlit rooftops, flares its wings to brake as a long orange fabric unfurls in its wake, and searches the alleys below",
    "plate": "A sunlit old medina seen from above, terracotta and white rooftops, colourful fabrics drying on lines, brass lanterns, domes and palms, warm afternoon light, no people, no signs, no text.",
    "keyframe": "The small pigeon character diving between sunlit medina rooftops holding its small orange parcel, colourful fabrics on lines, warm afternoon light.",
-   "motion": "The sky-blue pigeon character with violet wings, small in the frame, dives between two sunlit medina rooftops with its small orange parcel, then flares its wings to brake as a long orange fabric unfurls in its wake and brass lanterns swing; it looks down into the colourful alleys, searching. Fast drone dive following it, 24 mm. Warm afternoon light, dust. Exhilarating.",
+   "motion": "The sky-blue pigeon character with violet wings, small in the frame, dives between two sunlit medina rooftops with its small orange parcel, head turning left and right to search, then flares its wings to brake as a long orange fabric unfurls in its wake and brass lanterns swing; it looks down into the colourful alleys, searching. It is the only bird in the sky. Fast drone dive following it, 24 mm. Warm afternoon light, dust. Exhilarating.",
    "birds": [
     {
      "bird": "pigeon",
@@ -871,7 +871,7 @@
    "action": "the pigeon carries its parcel at full speed, banks left, then right, between colourful hanging fabrics, which whip aside in its wake",
    "plate": "A narrow sunlit medina alley seen along its length, colourful fabrics and carpets hanging across it on lines, warm light and shadow, no people, no text.",
    "keyframe": "The pigeon character flying toward the camera along a narrow sunlit medina alley between colourful hanging fabrics, holding its small orange parcel.",
-   "motion": "The sky-blue pigeon character with violet wings flies fast toward the camera along a narrow sunlit medina alley, its small orange parcel held tight; it banks left, then right, between colourful hanging fabrics that whip aside in its wake. Tracking backward fast, 24 mm. Warm sun and shadow. Exhilarating.",
+   "motion": "The sky-blue pigeon character with violet wings flies fast toward the camera along a narrow sunlit medina alley, its small orange parcel held tight, eyes narrowed with focus; it banks left, then right, between colourful hanging fabrics that whip aside in its wake. Tracking backward fast, 24 mm. Warm sun and shadow. Exhilarating.",
    "birds": [
     {
      "bird": "pigeon",
@@ -986,7 +986,7 @@
    "action": "the duck snaps small glowing blocks together into a new harness on the café table, pushes up its glasses, then fits it onto the pigeon, who leans in impressed",
    "plate": "A Montréal café terrace in autumn, a small round metal table with a few small glowing cyan blocks on it, red brick wall with an abstract mural behind, morning light, no text, shallow depth of field.",
    "keyframe": "The duck character on a café table in Montréal assembling small glowing cyan blocks, the pigeon character with its small orange parcel beside it leaning in, brick wall with abstract mural behind, morning light.",
-   "motion": "On a Montréal café terrace, the crimson duck character with round glasses snaps small glowing cyan blocks together into a little harness with quick precise movements, pushes up its glasses with a proud little smile, then fits the harness onto the sky-blue pigeon character with violet wings, who leans in, wide-eyed and impressed. Slow push-in, 50 mm. Crisp morning light, mural behind. Clever, warm.",
+   "motion": "On a Montréal café terrace, the crimson duck character with round glasses snaps small glowing cyan blocks together into a little harness with quick precise movements, pushes up its glasses with a proud little smile, then turns and fits the harness onto the sky-blue pigeon character with violet wings, tightening it with a tug, while the pigeon leans in, wide-eyed and impressed, and looks down at it. Slow push-in, 50 mm. Crisp morning light, mural behind. Clever, warm.",
    "birds": [
     {
      "bird": "duck",
@@ -1080,7 +1080,7 @@
    "action": "the duck and the pigeon bump wings, the duck twirls its glasses with a grin, and the pigeon hops back laughing, then takes off",
    "plate": "A Montréal café terrace in autumn, a small round metal table, red brick wall with an abstract mural, morning light, no text.",
    "keyframe": "The duck character and the pigeon character on a café table bumping wings, brick wall with abstract mural, morning light.",
-   "motion": "The crimson duck character with round glasses and the sky-blue pigeon character with violet wings bump wings on the café table; the duck twirls its glasses with a grin, the pigeon hops back laughing, then leaps into the air. Quick handheld, 35 mm. Crisp morning light. Playful.",
+   "motion": "The crimson duck character with round glasses and the sky-blue pigeon character with violet wings look at each other, grin, and bump wings with a little bounce; the duck twirls its glasses, the pigeon hops back laughing, then leaps into the air. Quick handheld, 35 mm. Crisp morning light. Playful.",
    "birds": [
     {
      "bird": "duck",
@@ -1164,7 +1164,7 @@
    "action": "the pigeon carries its parcel past a spherical cable car cabin, then beats harder against the rising wind as a dark storm front rolls over the peaks ahead",
    "plate": "Spherical glass cable car cabins on a cable above a city in a wide valley ringed by snowy Alpine peaks, a dark storm front rolling over the peaks, cold afternoon, no people, no text.",
    "keyframe": "The small pigeon character flying past a spherical cable car cabin toward snowy Alpine peaks under a dark storm front, holding its small orange parcel.",
-   "motion": "The sky-blue pigeon character with violet wings, small in the frame, flies past a spherical glass cable car cabin with its small orange parcel swinging on its harness, then beats its wings harder against the rising wind as a dark storm front rolls over the snowy peaks ahead. Tracking behind it, 24 mm. Cold light turning hard. Tense.",
+   "motion": "The sky-blue pigeon character with violet wings, small in the frame, flies past a spherical glass cable car cabin with its small orange parcel swinging on its harness, then looks up at the dark storm front rolling over the snowy peaks ahead, ducks its head and beats its wings harder against the rising wind. Tracking behind it, 24 mm. Cold light turning hard. Tense.",
    "birds": [
     {
      "bird": "pigeon",
@@ -1239,7 +1239,7 @@
    "action": "a gust throws the pigeon toward the rocks; the falcon dives in beside it, spreads its wings to block the wind, and the pigeon steadies in its shelter",
    "plate": "Snowy Alpine ridge and rock faces in strong wind, spindrift blowing off the crest, deep blue sky, cold sun.",
    "keyframe": "The falcon character and the pigeon character flying side by side close to a snowy Alpine ridge in strong wind, spindrift, deep blue sky.",
-   "motion": "Along a snowy Alpine ridge in a howling wind, the sky-blue pigeon character with violet wings and its small orange parcel is thrown toward the rocks by a gust; the orange falcon character with a black visor and glowing cyan eyes, its eyes flaring with alarm, dives in beside it, spreads its wings wide against the wind, and the pigeon steadies in its shelter, both flying fast. Tracking beside them, 35 mm. Cold sun, spindrift. Intense, protective.",
+   "motion": "Along a snowy Alpine ridge in a howling wind, the sky-blue pigeon character with violet wings and its small orange parcel is thrown toward the rocks by a gust; the orange falcon character with a black visor and glowing cyan eyes, its eyes flaring with alarm, dives in beside it, spreads its wings wide against the wind, glances at the pigeon and nods, and the pigeon steadies in its shelter, both flying fast side by side. Tracking beside them, 35 mm. Cold sun, spindrift. Intense, protective.",
    "birds": [
     {
      "bird": "falcon",
@@ -1327,7 +1327,7 @@
    "action": "the parcel slips from the pigeon's grip; the falcon snatches it mid-air and flips it back into the pigeon's wings",
    "plate": "Snowy Alpine slope far below a deep blue sky, cold sun, spindrift.",
    "keyframe": "The falcon character catching a small orange parcel in mid-air above snowy Alpine slopes, the pigeon character reaching for it, deep blue sky.",
-   "motion": "In mid-air above snowy Alpine slopes, the small orange parcel slips from the sky-blue pigeon character's wings; the orange falcon character with a black visor snatches it in its talons and flips it back up into the pigeon's wings. Slow-motion feel, 50 mm. Cold sun. Thrilling.",
+   "motion": "In mid-air above snowy Alpine slopes, the small orange parcel slips from the sky-blue pigeon character's wings; the orange falcon character with a black visor snatches it in its talons, flips it back up into the pigeon's wings, and the two lock eyes for a beat of relief. Slow-motion feel, 50 mm. Cold sun. Thrilling.",
    "birds": [
     {
      "bird": "falcon",
@@ -1404,7 +1404,7 @@
    "action": "the view slowly cranes down the snowy old-town street at night, heavy snow falling past warm windows, and settles on a line of tiny bird footprints in the fresh snow, already filling in",
    "plate": "A snowy old-town street at night in winter, stone houses with copper roofs and warm lit windows, snow falling heavily, a lamp post, deep drifts, a line of tiny bird footprints in the fresh snow, no people, no signs, no text.",
    "keyframe": "A snowy old-town street at night in winter, stone houses with copper roofs and warm lit windows, snow falling heavily, a lamp post, deep drifts, a line of tiny bird footprints in the fresh snow, no people, no signs, no text.",
-   "motion": "The view slowly cranes down the snowy old-town street at night, heavy snow falling past warm windows, and settles on a line of tiny bird footprints in the fresh snow, already filling in. Slow crane down, 35 mm. Cold blue night, warm windows.",
+   "motion": "The view slowly cranes down the snowy old-town street at night, heavy snow falling past warm windows, and settles on a line of tiny bird footprints in the fresh snow, already filling in. The street stays empty: no animals, no birds, no people. Slow crane down, 35 mm. Cold blue night, warm windows.",
    "camera": "slow crane down",
    "lens": "35mm",
    "lighting": "cold blue night, warm windows",
@@ -1448,7 +1448,7 @@
    "action": "the pigeon lands heavily in the snow, sinks, shivers, and curls over the dimming parcel to keep it warm",
    "plate": "A deep snowdrift on a snowy old-town street at night, a lit doorway with a wooden door nearby, snow falling, cold blue light, warm glow from the windows.",
    "keyframe": "The pigeon character curled in a snowdrift at night holding its dim orange parcel, snow falling, a lit wooden door nearby.",
-   "motion": "At night in a snowy street, the sky-blue pigeon character with violet wings lands heavily in a snowdrift, sinks, shivers, and curls over its small orange parcel whose glow is dimming, its eyes half-closing, exhausted and afraid, snow settling on its feathers. Static low angle, 50 mm. Cold blue night, a warm doorway glow. Fragile, sad.",
+   "motion": "At night in a snowy street, the sky-blue pigeon character with violet wings lands heavily in a snowdrift, sinks, shivers, and curls over its small orange parcel whose glow is dimming, shivering, its eyes half-closing, exhausted and afraid, then lifts its head weakly toward the lit door, snow settling on its feathers. Static low angle, 50 mm. Cold blue night, a warm doorway glow. Fragile, sad.",
    "birds": [
     {
      "bird": "pigeon",
@@ -1518,7 +1518,7 @@
    "action": "the wooden door swings open in a spill of warm light, the beaver looks down, scoops the pigeon up out of the snow and wraps a knitted scarf around it",
    "plate": "A wooden front door of a stone house at night open onto a snowy street, warm golden light spilling out onto the snow, snow falling.",
    "keyframe": "The beaver character in an open wooden doorway at night with warm light behind it, the pigeon character in the snow at its feet, snow falling.",
-   "motion": "At night, a wooden door swings open in a spill of warm golden light; the brown beaver character with one big front tooth looks down, worried, scoops the sky-blue pigeon character with violet wings up out of the snow and wraps a red knitted scarf around it, the pigeon's eyes closing with relief as the beaver smiles warmly. Static, 35 mm. Warm light against cold blue night. Tender.",
+   "motion": "At night, a wooden door swings open in a spill of warm golden light; the brown beaver character with one big front tooth looks down, worried, kneels, scoops the sky-blue pigeon character with violet wings up out of the snow in both arms, hugs it close and wraps a red knitted scarf around it, the pigeon's eyes closing with relief as the beaver smiles warmly. Static, 35 mm. Warm light against cold blue night. Tender.",
    "birds": [
     {
      "bird": "beaver",
@@ -1601,7 +1601,7 @@
    "action": "around a cosy kitchen table, the beaver waves a wooden spoon, the magpie points the other way, the lovebirds flap in protest, while the pigeon in its scarf sips a hot drink and looks from one to the other",
    "plate": "A cosy, cluttered family kitchen at night, a wooden table with mugs and a pot, warm lamp light, frosted window with snow outside, no text.",
    "keyframe": "The beaver character, the magpie character and the lovebird character arguing around a wooden kitchen table, the pigeon character in a red scarf with a mug, warm lamp light.",
-   "motion": "In a cosy family kitchen at night, the brown beaver character waves a wooden spoon, the slate-grey magpie character with cobalt-blue wings points the other way, the green lovebird character with a coral-pink face flaps in protest, all talking at once, while the sky-blue pigeon character in a red scarf sips from a mug and looks from one to the other. Quick handheld, 35 mm. Warm lamp light, steam. Funny, warm.",
+   "motion": "In a cosy family kitchen at night, the brown beaver character waves a wooden spoon, the slate-grey magpie character with cobalt-blue wings points the other way, the green lovebird character with a coral-pink face flaps in protest, all talking at once and leaning toward each other, while the sky-blue pigeon character in a red scarf sips from a mug and turns its head from one to the other, then laughs. Quick handheld, 35 mm. Warm lamp light, steam. Funny, warm.",
    "birds": [
     {
      "bird": "beaver",
@@ -1703,7 +1703,7 @@
    "action": "the parcel glows again in the pigeon's wings; the lovebird tightens its scarf, the beaver gives a thumbs-up with its wing and the magpie flings the door open onto a bright snowy morning",
    "plate": "An open wooden front door from inside a cosy house onto a bright snowy morning street, warm interior, crisp blue sky.",
    "keyframe": "The beaver, the magpie and the lovebird characters around the pigeon character in a red scarf holding a glowing orange parcel, at an open door onto a bright snowy morning.",
-   "motion": "Inside the cosy house by the open door, the small orange parcel glows again in the wings of the sky-blue pigeon character in its red scarf; the green lovebird character tightens the scarf, the brown beaver character gives a proud wing thumbs-up, and the slate-grey magpie character flings the door wide open onto a bright snowy morning; the pigeon runs out and leaps into the air. Slow dolly out, 28 mm. Warm interior, bright cold morning. Uplifting.",
+   "motion": "Inside the cosy house by the open door, the small orange parcel glows again in the wings of the sky-blue pigeon character in its red scarf; the green lovebird character tightens the scarf and pats it, the brown beaver character gives a proud wing thumbs-up, and the slate-grey magpie character flings the door wide open onto a bright snowy morning; the pigeon runs out and leaps into the air. Slow dolly out, 28 mm. Warm interior, bright cold morning. Uplifting.",
    "birds": [
     {
      "bird": "beaver",
@@ -1837,7 +1837,7 @@
    "action": "the flamingo's candy-pink lowrider bounces on its hydraulics; the pigeon lands on the hood, the flamingo turns, answers with a smile and flicks it a gold coin",
    "plate": "A candy-pink lowrider convertible on a palm-lined coastal highway at golden hour, chrome wheels, the ocean behind, no people, no logos, no text.",
    "keyframe": "The flamingo character leaning against a candy-pink lowrider convertible on a coastal highway at golden hour, the pigeon character on the hood, palm trees and the ocean behind.",
-   "motion": "On a palm-lined coastal highway at golden hour, a candy-pink lowrider convertible bounces on its hydraulics; the pink flamingo character with a long curved neck, leaning against the car, turns with a smile as the sky-blue pigeon character lands on the hood, and flicks it a gold coin that spins through the air, the pigeon grinning as it catches it. Low angle, 35 mm. Golden hour, lens flare. Cool, funny.",
+   "motion": "On a palm-lined coastal highway at golden hour, a candy-pink lowrider convertible bounces on its hydraulics; the pink flamingo character with a long curved neck, leaning against the car, turns with a smile as the sky-blue pigeon character lands on the hood, looks it in the eye and flicks it a gold coin that spins through the air, the pigeon grinning as it catches it in its wing. Low angle, 35 mm. Golden hour, lens flare. Cool, funny.",
    "birds": [
     {
      "bird": "flamingo",
@@ -1964,7 +1964,7 @@
    "action": "on the beach dance floor the magpie spins and freezes in a pose, then the flamingo answers with a long-legged slide, sand flying, and they point at each other grinning",
    "plate": "A beach at night with a sand dance floor ringed by string lights and torches, purple and cyan party lights, palm trees, the ocean behind, no people, no text.",
    "keyframe": "The magpie character and the flamingo character facing off in a dance battle on a lit beach dance floor at night, string lights and palm trees.",
-   "motion": "On a beach dance floor at night ringed by string lights, the slate-grey magpie character with cobalt-blue wings spins and freezes in a pose; the pink flamingo character answers with a long-legged slide, sand flying, and they point at each other, grinning. Quick handheld orbit, 28 mm. Purple and cyan party lights. Energetic, fun.",
+   "motion": "On a beach dance floor at night ringed by string lights, the slate-grey magpie character with cobalt-blue wings spins and freezes in a pose, staring the flamingo down; the pink flamingo character answers with a long-legged slide, sand flying, and they point at each other, then burst out laughing. Quick handheld orbit, 28 mm. Purple and cyan party lights. Energetic, fun.",
    "birds": [
     {
      "bird": "magpie",
@@ -2047,7 +2047,7 @@
    "action": "the crane at the decks bobs its long neck with its eyes closed, lifts a wing and drops the beat, and the duck beside it taps glowing blocks that pulse in time",
    "plate": "A DJ booth on a beach at night, two turntables and a mixer on a wooden table, glowing cyan blocks stacked beside, purple and cyan lights, palm trees, no logos, no text.",
    "keyframe": "The crane character at a DJ booth on a beach at night with turntables, the duck character beside it with glowing cyan blocks, purple and cyan lights.",
-   "motion": "At a beach DJ booth at night, the slender pale grey crane character with a small red crown bobs its long neck to the beat with its eyes closed, lifts one wing and drops it as the lights flash; the crimson duck character with round glasses beside it taps glowing cyan blocks that pulse in time. Push-in, 35 mm. Purple and cyan lights, flashes. Euphoric.",
+   "motion": "At a beach DJ booth at night, the slender pale grey crane character with a small red crown bobs its long neck to the beat with its eyes closed, opens them, nods to the duck, lifts one wing and drops it as the lights flash; the crimson duck character with round glasses beside it taps glowing cyan blocks that pulse in time. Push-in, 35 mm. Purple and cyan lights, flashes. Euphoric.",
    "birds": [
     {
      "bird": "crane",
@@ -2134,7 +2134,7 @@
    "action": "the pigeon sets the parcel down in the middle of the dance floor and steps back; it opens into a burst of warm light and the falcon, the owl, the duck and the flamingo jump and cheer, wings up",
    "plate": "A beach dance floor at night ringed by string lights, purple and cyan party lights, palm trees, the ocean behind, no people, no text.",
    "keyframe": "Five cartoon bird characters around a small glowing orange parcel on a beach dance floor at night, string lights, palm trees.",
-   "motion": "On the beach dance floor at night, the sky-blue pigeon character sets its small glowing orange parcel down in the middle of the flock and steps back; the parcel opens into a burst of warm golden light and the orange falcon, the violet owl, the crimson duck and the pink flamingo characters jump and cheer, wings up. Slow push-in then a quick crane up, 28 mm. Golden burst against purple night. Joyful.",
+   "motion": "On the beach dance floor at night, the sky-blue pigeon character sets its small glowing orange parcel down in the middle of the flock and steps back; the parcel opens into a burst of warm golden light and the orange falcon, the violet owl, the crimson duck and the pink flamingo characters jump and cheer, wings up, turning to hug and high-five each other. Slow push-in then a quick crane up, 28 mm. Golden burst against purple night. Joyful.",
    "birds": [
     {
      "bird": "falcon",
@@ -2259,7 +2259,7 @@
    "action": "the phoenix rises slowly from the light over the ocean, its violet and gold flame wings unfolding, and the pigeon in the foreground looks up, chest puffed with pride",
    "plate": "A night beach with the dark ocean and a horizon glow, warm embers in the air, string lights blurred in the foreground sand, no people, no text.",
    "keyframe": "The phoenix with one violet and one gold flame wing rising over the night ocean, the pigeon character seen from behind in the foreground on the sand looking up.",
-   "motion": "Over the night ocean, the phoenix with one violet flame wing and one gold flame wing rises slowly from a column of warm light, its wings unfolding wide, embers drifting down; in the foreground the sky-blue pigeon character looks up, its feathers ruffling in the warm air, chest puffed with pride. Slow crane up, 24 mm. Warm gold against deep blue. Majestic, tender.",
+   "motion": "Over the night ocean, the phoenix with one violet flame wing and one gold flame wing beats its two great flame wings slowly up and down three times and rises higher into the sky, its flames flickering and trailing sparks, embers swirling down around it; in the foreground the sky-blue pigeon character looks up, raises one wing to wave at it, its feathers ruffling in the warm air, chest puffed with pride. Slow crane up, 24 mm. Warm gold against deep blue. Majestic, tender.",
    "birds": [
     {
      "bird": "phoenix",

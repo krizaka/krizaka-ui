@@ -30,14 +30,14 @@
   },
   {
    "shot": 3,
-   "take": "03-pigeon-departs-t0.mp4",
+   "take": "03-pigeon-departs-t1.mp4",
    "in": 0.25,
    "screen": 2.6,
    "vx": 0.5
   },
   {
    "shot": 4,
-   "take": "04-medina-dive-t0.mp4",
+   "take": "04-medina-dive-t1.mp4",
    "in": 0.25,
    "screen": 2.4,
    "vx": 0.5
@@ -107,7 +107,7 @@
   },
   {
    "shot": 14,
-   "take": "14-quebec-snow-t0.mp4",
+   "take": "14-quebec-snow-t1.mp4",
    "in": 0.25,
    "screen": 2.5,
    "vx": 0.5
@@ -151,7 +151,7 @@
    "shot": 20,
    "take": "20-flamingo-lowrider-t0.mp4",
    "in": 0.25,
-   "screen": 3.0,
+   "screen": 3.3,
    "vx": 0.5
   },
   {
@@ -184,7 +184,7 @@
   },
   {
    "shot": 25,
-   "take": "25-phoenix-ocean-t0.mp4",
+   "take": "25-phoenix-ocean-t1.mp4",
    "in": 0.25,
    "screen": 4.0,
    "vx": 0.5

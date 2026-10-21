@@ -275,5 +275,206 @@
    "2026-10-20 storm draft proof (1 take, .49)",
    "2026-10-20 relay interaction scene (2 takes, .52)"
   ]
+ },
+ "final": {
+  "date": "2026-10-21",
+  "seconds": 68.0,
+  "takes": "25/25 at 4K (SeedVR2 3B, one batch per take); reshoots 03, 04, 14 (LTX invented birds → 'no animals, no birds'), 25 (the phoenix now flaps), each read on its review sheet",
+  "mix": {
+   "en": {
+    "lufs": -14.1,
+    "lra": 7.9,
+    "truePeak": -1.4
+   },
+   "site": {
+    "lufs": -14.1,
+    "lra": 8.2,
+    "truePeak": -1.5
+   },
+   "fr": {
+    "lufs": -14.1,
+    "lra": 8.0,
+    "truePeak": -1.5
+   }
+  },
+  "lines": {
+   "en": [
+    {
+     "id": "falcon",
+     "fits": true
+    },
+    {
+     "id": "owl",
+     "fits": true
+    },
+    {
+     "id": "duck",
+     "fits": true
+    },
+    {
+     "id": "cold",
+     "fits": true
+    },
+    {
+     "id": "quebec",
+     "fits": true
+    },
+    {
+     "id": "flamingo",
+     "fits": true
+    },
+    {
+     "id": "pigeon",
+     "fits": true
+    },
+    {
+     "id": "together",
+     "fits": true
+    }
+   ],
+   "fr": [
+    {
+     "id": "falcon",
+     "fits": true
+    },
+    {
+     "id": "owl",
+     "fits": true
+    },
+    {
+     "id": "duck",
+     "fits": true
+    },
+    {
+     "id": "cold",
+     "fits": true
+    },
+    {
+     "id": "quebec",
+     "fits": true
+    },
+    {
+     "id": "flamingo",
+     "fits": true
+    },
+    {
+     "id": "pigeon",
+     "fits": true
+    },
+    {
+     "id": "together",
+     "fits": true
+    }
+   ]
+  },
+  "foley": {
+   "shots": 25,
+   "covered": 25,
+   "ratio": 1.0,
+   "silent": [],
+   "characterShotsUnheard": []
+  },
+  "deliverables": [
+   {
+    "file": "dawn-v2-2160p-en.mp4",
+    "kind": "2160p",
+    "width": 3840,
+    "height": 2160,
+    "durationSeconds": 68.0,
+    "loudness": {
+     "lufs": -14.1,
+     "lra": 8.0,
+     "truePeak": -1.4
+    }
+   },
+   {
+    "file": "dawn-v2-1080p-en.mp4",
+    "kind": "1080p",
+    "width": 1920,
+    "height": 1080,
+    "durationSeconds": 68.0,
+    "loudness": {
+     "lufs": -14.1,
+     "lra": 8.0,
+     "truePeak": -1.4
+    }
+   },
+   {
+    "file": "dawn-v2-9x16-en.mp4",
+    "kind": "9:16",
+    "width": 1080,
+    "height": 1920,
+    "durationSeconds": 68.0,
+    "loudness": {
+     "lufs": -14.1,
+     "lra": 8.0,
+     "truePeak": -1.4
+    }
+   },
+   {
+    "file": "dawn-v2-2160p-fr.mp4",
+    "kind": "2160p",
+    "width": 3840,
+    "height": 2160,
+    "durationSeconds": 68.0,
+    "loudness": {
+     "lufs": -14.1,
+     "lra": 8.1,
+     "truePeak": -1.5
+    }
+   },
+   {
+    "file": "dawn-v2-1080p-fr.mp4",
+    "kind": "1080p",
+    "width": 1920,
+    "height": 1080,
+    "durationSeconds": 68.0,
+    "loudness": {
+     "lufs": -14.1,
+     "lra": 8.1,
+     "truePeak": -1.5
+    }
+   },
+   {
+    "file": "dawn-v2-9x16-fr.mp4",
+    "kind": "9:16",
+    "width": 1080,
+    "height": 1920,
+    "durationSeconds": 68.0,
+    "loudness": {
+     "lufs": -14.1,
+     "lra": 8.1,
+     "truePeak": -1.5
+    }
+   }
+  ],
+  "site": {
+   "mp4": "dawn-v2-16x9.mp4",
+   "loudness": {
+    "lufs": -14.1,
+    "lra": 8.2,
+    "truePeak": -1.5
+   }
+  },
+  "fixes": [
+   "the flamingo line ran 0.2 s past its shot: shot 20 is 3.3 s",
+   "the worker cuts at most 24 shots: the finish cuts in parts at hard cuts (v2.test)",
+   "a sliver of a foley bed crashed the stem (orazaka-worker-media#61)"
+  ],
+  "gpu": {
+   "usd": 35.27,
+   "cap": 40,
+   "host": "RunPod H200 SECURE $5.29/h",
+   "note": "includes two pods stopped by the idle guard during setup (~$4.1) and the idle minutes after the last upscale; dawn/pod/queue.sh now stops its own pod"
+  },
+  "published": {
+   "bunny": "site/brand-films/relay/",
+   "orochia": [
+    "https://dev.orochia.com/watch/06d26934-7cef-470d-a4b8-d2d0c8d66a9b",
+    "https://dev.orochia.com/watch/8113c7f9-b0cf-48a6-9b81-3b0f3aaade15"
+   ],
+   "site": "krizaka-com#303"
+  },
+  "pass": true
  }
 }
