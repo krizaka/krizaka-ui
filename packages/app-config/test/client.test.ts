@@ -88,6 +88,16 @@ describe("the client", () => {
     }
   });
 
+  it("reads a base URL given as a function at each check (an address moved by @krizaka/discovery is followed)", async () => {
+    let base = "https://dev.example/";
+    const { client, fetchMock, advance } = make({ baseUrl: () => base, minIntervalMs: 1 });
+    await client.check();
+    base = "https://www.example";
+    advance(5);
+    await client.check();
+    expect(fetchMock.mock.calls.map((c) => (c as unknown as [string])[0].split("/api/")[0])).toEqual(["https://dev.example", "https://www.example"]);
+  });
+
   it("takes the interval as an option", async () => {
     const { client, fetchMock, advance } = make({ minIntervalMs: 10 });
     await client.check();
