@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.37.0
+
+### Minor Changes
+
+- [#428](https://github.com/krizaka/krizaka-ui/pull/428) [`a3f8f85`](https://github.com/krizaka/krizaka-ui/commit/a3f8f85c4c37252f126c55cb307b61fd645b56d8) Thanks [@oussamaABID](https://github.com/oussamaABID)! - **Cahier, the chrome (ADR-004, [#417](https://github.com/krizaka/krizaka-ui/issues/417)):** the bar is square paper — the floating bar, its items, its icon buttons and menus lose the pill (2 px); badges, chips, tabs, the language switch, toasts, progress and meter tracks, the step progress, the slot picker and the footer's tags are square too (dots stay round). The badge and the card's stat label lose their uppercase tracking; a `glass` card is an opaque sheet. A new test (`src/cahier.test.ts`) refuses an uppercase tracked label, a frosted chrome (outside a scrim over a media) and a pill on the chrome.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.37.0
+  - @krizaka/tokens@3.37.0
+
 ## 3.36.0
 
 ### Minor Changes
