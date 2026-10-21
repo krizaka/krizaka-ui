@@ -125,4 +125,34 @@ describe("Flock", () => {
     expect(container.querySelector("svg[data-bird=pigeon]")!.hasAttribute("data-flying")).toBe(false);
     unmount();
   });
+
+  it("greets once as it first comes into view: each bird jumps in turn, left to right", () => {
+    const { container } = mount({ glance: false, courier: false, greet: true });
+    const poked = () => [...container.querySelectorAll("svg")].map((v) => v.hasAttribute("data-poked"));
+    act(() => void vi.advanceTimersByTime(10));
+    expect(poked()).toEqual([true, false, false]);
+    act(() => void vi.advanceTimersByTime(120));
+    expect(poked()).toEqual([true, true, false]);
+    act(() => void vi.advanceTimersByTime(2000));
+    expect(poked()).toEqual([false, false, false]);
+    act(() => visible(false));
+    act(() => visible(true));
+    expect(poked()).toEqual([false, false, false]); // once
+  });
+
+  it("makes the bird the page points at look up and jump, and lets it go", () => {
+    const { container, rerender } = mount({ glance: false, courier: false });
+    rerender(<Flock birds={birds} random={() => 0} glance={false} courier={false} active="duck" />);
+    act(() => void vi.advanceTimersByTime(10));
+    expect(looks(container)).toEqual([null, "up", null]);
+    expect(container.querySelector("svg[data-bird=duck]")!.hasAttribute("data-poked")).toBe(true);
+    rerender(<Flock birds={birds} random={() => 0} glance={false} courier={false} active={null} />);
+    expect(looks(container)).toEqual([null, null, null]);
+  });
+
+  it("is livelier with a higher tempo: a glance comes twice as soon", () => {
+    const { container } = mount({ courier: false, tempo: 2 });
+    act(() => void vi.advanceTimersByTime(2200)); // 4200 / 2
+    expect(looks(container)).toEqual(["right", "left", null]);
+  });
 });

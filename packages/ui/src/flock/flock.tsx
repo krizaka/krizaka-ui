@@ -40,6 +40,12 @@ export type FlockProps = Omit<React.ComponentProps<"div">, "children"> &
     tone?: "brand" | "own";
     /** The source of chance (default `Math.random`): give it a fixed one in a test. */
     random?: () => number;
+    /** How lively the moments are: 1 is calm (default), 2 doubles how often neighbours glance and the pigeon delivers. */
+    tempo?: number;
+    /** A bird the page points at (a product the reader is on): it looks up and jumps once each time it changes. */
+    active?: MascotBird | null;
+    /** The birds greet the reader once as the flock first comes into view: each jumps in turn, left to right. */
+    greet?: boolean;
   };
 
 // @fixed: the rhythm of the moments — how long a glance lasts, how often one happens, how long a delivery takes. A
@@ -52,7 +58,9 @@ const FLIGHT_MS = 2600;
 const HAND_OVER_MS = 1300;
 const LOOK_BACK_MS = 1600;
 
-const between = (random: () => number, [lo, hi]: readonly [number, number]) => lo + random() * (hi - lo);
+const between = (random: () => number, [lo, hi]: readonly [number, number], tempo = 1) => (lo + random() * (hi - lo)) / tempo;
+const GREET_STEP_MS = 110;
+const POKE_MS = 700;
 
 /** `true` while the page may move: no reduced-motion request, the tab visible. */
 function useMayMove(): boolean {
@@ -90,7 +98,7 @@ function useOnScreen(ref: React.RefObject<Element | null>): boolean {
  * returns; a bird looks up when you come near. All of it pauses off screen and in a hidden tab, and the flock is still
  * under `prefers-reduced-motion`.
  */
-export function Flock({ birds, ratio = 16 / 9, tone = "brand", glance = true, courier = true, react = true, random = Math.random, className, style, ...props }: FlockProps) {
+export function Flock({ birds, ratio = 16 / 9, tone = "brand", glance = true, courier = true, react = true, random = Math.random, tempo = 1, active = null, greet = false, className, style, ...props }: FlockProps) {
   const stage = React.useRef<HTMLDivElement>(null);
   const bodies = React.useRef<(HTMLDivElement | null)[]>([]);
   const may = useMayMove();
@@ -120,14 +128,14 @@ export function Flock({ birds, ratio = 16 / 9, tone = "brand", glance = true, co
           rest(a, b);
           next();
         }, between(random, GLANCE_HOLD_MS));
-      }, between(random, GLANCE_EVERY_MS));
+      }, between(random, GLANCE_EVERY_MS, tempo));
     };
     next();
     return () => {
       clearTimeout(timer);
       clearTimeout(back);
     };
-  }, [running, glance, order, random]);
+  }, [running, glance, order, random, tempo]);
 
   // The delivery: the pigeon takes its parcel across to the farthest bird, hands it over, and flies back.
   React.useEffect(() => {
@@ -178,17 +186,47 @@ export function Flock({ birds, ratio = 16 / 9, tone = "brand", glance = true, co
     const schedule = (ms: number) => {
       timer = setTimeout(async () => {
         await trip();
-        if (alive) schedule(between(random, COURIER_EVERY_MS));
+        if (alive) schedule(between(random, COURIER_EVERY_MS, tempo));
       }, ms);
     };
-    schedule(COURIER_FIRST_MS);
+    schedule(COURIER_FIRST_MS / tempo);
     return () => {
       alive = false;
       clearTimeout(timer);
       animation?.cancel();
       setFlying(null);
     };
-  }, [running, courier, birds, random]);
+  }, [running, courier, birds, random, tempo]);
+
+  // The greeting: the first time the flock is on screen, each bird jumps in turn.
+  const greeted = React.useRef(false);
+  React.useEffect(() => {
+    if (!running || !greet || greeted.current) return;
+    greeted.current = true;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    order.forEach((index, n) => {
+      timers.push(setTimeout(() => setPoked((p) => ({ ...p, [index]: true })), n * GREET_STEP_MS));
+      timers.push(setTimeout(() => setPoked((p) => ({ ...p, [index]: false })), n * GREET_STEP_MS + POKE_MS));
+    });
+    return () => timers.forEach(clearTimeout);
+  }, [running, greet, order]);
+
+  // The bird the page points at looks up and jumps.
+  React.useEffect(() => {
+    const index = active ? birds.findIndex((b) => b.bird === active) : -1;
+    if (!running || index < 0) return;
+    const start = setTimeout(() => {
+      look(index, "up");
+      setPoked((p) => ({ ...p, [index]: true }));
+    }, 0);
+    const t = setTimeout(() => setPoked((p) => ({ ...p, [index]: false })), POKE_MS);
+    return () => {
+      clearTimeout(start);
+      clearTimeout(t);
+      setPoked((p) => ({ ...p, [index]: false }));
+      rest(index);
+    };
+  }, [active, running, birds]);
 
   // A bird looks up when you come near, and jumps when you tap it.
   const hover = (index: number, event: React.PointerEvent) => {

@@ -24,6 +24,7 @@ export const meta = {
     "One flock per page, under the words and never behind them: the birds are the scene, not the message.",
     "Give the stage the ratio of its backdrop (`ratio`) and the birds' places in percent: they keep their positions at any width.",
     "Keep each bird to its job: the falcon watches, the owl reads, the duck builds, the flamingo answers, the pigeon delivers.",
+    "Make it the page's own: `active` is the bird of the product the reader is on (it looks up and jumps), `greet` has every bird jump once as the flock comes into view, `tempo` makes the moments more frequent.",
     "Turn a moment off with `glance={false}`, `courier={false}` or `react={false}` on a page that already moves.",
   ],
   accessibility: {
