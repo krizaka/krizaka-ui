@@ -34,10 +34,10 @@ describe("sites — the Krizaka family", () => {
     expect(siteById("yasakia").status).toBe("development");
     expect(siteById("yororis").status).toBe("construction");
     expect(siteById("yomizaka").status).toBe("development");
-    // In development, with a dev site each (since 2026-10).
+    // In development, with a www site each.
     for (const id of ["kachizaka", "akinaza"] as const) {
       expect(siteById(id).status).toBe("development");
-      expect(siteById(id).url).toBe(`https://dev.${id}.com`);
+      expect(siteById(id).url).toBe(`https://www.${id}.com`);
     }
     expect(siteById("ui").kind).toBe("open-source");
     expect(siteById("java").repo).toBe("https://github.com/krizaka/krizaka-build");
