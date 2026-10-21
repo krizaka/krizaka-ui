@@ -14,7 +14,7 @@ export default function ActionBarIcons() {
       variant="icons"
       label="Talk about Krizaka Java"
       actions={[
-        { href: `${repo}/discussions`, label: "Discuss", icon: glyph("M4 5h16v11H9l-5 4V5Z") },
+        { href: `https://github.com/krizaka/krizaka-ui/discussions`, label: "Discuss", icon: glyph("M4 5h16v11H9l-5 4V5Z") },
         { href: `${repo}/issues/new?template=idea.yml`, label: "Propose", icon: glyph("M12 3v4M5 12H3m18 0h-2M8 17h8m-6 4h4M12 7a5 5 0 0 0-3 9h6a5 5 0 0 0-3-9Z") },
         { href: `${repo}/issues/new?template=bug.yml`, label: "Report a problem", icon: glyph("M12 4 2.5 20h19L12 4Zm0 6v4m0 3v.1") },
       ]}
