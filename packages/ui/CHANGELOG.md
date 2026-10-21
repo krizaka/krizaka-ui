@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 3.40.1
+
+### Patch Changes
+
+- [#445](https://github.com/krizaka/krizaka-ui/pull/445) [`02bedd2`](https://github.com/krizaka/krizaka-ui/commit/02bedd2173ae66ae331f13a2c3d3b1bbdcc996a6) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - fix(examples): the Progress « Bar sizes » example had zero width in a centred stage (its bars are `w-full`); the Action bar example points at the Discussions that exist.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.40.1
+  - @krizaka/tokens@3.40.1
+
 ## 3.40.0
 
 ### Minor Changes
