@@ -311,7 +311,7 @@ html.light {
   --kz-type-mono-sm-line-height: 1.5;
   --kz-type-mono-sm-weight: 400;
   --kz-type-mono-sm-tracking: 0em;
-  --kz-figures: lining-nums tabular-nums; /* Les chiffres d'une statistique : alignés sur la ligne (pas elzéviriens — Young Serif les dessine en bas de casse par défaut) et de même chasse */
+  --kz-figures: lining-nums tabular-nums; /* Chiffres alignés, même chasse */
 }
 
 /* Densité compacte : [data-density="compact"] sur un sous-arbre resserre les contrôles (tableau dense, console). */
