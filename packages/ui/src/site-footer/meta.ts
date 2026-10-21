@@ -3,7 +3,7 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Site footer",
   summary:
-    "The footer of a Krizaka site: the site's mark and line, its own columns, the family in columns on the Krizaka sites (from `@krizaka/ui/sites`; `family={false}` for an independent product), and the signature line — “A Krizaka company / product / open-source project” — with the version and Montréal.",
+    "The footer of a Krizaka site, one calm band: its own columns beside the family's — Products · Open source (GitHub with them) · Krizaka (our story, the blog, contact) — on the Krizaka sites (`family={false}` for an independent product), then one line: “A Krizaka company / product / open-source project”, the version, Montréal and the legal links. No site block, no link twice.",
   status: "beta",
   category: "navigation",
   platforms: "web",
@@ -12,7 +12,7 @@ export const meta = {
     "The bottom of every page of a Krizaka site: www, ui., java. (the family in columns).",
     "The bottom of a deployed product (dev.<product>): `family={false}` — its own columns, the legal links, the version and one publisher line, no link to another product.",
     "`variant=\"app\"` — inside a signed-in product: one slim line (publisher line, version, legal links), rendered once by the layout, and none where the app shell has a sidebar that holds them.",
-    "`variant=\"docs\"` — under documentation pages: the site's columns in a row on the documentation's width, no site block, no family.",
+    "`variant=\"docs\"` — under documentation pages: the site's columns in a row on the documentation's width, no family.",
     "With `MarketingLayout`'s `footer` slot, under a bar of `@krizaka/ui/nav-bar` with `NavBar.Family`.",
   ],
   whenNotToUse: [
@@ -21,7 +21,7 @@ export const meta = {
   ],
   bestPractices: [
     "Set `current` to the site's id: it chooses the mark, the line, the signature (company, product, open source) and marks the site in the family.",
-    "Two or three own columns at most (`SiteFooter.Column` + `SiteFooter.Link`), never a link to another site of the family: on the Krizaka sites the family columns hold them, on a product (`family={false}`) there is none.",
+    "One or two own columns at most (`SiteFooter.Column` + `SiteFooter.Link`), never a link the family's columns already hold — another site, the story, the blog, contact (www adds none): on the Krizaka sites the family columns hold them, on a product (`family={false}`) there is none.",
     "Pass the version the site runs (`version`, and `env=\"DEV\"` on a dev environment) and the legal links in `legal`.",
     "Pass the words translated: `labels={familyLabels[locale]}` from `@krizaka/ui/sites`.",
   ],

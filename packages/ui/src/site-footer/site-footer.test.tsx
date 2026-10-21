@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 
-import { familyLabels, sites } from "../sites";
+import { companyLinks, familyLabels, sites } from "../sites";
 
 const labelsDescription = () => familyLabels.en.descriptions.orazaka;
 import { axeViolations } from "../test/axe";
@@ -23,9 +23,34 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("contentinfo")).toBeTruthy();
     const family = screen.getByRole("navigation", { name: "Krizaka family" });
     const links = within(family).getAllByRole("link");
-    expect(links.map((a) => a.getAttribute("href"))).toEqual(sites.map((s) => s.url));
-    for (const name of ["Krizaka", "Products", "Open source", "GitHub"]) expect(within(family).getByRole("list", { name })).toBeTruthy();
+    // Products · Open source (GitHub closes it) · Krizaka — the company's pages; the brand's home is the signature's link.
+    expect(links.map((a) => a.getAttribute("href"))).toEqual([...sites.filter((s) => s.id !== "krizaka").map((s) => s.url), ...companyLinks.map((l) => l.url.en)]);
+    expect(within(family).getAllByRole("list").map((l) => l.getAttribute("aria-labelledby") && document.getElementById(l.getAttribute("aria-labelledby")!)?.textContent)).toEqual(["Products", "Open source", "Krizaka"]);
+    expect(within(within(family).getByRole("list", { name: "Krizaka" })).getAllByRole("link").map((a) => a.textContent)).toEqual(["Our story", "Blog", "Contact us"]);
     expect(await axeViolations(container)).toEqual([]);
+  });
+
+  // Peer review (krizaka-ui#434): « too much, a double footer ». One band, one line, nothing twice.
+  it("is one calm band: one contentinfo, no site block, no column that lists only Krizaka, no link twice", () => {
+    const { container } = render(<Footer />);
+    expect(screen.getAllByRole("contentinfo")).toHaveLength(1);
+    const footer = container.querySelector("footer")!;
+    expect(footer.textContent).not.toContain(familyLabels.en.descriptions.orazaka);
+    const hrefs = Array.from(footer.querySelectorAll("a")).map((a) => a.getAttribute("href"));
+    expect(hrefs.filter((h, i) => hrefs.indexOf(h) !== i)).toEqual([]);
+    for (const list of Array.from(footer.querySelectorAll("ul"))) {
+      const only = Array.from(list.querySelectorAll("a")).map((a) => a.getAttribute("href"));
+      expect(only).not.toEqual(["https://www.krizaka.com"]);
+    }
+    // The band, then the line: two children in the frame, not three bands.
+    expect(footer.firstElementChild!.children).toHaveLength(2);
+  });
+
+  it("the company's pages open in the reader's language", () => {
+    render(<Footer labels={familyLabels.fr} />);
+    const company = screen.getByRole("list", { name: "Krizaka" });
+    expect(within(company).getByRole("link", { name: "Notre histoire" }).getAttribute("href")).toBe("https://www.krizaka.com/fr/story");
+    expect(within(company).getByRole("link", { name: "Nous écrire" }).getAttribute("href")).toBe("https://www.krizaka.com/fr/contact");
   });
 
   it("marks the current site and says the statuses in words", () => {

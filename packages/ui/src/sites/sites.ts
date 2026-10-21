@@ -77,6 +77,14 @@ export function sitesByGroup(): { group: SiteGroup; sites: Site[] }[] {
 /** The languages the family's words are written in. */
 export type SiteLocale = "en" | "fr";
 
+/** The company's own pages, the footer's « Krizaka » column (the brand's home is the signature line's link). */
+export type CompanyLinkId = "story" | "blog" | "contact";
+export const companyLinks: readonly { id: CompanyLinkId; url: Record<SiteLocale, string> }[] = [
+  { id: "story", url: { en: "https://www.krizaka.com/story", fr: "https://www.krizaka.com/fr/story" } },
+  { id: "blog", url: { en: "https://blog.krizaka.com", fr: "https://blog.krizaka.com" } },
+  { id: "contact", url: { en: "https://www.krizaka.com/contact", fr: "https://www.krizaka.com/fr/contact" } },
+];
+
 /** The words of the family: the switcher, the footer, each site's one line. */
 export interface FamilyLabels {
   /** The family's name: the switcher's navigation and its button, the footer's navigation (“Krizaka family”). */
@@ -95,6 +103,10 @@ export interface FamilyLabels {
   place: string;
   /** The accessible name of the version (“Version”). */
   version: string;
+  /** The language of these words: the company links open in it. @default "en" */
+  lang?: SiteLocale;
+  /** The company's pages in the footer's « Krizaka » column. @default the English words */
+  company?: Record<CompanyLinkId, string>;
 }
 
 /** The family's words in English and French. Pass `familyLabels[locale]`, or your own translation of the same shape. */
@@ -121,6 +133,8 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
     signature: { company: "A Krizaka company", product: "A Krizaka product", "open-source": "A Krizaka open-source project" },
     place: "Made in Montréal",
     version: "Version",
+    lang: "en",
+    company: { story: "Our story", blog: "Blog", contact: "Contact us" },
   },
   fr: {
     family: "Famille Krizaka",
@@ -144,5 +158,7 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
     signature: { company: "Une compagnie Krizaka", product: "Un produit Krizaka", "open-source": "Un projet open source de Krizaka" },
     place: "Fait à Montréal",
     version: "Version",
+    lang: "fr",
+    company: { story: "Notre histoire", blog: "Blogue", contact: "Nous écrire" },
   },
 };
