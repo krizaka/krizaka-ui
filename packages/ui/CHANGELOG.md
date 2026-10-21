@@ -1,5 +1,20 @@
 # @krizaka/ui
 
+## 3.39.0
+
+### Minor Changes
+
+- [#438](https://github.com/krizaka/krizaka-ui/pull/438) [`5c1be17`](https://github.com/krizaka/krizaka-ui/commit/5c1be17e633ae3133bf539a4f396aca746e54fad) Thanks [@oussamaABID](https://github.com/oussamaABID)! - SiteFooter is one calm band (krizaka-ui#434, peer review: « too much, a double footer »): the site's own columns beside the family's — Products · Open source (GitHub closes it) · Krizaka (our story, the blog, contact, in the reader's language) — then one line: signature, version, Montréal, legal links. The site block (the site's mark and line, which the bar already says) and the column that listed only Krizaka are gone. `@krizaka/ui/sites` adds `companyLinks` and, in `FamilyLabels`, `lang` and `company` (optional; the English words by default). www no longer passes a column of its own.
+
+- [#435](https://github.com/krizaka/krizaka-ui/pull/435) [`9905a43`](https://github.com/krizaka/krizaka-ui/commit/9905a4386e18de2c16a2c55d5fc0e455bc89405e) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Lining figures (ADR-004, krizaka-ui#417): Young Serif draws old-style digits by default, so a statistic's « 4 514 » and « 39 » sat on uneven heights. `--kz-figures` (`lining-nums tabular-nums`) is the token for every figure; the preset makes `tabular-nums` lining too (an explicit `oldstyle-nums` still wins); NumberTicker, the stat band, the price, the chapter and error numbers, the decision numbers and the story's stats read the token; native `fontVariant` asks for `lining-nums`.
+
+### Patch Changes
+
+- [#433](https://github.com/krizaka/krizaka-ui/pull/433) [`9d66d26`](https://github.com/krizaka/krizaka-ui/commit/9d66d260d3f83a30e782f703db1d2b7a66eca2af) Thanks [@oussamaABID](https://github.com/oussamaABID)! - **Cahier, the last pills ([#417](https://github.com/krizaka/krizaka-ui/issues/417)):** `ChipLink`, the kanban's count, the video trimmer's « kept » label, the photo grid's « main » tag, the location picker's chip and button, the step showcase's pause button and the slider's track, range and ticks are square paper (2 px); dots, avatars and thumbs stay round. The guard test covers them.
+- Updated dependencies [[`9905a43`](https://github.com/krizaka/krizaka-ui/commit/9905a4386e18de2c16a2c55d5fc0e455bc89405e)]:
+  - @krizaka/tokens@3.39.0
+  - @krizaka/tailwind@3.39.0
+
 ## 3.38.0
 
 ### Minor Changes
