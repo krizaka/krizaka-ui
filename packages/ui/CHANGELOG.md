@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.41.0
+
+### Minor Changes
+
+- [#448](https://github.com/krizaka/krizaka-ui/pull/448) [`1931976`](https://github.com/krizaka/krizaka-ui/commit/19319768f0bb428cc33e4f18d33d0db604e893bf) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(flock): `active` (the bird the page points at looks up and jumps), `greet` (every bird jumps once as the flock first comes into view) and `tempo` (more frequent glances and deliveries) — the flock can be tied to the page it stands in.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.41.0
+  - @krizaka/tokens@3.41.0
+
 ## 3.40.1
 
 ### Patch Changes
