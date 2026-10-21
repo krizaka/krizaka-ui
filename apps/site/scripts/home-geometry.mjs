@@ -60,7 +60,7 @@ for (const path of PATHS) {
       const f = await page.evaluate(firstScreen);
       if (!f.title) problems.push(`${where}: the title is not on the first screen`);
       if (!f.install) problems.push(`${where}: the install line is not on the first screen`);
-      if (f.ways.join() !== "/components,/foundations,/templates") problems.push(`${where}: the ways in are ${f.ways.join(", ") || "missing"}`);
+      if (f.ways.join() !== "/components,/foundations/tokens,/templates") problems.push(`${where}: the ways in are ${f.ways.join(", ") || "missing"}`);
       if (!phone && (f.waysSeen < 3 || !f.search)) problems.push(`${where}: the three ways in and the search are not all on the first screen (${f.waysSeen} ways, search ${f.search})`);
       if (phone && f.waysSeen < 1) problems.push(`${where}: no way in on the first screen`);
       if (f.extra.length) problems.push(`${where}: the first screen also shows ${f.extra.join(", ")}`);

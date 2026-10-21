@@ -24,7 +24,7 @@ import { HomeSearch } from "./HomeSearch";
 
 const WAYS = [
   { id: "components", path: "/components" },
-  { id: "foundations", path: "/foundations" },
+  { id: "foundations", path: "/foundations/tokens" },
   { id: "templates", path: "/templates" },
 ] as const;
 

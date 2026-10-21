@@ -35,7 +35,7 @@ test("its first screen: one title, the install line, three ways in (components, 
   assert.equal((hero.match(/<h1>/g) ?? []).length, 1);
   assert.match(hero, /<CodeBlock code=\{WEB_INSTALL\}/);
   assert.match(hero, /<HomeSearch /);
-  assert.deepEqual([...landing.matchAll(/\{ id: "(\w+)", path: "(\/\w+)" \}/g)].map((m) => m[2]), ["/components", "/foundations", "/templates"]);
+  assert.deepEqual([...landing.matchAll(/\{ id: "(\w+)", path: "([\w/]+)" \}/g)].map((m) => m[2]), ["/components", "/foundations/tokens", "/templates"]);
   assert.equal((hero.match(/<Button\b/g) ?? []).length, 0, "the ways in are the cards, not a row of buttons");
   assert.match(hero, /<CardGrid [^>]*reveal=\{false\}/, "the first screen is painted at once, never revealed");
 });
