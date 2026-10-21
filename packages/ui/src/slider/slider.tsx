@@ -17,9 +17,9 @@ export const slider = tv({
       "relative flex touch-none select-none items-center data-disabled:cursor-not-allowed data-disabled:opacity-40 " +
       "data-[orientation=horizontal]:h-6 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-40 data-[orientation=vertical]:w-6 data-[orientation=vertical]:flex-col",
     track:
-      "relative grow overflow-hidden rounded-full bg-surface-3 inset-shadow-well " +
+      "relative grow overflow-hidden rounded-sm bg-surface-3 inset-shadow-well " +
       "data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5",
-    range: "absolute rounded-full data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full",
+    range: "absolute rounded-sm data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full",
     thumb:
       "group/thumb relative block h-5 w-5 cursor-grab rounded-full border-2 border-accent bg-fg-on-media shadow-raised transition-[box-shadow,scale] duration-150 " +
       "hover:ring-4 hover:ring-accent/15 focus-visible:outline-hidden focus-visible:focus-ring active:scale-110 active:cursor-grabbing motion-reduce:transition-none motion-reduce:active:scale-100",
@@ -30,7 +30,7 @@ export const slider = tv({
       "group-hover/thumb:opacity-100 group-focus-visible/thumb:opacity-100 group-active/thumb:opacity-100 data-[always]:opacity-100 motion-reduce:transition-none",
     bubbleVertical: "bottom-auto left-full top-1/2 mb-0 ml-3 -translate-x-0 -translate-y-1/2 after:hidden",
     ticks: "pointer-events-none absolute inset-0",
-    tick: "absolute rounded-full bg-border-strong data-[on]:bg-on-accent/70 data-[orientation=horizontal]:top-1/2 data-[orientation=horizontal]:h-1 data-[orientation=horizontal]:w-px data-[orientation=horizontal]:-translate-x-1/2 data-[orientation=horizontal]:-translate-y-1/2 data-[orientation=vertical]:left-1/2 data-[orientation=vertical]:h-px data-[orientation=vertical]:w-1 data-[orientation=vertical]:-translate-x-1/2 data-[orientation=vertical]:translate-y-1/2",
+    tick: "absolute rounded-sm bg-border-strong data-[on]:bg-on-accent/70 data-[orientation=horizontal]:top-1/2 data-[orientation=horizontal]:h-1 data-[orientation=horizontal]:w-px data-[orientation=horizontal]:-translate-x-1/2 data-[orientation=horizontal]:-translate-y-1/2 data-[orientation=vertical]:left-1/2 data-[orientation=vertical]:h-px data-[orientation=vertical]:w-1 data-[orientation=vertical]:-translate-x-1/2 data-[orientation=vertical]:translate-y-1/2",
     marks: "relative h-4 w-full text-[11px] font-medium tabular-nums text-fg-secondary",
     mark: "absolute top-0 -translate-x-1/2 whitespace-nowrap first:translate-x-0 last:-translate-x-full",
   },

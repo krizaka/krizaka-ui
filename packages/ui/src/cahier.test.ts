@@ -37,7 +37,7 @@ describe("Cahier (ADR-004): no template tell in the primitives' classes", () => 
   });
 
   it("the bar, its items and buttons, badges, chips, tabs, the language switch and toasts are square paper, never pills", () => {
-    for (const file of ["nav-bar/nav-bar.tsx", "badge/recipe.ts", "chip/recipe.ts", "tabs/tabs.tsx", "language-switch/language-switch.tsx", "toast/toast.tsx"]) {
+    for (const file of ["nav-bar/nav-bar.tsx", "badge/recipe.ts", "chip/recipe.ts", "chip-link/chip-link.tsx", "tabs/tabs.tsx", "language-switch/language-switch.tsx", "toast/toast.tsx", "kanban/kanban.tsx", "map/location-picker.tsx", "slider/slider.tsx"]) {
       const src = readFileSync(join(SRC, file), "utf8");
       // A dot (h-N w-N, size-N) may stay round; a control or a label may not.
       for (const cls of src.match(/"[^"\n]*rounded-full[^"\n]*"/g) ?? []) {

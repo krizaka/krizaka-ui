@@ -13,9 +13,9 @@ export const locationPicker = tv({
     frame: "relative",
     pin: "pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-full text-accent drop-shadow-md",
     bar: "absolute inset-x-3 bottom-8 z-10 flex flex-wrap items-center justify-between gap-2",
-    chip: "rounded-full border border-border-default bg-surface-1 px-3 py-1.5 text-xs font-semibold tabular-nums text-fg shadow-floating",
+    chip: "rounded-sm border border-border-default bg-surface-1 px-3 py-1.5 text-xs font-semibold tabular-nums text-fg shadow-floating",
     near:
-      "inline-flex h-10 items-center gap-2 rounded-full border border-border-default bg-surface-1 bg-sheen px-4 text-sm font-semibold text-fg shadow-floating inset-shadow-edge " +
+      "inline-flex h-10 items-center gap-2 rounded-sm border border-border-default bg-surface-1 bg-sheen px-4 text-sm font-semibold text-fg shadow-floating inset-shadow-edge " +
       "transition-colors hover:border-border-strong focus-visible:outline-hidden focus-visible:focus-ring disabled:opacity-60",
     status: "text-xs text-fg-secondary data-[tone=danger]:text-fg-danger",
   },

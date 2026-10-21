@@ -193,7 +193,7 @@ export function StepShowcase({ label, steps, device, deviceTitle, autoplay = tru
           <span className="font-semibold text-fg">{current?.title}</span> <span className="text-fg-secondary">{current?.description}</span>
         </p>
         {auto && (
-          <button type="button" onClick={() => setPaused((p) => !p)} aria-pressed={paused} className="mx-auto inline-flex h-8 items-center gap-2 rounded-full border border-border-subtle px-3 text-xs font-medium text-fg-secondary hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring md:mx-0 md:w-fit">
+          <button type="button" onClick={() => setPaused((p) => !p)} aria-pressed={paused} className="mx-auto inline-flex h-8 items-center gap-2 rounded-sm border border-border-subtle px-3 text-xs font-medium text-fg-secondary hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring md:mx-0 md:w-fit">
             <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
               {paused ? <path d="M8 5v14l11-7z" /> : <path d="M7 5h4v14H7zM13 5h4v14h-4z" />}
             </svg>
