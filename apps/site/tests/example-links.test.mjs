@@ -16,3 +16,8 @@ test("no example links to a repository or a Discussions page that does not exist
   const hits = sources.filter(([, code]) => dead.some((re) => re.test(code))).map(([file]) => file);
   assert.deepEqual(hits, []);
 });
+
+test("no example leaves the page: a sample never navigates (the docs would show the site's 404)", () => {
+  const leaving = sources.filter(([, code]) => /window\.location\.(assign|replace|href\s*=)|location\.href\s*=/.test(code)).map(([file]) => file);
+  assert.deepEqual(leaving, []);
+});
