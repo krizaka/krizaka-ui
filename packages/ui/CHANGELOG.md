@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 3.41.1
+
+### Patch Changes
+
+- [#454](https://github.com/krizaka/krizaka-ui/pull/454) [`cc3738c`](https://github.com/krizaka/krizaka-ui/commit/cc3738cde0d17e5821f64c990d00a762237708e1) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/sites`: the products' public addresses are `https://www.<product>.com` (the real app, sign-up closed; the apex answers 308 with www). The `dev.<product>.com` hosts are development hosts: not indexed, they send their pages to www. Every family footer, switcher and card that reads this list now links www (krizaka/.github#119).
+- Updated dependencies []:
+  - @krizaka/tailwind@3.41.1
+  - @krizaka/tokens@3.41.1
+
 ## 3.41.0
 
 ### Minor Changes
