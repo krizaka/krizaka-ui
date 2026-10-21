@@ -27,12 +27,12 @@ export const siteFooter = tv({
       "inline-flex min-h-6 min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5 rounded-md text-sm [overflow-wrap:anywhere] text-fg-secondary no-underline transition-colors hover:text-fg " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:text-fg aria-[current=true]:text-fg aria-[current=true]:font-semibold",
     mark: "flex h-4 w-4 shrink-0 items-center justify-center text-fg",
-    tag: "rounded-full bg-surface-3 px-1.5 py-px text-[10px] font-semibold text-fg-secondary",
+    tag: "rounded-sm bg-surface-3 px-1.5 py-px text-[10px] font-semibold text-fg-secondary",
     bottom: "flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-border-subtle pt-6 text-xs text-fg-secondary",
     signature:
       "inline-flex items-center gap-2 rounded-md font-medium text-fg no-underline hover:text-fg-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     version:
-      "rounded-full border border-border-subtle bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-fg-secondary",
+      "rounded-sm border border-border-subtle bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-fg-secondary",
     legal: "flex flex-wrap items-center gap-x-4 gap-y-2 sm:ml-auto",
   },
   variants: {

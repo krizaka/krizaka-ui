@@ -5,7 +5,7 @@
 import { defineRecipe } from "../recipes/define";
 
 export const badgeRecipe = defineRecipe({
-  base: "inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full font-semibold uppercase tracking-wider",
+  base: "inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-sm font-semibold ",
   variants: {
     tone: {
       neutral: "bg-surface-3 text-fg-secondary",

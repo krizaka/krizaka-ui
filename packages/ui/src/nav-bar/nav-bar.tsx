@@ -54,7 +54,7 @@ export const navBar = tv({
     menuText: "mt-0.5 block line-clamp-2 wrap-break-word text-xs leading-4 text-fg-secondary",
     actions: "ml-auto flex items-center gap-2",
     toggle:
-      "inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-surface-2 text-fg md:hidden " +
+      "inline-flex h-9 w-9 items-center justify-center rounded-sm border border-border-subtle bg-surface-2 text-fg md:hidden " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     mobile: "kz-pop absolute inset-x-0 top-full mt-2 grid gap-1 rounded-2xl border border-border-default bg-surface-1 p-2 shadow-lg md:hidden",
     mobileGroup: "grid gap-0.5 [&+&]:mt-1 [&+&]:border-t [&+&]:border-border-subtle [&+&]:pt-2",
@@ -65,7 +65,7 @@ export const navBar = tv({
     // The family switcher: a chevron attached to the brand, its panel aligned on the bar's left edge.
     family: "hidden md:block",
     familyTrigger:
-      "group/trigger -ml-2 mr-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-fg-secondary transition-colors " +
+      "group/trigger -ml-2 mr-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-sm text-fg-secondary transition-colors " +
       "hover:bg-surface-3 hover:text-fg data-[state=open]:bg-surface-3 data-[state=open]:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     familyViewport:
       "kz-pop absolute left-0 top-full mt-2 h-(--radix-navigation-menu-viewport-height) w-(--radix-navigation-menu-viewport-width) origin-top-left overflow-hidden " +
@@ -78,20 +78,20 @@ export const navBar = tv({
     familyMark: "mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center text-fg",
     familyName: "flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm font-semibold text-fg",
     familyText: "mt-0.5 block text-xs leading-relaxed text-fg-secondary",
-    familyTag: "rounded-full px-1.5 py-px text-[10px] font-semibold",
+    familyTag: "rounded-sm px-1.5 py-px text-[10px] font-semibold",
     mobileFamily: "mt-1 grid gap-2 border-t border-border-subtle px-1 pb-1 pt-3",
     mobileFamilyLink:
       "flex min-h-11 items-center gap-3 rounded-xl px-2 py-2 text-[15px] font-medium text-fg no-underline hover:bg-surface-2 " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring data-current:bg-accent-soft",
     badge:
-      "hidden h-6 shrink-0 items-center gap-1 rounded-full border border-border-subtle bg-surface-2 px-2 font-mono text-[11px] font-medium text-fg-secondary sm:inline-flex",
+      "hidden h-6 shrink-0 items-center gap-1 rounded-sm border border-border-subtle bg-surface-2 px-2 font-mono text-[11px] font-medium text-fg-secondary sm:inline-flex",
     repo:
-      "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-fg-secondary transition-colors hover:bg-surface-3 hover:text-fg " +
+      "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-sm text-fg-secondary transition-colors hover:bg-surface-3 hover:text-fg " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
   },
   variants: {
     floating: {
-      true: { root: "max-w-5xl rounded-full border pl-5 pr-2 data-compact:max-w-4xl" },
+      true: { root: "max-w-5xl rounded-sm border pl-5 pr-2 data-compact:max-w-4xl" },
       false: { root: "border-b px-4 md:px-6" },
     },
   },

@@ -6,7 +6,7 @@ export const chipRecipe = defineRecipe({
   slots: {
     group: "flex flex-wrap items-center gap-2 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch",
     base:
-      "inline-flex shrink-0 select-none items-center justify-center gap-1.5 whitespace-nowrap rounded-full border font-semibold transition-colors " +
+      "inline-flex shrink-0 select-none items-center justify-center gap-1.5 whitespace-nowrap rounded-sm border font-semibold transition-colors " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-40 " +
       "border-border-default bg-surface-1 text-fg-secondary hover:border-border-strong hover:text-fg " +
       "data-[state=on]:border-accent data-[state=on]:bg-accent-soft data-[state=on]:text-fg",

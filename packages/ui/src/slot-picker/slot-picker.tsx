@@ -18,7 +18,7 @@ export const slotPicker = tv({
     daySub: "text-[11px] tabular-nums text-fg-muted",
     times: "m-0 flex list-none flex-wrap gap-2 p-0",
     time:
-      "inline-flex min-h-11 min-w-[4.75rem] items-center justify-center gap-1.5 rounded-full border border-border-default bg-surface-1 px-4 text-sm font-semibold tabular-nums text-fg no-underline " +
+      "inline-flex min-h-11 min-w-[4.75rem] items-center justify-center gap-1.5 rounded-sm border border-border-default bg-surface-1 px-4 text-sm font-semibold tabular-nums text-fg no-underline " +
       "transition-colors hover:border-accent/60 hover:bg-accent-soft focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
       "aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-on-accent disabled:cursor-not-allowed disabled:opacity-50",
     note: "text-[11px] font-medium text-fg-secondary group-aria-pressed:text-on-accent",

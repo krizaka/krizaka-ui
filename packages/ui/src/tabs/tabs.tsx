@@ -25,14 +25,14 @@ export const tabs = tv({
       /* The section of a page: a line under the list, the active tab underlined in the accent. */
       underline: {
         list:
-          "gap-1 border-border-default data-[orientation=horizontal]:border-b data-[orientation=vertical]:border-r before:rounded-full before:bg-accent " +
+          "gap-1 border-border-default data-[orientation=horizontal]:border-b data-[orientation=vertical]:border-r before:rounded-sm before:bg-accent " +
           "data-[orientation=horizontal]:before:-bottom-px data-[orientation=horizontal]:before:left-0 data-[orientation=horizontal]:before:h-0.5 " +
           "data-[orientation=horizontal]:before:w-(--kz-ind-w) data-[orientation=horizontal]:before:translate-x-(--kz-ind-x) " +
           "data-[orientation=vertical]:before:-right-px data-[orientation=vertical]:before:top-0 data-[orientation=vertical]:before:w-0.5 " +
           "data-[orientation=vertical]:before:h-(--kz-ind-h) data-[orientation=vertical]:before:translate-y-(--kz-ind-y)",
         trigger:
           "relative rounded-md px-3 py-2.5 text-sm text-fg-secondary hover:text-fg data-[state=active]:text-fg " +
-          "after:absolute after:rounded-full after:bg-transparent data-[state=active]:after:bg-accent " +
+          "after:absolute after:rounded-sm after:bg-transparent data-[state=active]:after:bg-accent " +
           "data-[orientation=horizontal]:after:inset-x-2 data-[orientation=horizontal]:after:-bottom-px data-[orientation=horizontal]:after:h-0.5 " +
           "data-[orientation=vertical]:justify-start data-[orientation=vertical]:after:inset-y-1.5 data-[orientation=vertical]:after:-right-px data-[orientation=vertical]:after:w-0.5 " +
           "group-data-[indicator=on]/tabs:data-[state=active]:after:bg-transparent",
@@ -52,9 +52,9 @@ export const tabs = tv({
         list:
           "gap-1.5 overflow-x-auto overflow-y-hidden overscroll-x-contain pt-1 -mt-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden " +
           "before:left-0 before:top-0 before:h-(--kz-ind-h) before:w-(--kz-ind-w) before:translate-x-(--kz-ind-x) before:translate-y-(--kz-ind-y) " +
-          "before:rounded-full before:border before:border-accent before:bg-accent-soft",
+          "before:rounded-sm before:border before:border-accent before:bg-accent-soft",
         trigger:
-          "h-9 rounded-full border border-border-default bg-surface-1 px-4 text-xs text-fg-secondary hover:border-border-strong hover:text-fg " +
+          "h-9 rounded-sm border border-border-default bg-surface-1 px-4 text-xs text-fg-secondary hover:border-border-strong hover:text-fg " +
           "data-[state=active]:border-accent data-[state=active]:bg-accent-soft data-[state=active]:text-fg " +
           "group-data-[indicator=on]/tabs:data-[state=active]:border-transparent group-data-[indicator=on]/tabs:data-[state=active]:bg-transparent",
       },

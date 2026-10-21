@@ -10,7 +10,7 @@ export const languageSwitch = tv({
   slots: {
     root: "relative inline-flex",
     trigger:
-      "group/language inline-flex h-9 shrink-0 select-none items-center gap-1.5 rounded-full px-2.5 font-mono text-xs font-semibold text-fg-secondary transition-colors " +
+      "group/language inline-flex h-9 shrink-0 select-none items-center gap-1.5 rounded-sm px-2.5 font-mono text-xs font-semibold text-fg-secondary transition-colors " +
       "hover:bg-surface-3 hover:text-fg aria-expanded:bg-surface-3 aria-expanded:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     glyph: "h-4 w-4 shrink-0",
     panel:
@@ -20,9 +20,9 @@ export const languageSwitch = tv({
       "flex min-h-9 items-center justify-between gap-6 rounded-lg px-2.5 py-2 text-sm font-medium text-fg no-underline outline-hidden transition-colors " +
       "hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:ring-2 focus-visible:ring-ring aria-[current=true]:bg-accent-soft",
     check: "h-4 w-4 shrink-0 text-fg-accent",
-    inline: "inline-flex items-center gap-1 rounded-full border border-border-subtle bg-surface-2/60 p-0.5",
+    inline: "inline-flex items-center gap-1 rounded-sm border border-border-subtle bg-surface-2/60 p-0.5",
     inlineLink:
-      "inline-flex min-h-9 items-center rounded-full px-3 text-sm font-medium text-fg-secondary no-underline transition-colors hover:text-fg " +
+      "inline-flex min-h-9 items-center rounded-sm px-3 text-sm font-medium text-fg-secondary no-underline transition-colors hover:text-fg " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current=true]:bg-surface-3 aria-[current=true]:text-fg",
   },
 });

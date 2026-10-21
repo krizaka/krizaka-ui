@@ -15,7 +15,7 @@ export const chipRow = tv({
       "m-0 flex list-none snap-x snap-proximity gap-2 overflow-x-auto p-0 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden " +
       "[mask-image:linear-gradient(to_right,#000_calc(100%-2rem),transparent)] md:flex-wrap md:overflow-visible md:pb-0 md:[mask-image:none]",
     item: "snap-start",
-    badge: "rounded-full bg-surface-3 px-1.5 py-0.5 text-[0.625rem] font-semibold leading-none text-fg-muted",
+    badge: "rounded-sm bg-surface-3 px-1.5 py-0.5 text-[0.625rem] font-semibold leading-none text-fg-muted",
   },
 });
 
