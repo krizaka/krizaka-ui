@@ -52,6 +52,8 @@ jobs:
           key: turbo-check-${{ github.sha }}
           restore-keys: turbo-check-
       - run: pnpm turbo run check --filter='!@krizaka/site'   # the documentation site has its own job (below)
+      # tools/brand-films/v3's tests run its Python helpers (numpy, scipy, Pillow): the distribution's packages (PEP 668).
+      - run: apt-get update -qq && apt-get install -y -qq --no-install-recommends python3-numpy python3-scipy python3-pil > /dev/null
       - run: pnpm test:tools   # tools/ (the inventory): node:test, no build
       - name: Upload the screenshot diffs
         if: failure()
