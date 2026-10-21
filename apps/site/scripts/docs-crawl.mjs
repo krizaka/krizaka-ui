@@ -392,7 +392,9 @@ async function interact(page, note) {
     // A « Copy » button inside an example is sample content (a tooltip's trigger), unless it sits in a code block.
     const sample = await btn.evaluate((b) => Boolean(b.closest(".kz-live-example, .kz-catalog-live")) && !b.parentElement?.querySelector("pre, code") && !b.closest("figure, [data-rehype-pretty-code-figure]")).catch(() => false);
     if (sample) continue;
-    await btn.scrollIntoViewIfNeeded({ timeout: 1000 }).catch(() => {});
+    // To the middle of the screen: « visible » is not enough on a phone, where a fixed bar (the site's RailNav) covers the bottom edge
+    // and the forced press would land on the bar, not on the button.
+    await btn.evaluate((b) => b.scrollIntoView({ block: "center", inline: "nearest", behavior: "instant" })).catch(() => {});
     if (!(await btn.isVisible().catch(() => false))) continue;
     try {
       await page.evaluate(() => navigator.clipboard.writeText("__empty__"));
