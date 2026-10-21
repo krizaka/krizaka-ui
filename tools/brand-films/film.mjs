@@ -181,6 +181,8 @@ export function vtt(lang, cues = FILM.cues) {
  */
 export const AMBIENT = {
   name: "home-ambient",
+  /** The same valley and ridge without the birds: the home lays the live Flock over it. */
+  valleyName: "home-valley",
   seconds: 12,
   fps: 30,
   /** Where the page shows it: 16:9 on wide screens, 4:5 on phones. Encoded smaller than the stage (it is a backdrop). */

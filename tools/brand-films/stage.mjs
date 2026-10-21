@@ -173,9 +173,10 @@ export function drawable(svg) {
 /**
  * The home's ambient loop: the valley held still, the five on the ridge breathing and blinking, one small gesture each
  * in turn, a light across the valley once. No text. Its top and bottom melt into the page's surface (`theme`), so it
- * sits in the hero's backdrop instead of in a box.
+ * sits in the hero's backdrop instead of in a box. `birds: false` is the valley and its ridge alone — the home puts the live
+ * `Flock` (krizaka-ui `Flock`) on it.
  */
-export function ambientHtml({ kit, aspect, theme = "dark" }) {
+export function ambientHtml({ kit, aspect, theme = "dark", birds = true }) {
   const L = layout(aspect);
   const [width, height] = FILM.aspects[aspect];
   const k = AMBIENT.seconds / 8;
@@ -192,7 +193,7 @@ export function ambientHtml({ kit, aspect, theme = "dark" }) {
     `<div class="layer bf-world">${kit.landscape({ tone: "own", flock: false, phoenix: L.phoenix, animated: true, fade: false, position: "absolute" })}</div>`,
     `<svg class="layer bf-ridge" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none"><path d="${L.ridge}" fill="var(--kz-surface-0)"/><path d="${L.ridgeEdge}" stroke="${theme === "light" ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.10)"}" stroke-width="2" fill="none"/></svg>`,
   ];
-  FILM.cast.forEach((bird, i) => {
+  (birds ? FILM.cast : []).forEach((bird, i) => {
     const a = L.actors[bird];
     const svg = dress(kit.mascot(bird), { view: birdLoops()[bird].view, uid: bird });
     body.push(`<div class="bf-actor bf-actor-${bird}" style="left:${a.x - a.size / 2}px; top:${a.y - a.size / 2}px; width:${a.size}px; height:${a.size}px">${svg}</div>`);

@@ -101,6 +101,10 @@ jobs:
         run: |
           curl -fsS -o /dev/null http://localhost:4600/ || { python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 & sleep 2; }
           node apps/site/scripts/home-geometry.mjs --base http://localhost:4600 --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')"
+      - name: The flock moves with motion allowed and is still under reduced motion
+        run: |
+          curl -fsS -o /dev/null http://localhost:4600/ || { python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 & sleep 2; }
+          node apps/site/scripts/motion-check.mjs --base http://localhost:4600 --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')"
 
   realtime:
     # @krizaka/realtime against real servers: two buses per adapter standing for two app instances (PostgreSQL

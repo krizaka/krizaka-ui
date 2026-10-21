@@ -229,18 +229,19 @@ export const AMBIENT_ENC = {
   webm: ["-c:v", "libvpx-vp9", "-crf", "40", "-b:v", "0", "-row-mt", "1", "-deadline", "good", "-cpu-used", "1", "-pix_fmt", "yuv420p", "-an"],
 };
 
-async function renderAmbient(browser, kit, o, work, report) {
+async function renderAmbient(browser, kit, o, work, report, { birds = true } = {}) {
+  const name = birds ? AMBIENT.name : AMBIENT.valleyName;
   const out = join(o.out, "ambient");
   mkdirSync(out, { recursive: true });
   for (const [aspect, [w, h]] of Object.entries(AMBIENT.aspects)) {
     for (const theme of ["dark", "light"]) {
       const t0 = Date.now();
-      const st = await stage(browser, work, `ambient-${aspect}-${theme}`, ambientHtml({ kit, aspect, theme }), FILM.aspects[aspect]);
+      const st = await stage(browser, work, `ambient-${aspect}-${theme}`, ambientHtml({ kit, aspect, theme, birds }), FILM.aspects[aspect]);
       const dir = join(work, `ambient-${aspect}-${theme}`);
       const { frames, seamless, db } = await framesToDir(st, dir, { seconds: AMBIENT.seconds, fps: AMBIENT.fps, alpha: false });
       await st.close();
       if (!seamless) throw new Error(`ambient ${aspect} ${theme}: the last frame does not meet the first`);
-      const base = join(out, `${AMBIENT.name}-${aspect}-${theme}`);
+      const base = join(out, `${name}-${aspect}-${theme}`);
       const seq = ["-framerate", String(AMBIENT.fps), "-i", join(dir, "%05d.png"), "-vf", `scale=${w}:${h}:flags=lanczos`];
       await ffmpeg([...seq, ...AMBIENT_ENC.mp4, `${base}.mp4`]);
       await ffmpeg([...seq, ...AMBIENT_ENC.webm, `${base}.webm`]);
@@ -303,6 +304,7 @@ export async function main(argv) {
     if (o.only.includes("loops")) await renderLoops(browser, kit, o, work, report);
     if (o.only.includes("film")) await renderFilm(browser, kit, o, work, report);
     if (o.only.includes("ambient")) await renderAmbient(browser, kit, o, work, report);
+    if (o.only.includes("ambient-valley")) await renderAmbient(browser, kit, o, work, report, { birds: false });
   } finally {
     await browser.close();
     rmSync(work, { recursive: true });
