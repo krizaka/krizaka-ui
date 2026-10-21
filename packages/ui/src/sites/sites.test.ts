@@ -11,16 +11,16 @@ describe("sites — the Krizaka family", () => {
     expect(new Set(sites.map((s) => s.url)).size).toBe(sites.length);
   });
 
-  it("names the family's addresses: www, dev.<product>, ui., java., GitHub", () => {
+  it("names the family's addresses: www, www.<product>, ui., java., GitHub", () => {
     expect(sites.map((s) => s.host)).toEqual([
       "www.krizaka.com",
-      "dev.orazaka.com",
-      "dev.orochia.com",
-      "dev.yasakia.com",
-      "dev.yororis.com",
-      "dev.yomizaka.com",
-      "dev.kachizaka.com",
-      "dev.akinaza.com",
+      "www.orazaka.com",
+      "www.orochia.com",
+      "www.yasakia.com",
+      "www.yororis.com",
+      "www.yomizaka.com",
+      "www.kachizaka.com",
+      "www.akinaza.com",
       "ui.krizaka.com",
       "java.krizaka.com",
       "krizaka.github.io/krizaka-motion",
@@ -34,10 +34,10 @@ describe("sites — the Krizaka family", () => {
     expect(siteById("yasakia").status).toBe("development");
     expect(siteById("yororis").status).toBe("construction");
     expect(siteById("yomizaka").status).toBe("development");
-    // In development, with a dev site each (since 2026-10).
+    // In development, with a www site each.
     for (const id of ["kachizaka", "akinaza"] as const) {
       expect(siteById(id).status).toBe("development");
-      expect(siteById(id).url).toBe(`https://dev.${id}.com`);
+      expect(siteById(id).url).toBe(`https://www.${id}.com`);
     }
     expect(siteById("ui").kind).toBe("open-source");
     expect(siteById("java").repo).toBe("https://github.com/krizaka/krizaka-build");
