@@ -1,43 +1,32 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
-import { Sparkline } from "@krizaka/charts/sparkline";
-import { Button } from "@krizaka/ui/button";
 import { CardGrid } from "@krizaka/ui/card-grid";
 import { CodeBlock } from "@krizaka/ui/code-block";
 import { LinkCard } from "@krizaka/ui/link-card";
-import { NumberTicker } from "@krizaka/ui/number-ticker";
 import { familyLabels } from "@krizaka/ui/sites";
-import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "@krizaka/ui/tabs";
 import Link from "next/link";
 
 import { familyLinks } from "@/lib/family-links";
-import { githubStars, showStars } from "@/lib/github-stars";
 import { format, getDictionary, type Locale } from "@/lib/i18n";
 import { WEB_INSTALL } from "@/lib/install";
-import { npmDownloads, sumKnown } from "@/lib/npm-downloads";
-import { catalogEntries, catalogFamilies } from "@/lib/ui-catalog";
-import { FILTER_KEYS, JOBS, PATTERNS } from "@/lib/ui-ia";
-import { PLAYGROUNDS } from "@/lib/ui-playgrounds";
-import { getRegistryItem, getRegistryItems } from "@/lib/ui-registry";
+import { npmDownloads } from "@/lib/npm-downloads";
+import { getRegistryItems } from "@/lib/ui-registry";
 import { localePath } from "@/lib/urls";
 
-import { FamilyCards } from "../docs/FamilyCards";
-import { PlayStage } from "../docs/StageFrame";
-import { HeroKit } from "./HeroKit";
-import { HomeStudio, SceneSweep } from "./HomeStudio";
-import { ProductScene } from "./ProductScene";
+import { HomeSearch } from "./HomeSearch";
 
-/* The home of ui.krizaka.com — « Touch it », « Built with it », « Play with it », then the kit:
-   1. the hero: who it is for, the install line to copy, the two ways in, the figures (registries, npm, GitHub — read at
-      build, a figure that could not be read is not shown) and, beside it, the live kit — real components under the
-      identity and the theme a visitor picks (HeroKit; the identity is the same one the dock and the scene wear);
-   2. the scene: one product on the web and on a phone, both screens composed from the real components, re-skinned
-      live by the identity dock that floats at the bottom while the studio is in view (the one wow);
-   3. the playground: the component-page stage (props, web · iOS · Android, the code) for a few components, under the
-      same identity;
-   4. the families of the catalogue, live covers and counts from the registry;
-   5. where each package lives. */
+/* The home of ui.krizaka.com — the calmest page of the family (Cahier, ADR-004; peer review, krizaka-ui#434: « very AI
+   and overloaded »). The first screen holds four things and nothing more: what it is (one title, one line), the install
+   line, the three ways in (components, foundations, templates) and the search. Under it, quietly: where each package
+   lives, and the rest of the family. No figures, no live kit, no scene, no playground: each component's page has its
+   own stage. Checked by tests/home.test.mjs and, in a browser, scripts/home-geometry.mjs. */
+
+const WAYS = [
+  { id: "components", path: "/components" },
+  { id: "foundations", path: "/foundations" },
+  { id: "templates", path: "/templates" },
+] as const;
 
 const PACKAGES: { name: string; path?: string; dir: string }[] = [
   { name: "@krizaka/ui", path: "/components", dir: "ui" },
@@ -62,121 +51,48 @@ function short(text: string): string {
   return `${clause.slice(0, 88).replace(/\s+\S*$/, "")}…`;
 }
 
-/** The workspace packages published on npm (not private): what "packages on npm" counts. */
-function publishedPackages(): { dir: string; description: string }[] {
+/** The descriptions of the workspace packages published on npm (not private). */
+function descriptions(): Map<string, string> {
   const root = path.join(process.cwd(), "..", "..", "packages");
-  return readdirSync(root).flatMap((dir) => {
-    try {
-      const pkg = JSON.parse(readFileSync(path.join(root, dir, "package.json"), "utf8")) as { private?: boolean; description?: string };
-      return pkg.private ? [] : [{ dir, description: short(pkg.description ?? "") }];
-    } catch {
-      return [];
-    }
-  });
+  return new Map(
+    readdirSync(root).flatMap((dir) => {
+      try {
+        const pkg = JSON.parse(readFileSync(path.join(root, dir, "package.json"), "utf8")) as { private?: boolean; description?: string };
+        return pkg.private ? [] : [[dir, short(pkg.description ?? "")] as [string, string]];
+      } catch {
+        return [];
+      }
+    }),
+  );
 }
 
 export async function Landing({ locale }: { locale: Locale }) {
-  const all = getDictionary(locale);
-  const t = all.landing;
-  const items = getRegistryItems().filter((item) => item.status !== "deprecated");
-  const published = publishedPackages();
-  const about = new Map(published.map((p) => [p.dir, p.description]));
-  const count = items.length;
-  // Read from api.npmjs.org and api.github.com at build; what could not be read is not shown (lib/npm-downloads.ts, lib/github-stars.ts).
-  const [downloads, stars] = await Promise.all([npmDownloads(PACKAGES.map((p) => p.name)), githubStars("krizaka/krizaka-ui")]);
-  const weeklyTotal = sumKnown(PACKAGES.map((p) => downloads.get(p.name)?.weekly));
-  const figures = [
-    { id: "components", value: count, label: t.facts.components },
-    { id: "native", value: items.filter((item) => item.platforms !== "web").length, label: t.facts.native },
-    ...(weeklyTotal === undefined ? [] : [{ id: "downloads", value: weeklyTotal, label: t.facts.downloads }]),
-    ...(showStars(stars) ? [{ id: "stars", value: stars, label: t.facts.stars }] : []),
-  ];
-  const entries = catalogEntries(locale, (name) => format(all.docs.ia.catalog.preview, { name }));
-  const families = catalogFamilies(entries, FILTER_KEYS);
-  const titleOf = (key: string) =>
-    (JOBS as readonly string[]).includes(key) ? all.docs.ia.jobs[key as (typeof JOBS)[number]].title : (PATTERNS as readonly string[]).includes(key) ? all.docs.ia.patterns[key as (typeof PATTERNS)[number]].title : all.docs.ia.groups.templates.title;
-  const playable = Object.keys(PLAYGROUNDS) as (keyof typeof PLAYGROUNDS)[];
+  const t = getDictionary(locale).landing;
+  const count = getRegistryItems().filter((item) => item.status !== "deprecated").length;
+  const about = descriptions();
+  // Read from api.npmjs.org at build; a package whose downloads could not be read says nothing (lib/npm-downloads.ts).
+  const downloads = await npmDownloads(PACKAGES.map((p) => p.name));
 
   return (
     <div className="kz-home not-prose">
-      <HomeStudio
-        words={{ ...t.dock, browse: format(t.dock.browse, { count }), start: t.start, startHref: localePath(locale, "/installation"), browseHref: localePath(locale, "/components") }}
-        lead={
-            <header className="kz-home-hero">
-              <div className="kz-home-hero-text">
-                <p className="kz-land-eyebrow">{t.eyebrow}</p>
-                <h1>{t.title}</h1>
-                <p className="kz-land-lead">{format(t.lead, { count })}</p>
-                <div className="kz-home-install" aria-label={t.install}>
-                  <CodeBlock code={WEB_INSTALL} language="bash" copyLabel={t.copy} copiedLabel={t.copied} />
-                </div>
-                <div className="kz-home-actions">
-                  <Button asChild variant="primary" size="lg">
-                    <Link href={localePath(locale, "/installation")}>{t.start}</Link>
-                  </Button>
-                  <Button asChild variant="secondary" size="lg">
-                    <Link href={localePath(locale, "/components")}>{format(t.dock.browse, { count })}</Link>
-                  </Button>
-                </div>
-                <dl className="kz-land-figures">
-                  {figures.map((f) => (
-                    <div key={f.id} data-figure={f.id}>
-                      <dt>{f.label}</dt>
-                      <dd>
-                        <NumberTicker value={f.value} locale={locale} />
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-              <HeroKit words={t.kit} />
-            </header>
-        }
-      >
-        <section className="kz-home-scene" id="scene" aria-label={t.scene.parts}>
-          <SceneSweep />
-          <ProductScene />
-          <p className="kz-home-note">{t.scene.parts}</p>
-        </section>
-
-        <section className="kz-home-section" aria-labelledby="home-play">
-          <h2 id="home-play">{t.play.title}</h2>
-          <p className="kz-land-sub">{t.play.lead}</p>
-          <TabsRoot defaultValue="button" variant="pills" className="kz-home-play">
-            <TabsList aria-label={t.play.pick}>
-              {playable.map((name) => (
-                <TabsTrigger key={name} value={name}>
-                  {getRegistryItem(name).title}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            {playable.map((name) => (
-              <TabsContent key={name} value={name}>
-                <PlayStage item={getRegistryItem(name)} locale={locale} />
-              </TabsContent>
+      <header className="kz-home-hero">
+        <h1>{t.title}</h1>
+        <p className="kz-land-lead">{format(t.lead, { count })}</p>
+        <div className="kz-home-install" aria-label={t.install}>
+          <CodeBlock code={WEB_INSTALL} language="bash" copyLabel={t.copy} copiedLabel={t.copied} />
+        </div>
+        <nav className="kz-home-ways" aria-label={t.ways.label}>
+          <CardGrid min={200} columns={3} reveal={false}>
+            {WAYS.map((w) => (
+              <LinkCard key={w.id} href={localePath(locale, w.path)} title={t.ways[w.id].title} description={format(t.ways[w.id].description, { count })} titleAs="h2" linkAs={Link} />
             ))}
-          </TabsRoot>
-        </section>
-
-        <section className="kz-home-section" aria-labelledby="home-families">
-          <div className="kz-home-head">
-            <div>
-              <h2 id="home-families">{t.families.title}</h2>
-              <p className="kz-land-sub">{t.families.lead}</p>
-            </div>
-            <Link className="kz-home-more" href={localePath(locale, "/components")}>
-              {format(t.families.all, { count })} →
-            </Link>
-          </div>
-          <FamilyCards families={families} titles={Object.fromEntries(families.map((family) => [family.key, titleOf(family.key)]))} hrefs={Object.fromEntries(families.map((family) => [family.key, `${localePath(locale, "/components")}?group=${family.key}#catalog-list`]))} />
-        </section>
-      </HomeStudio>
+          </CardGrid>
+        </nav>
+        <HomeSearch label={t.search.label} placeholder={t.search.placeholder} />
+      </header>
 
       <section className="kz-home-section" aria-labelledby="land-packages">
         <h2 id="land-packages">{t.packages.title}</h2>
-        <div className="kz-land-install" aria-label={t.install}>
-          <CodeBlock code={WEB_INSTALL} language="bash" copyLabel={t.copy} copiedLabel={t.copied} />
-        </div>
         <ul className="kz-land-packages">
           {PACKAGES.map((p) => (
             <li key={p.name}>
@@ -184,12 +100,7 @@ export async function Landing({ locale }: { locale: Locale }) {
                 <code>{p.name}</code>
               </Link>
               <span>{about.get(p.dir)}</span>
-              {downloads.get(p.name) ? (
-                <span className="kz-land-downloads">
-                  {downloads.get(p.name)?.series ? <Sparkline data={downloads.get(p.name)?.series ?? []} variant="area" width={96} height={24} title={`${p.name} — ${t.packages.trend}`} /> : null}
-                  {format(t.packages.weekly, { count: new Intl.NumberFormat(locale).format(downloads.get(p.name)?.weekly ?? 0) })}
-                </span>
-              ) : null}
+              {downloads.get(p.name) ? <span className="kz-land-downloads">{format(t.packages.weekly, { count: new Intl.NumberFormat(locale).format(downloads.get(p.name)?.weekly ?? 0) })}</span> : null}
             </li>
           ))}
         </ul>
@@ -200,7 +111,6 @@ export async function Landing({ locale }: { locale: Locale }) {
 
       <section className="kz-home-section" aria-labelledby="land-family">
         <h2 id="land-family">{t.family.title}</h2>
-        <p className="kz-land-sub">{t.family.lead}</p>
         <CardGrid min={240} columns={3}>
           {familyLinks("ui").map((site) => (
             <LinkCard key={site.id} href={site.url} title={site.name} description={familyLabels[locale].descriptions[site.id]} meta={site.host} />

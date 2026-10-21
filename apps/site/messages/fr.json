@@ -630,306 +630,37 @@
     }
   },
   "landing": {
-    "eyebrow": "Krizaka UI · open source",
-    "title": "Le kit derrière chaque produit Krizaka.",
-    "lead": "{count} composants pour React et React Native, ceux d’Orazaka, d’Orochia et de Yomizaka. Changez l’identité ou le thème : les mêmes composants changent de peau par leurs seuls tokens.",
+    "title": "Les composants derrière chaque produit Krizaka.",
+    "lead": "{count} composants pour React et React Native, avec les tokens, les polices et les icônes qu’ils portent. Open source.",
     "install": "Installer",
     "copy": "Copier",
     "copied": "Copié",
-    "start": "Démarrer",
-    "browse": "Parcourir les composants",
-    "facts": {
-      "components": "composants",
-      "native": "aussi sur iOS et Android",
-      "downloads": "téléchargements npm la semaine dernière",
-      "stars": "étoiles GitHub"
+    "ways": {
+      "label": "Par où entrer",
+      "components": {
+        "title": "Composants",
+        "description": "Les {count}, rangés par ce que vous construisez : une page, un formulaire, un chat, une carte."
+      },
+      "foundations": {
+        "title": "Fondations",
+        "description": "Couleur, typographie, espacement, mouvement : les tokens que lit chaque composant."
+      },
+      "templates": {
+        "title": "Modèles",
+        "description": "Des écrans entiers composés des composants, prêts à copier."
+      }
     },
-    "kit": {
-      "label": "Le kit, en direct",
-      "hint": "Ce sont les vrais composants, pas une image.",
-      "identity": "Identité",
-      "theme": "Thème",
-      "themes": {
-        "dark": "Sombre",
-        "light": "Clair"
-      },
-      "card": {
-        "title": "Quart de nuit — montage final",
-        "status": "Prêt",
-        "upload": "Envoi",
-        "eta": "Environ 1 min restante",
-        "subtitles": "Sous-titres en français",
-        "quality": "Qualité",
-        "draft": "Enregistrer le brouillon",
-        "publish": "Publier",
-        "published": "Publié"
-      },
-      "code": "Tout le changement :"
+    "search": {
+      "label": "Chercher dans la documentation",
+      "placeholder": "Chercher un composant, un token, un guide…"
     },
     "packages": {
       "title": "Où vivent les pièces",
       "source": "Code source et notes de version sur GitHub",
-      "weekly": "{count} / semaine sur npm",
-      "trend": "Téléchargements des 12 dernières semaines"
-    },
-    "dock": {
-      "label": "Porter une identité",
-      "taglines": {
-        "orazaka": "IA souveraine",
-        "orochia": "Vidéo de créateurs",
-        "yomizaka": "Documents",
-        "krizaka": "Par défaut"
-      },
-      "browse": "Parcourir les {count} composants"
-    },
-    "scene": {
-      "label": "{name}, construit avec Krizaka UI",
-      "window": "{name} sur le web",
-      "phone": "{name} sur un téléphone",
-      "parts": "Les mêmes RailNav, AppHeader, Stat, LineChart et DataTable sur le web ; Chat, VerticalVideo et DocumentViewer sur le téléphone.",
-      "menu": "Ouvrir le menu",
-      "close": "Fermer le menu",
-      "collapse": "Replier",
-      "expand": "Déplier",
-      "products": {
-        "orazaka": {
-          "title": "Tâches",
-          "sub": "Tout ce que vos packs ont fait aujourd’hui",
-          "action": "Nouvelle tâche",
-          "stats": [
-            {
-              "label": "Exécutions du jour",
-              "hint": "+12 % sur hier"
-            },
-            {
-              "label": "Minutes GPU",
-              "hint": "à la demande"
-            },
-            {
-              "label": "Dépense",
-              "hint": "sur 5,00 $ par jour"
-            }
-          ],
-          "chart": {
-            "title": "Exécutions par heure",
-            "description": "Aujourd’hui, tous les packs",
-            "x": "Heure",
-            "series": "Exécutions"
-          },
-          "table": {
-            "caption": "Tâches récentes",
-            "name": "Tâche",
-            "detail": "Modèle",
-            "status": "État",
-            "rows": [
-              "Transcription du balado",
-              "Résumés du catalogue",
-              "Voix de la bande-annonce"
-            ],
-            "states": [
-              "En cours",
-              "Terminé",
-              "Échec"
-            ]
-          },
-          "phone": {
-            "messages": [
-              "Résume les trois contrats fournisseurs et signale ce qui sort de l’ordinaire.",
-              "Deux sont standards. Le troisième se renouvelle seul sauf résiliation 90 jours avant son terme.",
-              "Rédige la lettre de résiliation, en français et en anglais.",
-              "La voici, les deux versions, prêtes à signer."
-            ],
-            "typing": "Orazaka écrit",
-            "placeholder": "Message",
-            "send": "Envoyer"
-          }
-        },
-        "orochia": {
-          "nav": [
-            "Accueil",
-            "Studio",
-            "Revenus",
-            "Enchères",
-            "Réglages"
-          ],
-          "title": "Revenus",
-          "sub": "6 derniers mois, avant frais",
-          "action": "Nouvelle vidéo",
-          "stats": [
-            {
-              "label": "Revenus",
-              "hint": "+24 %"
-            },
-            {
-              "label": "Soutiens",
-              "hint": "+9 cette semaine"
-            },
-            {
-              "label": "Vues",
-              "hint": "+3,1 k"
-            }
-          ],
-          "chart": {
-            "title": "Ventes de vidéos",
-            "description": "Par mois, avant frais",
-            "x": "Mois",
-            "series": "Ventes"
-          },
-          "table": {
-            "caption": "Vidéos récentes",
-            "name": "Vidéo",
-            "detail": "Ventes",
-            "status": "État",
-            "rows": [
-              "Tournage de nuit, partie 2",
-              "Toit à l’aube",
-              "Séance en studio"
-            ],
-            "states": [
-              "En cours",
-              "Payée",
-              "Brouillon"
-            ]
-          },
-          "phone": {
-            "title": "Vidéo : Tournage de nuit, partie 2",
-            "caption": "Le toit, la pluie, la dernière prise à l’aube.",
-            "disclosure": "Générée par IA",
-            "verified": "Vérifiée",
-            "credit": "Son original · Camille",
-            "tip": "Pourboire"
-          }
-        },
-        "yomizaka": {
-          "nav": [
-            "Boîte",
-            "Documents",
-            "Vérifications",
-            "Règles",
-            "Réglages"
-          ],
-          "title": "Documents",
-          "sub": "Lus par Orazaka, vérifiés selon vos règles",
-          "action": "Téléverser",
-          "stats": [
-            {
-              "label": "Vérifiés aujourd’hui",
-              "hint": "38 s chacun"
-            },
-            {
-              "label": "À regarder",
-              "hint": "signalements"
-            },
-            {
-              "label": "Règles",
-              "hint": "baux du Québec"
-            }
-          ],
-          "chart": {
-            "title": "Documents par jour",
-            "description": "Vérifiés, cette semaine",
-            "x": "Jour",
-            "series": "Documents"
-          },
-          "table": {
-            "caption": "Documents récents",
-            "name": "Document",
-            "detail": "Type",
-            "status": "Verdict",
-            "rows": [
-              "Bail, Plateau 2027",
-              "Contrat fournisseur",
-              "Facture 0912"
-            ],
-            "states": [
-              "2 signalements",
-              "Conforme",
-              "Conforme"
-            ]
-          },
-          "phone": {
-            "title": "Bail, Plateau 2027",
-            "highlights": [
-              "Hausse de loyer",
-              "Dépôt"
-            ]
-          }
-        },
-        "krizaka": {
-          "nav": [
-            "Vue d’ensemble",
-            "Projets",
-            "Membres",
-            "Facturation",
-            "Réglages"
-          ],
-          "title": "Vue d’ensemble",
-          "sub": "Votre espace en un coup d’œil",
-          "action": "Inviter",
-          "stats": [
-            {
-              "label": "Projets",
-              "hint": "+2 ce mois-ci"
-            },
-            {
-              "label": "Membres",
-              "hint": "3 admins"
-            },
-            {
-              "label": "Disponibilité",
-              "hint": "30 derniers jours"
-            }
-          ],
-          "chart": {
-            "title": "Requêtes",
-            "description": "Par jour, tous les services",
-            "x": "Jour",
-            "series": "Requêtes"
-          },
-          "table": {
-            "caption": "Services",
-            "name": "Service",
-            "detail": "Environnement",
-            "status": "Santé",
-            "rows": [
-              "API de paiement",
-              "Worker média",
-              "Index de recherche"
-            ],
-            "states": [
-              "Sain",
-              "Déploiement",
-              "Dégradé"
-            ]
-          },
-          "phone": {
-            "messages": [
-              "Le worker média se déploie en préproduction.",
-              "Bien. Préviens-moi quand l’index de recherche revient.",
-              "Il est dégradé, pas en panne : les lectures répondent.",
-              "Merci, je surveille."
-            ],
-            "typing": "Noah écrit",
-            "placeholder": "Message",
-            "send": "Envoyer"
-          }
-        }
-      },
-      "demo": "Données de démonstration"
-    },
-    "play": {
-      "title": "Jouez avec les vrais composants",
-      "lead": "Choisissez-en un, changez ses props, portez une identité, voyez-le sur iOS et Android. Le code dessous est celui que vous collez.",
-      "pick": "Composant"
-    },
-    "families": {
-      "title": "Parcourir le kit",
-      "lead": "Chaque famille, dessinée par ses propres composants.",
-      "all": "Les {count} composants"
+      "weekly": "{count} / semaine sur npm"
     },
     "family": {
-      "title": "Le reste de la famille",
-      "lead": "Faits par les mêmes personnes, au grand jour : les briques Spring Boot, le labo du mouvement, et les produits eux-mêmes."
+      "title": "Le reste de la famille"
     }
   }
 }

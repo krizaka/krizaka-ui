@@ -630,306 +630,37 @@
     }
   },
   "landing": {
-    "eyebrow": "Krizaka UI · open source",
-    "title": "The kit behind every Krizaka product.",
-    "lead": "{count} components for React and React Native, the ones Orazaka, Orochia and Yomizaka ship. Change the identity or the theme: the same components re-skin from their tokens alone.",
+    "title": "The components behind every Krizaka product.",
+    "lead": "{count} components for React and React Native, with the tokens, faces and icons they wear. Open source.",
     "install": "Install",
     "copy": "Copy",
     "copied": "Copied",
-    "start": "Get started",
-    "browse": "Browse components",
-    "facts": {
-      "components": "components",
-      "native": "also on iOS and Android",
-      "downloads": "npm downloads last week",
-      "stars": "GitHub stars"
+    "ways": {
+      "label": "Ways in",
+      "components": {
+        "title": "Components",
+        "description": "All {count}, by what you are building: a page, a form, a chat, a map."
+      },
+      "foundations": {
+        "title": "Foundations",
+        "description": "Colour, type, spacing, motion: the tokens every component reads."
+      },
+      "templates": {
+        "title": "Templates",
+        "description": "Whole screens composed from the components, ready to copy."
+      }
     },
-    "kit": {
-      "label": "The kit, live",
-      "hint": "These are the real components, not a picture.",
-      "identity": "Identity",
-      "theme": "Theme",
-      "themes": {
-        "dark": "Dark",
-        "light": "Light"
-      },
-      "card": {
-        "title": "Night shift — final cut",
-        "status": "Ready",
-        "upload": "Upload",
-        "eta": "About 1 min left",
-        "subtitles": "French subtitles",
-        "quality": "Quality",
-        "draft": "Save draft",
-        "publish": "Publish",
-        "published": "Published"
-      },
-      "code": "The whole change:"
+    "search": {
+      "label": "Search the documentation",
+      "placeholder": "Search a component, a token, a guide…"
     },
     "packages": {
       "title": "Where the pieces live",
       "source": "Source and release notes on GitHub",
-      "weekly": "{count} / week on npm",
-      "trend": "Downloads over the last 12 weeks"
-    },
-    "dock": {
-      "label": "Wear an identity",
-      "taglines": {
-        "orazaka": "Sovereign AI",
-        "orochia": "Creator video",
-        "yomizaka": "Documents",
-        "krizaka": "The default"
-      },
-      "browse": "Browse {count} components"
-    },
-    "scene": {
-      "label": "{name}, built with Krizaka UI",
-      "window": "{name} on the web",
-      "phone": "{name} on a phone",
-      "parts": "The same RailNav, AppHeader, Stat, LineChart and DataTable on the web; Chat, VerticalVideo and DocumentViewer on the phone.",
-      "menu": "Open the menu",
-      "close": "Close the menu",
-      "collapse": "Collapse",
-      "expand": "Expand",
-      "products": {
-        "orazaka": {
-          "title": "Jobs",
-          "sub": "Everything your packs ran today",
-          "action": "New job",
-          "stats": [
-            {
-              "label": "Runs today",
-              "hint": "+12 % on yesterday"
-            },
-            {
-              "label": "GPU minutes",
-              "hint": "on demand"
-            },
-            {
-              "label": "Spend",
-              "hint": "of $5.00 a day"
-            }
-          ],
-          "chart": {
-            "title": "Runs per hour",
-            "description": "Today, every pack",
-            "x": "Hour",
-            "series": "Runs"
-          },
-          "table": {
-            "caption": "Recent jobs",
-            "name": "Job",
-            "detail": "Model",
-            "status": "Status",
-            "rows": [
-              "Podcast transcript",
-              "Catalogue summaries",
-              "Trailer voice-over"
-            ],
-            "states": [
-              "Running",
-              "Done",
-              "Failed"
-            ]
-          },
-          "phone": {
-            "messages": [
-              "Summarise the three supplier contracts and flag anything unusual.",
-              "Two are standard. The third renews itself unless you cancel 90 days before its term.",
-              "Draft the cancellation letter, in French and English.",
-              "Here it is, both versions, ready to sign."
-            ],
-            "typing": "Orazaka is writing",
-            "placeholder": "Message",
-            "send": "Send"
-          }
-        },
-        "orochia": {
-          "nav": [
-            "Home",
-            "Studio",
-            "Earnings",
-            "Auctions",
-            "Settings"
-          ],
-          "title": "Earnings",
-          "sub": "Last 6 months, before fees",
-          "action": "New video",
-          "stats": [
-            {
-              "label": "Earnings",
-              "hint": "+24 %"
-            },
-            {
-              "label": "Supporters",
-              "hint": "+9 this week"
-            },
-            {
-              "label": "Views",
-              "hint": "+3.1K"
-            }
-          ],
-          "chart": {
-            "title": "Video sales",
-            "description": "Per month, before fees",
-            "x": "Month",
-            "series": "Sales"
-          },
-          "table": {
-            "caption": "Recent videos",
-            "name": "Video",
-            "detail": "Sales",
-            "status": "Status",
-            "rows": [
-              "Night shoot, part 2",
-              "Rooftop at dawn",
-              "Studio session"
-            ],
-            "states": [
-              "Live",
-              "Paid",
-              "Draft"
-            ]
-          },
-          "phone": {
-            "title": "Video: Night shoot, part 2",
-            "caption": "The rooftop, the rain, the last take at dawn.",
-            "disclosure": "AI-generated",
-            "verified": "Verified",
-            "credit": "Original sound · Camille",
-            "tip": "Tip"
-          }
-        },
-        "yomizaka": {
-          "nav": [
-            "Inbox",
-            "Documents",
-            "Checks",
-            "Rules",
-            "Settings"
-          ],
-          "title": "Documents",
-          "sub": "Read by Orazaka, checked against your rules",
-          "action": "Upload",
-          "stats": [
-            {
-              "label": "Checked today",
-              "hint": "38 s each"
-            },
-            {
-              "label": "Need a look",
-              "hint": "flags to review"
-            },
-            {
-              "label": "Rules",
-              "hint": "Québec leases"
-            }
-          ],
-          "chart": {
-            "title": "Documents per day",
-            "description": "Checked, this week",
-            "x": "Day",
-            "series": "Documents"
-          },
-          "table": {
-            "caption": "Recent documents",
-            "name": "Document",
-            "detail": "Kind",
-            "status": "Verdict",
-            "rows": [
-              "Lease, Plateau 2027",
-              "Supplier contract",
-              "Invoice 0912"
-            ],
-            "states": [
-              "2 flags",
-              "Clean",
-              "Clean"
-            ]
-          },
-          "phone": {
-            "title": "Lease, Plateau 2027",
-            "highlights": [
-              "Rent increase",
-              "Deposit"
-            ]
-          }
-        },
-        "krizaka": {
-          "nav": [
-            "Overview",
-            "Projects",
-            "Members",
-            "Billing",
-            "Settings"
-          ],
-          "title": "Overview",
-          "sub": "Your workspace at a glance",
-          "action": "Invite",
-          "stats": [
-            {
-              "label": "Projects",
-              "hint": "+2 this month"
-            },
-            {
-              "label": "Members",
-              "hint": "3 admins"
-            },
-            {
-              "label": "Uptime",
-              "hint": "last 30 days"
-            }
-          ],
-          "chart": {
-            "title": "Requests",
-            "description": "Per day, every service",
-            "x": "Day",
-            "series": "Requests"
-          },
-          "table": {
-            "caption": "Services",
-            "name": "Service",
-            "detail": "Environment",
-            "status": "Health",
-            "rows": [
-              "Payments API",
-              "Media worker",
-              "Search index"
-            ],
-            "states": [
-              "Healthy",
-              "Deploying",
-              "Degraded"
-            ]
-          },
-          "phone": {
-            "messages": [
-              "The media worker is deploying to staging.",
-              "Good. Ping me when the search index is back.",
-              "It is degraded, not down: reads still answer.",
-              "Thanks, I will watch it."
-            ],
-            "typing": "Noah is writing",
-            "placeholder": "Message",
-            "send": "Send"
-          }
-        }
-      },
-      "demo": "Demo data"
-    },
-    "play": {
-      "title": "Play with the real components",
-      "lead": "Pick one, change its props, wear an identity, see it on iOS and Android. The code under it is what you paste.",
-      "pick": "Component"
-    },
-    "families": {
-      "title": "Browse the kit",
-      "lead": "Every family, drawn by its own components.",
-      "all": "All {count} components"
+      "weekly": "{count} / week on npm"
     },
     "family": {
-      "title": "The rest of the family",
-      "lead": "Built by the same people, in the open: the Spring Boot building blocks, the motion lab, and the products themselves."
+      "title": "The rest of the family"
     }
   }
 }
