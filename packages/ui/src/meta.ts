@@ -12,6 +12,7 @@ export type ComponentName =
   | "achievement"
   | "anatomy-plate"
   | "bird-plate"
+  | "flock"
   | "footnote"
   | "page-index"
   | "specimen-tag"

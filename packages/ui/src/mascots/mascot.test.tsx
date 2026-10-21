@@ -66,3 +66,51 @@ describe("Mascot", () => {
     expect(container.querySelector("svg")?.getAttribute("data-bird")).toBe("beaver");
   });
 });
+
+describe("Mascot life", () => {
+  it("is off by default: nothing marks the bird as living", () => {
+    const { container } = render(<Mascot bird="owl" />);
+    const svg = container.querySelector("svg");
+    expect(svg?.hasAttribute("data-life")).toBe(false);
+    expect(svg?.getAttribute("style")).toBeNull();
+  });
+
+  it("lives in character: a phase of its own, no wave of the welcome (the motion is blocks.css's)", () => {
+    const { container } = render(
+      <>
+        <Mascot bird="owl" life phase={0.25} />
+        <Mascot bird="pigeon" life />
+        <Mascot bird="pigeon" life />
+      </>,
+    );
+    const [owl, p1, p2] = [...container.querySelectorAll("svg")];
+    expect(owl!.hasAttribute("data-life")).toBe(true);
+    expect(owl!.getAttribute("style")).toContain("--kzb-ph: 0.25");
+    // The right wing is not raised in a wave: the welcome is the bird at ease.
+    expect(owl!.querySelector(".kzb-wing-r")?.getAttribute("style")).not.toContain("rotate(-20deg)");
+    // Two pigeons never move together.
+    expect(p1!.getAttribute("style")).not.toBe(p2!.getAttribute("style"));
+  });
+
+  it("looks where it is told, flies, and jumps when poked — and only when it lives", () => {
+    const { container, rerender } = render(<Mascot bird="duck" life look="left" flying poked bank={-1} />);
+    let svg = container.querySelector("svg")!;
+    expect(svg.getAttribute("data-look")).toBe("left");
+    expect(svg.hasAttribute("data-flying")).toBe(true);
+    expect(svg.hasAttribute("data-poked")).toBe(true);
+    rerender(<Mascot bird="duck" look="left" flying poked />);
+    svg = container.querySelector("svg")!;
+    expect(svg.hasAttribute("data-look")).toBe(false);
+    expect(svg.hasAttribute("data-flying")).toBe(false);
+    rerender(<Mascot bird="duck" life mood="success" look="left" />);
+    expect(container.querySelector("svg")!.hasAttribute("data-life")).toBe(false); // a mood has its own gesture
+  });
+
+  it("stops every motion of its life under reduced motion", () => {
+    const { container } = render(<Mascot bird="falcon" life />);
+    const css = container.querySelector("style")!.textContent!;
+    expect(css).toMatch(/prefers-reduced-motion: reduce\)[^}]*\.kzb-head/);
+    expect(css).toMatch(/\.kzb-look, \.kzb-pupil \{ transition: none !important; transform: none !important/);
+    expect(css).toMatch(/\.kzb-wing,/);
+  });
+});

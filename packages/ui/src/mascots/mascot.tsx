@@ -3,6 +3,7 @@ import type * as React from "react";
 import { useId } from "react";
 
 import { archEye, BIRDS, brow, lidEye, LIGHT, type MascotBird, type MascotMood, type MascotPalette, type MascotTone, MOOD_PARTS, OWN_PALETTES, PARCEL, SHADE, upperLid } from "./geometry";
+import { type MascotLook, phaseOf } from "./life";
 
 const CSS = `
 .kzb-bird { transform-box: view-box; transform-origin: 60px 108px; }
@@ -30,7 +31,8 @@ const CSS = `
 @keyframes kzb-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
 @keyframes kzb-sway { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-2deg); } }
 @media (prefers-reduced-motion: reduce) {
-  .kzb-bird, .kzb-blink, .kzb-wing-r, .kzb-dot, .kzb-badge, .kzb-sparkle { animation: none !important; }
+  .kzb-bird, .kzb-blink, .kzb-wing, .kzb-wing-r, .kzb-hop, .kzb-head, .kzb-parcel, .kzb-dot, .kzb-badge, .kzb-sparkle { animation: none !important; }
+  .kzb-look, .kzb-pupil { transition: none !important; transform: none !important; }
 }
 `;
 
@@ -59,21 +61,39 @@ export type MascotProps = Omit<React.ComponentProps<"svg">, "children"> & {
   animated?: boolean;
   /** An accessible name (the bird becomes an image); without it the mascot is decorative. */
   title?: string;
+  /**
+   * The bird at ease, in character (mood `welcome`, the default): it breathes, blinks in its own rhythm, tilts its head,
+   * ruffles a wing, now and then hops — the falcon watches, the owl reads, the duck builds, the flamingo answers, the
+   * pigeon delivers. CSS only, still under `prefers-reduced-motion` and with `animated={false}`.
+   */
+  life?: boolean;
+  /** Where in its cycles the bird starts, 0 to 1 (default: from the instance's id), so two birds never move together. */
+  phase?: number;
+  /** Where it looks (`life`): `left` and `right` turn the head and the eyes, `up` raises them, `center` rests. */
+  look?: MascotLook;
+  /** In flight (`life`): the wings beat, the body leans into the trip — the pigeon of a delivery. */
+  flying?: boolean;
+  /** Which way it leans in flight, -1 (left) to 1 (right). */
+  bank?: number;
+  /** A tap or a poke just happened (`life`): a small jump. Set it for a moment, then unset. */
+  poked?: boolean;
 };
 
 /**
  * One of the nine Krizaka figures in one mood — for the moments a product speaks to a person: a welcome, a long wait,
  * a success, an empty list, an error. Drawn in the host's brand colours by default (`tone="own"` for the story's).
  */
-export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 96, animated = true, title, className, ...props }: MascotProps) {
+export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 96, animated = true, title, life = false, phase, look, flying, bank, poked, className, style, ...props }: MascotProps) {
   const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const g = BIRDS[bird];
+  const alive = life && mood === "welcome";
+  const ph = phase ?? phaseOf(uid);
   const p = tone === "own" ? OWN_PALETTES[bird] : BRAND;
   const body = `url(#kzb-${uid})`;
   const line = { stroke: OUTLINE, strokeWidth: 1.4, strokeLinejoin: "round" as const };
   const eyeR = g.eyes.white || g.eyes.pupil * 1.2;
   const eyes = g.eyes.at.map((at, i) => {
-    const look = mood === "thinking" ? 1.4 : 0;
+    const glance = mood === "thinking" ? 1.4 : 0;
     if (mood === "success") return <path key={i} d={archEye(at, eyeR * 0.85)} stroke={g.visor ? p.eye : OUTLINE} strokeWidth={2.2} strokeLinecap="round" fill="none" />;
     if (mood === "empty" && g.eyes.white > 0)
       return (
@@ -87,8 +107,10 @@ export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 
     return (
       <g key={i} className="kzb-eye kzb-blink">
         {g.eyes.white > 0 && <circle cx={at[0]} cy={at[1]} r={g.eyes.white} fill={LIGHT} {...line} />}
-        <circle cx={at[0] + look} cy={at[1] - look} r={g.eyes.pupil} fill={g.visor ? p.eye : SHADE} />
-        {g.eyes.white > 0 && <circle cx={at[0] + look - g.eyes.pupil * 0.35} cy={at[1] - look - g.eyes.pupil * 0.35} r={g.eyes.pupil * 0.35} fill={LIGHT} />}
+        <g className="kzb-pupil">
+          <circle cx={at[0] + glance} cy={at[1] - glance} r={g.eyes.pupil} fill={g.visor ? p.eye : SHADE} />
+          {g.eyes.white > 0 && <circle cx={at[0] + glance - g.eyes.pupil * 0.35} cy={at[1] - glance - g.eyes.pupil * 0.35} r={g.eyes.pupil * 0.35} fill={LIGHT} />}
+        </g>
       </g>
     );
   });
@@ -103,7 +125,12 @@ export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 
       data-bird={bird}
       data-mood={mood}
       data-animated={animated ? "" : undefined}
+      data-life={alive ? "" : undefined}
+      data-look={alive && look && look !== "center" ? look : undefined}
+      data-flying={alive && flying ? "" : undefined}
+      data-poked={alive && poked ? "" : undefined}
       className={className}
+      style={alive ? ({ "--kzb-ph": ph, "--kzb-bank": bank ?? 0, ...style } as React.CSSProperties) : style}
       {...(title ? { role: "img", "aria-label": title } : { "aria-hidden": true })}
       {...props}
     >
@@ -116,47 +143,53 @@ export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 
       </defs>
       <ellipse cx={g.shadow[0]} cy={g.shadow[1]} rx={g.shadow[2]} ry={g.shadow[3]} fill={SHADE} opacity={0.14} />
       {mood === "empty" && <path d={MOOD_PARTS.tray} stroke={OUTLINE} strokeWidth={1.6} strokeDasharray="3 3" strokeLinejoin="round" />}
-      <g className="kzb-bird">
-        {g.legs.map((d) => (
-          <path key={d} d={d} stroke={p.beak} strokeWidth={2.6} strokeLinecap="round" />
-        ))}
-        {g.back?.map((d) => (d.endsWith("Z") ? <path key={d} d={d} fill={p.detail} {...line} /> : <path key={d} d={d} stroke={OUTLINE} strokeWidth={1.4} />))}
-        {g.parcel && (
-          <g {...line}>
-            {g.parcel.map((d, i) => (
-              <path key={d} d={d} fill={PARCEL[i]} />
-            ))}
-          </g>
-        )}
-        <path d={g.body} fill={body} {...line} />
-        <path d={g.belly} fill={LIGHT} opacity={0.28} />
-        {[wl, wr].map((w, i) => {
-          const turn = mood === "success" ? (i === 0 ? 28 : -28) : mood === "welcome" && i === 1 ? -20 : 0;
-          return (
-            <g key={i} className={i === 1 ? "kzb-wing kzb-wing-r" : "kzb-wing"} style={{ transformOrigin: `${w.pivot[0]}px ${w.pivot[1]}px`, transform: turn ? `rotate(${turn}deg)` : undefined }}>
-              <path d={w.d} fill={p.wing} {...line} />
-              <path d={w.d} fill={SHADE} opacity={0.16} />
+      <g className="kzb-hop">
+        <g className="kzb-bird">
+          {g.legs.map((d) => (
+            <path key={d} d={d} stroke={p.beak} strokeWidth={2.6} strokeLinecap="round" />
+          ))}
+          {g.back?.map((d) => (d.endsWith("Z") ? <path key={d} d={d} fill={p.detail} {...line} /> : <path key={d} d={d} stroke={OUTLINE} strokeWidth={1.4} />))}
+          {g.parcel && (
+            <g className="kzb-parcel" {...line}>
+              {g.parcel.map((d, i) => (
+                <path key={d} d={d} fill={PARCEL[i]} />
+              ))}
             </g>
-          );
-        })}
-        {g.neck && <path d={g.neck.d} stroke={body} strokeWidth={g.neck.width} strokeLinecap="round" />}
-        {g.head.r > 0 && <circle cx={g.head.cx} cy={g.head.cy} r={g.head.r} fill={body} {...line} />}
-        {g.details.map((d) => (
-          <path key={d} d={d} fill={p.detail} {...line} />
-        ))}
-        {g.visor && <rect x={g.visor.x} y={g.visor.y} width={g.visor.w} height={g.visor.h} rx={4} fill={SURFACE} {...line} />}
-        {eyes}
-        {g.glasses && (
-          <g stroke={OUTLINE} strokeWidth={1.3}>
-            {g.eyes.at.map(([x, y]) => (
-              <circle key={x} cx={x} cy={y} r={6.5} fill={LIGHT} fillOpacity={0.12} />
-            ))}
-            <path d={`M${g.eyes.at[0][0] + 6.5} ${g.eyes.at[0][1]} L${g.eyes.at[1][0] - 6.5} ${g.eyes.at[1][1]}`} />
+          )}
+          <path d={g.body} fill={body} {...line} />
+          <path d={g.belly} fill={LIGHT} opacity={0.28} />
+          {[wl, wr].map((w, i) => {
+            const turn = mood === "success" ? (i === 0 ? 28 : -28) : mood === "welcome" && i === 1 && !alive ? -20 : 0;
+            return (
+              <g key={i} className={i === 1 ? "kzb-wing kzb-wing-r" : "kzb-wing kzb-wing-l"} style={{ transformOrigin: `${w.pivot[0]}px ${w.pivot[1]}px`, transform: turn ? `rotate(${turn}deg)` : undefined }}>
+                <path d={w.d} fill={p.wing} {...line} />
+                <path d={w.d} fill={SHADE} opacity={0.16} />
+              </g>
+            );
+          })}
+          <g className="kzb-look">
+            <g className="kzb-head">
+              {g.neck && <path d={g.neck.d} stroke={body} strokeWidth={g.neck.width} strokeLinecap="round" />}
+              {g.head.r > 0 && <circle cx={g.head.cx} cy={g.head.cy} r={g.head.r} fill={body} {...line} />}
+              {g.details.map((d) => (
+                <path key={d} d={d} fill={p.detail} {...line} />
+              ))}
+              {g.visor && <rect x={g.visor.x} y={g.visor.y} width={g.visor.w} height={g.visor.h} rx={4} fill={SURFACE} {...line} />}
+              {eyes}
+              {g.glasses && (
+                <g stroke={OUTLINE} strokeWidth={1.3}>
+                  {g.eyes.at.map(([x, y]) => (
+                    <circle key={x} cx={x} cy={y} r={6.5} fill={LIGHT} fillOpacity={0.12} />
+                  ))}
+                  <path d={`M${g.eyes.at[0][0] + 6.5} ${g.eyes.at[0][1]} L${g.eyes.at[1][0] - 6.5} ${g.eyes.at[1][1]}`} />
+                </g>
+              )}
+              {mood === "error" &&
+                g.eyes.at.map((at, i) => <path key={i} d={brow(at, eyeR, g.eyes.at.length === 1 ? 1 : i === 0 ? -1 : 1)} stroke={OUTLINE} strokeWidth={2} strokeLinecap="round" />)}
+              <path d={g.beak} fill={p.beak} {...line} />
+            </g>
           </g>
-        )}
-        {mood === "error" &&
-          g.eyes.at.map((at, i) => <path key={i} d={brow(at, eyeR, g.eyes.at.length === 1 ? 1 : i === 0 ? -1 : 1)} stroke={OUTLINE} strokeWidth={2} strokeLinecap="round" />)}
-        <path d={g.beak} fill={p.beak} {...line} />
+        </g>
       </g>
       {mood === "thinking" && (
         <g>
