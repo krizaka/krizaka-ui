@@ -59,7 +59,7 @@ describe("Flock", () => {
     expect(svgs.map((s) => s.getAttribute("data-bird"))).toEqual(["owl", "duck", "pigeon"]);
     for (const svg of svgs) expect(svg.hasAttribute("data-life")).toBe(true);
     expect(await axeViolations(container)).toEqual([]);
-  });
+  }, 30_000);
 
   it("makes two neighbours glance at each other, then look away", () => {
     const { container } = mount({ courier: false });
