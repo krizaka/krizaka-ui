@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
   // /components/button is written as components/button/index.html: every static host serves it at the clean URL.
   trailingSlash: true,
   reactStrictMode: true,
+  // A page may take 3 minutes before Next gives up on it (60 s by default, three tries): room for a slow CI runner. Page generation
+  // reads no network (tests/build-budget.test.mjs): a page that needs this much is a bug to fix, not a timeout to raise.
+  staticPageGenerationTimeout: 180,
   poweredByHeader: false,
   // Screenshots are PNG files of the registry, copied to public/ui-examples: served as they are (no image server).
   images: { unoptimized: true },
