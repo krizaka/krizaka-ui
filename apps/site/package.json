@@ -6,9 +6,9 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "predev": "node scripts/gen-ui-docs.mjs",
+    "predev": "node scripts/gen-ui-docs.mjs && node scripts/gen-release-times.mjs",
     "dev": "next dev",
-    "build": "node scripts/gen-ui-docs.mjs --strict && next build",
+    "build": "node scripts/gen-ui-docs.mjs --strict && node scripts/gen-release-times.mjs && next build",
     "lint": "eslint . --max-warnings 0 && node node_modules/@krizaka/i18n/dist/bin.js check messages && node scripts/gen-ui-docs.mjs --check",
     "typecheck": "fumadocs-mdx && node scripts/gen-ui-docs.mjs && tsc --noEmit",
     "test": "node --disable-warning=ExperimentalWarning --test tests/*.test.mjs",

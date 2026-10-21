@@ -6,16 +6,17 @@ import { anchorOf, newestFirst, parseChangesets, type Release } from "@krizaka/u
 import { packageVersion } from "./package-version";
 
 /* The changelog of Krizaka UI, per package: the CHANGELOG.md that changesets writes in each workspace package
-   (packages/<dir>/CHANGELOG.md), dated from the publish times of the npm registry — read at build, never written for the
-   page. A package or a version npm does not know yet is left out rather than given an invented date. */
+   (packages/<dir>/CHANGELOG.md), dated from the publish times of the npm registry — read ONCE before the build (scripts/gen-release-times.mjs), never
+   while pages are generated, never written for the page. A package or a version npm does not know yet is left out rather than given an invented date. */
 
 const PACKAGES_DIR = path.resolve(process.cwd(), "..", "..", "packages");
 const MAX = 120;
 
-async function publishTimes(name: string): Promise<Record<string, string>> {
+/** The publish dates, written once before the build (scripts/gen-release-times.mjs): a missing file means none are known. */
+function publishTimes(name: string): Record<string, string> {
   try {
-    const res = await fetch(`https://registry.npmjs.org/${encodeURIComponent(name)}`, { signal: AbortSignal.timeout(8000) });
-    return res.ok ? ((await res.json()) as { time?: Record<string, string> }).time ?? {} : {};
+    const all = JSON.parse(readFileSync(path.resolve(process.cwd(), "lib", "release-times.json"), "utf8")) as Record<string, Record<string, string>>;
+    return all[name] ?? {};
   } catch {
     return {};
   }
@@ -32,7 +33,7 @@ export function loadReleases(): Promise<Release[]> {
         try {
           const name = (JSON.parse(readFileSync(path.join(PACKAGES_DIR, d.name, "package.json"), "utf8")) as { name: string }).name;
           const md = readFileSync(path.join(PACKAGES_DIR, d.name, "CHANGELOG.md"), "utf8");
-          const time = await publishTimes(name);
+          const time = publishTimes(name);
           return parseChangesets(md, name, (v) => time[v]?.slice(0, 10)).map((r) => ({ ...r, url: `https://www.npmjs.com/package/${name}/v/${r.version}` }));
         } catch {
           return [];
