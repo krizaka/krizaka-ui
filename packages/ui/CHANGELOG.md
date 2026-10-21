@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.38.0
+
+### Minor Changes
+
+- [#431](https://github.com/krizaka/krizaka-ui/pull/431) [`bf3ed81`](https://github.com/krizaka/krizaka-ui/commit/bf3ed81e5d4891609679eddceca0291ce3efd176) Thanks [@oussamaABID](https://github.com/oussamaABID)! - **Cahier, the blocks' own corners and shadows (ADR-004, [#417](https://github.com/krizaka/krizaka-ui/issues/417)):** every card corner of 10 px or more in `blocks.css` and `motion.css` is square paper, and every blurred shadow (the templates' coloured stage glow included) is gone or the paper offset. The landing and product templates' visual is a plate, no longer a fake browser window: the three dots are gone, the bar is its caption. `src/cahier.test.ts` now also reads the shipped stylesheets.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.38.0
+  - @krizaka/tokens@3.38.0
+
 ## 3.37.0
 
 ### Minor Changes
