@@ -30,8 +30,9 @@ export interface DismissStorage {
 }
 
 export interface AppConfigClientOptions {
-  /** The backend's origin, e.g. `https://dev.orazaka.com`. */
-  baseUrl: string;
+  /** The backend's origin, e.g. `https://dev.orazaka.com`. A function is read at each check, so an address found by
+   *  `@krizaka/discovery` (and moved by its manifest) is followed without rebuilding the client. */
+  baseUrl: string | (() => string);
   platform: Platform;
   /** The version the app runs (`1.4.0`), from the build, never typed twice. */
   version: string;
@@ -132,7 +133,7 @@ export interface AppConfigClient {
 }
 
 export function createAppConfigClient(options: AppConfigClientOptions): AppConfigClient {
-  const base = withoutTrailingSlashes(options.baseUrl);
+  const base = () => withoutTrailingSlashes(typeof options.baseUrl === "function" ? options.baseUrl() : options.baseUrl);
   const doFetch = options.fetch ?? ((...args: Parameters<typeof fetch>) => fetch(...args));
   const now = options.now ?? Date.now;
   const interval = options.minIntervalMs ?? DEFAULT_MIN_INTERVAL_MS;
@@ -164,7 +165,7 @@ export function createAppConfigClient(options: AppConfigClientOptions): AppConfi
         const query = new URLSearchParams({ platform: options.platform, version: options.version });
         const language = options.language?.();
         if (language) query.set("locale", language);
-        const response = await doFetch(`${base}${APP_CONFIG_PATH}?${query}`, { headers });
+        const response = await doFetch(`${base()}${APP_CONFIG_PATH}?${query}`, { headers });
         const body: unknown = response.ok ? await response.json() : null;
         if (!isAppConfigPayload(body)) {
           set({ status: "failed" });

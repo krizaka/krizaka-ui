@@ -255,6 +255,10 @@
           "title": "Push",
           "description": "Mobile notifications through the Expo Push Service: batching, receipts and dead tokens, with no dependency."
         },
+        "discovery": {
+          "title": "Discovery",
+          "description": "Service discovery for the mobile apps: a signed manifest of backend addresses, a host allow-list and a fallback order, so a URL change never forces a store republish."
+        },
         "app-config": {
           "title": "App config",
           "description": "Version compatibility between apps and backends: minimum and latest version, soft and forced updates, maintenance, 426 Upgrade Required and N-1 contracts."

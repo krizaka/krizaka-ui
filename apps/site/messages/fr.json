@@ -255,6 +255,10 @@
           "title": "Push",
           "description": "Notifications mobiles par le service Expo Push : lots, reçus et jetons morts, sans dépendance."
         },
+        "discovery": {
+          "title": "Découverte de services",
+          "description": "La découverte de services des applications mobiles : un manifeste signé des adresses de backend, une liste d'hôtes autorisés et un ordre de repli, pour qu'un changement d'URL n'impose jamais de republier sur les stores."
+        },
         "app-config": {
           "title": "App config",
           "description": "Compatibilité de version entre les apps et les serveurs : version minimale et dernière, mises à jour douces et forcées, maintenance, 426 Upgrade Required et contrats N-1."
