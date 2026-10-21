@@ -1,5 +1,7 @@
 /** @krizaka/ui/sites — the Krizaka family as data: `sites`, `siteGroups`, `siteById`, `sitesByGroup`, `familyLabels`. Server-safe. */
 export {
+  type CompanyLinkId,
+  companyLinks,
   type FamilyLabels,
   familyLabels,
   type Site,

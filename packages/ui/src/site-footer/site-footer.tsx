@@ -1,25 +1,24 @@
-// Client (the marks hold an id). The footer shared by every site of the Krizaka family: the site's own columns, then the
-// family in columns from `@krizaka/ui/sites` (the same groups as the bar's switcher), then the signature line — “A
-// Krizaka product” by the kind of the current site — the version and the place.
+// Client (the marks hold an id). The footer shared by every site of the Krizaka family — one calm band (Cahier, ADR-004;
+// peer review krizaka-ui#434: « too much, a double footer »): the site's own columns and the family's columns side by
+// side — Products · Open source (GitHub with them) · Krizaka (our story, the blog, contact) — then one line: the
+// signature (“A Krizaka product”, by the kind of the current site, to www), the version, the place, the legal links.
+// No site block (the bar already names the site), no column that lists only Krizaka, no link twice.
 import { Slot } from "radix-ui";
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { FamilyMark } from "../family-mark";
 import { KrizakaLogo } from "../marks/KrizakaLogo";
-import { type FamilyLabels, familyLabels, siteById, type SiteId, sitesByGroup } from "../sites/sites";
+import { companyLinks, type FamilyLabels, familyLabels, siteById, type SiteId, sitesByGroup } from "../sites/sites";
 
 export const siteFooter = tv({
   slots: {
     root: "w-full border-t border-border-subtle bg-surface-0 text-fg",
     inner:
       "mx-auto grid w-full max-w-[calc(var(--kz-page-max,72rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))] grid-cols-[minmax(0,1fr)] gap-10 px-[var(--kz-page-gutter,clamp(16px,3.2vw,32px))] py-12",
-    top: "grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]",
-    site: "grid content-start gap-3",
-    siteName: "inline-flex items-center gap-2 font-display text-[15px] font-bold tracking-tight text-fg",
-    siteText: "max-w-xs text-sm leading-relaxed text-fg-secondary",
+    band: "grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-flow-col lg:auto-cols-[minmax(0,1fr)]",
     own: "grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-8",
-    family: "grid grid-cols-2 gap-8 border-t border-border-subtle pt-8 md:grid-cols-4",
+    family: "grid grid-cols-2 gap-8 sm:grid-cols-3",
     column: "grid min-w-0 content-start gap-3",
     title: "text-[11px] font-semibold text-fg-secondary",
     list: "grid min-w-0 gap-2",
@@ -42,7 +41,6 @@ export const siteFooter = tv({
       site: {},
       docs: {
         inner: "max-w-[calc(var(--kz-page-max-docs,88rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))] gap-6 py-8",
-        top: "lg:grid-cols-[minmax(0,1fr)]",
         own: "sm:grid-cols-4",
       },
       app: {
@@ -88,7 +86,7 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
   variant?: "site" | "docs" | "app";
 };
 
-/** The footer of a Krizaka site: its own columns, the family in columns, the signature, the version, Montréal. */
+/** The footer of a Krizaka site, one band: its own columns and the family's, then one line — signature, version, Montréal, legal. */
 export function SiteFooter({
   current,
   labels = familyLabels.en,
@@ -108,47 +106,62 @@ export function SiteFooter({
   const site = siteById(current);
   const krizaka = siteById("krizaka");
   const tag = [env, version && `v${version.replace(/^v/, "")}`].filter(Boolean).join(" · ");
+  const own = React.Children.toArray(children).length > 0;
+  const lang = labels.lang ?? "en";
+  const company = labels.company ?? familyLabels.en.company!;
+  // Products · Open source (GitHub, every repository, closes it) · Krizaka (the company's pages): three columns, no
+  // column that lists only Krizaka.
+  const groups = sitesByGroup();
+  const columns = [
+    ...groups.filter((g) => g.group === "products"),
+    { group: "open-source" as const, sites: groups.filter((g) => g.group === "open-source" || g.group === "github").flatMap((g) => g.sites) },
+  ];
   return (
     <footer className={s.root({ className })} {...props}>
       <div className={s.inner()}>
-        {!slim && (
-          <div className={s.top()}>
-            {variant === "site" && (
-              <div className={s.site()}>
-                <a href={site.url} className={s.siteName()}>
-                  <FamilyMark mark={site.mark} size={24} />
-                  {site.name}
-                </a>
-                <p className={s.siteText()}>{labels.descriptions[site.id]}</p>
-              </div>
+        {!slim && (own || family) && (
+          <div className={s.band()}>
+            {own && <div className={s.own()}>{children}</div>}
+            {family && (
+              <nav aria-label={labels.family} className={s.family()}>
+                {columns.map(({ group, sites }) => (
+                  <div key={group} className={s.column()}>
+                    <p id={`${id}-${group}`} className={s.title()}>
+                      {labels.groups[group]}
+                    </p>
+                    <ul aria-labelledby={`${id}-${group}`} className={s.list()}>
+                      {sites.map((item) => (
+                        <li key={item.id}>
+                          <a href={item.url} aria-current={item.id === current ? "true" : undefined} className={s.link()}>
+                            <span className={s.mark()}>
+                              <FamilyMark mark={item.mark} size={16} />
+                            </span>
+                            {item.name}
+                            {item.status !== "released" && <span className={s.tag()}>{labels.status[item.status]}</span>}
+                            {item.id === current && <span className="sr-only">({labels.current})</span>}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+                <div className={s.column()}>
+                  <p id={`${id}-krizaka`} className={s.title()}>
+                    {labels.groups.krizaka}
+                  </p>
+                  <ul aria-labelledby={`${id}-krizaka`} className={s.list()}>
+                    {companyLinks.map((l) => (
+                      <li key={l.id}>
+                        <a href={l.url[lang]} className={s.link()}>
+                          {company[l.id]}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </nav>
             )}
-            {React.Children.toArray(children).length > 0 && <div className={s.own()}>{children}</div>}
           </div>
-        )}
-        {family && (
-          <nav aria-label={labels.family} className={s.family()}>
-            {sitesByGroup().map(({ group, sites }) => (
-              <div key={group} className={s.column()}>
-                <p id={`${id}-${group}`} className={s.title()}>
-                  {labels.groups[group]}
-                </p>
-                <ul aria-labelledby={`${id}-${group}`} className={s.list()}>
-                  {sites.map((item) => (
-                    <li key={item.id}>
-                      <a href={item.url} aria-current={item.id === current ? "true" : undefined} className={s.link()}>
-                        <span className={s.mark()}>
-                          <FamilyMark mark={item.mark} size={16} />
-                        </span>
-                        {item.name}
-                        {item.status !== "released" && <span className={s.tag()}>{labels.status[item.status]}</span>}
-                        {item.id === current && <span className="sr-only">({labels.current})</span>}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </nav>
         )}
         <div className={s.bottom()}>
           <a href={krizaka.url} className={s.signature()}>
