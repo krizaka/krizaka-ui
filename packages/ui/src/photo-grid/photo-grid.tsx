@@ -11,7 +11,7 @@ export const photoGrid = tv({
     slot: "relative aspect-[3/4] overflow-hidden rounded-xl",
     photo: "group h-full w-full cursor-grab bg-surface-3 outline-hidden focus-visible:ring-2 focus-visible:ring-ring data-[over]:ring-2 data-[over]:ring-accent active:cursor-grabbing",
     image: "h-full w-full object-cover",
-    main: "absolute bottom-2 left-2 rounded-full bg-accent px-2 py-0.5 text-[10px] font-extrabold text-on-accent",
+    main: "absolute bottom-2 left-2 rounded-sm bg-accent px-2 py-0.5 text-[10px] font-extrabold text-on-accent",
     tools: "absolute right-1.5 top-1.5 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 focus-within:opacity-100 motion-reduce:transition-none",
     tool: "inline-flex h-7 w-7 items-center justify-center rounded-full bg-scrim text-fg-on-media hover:bg-scrim-strong focus-visible:opacity-100 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     empty:

@@ -10,7 +10,7 @@ export const kanban = tv({
     column: "flex w-72 shrink-0 flex-col rounded-xl border border-border-default bg-surface-1 data-[over]:border-accent data-[over]:bg-accent-soft/40",
     header: "flex items-center gap-2 px-3 pb-2 pt-3",
     title: "min-w-0 flex-1 truncate text-sm font-semibold text-fg",
-    count: "rounded-full bg-surface-3 px-2 text-xs font-semibold tabular-nums text-fg-secondary data-[over-limit]:bg-danger data-[over-limit]:text-on-accent",
+    count: "rounded-sm bg-surface-3 px-2 text-xs font-semibold tabular-nums text-fg-secondary data-[over-limit]:bg-danger data-[over-limit]:text-on-accent",
     list: "m-0 flex min-h-16 list-none flex-col gap-2 p-2 pt-0",
     card:
       "cursor-grab rounded-lg border border-border-default bg-surface-0 p-3 text-sm text-fg shadow-xs outline-hidden transition-shadow " +

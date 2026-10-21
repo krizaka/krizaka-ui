@@ -7,7 +7,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 
 export const chipVariants = tv({
   base:
-    "inline-flex shrink-0 select-none items-center justify-center gap-1.5 whitespace-nowrap rounded-full border font-semibold no-underline transition-colors " +
+    "inline-flex shrink-0 select-none items-center justify-center gap-1.5 whitespace-nowrap rounded-sm border font-semibold no-underline transition-colors " +
     "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
   variants: {
     size: { sm: "h-7 px-3 text-xs", md: "h-9 px-3.5 text-xs" },

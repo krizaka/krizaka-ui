@@ -12,7 +12,7 @@ export const videoTrimmer = tv({
   slots: {
     root: "w-full select-none",
     header: "mb-2 flex items-center justify-between font-mono text-[11px] tabular-nums text-fg-secondary",
-    kept: "rounded-full bg-accent-soft px-2.5 py-0.5 font-sans text-xs font-semibold text-fg",
+    kept: "rounded-sm bg-accent-soft px-2.5 py-0.5 font-sans text-xs font-semibold text-fg",
     track: "relative h-16 touch-none rounded-xl bg-surface-2 data-[disabled]:opacity-50",
     strip: "pointer-events-none absolute inset-0 flex overflow-hidden rounded-xl",
     frame: "h-full min-w-0 flex-1 object-cover",
