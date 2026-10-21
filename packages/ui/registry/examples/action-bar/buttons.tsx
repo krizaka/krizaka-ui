@@ -9,8 +9,8 @@ export default function ActionBarButtons() {
       primaryFirst
       actions={[
         { href: "#docs", label: "Read the documentation" },
-        { href: "https://github.com/krizaka/krizaka-java", label: "See the code" },
-        { href: "https://github.com/krizaka/krizaka-java/discussions", label: "Discuss" },
+        { href: "https://github.com/krizaka/krizaka-build", label: "See the code" },
+        { href: "https://github.com/krizaka/krizaka-ui/discussions", label: "Discuss" },
       ]}
     />
   );

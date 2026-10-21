@@ -1,0 +1,51 @@
+# The whole of ui.krizaka.com, every page of the sitemap (English and French) in a browser, desktop and phone: console and
+# React errors, failed requests, examples that render nothing, playground controls that change nothing, copy buttons that
+# copy nothing, dead links and anchors (and the links to other sites), sideways scroll, an example that throws on click.
+# Every day on the deployed site, and after a deployment's change to the site (workflow_dispatch). A red run is a broken
+# documentation page: fix it at its source (the component in packages/ui, or apps/site), never in the crawler.
+name: Documentation crawl
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+    inputs:
+      base:
+        description: "The site to crawl"
+        default: "https://ui.krizaka.com"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-crawl
+  cancel-in-progress: true
+
+jobs:
+  crawl:
+    name: Every page, every example
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @krizaka/storybook exec playwright install --with-deps chromium
+      - name: Crawl
+        run: |
+          node apps/site/scripts/docs-crawl.mjs --base "${{ inputs.base || 'https://ui.krizaka.com' }}" --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')" --concurrency 4 --out docs-crawl-report
+      - name: Summary
+        if: always()
+        run: |
+          if [ -f docs-crawl-report/report.md ]; then head -40 docs-crawl-report/report.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - name: Upload the report
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: docs-crawl-report
+          path: docs-crawl-report
+          if-no-files-found: ignore

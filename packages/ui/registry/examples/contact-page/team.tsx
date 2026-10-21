@@ -15,7 +15,7 @@ export default function ContactPageTeam() {
       aside={<Mascot bird="flamingo" mood="welcome" size={112} />}
       channels={
         <>
-          <LinkCard href="https://github.com/orgs/krizaka/discussions" title="Discussions" description="Questions and ideas, in public." titleAs="span" />
+          <LinkCard href="https://github.com/krizaka/krizaka-ui/discussions" title="Discussions" description="Questions and ideas, in public." titleAs="span" />
           <LinkCard href="https://github.com/krizaka" title="Report a problem" description="An issue on the repository." titleAs="span" />
         </>
       }

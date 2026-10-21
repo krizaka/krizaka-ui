@@ -21,9 +21,12 @@ test("the sitemap lists /changelog", () => {
   assert.match(read("app/sitemap.ts"), /"\/changelog"/);
 });
 
-test("the footer shows the installed @krizaka/ui version and links /changelog#<version>; that id is an entry's", () => {
+test("the footer shows the installed @krizaka/ui version and links /changelog#<version> when that entry exists, else /changelog", async () => {
+  const { changelogHref } = await import("../lib/changelog-link.ts");
+  assert.equal(changelogHref("/changelog", "3.38.0", ["3.37.0", "3.38.0"]), "/changelog#3.38.0");
+  assert.equal(changelogHref("/fr/changelog", "3.38.0", ["3.37.0"]), "/fr/changelog", "a release npm does not know yet has no entry: no dead anchor");
   const footer = read("app/components/SiteFooter.tsx");
-  assert.match(footer, /localePath\(locale, "\/changelog"\)\}#\$\{packageVersion\("ui"\)\}/);
+  assert.match(footer, /changelogHref\(localePath\(locale, "\/changelog"\), packageVersion\("ui"\)/);
   assert.match(read("lib/changelog.ts"), /source === "@krizaka\/ui" \? r\.version/);
 });
 

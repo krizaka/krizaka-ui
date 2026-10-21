@@ -1,7 +1,8 @@
 "use client";
 
-import { type ComponentType, lazy, Suspense, useEffect, useRef, useState } from "react";
+import { type ComponentType, lazy, type MouseEvent, Suspense, type SyntheticEvent, useEffect, useRef, useState } from "react";
 
+import { staysInPlace } from "@/lib/sample-links";
 import { examplePropsOf } from "@/lib/ui-example-props";
 import { UI_EXAMPLES } from "@/lib/ui-examples";
 
@@ -21,6 +22,19 @@ const ON_SERVER = typeof window === "undefined";
 const SERVER_EXAMPLES = ON_SERVER
   ? (Object.fromEntries(Object.entries(UI_EXAMPLES).map(([key, load]) => [key, lazy(async () => ({ default: (await load()).default as AnyExample }))])) as Partial<Record<string, AnyExample>>)
   : {};
+
+/* An example's links and forms are samples (lib/sample-links.ts): a click on one, or Enter in a field of one, goes
+   nowhere. Captured on the wrapper, so it holds before and after the live component replaces the markup. */
+function keepSamplesInPlace(event: SyntheticEvent) {
+  const target = event.target instanceof Element ? event.target : null;
+  if (event.type === "click") {
+    const href = target?.closest("a[href]")?.getAttribute("href");
+    if (href !== undefined && href !== null && staysInPlace(href, window.location.origin)) (event as MouseEvent).preventDefault();
+  } else if (event.type === "submit") {
+    const action = (target?.closest("form") ?? null)?.getAttribute("action") ?? null;
+    if (staysInPlace(action, window.location.origin)) event.preventDefault();
+  }
+}
 
 export function LiveExample({ exampleKey }: { exampleKey: string }) {
   const host = useRef<HTMLDivElement>(null);
@@ -66,11 +80,11 @@ export function LiveExample({ exampleKey }: { exampleKey: string }) {
   }
   if (Live) {
     return (
-      <div ref={host} className="kz-live-example">
+      <div ref={host} className="kz-live-example" onClickCapture={keepSamplesInPlace} onSubmitCapture={keepSamplesInPlace}>
         <Live {...examplePropsOf(exampleKey)} />
       </div>
     );
   }
   // Hydrates over the server's markup without touching it (the example stays as rendered until it wakes up).
-  return <div ref={host} className="kz-live-example" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: "" }} />;
+  return <div ref={host} className="kz-live-example" onClickCapture={keepSamplesInPlace} onSubmitCapture={keepSamplesInPlace} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: "" }} />;
 }
