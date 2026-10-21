@@ -11,10 +11,11 @@ const RULE = "No children, no child-like figures, no dolls or toys.";
 const py = (code) => execFileSync("python3", ["-c", code], { cwd: here, encoding: "utf8" }).trim();
 
 test("every plate and keyframe prompt carries the rule", () => {
-  const shot = { keyframe: "A desk at night.", plate: "A desk at night.", birds: [{ bird: "flamingo" }] };
-  const plan = { style: "Warm.", keyframeKeep: "Keep the design.", characters: [{ id: "flamingo", description: "a pink flamingo" }] };
-  const out = JSON.parse(py(`import json, keyframes as k; s=${JSON.stringify(JSON.stringify(shot))}; p=${JSON.stringify(JSON.stringify(plan))}; print(json.dumps([k.plate_prompt(json.loads(s), json.loads(p)), k.integrate_prompt(json.loads(s), json.loads(p))]))`));
-  for (const prompt of out) assert.ok(prompt.includes(RULE), prompt);
+  // Read from the source: keyframes.py needs numpy and Pillow, which CI does not install for a data test.
+  const src = readFileSync(new URL("./keyframes.py", import.meta.url), "utf8");
+  assert.ok(src.includes(`NO_CHILDREN = "${RULE}"`));
+  const body = (name) => src.slice(src.indexOf(`def ${name}(`), src.indexOf("\ndef ", src.indexOf(`def ${name}(`) + 1));
+  for (const fn of ["plate_prompt", "integrate_prompt"]) assert.match(body(fn), /\{NO_CHILDREN\}/, fn);
 });
 
 test("Wan's negative prompt names children, dolls and toys", () => {
