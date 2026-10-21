@@ -3,7 +3,7 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Flock",
   summary:
-    "The Krizaka birds standing on a stage, alive: each at ease in character, two neighbours glancing at each other, the pigeon carrying its parcel across, a bird looking up when you come near or tap it.",
+    "The Krizaka birds standing on a stage, alive: each at ease in character, two neighbours glancing at each other, the pigeon carrying its parcel across, a bird looking up when you come near or tap it — and, with `scenes`, a short scene for each bird.",
   status: "beta",
   category: "blocks",
   platforms: "web",
@@ -25,13 +25,15 @@ export const meta = {
     "Give the stage the ratio of its backdrop (`ratio`) and the birds' places in percent: they keep their positions at any width.",
     "Keep each bird to its job: the falcon watches, the owl reads, the duck builds, the flamingo answers, the pigeon delivers.",
     "Make it the page's own: `active` is the bird of the product the reader is on (it looks up and jumps), `greet` has every bird jump once as the flock comes into view, `tempo` makes the moments more frequent.",
+    "`scenes` gives each bird a short scene true to its promise (the owl reads a book, the flamingo and the lovebird talk, the crane bows, the beaver taps a log, the magpie takes a shiny point, the duck builds, the falcon scans) and has the pigeon hand its parcel over, which the receiver opens in its own way. One at a time, at random, with long pauses now and then: leave `tempo` near 1 to 1.7.",
     "Turn a moment off with `glance={false}`, `courier={false}` or `react={false}` on a page that already moves.",
   ],
   accessibility: {
     keyboard: [],
     notes: [
       "Decorative (`aria-hidden`): it never carries information; put the words beside it.",
-      "Under `prefers-reduced-motion` the birds are still: no idle motion, no glance, no delivery, no reaction.",
+      "Under `prefers-reduced-motion` the birds are still: no idle motion, no glance, no delivery, no scene, no reaction.",
+      "It waits for the page to settle (`html[data-motion=\"settling\"]`) and pauses off screen (the stage is a `data-motion-scope`).",
       "The moments pause while the flock is off screen and while the tab is hidden; there is no frame loop.",
     ],
   },
@@ -40,6 +42,7 @@ export const meta = {
     imports: ["Flock"],
     examples: [
       { name: "ridge", title: "The flock on its ridge", description: "Five birds across a stage, each at ease; neighbours glance, the pigeon delivers." },
+      { name: "scenes", title: "The scenes", description: "The owl reads, the flamingo and the lovebird talk, the crane bows, the beaver taps a log, the magpie takes a shiny point, and the pigeon hands its parcel over." },
       { name: "pair", title: "Two birds", description: "The owl and the duck: they look at each other now and then." },
     ],
   },
