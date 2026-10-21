@@ -67,8 +67,12 @@ for (const path of PATHS) {
       if (f.sideways) problems.push(`${where}: the page scrolls sideways`);
       if (out) await page.screenshot({ path: `${out}/home${path === "/" ? "-en" : "-fr"}-${width}-${theme}.png` });
       if (width === 1440 && (await page.locator(".kz-home-search").count())) {
-        await page.locator(".kz-home-search").click();
-        const dialog = await page.locator("[role=dialog]").first().isVisible().catch(() => false);
+        // The search opens once the page has hydrated: a click before that does nothing, so try a few times.
+        let dialog = false;
+        for (let i = 0; i < 4 && !dialog; i++) {
+          await page.locator(".kz-home-search").click();
+          dialog = await page.locator("[role=dialog]").first().waitFor({ state: "visible", timeout: 1500 }).then(() => true, () => false);
+        }
         if (!dialog) problems.push(`${where}: the search does not open the search dialog`);
       }
       await context.close();
