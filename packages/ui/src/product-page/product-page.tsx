@@ -85,9 +85,6 @@ export function ProductPage({ brand, mark, title, lead, facts, actions, visual, 
             {visual && (
               <figure className="kz-tpl-stage">
                 <div className="kz-tpl-stage-bar" aria-hidden>
-                  <i />
-                  <i />
-                  <i />
                   {visualLabel && <span>{visualLabel}</span>}
                 </div>
                 {visual}

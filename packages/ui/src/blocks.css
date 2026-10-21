@@ -228,12 +228,12 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-foundation { --kz-rail: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 50%, var(--kz-border-default)); display: grid; }
 .kz-foundation-base { position: relative; display: grid; min-width: 0; }
 .kz-foundation-base::after { content: ""; position: absolute; left: 50%; top: 100%; width: 1px; height: 28px; background: var(--kz-rail); }
-.kz-foundation-group { position: relative; margin-top: 28px; padding: 22px 14px 14px; border: 1px solid var(--kz-rail); border-radius: 24px; }
+.kz-foundation-group { position: relative; margin-top: 28px; padding: 22px 14px 14px; border: 1px solid var(--kz-rail); border-radius: 0; }
 .kz-foundation-label { position: absolute; top: -9px; left: 22px; padding: 0 8px; font: 500 11px/18px var(--kz-font-mono, ui-monospace, monospace); letter-spacing: 0; text-transform: none; color: var(--kz-hue-text, var(--kz-accent-text)); background: var(--kz-surface-0); }
 .kz-foundation[data-position="end"] .kz-foundation-base { order: 2; }
 .kz-foundation[data-position="end"] .kz-foundation-group { order: 1; margin-top: 0; margin-bottom: 28px; }
 .kz-foundation[data-position="end"] .kz-foundation-base::after { top: auto; bottom: 100%; }
-@media (max-width: 640px) { .kz-foundation-group { padding: 20px 8px 8px; border-radius: 20px; } }
+@media (max-width: 640px) { .kz-foundation-group { padding: 20px 8px 8px; border-radius: 0; } }
 
 /* The shared surface of the cards: a rail of the hue along the top, and one quiet hover (krizaka-ui#393) — the surface
    goes one step up and the hairline strengthens, in a short colour transition. Nothing moves, nothing follows the
@@ -242,7 +242,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 0;
   background: var(--kz-surface-1);
   border: 1px solid var(--kz-border-default);
   transition: background-color 150ms var(--kz-ease, ease), border-color 150ms var(--kz-ease, ease);
@@ -275,7 +275,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   flex-shrink: 0;
   width: 42px;
   height: 42px;
-  border-radius: 12px;
+  border-radius: 0;
   color: var(--kz-text-primary);
   background: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 14%, var(--kz-surface-1));
   border: 1px solid color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 30%, transparent);
@@ -388,7 +388,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   position: relative;
   margin: 0;
   padding: 14px 16px 14px 44px;
-  border-radius: 16px 16px 16px 6px;
+  border-radius: 0 16px 16px 6px;
   background: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 9%, var(--kz-surface-0));
   border: 1px solid color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 30%, transparent);
 }
@@ -428,7 +428,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   color: var(--kz-hue-text, var(--kz-accent-text));
 }
 .kz-quote-bird { flex-shrink: 0; --kz-accent: var(--kz-hue, var(--kz-accent)); }
-.kz-quote[data-variant="callout"] blockquote { padding: 24px 26px 24px 68px; border-radius: 22px 22px 22px 8px; }
+.kz-quote[data-variant="callout"] blockquote { padding: 24px 26px 24px 68px; border-radius: 0 22px 22px 8px; }
 .kz-quote[data-variant="callout"] blockquote::before { left: 18px; top: 12px; font-size: 72px; }
 .kz-quote[data-variant="callout"] blockquote::after { left: 36px; bottom: -8px; width: 14px; height: 14px; }
 .kz-quote[data-variant="callout"] blockquote p { font-family: var(--kz-font-display); font-size: clamp(16px, 2vw, 19px); font-weight: 400; line-height: 1.55; letter-spacing: -0.01em; }
@@ -445,14 +445,14 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 
 /* ─── DecisionList: one card per decision — what was chosen, large; refused · because · what it costs, side by side ─── */
 .kz-decisions { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
-.kz-decision { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; padding: 20px 22px; border-radius: 18px; background: var(--kz-surface-1); border: 1px solid var(--kz-border-default); }
+.kz-decision { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; padding: 20px 22px; border-radius: 0; background: var(--kz-surface-1); border: 1px solid var(--kz-border-default); }
 .kz-decision-n { font-family: var(--kz-font-display); font-size: 28px; font-weight: 400; line-height: 1; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; color: var(--kz-hue-text, var(--kz-accent-text)); }
 .kz-decision-body { display: grid; gap: 14px; min-width: 0; }
 .kz-decision-part p:not(.kz-label) { margin: 6px 0 0; font-size: 14px; line-height: 1.6; color: var(--kz-text-secondary); }
 .kz-decision-part[data-part="chose"] .kz-label { color: var(--kz-success-text); }
 .kz-decision-part[data-part="chose"] p:not(.kz-label) { font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--kz-text-primary); }
 .kz-decision-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.kz-decision-grid > .kz-decision-part { min-width: 0; padding: 12px 14px; border-radius: 12px; background: var(--kz-surface-0); border: 1px solid var(--kz-border-subtle); border-top: 2px solid var(--kz-border-strong); }
+.kz-decision-grid > .kz-decision-part { min-width: 0; padding: 12px 14px; border-radius: 0; background: var(--kz-surface-0); border: 1px solid var(--kz-border-subtle); border-top: 2px solid var(--kz-border-strong); }
 .kz-decision-part[data-part="refused"] { border-top-color: var(--kz-danger); }
 .kz-decision-part[data-part="refused"] .kz-label { color: var(--kz-danger-text); }
 .kz-decision-part[data-part="because"] { border-top-color: var(--kz-hue, var(--kz-accent)); }
@@ -463,7 +463,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 @media (max-width: 560px) { .kz-decision { grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 18px; } .kz-decision-n { font-size: 22px; } }
 
 /* ─── CodeBlock · CodeTabs: a file name, code that scrolls sideways (never shrinks), a copy button ─── */
-.kz-code { margin: 0; min-width: 0; overflow: hidden; border-radius: 14px; background: var(--kz-surface-1); border: 1px solid var(--kz-border-default); box-shadow: inset 3px 0 0 var(--kz-hue, var(--kz-accent)); }
+.kz-code { margin: 0; min-width: 0; overflow: hidden; border-radius: 0; background: var(--kz-surface-1); border: 1px solid var(--kz-border-default); box-shadow: inset 3px 0 0 var(--kz-hue, var(--kz-accent)); }
 .kz-code-bar {
   display: flex;
   align-items: center;
@@ -523,7 +523,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-md blockquote { padding-inline-start: 1em; color: var(--kz-text-secondary); border-inline-start: 3px solid var(--kz-hue, var(--kz-accent)); }
 .kz-md :not(pre) > code { padding: 0.12em 0.4em; border-radius: 6px; font-family: var(--kz-font-mono); font-size: 0.88em; background: var(--kz-surface-3); }
 .kz-md hr { border: 0; border-top: 1px solid var(--kz-border-default); }
-.kz-md img { max-width: 100%; height: auto; border-radius: 12px; }
+.kz-md img { max-width: 100%; height: auto; border-radius: 0; }
 .kz-md-table { overflow-x: auto; }
 .kz-md-table table { width: 100%; border-collapse: collapse; font-size: 0.93em; }
 .kz-md-table :is(th, td) { padding: 0.55em 0.8em; text-align: start; border-bottom: 1px solid var(--kz-border-subtle); }
@@ -594,7 +594,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   justify-content: space-between;
   gap: 20px;
   padding: 24px 26px;
-  border-radius: 20px;
+  border-radius: 0;
   background: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 8%, var(--kz-surface-1));
   border: 1px solid color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 30%, var(--kz-border-default));
 }
@@ -636,13 +636,13 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-tpl-split[data-reverse] > :first-child { order: 2; }
 @media (max-width: 900px) { .kz-tpl-split { grid-template-columns: minmax(0, 1fr); } .kz-tpl-split[data-reverse] > :first-child { order: 0; } }
 .kz-tpl-stage {
-  position: relative; min-width: 0; overflow: hidden; border-radius: 20px; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1);
-  box-shadow: 0 40px 80px -48px color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 70%, transparent);
+  position: relative; min-width: 0; overflow: hidden; border-radius: 0; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1);
+  box-shadow: var(--kz-shadow-md);
 }
 .kz-tpl-stage-bar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; border-bottom: 1px solid var(--kz-border-subtle); background: var(--kz-surface-2);
   font-family: var(--kz-font-mono); font-size: 11px; color: var(--kz-text-secondary); }
-.kz-tpl-stage-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--kz-border-strong); }
-.kz-tpl-stage-bar span { margin-left: 8px; }
+.kz-tpl-stage-bar i { display: none; } /* Cahier: no fake window controls — the bar is the plate's caption */
+.kz-tpl-stage-bar span { margin-left: 0; }
 .kz-tpl-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
 
 /* A band of proofs: figures or facts across the frame, divided by hairlines. */
@@ -655,7 +655,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 
 /* A bento: features of different weights on a six-column grid (one column on a phone). */
 .kz-tpl-bento { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
-.kz-tpl-bento > li { grid-column: span 2; display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 22px; border-radius: 18px;
+.kz-tpl-bento > li { grid-column: span 2; display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 22px; border-radius: 0;
   background: var(--kz-surface-1); border: 1px solid var(--kz-border-default); }
 .kz-tpl-bento > li[data-size="lg"] { grid-column: span 4; grid-row: span 2; background: color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 7%, var(--kz-surface-1)); }
 .kz-tpl-bento > li[data-size="md"] { grid-column: span 3; }
@@ -670,7 +670,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-tpl-timeline::before { content: ""; position: absolute; left: 21px; top: 8px; bottom: 8px; width: 2px;
   background: linear-gradient(var(--kz-hue, var(--kz-accent)), color-mix(in srgb, var(--kz-hue, var(--kz-accent)) 10%, transparent)); }
 .kz-tpl-step { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr) minmax(0, 1fr); gap: 20px 28px; align-items: start; }
-.kz-tpl-step-n { grid-column: 1; grid-row: 1; position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 14px;
+.kz-tpl-step-n { grid-column: 1; grid-row: 1; position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 0;
   font-family: var(--kz-font-display); font-size: 16px; font-weight: 400; color: var(--kz-text-primary); background: var(--kz-surface-1);
   border: 2px solid var(--kz-hue, var(--kz-accent)); box-shadow: 0 0 0 6px var(--kz-surface-0); }
 .kz-tpl-step :is(h2, h3) { margin: 6px 0 8px; font-family: var(--kz-font-display); font-size: clamp(1.15rem, 2.2vw, 1.4rem); font-weight: 400; color: var(--kz-text-primary); }
@@ -687,7 +687,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 /* A gallery: media in columns of different heights, the featured one wide. */
 .kz-tpl-gallery { margin: 0; padding: 0; list-style: none; columns: 3 280px; column-gap: 14px; }
 .kz-tpl-gallery > li { break-inside: avoid; margin-bottom: 14px; }
-.kz-tpl-figure { margin: 0; overflow: hidden; border-radius: 16px; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); }
+.kz-tpl-figure { margin: 0; overflow: hidden; border-radius: 0; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); }
 .kz-tpl-figure-media { overflow: hidden; background: var(--kz-media); }
 .kz-tpl-figure-media > :is(img, video) { display: block; width: 100%; height: auto; }
 .kz-tpl-figure figcaption { display: grid; gap: 4px; padding: 12px 14px; }
@@ -700,7 +700,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-tpl-hub-search > * { width: 100%; }
 .kz-tpl-hub-hints { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 13px; color: var(--kz-text-secondary); }
 .kz-tpl-collections { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 14px; }
-.kz-tpl-collection { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; gap: 12px; height: 100%; padding: 20px; border-radius: 18px;
+.kz-tpl-collection { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; gap: 12px; height: 100%; padding: 20px; border-radius: 0;
   background: linear-gradient(160deg, color-mix(in srgb, var(--kz-accent) 14%, var(--kz-surface-1)), var(--kz-surface-1) 55%);
   border: 1px solid color-mix(in srgb, var(--kz-accent) 28%, var(--kz-border-default)); }
 .kz-tpl-collection-head { display: flex; align-items: center; gap: 10px; }
@@ -743,7 +743,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-tpl-prose { max-width: 46rem; font-size: 16px; line-height: 1.75; color: var(--kz-text-secondary); }
 .kz-tpl-prose :is(h2, h3) { color: var(--kz-text-primary); font-family: var(--kz-font-display); scroll-margin-top: var(--kz-anchor-offset, 96px); }
 .kz-tpl-pager { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 40px; }
-.kz-tpl-pager a { display: grid; gap: 4px; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1);
+.kz-tpl-pager a { display: grid; gap: 4px; padding: 14px 16px; border-radius: 0; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1);
   text-decoration: none; color: var(--kz-text-primary); }
 .kz-tpl-pager a:hover { border-color: var(--kz-accent); }
 .kz-tpl-pager a:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; }
@@ -758,7 +758,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-tpl-count { margin: 0; font-family: var(--kz-font-mono); font-size: 12px; color: var(--kz-text-secondary); }
 @media (max-width: 900px) {
   .kz-tpl-catalogue { grid-template-columns: minmax(0, 1fr); gap: 16px; }
-  .kz-tpl-catalogue-filters { position: static; border-radius: 14px; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); }
+  .kz-tpl-catalogue-filters { position: static; border-radius: 0; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); }
   .kz-tpl-catalogue-filters > summary { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 0 14px; cursor: pointer; list-style: none;
     font-size: 14px; font-weight: 650; color: var(--kz-text-primary); }
   .kz-tpl-catalogue-filters > summary::-webkit-details-marker { display: none; }
@@ -766,7 +766,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 }
 @media (max-width: 1279px) {
   .kz-tpl-catalogue[data-rail="wide"] { grid-template-columns: minmax(0, 1fr); gap: 16px; }
-  .kz-tpl-catalogue[data-rail="wide"] .kz-tpl-catalogue-filters { position: static; border-radius: 14px; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); }
+  .kz-tpl-catalogue[data-rail="wide"] .kz-tpl-catalogue-filters { position: static; border-radius: 0; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); }
   .kz-tpl-catalogue[data-rail="wide"] .kz-tpl-catalogue-filters > summary { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 0 14px; cursor: pointer; list-style: none;
     font-size: 14px; font-weight: 650; color: var(--kz-text-primary); }
   .kz-tpl-catalogue[data-rail="wide"] .kz-tpl-catalogue-filters > summary::-webkit-details-marker { display: none; }
@@ -816,7 +816,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 /* Contact: the ways to reach us beside the form; what happens next under it. */
 .kz-tpl-contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(24px, 4vw, 48px); align-items: start; }
 @media (max-width: 900px) { .kz-tpl-contact { grid-template-columns: minmax(0, 1fr); } }
-.kz-tpl-form { padding: clamp(18px, 3vw, 28px); border-radius: 20px; background: var(--kz-surface-1); border: 1px solid var(--kz-border-default); }
+.kz-tpl-form { padding: clamp(18px, 3vw, 28px); border-radius: 0; background: var(--kz-surface-1); border: 1px solid var(--kz-border-default); }
 .kz-tpl-next { margin: 0; padding: 0; list-style: none; counter-reset: next; display: grid; gap: 12px; }
 .kz-tpl-next li { counter-increment: next; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; font-size: 14px; line-height: 1.6; color: var(--kz-text-secondary); }
 .kz-tpl-next li::before { content: counter(next); display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%;
@@ -824,7 +824,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-tpl-next strong { display: block; color: var(--kz-text-primary); }
 
 /* Status: one line per service, its state in words and a dot; an incident log under it. */
-.kz-tpl-state { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; padding: 18px 20px; border-radius: 18px; border: 1px solid var(--kz-border-default);
+.kz-tpl-state { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; padding: 18px 20px; border-radius: 0; border: 1px solid var(--kz-border-default);
   background: var(--kz-surface-1); }
 .kz-tpl-state[data-state="operational"] { border-color: color-mix(in srgb, var(--kz-success) 40%, var(--kz-border-default)); background: color-mix(in srgb, var(--kz-success) 7%, var(--kz-surface-1)); }
 .kz-tpl-state[data-state="degraded"] { border-color: color-mix(in srgb, var(--kz-warning) 40%, var(--kz-border-default)); background: color-mix(in srgb, var(--kz-warning) 7%, var(--kz-surface-1)); }
@@ -835,7 +835,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 [data-state="degraded"] > .kz-tpl-dot, .kz-tpl-dot[data-state="degraded"] { background: var(--kz-warning); }
 [data-state="outage"] > .kz-tpl-dot, .kz-tpl-dot[data-state="outage"] { background: var(--kz-danger); }
 [data-state="building"] > .kz-tpl-dot, .kz-tpl-dot[data-state="building"] { background: var(--kz-info); }
-.kz-tpl-services { margin: 16px 0 0; padding: 0; list-style: none; border-radius: 16px; border: 1px solid var(--kz-border-default); overflow: hidden; }
+.kz-tpl-services { margin: 16px 0 0; padding: 0; list-style: none; border-radius: 0; border: 1px solid var(--kz-border-default); overflow: hidden; }
 .kz-tpl-services li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-top: 1px solid var(--kz-border-subtle);
   font-size: 14.5px; color: var(--kz-text-primary); background: var(--kz-surface-1); }
 .kz-tpl-services li:first-child { border-top: 0; }
@@ -851,10 +851,10 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 
 /* Pricing: plans side by side, the featured one lifted; a comparison under them. */
 .kz-tpl-plans { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px; align-items: stretch; }
-.kz-tpl-plan { position: relative; display: flex; flex-direction: column; gap: 14px; height: 100%; padding: 24px; border-radius: 20px; background: var(--kz-surface-1);
+.kz-tpl-plan { position: relative; display: flex; flex-direction: column; gap: 14px; height: 100%; padding: 24px; border-radius: 0; background: var(--kz-surface-1);
   border: 1px solid var(--kz-border-default); }
 .kz-tpl-plan[data-featured] { border-color: var(--kz-accent); background: linear-gradient(170deg, color-mix(in srgb, var(--kz-accent) 12%, var(--kz-surface-1)), var(--kz-surface-1) 60%);
-  box-shadow: 0 30px 60px -36px var(--kz-accent); }
+  box-shadow: var(--kz-shadow-md); }
 .kz-tpl-plan :is(h2, h3) { margin: 0; font-family: var(--kz-font-display); font-size: 18px; font-weight: 400; color: var(--kz-text-primary); }
 .kz-tpl-price { margin: 0; font-family: var(--kz-font-display); font-size: 2.6rem; font-weight: 400; letter-spacing: -0.01em; line-height: 1; color: var(--kz-text-primary); }
 .kz-tpl-price small { display: block; margin-top: 6px; font-family: var(--kz-font-text, inherit); font-size: 13px; font-weight: 500; letter-spacing: 0; color: var(--kz-text-secondary); }
@@ -866,12 +866,12 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-tpl-compare th, .kz-tpl-compare td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--kz-border-subtle); color: var(--kz-text-secondary); }
 .kz-tpl-compare thead th { font-family: var(--kz-font-mono); font-size: 11px; letter-spacing: 0; text-transform: none; }
 .kz-tpl-compare tbody th { color: var(--kz-text-primary); font-weight: 600; }
-.kz-tpl-scroll { overflow-x: auto; border-radius: 16px; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); }
+.kz-tpl-scroll { overflow-x: auto; border-radius: 0; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); }
 .kz-tpl-faq { display: grid; gap: 8px; }
-.kz-tpl-faq details { border-radius: 14px; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); }
+.kz-tpl-faq details { border-radius: 0; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); }
 .kz-tpl-faq summary { display: flex; align-items: center; min-height: 48px; padding: 0 16px; cursor: pointer; list-style: none; font-size: 15px; font-weight: 650; color: var(--kz-text-primary); }
 .kz-tpl-faq summary::-webkit-details-marker { display: none; }
-.kz-tpl-faq summary:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; border-radius: 14px; }
+.kz-tpl-faq summary:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: 2px; border-radius: 0; }
 .kz-tpl-faq details > div { padding: 0 16px 16px; font-size: 14.5px; line-height: 1.65; color: var(--kz-text-secondary); }
 
 @media (prefers-reduced-motion: reduce) { .kz-tpl-collection { transition: none !important; transform: none !important; } }
