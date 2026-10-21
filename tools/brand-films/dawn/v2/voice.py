@@ -48,7 +48,9 @@ def main() -> None:
             if only and line["id"] not in only:
                 continue
             wav = out / f"{language}-{line['id']}{arg('suffix', '')}.wav"
-            plan = [p.__dict__ for p in voice_direction.plan(line[language], line["direction"])]
+            # A line may say its words differently from how they are written (a brand name the English voice mispronounces).
+            spoken = line.get("say", {}).get(language, line[language])
+            plan = [p.__dict__ for p in voice_direction.plan(spoken, line["direction"])]
             plan_file = out / f"{language}-{line['id']}.plan.json"
             plan_file.write_text(json.dumps(plan, ensure_ascii=False))
             subprocess.run([arg("speech-python"), "-m", "app.zonos_runner", "--plan", str(plan_file), "--voice", str(ref),

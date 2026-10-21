@@ -121,3 +121,20 @@ test("the edit holds every planned shot once, with a 9:16 centre; the gate has a
   for (const s of edl.shots) assert.ok(s.vx >= 0 && s.vx <= 1 && s.screen > 1 && s.screen <= 5, `${s.take}`);
   for (const step of ["story", "takes", "voice", "music", "foley", "loudness", "titles"]) assert.ok(gate[step], `gate.${step}`);
 });
+
+test("a film longer than the worker's cut (24 shots) is cut in parts at hard cuts, every shot once, in order", async () => {
+  const { execFileSync } = await import("node:child_process");
+  const parts = (count, limit, cuts) =>
+    JSON.parse(execFileSync("python3", ["-c", `import json,sys; sys.path.insert(0, "."); from finish import parts; print(json.dumps(parts(${count}, ${limit}, json.loads(sys.argv[1]))))`, JSON.stringify(cuts)], { cwd: new URL(".", import.meta.url) }).toString());
+  assert.deepEqual(parts(5, 24, [true, true, true, true, true]), [[0, 5]]);
+  const all = Array(25).fill(true);
+  const split = parts(25, 24, all);
+  assert.equal(split.length, 2);
+  assert.deepEqual(split.flatMap(([a, b]) => Array.from({ length: b - a }, (_, k) => a + k)), [...Array(25).keys()]);
+  for (const [a, b] of split) assert.ok(b - a <= 24 && b > a);
+  // never split on a transition: shot 13 dissolves in, so the part starts elsewhere
+  const soft = [...all];
+  soft[13] = false;
+  for (const [a] of parts(25, 24, soft)) assert.notEqual(a, 13);
+  assert.ok(edl.shots.length > 24, "le relais needs the split");
+});
