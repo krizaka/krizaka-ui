@@ -5,7 +5,7 @@ const glyph = (d: string) => (
     <path d={d} />
   </svg>
 );
-const repo = "https://github.com/krizaka/krizaka-java";
+const repo = "https://github.com/krizaka/krizaka-build";
 
 // `icons`: where room is short (the foot of a card) — the words are the accessible name and a tooltip on hover and focus.
 export default function ActionBarIcons() {

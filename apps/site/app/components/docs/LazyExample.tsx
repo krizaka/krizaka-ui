@@ -58,7 +58,7 @@ export function LazyExample({ exampleKey, heavy, placeholder }: { exampleKey: st
   }, [wanted, exampleKey]);
 
   return (
-    <div ref={host} className="kz-catalog-live">
+    <div ref={host} className="kz-catalog-live" inert>
       {Example ? (
         <Guard fallback={placeholder}>
           {snapshot ? (
