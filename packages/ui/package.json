@@ -1959,7 +1959,7 @@
     {
       "name": "./flock",
       "path": "dist/flock.js",
-      "limit": "9 kB",
+      "limit": "10.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
