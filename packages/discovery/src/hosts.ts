@@ -19,5 +19,7 @@ export function isAllowedUrl(value: string, suffixes: readonly string[]): boolea
 
 /** `https://host/edge/` → `https://host/edge` (a base is joined with a path that starts with a slash). */
 export function normalizeBase(value: string): string {
-  return value.replace(/\/+$/, "");
+  let end = value.length;
+  while (end > 0 && value[end - 1] === "/") end -= 1;
+  return value.slice(0, end);
 }

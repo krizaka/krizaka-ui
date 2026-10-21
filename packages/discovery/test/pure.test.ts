@@ -97,6 +97,8 @@ describe("host allow-list", () => {
     expect(normalizeBase("https://dev.orazaka.com/edge/")).toBe("https://dev.orazaka.com/edge");
     expect(normalizeBase("https://www.krizaka.com/")).toBe("https://www.krizaka.com");
     expect(normalizeBase("https://www.krizaka.com")).toBe("https://www.krizaka.com");
+    expect(normalizeBase("https://www.krizaka.com/edge///")).toBe("https://www.krizaka.com/edge");
+    expect(normalizeBase("/".repeat(50_000))).toBe("");
   });
 });
 
