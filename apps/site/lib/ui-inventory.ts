@@ -30,6 +30,7 @@ const COMMUNITY = "Yasakia's people screens (PY3/PY4) and Orochia's creator page
 
 /** Why an unused component stays: the planned work that needs it. */
 export const PLANNED: Record<string, string> = {
+  flock: "krizaka.com's home (AmbientLoop): the live birds on the valley, glancing at each other, the pigeon delivering.",
   "action-sheet": `${MOBILE}: the menu of a long press and of "more" on a row.`,
   "activity-feed": "Orochia's notifications and Orazaka's job history (the adoption of Elements, PS-E).",
   "media-grid": "Orochia's home feed, Explore and a profile's Videos tab (ORO-HOME-FEED): a Shorts shelf for the 9:16, a uniform grid for the 16:9.",
