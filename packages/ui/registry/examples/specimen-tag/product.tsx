@@ -14,7 +14,7 @@ export default function SpecimenTagProduct() {
       ]}
       footer={
         <>
-          <a href="https://dev.yomizaka.com">dev.yomizaka.com ↗</a>
+          <a href="https://www.yomizaka.com">www.yomizaka.com ↗</a>
           <a href="https://github.com/krizaka/yomizaka">source</a>
         </>
       }

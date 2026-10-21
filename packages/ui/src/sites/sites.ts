@@ -45,13 +45,13 @@ const site = (s: Omit<Site, "host">): Site => ({ ...s, host: s.url.replace(/^htt
 /** Every site of the family, in reading order (the group order, then the order inside each group). */
 export const sites: readonly Site[] = [
   site({ id: "krizaka", name: "Krizaka", url: "https://www.krizaka.com", kind: "company", group: "krizaka", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-com" }),
-  site({ id: "orazaka", name: "Orazaka", url: "https://dev.orazaka.com", kind: "product", group: "products", status: "released", mark: "orazaka", repo: "https://github.com/krizaka/orazaka" }),
-  site({ id: "orochia", name: "Orochia", url: "https://dev.orochia.com", kind: "product", group: "products", status: "released", mark: "orochia", repo: "https://github.com/krizaka/orochia" }),
-  site({ id: "yasakia", name: "Yasakia", url: "https://dev.yasakia.com", kind: "product", group: "products", status: "development", mark: "yasakia", repo: "https://github.com/krizaka/yasakia" }),
-  site({ id: "yororis", name: "Yororis", url: "https://dev.yororis.com", kind: "product", group: "products", status: "construction", mark: "yororis", repo: "https://github.com/krizaka/yororis" }),
-  site({ id: "yomizaka", name: "Yomizaka", url: "https://dev.yomizaka.com", kind: "product", group: "products", status: "development", mark: "yomizaka", repo: "https://github.com/krizaka/yomizaka" }),
-  site({ id: "kachizaka", name: "Kachizaka", url: "https://dev.kachizaka.com", kind: "product", group: "products", status: "development", mark: "kachizaka", repo: "https://github.com/krizaka/kachizaka" }),
-  site({ id: "akinaza", name: "Akinaza", url: "https://dev.akinaza.com", kind: "product", group: "products", status: "development", mark: "akinaza", repo: "https://github.com/krizaka/akinaza" }),
+  site({ id: "orazaka", name: "Orazaka", url: "https://www.orazaka.com", kind: "product", group: "products", status: "released", mark: "orazaka", repo: "https://github.com/krizaka/orazaka" }),
+  site({ id: "orochia", name: "Orochia", url: "https://www.orochia.com", kind: "product", group: "products", status: "released", mark: "orochia", repo: "https://github.com/krizaka/orochia" }),
+  site({ id: "yasakia", name: "Yasakia", url: "https://www.yasakia.com", kind: "product", group: "products", status: "development", mark: "yasakia", repo: "https://github.com/krizaka/yasakia" }),
+  site({ id: "yororis", name: "Yororis", url: "https://www.yororis.com", kind: "product", group: "products", status: "construction", mark: "yororis", repo: "https://github.com/krizaka/yororis" }),
+  site({ id: "yomizaka", name: "Yomizaka", url: "https://www.yomizaka.com", kind: "product", group: "products", status: "development", mark: "yomizaka", repo: "https://github.com/krizaka/yomizaka" }),
+  site({ id: "kachizaka", name: "Kachizaka", url: "https://www.kachizaka.com", kind: "product", group: "products", status: "development", mark: "kachizaka", repo: "https://github.com/krizaka/kachizaka" }),
+  site({ id: "akinaza", name: "Akinaza", url: "https://www.akinaza.com", kind: "product", group: "products", status: "development", mark: "akinaza", repo: "https://github.com/krizaka/akinaza" }),
   site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
   site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-build" }),
   // The motion lab: built in the open on GitHub Pages; what proves itself there moves into Krizaka UI.
