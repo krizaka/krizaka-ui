@@ -129,3 +129,14 @@ test("the home's ambient loop: 10–14 s, each bird's turn inside it, the sweep 
   assert.ok(AMBIENT.sweep[0] > Math.max(...Object.values(AMBIENT.turns)) - 3 && AMBIENT.sweep[1] < AMBIENT.seconds);
   for (const aspect of Object.keys(AMBIENT.aspects)) assert.ok(FILM.aspects[aspect], `${aspect} has a layout`);
 });
+
+test("the home's valley backdrop (birds: false) has no phoenix: the live Flock stands on it and its flamingo would hide the phoenix", async () => {
+  const { ambientHtml } = await import("./stage.mjs");
+  for (const aspect of ["16x9", "4x5"]) {
+    const seen = [];
+    const kit = { tokensCss: "", fonts: "/fonts", landscape: (o) => (seen.push(o), "<svg></svg>"), mascot: () => assert.fail("no bird on the valley alone") };
+    ambientHtml({ kit, aspect, theme: "dark", birds: false });
+    assert.equal(seen.length, 1);
+    assert.equal(seen[0].phoenix, false, `${aspect}: the valley alone shows no phoenix`);
+  }
+});

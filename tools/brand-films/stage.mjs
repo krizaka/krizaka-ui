@@ -174,7 +174,7 @@ export function drawable(svg) {
  * The home's ambient loop: the valley held still, the five on the ridge breathing and blinking, one small gesture each
  * in turn, a light across the valley once. No text. Its top and bottom melt into the page's surface (`theme`), so it
  * sits in the hero's backdrop instead of in a box. `birds: false` is the valley and its ridge alone — the home puts the live
- * `Flock` (krizaka-ui `Flock`) on it.
+ * `Flock` (krizaka-ui `Flock`) on it — and no phoenix: the Orazaka flamingo stands at the centre of that flock and would hide it.
  */
 export function ambientHtml({ kit, aspect, theme = "dark", birds = true }) {
   const L = layout(aspect);
@@ -190,7 +190,7 @@ export function ambientHtml({ kit, aspect, theme = "dark", birds = true }) {
 .bf-sweep { z-index: 6; background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,${theme === "light" ? ".22" : ".11"}) 50%, transparent 62%); mix-blend-mode: ${theme === "light" ? "soft-light" : "screen"}; transform: translateX(-110%); }
 .bf-melt { z-index: 7; background: linear-gradient(to bottom, var(--kz-surface-0) 0%, color-mix(in srgb, var(--kz-surface-0) 55%, transparent) 14%, transparent 34%, transparent 82%, var(--kz-surface-0) 100%); }`];
   const body = [
-    `<div class="layer bf-world">${kit.landscape({ tone: "own", flock: false, phoenix: L.phoenix, animated: true, fade: false, position: "absolute" })}</div>`,
+    `<div class="layer bf-world">${kit.landscape({ tone: "own", flock: false, phoenix: birds && L.phoenix, animated: true, fade: false, position: "absolute" })}</div>`,
     `<svg class="layer bf-ridge" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none"><path d="${L.ridge}" fill="var(--kz-surface-0)"/><path d="${L.ridgeEdge}" stroke="${theme === "light" ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.10)"}" stroke-width="2" fill="none"/></svg>`,
   ];
   (birds ? FILM.cast : []).forEach((bird, i) => {
