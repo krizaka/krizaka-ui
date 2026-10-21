@@ -201,7 +201,7 @@ export const REPOS = [
 
 const SKIP_DIRS = new Set([
   "node_modules", ".next", "dist", "build", "out", "coverage", "storybook-static", ".turbo", ".expo", "android", "ios",
-  "__screenshots__", "e2e", ".git", ".vercel", ".source", "test", "tests", "__tests__", "__mocks__",
+  "__screenshots__", "e2e", ".git", ".source", "test", "tests", "__tests__", "__mocks__",
 ]);
 const SOURCE = /\.(tsx|ts|jsx|js|mjs)$/;
 /** Drawings of a UI (a hero illustration, an isometric scene, a mock screen, the /story game): not UI to migrate. */
