@@ -666,6 +666,10 @@ describe("Cahier (ADR-004, krizaka-ui#417): the template tells are gone at the s
     }
   });
 
+  it("a statistic's figures are lining and tabular: one baseline, one width (Young Serif draws old-style by default)", () => {
+    expect(all.get("--kz-figures")).toBe("lining-nums tabular-nums");
+  });
+
   it("nothing frosted, nothing glossy: no backdrop blur, no sheen, no light edge", () => {
     expect(invariant.get("--kz-glass-blur") ?? dark.get("--kz-glass-blur")).toBe("0px");
     for (const mode of ["dark", "light"] as const) {

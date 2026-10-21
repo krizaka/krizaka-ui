@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   box: { width: 64, gap: 4 },
   yearBox: { width: 88, gap: 4 },
   part: { fontSize: 11, lineHeight: 14 },
-  input: { height: 44, borderWidth: 1, paddingHorizontal: 10, fontSize: 16, fontVariant: ["tabular-nums"], textAlign: "center" },
+  input: { height: 44, borderWidth: 1, paddingHorizontal: 10, fontSize: 16, fontVariant: ["lining-nums", "tabular-nums"], textAlign: "center" },
   caption: { fontSize: 12, lineHeight: 16 },
   disabled: { opacity: 0.5 },
 });

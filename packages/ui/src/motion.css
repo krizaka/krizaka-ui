@@ -247,7 +247,7 @@ svg[data-kz-icon="ExternalIcon"] {
 /* A figure that climbs (NumberTicker): an invisible copy of the final value shares the grid cell and holds the width. */
 .kz-count {
   display: inline-grid;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: var(--kz-figures, lining-nums tabular-nums);
 }
 .kz-count > * {
   grid-area: 1 / 1;

@@ -81,7 +81,7 @@ export function Countdown({ target, skewMs = 0, units, urgentBelowMs = 60_000, s
 const styles = StyleSheet.create({
   root: { flexDirection: "row", alignItems: "baseline", gap: 6 },
   segment: { flexDirection: "row", alignItems: "baseline" },
-  value: { fontWeight: "900", fontVariant: ["tabular-nums"], letterSpacing: -0.3 },
+  value: { fontWeight: "900", fontVariant: ["lining-nums", "tabular-nums"], letterSpacing: -0.3 },
   unit: { marginLeft: 2, fontWeight: "700", textTransform: "uppercase" },
   label: { fontWeight: "600", marginRight: 2 },
 });

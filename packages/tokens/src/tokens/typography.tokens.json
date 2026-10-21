@@ -379,5 +379,10 @@
         "$value": "0em"
       }
     }
+  },
+  "figures": {
+    "$type": "fontVariantNumeric",
+    "$value": "lining-nums tabular-nums",
+    "$description": "Chiffres alignés, même chasse"
   }
 }

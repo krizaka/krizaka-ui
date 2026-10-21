@@ -31,7 +31,7 @@
 .kzs-stat { display: grid; gap: 6px; width: 100%; text-align: left; }
 .kzs-stat-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; font-size: 12.5px; }
 .kzs-stat-label { color: var(--kz-text-secondary); }
-.kzs-stat-value { color: var(--kz-text-primary); font-weight: 600; font-variant-numeric: tabular-nums; }
+.kzs-stat-value { color: var(--kz-text-primary); font-weight: 600; font-variant-numeric: var(--kz-figures, lining-nums tabular-nums); }
 .kzs-bar { position: relative; display: block; width: 100%; height: 6px; border-radius: 999px; overflow: hidden; background: var(--kz-surface-3); }
 .kzs-bar-fill { position: absolute; inset: 0; border-radius: inherit; transform-origin: left center; transform: scaleX(var(--kzs-ratio, 1)); background: var(--kz-accent); }
 
@@ -208,7 +208,7 @@ html.light :is(.kzs-profile.kzs-arcade, .kzs-arcade .kzs-profile) { background: 
 .kzs-gauge { display: grid; gap: 8px; width: 100%; max-width: 560px; }
 .kzs-gauge-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 12.5px; }
 .kzs-gauge-label { color: var(--kz-text-secondary); }
-.kzs-gauge-value { color: var(--kz-text-primary); font-weight: 600; font-variant-numeric: tabular-nums; }
+.kzs-gauge-value { color: var(--kz-text-primary); font-weight: 600; font-variant-numeric: var(--kz-figures, lining-nums tabular-nums); }
 .kzs-gauge-cells { display: grid; grid-template-columns: repeat(var(--kzs-segments, 8), minmax(0, 1fr)); gap: 4px; }
 .kzs-gauge-cell { height: 8px; border-radius: 999px; background: var(--kz-surface-3); }
 .kzs-gauge-cell[data-lit] { background: var(--kz-accent); }
@@ -261,7 +261,7 @@ html.light :is(.kzs-promise.kzs-arcade, .kzs-arcade .kzs-promise) { background: 
 .kzs-prompt-head { display: inline-flex; align-items: center; gap: 14px; }
 .kzs-prompt-title { font-family: var(--kz-font-display); font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 700; letter-spacing: -.015em; }
 .kzs-prompt-count { position: relative; display: inline-grid; place-items: center; min-width: 1.8em; height: 1.8em; padding: 0 6px; border-radius: 10px;
-  font-family: var(--kz-font-display); font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--kz-accent-text); background: var(--kz-accent-soft); }
+  font-family: var(--kz-font-display); font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; font-variant-numeric: var(--kz-figures, lining-nums tabular-nums); color: var(--kz-accent-text); background: var(--kz-accent-soft); }
 .kzs-prompt-count::after { position: absolute; inset: 0; display: grid; place-items: center; color: var(--kz-accent-text); }
 .kzs-prompt-deck { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
 .kzs-prompt-coin { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-size: 12.5px; color: var(--kz-text-secondary); }

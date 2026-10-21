@@ -203,5 +203,7 @@
   button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
   /* The display face has one weight (Young Serif, ADR-004): a bold heading is never faked by the browser. */
   html { font-synthesis-weight: none; }
+  /* Lining figures (ADR-004) */
+  .tabular-nums { --tw-numeric-figure: lining-nums; }
   ::placeholder { color: var(--kz-text-muted); }
 }
