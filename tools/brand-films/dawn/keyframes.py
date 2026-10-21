@@ -27,6 +27,8 @@ from canvas import SIZE, body  # noqa: E402
 
 MODEL = "flux2-klein-4b"
 EMPTY = "Empty scene, no animals, no birds, no characters, no people, no text, no logos."
+#: The hard rule of every Orochia or brand film (ADR-080 v2.8): in every plate and keyframe prompt; childsafe.py checks the takes.
+NO_CHILDREN = "No children, no child-like figures, no dolls or toys."
 
 
 def arg(name, default=None):
@@ -39,7 +41,7 @@ def flux(args: list[str], log: Path) -> None:
 
 
 def plate_prompt(shot: dict, plan: dict) -> str:
-    return f"Cinematic film still. {shot.get('plate') or shot['keyframe']} {plan['style']} {EMPTY}"
+    return f"Cinematic film still. {shot.get('plate') or shot['keyframe']} {plan['style']} {EMPTY} {NO_CHILDREN}"
 
 
 def light_of(plate: Image.Image, box: tuple[int, int, int, int]) -> np.ndarray:
@@ -103,7 +105,7 @@ def integrate_prompt(shot: dict, plan: dict) -> str:
     cast = {c["id"]: c["description"] for c in plan["characters"]}
     described = "; ".join(cast[b] for b in dict.fromkeys(s["bird"] for s in shot["birds"]))
     return (f"Cinematic film still from a premium feature-film CG animation. {shot['keyframe']} Characters: {described}. "
-            f"{plan['keyframeKeep']}")
+            f"{plan['keyframeKeep']} {NO_CHILDREN}")
 
 
 def main() -> None:

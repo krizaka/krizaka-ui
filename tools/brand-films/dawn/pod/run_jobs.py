@@ -25,7 +25,8 @@ from app.wan_generator import generate_wan_frames  # noqa: E402
 #: The negative of the full-step runs (guidance 3.5): the distilled ones ignore it (PROMPT-KIT §5).
 NEGATIVE = ("cuts, scene change, text, letters, watermark, logo, subtitles, extra limbs, extra wings, extra heads, extra legs, "
             "duplicated character, melted, morphing, deformed beak, broken neck, realistic real-world bird species, human, person, "
-            "hands, fingers, flicker, jitter, static frozen frame, low detail, blurry character, oversaturated, cartoon 2d flat")
+            "hands, fingers, flicker, jitter, static frozen frame, low detail, blurry character, oversaturated, cartoon 2d flat, "
+            "child, children, child-like figure, doll, toy")
 
 
 def last_frame(takes: Path, prefix: str, at: float | None = None) -> Image.Image:
