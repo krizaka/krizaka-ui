@@ -45,4 +45,18 @@ describe("Cahier (ADR-004): no template tell in the primitives' classes", () => 
       }
     }
   });
+
+  it("the shipped stylesheets: no card corner of 10 px or more, no blurred shadow, no radial glow", () => {
+    for (const sheet of ["blocks.css", "motion.css"]) {
+      const css = readFileSync(join(SRC, sheet), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+      for (const m of css.matchAll(/border-radius:\s*(\d+)px/g)) expect(Number(m[1]) < 10 || Number(m[1]) >= 999, `${sheet}: border-radius ${m[1]}px`).toBe(true);
+      for (const m of css.matchAll(/box-shadow:([^;]+);/g)) {
+        for (const layer of m[1].split(/,(?![^(]*\))/)) {
+          const lengths = layer.trim().match(/-?[\d.]+px|\b0\b/g) ?? [];
+          if (lengths.length >= 3) expect(lengths[2], `${sheet}: ${layer.trim()}`).toMatch(/^0(px)?$/);
+        }
+      }
+      expect(css, sheet).not.toMatch(/radial-gradient\((?!circle at 1px 1px)/);
+    }
+  });
 });

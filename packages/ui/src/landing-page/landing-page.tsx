@@ -64,9 +64,6 @@ export function LandingPage({ eyebrow, title, lead, actions, visual, visualLabel
             </div>
             <figure className="kz-tpl-stage">
               <div className="kz-tpl-stage-bar" aria-hidden>
-                <i />
-                <i />
-                <i />
                 {visualLabel && <span>{visualLabel}</span>}
               </div>
               {visual}
