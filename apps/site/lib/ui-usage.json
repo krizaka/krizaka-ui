@@ -8,11 +8,6 @@
         "files": 378
       },
       {
-        "repo": "products/orochia-admin",
-        "commit": "97bb414",
-        "files": 29
-      },
-      {
         "repo": "products/orochia-mobile",
         "commit": "63047bd",
         "files": 50
@@ -28,11 +23,6 @@
         "repo": "products/orazaka/orazaka-apps/ui/orazaka-web-client",
         "commit": "b1040bd",
         "files": 266
-      },
-      {
-        "repo": "products/orazaka/orazaka-apps/ui/orazaka-web-admin",
-        "commit": "b08bfb5",
-        "files": 40
       },
       {
         "repo": "products/orazaka/orazaka-apps/ui/orazaka-mobile-client",

@@ -134,22 +134,22 @@ describe("inventory", () => {
       "products/orochia/apps/web/components/Card.stories.tsx": "export function Card() {}",
       "products/orochia/apps/web/node_modules/x/Button.tsx": "export function Button() {}",
       "products/orochia/apps/web/components/illustrations/Mascot.tsx": "export function DuckAvatar() {}",
-      "products/orochia-admin/components/ConfirmDialog.tsx": 'import { AlertDialog } from "@krizaka/ui/dialog";\nexport function ConfirmDialog() {}',
+      "products/orochia/apps/web/console/components/ConfirmDialog.tsx": 'import { AlertDialog } from "@krizaka/ui/dialog";\nexport function ConfirmDialog() {}',
       "products/notes.md": "",
       "app/components/ThemeProvider.tsx": "export function ThemeProvider() {}",
       "company/x.tsx": "export function Button() {}",
     });
-    assert.deepEqual(sourceFiles(join(base, "products/orochia/apps/web")).map((f) => f.split("/").pop()).sort(), ["Mascot.tsx", "VideoCard.tsx"]);
+    assert.deepEqual(sourceFiles(join(base, "products/orochia/apps/web")).map((f) => f.split("/").pop()).sort(), ["ConfirmDialog.tsx", "Mascot.tsx", "VideoCard.tsx"]);
     const report = inventory({ base });
     const byName = Object.fromEntries(report.repos.map((r) => [r.name, r]));
     assert.equal(report.repos.length, REPOS.length);
-    assert.deepEqual(byName["orochia-web"].findings.map((f) => [f.file, f.status]), [["components/VideoCard.tsx", "doublon"]]);
-    assert.equal(byName["orochia-admin"].findings[0].status, "adaptateur");
+    assert.deepEqual(byName["orochia-web"].findings.map((f) => [f.file, f.status]), [["components/VideoCard.tsx", "doublon"], ["console/components/ConfirmDialog.tsx", "adaptateur"]]);
+    assert.equal(byName["orochia-web"].findings.find((f) => f.file === "console/components/ConfirmDialog.tsx").status, "adaptateur");
     assert.deepEqual(byName["krizaka-com"].findings.map((f) => f.symbol), ["ThemeProvider"]);
     assert.equal(byName["orochia-mobile"].missing, true);
 
     const md = toMarkdown(report);
-    assert.match(md, /\| orochia-web \| 2 \| 1 \| 0 \| 0 \|/);
+    assert.match(md, /\| orochia-web \| 3 \| 1 \| 0 \| 1 \|/);
     assert.match(md, /\*\*2 doublon\(s\) à migrer\.\*\*/);
     assert.match(md, /\| orochia-mobile \| — \| clone absent/);
     assert.match(issueBody(byName["orochia-web"]), /`components\/VideoCard.tsx` \| `VideoCard` \| Carte \| `@krizaka\/ui\/card`/);

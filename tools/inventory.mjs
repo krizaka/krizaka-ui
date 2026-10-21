@@ -192,12 +192,10 @@ const PRODUCT_KIT = /@krizaka\/(orochia|orazaka)-design-system\b/;
 export const REPOS = [
   { name: "krizaka-com", path: ".", slug: "krizaka/krizaka-com", prompt: "P2.6 / P3.2 transposés au site", skip: ["products", "company", "orazaka-content", "content", "public"] },
   { name: "orochia-web", path: "products/orochia/apps/web", slug: "krizaka/orochia", prompt: "P2.6, P3.2, P5.1 (Orochia web)" },
-  { name: "orochia-admin", path: "products/orochia-admin", slug: "krizaka/orochia-admin", prompt: "P3.3 (Orochia admin)" },
   { name: "orochia-design-system", path: "products/orochia-design-system", slug: "krizaka/orochia-design-system", prompt: "P2.4, P5.1 PR 3 (kit Orochia)" },
   { name: "orochia-mobile", path: "products/orochia-mobile", slug: "krizaka/orochia-mobile", prompt: "P6.2 (Orochia mobile)" },
   { name: "orazaka-ui-kit", path: "products/orazaka/orazaka-apps/ui/orazaka-ui-kit", slug: "krizaka/orazaka-ui-kit", prompt: "P2.5 (kit Orazaka)" },
   { name: "orazaka-web-client", path: "products/orazaka/orazaka-apps/ui/orazaka-web-client", slug: "krizaka/orazaka-web-client", prompt: "P3.4 (Orazaka web-client)" },
-  { name: "orazaka-web-admin", path: "products/orazaka/orazaka-apps/ui/orazaka-web-admin", slug: "krizaka/orazaka-web-admin", prompt: "P3.4 appliqué à l'admin Orazaka" },
   { name: "orazaka-mobile-client", path: "products/orazaka/orazaka-apps/ui/orazaka-mobile-client", slug: "krizaka/orazaka-mobile-client", prompt: "P6.2 appliqué à Orazaka mobile" },
 ];
 

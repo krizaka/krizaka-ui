@@ -28,13 +28,11 @@ const fetchFirst = !args.includes("--no-fetch");
 export const PRODUCTS = {
   orochia: [
     { repo: "products/orochia", dir: "apps/web" },
-    { repo: "products/orochia-admin" },
     { repo: "products/orochia-mobile" },
     { repo: "products/orochia-design-system" },
   ],
   orazaka: [
     { repo: "products/orazaka/orazaka-apps/ui/orazaka-web-client" },
-    { repo: "products/orazaka/orazaka-apps/ui/orazaka-web-admin" },
     { repo: "products/orazaka/orazaka-apps/ui/orazaka-mobile-client" },
     { repo: "products/orazaka/orazaka-apps/ui/orazaka-ui-kit" },
   ],
