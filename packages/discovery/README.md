@@ -46,7 +46,7 @@ export const discovery = createDiscovery({
     "https://www.krizaka.com/.well-known/krizaka/services.json",
     "https://krizaka-assets.b-cdn.net/discovery/services.json",   // the fallback copy
   ],
-  publicKeys: { k1: "…", k2: "…" },                     // baked, base64
+  publicKeys: KRIZAKA_PUBLIC_KEYS,                      // baked: k1 signs, k2 is the standby
   allowedHostSuffixes: ["krizaka.com", "orochia.com"],  // baked
   defaults: { orochia: { apiBase: "https://dev.orochia.com", webBase: "https://dev.orochia.com" } },
   legacy: { orochia: { apiBase: "https://dev.orochia.com", webBase: "https://dev.orochia.com" } },

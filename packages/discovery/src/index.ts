@@ -10,6 +10,7 @@ export {
 } from "./client";
 export { base64ToBytes,bytesToBase64 } from "./encoding";
 export { isAllowedUrl, normalizeBase } from "./hosts";
+export { KRIZAKA_HOST_SUFFIXES, KRIZAKA_MANIFEST_URLS, KRIZAKA_PUBLIC_KEYS } from "./krizaka";
 export type { Environment, Manifest, ManifestBody, ServiceBases, ServiceEntry, ServiceStatus } from "./manifest";
 export { parseManifest,SCHEMA_VERSION } from "./manifest";
 export { type LocalizedMessage,pickMessage } from "./message";
