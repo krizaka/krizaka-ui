@@ -95,16 +95,6 @@ const config: TestRunnerConfig = {
           axeOptions: story.parameters?.a11y?.options,
         });
       }
-      // A transition that runs on mount (a progress bar filling) is over before the picture is taken: a slow runner caught one
-      // at 80 % of its way. Only the finite ones are awaited; a loop never ends.
-      await page.evaluate(() =>
-        Promise.all(
-          document
-            .getAnimations()
-            .filter((a) => a.effect?.getTiming().iterations !== Infinity)
-            .map((a) => a.finished.catch(() => undefined)),
-        ),
-      );
       // Remote pictures (a poster, a filmstrip) are in the screenshot only once loaded and decoded.
       await page
         .waitForFunction(() => [...document.images].every((img) => img.complete), undefined, { timeout: 15_000 })
