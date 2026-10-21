@@ -1,0 +1,168 @@
+{
+ "_": "The v3 frame questions, measured before they gate anything (orazaka#289, ADR-080 v3). Qwen2.5-VL 7B Instruct 4-bit on MLX (vlm.py), temperature 0. Six frames of the v2 films with the audit's anomalies (bad) and three v3 keyframes made with stage.py (good).",
+ "model": "mlx-community/Qwen2.5-VL-7B-Instruct-4bit",
+ "frames": {
+  "bad-r11.5": "le relais 11.5 s: the owl hovering in front of the desk, the pigeon on a black slab",
+  "bad-r32.5": "le relais 32.5 s: the falcon and the pigeon floating over the Alps, black ellipses under them in the air",
+  "bad-r33.5": "le relais 33.5 s: the same",
+  "bad-r41.5": "le relais 41.5 s: the kitchen family standing on nothing in front of the table",
+  "bad-o28.5": "la première livraison 28.5 s: the owl floating in front of the window sill",
+  "bad-o37.5": "la première livraison 37.5 s: the crane and the beaver pasted in front of the bar",
+  "good-03": "le courant keyframe 3: the pigeon on the wet ledge, integrated at 0.5",
+  "good-08": "le courant keyframe 8: the owl and the duck on the workbench",
+  "good-21": "le courant keyframe 21: the pigeon at the roof edge, a wet reflection under it"
+ },
+ "answers": {
+  "contact (« casts a shadow under its feet », pass YES)": {
+   "bad-r11.5": "NO",
+   "bad-r32.5": "NO",
+   "bad-r33.5": "NO",
+   "bad-r41.5": "YES",
+   "bad-o28.5": "NO",
+   "bad-o37.5": "YES",
+   "good-03": "YES",
+   "good-08": "YES",
+   "good-21": "YES"
+  },
+  "float (« floating above or beside its surface », pass NO)": {
+   "bad-r11.5": "YES",
+   "bad-r32.5": "NO",
+   "bad-r33.5": "NO",
+   "bad-r41.5": "NO",
+   "bad-o28.5": "YES",
+   "bad-o37.5": "NO",
+   "good-03": "NO",
+   "good-08": "NO",
+   "good-21": "NO"
+  },
+  "floatingShadow (pass NO)": {
+   "bad-r11.5": "YES",
+   "bad-r32.5": "NO",
+   "bad-r33.5": "NO",
+   "bad-r41.5": "YES",
+   "bad-o28.5": "NO",
+   "bad-o37.5": "NO",
+   "good-03": "NO",
+   "good-08": "NO",
+   "good-21": "YES"
+  },
+  "shadowDirection (pass YES)": {
+   "bad-r11.5": "NO",
+   "bad-r32.5": "NO",
+   "bad-r33.5": "NO",
+   "bad-r41.5": "NO",
+   "bad-o28.5": "NO",
+   "bad-o37.5": "NO",
+   "good-03": "NO",
+   "good-08": "NO",
+   "good-21": "NO"
+  },
+  "pasted (pass NO)": {
+   "bad-r11.5": "YES",
+   "bad-r32.5": "NO",
+   "bad-r33.5": "NO",
+   "bad-r41.5": "YES",
+   "bad-o28.5": "YES",
+   "bad-o37.5": "YES",
+   "good-03": "YES",
+   "good-08": "YES",
+   "good-21": "YES"
+  }
+ },
+ "measured": {
+  "contactRatio (under the feet / beside, < 0.85 = a shadow)": {
+   "bad-r11.5 owl": 1.917,
+   "bad-r11.5 pigeon": 0.845,
+   "bad-o28.5 owl": 1.146,
+   "bad-o37.5 crane": 0.908,
+   "good-03 pigeon": 0.651,
+   "good-08 owl": 0.991,
+   "good-08 duck": 0.814,
+   "good-21 pigeon": 0.542
+  },
+  "chromaShift (light colour, ×100 log)": {
+   "bad-r11.5 owl": 1.96,
+   "bad-r11.5 pigeon": 36.89,
+   "bad-o28.5 owl": 32.9,
+   "bad-o37.5 crane": 34.34,
+   "good-03 pigeon": 39.62,
+   "good-08 owl": 10.21,
+   "good-08 duck": 40.81,
+   "good-21 pigeon": 25.32
+  }
+ },
+ "decision": {
+  "gates": [
+   "grounded (contact) and floating on every grounded character: 5 of 6 bad frames caught, 0 of 3 good rejected",
+   "floatingShadow only in shots where no character stands on a surface (it read good-21's wet reflection as a blob)",
+   "onModel with the flat-drawing-vs-3D wording: 9 of 9 right"
+  ],
+  "dropped": [
+   "shadowDirection: NO on all nine — shadows are cast from the treatment's key by construction (stage.cast_shadow) and reviewed by a person",
+   "pasted: YES on every good keyframe — the fix is in the pipeline (the bird re-rendered in the plate's light) and onModel keeps the design"
+  ],
+  "recorded, not gating": [
+   "contactRatio: a soft second opinion (good-08's owl reads 0.99)",
+   "chromaShift and lumaRatio: they did not separate the two sets"
+  ],
+  "missed": "bad-o37.5 (the crane and the beaver pasted at the bar) passes both questions: a person's review remains required (gate.json reviewedBy)."
+ },
+ "onModel": {
+  "_": "Nine pairs: five v3 keyframe characters against their own render, four against another bird's render (the crop found by the vision model).",
+  "pairs": [
+   "19 falcon vs falcon",
+   "24 crane vs crane",
+   "21 pigeon vs pigeon",
+   "27 owl vs owl",
+   "29 magpie vs magpie",
+   "21 pigeon vs falcon",
+   "19 falcon vs owl",
+   "24 crane vs flamingo",
+   "27 owl vs magpie"
+  ],
+  "expected": [
+   "YES",
+   "YES",
+   "YES",
+   "YES",
+   "YES",
+   "NO",
+   "NO",
+   "NO",
+   "NO"
+  ],
+  "« the same design: colours, body shape, face and features »": [
+   "NO",
+   "NO",
+   "YES",
+   "YES",
+   "NO",
+   "NO",
+   "NO",
+   "NO",
+   "NO"
+  ],
+  "« a flat drawing vs a 3D render … style, pose and lighting do not matter » (kept)": [
+   "YES",
+   "YES",
+   "YES",
+   "YES",
+   "YES",
+   "NO",
+   "NO",
+   "NO",
+   "NO"
+  ],
+  "« the same character, one flat and one 3D »": [
+   "YES",
+   "NO",
+   "YES",
+   "YES",
+   "YES",
+   "YES",
+   "NO",
+   "NO",
+   "NO"
+  ]
+ }
+}

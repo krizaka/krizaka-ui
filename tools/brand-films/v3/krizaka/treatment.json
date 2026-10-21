@@ -1,0 +1,2460 @@
+{
+ "_": "« Le monde de Krizaka : le courant » — v3 (orazaka#289, ADR-080 v3). No narrator: told by picture, action, music and sound. Built by the director from the brief of 2026-10-21.",
+ "title": "Le monde de Krizaka : le courant",
+ "logline": "A blackout drowns the city in the dark; the flock carries one core of light from wing to wing — through the metro, a skate park and a storm — and plugs the current back in.",
+ "theme": "Light travels when every craft carries it a little further.",
+ "narration": "none",
+ "aspect": "16:9",
+ "grade": "per act",
+ "grades": {
+  "blackout": "steel-night",
+  "call": "teal-dark",
+  "run": "cyan-only",
+  "gust": "storm-mono",
+  "current": "neon-full"
+ },
+ "style": "Cinematic film still, stylized 3D animated feature film, real-world light and lenses, volumetric light, shallow depth of field, filmic contrast, fine grain, no lens flare rainbows.",
+ "seedBase": 2026102700,
+ "keep": "One single continuous shot. The characters keep their exact cartoon design, proportions, colours and features, rendered as high-end feature-film CG characters with soft fine feather texture, lit by the scene's own light, with real contact shadows where they touch a surface. Plain unbranded surfaces, no lettering.",
+ "keyframeKeep": "Keep every character's exact shape, proportions, colours, eyes and features, rendered as soft 3D feature-film CG characters with volumetric shading, lit by the same light as the scene, real contact shadows on the surface they stand on. No text, no logos, no people.",
+ "props": [
+  {
+   "id": "core",
+   "description": "a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart"
+  }
+ ],
+ "endCard": {
+  "from": "film/le-monde-de-krizaka-16x9.mp4",
+  "start": 40.0,
+  "seconds": 4.0
+ },
+ "arc": [
+  {
+   "beat": "hook",
+   "purpose": "the blackout: the city goes dark, the courier is awake",
+   "emotion": "tension, stillness",
+   "intensity": 0.3
+  },
+  {
+   "beat": "journey",
+   "purpose": "the call and the run: every craft hands the core on",
+   "emotion": "drive, swagger",
+   "intensity": 0.75
+  },
+  {
+   "beat": "turn",
+   "purpose": "the gust: the core is lost at the edge, saved together",
+   "emotion": "fear, then resolve",
+   "intensity": 0.4
+  },
+  {
+   "beat": "payoff",
+   "purpose": "the current: the city lights up on the drop",
+   "emotion": "release, joy",
+   "intensity": 0.85
+  }
+ ],
+ "characters": [
+  {
+   "id": "pigeon",
+   "reference": "pigeon",
+   "description": "the sky-blue pigeon character with violet wings",
+   "promise": "delivers, every time",
+   "intention": "carries the core of light across the dark city"
+  },
+  {
+   "id": "falcon",
+   "reference": "falcon",
+   "description": "the orange-red falcon character with a black visor across its eyes holding two glowing cyan eye lights, small ear tufts",
+   "promise": "keeps watch: security comes first",
+   "intention": "keeps watch over the core and carries it to the tower"
+  },
+  {
+   "id": "owl",
+   "reference": "owl",
+   "description": "the violet owl character with two big round white eyes and pointed ear tufts",
+   "promise": "reads every page and knows every face",
+   "intention": "reads the map and finds the route"
+  },
+  {
+   "id": "duck",
+   "reference": "duck",
+   "description": "the crimson duck character with a round head, a small crest and a wide yellow bill",
+   "promise": "builds, line by line, in the open",
+   "intention": "builds the core of light"
+  },
+  {
+   "id": "flamingo",
+   "reference": "flamingo",
+   "description": "the pink flamingo character with a long curved neck, long thin legs and a yellow-tipped beak",
+   "promise": "answers, and the payment follows",
+   "intention": "answers the light with joy"
+  },
+  {
+   "id": "crane",
+   "reference": "crane",
+   "description": "the slender pale grey crane character with a long neck, a long beak and a small red crown",
+   "promise": "listens, and gives the sound",
+   "intention": "gives the city its sound back"
+  },
+  {
+   "id": "magpie",
+   "reference": "magpie",
+   "description": "the slate-grey magpie character with cobalt-blue wings and a long dark tail",
+   "promise": "keeps the score",
+   "intention": "races the core onward and keeps the score"
+  },
+  {
+   "id": "beaver",
+   "reference": "beaver",
+   "description": "the brown beaver character with one big front tooth and a flat dark tail",
+   "promise": "runs the shop, keeps the family",
+   "intention": "cheers the city back"
+  },
+  {
+   "id": "lovebird",
+   "reference": "lovebird",
+   "description": "the green lovebird character with a coral-pink face",
+   "promise": "keeps the family close",
+   "intention": "keeps the family close and cheers"
+  }
+ ],
+ "lines": [],
+ "score": {
+  "bpm": 140,
+  "prompt": "original dark underground breakbeat and bass music, gritty warehouse energy, chopped breakbeat drums, deep sub bass, distorted 808, metallic percussion, tense synth stabs, rain and city atmosphere, cinematic risers, hard-hitting drops",
+  "form": [
+   {
+    "section": "intro",
+    "bars": 4,
+    "feel": "dark sub drone, rain, sparse metallic hits, tension"
+   },
+   {
+    "section": "build",
+    "bars": 8,
+    "feel": "breakbeat drums enter, rising synth stabs, a riser to the drop"
+   },
+   {
+    "section": "drop",
+    "bars": 8,
+    "feel": "full breakbeat, heavy distorted bass, relentless energy"
+   },
+   {
+    "section": "break",
+    "bars": 4,
+    "feel": "everything drops out, a filtered pad and a heartbeat kick, suspense"
+   },
+   {
+    "section": "drop",
+    "bars": 8,
+    "feel": "the biggest drop, bass and drums at full force, triumphant synths"
+   },
+   {
+    "section": "outro",
+    "bars": 4,
+    "feel": "the bass fades, a warm resolving chord, rain"
+   }
+  ],
+  "silence": [
+   {
+    "section": "break",
+    "atBeat": 0,
+    "beats": 2,
+    "why": "the core rolls to the edge: the music drops to nothing"
+   }
+  ],
+  "tailSeconds": 6
+ },
+ "music": {
+  "prompt": "one original underground breakbeat score, 140 BPM",
+  "cues": [
+   {
+    "shots": [
+     1,
+     3
+    ],
+    "genre": "dark intro",
+    "intensity": 0.3,
+    "prompt": "intro"
+   },
+   {
+    "shots": [
+     4,
+     11
+    ],
+    "genre": "breakbeat build",
+    "intensity": 0.6,
+    "prompt": "build"
+   },
+   {
+    "shots": [
+     12,
+     18
+    ],
+    "genre": "breakbeat drop",
+    "intensity": 0.8,
+    "prompt": "drop"
+   },
+   {
+    "shots": [
+     19,
+     22
+    ],
+    "genre": "break",
+    "intensity": 0.4,
+    "prompt": "break"
+   },
+   {
+    "shots": [
+     23,
+     30
+    ],
+    "genre": "breakbeat drop",
+    "intensity": 0.85,
+    "prompt": "drop 2"
+   },
+   {
+    "shots": [
+     31,
+     31
+    ],
+    "genre": "outro",
+    "intensity": 0.5,
+    "prompt": "outro"
+   }
+  ]
+ },
+ "references": [
+  {
+   "evokes": "music-video and street-culture energy: skateboarding, warehouse parties, the metro at night",
+   "how": "generic places and objects generated from scratch, no brand, logo, shop name or lettering; original breakbeat music in the genre, no artist named"
+  },
+  {
+   "evokes": "a city-wide blackout and the lights coming back",
+   "how": "an original story with an invented city; no real event, no landmark named"
+  }
+ ],
+ "legal": {
+  "never": [
+   "Snoop Dogg",
+   "Kendrick Lamar",
+   "Drake",
+   "GTA",
+   "Grand Theft Auto",
+   "Rockstar",
+   "Tony Hawk",
+   "Spider-Verse",
+   "Daft Punk",
+   "Skrillex",
+   "Burial",
+   "Red Bull",
+   "Nike",
+   "Vans",
+   "Supreme",
+   "TikTok",
+   "Instagram",
+   "YouTube"
+  ]
+ },
+ "titles": [
+  {
+   "kind": "main",
+   "shot": 31,
+   "en": "The World of Krizaka",
+   "fr": "Le monde de Krizaka",
+   "sub": {
+    "en": "The Current",
+    "fr": "Le courant"
+   }
+  }
+ ],
+ "shots": [
+  {
+   "slug": "city-blackout",
+   "beats": 8,
+   "beat": "hook",
+   "section": "intro",
+   "act": "blackout",
+   "place": "the city at night",
+   "characters": [],
+   "camera": "crane-down",
+   "angle": "high",
+   "lens": "24mm",
+   "framing": "establishing",
+   "purpose": "The hook: a rain-soaked city at night, then every light dies block by block toward us — who brings it back?",
+   "action": "the camera sinks through the rain toward the wet rooftops while the neon of the city flickers, then the lights go out block by block",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "lighting": "neon and sodium street light, then darkness",
+   "light": {
+    "key": "back",
+    "hard": false
+   },
+   "atmosphere": "heavy rain, mist between towers",
+   "plate": "Aerial view at night over a dense rain-soaked city of brick warehouses, towers and rooftops with water tanks, neon light glowing in the streets, an elevated metro line, a tall radio mast on the highest tower, rain streaks, mist. No text, no signs with lettering.",
+   "motion": "Slow aerial descent through heavy rain over a dense night city, neon reflections on wet rooftops, mist drifting between towers, rain streaks catching the light. Smooth crane down, 24 mm.",
+   "model": "ltx-video-0.9.8-13b-distilled",
+   "post": [
+    "blackout"
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -14
+    },
+    {
+     "kind": "city",
+     "gain": -20
+    },
+    {
+     "kind": "hum",
+     "gain": -16,
+     "at": 2.0
+    },
+    {
+     "kind": "thunder",
+     "gain": -8,
+     "at": 3.0
+    }
+   ],
+   "id": 1,
+   "speed": 1,
+   "seconds": 3.4286,
+   "transition": "cut",
+   "frames": 65
+  },
+  {
+   "slug": "neon-dies",
+   "beats": 4,
+   "beat": "hook",
+   "section": "intro",
+   "act": "blackout",
+   "place": "a rooftop sign",
+   "characters": [],
+   "camera": "push-in",
+   "angle": "macro",
+   "lens": "100mm macro",
+   "framing": "insert",
+   "purpose": "The blackout up close: the last neon tube in the street sputters and dies in a spray of sparks.",
+   "action": "macro: a bent neon tube buzzes, flickers twice, spits a few sparks into the rain, then goes dark",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "props": [],
+   "lighting": "the neon's own magenta glow, then darkness",
+   "light": {
+    "key": "front",
+    "hard": false
+   },
+   "plate": "Macro close-up of a bent magenta neon tube mounted on a wet brick wall at night, raindrops on the glass, shallow depth of field, dark city bokeh behind. No text, no signs with lettering.",
+   "motion": "Macro: the magenta neon tube buzzes and flickers twice, a few sparks spray into the rain, then it dies and the frame goes dark. Slow push-in, 100 mm macro.",
+   "post": [
+    "flicker"
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -16
+    },
+    {
+     "kind": "hum",
+     "gain": -12,
+     "at": 0.2
+    },
+    {
+     "kind": "shake",
+     "gain": -14,
+     "at": 1.0
+    },
+    {
+     "kind": "ignite",
+     "gain": -16,
+     "at": 1.2
+    }
+   ],
+   "id": 2,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "pigeon-ledge",
+   "beats": 4,
+   "beat": "hook",
+   "section": "intro",
+   "act": "blackout",
+   "place": "a warehouse rooftop ledge",
+   "characters": [
+    "pigeon"
+   ],
+   "camera": "handheld",
+   "angle": "low",
+   "lens": "35mm",
+   "purpose": "Meet the courier: in the dark, the pigeon on its ledge feels the city go silent and knows it is needed.",
+   "action": "the pigeon shakes the rain off its wings, freezes as the street lights die below, then lifts its head and narrows its eyes, ready",
+   "intent": "the pigeon is the one who carries the light across the dark city",
+   "gaze": "down at the dark street, then up toward the tallest tower",
+   "physics": "it shakes water off its wings in a spray, its chest rises with a breath, its feet grip the wet concrete",
+   "interaction": "",
+   "lighting": "cold moonlight from the left, wet reflections",
+   "light": {
+    "key": "left",
+    "hard": true
+   },
+   "plate": "Low angle on the wet concrete ledge of a brick warehouse rooftop at night in heavy rain, a metal rooftop door far behind, cold moonlight from the left, shadows falling to the right, dark city towers behind, puddles. No text, no signs with lettering.",
+   "keyframe": "The pigeon standing on the wet concrete ledge of a rooftop at night in the rain, looking down at the dark street.",
+   "motion": "Low angle, handheld: on a wet rooftop ledge at night, the sky-blue pigeon with violet wings shakes the rain off its wings in a spray, freezes as the street below goes dark, then lifts its head and narrows its eyes toward the tallest tower, chest rising with one breath. Cold moonlight from the left, rain. Handheld, slight push-in.",
+   "staging": [
+    {
+     "character": "pigeon",
+     "support": "ground",
+     "surface": "the wet concrete ledge",
+     "scale": {
+      "ref": "the metal rooftop door",
+      "ratio": 0.16
+     },
+     "x": 0.45,
+     "depth": 0.5,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -14
+    },
+    {
+     "kind": "shake",
+     "gain": -14,
+     "at": 0.6
+    },
+    {
+     "kind": "steps",
+     "gain": -20,
+     "at": 2.2
+    }
+   ],
+   "id": 3,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "falcon-visor",
+   "beats": 2,
+   "beat": "journey",
+   "section": "build",
+   "act": "call",
+   "place": "a water tower",
+   "characters": [
+    "falcon"
+   ],
+   "camera": "snap-zoom",
+   "angle": "eye",
+   "lens": "85mm",
+   "framing": "extreme close-up",
+   "purpose": "The watcher wakes: the falcon's visor ignites in the dark — security first, it already knows.",
+   "action": "the falcon snaps its head up, its visor's two cyan eye lights ignite, then its feathers bristle",
+   "intent": "the falcon keeps watch over the city and the courier",
+   "gaze": "straight ahead into the dark, alert",
+   "physics": "its head snaps up, feathers bristle along its neck",
+   "interaction": "",
+   "lighting": "darkness, the visor's cyan glow lighting its face",
+   "light": {
+    "key": "front",
+    "hard": false
+   },
+   "plate": "Extreme close-up framing on the top of a wooden rooftop water tower at night in the rain, dark sky, raindrops, faint city glow far below. No text, no signs with lettering.",
+   "keyframe": "Extreme close-up of the falcon's face and black visor on a rooftop water tower at night, rain.",
+   "motion": "Extreme close-up: the orange-red falcon snaps its head up and the two cyan eye lights of its black visor ignite, lighting the raindrops, feathers bristling. Fast snap zoom in, 85 mm.",
+   "staging": [
+    {
+     "character": "falcon",
+     "support": "air",
+     "x": 0.5,
+     "y": 1.35,
+     "h": 1.5,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -18
+    },
+    {
+     "kind": "ignite",
+     "gain": -10,
+     "at": 0.3
+    },
+    {
+     "kind": "rustle",
+     "gain": -16,
+     "at": 0.6
+    }
+   ],
+   "id": 4,
+   "speed": 1,
+   "seconds": 0.8571,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "duck-lever",
+   "beats": 2,
+   "beat": "journey",
+   "section": "build",
+   "act": "call",
+   "place": "an underground workshop",
+   "characters": [
+    "duck"
+   ],
+   "camera": "whip-pan",
+   "angle": "low",
+   "lens": "24mm",
+   "purpose": "The builder answers: in its workshop under the city, the duck throws the big lever and builds.",
+   "action": "the duck grabs the big lever with both wings, hauls it down with its whole weight, then sparks shower around it",
+   "intent": "the duck builds what the city needs: a core of light",
+   "gaze": "up at the lever, then at the sparks",
+   "physics": "it leans back with its whole weight, feet braced on the bench, sparks bouncing off its feathers",
+   "interaction": "",
+   "lighting": "hanging work lamp from the right, orange sparks",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "Low angle in an underground brick workshop under a city, a big iron lever on a heavy wooden workbench, tools, cables, one hanging work lamp from the right casting shadows to the left, sparks, dust. No text, no signs with lettering.",
+   "keyframe": "The duck on a heavy workbench in an underground workshop, both wings on a big iron lever, sparks.",
+   "motion": "Whip pan landing on the crimson duck on its workbench: it grabs a big iron lever with both wings, hauls it down with its whole weight, feet braced, and a shower of orange sparks bursts around it. Work lamp from the right. Fast whip pan, low angle, 24 mm.",
+   "staging": [
+    {
+     "character": "duck",
+     "support": "ground",
+     "surface": "the top of the heavy wooden workbench",
+     "scale": {
+      "ref": "the iron lever",
+      "ratio": 0.514
+     },
+     "x": 0.55,
+     "depth": 0.15,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -20
+    },
+    {
+     "kind": "whoosh",
+     "gain": -12,
+     "at": 0.0
+    },
+    {
+     "kind": "block",
+     "gain": -8,
+     "at": 0.4
+    },
+    {
+     "kind": "ignite",
+     "gain": -12,
+     "at": 0.5
+    }
+   ],
+   "id": 5,
+   "speed": 1,
+   "seconds": 0.8571,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "core-snaps",
+   "beats": 4,
+   "beat": "journey",
+   "section": "build",
+   "act": "call",
+   "place": "the workbench",
+   "characters": [],
+   "camera": "orbit",
+   "angle": "macro",
+   "lens": "100mm macro",
+   "framing": "insert",
+   "props": [
+    "core"
+   ],
+   "purpose": "The duck's work in close-up: glowing blocks fly together and lock into the core of light.",
+   "action": "macro: small glowing cyan blocks slide across the bench, snap together one after another, then lock into a faceted orb whose heart lights white",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "lighting": "the blocks' own cyan glow, warm lamp behind",
+   "light": {
+    "key": "back",
+    "hard": false
+   },
+   "plate": "Macro on a scarred wooden workbench in an underground workshop, a few small glowing cyan cubes on the wood, tools out of focus, warm lamp bokeh behind. No text, no signs with lettering.",
+   "motion": "Macro: small glowing cyan cubes slide across the wooden workbench and snap together one after another, then lock into a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart, whose heart flares white. Slow orbit, 100 mm macro.",
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -22
+    },
+    {
+     "kind": "block",
+     "gain": -10,
+     "at": 0.4
+    },
+    {
+     "kind": "block",
+     "gain": -10,
+     "at": 0.8
+    },
+    {
+     "kind": "block",
+     "gain": -10,
+     "at": 1.1
+    },
+    {
+     "kind": "hum",
+     "gain": -12,
+     "at": 1.4
+    },
+    {
+     "kind": "chime",
+     "gain": -16,
+     "at": 1.6
+    }
+   ],
+   "id": 6,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "owl-blueprint",
+   "beats": 4,
+   "beat": "journey",
+   "section": "build",
+   "act": "call",
+   "place": "an archive vault",
+   "characters": [
+    "owl"
+   ],
+   "camera": "tilt-down",
+   "angle": "high",
+   "lens": "35mm",
+   "purpose": "The reader knows the way: the owl slaps open the old map of the city and traces the route to the tower.",
+   "action": "the owl slams a big rolled map open on the reading table, smooths it flat with one wing, then traces a glowing line across it to the tallest tower",
+   "intent": "the owl reads every map and knows the only way through",
+   "gaze": "down at the map, eyes darting along the route",
+   "physics": "its wings sweep the paper flat, the paper snaps, its head bobs along the route",
+   "interaction": "",
+   "lighting": "one green-shaded reading lamp from the left",
+   "light": {
+    "key": "left",
+    "hard": true
+   },
+   "plate": "High angle on a large wooden reading table in an underground archive vault, an old blank city map unrolled on it, shelves of boxes, one green-shaded reading lamp from the left casting shadows to the right, dust in the air. No text, no signs with lettering.",
+   "keyframe": "The owl on a big wooden reading table in an archive vault, wings on an unrolled old map, a lamp from the left.",
+   "motion": "High angle, tilting down: the violet owl slams a big rolled map open on the reading table, smooths it flat with one wing, then traces a thin glowing cyan line across it with a wingtip, head bobbing along the route. Lamp from the left. Tilt down, 35 mm.",
+   "staging": [
+    {
+     "character": "owl",
+     "support": "ground",
+     "surface": "the top of the wooden reading table",
+     "scale": {
+      "ref": "the reading lamp",
+      "ratio": 0.667
+     },
+     "x": 0.4,
+     "depth": 0.2,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -22
+    },
+    {
+     "kind": "paper",
+     "gain": -10,
+     "at": 0.3
+    },
+    {
+     "kind": "paper",
+     "gain": -14,
+     "at": 0.9
+    },
+    {
+     "kind": "hum",
+     "gain": -18,
+     "at": 1.3
+    }
+   ],
+   "id": 7,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "owl-duck-argue",
+   "beats": 4,
+   "beat": "journey",
+   "section": "build",
+   "act": "call",
+   "place": "the workshop",
+   "characters": [
+    "owl",
+    "duck"
+   ],
+   "camera": "handheld",
+   "angle": "eye",
+   "lens": "35mm",
+   "interactionKind": "argue",
+   "purpose": "Two crafts clash: the owl's route goes through the metro, the duck wants the skate park — they argue, then agree to do both.",
+   "action": "the owl jabs a wing at the map, the duck shakes its head and points the other way, then both stop, look at each other and nod",
+   "intent": "the duck builds and the owl reads: together they choose the route",
+   "gaze": "at each other, then down at the map",
+   "physics": "wings jabbing, the duck's head shaking hard, then both lean in and nod",
+   "interaction": "they argue over the map, then agree",
+   "lighting": "hanging work lamp from the right",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "An underground brick workshop, a heavy wooden workbench with a blank old map spread on it, one hanging work lamp from the right casting shadows to the left, tools, cables, dust. No text, no signs with lettering.",
+   "keyframe": "The owl and the duck facing each other on a workbench over an old map, arguing, a lamp from the right.",
+   "motion": "Handheld: on the workbench, the violet owl jabs a wing at the map, the crimson duck shakes its head hard and points the other way, then both stop, look at each other and nod together. Lamp from the right. Handheld, 35 mm.",
+   "staging": [
+    {
+     "character": "owl",
+     "support": "ground",
+     "surface": "the top of the wooden workbench",
+     "scale": {
+      "ref": "the heavy wooden workbench",
+      "ratio": 0.421
+     },
+     "x": 0.35,
+     "depth": 0.12,
+     "flip": false
+    },
+    {
+     "character": "duck",
+     "support": "ground",
+     "surface": "the top of the wooden workbench",
+     "scale": {
+      "ref": "the heavy wooden workbench",
+      "ratio": 0.379
+     },
+     "x": 0.68,
+     "depth": 0.12,
+     "flip": true
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -22
+    },
+    {
+     "kind": "tap",
+     "gain": -12,
+     "at": 0.3
+    },
+    {
+     "kind": "rustle",
+     "gain": -14,
+     "at": 0.8
+    },
+    {
+     "kind": "call",
+     "gain": -16,
+     "at": 1.2
+    }
+   ],
+   "id": 8,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "falcon-wind",
+   "beats": 6,
+   "beat": "journey",
+   "section": "build",
+   "act": "call",
+   "place": "the water tower",
+   "speed": 0.75,
+   "characters": [
+    "falcon"
+   ],
+   "camera": "handheld",
+   "angle": "low",
+   "lens": "24mm",
+   "purpose": "The watcher goes out into the storm: the falcon launches into a wall of wind and fights its way forward.",
+   "action": "the falcon launches off the water tower into the storm, a gust shoves it back, then it beats its wings hard and powers forward",
+   "intent": "the falcon keeps watch from above, whatever the storm",
+   "gaze": "into the rain, toward the tallest tower",
+   "physics": "wings beating with effort against the gust, body tilted into the wind, feathers flattened by rain",
+   "interaction": "",
+   "lighting": "lightning from the back-left, city glow",
+   "light": {
+    "key": "back-left",
+    "hard": false
+   },
+   "plate": "Low angle on a wooden rooftop water tower at night in a violent rainstorm, dark storm clouds lit by lightning from behind left, rain sheets, city glow below. No text, no signs with lettering.",
+   "keyframe": "The falcon taking off from the top of a water tower into a violent rainstorm, wings spread.",
+   "motion": "Low angle, handheld, slow motion: the orange-red falcon launches off the water tower into the storm, a gust shoves it back, then it beats its wings hard, body tilted into the wind, and powers forward through sheets of rain. Lightning behind. Handheld, 24 mm.",
+   "staging": [
+    {
+     "character": "falcon",
+     "support": "air",
+     "x": 0.5,
+     "y": 0.55,
+     "h": 0.42,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "storm",
+     "gain": -14
+    },
+    {
+     "kind": "gust",
+     "gain": -10,
+     "at": 0.3
+    },
+    {
+     "kind": "flap",
+     "gain": -10,
+     "at": 0.8
+    },
+    {
+     "kind": "flap",
+     "gain": -10,
+     "at": 1.4
+    },
+    {
+     "kind": "thunder",
+     "gain": -12,
+     "at": 2.0
+    }
+   ],
+   "id": 9,
+   "seconds": 1.9286,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 41
+  },
+  {
+   "slug": "pigeon-dive",
+   "beats": 4,
+   "beat": "journey",
+   "section": "build",
+   "act": "call",
+   "place": "the warehouse edge",
+   "characters": [
+    "pigeon"
+   ],
+   "camera": "tilt-down",
+   "angle": "high",
+   "lens": "16mm",
+   "purpose": "The courier commits: the pigeon steps off the ledge and dives down the face of the building toward the workshop.",
+   "action": "the pigeon steps off the ledge, folds its wings and dives straight down the brick wall, then flares open just above the alley",
+   "intent": "the pigeon delivers: it goes to the duck to carry the core",
+   "gaze": "down at the alley rushing up",
+   "physics": "wings folded tight in the dive, then snapping open with a jolt",
+   "interaction": "",
+   "lighting": "moonlight from the left on wet brick",
+   "light": {
+    "key": "left",
+    "hard": false
+   },
+   "plate": "Looking straight down the wet brick wall of a warehouse at night into a narrow dark alley far below, rain falling away from the camera, moonlight from the left. No text, no signs with lettering.",
+   "keyframe": "The pigeon diving head first down the face of a wet brick building at night, wings folded, seen from above.",
+   "motion": "Overhead, tilting down: the sky-blue pigeon steps off the ledge, folds its wings and dives straight down the wet brick wall, rain streaking past, then flares its wings open with a jolt just above the alley. Fast tilt down, 16 mm.",
+   "staging": [
+    {
+     "character": "pigeon",
+     "support": "air",
+     "x": 0.5,
+     "y": 0.45,
+     "h": 0.22,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -16
+    },
+    {
+     "kind": "whoosh",
+     "gain": -8,
+     "at": 0.4
+    },
+    {
+     "kind": "flap",
+     "gain": -10,
+     "at": 1.4
+    }
+   ],
+   "id": 10,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "harness",
+   "beats": 6,
+   "beat": "journey",
+   "section": "build",
+   "act": "call",
+   "place": "the workshop",
+   "characters": [
+    "duck",
+    "pigeon"
+   ],
+   "camera": "push-in",
+   "angle": "eye",
+   "lens": "50mm",
+   "interactionKind": "handoff",
+   "props": [
+    "core"
+   ],
+   "purpose": "The handoff: the duck straps the core of light onto the pigeon's back and slaps the buckle shut — go.",
+   "action": "the pigeon lands on the bench and skids, the duck swings the glowing core onto its back, cinches the strap with a tug, then slaps its shoulder",
+   "intent": "the duck builds the core and the pigeon carries it",
+   "gaze": "the duck at the strap, the pigeon over its shoulder at the core",
+   "physics": "the pigeon skids on landing, the strap tightens, the duck tugs with its whole body",
+   "interaction": "the duck hands the core over and sends the pigeon off",
+   "lighting": "hanging work lamp from the right, the core's cyan glow",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "An underground brick workshop, a heavy wooden workbench, tools and coiled cables, one hanging work lamp from the right casting shadows to the left, sparks dust. No text, no signs with lettering.",
+   "keyframe": "The pigeon on a workbench with a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart strapped on its back, the duck beside it tightening the strap.",
+   "motion": "Push-in: the sky-blue pigeon lands on the workbench and skids, the crimson duck swings a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart onto the pigeon's back, cinches the strap with a hard tug, then slaps the pigeon's shoulder; the pigeon looks back at the glowing core and nods. Lamp from the right. Push-in, 50 mm.",
+   "staging": [
+    {
+     "character": "duck",
+     "support": "ground",
+     "surface": "the top of the wooden workbench",
+     "scale": {
+      "ref": "the heavy wooden workbench",
+      "ratio": 0.379
+     },
+     "x": 0.38,
+     "depth": 0.12,
+     "flip": false
+    },
+    {
+     "character": "pigeon",
+     "support": "ground",
+     "surface": "the top of the wooden workbench",
+     "scale": {
+      "ref": "the heavy wooden workbench",
+      "ratio": 0.337
+     },
+     "x": 0.66,
+     "depth": 0.12,
+     "flip": true
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -22
+    },
+    {
+     "kind": "steps",
+     "gain": -12,
+     "at": 0.2
+    },
+    {
+     "kind": "parcel",
+     "gain": -10,
+     "at": 1.0
+    },
+    {
+     "kind": "tap",
+     "gain": -10,
+     "at": 1.7
+    },
+    {
+     "kind": "hum",
+     "gain": -16,
+     "at": 1.9
+    }
+   ],
+   "id": 11,
+   "speed": 1,
+   "seconds": 2.5714,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 53
+  },
+  {
+   "slug": "tunnel-chase",
+   "beats": 6,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "run",
+   "place": "the metro tunnel",
+   "characters": [
+    "pigeon"
+   ],
+   "camera": "fpv",
+   "angle": "eye",
+   "lens": "16mm",
+   "props": [
+    "core"
+   ],
+   "purpose": "The run: the only light in the dark city is the core on the pigeon's back, racing through the metro tunnel.",
+   "action": "the pigeon flies low through the black tunnel, banks around a curve, then beats harder, the core lighting the rails and tiles as it passes",
+   "intent": "the pigeon carries the core of light through the dark",
+   "gaze": "dead ahead into the black tunnel",
+   "physics": "wings beating fast, banking into the curve, the strap pulling on its chest",
+   "interaction": "",
+   "lighting": "pitch dark, lit only by the cyan core from behind",
+   "light": {
+    "key": "back",
+    "hard": false
+   },
+   "plate": "Inside a dark curved metro tunnel, wet rails, old white tiles on the walls, cables along the wall, puddles, almost no light. No text, no signs with lettering.",
+   "keyframe": "The pigeon flying low through a dark metro tunnel, a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart strapped on its back lighting the rails, seen from behind.",
+   "motion": "FPV chase behind the sky-blue pigeon flying low through a pitch-dark curved metro tunnel, a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart on its back lighting the wet rails and tiles in cyan as it passes; it banks around the curve and beats harder. Fast FPV drone chase, 16 mm.",
+   "staging": [
+    {
+     "character": "pigeon",
+     "support": "air",
+     "x": 0.5,
+     "y": 0.58,
+     "h": 0.2,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "drips",
+     "gain": -18
+    },
+    {
+     "kind": "flap",
+     "gain": -10,
+     "at": 0.2
+    },
+    {
+     "kind": "whoosh",
+     "gain": -10,
+     "at": 1.0
+    },
+    {
+     "kind": "flap",
+     "gain": -10,
+     "at": 1.6
+    }
+   ],
+   "id": 12,
+   "speed": 1,
+   "seconds": 2.5714,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 53
+  },
+  {
+   "slug": "rails-blast",
+   "beats": 2,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "run",
+   "place": "the metro tunnel",
+   "characters": [
+    "pigeon"
+   ],
+   "camera": "locked",
+   "angle": "low",
+   "lens": "14mm",
+   "props": [
+    "core"
+   ],
+   "purpose": "Speed: from the rails, the pigeon blasts past the lens in a burst of spray.",
+   "action": "the pigeon rushes toward the lens just above the rails, then blasts past in a spray of water and cyan light",
+   "intent": "the pigeon carries the core at full speed",
+   "gaze": "ahead, past the lens",
+   "physics": "wings beating, water spraying off the rails",
+   "interaction": "",
+   "lighting": "cyan core glow only",
+   "light": {
+    "key": "front",
+    "hard": false
+   },
+   "plate": "Ground-level view along wet metro rails in a dark tunnel, puddles between the sleepers, a faint glow far down the tunnel. No text, no signs with lettering.",
+   "keyframe": "The pigeon flying straight at the camera just above wet metro rails in a dark tunnel, a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart glowing on its back.",
+   "motion": "Locked low angle on the rails: the sky-blue pigeon with a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart on its back rushes straight at the lens just above the wet rails and blasts past in a spray of water and cyan light. 14 mm.",
+   "staging": [
+    {
+     "character": "pigeon",
+     "support": "air",
+     "x": 0.5,
+     "y": 0.62,
+     "h": 0.3,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "drips",
+     "gain": -20
+    },
+    {
+     "kind": "whoosh",
+     "gain": -6,
+     "at": 0.5
+    },
+    {
+     "kind": "splash",
+     "gain": -12,
+     "at": 0.6
+    }
+   ],
+   "id": 13,
+   "speed": 1,
+   "seconds": 0.8571,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "train-lights",
+   "beats": 4,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "run",
+   "place": "the metro tunnel",
+   "characters": [
+    "pigeon"
+   ],
+   "camera": "dolly-out",
+   "angle": "eye",
+   "lens": "35mm",
+   "props": [
+    "core"
+   ],
+   "purpose": "Danger: a train's headlights fill the tunnel behind the pigeon — it glances back and digs in.",
+   "action": "the pigeon glances back over its shoulder at the headlights flooding the tunnel, its eyes widen, then it beats its wings harder and pulls away",
+   "intent": "the pigeon delivers, whatever is behind it",
+   "gaze": "back over its shoulder at the headlights, then ahead",
+   "physics": "wings beating harder, body stretched forward, feathers ruffled by the wind of the train",
+   "interaction": "",
+   "lighting": "blinding white headlights from behind",
+   "light": {
+    "key": "back",
+    "hard": false
+   },
+   "plate": "Inside a dark metro tunnel, the bright white headlights of an approaching train far behind, light flooding the tunnel, wet rails. No text, no signs with lettering.",
+   "keyframe": "The pigeon flying toward the camera in a dark metro tunnel, a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart on its back, the white headlights of a train behind it.",
+   "motion": "Dolly back in front of the sky-blue pigeon flying toward us with a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart on its back; it glances back over its shoulder at the train headlights flooding the tunnel, eyes widening, then beats its wings harder and pulls away. Dolly out, 35 mm.",
+   "staging": [
+    {
+     "character": "pigeon",
+     "support": "air",
+     "x": 0.5,
+     "y": 0.6,
+     "h": 0.3,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "drips",
+     "gain": -20
+    },
+    {
+     "kind": "swell",
+     "gain": -10,
+     "at": 0.2
+    },
+    {
+     "kind": "call",
+     "gain": -14,
+     "at": 0.8
+    },
+    {
+     "kind": "flap",
+     "gain": -10,
+     "at": 1.2
+    }
+   ],
+   "id": 14,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "puddle-skid",
+   "beats": 4,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "run",
+   "place": "a street at a metro exit",
+   "characters": [
+    "pigeon"
+   ],
+   "camera": "tracking",
+   "angle": "low",
+   "lens": "24mm",
+   "props": [
+    "core"
+   ],
+   "purpose": "Out of the underground: the pigeon bursts out of the metro stairs and lands skidding through a puddle.",
+   "action": "the pigeon shoots out of the stairwell, drops its feet and lands skidding through a puddle in a fan of spray, then hops and takes off again",
+   "intent": "the pigeon carries the core to the skate park",
+   "gaze": "ahead down the street",
+   "physics": "feet sliding on wet asphalt, a fan of water, wings flared for balance",
+   "interaction": "",
+   "lighting": "cold moonlight from the right, wet street",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "Low angle on a wet asphalt street at night at the top of metro stairs, deep puddles, dark shopfronts without signs, cold moonlight from the right casting shadows to the left, rain. No text, no signs with lettering.",
+   "keyframe": "The pigeon landing feet first in a puddle on a wet street, skidding, a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart on its back, spray.",
+   "motion": "Low tracking shot: the sky-blue pigeon with a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart on its back shoots out of the metro stairs, drops its feet and lands skidding through a puddle in a fan of spray, wings flared for balance, then hops and takes off again. Moonlight from the right. Tracking, 24 mm.",
+   "staging": [
+    {
+     "character": "pigeon",
+     "support": "ground",
+     "surface": "the wet asphalt puddle",
+     "scale": {
+      "ref": "the metro stair railing",
+      "ratio": 0.32
+     },
+     "x": 0.5,
+     "depth": 0.6,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -16
+    },
+    {
+     "kind": "splash",
+     "gain": -8,
+     "at": 0.6
+    },
+    {
+     "kind": "steps",
+     "gain": -14,
+     "at": 0.9
+    },
+    {
+     "kind": "flap",
+     "gain": -12,
+     "at": 1.5
+    }
+   ],
+   "id": 15,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "skate-catch",
+   "beats": 6,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "run",
+   "place": "a skate park under an overpass",
+   "characters": [
+    "magpie",
+    "pigeon"
+   ],
+   "camera": "tracking",
+   "angle": "low",
+   "lens": "16mm",
+   "interactionKind": "handoff",
+   "props": [
+    "core"
+   ],
+   "speed": 0.6,
+   "purpose": "The relay goes airborne: the magpie, riding the bowl, launches off the coping and catches the core mid-air.",
+   "action": "the magpie rides its skateboard up the concrete bowl and launches into the air, the pigeon tosses the core, then the magpie snatches it mid-air",
+   "intent": "the magpie keeps the score and races the core onward",
+   "gaze": "the magpie locked on the flying core",
+   "physics": "the board clacking off the coping, the magpie stretching its wings to catch, the pigeon flicking the core with its feet",
+   "interaction": "the pigeon hands the core to the magpie in mid-air",
+   "lighting": "a single work light from the right under the overpass",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "A concrete skate bowl under a highway overpass at night, wet concrete, pillars, one work light from the right casting long shadows to the left, rain beyond the overpass. No text, no signs with lettering.",
+   "keyframe": "The magpie in the air above a concrete skate bowl on a small skateboard reaching for a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart, the pigeon flying above tossing it.",
+   "motion": "Low tracking shot, slow motion: the slate-grey magpie rides a small skateboard up the concrete bowl and launches into the air, the sky-blue pigeon above tosses a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart, and the magpie snatches it mid-air with its wings stretched. Work light from the right. 16 mm.",
+   "staging": [
+    {
+     "character": "magpie",
+     "support": "air",
+     "x": 0.42,
+     "y": 0.62,
+     "h": 0.3,
+     "flip": false
+    },
+    {
+     "character": "pigeon",
+     "support": "air",
+     "x": 0.68,
+     "y": 0.32,
+     "h": 0.2,
+     "flip": true
+    }
+   ],
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -22
+    },
+    {
+     "kind": "tap",
+     "gain": -10,
+     "at": 0.3
+    },
+    {
+     "kind": "whoosh",
+     "gain": -10,
+     "at": 1.0
+    },
+    {
+     "kind": "parcel",
+     "gain": -10,
+     "at": 2.0
+    }
+   ],
+   "id": 16,
+   "seconds": 1.5429,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "grind",
+   "beats": 4,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "run",
+   "place": "the skate park",
+   "characters": [
+    "magpie"
+   ],
+   "camera": "tracking",
+   "angle": "low",
+   "lens": "24mm",
+   "props": [
+    "core"
+   ],
+   "purpose": "Momentum: the magpie lands and grinds the rail, the core glowing in its wings, sparks flying.",
+   "action": "the magpie lands on a rail, grinds along it in a stream of sparks, then kicks the board up and leaps off",
+   "intent": "the magpie races the core toward the tower",
+   "gaze": "ahead along the rail",
+   "physics": "balanced low on the board, sparks off the rail, the leap pushed from its legs",
+   "interaction": "",
+   "lighting": "work light from the right",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "A long metal grind rail in a concrete skate park under an overpass at night, wet ground, one work light from the right casting shadows to the left. No text, no signs with lettering.",
+   "keyframe": "The magpie grinding along a metal rail on a small skateboard holding a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart, sparks, a skate park at night.",
+   "motion": "Low tracking shot alongside: the slate-grey magpie lands its small skateboard on a metal rail and grinds along it in a stream of sparks, holding a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart, then kicks the board up and leaps off. Work light from the right. 24 mm.",
+   "staging": [
+    {
+     "character": "magpie",
+     "support": "ground",
+     "surface": "the metal grind rail",
+     "scale": {
+      "ref": "a concrete pillar of the overpass",
+      "ratio": 0.127
+     },
+     "x": 0.45,
+     "depth": 0.5,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -22
+    },
+    {
+     "kind": "shake",
+     "gain": -12,
+     "at": 0.2
+    },
+    {
+     "kind": "ignite",
+     "gain": -16,
+     "at": 0.5
+    },
+    {
+     "kind": "whoosh",
+     "gain": -12,
+     "at": 1.4
+    }
+   ],
+   "id": 17,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "falcon-snatch",
+   "beats": 6,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "run",
+   "place": "above the skate park",
+   "speed": 0.6,
+   "characters": [
+    "magpie",
+    "falcon"
+   ],
+   "camera": "crane-up",
+   "angle": "low",
+   "lens": "24mm",
+   "interactionKind": "handoff",
+   "props": [
+    "core"
+   ],
+   "purpose": "The watcher takes it to the top: the magpie flips the core up and the falcon snatches it out of the air.",
+   "action": "the magpie flicks the core up high, the falcon dives through the rain, then snatches it in its talons and climbs toward the tower",
+   "intent": "the falcon keeps watch and carries the core up to the tower",
+   "gaze": "the falcon locked on the core, then up at the tower",
+   "physics": "the falcon's talons closing on the core, its wings pumping hard to climb",
+   "interaction": "the magpie hands the core up to the falcon",
+   "lighting": "lightning from the back-left",
+   "light": {
+    "key": "back-left",
+    "hard": false
+   },
+   "plate": "Low angle looking up from a skate park under the edge of a highway overpass into a stormy night sky, rain, distant towers and a radio mast. No text, no signs with lettering.",
+   "keyframe": "The falcon diving down through the rain toward a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart flying up, the magpie below with its wings raised, seen from a low angle.",
+   "motion": "Low angle, crane up, slow motion: the slate-grey magpie flicks a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart high into the rain, the orange-red falcon dives in and snatches it in its talons, then pumps its wings and climbs toward the distant tower. 24 mm.",
+   "staging": [
+    {
+     "character": "magpie",
+     "support": "air",
+     "x": 0.35,
+     "y": 0.95,
+     "h": 0.28,
+     "flip": false
+    },
+    {
+     "character": "falcon",
+     "support": "air",
+     "x": 0.6,
+     "y": 0.45,
+     "h": 0.3,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -16
+    },
+    {
+     "kind": "whoosh",
+     "gain": -8,
+     "at": 0.5
+    },
+    {
+     "kind": "parcel",
+     "gain": -10,
+     "at": 1.2
+    },
+    {
+     "kind": "flap",
+     "gain": -10,
+     "at": 1.8
+    }
+   ],
+   "id": 18,
+   "seconds": 1.5429,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "roof-gust",
+   "beats": 4,
+   "beat": "turn",
+   "section": "break",
+   "act": "gust",
+   "place": "the tower roof",
+   "characters": [
+    "falcon"
+   ],
+   "camera": "handheld",
+   "angle": "low",
+   "lens": "24mm",
+   "props": [
+    "core"
+   ],
+   "purpose": "The turn: on the tower roof a gust slams the falcon down; it skids, and the core is knocked loose.",
+   "action": "the falcon lands hard on the flooded roof, skids, a gust slams into it, then the core is knocked out of its talons and rolls away",
+   "intent": "the falcon keeps watch, but the storm is stronger",
+   "gaze": "after the rolling core, wide-eyed",
+   "physics": "feet skidding through water, body knocked sideways by the gust, wings thrown open",
+   "interaction": "",
+   "lighting": "lightning from the back-right, flat storm light",
+   "light": {
+    "key": "back-right",
+    "hard": true
+   },
+   "plate": "Low angle on the flooded flat roof of a tall tower at night in a violent storm, a steel radio mast rising behind, lightning from behind right, the roof edge on the left, rain sheets, shadows falling toward the camera. No text, no signs with lettering.",
+   "keyframe": "The falcon skidding across a flooded tower roof in a storm, a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart flying out of its talons, a radio mast behind.",
+   "motion": "Low angle, handheld: the orange-red falcon lands hard on the flooded roof and skids, a gust slams into it, and a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart is knocked out of its talons and rolls away across the water. Lightning behind. Handheld, 24 mm.",
+   "staging": [
+    {
+     "character": "falcon",
+     "support": "ground",
+     "surface": "the flooded flat roof",
+     "scale": {
+      "ref": "the base of the steel radio mast",
+      "ratio": 0.14
+     },
+     "x": 0.55,
+     "depth": 0.5,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "storm",
+     "gain": -12
+    },
+    {
+     "kind": "splash",
+     "gain": -10,
+     "at": 0.3
+    },
+    {
+     "kind": "gust",
+     "gain": -8,
+     "at": 0.8
+    },
+    {
+     "kind": "thunder",
+     "gain": -8,
+     "at": 1.2
+    }
+   ],
+   "id": 19,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "core-rolls",
+   "beats": 4,
+   "beat": "turn",
+   "section": "break",
+   "act": "gust",
+   "place": "the roof edge",
+   "speed": 0.5,
+   "characters": [],
+   "camera": "dolly-in",
+   "angle": "macro",
+   "lens": "100mm macro",
+   "props": [
+    "core"
+   ],
+   "framing": "insert",
+   "purpose": "Silence: in slow motion the core rolls toward the edge of the roof, rain hanging in the air.",
+   "action": "macro in slow motion: the glowing core rolls through the water toward the roof edge, slows, then teeters on the lip above the drop",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "lighting": "the core's own cyan glow in the dark",
+   "light": {
+    "key": "front",
+    "hard": false
+   },
+   "plate": "Macro at water level on the edge of a flooded tower roof at night, the concrete lip and a long drop to blurred city lights below, raindrops. No text, no signs with lettering.",
+   "motion": "Macro, slow motion: a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart rolls through the water toward the edge of the roof, slows, and teeters on the concrete lip above the long drop, raindrops hanging in the air. Slow dolly in, 100 mm macro.",
+   "post": [
+    "silence"
+   ],
+   "sound": [
+    {
+     "kind": "wind-soft",
+     "gain": -26
+    },
+    {
+     "kind": "drips",
+     "gain": -22
+    },
+    {
+     "kind": "tap",
+     "gain": -18,
+     "at": 1.2
+    }
+   ],
+   "id": 20,
+   "seconds": 0.8571,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "belly-slide",
+   "beats": 4,
+   "beat": "turn",
+   "section": "break",
+   "act": "gust",
+   "place": "the roof edge",
+   "speed": 0.6,
+   "characters": [
+    "pigeon"
+   ],
+   "camera": "tracking",
+   "angle": "low",
+   "lens": "24mm",
+   "props": [
+    "core"
+   ],
+   "purpose": "The rescue: the pigeon dives in, slides on its belly through the water and grabs the core at the very edge.",
+   "action": "the pigeon dives onto the roof, slides on its belly through the water, then clamps both wings around the core right at the edge",
+   "intent": "the pigeon delivers, every time — it saves the core",
+   "gaze": "locked on the core at the edge",
+   "physics": "belly sliding through water in a spray, wings closing around the core, feet braking on the lip",
+   "interaction": "",
+   "lighting": "lightning from the back-right",
+   "light": {
+    "key": "back-right",
+    "hard": true
+   },
+   "plate": "Low angle across the flooded flat roof of a tower at night toward its concrete edge, a long drop beyond, lightning from behind right, rain, shadows falling toward the camera. No text, no signs with lettering.",
+   "keyframe": "The pigeon sliding on its belly through water on a flooded roof, wings around a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart at the very edge.",
+   "motion": "Low tracking shot, slow motion: the sky-blue pigeon dives onto the flooded roof, slides on its belly through the water in a spray, and clamps both wings around a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart right at the edge, feet braking on the lip. Lightning behind. 24 mm.",
+   "staging": [
+    {
+     "character": "pigeon",
+     "support": "ground",
+     "surface": "the flooded flat roof",
+     "scale": {
+      "ref": "the concrete roof edge's parapet",
+      "ratio": 0.533
+     },
+     "x": 0.5,
+     "depth": 0.5,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "storm",
+     "gain": -18
+    },
+    {
+     "kind": "splash",
+     "gain": -8,
+     "at": 0.4
+    },
+    {
+     "kind": "rustle",
+     "gain": -14,
+     "at": 1.2
+    },
+    {
+     "kind": "parcel",
+     "gain": -12,
+     "at": 1.6
+    }
+   ],
+   "id": 21,
+   "seconds": 1.0286,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "push-together",
+   "beats": 4,
+   "beat": "turn",
+   "section": "break",
+   "act": "gust",
+   "place": "the radio mast",
+   "characters": [
+    "falcon",
+    "pigeon"
+   ],
+   "camera": "crane-up",
+   "angle": "low",
+   "lens": "24mm",
+   "interactionKind": "help",
+   "props": [
+    "core"
+   ],
+   "purpose": "Together: the falcon and the pigeon heave the core up into the socket at the top of the mast against the wind.",
+   "action": "the falcon braces its back against the wind, the pigeon climbs onto its shoulders, then together they heave the core up into the socket",
+   "intent": "security and delivery together: the falcon keeps watch and the pigeon carries",
+   "gaze": "both up at the socket",
+   "physics": "the falcon braced and straining, the pigeon stretching up on its toes, wings flattened by the wind",
+   "interaction": "they help each other lift the core into place",
+   "lighting": "lightning from the back-left",
+   "light": {
+    "key": "back-left",
+    "hard": true
+   },
+   "plate": "Low angle on a steel platform at the top of a radio mast on a tower at night in a storm, a round empty socket at the tip of the mast, lightning from behind left, rain, shadows falling toward the camera. No text, no signs with lettering.",
+   "keyframe": "The falcon braced on a steel platform at the top of a radio mast with the pigeon on its shoulders lifting a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart toward a socket.",
+   "motion": "Low angle, crane up: on the steel platform at the top of the mast, the orange-red falcon braces against the wind, the sky-blue pigeon climbs onto its shoulders, and together they heave a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart up into the round socket. Lightning behind. 24 mm.",
+   "staging": [
+    {
+     "character": "falcon",
+     "support": "ground",
+     "surface": "the steel platform",
+     "scale": {
+      "ref": "the steel railing of the platform",
+      "ratio": 0.42
+     },
+     "x": 0.45,
+     "depth": 0.55,
+     "flip": false
+    },
+    {
+     "character": "pigeon",
+     "support": "held",
+     "on": "falcon",
+     "x": 0.47,
+     "y": 0.42,
+     "h": 0.22
+    }
+   ],
+   "sound": [
+    {
+     "kind": "storm",
+     "gain": -14
+    },
+    {
+     "kind": "gust",
+     "gain": -10,
+     "at": 0.4
+    },
+    {
+     "kind": "block",
+     "gain": -10,
+     "at": 1.6
+    }
+   ],
+   "id": 22,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "core-ignites",
+   "beats": 2,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "current",
+   "place": "the mast socket",
+   "characters": [],
+   "camera": "snap-zoom",
+   "angle": "macro",
+   "lens": "100mm macro",
+   "props": [
+    "core"
+   ],
+   "framing": "insert",
+   "purpose": "The payoff begins: the core locks into the socket and ignites in a white flash.",
+   "action": "macro: the core clicks into the socket, its white heart flares, then light races down the mast in a white flash",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "lighting": "the core's flare",
+   "light": {
+    "key": "front",
+    "hard": false
+   },
+   "plate": "Macro of a round steel socket at the tip of a radio mast at night in the rain, wet metal, dark sky. No text, no signs with lettering.",
+   "motion": "Macro: a small glowing cyan core the size of an apple, a faceted orb with one bright white dot at its heart clicks into the round steel socket, its white heart flares and a burst of cyan light races down the mast. Snap zoom, 100 mm macro.",
+   "post": [
+    "flash"
+   ],
+   "sound": [
+    {
+     "kind": "storm",
+     "gain": -22
+    },
+    {
+     "kind": "block",
+     "gain": -6,
+     "at": 0.1
+    },
+    {
+     "kind": "ignite",
+     "gain": -6,
+     "at": 0.3
+    }
+   ],
+   "id": 23,
+   "speed": 1,
+   "seconds": 0.8571,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "crane-dj",
+   "beats": 4,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "current",
+   "place": "an underground warehouse party",
+   "characters": [
+    "crane"
+   ],
+   "camera": "orbit",
+   "angle": "low",
+   "lens": "24mm",
+   "purpose": "The sound comes back with the light: the crane at the decks slams the fader and the warehouse floor explodes.",
+   "action": "the crane leans over the decks, slams the fader across with its wingtip, then throws its head back as the lights burst on",
+   "intent": "the crane listens, and gives the city its sound back",
+   "gaze": "down at the decks, then up at the lights",
+   "physics": "its long neck dipping over the decks, the wingtip slamming the fader, its head thrown back",
+   "interaction": "",
+   "lighting": "strobes and coloured beams from the back-right",
+   "light": {
+    "key": "back-right",
+    "hard": false
+   },
+   "plate": "Low angle in an underground brick warehouse at night, a DJ table with two turntables and a mixer on a low stage, haze, coloured beams and strobes from behind right, an empty dance floor. No text, no signs with lettering.",
+   "keyframe": "The crane standing on a low stage behind a DJ table with turntables in an underground warehouse, beams and haze.",
+   "motion": "Low angle orbit: the pale grey crane leans its long neck over the decks, slams the fader across with its wingtip, then throws its head back as violet, cyan and orange beams burst on through the haze. 24 mm.",
+   "staging": [
+    {
+     "character": "crane",
+     "support": "ground",
+     "surface": "the low wooden stage behind the DJ table",
+     "scale": {
+      "ref": "the DJ table",
+      "ratio": 1.278
+     },
+     "x": 0.5,
+     "depth": 0.35,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -18
+    },
+    {
+     "kind": "tap",
+     "gain": -8,
+     "at": 0.3
+    },
+    {
+     "kind": "swell",
+     "gain": -10,
+     "at": 0.5
+    }
+   ],
+   "id": 24,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "city-relights",
+   "beats": 6,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "current",
+   "place": "the city",
+   "characters": [],
+   "camera": "crane-up",
+   "angle": "high",
+   "lens": "24mm",
+   "framing": "establishing",
+   "purpose": "The current is back: neon returns to the city block by block, on the beat.",
+   "action": "the camera rises over the rooftops as the neon of the city comes back on block by block, then the mast on the tower flares",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "lighting": "neon returning, violet and cyan",
+   "light": {
+    "key": "back",
+    "hard": false
+   },
+   "plate": "Aerial view at night over a dense rain-soaked city of brick warehouses and towers, neon light glowing in violet, cyan and orange, an elevated metro line, a tall radio mast glowing cyan on the highest tower, mist. No text, no signs with lettering.",
+   "motion": "Aerial crane up over a rain-soaked night city glowing with violet, cyan and orange neon, the radio mast on the highest tower flaring cyan, mist between the towers. Smooth crane up, 24 mm.",
+   "model": "ltx-video-0.9.8-13b-distilled",
+   "post": [
+    "relight"
+   ],
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -16
+    },
+    {
+     "kind": "swell",
+     "gain": -10,
+     "at": 0.2
+    },
+    {
+     "kind": "hum",
+     "gain": -14,
+     "at": 1.0
+    }
+   ],
+   "id": 25,
+   "speed": 1,
+   "seconds": 2.5714,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "frames": 53
+  },
+  {
+   "slug": "flamingo-rain",
+   "beats": 4,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "current",
+   "place": "a rooftop under neon",
+   "characters": [
+    "flamingo"
+   ],
+   "camera": "orbit",
+   "angle": "low",
+   "lens": "35mm",
+   "purpose": "Joy: under a neon sign that blinks back on, the flamingo spins in the rain, splashing the puddles.",
+   "action": "the flamingo throws its wings open as the neon blinks on, spins on one leg, then stamps a puddle in a burst of spray",
+   "intent": "the flamingo answers the light, and the city pays back in joy",
+   "gaze": "up at the returning neon, then out at the city",
+   "physics": "a spin on one long leg, wings flung wide, spray from the stamped puddle",
+   "interaction": "",
+   "lighting": "magenta neon from the left",
+   "light": {
+    "key": "left",
+    "hard": true
+   },
+   "plate": "Low angle on a wet flat rooftop with deep puddles at night, a magenta neon tube on a low wall to the left casting light from the left and shadows to the right, city towers behind, rain. No text, no signs with lettering.",
+   "keyframe": "The flamingo spinning on one leg in the rain on a wet rooftop, wings open, a magenta neon tube on the left.",
+   "motion": "Low angle orbit: the pink flamingo throws its wings open as the magenta neon blinks back on, spins on one long leg, then stamps a puddle in a burst of spray. Neon from the left, rain. 35 mm.",
+   "staging": [
+    {
+     "character": "flamingo",
+     "support": "ground",
+     "surface": "the wet rooftop",
+     "scale": {
+      "ref": "the low rooftop wall",
+      "ratio": 1.167
+     },
+     "x": 0.5,
+     "depth": 0.55,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -18
+    },
+    {
+     "kind": "whoosh",
+     "gain": -12,
+     "at": 0.6
+    },
+    {
+     "kind": "splash",
+     "gain": -8,
+     "at": 1.3
+    }
+   ],
+   "id": 26,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "highfive",
+   "beats": 4,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "current",
+   "place": "the workshop",
+   "characters": [
+    "owl",
+    "duck"
+   ],
+   "camera": "push-in",
+   "angle": "eye",
+   "lens": "35mm",
+   "interactionKind": "celebrate",
+   "purpose": "The crafts celebrate: as the work lamps blaze on, the owl and the duck slap a high five over the map.",
+   "action": "the lamps blaze on, the owl and the duck look up, then they jump and slap a wing high five over the map",
+   "intent": "the duck builds and the owl reads: their plan worked",
+   "gaze": "up at the lamps, then at each other",
+   "physics": "both hop off their feet, wings slapping together, feathers puffing",
+   "interaction": "they celebrate together",
+   "lighting": "every lamp of the workshop on, warm from the right",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "An underground brick workshop now brightly lit by many hanging lamps, warm light from the right casting shadows to the left, a heavy wooden workbench with a blank map. No text, no signs with lettering.",
+   "keyframe": "The owl and the duck on a workbench jumping to slap a wing high five, lamps blazing on.",
+   "motion": "Push-in: the lamps of the workshop blaze on, the violet owl and the crimson duck look up, then jump and slap a wing high five over the map, feathers puffing. Warm light from the right. 35 mm.",
+   "staging": [
+    {
+     "character": "owl",
+     "support": "ground",
+     "surface": "the top of the wooden workbench",
+     "scale": {
+      "ref": "the heavy wooden workbench",
+      "ratio": 0.421
+     },
+     "x": 0.38,
+     "depth": 0.12,
+     "flip": false
+    },
+    {
+     "character": "duck",
+     "support": "ground",
+     "surface": "the top of the wooden workbench",
+     "scale": {
+      "ref": "the heavy wooden workbench",
+      "ratio": 0.379
+     },
+     "x": 0.64,
+     "depth": 0.12,
+     "flip": true
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -20
+    },
+    {
+     "kind": "tap",
+     "gain": -6,
+     "at": 1.1
+    },
+    {
+     "kind": "call",
+     "gain": -14,
+     "at": 1.3
+    }
+   ],
+   "id": 27,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "fire-escape",
+   "beats": 4,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "current",
+   "place": "a fire escape",
+   "characters": [
+    "beaver",
+    "lovebird"
+   ],
+   "camera": "crane-down",
+   "angle": "eye",
+   "lens": "35mm",
+   "interactionKind": "celebrate",
+   "purpose": "The family cheers: on their fire escape, the beaver thumps its tail and the lovebird bounces on its head.",
+   "action": "the beaver thumps its tail on the grating, the lovebird hops up onto its head, then both throw their arms and wings up and cheer",
+   "intent": "the family keeps each other close and cheers the city back",
+   "gaze": "out at the lit city",
+   "physics": "the tail thumping the metal, the lovebird bouncing, both raising their arms",
+   "interaction": "they celebrate together",
+   "lighting": "neon from the right across the street",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "A metal fire escape landing on a brick building at night, wet grating, neon glow from the right across the street casting shadows to the left, potted plants, rain. No text, no signs with lettering.",
+   "keyframe": "The beaver standing on a fire escape landing with the lovebird on its head, both cheering at the lit city.",
+   "motion": "Crane down: on the wet fire escape, the brown beaver thumps its flat tail on the metal grating, the green lovebird hops onto its head, then both throw their arms and wings up and cheer. Neon from the right. 35 mm.",
+   "staging": [
+    {
+     "character": "beaver",
+     "support": "ground",
+     "surface": "the metal fire escape grating",
+     "scale": {
+      "ref": "the fire escape railing",
+      "ratio": 0.55
+     },
+     "x": 0.5,
+     "depth": 0.55,
+     "flip": false
+    },
+    {
+     "character": "lovebird",
+     "support": "held",
+     "on": "beaver",
+     "x": 0.52,
+     "y": 0.3,
+     "h": 0.12
+    }
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -20
+    },
+    {
+     "kind": "tap",
+     "gain": -8,
+     "at": 0.3
+    },
+    {
+     "kind": "chirp",
+     "gain": -12,
+     "at": 0.8
+    },
+    {
+     "kind": "call",
+     "gain": -14,
+     "at": 1.2
+    }
+   ],
+   "id": 28,
+   "speed": 1,
+   "seconds": 1.7143,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 37
+  },
+  {
+   "slug": "magpie-trick",
+   "beats": 2,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "current",
+   "place": "the skate park",
+   "characters": [
+    "magpie"
+   ],
+   "camera": "whip-pan",
+   "angle": "low",
+   "lens": "16mm",
+   "purpose": "The score is kept: the magpie lands a flip trick in the bowl as the overpass lights come on.",
+   "action": "the magpie flips its board under it in mid-air, lands it clean, then rolls out with its wings up",
+   "intent": "the magpie keeps the score: it lands the last trick",
+   "gaze": "down at the board, then up",
+   "physics": "the board spinning under its feet, a clean landing with a clack",
+   "interaction": "",
+   "lighting": "overpass lights from the right",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "A concrete skate bowl under a highway overpass at night, bright work lights now on from the right casting shadows to the left, wet concrete. No text, no signs with lettering.",
+   "keyframe": "The magpie in mid-air over a concrete skate bowl, its small skateboard spinning under its feet.",
+   "motion": "Whip pan to the slate-grey magpie in mid-air over the bowl, its small skateboard flipping under its feet; it lands clean with a clack and rolls out, wings up. 16 mm.",
+   "staging": [
+    {
+     "character": "magpie",
+     "support": "air",
+     "x": 0.5,
+     "y": 0.7,
+     "h": 0.32,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -22
+    },
+    {
+     "kind": "whoosh",
+     "gain": -10,
+     "at": 0.0
+    },
+    {
+     "kind": "tap",
+     "gain": -6,
+     "at": 0.5
+    }
+   ],
+   "id": 29,
+   "speed": 1,
+   "seconds": 0.8571,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "flock-mast",
+   "beats": 6,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "current",
+   "place": "the tower roof",
+   "characters": [
+    "falcon",
+    "pigeon",
+    "owl",
+    "duck",
+    "flamingo"
+   ],
+   "camera": "pull-back",
+   "angle": "low",
+   "lens": "24mm",
+   "interactionKind": "celebrate",
+   "purpose": "Together, under the light they brought back: the flock on the tower roof, the mast blazing above them.",
+   "action": "the pigeon lands among the flock on the roof, the falcon claps its back, then they all raise their wings toward the blazing mast",
+   "intent": "the flock keeps its promise together: the light carried across the city",
+   "gaze": "up at the mast",
+   "physics": "the pigeon landing with a hop, wings rising together, rain shaking off",
+   "interaction": "they celebrate the pigeon's delivery together",
+   "lighting": "the mast's cyan light from above and behind",
+   "light": {
+    "key": "back",
+    "hard": false
+   },
+   "plate": "Low angle on the flat wet roof of a tall tower at night after the storm, a steel radio mast blazing cyan above, the lit neon city all around, light rain. No text, no signs with lettering.",
+   "keyframe": "Five birds on a wet tower roof — the falcon, the pigeon, the owl, the duck and the flamingo — raising their wings toward a blazing radio mast.",
+   "motion": "Low angle, pulling back: the sky-blue pigeon lands with a hop among the flock on the wet tower roof, the orange-red falcon claps its back, then the falcon, the pigeon, the violet owl, the crimson duck and the pink flamingo raise their wings toward the blazing cyan mast. Pull back, 24 mm.",
+   "staging": [
+    {
+     "character": "owl",
+     "support": "ground",
+     "surface": "the wet tower roof",
+     "scale": {
+      "ref": "the steel railing of the roof",
+      "ratio": 0.4
+     },
+     "x": 0.2,
+     "depth": 0.5,
+     "flip": false
+    },
+    {
+     "character": "duck",
+     "support": "ground",
+     "surface": "the wet tower roof",
+     "scale": {
+      "ref": "the steel railing of the roof",
+      "ratio": 0.36
+     },
+     "x": 0.36,
+     "depth": 0.55,
+     "flip": false
+    },
+    {
+     "character": "pigeon",
+     "support": "ground",
+     "surface": "the wet tower roof",
+     "scale": {
+      "ref": "the steel railing of the roof",
+      "ratio": 0.32
+     },
+     "x": 0.5,
+     "depth": 0.6,
+     "flip": false
+    },
+    {
+     "character": "falcon",
+     "support": "ground",
+     "surface": "the wet tower roof",
+     "scale": {
+      "ref": "the steel railing of the roof",
+      "ratio": 0.42
+     },
+     "x": 0.64,
+     "depth": 0.55,
+     "flip": true
+    },
+    {
+     "character": "flamingo",
+     "support": "ground",
+     "surface": "the wet tower roof",
+     "scale": {
+      "ref": "the steel railing of the roof",
+      "ratio": 1.05
+     },
+     "x": 0.82,
+     "depth": 0.5,
+     "flip": true
+    }
+   ],
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -18
+    },
+    {
+     "kind": "steps",
+     "gain": -14,
+     "at": 0.3
+    },
+    {
+     "kind": "tap",
+     "gain": -12,
+     "at": 0.8
+    },
+    {
+     "kind": "call",
+     "gain": -12,
+     "at": 1.6
+    }
+   ],
+   "id": 30,
+   "speed": 1,
+   "seconds": 2.5714,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 53
+  },
+  {
+   "slug": "title-skyline",
+   "beats": 16,
+   "beat": "payoff",
+   "section": "outro",
+   "act": "current",
+   "place": "the city",
+   "characters": [],
+   "camera": "pull-back",
+   "angle": "high",
+   "lens": "24mm",
+   "framing": "establishing",
+   "purpose": "The resolve: the camera pulls away into the clouds over the lit city and the title appears, its dot pulsing like the core.",
+   "action": "the camera pulls back and up into the clouds while the city glows below, then the mast's light pulses once, slower",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "lighting": "the lit city, a cyan pulse",
+   "light": {
+    "key": "back",
+    "hard": false
+   },
+   "plate": "Aerial view at night high above a vast rain-washed city glowing with violet, cyan and orange neon, a radio mast pulsing cyan on the highest tower, clouds breaking, mist. No text, no signs with lettering.",
+   "motion": "Aerial pull back and up through breaking clouds above a vast city glowing with violet, cyan and orange neon after the rain, the radio mast pulsing cyan. Slow pull back, 24 mm.",
+   "model": "ltx-video-0.9.8-13b-distilled",
+   "sound": [
+    {
+     "kind": "wind-soft",
+     "gain": -20
+    },
+    {
+     "kind": "chime",
+     "gain": -14,
+     "at": 1.5
+    }
+   ],
+   "id": 31,
+   "speed": 1,
+   "seconds": 6.8571,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "frames": 121
+  }
+ ]
+}

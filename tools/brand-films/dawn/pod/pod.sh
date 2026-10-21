@@ -2,7 +2,8 @@
 # The one RunPod pod of « l'aube »: create, ssh, copy, terminate. The orchestrator's spend guard (runpod-guard.py loop:
 # 20 min idle or 6 h) watches it like any pod; this script never starts a guard of its own and never relaxes it.
 #
-#   pod.sh create            an H200 141 GB (else H100 NVL / H100), community cloud, 300 GB pod volume on /workspace
+#   pod.sh create            an H200 141 GB (else H100 NVL / H100; POD_GPUS="A,B" sets the order), community cloud,
+#                            300 GB pod volume on /workspace
 #   pod.sh ssh '<command>'   runs a command on it          pod.sh put <local> <remote>   pod.sh get <remote> <local>
 #   pod.sh status            its id, GPU, $/h, uptime       pod.sh terminate              ends it (billing and volume)
 #
@@ -21,11 +22,11 @@ case "${1:-}" in
     running=$(api https://rest.runpod.io/v1/pods | python3 -c 'import json,sys; print(sum(1 for p in json.load(sys.stdin) or [] if p.get("desiredStatus")=="RUNNING"))')
     [ "$running" = "0" ] || { echo "a pod already runs: one pod at a time"; exit 1; }
     for cloud in COMMUNITY SECURE; do
-      body=$(PUB="$(cat "$KEY_DIR/id_ed25519.pub")" CLOUD=$cloud NAME=$NAME python3 -c '
+      body=$(PUB="$(cat "$KEY_DIR/id_ed25519.pub")" CLOUD=$cloud NAME=$NAME POD_GPUS="${POD_GPUS:-}" python3 -c '
 import json, os
 print(json.dumps({"name": os.environ["NAME"], "imageName": "runpod/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04",
   "cloudType": os.environ["CLOUD"], "computeType": "GPU", "gpuCount": 1,
-  "gpuTypeIds": ["NVIDIA H200", "NVIDIA H100 NVL", "NVIDIA H100 80GB HBM3"], "gpuTypePriority": "custom",
+  "gpuTypeIds": (os.environ.get("POD_GPUS") or "NVIDIA H200,NVIDIA H100 NVL,NVIDIA H100 80GB HBM3").split(","), "gpuTypePriority": "custom",
   "containerDiskInGb": 60, "volumeInGb": 300, "volumeMountPath": "/workspace", "ports": ["22/tcp"], "supportPublicIp": True,
   "env": {"PUBLIC_KEY": os.environ["PUB"]}}))')
       out=$(api -X POST https://rest.runpod.io/v1/pods -d "$body" || true)

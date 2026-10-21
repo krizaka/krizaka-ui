@@ -1,0 +1,2206 @@
+{
+ "_": "« Orochia : le pas » — v3 (orazaka#289, ADR-080 v3). No narrator; neutral and brand-safe; the pigeon delivers.",
+ "title": "Orochia : le pas",
+ "logline": "A shy flamingo finally lands her dance move in an empty parking garage and shares it; the pigeon carries it across the night city, and everyone who sees it dances it — until a coin flies back to her.",
+ "theme": "Share what you make, and the city moves with you.",
+ "narration": "none",
+ "aspect": "16:9",
+ "grades": {
+  "garage": "violet-night",
+  "city": "violet-magenta-neon",
+  "storm": "cold-blue",
+  "wall": "magenta-burst"
+ },
+ "style": "Cinematic film still, stylized 3D animated feature film, real-world light and lenses, volumetric light, shallow depth of field, filmic contrast, fine grain, no lens flare rainbows. Violet and magenta light accents.",
+ "seedBase": 2026102800,
+ "keep": "One single continuous shot. The characters keep their exact cartoon design, proportions, colours and features, rendered as high-end feature-film CG characters with soft fine feather texture, lit by the scene's own light, with real contact shadows where they touch a surface. Plain unbranded surfaces, no lettering.",
+ "keyframeKeep": "Keep every character's exact shape, proportions, colours, eyes and features, rendered as soft 3D feature-film CG characters with volumetric shading, lit by the same light as the scene, real contact shadows on the surface they stand on. No text, no logos, no people.",
+ "props": [
+  {
+   "id": "orb",
+   "description": "a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside"
+  }
+ ],
+ "endCard": {
+  "orochia": true,
+  "seconds": 4.0
+ },
+ "arc": [
+  {
+   "beat": "hook",
+   "purpose": "a creator alone, a move that will not land",
+   "emotion": "doubt, humour",
+   "intensity": 0.3
+  },
+  {
+   "beat": "journey",
+   "purpose": "she nails it and shares it; the city dances it",
+   "emotion": "pride, spreading joy",
+   "intensity": 0.75
+  },
+  {
+   "beat": "turn",
+   "purpose": "the storm over the bridge: the delivery almost lost",
+   "emotion": "fear, then help",
+   "intensity": 0.4
+  },
+  {
+   "beat": "payoff",
+   "purpose": "the wall, everyone dances, a coin comes back",
+   "emotion": "release, gratitude",
+   "intensity": 0.85
+  }
+ ],
+ "characters": [
+  {
+   "id": "flamingo",
+   "reference": "flamingo",
+   "description": "the pink flamingo character with a long curved neck, long thin legs and a yellow-tipped beak",
+   "promise": "answers, and the payment follows",
+   "intention": "makes her first dance video, shares it, and the payment follows"
+  },
+  {
+   "id": "pigeon",
+   "reference": "pigeon",
+   "description": "the sky-blue pigeon character with violet wings",
+   "promise": "delivers, every time",
+   "intention": "delivers her video across the city"
+  },
+  {
+   "id": "falcon",
+   "reference": "falcon",
+   "description": "the orange-red falcon character with a black visor across its eyes holding two glowing cyan eye lights, small ear tufts",
+   "promise": "keeps watch: security comes first",
+   "intention": "keeps watch over the pigeon and its delivery"
+  },
+  {
+   "id": "owl",
+   "reference": "owl",
+   "description": "the violet owl character with two big round white eyes and pointed ear tufts",
+   "promise": "reads every page and knows every face",
+   "intention": "knows every face and shows the way"
+  },
+  {
+   "id": "duck",
+   "reference": "duck",
+   "description": "the crimson duck character with a round head, a small crest and a wide yellow bill",
+   "promise": "builds, line by line, in the open",
+   "intention": "builds a bigger version of the move"
+  },
+  {
+   "id": "crane",
+   "reference": "crane",
+   "description": "the slender pale grey crane character with a long neck, a long beak and a small red crown",
+   "promise": "listens, and gives the sound",
+   "intention": "listens and dances the move"
+  },
+  {
+   "id": "magpie",
+   "reference": "magpie",
+   "description": "the slate-grey magpie character with cobalt-blue wings and a long dark tail",
+   "promise": "keeps the score",
+   "intention": "keeps the score and lands the move"
+  },
+  {
+   "id": "beaver",
+   "reference": "beaver",
+   "description": "the brown beaver character with one big front tooth and a flat dark tail",
+   "promise": "runs the shop, keeps the family",
+   "intention": "watches the video and joins the dance"
+  },
+  {
+   "id": "lovebird",
+   "reference": "lovebird",
+   "description": "the green lovebird character with a coral-pink face",
+   "promise": "keeps the family close",
+   "intention": "keeps up with the move"
+  }
+ ],
+ "lines": [],
+ "score": {
+  "bpm": 128,
+  "prompt": "original dark violet club music, underground house with a funky bass line, crisp claps and hi-hats, deep kick, glossy analog synth chords, a catchy synth hook, night city atmosphere, energetic dance groove, big drops",
+  "form": [
+   {
+    "section": "intro",
+    "bars": 4,
+    "feel": "a lone muted synth and a soft clap, garage echo"
+   },
+   {
+    "section": "build",
+    "bars": 4,
+    "feel": "kick enters, filter opening, a riser"
+   },
+   {
+    "section": "drop",
+    "bars": 8,
+    "feel": "full groove, funky bass, the synth hook, bouncing energy"
+   },
+   {
+    "section": "break",
+    "bars": 4,
+    "feel": "storm: everything drops out, a low filtered pad, thunder-like hits"
+   },
+   {
+    "section": "drop",
+    "bars": 8,
+    "feel": "the biggest drop, the hook in full, euphoric"
+   },
+   {
+    "section": "outro",
+    "bars": 4,
+    "feel": "the groove resolves, warm chords, a last hit"
+   }
+  ],
+  "silence": [
+   {
+    "section": "break",
+    "atBeat": 4,
+    "beats": 2,
+    "why": "the orb slips loose: silence"
+   }
+  ],
+  "tailSeconds": 6
+ },
+ "music": {
+  "prompt": "one original violet club score, 128 BPM",
+  "cues": [
+   {
+    "shots": [
+     1,
+     3
+    ],
+    "genre": "intro",
+    "intensity": 0.3,
+    "prompt": "intro"
+   },
+   {
+    "shots": [
+     4,
+     7
+    ],
+    "genre": "build",
+    "intensity": 0.55,
+    "prompt": "build"
+   },
+   {
+    "shots": [
+     8,
+     15
+    ],
+    "genre": "house drop",
+    "intensity": 0.8,
+    "prompt": "drop"
+   },
+   {
+    "shots": [
+     16,
+     19
+    ],
+    "genre": "break",
+    "intensity": 0.4,
+    "prompt": "break"
+   },
+   {
+    "shots": [
+     20,
+     26
+    ],
+    "genre": "house drop",
+    "intensity": 0.85,
+    "prompt": "drop 2"
+   },
+   {
+    "shots": [
+     27,
+     28
+    ],
+    "genre": "outro",
+    "intensity": 0.5,
+    "prompt": "outro"
+   }
+  ]
+ },
+ "references": [
+  {
+   "evokes": "street dance culture: a creator rehearsing a move, people copying a dance they saw",
+   "how": "an original dance move made of generic steps, performed by our own characters; no real choreography, dancer or platform named or shown"
+  },
+  {
+   "evokes": "the night city: a laundromat, the last metro, a rooftop court",
+   "how": "generic places generated from scratch, no brand, logo, shop name, lettering or interface"
+  }
+ ],
+ "legal": {
+  "never": [
+   "Snoop Dogg",
+   "Kendrick Lamar",
+   "Drake",
+   "GTA",
+   "Grand Theft Auto",
+   "Rockstar",
+   "Tony Hawk",
+   "Spider-Verse",
+   "Daft Punk",
+   "Skrillex",
+   "Burial",
+   "Red Bull",
+   "Nike",
+   "Vans",
+   "Supreme",
+   "TikTok",
+   "Instagram",
+   "YouTube"
+  ]
+ },
+ "titles": [
+  {
+   "kind": "main",
+   "shot": 28,
+   "en": "Orochia",
+   "fr": "Orochia",
+   "sub": {
+    "en": "The Move",
+    "fr": "Le pas"
+   }
+  }
+ ],
+ "shots": [
+  {
+   "slug": "garage",
+   "beats": 8,
+   "beat": "hook",
+   "section": "intro",
+   "act": "garage",
+   "place": "an underground parking garage",
+   "characters": [],
+   "camera": "dolly-in",
+   "angle": "low",
+   "lens": "24mm",
+   "framing": "establishing",
+   "purpose": "The hook: a creator's studio is an empty parking garage at night — one ring light, one phone, one taped mark on the floor.",
+   "action": "the camera glides in low over the wet concrete toward a ring light glowing violet in the empty garage, then a drip falls into a puddle",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "lighting": "one violet ring light, sodium lamps far behind",
+   "light": {
+    "key": "front",
+    "hard": false
+   },
+   "plate": "Low angle in an empty underground parking garage at night, wet concrete floor with puddles, concrete pillars, a ring light on a tripod glowing violet, a phone clipped in it, a small X of tape on the floor in front of it, orange sodium lamps far behind, haze. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "motion": "Low slow dolly over the wet concrete of an empty underground parking garage at night toward a ring light glowing violet on its tripod, haze, a drip falling into a puddle. Dolly in, 24 mm.",
+   "model": "ltx-video-0.9.8-13b-distilled",
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -18
+    },
+    {
+     "kind": "drips",
+     "gain": -16
+    },
+    {
+     "kind": "hum",
+     "gain": -18,
+     "at": 1.0
+    },
+    {
+     "kind": "splash-small",
+     "gain": -16,
+     "at": 2.6
+    }
+   ],
+   "id": 1,
+   "speed": 1,
+   "seconds": 3.75,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "frames": 69
+  },
+  {
+   "slug": "warmup",
+   "beats": 4,
+   "beat": "hook",
+   "section": "intro",
+   "act": "garage",
+   "place": "the garage",
+   "characters": [
+    "flamingo"
+   ],
+   "camera": "handheld",
+   "angle": "eye",
+   "lens": "35mm",
+   "purpose": "Meet the creator: the flamingo shakes out her legs, taps record on the phone and steps onto her mark.",
+   "action": "the flamingo rolls her long neck, shakes out one leg then the other, taps the phone with a wingtip, then hops back onto the taped X",
+   "intent": "the flamingo makes her first dance video and shares it",
+   "gaze": "at the phone, then down at her mark",
+   "physics": "neck rolling, legs shaking loose, a light hop landing on the mark",
+   "interaction": "",
+   "lighting": "the violet ring light from the right",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "An empty underground parking garage at night, wet concrete floor, a ring light on a tripod on the right glowing violet and casting shadows to the left, a small X of tape on the floor, concrete pillars, haze. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The flamingo standing on a taped X on the concrete floor of a parking garage in front of a violet ring light, warming up.",
+   "motion": "Handheld: in the parking garage the pink flamingo rolls her long neck, shakes out one leg then the other, taps the phone on the ring light with a wingtip, then hops back onto the taped X on the floor. Violet ring light from the right. 35 mm.",
+   "staging": [
+    {
+     "character": "flamingo",
+     "support": "ground",
+     "surface": "the concrete floor on the taped X",
+     "scale": {
+      "ref": "the ring light tripod",
+      "ratio": 0.618
+     },
+     "x": 0.45,
+     "depth": 0.55,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -20
+    },
+    {
+     "kind": "rustle",
+     "gain": -16,
+     "at": 0.4
+    },
+    {
+     "kind": "tap",
+     "gain": -10,
+     "at": 1.0
+    },
+    {
+     "kind": "steps",
+     "gain": -12,
+     "at": 1.6
+    }
+   ],
+   "id": 2,
+   "speed": 1,
+   "seconds": 1.875,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 41
+  },
+  {
+   "slug": "stumble",
+   "beats": 4,
+   "beat": "hook",
+   "section": "intro",
+   "act": "garage",
+   "place": "the garage",
+   "characters": [
+    "flamingo"
+   ],
+   "camera": "orbit",
+   "angle": "low",
+   "lens": "24mm",
+   "purpose": "The first try fails: she spins, wobbles off balance and catches herself — then laughs at herself.",
+   "action": "the flamingo launches into a spin, wobbles off balance, catches herself with a hop, then covers her beak and laughs",
+   "intent": "the flamingo keeps trying until the move is right, then shares it",
+   "gaze": "down at her feet, then at the phone, sheepish",
+   "physics": "the spin losing balance, a wobbling hop, her wings flailing then folding over her beak",
+   "interaction": "",
+   "lighting": "the violet ring light from the right",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "Low angle in an underground parking garage at night, wet concrete floor, a ring light on the right glowing violet and casting shadows to the left, a taped X on the floor, pillars, haze. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The flamingo off balance mid-spin on the concrete floor of a parking garage, wings flailing, a violet ring light on the right.",
+   "motion": "Low angle orbit: the pink flamingo launches into a spin on one leg, wobbles off balance with wings flailing, catches herself with a hop, then covers her beak with a wing and laughs. Violet ring light from the right. 24 mm.",
+   "staging": [
+    {
+     "character": "flamingo",
+     "support": "ground",
+     "surface": "the wet concrete floor",
+     "scale": {
+      "ref": "the ring light tripod",
+      "ratio": 0.618
+     },
+     "x": 0.5,
+     "depth": 0.55,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -20
+    },
+    {
+     "kind": "whoosh",
+     "gain": -12,
+     "at": 0.4
+    },
+    {
+     "kind": "steps",
+     "gain": -10,
+     "at": 1.0
+    },
+    {
+     "kind": "call",
+     "gain": -16,
+     "at": 1.5
+    }
+   ],
+   "id": 3,
+   "speed": 1,
+   "seconds": 1.875,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 41
+  },
+  {
+   "slug": "feet-reset",
+   "beats": 2,
+   "beat": "journey",
+   "section": "build",
+   "act": "garage",
+   "place": "the taped mark",
+   "characters": [],
+   "camera": "push-in",
+   "angle": "macro",
+   "lens": "100mm macro",
+   "framing": "insert",
+   "purpose": "Again: her feet set back on the tape, a ripple in the puddle.",
+   "action": "macro: the flamingo's two feet step back onto the taped X for her dance video, one then the other, then press down",
+   "intent": "the flamingo tries again to make her dance video",
+   "gaze": "down at her feet",
+   "physics": "her toes gripping the concrete, a ripple spreading",
+   "interaction": "",
+   "lighting": "violet ring light from the right",
+   "light": {
+    "key": "right",
+    "hard": false
+   },
+   "plate": "Macro at floor level on wet concrete in a parking garage, a small X of tape, a shallow puddle beside it, two thin yellow bird feet with three toes standing on the tape, violet light from the right. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "motion": "Macro at floor level: two thin yellow bird feet step back onto the taped X one after the other and press down, a ripple spreading in the puddle beside. Push-in, 100 mm macro.",
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -22
+    },
+    {
+     "kind": "steps",
+     "gain": -10,
+     "at": 0.2
+    },
+    {
+     "kind": "steps",
+     "gain": -10,
+     "at": 0.5
+    }
+   ],
+   "id": 4,
+   "speed": 1,
+   "seconds": 0.9375,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "eye",
+   "beats": 2,
+   "beat": "journey",
+   "section": "build",
+   "act": "garage",
+   "place": "the garage",
+   "characters": [
+    "flamingo"
+   ],
+   "camera": "snap-zoom",
+   "angle": "eye",
+   "lens": "85mm",
+   "framing": "extreme close-up",
+   "purpose": "Resolve: her eye narrows — this time.",
+   "action": "the flamingo lifts her head toward the phone that records her dance video, her eye narrows, then she gives one sharp nod",
+   "intent": "the flamingo decides to make her dance video this time",
+   "gaze": "straight into the phone's lens",
+   "physics": "the head lifting, a slow blink, one sharp nod",
+   "interaction": "",
+   "lighting": "the violet ring light from the right",
+   "light": {
+    "key": "right",
+    "hard": false
+   },
+   "plate": "Extreme close-up framing in a dark parking garage, violet ring light glow from the right, haze, blurred pillars. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "Extreme close-up of the flamingo's face, the violet ring light reflected in her eye.",
+   "motion": "Extreme close-up: the pink flamingo lifts her head, her eye narrows with the violet ring light reflected in it, then she gives one sharp nod. Snap zoom, 85 mm.",
+   "staging": [
+    {
+     "character": "flamingo",
+     "support": "air",
+     "x": 0.5,
+     "y": 2.2,
+     "h": 2.2,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -24
+    },
+    {
+     "kind": "rustle",
+     "gain": -14,
+     "at": 0.3
+    },
+    {
+     "kind": "tap",
+     "gain": -16,
+     "at": 0.7
+    }
+   ],
+   "id": 5,
+   "speed": 1,
+   "seconds": 0.9375,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "nails-it",
+   "beats": 8,
+   "beat": "journey",
+   "section": "build",
+   "act": "garage",
+   "place": "the garage",
+   "speed": 0.8,
+   "characters": [
+    "flamingo"
+   ],
+   "camera": "orbit",
+   "angle": "low",
+   "lens": "24mm",
+   "purpose": "She nails it: the full move, sharp and sure, the camera circling her low.",
+   "action": "the flamingo snaps into her dance — a sharp wing wave, a spin on one leg and a heel click with both wings thrown up — then freezes, chest heaving",
+   "intent": "the flamingo makes the move right and records her first dance video",
+   "gaze": "into the phone's lens, fierce",
+   "physics": "a sharp wing snap, a clean spin on one leg, a heel-click landing, chest heaving",
+   "interaction": "",
+   "lighting": "the violet ring light from the right",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "Low angle in an underground parking garage at night, wet concrete floor reflecting a violet ring light on the right that casts long shadows to the left, a taped X, pillars, haze. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The flamingo mid-spin on one leg on the taped X in a parking garage, wings up, a violet ring light on the right.",
+   "motion": "Low angle orbit, slight slow motion: the pink flamingo snaps into her dance move — a sharp wing wave, a spin on one leg and a heel click with both wings thrown up — on the taped X, then holds the pose, chest heaving. Violet ring light from the right. 24 mm.",
+   "staging": [
+    {
+     "character": "flamingo",
+     "support": "ground",
+     "surface": "the wet concrete floor on the taped X",
+     "scale": {
+      "ref": "the ring light tripod",
+      "ratio": 0.618
+     },
+     "x": 0.5,
+     "depth": 0.55,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -22
+    },
+    {
+     "kind": "whoosh",
+     "gain": -10,
+     "at": 0.3
+    },
+    {
+     "kind": "whoosh",
+     "gain": -10,
+     "at": 1.2
+    },
+    {
+     "kind": "tap",
+     "gain": -6,
+     "at": 2.0
+    }
+   ],
+   "id": 6,
+   "seconds": 3.0,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 57
+  },
+  {
+   "slug": "share",
+   "beats": 4,
+   "beat": "journey",
+   "section": "build",
+   "act": "garage",
+   "place": "the ring light",
+   "props": [
+    "orb"
+   ],
+   "characters": [
+    "flamingo"
+   ],
+   "camera": "tilt-up",
+   "angle": "eye",
+   "lens": "50mm",
+   "purpose": "She shares it: one tap, and the video leaves the phone as an orb of violet light.",
+   "action": "the flamingo taps the phone with a wingtip, an orb of violet light rises out of it, then she watches it float up toward the ramp",
+   "intent": "the flamingo shares her first dance video",
+   "gaze": "up, following the orb",
+   "physics": "the wingtip tap, her neck tilting back to follow the orb",
+   "interaction": "",
+   "lighting": "the orb's glow and the ring light from the right",
+   "light": {
+    "key": "right",
+    "hard": false
+   },
+   "plate": "A parking garage at night, a ring light on a tripod glowing violet on the right with a phone clipped in it, a concrete ramp rising behind in haze. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The flamingo beside a ring light tapping the phone with a wingtip, a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside rising from it.",
+   "motion": "Tilt up: the pink flamingo taps the phone on the ring light with her wingtip, a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside rises out of it, and she tilts her neck back to watch it float up toward the ramp. 50 mm.",
+   "staging": [
+    {
+     "character": "flamingo",
+     "support": "ground",
+     "surface": "the concrete floor",
+     "scale": {
+      "ref": "the ring light tripod",
+      "ratio": 0.618
+     },
+     "x": 0.4,
+     "depth": 0.55,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -22
+    },
+    {
+     "kind": "tap",
+     "gain": -10,
+     "at": 0.3
+    },
+    {
+     "kind": "ignite",
+     "gain": -10,
+     "at": 0.6
+    },
+    {
+     "kind": "swell",
+     "gain": -12,
+     "at": 1.0
+    }
+   ],
+   "id": 7,
+   "speed": 1,
+   "seconds": 1.875,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 41
+  },
+  {
+   "slug": "pigeon-catch",
+   "beats": 6,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "city",
+   "place": "the garage exit",
+   "speed": 0.7,
+   "props": [
+    "orb"
+   ],
+   "characters": [
+    "pigeon"
+   ],
+   "camera": "crane-up",
+   "angle": "low",
+   "lens": "24mm",
+   "purpose": "The pigeon delivers: perched on a sign at the garage exit, it sees the orb shoot out and catches it in flight.",
+   "action": "the pigeon on the barrier arm snaps alert as the orb shoots out of the ramp, launches, then catches it in its feet and banks over the street",
+   "intent": "the pigeon delivers her video across the city",
+   "gaze": "locked on the orb",
+   "physics": "a launch off the barrier, wings pumping, feet closing on the orb, a hard bank",
+   "interaction": "",
+   "lighting": "sodium street light from the left, rain",
+   "light": {
+    "key": "left",
+    "hard": true
+   },
+   "plate": "Low angle at the exit ramp of an underground garage onto a rainy street at night, a striped barrier arm, wet asphalt, sodium street light from the left casting shadows to the right, neon glow in the street. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The pigeon launching off a striped barrier arm at a garage exit at night, reaching with its feet for a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside.",
+   "motion": "Low angle, crane up, slow motion: the sky-blue pigeon perched on the barrier arm snaps alert as a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside shoots out of the ramp, launches, catches it in its feet and banks hard over the rainy street. 24 mm.",
+   "staging": [
+    {
+     "character": "pigeon",
+     "support": "ground",
+     "surface": "the striped barrier arm",
+     "scale": {
+      "ref": "the barrier post",
+      "ratio": 0.291
+     },
+     "x": 0.4,
+     "depth": 0.3,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -16
+    },
+    {
+     "kind": "whoosh",
+     "gain": -10,
+     "at": 0.3
+    },
+    {
+     "kind": "flap",
+     "gain": -10,
+     "at": 0.9
+    },
+    {
+     "kind": "parcel",
+     "gain": -12,
+     "at": 1.6
+    }
+   ],
+   "id": 8,
+   "seconds": 1.9687,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 41
+  },
+  {
+   "slug": "street-chase",
+   "beats": 4,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "city",
+   "place": "the streets",
+   "props": [
+    "orb"
+   ],
+   "characters": [
+    "pigeon"
+   ],
+   "camera": "fpv",
+   "angle": "eye",
+   "lens": "16mm",
+   "purpose": "Speed: the pigeon weaves through the neon streets with the orb, rain streaking past.",
+   "action": "the pigeon dives between the buildings, weaves under a cable and over a bus shelter, then climbs with the orb trailing light",
+   "intent": "the pigeon delivers her video fast",
+   "gaze": "ahead down the street",
+   "physics": "wings tucking and opening in the weave, a climb with strong beats",
+   "interaction": "",
+   "lighting": "violet and magenta neon both sides",
+   "light": {
+    "key": "back",
+    "hard": false
+   },
+   "plate": "A narrow rainy street at night between brick buildings, violet and magenta neon glow without letters, cables overhead, a bus shelter, wet asphalt reflections. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The pigeon flying low down a rainy neon street at night holding a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside, seen from behind.",
+   "motion": "FPV chase: the sky-blue pigeon holding a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside dives between the buildings, weaves under a cable and over a bus shelter, then climbs, the orb trailing violet light through the rain. 16 mm.",
+   "staging": [
+    {
+     "character": "pigeon",
+     "support": "air",
+     "x": 0.5,
+     "y": 0.55,
+     "h": 0.18,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -16
+    },
+    {
+     "kind": "whoosh",
+     "gain": -8,
+     "at": 0.5
+    },
+    {
+     "kind": "flap",
+     "gain": -12,
+     "at": 1.2
+    }
+   ],
+   "id": 9,
+   "speed": 1,
+   "seconds": 1.875,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 41
+  },
+  {
+   "slug": "laundromat",
+   "beats": 4,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "city",
+   "place": "a laundromat",
+   "characters": [
+    "beaver"
+   ],
+   "camera": "push-in",
+   "angle": "eye",
+   "lens": "35mm",
+   "purpose": "The video lands: in a late-night laundromat, the dryer window glows violet with her dance — the beaver stops folding.",
+   "action": "the beaver folding a towel freezes, its eyes go wide at the glowing dryer window, then it drops the towel",
+   "intent": "the beaver watches the video and joins the dance",
+   "gaze": "at the glowing dryer window",
+   "physics": "paws freezing mid-fold, the towel sliding to the floor",
+   "interaction": "",
+   "lighting": "flat fluorescent light from above, violet glow from the dryer window",
+   "light": {
+    "key": "top",
+    "hard": false
+   },
+   "plate": "Inside a late-night laundromat, rows of front-loading dryers, one round dryer window glowing violet, a folding table, flat fluorescent light from above, rain on the window. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The beaver standing at a folding table in a laundromat at night, holding a towel, staring at a dryer window glowing violet.",
+   "motion": "Push-in: in a late-night laundromat the brown beaver folding a towel freezes, eyes going wide at the round dryer window glowing violet, then drops the towel. 35 mm.",
+   "staging": [
+    {
+     "character": "beaver",
+     "support": "ground",
+     "surface": "the laundromat floor",
+     "scale": {
+      "ref": "the front-loading dryer",
+      "ratio": 0.647
+     },
+     "x": 0.4,
+     "depth": 0.55,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -18
+    },
+    {
+     "kind": "hum",
+     "gain": -16,
+     "at": 0.2
+    },
+    {
+     "kind": "rustle",
+     "gain": -12,
+     "at": 1.2
+    }
+   ],
+   "id": 10,
+   "speed": 1,
+   "seconds": 1.875,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 41
+  },
+  {
+   "slug": "beaver-dances",
+   "beats": 4,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "city",
+   "place": "the laundromat",
+   "characters": [
+    "beaver",
+    "lovebird"
+   ],
+   "camera": "handheld",
+   "angle": "low",
+   "lens": "24mm",
+   "interactionKind": "help",
+   "purpose": "The move spreads: the beaver copies her move — clumsy, joyful, its tail thumping the beat.",
+   "action": "the beaver waves one arm sharply and spins clumsily, the lovebird hops onto the folding table and shows it the heel click, then the beaver copies it and thumps its tail, grinning",
+   "intent": "the beaver joins the dance from the video and the lovebird keeps the family close",
+   "gaze": "at the dryer window, then at the lovebird",
+   "physics": "a heavy clumsy spin, the lovebird hopping, the flat tail slapping the tiles",
+   "interaction": "the lovebird helps the beaver get the step",
+   "lighting": "fluorescent from above, violet glow",
+   "light": {
+    "key": "top",
+    "hard": false
+   },
+   "plate": "Low angle inside a late-night laundromat, tiled floor, front-loading dryers, a violet glow from a dryer window, fluorescent light from above. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The beaver dancing in a laundromat, one arm raised, the green lovebird on the folding table beside it showing the step.",
+   "motion": "Low angle, handheld: in the laundromat the brown beaver waves one arm sharply and spins clumsily, the green lovebird hops onto the folding table and shows it the heel click, then the beaver copies it and thumps its flat tail on the tiles, grinning. 24 mm.",
+   "staging": [
+    {
+     "character": "beaver",
+     "support": "ground",
+     "surface": "the tiled laundromat floor",
+     "scale": {
+      "ref": "the front-loading dryer",
+      "ratio": 0.647
+     },
+     "x": 0.4,
+     "depth": 0.6,
+     "flip": false
+    },
+    {
+     "character": "lovebird",
+     "support": "ground",
+     "surface": "the top of the folding table",
+     "scale": {
+      "ref": "the front-loading dryer",
+      "ratio": 0.259
+     },
+     "x": 0.75,
+     "depth": 0.5,
+     "flip": true
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -20
+    },
+    {
+     "kind": "whoosh",
+     "gain": -12,
+     "at": 0.5
+    },
+    {
+     "kind": "tap",
+     "gain": -6,
+     "at": 1.3
+    }
+   ],
+   "id": 11,
+   "speed": 1,
+   "seconds": 1.875,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 41
+  },
+  {
+   "slug": "metro-sees",
+   "beats": 2,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "city",
+   "place": "a metro car",
+   "characters": [
+    "magpie"
+   ],
+   "camera": "whip-pan",
+   "angle": "eye",
+   "lens": "35mm",
+   "purpose": "On the last metro, the orb's light flashes past the window: the magpie looks up.",
+   "action": "the magpie with headphones looks up as violet light flashes past the window, then grins",
+   "intent": "the magpie keeps the score and joins the dance",
+   "gaze": "out of the window",
+   "physics": "the head snapping up, the headphones sliding",
+   "interaction": "",
+   "lighting": "flat metro light from above, a violet flash from the left",
+   "light": {
+    "key": "left",
+    "hard": false
+   },
+   "plate": "Inside an empty metro car at night, plastic seats, metal poles, windows on dark tunnel walls, flat light from above, a violet flash at the window on the left. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The magpie wearing headphones standing in an empty metro car holding a pole, looking at the window.",
+   "motion": "Whip pan to the slate-grey magpie with headphones in an empty metro car: it looks up as violet light flashes past the window, then grins. 35 mm.",
+   "staging": [
+    {
+     "character": "magpie",
+     "support": "ground",
+     "surface": "the metro car floor",
+     "scale": {
+      "ref": "the metal pole",
+      "ratio": 0.173
+     },
+     "x": 0.5,
+     "depth": 0.6,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -18
+    },
+    {
+     "kind": "whoosh",
+     "gain": -10,
+     "at": 0.2
+    },
+    {
+     "kind": "chirp",
+     "gain": -16,
+     "at": 0.6
+    }
+   ],
+   "id": 12,
+   "speed": 1,
+   "seconds": 0.9375,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "metro-spin",
+   "beats": 4,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "city",
+   "place": "the metro car",
+   "characters": [
+    "magpie",
+    "crane"
+   ],
+   "camera": "orbit",
+   "angle": "low",
+   "lens": "16mm",
+   "interactionKind": "compete",
+   "purpose": "The magpie takes the move to the pole: a spin around it, a slide, the pose.",
+   "action": "the magpie grabs the pole and swings around it, the crane answers with a long-legged spin down the aisle, then both click their heels and laugh",
+   "intent": "the magpie keeps the score and the crane listens to the beat",
+   "gaze": "at each other, challenging",
+   "physics": "swinging round the pole, long legs spinning, feet sliding, a sharp stop",
+   "interaction": "a dance battle in the aisle",
+   "lighting": "flat metro light from above",
+   "light": {
+    "key": "top",
+    "hard": false
+   },
+   "plate": "Low angle inside an empty metro car at night, a metal pole, a long aisle, plastic seats, flat light from above, dark windows. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The magpie swinging around a metal pole in an empty metro car, the pale grey crane in the aisle beside it spinning.",
+   "motion": "Low angle orbit: the slate-grey magpie grabs the pole and swings around it, the pale grey crane answers with a long-legged spin down the aisle, then both click their heels and laugh. 16 mm.",
+   "staging": [
+    {
+     "character": "magpie",
+     "support": "ground",
+     "surface": "the metro car floor",
+     "scale": {
+      "ref": "the metal pole",
+      "ratio": 0.173
+     },
+     "x": 0.35,
+     "depth": 0.6,
+     "flip": false
+    },
+    {
+     "character": "crane",
+     "support": "ground",
+     "surface": "the metro car floor",
+     "scale": {
+      "ref": "the metal pole",
+      "ratio": 0.523
+     },
+     "x": 0.68,
+     "depth": 0.55,
+     "flip": true
+    }
+   ],
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -18
+    },
+    {
+     "kind": "whoosh",
+     "gain": -10,
+     "at": 0.4
+    },
+    {
+     "kind": "steps",
+     "gain": -12,
+     "at": 1.0
+    },
+    {
+     "kind": "tap",
+     "gain": -8,
+     "at": 1.6
+    }
+   ],
+   "id": 13,
+   "speed": 1,
+   "seconds": 1.875,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 41
+  },
+  {
+   "slug": "court",
+   "beats": 6,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "city",
+   "place": "a rooftop basketball court",
+   "props": [
+    "orb"
+   ],
+   "characters": [
+    "lovebird",
+    "duck"
+   ],
+   "camera": "crane-down",
+   "angle": "high",
+   "lens": "24mm",
+   "interactionKind": "compete",
+   "purpose": "On a rooftop court the orb's light streaks overhead: the lovebird and the duck dance the move as a battle.",
+   "action": "the orb streaks overhead, the lovebird snaps the wave and spin, the duck answers with a bigger spin, then they freeze face to face and laugh",
+   "intent": "the duck builds a bigger version of the move, the lovebird keeps up",
+   "gaze": "at each other, challenging",
+   "physics": "quick spins on the court, wings snapping, a skid to a stop",
+   "interaction": "they battle with the move, then laugh together",
+   "lighting": "court floodlight from the left",
+   "light": {
+    "key": "left",
+    "hard": true
+   },
+   "plate": "High angle on a rooftop basketball court at night inside a chain-link cage, wet painted ground without letters, one floodlight from the left casting shadows to the right, city lights behind, light rain. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The lovebird and the duck facing each other on a rooftop basketball court at night, dancing, a floodlight from the left.",
+   "motion": "High angle, crane down: a streak of violet light passes overhead, the green lovebird snaps the wave and spin, the crimson duck answers with a bigger spin, then they freeze in the heel-click pose facing each other and burst out laughing. Floodlight from the left. 24 mm.",
+   "staging": [
+    {
+     "character": "lovebird",
+     "support": "ground",
+     "surface": "the wet painted court",
+     "scale": {
+      "ref": "the chain-link cage fence",
+      "ratio": 0.157
+     },
+     "x": 0.38,
+     "depth": 0.55,
+     "flip": false
+    },
+    {
+     "character": "duck",
+     "support": "ground",
+     "surface": "the wet painted court",
+     "scale": {
+      "ref": "the chain-link cage fence",
+      "ratio": 0.257
+     },
+     "x": 0.62,
+     "depth": 0.55,
+     "flip": true
+    }
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -20
+    },
+    {
+     "kind": "whoosh",
+     "gain": -12,
+     "at": 0.4
+    },
+    {
+     "kind": "steps",
+     "gain": -12,
+     "at": 1.2
+    },
+    {
+     "kind": "steps",
+     "gain": -12,
+     "at": 2.0
+    },
+    {
+     "kind": "chirp",
+     "gain": -12,
+     "at": 2.8
+    }
+   ],
+   "id": 14,
+   "speed": 1,
+   "seconds": 2.8125,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 57
+  },
+  {
+   "slug": "court-ball",
+   "beats": 2,
+   "beat": "journey",
+   "section": "drop1",
+   "act": "city",
+   "place": "the rooftop court",
+   "characters": [],
+   "camera": "whip-pan",
+   "angle": "macro",
+   "lens": "100mm macro",
+   "framing": "insert",
+   "purpose": "Punctuation: a basketball bounces through a puddle on the court in the violet light as the battle ends.",
+   "action": "macro: a basketball drops into a puddle on the court, bounces once in a splash of violet light, then rolls out of frame",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "lighting": "violet glow, floodlight",
+   "light": {
+    "key": "left",
+    "hard": false
+   },
+   "plate": "Macro at ground level on a wet painted rooftop basketball court at night, a shallow puddle, violet reflections, floodlight from the left. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "motion": "Macro at ground level: a plain basketball drops into a puddle on the court, bounces once in a splash of violet light and rolls out of frame. Whip pan in, 100 mm macro.",
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -22
+    },
+    {
+     "kind": "tap",
+     "gain": -6,
+     "at": 0.2
+    },
+    {
+     "kind": "splash-small",
+     "gain": -10,
+     "at": 0.25
+    }
+   ],
+   "id": 15,
+   "speed": 1,
+   "seconds": 0.9375,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "bridge-storm",
+   "beats": 4,
+   "beat": "turn",
+   "section": "break",
+   "act": "storm",
+   "place": "the river bridge",
+   "props": [
+    "orb"
+   ],
+   "characters": [
+    "pigeon"
+   ],
+   "camera": "handheld",
+   "angle": "low",
+   "lens": "24mm",
+   "purpose": "The turn: over the river bridge a storm gust slams the pigeon; it tumbles and the orb flickers.",
+   "action": "a gust slams the pigeon sideways over the bridge, it tumbles, then fights its wings open against the wind",
+   "intent": "the pigeon delivers, even against the storm",
+   "gaze": "at the flickering orb",
+   "physics": "tumbling in the gust, wings fighting the wind, rain lashing",
+   "interaction": "",
+   "lighting": "lightning from the back-left",
+   "light": {
+    "key": "back-left",
+    "hard": false
+   },
+   "plate": "Low angle under the steel girders of a river bridge at night in a violent storm, rain sheets, lightning from behind left, dark water below. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The pigeon tumbling in a storm gust under a steel bridge at night, a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside flickering in its feet.",
+   "motion": "Low angle, handheld: a storm gust slams the sky-blue pigeon sideways under the steel girders of the bridge, it tumbles with a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside flickering, then fights its wings open against the wind. 24 mm.",
+   "staging": [
+    {
+     "character": "pigeon",
+     "support": "air",
+     "x": 0.5,
+     "y": 0.5,
+     "h": 0.22,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "storm",
+     "gain": -12
+    },
+    {
+     "kind": "gust",
+     "gain": -6,
+     "at": 0.3
+    },
+    {
+     "kind": "thunder",
+     "gain": -8,
+     "at": 1.0
+    }
+   ],
+   "id": 16,
+   "speed": 1,
+   "seconds": 1.875,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 41
+  },
+  {
+   "slug": "orb-slips",
+   "beats": 4,
+   "beat": "turn",
+   "section": "break",
+   "act": "storm",
+   "place": "above the river",
+   "speed": 0.5,
+   "props": [
+    "orb"
+   ],
+   "characters": [],
+   "camera": "dolly-in",
+   "angle": "macro",
+   "lens": "100mm macro",
+   "framing": "insert",
+   "purpose": "Silence: in slow motion the orb slips loose and falls toward the black river, rain hanging in the air.",
+   "action": "macro in slow motion: the orb tumbles through the rain toward the dark water, its glow dimming, then flickers",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "lighting": "the orb's dimming glow",
+   "light": {
+    "key": "front",
+    "hard": false
+   },
+   "plate": "Macro in a night storm above a dark river, raindrops hanging in the air, a faint violet glow, darkness. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "motion": "Macro, slow motion: a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside tumbles through hanging raindrops toward the black river, its glow dimming, then flickering. Slow dolly in, 100 mm macro.",
+   "post": [
+    "silence"
+   ],
+   "sound": [
+    {
+     "kind": "wind-soft",
+     "gain": -26
+    },
+    {
+     "kind": "drips",
+     "gain": -22
+    },
+    {
+     "kind": "hum",
+     "gain": -22,
+     "at": 1.0
+    }
+   ],
+   "id": 17,
+   "seconds": 0.9375,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "falcon-save",
+   "beats": 4,
+   "beat": "turn",
+   "section": "break",
+   "act": "storm",
+   "place": "above the river",
+   "speed": 0.6,
+   "props": [
+    "orb"
+   ],
+   "characters": [
+    "falcon",
+    "pigeon"
+   ],
+   "camera": "tracking",
+   "angle": "eye",
+   "lens": "35mm",
+   "interactionKind": "rescue",
+   "purpose": "The rescue: the falcon, watching from the bridge, dives and bats the orb back up into the pigeon's feet.",
+   "action": "the falcon dives past the girders, bats the orb back up with its wing, then the pigeon catches it and both pull up together",
+   "intent": "the falcon keeps watch over the pigeon and its delivery",
+   "gaze": "the falcon on the orb, the pigeon on the falcon",
+   "physics": "a steep dive, a wing flick, the pigeon's feet closing on the orb, both pulling up hard",
+   "interaction": "the falcon rescues the delivery",
+   "lighting": "lightning from the back-left",
+   "light": {
+    "key": "back-left",
+    "hard": false
+   },
+   "plate": "Under a steel river bridge at night in a storm, girders, rain sheets, lightning from behind left, dark water far below. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The falcon diving under a steel bridge in a storm, batting a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside up toward the pigeon above.",
+   "motion": "Tracking, slow motion: the orange-red falcon dives past the girders and bats a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside back up with its wing, the sky-blue pigeon catches it in its feet, and both pull up together. 35 mm.",
+   "staging": [
+    {
+     "character": "falcon",
+     "support": "air",
+     "x": 0.4,
+     "y": 0.62,
+     "h": 0.28,
+     "flip": false
+    },
+    {
+     "character": "pigeon",
+     "support": "air",
+     "x": 0.64,
+     "y": 0.38,
+     "h": 0.2,
+     "flip": true
+    }
+   ],
+   "sound": [
+    {
+     "kind": "storm",
+     "gain": -16
+    },
+    {
+     "kind": "whoosh",
+     "gain": -6,
+     "at": 0.4
+    },
+    {
+     "kind": "parcel",
+     "gain": -10,
+     "at": 1.2
+    },
+    {
+     "kind": "flap",
+     "gain": -10,
+     "at": 1.8
+    }
+   ],
+   "id": 18,
+   "seconds": 1.125,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "owl-lantern",
+   "beats": 4,
+   "beat": "turn",
+   "section": "break",
+   "act": "storm",
+   "place": "the bridge tower",
+   "characters": [
+    "owl"
+   ],
+   "camera": "crane-up",
+   "angle": "low",
+   "lens": "35mm",
+   "purpose": "The way through: on the bridge tower the owl lifts a lantern and lights the pigeon's way.",
+   "action": "the owl on the tower ledge lifts a lantern high, swings it toward the far bank, then points the way with its other wing",
+   "intent": "the owl knows every face and shows the way",
+   "gaze": "at the pigeon, then at the far bank",
+   "physics": "the lantern lifted high with effort against the wind, feathers flattened",
+   "interaction": "",
+   "lighting": "the lantern's warm light, lightning from the back-right",
+   "light": {
+    "key": "back-right",
+    "hard": true
+   },
+   "plate": "Low angle on the stone ledge at the top of a bridge tower at night in a storm, an old iron lantern, rain, lightning from behind right, shadows falling toward the camera, the river far below. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The owl on a stone ledge at the top of a bridge tower in a storm, lifting an old iron lantern.",
+   "motion": "Low angle, crane up: the violet owl on the stone ledge of the bridge tower lifts an old iron lantern high against the wind, swings it toward the far bank, then points the way with its other wing. 35 mm.",
+   "staging": [
+    {
+     "character": "owl",
+     "support": "ground",
+     "surface": "the stone ledge",
+     "scale": {
+      "ref": "the old iron lantern",
+      "ratio": 1.143
+     },
+     "x": 0.5,
+     "depth": 0.55,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "storm",
+     "gain": -16
+    },
+    {
+     "kind": "shake",
+     "gain": -14,
+     "at": 0.4
+    },
+    {
+     "kind": "chime",
+     "gain": -14,
+     "at": 1.2
+    }
+   ],
+   "id": 19,
+   "speed": 1,
+   "seconds": 1.875,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 41
+  },
+  {
+   "slug": "wall-hit",
+   "beats": 2,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "wall",
+   "place": "the river wall",
+   "props": [
+    "orb"
+   ],
+   "characters": [
+    "pigeon"
+   ],
+   "camera": "push-in",
+   "angle": "low",
+   "lens": "24mm",
+   "purpose": "The delivery: the pigeon flings the orb at the great concrete wall above the river — it bursts.",
+   "action": "the pigeon brakes with its wings, flicks the orb hard with its feet, then it bursts against the concrete wall in violet light",
+   "intent": "the pigeon delivers her video to the whole city",
+   "gaze": "after the orb",
+   "physics": "a hard flick of the feet, wings braking",
+   "interaction": "",
+   "lighting": "the burst's violet light",
+   "light": {
+    "key": "front",
+    "hard": false
+   },
+   "plate": "Low angle on a huge blank concrete wall above a river at night after the rain, wet, the city lights around. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The pigeon in front of a huge blank concrete wall at night flinging a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside at it.",
+   "motion": "Push-in: the sky-blue pigeon swings its feet forward and flings a glowing violet-to-magenta orb of light the size of a plum, a glassy sphere with a small bright magenta heart shape glowing inside at the huge concrete wall above the river, where it bursts in violet light. 24 mm.",
+   "staging": [
+    {
+     "character": "pigeon",
+     "support": "air",
+     "x": 0.4,
+     "y": 0.6,
+     "h": 0.22,
+     "flip": false
+    }
+   ],
+   "post": [
+    "flash"
+   ],
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -18
+    },
+    {
+     "kind": "whoosh",
+     "gain": -6,
+     "at": 0.2
+    },
+    {
+     "kind": "ignite",
+     "gain": -6,
+     "at": 0.6
+    }
+   ],
+   "id": 20,
+   "speed": 1,
+   "seconds": 0.9375,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "wall-glow",
+   "beats": 8,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "wall",
+   "place": "the river wall",
+   "characters": [],
+   "camera": "crane-up",
+   "angle": "low",
+   "lens": "24mm",
+   "framing": "establishing",
+   "purpose": "The video seen by all: the wall glows with a giant violet silhouette of the flamingo doing her move.",
+   "action": "the wall blooms with light, a giant violet silhouette of a flamingo spins across it, then holds the pose",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "lighting": "the wall's violet glow over the river",
+   "light": {
+    "key": "front",
+    "hard": false
+   },
+   "plate": "Low angle over a river promenade at night toward a huge concrete wall glowing violet and magenta with the giant silhouette of a flamingo dancing, reflections in the water, wet stones. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "motion": "Low angle crane up: a huge concrete wall above the river glows violet and magenta with the giant silhouette of a flamingo spinning and holding a pose, reflections rippling in the water. 24 mm.",
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -18
+    },
+    {
+     "kind": "swell",
+     "gain": -10,
+     "at": 0.3
+    }
+   ],
+   "id": 21,
+   "speed": 1,
+   "seconds": 3.75,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 69
+  },
+  {
+   "slug": "crane-duck",
+   "beats": 6,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "wall",
+   "place": "the river promenade",
+   "characters": [
+    "crane",
+    "duck"
+   ],
+   "camera": "tracking",
+   "angle": "low",
+   "lens": "24mm",
+   "interactionKind": "celebrate",
+   "purpose": "The city dances her move: on the promenade the crane and the duck hit it together in the rain.",
+   "action": "the crane and the duck snap the wave together, spin side by side, then click their heels and freeze",
+   "intent": "the crane listens and the duck builds: they dance her move together",
+   "gaze": "up at the glowing wall",
+   "physics": "two spins in sync, a heel click, puddles splashing",
+   "interaction": "they celebrate by dancing together",
+   "lighting": "the wall's violet glow from the right",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "Low angle on a wet stone river promenade at night, a violet glow from a huge wall on the right casting shadows to the left, puddles, a low railing. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The crane and the duck dancing side by side on a wet river promenade at night, wings up, a violet glow from the right.",
+   "motion": "Low tracking shot: on the wet promenade the pale grey crane and the crimson duck snap the wave together, spin side by side, click their heels and strike the pose, splashing the puddles. Violet glow from the right. 24 mm.",
+   "staging": [
+    {
+     "character": "crane",
+     "support": "ground",
+     "surface": "the wet stone promenade",
+     "scale": {
+      "ref": "the low railing",
+      "ratio": 1.15
+     },
+     "x": 0.38,
+     "depth": 0.55,
+     "flip": false
+    },
+    {
+     "character": "duck",
+     "support": "ground",
+     "surface": "the wet stone promenade",
+     "scale": {
+      "ref": "the low railing",
+      "ratio": 0.36
+     },
+     "x": 0.64,
+     "depth": 0.6,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -20
+    },
+    {
+     "kind": "whoosh",
+     "gain": -12,
+     "at": 0.3
+    },
+    {
+     "kind": "splash",
+     "gain": -10,
+     "at": 1.0
+    },
+    {
+     "kind": "tap",
+     "gain": -8,
+     "at": 1.6
+    }
+   ],
+   "id": 22,
+   "speed": 1,
+   "seconds": 2.8125,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 57
+  },
+  {
+   "slug": "flock-dance",
+   "beats": 6,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "wall",
+   "place": "the river promenade",
+   "characters": [
+    "pigeon",
+    "falcon",
+    "owl",
+    "magpie",
+    "beaver"
+   ],
+   "camera": "crane-up",
+   "angle": "low",
+   "lens": "24mm",
+   "interactionKind": "celebrate",
+   "purpose": "Everyone together: the flock dances her move in the rain beneath the glowing wall.",
+   "action": "the pigeon lands among the flock, they all snap the wave together, spin, then click their heels and freeze as the wall flares",
+   "intent": "the flock carries her video further, together",
+   "gaze": "up at the wall",
+   "physics": "a ripple of spins, splashes, everyone landing the pose at once",
+   "interaction": "they celebrate the delivery together",
+   "lighting": "the wall's violet glow from behind",
+   "light": {
+    "key": "back",
+    "hard": false
+   },
+   "plate": "Low angle on a wet stone river promenade at night, a huge wall glowing violet and magenta behind, puddles, light rain. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "Five birds and a beaver — the pigeon, the falcon, the owl, the magpie and the beaver — dancing together on a wet river promenade in front of a huge glowing violet wall.",
+   "motion": "Low angle, crane up: the sky-blue pigeon lands among the orange-red falcon, the violet owl, the slate-grey magpie and the brown beaver; they all snap the wave together, spin, click their heels and freeze in the pose as the wall flares magenta. 24 mm.",
+   "staging": [
+    {
+     "character": "owl",
+     "support": "ground",
+     "surface": "the wet stone promenade",
+     "scale": {
+      "ref": "the low railing",
+      "ratio": 0.4
+     },
+     "x": 0.18,
+     "depth": 0.5,
+     "flip": false
+    },
+    {
+     "character": "magpie",
+     "support": "ground",
+     "surface": "the wet stone promenade",
+     "scale": {
+      "ref": "the low railing",
+      "ratio": 0.38
+     },
+     "x": 0.34,
+     "depth": 0.55,
+     "flip": false
+    },
+    {
+     "character": "pigeon",
+     "support": "ground",
+     "surface": "the wet stone promenade",
+     "scale": {
+      "ref": "the low railing",
+      "ratio": 0.32
+     },
+     "x": 0.5,
+     "depth": 0.6,
+     "flip": false
+    },
+    {
+     "character": "falcon",
+     "support": "ground",
+     "surface": "the wet stone promenade",
+     "scale": {
+      "ref": "the low railing",
+      "ratio": 0.42
+     },
+     "x": 0.66,
+     "depth": 0.55,
+     "flip": true
+    },
+    {
+     "character": "beaver",
+     "support": "ground",
+     "surface": "the wet stone promenade",
+     "scale": {
+      "ref": "the low railing",
+      "ratio": 0.55
+     },
+     "x": 0.83,
+     "depth": 0.5,
+     "flip": true
+    }
+   ],
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -20
+    },
+    {
+     "kind": "steps",
+     "gain": -12,
+     "at": 0.4
+    },
+    {
+     "kind": "whoosh",
+     "gain": -10,
+     "at": 1.4
+    },
+    {
+     "kind": "tap",
+     "gain": -6,
+     "at": 2.6
+    }
+   ],
+   "id": 23,
+   "speed": 1,
+   "seconds": 2.8125,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 57
+  },
+  {
+   "slug": "stamp",
+   "beats": 2,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "wall",
+   "place": "the river promenade",
+   "characters": [],
+   "camera": "push-in",
+   "angle": "macro",
+   "lens": "100mm macro",
+   "framing": "insert",
+   "purpose": "The beat made visible: a row of puddles explodes as the whole flock stamps the heel click at once.",
+   "action": "macro at ground level: a row of puddles on the wet stones bursts upward at once in violet spray, then the drops fall back",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "lighting": "the wall's violet glow",
+   "light": {
+    "key": "back",
+    "hard": false
+   },
+   "plate": "Macro at ground level on wet stones of a river promenade at night, a row of puddles reflecting a violet glow, rain drops. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "motion": "Macro at ground level: a row of puddles on the wet stones bursts upward at once in violet spray, the drops hanging, then falling back. Push-in, 100 mm macro.",
+   "sound": [
+    {
+     "kind": "city",
+     "gain": -22
+    },
+    {
+     "kind": "splash",
+     "gain": -4,
+     "at": 0.2
+    }
+   ],
+   "id": 24,
+   "speed": 1,
+   "seconds": 0.9375,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "coin-flies",
+   "beats": 4,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "wall",
+   "place": "over the city",
+   "speed": 0.7,
+   "characters": [
+    "pigeon"
+   ],
+   "camera": "tracking",
+   "angle": "eye",
+   "lens": "50mm",
+   "purpose": "And something comes back: the pigeon carries one golden coin home across the city.",
+   "action": "the pigeon catches a golden coin that spins off the wall, grips it in its beak, then flies hard back over the rooftops toward the garage",
+   "intent": "the pigeon delivers the payment back to her",
+   "gaze": "ahead toward the garage",
+   "physics": "a snap of the beak on the coin, strong wing beats, a dive",
+   "interaction": "",
+   "lighting": "violet city glow from behind",
+   "light": {
+    "key": "back",
+    "hard": false
+   },
+   "plate": "Above blurred city rooftops at night glowing violet and magenta, light rain, a garage ramp far below. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The pigeon flying over violet city rooftops at night with a small golden coin in its beak.",
+   "motion": "Tracking alongside, slow motion: the sky-blue pigeon snaps a spinning golden coin out of the air with its beak and flies hard back over the violet rooftops, then dives toward a garage ramp. 50 mm.",
+   "staging": [
+    {
+     "character": "pigeon",
+     "support": "air",
+     "x": 0.5,
+     "y": 0.55,
+     "h": 0.24,
+     "flip": false
+    }
+   ],
+   "sound": [
+    {
+     "kind": "rain",
+     "gain": -20
+    },
+    {
+     "kind": "coin",
+     "gain": -8,
+     "at": 0.3
+    },
+    {
+     "kind": "flap",
+     "gain": -12,
+     "at": 0.8
+    },
+    {
+     "kind": "whoosh",
+     "gain": -12,
+     "at": 1.6
+    }
+   ],
+   "id": 25,
+   "seconds": 1.3125,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 33
+  },
+  {
+   "slug": "coin-lands",
+   "beats": 4,
+   "beat": "payoff",
+   "section": "drop2",
+   "act": "garage",
+   "place": "the garage",
+   "characters": [
+    "flamingo",
+    "pigeon"
+   ],
+   "camera": "push-in",
+   "angle": "eye",
+   "lens": "50mm",
+   "interactionKind": "handoff",
+   "purpose": "It lands in her wing: the flamingo looks at the coin, then at the phone, and grins.",
+   "action": "the pigeon swoops in and drops the coin into the flamingo's open wing, she looks at it, then at the pigeon, and breaks into a huge grin",
+   "intent": "the flamingo shares her dance and the payment follows",
+   "gaze": "at the coin, then at the phone",
+   "physics": "the pigeon braking with its wings, the coin landing with a small bounce in her wing, her neck straightening with pride",
+   "interaction": "the pigeon hands her the payment",
+   "lighting": "the violet ring light from the right",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "An underground parking garage at night, a ring light on a tripod glowing violet on the right casting shadows to the left, wet concrete, pillars, haze. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The flamingo standing in a parking garage holding out one wing as the pigeon, hovering, drops a small golden coin into it, a violet ring light on the right.",
+   "motion": "Push-in: the sky-blue pigeon swoops in and drops a small golden coin into the pink flamingo's open wing with a little bounce; she looks at it, then at the pigeon, and breaks into a huge grin. Violet ring light from the right. 50 mm.",
+   "staging": [
+    {
+     "character": "flamingo",
+     "support": "ground",
+     "surface": "the wet concrete floor",
+     "scale": {
+      "ref": "the ring light tripod",
+      "ratio": 0.618
+     },
+     "x": 0.42,
+     "depth": 0.55,
+     "flip": false
+    },
+    {
+     "character": "pigeon",
+     "support": "air",
+     "x": 0.66,
+     "y": 0.42,
+     "h": 0.2,
+     "flip": true
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -22
+    },
+    {
+     "kind": "coin",
+     "gain": -6,
+     "at": 0.3
+    },
+    {
+     "kind": "chime",
+     "gain": -14,
+     "at": 1.0
+    }
+   ],
+   "id": 26,
+   "speed": 1,
+   "seconds": 1.875,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 41
+  },
+  {
+   "slug": "encore",
+   "beats": 8,
+   "beat": "payoff",
+   "section": "outro",
+   "act": "garage",
+   "place": "the garage",
+   "speed": 0.8,
+   "characters": [
+    "flamingo",
+    "pigeon"
+   ],
+   "camera": "pull-back",
+   "angle": "high",
+   "lens": "24mm",
+   "interactionKind": "celebrate",
+   "purpose": "The resolve: she does the move once more, sure of herself, as the camera rises and the garage lights come on level by level.",
+   "action": "the flamingo hits her dance once more with total confidence, the pigeon beside her copies the heel click, then they both bow as the garage lights flicker on",
+   "intent": "the flamingo keeps making and sharing her dance, and the pigeon delivers it",
+   "gaze": "at each other, then up, proud",
+   "physics": "a clean spin, two heel clicks, a bow",
+   "interaction": "they dance together",
+   "lighting": "violet ring light from the right, garage lights coming on",
+   "light": {
+    "key": "right",
+    "hard": true
+   },
+   "plate": "High angle over an underground parking garage at night, wet concrete floor, a ring light glowing violet on the right casting long shadows to the left, a taped X, pillars, rows of ceiling lights. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "keyframe": "The flamingo on a taped X in a parking garage seen from above, mid-spin, the pigeon beside her, a violet ring light on the right.",
+   "motion": "High angle pulling back and up: the pink flamingo hits her dance once more — a sharp wing wave, a spin on one leg and a heel click with both wings thrown up — the sky-blue pigeon beside her copies the heel click, then they both bow as the rows of garage lights flicker on. 24 mm.",
+   "staging": [
+    {
+     "character": "flamingo",
+     "support": "ground",
+     "surface": "the wet concrete floor on the taped X",
+     "scale": {
+      "ref": "the ring light tripod",
+      "ratio": 0.618
+     },
+     "x": 0.45,
+     "depth": 0.55,
+     "flip": false
+    },
+    {
+     "character": "pigeon",
+     "support": "ground",
+     "surface": "the wet concrete floor",
+     "scale": {
+      "ref": "the ring light tripod",
+      "ratio": 0.188
+     },
+     "x": 0.62,
+     "depth": 0.6,
+     "flip": true
+    }
+   ],
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -20
+    },
+    {
+     "kind": "whoosh",
+     "gain": -12,
+     "at": 0.6
+    },
+    {
+     "kind": "tap",
+     "gain": -8,
+     "at": 1.8
+    },
+    {
+     "kind": "hum",
+     "gain": -16,
+     "at": 3.0
+    }
+   ],
+   "id": 27,
+   "seconds": 3.0,
+   "transition": "cut",
+   "framing": "medium",
+   "atmosphere": "rain",
+   "model": "wan2.2-i2v-a14b-hq",
+   "frames": 57
+  },
+  {
+   "slug": "title-garage",
+   "beats": 8,
+   "beat": "payoff",
+   "section": "outro",
+   "act": "garage",
+   "place": "the garage",
+   "characters": [],
+   "camera": "crane-up",
+   "angle": "high",
+   "lens": "24mm",
+   "framing": "establishing",
+   "purpose": "The resolve: the empty garage glows violet as the camera rises through the levels; the title appears.",
+   "action": "the camera rises through the levels of the garage as the ring light pulses violet below, then the ceiling lights glow magenta",
+   "intent": "",
+   "gaze": "",
+   "physics": "",
+   "interaction": "",
+   "lighting": "violet ring light, magenta glow",
+   "light": {
+    "key": "front",
+    "hard": false
+   },
+   "plate": "High angle over the levels of an empty underground parking garage at night, a small ring light glowing violet far below on wet concrete, rows of ceiling lights glowing magenta, haze. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
+   "motion": "Slow crane up through the levels of an empty parking garage, a ring light pulsing violet far below on wet concrete, the rows of ceiling lights glowing magenta in the haze. 24 mm.",
+   "model": "ltx-video-0.9.8-13b-distilled",
+   "sound": [
+    {
+     "kind": "room",
+     "gain": -22
+    },
+    {
+     "kind": "hum",
+     "gain": -16,
+     "at": 1.0
+    },
+    {
+     "kind": "chime",
+     "gain": -14,
+     "at": 2.5
+    }
+   ],
+   "id": 28,
+   "speed": 1,
+   "seconds": 3.75,
+   "transition": "cut",
+   "atmosphere": "rain",
+   "frames": 69
+  }
+ ]
+}
