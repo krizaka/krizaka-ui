@@ -1,5 +1,18 @@
 # @krizaka/ui
 
+## 3.40.0
+
+### Minor Changes
+
+- [#441](https://github.com/krizaka/krizaka-ui/pull/441) [`e34eb65`](https://github.com/krizaka/krizaka-ui/commit/e34eb65ba5831766eb8faf9299a94204f2e66637) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat: `Flock` (`@krizaka/ui/flock`) and `Mascot life` — the birds at ease in character (the falcon watches, the owl reads, the duck builds, the flamingo answers, the pigeon delivers), two neighbours glancing at each other, the pigeon carrying its parcel across, a bird looking up when you come near. CSS in `blocks.css`, one timer for the moments, paused off screen, still under reduced motion.
+
+### Patch Changes
+
+- [#439](https://github.com/krizaka/krizaka-ui/pull/439) [`bf2e799`](https://github.com/krizaka/krizaka-ui/commit/bf2e799ed24c31858532bb6d3bca1e95b7b105ce) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - fix(examples): the examples of the registry point at repositories and pages that exist (`krizaka-build` for Krizaka Java, the Discussions of `krizaka-ui`) — found by the documentation crawler.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.40.0
+  - @krizaka/tokens@3.40.0
+
 ## 3.39.0
 
 ### Minor Changes
