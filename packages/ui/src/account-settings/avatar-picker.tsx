@@ -47,14 +47,15 @@ const pictureOf = (option: AvatarOption) => option.src ?? (option.defaultAvatar 
 export function AvatarPicker({ label, showLabel, description, dense, options, upload, className, ...props }: AvatarPickerProps) {
   const id = React.useId();
   const group = (
-    <RadioGroupPrimitive.Root aria-label={label} aria-labelledby={showLabel ? id : undefined} className={cn("grid gap-3", dense ? "grid-cols-[repeat(auto-fill,minmax(3rem,3.25rem))] gap-2.5" : "grid-cols-[repeat(auto-fill,minmax(4.25rem,1fr))]", !showLabel && className)} {...props}>
+    <RadioGroupPrimitive.Root aria-label={label} aria-labelledby={showLabel ? id : undefined} className={cn(dense ? "flex flex-wrap gap-2.5" : "grid grid-cols-[repeat(auto-fill,minmax(4.25rem,1fr))] gap-3", !showLabel && className)} {...props}>
       {options.map((option) => (
         <RadioGroupPrimitive.Item
           key={option.id}
           value={option.id}
           aria-label={option.label}
           className={cn(
-            "group/avatar relative aspect-square w-full rounded-full outline-none transition-shadow duration-200 motion-reduce:transition-none",
+            "group/avatar relative shrink-0 rounded-full", dense ? "h-12 w-12" : "aspect-square w-full",
+            " outline-none transition-shadow duration-200 motion-reduce:transition-none",
             "ring-1 ring-border-default hover:ring-border-strong focus-visible:focus-ring data-[state=checked]:ring-2 data-[state=checked]:ring-accent",
           )}
         >
