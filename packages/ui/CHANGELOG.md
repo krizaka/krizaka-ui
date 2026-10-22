@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 3.43.1
+
+### Patch Changes
+
+- [#492](https://github.com/krizaka/krizaka-ui/pull/492) [`f032b3b`](https://github.com/krizaka/krizaka-ui/commit/f032b3b5693e233c397e579b0452951033ed9932) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Products wear plain Krizaka UI: under `data-surface="product"` on the root (an app themed at :root: set it on `<html>`) or a product brand (`.brand-orazaka`, `-orochia`, `-yasakia`, `-yororis`, `-yomizaka`, `-kachizaka`, `-akinaza`) the margin ink (`--kz-paper-rule-margin`, the red of every eyebrow, folio and margin note) is the brand's accent text colour; the red margin stays on the Krizaka sites. The same scope drops the notebook's faces: headings use the sans (`--kz-font-display` → `--kz-font-sans`, semibold) and the mono is the system monospace (no Young Serif, no Courier Prime). krizaka.com, the blog and ui.krizaka.com keep them. Test: the list equals the product brands of @krizaka/tokens. Fixes [#491](https://github.com/krizaka/krizaka-ui/issues/491).
+- Updated dependencies []:
+  - @krizaka/tailwind@3.43.1
+  - @krizaka/tokens@3.43.1
+
 ## 3.43.0
 
 ### Minor Changes
