@@ -469,6 +469,10 @@
       "types": "./dist/bird-plate.d.ts",
       "import": "./dist/bird-plate.js"
     },
+    "./elephant": {
+      "types": "./dist/elephant.d.ts",
+      "import": "./dist/elephant.js"
+    },
     "./flock": {
       "types": "./dist/flock.d.ts",
       "import": "./dist/flock.js"
@@ -1955,6 +1959,13 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./elephant",
+      "path": "dist/elephant.js",
+      "limit": "1.4 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx"]
     },
     {
       "name": "./flock",

@@ -11,13 +11,13 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 /** The role → the token it fills (@krizaka/tokens). The text role is `--kz-font-sans`, aliased `--kz-font-text`. */
-export const TOKENS = { display: "--kz-font-display", text: "--kz-font-sans", mono: "--kz-font-mono" };
+export const TOKENS = { display: "--kz-font-display", text: "--kz-font-sans", mono: "--kz-font-mono", accent: "--kz-font-accent" };
 /** The order of the roles everywhere (CSS, data, docs). */
-export const ROLES = /** @type {const} */ (["display", "text", "mono"]);
+export const ROLES = /** @type {const} */ (["display", "text", "mono", "accent"]);
 const LICENSE = { name: "SIL Open Font License 1.1", spdx: "OFL-1.1", url: "https://openfontlicense.org" };
 
 /**
- * @typedef {{ role: "display" | "text" | "mono", legacy?: boolean, family: string, slug: string, nativeName: string, category: string,
+ * @typedef {{ role: "display" | "text" | "mono" | "accent", legacy?: boolean, family: string, slug: string, nativeName: string, category: string,
  *   designer: string, upstream: Record<string, string>, axes: Record<string, number | number[]>, nativeWeights: number[],
  *   fallback: string, stack: string[], description: string, why: string, use: string[], avoid: string[] }} Family
  * @typedef {{ unitsPerEm: number, ascent: number, descent: number, lineGap: number, capHeight: number, xHeight: number, avgWidth: number }} Metrics
@@ -111,7 +111,7 @@ export function compile(source, faces) {
   const header = "@krizaka/fonts — GÉNÉRÉ depuis src/families.json et src/faces.json par scripts/build.mjs : ne pas éditer.";
   const css = [
     `/* ${header}`,
-    "   Les trois familles Krizaka — Young Serif, Atkinson Hyperlegible Next, Courier Prime (SIL OFL 1.1, licences dans",
+    "   Les familles Krizaka — Young Serif, Atkinson Hyperlegible Next, Courier Prime, et l'accent Caveat Brush (SIL OFL 1.1, licences dans",
     "   licenses/) —, auto-hébergées, en sous-ensembles latin et",
     "   latin-ext (le navigateur ne charge latin-ext que si la page en a besoin), font-display: swap ; chaque famille a",
     "   un repli local aux métriques ajustées (« … Fallback ») : le texte ne bouge pas quand la police arrive. */",
@@ -146,7 +146,7 @@ export function compile(source, faces) {
 
   const json = (/** @type {unknown} */ v) => JSON.stringify(v, null, 2);
   const pure = (/** @type {string} */ js) => js.replaceAll("Object.freeze(", "/* @__PURE__ */ Object.freeze(");
-  const preload = families.map((f) => /** @type {{ path: string }} */ (f.web.find((w) => w.subset === "latin" && (!w.weight || w.weight === 400))).path);
+  const preload = families.filter((f) => f.role !== "accent").map((f) => /** @type {{ path: string }} */ (f.web.find((w) => w.subset === "latin" && (!w.weight || w.weight === 400))).path);
   /** The faces of the previous identity, still shipped so a pinned path keeps resolving (data only: not in fonts.css). */
   const legacy = source.families.filter((f) => f.legacy).map((f) => ({
     role: f.role,
@@ -157,7 +157,7 @@ export function compile(source, faces) {
 
   const indexJs = pure(`// ${header}
 
-/** The three Krizaka families — display, text, mono — as data: files, weights, licence, fallback, and how to use them. */
+/** The Krizaka families — display, text, mono, and the sparing chalkboard accent — as data: files, weights, licence, fallback, and how to use them. */
 export const fonts = Object.freeze(${json(families)});
 
 /** The usage rules of the Krizaka typography (ui.krizaka.com/foundations/typography). */
@@ -166,7 +166,7 @@ export const rules = Object.freeze(${json(source.rules)});
 /** The faces before 0.3.0 (Plus Jakarta Sans, Inter, JetBrains Mono): their files stay in the package, out of fonts.css. */
 export const legacyFonts = Object.freeze(${json(legacy)});
 
-/** The files worth preloading: the latin subset of each family (paths inside the package). */
+/** The files worth preloading: the latin subset of each family but the accent (a few words, loaded when used) (paths inside the package). */
 export const preload = Object.freeze(${json(preload)});
 
 /** The CSS font stack of a role: \`fontStack("display")\` → \`"Plus Jakarta Sans", "Plus Jakarta Sans Fallback", …\`. */
@@ -178,7 +178,7 @@ export function fontStack(role) {
 `);
   const indexDts = `// ${header}
 
-export type FontRole = "display" | "text" | "mono";
+export type FontRole = "display" | "text" | "mono" | "accent";
 export interface FontFile { readonly subset: string; readonly path: string; readonly bytes: number; readonly unicodeRange: string; /** A static family: the weight of this file. */ readonly weight?: number }
 export interface NativeFontFile { readonly weight: number; readonly name: string; readonly path: string; readonly bytes: number }
 export interface Font {
@@ -190,7 +190,7 @@ export interface Font {
   /** The full CSS stack: the family, its fallback, then system faces. */
   readonly stack: string;
   /** The @krizaka/tokens property this family fills. */
-  readonly token: "--kz-font-display" | "--kz-font-sans" | "--kz-font-mono";
+  readonly token: "--kz-font-display" | "--kz-font-sans" | "--kz-font-mono" | "--kz-font-accent";
   readonly category: string;
   readonly designer: string;
   readonly version: string;
@@ -211,11 +211,11 @@ export interface Font {
   /** Static TrueType files for React Native, one per weight. */
   readonly native: readonly NativeFontFile[];
 }
-/** The three Krizaka families — display, text, mono — as data: files, weights, licence, fallback, and how to use them. */
+/** The Krizaka families — display, text, mono, and the sparing chalkboard accent — as data: files, weights, licence, fallback, and how to use them. */
 export declare const fonts: readonly Font[];
 /** The usage rules of the Krizaka typography (ui.krizaka.com/foundations/typography). */
 export declare const rules: readonly string[];
-/** The files worth preloading: the latin subset of each family (paths inside the package). */
+/** The files worth preloading: the latin subset of each family but the accent (a few words, loaded when used) (paths inside the package). */
 export declare const preload: readonly string[];
 /** The faces before 0.3.0, still shipped (paths inside the package), not declared by fonts.css. */
 export declare const legacyFonts: readonly { readonly role: FontRole; readonly family: string; readonly web: readonly { readonly subset: string; readonly path: string }[]; readonly native: readonly { readonly weight: number; readonly name: string; readonly path: string }[] }[];
@@ -246,7 +246,7 @@ export function fontFamily(role, weight = 400) {
 `);
   const nativeDts = `// ${header}
 
-export type FontRole = "display" | "text" | "mono";
+export type FontRole = "display" | "text" | "mono" | "accent";
 export type NativeFontName = ${allNative.map((n) => json(n.name)).join(" | ")};
 /** The React Native font names, per role and weight: the keys of \`fontAssets\` (\`@krizaka/fonts/native/assets\`). */
 export declare const nativeFonts: {
@@ -258,7 +258,7 @@ export declare function fontFamily(role: FontRole, weight?: number): NativeFontN
   const assetsJs = `// ${header}
 // Metro (Expo, React Native) resolves each \`require\` to a bundled asset; this module is for React Native only.
 
-/** Every font file, by its React Native name: \`useFonts(fontAssets)\` (expo-font) loads the three families. */
+/** Every font file, by its React Native name: \`useFonts(fontAssets)\` (expo-font) loads the families. */
 export const fontAssets = {
 ${allNative.map((n) => `  ${json(n.name)}: require(${json(`../${n.path}`)}),`).join("\n")}
 };
@@ -266,7 +266,7 @@ ${allNative.map((n) => `  ${json(n.name)}: require(${json(`../${n.path}`)}),`).j
   const assetsDts = `// ${header}
 
 import type { NativeFontName } from "./native";
-/** Every font file, by its React Native name: \`useFonts(fontAssets)\` (expo-font) loads the three families. */
+/** Every font file, by its React Native name: \`useFonts(fontAssets)\` (expo-font) loads the families. */
 export declare const fontAssets: { readonly [K in NativeFontName]: number };
 `;
 

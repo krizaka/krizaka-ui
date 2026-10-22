@@ -79,6 +79,16 @@ export const moment: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 4v2.5"], c
 export const thread: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M2.5 16c2.5 0 3.5-7.5 6.5-7.5s3.5 9 6.5 9 3-4 5-4.5"], n: [[20.5,13]] });
 /** keep save hold open hand notebook summary */
 export const keep: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M3.5 13H4.5L5.5 14V20L4.5 21H3.5L2.5 20V14Z","M5.5 19.5H14l6.4-3.9a1.6 1.6 0 0 0-1.7-2.7L14.5 15","M5.5 14.5 8 13h4.5a1.5 1.5 0 0 1 0 3H9.5"], n: [[13,8]] });
+/** espresso coffee cup cafe drink demitasse */
+export const espresso: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M4.5 9.5h12v5l-3 3.5h-6l-3-3.5z","M16.5 11h2.5l1.5 1.5v1.5l-1.5 1.5h-2.5","M3 21h15","M8 3.5c-1 1 1 2 0 3.5M12.5 3.5c-1 1 1 2 0 3.5"], n: [[10.5,13.25]] });
+/** plant leaf pot green houseplant cafe */
+export const plant: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M7.5 15.5h9l-1.25 5.5h-6.5z","M12 15.5V10","M12 11.5C12 8 9.5 5.5 5.5 5.5 5.5 9 8 11.5 12 11.5z","M12 9C12 5.5 14.5 3.5 18.5 3.5 18.5 7 16 9 12 9z"], n: [[12,13.5]] });
+/** window pane light sill cafe front */
+export const window: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M7 3H17L19.5 5.5V15.5L17 18H7L4.5 15.5V5.5Z","M12 3v15","M4.5 10.5h15","M3 21h18"], n: [[15.75,6.75]] });
+/** stoop steps front door neighbour porch */
+export const stoop: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M3.5 20.5V17h4v-3.5h4V10h4V6.5h4.5v14z","M2.5 20.5h19"], n: [[9.5,17.25]] });
+/** chair seat bistro cafe terrace */
+export const chair: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M7 3v18","M7 13.5h11.5V21","M7 7.5h6.5","M4.5 21H9"], n: [[13,17.25]] });
 /** soccer football ball match sport */
 export const soccer: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M12 8.2L15.29 10.1L15.29 13.9L12 15.8L8.71 13.9L8.71 10.1Z","M12 8.2V3","M15.3 10.1 19.8 7.5","M15.3 13.9 19.8 16.5","M12 15.8V21","M8.7 13.9 4.2 16.5","M8.7 10.1 4.2 7.5"], c: [[12,12,9]], n: [[12,12]] });
 /** hockey nhl stick puck ice sport */
@@ -376,6 +386,31 @@ export const glyphIndex = {
     "component": "KeepIcon",
     "group": "product",
     "keywords": "keep save hold open hand notebook summary"
+  },
+  "espresso": {
+    "component": "EspressoIcon",
+    "group": "product",
+    "keywords": "espresso coffee cup cafe drink demitasse"
+  },
+  "plant": {
+    "component": "PlantIcon",
+    "group": "product",
+    "keywords": "plant leaf pot green houseplant cafe"
+  },
+  "window": {
+    "component": "WindowIcon",
+    "group": "product",
+    "keywords": "window pane light sill cafe front"
+  },
+  "stoop": {
+    "component": "StoopIcon",
+    "group": "product",
+    "keywords": "stoop steps front door neighbour porch"
+  },
+  "chair": {
+    "component": "ChairIcon",
+    "group": "product",
+    "keywords": "chair seat bistro cafe terrace"
   },
   "soccer": {
     "component": "SoccerIcon",

@@ -157,6 +157,8 @@ def main() -> None:
 
     faces = {}
     everything = unicodes(source["subsets"]["latin"]) + unicodes(source["subsets"]["latin-ext"])
+    # a family may keep a narrower set (`subsets` in src/families.json): the accent face, a few words per screen
+    narrow = lambda family: [c for ranges in family.get("subsets", source["subsets"]).values() for c in unicodes(ranges)]
     for family in source["families"]:
         (licenses / f"{family['nativeName']}-OFL.txt").write_bytes(fetch(raw(family, "license")))
         statics = family["upstream"].get("fonts")
@@ -168,13 +170,13 @@ def main() -> None:
             version = first["name"].getDebugName(5)
             measured = first
             for weight, data in sorted(files.items()):
-                for name, ranges in source["subsets"].items():
+                for name, ranges in family.get("subsets", source["subsets"]).items():
                     cut_data = cut(data, unicodes(ranges), "woff2", hinting=False)
                     web.append({"subset": name, "weight": weight, "unicodeRange": ranges, **entry(web_dir / f"{family['slug']}-{name}-{weight}.woff2", cut_data)})
             for weight in family["nativeWeights"]:
                 static = TTFont(BytesIO(files[weight]))
                 postscript = rename(static, family, weight, version)
-                data = cut(to_bytes(static), everything, None, hinting=False)
+                data = cut(to_bytes(static), narrow(family), None, hinting=False)
                 native.append({"weight": weight, "name": postscript, **entry(native_dir / f"{postscript}.ttf", data)})
         else:
             upstream = fetch(raw(family, "font"))

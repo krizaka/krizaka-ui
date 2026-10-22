@@ -18,6 +18,8 @@
 
 ## 2. Rules
 
+- **The accent role** (`accent`, `--kz-font-accent`, 0.4.0): Caveat Brush (OFL), a chalkboard hand for a menu line, a sign, one word (Yororis, the café). A sparing accent: never body text, interface, buttons or tables, one short line per block, from 24 px. French alphabet only (one subset), not preloaded.
+
 - **Sources:** `src/families.json` (by hand: upstream commit, axes, subsets, native weights, fallbacks, the docs words).
   `scripts/subset.py` (Python, fontTools — run by hand with `pnpm subset`, never in CI) downloads the pinned upstream,
   cuts `files/` and writes `src/faces.json` (metrics, bytes, sha256) and `licenses/`; all committed.
@@ -31,7 +33,7 @@
 - `pnpm turbo run check --filter=@krizaka/fonts`: ESLint + `tsc` (`checkJs` on the scripts), tests (the files match
   `faces.json` — bytes and sha256 —, WOFF2/TrueType signatures, French in latin, the CSS: one face per family and
   subset, swap, unicode-range, fallbacks; the licences; the entries), build, size, publint + attw (`esm-only`).
-- **Size budgets:** `fonts.css` ≤ 1.1 kB gzip, `.` ≤ 4 kB gzip, `./native` ≤ 0.75 kB gzip; each WOFF2 by file (Young
+- **Size budgets:** `fonts.css` ≤ 1.25 kB gzip, `.` ≤ 5 kB gzip, `./native` ≤ 0.75 kB gzip; each WOFF2 by file (Young
   Serif latin ≤ 20 kB, latin-ext ≤ 12 kB, Atkinson ≤ 22 / 13 kB, Courier Prime ≤ 13 / 8 kB per weight); native ≤ 180 kB
   per file, ≤ 1.6 MB in all (the legacy files included). 0.3.0: +0.1 kB / +0.5 kB for a second mono weight and `legacyFonts`.
 - Published surface: `.`, `./css`, `./native`, `./native/assets`, `./files/*`, `./licenses/*`, `./package.json`.

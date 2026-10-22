@@ -132,6 +132,7 @@ export default defineConfig([
       // The bird plate: each bird has an id per instance (Mascot).
       "bird-plate": "src/bird-plate/index.ts",
       flock: "src/flock/index.ts",
+      elephant: "src/elephant/index.ts",
       "code-block": "src/code-block/index.ts",
       toc: "src/toc/index.ts",
       // The application shell: its collapse and its drawer (Radix Dialog).

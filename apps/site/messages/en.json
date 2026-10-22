@@ -297,7 +297,8 @@
         "roles": {
           "display": "Display",
           "text": "Text",
-          "mono": "Mono"
+          "mono": "Mono",
+          "accent": "Accent"
         },
         "why": "Why this face",
         "use": "Use it for",
@@ -307,6 +308,7 @@
         "headline": "Sovereign AI, on your own servers.",
         "paragraph": "Your documents stay in Montréal. The answers cite their sources, the costs are counted in advance — 1 234,56 $ for 12 000 requests.",
         "code": "POST /api/v1/chat → 200 · 0O 1lI",
+        "chalk": "Today: a slow flat white, and the stoop is yours.",
         "glyphs": "Aa Bb Gg Kk Rr Zz 0123456789 é è à ç œ « » ’ → €",
         "step": "Step",
         "sample": "Sample",

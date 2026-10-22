@@ -80,6 +80,16 @@ export const MomentIcon = /* @__PURE__ */ createNativeIcon("MomentIcon", g.momen
 export const ThreadIcon = /* @__PURE__ */ createNativeIcon("ThreadIcon", g.thread);
 /** keep save hold open hand notebook summary */
 export const KeepIcon = /* @__PURE__ */ createNativeIcon("KeepIcon", g.keep);
+/** espresso coffee cup cafe drink demitasse */
+export const EspressoIcon = /* @__PURE__ */ createNativeIcon("EspressoIcon", g.espresso);
+/** plant leaf pot green houseplant cafe */
+export const PlantIcon = /* @__PURE__ */ createNativeIcon("PlantIcon", g.plant);
+/** window pane light sill cafe front */
+export const WindowIcon = /* @__PURE__ */ createNativeIcon("WindowIcon", g.window);
+/** stoop steps front door neighbour porch */
+export const StoopIcon = /* @__PURE__ */ createNativeIcon("StoopIcon", g.stoop);
+/** chair seat bistro cafe terrace */
+export const ChairIcon = /* @__PURE__ */ createNativeIcon("ChairIcon", g.chair);
 /** soccer football ball match sport */
 export const SoccerIcon = /* @__PURE__ */ createNativeIcon("SoccerIcon", g.soccer);
 /** hockey nhl stick puck ice sport */

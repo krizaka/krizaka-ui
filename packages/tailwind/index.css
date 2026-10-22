@@ -91,6 +91,7 @@
   --font-text: var(--kz-font-text);
   --font-display: var(--kz-font-display);
   --font-mono: var(--kz-font-mono);
+  --font-accent: var(--kz-font-accent); /* the chalkboard line: sparing, never body text */
 
   /* l'échelle typographique (@krizaka/tokens, type.*) : text-display-xl porte taille, interlignage, graisse et approche ;
      la famille vient de font-display / font-text / font-mono (la famille du rôle de l'étape, voir typeScale) */

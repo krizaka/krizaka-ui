@@ -14,7 +14,7 @@ import { InlineCode } from "./InlineCode";
    (var(--kz-font-*), var(--kz-type-*)), so the page shows what an app gets. The chrome and the sample sentences are
    messages. Server Component. */
 
-const ROLE_FONT = { display: "var(--kz-font-display)", text: "var(--kz-font-text)", mono: "var(--kz-font-mono)" } as const;
+const ROLE_FONT = { display: "var(--kz-font-display)", text: "var(--kz-font-text)", mono: "var(--kz-font-mono)", accent: "var(--kz-font-accent)" } as const;
 
 const WEB_INSTALL = "npm install @krizaka/fonts @krizaka/tokens @krizaka/tailwind";
 const WEB_CSS = `@import "tailwindcss";
@@ -61,7 +61,7 @@ export function TypographyDoc({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
   const c = t.docs.foundations;
   const ty = c.typography;
-  const sample = (role: keyof typeof ROLE_FONT) => (role === "display" ? ty.headline : role === "mono" ? ty.code : ty.paragraph);
+  const sample = (role: keyof typeof ROLE_FONT) => (role === "display" ? ty.headline : role === "mono" ? ty.code : role === "accent" ? ty.chalk : ty.paragraph);
 
   return (
     <>

@@ -27,4 +27,15 @@ export const monoFace = localFont({
   fallback: ["Courier New", "ui-monospace", "Menlo", "monospace"],
 });
 
-export const fontVariables = [textFace.variable, displayFace.variable, monoFace.variable].join(" ");
+/* The chalkboard accent (Caveat Brush): a line of a menu or a sign, never body text; not preloaded. */
+export const accentFace = localFont({
+  src: "../node_modules/@krizaka/fonts/files/web/caveat-brush-latin-400.woff2",
+  weight: "400",
+  variable: "--font-kz-accent",
+  display: "swap",
+  preload: false,
+  adjustFontFallback: false,
+  fallback: ["Marker Felt", "Bradley Hand", "cursive"],
+});
+
+export const fontVariables = [textFace.variable, displayFace.variable, monoFace.variable, accentFace.variable].join(" ");

@@ -39,6 +39,16 @@
         "monospace"
       ],
       "$description": "La machine à écrire : étiquettes, légendes, notes, code (Courier Prime)"
+    },
+    "accent": {
+      "$value": [
+        "Caveat Brush",
+        "Caveat Brush Fallback",
+        "Marker Felt",
+        "Bradley Hand",
+        "cursive"
+      ],
+      "$description": "L'ardoise du café : une ligne de menu, une enseigne, un mot (Caveat Brush) ; parcimonieux, jamais du texte courant"
     }
   },
   "type": {
