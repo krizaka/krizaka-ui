@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+
 import { describe, expect, it } from "vitest";
 
 // Component enter and exit (docs/direction-2027.md, step b). Radix Presence keeps an overlay mounted during its exit
