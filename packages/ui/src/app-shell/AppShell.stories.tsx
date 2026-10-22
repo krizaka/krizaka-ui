@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import AdminConsoleExample from "../../registry/examples/app-shell/admin-console";
-import CollapseOverflowExample from "../../registry/examples/app-shell/collapse-overflow";
 import BasicExample from "../../registry/examples/app-shell/basic";
+import CollapseOverflowExample from "../../registry/examples/app-shell/collapse-overflow";
 import ConsoleExample from "../../registry/examples/app-shell/console";
 import DesktopExample from "../../registry/examples/app-shell/desktop";
 import OrochiaStudioExample from "../../registry/examples/app-shell/orochia-studio";
