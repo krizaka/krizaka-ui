@@ -103,7 +103,7 @@ def composite(plate: Image.Image, shot: dict, plan: dict, renders: Path, placed:
             surface = placed["surfaces"].get(g["surface"]) or (0, int(h * 0.6), w, h)
             ref = placed["refs"].get(g["scale"]["ref"])
             fx, fy = stage.feet_on(tuple(surface), g.get("x", 0.5), g.get("depth", 0.4))
-            target = (ref[3] - ref[1]) * g["scale"]["ratio"] if ref else 0.3 * h
+            target = stage.target_height(tuple(ref) if ref else None, g["scale"]["ratio"], h)
         elif g["support"] == "held" and g.get("on") in positions:
             hx, hy, hh = positions[g["on"]]
             fx, fy, target = g.get("x", 0.5) * w, hy - hh * 0.72, g.get("h", 0.15) * h

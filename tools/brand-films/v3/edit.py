@@ -152,6 +152,54 @@ def foley_cues(plan: dict, bounds: list[tuple[int, int]], fps: int) -> list[dict
     return cues
 
 
+def burn_titles(picture: Path, plan: dict, bounds, fps: int, size, total: float, tmp: str) -> Path:
+    """The film's title on its last shot, in the asked language (--titles en|fr|none), burnt by libass."""
+    language = arg("titles", "en")
+    if language == "none" or not plan.get("titles"):
+        return picture
+    worker, fonts = Path(arg("worker")), arg("fonts")
+    last = bounds[-1]
+    ass = Path(tmp) / f"titles-{language}.ass"
+    ass.write_text(title_ass(plan, last[0] / fps + 0.4, last[1] / fps - 0.3, size, language, worker))
+    titled = Path(tmp) / f"titled-{language}.mp4"
+    esc = str(ass).replace(":", r"\:")
+    subprocess.run([FF, "-v", "error", "-y", "-i", str(picture), "-vf", f"ass='{esc}':fontsdir='{fonts}'", "-c:v", "libx264",
+                    "-preset", "medium", "-crf", "14", "-pix_fmt", "yuv420p", str(titled)], check=True)
+    return titled
+
+
+def render_picture(plan, bounds, source, mode, fps, size, grades, bpm, edl, report, tmp, total):
+    """Every shot cut to its frames, joined, titled, the end card after: (the picture, its seconds)."""
+    parts = []
+    for s, (a, b) in zip(plan["shots"], bounds):
+        frames = b - a
+        pick = edl["shots"].get(str(s["id"]), {})
+        src = source / (f"{s['id']:02d}.png" if mode == "animatic" else pick.get("take", f"{s['id']:02d}.mp4"))
+        part = Path(tmp) / f"{s['id']:02d}.mp4"
+        vx = subject_x(s, Path(arg("place")) if arg("place") else None) if size[1] > size[0] else 0.5
+        cmd = shot_command(s, src, mode, frames, fps, size, grades.get(s.get("act"), ""), bpm, float(pick.get("in", 0.0)), part, vx)
+        subprocess.run(cmd, check=True)
+        parts.append(part)
+        report["shots"].append({"id": s["id"], "slug": s["slug"], "start": round(a / fps, 3), "end": round(b / fps, 3), "source": src.name})
+        print(f"{s['id']:02d} {s['slug']} {frames} frames", flush=True)
+    listing = Path(tmp) / "list.txt"
+    listing.write_text("".join(f"file '{p}'\n" for p in parts))
+    body = Path(tmp) / "body.mp4"
+    subprocess.run([FF, "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(listing), "-c", "copy", str(body)], check=True)
+    picture = burn_titles(body, plan, bounds, fps, size, total, tmp)
+    if arg("endcard"):  # the brand's end card (endcard.py) after the last shot, at the film's size and rate
+        ended = Path(tmp) / "ended.mp4"
+        w, h = size
+        subprocess.run([FF, "-v", "error", "-y", "-i", str(picture), "-i", arg("endcard"), "-filter_complex",
+                        f"[1:v]scale={w}:{h}:force_original_aspect_ratio=increase,crop={w}:{h},fps={fps},format=yuv420p,setsar=1[e];"
+                        f"[0:v]setsar=1[b];[b][e]concat=n=2:v=1:a=0[v]", "-map", "[v]", "-c:v", "libx264", "-preset", "medium",
+                        "-crf", "14", "-pix_fmt", "yuv420p", str(ended)], check=True)
+        picture = ended
+        total += 4.0
+        report["endcard"] = Path(arg("endcard")).name
+    return picture, total
+
+
 def main() -> None:
     plan = json.loads(Path(sys.argv[1]).read_text())
     grid = json.loads(Path(sys.argv[2]).read_text())
@@ -166,45 +214,14 @@ def main() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     report = {"mode": mode, "fps": fps, "size": size, "bpm": bpm, "shots": []}
     with tempfile.TemporaryDirectory() as tmp:
-        parts = []
-        for s, (a, b) in zip(plan["shots"], bounds):
-            frames = b - a
-            pick = edl["shots"].get(str(s["id"]), {})
-            src = source / (f"{s['id']:02d}.png" if mode == "animatic" else pick.get("take", f"{s['id']:02d}.mp4"))
-            part = Path(tmp) / f"{s['id']:02d}.mp4"
-            vx = subject_x(s, Path(arg("place")) if arg("place") else None) if size[1] > size[0] else 0.5
-            cmd = shot_command(s, src, mode, frames, fps, size, grades.get(s.get("act"), ""), bpm, float(pick.get("in", 0.0)), part, vx)
-            subprocess.run(cmd, check=True)
-            parts.append(part)
-            report["shots"].append({"id": s["id"], "slug": s["slug"], "start": round(a / fps, 3), "end": round(b / fps, 3), "source": src.name})
-            print(f"{s['id']:02d} {s['slug']} {frames} frames", flush=True)
-        listing = Path(tmp) / "list.txt"
-        listing.write_text("".join(f"file '{p}'\n" for p in parts))
-        body = Path(tmp) / "body.mp4"
-        subprocess.run([FF, "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(listing), "-c", "copy", str(body)], check=True)
         total = bounds[-1][1] / fps
-        picture = body
-        language = arg("titles", "en")
-        if language != "none" and plan.get("titles"):
-            worker, fonts = Path(arg("worker")), arg("fonts")
-            last = bounds[-1]
-            ass = Path(tmp) / "titles.ass"
-            ass.write_text(title_ass(plan, last[0] / fps + 0.4, total - 0.3, size, language, worker))
-            titled = Path(tmp) / "titled.mp4"
-            esc = str(ass).replace(":", r"\:")
-            subprocess.run([FF, "-v", "error", "-y", "-i", str(body), "-vf", f"ass='{esc}':fontsdir='{fonts}'", "-c:v", "libx264",
-                            "-preset", "medium", "-crf", "14", "-pix_fmt", "yuv420p", str(titled)], check=True)
-            picture = titled
-        if arg("endcard"):  # the brand's end card (endcard.py) after the last shot, at the film's size and rate
-            ended = Path(tmp) / "ended.mp4"
-            w, h = size
-            subprocess.run([FF, "-v", "error", "-y", "-i", str(picture), "-i", arg("endcard"), "-filter_complex",
-                            f"[1:v]scale={w}:{h}:force_original_aspect_ratio=increase,crop={w}:{h},fps={fps},format=yuv420p,setsar=1[e];"
-                            f"[0:v]setsar=1[b];[b][e]concat=n=2:v=1:a=0[v]", "-map", "[v]", "-c:v", "libx264", "-preset", "medium",
-                            "-crf", "14", "-pix_fmt", "yuv420p", str(ended)], check=True)
-            picture = ended
-            total += 4.0
-            report["endcard"] = Path(arg("endcard")).name
+        if arg("picture"):  # the picture already made (<out>.picture.mp4): only the sound again
+            picture = burn_titles(Path(arg("picture")), plan, bounds, fps, size, total, tmp)
+            total += 4.0 if arg("endcard") else 0.0
+        else:
+            picture, total = render_picture(plan, bounds, source, mode, fps, size, grades, bpm, edl, report, tmp, total)
+        cached = Path(str(out) + ".picture.mp4")
+        subprocess.run([FF, "-v", "error", "-y", "-i", str(picture), "-c", "copy", str(cached)], check=True)
         if arg("score"):
             sys.path.insert(0, str(Path(arg("worker"))))
             import soundfile  # noqa: PLC0415
@@ -216,8 +233,23 @@ def main() -> None:
                          {"kind": "chime", "start": end_at + 1.1, "end": total, "gain": -16, "shot": 0}]
             stem = Path(tmp) / "foley.wav"
             soundfile.write(str(stem), foley.render(cues, total, seed=plan["seedBase"] % 1000), foley.RATE, subtype="PCM_24")
+            # Mastered to PCM (the limiter's ceiling holds there), then encoded: AAC can add inter-sample overs, so the
+            # encode is measured again and lowered until its true peak is under -1 dBTP too.
+            master = Path(tmp) / "mix.wav"
+            report["mix"] = mixer.master([mixer.Cue(arg("score"), 0.0, total, 1.0, fade=0.05)], [], str(stem), total, str(master), ffmpeg=FF)
             mix = Path(tmp) / "mix.m4a"
-            report["mix"] = mixer.master([mixer.Cue(arg("score"), 0.0, total, 1.0, fade=0.05)], [], str(stem), total, str(mix), ffmpeg=FF)
+            gain, ceiling = 0.0, -1.6
+            for _ in range(6):
+                chain = f"volume={gain}dB,aresample=192000,alimiter=limit={10 ** (ceiling / 20):.4f}:attack=1:release=50:level=disabled,aresample=48000"
+                subprocess.run([FF, "-v", "error", "-y", "-i", str(master), "-af", chain, "-c:a", "aac", "-b:a", "256k", str(mix)], check=True)
+                encoded = mixer.measure(str(mix), FF)
+                if encoded["truePeak"] <= -1.0 and abs(encoded["lufs"] + 14) <= 0.5:
+                    break
+                if encoded["truePeak"] > -1.0:
+                    ceiling -= encoded["truePeak"] + 1.0 + 0.1
+                gain = round(gain + (-14 - encoded["lufs"]), 2)
+            trim = gain
+            report["mix"]["encoded"] = {**encoded, "trimDb": round(trim, 2)}
             report["foley"] = foley.coverage([{"id": s["id"], "characters": s.get("characters", [])} for s in plan["shots"]], cues)
             subprocess.run([FF, "-v", "error", "-y", "-i", str(picture), "-i", str(mix), "-map", "0:v", "-map", "1:a", "-c:v", "copy",
                             "-c:a", "aac", "-b:a", "256k", "-shortest", "-movflags", "+faststart", str(out)], check=True)

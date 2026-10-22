@@ -201,3 +201,17 @@ print(json.dumps([max(errs), sp[0][0], all(sp[i][1] == sp[i + 1][0] for i in ran
   assert.equal(out[1], 0);
   assert.equal(out[2], true, "shots are back to back");
 });
+
+test("a reference the model did not find keeps the birds' sizes right against each other", () => {
+  const out = JSON.parse(py(`import json, stage
+print(json.dumps([stage.target_height(None, 0.62, 720) / stage.target_height(None, 0.19, 720), stage.target_height((0, 100, 10, 500), 0.2, 720)]))`));
+  assert.ok(Math.abs(out[0] - 0.62 / 0.19) < 1e-6, "the flamingo stays ~3× the pigeon");
+  assert.equal(out[1], 80);
+});
+
+test("an LTX-Video take is sized in multiples of 32 (720 is refused by the model)", () => {
+  const out = JSON.parse(py(`import json, jobs
+plan = json.load(open("krizaka/treatment.json"))
+print(json.dumps([jobs.job(plan["shots"][0], plan)["height"], jobs.job(plan["shots"][2], plan)["height"]]))`));
+  assert.deepEqual(out, [704, 720]);
+});

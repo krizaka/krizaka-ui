@@ -236,6 +236,9 @@
  ],
  "legal": {
   "never": [
+   "Empire State",
+   "Eiffel",
+   "Chrysler Building",
    "Snoop Dogg",
    "Kendrick Lamar",
    "Drake",
@@ -293,7 +296,7 @@
     "hard": false
    },
    "atmosphere": "heavy rain, mist between towers",
-   "plate": "Aerial view at night over a dense rain-soaked city of brick warehouses, towers and rooftops with water tanks, neon light glowing in the streets, an elevated metro line, a tall radio mast on the highest tower, rain streaks, mist. No text, no signs with lettering.",
+   "plate": "Aerial view at night over a dense rain-soaked city of brick warehouses, towers and rooftops with water tanks, neon light glowing in the streets, an elevated metro line, a steel lattice radio mast on top of an invented brick tower (no real landmark), rain streaks, mist. No text, no signs with lettering.",
    "motion": "Slow aerial descent through heavy rain over a dense night city, neon reflections on wet rooftops, mist drifting between towers, rain streaks catching the light. Smooth crane down, 24 mm.",
    "model": "ltx-video-0.9.8-13b-distilled",
    "post": [
@@ -1970,7 +1973,7 @@
     "key": "back",
     "hard": false
    },
-   "plate": "Aerial view at night over a dense rain-soaked city of brick warehouses and towers, neon light glowing in violet, cyan and orange, an elevated metro line, a tall radio mast glowing cyan on the highest tower, mist. No text, no signs with lettering.",
+   "plate": "Aerial view at night over a dense rain-soaked city of brick warehouses and towers, neon light glowing in violet, cyan and orange, an elevated metro line, a steel lattice radio mast glowing cyan on top of an invented brick tower (no real landmark), mist. No text, no signs with lettering.",
    "motion": "Aerial crane up over a rain-soaked night city glowing with violet, cyan and orange neon, the radio mast on the highest tower flaring cyan, mist between the towers. Smooth crane up, 24 mm.",
    "model": "ltx-video-0.9.8-13b-distilled",
    "post": [
@@ -2298,8 +2301,6 @@
    "characters": [
     "falcon",
     "pigeon",
-    "owl",
-    "duck",
     "flamingo"
    ],
    "camera": "pull-back",
@@ -2318,33 +2319,9 @@
     "hard": false
    },
    "plate": "Low angle on the flat wet roof of a tall tower at night after the storm, a steel radio mast blazing cyan above, the lit neon city all around, light rain. No text, no signs with lettering.",
-   "keyframe": "Five birds on a wet tower roof — the falcon, the pigeon, the owl, the duck and the flamingo — raising their wings toward a blazing radio mast.",
-   "motion": "Low angle, pulling back: the sky-blue pigeon lands with a hop among the flock on the wet tower roof, the orange-red falcon claps its back, then the falcon, the pigeon, the violet owl, the crimson duck and the pink flamingo raise their wings toward the blazing cyan mast. Pull back, 24 mm.",
+   "keyframe": "Three birds on a wet tower roof — the falcon, the pigeon and the flamingo — raising their wings toward a blazing radio mast.",
+   "motion": "Low angle, pulling back: the sky-blue pigeon lands with a hop among the flock on the wet tower roof, the orange-red falcon claps its back, then the falcon, the pigeon and the pink flamingo raise their wings toward the blazing cyan mast. Pull back, 24 mm.",
    "staging": [
-    {
-     "character": "owl",
-     "support": "ground",
-     "surface": "the wet tower roof",
-     "scale": {
-      "ref": "the steel railing of the roof",
-      "ratio": 0.4
-     },
-     "x": 0.2,
-     "depth": 0.5,
-     "flip": false
-    },
-    {
-     "character": "duck",
-     "support": "ground",
-     "surface": "the wet tower roof",
-     "scale": {
-      "ref": "the steel railing of the roof",
-      "ratio": 0.36
-     },
-     "x": 0.36,
-     "depth": 0.55,
-     "flip": false
-    },
     {
      "character": "pigeon",
      "support": "ground",
@@ -2353,7 +2330,7 @@
       "ref": "the steel railing of the roof",
       "ratio": 0.32
      },
-     "x": 0.5,
+     "x": 0.3,
      "depth": 0.6,
      "flip": false
     },
@@ -2365,7 +2342,7 @@
       "ref": "the steel railing of the roof",
       "ratio": 0.42
      },
-     "x": 0.64,
+     "x": 0.5,
      "depth": 0.55,
      "flip": true
     },
@@ -2377,7 +2354,7 @@
       "ref": "the steel railing of the roof",
       "ratio": 1.05
      },
-     "x": 0.82,
+     "x": 0.72,
      "depth": 0.5,
      "flip": true
     }
@@ -2435,7 +2412,7 @@
     "key": "back",
     "hard": false
    },
-   "plate": "Aerial view at night high above a vast rain-washed city glowing with violet, cyan and orange neon, a radio mast pulsing cyan on the highest tower, clouds breaking, mist. No text, no signs with lettering.",
+   "plate": "Aerial view at night high above a vast rain-washed city glowing with violet, cyan and orange neon, a steel lattice radio mast pulsing cyan on top of an invented brick tower (no real landmark), clouds breaking, mist. No text, no signs with lettering.",
    "motion": "Aerial pull back and up through breaking clouds above a vast city glowing with violet, cyan and orange neon after the rain, the radio mast pulsing cyan. Slow pull back, 24 mm.",
    "model": "ltx-video-0.9.8-13b-distilled",
    "sound": [

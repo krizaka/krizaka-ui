@@ -1,0 +1,129 @@
+{
+ "_": "le courant: the take and in-point of each shot (seconds into the 16 fps take, before its speed)",
+ "shots": {
+  "1": {
+   "take": "01-city-blackout-t0.mp4",
+   "in": 0.1
+  },
+  "2": {
+   "take": "02-neon-dies-t0.mp4",
+   "in": 0.1
+  },
+  "3": {
+   "take": "03-pigeon-ledge-t0.mp4",
+   "in": 0.1
+  },
+  "4": {
+   "take": "04-falcon-visor-t1.mp4",
+   "in": 0.1
+  },
+  "5": {
+   "take": "05-duck-lever-t0.mp4",
+   "in": 0.0
+  },
+  "6": {
+   "take": "06-core-snaps-t0.mp4",
+   "in": 0.1
+  },
+  "7": {
+   "take": "07-owl-blueprint-t0.mp4",
+   "in": 0.0
+  },
+  "8": {
+   "take": "08-owl-duck-argue-t0.mp4",
+   "in": 0.1
+  },
+  "9": {
+   "take": "09-falcon-wind-t0.mp4",
+   "in": 0.1
+  },
+  "10": {
+   "take": "10-pigeon-dive-t0.mp4",
+   "in": 0.1
+  },
+  "11": {
+   "take": "11-harness-t0.mp4",
+   "in": 0.1
+  },
+  "12": {
+   "take": "12-tunnel-chase-t0.mp4",
+   "in": 0.1
+  },
+  "13": {
+   "take": "13-rails-blast-t0.mp4",
+   "in": 0.0
+  },
+  "14": {
+   "take": "14-train-lights-t0.mp4",
+   "in": 0.1
+  },
+  "15": {
+   "take": "15-puddle-skid-t0.mp4",
+   "in": 0.1
+  },
+  "16": {
+   "take": "16-skate-catch-t0.mp4",
+   "in": 0.1
+  },
+  "17": {
+   "take": "17-grind-t0.mp4",
+   "in": 0.1
+  },
+  "18": {
+   "take": "18-falcon-snatch-t0.mp4",
+   "in": 0.1
+  },
+  "19": {
+   "take": "19-roof-gust-t0.mp4",
+   "in": 0.1
+  },
+  "20": {
+   "take": "20-core-rolls-t0.mp4",
+   "in": 0.1
+  },
+  "21": {
+   "take": "21-belly-slide-t0.mp4",
+   "in": 0.1
+  },
+  "22": {
+   "take": "22-push-together-t0.mp4",
+   "in": 0.1
+  },
+  "23": {
+   "take": "23-core-ignites-t0.mp4",
+   "in": 0.0
+  },
+  "24": {
+   "take": "24-crane-dj-t0.mp4",
+   "in": 0.1
+  },
+  "25": {
+   "take": "25-city-relights-t0.mp4",
+   "in": 0.1
+  },
+  "26": {
+   "take": "26-flamingo-rain-t0.mp4",
+   "in": 0.1
+  },
+  "27": {
+   "take": "27-highfive-t0.mp4",
+   "in": 0.1
+  },
+  "28": {
+   "take": "28-fire-escape-t0.mp4",
+   "in": 0.1
+  },
+  "29": {
+   "take": "29-magpie-trick-t0.mp4",
+   "in": 0.1
+  },
+  "30": {
+   "take": "30-flock-mast-t0.mp4",
+   "in": 0.1
+  },
+  "31": {
+   "take": "31-title-skyline-t0.mp4",
+   "in": 0.1
+  }
+ }
+}

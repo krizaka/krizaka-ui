@@ -19,11 +19,14 @@ SIZE = {"16:9": (1280, 720), "9:16": (720, 1280)}
 def job(shot: dict, plan: dict, attempt: int = 0) -> dict:
     """One shot's take as a pod job (pure)."""
     w, h = SIZE[plan.get("aspect", "16:9")]
+    model = shot.get("model", "wan2.2-i2v-a14b-hq")
+    if model.startswith("ltx"):  # LTX-Video wants both sides divisible by 32 (720 is not): 704, cropped back in the edit
+        w, h = (w // 32) * 32, (h // 32) * 32
     keep = plan["keep"] if shot["characters"] else "One single continuous shot. Plain unbranded surfaces, no lettering."
     return {
         "name": f"{shot['id']:02d}-{shot['slug']}-t{attempt}",
         "shot": shot["id"],
-        "model": shot.get("model", "wan2.2-i2v-a14b-hq"),
+        "model": model,
         "prompt": f"{shot['motion']} {keep} {NO_CHILDREN}",
         "width": w,
         "height": h,

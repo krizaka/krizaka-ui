@@ -128,7 +128,7 @@ def hero_size(shot: dict) -> float:
     if "close" in framing:
         return 0.62
     n = len(shot.get("characters", []))
-    return 0.42 if n <= 1 else 0.34 if n == 2 else 0.24
+    return 0.42 if n <= 1 else 0.34 if n == 2 else 0.3 if n == 3 else 0.24
 
 
 def reframe(points: list[tuple[float, float, float]], size: tuple[int, int], hero: float,
@@ -148,3 +148,14 @@ def reframe(points: list[tuple[float, float, float]], size: tuple[int, int], her
     y0 = min(max(0.0, feet - 0.8 * ch), h - ch)
     down = lambda v: float(np.floor(v * 100) / 100)  # noqa: E731 — rounded down: the crop never leaves the plate
     return round(zoom, 4), down(x0), down(y0)
+
+
+#: A reference the vision model could not find is assumed this tall (share of the frame): every bird of the shot keeps
+#: its ratio to it, so their sizes stay right against each other (v3: two birds drawn the same height when it was missing).
+MISSING_REF = 0.55
+
+
+def target_height(ref: tuple[int, int, int, int] | None, ratio: float, frame_h: int) -> float:
+    """A grounded bird's height in the plate (pure): its ratio of the reference found, else of an assumed reference."""
+    ref_h = (ref[3] - ref[1]) if ref else MISSING_REF * frame_h
+    return ref_h * ratio

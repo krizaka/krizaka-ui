@@ -233,6 +233,9 @@
  ],
  "legal": {
   "never": [
+   "Empire State",
+   "Eiffel",
+   "Chrysler Building",
    "Snoop Dogg",
    "Kendrick Lamar",
    "Drake",
@@ -1766,8 +1769,6 @@
    "place": "the river promenade",
    "characters": [
     "pigeon",
-    "falcon",
-    "owl",
     "magpie",
     "beaver"
    ],
@@ -1787,21 +1788,9 @@
     "hard": false
    },
    "plate": "Low angle on a wet stone river promenade at night, a huge wall glowing violet and magenta behind, puddles, light rain. Violet and magenta light accents. No text, no signs with lettering, no screens with interface.",
-   "keyframe": "Five birds and a beaver — the pigeon, the falcon, the owl, the magpie and the beaver — dancing together on a wet river promenade in front of a huge glowing violet wall.",
-   "motion": "Low angle, crane up: the sky-blue pigeon lands among the orange-red falcon, the violet owl, the slate-grey magpie and the brown beaver; they all snap the wave together, spin, click their heels and freeze in the pose as the wall flares magenta. 24 mm.",
+   "keyframe": "The pigeon, the magpie and the beaver dancing together on a wet river promenade in front of a huge glowing violet wall.",
+   "motion": "Low angle, crane up: the sky-blue pigeon lands between the slate-grey magpie and the brown beaver; they all snap the wave together, spin, click their heels and freeze in the pose as the wall flares magenta. 24 mm.",
    "staging": [
-    {
-     "character": "owl",
-     "support": "ground",
-     "surface": "the wet stone promenade",
-     "scale": {
-      "ref": "the low railing",
-      "ratio": 0.4
-     },
-     "x": 0.18,
-     "depth": 0.5,
-     "flip": false
-    },
     {
      "character": "magpie",
      "support": "ground",
@@ -1810,7 +1799,7 @@
       "ref": "the low railing",
       "ratio": 0.38
      },
-     "x": 0.34,
+     "x": 0.28,
      "depth": 0.55,
      "flip": false
     },
@@ -1827,18 +1816,6 @@
      "flip": false
     },
     {
-     "character": "falcon",
-     "support": "ground",
-     "surface": "the wet stone promenade",
-     "scale": {
-      "ref": "the low railing",
-      "ratio": 0.42
-     },
-     "x": 0.66,
-     "depth": 0.55,
-     "flip": true
-    },
-    {
      "character": "beaver",
      "support": "ground",
      "surface": "the wet stone promenade",
@@ -1846,8 +1823,8 @@
       "ref": "the low railing",
       "ratio": 0.55
      },
-     "x": 0.83,
-     "depth": 0.5,
+     "x": 0.72,
+     "depth": 0.55,
      "flip": true
     }
    ],
