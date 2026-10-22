@@ -66,6 +66,7 @@ export type AgendaLabels = {
 export const agendaLabels: AgendaLabels = { now: (time) => `Now · ${time}` };
 
 export type AgendaProps<T extends AgendaItem> = {
+  /** The day's appointments, in any order: the agenda sorts them by start. */
   items: readonly T[];
   /** The agenda's accessible name (« Appointments of Monday »). */
   "aria-label": string;
@@ -83,9 +84,11 @@ export type AgendaProps<T extends AgendaItem> = {
   linkAs?: React.ElementType;
   /** A small control after the row (Start, End), outside the row's link. */
   action?: (item: T) => React.ReactNode;
+  /** The words, passed translated (the « now » line). */
   labels?: Partial<AgendaLabels>;
   /** Shown when there is no item (an `EmptyState`). */
   empty?: React.ReactNode;
+  /** Classes merged on the list. */
   className?: string;
 };
 
