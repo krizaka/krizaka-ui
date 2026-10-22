@@ -227,6 +227,7 @@ html.light {
   --kz-font-sans: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible Next Fallback", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* Texte : interface et lecture (Atkinson Hyperlegible Next) */
   --kz-font-display: "Young Serif", "Young Serif Fallback", Georgia, "Times New Roman", serif; /* Affichage : titres, noms, chiffres (Young Serif, une seule graisse) ; surchargé par le thème produit */
   --kz-font-mono: "Courier Prime", "Courier Prime Fallback", "Courier New", ui-monospace, Menlo, Consolas, monospace; /* La machine à écrire : étiquettes, légendes, notes, code (Courier Prime) */
+  --kz-font-cahier: "Krizaka Cahier", "Krizaka Cahier Fallback", "Marker Felt", "Bradley Hand", cursive; /* Le stylo du cahier : § 4, numéros de règle, folios, notes à la main, l'ardoise du café (Krizaka Cahier) ; parcimonieux, jamais du texte courant */
 
   /* The hero of a home page */
   --kz-type-display-2xl-size: 72px;

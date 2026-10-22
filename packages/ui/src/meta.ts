@@ -13,6 +13,7 @@ export type ComponentName =
   | "anatomy-plate"
   | "bird-plate"
   | "flock"
+  | "elephant"
   | "footnote"
   | "page-index"
   | "specimen-tag"

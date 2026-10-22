@@ -49,6 +49,7 @@ describe("@krizaka/tailwind", () => {
     [".font-display", "--kz-font-display"],
     [".font-text", "--kz-font-text"],
     [".font-mono", "--kz-font-mono"],
+    [".font-cahier", "--kz-font-cahier"],
   ])("generates %s from the family token", (selector, token) => {
     expect(rule(selector)).toContain(`font-family: var(${token})`);
   });

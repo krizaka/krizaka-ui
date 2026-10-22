@@ -16,9 +16,48 @@ const blocks = [...css.matchAll(/@font-face \{([^}]+)\}/g)].map(
 );
 
 describe("the families", () => {
-  it("are one display, one text and one mono face, in that order", () => {
-    expect(families.map((f) => f.role)).toEqual(["display", "text", "mono"]);
-    expect(families.map((f) => f.family)).toEqual(["Young Serif", "Atkinson Hyperlegible Next", "Courier Prime"]);
+  it("are one display, one text and one mono face, then the sparing handwritten pen, in that order", () => {
+    expect(families.map((f) => f.role)).toEqual(["display", "text", "mono", "cahier"]);
+    expect(families.map((f) => f.family)).toEqual(["Young Serif", "Atkinson Hyperlegible Next", "Courier Prime", "Krizaka Cahier"]);
+  });
+
+  it("the pen is Krizaka Cahier: a renamed, derived face on its own token, one weight, never preloaded, with the French alphabet and §", () => {
+    const pen = families.find((f) => f.role === "cahier")!;
+    expect(pen.family).toBe("Krizaka Cahier");
+    expect(pen.token).toBe("--kz-font-cahier");
+    expect(pen.weights).toEqual({ min: 500, max: 500 });
+    expect(pen.avoid.join(" ")).toMatch(/paragraphs/i);
+    expect(pen.web.map((w) => w.subset)).toEqual(["latin"]);
+    const ranges = pen.web[0].unicodeRange;
+    for (const needle of ["U+00A0-00FF", "U+0152-0153", "U+2018-201D"]) expect(ranges).toContain(needle); // é è à ç œ « » ’ § (U+00A7)
+    expect(pen.upstream.derivedFrom).toBe("Caveat");
+  });
+
+  it("the pen's glyph coverage holds the French accents, œ and §, with tabular lining figures", async () => {
+    const { readFileSync: read } = await import("node:fs");
+    const ttf = read(join(root, families.find((f) => f.role === "cahier")!.native[0].path));
+    const cmapHas = (cp: number) => ttf.includes(Buffer.from([cp >> 8, cp & 255])); // coarse: the codepoint appears in the font's cmap data
+    for (const cp of [0xa7, 0xe9, 0xe8, 0xe0, 0xe7, 0x153, 0xab, 0xbb, 0x2019]) expect(cmapHas(cp), cp.toString(16)).toBe(true);
+    expect(ttf.subarray(0, 4).toString("hex")).toBe("00010000");
+  });
+
+  it("ships the FONTLOG and the OFL of the derived face, crediting its upstream", () => {
+    const log = readFileSync(join(root, "licenses/KrizakaCahier-FONTLOG.txt"), "utf8");
+    expect(log).toMatch(/modified version of Caveat/);
+    expect(log).toMatch(/renamed/);
+    expect(log).toMatch(/SIL Open Font License 1\.1/);
+    expect(readFileSync(join(root, "licenses/KrizakaCahier-OFL.txt"), "utf8")).toMatch(/Caveat Project Authors/);
+    expect(pkg.files).toContain("licenses");
+  });
+
+  it("ships the OFL of every family it declares, the derived pen included, with no Reserved Font Name", () => {
+    for (const f of families) {
+      const text = readFileSync(join(root, f.license.file), "utf8");
+      expect(text, f.family).toContain("SIL OPEN FONT LICENSE Version 1.1");
+      expect(text, f.family).not.toMatch(/with Reserved Font Name/i);
+    }
+    expect(pkg.files).toContain("licenses");
+    expect(existsSync(join(root, "licenses/KrizakaCahier-OFL.txt"))).toBe(true);
   });
 
   it("keep the faces of the previous identity as legacy files, never as a role (#417)", () => {
@@ -73,8 +112,9 @@ describe("the files", () => {
   it("web: a WOFF2 per family, subset (latin, latin-ext) and, for a static family, weight", () => {
     for (const f of families) {
       const perWeight = f.static ? new Set(f.web.map((w) => w.weight)).size : 1;
-      expect(f.web).toHaveLength(2 * perWeight);
-      expect([...new Set(f.web.map((w) => w.subset))]).toEqual(["latin", "latin-ext"]);
+      const subsets = f.role === "cahier" ? ["latin"] : ["latin", "latin-ext"]; // the pen keeps the French alphabet only
+      expect(f.web).toHaveLength(subsets.length * perWeight);
+      expect([...new Set(f.web.map((w) => w.subset))]).toEqual(subsets);
       for (const w of f.web) expect(readFileSync(join(root, w.path)).subarray(0, 4).toString("latin1")).toBe("wOF2");
     }
   });
@@ -146,7 +186,7 @@ describe("the licences", () => {
     for (const f of families) {
       const text = readFileSync(join(root, f.license.file), "utf8");
       expect(text).toContain("SIL OPEN FONT LICENSE Version 1.1");
-      expect(text).toMatch(/^Copyright \d{4}(-\d{4})? The .+ Project Authors/);
+      expect(text).toMatch(/^Copyright \d{4}(-\d{4})? (The .+ Project Authors|Google Inc\.)/);
       expect(f.license.spdx).toBe("OFL-1.1");
     }
   });
@@ -167,7 +207,7 @@ describe("the entries", () => {
   it("index: the data, the rules, the preloads and fontStack", async () => {
     const mod = await import(`data:text/javascript,${encodeURIComponent(files["index.js"])}`);
     expect(mod.fonts.map((f: { role: string }) => f.role)).toEqual([...ROLES]);
-    expect(mod.preload).toHaveLength(3);
+    expect(mod.preload).toHaveLength(3); // the pen is not preloaded
     for (const p of mod.preload) expect(p).toMatch(/-latin-(wght|400)\.woff2$/);
     expect(mod.fontStack("text")).toMatch(/^"Atkinson Hyperlegible Next", "Atkinson Hyperlegible Next Fallback", /);
     expect(mod.fontStack("display")).toMatch(/^"Young Serif", "Young Serif Fallback", Georgia/);

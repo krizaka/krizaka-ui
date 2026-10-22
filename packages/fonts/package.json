@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/fonts",
   "version": "0.3.0",
-  "description": "The Krizaka typefaces, self-hosted: Young Serif (display), Atkinson Hyperlegible Next (text), Courier Prime (mono) — WOFF2 subsets (latin, latin-ext) with metric-matched fallbacks for the web, static TrueType for React Native / Expo, SIL OFL 1.1.",
+  "description": "The Krizaka typefaces, self-hosted: Young Serif (display), Atkinson Hyperlegible Next (text), Courier Prime (mono), plus Krizaka Cahier (a sparing handwritten pen, derived from Caveat) — WOFF2 subsets (latin, latin-ext) with metric-matched fallbacks for the web, static TrueType for React Native / Expo, SIL OFL 1.1.",
   "keywords": [
     "krizaka",
     "fonts",
@@ -12,6 +12,8 @@
     "young-serif",
     "atkinson-hyperlegible-next",
     "courier-prime",
+    "krizaka-cahier",
+    "chalkboard",
     "react-native",
     "expo-font",
     "design-system"
@@ -90,8 +92,8 @@
     "access": "public"
   },
   "size-limit": [
-    { "name": "./css (fonts.css)", "path": "dist/fonts.css", "limit": "1.1 kB", "gzip": true },
-    { "name": ". (the data)", "path": "dist/index.js", "limit": "4 kB", "gzip": true },
+    { "name": "./css (fonts.css)", "path": "dist/fonts.css", "limit": "1.25 kB", "gzip": true },
+    { "name": ". (the data)", "path": "dist/index.js", "limit": "5 kB", "gzip": true },
     { "name": "./native", "path": "dist/native.js", "limit": "0.75 kB", "gzip": true },
     { "name": "display · latin (woff2)", "path": "files/web/young-serif-latin-400.woff2", "limit": "20 kB", "gzip": false, "brotli": false },
     { "name": "display · latin-ext (woff2)", "path": "files/web/young-serif-latin-ext-400.woff2", "limit": "12 kB", "gzip": false, "brotli": false },
@@ -99,6 +101,7 @@
     { "name": "text · latin-ext (woff2)", "path": "files/web/atkinson-hyperlegible-next-latin-ext-wght.woff2", "limit": "13 kB", "gzip": false, "brotli": false },
     { "name": "mono · latin, one weight (woff2)", "path": "files/web/courier-prime-latin-700.woff2", "limit": "13 kB", "gzip": false, "brotli": false },
     { "name": "mono · latin-ext, one weight (woff2)", "path": "files/web/courier-prime-latin-ext-700.woff2", "limit": "8 kB", "gzip": false, "brotli": false },
+    { "name": "cahier · latin (woff2, a pen hand: heavy outlines, loaded only where a margin mark or a chalkboard line is set)", "path": "files/web/krizaka-cahier-latin-wght.woff2", "limit": "52 kB", "gzip": false, "brotli": false },
     { "name": "native · one weight (ttf, largest: Inter, legacy)", "path": "files/native/Inter-Bold.ttf", "limit": "180 kB", "gzip": false, "brotli": false },
     { "name": "native · every file (ttf, with the legacy faces)", "path": "files/native/*.ttf", "limit": "1.6 MB", "gzip": false, "brotli": false }
   ]

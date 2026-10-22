@@ -39,6 +39,16 @@
         "monospace"
       ],
       "$description": "La machine à écrire : étiquettes, légendes, notes, code (Courier Prime)"
+    },
+    "cahier": {
+      "$value": [
+        "Krizaka Cahier",
+        "Krizaka Cahier Fallback",
+        "Marker Felt",
+        "Bradley Hand",
+        "cursive"
+      ],
+      "$description": "Le stylo du cahier : § 4, numéros de règle, folios, notes à la main, l'ardoise du café (Krizaka Cahier) ; parcimonieux, jamais du texte courant"
     }
   },
   "type": {

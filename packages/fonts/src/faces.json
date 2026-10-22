@@ -312,6 +312,36 @@
           "sha256": "87b888d6434f551b0df74bd63bade3a323cd279c6d5af0263d4dc5e8a5173b85"
         }
       ]
+    },
+    "krizaka-cahier": {
+      "version": "Version 2.000",
+      "metrics": {
+        "unitsPerEm": 1000,
+        "ascent": 900,
+        "descent": -350,
+        "lineGap": 0,
+        "capHeight": 610,
+        "xHeight": 400,
+        "avgWidth": 339.03
+      },
+      "web": [
+        {
+          "subset": "latin",
+          "unicodeRange": "U+0020-007E, U+00A0-00FF, U+0152-0153, U+2018-201D, U+2026, U+20AC",
+          "file": "files/web/krizaka-cahier-latin-wght.woff2",
+          "bytes": 50852,
+          "sha256": "9bde4901c0aded2edae558b5cd99676d7e635c32e18d9e456bc2817cfaf6909f"
+        }
+      ],
+      "native": [
+        {
+          "weight": 500,
+          "name": "KrizakaCahier-Medium",
+          "file": "files/native/KrizakaCahier-Medium.ttf",
+          "bytes": 115064,
+          "sha256": "aa0f1be3d9fad642c7ec9770add89433191968ca893d6911c46eed67336bbb3b"
+        }
+      ]
     }
   }
 }

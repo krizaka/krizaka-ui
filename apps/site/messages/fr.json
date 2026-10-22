@@ -297,7 +297,8 @@
         "roles": {
           "display": "Affichage",
           "text": "Texte",
-          "mono": "Mono"
+          "mono": "Mono",
+          "cahier": "Cahier (stylo)"
         },
         "why": "Pourquoi cette police",
         "use": "À utiliser pour",
@@ -307,6 +308,7 @@
         "headline": "L'IA souveraine, sur vos propres serveurs.",
         "paragraph": "Vos documents restent à Montréal. Les réponses citent leurs sources, les coûts sont comptés d'avance — 1 234,56 $ pour 12 000 requêtes.",
         "code": "POST /api/v1/chat → 200 · 0O 1lI",
+        "chalk": "§ 4 — règle n° 3 : l’écrire à la main · page 4 sur 6 · Fait à Montréal",
         "glyphs": "Aa Bb Gg Kk Rr Zz 0123456789 é è à ç œ « » ’ → €",
         "step": "Étape",
         "sample": "Exemple",

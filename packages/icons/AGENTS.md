@@ -29,7 +29,7 @@
 - `pnpm turbo run check --filter=@krizaka/icons`: ESLint + `tsc`, tests (Vitest + happy-dom: the set, the grammar,
   the props, the generated files, the native icons against a mocked react-native-svg), build (tsup), size, publint +
   attw (`esm-only`). Stories (`src/**/*.stories.tsx`) are rendered, audited and screenshot-compared by `apps/storybook`.
-- **Size budgets** (gzip, peers excluded): one icon ≤ 1 kB, `.` ≤ 6 kB, `./native` ≤ 6 kB (every icon: 89 glyphs).
+- **Size budgets** (gzip, peers excluded): one icon ≤ 1 kB, `.` ≤ 6.5 kB, `./native` ≤ 6.5 kB (every icon: 94 glyphs, the café set included).
 - Published surface: exports `.`, `./native`, `./glyphs`, `./package.json`; files `dist`, `README.md`, `LICENSE`.
   Removing or renaming an icon or a prop is a breaking change; a new icon is a minor; a redrawn icon is a minor.
 

@@ -104,7 +104,7 @@
     {
       "name": ". (every icon)",
       "path": "dist/index.js",
-      "limit": "6 kB",
+      "limit": "6.5 kB",
       "gzip": true,
       "ignore": [
         "react"
@@ -113,7 +113,7 @@
     {
       "name": "./native (every icon)",
       "path": "dist/native.js",
-      "limit": "6 kB",
+      "limit": "6.5 kB",
       "gzip": true,
       "ignore": [
         "react",

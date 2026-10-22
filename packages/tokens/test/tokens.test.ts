@@ -248,7 +248,7 @@ describe("generated modules", async () => {
     expect(Object.keys(native.radius).sort()).toEqual(keysOf("radius"));
     expect(Object.keys(native.typography).sort()).toEqual(keysOf("font"));
     expect(native.radius).toEqual({ xs: 2, sm: 2, md: 2, lg: 0, xl: 0, "2xl": 0, full: 9999 });
-    expect(native.typography).toEqual({ sans: "Atkinson Hyperlegible Next", text: "Atkinson Hyperlegible Next", display: "Young Serif", mono: "Courier Prime" });
+    expect(native.typography).toEqual({ sans: "Atkinson Hyperlegible Next", text: "Atkinson Hyperlegible Next", display: "Young Serif", mono: "Courier Prime", cahier: "Krizaka Cahier" });
     expect(native.motion.ease).toEqual([0.45, 0, 0.2, 1]);
     expect(native.motion.spring).toEqual([0.34, 1.36, 0.64, 1]);
     expect(native.motion.duration).toEqual({ instant: 90, fast: 150, base: 200 });
@@ -310,6 +310,7 @@ describe("generated modules", async () => {
     expect(root.get("--kz-font-sans")).toMatch(/^"Atkinson Hyperlegible Next", "Atkinson Hyperlegible Next Fallback", /);
     expect(root.get("--kz-font-display")).toMatch(/^"Young Serif", "Young Serif Fallback", Georgia/);
     expect(root.get("--kz-font-mono")).toMatch(/^"Courier Prime", "Courier Prime Fallback", /);
+    expect(root.get("--kz-font-cahier")).toMatch(/^"Krizaka Cahier", "Krizaka Cahier Fallback", /);
   });
 
   it("type declarations name every export", () => {
