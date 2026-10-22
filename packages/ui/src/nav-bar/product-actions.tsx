@@ -28,9 +28,11 @@ export interface ProductBarLink {
 }
 
 export type ProductBarActionsProps = {
+  /** Where « Sign in » leads, and its words. */
   signIn: ProductBarLink;
   /** « Try for free » (the first audit is free), the founder offer: absent when the product has none. */
   tryIt?: ProductBarLink;
+  /** Whether the product accepts new accounts (its `signupOpen` setting): « Try » is the primary action only then. */
   signupOpen: boolean;
   /** The app's link component (Next's `Link`); an `<a>` otherwise. */
   linkAs?: React.ElementType;
