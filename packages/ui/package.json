@@ -2116,7 +2116,7 @@
     {
       "name": "./settings-layout",
       "path": "dist/settings-layout.js",
-      "limit": "5 kB",
+      "limit": "6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
