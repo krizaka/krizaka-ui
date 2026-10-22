@@ -2,17 +2,11 @@ import * as React from "react";
 import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 
+import { type MeterLevel, meterModel, type MeterPart, type MeterThresholds } from "../meter/model";
 import { type Theme, useTheme } from "./theme";
 import { Txt } from "./txt";
 
-export type MeterPart = {
-  /** Its name (“To the creator”) — passed translated. */
-  label: string;
-  /** Its value, in the meter's unit. */
-  value: number;
-  /** Its value in words (“€9.00”); default: its percentage. */
-  valueText?: string;
-};
+export type { MeterPart };
 
 export type MeterProps = {
   /** The accessible name (“Storage”, “Credits”) — passed translated; shown with `showLabel`. */
@@ -26,7 +20,7 @@ export type MeterProps = {
   /** The value in words (“42 GB of 50 GB”); default: the percentage. */
   valueText?: string;
   /** The shares where the tone changes: below `low` good, up to `high` warning, past it the other end. */
-  thresholds?: { readonly low: number; readonly high: number };
+  thresholds?: MeterThresholds;
   /** Which end is good: `low` (default: a quota) or `high` (a score). */
   optimum?: "low" | "high";
   /** Split into parts that add up to `max`: a stacked bar or ring, with its legend. */
@@ -48,15 +42,14 @@ const RING = { sm: 56, md: 96, lg: 144 } as const;
 // The parts must stay apart in every brand (accent, accent-2 and info can be one hue): the accent, then the status tones.
 const partColor = (t: Theme, i: number) => [t.accent, t.warning, t.success, t.textSecondary, t.danger][i % 5]!;
 
+const levelColor = (t: Theme, level: MeterLevel) => ({ ok: t.accent, success: t.success, warning: t.warning, danger: t.danger })[level];
+
 /** A measure within a range — a quota, a balance, a share — toned by thresholds or split into parts: the web `Meter`. */
 export function Meter({ label, value = 0, min = 0, max = 100, valueText, thresholds, optimum = "low", parts, variant = "bar", size = "md", showLabel, children, style }: MeterProps) {
   const { theme } = useTheme();
-  const span = max - min || 1;
-  const ratio = Math.min(1, Math.max(0, (value - min) / span));
-  const level = !thresholds ? "ok" : ratio >= thresholds.high ? (optimum === "low" ? "danger" : "success") : ratio >= thresholds.low ? "warning" : optimum === "low" ? "success" : "danger";
-  const tone = { ok: theme.accent, success: theme.success, warning: theme.warning, danger: theme.danger }[level];
-  const words = valueText ?? `${Math.round(ratio * 100)} %`;
-  const shares = (parts ?? []).map((p, i) => ({ ...p, color: partColor(theme, i), ratio: Math.min(1, Math.max(0, p.value / span)), words: p.valueText ?? `${Math.round((p.value / span) * 100)} %` }));
+  const { ratio, level, words, shares: modelShares, arcs } = meterModel({ value, min, max, valueText, thresholds, optimum, parts });
+  const tone = levelColor(theme, level);
+  const shares = modelShares.map((p) => ({ ...p, color: partColor(theme, p.i) }));
   const a11y = parts
     ? { role: "group" as const, "aria-label": `${label}: ${shares.map((p) => `${p.label} ${p.words}`).join(", ")}` }
     : { role: "meter" as const, "aria-label": label, "aria-valuemin": min, "aria-valuemax": max, "aria-valuenow": Math.min(max, Math.max(min, value)), "aria-valuetext": words };
@@ -78,21 +71,13 @@ export function Meter({ label, value = 0, min = 0, max = 100, valueText, thresho
     const side = RING[size];
     const r = 44;
     const c = 2 * Math.PI * r;
-    let offset = 0;
-    const arcs = parts
-      ? shares.map((p) => {
-          const arc = { color: p.color, len: p.ratio, start: offset };
-          offset += p.ratio;
-          return arc;
-        })
-      : [{ color: tone, len: ratio, start: 0 }];
     return (
       <View accessible {...a11y} style={[styles.ringRoot, style]}>
         <View style={{ width: side, height: side }}>
           <Svg width={side} height={side} viewBox="0 0 100 100" style={{ transform: [{ rotate: "-90deg" }] }}>
             <Circle cx={50} cy={50} r={r} fill="none" stroke={theme.borderDefault} strokeWidth={9} />
-            {arcs.map((a, i) => (
-              <Circle key={i} cx={50} cy={50} r={r} fill="none" stroke={a.color} strokeWidth={9} strokeDasharray={`${Math.max(0, a.len * c - (parts ? 2 : 0))} ${c}`} strokeDashoffset={-a.start * c} strokeLinecap={parts ? "butt" : "round"} />
+            {arcs.map((arc, i) => (
+              <Circle key={i} cx={50} cy={50} r={r} fill="none" stroke={arc.part === undefined ? tone : partColor(theme, arc.part)} strokeWidth={9} strokeDasharray={`${Math.max(0, arc.len * c - (parts ? 2 : 0))} ${c}`} strokeDashoffset={-arc.start * c} strokeLinecap={parts ? "butt" : "round"} />
             ))}
           </Svg>
           {children !== undefined ? <View style={[StyleSheet.absoluteFill, styles.center]}>{children}</View> : null}

@@ -18,7 +18,13 @@ const metas = Object.fromEntries(await Promise.all(all.map(async (name) => [name
 const nativeIndex = readFileSync(join(PKG, "src", "native", "index.ts"), "utf8");
 const nativeExports = new Set([...nativeIndex.matchAll(/\b([A-Za-z]\w*)\b/g)].map((m) => m[1]));
 const PLATFORMS = ["web", "native", "both"];
-const exportsOf = (file) => new Set([...readFileSync(file, "utf8").matchAll(/\bexport\s+(?:async\s+)?(?:function|const|type|class|interface)\s+([A-Za-z]\w*)/g)].map((m) => m[1]));
+const exportsOf = (file) => {
+  const source = readFileSync(file, "utf8");
+  const declared = [...source.matchAll(/\bexport\s+(?:async\s+)?(?:function|const|type|class|interface)\s+([A-Za-z]\w*)/g)].map((m) => m[1]);
+  // `export { a, type B as C };` lists what a headless module shares between web and native.
+  const listed = [...source.matchAll(/\bexport\s*\{([^}]*)\}(?!\s*from)/g)].flatMap((m) => m[1].split(",").map((n) => n.trim().replace(/^type\s+/, "").split(/\s+as\s+/).pop()).filter(Boolean));
+  return new Set([...declared, ...listed]);
+};
 const STATUSES = ["stable", "beta", "deprecated"];
 const CATEGORIES = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "media", "blocks", "layouts", "templates", "layout", "foundations"];
 

@@ -9,88 +9,17 @@ import * as React from "react";
 import { FlatList, Image,Pressable, type StyleProp, StyleSheet, View, type ViewStyle, type ViewToken } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
-export interface VerticalVideoLabels {
-  play: string;
-  pause: string;
-  like: string;
-  comment: string;
-  share: string;
-  more: string;
-  /** "Follow {name}". */
-  follow: string;
-  /** "Following {name}". */
-  following: string;
-  expand: string;
-  collapse: string;
-  progress: string;
-  /** The rail's name ("Actions"). */
-  actions: string;
-}
+import { type VerticalVideoLabels, verticalVideoLabels, type VerticalVideoShared } from "../vertical-video/model";
 
-export const verticalVideoLabels: VerticalVideoLabels = {
-  play: "Play",
-  pause: "Pause",
-  like: "Like",
-  comment: "Comments",
-  share: "Share",
-  more: "More",
-  follow: "Follow {name}",
-  following: "Following {name}",
-  expand: "More",
-  collapse: "Less",
-  progress: "Progress",
-  actions: "Actions",
-};
+export { type VerticalVideoLabels, verticalVideoLabels };
 
-export type VerticalVideoProps = {
-  /** The video's accessible name ("Video: Night shoot, part 2"), passed translated. */
-  title: string;
+export type VerticalVideoProps = VerticalVideoShared & {
   /** The clip's address (MP4 or HLS). Absent, the poster alone shows. */
   uri?: string;
   /** The picture until the first frame. */
   posterUri?: string;
-  /** Plays while `true` (a `ShortFeed` passes it for the slide in view). Default `true`. */
-  active?: boolean;
   /** Who made it: name, portrait, the seal's words. */
   creator: { name: string; avatarUri?: string; verifiedLabel?: string };
-  /** A pill beside the name ("AI-GENERATED"). */
-  disclosure?: string;
-  /** The caption, two lines until expanded. */
-  caption?: string;
-  /** Tags after the caption (without `#`). */
-  tags?: readonly string[];
-  /** The sound or credit line. */
-  credit?: string;
-  /** The like count, compact in `locale`. */
-  likes?: number;
-  /** The comment count. */
-  comments?: number;
-  /** The share count. */
-  shares?: number;
-  /** Whether the viewer likes it. */
-  liked?: boolean;
-  /** Whether the viewer follows the creator. */
-  following?: boolean;
-  /** The viewer likes or unlikes. */
-  onLike?: (liked: boolean) => void;
-  /** Opens the comments. */
-  onComment?: () => void;
-  /** Opens the share sheet. */
-  onShare?: () => void;
-  /** Follows or unfollows; without it the avatar has no "+". */
-  onFollow?: (following: boolean) => void;
-  /** The "more" action; without it the button is not drawn. */
-  onMore?: () => void;
-  /** The product's own action on the rail (a tip, an unlock): a named, 44 pt button of yours. */
-  tipSlot?: React.ReactNode;
-  /** Top left over the picture: a chip (an auction's time left). */
-  topStart?: React.ReactNode;
-  /** Above the caption: a goal gauge. */
-  aboveCaption?: React.ReactNode;
-  /** The locale of the counts. Default `en`. */
-  locale?: string;
-  /** Every word, passed translated. */
-  labels?: Partial<VerticalVideoLabels>;
   /** Styles merged last, on the frame. */
   style?: StyleProp<ViewStyle>;
 };
