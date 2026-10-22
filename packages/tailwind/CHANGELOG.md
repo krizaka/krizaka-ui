@@ -1,5 +1,17 @@
 # @krizaka/tailwind
 
+## 3.43.0
+
+### Minor Changes
+
+- [#474](https://github.com/krizaka/krizaka-ui/pull/474) [`f354137`](https://github.com/krizaka/krizaka-ui/commit/f354137cca01e24652ec46ee9c25d250441d6f43) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat: **Krizaka Cahier**, our own pen — derived from Caveat (SIL OFL 1.1, renamed, FONTLOG shipped), weight 500, tabular lining figures, a 1.25 em line box, French alphabet and § — as the `cahier` role: `--kz-font-cahier` (tokens), `font-cahier` (tailwind), `fontStack("cahier")`, `fontFamily("cahier")` (fonts). For margin marks, folios, notes and the café chalkboard line; never headings or body text (krizaka-ui#472).
+
+### Patch Changes
+
+- Updated dependencies [[`03c4880`](https://github.com/krizaka/krizaka-ui/commit/03c4880ae3d8c95d8c3e51568e636a98bceda488), [`f354137`](https://github.com/krizaka/krizaka-ui/commit/f354137cca01e24652ec46ee9c25d250441d6f43), [`f354137`](https://github.com/krizaka/krizaka-ui/commit/f354137cca01e24652ec46ee9c25d250441d6f43), [`398abbc`](https://github.com/krizaka/krizaka-ui/commit/398abbcc9e49188da5bbc7cb72d9651e9e715741), [`03f349d`](https://github.com/krizaka/krizaka-ui/commit/03f349dc014414c2b4c87817ce5c912b271ab998), [`0b1d80d`](https://github.com/krizaka/krizaka-ui/commit/0b1d80dfe9fc742e902ce64916efda27f52e9505)]:
+  - @krizaka/ui@3.43.0
+  - @krizaka/tokens@3.43.0
+
 ## 3.42.0
 
 ### Patch Changes

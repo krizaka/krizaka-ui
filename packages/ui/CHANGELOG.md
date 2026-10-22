@@ -1,5 +1,29 @@
 # @krizaka/ui
 
+## 3.43.0
+
+### Minor Changes
+
+- [#474](https://github.com/krizaka/krizaka-ui/pull/474) [`f354137`](https://github.com/krizaka/krizaka-ui/commit/f354137cca01e24652ec46ee9c25d250441d6f43) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat: `Elephant` (`@krizaka/ui/elephant`) — the small flying-elephant mark of the neighbour joke (« the elephant with those ears can fly »), standing or flying, sage and sand, flat, in the Krizaka line (krizaka-ui#469).
+
+- [#476](https://github.com/krizaka/krizaka-ui/pull/476) [`398abbc`](https://github.com/krizaka/krizaka-ui/commit/398abbcc9e49188da5bbc7cb72d9651e9e715741) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Dialog, Sheet, Popover and Tabs enter and leave with motion. The overlay and the panel enter with `@starting-style` (no JavaScript); they leave with a short keyframe exit, so the element stays mounted until the exit has played. Tabs panels fade in when they open. Durations and easings come from the `--kz-motion-*` tokens; under reduced motion the change is instant.
+
+- [#475](https://github.com/krizaka/krizaka-ui/pull/475) [`03f349d`](https://github.com/krizaka/krizaka-ui/commit/03f349dc014414c2b4c87817ce5c912b271ab998) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/motion` gains the page-transition helpers: `runViewTransition`, `transitionPage`, `crossFallback`, `canViewTransition` and `sharedElementStyle`. A change of page or step goes through `document.startViewTransition` where the platform has it, a root cross-fade otherwise, and is instant under reduced motion. The DOM always updates.
+
+- [#486](https://github.com/krizaka/krizaka-ui/pull/486) [`0b1d80d`](https://github.com/krizaka/krizaka-ui/commit/0b1d80dfe9fc742e902ce64916efda27f52e9505) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - No more family switcher: krizaka.com is the only way back between the Krizaka sites (Oussama, 2026-10-22).
+  
+  - `NavBar.Family` is deprecated (removed in the next minor once no site uses it).
+  - `SiteFooter` lists the family on the hub only: `family` now defaults to `current === "krizaka"`, so every other site's footer holds its own columns, the legal links and one quiet « A Krizaka project » line linking to www.krizaka.com. New `products` prop filters the hub's Products column (krizaka.com's focus products), replacing CSS that hid links by URL.
+  - `@krizaka/config`: the `krizaka/no-family-switcher` rule (an error in `krizakaStack()`) refuses `NavBar.Family` so it does not come back.
+
+### Patch Changes
+
+- [#484](https://github.com/krizaka/krizaka-ui/pull/484) [`03c4880`](https://github.com/krizaka/krizaka-ui/commit/03c4880ae3d8c95d8c3e51568e636a98bceda488) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - AppShell and RailNav: collapsing the sidebar no longer lets the brand name or the footer text spill over the content. The sidebar clips its width transition; the brand name shrinks away with the width, a text-only footer fades and narrows with it (a footer with controls stays, clipped); words stay in the tree for screen readers; reduced motion is instant. Fixes [#482](https://github.com/krizaka/krizaka-ui/issues/482).
+- Updated dependencies [[`f354137`](https://github.com/krizaka/krizaka-ui/commit/f354137cca01e24652ec46ee9c25d250441d6f43)]:
+  - @krizaka/tokens@3.43.0
+  - @krizaka/tailwind@3.43.0
+  - @krizaka/query@0.2.1
+
 ## 3.42.0
 
 ### Minor Changes
