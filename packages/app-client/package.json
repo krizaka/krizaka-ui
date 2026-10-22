@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/app-client",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "What every Krizaka Expo app shares: the bearer session over a secure-storage port, the discovery client of the signed services manifest, and the API client (bearer, timeout, 401 handling). Ports in, no native module imported.",
   "keywords": [
     "krizaka",
