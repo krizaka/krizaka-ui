@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.46.0
+
+### Minor Changes
+
+- [#506](https://github.com/krizaka/krizaka-ui/pull/506) [`b4000e2`](https://github.com/krizaka/krizaka-ui/commit/b4000e2ef8fb950557c9c589cb85d2e17bf0910f) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ProductBarActions` and `productBarActions` (`@krizaka/ui/nav-bar`): the one definition of a product bar's right side — using the app is the primary action (« Sign in » while sign-up is closed, « Try » once it opens), « Sign in » is not repeated beside it, and « Contact » leaves the bar for the footer.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.46.0
+  - @krizaka/tokens@3.46.0
+
 ## 3.45.0
 
 ### Minor Changes
