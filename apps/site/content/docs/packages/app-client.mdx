@@ -1,0 +1,23 @@
+---
+title: App client
+description: What every Krizaka Expo app shares, written once — the bearer session over a storage port, the discovery client with a product's address, and the API client with its timeout and 401 handling.
+---
+
+Three Expo apps had copied the same session, discovery and API code, and two more were starting.
+`@krizaka/app-client` is that code, once, with **ports in and no native module imported**: the app passes
+`expo-secure-store`, its fetch and its language.
+
+```ts
+const storage = secureStorage(SecureStore);
+const session = createSessionStore({ storage, key: "yomizaka.session" });
+const discovery = createAppDiscovery({ product: "yomizaka", hostSuffix: "yomizaka.com", appVersion, baked, storage, env });
+const api = createApiClient({ baseUrl: () => discovery.getService("yomizaka").apiBase, session, fetch: appConfig.fetch, language, productName: "Yomizaka", timeoutMs: 20_000 });
+```
+
+- **Session.** The bearer token lives in the Keychain or Keystore, never a cookie; `onChange` fires when a session starts or ends.
+- **Discovery.** Krizaka's signed manifest, keys and host allow-list plus the product's own domain;
+  `EXPO_PUBLIC_APP_URL` wins for local work, and a malformed build input fails at start.
+- **API client.** JSON with the bearer, `credentials: "omit"`, a timeout that fails like a network error, and a 401 that
+  drops the session.
+
+Decision: [ADR-004](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-004-expo-app-shell.md).
