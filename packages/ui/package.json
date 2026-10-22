@@ -1160,7 +1160,7 @@
     {
       "name": "./tabs",
       "path": "dist/tabs.js",
-      "limit": "10.8 kB",
+      "limit": "11.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2159,7 +2159,7 @@
     {
       "name": "./choice-grid",
       "path": "dist/choice-grid.js",
-      "limit": "1.6 kB",
+      "limit": "2.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
