@@ -1,5 +1,20 @@
 # @krizaka/ui
 
+## 3.42.0
+
+### Minor Changes
+
+- [#466](https://github.com/krizaka/krizaka-ui/pull/466) [`d66fd35`](https://github.com/krizaka/krizaka-ui/commit/d66fd35b25c40dbbe3ca411f4da0b25d0c56528c) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Flock `scenes`: each bird does a short scene true to its promise — the owl reads a book and turns a leaf, the flamingo and the lovebird talk with a speech mark and their neighbour answers, the crane steps out and bows, the beaver taps a log, the magpie takes a shiny point, the duck builds, the falcon scans — and the pigeon hands its parcel over (it flies back light) while the receiver reacts in its own way. One scene at a time, picked at random with long pauses now and then. CSS-free: Web Animations on a few small elements and timers between scenes, none off screen or under reduced motion. The flock now also waits for `html[data-motion="settling"]` and its stage is a `data-motion-scope` (the page pauses its loops off screen). `Mascot` gets `carrying` (the pigeon's parcel).
+
+- [#463](https://github.com/krizaka/krizaka-ui/pull/463) [`8875459`](https://github.com/krizaka/krizaka-ui/commit/887545936a29f32d6b231e4a17b54aaf5c0895bb) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `SiteFooter`: one band, for real. The hairline between the columns and the last line is gone (a bottom bar under the columns read as a second footer). New `path` prop: the company link that points to the page you are on (« Our story » on /story) carries `aria-current="page"` with a visible state (semibold), and a click on it scrolls to the top instead of reloading the page. `@krizaka/ui/sites`: Yororis is `development` (its card and footer chip say « In development »).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/query@0.2.1
+  - @krizaka/tailwind@3.42.0
+  - @krizaka/tokens@3.42.0
+
 ## 3.41.1
 
 ### Patch Changes
