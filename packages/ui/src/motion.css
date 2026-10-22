@@ -768,3 +768,32 @@ svg[data-kz-icon="ExternalIcon"] {
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
+
+/* ── DROP OVERLAY ───────────────────────────────────────────────────────────────────────────────────────────────────
+   <DropOverlay> (@krizaka/ui/drop-overlay): while files are dragged over the window, a full-window veil and one centred
+   card arrive over the motion tokens. It never takes the pointer (the window keeps receiving the drop). Reduced motion:
+   it appears at once. */
+.kz-drop-overlay {
+  position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; pointer-events: none;
+  background: color-mix(in srgb, var(--kz-surface-0) 78%, transparent); backdrop-filter: blur(6px);
+  animation: kz-drop-in var(--kz-motion-duration-base) var(--kz-motion-ease-out) both;
+}
+.kz-drop-overlay-card {
+  display: flex; flex-direction: column; align-items: center; gap: 0.25rem; padding: 2rem 2.5rem; text-align: center;
+  border: 2px solid var(--kz-accent); border-radius: 1rem; background: var(--kz-surface-1);
+  animation: kz-drop-card var(--kz-motion-duration-base) var(--kz-motion-ease-out) both;
+}
+@keyframes kz-drop-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes kz-drop-card { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .kz-drop-overlay, .kz-drop-overlay-card { animation: none; } }
+
+/* ── WORKING (upload queue, task tray) ──────────────────────────────────────────────────────────────────────────────
+   What is working moves, nothing else (.kz-working): a row's progress fill shimmers, its status line breathes. The tray rises in.
+   Reduced motion: no shimmer, no rise. */
+.kz-working { background-image: linear-gradient(100deg, transparent 30%, color-mix(in srgb, var(--kz-fg) 22%, transparent) 50%, transparent 70%); background-size: 200% 100%; background-repeat: no-repeat; animation: kz-shimmer 1.6s linear infinite; }
+span.kz-working { background: none; animation: kz-working-pulse 1.6s ease-in-out infinite; }
+@keyframes kz-working-pulse { 50% { opacity: 0.55; } }
+@keyframes kz-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+.kz-tray { animation: kz-tray-in var(--kz-motion-duration-base) var(--kz-motion-ease-out) both; }
+@keyframes kz-tray-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .kz-working, .kz-tray { animation: none; background-image: none; } }

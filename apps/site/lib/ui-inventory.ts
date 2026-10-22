@@ -72,6 +72,8 @@ export const PLANNED: Record<string, string> = {
   "page-index": "The Cahier (ADR-004): the index of ui.krizaka.com's components, numbered like a reference book.",
   footnote: "The Cahier (ADR-004): captions under every plate and the sourced notes of the product and docs pages (a law's article, a run id).",
   "account-settings": "Yomizaka's /app/settings first, then every Krizaka app's account page and the future @krizaka/auth (krizaka-ui#502).",
+  "drop-overlay": "Yomizaka's library (drag a document anywhere), then Akinaza's app home and Orazaka's web workspace (krizaka-ui#511).",
+  "upload-queue": "Yomizaka's checks in progress (live events from Orazaka), then Orochia's uploads and Orazaka's workspace (krizaka-ui#511).",
   "language-switch": "Every product site and app bar (krizaka-ui#NAV-STD): replaces the « English » pill and the per-app language menus.",
   "docs-nav": "Groups the pages in the documentation sidebar.",
   fab: `${MOBILE}: the main creation action of a list screen.`,
