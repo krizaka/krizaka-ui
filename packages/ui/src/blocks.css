@@ -78,6 +78,12 @@
 }
 .kz-section :is(h2, h3)[id] { scroll-margin-top: var(--kz-anchor-offset, 96px); }
 
+/* Products wear plain Krizaka UI, in their brand colour (Oussama, 2026-10-22): the margin red is the notebook's, for the
+   Krizaka sites (www, the blog, ui.). Under a product's brand the margin ink is the brand's accent, so no eyebrow, folio or
+   margin note shows red there. */
+:is(.brand-orazaka, .brand-orochia, .brand-yasakia, .brand-yororis, .brand-yomizaka, .brand-kachizaka, .brand-akinaza) {
+  --kz-paper-rule-margin: var(--kz-accent-text);
+}
 /* Cahier (ADR-004, #417): the eyebrow is a note in the margin's voice — the typewriter face, lower case, untracked,
    inked in the margin red. No more uppercase tracked overline above every heading. */
 .kz-eyebrow {
