@@ -259,6 +259,10 @@
           "title": "Discovery",
           "description": "Service discovery for the mobile apps: a signed manifest of backend addresses, a host allow-list and a fallback order, so a URL change never forces a store republish."
         },
+        "app-shell": {
+          "title": "App shell",
+          "description": "What every Expo app shares: the bearer session over a storage port, the discovery client with a product's address, and the API client (bearer, timeout, 401 handling)."
+        },
         "app-config": {
           "title": "App config",
           "description": "Version compatibility between apps and backends: minimum and latest version, soft and forced updates, maintenance, 426 Upgrade Required and N-1 contracts."

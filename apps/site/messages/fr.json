@@ -259,6 +259,10 @@
           "title": "Découverte de services",
           "description": "La découverte de services des applications mobiles : un manifeste signé des adresses de backend, une liste d'hôtes autorisés et un ordre de repli, pour qu'un changement d'URL n'impose jamais de republier sur les stores."
         },
+        "app-shell": {
+          "title": "Socle d'application",
+          "description": "Ce que toute application Expo partage : la session bearer derrière un port de stockage, le client de découverte avec l'adresse d'un produit et le client d'API (bearer, délai, gestion du 401)."
+        },
         "app-config": {
           "title": "App config",
           "description": "Compatibilité de version entre les apps et les serveurs : version minimale et dernière, mises à jour douces et forcées, maintenance, 426 Upgrade Required et contrats N-1."
