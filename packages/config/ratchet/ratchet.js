@@ -90,10 +90,10 @@ export function countSource(source, allow = []) {
  * Counts the stack debts in one source text: fetch calls inside the effects of a `"use client"` file, imports of
  * `@tanstack/*`, hand-written tables and forms of more than `maxFormFields` fields, imports of the retired dependencies.
  * @param {string} source
- * @param {{ retire?: readonly string[], maxFormFields?: number, inRoute?: boolean }} [options] `inRoute`: the file is a page or a route component (`routeStateSelection` only counts there)
+ * @param {{ retire?: readonly string[], maxFormFields?: number }} [options]
  * @returns {Record<StackCounterName, number>}
  */
-export function countStackSource(source, { retire = [], maxFormFields = 1, inRoute = true } = {}) {
+export function countStackSource(source, { retire = [], maxFormFields = 1 } = {}) {
   let fetchInClientEffect = 0;
   if (new RegExp(USE_CLIENT_SOURCE).test(source)) {
     for (const effect of source.matchAll(new RegExp(EFFECT_CALL_SOURCE, "g"))) {
@@ -114,7 +114,7 @@ export function countStackSource(source, { retire = [], maxFormFields = 1, inRou
     directTanstackImport: source.match(new RegExp(importSource([TANSTACK_SCOPE]), "g"))?.length ?? 0,
     localTableOrForm,
     retiredImport: source.match(new RegExp(importSource(retire), "g"))?.length ?? 0,
-    routeStateSelection: inRoute ? selectionTags(source).filter(({ tag, before }) => isLocalSelection(tag, before)).length : 0,
+    routeStateSelection: selectionTags(source).filter(({ tag, before }) => isLocalSelection(tag, before)).length,
   };
 }
 
@@ -140,7 +140,7 @@ export async function countRepository({
     for (const name of UI_COUNTERS) counters[name] += found[name];
   }
   for (const file of stackFiles) {
-    const found = countStackSource(readFileSync(file, "utf8"), { retire, maxFormFields, inRoute: /(^|\/)(app|pages|routes)\//.test(relative(root, file)) });
+    const found = countStackSource(readFileSync(file, "utf8"), { retire, maxFormFields });
     for (const name of STACK_COUNTERS) counters[name] += found[name];
   }
   return { counters, files: files.length, stackFiles: stackFiles.length };

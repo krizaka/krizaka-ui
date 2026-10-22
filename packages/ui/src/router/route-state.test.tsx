@@ -92,3 +92,17 @@ describe("selection components in route mode (routeKey): the URL is the state", 
     expect(window.location.search).toBe("?plan=pro");
   });
 });
+
+describe("RadioGroup (segmented) in route mode", () => {
+  it("a segment writes ?kind=", async () => {
+    const { RadioGroup } = await import("../radio-group");
+    render(
+      <RadioGroup.Root variant="segmented" label="Kind" routeKey="kind" routeValues={["auto", "lease"]}>
+        <RadioGroup.Segment value="auto">Auto</RadioGroup.Segment>
+        <RadioGroup.Segment value="lease">Lease</RadioGroup.Segment>
+      </RadioGroup.Root>,
+    );
+    await userEvent.click(screen.getByRole("radio", { name: "Lease" }));
+    expect(window.location.search).toBe("?kind=lease");
+  });
+});

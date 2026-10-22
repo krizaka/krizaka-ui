@@ -8,6 +8,7 @@ import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 import * as React from "react";
 
 import { CheckGlyph } from "../glyphs";
+import { useRouteBinding } from "../router";
 import { useSlidingIndicator } from "../sliding-indicator";
 import { tv } from "../tv";
 
@@ -74,10 +75,15 @@ export type RadioGroupRootProps = React.ComponentProps<typeof RadioGroupPrimitiv
    * @default "list"
    */
   variant?: "list" | "cards" | "buttons" | "segmented";
+  /** Binds the choice to this search parameter of the URL (`?kind=…`): the URL is the state — for a view's selection (a segmented switch), not a form field. */
+  routeKey?: string;
+  /** The values the parameter may hold (the radios' `value`s); the first is the default unless `defaultValue` says otherwise. */
+  routeValues?: readonly string[];
 };
 
 /** `value`/`defaultValue` + `onValueChange`, `orientation`, `required`, `name` for a form, `variant` for the layout. */
-export function RadioGroupRoot({ label, invalid, variant = "list", className, ...props }: RadioGroupRootProps) {
+export function RadioGroupRoot({ label, invalid, variant = "list", className, routeKey, routeValues, ...rest }: RadioGroupRootProps) {
+  const props = useRouteBinding(routeKey, routeValues, rest);
   const { ref } = useSlidingIndicator<HTMLDivElement>({ item: "[role=radio]", active: "[role=radio][data-state=checked]" });
   const segmented = variant === "segmented";
   return (

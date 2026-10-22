@@ -344,8 +344,10 @@ describe("krizaka/route-state-selection — a selection of a page lives in the U
     expect(messages.filter((m) => m.ruleId === "krizaka/route-state-selection")).toEqual([]);
   });
 
-  it("only watches pages and route components, not a component of the design system", async () => {
-    const messages = await lint(krizakaStack(), page(`<Tabs.Root value={t} onValueChange={setT} />`), "components/panel.tsx");
-    expect(messages.filter((m) => m.ruleId === "krizaka/route-state-selection")).toEqual([]);
+  it("watches the view components of a route too (a CheckView under components/), and a segmented RadioGroup, but not a form radio group", async () => {
+    const segmented = await lint(krizakaStack(), page(`<RadioGroup.Root variant="segmented" value={t} onValueChange={setT} />`), "components/console/CheckView.tsx");
+    expect(segmented.filter((m) => m.ruleId === "krizaka/route-state-selection")).toHaveLength(1);
+    const form = await lint(krizakaStack(), page(`<RadioGroup.Root value={t} onValueChange={setT} />`), "components/Form.tsx");
+    expect(form.filter((m) => m.ruleId === "krizaka/route-state-selection")).toEqual([]);
   });
 });

@@ -219,7 +219,6 @@ describe("the routeStateSelection counter", () => {
     const { countStackSource } = await import("../ratchet/ratchet.js");
     const local = `<Tabs.Root value={t} onValueChange={setT}>\n<Chip.Group type="single" defaultValue="a">\n<Tabs.Root routeKey="tab">\n// @ephemeral: a popover\n<ChoiceGrid value={v} />`;
     expect(countStackSource(local).routeStateSelection).toBe(2);
-    expect(countStackSource(local, { inRoute: false }).routeStateSelection).toBe(0);
   });
 });
 

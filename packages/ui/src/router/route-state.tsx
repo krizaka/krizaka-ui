@@ -93,7 +93,7 @@ export function useRouteState<V extends string>(key: string | undefined, { value
 
 /** What a selection component spreads on its root: `value` and `onValueChange` bound to the URL when `routeKey` is set. */
 export interface RouteBindable {
-  value?: string;
+  value?: string | null;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
 }

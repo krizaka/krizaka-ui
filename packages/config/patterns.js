@@ -120,7 +120,7 @@ export function balancedArguments(source, open) {
 // Read by the ESLint rule krizaka/route-state-selection and by the ratchet.
 
 /** The selection components whose choice belongs in the URL: tabs, a segmented switch, toggle groups, chip groups, choice tiles. */
-export const SELECTION_COMPONENTS = Object.freeze(["Tabs.Root", "TabsRoot", "Chip.Group", "ChipGroup", "ChoiceGrid", "SegmentedControl", "ToggleGroup", "ToggleGroup.Root"]);
+export const SELECTION_COMPONENTS = Object.freeze(["Tabs.Root", "TabsRoot", "Chip.Group", "ChipGroup", "ChoiceGrid", "SegmentedControl", "ToggleGroup", "ToggleGroup.Root", "RadioGroup.Root"]);
 
 /** The props that make a selection local: its own value, its starting value, its change handler. */
 export const LOCAL_SELECTION_PROPS = Object.freeze(["value", "defaultValue", "onValueChange"]);
@@ -131,8 +131,6 @@ export const ROUTE_KEY_PROP = "routeKey";
 /** The justification that keeps a local selection: `// @ephemeral: a hover card's tab` on the line or the line above. */
 export const EPHEMERAL_SOURCE = String.raw`@ephemeral:\s*\S`;
 
-/** Files where a selection is a route's: pages and route components. */
-export const ROUTE_FILES = Object.freeze(["**/app/**/*.{jsx,tsx}", "**/pages/**/*.{jsx,tsx}", "**/routes/**/*.{jsx,tsx}"]);
 
 /** The opening tags (`<Tabs.Root … >`) of the selection components in a source text, each with the line above it. */
 export function selectionTags(/** @type {string} */ source) {
@@ -164,6 +162,8 @@ export function selectionTags(/** @type {string} */ source) {
 export function isLocalSelection(tag, before = "") {
   const name = /^<([A-Za-z][\w.]*)/.exec(tag)?.[1];
   if (!name || !SELECTION_COMPONENTS.includes(name)) return false;
+  // A radio group is a form field unless it is drawn as a segmented switch (`variant="segmented"`): that one is a view's selection.
+  if (name === "RadioGroup.Root" && !/\bvariant\s*=\s*["']segmented["']/.test(tag)) return false;
   const hasProp = (/** @type {string} */ prop) => new RegExp(`\\b${prop}\\s*(=|\\{|\\s|/?>)`).test(tag);
   if (hasProp(ROUTE_KEY_PROP)) return false;
   if (new RegExp(EPHEMERAL_SOURCE).test(tag) || new RegExp(EPHEMERAL_SOURCE).test(before)) return false;
