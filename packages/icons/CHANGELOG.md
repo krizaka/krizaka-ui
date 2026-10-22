@@ -1,5 +1,11 @@
 # @krizaka/icons
 
+## 0.8.0
+
+### Minor Changes
+
+- [#465](https://github.com/krizaka/krizaka-ui/pull/465) [`efdfb57`](https://github.com/krizaka/krizaka-ui/commit/efdfb576ae1f23061ec1a8ad93bfefcfd8a46ca0) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Nine new signature icons: `star`, `bolt`, `wave`, `flame`, `crown`, `leaf`, `mountain` (a new « Emblems » group, to build marks and badges from) and `medal`, `podium` (ranks and standings). Web and native.
+
 ## 0.7.0
 
 ### Minor Changes
