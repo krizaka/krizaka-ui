@@ -86,6 +86,13 @@ describe("AvatarPicker", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
+  it("shows its label and help above the grid when asked, and names the group by them", () => {
+    render(<AvatarPicker label="Photo de profil" showLabel description="Une des images par défaut." options={avatars} value="a" onValueChange={() => {}} />);
+    expect(screen.getByText("Photo de profil")).toBeTruthy();
+    expect(screen.getByText("Une des images par défaut.")).toBeTruthy();
+    expect(screen.getByRole("radiogroup", { name: "Photo de profil" })).toBeTruthy();
+  });
+
   it("puts the upload action in the grid, after the pictures", () => {
     render(<AvatarPicker label="Photo" options={avatars} value="a" onValueChange={() => {}} upload={<button type="button">Téléverser</button>} />);
     expect(screen.getByRole("button", { name: "Téléverser" })).toBeTruthy();

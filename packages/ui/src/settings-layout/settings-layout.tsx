@@ -160,8 +160,8 @@ export type SettingsSectionProps = Omit<React.ComponentProps<"section">, "title"
    * @default "card"
    */
   variant?: "card" | "flat";
-  /** The fields (or, flat, the `SettingsRow`s). */
-  children: React.ReactNode;
+  /** The fields (or, flat, the `SettingsRow`s). A section of a title, a sentence and a foot action has none. */
+  children?: React.ReactNode;
 };
 
 /** A group of settings: a titled card with its fields and its own save, or flat rows under a title. */
@@ -177,7 +177,7 @@ export function SettingsSection({ title, description, footer, save, variant = "c
       {description && <p className={s.sectionDescription()}>{description}</p>}
     </div>
   );
-  const body = (
+  const body = children === undefined ? null : (
     <div className={variant === "flat" ? s.rows() : s.sectionBody()} data-settings-rows={variant === "flat" ? "" : undefined}>
       {children}
     </div>

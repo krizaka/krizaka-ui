@@ -44,9 +44,10 @@ export default function AccountProfile() {
           <Field.Label htmlFor="profile-name">Nom</Field.Label>
           <Input id="profile-name" value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} />
         </Field.Root>
-        <AvatarPicker label="Photo de profil" options={AVATARS} value={draft.avatar} onValueChange={(avatar) => setDraft({ ...draft, avatar })} upload={<Button variant="secondary" size="sm">Téléverser</Button>} />
+        <AvatarPicker label="Photo de profil" showLabel options={AVATARS} value={draft.avatar} onValueChange={(avatar) => setDraft({ ...draft, avatar })} upload={<Button variant="secondary" size="sm">Téléverser</Button>} />
         <LanguagePicker label="Langue" value={draft.language} onValueChange={(language) => setDraft({ ...draft, language })} languages={[{ code: "fr", name: "Français" }, { code: "en", name: "English" }]} />
         <ChoiceCards
+          showLabel
           label="De quel côté du bail êtes-vous ?"
           value={draft.side}
           onValueChange={(side) => setDraft({ ...draft, side })}

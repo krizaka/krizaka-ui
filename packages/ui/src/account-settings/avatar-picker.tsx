@@ -6,6 +6,7 @@ import * as React from "react";
 import { type DefaultAvatar, defaultAvatarUrl } from "../avatar/default-avatar";
 import { cn } from "../cn";
 import { CheckGlyph } from "../glyphs";
+import { GroupHead } from "./group-head";
 
 export interface AvatarOption {
   /** The value of the choice. */
@@ -21,6 +22,10 @@ export interface AvatarOption {
 export type AvatarPickerProps = Omit<React.ComponentProps<typeof RadioGroupPrimitive.Root>, "children" | "onChange" | "dir"> & {
   /** The group's accessible name (“Profile picture”) — passed translated. */
   label: string;
+  /** Shows the label above the grid, with `description` under it. */
+  showLabel?: boolean;
+  /** One line under the visible label: what it changes. */
+  description?: React.ReactNode;
   /** The pictures. */
   options: readonly AvatarOption[];
   /** The chosen id (controlled). */
@@ -34,9 +39,10 @@ export type AvatarPickerProps = Omit<React.ComponentProps<typeof RadioGroupPrimi
 const pictureOf = (option: AvatarOption) => option.src ?? (option.defaultAvatar ? defaultAvatarUrl(option.defaultAvatar, { size: 256 }) : undefined);
 
 /** A grid of pictures to choose from, with an upload beside them: a radio group, never a row of loose radios. */
-export function AvatarPicker({ label, options, upload, className, ...props }: AvatarPickerProps) {
-  return (
-    <RadioGroupPrimitive.Root aria-label={label} className={cn("grid grid-cols-[repeat(auto-fill,minmax(4.25rem,1fr))] gap-3", className)} {...props}>
+export function AvatarPicker({ label, showLabel, description, options, upload, className, ...props }: AvatarPickerProps) {
+  const id = React.useId();
+  const group = (
+    <RadioGroupPrimitive.Root aria-label={label} aria-labelledby={showLabel ? id : undefined} className={cn("grid grid-cols-[repeat(auto-fill,minmax(4.25rem,1fr))] gap-3", !showLabel && className)} {...props}>
       {options.map((option) => (
         <RadioGroupPrimitive.Item
           key={option.id}
@@ -58,5 +64,12 @@ export function AvatarPicker({ label, options, upload, className, ...props }: Av
       ))}
       {upload ? <div className="flex aspect-square w-full items-center justify-center">{upload}</div> : null}
     </RadioGroupPrimitive.Root>
+  );
+  if (!showLabel) return group;
+  return (
+    <div className={cn("flex flex-col gap-3", className)}>
+      <GroupHead id={id} label={label} description={description} />
+      {group}
+    </div>
   );
 }

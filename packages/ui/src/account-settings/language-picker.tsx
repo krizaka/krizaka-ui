@@ -3,6 +3,7 @@
 import * as React from "react";
 
 import { RadioGroup } from "../radio-group";
+import { GroupHead } from "./group-head";
 
 export interface LanguageOption {
   /** The BCP 47 code (`fr`, `en`): the value, and the `lang` of the name. */
@@ -29,10 +30,7 @@ export function LanguagePicker({ label, description, languages, className, ...pr
   const id = React.useId();
   return (
     <div className={["flex flex-col gap-2", className].filter(Boolean).join(" ")}>
-      <span id={`${id}-label`} className="text-sm font-medium text-fg">
-        {label}
-      </span>
-      {description ? <span className="text-sm text-fg-secondary">{description}</span> : null}
+      <GroupHead id={`${id}-label`} label={label} description={description} />
       <RadioGroup.Root variant="segmented" aria-labelledby={`${id}-label`} {...props}>
         {languages.map((language) => (
           <RadioGroup.Segment key={language.code} value={language.code} lang={language.code}>

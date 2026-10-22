@@ -9,7 +9,7 @@ export default function AvatarPickerExample() {
   const [value, setValue] = React.useState("tone-2");
   return (
     <div className="w-full max-w-md">
-      <AvatarPicker label="Photo de profil" options={OPTIONS} value={value} onValueChange={setValue} upload={<Button variant="secondary" size="sm">Téléverser</Button>} />
+      <AvatarPicker label="Photo de profil" showLabel options={OPTIONS} value={value} onValueChange={setValue} upload={<Button variant="secondary" size="sm">Téléverser</Button>} />
     </div>
   );
 }

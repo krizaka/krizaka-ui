@@ -3,6 +3,7 @@
 import * as React from "react";
 
 import { RadioGroup } from "../radio-group";
+import { GroupHead } from "./group-head";
 
 export interface ChoiceCardOption {
   /** The value of the choice. */
@@ -19,6 +20,10 @@ export interface ChoiceCardOption {
 export type ChoiceCardsProps = Omit<React.ComponentProps<typeof RadioGroup.Root>, "children" | "variant" | "label"> & {
   /** The question (“Which side of the lease are you?”) — the group's accessible name, passed translated. */
   label: string;
+  /** Shows the question above the cards, with `description` under it. */
+  showLabel?: boolean;
+  /** One line under the visible question. */
+  description?: React.ReactNode;
   /** The choices. */
   options: readonly ChoiceCardOption[];
   /** The chosen id (controlled). */
@@ -28,10 +33,10 @@ export type ChoiceCardsProps = Omit<React.ComponentProps<typeof RadioGroup.Root>
 };
 
 /** Cards to choose one from: a radio group where each card has an icon, a title and a description. */
-export function ChoiceCards({ label, options, className, ...props }: ChoiceCardsProps) {
+export function ChoiceCards({ label, showLabel, description, options, className, ...props }: ChoiceCardsProps) {
   const base = React.useId();
-  return (
-    <RadioGroup.Root variant="cards" label={label} className={["grid grid-cols-1 gap-3 sm:grid-cols-2", className].filter(Boolean).join(" ")} {...props}>
+  const group = (
+    <RadioGroup.Root variant="cards" label={label} aria-labelledby={showLabel ? `${base}-label` : undefined} className={["grid grid-cols-1 gap-3 sm:grid-cols-2", !showLabel && className].filter(Boolean).join(" ")} {...props}>
       {options.map((option) => {
         const describedBy = option.description ? `${base}-${option.id}` : undefined;
         return (
@@ -49,5 +54,12 @@ export function ChoiceCards({ label, options, className, ...props }: ChoiceCards
         );
       })}
     </RadioGroup.Root>
+  );
+  if (!showLabel) return group;
+  return (
+    <div className={["flex flex-col gap-3", className].filter(Boolean).join(" ")}>
+      <GroupHead id={`${base}-label`} label={label} description={description} />
+      {group}
+    </div>
   );
 }
