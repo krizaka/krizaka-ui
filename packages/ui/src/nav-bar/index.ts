@@ -33,3 +33,4 @@ export {
   type NavBarRootProps,
 } from "./nav-bar";
 export { type PlacePanel,placePanel } from "./placement";
+export { ProductBarAction, ProductBarActions, productBarActions, type ProductBarActionsProps, type ProductBarLink, type ProductBarState } from "./product-actions";

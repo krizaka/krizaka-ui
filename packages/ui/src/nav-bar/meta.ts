@@ -20,6 +20,7 @@ export const meta = {
     { when: "To link to another site of the family from the bar's middle: the family switcher holds them.", use: "sites" },
   ],
   bestPractices: [
+    "A product's bar ends with `ProductBarActions`: the primary action is using the app (« Sign in » while sign-up is closed, « Try » once it opens, from the product's `signupOpen` setting), « Sign in » never twice, and no « Contact » or « Talk to us » — contact is a plain link in the footer. krizaka.com, the company site, keeps its « Contact us ».",
     "Five items at most on the bar; group the rest in a menu, each link with a name and one short line (`NavBar.MenuLink`, one line, ≤ 45 characters).",
     "A product's site (dev.<product>, see Navigation in the family): the product's mark alone (no `NavBar.Family`, no badge — the version goes in the footer), then **Product ▾** (what it does: how it works, its features, the demo) · **Platforms ▾** (web, mobile, desktop, self-host — omitted for a single-platform product) · **Docs** · Pricing when it exists; never a lone entry that belongs to a group (no top-level Demo, Mobile or Mac). The phone panel repeats the groups with `NavBar.MobileGroup`, in the same order.",
     "A menu of three links or fewer is not a menu: `NavBar.Menu` puts them in the bar as plain links (the current one marked, no dropdown) — `inlineUpTo`, 3 by default, `0` to keep a dropdown. Above three, the dropdown. The phone panel groups them with `NavBar.MobileGroup` either way.",
@@ -55,7 +56,7 @@ export const meta = {
   },
   related: ["language-switch", "sites", "site-footer", "tabs", "dropdown-menu", "command", "button"],
   web: {
-    imports: ["NavBar"],
+    imports: ["NavBar", "ProductBarActions", "productBarActions"],
     examples: [
       { name: "family-www", title: "www.krizaka.com", description: "The company's bar: the mark and the family switcher, Products · Open source · Our story, the repository and Contact. Open the chevron: every site of Krizaka, grouped, the current one marked." },
       { name: "family-ui", title: "ui.krizaka.com", description: "Krizaka UI: the family, the version of the packages, Get started · Foundations · Components · Templates, the repository." },
