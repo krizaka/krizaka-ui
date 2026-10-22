@@ -6,7 +6,7 @@ export const meta = {
   status: "beta",
   category: "data-display",
   platforms: "web",
-  parity: { native: { status: "gap", issue: "https://github.com/krizaka/krizaka-ui/issues/275", reason: "The native twin ships with Akinaza's mobile Today (the same props over the native List); the web one is first because the owner's day is read on a computer at the counter." }, desktop: "web" },
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "The native twin ships with Akinaza's mobile Today (the same props over the native List); the web one is first because the owner's day is read on a computer at the counter." }, desktop: "web" },
   whenToUse: ["The owner's day in a booking product: who comes, when, and what is next.", "Any day-bound list where the time is the key and « now » matters (a shift, a timetable)."],
   whenNotToUse: [
     { when: "What happened, newest first.", use: "activity-feed" },
