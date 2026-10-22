@@ -78,6 +78,18 @@
 }
 .kz-section :is(h2, h3)[id] { scroll-margin-top: var(--kz-anchor-offset, 96px); }
 
+/* Products wear plain Krizaka UI, in their brand colour (Oussama, 2026-10-22): a product's root carries `data-surface="product"` (an app themed at :root, no brand class) or its `.brand-<id>`; the margin red is the notebook's, for the
+   Krizaka sites (www, the blog, ui.). Under a product's brand the margin ink is the brand's accent, so no eyebrow, folio or
+   margin note shows red there, and the faces are the sans and the system monospace. */
+:is([data-surface="product"], .brand-orazaka, .brand-orochia, .brand-yasakia, .brand-yororis, .brand-yomizaka, .brand-kachizaka, .brand-akinaza) {
+  --kz-paper-rule-margin: var(--kz-accent-text);
+  /* Nor the notebook's faces: headings in the sans (Young Serif and Courier Prime are Cahier's), code in the system monospace. */
+  --kz-font-display: var(--kz-font-sans);
+  --kz-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+:is([data-surface="product"], .brand-orazaka, .brand-orochia, .brand-yasakia, .brand-yororis, .brand-yomizaka, .brand-kachizaka, .brand-akinaza) :is(.kz-heading-title, .kz-hero-title) {
+  font-weight: 650; /* the serif had one weight; the sans carries the hierarchy with a semibold */
+}
 /* Cahier (ADR-004, #417): the eyebrow is a note in the margin's voice — the typewriter face, lower case, untracked,
    inked in the margin red. No more uppercase tracked overline above every heading. */
 .kz-eyebrow {
