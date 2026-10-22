@@ -1,0 +1,86 @@
+{
+  "name": "@krizaka/payments",
+  "version": "0.1.0",
+  "description": "Payments for every Krizaka product, vendor behind a port: the Stripe adapter (Checkout, customer portal, price read by lookup key, verified webhook), idempotent event application, a locale-aware price formatter and a catalogue setup that creates products, prices, portal and webhook from data. No SDK: you pass fetch.",
+  "keywords": [
+    "krizaka",
+    "payments",
+    "stripe",
+    "checkout",
+    "subscription",
+    "webhook",
+    "idempotency",
+    "gst",
+    "qst"
+  ],
+  "homepage": "https://ui.krizaka.com/packages/payments",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/payments"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsup",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "workspace:*",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@types/node": "^22.15.0",
+    "@vitest/coverage-v8": "4.1.11",
+    "eslint": "^9.39.0",
+    "publint": "^0.3.25",
+    "size-limit": "^14.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": ".",
+      "path": "dist/index.js",
+      "limit": "4 kB",
+      "gzip": true,
+      "ignore": [
+        "crypto",
+        "node:crypto"
+      ]
+    }
+  ],
+  "bin": {
+    "krizaka-payments-setup": "./bin/payments-setup.mjs"
+  }
+}
