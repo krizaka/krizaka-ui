@@ -8,7 +8,7 @@ import { SiteFooter } from "./index";
 
 function Footer(props: Partial<React.ComponentProps<typeof SiteFooter>>) {
   return (
-    <SiteFooter current="orazaka" env="DEV" version="1.2.3" {...props}>
+    <SiteFooter current="orazaka" family env="DEV" version="1.2.3" {...props}>
       <SiteFooter.Column title="Orazaka">
         <SiteFooter.Link href="#how" active>How it works</SiteFooter.Link>
         <SiteFooter.Link href="#docs">Docs</SiteFooter.Link>
@@ -216,5 +216,23 @@ describe("SiteFooter", () => {
   it("marks no company page from another site (same path, other host) nor without a path", () => {
     render(<Footer current="orazaka" path="/story" />);
     expect(screen.getByRole("link", { name: familyLabels.en.company!.story }).getAttribute("aria-current")).toBeNull();
+  });
+
+  it("lists the family on the hub only: every other site links back to krizaka.com and nothing else (2026-10-22)", () => {
+    const { unmount } = render(<SiteFooter current="ui" />);
+    expect(screen.queryByRole("navigation", { name: /family|famille/i })).toBeNull();
+    expect(screen.getAllByRole("link").map((a) => a.getAttribute("href"))).toEqual(["https://www.krizaka.com"]);
+    unmount();
+    render(<SiteFooter current="krizaka" />);
+    expect(screen.getAllByRole("navigation").length).toBe(1);
+  });
+
+  it("filters the hub's Products column with `products` (the focus products), the current site always kept", () => {
+    render(<SiteFooter current="krizaka" products={["orazaka", "yomizaka"]} />);
+    const hrefs = screen.getAllByRole("link").map((a) => a.getAttribute("href") ?? "");
+    expect(hrefs.some((h) => h.includes("orazaka"))).toBe(true);
+    expect(hrefs.some((h) => h.includes("yomizaka"))).toBe(true);
+    expect(hrefs.some((h) => h.includes("orochia"))).toBe(false);
+    expect(hrefs.some((h) => h.includes("kachizaka"))).toBe(false);
   });
 });

@@ -480,6 +480,8 @@ export type NavBarFamilyProps = {
 };
 
 /**
+ * @deprecated No site carries the family switcher any more (2026-10-22): krizaka.com is the only way back between the Krizaka sites, through the footer's « A Krizaka project » line. Removed in the next minor; `krizaka/no-family-switcher` refuses it.
+ *
  * The family switcher, attached to the brand (place it right after `NavBar.Brand`): a chevron that opens every site of
  * Krizaka grouped — Krizaka · Products · Open source · GitHub — the current one marked. It opens on click, Enter, Space
  * or ↓ (never on hover); ↑ ↓ walk the sites, Escape closes and returns the focus. Hidden below `md`: place a second
