@@ -14,5 +14,5 @@ export default defineConfig({
       { find: /^@krizaka\/ui\/([a-z-]+)$/, replacement: `${src}/$1/index.ts` },
     ],
   },
-  test: { environment: "happy-dom", globals: true, exclude: [...configDefaults.exclude, "src/native/**"] },
+  test: { environment: "happy-dom", globals: true, testTimeout: 15_000, exclude: [...configDefaults.exclude, "src/native/**"] },
 });

@@ -5,7 +5,7 @@
 import type * as React from "react";
 import { tv } from "tailwind-variants";
 
-import { type MeterLevel, meterModel, type MeterOptimum, type MeterPart, type MeterThresholds } from "./model";
+import { type MeterLevel, meterModel, type MeterPart, type MeterThresholds } from "./model";
 
 export type { MeterPart };
 
@@ -60,7 +60,7 @@ export type MeterProps = Omit<React.ComponentProps<"div">, "children"> & {
    * Which end is good.
    * @default "low"
    */
-  optimum?: MeterOptimum;
+  optimum?: "low" | "high";
   /** Split into parts that add up to `max`: a stacked bar or ring, with its legend. */
   parts?: readonly MeterPart[];
   /**

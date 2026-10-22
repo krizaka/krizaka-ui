@@ -2,7 +2,7 @@ import * as React from "react";
 import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 
-import { type MeterLevel, meterModel, type MeterOptimum, type MeterPart, type MeterThresholds } from "../meter/model";
+import { type MeterLevel, meterModel, type MeterPart, type MeterThresholds } from "../meter/model";
 import { type Theme, useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -22,7 +22,7 @@ export type MeterProps = {
   /** The shares where the tone changes: below `low` good, up to `high` warning, past it the other end. */
   thresholds?: MeterThresholds;
   /** Which end is good: `low` (default: a quota) or `high` (a score). */
-  optimum?: MeterOptimum;
+  optimum?: "low" | "high";
   /** Split into parts that add up to `max`: a stacked bar or ring, with its legend. */
   parts?: readonly MeterPart[];
   /** bar (default) · ring. */
