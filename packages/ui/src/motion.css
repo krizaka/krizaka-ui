@@ -788,11 +788,9 @@ svg[data-kz-icon="ExternalIcon"] {
 @media (prefers-reduced-motion: reduce) { .kz-drop-overlay, .kz-drop-overlay-card { animation: none; } }
 
 /* ── WORKING (upload queue, task tray) ──────────────────────────────────────────────────────────────────────────────
-   What is working moves, nothing else (.kz-working): a row's progress fill shimmers, its status line breathes. The tray rises in.
+   What is working moves, nothing else (.kz-working): a row's progress fill shimmers (text never animates: contrast stays AA). The tray rises in.
    Reduced motion: no shimmer, no rise. */
 .kz-working { background-image: linear-gradient(100deg, transparent 30%, color-mix(in srgb, var(--kz-fg) 22%, transparent) 50%, transparent 70%); background-size: 200% 100%; background-repeat: no-repeat; animation: kz-shimmer 1.6s linear infinite; }
-span.kz-working { background: none; animation: kz-working-pulse 1.6s ease-in-out infinite; }
-@keyframes kz-working-pulse { 50% { opacity: 0.55; } }
 @keyframes kz-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 .kz-tray { animation: kz-tray-in var(--kz-motion-duration-base) var(--kz-motion-ease-out) both; }
 @keyframes kz-tray-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }

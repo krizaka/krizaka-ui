@@ -45,7 +45,7 @@ export function UploadQueue({ label, items, className, ...props }: UploadQueuePr
                 {item.result ? <span className="shrink-0">{item.result}</span> : null}
                 {item.trailing ? <span className="shrink-0">{item.trailing}</span> : null}
               </div>
-              <span className={cn("text-xs", item.status === QueueStatus.Failed ? "text-fg-danger" : "text-fg-secondary", working && "kz-working")}>{item.statusText}</span>
+              <span className={cn("text-xs", item.status === QueueStatus.Failed ? "text-fg-danger" : "text-fg-secondary")}>{item.statusText}</span>
               {working && progress !== undefined ? (
                 <div role="progressbar" aria-label={item.name} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)} className="h-1 overflow-hidden rounded-full bg-surface-3">
                   <div className="kz-working h-full rounded-full bg-accent" style={{ width: `${progress * 100}%` }} />
