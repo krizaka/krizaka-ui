@@ -1,5 +1,11 @@
 # @krizaka/icons
 
+## 0.9.0
+
+### Minor Changes
+
+- [#474](https://github.com/krizaka/krizaka-ui/pull/474) [`f354137`](https://github.com/krizaka/krizaka-ui/commit/f354137cca01e24652ec46ee9c25d250441d6f43) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat: the neighbourhood café — `EspressoIcon`, `PlantIcon`, `WindowIcon`, `StoopIcon`, `ChairIcon`, web and React Native, in the signature grammar (24 grid, 1.5 stroke, square caps, cut corners, one node) (krizaka-ui#472).
+
 ## 0.8.0
 
 ### Minor Changes
