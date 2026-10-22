@@ -42,6 +42,24 @@ describe("createApiClient", () => {
     expect(init.headers).not.toHaveProperty("Authorization");
   });
 
+  it("sends a FormData as multipart, without a JSON content type", async () => {
+    const fetchImpl = vi.fn(async () => json(201, {}));
+    const { api } = client(fetchImpl as unknown as typeof fetch);
+    const form = new FormData();
+    form.append("file", "x");
+    await api.call("/api/documents", { method: "POST", body: form });
+    const init = (fetchImpl.mock.calls[0] as unknown as [string, RequestInit])[1];
+    expect(init.body).toBe(form);
+    expect(init.headers).not.toHaveProperty("Content-Type");
+  });
+
+  it("gives the address and the headers of a request that is not JSON", async () => {
+    const { api } = client((async () => json(200, {})) as typeof fetch);
+    expect(api.url("/api/x")).toBe("https://api.example.com/api/x");
+    expect(await api.authHeaders()).toEqual({ Authorization: "Bearer tok", "Accept-Language": "fr-CA" });
+    expect(await client((async () => json(200, {})) as typeof fetch, null).api.authHeaders()).toEqual({ "Accept-Language": "fr-CA" });
+  });
+
   it("throws an ApiError carrying the status and the body", async () => {
     const { api } = client((async () => json(409, { error: "taken", code: "x" })) as typeof fetch);
     await expect(api.call("/x")).rejects.toMatchObject({ name: "ApiError", status: 409, message: "taken", body: { code: "x" } });

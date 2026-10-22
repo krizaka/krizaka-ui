@@ -13,6 +13,7 @@ export class ApiError extends Error {
 
 export interface ApiCall {
   method?: string;
+  /** A `FormData` goes as multipart (the runtime sets the boundary); anything else is sent as JSON. */
   body?: unknown;
   signal?: AbortSignal;
   headers?: Record<string, string>;
@@ -34,6 +35,10 @@ export interface ApiClientOptions {
 
 export interface ApiClient {
   call<T>(path: string, init?: ApiCall): Promise<T>;
+  /** The absolute address of a path on the product's API, for what is not JSON (a download, a media URL). */
+  url(path: string): string;
+  /** The headers a request outside `call` needs to be the signed-in person's (a file download). */
+  authHeaders(): Promise<Record<string, string>>;
   /** Called when the server no longer accepts the stored session (expired, suspended account). */
   setSignedOutHandler(handler: (() => void) | null): void;
 }
@@ -48,11 +53,17 @@ export function createApiClient(options: ApiClientOptions): ApiClient {
   const { session } = options;
   let onSignedOut: (() => void) | null = null;
   return {
+    url: (path) => `${options.baseUrl()}${path}`,
+    async authHeaders() {
+      const token = await session.readToken();
+      return { "Accept-Language": options.language(), ...(token ? { Authorization: `Bearer ${token}` } : {}) };
+    },
     setSignedOutHandler(handler) {
       onSignedOut = handler;
     },
     async call<T>(path: string, init: ApiCall = {}): Promise<T> {
       const token = await session.readToken();
+      const multipart = typeof FormData !== "undefined" && init.body instanceof FormData;
       const controller = new AbortController();
       const cancel = () => controller.abort();
       init.signal?.addEventListener("abort", cancel);
@@ -68,11 +79,11 @@ export function createApiClient(options: ApiClientOptions): ApiClient {
           headers: {
             Accept: "application/json",
             "Accept-Language": options.language(),
-            ...(init.body !== undefined ? { "Content-Type": "application/json" } : {}),
+            ...(init.body !== undefined && !multipart ? { "Content-Type": "application/json" } : {}),
             ...(token ? { Authorization: `Bearer ${token}` } : {}),
             ...init.headers,
           },
-          body: init.body !== undefined ? JSON.stringify(init.body) : undefined,
+          body: init.body === undefined || multipart ? (init.body as FormData | undefined) : JSON.stringify(init.body),
           credentials: "omit",
           signal: controller.signal,
         });
