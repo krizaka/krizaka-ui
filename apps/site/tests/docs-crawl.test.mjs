@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { CATEGORIES, parseArgs, pathsOfSitemap, pickSubset, summarize, toleratedBy } from "../scripts/docs-crawl.mjs";
+import { CATEGORIES, parseArgs, parseShard, pathsOfSitemap, pickShard, pickSubset, summarize, toleratedBy } from "../scripts/docs-crawl.mjs";
 
 const xml = `<urlset><url><loc>https://ui.krizaka.com/</loc></url><url><loc>https://ui.krizaka.com/components/button/</loc></url>
 <url><loc>https://ui.krizaka.com/components/button/</loc></url><url><loc>https://ui.krizaka.com/fr/components/button/</loc></url></urlset>`;
@@ -44,4 +44,16 @@ test("the options have defaults, and the subset and views are read", () => {
   assert.equal(o.subset, 12);
   assert.deepEqual(o.views, ["phone"]);
   assert.equal(parseArgs([]).lang, "both");
+});
+
+test("--shard i/n: the slices are disjoint, cover every page, and a malformed value is refused", () => {
+  const paths = Array.from({ length: 10 }, (_, i) => `/p${i}/`);
+  const slices = [1, 2, 3].map((index) => pickShard(paths, { index, count: 3 }));
+  assert.deepEqual(slices.flat().sort(), [...paths].sort());
+  assert.equal(new Set(slices.flat()).size, paths.length, "no page is crawled twice");
+  assert.deepEqual(pickShard(paths, null), paths);
+  assert.deepEqual(parseShard("2/3"), { index: 2, count: 3 });
+  assert.equal(parseShard(null), null);
+  for (const bad of ["0/3", "4/3", "x", "1/", "2"]) assert.throws(() => parseShard(bad), /--shard expects/);
+  assert.deepEqual(parseArgs(["--shard", "1/2"]).shard, { index: 1, count: 2 });
 });

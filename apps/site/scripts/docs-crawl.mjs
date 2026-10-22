@@ -17,6 +17,7 @@
             [--views desktop,phone]  default both
             [--subset <n>]           a fast subset: every non-component page plus n component pages (the PR check)
             [--only <substring>]     only the pages whose path contains it (debugging)
+            [--shard <i>/<n>]        only the i-th of n slices of the pages (CI runs the slices side by side)
             [--no-external]          do not check links to other sites
             [--concurrency <n>]      default 4
             [--out <dir>]            report.json, report.md and the screenshots of the pages with problems
@@ -52,6 +53,19 @@ export const TOLERATED = [
 
 const REACT_ERROR = /Minified React error #\d+|React error #\d+|Hydration failed|hydrat\w+ (error|mismatch)|did not match|Text content does not match|Maximum update depth|Cannot update a component|Each child in a list should have a unique "key"/i;
 
+/** `2/3` -> { index: 2, count: 3 }; null when absent. A malformed value is a mistake, not a silent full crawl. */
+export function parseShard(value) {
+  if (value == null) return null;
+  const m = /^(\d+)\/(\d+)$/.exec(value);
+  if (!m || Number(m[1]) < 1 || Number(m[1]) > Number(m[2])) throw new Error(`--shard expects i/n with 1 <= i <= n, got '${value}'`);
+  return { index: Number(m[1]), count: Number(m[2]) };
+}
+
+/** Slice `index` (1-based) of `count`: every count-th page, so the slices are disjoint and together cover every page. */
+export function pickShard(paths, shard) {
+  return shard ? paths.filter((_, k) => k % shard.count === shard.index - 1) : paths;
+}
+
 export function parseArgs(argv) {
   const get = (name, fallback) => (argv.includes(name) ? argv[argv.indexOf(name) + 1] : fallback);
   return {
@@ -61,6 +75,7 @@ export function parseArgs(argv) {
     views: get("--views", "desktop,phone").split(","),
     subset: get("--subset", null) ? Number(get("--subset")) : null,
     only: get("--only", null),
+    shard: parseShard(get("--shard", null)),
     external: !argv.includes("--no-external"),
     concurrency: Number(get("--concurrency", "4")),
     out: get("--out", null),
@@ -110,6 +125,7 @@ async function main() {
   if (opts.lang === "fr") paths = paths.filter((p) => p === "/fr" || p.startsWith("/fr/"));
   if (opts.only) paths = paths.filter((p) => p.includes(opts.only));
   if (opts.subset) paths = pickSubset(paths, opts.subset);
+  paths = pickShard(paths, opts.shard);
   console.log(`docs-crawl: ${paths.length} pages × ${opts.views.join("+")} on ${opts.base}`);
   if (opts.out) mkdirSync(opts.out, { recursive: true });
 
