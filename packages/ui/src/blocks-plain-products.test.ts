@@ -12,8 +12,9 @@ describe("products wear plain Krizaka UI (no notebook ink)", () => {
 
   it("re-inks the margin red with the brand's accent under every product brand, and only the products", () => {
     expect(rule).not.toBeNull();
-    const listed = rule![1]!.split(",").map((item) => item.trim().replace(".brand-", "")).sort();
-    expect(listed).toEqual([...productIds].sort());
+    const items = rule![1]!.split(",").map((item) => item.trim());
+    expect(items).toContain('[data-surface="product"]');
+    expect(items.filter((item) => item.startsWith(".brand-")).map((item) => item.replace(".brand-", "")).sort()).toEqual([...productIds].sort());
   });
 
   it.each(["krizaka"])("leaves the %s brand (the notebook sites) on the margin red", (id) => {
