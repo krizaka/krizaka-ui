@@ -40,8 +40,6 @@ export default defineConfig([
       card: "src/card/index.ts",
       stat: "src/stat/index.ts",
       "page-header": "src/page-header/index.ts",
-      // What reaches a person: categories by channels.
-      "notification-preferences": "src/notification-preferences/index.ts",
       // One day's appointments, with a « now » line.
       agenda: "src/agenda/index.ts",
       alert: "src/alert/index.ts",
@@ -171,6 +169,8 @@ export default defineConfig([
       tooltip: "src/tooltip/index.ts",
       tabs: "src/tabs/index.ts",
       router: "src/router/index.ts",
+      // What reaches a person: categories by channels.
+      "notification-preferences": "src/notification-preferences/index.ts",
       chip: "src/chip/index.ts",
       switch: "src/switch/index.ts",
       slider: "src/slider/index.ts",

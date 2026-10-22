@@ -27,6 +27,7 @@ export const notificationPreferences = tv({
 export type NotificationMatrix = Record<string, Record<string, boolean>>;
 
 export type NotificationChannel = {
+  /** Its key in the matrix (`app`, `email`). */
   id: string;
   /** The column's name (`In the app`, `By e-mail`). */
   label: string;
@@ -35,7 +36,9 @@ export type NotificationChannel = {
 };
 
 export type NotificationCategory = {
+  /** Its key in the matrix (`social`, `security`). */
   id: string;
+  /** The row's name. */
   label: string;
   /** What these notifications are, one line. */
   description?: string;
@@ -45,7 +48,9 @@ export type NotificationCategory = {
 };
 
 export type NotificationPreset = {
+  /** Its key (`everything`, `essentials`). */
   id: string;
+  /** The chip's words. */
   label: string;
   /** What the preset does, one sentence, shown while it is the one in force. */
   hint: string;
@@ -56,9 +61,13 @@ export type NotificationPreset = {
 export type NotificationPreferencesProps = {
   /** The group's accessible name (`Notification settings`). */
   label: string;
+  /** The columns: where a notification can go. */
   channels: readonly NotificationChannel[];
+  /** The rows: what can be sent. */
   categories: readonly NotificationCategory[];
+  /** What is on, by category then channel (controlled). */
   value: NotificationMatrix;
+  /** Called with the whole matrix after a switch or a preset. */
   onValueChange: (next: NotificationMatrix) => void;
   /** Quick settings above the matrix (`Everything`, `Essentials`, `Nothing`). */
   presets?: readonly NotificationPreset[];
