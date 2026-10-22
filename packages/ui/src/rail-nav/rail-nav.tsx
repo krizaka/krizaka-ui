@@ -19,10 +19,10 @@ export const railNav = tv({
     root:
       // Phone: a bottom tab bar, clear of the home indicator. Desktop: a sticky column that is only as wide as its icons.
       "fixed inset-x-0 bottom-0 z-40 flex h-[calc(3.5rem+env(safe-area-inset-bottom))] flex-row border-t border-border-subtle bg-surface-1 pb-[env(safe-area-inset-bottom)] " +
-      "md:sticky md:inset-auto md:top-0 md:bottom-auto md:z-auto md:h-dvh md:w-14 md:shrink-0 md:flex-col md:border-t-0 md:border-r md:bg-surface-1 md:pb-0 " +
+      "md:sticky md:overflow-x-clip md:inset-auto md:top-0 md:bottom-auto md:z-auto md:h-dvh md:w-14 md:shrink-0 md:flex-col md:border-t-0 md:border-r md:bg-surface-1 md:pb-0 " +
       "md:transition-[width] md:duration-300 motion-reduce:md:transition-none md:data-expanded:w-56",
     // The mark is the rail's on a desktop; hidden on a phone (the header carries it there).
-    mark: "hidden h-14 w-full shrink-0 items-center justify-center md:flex md:group-data-expanded/rail:justify-start md:group-data-expanded/rail:px-4",
+    mark: "hidden h-14 w-full shrink-0 items-center overflow-hidden justify-center md:flex md:group-data-expanded/rail:justify-start md:group-data-expanded/rail:px-4",
     group: "flex min-w-0 flex-row items-stretch md:flex-col md:items-center md:gap-1 md:px-1.5 md:group-data-expanded/rail:items-stretch",
     main: "max-md:grow-(--rail-n) md:flex-1 md:py-2",
     foot: "max-md:grow-(--rail-n) md:border-t md:border-border-subtle md:py-2",

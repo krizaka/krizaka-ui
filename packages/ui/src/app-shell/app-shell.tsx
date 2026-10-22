@@ -22,14 +22,16 @@ export const appShell = tv({
   slots: {
     root: "flex min-h-dvh w-full bg-surface-0 text-fg data-desktop:h-[var(--kz-window-height,100dvh)] data-desktop:overflow-hidden",
     sidebar:
-      "sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-border-subtle bg-surface-1 transition-[width] duration-300 motion-reduce:transition-none md:flex " +
+      "sticky top-0 hidden h-dvh shrink-0 flex-col overflow-x-clip border-r border-border-subtle bg-surface-1 transition-[width] duration-300 motion-reduce:transition-none md:flex " +
       "w-64 data-collapsed:w-[4.25rem] " +
       "[[data-desktop]_&]:static [[data-desktop]_&]:flex [[data-desktop]_&]:h-auto [[data-desktop]_&]:w-60 [[data-desktop]_&]:select-none [[data-desktop]_&]:data-collapsed:w-[4.75rem]",
     titlebar: "h-[var(--kz-titlebar-inset,1.75rem)] shrink-0",
     drawer:
       "kz-dialog fixed inset-y-0 left-0 z-50 flex w-[min(20rem,88vw)] flex-col border-r border-border-default bg-surface-1 pl-[env(safe-area-inset-left)] shadow-lg focus:outline-hidden",
     overlay: "kz-overlay fixed inset-0 z-50 bg-overlay",
-    brand: "flex h-14 shrink-0 items-center gap-2.5 px-4 font-display text-[15px] font-bold tracking-tight [[data-collapsed]_&]:justify-center [[data-collapsed]_&]:px-0 [[data-desktop]_&]:h-11",
+    brand:
+      "flex h-14 shrink-0 items-center gap-2.5 overflow-hidden whitespace-nowrap px-4 font-display text-[15px] font-bold tracking-tight transition-[font-size,gap,padding] duration-300 motion-reduce:transition-none [[data-desktop]_&]:h-11 " +
+      "[[data-collapsed]_&]:justify-center [[data-collapsed]_&]:gap-0 [[data-collapsed]_&]:px-0 [[data-collapsed]_&]:text-[0px] [[data-collapsed]_&_a]:gap-0 [[data-collapsed]_&_a]:text-[0px]",
     nav: "flex min-h-0 flex-1 flex-col gap-0.5 overflow-y-auto px-2 py-2",
     group: "mt-3 mb-1 px-3 font-mono text-[10.5px] font-semibold text-fg-secondary [[data-collapsed]_&]:sr-only",
     item:
@@ -44,7 +46,9 @@ export const appShell = tv({
     itemBadge:
       "ml-auto inline-flex min-w-5 items-center justify-center rounded-sm bg-accent px-1.5 text-[11px] font-bold text-on-accent " +
       "[[data-collapsed]_&]:absolute [[data-collapsed]_&]:right-1.5 [[data-collapsed]_&]:top-1 [[data-collapsed]_&]:min-w-4 [[data-collapsed]_&]:px-1 [[data-collapsed]_&]:text-[10px]",
-    footer: "shrink-0 border-t border-border-subtle p-2",
+    footer: "shrink-0 overflow-hidden border-t border-border-subtle p-2",
+    // The words the app puts in the footer (account, version): a text-only footer fades out first (a footer with controls stays, clipped) and the box narrows with the sidebar, so nothing spills over the content; they stay in the tree for screen readers.
+    footerContent: "max-w-full overflow-hidden whitespace-nowrap opacity-100 transition-[max-width,opacity] duration-300 motion-reduce:transition-none [[data-collapsed]_&:not(:has(a,button,input,[role=button]))]:max-w-0 [[data-collapsed]_&:not(:has(a,button,input,[role=button]))]:opacity-0 [[data-collapsed]_&:not(:has(a,button,input,[role=button]))]:duration-150",
     collapse:
       "hidden h-9 w-full items-center gap-2 rounded-lg px-3 text-xs font-medium text-fg-secondary hover:bg-surface-2 hover:text-fg md:flex " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring [[data-collapsed]_&]:justify-center [[data-collapsed]_&]:px-0",
@@ -161,7 +165,7 @@ function SidebarContent({ brand, children, footer, collapseLabels, closeLabel }:
       <div className={s.nav()}>{children}</div>
       {(footer || (collapseLabels && !inDrawer)) && (
         <div className={s.footer()}>
-          {footer}
+          {footer && <div className={s.footerContent()}>{footer}</div>}
           {collapseLabels && !inDrawer && (
             <button type="button" className={s.collapse()} aria-expanded={!collapsed} onClick={() => setCollapsed(!collapsed)}>
               <ChevronGlyph direction={collapsed ? "right" : "left"} className="h-4 w-4" />
