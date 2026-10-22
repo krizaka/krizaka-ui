@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.47.0
+
+### Minor Changes
+
+- [#504](https://github.com/krizaka/krizaka-ui/pull/504) [`dab0bb9`](https://github.com/krizaka/krizaka-ui/commit/dab0bb93c5dd7eb6b2dbc45afbe1308a8097a96c) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/account-settings`: `AccountProfileCard` (picture and change action, name, e-mail with its verification, member since), `AvatarPicker` (a radiogroup grid of the family's default pictures with an upload slot), `ChoiceCards` (a single choice as cards with icon, title, description) and `LanguagePicker` (labelled, native names). `SettingsSection` gets `save`: one inline save per section (enabled while dirty, saving / saved with Undo / error as a live region), with `useSaveStatus` and `SaveStatus`. Section patterns (security, subscription, storage, my data) as registry examples (krizaka-ui#502).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.47.0
+  - @krizaka/tokens@3.47.0
+
 ## 3.46.0
 
 ### Minor Changes
