@@ -40,6 +40,8 @@ export default defineConfig([
       card: "src/card/index.ts",
       stat: "src/stat/index.ts",
       "page-header": "src/page-header/index.ts",
+      // One day's appointments, with a « now » line.
+      agenda: "src/agenda/index.ts",
       alert: "src/alert/index.ts",
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",

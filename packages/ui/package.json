@@ -137,6 +137,10 @@
       "types": "./dist/page-header.d.ts",
       "import": "./dist/page-header.js"
     },
+    "./agenda": {
+      "types": "./dist/agenda.d.ts",
+      "import": "./dist/agenda.js"
+    },
     "./alert": {
       "types": "./dist/alert.d.ts",
       "import": "./dist/alert.js"
@@ -1078,6 +1082,16 @@
       "name": "./page-header",
       "path": "dist/page-header.js",
       "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./agenda",
+      "path": "dist/agenda.js",
+      "limit": "2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

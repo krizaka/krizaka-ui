@@ -9,6 +9,7 @@
 
 /** Every documented component: the web primitives (one entry of the package each) and the native-only ones. */
 export type ComponentName =
+  | "agenda"
   | "achievement"
   | "anatomy-plate"
   | "bird-plate"
