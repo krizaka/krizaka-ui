@@ -1,5 +1,19 @@
 # @krizaka/ui
 
+## 3.45.0
+
+### Minor Changes
+
+- [#499](https://github.com/krizaka/krizaka-ui/pull/499) [`c2e5d17`](https://github.com/krizaka/krizaka-ui/commit/c2e5d17c9cce68d5a5be8e9d7a42b5fc69ce45b9) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `PageTransition` in `@krizaka/ui/motion`: wrap the root layout's `children` once and a navigation cross-fades and rises (React's `ViewTransition` where the runtime has it, plain children otherwise), from the `--kz-motion-*` tokens; `motion.css` (« PAGE TRANSITIONS ») turns every view transition of the document off under `prefers-reduced-motion`.
+
+### Patch Changes
+
+- [#501](https://github.com/krizaka/krizaka-ui/pull/501) [`2c7ff73`](https://github.com/krizaka/krizaka-ui/commit/2c7ff7346a4a38228784c5e9de072883e5153628) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Web and native share their logic: `form/core` now holds `FormField`, `FieldArray` and `Watch`; `meter/model` the Meter's ratio, tone, words and ring arcs; `vertical-video/model` the labels and the shared props. No API change.
+- Updated dependencies []:
+  - @krizaka/query@0.2.1
+  - @krizaka/tailwind@3.45.0
+  - @krizaka/tokens@3.45.0
+
 ## 3.44.0
 
 ### Minor Changes
