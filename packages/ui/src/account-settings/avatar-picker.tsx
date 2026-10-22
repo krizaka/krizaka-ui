@@ -49,8 +49,8 @@ export function AvatarPicker({ label, showLabel, description, options, upload, c
           value={option.id}
           aria-label={option.label}
           className={cn(
-            "group/avatar relative aspect-square w-full rounded-full outline-none transition-[transform,box-shadow] duration-200 motion-reduce:transition-none",
-            "ring-1 ring-border-default hover:scale-[1.04] focus-visible:focus-ring data-[state=checked]:ring-2 data-[state=checked]:ring-accent motion-reduce:hover:scale-100",
+            "group/avatar relative aspect-square w-full rounded-full outline-none transition-shadow duration-200 motion-reduce:transition-none",
+            "ring-1 ring-border-default hover:ring-border-strong focus-visible:focus-ring data-[state=checked]:ring-2 data-[state=checked]:ring-accent",
           )}
         >
           <img src={pictureOf(option)} alt="" draggable={false} className="h-full w-full rounded-full bg-surface-3 object-cover" />
