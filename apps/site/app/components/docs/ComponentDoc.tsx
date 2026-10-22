@@ -125,7 +125,7 @@ function PlatformTabs({ item, t, web, native }: { item: RegistryItem; t: Transla
   const c = t.docs.component;
   if (item.web && item.native) {
     return (
-      <TabsRoot defaultValue="web" className="my-4 gap-3">
+      <TabsRoot defaultValue="web" routeKey="platform" routeValues={["web", "native"]} className="my-4 gap-3">
         <TabsList aria-label={c.platformsLabel}>
           <TabsTrigger value="web">{c.web}</TabsTrigger>
           <TabsTrigger value="native">{c.native}</TabsTrigger>
@@ -225,6 +225,7 @@ export async function ComponentDoc({ name, locale, notes }: { name: string; loca
         t={t}
         web={
           item.web && (
+            // @ephemeral: the package manager of an install snippet, not a view worth sharing
             <TabsRoot defaultValue="npm" variant="pills" className="kz-install-tabs">
               <TabsList aria-label={c.installation}>
                 <TabsTrigger value="npm">{c.installWays.npm}</TabsTrigger>

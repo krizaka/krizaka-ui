@@ -78,6 +78,7 @@ export function Playground({ name, controls, words }: { name: PlaygroundName; co
               <span className="kz-play-label" id={`${id}-${control.prop}`}>
                 {control.prop}
               </span>
+              {/* @ephemeral: a playground control, it edits a live preview and is never an address */}
               <Chip.Group type="single" required size="sm" label={control.prop} value={String(values[control.prop])} onValueChange={(v) => v && setValues((s) => ({ ...s, [control.prop]: v }))}>
                 {control.options.map((option) => (
                   <Chip key={option} value={option}>
