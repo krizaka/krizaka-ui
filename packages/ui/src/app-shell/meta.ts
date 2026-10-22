@@ -31,6 +31,7 @@ export const meta = {
       { name: "orochia-studio", title: "Orochia studio", description: "Elena's home in the creator studio: the shell around this week's figures, the payout, the auction and the sales.", template: true, purpose: "operate", why: "A creator moves between the sections of an app and reads this week's figures at home." },
       { name: "admin-console", title: "Administration console", description: "A review queue in a console: sections, counts and a sortable table with bulk actions (cards on a phone).", template: true, purpose: "operate", why: "An administrator works a queue: scans it, sorts it and acts on many rows at once." },
       { name: "basic", title: "The shell alone", description: "Sidebar with a group and a count, header with an action, the content." },
+      { name: "collapse-overflow", title: "A brand name and a text footer that collapse cleanly", description: "Collapsed, only the mark shows; the name and the footer text fade and narrow with the sidebar, never spilling over the content." },
       { name: "desktop", title: "Desktop window", description: "The Orazaka Mac app's window (`desktop`): the title bar moves the window and clears the traffic lights, no drawer, the desktop's density, ⌘1–⌘3 to the sections." },
     ],
   },
