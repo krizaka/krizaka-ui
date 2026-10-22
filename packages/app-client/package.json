@@ -1,5 +1,5 @@
 {
-  "name": "@krizaka/app-shell",
+  "name": "@krizaka/app-client",
   "version": "0.0.0",
   "description": "What every Krizaka Expo app shares: the bearer session over a secure-storage port, the discovery client of the signed services manifest, and the API client (bearer, timeout, 401 handling). Ports in, no native module imported.",
   "keywords": [
@@ -10,12 +10,12 @@
     "service-discovery",
     "api-client"
   ],
-  "homepage": "https://ui.krizaka.com/packages/app-shell",
+  "homepage": "https://ui.krizaka.com/packages/app-client",
   "bugs": "https://github.com/krizaka/krizaka-ui/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/krizaka/krizaka-ui.git",
-    "directory": "packages/app-shell"
+    "directory": "packages/app-client"
   },
   "license": "Apache-2.0",
   "author": "Krizaka (https://www.krizaka.com)",

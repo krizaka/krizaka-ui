@@ -1,6 +1,6 @@
-# @krizaka/app-shell — Package Contract (agent-neutral)
+# @krizaka/app-client — Package Contract (agent-neutral)
 
-> Published on npm as **`@krizaka/app-shell`**. Lives in `packages/app-shell` of the krizaka-ui monorepo: the root
+> Published on npm as **`@krizaka/app-client`**. Lives in `packages/app-client` of the krizaka-ui monorepo: the root
 > [`AGENTS.md`](../../AGENTS.md) applies first. Decision: [krizaka/.github ADR-004](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-004-expo-app-shell.md).
 
 ## 1. What belongs here
@@ -21,7 +21,7 @@
 
 ## 3. Quality gates
 
-- `pnpm turbo run check --filter=@krizaka/app-shell`: ESLint and `tsc`, tests (Vitest, **100 % coverage enforced**), build,
+- `pnpm turbo run check --filter=@krizaka/app-client`: ESLint and `tsc`, tests (Vitest, **100 % coverage enforced**), build,
   size, publint + attw (`esm-only`).
 - **Size budget** (gzip): `.` ≤ 3 kB.
 - Published surface: `.`, `./package.json`. Changing a header, the 401 rule, the timeout message or the storage key

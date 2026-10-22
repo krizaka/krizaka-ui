@@ -1,10 +1,10 @@
 ---
-title: App shell
+title: App client
 description: What every Krizaka Expo app shares, written once — the bearer session over a storage port, the discovery client with a product's address, and the API client with its timeout and 401 handling.
 ---
 
 Three Expo apps had copied the same session, discovery and API code, and two more were starting.
-`@krizaka/app-shell` is that code, once, with **ports in and no native module imported**: the app passes
+`@krizaka/app-client` is that code, once, with **ports in and no native module imported**: the app passes
 `expo-secure-store`, its fetch and its language.
 
 ```ts

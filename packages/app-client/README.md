@@ -1,10 +1,10 @@
-# @krizaka/app-shell
+# @krizaka/app-client
 
 What every Krizaka **Expo app** shares, written once: the bearer session, the discovery client and the API client.
 Decision: [ADR-004](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-004-expo-app-shell.md).
 
 ```bash
-npm install @krizaka/app-shell
+npm install @krizaka/app-client
 ```
 
 ESM only, Node ≥ 22 / React Native (Hermes). The package imports no native module: the app passes the adapters.
@@ -12,7 +12,7 @@ ESM only, Node ≥ 22 / React Native (Hermes). The package imports no native mod
 ```ts
 import * as SecureStore from "expo-secure-store";
 import Constants from "expo-constants";
-import { createAppDiscovery, createSessionStore, createApiClient, secureStorage } from "@krizaka/app-shell";
+import { createAppDiscovery, createSessionStore, createApiClient, secureStorage } from "@krizaka/app-client";
 import { createAppConfigClient } from "@krizaka/app-config/client";
 
 const storage = secureStorage(SecureStore);
