@@ -64,7 +64,7 @@ jobs:
   site:
     # ui.krizaka.com (apps/site), built from the packages of this commit: lint (with gen-ui-docs --check), types, tests
     # (the IA, the URL map, the registries' completeness) and the static export. Deployed by DigitalOcean on push to main.
-    name: Documentation site (ui.krizaka.com)
+    name: Documentation site - build, lint, types, tests, SEO
     needs: changes
     if: ${{ !cancelled() && needs.changes.outputs.code != 'false' }}
     runs-on: ubuntu-latest
@@ -90,30 +90,93 @@ jobs:
       - name: The family SEO contract on the export (krizaka-com AGENTS.md §2.4)
         run: |
           python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 &
-          for i in $(seq 1 20); do curl -fsS -o /dev/null http://localhost:4600/ && break; sleep 0.5; done
+          for _ in $(seq 1 20); do curl -fsS -o /dev/null http://localhost:4600/ && break; sleep 0.5; done
           node apps/site/scripts/check-seo-family.mjs --base http://localhost:4600 --host https://ui.krizaka.com --limit 400
-      - name: The look of the top pages in a browser (desktop + phone, dark + light)
-        run: |
-          pnpm --filter @krizaka/storybook exec playwright install --with-deps chromium
-          curl -fsS -o /dev/null http://localhost:4600/ || { python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 & sleep 2; }
-          node apps/site/scripts/crawl-check.mjs --base http://localhost:4600 --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')"
-      - name: Every example of a sample of pages, driven in a browser (apps/site/scripts/docs-crawl.mjs; the full crawl is docs-crawl.yml)
+      - name: Keep the export for the browser checks
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: site-out
+          path: apps/site/out
+          retention-days: 1
+
+
+  site-docs-crawl:
+    # The documentation crawl, in three slices side by side (the crawl is the longest step: 8 minutes in one piece).
+    name: ${{ format('Documentation crawl {0}/3', matrix.shard) }}
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
+    needs: [changes, site]
+    if: ${{ !cancelled() && needs.changes.outputs.code != 'false' && needs.site.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 22
+          cache: pnpm
+      # Only what the browser checks need: Playwright (storybook's pinned copy) and the scripts' own dependencies.
+      - run: pnpm install --frozen-lockfile --prefer-offline --filter @krizaka/storybook
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: site-out
+          path: apps/site/out
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - run: pnpm --filter @krizaka/storybook exec playwright install --with-deps chromium
+      - name: Every example of a sample of pages (slice ${{ matrix.shard }}/3), driven in a browser (apps/site/scripts/docs-crawl.mjs; the full crawl is docs-crawl.yml)
         # Opens the pages like a reader: console and React errors, failed requests, examples that render nothing, playground
         # controls that change nothing, copy buttons that copy nothing, dead links and anchors, a page that scrolls sideways,
         # an example that throws on click or focus. Every page that is not a component page, and 24 component pages (120, both
         # languages, after a merge to main).
         run: |
           curl -fsS -o /dev/null http://localhost:4600/ || { python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 & sleep 2; }
-          node apps/site/scripts/docs-crawl.mjs --base http://localhost:4600 --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')" ${{ github.event_name == 'pull_request' && '--subset 24 --lang en' || '--subset 120' }} --no-external --concurrency 3 --out docs-crawl-report
+          node apps/site/scripts/docs-crawl.mjs --base http://localhost:4600 --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')" ${{ github.event_name == 'pull_request' && '--subset 24 --lang en' || '--subset 120' }} --shard ${{ matrix.shard }}/3 --no-external --concurrency 3 --out docs-crawl-report
       - name: The crawler finds what it promises (pages made to be wrong)
         run: node apps/site/scripts/docs-crawl.selftest.mjs --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')"
       - name: Upload the documentation crawl report
         if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
-          name: docs-crawl-report
+          name: docs-crawl-report-${{ matrix.shard }}
           path: docs-crawl-report
           if-no-files-found: ignore
+
+  site-layout:
+    # The look of the top pages, the home's geometry and the motion check: one serial leg beside the crawl slices.
+    name: Documentation site - layout and motion
+    needs: [changes, site]
+    if: ${{ !cancelled() && needs.changes.outputs.code != 'false' && needs.site.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 22
+          cache: pnpm
+      # Only what the browser checks need: Playwright (storybook's pinned copy) and the scripts' own dependencies.
+      - run: pnpm install --frozen-lockfile --prefer-offline --filter @krizaka/storybook
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: site-out
+          path: apps/site/out
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - run: pnpm --filter @krizaka/storybook exec playwright install --with-deps chromium
+      - name: The look of the top pages in a browser (desktop + phone, dark + light)
+        run: |
+          pnpm --filter @krizaka/storybook exec playwright install --with-deps chromium
+          curl -fsS -o /dev/null http://localhost:4600/ || { python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 & sleep 2; }
+          node apps/site/scripts/crawl-check.mjs --base http://localhost:4600 --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')"
       - name: The home's showcase geometry (the clip fills its tile, plans, chat, progress, nothing cut)
         run: |
           curl -fsS -o /dev/null http://localhost:4600/ || { python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 & sleep 2; }
@@ -122,6 +185,22 @@ jobs:
         run: |
           curl -fsS -o /dev/null http://localhost:4600/ || { python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 & sleep 2; }
           node apps/site/scripts/motion-check.mjs --base http://localhost:4600 --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')"
+
+  site-gate:
+    # The required check keeps its name « Documentation site (ui.krizaka.com) » (branch protection). Green when the build job and
+    # every browser job succeeded; skipped (which passes) when the changes gate said the change needs none of them.
+    name: Documentation site (ui.krizaka.com)
+    needs: [changes, site, site-docs-crawl, site-layout]
+    if: ${{ !cancelled() && needs.changes.outputs.code != 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions: {}
+    env:
+      RESULTS: ${{ needs.site.result }} ${{ needs.site-docs-crawl.result }} ${{ needs.site-layout.result }}
+    steps:
+      - run: |
+          echo "results: $RESULTS"
+          for r in $RESULTS; do [ "$r" = success ] || { echo "::error::$r"; exit 1; }; done
 
   realtime:
     # @krizaka/realtime against real servers: two buses per adapter standing for two app instances (PostgreSQL
