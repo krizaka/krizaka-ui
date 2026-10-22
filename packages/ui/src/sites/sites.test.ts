@@ -28,11 +28,11 @@ describe("sites — the Krizaka family", () => {
     ]);
   });
 
-  it("says each kind and status: the company, five products (Yasakia and Yomizaka in development, Yororis under construction), open source", () => {
+  it("says each kind and status: the company, five products (Yasakia, Yororis and Yomizaka in development), open source", () => {
     expect(siteById("krizaka").kind).toBe("company");
     expect(sites.filter((s) => s.kind === "product").map((s) => s.id)).toEqual(["orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"]);
     expect(siteById("yasakia").status).toBe("development");
-    expect(siteById("yororis").status).toBe("construction");
+    expect(siteById("yororis").status).toBe("development");
     expect(siteById("yomizaka").status).toBe("development");
     // In development, with a www site each.
     for (const id of ["kachizaka", "akinaza"] as const) {
@@ -80,7 +80,7 @@ describe("sites — the Krizaka family", () => {
   it("keeps Orochia's line neutral and Yororis' within its lexicon (never care, therapy or a waiting list)", () => {
     for (const t of Object.values(familyLabels)) {
       expect(t.descriptions.orochia).not.toMatch(/18\+|adult|adulte|explicit|nsfw|sex/i);
-      const yororis = `${t.descriptions.yororis} ${t.status.construction}`;
+      const yororis = `${t.descriptions.yororis} ${t.status.development}`;
       expect(yororis).not.toMatch(/th[ée]rap|psy|soin|care|sant[ée] mentale|mental health|clini|m[ée]dic|traitement|treatment|coach|beta|bêta|waiting list|liste d.attente|sign.?up|inscri|coming soon|bientôt/i);
     }
     expect(familyLabels.en.status.construction).toBe("Under construction");
