@@ -9,7 +9,6 @@ import { describe, expect, it } from "vitest";
 
 // The section heading is itself a comment: find it in the raw file, strip comments only from the section.
 const raw = readFileSync(join(import.meta.dirname, "..", "motion.css"), "utf8");
-const css = raw.replace(/\/\*[\s\S]*?\*\//g, "");
 const section = raw.slice(raw.indexOf("COMPONENT TRANSITIONS")).replace(/\/\*[\s\S]*?\*\//g, "");
 
 const tabsSource = readFileSync(join(import.meta.dirname, "..", "tabs", "tabs.tsx"), "utf8");
