@@ -202,6 +202,19 @@ jobs:
           echo "results: $RESULTS"
           for r in $RESULTS; do [ "$r" = success ] || { echo "::error::$r"; exit 1; }; done
 
+  duplication:
+    # No copy-pasted code (org rule 2026-10-22): jscpd with the shared thresholds; the duplicated lines of dup-ratchet.json may only go down.
+    name: Duplicate code
+    needs: changes
+    if: ${{ !cancelled() && needs.changes.outputs.code != 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with: { node-version: 22 }
+      - uses: krizaka/.github/actions/dup-check@1cb2e1b6f572ba712083cb6f05fd041370c5ea0b # v1.5.0
+
   realtime:
     # @krizaka/realtime against real servers: two buses per adapter standing for two app instances (PostgreSQL
     # LISTEN/NOTIFY through pgChannel, Redis protocol on Valkey). Not a required check; it fails the run like any job.
