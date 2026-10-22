@@ -187,21 +187,20 @@ jobs:
           node apps/site/scripts/motion-check.mjs --base http://localhost:4600 --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')"
 
   site-gate:
-    # The required check keeps its name « Documentation site (ui.krizaka.com) » (branch protection): it is green when the
-    # build job and every browser job succeeded, or were skipped by the changes gate.
+    # The required check keeps its name « Documentation site (ui.krizaka.com) » (branch protection). Green when the build job and
+    # every browser job succeeded; skipped (which passes) when the changes gate said the change needs none of them.
     name: Documentation site (ui.krizaka.com)
     needs: [changes, site, site-docs-crawl, site-layout]
-    if: ${{ always() }}
+    if: ${{ !cancelled() && needs.changes.outputs.code != 'false' }}
     runs-on: ubuntu-latest
     timeout-minutes: 2
     permissions: {}
     env:
-      CODE: ${{ needs.changes.outputs.code }}
       RESULTS: ${{ needs.site.result }} ${{ needs.site-docs-crawl.result }} ${{ needs.site-layout.result }}
     steps:
       - run: |
-          echo "code=$CODE results=$RESULTS"
-          for r in $RESULTS; do case "$r" in success) ;; skipped) [ "$CODE" = false ] || { echo "::error::a job was skipped although the change needs the site checks"; exit 1; } ;; *) echo "::error::$r"; exit 1 ;; esac; done
+          echo "results: $RESULTS"
+          for r in $RESULTS; do [ "$r" = success ] || { echo "::error::$r"; exit 1; }; done
 
   realtime:
     # @krizaka/realtime against real servers: two buses per adapter standing for two app instances (PostgreSQL
