@@ -169,6 +169,8 @@ export default defineConfig([
       tooltip: "src/tooltip/index.ts",
       tabs: "src/tabs/index.ts",
       router: "src/router/index.ts",
+      // What reaches a person: categories by channels.
+      "notification-preferences": "src/notification-preferences/index.ts",
       chip: "src/chip/index.ts",
       switch: "src/switch/index.ts",
       slider: "src/slider/index.ts",

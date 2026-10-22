@@ -137,6 +137,10 @@
       "types": "./dist/page-header.d.ts",
       "import": "./dist/page-header.js"
     },
+    "./notification-preferences": {
+      "types": "./dist/notification-preferences.d.ts",
+      "import": "./dist/notification-preferences.js"
+    },
     "./agenda": {
       "types": "./dist/agenda.d.ts",
       "import": "./dist/agenda.js"
@@ -1099,6 +1103,13 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./notification-preferences",
+      "path": "dist/notification-preferences.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
     },
     {
       "name": "./agenda",
