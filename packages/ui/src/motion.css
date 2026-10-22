@@ -711,3 +711,47 @@ svg[data-kz-icon="ExternalIcon"] {
   .kz-iso-item > .kz-iso-lift, .kz-iso-tip { transition: none; }
   [data-kz-arrive], tr:has([data-kz-arrive]), li:has(> [data-kz-arrive]), .kz-grow svg { animation: none !important; }
 }
+
+/* ── COMPONENT TRANSITIONS (docs/direction-2027.md, step b) ─────────────────────────────────────────────────────────
+   Overlays, panels and tabs enter and leave with the platform: @starting-style + allow-discrete for the enter, a
+   keyframe animation for the exit (Radix Presence keeps an element mounted only while it runs an animation). The
+   durations and easings are the --kz-motion-* tokens (defined in @krizaka/tokens; the fallbacks below stand until then).
+   Reduced motion: no animation, no transition — the change is instant. */
+:root {
+  --kz-motion-duration-fast: 150ms;
+  --kz-motion-duration-base: 220ms;
+  --kz-motion-ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --kz-motion-ease-in: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.kz-overlay {
+  transition: opacity var(--kz-motion-duration-base) var(--kz-motion-ease-out), display var(--kz-motion-duration-base), overlay var(--kz-motion-duration-base);
+  transition-behavior: allow-discrete;
+}
+.kz-overlay[data-state="open"] { opacity: 1; }
+@starting-style { .kz-overlay[data-state="open"] { opacity: 0; } }
+.kz-overlay[data-state="closed"] { animation: kz-overlay-out var(--kz-motion-duration-fast) var(--kz-motion-ease-in) both; }
+@keyframes kz-overlay-out { from { opacity: 1; } to { opacity: 0; } }
+
+.kz-dialog,
+.kz-popover {
+  transition: opacity var(--kz-motion-duration-base) var(--kz-motion-ease-out), transform var(--kz-motion-duration-base) var(--kz-motion-ease-out), display var(--kz-motion-duration-base), overlay var(--kz-motion-duration-base);
+  transition-behavior: allow-discrete;
+}
+.kz-dialog[data-state="open"],
+.kz-popover[data-state="open"] { opacity: 1; transform: none; }
+@starting-style {
+  .kz-dialog[data-state="open"],
+  .kz-popover[data-state="open"] { opacity: 0; transform: scale(0.98); }
+}
+.kz-dialog[data-state="closed"] { animation: kz-dialog-out var(--kz-motion-duration-fast) var(--kz-motion-ease-in) both; }
+.kz-popover[data-state="closed"] { animation: kz-popover-out var(--kz-motion-duration-fast) var(--kz-motion-ease-in) both; }
+@keyframes kz-dialog-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: scale(0.98); } }
+@keyframes kz-popover-out { from { opacity: 1; } to { opacity: 0; } }
+
+.kz-tabs-panel { animation: kz-tabs-in var(--kz-motion-duration-base) var(--kz-motion-ease-out) both; }
+@keyframes kz-tabs-in { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .kz-overlay, .kz-dialog, .kz-popover, .kz-tabs-panel { animation: none; transition: none; }
+}
