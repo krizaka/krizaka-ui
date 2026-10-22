@@ -71,5 +71,8 @@ const noSpill: NonNullable<Story["play"]> = async ({ canvasElement }) => {
   if (problems.length) throw new Error(`text spills out of the collapsing sidebar: ${problems.join("; ")}`);
   const brand = nav.querySelector("a");
   if (brand && brand.getBoundingClientRect().width > 40) throw new Error("the brand name still shows beside the mark once collapsed");
+  // Back to the open sidebar, at rest: the story's screenshot is then taken in a settled state.
+  toggle.click();
+  await new Promise((resolve) => setTimeout(resolve, 600));
 };
 export const CollapseNoSpill: Story = { render: () => <CollapseOverflowExample />, play: noSpill };
