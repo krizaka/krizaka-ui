@@ -755,3 +755,16 @@ svg[data-kz-icon="ExternalIcon"] {
 @media (prefers-reduced-motion: reduce) {
   .kz-overlay, .kz-dialog, .kz-popover, .kz-tabs-panel { animation: none; transition: none; }
 }
+
+/* ── PAGE TRANSITIONS ───────────────────────────────────────────────────────────────────────────────────────────────
+   <PageTransition> (@krizaka/ui/motion) gives the page content the view-transition-class .kz-page: the old page leaves
+   quickly, the new one cross-fades in with a short rise. Tokens only. Reduced motion: the page changes at once, and every
+   view transition of the document (shared elements included) loses its animation. */
+::view-transition-old(.kz-page) { animation: kz-page-out var(--kz-motion-duration-fast) var(--kz-motion-ease-in) both; }
+::view-transition-new(.kz-page) { animation: kz-page-in var(--kz-motion-duration-base) var(--kz-motion-ease-out) both; }
+@keyframes kz-page-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes kz-page-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}

@@ -1,5 +1,6 @@
 /** @krizaka/ui/motion — the motion signature's conductor (`MotionObserver`) and `RotatingWord`; with "@krizaka/ui/motion.css". */
 export { MotionObserver, type MotionObserverProps } from "./MotionObserver";
+export { PAGE_TRANSITION_CLASS, PageTransition, type PageTransitionProps } from "./PageTransition";
 export { RotatingWord, type RotatingWordProps } from "./RotatingWord";
 export {
   canViewTransition,
