@@ -22,3 +22,12 @@ static_sites:
       - key: NODE_OPTIONS
         value: --max-old-space-size=6144
         scope: BUILD_TIME
+
+# Explicit, as in the live app: every path goes to the site.
+ingress:
+  rules:
+    - match:
+        path:
+          prefix: /
+      component:
+        name: site
