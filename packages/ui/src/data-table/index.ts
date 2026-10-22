@@ -13,6 +13,7 @@ export {
   useDataTable,
 } from "./data-table";
 export { type CellValue, compareValues, type DataTableFilterState, type DataTableInstance, type FilterValue } from "./engine";
+export { decodeFilter, decodeSort, encodeFilter, encodeSort, readTable, type RouteSort, writeTable } from "./route-codec";
 export {
   DataTableColumnsMenu,
   type DataTableColumnsMenuProps,

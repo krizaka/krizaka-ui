@@ -19,7 +19,7 @@ export const meta = {
     { when: "For a gallery of media where the picture matters more than the columns.", use: "virtual" },
     { when: "For a list on a phone app: FlashList, through the native list.", use: "list" },
   ],
-  bestPractices: [
+  bestPractices: ["Give the table a `routeKey` (`routeKey=\"clients\"`) so its sort, filters and page are in the address: back, reload and a shared link all work.", 
     "Keep `rows` and `columns` stable (module scope, state, a query's data, `useMemo`): a new array at each render recomputes every model.",
     "Give every column a `header` (it labels the value in a card and names its filter) and the row's name a `card: \"title\"` column.",
     "Put `DataTableFilters` in `toolbar`; mark the columns it filters with `filter: \"text\" | \"facet\" | \"range\"`, and give a server table's facets their `options`.",

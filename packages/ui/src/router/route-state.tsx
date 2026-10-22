@@ -91,6 +91,28 @@ export function useRouteState<V extends string>(key: string | undefined, { value
   return [value, set] as const;
 }
 
+/**
+ * The query string and a way to change several parameters in one navigation (a sort and the page it resets). Writes made
+ * in the same tick build on each other, so a router that applies them later never loses one.
+ */
+export function useRouteSearch(): { search: string; write: (update: (search: string) => string, options?: { replace?: boolean }) => void } {
+  const adapter = React.useContext(AdapterContext);
+  const search = React.useSyncExternalStore(adapter.subscribe, adapter.search, () => "");
+  const latest = React.useRef(search);
+  React.useEffect(() => {
+    latest.current = search;
+  }, [search]);
+  const write = React.useCallback(
+    (update: (search: string) => string, { replace = false }: { replace?: boolean } = {}) => {
+      const next = update(latest.current);
+      latest.current = next;
+      adapter.navigate(next, { replace });
+    },
+    [adapter],
+  );
+  return { search, write };
+}
+
 /** What a selection component spreads on its root: `value` and `onValueChange` bound to the URL when `routeKey` is set. */
 export interface RouteBindable {
   value?: string | null;
