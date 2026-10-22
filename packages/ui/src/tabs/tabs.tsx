@@ -1,9 +1,10 @@
 // Client (a context). Radix Tabs does the roles (tablist, tab, tabpanel), the aria-selected / aria-controls wiring,
 // the roving focus (arrows, Home, End) and automatic activation: this file only holds the three looks.
-import { Tabs as TabsPrimitive } from "radix-ui";
+import { Slot, Tabs as TabsPrimitive } from "radix-ui";
 import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
+import { cn } from "../cn";
 import { useSlidingIndicator } from "../sliding-indicator";
 
 export const tabs = tv({
@@ -98,5 +99,91 @@ export function TabsContent({ className, ...props }: React.ComponentProps<typeof
   return <TabsPrimitive.Content className={tabs().content({ className })} {...props} />;
 }
 
-/** `Tabs.Root/List/Trigger/Content` — `variant` underline · segmented · pills on the root. */
-export const Tabs = { Root: TabsRoot, List: TabsList, Trigger: TabsTrigger, Content: TabsContent };
+// ── Route mode: tabs that are links; the URL is the state (Oussama, 2026-10-22) ──────────────────────────────────────
+
+/**
+ * Is the link `href` the tab of the route `current` (a path, with its search: `/docs/api?tab=x`)? The path must equal the
+ * link's (a trailing slash, a locale-free comparison and the hash do not count); with `exact` false (the default) a deeper
+ * path of the same section counts too (`/docs/api/x` is in `/docs/api`); every search parameter of the link must be in
+ * `current`. The hub link (`/`) is only ever active on `/` itself.
+ */
+export function isTabActive(current: string, href: string, exact = false): boolean {
+  const split = (value: string) => {
+    const url = new URL(value.split("#")[0]!, "https://tabs.invalid");
+    return { path: url.pathname.replace(/\/+$/, "") || "/", search: url.searchParams };
+  };
+  const here = split(current);
+  const target = split(href);
+  const samePath = here.path === target.path;
+  const deeper = !exact && target.path !== "/" && here.path.startsWith(`${target.path}/`);
+  if (!samePath && !deeper) return false;
+  for (const [key, value] of target.search) if (here.search.get(key) !== value) return false;
+  return true;
+}
+
+interface NavState {
+  current: string;
+  variant: Variant;
+}
+const NavContext = React.createContext<NavState | null>(null);
+
+export type TabsNavProps = Omit<React.ComponentProps<"nav">, "children"> & {
+  /** The navigation's accessible name (« Sections »). */
+  label: string;
+  /** The current route, passed in: the path with its search (`usePathname()` + `useSearchParams()`, `/docs?tab=api`). The active tab comes from it; no local state. */
+  current: string;
+  /** underline (the sections of a page) · segmented (a view switch) · pills (a feed's sections). */
+  variant?: TabsVariants["variant"];
+  /** The tabs: `Tabs.NavLink`. */
+  children: React.ReactNode;
+};
+
+/**
+ * Tabs as routes: a `nav` of links, the URL is the state. Per WAI-ARIA these are links, not a tablist: each tab is an
+ * anchor, the active one carries `aria-current="page"`, the keyboard is the page's own (Tab walks the links, Enter
+ * follows one) and there is no panel — the page is the panel. The same looks and the same gliding light as `Tabs.List`.
+ */
+export function TabsNav({ label, current, variant = "underline", className, children, ...props }: TabsNavProps) {
+  const { ref } = useSlidingIndicator<HTMLElement>({ item: "[data-tabs-link]", active: "[data-tabs-link][data-state=active]" });
+  const value = React.useMemo(() => ({ current, variant }), [current, variant]);
+  return (
+    <NavContext.Provider value={value}>
+      <nav ref={ref} aria-label={label} data-variant={variant} data-orientation="horizontal" className={tabs({ variant }).list({ className })} {...props}>
+        {children}
+      </nav>
+    </NavContext.Provider>
+  );
+}
+
+export type TabsNavLinkProps = React.ComponentProps<"a"> & {
+  /** Where the tab goes (`/docs/api`, `/docs?tab=api`). */
+  href: string;
+  /** Match this path only, not the pages below it. */
+  exact?: boolean;
+  /** Renders your router's `<Link>` (pass it as the only child; the `href` goes on this part and on the link). */
+  asChild?: boolean;
+};
+
+/** One tab of `Tabs.Nav`: an anchor that is active when the current route is its `href`. */
+export function TabsNavLink({ href, exact, asChild, className, children, ...props }: TabsNavLinkProps) {
+  const ctx = React.useContext(NavContext);
+  if (!ctx) throw new Error("Tabs.NavLink must be inside <Tabs.Nav>");
+  const active = isTabActive(ctx.current, href, exact);
+  const Comp = asChild ? Slot.Root : "a";
+  return (
+    <Comp
+      data-tabs-link=""
+      data-state={active ? "active" : "inactive"}
+      data-orientation="horizontal"
+      aria-current={active ? "page" : undefined}
+      {...(asChild ? {} : { href })}
+      className={cn(tabs({ variant: ctx.variant }).trigger(), "no-underline", className)}
+      {...props}
+    >
+      {children}
+    </Comp>
+  );
+}
+
+/** `Tabs.Root/List/Trigger/Content` — `variant` underline · segmented · pills on the root. `Tabs.Nav` + `Tabs.NavLink`: the same tabs as routes. */
+export const Tabs = { Root: TabsRoot, List: TabsList, Trigger: TabsTrigger, Content: TabsContent, Nav: TabsNav, NavLink: TabsNavLink };
