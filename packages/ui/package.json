@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/ui",
-  "version": "3.46.0",
+  "version": "3.48.0",
   "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia, Yasakia, Yororis) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
@@ -137,6 +137,10 @@
       "types": "./dist/page-header.d.ts",
       "import": "./dist/page-header.js"
     },
+    "./agenda": {
+      "types": "./dist/agenda.d.ts",
+      "import": "./dist/agenda.js"
+    },
     "./quota-meter": {
       "types": "./dist/quota-meter.d.ts",
       "import": "./dist/quota-meter.js"
@@ -240,6 +244,14 @@
     "./account-settings": {
       "types": "./dist/account-settings.d.ts",
       "import": "./dist/account-settings.js"
+    },
+    "./drop-overlay": {
+      "types": "./dist/drop-overlay.d.ts",
+      "import": "./dist/drop-overlay.js"
+    },
+    "./upload-queue": {
+      "types": "./dist/upload-queue.d.ts",
+      "import": "./dist/upload-queue.js"
     },
     "./language-switch": {
       "types": "./dist/language-switch.d.ts",
@@ -770,7 +782,7 @@
   },
   "peerDependencies": {
     "@krizaka/query": ">=0.2.1",
-    "@krizaka/tailwind": ">=3.46.0",
+    "@krizaka/tailwind": ">=3.48.0",
     "@maplibre/maplibre-react-native": ">=11",
     "@shopify/flash-list": ">=2",
     "expo-camera": ">=16",
@@ -1086,6 +1098,16 @@
       "name": "./page-header",
       "path": "dist/page-header.js",
       "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./agenda",
+      "path": "dist/agenda.js",
+      "limit": "2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2094,7 +2116,7 @@
     {
       "name": "./settings-layout",
       "path": "dist/settings-layout.js",
-      "limit": "5 kB",
+      "limit": "6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

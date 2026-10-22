@@ -10,7 +10,10 @@
 /** Every documented component: the web primitives (one entry of the package each) and the native-only ones. */
 export type ComponentName =
   | "quota-meter"
+  | "agenda"
   | "account-settings"
+  | "drop-overlay"
+  | "upload-queue"
   | "achievement"
   | "anatomy-plate"
   | "bird-plate"

@@ -34,6 +34,7 @@ export const QUOTA_THRESHOLDS = { low: 0.8, high: 0.95 } as const;
 export type QuotaMeterProps = Omit<React.ComponentProps<"section">, "title"> & {
   /** What is measured (`Storage`), with an optional icon before it. */
   title: React.ReactNode;
+  /** A glyph before the title (decorative). */
   icon?: React.ReactNode;
   /** The plan's name, on the right of the title. */
   plan?: React.ReactNode;
