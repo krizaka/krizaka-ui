@@ -36,7 +36,7 @@ describe("AccountMenu", () => {
 
   it("shows the e-mail once when the name is the e-mail (an account with no name yet)", async () => {
     const user = userEvent.setup();
-    render(<AccountMenu label="Account" name="eric@orazaka.io" email="eric@orazaka.io" showName />);
+    render(<AccountMenu label="Account" name="eric@orazaka.io" email="eric@orazaka.io" showName signOut={{ label: "Sign out", onSelect: () => {} }} />);
     await user.click(screen.getByRole("button", { name: "Account" }));
     expect(within(screen.getByRole("menu")).getAllByText("eric@orazaka.io")).toHaveLength(1);
   });
