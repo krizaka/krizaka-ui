@@ -15,6 +15,11 @@ export interface LanguageOption {
 export type LanguagePickerProps = Omit<React.ComponentProps<typeof RadioGroup.Root>, "children" | "variant" | "label" | "aria-labelledby"> & {
   /** The visible label (“Language”) — passed translated. */
   label: React.ReactNode;
+  /**
+   * Shows the label above the control; `false` when a `SettingsRow` already says it (the group keeps its accessible name).
+   * @default true
+   */
+  showLabel?: boolean;
   /** One line under it: what it changes. */
   description?: React.ReactNode;
   /** The languages offered. */
@@ -26,12 +31,12 @@ export type LanguagePickerProps = Omit<React.ComponentProps<typeof RadioGroup.Ro
 };
 
 /** The language control of an account page: a labelled segmented choice, native names. */
-export function LanguagePicker({ label, description, languages, className, ...props }: LanguagePickerProps) {
+export function LanguagePicker({ label, showLabel = true, description, languages, className, ...props }: LanguagePickerProps) {
   const id = React.useId();
   return (
     <div className={["flex flex-col gap-2", className].filter(Boolean).join(" ")}>
-      <GroupHead id={`${id}-label`} label={label} description={description} />
-      <RadioGroup.Root variant="segmented" aria-labelledby={`${id}-label`} {...props}>
+      {showLabel ? <GroupHead id={`${id}-label`} label={label} description={description} /> : null}
+      <RadioGroup.Root variant="segmented" aria-label={showLabel ? undefined : String(label)} aria-labelledby={showLabel ? `${id}-label` : undefined} {...props}>
         {languages.map((language) => (
           <RadioGroup.Segment key={language.code} value={language.code} lang={language.code}>
             {language.name}

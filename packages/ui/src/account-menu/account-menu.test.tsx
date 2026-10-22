@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { axeViolations } from "../test/axe";
@@ -32,6 +32,13 @@ describe("AccountMenu", () => {
     expect(screen.getByRole("menuitem", { name: /Language/ })).toBeTruthy();
     expect(screen.getByRole("menuitem", { name: "Sign out" })).toBeTruthy();
     expect(await axeViolations(screen.getByRole("menu"))).toEqual([]);
+  });
+
+  it("shows the e-mail once when the name is the e-mail (an account with no name yet)", async () => {
+    const user = userEvent.setup();
+    render(<AccountMenu label="Account" name="eric@orazaka.io" email="eric@orazaka.io" showName />);
+    await user.click(screen.getByRole("button", { name: "Account" }));
+    expect(within(screen.getByRole("menu")).getAllByText("eric@orazaka.io")).toHaveLength(1);
   });
 
   it("the language is a compact submenu showing the current one, and changing it calls back", async () => {

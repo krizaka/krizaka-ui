@@ -68,7 +68,7 @@ export function AccountMenu({ label, name, email, avatar, showName = true, links
           <Avatar size="md" fallback={title.charAt(0).toUpperCase() || "?"} {...avatar} />
           <span className="min-w-0">
             <span className="block truncate text-sm font-semibold text-fg">{title}</span>
-            {name && email && <span className="block truncate text-xs font-normal text-fg-secondary">{email}</span>}
+            {name && email && name !== email && <span className="block truncate text-xs font-normal text-fg-secondary">{email}</span>}
           </span>
         </DropdownMenu.Label>
         {links.length > 0 && <DropdownMenu.Separator />}

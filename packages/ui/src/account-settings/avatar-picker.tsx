@@ -22,6 +22,11 @@ export interface AvatarOption {
 export type AvatarPickerProps = Omit<React.ComponentProps<typeof RadioGroupPrimitive.Root>, "children" | "onChange" | "dir"> & {
   /** The group's accessible name (“Profile picture”) — passed translated. */
   label: string;
+  /**
+   * Smaller tiles, for a settings row.
+   * @default false
+   */
+  dense?: boolean;
   /** Shows the label above the grid, with `description` under it. */
   showLabel?: boolean;
   /** One line under the visible label: what it changes. */
@@ -39,10 +44,10 @@ export type AvatarPickerProps = Omit<React.ComponentProps<typeof RadioGroupPrimi
 const pictureOf = (option: AvatarOption) => option.src ?? (option.defaultAvatar ? defaultAvatarUrl(option.defaultAvatar, { size: 256 }) : undefined);
 
 /** A grid of pictures to choose from, with an upload beside them: a radio group, never a row of loose radios. */
-export function AvatarPicker({ label, showLabel, description, options, upload, className, ...props }: AvatarPickerProps) {
+export function AvatarPicker({ label, showLabel, description, dense, options, upload, className, ...props }: AvatarPickerProps) {
   const id = React.useId();
   const group = (
-    <RadioGroupPrimitive.Root aria-label={label} aria-labelledby={showLabel ? id : undefined} className={cn("grid grid-cols-[repeat(auto-fill,minmax(4.25rem,1fr))] gap-3", !showLabel && className)} {...props}>
+    <RadioGroupPrimitive.Root aria-label={label} aria-labelledby={showLabel ? id : undefined} className={cn("grid gap-3", dense ? "grid-cols-[repeat(auto-fill,minmax(3rem,3.25rem))] gap-2.5" : "grid-cols-[repeat(auto-fill,minmax(4.25rem,1fr))]", !showLabel && className)} {...props}>
       {options.map((option) => (
         <RadioGroupPrimitive.Item
           key={option.id}

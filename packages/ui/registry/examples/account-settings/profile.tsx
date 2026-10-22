@@ -1,7 +1,6 @@
 import { AccountProfileCard, AvatarPicker, ChoiceCards, LanguagePicker } from "@krizaka/ui/account-settings";
-import { Button } from "@krizaka/ui/button";
 import { Field, Input } from "@krizaka/ui/field";
-import { SettingsLayout, SettingsSection, useSaveStatus } from "@krizaka/ui/settings-layout";
+import { SettingsLayout, SettingsRow, SettingsSection, useSaveStatus } from "@krizaka/ui/settings-layout";
 import * as React from "react";
 
 const NAV = [
@@ -13,49 +12,68 @@ const NAV = [
 ];
 const AVATARS = [1, 2, 3, 4, 5, 6].map((tone) => ({ id: `tone-${tone}`, label: `Teinte ${tone}`, defaultAvatar: { brand: "yomizaka", tone } as const }));
 const LABELS = { save: "Enregistrer", saving: "Enregistrement…", saved: "Enregistré", error: "Impossible d'enregistrer. Réessayez.", undo: "Annuler", discard: "Rétablir" };
-const SAVED = { name: "Éric Tremblay", avatar: "tone-2", language: "fr", side: "tenant" };
 
-// TEMPLATE — an account's profile page: its identity, then one section with one save (dirty → enabled, saved → Undo).
-export default function AccountProfile() {
-  const [draft, setDraft] = React.useState(SAVED);
-  const [saved, setSaved] = React.useState(SAVED);
+/** One section's draft: dirty against what is saved, saved with one call, undone to what it was. */
+function useDraft<T>(saved: T) {
+  const [draft, setDraft] = React.useState(saved);
+  const [kept, setKept] = React.useState(saved);
+  const [before, setBefore] = React.useState(saved);
   const status = useSaveStatus();
-  const dirty = JSON.stringify(draft) !== JSON.stringify(saved);
+  return {
+    draft,
+    set: (patch: Partial<T>) => setDraft({ ...draft, ...patch }),
+    save: {
+      dirty: JSON.stringify(draft) !== JSON.stringify(kept),
+      status: status.status,
+      labels: LABELS,
+      onDiscard: () => setDraft(kept),
+      onSave: () => {
+        setBefore(kept);
+        setKept(draft);
+        void status.track(async () => undefined);
+      },
+      onUndo: () => {
+        setDraft(before);
+        setKept(before);
+        status.reset();
+      },
+    },
+  };
+}
+
+// TEMPLATE — an account's profile page, the Orazaka way: one calm column of rows (label and help left, control right), a
+// section per subject with its own save (dirty → enabled, saved → Undo), the role question as cards in a section of its own.
+export default function AccountProfile() {
+  const profile = useDraft({ name: "Éric Tremblay", avatar: "tone-2", language: "fr" });
+  const role = useDraft({ side: "tenant" });
   return (
-    <SettingsLayout className="w-full" title="Réglages" description="Votre profil, votre langue et la façon dont l'application vous répond." nav={NAV} navLabel="Sections des réglages">
-      <SettingsSection
-        title="Profil"
-        description="Ce que l'application sait de vous."
-        save={{
-          dirty,
-          status: status.status,
-          labels: LABELS,
-          onDiscard: () => setDraft(saved),
-          onUndo: () => {
-            setDraft(SAVED);
-            setSaved(SAVED);
-            status.reset();
-          },
-          onSave: () => void status.track(async () => setSaved(draft)),
-        }}
-      >
-        <AccountProfileCard name={draft.name} email="eric@example.com" verified verifiedLabel="Vérifié" unverifiedLabel="Non vérifié" memberSince="Membre depuis octobre 2026" avatar={{ defaultAvatar: { brand: "yomizaka", tone: Number(draft.avatar.slice(5)) } }} />
-        <Field.Root>
-          <Field.Label htmlFor="profile-name">Nom</Field.Label>
-          <Input id="profile-name" value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} />
-        </Field.Root>
-        <AvatarPicker label="Photo de profil" showLabel options={AVATARS} value={draft.avatar} onValueChange={(avatar) => setDraft({ ...draft, avatar })} upload={<Button variant="secondary" size="sm">Téléverser</Button>} />
-        <LanguagePicker label="Langue" value={draft.language} onValueChange={(language) => setDraft({ ...draft, language })} languages={[{ code: "fr", name: "Français" }, { code: "en", name: "English" }]} />
-        <ChoiceCards
-          showLabel
-          label="De quel côté du bail êtes-vous ?"
-          value={draft.side}
-          onValueChange={(side) => setDraft({ ...draft, side })}
-          options={[
-            { id: "tenant", title: "Locataire", description: "Je loue mon logement." },
-            { id: "landlord", title: "Propriétaire", description: "Je loue à quelqu'un." },
-          ]}
-        />
+    <SettingsLayout variant="flat" className="w-full" title="Réglages" description="Votre profil et la façon dont l'application vous répond." nav={NAV} navLabel="Sections des réglages">
+      <SettingsSection variant="flat" title="Profil" description="Ce que l'application sait de vous." save={profile.save}>
+        <SettingsRow label={<AccountProfileCard compact name={profile.draft.name} email="eric@example.com" verified verifiedLabel="Adresse vérifiée" unverifiedLabel="Adresse non vérifiée" avatar={{ defaultAvatar: { brand: "yomizaka", tone: Number(profile.draft.avatar.slice(5)) } }} />} />
+        <SettingsRow label="Nom" description="Affiché dans le menu du compte." htmlFor="profile-name">
+          <Field.Root>
+            <Input id="profile-name" value={profile.draft.name} onChange={(event) => profile.set({ name: event.target.value })} />
+          </Field.Root>
+        </SettingsRow>
+        <SettingsRow label="Avatar" description="Une des images par défaut.">
+          <AvatarPicker dense label="Avatar" options={AVATARS} value={profile.draft.avatar} onValueChange={(avatar) => profile.set({ avatar })} />
+        </SettingsRow>
+        <SettingsRow label="Langue" description="La langue de l'application et des courriels.">
+          <LanguagePicker showLabel={false} label="Langue" value={profile.draft.language} onValueChange={(language) => profile.set({ language })} languages={[{ code: "fr", name: "Français" }, { code: "en", name: "English" }]} />
+        </SettingsRow>
+      </SettingsSection>
+      <SettingsSection variant="flat" title="De quel côté du bail êtes-vous ?" description="Cela change les vérifications proposées en premier, pas les règles." save={role.save}>
+        <div className="py-4">
+          <ChoiceCards
+            label="De quel côté du bail êtes-vous ?"
+            value={role.draft.side}
+            onValueChange={(side) => role.set({ side })}
+            options={[
+              { id: "tenant", title: "Locataire", description: "Je vérifie mon bail avant de signer." },
+              { id: "landlord", title: "Propriétaire", description: "Je vérifie mon modèle de bail." },
+            ]}
+          />
+        </div>
       </SettingsSection>
     </SettingsLayout>
   );

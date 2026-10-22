@@ -23,19 +23,24 @@ export type AccountProfileCardProps = Omit<React.ComponentProps<"section">, "tit
   avatar?: Pick<AvatarProps, "src" | "defaultAvatar" | "fallback">;
   /** Beside the picture: the change action (a `Button`). */
   action?: React.ReactNode;
+  /**
+   * One calm line for a settings row: a medium picture beside the name and the e-mail, no wrapping.
+   * @default false
+   */
+  compact?: boolean;
 };
 
 /** The account's identity card: picture, name, verified e-mail, member since. */
-export function AccountProfileCard({ name, email, verified, verifiedLabel, unverifiedLabel, memberSince, avatar, action, className, ...props }: AccountProfileCardProps) {
+export function AccountProfileCard({ name, email, verified, verifiedLabel, unverifiedLabel, memberSince, avatar, action, compact, className, ...props }: AccountProfileCardProps) {
   return (
-    <section aria-label={name} className={cn("flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-5", className)} {...props}>
+    <section aria-label={name} className={cn("flex items-center gap-3", !compact && "flex-col items-start gap-4 sm:flex-row sm:gap-5", className)} {...props}>
       <div className="flex shrink-0 flex-col items-center gap-2">
-        <Avatar size="xl" alt="" fallback={name.slice(0, 1)} {...avatar} />
+        <Avatar size={compact ? "md" : "xl"} alt="" fallback={name.slice(0, 1)} {...avatar} />
         {action}
       </div>
       <div className="flex min-w-0 flex-col gap-1">
-        <h2 className="truncate text-lg font-bold text-fg">{name}</h2>
-        <p className="flex flex-wrap items-center gap-2 text-sm text-fg-secondary">
+        <h2 className={cn("m-0 truncate font-bold text-fg", compact ? "text-sm font-medium" : "text-lg")}>{name}</h2>
+        <p className="m-0 flex flex-wrap items-center gap-2 text-sm text-fg-secondary">
           <span className="min-w-0 truncate">{email}</span>
           <Badge tone={verified ? "success" : "warning"} dot>
             {verified ? verifiedLabel : unverifiedLabel}
