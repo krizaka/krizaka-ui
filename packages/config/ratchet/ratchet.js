@@ -14,8 +14,10 @@ import {
   EFFECT_CALL_SOURCE,
   FETCH_CALL_SOURCE,
   importSource,
+  isLocalSelection,
   LIGHT_VARIANT_SOURCE,
   paletteSource,
+  selectionTags,
   TABLE_OR_FORM_SOURCE,
   TANSTACK_SCOPE,
   USE_CLIENT_SOURCE,
@@ -30,7 +32,7 @@ export const DEFAULT_STACK_GLOBS = Object.freeze(
 const IGNORE = ["**/node_modules/**", "**/dist/**", "**/.next/**", "**/storybook-static/**", "**/coverage/**"];
 
 /** @typedef {"palette" | "light" | "arbitraryVar" | "classNameTemplate"} UiCounterName */
-/** @typedef {"fetchInClientEffect" | "directTanstackImport" | "localTableOrForm" | "retiredImport"} StackCounterName */
+/** @typedef {"fetchInClientEffect" | "directTanstackImport" | "localTableOrForm" | "retiredImport" | "routeStateSelection"} StackCounterName */
 /** @typedef {UiCounterName | StackCounterName} CounterName */
 /** @typedef {Record<CounterName, number>} Counters */
 /**
@@ -51,6 +53,7 @@ export const STACK_COUNTERS = /** @type {const} */ ([
   "directTanstackImport",
   "localTableOrForm",
   "retiredImport",
+  "routeStateSelection",
 ]);
 /** Every counter, in report order. */
 export const COUNTERS = /** @type {const} */ ([...UI_COUNTERS, ...STACK_COUNTERS]);
@@ -87,10 +90,10 @@ export function countSource(source, allow = []) {
  * Counts the stack debts in one source text: fetch calls inside the effects of a `"use client"` file, imports of
  * `@tanstack/*`, hand-written tables and forms of more than `maxFormFields` fields, imports of the retired dependencies.
  * @param {string} source
- * @param {{ retire?: readonly string[], maxFormFields?: number }} [options]
+ * @param {{ retire?: readonly string[], maxFormFields?: number, inRoute?: boolean }} [options] `inRoute`: the file is a page or a route component (`routeStateSelection` only counts there)
  * @returns {Record<StackCounterName, number>}
  */
-export function countStackSource(source, { retire = [], maxFormFields = 1 } = {}) {
+export function countStackSource(source, { retire = [], maxFormFields = 1, inRoute = true } = {}) {
   let fetchInClientEffect = 0;
   if (new RegExp(USE_CLIENT_SOURCE).test(source)) {
     for (const effect of source.matchAll(new RegExp(EFFECT_CALL_SOURCE, "g"))) {
@@ -111,6 +114,7 @@ export function countStackSource(source, { retire = [], maxFormFields = 1 } = {}
     directTanstackImport: source.match(new RegExp(importSource([TANSTACK_SCOPE]), "g"))?.length ?? 0,
     localTableOrForm,
     retiredImport: source.match(new RegExp(importSource(retire), "g"))?.length ?? 0,
+    routeStateSelection: inRoute ? selectionTags(source).filter(({ tag, before }) => isLocalSelection(tag, before)).length : 0,
   };
 }
 
@@ -136,7 +140,7 @@ export async function countRepository({
     for (const name of UI_COUNTERS) counters[name] += found[name];
   }
   for (const file of stackFiles) {
-    const found = countStackSource(readFileSync(file, "utf8"), { retire, maxFormFields });
+    const found = countStackSource(readFileSync(file, "utf8"), { retire, maxFormFields, inRoute: /(^|\/)(app|pages|routes)\//.test(relative(root, file)) });
     for (const name of STACK_COUNTERS) counters[name] += found[name];
   }
   return { counters, files: files.length, stackFiles: stackFiles.length };

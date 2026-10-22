@@ -5,6 +5,7 @@ import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 import { cn } from "../cn";
+import { useRouteBinding } from "../router";
 import { useSlidingIndicator } from "../sliding-indicator";
 
 export const tabs = tv({
@@ -72,10 +73,15 @@ const VariantContext = React.createContext<Variant>("underline");
 export type TabsRootProps = React.ComponentProps<typeof TabsPrimitive.Root> & {
   /** underline (the sections of a page) · segmented (a view switch) · pills (a feed's sections). */
   variant?: TabsVariants["variant"];
+  /** Binds the active tab to this search parameter of the URL (`?tab=…`): the URL is the state. Without it the state is local — only for an ephemeral choice. */
+  routeKey?: string;
+  /** The values the parameter may hold (the tabs' `value`s); the first is the default unless `defaultValue` says otherwise. */
+  routeValues?: readonly string[];
 };
 
 /** `value`/`defaultValue` + `onValueChange`, `orientation` (horizontal by default), `variant` for the list. */
-export function TabsRoot({ variant = "underline", className, ...props }: TabsRootProps) {
+export function TabsRoot({ variant = "underline", className, routeKey, routeValues, ...rest }: TabsRootProps) {
+  const props = useRouteBinding(routeKey, routeValues, rest);
   return (
     <VariantContext.Provider value={variant}>
       <TabsPrimitive.Root data-variant={variant} className={tabs({ variant }).root({ className })} {...props} />

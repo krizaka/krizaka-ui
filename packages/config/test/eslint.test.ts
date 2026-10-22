@@ -205,9 +205,9 @@ describe("krizakaStack — the three stack rules (S1–S3, S11)", () => {
     ]);
   });
 
-  it("names exactly the stack rules (three, plus the family switcher ban)", () => {
-    expect(STACK_RULES).toHaveLength(4);
-    expect(Object.keys(krizakaStack()[0]!.rules!)).toEqual([...STACK_RULES]);
+  it("names exactly the stack rules (three, the family switcher ban, the route state)", () => {
+    expect(STACK_RULES).toHaveLength(5);
+    expect(krizakaStack().flatMap((config) => Object.keys(config.rules!))).toEqual([...STACK_RULES]);
   });
 });
 
@@ -316,5 +316,36 @@ describe("no-family-switcher (krizakaStack)", () => {
   it("leaves the rest of the bar alone", async () => {
     const code = `import { NavBar } from "@krizaka/ui/nav-bar";\nexport const A = () => <NavBar.Root label="x"><NavBar.Brand>K</NavBar.Brand></NavBar.Root>;`;
     expect((await lint(krizakaStack(), code)).filter((m) => m.ruleId === "krizaka/no-family-switcher")).toEqual([]);
+  });
+});
+
+describe("krizaka/route-state-selection — a selection of a page lives in the URL", () => {
+  const page = (jsx: string) => `export default function Page() { const [t, setT] = useState("a"); return (${jsx}); }`;
+  const lintPage = (code: string) => lint(krizakaStack(), code, "app/verify/page.tsx");
+
+  it.each([
+    ["Tabs.Root with value + onValueChange", `<Tabs.Root value={t} onValueChange={setT} />`],
+    ["Tabs.Root uncontrolled", `<Tabs.Root defaultValue="a" />`],
+    ["Chip.Group", `<Chip.Group type="single" value={t} onValueChange={setT} />`],
+    ["ChoiceGrid", `<ChoiceGrid items={[]} value={t} onValueChange={setT} />`],
+    ["SegmentedControl", `<SegmentedControl value={t} onValueChange={setT} />`],
+  ])("refuses %s in a page", async (_name, jsx) => {
+    const messages = await lintPage(page(jsx));
+    expect(messages.filter((m) => m.ruleId === "krizaka/route-state-selection")).toHaveLength(1);
+  });
+
+  it.each([
+    ["a routeKey", `<Tabs.Root routeKey="tab" routeValues={["a", "b"]} />`],
+    ["an @ephemeral justification above", `{/* @ephemeral: a hover card's tab */}\n<Tabs.Root defaultValue="a" />`],
+    ["an @ephemeral justification on the line", `<Tabs.Root defaultValue="a" /* @ephemeral: popover content */ />`],
+    ["no selection state at all", `<Tabs.Root />`],
+  ])("accepts %s", async (_name, jsx) => {
+    const messages = await lintPage(page(jsx));
+    expect(messages.filter((m) => m.ruleId === "krizaka/route-state-selection")).toEqual([]);
+  });
+
+  it("only watches pages and route components, not a component of the design system", async () => {
+    const messages = await lint(krizakaStack(), page(`<Tabs.Root value={t} onValueChange={setT} />`), "components/panel.tsx");
+    expect(messages.filter((m) => m.ruleId === "krizaka/route-state-selection")).toEqual([]);
   });
 });

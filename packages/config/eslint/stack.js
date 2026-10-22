@@ -1,6 +1,7 @@
 // The three stack rules (the stack ADR, decisions S1–S3 and S11): server state through @krizaka/query, tables and forms
 // through @krizaka/ui, TanStack only behind a @krizaka facade. Warnings: krizaka-ratchet counts the same patterns, so an
 // app adopts them now and brings each count to 0 by the end of its adoption.
+import { ROUTE_FILES } from "../patterns.js";
 import { krizakaPlugin } from "./plugin.js";
 
 /** The rule names, as configured. */
@@ -9,6 +10,7 @@ export const STACK_RULES = Object.freeze([
   "krizaka/no-direct-tanstack-import",
   "krizaka/no-local-table-or-form",
   "krizaka/no-family-switcher",
+  "krizaka/route-state-selection",
 ]);
 
 /**
@@ -36,6 +38,14 @@ export function krizakaStack({
         // Never a warning: the family switcher is gone from every site (krizaka.com is the only way back).
         "krizaka/no-family-switcher": "error",
       },
+    },
+    // A selection of a page (tabs, segmented, toggles, chip groups) lives in the URL; only pages and route components.
+    {
+      name: "krizaka/route-state-selection",
+      files: ROUTE_FILES,
+      ...(ignores.length > 0 ? { ignores } : {}),
+      plugins: { krizaka: krizakaPlugin },
+      rules: { "krizaka/route-state-selection": severity },
     },
   ];
 }

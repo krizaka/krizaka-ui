@@ -157,6 +157,10 @@
       "types": "./dist/tabs.d.ts",
       "import": "./dist/tabs.js"
     },
+    "./router": {
+      "types": "./dist/router.d.ts",
+      "import": "./dist/router.js"
+    },
     "./chip": {
       "types": "./dist/chip.d.ts",
       "import": "./dist/chip.js"
@@ -1145,6 +1149,13 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./router",
+      "path": "dist/router.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "rolldown": false
     },
     {
       "name": "./tabs",

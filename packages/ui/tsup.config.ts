@@ -163,6 +163,7 @@ export default defineConfig([
       "dropdown-menu": "src/dropdown-menu/index.ts",
       tooltip: "src/tooltip/index.ts",
       tabs: "src/tabs/index.ts",
+      router: "src/router/index.ts",
       chip: "src/chip/index.ts",
       switch: "src/switch/index.ts",
       slider: "src/slider/index.ts",
