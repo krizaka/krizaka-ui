@@ -89,6 +89,7 @@ export default defineConfig([
     ...shared,
     entry: {
       "dashboard-layout": "src/dashboard-layout/index.ts",
+      "account-settings": "src/account-settings/index.ts",
       "settings-layout": "src/settings-layout/index.ts",
       "account-menu": "src/account-menu/index.ts",
       "auth-layout": "src/auth-layout/index.ts",

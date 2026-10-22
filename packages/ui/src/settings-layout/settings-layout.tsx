@@ -4,6 +4,9 @@
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
+import { Button } from "../button/button";
+import { SaveStatus } from "./save-status";
+
 export const settingsLayout = tv({
   slots: {
     root: "flex w-full flex-col gap-6",
@@ -110,7 +113,42 @@ export function SettingsLayout({ title, description, nav, navLabel, linkAs: Link
   );
 }
 
+export interface SectionSaveLabels {
+  /** “Save”. */
+  save: string;
+  /** “Saving…”. */
+  saving: string;
+  /** “Saved”. */
+  saved: string;
+  /** What failed, one sentence (“Could not save. Try again.”). */
+  error: string;
+  /** “Undo” — only shown after a save, when `onUndo` is given. */
+  undo: string;
+  /** “Discard changes” — only shown while dirty, when `onDiscard` is given. */
+  discard: string;
+}
+
+/** The one save of a section: its dirty state, its status, its words. */
+export interface SectionSave {
+  /** Whether a field differs from what is saved: the save is enabled only then. */
+  dirty: boolean;
+  /** Where the save is (`useSaveStatus().status`). */
+  status: SaveStatus;
+  /** Saves the section (the form's submit, Enter included). */
+  onSave: () => void;
+  /** Puts the previous values back after a save, optimistic update included. */
+  onUndo?: () => void;
+  /** Throws the edits away while dirty. */
+  onDiscard?: () => void;
+  labels: SectionSaveLabels;
+}
+
 export type SettingsSectionProps = Omit<React.ComponentProps<"section">, "title"> & {
+  /**
+   * One save for the whole section: the section becomes a form, the foot shows the Save (enabled while dirty), the
+   * result in a live region (saved, or the error as an alert) and an undo after a save. Replaces `footer`.
+   */
+  save?: SectionSave;
   /** The section's title: it names the region (and is its anchor's target when `id` is set). */
   title: React.ReactNode;
   /** What these settings change, in one sentence. */
@@ -127,23 +165,73 @@ export type SettingsSectionProps = Omit<React.ComponentProps<"section">, "title"
 };
 
 /** A group of settings: a titled card with its fields and its own save, or flat rows under a title. */
-export function SettingsSection({ title, description, footer, variant = "card", id, className, children, ...props }: SettingsSectionProps) {
+export function SettingsSection({ title, description, footer, save, variant = "card", id, className, children, ...props }: SettingsSectionProps) {
   const s = settingsLayout({ variant });
   const auto = React.useId();
   const titleId = `${id ?? auto}-title`;
+  const head = (
+    <div className={s.sectionHead()}>
+      <h2 id={titleId} className={s.sectionTitle()}>
+        {title}
+      </h2>
+      {description && <p className={s.sectionDescription()}>{description}</p>}
+    </div>
+  );
+  const body = (
+    <div className={variant === "flat" ? s.rows() : s.sectionBody()} data-settings-rows={variant === "flat" ? "" : undefined}>
+      {children}
+    </div>
+  );
   return (
-    <section id={id} aria-labelledby={titleId} className={s.section({ className })} {...props}>
-      <div className={s.sectionHead()}>
-        <h2 id={titleId} className={s.sectionTitle()}>
-          {title}
-        </h2>
-        {description && <p className={s.sectionDescription()}>{description}</p>}
-      </div>
-      <div className={variant === "flat" ? s.rows() : s.sectionBody()} data-settings-rows={variant === "flat" ? "" : undefined}>
-        {children}
-      </div>
-      {footer && <div className={s.sectionFooter()}>{footer}</div>}
+    <section id={id} aria-labelledby={titleId} data-dirty={save?.dirty ? "" : undefined} className={s.section({ className })} {...props}>
+      {save ? (
+        <form
+          noValidate
+          onSubmit={(event) => {
+            event.preventDefault();
+            if (save.dirty && save.status !== SaveStatus.Saving) save.onSave();
+          }}
+        >
+          {head}
+          {body}
+          <div className={s.sectionFooter()}>
+            <SaveFeedback save={save} />
+            {save.onDiscard && save.dirty ? (
+              <Button type="button" variant="ghost" onClick={save.onDiscard}>
+                {save.labels.discard}
+              </Button>
+            ) : null}
+            <Button type="submit" variant="primary" disabled={!save.dirty || save.status === SaveStatus.Saving} loading={save.status === SaveStatus.Saving}>
+              {save.labels.save}
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <>
+          {head}
+          {body}
+          {footer && <div className={s.sectionFooter()}>{footer}</div>}
+        </>
+      )}
     </section>
+  );
+}
+
+/** The result of the last save: « Saved » (with Undo) in a polite live region, a failure as an alert. The region stays mounted so the change is announced. */
+function SaveFeedback({ save }: { save: SectionSave }) {
+  const failed = save.status === SaveStatus.Error;
+  const saved = save.status === SaveStatus.Saved;
+  return (
+    <div className="mr-auto flex min-w-0 items-center gap-2 text-sm">
+      <span role={failed ? "alert" : "status"} aria-live={failed ? "assertive" : "polite"} className={failed ? "text-danger-text" : "text-fg-secondary"}>
+        {failed ? save.labels.error : saved ? save.labels.saved : save.status === SaveStatus.Saving ? save.labels.saving : ""}
+      </span>
+      {saved && save.onUndo ? (
+        <Button type="button" variant="ghost" size="sm" onClick={save.onUndo}>
+          {save.labels.undo}
+        </Button>
+      ) : null}
+    </div>
   );
 }
 
