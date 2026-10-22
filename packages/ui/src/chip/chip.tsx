@@ -5,6 +5,7 @@ import { Toggle as TogglePrimitive, ToggleGroup as ToggleGroupPrimitive } from "
 import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
+import { useRouteBinding } from "../router";
 import { chipRecipe } from "./recipe";
 
 export const chip = tv(chipRecipe);
@@ -116,6 +117,10 @@ export type ChipGroupProps =
       onValueChange?: (value: string) => void;
       /** Keeps one chip selected: pressing the selected chip does not clear it (default `false`). */
       required?: boolean;
+      /** Binds the choice to this search parameter of the URL (`?type=…`): the URL is the state. Without it the state is local — only for an ephemeral choice. */
+      routeKey?: string;
+      /** The values the parameter may hold (the chips' `value`s). */
+      routeValues?: readonly string[];
     })
   | (GroupBase & {
       /** Any number of choices: the chips are pressed buttons. */
@@ -127,17 +132,21 @@ export type ChipGroupProps =
       /** Called with the new values on every press. */
       onValueChange?: (value: string[]) => void;
       required?: never;
+      routeKey?: never;
+      routeValues?: never;
     });
 
 /** Chips that choose together: `type` single · multiple, `value`/`defaultValue` + `onValueChange`. */
 export function ChipGroup({ label, size, className, children, ...props }: ChipGroupProps) {
+  const single = props.type === "single" ? props : undefined;
+  const routed = useRouteBinding(single?.routeKey, single?.routeValues, { value: single?.value, defaultValue: single?.defaultValue, onValueChange: single?.onValueChange });
   const s = chip({ size });
   const context = React.useMemo(() => ({ size }), [size]);
   const common = { "aria-label": label, className: s.group({ className }) };
   let group: React.ReactNode;
   if (props.type === "single") {
-    const { type: _type, value, defaultValue, onValueChange, required, ...rest } = props;
-    group = <SingleGroup {...rest} {...common} value={value} defaultValue={defaultValue} onValueChange={onValueChange} required={required}>{children}</SingleGroup>;
+    const { type: _type, value: _value, defaultValue: _defaultValue, onValueChange: _onValueChange, required, routeKey: _routeKey, routeValues: _routeValues, ...rest } = props;
+    group = <SingleGroup {...rest} {...common} value={routed.value} defaultValue={routed.defaultValue} onValueChange={routed.onValueChange} required={required}>{children}</SingleGroup>;
   } else {
     const { type: _type, required: _required, ...rest } = props;
     group = (

@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { axeViolations } from "../test/axe";
-import { Tabs } from "./index";
+import { isTabActive, Tabs } from "./index";
 
 function Example({ variant, orientation }: { variant?: "underline" | "segmented" | "pills"; orientation?: "horizontal" | "vertical" }) {
   return (
@@ -153,5 +153,60 @@ describe("Tabs scroll container", () => {
     render(<Example variant="underline" />);
     const list = screen.getByRole("tablist");
     expect(list.className).not.toMatch(/overflow-(x-|y-)?auto/);
+  });
+});
+
+describe("Tabs as routes (Tabs.Nav)", () => {
+  function Routes({ current }: { current: string }) {
+    return (
+      <Tabs.Nav label="Studio sections" current={current}>
+        <Tabs.NavLink href="/studio/videos">Videos</Tabs.NavLink>
+        <Tabs.NavLink href="/studio/stories" exact>Stories</Tabs.NavLink>
+        <Tabs.NavLink href="/studio?tab=earnings">Earnings</Tabs.NavLink>
+      </Tabs.Nav>
+    );
+  }
+
+  it("is a named navigation of links (not a tablist), the active one aria-current=page, no axe violation", async () => {
+    const { container } = render(<Routes current="/studio/videos" />);
+    expect(screen.getByRole("navigation", { name: "Studio sections" })).toBeTruthy();
+    expect(screen.queryByRole("tablist")).toBeNull();
+    expect(screen.getByRole("link", { name: "Videos" }).getAttribute("aria-current")).toBe("page");
+    expect(screen.getByRole("link", { name: "Stories" }).getAttribute("aria-current")).toBeNull();
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("reads the active tab from the route: no local state, it follows the prop", () => {
+    const { rerender } = render(<Routes current="/studio/videos" />);
+    rerender(<Routes current="/studio/stories" />);
+    expect(screen.getByRole("link", { name: "Stories" }).getAttribute("aria-current")).toBe("page");
+    expect(screen.getByRole("link", { name: "Videos" }).getAttribute("aria-current")).toBeNull();
+  });
+
+  it("matches the pages below a section unless exact, ignores the trailing slash and the hash, and reads the search params", () => {
+    expect(isTabActive("/studio/videos/42", "/studio/videos")).toBe(true);
+    expect(isTabActive("/studio/videos/42", "/studio/videos", true)).toBe(false);
+    expect(isTabActive("/studio/videos/#top", "/studio/videos")).toBe(true);
+    expect(isTabActive("/studio?tab=earnings", "/studio?tab=earnings")).toBe(true);
+    expect(isTabActive("/studio?tab=videos", "/studio?tab=earnings")).toBe(false);
+    expect(isTabActive("/studio", "/studio?tab=earnings")).toBe(false);
+    expect(isTabActive("/studio", "/")).toBe(false);
+    expect(isTabActive("/", "/")).toBe(true);
+  });
+
+  it("renders your router's link with asChild and keeps the keyboard the page's own (Tab, Enter)", async () => {
+    render(
+      <Tabs.Nav label="Sections" current="/a">
+        <Tabs.NavLink href="/a" asChild><a href="/a" data-router="">A</a></Tabs.NavLink>
+        <Tabs.NavLink href="/b">B</Tabs.NavLink>
+      </Tabs.Nav>,
+    );
+    const a = screen.getByRole("link", { name: "A" });
+    expect(a.hasAttribute("data-router")).toBe(true);
+    expect(a.getAttribute("aria-current")).toBe("page");
+    await userEvent.tab();
+    expect(document.activeElement).toBe(a);
+    await userEvent.tab();
+    expect(document.activeElement).toBe(screen.getByRole("link", { name: "B" }));
   });
 });

@@ -129,6 +129,7 @@ export type ComponentName =
   | "promise-card"
   | "pull-to-refresh"
   | "radio-group"
+  | "router"
   | "rail-nav"
   | "recipes"
   | "screen"

@@ -21,6 +21,7 @@ export function PreviewFrame({ label, code, children, stageClassName = "" }: { l
   const shown = () => frameTheme ?? (document.documentElement.classList.contains("light") ? "light" : "dark");
 
   return (
+    // @ephemeral: the preview / code switch of one example
     <Tabs.Root
       variant="segmented"
       value={tab}

@@ -5,6 +5,7 @@ import * as React from "react";
 
 import { BlockLink, type LinkComponent } from "../block-link";
 import { cn } from "../cn";
+import { useRouteBinding } from "../router";
 import { brandClass, type StoryVariant, storyVariantClass } from "../story-variant";
 
 export interface ChoiceItem {
@@ -51,6 +52,10 @@ export type ChoiceGridProps = Omit<React.HTMLAttributes<HTMLDivElement>, "defaul
   defaultValue?: string;
   /** Makes the grid a radio group: called with the id chosen by click, Enter, Space or the arrow keys. */
   onValueChange?: (id: string) => void;
+  /** Binds the choice to this search parameter of the URL (`?type=…`): the URL is the state. Without it the state is local — only for an ephemeral choice. */
+  routeKey?: string;
+  /** The ids the parameter may hold; the first is the default unless `defaultValue` says otherwise. */
+  routeValues?: readonly string[];
   /** The app's link component for the tiles' internal `href`s (Next's `Link`); an `<a>` otherwise. */
   linkAs?: LinkComponent;
   /**
@@ -86,9 +91,11 @@ export function ChoiceGrid({
   tag,
   caption,
   prompt,
-  value,
-  defaultValue,
-  onValueChange,
+  value: valueProp,
+  defaultValue: defaultValueProp,
+  onValueChange: onValueChangeProp,
+  routeKey,
+  routeValues,
   linkAs,
   columns,
   variant,
@@ -98,6 +105,7 @@ export function ChoiceGrid({
   style,
   ...props
 }: ChoiceGridProps) {
+  const { value, defaultValue, onValueChange } = useRouteBinding(routeKey, routeValues, { value: valueProp, defaultValue: defaultValueProp, onValueChange: onValueChangeProp });
   const selectable = onValueChange !== undefined || value !== undefined;
   const [inner, setInner] = React.useState(defaultValue);
   const current = value ?? inner;

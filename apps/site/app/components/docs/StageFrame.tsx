@@ -36,6 +36,7 @@ export function StageFrame({ item, locale, web }: { item: RegistryItem; locale: 
 
   return (
     <section className="kz-stage not-prose" aria-label={format(s.label, { name: item.title })}>
+      {/* @ephemeral: the platform of one stage preview, local to the figure */}
       <TabsRoot defaultValue={defaultTab} variant="segmented">
         <div className="kz-stage-bar">
           <TabsList aria-label={s.platforms}>
