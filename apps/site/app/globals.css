@@ -59,7 +59,7 @@ html.light [data-hue="ink"]    { --kz-hue: hsl(222 30% 22%); --kz-hue-2: hsl(217
   --kz-font-sans: var(--font-kz-text), "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --kz-font-display: var(--font-kz-display), "Young Serif", Georgia, serif;
   --kz-font-mono: var(--font-kz-mono), "Courier Prime", "Courier New", ui-monospace, Menlo, monospace;
-  --kz-font-accent: var(--font-kz-accent), "Caveat Brush", "Marker Felt", "Bradley Hand", cursive;
+  --kz-font-cahier: var(--font-kz-cahier), "Krizaka Cahier", "Marker Felt", "Bradley Hand", cursive;
   --font-display: var(--kz-font-display);
   --font-mono: var(--kz-font-mono);
 

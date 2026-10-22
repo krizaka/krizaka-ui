@@ -278,29 +278,29 @@
       "legacy": true
     },
     {
-      "role": "accent",
-      "family": "Caveat Brush",
-      "slug": "caveat-brush",
-      "nativeName": "CaveatBrush",
+      "role": "cahier",
+      "family": "Krizaka Cahier",
+      "slug": "krizaka-cahier",
+      "nativeName": "KrizakaCahier",
       "category": "handwriting",
-      "designer": "Impallari Type",
+      "designer": "Impallari Type, Pablo Impallari, Rodrigo Fuenzalida (Caveat); derived by Krizaka",
+      "derive": "cahier",
       "upstream": {
         "repository": "https://github.com/google/fonts",
         "commit": "47d54ca1ebb14fd864695f1d39dc734f39017c33",
-        "fonts": {
-          "400": "ofl/caveatbrush/CaveatBrush-Regular.ttf"
-        },
-        "license": "ofl/caveatbrush/OFL.txt",
-        "project": "https://github.com/googlefonts/caveat"
+        "font": "ofl/caveat/Caveat[wght].ttf",
+        "license": "ofl/caveat/OFL.txt",
+        "project": "https://github.com/googlefonts/caveat",
+        "derivedFrom": "Caveat"
       },
       "subsets": {
         "latin": "U+0020-007E, U+00A0-00FF, U+0152-0153, U+2018-201D, U+2026, U+20AC"
       },
       "axes": {
-        "wght": 400
+        "wght": 500
       },
       "nativeWeights": [
-        400
+        500
       ],
       "fallback": "Georgia",
       "stack": [
@@ -308,18 +308,18 @@
         "Bradley Hand",
         "cursive"
       ],
-      "description": "The chalkboard of the café: a menu line, a sign, one hand-lettered word. A sparing accent, never reading text.",
-      "why": "A brush-pen hand with a chalk-sign rhythm: it reads like the specialities board of a neighbourhood café, warm and a little uneven, which is the mood of Yororis. One weight on purpose. It is an accent: a short line per screen at most, so it keeps its charm and stays out of the way of the text face.",
+      "description": "The pen of the notebook: margin marks (§ 4), rule numbers, page folios (page 4 sur 6), handwritten notes and stamps, the café chalkboard line. A sparing accent, never reading text.",
+      "why": "A neat handwritten pen, the kind written in a notebook margin: readable at small sizes, full Latin for French accents, lining and tabular figures, and the § sign. Derived from Caveat (SIL OFL 1.1) and renamed Krizaka Cahier as the licence asks: one weight at our ink, line metrics that sit on the 8 px ruled grid, figures of one width so folios and rule numbers align. It is the voice of the Cahier identity (ADR-004) where a person would write by hand, and it also sets the chalkboard line of Yororis.",
       "use": [
-        "A chalkboard menu line, a sign, a greeting (one short line per screen)",
-        "The name of a dish, a drink, a daily word",
-        "Sizes from 24 px"
+        "Margin marks (§ 4), rule numbers and page folios (page 4 sur 6)",
+        "A handwritten note or a stamp (Fait à Montréal)",
+        "The chalkboard line of a café (Yororis): one short line per screen",
+        "Sizes from 20 px"
       ],
       "avoid": [
-        "Paragraphs, interface, forms, tables, buttons (use the text face)",
-        "More than one accent line per block",
-        "Sizes under 20 px, and light text on a busy photo",
-        "Bold or synthetic weights: it has one weight (font-synthesis is off)"
+        "Headings (use the display face) and paragraphs, interface, forms, tables, buttons (use the text face)",
+        "More than one handwritten line per block",
+        "Sizes under 18 px, uppercase runs, bold or synthetic weights (it has one weight)"
       ]
     }
   ],
@@ -359,7 +359,7 @@
     }
   },
   "rules": [
-    "Three families, three jobs: display names (Young Serif), text reads (Atkinson Hyperlegible Next), mono types the notes (Courier Prime: tags, captions, footnotes, code). A fourth, the accent (Caveat Brush, `--kz-font-accent`), exists for a chalkboard line and nothing else: never body text, never interface.",
+    "Three families, three jobs: display names (Young Serif), text reads (Atkinson Hyperlegible Next), mono types the notes (Courier Prime: tags, captions, footnotes, code). A fourth, the pen (Krizaka Cahier, `--kz-font-cahier`), exists for margin marks, folios, handwritten notes and a chalkboard line and nothing else: never headings, never body text, never interface.",
     "Use the scale, not sizes: `text-display-xl`, `text-body-md`… carry size, line height, weight and tracking together. A one-off size is a missing step — ask for it.",
     "Display has one weight (400) and is never bold, never uppercase: hierarchy comes from size and space. Text from 12 px, at 400–700.",
     "No uppercase tracked overline above every heading: a section is numbered in the margin (§ 2) or not at all. A label is lower case, in the note face.",

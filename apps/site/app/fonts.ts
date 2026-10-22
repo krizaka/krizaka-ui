@@ -27,15 +27,15 @@ export const monoFace = localFont({
   fallback: ["Courier New", "ui-monospace", "Menlo", "monospace"],
 });
 
-/* The chalkboard accent (Caveat Brush): a line of a menu or a sign, never body text; not preloaded. */
-export const accentFace = localFont({
-  src: "../node_modules/@krizaka/fonts/files/web/caveat-brush-latin-400.woff2",
-  weight: "400",
-  variable: "--font-kz-accent",
+/* Krizaka Cahier, the pen (derived from Caveat, SIL OFL 1.1): margin marks, folios, notes, a chalkboard line — never body text. Pages that use it set preload: true. */
+export const cahierFace = localFont({
+  src: "../node_modules/@krizaka/fonts/files/web/krizaka-cahier-latin-wght.woff2",
+  weight: "500",
+  variable: "--font-kz-cahier",
   display: "swap",
   preload: false,
   adjustFontFallback: false,
   fallback: ["Marker Felt", "Bradley Hand", "cursive"],
 });
 
-export const fontVariables = [textFace.variable, displayFace.variable, monoFace.variable, accentFace.variable].join(" ");
+export const fontVariables = [textFace.variable, displayFace.variable, monoFace.variable, cahierFace.variable].join(" ");

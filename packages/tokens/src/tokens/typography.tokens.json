@@ -40,15 +40,15 @@
       ],
       "$description": "La machine à écrire : étiquettes, légendes, notes, code (Courier Prime)"
     },
-    "accent": {
+    "cahier": {
       "$value": [
-        "Caveat Brush",
-        "Caveat Brush Fallback",
+        "Krizaka Cahier",
+        "Krizaka Cahier Fallback",
         "Marker Felt",
         "Bradley Hand",
         "cursive"
       ],
-      "$description": "L'ardoise du café : une ligne de menu, une enseigne, un mot (Caveat Brush) ; parcimonieux, jamais du texte courant"
+      "$description": "Le stylo du cahier : § 4, numéros de règle, folios, notes à la main, l'ardoise du café (Krizaka Cahier) ; parcimonieux, jamais du texte courant"
     }
   },
   "type": {

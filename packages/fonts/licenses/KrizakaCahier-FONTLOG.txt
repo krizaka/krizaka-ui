@@ -1,0 +1,13 @@
+FONTLOG for Krizaka Cahier
+
+Krizaka Cahier is a modified version of Caveat (https://github.com/googlefonts/caveat),
+Copyright 2014 The Caveat Project Authors (https://github.com/googlefonts/caveat)
+licensed under the SIL Open Font License 1.1 (see KrizakaCahier-OFL.txt, the upstream licence kept unchanged).
+
+Changes by Krizaka (https://www.krizaka.com), see scripts/subset.py (derive_cahier):
+  - renamed (the licence asks a modified version to carry another name): Krizaka Cahier;
+  - the weight instance 500 of the variable font, the other weights dropped;
+  - line metrics set on a 1.25 em box (the 8 px ruled grid); digits checked lining and tabular;
+  - subset to the French alphabet, WOFF2 for the web, TrueType for React Native.
+
+Designers of Caveat: Impallari Type, Pablo Impallari, Rodrigo Fuenzalida (Caveat).
