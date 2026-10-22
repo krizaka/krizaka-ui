@@ -17,6 +17,7 @@
     "lint": "turbo run lint && ast-grep test --skip-snapshot-tests && node scripts/sg-ratchet.mjs && node --test scripts/sg-ratchet.test.mjs",
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
+    "dev:check": "turbo run lint typecheck test --filter='...[origin/main]' --filter='!@krizaka/site' --filter='!@krizaka/storybook'",
     "changeset": "changeset",
     "inventory": "node tools/inventory.mjs",
     "test:tools": "node --test 'tools/**/*.test.mjs'",
