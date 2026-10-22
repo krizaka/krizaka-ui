@@ -6,8 +6,10 @@ import { describe, expect, it } from "vitest";
 // only when the element runs a CSS animation (it reads animationName), so the exit is a keyframe animation; the
 // enter uses @starting-style. Durations and easings come from the --kz-motion-* tokens, never typed here.
 
-const css = readFileSync(join(import.meta.dirname, "..", "motion.css"), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
-const section = css.slice(css.indexOf("COMPONENT TRANSITIONS"));
+// The section heading is itself a comment: find it in the raw file, strip comments only from the section.
+const raw = readFileSync(join(import.meta.dirname, "..", "motion.css"), "utf8");
+const css = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+const section = raw.slice(raw.indexOf("COMPONENT TRANSITIONS")).replace(/\/\*[\s\S]*?\*\//g, "");
 
 const tabsSource = readFileSync(join(import.meta.dirname, "..", "tabs", "tabs.tsx"), "utf8");
 const popoverSource = readFileSync(join(import.meta.dirname, "..", "popover", "popover.tsx"), "utf8");
@@ -15,7 +17,7 @@ const dialogSource = readFileSync(join(import.meta.dirname, "..", "dialog", "dia
 
 describe("component transitions: the stylesheet section", () => {
   it("has its own section in motion.css", () => {
-    expect(css).toContain("COMPONENT TRANSITIONS");
+    expect(raw).toContain("COMPONENT TRANSITIONS");
   });
 
   it("enters the overlay and the panel with @starting-style", () => {
