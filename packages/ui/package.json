@@ -140,6 +140,7 @@
     "./notification-preferences": {
       "types": "./dist/notification-preferences.d.ts",
       "import": "./dist/notification-preferences.js"
+    },
     "./agenda": {
       "types": "./dist/agenda.d.ts",
       "import": "./dist/agenda.js"
