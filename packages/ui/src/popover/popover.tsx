@@ -17,7 +17,7 @@ export function PopoverContent({ sideOffset = 8, collisionPadding = 8, container
       <PopoverPrimitive.Content
         sideOffset={sideOffset}
         collisionPadding={collisionPadding}
-        className={cn(floating, "w-72 max-w-(--radix-popover-content-available-width) p-4 origin-(--radix-popover-content-transform-origin)", className)}
+        className={cn(floating, "kz-popover w-72 max-w-(--radix-popover-content-available-width) p-4 origin-(--radix-popover-content-transform-origin)", className)}
         {...props}
       />
     </PopoverPrimitive.Portal>

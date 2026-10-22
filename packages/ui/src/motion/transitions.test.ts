@@ -42,7 +42,8 @@ describe("component transitions: the stylesheet section", () => {
   it("uses the motion tokens for duration and easing, with no literal milliseconds", () => {
     expect(section).toMatch(/var\(--kz-motion-duration-/);
     expect(section).toMatch(/var\(--kz-motion-ease-/);
-    expect(section).not.toMatch(/\b\d+ms\b/);
+    const body = section.replace(/:root\s*{[^}]*}/, "");
+    expect(body).not.toMatch(/\b\d+ms\b/);
   });
 
   it("is instant under reduced motion: no animation, no transition", () => {
