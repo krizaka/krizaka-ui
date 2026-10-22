@@ -18,20 +18,25 @@ import * as React from "react";
 
 import type { DatePart } from "../date-picker/parts";
 import {
+  FieldArray,
+  type FieldArrayProps,
   type FieldCheck,
   FormContext,
   type FormContextValue,
+  FormField,
+  type FormFieldProps,
   type KrizakaField,
-  type KrizakaFieldArray,
   makeCreateKrizakaForm,
   useFormContext,
   useFormStatus,
-  useFormValue,
   useKrizakaField,
-  useKrizakaFieldArray,
+  Watch,
+  type WatchProps,
 } from "./core";
 import { formMessage } from "./errors";
 import { currencySymbol, moneyInputText, parseMoney } from "./money";
+
+export { FieldArray, type FieldArrayProps, FormField, type FormFieldProps, Watch, type WatchProps };
 
 type Base = {
   /** The field's name in the schema: `email`, `address.city`, `links[0].url` (typed by the form). */
@@ -570,46 +575,6 @@ export function Slider({ name, label, hint, disabled, className, min, max, step,
       <Caption field={f} hint={hint} />
     </div>
   );
-}
-
-export type FormFieldProps<T = unknown> = {
-  /** The field's name in the schema (typed by the form). */
-  name: string;
-  /** Checks the value on the server as it changes. */
-  validateAsync?: FieldCheck<T>;
-  /** The wait, in ms, before `validateAsync`. */
-  asyncDebounceMs?: number;
-  /** Draws the field: its value, setter, error and ids (`useKrizakaField`). */
-  children: (field: KrizakaField<T>) => React.ReactNode;
-};
-
-/** A field drawn by the app (a control the package does not have): the form's value, errors and ids, any markup. */
-export function FormField({ name, validateAsync, asyncDebounceMs, children }: FormFieldProps) {
-  return <>{children(useKrizakaField(name, { validateAsync, asyncDebounceMs }))}</>;
-}
-
-export type FieldArrayProps<T = unknown> = {
-  /** The array's name in the schema (typed by the form). */
-  name: string;
-  /** Draws the items: `items`, `push`, `remove`, `move`, `fieldName(i, "url")` for the fields of an item. */
-  children: (array: KrizakaFieldArray<T>) => React.ReactNode;
-};
-
-/** A list of fields that grows and shrinks (links, tiers, guests): each item's fields named `links[0].url`. */
-export function FieldArray({ name, children }: FieldArrayProps) {
-  return <>{children(useKrizakaFieldArray(name))}</>;
-}
-
-export type WatchProps<T = unknown> = {
-  /** The field to follow (typed by the form). */
-  name: string;
-  /** Draws from its current value: show a part of the form only when a box is ticked. */
-  children: (value: T) => React.ReactNode;
-};
-
-/** Renders from a field's current value (a part shown only when a box is ticked, a total). */
-export function Watch({ name, children }: WatchProps) {
-  return <>{children(useFormValue(name))}</>;
 }
 
 const fields = { TextField, TextArea, Checkbox, Switch, RadioGroup, Select, Combobox, DateField, TagInput, FileUpload, Money, Slider, Field: FormField, FieldArray, Watch, Submit, FormError };

@@ -275,6 +275,46 @@ export function useFormValue<T = unknown>(name: string): T {
   return useStore(ctx.api.store, (state: { values: unknown }) => getPath(state.values, name)) as T;
 }
 
+export type FormFieldProps<T = unknown> = {
+  /** The field's name in the schema (typed by the form). */
+  name: string;
+  /** Checks the value on the server as it changes. */
+  validateAsync?: FieldCheck<T>;
+  /** The wait, in ms, before `validateAsync`. */
+  asyncDebounceMs?: number;
+  /** Draws the field: its value, setter, error (and the ids, on the web) (`useKrizakaField`). */
+  children: (field: KrizakaField<T>) => React.ReactNode;
+};
+
+/** A field drawn by the app (a control the package does not have): the form's value and errors, any markup. */
+export function FormField({ name, validateAsync, asyncDebounceMs, children }: FormFieldProps) {
+  return <>{children(useKrizakaField(name, { validateAsync, asyncDebounceMs }))}</>;
+}
+
+export type FieldArrayProps<T = unknown> = {
+  /** The array's name in the schema (typed by the form). */
+  name: string;
+  /** Draws the items: `items`, `push`, `remove`, `move`, `fieldName(i, "url")` for the fields of an item. */
+  children: (array: KrizakaFieldArray<T>) => React.ReactNode;
+};
+
+/** A list of fields that grows and shrinks (links, tiers, guests): each item's fields named `links[0].url`. */
+export function FieldArray({ name, children }: FieldArrayProps) {
+  return <>{children(useKrizakaFieldArray(name))}</>;
+}
+
+export type WatchProps<T = unknown> = {
+  /** The field to follow (typed by the form). */
+  name: string;
+  /** Draws from its current value: show a part of the form only when a choice is made. */
+  children: (value: T) => React.ReactNode;
+};
+
+/** Renders from a field's current value (a part shown only when a choice is made, a total). */
+export function Watch({ name, children }: WatchProps) {
+  return <>{children(useFormValue(name))}</>;
+}
+
 /** The state of the submit, for a button: sending, and whether the last try succeeded. */
 export function useFormStatus(): { submitting: boolean; succeeded: boolean; attempts: number } {
   const ctx = useFormContext();

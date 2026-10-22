@@ -27,10 +27,14 @@ import * as React from "react";
 import { AccessibilityInfo, KeyboardAvoidingView, Platform, Pressable, ScrollView, type StyleProp, StyleSheet, type TextInput, View, type ViewStyle } from "react-native";
 
 import {
+  FieldArray,
+  type FieldArrayProps,
   type FieldCheck,
   firstVisibleError,
   FormContext,
   type FormContextValue,
+  FormField,
+  type FormFieldProps,
   type KrizakaField,
   type KrizakaFieldArray,
   makeCreateKrizakaForm,
@@ -39,9 +43,13 @@ import {
   useFormValue,
   useKrizakaField,
   useKrizakaFieldArray,
+  Watch,
+  type WatchProps,
 } from "../form/core";
 import { formMessage } from "../form/errors";
 import { currencySymbol, moneyInputText, parseMoney } from "../form/money";
+
+export { FieldArray, type FieldArrayProps, FormField, type FormFieldProps, Watch, type WatchProps };
 
 type Base = {
   /** The field's name in the schema (typed by the form). */
@@ -491,46 +499,6 @@ export function Money({ name, label, hint, disabled, style, currency, placeholde
       }}
     />
   );
-}
-
-export type FormFieldProps<T = unknown> = {
-  /** The field's name in the schema (typed by the form). */
-  name: string;
-  /** Checks the value on the server as it changes. */
-  validateAsync?: FieldCheck<T>;
-  /** The wait, in ms, before `validateAsync`. */
-  asyncDebounceMs?: number;
-  /** Draws the field: its value, setter, error (`useKrizakaField`). */
-  children: (field: KrizakaField<T>) => React.ReactNode;
-};
-
-/** A field drawn by the app (a control the package does not have). */
-export function FormField({ name, validateAsync, asyncDebounceMs, children }: FormFieldProps) {
-  return <>{children(useKrizakaField(name, { validateAsync, asyncDebounceMs }))}</>;
-}
-
-export type FieldArrayProps<T = unknown> = {
-  /** The array's name in the schema (typed by the form). */
-  name: string;
-  /** Draws the items: `items`, `push`, `remove`, `move`, `fieldName(i, "url")`. */
-  children: (array: KrizakaFieldArray<T>) => React.ReactNode;
-};
-
-/** A list of fields that grows and shrinks: each item's fields named `links[0].url`. */
-export function FieldArray({ name, children }: FieldArrayProps) {
-  return <>{children(useKrizakaFieldArray(name))}</>;
-}
-
-export type WatchProps<T = unknown> = {
-  /** The field to follow (typed by the form). */
-  name: string;
-  /** Draws from its current value. */
-  children: (value: T) => React.ReactNode;
-};
-
-/** Renders from a field's current value (a part shown only when a choice is made). */
-export function Watch({ name, children }: WatchProps) {
-  return <>{children(useFormValue(name))}</>;
 }
 
 const fields = { TextField, TextArea, Checkbox, Switch, RadioGroup, Select, Combobox, DateField, Money, Slider, Field: FormField, FieldArray, Watch, Submit, FormError };

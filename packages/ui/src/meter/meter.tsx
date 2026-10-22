@@ -5,6 +5,10 @@
 import type * as React from "react";
 import { tv } from "tailwind-variants";
 
+import { type MeterLevel, meterModel, type MeterOptimum, type MeterPart, type MeterThresholds } from "./model";
+
+export type { MeterPart };
+
 export const meter = tv({
   slots: {
     root: "flex w-full flex-col gap-1.5",
@@ -25,19 +29,10 @@ export const meter = tv({
 });
 
 /** The colour of a fill: by tone (thresholds) or by part (the accent, a neutral, accent-2, a lighter neutral). */
-const BG = { ok: "bg-accent", success: "bg-success", warning: "bg-warning", danger: "bg-danger" } as const;
-const STROKE = { ok: "stroke-accent", success: "stroke-success", warning: "stroke-warning", danger: "stroke-danger" } as const;
+const BG: Record<MeterLevel, string> = { ok: "bg-accent", success: "bg-success", warning: "bg-warning", danger: "bg-danger" };
+const STROKE: Record<MeterLevel, string> = { ok: "stroke-accent", success: "stroke-success", warning: "stroke-warning", danger: "stroke-danger" };
 const PART_BG = ["bg-accent", "bg-fg-secondary", "bg-accent-2", "bg-border-strong"];
 const PART_STROKE = ["stroke-accent", "stroke-fg-secondary", "stroke-accent-2", "stroke-border-strong"];
-
-export interface MeterPart {
-  /** Its name (“To the creator”) — passed translated. */
-  label: string;
-  /** Its value, in the meter's unit. */
-  value: number;
-  /** Its value in words (“€9.00”), in the legend and for assistive technology; default: its percentage. */
-  valueText?: string;
-}
 
 export type MeterProps = Omit<React.ComponentProps<"div">, "children"> & {
   /** The accessible name (“Storage”, “Split of a tip”) — passed translated; shown with `showLabel`. */
@@ -60,12 +55,12 @@ export type MeterProps = Omit<React.ComponentProps<"div">, "children"> & {
    * Ratios (0–1) where the tone changes: past `high` it is in danger, past `low` in warning — or the reverse with
    * `optimum="high"` (a balance: the lower, the worse). Without thresholds the fill is the brand accent.
    */
-  thresholds?: { readonly low: number; readonly high: number };
+  thresholds?: MeterThresholds;
   /**
    * Which end is good.
    * @default "low"
    */
-  optimum?: "low" | "high";
+  optimum?: MeterOptimum;
   /** Split into parts that add up to `max`: a stacked bar or ring, with its legend. */
   parts?: readonly MeterPart[];
   /**
@@ -102,11 +97,7 @@ export function Meter({
   ...props
 }: MeterProps) {
   const s = meter({ size });
-  const span = max - min || 1;
-  const ratio = Math.min(1, Math.max(0, (value - min) / span));
-  const level = !thresholds ? "ok" : ratio >= thresholds.high ? (optimum === "low" ? "danger" : "success") : ratio >= thresholds.low ? "warning" : optimum === "low" ? "success" : "danger";
-  const words = valueText ?? `${Math.round(ratio * 100)} %`;
-  const shares = (parts ?? []).map((p, i) => ({ ...p, i, ratio: Math.min(1, Math.max(0, p.value / span)), words: p.valueText ?? `${Math.round((p.value / span) * 100)} %` }));
+  const { ratio, level, words, shares, arcs } = meterModel({ value, min, max, valueText, thresholds, optimum, parts });
   const a11y = parts
     ? { role: "group" as const, "aria-label": label }
     : { role: "meter" as const, "aria-label": label, "aria-valuemin": min, "aria-valuemax": max, "aria-valuenow": Math.min(max, Math.max(min, value)), "aria-valuetext": words };
@@ -124,33 +115,28 @@ export function Meter({
 
   if (variant === "ring") {
     const r = 44;
-    let offset = 0;
-    const arcs = parts
-      ? shares.map((p) => {
-          const arc = { cls: PART_STROKE[p.i % PART_STROKE.length]!, len: p.ratio * 100, start: offset };
-          offset += arc.len;
-          return arc;
-        })
-      : [{ cls: STROKE[level], len: ratio * 100, start: 0 }];
     return (
       <div {...a11y} data-level={parts ? undefined : level} className={["inline-flex flex-col items-center gap-2", className].filter(Boolean).join(" ")} {...props}>
         <div className={s.ring()}>
           <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90" aria-hidden>
             <circle cx="50" cy="50" r={r} fill="none" strokeWidth="9" className="stroke-border-default" />
-            {arcs.map((a, i) => (
-              <circle
-                key={i}
-                cx="50"
-                cy="50"
-                r={r}
-                fill="none"
-                strokeWidth="9"
-                pathLength={100}
-                strokeDasharray={`${Math.max(0, a.len - (parts ? 1 : 0))} ${100 - Math.max(0, a.len - (parts ? 1 : 0))}`}
-                strokeDashoffset={-a.start}
-                className={[a.cls, "transition-[stroke-dasharray] duration-700 motion-reduce:transition-none"].join(" ")}
-              />
-            ))}
+            {arcs.map((arc, i) => {
+              const length = Math.max(0, arc.len * 100 - (parts ? 1 : 0));
+              return (
+                <circle
+                  key={i}
+                  cx="50"
+                  cy="50"
+                  r={r}
+                  fill="none"
+                  strokeWidth="9"
+                  pathLength={100}
+                  strokeDasharray={`${length} ${100 - length}`}
+                  strokeDashoffset={-arc.start * 100}
+                  className={[arc.part === undefined ? STROKE[level] : PART_STROKE[arc.part % PART_STROKE.length], "transition-[stroke-dasharray] duration-700 motion-reduce:transition-none"].join(" ")}
+                />
+              );
+            })}
           </svg>
           {children !== undefined && <div className={s.center()}>{children}</div>}
         </div>
