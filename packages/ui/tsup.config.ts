@@ -91,7 +91,10 @@ export default defineConfig([
     ...shared,
     entry: {
       "dashboard-layout": "src/dashboard-layout/index.ts",
+      "account-settings": "src/account-settings/index.ts",
       "settings-layout": "src/settings-layout/index.ts",
+      "drop-overlay": "src/drop-overlay/index.ts",
+      "upload-queue": "src/upload-queue/index.ts",
       "account-menu": "src/account-menu/index.ts",
       "auth-layout": "src/auth-layout/index.ts",
       "detail-layout": "src/detail-layout/index.ts",
