@@ -1,5 +1,31 @@
 # @krizaka/ui
 
+## 3.48.0
+
+### Minor Changes
+
+- [#516](https://github.com/krizaka/krizaka-ui/pull/516) [`39d780d`](https://github.com/krizaka/krizaka-ui/commit/39d780d124fcb16d54fe80763f3bbd2ca4657de8) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/agenda`: `Agenda`, one day's appointments in time order (tabular times, client, service, status chip, a quiet action outside the row's link) with a « now » line between the ones past and the ones to come. The time zone and the locale are props, `now` comes from the server, the open row is `aria-current` and can be an address.
+
+- [#512](https://github.com/krizaka/krizaka-ui/pull/512) [`ceae548`](https://github.com/krizaka/krizaka-ui/commit/ceae548da212413518ebb17a18b342c45932e5fb) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/drop-overlay`: `DropOverlay` — the whole window is the drop target (`accept`, rejected files handed back, motion from the tokens, instant under reduced motion). `@krizaka/ui/upload-queue`: `UploadQueue` (rows that say in words what they do, live progress, result chip, one quiet action; the shimmer runs only while working) and `TaskTray` (the non-blocking container) with the `QueueStatus` vocabulary (krizaka-ui#511).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.48.0
+  - @krizaka/tokens@3.48.0
+
+## 3.47.0
+
+### Minor Changes
+
+- [#504](https://github.com/krizaka/krizaka-ui/pull/504) [`dab0bb9`](https://github.com/krizaka/krizaka-ui/commit/dab0bb93c5dd7eb6b2dbc45afbe1308a8097a96c) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/account-settings`: `AccountProfileCard` (picture and change action, name, e-mail with its verification, member since), `AvatarPicker` (a radiogroup grid of the family's default pictures with an upload slot), `ChoiceCards` (a single choice as cards with icon, title, description) and `LanguagePicker` (labelled, native names). `SettingsSection` gets `save`: one inline save per section (enabled while dirty, saving / saved with Undo / error as a live region), with `useSaveStatus` and `SaveStatus`. Section patterns (security, subscription, storage, my data) as registry examples (krizaka-ui#502).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.47.0
+  - @krizaka/tokens@3.47.0
+
 ## 3.46.0
 
 ### Minor Changes
