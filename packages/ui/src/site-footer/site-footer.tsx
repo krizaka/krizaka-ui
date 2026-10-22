@@ -91,12 +91,17 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
    */
   path?: string;
   /**
-   * Shows the family in columns (the Krizaka sites: www, ui., java.). A product is independent once deployed: pass
-   * `family={false}` and the footer holds only its own columns, the legal links, the version and one publisher line —
-   * “A Krizaka product”, linking to www.krizaka.com.
-   * @default true
+   * Shows the family in columns. Only the hub, krizaka.com, lists the family: every other site (ui., java., the blog, the
+   * products) holds its own columns, the legal links, the version and one quiet publisher line — “A Krizaka project” —
+   * that links back to www.krizaka.com, the only way back between the sites (2026-10-22).
+   * @default current === "krizaka"
    */
   family?: boolean;
+  /**
+   * The hub's product list: only these products appear in the Products column (krizaka.com shows its focus products,
+   * and all of them once the reader asks for the whole notebook). Omit it to list every product.
+   */
+  products?: readonly SiteId[];
   /** The end of the signature line: legal links, a language switch (`SiteFooter.Link`s or any inline content). */
   legal?: React.ReactNode;
   /**
@@ -118,14 +123,15 @@ export function SiteFooter({
   env,
   path,
   legal,
-  family: familyProp = true,
+  family: familyProp,
+  products,
   variant = "site",
   className,
   ...props
 }: SiteFooterProps) {
   const id = React.useId();
   const s = siteFooter({ variant });
-  const family = variant === "site" && familyProp;
+  const family = variant === "site" && (familyProp ?? current === "krizaka");
   const slim = variant === "app";
   const site = siteById(current);
   const krizaka = siteById("krizaka");
@@ -138,7 +144,7 @@ export function SiteFooter({
   // column that lists only Krizaka.
   const groups = sitesByGroup();
   const columns = [
-    ...groups.filter((g) => g.group === "products"),
+    ...groups.filter((g) => g.group === "products").map((g) => (products ? { ...g, sites: g.sites.filter((x) => products.includes(x.id) || x.id === current) } : g)),
     { group: "open-source" as const, sites: groups.filter((g) => g.group === "open-source" || g.group === "github").flatMap((g) => g.sites) },
   ];
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 /* The bar of ui.krizaka.com, on @krizaka/ui's NavBar, in the three zones every Krizaka site shares (NAV-SYS):
-   left, who this is — the Krizaka UI mark, then the family switcher (NavBar.Family: Krizaka, the products, Krizaka Java…);
+   left, who this is — the Krizaka UI mark, (no family switcher: krizaka.com is the only way back, through the footer);
    centre, this site — Get started ·
    Foundations · Components · Templates and the version it documents; right, the tools — search (Fumadocs' dialog, ⌘K),
    the repository, the theme, the language (NavBar.Language: the family's one switch). */
@@ -12,7 +12,6 @@ import { Button } from "@krizaka/ui/button";
 import { Kbd } from "@krizaka/ui/kbd";
 import { languageNames } from "@krizaka/ui/language-switch";
 import { NavBar } from "@krizaka/ui/nav-bar";
-import { familyLabels } from "@krizaka/ui/sites";
 import { useSearchContext } from "fumadocs-ui/contexts/search";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -49,7 +48,6 @@ export function SiteBar({ version }: { version: string }) {
             {b.label}
           </Link>
         </NavBar.Brand>
-        <NavBar.Family current="ui" labels={familyLabels[locale]} />
 
         <NavBar.Items>
           {LINKS.map((l) => (
@@ -93,7 +91,6 @@ export function SiteBar({ version }: { version: string }) {
               </NavBar.MobileLink>
             ))}
             <NavBar.Language {...language} />
-            <NavBar.Family current="ui" labels={familyLabels[locale]} />
           </NavBar.Mobile>
         </NavBar.Actions>
       </NavBar.Root>
