@@ -155,4 +155,117 @@ describe("Flock", () => {
     act(() => void vi.advanceTimersByTime(2200)); // 4200 / 2
     expect(looks(container)).toEqual(["right", "left", null]);
   });
+
+  describe("scenes", () => {
+    const cast: FlockBird[] = [
+      { bird: "owl", x: 14, y: 95, size: 12 },
+      { bird: "flamingo", x: 30, y: 95, size: 12 },
+      { bird: "crane", x: 46, y: 95, size: 12 },
+      { bird: "beaver", x: 62, y: 95, size: 12 },
+      { bird: "magpie", x: 78, y: 95, size: 12 },
+      { bird: "pigeon", x: 92, y: 95, size: 12 },
+    ];
+    const props = (c: HTMLElement) => [...c.querySelectorAll("[data-flock-prop]")].map((e) => e.getAttribute("data-flock-prop"));
+    // A fixed source of chance (mulberry32) whose first draws are 0.5, 0, 0 (not a long pause, the shortest wait, the first beat).
+    const seeded = (seed: number) => {
+      let a = seed;
+      return () => {
+        a = (a + 0x6d2b79f5) | 0;
+        let t = Math.imul(a ^ (a >>> 15), 1 | a);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    };
+    const mountCast = (extra = {}, seq?: number[]) => {
+      let n = 0;
+      const first = seq ?? [0.5, 0, 0];
+      const rest = seeded(7);
+      const random = () => (n < first.length ? first[n++]! : rest());
+      const view = render(<Flock birds={cast} random={random} glance={false} courier={false} scenes {...extra} />);
+      act(() => visible(true));
+      return view;
+    };
+
+    it("is off unless asked: no prop, no body animation", () => {
+      const { container } = render(<Flock birds={cast} random={() => 0} glance={false} courier={false} />);
+      act(() => visible(true));
+      act(() => void vi.advanceTimersByTime(60000));
+      expect(props(container)).toEqual([]);
+      expect(animations).toHaveLength(0);
+    });
+
+    it("opens with the owl reading: a book, a leaf turned, then the owl looks away from it", async () => {
+      const { container } = mountCast();
+      await act(async () => void vi.advanceTimersByTime(2700)); // the first wait (random = 0: the shortest)
+      expect(props(container)).toEqual(["book"]);
+      expect(container.querySelector("svg[data-bird=owl]")!.getAttribute("data-look")).toBe("left");
+      await act(async () => void vi.advanceTimersByTime(5000));
+      expect(props(container)).not.toContain("book"); // it has put the book away
+    });
+
+    it("never picks the same bird twice in a row, and runs one scene at a time", async () => {
+      const { container } = mountCast();
+      const seen: (string | null)[] = [];
+      for (let t = 0; t < 40; t++) {
+        await act(async () => void vi.advanceTimersByTime(1000));
+        const live = props(container);
+        expect(live.length).toBeLessThanOrEqual(2);
+        for (const p of live) if (!seen.includes(p)) seen.push(p);
+      }
+      expect(seen.length).toBeGreaterThan(2); // a book, a speech mark, a log… the birds take turns
+    });
+
+    it("lets the flamingo speak, its neighbour listen and answer", async () => {
+      // random: not a long pause, the flamingo among the beats (the owl is excluded by `last` after we start with it).
+      const { container } = mountCast({}, [0.9, 0.2, 0.2]);
+      let said = false;
+      for (let t = 0; t < 80 && !said; t++) {
+        await act(async () => void vi.advanceTimersByTime(500));
+        said = container.querySelector("[data-flock-prop=say]") !== null;
+      }
+      expect(said).toBe(true);
+    });
+
+    it("hands the parcel over: the pigeon flies back empty-handed and the receiver reacts", async () => {
+      const { container } = mountCast({ courier: true, scenes: true }, [0.9]);
+      const pigeon = container.querySelector("svg[data-bird=pigeon]")!;
+      expect(pigeon.querySelector(".kzb-parcel")).not.toBeNull();
+      await act(async () => void vi.advanceTimersByTime(9100)); // it has landed
+      expect(pigeon.querySelector(".kzb-parcel")).toBeNull();
+      expect(props(container)).toContain("gift");
+      for (let t = 0; t < 30 && !pigeon.querySelector(".kzb-parcel"); t++) await act(async () => void vi.advanceTimersByTime(1000)); // the reaction ends, it flies back
+      expect(pigeon.querySelector(".kzb-parcel")).not.toBeNull();
+      expect(props(container)).not.toContain("gift");
+    });
+
+    it("stops and clears every prop when it leaves the screen, and is still under reduced motion", async () => {
+      const { container } = mountCast();
+      await act(async () => void vi.advanceTimersByTime(2700));
+      expect(props(container).length).toBeGreaterThan(0);
+      act(() => visible(false));
+      expect(props(container)).toEqual([]);
+      await act(async () => void vi.advanceTimersByTime(60000));
+      expect(props(container)).toEqual([]);
+      reduced = true;
+      const still = mountCast();
+      await act(async () => void vi.advanceTimersByTime(60000));
+      expect(props(still.container)).toEqual([]);
+    });
+
+    it("waits for the page to settle (html[data-motion])", async () => {
+      document.documentElement.setAttribute("data-motion", "settling");
+      const { container } = mountCast();
+      await act(async () => void vi.advanceTimersByTime(20000));
+      expect(props(container)).toEqual([]);
+      await act(async () => void document.documentElement.setAttribute("data-motion", "ready"));
+      await act(async () => void vi.advanceTimersByTime(3000));
+      expect(props(container).length).toBeGreaterThan(0);
+      document.documentElement.removeAttribute("data-motion");
+    });
+
+    it("marks its stage as a motion scope, so the page pauses its loops off screen", () => {
+      const { container } = mountCast();
+      expect(container.firstElementChild!.hasAttribute("data-motion-scope")).toBe(true);
+    });
+  });
 });

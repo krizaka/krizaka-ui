@@ -75,6 +75,8 @@ export type MascotProps = Omit<React.ComponentProps<"svg">, "children"> & {
   flying?: boolean;
   /** Which way it leans in flight, -1 (left) to 1 (right). */
   bank?: number;
+  /** Whether the pigeon holds its parcel (default `true`): a flock hands it over and the bird flies back light. */
+  carrying?: boolean;
   /** A tap or a poke just happened (`life`): a small jump. Set it for a moment, then unset. */
   poked?: boolean;
 };
@@ -83,7 +85,7 @@ export type MascotProps = Omit<React.ComponentProps<"svg">, "children"> & {
  * One of the nine Krizaka figures in one mood — for the moments a product speaks to a person: a welcome, a long wait,
  * a success, an empty list, an error. Drawn in the host's brand colours by default (`tone="own"` for the story's).
  */
-export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 96, animated = true, title, life = false, phase, look, flying, bank, poked, className, style, ...props }: MascotProps) {
+export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 96, animated = true, title, life = false, phase, look, flying, bank, poked, carrying = true, className, style, ...props }: MascotProps) {
   const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const g = BIRDS[bird];
   const alive = life && mood === "welcome";
@@ -149,7 +151,7 @@ export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 
             <path key={d} d={d} stroke={p.beak} strokeWidth={2.6} strokeLinecap="round" />
           ))}
           {g.back?.map((d) => (d.endsWith("Z") ? <path key={d} d={d} fill={p.detail} {...line} /> : <path key={d} d={d} stroke={OUTLINE} strokeWidth={1.4} />))}
-          {g.parcel && (
+          {g.parcel && carrying && (
             <g className="kzb-parcel" {...line}>
               {g.parcel.map((d, i) => (
                 <path key={d} d={d} fill={PARCEL[i]} />
