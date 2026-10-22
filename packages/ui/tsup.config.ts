@@ -42,6 +42,8 @@ export default defineConfig([
       "page-header": "src/page-header/index.ts",
       // One day's appointments, with a « now » line.
       agenda: "src/agenda/index.ts",
+      // Space or time used against a plan.
+      "quota-meter": "src/quota-meter/index.ts",
       alert: "src/alert/index.ts",
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",

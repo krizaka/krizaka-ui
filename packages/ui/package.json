@@ -141,6 +141,10 @@
       "types": "./dist/agenda.d.ts",
       "import": "./dist/agenda.js"
     },
+    "./quota-meter": {
+      "types": "./dist/quota-meter.d.ts",
+      "import": "./dist/quota-meter.js"
+    },
     "./alert": {
       "types": "./dist/alert.d.ts",
       "import": "./dist/alert.js"
@@ -1109,6 +1113,13 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./quota-meter",
+      "path": "dist/quota-meter.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
     },
     {
       "name": "./alert",
