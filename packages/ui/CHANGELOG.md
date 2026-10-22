@@ -1,5 +1,24 @@
 # @krizaka/ui
 
+## 3.44.0
+
+### Minor Changes
+
+- [#488](https://github.com/krizaka/krizaka-ui/pull/488) [`c4a6ce1`](https://github.com/krizaka/krizaka-ui/commit/c4a6ce1091e1c7f64b943e3cf8681cf52c169195) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The URL is the state, made impossible to forget (Oussama, 2026-10-22: « changer les tabs doit changer les routes »).
+  
+  - New `@krizaka/ui/router`: `useRouteState(key, { values, default, history })` keeps a value in a search parameter, typed from an `as const` list (an unknown value reads as the default, the default is never written, other parameters are kept); `RouteStateProvider` takes your router's adapter once (the History API is the default); pure `readRouteValue` / `writeRouteValue`.
+  - `routeKey` (+ `routeValues`) on `Tabs.Root`, `Chip.Group` (single) and `ChoiceGrid`: they bind to the URL, no `useState`. Local state stays for ephemeral UI only.
+  - `@krizaka/config`: the rule `krizaka/route-state-selection` (in `krizakaStack()`, severity of the stack, only pages and route components) refuses a Tabs / Chip.Group / ChoiceGrid / SegmentedControl / ToggleGroup driven by local state without `routeKey`, unless the line carries `// @ephemeral: <reason>`; the ratchet counts it as `routeStateSelection` (only goes down).
+
+- [#488](https://github.com/krizaka/krizaka-ui/pull/488) [`c4a6ce1`](https://github.com/krizaka/krizaka-ui/commit/c4a6ce1091e1c7f64b943e3cf8681cf52c169195) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `Tabs` as routes: `Tabs.Nav` + `Tabs.NavLink`. Each tab is a link (`href`, or your router's `Link` with `asChild`), the active one comes from the current route passed in (`current`: the path with its search; `isTabActive` is exported), so the URL is the state and no local state exists. Per WAI-ARIA these are links in a named navigation with `aria-current="page"` (not a tablist): Tab walks them, Enter follows. Same three variants and the same gliding light as `Tabs.List`. Tests, meta and an example (`routes`) included.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/query@0.2.1
+  - @krizaka/tailwind@3.44.0
+  - @krizaka/tokens@3.44.0
+
 ## 3.43.1
 
 ### Patch Changes
