@@ -1110,6 +1110,8 @@
       "limit": "3 kB",
       "gzip": true,
       "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+    },
+    {
       "name": "./agenda",
       "path": "dist/agenda.js",
       "limit": "2 kB",
