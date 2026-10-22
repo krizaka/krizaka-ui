@@ -9,6 +9,7 @@
 
 /** Every documented component: the web primitives (one entry of the package each) and the native-only ones. */
 export type ComponentName =
+  | "quota-meter"
   | "account-settings"
   | "achievement"
   | "anatomy-plate"
