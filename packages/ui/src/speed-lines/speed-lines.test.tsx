@@ -3,8 +3,8 @@ import { join } from "node:path";
 
 import { render } from "@testing-library/react";
 
-import { axeViolations } from "../test/axe";
 import { Mascot } from "../mascots";
+import { axeViolations } from "../test/axe";
 import { SpeedLines } from "./index";
 
 const blocks = readFileSync(join(import.meta.dirname, "../blocks.css"), "utf8");
