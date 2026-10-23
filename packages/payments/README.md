@@ -33,7 +33,17 @@ await applyOnce(pgEventStore(query), event, {
 ```
 
 - **Events are vendor-free** (`payment_paid`, `subscription_started`, `subscription_changed`); plans are named by the product.
-- **Idempotent**: `applyOnce` records the id first (`payment_events (id text primary key, type text)`), a replay runs no handler.
+- **Idempotent**: `applyOnce` records the id first (`payment_events (id text primary key, type text)`), so a replay runs no handler.
+  If the handler throws, the id is given back (`EventStore.forget`, implemented by `pgEventStore`) and the error propagates. The webhook
+  then answers an error, and the processor's retry applies the event.
+- **Atomic**: prefer `applyOnceInTransaction`. It records the id and runs the effect in **one transaction**, so they commit together
+  or roll back together. That also covers a crash between the two:
+
+```ts
+await applyOnceInTransaction((work) => db.transaction(work), event, {
+  payment_paid: async (e, query) => { await query("UPDATE accounts SET audit_credits = audit_credits + 1 WHERE id = $1", [e.accountId]); },
+});
+```
 - **Taxes** are the processor's (Stripe Tax: GST + QST from the buyer's address).
 
 ## Setup from data
