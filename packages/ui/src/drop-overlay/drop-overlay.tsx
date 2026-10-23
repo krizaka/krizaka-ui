@@ -11,17 +11,38 @@ export type DropOverlayProps = Omit<React.ComponentProps<"div">, "children" | "o
   label: string;
   /** One line under it (“PDF or text”). */
   hint?: string;
-  /** The files dropped: the accepted ones, then the ones `accept` refused. */
-  onFiles: (accepted: File[], rejected: File[]) => void;
   /** What is accepted: MIME types, families (`image/*`) or extensions (`.pdf`). */
   accept?: readonly AcceptRule[];
   /** Turns the window back into a plain page (while a modal is open, signed out). */
   disabled?: boolean;
-};
+} & (
+  | {
+      /** Controlled form (a desktop app's native drops, which arrive as paths): shown while true, the DOM listeners are off. */
+      active: boolean;
+      /** Not called in the controlled form. */
+      onFiles?: (accepted: File[], rejected: File[]) => void;
+    }
+  | {
+      /** Leave undefined to handle DOM drops. */
+      active?: undefined;
+      /** The files dropped: the accepted ones, then the ones `accept` refused. */
+      onFiles: (accepted: File[], rejected: File[]) => void;
+    }
+);
 
 /** Drag a file anywhere on the page: a full-window overlay accepts it. */
-export function DropOverlay({ label, hint, onFiles, accept, disabled, className, ...props }: DropOverlayProps) {
-  const [active, setActive] = React.useState(false);
+export function DropOverlay({
+  label,
+  hint,
+  onFiles,
+  accept,
+  disabled,
+  active: controlled,
+  className,
+  ...props
+}: DropOverlayProps) {
+  const isControlled = controlled !== undefined;
+  const [dragging, setActive] = React.useState(false);
   const depth = React.useRef(0);
   const latest = React.useRef({ onFiles, accept });
   React.useEffect(() => {
@@ -29,7 +50,7 @@ export function DropOverlay({ label, hint, onFiles, accept, disabled, className,
   });
 
   React.useEffect(() => {
-    if (disabled) return;
+    if (disabled || isControlled) return;
     const reset = () => {
       depth.current = 0;
       setActive(false);
@@ -54,7 +75,7 @@ export function DropOverlay({ label, hint, onFiles, accept, disabled, className,
       const files = Array.from((event as DragEvent).dataTransfer?.files ?? []);
       reset();
       const { accepted, rejected } = splitDropped(files, latest.current.accept);
-      latest.current.onFiles(accepted, rejected);
+      latest.current.onFiles?.(accepted, rejected);
     };
     window.addEventListener("dragenter", enter);
     window.addEventListener("dragover", over);
@@ -67,9 +88,9 @@ export function DropOverlay({ label, hint, onFiles, accept, disabled, className,
       window.removeEventListener("drop", drop);
       reset();
     };
-  }, [disabled]);
+  }, [disabled, isControlled]);
 
-  if (!active) return null;
+  if (!(isControlled ? controlled && !disabled : dragging)) return null;
   return (
     <div role="status" data-state="open" className={cn("kz-drop-overlay", className)} {...props}>
       <div className="kz-drop-overlay-card">
