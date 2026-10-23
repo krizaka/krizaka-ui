@@ -1007,14 +1007,14 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
    decoration with a real text equivalent, and none of them moves under `prefers-reduced-motion`. ─── */
 
 /* Doodle: marks drawn in the margin's ink (`--kz-doodle-ink`, the red of the margin by default; plain accent in a product). */
-.kz-doodle { --kz-doodle-ink: var(--kz-paper-rule-margin); position: relative; display: inline-block; color: var(--kz-doodle-ink); line-height: 0; }
+.kz-doodle { position: relative; display: inline-block; color: var(--kz-doodle-ink, var(--kz-paper-rule-margin)); line-height: 0; }
 .kz-doodle[data-kind="arrow"], .kz-doodle[data-kind="stars"] { width: 4.5rem; height: 2.8rem; }
 .kz-doodle[data-kind="bird"] { width: 4rem; height: 4rem; }
 .kz-doodle[data-flip] .kz-doodle-ink { transform: scaleX(-1); }
 .kz-doodle[data-kind="arrow"] .kz-doodle-ink, .kz-doodle[data-kind="stars"] .kz-doodle-ink, .kz-doodle[data-kind="bird"] .kz-doodle-ink { display: block; width: 100%; height: 100%; }
 .kz-doodle[data-kind="circle"], .kz-doodle[data-kind="underline"] { line-height: inherit; color: inherit; }
 .kz-doodle-word { position: relative; padding: 0 0.3em; }
-.kz-doodle[data-kind="circle"] .kz-doodle-ink, .kz-doodle[data-kind="underline"] .kz-doodle-ink { position: absolute; pointer-events: none; color: var(--kz-doodle-ink); }
+.kz-doodle[data-kind="circle"] .kz-doodle-ink, .kz-doodle[data-kind="underline"] .kz-doodle-ink { position: absolute; pointer-events: none; color: var(--kz-doodle-ink, var(--kz-paper-rule-margin)); }
 .kz-doodle[data-kind="circle"] .kz-doodle-ink { inset: -0.35em -0.2em; }
 .kz-doodle[data-kind="underline"] .kz-doodle-ink { left: 0; right: 0; bottom: -0.3em; height: 0.35em; }
 .kz-doodle-ink svg { display: block; width: 100%; height: 100%; overflow: visible; }
@@ -1031,9 +1031,9 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-speed { position: relative; isolation: isolate; display: grid; place-items: center; overflow: hidden; }
 .kz-speed-lines { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; color: var(--kz-speed-ink, var(--kz-text-muted)); opacity: 0.4; pointer-events: none; }
 .kz-speed-content { position: relative; max-width: 100%; }
-.kz-speed[data-animated] .kz-speed-lines { animation: kz-speed-pulse 2.4s ease-in-out infinite; }
+.kz-speed[data-speed-animated] .kz-speed-lines { animation: kz-speed-pulse 2.4s ease-in-out infinite; }
 @keyframes kz-speed-pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.5; } }
-@media (prefers-reduced-motion: reduce) { .kz-speed[data-animated] .kz-speed-lines { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .kz-speed[data-speed-animated] .kz-speed-lines { animation: none; } }
 
 /* VersusCard: two fighters, the stat bars, the VS between them. On a phone they stack and the mark sits between. */
 .kz-versus { --kz-versus-ink: var(--kz-hue, var(--kz-accent)); display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: clamp(12px, 3vw, 32px);

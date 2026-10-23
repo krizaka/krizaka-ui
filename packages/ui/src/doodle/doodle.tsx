@@ -15,7 +15,7 @@ export type DoodleProps = Omit<React.HTMLAttributes<HTMLSpanElement>, "children"
   /** The word a `circle` or an `underline` marks: it stays real text. */
   children?: React.ReactNode;
   /** Which bird `kind="bird"` sketches. @default "duck" */
-  bird?: MascotBird;
+  bird?: DoodleBird;
   /** Turns an `arrow` or a `bird` to face left. @default false */
   flip?: boolean;
   /** A text equivalent, when the mark says something (`See the install steps`). Without it the mark is decoration, hidden. */
@@ -32,15 +32,16 @@ const sparkle = (x: number, y: number, r: number) => {
 };
 
 /** The ear tufts, the beak and the legs that tell the birds apart, over a body and a head every bird shares. */
-const BIRD_FEATURES: Readonly<Record<string, string>> = {
+const BIRD_FEATURES = {
   falcon: "M52 17 Q62 17 60 27 Q57 22 52 23",
   owl: "M39 12 L37 4 L44 10 M51 12 L55 4 L48 10 M52 21 L55 25 L51 25",
   duck: "M52 19 Q62 18 63 23 Q58 25 52 24",
   flamingo: "M51 17 Q58 17 56 24 M44 14 C32 22 50 30 36 40",
   pigeon: "M52 20 L59 22 L52 24",
-};
+} as const satisfies Partial<Record<MascotBird, string>>;
+type DoodleBird = keyof typeof BIRD_FEATURES;
 
-function BirdSketch({ bird }: { bird: MascotBird }) {
+function BirdSketch({ bird }: { bird: DoodleBird }) {
   const owl = bird === "owl";
   const tall = bird === "flamingo";
   return (
@@ -51,7 +52,7 @@ function BirdSketch({ bird }: { bird: MascotBird }) {
         {tall && <circle cx="45" cy="12" r="5.5" />}
         <path d="M20 40 Q29 31 40 39" />
         <path d="M26 52 L25 61 M34 52 L35 61" />
-        <path d={BIRD_FEATURES[bird] ?? BIRD_FEATURES.duck} />
+        <path d={BIRD_FEATURES[bird]} />
         {owl && <circle cx="47" cy="19" r="4" />}
       </g>
       <circle cx={tall ? 46.5 : 47} cy={tall ? 11 : 19} r="1.6" fill="currentColor" />
@@ -59,7 +60,7 @@ function BirdSketch({ bird }: { bird: MascotBird }) {
   );
 }
 
-function Mark({ kind, bird }: { kind: DoodleKind; bird: MascotBird }) {
+function Mark({ kind, bird }: { kind: DoodleKind; bird: DoodleBird }) {
   switch (kind) {
     case "arrow":
       return (

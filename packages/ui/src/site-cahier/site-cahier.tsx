@@ -57,7 +57,7 @@ export function SiteCahier({ site, name, bird, hue, nav, navLabel = "Main", home
       : ({
           "--kz-hue": `hsl(${h} 62% 52%)`,
           "--kz-hue-2": `hsl(${(h + 30) % 360} 62% 52%)`,
-          "--kz-hue-text": `color-mix(in oklab, hsl(${h} 70% 50%) 40%, var(--kz-text-primary))`,
+          "--kz-hue-text": "var(--kz-text-primary)",
         } as React.CSSProperties);
   return (
     <div className={cn("kz-cahier", className)} data-site={site} style={{ ...tint, ...style }} {...props}>
@@ -141,7 +141,7 @@ export function SiteCahierDoc({ title, eyebrow, aside, asideLabel = "On this pag
         <article className={cn("kz-cahier-article", className)} {...props}>
           {eyebrow && <p className="kz-eyebrow">{eyebrow}</p>}
           <h1 className="kz-hero-title">{title}</h1>
-          {children}
+          <div className="kz-tpl-prose">{children}</div>
         </article>
         {aside && (
           <aside className="kz-cahier-aside" aria-label={asideLabel}>

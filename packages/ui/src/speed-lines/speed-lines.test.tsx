@@ -1,7 +1,13 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { render } from "@testing-library/react";
 
 import { axeViolations } from "../test/axe";
+import { Mascot } from "../mascots";
 import { SpeedLines } from "./index";
+
+const blocks = readFileSync(join(import.meta.dirname, "../blocks.css"), "utf8");
 
 describe("SpeedLines", () => {
   it("hides the lines and keeps its content real, with no axe violation", async () => {
@@ -26,7 +32,18 @@ describe("SpeedLines", () => {
   });
 
   it("only pulses when asked (and the stylesheet stops it under reduced motion)", () => {
-    expect((render(<SpeedLines />).container.firstChild as HTMLElement).dataset.animated).toBeUndefined();
-    expect((render(<SpeedLines animated />).container.firstChild as HTMLElement).dataset.animated).toBe("");
+    expect((render(<SpeedLines />).container.firstChild as HTMLElement).dataset.speedAnimated).toBeUndefined();
+    expect((render(<SpeedLines animated />).container.firstChild as HTMLElement).dataset.speedAnimated).toBe("");
+    expect(blocks).toContain(".kz-speed[data-speed-animated] .kz-speed-lines");
+  });
+
+  it("does not activate animations in its child mascots", () => {
+    const { container } = render(
+      <SpeedLines animated>
+        <Mascot animated={false} />
+      </SpeedLines>,
+    );
+    expect(container.querySelector(".kz-speed")?.hasAttribute("data-animated")).toBe(false);
+    expect(container.querySelector(".kz-speed-content > svg")?.hasAttribute("data-animated")).toBe(false);
   });
 });

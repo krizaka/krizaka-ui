@@ -1,9 +1,26 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { render } from "@testing-library/react";
+import { expectTypeOf } from "vitest";
 
 import { axeViolations } from "../test/axe";
-import { Doodle } from "./index";
+import { Doodle, type DoodleProps } from "./index";
+
+const blocks = readFileSync(join(import.meta.dirname, "../blocks.css"), "utf8");
 
 describe("Doodle", () => {
+  it("inherits its ink token for standalone and wrapped marks", () => {
+    const baseRule = /\.kz-doodle\s*\{([^}]*)\}/.exec(blocks)?.[1] ?? "";
+    expect(baseRule).not.toContain("--kz-doodle-ink:");
+    expect(baseRule).toContain("color: var(--kz-doodle-ink, var(--kz-paper-rule-margin))");
+    expect(blocks.match(/color: var\(--kz-doodle-ink, var\(--kz-paper-rule-margin\)\)/g)).toHaveLength(2);
+  });
+
+  it("limits bird sketches to the birds with distinct drawings", () => {
+    expectTypeOf<DoodleProps["bird"]>().toEqualTypeOf<"falcon" | "owl" | "duck" | "flamingo" | "pigeon" | undefined>();
+  });
+
   it("is decoration without a label: hidden, no role, no axe violation", async () => {
     const { container } = render(<Doodle kind="arrow" />);
     const mark = container.querySelector(".kz-doodle") as HTMLElement;

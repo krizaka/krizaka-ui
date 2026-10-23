@@ -28,6 +28,11 @@ describe("SiteCahier", () => {
     expect(hue(Number.NaN)).toBe("");
   });
 
+  it("keeps small hue text at the primary text contrast level", () => {
+    const { container } = render(<SiteCahier site="ui" name="UI" bird="duck" hue={60} nav={nav} footer={false} />);
+    expect((container.firstChild as HTMLElement).style.getPropertyValue("--kz-hue-text")).toBe("var(--kz-text-primary)");
+  });
+
   it("takes the site's own bar and no footer", () => {
     const { container } = render(<SiteCahier site="java" name="Java" bird="owl" nav={nav} bar={<header data-bar>the shared bar</header>} footer={false} />);
     expect(container.querySelector("[data-bar]")).toBeTruthy();
@@ -49,6 +54,7 @@ describe("SiteCahier", () => {
       </SiteCahierDoc>,
     );
     expect(container.querySelector("[data-paper='lines'][data-margin]")).toBeTruthy();
+    expect(container.querySelector(".kz-cahier-article > .kz-tpl-prose h2#why")).toBeTruthy();
     expect(getByRole("complementary", { name: "On this page" })).toBeTruthy();
     expect(await axeViolations(container)).toEqual([]);
   });

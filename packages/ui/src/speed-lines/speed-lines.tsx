@@ -55,7 +55,7 @@ export function SpeedLines({ kind = "radial", count = 36, clear = 34, animated =
   const n = Math.min(120, Math.max(4, Math.round(count)));
   const gap = Math.min(80, Math.max(0, clear));
   return (
-    <div className={cn("kz-speed", className)} data-kind={kind} data-animated={animated ? "" : undefined} {...props}>
+    <div className={cn("kz-speed", className)} data-kind={kind} data-speed-animated={animated ? "" : undefined} {...props}>
       <svg className="kz-speed-lines" viewBox="0 0 200 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
         {kind === "radial"
           ? radial(n, gap).map((l) => <polygon key={l.key} points={l.points} fill="currentColor" opacity={l.opacity} />)
