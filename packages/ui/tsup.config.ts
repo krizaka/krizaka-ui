@@ -212,6 +212,7 @@ export default defineConfig([
       "date-picker": "src/date-picker/index.ts",
       "search-field": "src/search-field/index.ts",
       "video-player": "src/video-player/index.ts",
+      "retro-tv": "src/retro-tv/index.ts",
       "vertical-video": "src/vertical-video/index.ts",
       "file-upload": "src/file-upload/index.ts",
       "media-capture": "src/media-capture/index.ts",

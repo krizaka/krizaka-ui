@@ -133,6 +133,7 @@ export type ComponentName =
   | "progress"
   | "promise-card"
   | "pull-to-refresh"
+  | "retro-tv"
   | "radio-group"
   | "router"
   | "rail-nav"
