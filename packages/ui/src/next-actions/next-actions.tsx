@@ -31,16 +31,19 @@ export function NextActions({ title, actions, className, ...props }: NextActions
     <section className={["kz-next-actions", className].filter(Boolean).join(" ")} {...props}>
       <h2 className="kz-next-actions-title">{title}</h2>
       <ol className="kz-next-actions-list">
-        {actions.map((action) => (
+        {actions.map((action, index) => (
           <li className="kz-next-action" data-urgency={action.urgency} key={action.id}>
-            <div className="kz-next-action-copy">
-              <div className="kz-next-action-heading">
-                <h3>{action.title}</h3>
-                <span className="kz-next-action-urgency" data-urgency={action.urgency}>{action.urgencyLabel}</span>
+            <span className="kz-next-action-rank" aria-hidden="true">{index + 1}.</span>
+            <div className="kz-next-action-content">
+              <div className="kz-next-action-copy">
+                <div className="kz-next-action-heading">
+                  <h3>{action.title}</h3>
+                  <span className="kz-next-action-urgency" data-urgency={action.urgency}>{action.urgencyLabel}</span>
+                </div>
+                <p>{action.why}</p>
               </div>
-              <p>{action.why}</p>
+              <div className="kz-next-action-control">{action.action}</div>
             </div>
-            <div className="kz-next-action-control">{action.action}</div>
           </li>
         ))}
       </ol>

@@ -18,6 +18,7 @@ export const meta = {
   bestPractices: [
     "Give the meaning and formula in the host's plain language; thresholds and state words come from the host too.",
     "Pass the expected read time derived from the host's cadence and an injected `now` for stable rendering.",
+    "Pass the host's IANA time zone for freshness dates; the default is UTC.",
     "Pass a Sparkline from `@krizaka/charts` in `sparkline`; it owns its accessible summary.",
   ],
   accessibility: {

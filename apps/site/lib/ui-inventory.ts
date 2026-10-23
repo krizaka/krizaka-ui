@@ -142,6 +142,10 @@ export const PLANNED: Record<string, string> = {
   chart: "The base the other charts are built on.",
   "chart-card": "The one frame of every chart of Orazaka's dashboard and usage pages (#253).",
   "kpi-stat": "Orazaka's dashboard head: jobs, success rate, time to a result, spend (#253).",
+  "kpi-explained": "Akinaza's shop dashboard: monthly sales, spend and margin explained with their source and cadence; Orochia and Orazaka later.",
+  "next-actions": "Akinaza's Today and shop dashboard: the two or three highest-impact actions from bookings, stock and payments; Orochia and Orazaka later.",
+  glossary: "Akinaza's owner dashboard: a short reference for commerce terms alongside its explained figures.",
+  "glossary-term": "Akinaza's inline explanations of accounting and booking terms, without sending a shop owner away.",
 };
 
 /** Charts no product will draw: retired by PS-C (the @krizaka/charts major), listed so the removal is a decision. */

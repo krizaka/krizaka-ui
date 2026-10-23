@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { renderToString } from "react-dom/server";
 
 import { axeViolations } from "../test/axe";
 import { KpiExplained } from "./index";
@@ -36,11 +37,28 @@ describe("KpiExplained", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
-  it("keeps the value's formatted shape but never renders the actual value when masked", () => {
+  it("keeps the value's formatted shape but never renders the actual value when masked", async () => {
     const { container } = render(<KpiExplained {...common} masked />);
     expect(container.querySelector(".kz-kpi-value")?.textContent).toBe("•\u00a0••••••\u00a0•");
-    expect(screen.getByLabelText("Valeur masquée")).toBeTruthy();
+    expect(screen.getByRole("img", { name: "Valeur masquée" })).toBeTruthy();
     expect(container.textContent).not.toContain("6\u00a0994,46\u00a0$");
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("formats freshness in the supplied time zone regardless of the server or browser zone", () => {
+    const previousTimeZone = process.env.TZ;
+    const props = { ...common, timeZone: "America/Toronto" };
+    try {
+      process.env.TZ = "UTC";
+      const server = renderToString(<KpiExplained {...props} />);
+      process.env.TZ = "America/Los_Angeles";
+      const { container } = render(<KpiExplained {...props} />);
+      expect(container.querySelector("time")?.textContent).toBe(server.match(/<time[^>]*>(.*?)<\/time>/u)?.[1]);
+      expect(container.querySelector("time")?.textContent).toBe("22 oct. 2026, 08 h 00");
+    } finally {
+      if (previousTimeZone === undefined) delete process.env.TZ;
+      else process.env.TZ = previousTimeZone;
+    }
   });
 
   it.each([

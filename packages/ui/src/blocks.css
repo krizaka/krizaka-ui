@@ -260,19 +260,27 @@
   display: grid;
   gap: 10px;
   margin: 0;
-  padding-inline-start: 1.5rem;
+  padding: 0;
+  list-style: none;
 }
-.kz-next-actions-list > li::marker { color: var(--kz-text-secondary); font-weight: 650; }
 .kz-next-action {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 12px 20px;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
   min-width: 0;
   padding: 14px 16px;
   border: 1px solid var(--kz-border-default);
   border-radius: 8px;
   background: var(--kz-surface-1);
+}
+.kz-next-action-rank { color: var(--kz-text-secondary); font-weight: 650; font-variant-numeric: tabular-nums; }
+.kz-next-action-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px 20px;
+  min-width: 0;
 }
 .kz-next-action-copy { display: grid; min-width: 0; gap: 5px; }
 .kz-next-action-control { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
@@ -301,7 +309,7 @@
   outline-offset: 3px;
 }
 @media (max-width: 520px) {
-  .kz-next-action { grid-template-columns: minmax(0, 1fr); }
+  .kz-next-action-content { grid-template-columns: minmax(0, 1fr); }
   .kz-glossary-entry { grid-template-columns: minmax(0, 1fr); gap: 4px; }
 }
 @media (prefers-reduced-motion: reduce) {

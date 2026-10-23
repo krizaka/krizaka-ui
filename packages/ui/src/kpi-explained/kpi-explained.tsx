@@ -20,6 +20,8 @@ export interface KpiExplainedProps extends Omit<React.ComponentProps<"article">,
   format: KpiFormat;
   /** The app's locale, e.g. `fr-CA`. */
   locale: Locale;
+  /** The IANA time zone for freshness dates; defaults to UTC for deterministic rendering. */
+  timeZone?: string;
   /** One plain-language sentence about what the figure means. */
   meaning: string;
   /** The localized label for the formula row. */
@@ -84,6 +86,7 @@ export function KpiExplained({
   value,
   format,
   locale,
+  timeZone = "UTC",
   meaning,
   formulaLabel,
   formula,
@@ -111,8 +114,8 @@ export function KpiExplained({
         <h3 id={`${id}-label`} className="kz-kpi-label">{label}</h3>
         <span className="kz-kpi-state" data-state={state}>{stateLabels[state]}</span>
       </header>
-      <p className="kz-kpi-value" aria-label={masked ? maskedLabel : undefined}>
-        {masked ? maskValue(formattedValue) : formattedValue}
+      <p className="kz-kpi-value">
+        {masked ? <span role="img" aria-label={maskedLabel}>{maskValue(formattedValue)}</span> : formattedValue}
       </p>
       <p className="kz-kpi-meaning">{meaning}</p>
       <dl className="kz-kpi-details">
@@ -121,7 +124,7 @@ export function KpiExplained({
       </dl>
       <p className="kz-kpi-freshness">
         <span>{freshness.lastReadLabel}: </span>
-        <time dateTime={lastRead.toISOString()}>{formatDate(lastRead, { locale, style: "medium", timeStyle: "short" })}</time>
+        <time dateTime={lastRead.toISOString()}>{formatDate(lastRead, { locale, style: "medium", timeStyle: "short", timeZone })}</time>
         {stale ? <span className="kz-kpi-stale" role="status">{freshness.staleLabel}</span> : null}
       </p>
       {sparkline ? <div className="kz-kpi-sparkline">{sparkline}</div> : null}

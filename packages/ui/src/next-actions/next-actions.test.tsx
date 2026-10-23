@@ -17,6 +17,7 @@ describe("NextActions", () => {
     const list = screen.getByRole("list");
     const items = within(list).getAllByRole("listitem");
     expect(items).toHaveLength(2);
+    expect(within(list).getAllByText(/^\d+\.$/).map((rank) => rank.textContent)).toEqual(["1.", "2."]);
     expect(items[0].textContent).toContain("Relancer la facture");
     expect(items[1].textContent).toContain("Vérifier le stock");
     expect(screen.getByRole("link", { name: "Relancer" })).toBeTruthy();
