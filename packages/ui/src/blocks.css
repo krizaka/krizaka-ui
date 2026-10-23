@@ -21,21 +21,22 @@
   list-style: none;
   background: var(--kz-surface-1);
   color: var(--kz-text-primary);
-  border: 1px solid var(--kz-border);
+  border: 1px solid var(--kz-border-default);
 }
 .kz-wall[data-texture="plaster"] {
+  background-color: color-mix(in srgb, var(--kz-paper-tag) 45%, var(--kz-surface-1));
   background-image: radial-gradient(ellipse at 20% 30%, var(--kz-surface-2), transparent 65%),
     repeating-linear-gradient(93deg, transparent 0 7px, var(--kz-border-subtle) 8px, transparent 9px 17px);
 }
 .kz-wall[data-texture="brick"] {
-  background-color: color-mix(in srgb, var(--kz-accent-2) 14%, var(--kz-surface-1));
+  background-color: color-mix(in srgb, var(--kz-paper-rule-margin) 30%, var(--kz-surface-1));
 }
 .kz-wall-item {
   position: relative;
   min-width: 0;
   width: min(100%, var(--kz-wall-item-width));
   margin-inline: auto;
-  transform: rotate(var(--kz-wall-rotation));
+  transform: none;
   overflow-wrap: anywhere;
 }
 .kz-wall-item:focus-visible {
@@ -59,7 +60,7 @@
 }
 .kz-polaroid {
   padding: .75rem .75rem 1rem; background: var(--kz-surface-0);
-  border: 1px solid var(--kz-border); box-shadow: var(--kz-shadow-md);
+  border: 1px solid var(--kz-border-default); box-shadow: var(--kz-shadow-md);
 }
 .kz-polaroid-photo { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--kz-surface-2); }
 .kz-polaroid-photo > :is(img, svg) { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -67,11 +68,11 @@
 .kz-polaroid[data-develop="waiting"] .kz-polaroid-photo { filter: contrast(.65) blur(.6px); opacity: .8; }
 .kz-polaroid[data-develop="ready"] .kz-polaroid-photo { animation: kz-wall-develop 1.6s ease-out both; }
 @keyframes kz-wall-develop { from { filter: contrast(.65) blur(.6px); opacity: .8; } to { filter: none; opacity: 1; } }
-.kz-pinned-note { filter: drop-shadow(2px 3px 0 var(--kz-border)); }
+.kz-pinned-note { filter: drop-shadow(2px 3px 0 var(--kz-border-default)); }
 .kz-pinned-note-paper {
   padding: 1.75rem 1.25rem 1.25rem; background: var(--kz-surface-0); color: var(--kz-text-primary);
   clip-path: polygon(0 0, calc(100% - 1rem) 0, 100% 1rem, 100% 100%, 0 100%);
-  border: 1px solid var(--kz-border);
+  border: 1px solid var(--kz-border-default);
 }
 .kz-pinned-note-text { margin: 0; font: 1rem/1.6 var(--kz-font-sans); white-space: pre-wrap; }
 .kz-pinned-note-signature { margin: 1rem 0 0; text-align: end; font: 1.2rem/1.3 var(--kz-font-cahier); }
@@ -90,13 +91,13 @@
 .kz-shop-sign-screw[data-corner="2"] { bottom: .35rem; left: .35rem; }
 .kz-shop-sign-screw[data-corner="3"] { bottom: .35rem; right: .35rem; }
 .kz-shop-sign[data-variant="neon"] {
-  color: var(--kz-accent-text); background: var(--kz-surface-0); border: 1px solid var(--kz-border);
+  color: var(--kz-accent-text); background: var(--kz-surface-0); border: 1px solid var(--kz-border-default);
   text-shadow: 0 0 .6rem var(--kz-accent-soft), 0 0 1.5rem var(--kz-accent-soft);
 }
 .kz-shop-sign[data-variant="neon"] .kz-shop-sign-logo > svg { filter: drop-shadow(0 0 .3rem var(--kz-accent)); }
 .kz-shop-sign[data-variant="neon"][data-animated] .kz-shop-sign-logo { animation: kz-wall-neon 2.4s ease-in-out 1; }
 @keyframes kz-wall-neon { 0%, 45%, 100% { opacity: 1; } 25%, 65% { opacity: .88; } }
-.kz-shop-sign[data-variant="painted"] { color: var(--kz-text-secondary); border-block: 2px solid var(--kz-border); text-shadow: 1px 1px var(--kz-surface-0); }
+.kz-shop-sign[data-variant="painted"] { color: var(--kz-text-secondary); border-block: 2px solid var(--kz-border-default); text-shadow: 1px 1px var(--kz-surface-0); }
 @media (min-width: 48rem) {
   .kz-wall { display: block; height: var(--kz-wall-height); padding: 2rem; }
   .kz-wall-item {

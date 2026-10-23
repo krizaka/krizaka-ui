@@ -1,7 +1,10 @@
 import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
 
+import FrenchCompositionExample from "../../registry/examples/wall/composition-fr";
+import { messages } from "../../registry/examples/wall/messages";
 import { axeViolations } from "../test/axe";
 import { PinnedNote, Polaroid, ShopSign, Wall, type WallItem } from "./index";
 
@@ -31,9 +34,19 @@ function motion(reduced = false) {
 afterEach(() => { vi.unstubAllGlobals(); vi.clearAllMocks(); });
 
 describe("Wall", () => {
+  it("demonstrates complete EN/FR catalogues and a composed French wall", () => {
+    expect(Object.keys(messages.fr).sort()).toEqual(Object.keys(messages.en).sort());
+    render(<FrenchCompositionExample />);
+    expect(screen.getByRole("list", { name: messages.fr.wallLabel })).toBeTruthy();
+    expect(screen.getByText(messages.fr.caption)).toBeTruthy();
+    expect(screen.getByText(messages.fr.note)).toBeTruthy();
+    expect(screen.getByRole("img", { name: messages.fr.photoAlt })).toBeTruthy();
+    expect(screen.queryByText(messages.en.note)).toBeNull();
+  });
   it("sorts a real focusable list stably by z without mutating its data", async () => {
     const { container } = render(<Wall aria-label="Our wall" items={items} />);
     const list = screen.getByRole("list", { name: "Our wall" });
+    expect(list.getAttribute("role")).toBe("list");
     const entries = within(list).getAllByRole("listitem");
     expect(entries.map((item) => item.textContent)).toEqual(["First", "Second", "Last"]);
     expect(entries.every((item) => item.tabIndex === 0)).toBe(true);
@@ -66,12 +79,45 @@ describe("Wall", () => {
     expect((container.firstElementChild as HTMLElement).style.getPropertyValue("--kz-wall-height")).toBe("640px");
   });
 
+  it("sanitizes non-finite z values before stable sorting and rendering", () => {
+    render(<Wall items={[
+      { ...items[0], z: Number.NaN },
+      { ...items[1], z: Number.POSITIVE_INFINITY },
+      { ...items[2], z: -1 },
+    ]} />);
+    const entries = screen.getAllByRole("listitem");
+    expect(entries.map((item) => item.textContent)).toEqual(["Second", "Last", "First"]);
+    expect(entries.map((item) => item.style.zIndex)).toEqual(["-1", "0", "0"]);
+  });
+
   it("stacks the same DOM order on phones and disables all motion under reduced motion", () => {
     const css = readFileSync("src/blocks.css", "utf8");
     expect(css).toMatch(/@media\s*\(min-width:\s*48rem\)/);
     expect(css).toMatch(/\.kz-wall-item\s*\{[^}]*position:\s*relative/);
     expect(css).toMatch(/prefers-reduced-motion:\s*reduce/);
     expect(css).toMatch(/\.kz-polaroid-photo[^}]*animation:\s*none/);
+  });
+
+  it("uses published token roles for every wall colour and material", () => {
+    const require = createRequire(`${process.cwd()}/package.json`);
+    const tokens = readFileSync(require.resolve("@krizaka/tokens/tokens.css"), "utf8");
+    const css = readFileSync("src/blocks.css", "utf8").split("/* ─── Wall:")[1]!.split("/* ─── Page:")[0]!;
+    const svg = readFileSync("src/wall/wall.tsx", "utf8");
+    const roles = [...(css + svg).matchAll(/var\((--kz-[\w-]+)/g)].map((match) => match[1]!);
+    for (const role of new Set(roles.filter((name) => !name.startsWith("--kz-wall-")))) {
+      expect(tokens, `${role} must exist in the published tokens CSS`).toContain(`${role}:`);
+    }
+  });
+
+  it("keeps brick terracotta across brands, warms plaster, and leaves phone items untilted", () => {
+    const css = readFileSync("src/blocks.css", "utf8");
+    const brick = css.split('.kz-wall[data-texture="brick"] {')[1]!.split("}")[0]!;
+    const plaster = css.split('.kz-wall[data-texture="plaster"] {')[1]!.split("}")[0]!;
+    const phoneItem = css.split(".kz-wall-item {")[1]!.split("}")[0]!;
+    expect(brick).toContain("var(--kz-paper-rule-margin)");
+    expect(brick).not.toContain("var(--kz-accent");
+    expect(plaster).toContain("var(--kz-paper-tag)");
+    expect(phoneItem).toContain("transform: none");
   });
 });
 
