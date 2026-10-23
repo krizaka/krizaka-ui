@@ -96,4 +96,21 @@ describe("useSessionStatus", () => {
     await act(async () => answer(TOKEN));
     expect(screen.queryByText(AUTH.signedIn)).toBeNull();
   });
+
+  it("keeps the latest read when two answer out of order (a sign-out while the first read is pending)", async () => {
+    const answers: ((token: string | null) => void)[] = [];
+    let changed = () => undefined as void;
+    const session = {
+      readToken: () => new Promise<string | null>((resolve) => answers.push(resolve)),
+      onChange: (listener: () => void) => ((changed = listener), () => undefined),
+    };
+    function Probe() {
+      return <p>{useSessionStatus(session)}</p>;
+    }
+    render(<Probe />);
+    act(() => changed());
+    await act(async () => answers[1]!(null));
+    await act(async () => answers[0]!(TOKEN));
+    expect(screen.getByText(AUTH.signedOut)).toBeTruthy();
+  });
 });

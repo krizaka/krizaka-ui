@@ -13,12 +13,16 @@ export type AuthStatus = (typeof AUTH)[keyof typeof AUTH];
 export function useSessionStatus(session: Pick<SessionStore, "readToken" | "onChange">): AuthStatus {
   const [status, setStatus] = useState<AuthStatus>(AUTH.loading);
   useEffect(() => {
+    // Only the latest read may set the status: a slow first read must never undo the sign-out (or 401) that came after it.
+    let latest = 0;
     let live = true;
-    const read = () =>
+    const read = () => {
+      const generation = ++latest;
       void session
         .readToken()
         .catch(() => null)
-        .then((token) => live && setStatus(token ? AUTH.signedIn : AUTH.signedOut));
+        .then((token) => live && generation === latest && setStatus(token ? AUTH.signedIn : AUTH.signedOut));
+    };
     read();
     const stop = session.onChange(read);
     return () => {
