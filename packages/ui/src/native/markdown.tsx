@@ -3,7 +3,7 @@
 // entry (`@krizaka/ui/native/markdown`): the parser and the code grammars never load in an app that does not use it.
 import { Badge, type Theme, Txt, useTheme } from "@krizaka/ui/native";
 import * as React from "react";
-import { Image, Linking, ScrollView, type StyleProp, StyleSheet, Text, View, type ViewStyle } from "react-native";
+import { Image, Linking, ScrollView, type StyleProp, StyleSheet, Text, useWindowDimensions, View, type ViewStyle } from "react-native";
 
 import { codeHighlighter } from "../code-block/highlighter";
 import { type BlockNode, type InlineNode, parseSource, textOf } from "../markdown/parse";
@@ -23,7 +23,7 @@ export type MarkdownProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-type Context = { theme: Theme; mono: string | undefined; open: (href: string) => void };
+type Context = { theme: Theme; mono: string | undefined; measureKey: string; open: (href: string) => void };
 
 const SYSTEM = /^(https?:|mailto:|tel:)/i;
 
@@ -124,7 +124,13 @@ function Blocks({ nodes, ctx }: { nodes: readonly BlockNode[]; ctx: Context }) {
 
 function Table({ node, ctx }: { node: Extract<BlockNode, { type: "table" }>; ctx: Context }) {
   const { theme } = ctx;
-  const [widths, setWidths] = React.useState<number[]>([]);
+  const signature = JSON.stringify([node, ctx.measureKey]);
+  const [measurement, setMeasurement] = React.useState<{ signature: string; widths: number[] }>({ signature, widths: [] });
+  const activeSignature = React.useRef(signature);
+  React.useLayoutEffect(() => {
+    activeSignature.current = signature;
+  }, [signature]);
+  const widths = measurement.signature === signature ? measurement.widths : [];
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator role="region" tabIndex={0} aria-label={node.header.map((cell) => textOf(cell.children)).join(", ")}>
       <View style={[styles.table, { borderColor: theme.borderSubtle }]}>
@@ -137,11 +143,13 @@ function Table({ node, ctx }: { node: Extract<BlockNode, { type: "table" }>; ctx
                 tone={r === 0 ? "secondary" : "text"}
                 style={[styles.cell, { width: widths[c], textAlign: node.align[c] ?? "left" }]}
                 onLayout={({ nativeEvent: { layout: { width } } }) => {
-                  setWidths((current) => {
-                    if (width <= (current[c] ?? 0)) return current;
-                    const next = [...current];
+                  setMeasurement((current) => {
+                    if (activeSignature.current !== signature) return current;
+                    const currentWidths = current.signature === signature ? current.widths : [];
+                    if (width <= (currentWidths[c] ?? 0)) return current;
+                    const next = [...currentWidths];
                     next[c] = width;
-                    return next;
+                    return { signature, widths: next };
                   });
                 }}
               >
@@ -208,7 +216,7 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
         </View>
       );
     case "table":
-      return <Table key={JSON.stringify(node)} node={node} ctx={ctx} />;
+      return <Table node={node} ctx={ctx} />;
     case "thematicBreak":
       return <View style={[styles.rule, { backgroundColor: theme.borderDefault }]} />;
     case "footnotes":
@@ -234,6 +242,7 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
 /** A Markdown text in Text and View: headings, paragraphs, lists (and tasks), quotes, tables, coloured code, links, pictures. */
 export function Markdown({ children, streaming, generated, generatedLabel, onLinkPress, style }: MarkdownProps) {
   const { theme, fonts } = useTheme();
+  const { fontScale } = useWindowDimensions();
   const blocks = React.useMemo(() => parseSource(children, { streaming }), [children, streaming]);
   const open = React.useCallback(
     (href: string) => {
@@ -242,7 +251,7 @@ export function Markdown({ children, streaming, generated, generatedLabel, onLin
     },
     [onLinkPress],
   );
-  const ctx: Context = { theme, mono: fonts.mono ?? "Menlo", open };
+  const ctx: Context = { theme, mono: fonts.mono ?? "Menlo", measureKey: JSON.stringify([fonts.sans, fonts.mono, fontScale]), open };
   return (
     <View aria-busy={streaming || undefined} style={[styles.root, style]}>
       {generated && generatedLabel ? <Badge>{generatedLabel}</Badge> : null}

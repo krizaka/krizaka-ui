@@ -1,9 +1,10 @@
 // Markdown in React Native (@krizaka/ui/native/markdown): the web's AST in Text and View, safe by default, healed while it streams.
 import { describe, expect, jest, test } from "@jest/globals";
-import { fireEvent, render, screen } from "@testing-library/react-native";
-import { Linking, StyleSheet } from "react-native";
+import { act, fireEvent, render, screen } from "@testing-library/react-native";
+import { Dimensions, Linking, StyleSheet } from "react-native";
 
 import { Markdown } from "./markdown";
+import { ThemeProvider } from "./theme";
 
 const SOURCE = `# Notes
 
@@ -42,7 +43,13 @@ describe("Markdown (native)", () => {
   });
 
   test("shares measured column widths without changing row order, including empty cells", async () => {
-    const { rerender, toJSON } = await render(<Markdown>{"| Identifier | Related |\n| --- | --- |\n| profile-photo-check | |\n| account-access-review | second-row |"}</Markdown>);
+    const { rerender, toJSON } = await render(
+      <ThemeProvider fonts={{ sans: "InitialSans", mono: "InitialMono" }}>
+        <Markdown>{"| Identifier | Related |\n| --- | --- |\n| profile-photo-check | |\n| account-access-review | second-row |"}</Markdown>
+      </ThemeProvider>,
+    );
+    const region = screen.getByLabelText("Identifier, Related");
+    const regionInstance = (region as unknown as { instance: unknown }).instance;
     await fireEvent(screen.getByText("Identifier"), "layout", { nativeEvent: { layout: { width: 80 } } });
     await fireEvent(screen.getByText("profile-photo-check"), "layout", { nativeEvent: { layout: { width: 220 } } });
     await fireEvent(screen.getByText("Identifier"), "layout", { nativeEvent: { layout: { width: 80 } } });
@@ -53,8 +60,35 @@ describe("Markdown (native)", () => {
     expect(tree.indexOf("Related")).toBeLessThan(tree.indexOf("profile-photo-check"));
     expect(tree.indexOf("profile-photo-check")).toBeLessThan(tree.indexOf("account-access-review"));
     expect(tree.indexOf("account-access-review")).toBeLessThan(tree.indexOf("second-row"));
-    await rerender(<Markdown>{"| Identifier | Related |\n| --- | --- |\n| short | next |"}</Markdown>);
+    await rerender(
+      <ThemeProvider fonts={{ sans: "InitialSans", mono: "InitialMono" }}>
+        <Markdown>{"| Identifier | Related |\n| --- | --- |\n| short | next |"}</Markdown>
+      </ThemeProvider>,
+    );
+    expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance === regionInstance).toBe(true);
     expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
+    await fireEvent(screen.getByText("short"), "layout", { nativeEvent: { layout: { width: 140 } } });
+    expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBe(140);
+    await rerender(
+      <ThemeProvider fonts={{ sans: "UpdatedSans", mono: "UpdatedMono" }}>
+        <Markdown>{"| Identifier | Related |\n| --- | --- |\n| short | next |"}</Markdown>
+      </ThemeProvider>,
+    );
+    expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance === regionInstance).toBe(true);
+    expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
+    await fireEvent(screen.getByText("short"), "layout", { nativeEvent: { layout: { width: 140 } } });
+    const originalWindow = Dimensions.get("window");
+    await act(async () => {
+      Dimensions.set({
+        window: { ...originalWindow, fontScale: originalWindow.fontScale + 1 },
+        screen: Dimensions.get("screen"),
+      });
+    });
+    expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance === regionInstance).toBe(true);
+    expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
+    await act(async () => {
+      Dimensions.set({ window: originalWindow, screen: Dimensions.get("screen") });
+    });
   });
 
   test("shows the host-labelled generated chip only when requested and labelled", async () => {
