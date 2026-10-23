@@ -10,7 +10,7 @@ export default function SiteCahierMotionLab() {
     <SiteCahier site="motion" name="Krizaka Motion" bird="flamingo" hue={335} nav={[{ href: "/primitives", label: "Primitives", current: true }, { href: "/easing", label: "Easing" }]} footer={{ version: "1.4.0" }}>
       <SiteCahierHero
         eyebrow="Open source · motion lab"
-        title={<>Motion that <Doodle kind="underline">answers</Doodle></>}
+        title={<>Motion that <Doodle kind="wave">answers</Doodle></>}
         lead="Play every primitive with live knobs, then copy the code."
         aside={
           <SpeedLines kind="horizontal" count={26} style={{ minHeight: 220, minWidth: 260 }}>

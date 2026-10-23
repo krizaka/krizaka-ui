@@ -24,7 +24,7 @@ export default function SiteCahierUiHome() {
         eyebrow="Open source · design system"
         title="Build every Krizaka screen from one set of pieces"
         lead="Tokens, components and templates, published once and read by every product."
-        doodle={<Doodle kind="arrow" flip label="Start with the installation" />}
+        doodle={<Doodle kind="arrow" flip place="inline" label="Start with the installation" />}
       >
         <GradeStamp value={Math.round((coverage.percent / 100) * 20 * 10) / 10} remark="Très bien, continue" source={coverage.source} />
       </SiteCahierHero>

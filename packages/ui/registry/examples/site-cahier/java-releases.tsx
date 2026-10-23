@@ -20,7 +20,7 @@ export default function SiteCahierJavaReleases() {
         title="Read the release before you upgrade"
         lead="Two versions, face to face, on figures the build measured."
         aside={<VersusCard {...match} />}
-        doodle={<Doodle kind="stars" />}
+        doodle={<Doodle kind="star" place="inline" />}
       />
       <Section id="modules" number="§ 1" title="The modules" margin paper="lines">
         <SpecimenTag code="KJ-01" title="krizaka-core" status={{ label: "stable", tone: "ok" }} fields={[{ label: "reads", value: "settings, secrets" }, { label: "since", value: "1.0" }]}>

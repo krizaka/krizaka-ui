@@ -78,12 +78,15 @@ export default defineConfig([
       "cta-panel": "src/cta-panel/index.ts",
       // The Cahier's signature blocks (ADR-004): the specimen tag, the anatomy plate, the index, the small print.
       "specimen-tag": "src/specimen-tag/index.ts",
-      // The retro pieces of the Krizaka style, pure SVG.
-      doodle: "src/doodle/index.ts",
+      // The retro pieces of the Krizaka style, pure SVG (the doodle is below, with Stuck).
       "speed-lines": "src/speed-lines/index.ts",
       "anatomy-plate": "src/anatomy-plate/index.ts",
       "page-index": "src/page-index/index.ts",
       footnote: "src/footnote/index.ts",
+      // Stuck into the notebook: the hold, the margin doodle, the house's signature (server-safe).
+      stuck: "src/stuck/index.ts",
+      doodle: "src/doodle/index.ts",
+      signature: "src/signature/index.ts",
       // The recipes: classes of the tokens, read by tv() on the web and by the phone's components (no React).
       recipes: "src/recipes/index.ts",
     },
