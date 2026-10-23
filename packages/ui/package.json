@@ -237,6 +237,10 @@
       "types": "./dist/nav-bar.d.ts",
       "import": "./dist/nav-bar.js"
     },
+    "./nav-bar/me": {
+      "types": "./dist/nav-bar/me.d.ts",
+      "import": "./dist/nav-bar/me.js"
+    },
     "./account-settings": {
       "types": "./dist/account-settings.d.ts",
       "import": "./dist/account-settings.js"
@@ -1546,6 +1550,12 @@
     {
       "name": "./language-switch/server",
       "path": "dist/language-switch/server.js",
+      "limit": "1 kB",
+      "gzip": true
+    },
+    {
+      "name": "./nav-bar/me",
+      "path": "dist/nav-bar/me.js",
       "limit": "1 kB",
       "gzip": true
     },

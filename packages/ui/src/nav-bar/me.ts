@@ -26,7 +26,7 @@ export const meSchema = {
     vendor: "krizaka",
     validate(value: unknown) {
       const v = value as Partial<MeResponse> | null;
-      if (v && typeof v === "object" && typeof v.signedIn === "boolean" && typeof v.signupOpen === "boolean") return { value: v as MeResponse };
+      if (v && typeof v === "object" && typeof v.signedIn === "boolean" && typeof v.signupOpen === "boolean" && (v.signedIn || !("account" in v))) return { value: v as MeResponse };
       return { issues: [{ message: "Expected { signedIn: boolean, signupOpen: boolean, account?: … }." }] };
     },
   },

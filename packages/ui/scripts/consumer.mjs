@@ -21,8 +21,18 @@ try {
   writeFileSync(
     join(dir, "check.mjs"),
     `import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { meHeaders, meResponse, meSchema } from "@krizaka/ui/nav-bar/me";
 import { cn } from "@krizaka/ui/cn";
 import { buttonVariants } from "@krizaka/ui/button";
+const meEntry = readFileSync(new URL(import.meta.resolve("@krizaka/ui/nav-bar/me")), "utf8");
+assert.doesNotMatch(meEntry, /["']use client["']/, "the route helper must not be a client reference");
+const me = meResponse({ signedIn: false, signupOpen: true, account: { name: "Ada" } });
+assert.equal(me.status, 200);
+assert.equal(me.headers.get("Cache-Control"), meHeaders["Cache-Control"]);
+assert.equal(me.headers.get("Vary"), "Cookie");
+assert.deepEqual(meSchema["~standard"].validate(await me.json()).value, { signedIn: false, signupOpen: true });
+console.log("✓ the server-safe /nav-bar/me contract resolves from the package");
 assert.equal(cn("px-2", "px-4"), "px-4");
 assert.equal(cn("text-sm text-fg", "text-fg-secondary"), "text-sm text-fg-secondary");
 const button = buttonVariants({ size: "md", className: "h-9 rounded-full" }).split(" ");

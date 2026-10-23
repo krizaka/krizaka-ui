@@ -68,6 +68,7 @@ export default defineConfig([
       "avatar/defaults": "src/avatar/defaults.ts",
       // The Krizaka family as data (the bar's switcher and the footer read it).
       sites: "src/sites/index.ts",
+      "nav-bar/me": "src/nav-bar/me.ts",
       // The page blocks that hold no state: usable in a Server Component as they are.
       page: "src/page/index.ts",
       "page-hero": "src/page-hero/index.ts",

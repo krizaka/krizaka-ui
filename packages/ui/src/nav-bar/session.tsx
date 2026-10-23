@@ -28,9 +28,9 @@ export const sessionKey = (endpoint: string) => ["krizaka", "session", endpoint]
  * `hint` politely; if the request fails it shows the signed-out actions (the visitor can still sign in).
  */
 export function NavBarSession<TAccount = unknown>({ endpoint = "/api/me", signedOut, signedIn, hint, className }: NavBarSessionProps<TAccount>) {
-  const { data, isPending } = useQuery({
+  const { data, isPending, isError } = useQuery({
     queryKey: sessionKey(endpoint),
-    queryFn: ({ signal }) => krizakaFetch(endpoint, { schema: meSchema, signal, credentials: "same-origin", cache: "no-store" }),
+    queryFn: ({ signal }) => krizakaFetch(endpoint, { schema: meSchema, signal, cache: "no-store" }),
     staleTime: 30_000,
     retry: false,
     throwOnError: false,
@@ -42,7 +42,7 @@ export function NavBarSession<TAccount = unknown>({ endpoint = "/api/me", signed
       </span>
     );
   }
-  const me = (data ?? { signedIn: false, signupOpen: false }) as MeResponse<TAccount>;
+  const me = (!isError && data ? data : { signedIn: false, signupOpen: false }) as MeResponse<TAccount>;
   const state = { signupOpen: me.signupOpen };
   return <>{me.signedIn && me.account !== undefined ? signedIn(me.account, state) : signedOut(state)}</>;
 }
