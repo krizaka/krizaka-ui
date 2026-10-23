@@ -104,7 +104,8 @@ describe("Wall", () => {
     const css = readFileSync("src/blocks.css", "utf8").split("/* ─── Wall:")[1]!.split("/* ─── Page:")[0]!;
     const svg = readFileSync("src/wall/wall.tsx", "utf8");
     const roles = [...(css + svg).matchAll(/var\((--kz-[\w-]+)/g)].map((match) => match[1]!);
-    for (const role of new Set(roles.filter((name) => !name.startsWith("--kz-wall-")))) {
+    const localRoles = new Set([...css.matchAll(/(--kz-[\w-]+)\s*:/g)].map((match) => match[1]!));
+    for (const role of new Set(roles.filter((name) => !name.startsWith("--kz-wall-") && !localRoles.has(name)))) {
       expect(tokens, `${role} must exist in the published tokens CSS`).toContain(`${role}:`);
     }
   });
@@ -118,6 +119,15 @@ describe("Wall", () => {
     expect(brick).not.toContain("var(--kz-accent");
     expect(plaster).toContain("var(--kz-paper-tag)");
     expect(phoneItem).toContain("transform: none");
+  });
+
+  it("keeps the photo print white with dark caption ink in both themes", () => {
+    const css = readFileSync("src/blocks.css", "utf8");
+    const paper = css.split(".kz-polaroid {")[1]!.split("}")[0]!;
+    expect(paper).toContain("--kz-polaroid-paper: var(--kz-text-on-media)");
+    expect(paper).toContain("--kz-polaroid-ink: var(--kz-scrim-strong)");
+    expect(paper).toContain("background: var(--kz-polaroid-paper)");
+    expect(paper).toContain("color: var(--kz-polaroid-ink)");
   });
 });
 

@@ -59,7 +59,9 @@
   box-shadow: 1px 2px 1px var(--kz-scrim);
 }
 .kz-polaroid {
-  padding: .75rem .75rem 1rem; background: var(--kz-surface-0);
+  --kz-polaroid-paper: var(--kz-text-on-media);
+  --kz-polaroid-ink: var(--kz-scrim-strong);
+  padding: .75rem .75rem 1rem; background: var(--kz-polaroid-paper); color: var(--kz-polaroid-ink);
   border: 1px solid var(--kz-border-default); box-shadow: var(--kz-shadow-md);
 }
 .kz-polaroid-photo { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--kz-surface-2); }

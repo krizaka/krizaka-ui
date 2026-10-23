@@ -23,7 +23,7 @@ export const meta = {
     "Captions and signatures use the existing --kz-font-cahier handwriting role (Krizaka Cahier from @krizaka/fonts); load the font in the host.",
     "PinnedNote caps text at 140 Unicode code points. Keep the full message elsewhere when more detail matters.",
     "Set attachment and attachmentRotation for tape or a pin, rotation for the object; neon's animated=false and Polaroid's develop=false opt out of motion.",
-    "Textures and the paper frame use semantic surface/accent tokens, never literal white or a product palette; the same composition adapts to dark, light and brand themes.",
+    "Wall textures adapt to dark, light and brand themes. The photo print stays white in both themes: --kz-polaroid-paper aliases invariant --kz-text-on-media, and --kz-polaroid-ink aliases the dark --kz-scrim-strong for readable captions. No literal colours or product palette are used.",
   ],
   accessibility: {
     keyboard: [{ keys: "Tab / Shift+Tab", action: "Visit each object in ascending z order, preserving input order for ties." }],
