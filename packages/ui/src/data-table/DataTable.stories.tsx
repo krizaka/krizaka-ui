@@ -88,4 +88,5 @@ export const CardsWrapLongValues: Story = {
 export const AutoWrapLongValues: Story = {
   ...CardsWrapLongValues,
   render: () => <DataTable caption="People" rows={people} columns={peopleColumns} getRowId={(r) => r.id} />,
+  play: CardsWrapLongValues.play,
 };
