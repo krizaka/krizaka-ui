@@ -4,7 +4,7 @@ import * as React from "react";
 /** The `view-transition-class` the page change carries (styled in motion.css, « PAGE TRANSITIONS »). */
 export const PAGE_TRANSITION_CLASS = "kz-page";
 
-type ViewTransitionComponent = ComponentType<{ children?: ReactNode; default?: string }>;
+type ViewTransitionComponent = ComponentType<{ children?: ReactNode; default?: string; enter?: string; exit?: string }>;
 
 /** Next.js ships React canary, where it is `ViewTransition`; earlier canaries called it `unstable_ViewTransition`. */
 const RUNTIME_KEYS = ["ViewTransition", "unstable_ViewTransition"] as const;
@@ -20,6 +20,12 @@ const ViewTransition = runtimeViewTransition();
 
 export interface PageTransitionProps {
   children: ReactNode;
+  /**
+   * The page's identity — the router's pathname. Given, only a change of page animates (the old page exits, the new one
+   * enters); an update on the same page (a dialog opened through the address, a filter, a search parameter) does not
+   * cross-fade the whole page. Without it, every transition under the boundary animates (the former behaviour).
+   */
+  routeKey?: string;
 }
 
 /**
@@ -27,7 +33,13 @@ export interface PageTransitionProps {
  * `--kz-motion-*` tokens, through the platform's View Transitions. Where the runtime has no `ViewTransition` it renders
  * its children untouched; under `prefers-reduced-motion` motion.css makes the change instant. The DOM always updates.
  */
-export function PageTransition({ children }: PageTransitionProps) {
+export function PageTransition({ children, routeKey }: PageTransitionProps) {
   if (!ViewTransition) return <>{children}</>;
-  return <ViewTransition default={PAGE_TRANSITION_CLASS}>{children}</ViewTransition>;
+  if (routeKey === undefined) return <ViewTransition default={PAGE_TRANSITION_CLASS}>{children}</ViewTransition>;
+  // A new key is a new boundary: React runs `exit` on the old one and `enter` on the new; updates inside run `default`.
+  return (
+    <ViewTransition key={routeKey} default="none" enter={PAGE_TRANSITION_CLASS} exit={PAGE_TRANSITION_CLASS}>
+      {children}
+    </ViewTransition>
+  );
 }
