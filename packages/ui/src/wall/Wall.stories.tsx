@@ -21,6 +21,7 @@ export const CompositionFrenchPhone: Story = { render: () => <FrenchCompositionE
 export const Brick: Story = { render: () => <BrickExample /> };
 export const Zellige: Story = { render: () => <ZelligeExample /> };
 export const Ridge: Story = { render: () => <RidgeExample /> };
+export const RidgePhone: Story = { render: () => <RidgeExample />, parameters: { phone: true } };
 export const Plaster: Story = { render: () => <PlasterExample /> };
 export const Polaroid: Story = { render: () => <PolaroidExample /> };
 export const PinnedNote: Story = { render: () => <PinnedNoteExample /> };

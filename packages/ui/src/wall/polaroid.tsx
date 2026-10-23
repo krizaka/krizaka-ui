@@ -3,7 +3,8 @@
 import * as React from "react";
 
 import { cn } from "../cn";
-import { Attachment, rotationStyle, type WallObjectProps } from "./attachment";
+import { TapedPhoto } from "../taped-photo";
+import { Attachment, finite, type WallObjectProps } from "./attachment";
 
 export interface PolaroidProps extends Omit<React.ComponentProps<"figure">, "children" | "style">, WallObjectProps {
   /** The photo slot: an img or next/image, including fill inside this positioned frame. Supply its alt text. */
@@ -15,8 +16,8 @@ export interface PolaroidProps extends Omit<React.ComponentProps<"figure">, "chi
 }
 
 /** A photo held to the wall by tape or a pin, with a handwritten caption. */
-export function Polaroid({ img, caption, rotation = 0, attachment, attachmentRotation, develop = true, className, ...props }: PolaroidProps) {
-  const ref = React.useRef<HTMLElement>(null);
+export function Polaroid({ img, caption, rotation = 0, attachment = "tape", attachmentRotation = 0, develop = true, className, ...props }: PolaroidProps) {
+  const ref = React.useRef<HTMLDivElement>(null);
   const [state, setState] = React.useState<"waiting" | "ready" | undefined>();
   React.useEffect(() => {
     if (!develop || !ref.current || typeof IntersectionObserver === "undefined" || typeof matchMedia === "undefined") return;
@@ -44,10 +45,10 @@ export function Polaroid({ img, caption, rotation = 0, attachment, attachmentRot
     return () => { observer?.disconnect(); preference.removeEventListener("change", sync); };
   }, [develop]);
   return (
-    <figure {...props} ref={ref} className={cn("kz-polaroid kz-wall-object", className)} style={rotationStyle(rotation)} data-develop={develop ? state : undefined}>
-      <Attachment attachment={attachment} attachmentRotation={attachmentRotation} />
-      <div className="kz-polaroid-photo">{img}</div>
-      {caption && <figcaption className="kz-polaroid-caption">{caption}</figcaption>}
-    </figure>
+    <TapedPhoto {...props} className={cn("kz-polaroid", className)} tilt={finite(rotation)} tape={attachment === "pin" ? "none" : "top"} caption={caption}
+      style={{ "--kz-wall-attachment-rotation": `${finite(attachmentRotation)}deg` } as React.CSSProperties} data-develop={develop ? state : undefined}>
+      {attachment === "pin" && <Attachment attachment="pin" attachmentRotation={attachmentRotation} />}
+      <div ref={ref} className="kz-polaroid-photo">{img}</div>
+    </TapedPhoto>
   );
 }

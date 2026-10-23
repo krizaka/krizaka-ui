@@ -1,8 +1,10 @@
 import { Wall, type WallItem } from "@krizaka/ui/wall";
 
-import { messages } from "./messages";
-
-const m = messages.en;
+const m = {
+  photoAlt: "The mountain above our workshop", caption: "The view from here",
+  note: "Made slowly. Shared gladly.", signature: "Sam",
+  sign: "Neighbourhood workshop", wallLabel: "From our workshop",
+};
 const items: WallItem[] = [
   { id: "photo", kind: "polaroid", x: 8, y: 18, rotation: -4, z: 1,
     img: <svg role="img" aria-label={m.photoAlt} viewBox="0 0 240 240"><rect width="240" height="240" fill="var(--kz-accent-soft)" /><path d="m0 240 100-190 55 110 35-45 50 125Z" fill="var(--kz-accent)" /></svg>,

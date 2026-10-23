@@ -2,9 +2,9 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import { ESLint } from "eslint";
 
 import FrenchCompositionExample from "../../registry/examples/wall/composition-fr";
-import { messages } from "../../registry/examples/wall/messages";
 import { axeViolations } from "../test/axe";
 import { PinnedNote, Polaroid, ShopSign, Wall, type WallItem } from "./index";
 
@@ -34,14 +34,18 @@ function motion(reduced = false) {
 afterEach(() => { vi.unstubAllGlobals(); vi.clearAllMocks(); });
 
 describe("Wall", () => {
-  it("demonstrates complete EN/FR catalogues and a composed French wall", () => {
-    expect(Object.keys(messages.fr).sort()).toEqual(Object.keys(messages.en).sort());
+  it("excludes generated Storybook runners from lint and unit test discovery", async () => {
+    expect(await new ESLint().isPathIgnored(`${process.cwd()}/.t/runner/blocks-wall.test.js`)).toBe(true);
+    expect(readFileSync("vitest.config.ts", "utf8")).toContain('".t/**"');
+    expect(readFileSync("../../.gitignore", "utf8")).toContain("\n.t\n");
+  });
+  it("demonstrates a self-contained composed French wall", () => {
     render(<FrenchCompositionExample />);
-    expect(screen.getByRole("list", { name: messages.fr.wallLabel })).toBeTruthy();
-    expect(screen.getByText(messages.fr.caption)).toBeTruthy();
-    expect(screen.getByText(messages.fr.note)).toBeTruthy();
-    expect(screen.getByRole("img", { name: messages.fr.photoAlt })).toBeTruthy();
-    expect(screen.queryByText(messages.en.note)).toBeNull();
+    expect(screen.getByRole("list", { name: "Dans notre atelier" })).toBeTruthy();
+    expect(screen.getByText("La vue d’ici")).toBeTruthy();
+    expect(screen.getByText("Fait avec patience. Partagé avec plaisir.")).toBeTruthy();
+    expect(screen.getByRole("img", { name: "La montagne au-dessus de notre atelier" })).toBeTruthy();
+    expect(screen.queryByText("Made slowly. Shared gladly.")).toBeNull();
   });
   it("sorts a real focusable list stably by z without mutating its data", async () => {
     const { container } = render(<Wall aria-label="Our wall" items={items} />);
@@ -54,7 +58,7 @@ describe("Wall", () => {
     expect(entries[0].style.getPropertyValue("--kz-wall-x")).toBe("10%");
     expect(entries[0].style.getPropertyValue("--kz-wall-y")).toBe("20%");
     expect(entries[0].style.getPropertyValue("--kz-wall-rotation")).toBe("-2deg");
-    expect(entries[0].style.zIndex).toBe("1");
+    expect(entries[0].style.zIndex).toBe("0");
     expect(await axeViolations(container)).toEqual([]);
   });
 
@@ -87,7 +91,14 @@ describe("Wall", () => {
     ]} />);
     const entries = screen.getAllByRole("listitem");
     expect(entries.map((item) => item.textContent)).toEqual(["Second", "Last", "First"]);
-    expect(entries.map((item) => item.style.zIndex)).toEqual(["-1", "0", "0"]);
+    expect(entries.map((item) => item.style.zIndex)).toEqual(["0", "1", "2"]);
+  });
+
+  it.each(["ridge", "zellige"] as const)("keeps negative and fractional z items above the %s decoration", (texture) => {
+    render(<Wall texture={texture} items={items.map((item, index) => ({ ...item, z: [-1, -20, -1.5][index]! }))} />);
+    const entries = screen.getAllByRole("listitem");
+    expect(entries.map((item) => item.textContent)).toEqual(["First", "Second", "Last"]);
+    expect(entries.map((item) => item.style.zIndex)).toEqual(["0", "1", "2"]);
   });
 
   it("stacks the same DOM order on phones and disables all motion under reduced motion", () => {
@@ -121,13 +132,23 @@ describe("Wall", () => {
     expect(phoneItem).toContain("transform: none");
   });
 
-  it("keeps the photo print white with dark caption ink in both themes", () => {
+  it("reuses the taped print and caption styles rather than drawing a second print", () => {
     const css = readFileSync("src/blocks.css", "utf8");
-    const paper = css.split(".kz-polaroid {")[1]!.split("}")[0]!;
-    expect(paper).toContain("--kz-polaroid-paper: var(--kz-text-on-media)");
-    expect(paper).toContain("--kz-polaroid-ink: var(--kz-scrim-strong)");
-    expect(paper).toContain("background: var(--kz-polaroid-paper)");
-    expect(paper).toContain("color: var(--kz-polaroid-ink)");
+    expect(css).not.toContain("--kz-polaroid-paper");
+    render(<Polaroid img={<span>Photo</span>} caption="Caption" rotation={-3} attachmentRotation={8} />);
+    const figure = screen.getByRole("figure");
+    expect(figure.classList.contains("kz-taped")).toBe(true);
+    expect(figure.getAttribute("data-tape")).toBe("top");
+    expect(figure.style.getPropertyValue("--kz-taped-tilt")).toBe("-3deg");
+    expect(figure.style.getPropertyValue("--kz-wall-attachment-rotation")).toBe("8deg");
+    expect(figure.querySelector(".kz-taped-caption")?.textContent).toBe("Caption");
+    expect(figure.querySelector(".kz-wall-tape")).toBeNull();
+  });
+
+  it("disables TapedPhoto tape when a pin holds the Polaroid", () => {
+    const { container } = render(<Polaroid img={<span>Photo</span>} attachment="pin" />);
+    expect(container.querySelector("figure")?.getAttribute("data-tape")).toBe("none");
+    expect(container.querySelectorAll(".kz-wall-pin")).toHaveLength(1);
   });
 });
 

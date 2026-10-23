@@ -169,13 +169,6 @@ describe("examples (registry/examples)", () => {
     // @krizaka/query too: a server table or an infinite list reads its data the way a product does; zod: a form is a schema.
     const allowed = platform === "web" ? /^(@krizaka\/ui(\/[a-z-]+)?|@krizaka\/query|react|zod)$/ : /^(@krizaka\/ui\/native(\/[a-z-]+)?|@krizaka\/query|react|react-native|react-native-svg|zod)$/;
     for (const [, specifier] of source.matchAll(/from\s+"([^"]+)"/g)) {
-     // A copyable example may keep its own locale data beside it, never a component or a hidden dependency.
-     if (specifier === "./messages") {
-       const catalogue = join(EXAMPLES, name, "messages.ts");
-       expect(existsSync(catalogue), "the example-local catalogue ships beside its source").toBe(true);
-       expect(readFileSync(catalogue, "utf8"), "a catalogue is data only").not.toMatch(/\bimport\b|\bfrom\s+["']/);
-       continue;
-     }
      expect(specifier, "an example imports what a product imports, never a relative path or Storybook").toMatch(allowed);
     }
   });

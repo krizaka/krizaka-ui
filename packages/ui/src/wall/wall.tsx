@@ -44,12 +44,12 @@ export function Wall({ items, texture = "plaster", height = 560, itemWidth = 240
   const patternId = React.useId().replace(/:/g, "");
   return (
     <ul {...props} role="list" className={cn("kz-wall", className)} data-texture={texture} style={{ "--kz-wall-height": `${Math.max(320, finite(height))}px`, "--kz-wall-item-width": `${Math.max(120, finite(itemWidth))}px` } as React.CSSProperties}>
-      {[...items].sort((a, b) => finite(a.z) - finite(b.z)).map(({ id, x, y, rotation = 0, z, ...item }) => (
+      {[...items].sort((a, b) => finite(a.z) - finite(b.z)).map(({ id, x, y, rotation = 0, z: _z, ...item }, rank) => (
         <li key={id} className="kz-wall-item" tabIndex={0} style={{
           "--kz-wall-x": `${Math.min(100, Math.max(0, finite(x)))}%`,
           "--kz-wall-y": `${Math.min(100, Math.max(0, finite(y)))}%`,
           "--kz-wall-rotation": `${finite(rotation)}deg`,
-          zIndex: finite(z),
+          zIndex: rank,
         } as React.CSSProperties}>
           {item.kind === "polaroid" ? <Polaroid {...item} rotation={0} /> : item.kind === "note" ? <PinnedNote {...item} rotation={0} /> : <ShopSign {...item} rotation={0} />}
         </li>

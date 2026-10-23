@@ -14,7 +14,7 @@ export const meta = {
   ],
   bestPractices: [
     "Import @krizaka/ui/blocks.css once. All four components are exported from @krizaka/ui/wall.",
-    "The examples' messages.ts is an EN/FR catalogue owned by the example, not the primitive. Choose the host locale and pass its words as data; the French composition demonstrates the same surface unchanged.",
+    "Each example includes its own words, so copied snippets are self-contained. Choose the host locale and pass its words as data; the French composition demonstrates the same surface unchanged.",
     "Provide stable ids, explicit x/y percentages, rotation in degrees and z for every item. Positions are clamped to 0–100; z sorts the real list stably, including keyboard and phone order.",
     "Use kind polaroid with img, kind note with text, or kind sign with logo. Items carry the same props as their standalone component; no editor or random placement is added.",
     "Use height and itemWidth for layout, not style: style is intentionally omitted from the public props so percentage placement and the mobile stack cannot be overwritten accidentally.",
@@ -23,7 +23,7 @@ export const meta = {
     "Captions and signatures use the existing --kz-font-cahier handwriting role (Krizaka Cahier from @krizaka/fonts); load the font in the host.",
     "PinnedNote caps text at 140 Unicode code points. Keep the full message elsewhere when more detail matters.",
     "Set attachment and attachmentRotation for tape or a pin, rotation for the object; neon's animated=false and Polaroid's develop=false opt out of motion.",
-    "Wall textures adapt to dark, light and brand themes. The photo print stays white in both themes: --kz-polaroid-paper aliases invariant --kz-text-on-media, and --kz-polaroid-ink aliases the dark --kz-scrim-strong for readable captions. No literal colours or product palette are used.",
+    "Wall textures adapt to dark, light and brand themes. Polaroid composes TapedPhoto: its --kz-print paper stays pale in both themes, with --kz-print-ink captions and --kz-tape strips instead of a second print material.",
   ],
   accessibility: {
     keyboard: [{ keys: "Tab / Shift+Tab", action: "Visit each object in ascending z order, preserving input order for ties." }],
@@ -34,7 +34,7 @@ export const meta = {
       "Neon only flickers softly once, never flashes or loops. All effects stop under prefers-reduced-motion; reading and focus order never depend on visual positions.",
     ],
   },
-  related: ["cover-hero", "media-gallery", "photo-grid", "profile-card"],
+  related: ["taped-photo", "cover-hero", "media-gallery", "photo-grid", "profile-card"],
   web: {
     imports: ["Wall", "Polaroid", "PinnedNote", "ShopSign"],
     examples: [
