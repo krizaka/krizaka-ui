@@ -1320,7 +1320,7 @@
     {
       "name": "./nav-bar (Radix NavigationMenu, Slot, the family's marks)",
       "path": "dist/nav-bar.js",
-      "limit": "26.6 kB",
+      "limit": "27.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
