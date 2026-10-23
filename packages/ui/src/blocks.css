@@ -274,7 +274,7 @@
   border-radius: 8px;
   background: var(--kz-surface-1);
 }
-.kz-next-action-rank { color: var(--kz-text-secondary); font-weight: 650; font-variant-numeric: tabular-nums; }
+.kz-next-action-rank { color: var(--kz-text-secondary); font-weight: 650; font-variant-numeric: var(--kz-figures, lining-nums tabular-nums); }
 .kz-next-action-content {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
