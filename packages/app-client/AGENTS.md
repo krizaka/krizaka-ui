@@ -7,7 +7,8 @@
 
 - **What every Krizaka Expo app does the same way**: the bearer session over a storage port (`createSessionStore`), the
   discovery client of the signed services manifest with the product's address, host suffix and build inputs
-  (`createAppDiscovery`), and the API client (`createApiClient`: bearer, no cookie, timeout, 401 drops the session).
+  (`createAppDiscovery`), the API client (`createApiClient`: bearer, no cookie, timeout, 401 drops the session), and in
+  `./react` the auth context the screens read (`createAuth`, `useSessionStatus`; React is an optional peer).
 - Not here: a product's endpoints, types, screens or messages; the update and maintenance **screens** (`@krizaka/ui/native`);
   the manifest itself (`@krizaka/discovery`); the version contract (`@krizaka/app-config`).
 
@@ -17,14 +18,14 @@
   is passed to `secureStorage(...)`, `process.env.EXPO_PUBLIC_*` is read by the app (Metro inlines it only where written).
 - **No product word in this folder.** A product passes its key, domain and addresses.
 - **Parse at the edge**: a malformed build input throws at start, never later.
-- One runtime dependency, `@krizaka/discovery`.
+- One runtime dependency, `@krizaka/discovery`; React only as an optional peer of `./react`.
 
 ## 3. Quality gates
 
 - `pnpm turbo run check --filter=@krizaka/app-client`: ESLint and `tsc`, tests (Vitest, **100 % coverage enforced**), build,
   size, publint + attw (`esm-only`).
-- **Size budget** (gzip): `.` ≤ 3 kB.
-- Published surface: `.`, `./package.json`. Changing a header, the 401 rule, the timeout message or the storage key
+- **Size budget** (gzip): `.` ≤ 3 kB, `./react` ≤ 1 kB.
+- Published surface: `.`, `./react`, `./package.json`. Changing a header, the 401 rule, the timeout message or the storage key
   layout is a breaking change: apps in the stores depend on it.
 
 ## 4. Release
