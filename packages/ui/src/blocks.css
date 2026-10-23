@@ -1010,13 +1010,12 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
    lifted edge. The outer element stays still (it carries the doodles); the body leans by `--kz-stuck-tilt` (a transform:
    nothing shifts) on the hard paper shadow. A TapedPhoto or a SpecimenTag inside gives its own lean, shadow and tape up. ─── */
 .kz-stuck { position: relative; }
-.kz-stuck-body { position: relative; transform: rotate(var(--kz-stuck-tilt, 0deg)); transform-origin: 50% 60%; --kz-stuck-fold: hsl(44 30% 90%); --kz-stuck-metal: hsl(0 0% 70%);
-  box-shadow: 0 1px 0 hsl(30 20% 8% / 0.22), 2px 4px 0 hsl(30 20% 8% / 0.14), 4px 8px 0 -2px hsl(30 20% 8% / 0.08); }
-:root:not(.light) .kz-stuck-body { --kz-stuck-fold: hsl(42 22% 78%); box-shadow: 0 1px 0 hsl(0 0% 0% / 0.5), 2px 4px 0 hsl(0 0% 0% / 0.32), 4px 8px 0 -2px hsl(0 0% 0% / 0.2); }
+.kz-stuck-body { position: relative; transform: rotate(var(--kz-stuck-tilt, 0deg)); transform-origin: 50% 60%; --kz-stuck-fold: var(--kz-paper-tag); --kz-stuck-metal: var(--kz-paper-tag-edge);
+  box-shadow: var(--kz-shadow-floating); }
 .kz-stuck-body > :is(.kz-taped, .kz-tag) { transform: none; box-shadow: none; }
 .kz-stuck-body > .kz-taped::before, .kz-stuck-body > .kz-taped::after { display: none; }
 .kz-stuck-pin { position: absolute; z-index: 2; top: -7px; left: calc(50% - 7px); width: 14px; height: 14px; border-radius: 9999px; pointer-events: none;
-  background: var(--kz-paper-rule-margin); box-shadow: inset -2px -2px 0 hsl(0 0% 0% / 0.22), 3px 4px 0 hsl(30 20% 8% / 0.3); }
+  background: var(--kz-paper-rule-margin); box-shadow: inset -2px -2px 0 var(--kz-edge-well), var(--kz-shadow-floating); }
 .kz-stuck-body[data-hold="corner"]::before { content: ""; position: absolute; z-index: 1; inset: -3px; pointer-events: none;
   background:
     linear-gradient(135deg, var(--kz-stuck-fold) 50%, transparent 50%) top left / 18px 18px no-repeat,
@@ -1024,7 +1023,7 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
     linear-gradient(315deg, var(--kz-stuck-fold) 50%, transparent 50%) bottom right / 18px 18px no-repeat,
     linear-gradient(45deg, var(--kz-stuck-fold) 50%, transparent 50%) bottom left / 18px 18px no-repeat; }
 .kz-stuck-body[data-hold="glue"]::after { content: ""; position: absolute; z-index: 1; right: 0; bottom: 0; width: 20px; height: 20px; pointer-events: none;
-  background: linear-gradient(135deg, transparent 50%, var(--kz-stuck-fold) 50%); box-shadow: -2px -2px 0 hsl(30 20% 8% / 0.16); }
+  background: linear-gradient(135deg, transparent 50%, var(--kz-stuck-fold) 50%); box-shadow: -2px -2px 0 var(--kz-paper-tag-edge); }
 @media (max-width: 640px) { .kz-stuck-body { transform: rotate(calc(var(--kz-stuck-tilt, 0deg) * 0.6)); } }
 
 /* ─── Doodle (ADR-004): a margin doodle — in the margin ink, never over text. Beside the block only where the page's margin
@@ -1038,6 +1037,8 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 @media (min-width: 1360px) {
   .kz-doodle[data-place="margin"] { display: block; position: absolute; top: var(--kz-doodle-top, 0px); right: calc(100% + 16px); }
   .kz-doodle[data-place="margin"][data-side="right"] { right: auto; left: calc(100% + 16px); }
+  .kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="left"]) { margin-left: 96px; }
+  .kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="right"]) { margin-right: 96px; }
 }
 
 /* ─── Signature (ADR-004): the house signs the page — the mark as an ink stamp, the name in the notebook's pen, one ink

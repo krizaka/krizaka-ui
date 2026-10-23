@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { render } from "@testing-library/react";
 
 import { Doodle } from "../doodle";
@@ -49,5 +52,20 @@ describe("Stuck", () => {
     const doodle = container.querySelector(".kz-doodle") as HTMLElement;
     expect(doodle.parentElement).toBe(container.querySelector(".kz-stuck"));
     expect(container.querySelector(".kz-stuck-body")?.contains(doodle)).toBe(false);
+  });
+
+  it("uses themeable Cahier material and shadow roles, reserving room for each margin doodle", () => {
+    const css = readFileSync(join(import.meta.dirname, "..", "blocks.css"), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+    const stuck = css.match(/\.kz-stuck-body \{ position: relative;([^}]*)\}/)?.[1] ?? "";
+    expect(stuck).toContain("--kz-stuck-fold: var(--kz-paper-tag)");
+    expect(stuck).toContain("--kz-stuck-metal: var(--kz-paper-tag-edge)");
+    expect(stuck).toContain("box-shadow: var(--kz-shadow-floating)");
+    const dark = css.match(/:root:not\(\.light\) \.kz-stuck-body \{([^}]*)\}/)?.[1] ?? "";
+    expect(dark).not.toContain("box-shadow");
+    expect(dark).not.toContain("--kz-stuck-fold");
+
+    const wide = css.match(/@media \(min-width: 1360px\) \{([\s\S]*?)\n\}/)?.[1] ?? "";
+    expect(wide).toContain('.kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="left"]) { margin-left: 96px; }');
+    expect(wide).toContain('.kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="right"]) { margin-right: 96px; }');
   });
 });

@@ -21,12 +21,12 @@ export type SignatureProps = Omit<React.HTMLAttributes<HTMLDivElement>, "childre
 const SHIELD = "M259.7,134 L259.7,226 L180,272 L100.3,226 L100.3,134 L180,88 L212,106.5";
 
 /** A small hand-signed mark: the Krizaka mark as an ink stamp, the house's name in the notebook's pen, an optional date. */
-export function Signature({ variant = "both", name = "Krizaka · Montréal", date, dateTime, className, ...props }: SignatureProps) {
+export function Signature({ variant = "both", name = "Krizaka · Montréal", date, dateTime, className, style, ...props }: SignatureProps) {
   const filter = `kz-ink-${React.useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   const stamp = variant !== "script";
   const script = variant !== "stamp";
   return (
-    <div className={cn("kz-signature", className)} data-variant={variant} style={{ filter: `url(#${filter})` }} {...props}>
+    <div className={cn("kz-signature", className)} data-variant={variant} style={{ ...style, filter: `url(#${filter})` }} {...props}>
       <svg width="0" height="0" aria-hidden focusable="false" className="kz-signature-defs">
         <filter id={filter} x="0" y="0" width="100%" height="100%">
           <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="grain" />

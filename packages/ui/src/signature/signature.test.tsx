@@ -38,4 +38,11 @@ describe("Signature", () => {
     for (const f of filters) expect(f.querySelector("feTurbulence")?.getAttribute("seed")).toBe("7");
     expect((container.querySelector(".kz-signature") as HTMLElement).style.filter).toContain(`#${filters[0]!.id}`);
   });
+
+  it("merges layout styles without replacing the ink filter", () => {
+    const { container } = render(<Signature style={{ marginTop: 16 }} />);
+    const signature = container.querySelector(".kz-signature") as HTMLElement;
+    expect(signature.style.marginTop).toBe("16px");
+    expect(signature.style.filter).toMatch(/^url\(#kz-ink-/);
+  });
 });

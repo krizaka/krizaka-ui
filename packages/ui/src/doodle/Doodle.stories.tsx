@@ -14,4 +14,4 @@ export default meta;
 type Story = StoryObj;
 
 export const Kinds: Story = { render: () => <KindsExample /> };
-export const Margin: Story = { render: () => <MarginExample /> };
+export const Margin: Story = { render: () => <MarginExample />, parameters: { viewportWidth: 1360, noOverflow: true } };
