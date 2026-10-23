@@ -11,4 +11,4 @@ export default meta;
 
 type Story = StoryObj;
 
-export const ShopTerms: Story = { render: () => <ShopTermsExample /> };
+export const ShopTerms: Story = { render: () => <ShopTermsExample />, parameters: { phone: true } };

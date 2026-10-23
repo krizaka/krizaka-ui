@@ -12,5 +12,5 @@ export default meta;
 
 type Story = StoryObj;
 
-export const SalonMonth: Story = { render: () => <SalonMonthExample /> };
-export const FounderCockpit: Story = { render: () => <FounderCockpitExample /> };
+export const SalonMonth: Story = { render: () => <SalonMonthExample />, parameters: { phone: true } };
+export const FounderCockpit: Story = { render: () => <FounderCockpitExample />, parameters: { phone: true } };

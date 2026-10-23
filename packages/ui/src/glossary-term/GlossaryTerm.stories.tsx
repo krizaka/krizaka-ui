@@ -11,4 +11,4 @@ export default meta;
 
 type Story = StoryObj;
 
-export const Inline: Story = { render: () => <InlineExample /> };
+export const Inline: Story = { render: () => <InlineExample />, parameters: { phone: true } };
