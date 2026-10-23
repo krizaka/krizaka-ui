@@ -1003,6 +1003,83 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   .kz-taped[data-tape="top"]::before { left: calc(50% - var(--kz-tape-w) / 2); }
 }
 
+/* ─── The retro pieces of the Krizaka style (a school notebook, the arcade, the manga): refined, never kitsch — each one is
+   decoration with a real text equivalent, and none of them moves under `prefers-reduced-motion`. ─── */
+
+/* Doodle: marks drawn in the margin's ink (`--kz-doodle-ink`, the red of the margin by default; plain accent in a product). */
+.kz-doodle { --kz-doodle-ink: var(--kz-paper-rule-margin); position: relative; display: inline-block; color: var(--kz-doodle-ink); line-height: 0; }
+.kz-doodle[data-kind="arrow"], .kz-doodle[data-kind="stars"] { width: 4.5rem; height: 2.8rem; }
+.kz-doodle[data-kind="bird"] { width: 4rem; height: 4rem; }
+.kz-doodle[data-flip] .kz-doodle-ink { transform: scaleX(-1); }
+.kz-doodle[data-kind="arrow"] .kz-doodle-ink, .kz-doodle[data-kind="stars"] .kz-doodle-ink, .kz-doodle[data-kind="bird"] .kz-doodle-ink { display: block; width: 100%; height: 100%; }
+.kz-doodle[data-kind="circle"], .kz-doodle[data-kind="underline"] { line-height: inherit; color: inherit; }
+.kz-doodle-word { position: relative; padding: 0 0.3em; }
+.kz-doodle[data-kind="circle"] .kz-doodle-ink, .kz-doodle[data-kind="underline"] .kz-doodle-ink { position: absolute; pointer-events: none; color: var(--kz-doodle-ink); }
+.kz-doodle[data-kind="circle"] .kz-doodle-ink { inset: -0.35em -0.2em; }
+.kz-doodle[data-kind="underline"] .kz-doodle-ink { left: 0; right: 0; bottom: -0.3em; height: 0.35em; }
+.kz-doodle-ink svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* GradeStamp: the teacher's red ink — a double-ruled stamp, a score, a remark, slightly askew. */
+.kz-grade { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 6px 14px 8px; color: var(--kz-paper-rule-margin);
+  border: 2px solid currentColor; border-radius: 3px; outline: 1px solid currentColor; outline-offset: 2px; transform: rotate(var(--kz-grade-tilt, -4deg)); cursor: help; }
+.kz-grade:focus-visible { outline: 2px solid var(--kz-ring); outline-offset: 4px; }
+.kz-grade-score { font-family: var(--kz-font-display); font-size: 34px; line-height: 38px; font-weight: 400; font-variant-numeric: var(--kz-figures, lining-nums tabular-nums); }
+.kz-grade-out { font-size: 0.55em; margin-left: 1px; opacity: 0.9; }
+.kz-grade-remark { font-family: var(--kz-font-mono); font-size: 14px; line-height: 20px; }
+
+/* SpeedLines: the burst sits behind its content; the lines are quiet (a fraction of the text's ink). */
+.kz-speed { position: relative; isolation: isolate; display: grid; place-items: center; overflow: hidden; }
+.kz-speed-lines { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; color: var(--kz-speed-ink, var(--kz-text-muted)); opacity: 0.4; pointer-events: none; }
+.kz-speed-content { position: relative; max-width: 100%; }
+.kz-speed[data-animated] .kz-speed-lines { animation: kz-speed-pulse 2.4s ease-in-out infinite; }
+@keyframes kz-speed-pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.5; } }
+@media (prefers-reduced-motion: reduce) { .kz-speed[data-animated] .kz-speed-lines { animation: none; } }
+
+/* VersusCard: two fighters, the stat bars, the VS between them. On a phone they stack and the mark sits between. */
+.kz-versus { --kz-versus-ink: var(--kz-hue, var(--kz-accent)); display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: clamp(12px, 3vw, 32px);
+  padding: clamp(16px, 3vw, 28px); background: var(--kz-surface-1); border: 2px solid var(--kz-border-strong, var(--kz-border-default)); border-radius: 4px;
+  box-shadow: 4px 4px 0 var(--kz-border-default); }
+.kz-versus-fighter { display: grid; justify-items: center; gap: 6px; min-width: 0; text-align: center; }
+.kz-versus-fighter[data-side="right"] .kz-versus-bird { transform: scaleX(-1); }
+.kz-versus-name { margin: 0; font-family: var(--kz-font-display); font-size: 20px; line-height: 26px; font-weight: 400; color: var(--kz-text-primary); overflow-wrap: anywhere; }
+.kz-versus-caption { margin: 0; font-size: 13px; line-height: 20px; color: var(--kz-text-secondary); }
+.kz-versus-stats { margin: 8px 0 0; padding: 0; width: 100%; display: grid; gap: 10px; text-align: start; }
+.kz-versus-stat dt { font-family: var(--kz-font-mono); font-size: 12px; line-height: 16px; color: var(--kz-text-secondary); }
+.kz-versus-stat dd { margin: 2px 0 0; display: grid; gap: 4px; }
+.kz-versus-value { font-family: var(--kz-font-mono); font-size: 14px; line-height: 20px; font-weight: 600; color: var(--kz-text-primary); font-variant-numeric: var(--kz-figures, lining-nums tabular-nums); }
+.kz-versus-bar { display: block; height: 8px; background: var(--kz-surface-0); border: 1px solid var(--kz-border-default); }
+.kz-versus-bar::before { content: ""; display: block; height: 100%; width: var(--kz-versus-fill, 0%); background: var(--kz-versus-ink); }
+.kz-versus-fighter[data-side="right"] .kz-versus-bar::before { margin-inline-start: auto; }
+.kz-versus-mark { font-family: var(--kz-font-display); font-size: clamp(32px, 6vw, 56px); line-height: 1; font-weight: 400; font-style: italic; color: var(--kz-text-primary);
+  transform: skewX(-8deg) rotate(-4deg); text-shadow: 3px 3px 0 var(--kz-versus-ink); }
+.kz-versus-source { grid-column: 1 / -1; margin: 0; font-family: var(--kz-font-mono); font-size: 12px; line-height: 18px; color: var(--kz-text-muted); text-align: center; }
+@media (max-width: 640px) {
+  .kz-versus { grid-template-columns: minmax(0, 1fr); }
+  .kz-versus-mark { justify-self: center; }
+}
+
+/* SiteCahier: the frame of a tool site — a plain paper bar with the bird, the page, the family footer. */
+.kz-cahier { display: flex; flex-direction: column; min-height: 100%; background: var(--kz-surface-0); color: var(--kz-text-primary); }
+.kz-cahier-main { flex: 1; }
+.kz-cahier-bar { border-bottom: 1px solid var(--kz-border-subtle); background: var(--kz-surface-0); }
+.kz-cahier-bar-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; min-height: 56px; padding-block: 8px; }
+.kz-cahier-brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--kz-font-display); font-size: 18px; font-weight: 400; color: var(--kz-text-primary); text-decoration: none; }
+.kz-cahier-brand:focus-visible, .kz-cahier-nav a:focus-visible { outline: 2px solid var(--kz-ring); outline-offset: 3px; border-radius: 2px; }
+.kz-cahier-nav { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 0; padding: 0; list-style: none; }
+.kz-cahier-nav a { color: var(--kz-text-secondary); text-decoration: none; font-size: 15px; line-height: 24px; }
+.kz-cahier-nav a:hover { color: var(--kz-text-primary); }
+.kz-cahier-nav a[aria-current="page"] { color: var(--kz-text-primary); font-weight: 600; text-decoration: underline; text-decoration-color: var(--kz-hue, var(--kz-paper-rule-margin)); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.kz-cahier-hero { position: relative; }
+.kz-cahier-doodle { position: absolute; right: var(--kz-page-gutter, 16px); top: 12px; pointer-events: none; }
+.kz-cahier-print { display: grid; place-items: center; padding: 8px 20px; min-width: 9rem; background: var(--kz-surface-1); }
+.kz-cahier-doc { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px 48px; padding-block: clamp(24px, 5vw, 56px); }
+.kz-cahier-article { min-width: 0; max-width: 46rem; }
+.kz-cahier-aside { min-width: 0; font-size: 14px; line-height: 22px; color: var(--kz-text-secondary); }
+@media (min-width: 960px) {
+  .kz-cahier-doc[data-aside] { grid-template-columns: minmax(0, 1fr) 15rem; }
+  .kz-cahier-aside { position: sticky; top: 24px; align-self: start; }
+}
+
 .kz-plate, .kz-anatomy {
   margin: 0;
   padding: 20px 24px 24px;

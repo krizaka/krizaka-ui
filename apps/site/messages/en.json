@@ -239,6 +239,10 @@
           "title": "Navigation in the family",
           "description": "One top bar for every Krizaka site and product: what is shared, what each product makes its own, the language switch, the check."
         },
+        "cahier-site": {
+          "title": "Cahier site",
+          "description": "How a tool site wears krizaka.com's identity: the Cahier, its own bird and hue, taped prints, doodles and grades — one language, never one layout."
+        },
         "brand-marks": {
           "title": "Brand marks",
           "description": "The eight marks of the Krizaka family — drawn in code, animated, still under reduced motion."
