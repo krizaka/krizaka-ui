@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.51.0
+
+### Minor Changes
+
+- [#542](https://github.com/krizaka/krizaka-ui/pull/542) [`88c7a0e`](https://github.com/krizaka/krizaka-ui/commit/88c7a0e62254fb0c700f8e35ce954c53cdc29140) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/taped-photo`: `TapedPhoto`, a Cahier block. It is a print taped in the notebook: slightly tilted (`tilt`, eased on a phone), with a white print border, a layered paper shadow, and tape at two corners or at the top (`tape`). It holds any picture, such as an image, a video or a live scene, and takes an optional caption written on the print. The flock's scene that opens www.krizaka.com uses it, and the Polaroids of Akinaza's shop walls build on it (krizaka/akinaza#236).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.51.0
+  - @krizaka/tokens@3.51.0
+
 ## 3.50.0
 
 ### Minor Changes
