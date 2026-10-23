@@ -10,7 +10,7 @@ const FIXTURE = fileURLToPath(new URL("./fixtures/repo", import.meta.url));
 const BIN = fileURLToPath(new URL("../bin/krizaka-ratchet.mjs", import.meta.url));
 const UI = { palette: 6, light: 3, arbitraryVar: 2, classNameTemplate: 2 };
 // lib/use-data.ts (fetch in a client effect ×2, @tanstack ×2) · features/forms.tsx (a table, a form of two fields)
-const STACK = { fetchInClientEffect: 2, directTanstackImport: 2, localTableOrForm: 2, retiredImport: 0, routeStateSelection: 0 };
+const STACK = { fetchInClientEffect: 2, directTanstackImport: 2, localTableOrForm: 2, retiredImport: 0, routeStateSelection: 0, pageTemplate: 1 };
 const TOTAL = { ...UI, ...STACK };
 const STACK_GLOBS = ["app", "components", "src", "lib", "hooks", "features"].map((d) => `${d}/**/*.{js,jsx,mjs,ts,tsx,mts}`);
 
@@ -222,3 +222,14 @@ describe("the routeStateSelection counter", () => {
   });
 });
 
+
+describe("the pageTemplate counter", () => {
+  it("counts the pages of the app router with no valid template declaration", async () => {
+    const { countPages } = await import("../ratchet/ratchet.js");
+    expect(countPages("app/a/page.tsx", "export default 1")).toBe(1);
+    expect(countPages("app/a/page.tsx", "// @template: app-settings\nexport default 1")).toBe(0);
+    expect(countPages("app/a/page.tsx", "// @template: custom: a canvas editor\n")).toBe(0);
+    expect(countPages("app/a/page.tsx", "// @template: custom\n")).toBe(1);
+    expect(countPages("app/a/layout.tsx", "export default 1")).toBe(0);
+  });
+});

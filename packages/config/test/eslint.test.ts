@@ -185,12 +185,12 @@ describe("krizakaStack — the three stack rules (S1–S3, S11)", () => {
       </>
     );
     declare function Select(p: { name: string }): null;`;
-    const messages = await lint(krizakaStack(), code, "app/page.tsx");
+    const messages = (await lint(krizakaStack(), code, "app/page.tsx")).filter((m) => m.ruleId !== "krizaka/page-template");
     expect(messages.map((m) => m.message)).toEqual([
       expect.stringMatching(/<form> of 2 fields/),
       expect.stringMatching(/<table>: use DataTable/),
     ]);
-    expect(await lint(krizakaStack({ maxFormFields: 2 }), code, "app/page.tsx")).toHaveLength(1);
+    expect((await lint(krizakaStack({ maxFormFields: 2 }), code, "app/page.tsx")).filter((m) => m.ruleId !== "krizaka/page-template")).toHaveLength(1);
   });
 
   it("takes files, ignores and severity; composes with noLocaleTernary (one plugin object)", async () => {
@@ -205,8 +205,8 @@ describe("krizakaStack — the three stack rules (S1–S3, S11)", () => {
     ]);
   });
 
-  it("names exactly the stack rules (three, the family switcher ban, the route state)", () => {
-    expect(STACK_RULES).toHaveLength(5);
+  it("names exactly the stack rules (three, the family switcher ban, the route state, the page template)", () => {
+    expect(STACK_RULES).toHaveLength(6);
     expect(krizakaStack().flatMap((config) => Object.keys(config.rules!))).toEqual([...STACK_RULES]);
   });
 });
@@ -349,5 +349,28 @@ describe("krizaka/route-state-selection — a selection of a page lives in the U
     expect(segmented.filter((m) => m.ruleId === "krizaka/route-state-selection")).toHaveLength(1);
     const form = await lint(krizakaStack(), page(`<RadioGroup.Root value={t} onValueChange={setT} />`), "components/Form.tsx");
     expect(form.filter((m) => m.ruleId === "krizaka/route-state-selection")).toEqual([]);
+  });
+});
+
+describe("krizaka/page-template — every page declares its template", () => {
+  const lintPage = (code: string, file = "apps/web/app/[locale]/app/profile/page.tsx") => lint(krizakaStack(), code, file);
+  const ruled = (messages: { ruleId: string | null }[]) => messages.filter((m) => m.ruleId === "krizaka/page-template");
+
+  it("refuses a page with no declaration", async () => {
+    expect(ruled(await lintPage("export default function Page() { return null; }"))).toHaveLength(1);
+  });
+
+  it("refuses an unknown template and a custom one without its reason", async () => {
+    expect(ruled(await lintPage("// @template: fancy\nexport default function Page() { return null; }"))).toHaveLength(1);
+    expect(ruled(await lintPage("// @template: custom\nexport default function Page() { return null; }"))).toHaveLength(1);
+  });
+
+  it.each(["app-settings", "app-list-detail", "landing", "redirect", "custom: a canvas editor, no template fits"])("accepts // @template: %s", async (template) => {
+    expect(ruled(await lintPage(`// @template: ${template}\nexport default function Page() { return null; }`))).toEqual([]);
+  });
+
+  it("leaves other files alone", async () => {
+    expect(ruled(await lintPage("export const x = 1;", "apps/web/components/Card.tsx"))).toEqual([]);
+    expect(ruled(await lintPage("export const x = 1;", "apps/web/app/[locale]/layout.tsx"))).toEqual([]);
   });
 });

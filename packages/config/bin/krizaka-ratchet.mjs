@@ -28,6 +28,7 @@ const LABELS = {
   localTableOrForm: "hand-written tables / forms",
   retiredImport: "imports of retired deps",
   routeStateSelection: "selections in local state (not the URL)",
+  pageTemplate: "pages with no template declared",
 };
 
 let args;

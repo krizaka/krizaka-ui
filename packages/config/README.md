@@ -185,3 +185,8 @@ The CI step, after the install:
 ## License
 
 [Apache-2.0](../../LICENSE)
+
+## Page templates and the account baseline
+
+- **`krizaka/page-template`** (in `krizakaStack`, a warning counted by `krizaka-ratchet` as `pageTemplate`): every page of the App Router declares the Krizaka UI template it composes, as a comment at the top of `page.tsx` (`// @template: app-settings`). The templates are `PAGE_TEMPLATES` (the site's, `app-dashboard`, `app-list-detail`, `app-settings`, `app-onboarding`, `app-empty-first-run`, `app-wizard`, `redirect`). A page that fits none says why: `// @template: custom: <reason>`.
+- **`@krizaka/config/conformance/account-baseline`**: the account baseline every app owes (profile with avatar, name and verified e-mail; preferences; security; billing where the product sells; notifications where it sends; my data). `checkAccountBaseline({ routes, features, visit })` returns the problems; `playwrightVisit(page, base)` is the `visit` of a signed-in Playwright page. Run it in each app's CI.
