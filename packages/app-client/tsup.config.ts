@@ -1,12 +1,15 @@
 import { defineConfig } from "tsup";
 
-/** ESM + types, one entry. The discovery client stays a dependency, never bundled. */
+/** ESM + types: the client (`.`) and the React auth context (`./react`). The discovery client and React stay external. */
+const declarations = { index: "src/index.ts", react: "src/react.tsx" };
+
 export default defineConfig({
-  entry: { index: "src/index.ts" },
+  entry: declarations,
   format: ["esm"],
-  dts: true,
+  dts: { entry: declarations },
   sourcemap: true,
   clean: false,
   target: "es2022",
-  external: [/^@krizaka\//],
+  splitting: true,
+  external: [/^@krizaka\//, "react", "react/jsx-runtime"],
 });
