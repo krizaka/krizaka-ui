@@ -8,6 +8,7 @@ export {
   RouteStateProvider,
   type RouteStateProviderProps,
   useRouteBinding,
+  useRouteSearch,
   useRouteState,
   writeRouteValue,
 } from "./route-state";
