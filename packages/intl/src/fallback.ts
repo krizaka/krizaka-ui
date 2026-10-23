@@ -28,7 +28,7 @@ function displayedMagnitude(value: number, numbers: Intl.NumberFormat): number {
   const integer = parts.filter((part) => part.type === "integer").map((part) => part.value).join("");
   const fraction = parts.filter((part) => part.type === "fraction").map((part) => part.value).join("");
   const digits = Array.from({ length: 10 }, (_, digit) => [
-    numbers.formatToParts(digit).find((part) => part.type === "integer")?.value ?? String(digit),
+    numbers.formatToParts(digit).filter((part) => part.type === "integer").map((part) => part.value).join(""),
     String(digit),
   ] as const).sort(([left], [right]) => right.length - left.length);
   const normalizeDigits = (value: string) =>
