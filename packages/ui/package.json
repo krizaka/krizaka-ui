@@ -489,6 +489,10 @@
       "types": "./dist/bird-plate.d.ts",
       "import": "./dist/bird-plate.js"
     },
+    "./taped-photo": {
+      "types": "./dist/taped-photo.d.ts",
+      "import": "./dist/taped-photo.js"
+    },
     "./elephant": {
       "types": "./dist/elephant.d.ts",
       "import": "./dist/elephant.js"
@@ -1981,6 +1985,16 @@
       "name": "./footnote",
       "path": "dist/footnote.js",
       "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./taped-photo",
+      "path": "dist/taped-photo.js",
+      "limit": "0.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
