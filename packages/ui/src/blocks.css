@@ -1037,8 +1037,9 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 @media (min-width: 1360px) {
   .kz-doodle[data-place="margin"] { display: block; position: absolute; top: var(--kz-doodle-top, 0px); right: calc(100% + 16px); }
   .kz-doodle[data-place="margin"][data-side="right"] { right: auto; left: calc(100% + 16px); }
-  .kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="left"]) { margin-left: 96px; }
-  .kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="right"]) { margin-right: 96px; }
+  .kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="left"]) { margin-left: 96px; width: calc(100% - 96px); }
+  .kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="right"]) { margin-right: 96px; width: calc(100% - 96px); }
+  .kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="left"]):has(> .kz-doodle[data-place="margin"][data-side="right"]) { width: calc(100% - 192px); }
 }
 
 /* ─── Signature (ADR-004): the house signs the page — the mark as an ink stamp, the name in the notebook's pen, one ink

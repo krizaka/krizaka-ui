@@ -65,7 +65,8 @@ describe("Stuck", () => {
     expect(dark).not.toContain("--kz-stuck-fold");
 
     const wide = css.match(/@media \(min-width: 1360px\) \{([\s\S]*?)\n\}/)?.[1] ?? "";
-    expect(wide).toContain('.kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="left"]) { margin-left: 96px; }');
-    expect(wide).toContain('.kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="right"]) { margin-right: 96px; }');
+    expect(wide).toContain('.kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="left"]) { margin-left: 96px; width: calc(100% - 96px); }');
+    expect(wide).toContain('.kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="right"]) { margin-right: 96px; width: calc(100% - 96px); }');
+    expect(wide).toContain('.kz-stuck:has(> .kz-doodle[data-place="margin"][data-side="left"]):has(> .kz-doodle[data-place="margin"][data-side="right"]) { width: calc(100% - 192px); }');
   });
 });
