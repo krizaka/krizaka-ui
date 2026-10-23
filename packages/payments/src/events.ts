@@ -38,7 +38,8 @@ function handlerFor<H>(handlers: Partial<Record<string, H>>, event: PaymentEvent
  * @param event the verified, translated event
  * @param handlers one handler per event type the product applies
  * @returns `applied`, `duplicate` (already applied) or `ignored`
- * @throws whatever the handler throws, after the id was given back
+ * @throws whatever the handler throws, after the id was given back; an `AggregateError` of both errors (the handler's
+ *   first) when giving the id back fails too, in which case the id stays recorded
  */
 export async function applyOnce(store: EventStore, event: PaymentEvent, handlers: Handlers): Promise<Outcome> {
   const handler = handlerFor(handlers as Partial<Record<string, (e: PaymentEvent) => Promise<void | "ignored">>>, event);
@@ -47,8 +48,17 @@ export async function applyOnce(store: EventStore, event: PaymentEvent, handlers
   try {
     return (await handler(event)) === "ignored" ? "ignored" : "applied";
   } catch (error) {
-    await store.forget?.(event.id);
+    await giveBack(store, event.id, error);
     throw error;
+  }
+}
+
+/** Gives the id back after a failed handler. If that fails too, both errors go to the caller, the handler's first. */
+async function giveBack(store: EventStore, id: string, handlerError: unknown): Promise<void> {
+  try {
+    await store.forget?.(id);
+  } catch (cleanupError) {
+    throw new AggregateError([handlerError, cleanupError], `the handler of ${id} failed, and giving its id back failed too: the id stays recorded`);
   }
 }
 

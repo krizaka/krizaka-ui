@@ -37,6 +37,15 @@ describe("a handler that fails leaves the event unrecorded (krizaka-ts#47: the a
     await expect(applyOnce(store, paid, { payment_paid: async () => { throw new Error("boom"); } })).rejects.toThrow("boom");
   });
 
+  it("when giving the id back fails too, both failures reach the caller (the handler's first)", async () => {
+    const handlerError = new Error("handler failed");
+    const cleanupError = new Error("database down");
+    const store: EventStore = { async markSeen() { return true; }, async forget() { throw cleanupError; } };
+    const failure = await applyOnce(store, paid, { payment_paid: async () => { throw handlerError; } }).catch((e: unknown) => e);
+    expect(failure).toBeInstanceOf(AggregateError);
+    expect((failure as AggregateError).errors).toEqual([handlerError, cleanupError]);
+  });
+
   it("the SQL store forgets with a DELETE on its own row", async () => {
     const calls: { text: string; values: unknown[] | undefined }[] = [];
     const store = pgEventStore(async (text, values) => { calls.push({ text, values }); return []; });
