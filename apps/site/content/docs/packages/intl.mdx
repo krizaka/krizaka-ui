@@ -25,6 +25,22 @@ npm install @krizaka/intl
 
 Sub-paths (`@krizaka/intl/money`, `/number`, `/date`, `/plural`) import one family; the root imports all of them.
 
+## Hermes / missing Intl constructors
+
+If `Intl.PluralRules` or `Intl.RelativeTimeFormat` is missing, `plural` and `formatRelative` use small built-in
+fallbacks. Native Intl behavior is unchanged when the constructors exist.
+
+- Plurals support unrounded English and French cardinal rules (including French `many` for nonzero multiples
+  of a million). Unsupported languages and non-finite counts use `other`; plural options are not applied.
+- Relative times use long numeric English/French wording, even for `numeric: "auto"` or abbreviated styles.
+  Unsupported languages use English wording; numbers still use the requested locale.
+- Locale lists use the first supported English/French entry, never the runtime default.
+- `getPluralRules` / `getRelativeTimeFormat` guarantee only `select` / `format`; check for native-only methods
+  before using them. The return types include these minimal fallbacks, not complete Intl polyfills.
+
+`Intl.NumberFormat` and `Intl.DateTimeFormat` remain required. Apps needing complete locale, option and method
+support should load an Intl polyfill.
+
 ## Bind it once in the app
 
 The app knows its currency and its locale; the components only pass cents:
