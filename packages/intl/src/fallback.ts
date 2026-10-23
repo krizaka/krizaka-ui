@@ -23,6 +23,19 @@ export function selectCardinal(count: number, language: string | undefined): Int
 const UNITS = ["second", "minute", "hour", "day", "week", "month", "quarter", "year"];
 const FRENCH_UNITS = ["seconde", "minute", "heure", "jour", "semaine", "mois", "trimestre", "an"];
 
+function displayedMagnitude(value: number, numbers: Intl.NumberFormat): number {
+  const parts = numbers.formatToParts(Math.abs(value));
+  const integer = parts.filter((part) => part.type === "integer").map((part) => part.value).join("");
+  const fraction = parts.filter((part) => part.type === "fraction").map((part) => part.value).join("");
+  const digits = Array.from({ length: 10 }, (_, digit) => [
+    numbers.formatToParts(digit).find((part) => part.type === "integer")?.value ?? String(digit),
+    String(digit),
+  ] as const).sort(([left], [right]) => right.length - left.length);
+  const normalizeDigits = (value: string) =>
+    digits.reduce((result, [localized, ascii]) => result.replaceAll(localized, ascii), value);
+  return Number(`${normalizeDigits(integer)}${fraction ? `.${normalizeDigits(fraction)}` : ""}`);
+}
+
 /** Long numeric relative text (en/fr; English wording otherwise), using the cached number formatter. */
 export function relativeText(
   value: number,
@@ -35,7 +48,7 @@ export function relativeText(
   if (!Number.isFinite(value) || index < 0) throw new RangeError("Invalid relative time");
   const french = language === "fr";
   const name = french ? FRENCH_UNITS[index] : singular;
-  const plural = selectCardinal(value, french ? "fr" : "en") !== "one";
+  const plural = selectCardinal(displayedMagnitude(value, numbers), french ? "fr" : "en") !== "one";
   const suffix = plural && !(french && singular === "month") ? "s" : "";
   const text = `${numbers.format(Math.abs(value))} ${name}${suffix}`;
   const past = value < 0 || Object.is(value, -0);

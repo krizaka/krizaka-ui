@@ -64,6 +64,14 @@ describe("missing Intl constructors", () => {
   });
 
   it.each([
+    ["en-US", 1.0001, "second", "in 1 second"],
+    ["fr-CA", 1.9999, "second", "dans 2 secondes"],
+  ] as const)("bases %s relative-time noun agreement on the rounded displayed number", (locale, value, unit, expected) => {
+    removeConstructor("RelativeTimeFormat");
+    expect(getRelativeTimeFormat(locale).format(value, unit)).toBe(expected);
+  });
+
+  it.each([
     ["second", "seconde"],
     ["minute", "minute"],
     ["hour", "heure"],
