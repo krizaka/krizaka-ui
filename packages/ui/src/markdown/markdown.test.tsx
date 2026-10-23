@@ -88,6 +88,7 @@ describe("Markdown", () => {
     }
     for (const code of container.querySelectorAll("td code")) {
       expect(getComputedStyle(code).whiteSpace).toBe("nowrap");
+      expect(getComputedStyle(code.parentElement!).minWidth).toBe("min-content");
     }
     expect(getComputedStyle(container.querySelector("pre")!).whiteSpace).toBe("pre");
     expect(getComputedStyle(container.querySelector(".kz-md-table")!).overflowX).toBe("auto");

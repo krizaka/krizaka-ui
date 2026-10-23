@@ -154,7 +154,7 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
               <tr>
                 {node.header.map((cell, i) => (
                   <th key={i} scope="col" style={{ textAlign: node.align[i] ?? undefined }}>
-                    <Inlines nodes={cell.children} ctx={ctx} />
+                    <div className="kz-md-cell"><Inlines nodes={cell.children} ctx={ctx} /></div>
                   </th>
                 ))}
               </tr>
@@ -164,7 +164,7 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
                 <tr key={r}>
                   {row.map((cell, i) => (
                     <td key={i} style={{ textAlign: node.align[i] ?? undefined }}>
-                      <Inlines nodes={cell.children} ctx={ctx} />
+                      <div className="kz-md-cell"><Inlines nodes={cell.children} ctx={ctx} /></div>
                     </td>
                   ))}
                 </tr>

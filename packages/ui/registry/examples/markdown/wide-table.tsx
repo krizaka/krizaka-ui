@@ -7,7 +7,7 @@ Identifiers stay whole; move through the table with the arrow keys after focusin
 | Identifier | Profile | Account | Upload | Review | Delivery | Presence | Discovery | Queue |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | \`profile-photo-check\` | \`profile-photo-check\` | \`account-access-review\` | \`upload-retry-policy\` | \`review-pending-items\` | \`delivery-status-check\` | \`presence-channel-join\` | \`discovery-manifest-signature\` | \`queue-priority-update\` |
-| \`account-access-review\` | \`profile-photo-check\`, \`profile-photo-refresh\` | \`account-session-refresh\` | \`upload-content-validation\` | \`review-assignment-update\` | \`delivery-receipt-confirm\` | \`presence-heartbeat-renewal\` | \`discovery-address-allowlist\` | \`queue-backoff-duration\` |
+| \`account-access-review\` | \`profile-photo-check\`, \`profile-photo-refresh\` | \`account-session-refresh\` | \`upload-content-validation\` | \`review-assignment-update\` | \`delivery-receipt-confirm\` | \`presence-heartbeat-renewal\` | \`discovery-address-allowlist\` | \`queue-backoff-duration-for-background-upload-retry-policy\` |
 
 A long word: documentationidentifierswithoutanynaturalbreakopportunitiesstillfitonthephone.
 

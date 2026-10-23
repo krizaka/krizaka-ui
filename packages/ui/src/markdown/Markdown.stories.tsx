@@ -27,5 +27,8 @@ export const WideTable: Story = {
     for (const code of region.querySelectorAll("code")) {
       if (getComputedStyle(code).whiteSpace !== "nowrap") throw new Error("A table identifier must not wrap.");
     }
+    for (const cell of region.querySelectorAll<HTMLElement>("th, td")) {
+      if (cell.scrollWidth > cell.clientWidth + 1) throw new Error("An identifier must widen its column, not overlap the next cell.");
+    }
   },
 };
