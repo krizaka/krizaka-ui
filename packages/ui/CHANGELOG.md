@@ -1,5 +1,19 @@
 # @krizaka/ui
 
+## 3.50.0
+
+### Minor Changes
+
+- [#531](https://github.com/krizaka/krizaka-ui/pull/531) [`56e2dc4`](https://github.com/krizaka/krizaka-ui/commit/56e2dc4fe3adb8191b884e60ee5402645d372023) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `PageTransition` takes `routeKey` (the router's pathname): only a change of page animates, an update on the same page — a
+  dialog opened through the address, a filter, a search parameter — no longer cross-fades the whole page and freezes its
+  layers mid-fade. Without `routeKey` the former behaviour stays.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.50.0
+  - @krizaka/tokens@3.50.0
+
 ## 3.49.0
 
 ### Minor Changes
