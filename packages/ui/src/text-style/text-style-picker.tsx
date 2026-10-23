@@ -26,7 +26,6 @@ import {
   leadings,
   parseColor,
   parseTextStyle,
-  requiredContrast,
   type SizeStep,
   sizeSteps,
   type TextStyle,
@@ -161,36 +160,87 @@ export type TextStylePickerProps = {
 };
 
 type Rgb = [number, number, number];
+type Rgba = [number, number, number, number];
 
-const transparent = (text: string) => text === "transparent" || /^rgba?\([^)]*[,/]\s*0(\.0+)?%?\s*\)$/.test(text.trim());
+function parseColorWithAlpha(text: string): Rgba | null {
+  const value = text.trim().toLowerCase();
+  if (value === "transparent") return [0, 0, 0, 0];
+  const color = parseColor(value);
+  if (!color) return null;
 
-/** The colour behind an element: the first opaque background up its ancestors. */
-function surfaceOf(element: HTMLElement): Rgb | null {
-  for (let node: HTMLElement | null = element; node; node = node.parentElement) {
-    const color = window.getComputedStyle(node).backgroundColor;
-    if (color && !transparent(color)) return parseColor(color);
+  const hex = /^#([0-9a-f]{4}|[0-9a-f]{8})$/.exec(value)?.[1];
+  if (hex) {
+    const alpha = hex.length === 4 ? Number.parseInt(hex[3]! + hex[3]!, 16) : Number.parseInt(hex.slice(6, 8), 16);
+    return [...color, alpha / 255];
   }
-  return null;
+
+  const components =
+    /^rgba?\(([^)]+)\)$/.exec(value)?.[1] ??
+    /^color\(srgb\s+([^)]+)\)$/.exec(value)?.[1];
+  if (!components) return [...color, 1];
+
+  const [channels, slashAlpha] = components.split("/");
+  const parts = channels!.trim().split(/[\s,]+/).filter(Boolean);
+  const alpha = slashAlpha?.trim() ?? (parts.length === 4 ? parts[3] : undefined);
+  if (alpha === undefined) return [...color, 1];
+  const parsed = alpha.endsWith("%") ? Number.parseFloat(alpha) / 100 : Number.parseFloat(alpha);
+  return Number.isFinite(parsed) && parsed >= 0 && parsed <= 1 ? [...color, parsed] : null;
+}
+
+const over = (foreground: Rgba, background: Rgba): Rgba => {
+  const alpha = foreground[3] + background[3] * (1 - foreground[3]);
+  if (alpha === 0) return [0, 0, 0, 0];
+  return [
+    (foreground[0] * foreground[3] + background[0] * background[3] * (1 - foreground[3])) / alpha,
+    (foreground[1] * foreground[3] + background[1] * background[3] * (1 - foreground[3])) / alpha,
+    (foreground[2] * foreground[3] + background[2] * background[3] * (1 - foreground[3])) / alpha,
+    alpha,
+  ];
+};
+
+/** The composited colour behind an element, or null when a background layer cannot be read. */
+function surfaceOf(element: HTMLElement): Rgb | null {
+  const layers: HTMLElement[] = [];
+  for (let node: HTMLElement | null = element; node; node = node.parentElement) {
+    layers.push(node);
+    if (node === document.documentElement) break;
+  }
+  let background: Rgba = [0, 0, 0, 0];
+  for (const node of layers.reverse()) {
+    const color = window.getComputedStyle(node).backgroundColor;
+    const layer: Rgba | null = color ? parseColorWithAlpha(color) : [0, 0, 0, 0];
+    if (!layer) return null;
+    background = over(layer, background);
+  }
+  return background[3] >= 1 ? [background[0], background[1], background[2]] : null;
 }
 
 /** What the tone reaches on its surface, measured on the preview as it is drawn (the theme and the product's tokens included). */
-function useContrast(ref: React.RefObject<HTMLElement | null>, key: string): number | null {
-  const [ratio, setRatio] = React.useState<number | null>(null);
+function useContrast(ref: React.RefObject<HTMLElement | null>, key: string): { ratio: number; required: number } | null {
+  const [measurement, setMeasurement] = React.useState<{ ratio: number; required: number } | null>(null);
   React.useEffect(() => {
     const element = ref.current;
     if (!element) return;
     const measure = () => {
-      const foreground = parseColor(window.getComputedStyle(element).color);
-      const background = surfaceOf(element);
-      setRatio(foreground && background ? contrastRatio(foreground, background) : null);
+      const sample = element.querySelector<HTMLElement>("[data-text-style-sample]") ?? element;
+      const computed = window.getComputedStyle(sample);
+      const foreground = parseColor(computed.color);
+      const background = surfaceOf(sample);
+      const fontSize = Number.parseFloat(computed.fontSize);
+      const fontWeight = Number.parseFloat(computed.fontWeight);
+      const required = fontSize >= 24 || (fontSize >= 18.66 && fontWeight >= 700) ? 3 : 4.5;
+      setMeasurement(foreground && background && Number.isFinite(fontSize) && Number.isFinite(fontWeight) ? { ratio: contrastRatio(foreground, background), required } : null);
     };
     measure();
     if (typeof MutationObserver === "undefined") return;
     const observer = new MutationObserver(measure);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class", "style", "data-theme"] });
+    for (let node: HTMLElement | null = element; node; node = node.parentElement) {
+      observer.observe(node, { attributes: true, attributeFilter: ["class", "style", "data-theme"] });
+      if (node === document.documentElement) break;
+    }
     return () => observer.disconnect();
   }, [ref, key]);
-  return ratio;
+  return measurement;
 }
 
 const nearest = (weights: readonly TextWeight[], weight: TextWeight): TextWeight =>
@@ -215,23 +265,30 @@ export function TextStylePicker({
   const shown = (field: TextStyleField) => fields.includes(field);
   const id = React.useId();
   const previewRef = React.useRef<HTMLDivElement>(null);
-  const ratio = useContrast(previewRef, `${style.tone}|${surface ?? ""}`);
+  const measurement = useContrast(previewRef, `${style.font}|${style.size}|${style.weight}|${style.tone}|${surface ?? ""}`);
 
   const set = (patch: Partial<TextStyle>) => onChange(parseTextStyle({ ...style, ...patch }));
   const setFont = (font: FontId) => set({ font, weight: nearest(fontWeights[font], style.weight) });
   const applyPreset = (preset: TextStylePreset) => {
     const next = parseTextStyle(preset.value);
     const patch = Object.fromEntries(textStyleFields.filter(shown).map((f) => [f, next[f]])) as Partial<TextStyle>;
-    set(patch.font ? { ...patch, weight: fields.includes("weight") ? patch.weight : nearest(fontWeights[patch.font], style.weight) } : patch);
+    if (patch.font !== undefined || patch.weight !== undefined) {
+      const font = patch.font ?? style.font;
+      const weight = patch.weight ?? style.weight;
+      set({ ...patch, weight: nearest(fontWeights[font], weight) });
+    } else {
+      set(patch);
+    }
   };
 
-  const required = requiredContrast(style);
   const warnings: string[] = [];
-  if (ratio !== null && ratio < required) warnings.push(labels.contrastWarning.replace("{ratio}", ratio.toFixed(1)).replace("{min}", String(required)));
+  if (measurement && measurement.ratio < measurement.required) {
+    warnings.push(labels.contrastWarning.replace("{ratio}", measurement.ratio.toFixed(1)).replace("{min}", String(measurement.required)));
+  }
   if (role === "body" && isUnderMinimumSize(style.size, minBodySize)) warnings.push(labels.minSizeWarning.replace("{size}", minBodySize));
 
-  const group = (field: TextStyleField, title: string, control: React.ReactNode) => (
-    <div key={field} className="flex min-w-0 flex-col gap-2" data-field={field}>
+  const group = (field: TextStyleField, title: string, control: React.ReactNode, className?: string) => (
+    <div key={field} className={cx("flex min-w-0 flex-col gap-2", className)} data-field={field}>
       <span id={`${id}-${field}`} className="text-xs font-semibold text-fg-secondary">
         {title}
       </span>
@@ -242,13 +299,14 @@ export function TextStylePicker({
     group(
       field,
       title,
-      <RadioGroup.Root variant="segmented" aria-labelledby={`${id}-${field}`} value={String(current)} onValueChange={(next) => choose(items.find((item) => String(item) === next)!)} className="max-w-full">
+      <RadioGroup.Root variant="segmented" aria-labelledby={`${id}-${field}`} value={String(current)} onValueChange={(next) => choose(items.find((item) => String(item) === next)!)} className="w-full max-w-full">
         {items.map((item) => (
-          <RadioGroup.Segment key={item} value={String(item)} disabled={disabled?.(item)}>
+          <RadioGroup.Segment key={item} value={String(item)} disabled={disabled?.(item)} className="min-w-0 px-1 text-xs">
             {text(item)}
           </RadioGroup.Segment>
         ))}
       </RadioGroup.Root>,
+      "sm:col-span-2",
     );
 
   const controls: Record<TextStyleField, () => React.ReactNode> = {
@@ -322,7 +380,7 @@ export function TextStylePicker({
         style={surface ? { backgroundColor: surface } : undefined}
         className={cx("min-w-0 overflow-hidden rounded-xl border border-border-default", surface ? "" : "bg-surface-1", compact ? "p-3" : "p-5")}
       >
-        <StyledText as="p" value={style} className="break-words">
+        <StyledText as="p" value={style} className="break-words" data-text-style-sample="">
           {previewText}
         </StyledText>
       </div>

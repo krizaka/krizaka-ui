@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 
 import { axeViolations } from "../test/axe";
-import { defaultTextStyle, type TextStyle, textStyleLabelsFr, TextStylePicker, type TextStylePickerProps } from "./index";
+import { defaultTextStyle, type TextStyle, type TextStyleField, textStyleLabelsFr, TextStylePicker, type TextStylePickerProps } from "./index";
 
 function Harness({ initial = defaultTextStyle as TextStyle, onChange, ...props }: Partial<TextStylePickerProps> & { initial?: TextStyle }) {
   const [value, setValue] = React.useState<TextStyle>(initial);
@@ -20,8 +20,31 @@ function Harness({ initial = defaultTextStyle as TextStyle, onChange, ...props }
   );
 }
 
-const colors = (color: string, backgroundColor: string) =>
-  vi.spyOn(window, "getComputedStyle").mockImplementation(((_element: Element) => ({ color, backgroundColor, getPropertyValue: () => "" }) as unknown as CSSStyleDeclaration) as typeof window.getComputedStyle);
+const computedStyles = (get: (element: Element) => Partial<CSSStyleDeclaration>) =>
+  vi.spyOn(window, "getComputedStyle").mockImplementation(
+    ((element: Element) =>
+      ({
+        color: "rgb(0, 0, 0)",
+        backgroundColor: "rgba(0, 0, 0, 0)",
+        fontSize: "16px",
+        fontWeight: "400",
+        getPropertyValue: () => "",
+        ...get(element),
+      }) as unknown as CSSStyleDeclaration) as typeof window.getComputedStyle,
+  );
+
+const colors = (color: string, backgroundColor: string, fontSize = "16px", fontWeight = "400") =>
+  computedStyles((element) => ({
+    color,
+    backgroundColor:
+      element instanceof HTMLElement && element.hasAttribute("data-text-style-sample")
+        ? "rgba(0, 0, 0, 0)"
+        : element instanceof HTMLElement && element.hasAttribute("data-preview")
+          ? element.style.backgroundColor || backgroundColor
+          : backgroundColor,
+    fontSize,
+    fontWeight,
+  }));
 
 afterEach(() => vi.restoreAllMocks());
 
@@ -101,6 +124,51 @@ describe("TextStylePicker", () => {
     expect(onChange).toHaveBeenLastCalledWith({ ...defaultTextStyle, font: "mono", size: "2xl" });
   });
 
+  const presetWeightCases: {
+    title: string;
+    initial: TextStyle;
+    fields?: readonly TextStyleField[];
+    value: Partial<TextStyle>;
+    expected: TextStyle;
+  }[] = [
+    {
+      title: "fills in a font preset with a supported weight",
+      initial: defaultTextStyle as TextStyle,
+      fields: undefined,
+      value: { font: "cahier" },
+      expected: { ...defaultTextStyle, font: "cahier", weight: 500 },
+    },
+    {
+      title: "replaces a disabled preset weight after changing the font",
+      initial: defaultTextStyle as TextStyle,
+      fields: undefined,
+      value: { font: "display", weight: 700 },
+      expected: { ...defaultTextStyle, font: "display", weight: 400 },
+    },
+    {
+      title: "normalizes a weight-only preset against the current font",
+      initial: { ...defaultTextStyle, font: "cahier", weight: 500 },
+      fields: ["weight"] as const,
+      value: { weight: 700 },
+      expected: { ...defaultTextStyle, font: "cahier", weight: 500 },
+    },
+  ];
+
+  it.each(presetWeightCases)("$title", async ({ initial, fields, value, expected }) => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(
+      <Harness
+        initial={initial}
+        fields={fields}
+        onChange={onChange}
+        presets={[{ id: "preset", label: "Preset", value }]}
+      />,
+    );
+    await user.click(screen.getByRole("button", { name: "Preset" }));
+    expect(onChange).toHaveBeenLastCalledWith(expected);
+  });
+
   it("shows any invalid value as the default", () => {
     render(<Harness initial={{ ...defaultTextStyle, tone: "#f00" } as unknown as TextStyle} />);
     expect((screen.getByRole("radio", { name: "Primary" }) as HTMLElement).getAttribute("aria-checked")).toBe("true");
@@ -121,12 +189,86 @@ describe("TextStylePicker guard rails", () => {
   });
 
   it("asks only 3:1 of large titles", async () => {
-    colors("rgb(150, 150, 150)", "rgb(255, 255, 255)");
+    colors("rgb(150, 150, 150)", "rgb(255, 255, 255)", "30px");
     render(<Harness initial={{ ...defaultTextStyle, size: "3xl" }} role="title" />);
     await waitFor(() => expect(screen.getByRole("status").textContent).toContain("3:1 is needed"));
-    colors("rgb(110, 110, 110)", "rgb(255, 255, 255)");
+    colors("rgb(110, 110, 110)", "rgb(255, 255, 255)", "30px");
     render(<Harness initial={{ ...defaultTextStyle, size: "3xl" }} role="title" />);
     await waitFor(() => expect(screen.getAllByRole("status").some((s) => s.textContent === "")).toBe(true));
+  });
+
+  it("measures the sample's tone rather than the preview wrapper's inherited colour", async () => {
+    computedStyles((element) => ({
+      color: element.hasAttribute("data-text-style-sample") ? "rgb(150, 150, 150)" : "rgb(0, 0, 0)",
+      backgroundColor: element.hasAttribute("data-preview") ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0)",
+    }));
+    render(<Harness />);
+    await waitFor(() => expect(screen.getByRole("status").textContent).toContain("3.0:1"));
+  });
+
+  it.each([
+    ["black", "#000000", "rgb(255, 255, 255)", ""],
+    ["red", "#ff0000", "rgb(255, 0, 0)", "1.0:1"],
+  ])("includes an opaque %s preview surface in contrast measurement", async (_name, surface, color, expected) => {
+    colors(color, "rgb(255, 255, 255)");
+    render(<Harness initial={{ ...defaultTextStyle, tone: "primary" }} surface={surface} />);
+    if (expected) await waitFor(() => expect(screen.getByRole("status").textContent).toContain(expected));
+    else await waitFor(() => expect(screen.getByRole("status").textContent).toBe(""));
+  });
+
+  it("composites translucent preview surfaces over their ancestors", async () => {
+    computedStyles((element) => ({
+      color: element.hasAttribute("data-text-style-sample") ? "rgb(255, 255, 255)" : "rgb(0, 0, 0)",
+      backgroundColor:
+        element instanceof HTMLElement && element.hasAttribute("data-preview")
+          ? "rgba(0, 0, 0, 0.1)"
+          : element === document.body
+            ? "rgb(255, 255, 255)"
+            : "rgba(0, 0, 0, 0)",
+    }));
+    render(<Harness surface="rgba(0, 0, 0, 0.1)" />);
+    await waitFor(() => expect(screen.getByRole("status").textContent).toContain("1.3:1"));
+  });
+
+  it("uses the rendered font size and weight to choose the contrast threshold", async () => {
+    computedStyles((element) => ({
+      color: element.hasAttribute("data-text-style-sample") ? "rgb(150, 150, 150)" : "rgb(0, 0, 0)",
+      backgroundColor: element.hasAttribute("data-preview") ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0)",
+      fontSize: "16px",
+      fontWeight: "400",
+    }));
+    render(<Harness initial={{ ...defaultTextStyle, size: "2xl" }} role="title" />);
+    await waitFor(() => expect(screen.getByRole("status").textContent).toContain("4.5:1 is needed"));
+  });
+
+  it("re-measures when a theme class changes on a local preview ancestor", async () => {
+    computedStyles((element) => {
+      const dark = element.closest(".theme-dark") !== null;
+      return {
+        color: element.hasAttribute("data-text-style-sample") ? (dark ? "rgb(150, 150, 150)" : "rgb(0, 0, 0)") : "rgb(0, 0, 0)",
+        backgroundColor: element.hasAttribute("data-preview")
+          ? "rgba(0, 0, 0, 0)"
+          : element.classList.contains("theme-dark")
+            ? "rgb(180, 180, 180)"
+            : element === document.body
+              ? "rgb(255, 255, 255)"
+              : "rgba(0, 0, 0, 0)",
+      };
+    });
+    const theme = document.createElement("div");
+    theme.className = "theme-light";
+    document.body.append(theme);
+    const { unmount } = render(<Harness />, { container: theme });
+    expect(screen.getByRole("status").textContent).toBe("");
+    theme.className = "theme-dark";
+    await waitFor(() => expect(screen.getByRole("status").textContent).toContain("4.5:1 is needed"));
+    unmount();
+    theme.remove();
+  });
+
+  it("lets segmented controls span the full picker row when embedded", () => {
+    render(<Harness />);
+    expect(screen.getByRole("radiogroup", { name: "Weight" }).parentElement?.className).toContain("sm:col-span-2");
   });
 
   it("says nothing when the contrast is enough, or cannot be read", async () => {

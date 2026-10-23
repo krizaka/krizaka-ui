@@ -27,4 +27,15 @@ type Story = StoryObj<typeof meta>;
 
 export const StorefrontTitle: Story = { render: () => <StorefrontTitleExample /> };
 export const ProductPrice: Story = { render: () => <ProductPriceExample /> };
-export const CompactToolbar: Story = { render: () => <CompactToolbarExample defaultOpen /> };
+export const CompactToolbar: Story = {
+  render: () => <CompactToolbarExample defaultOpen />,
+  parameters: { capture: "viewport", viewportWidth: 390 },
+};
+export const NarrowEmbedded: Story = {
+  render: () => (
+    <div className="w-72 max-w-full">
+      <TextStylePicker value={defaultTextStyle} onChange={() => undefined} previewText="Boulangerie Martin" />
+    </div>
+  ),
+  parameters: { viewportWidth: 390, noOverflow: true },
+};
