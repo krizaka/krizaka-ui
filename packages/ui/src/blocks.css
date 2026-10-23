@@ -140,6 +140,183 @@
   .kz-heading-actions { grid-column: 1; grid-row: auto; }
 }
 
+/* ─── Explained figures, next actions and the host's glossary ─── */
+.kz-kpi,
+.kz-next-actions,
+.kz-glossary {
+  min-width: 0;
+  color: var(--kz-text-primary);
+}
+.kz-kpi {
+  display: grid;
+  gap: 12px;
+  padding: clamp(16px, 3vw, 24px);
+  border: 1px solid var(--kz-border-default);
+  border-radius: 16px;
+  background: var(--kz-surface-1);
+}
+.kz-kpi-head,
+.kz-next-action-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+.kz-kpi-label,
+.kz-next-actions-title,
+.kz-glossary-title,
+.kz-next-action-heading h3 {
+  margin: 0;
+  color: var(--kz-text-primary);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+.kz-kpi-state,
+.kz-kpi-stale,
+.kz-next-action-urgency {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 2px 8px;
+  border: 1px solid var(--kz-border-default);
+  border-radius: 999px;
+  color: var(--kz-text-primary);
+  background: var(--kz-surface-2);
+  font-size: 0.75rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+.kz-kpi-state[data-state="watch"],
+.kz-kpi-stale,
+.kz-next-action-urgency[data-urgency="medium"] {
+  border-color: color-mix(in srgb, var(--kz-warning) 38%, var(--kz-border-default));
+  background: color-mix(in srgb, var(--kz-warning) 10%, var(--kz-surface-1));
+}
+.kz-kpi-state[data-state="act"],
+.kz-next-action-urgency[data-urgency="high"] {
+  border-color: color-mix(in srgb, var(--kz-danger) 38%, var(--kz-border-default));
+  background: color-mix(in srgb, var(--kz-danger) 10%, var(--kz-surface-1));
+}
+.kz-next-action-urgency[data-urgency="low"] {
+  border-color: color-mix(in srgb, var(--kz-success) 38%, var(--kz-border-default));
+  background: color-mix(in srgb, var(--kz-success) 10%, var(--kz-surface-1));
+}
+.kz-kpi-value {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--kz-text-primary);
+  font-family: var(--kz-font-display);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  line-height: 1.15;
+}
+.kz-kpi-meaning,
+.kz-next-action-copy p {
+  margin: 0;
+  color: var(--kz-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+.kz-kpi-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 12px 20px;
+  margin: 0;
+}
+.kz-kpi-details > div { min-width: 0; }
+.kz-kpi-details dt {
+  margin-bottom: 3px;
+  color: var(--kz-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+.kz-kpi-details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--kz-text-primary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.kz-kpi-verify { display: inline-flex; margin-inline-start: 10px; }
+.kz-kpi-freshness {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 0;
+  color: var(--kz-text-secondary);
+  font-size: 0.75rem;
+}
+.kz-kpi-sparkline { min-width: 0; }
+.kz-next-actions,
+.kz-glossary {
+  display: grid;
+  gap: 16px;
+}
+.kz-next-actions-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-inline-start: 1.5rem;
+}
+.kz-next-actions-list > li::marker { color: var(--kz-text-secondary); font-weight: 650; }
+.kz-next-action {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px 20px;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--kz-border-default);
+  border-radius: 12px;
+  background: var(--kz-surface-1);
+}
+.kz-next-action-copy { display: grid; min-width: 0; gap: 5px; }
+.kz-next-action-control { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.kz-glossary-list { display: grid; gap: 12px; margin: 0; }
+.kz-glossary-entry {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1fr) minmax(0, 3fr);
+  gap: 8px 20px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--kz-border-subtle);
+}
+.kz-glossary-entry dt { color: var(--kz-text-primary); font-weight: 650; }
+.kz-glossary-entry dd { margin: 0; color: var(--kz-text-secondary); line-height: 1.55; }
+.kz-glossary-term {
+  border-radius: 2px;
+  color: inherit;
+  font-style: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--kz-accent);
+  text-decoration-style: dotted;
+  text-underline-offset: 0.2em;
+  cursor: help;
+}
+.kz-glossary-term:focus-visible {
+  outline: 2px solid var(--kz-ring, var(--kz-accent));
+  outline-offset: 3px;
+}
+@media (max-width: 520px) {
+  .kz-next-action { grid-template-columns: minmax(0, 1fr); }
+  .kz-glossary-entry { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kz-kpi, .kz-next-action, .kz-glossary-entry, .kz-glossary-term { animation: none; scroll-behavior: auto; transition: none; }
+}
+@media print {
+  .kz-kpi, .kz-next-actions, .kz-glossary, .kz-next-action, .kz-glossary-entry {
+    break-inside: avoid;
+    box-shadow: none;
+    background: transparent;
+  }
+  .kz-kpi, .kz-next-action, .kz-glossary-entry { border-color: currentColor; }
+  .kz-kpi-stale, .kz-kpi-state, .kz-next-action-urgency { border-color: currentColor; }
+}
+
 /* Ticks: a word between backticks in a sentence reads as code. */
 .kz-ic {
   padding: 0.08em 0.38em;
