@@ -16,6 +16,7 @@ export type ComponentName =
   | "achievement"
   | "anatomy-plate"
   | "bird-plate"
+  | "taped-photo"
   | "flock"
   | "elephant"
   | "footnote"
