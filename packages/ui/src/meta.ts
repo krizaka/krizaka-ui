@@ -183,7 +183,8 @@ export type ComponentName =
   | "vertical-video"
   | "video-player"
   | "video-trimmer"
-  | "virtual";
+  | "virtual"
+  | "wall";
 
 /** Where a component exists: `@krizaka/ui/<name>` (web), `@krizaka/ui/native` (React Native), or both. */
 export type Platform = "web" | "native" | "both";
