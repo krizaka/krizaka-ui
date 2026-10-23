@@ -17,6 +17,7 @@ export type ComponentName =
   | "anatomy-plate"
   | "bird-plate"
   | "taped-photo"
+  | "text-style"
   | "flock"
   | "elephant"
   | "footnote"

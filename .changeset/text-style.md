@@ -1,0 +1,5 @@
+---
+"@krizaka/ui": minor
+---
+
+`@krizaka/ui/text-style`: `TextStylePicker`, `StyledText` and the value they share. A person chooses the look of one text role — font (the curated `@krizaka/fonts` families, by role), size (a step of the type scale), weight, line height, letter spacing, alignment, case, italic and tone (a text role or the brand hue) — as a plain value the app stores. The picker is controlled, shows a live preview, takes `presets`, `fields` and `compact`, and warns (never clamps) when the tone's contrast on the surface is under 4.5:1 for body text or 3:1 for large text, or when body text is under `minBodySize`; its words are props (`textStyleLabels` EN, `textStyleLabelsFr`). `@krizaka/ui/text-style/server` has `parseTextStyle` (zod: anything invalid, a free font, a hex colour or CSS text, answers the default), `textStyleProps` (a `className` and a `style` of CSS variables only) and `StyledText`. `zod` is now a dependency. The first user is the Akinaza storefronts (krizaka/akinaza#236). A native picker is a follow-up.

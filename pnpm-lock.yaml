@@ -1244,6 +1244,9 @@ importers:
       tailwind-variants:
         specifier: ^3.3.1
         version: 3.3.1(tailwindcss@4.3.3)
+      zod:
+        specifier: ^4.6.5
+        version: 4.6.5
     devDependencies:
       '@arethetypeswrong/cli':
         specifier: ^0.18.5
@@ -1380,9 +1383,6 @@ importers:
       vitest:
         specifier: ^4.1.11
         version: 4.1.11(@types/node@22.20.5)(@vitest/coverage-v8@4.1.11)(esbuild@0.28.2)(happy-dom@20.14.6)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)
-      zod:
-        specifier: ^4.6.5
-        version: 4.6.5
 
 packages:
 
