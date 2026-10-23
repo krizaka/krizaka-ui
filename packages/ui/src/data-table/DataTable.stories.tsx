@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
 
 import CardsExample from "../../registry/examples/data-table/cards";
 import CatalogueExample from "../../registry/examples/data-table/catalogue";
@@ -15,6 +16,7 @@ import PinnedExample from "../../registry/examples/data-table/pinned";
 import RunsExample from "../../registry/examples/data-table/runs";
 import ServerExample from "../../registry/examples/data-table/server";
 import VirtualizedExample from "../../registry/examples/data-table/virtualized";
+import { Badge } from "../badge";
 import { DataTable, type DataTableColumn } from "./index";
 
 /**
@@ -63,15 +65,27 @@ export const RunsNarrow: Story = { render: () => <RunsExample />, parameters: { 
 
 type Person = { id: string; name: string; email: string; status: string };
 const people: Person[] = [
-  { id: "1", name: "Alexandra", email: "alexandra.longname@very-long-company-domain.example", status: "Awaiting the manager's approval" },
+  { id: "1", name: "Alexandra", email: "alexandra.longname@very-long-company-domain.example", status: "Awaiting the manager's approval for the requested publication" },
 ];
 const peopleColumns: DataTableColumn<Person>[] = [
   { id: "name", header: "Name", card: "title" },
   { id: "email", header: "E-mail" },
-  { id: "status", header: "Status" },
+  { id: "status", header: "Status", cell: (person) => <Badge tone="warning" size="md" dot>{person.status}</Badge> },
 ];
 /** At 360 px a card never scrolls sideways: a 40-character e-mail and a long status wrap. */
 export const CardsWrapLongValues: Story = {
   render: () => <DataTable caption="People" rows={people} columns={peopleColumns} getRowId={(r) => r.id} layout="cards" />,
   parameters: { width: "360px" },
+  play: async ({ canvasElement }) => {
+    const cell = canvasElement.querySelector<HTMLElement>('td[data-label="Status"]')!;
+    const badge = cell.querySelector<HTMLElement>("[data-tone]")!;
+    await expect(badge.getBoundingClientRect().right).toBeLessThanOrEqual(cell.getBoundingClientRect().right + 1);
+    await expect(badge.scrollWidth).toBeLessThanOrEqual(badge.clientWidth);
+    await expect(getComputedStyle(badge).whiteSpace).toBe("normal");
+  },
+};
+
+export const AutoWrapLongValues: Story = {
+  ...CardsWrapLongValues,
+  render: () => <DataTable caption="People" rows={people} columns={peopleColumns} getRowId={(r) => r.id} />,
 };
