@@ -15,6 +15,7 @@ import PinnedExample from "../../registry/examples/data-table/pinned";
 import RunsExample from "../../registry/examples/data-table/runs";
 import ServerExample from "../../registry/examples/data-table/server";
 import VirtualizedExample from "../../registry/examples/data-table/virtualized";
+import { DataTable, type DataTableColumn } from "./index";
 
 /**
  * DataTable: each story renders a named example of the registry (`registry/examples/data-table/*`) — the code
@@ -59,3 +60,18 @@ export const Invoices: Story = { render: () => <InvoicesExample />, parameters: 
 export const InvoicesNarrow: Story = { render: () => <InvoicesExample />, parameters: { width: "22rem" } };
 export const Runs: Story = { render: () => <RunsExample />, parameters: { width: "64rem" } };
 export const RunsNarrow: Story = { render: () => <RunsExample />, parameters: { width: "22rem" } };
+
+type Person = { id: string; name: string; email: string; status: string };
+const people: Person[] = [
+  { id: "1", name: "Alexandra", email: "alexandra.longname@very-long-company-domain.example", status: "Awaiting the manager's approval" },
+];
+const peopleColumns: DataTableColumn<Person>[] = [
+  { id: "name", header: "Name", card: "title" },
+  { id: "email", header: "E-mail" },
+  { id: "status", header: "Status" },
+];
+/** At 360 px a card never scrolls sideways: a 40-character e-mail and a long status wrap. */
+export const CardsWrapLongValues: Story = {
+  render: () => <DataTable caption="People" rows={people} columns={peopleColumns} getRowId={(r) => r.id} layout="cards" />,
+  parameters: { width: "360px" },
+};

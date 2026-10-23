@@ -325,6 +325,12 @@ describe("DataTable — typed columns and priorities (#222)", () => {
     expect(document.querySelectorAll("dl")).toHaveLength(1);
   });
 
+  it("never scrolls sideways in cards, even with untyped columns, and lets the values wrap", () => {
+    const { container } = render(<DataTable caption="Videos" rows={rows} columns={columns} getRowId={(r) => r.id} layout="cards" />);
+    expect(container.querySelector("table")?.parentElement?.className).toContain("overflow-x-clip!");
+    expect(container.querySelector("td")?.className).toContain("[overflow-wrap:anywhere]");
+  });
+
   it("never scrolls sideways by default once columns are typed, and scrolls with fades only when asked", () => {
     const { container, unmount } = view();
     expect(container.querySelector("table")?.parentElement?.className).toContain("overflow-x-clip");

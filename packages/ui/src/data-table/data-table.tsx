@@ -77,7 +77,7 @@ export const dataTable = tv({
         tbody: "@max-xl:grid @max-xl:gap-3 @max-xl:p-3",
         tr: "@max-xl:relative @max-xl:grid @max-xl:gap-1.5 @max-xl:rounded-xl @max-xl:border @max-xl:border-border-default @max-xl:bg-surface-0 @max-xl:p-4 @max-xl:last:border-b",
         td:
-          "@max-xl:flex @max-xl:items-baseline @max-xl:justify-between @max-xl:gap-4 @max-xl:p-0 @max-xl:text-right " +
+          "@max-xl:flex @max-xl:min-w-0 @max-xl:items-baseline @max-xl:justify-between @max-xl:gap-4 @max-xl:p-0 @max-xl:text-right @max-xl:[overflow-wrap:anywhere] " +
           "@max-xl:before:shrink-0 @max-xl:before:text-xs @max-xl:before:font-semibold @max-xl:before:text-fg-secondary @max-xl:before:content-[attr(data-label)] " +
           "@max-xl:data-[card=title]:order-first @max-xl:data-[card=title]:pr-8 @max-xl:data-[card=title]:text-left @max-xl:data-[card=title]:text-base @max-xl:data-[card=title]:font-semibold @max-xl:data-[card=title]:before:content-none " +
           "@max-xl:data-[card=hidden]:hidden @max-xl:data-[card=message]:block @max-xl:data-[card=message]:text-center @max-xl:data-[card=message]:before:content-none " +
@@ -94,7 +94,7 @@ export const dataTable = tv({
         tbody: "grid gap-3 p-3",
         tr: "relative grid gap-1.5 rounded-xl border border-border-default bg-surface-0 p-4 last:border-b",
         td:
-          "flex items-baseline justify-between gap-4 p-0 text-right before:shrink-0 before:text-xs before:font-semibold before:text-fg-secondary before:content-[attr(data-label)] " +
+          "flex min-w-0 items-baseline justify-between gap-4 p-0 text-right [overflow-wrap:anywhere] before:shrink-0 before:text-xs before:font-semibold before:text-fg-secondary before:content-[attr(data-label)] " +
           "data-[card=title]:order-first data-[card=title]:pr-8 data-[card=title]:text-left data-[card=title]:text-base data-[card=title]:font-semibold data-[card=title]:before:content-none " +
           "data-[card=hidden]:hidden data-[card=message]:block data-[card=message]:text-center data-[card=message]:before:content-none",
         select: "absolute right-3 top-3 w-auto before:content-none",
@@ -472,6 +472,8 @@ export function useDataTable<T extends RowData = object>() {
   };
 }
 
+// A card never scrolls sideways, even when untyped columns keep the table's scroller.
+const CARD_CLIP = { auto: "@max-xl:overflow-x-clip!", table: undefined, cards: "overflow-x-clip!" } as const;
 const TRUNCATE = { auto: "@xl:truncate", table: "truncate", cards: "" } as const;
 const MIN = { auto: "@xl:min-w-(--dt-min)!", table: "min-w-(--dt-min)!", cards: "" } as const;
 const MAX = { auto: "@xl:max-w-(--dt-max)!", table: "max-w-(--dt-max)!", cards: "" } as const;
@@ -1050,7 +1052,7 @@ export function DataTable<T extends RowData>({
             {tableElement}
           </div>
         ) : (
-          <div className={s.scroller({ className: sideways ? (scroll ? SHADOWS : undefined) : "overflow-x-clip" })}>{tableElement}</div>
+          <div className={s.scroller({ className: sideways ? (scroll ? SHADOWS : CARD_CLIP[L]) : "overflow-x-clip" })}>{tableElement}</div>
         )}
         {pagination || footer ? (
           <div className={s.footer({ className: "flex flex-col gap-3" })}>
