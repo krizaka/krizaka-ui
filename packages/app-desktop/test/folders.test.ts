@@ -32,8 +32,14 @@ describe("createFolders", () => {
     const folders = createFolders(bridge);
     const dropped: string[][] = [];
     const changed: string[] = [];
+    const dragging: boolean[] = [];
+    const stopDragging = await folders.onDragging((value) => dragging.push(value));
     const stopDropped = await folders.onDropped((paths) => dropped.push(paths));
     const stopChanged = await folders.onChanged((folder) => changed.push(folder));
+    send(EVENTS.dragging, true);
+    send(EVENTS.dragging, false);
+    stopDragging();
+    send(EVENTS.dragging, true);
     send(EVENTS.dropped, ["/Users/eric/bail.pdf"]);
     send(EVENTS.folderChanged, "/Users/eric/Baux");
     stopDropped();
@@ -41,6 +47,7 @@ describe("createFolders", () => {
     send(EVENTS.dropped, ["/Users/eric/autre.pdf"]);
     expect(dropped).toEqual([["/Users/eric/bail.pdf"]]);
     expect(changed).toEqual(["/Users/eric/Baux"]);
+    expect(dragging).toEqual([true, false]);
     expect(listening(EVENTS.dropped)).toBe(0);
   });
 

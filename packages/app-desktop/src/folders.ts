@@ -32,6 +32,8 @@ export interface Folders {
   onChanged(handler: (folder: string) => void): Promise<() => void>;
   /** Files dropped on the window (the gate already allowed them, for this session). */
   onDropped(handler: (paths: string[]) => void): Promise<() => void>;
+  /** Files are being dragged over the window, or no longer are: the page shows where to drop. */
+  onDragging(handler: (dragging: boolean) => void): Promise<() => void>;
 }
 
 /** The folder grants of a Mac app: every path goes through the kit's folder scope on the native side. */
@@ -45,5 +47,6 @@ export function createFolders(bridge: TauriBridge): Folders {
     unwatch: (path) => call<void>(bridge, "unwatch_folder", { path }),
     onChanged: (handler) => bridge.listen<string>(EVENTS.folderChanged, (event) => handler(event.payload)),
     onDropped: (handler) => bridge.listen<string[]>(EVENTS.dropped, (event) => handler(event.payload)),
+    onDragging: (handler) => bridge.listen<boolean>(EVENTS.dragging, (event) => handler(event.payload)),
   };
 }

@@ -36,6 +36,8 @@ export type Command = (typeof COMMANDS)[number];
 export const EVENTS = {
   /** Paths dropped on the window, already allowed by the folder gate: `string[]`. */
   dropped: "krizaka://dropped",
+  /** Files are being dragged over the window (`true`), or no longer are (`false`). */
+  dragging: "krizaka://dragging",
   /** A deep link's route inside the app (`/app/rapports`): `string`. */
   open: "krizaka://open",
   /** The id of a menu item the person chose: `string`. */

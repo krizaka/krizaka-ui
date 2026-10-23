@@ -30,7 +30,7 @@ await setNativeMenu(bridge, { labels: t.menu.standard, menus: [
 
 | Export | What it does |
 | :-- | :-- |
-| `createFolders` | Grant (native picker), list, revoke, read and watch folders; `onDropped`, `onChanged` |
+| `createFolders` | Grant (native picker), list, revoke, read and watch folders; `onDropped`, `onDragging`, `onChanged` |
 | `keychainStorage` | The macOS Keychain as `@krizaka/app-client`'s `KeyValueStorage`: the same session store and API client as the mobile apps |
 | `followLinks` | Deep links turned into routes by the native side; the ones that opened the app are not lost |
 | `setNativeMenu` | The menu bar in the page's words; the chosen item's handler runs |
