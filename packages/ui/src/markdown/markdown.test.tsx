@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { render, screen } from "@testing-library/react";
 
 import { axeViolations } from "../test/axe";
@@ -60,6 +63,46 @@ describe("Markdown", () => {
     expect(screen.getAllByRole("columnheader").map((h) => h.textContent)).toEqual(["Name", "Amount"]);
     expect(screen.getByRole("cell", { name: "12" }).style.textAlign).toBe("right");
     expect(container.querySelector(".kz-md-table table")).toBeTruthy();
+  });
+
+  it("names a focusable table region from the document's headers", async () => {
+    render(<Markdown>{"| Identifier | Related |\n| --- | --- |\n| `profile-photo-check` | `account-access-review` |"}</Markdown>);
+    const region = screen.getByRole("region", { name: "Identifier, Related" });
+    expect(region.tabIndex).toBe(0);
+    expect(region.contains(screen.getByRole("table"))).toBe(true);
+    region.focus();
+    expect(document.activeElement).toBe(region);
+    expect(await axeViolations(region)).toEqual([]);
+  });
+
+  it("keeps identifiers whole in cells and wraps prose only at overflow, not code blocks", () => {
+    const css = readFileSync(join(import.meta.dirname, "../blocks.css"), "utf8");
+    const { container } = render(
+      <>
+        <style>{css}</style>
+        <Markdown>{"A longword and [a link](https://example.com).\n\n- anotherlongword\n\n| Identifier | Related |\n| --- | --- |\n| `profile-photo-check` | `account-access-review` |\n\n```\nlong-code-line\n```"}</Markdown>
+      </>,
+    );
+    for (const el of container.querySelectorAll("p, li, a, th, td")) {
+      expect(getComputedStyle(el).overflowWrap).toBe("break-word");
+    }
+    for (const code of container.querySelectorAll("td code")) {
+      expect(getComputedStyle(code).whiteSpace).toBe("nowrap");
+    }
+    expect(getComputedStyle(container.querySelector("pre")!).whiteSpace).toBe("pre");
+    expect(getComputedStyle(container.querySelector(".kz-md-table")!).overflowX).toBe("auto");
+    expect(getComputedStyle(container.querySelector("td")!).whiteSpace).toBe("nowrap");
+  });
+
+  it("shows a quiet generated chip before the document only with the host's words", () => {
+    const { container, rerender } = render(<Markdown generated generatedLabel="Généré automatiquement">{"A document."}</Markdown>);
+    expect(container.querySelector(".kz-md")?.firstElementChild?.textContent).toBe("Généré automatiquement");
+    expect(screen.queryByRole("button")).toBeNull();
+    rerender(<Markdown generatedLabel="Généré automatiquement">{"A document."}</Markdown>);
+    expect(screen.queryByText("Généré automatiquement")).toBeNull();
+    rerender(<Markdown generated>{"A document."}</Markdown>);
+    expect(container.textContent).toBe("A document.");
+    expect(container.querySelector("[generated], [generatedLabel]")).toBeNull();
   });
 
   it("puts every fenced block in a CodeBlock: highlighted, titled, with a copy button when it has words", () => {

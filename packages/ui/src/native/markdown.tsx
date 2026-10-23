@@ -1,7 +1,7 @@
 // React Native: the web `Markdown`'s AST (TanStack Markdown, via the same `parseSource`) drawn in Text and View. Raw HTML
 // is never rendered, executable URLs are dropped, `streaming` heals the unfinished end of a text that is arriving. Its own
 // entry (`@krizaka/ui/native/markdown`): the parser and the code grammars never load in an app that does not use it.
-import { type Theme, Txt, useTheme } from "@krizaka/ui/native";
+import { Badge, type Theme, Txt, useTheme } from "@krizaka/ui/native";
 import * as React from "react";
 import { Image, Linking, ScrollView, type StyleProp, StyleSheet, Text, View, type ViewStyle } from "react-native";
 
@@ -13,6 +13,10 @@ export type MarkdownProps = {
   children: string;
   /** The text is still arriving (an AI answer): the unfinished end is closed, so no `**` or half a link shows. */
   streaming?: boolean;
+  /** Marks a generated document with a quiet chip, when `generatedLabel` is supplied. */
+  generated?: boolean;
+  /** The chip's words, passed translated by the host; no chip is rendered without them. */
+  generatedLabel?: string;
   /** Called with the address of a link that is pressed. Default: opens `http(s)`, `mailto:` and `tel:` links with the system. */
   onLinkPress?: (href: string) => void;
   /** Styles merged on the container. */
@@ -172,13 +176,13 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
       );
     case "table":
       return (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal showsHorizontalScrollIndicator role="region" aria-label={node.header.map((cell) => textOf(cell.children)).join(", ")}>
           <View style={[styles.table, { borderColor: theme.borderSubtle }]}>
-            {[node.header, ...node.rows].map((row, r) => (
-              <View key={r} style={[styles.row, { borderBottomColor: theme.borderSubtle }, r === 0 ? { backgroundColor: theme.surface2 } : null]}>
-                {row.map((cell, c) => (
-                  <Txt key={c} variant={r === 0 ? "label" : "body"} tone={r === 0 ? "secondary" : "text"} style={[styles.cell, { textAlign: node.align[c] ?? "left" }]}>
-                    <Inlines nodes={cell.children} ctx={ctx} />
+            {node.header.map((header, c) => (
+              <View key={c} style={styles.column}>
+                {[header, ...node.rows.map((row) => row[c])].map((cell, r) => (
+                  <Txt key={r} variant={r === 0 ? "label" : "body"} tone={r === 0 ? "secondary" : "text"} style={[styles.cell, { textAlign: node.align[c] ?? "left", borderBottomColor: theme.borderSubtle }, r === 0 ? { backgroundColor: theme.surface2 } : null]}>
+                    <Inlines nodes={cell?.children ?? []} ctx={ctx} />
                   </Txt>
                 ))}
               </View>
@@ -209,7 +213,7 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
 }
 
 /** A Markdown text in Text and View: headings, paragraphs, lists (and tasks), quotes, tables, coloured code, links, pictures. */
-export function Markdown({ children, streaming, onLinkPress, style }: MarkdownProps) {
+export function Markdown({ children, streaming, generated, generatedLabel, onLinkPress, style }: MarkdownProps) {
   const { theme, fonts } = useTheme();
   const blocks = React.useMemo(() => parseSource(children, { streaming }), [children, streaming]);
   const open = React.useCallback(
@@ -222,6 +226,7 @@ export function Markdown({ children, streaming, onLinkPress, style }: MarkdownPr
   const ctx: Context = { theme, mono: fonts.mono ?? "Menlo", open };
   return (
     <View aria-busy={streaming || undefined} style={[styles.root, style]}>
+      {generated && generatedLabel ? <Badge>{generatedLabel}</Badge> : null}
       <Blocks nodes={blocks} ctx={ctx} />
     </View>
   );
@@ -245,8 +250,8 @@ const styles = StyleSheet.create({
   code: { overflow: "hidden", borderWidth: StyleSheet.hairlineWidth, borderRadius: 12 },
   codeTitle: { paddingHorizontal: 12, paddingVertical: 6 },
   codeBody: { padding: 12 },
-  table: { borderWidth: StyleSheet.hairlineWidth, borderRadius: 8, overflow: "hidden" },
-  row: { flexDirection: "row", borderBottomWidth: StyleSheet.hairlineWidth },
-  cell: { width: 120, paddingHorizontal: 10, paddingVertical: 8 },
+  table: { flexDirection: "row", borderWidth: StyleSheet.hairlineWidth, borderRadius: 8, overflow: "hidden" },
+  column: { flexShrink: 0 },
+  cell: { paddingHorizontal: 10, paddingVertical: 8, borderBottomWidth: StyleSheet.hairlineWidth },
   rule: { height: StyleSheet.hairlineWidth },
 });

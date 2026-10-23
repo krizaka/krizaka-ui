@@ -1,7 +1,7 @@
 // Markdown in React Native (@krizaka/ui/native/markdown): the web's AST in Text and View, safe by default, healed while it streams.
 import { describe, expect, jest, test } from "@jest/globals";
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { Linking } from "react-native";
+import { Linking, StyleSheet } from "react-native";
 
 import { Markdown } from "./markdown";
 
@@ -31,6 +31,25 @@ const a = 1;
 `;
 
 describe("Markdown (native)", () => {
+  test("lets table columns fit long identifiers inside a horizontal scroller", async () => {
+    await render(<Markdown>{"| Identifier | Related |\n| --- | --- |\n| `profile-photo-check` | `account-access-review` |"}</Markdown>);
+    const region = screen.getByLabelText("Identifier, Related");
+    expect(region.props.horizontal).toBe(true);
+    expect(region.props.showsHorizontalScrollIndicator).toBe(true);
+    expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
+    expect(screen.getByText(/profile-photo-check/)).toBeTruthy();
+  });
+
+  test("shows the host-labelled generated chip only when requested and labelled", async () => {
+    const { rerender } = await render(<Markdown generated generatedLabel="Généré automatiquement">{"A document."}</Markdown>);
+    expect(screen.getByText("Généré automatiquement")).toBeTruthy();
+    expect(screen.queryByRole("button")).toBeNull();
+    await rerender(<Markdown generatedLabel="Généré automatiquement">{"A document."}</Markdown>);
+    expect(screen.queryByText("Généré automatiquement")).toBeNull();
+    await rerender(<Markdown generated>{"A document."}</Markdown>);
+    expect(screen.queryByText("Generated")).toBeNull();
+  });
+
   test("draws the blocks: headings, lists, tasks, a quote, a table, a titled code block", async () => {
     await render(<Markdown>{SOURCE}</Markdown>);
     expect(screen.getByRole("heading", { name: "Notes" })).toBeTruthy();
