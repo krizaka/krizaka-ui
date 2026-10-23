@@ -60,6 +60,10 @@ describe("Stuck", () => {
     expect(stuck).toContain("--kz-stuck-fold: var(--kz-paper-tag)");
     expect(stuck).toContain("--kz-stuck-metal: var(--kz-paper-tag-edge)");
     expect(stuck).toContain("box-shadow: var(--kz-shadow-floating)");
+    // The glue's lifted edge and the photo corners read the same material roles: a host that re-skins the tag re-skins them.
+    expect(css).toContain('.kz-stuck-body[data-hold="glue"]::after');
+    expect(css.match(/\.kz-stuck-body\[data-hold="glue"\]::after \{[^}]*\}/)?.[0]).toContain("var(--kz-stuck-metal)");
+    expect(css.match(/\.kz-stuck-body\[data-hold="glue"\]::after \{[^}]*\}/)?.[0]).not.toContain("--kz-paper-tag-edge");
     const dark = css.match(/:root:not\(\.light\) \.kz-stuck-body \{([^}]*)\}/)?.[1] ?? "";
     expect(dark).not.toContain("box-shadow");
     expect(dark).not.toContain("--kz-stuck-fold");
