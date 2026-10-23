@@ -125,6 +125,7 @@ export const PLANNED: Record<string, string> = {
   "swipeable-row": `${MOBILE}: archive / delete on a row of a list.`,
   "tab-bar": `${MOBILE}: the main navigation of every app.`,
   "tag-input": "Free tags in the form: Orazaka's pack metadata, Orochia's video tags.",
+  "retro-tv": "Akinaza's shop pages: a vertical reel or behind-the-scenes story displayed in the shop's television cabinet.",
   "video-player": "Orochia's video pages and the products' tours: the demos moved to the product sites with the showcase (#150).",
   virtual: "The data table and the long lists are built on it.",
   // @krizaka/charts — what the products will draw (PS-C: creator revenue, credits, latency, funnel, goal gauge, KPI sparkline, activity heat map, geo map).

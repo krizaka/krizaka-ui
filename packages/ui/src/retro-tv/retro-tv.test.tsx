@@ -33,8 +33,25 @@ describe("RetroTv", () => {
 
     expect(container.querySelector("svg.kz-rtv-noise")).toBeTruthy();
     expect(container.querySelector("feTurbulence")).toBeTruthy();
+    const css = container.querySelector("style")?.textContent ?? "";
+    expect(css).toMatch(/\.kz-rtv-noise\{[^}]*filter:contrast\(1\.3\) brightness\(\.85\)/);
+    expect(css).not.toContain(".kz-rtv-noise rect{filter:");
     expect(container.querySelector("video")).toBeNull();
     expect(screen.getByText("Story: evening at the shop", { selector: ".sr-only" })).toBeTruthy();
+  });
+
+  it("wraps all controls at the 288px example width when captions are available", () => {
+    const { container } = render(
+      <div style={{ width: 288 }}>
+        {clip({ tracks: [{ src: "/fr.vtt", srcLang: "fr", label: "Français" }] })}
+      </div>,
+    );
+    const controls = container.querySelector(".kz-rtv-player .flex.items-center.gap-1");
+
+    expect(controls?.classList.contains("flex-wrap")).toBe(true);
+    expect(controls?.querySelectorAll("button")).toHaveLength(5);
+    expect(screen.getByRole("button", { name: "Subtitles: off" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Full screen" })).toBeTruthy();
   });
 
   it("autoplays muted only after the player enters the viewport", () => {

@@ -31,8 +31,7 @@ const styles = `
 .kz-rtv-effects:before{position:absolute;inset:0;background:repeating-linear-gradient(to bottom,transparent 0 3px,color-mix(in srgb,var(--kz-scrim-strong) 25%,transparent) 4px 5px);content:"";opacity:.46}
 .kz-rtv-effects:after{position:absolute;inset:-1px;background:radial-gradient(ellipse at center,transparent 55%,var(--kz-scrim-strong) 100%);content:"";opacity:.52}
 .kz-rtv-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,color-mix(in srgb,var(--kz-accent) 14%,transparent),transparent 68%);opacity:.7}
-.kz-rtv-noise{position:absolute;inset:0;height:100%;width:100%;opacity:.55}
-.kz-rtv-noise rect{filter:contrast(1.3) brightness(.85)}
+.kz-rtv-noise{position:absolute;inset:0;height:100%;width:100%;opacity:.55;filter:contrast(1.3) brightness(.85)}
 .kz-rtv-glass{position:absolute;inset:0;height:100%;width:100%;opacity:.28}
 .kz-rtv-power{position:absolute;inset:0;background:var(--kz-text-on-media);opacity:0;transform:scaleY(.01);transform-origin:center;pointer-events:none}
 .kz-rtv[data-powered=true] .kz-rtv-power{animation:kz-rtv-power .65s ease-out both}
