@@ -544,8 +544,8 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   background:
     linear-gradient(to right, var(--kz-surface-1) 30%, transparent) left / 32px 100%,
     linear-gradient(to left, var(--kz-surface-1) 30%, transparent) right / 32px 100%,
-    radial-gradient(farthest-side at 0 50%, color-mix(in srgb, var(--kz-text-primary) 20%, transparent), transparent) left / 10px 100%,
-    radial-gradient(farthest-side at 100% 50%, color-mix(in srgb, var(--kz-text-primary) 20%, transparent), transparent) right / 10px 100%;
+    linear-gradient(to right, color-mix(in srgb, var(--kz-text-primary) 20%, transparent), transparent) left / 10px 100%,
+    linear-gradient(to left, color-mix(in srgb, var(--kz-text-primary) 20%, transparent), transparent) right / 10px 100%;
   background-color: var(--kz-surface-1);
   background-repeat: no-repeat;
   background-attachment: local, local, scroll, scroll;

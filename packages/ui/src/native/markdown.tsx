@@ -122,6 +122,39 @@ function Blocks({ nodes, ctx }: { nodes: readonly BlockNode[]; ctx: Context }) {
   return nodes.map((node, i) => <Block key={i} node={node} ctx={ctx} />);
 }
 
+function Table({ node, ctx }: { node: Extract<BlockNode, { type: "table" }>; ctx: Context }) {
+  const { theme } = ctx;
+  const [widths, setWidths] = React.useState<number[]>([]);
+  return (
+    <ScrollView horizontal showsHorizontalScrollIndicator role="region" tabIndex={0} aria-label={node.header.map((cell) => textOf(cell.children)).join(", ")}>
+      <View style={[styles.table, { borderColor: theme.borderSubtle }]}>
+        {[node.header, ...node.rows].map((row, r) => (
+          <View key={r} style={[styles.row, { borderBottomColor: theme.borderSubtle }, r === 0 ? { backgroundColor: theme.surface2 } : null]}>
+            {row.map((cell, c) => (
+              <Txt
+                key={c}
+                variant={r === 0 ? "label" : "body"}
+                tone={r === 0 ? "secondary" : "text"}
+                style={[styles.cell, { width: widths[c], textAlign: node.align[c] ?? "left" }]}
+                onLayout={({ nativeEvent: { layout: { width } } }) => {
+                  setWidths((current) => {
+                    if (width <= (current[c] ?? 0)) return current;
+                    const next = [...current];
+                    next[c] = width;
+                    return next;
+                  });
+                }}
+              >
+                <Inlines nodes={cell.children} ctx={ctx} />
+              </Txt>
+            ))}
+          </View>
+        ))}
+      </View>
+    </ScrollView>
+  );
+}
+
 function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNode {
   const { theme } = ctx;
   switch (node.type) {
@@ -175,21 +208,7 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
         </View>
       );
     case "table":
-      return (
-        <ScrollView horizontal showsHorizontalScrollIndicator role="region" aria-label={node.header.map((cell) => textOf(cell.children)).join(", ")}>
-          <View style={[styles.table, { borderColor: theme.borderSubtle }]}>
-            {node.header.map((header, c) => (
-              <View key={c} style={styles.column}>
-                {[header, ...node.rows.map((row) => row[c])].map((cell, r) => (
-                  <Txt key={r} variant={r === 0 ? "label" : "body"} tone={r === 0 ? "secondary" : "text"} style={[styles.cell, { textAlign: node.align[c] ?? "left", borderBottomColor: theme.borderSubtle }, r === 0 ? { backgroundColor: theme.surface2 } : null]}>
-                    <Inlines nodes={cell?.children ?? []} ctx={ctx} />
-                  </Txt>
-                ))}
-              </View>
-            ))}
-          </View>
-        </ScrollView>
-      );
+      return <Table key={JSON.stringify(node)} node={node} ctx={ctx} />;
     case "thematicBreak":
       return <View style={[styles.rule, { backgroundColor: theme.borderDefault }]} />;
     case "footnotes":
@@ -250,8 +269,8 @@ const styles = StyleSheet.create({
   code: { overflow: "hidden", borderWidth: StyleSheet.hairlineWidth, borderRadius: 12 },
   codeTitle: { paddingHorizontal: 12, paddingVertical: 6 },
   codeBody: { padding: 12 },
-  table: { flexDirection: "row", borderWidth: StyleSheet.hairlineWidth, borderRadius: 8, overflow: "hidden" },
-  column: { flexShrink: 0 },
-  cell: { paddingHorizontal: 10, paddingVertical: 8, borderBottomWidth: StyleSheet.hairlineWidth },
+  table: { borderWidth: StyleSheet.hairlineWidth, borderRadius: 8, overflow: "hidden" },
+  row: { flexDirection: "row", borderBottomWidth: StyleSheet.hairlineWidth },
+  cell: { flexShrink: 0, paddingHorizontal: 10, paddingVertical: 8 },
   rule: { height: StyleSheet.hairlineWidth },
 });

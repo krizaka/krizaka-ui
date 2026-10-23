@@ -91,6 +91,7 @@ describe("Markdown", () => {
     }
     expect(getComputedStyle(container.querySelector("pre")!).whiteSpace).toBe("pre");
     expect(getComputedStyle(container.querySelector(".kz-md-table")!).overflowX).toBe("auto");
+    expect(css).toContain("background-attachment: local, local, scroll, scroll");
     expect(getComputedStyle(container.querySelector("td")!).whiteSpace).toBe("nowrap");
   });
 

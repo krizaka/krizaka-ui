@@ -36,8 +36,25 @@ describe("Markdown (native)", () => {
     const region = screen.getByLabelText("Identifier, Related");
     expect(region.props.horizontal).toBe(true);
     expect(region.props.showsHorizontalScrollIndicator).toBe(true);
+    expect(region.props.tabIndex).toBe(0);
     expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
     expect(screen.getByText(/profile-photo-check/)).toBeTruthy();
+  });
+
+  test("shares measured column widths without changing row order, including empty cells", async () => {
+    const { rerender, toJSON } = await render(<Markdown>{"| Identifier | Related |\n| --- | --- |\n| profile-photo-check | |\n| account-access-review | second-row |"}</Markdown>);
+    await fireEvent(screen.getByText("Identifier"), "layout", { nativeEvent: { layout: { width: 80 } } });
+    await fireEvent(screen.getByText("profile-photo-check"), "layout", { nativeEvent: { layout: { width: 220 } } });
+    await fireEvent(screen.getByText("Identifier"), "layout", { nativeEvent: { layout: { width: 80 } } });
+    for (const text of ["Identifier", "profile-photo-check", "account-access-review"]) {
+      expect(StyleSheet.flatten(screen.getByText(text).props.style).width).toBe(220);
+    }
+    const tree = JSON.stringify(toJSON());
+    expect(tree.indexOf("Related")).toBeLessThan(tree.indexOf("profile-photo-check"));
+    expect(tree.indexOf("profile-photo-check")).toBeLessThan(tree.indexOf("account-access-review"));
+    expect(tree.indexOf("account-access-review")).toBeLessThan(tree.indexOf("second-row"));
+    await rerender(<Markdown>{"| Identifier | Related |\n| --- | --- |\n| short | next |"}</Markdown>);
+    expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
   });
 
   test("shows the host-labelled generated chip only when requested and labelled", async () => {
