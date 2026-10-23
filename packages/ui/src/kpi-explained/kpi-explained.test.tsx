@@ -48,11 +48,13 @@ describe("KpiExplained", () => {
   it("formats freshness in the supplied time zone regardless of the server or browser zone", () => {
     const previousTimeZone = process.env.TZ;
     const props = { ...common, timeZone: "America/Toronto" };
+    const serverProps = { ...props, locale: "fr-CA-u-nu-latn" };
+    const browserProps = { ...props, locale: "fr-CA-u-ca-gregory" };
     try {
       process.env.TZ = "UTC";
-      const server = renderToString(<KpiExplained {...props} />);
+      const server = renderToString(<KpiExplained {...serverProps} />);
       process.env.TZ = "America/Los_Angeles";
-      const { container } = render(<KpiExplained {...props} />);
+      const { container } = render(<KpiExplained {...browserProps} />);
       expect(container.querySelector("time")?.textContent).toBe(server.match(/<time[^>]*>(.*?)<\/time>/u)?.[1]);
       expect(container.querySelector("time")?.textContent).toBe("22 oct. 2026, 08 h 00");
     } finally {
