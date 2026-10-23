@@ -513,6 +513,18 @@
       "types": "./dist/footnote.d.ts",
       "import": "./dist/footnote.js"
     },
+    "./stuck": {
+      "types": "./dist/stuck.d.ts",
+      "import": "./dist/stuck.js"
+    },
+    "./doodle": {
+      "types": "./dist/doodle.d.ts",
+      "import": "./dist/doodle.js"
+    },
+    "./signature": {
+      "types": "./dist/signature.d.ts",
+      "import": "./dist/signature.js"
+    },
     "./code-block": {
       "types": "./dist/code-block.d.ts",
       "import": "./dist/code-block.js"
@@ -1985,6 +1997,36 @@
       "name": "./footnote",
       "path": "dist/footnote.js",
       "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./stuck",
+      "path": "dist/stuck.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./doodle",
+      "path": "dist/doodle.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./signature",
+      "path": "dist/signature.js",
+      "limit": "1.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
