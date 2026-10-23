@@ -68,3 +68,15 @@ describe("DropOverlay", () => {
     expect(onFiles).toHaveBeenCalledWith([pdf], [png]);
   });
 });
+
+describe("DropOverlay, controlled", () => {
+  it("shows while `active` is true and ignores the DOM drag events", () => {
+    const { rerender } = render(<DropOverlay label="Déposez" active={false} />);
+    act(() => void window.dispatchEvent(drag("dragenter")));
+    expect(screen.queryByText("Déposez")).toBeNull();
+    rerender(<DropOverlay label="Déposez" active />);
+    expect(screen.getByText("Déposez")).toBeTruthy();
+    rerender(<DropOverlay label="Déposez" active disabled />);
+    expect(screen.queryByText("Déposez")).toBeNull();
+  });
+});
