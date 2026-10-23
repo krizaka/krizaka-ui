@@ -20,4 +20,7 @@ const api = createApiClient({ baseUrl: () => discovery.getService("yomizaka").ap
 - **API client.** JSON with the bearer, `credentials: "omit"`, a timeout that fails like a network error, and a 401 that
   drops the session.
 
+- **Auth context** (`@krizaka/app-client/react`). `createAuth(session, { signIn, signOut })` gives the screens
+  `useAuth()`: `loading`, then `signedIn` or `signedOut`, followed when a session starts or ends.
+
 Decision: [ADR-004](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-004-expo-app-shell.md).
