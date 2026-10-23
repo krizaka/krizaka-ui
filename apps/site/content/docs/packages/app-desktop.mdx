@@ -1,0 +1,28 @@
+---
+title: App desktop
+description: What every Krizaka Mac app calls on its native side, typed — folder grants and watches, dropped files, the Keychain as the app client's storage, the native menu bar, deep links and the update channel.
+---
+
+A Krizaka Mac app is the web in a window (ADR-002); what a browser cannot do — read a folder the person chose, keep a
+session in the Keychain, answer a deep link, show a native menu — is the Rust of
+[krizaka-tauri-kit](https://github.com/krizaka/krizaka-tauri-kit) and its plugin, `tauri-plugin-krizaka`.
+`@krizaka/app-desktop` is the page's typed side of that plugin, with **Tauri passed in, never imported**.
+
+```ts
+const bridge = { invoke, listen };                       // from @tauri-apps/api
+const folders = createFolders(bridge);
+const session = createSessionStore({ storage: keychainStorage(bridge), key: "yomizaka.session" });
+await followLinks(bridge, (route) => navigate(route));    // yomizaka://app/rapports → /app/rapports
+await setNativeMenu(bridge, spec, { "library.add-folder": () => void folders.grant() });
+```
+
+- **Folders.** Granted with the native picker, listed, revoked and watched; every path goes through the kit's folder
+  scope (never the home, the system or `~/.ssh`), a dropped file is readable for the session only.
+- **Session.** The Keychain is `@krizaka/app-client`'s storage port: the same session store and API client as the
+  mobile apps.
+- **Menu bar.** The page sends it in its own words and with `acceleratorOf` shortcuts; the native side checks it and
+  keeps the standard ones (⌘Q, ⌘C, ⌘V…) for macOS.
+- **Deep links.** The native side turns a link into a route of the app, or drops it; the ones that opened the app are
+  not lost.
+
+Decision: [ADR-005](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-005-tauri-app-kit.md).

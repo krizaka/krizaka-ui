@@ -1084,6 +1084,30 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-tag .kz-stamp[data-tone="construction"] { --kz-stamp-ink: color-mix(in oklab, var(--kz-paper-rule-margin) 72%, var(--kz-paper-tag-ink)); }
 
 /* BirdPlate and AnatomyPlate — a sheet of the field guide. */
+/* ─── The taped photo (ADR-004): a print stuck in the notebook — tilted (`--kz-taped-tilt`, eased on a phone), a thin warm
+   print border, a layered paper shadow (hard offsets, no blur — the Cahier's rule), tape at two opposite corners or one strip at the top. The print stays
+   paper in the dark too (a photo is a photo), a shade dimmer. Transform only: the picture keeps its box, nothing shifts. ─── */
+.kz-taped { position: relative; margin: 0; --kz-print: hsl(44 30% 96%); --kz-print-ink: hsl(215 35% 22%); --kz-tape: hsl(46 58% 82% / 0.72);
+  --kz-tape-w: clamp(54px, 8vw, 92px); --kz-tape-h: clamp(17px, 2.4vw, 26px);
+  padding: clamp(7px, 1.2vw, 14px); background: var(--kz-print); transform: rotate(var(--kz-taped-tilt, -1.6deg)); transform-origin: 50% 60%;
+  box-shadow: 0 1px 0 hsl(30 20% 8% / 0.22), 2px 4px 0 hsl(30 20% 8% / 0.14), 4px 8px 0 -2px hsl(30 20% 8% / 0.08); }
+:root:not(.light) .kz-taped { --kz-print: hsl(42 22% 88%); --kz-tape: hsl(46 40% 70% / 0.62); }
+.kz-taped::before, .kz-taped::after { content: ""; position: absolute; z-index: 1; width: var(--kz-tape-w); height: var(--kz-tape-h); background: var(--kz-tape);
+  box-shadow: 0 1px 0 hsl(30 20% 8% / 0.2); pointer-events: none;
+  clip-path: polygon(0 8%, 4% 0, 8% 10%, 12% 0, 100% 0, 96% 25%, 100% 50%, 96% 75%, 100% 100%, 12% 100%, 8% 90%, 4% 100%, 0 92%); }
+.kz-taped::before { top: calc(-0.55 * var(--kz-tape-h)); left: calc(-0.35 * var(--kz-tape-w)); transform: rotate(-34deg); }
+.kz-taped::after { bottom: calc(-0.55 * var(--kz-tape-h)); right: calc(-0.35 * var(--kz-tape-w)); transform: rotate(-34deg); }
+.kz-taped[data-tape="top"]::before { top: calc(-0.5 * var(--kz-tape-h)); left: calc(50% - var(--kz-tape-w) / 2); transform: rotate(-3deg); }
+.kz-taped[data-tape="top"]::after, .kz-taped[data-tape="none"]::before, .kz-taped[data-tape="none"]::after { display: none; }
+.kz-taped-picture { position: relative; overflow: hidden; }
+.kz-taped-picture > img, .kz-taped-picture > video { display: block; width: 100%; height: auto; }
+.kz-taped-caption { margin: 0; padding: 10px 4px 2px; font-family: var(--kz-font-mono); font-size: 13px; line-height: 20px; color: var(--kz-print-ink); }
+@media (max-width: 640px) {
+  .kz-taped { transform: rotate(calc(var(--kz-taped-tilt, -1.6deg) * 0.6)); }
+  .kz-taped::before { left: -4px; } .kz-taped::after { right: -4px; }
+  .kz-taped[data-tape="top"]::before { left: calc(50% - var(--kz-tape-w) / 2); }
+}
+
 .kz-plate, .kz-anatomy {
   margin: 0;
   padding: 20px 24px 24px;

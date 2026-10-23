@@ -136,6 +136,7 @@ export default defineConfig([
       "mascot-quote": "src/mascot-quote/index.ts",
       // The bird plate: each bird has an id per instance (Mascot).
       "bird-plate": "src/bird-plate/index.ts",
+      "taped-photo": "src/taped-photo/index.ts",
       flock: "src/flock/index.ts",
       elephant: "src/elephant/index.ts",
       "code-block": "src/code-block/index.ts",

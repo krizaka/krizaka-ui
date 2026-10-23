@@ -69,6 +69,7 @@ export const PLANNED: Record<string, string> = {
   "docs-article-page": `${SITE}: the product documentation pages.`,
   "docs-layout": "Builds the documentation article template.",
   "specimen-tag": "The Cahier (ADR-004, krizaka-ui#417): each product's status and record on www.krizaka.com's #products, then the products' and docs' pages.",
+  "taped-photo": "The Cahier (ADR-004): the flock's scene that opens www.krizaka.com, then /story; the prints of Akinaza shop walls (krizaka/akinaza#236).",
   "bird-plate": "The Cahier (ADR-004): the flock and each product's bird with its promise on www.krizaka.com, then /story and the product sites.",
   "anatomy-plate": "The Cahier (ADR-004): the anatomy of each component on ui.krizaka.com/components/<name>.",
   "page-index": "The Cahier (ADR-004): the index of ui.krizaka.com's components, numbered like a reference book.",
