@@ -421,6 +421,10 @@
       "types": "./dist/slot-picker.d.ts",
       "import": "./dist/slot-picker.js"
     },
+    "./wall": {
+      "types": "./dist/wall.d.ts",
+      "import": "./dist/wall.js"
+    },
     "./cover-hero": {
       "types": "./dist/cover-hero.d.ts",
       "import": "./dist/cover-hero.js"
@@ -1736,6 +1740,13 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./wall",
+      "path": "dist/wall.js",
+      "limit": "3.5 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx"]
     },
     {
       "name": "./cover-hero",

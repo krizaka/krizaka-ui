@@ -18,6 +18,15 @@ const ui = registry("ui");
 const charts = registry("charts");
 const items = [...ui.items, ...charts.items];
 
+test("the wall is a documented block planned for Akinaza's shop pages", () => {
+  const wall = ui.items.find((item) => item.name === "wall");
+  assert.ok(wall, "the wall is in the generated UI registry");
+  assert.deepEqual(placementOf(wall), { group: "patterns", pattern: "blocks" });
+  const inventory = inventoryOf(wall.name, wall.status);
+  assert.equal(inventory?.state, "planned");
+  assert.match(inventory.why, /krizaka\/akinaza#236/);
+});
+
 test("every component of the catalogue is placed in a group and a job", () => {
   assert.ok(items.length > 100);
   for (const item of items) {

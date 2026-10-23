@@ -148,6 +148,7 @@ export default defineConfig([
       "slot-picker": "src/slot-picker/index.ts",
       // The shop's cover and its gallery: loops that stop under reduced motion.
       "cover-hero": "src/cover-hero/index.ts",
+      wall: "src/wall/index.ts",
       "media-gallery": "src/media-gallery/index.ts",
       // The skip link moves focus to its target.
       "skip-link": "src/skip-link/index.ts",
