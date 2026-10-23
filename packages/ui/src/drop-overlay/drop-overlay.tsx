@@ -11,15 +11,24 @@ export type DropOverlayProps = Omit<React.ComponentProps<"div">, "children" | "o
   label: string;
   /** One line under it (“PDF or text”). */
   hint?: string;
-  /** Controlled form (a desktop app's native drops, which arrive as paths): shown while true, the DOM listeners are off. */
-  active?: boolean;
-  /** The files dropped: the accepted ones, then the ones `accept` refused. Not needed in the controlled form. */
-  onFiles?: (accepted: File[], rejected: File[]) => void;
   /** What is accepted: MIME types, families (`image/*`) or extensions (`.pdf`). */
   accept?: readonly AcceptRule[];
   /** Turns the window back into a plain page (while a modal is open, signed out). */
   disabled?: boolean;
-};
+} & (
+  | {
+      /** Controlled form (a desktop app's native drops, which arrive as paths): shown while true, the DOM listeners are off. */
+      active: boolean;
+      /** Not called in the controlled form. */
+      onFiles?: (accepted: File[], rejected: File[]) => void;
+    }
+  | {
+      /** Leave undefined to handle DOM drops. */
+      active?: undefined;
+      /** The files dropped: the accepted ones, then the ones `accept` refused. */
+      onFiles: (accepted: File[], rejected: File[]) => void;
+    }
+);
 
 /** Drag a file anywhere on the page: a full-window overlay accepts it. */
 export function DropOverlay({
