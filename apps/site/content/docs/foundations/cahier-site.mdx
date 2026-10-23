@@ -1,0 +1,69 @@
+---
+title: Cahier site
+description: How a tool site wears krizaka.com's identity — the Cahier, its own bird and hue, taped prints, doodles and grades — one language, never one layout.
+---
+
+The tool sites — this one, Java, TypeScript, the Motion lab — wear **the same identity as krizaka.com**: the Cahier (paper,
+margin, § numbers), the bird mascots, prints taped in the notebook, and the Krizaka style — retro, the arcade, the manga,
+doodles in the margins of a school notebook, grades out of 20. It is shared here as templates, never copied per site.
+
+## A language, not a layout
+
+[`SiteCahier`](/components/site-cahier) is a frame and a set of regions. It does **not** carry a page that every site repeats:
+
+- each site picks its own hero, its own featured pieces and its own rhythm;
+- each site has **its own bird, its own hue and its own playful accent**;
+- no two sites should look like the same page with a different name.
+
+The content comes first and stays readable. Every playful piece is decoration with a real text equivalent, and none of
+them moves under reduced motion.
+
+## The pieces
+
+| Piece | What it adds | The rule |
+| :-- | :-- | :-- |
+| [`SiteCahier`](/components/site-cahier) | The bar with the site's bird, the nav, the hue, the family footer. | One per page; `bar` takes the shared `NavBar`. |
+| `SiteCahierHero` / `SiteCahierDoc` | A hero with the bird taped beside it; a reading page on ruled paper. | Compose them, or use `PageHero` and `Page` directly. |
+| [`Doodle`](/components/doodle) | An arrow, a circled word, stars, a wavy underline, a bird sketch. | Two at most per screen; the ink is the token `--kz-doodle-ink`. |
+| [`GradeStamp`](/components/grade-stamp) | A teacher's grade, `18/20`, with a remark. | **Only from real data**, with its source in the tooltip. |
+| [`VersusCard`](/components/versus-card) | Two subjects face to face, stat bars, a « VS ». | The figures are measured; no winner is computed. |
+| [`SpeedLines`](/components/speed-lines) | Manga action lines behind one element. | Static, still under reduced motion. |
+
+## The birds
+
+Each tool gets a bird by the brand reference: the falcon watches (security), the owl reads, the duck builds (code), the
+flamingo answers or gets paid, the pigeon delivers. The proposal below is for the maintainers to confirm.
+
+| Site | Bird | Why | Hue |
+| :-- | :-- | :-- | :-- |
+| Krizaka UI | duck | It builds. | 215 |
+| Krizaka Java | owl | It reads the code and the releases. | 35 |
+| Krizaka TypeScript | pigeon | It delivers typed results. | 200 |
+| Krizaka Motion | flamingo | It answers to the hand. | 335 |
+
+## One example per tool site
+
+Each example below is a whole page in [Templates](/templates), and each composes the same pieces differently.
+
+- **Krizaka UI — the duck builds.** The duck's print is taped beside the title, a doodle arrow points at the way in and a
+  grade computed from the coverage report sits in the hero. Then numbered sections on ruled paper.
+- **Krizaka Java — the owl reads.** No taped print: the hero *is* a versus card of two releases, on figures the build
+  measured, then the modules as specimen tags.
+- **Krizaka Motion — the flamingo answers.** The hero is a live demo in a burst of speed lines; below it, prints taped the
+  other way.
+- **Krizaka TypeScript — the pigeon delivers.** A documentation page on ruled paper, a circled word and its contents beside
+  it; and the changelog, the shared template inside the same frame.
+
+```tsx
+import { SiteCahier, SiteCahierHero } from "@krizaka/ui/site-cahier";
+import { VersusCard } from "@krizaka/ui/versus-card";
+
+<SiteCahier site="java" name="Krizaka Java" bird="owl" hue={35} nav={nav} footer={{ version: "3.1.0" }}>
+  <SiteCahierHero title="Read the release before you upgrade" aside={<VersusCard {...match} />} />
+</SiteCahier>;
+```
+
+## Dark and light
+
+Dark is chalk on slate, light is ink on paper, both at AA contrast, and every region has a phone layout. Import the
+blocks' stylesheet once (`@krizaka/ui/blocks.css`) and the tokens do the rest.

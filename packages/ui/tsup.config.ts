@@ -78,6 +78,9 @@ export default defineConfig([
       "cta-panel": "src/cta-panel/index.ts",
       // The Cahier's signature blocks (ADR-004): the specimen tag, the anatomy plate, the index, the small print.
       "specimen-tag": "src/specimen-tag/index.ts",
+      // The retro pieces of the Krizaka style, pure SVG.
+      doodle: "src/doodle/index.ts",
+      "speed-lines": "src/speed-lines/index.ts",
       "anatomy-plate": "src/anatomy-plate/index.ts",
       "page-index": "src/page-index/index.ts",
       footnote: "src/footnote/index.ts",
@@ -137,6 +140,10 @@ export default defineConfig([
       // The bird plate: each bird has an id per instance (Mascot).
       "bird-plate": "src/bird-plate/index.ts",
       "taped-photo": "src/taped-photo/index.ts",
+      "grade-stamp": "src/grade-stamp/index.ts",
+      "versus-card": "src/versus-card/index.ts",
+      // The tool sites' template: the Cahier, the site's bird and hue.
+      "site-cahier": "src/site-cahier/index.ts",
       flock: "src/flock/index.ts",
       elephant: "src/elephant/index.ts",
       "code-block": "src/code-block/index.ts",
