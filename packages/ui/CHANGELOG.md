@@ -1,5 +1,19 @@
 # @krizaka/ui
 
+## 3.49.0
+
+### Minor Changes
+
+- [#529](https://github.com/krizaka/krizaka-ui/pull/529) [`07d8b52`](https://github.com/krizaka/krizaka-ui/commit/07d8b5295454c01f0f4056b27ab836b75b5e769e) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The family knows Krizaka TS (`ts.krizaka.com`, the TypeScript backend building blocks on npm): `SiteId` gains `"ts"`, so its bar and footer say « You are here », and the other open-source sites list it in the switcher and the footer.
+
+- [#520](https://github.com/krizaka/krizaka-ui/pull/520) [`f1e97a9`](https://github.com/krizaka/krizaka-ui/commit/f1e97a9ded3b90f3d35ee12c39d29d170c9c8881) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `SettingsLayout`: the sections can be in titled groups (`nav` as `SettingsNavGroup[]`), carry a count or status (`badge`), and past five a phone gets one menu (a disclosure, no script) instead of a strip of chips. A `header` slot puts who the account is above the sections, in place of `title` and `description`. The extraction of Orochia's private-space shell (krizaka-ui#515).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.49.0
+  - @krizaka/tokens@3.49.0
+
 ## 3.48.0
 
 ### Minor Changes
