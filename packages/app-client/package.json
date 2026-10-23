@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/app-client",
   "version": "0.1.0",
-  "description": "What every Krizaka Expo app shares: the bearer session over a secure-storage port, the discovery client of the signed services manifest, and the API client (bearer, timeout, 401 handling). Ports in, no native module imported.",
+  "description": "What every Krizaka Expo app shares: the bearer session over a secure-storage port, the discovery client of the signed services manifest, the API client (bearer, timeout, 401 handling) and, in ./react, the auth context every app's screens read. Ports in, no native module imported.",
   "keywords": [
     "krizaka",
     "expo",
@@ -28,6 +28,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -52,10 +56,16 @@
     "@arethetypeswrong/cli": "^0.18.5",
     "@krizaka/config": "workspace:*",
     "@size-limit/preset-small-lib": "^14.2.0",
+    "@testing-library/react": "^16.3.0",
     "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
     "@vitest/coverage-v8": "4.1.11",
     "eslint": "^9.39.0",
+    "happy-dom": "^20.0.0",
     "publint": "^0.3.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "size-limit": "^14.2.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.0",
@@ -76,6 +86,23 @@
       "ignore": [
         "@krizaka/discovery"
       ]
+    },
+    {
+      "name": "./react",
+      "path": "dist/react.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "react"
+      ]
     }
-  ]
+  ],
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  }
 }
