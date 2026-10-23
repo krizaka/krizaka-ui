@@ -58,7 +58,7 @@ jobs:
         run: |
           if [ "$GITHUB_EVENT_NAME" = pull_request ]; then
             git config --global --add safe.directory "$GITHUB_WORKSPACE"
-            echo "TURBO_FILTER=...[origin/$GITHUB_BASE_REF]" >> "$GITHUB_ENV"
+            node tools/ci-filter.mjs "$GITHUB_BASE_REF" >> "$GITHUB_ENV"
           else
             echo "TURBO_FILTER=*" >> "$GITHUB_ENV"
           fi
