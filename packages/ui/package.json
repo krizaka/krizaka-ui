@@ -2039,7 +2039,7 @@
     {
       "name": "./chapter",
       "path": "dist/chapter.js",
-      "limit": "1.5 kB",
+      "limit": "1.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

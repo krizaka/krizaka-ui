@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 import { render, screen, within } from "@testing-library/react";
 
+import { Page } from "../page";
 import { axeViolations } from "../test/axe";
 import { ChapterFoot, ChapterHead, ChapterIndex } from "./index";
 
@@ -48,6 +49,50 @@ describe("ChapterIndex", () => {
     render(<ChapterIndex paper={false} linkAs={Link} chapters={[chapters[0]]} />);
     expect(screen.getByRole("link", { name: chapters[0].title }).hasAttribute("data-router")).toBe(true);
     expect(screen.getByRole("list").hasAttribute("data-paper")).toBe(false);
+  });
+});
+
+describe("ChapterIndex album (#621)", () => {
+  const covered = [
+    { ...chapters[0], detail: "A city, a laptop, the data kept at home.", cover: { src: "/c1.webp", width: 832, height: 480 } },
+    { ...chapters[1], current: false, detail: "Local models behind one address.", cover: { src: "/c2.webp", width: 1024, height: 1024 } },
+    { ...chapters[2], detail: "The bills, line by line.", cover: { src: "/c3.webp", width: 1360, height: 768 } },
+  ];
+
+  it("is still an ordered list of links: one taped print per row, decorative, the title is the link's name; no axe violation", async () => {
+    const { container } = render(<ChapterIndex variant="album" label="Chapters" newLabel="Nouveau" chapters={covered} />);
+    const list = screen.getByRole("list", { name: "Chapters" });
+    expect(list.tagName).toBe("OL");
+    expect(list.getAttribute("data-variant")).toBe("album");
+    const rows = within(list).getAllByRole("listitem");
+    expect(rows).toHaveLength(3);
+    for (const row of rows) {
+      const print = row.querySelector(".kz-chapter-print.kz-taped") as HTMLElement;
+      expect(print.getAttribute("aria-hidden")).toBe("true");
+      expect(print.querySelector("img")?.getAttribute("alt")).toBe("");
+      expect(within(row).getAllByRole("link")).toHaveLength(1);
+    }
+    expect(screen.getByRole("link", { name: "What a GPU costs Nouveau" }).getAttribute("href")).toBe("/story/what-a-gpu-costs");
+    expect(rows[0].querySelector(".kz-chapter-detail")?.textContent).toBe("A city, a laptop, the data kept at home.");
+    expect(rows[0].querySelector(".kz-chapter-period")?.textContent).toBe("Oct 16");
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("keeps each cover's own size (no layout shift), lazy below the first two, and the prints facing each other", () => {
+    const { container } = render(<ChapterIndex variant="album" chapters={covered} />);
+    const imgs = [...container.querySelectorAll("img")];
+    expect(imgs.map((i) => [i.getAttribute("width"), i.getAttribute("height")])).toEqual([["832", "480"], ["1024", "1024"], ["1360", "768"]]);
+    expect(imgs.map((i) => i.getAttribute("loading"))).toEqual(["eager", "eager", "lazy"]);
+    const tilts = [...container.querySelectorAll<HTMLElement>(".kz-chapter-print")].map((p) => parseFloat(p.style.getPropertyValue("--kz-taped-tilt")));
+    expect(tilts[0]).toBeLessThan(0);
+    expect(tilts[1]).toBe(-tilts[0]);
+    expect(tilts[2]).toBe(tilts[0]);
+  });
+
+  it("draws no print in the compact index, even when a cover is given", () => {
+    const { container } = render(<ChapterIndex chapters={covered} />);
+    expect(container.querySelector(".kz-chapter-print, img")).toBeNull();
+    expect(container.querySelector("ol")?.hasAttribute("data-variant")).toBe(false);
   });
 });
 
@@ -113,6 +158,26 @@ describe("ChapterFoot", () => {
 
 describe("the Cahier's paper, reused, never copied", () => {
   const css = readFileSync(join(import.meta.dirname, "..", "blocks.css"), "utf8");
+  it("inside a ruled Page, one margin rule only: a nested margin draws no second line (#620)", () => {
+    const { container } = render(
+      <Page paper="lines" margin>
+        <ChapterIndex paper={false} chapters={chapters} />
+      </Page>,
+    );
+    const margins = [...container.querySelectorAll("[data-margin]")];
+    expect(margins).toHaveLength(2);
+    // jsdom draws no pseudo-element: the one rule that removes the nested line is asserted on the stylesheet, which
+    // draws the line on `[data-margin]::before`, and the Storybook screenshots show a single rule in both themes.
+    const nested = margins.filter((m) => m.parentElement?.closest("[data-margin]"));
+    expect(nested).toEqual([margins[1]]);
+    expect(css).toMatch(/\[data-margin\] \[data-margin\]::before \{ content: none; \}/);
+    expect(css.indexOf("[data-margin] [data-margin]::before")).toBeGreaterThan(css.indexOf("[data-margin]::before {"));
+  });
+  it("the album reuses TapedPhoto's print, never redraws it: no shadow, border or tilt of its own", () => {
+    const album = css.slice(css.indexOf("/* The album (#621)"), css.indexOf("/* The foot:")).replace(/\/\*[\s\S]*?\*\//g, "");
+    expect(album).not.toMatch(/rotate|box-shadow|border|background|transition|animation/);
+    expect(album).toContain("var(--kz-chapter-line)");
+  });
   it("the rows read the paper's module and the margin's ink; no border, no box, no transition", () => {
     const block = css.slice(css.indexOf("/* ChapterIndex, ChapterHead, ChapterFoot"), css.indexOf("/* Mascot life")).replace(/\/\*[\s\S]*?\*\//g, "");
     expect(block).toContain("var(--kz-paper-module");

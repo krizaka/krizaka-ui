@@ -5,10 +5,13 @@
 // - `ChapterHead` — the head of a chapter's page: number in the margin, title, one quiet meta line, the standfirst;
 // - `ChapterFoot` — its foot: the previous and next chapters on the lines, then one line back to the story.
 // No border per row, no card, no button: the paper carries the rhythm. Every word arrives as a prop.
+// `ChapterIndex variant="album"` (#621): each row is the chapter's cover as a `TapedPhoto`, the prints facing each other
+// from left to right, and beside it the same number, title, line and period — light, on the same lines.
 import type * as React from "react";
 
 import { BlockLink, type LinkComponent } from "../block-link";
 import { cn } from "../cn";
+import { TapedPhoto } from "../taped-photo";
 
 /** The notebook under the rows: `lines` (the ruling of `Page`, aligned on the rows) or `false` (the page's own paper). */
 type ChapterPaper = "lines" | false;
@@ -28,6 +31,40 @@ export interface ChapterEntry {
   isNew?: boolean;
   /** The page the reader is on. */
   current?: boolean;
+  /** Its cover, drawn by the `album` variant as a taped print. Decorative there (`alt=""`): the title carries the link. */
+  cover?: ChapterCover;
+}
+
+/** A chapter's cover: its intrinsic size gives the print its aspect-ratio, so nothing shifts while it loads. */
+export interface ChapterCover {
+  src: string;
+  width: number;
+  height: number;
+  srcSet?: string;
+  /** @default "(max-width: 34rem) 60vw, 26rem" */
+  sizes?: string;
+}
+
+/** The covers above the fold load at once; the rest wait for the reader. */
+const EAGER_COVERS = 2;
+/** The prints face each other: the left one leans left, the right one leans right (TapedPhoto's practice). */
+const ALBUM_TILT = 1.4;
+
+function ChapterPrint({ cover, index }: { cover: ChapterCover; index: number }) {
+  return (
+    <TapedPhoto className="kz-chapter-print" tilt={index % 2 === 0 ? -ALBUM_TILT : ALBUM_TILT} aria-hidden>
+      <img
+        src={cover.src}
+        srcSet={cover.srcSet}
+        sizes={cover.srcSet ? (cover.sizes ?? "(max-width: 34rem) 60vw, 26rem") : undefined}
+        width={cover.width}
+        height={cover.height}
+        alt=""
+        loading={index < EAGER_COVERS ? "eager" : "lazy"}
+        decoding="async"
+      />
+    </TapedPhoto>
+  );
 }
 
 /** One ruled row: number in the margin, the title as the link (its hit area the whole row), an aside on the right. */
@@ -86,15 +123,31 @@ export type ChapterIndexProps = Omit<React.OlHTMLAttributes<HTMLOListElement>, "
   paper?: ChapterPaper;
   /** The app's router link (Next's `Link`), so internal chapters prefetch. */
   linkAs?: LinkComponent;
+  /**
+   * `lines` — one ruled line per chapter (the compact index); `album` — each chapter's `cover` as a taped print beside
+   * its title, its `detail` (one short line) and its period, the rows alternating left and right.
+   * @default "lines"
+   */
+  variant?: "lines" | "album";
 };
 
-/** The chapters of a story as a sober timeline: one ruled line each, the number in the margin, the title the link. */
-export function ChapterIndex({ chapters, newLabel = "New", label, paper = "lines", linkAs, className, ...props }: ChapterIndexProps) {
+/** The chapters of a story as a sober timeline: one ruled line each (or a taped print each), the number in the margin, the title the link. */
+export function ChapterIndex({ chapters, newLabel = "New", label, paper = "lines", linkAs, variant = "lines", className, ...props }: ChapterIndexProps) {
+  const album = variant === "album";
   return (
     // `role="list"`: a list without bullets is still a list to VoiceOver.
-    <ol role="list" aria-label={label} data-paper={paper || undefined} data-margin="" className={cn("kz-chapters", className)} {...props}>
+    <ol
+      role="list"
+      aria-label={label}
+      data-paper={paper || undefined}
+      data-margin=""
+      data-variant={album ? "album" : undefined}
+      className={cn("kz-chapters", className)}
+      {...props}
+    >
       {chapters.map((c, i) => (
         <li key={i} className="kz-chapter-row" data-new={c.isNew ? "" : undefined} data-detail={c.detail ? "" : undefined}>
+          {album && c.cover && <ChapterPrint cover={c.cover} index={i} />}
           <ChapterRow number={c.number} title={c.title} href={c.href} aside={c.period} mark={c.isNew ? newLabel : undefined} detail={c.detail} current={c.current} linkAs={linkAs} />
         </li>
       ))}
