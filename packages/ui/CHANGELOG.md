@@ -1,5 +1,20 @@
 # @krizaka/ui
 
+## 3.52.0
+
+### Minor Changes
+
+- [#564](https://github.com/krizaka/krizaka-ui/pull/564) [`b17498e`](https://github.com/krizaka/krizaka-ui/commit/b17498ee584faafe0794c917079c31902041ad31) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - `@krizaka/ui/text-style`: `TextStylePicker`, `StyledText` and the value they share. A person chooses the look of one text role — font (the curated `@krizaka/fonts` families, by role), size (a step of the type scale), weight, line height, letter spacing, alignment, case, italic and tone (a text role or the brand hue) — as a plain value the app stores. The picker is controlled, shows a live preview, takes `presets`, `fields` and `compact`, and warns (never clamps) when the tone's contrast on the surface is under 4.5:1 for body text or 3:1 for large text, or when body text is under `minBodySize`; its words are props (`textStyleLabels` EN, `textStyleLabelsFr`). `@krizaka/ui/text-style/server` has `parseTextStyle` (zod: anything invalid, a free font, a hex colour or CSS text, answers the default), `textStyleProps` (a `className` and a `style` of CSS variables only) and `StyledText`. `zod` is now a dependency. The first user is the Akinaza storefronts (krizaka/akinaza#236). A native picker is a follow-up.
+
+- [#563](https://github.com/krizaka/krizaka-ui/pull/563) [`35ccec0`](https://github.com/krizaka/krizaka-ui/commit/35ccec073b0ed569feb9ac01c16b3daac2245a45) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Add explained KPI, ranked next-action and glossary blocks for web pages.
+
+### Patch Changes
+
+- Updated dependencies [[`a4ba630`](https://github.com/krizaka/krizaka-ui/commit/a4ba6302e98a5bbef7d86b90e491fee6d0584d76)]:
+  - @krizaka/intl@0.3.0
+  - @krizaka/tailwind@3.52.0
+  - @krizaka/tokens@3.52.0
+
 ## 3.51.0
 
 ### Minor Changes
