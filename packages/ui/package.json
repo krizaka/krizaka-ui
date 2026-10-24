@@ -525,6 +525,10 @@
       "types": "./dist/page-index.d.ts",
       "import": "./dist/page-index.js"
     },
+    "./chapter": {
+      "types": "./dist/chapter.d.ts",
+      "import": "./dist/chapter.js"
+    },
     "./footnote": {
       "types": "./dist/footnote.d.ts",
       "import": "./dist/footnote.js"
@@ -2026,6 +2030,16 @@
       "name": "./page-index",
       "path": "dist/page-index.js",
       "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./chapter",
+      "path": "dist/chapter.js",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

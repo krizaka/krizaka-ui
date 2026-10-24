@@ -54,6 +54,7 @@
 }
 .kz-frame[data-margin] { --kz-margin-x: max(8px, calc(var(--kz-gutter) - 12px)); }
 .kz-heading-number,
+.kz-chapter-no,
 .kz-margin-note {
   font-family: var(--kz-font-mono);
   font-size: 13px;
@@ -1259,6 +1260,113 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-footnotes ol { margin: 0; padding-left: 1.6em; display: grid; gap: 6px; }
 .kz-footnotes li::marker { font-family: var(--kz-font-mono); color: var(--kz-paper-rule-margin); }
 .kz-fn-back { color: var(--kz-accent-text); text-decoration: none; }
+
+/* ChapterIndex, ChapterHead, ChapterFoot (#617) — the chapters of a story on the notebook's lines, never boxes. Every row is
+   one ruled line (--kz-chapter-line = the paper's module, 32 px): the number hangs in the margin left of the red rule
+   (`[data-margin]`, moved to --kz-margin-x), the serif title is the link and its hit area is the whole row, the period is
+   quiet on the right (under the title in a narrow column). The ruling is `[data-paper="lines"]`, shifted so a major line
+   runs under the titles' baseline (--kz-chapter-baseline, in em of the title). No border per row, nothing moves. */
+.kz-chapters {
+  --kz-chapter-line: var(--kz-paper-module, 32px);
+  --kz-chapter-pad: var(--kz-paper-line, 8px);
+  --kz-chapter-baseline: calc(var(--kz-chapter-line) / 2 + 0.36em);
+  --kz-chapter-gap: 16px;
+  container-type: inline-size;
+  box-sizing: border-box;
+  max-width: var(--kz-chapters-max, 46rem); /* the period stays within reach of its title */
+  margin: 0;
+  padding: var(--kz-chapter-pad) 0;
+  list-style: none;
+  font-size: 1.1875rem;
+}
+.kz-chapters[data-margin], .kz-chapter-head[data-margin] { --kz-margin-x: 3rem; }
+.kz-chapters[data-paper] { background-position: 0 calc(var(--kz-chapter-pad) + var(--kz-chapter-baseline)); }
+.kz-chapters ul { margin: 0; padding: 0; list-style: none; }
+.kz-chapter-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--kz-margin-x) minmax(0, 1fr) auto;
+  align-items: baseline;
+  min-height: var(--kz-chapter-line);
+  line-height: var(--kz-chapter-line);
+}
+.kz-chapter-row .kz-chapter-no { grid-column: 1; padding-right: 12px; text-align: right; white-space: nowrap; }
+.kz-chapter-link {
+  grid-column: 2;
+  min-width: 0;
+  padding-left: var(--kz-chapter-gap);
+  font-family: var(--kz-font-display);
+  font-weight: 400;
+  line-height: var(--kz-chapter-line);
+  color: var(--kz-text-primary);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.kz-chapter-link::after { content: ""; position: absolute; inset: 0; }
+.kz-chapter-link:focus-visible { outline: none; }
+.kz-chapter-link:focus-visible::after { outline: var(--kz-ring-width, 2px) solid var(--kz-ring); outline-offset: 0; }
+.kz-chapter-title { text-decoration-line: none; text-decoration-thickness: 1.5px; text-underline-offset: 0.2em; }
+.kz-chapter-link:is(:hover, :focus-visible) .kz-chapter-title { text-decoration-line: underline; text-decoration-color: var(--kz-hue, var(--kz-accent)); }
+.kz-chapter-link[aria-current="page"] .kz-chapter-title { text-decoration-line: underline; text-decoration-color: var(--kz-paper-rule-margin); }
+.kz-chapter-new,
+.kz-chapter-period,
+.kz-chapter-meta {
+  font-family: var(--kz-font-mono);
+  font-size: 12.5px;
+  line-height: 16px;
+  font-variant-numeric: var(--kz-figures, lining-nums tabular-nums);
+}
+.kz-chapter-new { margin-left: 4px; white-space: nowrap; color: var(--kz-hue-text, var(--kz-accent-text)); }
+.kz-chapter-period { grid-column: 3; padding-left: var(--kz-chapter-gap); white-space: nowrap; color: var(--kz-text-secondary); }
+.kz-chapter-detail { grid-column: 2 / -1; padding-left: var(--kz-chapter-gap); font-size: 14.5px; color: var(--kz-text-secondary); }
+/* A narrow column: the row flows as text with a hanging indent — the number still in the margin (inline, so it shares the
+   title's baseline), the title wraps from line to line, the period runs on after its last word: two ruled lines at most. */
+@container (max-width: 34rem) {
+  .kz-chapter-row { display: block; padding-left: calc(var(--kz-margin-x) + var(--kz-chapter-gap)); }
+  .kz-chapter-row .kz-chapter-no {
+    display: inline-block;
+    box-sizing: border-box;
+    width: var(--kz-margin-x);
+    margin-left: calc(-1 * (var(--kz-margin-x) + var(--kz-chapter-gap)));
+    margin-right: var(--kz-chapter-gap);
+  }
+  .kz-chapter-link { display: inline; padding-left: 0; }
+  .kz-chapter-period { display: inline-block; padding-left: 0; }
+  .kz-chapter-detail { display: block; padding-left: 0; }
+}
+
+/* The foot: the previous and the next as two rows of the index, then one quiet line back to the story. */
+.kz-chapter-row[data-dir] .kz-chapter-period { color: var(--kz-text-secondary); }
+.kz-chapter-back { margin: 0; padding-left: calc(var(--kz-margin-x) + var(--kz-chapter-gap)); font-size: 14.5px; line-height: var(--kz-chapter-line); }
+.kz-chapter-back-link { color: var(--kz-text-secondary); text-decoration: none; text-decoration-thickness: 1.5px; text-underline-offset: 0.2em; }
+.kz-chapter-back-link:is(:hover, :focus-visible) { color: var(--kz-text-primary); text-decoration-line: underline; text-decoration-color: var(--kz-hue, var(--kz-accent)); }
+.kz-chapter-back-link:focus-visible { outline: var(--kz-ring-width, 2px) solid var(--kz-ring); outline-offset: 2px; }
+
+/* The head: the number in the margin beside the title's first line, one quiet meta line, the standfirst once. */
+.kz-chapter-head {
+  display: grid;
+  grid-template-columns: var(--kz-margin-x) minmax(0, 1fr);
+  align-items: baseline;
+  row-gap: 12px;
+  padding-block: 8px;
+}
+.kz-chapter-head > * { grid-column: 2; margin: 0; padding-left: var(--kz-chapter-gap, 16px); min-width: 0; }
+.kz-chapter-head > .kz-chapter-no { grid-column: 1; grid-row: 1; padding: 0 12px 0 0; text-align: right; white-space: nowrap; }
+.kz-chapter-head-title {
+  grid-row: 1;
+  max-width: 22ch;
+  font-family: var(--kz-font-display);
+  font-size: clamp(1.85rem, 5.2vw, 2.75rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--kz-text-primary);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.kz-chapter-meta { color: var(--kz-text-secondary); }
+.kz-chapter-standfirst { max-width: 60ch; font-size: 1.125rem; line-height: 1.6; color: var(--kz-text-secondary); text-wrap: pretty; }
+.kz-chapter-arrow { color: var(--kz-hue-text, var(--kz-paper-rule-margin)); }
 
 /* Mascot life — the Flock's birds at ease, in character (Mascot `life`). */
 /* mascot-life:begin — generated by scripts/gen-mascot-life.mjs from src/mascots/life.ts; do not edit */
