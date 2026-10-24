@@ -73,6 +73,7 @@ export const PLANNED: Record<string, string> = {
   "bird-plate": "The Cahier (ADR-004): the flock and each product's bird with its promise on www.krizaka.com, then /story and the product sites.",
   "anatomy-plate": "The Cahier (ADR-004): the anatomy of each component on ui.krizaka.com/components/<name>.",
   "page-index": "The Cahier (ADR-004): the index of ui.krizaka.com's components, numbered like a reference book.",
+  chapter: "The Cahier (ADR-004, krizaka-ui#617): the chapters of the story on blog.krizaka.com's home (ChapterIndex), the head and foot of each chapter's page.",
   footnote: "The Cahier (ADR-004): captions under every plate and the sourced notes of the product and docs pages (a law's article, a run id).",
   "account-settings": "Yomizaka's /app/settings first, then every Krizaka app's account page and the future @krizaka/auth (krizaka-ui#502).",
   "drop-overlay": "Yomizaka's library (drag a document anywhere), then Akinaza's app home and Orazaka's web workspace (krizaka-ui#511).",

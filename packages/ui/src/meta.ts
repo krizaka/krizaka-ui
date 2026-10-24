@@ -22,6 +22,7 @@ export type ComponentName =
   | "elephant"
   | "footnote"
   | "page-index"
+  | "chapter"
   | "specimen-tag"
   | "action-bar"
   | "action-sheet"
