@@ -240,7 +240,7 @@ export default defineConfig([
     // Client — the form (TanStack Form v1 behind the facade): its fields are adapters over the primitives, which they
     // import through the package's own entries (external) — one copy of each primitive, swapped without touching a form.
     ...shared,
-    entry: { form: "src/form/index.ts" },
+    entry: { form: "src/form/index.ts", "text-style": "src/text-style/index.ts" },
     external: [...shared.external, /^@krizaka\/ui(\/|$)/],
     banner: { js: '"use client";' },
   },
@@ -263,7 +263,7 @@ export default defineConfig([
   {
     // Server — the form's server side (a Server Action re-validating with the form's schema): no React, no directive.
     ...shared,
-    entry: { "form/server": "src/form/server.ts" },
+    entry: { "form/server": "src/form/server.ts", "text-style/server": "src/text-style/server.ts" },
   },
   {
     // Server — the language helpers (`languagesFor`, `languageHref`, `languageNames`): pure functions, usable in a Server Component

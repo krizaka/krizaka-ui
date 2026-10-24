@@ -349,6 +349,14 @@
       "types": "./dist/form/server.d.ts",
       "import": "./dist/form/server.js"
     },
+    "./text-style": {
+      "types": "./dist/text-style.d.ts",
+      "import": "./dist/text-style.js"
+    },
+    "./text-style/server": {
+      "types": "./dist/text-style/server.d.ts",
+      "import": "./dist/text-style/server.js"
+    },
     "./combobox": {
       "types": "./dist/combobox.d.ts",
       "import": "./dist/combobox.js"
@@ -858,8 +866,7 @@
     "test-renderer": "^1.3.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.0",
-    "vitest": "^4.1.11",
-    "zod": "^4.6.5"
+    "vitest": "^4.1.11"
   },
   "engines": {
     "node": ">=22"
@@ -1573,6 +1580,18 @@
       "name": "./form/server",
       "path": "dist/form/server.js",
       "limit": "1.5 kB",
+      "gzip": true
+    },
+    {
+      "name": "./text-style",
+      "path": "dist/text-style.js",
+      "limit": "41 kB",
+      "gzip": true
+    },
+    {
+      "name": "./text-style/server",
+      "path": "dist/text-style/server.js",
+      "limit": "9 kB",
       "gzip": true
     },
     {
@@ -2665,6 +2684,7 @@
     "pmtiles": "4.5.0",
     "radix-ui": "^1.7.0",
     "sonner": "^2.0.8",
-    "tailwind-variants": "^3.3.1"
+    "tailwind-variants": "^3.3.1",
+    "zod": "^4.6.5"
   }
 }
