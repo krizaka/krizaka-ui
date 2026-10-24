@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import AlbumExample from "../../registry/examples/chapter/album";
 import DetailExample from "../../registry/examples/chapter/detail";
 import FootExample from "../../registry/examples/chapter/foot";
 import HeadExample from "../../registry/examples/chapter/head";
+import InRuledPageExample from "../../registry/examples/chapter/in-ruled-page";
 import IndexExample from "../../registry/examples/chapter/index";
 import ReadingPageExample from "../../registry/examples/chapter/reading-page";
 import { ChapterIndex } from "./chapter";
@@ -18,6 +20,9 @@ type Story = StoryObj;
 
 export const Index: Story = { render: () => <IndexExample /> };
 export const IndexPhone: Story = { render: () => <IndexExample />, parameters: { viewportWidth: 360, noOverflow: true } };
+export const Album: Story = { render: () => <AlbumExample /> };
+export const AlbumPhone: Story = { render: () => <AlbumExample />, parameters: { viewportWidth: 360, noOverflow: true } };
+export const InRuledPage: Story = { render: () => <InRuledPageExample /> };
 export const Detail: Story = { render: () => <DetailExample /> };
 export const Head: Story = { render: () => <HeadExample /> };
 export const Foot: Story = { render: () => <FootExample /> };
