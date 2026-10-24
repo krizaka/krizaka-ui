@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.54.0
+
+### Minor Changes
+
+- [#624](https://github.com/krizaka/krizaka-ui/pull/624) [`19958df`](https://github.com/krizaka/krizaka-ui/commit/19958dfb9051591865da3a2b2e299c56b1a2f273) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ChapterIndex variant="album"` ([#621](https://github.com/krizaka/krizaka-ui/issues/621)): each chapter's `cover` as a `TapedPhoto` beside its title, one short line (`detail`) and its period — the rows alternate left and right, the prints face each other, each keeps its own aspect-ratio (no layout shift), the covers after the first two load lazily. Fix ([#620](https://github.com/krizaka/krizaka-ui/issues/620)): inside a `Page` that already draws the margin, a nested margin (the chapter blocks, a Section) draws no second red rule.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.54.0
+  - @krizaka/tokens@3.54.0
+
 ## 3.53.0
 
 ### Minor Changes
