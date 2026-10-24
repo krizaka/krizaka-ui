@@ -129,9 +129,17 @@
       "types": "./dist/tooltip.d.ts",
       "import": "./dist/tooltip.js"
     },
+    "./glossary-term": {
+      "types": "./dist/glossary-term.d.ts",
+      "import": "./dist/glossary-term.js"
+    },
     "./stat": {
       "types": "./dist/stat.d.ts",
       "import": "./dist/stat.js"
+    },
+    "./kpi-explained": {
+      "types": "./dist/kpi-explained.d.ts",
+      "import": "./dist/kpi-explained.js"
     },
     "./page-header": {
       "types": "./dist/page-header.d.ts",
@@ -528,6 +536,14 @@
     "./action-bar": {
       "types": "./dist/action-bar.d.ts",
       "import": "./dist/action-bar.js"
+    },
+    "./next-actions": {
+      "types": "./dist/next-actions.d.ts",
+      "import": "./dist/next-actions.js"
+    },
+    "./glossary": {
+      "types": "./dist/glossary.d.ts",
+      "import": "./dist/glossary.js"
     },
     "./cta-panel": {
       "types": "./dist/cta-panel.d.ts",
@@ -1092,6 +1108,16 @@
       ]
     },
     {
+      "name": "./glossary-term",
+      "path": "dist/glossary-term.js",
+      "limit": "20 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
       "name": "./stat",
       "path": "dist/stat.js",
       "limit": "1 kB",
@@ -1100,6 +1126,12 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./kpi-explained",
+      "path": "dist/kpi-explained.js",
+      "limit": "3 kB",
+      "gzip": true
     },
     {
       "name": "./page-header",
@@ -2082,6 +2114,18 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./next-actions",
+      "path": "dist/next-actions.js",
+      "limit": "1 kB",
+      "gzip": true
+    },
+    {
+      "name": "./glossary",
+      "path": "dist/glossary.js",
+      "limit": "1 kB",
+      "gzip": true
     },
     {
       "name": "./cta-panel",
