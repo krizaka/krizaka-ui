@@ -22,7 +22,24 @@ npm install @krizaka/intl
 ```
 
 Node ≥ 22 or any evergreen browser. ESM only. Sub-paths (`@krizaka/intl/money`, `/number`, `/date`, `/plural`) import
-one family; the root imports all of them (≈ 1.1 kB gzip).
+one family; the root imports all of them.
+
+### Hermes / missing Intl constructors
+
+When `Intl.PluralRules` or `Intl.RelativeTimeFormat` is absent (for example on Android Hermes), the corresponding
+getter returns a cached, dependency-free fallback instead. Native constructors, when present, are always used;
+their options and errors are unchanged. `Intl.NumberFormat` and `Intl.DateTimeFormat` are still required.
+
+- **Plurals:** unrounded cardinal rules for English (`one` for absolute 1) and French (`one` below absolute 2,
+  `many` for nonzero multiples of a million); non-finite counts and unsupported languages use `other`.
+  Plural options (including ordinal selection and digit rounding) are not applied by the fallback.
+- **Relative time:** long numeric English/French wording (`1 day ago`, `dans 2 jours`), even with `numeric: "auto"`
+  or `style: "short"` / `"narrow"`. Numbers use the requested locale's `Intl.NumberFormat`. Other languages use
+  English wording. All units, second through year (including quarter), work in both directions.
+- A locale list selects the first English or French entry for fallback rules/wording; no runtime default is used.
+- The getters' return types now include a minimal fallback: only **`select`** / **`format`** is guaranteed.
+  Check for a native-only method (e.g. `"resolvedOptions" in formatter`) before using it. These fallbacks are not
+  full Intl polyfills; install one in the app if complete locale, option or method support is needed.
 
 ## Functions
 
@@ -35,6 +52,7 @@ one family; the root imports all of them (≈ 1.1 kB gzip).
 | `formatPercent(ratio, { locale, …Intl options })` | `./number` | `0.125` → `13%` | `13 %` |
 | `formatDate(date, { locale, style? = "medium", timeStyle?, timeZone? })` | `./date` | `Oct 9, 2026` (`short` `10/9/26`, `long` `October 9, 2026`) | `9 oct. 2026` |
 | `formatRelative(date, { locale, now?, numeric? = "auto", style? })` | `./date` | `45 seconds ago`, `3 hours ago`, `yesterday`, `next month` | `il y a 45 secondes`, `hier`, `le mois prochain` |
+| `localDay(instant, timeZone)` | `./date` | `2026-10-24T01:30Z` in `America/Toronto` → `2026-10-23` | the same day, `2026-10-23` |
 | `plural(count, locale, { zero?, one?, two?, few?, many?, other })` | `./plural` | `plural(1, locale, { one: "bid", other: "bids" })` → `bid` | `0` and `1` are `one` |
 | `getNumberFormat` · `getDateTimeFormat` · `getRelativeTimeFormat` · `getPluralRules` | `.` | The cached `Intl` objects, for a format this package does not wrap. | |
 
@@ -49,6 +67,8 @@ Details:
   `Date.now()`: inject it in tests and wherever a server render must be stable.
 - **`plural`** — `Intl.PluralRules` categories; a missing one falls back to `other`; `zero` is used for exactly `0`
   in any language (`"no bids"`). It returns the form, of any type (a string, a message key, a component).
+- **`localDay`** — the calendar day (`yyyy-mm-dd`) an instant falls on in a time zone. Use it for any rule or deadline that
+  is a day (a law in force on a date), never `toISOString().slice(0, 10)`, which is the UTC day.
 - Dates accept a `Date`, an epoch in milliseconds or an ISO string; an invalid one throws a `RangeError`.
 
 ## Bind it once in the app

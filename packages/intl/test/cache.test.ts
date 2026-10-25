@@ -60,6 +60,7 @@ describe("root entry", () => {
       "getNumberFormat",
       "getPluralRules",
       "getRelativeTimeFormat",
+      "localDay",
       "plural",
     ]);
   });
