@@ -14,12 +14,26 @@ import { defineConfig, type Options } from "tsup";
  *   entries (`@krizaka/ui/<name>`, `@krizaka/ui/native`, external): one copy of each primitive.
  * `dist/` is emptied by the build script, not by tsup: the three builds run side by side.
  */
+// The router's context (`RouteStateProvider`) must be one module in the whole package: the builds below are separate
+// esbuild runs, and a block of one group that bundled its own copy of `../router` would read its own context, never the
+// adapter an app gives `@krizaka/ui/router`'s provider (a Next.js app's `routeKey` would silently fall back to the
+// browser's history). Every `../router` outside src/router is therefore the package's own entry, external.
+const oneRouter: NonNullable<Options["esbuildPlugins"]>[number] = {
+  name: "krizaka-one-router",
+  setup(build) {
+    build.onResolve({ filter: /^\.\.\/router$/ }, (args) =>
+      args.importer.includes("/src/router/") ? undefined : { path: "@krizaka/ui/router", external: true },
+    );
+  },
+};
+
 const shared = {
   format: ["esm"],
   dts: true,
   sourcemap: true,
   clean: false,
   external: ["react", "react-dom", "react/jsx-runtime"],
+  esbuildPlugins: [oneRouter],
 } satisfies Options;
 
 export default defineConfig([

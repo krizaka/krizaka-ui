@@ -84,30 +84,40 @@ export function useRouteState<V extends string>(key: string | undefined, { value
   const set = React.useCallback(
     (next: V) => {
       if (key === undefined) return;
-      adapter.navigate(writeRouteValue(adapter.search(), key, next, fallback), { replace: history === "replace" });
+      navigateFrom(adapter, (search) => writeRouteValue(search, key, next, fallback), { replace: history === "replace" });
     },
     [adapter, key, fallback, history],
   );
   return [value, set] as const;
 }
 
+// What was written but not yet read back: a router may apply a navigation later (Next.js), so every writer — two tables,
+// a table and a tab — builds on the last write, not on an address that has not caught up. Cleared at the router's next
+// change (the write landing, back, forward), one subscription per adapter.
+const pending = new WeakMap<RouteAdapter, string>();
+const watched = new WeakSet<RouteAdapter>();
+
+/** Navigate to `update(the latest address)`: writes in the same tick, from any hook, compose instead of overwriting each other. */
+export function navigateFrom(adapter: RouteAdapter, update: (search: string) => string, { replace }: { replace: boolean }) {
+  if (!watched.has(adapter)) {
+    watched.add(adapter);
+    adapter.subscribe(() => pending.delete(adapter));
+  }
+  const next = update(pending.get(adapter) ?? adapter.search());
+  pending.set(adapter, next);
+  adapter.navigate(next, { replace });
+}
+
 /**
  * The query string and a way to change several parameters in one navigation (a sort and the page it resets). Writes made
- * in the same tick build on each other, so a router that applies them later never loses one.
+ * in the same tick build on each other — across every hook of the same router — so a router that applies them later never
+ * loses one.
  */
 export function useRouteSearch(): { search: string; write: (update: (search: string) => string, options?: { replace?: boolean }) => void } {
   const adapter = React.useContext(AdapterContext);
   const search = React.useSyncExternalStore(adapter.subscribe, adapter.search, () => "");
-  const latest = React.useRef(search);
-  React.useEffect(() => {
-    latest.current = search;
-  }, [search]);
   const write = React.useCallback(
-    (update: (search: string) => string, { replace = false }: { replace?: boolean } = {}) => {
-      const next = update(latest.current);
-      latest.current = next;
-      adapter.navigate(next, { replace });
-    },
+    (update: (search: string) => string, { replace = false }: { replace?: boolean } = {}) => navigateFrom(adapter, update, { replace }),
     [adapter],
   );
   return { search, write };
