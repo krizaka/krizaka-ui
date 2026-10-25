@@ -1,5 +1,28 @@
 # @krizaka/tailwind
 
+## 3.58.0
+
+### Minor Changes
+
+- [#699](https://github.com/krizaka/krizaka-ui/pull/699) [`25ba3b0`](https://github.com/krizaka/krizaka-ui/commit/25ba3b0eedd8c362661537408118e71568cc7b14) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Appearance for every product (ADR-006 §4, [#657](https://github.com/krizaka/krizaka-ui/issues/657)).
+  
+  - **`@krizaka/tokens`:** the themes as data — `appearance` (also on `/native`): System, Light and Dark (required), Blueprint (navy) and Carbone (near-black) as optional dark surface sets, the colours of each miniature, every brand's accent family per theme, and `passes` — the themes each accent reads on, computed with WCAG 2 (text ≥ 4.5:1, fill ≥ 3:1, its label ≥ 4.5:1) and tested for every combination. `appearance.css` applies the surface sets (`html.theme-blueprint`, `html.theme-carbone`) and the accent (`html[data-accent="<brand>"]`). No paper theme, no brand-named theme. Density stays `html[data-density="compact"]`.
+  - **`@krizaka/ui/account-settings`:** `AppearanceSettings` — theme cards (a radio group of live miniatures, one check), accent, density, language and an opt-in sound, as `SettingsRow`s; driven by data, `onChange` out. Native twin: still the gap of [#503](https://github.com/krizaka/krizaka-ui/issues/503).
+  - **`@krizaka/ui/theme`:** `useAppearance()` applies the choices at once and keeps them in the browser; `ThemeScript` restores the accent and the density before paint.
+
+- [#700](https://github.com/krizaka/krizaka-ui/pull/700) [`bb1c5ca`](https://github.com/krizaka/krizaka-ui/commit/bb1c5cafdbc49efc4d84dfbb35917de9d02fb3e5) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The admin's editors of a kind's vocabulary (ADR-006 §7, [#690](https://github.com/krizaka/krizaka-ui/issues/690); `@krizaka/organize` `KindConfig`, krizaka-ts#89) — new entry `@krizaka/ui/kind-config-editor`, web and React Native, same props.
+  
+  - **`TagSetEditor`:** the presets of a variant (name, colour from the closed palette, order — drag, buttons or Alt + ↑ ↓), who manages tags, « people can add their own », the most (1 to 200). A name another tag has is marked in place.
+  - **`StatusSetEditor`:** the states in their order, each with a label in French and one in English (every field says its language), a tone, « final »; the initial state; the moves from × to with their roles, a second press and the reasons to pick from (off by default, never free text). A final state's row says « Final: no way out »; the initial state is never final. A derived set is shown read-only.
+  - Both take the descriptor and give it back (`value` / `onChange`), show `kindConfigProblems` in place (`problems`), and never hold the save logic. The pure changes are tested to keep the contract by construction.
+
+### Patch Changes
+
+- [#702](https://github.com/krizaka/krizaka-ui/pull/702) [`cbe5537`](https://github.com/krizaka/krizaka-ui/commit/cbe55378ad2b38e27612ed504dc0b71c19a30095) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The tests that import the package's own `dist` now depend on its build in turbo (the release pipeline ran them before the build).
+- Updated dependencies [[`25ba3b0`](https://github.com/krizaka/krizaka-ui/commit/25ba3b0eedd8c362661537408118e71568cc7b14), [`bb1c5ca`](https://github.com/krizaka/krizaka-ui/commit/bb1c5cafdbc49efc4d84dfbb35917de9d02fb3e5)]:
+  - @krizaka/ui@3.58.0
+  - @krizaka/tokens@3.58.0
+
 ## 3.57.0
 
 ### Minor Changes
