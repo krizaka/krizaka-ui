@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 
 import { axeViolations } from "../test/axe";
-import { Chip, MARKERS, MarkerPicker, TagChip, TagMarker } from "./index";
+import { Chip, MarkerPicker, MARKERS, TagChip, TagMarker } from "./index";
 import { TAG_MARKERS } from "./markers";
 
 const NAMES = { blue: "Blue", green: "Green", amber: "Amber", red: "Red", violet: "Violet", gray: "Gray" };
