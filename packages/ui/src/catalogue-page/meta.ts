@@ -19,9 +19,10 @@ export const meta = {
   },
   related: ["filter-bar", "chip-link", "card-grid"],
   web: {
-    imports: ["CataloguePage"],
+    imports: ["CataloguePage", "PlanStrip"],
     examples: [
       { name: "components", title: "Components", description: "Krizaka UI's components: search, platform filters, compact link cards.", template: true, purpose: "explain", why: "A reader looking for the right piece scans a filterable catalogue instead of reading every page." },
+      { name: "clients", title: "A client list", description: "`plan` (figures and a Meter), `dividers`, filter chips with counts, rows with a status and one action, and the selection bar (#653).", template: true, purpose: "operate", why: "An owner sees where the account stands, narrows the list by status and acts on several clients at once." },
     ],
   },
 } satisfies ComponentMeta;
