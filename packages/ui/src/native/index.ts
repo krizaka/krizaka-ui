@@ -117,7 +117,7 @@ export { PersonCard, type PersonCardProps, SwipeDeck, type SwipeDeckLabels, type
 export { SwipeableRow, type SwipeableRowProps,type SwipeAction } from "./swipeable-row";
 export { Switch, type SwitchProps } from "./switch";
 export { TabBar, type TabBarItem, type TabBarProps } from "./tab-bar";
-export { type TabItem, Tabs, type TabsProps } from "./tabs";
+export { type TabItem, Tabs, type TabsHue, type TabsProps } from "./tabs";
 export { type TagOption, TagSelector, type TagSelectorProps } from "./tag-selector";
 export {
   alpha,

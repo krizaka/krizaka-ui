@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import BinderExample from "../../registry/examples/tabs/native/binder";
 import SectionsExample from "../../registry/examples/tabs/native/sections";
 import SegmentedExample from "../../registry/examples/tabs/native/segmented";
 import { nativeFrame } from "./story-frame";
@@ -15,3 +16,4 @@ type Story = StoryObj<typeof meta>;
 
 export const Sections: Story = { render: () => <SectionsExample /> };
 export const Segmented: Story = { render: () => <SegmentedExample /> };
+export const Binder: Story = { render: () => <BinderExample /> };

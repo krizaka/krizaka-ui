@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import BinderExample from "../../registry/examples/tabs/binder";
 import PillsExample from "../../registry/examples/tabs/pills";
 import RoutesExample from "../../registry/examples/tabs/routes";
 import SegmentedExample from "../../registry/examples/tabs/segmented";
@@ -31,3 +32,6 @@ export const Segmented: Story = { render: () => <SegmentedExample /> };
 export const Pills: Story = { render: () => <PillsExample /> };
 export const Vertical: Story = { render: () => <VerticalExample /> };
 export const Routes: Story = { render: () => <RoutesExample /> };
+// Binder dividers (#648): they scroll sideways in a narrow frame, the edges fading; at 360 px on a phone.
+export const Binder: Story = { render: () => <BinderExample /> };
+export const BinderPhone: Story = { render: () => <BinderExample />, parameters: { phone: true } };

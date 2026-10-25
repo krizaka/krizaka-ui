@@ -1,7 +1,7 @@
 // The navigation of /native: TabBar (badge in words, a tick, reselect), Header (the screen's heading, the back button),
 // Tabs (a tab list and its panel), Fab (named, clear of the safe area) — and the insets the app passes.
 import { describe, expect, jest, test } from "@jest/globals";
-import { fireEvent, render, screen } from "@testing-library/react-native";
+import { fireEvent, render, screen, within } from "@testing-library/react-native";
 import { Text } from "react-native";
 
 import { Fab } from "./fab";
@@ -54,5 +54,29 @@ describe("navigation (native)", () => {
     await render(<Fab label="New challenge" icon={null} onPress={press} />);
     await fireEvent.press(screen.getByRole("button", { name: "New challenge" }));
     expect(press).toHaveBeenCalled();
+  });
+});
+
+describe("Tabs (native) — binder dividers (#648)", () => {
+  test("a divider per item with its coloured edge; « + » after them, outside the tab list", async () => {
+    const add = jest.fn();
+    await render(
+      <Tabs
+        aria-label="Collections"
+        variant="binder"
+        add={{ label: "Divider", onAdd: add }}
+        items={[
+          { value: "all", label: "All", count: 48, content: <Text>48 clients</Text> },
+          { value: "regulars", label: "Regulars", hue: "success", count: 21, content: <Text>21 regulars</Text> },
+        ]}
+      />,
+    );
+    expect(screen.getByText("48 clients")).toBeTruthy();
+    await fireEvent.press(screen.getByRole("tab", { name: /Regulars/ }));
+    expect(screen.getByText("21 regulars")).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button", { name: "Divider" }));
+    expect(add).toHaveBeenCalled();
+    const tablist = screen.getByLabelText("Collections");
+    expect(within(tablist).queryByRole("button", { name: "Divider" })).toBeNull();
   });
 });
