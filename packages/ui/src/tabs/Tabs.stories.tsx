@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import PillsExample from "../../registry/examples/tabs/pills";
+import RoutesExample from "../../registry/examples/tabs/routes";
 import SegmentedExample from "../../registry/examples/tabs/segmented";
 import UnderlineExample from "../../registry/examples/tabs/underline";
 import VerticalExample from "../../registry/examples/tabs/vertical";
@@ -29,3 +30,4 @@ export const Underline: Story = { render: () => <UnderlineExample /> };
 export const Segmented: Story = { render: () => <SegmentedExample /> };
 export const Pills: Story = { render: () => <PillsExample /> };
 export const Vertical: Story = { render: () => <VerticalExample /> };
+export const Routes: Story = { render: () => <RoutesExample /> };

@@ -43,6 +43,8 @@ export default defineConfig([
       "page-header": "src/page-header/index.ts",
       // One day's appointments, with a « now » line.
       agenda: "src/agenda/index.ts",
+      // Space or time used against a plan.
+      "quota-meter": "src/quota-meter/index.ts",
       alert: "src/alert/index.ts",
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",
@@ -86,6 +88,10 @@ export default defineConfig([
       "page-index": "src/page-index/index.ts",
       chapter: "src/chapter/index.ts",
       footnote: "src/footnote/index.ts",
+      // Stuck into the notebook: the hold, the margin doodle, the house's signature (server-safe).
+      stuck: "src/stuck/index.ts",
+      doodle: "src/doodle/index.ts",
+      signature: "src/signature/index.ts",
       // The recipes: classes of the tokens, read by tv() on the web and by the phone's components (no React).
       recipes: "src/recipes/index.ts",
     },
