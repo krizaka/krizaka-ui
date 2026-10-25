@@ -206,7 +206,8 @@ export const CUSTOM_TEMPLATE = "custom";
 export const PAGE_FILE_SOURCE = String.raw`(?:^|[\\/])app[\\/](?:.*[\\/])?page\.[cm]?[jt]sx?$`;
 
 /** The declaration, alone on its line, as a line comment or a block comment (the rule's message shows its form). */
-export const TEMPLATE_TAG_SOURCE = String.raw`^[ \t]*(?://|/\*+)[ \t]*@template:[ \t]*([a-z][a-z-]*)(?:[ \t]*:[ \t]*(\S[^\n]*?))?[ \t]*(?:\*/)?[ \t]*$`;
+// The reason never starts with the block comment's `*/`: `/* @template: custom: */` declares no reason.
+export const TEMPLATE_TAG_SOURCE = String.raw`^[ \t]*(?://|/\*+)[ \t]*@template:[ \t]*([a-z][a-z-]*)(?:[ \t]*:[ \t]*((?!\*\/)\S[^\n]*?)?)?[ \t]*(?:\*/)?[ \t]*$`;
 
 /**
  * What is wrong with a page's template declaration, or `null` when it is fine.

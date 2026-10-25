@@ -365,6 +365,16 @@ describe("krizaka/page-template — every page declares its template", () => {
     expect(ruled(await lintPage("// @template: custom\nexport default function Page() { return null; }"))).toHaveLength(1);
   });
 
+  it.each(["/* @template: custom: */", "// @template: custom:", "/* @template: custom:*/"])("refuses %s: the comment's end is not a reason (review #514)", async (tag) => {
+    const messages = ruled(await lintPage(`${tag}\nexport default function Page() { return null; }`));
+    expect(messages).toHaveLength(1);
+    expect((messages[0] as { message: string }).message).toMatch(/needs its reason/);
+  });
+
+  it("accepts a block comment with its reason", async () => {
+    expect(ruled(await lintPage("/* @template: custom: a canvas editor */\nexport default function Page() { return null; }"))).toEqual([]);
+  });
+
   it.each(["app-settings", "app-list-detail", "landing", "redirect", "custom: a canvas editor, no template fits"])("accepts // @template: %s", async (template) => {
     expect(ruled(await lintPage(`// @template: ${template}\nexport default function Page() { return null; }`))).toEqual([]);
   });

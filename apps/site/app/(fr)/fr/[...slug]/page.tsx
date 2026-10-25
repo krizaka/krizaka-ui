@@ -1,3 +1,4 @@
+// @template: custom: the documentation catch-all — each page renders its own template (docs-hub, docs-article, component, catalogue) from its content
 import type { Metadata } from "next";
 
 import { docsMetadata, DocsPageView, docsStaticParams } from "@/app/components/docs/DocsPageView";
