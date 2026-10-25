@@ -23,7 +23,7 @@ export const notificationPreferences = tv({
   },
 });
 
-/** Category id → channel id → on. A channel a category does not use is left out. */
+/** Category id → channel id → on. A missing entry is off; a crossing a category does not use (see `channels`) is never written. */
 export type NotificationMatrix = Record<string, Record<string, boolean>>;
 
 export type NotificationChannel = {
@@ -42,6 +42,8 @@ export type NotificationCategory = {
   label: string;
   /** What these notifications are, one line. */
   description?: string;
+  /** The channels this category can use (ids); left out, every channel. Other crossings show no switch. */
+  channels?: readonly string[];
   /** Always on, and shown so (security): the switches are inert and `lockedNote` replaces the description. */
   locked?: boolean;
   lockedNote?: string;
@@ -54,7 +56,7 @@ export type NotificationPreset = {
   label: string;
   /** What the preset does, one sentence, shown while it is the one in force. */
   hint: string;
-  /** The matrix it sets (locked categories stay on whatever it says). */
+  /** The matrix it sets (locked categories stay on and inert channels keep their value, whatever it says). */
   value: NotificationMatrix;
 };
 
@@ -67,7 +69,7 @@ export type NotificationPreferencesProps = {
   categories: readonly NotificationCategory[];
   /** What is on, by category then channel (controlled). */
   value: NotificationMatrix;
-  /** Called with the whole matrix after a switch or a preset. */
+  /** Called with the whole matrix after a switch or a preset — normalised: locked rows on, inert channels unchanged, unused crossings absent. */
   onValueChange: (next: NotificationMatrix) => void;
   /** Quick settings above the matrix (`Everything`, `Essentials`, `Nothing`). */
   presets?: readonly NotificationPreset[];
@@ -79,23 +81,42 @@ export type NotificationPreferencesProps = {
   className?: string;
 };
 
+const uses = (c: NotificationCategory, channel: string) => !c.channels || c.channels.includes(channel);
+
+// Only what a preset can change counts: not the locked rows, the inert channels, or the crossings a category does not use.
 const same = (a: NotificationMatrix, b: NotificationMatrix, categories: readonly NotificationCategory[], channels: readonly NotificationChannel[]) =>
-  categories.every((c) => c.locked || channels.every((ch) => Boolean(a[c.id]?.[ch.id]) === Boolean(b[c.id]?.[ch.id])));
+  categories.every((c) => c.locked || channels.every((ch) => ch.disabled || !uses(c, ch.id) || Boolean(a[c.id]?.[ch.id]) === Boolean(b[c.id]?.[ch.id])));
 
 /** The preset in force, or null for a custom matrix. */
 export function presetInForce(value: NotificationMatrix, presets: readonly NotificationPreset[], categories: readonly NotificationCategory[], channels: readonly NotificationChannel[]): string | null {
   return presets.find((p) => same(value, p.value, categories, channels))?.id ?? null;
 }
 
+/**
+ * The matrix the controls can show: every crossing a category uses, locked rows on, an inert channel keeping its
+ * `current` value whatever `next` says, and nothing for the crossings a category does not use.
+ */
+export function normalizeMatrix(next: NotificationMatrix, current: NotificationMatrix, categories: readonly NotificationCategory[], channels: readonly NotificationChannel[]): NotificationMatrix {
+  return Object.fromEntries(
+    categories.map((c) => [
+      c.id,
+      Object.fromEntries(
+        channels.filter((ch) => uses(c, ch.id)).map((ch) => [ch.id, c.locked ? true : Boolean((ch.disabled ? current : next)[c.id]?.[ch.id])]),
+      ),
+    ]),
+  );
+}
+
 export function NotificationPreferences({ label, channels, categories, value, onValueChange, presets, presetsLabel, customHint, className }: NotificationPreferencesProps) {
   const s = notificationPreferences();
   const inForce = presets ? presetInForce(value, presets, categories, channels) : null;
-  const set = (category: string, channel: string, on: boolean) => onValueChange({ ...value, [category]: { ...value[category], [channel]: on } });
+  const emit = (next: NotificationMatrix) => onValueChange(normalizeMatrix(next, value, categories, channels));
+  const set = (category: string, channel: string, on: boolean) => emit({ ...value, [category]: { ...value[category], [channel]: on } });
   return (
     <div className={s.root({ className })} role="group" aria-label={label}>
       {presets && presets.length > 0 && (
         <div>
-          <Chip.Group type="single" required label={presetsLabel ?? label} value={inForce ?? ""} onValueChange={(id) => { const p = presets.find((x) => x.id === id); if (p) onValueChange(p.value); }}>
+          <Chip.Group type="single" required label={presetsLabel ?? label} value={inForce ?? ""} onValueChange={(id) => { const p = presets.find((x) => x.id === id); if (p) emit(p.value); }}>
             {presets.map((p) => (
               <Chip key={p.id} value={p.id}>
                 {p.label}
@@ -125,7 +146,13 @@ export function NotificationPreferences({ label, channels, categories, value, on
               </th>
               {channels.map((ch) => (
                 <td key={ch.id} className={s.cell()}>
-                  <Switch label={`${c.label} — ${ch.label}`} checked={c.locked || Boolean(value[c.id]?.[ch.id])} disabled={c.locked || ch.disabled} onCheckedChange={(on) => set(c.id, ch.id, on)} />
+                  {uses(c, ch.id) ? (
+                    <Switch label={`${c.label} — ${ch.label}`} checked={c.locked || Boolean(value[c.id]?.[ch.id])} disabled={c.locked || ch.disabled} onCheckedChange={(on) => set(c.id, ch.id, on)} />
+                  ) : (
+                    <span aria-hidden className={s.note()}>
+                      –
+                    </span>
+                  )}
                 </td>
               ))}
             </tr>
