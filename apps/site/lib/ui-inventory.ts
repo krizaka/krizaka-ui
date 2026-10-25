@@ -68,10 +68,12 @@ export const PLANNED: Record<string, string> = {
   "docs-article-page": `${SITE}: the product documentation pages.`,
   "docs-layout": "Builds the documentation article template.",
   "specimen-tag": "The Cahier (ADR-004, krizaka-ui#417): each product's status and record on www.krizaka.com's #products, then the products' and docs' pages.",
+  "text-style": "Akinaza storefronts: the shop owner sets the font, size and tone of the shop's titles and text (krizaka/akinaza#236); then the product theme settings of the admin consoles (krizaka-ui#561).",
   "taped-photo": "The Cahier (ADR-004): the flock's scene that opens www.krizaka.com, then /story; the prints of Akinaza shop walls (krizaka/akinaza#236).",
   "bird-plate": "The Cahier (ADR-004): the flock and each product's bird with its promise on www.krizaka.com, then /story and the product sites.",
   "anatomy-plate": "The Cahier (ADR-004): the anatomy of each component on ui.krizaka.com/components/<name>.",
   "page-index": "The Cahier (ADR-004): the index of ui.krizaka.com's components, numbered like a reference book.",
+  chapter: "The Cahier (ADR-004, krizaka-ui#617): the chapters of the story on blog.krizaka.com's home (ChapterIndex), the head and foot of each chapter's page.",
   footnote: "The Cahier (ADR-004): captions under every plate and the sourced notes of the product and docs pages (a law's article, a run id).",
   "account-settings": "Yomizaka's /app/settings first, then every Krizaka app's account page and the future @krizaka/auth (krizaka-ui#502).",
   "drop-overlay": "Yomizaka's library (drag a document anywhere), then Akinaza's app home and Orazaka's web workspace (krizaka-ui#511).",
@@ -142,6 +144,10 @@ export const PLANNED: Record<string, string> = {
   chart: "The base the other charts are built on.",
   "chart-card": "The one frame of every chart of Orazaka's dashboard and usage pages (#253).",
   "kpi-stat": "Orazaka's dashboard head: jobs, success rate, time to a result, spend (#253).",
+  "kpi-explained": "Akinaza's shop dashboard: monthly sales, spend and margin explained with their source and cadence; Orochia and Orazaka later.",
+  "next-actions": "Akinaza's Today and shop dashboard: the two or three highest-impact actions from bookings, stock and payments; Orochia and Orazaka later.",
+  glossary: "Akinaza's owner dashboard: a short reference for commerce terms alongside its explained figures.",
+  "glossary-term": "Akinaza's inline explanations of accounting and booking terms, without sending a shop owner away.",
 };
 
 /** Charts no product will draw: retired by PS-C (the @krizaka/charts major), listed so the removal is a decision. */
