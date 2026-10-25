@@ -79,6 +79,7 @@ export { GoalGauge, type GoalGaugeProps } from "./goal-gauge";
 export { Header, type HeaderProps, useCollapsingHeader } from "./header";
 export { ImageViewer, type ImageViewerProps, prefetchNeighbours, type ViewerImage } from "./image-viewer";
 export { KachizakaMark } from "./KachizakaMark";
+export { type EditorRole, StatusSetEditor, type StatusSetEditorLabels, statusSetEditorLabels, type StatusSetEditorProps, TagSetEditor, type TagSetEditorLabels, tagSetEditorLabels, type TagSetEditorProps, type TagSetValue } from "./kind-config-editor";
 export { KrizakaMark } from "./KrizakaMark";
 export { Loader, LoaderGlyph, type LoaderGlyphProps, type LoaderProps, useDelayedWait } from "./loader";
 export { MaintenanceScreen, type MaintenanceScreenProps } from "./maintenance-screen";

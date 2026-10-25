@@ -185,6 +185,10 @@
       "types": "./dist/chip.d.ts",
       "import": "./dist/chip.js"
     },
+    "./kind-config-editor": {
+      "types": "./dist/kind-config-editor.d.ts",
+      "import": "./dist/kind-config-editor.js"
+    },
     "./status-chip": {
       "types": "./dist/status-chip.d.ts",
       "import": "./dist/status-chip.js"
@@ -984,7 +988,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "60.8 kB",
+      "limit": "64.4 kB",
       "gzip": true
     },
     {
@@ -1310,6 +1314,16 @@
       "name": "./chip",
       "path": "dist/chip.js",
       "limit": "13 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./kind-config-editor",
+      "path": "dist/kind-config-editor.js",
+      "limit": "21 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

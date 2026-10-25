@@ -1,5 +1,5 @@
 // dist/native.js is for React Native: no "use client" directive, no react-dom, no DOM. It may import only React,
-// react-native, react-native-svg and @krizaka/pacer/react (the tokens are inlined), and its declarations only React and react-native.
+// react-native, react-native-svg and @krizaka/pacer/react (the tokens are inlined), and its declarations only React, react-native and the types of @krizaka/organize/contract.
 // Run by `pnpm --filter @krizaka/ui publint` after the build.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -15,7 +15,10 @@ const ALLOWED = new Set(["react", "react/jsx-runtime", "react-native", "react-na
 
 assert.ok(!/["']use client["']/.test(js), "dist/native.js carries a \"use client\" directive");
 for (const spec of specifiers(js)) assert.ok(ALLOWED.has(spec), `dist/native.js imports ${spec}`);
-for (const spec of specifiers(dts)) assert.ok(ALLOWED.has(spec), `dist/native.d.ts imports ${spec}`);
+// The declarations of the editors name the types of @krizaka/organize's browser-safe contract (StatusSet, Marker…): a dependency of this
+// package, types only — dist/native.js above still imports nothing of it.
+const DTS_ALLOWED = new Set([...ALLOWED, "@krizaka/organize/contract"]);
+for (const spec of specifiers(dts)) assert.ok(DTS_ALLOWED.has(spec), `dist/native.d.ts imports ${spec}`);
 assert.ok(!/\b(document|window|HTMLElement|localStorage|matchMedia)\b/.test(js.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "")), "dist/native.js touches the DOM");
 assert.ok(specifiers(js).includes("react-native"), "dist/native.js does not import react-native");
 console.log(`✓ dist/native.js: no "use client", no DOM; imports ${[...new Set(specifiers(js))].join(", ")}`);
