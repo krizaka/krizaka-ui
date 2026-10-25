@@ -30,7 +30,7 @@ export const slotPicker = tv({
       "inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-sm border border-border-default bg-surface-1 px-3 text-sm font-semibold text-fg no-underline " +
       "transition-colors hover:border-border-strong focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-disabled:cursor-not-allowed aria-disabled:opacity-50",
     groups: "m-0 flex list-none flex-col gap-3 p-0",
-    groupLabel: "m-0 mb-1.5 text-xs font-bold uppercase tracking-wide text-fg-secondary",
+    groupLabel: "m-0 mb-1.5 text-xs font-bold text-fg-secondary",
     footer: "m-0 text-xs text-fg-secondary",
     empty: "m-0 rounded-xl border border-dashed border-border-default px-4 py-6 text-center text-sm text-fg-secondary",
   },
@@ -89,8 +89,9 @@ export type SlotPickerProps = Omit<React.ComponentProps<"div">, "onChange" | "de
   week?: string;
   /** Called with the ISO date of the week asked for (± 7 days, or `todayWeek`). The host loads that week's days. */
   onWeekChange?: (week: string) => void;
-  /** The earliest and the latest week the host offers (ISO dates): the button at that end is disabled. */
+  /** The earliest week the host offers (ISO date): ← is disabled there. */
   minWeek?: string;
+  /** The latest week the host offers (ISO date): → is disabled there. */
   maxWeek?: string;
   /** The current week, where « Today » goes back to. Default: `minWeek`. */
   todayWeek?: string;
