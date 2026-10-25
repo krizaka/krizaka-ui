@@ -32,6 +32,18 @@ const drag = (type: string, files = true) => {
 };
 
 describe("DropOverlay", () => {
+  it("requires a callback unless active is a defined boolean", () => {
+    void <DropOverlay label="Déposez" onFiles={() => {}} />;
+    void <DropOverlay label="Déposez" active={false} />;
+    void <DropOverlay label="Déposez" active />;
+    // @ts-expect-error DOM drops need a callback.
+    void <DropOverlay label="Déposez" />;
+    // @ts-expect-error An undefined active prop still selects DOM mode.
+    void <DropOverlay label="Déposez" active={undefined} />;
+    // @ts-expect-error A possibly undefined active prop can select DOM mode.
+    void <DropOverlay label="Déposez" active={undefined as boolean | undefined} />;
+  });
+
   it("covers the window while files are dragged over it, and hands the dropped files over", () => {
     const onFiles = vi.fn();
     render(<DropOverlay label="Déposez pour vérifier" onFiles={onFiles} />);
@@ -66,5 +78,33 @@ describe("DropOverlay", () => {
     act(() => void window.dispatchEvent(drag("dragenter")));
     act(() => void window.dispatchEvent(event));
     expect(onFiles).toHaveBeenCalledWith([pdf], [png]);
+  });
+});
+
+describe("DropOverlay, controlled", () => {
+  it("shows while `active` is true and ignores the DOM drag events", () => {
+    const onFiles = vi.fn();
+    const { rerender } = render(<DropOverlay label="Déposez" active={false} onFiles={onFiles} />);
+    act(() => void window.dispatchEvent(drag("dragenter")));
+    expect(screen.queryByText("Déposez")).toBeNull();
+    for (const active of [false, true]) {
+      rerender(<DropOverlay label="Déposez" active={active} onFiles={onFiles} />);
+      const over = drag("dragover");
+      const drop = drag("drop");
+      act(() => {
+        window.dispatchEvent(over);
+        window.dispatchEvent(drop);
+      });
+      expect(over.defaultPrevented).toBe(false);
+      expect(drop.defaultPrevented).toBe(false);
+      expect(onFiles).not.toHaveBeenCalled();
+    }
+    expect(screen.getByText("Déposez")).toBeTruthy();
+    rerender(<DropOverlay label="Déposez" active={false} />);
+    expect(screen.queryByText("Déposez")).toBeNull();
+    rerender(<DropOverlay label="Déposez" active />);
+    expect(screen.getByText("Déposez")).toBeTruthy();
+    rerender(<DropOverlay label="Déposez" active disabled />);
+    expect(screen.queryByText("Déposez")).toBeNull();
   });
 });
