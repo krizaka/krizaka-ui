@@ -1,5 +1,13 @@
 # @krizaka/charts
 
+## 0.6.2
+
+### Patch Changes
+
+- Updated dependencies [[`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`ba195fb`](https://github.com/krizaka/krizaka-ui/commit/ba195fb1d4ec5458803777bf62abfd77ba5aa827), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`8a65333`](https://github.com/krizaka/krizaka-ui/commit/8a65333d4ec58f164178d5eab7b81709374bb45c), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`68cad54`](https://github.com/krizaka/krizaka-ui/commit/68cad54b00f217ecaf4de93a62f57d894a408cac), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`4339b89`](https://github.com/krizaka/krizaka-ui/commit/4339b898aab59b2c29343cb5feab7e8d201aba65), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812), [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812)]:
+  - @krizaka/ui@3.55.0
+  - @krizaka/intl@0.4.0
+
 ## 0.6.1
 
 ### Patch Changes
