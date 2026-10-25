@@ -426,7 +426,7 @@ export function StatusSetEditor({ value, onChange, roles, locale = "en", problem
                       )}
                     >
                       <span aria-hidden>→</span> {nameOf(to.key)}
-                      <span className="text-fg-secondary">{summary}</span>
+                      <span className="text-fg">{summary}</span>
                     </button>
                   );
                 })
