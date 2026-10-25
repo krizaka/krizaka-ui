@@ -4,7 +4,8 @@
 // published after the merge: installing the packed tarball alone fails with E404/ETARGET (DS5 had to pre-publish
 // tokens by hand). Installing the tarballs of the siblings in the same command satisfies the range from the tree.
 import { execFileSync } from "node:child_process";
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 
 /** Runs a command; a failure says what the command printed (an npm or pnpm error is in its output, not in its exit code). */
@@ -65,3 +66,22 @@ export function packWithSiblings(pkgDir, outDir, run = defaultRun) {
     return { name, tarball: join(outDir, basename(filename)) };
   });
 }
+
+/**
+ * The package as a product installs it: packed with its workspace siblings, installed alone in an empty folder with
+ * `extra` (its peers: React…), then `script` (an ES module of assertions) run from there. One harness for every
+ * package's `scripts/consumer.mjs`; the folder is removed whatever happens. Returns what the script printed.
+ */
+export function installedAlone(pkgDir, { extra = ["react@19", "react-dom@19"], script }, run = defaultRun) {
+  const dir = mkdtempSync(join(tmpdir(), `${basename(pkgDir)}-consumer-`));
+  try {
+    const tarballs = packWithSiblings(pkgDir, dir, run).map((entry) => entry.tarball);
+    writeFileSync(join(dir, "package.json"), JSON.stringify({ name: "consumer", private: true, type: "module" }));
+    run("npm", ["install", "--no-audit", "--no-fund", "--loglevel=error", ...tarballs, ...extra], dir);
+    writeFileSync(join(dir, "check.mjs"), script);
+    return run("node", ["check.mjs"], dir);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
+

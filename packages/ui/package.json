@@ -253,6 +253,10 @@
       "types": "./dist/nav-bar.d.ts",
       "import": "./dist/nav-bar.js"
     },
+    "./nav-bar/me": {
+      "types": "./dist/nav-bar/me.d.ts",
+      "import": "./dist/nav-bar/me.js"
+    },
     "./account-settings": {
       "types": "./dist/account-settings.d.ts",
       "import": "./dist/account-settings.js"
@@ -1401,7 +1405,7 @@
     {
       "name": "./nav-bar (Radix NavigationMenu, Slot, the family's marks)",
       "path": "dist/nav-bar.js",
-      "limit": "27 kB",
+      "limit": "27.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1639,6 +1643,12 @@
     {
       "name": "./language-switch/server",
       "path": "dist/language-switch/server.js",
+      "limit": "1 kB",
+      "gzip": true
+    },
+    {
+      "name": "./nav-bar/me",
+      "path": "dist/nav-bar/me.js",
       "limit": "1 kB",
       "gzip": true
     },
