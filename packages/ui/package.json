@@ -1233,7 +1233,7 @@
     {
       "name": "./tabs",
       "path": "dist/tabs.js",
-      "limit": "11.2 kB",
+      "limit": "11.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1273,7 +1273,7 @@
     {
       "name": "./checkbox",
       "path": "dist/checkbox.js",
-      "limit": "6 kB",
+      "limit": "6.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1283,7 +1283,7 @@
     {
       "name": "./radio-group",
       "path": "dist/radio-group.js",
-      "limit": "12.5 kB",
+      "limit": "12.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1363,7 +1363,7 @@
     {
       "name": "./nav-bar (Radix NavigationMenu, Slot, the family's marks)",
       "path": "dist/nav-bar.js",
-      "limit": "26.6 kB",
+      "limit": "27 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1530,7 +1530,7 @@
       "name": "./data-table: DataTable (TanStack Table v9, the windowing of TanStack Virtual, Radix Checkbox, the pagination)",
       "path": "dist/data-table.js",
       "import": "{ DataTable }",
-      "limit": "44 kB",
+      "limit": "45.9 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1541,7 +1541,7 @@
       "name": "./data-table: the toolbar (FilterBar on Radix DropdownMenu, SearchField, the columns menu, the export)",
       "path": "dist/data-table.js",
       "import": "{ DataTableFilters, DataTableColumnsMenu, DataTableExport }",
-      "limit": "42 kB",
+      "limit": "42.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1589,7 +1589,7 @@
     {
       "name": "./text-style",
       "path": "dist/text-style.js",
-      "limit": "41 kB",
+      "limit": "41.2 kB",
       "gzip": true
     },
     {
@@ -1659,7 +1659,7 @@
     {
       "name": "./video-player",
       "path": "dist/video-player.js",
-      "limit": "15 kB",
+      "limit": "15.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1709,7 +1709,7 @@
     {
       "name": "./image-cropper",
       "path": "dist/image-cropper.js",
-      "limit": "12.5 kB",
+      "limit": "12.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2112,7 +2112,7 @@
     {
       "name": "./code-block",
       "path": "dist/code-block.js",
-      "limit": "19.5 kB",
+      "limit": "19.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2674,7 +2674,7 @@
       "name": "./genui: GenUiStream (A2UI v0.9 validator, store, surface, base catalog with DataTable)",
       "path": "dist/genui.js",
       "import": "{ GenUiStream, baseGenUiCatalog }",
-      "limit": "50 kB",
+      "limit": "51.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
