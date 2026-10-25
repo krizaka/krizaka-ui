@@ -1,5 +1,26 @@
 # @krizaka/ui
 
+## 3.57.0
+
+### Minor Changes
+
+- [#566](https://github.com/krizaka/krizaka-ui/pull/566) [`5cf4493`](https://github.com/krizaka/krizaka-ui/commit/5cf44933b83a4400d2d38f3ae8d8c21e8670e407) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Add `SiteCahier` (`@krizaka/ui/site-cahier`, with `SiteCahierHero` and `SiteCahierDoc`), the template of the tool sites that wear krizaka.com's identity — the Cahier, the site's bird and hue, taped prints — as a frame and regions to compose, not a fixed page. Add the retro pieces of the Krizaka style: `GradeStamp` (a teacher's grade, from real data with its source), `VersusCard` (an arcade face-off with stat bars from real data) and `SpeedLines` (manga action lines, still under reduced motion). `Doodle` (krizaka-ui#565) learns the marks the tool sites need: a `circle` or a `wave` around real text (`children` — the word stays text, the ink is drawn around it), the five birds' sketches (`bird`), `flip`, and a `label` that turns a mark that says something into an image. Proposed birds: Krizaka UI → duck, Java → owl, TypeScript → pigeon, Motion → flamingo.
+
+- [#698](https://github.com/krizaka/krizaka-ui/pull/698) [`914b702`](https://github.com/krizaka/krizaka-ui/commit/914b70297b43bab36182249158344207640dbdb0) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Tags, statuses and views (ADR-006 §7, [#627](https://github.com/krizaka/krizaka-ui/issues/627)) — the surfaces of `@krizaka/organize@0.4.0` (krizaka-ts#89), built on `chip`, `tag-selector`, `filter-bar` and `data-table` — no new entry.
+  
+  - **Tokens:** the closed palette of tag markers — six names, `blue · green · amber · red · violet · gray`, as `--kz-tag-<name>` (the dot, ≥ 3:1) and `--kz-tag-<name>-text` (≥ 4.5:1) on every surface of both themes and of the product register. A test proves they are never a status tone or a product's accent (ΔE ≥ 10) and never twins of each other. The native theme gains the same roles (`tagBlue`, `tagBlueText`…).
+  - **`@krizaka/ui/chip`:** `TagChip` (a name with its marker, a dot or Yomizaka's bookmark ribbon; alone, in `Chip.Group` or removable), `TagMarker`, `MarkerPicker` (recolour from the six, named and ticked), and `StatusChip`: a state of a `StatusSet` — read-only when the set is derived, the role has no move or nobody listens; otherwise a menu of `movesFrom(set, state, role)` in the set's order, a second press for a move that asks to be confirmed, a reason picked from a list (never typed). Labels in the person's language. React Native: the same, the status chip taking its moves resolved (its menu is an action sheet).
+  - **`@krizaka/ui/tag-selector`:** an option may carry a `marker`; `creatable` adds a field — type to narrow, Enter takes the tag of that name or creates it in the colour chosen (`onCreate(name, marker)`), Backspace takes the last back.
+  - **`@krizaka/ui/filter-bar`:** `SavedViews` (and `FilterBar views`): the `system`, `workspace` and `mine` views as chips with counts, a « modified » mark, « Save view », rename and delete; links when the views have an address; **one menu on a phone** (« View: To decide »).
+  - **`@krizaka/ui/data-table`:** `SelectionBar` and `DataTable bulkActions` — the count, the actions the product gives, « Clear selection » and what the last change did, announced politely; sticky, docked above the tab bar on a phone (`--kz-dock-offset`); it says so past the most the service takes (`bulkMax`, 200).
+  - `@krizaka/organize` (≥ 0.4, its browser-safe `/contract` only) is now a dependency of `@krizaka/ui`.
+
+### Patch Changes
+
+- Updated dependencies [[`914b702`](https://github.com/krizaka/krizaka-ui/commit/914b70297b43bab36182249158344207640dbdb0)]:
+  - @krizaka/tokens@3.57.0
+  - @krizaka/tailwind@3.57.0
+
 ## 3.56.0
 
 ### Minor Changes
