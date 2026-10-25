@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import MarkerPickerExample from "../../registry/examples/chip/native/marker-picker";
 import MultipleExample from "../../registry/examples/chip/native/multiple";
 import RemovableExample from "../../registry/examples/chip/native/removable";
 import SingleExample from "../../registry/examples/chip/native/single";
+import TagsExample from "../../registry/examples/chip/native/tags";
 import ToggleExample from "../../registry/examples/chip/native/toggle";
 import { Chip } from "./chip";
 import { nativeFrame } from "./story-frame";
@@ -25,3 +27,5 @@ export const Toggle: Story = { render: () => <ToggleExample /> };
 export const Single: Story = { render: () => <SingleExample /> };
 export const Multiple: Story = { render: () => <MultipleExample /> };
 export const Removable: Story = { render: () => <RemovableExample /> };
+export const Tags: Story = { render: () => <TagsExample /> };
+export const MarkerPicker: Story = { render: () => <MarkerPickerExample /> };

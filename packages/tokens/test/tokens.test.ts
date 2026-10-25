@@ -683,6 +683,67 @@ describe("ADR-006 (krizaka-ui#669): the new roles leave the Cahier as it is", ()
   });
 });
 
+describe("tag markers (ADR-006, krizaka-ui#627; @krizaka/organize MARKERS)", () => {
+  const names = ["blue", "green", "amber", "red", "violet", "gray"];
+  // The Cahier's four surfaces and the product register's three (blocks.css), in both themes.
+  const hex = (h: string) => ({ r: Number.parseInt(h.slice(1, 3), 16), g: Number.parseInt(h.slice(3, 5), 16), b: Number.parseInt(h.slice(5, 7), 16), a: 1 });
+  const surfacesOf = (mode: "dark" | "light") => [
+    ...["--kz-surface-0", "--kz-surface-1", "--kz-surface-2", "--kz-surface-3"].map((n) => parseHsl(color(n, mode))),
+    ...(mode === "dark" ? ["#111318", "#171a21", "#1e222b"] : ["#fbfbfa", "#ffffff", "#f4f4f2"]).map(hex),
+  ];
+  const lab = (c: { r: number; g: number; b: number }) => {
+    const lin = (v: number) => ((v / 255) <= 0.04045 ? v / 255 / 12.92 : ((v / 255 + 0.055) / 1.055) ** 2.4);
+    const [r, g, b] = [lin(c.r), lin(c.g), lin(c.b)];
+    const f = (t: number) => (t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116);
+    const x = f((0.4124 * r + 0.3576 * g + 0.1805 * b) / 0.95047);
+    const y = f(0.2126 * r + 0.7152 * g + 0.0722 * b);
+    const z = f((0.0193 * r + 0.1192 * g + 0.9505 * b) / 1.08883);
+    return [116 * y - 16, 500 * (x - y), 200 * (y - z)];
+  };
+  const distance = (a: { r: number; g: number; b: number }, b: { r: number; g: number; b: number }) => Math.hypot(...lab(a).map((v, i) => v - lab(b)[i]!));
+
+  it("declares the six names of the contract, as a dot and as a text role, in both themes", () => {
+    for (const name of names) {
+      for (const role of [`--kz-tag-${name}`, `--kz-tag-${name}-text`]) {
+        expect(dark.has(role), role).toBe(true);
+        expect(light.has(role), `${role} (light)`).toBe(true);
+      }
+    }
+    expect([...dark.keys()].filter((n) => n.startsWith("--kz-tag-") && !n.endsWith("-text")).map((n) => n.slice(9))).toEqual(names);
+  });
+
+  for (const mode of ["dark", "light"] as const) {
+    it(`${mode}: the dot reads at 3:1 and the text at 4.5:1 on the Cahier's and the product register's surfaces`, () => {
+      for (const name of names) {
+        const dot = parseHsl(color(`--kz-tag-${name}`, mode));
+        const text = parseHsl(color(`--kz-tag-${name}-text`, mode));
+        for (const bg of surfacesOf(mode)) {
+          expect(contrast(dot, bg), `${name} dot`).toBeGreaterThanOrEqual(3);
+          expect(contrast(text, bg), `${name} text`).toBeGreaterThanOrEqual(4.5);
+        }
+      }
+    });
+
+    it(`${mode}: no marker is a status tone or a product's accent (ΔE ≥ 10)`, () => {
+      const others = [
+        ...["success", "warning", "danger"].map((r) => color(`--kz-${r}`, mode)),
+        ...Object.values(brandsIndex).map((b) => b[mode]!.accent!),
+      ];
+      for (const name of names) {
+        const dot = parseHsl(color(`--kz-tag-${name}`, mode));
+        for (const other of others) expect(distance(dot, parseHsl(other)), `${name} vs ${other}`).toBeGreaterThanOrEqual(10);
+      }
+    });
+  }
+
+  it("keeps the six markers apart from each other (ΔE ≥ 20): the colour is never the only signal, but it is never a twin", () => {
+    for (const mode of ["dark", "light"] as const) {
+      const dots = names.map((n) => parseHsl(color(`--kz-tag-${n}`, mode)));
+      for (let i = 0; i < dots.length; i++) for (let j = i + 1; j < dots.length; j++) expect(distance(dots[i]!, dots[j]!), `${names[i]} vs ${names[j]} (${mode})`).toBeGreaterThanOrEqual(20);
+    }
+  });
+});
+
 describe("Cahier (ADR-004, krizaka-ui#417): the template tells are gone at the source", () => {
   const all = new Map([...dark, ...invariant]);
   /** The layers of a box-shadow value: `x y blur spread color`. */

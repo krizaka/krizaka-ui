@@ -88,7 +88,7 @@
     {
       "name": "./tokens.css",
       "path": "dist/tokens.css",
-      "limit": "5.4 kB",
+      "limit": "5.9 kB",
       "gzip": true,
       "rolldown": false
     },
@@ -109,13 +109,13 @@
     {
       "name": ".",
       "path": "dist/index.js",
-      "limit": "4.5 kB",
+      "limit": "4.7 kB",
       "gzip": true
     },
     {
       "name": "./native",
       "path": "dist/native.js",
-      "limit": "2.5 kB",
+      "limit": "2.7 kB",
       "gzip": true
     }
   ]

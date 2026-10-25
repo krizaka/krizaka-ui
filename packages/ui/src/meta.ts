@@ -11,6 +11,7 @@
 export type ComponentName =
   | "notification-preferences"
   | "quota-meter"
+  | "status-chip"
   | "agenda"
   | "account-settings"
   | "drop-overlay"

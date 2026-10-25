@@ -7,7 +7,7 @@
 
 - The **primitives** (level 1 of the root contract): `cn`, `slot`, `button`, `badge`, `avatar`, `field`, `theme`,
   `skeleton`, `empty-state`, `spinner`, `countdown`, `card`, `dialog`, `toast`, `popover`, `dropdown-menu`, `tooltip`,
-  `stat`, `page-header`, `alert`, `separator`, `kbd`, `tabs`, `chip`, `switch`, `slider`, `checkbox`, `radio-group`,
+  `stat`, `page-header`, `alert`, `separator`, `kbd`, `tabs`, `chip`, `status-chip`, `switch`, `slider`, `checkbox`, `radio-group`,
   `command`, `confirm-button`, `progress`, `section-backdrop`, `loader`, `meter`, `stepper`, `number-ticker`, `terminal-replay`,
   `nav-bar` (with the family switcher `NavBar.Family`), `language-switch` (the one language control of the family), `sites` (the Krizaka family as data), `site-footer`, `chip-link`, `glow-card`, `marquee`, `iso`, `mascots`, `elephant` (the neighbour joke: a small standing or flying mark, Yororis), and the data and media primitives `pagination`,
   `data-table` (TanStack Table v9), `virtual` (TanStack Virtual v3), `form` (TanStack Form v1: `./form`, `./form/server`, `./native/form`), `filter-bar`, `combobox`, `tag-input`, `date-picker`, `search-field`, `video-player`, `file-upload`,
@@ -74,7 +74,7 @@
   `./confirm-button` ≤ 4 kB, `./progress` ≤ 1.8 kB, `./section-backdrop` ≤ 1 kB, `./mascots` ≤ 5.5 kB (seven birds' geometry and the phoenix; the crane +0.27 kB), `./iso` ≤ 4.5 kB (a hero with no
   client JavaScript), `./loader`, `./meter`, `./stepper`, `./glow-card`, `./chip-link` ≤ 2 kB, `./motion`, `./number-ticker`,
   `./marquee` ≤ 1.5 kB, `./update-prompt`, `./force-update-screen` and `./maintenance-screen` ≤ 3.5 kB (the screens of the app-version contract, on the `./button` entry), `./showcase` ≤ 3 kB (the slideshow's state, observers and controls), `./terminal-replay` ≤ 2.5 kB (its timer, observer and controls), the other atoms ≤ 1 kB. The controls carry Radix's roving focus
-  or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6 kB, `./chip` ≤ 10 kB, `./tabs` ≤ 12.3 kB (3.56: the binder dividers, #648), `./radio-group`
+  or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6 kB, `./chip` ≤ 13 kB (3.57: `TagChip` and `MarkerPicker` on Radix's radio group, #627), `./status-chip` ≤ 32 kB (the badge, Radix's menu and `@krizaka/organize/contract`), `./tabs` ≤ 12.3 kB (3.56: the binder dividers, #648), `./radio-group`
   ≤ 12.5 kB (3.2: the tactile keys, the cards' check and the segments' gliding light), `./slider` ≤ 12 kB. What opens over the page carries Radix's machinery (dismissable layer, focus scope, scroll lock,
   and Floating UI for what is placed next to a trigger) — shared between these entries in an app, but counted in
   each: `./dialog` ≤ 16.5 kB, `./toast` ≤ 11.5 kB (sonner), `./nav-bar` ≤ 24.6 kB (Radix NavigationMenu and the family's marks — 3.13: +0.6 kB for the Yomizaka mark; 3.15: +0.8 kB for Kachizaka and Akinaza; NAV-STD: +0.7 kB for the language switch and the panel placement), `./language-switch` ≤ 2.4 kB (a disclosure, no menu engine), `./tooltip` ≤ 20 kB, `./popover` ≤ 25 kB,
@@ -83,9 +83,9 @@
   counted, the optional peers hls.js / expo-video / expo-camera never bundled — the app passes or installs them):
   `./pagination` ≤ 2 kB, `./video-trimmer` ≤ 2.4 kB, `./audio-player` ≤ 2.8 kB, `./search-field` ≤ 5.5 kB (its debounce is `@krizaka/pacer`, on TanStack Pacer and its store),
   `./media-capture` ≤ 3.8 kB, `./file-upload` ≤ 9 kB (it draws `Progress`; its queue is `@krizaka/pacer`: retries, backoff, per-file pause), `./data-table` ≤ 44 kB for `DataTable` (TanStack Table v9 with every feature registered, the windowing of TanStack Virtual, Radix Checkbox, the pagination) — 47.9 kB since the phone's list rows (#636, +0.65 kB of classes; `./genui`, which draws it, follows) and ≤ 41 kB for its toolbar (`FilterBar` on Radix DropdownMenu, `SearchField`), `./virtual` ≤ 12 kB (TanStack Virtual),
-  `./image-cropper` ≤ 12.5 kB, `./document-viewer` ≤ 5 kB (pdf.js is the app's) and `./video-player` ≤ 15 kB (Radix Slider), `./combobox` ≤ 15.5 kB and `./tag-input` ≤
-  16 kB (the chips' Radix Toggle), `./date-picker` ≤ 35 kB (Radix Popover; 3.2: the month picker, the day strip, the wheels, the time picker, the typed date and the date wheel), `./filter-bar` ≤ 34 kB (Radix
-  DropdownMenu); `./native/video-player` ≤ 2 kB, `./native/media-capture` ≤ 2.5 kB, `./native/list` ≤ 2 kB (FlashList and @krizaka/query are the app's), `./form` ≤ 24.5 kB and `./native/form` ≤ 23 kB (TanStack Form v1 and its store, ~20 kB measured; the fields import the primitives' entries), `./form/server` ≤ 1.5 kB, `./map` ≤ 16 kB and `./native/map` ≤ 13.5 kB (the basemap's layers of @protomaps/basemaps and the inlined tokens the style is generated from; MapLibre, PMTiles and MapLibre Native are optional peers, loaded on demand on the web). The page blocks (their styles are
+  `./image-cropper` ≤ 12.5 kB, `./document-viewer` ≤ 5 kB (pdf.js is the app's) and `./video-player` ≤ 15 kB (Radix Slider), `./combobox` ≤ 15.5 kB, `./tag-selector` ≤ 13.7 kB (it draws `TagChip` and `MarkerPicker`) and `./tag-input` ≤
+  16 kB (the chips' Radix Toggle), `./date-picker` ≤ 35 kB (Radix Popover; 3.2: the month picker, the day strip, the wheels, the time picker, the typed date and the date wheel), `./filter-bar` ≤ 35.4 kB (Radix
+  DropdownMenu; 3.57: `SavedViews`, #627); `./native/video-player` ≤ 2 kB, `./native/media-capture` ≤ 2.5 kB, `./native/list` ≤ 2 kB (FlashList and @krizaka/query are the app's), `./form` ≤ 24.5 kB and `./native/form` ≤ 23 kB (TanStack Form v1 and its store, ~20 kB measured; the fields import the primitives' entries), `./form/server` ≤ 1.5 kB, `./map` ≤ 16 kB and `./native/map` ≤ 13.5 kB (the basemap's layers of @protomaps/basemaps and the inlined tokens the style is generated from; MapLibre, PMTiles and MapLibre Native are optional peers, loaded on demand on the web). The page blocks (their styles are
   `blocks.css`, not counted): `./cta-panel`, `./card-grid`, `./pointer-light`, `./link-card`, `./decision-list`, `./toc`, `./next-actions`, `./glossary` ≤ 1 kB,
   `./kpi-explained` ≤ 3 kB, `./glossary-term` ≤ 20 kB (Radix Tooltip), `./text-style` ≤ 41 kB (it carries the radio group, slider, switch and button it is made of, and zod/mini) and `./text-style/server` ≤ 9 kB,
   `./page` ≤ 1.25 kB (3.36: `paper`, `margin`, `number`), `./page-hero` ≤ 1.2 kB, `./argument-card`, `./action-bar` ≤ 1.4 kB, the Cahier's blocks (ADR-004) `./anatomy-plate`, `./footnote` ≤ 1 kB, `./specimen-tag`, `./page-index` ≤ 1.2 kB, `./chapter` ≤ 1.5 kB (three blocks), `./bird-plate` ≤ 5.8 kB (the birds' geometry), `./mascot-quote` ≤ 5 kB (the bird's
@@ -100,7 +100,7 @@
 - The published surface: exports `.`, one entry per primitive (`./cn`, `./slot`, `./button`, `./badge`, `./avatar`,
   `./field`, `./theme`, `./skeleton`, `./empty-state`, `./spinner`, `./countdown`, `./card`, `./dialog`, `./toast`,
   `./popover`, `./dropdown-menu`, `./tooltip`, `./stat`, `./page-header`, `./alert`, `./separator`, `./kbd`, `./tabs`,
-  `./chip`, `./chip-link`, `./switch`, `./slider`, `./checkbox`, `./radio-group`, `./command`, `./confirm-button`, `./progress`,
+  `./chip`, `./status-chip`, `./chip-link`, `./switch`, `./slider`, `./checkbox`, `./radio-group`, `./command`, `./confirm-button`, `./progress`,
   `./section-backdrop`, `./iso`, `./motion`, `./loader`, `./nav-bar`, `./language-switch`, `./sites`, `./site-footer`, `./number-ticker`, `./terminal-replay`, `./glow-card`, `./marquee`, `./stepper`,
   `./meter`, `./mascots`, `./pagination`, `./data-table`, `./filter-bar`, `./combobox`, `./tag-input`, `./date-picker`,
   `./search-field`, `./video-player`, `./file-upload`, `./media-capture`, `./video-trimmer`, `./audio-player`,
