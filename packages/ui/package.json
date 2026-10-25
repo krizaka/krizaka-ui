@@ -1036,7 +1036,7 @@
     {
       "name": "./theme",
       "path": "dist/theme.js",
-      "limit": "2 kB",
+      "limit": "2.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

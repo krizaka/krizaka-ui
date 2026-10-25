@@ -1,0 +1,48 @@
+{
+  "$description": "Apparence (ADR-006 §4, krizaka-ui#657) : les thèmes que l'utilisateur d'un produit choisit, en données. Un produit passe le sous-ensemble qu'il offre. Deux jeux de surfaces optionnels en plus de Système, Clair et Sombre (aux couleurs de la marque) : Blueprint (marine) et Carbone (presque noir). Les papiers (Séyès, Kraft, Washi) ne sont jamais dans un produit connecté. Les thèmes aux noms de marque ne sont pas des thèmes : l'accent est une autre rangée.",
+  "densities": ["standard", "compact"],
+  "base": {
+    "$description": "Les surfaces du registre produit (blocks.css de @krizaka/ui), pour calculer le contraste de chaque combinaison.",
+    "light": { "surface-0": "#fbfbfa", "surface-1": "#ffffff", "surface-2": "#f4f4f2", "surface-3": "#f0f0ed", "text-primary": "#242c3d", "text-secondary": "#576275", "text-muted": "#646d80" },
+    "dark": { "surface-0": "#111318", "surface-1": "#171a21", "surface-2": "#1e222b", "surface-3": "#272c37", "text-primary": "#e8ebf1", "text-secondary": "#a9b1bf", "text-muted": "#959eae" }
+  },
+  "sets": {
+    "blueprint": {
+      "$description": "Marine : la nuit du plan. Sombre uniquement.",
+      "surface-0": "hsl(222 40% 9%)",
+      "surface-1": "hsl(222 38% 12%)",
+      "surface-2": "hsl(222 36% 15%)",
+      "surface-3": "hsl(222 32% 20%)",
+      "text-title": "hsl(215 45% 96%)",
+      "text-primary": "hsl(215 40% 93%)",
+      "text-secondary": "hsl(215 24% 76%)",
+      "text-muted": "hsl(215 18% 69%)",
+      "border-subtle": "hsl(215 60% 90% / 0.05)",
+      "border-default": "hsl(215 60% 90% / 0.10)",
+      "border-strong": "hsl(215 60% 90% / 0.20)",
+      "border-control": "hsl(222 16% 46%)"
+    },
+    "carbone": {
+      "$description": "Presque noir, neutre. Sombre uniquement. Le vert d'un accent y garde un texte sombre dessus (on-accent), jamais du blanc (2,3:1).",
+      "surface-0": "hsl(0 0% 5.5%)",
+      "surface-1": "hsl(0 0% 8.5%)",
+      "surface-2": "hsl(0 0% 11.5%)",
+      "surface-3": "hsl(0 0% 16%)",
+      "text-title": "hsl(0 0% 96%)",
+      "text-primary": "hsl(0 0% 93%)",
+      "text-secondary": "hsl(0 0% 75%)",
+      "text-muted": "hsl(0 0% 66%)",
+      "border-subtle": "hsl(0 0% 100% / 0.05)",
+      "border-default": "hsl(0 0% 100% / 0.10)",
+      "border-strong": "hsl(0 0% 100% / 0.20)",
+      "border-control": "hsl(0 0% 42%)"
+    }
+  },
+  "themes": [
+    { "id": "system", "base": "system", "required": true },
+    { "id": "light", "base": "light", "required": true },
+    { "id": "dark", "base": "dark", "required": true },
+    { "id": "blueprint", "base": "dark", "set": "blueprint" },
+    { "id": "carbone", "base": "dark", "set": "carbone" }
+  ]
+}
