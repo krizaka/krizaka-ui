@@ -273,6 +273,7 @@ export async function collectRegistry() {
             entry: meta.native.entry ?? "@krizaka/ui/native",
             import: importLine(meta.native.imports, meta.native.entry ?? "@krizaka/ui/native"),
             differences: meta.native.differences,
+            deprecated: meta.native.deprecated ?? null,
             props: nativeProps[name] ?? [],
             examples: nativeExamples,
           }

@@ -5,9 +5,11 @@
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
+import { warnDeprecated } from "../deprecated";
 import { clamp } from "../media";
 import { Slider } from "../slider";
 
+/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const imageCropper = tv({
   slots: {
     root: "flex w-full flex-col gap-3",
@@ -25,7 +27,10 @@ export const imageCropper = tv({
 /** Where the frame looks: the focus point (0–1 from the left and the top of the source) and the zoom (1 = covers). */
 export type CropValue = { x: number; y: number; zoom: number };
 
-/** The crop in pixels of the source: what to cut from an image of `width` × `height` for a frame of `aspect`. */
+/**
+ * The crop in pixels of the source: what to cut from an image of `width` × `height` for a frame of `aspect`.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function cropRect(value: CropValue, source: { width: number; height: number }, aspect: number) {
   const mediaAspect = source.width / source.height;
   const width = (mediaAspect > aspect ? source.height * aspect : source.width) / value.zoom;
@@ -44,6 +49,7 @@ export type ImageCropperLabels = {
   zoom: string;
 };
 
+/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const imageCropperLabels: ImageCropperLabels = {
   frame: "Crop area",
   instructions: "Drag or use the arrow keys to move the picture, + and − to zoom.",
@@ -79,7 +85,10 @@ export type ImageCropperProps = {
   className?: string;
 };
 
-/** Chooses what a fixed frame keeps of a picture or a video: drag, zoom, keyboard; a focus point and a zoom out. */
+/**
+ * Chooses what a fixed frame keeps of a picture or a video: drag, zoom, keyboard; a focus point and a zoom out.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function ImageCropper({
   src,
   alt = "",
@@ -95,6 +104,7 @@ export function ImageCropper({
   labels: given,
   className,
 }: ImageCropperProps) {
+  warnDeprecated("image-cropper");
   const labels = { ...imageCropperLabels, ...given };
   const s = imageCropper();
   const frame = React.useRef<HTMLDivElement>(null);

@@ -4,6 +4,7 @@
 import * as React from "react";
 
 import { cn } from "../cn";
+import { warnDeprecated } from "../deprecated";
 import { brandClass, type StoryVariant, storyVariantClass } from "../story-variant";
 
 export type { StoryVariant };
@@ -35,8 +36,10 @@ export type ScrollStageProps = React.HTMLAttributes<HTMLElement> & {
  * the viewport — its parts then arrive in order (the visual, the announcement, the words: `data-kzs-reveal`) — and
  * `data-live` while it is visible, which runs its one loop. Until the stage has switched motion on, and under
  * `prefers-reduced-motion`, everything is visible and still.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
 export function ScrollStage({ as: Tag = "div", variant, threshold = 0.2, className, children, ...props }: ScrollStageProps) {
+  warnDeprecated("scroll-stage");
   const ref = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
     const root = ref.current;
@@ -86,7 +89,11 @@ export type SceneProps = React.HTMLAttributes<HTMLElement> & {
   brand?: string;
 };
 
-/** A chapter of a `ScrollStage`: played once when it enters the viewport, its loop running while it is visible. */
+/**
+ * A chapter of a `ScrollStage`: played once when it enters the viewport, its loop running while it is visible.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function Scene({ as: Tag = "section", brand, className, children, ...props }: SceneProps) {
+  warnDeprecated("scroll-stage");
   return React.createElement(Tag, { "data-kzs-scene": "", className: cn(brandClass(brand), className) || undefined, ...props }, children);
 }

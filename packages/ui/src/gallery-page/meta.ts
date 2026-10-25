@@ -3,7 +3,13 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Gallery page",
   summary: "A demo or a gallery: the filters as links, then the pieces in staggered columns, each framed with how it was made.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    use: "catalogue-page",
+    reason: "No page uses this template and no filed need names it (ADR-006 audit, 2026-10-25). Compose a gallery on `CataloguePage`.",
+  },
   category: "templates",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },

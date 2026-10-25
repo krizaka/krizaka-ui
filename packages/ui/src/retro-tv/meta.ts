@@ -3,7 +3,12 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Retro TV",
   summary: "A vertical video presented in a detailed television cabinet, with an accessible player, channel label, scanlines and an animated off-state.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "media",
   platforms: "web",
   parity: {

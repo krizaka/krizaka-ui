@@ -3,7 +3,12 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Media capture",
   summary: "The camera in the page: a photo or a clip, front or back, the permission asked only on a gesture, and a way out every time the camera cannot start.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No web user (ADR-006 audit, 2026-10-25), and no app imports `@krizaka/ui/native/media-capture`. Nothing is removed before 4.0; pick files with `FileUpload` on the web or `MediaPicker` in a mobile app.",
+  },
   category: "media",
   platforms: "both",
   parity: { desktop: "web" },

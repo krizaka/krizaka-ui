@@ -1,5 +1,6 @@
 import type { SVGProps } from "react";
 
+import { warnDeprecated } from "../deprecated";
 import { ELEPHANT as G } from "./geometry";
 
 export interface ElephantProps extends Omit<SVGProps<SVGSVGElement>, "width" | "height" | "title"> {
@@ -25,8 +26,10 @@ const line = { strokeWidth: G.stroke, strokeLinecap: "square", strokeLinejoin: "
  * The elephant: a small, playful mark from the neighbour joke — « the elephant with those ears can fly ». Not a product
  * logo: a quiet figure for the hero of a page or the closing of a chat. Sage body, sand ear, flat colours that read on
  * both themes; decorative by default.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
 export function Elephant({ pose = "standing", size = 64, animated = true, title, className, ...rest }: ElephantProps) {
+  warnDeprecated("elephant");
   const flying = pose === "flying";
   const p = flying ? G.flying : G.standing;
   const a11y = title ? { role: "img" as const, "aria-label": title } : { "aria-hidden": true as const };

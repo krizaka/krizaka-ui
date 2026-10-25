@@ -47,6 +47,7 @@ export const meta = {
   },
   native: {
     entry: "@krizaka/ui/native/vertical-video",
+    deprecated: { since: "3.55.0", removedIn: "4.0.0", reason: "No app imports `@krizaka/ui/native/vertical-video` (ADR-006 audit, 2026-10-25). The web entry stays." },
     imports: ["VerticalVideo", "ShortFeed", "verticalVideoLabels"],
     differences: [
       "Its own entry (`@krizaka/ui/native/vertical-video`): it plays on expo-video, an optional peer.",

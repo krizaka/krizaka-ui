@@ -2,6 +2,7 @@
 
 import * as React from "react";
 
+import { warnDeprecated } from "../deprecated";
 import { useInView, usePrefersReducedMotion } from "../media";
 import { VideoPlayer, type VideoPlayerProps } from "../video-player/video-player";
 
@@ -64,7 +65,10 @@ export interface RetroTvProps extends Omit<VideoPlayerProps, "aspectRatio" | "au
   className?: string;
 }
 
-/** A vertical video presented in an old-school television; the existing player remains fully accessible. */
+/**
+ * A vertical video presented in an old-school television; the existing player remains fully accessible.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function RetroTv({
   variant = "cabinet",
   channel,
@@ -76,6 +80,7 @@ export function RetroTv({
   className,
   ...playerProps
 }: RetroTvProps) {
+  warnDeprecated("retro-tv");
   const root = React.useRef<HTMLDivElement>(null);
   const [powered, setPowered] = React.useState(false);
   const reducedMotion = usePrefersReducedMotion();

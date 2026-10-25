@@ -4,7 +4,12 @@ export const meta = {
   title: "Promise card",
   summary:
     "A promise, the keys that call it and who carries it: a product's guarantee with its bird, a shortcut and what it does — a calm card with key-caps by default, a combo card whose keys light one by one in the arcade flavour.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "data-display",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Part of the storytelling kit of scroll-driven site pages; a phone app tells its first steps with Onboarding.", use: "card" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },

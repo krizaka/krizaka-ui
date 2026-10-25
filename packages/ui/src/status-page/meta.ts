@@ -3,7 +3,12 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Status page",
   summary: "Where things stand: the overall state in words and colour, each service on its line, the incidents — or, for what is not built yet, its progress and how to hear about it.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No page uses this template and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "templates",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },

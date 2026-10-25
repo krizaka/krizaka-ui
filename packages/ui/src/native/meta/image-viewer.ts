@@ -10,14 +10,14 @@ export const meta = {
   whenToUse: ["The photos of a post or a message, opened full screen.", "A creator's gallery."],
   whenNotToUse: [
     { when: "For a video.", use: "video-player" },
-    { when: "To crop an image before upload.", use: "image-cropper" },
+    { when: "To crop an image before upload." },
   ],
   bestPractices: ["Give every image its words (`alt`); a caption when it adds something.", "Call `prefetchNeighbours` so the next swipe shows at once."],
   accessibility: {
     keyboard: [],
     notes: ["The image is named by its words and its position (“2 of 5”); swipes of the screen reader move between images.", "The close button is named by `closeLabel`; the escape gesture closes it."],
   },
-  related: ["video-player", "image-cropper"],
+  related: ["video-player"],
   native: {
     imports: ["ImageViewer", "prefetchNeighbours"],
     differences: [],

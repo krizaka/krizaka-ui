@@ -64,7 +64,9 @@ for (const { pkg, items: packageItems } of Object.values(registries)) {
     if (!item.title || !item.summary) problems.push(`${where}: no title or summary (meta.ts)`);
     if (!["web", "native", "both"].includes(item.platforms)) problems.push(`${where}: unknown platforms "${item.platforms}"`);
     if (!item.whenToUse?.length || !item.accessibility) problems.push(`${where}: no "when to use" or accessibility (meta.ts)`);
-    if (deprecated && !(item.deprecated?.use && resolves(item.deprecated.use))) problems.push(`${where}: deprecated without a replacement that exists`);
+    // A deprecation says why (its reason) and, when a component replaces it, which one — « no replacement » is an honest answer (ADR-006 §7).
+    if (deprecated && !item.deprecated?.reason) problems.push(`${where}: deprecated without a reason`);
+    if (deprecated && item.deprecated?.use && !resolves(item.deprecated.use)) problems.push(`${where}: its replacement "${item.deprecated.use}" does not exist`);
     for (const side of ["web", "native"]) {
       const expected = item.platforms === "both" || item.platforms === side;
       if (expected && !deprecated && !item[side]?.examples?.length) problems.push(`${where}: no ${side} example`);

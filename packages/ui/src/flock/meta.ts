@@ -37,7 +37,7 @@ export const meta = {
       "The moments pause while the flock is off screen and while the tab is hidden; there is no frame loop.",
     ],
   },
-  related: ["mascots", "mascot-state", "bird-plate", "landscape"],
+  related: ["mascots", "mascot-state", "bird-plate"],
   web: {
     imports: ["Flock"],
     examples: [

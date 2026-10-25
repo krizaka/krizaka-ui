@@ -10,14 +10,14 @@ export const meta = {
   whenToUse: ["Release notes, a product's changelog, a decisions log.", "Any history read newest first."],
   whenNotToUse: [
     { when: "For the decisions of one product, compared.", use: "decision-list" },
-    { when: "For where things stand now.", use: "status-page" },
+    { when: "For where things stand now." },
   ],
   bestPractices: ["Newest first; one entry per release.", "Say the kind of each change (added, changed, fixed, removed) — the colour only repeats it.", "Words and content arrive as props; the motion is the platform's (`[data-reveal]`, still under reduced motion)."],
   accessibility: {
     keyboard: [],
     notes: ["The log is a named ordered list; each date a `time` with its ISO value.", "Kinds are words, not only colours."],
   },
-  related: ["decision-list", "status-page", "docs-article-page"],
+  related: ["decision-list", "docs-article-page"],
   web: {
     imports: ["ChangelogPage"],
     examples: [

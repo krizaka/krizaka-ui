@@ -3,7 +3,12 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Match dialog",
   summary: "The moment two people choose each other — a match, a pair, a deal: the two avatars meet at a heart in the brand gradient, the next step under them.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No user: Yasakia is paused and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "overlays",
   platforms: "both",
   parity: { desktop: "web" },
