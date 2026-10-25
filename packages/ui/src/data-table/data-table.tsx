@@ -28,6 +28,7 @@ import {
   type TableColumn,
   type TableRow,
 } from "./engine";
+import { SelectionBar, type SelectionBarLabels } from "./selection-bar";
 import { useRouteTable } from "./use-route-table";
 
 export const dataTable = tv({
@@ -336,6 +337,8 @@ export type DataTableLabels = {
   export: string;
   /** The words of the pagination under the table. */
   pagination?: Partial<PaginationLabels>;
+  /** The words of the bar of a selection (`bulkActions`). */
+  selection?: Partial<SelectionBarLabels>;
 };
 
 export const dataTableLabels: DataTableLabels = {
@@ -403,6 +406,15 @@ export type DataTableProps<T> = {
   onSelectedChange?: (selected: string[]) => void;
   /** The name of a row in its labels (checkbox, expand button). Default: its id. */
   rowLabel?: (row: T) => string;
+  /**
+   * The actions on the selection, given by the product: the bar (`SelectionBar`) appears under the table while rows are
+   * chosen — the count, these actions, « Clear selection » — sticky, docked above the tab bar on a phone. Needs `selectable`.
+   */
+  bulkActions?: (selection: { selected: string[]; clear: () => void }) => React.ReactNode;
+  /** The most rows a bulk call takes (200 for `@krizaka/organize`): the bar says so past it and its actions rest. */
+  bulkMax?: number;
+  /** What the last bulk change did ("3 moved, 1 skipped"), announced politely by the bar. */
+  bulkResult?: string;
 
   /** The columns the rows are grouped by, in order (controlled) — each `groupable`. */
   groupBy?: readonly string[];
@@ -566,6 +578,9 @@ export function DataTable<T extends RowData>({
   defaultSelected = NONE,
   onSelectedChange,
   rowLabel,
+  bulkActions,
+  bulkMax,
+  bulkResult,
   groupBy: groupByProp,
   defaultGroupBy = NONE,
   onGroupByChange,
@@ -1173,6 +1188,11 @@ export function DataTable<T extends RowData>({
         ) : (
           <div className={s.scroller({ className: sideways ? (scroll ? SHADOWS : CARD_CLIP[L]) : "overflow-x-clip" })}>{tableElement}</div>
         )}
+        {selectable && bulkActions ? (
+          <SelectionBar count={selected.length} max={bulkMax} result={bulkResult} labels={labels.selection} onClear={() => setSelected([])}>
+            {bulkActions({ selected: [...selected], clear: () => setSelected([]) })}
+          </SelectionBar>
+        ) : null}
         {pagination || footer ? (
           <div className={s.footer({ className: "flex flex-col gap-3" })}>
             {pagination}

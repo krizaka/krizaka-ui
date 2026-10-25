@@ -111,6 +111,7 @@ export { Skeleton, type SkeletonProps } from "./skeleton";
 export { Slider, type SliderProps, type SliderValue } from "./slider";
 export { Spinner, type SpinnerProps } from "./spinner";
 export { SplashHandoff, type SplashHandoffProps } from "./splash-handoff";
+export { StatusChip, type StatusChipProps, type StatusMoveOption } from "./status-chip";
 export { StepProgress, type StepProgressProps } from "./step-progress";
 export { type Step, Stepper, type StepperProps, type StepStatus } from "./stepper";
 export { PersonCard, type PersonCardProps, SwipeDeck, type SwipeDeckLabels, type SwipeDeckProps, type SwipeDirection } from "./swipe-deck";
@@ -118,6 +119,7 @@ export { SwipeableRow, type SwipeableRowProps,type SwipeAction } from "./swipeab
 export { Switch, type SwitchProps } from "./switch";
 export { TabBar, type TabBarItem, type TabBarProps } from "./tab-bar";
 export { type TabItem, Tabs, type TabsHue, type TabsProps } from "./tabs";
+export { type Marker, MarkerPicker, type MarkerPickerProps, type MarkerShape, TAG_MARKERS, TagChip, type TagChipProps, TagMarker, type TagMarkerProps } from "./tag-chip";
 export { type TagOption, TagSelector, type TagSelectorProps } from "./tag-selector";
 export {
   alpha,

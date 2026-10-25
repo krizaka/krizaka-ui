@@ -207,6 +207,8 @@ export default defineConfig([
       // What reaches a person: categories by channels.
       "notification-preferences": "src/notification-preferences/index.ts",
       chip: "src/chip/index.ts",
+      // A state of a status set, with its menu of moves.
+      "status-chip": "src/status-chip/index.ts",
       switch: "src/switch/index.ts",
       slider: "src/slider/index.ts",
       checkbox: "src/checkbox/index.ts",

@@ -59,6 +59,7 @@ export const PLANNED: Record<string, string> = {
   "media-gallery": "Akinaza's shop storefront: the business's own photos and clips.",
   "notification-preferences": "Akinaza's and Yomizaka's account baseline (notifications), then Orochia's settings, which this replaces (krizaka-ui#515).",
   agenda: "Akinaza's Today (the day's appointments with a « now » line), then Yomizaka's and Orazaka's day-bound lists (krizaka-ui#515).",
+  "status-chip": "Yomizaka's applicant files (krizaka/yomizaka#324) and Akinaza's clients and invoices (krizaka/akinaza#337): the state of an entity from its status set, krizaka-ts#89.",
   "quota-meter": "Yomizaka's library quota and Akinaza's plan, then Orochia's storage meter, which this replaces (krizaka-ui#515).",
   "app-header": "The family's top bar beside the rail (#640): Orochia's (search with ⌘K, language, messages, notifications with their counts, the account with its name), extracted here; Orazaka's web client, Yomizaka and Akinaza use the same bar.",
   "engine-flow": "krizaka.com's home: Orazaka at the hub and the products it powers (radial; top to bottom on a phone), and the Krizaka Motion tile of its open-source section; then the products' own « Powered by Orazaka » sections.",

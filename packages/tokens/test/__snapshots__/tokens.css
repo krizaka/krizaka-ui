@@ -46,6 +46,20 @@
   --kz-info: var(--kz-accent); /* Statut : information */
   --kz-info-text: var(--kz-accent-text); /* Statut information en texte : l'accent en texte par défaut (≥ 4.5:1) */
 
+  /* Marqueurs de tags (ADR-006, krizaka-ui#627 ; krizaka-ts#89 : @krizaka/organize MARKERS) : six noms, un point (--kz-tag-<nom>, ≥ 3:1 sur les surfaces 0–3) et le texte voisin (--kz-tag-<nom>-text, ≥ 4.5:1). Jamais les tons de statut ni l'accent d'une marque (un test : ΔE ≥ 10). Un marqueur accompagne le nom du tag, il ne remplit jamais la puce. */
+  --kz-tag-blue: hsl(224 65% 57.5%); /* Marqueur blue : le point, la pastille (≥ 3:1) */
+  --kz-tag-blue-text: hsl(224 65% 68%); /* Marqueur blue en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-green: hsl(142 50% 35.5%); /* Marqueur green : le point, la pastille (≥ 3:1) */
+  --kz-tag-green-text: hsl(142 50% 44.5%); /* Marqueur green en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-amber: hsl(34 85% 36.5%); /* Marqueur amber : le point, la pastille (≥ 3:1) */
+  --kz-tag-amber-text: hsl(34 85% 46%); /* Marqueur amber en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-red: hsl(345 65% 54%); /* Marqueur red : le point, la pastille (≥ 3:1) */
+  --kz-tag-red-text: hsl(345 65% 67%); /* Marqueur red en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-violet: hsl(283 55% 55.5%); /* Marqueur violet : le point, la pastille (≥ 3:1) */
+  --kz-tag-violet-text: hsl(283 55% 67%); /* Marqueur violet en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-gray: hsl(220 8% 48%); /* Marqueur gray : le point, la pastille (≥ 3:1) */
+  --kz-tag-gray-text: hsl(220 8% 60.5%); /* Marqueur gray en texte : ≥ 4.5:1 sur chaque surface */
+
   /* Le cahier (ADR-004) : la réglure Seyès, la marge rouge, l'étiquette de spécimen */
   --kz-paper-rule-major: hsl(140 25% 88% / 0.09); /* Réglure : la ligne forte (tous les 32 px) */
   --kz-paper-rule-minor: hsl(140 25% 88% / 0.045); /* Réglure : les lignes fines (tous les 8 px) */
@@ -100,6 +114,18 @@ html.light {
   --kz-warning-soft: hsl(38 92% 50% / 0.12); /* Fond teinté warning (texte primaire ≥ 4.5:1) */
   --kz-danger-text: hsl(0 72% 40%); /* Statut erreur en texte (message d'erreur, compte à rebours urgent) : ≥ 4.5:1 sur chaque surface */
   --kz-danger-soft: hsl(0 84% 60% / 0.1); /* Fond teinté danger (texte primaire ≥ 4.5:1) */
+  --kz-tag-blue: hsl(224 65% 60%); /* Marqueur blue : le point, la pastille (≥ 3:1) */
+  --kz-tag-blue-text: hsl(224 65% 49.5%); /* Marqueur blue en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-green: hsl(142 50% 37.5%); /* Marqueur green : le point, la pastille (≥ 3:1) */
+  --kz-tag-green-text: hsl(142 50% 29%); /* Marqueur green en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-amber: hsl(34 85% 38.5%); /* Marqueur amber : le point, la pastille (≥ 3:1) */
+  --kz-tag-amber-text: hsl(34 85% 29.5%); /* Marqueur amber en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-red: hsl(345 65% 57.5%); /* Marqueur red : le point, la pastille (≥ 3:1) */
+  --kz-tag-red-text: hsl(345 65% 43.5%); /* Marqueur red en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-violet: hsl(283 55% 58.5%); /* Marqueur violet : le point, la pastille (≥ 3:1) */
+  --kz-tag-violet-text: hsl(283 55% 46.5%); /* Marqueur violet en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-gray: hsl(220 8% 51%); /* Marqueur gray : le point, la pastille (≥ 3:1) */
+  --kz-tag-gray-text: hsl(220 8% 39.5%); /* Marqueur gray en texte : ≥ 4.5:1 sur chaque surface */
   --kz-paper-rule-major: hsl(214 40% 45% / 0.24); /* Réglure : la ligne forte (tous les 32 px) */
   --kz-paper-rule-minor: hsl(214 40% 45% / 0.10); /* Réglure : les lignes fines (tous les 8 px) */
   --kz-paper-rule-margin: hsl(5 62% 40%); /* La marge rouge, et les repères de la marge (§, fig., p.) */
@@ -155,6 +181,18 @@ html.light {
   --kz-danger-soft: hsl(0 84% 60% / 0.1); /* Fond teinté danger (texte primaire ≥ 4.5:1) */
   --kz-info: var(--kz-accent); /* Statut : information */
   --kz-info-text: var(--kz-accent-text); /* Statut information en texte : l'accent en texte par défaut (≥ 4.5:1) */
+  --kz-tag-blue: hsl(224 65% 60%); /* Marqueur blue : le point, la pastille (≥ 3:1) */
+  --kz-tag-blue-text: hsl(224 65% 49.5%); /* Marqueur blue en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-green: hsl(142 50% 37.5%); /* Marqueur green : le point, la pastille (≥ 3:1) */
+  --kz-tag-green-text: hsl(142 50% 29%); /* Marqueur green en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-amber: hsl(34 85% 38.5%); /* Marqueur amber : le point, la pastille (≥ 3:1) */
+  --kz-tag-amber-text: hsl(34 85% 29.5%); /* Marqueur amber en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-red: hsl(345 65% 57.5%); /* Marqueur red : le point, la pastille (≥ 3:1) */
+  --kz-tag-red-text: hsl(345 65% 43.5%); /* Marqueur red en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-violet: hsl(283 55% 58.5%); /* Marqueur violet : le point, la pastille (≥ 3:1) */
+  --kz-tag-violet-text: hsl(283 55% 46.5%); /* Marqueur violet en texte : ≥ 4.5:1 sur chaque surface */
+  --kz-tag-gray: hsl(220 8% 51%); /* Marqueur gray : le point, la pastille (≥ 3:1) */
+  --kz-tag-gray-text: hsl(220 8% 39.5%); /* Marqueur gray en texte : ≥ 4.5:1 sur chaque surface */
   --kz-paper-rule-major: hsl(214 40% 45% / 0.24); /* Réglure : la ligne forte (tous les 32 px) */
   --kz-paper-rule-minor: hsl(214 40% 45% / 0.10); /* Réglure : les lignes fines (tous les 8 px) */
   --kz-paper-rule-margin: hsl(5 62% 40%); /* La marge rouge, et les repères de la marge (§, fig., p.) */

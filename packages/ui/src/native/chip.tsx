@@ -52,8 +52,14 @@ export type ChipProps = ToggleChipProps | RemovableChipProps;
 const RECIPE = nativeRecipe(chipRecipe);
 
 function Label({ children, color, fontSize }: { children: React.ReactNode; color: string; fontSize: number }) {
-  if (typeof children !== "string" && typeof children !== "number") return <>{children}</>;
-  return <Text style={[styles.label, { color, fontSize }]}>{children}</Text>;
+  // A text child is drawn in the chip's face; a node (an icon, a tag's marker) is left as it is, so both can sit together.
+  return (
+    <>
+      {React.Children.map(children, (child) =>
+        typeof child === "string" || typeof child === "number" ? <Text style={[styles.label, { color, fontSize }]}>{child}</Text> : child,
+      )}
+    </>
+  );
 }
 
 /** A selectable pill (`selected` / `onSelectedChange`), an item of `Chip.Group` (`value`), or `removable`. */

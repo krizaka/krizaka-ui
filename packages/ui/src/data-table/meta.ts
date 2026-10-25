@@ -19,7 +19,9 @@ export const meta = {
     { when: "For a gallery of media where the picture matters more than the columns.", use: "virtual" },
     { when: "For a list on a phone app: FlashList, through the native list.", use: "list" },
   ],
-  bestPractices: ["Give the table a `routeKey` (`routeKey=\"clients\"`) so its sort, filters and page are in the address: back, reload and a shared link all work.", 
+  bestPractices: [
+    "Bulk actions are the product's: `bulkActions` draws the bar (count, your buttons, « Clear selection »); say what happened in `bulkResult` (« 3 moved, 1 skipped »), pass `bulkMax` when the service takes a limited number (200), and offer an undo (a toast) after a change that can be undone.",
+    "Give the table a `routeKey` (`routeKey=\"clients\"`) so its sort, filters and page are in the address: back, reload and a shared link all work.", 
     "Keep `rows` and `columns` stable (module scope, state, a query's data, `useMemo`): a new array at each render recomputes every model.",
     "Give every column a `header` (it labels the value in a card and names its filter) and the row's name a `card: \"title\"` column.",
     "Put `DataTableFilters` in `toolbar`; mark the columns it filters with `filter: \"text\" | \"facet\" | \"range\"`, and give a server table's facets their `options`.",
@@ -50,7 +52,7 @@ export const meta = {
   },
   related: ["filter-bar", "pagination", "virtual", "checkbox", "empty-state"],
   web: {
-    imports: ["DataTable", "DataTableFilters", "DataTableColumnsMenu", "DataTableExport", "useDataTable"],
+    imports: ["DataTable", "DataTableFilters", "DataTableColumnsMenu", "DataTableExport", "SelectionBar", "useDataTable"],
     examples: [
       { name: "catalogue", title: "Models catalogue", description: "Eight typed columns that never overflow: priorities move the maker, licence, context and date into the row's detail as the table narrows, then cards under 36 rem." },
       { name: "invoices", title: "Invoice list", description: "Title, status and amount always in the row; dates and contact in the detail on a narrow screen; sticky header and zebra rows." },
@@ -58,6 +60,7 @@ export const meta = {
       { name: "jobs", title: "Jobs", description: "Sortable columns, a status badge, row selection for a bulk action." },
       { name: "filters", title: "Filters, columns, export", description: "A search, facets with their counts, a range; the filters as chips; hide columns; export the rows shown as CSV." },
       { name: "server", title: "Server mode", description: "Sort, filters and page go to the API through `krizakaFetch` and `defineKeys` of @krizaka/query; the previous page stays while the next one loads." },
+      { name: "bulk", title: "Bulk actions", description: "`selectable` + `bulkActions`: the bar of the selection — the count, the actions the product gives, « Clear selection », and what the last change did (« 2 tagged ») announced politely; sticky, docked above the tab bar on a phone." },
       { name: "paginated", title: "Pages", description: "Client pagination under the table, with the rows per page to choose." },
       { name: "grouped", title: "Groups", description: "`groupBy`: a row per group with its count and its total (`aggregate`), opened to see its rows." },
       { name: "details", title: "Details", description: "`renderDetail`: a button per row opens a panel under it." },
