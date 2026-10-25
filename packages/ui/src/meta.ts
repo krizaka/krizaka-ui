@@ -10,6 +10,7 @@
 /** Every documented component: the web primitives (one entry of the package each) and the native-only ones. */
 export type ComponentName =
   | "notification-preferences"
+  | "quota-meter"
   | "agenda"
   | "account-settings"
   | "drop-overlay"
@@ -18,6 +19,9 @@ export type ComponentName =
   | "anatomy-plate"
   | "bird-plate"
   | "taped-photo"
+  | "stuck"
+  | "doodle"
+  | "signature"
   | "text-style"
   | "flock"
   | "elephant"
