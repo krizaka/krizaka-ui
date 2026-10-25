@@ -3,7 +3,12 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Kanban",
   summary: "Cards in columns moved by drag and drop — and by the keyboard (Space, the arrows, Space) — every move announced, column limits in the counts.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "data-display",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A board needs width and dragging between columns; on a phone each column is a tab over a list.", use: "tabs" }, desktop: "web" },

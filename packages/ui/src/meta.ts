@@ -315,6 +315,8 @@ export interface NativeDocs extends PlatformDocs {
   readonly entry?: string;
   /** What differs from the web API (`label` instead of children…); empty for a native-only component. */
   readonly differences: readonly string[];
+  /** The React Native entry alone is deprecated while the web one stays (ADR-006 §7); a deprecated component says it once, above. */
+  readonly deprecated?: Deprecation;
 }
 
 export interface KeyboardInteraction {

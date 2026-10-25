@@ -3,7 +3,12 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Image cropper",
   summary: "A fixed frame — square, round, 9:16, a banner — over a picture or a video the person drags and zooms; a focus point and a zoom out, `cropRect` for the pixels.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "media",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#278", reason: "Avatars and covers are sent uncropped from the phone today." }, desktop: "web" },

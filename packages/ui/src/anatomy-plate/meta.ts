@@ -4,7 +4,12 @@ export const meta = {
   title: "Anatomy plate",
   summary:
     "A component's anatomy as a naturalist's plate: the live specimen drawn large in the middle, its parts numbered around it, a hairline from each note — the plate is its own text version.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "blocks",
   platforms: "web",
   parity: {

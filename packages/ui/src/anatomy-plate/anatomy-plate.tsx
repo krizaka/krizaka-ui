@@ -5,6 +5,7 @@
 import type * as React from "react";
 
 import { cn } from "../cn";
+import { warnDeprecated } from "../deprecated";
 
 export interface AnatomyPart {
   /** The part's name: `the cut`. */
@@ -28,8 +29,12 @@ export type AnatomyPlateProps = Omit<React.HTMLAttributes<HTMLElement>, "title">
   scale?: number;
 };
 
-/** A component's anatomy as a naturalist's plate: the specimen in the middle, its numbered parts and their reasons around it. */
+/**
+ * A component's anatomy as a naturalist's plate: the specimen in the middle, its numbered parts and their reasons around it.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function AnatomyPlate({ title, subtitle, parts, children, scale = 1.6, className, style, ...props }: AnatomyPlateProps) {
+  warnDeprecated("anatomy-plate");
   const numbered = parts.map((p, i) => ({ ...p, n: i + 1, side: p.side ?? (i % 2 === 0 ? "left" : "right") }));
   const column = (side: "left" | "right") => (
     <ol className="kz-anatomy-parts" data-side={side}>

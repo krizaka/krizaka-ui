@@ -22,6 +22,8 @@ console.log(`✓ dist/native.js: no "use client", no DOM; imports ${[...new Set(
 
 // The native entries that need a module of their own: the platform through @krizaka/ui/native (one theme context), their
 // own modules (optional peers), nothing else — and no DOM either.
+/** A shared chunk emitted next to the entries (`../chunk-ABC123.js`, relative to dist/native/). */
+const isChunk = (spec) => /^\.\.\/chunk-[\w-]+\.js$/.test(spec);
 for (const [entry, ...modules] of [
   ["video-player", "expo-video"],
   ["vertical-video", "@krizaka/ui/native/video-player", "@krizaka/intl"],
@@ -38,8 +40,15 @@ for (const [entry, ...modules] of [
   const allowed = new Set([...ALLOWED, "@krizaka/ui/native", ...modules]);
   assert.ok(!/["']use client["']/.test(code), `dist/native/${entry}.js carries a "use client" directive`);
   // A module ending in "/" is a family of subpaths (the grammars of @tanstack/highlight, one import each).
-  const permitted = (spec) => allowed.has(spec) || modules.some((m) => m.endsWith("/") && spec.startsWith(m));
+  const permitted = (spec) => allowed.has(spec) || isChunk(spec) || modules.some((m) => m.endsWith("/") && spec.startsWith(m));
   for (const spec of specifiers(code)) assert.ok(permitted(spec), `dist/native/${entry}.js imports ${spec}`);
+  // A shared chunk of the build (the development warning of a deprecated entry, src/deprecated.ts) obeys the same rules.
+  for (const spec of specifiers(code).filter(isChunk)) {
+    const chunk = readFileSync(resolve(dist, "native", spec), "utf8");
+    assert.ok(!/["']use client["']/.test(chunk), `dist/${spec.slice(3)} carries a "use client" directive`);
+    for (const inner of specifiers(chunk)) assert.ok(permitted(inner), `dist/${spec.slice(3)} imports ${inner}`);
+    assert.ok(!/\b(document|window|HTMLElement|localStorage|matchMedia)\b/.test(chunk.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "")), `dist/${spec.slice(3)} touches the DOM`);
+  }
   assert.ok(!/\b(document|window|HTMLElement|localStorage|matchMedia)\b/.test(code.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "")), `dist/native/${entry}.js touches the DOM`);
   console.log(`✓ dist/native/${entry}.js: imports ${[...new Set(specifiers(code))].join(", ")}`);
 }

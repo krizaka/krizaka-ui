@@ -12,8 +12,8 @@ export const meta = {
     "With `useUploadQueue` for large files that must survive a pause, a failure or a slow network (Tus, multipart).",
   ],
   whenNotToUse: [
-    { when: "To take a picture or a clip with the camera in the page: media capture.", use: "media-capture" },
-    { when: "To choose a picture's frame before sending it: the cropper, then the upload.", use: "image-cropper" },
+    { when: "To take a picture or a clip with the camera in the page: media capture." },
+    { when: "To choose a picture's frame before sending it: the cropper, then the upload." },
   ],
   bestPractices: [
     "Say what is accepted in `hint` (“MP4 or MOV, up to 4 GB”) and enforce it with `accept` and `maxSize`.",
@@ -29,7 +29,7 @@ export const meta = {
       "Every action is a button named with the file (“Pause clip.mp4”).",
     ],
   },
-  related: ["progress", "media-capture", "image-cropper", "video-trimmer"],
+  related: ["progress"],
   web: {
     imports: ["Dropzone", "UploadList", "useUploadQueue", "acceptsFile", "formatBytes"],
     examples: [

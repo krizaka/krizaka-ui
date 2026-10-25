@@ -3,6 +3,7 @@
 import type * as React from "react";
 
 import { cn } from "../cn";
+import { warnDeprecated } from "../deprecated";
 import { brandClass, type StoryVariant, storyVariantClass } from "../story-variant";
 
 export type PromiseCardProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {
@@ -27,8 +28,12 @@ export type PromiseCardProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title
   brand?: string;
 };
 
-/** A promise, the keys that call it and who carries it. */
+/**
+ * A promise, the keys that call it and who carries it.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function PromiseCard({ label, promise, keys, bearer, bearerLabel, bearerName, variant, brand, className, ...props }: PromiseCardProps) {
+  warnDeprecated("promise-card");
   return (
     <div className={cn("kzs-promise", storyVariantClass(variant), brandClass(brand), className)} {...props}>
       <span className="kzs-promise-flash" aria-hidden />

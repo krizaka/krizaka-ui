@@ -3,7 +3,12 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Maintenance screen",
   summary: "The screen of a service down on purpose: what is happening, when to come back, one button to check again.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "The web entry has no user (ADR-006 audit, 2026-10-25). The native `MaintenanceScreen`, used by mobile apps, stays.",
+  },
   category: "feedback",
   platforms: "both",
   parity: { desktop: "web" },

@@ -17,7 +17,7 @@ export const meta = {
     keyboard: [{ keys: "Tab", action: "Moves through the photos and their buttons (earlier, later, remove)." }],
     notes: ["Each photo is named by its position and words, the main one says so.", "Every move is announced; React Native offers the same moves as accessibility actions."],
   },
-  related: ["media-picker", "image-viewer", "image-cropper"],
+  related: ["media-picker", "image-viewer"],
   web: {
     imports: ["PhotoGrid"],
     examples: [

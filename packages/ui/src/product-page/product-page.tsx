@@ -13,6 +13,7 @@ import { SectionBackdrop } from "@krizaka/ui/section-backdrop";
 import type * as React from "react";
 
 import { cn } from "../cn";
+import { warnDeprecated } from "../deprecated";
 
 export interface ProductReason {
   /** A stable key (the card's anchor). */
@@ -64,8 +65,12 @@ export type ProductPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
   linkAs?: LinkComponent;
 };
 
-/** A product's overview: split hero, traps as compact cards, decisions with their cost, the bird's promise, closing call. */
+/**
+ * A product's overview: split hero, traps as compact cards, decisions with their cost, the bird's promise, closing call.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function ProductPage({ brand, mark, title, lead, facts, actions, visual, visualLabel, reasonsHeading, reasonLabels, reasons, decisions, promise, closing, linkAs, className, children, ...props }: ProductPageProps) {
+  warnDeprecated("product-page");
   return (
     <div className={cn(brand && "brand-" + brand, className)} {...props}>
       <SectionBackdrop as="header" grid className="kz-hero">

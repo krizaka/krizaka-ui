@@ -108,7 +108,7 @@ export interface RegistryItem {
   /** A deprecated component: since when, what replaces it (absent when nothing does), when it goes, why. */
   deprecated?: { since: string; use?: string; removedIn: string; reason?: string } | null;
   web: RegistryPlatform | null;
-  native: (RegistryPlatform & { differences: string[] }) | null;
+  native: (RegistryPlatform & { differences: string[]; /** The React Native entry alone is deprecated; the web one stays. */ deprecated?: { since: string; removedIn: string; reason?: string } | null }) | null;
   dependencies: string[];
   registryDependencies: string[];
 }

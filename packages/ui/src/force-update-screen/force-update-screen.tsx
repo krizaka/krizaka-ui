@@ -4,6 +4,9 @@ import { Button } from "@krizaka/ui/button";
 import type * as React from "react";
 import { tv } from "tailwind-variants";
 
+import { warnDeprecated } from "../deprecated";
+
+/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const forceUpdateScreen = tv({
   slots: {
     root: "mx-auto flex min-h-dvh w-full max-w-md flex-col items-center justify-center gap-4 px-6 py-12 text-center text-fg",
@@ -34,8 +37,12 @@ export type ForceUpdateScreenProps = Omit<React.ComponentProps<"main">, "title">
   onRetry?: () => void;
 };
 
-/** The forced update: one thing to do, and the way to do it. */
+/**
+ * The forced update: one thing to do, and the way to do it.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function ForceUpdateScreen({ title, message, versionLabel, mark, updateLabel, onUpdate, retryLabel, onRetry, className, ...props }: ForceUpdateScreenProps) {
+  warnDeprecated("force-update-screen");
   const s = forceUpdateScreen();
   return (
     <main data-kind="update-force" className={s.root({ className })} {...props}>

@@ -6,9 +6,11 @@
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
+import { warnDeprecated } from "../deprecated";
 import { CameraGlyph, FlipGlyph } from "../glyphs";
 import { formatClock, playSafely, usePrefersReducedMotion } from "../media";
 
+/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const mediaCapture = tv({
   slots: {
     root: "theme-dark relative isolate flex w-full flex-col overflow-hidden rounded-xl bg-media text-fg-on-media",
@@ -71,6 +73,7 @@ export type MediaCaptureLabels = {
   videoMode: string;
 };
 
+/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const mediaCaptureLabels: MediaCaptureLabels = {
   region: "Camera",
   prompt: "Use your camera to take a photo or record a clip.",
@@ -115,7 +118,10 @@ const supported = () => typeof navigator !== "undefined" && Boolean(navigator.me
 const recorderType = () =>
   typeof MediaRecorder === "undefined" ? undefined : ["video/webm;codecs=vp9,opus", "video/webm", "video/mp4"].find((t) => MediaRecorder.isTypeSupported?.(t));
 
-/** The camera in the page: photo or clip, front or back, with a file-picker way out when the camera cannot start. */
+/**
+ * The camera in the page: photo or clip, front or back, with a file-picker way out when the camera cannot start.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function MediaCapture({
   mode = "photo",
   facing: initialFacing = "user",
@@ -128,6 +134,7 @@ export function MediaCapture({
   labels: given,
   className,
 }: MediaCaptureProps) {
+  warnDeprecated("media-capture");
   const labels = { ...mediaCaptureLabels, ...given };
   const s = mediaCapture();
   const reduce = usePrefersReducedMotion();

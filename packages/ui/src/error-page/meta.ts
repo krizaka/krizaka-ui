@@ -9,7 +9,7 @@ export const meta = {
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: "web" },
   whenToUse: ["Not found (404), server error (500), offline.", "Any page that cannot show what was asked."],
   whenNotToUse: [
-    { when: "For something not built yet.", use: "status-page" },
+    { when: "For something not built yet." },
     { when: "For an empty list inside a page.", use: "empty-state" },
   ],
   bestPractices: ["The title says it in words; the code is drawn, not read.", "Offer a search and two or three ways back.", "Words and content arrive as props; the motion is the platform's (`[data-reveal]`, still under reduced motion)."],
@@ -17,7 +17,7 @@ export const meta = {
     keyboard: [],
     notes: ["The code is hidden from assistive technology; the `h1` says what happened.", "The ways back are a named list of links."],
   },
-  related: ["status-page", "search-field", "action-bar"],
+  related: ["search-field", "action-bar"],
   web: {
     imports: ["ErrorPage"],
     examples: [

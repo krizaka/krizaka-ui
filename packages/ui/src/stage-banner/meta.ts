@@ -26,7 +26,7 @@ export const meta = {
       "Its entrance plays once in a stage and never under `prefers-reduced-motion`.",
     ],
   },
-  related: ["scroll-stage", "stepper", "page-hero"],
+  related: ["stepper", "page-hero"],
   web: {
     imports: ["StageBanner"],
     examples: [

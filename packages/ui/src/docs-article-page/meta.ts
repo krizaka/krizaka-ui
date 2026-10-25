@@ -10,7 +10,7 @@ export const meta = {
   whenToUse: ["Guides, references, concepts.", "Any page of a documentation with a list of pages."],
   whenNotToUse: [
     { when: "For the documentation's entry.", use: "docs-hub-page" },
-    { when: "For a component's generated page.", use: "component-page" },
+    { when: "For a component's generated page." },
   ],
   bestPractices: ["Keep the reading column under 46rem; headings `h2` with ids for the contents.", "Say when the page was updated and how long it takes to read.", "Words and content arrive as props; the motion is the platform's (`[data-reveal]`, still under reduced motion)."],
   accessibility: {

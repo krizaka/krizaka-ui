@@ -8,6 +8,7 @@ import { PageHero } from "@krizaka/ui/page-hero";
 import type * as React from "react";
 
 import { cn } from "../cn";
+import { warnDeprecated } from "../deprecated";
 
 export interface GalleryItem {
   /** A stable key. */
@@ -47,8 +48,12 @@ export type GalleryPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
   linkAs?: LinkComponent;
 };
 
-/** A demo or a gallery: hero, filters, media in staggered columns, closing call. */
+/**
+ * A demo or a gallery: hero, filters, media in staggered columns, closing call.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function GalleryPage({ brand, back, eyebrow, title, lead, actions, filters, galleryLabel, items, closing, linkAs, className, children, ...props }: GalleryPageProps) {
+  warnDeprecated("gallery-page");
   return (
     <div className={cn(brand && "brand-" + brand, className)} {...props}>
       <PageHero back={back} linkAs={linkAs} eyebrow={eyebrow} title={title} lead={lead} align="center" backdrop="plain">

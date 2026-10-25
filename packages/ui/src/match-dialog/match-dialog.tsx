@@ -4,6 +4,7 @@ import * as React from "react";
 
 import { Avatar } from "../avatar";
 import { Button } from "../button";
+import { warnDeprecated } from "../deprecated";
 import { Dialog } from "../dialog";
 
 export type MatchDialogProps = {
@@ -27,8 +28,12 @@ export type MatchDialogProps = {
   container?: HTMLElement | null;
 };
 
-/** Two people choose each other: the avatars meet at a heart in the brand gradient, the next step under them. */
+/**
+ * Two people choose each other: the avatars meet at a heart in the brand gradient, the next step under them.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function MatchDialog({ open, onOpenChange, title, description, people, primaryLabel, onPrimary, secondaryLabel, container }: MatchDialogProps) {
+  warnDeprecated("match-dialog");
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Content hideClose size="sm" container={container} className="overflow-hidden border-0 bg-gradient-to-br from-accent to-accent-2 text-center text-on-accent">

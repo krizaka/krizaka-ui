@@ -6,6 +6,8 @@ import type { LinkComponent } from "@krizaka/ui/page-hero";
 import { PageHero } from "@krizaka/ui/page-hero";
 import type * as React from "react";
 
+import { warnDeprecated } from "../deprecated";
+
 export type ServiceState = "operational" | "degraded" | "outage" | "building";
 
 export type StatusPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & {
@@ -35,8 +37,12 @@ export type StatusPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> &
   linkAs?: LinkComponent;
 };
 
-/** A status page — or an « under construction » one: the overall state, each service, then incidents or progress. */
+/**
+ * A status page — or an « under construction » one: the overall state, each service, then incidents or progress.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function StatusPage({ back, eyebrow, title, lead, aside, state, stateLabel, checked, services, servicesLabel = "Services", linkAs, children, ...props }: StatusPageProps) {
+  warnDeprecated("status-page");
   return (
     <div {...props}>
       <PageHero back={back} linkAs={linkAs} eyebrow={eyebrow} title={title} lead={lead} aside={aside} backdrop="plain" />

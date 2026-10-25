@@ -101,6 +101,11 @@ describe("documentation carried by the code (meta.ts)", () => {
       expect(sentence(meta.deprecated.reason), "deprecated.reason").toBe(true);
       if (meta.deprecated.use) expect(all, `deprecated.use "${meta.deprecated.use}"`).toContain(meta.deprecated.use);
     } else expect(meta.deprecated, "only a deprecated component has a deprecation").toBeUndefined();
+    if (meta.native?.deprecated) {
+      expect(meta.status, "a native-only deprecation belongs to a component that stays on the web").not.toBe("deprecated");
+      expect(meta.native.deprecated, "native.deprecated").toMatchObject({ since: expect.stringMatching(/^\d+\.\d+\.\d+$/), removedIn: expect.stringMatching(/^\d+\.0\.0$/) });
+      expect(sentence(meta.native.deprecated.reason), "native.deprecated.reason").toBe(true);
+    }
     expect(meta.whenToUse.length, "whenToUse").toBeGreaterThan(0);
     expect(meta.whenNotToUse.length, "whenNotToUse").toBeGreaterThan(0);
     expect(meta.bestPractices.length, "bestPractices").toBeGreaterThan(0);
