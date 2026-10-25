@@ -1,5 +1,11 @@
 # @krizaka/intl
 
+## 0.4.0
+
+### Minor Changes
+
+- [#687](https://github.com/krizaka/krizaka-ui/pull/687) [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Prevent crashes when Intl.PluralRules or Intl.RelativeTimeFormat is absent (Android Hermes) with cached dependency-free en/fr fallbacks. Native Intl behavior is unchanged. Fallback plurals use unrounded cardinal rules; relative times use long numeric wording. Getter return types now include minimal select/format fallbacks, so native-only methods require a capability check.
+
 ## 0.3.0
 
 ### Minor Changes

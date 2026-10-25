@@ -1,5 +1,12 @@
 # @krizaka/i18n
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies [[`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812)]:
+  - @krizaka/intl@0.4.0
+
 ## 0.2.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @krizaka/config
 
+## 0.8.0
+
+### Minor Changes
+
+- [#687](https://github.com/krizaka/krizaka-ui/pull/687) [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `krizaka/page-template` (in `krizakaStack`, counted by `krizaka-ratchet` as `pageTemplate`): every App Router page declares the Krizaka UI template it composes (`// @template: app-settings`) or says why it composes none (`custom: <reason>`). `@krizaka/config/conformance/account-baseline`: the account baseline every Krizaka app owes, as a shared check (`checkAccountBaseline`, `playwrightVisit`) for each app's CI (krizaka-ui#513).
+
 ## 0.7.0
 
 ### Minor Changes
