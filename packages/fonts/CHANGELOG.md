@@ -1,5 +1,11 @@
 # @krizaka/fonts
 
+## 0.5.1
+
+### Patch Changes
+
+- [#702](https://github.com/krizaka/krizaka-ui/pull/702) [`cbe5537`](https://github.com/krizaka/krizaka-ui/commit/cbe55378ad2b38e27612ed504dc0b71c19a30095) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The tests that import the package's own `dist` now depend on its build in turbo (the release pipeline ran them before the build).
+
 ## 0.5.0
 
 ### Minor Changes
