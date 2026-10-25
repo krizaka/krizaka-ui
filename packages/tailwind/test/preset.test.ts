@@ -156,4 +156,42 @@ describe("@krizaka/tailwind", () => {
     const missing = [...used].filter((name) => !tokens.includes(`${name}:`));
     expect(missing).toEqual([]);
   });
+  // #659: a blue block showed on the brand and the titles without any keyboard use.
+  describe("focus: the ring is the keyboard's (:focus-visible only)", () => {
+    /** Every rule whose selector list matches `test`, with its declarations. */
+    function rulesWhere(test: (selector: string) => boolean): string[] {
+      const out: string[] = [];
+      postcss.parse(css).walkRules((r) => {
+        if (r.selectors.some(test)) out.push(r.nodes.map(String).join("; "));
+      });
+      return out;
+    }
+
+    it("hides the ring on a pointer focus and draws it for the keyboard", () => {
+      expect(rule(":focus:not(:focus-visible)")).toContain("outline: none");
+      expect(rule(":focus-visible")).toContain("outline: var(--kz-ring-width) solid var(--kz-ring)");
+    });
+
+    it("never rings an element focused by code (a heading, main, a region with tabindex=-1)", () => {
+      const bodies = rulesWhere((s) => /\[tabindex=["']?-1["']?\]/.test(s) && /:focus/.test(s) && /h1/.test(s));
+      expect(bodies.length).toBeGreaterThan(0);
+      expect(bodies.join(";")).toMatch(/outline:\s*none/);
+      expect(bodies.join(";")).toMatch(/box-shadow:\s*none/);
+    });
+
+    it("keeps the roving-tabindex items (they have a role) out of that reset: arrow keys must show the ring", () => {
+      const sels = rulesWhere((s) => /\[tabindex=["']?-1["']?\]/.test(s) && /:focus/.test(s) && /h1/.test(s));
+      expect(sels.length).toBeGreaterThan(0);
+      const all: string[] = [];
+      postcss.parse(css).walkRules((r) => {
+        if (r.selectors.some((s) => /\[tabindex=["']?-1["']?\]/.test(s) && /h1/.test(s))) all.push(r.selector);
+      });
+      expect(all.join(",")).toContain(":not([role])");
+    });
+
+    it("draws no tap highlight: a touch on the brand or a title leaves no blue block", () => {
+      const bodies = rulesWhere((s) => s.trim() === "a" || s.trim() === "h1");
+      expect(bodies.join(";")).toMatch(/-webkit-tap-highlight-color:\s*transparent/);
+    });
+  });
 });

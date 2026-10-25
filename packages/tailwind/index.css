@@ -201,6 +201,10 @@
      token, wherever an element has no ring of its own (a component's focus-visible ring wins over this default). */
   :focus:not(:focus-visible) { outline: none; }
   :focus-visible { outline: var(--kz-ring-width) solid var(--kz-ring); outline-offset: var(--kz-ring-offset); }
+  /* Focused by code (#659): no ring on a heading, main or region with tabindex="-1" and no role (roving items have one). */
+  :is(h1, h2, h3, h4, h5, h6, main, header, footer, section, article, aside, nav, div, p, span, li, ul, ol, form, figure):not([role])[tabindex="-1"]:is(:focus, :focus-visible) { outline: none; box-shadow: none; }
+  /* No browser tap highlight (the blue block on a tapped brand or title). */
+  a, button, summary, label, input, select, textarea, h1, h2, h3, h4, h5, h6, [role="button"], [role="link"], [tabindex] { -webkit-tap-highlight-color: transparent; }
   button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
   /* The display face has one weight (Young Serif, ADR-004): a bold heading is never faked by the browser. */
   html { font-synthesis-weight: none; }

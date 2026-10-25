@@ -51,6 +51,13 @@ chart.gridColor = values.dark.borderSubtle;  // "hsl(0 0% 100% / 0.06)"
 Contrast is **tested**, not assumed: the package's build fails when a text role drops under its ratio on any surface,
 in either theme.
 
+## Focus
+
+The focus ring is the keyboard's: 2 px `--kz-ring` (≥ 3:1, both themes), drawn on `:focus-visible` only. A click or a tap
+shows no ring and no tap highlight, and an element that a page focuses by code (a heading or `main` with
+`tabindex="-1"` after a navigation) shows none either. Roving-tabindex items (they carry a `role`) keep their ring
+when the arrow keys reach them. A component never styles bare `:focus` / `focus:` with a ring; tests guard it.
+
 ## A product theme
 
 A product overrides roles, never components:
