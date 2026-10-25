@@ -58,7 +58,7 @@ jobs:
         run: |
           if [ "$GITHUB_EVENT_NAME" = pull_request ]; then
             git config --global --add safe.directory "$GITHUB_WORKSPACE"
-            node tools/ci-filter.mjs "$GITHUB_BASE_REF" >> "$GITHUB_ENV"
+            git diff --name-only -z "origin/$GITHUB_BASE_REF...HEAD" | node tools/ci-filter.mjs "$GITHUB_BASE_REF" >> "$GITHUB_ENV"
           else
             echo "TURBO_FILTER=*" >> "$GITHUB_ENV"
           fi
@@ -140,7 +140,7 @@ jobs:
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-1.64.0   # the playwright version of apps/storybook
+          key: playwright-${{ runner.os }}-${{ hashFiles('apps/storybook/package.json') }}   # follows apps/storybook's pinned playwright, not every lockfile change
       - run: pnpm --filter @krizaka/storybook exec playwright install --with-deps chromium
       - name: Every example of a sample of pages (slice ${{ matrix.shard }}/3), driven in a browser (apps/site/scripts/docs-crawl.mjs; the full crawl is docs-crawl.yml)
         # Opens the pages like a reader: console and React errors, failed requests, examples that render nothing, playground
@@ -183,7 +183,7 @@ jobs:
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-1.64.0   # the playwright version of apps/storybook
+          key: playwright-${{ runner.os }}-${{ hashFiles('apps/storybook/package.json') }}   # follows apps/storybook's pinned playwright, not every lockfile change
       - run: pnpm --filter @krizaka/storybook exec playwright install --with-deps chromium
       - name: The look of the top pages in a browser (desktop + phone, dark + light)
         run: |
