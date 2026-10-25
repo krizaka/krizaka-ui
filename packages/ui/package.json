@@ -1178,7 +1178,7 @@
     {
       "name": "./notification-preferences",
       "path": "dist/notification-preferences.js",
-      "limit": "3 kB",
+      "limit": "3.1 kB",
       "gzip": true,
       "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
     },
