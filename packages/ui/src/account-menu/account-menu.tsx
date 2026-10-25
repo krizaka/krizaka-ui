@@ -33,8 +33,12 @@ export interface AccountMenuProps {
   email?: string;
   /** The picture: `src`, or `defaultAvatar` (`{ brand, seed }`) for the product's default person. */
   avatar?: Omit<AvatarProps, "size">;
-  /** Show the name beside the avatar in the trigger from the `sm` breakpoint. */
-  showName?: boolean;
+  /**
+   * Show the name beside the avatar in the trigger: `true` or `"sm"` from 640 px, `"lg"` from 1024 px (the family's top
+   * bar, where search and the counts take the room below it), `false` never.
+   * @default true
+   */
+  showName?: boolean | "sm" | "lg";
   /** Where to go: profile, settings… */
   links?: readonly AccountMenuLink[];
   /** The app's link component (Next's `Link`); an `<a>` otherwise. */
@@ -61,7 +65,13 @@ export function AccountMenu({ label, name, email, avatar, showName = true, links
       >
         <Avatar size="sm" fallback={title.charAt(0).toUpperCase() || "?"} {...avatar} />
         {/* Drawn by CSS: the name is not text of the button, so its accessible name stays `label` with no label-content-name-mismatch. */}
-        {showName && title && <span aria-hidden data-name={title} className="hidden max-w-40 truncate text-sm font-medium text-fg-secondary after:content-[attr(data-name)] sm:inline-block" />}
+        {showName && title && (
+          <span
+            aria-hidden
+            data-name={title}
+            className={cn("hidden max-w-40 truncate text-sm font-medium text-fg-secondary after:content-[attr(data-name)]", showName === "lg" ? "lg:inline-block" : "sm:inline-block")}
+          />
+        )}
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end" className="w-64">
         <DropdownMenu.Label className="flex items-center gap-3 py-2 normal-case tracking-normal">

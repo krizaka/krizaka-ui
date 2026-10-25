@@ -75,3 +75,14 @@ describe("AccountMenu", () => {
     expect(cls).toContain("max-h-(--radix-dropdown-menu-content-available-height)");
   });
 });
+
+describe("AccountMenu — the name's breakpoint (#647)", () => {
+  it("shows the name from sm by default and from lg with showName=\"lg\"", () => {
+    const { container, rerender } = render(<AccountMenu label="Account" name="Eric Tremblay" signOut={{ label: "Sign out", onSelect: () => {} }} />);
+    expect(container.querySelector("[data-name]")!.className).toContain("sm:inline-block");
+    rerender(<AccountMenu label="Account" name="Eric Tremblay" showName="lg" signOut={{ label: "Sign out", onSelect: () => {} }} />);
+    const name = container.querySelector("[data-name]")!.className;
+    expect(name).toContain("lg:inline-block");
+    expect(name).not.toContain("sm:inline-block");
+  });
+});
