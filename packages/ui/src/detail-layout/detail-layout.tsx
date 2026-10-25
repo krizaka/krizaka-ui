@@ -1,7 +1,7 @@
 // Server-safe. The page of one object, read from the products' detail screens (a video, a job, an account, a pack):
 // its header — the way back, a media or an avatar, the name, its facts and status, the actions — then its tabs, the
 // content, and a side panel (details, related, activity) that goes under the content on a phone.
-import type * as React from "react";
+import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { ProfileBanner } from "../profile-card/banner";
@@ -22,6 +22,21 @@ export const detailLayout = tv({
     columns: "grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-8",
     main: "flex min-w-0 flex-col gap-5",
     aside: "flex min-w-0 flex-col gap-4 lg:sticky lg:top-20 lg:self-start",
+    section: "flex min-w-0 flex-col gap-3 rounded-xl rounded-tl-none border border-border-default bg-surface-1 p-4 sm:p-5",
+    sectionTab: "-mb-3 -mt-4 w-fit rounded-t-md border border-b-0 border-border-default bg-surface-2 px-3 py-1 text-xs font-bold text-fg-secondary sm:-mt-5",
+    sectionHead: "flex items-center justify-between gap-3",
+    sectionTitle: "m-0 text-sm font-semibold text-fg",
+    notes: "m-0 flex list-none flex-col gap-3 p-0 [counter-reset:note]",
+    note: "flex gap-3 text-sm text-fg [counter-increment:note]",
+    noteNum: "mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-surface-3 text-xs font-bold tabular-nums text-fg-secondary",
+    noteBody: "flex min-w-0 flex-col gap-0.5",
+    noteMeta: "text-xs text-fg-secondary",
+    steps: "m-0 flex list-none flex-col gap-8 p-0",
+    step: "flex min-w-0 flex-col gap-3",
+    stepHead: "flex items-center gap-3",
+    stepNum: "grid size-8 shrink-0 place-items-center rounded-full bg-accent text-sm font-extrabold tabular-nums text-on-accent",
+    stepTitle: "m-0 text-base font-semibold text-fg",
+    totals: "flex flex-col gap-4 rounded-xl border border-border-default bg-surface-1 p-4",
   },
 });
 const s = detailLayout();
@@ -50,12 +65,15 @@ export type DetailLayoutProps = Omit<React.ComponentProps<"div">, "title"> & {
   tabs?: React.ReactNode;
   /** The side panel: details, related objects, activity (under the content on a phone). */
   aside?: React.ReactNode;
+  /** A notes column (`DetailNotes`) at the top of the side panel, before `aside`. */
+  notes?: React.ReactNode;
   /** The content (the current tab). */
   children: React.ReactNode;
 };
 
 /** One object's page: header (back, media, name, status, facts, actions), tabs, content and a side panel. */
-export function DetailLayout({ back, media, cover, eyebrow, title, status, meta, actions, tabs, aside, className, children, ...props }: DetailLayoutProps) {
+export function DetailLayout({ back, media, cover, eyebrow, title, status, meta, actions, tabs, aside, notes, className, children, ...props }: DetailLayoutProps) {
+  const side = notes || aside;
   return (
     <div className={s.root({ className })} {...props}>
       {back && <div className={s.back()}>{back}</div>}
@@ -76,10 +94,117 @@ export function DetailLayout({ back, media, cover, eyebrow, title, status, meta,
         </div>
       )}
       {tabs}
-      <div className={aside ? s.columns() : undefined}>
+      <div className={side ? s.columns() : undefined}>
         <div className={s.main()}>{children}</div>
-        {aside && <aside className={s.aside()}>{aside}</aside>}
+        {side && (
+          <aside className={s.aside()}>
+            {notes}
+            {aside}
+          </aside>
+        )}
       </div>
     </div>
   );
+}
+
+export type DetailSectionProps = Omit<React.ComponentProps<"section">, "title"> & {
+  /** The binder tab: names the section (`Invoices`). */
+  title: React.ReactNode;
+  /** On the right of the title: one action (`See all`). */
+  action?: React.ReactNode;
+  /** The title's level. @default 2 */
+  level?: 2 | 3;
+};
+
+/** A binder section of the main column: a titled region on a card, its name on a tab at the top-left corner. */
+export function DetailSection({ title, action, level = 2, className, children, id, ...props }: DetailSectionProps) {
+  const H = level === 2 ? "h2" : "h3";
+  const auto = React.useId();
+  const titleId = `${id ?? auto}-title`;
+  return (
+    <section id={id} aria-labelledby={titleId} className={s.section({ className })} {...props}>
+      <div className={s.sectionHead()}>
+        <H id={titleId} className={s.sectionTitle()}>
+          {title}
+        </H>
+        {action}
+      </div>
+      {children}
+    </section>
+  );
+}
+
+export type DetailNote = { id: string; body: React.ReactNode; /** Who and when (`Eric · Oct 19`). */ meta?: React.ReactNode };
+
+export type DetailNotesProps = Omit<React.ComponentProps<"section">, "title"> & {
+  /** The column's name (`Notes`). */
+  title: React.ReactNode;
+  /** The notes, oldest first. */
+  notes: readonly DetailNote[];
+  /** Said when there is none. */
+  emptyLabel: string;
+  /** Under the list: the add field (a `Field` and a `Button`, a small form). */
+  add?: React.ReactNode;
+};
+
+/** The notes column of a person's or an object's page: numbered notes and an add field. */
+export function DetailNotes({ title, notes, emptyLabel, add, className, ...props }: DetailNotesProps) {
+  const id = React.useId();
+  return (
+    <section aria-labelledby={id} className={s.section({ className })} {...props}>
+      <h2 id={id} className={s.sectionTitle()}>
+        {title}
+      </h2>
+      {notes.length === 0 ? (
+        <p className={s.noteMeta()}>{emptyLabel}</p>
+      ) : (
+        <ol className={s.notes()}>
+          {notes.map((n, i) => (
+            <li key={n.id} className={s.note()}>
+              <span className={s.noteNum()} aria-hidden="true">
+                {i + 1}
+              </span>
+              <span className={s.noteBody()}>
+                <span>{n.body}</span>
+                {n.meta && <span className={s.noteMeta()}>{n.meta}</span>}
+              </span>
+            </li>
+          ))}
+        </ol>
+      )}
+      {add}
+    </section>
+  );
+}
+
+export type FormStepData = { id: string; title: React.ReactNode; children: React.ReactNode };
+
+/** The numbered steps of a long form (a new invoice: client, lines, terms): an ordered list, each step a named region. */
+export function FormSteps({ steps, className, ...props }: Omit<React.ComponentProps<"ol">, "children"> & { steps: readonly FormStepData[] }) {
+  const base = React.useId();
+  return (
+    <ol className={s.steps({ className })} {...props}>
+      {steps.map((st, i) => (
+        <li key={st.id} className={s.step()}>
+          <div className={s.stepHead()}>
+            <span className={s.stepNum()} aria-hidden="true">
+              {i + 1}
+            </span>
+            <h2 id={`${base}-${st.id}`} className={s.stepTitle()}>
+              <span className="sr-only">{i + 1}. </span>
+              {st.title}
+            </h2>
+          </div>
+          <div role="group" aria-labelledby={`${base}-${st.id}`} className="flex min-w-0 flex-col gap-4">
+            {st.children}
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/** The totals card of a form's side panel (`aside`): sticky with the panel on a desktop, under the steps on a phone. Plain primary at `lg` inside. */
+export function FormTotals({ className, ...props }: React.ComponentProps<"div">) {
+  return <div className={s.totals({ className })} {...props} />;
 }

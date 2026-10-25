@@ -19,7 +19,7 @@ export const meta = {
   ],
   accessibility: {
     keyboard: [],
-    notes: ["A plain container: the action inside keeps its own role and name. Not rendered from `md` up (`display: none`)."],
+    notes: ["A plain container: the action inside keeps its own role and name. In `phone` mode it is not rendered from `md` up (`display: none`); in `task` mode it stays, with the `summary` (the total) read before the action."],
   },
   related: ["cover-hero", "button", "action-bar"],
   web: {

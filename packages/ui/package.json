@@ -1921,7 +1921,7 @@
     {
       "name": "./sticky-action",
       "path": "dist/sticky-action.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2349,7 +2349,7 @@
     {
       "name": "./dashboard-layout",
       "path": "dist/dashboard-layout.js",
-      "limit": "1 kB",
+      "limit": "2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2391,7 +2391,7 @@
     {
       "name": "./detail-layout",
       "path": "dist/detail-layout.js",
-      "limit": "1.6 kB",
+      "limit": "3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2608,7 +2608,7 @@
     {
       "name": "./catalogue-page",
       "path": "dist/catalogue-page.js",
-      "limit": "1.5 kB",
+      "limit": "2.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

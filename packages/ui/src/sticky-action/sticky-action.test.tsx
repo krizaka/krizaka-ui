@@ -19,3 +19,19 @@ describe("StickyAction", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 });
+
+describe("StickyAction task mode", () => {
+  it("stays on every width and reads the total before the action", async () => {
+    const { container } = render(
+      <StickyAction mode="task" summary="Total $640" data-testid="bar">
+        <button type="button">Send</button>
+      </StickyAction>,
+    );
+    const bar = screen.getByTestId("bar");
+    expect(bar.className).not.toContain("md:hidden");
+    expect(bar.className).toContain("sticky");
+    const text = bar.textContent ?? "";
+    expect(text.indexOf("Total $640")).toBeLessThan(text.indexOf("Send"));
+    expect(await axeViolations(container)).toEqual([]);
+  });
+});
