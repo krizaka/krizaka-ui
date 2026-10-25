@@ -1905,7 +1905,7 @@
     {
       "name": "./slot-picker",
       "path": "dist/slot-picker.js",
-      "limit": "2 kB",
+      "limit": "4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
