@@ -1,5 +1,30 @@
 # @krizaka/ui
 
+## 3.59.0
+
+### Minor Changes
+
+- [#701](https://github.com/krizaka/krizaka-ui/pull/701) [`b6cda94`](https://github.com/krizaka/krizaka-ui/commit/b6cda94462f4e15f735eb8e8f69ff700c56fd66a) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `slot-picker` moves through weeks ([#672](https://github.com/krizaka/krizaka-ui/issues/672), ADR-006 §6 — Akinaza's public booking, akinaza#315), no new entry.
+  
+  - **Weeks:** `week` (controlled, the ISO date of the first day) with `onWeekChange`, `minWeek`, `maxWeek`, `todayWeek`, `weekLabel` and `weekButtons` — ← Today →. The host loads the days of the week it is asked for; the picker never computes availability. `weekHref` makes the buttons links, so `?week=` holds the state (and `?slot=` through each time's `href`).
+  - **Parts of the day:** `PickerDay.groups` (`Morning`, `Afternoon`), the labels from the host's messages; `slots` stays for a flat day.
+  - **A full time** (`disabled`) is struck out and read with its `note`, never by colour alone.
+  - **`footer`:** the time zone and the duration, formatted by the host with `@krizaka/intl`.
+  - **Keyboard:** arrows between days and between times (a full time is skipped), Page Up / Page Down for the week, focus kept; the week label is a polite live region.
+
+- [#704](https://github.com/krizaka/krizaka-ui/pull/704) [`bfb374a`](https://github.com/krizaka/krizaka-ui/commit/bfb374afd8398c80aa95033c9b736413f7eaa2ef) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Templates for Akinaza's, Yomizaka's and Orazaka's screens ([#653](https://github.com/krizaka/krizaka-ui/issues/653), ADR-006 §6), no new entry and no fiscal or receipt logic. Audit in [#622](https://github.com/krizaka/krizaka-ui/issues/622).
+  
+  - **Operate · `dashboard-layout`:** `date` on the right of the heading (under the title on a phone), a `description` that may hold links to the figures, `quickActions` (2 to 4 tiles, a `nav`, `quickActionsLabel`, `linkAs`) and a `side` column (beside the widgets from `lg`, last on a phone). Example `today`.
+  - **Operate · `catalogue-page`:** `plan` with the new `PlanStrip` (2 or 3 figures and a `Meter`), `dividers` (the binder), `selection` (the `SelectionBar` of [#627](https://github.com/krizaka/krizaka-ui/issues/627), after the results). Example `clients`.
+  - **Show · `detail-layout`:** `notes` column with `DetailNotes` (numbered notes, an add field) before the side panel, `DetailSection` (a binder section: a titled region with its tab), over the `cover` banner of [#650](https://github.com/krizaka/krizaka-ui/issues/650). Example `client`.
+  - **Act · form:** `FormSteps` (an ordered list of numbered, named steps), `FormTotals` (the sticky totals card of the `aside`), and `StickyAction mode="task"` — on every width, with the `summary` (the total) before the action. Example `new-invoice`.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.59.0
+  - @krizaka/tokens@3.59.0
+
 ## 3.58.0
 
 ### Minor Changes
