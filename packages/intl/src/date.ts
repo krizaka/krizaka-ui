@@ -24,6 +24,14 @@ export function formatDate(date: DateInput, { locale, style = "medium", timeStyl
   return getDateTimeFormat(locale, { dateStyle: style, timeStyle, timeZone }).format(toDate(date));
 }
 
+/**
+ * The calendar day (`yyyy-mm-dd`) an instant falls on in a time zone: the day a law, a deadline or a receipt means. In
+ * Montréal, 21:30 on 23 October is still the 23rd, although the UTC day is already the 24th.
+ */
+export function localDay(instant: DateInput, timeZone: string): string {
+  return getDateTimeFormat("en-CA", { timeZone, year: "numeric", month: "2-digit", day: "2-digit" }).format(toDate(instant));
+}
+
 export interface FormatRelativeOptions {
   locale: Locale;
   /** The reference instant. Default: `Date.now()` — inject it for tests and for a stable server render. */
