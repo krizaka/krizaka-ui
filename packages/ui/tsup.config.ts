@@ -85,6 +85,7 @@ export default defineConfig([
       "avatar/defaults": "src/avatar/defaults.ts",
       // The Krizaka family as data (the bar's switcher and the footer read it).
       sites: "src/sites/index.ts",
+      "nav-bar/me": "src/nav-bar/me.ts",
       // The page blocks that hold no state: usable in a Server Component as they are.
       page: "src/page/index.ts",
       "page-hero": "src/page-hero/index.ts",
@@ -101,6 +102,10 @@ export default defineConfig([
       "page-index": "src/page-index/index.ts",
       chapter: "src/chapter/index.ts",
       footnote: "src/footnote/index.ts",
+      // Stuck into the notebook: the hold, the margin doodle, the house's signature (server-safe).
+      stuck: "src/stuck/index.ts",
+      doodle: "src/doodle/index.ts",
+      signature: "src/signature/index.ts",
       // The recipes: classes of the tokens, read by tv() on the web and by the phone's components (no React).
       recipes: "src/recipes/index.ts",
     },
@@ -191,6 +196,8 @@ export default defineConfig([
       "glossary-term": "src/glossary-term/index.ts",
       tabs: "src/tabs/index.ts",
       router: "src/router/index.ts",
+      // What reaches a person: categories by channels.
+      "notification-preferences": "src/notification-preferences/index.ts",
       chip: "src/chip/index.ts",
       switch: "src/switch/index.ts",
       slider: "src/slider/index.ts",
@@ -233,6 +240,7 @@ export default defineConfig([
       "date-picker": "src/date-picker/index.ts",
       "search-field": "src/search-field/index.ts",
       "video-player": "src/video-player/index.ts",
+      "retro-tv": "src/retro-tv/index.ts",
       "vertical-video": "src/vertical-video/index.ts",
       "file-upload": "src/file-upload/index.ts",
       "media-capture": "src/media-capture/index.ts",

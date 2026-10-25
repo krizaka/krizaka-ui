@@ -145,6 +145,10 @@
       "types": "./dist/page-header.d.ts",
       "import": "./dist/page-header.js"
     },
+    "./notification-preferences": {
+      "types": "./dist/notification-preferences.d.ts",
+      "import": "./dist/notification-preferences.js"
+    },
     "./agenda": {
       "types": "./dist/agenda.d.ts",
       "import": "./dist/agenda.js"
@@ -248,6 +252,10 @@
     "./nav-bar": {
       "types": "./dist/nav-bar.d.ts",
       "import": "./dist/nav-bar.js"
+    },
+    "./nav-bar/me": {
+      "types": "./dist/nav-bar/me.d.ts",
+      "import": "./dist/nav-bar/me.js"
     },
     "./account-settings": {
       "types": "./dist/account-settings.d.ts",
@@ -388,6 +396,10 @@
     "./video-player": {
       "types": "./dist/video-player.d.ts",
       "import": "./dist/video-player.js"
+    },
+    "./retro-tv": {
+      "types": "./dist/retro-tv.d.ts",
+      "import": "./dist/retro-tv.js"
     },
     "./file-upload": {
       "types": "./dist/file-upload.d.ts",
@@ -536,6 +548,18 @@
     "./footnote": {
       "types": "./dist/footnote.d.ts",
       "import": "./dist/footnote.js"
+    },
+    "./stuck": {
+      "types": "./dist/stuck.d.ts",
+      "import": "./dist/stuck.js"
+    },
+    "./doodle": {
+      "types": "./dist/doodle.d.ts",
+      "import": "./dist/doodle.js"
+    },
+    "./signature": {
+      "types": "./dist/signature.d.ts",
+      "import": "./dist/signature.js"
     },
     "./code-block": {
       "types": "./dist/code-block.d.ts",
@@ -1152,6 +1176,13 @@
       ]
     },
     {
+      "name": "./notification-preferences",
+      "path": "dist/notification-preferences.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+    },
+    {
       "name": "./agenda",
       "path": "dist/agenda.js",
       "limit": "2 kB",
@@ -1374,7 +1405,7 @@
     {
       "name": "./nav-bar (Radix NavigationMenu, Slot, the family's marks)",
       "path": "dist/nav-bar.js",
-      "limit": "27 kB",
+      "limit": "27.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1616,6 +1647,12 @@
       "gzip": true
     },
     {
+      "name": "./nav-bar/me",
+      "path": "dist/nav-bar/me.js",
+      "limit": "1 kB",
+      "gzip": true
+    },
+    {
       "name": "./combobox",
       "path": "dist/combobox.js",
       "limit": "15.5 kB",
@@ -1671,6 +1708,16 @@
       "name": "./video-player",
       "path": "dist/video-player.js",
       "limit": "15.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./retro-tv",
+      "path": "dist/retro-tv.js",
+      "limit": "20 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2061,6 +2108,36 @@
       "name": "./footnote",
       "path": "dist/footnote.js",
       "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./stuck",
+      "path": "dist/stuck.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./doodle",
+      "path": "dist/doodle.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./signature",
+      "path": "dist/signature.js",
+      "limit": "1.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

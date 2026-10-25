@@ -25,7 +25,7 @@ export const videoPlayer = tv({
     bar:
       "absolute inset-x-0 bottom-0 z-20 flex flex-col gap-1 bg-linear-to-t from-scrim-strong via-scrim to-transparent px-3 pb-2 pt-10 " +
       "transition-opacity duration-300 motion-reduce:transition-none group-data-[idle]/player:opacity-0 group-focus-within/player:opacity-100",
-    row: "flex items-center gap-1",
+    row: "flex flex-wrap items-center gap-1",
     button:
       "inline-flex h-9 min-w-9 shrink-0 items-center justify-center gap-1 rounded-md px-1.5 text-xs font-semibold text-fg-on-media " +
       "transition-colors hover:bg-fg-on-media/15 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-pressed:bg-fg-on-media/20",

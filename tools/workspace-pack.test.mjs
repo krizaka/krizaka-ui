@@ -7,7 +7,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { after, before, describe, it } from "node:test";
 
-import { packWithSiblings, workspaceDependencies } from "./workspace-pack.mjs";
+import { installedAlone, packWithSiblings, workspaceDependencies } from "./workspace-pack.mjs";
 
 let root;
 const write = (dir, manifest) => {
@@ -65,4 +65,20 @@ describe("workspace-pack", () => {
       rmSync(consumer, { recursive: true, force: true });
     }
   });
+
+  it("runs a consumer's check from a folder where the package is installed alone, then removes it", () => {
+    const seen = [];
+    const run = (cmd, args, cwd) => {
+      seen.push(cmd === "pnpm" ? "pack" : cmd === "npm" ? `install ${args.filter((a) => !a.startsWith("-")).length}` : `node in ${existsSync(join(cwd, "check.mjs")) ? "a folder with check.mjs" : "?"}`);
+      if (cmd === "pnpm") return JSON.stringify({ filename: `${seen.length}.tgz` });
+      return cmd === "node" ? "✓ checked\n" : "";
+    };
+    let folder;
+    const out = installedAlone(join(root, "packages", "top"), { script: "console.log(1);", extra: ["react@19"] }, (cmd, args, cwd) => ((folder = cwd), run(cmd, args, cwd)));
+    assert.equal(out, "✓ checked\n");
+    // three tarballs (leaf, middle, top) and React; then the check, run where it was written
+    assert.deepEqual(seen, ["pack", "pack", "pack", "install 5", "node in a folder with check.mjs"]);
+    assert.equal(existsSync(folder), false);
+  });
 });
+
