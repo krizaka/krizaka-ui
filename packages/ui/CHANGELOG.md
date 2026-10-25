@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.56.0
+
+### Minor Changes
+
+- [#693](https://github.com/krizaka/krizaka-ui/pull/693) [`33f3849`](https://github.com/krizaka/krizaka-ui/commit/33f384959f3fbe72d91019e1b9167ee243413726) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ProfileBanner` (in `@krizaka/ui/profile-card`, [#650](https://github.com/krizaka/krizaka-ui/issues/650)): the top of a page about one person or place — a client, a shop, a creator, a building. It has a slim cover (an image, or a tint of the brand's accent), the avatar overlapping its lower edge at every width, the eyebrow, the name (the `h1`), a status, its facts and the actions. No text is ever drawn on the cover. `DetailLayout` gains `cover`: its header becomes the banner, with `media` as the avatar. React Native: `ProfileBanner` in `@krizaka/ui/native`. Extracted from Orochia's profile hero ([#515](https://github.com/krizaka/krizaka-ui/issues/515)).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.56.0
+  - @krizaka/tokens@3.56.0
+
 ## 3.55.0
 
 ### Minor Changes

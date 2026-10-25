@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/payments",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Payments for every Krizaka product, vendor behind a port: the Stripe adapter (Checkout, customer portal, price read by lookup key, verified webhook), idempotent event application, a locale-aware price formatter and a catalogue setup that creates products, prices, portal and webhook from data. No SDK: you pass fetch.",
   "keywords": [
     "krizaka",

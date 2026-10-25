@@ -1,5 +1,11 @@
 # @krizaka/payments
 
+## 0.2.2
+
+### Patch Changes
+
+- [#666](https://github.com/krizaka/krizaka-ui/pull/666) [`8a5d7b9`](https://github.com/krizaka/krizaka-ui/commit/8a5d7b9f5f440e0d20a22d68ec9e3ef07a437c10) Thanks [@dependabot](https://github.com/apps/dependabot)! - Errors keep their cause: the « did not answer in time » TypeError of `@krizaka/app-client` carries the abort it comes from, and the AggregateError of `@krizaka/payments` (handler and give-back both failed) carries the give-back's failure as `cause`.
+
 ## 0.2.1
 
 ### Patch Changes
