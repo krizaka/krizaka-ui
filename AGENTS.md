@@ -25,6 +25,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ query/                # @krizaka/query — server state: TanStack Query behind the facade, typed fetch, live invalidation (no UI)
 │  ├─ push/                 # @krizaka/push — mobile push through the Expo Push Service (FCM / APNs), pure (no UI)
 │  ├─ app-client/            # @krizaka/app-client — what every Expo app shares: bearer session, discovery factory, API client (ports in, no native module)
+│  ├─ app-desktop/           # @krizaka/app-desktop — the typed page side of tauri-plugin-krizaka (folders, Keychain storage, menu bar, deep links; Tauri passed in)
 │  ├─ discovery/            # @krizaka/discovery — mobile service discovery: a signed manifest of backend addresses (Ed25519, allow-list), pure (no UI)
 │  ├─ pacer/                # @krizaka/pacer — cadence: debounce, throttle, a job queue (priority, retries, pause per job), a rate limiter (TanStack Pacer behind the facade; hooks in ./react)
 │  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
@@ -55,7 +56,7 @@ a copy between a product and this repository — the version is the contract.
 | Level | Where | Goes in | Never goes in |
 | :-- | :-- | :-- | :-- |
 | **0 — Foundations** | `@krizaka/tokens`, `@krizaka/tailwind` | Semantic tokens, preset, variants, `cn`, `Slot`, `VisuallyHidden`, theme. | Components. |
-| **0 — Platform bricks** | `@krizaka/intl`, `@krizaka/i18n`, `@krizaka/realtime`, `@krizaka/query`, `@krizaka/push`, `@krizaka/pacer`, `@krizaka/discovery`, `@krizaka/app-client` | Code without UI that every product needs the same way: formatting, messages, the realtime bus + presence + SSE (`realtime`), server state on the client (`query`), mobile push (`push`). Drivers (`pg`, `ioredis`) are optional peers; connections and URLs are injected by the app, never read from its environment. | A product word, a product's channel or key name, a table, a route. |
+| **0 — Platform bricks** | `@krizaka/intl`, `@krizaka/i18n`, `@krizaka/realtime`, `@krizaka/query`, `@krizaka/push`, `@krizaka/pacer`, `@krizaka/discovery`, `@krizaka/app-client`, `@krizaka/app-desktop` | Code without UI that every product needs the same way: formatting, messages, the realtime bus + presence + SSE (`realtime`), server state on the client (`query`), mobile push (`push`). Drivers (`pg`, `ioredis`) are optional peers; connections and URLs are injected by the app, never read from its environment. | A product word, a product's channel or key name, a table, a route. |
 | **1 — Primitives** | `@krizaka/ui/*` | Any component **without product vocabulary**: button, card, dialog, field, tabs, badge, avatar, toast, skeleton, countdown, command palette. Words arrive as props. | `t()`, domain types, network calls, palette colours, `light:`. |
 | **2 — Product composites** | `@krizaka/<product>-design-system` (own repositories) | The product theme (`--kz-*` overrides) and the components that carry its vocabulary. | A copied or forked primitive. |
 | **3 — App features** | the product apps | Screens, panels, editors, business forms, orchestration. | A generic component another product could reuse. |
@@ -150,7 +151,7 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 
 Each package must be declared once on npmjs.com as trusted publisher: repository `krizaka/krizaka-ui`, workflow
 `release.yml`. `tokens`, `tailwind` and `ui` form one `fixed` group in `.changeset/config.json` (one shared
-version); `config`, `intl`, `i18n`, `icons`, `charts`, `fonts`, `realtime`, `query`, `push`, `pacer`, `discovery` and `app-client` version on their own. Pre-releases (`pnpm changeset pre enter <tag>`)
+version); `config`, `intl`, `i18n`, `icons`, `charts`, `fonts`, `realtime`, `query`, `push`, `pacer`, `discovery`, `app-client` and `app-desktop` version on their own. Pre-releases (`pnpm changeset pre enter <tag>`)
 are for a coming major only; `main` is out of pre-release since 2.0.0.
 
 ## 5. Maintenance commands
@@ -220,3 +221,19 @@ Read `docs/README.md` inside that installed package first, then read the relevan
 
 This block is written and re-added by `turbo` before repository-scoped commands when an AI agent is detected. In the Turborepo source repository, its template is defined in `crates/turborepo-cli/src/cli/agent_guidance.rs`. Removing the managed block while updates are enabled means a later qualifying invocation will add it again. Set `"agentGuidance": false` in the root `turbo.json` or `turbo.jsonc` to opt out; this does not remove an existing block. Keep the block committed with your work to avoid an uncommitted change on the next agent invocation.
 <!-- END:turborepo-agent-rules -->
+
+## Before you open or update a pull request (coding agents)
+
+These are the defects code review found most often on 2026-10-23. Check them yourself before you open or update a pull request:
+1. **Checks:** run the repository's full check (lint, typecheck, tests, build) and fix it. Never push a red check.
+2. **Concurrency:** any « count then insert » or « check then write » runs in one transaction with a lock, and has a concurrency test.
+3. **One gate:** a rule (limit, permission, validation) is enforced in the service, so no route can skip it. Test every route.
+4. **Errors:** a cleanup (ROLLBACK, DROP, close) never masks the original error. Rethrow it, or throw an `AggregateError` with the original first.
+5. **Validation:** validate the original input, never a truncated or pre-trimmed copy. Server and client reject the same inputs.
+6. **Accessibility:**
+   - every control has a unique label, and FR/EN pairs say their language;
+   - focus rings are never clipped by `overflow`;
+   - text never overflows its box at 360 px.
+7. **Naming:** environment variables follow `<CONTEXT>_<THING>` (`APP_`, `DATABASE_`, `AUTH_`, `MEDIA_`, `MAIL_`, `PAYMENTS_`, `AI_`…) and are declared once.
+8. **Words:** every user-facing string is in the FR and EN messages, and no colour is hard-coded.
+9. **Review threads:** answer every one. Fix it test-first, or reply with the reason, then resolve it.

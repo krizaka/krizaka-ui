@@ -7,7 +7,7 @@ export default defineConfig({
     globals: true,
     coverage: {
       provider: "v8",
-      include: ["src/**/*.ts"],
+      include: ["src/**/*.{ts,tsx}"],
       exclude: ["src/index.ts"],
       reporter: ["text"],
       thresholds: { functions: 100, lines: 100, statements: 100, branches: 100 },

@@ -1,0 +1,81 @@
+{
+  "name": "@krizaka/app-desktop",
+  "version": "0.1.1",
+  "description": "What every Krizaka Mac app (Tauri 2) calls on its native side, typed: folder grants and watched folders, dropped files, the Keychain as @krizaka/app-client's storage, the native menu bar, deep links and the update channel — over tauri-plugin-krizaka. Tauri is passed in, never imported.",
+  "keywords": [
+    "krizaka",
+    "tauri",
+    "desktop",
+    "macos",
+    "keychain",
+    "deep-link"
+  ],
+  "homepage": "https://ui.krizaka.com/packages/app-desktop",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/app-desktop"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsup",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "@krizaka/app-client": "workspace:^"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "workspace:*",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@types/node": "^22.15.0",
+    "@vitest/coverage-v8": "4.1.11",
+    "eslint": "^9.39.0",
+    "publint": "^0.3.25",
+    "size-limit": "^14.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": ".",
+      "path": "dist/index.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "@krizaka/app-client"
+      ]
+    }
+  ]
+}

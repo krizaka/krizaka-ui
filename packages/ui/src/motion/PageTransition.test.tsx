@@ -43,6 +43,24 @@ describe("PageTransition: the component", () => {
     expect(screen.getByTestId("vt").textContent).toBe("page");
     expect(seen).toEqual([{ default: cls }]);
   });
+
+  it("with a routeKey, only a change of page animates: updates on the same page run no transition (the dialog bug, akinaza 2026-10-23)", async () => {
+    vi.resetModules();
+    const seen: Record<string, unknown>[] = [];
+    vi.doMock("react", async (original) => ({
+      ...(await original<typeof import("react")>()),
+      unstable_ViewTransition: undefined,
+      ViewTransition: ({ children, ...props }: { children: ReactNode }) => {
+        seen.push(props);
+        return <div data-testid="vt">{children}</div>;
+      },
+    }));
+    const { PageTransition: Wrapped, PAGE_TRANSITION_CLASS: cls } = await import("./PageTransition");
+    const { rerender } = render(<Wrapped routeKey="/fr/app/today"><p>today</p></Wrapped>);
+    rerender(<Wrapped routeKey="/fr/app/today"><p>today, dialog open</p></Wrapped>);
+    expect(screen.getAllByTestId("vt")).toHaveLength(1);
+    expect(seen.at(-1)).toEqual({ default: "none", enter: cls, exit: cls });
+  });
 });
 
 describe("PageTransition: the stylesheet section", () => {
