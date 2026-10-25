@@ -1,6 +1,8 @@
+import { themes } from "@krizaka/tokens/native";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import BinderExample from "../../registry/examples/tabs/binder";
 import { axeViolations } from "../test/axe";
 import { isTabActive, Tabs } from "./index";
 
@@ -208,5 +210,86 @@ describe("Tabs as routes (Tabs.Nav)", () => {
     expect(document.activeElement).toBe(a);
     await userEvent.tab();
     expect(document.activeElement).toBe(screen.getByRole("link", { name: "B" }));
+  });
+});
+
+describe("Tabs — binder dividers (#648)", () => {
+  /** WCAG contrast of two #rrggbb colours. */
+  const lum = (hex: string) => {
+    const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r! + 0.7152 * g! + 0.0722 * b!;
+  };
+  const contrast = (a: string, b: string) => {
+    const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x);
+    return (hi! + 0.05) / (lo! + 0.05);
+  };
+
+  it("every hue reads at 3:1 or more on the dividers' surfaces, in both themes", () => {
+    const roles = { accent: "accent", success: "successText", warning: "warningText", danger: "dangerText", neutral: "textMuted" } as const;
+    for (const mode of ["dark", "light"] as const) {
+      const t = themes[mode] as unknown as Record<string, string>;
+      for (const [hue, role] of Object.entries(roles)) {
+        for (const surface of ["surface1", "surface2"]) {
+          expect(contrast(t[role]!, t[surface]!), `${hue} on ${surface} (${mode})`).toBeGreaterThanOrEqual(3);
+        }
+      }
+    }
+  });
+
+  function Binder({ add }: { add?: () => void }) {
+    return (
+      <Tabs.Root variant="binder" defaultValue="all">
+        <Tabs.List aria-label="Collections" add={add ? { label: "Divider", onAdd: add } : undefined}>
+          <Tabs.Trigger value="all" count={48}>All</Tabs.Trigger>
+          <Tabs.Trigger value="regulars" hue="success" count={21}>Regulars</Tabs.Trigger>
+          <Tabs.Trigger value="archived" hue="neutral">Archived</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="all">48 clients</Tabs.Content>
+        <Tabs.Content value="regulars">21 regulars</Tabs.Content>
+        <Tabs.Content value="archived">Archived clients</Tabs.Content>
+      </Tabs.Root>
+    );
+  }
+
+  it("draws dividers: the count in the tab's name, the hue as --kz-hue, the accent by default", () => {
+    render(<Binder />);
+    const regulars = screen.getByRole("tab", { name: "Regulars 21" });
+    expect(regulars.style.getPropertyValue("--kz-hue")).toBe("var(--kz-success-text)");
+    expect(regulars.className).toContain("before:bg-(--kz-hue,var(--kz-accent))");
+    expect(screen.getByRole("tab", { name: "All 48" }).style.getPropertyValue("--kz-hue")).toBe("");
+    expect(screen.getByRole("tablist").className).toContain("overflow-x-auto");
+    expect(screen.getByRole("tablist").className).toContain("mask-image");
+  });
+
+  it("walks the dividers with the arrows, Home and End", async () => {
+    const user = userEvent.setup();
+    render(<Binder />);
+    await user.tab();
+    expect(document.activeElement).toBe(screen.getByRole("tab", { name: "All 48" }));
+    await user.keyboard("{ArrowRight}");
+    expect(screen.getByRole("tab", { name: "Regulars 21" }).getAttribute("aria-selected")).toBe("true");
+    await user.keyboard("{End}");
+    expect(document.activeElement).toBe(screen.getByRole("tab", { name: "Archived" }));
+    await user.keyboard("{Home}");
+    expect(document.activeElement).toBe(screen.getByRole("tab", { name: "All 48" }));
+  });
+
+  it("puts « + » after the list, outside the tablist, with no axe violation", async () => {
+    const add = vi.fn();
+    const { container } = render(<Binder add={add} />);
+    const button = screen.getByRole("button", { name: "Divider" });
+    expect(screen.getByRole("tablist").contains(button)).toBe(false);
+    button.click();
+    expect(add).toHaveBeenCalled();
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("as routes, the address marks the active divider", () => {
+    render(<BinderExample />);
+    const active = screen.getByRole("link", { name: "Regulars 21" });
+    expect(active.getAttribute("aria-current")).toBe("page");
+    expect(active.style.getPropertyValue("--kz-hue")).toBe("var(--kz-success-text)");
+    expect(screen.getByRole("link", { name: "All 48" }).hasAttribute("aria-current")).toBe(false);
+    expect(screen.getByRole("navigation", { name: "Client collections" }).contains(screen.getByRole("button", { name: "Divider" }))).toBe(false);
   });
 });

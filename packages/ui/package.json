@@ -1279,7 +1279,7 @@
     {
       "name": "./tabs",
       "path": "dist/tabs.js",
-      "limit": "11.6 kB",
+      "limit": "12.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2214,7 +2214,7 @@
     {
       "name": "./code-block",
       "path": "dist/code-block.js",
-      "limit": "19.7 kB",
+      "limit": "20.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

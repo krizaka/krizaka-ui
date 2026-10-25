@@ -1,2 +1,20 @@
-/** @krizaka/ui/tabs — `Tabs.Root/List/Trigger/Content` (variant underline · segmented · pills), `Tabs.Nav/NavLink` (the same tabs as routes: links, the URL is the state), `tabs` (the slots). Client ("use client"). */
-export { isTabActive, Tabs, tabs, TabsContent, TabsList, TabsNav, TabsNavLink, type TabsNavLinkProps, type TabsNavProps, TabsRoot, type TabsRootProps, TabsTrigger, type TabsVariants } from "./tabs";
+/** @krizaka/ui/tabs — `Tabs.Root/List/Trigger/Content` (variant underline · segmented · pills · binder), `Tabs.Nav/NavLink` (the same tabs as routes: links, the URL is the state), `tabs` (the slots). Client ("use client"). */
+export {
+  isTabActive,
+  Tabs,
+  tabs,
+  type TabsAdd,
+  TabsContent,
+  type TabsHue,
+  TabsList,
+  type TabsListProps,
+  TabsNav,
+  TabsNavLink,
+  type TabsNavLinkProps,
+  type TabsNavProps,
+  TabsRoot,
+  type TabsRootProps,
+  TabsTrigger,
+  type TabsTriggerProps,
+  type TabsVariants,
+} from "./tabs";
