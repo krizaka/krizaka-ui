@@ -57,6 +57,7 @@ export const PLANNED: Record<string, string> = {
   "cover-hero": "Akinaza's shop storefront: the business's cover, name, promise and main action.",
   "sticky-action": "Akinaza's shop storefront: « Book » held at the bottom of a phone.",
   "media-gallery": "Akinaza's shop storefront: the business's own photos and clips.",
+  "notification-preferences": "Akinaza's and Yomizaka's account baseline (notifications), then Orochia's settings, which this replaces (krizaka-ui#515).",
   agenda: "Akinaza's Today (the day's appointments with a « now » line), then Yomizaka's and Orazaka's day-bound lists (krizaka-ui#515).",
   "quota-meter": "Yomizaka's library quota and Akinaza's plan, then Orochia's storage meter, which this replaces (krizaka-ui#515).",
   "app-header": "Orazaka's web client (the bar beside the rail: the name, the status chip, the account), then the other product apps.",
