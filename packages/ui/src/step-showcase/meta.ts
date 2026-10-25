@@ -13,7 +13,7 @@ export const meta = {
     "The same tour on several devices: one `StepShowcase` per tab (Web · Mobile · Mac).",
   ],
   whenNotToUse: [
-    { when: "For a gallery of results that should move on its own.", use: "showcase" },
+    { when: "For a gallery of results that should move on its own." },
     { when: "For a single video with its controls.", use: "video-player" },
     { when: "For the steps of a form the person is filling.", use: "step-progress" },
   ],
@@ -36,7 +36,7 @@ export const meta = {
       "Under `prefers-reduced-motion`: posters only, no autoplay, the steps change on demand.",
     ],
   },
-  related: ["showcase", "video-player", "tabs", "landing-page"],
+  related: ["video-player", "tabs", "landing-page"],
   web: {
     imports: ["StepShowcase", "DeviceFrame", "stepShowcaseLabels"],
     examples: [

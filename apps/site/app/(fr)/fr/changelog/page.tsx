@@ -1,3 +1,4 @@
+// @template: changelog
 import type { Metadata } from "next";
 
 import { ChangelogView } from "@/app/components/ChangelogView";

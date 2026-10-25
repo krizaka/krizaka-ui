@@ -6,6 +6,7 @@ import type * as React from "react";
 import { useId } from "react";
 
 import { cn } from "../cn";
+import { warnDeprecated } from "../deprecated";
 
 /** The sky and the peaks: the Krizaka dusk (`own`), or the host brand's accents (`brand`). Birds keep their colours. */
 const TONES = {
@@ -357,8 +358,12 @@ export type LandscapeProps = Omit<React.HTMLAttributes<HTMLDivElement>, "childre
   fade?: boolean;
 };
 
-/** The Krizaka landscape: a decorative backdrop for a hero or a page's end (`aria-hidden`). */
+/**
+ * The Krizaka landscape: a decorative backdrop for a hero or a page's end (`aria-hidden`).
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function Landscape({ tone = "own", flock = true, phoenix = true, animated = true, position = "absolute", fade = true, className, style, ...props }: LandscapeProps) {
+  warnDeprecated("landscape");
   const u = "kzl" + useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const box: React.CSSProperties =
     position === "absolute" ? { position: "absolute", inset: "auto 0 0 0", height: "100%", width: "100%" } : { position: "relative", width: "100%", height: 440 };

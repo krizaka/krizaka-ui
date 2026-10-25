@@ -9,6 +9,7 @@ import * as React from "react";
 import { FlatList, Image,Pressable, type StyleProp, StyleSheet, View, type ViewStyle, type ViewToken } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
+import { warnDeprecated } from "../deprecated";
 import { type VerticalVideoLabels, verticalVideoLabels, type VerticalVideoShared } from "../vertical-video/model";
 
 export { type VerticalVideoLabels, verticalVideoLabels };
@@ -53,7 +54,10 @@ function RailButton({ label, count, pressed, onPress, children }: { label: strin
   );
 }
 
-/** One short video: 9:16, the rail of actions on the right, the creator's caption bottom-left. */
+/**
+ * One short video: 9:16, the rail of actions on the right, the creator's caption bottom-left.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no app imports it. Removed in 4.0.
+ */
 export function VerticalVideo({
   title,
   uri,
@@ -81,6 +85,7 @@ export function VerticalVideo({
   labels: custom,
   style,
 }: VerticalVideoProps) {
+  warnDeprecated("native/vertical-video");
   const { theme } = useTheme();
   const labels = { ...verticalVideoLabels, ...custom };
   const [open, setOpen] = React.useState(false);
@@ -186,8 +191,12 @@ export type ShortFeedProps<T> = {
   style?: StyleProp<ViewStyle>;
 };
 
-/** A vertical paging feed: one video per screen, the one in view plays, the others pause. */
+/**
+ * A vertical paging feed: one video per screen, the one in view plays, the others pause.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no app imports it. Removed in 4.0.
+ */
 export function ShortFeed<T>({ label, items, getId, renderItem, height, onActiveChange, style }: ShortFeedProps<T>) {
+  warnDeprecated("native/vertical-video");
   const [active, setActive] = React.useState(0);
   // FlatList wants one stable callback for its whole life.
   const [onViewable] = React.useState(() => ({ viewableItems }: { viewableItems: ViewToken[] }) => {

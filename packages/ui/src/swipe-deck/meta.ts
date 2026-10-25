@@ -3,7 +3,12 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Swipe deck",
   summary: "Cards decided one by one — drag right to like, left to pass, or the buttons (← → on the web) — with `PersonCard`: a person's photos, name, age, seal, distance, bio and interests.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No user: Yasakia is paused and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "data-display",
   platforms: "both",
   parity: { desktop: "web" },

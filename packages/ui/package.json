@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/ui",
-  "version": "3.54.0",
+  "version": "3.58.0",
   "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia, Yasakia, Yororis) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
@@ -145,9 +145,17 @@
       "types": "./dist/page-header.d.ts",
       "import": "./dist/page-header.js"
     },
+    "./notification-preferences": {
+      "types": "./dist/notification-preferences.d.ts",
+      "import": "./dist/notification-preferences.js"
+    },
     "./agenda": {
       "types": "./dist/agenda.d.ts",
       "import": "./dist/agenda.js"
+    },
+    "./quota-meter": {
+      "types": "./dist/quota-meter.d.ts",
+      "import": "./dist/quota-meter.js"
     },
     "./alert": {
       "types": "./dist/alert.d.ts",
@@ -176,6 +184,14 @@
     "./chip": {
       "types": "./dist/chip.d.ts",
       "import": "./dist/chip.js"
+    },
+    "./kind-config-editor": {
+      "types": "./dist/kind-config-editor.d.ts",
+      "import": "./dist/kind-config-editor.js"
+    },
+    "./status-chip": {
+      "types": "./dist/status-chip.d.ts",
+      "import": "./dist/status-chip.js"
     },
     "./chip-link": {
       "types": "./dist/chip-link.d.ts",
@@ -244,6 +260,10 @@
     "./nav-bar": {
       "types": "./dist/nav-bar.d.ts",
       "import": "./dist/nav-bar.js"
+    },
+    "./nav-bar/me": {
+      "types": "./dist/nav-bar/me.d.ts",
+      "import": "./dist/nav-bar/me.js"
     },
     "./account-settings": {
       "types": "./dist/account-settings.d.ts",
@@ -385,6 +405,10 @@
       "types": "./dist/video-player.d.ts",
       "import": "./dist/video-player.js"
     },
+    "./retro-tv": {
+      "types": "./dist/retro-tv.d.ts",
+      "import": "./dist/retro-tv.js"
+    },
     "./file-upload": {
       "types": "./dist/file-upload.d.ts",
       "import": "./dist/file-upload.js"
@@ -424,6 +448,10 @@
     "./app-header": {
       "types": "./dist/app-header.d.ts",
       "import": "./dist/app-header.js"
+    },
+    "./app-header/search": {
+      "types": "./dist/app-header/search.d.ts",
+      "import": "./dist/app-header/search.js"
     },
     "./opening-hours": {
       "types": "./dist/opening-hours.d.ts",
@@ -513,6 +541,22 @@
       "types": "./dist/taped-photo.d.ts",
       "import": "./dist/taped-photo.js"
     },
+    "./speed-lines": {
+      "types": "./dist/speed-lines.d.ts",
+      "import": "./dist/speed-lines.js"
+    },
+    "./grade-stamp": {
+      "types": "./dist/grade-stamp.d.ts",
+      "import": "./dist/grade-stamp.js"
+    },
+    "./versus-card": {
+      "types": "./dist/versus-card.d.ts",
+      "import": "./dist/versus-card.js"
+    },
+    "./site-cahier": {
+      "types": "./dist/site-cahier.d.ts",
+      "import": "./dist/site-cahier.js"
+    },
     "./elephant": {
       "types": "./dist/elephant.d.ts",
       "import": "./dist/elephant.js"
@@ -536,6 +580,18 @@
     "./footnote": {
       "types": "./dist/footnote.d.ts",
       "import": "./dist/footnote.js"
+    },
+    "./stuck": {
+      "types": "./dist/stuck.d.ts",
+      "import": "./dist/stuck.js"
+    },
+    "./doodle": {
+      "types": "./dist/doodle.d.ts",
+      "import": "./dist/doodle.js"
+    },
+    "./signature": {
+      "types": "./dist/signature.d.ts",
+      "import": "./dist/signature.js"
     },
     "./code-block": {
       "types": "./dist/code-block.d.ts",
@@ -813,8 +869,8 @@
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
-    "@krizaka/query": ">=0.2.1",
-    "@krizaka/tailwind": ">=3.54.0",
+    "@krizaka/query": ">=0.2.2",
+    "@krizaka/tailwind": ">=3.58.0",
     "@maplibre/maplibre-react-native": ">=11",
     "@shopify/flash-list": ">=2",
     "expo-camera": ">=16",
@@ -832,15 +888,15 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
     "@babel/core": "^7.29.7",
-    "@jest/globals": "30.4.1",
+    "@jest/globals": "30.5.2",
     "@krizaka/config": "workspace:*",
     "@krizaka/query": "workspace:*",
-    "@maplibre/maplibre-react-native": "11.4.0",
+    "@maplibre/maplibre-react-native": "11.5.0",
     "@react-native/babel-preset": "0.86.3",
     "@react-native/jest-preset": "0.86.3",
     "@shopify/flash-list": "2.3.3",
     "@size-limit/preset-small-lib": "^14.2.0",
-    "@storybook/react-vite": "10.6.1",
+    "@storybook/react-vite": "10.6.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.3.0",
     "@testing-library/react-native": "^14.1.0",
@@ -849,32 +905,32 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "axe-core": "^4.14.0",
-    "babel-jest": "30.4.1",
+    "babel-jest": "30.5.2",
     "eslint": "^9.39.0",
-    "expect": "30.4.1",
+    "expect": "30.5.2",
     "expo-camera": "57.0.6",
     "expo-image-picker": "57.0.20",
     "expo-modules-core": "^57.0.21",
     "expo-video": "57.0.5",
-    "happy-dom": "^20.0.0",
-    "jest": "30.4.2",
-    "jest-environment-node": "30.4.1",
-    "maplibre-gl": "6.11.2",
+    "happy-dom": "^21.0.4",
+    "jest": "30.5.2",
+    "jest-environment-node": "30.5.2",
+    "maplibre-gl": "6.15.0",
     "pdfjs-dist": "6.4.299",
     "publint": "^0.3.25",
-    "react": "^19.2.0",
+    "react": "^19.3.1",
     "react-docgen-typescript": "^2.4.0",
-    "react-dom": "^19.2.0",
+    "react-dom": "^19.3.1",
     "react-native": "^0.86.3",
-    "react-native-svg": "^15.15.4",
-    "react-native-web": "0.21.2",
+    "react-native-svg": "~15.15.4",
+    "react-native-web": "0.21.4",
     "size-limit": "^14.2.0",
-    "storybook": "10.6.2",
+    "storybook": "10.6.3",
     "tailwindcss": "^4.3.3",
-    "test-renderer": "^1.3.0",
-    "tsup": "^8.5.1",
+    "test-renderer": "^1.3.1",
+    "tsup": "^9.0.0",
     "typescript": "^5.9.0",
-    "vitest": "^4.1.11"
+    "vitest": "^5.0.5"
   },
   "engines": {
     "node": ">=22"
@@ -936,7 +992,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "59 kB",
+      "limit": "64.4 kB",
       "gzip": true
     },
     {
@@ -988,7 +1044,7 @@
     {
       "name": "./theme",
       "path": "dist/theme.js",
-      "limit": "2 kB",
+      "limit": "2.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1152,6 +1208,13 @@
       ]
     },
     {
+      "name": "./notification-preferences",
+      "path": "dist/notification-preferences.js",
+      "limit": "3.1 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+    },
+    {
       "name": "./agenda",
       "path": "dist/agenda.js",
       "limit": "2 kB",
@@ -1160,6 +1223,13 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./quota-meter",
+      "path": "dist/quota-meter.js",
+      "limit": "2.3 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
     },
     {
       "name": "./alert",
@@ -1237,7 +1307,7 @@
     {
       "name": "./tabs",
       "path": "dist/tabs.js",
-      "limit": "11.2 kB",
+      "limit": "12.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1247,7 +1317,27 @@
     {
       "name": "./chip",
       "path": "dist/chip.js",
-      "limit": "10 kB",
+      "limit": "13 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./kind-config-editor",
+      "path": "dist/kind-config-editor.js",
+      "limit": "21 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./status-chip",
+      "path": "dist/status-chip.js",
+      "limit": "32 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1277,7 +1367,7 @@
     {
       "name": "./checkbox",
       "path": "dist/checkbox.js",
-      "limit": "6 kB",
+      "limit": "6.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1287,7 +1377,7 @@
     {
       "name": "./radio-group",
       "path": "dist/radio-group.js",
-      "limit": "12.5 kB",
+      "limit": "12.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1367,7 +1457,7 @@
     {
       "name": "./nav-bar (Radix NavigationMenu, Slot, the family's marks)",
       "path": "dist/nav-bar.js",
-      "limit": "26.6 kB",
+      "limit": "27.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1534,7 +1624,7 @@
       "name": "./data-table: DataTable (TanStack Table v9, the windowing of TanStack Virtual, Radix Checkbox, the pagination)",
       "path": "dist/data-table.js",
       "import": "{ DataTable }",
-      "limit": "44 kB",
+      "limit": "48.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1545,7 +1635,7 @@
       "name": "./data-table: the toolbar (FilterBar on Radix DropdownMenu, SearchField, the columns menu, the export)",
       "path": "dist/data-table.js",
       "import": "{ DataTableFilters, DataTableColumnsMenu, DataTableExport }",
-      "limit": "42 kB",
+      "limit": "44.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1565,7 +1655,7 @@
     {
       "name": "./filter-bar",
       "path": "dist/filter-bar.js",
-      "limit": "34 kB",
+      "limit": "35.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1593,7 +1683,7 @@
     {
       "name": "./text-style",
       "path": "dist/text-style.js",
-      "limit": "41 kB",
+      "limit": "41.2 kB",
       "gzip": true
     },
     {
@@ -1605,6 +1695,12 @@
     {
       "name": "./language-switch/server",
       "path": "dist/language-switch/server.js",
+      "limit": "1 kB",
+      "gzip": true
+    },
+    {
+      "name": "./nav-bar/me",
+      "path": "dist/nav-bar/me.js",
       "limit": "1 kB",
       "gzip": true
     },
@@ -1663,7 +1759,17 @@
     {
       "name": "./video-player",
       "path": "dist/video-player.js",
-      "limit": "15 kB",
+      "limit": "15.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./retro-tv",
+      "path": "dist/retro-tv.js",
+      "limit": "20 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1713,7 +1819,7 @@
     {
       "name": "./image-cropper",
       "path": "dist/image-cropper.js",
-      "limit": "12.5 kB",
+      "limit": "12.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1763,7 +1869,17 @@
     {
       "name": "./app-header",
       "path": "dist/app-header.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./app-header/search",
+      "path": "dist/app-header/search.js",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1830,7 +1946,7 @@
     {
       "name": "./sticky-action",
       "path": "dist/sticky-action.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2068,9 +2184,79 @@
       ]
     },
     {
+      "name": "./stuck",
+      "path": "dist/stuck.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./signature",
+      "path": "dist/signature.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
       "name": "./taped-photo",
       "path": "dist/taped-photo.js",
       "limit": "0.6 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./doodle",
+      "path": "dist/doodle.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./speed-lines",
+      "path": "dist/speed-lines.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./grade-stamp",
+      "path": "dist/grade-stamp.js",
+      "limit": "19.4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./versus-card",
+      "path": "dist/versus-card.js",
+      "limit": "7 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./site-cahier",
+      "path": "dist/site-cahier.js",
+      "limit": "18 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2092,7 +2278,10 @@
       "path": "dist/elephant.js",
       "limit": "1.4 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
     },
     {
       "name": "./flock",
@@ -2123,7 +2312,7 @@
     {
       "name": "./code-block",
       "path": "dist/code-block.js",
-      "limit": "19.5 kB",
+      "limit": "20.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2185,7 +2374,7 @@
     {
       "name": "./dashboard-layout",
       "path": "dist/dashboard-layout.js",
-      "limit": "1 kB",
+      "limit": "2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2227,7 +2416,7 @@
     {
       "name": "./detail-layout",
       "path": "dist/detail-layout.js",
-      "limit": "1 kB",
+      "limit": "3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2297,7 +2486,7 @@
     {
       "name": "./profile-card",
       "path": "dist/profile-card.js",
-      "limit": "1 kB",
+      "limit": "1.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2444,7 +2633,7 @@
     {
       "name": "./catalogue-page",
       "path": "dist/catalogue-page.js",
-      "limit": "1.5 kB",
+      "limit": "2.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2624,7 +2813,7 @@
     {
       "name": "./tag-selector",
       "path": "dist/tag-selector.js",
-      "limit": "10 kB",
+      "limit": "13.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2685,7 +2874,7 @@
       "name": "./genui: GenUiStream (A2UI v0.9 validator, store, surface, base catalog with DataTable)",
       "path": "dist/genui.js",
       "import": "{ GenUiStream, baseGenUiCatalog }",
-      "limit": "50 kB",
+      "limit": "54.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2695,21 +2884,22 @@
   ],
   "dependencies": {
     "@krizaka/intl": "workspace:^",
+    "@krizaka/organize": "^0.4.0",
     "@krizaka/pacer": "workspace:^",
     "@krizaka/tokens": "workspace:^",
     "@protomaps/basemaps": "5.7.2",
     "@tanstack/highlight": "1.1.0",
     "@tanstack/markdown": "1.0.0",
     "@tanstack/react-form": "1.33.5",
-    "@tanstack/react-table": "9.2.8",
-    "@tanstack/react-virtual": "3.14.15",
+    "@tanstack/react-table": "9.3.1",
+    "@tanstack/react-virtual": "3.14.22",
     "@types/geojson": "7946.0.16",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "pmtiles": "4.5.0",
-    "radix-ui": "^1.7.0",
+    "radix-ui": "^1.8.1",
     "sonner": "^2.0.8",
     "tailwind-variants": "^3.3.1",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   }
 }

@@ -1,6 +1,6 @@
 // The `krizaka` ESLint plugin: one object carrying every rule, so that configs registering it compose (flat config
 // refuses two different objects under the same plugin name).
-import { envName, noDirectTanstackImport, noFamilySwitcher, noFetchInClientEffect, noLightVariant, noLocaleTernaryRule, noLocalTableOrForm, noRawPalette,routeStateSelection } from "./rules.js";
+import { envName, noDirectTanstackImport, noFamilySwitcher, noFetchInClientEffect, noLightVariant, noLocaleTernaryRule, noLocalTableOrForm, noRawPalette,pageTemplate, routeStateSelection } from "./rules.js";
 
 /** @type {import("eslint").ESLint.Plugin} */
 export const krizakaPlugin = {
@@ -15,6 +15,7 @@ export const krizakaPlugin = {
     "env-name": envName,
     "no-family-switcher": noFamilySwitcher,
     "route-state-selection": routeStateSelection,
+    "page-template": pageTemplate,
   },
 };
 

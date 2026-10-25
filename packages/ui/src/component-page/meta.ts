@@ -3,7 +3,13 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Component page",
   summary: "A component's page: its name, summary, status and platforms, the live preview, the import line, its sections, the related components aside.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    use: "docs-article-page",
+    reason: "No page uses this template and no filed need names it (ADR-006 audit, 2026-10-25). Compose a component page on `DocsArticlePage`.",
+  },
   category: "templates",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },

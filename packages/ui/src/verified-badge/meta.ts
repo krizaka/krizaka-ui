@@ -16,7 +16,7 @@ export const meta = {
     keyboard: [],
     notes: ["An image named by `label`; with `showLabel` the words are shown too."],
   },
-  related: ["badge", "avatar", "swipe-deck"],
+  related: ["badge", "avatar"],
   web: {
     imports: ["VerifiedBadge"],
     examples: [

@@ -239,6 +239,10 @@
           "title": "Navigation de la famille",
           "description": "Une seule barre pour chaque site et produit Krizaka : ce qui est commun, ce qui est propre à chaque produit, le sélecteur de langue, le contrôle."
         },
+        "cahier-site": {
+          "title": "Site Cahier",
+          "description": "Comment un site d'outil porte l'identité de krizaka.com : le Cahier, son oiseau et sa teinte, des tirages scotchés, des doodles et des notes — un seul langage, jamais une seule mise en page."
+        },
         "brand-marks": {
           "title": "Marques",
           "description": "Les huit marques de la famille Krizaka — dessinées en code, animées, immobiles si le mouvement est réduit."
@@ -298,7 +302,7 @@
       "edit": "Modifier dans krizaka-ui",
       "installation": "Installation",
       "typography": {
-        "families": "Les trois familles",
+        "families": "Les familles",
         "scale": "L'échelle",
         "rules": "Règles",
         "licences": "Licences",
@@ -306,7 +310,8 @@
           "display": "Affichage",
           "text": "Texte",
           "mono": "Mono",
-          "cahier": "Cahier (stylo)"
+          "cahier": "Cahier (stylo)",
+          "product-display": "Affichage produit"
         },
         "why": "Pourquoi cette police",
         "use": "À utiliser pour",
@@ -334,7 +339,15 @@
         "upstream": "Source",
         "files": "Fichiers",
         "web_files": "{count} WOFF2 ({size} ko pour latin)",
-        "native_files": "{count} TrueType"
+        "native_files": "{count} TrueType",
+        "registers": "Deux registres",
+        "registersLead": "Les sites de Krizaka portent le Cahier ; un produit porte le registre calme (ADR-006). Ce sont les mêmes polices du même paquet, réglées autrement.",
+        "registerSites": "Cahier — les sites",
+        "registerSitesNote": "Young Serif, une seule graisse ; Courier Prime pour les notes ; le stylo (Krizaka Cahier) dans la marge.",
+        "registerProduct": "Registre produit",
+        "registerProductNote": "Plus Jakarta Sans de 550 à 700 pour les titres ; Courier Prime pour les identifiants et les heures ; la monospace système pour le code ; jamais le stylo.",
+        "registerTitle": "Facture KZ-03, prête à envoyer",
+        "registerMeta": "KZ-03 · 14 h 30 · données d'exemple"
       },
       "icons": {
         "set": "Le jeu",

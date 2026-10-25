@@ -32,6 +32,8 @@ export type BirdPlateProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & 
   start?: number;
   /** The word before the number. @default "fig." */
   figureLabel?: string;
+  /** The separator between the figure number and its label. @default " · " */
+  separator?: string;
   /**
    * `grid` — the figures side by side (two to five); `single` — one large figure, its caption beside it.
    * @default "grid"
@@ -42,7 +44,7 @@ export type BirdPlateProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & 
 };
 
 /** A naturalist's plate of the flock: numbered figures, a leader line from each bird to its caption, its promise. */
-export function BirdPlate({ title, subtitle, figures, start = 1, figureLabel = "fig.", layout = "grid", animated = false, className, ...props }: BirdPlateProps) {
+export function BirdPlate({ title, subtitle, figures, start = 1, figureLabel = "fig.", separator = " · ", layout = "grid", animated = false, className, ...props }: BirdPlateProps) {
   const single = layout === "single";
   return (
     <figure className={cn("kz-plate", className)} data-layout={single ? "single" : undefined} {...props}>
@@ -58,7 +60,7 @@ export function BirdPlate({ title, subtitle, figures, start = 1, figureLabel = "
             <Mascot bird={f.bird} mood={f.mood ?? "welcome"} tone={f.tone ?? "own"} size={single ? 168 : 112} animated={animated} className="kz-plate-bird" aria-hidden />
             <p className="kz-plate-caption">
               <b>
-                {figureLabel} {start + i} — {f.label}
+                {figureLabel} {start + i}{separator}{f.label}
               </b>
               {f.promise && <span> {f.promise}</span>}
             </p>

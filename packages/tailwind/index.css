@@ -15,8 +15,11 @@
   --color-border-subtle: var(--kz-border-subtle);
   --color-border-default: var(--kz-border-default);
   --color-border-strong: var(--kz-border-strong);
+  --color-border-control: var(--kz-border-control); /* un champ, une case : ≥ 3:1 dans le registre produit */
+  --color-border-hover: var(--kz-border-hover); /* une carte interactive au survol */
 
   --color-fg: var(--kz-text-primary);
+  --color-fg-title: var(--kz-text-title); /* titre de page, valeur d'une statistique */
   --color-fg-secondary: var(--kz-text-secondary);
   --color-fg-muted: var(--kz-text-muted);
   --color-fg-on-media: var(--kz-text-on-media);
@@ -71,6 +74,7 @@
   --shadow-sm: var(--kz-shadow-sm);
   --shadow-md: var(--kz-shadow-md);
   --shadow-lg: var(--kz-shadow-lg);
+  --shadow-hover: var(--kz-shadow-hover);
   --shadow-xl: var(--kz-shadow-overlay);
   --shadow-2xl: var(--kz-shadow-overlay);
   /* la signature (BRAND.md §6) : ombres d'encre multi-couches, et la lueur de la marque sous ce qui agit — composée ici
@@ -91,6 +95,7 @@
   --font-text: var(--kz-font-text);
   --font-display: var(--kz-font-display);
   --font-mono: var(--kz-font-mono);
+  --font-mono-meta: var(--kz-font-mono-meta); /* identifiants et heures d'un produit : Courier Prime (ADR-006) */
   --font-cahier: var(--kz-font-cahier); /* the pen: margin marks, folios, a chalkboard line — sparing, never body text */
 
   /* l'échelle typographique (@krizaka/tokens, type.*) : text-display-xl porte taille, interlignage, graisse et approche ;
@@ -201,6 +206,10 @@
      token, wherever an element has no ring of its own (a component's focus-visible ring wins over this default). */
   :focus:not(:focus-visible) { outline: none; }
   :focus-visible { outline: var(--kz-ring-width) solid var(--kz-ring); outline-offset: var(--kz-ring-offset); }
+  /* Focused by code (#659): no ring on a heading, main or region with tabindex="-1" and no role (roving items have one). */
+  :is(h1, h2, h3, h4, h5, h6, main, header, footer, section, article, aside, nav, div, p, span, li, ul, ol, form, figure):not([role])[tabindex="-1"]:is(:focus, :focus-visible) { outline: none; box-shadow: none; }
+  /* No browser tap highlight (the blue block on a tapped brand or title). */
+  a, button, summary, label, input, select, textarea, h1, h2, h3, h4, h5, h6, [role="button"], [role="link"], [tabindex] { -webkit-tap-highlight-color: transparent; }
   button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
   /* The display face has one weight (Young Serif, ADR-004): a bold heading is never faked by the browser. */
   html { font-synthesis-weight: none; }

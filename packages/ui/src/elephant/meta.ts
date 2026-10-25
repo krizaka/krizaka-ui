@@ -4,7 +4,12 @@ export const meta = {
   title: "Elephant",
   summary:
     "A small, playful elephant mark — « the elephant with those ears can fly »: standing with its ear folded down, or flying with the ear spread like a wing. Sage body, sand ear, flat colours that read on both themes. A figure of the neighbour (Yororis), not a product logo.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "feedback",
   platforms: "web",
   parity: {

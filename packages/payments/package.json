@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/payments",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Payments for every Krizaka product, vendor behind a port: the Stripe adapter (Checkout, customer portal, price read by lookup key, verified webhook), idempotent event application, a locale-aware price formatter and a catalogue setup that creates products, prices, portal and webhook from data. No SDK: you pass fetch.",
   "keywords": [
     "krizaka",
@@ -54,13 +54,13 @@
     "@krizaka/config": "workspace:*",
     "@size-limit/preset-small-lib": "^14.2.0",
     "@types/node": "^22.15.0",
-    "@vitest/coverage-v8": "4.1.11",
+    "@vitest/coverage-v8": "5.0.5",
     "eslint": "^9.39.0",
     "publint": "^0.3.25",
     "size-limit": "^14.2.0",
-    "tsup": "^8.5.1",
+    "tsup": "^9.0.0",
     "typescript": "^5.9.0",
-    "vitest": "^4.1.11"
+    "vitest": "^5.0.5"
   },
   "engines": {
     "node": ">=22"

@@ -4,7 +4,12 @@ export const meta = {
   title: "Showcase",
   summary:
     "A slideshow that advances by itself and shows it: a segmented progress bar — the current segment fills over the interval, each one a button — with a counter, previous / next and a visible pause button. It waits for the pointer, the keyboard focus, a hidden tab and a scroll away, and never advances under reduced motion.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "data-display",
   platforms: "both",
   parity: { desktop: "web" },

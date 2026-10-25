@@ -25,6 +25,7 @@ export const meta = {
     "`AvatarPicker` is one radiogroup — never a row of circles with loose radios; keep the upload inside its grid, after the pictures.",
     "Name every language in its own language and label the control: « Langue », never an unlabelled switch.",
     "Pass every word translated; the member-since date is formatted by the app in the viewer's language.",
+    "Appearance: pass the themes the product offers (system, light, dark, then Blueprint and Carbone if wanted — never a paper theme inside a signed-in product) from `appearance` of @krizaka/tokens, and only the accents that read on all of them (`appearance.passes`). The change applies at once (`useAppearance()` of `@krizaka/ui/theme`, restored before paint by `ThemeScript`); save it in the account too so it follows the person. Sound is opt-in, off by default, never under reduced motion; density is `html[data-density]`.",
     "Section patterns (security, subscription, storage, my data) are flat sections of `SettingsRow`s: the billing portal is one link, the export one button, the delete a `ConfirmButton`.",
   ],
   accessibility: {
@@ -41,12 +42,13 @@ export const meta = {
   },
   related: ["settings-layout", "radio-group", "avatar", "choice-grid", "confirm-button", "meter"],
   web: {
-    imports: ["AccountProfileCard", "AvatarPicker", "ChoiceCards", "LanguagePicker"],
+    imports: ["AccountProfileCard", "AvatarPicker", "ChoiceCards", "LanguagePicker", "AppearanceSettings"],
     examples: [
       { name: "profile", title: "Profile page", description: "A whole profile section: identity, name, pictures, language, side — one save, dirty then saved with Undo.", template: true, purpose: "operate", why: "A person changes who they are in the app in one place, and sees at once that it was kept." },
       { name: "avatar-picker", title: "Avatar picker", description: "The family's default pictures as one radio group, the upload beside them." },
       { name: "choice-cards", title: "Choice cards", description: "A single choice as two cards with an icon, a title and a line." },
       { name: "language-picker", title: "Language picker", description: "Labelled, native names." },
+      { name: "appearance", title: "Appearance", description: "Theme cards (live miniatures, one check), accent, density and language as settings rows; applied at once with `useAppearance()`." },
       { name: "patterns", title: "Section patterns", description: "Security, subscription, storage and my data as flat sections of rows." },
     ],
   },

@@ -79,6 +79,14 @@
           "light": "hsl(212 49% 24% / 0.28)"
         }
       }
+    },
+    "control": {
+      "$value": "{border.strong}",
+      "$description": "Contour d'un champ, d'une case, d'un interrupteur. Cahier : le contour fort. Registre produit : ≥ 3:1 sur les surfaces 0–2 (WCAG 1.4.11), car son filet de carte (1,16:1) ne suffit jamais à un champ"
+    },
+    "hover": {
+      "$value": "{border.strong}",
+      "$description": "Contour d'une carte interactive au survol (le registre produit le passe à l'accent, 22 %)"
     }
   },
   "text": {
@@ -114,6 +122,10 @@
     "on-media": {
       "$value": "hsl(0 0% 100%)",
       "$description": "Texte posé sur une image ou une vidéo"
+    },
+    "title": {
+      "$value": "{text.primary}",
+      "$description": "Titre de page, valeur d'une statistique (le registre produit l'encre ardoise)"
     }
   },
   "accent": {
@@ -271,6 +283,118 @@
     "$type": "color",
     "$value": "{accent.text}",
     "$description": "Statut information en texte : l'accent en texte par défaut (≥ 4.5:1)"
+  },
+  "tag": {
+    "$type": "color",
+    "$description": "Marqueurs de tags (ADR-006, krizaka-ui#627 ; krizaka-ts#89 : @krizaka/organize MARKERS) : six noms, un point (--kz-tag-<nom>, ≥ 3:1 sur les surfaces 0–3) et le texte voisin (--kz-tag-<nom>-text, ≥ 4.5:1). Jamais les tons de statut ni l'accent d'une marque (un test : ΔE ≥ 10). Un marqueur accompagne le nom du tag, il ne remplit jamais la puce.",
+    "blue": {
+      "$value": "hsl(224 65% 57.5%)",
+      "$description": "Marqueur blue : le point, la pastille (≥ 3:1)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(224 65% 60%)"
+        }
+      }
+    },
+    "blue-text": {
+      "$value": "hsl(224 65% 68%)",
+      "$description": "Marqueur blue en texte : ≥ 4.5:1 sur chaque surface",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(224 65% 49.5%)"
+        }
+      }
+    },
+    "green": {
+      "$value": "hsl(142 50% 35.5%)",
+      "$description": "Marqueur green : le point, la pastille (≥ 3:1)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(142 50% 37.5%)"
+        }
+      }
+    },
+    "green-text": {
+      "$value": "hsl(142 50% 44.5%)",
+      "$description": "Marqueur green en texte : ≥ 4.5:1 sur chaque surface",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(142 50% 29%)"
+        }
+      }
+    },
+    "amber": {
+      "$value": "hsl(34 85% 36.5%)",
+      "$description": "Marqueur amber : le point, la pastille (≥ 3:1)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(34 85% 38.5%)"
+        }
+      }
+    },
+    "amber-text": {
+      "$value": "hsl(34 85% 46%)",
+      "$description": "Marqueur amber en texte : ≥ 4.5:1 sur chaque surface",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(34 85% 29.5%)"
+        }
+      }
+    },
+    "red": {
+      "$value": "hsl(345 65% 54%)",
+      "$description": "Marqueur red : le point, la pastille (≥ 3:1)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(345 65% 57.5%)"
+        }
+      }
+    },
+    "red-text": {
+      "$value": "hsl(345 65% 67%)",
+      "$description": "Marqueur red en texte : ≥ 4.5:1 sur chaque surface",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(345 65% 43.5%)"
+        }
+      }
+    },
+    "violet": {
+      "$value": "hsl(283 55% 55.5%)",
+      "$description": "Marqueur violet : le point, la pastille (≥ 3:1)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(283 55% 58.5%)"
+        }
+      }
+    },
+    "violet-text": {
+      "$value": "hsl(283 55% 67%)",
+      "$description": "Marqueur violet en texte : ≥ 4.5:1 sur chaque surface",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(283 55% 46.5%)"
+        }
+      }
+    },
+    "gray": {
+      "$value": "hsl(220 8% 48%)",
+      "$description": "Marqueur gray : le point, la pastille (≥ 3:1)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(220 8% 51%)"
+        }
+      }
+    },
+    "gray-text": {
+      "$value": "hsl(220 8% 60.5%)",
+      "$description": "Marqueur gray en texte : ≥ 4.5:1 sur chaque surface",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(220 8% 39.5%)"
+        }
+      }
+    }
   },
   "scrim": {
     "$type": "color",

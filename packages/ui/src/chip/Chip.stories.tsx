@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import MarkerPickerExample from "../../registry/examples/chip/marker-picker";
 import MultipleExample from "../../registry/examples/chip/multiple";
 import RemovableExample from "../../registry/examples/chip/removable";
 import SingleExample from "../../registry/examples/chip/single";
 import SmallExample from "../../registry/examples/chip/small";
+import TagsExample from "../../registry/examples/chip/tags";
 import ToggleExample from "../../registry/examples/chip/toggle";
 import { Chip } from "./chip";
 
@@ -26,3 +28,7 @@ export const Single: Story = { render: () => <SingleExample /> };
 export const Multiple: Story = { render: () => <MultipleExample /> };
 export const Small: Story = { render: () => <SmallExample /> };
 export const Removable: Story = { render: () => <RemovableExample /> };
+
+/** The tags of a workspace (#627): a name with its colour marker (a dot, a ribbon) from the closed palette of six. */
+export const Tags: Story = { render: () => <TagsExample /> };
+export const MarkerPicker: Story = { render: () => <MarkerPickerExample /> };

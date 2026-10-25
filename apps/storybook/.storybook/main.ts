@@ -42,6 +42,8 @@ const config: StorybookConfig = {
         { find: /^@maplibre\/maplibre-react-native$/, replacement: `${ui}/native/mocks/maplibre.tsx` },
         { find: /^expo-image-picker$/, replacement: `${ui}/native/mocks/expo-image-picker.tsx` },
         { find: /^@krizaka\/ui\/([a-z-]+)$/, replacement: `${ui}/$1/index.ts` },
+        // A nested entry (`@krizaka/ui/app-header/search`): its own folder with an index (after the native ones above).
+        { find: /^@krizaka\/ui\/([a-z-]+)\/([a-z-]+)$/, replacement: `${ui}/$1/$2/index.ts` },
         { find: /^@krizaka\/charts$/, replacement: `${charts}/index.ts` },
         { find: /^@krizaka\/charts\/([a-z-]+)$/, replacement: `${charts}/$1/index.ts` },
         { find: /^react-native$/, replacement: reactNativeWeb },

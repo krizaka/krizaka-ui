@@ -16,7 +16,7 @@ export const meta = {
     keyboard: [],
     notes: ["The bird is decorative; the words carry the message.", "Once granted it renders its children: the feature itself."],
   },
-  related: ["empty-state", "media-capture"],
+  related: ["empty-state"],
   native: {
     imports: ["PermissionPrompt"],
     differences: [],

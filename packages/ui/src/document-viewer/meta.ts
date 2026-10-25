@@ -13,7 +13,7 @@ export const meta = {
   ],
   whenNotToUse: [
     { when: "To play a video or a recording.", use: "video-player" },
-    { when: "To show an image to crop.", use: "image-cropper" },
+    { when: "To show an image to crop." },
     { when: "To let the browser open the file as it is: a link to the file is enough.", use: "button" },
   ],
   bestPractices: [
@@ -31,7 +31,7 @@ export const meta = {
       "A passage that cannot be placed is announced in a bar with its quote.",
     ],
   },
-  related: ["tabs", "split-view", "image-cropper", "video-player"],
+  related: ["tabs", "split-view", "video-player"],
   web: {
     imports: ["DocumentViewer", "locateQuote"],
     examples: [

@@ -2,6 +2,7 @@
 // never enabled (it is shown as text), executable URLs are dropped, links to another site carry `rel="noopener
 // noreferrer"`, and every fenced block is a `CodeBlock` (the same grammars, the same colours). `streaming` is for a
 // text that arrives in pieces — an AI answer: the unfinished end is closed and a caret marks where it goes on.
+import { Badge } from "@krizaka/ui/badge";
 import { CodeBlock } from "@krizaka/ui/code-block";
 import * as React from "react";
 
@@ -15,6 +16,10 @@ export type MarkdownProps = Omit<React.ComponentProps<"div">, "children"> & {
   children: string;
   /** The text is still arriving: the unfinished end is closed and a caret marks the end. */
   streaming?: boolean;
+  /** Marks a generated document with a quiet chip, when `generatedLabel` is supplied. */
+  generated?: boolean;
+  /** The chip's words, passed translated by the host; no chip is rendered without them. */
+  generatedLabel?: string;
   /** Gives every heading an `id`, for `#section` links. */
   headingIds?: boolean;
   /** The words of the copy button of the code blocks, passed translated. Without them a code block has no copy button. */
@@ -143,13 +148,13 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
       );
     case "table":
       return (
-        <div className="kz-md-table">
+        <div className="kz-md-table" role="region" tabIndex={0} aria-label={node.header.map((cell) => textOf(cell.children)).join(", ")}>
           <table>
             <thead>
               <tr>
                 {node.header.map((cell, i) => (
                   <th key={i} scope="col" style={{ textAlign: node.align[i] ?? undefined }}>
-                    <Inlines nodes={cell.children} ctx={ctx} />
+                    <div className="kz-md-cell"><Inlines nodes={cell.children} ctx={ctx} /></div>
                   </th>
                 ))}
               </tr>
@@ -159,7 +164,7 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
                 <tr key={r}>
                   {row.map((cell, i) => (
                     <td key={i} style={{ textAlign: node.align[i] ?? undefined }}>
-                      <Inlines nodes={cell.children} ctx={ctx} />
+                      <div className="kz-md-cell"><Inlines nodes={cell.children} ctx={ctx} /></div>
                     </td>
                   ))}
                 </tr>
@@ -196,10 +201,11 @@ function ListItem({ blocks, ctx }: { blocks: readonly BlockNode[]; ctx: Context 
 }
 
 /** A Markdown text on the tokens: headings, paragraphs, lists (and tasks), quotes, tables, code, links, images, footnotes. */
-export function Markdown({ children, streaming, headingIds, codeLabels, linkAs, className, ...props }: MarkdownProps) {
+export function Markdown({ children, streaming, generated, generatedLabel, headingIds, codeLabels, linkAs, className, ...props }: MarkdownProps) {
   const blocks = parseSource(children, { streaming, headingIds });
   return (
     <div className={cn("kz-md", className)} data-streaming={streaming ? "" : undefined} aria-busy={streaming || undefined} {...props}>
+      {generated && generatedLabel ? <Badge>{generatedLabel}</Badge> : null}
       <Blocks nodes={blocks} ctx={{ codeLabels, linkAs }} />
     </div>
   );

@@ -15,7 +15,12 @@ export type TabItem<T extends string> = {
   content?: React.ReactNode;
   /** Cannot be selected. */
   disabled?: boolean;
+  /** `variant="binder"`: the divider's colour (the accent by default). Never the only signal: the words say it. */
+  hue?: TabsHue;
 };
+
+/** A divider's colour: a role of the theme, ≥ 3:1 on both themes (the web's `TabsHue`). */
+export type TabsHue = "accent" | "success" | "warning" | "danger" | "neutral";
 
 export type TabsProps<T extends string> = {
   /** The tabs, in order. */
@@ -28,8 +33,10 @@ export type TabsProps<T extends string> = {
   onValueChange?: (value: T) => void;
   /** The accessible name of the tab list — passed translated. */
   "aria-label"?: string;
-  /** `underline` (default: sections of a screen, scrolls sideways when they do not fit) or `segmented` (two to four views). */
-  variant?: "underline" | "segmented";
+  /** `underline` (default: sections of a screen, scrolls sideways when they do not fit), `segmented` (two to four views) or `binder` (dividers that organise collections, tags, statuses; they scroll sideways). */
+  variant?: "underline" | "segmented" | "binder";
+  /** `variant="binder"`: a « + » button after the dividers (« Intercalaire »): its words and what it does. */
+  add?: { label: string; onAdd: () => void };
   /** Styles merged last, on the root. */
   style?: StyleProp<ViewStyle>;
 };
@@ -38,7 +45,7 @@ export type TabsProps<T extends string> = {
  * Sections of one screen — the web `Tabs`: a tab list (underlined, scrolling sideways when long, or segmented) and the
  * selected panel under it. For the app's main sections, use `TabBar`.
  */
-export function Tabs<T extends string>({ items, value, defaultValue, onValueChange, "aria-label": label, variant = "underline", style }: TabsProps<T>) {
+export function Tabs<T extends string>({ items, value, defaultValue, onValueChange, "aria-label": label, variant = "underline", add, style }: TabsProps<T>) {
   const { theme, radius, haptic } = useTheme();
   const [own, setOwn] = React.useState<T | undefined>(defaultValue ?? items[0]?.value);
   const current = value ?? own;
@@ -49,6 +56,9 @@ export function Tabs<T extends string>({ items, value, defaultValue, onValueChan
     onValueChange?.(next);
   };
   const segmented = variant === "segmented";
+  const binder = variant === "binder";
+  const hueOf = (hue: TabsHue | undefined) =>
+    ({ accent: theme.accent, success: theme.successText, warning: theme.warningText, danger: theme.dangerText, neutral: theme.textMuted })[hue ?? "accent"];
   const tabs = items.map((item) => {
     const selected = item.value === current;
     return (
@@ -60,9 +70,10 @@ export function Tabs<T extends string>({ items, value, defaultValue, onValueChan
         disabled={item.disabled}
         onPress={() => select(item.value)}
         style={[
-          segmented ? styles.segment : styles.tab,
+          binder ? [styles.divider, { borderTopColor: hueOf(item.hue), borderColor: theme.borderDefault, borderTopLeftRadius: radius.md, borderTopRightRadius: radius.md, backgroundColor: selected ? theme.surface1 : theme.surface2 }] : null,
+          binder ? null : segmented ? styles.segment : styles.tab,
           segmented && selected ? { backgroundColor: theme.surface0, borderColor: theme.borderDefault, borderRadius: radius.sm } : null,
-          !segmented ? { borderBottomColor: selected ? theme.accent : "transparent" } : null,
+          !segmented && !binder ? { borderBottomColor: selected ? theme.accent : "transparent" } : null,
           item.disabled ? styles.disabled : null,
         ]}
       >
@@ -81,10 +92,15 @@ export function Tabs<T extends string>({ items, value, defaultValue, onValueChan
           {tabs}
         </View>
       ) : (
-        <View style={[styles.underline, { borderBottomColor: theme.borderSubtle }]}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} role="tablist" aria-label={label} contentContainerStyle={styles.scroll}>
+        <View style={[styles.underline, binder ? styles.binderRow : null, { borderBottomColor: binder ? theme.borderDefault : theme.borderSubtle }]}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} role="tablist" aria-label={label} contentContainerStyle={[styles.scroll, binder ? styles.binderScroll : null]}>
             {tabs}
           </ScrollView>
+          {binder && add ? (
+            <Pressable role="button" aria-label={add.label} onPress={add.onAdd} hitSlop={4} style={styles.add}>
+              <Txt variant="label" tone="secondary">{`+ ${add.label}`}</Txt>
+            </Pressable>
+          ) : null}
         </View>
       )}
       {panel !== undefined ? <View role="tabpanel">{panel}</View> : null}
@@ -100,4 +116,9 @@ const styles = StyleSheet.create({
   track: { flexDirection: "row", padding: 3, gap: 3, borderWidth: StyleSheet.hairlineWidth, height: 40 },
   segment: { flex: 1, alignItems: "center", justifyContent: "center", paddingHorizontal: 8, borderWidth: StyleSheet.hairlineWidth, borderColor: "transparent" },
   disabled: { opacity: 0.4 },
+  // A divider: a coloured top edge, its words; the selected one is the page's colour and sits on the line.
+  divider: { minHeight: 44, justifyContent: "center", paddingHorizontal: 14, borderWidth: StyleSheet.hairlineWidth, borderTopWidth: 3, borderBottomWidth: 0, marginBottom: -StyleSheet.hairlineWidth },
+  binderScroll: { alignItems: "flex-end", paddingHorizontal: 8 },
+  binderRow: { flexDirection: "row", alignItems: "flex-end" },
+  add: { minHeight: 44, justifyContent: "center", paddingHorizontal: 10 },
 });

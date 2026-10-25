@@ -14,12 +14,26 @@ import { defineConfig, type Options } from "tsup";
  *   entries (`@krizaka/ui/<name>`, `@krizaka/ui/native`, external): one copy of each primitive.
  * `dist/` is emptied by the build script, not by tsup: the three builds run side by side.
  */
+// The router's context (`RouteStateProvider`) must be one module in the whole package: the builds below are separate
+// esbuild runs, and a block of one group that bundled its own copy of `../router` would read its own context, never the
+// adapter an app gives `@krizaka/ui/router`'s provider (a Next.js app's `routeKey` would silently fall back to the
+// browser's history). Every `../router` outside src/router is therefore the package's own entry, external.
+const oneRouter: NonNullable<Options["esbuildPlugins"]>[number] = {
+  name: "krizaka-one-router",
+  setup(build) {
+    build.onResolve({ filter: /^\.\.\/router$/ }, (args) =>
+      args.importer.includes("/src/router/") ? undefined : { path: "@krizaka/ui/router", external: true },
+    );
+  },
+};
+
 const shared = {
   format: ["esm"],
   dts: true,
   sourcemap: true,
   clean: false,
   external: ["react", "react-dom", "react/jsx-runtime"],
+  esbuildPlugins: [oneRouter],
 } satisfies Options;
 
 export default defineConfig([
@@ -43,6 +57,8 @@ export default defineConfig([
       "page-header": "src/page-header/index.ts",
       // One day's appointments, with a « now » line.
       agenda: "src/agenda/index.ts",
+      // Space or time used against a plan.
+      "quota-meter": "src/quota-meter/index.ts",
       alert: "src/alert/index.ts",
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",
@@ -69,6 +85,7 @@ export default defineConfig([
       "avatar/defaults": "src/avatar/defaults.ts",
       // The Krizaka family as data (the bar's switcher and the footer read it).
       sites: "src/sites/index.ts",
+      "nav-bar/me": "src/nav-bar/me.ts",
       // The page blocks that hold no state: usable in a Server Component as they are.
       page: "src/page/index.ts",
       "page-hero": "src/page-hero/index.ts",
@@ -81,10 +98,16 @@ export default defineConfig([
       "cta-panel": "src/cta-panel/index.ts",
       // The Cahier's signature blocks (ADR-004): the specimen tag, the anatomy plate, the index, the small print.
       "specimen-tag": "src/specimen-tag/index.ts",
+      // The retro pieces of the Krizaka style, pure SVG (the doodle is below, with Stuck).
+      "speed-lines": "src/speed-lines/index.ts",
       "anatomy-plate": "src/anatomy-plate/index.ts",
       "page-index": "src/page-index/index.ts",
       chapter: "src/chapter/index.ts",
       footnote: "src/footnote/index.ts",
+      // Stuck into the notebook: the hold, the margin doodle, the house's signature (server-safe).
+      stuck: "src/stuck/index.ts",
+      doodle: "src/doodle/index.ts",
+      signature: "src/signature/index.ts",
       // The recipes: classes of the tokens, read by tv() on the web and by the phone's components (no React).
       recipes: "src/recipes/index.ts",
     },
@@ -141,6 +164,10 @@ export default defineConfig([
       // The bird plate: each bird has an id per instance (Mascot).
       "bird-plate": "src/bird-plate/index.ts",
       "taped-photo": "src/taped-photo/index.ts",
+      "grade-stamp": "src/grade-stamp/index.ts",
+      "versus-card": "src/versus-card/index.ts",
+      // The tool sites' template: the Cahier, the site's bird and hue.
+      "site-cahier": "src/site-cahier/index.ts",
       flock: "src/flock/index.ts",
       elephant: "src/elephant/index.ts",
       "code-block": "src/code-block/index.ts",
@@ -157,6 +184,8 @@ export default defineConfig([
       "media-gallery": "src/media-gallery/index.ts",
       // The skip link moves focus to its target.
       "skip-link": "src/skip-link/index.ts",
+      // The top bar's search trigger: its global ⌘K (the bar itself, ./app-header, stays server-safe).
+      "app-header/search": "src/app-header/search/index.ts",
     },
     banner: { js: '"use client";' },
   },
@@ -176,7 +205,13 @@ export default defineConfig([
       "glossary-term": "src/glossary-term/index.ts",
       tabs: "src/tabs/index.ts",
       router: "src/router/index.ts",
+      // What reaches a person: categories by channels.
+      "notification-preferences": "src/notification-preferences/index.ts",
       chip: "src/chip/index.ts",
+      // A state of a status set, with its menu of moves.
+      "status-chip": "src/status-chip/index.ts",
+      // The admin's editors of a kind's tags and statuses.
+      "kind-config-editor": "src/kind-config-editor/index.ts",
       switch: "src/switch/index.ts",
       slider: "src/slider/index.ts",
       checkbox: "src/checkbox/index.ts",
@@ -218,6 +253,7 @@ export default defineConfig([
       "date-picker": "src/date-picker/index.ts",
       "search-field": "src/search-field/index.ts",
       "video-player": "src/video-player/index.ts",
+      "retro-tv": "src/retro-tv/index.ts",
       "vertical-video": "src/vertical-video/index.ts",
       "file-upload": "src/file-upload/index.ts",
       "media-capture": "src/media-capture/index.ts",

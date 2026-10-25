@@ -30,7 +30,7 @@ export const meta = {
       "The notes are an `aside` named by `label` (« Notes »), an ordered list.",
     ],
   },
-  related: ["bird-plate", "anatomy-plate", "markdown"],
+  related: ["bird-plate", "markdown"],
   web: {
     imports: ["Caption", "FootnoteRef", "Footnotes"],
     examples: [{ name: "notes", title: "A figure and its notes", description: "A caption under a figure, two references in a sentence, the notes at the foot." }],

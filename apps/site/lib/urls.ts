@@ -3,7 +3,7 @@
 
      /                          Krizaka UI — what it is, the catalogue
      /installation, /theming    get started
-     /foundations/<page>        tokens · typography · icons · motion · brand-marks
+     /foundations/<page>        tokens · typography · icons · motion · navigation · brand-marks · cahier-site
      /components                the catalogue: every component, filters, live previews
      /components/<name>         one page per component of the registries (@krizaka/ui, @krizaka/charts)
      /templates                 every template; /templates/<intent> one intent
@@ -20,7 +20,7 @@
 export const SITE_URL = "https://ui.krizaka.com";
 
 export const GET_STARTED_PAGES = ["installation", "theming"] as const;
-export const FOUNDATION_PAGES = ["tokens", "typography", "icons", "motion", "navigation", "brand-marks"] as const;
+export const FOUNDATION_PAGES = ["tokens", "typography", "icons", "motion", "navigation", "brand-marks", "cahier-site"] as const;
 export const PACKAGE_PAGES = ["tailwind", "intl", "i18n", "query", "realtime", "push", "app-config", "config"] as const;
 
 /** The path (no locale) of a page of the old /docs/ui, by its slug there (`""` for /docs/ui itself). */

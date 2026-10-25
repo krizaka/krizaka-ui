@@ -9,6 +9,7 @@ import { tv } from "tailwind-variants";
 import { Chip } from "../chip";
 import { DropdownMenu, menu } from "../dropdown-menu";
 import { ChevronGlyph } from "../glyphs";
+import { SavedViews, type SavedViewsProps } from "./saved-views";
 
 export const filterBar = tv({
   slots: {
@@ -51,6 +52,8 @@ export type FilterBarProps = Omit<React.ComponentProps<"div">, "children" | "res
   removeLabel?: (label: string) => string;
   /** The count of results ("42 jobs"), announced politely when it changes. */
   results?: string;
+  /** The saved views of the list, above the controls: chips with counts, a menu on a phone (`SavedViews`). */
+  views?: SavedViewsProps;
 };
 
 /** The bar of filters above a list: controls, active filters as chips, clear all, the count of results. */
@@ -62,12 +65,14 @@ export function FilterBar({
   clearLabel = "Clear filters",
   removeLabel = (text) => `Remove ${text}`,
   results,
+  views,
   className,
   ...props
 }: FilterBarProps) {
   const s = filterBar();
   return (
     <div role="group" aria-label={label} className={s.root({ className })} {...props}>
+      {views ? <SavedViews {...views} /> : null}
       {children ? <div className={s.controls()}>{children}</div> : null}
       {active.length > 0 || results !== undefined ? (
         <div className={s.active()}>

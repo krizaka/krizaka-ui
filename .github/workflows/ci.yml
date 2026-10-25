@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
@@ -37,6 +37,8 @@ jobs:
     env: { XDG_CACHE_HOME: /root/.cache }
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0   # the affected-packages filter diffs against the base branch
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
@@ -51,7 +53,18 @@ jobs:
           path: .turbo/cache
           key: turbo-check-${{ github.sha }}
           restore-keys: turbo-check-
-      - run: pnpm turbo run check --filter='!@krizaka/site'   # the documentation site has its own job (below)
+      # Pull requests check the packages the change touches (and what depends on them); main and manual runs check everything.
+      - name: Select the packages to check
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = pull_request ]; then
+            git config --global --add safe.directory "$GITHUB_WORKSPACE"
+            git diff --name-only -z "origin/$GITHUB_BASE_REF...HEAD" | node tools/ci-filter.mjs "$GITHUB_BASE_REF" >> "$GITHUB_ENV"
+          else
+            echo "TURBO_FILTER=*" >> "$GITHUB_ENV"
+          fi
+      # Fail fast: lint and types first (cheap), tests, build and stories after; `check` below replays these from the cache.
+      - run: pnpm turbo run lint typecheck --filter="$TURBO_FILTER" --filter='!@krizaka/site'
+      - run: pnpm turbo run check --filter="$TURBO_FILTER" --filter='!@krizaka/site'   # the documentation site has its own job (below)
       - run: pnpm test:tools   # tools/ (the inventory): node:test, no build
       - name: Upload the screenshot diffs
         if: failure()
@@ -127,7 +140,7 @@ jobs:
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          key: playwright-${{ runner.os }}-${{ hashFiles('apps/storybook/package.json') }}   # follows apps/storybook's pinned playwright, not every lockfile change
       - run: pnpm --filter @krizaka/storybook exec playwright install --with-deps chromium
       - name: Every example of a sample of pages (slice ${{ matrix.shard }}/3), driven in a browser (apps/site/scripts/docs-crawl.mjs; the full crawl is docs-crawl.yml)
         # Opens the pages like a reader: console and React errors, failed requests, examples that render nothing, playground
@@ -170,7 +183,7 @@ jobs:
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          key: playwright-${{ runner.os }}-${{ hashFiles('apps/storybook/package.json') }}   # follows apps/storybook's pinned playwright, not every lockfile change
       - run: pnpm --filter @krizaka/storybook exec playwright install --with-deps chromium
       - name: The look of the top pages in a browser (desktop + phone, dark + light)
         run: |
@@ -213,7 +226,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with: { node-version: 22 }
-      - uses: krizaka/.github/actions/dup-check@1cb2e1b6f572ba712083cb6f05fd041370c5ea0b # v1.5.0
+      - uses: krizaka/.github/actions/dup-check@1d506b702a30ad519ca2561b51bcb981fe680e8e # v1.5.2
 
   realtime:
     # @krizaka/realtime against real servers: two buses per adapter standing for two app instances (PostgreSQL

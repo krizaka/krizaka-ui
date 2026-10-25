@@ -1,6 +1,8 @@
 import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import type * as React from "react";
 
+import { Badge } from "../badge";
 import { axeViolations } from "../test/axe";
 import {
   compareValues,
@@ -325,6 +327,33 @@ describe("DataTable — typed columns and priorities (#222)", () => {
     expect(document.querySelectorAll("dl")).toHaveLength(1);
   });
 
+  it("never scrolls sideways in cards, even with untyped columns, and lets the values wrap", () => {
+    const { container } = render(<DataTable caption="Videos" rows={rows} columns={columns} getRowId={(r) => r.id} layout="cards" />);
+    expect(container.querySelector("table")?.parentElement?.className).toContain("overflow-x-clip!");
+    expect(container.querySelector("td")?.className).toContain("[overflow-wrap:anywhere]");
+  });
+
+  it.each(["cards", "auto", "table"] as const)("only relaxes rendered badge constraints in %s card cells", (layout) => {
+    const status = "Awaiting the manager's approval for the requested publication";
+    const { container } = render(
+      <DataTable
+        caption="Videos"
+        rows={rows}
+        columns={[{ id: "status", header: "Status", cell: () => <Badge>{status}</Badge> }]}
+        getRowId={(r) => r.id}
+        layout={layout}
+      />,
+    );
+    const cell = container.querySelector("td")!;
+    expect(cell.querySelector("[data-tone]")?.textContent).toBe(status);
+    const prefix = layout === "auto" ? "@max-xl:" : "";
+    for (const utility of ["min-w-0", "shrink", "whitespace-normal"]) {
+      const rule = `${prefix}[&>*]:${utility}`;
+      if (layout === "table") expect(cell.className).not.toContain(rule);
+      else expect(cell.className).toContain(rule);
+    }
+  });
+
   it("never scrolls sideways by default once columns are typed, and scrolls with fades only when asked", () => {
     const { container, unmount } = view();
     expect(container.querySelector("table")?.parentElement?.className).toContain("overflow-x-clip");
@@ -360,5 +389,83 @@ describe("DataTable — typed columns and priorities (#222)", () => {
     const { container } = view();
     expect(screen.getByRole("table", { name: "Models" })).toBeTruthy();
     expect(await axeViolations(container)).toEqual([]);
+  });
+});
+
+describe("DataTable — list rows on a phone (#636)", () => {
+  type Check = { id: string; document: string; type: string; when: string; check: string; result: string };
+  const checks: Check[] = [
+    { id: "c1", document: "Bail_2026.pdf", type: "Facture", when: "23 oct.", check: "Authenticité", result: "Authentique" },
+    { id: "c2", document: "Hydro.pdf", type: "Bail", when: "22 oct.", check: "Revenu", result: "À revoir" },
+  ];
+  const listColumns: DataTableColumn<Check>[] = [
+    { id: "document", header: "Document", type: "title", href: (c) => `/checks/${c.id}` },
+    { id: "type", header: "Type", priority: 2 },
+    { id: "when", header: "Quand", priority: 2 },
+    { id: "check", header: "Vérification" },
+    { id: "result", header: "Résultat", type: "status", cell: (c) => <Badge size="sm">{c.result}</Badge> },
+  ];
+  const renderList = (props: Partial<React.ComponentProps<typeof DataTable<Check>>> = {}) =>
+    render(<DataTable caption="Vérifications" rows={checks} columns={listColumns} getRowId={(c) => c.id} rowLabel={(c) => c.document} layout="cards" phone="list" selectable {...props} />);
+
+  it("draws a row as the title with ONE line of facts and the status at the end — no dl, no label/value lines", () => {
+    const { container } = renderList();
+    const row = screen.getAllByRole("row")[1]!;
+    const facts = row.querySelector("[data-facts]")!;
+    expect(facts.textContent).toBe("Facture · 23 oct.");
+    expect(row.querySelectorAll("[data-facts]")).toHaveLength(1);
+    expect(container.querySelector("tbody dl")).toBeNull();
+    const title = row.querySelector('[data-list="title"]')!;
+    expect(title.textContent).toContain("Bail_2026.pdf");
+    expect(row.querySelector('[data-list="status"]')!.textContent).toBe("Authentique");
+    // The facts' own cells and the other columns leave the face; nothing says « Header value » any more.
+    expect([...row.querySelectorAll('[data-list="away"]')].map((c) => c.getAttribute("data-label"))).toEqual(["Type", "Quand", "Vérification"]);
+    expect(row.querySelector("[data-card]")).toBeNull();
+    expect(row.className).toContain("border-b");
+    expect(row.className).not.toContain("rounded-xl");
+    expect(row.querySelector("td")!.className).toContain("before:content-none");
+  });
+
+  it("keeps the table's semantics, the checkbox and the row's link reachable, with no axe violation", async () => {
+    const { container } = renderList();
+    expect(screen.getByRole("table")).toBeTruthy();
+    expect(screen.getAllByRole("cell").length).toBeGreaterThan(0);
+    const link = screen.getByRole("link", { name: "Bail_2026.pdf" });
+    expect(link.getAttribute("href")).toBe("/checks/c1");
+    expect(link.className).toContain("after:inset-0");
+    const box = screen.getByRole("checkbox", { name: "Select Bail_2026.pdf" });
+    expect(box.closest("td")!.className).toContain("z-[1]");
+    await userEvent.setup().click(box);
+    expect(box.getAttribute("aria-checked")).toBe("true");
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("opens the other columns in the row's detail", async () => {
+    renderList();
+    const more = screen.getByRole("button", { name: "Show more about Bail_2026.pdf" });
+    expect(more.className).toContain("inline-flex");
+    await userEvent.setup().click(more);
+    const terms = screen.getAllByRole("term");
+    const line = (text: string) => terms.find((t) => t.textContent === text)!.parentElement!.className.split(" ");
+    // The priority-1 column that is neither title nor status is shown in the detail; the facts (already in the row) are not.
+    expect(line("Vérification")).toContain("grid");
+    expect(line("Vérification")).not.toContain("hidden");
+    expect(line("Type")).toContain("hidden");
+  });
+
+  it("in auto layout, applies the list rows under 36 rem only (the table stays above)", () => {
+    renderList({ layout: "auto" });
+    const row = screen.getAllByRole("row")[1]!;
+    expect(row.className).toContain("@max-xl:flex");
+    expect(row.querySelector("[data-facts]")!.className).toContain("hidden @max-xl:");
+    expect(row.querySelector('[data-list="away"]')!.className).toContain("@max-xl:data-[list=away]:hidden");
+  });
+
+  it("keeps the cards by default (phone=\"cards\")", () => {
+    renderList({ phone: undefined });
+    const row = screen.getAllByRole("row")[1]!;
+    expect(row.querySelector("[data-facts]")).toBeNull();
+    expect(row.querySelector('[data-card="title"]')).toBeTruthy();
+    expect(row.className).toContain("rounded-xl");
   });
 });

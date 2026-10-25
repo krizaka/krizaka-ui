@@ -88,7 +88,7 @@ export function createApiClient(options: ApiClientOptions): ApiClient {
           signal: controller.signal,
         });
       } catch (error) {
-        if (timedOut) throw new TypeError(`${options.productName} did not answer in time`);
+        if (timedOut) throw new TypeError(`${options.productName} did not answer in time`, { cause: error });
         throw error;
       } finally {
         clearTimeout(timer);

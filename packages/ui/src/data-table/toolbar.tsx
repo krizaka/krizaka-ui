@@ -76,17 +76,12 @@ export function DataTableFilters({ debounce = 250, children, className }: DataTa
       {filterable.map((column) => {
         if (column.filter === "text")
           return (
-            <SearchField
+            <TextFilter
               key={column.id}
               label={labels.search(column.header)}
-              placeholder={labels.search(column.header)}
-              value={typeof filters[column.id] === "string" ? undefined : ""}
-              defaultValue={typeof filters[column.id] === "string" ? (filters[column.id] as string) : undefined}
+              value={typeof filters[column.id] === "string" ? (filters[column.id] as string) : ""}
               debounce={debounce}
-              onSearch={(query) => set(column.id, query)}
-              landmark={false}
-              size="sm"
-              className="min-w-48 flex-1"
+              onCommit={(query) => set(column.id, query)}
             />
           );
         if (column.filter === "facet")
@@ -190,5 +185,38 @@ export function DataTableExport({ filename = "export.csv", onExport, className }
     <Button variant="outline" size="sm" className={className} onClick={run}>
       {labels.export}
     </Button>
+  );
+}
+
+/**
+ * A text filter: what is typed stays a draft until the debounce commits it, and a value that changes from outside
+ * (back or forward on a `routeKey` table, « Clear all ») replaces the draft — the box always says what filters the rows.
+ */
+function TextFilter({ label, value, debounce, onCommit }: { label: string; value: string; debounce?: number; onCommit: (query: string) => void }) {
+  const [draft, setDraft] = React.useState(value);
+  const [seen, setSeen] = React.useState(value);
+  const [committed, setCommitted] = React.useState(value);
+  if (value !== seen) {
+    setSeen(value);
+    if (value !== committed) {
+      setCommitted(value);
+      setDraft(value);
+    }
+  }
+  return (
+    <SearchField
+      label={label}
+      placeholder={label}
+      value={draft}
+      onValueChange={setDraft}
+      debounce={debounce}
+      onSearch={(query) => {
+        setCommitted(query);
+        onCommit(query);
+      }}
+      landmark={false}
+      size="sm"
+      className="min-w-48 flex-1"
+    />
   );
 }

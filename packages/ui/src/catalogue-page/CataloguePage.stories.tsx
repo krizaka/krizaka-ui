@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import ClientsExample from "../../registry/examples/catalogue-page/clients";
 import ComponentsExample from "../../registry/examples/catalogue-page/components";
 import { CataloguePage } from "./catalogue-page";
 
@@ -16,3 +17,5 @@ type Story = StoryObj;
 export const Components: Story = { render: () => <ComponentsExample /> };
 /** On a phone (390 × 844). */
 export const ComponentsPhone: Story = { render: () => <ComponentsExample />, parameters: { phone: true } };
+export const Clients: Story = { render: () => <ClientsExample /> };
+export const ClientsPhone: Story = { render: () => <ClientsExample />, parameters: { phone: true } };

@@ -248,14 +248,14 @@ describe("generated modules", async () => {
     expect(Object.keys(native.radius).sort()).toEqual(keysOf("radius"));
     expect(Object.keys(native.typography).sort()).toEqual(keysOf("font"));
     expect(native.radius).toEqual({ xs: 2, sm: 2, md: 2, lg: 0, xl: 0, "2xl": 0, full: 9999 });
-    expect(native.typography).toEqual({ sans: "Atkinson Hyperlegible Next", text: "Atkinson Hyperlegible Next", display: "Young Serif", mono: "Courier Prime", cahier: "Krizaka Cahier" });
+    expect(native.typography).toEqual({ sans: "Atkinson Hyperlegible Next", text: "Atkinson Hyperlegible Next", display: "Young Serif", mono: "Courier Prime", cahier: "Krizaka Cahier", productDisplay: "Plus Jakarta Sans", monoMeta: "Courier Prime" });
     expect(native.motion.ease).toEqual([0.45, 0, 0.2, 1]);
     expect(native.motion.spring).toEqual([0.34, 1.36, 0.64, 1]);
     expect(native.motion.duration).toEqual({ instant: 90, fast: 150, base: 200 });
   });
 
   it("native: the shadows as boxShadow strings per theme, and the griffe's size", () => {
-    expect(Object.keys(native.shadows.dark)).toEqual(["sm", "md", "lg", "raised", "floating", "overlay"]);
+    expect(Object.keys(native.shadows.dark)).toEqual(["sm", "md", "lg", "raised", "floating", "overlay", "hover"]);
     expect(Object.keys(native.shadows.light)).toEqual(Object.keys(native.shadows.dark));
     for (const v of Object.values(native.shadows.dark) as string[]) expect(v).toMatch(/^(-?[\d.]+(px)? ){4}rgba\([\d,.]+\)(, (-?[\d.]+(px)? ){4}rgba\([\d,.]+\))*$/);
     expect(native.shadows.light.raised).not.toBe(native.shadows.dark.raised);
@@ -648,6 +648,99 @@ describe("brands", async () => {
     expect(one({ ...full, nope: { $type: "color", $value: "hsl(0 0% 0%)" } })).toThrow(/not a platform token/);
     const { info: _info, ...partial } = full;
     expect(one(partial)).toThrow(/missing --kz-info/);
+  });
+});
+
+describe("ADR-006 (krizaka-ui#669): the new roles leave the Cahier as it is", () => {
+  // The product register (data-surface="product") sets the calm values in @krizaka/ui's blocks.css, where its contrast is
+  // tested. The tokens carry the Cahier: the four new roles exist and resolve to the Cahier's own look.
+  it("adds the four roles in both themes and native, aliased to the values the Cahier already has", () => {
+    const dark = css.slice(0, css.indexOf("html.light {"));
+    expect(dark).toContain("--kz-border-control: var(--kz-border-strong);");
+    expect(dark).toContain("--kz-border-hover: var(--kz-border-strong);");
+    expect(dark).toContain("--kz-text-title: var(--kz-text-primary);");
+    expect(dark).toMatch(/--kz-shadow-hover: 0 1px 0 /);
+    expect(css).toContain("--kz-shadow-hover: 0 1px 0 hsl(212 49% 24%");
+  });
+
+  it("keeps the Cahier's ink, hairlines and corners at their ADR-004 values", () => {
+    expect(css).toContain("--kz-text-muted: hsl(140 8% 68%);");
+    expect(css).toContain("--kz-text-muted: hsl(212 14% 36%);");
+    expect(css).toContain("--kz-border-subtle: hsl(110 25% 92% / 0.07);");
+    expect(css).toContain("--kz-border-default: hsl(110 25% 92% / 0.12);");
+    expect(css).toContain("--kz-radius-lg: 0px;");
+    expect(css).toContain("--kz-radius-md: 2px;");
+    expect(css).not.toContain("#646d80");
+  });
+
+  it("tightens the rows and the density gaps under [data-density=compact]", () => {
+    const block = css.slice(css.indexOf('[data-density="compact"] {'));
+    for (const [role, normal] of [["control-row", 48], ["density-gap", 16], ["density-pad", 20]] as const) {
+      const compact = Number.parseFloat(new RegExp(`--kz-${role}: ([\\d.]+)px`).exec(block)?.[1] ?? "NaN");
+      expect(compact, role).toBeLessThan(normal);
+      expect(css, role).toContain(`--kz-${role}: ${normal}px;`);
+    }
+  });
+});
+
+describe("tag markers (ADR-006, krizaka-ui#627; @krizaka/organize MARKERS)", () => {
+  const names = ["blue", "green", "amber", "red", "violet", "gray"];
+  // The Cahier's four surfaces and the product register's three (blocks.css), in both themes.
+  const hex = (h: string) => ({ r: Number.parseInt(h.slice(1, 3), 16), g: Number.parseInt(h.slice(3, 5), 16), b: Number.parseInt(h.slice(5, 7), 16), a: 1 });
+  const surfacesOf = (mode: "dark" | "light") => [
+    ...["--kz-surface-0", "--kz-surface-1", "--kz-surface-2", "--kz-surface-3"].map((n) => parseHsl(color(n, mode))),
+    ...(mode === "dark" ? ["#111318", "#171a21", "#1e222b"] : ["#fbfbfa", "#ffffff", "#f4f4f2"]).map(hex),
+  ];
+  const lab = (c: { r: number; g: number; b: number }) => {
+    const lin = (v: number) => ((v / 255) <= 0.04045 ? v / 255 / 12.92 : ((v / 255 + 0.055) / 1.055) ** 2.4);
+    const [r, g, b] = [lin(c.r), lin(c.g), lin(c.b)];
+    const f = (t: number) => (t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116);
+    const x = f((0.4124 * r + 0.3576 * g + 0.1805 * b) / 0.95047);
+    const y = f(0.2126 * r + 0.7152 * g + 0.0722 * b);
+    const z = f((0.0193 * r + 0.1192 * g + 0.9505 * b) / 1.08883);
+    return [116 * y - 16, 500 * (x - y), 200 * (y - z)];
+  };
+  const distance = (a: { r: number; g: number; b: number }, b: { r: number; g: number; b: number }) => Math.hypot(...lab(a).map((v, i) => v - lab(b)[i]!));
+
+  it("declares the six names of the contract, as a dot and as a text role, in both themes", () => {
+    for (const name of names) {
+      for (const role of [`--kz-tag-${name}`, `--kz-tag-${name}-text`]) {
+        expect(dark.has(role), role).toBe(true);
+        expect(light.has(role), `${role} (light)`).toBe(true);
+      }
+    }
+    expect([...dark.keys()].filter((n) => n.startsWith("--kz-tag-") && !n.endsWith("-text")).map((n) => n.slice(9))).toEqual(names);
+  });
+
+  for (const mode of ["dark", "light"] as const) {
+    it(`${mode}: the dot reads at 3:1 and the text at 4.5:1 on the Cahier's and the product register's surfaces`, () => {
+      for (const name of names) {
+        const dot = parseHsl(color(`--kz-tag-${name}`, mode));
+        const text = parseHsl(color(`--kz-tag-${name}-text`, mode));
+        for (const bg of surfacesOf(mode)) {
+          expect(contrast(dot, bg), `${name} dot`).toBeGreaterThanOrEqual(3);
+          expect(contrast(text, bg), `${name} text`).toBeGreaterThanOrEqual(4.5);
+        }
+      }
+    });
+
+    it(`${mode}: no marker is a status tone or a product's accent (ΔE ≥ 10)`, () => {
+      const others = [
+        ...["success", "warning", "danger"].map((r) => color(`--kz-${r}`, mode)),
+        ...Object.values(brandsIndex).map((b) => b[mode]!.accent!),
+      ];
+      for (const name of names) {
+        const dot = parseHsl(color(`--kz-tag-${name}`, mode));
+        for (const other of others) expect(distance(dot, parseHsl(other)), `${name} vs ${other}`).toBeGreaterThanOrEqual(10);
+      }
+    });
+  }
+
+  it("keeps the six markers apart from each other (ΔE ≥ 20): the colour is never the only signal, but it is never a twin", () => {
+    for (const mode of ["dark", "light"] as const) {
+      const dots = names.map((n) => parseHsl(color(`--kz-tag-${n}`, mode)));
+      for (let i = 0; i < dots.length; i++) for (let j = i + 1; j < dots.length; j++) expect(distance(dots[i]!, dots[j]!), `${names[i]} vs ${names[j]} (${mode})`).toBeGreaterThanOrEqual(20);
+    }
   });
 });
 

@@ -9,7 +9,7 @@ export const meta = {
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: ["Components, packs, use cases, repositories.", "Any index the reader narrows down."],
   whenNotToUse: [
-    { when: "For media to look at.", use: "gallery-page" },
+    { when: "For media to look at." },
     { when: "For rows to sort and select.", use: "data-table" },
   ],
   bestPractices: ["Filters as links: the address keeps them, back works.", "Say the count in words, politely announced.", "Words and content arrive as props; the motion is the platform's (`[data-reveal]`, still under reduced motion)."],
@@ -19,9 +19,10 @@ export const meta = {
   },
   related: ["filter-bar", "chip-link", "card-grid"],
   web: {
-    imports: ["CataloguePage"],
+    imports: ["CataloguePage", "PlanStrip"],
     examples: [
       { name: "components", title: "Components", description: "Krizaka UI's components: search, platform filters, compact link cards.", template: true, purpose: "explain", why: "A reader looking for the right piece scans a filterable catalogue instead of reading every page." },
+      { name: "clients", title: "A client list", description: "`plan` (figures and a Meter), `dividers`, filter chips with counts, rows with a status and one action, and the selection bar (#653).", template: true, purpose: "operate", why: "An owner sees where the account stands, narrows the list by status and acts on several clients at once." },
     ],
   },
 } satisfies ComponentMeta;

@@ -7,7 +7,7 @@ import { tv } from "tailwind-variants";
 export const checkbox = tv({
   slots: {
     root:
-      "peer inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-border-strong bg-surface-1 text-on-accent transition-colors " +
+      "peer inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-border-control bg-surface-1 text-on-accent transition-colors " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0 " +
       "hover:border-accent disabled:cursor-not-allowed disabled:opacity-40 " +
       "data-[state=checked]:border-accent data-[state=checked]:bg-accent data-[state=indeterminate]:border-accent data-[state=indeterminate]:bg-accent " +

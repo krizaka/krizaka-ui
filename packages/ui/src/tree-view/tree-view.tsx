@@ -3,6 +3,7 @@
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
+import { warnDeprecated } from "../deprecated";
 import { ChevronGlyph } from "../glyphs";
 import { useControllable } from "../media";
 
@@ -93,6 +94,7 @@ export function TreeView({
   loadingLabel = "Loading",
   className,
 }: TreeViewProps) {
+  warnDeprecated("tree-view", "3.6.0");
   const s = treeView();
   const uid = React.useId();
   const [expanded, setExpanded] = useControllable<readonly string[]>(expandedProp, defaultExpanded, onExpandedChange as (next: readonly string[]) => void);

@@ -1,5 +1,50 @@
 # @krizaka/tokens
 
+## 3.58.0
+
+### Minor Changes
+
+- [#699](https://github.com/krizaka/krizaka-ui/pull/699) [`25ba3b0`](https://github.com/krizaka/krizaka-ui/commit/25ba3b0eedd8c362661537408118e71568cc7b14) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Appearance for every product (ADR-006 §4, [#657](https://github.com/krizaka/krizaka-ui/issues/657)).
+  
+  - **`@krizaka/tokens`:** the themes as data — `appearance` (also on `/native`): System, Light and Dark (required), Blueprint (navy) and Carbone (near-black) as optional dark surface sets, the colours of each miniature, every brand's accent family per theme, and `passes` — the themes each accent reads on, computed with WCAG 2 (text ≥ 4.5:1, fill ≥ 3:1, its label ≥ 4.5:1) and tested for every combination. `appearance.css` applies the surface sets (`html.theme-blueprint`, `html.theme-carbone`) and the accent (`html[data-accent="<brand>"]`). No paper theme, no brand-named theme. Density stays `html[data-density="compact"]`.
+  - **`@krizaka/ui/account-settings`:** `AppearanceSettings` — theme cards (a radio group of live miniatures, one check), accent, density, language and an opt-in sound, as `SettingsRow`s; driven by data, `onChange` out. Native twin: still the gap of [#503](https://github.com/krizaka/krizaka-ui/issues/503).
+  - **`@krizaka/ui/theme`:** `useAppearance()` applies the choices at once and keeps them in the browser; `ThemeScript` restores the accent and the density before paint.
+
+- [#700](https://github.com/krizaka/krizaka-ui/pull/700) [`bb1c5ca`](https://github.com/krizaka/krizaka-ui/commit/bb1c5cafdbc49efc4d84dfbb35917de9d02fb3e5) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The admin's editors of a kind's vocabulary (ADR-006 §7, [#690](https://github.com/krizaka/krizaka-ui/issues/690); `@krizaka/organize` `KindConfig`, krizaka-ts#89) — new entry `@krizaka/ui/kind-config-editor`, web and React Native, same props.
+  
+  - **`TagSetEditor`:** the presets of a variant (name, colour from the closed palette, order — drag, buttons or Alt + ↑ ↓), who manages tags, « people can add their own », the most (1 to 200). A name another tag has is marked in place.
+  - **`StatusSetEditor`:** the states in their order, each with a label in French and one in English (every field says its language), a tone, « final »; the initial state; the moves from × to with their roles, a second press and the reasons to pick from (off by default, never free text). A final state's row says « Final: no way out »; the initial state is never final. A derived set is shown read-only.
+  - Both take the descriptor and give it back (`value` / `onChange`), show `kindConfigProblems` in place (`problems`), and never hold the save logic. The pure changes are tested to keep the contract by construction.
+
+## 3.57.0
+
+### Minor Changes
+
+- [#698](https://github.com/krizaka/krizaka-ui/pull/698) [`914b702`](https://github.com/krizaka/krizaka-ui/commit/914b70297b43bab36182249158344207640dbdb0) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Tags, statuses and views (ADR-006 §7, [#627](https://github.com/krizaka/krizaka-ui/issues/627)) — the surfaces of `@krizaka/organize@0.4.0` (krizaka-ts#89), built on `chip`, `tag-selector`, `filter-bar` and `data-table` — no new entry.
+  
+  - **Tokens:** the closed palette of tag markers — six names, `blue · green · amber · red · violet · gray`, as `--kz-tag-<name>` (the dot, ≥ 3:1) and `--kz-tag-<name>-text` (≥ 4.5:1) on every surface of both themes and of the product register. A test proves they are never a status tone or a product's accent (ΔE ≥ 10) and never twins of each other. The native theme gains the same roles (`tagBlue`, `tagBlueText`…).
+  - **`@krizaka/ui/chip`:** `TagChip` (a name with its marker, a dot or Yomizaka's bookmark ribbon; alone, in `Chip.Group` or removable), `TagMarker`, `MarkerPicker` (recolour from the six, named and ticked), and `StatusChip`: a state of a `StatusSet` — read-only when the set is derived, the role has no move or nobody listens; otherwise a menu of `movesFrom(set, state, role)` in the set's order, a second press for a move that asks to be confirmed, a reason picked from a list (never typed). Labels in the person's language. React Native: the same, the status chip taking its moves resolved (its menu is an action sheet).
+  - **`@krizaka/ui/tag-selector`:** an option may carry a `marker`; `creatable` adds a field — type to narrow, Enter takes the tag of that name or creates it in the colour chosen (`onCreate(name, marker)`), Backspace takes the last back.
+  - **`@krizaka/ui/filter-bar`:** `SavedViews` (and `FilterBar views`): the `system`, `workspace` and `mine` views as chips with counts, a « modified » mark, « Save view », rename and delete; links when the views have an address; **one menu on a phone** (« View: To decide »).
+  - **`@krizaka/ui/data-table`:** `SelectionBar` and `DataTable bulkActions` — the count, the actions the product gives, « Clear selection » and what the last change did, announced politely; sticky, docked above the tab bar on a phone (`--kz-dock-offset`); it says so past the most the service takes (`bulkMax`, 200).
+  - `@krizaka/organize` (≥ 0.4, its browser-safe `/contract` only) is now a dependency of `@krizaka/ui`.
+
+## 3.56.0
+
+No changes in this release.
+
+## 3.55.0
+
+### Minor Changes
+
+- [#684](https://github.com/krizaka/krizaka-ui/pull/684) [`ba195fb`](https://github.com/krizaka/krizaka-ui/commit/ba195fb1d4ec5458803777bf62abfd77ba5aa827) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Plus Jakarta Sans is back, for the products' titles only (ADR-006 §2, krizaka-ui#670). `@krizaka/fonts` gets the role `product-display` (`--kz-font-product-display`, variable, latin + latin-ext, weights 550 / 650 / 700 in use, never 800): the files are the ones the package already shipped as legacy (`legacyFonts` still lists them), declared in `fonts.css` with a metric-matched fallback (CLS 0), never preloaded, never loaded from Google Fonts. `@krizaka/tokens` adds `--kz-font-product-display` and `--kz-font-mono-meta` (Courier Prime, for identifiers and times). In the product register of `blocks.css`, `--kz-font-display` is the product face (−0.015 em from 24 px, −0.022 em from 40 px, display steps at 550 / 650), identifiers use Courier Prime (`--kz-font-mono-meta`, `font-mono-meta`), code the system monospace (eyebrows follow in [#633](https://github.com/krizaka/krizaka-ui/issues/633)); the Cahier sites keep Young Serif and never fetch the face. The typography page of ui.krizaka.com shows the two registers side by side.
+
+- [#687](https://github.com/krizaka/krizaka-ui/pull/687) [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `NavBar.Session`: the bar's « who is here » island for every product, over one contract — `GET /api/me` answers 200 `{ signedIn, signupOpen, account? }` with `Cache-Control: private, no-store` and `Vary: Cookie` (`meResponse`, `meHeaders`, `meSchema` from the server-safe `@krizaka/ui/nav-bar/me` entry); signed out is never a 401 and its schema rejects an account. It takes `ProductBarActions` and the account menu for the two states, uses `@krizaka/query` with the app's credential policy, and falls back to signed out even if a failed refetch leaves a cached account.
+
+- [#681](https://github.com/krizaka/krizaka-ui/pull/681) [`8a65333`](https://github.com/krizaka/krizaka-ui/commit/8a65333d4ec58f164178d5eab7b81709374bb45c) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The product register, 2027 (ADR-006 §3, krizaka-ui#669). A product's root (`data-surface="product"`, or its `.brand-<id>` on `<html>` / `<body>`) now wears, from `@krizaka/ui/blocks.css` and in both themes: the slate ink (title `#222a3a`, primary `#242c3d`, secondary `[#576275](https://github.com/krizaka/krizaka-ui/issues/576275)`, muted `#646d80` — the mockup's `#8c96a8` is 2.9:1 and refused), the surfaces `#fbfbfa` / `#ffffff` / `#f4f4f2` and `[#111318](https://github.com/krizaka/krizaka-ui/issues/111318)` / `#171a21` / `#1e222b`, translucent hairlines (4 % / 8 %) on cards and separators, radius 4 / 8 / 8 / 14 / 14 / 14, titles at 700, and on an interactive card (a link or a button) the brand border, a soft shadow and a 1 px lift in 150 ms (none under reduced motion). The Cahier sites are unchanged.
+  
+  New roles in `@krizaka/tokens` (Cahier values, no existing value changes): `--kz-text-title`, `--kz-border-control` (a field, a checkbox, a radio: ≥ 3:1 on surfaces 0–2 in the register, WCAG 1.4.11), `--kz-border-hover`, `--kz-shadow-hover`, plus `--kz-control-row`, `--kz-density-gap` and `--kz-density-pad` tightened by `[data-density="compact"]`. `@krizaka/tailwind` maps them (`border-control`, `border-hover`, `text-fg-title`, `shadow-hover`). `Field`, `Combobox`, `SearchField`, `DatePicker`, `DateField`, `Chat`, `Checkbox` and `RadioGroup` draw `border-control`: on the Cahier sites a field's edge is now the strong border. Contrast of every role is tested per theme and per brand.
+
 ## 3.54.0
 
 No changes in this release.

@@ -3,7 +3,12 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Video trimmer",
   summary: "The trim timeline of a video editor: two edge handles over a filmstrip frame the part kept, the outside dimmed, a playhead to scrub — every part stylable, the keyboard included.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "media",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#278", reason: "Orochia's upload from the phone will need it." }, desktop: "web" },

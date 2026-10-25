@@ -18,6 +18,9 @@ export type Theme = {
   readonly borderSubtle: string;
   readonly borderDefault: string;
   readonly borderStrong: string;
+  readonly borderControl: string;
+  readonly borderHover: string;
+  readonly textTitle: string;
   readonly textPrimary: string;
   readonly textSecondary: string;
   readonly textMuted: string;
@@ -40,6 +43,19 @@ export type Theme = {
   readonly dangerText: string;
   readonly info: string;
   readonly infoText: string;
+  /** Tag markers (krizaka-ui#627; @krizaka/organize `MARKERS`): the dot reads ≥ 3:1, the text role ≥ 4.5:1. */
+  readonly tagBlue: string;
+  readonly tagBlueText: string;
+  readonly tagGreen: string;
+  readonly tagGreenText: string;
+  readonly tagAmber: string;
+  readonly tagAmberText: string;
+  readonly tagRed: string;
+  readonly tagRedText: string;
+  readonly tagViolet: string;
+  readonly tagVioletText: string;
+  readonly tagGray: string;
+  readonly tagGrayText: string;
   readonly scrim: string;
   readonly scrimStrong: string;
   readonly overlay: string;

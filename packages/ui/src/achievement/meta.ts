@@ -30,7 +30,7 @@ export const meta = {
       "Emblems and icons are decorative. The badges arrive once in a stage and never under `prefers-reduced-motion`.",
     ],
   },
-  related: ["goal-gauge", "badge", "argument-card", "scroll-stage"],
+  related: ["goal-gauge", "badge", "argument-card"],
   web: {
     imports: ["Achievement", "AchievementList", "Emblem"],
     examples: [

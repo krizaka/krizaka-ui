@@ -101,6 +101,11 @@ describe("documentation carried by the code (meta.ts)", () => {
       expect(sentence(meta.deprecated.reason), "deprecated.reason").toBe(true);
       if (meta.deprecated.use) expect(all, `deprecated.use "${meta.deprecated.use}"`).toContain(meta.deprecated.use);
     } else expect(meta.deprecated, "only a deprecated component has a deprecation").toBeUndefined();
+    if (meta.native?.deprecated) {
+      expect(meta.status, "a native-only deprecation belongs to a component that stays on the web").not.toBe("deprecated");
+      expect(meta.native.deprecated, "native.deprecated").toMatchObject({ since: expect.stringMatching(/^\d+\.\d+\.\d+$/), removedIn: expect.stringMatching(/^\d+\.0\.0$/) });
+      expect(sentence(meta.native.deprecated.reason), "native.deprecated.reason").toBe(true);
+    }
     expect(meta.whenToUse.length, "whenToUse").toBeGreaterThan(0);
     expect(meta.whenNotToUse.length, "whenNotToUse").toBeGreaterThan(0);
     expect(meta.bestPractices.length, "bestPractices").toBeGreaterThan(0);
@@ -167,9 +172,11 @@ describe("examples (registry/examples)", () => {
     expect(source.trimEnd().split("\n").length, `at most ${max} lines`).toBeLessThanOrEqual(max);
     expect(source).toContain("export default function");
     // @krizaka/query too: a server table or an infinite list reads its data the way a product does; zod: a form is a schema.
-    const allowed = platform === "web" ? /^(@krizaka\/ui(\/[a-z-]+)?|@krizaka\/query|react|zod)$/ : /^(@krizaka\/ui\/native(\/[a-z-]+)?|@krizaka\/query|react|react-native|react-native-svg|zod)$/;
+    const allowed = platform === "web" ? /^(@krizaka\/ui(\/[a-z-]+){0,2}|@krizaka\/query|react|zod)$/ : /^(@krizaka\/ui\/native(\/[a-z-]+)?|@krizaka\/query|react|react-native|react-native-svg|zod)$/;
     for (const [, specifier] of source.matchAll(/from\s+"([^"]+)"/g)) {
       expect(specifier, "an example imports what a product imports, never a relative path or Storybook").toMatch(allowed);
+      // …and only an entry the package publishes (a nested one too: `@krizaka/ui/app-header/search`).
+      if (specifier.startsWith("@krizaka/ui/")) expect(Object.keys(pkg.exports), `${specifier} is an export of package.json`).toContain(`.${specifier.slice("@krizaka/ui".length)}`);
     }
   });
 

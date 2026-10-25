@@ -16,9 +16,54 @@ const blocks = [...css.matchAll(/@font-face \{([^}]+)\}/g)].map(
 );
 
 describe("the families", () => {
-  it("are one display, one text and one mono face, then the sparing handwritten pen, in that order", () => {
-    expect(families.map((f) => f.role)).toEqual(["display", "text", "mono", "cahier"]);
-    expect(families.map((f) => f.family)).toEqual(["Young Serif", "Atkinson Hyperlegible Next", "Courier Prime", "Krizaka Cahier"]);
+  it("are one display, one text and one mono face, the sparing handwritten pen, then the products' title face, in that order", () => {
+    expect(families.map((f) => f.role)).toEqual(["display", "text", "mono", "cahier", "product-display"]);
+    expect(families.map((f) => f.family)).toEqual(["Young Serif", "Atkinson Hyperlegible Next", "Courier Prime", "Krizaka Cahier", "Plus Jakarta Sans"]);
+  });
+
+  // ADR-006 §2, krizaka-ui#670 — Plus Jakarta Sans is back as a role of the product register only.
+  describe("the product-display role (ADR-006 #670)", () => {
+    const product = families.find((f) => f.role === "product-display")!;
+
+    it("is Plus Jakarta Sans on its own token, from this package's files (never Google Fonts)", () => {
+      expect(product.family).toBe("Plus Jakarta Sans");
+      expect(product.token).toBe("--kz-font-product-display");
+      expect(product.web.map((w) => w.path)).toEqual(["files/web/plus-jakarta-sans-latin-wght.woff2", "files/web/plus-jakarta-sans-latin-ext-wght.woff2"]);
+      for (const w of product.web) expect(existsSync(join(root, w.path)), w.path).toBe(true);
+      expect(css).not.toMatch(/fonts\.googleapis|fonts\.gstatic/);
+    });
+
+    it("is variable over the weights the register uses (550, 650, 700), in latin and latin-ext", () => {
+      expect(product.static).toBe(false);
+      expect(product.weights.min).toBeLessThanOrEqual(550);
+      expect(product.weights.max).toBeGreaterThanOrEqual(700);
+      expect(product.web.map((w) => w.subset)).toEqual(["latin", "latin-ext"]);
+    });
+
+    it("has a CLS-safe fallback: a metric-matched local face, swap, and a stack that starts with both", () => {
+      expect(product.fallback.local.length).toBeGreaterThan(0);
+      for (const key of ["sizeAdjust", "ascentOverride", "descentOverride", "lineGapOverride"] as const) expect(product.fallback[key]).toMatch(/^[\d.]+%$/);
+      const b = blocks.find((x) => x.get("font-family") === `"${product.fallbackFamily}"`)!;
+      expect(b.get("size-adjust")).toBe(product.fallback.sizeAdjust);
+      expect(product.stack.replaceAll('"', "").startsWith("Plus Jakarta Sans, Plus Jakarta Sans Fallback, ")).toBe(true);
+      for (const b2 of blocks.filter((x) => x.get("font-family") === '"Plus Jakarta Sans"')) expect(b2.get("font-display")).toBe("swap");
+    });
+
+    it("is never preloaded: a Cahier site that imports the CSS does not download it", async () => {
+      const mod = await import(join(root, "dist/index.js"));
+      expect(mod.preload.some((p: string) => p.includes("plus-jakarta"))).toBe(false);
+    });
+
+    it("tells the sites to keep Young Serif and the products to avoid weight 800", () => {
+      expect(product.avoid.join(" ")).toMatch(/Cahier sites/);
+      expect(product.avoid.join(" ")).toMatch(/800/);
+      expect(product.why).toMatch(/ADR-006/);
+    });
+
+    it("keeps its old files resolvable as a legacy path (nothing is removed in a minor)", async () => {
+      const mod = await import(join(root, "dist/index.js"));
+      expect(mod.legacyFonts.map((f: { family: string }) => f.family)).toEqual(["Plus Jakarta Sans", "Inter", "JetBrains Mono"]);
+    });
   });
 
   it("the pen is Krizaka Cahier: a renamed, derived face on its own token, one weight, never preloaded, with the French alphabet and §", () => {
@@ -60,10 +105,10 @@ describe("the families", () => {
     expect(existsSync(join(root, "licenses/KrizakaCahier-OFL.txt"))).toBe(true);
   });
 
-  it("keep the faces of the previous identity as legacy files, never as a role (#417)", () => {
+  it("keep Inter and JetBrains Mono as legacy files, never as a role (#417; Plus Jakarta Sans is a role again, below)", () => {
     const legacy = source.families.filter((f: { legacy?: boolean }) => f.legacy).map((f: { family: string }) => f.family);
-    expect(legacy).toEqual(["Plus Jakarta Sans", "Inter", "JetBrains Mono"]);
-    expect(css).not.toMatch(/Inter|Plus Jakarta Sans|JetBrains Mono/);
+    expect(legacy).toEqual(["Inter", "JetBrains Mono"]);
+    expect(css).not.toMatch(/Inter|JetBrains Mono/);
   });
 
   it("the display face has one weight and is never bold", () => {

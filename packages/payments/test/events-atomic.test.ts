@@ -44,6 +44,7 @@ describe("a handler that fails leaves the event unrecorded (krizaka-ts#47: the a
     const failure = await applyOnce(store, paid, { payment_paid: async () => { throw handlerError; } }).catch((e: unknown) => e);
     expect(failure).toBeInstanceOf(AggregateError);
     expect((failure as AggregateError).errors).toEqual([handlerError, cleanupError]);
+    expect((failure as AggregateError).cause).toBe(cleanupError);
   });
 
   it("the SQL store forgets with a DELETE on its own row", async () => {

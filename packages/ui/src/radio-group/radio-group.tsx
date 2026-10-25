@@ -16,7 +16,7 @@ export const radioGroup = tv({
   slots: {
     root: "grid gap-2 data-[orientation=horizontal]:flex data-[orientation=horizontal]:flex-wrap",
     item:
-      "peer inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border-strong bg-surface-1 inset-shadow-well transition-colors " +
+      "peer inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border-control bg-surface-1 inset-shadow-well transition-colors " +
       "focus-visible:outline-hidden focus-visible:focus-ring hover:border-accent disabled:cursor-not-allowed disabled:opacity-40 " +
       "data-[state=checked]:border-accent data-[state=checked]:bg-accent data-[state=checked]:shadow-glow aria-invalid:border-danger",
     dot: "h-2 w-2 rounded-full bg-on-accent",
@@ -28,7 +28,7 @@ export const radioGroup = tv({
       "data-[state=checked]:border-accent data-[state=checked]:bg-accent-soft data-[state=checked]:shadow-glow",
     // The card's check: an empty ring at rest, the accent filled with its check once chosen.
     cardCheck:
-      "absolute right-3.5 top-3.5 inline-flex h-5 w-5 items-center justify-center rounded-full border border-border-strong bg-surface-1 text-on-accent transition-colors " +
+      "absolute right-3.5 top-3.5 inline-flex h-5 w-5 items-center justify-center rounded-full border border-border-control bg-surface-1 text-on-accent transition-colors " +
       "group-data-[state=checked]:border-accent group-data-[state=checked]:bg-accent",
     // The tactile key: on a ledge (its lower edge), its hairline stronger on hover, pressed in while held and once chosen.
     button:
