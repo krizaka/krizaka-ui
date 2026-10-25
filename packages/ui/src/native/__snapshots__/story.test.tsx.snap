@@ -1,0 +1,389 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ProfileBanner (native, #650) the example renders (a snapshot of its words) 1`] = `
+<View
+  style={
+    {
+      "width": 340,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "gap": 10,
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      aria-hidden={true}
+      style={
+        [
+          {
+            "height": 112,
+            "overflow": "hidden",
+            "width": "100%",
+          },
+          {
+            "backgroundColor": "rgba(42,95,141,0.08)",
+            "borderRadius": 0,
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="none"
+        bbHeight="100%"
+        bbWidth="100%"
+        focusable={false}
+        height="100%"
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {
+              "flex": 0,
+              "height": "100%",
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={100}
+        vbWidth={100}
+        width="100%"
+      >
+        <RNSVGGroup
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
+        >
+          <RNSVGDefs>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  1294622605,
+                  0.5,
+                  -14000243,
+                  1,
+                  -986129,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="kz-banner-_r_3_"
+              x1="0"
+              x2="1"
+              y1="0"
+              y2="1"
+            />
+          </RNSVGDefs>
+          <RNSVGRect
+            fill={
+              {
+                "brushRef": "kz-banner-_r_3_",
+                "type": 1,
+              }
+            }
+            height="100"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100"
+            x="0"
+            y="0"
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "borderWidth": 4,
+            "height": 80,
+            "justifyContent": "center",
+            "marginLeft": 4,
+            "marginTop": -50,
+            "overflow": "hidden",
+            "width": 80,
+          },
+          {
+            "backgroundColor": "#dfe3de",
+            "borderColor": "#f4f6f3",
+            "borderRadius": 0,
+          },
+        ]
+      }
+    >
+      <View
+        accessible={false}
+        style={
+          [
+            {
+              "alignItems": "center",
+              "justifyContent": "center",
+              "overflow": "hidden",
+            },
+            {
+              "backgroundColor": "#dfe3de",
+              "borderRadius": 40,
+              "height": 80,
+              "width": 80,
+            },
+            undefined,
+          ]
+        }
+      >
+        <Image
+          onError={[Function]}
+          resizeMode="cover"
+          source={
+            {
+              "uri": "https://krizaka-assets.b-cdn.net/people/defaults/v1/akinaza/person-3-512.webp",
+            }
+          }
+          style={
+            {
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+        />
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "gap": 2,
+          "paddingHorizontal": 4,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontSize": 14,
+              "fontVariant": [
+                "lining-nums",
+                "tabular-nums",
+              ],
+              "fontWeight": "700",
+              "lineHeight": 18,
+            },
+            {
+              "color": "#275782",
+            },
+            null,
+            undefined,
+          ]
+        }
+      >
+        Client
+      </Text>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "gap": 8,
+          }
+        }
+      >
+        <Text
+          role="heading"
+          style={
+            [
+              {
+                "fontSize": 18,
+                "fontWeight": "800",
+                "lineHeight": 24,
+              },
+              {
+                "color": "#1d3654",
+              },
+              null,
+              {
+                "flexShrink": 1,
+              },
+            ]
+          }
+        >
+          Eric Tremblay
+        </Text>
+        <View
+          collapsable={false}
+          style={
+            {
+              "alignItems": "center",
+              "alignSelf": "flex-start",
+              "backgroundColor": "rgba(16,183,127,0.15)",
+              "borderColor": "rgba(16,183,127,0.4)",
+              "borderRadius": 9999,
+              "borderWidth": 1,
+              "flexDirection": "row",
+              "gap": 4,
+              "paddingHorizontal": 8,
+              "paddingVertical": 2,
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#1d3654",
+                "fontSize": 10,
+                "fontWeight": "600",
+                "letterSpacing": undefined,
+                "textTransform": undefined,
+              }
+            }
+          >
+            Regular
+          </Text>
+        </View>
+      </View>
+      <Text
+        style={
+          [
+            {
+              "fontSize": 15,
+              "lineHeight": 21,
+            },
+            {
+              "color": "#405064",
+            },
+            null,
+            undefined,
+          ]
+        }
+      >
+        Client since 2024 · 14 visits
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "gap": 8,
+          "paddingHorizontal": 4,
+        }
+      }
+    >
+      <View
+        accessibilityLabel="Book"
+        accessibilityState={
+          {
+            "busy": false,
+            "checked": undefined,
+            "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        role="button"
+        style={
+          [
+            {
+              "alignItems": "center",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "overflow": "hidden",
+            },
+            {
+              "paddingHorizontal": 12,
+            },
+            {
+              "backgroundColor": "#2a5f8d",
+              "borderColor": "transparent",
+              "borderRadius": 2,
+              "height": 32,
+              "opacity": 1,
+              "transform": [
+                {
+                  "scale": 1,
+                },
+              ],
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 8,
+            }
+          }
+        >
+          <Text
+            numberOfLines={1}
+            style={
+              [
+                {
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "lineHeight": 18,
+                },
+                {
+                  "color": "#1d3654",
+                },
+                null,
+                {
+                  "color": "#ffffff",
+                  "fontSize": 12,
+                  "fontWeight": "600",
+                },
+              ]
+            }
+          >
+            Book
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

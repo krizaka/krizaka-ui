@@ -964,7 +964,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "59.5 kB",
+      "limit": "59.8 kB",
       "gzip": true
     },
     {
@@ -2318,7 +2318,7 @@
     {
       "name": "./detail-layout",
       "path": "dist/detail-layout.js",
-      "limit": "1 kB",
+      "limit": "1.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2388,7 +2388,7 @@
     {
       "name": "./profile-card",
       "path": "dist/profile-card.js",
-      "limit": "1 kB",
+      "limit": "1.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

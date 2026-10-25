@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import BannerExample from "../../registry/examples/profile-card/native/banner";
 import DefaultExample from "../../registry/examples/profile-card/native/default";
 import { ProfileCard } from "./profile-card";
 import { nativeFrame } from "./story-frame";
@@ -15,3 +16,4 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = { render: () => <DefaultExample /> };
+export const Banner: Story = { render: () => <BannerExample /> };
