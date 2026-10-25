@@ -10,7 +10,7 @@ export const meta = {
   whenToUse: ["A shop or community page whose owner's photos, words and identity should feel personally pinned up."],
   whenNotToUse: [
     { when: "A searchable or large image collection.", use: "photo-grid" },
-    { when: "A sortable or editable board of tasks.", use: "kanban" },
+    { when: "Rows of data to compare or sort.", use: "data-table" },
   ],
   bestPractices: [
     "Import @krizaka/ui/blocks.css once. All four components are exported from @krizaka/ui/wall.",
