@@ -40,13 +40,15 @@
     "./tsconfig/next.json": "./tsconfig/next.json",
     "./tsconfig/react-native.json": "./tsconfig/react-native.json",
     "./editorconfig": "./.editorconfig",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./conformance/account-baseline": "./conformance/account-baseline.js"
   },
   "bin": {
     "krizaka-ratchet": "./bin/krizaka-ratchet.mjs"
   },
   "files": [
     "bin",
+    "conformance",
     "eslint",
     "ratchet",
     "tsconfig",
@@ -115,7 +117,7 @@
         "ratchet/ratchet.js",
         "patterns.js"
       ],
-      "limit": "9 kB",
+      "limit": "9.9 kB",
       "gzip": true
     }
   ]

@@ -15,7 +15,9 @@ import {
   FETCH_CALL_SOURCE,
   importSource,
   isLocalSelection,
+  isPageFile,
   LIGHT_VARIANT_SOURCE,
+  pageTemplateProblem,
   paletteSource,
   selectionTags,
   TABLE_OR_FORM_SOURCE,
@@ -32,7 +34,7 @@ export const DEFAULT_STACK_GLOBS = Object.freeze(
 const IGNORE = ["**/node_modules/**", "**/dist/**", "**/.next/**", "**/storybook-static/**", "**/coverage/**"];
 
 /** @typedef {"palette" | "light" | "arbitraryVar" | "classNameTemplate"} UiCounterName */
-/** @typedef {"fetchInClientEffect" | "directTanstackImport" | "localTableOrForm" | "retiredImport" | "routeStateSelection"} StackCounterName */
+/** @typedef {"fetchInClientEffect" | "directTanstackImport" | "localTableOrForm" | "retiredImport" | "routeStateSelection" | "pageTemplate"} StackCounterName */
 /** @typedef {UiCounterName | StackCounterName} CounterName */
 /** @typedef {Record<CounterName, number>} Counters */
 /**
@@ -54,6 +56,7 @@ export const STACK_COUNTERS = /** @type {const} */ ([
   "localTableOrForm",
   "retiredImport",
   "routeStateSelection",
+  "pageTemplate",
 ]);
 /** Every counter, in report order. */
 export const COUNTERS = /** @type {const} */ ([...UI_COUNTERS, ...STACK_COUNTERS]);
@@ -91,7 +94,7 @@ export function countSource(source, allow = []) {
  * `@tanstack/*`, hand-written tables and forms of more than `maxFormFields` fields, imports of the retired dependencies.
  * @param {string} source
  * @param {{ retire?: readonly string[], maxFormFields?: number }} [options]
- * @returns {Record<StackCounterName, number>}
+ * @returns {Record<string, number>}
  */
 export function countStackSource(source, { retire = [], maxFormFields = 1 } = {}) {
   let fetchInClientEffect = 0;
@@ -119,6 +122,15 @@ export function countStackSource(source, { retire = [], maxFormFields = 1 } = {}
 }
 
 /**
+ * 1 when `file` is a page of the app router with no valid template declaration, else 0.
+ * @param {string} file
+ * @param {string} source
+ */
+export function countPages(file, source) {
+  return isPageFile(file) && pageTemplateProblem(source) ? 1 : 0;
+}
+
+/**
  * Counts the debts under `root`: the UI counters in the files of `globs`, the stack counters in those of `stackGlobs`.
  * @param {{ root: string, globs?: readonly string[], stackGlobs?: readonly string[], allow?: string[],
  *   retire?: readonly string[], maxFormFields?: number }} options
@@ -141,7 +153,8 @@ export async function countRepository({
   }
   for (const file of stackFiles) {
     const found = countStackSource(readFileSync(file, "utf8"), { retire, maxFormFields });
-    for (const name of STACK_COUNTERS) counters[name] += found[name];
+    for (const name of STACK_COUNTERS) counters[name] += found[name] ?? 0;
+    counters.pageTemplate += countPages(file, readFileSync(file, "utf8"));
   }
   return { counters, files: files.length, stackFiles: stackFiles.length };
 }

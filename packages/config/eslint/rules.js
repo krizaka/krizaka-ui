@@ -3,7 +3,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-import { countFormFields, EFFECT_NAMES_SOURCE, FETCH_NAMES_SOURCE, isLocalSelection, LIGHT_VARIANT_SOURCE, paletteSource, TANSTACK_SCOPE } from "../patterns.js";
+import { countFormFields, EFFECT_NAMES_SOURCE, FETCH_NAMES_SOURCE, isLocalSelection, isPageFile, LIGHT_VARIANT_SOURCE, PAGE_TEMPLATES, pageTemplateProblem, paletteSource, TANSTACK_SCOPE } from "../patterns.js";
 
 /** @typedef {import("eslint").Rule.RuleModule} RuleModule */
 /** @typedef {import("estree").Node} Node */
@@ -346,3 +346,28 @@ export const noRawPalette = classNameRule(
   ({ allow = [] }) => new RegExp(paletteSource(allow)),
   "Raw palette colour: use a role (bg-surface-1, text-fg-secondary, border-border-default, text-accent, text-danger).",
 );
+
+/** Oussama, 2026-10-22: pages are composed from Krizaka UI's templates, never hand-built. */
+/** @type {RuleModule} */
+export const pageTemplate = {
+  meta: {
+    type: "problem",
+    docs: { description: "Every page of the app router declares the Krizaka UI template it composes: `// @template: app-settings`." },
+    schema: [],
+    messages: {
+      missing: "This page declares no template. Compose one of the page templates of @krizaka/ui (ui.krizaka.com/templates) and say so with `// @template: <name>` at the top of the file. A page that really fits none says why: `// @template: custom: <reason>`.",
+      unknown: "Unknown template « {{ name }} ». The templates are: {{ list }}, or `custom: <reason>`.",
+      reason: "`// @template: custom` needs its reason: `// @template: custom: a canvas editor, no template fits`.",
+    },
+  },
+  create(context) {
+    if (!isPageFile(context.filename)) return {};
+    return {
+      Program: (/** @type {Node} */ node) => {
+        const problem = pageTemplateProblem(context.sourceCode.text);
+        if (!problem) return;
+        context.report({ node, loc: { line: 1, column: 0 }, messageId: problem.kind, data: { name: "name" in problem ? problem.name : "", list: PAGE_TEMPLATES.join(", ") } });
+      },
+    };
+  },
+};
