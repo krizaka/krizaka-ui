@@ -209,6 +209,8 @@ export default defineConfig([
       chip: "src/chip/index.ts",
       // A state of a status set, with its menu of moves.
       "status-chip": "src/status-chip/index.ts",
+      // The admin's editors of a kind's tags and statuses.
+      "kind-config-editor": "src/kind-config-editor/index.ts",
       switch: "src/switch/index.ts",
       slider: "src/slider/index.ts",
       checkbox: "src/checkbox/index.ts",

@@ -12,6 +12,7 @@ export type ComponentName =
   | "notification-preferences"
   | "quota-meter"
   | "status-chip"
+  | "kind-config-editor"
   | "agenda"
   | "account-settings"
   | "drop-overlay"
