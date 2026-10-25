@@ -14,7 +14,7 @@ export const searchField = tv({
   slots: {
     root: "relative w-full",
     control:
-      "flex h-11 w-full items-center gap-2 rounded-lg border border-border-default bg-surface-2 pl-3 pr-1.5 text-sm text-fg " +
+      "flex h-11 w-full items-center gap-2 rounded-lg border border-border-control bg-surface-2 pl-3 pr-1.5 text-sm text-fg " +
       "transition-[border-color,box-shadow] focus-within:border-accent focus-within:ring-2 focus-within:ring-ring",
     icon: "h-4 w-4 shrink-0 text-fg-secondary",
     input:

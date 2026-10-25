@@ -17,7 +17,7 @@ export const datePicker = tv({
     row: "relative flex w-full",
     // The field is a well (inset), the calendar opens on a raised, lit surface.
     trigger:
-      "group flex h-11 w-full items-center gap-2.5 rounded-lg border border-border-default bg-surface-2 px-3 text-left text-sm text-fg inset-shadow-well " +
+      "group flex h-11 w-full items-center gap-2.5 rounded-lg border border-border-control bg-surface-2 px-3 text-left text-sm text-fg inset-shadow-well " +
       "transition-[border-color,box-shadow] hover:border-border-strong focus-visible:border-accent focus-visible:outline-hidden focus-visible:focus-ring-inset " +
       "data-[state=open]:border-accent data-[placeholder]:text-fg-muted aria-invalid:border-danger disabled:cursor-not-allowed disabled:opacity-50 data-[clearable]:pr-10",
     icon: "h-4 w-4 shrink-0 text-fg-secondary transition-colors group-data-[state=open]:text-fg-accent",

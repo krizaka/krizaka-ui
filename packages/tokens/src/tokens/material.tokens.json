@@ -123,6 +123,15 @@
           "compact": "36px"
         }
       }
+    },
+    "row": {
+      "$value": "48px",
+      "$description": "Ligne de liste ou de tableau",
+      "$extensions": {
+        "com.krizaka": {
+          "compact": "40px"
+        }
+      }
     }
   },
   "cut": {
@@ -148,6 +157,28 @@
     "line": {
       "$value": "8px",
       "$description": "La ligne fine : trois par carreau"
+    }
+  },
+  "density": {
+    "$type": "dimension",
+    "$description": "Densité : l'écart entre éléments et le remplissage d'une carte ; resserrés sous [data-density=compact]",
+    "gap": {
+      "$value": "16px",
+      "$description": "Écart entre les éléments d'un groupe",
+      "$extensions": {
+        "com.krizaka": {
+          "compact": "12px"
+        }
+      }
+    },
+    "pad": {
+      "$value": "20px",
+      "$description": "Remplissage d'une carte, d'un panneau",
+      "$extensions": {
+        "com.krizaka": {
+          "compact": "16px"
+        }
+      }
     }
   }
 }

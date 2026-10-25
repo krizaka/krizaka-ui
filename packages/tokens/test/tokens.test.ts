@@ -255,7 +255,7 @@ describe("generated modules", async () => {
   });
 
   it("native: the shadows as boxShadow strings per theme, and the griffe's size", () => {
-    expect(Object.keys(native.shadows.dark)).toEqual(["sm", "md", "lg", "raised", "floating", "overlay"]);
+    expect(Object.keys(native.shadows.dark)).toEqual(["sm", "md", "lg", "raised", "floating", "overlay", "hover"]);
     expect(Object.keys(native.shadows.light)).toEqual(Object.keys(native.shadows.dark));
     for (const v of Object.values(native.shadows.dark) as string[]) expect(v).toMatch(/^(-?[\d.]+(px)? ){4}rgba\([\d,.]+\)(, (-?[\d.]+(px)? ){4}rgba\([\d,.]+\))*$/);
     expect(native.shadows.light.raised).not.toBe(native.shadows.dark.raised);
@@ -648,6 +648,38 @@ describe("brands", async () => {
     expect(one({ ...full, nope: { $type: "color", $value: "hsl(0 0% 0%)" } })).toThrow(/not a platform token/);
     const { info: _info, ...partial } = full;
     expect(one(partial)).toThrow(/missing --kz-info/);
+  });
+});
+
+describe("ADR-006 (krizaka-ui#669): the new roles leave the Cahier as it is", () => {
+  // The product register (data-surface="product") sets the calm values in @krizaka/ui's blocks.css, where its contrast is
+  // tested. The tokens carry the Cahier: the four new roles exist and resolve to the Cahier's own look.
+  it("adds the four roles in both themes and native, aliased to the values the Cahier already has", () => {
+    const dark = css.slice(0, css.indexOf("html.light {"));
+    expect(dark).toContain("--kz-border-control: var(--kz-border-strong);");
+    expect(dark).toContain("--kz-border-hover: var(--kz-border-strong);");
+    expect(dark).toContain("--kz-text-title: var(--kz-text-primary);");
+    expect(dark).toMatch(/--kz-shadow-hover: 0 1px 0 /);
+    expect(css).toContain("--kz-shadow-hover: 0 1px 0 hsl(212 49% 24%");
+  });
+
+  it("keeps the Cahier's ink, hairlines and corners at their ADR-004 values", () => {
+    expect(css).toContain("--kz-text-muted: hsl(140 8% 68%);");
+    expect(css).toContain("--kz-text-muted: hsl(212 14% 36%);");
+    expect(css).toContain("--kz-border-subtle: hsl(110 25% 92% / 0.07);");
+    expect(css).toContain("--kz-border-default: hsl(110 25% 92% / 0.12);");
+    expect(css).toContain("--kz-radius-lg: 0px;");
+    expect(css).toContain("--kz-radius-md: 2px;");
+    expect(css).not.toContain("#646d80");
+  });
+
+  it("tightens the rows and the density gaps under [data-density=compact]", () => {
+    const block = css.slice(css.indexOf('[data-density="compact"] {'));
+    for (const [role, normal] of [["control-row", 48], ["density-gap", 16], ["density-pad", 20]] as const) {
+      const compact = Number.parseFloat(new RegExp(`--kz-${role}: ([\\d.]+)px`).exec(block)?.[1] ?? "NaN");
+      expect(compact, role).toBeLessThan(normal);
+      expect(css, role).toContain(`--kz-${role}: ${normal}px;`);
+    }
   });
 });
 
