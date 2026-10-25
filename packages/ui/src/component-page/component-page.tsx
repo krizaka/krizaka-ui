@@ -6,6 +6,8 @@ import { DetailLayout } from "@krizaka/ui/detail-layout";
 import { type Fact, Facts, Section } from "@krizaka/ui/page";
 import type * as React from "react";
 
+import { warnDeprecated } from "../deprecated";
+
 export interface ComponentPageSection {
   /** The section's anchor. */
   id: string;
@@ -36,8 +38,12 @@ export type ComponentPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"
   aside?: React.ReactNode;
 };
 
-/** A component's page: name, summary, facts, live preview, install, then its sections; facts and related aside. */
+/**
+ * A component's page: name, summary, facts, live preview, install, then its sections; facts and related aside.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function ComponentPage({ back, eyebrow, title, summary, facts, preview, install, sections, aside, ...props }: ComponentPageProps) {
+  warnDeprecated("component-page");
   return (
     <DetailLayout back={back} eyebrow={eyebrow} title={title} meta={<span>{summary}</span>} aside={aside} {...props}>
       {facts && facts.length > 0 && <Facts items={facts} />}

@@ -9,7 +9,7 @@ export const field = tv({
     root: "flex flex-col gap-1.5",
     label: "text-xs font-semibold text-fg-secondary",
     control:
-      "flex h-11 w-full rounded-lg border border-border-default bg-surface-2 px-3 text-sm text-fg placeholder:text-fg-muted " +
+      "flex h-11 w-full rounded-lg border border-border-control bg-surface-2 px-3 text-sm text-fg placeholder:text-fg-muted " +
       "transition-[border-color,box-shadow] focus-visible:border-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring " +
       "disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-danger aria-invalid:ring-danger/30",
     hint: "text-xs text-fg-secondary",

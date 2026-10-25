@@ -6,6 +6,7 @@ import * as React from "react";
 import { Image, Linking, ScrollView, type StyleProp, StyleSheet, Text, useWindowDimensions, View, type ViewStyle } from "react-native";
 
 import { codeHighlighter } from "../code-block/highlighter";
+import { warnDeprecated } from "../deprecated";
 import { type BlockNode, type InlineNode, parseSource, textOf } from "../markdown/parse";
 
 export type MarkdownProps = {
@@ -239,8 +240,12 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
   }
 }
 
-/** A Markdown text in Text and View: headings, paragraphs, lists (and tasks), quotes, tables, coloured code, links, pictures. */
+/**
+ * A Markdown text in Text and View: headings, paragraphs, lists (and tasks), quotes, tables, coloured code, links, pictures.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no app imports it. Removed in 4.0.
+ */
 export function Markdown({ children, streaming, generated, generatedLabel, onLinkPress, style }: MarkdownProps) {
+  warnDeprecated("native/markdown");
   const { theme, fonts } = useTheme();
   const { fontScale } = useWindowDimensions();
   const blocks = React.useMemo(() => parseSource(children, { streaming }), [children, streaming]);

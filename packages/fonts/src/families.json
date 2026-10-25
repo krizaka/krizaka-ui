@@ -137,7 +137,7 @@
       ]
     },
     {
-      "role": "display",
+      "role": "product-display",
       "family": "Plus Jakarta Sans",
       "slug": "plus-jakarta-sans",
       "nativeName": "PlusJakartaSans",
@@ -158,8 +158,7 @@
       },
       "nativeWeights": [
         600,
-        700,
-        800
+        700
       ],
       "fallback": "Arial",
       "stack": [
@@ -169,19 +168,21 @@
         "Roboto",
         "sans-serif"
       ],
-      "description": "Legacy (before 0.3.0): The voice of the headlines: titles, hero lines, figures, the names of things.",
-      "why": "Already the headline face of krizaka.com: its compact, slightly squared bowls and flat terminals echo the cut corners of the marks and icons, and it stays tight and dense at 800 — premium without decoration. Keeping it means no gratuitous change to the parent brand.",
+      "description": "The product register's headline face (ADR-006): the titles of a signed-in product at 550, 650 and 700. Not for the Cahier sites, which keep Young Serif.",
+      "why": "Oussama tested it on the calm product mockup and wants it: compact, slightly squared bowls and flat terminals, tight and dense without decoration — a working title face for a product where Young Serif's notebook voice would be a costume. It comes back for the products only (ADR-006 §2, amending ADR-004); on the sites it stays « the trio of a thousand templates ». If it still reads as a template, going back is one token: `--kz-font-display: var(--kz-font-sans)`.",
       "use": [
-        "Headings and hero lines (display-*, title-*)",
-        "Big figures and prices",
-        "Short labels that name a product or a section"
+        "Product headings and page titles at 550 / 650 / 700, with −0.015 em from 24 px and −0.022 em from 40 px",
+        "Big figures: a statistic's value, a price",
+        "The name of a thing in a card or a sheet"
       ],
       "avoid": [
+        "The Cahier sites (www, the blog, ui., java., ts., motion): Young Serif is their display",
+        "Weight 800, which is the template look; set it at 550 to 700",
         "Paragraphs and long reading (use the text face)",
         "Sizes under 16 px",
-        "Weights under 600: the display face speaks bold"
+        "Identifiers and times: Courier Prime (`--kz-font-mono-meta`)"
       ],
-      "legacy": true
+      "alsoLegacy": true
     },
     {
       "role": "text",
@@ -359,14 +360,14 @@
     }
   },
   "rules": [
-    "Three families, three jobs: display names (Young Serif), text reads (Atkinson Hyperlegible Next), mono types the notes (Courier Prime: tags, captions, footnotes, code). A fourth, the pen (Krizaka Cahier, `--kz-font-cahier`), exists for margin marks, folios, handwritten notes and a chalkboard line and nothing else: never headings, never body text, never interface.",
+    "Three families, three jobs: display names (Young Serif), text reads (Atkinson Hyperlegible Next), mono types the notes (Courier Prime: tags, captions, footnotes, code). A fourth, the pen (Krizaka Cahier, `--kz-font-cahier`), exists for margin marks, folios, handwritten notes and a chalkboard line and nothing else: never headings, never body text, never interface. A fifth role belongs to the products only (ADR-006): `product-display`, Plus Jakarta Sans, for their titles.",
     "Use the scale, not sizes: `text-display-xl`, `text-body-md`… carry size, line height, weight and tracking together. A one-off size is a missing step — ask for it.",
-    "Display has one weight (400) and is never bold, never uppercase: hierarchy comes from size and space. Text from 12 px, at 400–700.",
+    "Display has one weight (400) and is never bold, never uppercase: hierarchy comes from size and space. Text from 12 px, at 400–700. The one exception is a product's title face (`product-display`, Plus Jakarta Sans), set at 550, 650 or 700 — never 800 — with −0.015 em from 24 px and −0.022 em from 40 px.",
     "No uppercase tracked overline above every heading: a section is numbered in the margin (§ 2) or not at all. A label is lower case, in the note face.",
     "One display line per block. The rest is text: a page of headlines reads as noise.",
     "Amounts, counters and tables use tabular figures (`tabular-nums`); prices keep the currency from @krizaka/intl, never a hand-written sign.",
     "Measure: 60–75 characters per line for reading (`max-w-prose`); line heights land on the 8 px ruling.",
-    "Products may override the display role with their own face (Orochia: Outfit) through `--kz-font-display`; text and mono stay Krizaka's.",
+    "Products wear the product register (ADR-006): `--kz-font-display` is `--kz-font-product-display` (Plus Jakarta Sans), identifiers and tabular meta (« KZ-03 », a reference, a time) are Courier Prime (`--kz-font-mono-meta`), code is the system monospace, eyebrows are the sans, and the pen (Krizaka Cahier) is never inside a product. A product may still override the display role with its own face through `--kz-font-display`; text stays Krizaka's. Never Google Fonts, never a font file committed in an app.",
     "The Krizaka wordmark is drawn, inside the logo: never set the name in a font to imitate it."
   ]
 }

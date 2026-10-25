@@ -28,6 +28,7 @@ export { ActionSheet, type ActionSheetAction, type ActionSheetProps } from "./ac
 export { ActivityFeed, type ActivityFeedLabels, type ActivityFeedProps } from "./activity-feed";
 export { type ActivityEvent, type ActivityTone } from "./activity-feed";
 export { AkinazaMark } from "./AkinazaMark";
+export { AppHeader, AppHeaderCount, type AppHeaderCountProps, type AppHeaderProps, AppHeaderSearch, type AppHeaderSearchProps } from "./app-header";
 export { Avatar, AvatarGroup, type AvatarGroupProps, type AvatarProps, AvatarRoot, type AvatarSize } from "./avatar";
 export { Badge, type BadgeProps, type BadgeTone } from "./badge";
 export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, IconButton, type IconButtonProps } from "./button";
@@ -97,7 +98,7 @@ export { PermissionPrompt, type PermissionPromptProps, type PermissionStatus } f
 export { Phoenix, type PhoenixProps } from "./phoenix";
 export { type GridPhoto, PhotoGrid, type PhotoGridLabels, type PhotoGridProps } from "./photo-grid";
 export { ProductMark } from "./ProductMark";
-export { ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
+export { ProfileBanner, type ProfileBannerProps, ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
 export { Progress, type ProgressProps } from "./progress";
 export { BrandedRefresh, type BrandedRefreshProps, type BrandedRefreshScrollProps, PullToRefresh, type PullToRefreshProps } from "./pull-to-refresh";
 export { RadioGroup, type RadioGroupProps, type RadioOption } from "./radio-group";
@@ -116,7 +117,7 @@ export { PersonCard, type PersonCardProps, SwipeDeck, type SwipeDeckLabels, type
 export { SwipeableRow, type SwipeableRowProps,type SwipeAction } from "./swipeable-row";
 export { Switch, type SwitchProps } from "./switch";
 export { TabBar, type TabBarItem, type TabBarProps } from "./tab-bar";
-export { type TabItem, Tabs, type TabsProps } from "./tabs";
+export { type TabItem, Tabs, type TabsHue, type TabsProps } from "./tabs";
 export { type TagOption, TagSelector, type TagSelectorProps } from "./tag-selector";
 export {
   alpha,

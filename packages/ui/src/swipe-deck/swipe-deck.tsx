@@ -4,8 +4,10 @@
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
+import { warnDeprecated } from "../deprecated";
 import { usePrefersReducedMotion } from "../media";
 
+/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const swipeDeck = tv({
   slots: {
     root: "flex w-full flex-col items-center gap-5",
@@ -50,8 +52,12 @@ export type PersonCardProps = {
   className?: string;
 };
 
-/** A person on a card: photos full bleed (a side to change), name and age over a scrim, a line, a bio, chips. */
+/**
+ * A person on a card: photos full bleed (a side to change), name and age over a scrim, a line, a bio, chips.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function PersonCard({ photos, name, age, badge, meta, bio, footer, photoLabels = { previous: "Previous photo", next: "Next photo" }, className }: PersonCardProps) {
+  warnDeprecated("swipe-deck");
   const s = swipeDeck();
   const [index, setIndex] = React.useState(0);
   const photo = photos[index];
@@ -121,8 +127,12 @@ export type SwipeDeckProps<T> = {
   className?: string;
 };
 
-/** A deck of cards decided one by one: drag, the buttons, or ← → — each decision announced. */
+/**
+ * A deck of cards decided one by one: drag, the buttons, or ← → — each decision announced.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function SwipeDeck<T>({ items, getId, getName, renderCard, onSwipe, empty, labels, className }: SwipeDeckProps<T>) {
+  warnDeprecated("swipe-deck");
   const s = swipeDeck();
   const reduce = usePrefersReducedMotion();
   const [dx, setDx] = React.useState(0);

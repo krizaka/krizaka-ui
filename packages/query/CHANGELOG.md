@@ -1,5 +1,11 @@
 # @krizaka/query
 
+## 0.2.2
+
+### Patch Changes
+
+- [#687](https://github.com/krizaka/krizaka-ui/pull/687) [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Dependencies: radix-ui 1.8, TanStack Table 9.3 / Virtual 3.14.21 / Query 5.104.5 and zod 4.6.7 (the monthly grouped update).
+
 ## 0.2.1
 
 ### Patch Changes

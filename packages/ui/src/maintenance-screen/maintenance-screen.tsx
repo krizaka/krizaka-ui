@@ -4,6 +4,9 @@ import { Button } from "@krizaka/ui/button";
 import type * as React from "react";
 import { tv } from "tailwind-variants";
 
+import { warnDeprecated } from "../deprecated";
+
+/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const maintenanceScreen = tv({
   slots: {
     root: "mx-auto flex min-h-dvh w-full max-w-md flex-col items-center justify-center gap-4 px-6 py-12 text-center text-fg",
@@ -27,8 +30,12 @@ export type MaintenanceScreenProps = Omit<React.ComponentProps<"main">, "title">
   onRetry?: () => void;
 };
 
-/** The maintenance screen: announced politely, with one way to check again. */
+/**
+ * The maintenance screen: announced politely, with one way to check again.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function MaintenanceScreen({ title, message, mark, retryLabel, onRetry, className, ...props }: MaintenanceScreenProps) {
+  warnDeprecated("maintenance-screen");
   const s = maintenanceScreen();
   return (
     <main data-kind="maintenance" className={s.root({ className })} {...props}>

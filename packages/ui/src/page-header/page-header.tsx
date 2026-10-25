@@ -8,7 +8,7 @@ export const pageHeader = tv({
     breadcrumb: "text-xs text-fg-secondary",
     row: "flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between",
     text: "flex min-w-0 flex-col gap-1.5",
-    title: "font-display text-2xl font-black tracking-tight text-fg sm:text-3xl",
+    title: "kz-page-title font-display text-2xl font-black tracking-tight text-fg sm:text-3xl",
     description: "max-w-2xl text-sm text-fg-secondary",
     actions: "flex shrink-0 flex-wrap items-center gap-2",
   },

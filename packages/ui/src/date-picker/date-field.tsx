@@ -16,7 +16,7 @@ export const dateField = tv({
     row: "flex gap-2",
     part: "flex flex-col gap-1 text-xs text-fg-secondary",
     input:
-      "h-11 rounded-lg border border-border-default bg-surface-2 px-2 text-center text-base tabular-nums text-fg inset-shadow-well transition-[border-color,box-shadow] " +
+      "h-11 rounded-lg border border-border-control bg-surface-2 px-2 text-center text-base tabular-nums text-fg inset-shadow-well transition-[border-color,box-shadow] " +
       "placeholder:text-fg-muted focus-visible:border-accent focus-visible:outline-hidden focus-visible:focus-ring-inset aria-invalid:border-danger disabled:cursor-not-allowed disabled:opacity-50",
     hint: "text-xs text-fg-secondary",
     error: "flex items-center gap-1.5 text-xs font-medium text-fg-danger before:h-1.5 before:w-1.5 before:shrink-0 before:rounded-full before:bg-danger",

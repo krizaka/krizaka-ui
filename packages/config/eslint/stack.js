@@ -10,6 +10,7 @@ export const STACK_RULES = Object.freeze([
   "krizaka/no-local-table-or-form",
   "krizaka/no-family-switcher",
   "krizaka/route-state-selection",
+  "krizaka/page-template",
 ]);
 
 /**
@@ -38,6 +39,8 @@ export function krizakaStack({
         "krizaka/no-family-switcher": "error",
         // A selection of a view (tabs, segmented, toggles, chip groups) lives in the URL, not in local state.
         "krizaka/route-state-selection": severity,
+        // Every page of the app router composes a Krizaka UI template and says which (// @template: app-settings).
+        "krizaka/page-template": severity,
       },
     },
   ];

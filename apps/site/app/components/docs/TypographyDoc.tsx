@@ -14,7 +14,7 @@ import { InlineCode } from "./InlineCode";
    (var(--kz-font-*), var(--kz-type-*)), so the page shows what an app gets. The chrome and the sample sentences are
    messages. Server Component. */
 
-const ROLE_FONT = { display: "var(--kz-font-display)", text: "var(--kz-font-text)", mono: "var(--kz-font-mono)", cahier: "var(--kz-font-cahier)" } as const;
+const ROLE_FONT = { display: "var(--kz-font-display)", text: "var(--kz-font-text)", mono: "var(--kz-font-mono)", cahier: "var(--kz-font-cahier)", "product-display": "var(--kz-font-product-display)" } as const;
 
 const WEB_INSTALL = "npm install @krizaka/fonts @krizaka/tokens @krizaka/tailwind";
 const WEB_CSS = `@import "tailwindcss";
@@ -40,6 +40,7 @@ export function typographyToc(t: TranslationDictionary): TOCItemType[] {
   const c = t.docs.foundations;
   return [
     ["families", c.typography.families],
+    ["registers", c.typography.registers],
     ["scale", c.typography.scale],
     ["installation", c.installation],
     ["rules", c.typography.rules],
@@ -61,7 +62,7 @@ export function TypographyDoc({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
   const c = t.docs.foundations;
   const ty = c.typography;
-  const sample = (role: keyof typeof ROLE_FONT) => (role === "display" ? ty.headline : role === "mono" ? ty.code : role === "cahier" ? ty.chalk : ty.paragraph);
+  const sample = (role: keyof typeof ROLE_FONT) => (role === "display" || role === "product-display" ? ty.headline : role === "mono" ? ty.code : role === "cahier" ? ty.chalk : ty.paragraph);
 
   return (
     <>
@@ -84,7 +85,7 @@ export function TypographyDoc({ locale }: { locale: Locale }) {
             <p className="kz-type-glyphs" style={{ fontFamily: ROLE_FONT[font.role] }} aria-hidden>
               {ty.glyphs}
             </p>
-            <p className="kz-type-sample" style={{ fontFamily: ROLE_FONT[font.role], fontWeight: font.role === "display" ? 800 : 400 }}>
+            <p className="kz-type-sample" style={{ fontFamily: ROLE_FONT[font.role], fontWeight: font.role === "product-display" ? 650 : 400 }}>
               {sample(font.role)}
             </p>
             <p lang="en">
@@ -119,6 +120,23 @@ export function TypographyDoc({ locale }: { locale: Locale }) {
             <p className="kz-type-meta">{format(ty.fallback, { fallback: font.fallback.local[0], size: font.fallback.sizeAdjust })}</p>
           </article>
         ))}
+      </div>
+
+      <h2 id="registers">{ty.registers}</h2>
+      <p>{ty.registersLead}</p>
+      <div className="kz-type-families not-prose">
+        <article className="kz-type-family" aria-labelledby="register-sites">
+          <h3 id="register-sites">{ty.registerSites}</h3>
+          <p style={{ fontFamily: "var(--kz-font-display)", fontSize: "var(--kz-type-display-sm-size)", lineHeight: "var(--kz-type-display-sm-line-height)", fontWeight: 400 }}>{ty.registerTitle}</p>
+          <p style={{ fontFamily: "var(--kz-font-mono)", fontSize: "var(--kz-type-mono-sm-size)" }}>{ty.registerMeta}</p>
+          <p className="kz-type-meta">{ty.registerSitesNote}</p>
+        </article>
+        <article className="kz-type-family" aria-labelledby="register-product">
+          <h3 id="register-product">{ty.registerProduct}</h3>
+          <p style={{ fontFamily: "var(--kz-font-product-display)", fontSize: "var(--kz-type-display-sm-size)", lineHeight: "var(--kz-type-display-sm-line-height)", fontWeight: 650, letterSpacing: "-0.015em" }}>{ty.registerTitle}</p>
+          <p style={{ fontFamily: "var(--kz-font-mono-meta)", fontSize: "var(--kz-type-mono-sm-size)" }}>{ty.registerMeta}</p>
+          <p className="kz-type-meta">{ty.registerProductNote}</p>
+        </article>
       </div>
 
       <h2 id="scale">{ty.scale}</h2>

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Animated, StyleSheet, View, type ViewProps } from "react-native";
+import Svg, { Defs, LinearGradient, Rect, Stop } from "react-native-svg";
 
 import { useEntrance } from "./story-motion";
 import { useTheme } from "./theme";
@@ -117,4 +118,74 @@ const styles = StyleSheet.create({
   statHead: { flexDirection: "row", justifyContent: "space-between", gap: 8 },
   caption: { textAlign: "center" },
   extra: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: 8, alignSelf: "stretch" },
+});
+
+export type ProfileBannerProps = Omit<ViewProps, "children"> & {
+  /** The cover: an `Image` (decorative). Absent: a tint of the brand's accent. */
+  banner?: React.ReactNode;
+  /** The avatar overlapping the cover (`Avatar` with the family's default). */
+  avatar: React.ReactNode;
+  /** A line above the name: what it is (« Client »). */
+  eyebrow?: string;
+  /** The name: the screen's heading. */
+  title: string;
+  /** Beside the name: a `Badge`. */
+  status?: React.ReactNode;
+  /** Under the name: its facts. */
+  meta?: string;
+  /** The actions, under the name. */
+  actions?: React.ReactNode;
+};
+
+/**
+ * The top of a person's or a place's screen — the web's `ProfileBanner`: a slim cover, the avatar overlapping its lower
+ * edge, then the name (the screen's heading), its facts and the actions. No text on the cover.
+ */
+export function ProfileBanner({ banner, avatar, eyebrow, title, status, meta, actions, style, ...props }: ProfileBannerProps) {
+  const { theme, radius } = useTheme();
+  const id = `kz-banner-${React.useId().replace(/:/g, "")}`;
+  return (
+    <View style={[bannerStyles.root, style]} {...props}>
+      <View aria-hidden style={[bannerStyles.cover, { borderRadius: radius.lg, backgroundColor: theme.accentSoft }]}>
+        {banner ?? (
+          <Svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <Defs>
+              <LinearGradient id={id} x1="0" y1="0" x2="1" y2="1">
+                <Stop offset="0" stopColor={theme.accent} stopOpacity={0.3} />
+                <Stop offset="0.5" stopColor={theme.accentSoft} />
+                <Stop offset="1" stopColor={theme.surface2} />
+              </LinearGradient>
+            </Defs>
+            <Rect x="0" y="0" width="100" height="100" fill={`url(#${id})`} />
+          </Svg>
+        )}
+      </View>
+      <View style={[bannerStyles.avatar, { borderColor: theme.surface0, backgroundColor: theme.surface3, borderRadius: radius.lg }]}>{avatar}</View>
+      <View style={bannerStyles.text}>
+        {eyebrow ? (
+          <Txt variant="mono" tone="accent">
+            {eyebrow}
+          </Txt>
+        ) : null}
+        <View style={bannerStyles.titleRow}>
+          <Txt variant="title" role="heading" style={bannerStyles.title}>
+            {title}
+          </Txt>
+          {status}
+        </View>
+        {meta ? <Txt tone="secondary">{meta}</Txt> : null}
+      </View>
+      {actions ? <View style={bannerStyles.actions}>{actions}</View> : null}
+    </View>
+  );
+}
+
+const bannerStyles = StyleSheet.create({
+  root: { gap: 10 },
+  cover: { height: 112, width: "100%", overflow: "hidden" },
+  avatar: { width: 80, height: 80, marginTop: -50, marginLeft: 4, borderWidth: 4, overflow: "hidden", alignItems: "center", justifyContent: "center" },
+  text: { gap: 2, paddingHorizontal: 4 },
+  titleRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 8 },
+  title: { flexShrink: 1 },
+  actions: { flexDirection: "row", flexWrap: "wrap", gap: 8, paddingHorizontal: 4 },
 });

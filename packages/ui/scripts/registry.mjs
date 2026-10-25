@@ -21,8 +21,8 @@ export const EXAMPLES = join(PKG, "registry", "examples");
 
 /** Not primitives: the brand layer (marks, motion), the React Native entry and the test helpers. */
 export const EXCLUDED = new Set(["native", "marks", "motion", "test"]);
-/** Peers every primitive needs: not listed as dependencies. */
-const PEERS = new Set(["react", "react-dom"]);
+/** Peers a primitive needs (React; @krizaka/query for the bar's session island, the app's one QueryClient): not listed as dependencies. */
+const PEERS = new Set(["react", "react-dom", "@krizaka/query"]);
 
 const posix = (path) => path.split(sep).join("/");
 const isSource = (file) => /\.tsx?$/.test(file) && !/\.(test|stories)\.tsx?$/.test(file);
@@ -273,6 +273,7 @@ export async function collectRegistry() {
             entry: meta.native.entry ?? "@krizaka/ui/native",
             import: importLine(meta.native.imports, meta.native.entry ?? "@krizaka/ui/native"),
             differences: meta.native.differences,
+            deprecated: meta.native.deprecated ?? null,
             props: nativeProps[name] ?? [],
             examples: nativeExamples,
           }

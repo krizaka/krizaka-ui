@@ -35,7 +35,7 @@ export const meta = {
       "The visuals are decorative: the name carries the meaning. The arrival and the corner locks stop under `prefers-reduced-motion`.",
     ],
   },
-  related: ["radio-group", "profile-card", "scroll-stage"],
+  related: ["radio-group", "profile-card"],
   web: {
     imports: ["ChoiceGrid"],
     examples: [

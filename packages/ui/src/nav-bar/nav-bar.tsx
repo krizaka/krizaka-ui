@@ -12,6 +12,7 @@ import { LanguageSwitch, type LanguageSwitchProps } from "../language-switch/lan
 import { type FamilyLabels, familyLabels, type Site, type SiteId, sitesByGroup } from "../sites/sites";
 import { useSlidingIndicator } from "../sliding-indicator";
 import { placePanel } from "./placement";
+import { NavBarSession } from "./session";
 
 export const navBar = tv({
   slots: {
@@ -633,7 +634,7 @@ export function NavBarRepo({ label, className, ...props }: NavBarRepoProps) {
 }
 
 /**
- * `NavBar.Root/Brand/Family/Badge/Items/Link/Menu/MenuLink/Actions/Repo/Language/Mobile/MobileGroup/MobilePreferences/MobileLink` — the Krizaka navigation bar,
+ * `NavBar.Root/Brand/Family/Badge/Items/Link/Menu/MenuLink/Actions/Repo/Session/Language/Mobile/MobileGroup/MobilePreferences/MobileLink` — the Krizaka navigation bar,
  * the same on every site of the family: floating, tightening on scroll, the family switcher on the brand, one light
  * gliding between its items, accessible menus, a mobile panel.
  */
@@ -648,6 +649,7 @@ export const NavBar = {
   MenuLink: NavBarMenuLink,
   Actions: NavBarActions,
   Repo: NavBarRepo,
+  Session: NavBarSession,
   Language: NavBarLanguage,
   Mobile: NavBarMobile,
   MobilePreferences: NavBarMobilePreferences,

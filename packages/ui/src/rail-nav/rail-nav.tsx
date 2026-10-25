@@ -26,6 +26,10 @@ export const railNav = tv({
     group: "flex min-w-0 flex-row items-stretch md:flex-col md:items-center md:gap-1 md:px-1.5 md:group-data-expanded/rail:items-stretch",
     main: "max-md:grow-(--rail-n) md:flex-1 md:py-2",
     foot: "max-md:grow-(--rail-n) md:border-t md:border-border-subtle md:py-2",
+    // The shortcuts: the product's quick ways in (a saved view, a client, « new invoice »), desktop only — a phone's tab bar
+    // keeps its five destinations. Their heading shows once the rail is expanded; collapsed, it names the group.
+    shortcuts: "hidden md:flex md:border-t md:border-border-subtle md:py-2",
+    shortcutsHeading: "sr-only md:group-data-expanded/rail:not-sr-only md:group-data-expanded/rail:px-3.5 md:group-data-expanded/rail:pb-1 md:group-data-expanded/rail:pt-1 text-[11px] font-semibold text-fg-secondary",
     item:
       "group/item relative flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 px-1 text-[11px] font-medium text-fg-secondary no-underline transition-colors " +
       "hover:bg-surface-2 hover:text-fg focus-visible:outline-hidden focus-visible:focus-ring-inset " +
@@ -78,11 +82,15 @@ export type RailNavRootProps = Omit<React.ComponentProps<"nav">, "children"> & {
   children: React.ReactNode;
   /** At the foot of the rail (settings, account), after the main items; on a phone they follow them in the same bar. `RailNav.Item`s or a control with `data-rail-item`. */
   footer?: React.ReactNode;
+  /** The product's shortcuts (`RailNav.Item`s: a saved view, a client, « New invoice »), a group above the footer and the expand toggle. Desktop only: a phone's tab bar keeps its destinations. */
+  shortcuts?: React.ReactNode;
+  /** The shortcuts' heading (« Raccourcis », « Shortcuts ») — passed translated: the group's name, shown once the rail is expanded. */
+  shortcutsLabel?: string;
   /** Adds a button that widens the rail to show the words (desktop only). Needs `expandLabels`. */
   expandable?: boolean;
   /** Controlled width (pair with `onExpandedChange` to keep the choice). */
   expanded?: boolean;
-  /** The starting width when uncontrolled. */
+  /** The starting width when uncontrolled. Unset: expanded from 1280 px (the words fit there), narrow below — until the person toggles it. */
   defaultExpanded?: boolean;
   /** Called when the toggle widens or narrows the rail. */
   onExpandedChange?: (expanded: boolean) => void;
@@ -91,6 +99,20 @@ export type RailNavRootProps = Omit<React.ComponentProps<"nav">, "children"> & {
 };
 
 const count = (node: React.ReactNode) => React.Children.toArray(node).length;
+
+// The width from which an expandable rail shows its words by default — 80 rem (1280 px), Tailwind's `xl`.
+const WIDE = "(min-width: 80rem)";
+const subscribeWide = (onChange: () => void) => {
+  if (typeof window === "undefined" || !window.matchMedia) return () => undefined;
+  const query = window.matchMedia(WIDE);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+};
+const isWide = () => typeof window !== "undefined" && Boolean(window.matchMedia?.(WIDE).matches);
+/** Whether the window is 1280 px wide or more; `false` on the server (the rail then widens before the first paint). */
+function useWide() {
+  return React.useSyncExternalStore(subscribeWide, isWide, () => false);
+}
 
 /** Moves the focus along the rail's items with the arrows (↑ ↓ on the rail, ← → on the tab bar; both always work), Home and End. */
 function moveFocus(event: React.KeyboardEvent<HTMLElement>) {
@@ -111,10 +133,12 @@ function moveFocus(event: React.KeyboardEvent<HTMLElement>) {
 
 /** The rail: a vertical column of icons on a desktop, a bottom tab bar on a phone. */
 export function RailNavRoot({
-  label, mark, accent, children, footer, expandable, expanded: controlled, defaultExpanded = false, onExpandedChange, expandLabels, className, onKeyDown, ...props
+  label, mark, accent, children, footer, shortcuts, shortcutsLabel, expandable, expanded: controlled, defaultExpanded, onExpandedChange, expandLabels, className, onKeyDown, ...props
 }: RailNavRootProps) {
-  const [own, setOwn] = React.useState(defaultExpanded);
-  const expanded = expandable ? (controlled ?? own) : false;
+  const [own, setOwn] = React.useState<boolean | undefined>(defaultExpanded);
+  const wide = useWide();
+  const headingId = React.useId();
+  const expanded = expandable ? (controlled ?? own ?? wide) : false;
   const toggle = () => {
     if (controlled === undefined) setOwn(!expanded);
     onExpandedChange?.(!expanded);
@@ -140,6 +164,16 @@ export function RailNavRoot({
         <div className={s.group({ className: s.main() })} style={{ ["--rail-n" as string]: Math.max(count(children), 1) }}>
           {children}
         </div>
+        {shortcuts && (
+          <div role="group" aria-labelledby={shortcutsLabel ? headingId : undefined} data-rail-shortcuts="" className={s.group({ className: s.shortcuts() })}>
+            {shortcutsLabel && (
+              <p id={headingId} className={s.shortcutsHeading()}>
+                {shortcutsLabel}
+              </p>
+            )}
+            {shortcuts}
+          </div>
+        )}
         {(footer || expandable) && (
           <div className={s.group({ className: s.foot() })} style={{ ["--rail-n" as string]: Math.max(count(footer), 1) }}>
             {footer}

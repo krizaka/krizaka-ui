@@ -4,9 +4,10 @@ import { render, screen } from "@testing-library/react-native";
 import * as React from "react";
 import { Text } from "react-native";
 
+import BannerExample from "../../registry/examples/profile-card/native/banner";
 import { GoalGauge } from "./goal-gauge";
 import { Phoenix } from "./phoenix";
-import { ProfileCard } from "./profile-card";
+import { ProfileBanner, ProfileCard } from "./profile-card";
 
 describe("ProfileCard", () => {
   test("says the name, and each gauge is a meter with its value in words", async () => {
@@ -49,5 +50,20 @@ describe("Phoenix", () => {
     expect(screen.getByRole("image", { name: "The phoenix" })).toBeOnTheScreen();
     await render(<Phoenix animated={false} />);
     expect(screen.queryByRole("image")).toBeNull();
+  });
+});
+
+describe("ProfileBanner (native, #650)", () => {
+  test("the name is the screen's heading, its facts and actions under the cover", async () => {
+    await render(<ProfileBanner avatar={<Text>E</Text>} eyebrow="Client" title="Eric Tremblay" meta="14 visits" actions={<Text>Book</Text>} />);
+    expect(screen.getByRole("heading", { name: "Eric Tremblay" })).toBeTruthy();
+    expect(screen.getByText("14 visits")).toBeTruthy();
+    expect(screen.getByText("Client")).toBeTruthy();
+  });
+
+  test("the example renders (a snapshot of its words)", async () => {
+    await render(<BannerExample />);
+    expect(screen.getByRole("heading", { name: "Eric Tremblay" })).toBeTruthy();
+    expect(screen.toJSON()).toMatchSnapshot();
   });
 });

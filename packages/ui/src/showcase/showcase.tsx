@@ -7,6 +7,7 @@
 import * as React from "react";
 
 import { cn } from "../cn";
+import { warnDeprecated } from "../deprecated";
 
 const FILL_CSS = ".kz-showcase-fill{transform-origin:left;animation:kz-showcase-fill 6s linear forwards}@keyframes kz-showcase-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}";
 const REDUCED = "(prefers-reduced-motion: reduce)";
@@ -40,7 +41,10 @@ export interface ShowcaseLabels {
   slide: (n: number, total: number) => string;
 }
 
-/** English defaults — pass your own translated `labels`. */
+/**
+ * English defaults — pass your own translated `labels`.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export const showcaseLabels: ShowcaseLabels = {
   previous: "Previous slide",
   next: "Next slide",
@@ -86,7 +90,10 @@ export interface ShowcaseProps<T> extends Omit<React.ComponentProps<"section">, 
   labels?: ShowcaseLabels;
 }
 
-/** An auto-advancing slideshow with a visible, clickable progress bar, a counter, prev / next and a pause button. */
+/**
+ * An auto-advancing slideshow with a visible, clickable progress bar, a counter, prev / next and a pause button.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function Showcase<T>({
   label,
   items,
@@ -109,6 +116,7 @@ export function Showcase<T>({
   onPointerLeave,
   ...props
 }: ShowcaseProps<T>) {
+  warnDeprecated("showcase");
   const total = items.length;
   const root = React.useRef<HTMLElement>(null);
   const [inner, setInner] = React.useState(defaultIndex);
@@ -282,8 +290,10 @@ export function Showcase<T>({
  * The typed reveal of a text, kept minimal: the visible prefix grows at `speed` characters per second while `active`;
  * under reduced motion (or when not active) it is the whole text at once. Render the full text for assistive technology
  * (`sr-only`) and this one `aria-hidden`.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
 export function useTypedText(text: string, { active = true, speed = 45 }: { active?: boolean; speed?: number } = {}) {
+  warnDeprecated("showcase");
   const [typed, setTyped] = React.useState({ of: "", count: 0 });
   const reduced = React.useSyncExternalStore(subscribeReduced, readReduced, () => false);
   React.useEffect(() => {

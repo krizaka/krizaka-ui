@@ -7,6 +7,7 @@
 import * as React from "react";
 
 import { cn } from "../cn";
+import { warnDeprecated } from "../deprecated";
 import { CheckGlyph, PauseGlyph, PlayGlyph, RetryGlyph } from "../glyphs";
 
 /** The colour of an output line — the tokens' text roles, all AA on the screen: secondary, accent, success, warning, danger. */
@@ -112,7 +113,10 @@ function advance(steps: readonly TerminalStep[], pos: Position, timing: { typing
   return null;
 }
 
-/** A terminal session played back: commands typed at the prompt, their output line by line — or the whole session at rest. */
+/**
+ * A terminal session played back: commands typed at the prompt, their output line by line — or the whole session at rest.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function TerminalReplay({
   steps,
   label,
@@ -133,6 +137,7 @@ export function TerminalReplay({
   style,
   ...props
 }: TerminalReplayProps) {
+  warnDeprecated("terminal-replay");
   const root = React.useRef<HTMLElement>(null);
   const screenRef = React.useRef<HTMLDivElement>(null);
   // The server renders the session whole; the client takes it over unless the reader asked for less motion.

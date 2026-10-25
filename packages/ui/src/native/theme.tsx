@@ -18,6 +18,9 @@ export type Theme = {
   readonly borderSubtle: string;
   readonly borderDefault: string;
   readonly borderStrong: string;
+  readonly borderControl: string;
+  readonly borderHover: string;
+  readonly textTitle: string;
   readonly textPrimary: string;
   readonly textSecondary: string;
   readonly textMuted: string;

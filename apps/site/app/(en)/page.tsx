@@ -1,3 +1,4 @@
+// @template: landing
 import type { Metadata } from "next";
 
 import { homeMetadata, HomePageView } from "@/app/components/landing/HomePageView";

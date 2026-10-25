@@ -4,7 +4,12 @@ export const meta = {
   title: "Signature",
   summary:
     "A small hand-signed mark at the end of a section or a page, the way an owner signs their notebook: the Krizaka mark as an ink stamp and « Krizaka · Montréal » in the notebook's pen, with an optional date.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "blocks",
   platforms: "web",
   parity: {

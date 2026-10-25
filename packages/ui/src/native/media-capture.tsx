@@ -6,6 +6,8 @@ import * as React from "react";
 import { Linking, Pressable, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
+import { warnDeprecated } from "../deprecated";
+
 export type MediaCaptureLabels = {
   /** Why the camera is asked for, before the request ("Use your camera to take a photo"). */
   prompt: string;
@@ -51,8 +53,10 @@ export type MediaCaptureProps = {
  * The camera in a screen, on expo-camera: asks for the permission only when the person presses the button, sends them
  * to Settings when it was refused for good, takes a photo or records a clip (and the microphone for a clip), switches
  * cameras. The web `MediaCapture` with the same words.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no app imports it. Removed in 4.0.
  */
 export function MediaCapture({ mode = "photo", facing: initialFacing = "front", maxDuration, onCapture, onError, aspectRatio = 3 / 4, labels, style }: MediaCaptureProps) {
+  warnDeprecated("native/media-capture");
   const { theme, radius } = useTheme();
   const reduce = useReducedMotion();
   const camera = React.useRef<CameraView>(null);

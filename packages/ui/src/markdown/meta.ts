@@ -52,6 +52,7 @@ export const meta = {
   },
   native: {
     entry: "@krizaka/ui/native/markdown",
+    deprecated: { since: "3.55.0", removedIn: "4.0.0", reason: "No app imports `@krizaka/ui/native/markdown` (ADR-006 audit, 2026-10-25). The web entry stays." },
     imports: ["Markdown"],
     differences: [
       "Drawn in `Text` and `View` from the same AST: no `linkAs`; `onLinkPress` receives the address (http(s) links open with the system by default).",

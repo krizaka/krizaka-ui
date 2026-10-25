@@ -18,6 +18,13 @@
 
 ## 2. Rules
 
+- **The `product-display` role** (`--kz-font-product-display`, 0.5.0, ADR-006 §2, krizaka-ui#670): **Plus Jakarta Sans**, the
+  titles of the product register only (550 / 650 / 700, never 800; −0.015 em from 24 px, −0.022 em from 40 px). It comes back
+  from `legacyFonts` as a role (the files are the same, `legacyFonts` still lists it so no pinned path breaks). It is
+  declared in `fonts.css` (the browser downloads it only where it is used) but never in `preload`: the Cahier sites keep Young
+  Serif and never fetch it. `@krizaka/ui`'s `blocks.css` points the product register's `--kz-font-display` at it.
+  Courier Prime is the register's `--kz-font-mono-meta` (identifiers, references, times); code is the system monospace;
+  the pen is never inside a product.
 - **The pen role** (`cahier`, `--kz-font-cahier`, 0.4.0): **Krizaka Cahier**, our own face, derived by `scripts/subset.py` (`derive_cahier`) from Caveat (SIL OFL 1.1, no Reserved Font Name; renamed anyway). Margin marks (§ 4), rule numbers, page folios, handwritten notes and stamps, the café chalkboard line of Yororis: never headings, body text, interface, buttons or tables, one short line per block, from 20 px. French alphabet only (one subset), weight 500, line box 1.25 em, figures tabular; `licenses/KrizakaCahier-OFL.txt` + `-FONTLOG.txt` ship. Not preloaded by the package; a site that uses it sets `preload: true`.
 
 - **Sources:** `src/families.json` (by hand: upstream commit, axes, subsets, native weights, fallbacks, the docs words).
@@ -33,8 +40,8 @@
 - `pnpm turbo run check --filter=@krizaka/fonts`: ESLint + `tsc` (`checkJs` on the scripts), tests (the files match
   `faces.json` — bytes and sha256 —, WOFF2/TrueType signatures, French in latin, the CSS: one face per family and
   subset, swap, unicode-range, fallbacks; the licences; the entries), build, size, publint + attw (`esm-only`).
-- **Size budgets:** `fonts.css` ≤ 1.25 kB gzip, `.` ≤ 5 kB gzip, `./native` ≤ 0.75 kB gzip; each WOFF2 by file (Young
-  Serif latin ≤ 20 kB, latin-ext ≤ 12 kB, Atkinson ≤ 22 / 13 kB, Courier Prime ≤ 13 / 8 kB per weight); native ≤ 180 kB
+- **Size budgets:** `fonts.css` ≤ 1.25 kB gzip, `.` ≤ 6 kB gzip, `./native` ≤ 0.75 kB gzip; each WOFF2 by file (Young
+  Serif latin ≤ 20 kB, latin-ext ≤ 12 kB, Plus Jakarta Sans latin ≤ 28 kB, latin-ext ≤ 22 kB, Atkinson ≤ 22 / 13 kB, Courier Prime ≤ 13 / 8 kB per weight); native ≤ 180 kB
   per file, ≤ 1.6 MB in all (the legacy files included). 0.3.0: +0.1 kB / +0.5 kB for a second mono weight and `legacyFonts`.
 - Published surface: `.`, `./css`, `./native`, `./native/assets`, `./files/*`, `./licenses/*`, `./package.json`.
   Removing a family, a weight, a file or an export is a breaking change; a new weight or subset is a minor.

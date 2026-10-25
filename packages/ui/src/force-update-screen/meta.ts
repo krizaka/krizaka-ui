@@ -3,7 +3,12 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Force update screen",
   summary: "The blocking screen of a version that can no longer run: the mark, one sentence, one button to the store.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "The web entry has no user (ADR-006 audit, 2026-10-25). The native `ForceUpdateScreen`, used by mobile apps, stays.",
+  },
   category: "feedback",
   platforms: "both",
   parity: { desktop: "web" },

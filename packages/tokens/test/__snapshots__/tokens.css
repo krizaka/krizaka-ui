@@ -16,11 +16,14 @@
   --kz-border-subtle: hsl(110 25% 92% / 0.07); /* Séparateur discret */
   --kz-border-default: hsl(110 25% 92% / 0.12); /* Contour de carte, de champ */
   --kz-border-strong: hsl(110 25% 92% / 0.20); /* Contour au survol, focus non clavier */
+  --kz-border-control: var(--kz-border-strong); /* Contour d'un champ, d'une case, d'un interrupteur. Cahier : le contour fort. Registre produit : ≥ 3:1 sur les surfaces 0–2 (WCAG 1.4.11), car son filet de carte (1,16:1) ne suffit jamais à un champ */
+  --kz-border-hover: var(--kz-border-strong); /* Contour d'une carte interactive au survol (le registre produit le passe à l'accent, 22 %) */
 
   /* Texte */
   --kz-text-primary: hsl(105 17% 93%); /* La craie (sombre), l'encre bleue (clair) */
   --kz-text-secondary: hsl(140 10% 76%); /* Texte d'appui, libellés */
   --kz-text-muted: hsl(140 8% 68%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
+  --kz-text-title: var(--kz-text-primary); /* Titre de page, valeur d'une statistique (le registre produit l'encre ardoise) */
 
   /* Accent : l'identité de la marque (Krizaka par défaut ; Orazaka, Orochia, Yasakia, Yororis dans src/brands). Surchargé par un thème de marque, jamais par un composant. */
   --kz-accent: hsl(208 46% 45%); /* Action principale, lien, sélection */
@@ -58,6 +61,7 @@
   --kz-shadow-raised: 0 1px 0 hsl(150 30% 3% / 0.6); /* Surélevé : bouton, carte */
   --kz-shadow-floating: 0 1px 0 hsl(150 30% 3% / 0.6), 4px 5px 0 -2px hsl(150 30% 4% / 0.55); /* Flottant : menu, popover, info-bulle */
   --kz-shadow-overlay: 0 1px 0 hsl(150 30% 3% / 0.6), 8px 10px 0 -3px hsl(150 30% 4% / 0.55); /* Au-dessus : dialogue, toast, palette */
+  --kz-shadow-hover: 0 1px 0 hsl(150 30% 3% / 0.6); /* Carte interactive au survol (le registre produit : 0 10px 25px -5px) */
   --kz-surface-sheen: hsl(0 0% 100% / 0); /* Plus de reflet (Cahier, ADR-004) : le papier est mat */
 
   /* Arêtes : un filet intérieur d'1 px */
@@ -108,6 +112,7 @@ html.light {
   --kz-shadow-raised: 0 1px 0 hsl(212 49% 24% / 0.12); /* Surélevé : bouton, carte */
   --kz-shadow-floating: 0 1px 0 hsl(212 49% 24% / 0.12), 4px 5px 0 -2px hsl(212 40% 30% / 0.14); /* Flottant : menu, popover, info-bulle */
   --kz-shadow-overlay: 0 1px 0 hsl(212 49% 24% / 0.12), 8px 10px 0 -3px hsl(212 40% 30% / 0.14); /* Au-dessus : dialogue, toast, palette */
+  --kz-shadow-hover: 0 1px 0 hsl(212 49% 24% / 0.12); /* Carte interactive au survol (le registre produit : 0 10px 25px -5px) */
   --kz-surface-sheen: hsl(0 0% 100% / 0); /* Plus de reflet (Cahier, ADR-004) : le papier est mat */
   --kz-edge-light: hsl(0 0% 100% / 0); /* Plus d'arête lumineuse : le papier est mat */
   --kz-edge-well: hsl(232 25% 25% / 0.08); /* Ombre intérieure d'un puits : champ, piste (inset-shadow-well) */
@@ -127,9 +132,12 @@ html.light {
   --kz-border-subtle: hsl(212 49% 24% / 0.10); /* Séparateur discret */
   --kz-border-default: hsl(212 49% 24% / 0.17); /* Contour de carte, de champ */
   --kz-border-strong: hsl(212 49% 24% / 0.28); /* Contour au survol, focus non clavier */
+  --kz-border-control: var(--kz-border-strong); /* Contour d'un champ, d'une case, d'un interrupteur. Cahier : le contour fort. Registre produit : ≥ 3:1 sur les surfaces 0–2 (WCAG 1.4.11), car son filet de carte (1,16:1) ne suffit jamais à un champ */
+  --kz-border-hover: var(--kz-border-strong); /* Contour d'une carte interactive au survol (le registre produit le passe à l'accent, 22 %) */
   --kz-text-primary: hsl(212 49% 22%); /* La craie (sombre), l'encre bleue (clair) */
   --kz-text-secondary: hsl(212 22% 32%); /* Texte d'appui, libellés */
   --kz-text-muted: hsl(212 14% 36%); /* Métadonnées, placeholders, désactivé (≥ 4.5:1 sur chaque surface, texte courant inclus) */
+  --kz-text-title: var(--kz-text-primary); /* Titre de page, valeur d'une statistique (le registre produit l'encre ardoise) */
   --kz-accent: hsl(208 54% 36%); /* Action principale, lien, sélection */
   --kz-accent-hover: hsl(208 58% 29%); /* Accent au survol */
   --kz-accent-soft: hsl(208 54% 36% / 0.08); /* Fond teinté (sélection, badge) */
@@ -159,6 +167,7 @@ html.light {
   --kz-shadow-raised: 0 1px 0 hsl(212 49% 24% / 0.12); /* Surélevé : bouton, carte */
   --kz-shadow-floating: 0 1px 0 hsl(212 49% 24% / 0.12), 4px 5px 0 -2px hsl(212 40% 30% / 0.14); /* Flottant : menu, popover, info-bulle */
   --kz-shadow-overlay: 0 1px 0 hsl(212 49% 24% / 0.12), 8px 10px 0 -3px hsl(212 40% 30% / 0.14); /* Au-dessus : dialogue, toast, palette */
+  --kz-shadow-hover: 0 1px 0 hsl(212 49% 24% / 0.12); /* Carte interactive au survol (le registre produit : 0 10px 25px -5px) */
   --kz-surface-sheen: hsl(0 0% 100% / 0); /* Plus de reflet (Cahier, ADR-004) : le papier est mat */
   --kz-edge-light: hsl(0 0% 100% / 0); /* Plus d'arête lumineuse : le papier est mat */
   --kz-edge-well: hsl(232 25% 25% / 0.08); /* Ombre intérieure d'un puits : champ, piste (inset-shadow-well) */
@@ -207,6 +216,7 @@ html.light {
   --kz-control-md: 40px; /* Bouton */
   --kz-control-lg: 48px; /* Grand bouton */
   --kz-control-field: 44px; /* Champ de saisie, sélecteur */
+  --kz-control-row: 48px; /* Ligne de liste ou de tableau */
 
   /* La griffe : le coin coupé à 45° (BRAND.md §6.1) ; --kz-cut-shape: round l'éteint pour une app */
   --kz-cut-shape: bevel; /* La forme des coins signés : bevel (coupé) ou round */
@@ -215,6 +225,10 @@ html.light {
   /* La réglure Seyès (ADR-004) : le grand carreau et la ligne fine ; les interlignages tombent sur la ligne */
   --kz-paper-module: 32px; /* Le grand carreau (8 mm) : le pas de la grille et de la marge */
   --kz-paper-line: 8px; /* La ligne fine : trois par carreau */
+
+  /* Densité : l'écart entre éléments et le remplissage d'une carte ; resserrés sous [data-density=compact] */
+  --kz-density-gap: 16px; /* Écart entre les éléments d'un groupe */
+  --kz-density-pad: 20px; /* Remplissage d'une carte, d'un panneau */
   --kz-ease: cubic-bezier(0.45, 0, 0.2, 1); /* Le trait d'encre (Cahier, ADR-004) : part doucement, se pose net ; plus de dépassement */
   --kz-ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1); /* Le tampon : pression, bascule, sélection */
 
@@ -228,6 +242,8 @@ html.light {
   --kz-font-display: "Young Serif", "Young Serif Fallback", Georgia, "Times New Roman", serif; /* Affichage : titres, noms, chiffres (Young Serif, une seule graisse) ; surchargé par le thème produit */
   --kz-font-mono: "Courier Prime", "Courier Prime Fallback", "Courier New", ui-monospace, Menlo, Consolas, monospace; /* La machine à écrire : étiquettes, légendes, notes, code (Courier Prime) */
   --kz-font-cahier: "Krizaka Cahier", "Krizaka Cahier Fallback", "Marker Felt", "Bradley Hand", cursive; /* Le stylo du cahier : § 4, numéros de règle, folios, notes à la main, l'ardoise du café (Krizaka Cahier) ; parcimonieux, jamais du texte courant */
+  --kz-font-product-display: "Plus Jakarta Sans", "Plus Jakarta Sans Fallback", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* Titres d'un produit (Plus Jakarta Sans, 550 à 700) : le registre produit en fait son affichage ; les sites gardent Young Serif (ADR-006) */
+  --kz-font-mono-meta: "Courier Prime", "Courier Prime Fallback", "Courier New", ui-monospace, Menlo, Consolas, monospace; /* Identifiants et métadonnées tabulaires d'un produit (« KZ-03 », une référence, une heure) : Courier Prime, quand le code garde la mono système (ADR-006) */
 
   /* The hero of a home page */
   --kz-type-display-2xl-size: 72px;
@@ -321,6 +337,9 @@ html.light {
   --kz-control-md: 34px;
   --kz-control-lg: 40px;
   --kz-control-field: 36px;
+  --kz-control-row: 40px;
+  --kz-density-gap: 12px;
+  --kz-density-pad: 16px;
 }
 
 /* Mouvement réduit : les micro-interactions deviennent instantanées. */

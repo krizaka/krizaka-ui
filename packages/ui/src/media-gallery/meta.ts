@@ -11,7 +11,7 @@ export const meta = {
   whenNotToUse: [
     { when: "A feed of videos with creators, counts and a preview.", use: "media-grid" },
     { when: "Editing and ordering a profile's photos.", use: "photo-grid" },
-    { when: "A demo gallery with titles and captions per piece.", use: "gallery-page" },
+    { when: "A demo gallery with titles and captions per piece." },
   ],
   bestPractices: [
     "Real photos only; every tile has `alt` text that says what it shows.",
@@ -25,7 +25,7 @@ export const meta = {
       "A loop is decorative (`aria-hidden`), starts only while its tile is on screen and never under reduced motion.",
     ],
   },
-  related: ["media-grid", "photo-grid", "gallery-page", "cover-hero"],
+  related: ["media-grid", "photo-grid", "cover-hero"],
   web: {
     imports: ["MediaGallery"],
     examples: [{ name: "shop", title: "Shop", description: "Three photos, the first featured, one with a caption." }],

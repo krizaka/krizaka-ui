@@ -2,27 +2,23 @@
 // folder, then imported from there. Proves that `cn` and the variants merge classes — a product's className wins —
 // with nothing but what @krizaka/ui declares (the merge engine is tailwind-variants' own since 3.3: no
 // tailwind-merge to install) — and that the registry's JSON and compiled examples resolve. Run by `pnpm --filter @krizaka/ui publint` after the build.
-import { execFileSync } from "node:child_process";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { resolve } from "node:path";
 
-import { packWithSiblings } from "../../../tools/workspace-pack.mjs";
+import { installedAlone } from "../../../tools/workspace-pack.mjs";
 
-const pkg = resolve(import.meta.dirname, "..");
-const dir = mkdtempSync(join(tmpdir(), "krizaka-ui-consumer-"));
-const run = (cmd, args, cwd) => execFileSync(cmd, args, { cwd, stdio: ["ignore", "pipe", "inherit"], encoding: "utf8" });
-
-try {
-  // The package and the workspace packages it depends on (a release pull request names versions npm does not have yet).
-  const tarballs = packWithSiblings(pkg, dir).map((entry) => entry.tarball);
-  writeFileSync(join(dir, "package.json"), JSON.stringify({ name: "consumer", private: true, type: "module" }));
-  run("npm", ["install", "--no-audit", "--no-fund", "--loglevel=error", ...tarballs, "react@19", "react-dom@19"], dir);
-  writeFileSync(
-    join(dir, "check.mjs"),
-    `import assert from "node:assert/strict";
+const check = `import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { meHeaders, meResponse, meSchema } from "@krizaka/ui/nav-bar/me";
 import { cn } from "@krizaka/ui/cn";
 import { buttonVariants } from "@krizaka/ui/button";
+const meEntry = readFileSync(new URL(import.meta.resolve("@krizaka/ui/nav-bar/me")), "utf8");
+assert.doesNotMatch(meEntry, /["']use client["']/, "the route helper must not be a client reference");
+const me = meResponse({ signedIn: false, signupOpen: true, account: { name: "Ada" } });
+assert.equal(me.status, 200);
+assert.equal(me.headers.get("Cache-Control"), meHeaders["Cache-Control"]);
+assert.equal(me.headers.get("Vary"), "Cookie");
+assert.deepEqual(meSchema["~standard"].validate(await me.json()).value, { signedIn: false, signupOpen: true });
+console.log("✓ the server-safe /nav-bar/me contract resolves from the package");
 assert.equal(cn("px-2", "px-4"), "px-4");
 assert.equal(cn("text-sm text-fg", "text-fg-secondary"), "text-sm text-fg-secondary");
 const button = buttonVariants({ size: "md", className: "h-9 rounded-full" }).split(" ");
@@ -39,9 +35,6 @@ assert.ok(buttonItem.whenToUse.length > 0 && buttonItem.web.examples.length > 0 
 assert.ok(buttonItem.web.examples[0].code.includes("@krizaka/ui/button") && buttonItem.native.examples[0].code.includes("@krizaka/ui/native"), "an example carries its code");
 assert.equal(typeof CardExample, "function", "a compiled example is a component");
 console.log("✓ the registry (" + registry.items.length + " components) and its examples resolve from the package");
-`,
-  );
-  process.stdout.write(run("node", ["check.mjs"], dir));
-} finally {
-  rmSync(dir, { recursive: true, force: true });
-}
+`;
+
+process.stdout.write(installedAlone(resolve(import.meta.dirname, ".."), { script: check }));

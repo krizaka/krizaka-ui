@@ -6,8 +6,10 @@
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
+import { warnDeprecated } from "../deprecated";
 import { clamp, formatClock } from "../media";
 
+/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const videoTrimmer = tv({
   slots: {
     root: "w-full select-none",
@@ -42,6 +44,7 @@ export type VideoTrimmerLabels = {
   kept: (length: string) => string;
 };
 
+/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const videoTrimmerLabels: VideoTrimmerLabels = {
   start: "Start",
   end: "End",
@@ -92,7 +95,10 @@ const tenths = (seconds: number) => `${formatClock(seconds)}.${Math.floor((Math.
 
 type Grip = "start" | "end" | "playhead";
 
-/** Keeps a part of a clip between two handles over its filmstrip, with a playhead to scrub — the keyboard included. */
+/**
+ * Keeps a part of a clip between two handles over its filmstrip, with a playhead to scrub — the keyboard included.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function VideoTrimmer({
   duration,
   value: valueProp,
@@ -113,6 +119,7 @@ export function VideoTrimmer({
   renderHandle,
   labels: given,
 }: VideoTrimmerProps) {
+  warnDeprecated("video-trimmer");
   const labels = { ...videoTrimmerLabels, ...given };
   const s = videoTrimmer();
   const track = React.useRef<HTMLDivElement>(null);

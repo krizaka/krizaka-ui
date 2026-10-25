@@ -39,7 +39,7 @@ export const meta = {
       "Under reduced motion autoplay waits for a gesture and the controls appear without fading.",
     ],
   },
-  related: ["audio-player", "video-trimmer", "slider", "media-capture"],
+  related: ["audio-player", "slider"],
   web: {
     imports: ["VideoPlayer"],
     examples: [

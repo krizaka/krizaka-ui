@@ -4,7 +4,13 @@ export const meta = {
   title: "Terminal replay",
   summary:
     "A terminal session played back: each command typed at the prompt, its output line by line, the screen following the last line — or the whole session at rest, as the server renders it.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    use: "code-block",
+    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25). Show a command with `CodeBlock`.",
+  },
   category: "media",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A recorded terminal session shown on a site's page." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },

@@ -169,3 +169,63 @@ export function isLocalSelection(tag, before = "") {
   if (new RegExp(EPHEMERAL_SOURCE).test(tag) || new RegExp(EPHEMERAL_SOURCE).test(before)) return false;
   return LOCAL_SELECTION_PROPS.some((prop) => new RegExp(`\\b${prop}\\s*=`).test(tag));
 }
+
+// ── Every page declares its template (Oussama, 2026-10-22: sessions hand-built pages instead of composing Krizaka UI) ──────
+// Read by the ESLint rule krizaka/page-template and by the ratchet.
+
+/** The page templates of @krizaka/ui (ui.krizaka.com/templates): the site's, then the app's; `redirect` is an address kept for old links. */
+export const PAGE_TEMPLATES = Object.freeze([
+  "landing",
+  "product",
+  "how-it-works",
+  "gallery",
+  "docs-hub",
+  "docs-article",
+  "component",
+  "catalogue",
+  "longform",
+  "changelog",
+  "contact",
+  "legal",
+  "status",
+  "error",
+  "pricing",
+  "app-dashboard",
+  "app-list-detail",
+  "app-settings",
+  "app-onboarding",
+  "app-empty-first-run",
+  "app-wizard",
+  "redirect",
+]);
+
+/** The template that is not one: a page that really composes none, with its reason (the declaration `template: custom: a canvas editor`). */
+export const CUSTOM_TEMPLATE = "custom";
+
+/** A page of the Next.js App Router: `app/**\/page.tsx` (or `src/app/…`). */
+export const PAGE_FILE_SOURCE = String.raw`(?:^|[\\/])app[\\/](?:.*[\\/])?page\.[cm]?[jt]sx?$`;
+
+/** The declaration, alone on its line, as a line comment or a block comment (the rule's message shows its form). */
+// The reason never starts with the block comment's `*/`: `/* @template: custom: */` declares no reason.
+export const TEMPLATE_TAG_SOURCE = String.raw`^[ \t]*(?://|/\*+)[ \t]*@template:[ \t]*([a-z][a-z-]*)(?:[ \t]*:[ \t]*((?!\*\/)\S[^\n]*?)?)?[ \t]*(?:\*/)?[ \t]*$`;
+
+/**
+ * What is wrong with a page's template declaration, or `null` when it is fine.
+ * @param {string} source
+ * @returns {{ kind: "missing" } | { kind: "unknown", name: string } | { kind: "reason" } | null}
+ */
+export function pageTemplateProblem(source) {
+  const tag = new RegExp(TEMPLATE_TAG_SOURCE, "m").exec(source);
+  if (!tag) return { kind: "missing" };
+  const [, name, reason] = tag;
+  if (name === CUSTOM_TEMPLATE) return reason ? null : { kind: "reason" };
+  return PAGE_TEMPLATES.includes(name) ? null : { kind: "unknown", name };
+}
+
+/**
+ * True for the file of a route's page.
+ * @param {string} filename
+ */
+export function isPageFile(filename) {
+  return new RegExp(PAGE_FILE_SOURCE).test(filename);
+}

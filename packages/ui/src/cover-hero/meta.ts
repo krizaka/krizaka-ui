@@ -13,7 +13,7 @@ export const meta = {
   ],
   whenNotToUse: [
     { when: "The first screen of a documentation or marketing page of the product itself.", use: "page-hero" },
-    { when: "A product's overview with its window beside the words.", use: "product-page" },
+    { when: "A product's overview with its window beside the words." },
   ],
   bestPractices: [
     "Use the business's own media; with none, leave `cover` out — the hero still reads as designed.",

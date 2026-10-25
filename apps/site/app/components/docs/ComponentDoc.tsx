@@ -310,6 +310,15 @@ export async function ComponentDoc({ name, locale, notes }: { name: string; loca
           item.native && (
             <>
               <p className="kz-docs-note">{c.nativeCode}</p>
+              {item.native.deprecated && (
+                <div className="kz-deprecated not-prose" role="note">
+                  <strong>{c.status.deprecated}</strong>
+                  <span>
+                    {format(c.deprecatedSince, { since: item.native.deprecated.since, removedIn: item.native.deprecated.removedIn })}
+                    {item.native.deprecated.reason && <> {item.native.deprecated.reason}</>}
+                  </span>
+                </div>
+              )}
               {item.native.differences.length > 0 && (
                 <>
                   <p>

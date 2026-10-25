@@ -4,7 +4,12 @@ export const meta = {
   title: "Continue prompt",
   summary:
     "The last call of a page or a flow: a short question, what counts (days, seats, seconds), and the one action that continues — a calm card by default, an arcade cabinet as a variant.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+  },
   category: "actions",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Part of the storytelling kit of scroll-driven site pages; a phone app tells its first steps with Onboarding.", use: "onboarding" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },

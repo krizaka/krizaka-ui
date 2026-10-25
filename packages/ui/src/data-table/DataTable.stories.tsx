@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
 
+import ApplicantFilesExample from "../../registry/examples/data-table/applicant-files";
 import CardsExample from "../../registry/examples/data-table/cards";
 import CatalogueExample from "../../registry/examples/data-table/catalogue";
+import ChecksExample from "../../registry/examples/data-table/checks";
 import DetailsExample from "../../registry/examples/data-table/details";
 import EmptyExample from "../../registry/examples/data-table/empty";
 import ErrorExample from "../../registry/examples/data-table/error";
@@ -61,6 +63,10 @@ export const CatalogueNarrow: Story = { render: () => <CatalogueExample />, para
 export const Invoices: Story = { render: () => <InvoicesExample />, parameters: { width: "60rem" } };
 export const InvoicesNarrow: Story = { render: () => <InvoicesExample />, parameters: { width: "22rem" } };
 export const Runs: Story = { render: () => <RunsExample />, parameters: { width: "64rem" } };
+// The phone's list rows (#636): the title, one line of facts, the status — at 360 px, and the same table on a desktop.
+export const Checks: Story = { render: () => <ChecksExample />, parameters: { width: "60rem" } };
+export const ChecksPhone: Story = { render: () => <ChecksExample />, parameters: { phone: true } };
+export const ApplicantFiles: Story = { render: () => <ApplicantFilesExample />, parameters: { phone: true } };
 export const RunsNarrow: Story = { render: () => <RunsExample />, parameters: { width: "22rem" } };
 
 type Person = { id: string; name: string; email: string; status: string };

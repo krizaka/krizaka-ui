@@ -79,6 +79,14 @@
           "light": "hsl(212 49% 24% / 0.28)"
         }
       }
+    },
+    "control": {
+      "$value": "{border.strong}",
+      "$description": "Contour d'un champ, d'une case, d'un interrupteur. Cahier : le contour fort. Registre produit : ≥ 3:1 sur les surfaces 0–2 (WCAG 1.4.11), car son filet de carte (1,16:1) ne suffit jamais à un champ"
+    },
+    "hover": {
+      "$value": "{border.strong}",
+      "$description": "Contour d'une carte interactive au survol (le registre produit le passe à l'accent, 22 %)"
     }
   },
   "text": {
@@ -114,6 +122,10 @@
     "on-media": {
       "$value": "hsl(0 0% 100%)",
       "$description": "Texte posé sur une image ou une vidéo"
+    },
+    "title": {
+      "$value": "{text.primary}",
+      "$description": "Titre de page, valeur d'une statistique (le registre produit l'encre ardoise)"
     }
   },
   "accent": {

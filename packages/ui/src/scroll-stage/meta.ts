@@ -4,7 +4,13 @@ export const meta = {
   title: "Scroll stage",
   summary:
     "The conductor of a told page: chapters (`Scene`) that play their entrance once, in order, as they scroll into view — the visual, then the announcement, then the words — with one slow loop each, running only while on screen.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.55.0",
+    removedIn: "4.0.0",
+    use: "step-showcase",
+    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25). Tell a sequence with `StepShowcase`.",
+  },
   category: "layout",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Part of the storytelling kit of scroll-driven site pages; a phone app tells its first steps with Onboarding." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },

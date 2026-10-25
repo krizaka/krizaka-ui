@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/ui",
-  "version": "3.54.0",
+  "version": "3.55.0",
   "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia, Yasakia, Yororis) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
@@ -145,6 +145,10 @@
       "types": "./dist/page-header.d.ts",
       "import": "./dist/page-header.js"
     },
+    "./notification-preferences": {
+      "types": "./dist/notification-preferences.d.ts",
+      "import": "./dist/notification-preferences.js"
+    },
     "./agenda": {
       "types": "./dist/agenda.d.ts",
       "import": "./dist/agenda.js"
@@ -248,6 +252,10 @@
     "./nav-bar": {
       "types": "./dist/nav-bar.d.ts",
       "import": "./dist/nav-bar.js"
+    },
+    "./nav-bar/me": {
+      "types": "./dist/nav-bar/me.d.ts",
+      "import": "./dist/nav-bar/me.js"
     },
     "./account-settings": {
       "types": "./dist/account-settings.d.ts",
@@ -389,6 +397,10 @@
       "types": "./dist/video-player.d.ts",
       "import": "./dist/video-player.js"
     },
+    "./retro-tv": {
+      "types": "./dist/retro-tv.d.ts",
+      "import": "./dist/retro-tv.js"
+    },
     "./file-upload": {
       "types": "./dist/file-upload.d.ts",
       "import": "./dist/file-upload.js"
@@ -428,6 +440,10 @@
     "./app-header": {
       "types": "./dist/app-header.d.ts",
       "import": "./dist/app-header.js"
+    },
+    "./app-header/search": {
+      "types": "./dist/app-header/search.d.ts",
+      "import": "./dist/app-header/search.js"
     },
     "./opening-hours": {
       "types": "./dist/opening-hours.d.ts",
@@ -841,8 +857,8 @@
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
-    "@krizaka/query": ">=0.2.1",
-    "@krizaka/tailwind": ">=3.54.0",
+    "@krizaka/query": ">=0.2.2",
+    "@krizaka/tailwind": ">=3.55.0",
     "@maplibre/maplibre-react-native": ">=11",
     "@shopify/flash-list": ">=2",
     "expo-camera": ">=16",
@@ -964,7 +980,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "59 kB",
+      "limit": "59.8 kB",
       "gzip": true
     },
     {
@@ -1180,6 +1196,13 @@
       ]
     },
     {
+      "name": "./notification-preferences",
+      "path": "dist/notification-preferences.js",
+      "limit": "3.1 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+    },
+    {
       "name": "./agenda",
       "path": "dist/agenda.js",
       "limit": "2 kB",
@@ -1272,7 +1295,7 @@
     {
       "name": "./tabs",
       "path": "dist/tabs.js",
-      "limit": "11.6 kB",
+      "limit": "12.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1402,7 +1425,7 @@
     {
       "name": "./nav-bar (Radix NavigationMenu, Slot, the family's marks)",
       "path": "dist/nav-bar.js",
-      "limit": "27 kB",
+      "limit": "27.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1569,7 +1592,7 @@
       "name": "./data-table: DataTable (TanStack Table v9, the windowing of TanStack Virtual, Radix Checkbox, the pagination)",
       "path": "dist/data-table.js",
       "import": "{ DataTable }",
-      "limit": "45.9 kB",
+      "limit": "47.9 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1580,7 +1603,7 @@
       "name": "./data-table: the toolbar (FilterBar on Radix DropdownMenu, SearchField, the columns menu, the export)",
       "path": "dist/data-table.js",
       "import": "{ DataTableFilters, DataTableColumnsMenu, DataTableExport }",
-      "limit": "42.3 kB",
+      "limit": "42.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1644,6 +1667,12 @@
       "gzip": true
     },
     {
+      "name": "./nav-bar/me",
+      "path": "dist/nav-bar/me.js",
+      "limit": "1 kB",
+      "gzip": true
+    },
+    {
       "name": "./combobox",
       "path": "dist/combobox.js",
       "limit": "15.5 kB",
@@ -1699,6 +1728,16 @@
       "name": "./video-player",
       "path": "dist/video-player.js",
       "limit": "15.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./retro-tv",
+      "path": "dist/retro-tv.js",
+      "limit": "20 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1798,7 +1837,17 @@
     {
       "name": "./app-header",
       "path": "dist/app-header.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./app-header/search",
+      "path": "dist/app-header/search.js",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2224,7 +2273,7 @@
     {
       "name": "./code-block",
       "path": "dist/code-block.js",
-      "limit": "19.7 kB",
+      "limit": "20.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2328,7 +2377,7 @@
     {
       "name": "./detail-layout",
       "path": "dist/detail-layout.js",
-      "limit": "1 kB",
+      "limit": "1.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2398,7 +2447,7 @@
     {
       "name": "./profile-card",
       "path": "dist/profile-card.js",
-      "limit": "1 kB",
+      "limit": "1.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2786,7 +2835,7 @@
       "name": "./genui: GenUiStream (A2UI v0.9 validator, store, surface, base catalog with DataTable)",
       "path": "dist/genui.js",
       "import": "{ GenUiStream, baseGenUiCatalog }",
-      "limit": "51.7 kB",
+      "limit": "53.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

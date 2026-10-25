@@ -4,6 +4,7 @@ import type * as React from "react";
 
 import { Button } from "../button/button";
 import { cn } from "../cn";
+import { warnDeprecated } from "../deprecated";
 import { brandClass, type StoryVariant, storyVariantClass } from "../story-variant";
 
 export type ContinuePromptProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {
@@ -65,7 +66,10 @@ function countdownCss(from: number, to: number) {
 }`;
 }
 
-/** A last call: a question, what counts, the closing words, the one action that continues — a `button`, or a link. */
+/**
+ * A last call: a question, what counts, the closing words, the one action that continues — a `button`, or a link.
+ * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
+ */
 export function ContinuePrompt({
   title,
   count,
@@ -85,6 +89,7 @@ export function ContinuePrompt({
   className,
   ...props
 }: ContinuePromptProps) {
+  warnDeprecated("continue-prompt");
   const arcade = variant === "arcade";
   const inner = (
     <>
