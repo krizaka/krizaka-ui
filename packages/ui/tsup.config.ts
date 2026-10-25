@@ -39,6 +39,7 @@ export default defineConfig([
       spinner: "src/spinner/index.ts",
       card: "src/card/index.ts",
       stat: "src/stat/index.ts",
+      "kpi-explained": "src/kpi-explained/index.ts",
       "page-header": "src/page-header/index.ts",
       // One day's appointments, with a « now » line.
       agenda: "src/agenda/index.ts",
@@ -75,11 +76,14 @@ export default defineConfig([
       "argument-card": "src/argument-card/index.ts",
       "decision-list": "src/decision-list/index.ts",
       "action-bar": "src/action-bar/index.ts",
+      "next-actions": "src/next-actions/index.ts",
+      glossary: "src/glossary/index.ts",
       "cta-panel": "src/cta-panel/index.ts",
       // The Cahier's signature blocks (ADR-004): the specimen tag, the anatomy plate, the index, the small print.
       "specimen-tag": "src/specimen-tag/index.ts",
       "anatomy-plate": "src/anatomy-plate/index.ts",
       "page-index": "src/page-index/index.ts",
+      chapter: "src/chapter/index.ts",
       footnote: "src/footnote/index.ts",
       // Stuck into the notebook: the hold, the margin doodle, the house's signature (server-safe).
       stuck: "src/stuck/index.ts",
@@ -172,6 +176,7 @@ export default defineConfig([
       popover: "src/popover/index.ts",
       "dropdown-menu": "src/dropdown-menu/index.ts",
       tooltip: "src/tooltip/index.ts",
+      "glossary-term": "src/glossary-term/index.ts",
       tabs: "src/tabs/index.ts",
       router: "src/router/index.ts",
       chip: "src/chip/index.ts",
@@ -240,7 +245,7 @@ export default defineConfig([
     // Client — the form (TanStack Form v1 behind the facade): its fields are adapters over the primitives, which they
     // import through the package's own entries (external) — one copy of each primitive, swapped without touching a form.
     ...shared,
-    entry: { form: "src/form/index.ts" },
+    entry: { form: "src/form/index.ts", "text-style": "src/text-style/index.ts" },
     external: [...shared.external, /^@krizaka\/ui(\/|$)/],
     banner: { js: '"use client";' },
   },
@@ -263,7 +268,7 @@ export default defineConfig([
   {
     // Server — the form's server side (a Server Action re-validating with the form's schema): no React, no directive.
     ...shared,
-    entry: { "form/server": "src/form/server.ts" },
+    entry: { "form/server": "src/form/server.ts", "text-style/server": "src/text-style/server.ts" },
   },
   {
     // Server — the language helpers (`languagesFor`, `languageHref`, `languageNames`): pure functions, usable in a Server Component

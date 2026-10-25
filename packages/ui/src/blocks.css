@@ -53,7 +53,11 @@
   pointer-events: none;
 }
 .kz-frame[data-margin] { --kz-margin-x: max(8px, calc(var(--kz-gutter) - 12px)); }
+/* One margin rule per page (#620): a block that hangs its numbers in a margin (the chapter blocks, a
+   Section) inside a page that already draws one keeps its column but draws no second red line. */
+[data-margin] [data-margin]::before { content: none; }
 .kz-heading-number,
+.kz-chapter-no,
 .kz-margin-note {
   font-family: var(--kz-font-mono);
   font-size: 13px;
@@ -138,6 +142,191 @@
 @media (max-width: 640px) {
   .kz-heading[data-actions] { grid-template-columns: minmax(0, 1fr); }
   .kz-heading-actions { grid-column: 1; grid-row: auto; }
+}
+
+/* ─── Explained figures, next actions and the host's glossary ─── */
+.kz-kpi,
+.kz-next-actions,
+.kz-glossary {
+  min-width: 0;
+  color: var(--kz-text-primary);
+}
+.kz-kpi {
+  display: grid;
+  gap: 12px;
+  padding: clamp(16px, 3vw, 24px);
+  border: 1px solid var(--kz-border-default);
+  border-radius: 8px;
+  background: var(--kz-surface-1);
+}
+.kz-kpi-head,
+.kz-next-action-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+.kz-kpi-label,
+.kz-next-actions-title,
+.kz-glossary-title,
+.kz-next-action-heading h3 {
+  margin: 0;
+  color: var(--kz-text-primary);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+.kz-kpi-state,
+.kz-kpi-stale,
+.kz-next-action-urgency {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 2px 8px;
+  border: 1px solid var(--kz-border-default);
+  border-radius: 999px;
+  color: var(--kz-text-primary);
+  background: var(--kz-surface-2);
+  font-size: 0.75rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+.kz-kpi-state[data-state="watch"],
+.kz-kpi-stale,
+.kz-next-action-urgency[data-urgency="medium"] {
+  border-color: color-mix(in srgb, var(--kz-warning) 38%, var(--kz-border-default));
+  background: color-mix(in srgb, var(--kz-warning) 10%, var(--kz-surface-1));
+}
+.kz-kpi-state[data-state="act"],
+.kz-next-action-urgency[data-urgency="high"] {
+  border-color: color-mix(in srgb, var(--kz-danger) 38%, var(--kz-border-default));
+  background: color-mix(in srgb, var(--kz-danger) 10%, var(--kz-surface-1));
+}
+.kz-next-action-urgency[data-urgency="low"] {
+  border-color: color-mix(in srgb, var(--kz-success) 38%, var(--kz-border-default));
+  background: color-mix(in srgb, var(--kz-success) 10%, var(--kz-surface-1));
+}
+.kz-kpi-value {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--kz-text-primary);
+  font-family: var(--kz-font-display);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-variant-numeric: var(--kz-figures, tabular-nums);
+  font-weight: 700;
+  line-height: 1.15;
+}
+.kz-kpi-meaning,
+.kz-next-action-copy p {
+  margin: 0;
+  color: var(--kz-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+.kz-kpi-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 12px 20px;
+  margin: 0;
+}
+.kz-kpi-details > div { min-width: 0; }
+.kz-kpi-details dt {
+  margin-bottom: 3px;
+  color: var(--kz-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+.kz-kpi-details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--kz-text-primary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.kz-kpi-verify { display: inline-flex; margin-inline-start: 10px; }
+.kz-kpi-freshness {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 0;
+  color: var(--kz-text-secondary);
+  font-size: 0.75rem;
+}
+.kz-kpi-sparkline { min-width: 0; }
+.kz-next-actions,
+.kz-glossary {
+  display: grid;
+  gap: 16px;
+}
+.kz-next-actions-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.kz-next-action {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--kz-border-default);
+  border-radius: 8px;
+  background: var(--kz-surface-1);
+}
+.kz-next-action-rank { color: var(--kz-text-secondary); font-weight: 650; font-variant-numeric: var(--kz-figures, lining-nums tabular-nums); }
+.kz-next-action-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px 20px;
+  min-width: 0;
+}
+.kz-next-action-copy { display: grid; min-width: 0; gap: 5px; }
+.kz-next-action-control { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.kz-glossary-list { display: grid; gap: 12px; margin: 0; }
+.kz-glossary-entry {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1fr) minmax(0, 3fr);
+  gap: 8px 20px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--kz-border-subtle);
+}
+.kz-glossary-entry dt { color: var(--kz-text-primary); font-weight: 650; }
+.kz-glossary-entry dd { margin: 0; color: var(--kz-text-secondary); line-height: 1.55; }
+.kz-glossary-term {
+  border-radius: 2px;
+  color: inherit;
+  font-style: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--kz-accent);
+  text-decoration-style: dotted;
+  text-underline-offset: 0.2em;
+  cursor: help;
+}
+.kz-glossary-term:focus-visible {
+  outline: 2px solid var(--kz-ring, var(--kz-accent));
+  outline-offset: 3px;
+}
+@media (max-width: 520px) {
+  .kz-next-action-content { grid-template-columns: minmax(0, 1fr); }
+  .kz-glossary-entry { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kz-kpi, .kz-next-action, .kz-glossary-entry, .kz-glossary-term { animation: none; scroll-behavior: auto; transition: none; }
+}
+@media print {
+  .kz-kpi, .kz-next-actions, .kz-glossary, .kz-next-action, .kz-glossary-entry {
+    break-inside: avoid;
+    box-shadow: none;
+    background: transparent;
+  }
+  .kz-kpi, .kz-next-action, .kz-glossary-entry { border-color: currentColor; }
+  .kz-kpi-stale, .kz-kpi-state, .kz-next-action-urgency { border-color: currentColor; }
 }
 
 /* Ticks: a word between backticks in a sentence reads as code. */
@@ -1122,6 +1311,150 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 .kz-footnotes ol { margin: 0; padding-left: 1.6em; display: grid; gap: 6px; }
 .kz-footnotes li::marker { font-family: var(--kz-font-mono); color: var(--kz-paper-rule-margin); }
 .kz-fn-back { color: var(--kz-accent-text); text-decoration: none; }
+
+/* ChapterIndex, ChapterHead, ChapterFoot (#617) — the chapters of a story on the notebook's lines, never boxes. Every row is
+   one ruled line (--kz-chapter-line = the paper's module, 32 px): the number hangs in the margin left of the red rule
+   (`[data-margin]`, moved to --kz-margin-x), the serif title is the link and its hit area is the whole row, the period is
+   quiet on the right (under the title in a narrow column). The ruling is `[data-paper="lines"]`, shifted so a major line
+   runs under the titles' baseline (--kz-chapter-baseline, in em of the title). No border per row, nothing moves. */
+.kz-chapters {
+  --kz-chapter-line: var(--kz-paper-module, 32px);
+  --kz-chapter-pad: var(--kz-paper-line, 8px);
+  --kz-chapter-baseline: calc(var(--kz-chapter-line) / 2 + 0.36em);
+  --kz-chapter-gap: 16px;
+  container-type: inline-size;
+  box-sizing: border-box;
+  max-width: var(--kz-chapters-max, 46rem); /* the period stays within reach of its title */
+  margin: 0;
+  padding: var(--kz-chapter-pad) 0;
+  list-style: none;
+  font-size: 1.1875rem;
+}
+.kz-chapters[data-margin], .kz-chapter-head[data-margin] { --kz-margin-x: 3rem; }
+.kz-chapters[data-paper] { background-position: 0 calc(var(--kz-chapter-pad) + var(--kz-chapter-baseline)); }
+.kz-chapters ul { margin: 0; padding: 0; list-style: none; }
+.kz-chapter-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--kz-margin-x) minmax(0, 1fr) auto;
+  align-items: baseline;
+  min-height: var(--kz-chapter-line);
+  line-height: var(--kz-chapter-line);
+}
+.kz-chapter-row .kz-chapter-no { grid-column: 1; padding-right: 12px; text-align: right; white-space: nowrap; }
+.kz-chapter-link {
+  grid-column: 2;
+  min-width: 0;
+  padding-left: var(--kz-chapter-gap);
+  font-family: var(--kz-font-display);
+  font-weight: 400;
+  line-height: var(--kz-chapter-line);
+  color: var(--kz-text-primary);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.kz-chapter-link::after { content: ""; position: absolute; inset: 0; }
+.kz-chapter-link:focus-visible { outline: none; }
+.kz-chapter-link:focus-visible::after { outline: var(--kz-ring-width, 2px) solid var(--kz-ring); outline-offset: 0; }
+.kz-chapter-title { text-decoration-line: none; text-decoration-thickness: 1.5px; text-underline-offset: 0.2em; }
+.kz-chapter-link:is(:hover, :focus-visible) .kz-chapter-title { text-decoration-line: underline; text-decoration-color: var(--kz-hue, var(--kz-accent)); }
+.kz-chapter-link[aria-current="page"] .kz-chapter-title { text-decoration-line: underline; text-decoration-color: var(--kz-paper-rule-margin); }
+.kz-chapter-new,
+.kz-chapter-period,
+.kz-chapter-meta {
+  font-family: var(--kz-font-mono);
+  font-size: 12.5px;
+  line-height: 16px;
+  font-variant-numeric: var(--kz-figures, lining-nums tabular-nums);
+}
+.kz-chapter-new { margin-left: 4px; white-space: nowrap; color: var(--kz-hue-text, var(--kz-accent-text)); }
+.kz-chapter-period { grid-column: 3; padding-left: var(--kz-chapter-gap); white-space: nowrap; color: var(--kz-text-secondary); }
+.kz-chapter-detail { grid-column: 2 / -1; padding-left: var(--kz-chapter-gap); font-size: 14.5px; color: var(--kz-text-secondary); }
+/* A narrow column: the row flows as text with a hanging indent — the number still in the margin (inline, so it shares the
+   title's baseline), the title wraps from line to line, the period runs on after its last word: two ruled lines at most. */
+@container (max-width: 34rem) {
+  .kz-chapter-row { display: block; padding-left: calc(var(--kz-margin-x) + var(--kz-chapter-gap)); }
+  .kz-chapter-row .kz-chapter-no {
+    display: inline-block;
+    box-sizing: border-box;
+    width: var(--kz-margin-x);
+    margin-left: calc(-1 * (var(--kz-margin-x) + var(--kz-chapter-gap)));
+    margin-right: var(--kz-chapter-gap);
+  }
+  .kz-chapter-link { display: inline; padding-left: 0; }
+  .kz-chapter-period { display: inline-block; padding-left: 0; }
+  .kz-chapter-detail { display: block; padding-left: 0; }
+}
+
+/* The album (#621): each chapter is its cover as a taped print beside its words, the rows alternating left and right and
+   the prints facing each other (the tilt is set per row). One grid per row — margin · print · words — whose middle rows
+   hold the title, the line and the period, so the number shares the title's baseline and the words sit centred on the
+   print. The print keeps its own aspect-ratio (the cover's width and height), so nothing shifts while it loads. Light:
+   no card, no border, the lines of the paper run under it all; nothing moves. */
+.kz-chapters[data-variant="album"] { --kz-chapters-max: 60rem; --kz-album-print: minmax(0, 5fr); --kz-album-words: minmax(0, 6fr); }
+.kz-chapters[data-variant="album"] .kz-chapter-row {
+  grid-template-columns: var(--kz-margin-x) var(--kz-album-print) var(--kz-album-words);
+  grid-template-rows: 1fr auto auto auto 1fr;
+  padding-block: var(--kz-chapter-line);
+}
+.kz-chapters[data-variant="album"] .kz-chapter-row:nth-child(even) { grid-template-columns: var(--kz-margin-x) var(--kz-album-words) var(--kz-album-print); }
+.kz-chapters[data-variant="album"] .kz-chapter-print { grid-column: 2; grid-row: 1 / -1; align-self: center; margin: 16px 32px 16px var(--kz-chapter-gap); }
+.kz-chapters[data-variant="album"] .kz-chapter-row:nth-child(even) .kz-chapter-print { grid-column: 3; margin: 16px 28px 16px 32px; }
+.kz-chapters[data-variant="album"] .kz-chapter-row > :not(.kz-chapter-print, .kz-chapter-no) { grid-column: 3; }
+.kz-chapters[data-variant="album"] .kz-chapter-row:nth-child(even) > :not(.kz-chapter-print, .kz-chapter-no) { grid-column: 2; }
+.kz-chapters[data-variant="album"] .kz-chapter-no { grid-column: 1; grid-row: 2; }
+.kz-chapters[data-variant="album"] .kz-chapter-link { grid-row: 2; font-size: clamp(1.3125rem, 2.4vw, 1.625rem); line-height: 1.25; text-wrap: balance; }
+.kz-chapters[data-variant="album"] .kz-chapter-detail { grid-row: 3; max-width: 36ch; margin-top: 8px; font-size: 1rem; line-height: 1.5; text-wrap: pretty; }
+.kz-chapters[data-variant="album"] .kz-chapter-period { grid-row: 4; margin-top: 12px; padding-left: var(--kz-chapter-gap); }
+/* A phone: one column — the print above its words (at most 60 % wide, still tilted), the number beside the title. */
+@container (max-width: 34rem) {
+  /* `:nth-child(n)` lifts these over the wide rows' alternation: on a phone every row is the same column. */
+  .kz-chapters[data-variant="album"] .kz-chapter-row:nth-child(n) {
+    display: grid;
+    grid-template-columns: var(--kz-margin-x) minmax(0, 1fr);
+    grid-template-rows: auto;
+    padding: 0 0 var(--kz-chapter-line);
+  }
+  .kz-chapters[data-variant="album"] .kz-chapter-row:nth-child(n) .kz-chapter-print {
+    grid-column: 2; grid-row: 1; justify-self: start; width: 60%; margin: 20px 0 24px calc(var(--kz-chapter-gap) + 4px);
+  }
+  .kz-chapters[data-variant="album"] .kz-chapter-row:nth-child(even) .kz-chapter-print { justify-self: end; margin: 20px 12px 24px 0; }
+  .kz-chapters[data-variant="album"] .kz-chapter-row:nth-child(n) > :not(.kz-chapter-print, .kz-chapter-no) { grid-column: 2; display: block; padding-left: var(--kz-chapter-gap); }
+  .kz-chapters[data-variant="album"] .kz-chapter-row:nth-child(n) .kz-chapter-no { display: block; width: auto; margin: 0; }
+}
+
+/* The foot: the previous and the next as two rows of the index, then one quiet line back to the story. */
+.kz-chapter-row[data-dir] .kz-chapter-period { color: var(--kz-text-secondary); }
+.kz-chapter-back { margin: 0; padding-left: calc(var(--kz-margin-x) + var(--kz-chapter-gap)); font-size: 14.5px; line-height: var(--kz-chapter-line); }
+.kz-chapter-back-link { color: var(--kz-text-secondary); text-decoration: none; text-decoration-thickness: 1.5px; text-underline-offset: 0.2em; }
+.kz-chapter-back-link:is(:hover, :focus-visible) { color: var(--kz-text-primary); text-decoration-line: underline; text-decoration-color: var(--kz-hue, var(--kz-accent)); }
+.kz-chapter-back-link:focus-visible { outline: var(--kz-ring-width, 2px) solid var(--kz-ring); outline-offset: 2px; }
+
+/* The head: the number in the margin beside the title's first line, one quiet meta line, the standfirst once. */
+.kz-chapter-head {
+  display: grid;
+  grid-template-columns: var(--kz-margin-x) minmax(0, 1fr);
+  align-items: baseline;
+  row-gap: 12px;
+  padding-block: 8px;
+}
+.kz-chapter-head > * { grid-column: 2; margin: 0; padding-left: var(--kz-chapter-gap, 16px); min-width: 0; }
+.kz-chapter-head > .kz-chapter-no { grid-column: 1; grid-row: 1; padding: 0 12px 0 0; text-align: right; white-space: nowrap; }
+.kz-chapter-head-title {
+  grid-row: 1;
+  max-width: 22ch;
+  font-family: var(--kz-font-display);
+  font-size: clamp(1.85rem, 5.2vw, 2.75rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--kz-text-primary);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.kz-chapter-meta { color: var(--kz-text-secondary); }
+.kz-chapter-standfirst { max-width: 60ch; font-size: 1.125rem; line-height: 1.6; color: var(--kz-text-secondary); text-wrap: pretty; }
+.kz-chapter-arrow { color: var(--kz-hue-text, var(--kz-paper-rule-margin)); }
 
 /* Mascot life — the Flock's birds at ease, in character (Mascot `life`). */
 /* mascot-life:begin — generated by scripts/gen-mascot-life.mjs from src/mascots/life.ts; do not edit */
