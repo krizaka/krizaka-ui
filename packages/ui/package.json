@@ -1164,7 +1164,7 @@
     {
       "name": "./quota-meter",
       "path": "dist/quota-meter.js",
-      "limit": "2 kB",
+      "limit": "2.3 kB",
       "gzip": true,
       "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
     },

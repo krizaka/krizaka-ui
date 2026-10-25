@@ -29,9 +29,18 @@ describe("QuotaMeter", () => {
     expect(screen.getAllByRole("status")).toHaveLength(2);
   });
 
-  it("keeps only the figure, the meter and the sentence when compact, and renders on the server", () => {
-    render(<QuotaMeter {...base} compact details={["412 minutes"]} action={<a href="#a">Manage</a>} />);
+  it("leaves out the footer when compact — the title, the sentence and the notices stay — and renders on the server", () => {
+    render(<QuotaMeter {...base} compact level="full" statusText="Full" notices={["Paused"]} details={["412 minutes"]} action={<a href="#a">Manage</a>} />);
     expect(screen.queryByText("412 minutes")).toBeNull();
+    expect(screen.queryByRole("link", { name: "Manage" })).toBeNull();
+    expect(screen.getByRole("region", { name: "Storage" })).toBeTruthy();
+    expect(screen.getAllByRole("status").map((s) => s.textContent)).toEqual(["Full", "Paused"]);
     expect(renderToStaticMarkup(<QuotaMeter {...base} />)).toContain("8.6 GB of 10 GB");
+  });
+
+  it("keeps a decorative icon out of the region's name", () => {
+    render(<QuotaMeter {...base} icon={<img src="data:," alt="Disk" />} />);
+    expect(screen.getByRole("region", { name: "Storage" })).toBeTruthy();
+    expect(screen.queryByRole("img", { name: "Disk" })).toBeNull();
   });
 });

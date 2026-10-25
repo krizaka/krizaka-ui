@@ -9,7 +9,8 @@ export const quotaMeter = tv({
   slots: {
     root: "flex flex-col gap-2 rounded-2xl border border-border-default bg-surface-1 p-5",
     head: "flex items-center justify-between gap-3",
-    title: "flex items-center gap-2 font-mono text-xs text-fg-secondary [&>svg]:h-3.5 [&>svg]:w-3.5",
+    title: "flex items-center gap-2 font-mono text-xs text-fg-secondary",
+    icon: "inline-flex shrink-0 [&>svg]:h-3.5 [&>svg]:w-3.5",
     plan: "text-xs text-fg-secondary",
     used: "font-mono text-lg font-black text-fg",
     status: "flex items-start gap-1.5 text-xs leading-relaxed",
@@ -56,7 +57,7 @@ export type QuotaMeterProps = Omit<React.ComponentProps<"section">, "title"> & {
   details?: readonly React.ReactNode[];
   /** The way out, shown under the figures (a link to manage). */
   action?: React.ReactNode;
-  /** Only the used line, the meter and the sentence. */
+  /** Leaves out the footer (the small figures and the action): the title, the used line, the meter, the sentence and the notices stay. */
   compact?: boolean;
 };
 
@@ -68,7 +69,11 @@ export function QuotaMeter({ title, icon, plan, value, max, usedText, meterLabel
     <section aria-labelledby={titleId} className={s.root({ className })} {...props}>
       <div className={s.head()}>
         <h3 id={titleId} className={s.title()}>
-          {icon}
+          {icon && (
+            <span aria-hidden className={s.icon()}>
+              {icon}
+            </span>
+          )}
           {title}
         </h3>
         {plan && <span className={s.plan()}>{plan}</span>}
