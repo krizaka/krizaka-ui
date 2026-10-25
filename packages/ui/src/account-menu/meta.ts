@@ -16,6 +16,7 @@ export const meta = {
     "Identity first (picture, name, e-mail), then places, then preferences, then Sign out last.",
     "Use the product's `defaultAvatar` (`{ brand, seed }`) when there is no photo; never a grey silhouette or an initials tile.",
     "Sign out is a quiet item: it is not a destructive action, so it is not red.",
+    "In the family's top bar (`AppHeader` `account`), `showName=\"lg\"`: the name from 1024 px, where search and the counts no longer need the room.",
   ],
   accessibility: {
     keyboard: [

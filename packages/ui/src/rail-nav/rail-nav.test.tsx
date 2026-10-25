@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { AppHeader } from "../app-header";
@@ -136,5 +136,82 @@ describe("one brand mark per width (RailNav + AppHeader)", () => {
     const { container } = render(<Layout />);
     const name = [...container.querySelectorAll("header span")].find((s) => s.textContent === "Orazaka")!;
     expect(visibleAt(name, "phone") && visibleAt(name, "desktop")).toBe(true);
+  });
+});
+
+describe("RailNav — shortcuts and the wide default (#647)", () => {
+  const original = window.matchMedia;
+  afterEach(() => {
+    window.matchMedia = original;
+  });
+  const wideWindow = (wide: boolean) => {
+    const listeners = new Set<() => void>();
+    window.matchMedia = ((query: string) => ({
+      matches: wide && query === "(min-width: 80rem)",
+      media: query,
+      addEventListener: (_: string, fn: () => void) => listeners.add(fn),
+      removeEventListener: (_: string, fn: () => void) => listeners.delete(fn),
+    })) as unknown as typeof window.matchMedia;
+    return listeners;
+  };
+  const Shortcuts = (props: { defaultExpanded?: boolean }) => (
+    <RailNav.Root
+      label="Akinaza"
+      expandable
+      expandLabels={["Show the words", "Hide the words"]}
+      shortcutsLabel="Shortcuts"
+      shortcuts={<RailNav.Item href="#new" icon={svg} label="New invoice" />}
+      footer={<RailNav.Item href="#settings" icon={svg} label="Settings" />}
+      {...props}
+    >
+      <RailNav.Item href="#today" icon={svg} label="Today" current />
+    </RailNav.Root>
+  );
+
+  it("puts the shortcuts in a named group above the footer and the toggle, desktop only", async () => {
+    wideWindow(false);
+    const { container } = render(<Shortcuts />);
+    const group = screen.getByRole("group", { name: "Shortcuts" });
+    expect(group.className).toContain("hidden md:flex");
+    expect(group.contains(screen.getByRole("link", { name: "New invoice" }))).toBe(true);
+    const order = [...container.querySelectorAll("[data-rail-item]")].map((el) => el.getAttribute("aria-label") ?? el.textContent);
+    expect(order).toEqual(["Today", "New invoice", "Settings", "Show the words"]);
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("is expanded by default from 1280 px and narrow below, until the person toggles it", async () => {
+    wideWindow(true);
+    const { unmount } = render(<Shortcuts />);
+    expect(screen.getByRole("navigation").hasAttribute("data-expanded")).toBe(true);
+    await userEvent.setup().click(screen.getByRole("button", { name: "Hide the words" }));
+    expect(screen.getByRole("navigation").hasAttribute("data-expanded")).toBe(false);
+    unmount();
+    wideWindow(false);
+    render(<Shortcuts />);
+    expect(screen.getByRole("navigation").hasAttribute("data-expanded")).toBe(false);
+  });
+
+  it("keeps an explicit defaultExpanded={false} narrow even on a wide window", () => {
+    wideWindow(true);
+    render(<Shortcuts defaultExpanded={false} />);
+    expect(screen.getByRole("navigation").hasAttribute("data-expanded")).toBe(false);
+  });
+
+  it("follows the window when it crosses 1280 px", () => {
+    let wide = false;
+    const listeners = new Set<() => void>();
+    window.matchMedia = ((query: string) => ({
+      get matches() {
+        return wide;
+      },
+      media: query,
+      addEventListener: (_: string, fn: () => void) => listeners.add(fn),
+      removeEventListener: (_: string, fn: () => void) => listeners.delete(fn),
+    })) as unknown as typeof window.matchMedia;
+    render(<Shortcuts />);
+    expect(screen.getByRole("navigation").hasAttribute("data-expanded")).toBe(false);
+    wide = true;
+    act(() => listeners.forEach((fn) => fn()));
+    expect(screen.getByRole("navigation").hasAttribute("data-expanded")).toBe(true);
   });
 });
