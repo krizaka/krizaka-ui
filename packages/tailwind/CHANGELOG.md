@@ -1,19 +1,5 @@
 # @krizaka/tailwind
 
-## 3.55.0
-
-### Minor Changes
-
-- [#678](https://github.com/krizaka/krizaka-ui/pull/678) [`7910a62`](https://github.com/krizaka/krizaka-ui/commit/7910a62d1510740837843f8ab89d3df69fe39705) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Focus: the ring is the keyboard's. An element focused by code (a heading, `main` or a region with `tabindex="-1"` and no role) shows no ring or shadow, and a tap leaves no browser highlight on the brand or a title (`-webkit-tap-highlight-color`), so the blue block seen without keyboard use is gone (krizaka-ui#659). Roving-tabindex items keep their ring. A test of `@krizaka/ui` refuses a `focus:` ring, outline or shadow, and a bare `:focus` rule that draws one.
-
-- [#577](https://github.com/krizaka/krizaka-ui/pull/577) [`5546a4f`](https://github.com/krizaka/krizaka-ui/commit/5546a4fab8db5156da4f0f9f28302b60d7b1d449) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - `NavBar.Session`: the bar's « who is here » island for every product, over one contract — `GET /api/me` answers 200 `{ signedIn, signupOpen, account? }` with `Cache-Control: private, no-store` and `Vary: Cookie` (`meResponse`, `meHeaders`, `meSchema` from the server-safe `@krizaka/ui/nav-bar/me` entry); signed out is never a 401 and its schema rejects an account. It takes `ProductBarActions` and the account menu for the two states, uses `@krizaka/query` with the app's credential policy, and falls back to signed out even if a failed refetch leaves a cached account.
-
-### Patch Changes
-
-- Updated dependencies [[`fec2282`](https://github.com/krizaka/krizaka-ui/commit/fec22827433ed0023e911445984322e5061a546d), [`f742ec8`](https://github.com/krizaka/krizaka-ui/commit/f742ec806b0f4f8d1ff4bf4c27eac52983143900), [`8b66610`](https://github.com/krizaka/krizaka-ui/commit/8b66610e4c0ad97bb6626f897215ca1851df24a4), [`fb202f9`](https://github.com/krizaka/krizaka-ui/commit/fb202f991fb0bbd6e3211a1b13a56a26fbff0eec), [`4c57528`](https://github.com/krizaka/krizaka-ui/commit/4c5752835ebf13c6095abb53ed4c6a74074a5f9e), [`17059a8`](https://github.com/krizaka/krizaka-ui/commit/17059a8e72b77e79f261841196e9b11b4a806b49), [`7910a62`](https://github.com/krizaka/krizaka-ui/commit/7910a62d1510740837843f8ab89d3df69fe39705), [`5546a4f`](https://github.com/krizaka/krizaka-ui/commit/5546a4fab8db5156da4f0f9f28302b60d7b1d449), [`7468844`](https://github.com/krizaka/krizaka-ui/commit/7468844653d68f4e3f4076c629fc24d2f0753887), [`fb202f9`](https://github.com/krizaka/krizaka-ui/commit/fb202f991fb0bbd6e3211a1b13a56a26fbff0eec), [`4f50b5e`](https://github.com/krizaka/krizaka-ui/commit/4f50b5e23459be15b94dd39f47aa4c342cfba8d3), [`1a3080f`](https://github.com/krizaka/krizaka-ui/commit/1a3080f4e9938413711917cf502a80cba8c5bad6), [`873155e`](https://github.com/krizaka/krizaka-ui/commit/873155e2283628dbc04f70831e6075b27a13901b), [`227d318`](https://github.com/krizaka/krizaka-ui/commit/227d3187ed0a077f51673bc6a3944036231fa97a), [`d0e51ad`](https://github.com/krizaka/krizaka-ui/commit/d0e51ad6be751ae48e5173226aa394cd6be9284f), [`aec21f7`](https://github.com/krizaka/krizaka-ui/commit/aec21f7b093aa560b51d45cd94983088aeb947fb), [`f1e3d11`](https://github.com/krizaka/krizaka-ui/commit/f1e3d112d81a5b310ef58274a217839db32f4c89), [`06d1f60`](https://github.com/krizaka/krizaka-ui/commit/06d1f60cf673f635488426041e50e5fd15d3c631)]:
-  - @krizaka/ui@3.55.0
-  - @krizaka/tokens@3.55.0
-
 ## 3.54.0
 
 ### Patch Changes
