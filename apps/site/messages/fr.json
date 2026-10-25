@@ -298,7 +298,7 @@
       "edit": "Modifier dans krizaka-ui",
       "installation": "Installation",
       "typography": {
-        "families": "Les trois familles",
+        "families": "Les familles",
         "scale": "L'échelle",
         "rules": "Règles",
         "licences": "Licences",
@@ -306,7 +306,8 @@
           "display": "Affichage",
           "text": "Texte",
           "mono": "Mono",
-          "cahier": "Cahier (stylo)"
+          "cahier": "Cahier (stylo)",
+          "product-display": "Affichage produit"
         },
         "why": "Pourquoi cette police",
         "use": "À utiliser pour",
@@ -334,7 +335,15 @@
         "upstream": "Source",
         "files": "Fichiers",
         "web_files": "{count} WOFF2 ({size} ko pour latin)",
-        "native_files": "{count} TrueType"
+        "native_files": "{count} TrueType",
+        "registers": "Deux registres",
+        "registersLead": "Les sites de Krizaka portent le Cahier ; un produit porte le registre calme (ADR-006). Ce sont les mêmes polices du même paquet, réglées autrement.",
+        "registerSites": "Cahier — les sites",
+        "registerSitesNote": "Young Serif, une seule graisse ; Courier Prime pour les notes ; le stylo (Krizaka Cahier) dans la marge.",
+        "registerProduct": "Registre produit",
+        "registerProductNote": "Plus Jakarta Sans de 550 à 700 pour les titres ; Courier Prime pour les identifiants et les heures ; la monospace système pour le code ; jamais le stylo.",
+        "registerTitle": "Facture KZ-03, prête à envoyer",
+        "registerMeta": "KZ-03 · 14 h 30 · données d'exemple"
       },
       "icons": {
         "set": "Le jeu",

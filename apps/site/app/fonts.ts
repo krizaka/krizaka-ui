@@ -38,4 +38,15 @@ export const cahierFace = localFont({
   fallback: ["Marker Felt", "Bradley Hand", "cursive"],
 });
 
-export const fontVariables = [textFace.variable, displayFace.variable, monoFace.variable, cahierFace.variable].join(" ");
+/* Plus Jakarta Sans, the product register's title face (ADR-006) — the same package file, loaded here only so that the documentation can show the two registers side by side. */
+export const productDisplayFace = localFont({
+  src: "../node_modules/@krizaka/fonts/files/web/plus-jakarta-sans-latin-wght.woff2",
+  weight: "500 800",
+  variable: "--font-kz-product-display",
+  display: "swap",
+  preload: false,
+  adjustFontFallback: false,
+  fallback: ["system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+});
+
+export const fontVariables = [textFace.variable, displayFace.variable, monoFace.variable, cahierFace.variable, productDisplayFace.variable].join(" ");

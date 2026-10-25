@@ -49,6 +49,30 @@
         "cursive"
       ],
       "$description": "Le stylo du cahier : § 4, numéros de règle, folios, notes à la main, l'ardoise du café (Krizaka Cahier) ; parcimonieux, jamais du texte courant"
+    },
+    "product-display": {
+      "$value": [
+        "Plus Jakarta Sans",
+        "Plus Jakarta Sans Fallback",
+        "system-ui",
+        "-apple-system",
+        "Segoe UI",
+        "Roboto",
+        "sans-serif"
+      ],
+      "$description": "Titres d'un produit (Plus Jakarta Sans, 550 à 700) : le registre produit en fait son affichage ; les sites gardent Young Serif (ADR-006)"
+    },
+    "mono-meta": {
+      "$value": [
+        "Courier Prime",
+        "Courier Prime Fallback",
+        "Courier New",
+        "ui-monospace",
+        "Menlo",
+        "Consolas",
+        "monospace"
+      ],
+      "$description": "Identifiants et métadonnées tabulaires d'un produit (« KZ-03 », une référence, une heure) : Courier Prime, quand le code garde la mono système (ADR-006)"
     }
   },
   "type": {

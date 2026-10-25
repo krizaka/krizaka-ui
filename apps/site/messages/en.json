@@ -298,7 +298,7 @@
       "edit": "Edit in krizaka-ui",
       "installation": "Installation",
       "typography": {
-        "families": "The three families",
+        "families": "The families",
         "scale": "The scale",
         "rules": "Rules",
         "licences": "Licences",
@@ -306,7 +306,8 @@
           "display": "Display",
           "text": "Text",
           "mono": "Mono",
-          "cahier": "Cahier (pen)"
+          "cahier": "Cahier (pen)",
+          "product-display": "Product display"
         },
         "why": "Why this face",
         "use": "Use it for",
@@ -334,7 +335,15 @@
         "upstream": "Upstream",
         "files": "Files",
         "web_files": "{count} WOFF2 ({size} kB for latin)",
-        "native_files": "{count} TrueType"
+        "native_files": "{count} TrueType",
+        "registers": "Two registers",
+        "registersLead": "Krizaka's sites wear the Cahier; a product wears the calm register (ADR-006). The faces are the same package, set differently.",
+        "registerSites": "Cahier — the sites",
+        "registerSitesNote": "Young Serif, one weight; Courier Prime for the notes; the pen (Krizaka Cahier) in the margin.",
+        "registerProduct": "Product register",
+        "registerProductNote": "Plus Jakarta Sans at 550–700 for titles; Courier Prime for identifiers and times; the system monospace for code; never the pen.",
+        "registerTitle": "Invoice KZ-03, ready to send",
+        "registerMeta": "KZ-03 · 14:30 · sample data"
       },
       "icons": {
         "set": "The set",

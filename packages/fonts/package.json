@@ -93,7 +93,7 @@
   },
   "size-limit": [
     { "name": "./css (fonts.css)", "path": "dist/fonts.css", "limit": "1.25 kB", "gzip": true },
-    { "name": ". (the data)", "path": "dist/index.js", "limit": "5 kB", "gzip": true },
+    { "name": ". (the data)", "path": "dist/index.js", "limit": "6 kB", "gzip": true },
     { "name": "./native", "path": "dist/native.js", "limit": "0.75 kB", "gzip": true },
     { "name": "display · latin (woff2)", "path": "files/web/young-serif-latin-400.woff2", "limit": "20 kB", "gzip": false, "brotli": false },
     { "name": "display · latin-ext (woff2)", "path": "files/web/young-serif-latin-ext-400.woff2", "limit": "12 kB", "gzip": false, "brotli": false },
@@ -101,6 +101,8 @@
     { "name": "text · latin-ext (woff2)", "path": "files/web/atkinson-hyperlegible-next-latin-ext-wght.woff2", "limit": "13 kB", "gzip": false, "brotli": false },
     { "name": "mono · latin, one weight (woff2)", "path": "files/web/courier-prime-latin-700.woff2", "limit": "13 kB", "gzip": false, "brotli": false },
     { "name": "mono · latin-ext, one weight (woff2)", "path": "files/web/courier-prime-latin-ext-700.woff2", "limit": "8 kB", "gzip": false, "brotli": false },
+    { "name": "product-display · latin (woff2, the products' title face: variable 500–800, loaded only by a product)", "path": "files/web/plus-jakarta-sans-latin-wght.woff2", "limit": "28 kB", "gzip": false, "brotli": false },
+    { "name": "product-display · latin-ext (woff2)", "path": "files/web/plus-jakarta-sans-latin-ext-wght.woff2", "limit": "22 kB", "gzip": false, "brotli": false },
     { "name": "cahier · latin (woff2, a pen hand: heavy outlines, loaded only where a margin mark or a chalkboard line is set)", "path": "files/web/krizaka-cahier-latin-wght.woff2", "limit": "52 kB", "gzip": false, "brotli": false },
     { "name": "native · one weight (ttf, largest: Inter, legacy)", "path": "files/native/Inter-Bold.ttf", "limit": "180 kB", "gzip": false, "brotli": false },
     { "name": "native · every file (ttf, with the legacy faces)", "path": "files/native/*.ttf", "limit": "1.6 MB", "gzip": false, "brotli": false }
