@@ -1,0 +1,52 @@
+import type { ComponentMeta } from "../meta";
+
+export const meta = {
+  title: "Wall",
+  summary: "A read-only wall of photos, short notes and the owner's sign: Montréal brick, Moroccan eight-point zellige, Grenoble ridgelines or warm plaster, over a real keyboard-reachable list.",
+  status: "beta",
+  category: "blocks",
+  platforms: "web",
+  parity: { native: { status: "n/a", reason: "An ornamental storefront surface belongs to web pages; native content should stay in a scrolling gallery.", use: "media-grid" }, desktop: "web" },
+  whenToUse: ["A shop or community page whose owner's photos, words and identity should feel personally pinned up."],
+  whenNotToUse: [
+    { when: "A searchable or large image collection.", use: "photo-grid" },
+    { when: "Rows of data to compare or sort.", use: "data-table" },
+  ],
+  bestPractices: [
+    "Import @krizaka/ui/blocks.css once. All four components are exported from @krizaka/ui/wall.",
+    "Each example includes its own words, so copied snippets are self-contained. Choose the host locale and pass its words as data; the French composition demonstrates the same surface unchanged.",
+    "Provide stable ids, explicit x/y percentages, rotation in degrees and z for every item. Positions are clamped to 0–100; z sorts the real list stably, including keyboard and phone order.",
+    "Use kind polaroid with img, kind note with text, or kind sign with logo. Items carry the same props as their standalone component; no editor or random placement is added.",
+    "Use height and itemWidth for layout, not style: style is intentionally omitted from the public props so percentage placement and the mobile stack cannot be overwritten accidentally.",
+    "Keep the wall sparse and tilts small. On screens narrower than 48rem it grows into an untilted single column in z order, without overlap.",
+    "The img ReactNode accepts next/image, including fill: the square photo frame is positioned. Supply an informative alt, or an empty alt for decoration.",
+    "Captions and signatures use the existing --kz-font-cahier handwriting role (Krizaka Cahier from @krizaka/fonts); load the font in the host.",
+    "PinnedNote caps text at 140 Unicode code points. Keep the full message elsewhere when more detail matters.",
+    "Set attachment and attachmentRotation for tape or a pin, rotation for the object; neon's animated=false and Polaroid's develop=false opt out of motion.",
+    "Wall textures adapt to dark, light and brand themes. Polaroid composes TapedPhoto: its --kz-print paper stays pale in both themes, with --kz-print-ink captions and --kz-tape strips instead of a second print material.",
+  ],
+  accessibility: {
+    keyboard: [{ keys: "Tab / Shift+Tab", action: "Visit each object in ascending z order, preserving input order for ties." }],
+    notes: [
+      "Wall is a real ul with an explicit list role, preserving Safari semantics despite list-style:none, and focusable li objects; give it an aria-label describing the collection. Textures, tape, pins and screws are hidden from assistive technology.",
+      "Every word and all photo/logo alternatives come from the host. Standalone objects keep their natural figure/article/div semantics; Wall supplies their focus target.",
+      "Polaroid only develops after its first observed intersection. With reduced motion, without an observer, or before hydration the photo remains sharp; preference changes stop motion immediately.",
+      "Neon only flickers softly once, never flashes or loops. All effects stop under prefers-reduced-motion; reading and focus order never depend on visual positions.",
+    ],
+  },
+  related: ["taped-photo", "cover-hero", "media-gallery", "photo-grid", "profile-card"],
+  web: {
+    imports: ["Wall", "Polaroid", "PinnedNote", "ShopSign"],
+    examples: [
+      { name: "composition", title: "The owner's wall", description: "A photograph, a signed word and an enamel sign, positioned from deterministic data." },
+      { name: "composition-fr", title: "The owner's wall in French", description: "The same deterministic layout reads its French words and alternatives from the example's local catalogue." },
+      { name: "brick", title: "Montréal brick", description: "Staggered masonry and mortar on a warm token-based surface." },
+      { name: "zellige", title: "Moroccan zellige", description: "A repeating deterministic eight-point SVG star, without an image download." },
+      { name: "ridge", title: "Grenoble ridges", description: "Three layered mountain silhouettes behind the owner's words." },
+      { name: "plaster", title: "Warm plaster", description: "A quiet lightly textured wall when the content should speak first." },
+      { name: "polaroid", title: "Polaroids", description: "A photo slot, handwritten caption, deterministic tilt, and tape or pin." },
+      { name: "pinned-note", title: "Pinned notes", description: "Short signed words on cut-corner paper, held by a pin or tape." },
+      { name: "shop-sign", title: "Shop signs", description: "The owner's mark as enamel with screws, soft neon, or weathered painted lettering." },
+    ],
+  },
+} satisfies ComponentMeta;

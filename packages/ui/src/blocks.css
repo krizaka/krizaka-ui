@@ -8,6 +8,112 @@
    - the hue of a subject: --kz-hue (rails, icon tiles, lights — decorative, ≥ 3:1), --kz-hue-2 (the end of its rail),
      --kz-hue-text (small text, ≥ 4.5:1). Unset, every block falls back to the brand accent. */
 
+/* ─── Wall: a real list on a handcrafted surface; phone order is the DOM's z order ─── */
+.kz-wall {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+  margin: 0;
+  padding: 2rem;
+  list-style: none;
+  background: var(--kz-surface-1);
+  color: var(--kz-text-primary);
+  border: 1px solid var(--kz-border-default);
+}
+.kz-wall[data-texture="plaster"] {
+  background-color: color-mix(in srgb, var(--kz-paper-tag) 45%, var(--kz-surface-1));
+  background-image: linear-gradient(110deg, var(--kz-surface-2), transparent 65%),
+    repeating-linear-gradient(93deg, transparent 0 7px, var(--kz-border-subtle) 8px, transparent 9px 17px);
+}
+.kz-wall[data-texture="brick"] {
+  background-color: color-mix(in srgb, var(--kz-paper-rule-margin) 30%, var(--kz-surface-1));
+}
+.kz-wall-item {
+  position: relative;
+  min-width: 0;
+  width: min(100%, var(--kz-wall-item-width));
+  margin-inline: auto;
+  transform: none;
+  overflow-wrap: anywhere;
+}
+.kz-wall-item:focus-visible {
+  outline: 2px solid var(--kz-ring);
+  outline-offset: 8px;
+}
+.kz-wall-decoration { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.kz-wall-decoration svg { display: block; }
+.kz-wall-object { position: relative; box-sizing: border-box; min-width: 0; margin: 0; transform: rotate(var(--kz-wall-rotation, 0deg)); overflow-wrap: anywhere; }
+.kz-wall-attachment { position: absolute; z-index: 1; pointer-events: none; }
+.kz-wall-tape {
+  width: 34%; height: 1.4rem; top: -.6rem; left: 33%;
+  background: color-mix(in srgb, var(--kz-warning) 25%, var(--kz-surface-2));
+  opacity: .85;
+  clip-path: polygon(2% 0, 98% 4%, 100% 92%, 0 100%);
+}
+.kz-wall-pin {
+  width: .65rem; height: .65rem; top: .4rem; left: calc(50% - .325rem);
+  border-radius: 50%; background: var(--kz-accent); border: 1px solid var(--kz-border-strong);
+  box-shadow: 1px 2px 0 var(--kz-scrim);
+}
+.kz-polaroid { box-sizing: border-box; min-width: 0; overflow-wrap: anywhere; }
+/* A Polaroid's frame is white paper in both themes (a print does not follow the page's dark), wider under the photo. */
+.kz-polaroid.kz-taped, :root:not(.light) .kz-polaroid.kz-taped { --kz-print: hsl(0 0% 100%); --kz-print-ink: hsl(215 35% 22%); padding-bottom: clamp(10px, 2vw, 20px); }
+.kz-polaroid .kz-taped-picture { overflow: visible; }
+.kz-polaroid.kz-taped[data-tape="top"]::before { transform: rotate(var(--kz-wall-attachment-rotation, 0deg)); }
+.kz-polaroid-photo { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--kz-surface-2); }
+.kz-polaroid-photo > :is(img, svg) { display: block; width: 100%; height: 100%; object-fit: cover; }
+.kz-polaroid .kz-taped-caption { text-align: center; font: 1.25rem/1.35 var(--kz-font-cahier); }
+.kz-polaroid[data-develop="waiting"] .kz-polaroid-photo { filter: contrast(.65) blur(.6px); opacity: .8; }
+.kz-polaroid[data-develop="ready"] .kz-polaroid-photo { animation: kz-wall-develop 1.6s ease-out both; }
+@keyframes kz-wall-develop { from { filter: contrast(.65) blur(.6px); opacity: .8; } to { filter: none; opacity: 1; } }
+.kz-pinned-note { filter: drop-shadow(2px 3px 0 var(--kz-border-default)); }
+.kz-pinned-note-paper {
+  padding: 1.75rem 1.25rem 1.25rem; background: var(--kz-surface-0); color: var(--kz-text-primary);
+  clip-path: polygon(0 0, calc(100% - 1rem) 0, 100% 1rem, 100% 100%, 0 100%);
+  border: 1px solid var(--kz-border-default);
+}
+.kz-pinned-note-text { margin: 0; font: 1rem/1.6 var(--kz-font-sans); white-space: pre-wrap; }
+.kz-pinned-note-signature { margin: 1rem 0 0; text-align: end; font: 1.2rem/1.3 var(--kz-font-cahier); }
+/* The sign is its own size container: its text scales to its width (cqi of the content box), so a long name fits whole — a word is never cut or hyphenated. */
+.kz-shop-sign { container-type: inline-size; padding: 1.75rem; text-align: center; overflow-wrap: normal; hyphens: manual; word-break: normal; }
+.kz-shop-sign-logo { font: min(1.75rem, 12cqi)/1.25 var(--kz-font-display); overflow-wrap: normal; }
+.kz-shop-sign-logo > :is(img, svg) { max-width: 100%; height: auto; }
+.kz-shop-sign[data-variant="enamel"] {
+  background: var(--kz-surface-0); border: 3px double var(--kz-accent-text); border-radius: .35rem;
+  color: var(--kz-accent-text); box-shadow: var(--kz-shadow-md);
+}
+.kz-shop-sign-screw {
+  position: absolute; width: .45rem; height: .45rem; border-radius: 50%; border: 1px solid var(--kz-text-muted);
+  background: linear-gradient(135deg, var(--kz-surface-3) 40%, var(--kz-text-muted) 45% 55%, var(--kz-surface-3) 60%);
+}
+.kz-shop-sign-screw[data-corner="0"] { top: .35rem; left: .35rem; }
+.kz-shop-sign-screw[data-corner="1"] { top: .35rem; right: .35rem; }
+.kz-shop-sign-screw[data-corner="2"] { bottom: .35rem; left: .35rem; }
+.kz-shop-sign-screw[data-corner="3"] { bottom: .35rem; right: .35rem; }
+.kz-shop-sign[data-variant="neon"] {
+  color: var(--kz-accent-text); background: var(--kz-surface-0); border: 1px solid var(--kz-border-default);
+  text-shadow: 0 0 .6rem var(--kz-accent-soft), 0 0 1.5rem var(--kz-accent-soft);
+}
+.kz-shop-sign[data-variant="neon"] .kz-shop-sign-logo > svg { filter: drop-shadow(0 0 .3rem var(--kz-accent)); }
+.kz-shop-sign[data-variant="neon"][data-animated] .kz-shop-sign-logo { animation: kz-wall-neon 2.4s ease-in-out 1; }
+@keyframes kz-wall-neon { 0%, 45%, 100% { opacity: 1; } 25%, 65% { opacity: .88; } }
+.kz-shop-sign[data-variant="painted"] { color: var(--kz-text-secondary); border-block: 2px solid var(--kz-border-default); text-shadow: 1px 1px var(--kz-surface-0); }
+@media (min-width: 48rem) {
+  .kz-wall { display: block; height: var(--kz-wall-height); padding: 2rem; }
+  .kz-wall-item {
+    position: absolute; left: var(--kz-wall-x); top: var(--kz-wall-y);
+    width: min(var(--kz-wall-item-width), 42%); max-height: 100%; margin: 0;
+    transform: translate(calc(-1 * var(--kz-wall-x)), calc(-1 * var(--kz-wall-y))) rotate(var(--kz-wall-rotation));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kz-polaroid .kz-polaroid-photo { animation: none; filter: none; opacity: 1; }
+  .kz-shop-sign[data-variant="neon"][data-animated] .kz-shop-sign-logo { animation: none; }
+}
+
 /* ─── Page: one frame for every page — the width, the gutters, the vertical rhythm ─── */
 .kz-frame {
   --kz-gutter: var(--kz-page-gutter, clamp(16px, 3.2vw, 32px));

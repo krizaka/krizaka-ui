@@ -57,6 +57,7 @@ export const PLANNED: Record<string, string> = {
   "cover-hero": "Akinaza's shop storefront: the business's cover, name, promise and main action.",
   "sticky-action": "Akinaza's shop storefront: « Book » held at the bottom of a phone.",
   "media-gallery": "Akinaza's shop storefront: the business's own photos and clips.",
+  wall: "Akinaza's shop pages: the owner's photos, short notes and logo on a textured wall (krizaka/akinaza#236, krizaka-ui#537).",
   "notification-preferences": "Akinaza's and Yomizaka's account baseline (notifications), then Orochia's settings, which this replaces (krizaka-ui#515).",
   agenda: "Akinaza's Today (the day's appointments with a « now » line), then Yomizaka's and Orazaka's day-bound lists (krizaka-ui#515).",
   "kind-config-editor": "Yomizaka's console for the applicant files (krizaka/yomizaka#324) and Akinaza's owner settings for clients and invoices (krizaka/akinaza#337): the admin's tag and status sets, krizaka-ts#89.",
