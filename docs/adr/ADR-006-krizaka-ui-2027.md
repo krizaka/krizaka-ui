@@ -34,6 +34,28 @@ The mockup meets decisions already in force:
 
 This ADR reconciles the two. Where they conflict, it says so and chooses.
 
+**How the mockup is read.** Oussama (2026-10-25) calls the mockup a guideline he likes, its text included, not a
+specification to follow to the letter.
+
+**What is kept is its spirit:**
+- calm, restrained and tactile;
+- the quiet slate ink and the hairlines;
+- cards that answer the hand;
+- the tone of its words: short, concrete, a craftsman's vocabulary (« atelier », « carnet », « créneau »), never
+  hype. That tone guides the copy of the docs and the examples. The products' words stay in their own catalogues.
+
+**Where this ADR departs from it**, each with its reason in §1:
+- the muted ink and the field borders (contrast);
+- the accent (ADR-003);
+- the page grid and the paper themes inside products (the product register);
+- the brand-named themes (the brand files);
+- the receipt, the fiscal balancer and the swatches (no product need);
+- the slide to approve and the default-on sound (accessibility);
+- the wording on filing returns and on Yomizaka keeping books (what the products do);
+- the inline birds (never a copy).
+
+Everything else is adopted as drawn.
+
 ## 1. Decisions at a glance
 
 | # | Point of #668 | Decision | Why |
