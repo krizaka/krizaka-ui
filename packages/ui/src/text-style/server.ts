@@ -1,0 +1,25 @@
+/** @krizaka/ui/text-style/server — the text style for a server (no React hook, no "use client"): `parseTextStyle` to validate what is stored, `textStyleProps`, `StyledText`, the value's types. */
+export { StyledText, type StyledTextProps } from "./styled-text";
+export {
+  type Align,
+  aligns,
+  type Case,
+  cases,
+  defaultTextStyle,
+  type FontId,
+  fontIds,
+  fontWeights,
+  type Leading,
+  leadings,
+  parseTextStyle,
+  type SizeStep,
+  sizeSteps,
+  type TextStyle,
+  textStyleProps,
+  type TextWeight,
+  textWeights,
+  type ToneId,
+  toneIds,
+  type Tracking,
+  trackings,
+} from "./text-style";

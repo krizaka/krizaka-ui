@@ -1,5 +1,11 @@
 # @krizaka/intl
 
+## 0.3.0
+
+### Minor Changes
+
+- [#610](https://github.com/krizaka/krizaka-ui/pull/610) [`a4ba630`](https://github.com/krizaka/krizaka-ui/commit/a4ba6302e98a5bbef7d86b90e491fee6d0584d76) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Add `localDay(instant, timeZone)`: the calendar day (`yyyy-mm-dd`) an instant falls on in a time zone, so a rule dated by a local day is not judged by the UTC day.
+
 ## 0.2.1
 
 ### Patch Changes

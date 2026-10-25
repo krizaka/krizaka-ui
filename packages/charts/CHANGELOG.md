@@ -1,5 +1,13 @@
 # @krizaka/charts
 
+## 0.6.1
+
+### Patch Changes
+
+- Updated dependencies [[`a4ba630`](https://github.com/krizaka/krizaka-ui/commit/a4ba6302e98a5bbef7d86b90e491fee6d0584d76), [`b17498e`](https://github.com/krizaka/krizaka-ui/commit/b17498ee584faafe0794c917079c31902041ad31), [`35ccec0`](https://github.com/krizaka/krizaka-ui/commit/35ccec073b0ed569feb9ac01c16b3daac2245a45)]:
+  - @krizaka/intl@0.3.0
+  - @krizaka/ui@3.52.0
+
 ## 0.6.0
 
 ### Minor Changes
