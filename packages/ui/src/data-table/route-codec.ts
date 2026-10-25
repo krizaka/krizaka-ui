@@ -53,7 +53,7 @@ export type RouteDefaults = { sort: RouteSort; page: number; filters?: DataTable
 
 const sameFilters = (a: DataTableFilterState, b: DataTableFilterState) => {
   const written = (f: DataTableFilterState) =>
-    JSON.stringify(Object.entries(f).map(([column, value]) => [column, encodeFilter(value)]).filter(([, v]) => v !== "" && v !== "[]").sort());
+    JSON.stringify(Object.entries(f).map(([column, value]) => [column, encodeFilter(value)]).filter(([, v]) => v !== "" && v !== "[]").sort(([a], [b]) => String(a).localeCompare(String(b))));
   return written(a) === written(b);
 };
 
