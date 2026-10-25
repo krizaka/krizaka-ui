@@ -50,7 +50,7 @@ describe("Appearance (ADR-006 §4, krizaka-ui#657): the themes are data", () => 
     for (const [id, family] of Object.entries(brands)) {
       for (const theme of source.themes.filter((t: { base: string }) => t.base !== "system")) {
         const { mode, surfaces } = surfacesOf(source, theme);
-        const c = accentContrast(family[mode]!, surfaces);
+        const c = accentContrast(family[mode as "dark" | "light"], surfaces);
         const passes = data.passes[id].includes(theme.id);
         expect(passes, `${id} on ${theme.id}: text ${c.text.toFixed(1)} fill ${c.fill.toFixed(1)} label ${c.label.toFixed(1)}`).toBe(readsOn(c));
         if (passes) {

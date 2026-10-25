@@ -481,17 +481,17 @@ export declare const marks: { readonly [B in BrandId]: readonly MarkStop[] };\n`
   // Every frozen constant is pure: a bundler drops the ones an app does not import (a mark needs `marks`, not `themes`).
   /** @param {string} js */
   const pure = (js) => js.replaceAll("Object.freeze(", "/* @__PURE__ */ Object.freeze(");
-  /** @type {Record<string, string>} */
   const appearance = appearanceSource && brands.ids.length ? compileAppearance(appearanceSource, brands.values) : null;
   const appearanceMod = appearance ? appearanceModule(appearance) : { js: "", dts: "" };
   // The same data for React Native: hex colours, the brands' native families.
   const appearanceNative = appearance
     ? {
         ...appearance,
-        themes: appearance.themes.map((t) => ({ ...t, preview: t.preview && Object.fromEntries(Object.entries(t.preview).map(([k, v]) => [k, toNative(parseColor(v))])) })),
-        accents: appearance.accents.map((a) => ({ id: a.id, ...brands.native[a.id] })),
+        themes: appearance.themes.map((/** @type {any} */ t) => ({ ...t, preview: t.preview && Object.fromEntries(Object.entries(t.preview).map(([k, v]) => [k, toNative(parseColor(v))])) })),
+        accents: appearance.accents.map((/** @type {any} */ a) => ({ id: a.id, ...brands.native[a.id] })),
       }
     : null;
+  /** @type {Record<string, string>} */
   const files = {
     "tokens.css": tokensCss,
     "index.js": pure(indexJs + brandsJs + appearanceMod.js),
@@ -625,9 +625,10 @@ export function loadAppearance(dir) {
 
 /** The declarations of the native `appearance`: the same themes, accents as native brand themes. @param {any} data */
 function nativeAppearanceDts(data) {
+  /** @param {unknown} o */
   const json = (o) => JSON.stringify(o);
-  return `export type AppearanceThemeId = ${data.themes.map((t) => json(t.id)).join(" | ")};
-export type AppearanceDensity = ${data.densities.map((d) => json(d)).join(" | ")};
+  return `export type AppearanceThemeId = ${data.themes.map((/** @type {{ id: string }} */ t) => json(t.id)).join(" | ")};
+export type AppearanceDensity = ${data.densities.map((/** @type {string} */ d) => json(d)).join(" | ")};
 export interface AppearancePreview { readonly surface0: string; readonly surface1: string; readonly surface2: string; readonly text: string; readonly muted: string }
 export interface AppearanceTheme { readonly id: AppearanceThemeId; readonly base: "system" | "light" | "dark"; readonly required?: true; readonly preview: AppearancePreview | null }
 export interface AppearanceAccent extends BrandTheme { readonly id: BrandId }
