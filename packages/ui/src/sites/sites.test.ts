@@ -2,7 +2,7 @@ import { familyLabels, siteById, siteGroups, sites, sitesByGroup } from "./index
 
 describe("sites — the Krizaka family", () => {
   it("lists every site once, with an https address and a repository on GitHub", () => {
-    expect(sites.map((s) => s.id)).toEqual(["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza", "ui", "java", "motion", "github"]);
+    expect(sites.map((s) => s.id)).toEqual(["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza", "ui", "java", "ts", "motion", "github"]);
     for (const site of sites) {
       expect(site.url).toMatch(/^https:\/\//);
       expect(site.repo).toMatch(/^https:\/\/github\.com\/krizaka(\/[a-z-]+)?$/);
@@ -11,7 +11,7 @@ describe("sites — the Krizaka family", () => {
     expect(new Set(sites.map((s) => s.url)).size).toBe(sites.length);
   });
 
-  it("names the family's addresses: www, www.<product>, ui., java., GitHub", () => {
+  it("names the family's addresses: www, www.<product>, ui., java., ts., GitHub", () => {
     expect(sites.map((s) => s.host)).toEqual([
       "www.krizaka.com",
       "www.orazaka.com",
@@ -23,6 +23,7 @@ describe("sites — the Krizaka family", () => {
       "www.akinaza.com",
       "ui.krizaka.com",
       "java.krizaka.com",
+      "ts.krizaka.com",
       "krizaka.github.io/krizaka-motion",
       "github.com/krizaka",
     ]);
@@ -41,6 +42,8 @@ describe("sites — the Krizaka family", () => {
     }
     expect(siteById("ui").kind).toBe("open-source");
     expect(siteById("java").repo).toBe("https://github.com/krizaka/krizaka-build");
+    // Its full name, never « Krizaka TS » (#585).
+    expect(siteById("ts")).toMatchObject({ name: "Krizaka TypeScript", kind: "open-source", status: "released", url: "https://ts.krizaka.com", repo: "https://github.com/krizaka/krizaka-ts" });
     // The motion lab: Krizaka UI's motion played live, built in the open (GitHub Pages).
     expect(siteById("motion")).toMatchObject({ kind: "open-source", group: "open-source", status: "development", url: "https://krizaka.github.io/krizaka-motion", repo: "https://github.com/krizaka/krizaka-motion" });
   });
@@ -50,7 +53,7 @@ describe("sites — the Krizaka family", () => {
     expect(sitesByGroup().map((g) => [g.group, g.sites.map((s) => s.id)])).toEqual([
       ["krizaka", ["krizaka"]],
       ["products", ["orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"]],
-      ["open-source", ["ui", "java", "motion"]],
+      ["open-source", ["ui", "java", "ts", "motion"]],
       ["github", ["github"]],
     ]);
   });

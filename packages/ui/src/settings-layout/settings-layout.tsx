@@ -1,8 +1,12 @@
 // Server-safe. Settings, read from the products' account and administration screens: a list of sections on the left
-// (a row of chips that scrolls on a phone), the current section's forms on the right, each form a titled card with its
-// own save at the foot. The sections are links (one page each) or anchors (one long page).
+// (a row of chips that scrolls on a phone, a disclosure menu past five), the current section's forms on the right, each
+// form a titled card with its own save at the foot. The sections are links (one page each) or anchors (one long page),
+// alone or in titled groups.
 import * as React from "react";
 import { tv } from "tailwind-variants";
+
+import { Button } from "../button/button";
+import { SaveStatus } from "./save-status";
 
 export const settingsLayout = tv({
   slots: {
@@ -17,6 +21,23 @@ export const settingsLayout = tv({
       "flex h-9 items-center gap-2.5 whitespace-nowrap rounded-sm border border-border-default bg-surface-1 px-3.5 text-sm font-medium text-fg-secondary no-underline " +
       "hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-accent aria-[current]:text-fg " +
       "lg:rounded-lg lg:border-transparent lg:bg-transparent lg:px-3 lg:hover:bg-surface-2 lg:aria-[current]:bg-accent-soft [&>svg]:h-4 [&>svg]:w-4",
+    // Past five sections a strip of chips is a puzzle: the sidebar groups them, a phone gets one menu (a disclosure: no script).
+    sidebar: "hidden lg:block",
+    sidebarList: "flex flex-col gap-6 lg:sticky lg:top-20",
+    group: "flex flex-col gap-1",
+    groupLabel: "px-3 text-xs font-semibold text-fg-secondary",
+    groupLink:
+      "flex h-9 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium text-fg-secondary no-underline hover:bg-surface-2 hover:text-fg " +
+      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current]:bg-accent-soft aria-[current]:text-fg [&>svg]:h-4 [&>svg]:w-4",
+    groupItems: "m-0 flex list-none flex-col gap-0.5 p-0",
+    menu: "group lg:hidden",
+    menuSummary:
+      "flex h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-lg border border-border-default bg-surface-1 px-3.5 text-sm font-medium text-fg " +
+      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden group-open:border-accent",
+    menuChevron: "h-4 w-4 shrink-0 text-fg-secondary transition-transform group-open:rotate-180 motion-reduce:transition-none",
+    menuPanel: "mt-2 rounded-lg border border-border-default bg-surface-1 p-2",
+    navBadge: "ml-auto font-mono text-[11px] text-fg-secondary",
+    header: "flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-border-subtle pb-5",
     content: "flex min-w-0 flex-col gap-6",
     section: "rounded-xl border border-border-default bg-surface-1",
     sectionHead: "flex flex-col gap-1 px-5 pt-5",
@@ -58,15 +79,32 @@ export interface SettingsNavItem {
   icon?: React.ReactNode;
   /** The section shown now: `aria-current`. */
   current?: boolean;
+  /** A small count or status after the label (`3`, `New`). */
+  badge?: React.ReactNode;
 }
+
+export interface SettingsNavGroup {
+  /** Its id. */
+  id: string;
+  /** The group's title (`Library`, `Money`). */
+  label: string;
+  items: readonly SettingsNavItem[];
+}
+
+/** Past this many sections a phone gets one menu instead of a strip of chips (« never more than about 5 items in a horizontal tab bar »). */
+export const SETTINGS_CHIPS_MAX = 5;
+
+const isGrouped = (nav: readonly SettingsNavItem[] | readonly SettingsNavGroup[]): nav is readonly SettingsNavGroup[] => nav.length > 0 && "items" in nav[0]!;
 
 export type SettingsLayoutProps = Omit<React.ComponentProps<"div">, "title"> & {
   /** The screen's title (`Settings`). */
   title?: React.ReactNode;
   /** One sentence under it. */
   description?: React.ReactNode;
-  /** The sections. */
-  nav: readonly SettingsNavItem[];
+  /** What the screen is about, above the sections: who the account is, with their actions. Replaces `title` and `description`. */
+  header?: React.ReactNode;
+  /** The sections, alone or in titled groups. */
+  nav: readonly SettingsNavItem[] | readonly SettingsNavGroup[];
   /** The navigation's accessible name (`Settings sections`). */
   navLabel: string;
   /** The app's link component for the sections (Next's `Link`); an `<a>` otherwise. */
@@ -80,37 +118,127 @@ export type SettingsLayoutProps = Omit<React.ComponentProps<"div">, "title"> & {
   children: React.ReactNode;
 };
 
-/** A settings screen: sections on the left (chips on a phone), forms on the right. */
-export function SettingsLayout({ title, description, nav, navLabel, linkAs: Link = "a", variant = "card", className, children, ...props }: SettingsLayoutProps) {
-  const s = settingsLayout({ variant });
+function NavLink({ item, Link, className }: { item: SettingsNavItem; Link: React.ElementType; className: string }) {
+  const s = settingsLayout();
   return (
-    <div className={s.root({ className })} {...props}>
-      {(title || description) && (
-        <div className={s.head()}>
-          {title && <h1 className={s.title()}>{title}</h1>}
-          {description && <p className={s.description()}>{description}</p>}
-        </div>
-      )}
-      <div className={s.columns()}>
-        <nav aria-label={navLabel} className={s.nav()}>
-          <ul className={s.navList()}>
-            {nav.map((item) => (
+    <Link href={item.href} className={className} aria-current={item.current ? (item.href.startsWith("#") ? "location" : "page") : undefined}>
+      {item.icon}
+      {item.label}
+      {item.badge !== undefined && <span className={s.navBadge()}>{item.badge}</span>}
+    </Link>
+  );
+}
+
+function NavGroups({ groups, Link }: { groups: readonly SettingsNavGroup[]; Link: React.ElementType }) {
+  const s = settingsLayout();
+  return (
+    <div className={s.sidebarList()}>
+      {groups.map((group) => (
+        <div key={group.id} className={s.group()}>
+          <h2 className={s.groupLabel()}>{group.label}</h2>
+          <ul className={s.groupItems()}>
+            {group.items.map((item) => (
               <li key={item.id}>
-                <Link href={item.href} className={s.navLink()} aria-current={item.current ? (item.href.startsWith("#") ? "location" : "page") : undefined}>
-                  {item.icon}
-                  {item.label}
-                </Link>
+                <NavLink item={item} Link={Link} className={s.groupLink()} />
               </li>
             ))}
           </ul>
-        </nav>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** A settings screen: sections on the left (chips on a phone, one menu past five), forms on the right. */
+export function SettingsLayout({ title, description, header, nav, navLabel, linkAs: Link = "a", variant = "card", className, children, ...props }: SettingsLayoutProps) {
+  const s = settingsLayout({ variant });
+  const groups: readonly SettingsNavGroup[] = isGrouped(nav) ? nav : [{ id: "sections", label: "", items: nav }];
+  const items = groups.flatMap((g) => g.items);
+  const asMenu = items.length > SETTINGS_CHIPS_MAX;
+  const current = items.find((i) => i.current);
+  return (
+    <div className={s.root({ className })} {...props}>
+      {header ? (
+        <div className={s.header()}>{header}</div>
+      ) : (
+        (title || description) && (
+          <div className={s.head()}>
+            {title && <h1 className={s.title()}>{title}</h1>}
+            {description && <p className={s.description()}>{description}</p>}
+          </div>
+        )
+      )}
+      <div className={s.columns()}>
+        {asMenu ? (
+          <nav aria-label={navLabel}>
+            <details className={s.menu()} data-settings-menu="">
+              <summary className={s.menuSummary()}>
+                <span className="truncate">{current?.label ?? navLabel}</span>
+                <svg aria-hidden viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className={s.menuChevron()}>
+                  <path d="m4 6 4 4 4-4" />
+                </svg>
+              </summary>
+              <div className={s.menuPanel()}>
+                <NavGroups groups={groups} Link={Link} />
+              </div>
+            </details>
+            <div className={s.sidebar()}>
+              <NavGroups groups={groups} Link={Link} />
+            </div>
+          </nav>
+        ) : (
+          <nav aria-label={navLabel} className={s.nav()}>
+            <ul className={s.navList()}>
+              {items.map((item) => (
+                <li key={item.id}>
+                  <NavLink item={item} Link={Link} className={s.navLink()} />
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
         <div className={s.content()}>{children}</div>
       </div>
     </div>
   );
 }
 
+export interface SectionSaveLabels {
+  /** “Save”. */
+  save: string;
+  /** “Saving…”. */
+  saving: string;
+  /** “Saved”. */
+  saved: string;
+  /** What failed, one sentence (“Could not save. Try again.”). */
+  error: string;
+  /** “Undo” — only shown after a save, when `onUndo` is given. */
+  undo: string;
+  /** “Discard changes” — only shown while dirty, when `onDiscard` is given. */
+  discard: string;
+}
+
+/** The one save of a section: its dirty state, its status, its words. */
+export interface SectionSave {
+  /** Whether a field differs from what is saved: the save is enabled only then. */
+  dirty: boolean;
+  /** Where the save is (`useSaveStatus().status`). */
+  status: SaveStatus;
+  /** Saves the section (the form's submit, Enter included). */
+  onSave: () => void;
+  /** Puts the previous values back after a save, optimistic update included. */
+  onUndo?: () => void;
+  /** Throws the edits away while dirty. */
+  onDiscard?: () => void;
+  labels: SectionSaveLabels;
+}
+
 export type SettingsSectionProps = Omit<React.ComponentProps<"section">, "title"> & {
+  /**
+   * One save for the whole section: the section becomes a form, the foot shows the Save (enabled while dirty), the
+   * result in a live region (saved, or the error as an alert) and an undo after a save. Replaces `footer`.
+   */
+  save?: SectionSave;
   /** The section's title: it names the region (and is its anchor's target when `id` is set). */
   title: React.ReactNode;
   /** What these settings change, in one sentence. */
@@ -122,28 +250,78 @@ export type SettingsSectionProps = Omit<React.ComponentProps<"section">, "title"
    * @default "card"
    */
   variant?: "card" | "flat";
-  /** The fields (or, flat, the `SettingsRow`s). */
-  children: React.ReactNode;
+  /** The fields (or, flat, the `SettingsRow`s). A section of a title, a sentence and a foot action has none. */
+  children?: React.ReactNode;
 };
 
 /** A group of settings: a titled card with its fields and its own save, or flat rows under a title. */
-export function SettingsSection({ title, description, footer, variant = "card", id, className, children, ...props }: SettingsSectionProps) {
+export function SettingsSection({ title, description, footer, save, variant = "card", id, className, children, ...props }: SettingsSectionProps) {
   const s = settingsLayout({ variant });
   const auto = React.useId();
   const titleId = `${id ?? auto}-title`;
+  const head = (
+    <div className={s.sectionHead()}>
+      <h2 id={titleId} className={s.sectionTitle()}>
+        {title}
+      </h2>
+      {description && <p className={s.sectionDescription()}>{description}</p>}
+    </div>
+  );
+  const body = children === undefined ? null : (
+    <div className={variant === "flat" ? s.rows() : s.sectionBody()} data-settings-rows={variant === "flat" ? "" : undefined}>
+      {children}
+    </div>
+  );
   return (
-    <section id={id} aria-labelledby={titleId} className={s.section({ className })} {...props}>
-      <div className={s.sectionHead()}>
-        <h2 id={titleId} className={s.sectionTitle()}>
-          {title}
-        </h2>
-        {description && <p className={s.sectionDescription()}>{description}</p>}
-      </div>
-      <div className={variant === "flat" ? s.rows() : s.sectionBody()} data-settings-rows={variant === "flat" ? "" : undefined}>
-        {children}
-      </div>
-      {footer && <div className={s.sectionFooter()}>{footer}</div>}
+    <section id={id} aria-labelledby={titleId} data-dirty={save?.dirty ? "" : undefined} className={s.section({ className })} {...props}>
+      {save ? (
+        <form
+          noValidate
+          onSubmit={(event) => {
+            event.preventDefault();
+            if (save.dirty && save.status !== SaveStatus.Saving) save.onSave();
+          }}
+        >
+          {head}
+          {body}
+          <div className={s.sectionFooter()}>
+            <SaveFeedback save={save} />
+            {save.onDiscard && save.dirty ? (
+              <Button type="button" variant="ghost" onClick={save.onDiscard}>
+                {save.labels.discard}
+              </Button>
+            ) : null}
+            <Button type="submit" variant="primary" disabled={!save.dirty || save.status === SaveStatus.Saving} loading={save.status === SaveStatus.Saving}>
+              {save.labels.save}
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <>
+          {head}
+          {body}
+          {footer && <div className={s.sectionFooter()}>{footer}</div>}
+        </>
+      )}
     </section>
+  );
+}
+
+/** The result of the last save: « Saved » (with Undo) in a polite live region, a failure as an alert. The region stays mounted so the change is announced. */
+function SaveFeedback({ save }: { save: SectionSave }) {
+  const failed = save.status === SaveStatus.Error;
+  const saved = save.status === SaveStatus.Saved;
+  return (
+    <div className="mr-auto flex min-w-0 items-center gap-2 text-sm">
+      <span role={failed ? "alert" : "status"} aria-live={failed ? "assertive" : "polite"} className={failed ? "text-danger-text" : "text-fg-secondary"}>
+        {failed ? save.labels.error : saved ? save.labels.saved : save.status === SaveStatus.Saving ? save.labels.saving : ""}
+      </span>
+      {saved && save.onUndo ? (
+        <Button type="button" variant="ghost" size="sm" onClick={save.onUndo}>
+          {save.labels.undo}
+        </Button>
+      ) : null}
+    </div>
   );
 }
 

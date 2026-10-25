@@ -1,10 +1,9 @@
 import { OrazakaLogo } from "@krizaka/ui";
-import { Button } from "@krizaka/ui/button";
 import { languagesFor } from "@krizaka/ui/language-switch";
-import { NavBar } from "@krizaka/ui/nav-bar";
+import { NavBar, ProductBarActions } from "@krizaka/ui/nav-bar";
 import { ThemeProvider, ThemeToggle } from "@krizaka/ui/theme";
 
-// The product standard: mark · Product ▾ · Platforms ▾ · Docs; theme, language, Sign in, one action; phone: groups, preferences.
+// The product standard: mark · Product ▾ · Platforms ▾ · Docs; theme, language, the product actions (using the app is primary; Contact lives in the footer); phone: groups, preferences.
 const groups = [
   { id: "product", label: "Product", links: [["#how", "How it works", "Install to first answer in three commands."], ["#demo", "Demo", "Real runs: prompts, images, videos."]] },
   { id: "platforms", label: "Platforms", links: [["#web", "Web", "The workspace in your browser."], ["#mac", "Mac", "Orazaka Desktop for Apple Silicon."]] },
@@ -25,8 +24,7 @@ export default function NavBarFamilyProduct() {
           <NavBar.Link href="#docs">Docs</NavBar.Link></NavBar.Items>
         <NavBar.Actions>
           <span className="hidden items-center gap-1 md:inline-flex">{theme}{language}</span>
-          <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex"><a href="#sign-in">Sign in</a></Button>
-          <Button asChild variant="primary" size="sm" className="hidden md:inline-flex"><a href="#talk">Talk to us</a></Button>
+          <ProductBarActions signIn={{ href: "#sign-in", label: "Sign in" }} signupOpen={false} />
           <NavBar.Mobile openLabel="Open the menu" closeLabel="Close the menu">
             {groups.map((g) => (
               <NavBar.MobileGroup key={g.id} label={g.label}>{g.links.map(([href, title]) => <NavBar.MobileLink key={href} href={href}>{title}</NavBar.MobileLink>)}</NavBar.MobileGroup>

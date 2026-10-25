@@ -26,6 +26,36 @@ describe("SettingsLayout", () => {
   });
 });
 
+describe("SettingsLayout, many sections", () => {
+  const groups = [
+    { id: "library", label: "Library", items: [{ id: "videos", label: "Videos", href: "/me/videos", current: true, badge: 12 }, { id: "lists", label: "Lists", href: "/me/lists" }, { id: "uploads", label: "Uploads", href: "/me/uploads" }] },
+    { id: "account", label: "Account", items: [{ id: "profile", label: "Profile", href: "/me/profile" }, { id: "security", label: "Security", href: "/me/security" }, { id: "data", label: "My data", href: "/me/data" }] },
+  ];
+
+  it("shows the groups' titles in the sidebar, a count after a label, and one menu for a phone, with no axe violation", async () => {
+    const { container } = render(
+      <SettingsLayout navLabel="Your space" nav={groups} header={<h1>Elena</h1>}>
+        x
+      </SettingsLayout>,
+    );
+    expect(screen.getAllByRole("heading", { level: 2, name: /Library|Account/ })).toHaveLength(4);
+    expect(container.querySelectorAll("[data-settings-menu]")).toHaveLength(1);
+    expect(screen.getAllByRole("navigation")).toHaveLength(1);
+    expect(screen.getAllByRole("link", { name: /Videos/ }).map((l) => l.getAttribute("aria-current"))).toEqual(["page", "page"]);
+    expect(screen.getAllByText("12")).toHaveLength(2);
+    expect(screen.getByRole("heading", { level: 1, name: "Elena" })).toBeTruthy();
+    expect(container.querySelector("summary")?.textContent).toBe("Videos");
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("keeps the chips for five sections or fewer, even when they are grouped", () => {
+    const five = [{ id: "a", label: "A", items: groups[0]!.items }, { id: "b", label: "B", items: groups[1]!.items.slice(0, 2) }];
+    const { container } = render(<SettingsLayout navLabel="n" nav={five}>x</SettingsLayout>);
+    expect(container.querySelector("[data-settings-menu]")).toBeNull();
+    expect(screen.getAllByRole("link")).toHaveLength(5);
+  });
+});
+
 describe("SettingsRow and the flat variant", () => {
   it("a row names its control with a label and a help text, on one line from the sm breakpoint", async () => {
     const { container } = render(

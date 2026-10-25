@@ -1,5 +1,77 @@
 # @krizaka/tailwind
 
+## 3.54.0
+
+### Patch Changes
+
+- Updated dependencies [[`19958df`](https://github.com/krizaka/krizaka-ui/commit/19958dfb9051591865da3a2b2e299c56b1a2f273)]:
+  - @krizaka/ui@3.54.0
+  - @krizaka/tokens@3.54.0
+
+## 3.53.0
+
+### Patch Changes
+
+- Updated dependencies [[`da1630c`](https://github.com/krizaka/krizaka-ui/commit/da1630c4707f1be592845bd421b10dc34ea0e815)]:
+  - @krizaka/ui@3.53.0
+  - @krizaka/tokens@3.53.0
+
+## 3.52.0
+
+### Patch Changes
+
+- Updated dependencies [[`b17498e`](https://github.com/krizaka/krizaka-ui/commit/b17498ee584faafe0794c917079c31902041ad31), [`35ccec0`](https://github.com/krizaka/krizaka-ui/commit/35ccec073b0ed569feb9ac01c16b3daac2245a45)]:
+  - @krizaka/ui@3.52.0
+  - @krizaka/tokens@3.52.0
+
+## 3.51.0
+
+### Patch Changes
+
+- Updated dependencies [[`88c7a0e`](https://github.com/krizaka/krizaka-ui/commit/88c7a0e62254fb0c700f8e35ce954c53cdc29140)]:
+  - @krizaka/ui@3.51.0
+  - @krizaka/tokens@3.51.0
+
+## 3.50.0
+
+### Patch Changes
+
+- Updated dependencies [[`56e2dc4`](https://github.com/krizaka/krizaka-ui/commit/56e2dc4fe3adb8191b884e60ee5402645d372023)]:
+  - @krizaka/ui@3.50.0
+  - @krizaka/tokens@3.50.0
+
+## 3.49.0
+
+### Patch Changes
+
+- Updated dependencies [[`07d8b52`](https://github.com/krizaka/krizaka-ui/commit/07d8b5295454c01f0f4056b27ab836b75b5e769e), [`f1e97a9`](https://github.com/krizaka/krizaka-ui/commit/f1e97a9ded3b90f3d35ee12c39d29d170c9c8881)]:
+  - @krizaka/ui@3.49.0
+  - @krizaka/tokens@3.49.0
+
+## 3.48.0
+
+### Patch Changes
+
+- Updated dependencies [[`39d780d`](https://github.com/krizaka/krizaka-ui/commit/39d780d124fcb16d54fe80763f3bbd2ca4657de8), [`ceae548`](https://github.com/krizaka/krizaka-ui/commit/ceae548da212413518ebb17a18b342c45932e5fb)]:
+  - @krizaka/ui@3.48.0
+  - @krizaka/tokens@3.48.0
+
+## 3.47.0
+
+### Patch Changes
+
+- Updated dependencies [[`dab0bb9`](https://github.com/krizaka/krizaka-ui/commit/dab0bb93c5dd7eb6b2dbc45afbe1308a8097a96c)]:
+  - @krizaka/ui@3.47.0
+  - @krizaka/tokens@3.47.0
+
+## 3.46.0
+
+### Patch Changes
+
+- Updated dependencies [[`b4000e2`](https://github.com/krizaka/krizaka-ui/commit/b4000e2ef8fb950557c9c589cb85d2e17bf0910f)]:
+  - @krizaka/ui@3.46.0
+  - @krizaka/tokens@3.46.0
+
 ## 3.45.0
 
 ### Patch Changes
