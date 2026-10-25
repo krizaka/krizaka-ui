@@ -368,7 +368,7 @@ describe("krizaka/page-template — every page declares its template", () => {
   it.each(["/* @template: custom: */", "// @template: custom:", "/* @template: custom:*/"])("refuses %s: the comment's end is not a reason (review #514)", async (tag) => {
     const messages = ruled(await lintPage(`${tag}\nexport default function Page() { return null; }`));
     expect(messages).toHaveLength(1);
-    expect((messages[0] as { message: string }).message).toMatch(/needs its reason/);
+    expect(messages[0]).toMatchObject({ message: expect.stringMatching(/needs its reason/) });
   });
 
   it("accepts a block comment with its reason", async () => {
