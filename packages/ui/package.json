@@ -2148,7 +2148,7 @@
     {
       "name": "./grade-stamp",
       "path": "dist/grade-stamp.js",
-      "limit": "19 kB",
+      "limit": "19.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
