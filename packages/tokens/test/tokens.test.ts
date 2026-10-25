@@ -248,7 +248,7 @@ describe("generated modules", async () => {
     expect(Object.keys(native.radius).sort()).toEqual(keysOf("radius"));
     expect(Object.keys(native.typography).sort()).toEqual(keysOf("font"));
     expect(native.radius).toEqual({ xs: 2, sm: 2, md: 2, lg: 0, xl: 0, "2xl": 0, full: 9999 });
-    expect(native.typography).toEqual({ sans: "Atkinson Hyperlegible Next", text: "Atkinson Hyperlegible Next", display: "Young Serif", mono: "Courier Prime", cahier: "Krizaka Cahier" });
+    expect(native.typography).toEqual({ sans: "Atkinson Hyperlegible Next", text: "Atkinson Hyperlegible Next", display: "Young Serif", mono: "Courier Prime", cahier: "Krizaka Cahier", productDisplay: "Plus Jakarta Sans", monoMeta: "Courier Prime" });
     expect(native.motion.ease).toEqual([0.45, 0, 0.2, 1]);
     expect(native.motion.spring).toEqual([0.34, 1.36, 0.64, 1]);
     expect(native.motion.duration).toEqual({ instant: 90, fast: 150, base: 200 });
