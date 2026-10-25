@@ -179,8 +179,13 @@ export function DetailNotes({ title, notes, emptyLabel, add, className, ...props
 
 export type FormStepData = { id: string; title: React.ReactNode; children: React.ReactNode };
 
+export type FormStepsProps = Omit<React.ComponentProps<"ol">, "children"> & {
+  /** The steps in order: an id, a title and their fields. */
+  steps: readonly FormStepData[];
+};
+
 /** The numbered steps of a long form (a new invoice: client, lines, terms): an ordered list, each step a named region. */
-export function FormSteps({ steps, className, ...props }: Omit<React.ComponentProps<"ol">, "children"> & { steps: readonly FormStepData[] }) {
+export function FormSteps({ steps, className, ...props }: FormStepsProps) {
   const base = React.useId();
   return (
     <ol className={s.steps({ className })} {...props}>

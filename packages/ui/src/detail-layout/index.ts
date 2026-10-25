@@ -10,5 +10,6 @@ export {
   type DetailSectionProps,
   type FormStepData,
   FormSteps,
+  type FormStepsProps,
   FormTotals,
 } from "./detail-layout";
