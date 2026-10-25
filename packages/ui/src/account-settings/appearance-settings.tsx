@@ -83,25 +83,25 @@ export type AppearanceSettingsProps = {
   /** The accents offered (the product's own first). Without it the row is not shown. */
   accents?: readonly AccentOption[];
   /** The id of the accent chosen; null for the product's own. */
-  accent: string | null;
+  accent?: string | null;
   /** Called with the id chosen. */
-  onAccentChange: (id: string) => void;
+  onAccentChange?: (id: string) => void;
   /** The densities offered, with their names (`standard`, `compact`). */
   densities?: readonly { value: string; label: string }[];
   /** The density chosen. */
-  density: string;
+  density?: string;
   /** Called with the density chosen. */
-  onDensityChange: (density: string) => void;
+  onDensityChange?: (density: string) => void;
   /** The languages offered, each named in its own language. */
   languages?: readonly LanguageOption[];
   /** The code of the language chosen. */
-  language: string;
+  language?: string;
   /** Called with the code chosen. */
-  onLanguageChange: (code: string) => void;
+  onLanguageChange?: (code: string) => void;
   /** Shown only when given: the sound is opt-in. */
   sound?: boolean;
   /** Called with the new state. */
-  onSoundChange: (on: boolean) => void;
+  onSoundChange?: (on: boolean) => void;
   /** The words, passed translated (English by default). */
   labels?: Partial<AppearanceLabels>;
   /** Classes merged on the root. */
@@ -208,7 +208,7 @@ export function AppearanceSettings({
       ) : null}
       {languages && languages.length > 0 && onLanguageChange ? (
         <SettingsRow label={labels.language} description={labels.languageHint}>
-          <LanguagePicker label={labels.language} showLabel={false} languages={languages} value={language} onValueChange={onLanguageChange} />
+          <LanguagePicker label={labels.language} showLabel={false} languages={languages} value={language ?? ""} onValueChange={onLanguageChange} />
         </SettingsRow>
       ) : null}
       {onSoundChange ? (
