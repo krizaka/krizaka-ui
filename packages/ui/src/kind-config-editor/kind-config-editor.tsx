@@ -415,7 +415,6 @@ export function StatusSetEditor({ value, onChange, roles, locale = "en", problem
                       key={to.key}
                       type="button"
                       aria-pressed={on}
-                      aria-label={labels.move(nameOf(from.key), nameOf(to.key), summary)}
                       data-on={move ? "" : undefined}
                       disabled={disabled}
                       onClick={() => setChosen(on ? null : { from: from.key, to: to.key })}
@@ -425,8 +424,12 @@ export function StatusSetEditor({ value, onChange, roles, locale = "en", problem
                         on && "ring-2 ring-ring",
                       )}
                     >
-                      <span aria-hidden>→</span> {nameOf(to.key)}
-                      <span className="text-fg">{summary}</span>
+                      {/* The name is the sentence for a screen reader; the arrow and the short words are what the eye reads. */}
+                      <span className="sr-only">{labels.move(nameOf(from.key), nameOf(to.key), summary)}</span>
+                      <span aria-hidden>→ {nameOf(to.key)}</span>
+                      <span aria-hidden className="text-fg">
+                        {summary}
+                      </span>
                     </button>
                   );
                 })
