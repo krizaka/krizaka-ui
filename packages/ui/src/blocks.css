@@ -75,7 +75,7 @@
 }
 .kz-pinned-note-text { margin: 0; font: 1rem/1.6 var(--kz-font-sans); white-space: pre-wrap; }
 .kz-pinned-note-signature { margin: 1rem 0 0; text-align: end; font: 1.2rem/1.3 var(--kz-font-cahier); }
-.kz-shop-sign { padding: 1.75rem; text-align: center; font: 1.75rem/1.25 var(--kz-font-display); }
+.kz-shop-sign { padding: 1.75rem; text-align: center; font: 1.75rem/1.25 var(--kz-font-display); overflow-wrap: break-word; hyphens: auto; } /* a long name hyphenates, never cut anywhere */
 .kz-shop-sign-logo > :is(img, svg) { max-width: 100%; height: auto; }
 .kz-shop-sign[data-variant="enamel"] {
   background: var(--kz-surface-0); border: 3px double var(--kz-accent-text); border-radius: .35rem;

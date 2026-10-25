@@ -13,7 +13,6 @@ export default [
   // tsup writes a temporary bundled config next to tsup.config.ts while a build runs: a lint at the same moment (turbo
   // runs them in parallel) must not read it, or it fails on a file that vanished (ENOENT).
   { name: "krizaka-ui/tsup-temp", ignores: ["**/tsup.config.bundled_*"] },
-  { name: "krizaka-ui/storybook-temp", ignores: ["**/.t/**"] },
   // The compiled registry examples (tsup, build output, git-ignored): their sources are linted.
   { name: "krizaka-ui/compiled-examples", ignores: ["packages/*/registry/examples/**/*.js", "packages/*/registry/examples/**/*.d.ts"] },
 ];

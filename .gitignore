@@ -3,7 +3,6 @@ dist
 coverage
 storybook-static
 .turbo
-.t
 *.tgz
 *.log
 .DS_Store

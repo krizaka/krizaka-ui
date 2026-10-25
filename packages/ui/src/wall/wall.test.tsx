@@ -2,7 +2,6 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
-import { ESLint } from "eslint";
 
 import FrenchCompositionExample from "../../registry/examples/wall/composition-fr";
 import { axeViolations } from "../test/axe";
@@ -34,11 +33,6 @@ function motion(reduced = false) {
 afterEach(() => { vi.unstubAllGlobals(); vi.clearAllMocks(); });
 
 describe("Wall", () => {
-  it("excludes generated Storybook runners from lint and unit test discovery", async () => {
-    expect(await new ESLint().isPathIgnored(`${process.cwd()}/.t/runner/blocks-wall.test.js`)).toBe(true);
-    expect(readFileSync("vitest.config.ts", "utf8")).toContain('".t/**"');
-    expect(readFileSync("../../.gitignore", "utf8")).toContain("\n.t\n");
-  });
   it("demonstrates a self-contained composed French wall", () => {
     render(<FrenchCompositionExample />);
     expect(screen.getByRole("list", { name: "Dans notre atelier" })).toBeTruthy();
