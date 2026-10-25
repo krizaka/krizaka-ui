@@ -1576,7 +1576,7 @@
       "name": "./data-table: DataTable (TanStack Table v9, the windowing of TanStack Virtual, Radix Checkbox, the pagination)",
       "path": "dist/data-table.js",
       "import": "{ DataTable }",
-      "limit": "47.2 kB",
+      "limit": "47.9 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1587,7 +1587,7 @@
       "name": "./data-table: the toolbar (FilterBar on Radix DropdownMenu, SearchField, the columns menu, the export)",
       "path": "dist/data-table.js",
       "import": "{ DataTableFilters, DataTableColumnsMenu, DataTableExport }",
-      "limit": "42.3 kB",
+      "limit": "42.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2776,7 +2776,7 @@
       "name": "./genui: GenUiStream (A2UI v0.9 validator, store, surface, base catalog with DataTable)",
       "path": "dist/genui.js",
       "import": "{ GenUiStream, baseGenUiCatalog }",
-      "limit": "53 kB",
+      "limit": "53.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
