@@ -9,6 +9,7 @@
 
 /** Every documented component: the web primitives (one entry of the package each) and the native-only ones. */
 export type ComponentName =
+  | "quota-meter"
   | "agenda"
   | "account-settings"
   | "drop-overlay"
@@ -16,10 +17,13 @@ export type ComponentName =
   | "achievement"
   | "anatomy-plate"
   | "bird-plate"
+  | "taped-photo"
+  | "text-style"
   | "flock"
   | "elephant"
   | "footnote"
   | "page-index"
+  | "chapter"
   | "specimen-tag"
   | "action-bar"
   | "action-sheet"
@@ -80,6 +84,8 @@ export type ComponentName =
   | "form"
   | "gallery-page"
   | "genui"
+  | "glossary"
+  | "glossary-term"
   | "glow-card"
   | "goal-gauge"
   | "header"
@@ -89,6 +95,7 @@ export type ComponentName =
   | "iso"
   | "kanban"
   | "kbd"
+  | "kpi-explained"
   | "landing-page"
   | "landscape"
   | "legal-page"

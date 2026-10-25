@@ -263,6 +263,10 @@
           "title": "Client d'application",
           "description": "Ce que toute application Expo partage : la session bearer derrière un port de stockage, le client de découverte avec l'adresse d'un produit et le client d'API (bearer, délai, gestion du 401)."
         },
+        "app-desktop": {
+          "title": "Application de bureau",
+          "description": "Ce que toute application Mac demande à son côté natif, typé : dossiers autorisés et surveillés, le Trousseau comme stockage du client d'application, la barre de menus native, les liens profonds et le canal de mise à jour."
+        },
         "app-config": {
           "title": "App config",
           "description": "Compatibilité de version entre les apps et les serveurs : version minimale et dernière, mises à jour douces et forcées, maintenance, 426 Upgrade Required et contrats N-1."

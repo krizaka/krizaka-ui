@@ -1,4 +1,4 @@
-import { formatDate, formatRelative } from "../src/date";
+import { formatDate, formatRelative, localDay } from "../src/date";
 
 // ICU separates with no-break spaces (U+00A0, U+202F) that vary across its versions: compare the words, not the space.
 const sp = (s: string) => s.replace(/[\u00a0\u202f]/g, " ");
@@ -71,5 +71,40 @@ describe("formatRelative", () => {
     } finally {
       vi.useRealTimers();
     }
+  });
+});
+
+describe("localDay", () => {
+  it.each([
+    ["2026-10-24T01:30:00Z", "America/Toronto", "2026-10-23"], // 21:30 EDT the evening before
+    ["2026-10-24T12:00:00Z", "America/Toronto", "2026-10-24"], // 08:00 EDT
+    ["2026-01-15T04:30:00Z", "America/Toronto", "2026-01-14"], // 23:30 EST
+    ["2026-10-24T01:30:00Z", "UTC", "2026-10-24"], // the UTC day is still the UTC day
+  ])("%s in %s is %s", (instant, timeZone, day) => {
+    expect(localDay(instant, timeZone)).toBe(day);
+  });
+
+  it("follows the spring change (2026-03-08, 02:00 EST becomes 03:00 EDT)", () => {
+    expect(localDay("2026-03-08T04:30:00Z", "America/Toronto")).toBe("2026-03-07"); // 23:30 EST
+    expect(localDay("2026-03-08T05:30:00Z", "America/Toronto")).toBe("2026-03-08"); // 00:30 EST
+    expect(localDay("2026-03-08T07:30:00Z", "America/Toronto")).toBe("2026-03-08"); // 03:30 EDT
+  });
+
+  it("follows the autumn change (2026-11-01, 02:00 EDT becomes 01:00 EST)", () => {
+    expect(localDay("2026-11-01T03:30:00Z", "America/Toronto")).toBe("2026-10-31"); // 23:30 EDT
+    expect(localDay("2026-11-01T04:30:00Z", "America/Toronto")).toBe("2026-11-01"); // 00:30 EDT
+    expect(localDay("2026-11-01T06:30:00Z", "America/Toronto")).toBe("2026-11-01"); // 01:30 EST, the second pass
+    expect(localDay("2026-11-02T04:59:00Z", "America/Toronto")).toBe("2026-11-01"); // 23:59 EST
+    expect(localDay("2026-11-02T05:00:00Z", "America/Toronto")).toBe("2026-11-02"); // 00:00 EST
+  });
+
+  it("takes a Date, an epoch or an ISO string", () => {
+    expect(localDay(new Date("2026-10-24T01:30:00Z"), "America/Toronto")).toBe("2026-10-23");
+    expect(localDay(Date.UTC(2026, 9, 24, 1, 30), "America/Toronto")).toBe("2026-10-23");
+    expect(localDay("2026-10-24T01:30:00Z", "America/Toronto")).toBe("2026-10-23");
+  });
+
+  it("refuses an invalid date (RangeError)", () => {
+    expect(() => localDay("not a date", "America/Toronto")).toThrow(RangeError);
   });
 });

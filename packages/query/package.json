@@ -68,10 +68,10 @@
   },
   "dependencies": {
     "@krizaka/realtime": "workspace:^",
-    "@tanstack/query-async-storage-persister": "5.104.2",
-    "@tanstack/react-query": "5.104.2",
-    "@tanstack/react-query-devtools": "5.104.2",
-    "@tanstack/react-query-persist-client": "5.104.2"
+    "@tanstack/query-async-storage-persister": "5.104.5",
+    "@tanstack/react-query": "5.104.5",
+    "@tanstack/react-query-devtools": "5.104.5",
+    "@tanstack/react-query-persist-client": "5.104.5"
   },
   "peerDependencies": {
     "react": ">=18"
@@ -97,7 +97,7 @@
     "tsup": "^8.5.1",
     "typescript": "^5.9.0",
     "vitest": "^4.1.11",
-    "zod": "^4.1.0"
+    "zod": "^4.6.7"
   },
   "engines": {
     "node": ">=22"
