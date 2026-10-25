@@ -1,5 +1,11 @@
 # @krizaka/payments
 
+## 0.2.1
+
+### Patch Changes
+
+- [#570](https://github.com/krizaka/krizaka-ui/pull/570) [`edeadfe`](https://github.com/krizaka/krizaka-ui/commit/edeadfecf77940626416392fd9de06eab97f786b) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Fix: a webhook event whose handler failed was recorded as applied and never applied again. `applyOnce` now gives the id back (`EventStore.forget`, implemented by `pgEventStore` with a `DELETE`) and rethrows, so the processor's retry applies it. A new `applyOnceInTransaction(transaction, event, handlers)` records the id and runs the effect in one transaction, which also closes the crash window between the two (krizaka-ts#47, ADR-001 §4).
+
 ## 0.2.0
 
 ### Minor Changes

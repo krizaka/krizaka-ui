@@ -5,6 +5,7 @@ export {
   type FormatDateOptions,
   formatRelative,
   type FormatRelativeOptions,
+  localDay,
 } from "./date";
 export { currencyDigits, formatMoney, type FormatMoneyOptions, type MoneyDisplay } from "./money";
 export { formatCompact, formatNumber, type FormatNumberOptions, formatPercent } from "./number";

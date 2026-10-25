@@ -1,5 +1,56 @@
 # @krizaka/ui
 
+## 3.54.0
+
+### Minor Changes
+
+- [#624](https://github.com/krizaka/krizaka-ui/pull/624) [`19958df`](https://github.com/krizaka/krizaka-ui/commit/19958dfb9051591865da3a2b2e299c56b1a2f273) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ChapterIndex variant="album"` ([#621](https://github.com/krizaka/krizaka-ui/issues/621)): each chapter's `cover` as a `TapedPhoto` beside its title, one short line (`detail`) and its period — the rows alternate left and right, the prints face each other, each keeps its own aspect-ratio (no layout shift), the covers after the first two load lazily. Fix ([#620](https://github.com/krizaka/krizaka-ui/issues/620)): inside a `Page` that already draws the margin, a nested margin (the chapter blocks, a Section) draws no second red rule.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.54.0
+  - @krizaka/tokens@3.54.0
+
+## 3.53.0
+
+### Minor Changes
+
+- [#618](https://github.com/krizaka/krizaka-ui/pull/618) [`da1630c`](https://github.com/krizaka/krizaka-ui/commit/da1630c4707f1be592845bd421b10dc34ea0e815) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/chapter` ([#617](https://github.com/krizaka/krizaka-ui/issues/617)): `ChapterIndex`, `ChapterHead` and `ChapterFoot` — the chapters of a story on the Cahier's ruled lines, never boxes. The index is an ordered list, one ruled line per chapter: the number hangs in the margin beside its red rule, the serif title is the link (its hit area the whole row), the period is quiet on the right (under the title in a narrow column), the latest wears a small « New » in the hue; an optional `detail` adds a second line. The head hangs the number in the margin beside the `h1`, then one quiet line (period · reading time) and the faced → built standfirst once (the arrow is drawn, a screen reader hears `versusLabels`). The foot puts the previous and next chapters on the lines (`rel="prev"`/`"next"`) and one line back to the story. They reuse `Page`'s paper (`data-paper="lines"`, aligned on the rows) and margin (`data-margin`, the `§` numbers' ink); every word is a prop.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.53.0
+  - @krizaka/tokens@3.53.0
+
+## 3.52.0
+
+### Minor Changes
+
+- [#564](https://github.com/krizaka/krizaka-ui/pull/564) [`b17498e`](https://github.com/krizaka/krizaka-ui/commit/b17498ee584faafe0794c917079c31902041ad31) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - `@krizaka/ui/text-style`: `TextStylePicker`, `StyledText` and the value they share. A person chooses the look of one text role — font (the curated `@krizaka/fonts` families, by role), size (a step of the type scale), weight, line height, letter spacing, alignment, case, italic and tone (a text role or the brand hue) — as a plain value the app stores. The picker is controlled, shows a live preview, takes `presets`, `fields` and `compact`, and warns (never clamps) when the tone's contrast on the surface is under 4.5:1 for body text or 3:1 for large text, or when body text is under `minBodySize`; its words are props (`textStyleLabels` EN, `textStyleLabelsFr`). `@krizaka/ui/text-style/server` has `parseTextStyle` (zod: anything invalid, a free font, a hex colour or CSS text, answers the default), `textStyleProps` (a `className` and a `style` of CSS variables only) and `StyledText`. `zod` is now a dependency. The first user is the Akinaza storefronts (krizaka/akinaza#236). A native picker is a follow-up.
+
+- [#563](https://github.com/krizaka/krizaka-ui/pull/563) [`35ccec0`](https://github.com/krizaka/krizaka-ui/commit/35ccec073b0ed569feb9ac01c16b3daac2245a45) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Add explained KPI, ranked next-action and glossary blocks for web pages.
+
+### Patch Changes
+
+- Updated dependencies [[`a4ba630`](https://github.com/krizaka/krizaka-ui/commit/a4ba6302e98a5bbef7d86b90e491fee6d0584d76)]:
+  - @krizaka/intl@0.3.0
+  - @krizaka/tailwind@3.52.0
+  - @krizaka/tokens@3.52.0
+
+## 3.51.0
+
+### Minor Changes
+
+- [#542](https://github.com/krizaka/krizaka-ui/pull/542) [`88c7a0e`](https://github.com/krizaka/krizaka-ui/commit/88c7a0e62254fb0c700f8e35ce954c53cdc29140) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/taped-photo`: `TapedPhoto`, a Cahier block. It is a print taped in the notebook: slightly tilted (`tilt`, eased on a phone), with a white print border, a layered paper shadow, and tape at two corners or at the top (`tape`). It holds any picture, such as an image, a video or a live scene, and takes an optional caption written on the print. The flock's scene that opens www.krizaka.com uses it, and the Polaroids of Akinaza's shop walls build on it (krizaka/akinaza#236).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.51.0
+  - @krizaka/tokens@3.51.0
+
 ## 3.50.0
 
 ### Minor Changes
