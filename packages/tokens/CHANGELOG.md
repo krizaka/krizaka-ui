@@ -1,5 +1,9 @@
 # @krizaka/tokens
 
+## 3.60.0
+
+No changes in this release.
+
 ## 3.59.0
 
 No changes in this release.

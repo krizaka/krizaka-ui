@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.60.0
+
+### Minor Changes
+
+- [#540](https://github.com/krizaka/krizaka-ui/pull/540) [`3861b04`](https://github.com/krizaka/krizaka-ui/commit/3861b0454b53dccd69c089a329c349054e1b92f4) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Add the read-only Wall block with token-based brick, zellige, ridge and plaster textures, plus Polaroid, PinnedNote and ShopSign items. Polaroid composes TapedPhoto's print and tape. Data positions scale on desktop and stack in reading order on phones, with safe stacking even for negative z values; photo reveals and neon effects respect reduced motion. Registry examples include their own words and can be copied without companion files.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.60.0
+  - @krizaka/tokens@3.60.0
+
 ## 3.59.0
 
 ### Minor Changes
