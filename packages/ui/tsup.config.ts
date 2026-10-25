@@ -87,6 +87,10 @@ export default defineConfig([
       "page-index": "src/page-index/index.ts",
       chapter: "src/chapter/index.ts",
       footnote: "src/footnote/index.ts",
+      // Stuck into the notebook: the hold, the margin doodle, the house's signature (server-safe).
+      stuck: "src/stuck/index.ts",
+      doodle: "src/doodle/index.ts",
+      signature: "src/signature/index.ts",
       // The recipes: classes of the tokens, read by tv() on the web and by the phone's components (no React).
       recipes: "src/recipes/index.ts",
     },
