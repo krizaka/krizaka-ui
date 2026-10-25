@@ -16,7 +16,6 @@ export const meta = {
   ],
   whenNotToUse: [
     { when: "A soft backdrop behind a whole section.", use: "section-backdrop" },
-    { when: "The scene of a page, with its birds.", use: "landscape" },
   ],
   bestPractices: [
     "One burst per screen, behind one element; the lines are quiet by design (a fraction of the text's ink).",
@@ -32,7 +31,7 @@ export const meta = {
       "The ink is a quiet text colour at low opacity, so it never competes with the content for contrast.",
     ],
   },
-  related: ["section-backdrop", "doodle", "versus-card", "landscape"],
+  related: ["section-backdrop", "doodle", "versus-card"],
   web: {
     imports: ["SpeedLines"],
     examples: [

@@ -16,8 +16,7 @@ export const meta = {
     "Any site of the family that should read as the same notebook as www.krizaka.com while keeping its own bird and its own accent.",
   ],
   whenNotToUse: [
-    { when: "A product's marketing page, with its own brand and theme.", use: "product-page" },
-    { when: "A plain landing page with no notebook identity.", use: "landing-page" },
+    { when: "A product's marketing page, or a plain landing page with no notebook identity.", use: "landing-page" },
   ],
   bestPractices: [
     "Adopt the language, not the layout: pick your own hero, your own featured pieces and your own rhythm — two tool sites must not look like one page with another name.",
