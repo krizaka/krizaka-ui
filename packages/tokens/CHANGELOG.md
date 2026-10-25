@@ -1,11 +1,5 @@
 # @krizaka/tokens
 
-## 3.55.0
-
-### Minor Changes
-
-- [#577](https://github.com/krizaka/krizaka-ui/pull/577) [`5546a4f`](https://github.com/krizaka/krizaka-ui/commit/5546a4fab8db5156da4f0f9f28302b60d7b1d449) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - `NavBar.Session`: the bar's « who is here » island for every product, over one contract — `GET /api/me` answers 200 `{ signedIn, signupOpen, account? }` with `Cache-Control: private, no-store` and `Vary: Cookie` (`meResponse`, `meHeaders`, `meSchema` from the server-safe `@krizaka/ui/nav-bar/me` entry); signed out is never a 401 and its schema rejects an account. It takes `ProductBarActions` and the account menu for the two states, uses `@krizaka/query` with the app's credential policy, and falls back to signed out even if a failed refetch leaves a cached account.
-
 ## 3.54.0
 
 No changes in this release.
