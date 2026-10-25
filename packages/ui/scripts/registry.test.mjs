@@ -167,9 +167,11 @@ describe("examples (registry/examples)", () => {
     expect(source.trimEnd().split("\n").length, `at most ${max} lines`).toBeLessThanOrEqual(max);
     expect(source).toContain("export default function");
     // @krizaka/query too: a server table or an infinite list reads its data the way a product does; zod: a form is a schema.
-    const allowed = platform === "web" ? /^(@krizaka\/ui(\/[a-z-]+)?|@krizaka\/query|react|zod)$/ : /^(@krizaka\/ui\/native(\/[a-z-]+)?|@krizaka\/query|react|react-native|react-native-svg|zod)$/;
+    const allowed = platform === "web" ? /^(@krizaka\/ui(\/[a-z-]+){0,2}|@krizaka\/query|react|zod)$/ : /^(@krizaka\/ui\/native(\/[a-z-]+)?|@krizaka\/query|react|react-native|react-native-svg|zod)$/;
     for (const [, specifier] of source.matchAll(/from\s+"([^"]+)"/g)) {
       expect(specifier, "an example imports what a product imports, never a relative path or Storybook").toMatch(allowed);
+      // …and only an entry the package publishes (a nested one too: `@krizaka/ui/app-header/search`).
+      if (specifier.startsWith("@krizaka/ui/")) expect(Object.keys(pkg.exports), `${specifier} is an export of package.json`).toContain(`.${specifier.slice("@krizaka/ui".length)}`);
     }
   });
 

@@ -59,7 +59,7 @@ export const PLANNED: Record<string, string> = {
   "media-gallery": "Akinaza's shop storefront: the business's own photos and clips.",
   agenda: "Akinaza's Today (the day's appointments with a « now » line), then Yomizaka's and Orazaka's day-bound lists (krizaka-ui#515).",
   "quota-meter": "Yomizaka's library quota and Akinaza's plan, then Orochia's storage meter, which this replaces (krizaka-ui#515).",
-  "app-header": "Orazaka's web client (the bar beside the rail: the name, the status chip, the account), then the other product apps.",
+  "app-header": "The family's top bar beside the rail (#640): Orochia's (search with ⌘K, language, messages, notifications with their counts, the account with its name), extracted here; Orazaka's web client, Yomizaka and Akinaza use the same bar.",
   "engine-flow": "krizaka.com's home: Orazaka at the hub and the products it powers (radial; top to bottom on a phone), and the Krizaka Motion tile of its open-source section; then the products' own « Powered by Orazaka » sections.",
   "chip-row": "Yomizaka's « Pour qui ? » audience picker (krizaka/yomizaka home redesign, AudiencePicker moves into it), then any page of filters that are addresses.",
   "meta-row": "The quiet line under a video's title in Orochia: quality, shape, duration, date, and an AI badge.",

@@ -429,6 +429,10 @@
       "types": "./dist/app-header.d.ts",
       "import": "./dist/app-header.js"
     },
+    "./app-header/search": {
+      "types": "./dist/app-header/search.d.ts",
+      "import": "./dist/app-header/search.js"
+    },
     "./opening-hours": {
       "types": "./dist/opening-hours.d.ts",
       "import": "./dist/opening-hours.js"
@@ -1782,7 +1786,17 @@
     {
       "name": "./app-header",
       "path": "dist/app-header.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./app-header/search",
+      "path": "dist/app-header/search.js",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

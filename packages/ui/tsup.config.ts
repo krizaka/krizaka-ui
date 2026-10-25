@@ -162,6 +162,8 @@ export default defineConfig([
       "media-gallery": "src/media-gallery/index.ts",
       // The skip link moves focus to its target.
       "skip-link": "src/skip-link/index.ts",
+      // The top bar's search trigger: its global ⌘K (the bar itself, ./app-header, stays server-safe).
+      "app-header/search": "src/app-header/search/index.ts",
     },
     banner: { js: '"use client";' },
   },
