@@ -149,6 +149,10 @@
       "types": "./dist/agenda.d.ts",
       "import": "./dist/agenda.js"
     },
+    "./quota-meter": {
+      "types": "./dist/quota-meter.d.ts",
+      "import": "./dist/quota-meter.js"
+    },
     "./alert": {
       "types": "./dist/alert.d.ts",
       "import": "./dist/alert.js"
@@ -859,7 +863,7 @@
     "@jest/globals": "30.4.1",
     "@krizaka/config": "workspace:*",
     "@krizaka/query": "workspace:*",
-    "@maplibre/maplibre-react-native": "11.4.0",
+    "@maplibre/maplibre-react-native": "11.5.0",
     "@react-native/babel-preset": "0.86.3",
     "@react-native/jest-preset": "0.86.3",
     "@shopify/flash-list": "2.3.3",
@@ -875,7 +879,7 @@
     "axe-core": "^4.14.0",
     "babel-jest": "30.4.1",
     "eslint": "^9.39.0",
-    "expect": "30.4.1",
+    "expect": "30.5.2",
     "expo-camera": "57.0.6",
     "expo-image-picker": "57.0.20",
     "expo-modules-core": "^57.0.21",
@@ -883,7 +887,7 @@
     "happy-dom": "^20.0.0",
     "jest": "30.4.2",
     "jest-environment-node": "30.4.1",
-    "maplibre-gl": "6.11.2",
+    "maplibre-gl": "6.15.0",
     "pdfjs-dist": "6.4.299",
     "publint": "^0.3.25",
     "react": "^19.2.0",
@@ -1186,6 +1190,13 @@
       ]
     },
     {
+      "name": "./quota-meter",
+      "path": "dist/quota-meter.js",
+      "limit": "2.3 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+    },
+    {
       "name": "./alert",
       "path": "dist/alert.js",
       "limit": "1 kB",
@@ -1261,7 +1272,7 @@
     {
       "name": "./tabs",
       "path": "dist/tabs.js",
-      "limit": "11.2 kB",
+      "limit": "11.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1301,7 +1312,7 @@
     {
       "name": "./checkbox",
       "path": "dist/checkbox.js",
-      "limit": "6 kB",
+      "limit": "6.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1311,7 +1322,7 @@
     {
       "name": "./radio-group",
       "path": "dist/radio-group.js",
-      "limit": "12.5 kB",
+      "limit": "12.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1391,7 +1402,7 @@
     {
       "name": "./nav-bar (Radix NavigationMenu, Slot, the family's marks)",
       "path": "dist/nav-bar.js",
-      "limit": "26.6 kB",
+      "limit": "27 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1558,7 +1569,7 @@
       "name": "./data-table: DataTable (TanStack Table v9, the windowing of TanStack Virtual, Radix Checkbox, the pagination)",
       "path": "dist/data-table.js",
       "import": "{ DataTable }",
-      "limit": "44 kB",
+      "limit": "45.9 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1569,7 +1580,7 @@
       "name": "./data-table: the toolbar (FilterBar on Radix DropdownMenu, SearchField, the columns menu, the export)",
       "path": "dist/data-table.js",
       "import": "{ DataTableFilters, DataTableColumnsMenu, DataTableExport }",
-      "limit": "42 kB",
+      "limit": "42.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1617,7 +1628,7 @@
     {
       "name": "./text-style",
       "path": "dist/text-style.js",
-      "limit": "41 kB",
+      "limit": "41.2 kB",
       "gzip": true
     },
     {
@@ -1687,7 +1698,7 @@
     {
       "name": "./video-player",
       "path": "dist/video-player.js",
-      "limit": "15 kB",
+      "limit": "15.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1737,7 +1748,7 @@
     {
       "name": "./image-cropper",
       "path": "dist/image-cropper.js",
-      "limit": "12.5 kB",
+      "limit": "12.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2213,7 +2224,7 @@
     {
       "name": "./code-block",
       "path": "dist/code-block.js",
-      "limit": "19.5 kB",
+      "limit": "19.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2775,7 +2786,7 @@
       "name": "./genui: GenUiStream (A2UI v0.9 validator, store, surface, base catalog with DataTable)",
       "path": "dist/genui.js",
       "import": "{ GenUiStream, baseGenUiCatalog }",
-      "limit": "50 kB",
+      "limit": "51.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2791,15 +2802,15 @@
     "@tanstack/highlight": "1.1.0",
     "@tanstack/markdown": "1.0.0",
     "@tanstack/react-form": "1.33.5",
-    "@tanstack/react-table": "9.2.8",
-    "@tanstack/react-virtual": "3.14.15",
+    "@tanstack/react-table": "9.3.1",
+    "@tanstack/react-virtual": "3.14.21",
     "@types/geojson": "7946.0.16",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "pmtiles": "4.5.0",
-    "radix-ui": "^1.7.0",
+    "radix-ui": "^1.8.1",
     "sonner": "^2.0.8",
     "tailwind-variants": "^3.3.1",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   }
 }
