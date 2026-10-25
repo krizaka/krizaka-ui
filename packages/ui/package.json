@@ -389,6 +389,10 @@
       "types": "./dist/video-player.d.ts",
       "import": "./dist/video-player.js"
     },
+    "./retro-tv": {
+      "types": "./dist/retro-tv.d.ts",
+      "import": "./dist/retro-tv.js"
+    },
     "./file-upload": {
       "types": "./dist/file-upload.d.ts",
       "import": "./dist/file-upload.js"
@@ -1683,6 +1687,16 @@
       "name": "./video-player",
       "path": "dist/video-player.js",
       "limit": "15.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./retro-tv",
+      "path": "dist/retro-tv.js",
+      "limit": "20 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
