@@ -39,12 +39,12 @@ chart.gridColor = values.dark.borderSubtle;  // "hsl(0 0% 100% / 0.06)"
 | Role | Tokens |
 | :-- | :-- |
 | Surfaces | `--kz-surface-0` page · `-1` card · `-2` raised, field, hover · `-3` active, chip, track · `--kz-media` |
-| Borders | `--kz-border-subtle` · `--kz-border-default` · `--kz-border-strong` |
-| Text | `--kz-text-primary` · `--kz-text-secondary` (≥ 4.5:1 on every surface) · `--kz-text-muted` (≥ 3:1) · `--kz-text-on-media` |
+| Borders | `--kz-border-subtle` · `--kz-border-default` · `--kz-border-strong` · `--kz-border-control` (a field, a checkbox, a switch) · `--kz-border-hover` (an interactive card) |
+| Text | `--kz-text-title` · `--kz-text-primary` · `--kz-text-secondary` (≥ 4.5:1 on every surface) · `--kz-text-muted` (≥ 3:1) · `--kz-text-on-media` |
 | Accent | `--kz-accent` · `--kz-accent-hover` · `--kz-accent-soft` · `--kz-accent-2` · `--kz-on-accent` · `--kz-ring` |
 | Status | `--kz-success` · `--kz-warning` · `--kz-danger` · `--kz-info` |
 | On a media | `--kz-scrim` · `--kz-scrim-strong` · `--kz-overlay` |
-| Shape and depth | `--kz-radius-{sm,md,lg,xl,full}` · `--kz-shadow-{sm,md,lg}` |
+| Shape and depth | `--kz-radius-{sm,md,lg,xl,full}` · `--kz-shadow-{sm,md,lg}` · `--kz-shadow-hover` · `--kz-density-{gap,pad}` · `--kz-control-row` |
 | Type | `--kz-font-display` · `--kz-font-text` (= `--kz-font-sans`) · `--kz-font-mono` · the scale `--kz-type-<step>-{size,line-height,weight,tracking}` — see [Typography](/foundations/typography) |
 | Motion | `--kz-ease` |
 
@@ -57,6 +57,36 @@ The focus ring is the keyboard's: 2 px `--kz-ring` (≥ 3:1, both themes), drawn
 shows no ring and no tap highlight, and an element that a page focuses by code (a heading or `main` with
 `tabindex="-1"` after a navigation) shows none either. Roving-tabindex items (they carry a `role`) keep their ring
 when the arrow keys reach them. A component never styles bare `:focus` / `focus:` with a ring; tests guard it.
+
+## Two registers: the Cahier and the product
+
+The tokens are **the Cahier by default**: paper, square corners (radius 2 / 0), the quiet hover. Krizaka's sites (www, the
+blog, this site, java., ts., motion) wear it.
+
+A **product** wears the calm register of ADR-006: set `data-surface="product"` on the root of the app (or its
+`.brand-<id>` class on `<html>` / `<body>`) and import `@krizaka/ui/blocks.css`. Nothing in a component changes; the roles
+do. A `.brand-<id>` wrapper inside a Cahier page only lends its accent.
+
+| | Cahier (sites) | Product register |
+| :-- | :-- | :-- |
+| Surfaces 0 / 1 / 2, light | slate-green paper tints | `#fbfbfa` / `#ffffff` / `#f4f4f2` |
+| Surfaces 0 / 1 / 2, dark | `hsl(150 12% 9.5%)`… | `#111318` / `#171a21` / `#1e222b` |
+| Ink, light (title · primary · secondary · muted) | steel-blue ink | `#222a3a` · `#242c3d` · `#576275` · `#646d80` |
+| Ink, dark | chalk | `#f3f5f9` · `#e8ebf1` · `#a9b1bf` · `#959eae` |
+| Hairlines (`subtle` / `default`) | 7–10 % / 12–17 % tints | 4 % / 8 % of the ink, translucent |
+| `--kz-border-control` | the strong border | `#7d8799` light · `#646d7e` dark, **≥ 3:1** on surfaces 0–2 |
+| Radius `xs` · `sm` · `md` · `lg` · `xl` · `2xl` | 2 · 2 · 2 · 0 · 0 · 0 | 4 · 8 · 8 · 14 · 14 · 14 |
+| An interactive card on hover | the hairline strengthens, nothing moves | the brand border (22 % / 30 %), a soft shadow, a 1 px lift in 150 ms |
+| Titles (`PageHeader`, `Stat`'s value) | the display face | 700, in `--kz-text-title` |
+
+- **Contrast is a test, per theme and per brand.** Text roles are ≥ 4.5:1 and the control border ≥ 3:1 on surfaces 0–2; the
+  muted ink is `#646d80` because the mockup's `#8c96a8` measures 2.9:1. A hairline is a decoration (1.16:1), so a field
+  never relies on it: fields, checkboxes and radios draw `border-control`.
+- **Only an interactive card moves** (a link or a button: `LinkCard`, `Card interactive`). A static card never does,
+  a button keeps its colour-only hover, and under `prefers-reduced-motion` nothing moves (the border and the shadow
+  still answer).
+- **Density.** `html[data-density="compact"]` tightens the control heights, `--kz-control-row`, `--kz-density-gap` and
+  `--kz-density-pad`.
 
 ## A product theme
 

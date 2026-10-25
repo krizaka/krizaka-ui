@@ -15,8 +15,11 @@
   --color-border-subtle: var(--kz-border-subtle);
   --color-border-default: var(--kz-border-default);
   --color-border-strong: var(--kz-border-strong);
+  --color-border-control: var(--kz-border-control); /* un champ, une case : ≥ 3:1 dans le registre produit */
+  --color-border-hover: var(--kz-border-hover); /* une carte interactive au survol */
 
   --color-fg: var(--kz-text-primary);
+  --color-fg-title: var(--kz-text-title); /* titre de page, valeur d'une statistique */
   --color-fg-secondary: var(--kz-text-secondary);
   --color-fg-muted: var(--kz-text-muted);
   --color-fg-on-media: var(--kz-text-on-media);
@@ -71,6 +74,7 @@
   --shadow-sm: var(--kz-shadow-sm);
   --shadow-md: var(--kz-shadow-md);
   --shadow-lg: var(--kz-shadow-lg);
+  --shadow-hover: var(--kz-shadow-hover);
   --shadow-xl: var(--kz-shadow-overlay);
   --shadow-2xl: var(--kz-shadow-overlay);
   /* la signature (BRAND.md §6) : ombres d'encre multi-couches, et la lueur de la marque sous ce qui agit — composée ici

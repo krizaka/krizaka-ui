@@ -16,14 +16,14 @@ export const chat = tv({
     dot: "h-[7px] w-[7px] rounded-full bg-fg-secondary motion-safe:animate-[kz-typing_1.2s_ease-in-out_infinite]",
     composer: "flex items-end gap-2 border-t border-border-subtle bg-surface-0 px-3 py-2",
     input:
-      "max-h-32 min-h-10 flex-1 resize-none rounded-2xl border border-border-default bg-surface-1 px-3.5 py-2.5 text-sm text-fg placeholder:text-fg-muted " +
+      "max-h-32 min-h-10 flex-1 resize-none rounded-2xl border border-border-control bg-surface-1 px-3.5 py-2.5 text-sm text-fg placeholder:text-fg-muted " +
       "focus-visible:border-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     send:
       "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-on-accent hover:bg-accent-hover focus-visible:outline-hidden " +
       "focus-visible:ring-2 focus-visible:ring-ring disabled:bg-surface-3 disabled:text-fg-muted [&>svg]:h-[18px] [&>svg]:w-[18px]",
     pillRoot: "flex w-full flex-col gap-2",
     pill:
-      "flex items-end gap-1.5 rounded-[1.75rem] border border-border-default bg-surface-1 py-1.5 pl-2 pr-1.5 transition-colors " +
+      "flex items-end gap-1.5 rounded-[1.75rem] border border-border-control bg-surface-1 py-1.5 pl-2 pr-1.5 transition-colors " +
       "focus-within:border-accent focus-within:ring-2 focus-within:ring-ring",
     pillLeading: "flex min-h-9 shrink-0 items-center gap-1 self-end",
     pillInput:

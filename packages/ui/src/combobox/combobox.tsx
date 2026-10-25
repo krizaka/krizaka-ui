@@ -16,7 +16,7 @@ export const combobox = tv({
     root: "relative flex w-full flex-col gap-1.5",
     label: "text-xs font-semibold text-fg-secondary",
     control:
-      "flex min-h-11 w-full flex-wrap items-center gap-1.5 rounded-lg border border-border-default bg-surface-2 py-1.5 pl-2 pr-1 text-sm text-fg " +
+      "flex min-h-11 w-full flex-wrap items-center gap-1.5 rounded-lg border border-border-control bg-surface-2 py-1.5 pl-2 pr-1 text-sm text-fg " +
       "transition-[border-color,box-shadow] focus-within:border-accent focus-within:ring-2 focus-within:ring-ring " +
       "data-[invalid]:border-danger data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
     input: "h-8 min-w-24 flex-1 bg-transparent px-1 text-sm text-fg outline-hidden placeholder:text-fg-muted disabled:cursor-not-allowed",

@@ -88,7 +88,7 @@
     {
       "name": "./tokens.css",
       "path": "dist/tokens.css",
-      "limit": "5 kB",
+      "limit": "5.4 kB",
       "gzip": true,
       "rolldown": false
     },
@@ -109,7 +109,7 @@
     {
       "name": ".",
       "path": "dist/index.js",
-      "limit": "4.2 kB",
+      "limit": "4.5 kB",
       "gzip": true
     },
     {
