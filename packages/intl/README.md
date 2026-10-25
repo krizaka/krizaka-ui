@@ -22,7 +22,24 @@ npm install @krizaka/intl
 ```
 
 Node ≥ 22 or any evergreen browser. ESM only. Sub-paths (`@krizaka/intl/money`, `/number`, `/date`, `/plural`) import
-one family; the root imports all of them (≈ 1.1 kB gzip).
+one family; the root imports all of them.
+
+### Hermes / missing Intl constructors
+
+When `Intl.PluralRules` or `Intl.RelativeTimeFormat` is absent (for example on Android Hermes), the corresponding
+getter returns a cached, dependency-free fallback instead. Native constructors, when present, are always used;
+their options and errors are unchanged. `Intl.NumberFormat` and `Intl.DateTimeFormat` are still required.
+
+- **Plurals:** unrounded cardinal rules for English (`one` for absolute 1) and French (`one` below absolute 2,
+  `many` for nonzero multiples of a million); non-finite counts and unsupported languages use `other`.
+  Plural options (including ordinal selection and digit rounding) are not applied by the fallback.
+- **Relative time:** long numeric English/French wording (`1 day ago`, `dans 2 jours`), even with `numeric: "auto"`
+  or `style: "short"` / `"narrow"`. Numbers use the requested locale's `Intl.NumberFormat`. Other languages use
+  English wording. All units, second through year (including quarter), work in both directions.
+- A locale list selects the first English or French entry for fallback rules/wording; no runtime default is used.
+- The getters' return types now include a minimal fallback: only **`select`** / **`format`** is guaranteed.
+  Check for a native-only method (e.g. `"resolvedOptions" in formatter`) before using it. These fallbacks are not
+  full Intl polyfills; install one in the app if complete locale, option or method support is needed.
 
 ## Functions
 
