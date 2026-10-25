@@ -45,3 +45,11 @@ export const api = createApiClient({
 | `secureStorage`, `browserStorage`, `discoveryStorage` | The storage port: Keychain / Keystore, the web preview, the manifest in pieces |
 | `createAppDiscovery` | Krizaka's manifest, keys and host allow-list plus the product's address; `EXPO_PUBLIC_APP_URL` wins for local work |
 | `createApiClient`, `ApiError` | JSON with the bearer, no cookie, a timeout, a 401 drops the session |
+| `@krizaka/app-client/react`: `createAuth`, `useSessionStatus`, `AUTH` | The auth context of an app's screens: `loading`, then `signedIn` / `signedOut`, followed when a session starts or ends (a 401 included); `signIn` / `signOut` are the product's API calls |
+
+```tsx
+import { createAuth } from "@krizaka/app-client/react";
+
+export const { AuthProvider, useAuth } = createAuth(session, { signIn: yomizaka.signIn, signOut: yomizaka.signOut });
+// in a screen: const { status, signIn, signOut } = useAuth();
+```
