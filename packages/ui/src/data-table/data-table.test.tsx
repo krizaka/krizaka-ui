@@ -1,6 +1,7 @@
 import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { Badge } from "../badge";
 import { axeViolations } from "../test/axe";
 import {
   compareValues,
@@ -323,6 +324,33 @@ describe("DataTable — typed columns and priorities (#222)", () => {
     await user.click(screen.getByRole("button", { name: "Show details of Llama 3.3" }));
     expect(screen.getByText("Notes on Llama 3.3")).toBeTruthy();
     expect(document.querySelectorAll("dl")).toHaveLength(1);
+  });
+
+  it("never scrolls sideways in cards, even with untyped columns, and lets the values wrap", () => {
+    const { container } = render(<DataTable caption="Videos" rows={rows} columns={columns} getRowId={(r) => r.id} layout="cards" />);
+    expect(container.querySelector("table")?.parentElement?.className).toContain("overflow-x-clip!");
+    expect(container.querySelector("td")?.className).toContain("[overflow-wrap:anywhere]");
+  });
+
+  it.each(["cards", "auto", "table"] as const)("only relaxes rendered badge constraints in %s card cells", (layout) => {
+    const status = "Awaiting the manager's approval for the requested publication";
+    const { container } = render(
+      <DataTable
+        caption="Videos"
+        rows={rows}
+        columns={[{ id: "status", header: "Status", cell: () => <Badge>{status}</Badge> }]}
+        getRowId={(r) => r.id}
+        layout={layout}
+      />,
+    );
+    const cell = container.querySelector("td")!;
+    expect(cell.querySelector("[data-tone]")?.textContent).toBe(status);
+    const prefix = layout === "auto" ? "@max-xl:" : "";
+    for (const utility of ["min-w-0", "shrink", "whitespace-normal"]) {
+      const rule = `${prefix}[&>*]:${utility}`;
+      if (layout === "table") expect(cell.className).not.toContain(rule);
+      else expect(cell.className).toContain(rule);
+    }
   });
 
   it("never scrolls sideways by default once columns are typed, and scrolls with fades only when asked", () => {
