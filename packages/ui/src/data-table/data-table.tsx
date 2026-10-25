@@ -28,6 +28,7 @@ import {
   type TableColumn,
   type TableRow,
 } from "./engine";
+import { useRouteTable } from "./use-route-table";
 
 export const dataTable = tv({
   slots: {
@@ -345,6 +346,13 @@ export type DataTableProps<T> = {
   /** Called with the new filters. */
   onFiltersChange?: (filters: DataTableFilterState) => void;
 
+  /**
+   * Keeps the sort, the filters and the page in the address (`?clients.sort=…&clients.page=2`): back and forward, a reload
+   * and a shared link all land on the same table. Replaces `sort`, `filters` and `page`; needs the router's adapter
+   * (`RouteStateProvider`) in a framework.
+   */
+  routeKey?: string;
+
   /** Adds a checkbox per row and one in the header. */
   selectable?: boolean;
   /** The ids selected (controlled). */
@@ -500,6 +508,7 @@ export function DataTable<T extends RowData>({
   caption,
   showCaption,
   sort: sortProp,
+  routeKey,
   defaultSort = null,
   onSortChange,
   filters: filtersProp,
@@ -555,31 +564,46 @@ export function DataTable<T extends RowData>({
   const typed = columns.some((c) => c.type || c.priority);
   const s = dataTable({ layout: L, density, sticky: Boolean(stickyHeader), striped: Boolean(striped), typed });
 
-  const [sort, setSort] = useControllable<DataTableSort>(sortProp, defaultSort, onSortChange);
-  const [filters, setFiltersState] = useControllable<DataTableFilterState>(filtersProp, defaultFilters, onFiltersChange);
+  const route = useRouteTable(routeKey, { sort: defaultSort, page: defaultPage, filters: defaultFilters }, columns.map((c) => c.id));
+  const [sort, setSort] = useControllable<DataTableSort>(route ? route.sort : sortProp, defaultSort, route?.onSortChange ?? onSortChange);
+  const [filters, setFiltersState] = useControllable<DataTableFilterState>(route ? route.filters : filtersProp, defaultFilters, route?.onFiltersChange ?? onFiltersChange);
   const [selected, setSelected] = useControllable<readonly string[]>(selectedProp, defaultSelected, onSelectedChange as (next: readonly string[]) => void);
   const [groupBy, setGroupBy] = useControllable<readonly string[]>(groupByProp, defaultGroupBy, onGroupByChange as (next: readonly string[]) => void);
   const [visibility, setVisibility] = useControllable<Readonly<Record<string, boolean>>>(visibilityProp, defaultColumnVisibility, onColumnVisibilityChange as (next: Readonly<Record<string, boolean>>) => void);
   const [expanded, setExpanded] = useControllable<Readonly<Record<string, boolean>>>(expandedProp, defaultExpanded, onExpandedChange as (next: Readonly<Record<string, boolean>>) => void);
   const paginated = pageSizeProp !== undefined || defaultPageSize !== undefined;
   const [pageSize, setPageSize] = useControllable<number>(pageSizeProp, defaultPageSize ?? Number.POSITIVE_INFINITY, onPageSizeChange);
-  const [page, setPage] = useControllable<number>(pageProp, defaultPage, onPageChange);
+  const [page, setPage] = useControllable<number>(route ? route.page : pageProp, defaultPage, route?.onPageChange ?? onPageChange);
   const [sizing, setSizing] = React.useState<Record<string, number>>({});
   const [resizeState, setResizeState] = React.useState<ColumnResizingState | undefined>(undefined);
 
+  const announced = React.useRef(JSON.stringify([defaultSort, defaultFilters, paginated ? defaultPage : 1, paginated ? pageSize : null]));
   // One place announces the server's query: after any change of sort, filters, page or page size.
-  const announce = (next: Partial<DataTableQuery>) =>
-    onStateChange?.({ sort, filters, page: paginated ? page : 1, pageSize: paginated ? pageSize : Number.POSITIVE_INFINITY, ...next });
+  const announce = (next: Partial<DataTableQuery>) => {
+    const query = { sort, filters, page: paginated ? page : 1, pageSize: paginated ? pageSize : Number.POSITIVE_INFINITY, ...next };
+    if (route) announced.current = JSON.stringify([query.sort, query.filters, query.page, paginated ? query.pageSize : null]);
+    onStateChange?.(query);
+  };
+  // In the address (routeKey), the sort or the filters reset the page in the same navigation: no second write.
   const changeSort = (next: DataTableSort) => {
     setSort(next);
-    if (paginated && page !== 1) setPage(1);
+    if (paginated && page !== 1 && !route) setPage(1);
     announce({ sort: next, page: 1 });
   };
   const changeFilters = (next: DataTableFilterState) => {
     setFiltersState(next);
-    if (paginated && page !== 1) setPage(1);
+    if (paginated && page !== 1 && !route) setPage(1);
     announce({ filters: next, page: 1 });
   };
+  // The address can change under the table (back, forward, a shared link): the server is told the query it now shows,
+  // once — a change the table made itself was announced already. A first visit on the defaults says nothing.
+  const routeQuery = route ? JSON.stringify([route.sort, route.filters, paginated ? route.page : 1, paginated ? pageSize : null]) : null;
+  React.useEffect(() => {
+    if (routeQuery === null || routeQuery === announced.current) return;
+    announced.current = routeQuery;
+    announce({});
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only a change of the address's query announces
+  }, [routeQuery]);
   const changePage = (next: number) => {
     setPage(next);
     announce({ page: next });
