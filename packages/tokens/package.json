@@ -33,6 +33,7 @@
       "import": "./dist/index.js"
     },
     "./tokens.css": "./dist/tokens.css",
+    "./appearance.css": "./dist/appearance.css",
     "./brands/krizaka.css": "./dist/brands/krizaka.css",
     "./brands/orazaka.css": "./dist/brands/orazaka.css",
     "./brands/orochia.css": "./dist/brands/orochia.css",
@@ -64,7 +65,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./brands/krizaka.css ./brands/orazaka.css ./brands/orochia.css ./brands/yasakia.css ./brands/yazakia.css ./brands/yororis.css ./brands/yomizaka.css ./brands/kachizaka.css ./brands/akinaza.css ./brands/scoped.css",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./appearance.css ./brands/krizaka.css ./brands/orazaka.css ./brands/orochia.css ./brands/yasakia.css ./brands/yazakia.css ./brands/yororis.css ./brands/yomizaka.css ./brands/kachizaka.css ./brands/akinaza.css ./brands/scoped.css",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
@@ -109,13 +110,13 @@
     {
       "name": ".",
       "path": "dist/index.js",
-      "limit": "4.7 kB",
+      "limit": "5.2 kB",
       "gzip": true
     },
     {
       "name": "./native",
       "path": "dist/native.js",
-      "limit": "2.7 kB",
+      "limit": "3 kB",
       "gzip": true
     }
   ]

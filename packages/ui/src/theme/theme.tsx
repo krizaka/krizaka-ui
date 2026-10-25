@@ -8,6 +8,8 @@ export type Mode = "dark" | "light" | "system";
 
 const MODE_KEY = "kz-theme";
 const NAME_KEY = "kz-theme-name";
+const ACCENT_KEY = "kz-accent";
+const DENSITY_KEY = "kz-density";
 const MODES: readonly Mode[] = ["dark", "light", "system"];
 const DARK_QUERY = "(prefers-color-scheme: dark)";
 
@@ -78,7 +80,7 @@ export function ThemeScript({ nonce, defaultMode = "system" }: ThemeScriptProps)
   const js =
     `(function(){try{var m=localStorage.getItem("${MODE_KEY}");if(m!=="dark"&&m!=="light"&&m!=="system")m="${fallback}";` +
     `var n=localStorage.getItem("${NAME_KEY}");var d=matchMedia("${DARK_QUERY}").matches;var c=document.documentElement.classList;` +
-    `c.toggle("light",m==="light"||(m==="system"&&!d));if(n)c.add("theme-"+n)}catch(e){}})()`;
+    `c.toggle("light",m==="light"||(m==="system"&&!d));if(n)c.add("theme-"+n);var a=localStorage.getItem("${ACCENT_KEY}");if(a)document.documentElement.setAttribute("data-accent",a);var y=localStorage.getItem("${DENSITY_KEY}");if(y)document.documentElement.setAttribute("data-density",y)}catch(e){}})()`;
   return <script nonce={nonce} dangerouslySetInnerHTML={{ __html: js }} />;
 }
 
@@ -197,4 +199,58 @@ export function ThemeToggle({ label, variant = "ghost", shape, className, ...pro
       </svg>
     </button>
   );
+}
+
+/** The choices of the Appearance block (ADR-006 §4): the theme (`system · light · dark`, then a surface set), the accent, the density. */
+export type AppearanceState = {
+  /** `system`, `light`, `dark`, or the surface set (`blueprint`, `carbone`) — which is dark. */
+  themeId: string;
+  setThemeId: (id: string) => void;
+  /** A brand's accent (`data-accent` on `<html>`), or null: the product's own. */
+  accent: string | null;
+  setAccent: (accent: string | null) => void;
+  /** `standard` or `compact` (`data-density` on `<html>`, the token layer: rows and gaps one step down). */
+  density: string;
+  setDensity: (density: string) => void;
+};
+
+function applyAttribute(name: string, value: string | null) {
+  if (value === null) document.documentElement.removeAttribute(name);
+  else document.documentElement.setAttribute(name, value);
+}
+
+/**
+ * The state of the Appearance block, applied at once and kept in the browser (`kz-theme`, `kz-theme-name`, `kz-accent`,
+ * `kz-density`; `ThemeScript` restores them before paint). A product with an account also saves what `onChange` of the block
+ * reports, so the choice follows the person. Needs a `ThemeProvider`.
+ * @param surfaceSets the themes that are a dark surface set (default `blueprint`, `carbone`)
+ */
+export function useAppearance(surfaceSets: readonly string[] = ["blueprint", "carbone"]): AppearanceState {
+  const { mode, setMode, theme, setTheme } = useTheme();
+  const accent = React.useSyncExternalStore(subscribe, () => read(ACCENT_KEY), () => null);
+  const density = React.useSyncExternalStore(subscribe, () => read(DENSITY_KEY), () => null) ?? "standard";
+  const themeId = theme && surfaceSets.includes(theme) && mode === "dark" ? theme : mode;
+  const setThemeId = React.useCallback(
+    (id: string) => {
+      if (surfaceSets.includes(id)) {
+        setMode("dark");
+        setTheme(id);
+      } else {
+        setTheme(null);
+        setMode(id as Mode);
+      }
+    },
+    [setMode, setTheme, surfaceSets],
+  );
+  const setAccent = React.useCallback((next: string | null) => {
+    applyAttribute("data-accent", next);
+    write(ACCENT_KEY, next);
+    notify();
+  }, []);
+  const setDensity = React.useCallback((next: string) => {
+    applyAttribute("data-density", next === "standard" ? null : next);
+    write(DENSITY_KEY, next === "standard" ? null : next);
+    notify();
+  }, []);
+  return { themeId, setThemeId, accent, setAccent, density, setDensity };
 }

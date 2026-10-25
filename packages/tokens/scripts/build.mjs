@@ -16,6 +16,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { appearanceCss, appearanceModule, compileAppearance, parseColor } from "./appearance.mjs";
 import { parseHsl, toNative } from "./color.mjs";
 
 /** Source files, in output order. */
@@ -251,7 +252,7 @@ export function typeScale(sources) {
  * Builds every output from the sources.
  * @param {Record<string, unknown>} sources
  */
-export function compile(sources, brandSources = {}) {
+export function compile(sources, brandSources = {}, appearanceSource = null) {
   const tokens = flatten(sources);
   const { resolve, target } = resolver(tokens);
   const themed = tokens.filter((t) => t.light !== undefined || isAlias(t.dark));
@@ -480,13 +481,24 @@ export declare const marks: { readonly [B in BrandId]: readonly MarkStop[] };\n`
   // Every frozen constant is pure: a bundler drops the ones an app does not import (a mark needs `marks`, not `themes`).
   /** @param {string} js */
   const pure = (js) => js.replaceAll("Object.freeze(", "/* @__PURE__ */ Object.freeze(");
+  const appearance = appearanceSource && brands.ids.length ? compileAppearance(appearanceSource, brands.values) : null;
+  const appearanceMod = appearance ? appearanceModule(appearance) : { js: "", dts: "" };
+  // The same data for React Native: hex colours, the brands' native families.
+  const appearanceNative = appearance
+    ? {
+        ...appearance,
+        themes: appearance.themes.map((/** @type {any} */ t) => ({ ...t, preview: t.preview && Object.fromEntries(Object.entries(t.preview).map(([k, v]) => [k, toNative(parseColor(v))])) })),
+        accents: appearance.accents.map((/** @type {any} */ a) => ({ id: a.id, ...brands.native[a.id] })),
+      }
+    : null;
   /** @type {Record<string, string>} */
   const files = {
     "tokens.css": tokensCss,
-    "index.js": pure(indexJs + brandsJs),
-    "index.d.ts": indexDts + brandsDts,
-    "native.js": pure(nativeJs + brandsNativeJs),
-    "native.d.ts": nativeDts + brandsNativeDts,
+    "index.js": pure(indexJs + brandsJs + appearanceMod.js),
+    "index.d.ts": indexDts + brandsDts + appearanceMod.dts,
+    "native.js": pure(nativeJs + brandsNativeJs + (appearanceNative ? `\n/** Appearance (ADR-006 §4): the themes with their miniature's colours, the accents per theme, what each reads on, the densities. */\nexport const appearance = Object.freeze(${json(appearanceNative)});\n` : "")),
+    "native.d.ts": nativeDts + brandsNativeDts + (appearance ? `\n${appearanceMod.dts.replace(/export type AppearanceThemeId[\s\S]*?export declare const appearance: \{[\s\S]*?\n\};\n/, nativeAppearanceDts(appearance))}` : ""),
+    ...(appearance ? { "appearance.css": appearanceCss(appearanceSource, appearance) } : {}),
     ...brands.css,
   };
   return { tokens, brands: brands.ids, files };
@@ -603,9 +615,36 @@ export function write(files, outDir) {
   }
 }
 
+/**
+ * Reads the appearance source (`src/appearance/appearance.json`).
+ * @param {string} dir
+ */
+export function loadAppearance(dir) {
+  return JSON.parse(readFileSync(join(dir, "appearance.json"), "utf8"));
+}
+
+/** The declarations of the native `appearance`: the same themes, accents as native brand themes. @param {any} data */
+function nativeAppearanceDts(data) {
+  /** @param {unknown} o */
+  const json = (o) => JSON.stringify(o);
+  return `export type AppearanceThemeId = ${data.themes.map((/** @type {{ id: string }} */ t) => json(t.id)).join(" | ")};
+export type AppearanceDensity = ${data.densities.map((/** @type {string} */ d) => json(d)).join(" | ")};
+export interface AppearancePreview { readonly surface0: string; readonly surface1: string; readonly surface2: string; readonly text: string; readonly muted: string }
+export interface AppearanceTheme { readonly id: AppearanceThemeId; readonly base: "system" | "light" | "dark"; readonly required?: true; readonly preview: AppearancePreview | null }
+export interface AppearanceAccent extends BrandTheme { readonly id: BrandId }
+/** Appearance (ADR-006 §4): the themes with their miniature's colours, the accents per theme, what each reads on, the densities. */
+export declare const appearance: {
+  readonly themes: readonly AppearanceTheme[];
+  readonly accents: readonly AppearanceAccent[];
+  readonly passes: { readonly [B in BrandId]: readonly AppearanceThemeId[] };
+  readonly densities: readonly AppearanceDensity[];
+};
+`;
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-  const { tokens, brands, files } = compile(load(join(root, "src/tokens")), loadBrands(join(root, "src/brands")));
+  const { tokens, brands, files } = compile(load(join(root, "src/tokens")), loadBrands(join(root, "src/brands")), loadAppearance(join(root, "src/appearance")));
   write(files, join(root, "dist"));
   console.log(`@krizaka/tokens: ${tokens.length} tokens, ${brands.length} brands → dist/{${Object.keys(files).join(",")}}`);
 }
