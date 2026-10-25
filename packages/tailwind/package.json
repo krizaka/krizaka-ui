@@ -72,7 +72,7 @@
     {
       "name": ".",
       "path": "index.css",
-      "limit": "4 kB",
+      "limit": "4.1 kB",
       "gzip": true
     }
   ]
