@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/query",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Server state for every Krizaka app: TanStack Query v5 with the Krizaka defaults, a typed fetch that reads RFC 9457 Problem Details, typed query keys, live invalidation from a realtime stream, App Router hydration and an offline persister for Expo.",
   "keywords": [
     "krizaka",
