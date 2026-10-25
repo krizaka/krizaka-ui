@@ -529,6 +529,22 @@
       "types": "./dist/taped-photo.d.ts",
       "import": "./dist/taped-photo.js"
     },
+    "./speed-lines": {
+      "types": "./dist/speed-lines.d.ts",
+      "import": "./dist/speed-lines.js"
+    },
+    "./grade-stamp": {
+      "types": "./dist/grade-stamp.d.ts",
+      "import": "./dist/grade-stamp.js"
+    },
+    "./versus-card": {
+      "types": "./dist/versus-card.d.ts",
+      "import": "./dist/versus-card.js"
+    },
+    "./site-cahier": {
+      "types": "./dist/site-cahier.d.ts",
+      "import": "./dist/site-cahier.js"
+    },
     "./elephant": {
       "types": "./dist/elephant.d.ts",
       "import": "./dist/elephant.js"
@@ -2139,16 +2155,6 @@
       ]
     },
     {
-      "name": "./doodle",
-      "path": "dist/doodle.js",
-      "limit": "1.2 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./signature",
       "path": "dist/signature.js",
       "limit": "1.2 kB",
@@ -2162,6 +2168,56 @@
       "name": "./taped-photo",
       "path": "dist/taped-photo.js",
       "limit": "0.6 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./doodle",
+      "path": "dist/doodle.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./speed-lines",
+      "path": "dist/speed-lines.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./grade-stamp",
+      "path": "dist/grade-stamp.js",
+      "limit": "19.4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./versus-card",
+      "path": "dist/versus-card.js",
+      "limit": "7 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./site-cahier",
+      "path": "dist/site-cahier.js",
+      "limit": "18 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2183,7 +2239,10 @@
       "path": "dist/elephant.js",
       "limit": "1.4 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
     },
     {
       "name": "./flock",
