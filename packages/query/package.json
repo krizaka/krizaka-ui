@@ -92,7 +92,7 @@
     "publint": "^0.3.25",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-native": "^0.88.0",
+    "react-native": "^0.86.3",
     "size-limit": "^14.2.0",
     "tsup": "^9.0.0",
     "typescript": "^5.9.0",

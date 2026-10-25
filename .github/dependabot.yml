@@ -49,6 +49,13 @@ updates:
       # the Expo SDK pins its own toolchain: the native kit is tested on the SDK the apps run (57) — krizaka-ui#662
       - dependency-name: "expo-*"
         update-types: ["version-update:semver-major"]
+      # …and React Native with it: SDK 57 pins react-native 0.86 and its Babel 7 toolchain (0.88 breaks the native kit's types) — #662
+      - dependency-name: "react-native"
+        versions: [">=0.87"]
+      - dependency-name: "@react-native/*"
+        versions: [">=0.87"]
+      - dependency-name: "@babel/core"
+        versions: [">=8"]
     commit-message:
       prefix: "chore(deps)"
       prefix-development: "chore(deps-dev)"

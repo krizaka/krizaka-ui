@@ -97,7 +97,9 @@ describe("createApiClient", () => {
   it("fails like a network error when the server does not answer in time", async () => {
     const hang = ((_: string, init: RequestInit) => new Promise((_, reject) => init.signal?.addEventListener("abort", () => reject(new DOMException("aborted", "AbortError"))))) as unknown as typeof fetch;
     const { api } = client(hang, "tok", 10);
-    await expect(api.call("/x")).rejects.toThrow(new TypeError("Yomizaka did not answer in time"));
+    const failure = await api.call("/x").catch((error: unknown) => error);
+    expect(failure).toEqual(new TypeError("Yomizaka did not answer in time"));
+    expect((failure as Error).cause).toBeDefined();
   });
 
   it("rejects as cancelled when the caller aborts", async () => {
