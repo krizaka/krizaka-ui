@@ -9,6 +9,7 @@ import PolaroidExample from "../../registry/examples/wall/polaroid";
 import RidgeExample from "../../registry/examples/wall/ridge";
 import ShopSignExample from "../../registry/examples/wall/shop-sign";
 import ZelligeExample from "../../registry/examples/wall/zellige";
+import { Wall } from "./index";
 
 const meta = { title: "Blocks/Wall", tags: ["wall"], parameters: { layout: "fullscreen", noOverflow: true } } satisfies Meta;
 export default meta;
@@ -26,3 +27,6 @@ export const Plaster: Story = { render: () => <PlasterExample /> };
 export const Polaroid: Story = { render: () => <PolaroidExample /> };
 export const PinnedNote: Story = { render: () => <PinnedNoteExample /> };
 export const ShopSign: Story = { render: () => <ShopSignExample /> };
+export const ShopSignLongWord: Story = {
+  render: () => <Wall texture="plaster" height={360} itemWidth={220} items={[{ id: "sign", kind: "sign", x: 50, y: 50, z: 1, logo: "Neighbourhood workshop" }]} />,
+};

@@ -192,4 +192,28 @@ describe("wall objects", () => {
     fireEvent.focus(container.firstElementChild!);
     expect(await axeViolations(container)).toEqual([]);
   });
+
+  it("fits a shop sign's text to its width instead of cutting or hyphenating a word", () => {
+    const css = readFileSync("src/blocks.css", "utf8").split("/* ─── Wall:")[1]!.split("/* ─── Page:")[0]!;
+    const sign = css.split(".kz-shop-sign {")[1]!.split("}")[0]!;
+    const logo = css.split(".kz-shop-sign-logo {")[1]!.split("}")[0]!;
+    expect(sign).toContain("container-type: inline-size");
+    expect(sign).toContain("overflow-wrap: normal");
+    expect(sign).not.toMatch(/hyphens:\s*auto|overflow-wrap:\s*(anywhere|break-word)/);
+    expect(logo).toMatch(/font:\s*min\(1\.75rem,\s*\d+cqi\)/);
+    expect(logo).toContain("overflow-wrap: normal");
+    render(<Wall itemWidth={220} items={[{ id: "s", kind: "sign", x: 50, y: 50, z: 1, logo: "Neighbourhood workshop" }]} />);
+    expect(screen.getByText("Neighbourhood workshop").className).toContain("kz-shop-sign-logo");
+  });
+
+  it("paints a white Polaroid frame in both themes, and keeps every wall rank above the decoration", () => {
+    const css = readFileSync("src/blocks.css", "utf8").split("/* ─── Wall:")[1]!.split("/* ─── Page:")[0]!;
+    const frame = css.split(".kz-polaroid.kz-taped, :root:not(.light) .kz-polaroid.kz-taped {")[1]!.split("}")[0]!;
+    expect(frame).toMatch(/--kz-print:\s*hsl\(0 0% 100%\)/);
+    expect(frame).toContain("padding-bottom");
+    expect(css).toMatch(/\.kz-wall-decoration\s*\{[^}]*z-index:\s*-1/);
+    render(<Wall texture="brick" items={[{ ...items[0]!, z: -50 }, { ...items[1]!, z: -3 }]} />);
+    const ranks = screen.getAllByRole("listitem").filter((li) => li.classList.contains("kz-wall-item")).map((li) => Number(li.style.zIndex));
+    expect(ranks.every((rank) => rank >= 0)).toBe(true);
+  });
 });

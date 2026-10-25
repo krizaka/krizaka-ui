@@ -59,6 +59,8 @@
   box-shadow: 1px 2px 0 var(--kz-scrim);
 }
 .kz-polaroid { box-sizing: border-box; min-width: 0; overflow-wrap: anywhere; }
+/* A Polaroid's frame is white paper in both themes (a print does not follow the page's dark), wider under the photo. */
+.kz-polaroid.kz-taped, :root:not(.light) .kz-polaroid.kz-taped { --kz-print: hsl(0 0% 100%); --kz-print-ink: hsl(215 35% 22%); padding-bottom: clamp(10px, 2vw, 20px); }
 .kz-polaroid .kz-taped-picture { overflow: visible; }
 .kz-polaroid.kz-taped[data-tape="top"]::before { transform: rotate(var(--kz-wall-attachment-rotation, 0deg)); }
 .kz-polaroid-photo { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--kz-surface-2); }
@@ -75,7 +77,9 @@
 }
 .kz-pinned-note-text { margin: 0; font: 1rem/1.6 var(--kz-font-sans); white-space: pre-wrap; }
 .kz-pinned-note-signature { margin: 1rem 0 0; text-align: end; font: 1.2rem/1.3 var(--kz-font-cahier); }
-.kz-shop-sign { padding: 1.75rem; text-align: center; font: 1.75rem/1.25 var(--kz-font-display); overflow-wrap: break-word; hyphens: auto; } /* a long name hyphenates, never cut anywhere */
+/* The sign is its own size container: its text scales to its width (cqi of the content box), so a long name fits whole — a word is never cut or hyphenated. */
+.kz-shop-sign { container-type: inline-size; padding: 1.75rem; text-align: center; overflow-wrap: normal; hyphens: manual; word-break: normal; }
+.kz-shop-sign-logo { font: min(1.75rem, 12cqi)/1.25 var(--kz-font-display); overflow-wrap: normal; }
 .kz-shop-sign-logo > :is(img, svg) { max-width: 100%; height: auto; }
 .kz-shop-sign[data-variant="enamel"] {
   background: var(--kz-surface-0); border: 3px double var(--kz-accent-text); border-radius: .35rem;
