@@ -114,6 +114,8 @@ export const dataTable = tv({
     striped: { true: {}, false: {} },
     // Typed columns: one height per row (`typed`); untyped tables keep the height of their content.
     typed: { true: {}, false: {} },
+    // What a row becomes on a phone (under 36 rem, or with `layout="cards"`): a card, or a list row (#636).
+    phone: { cards: {}, list: {} },
   },
   compoundVariants: [
     { layout: "table", sticky: true, class: { th: "sticky top-(--dt-top,0px) z-[3] bg-surface-2" } },
@@ -125,8 +127,36 @@ export const dataTable = tv({
     { layout: "auto", density: "comfortable", typed: true, class: { td: "@xl:h-15" } },
     { layout: "table", density: "compact", typed: true, class: { td: "h-12" } },
     { layout: "auto", density: "compact", typed: true, class: { td: "@xl:h-12" } },
+    // The list rows (#636): no box in the box, no label/value lines — the checkbox, the title and its line of facts, the
+    // status at the end, a hairline between rows. Each cell says its place in `data-list` (title · status · away).
+    {
+      layout: "auto",
+      phone: "list",
+      class: {
+        tbody: "@max-xl:gap-0 @max-xl:p-0",
+        tr:
+          "@max-xl:flex @max-xl:items-center @max-xl:gap-3 @max-xl:rounded-none @max-xl:border-0 @max-xl:border-b @max-xl:border-border-subtle @max-xl:bg-transparent " +
+          "@max-xl:px-4 @max-xl:py-3 @max-xl:last:border-b-0",
+        td:
+          "@max-xl:block @max-xl:text-left @max-xl:before:content-none @max-xl:data-[list=title]:min-w-0 @max-xl:data-[list=title]:flex-1 " +
+          "@max-xl:data-[list=status]:shrink-0 @max-xl:data-[list=away]:hidden @max-xl:data-[card=message]:w-full",
+        select: "@max-xl:relative @max-xl:right-auto @max-xl:top-auto @max-xl:z-[1] @max-xl:shrink-0 @max-xl:self-center",
+        expander: "@max-xl:relative @max-xl:z-[1] @max-xl:shrink-0",
+      },
+    },
+    {
+      layout: "cards",
+      phone: "list",
+      class: {
+        tbody: "gap-0 p-0",
+        tr: "flex items-center gap-3 rounded-none border-0 border-b border-border-subtle bg-transparent px-4 py-3 last:border-b-0",
+        td: "block text-left before:content-none data-[list=title]:min-w-0 data-[list=title]:flex-1 data-[list=status]:shrink-0 data-[list=away]:hidden data-[card=message]:w-full",
+        select: "relative right-auto top-auto z-[1] shrink-0 self-center",
+        expander: "relative z-[1] shrink-0",
+      },
+    },
   ],
-  defaultVariants: { layout: "auto", density: "comfortable", sticky: false, striped: false, typed: false },
+  defaultVariants: { layout: "auto", density: "comfortable", sticky: false, striped: false, typed: false, phone: "cards" },
 });
 
 // Column priorities. `priority: 1` (default) is always in the row; a higher number leaves the row when the table's own
@@ -166,6 +196,15 @@ const PANEL: ByLayout = {
   table: { 2: "hidden @max-2xl:block", 3: "hidden @max-3xl:block", 4: "hidden @max-4xl:block", 5: "hidden @max-5xl:block", 6: "hidden @max-6xl:block", 7: "hidden @max-7xl:block" },
   cards: { 2: "hidden", 3: "block", 4: "block", 5: "block", 6: "block", 7: "block" },
 };
+
+// The list rows (`phone="list"`): the facts line under the title, the columns that go to the row's detail (every
+// priority-1 column that is neither the title nor a status), the button and the panel that show them, the title's link
+// stretched over the row.
+const LIST_FACTS = { auto: "hidden @max-xl:mt-0.5 @max-xl:block @max-xl:truncate text-xs font-normal text-fg-secondary", table: "hidden", cards: "mt-0.5 block truncate text-xs font-normal text-fg-secondary" } as const;
+const LIST_IN_DETAIL = { auto: "hidden @max-xl:grid", table: "hidden", cards: "grid" } as const;
+const LIST_TOGGLE = { auto: "@max-xl:inline-flex", table: "", cards: "inline-flex" } as const;
+const LIST_PANEL = { auto: "@max-xl:block", table: "", cards: "block" } as const;
+const LIST_LINK = { auto: "@max-xl:after:absolute @max-xl:after:inset-0 @max-xl:after:content-['']", table: "", cards: "after:absolute after:inset-0 after:content-['']" } as const;
 
 export type DataTableColumnType = "title" | "badge" | "number" | "link" | "date" | "status" | "text";
 
@@ -238,12 +277,13 @@ export type DataTableColumn<T> = {
   type?: DataTableColumnType;
   /**
    * 1 (default) always in the row; 2 to 7 leave it when the table is narrower than 42 · 48 · 56 · 64 · 72 · 80 rem and
-   * go to the row's detail (a chevron opens it); under 36 rem (cards) 2 stays on the card, 3+ go to its detail.
+   * go to the row's detail (a chevron opens it); under 36 rem (cards) 2 stays on the card, 3+ go to its detail. In the phone's
+   * list rows (`phone="list"`), the 2s are joined as the line of facts under the title.
    */
   priority?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
   /** `title`: the line under the name (an id), in mono. */
   subtitle?: (row: T) => React.ReactNode;
-  /** `link`: where the value leads. */
+  /** `link`: where the value leads. `title`: the row's page — the name becomes its link (the whole row, in the phone's list rows). */
   href?: (row: T) => string | undefined;
   /** `number`: the unit after the value (muted). */
   unit?: string;
@@ -427,6 +467,13 @@ export type DataTableProps<T> = {
 
   /** `auto` (default): a table, cards below 36rem of container width. `table` or `cards` to force one. */
   layout?: "auto" | "table" | "cards";
+  /**
+   * What a row becomes on a phone (under 36 rem, or always with `layout="cards"`): `cards` (a card per row, its values
+   * labelled) or `list` — a list row: the selection's checkbox, the `title` column with its `priority: 2` columns joined as
+   * one line of facts, the `status` / `badge` column at the end; the other columns in the row's detail.
+   * @default "cards"
+   */
+  phone?: "cards" | "list";
   /** comfortable (default) · compact — one row height per density. */
   density?: "comfortable" | "compact";
   /** The header stays at the top of the window while the page scrolls (`--dt-top` on the table, or a number of px, clears a fixed bar). */
@@ -547,6 +594,7 @@ export function DataTable<T extends RowData>({
   error,
   empty,
   layout = "auto",
+  phone = "cards",
   density,
   stickyHeader,
   striped,
@@ -562,7 +610,8 @@ export function DataTable<T extends RowData>({
   const effectiveLayout = virtualized ? "table" : layout;
   const L = effectiveLayout;
   const typed = columns.some((c) => c.type || c.priority);
-  const s = dataTable({ layout: L, density, sticky: Boolean(stickyHeader), striped: Boolean(striped), typed });
+  const list = phone === "list" && L !== "table";
+  const s = dataTable({ layout: L, density, sticky: Boolean(stickyHeader), striped: Boolean(striped), typed, phone: list ? "list" : "cards" });
 
   const route = useRouteTable(routeKey, { sort: defaultSort, page: defaultPage, filters: defaultFilters }, columns.map((c) => c.id));
   const [sort, setSort] = useControllable<DataTableSort>(route ? route.sort : sortProp, defaultSort, route?.onSortChange ?? onSortChange);
@@ -618,7 +667,18 @@ export function DataTable<T extends RowData>({
   // Columns that can leave the row: their lines go to the row's detail, opened by a chevron in the first cell.
   const priorityOf = (column: DataTableColumn<T>): 1 | Priority => (column.priority && column.priority > 1 ? (column.priority as Priority) : 1);
   const maxPriority = columns.reduce<1 | Priority>((max, column) => (priorityOf(column) > max ? priorityOf(column) : max), 1);
-  const inlineToggle = maxPriority > 1 && !hasExpander;
+  // The list rows' places: the title (the `title` column, else the first), the status at the end, the facts (the 2s) under
+  // the title, and the rest away, in the row's detail.
+  const titleColumn = columns.find((c) => c.card === "title" || (!c.card && c.type === "title")) ?? columns[0];
+  const placeOf = (column: DataTableColumn<T>): "title" | "status" | "facts" | "away" | "hidden" => {
+    if (column.card === "hidden") return "hidden";
+    if (column === titleColumn) return "title";
+    if (column.type === "status" || column.type === "badge") return "status";
+    return priorityOf(column) === 2 ? "facts" : "away";
+  };
+  const listAway = list ? columns.filter((c) => placeOf(c) === "away" && priorityOf(c) === 1) : [];
+  const facts = list ? columns.filter((c) => placeOf(c) === "facts") : [];
+  const inlineToggle = (maxPriority > 1 || listAway.length > 0) && !hasExpander;
   const detailed = Boolean(renderDetail) || inlineToggle;
   const defs = React.useMemo<ColumnDef<typeof features, T>[]>(
     () =>
@@ -764,11 +824,18 @@ export function DataTable<T extends RowData>({
     switch (column.type) {
       case "title": {
         const sub = column.subtitle?.(original);
+        const href = column.href?.(original);
         return (
           <span className="block min-w-0">
-            <span className={cn("block font-semibold text-fg", cut)} title={text}>
-              {text}
-            </span>
+            {href ? (
+              <a href={href} className={cn("block font-semibold text-fg no-underline hover:underline focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring", cut, list && LIST_LINK[L])} title={text}>
+                {text}
+              </a>
+            ) : (
+              <span className={cn("block font-semibold text-fg", cut)} title={text}>
+                {text}
+              </span>
+            )}
             {sub ? <span className={cn("block font-mono text-xs text-fg-tertiary", cut)}>{sub}</span> : null}
           </span>
         );
@@ -804,6 +871,13 @@ export function DataTable<T extends RowData>({
     }
   };
 
+  // A group's row keeps its value as the title and its aggregates; a facts column is away (its value is in the title's line).
+  const listPlace = (row: TableRow<T> | null, column: DataTableColumn<T>) => {
+    if (row?.getIsGrouped()) return row.groupingColumnId === column.id ? "title" : column.aggregate ? "status" : "away";
+    const place = placeOf(column);
+    return place === "facts" || place === "hidden" ? "away" : place;
+  };
+
   const dataCell = (row: TableRow<T>, cell: TableCell<T>, first: boolean) => {
     const column = byId.get(cell.column.id);
     if (!column) return null;
@@ -822,12 +896,27 @@ export function DataTable<T extends RowData>({
       } else content = column.aggregate ? column.aggregate(leaves) : null;
     } else {
       content = contentOf(column, row.original);
+      if (list && column === titleColumn && facts.length > 0) {
+        content = (
+          <span className="block min-w-0">
+            {content}
+            <span data-facts="" className={LIST_FACTS[L]}>
+              {facts.map((c, i) => (
+                <React.Fragment key={c.id}>
+                  {i > 0 ? <span aria-hidden>{" · "}</span> : null}
+                  {contentOf(c, row.original)}
+                </React.Fragment>
+              ))}
+            </span>
+          </span>
+        );
+      }
       if (first && inlineToggle) {
         content = (
           <span className="flex min-w-0 items-center gap-1">
             <button
               type="button"
-              className={s.toggle({ className: TOGGLE[L][maxPriority as Priority] })}
+              className={s.toggle({ className: cn(maxPriority > 1 ? TOGGLE[L][maxPriority as Priority] : "hidden", listAway.length > 0 && LIST_TOGGLE[L], list && "relative z-[1]") })}
               aria-expanded={row.getIsExpanded()}
               aria-label={labels.showMore(nameOf(row))}
               onClick={row.getToggleExpandedHandler()}
@@ -853,7 +942,8 @@ export function DataTable<T extends RowData>({
         role="cell"
         key={cell.id}
         data-label={column.header}
-        data-card={row.getIsGrouped() ? (cell.column.id === row.groupingColumnId ? "title" : column.aggregate ? undefined : "hidden") : cardOf(column)}
+        data-card={list ? (placeOf(column) === "hidden" ? "hidden" : undefined) : row.getIsGrouped() ? (cell.column.id === row.groupingColumnId ? "title" : column.aggregate ? undefined : "hidden") : cardOf(column)}
+        data-list={list ? listPlace(row, column) : undefined}
         {...pinnedProps}
         className={s.td({ className: cellClass })}
         style={{
@@ -903,18 +993,21 @@ export function DataTable<T extends RowData>({
     );
     // One Fragment keyed by the row either way: opening a row keeps its button (and the focus on it).
     if (!showDetail) return <React.Fragment key={row.id}>{main}</React.Fragment>;
-    const left = visibleColumns.filter((c) => priorityOf(byId.get(c.id) as DataTableColumn<T>) > 1);
+    const left = visibleColumns.filter((c) => {
+      const column = byId.get(c.id) as DataTableColumn<T>;
+      return priorityOf(column) > 1 || listAway.includes(column);
+    });
     return (
       <React.Fragment key={row.id}>
         {main}
         <tr role="row" className={s.tr({ className: "hover:bg-transparent" })}>
           <td role="cell" colSpan={span} data-card="message" className={s.td({ className: renderDetail ? s.detail() : "bg-surface-0 p-0 text-left" })}>
             {left.length > 0 ? (
-              <dl className={cn("m-0 grid gap-3 text-left", renderDetail ? "mb-4" : cn("px-4 py-4", PANEL[L][maxPriority as Priority]))}>
+              <dl className={cn("m-0 grid gap-3 text-left", renderDetail ? "mb-4" : cn("px-4 py-4", maxPriority > 1 ? PANEL[L][maxPriority as Priority] : "hidden", listAway.length > 0 && LIST_PANEL[L]))}>
                 {left.map((c) => {
                   const column = byId.get(c.id) as DataTableColumn<T>;
                   return (
-                    <div key={c.id} className={cn(IN_DETAIL[L][priorityOf(column) as Priority], "grid-cols-[minmax(5rem,8rem)_minmax(0,1fr)] items-baseline gap-3")}>
+                    <div key={c.id} className={cn(listAway.includes(column) ? LIST_IN_DETAIL[L] : IN_DETAIL[L][priorityOf(column) as Priority], "grid-cols-[minmax(5rem,8rem)_minmax(0,1fr)] items-baseline gap-3")}>
                       <dt className="text-xs font-semibold text-fg-secondary">{column.header}</dt>
                       <dd className="m-0 min-w-0 text-sm text-fg">{contentOf(column, row.original)}</dd>
                     </div>
@@ -936,7 +1029,7 @@ export function DataTable<T extends RowData>({
         {selectable && <td role="cell" className={s.td({ className: s.select() })} />}
         {hasExpander && <td role="cell" className={s.td({ className: s.expander() })} />}
         {visibleColumns.map((column) => (
-          <td role="cell" key={column.id} data-card={cardOf(byId.get(column.id))} className={s.td()}>
+          <td role="cell" key={column.id} data-card={list ? undefined : cardOf(byId.get(column.id))} data-list={list ? listPlace(null, byId.get(column.id) as DataTableColumn<T>) : undefined} className={s.td()}>
             <div className={s.skeleton()} />
           </td>
         ))}

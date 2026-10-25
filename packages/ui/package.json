@@ -1587,7 +1587,7 @@
       "name": "./data-table: the toolbar (FilterBar on Radix DropdownMenu, SearchField, the columns menu, the export)",
       "path": "dist/data-table.js",
       "import": "{ DataTableFilters, DataTableColumnsMenu, DataTableExport }",
-      "limit": "42.3 kB",
+      "limit": "42.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
