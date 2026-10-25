@@ -4,11 +4,14 @@
 import type * as React from "react";
 import { tv } from "tailwind-variants";
 
+import { ProfileBanner } from "../profile-card/banner";
+
 export const detailLayout = tv({
   slots: {
     root: "flex w-full flex-col gap-6",
     back: "inline-flex w-fit items-center gap-1.5 rounded-md text-sm font-medium text-fg-secondary no-underline hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     header: "flex flex-col gap-4 border-b border-border-subtle pb-5 sm:flex-row sm:items-start",
+    banner: "border-b border-border-subtle pb-5",
     media: "shrink-0 overflow-hidden rounded-xl [&>img]:block [&>img]:h-full [&>img]:w-full [&>img]:object-cover",
     text: "flex min-w-0 flex-1 flex-col gap-2",
     eyebrow: "font-mono text-[11px] font-semibold text-fg-accent",
@@ -26,8 +29,13 @@ const s = detailLayout();
 export type DetailLayoutProps = Omit<React.ComponentProps<"div">, "title"> & {
   /** The way back to the list: your router's link (`<Link href="/videos">Videos</Link>`), drawn with its arrow. */
   back?: React.ReactNode;
-  /** A thumbnail, a cover or an avatar beside the name. */
+  /** A thumbnail, a cover or an avatar beside the name; with `cover`, the avatar overlapping the cover. */
   media?: React.ReactNode;
+  /**
+   * A person's or a place's page (a client, a shop, a creator): the header becomes a `ProfileBanner` — this cover (an
+   * `<img alt="">`, or `true` for a tint of the brand's accent), `media` as the avatar overlapping it, then the name and the actions.
+   */
+  cover?: React.ReactNode;
   /** A mono line above the name (the object's kind, its id). */
   eyebrow?: React.ReactNode;
   /** The object's name: the `h1`. */
@@ -47,22 +55,26 @@ export type DetailLayoutProps = Omit<React.ComponentProps<"div">, "title"> & {
 };
 
 /** One object's page: header (back, media, name, status, facts, actions), tabs, content and a side panel. */
-export function DetailLayout({ back, media, eyebrow, title, status, meta, actions, tabs, aside, className, children, ...props }: DetailLayoutProps) {
+export function DetailLayout({ back, media, cover, eyebrow, title, status, meta, actions, tabs, aside, className, children, ...props }: DetailLayoutProps) {
   return (
     <div className={s.root({ className })} {...props}>
       {back && <div className={s.back()}>{back}</div>}
-      <div className={s.header()}>
-        {media && <div className={s.media()}>{media}</div>}
-        <div className={s.text()}>
-          {eyebrow && <p className={s.eyebrow()}>{eyebrow}</p>}
-          <div className={s.titleRow()}>
-            <h1 className={s.title()}>{title}</h1>
-            {status}
+      {cover ? (
+        <ProfileBanner className={s.banner()} banner={cover === true ? undefined : cover} avatar={media} eyebrow={eyebrow} title={title} status={status} meta={meta} actions={actions} />
+      ) : (
+        <div className={s.header()}>
+          {media && <div className={s.media()}>{media}</div>}
+          <div className={s.text()}>
+            {eyebrow && <p className={s.eyebrow()}>{eyebrow}</p>}
+            <div className={s.titleRow()}>
+              <h1 className={s.title()}>{title}</h1>
+              {status}
+            </div>
+            {meta && <div className={s.meta()}>{meta}</div>}
           </div>
-          {meta && <div className={s.meta()}>{meta}</div>}
+          {actions && <div className={s.actions()}>{actions}</div>}
         </div>
-        {actions && <div className={s.actions()}>{actions}</div>}
-      </div>
+      )}
       {tabs}
       <div className={aside ? s.columns() : undefined}>
         <div className={s.main()}>{children}</div>

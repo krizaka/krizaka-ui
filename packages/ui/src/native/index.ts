@@ -98,7 +98,7 @@ export { PermissionPrompt, type PermissionPromptProps, type PermissionStatus } f
 export { Phoenix, type PhoenixProps } from "./phoenix";
 export { type GridPhoto, PhotoGrid, type PhotoGridLabels, type PhotoGridProps } from "./photo-grid";
 export { ProductMark } from "./ProductMark";
-export { ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
+export { ProfileBanner, type ProfileBannerProps, ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
 export { Progress, type ProgressProps } from "./progress";
 export { BrandedRefresh, type BrandedRefreshProps, type BrandedRefreshScrollProps, PullToRefresh, type PullToRefreshProps } from "./pull-to-refresh";
 export { RadioGroup, type RadioGroupProps, type RadioOption } from "./radio-group";
