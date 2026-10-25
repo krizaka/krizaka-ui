@@ -58,7 +58,7 @@ async function giveBack(store: EventStore, id: string, handlerError: unknown): P
   try {
     await store.forget?.(id);
   } catch (cleanupError) {
-    throw new AggregateError([handlerError, cleanupError], `the handler of ${id} failed, and giving its id back failed too: the id stays recorded`);
+    throw new AggregateError([handlerError, cleanupError], `the handler of ${id} failed, and giving its id back failed too: the id stays recorded`, { cause: cleanupError });
   }
 }
 
