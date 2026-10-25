@@ -12,6 +12,8 @@ export default defineConfig({
       { find: /^@krizaka\/ui$/, replacement: `${src}/index.ts` },
       { find: /^@krizaka\/ui\/cn$/, replacement: `${src}/cn.ts` },
       { find: /^@krizaka\/ui\/([a-z-]+)$/, replacement: `${src}/$1/index.ts` },
+      // A nested entry (`@krizaka/ui/app-header/search`): its own folder with an index.
+      { find: /^@krizaka\/ui\/([a-z-]+)\/([a-z-]+)$/, replacement: `${src}/$1/$2/index.ts` },
     ],
   },
   test: { environment: "happy-dom", globals: true, testTimeout: 15_000, exclude: [...configDefaults.exclude, "src/native/**"] },

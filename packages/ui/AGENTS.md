@@ -91,7 +91,7 @@
   `./page` ≤ 1.25 kB (3.36: `paper`, `margin`, `number`), `./page-hero` ≤ 1.2 kB, `./argument-card`, `./action-bar` ≤ 1.4 kB, the Cahier's blocks (ADR-004) `./anatomy-plate`, `./footnote` ≤ 1 kB, `./specimen-tag`, `./page-index` ≤ 1.2 kB, `./chapter` ≤ 1.5 kB (three blocks), `./bird-plate` ≤ 5.8 kB (the birds' geometry), `./mascot-quote` ≤ 5 kB (the bird's
   geometry; 3.2: the merge engine told the material's utilities), `./code-block` ≤ 19.5 kB (Radix Tabs for `CodeTabs`, TanStack Highlight and its grammars), `./markdown` ≤ 17 kB (TanStack Markdown; its code blocks are `./code-block`), `./recipes` ≤ 3 kB. The layouts: `./dashboard-layout`, `./settings-layout`,
   `./detail-layout`, `./split-view`, `./marketing-layout`, `./docs-layout` ≤ 1 kB, `./docs-nav` ≤ 1.2 kB, `./auth-layout`, `./settings-layout` ≤ 1.2 kB,
-  `./app-shell` ≤ 18 kB (Radix Dialog for the drawer, as `./dialog`; the desktop window form and `acceleratorOf`, +0.12 kB). The storytelling kit (its styles are `story.css`, not counted):
+  `./app-shell` ≤ 18 kB (Radix Dialog for the drawer, as `./dialog`; the desktop window form and `acceleratorOf`, +0.12 kB). The family's top bar: `./app-header` ≤ 1.5 kB (server-safe: the slots and `AppHeaderCount`) and `./app-header/search` ≤ 1.5 kB (client: the ⌘K trigger, a nested entry in its own folder, #640). The storytelling kit (its styles are `story.css`, not counted):
   `./profile-card`, `./stage-banner`, `./goal-gauge`, `./promise-card` ≤ 1 kB, `./scroll-stage`, `./achievement` ≤ 1.2 kB,
   `./continue-prompt` ≤ 4 kB (it draws `Button`), `./choice-grid` ≤ 1.6 kB (its roving focus), `./landscape` ≤ 8 kB (the valley's geometry).
   The page templates ≤ 1.5 kB each (the blocks they import through the package's own entries are not counted).

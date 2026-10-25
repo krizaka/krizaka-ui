@@ -28,6 +28,7 @@ export { ActionSheet, type ActionSheetAction, type ActionSheetProps } from "./ac
 export { ActivityFeed, type ActivityFeedLabels, type ActivityFeedProps } from "./activity-feed";
 export { type ActivityEvent, type ActivityTone } from "./activity-feed";
 export { AkinazaMark } from "./AkinazaMark";
+export { AppHeader, AppHeaderCount, type AppHeaderCountProps, type AppHeaderProps, AppHeaderSearch, type AppHeaderSearchProps } from "./app-header";
 export { Avatar, AvatarGroup, type AvatarGroupProps, type AvatarProps, AvatarRoot, type AvatarSize } from "./avatar";
 export { Badge, type BadgeProps, type BadgeTone } from "./badge";
 export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, IconButton, type IconButtonProps } from "./button";
