@@ -196,3 +196,34 @@ describe("the product register: where it applies", () => {
     expect(renderToStaticMarkup(<CardRoot />)).not.toContain("data-interactive");
   });
 });
+
+// ADR-006 §2, krizaka-ui#670 — the faces: Plus Jakarta Sans for a product's titles, the Cahier keeps Young Serif.
+describe("the product register: the faces (#670)", () => {
+  const typography = JSON.parse(readFileSync(join(import.meta.dirname, "..", "..", "tokens", "src", "tokens", "typography.tokens.json"), "utf8")) as {
+    type: Record<string, { size: { $value: string } }>;
+  };
+  const displaySteps = Object.keys(typography.type).filter((k) => k.startsWith("display-"));
+
+  it("points the display role at the product face, and leaves the code face, the pen and the sans alone", () => {
+    expect(decl("--kz-font-display")).toBe("var(--kz-font-product-display)");
+    const declarations = registerRule.body.replace(/\/\*[\s\S]*?\*\//g, "");
+    expect(declarations).not.toContain("--kz-font-cahier:");
+    expect(declarations).not.toContain("--kz-font-sans:");
+    expect(declarations).not.toContain("--kz-font-mono:");
+  });
+
+  it.each(displaySteps)("%s: −0.015 em from 24 px, −0.022 em from 40 px, at 550 or 650 (never 800)", (step) => {
+    const size = Number.parseFloat(typography.type[step]!.size.$value);
+    expect(size).toBeGreaterThanOrEqual(24);
+    expect(decl(`--kz-type-${step}-tracking`)).toBe(size >= 40 ? "-0.022em" : "-0.015em");
+    expect(["550", "650"]).toContain(decl(`--kz-type-${step}-weight`));
+  });
+
+  it("never sets the product face on a Cahier root: only the register's rule mentions it", () => {
+    expect(css.match(/--kz-font-display:\s*var\(--kz-font-product-display\)/g)).toHaveLength(1);
+  });
+
+  it("keeps the code face the system monospace under a brand root, as before", () => {
+    expect(css).toMatch(/--kz-font-mono: ui-monospace, "SF Mono"/);
+  });
+});
