@@ -42,7 +42,8 @@ describe("sites — the Krizaka family", () => {
     }
     expect(siteById("ui").kind).toBe("open-source");
     expect(siteById("java").repo).toBe("https://github.com/krizaka/krizaka-build");
-    expect(siteById("ts")).toMatchObject({ kind: "open-source", status: "released", url: "https://ts.krizaka.com", repo: "https://github.com/krizaka/krizaka-ts" });
+    // Its full name, never « Krizaka TS » (#585).
+    expect(siteById("ts")).toMatchObject({ name: "Krizaka TypeScript", kind: "open-source", status: "released", url: "https://ts.krizaka.com", repo: "https://github.com/krizaka/krizaka-ts" });
     // The motion lab: Krizaka UI's motion played live, built in the open (GitHub Pages).
     expect(siteById("motion")).toMatchObject({ kind: "open-source", group: "open-source", status: "development", url: "https://krizaka.github.io/krizaka-motion", repo: "https://github.com/krizaka/krizaka-motion" });
   });
