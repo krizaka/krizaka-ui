@@ -47,6 +47,12 @@ test("every component says why it is there: a product uses it, a planned work ne
   }
 });
 
+test("the explained-figure blocks have planned-adoption inventory entries", () => {
+  for (const name of ["kpi-explained", "next-actions", "glossary", "glossary-term"]) {
+    assert.ok(PLANNED[name]?.trim().length >= 10, `${name}: planned adoption reason`);
+  }
+});
+
 test("the inventory lists no component that is gone, and no component twice over", () => {
   const names = new Set(items.map((item) => item.name));
   for (const name of [...Object.keys(PLANNED), ...Object.keys(RETIRED)]) assert.ok(names.has(name), `${name} is in lib/ui-inventory.ts but not in the registry`);

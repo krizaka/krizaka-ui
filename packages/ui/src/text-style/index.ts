@@ -1,0 +1,32 @@
+/** @krizaka/ui/text-style — `TextStylePicker` (the control), `StyledText`, `textStyleProps`, `parseTextStyle` and the value's types. Client ("use client"); a server imports `@krizaka/ui/text-style/server`. */
+export { StyledText, type StyledTextProps } from "./styled-text";
+export {
+  type Align,
+  aligns,
+  bodyTextRatio,
+  type Case,
+  cases,
+  contrastRatio,
+  defaultTextStyle,
+  type FontId,
+  fontIds,
+  fontWeights,
+  isLargeText,
+  largeTextRatio,
+  type Leading,
+  leadings,
+  parseColor,
+  parseTextStyle,
+  requiredContrast,
+  type SizeStep,
+  sizeSteps,
+  type TextStyle,
+  textStyleProps,
+  type TextWeight,
+  textWeights,
+  type ToneId,
+  toneIds,
+  type Tracking,
+  trackings,
+} from "./text-style";
+export { type TextStyleField, textStyleFields, type TextStyleLabels, textStyleLabels, textStyleLabelsFr, TextStylePicker, type TextStylePickerProps, type TextStylePreset } from "./text-style-picker";
