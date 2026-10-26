@@ -62,6 +62,8 @@ export default defineConfig([
       // The « development version » band, driven by the deployment's stage.
       "environment-notice": "src/environment-notice/index.ts",
       "margin-layout": "src/margin-layout/index.ts",
+      // The blocks of a « Credits & usage » page.
+      usage: "src/usage/index.ts",
       alert: "src/alert/index.ts",
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",

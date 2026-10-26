@@ -161,6 +161,10 @@
       "types": "./dist/margin-layout.d.ts",
       "import": "./dist/margin-layout.js"
     },
+    "./usage": {
+      "types": "./dist/usage.d.ts",
+      "import": "./dist/usage.js"
+    },
     "./alert": {
       "types": "./dist/alert.d.ts",
       "import": "./dist/alert.js"
@@ -1240,6 +1244,13 @@
       "limit": "1 kB",
       "gzip": true,
       "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+    },
+    {
+      "name": "./usage",
+      "path": "dist/usage.js",
+      "limit": "5 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui", "@krizaka/intl"]
     },
     {
       "name": "./environment-notice",

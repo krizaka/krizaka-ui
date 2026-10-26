@@ -180,6 +180,7 @@ export type ComponentName =
   | "split-view"
   | "stage-banner"
   | "stat"
+  | "usage"
   | "status-page"
   | "step-progress"
   | "stepper"
