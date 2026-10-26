@@ -1,0 +1,24 @@
+Confirm your Krizaka address
+
+Krizaka
+
+
+CONFIRM YOUR ADDRESS
+
+Open the link below to confirm your address and activate your Krizaka account. It is valid for 24 hours.
+
+Confirm my address https://www.example.com/en/verify-email?token=example
+
+If you didn't create an account, ignore this email: nothing is activated without this link.
+
+----------------------------------------
+
+Oussama
+
+Founder, Krizaka
+
+You receive this email because this address was used to create an account.
+
+Privacy https://www.krizaka.com/privacy · Contact https://www.krizaka.com/contact
+
+Sent by Technologies Krizaka Inc., Montréal (Québec), Canada.

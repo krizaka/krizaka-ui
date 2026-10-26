@@ -115,5 +115,32 @@
     "body": "Vous avez demandé une copie de vos données. Elle est prête à télécharger pendant {days} jours, puis elle est supprimée.",
     "button": "Télécharger mes données",
     "why": "Vous recevez ce courriel parce qu'une copie de vos données a été demandée."
+  },
+  "confirmEmail": {
+    "subject": "Confirmez votre adresse {brand}",
+    "preheader": "Un clic pour activer votre compte. Le lien est valable {hours} heures.",
+    "heading": "Confirmez votre adresse",
+    "body": "Ouvrez le lien ci-dessous pour confirmer votre adresse et activer votre compte {brand}. Il est valable {hours} heures.",
+    "button": "Confirmer mon adresse",
+    "ignore": "Si vous n'avez pas créé de compte, ignorez ce courriel : rien n'est activé sans ce lien.",
+    "why": "Vous recevez ce courriel parce que cette adresse a servi à créer un compte."
+  },
+  "passwordReset": {
+    "subject": "Réinitialisez votre mot de passe {brand}",
+    "preheader": "Un seul usage, valable {minutes} minutes.",
+    "heading": "Réinitialisez votre mot de passe",
+    "body": "Utilisez le bouton ci-dessous pour choisir un nouveau mot de passe pour votre compte {brand}. Le lien ne sert qu'une fois et reste valable {minutes} minutes.",
+    "button": "Choisir un nouveau mot de passe",
+    "ignore": "Si vous ne l'avez pas demandé, ignorez ce courriel : votre mot de passe reste tel quel.",
+    "why": "Vous recevez ce courriel parce qu'une réinitialisation du mot de passe a été demandée pour cette adresse."
+  },
+  "emailChange": {
+    "subject": "Confirmez votre nouvelle adresse {brand}",
+    "preheader": "Le changement s'applique à l'ouverture du lien. Valable {hours} heures.",
+    "heading": "Confirmez votre nouvelle adresse",
+    "body": "Vous avez demandé à utiliser cette adresse pour votre compte {brand}. Ouvrez le lien ci-dessous pour confirmer le changement. Il est valable {hours} heures.",
+    "button": "Confirmer le changement",
+    "ignore": "Si ce n'était pas vous, ignorez ce courriel : l'adresse du compte reste telle quelle.",
+    "why": "Vous recevez ce courriel parce que cette adresse a été donnée comme nouvelle adresse d'un compte."
   }
 }

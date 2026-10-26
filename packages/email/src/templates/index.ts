@@ -1,4 +1,4 @@
-import { accountDeletion, commentReply, dataExport, signInLink } from "./accounts";
+import { accountDeletion, commentReply, confirmEmail, dataExport, emailChange, passwordReset, signInLink } from "./accounts";
 import { contactAutoreply, contactNotification } from "./contact";
 import { newPost, newsletterConfirm, newsletterUnsubscribed, newsletterWelcome } from "./newsletter";
 
@@ -14,6 +14,9 @@ export const templates = {
   commentReply,
   accountDeletion,
   dataExport,
+  confirmEmail,
+  passwordReset,
+  emailChange,
 } as const;
 
 export type TemplateId = keyof typeof templates;

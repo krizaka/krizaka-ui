@@ -4,7 +4,7 @@ import { Button, FallbackLink, Heading, Quote, Signature, Text } from "../compon
 import { useEmail } from "../context";
 import { baseSchema, httpsUrl, line, text } from "../schema";
 import { defineTemplate } from "../template";
-import { BRAND_NAMES } from "../theme";
+import { BRAND_NAMES, type BrandId } from "../theme";
 
 /** The sign-in link: one use, short life. */
 export const signInLink = defineTemplate({
@@ -104,4 +104,71 @@ export const dataExport = defineTemplate({
     );
   },
   example: { downloadUrl: "https://blog.krizaka.com/api/account/export?t=example" },
+});
+
+type Say = (key: string, vars?: Record<string, string | number>) => string;
+interface LinkEmailKeys {
+  subject: string;
+  preheader: string;
+  heading: string;
+  body: string;
+  button: string;
+  ignore: string;
+  why: string;
+}
+
+/** An account email with one button: heading, body, the button, the link again in small, and a line for whoever did not ask. */
+function linkEmail<S extends z.ZodType<{ brand: BrandId }>>(spec: { keys: LinkEmailKeys; schema: S; link: (p: z.output<S>) => string; ttl: (p: z.output<S>) => Record<string, number>; example: z.input<S> }) {
+  const { keys, schema, link, ttl, example } = spec;
+  return defineTemplate({
+    category: "transactional",
+    schema,
+    subject: (p, t) => (t as Say)(keys.subject, { brand: BRAND_NAMES[p.brand] }),
+    preheader: (p, t) => (t as Say)(keys.preheader, ttl(p)),
+    why: (_p, t) => (t as Say)(keys.why),
+    Body: (p) => {
+      const { t, theme } = useEmail();
+      const say = t as Say;
+      return (
+        <>
+          <Heading>{say(keys.heading)}</Heading>
+          <Text>{say(keys.body, { brand: theme.name, ...ttl(p) })}</Text>
+          <Button href={link(p)}>{say(keys.button)}</Button>
+          <FallbackLink href={link(p)} />
+          <Text muted small>
+            {say(keys.ignore)}
+          </Text>
+          <Signature />
+        </>
+      );
+    },
+    example,
+  });
+}
+
+/** The address of a new account is confirmed by opening a link: nothing is active before it. */
+export const confirmEmail = linkEmail({
+  keys: { subject: "confirmEmail.subject", preheader: "confirmEmail.preheader", heading: "confirmEmail.heading", body: "confirmEmail.body", button: "confirmEmail.button", ignore: "confirmEmail.ignore", why: "confirmEmail.why" },
+  schema: baseSchema.extend({ confirmUrl: httpsUrl, hours: z.number().int().min(1).max(168).default(24) }),
+  link: (p) => p.confirmUrl,
+  ttl: (p) => ({ hours: p.hours }),
+  example: { confirmUrl: "https://www.example.com/en/verify-email?token=example" },
+});
+
+/** A password reset link: one use, short life; whoever did not ask ignores it and nothing changes. */
+export const passwordReset = linkEmail({
+  keys: { subject: "passwordReset.subject", preheader: "passwordReset.preheader", heading: "passwordReset.heading", body: "passwordReset.body", button: "passwordReset.button", ignore: "passwordReset.ignore", why: "passwordReset.why" },
+  schema: baseSchema.extend({ resetUrl: httpsUrl, minutes: z.number().int().min(5).max(1440).default(30) }),
+  link: (p) => p.resetUrl,
+  ttl: (p) => ({ minutes: p.minutes }),
+  example: { resetUrl: "https://www.example.com/en/reset-password?token=example" },
+});
+
+/** The link sent to the NEW address of an account that asked to change it: the change is applied when it is opened. */
+export const emailChange = linkEmail({
+  keys: { subject: "emailChange.subject", preheader: "emailChange.preheader", heading: "emailChange.heading", body: "emailChange.body", button: "emailChange.button", ignore: "emailChange.ignore", why: "emailChange.why" },
+  schema: baseSchema.extend({ confirmUrl: httpsUrl, hours: z.number().int().min(1).max(168).default(24) }),
+  link: (p) => p.confirmUrl,
+  ttl: (p) => ({ hours: p.hours }),
+  example: { confirmUrl: "https://www.example.com/en/confirm-email?token=example" },
 });
