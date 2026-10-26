@@ -1,5 +1,6 @@
 import { act, render, screen } from "@testing-library/react";
 
+import { EmbedFacade } from "../embed-facade";
 import { axeViolations } from "../test/axe";
 import { RetroTv } from "./index";
 
@@ -113,3 +114,27 @@ describe("RetroTv", () => {
     vi.unstubAllGlobals();
   });
 });
+
+describe("RetroTv with a platform's reel (krizaka-ui#605)", () => {
+  it("shows an EmbedFacade on its screen instead of the player, and loads nothing from the platform before the click", async () => {
+    const { container } = render(
+      <RetroTv title="Latest reel" channel="CH 3">
+        <EmbedFacade platform="youtube-shorts" url="https://www.youtube.com/shorts/abcDEF_-123" title="Latest reel" playLabel="Load YouTube and play" />
+      </RetroTv>,
+    );
+    expect(container.querySelector(".kz-rtv-screen .kz-embed")).toBeTruthy();
+    expect(container.querySelector("video")).toBeNull();
+    expect(container.querySelector("iframe")).toBeNull();
+    expect(screen.getByRole("button", { name: "Load YouTube and play" })).toBeTruthy();
+    expect(container.querySelector("style")?.textContent).toContain(".kz-rtv-screen .kz-embed{height:100%");
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("is no longer deprecated: Akinaza's shop pages use it", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    render(<RetroTv title="Story" src="/story.mp4" />);
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
+  });
+});
+

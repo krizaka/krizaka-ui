@@ -256,6 +256,8 @@ export default defineConfig([
       "search-field": "src/search-field/index.ts",
       "video-player": "src/video-player/index.ts",
       "retro-tv": "src/retro-tv/index.ts",
+      // A platform's short video behind a click (Law 25); fits a RetroTv's screen.
+      "embed-facade": "src/embed-facade/index.ts",
       "vertical-video": "src/vertical-video/index.ts",
       "file-upload": "src/file-upload/index.ts",
       "media-capture": "src/media-capture/index.ts",

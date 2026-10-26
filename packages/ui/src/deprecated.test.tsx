@@ -14,15 +14,17 @@ const SRC = import.meta.dirname;
 const SITE = join(SRC, "..", "..", "..", "apps", "site");
 const EXAMPLES = join(SRC, "..", "registry", "examples");
 
-/** Showcase and effects (9), data views (2), engagement (4), web media editors (3), web lifecycle screens (3), page templates (4). */
+/** Showcase and effects (8; RetroTv came back for Akinaza's shop pages, krizaka-ui#605), data views (2), engagement (4), web media editors (3), web lifecycle screens (3), page templates (4). */
 const WEB_ENTRIES = [
-  "terminal-replay", "showcase", "retro-tv", "pointer-light", "scroll-stage", "landscape", "signature", "anatomy-plate", "elephant",
+  "terminal-replay", "showcase", "pointer-light", "scroll-stage", "landscape", "signature", "anatomy-plate", "elephant",
   "tree-view", "kanban",
   "continue-prompt", "promise-card", "swipe-deck", "match-dialog",
   "media-capture", "video-trimmer", "image-cropper",
   "update-prompt", "force-update-screen", "maintenance-screen",
   "product-page", "gallery-page", "component-page", "status-page",
 ] as const;
+/** Deprecated in the batch, then brought back by a filed need: they work without a warning. */
+const RETURNED = ["retro-tv"] as const; // krizaka/akinaza#312 (the shop's reel), krizaka-ui#605
 /** Native entries no app imports: the web entry of `vertical-video` and `markdown` stays (products use it); `media-capture` is in the list above. */
 const NATIVE_ONLY_DEPRECATIONS = ["vertical-video", "markdown"] as const;
 /** On watch (kept now, deprecated in the next pass if still unused): never deprecated here. */
@@ -34,7 +36,7 @@ const metaText = (entry: string) => readFileSync(join(SRC, entry, "meta.ts"), "u
 
 describe("the first reduction batch (#674): 28 entries", () => {
   it("counts the 28 of the issue: 25 whole entries and 3 native entries (media-capture is both)", () => {
-    expect(WEB_ENTRIES.length + NATIVE_ONLY_DEPRECATIONS.length + 1).toBe(28); // + native/media-capture, deprecated with its component
+    expect(WEB_ENTRIES.length + RETURNED.length + NATIVE_ONLY_DEPRECATIONS.length + 1).toBe(28); // + native/media-capture, deprecated with its component
   });
 
   it.each(WEB_ENTRIES)("%s: meta says status deprecated, since its release, removed in 4.0.0, with a reason", (entry) => {

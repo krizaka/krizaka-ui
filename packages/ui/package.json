@@ -409,6 +409,10 @@
       "types": "./dist/retro-tv.d.ts",
       "import": "./dist/retro-tv.js"
     },
+    "./embed-facade": {
+      "types": "./dist/embed-facade.d.ts",
+      "import": "./dist/embed-facade.js"
+    },
     "./file-upload": {
       "types": "./dist/file-upload.d.ts",
       "import": "./dist/file-upload.js"
@@ -1783,6 +1787,13 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./embed-facade",
+      "path": "dist/embed-facade.js",
+      "limit": "2 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react"]
     },
     {
       "name": "./retro-tv",

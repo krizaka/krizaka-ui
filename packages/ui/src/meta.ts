@@ -12,6 +12,7 @@ export type ComponentName =
   | "notification-preferences"
   | "quota-meter"
   | "environment-notice"
+  | "embed-facade"
   | "status-chip"
   | "kind-config-editor"
   | "agenda"
