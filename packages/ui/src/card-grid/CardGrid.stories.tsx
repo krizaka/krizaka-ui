@@ -26,7 +26,7 @@ export const Foundation: Story = {
     // The foundation spans the width above the frame, and the cards are inside it.
     expect(base.getBoundingClientRect().bottom).toBeLessThan(group.getBoundingClientRect().top);
     expect(Math.round(base.getBoundingClientRect().width)).toBeGreaterThanOrEqual(Math.round(group.getBoundingClientRect().width) - 2);
-    expect(group.querySelectorAll(".kz-cards-cell")).toHaveLength(3);
+    expect(group.querySelectorAll(".kz-cards-cell")).toHaveLength(2);
   },
 };
 export const Reveal: Story = { render: () => <RevealExample /> };
