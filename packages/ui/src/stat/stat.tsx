@@ -80,6 +80,7 @@ export const statGrid = tv({
 export type StatGridCommonProps = Omit<React.ComponentProps<"div">, "children">;
 
 export type StatGridDefaultProps = React.ComponentProps<"div"> & {
+  /** `grid` (default): figures that wrap, hairlines between them. */
   variant?: "grid";
   /** Hairlines between the stats (default) or space only. */
   divided?: boolean;
@@ -101,6 +102,7 @@ export type StatStripItem = {
 };
 
 export type StatStripProps = StatGridCommonProps & {
+  /** `strip`: the discreet row, 2 to 4 figures with their sparkline, as a description list. */
   variant: "strip";
   /** 2 to 4 figures, in one row from 320 px. */
   items: readonly StatStripItem[];
