@@ -64,11 +64,14 @@ describe("the quiet hover (krizaka-ui#393)", () => {
   });
 
   it("ships no lift, zoom or chamfer in the class recipes of the components", () => {
+    // The one decreed exception: the Cahier's stamped index card (krizaka-ui#603, the storefront design) lifts by 2 px and
+    // lands back under reduced motion. Anything else in that file is still refused.
+    const CAHIER_LIFT = new Map([[join("service-card", "service-card.tsx"), new Set(["hover:-translate-y-0.5", "hover:translate-y-0"])]]);
     const bad: string[] = [];
     for (const path of sourceFiles(SRC)) {
       const text = readFileSync(path, "utf8");
       for (const m of text.matchAll(/(?:group-)?hover:(?:-?translate-[xy]|scale-)[\w.[\]-]*|corner-shape|kz-lift|kz-spotlight|kz-sheen/g))
-        if (!path.includes(`${join("map", "map.tsx")}`)) bad.push(`${path.slice(SRC.length + 1)}: ${m[0]}`);
+        if (!path.includes(`${join("map", "map.tsx")}`) && !CAHIER_LIFT.get(path.slice(SRC.length + 1))?.has(m[0])) bad.push(`${path.slice(SRC.length + 1)}: ${m[0]}`);
     }
     expect(bad).toEqual([]);
   });

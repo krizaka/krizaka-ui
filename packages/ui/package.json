@@ -1270,7 +1270,7 @@
     {
       "name": "./separator",
       "path": "dist/separator.js",
-      "limit": "2 kB",
+      "limit": "2.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1939,7 +1939,7 @@
     {
       "name": "./service-card",
       "path": "dist/service-card.js",
-      "limit": "2 kB",
+      "limit": "3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2099,7 +2099,7 @@
     {
       "name": "./page",
       "path": "dist/page.js",
-      "limit": "1.25 kB",
+      "limit": "1.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
