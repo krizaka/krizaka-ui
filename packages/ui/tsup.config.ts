@@ -82,7 +82,6 @@ export default defineConfig([
       // A shop's storefront: the service card and the weekly hours (server-safe).
       "service-card": "src/service-card/index.ts",
       "opening-hours": "src/opening-hours/index.ts",
-      "sticky-action": "src/sticky-action/index.ts",
       "verified-badge": "src/verified-badge/index.ts",
       "step-progress": "src/step-progress/index.ts",
       // The default avatars' pure helpers (defaultAvatarUrl…): callable in a Server Component, unlike "avatar" (client).
@@ -258,6 +257,8 @@ export default defineConfig([
       "search-field": "src/search-field/index.ts",
       "video-player": "src/video-player/index.ts",
       "retro-tv": "src/retro-tv/index.ts",
+      // Client since krizaka-ui#608: it hides while the page's own action is on screen.
+      "sticky-action": "src/sticky-action/index.ts",
       // A platform's short video behind a click (Law 25); fits a RetroTv's screen.
       "embed-facade": "src/embed-facade/index.ts",
       "vertical-video": "src/vertical-video/index.ts",
