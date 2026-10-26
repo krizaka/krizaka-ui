@@ -13,6 +13,7 @@ export type ComponentName =
   | "quota-meter"
   | "environment-notice"
   | "margin-layout"
+  | "analysis-report"
   | "status-chip"
   | "kind-config-editor"
   | "agenda"

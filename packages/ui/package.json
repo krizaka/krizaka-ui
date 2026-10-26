@@ -165,6 +165,10 @@
       "types": "./dist/usage.d.ts",
       "import": "./dist/usage.js"
     },
+    "./analysis-report": {
+      "types": "./dist/analysis-report.d.ts",
+      "import": "./dist/analysis-report.js"
+    },
     "./alert": {
       "types": "./dist/alert.d.ts",
       "import": "./dist/alert.js"
@@ -1001,7 +1005,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "64.6 kB",
+      "limit": "67 kB",
       "gzip": true
     },
     {
@@ -1251,6 +1255,13 @@
       "limit": "5 kB",
       "gzip": true,
       "ignore": ["tailwind-variants", "clsx", "react", "radix-ui", "@krizaka/intl"]
+    },
+    {
+      "name": "./analysis-report",
+      "path": "dist/analysis-report.js",
+      "limit": "4.5 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
     },
     {
       "name": "./environment-notice",
