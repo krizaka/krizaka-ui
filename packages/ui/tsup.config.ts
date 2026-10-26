@@ -64,6 +64,8 @@ export default defineConfig([
       // The clients' word on a shop: a score as a stamp, five meters, the review cards.
       reviews: "src/reviews/index.ts",
       "margin-layout": "src/margin-layout/index.ts",
+      // The blocks of a « Credits & usage » page.
+      usage: "src/usage/index.ts",
       alert: "src/alert/index.ts",
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",

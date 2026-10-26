@@ -43,6 +43,7 @@ export const PLANNED: Record<string, string> = {
   "notification-preferences": "Akinaza's and Yomizaka's account baseline (notifications) (krizaka-ui#515).",
   "quota-meter": "Yomizaka's library quota and Akinaza's plan (krizaka-ui#515).",
   "margin-layout": "Yomizaka (krizaka/yomizaka#314) for its report and check flow, then any product that reads numbered findings.",
+  usage: "Yomizaka « Crédits et usage » (krizaka/yomizaka#314), Akinaza's activity panel (akinaza#325); Orazaka moves onto it in its dispatch.",
   "environment-notice": "Yomizaka (krizaka/yomizaka#364) on every surface of its dev deployment, then Akinaza and Orazaka.",
   "chip-row": "Yomizaka's « Pour qui ? » audience picker (krizaka/yomizaka home redesign, AudiencePicker moves into it), then any page of filters that are addresses.",
   "meta-row": `${PAUSED}: the quiet line under a video's title — quality, shape, duration, date, and an AI badge.`,

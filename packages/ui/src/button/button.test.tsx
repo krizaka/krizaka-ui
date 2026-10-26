@@ -142,4 +142,12 @@ describe("IconButton", () => {
     expect(screen.queryByTestId("icon")).toBeNull();
     expect(screen.getByRole("button", { name: "Refresh" }).querySelector(".kz-loader-trace")).not.toBeNull();
   });
+
+  it("never overflows a narrow container: capped to it, its label wraps instead of bleeding out (#259)", () => {
+    render(<Button>Choose Sovereign</Button>);
+    const classes = screen.getByRole("button").className.split(/\s+/);
+    expect(classes).toContain("max-w-full");
+    expect(classes).toContain("whitespace-normal");
+    expect(classes).not.toContain("whitespace-nowrap");
+  });
 });

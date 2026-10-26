@@ -4,7 +4,7 @@ import { defineRecipe } from "../recipes/define";
 
 export const buttonRecipe = defineRecipe({
   base:
-    "inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap font-semibold transition duration-150 " +
+    "inline-flex max-w-full shrink-0 select-none items-center justify-center gap-2 whitespace-normal text-center font-semibold transition duration-150 " +
     "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0 " +
     "disabled:pointer-events-none disabled:opacity-40 data-loading:cursor-progress active:scale-[0.98] " +
     // Busy is not unavailable: a loading button keeps its colour (it is disabled only so it is not pressed twice).
