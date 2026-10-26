@@ -147,6 +147,30 @@
     linear-gradient(to bottom, var(--kz-paper-rule-minor) 1px, transparent 1px);
   background-size: 100% var(--kz-paper-module, 32px), 100% var(--kz-paper-line, 8px);
 }
+/* Two more papers (krizaka-ui#600): a dot every 24 px, and kraft — brown paper whose ink holds ≥ 7:1 at the darkest grain
+   point (the grain is the host's one `PaperGrain` filter, capped by --kz-paper-grain-opacity, under the text). */
+[data-paper="dot-grid"] {
+  background-image: radial-gradient(circle at 1px 1px, var(--kz-paper-dot) 1px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+[data-paper="kraft"] {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--kz-paper-kraft);
+  color: var(--kz-paper-kraft-ink);
+  --kz-text-primary: var(--kz-paper-kraft-ink);
+  --kz-text-secondary: var(--kz-paper-kraft-ink);
+}
+[data-paper="kraft"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--kz-paper-kraft-ink);
+  opacity: var(--kz-paper-grain-opacity, 0.08);
+  filter: url(#kz-paper-grain);
+}
 [data-margin] { position: relative; --kz-margin-x: max(8px, calc(var(--kz-gutter, 16px) - 12px)); }
 [data-margin]::before {
   content: "";

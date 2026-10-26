@@ -67,6 +67,9 @@
   --kz-paper-tag: hsl(147 11% 20%); /* L'étiquette de spécimen (manille) */
   --kz-paper-tag-edge: hsl(145 9% 38%); /* Le bord et l'œillet de l'étiquette */
   --kz-paper-tag-ink: hsl(105 17% 92%); /* Le texte tapé sur l'étiquette */
+  --kz-paper-dot: hsl(140 25% 88% / 0.16); /* Le papier pointillé : le point de la grille (tous les 24 px) */
+  --kz-paper-kraft: hsl(32 16% 22%); /* Le papier kraft (le carnet de nuit : kraft sombre) */
+  --kz-paper-kraft-ink: hsl(40 35% 93%); /* L'encre du texte posé sur le kraft */
 
   /* Ombres (web) — Cahier (ADR-004) : une feuille posée sur une autre, un décalage net, jamais de flou */
   --kz-shadow-sm: 0 1px 0 hsl(150 30% 3% / 0.6); /* Champ, bouton au repos */
@@ -132,6 +135,9 @@ html.light {
   --kz-paper-tag: hsl(43 49% 84%); /* L'étiquette de spécimen (manille) */
   --kz-paper-tag-edge: hsl(43 30% 58%); /* Le bord et l'œillet de l'étiquette */
   --kz-paper-tag-ink: hsl(50 11% 14%); /* Le texte tapé sur l'étiquette */
+  --kz-paper-dot: hsl(214 40% 45% / 0.30); /* Le papier pointillé : le point de la grille (tous les 24 px) */
+  --kz-paper-kraft: hsl(36 42% 72%); /* Le papier kraft (le carnet de nuit : kraft sombre) */
+  --kz-paper-kraft-ink: hsl(28 35% 10%); /* L'encre du texte posé sur le kraft */
   --kz-shadow-sm: 0 1px 0 hsl(212 49% 24% / 0.12); /* Champ, bouton au repos */
   --kz-shadow-md: 0 1px 0 hsl(212 49% 24% / 0.12), 4px 5px 0 -2px hsl(212 40% 30% / 0.14); /* Menu, popover, carte au survol */
   --kz-shadow-lg: 0 1px 0 hsl(212 49% 24% / 0.12), 6px 8px 0 -2px hsl(212 40% 30% / 0.14); /* Dialogue, feuille */
@@ -199,6 +205,9 @@ html.light {
   --kz-paper-tag: hsl(43 49% 84%); /* L'étiquette de spécimen (manille) */
   --kz-paper-tag-edge: hsl(43 30% 58%); /* Le bord et l'œillet de l'étiquette */
   --kz-paper-tag-ink: hsl(50 11% 14%); /* Le texte tapé sur l'étiquette */
+  --kz-paper-dot: hsl(214 40% 45% / 0.30); /* Le papier pointillé : le point de la grille (tous les 24 px) */
+  --kz-paper-kraft: hsl(36 42% 72%); /* Le papier kraft (le carnet de nuit : kraft sombre) */
+  --kz-paper-kraft-ink: hsl(28 35% 10%); /* L'encre du texte posé sur le kraft */
   --kz-shadow-sm: 0 1px 0 hsl(212 49% 24% / 0.12); /* Champ, bouton au repos */
   --kz-shadow-md: 0 1px 0 hsl(212 49% 24% / 0.12), 4px 5px 0 -2px hsl(212 40% 30% / 0.14); /* Menu, popover, carte au survol */
   --kz-shadow-lg: 0 1px 0 hsl(212 49% 24% / 0.12), 6px 8px 0 -2px hsl(212 40% 30% / 0.14); /* Dialogue, feuille */
@@ -263,6 +272,7 @@ html.light {
   /* La réglure Seyès (ADR-004) : le grand carreau et la ligne fine ; les interlignages tombent sur la ligne */
   --kz-paper-module: 32px; /* Le grand carreau (8 mm) : le pas de la grille et de la marge */
   --kz-paper-line: 8px; /* La ligne fine : trois par carreau */
+  --kz-paper-grain-opacity: 0.08; /* Le grain du kraft : l'opacité maximale (le texte reste lisible au point le plus sombre, ≥ 7:1) */
 
   /* Densité : l'écart entre éléments et le remplissage d'une carte ; resserrés sous [data-density=compact] */
   --kz-density-gap: 16px; /* Écart entre les éléments d'un groupe */

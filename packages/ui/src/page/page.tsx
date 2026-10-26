@@ -7,11 +7,14 @@ import { SectionBackdrop, type SectionBackdropProps } from "../section-backdrop/
 
 export type PageSize = "narrow" | "default" | "wide" | "full";
 
-/** The paper under a page or a section (Cahier, ADR-004): `ruled` (Seyès squares), `lines` (lines only), or plain. */
-export type PagePaper = "ruled" | "lines";
+/**
+ * The paper under a page or a section (Cahier, ADR-004): `ruled` (Seyès squares), `lines` (lines only), `dot-grid` (a dot
+ * every 24 px), `kraft` (brown paper with a grain: mount `PaperGrain` once), or plain.
+ */
+export type PagePaper = "ruled" | "lines" | "dot-grid" | "kraft";
 
 type PaperProps = {
-  /** The notebook's ruling under the content: `ruled` (Seyès: 32 px squares, three fine lines), `lines` (lines only, a page to read). */
+  /** The notebook's paper under the content: `ruled` (Seyès: 32 px squares, three fine lines), `lines` (lines only, a page to read), `dot-grid` (dots), `kraft` (brown, grained). */
   paper?: PagePaper;
   /** The red margin line on the left, where section numbers and notes hang (`§ 2`, `fig. 1`). */
   margin?: boolean;
