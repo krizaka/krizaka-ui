@@ -60,8 +60,8 @@ export const sites: readonly Site[] = [
   site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
   site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-build" }),
   site({ id: "ts", name: "Krizaka TypeScript", url: "https://ts.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ts" }),
-  // The motion lab: built in the open on GitHub Pages; what proves itself there moves into Krizaka UI.
-  site({ id: "motion", name: "Krizaka Motion", url: "https://krizaka.github.io/krizaka-motion", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-motion" }),
+  // The motion lab: built in the open, served at motion.krizaka.com; what proves itself there moves into Krizaka UI.
+  site({ id: "motion", name: "Krizaka Motion", url: "https://motion.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-motion" }),
   site({ id: "github", name: "GitHub", url: "https://github.com/krizaka", kind: "open-source", group: "github", status: "released", mark: "github", repo: "https://github.com/krizaka" }),
 ];
 

@@ -27,6 +27,9 @@ export interface FlowGeometry {
 /** The box height per layout (the width is always 100). */
 export const FLOW_HEIGHT: Record<FlowLayout, number> = { radial: 60, "top-to-bottom": 92, "left-to-right": 56 };
 
+/** How far a conduit lands from the hub's centre along the row, as a share of its node's offset: a small fan, kept inside the ring. */
+export const FLOW_FAN = 0.1;
+
 const r2 = (n: number) => Math.round(n * 100) / 100;
 const pt = (p: FlowPoint) => `${r2(p.x)} ${r2(p.y)}`;
 
@@ -77,9 +80,9 @@ export function flowGeometry(layout: FlowLayout, count: number, conduit: FlowCon
     // Each conduit lands on its own point of the hub (a fan), so the lines stay apart where they meet.
     const end =
       layout === "top-to-bottom"
-        ? { x: hub.x + (p.x - hub.x) * 0.18, y: hub.y }
+        ? { x: hub.x + (p.x - hub.x) * FLOW_FAN, y: hub.y }
         : layout === "left-to-right"
-          ? { x: hub.x, y: hub.y + (p.y - hub.y) * 0.18 }
+          ? { x: hub.x, y: hub.y + (p.y - hub.y) * FLOW_FAN }
           : hub;
     if (conduit === "straight") {
       paths.push(`M${pt(p)} L${pt(end)}`);
