@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import HandExample from "../../registry/examples/separator/hand";
 import HorizontalExample from "../../registry/examples/separator/horizontal";
 import VerticalExample from "../../registry/examples/separator/vertical";
 import { Separator } from "./separator";
@@ -18,3 +19,4 @@ type Story = StoryObj<typeof meta>;
 
 export const Horizontal: Story = { render: () => <HorizontalExample /> };
 export const Vertical: Story = { render: () => <VerticalExample /> };
+export const Hand: Story = { render: () => <HandExample /> };
