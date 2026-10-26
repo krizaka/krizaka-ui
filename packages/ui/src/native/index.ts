@@ -2,6 +2,8 @@
  * @krizaka/ui/native — the platform for React Native: the theme (the @krizaka/tokens roles + a product's overrides),
  * the primitives with the web's names and props where the concept is the same, and the Krizaka marks
  * (react-native-svg). StyleSheet only: no dependency beyond react-native and react-native-svg.
+ * The schema-first form (`createKrizakaForm` and its fields) is on its own entry, `@krizaka/ui/native/form`: its field names
+ * (Checkbox, Switch, Select…) are the primitives' names here, and the form engine stays out of an app without a form.
  */
 export { type DefaultAvatar, type DefaultAvatarBrand, defaultAvatarUrl } from "../avatar/default-avatar";
 export { splitDuration, useCountdown } from "../countdown/core";
