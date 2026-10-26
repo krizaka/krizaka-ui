@@ -72,6 +72,7 @@ export {
 export { type DescriptionItem, DescriptionList, type DescriptionListProps } from "./description-list";
 export { Sheet, type SheetProps } from "./dialog";
 export { EmptyState, type EmptyStateProps } from "./empty-state";
+export { EnvironmentNotice, type EnvironmentNoticeProps } from "./environment-notice";
 export { Fab, type FabProps } from "./fab";
 export { TextField, type TextFieldProps } from "./field";
 export { ForceUpdateScreen, type ForceUpdateScreenProps } from "./force-update-screen";
@@ -87,7 +88,6 @@ export { type NativeMarkProps } from "./mark-motion";
 export { ErrorState, LoadingState, MascotState, type MascotStateProps, SuccessState, WelcomeState } from "./mascot-state";
 export { Mascot, type MascotProps } from "./mascots";
 export { MatchDialog, type MatchDialogProps } from "./match-dialog";
-export { EnvironmentNotice, type EnvironmentNoticeProps } from "./environment-notice";
 export { MetaRow, type MetaRowProps } from "./meta-row";
 export { Meter, type MeterPart, type MeterProps } from "./meter";
 export { NumberTicker, type NumberTickerProps } from "./number-ticker";
