@@ -10,6 +10,8 @@ import { useSvgId, useTheme } from "./theme";
  * The Yasakia mark for React Native — the geometry of the web mark (marks/yasakia-geometry.ts), "one conversation":
  * one speech bubble with a tail on each side and the spark inside. The orbit and its node turn, the spark breathes;
  * still when the system reduces motion.
+ *
+ * @deprecated Paused product (2026-10-25); removed in the next major.
  */
 export function YasakiaMark({ size = 48, animated = true, title, neutral }: NativeMarkProps) {
   const { theme } = useTheme();

@@ -1,7 +1,7 @@
 import { IsoHub } from "@krizaka/ui/iso";
 
 // The creator at the centre; tips, unlocks, auctions and challenges flow toward them — and 90 % stays theirs.
-export default function IsoOrochiaHero() {
+export default function IsoCreatorHero() {
   return (
     <IsoHub
       label="Every support flows to the creator"

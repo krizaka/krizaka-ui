@@ -23,6 +23,6 @@ export const meta = {
   web: {
     entry: "funnel",
     imports: ["Funnel"],
-    examples: [{ name: "signup", title: "Sign-up funnel", description: "Orochia's creator sign-up, from visit to first sale." }],
+    examples: [{ name: "signup", title: "Sign-up funnel", description: "A creator platform's sign-up, from visit to first sale." }],
   },
 } satisfies ComponentMeta;

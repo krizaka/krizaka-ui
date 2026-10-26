@@ -25,7 +25,7 @@
   Serif and never fetch it. `@krizaka/ui`'s `blocks.css` points the product register's `--kz-font-display` at it.
   Courier Prime is the register's `--kz-font-mono-meta` (identifiers, references, times); code is the system monospace;
   the pen is never inside a product.
-- **The pen role** (`cahier`, `--kz-font-cahier`, 0.4.0): **Krizaka Cahier**, our own face, derived by `scripts/subset.py` (`derive_cahier`) from Caveat (SIL OFL 1.1, no Reserved Font Name; renamed anyway). Margin marks (§ 4), rule numbers, page folios, handwritten notes and stamps, the café chalkboard line of Yororis: never headings, body text, interface, buttons or tables, one short line per block, from 20 px. French alphabet only (one subset), weight 500, line box 1.25 em, figures tabular; `licenses/KrizakaCahier-OFL.txt` + `-FONTLOG.txt` ship. Not preloaded by the package; a site that uses it sets `preload: true`.
+- **The pen role** (`cahier`, `--kz-font-cahier`, 0.4.0): **Krizaka Cahier**, our own face, derived by `scripts/subset.py` (`derive_cahier`) from Caveat (SIL OFL 1.1, no Reserved Font Name; renamed anyway). Margin marks (§ 4), rule numbers, page folios, handwritten notes and stamps, a café chalkboard line: never headings, body text, interface, buttons or tables, one short line per block, from 20 px. French alphabet only (one subset), weight 500, line box 1.25 em, figures tabular; `licenses/KrizakaCahier-OFL.txt` + `-FONTLOG.txt` ship. Not preloaded by the package; a site that uses it sets `preload: true`.
 
 - **Sources:** `src/families.json` (by hand: upstream commit, axes, subsets, native weights, fallbacks, the docs words).
   `scripts/subset.py` (Python, fontTools — run by hand with `pnpm subset`, never in CI) downloads the pinned upstream,

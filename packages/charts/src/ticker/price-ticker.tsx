@@ -1,5 +1,5 @@
 "use client";
-// The price of a live auction (Orochia's auction room, web and mobile): the current bid in large, what it gained since
+// The price of a live auction (an auction room, web and mobile): the current bid in large, what it gained since
 // the opening and how many bids, the price as steps over time (a bid holds until the next), the reserve as a line.
 // `live` by default: new bids redraw without an entrance and without announcing every point.
 import { valueFormatter } from "../core/format";

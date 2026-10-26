@@ -21,7 +21,7 @@ export const meta = {
   ],
   bestPractices: [
     "Say what is loading (“Loading your invoices”), not “Loading…”; say how it ended with `successLabel` / `errorLabel`.",
-    "Brand it in a product: `mark={<OrochiaLogo animated />}` (web) or `product=\"orochia\"` (native) — the mark replaces the glyph, never the words.",
+    "Brand it in a product: `mark={<OrazakaLogo animated />}` (web) or `product=\"orazaka\"` (native) — the mark replaces the glyph, never the words.",
     "Keep the defaults: 250 ms of delay, 600 ms at least once shown — the two numbers that stop flicker.",
     "Give an `eta` when you can estimate it (format durations with `@krizaka/intl`): a known wait feels shorter.",
     "With `LoadingRegion`, draw the skeleton the shape of the content: nothing moves when it arrives.",
@@ -44,13 +44,13 @@ export const meta = {
       { name: "overlay", title: "Over a region", description: "`variant=\"overlay\"`: the report stays readable behind frosted glass while it refreshes." },
       { name: "endings", title: "Endings", description: "`status`: a success and a failure, drawn in their colour and said in words." },
       { name: "minimal", title: "Minimal", description: "A label, nothing else: the defaults do the rest." },
-      { name: "branded", title: "The product's mark", description: "`mark`: Orochia's animated mark in place of the Krizaka glyph; the ending stays the check." },
+      { name: "branded", title: "The product's mark", description: "`mark`: Orazaka's animated mark in place of the Krizaka glyph; the ending stays the check." },
     ],
   },
   native: {
     imports: ["Loader", "LoaderGlyph", "useDelayedWait"],
     differences: [
-      "`product` (`orochia`, `orazaka`, `yasakia`, `yororis`, `krizaka`) draws the product's animated `ProductMark`; on the web it is the `mark` slot.",
+      "`product` (`orazaka`, `yomizaka`, `akinaza`, `krizaka`) draws the product's animated `ProductMark`; on the web it is the `mark` slot.",
       "Announced with the platform's announcement (and a polite live region) instead of `role=\"status\"`.",
       "No `LoadingRegion`: lists show their own skeleton rows (`List loading`).",
       "`overlay` and `page` cover their parent with the theme's surface at 90 %; no backdrop blur.",

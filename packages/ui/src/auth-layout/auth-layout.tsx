@@ -28,7 +28,7 @@ export const authLayout = tv({
 const s = authLayout();
 
 export type AuthLayoutProps = Omit<React.ComponentProps<"div">, "title"> & {
-  /** The product's mark and name (`<ProductLogo id="orochia" /> Orochia`): in the brand panel, and above the form on a phone. */
+  /** The product's mark and name (`<ProductLogo id="orazaka" /> Orazaka`): in the brand panel, and above the form on a phone. */
   brand: React.ReactNode;
   /** The form's title (`Welcome back`): the `h1`. */
   title: React.ReactNode;

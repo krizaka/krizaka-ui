@@ -245,7 +245,7 @@
         },
         "brand-marks": {
           "title": "Brand marks",
-          "description": "The eight marks of the Krizaka family — drawn in code, animated, still under reduced motion."
+          "description": "The four marks of the Krizaka family — drawn in code, animated, still under reduced motion."
         },
         "i18n": {
           "title": "i18n",
@@ -550,16 +550,12 @@
         }
       },
       "brand": {
-        "intro": "The eight marks of the Krizaka family, from @krizaka/ui. Each is drawn in code (no image to ship), animated when the page allows it, and still under reduced motion. A change to a mark is made in krizaka-ui, released, then adopted.",
+        "intro": "The four marks of the Krizaka family, from @krizaka/ui. Each is drawn in code (no image to ship), animated when the page allows it, and still under reduced motion. A change to a mark is made in krizaka-ui, released, then adopted.",
         "mark": "{name}: the mark of {role}",
         "use": "Use the mark where the product is named: the header, the sign-in, the loader and the splash — never a copy, never a placeholder.",
         "krizaka": "the studio",
         "orazaka": "the sovereign AI engine",
-        "orochia": "the creator platform",
-        "yasakia": "the dating app",
-        "yororis": "the fourth product, in construction",
         "yomizaka": "the documents, read and checked",
-        "kachizaka": "the predictions among friends, live",
         "akinaza": "the shop, run for less",
         "downloads": "Downloads",
         "svgDark": "SVG · dark",
@@ -591,9 +587,9 @@
             "duck": "builds — the code",
             "flamingo": "answers, and the payment follows",
             "pigeon": "delivers",
-            "lovebird": "introduces two people — Yasakia",
-            "crane": "listens — Yororis",
-            "magpie": "keeps the score — Kachizaka",
+            "lovebird": "introduces two people",
+            "crane": "listens",
+            "magpie": "keeps the score",
             "beaver": "builds the shop — Akinaza"
           }
         }

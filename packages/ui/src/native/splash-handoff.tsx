@@ -21,7 +21,7 @@ export type SplashHandoffProps = {
   size?: number;
   /** The background. Default: the theme's page colour, the one `app.json` gives the native splash. */
   background?: string;
-  /** The words a screen reader hears while it waits (“Orochia is opening”) — passed translated. */
+  /** The words a screen reader hears while it waits (“Orazaka is opening”) — passed translated. */
   label: string;
   /** The dissolve, in milliseconds. Default 320; none under reduced motion. */
   duration?: number;

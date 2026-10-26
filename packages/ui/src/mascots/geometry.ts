@@ -2,14 +2,13 @@
  * The Krizaka flock — the geometry of the mascots, drawn by the web `Mascot` (`./mascot.tsx`) and the native one
  * (`../native/mascots.tsx`). Five birds that have carried the Krizaka story since the first site (the sentry falcon,
  * the owl that reads, the developer duck, the flamingo that answers, the carrier pigeon), the lovebird that
- * introduces (2026-10, with Yasakia: "l'inséparable présente") and the crane that listens (2026-10, with Yororis:
- * "la grue écoute"), the magpie that keeps the score (2026-10, with Kachizaka: "la pie compte les points") and the
- * beaver that builds the shop (2026-10, with Akinaza: "le castor artisan" — the one figure of the flock without
+ * introduces ("l'inséparable présente") and the crane that listens ("la grue écoute"), the magpie that keeps the
+ * score ("la pie compte les points") and the beaver that builds the shop (2026-10, with Akinaza: "le castor artisan" — the one figure of the flock without
  * feathers: its paws are drawn as wings, its paddle tail behind it), redrawn on one 120 × 120 grid so that any figure
  * can wear any mood.
  *
  * Colours are roles, never fixed: `brand` (the default) paints a bird in the host's accent (`--kz-accent`,
- * `--kz-accent-2`), so the same falcon is blue on krizaka.com, orange in Orazaka and violet in Orochia; `own` gives
+ * `--kz-accent-2`), so the same falcon is blue on krizaka.com, orange in Orazaka and indigo in Yomizaka; `own` gives
  * each bird the signature palette it has in the Krizaka story (the brand layer's exception, like the marks). Shades
  * and highlights are black and white at a low opacity over the role, so they hold in both themes.
  */

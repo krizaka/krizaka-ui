@@ -7,12 +7,12 @@ import { Facts } from "@krizaka/ui/page";
 import { Stat } from "@krizaka/ui/stat";
 import { Tabs } from "@krizaka/ui/tabs";
 
-// TEMPLATE — one video in Orochia's studio: the way back to the list, its thumbnail, title and status, its facts, the
+// TEMPLATE — one video in a creator studio: the way back to the list, its thumbnail, title and status, its facts, the
 // actions; the tabs (overview · sales · comments); the side panel with the price and the audience — under the content on
 // a phone, where the actions wrap under the title.
 export default function DetailLayoutVideo() {
   return (
-    <div className="brand-orochia w-full">
+    <div className="brand-orazaka w-full">
       <Tabs.Root defaultValue="overview">
         <DetailLayout
           back={<a href="#videos">← Videos</a>}

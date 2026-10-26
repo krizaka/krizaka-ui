@@ -7,7 +7,7 @@ export const meta = {
   category: "data-display",
   platforms: "both",
   parity: { desktop: "web" },
-  whenToUse: ["Orochia's Messages, a dating app's chats, support threads.", "An inbox of conversations with presence and unread counts."],
+  whenToUse: ["A creator app's messages, a community's chats, support threads.", "An inbox of conversations with presence and unread counts."],
   whenNotToUse: [
     { when: "For a comments thread under a post.", use: "list" },
     { when: "For notifications.", use: "toast" },

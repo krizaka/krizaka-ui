@@ -11,7 +11,7 @@ const GROUPS = [
     cards: [
       { id: "cli", logo: "orazaka", title: "The CLI", text: "npx orazaka install, start, dev — then every command." },
       { id: "packs", logo: "orazaka", title: "Packs & Studios", text: "The business offers Orazaka installs without code." },
-      { id: "admin", logo: "orochia", title: "Orochia admin console", text: "Verification, moderation, payouts — behind four gates." },
+      { id: "admin", logo: "orazaka", title: "The admin console", text: "Users, models, quotas and the audit log — behind four gates." },
     ],
   },
   {

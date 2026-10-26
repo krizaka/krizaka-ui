@@ -37,7 +37,7 @@ export type AvatarProps = Omit<React.ComponentProps<"span">, "children"> & {
   fallbackSrc?: string;
   /**
    * The Krizaka default picture when the person has no photo (or it fails): their brand's gradient and a silhouette,
-   * one of six tones from `seed` — `defaultAvatar={{ brand: "orochia", seed: user.id }}`. `fallbackSrc` wins over it.
+   * one of six tones from `seed` — `defaultAvatar={{ brand: "orazaka", seed: user.id }}`. `fallbackSrc` wins over it.
    */
   defaultAvatar?: DefaultAvatar;
   /**

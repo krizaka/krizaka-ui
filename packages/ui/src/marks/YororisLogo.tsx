@@ -7,6 +7,8 @@ const CSS = familyMotion("yrm", { ...G.motion, ...G.pulse });
  * The Yororis mark, "held": two open hands, two sage arcs of one circle, cup a warm sand core without closing on it —
  * held, given room, free to go. The core breathes, the slowest breath of the family; one node, the moment, rides the
  * dashed orbit. Below 48 px it crops to the emblem.
+ *
+ * @deprecated Paused product (2026-10-25); removed in the next major.
  */
 export function YororisLogo({ size = 32, animated = true, title, className }: MarkProps) {
   const id = useIds("yrm", ["glow"] as const);

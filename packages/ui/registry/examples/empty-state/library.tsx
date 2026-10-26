@@ -7,7 +7,7 @@ import { Page } from "@krizaka/ui/page";
 // empty, one sentence tells what will fill it, one button does the first thing. Never a blank screen.
 export default function EmptyStateLibrary() {
   return (
-    <Page className="brand-orochia">
+    <Page className="brand-orazaka">
       <h1 className="font-display text-2xl font-extrabold tracking-tight text-fg">Library</h1>
       <EmptyState
         icon={<Mascot bird="flamingo" mood="empty" size={96} />}

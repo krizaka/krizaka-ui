@@ -245,7 +245,7 @@
         },
         "brand-marks": {
           "title": "Marques",
-          "description": "Les huit marques de la famille Krizaka — dessinées en code, animées, immobiles si le mouvement est réduit."
+          "description": "Les quatre marques de la famille Krizaka — dessinées en code, animées, immobiles si le mouvement est réduit."
         },
         "i18n": {
           "title": "i18n",
@@ -550,16 +550,12 @@
         }
       },
       "brand": {
-        "intro": "Les huit marques de la famille Krizaka, depuis @krizaka/ui. Chacune est dessinée en code (aucune image à livrer), animée quand la page le permet, et immobile si le mouvement est réduit. Un changement de marque se fait dans krizaka-ui, est publié, puis adopté.",
+        "intro": "Les quatre marques de la famille Krizaka, depuis @krizaka/ui. Chacune est dessinée en code (aucune image à livrer), animée quand la page le permet, et immobile si le mouvement est réduit. Un changement de marque se fait dans krizaka-ui, est publié, puis adopté.",
         "mark": "{name} : la marque de {role}",
         "use": "Utilisez la marque là où le produit est nommé : l'en-tête, la connexion, le chargement et l'écran de lancement — jamais une copie, jamais un substitut.",
         "krizaka": "le studio",
         "orazaka": "le moteur d'IA souverain",
-        "orochia": "la plateforme de créateurs",
-        "yasakia": "l'application de rencontres",
-        "yororis": "le quatrième produit, en construction",
         "yomizaka": "les documents, lus et vérifiés",
-        "kachizaka": "les pronostics entre amis, en direct",
         "akinaza": "la boutique, tenue pour moins cher",
         "downloads": "Téléchargements",
         "svgDark": "SVG · sombre",
@@ -591,9 +587,9 @@
             "duck": "construit — le code",
             "flamingo": "répond, et le paiement suit",
             "pigeon": "livre",
-            "lovebird": "présente deux personnes — Yasakia",
-            "crane": "écoute — Yororis",
-            "magpie": "compte les points — Kachizaka",
+            "lovebird": "présente deux personnes",
+            "crane": "écoute",
+            "magpie": "compte les points",
             "beaver": "monte la boutique — Akinaza"
           }
         }

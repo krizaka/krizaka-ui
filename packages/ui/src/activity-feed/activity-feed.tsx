@@ -90,7 +90,7 @@ function useNow(initial: Date | undefined, ticking: boolean) {
 
 /**
  * What happened, newest first: grouped by day, runs folded (“Mina tipped ×3”), “2 min ago” kept fresh, new events
- * announced when `live`. Orazaka's job activity, Orochia's notifications, the console's audit log.
+ * announced when `live`. Orazaka's job activity, a creator's notifications, the console's audit log.
  */
 export function ActivityFeed<T extends ActivityEvent>({ events, "aria-label": label, locale = "en-US", now: given, ticking = true, fold = true, live, leading, action, labels: words, empty, className }: ActivityFeedProps<T>) {
   const labels = { ...activityFeedLabels, ...words };

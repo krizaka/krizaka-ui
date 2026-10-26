@@ -10,17 +10,17 @@ export default function RailNavExpandable() {
     <RailNav.Shell>
       <RailNav.Root
         label="Studio"
-        accent="orochia"
+        accent="orazaka"
         expandable
         expandLabels={["Show the words", "Hide the words"]}
-        mark={<a href="#home" aria-label="Orochia, home"><ProductLogo id="orochia" size={26} animated={false} /></a>}
+        mark={<a href="#home" aria-label="Studio, home"><ProductLogo id="orazaka" size={26} animated={false} /></a>}
       >
         <RailNav.Item href="#home" icon={dot} label="Home" current />
         <RailNav.Item href="#videos" icon={dot} label="Videos" />
         <RailNav.Item href="#earnings" icon={dot} label="Earnings" />
       </RailNav.Root>
       <RailNav.Body>
-        <AppHeader name="Orochia" mark={<ProductLogo id="orochia" size={22} animated={false} />} />
+        <AppHeader name="Studio" mark={<ProductLogo id="orazaka" size={22} animated={false} />} />
         <main id="content" className="p-6 text-sm text-fg-secondary">The screen's content.</main>
       </RailNav.Body>
     </RailNav.Shell>

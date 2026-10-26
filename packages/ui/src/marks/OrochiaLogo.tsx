@@ -17,6 +17,8 @@ const CSS = `
 /**
  * The Orochia mark: the serpent (Orochi) coiled into an "O" around the flame it guards. The orbit turns, scales slide
  * along the body, the eye and the flame breathe. Below 48 px it crops to the serpent: the orbits would be hairlines.
+ *
+ * @deprecated Paused product (2026-10-25); removed in the next major.
  */
 export function OrochiaLogo({ size = 36, animated = true, title, className }: MarkProps) {
   const id = useIds("orom", ["body", "flame", "glow"] as const);

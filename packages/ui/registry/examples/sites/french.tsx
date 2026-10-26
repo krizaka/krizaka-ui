@@ -1,6 +1,6 @@
 import { familyLabels, siteById, type SiteId } from "@krizaka/ui/sites";
 
-const ids: SiteId[] = ["orazaka", "orochia", "yasakia", "yororis"];
+const ids: SiteId[] = ["orazaka", "yomizaka", "akinaza"];
 
 // The family's words in French: pass `familyLabels.fr` (or your own translation of the same shape) to the bar and the
 // footer; a site's name, address and status never change with the language.

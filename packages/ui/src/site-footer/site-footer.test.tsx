@@ -72,8 +72,9 @@ describe("SiteFooter", () => {
     const current = within(family).getByRole("link", { name: /Orazaka/ });
     expect(current.getAttribute("aria-current")).toBe("true");
     expect(current.textContent).toContain("You are here");
-    expect(within(family).getByRole("link", { name: /Yasakia/ }).textContent).toContain("In development");
-    expect(within(family).getByRole("link", { name: /Yororis/ }).textContent).toContain("In development");
+    expect(within(family).getByRole("link", { name: /Yomizaka/ }).textContent).toContain("In development");
+    expect(within(family).getByRole("link", { name: /Akinaza/ }).textContent).toContain("In development");
+    for (const name of [/Orochia/, /Yasakia/, /Yororis/, /Kachizaka/]) expect(within(family).queryByRole("link", { name })).toBeNull();
   });
 
   it("renders the site's own columns, the signature by kind, the version and Montréal", () => {

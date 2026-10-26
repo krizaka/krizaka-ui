@@ -10,8 +10,8 @@ export const meta = {
   parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
-    "A creator's earnings page: net earnings per month, with the minimum to withdraw (Orochia /earnings).",
-    "A treasury view: gross and net per month side by side (Orochia's console).",
+    "A creator's earnings page: net earnings per month, with the minimum to withdraw.",
+    "A treasury view: gross and net per month side by side (a platform's console).",
     "The earnings card of the mobile app: the total in large, the bars under it.",
   ],
   whenNotToUse: [

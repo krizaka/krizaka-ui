@@ -23,7 +23,7 @@ export type PermissionPromptProps = {
   settingsLabel?: string;
   /** Opens the app's settings (`Linking.openSettings()`). */
   onOpenSettings?: () => void;
-  /** The words when it is blocked (“The camera is off for Orochia. Turn it on in the settings.”). */
+  /** The words when it is blocked (“The camera is off for this app. Turn it on in the settings.”). */
   blockedDescription?: string;
   /** A secondary way out (“Not now”), with `onDismiss`. */
   dismissLabel?: string;

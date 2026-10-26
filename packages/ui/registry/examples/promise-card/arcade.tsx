@@ -6,7 +6,7 @@ export default function PromiseCardArcade() {
   return (
     <PromiseCard
       variant="arcade"
-      brand="orochia"
+      brand="orazaka"
       className="w-[30rem] max-w-full"
       label="Special move"
       promise="90 % to the creator. On every sale."

@@ -23,6 +23,6 @@ export const meta = {
   web: {
     entry: "scatter",
     imports: ["ScatterChart"],
-    examples: [{ name: "watch-time", title: "Length and watch time", description: "Orochia videos: length against average watch time, bubbles by views, a colour per format." }],
+    examples: [{ name: "watch-time", title: "Length and watch time", description: "A creator's videos: length against average watch time, bubbles by views, a colour per format." }],
   },
 } satisfies ComponentMeta;

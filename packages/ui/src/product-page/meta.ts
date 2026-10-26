@@ -13,7 +13,7 @@ export const meta = {
   category: "templates",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
-  whenToUse: ["The overview of each product (Orazaka, Orochia, Yasakia).", "A building block's page that argues its decisions."],
+  whenToUse: ["The overview of each product (Orazaka, Yomizaka, Akinaza).", "A building block's page that argues its decisions."],
   whenNotToUse: [
     { when: "For the whole company's home.", use: "landing-page" },
     { when: "For the steps of how it works.", use: "how-it-works-page" },

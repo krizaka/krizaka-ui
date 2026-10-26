@@ -1,5 +1,5 @@
 "use client";
-// What is left of a credit allowance (Orazaka's billing meter, the console's quotas, Orochia's storage plan): the
+// What is left of a credit allowance (Orazaka's billing meter, the console's quotas, a storage plan): the
 // remaining amount in large, a meter that turns to warning then danger, the use per day as a sparkline, and the day it
 // runs out at the current pace. A `meter` for assistive technology, its value said in words.
 import { type CSSProperties, type ReactNode, useId } from "react";

@@ -1,5 +1,5 @@
 // Server-safe: no hook. The top of a page about one person or place — a client, a shop, a creator, a building
-// (extracted from Orochia's ProfileHero, #650, #515): a slim cover, the avatar overlapping its lower edge, then the
+// (extracted from a product's ProfileHero, #650, #515): a slim cover, the avatar overlapping its lower edge, then the
 // eyebrow, the name (the page's h1), its facts and the actions. No text ever sits on the cover: the words are under it,
 // so a photo never costs their contrast (a scrim fades the photo's foot into the page all the same).
 import type * as React from "react";

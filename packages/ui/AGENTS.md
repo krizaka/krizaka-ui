@@ -30,13 +30,12 @@
   platform through `@krizaka/ui/native` (one theme context). Jest and Storybook render them on stand-ins
   (`src/native/mocks`).
 - The **brand layer shared by every Krizaka product**: the animated marks (`KrizakaLogo`, `OrazakaLogo`,
-  `OrochiaLogo`, `YasakiaLogo`, `YororisLogo`, `YomizakaLogo`, `KachizakaLogo`, `AkinazaLogo`, `ProductLogo`; native `KrizakaMark`, `OrazakaMark`, `OrochiaMark`, `YasakiaMark`, `YororisMark`, `YomizakaMark`, `KachizakaMark`, `AkinazaMark`, `ProductMark`), one family drawn from
+  `OrochiaLogo`, `YasakiaLogo`, `YororisLogo`, `YomizakaLogo`, `KachizakaLogo`, `AkinazaLogo`, `ProductLogo`; native `KrizakaMark`, `OrazakaMark`, `OrochiaMark`, `YasakiaMark`, `YororisMark`, `YomizakaMark`, `KachizakaMark`, `AkinazaMark`, `ProductMark`; the marks of the paused products — Orochia, Yasakia, Yororis, Kachizaka, 2026-10-25 — stay exported, `@deprecated`, until the next major, and never appear on ui.krizaka.com or in an example), one family drawn from
   shared geometry (`marks/*-geometry.ts`, colours tested against the brand themes of `@krizaka/tokens`, see its
   `BRAND.md`), and the **Krizaka motion signature** (`motion.css`, `./motion`: `MotionObserver` — reveal, off-screen
   pause, settle, spotlight, magnetism — and `RotatingWord`; the section backdrop's layers; the loader glyph; the
   isometric kit's `kz-iso-*`).
-- Nothing product-specific: a product's components live in its own design system (`@krizaka/orochia-design-system`,
-  `@krizaka/orazaka-design-system`), which builds on this package.
+- Nothing product-specific: a product's components live in its own design system (`@krizaka/orazaka-design-system`), which builds on this package.
 
 ## 2. Rules
 

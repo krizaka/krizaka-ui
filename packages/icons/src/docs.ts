@@ -15,7 +15,7 @@ export const iconGroups: readonly IconGroup[] = /* @__PURE__ */ Object.freeze([
     id: "product",
     title: "Product",
     description:
-      "The vocabulary of the products — creators and audiences (Orochia), sovereign AI (Orazaka), meeting people (small batches, debriefs, introductions), listening (a moment, the thread, what you keep), money and trust. Every product icon carries a node, the core of the Krizaka marks, at its meaningful point.",
+      "The vocabulary of the products — creators and audiences, sovereign AI (Orazaka), meeting people (small batches, debriefs, introductions), listening (a moment, the thread, what you keep), money and trust. Every product icon carries a node, the core of the Krizaka marks, at its meaningful point.",
   },
   {
     id: "emblem",

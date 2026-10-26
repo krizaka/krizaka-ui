@@ -7,7 +7,10 @@ export type Datum = object;
 /** A field of a row (`"month"`) or a function that reads it. */
 export type Accessor<T, V> = (keyof T & string) | ((datum: T, index: number) => V);
 
-/** A Krizaka brand: its palette leads with the brand's own hue (Krizaka blue, Orazaka orange, Orochia violet). */
+/**
+ * A Krizaka brand: its palette leads with the brand's own hue (Krizaka blue, Orazaka orange).
+ * `"orochia"` (violet) is @deprecated Paused product (2026-10-25); removed in the next major.
+ */
 export type BrandId = "krizaka" | "orazaka" | "orochia";
 
 /** A BCP 47 locale (`"en-US"`, `"fr-FR"`), always explicit: server and client write the same figures. */

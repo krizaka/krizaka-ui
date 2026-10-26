@@ -6,7 +6,7 @@ export default function ForceUpdateScreenDefault() {
   return (
     <ForceUpdateScreen
       className="min-h-0"
-      mark={<ProductLogo id="orochia" size={96} animated={false} />}
+      mark={<ProductLogo id="orazaka" size={96} animated={false} />}
       title="Update to keep going"
       message="This version can no longer talk to our servers. Updating takes a minute and keeps everything you have."
       versionLabel="You have 1.1.0 · 1.2.0 or later is required"

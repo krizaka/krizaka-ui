@@ -44,4 +44,4 @@ const form = signUp.useForm({ i18n: { t }, codeFields: { USERNAME_RESERVED: "use
   `form.Slider ticks marks={…}` (the value floats while touched). Native: `DateField` is wheels by default, `Select` /
   `Combobox` open a sheet, `Switch` is a settings row; pass `haptics` to the native `ThemeProvider` for the haptics.
 - Native: `<form.Form scroll>` makes the form the screen's scrolling content above the keyboard; the return key walks the
-  text fields and the last one sends; `<form.Submit label=… brand="orochia" />` turns the product's mark while sending.
+  text fields and the last one sends; `<form.Submit label=… brand="orazaka" />` turns the product's mark while sending.

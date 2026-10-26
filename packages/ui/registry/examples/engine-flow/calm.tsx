@@ -1,7 +1,7 @@
 import { ProductLogo } from "@krizaka/ui";
 import { EngineFlow } from "@krizaka/ui/engine-flow";
 
-const ids = ["orochia", "yomizaka", "kachizaka", "akinaza"] as const;
+const ids = ["yomizaka", "akinaza"] as const;
 
 // The calm level, in a small tile: the photons and the breath run at a low rate, nothing to tune, nothing to read.
 export default function EngineFlowCalm() {

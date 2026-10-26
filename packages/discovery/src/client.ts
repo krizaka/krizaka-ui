@@ -53,7 +53,7 @@ export interface Discovery {
   start(): Promise<void>;
   /** Fetches, verifies and caches. Never rejects: a failure is a reason, and the previous state stays. */
   refresh(): Promise<RefreshResult>;
-  /** `getService("orochia").apiBase`. Never throws for a product with a default, a legacy address or an override. */
+  /** `getService("yomizaka").apiBase`. Never throws for a product with a default, a legacy address or an override. */
   getService(product: string): ResolvedService;
   getGate(product: string): Gate;
   /** The document in force (live, else cached), for diagnostics. */

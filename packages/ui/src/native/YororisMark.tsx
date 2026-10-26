@@ -10,6 +10,8 @@ import { useSvgId, useTheme } from "./theme";
  * The Yororis mark for React Native — the geometry of the web mark (marks/yororis-geometry.ts), "held": two sage arcs,
  * open hands, cup a warm sand core. The orbit and the moment turn, the core breathes; still when the system reduces
  * motion.
+ *
+ * @deprecated Paused product (2026-10-25); removed in the next major.
  */
 export function YororisMark({ size = 48, animated = true, title, neutral }: NativeMarkProps) {
   const { theme } = useTheme();
