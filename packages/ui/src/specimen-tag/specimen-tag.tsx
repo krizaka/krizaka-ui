@@ -5,20 +5,37 @@ import type * as React from "react";
 
 import { cn } from "../cn";
 
-export type StampTone = "ok" | "wip" | "construction" | "neutral";
+export type StampTone = "ok" | "wip" | "construction" | "neutral" | "ink" | "hue";
 
 export type StampProps = React.HTMLAttributes<HTMLSpanElement> & {
   /**
    * `ok` — released or usable today (green ink); `wip` — in development (pencil); `construction` — not open yet (the
-   * margin's red); `neutral` — a fact.
+   * margin's red); `neutral` — a fact; `ink` — the page's ink (a price, a duration); `hue` — the page's hue text
+   * (`--kz-hue-text`: a vibe, an area).
    * @default "neutral"
    */
   tone?: StampTone;
+  /** A glyph before the text (a `@krizaka/icons` icon): decorative, hidden from assistive technology. */
+  icon?: React.ReactNode;
+  /**
+   * `sm` — a stamp among facts; `md` — a status on its own.
+   * @default "md"
+   */
+  size?: "sm" | "md";
+  /**
+   * The border keeps its tilt and the text is straight: a price or a time is read, not admired. Defaults to `true` for `size="sm"`.
+   */
+  straightText?: boolean;
 };
 
 /** A rubber stamp: a short status pressed on a tag or a page, double-ruled, slightly askew. */
-export function Stamp({ tone = "neutral", className, ...props }: StampProps) {
-  return <span className={cn("kz-stamp", className)} data-tone={tone} {...props} />;
+export function Stamp({ tone = "neutral", icon, size = "md", straightText = size === "sm", className, children, ...props }: StampProps) {
+  return (
+    <span className={cn("kz-stamp", className)} data-tone={tone} data-size={size} data-straight={straightText ? "" : undefined} {...props}>
+      {icon && <span className="kz-stamp-icon" aria-hidden="true">{icon}</span>}
+      {children}
+    </span>
+  );
 }
 
 export interface SpecimenField {
