@@ -1,5 +1,11 @@
 # @krizaka/tokens
 
+## 3.63.0
+
+### Minor Changes
+
+- [#733](https://github.com/krizaka/krizaka-ui/pull/733) [`740d2b6`](https://github.com/krizaka/krizaka-ui/commit/740d2b64eea28f3d69ec7445c9b5aa58c26abe99) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `Page` and `Section` take two more papers, `paper="dot-grid"` (a dot every 24 px) and `paper="kraft"` (brown paper, its ink at 7:1 or more on the darkest point of its grain, in light and in « carnet de nuit »). New tokens `--kz-paper-dot`, `--kz-paper-kraft`, `--kz-paper-kraft-ink`, `--kz-paper-grain-opacity`. The grain is one inline SVG `feTurbulence` filter with a fixed seed, `PaperGrain` from `@krizaka/ui/page`, mounted once by the host; no image file (krizaka-ui#600).
+
 ## 3.62.0
 
 ### Minor Changes
