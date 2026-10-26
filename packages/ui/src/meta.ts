@@ -14,6 +14,7 @@ export type ComponentName =
   | "environment-notice"
   | "embed-facade"
   | "reviews"
+  | "margin-layout"
   | "status-chip"
   | "kind-config-editor"
   | "agenda"

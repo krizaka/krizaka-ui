@@ -157,6 +157,10 @@
       "types": "./dist/environment-notice.d.ts",
       "import": "./dist/environment-notice.js"
     },
+    "./margin-layout": {
+      "types": "./dist/margin-layout.d.ts",
+      "import": "./dist/margin-layout.js"
+    },
     "./alert": {
       "types": "./dist/alert.d.ts",
       "import": "./dist/alert.js"
@@ -1193,7 +1197,7 @@
     {
       "name": "./stat",
       "path": "dist/stat.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1237,6 +1241,13 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./margin-layout",
+      "path": "dist/margin-layout.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
     },
     {
       "name": "./environment-notice",

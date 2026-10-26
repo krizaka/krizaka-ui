@@ -15,12 +15,13 @@ export const meta = {
   ],
   bestPractices: [
     "Format the value in the app (currency, compact numbers) with `@krizaka/intl`.",
+    "In a narrow column (a side panel, 26 rem) use `StatGrid variant=\"strip\"`, never four `Stat`s stacked full width.",
     "Put a `Sparkline` of @krizaka/charts (or a `Meter`) in `chart`: the figure first, its shape under it.",
     "Say the change in `trendLabel` (“+12 %”) and the period in `hint`: the arrow alone says nothing.",
   ],
   accessibility: {
     keyboard: [],
-    notes: ["The arrow is decorative; `trendLabel` is read and shown.", "Colour is never the only signal of the trend."],
+    notes: ["The arrow is decorative; `trendLabel` is read and shown.", "Colour is never the only signal of the trend.", "The strip is a description list: each figure reads its label, its value, then its trend in words; a truncated label keeps its full text as its title."],
   },
   related: ["card", "badge", "progress"],
   web: {
@@ -31,6 +32,7 @@ export const meta = {
       { name: "flat", title: "Flat", description: "No change." },
       { name: "plain", title: "Plain", description: "Label and value only." },
       { name: "row", title: "Row", description: "A row of stats, as a dashboard shows them." },
+      { name: "strip", title: "Strip", description: "`StatGrid variant=\"strip\"`: two to four figures in one row, each with a sparkline (64 × 18) and its trend in words; a `period` slot takes the switch." },
       { name: "grid", title: "Grid", description: "`StatGrid`: figures that wrap, hairlines between them, a meter under one (or a `Sparkline` of @krizaka/charts in `chart`)." },
     ],
   },

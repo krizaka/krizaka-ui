@@ -63,6 +63,7 @@ export default defineConfig([
       "environment-notice": "src/environment-notice/index.ts",
       // The clients' word on a shop: a score as a stamp, five meters, the review cards.
       reviews: "src/reviews/index.ts",
+      "margin-layout": "src/margin-layout/index.ts",
       alert: "src/alert/index.ts",
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",
