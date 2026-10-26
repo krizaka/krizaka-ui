@@ -495,7 +495,7 @@
       },
       "catalog": {
         "heading": "All components",
-        "lead": "Every component of Krizaka UI, by the job it does. Filter by platform, group, status or the product that uses it.",
+        "lead": "Filter by platform, group, status or the product that uses it.",
         "filters": "Filters",
         "platform": "Platform",
         "group": "Group",
@@ -527,7 +527,6 @@
       "templates": {
         "whyLayout": "Why this layout",
         "all": "All templates",
-        "overviewLead": "Whole pages and screens, grouped by what the person must do. Pick the intent, then copy the template that fits.",
         "count": "{count} templates",
         "open": "Open the {intent} templates",
         "native": "Mobile",
