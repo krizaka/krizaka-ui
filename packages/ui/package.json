@@ -409,6 +409,10 @@
       "types": "./dist/retro-tv.d.ts",
       "import": "./dist/retro-tv.js"
     },
+    "./reviews": {
+      "types": "./dist/reviews.d.ts",
+      "import": "./dist/reviews.js"
+    },
     "./embed-facade": {
       "types": "./dist/embed-facade.d.ts",
       "import": "./dist/embed-facade.js"
@@ -1787,6 +1791,13 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./reviews",
+      "path": "dist/reviews.js",
+      "limit": "6 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react"]
     },
     {
       "name": "./embed-facade",

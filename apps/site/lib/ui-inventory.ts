@@ -86,6 +86,7 @@ export const PLANNED: Record<string, string> = {
   "step-progress": `${MOBILE}: the head of their sign-up and onboarding flows.`,
   "swipeable-row": `${MOBILE}: archive / delete on a row of a list.`,
   "tag-input": "Free tags in the form: Orazaka's pack metadata.",
+  reviews: "Akinaza's shop pages (krizaka/akinaza#313): the shop's verified score and its review cards.",
   "embed-facade": "Akinaza's shop pages (krizaka/akinaza#312): the latest TikTok, YouTube Shorts or Instagram reel behind a click, nothing third-party before it.",
   "retro-tv": "Akinaza's shop pages: a vertical reel or behind-the-scenes story displayed in the shop's television cabinet.",
   "video-player": "The products' tours: the demos moved to the product sites with the showcase (#150).",

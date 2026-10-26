@@ -13,6 +13,7 @@ export type ComponentName =
   | "quota-meter"
   | "environment-notice"
   | "embed-facade"
+  | "reviews"
   | "status-chip"
   | "kind-config-editor"
   | "agenda"
