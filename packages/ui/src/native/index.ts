@@ -87,6 +87,7 @@ export { type NativeMarkProps } from "./mark-motion";
 export { ErrorState, LoadingState, MascotState, type MascotStateProps, SuccessState, WelcomeState } from "./mascot-state";
 export { Mascot, type MascotProps } from "./mascots";
 export { MatchDialog, type MatchDialogProps } from "./match-dialog";
+export { EnvironmentNotice, type EnvironmentNoticeProps } from "./environment-notice";
 export { MetaRow, type MetaRowProps } from "./meta-row";
 export { Meter, type MeterPart, type MeterProps } from "./meter";
 export { NumberTicker, type NumberTickerProps } from "./number-ticker";
