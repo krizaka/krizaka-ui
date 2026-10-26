@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/email",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "One email system for every Krizaka app: typed, branded, bilingual templates on React Email (email-safe HTML, a plain-text part always generated), brand themes from @krizaka/tokens, and a sendEmail() adapter with one-click unsubscribe headers, idempotency, a delivery log and bounce/complaint suppression.",
   "keywords": [
     "krizaka",
