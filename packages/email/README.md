@@ -26,7 +26,7 @@ Only rendering, without sending: `const { subject, html, text, headers } = await
 | `newsletterUnsubscribed` | transactional | the last email, and a way back |
 | `contactAutoreply` | transactional | krizaka.com contact form: « we received it », the visitor's message echoed |
 | `contactNotification` | internal | the team's notification: every field, a reply button |
-| `signInLink`, `commentReply`, `accountDeletion`, `dataExport` | transactional | accounts |
+| `signInLink`, `commentReply`, `accountDeletion`, `dataExport`, `confirmEmail`, `passwordReset`, `emailChange` | transactional | accounts |
 
 Every template takes `brand` (default `krizaka`; one theme per product, generated from `@krizaka/tokens`),
 `address` (the postal address of the sender — CASL), `signature` (a name, a role, an avatar slot) and

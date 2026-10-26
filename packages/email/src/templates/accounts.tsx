@@ -105,3 +105,78 @@ export const dataExport = defineTemplate({
   },
   example: { downloadUrl: "https://blog.krizaka.com/api/account/export?t=example" },
 });
+
+/** The address of a new account (or a changed one) is confirmed by opening a link: nothing is active before it. */
+export const confirmEmail = defineTemplate({
+  category: "transactional",
+  schema: baseSchema.extend({ confirmUrl: httpsUrl, hours: z.number().int().min(1).max(168).default(24) }),
+  subject: (p, t) => t("confirmEmail.subject", { brand: BRAND_NAMES[p.brand] }),
+  preheader: (p, t) => t("confirmEmail.preheader", { hours: p.hours }),
+  why: (_p, t) => t("confirmEmail.why"),
+  Body: (p) => {
+    const { t, theme } = useEmail();
+    return (
+      <>
+        <Heading>{t("confirmEmail.heading")}</Heading>
+        <Text>{t("confirmEmail.body", { brand: theme.name, hours: p.hours })}</Text>
+        <Button href={p.confirmUrl}>{t("confirmEmail.button")}</Button>
+        <FallbackLink href={p.confirmUrl} />
+        <Text muted small>
+          {t("confirmEmail.ignore")}
+        </Text>
+        <Signature />
+      </>
+    );
+  },
+  example: { confirmUrl: "https://www.example.com/en/verify-email?token=example" },
+});
+
+/** A password reset link: one use, short life; whoever did not ask ignores it and nothing changes. */
+export const passwordReset = defineTemplate({
+  category: "transactional",
+  schema: baseSchema.extend({ resetUrl: httpsUrl, minutes: z.number().int().min(5).max(1440).default(30) }),
+  subject: (p, t) => t("passwordReset.subject", { brand: BRAND_NAMES[p.brand] }),
+  preheader: (p, t) => t("passwordReset.preheader", { minutes: p.minutes }),
+  why: (_p, t) => t("passwordReset.why"),
+  Body: (p) => {
+    const { t, theme } = useEmail();
+    return (
+      <>
+        <Heading>{t("passwordReset.heading")}</Heading>
+        <Text>{t("passwordReset.body", { brand: theme.name, minutes: p.minutes })}</Text>
+        <Button href={p.resetUrl}>{t("passwordReset.button")}</Button>
+        <FallbackLink href={p.resetUrl} />
+        <Text muted small>
+          {t("passwordReset.ignore")}
+        </Text>
+        <Signature />
+      </>
+    );
+  },
+  example: { resetUrl: "https://www.example.com/en/reset-password?token=example" },
+});
+
+/** The link sent to the NEW address of an account that asked to change it: the change is applied when it is opened. */
+export const emailChange = defineTemplate({
+  category: "transactional",
+  schema: baseSchema.extend({ confirmUrl: httpsUrl, hours: z.number().int().min(1).max(168).default(24) }),
+  subject: (p, t) => t("emailChange.subject", { brand: BRAND_NAMES[p.brand] }),
+  preheader: (p, t) => t("emailChange.preheader", { hours: p.hours }),
+  why: (_p, t) => t("emailChange.why"),
+  Body: (p) => {
+    const { t, theme } = useEmail();
+    return (
+      <>
+        <Heading>{t("emailChange.heading")}</Heading>
+        <Text>{t("emailChange.body", { brand: theme.name, hours: p.hours })}</Text>
+        <Button href={p.confirmUrl}>{t("emailChange.button")}</Button>
+        <FallbackLink href={p.confirmUrl} />
+        <Text muted small>
+          {t("emailChange.ignore")}
+        </Text>
+        <Signature />
+      </>
+    );
+  },
+  example: { confirmUrl: "https://www.example.com/en/confirm-email?token=example" },
+});

@@ -115,5 +115,32 @@
     "body": "You asked for a copy of your data. It is ready to download for {days} days, then it is deleted.",
     "button": "Download my data",
     "why": "You receive this email because a copy of your data was requested."
+  },
+  "confirmEmail": {
+    "subject": "Confirm your {brand} address",
+    "preheader": "One click to activate your account. The link is valid for {hours} hours.",
+    "heading": "Confirm your address",
+    "body": "Open the link below to confirm your address and activate your {brand} account. It is valid for {hours} hours.",
+    "button": "Confirm my address",
+    "ignore": "If you didn't create an account, ignore this email: nothing is activated without this link.",
+    "why": "You receive this email because this address was used to create an account."
+  },
+  "passwordReset": {
+    "subject": "Reset your {brand} password",
+    "preheader": "One use, valid for {minutes} minutes.",
+    "heading": "Reset your password",
+    "body": "Use the button below to choose a new password for your {brand} account. The link works once and is valid for {minutes} minutes.",
+    "button": "Choose a new password",
+    "ignore": "If you didn't ask for it, ignore this email: your password stays as it is.",
+    "why": "You receive this email because a password reset was requested for this address."
+  },
+  "emailChange": {
+    "subject": "Confirm your new {brand} address",
+    "preheader": "The change is applied when you open the link. Valid for {hours} hours.",
+    "heading": "Confirm your new address",
+    "body": "You asked to use this address for your {brand} account. Open the link below to confirm the change. It is valid for {hours} hours.",
+    "button": "Confirm the change",
+    "ignore": "If it wasn't you, ignore this email: the address of the account stays as it is.",
+    "why": "You receive this email because this address was given as the new address of an account."
   }
 }

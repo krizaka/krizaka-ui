@@ -1,0 +1,24 @@
+Confirmez votre nouvelle adresse Krizaka
+
+Krizaka
+
+
+CONFIRMEZ VOTRE NOUVELLE ADRESSE
+
+Vous avez demandé à utiliser cette adresse pour votre compte Krizaka. Ouvrez le lien ci-dessous pour confirmer le changement. Il est valable 24 heures.
+
+Confirmer le changement https://www.example.com/en/confirm-email?token=example
+
+Si ce n'était pas vous, ignorez ce courriel : l'adresse du compte reste telle quelle.
+
+----------------------------------------
+
+Oussama
+
+Fondateur, Krizaka
+
+Vous recevez ce courriel parce que cette adresse a été donnée comme nouvelle adresse d'un compte.
+
+Confidentialité https://www.krizaka.com/fr/privacy · Contact https://www.krizaka.com/fr/contact
+
+Envoyé par Technologies Krizaka Inc., Montréal (Québec), Canada.
