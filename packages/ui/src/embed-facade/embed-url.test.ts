@@ -49,5 +49,7 @@ describe("isOwnPoster", () => {
     expect(isOwnPoster("http://example.com/x.jpg")).toBe(false);
     expect(isOwnPoster("/relative.jpg")).toBe(true);
     expect(isOwnPoster("//i.ytimg.com/x.jpg")).toBe(false);
+    expect(isOwnPoster("data:image/webp;base64,AAAA")).toBe(true);
+    expect(isOwnPoster("data:text/html,<script>1</script>")).toBe(false);
   });
 });

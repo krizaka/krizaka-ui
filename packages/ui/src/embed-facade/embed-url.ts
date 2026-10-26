@@ -56,6 +56,8 @@ export function embedUrl(platform: EmbedPlatform, url: string): string | null {
 /** Whether a poster may be drawn before the click: a path of the host's own origin, or an https picture that is not on a platform's domain (the host copies it to its own storage). */
 export function isOwnPoster(poster: string): boolean {
   if (poster.startsWith("/") && !poster.startsWith("//")) return true;
+  // An inline picture is no request at all.
+  if (/^data:image\/(?:png|jpeg|webp|gif|svg\+xml)[;,]/i.test(poster)) return true;
   const u = parse(poster);
   if (!u) return false;
   const host = u.hostname.toLowerCase();
