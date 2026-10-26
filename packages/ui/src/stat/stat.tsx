@@ -77,14 +77,106 @@ export const statGrid = tv({
   defaultVariants: { divided: true },
 });
 
-export type StatGridProps = React.ComponentProps<"div"> & {
+export type StatGridCommonProps = Omit<React.ComponentProps<"div">, "children">;
+
+export type StatGridDefaultProps = React.ComponentProps<"div"> & {
+  /** `grid` (default): figures that wrap, hairlines between them. */
+  variant?: "grid";
   /** Hairlines between the stats (default) or space only. */
   divided?: boolean;
   /** The narrowest a stat may be before the row wraps, in rem. Default 11. */
   minWidth?: number;
 };
 
-/** A row of key figures that wraps with the width: a dashboard's head. The stats are its children. */
-export function StatGrid({ divided, minWidth = 11, className, style, ...props }: StatGridProps) {
-  return <div className={statGrid({ divided, className })} style={{ ...style, ["--kz-stat-min" as string]: `${minWidth}rem` }} {...props} />;
+/** One figure of the strip. */
+export type StatStripItem = {
+  id: string;
+  /** What the figure is; truncated in the strip, its full text stays the item's `title`. */
+  label: string;
+  value: React.ReactNode;
+  trend?: StatTrend;
+  /** The change in words ("+12 % vs the previous 30 d"). */
+  trendLabel?: React.ReactNode;
+  /** A `Sparkline` of @krizaka/charts (64 × 18). */
+  chart?: React.ReactNode;
+};
+
+export type StatStripProps = StatGridCommonProps & {
+  /** `strip`: the discreet row, 2 to 4 figures with their sparkline, as a description list. */
+  variant: "strip";
+  /** 2 to 4 figures, in one row from 320 px. */
+  items: readonly StatStripItem[];
+  /** The period switch (7 · 30 · 90 d), above the row. */
+  period?: React.ReactNode;
+};
+
+export type StatGridProps = StatGridDefaultProps | StatStripProps;
+
+export const statStrip = tv({
+  slots: {
+    root: "flex w-full min-w-0 flex-col gap-2",
+    list: "m-0 flex w-full min-w-0 divide-x divide-border-default overflow-hidden rounded-xl border border-border-default bg-surface-1",
+    item: "flex min-w-0 flex-1 flex-col gap-0.5 px-3 py-2.5",
+    label: "m-0 truncate text-xs font-semibold text-fg-secondary",
+    value: "m-0 font-display text-lg font-bold tabular-nums text-fg",
+    trend: "m-0 flex min-w-0 items-center gap-1 text-[0.6875rem] text-fg-secondary [&>svg]:h-3 [&>svg]:w-3 [&>svg]:shrink-0",
+    chart: "m-0 h-[18px] w-16 max-w-full",
+  },
+  variants: {
+    trend: {
+      up: { trend: "[&>svg]:text-success" },
+      down: { trend: "[&>svg]:text-danger" },
+      flat: {},
+    },
+  },
+});
+
+function StatStripFigure({ item }: { item: StatStripItem }) {
+  const s = statStrip({ trend: item.trend });
+  return (
+    <div className={s.item()} data-trend={item.trend}>
+      <dt className={s.label()} title={item.label}>
+        {item.label}
+      </dt>
+      <dd className={s.value()}>{item.value}</dd>
+      {item.trendLabel ? (
+        <dd className={s.trend()}>
+          {item.trend ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d={ARROW[item.trend]} />
+            </svg>
+          ) : null}
+          <span className="truncate">{item.trendLabel}</span>
+        </dd>
+      ) : null}
+      {item.chart ? <dd className={s.chart()}>{item.chart}</dd> : null}
+    </div>
+  );
+}
+
+function StatStrip({ items, period, className, ...props }: Omit<StatStripProps, "variant">) {
+  const s = statStrip();
+  return (
+    <div className={s.root({ className })} {...props}>
+      {period}
+      <dl className={s.list()}>
+        {items.map((item) => (
+          <StatStripFigure key={item.id} item={item} />
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+/**
+ * A row of key figures. The default grid wraps with the width (a dashboard's head, the stats are its children);
+ * `variant="strip"` is the discreet one: 2 to 4 figures in one row, as a `dl`, each with its sparkline and its trend in words.
+ */
+export function StatGrid(props: StatGridProps) {
+  if (props.variant === "strip") {
+    const { variant: _variant, ...rest } = props;
+    return <StatStrip {...rest} />;
+  }
+  const { variant: _variant, divided, minWidth = 11, className, style, ...rest } = props;
+  return <div className={statGrid({ divided, className })} style={{ ...style, ["--kz-stat-min" as string]: `${minWidth}rem` }} {...rest} />;
 }
