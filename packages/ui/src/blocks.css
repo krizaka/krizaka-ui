@@ -66,21 +66,30 @@
 .kz-polaroid-photo { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--kz-surface-2); }
 .kz-polaroid-photo > :is(img, svg) { display: block; width: 100%; height: 100%; object-fit: cover; }
 .kz-polaroid .kz-taped-caption { text-align: center; font: 1.25rem/1.35 var(--kz-font-cahier); }
-.kz-polaroid[data-develop="waiting"] .kz-polaroid-photo { filter: contrast(.65) blur(.6px); opacity: .8; }
+.kz-polaroid[data-develop="waiting"] .kz-polaroid-photo { filter: saturate(.35); opacity: .8; }
 .kz-polaroid[data-develop="ready"] .kz-polaroid-photo { animation: kz-wall-develop 1.6s ease-out both; }
-@keyframes kz-wall-develop { from { filter: contrast(.65) blur(.6px); opacity: .8; } to { filter: none; opacity: 1; } }
+@keyframes kz-wall-develop { from { filter: saturate(.35); opacity: .8; } to { filter: none; opacity: 1; } }
 .kz-pinned-note { filter: drop-shadow(2px 3px 0 var(--kz-border-default)); }
 .kz-pinned-note-paper {
   padding: 1.75rem 1.25rem 1.25rem; background: var(--kz-surface-0); color: var(--kz-text-primary);
   clip-path: polygon(0 0, calc(100% - 1rem) 0, 100% 1rem, 100% 100%, 0 100%);
   border: 1px solid var(--kz-border-default);
 }
-.kz-pinned-note-text { margin: 0; font: 1rem/1.6 var(--kz-font-sans); white-space: pre-wrap; }
-.kz-pinned-note-signature { margin: 1rem 0 0; text-align: end; font: 1.2rem/1.3 var(--kz-font-cahier); }
+/* The note's word is written in the pen (20 px at least) in a box of N lines, fixed: a late font moves nothing. The ink is one of three. */
+.kz-pinned-note { --kz-note-ink: var(--kz-accent-text); color: var(--kz-note-ink); }
+.kz-pinned-note[data-ink="margin"] { --kz-note-ink: var(--kz-paper-rule-margin); }
+.kz-pinned-note[data-ink="hue"] { --kz-note-ink: var(--kz-hue-text, var(--kz-accent-text)); }
+.kz-pinned-note-text { margin: 0; overflow: hidden; block-size: calc(var(--kz-note-lines) * 1.4em); font: 1.25rem/1.4 var(--kz-font-cahier); white-space: pre-wrap; color: var(--kz-note-ink); }
+.kz-pinned-note-signature { margin: 1rem 0 0; text-align: end; font: 1.25rem/1.3 var(--kz-font-cahier); color: var(--kz-note-ink); }
 /* The sign is its own size container: its text scales to its width (cqi of the content box), so a long name fits whole — a word is never cut or hyphenated. */
 .kz-shop-sign { container-type: inline-size; padding: 1.75rem; text-align: center; overflow-wrap: normal; hyphens: manual; word-break: normal; }
 .kz-shop-sign-logo { font: min(1.75rem, 12cqi)/1.25 var(--kz-font-display); overflow-wrap: normal; }
 .kz-shop-sign-logo > :is(img, svg) { max-width: 100%; height: auto; }
+.kz-shop-sign-name { margin: 0; font: min(1.75rem, 12cqi)/1.25 var(--kz-font-display); font-weight: 400; overflow-wrap: normal; }
+.kz-shop-sign-logo + .kz-shop-sign-name { margin-block-start: .5rem; }
+/* The name alone on paper (the page's head); on a wall, where text is never laid on a texture, it gets its own sheet. */
+.kz-shop-sign[data-variant="none"] { color: var(--kz-text-primary); padding: 0; text-align: start; }
+.kz-wall .kz-shop-sign[data-variant="none"] { background: var(--kz-surface-0); border: 1px solid var(--kz-border-default); padding: 1.25rem; text-align: center; }
 .kz-shop-sign[data-variant="enamel"] {
   background: var(--kz-surface-0); border: 3px double var(--kz-accent-text); border-radius: .35rem;
   color: var(--kz-accent-text); box-shadow: var(--kz-shadow-md);
@@ -98,11 +107,13 @@
   text-shadow: 0 0 .6rem var(--kz-accent-soft), 0 0 1.5rem var(--kz-accent-soft);
 }
 .kz-shop-sign[data-variant="neon"] .kz-shop-sign-logo > svg { filter: drop-shadow(0 0 .3rem var(--kz-accent)); }
-.kz-shop-sign[data-variant="neon"][data-animated] .kz-shop-sign-logo { animation: kz-wall-neon 2.4s ease-in-out 1; }
+/* One soft flicker, the first time the sign is seen (data-lit="ready"): never a loop, never a flash. */
+.kz-shop-sign[data-variant="neon"][data-animated][data-lit="ready"] :is(.kz-shop-sign-logo, .kz-shop-sign-name) { animation: kz-wall-neon 2.4s ease-in-out 1; }
 @keyframes kz-wall-neon { 0%, 45%, 100% { opacity: 1; } 25%, 65% { opacity: .88; } }
-.kz-shop-sign[data-variant="painted"] { color: var(--kz-text-secondary); border-block: 2px solid var(--kz-border-default); text-shadow: 1px 1px var(--kz-surface-0); }
+.kz-shop-sign[data-variant="painted"] { background: var(--kz-surface-0); color: var(--kz-text-secondary); border-block: 2px solid var(--kz-border-default); text-shadow: 1px 1px var(--kz-surface-0); }
 @media (min-width: 48rem) {
-  .kz-wall { display: block; height: var(--kz-wall-height); padding: 2rem; }
+  .kz-wall { display: block; aspect-ratio: 16 / 9; padding: 2rem; }
+  .kz-wall[data-fixed-height] { aspect-ratio: auto; height: var(--kz-wall-height); }
   .kz-wall-item {
     position: absolute; left: var(--kz-wall-x); top: var(--kz-wall-y);
     width: min(var(--kz-wall-item-width), 42%); max-height: 100%; margin: 0;
@@ -111,7 +122,7 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .kz-polaroid .kz-polaroid-photo { animation: none; filter: none; opacity: 1; }
-  .kz-shop-sign[data-variant="neon"][data-animated] .kz-shop-sign-logo { animation: none; }
+  .kz-shop-sign[data-variant="neon"][data-animated][data-lit] :is(.kz-shop-sign-logo, .kz-shop-sign-name) { animation: none; }
 }
 
 /* ─── Page: one frame for every page — the width, the gutters, the vertical rhythm ─── */
@@ -146,6 +157,30 @@
     linear-gradient(to bottom, var(--kz-paper-rule-major) 1px, transparent 1px),
     linear-gradient(to bottom, var(--kz-paper-rule-minor) 1px, transparent 1px);
   background-size: 100% var(--kz-paper-module, 32px), 100% var(--kz-paper-line, 8px);
+}
+/* Two more papers (krizaka-ui#600): a dot every 24 px, and kraft — brown paper whose ink holds ≥ 7:1 at the darkest grain
+   point (the grain is the host's one `PaperGrain` filter, capped by --kz-paper-grain-opacity, under the text). */
+[data-paper="dot-grid"] {
+  background-image: radial-gradient(circle at 1px 1px, var(--kz-paper-dot) 1px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+[data-paper="kraft"] {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--kz-paper-kraft);
+  color: var(--kz-paper-kraft-ink);
+  --kz-text-primary: var(--kz-paper-kraft-ink);
+  --kz-text-secondary: var(--kz-paper-kraft-ink);
+}
+[data-paper="kraft"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--kz-paper-kraft-ink);
+  opacity: var(--kz-paper-grain-opacity, 0.08);
+  filter: url(#kz-paper-grain);
 }
 [data-margin] { position: relative; --kz-margin-x: max(8px, calc(var(--kz-gutter, 16px) - 12px)); }
 [data-margin]::before {
@@ -1353,6 +1388,25 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   outline-offset: 2px;
   transform: rotate(-3deg);
 }
+.kz-stamp[data-size="sm"] { padding: 2px 6px 1px; font-size: 11.5px; line-height: 14px; gap: 4px; }
+.kz-stamp[data-tone="ink"] { --kz-stamp-ink: var(--kz-text-primary); }
+.kz-stamp[data-tone="hue"] { --kz-stamp-ink: var(--kz-hue-text, var(--kz-accent-text)); }
+.kz-stamp[data-figure] { font-size: 15px; line-height: 20px; font-variant-numeric: var(--kz-figures, tabular-nums); }
+.kz-stamp-icon { display: inline-flex; margin-inline-end: 4px; }
+.kz-stamp-icon > svg { width: 1em; height: 1em; }
+/* A straight text in an askew frame: the frame is a pseudo-element, the text is not rotated. */
+.kz-stamp[data-straight] { position: relative; transform: none; border-color: transparent; outline: 0; }
+.kz-stamp[data-straight]::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border: 2px solid currentColor;
+  border-radius: 2px;
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+  transform: rotate(-3deg);
+  pointer-events: none;
+}
 .kz-stamp[data-tone="ok"] { --kz-stamp-ink: var(--kz-success-text); }
 .kz-stamp[data-tone="wip"] { --kz-stamp-ink: var(--kz-text-secondary); }
 .kz-stamp[data-tone="construction"] { --kz-stamp-ink: var(--kz-paper-rule-margin); }
@@ -1787,3 +1841,40 @@ svg[data-bird="magpie"]{--kzb-pivot:58px 50px;--kzb-head-a:kzb-magpie-head 6s ea
 @keyframes kzb-beaver-flutter{0%,75%,85%,100%{transform:rotate(0)}77.5%{transform:rotate(calc(var(--kzb-s)*8deg))}80%{transform:rotate(calc(var(--kzb-s)*1.6deg))}82.5%{transform:rotate(calc(var(--kzb-s)*7.2deg))}}
 svg[data-bird="beaver"]{--kzb-pivot:60px 56px;--kzb-head-a:kzb-beaver-head 10s ease-in-out infinite;--kzb-head-d:-10s;--kzb-lid-a:kzb-beaver-lid 5.2s ease-in-out infinite;--kzb-lid-d:-5.2s;--kzb-wing-a:kzb-beaver-flutter 13s ease-out infinite;--kzb-wing-d:-13s}
 /* mascot-life:end */
+
+/* ─── Embed facade (krizaka-ui#605): a platform's short video behind a button — nothing is requested before the click ─── */
+.kz-embed { position: relative; isolation: isolate; width: 100%; aspect-ratio: var(--kz-embed-ratio, 9 / 16); overflow: hidden; background: var(--kz-surface-2); color: var(--kz-text-primary); }
+.kz-embed-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.kz-embed-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
+.kz-embed-gate { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .75rem; padding: 1rem; text-align: center; }
+.kz-embed-play {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-block-size: 2.75rem; min-inline-size: 2.75rem; max-inline-size: 100%;
+  padding: .5rem 1rem; border: 2px solid var(--kz-border-strong); border-radius: 2px; background: var(--kz-surface-0); color: var(--kz-text-primary);
+  font: 600 .875rem/1.25 var(--kz-font-sans); box-shadow: 4px 5px 0 -2px var(--kz-border-default); cursor: pointer; text-align: start;
+}
+.kz-embed-play:hover { border-color: var(--kz-accent); }
+.kz-embed-play:focus-visible { outline: 2px solid var(--kz-ring); outline-offset: 3px; }
+.kz-embed-notice { margin: 0; max-inline-size: 28ch; padding: .25rem .5rem; background: var(--kz-surface-0); color: var(--kz-text-secondary); font: .75rem/1.4 var(--kz-font-sans); }
+
+/* ─── Reviews (krizaka-ui#606): the score as a stamp, five meters, the clients' cards. Paper and ink; never a school grade ─── */
+.kz-reviews { display: grid; gap: .75rem; max-inline-size: 28rem; }
+.kz-reviews-visual { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1rem; margin: 0; }
+.kz-reviews-count { font: .9375rem/1.4 var(--kz-font-sans); color: var(--kz-text-primary); }
+.kz-reviews-bars { display: grid; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+.kz-reviews-bars > li { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr) 2rem; align-items: center; gap: .5rem; }
+.kz-reviews-rank, .kz-reviews-n { font: .8125rem/1 var(--kz-font-mono); font-variant-numeric: var(--kz-figures, tabular-nums); color: var(--kz-text-secondary); }
+.kz-reviews-n { text-align: end; }
+.kz-review { display: grid; gap: .5rem; box-sizing: border-box; padding: 1rem 1.25rem; background: var(--kz-surface-0); color: var(--kz-text-primary); border: 1px solid var(--kz-border-default); box-shadow: 4px 5px 0 -2px var(--kz-border-default); min-inline-size: 0; overflow-wrap: anywhere; }
+.kz-review-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .125rem .75rem; align-items: baseline; }
+.kz-review-author { margin: 0; font: 600 1rem/1.4 var(--kz-font-sans); }
+.kz-review-meta { grid-column: 1; display: flex; flex-wrap: wrap; gap: .125rem .5rem; margin: 0; font: .8125rem/1.4 var(--kz-font-mono); color: var(--kz-text-secondary); }
+.kz-review-meta > :not(:first-child)::before { content: "· "; }
+.kz-review-rating { grid-column: 2; grid-row: 1 / span 2; margin: 0; align-self: start; color: var(--kz-accent-text); }
+.kz-review-stars { display: inline-flex; gap: 1px; }
+.kz-review-stars svg { fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linejoin: miter; }
+.kz-review-stars svg[data-filled] { fill: currentColor; }
+.kz-review-text { margin: 0; font: 1rem/1.6 var(--kz-font-sans); white-space: pre-wrap; }
+/* The owner's reply: indented under the review, in the pen's ink but in the text face (a reply is content, not decoration). */
+.kz-review-reply { margin-inline-start: 1rem; padding-inline-start: .75rem; border-inline-start: 2px solid var(--kz-paper-rule-margin); display: grid; gap: .25rem; }
+.kz-review-reply-label { margin: 0; font: .8125rem/1.4 var(--kz-font-mono); color: var(--kz-text-secondary); }
+.kz-review-reply-text { margin: 0; font: .9375rem/1.55 var(--kz-font-sans); color: var(--kz-accent-text); white-space: pre-wrap; }

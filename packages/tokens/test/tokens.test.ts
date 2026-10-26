@@ -836,6 +836,23 @@ describe("Cahier (ADR-004, krizaka-ui#417): the template tells are gone at the s
     expect(invariant.get("--kz-paper-line")).toBe("8px");
   });
 
+  it("the kraft and dot-grid papers (krizaka-ui#600): roles in both themes, body ink ≥ 7:1 on kraft at its darkest and lightest grain point", () => {
+    for (const role of ["dot", "kraft", "kraft-ink"]) {
+      expect(dark.has(`--kz-paper-${role}`), role).toBe(true);
+      expect(light.has(`--kz-paper-${role}`), role).toBe(true);
+    }
+    const grain = Number(invariant.get("--kz-paper-grain-opacity"));
+    expect(grain).toBeGreaterThan(0);
+    expect(grain).toBeLessThanOrEqual(0.1);
+    for (const mode of ["dark", "light"] as const) {
+      const kraft = parseHsl(color("--kz-paper-kraft", mode));
+      const ink = parseHsl(color("--kz-paper-kraft-ink", mode));
+      // The grain is a black or a white speck at most `grain` strong: the two worst points of the paper.
+      const speck = (shade: number) => over({ r: shade, g: shade, b: shade, a: grain }, kraft);
+      for (const point of [kraft, speck(0), speck(255)]) expect(contrast(ink, point), mode).toBeGreaterThanOrEqual(7);
+    }
+  });
+
   it("the display face has one weight: every display step is 400; the overline is a lower-case note, not tracked caps", () => {
     for (const step of ["display-2xl", "display-xl", "display-lg", "display-md", "display-sm", "title-lg"]) {
       expect(invariant.get(`--kz-type-${step}-weight`), step).toBe("400");

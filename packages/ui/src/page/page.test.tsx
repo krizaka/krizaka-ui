@@ -1,7 +1,10 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { render, screen } from "@testing-library/react";
 
 import { axeViolations } from "../test/axe";
-import { Facts, Page, Section, SectionHeading, Ticks } from "./index";
+import { Facts, Page, PaperGrain, Section, SectionHeading, Ticks } from "./index";
 
 describe("Page", () => {
   it("lays the content on the notebook's ruling (Cahier, ADR-004): Seyès squares, lines only, and the red margin", () => {
@@ -18,6 +21,39 @@ describe("Page", () => {
     expect(lines.dataset.paper).toBe("lines");
     expect(plain.dataset.paper).toBeUndefined();
     expect(plain.hasAttribute("data-margin")).toBe(false);
+  });
+
+  it("offers two more papers, dot-grid and kraft, on a page and on a section (krizaka-ui#600)", () => {
+    const { container } = render(
+      <>
+        <Page paper="dot-grid">a</Page>
+        <Section id="k" title="Kraft" paper="kraft">b</Section>
+      </>,
+    );
+    expect((container.children[0] as HTMLElement).dataset.paper).toBe("dot-grid");
+    expect(screen.getByRole("region", { name: "Kraft" }).dataset.paper).toBe("kraft");
+  });
+
+  it("draws the grain once: one hidden SVG filter with a fixed seed, no image", async () => {
+    const { container } = render(<PaperGrain />);
+    const svg = container.querySelector("svg") as SVGElement;
+    expect(svg.getAttribute("aria-hidden")).toBe("true");
+    const filter = svg.querySelector("filter") as Element;
+    expect(filter.id).toBe("kz-paper-grain");
+    expect(svg.querySelector("feTurbulence")?.getAttribute("seed")).toBe("7");
+    expect(container.querySelector("img")).toBeNull();
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("the stylesheet gives every paper its ink and keeps the grain under the text", () => {
+    const css = readFileSync(join(import.meta.dirname, "../blocks.css"), "utf8");
+    expect(css).toContain('[data-paper="dot-grid"]');
+    expect(css).toContain("var(--kz-paper-dot)");
+    const kraft = css.slice(css.indexOf('[data-paper="kraft"]'));
+    expect(kraft).toContain("var(--kz-paper-kraft)");
+    expect(kraft).toContain("var(--kz-paper-kraft-ink)");
+    expect(kraft).toContain("--kz-paper-grain-opacity");
+    expect(kraft).toContain("url(#kz-paper-grain)");
   });
 
   it("numbers a section in the margin, as a notebook does (§ 2), instead of an uppercase overline", () => {

@@ -6,7 +6,7 @@ export default function FrenchCompositionExample() {
     caption: "La vue d’ici", note: "Fait avec patience. Partagé avec plaisir.",
     signature: "Sam", sign: "Atelier du coin",
   };
-  return <div lang="fr"><Wall aria-label={m.wallLabel} texture="brick" height={520} itemWidth={220} items={[
+  return <div lang="fr"><Wall aria-label={m.wallLabel} texture="brick" itemWidth={220} items={[
     { kind: "polaroid", id: "photo", z: 1, x: 8, y: 18, rotation: -4, attachment: "tape", attachmentRotation: 6, caption: m.caption,
       img: <svg viewBox="0 0 240 240" role="img" aria-label={m.photoAlt}>
         <rect width="240" height="240" fill="var(--kz-accent-soft)" />

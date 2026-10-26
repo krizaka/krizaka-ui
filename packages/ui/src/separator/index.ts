@@ -1,2 +1,2 @@
 /** @krizaka/ui/separator — `Separator`, `separatorVariants` (Radix). Server-safe. */
-export { Separator, type SeparatorProps, separatorVariants } from "./separator";
+export { type HandShape, Separator, type SeparatorProps, separatorVariants } from "./separator";

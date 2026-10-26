@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 
+import { themes } from "@krizaka/tokens/native";
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
 
 import FrenchCompositionExample from "../../registry/examples/wall/composition-fr";
@@ -108,9 +109,10 @@ describe("Wall", () => {
     const tokens = readFileSync(require.resolve("@krizaka/tokens/tokens.css"), "utf8");
     const css = readFileSync("src/blocks.css", "utf8").split("/* ─── Wall:")[1]!.split("/* ─── Page:")[0]!;
     const svg = readFileSync("src/wall/wall.tsx", "utf8");
+    // `--kz-hue-text` is the page's hue (set by the host's data-hue, with a published fallback), not a published token.
     const roles = [...(css + svg).matchAll(/var\((--kz-[\w-]+)/g)].map((match) => match[1]!);
     const localRoles = new Set([...css.matchAll(/(--kz-[\w-]+)\s*:/g)].map((match) => match[1]!));
-    for (const role of new Set(roles.filter((name) => !name.startsWith("--kz-wall-") && !localRoles.has(name)))) {
+    for (const role of new Set(roles.filter((name) => !name.startsWith("--kz-wall-") && name !== "--kz-note-lines" && !localRoles.has(name) && name !== "--kz-hue-text"))) {
       expect(tokens, `${role} must exist in the published tokens CSS`).toContain(`${role}:`);
     }
   });
@@ -215,5 +217,111 @@ describe("wall objects", () => {
     render(<Wall texture="brick" items={[{ ...items[0]!, z: -50 }, { ...items[1]!, z: -3 }]} />);
     const ranks = screen.getAllByRole("listitem").filter((li) => li.classList.contains("kz-wall-item")).map((li) => Number(li.style.zIndex));
     expect(ranks.every((rank) => rank >= 0)).toBe(true);
+  });
+});
+
+describe("the wall's addendum (krizaka-ui#604)", () => {
+  const wallCss = () => readFileSync("src/blocks.css", "utf8").split("/* ─── Wall:")[1]!.split("/* ─── Page:")[0]!;
+
+  it("ShopSign renders its text children as the page's heading, live text, with the logo optional", async () => {
+    const { container } = render(<ShopSign>Cèdre &amp; Ciseaux</ShopSign>);
+    expect(screen.getByRole("heading", { level: 1, name: "Cèdre & Ciseaux" })).toBeTruthy();
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("ShopSign takes another heading level or none, and keeps a logo beside the name", () => {
+    const { rerender } = render(<ShopSign as="h2">Atelier</ShopSign>);
+    expect(screen.getByRole("heading", { level: 2, name: "Atelier" })).toBeTruthy();
+    rerender(<ShopSign as="p">Atelier</ShopSign>);
+    expect(screen.queryByRole("heading")).toBeNull();
+    rerender(<ShopSign logo={<img alt="" src="/l.png" />}>Atelier</ShopSign>);
+    expect(screen.getByRole("heading", { name: "Atelier" }).closest(".kz-shop-sign")?.querySelector("img")).toBeTruthy();
+  });
+
+  it('offers the variant "none": the name alone on paper, with no plate and no screws', () => {
+    const { container } = render(<ShopSign variant="none">Atelier</ShopSign>);
+    expect(container.querySelector("[data-variant]")?.getAttribute("data-variant")).toBe("none");
+    expect(container.querySelectorAll(".kz-shop-sign-screw")).toHaveLength(0);
+    expect(wallCss()).toMatch(/\.kz-wall \.kz-shop-sign\[data-variant="none"\]\s*\{[^}]*background:\s*var\(--kz-surface-0\)/);
+  });
+
+  it("the neon flickers once, on its first view, and never loops", () => {
+    motion();
+    const { container, unmount } = render(<ShopSign variant="neon">Néon</ShopSign>);
+    const sign = container.querySelector(".kz-shop-sign")!;
+    expect(sign.getAttribute("data-lit")).toBe("waiting");
+    act(() => intersect([{ isIntersecting: false }] as IntersectionObserverEntry[], {} as IntersectionObserver));
+    expect(sign.getAttribute("data-lit")).toBe("waiting");
+    act(() => intersect([{ isIntersecting: true }] as IntersectionObserverEntry[], {} as IntersectionObserver));
+    expect(sign.getAttribute("data-lit")).toBe("ready");
+    expect(disconnect).toHaveBeenCalled();
+    expect(wallCss()).toMatch(/\[data-lit="ready"\][^{]*\{\s*animation:\s*kz-wall-neon 2\.4s ease-in-out 1;/);
+    expect(wallCss()).not.toMatch(/animation:[^;]*infinite/);
+    unmount();
+  });
+
+  it("the neon stays lit and still under reduced motion or without observers, or with animated={false}", () => {
+    motion(true);
+    expect(render(<ShopSign variant="neon">N</ShopSign>).container.querySelector(".kz-shop-sign")?.getAttribute("data-lit")).toBeNull();
+    vi.stubGlobal("IntersectionObserver", undefined);
+    expect(render(<ShopSign variant="neon">N</ShopSign>).container.querySelector(".kz-shop-sign")?.getAttribute("data-lit")).toBeNull();
+    motion();
+    expect(render(<ShopSign variant="neon" animated={false}>N</ShopSign>).container.querySelector(".kz-shop-sign")?.getAttribute("data-lit")).toBeNull();
+  });
+
+  it("PinnedNote takes an ink, is held through Stuck, and keeps a fixed box of N lines", () => {
+    const { container } = render(<PinnedNote text="Fermé à 15 h jeudi" ink="margin" hold="pin" rotation={-2} />);
+    const note = container.querySelector(".kz-pinned-note") as HTMLElement;
+    expect(note.getAttribute("data-ink")).toBe("margin");
+    expect(note.style.getPropertyValue("--kz-note-lines")).toBe("4");
+    const stuck = container.querySelector(".kz-stuck-body") as HTMLElement;
+    expect(stuck.getAttribute("data-hold")).toBe("pin");
+    expect(stuck.style.getPropertyValue("--kz-stuck-tilt")).toBe("-2deg");
+    expect(stuck.querySelector(".kz-stuck-pin")).toBeTruthy();
+    expect(container.querySelector(".kz-wall-pin")).toBeNull();
+  });
+
+  it("PinnedNote lines and ink default to 4 and blue, and the hold to tape", () => {
+    const { container, rerender } = render(<PinnedNote text="Mot" />);
+    expect((container.querySelector(".kz-pinned-note") as HTMLElement).getAttribute("data-ink")).toBe("blue");
+    expect(container.querySelector(".kz-stuck-body")?.getAttribute("data-hold")).toBe("tape");
+    rerender(<PinnedNote text="Mot" lines={6} ink="hue" />);
+    expect((container.querySelector(".kz-pinned-note") as HTMLElement).style.getPropertyValue("--kz-note-lines")).toBe("6");
+    expect(wallCss()).toMatch(/\.kz-pinned-note-text\s*\{[^}]*(block-size|height):\s*calc\(var\(--kz-note-lines\)/);
+  });
+
+  it("every note ink reads at least 4.5:1 on the note's paper in both themes", () => {
+    const luminance = (hex: string) => {
+      const [r, g, b] = [1, 3, 5].map((i) => Number.parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+      return 0.2126 * r! + 0.7152 * g! + 0.0722 * b!;
+    };
+    const ratio = (a: string, b: string) => { const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x); return (hi! + 0.05) / (lo! + 0.05); };
+    for (const mode of ["dark", "light"] as const) {
+      for (const ink of ["accentText", "paperRuleMargin"] as const) expect(ratio(themes[mode][ink], themes[mode].surface0), `${ink} ${mode}`).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  it("Polaroid develops with opacity and saturation only, never a blur (ADR-004)", () => {
+    const css = wallCss();
+    expect(css).not.toMatch(/blur\(/);
+    expect(css).toMatch(/\.kz-polaroid\[data-develop="waiting"\] \.kz-polaroid-photo\s*\{[^}]*saturate\([^)]*\)[^}]*opacity/);
+  });
+
+  it("Wall draws at most `max` items (12 by default), in z order, in a fixed 16:9 box on a desktop", () => {
+    const many: WallItem[] = Array.from({ length: 15 }, (_, i) => ({ id: `n${i}`, kind: "note", x: i * 5, y: i * 5, z: i, text: `Note ${i}` }));
+    const { container, rerender } = render(<Wall aria-label="Wall" items={many} />);
+    expect(screen.getAllByRole("listitem")).toHaveLength(12);
+    expect(screen.getAllByRole("listitem")[11]?.textContent).toContain("Note 11");
+    rerender(<Wall aria-label="Wall" items={many} max={5} />);
+    expect(screen.getAllByRole("listitem")).toHaveLength(5);
+    expect(container.firstElementChild?.getAttribute("data-count")).toBe("5");
+    expect(wallCss()).toMatch(/\.kz-wall\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9/);
+  });
+
+  it("a wall sign is a paragraph, not a second h1, and every word of the wall sits on paper", () => {
+    render(<Wall items={[{ id: "s", kind: "sign", x: 10, y: 10, z: 1, children: "Atelier" }]} />);
+    expect(screen.queryByRole("heading", { level: 1 })).toBeNull();
+    const css = wallCss();
+    expect(css).toMatch(/\.kz-shop-sign\[data-variant="painted"\][^{]*\{[^}]*background:/);
   });
 });

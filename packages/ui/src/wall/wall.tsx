@@ -28,30 +28,42 @@ export type WallItem = WallPosition & (
   | ({ /** The owner's sign. */ kind: "sign" } & ShopSignProps)
 );
 
+type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
+
 export interface WallProps extends Omit<React.ComponentProps<"ul">, "children" | "style" | "role"> {
   /** The read-only objects; never mutated. Sorted by z for reading, keyboard and phone order. */
   items: readonly WallItem[];
   /** CSS/SVG texture; no image download. Defaults to plaster. */
   texture?: "brick" | "zellige" | "ridge" | "plaster";
-  /** Desktop surface height in pixels (minimum 320); defaults to 560. Phones grow with content. */
+  /** Draws at most this many items (the first in z order); defaults to 12. The rest belongs to the host's « see the whole wall ». */
+  max?: number;
+  /** A fixed desktop surface height in pixels (minimum 320). Absent, the surface is a fixed 16:9 box. Phones grow with content. */
   height?: number;
   /** Desktop object width in pixels (minimum 120); defaults to 240 and never exceeds the surface. */
   itemWidth?: number;
 }
 
+/** The object of one item, straight: the wall places and tilts it. A sign on a wall is a paragraph, not a second h1. */
+function WallObject({ item }: { readonly item: DistributiveOmit<WallItem, keyof WallPosition> }) {
+  if (item.kind === "polaroid") return <Polaroid {...item} rotation={0} />;
+  if (item.kind === "note") return <PinnedNote {...item} rotation={0} />;
+  return <ShopSign {...item} as={item.as ?? "p"} rotation={0} />;
+}
+
 /** A decorative textured surface over a real keyboard-reachable list; never an editor. */
-export function Wall({ items, texture = "plaster", height = 560, itemWidth = 240, className, ...props }: WallProps) {
+export function Wall({ items, texture = "plaster", max = 12, height, itemWidth = 240, className, ...props }: WallProps) {
   const patternId = React.useId().replace(/:/g, "");
+  const drawn = Math.max(0, Math.floor(finite(max)));
   return (
-    <ul {...props} role="list" className={cn("kz-wall", className)} data-texture={texture} style={{ "--kz-wall-height": `${Math.max(320, finite(height))}px`, "--kz-wall-item-width": `${Math.max(120, finite(itemWidth))}px` } as React.CSSProperties}>
-      {[...items].sort((a, b) => finite(a.z) - finite(b.z)).map(({ id, x, y, rotation = 0, z: _z, ...item }, rank) => (
+    <ul {...props} role="list" className={cn("kz-wall", className)} data-texture={texture} data-count={Math.min(items.length, drawn)} data-fixed-height={height === undefined ? undefined : ""} style={{ ...(height === undefined ? null : { "--kz-wall-height": `${Math.max(320, finite(height))}px` }), "--kz-wall-item-width": `${Math.max(120, finite(itemWidth))}px` } as React.CSSProperties}>
+      {[...items].sort((a, b) => finite(a.z) - finite(b.z)).slice(0, drawn).map(({ id, x, y, rotation = 0, z: _z, ...item }, rank) => (
         <li key={id} className="kz-wall-item" tabIndex={0} style={{
           "--kz-wall-x": `${Math.min(100, Math.max(0, finite(x)))}%`,
           "--kz-wall-y": `${Math.min(100, Math.max(0, finite(y)))}%`,
           "--kz-wall-rotation": `${finite(rotation)}deg`,
           zIndex: rank,
         } as React.CSSProperties}>
-          {item.kind === "polaroid" ? <Polaroid {...item} rotation={0} /> : item.kind === "note" ? <PinnedNote {...item} rotation={0} /> : <ShopSign {...item} rotation={0} />}
+          <WallObject item={item} />
         </li>
       ))}
       {texture === "brick" && <li className="kz-wall-decoration" aria-hidden="true" role="presentation"><svg width="100%" height="100%" aria-hidden="true">

@@ -24,6 +24,8 @@ export const meta = {
     "The stamp tells the truth: `ok` only for what is out (dev preview, released), `wip` in development, `construction` not open yet.",
     "Write the stamp and the fields in lower case: the tag is typed, never shouted.",
     "One sentence in the body, two to four fields; the foot holds the ways out (the site, the source).",
+    "`ink` and `hue` are for facts (a duration, a price, an area): `size=\"sm\"` keeps the frame askew and the text straight, so figures are read, not admired. `hue` follows the page's `--kz-hue-text`.",
+    "`icon` takes a `@krizaka/icons` glyph; it is decorative (hidden), so the text must say the whole fact.",
     "In a grid of tags under a section's `h2`, keep the default `h3` titles.",
   ],
   accessibility: {
@@ -41,6 +43,7 @@ export const meta = {
       { name: "product", title: "A product", description: "A catalogue number, the stamp, a sentence, two fields and the ways out." },
       { name: "wire", title: "Hung on one wire", description: "`mount=\"hang\"`: the products that run on one engine, side by side." },
       { name: "stamps", title: "The stamps", description: "`Stamp` alone, in its four inks: ok, wip, construction, neutral." },
+      { name: "facts", title: "Facts: ink and hue", description: "`tone=\"ink\"` (a duration, a price) and `tone=\"hue\"` (an area, a vibe), `size=\"sm\"` with a straight text, and a glyph." },
     ],
   },
 } satisfies ComponentMeta;

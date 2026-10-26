@@ -61,6 +61,8 @@ export default defineConfig([
       "quota-meter": "src/quota-meter/index.ts",
       // The « development version » band, driven by the deployment's stage.
       "environment-notice": "src/environment-notice/index.ts",
+      // The clients' word on a shop: a score as a stamp, five meters, the review cards.
+      reviews: "src/reviews/index.ts",
       "margin-layout": "src/margin-layout/index.ts",
       // The blocks of a « Credits & usage » page.
       usage: "src/usage/index.ts",
@@ -83,7 +85,6 @@ export default defineConfig([
       // A shop's storefront: the service card and the weekly hours (server-safe).
       "service-card": "src/service-card/index.ts",
       "opening-hours": "src/opening-hours/index.ts",
-      "sticky-action": "src/sticky-action/index.ts",
       "verified-badge": "src/verified-badge/index.ts",
       "step-progress": "src/step-progress/index.ts",
       // The default avatars' pure helpers (defaultAvatarUrl…): callable in a Server Component, unlike "avatar" (client).
@@ -259,6 +260,10 @@ export default defineConfig([
       "search-field": "src/search-field/index.ts",
       "video-player": "src/video-player/index.ts",
       "retro-tv": "src/retro-tv/index.ts",
+      // Client since krizaka-ui#608: it hides while the page's own action is on screen.
+      "sticky-action": "src/sticky-action/index.ts",
+      // A platform's short video behind a click (Law 25); fits a RetroTv's screen.
+      "embed-facade": "src/embed-facade/index.ts",
       "vertical-video": "src/vertical-video/index.ts",
       "file-upload": "src/file-upload/index.ts",
       "media-capture": "src/media-capture/index.ts",

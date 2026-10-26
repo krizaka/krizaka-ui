@@ -5,7 +5,10 @@ import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { BlockLink, type LinkComponent } from "../block-link";
+import { buttonVariants } from "../button/button";
+import { cn } from "../cn";
 import { CheckGlyph } from "../glyphs";
+import { Stamp } from "../specimen-tag/specimen-tag";
 
 export const serviceCard = tv({
   slots: {
@@ -31,8 +34,32 @@ export const serviceCard = tv({
       "inline-flex min-h-9 items-center gap-1 rounded-sm text-sm font-bold text-fg-accent no-underline " +
       "after:absolute after:inset-0 after:content-[''] focus-visible:outline-hidden group-data-[selected]:text-fg",
   },
+  variants: {
+    // The Cahier's stamped index card (krizaka-ui#603): ruled, straight, a punched hole, the facts stamped, a secondary Button.
+    // Same elements and same accessible output as the default card; only the drawing changes. The card is not the link, so
+    // the name stays selectable.
+    variant: {
+      default: {},
+      index: {
+        root:
+          "rounded-none border-border-default bg-surface-1 shadow-[4px_5px_0_-2px_var(--kz-border-default)] " +
+          "transition-[transform,box-shadow,border-color] duration-120 hover:border-border-strong hover:bg-surface-1 hover:-translate-y-0.5 " +
+          "hover:shadow-[6px_7px_0_-2px_var(--kz-border-default)] focus-within:-translate-y-0.5 focus-within:shadow-[6px_7px_0_-2px_var(--kz-border-default)] " +
+          "motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:focus-within:translate-y-0",
+        body: "relative pt-8 sm:pt-9",
+        head: "border-b border-(--kz-paper-rule-major) pb-3",
+        name: "font-display font-normal",
+        facts: "gap-2 text-fg",
+        foot: "border-t-0 pt-1",
+      },
+    },
+    density: { grid: {}, list: {} },
+  },
+  compoundVariants: [
+    { variant: "index", density: "list", class: { root: "sm:flex-row", media: "sm:aspect-auto sm:w-1/3 sm:shrink-0", body: "sm:flex-1" } },
+  ],
+  defaultVariants: { variant: "default", density: "grid" },
 });
-const s = serviceCard();
 
 export type ServiceCardProps = Omit<React.ComponentProps<"article">, "title" | "children"> & {
   /** The service's name (the heading). */
@@ -66,6 +93,17 @@ export type ServiceCardProps = Omit<React.ComponentProps<"article">, "title" | "
   /** The way in, as a press (a client parent). Ignored when `href` is set. */
   onSelect?: () => void;
   /**
+   * `index` — the Cahier's stamped index card: a ruled card with a punched hole, straight, the duration and the price as
+   * stamps, a secondary button. The same props and the same accessible output; only the drawing changes.
+   * @default "default"
+   */
+  variant?: "default" | "index";
+  /**
+   * `variant="index"`: `list` lays the card out as a row for a single column (the media on the left from `sm`).
+   * @default "grid"
+   */
+  density?: "grid" | "list";
+  /**
    * The heading level of the name.
    * @default "h3"
    */
@@ -76,16 +114,21 @@ export type ServiceCardProps = Omit<React.ComponentProps<"article">, "title" | "
 
 /** A service as a card: icon or photo, duration, price, what is included, the capacity, a tag — one way in. */
 export function ServiceCard({
-  name, price, priceFrom, duration, capacity, description, included, tag, icon, media, selected, actionLabel, href, linkAs, onSelect, titleAs: Title = "h3", reveal, className, style, ...props
+  name, price, priceFrom, duration, capacity, description, included, tag, icon, media, selected, actionLabel, href, linkAs, onSelect, titleAs: Title = "h3", reveal, variant = "default", density = "grid", className, style, ...props
 }: ServiceCardProps) {
+  const s = serviceCard({ variant, density });
+  const index = variant === "index";
   const id = React.useId();
   const facts = [duration, capacity].filter(Boolean);
+  const actionClass = index ? cn(buttonVariants({ variant: "secondary", size: "md" }), "min-h-11 rounded-none no-underline") : s.action();
   const arrow = <span aria-hidden>→</span>;
   const revealStyle = reveal === undefined ? style : ({ ...style, "--kz-delay": `${Math.min(Math.max(reveal, 0), 8) * 50}ms` } as React.CSSProperties);
   return (
     <article
       aria-labelledby={id}
       data-selected={selected ? "" : undefined}
+      data-variant={variant}
+      data-density={index ? density : undefined}
       data-reveal={reveal === undefined ? undefined : ""}
       style={revealStyle}
       className={s.root({ className })}
@@ -93,6 +136,11 @@ export function ServiceCard({
     >
       {media && <div className={s.media()}>{media}</div>}
       <div className={s.body()}>
+        {index && (
+          <svg data-hole aria-hidden="true" focusable="false" viewBox="0 0 16 16" className="absolute start-3 top-3 h-4 w-4">
+            <circle cx="8" cy="8" r="5.5" fill="var(--kz-surface-0)" stroke="var(--kz-border-strong)" strokeWidth="1.5" />
+          </svg>
+        )}
         <div className={s.head()}>
           {icon && <span aria-hidden className={s.icon()}>{icon}</span>}
           <div className={s.titles()}>
@@ -100,7 +148,9 @@ export function ServiceCard({
             {facts.length > 0 && (
               <ul className={s.facts()}>
                 {facts.map((fact, i) => (
-                  <li key={i}>{i > 0 && <span aria-hidden>· </span>}{fact}</li>
+                  <li key={i}>
+                    {index ? <Stamp tone="ink" size="sm">{fact}</Stamp> : <>{i > 0 && <span aria-hidden>· </span>}{fact}</>}
+                  </li>
                 ))}
               </ul>
             )}
@@ -121,14 +171,14 @@ export function ServiceCard({
         <div className={s.foot()}>
           <p className={s.priceBlock()}>
             {priceFrom && <span className={s.from()}>{priceFrom}</span>}
-            <span className={s.price()}>{price}</span>
+            {index ? <Stamp tone="ink" size="sm" data-figure="" className="tabular-nums">{price}</Stamp> : <span className={s.price()}>{price}</span>}
           </p>
           {href ? (
-            <BlockLink href={href} linkAs={linkAs} className={s.action()} aria-describedby={id}>
+            <BlockLink href={href} linkAs={linkAs} className={actionClass} aria-describedby={id}>
               {actionLabel} {arrow}
             </BlockLink>
           ) : onSelect ? (
-            <button type="button" onClick={onSelect} aria-pressed={selected ?? false} aria-describedby={id} className={s.action()}>
+            <button type="button" onClick={onSelect} aria-pressed={selected ?? false} aria-describedby={id} className={actionClass}>
               {actionLabel} {arrow}
             </button>
           ) : null}

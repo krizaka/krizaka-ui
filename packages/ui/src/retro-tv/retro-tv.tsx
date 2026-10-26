@@ -2,7 +2,6 @@
 
 import * as React from "react";
 
-import { warnDeprecated } from "../deprecated";
 import { useInView, usePrefersReducedMotion } from "../media";
 import { VideoPlayer, type VideoPlayerProps } from "../video-player/video-player";
 
@@ -27,6 +26,7 @@ const styles = `
 .kz-rtv-screen{position:absolute;top:4%;left:9.5%;width:56%;height:80%;overflow:hidden;border:2px solid color-mix(in srgb,var(--kz-border-strong) 72%,var(--kz-accent));border-radius:13% / 7%;background:var(--kz-scrim-strong);box-shadow:0 0 1.1rem color-mix(in srgb,var(--kz-accent) 30%,transparent),inset 0 0 1.2rem var(--kz-scrim-strong)}
 .kz-rtv[data-variant=portable] .kz-rtv-screen{border-radius:18% / 9%}
 .kz-rtv-screen .kz-rtv-player{height:100%;width:100%;border-radius:inherit}
+.kz-rtv-screen .kz-embed{height:100%;width:100%;aspect-ratio:auto;border-radius:inherit}
 .kz-rtv-player video,.kz-rtv-player img{object-fit:cover}
 .kz-rtv-effects{position:absolute;z-index:5;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none}
 .kz-rtv-effects:before{position:absolute;inset:0;background:repeating-linear-gradient(to bottom,transparent 0 3px,color-mix(in srgb,var(--kz-scrim-strong) 25%,transparent) 4px 5px);content:"";opacity:.46}
@@ -46,7 +46,11 @@ const styles = `
 `;
 
 /** A vertical video in a CSS-and-SVG television cabinet. */
-export interface RetroTvProps extends Omit<VideoPlayerProps, "aspectRatio" | "autoPlay" | "className" | "loop" | "muted" | "preload"> {
+export interface RetroTvProps extends Omit<VideoPlayerProps, "aspectRatio" | "autoPlay" | "className" | "loop" | "muted" | "preload" | "src"> {
+  /** The video's address. Optional when the screen shows `children`. */
+  src?: VideoPlayerProps["src"];
+  /** What the screen shows instead of the video player: an `EmbedFacade` for a platform's short video. */
+  children?: React.ReactNode;
   /** The cabinet style. */
   variant?: "cabinet" | "portable";
   /** A short channel label shown on the cabinet, for example `"CH 3 · Plateau"`. */
@@ -67,7 +71,6 @@ export interface RetroTvProps extends Omit<VideoPlayerProps, "aspectRatio" | "au
 
 /**
  * A vertical video presented in an old-school television; the existing player remains fully accessible.
- * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
 export function RetroTv({
   variant = "cabinet",
@@ -78,9 +81,10 @@ export function RetroTv({
   loop = true,
   preload = "none",
   className,
+  children,
+  src,
   ...playerProps
 }: RetroTvProps) {
-  warnDeprecated("retro-tv");
   const root = React.useRef<HTMLDivElement>(null);
   const [powered, setPowered] = React.useState(false);
   const reducedMotion = usePrefersReducedMotion();
@@ -90,6 +94,8 @@ export function RetroTv({
   const shineId = `${uid}-shine`;
 
   useInView(root, setPowered);
+  const player = src ? <VideoPlayer {...playerProps} src={src} className="kz-rtv-player" aspectRatio="9 / 16" autoPlay={autoPlay} muted={muted} loop={loop} preload={preload} /> : null;
+  const screen = children ?? player;
 
   return (
     <div ref={root} className={["kz-rtv", className].filter(Boolean).join(" ")} data-variant={variant} data-powered={powered && !reducedMotion ? "true" : undefined} data-off={off ? "true" : undefined}>
@@ -113,7 +119,7 @@ export function RetroTv({
             <rect width="100%" height="100%" filter={`url(#${noiseId})`} />
           </svg>
         ) : (
-          <VideoPlayer {...playerProps} className="kz-rtv-player" aspectRatio="9 / 16" autoPlay={autoPlay} muted={muted} loop={loop} preload={preload} />
+          screen
         )}
         <div className="kz-rtv-effects" aria-hidden="true">
           <svg className="kz-rtv-glass" viewBox="0 0 100 100" preserveAspectRatio="none">

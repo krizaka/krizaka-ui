@@ -82,6 +82,10 @@ export type Theme = {
   readonly paperTag: string;
   readonly paperTagEdge: string;
   readonly paperTagInk: string;
+  /** The dot-grid and kraft papers (krizaka-ui#600). */
+  readonly paperDot: string;
+  readonly paperKraft: string;
+  readonly paperKraftInk: string;
 };
 
 /** Corner radii, in points. */

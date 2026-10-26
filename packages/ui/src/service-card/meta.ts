@@ -17,6 +17,7 @@ export const meta = {
     { when: "An argument with a bird and a long version.", use: "argument-card" },
   ],
   bestPractices: [
+    "`variant=\"index\"` is the Cahier's card for a shop page: same props, same accessible output. Its button is the way in, not the whole card, so the name stays selectable; keep it straight (a card you pick is never askew).",
     "Pass the price already formatted (the shop's currency and the reader's locale): the card never formats money.",
     "Use `priceFrom` only when the price truly varies; keep `included` to three short lines.",
     "Show `tag` (« Popular ») only from real data, such as the most booked service — never as decoration.",
@@ -34,6 +35,10 @@ export const meta = {
   related: ["card-grid", "slot-picker", "opening-hours", "link-card", "argument-card"],
   web: {
     imports: ["ServiceCard"],
-    examples: [{ name: "services", title: "Services", description: "A solo walk marked Popular and a group walk priced « from »: duration, capacity, inclusions, one way in each." }],
+    examples: [
+      { name: "index-card", title: "Stamped index cards", description: "`variant=\"index\"`: ruled, straight, a punched hole, the duration and the price as stamps, a secondary button." },
+      { name: "index-list", title: "Index cards in one column", description: "`density=\"list\"`: the same card as a row, for a menu of services." },
+      { name: "services", title: "Services", description: "A solo walk marked Popular and a group walk priced « from »: duration, capacity, inclusions, one way in each." },
+    ],
   },
 } satisfies ComponentMeta;

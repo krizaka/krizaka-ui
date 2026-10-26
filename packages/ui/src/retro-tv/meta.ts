@@ -3,12 +3,7 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Retro TV",
   summary: "A vertical video presented in a detailed television cabinet, with an accessible player, channel label, scanlines and an animated off-state.",
-  status: "deprecated",
-  deprecated: {
-    since: "3.55.0",
-    removedIn: "4.0.0",
-    reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
-  },
+  status: "beta",
   category: "media",
   platforms: "web",
   parity: {
@@ -27,6 +22,7 @@ export const meta = {
     "Give the player a title, poster and translated `labels`; pass WebVTT captions as `tracks`.",
     "Keep autoplay muted; it starts only while the player is on screen and waits under reduced motion.",
     "Use `off` for the static screen; the video is not loaded or played in this state.",
+    "A platform's short video (TikTok, YouTube Shorts, Instagram) goes in as `children`, an `EmbedFacade`: the television's screen shows the facade, and nothing is requested from the platform before the visitor's click.",
   ],
   accessibility: {
     keyboard: [
@@ -39,12 +35,13 @@ export const meta = {
       "Under reduced motion the power-on and static effects stop, and autoplay waits for a gesture.",
     ],
   },
-  related: ["video-player", "vertical-video", "audio-player"],
+  related: ["video-player", "vertical-video", "audio-player", "embed-facade"],
   web: {
     imports: ["RetroTv"],
     examples: [
       { name: "cabinet", title: "Wood cabinet", description: "A vertical shop story in the cabinet television, with its channel label and player controls." },
       { name: "portable", title: "Portable set", description: "The same vertical story in a compact cream television cabinet." },
+      { name: "facade", title: "A platform's reel behind a facade", description: "`children`: an `EmbedFacade` on the screen, nothing loaded until the click." },
     ],
   },
 } satisfies ComponentMeta;

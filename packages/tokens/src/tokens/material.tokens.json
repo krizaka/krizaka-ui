@@ -157,6 +157,11 @@
     "line": {
       "$value": "8px",
       "$description": "La ligne fine : trois par carreau"
+    },
+    "grain-opacity": {
+      "$type": "number",
+      "$value": 0.08,
+      "$description": "Le grain du kraft : l'opacité maximale (le texte reste lisible au point le plus sombre, ≥ 7:1)"
     }
   },
   "density": {

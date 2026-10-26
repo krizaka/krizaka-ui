@@ -3,7 +3,7 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Page",
   summary:
-    "The frame of every page: one width (`--kz-page-max`), one pair of gutters, one vertical rhythm — `Page`, `Section` (full-bleed, its heading, a hairline or the brand's backdrop as transition) and `SectionHeading`, with `Facts` and `Ticks`.",
+    "The frame of every page: one width (`--kz-page-max`), one pair of gutters, one vertical rhythm — `Page`, `Section` (full-bleed, its heading, a hairline or the brand's backdrop as transition) and `SectionHeading`, with `Facts` and `Ticks`, and the papers (`ruled`, `lines`, `dot-grid`, `kraft`).",
   status: "beta",
   category: "blocks",
   platforms: "web",
@@ -22,6 +22,8 @@ export const meta = {
     "One frame per site: set `--kz-page-max` once (72rem by default) and give the navigation the same width.",
     "`size=\"narrow\"` for a column of text, `wide` for documentation with a sidebar — never a width of your own.",
     "Give every titled section an `id`: it is its anchor and, through `aria-labelledby`, its name.",
+    "`paper`: `ruled`, `lines`, `dot-grid` or `kraft` (absent is plain). Put the paper on a page or a section, never under a dense app screen; every word stays on the paper, never on a texture.",
+    "`kraft` needs `PaperGrain` mounted once in the root layout (a hidden inline SVG filter with a fixed seed, no image file). Without it the paper is flat, never broken.",
     "`reveal` on headings below the first screen only: what the visitor sees on arrival is painted at once.",
   ],
   accessibility: {
@@ -34,11 +36,13 @@ export const meta = {
   },
   related: ["page-hero", "section-backdrop", "card-grid"],
   web: {
-    imports: ["Page", "Section", "SectionHeading", "Facts", "Ticks"],
+    imports: ["Page", "Section", "SectionHeading", "Facts", "Ticks", "PaperGrain"],
     examples: [
       { name: "sections", title: "Sections", description: "Two sections on one rhythm, a hairline between them (`divider`)." },
       { name: "backdrop", title: "Section on the brand's backdrop", description: "`backdrop`: the colour transition behind a closing call, the actions on the right of the heading." },
       { name: "frame", title: "The frame alone", description: "`Page` in its three widths: narrow, default, wide." },
+      { name: "papers", title: "Papers", description: "`paper`: `ruled`, `lines`, `dot-grid` (a dot every 24 px) — absent is plain." },
+      { name: "kraft", title: "Kraft paper", description: "`paper=\"kraft\"` with the one `PaperGrain` the host mounts: brown paper, ink at 7:1 on its darkest grain point." },
       { name: "facts", title: "Facts and ticks", description: "Honest facts under a title, and a sentence where backticks read as code." },
     ],
   },

@@ -469,6 +469,33 @@
         }
       },
       "$description": "Le texte tapé sur l'étiquette"
+    },
+    "dot": {
+      "$value": "hsl(140 25% 88% / 0.16)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(214 40% 45% / 0.30)"
+        }
+      },
+      "$description": "Le papier pointillé : le point de la grille (tous les 24 px)"
+    },
+    "kraft": {
+      "$value": "hsl(32 16% 22%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(36 42% 72%)"
+        }
+      },
+      "$description": "Le papier kraft (le carnet de nuit : kraft sombre)"
+    },
+    "kraft-ink": {
+      "$value": "hsl(40 35% 93%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(28 35% 10%)"
+        }
+      },
+      "$description": "L'encre du texte posé sur le kraft"
     }
   }
 }
