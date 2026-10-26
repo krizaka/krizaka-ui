@@ -1,5 +1,14 @@
 # @krizaka/tailwind
 
+## 3.63.1
+
+### Patch Changes
+
+- [#736](https://github.com/krizaka/krizaka-ui/pull/736) [`8980b3a`](https://github.com/krizaka/krizaka-ui/commit/8980b3a52615885ecab4fa3c0adfba1e1f352c26) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Release bump: 3.63.0 was already on npm when the analysis report, the stat strip, the usage blocks, the margin layout and the button fix were versioned. This patch publishes them (krizaka-ui#210, [#259](https://github.com/krizaka/krizaka-ui/issues/259), [#641](https://github.com/krizaka/krizaka-ui/issues/641), [#645](https://github.com/krizaka/krizaka-ui/issues/645), [#651](https://github.com/krizaka/krizaka-ui/issues/651)).
+- Updated dependencies [[`8980b3a`](https://github.com/krizaka/krizaka-ui/commit/8980b3a52615885ecab4fa3c0adfba1e1f352c26)]:
+  - @krizaka/ui@3.63.1
+  - @krizaka/tokens@3.63.1
+
 ## 3.63.0
 
 ### Patch Changes
