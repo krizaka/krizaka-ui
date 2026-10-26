@@ -49,6 +49,9 @@ importers:
       '@krizaka/icons':
         specifier: workspace:*
         version: link:../../packages/icons
+      '@krizaka/org':
+        specifier: ^0.1.0
+        version: 0.1.0
       '@krizaka/query':
         specifier: workspace:*
         version: link:../../packages/query

@@ -21,3 +21,10 @@ test("no other file renders a footer", () => {
     .filter((f) => /<SiteFooter\b|<footer\b/.test(read(f)));
   assert.deepEqual(offenders, []);
 });
+
+test("the footer reads the organisation's facts from @krizaka/org, never a hand-written line", () => {
+  const footer = read("app/components/SiteFooter.tsx");
+  assert.match(footer, /from "@krizaka\/org"/);
+  assert.match(footer, /org=\{org\}/);
+  assert.doesNotMatch(footer, /Fait à Montréal|Made in Montréal|Technologies Krizaka/);
+});
