@@ -29,7 +29,6 @@ export function TemplatesDoc({ locale, purpose }: { locale: Locale; purpose?: Te
   if (!purpose) {
     return (
       <div className="kz-screens">
-        <p>{x.overviewLead}</p>
         {purposes.map(({ id }) => {
           const entries = templateEntries(id);
           const words = t.docs.ia.purposes[id];
