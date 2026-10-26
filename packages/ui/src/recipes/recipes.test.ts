@@ -131,7 +131,7 @@ describe("nativeRecipe", () => {
 // The parity of the four recipes the web and the phone share: the same variants resolve on both sides, and what the phone
 // cannot draw is only what only the web has (pointer, focus, shadow, layout classes) — never a forgotten token.
 const WEB_ONLY =
-  /^(?:(?:hover|focus-visible|focus|active|group-hover|motion-safe|motion-reduce|data-loading|data-\[[^\]]+\]|aria-\[[^\]]+\]|disabled|\[&[^\]]*\]+[^:]*):)|^(?:inline-flex|flex|relative|absolute|shrink-0|select-none|items-[a-z]+|justify-[a-z]+|whitespace-nowrap|transition(?:-[a-z]+)?|duration-\d+|shadow(?:-[a-z]+)?|backdrop-blur(?:-[a-z]+)?|overflow-hidden|rounded(?:-[a-z0-9[\]-]+)?|\[corner-shape:[a-z]+\]|kz-[a-z-]+|group|flex-col|flex-1|mt-auto)$/;
+  /^(?:(?:hover|focus-visible|focus|active|group-hover|motion-safe|motion-reduce|data-loading|data-\[[^\]]+\]|aria-\[[^\]]+\]|disabled|\[&[^\]]*\]+[^:]*):)|^(?:inline-flex|flex|relative|absolute|shrink-0|select-none|items-[a-z]+|justify-[a-z]+|whitespace-(?:nowrap|normal)|max-w-full|text-center|transition(?:-[a-z]+)?|duration-\d+|shadow(?:-[a-z]+)?|backdrop-blur(?:-[a-z]+)?|overflow-hidden|rounded(?:-[a-z0-9[\]-]+)?|\[corner-shape:[a-z]+\]|kz-[a-z-]+|group|flex-col|flex-1|mt-auto)$/;
 
 type Parity = { name: string; recipe: Parameters<typeof nativeRecipe>[0]; slots: string[]; variants: Record<string, string[]> };
 const RECIPES: Parity[] = [
