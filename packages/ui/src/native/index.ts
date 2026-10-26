@@ -72,6 +72,7 @@ export {
 export { type DescriptionItem, DescriptionList, type DescriptionListProps } from "./description-list";
 export { Sheet, type SheetProps } from "./dialog";
 export { EmptyState, type EmptyStateProps } from "./empty-state";
+export { EnvironmentNotice, type EnvironmentNoticeProps } from "./environment-notice";
 export { Fab, type FabProps } from "./fab";
 export { TextField, type TextFieldProps } from "./field";
 export { ForceUpdateScreen, type ForceUpdateScreenProps } from "./force-update-screen";

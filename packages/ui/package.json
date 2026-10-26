@@ -153,6 +153,10 @@
       "types": "./dist/quota-meter.d.ts",
       "import": "./dist/quota-meter.js"
     },
+    "./environment-notice": {
+      "types": "./dist/environment-notice.d.ts",
+      "import": "./dist/environment-notice.js"
+    },
     "./alert": {
       "types": "./dist/alert.d.ts",
       "import": "./dist/alert.js"
@@ -989,7 +993,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "64.4 kB",
+      "limit": "64.6 kB",
       "gzip": true
     },
     {
@@ -1225,6 +1229,13 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./environment-notice",
+      "path": "dist/environment-notice.js",
+      "limit": "1 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
     },
     {
       "name": "./quota-meter",

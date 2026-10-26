@@ -12,6 +12,7 @@ export const meta = {
     "To open a section that turns the story (`size=\"lg\"`): a final chapter, a reveal.",
   ],
   whenNotToUse: [
+    { when: "A notice that this deployment is a development version (data can be reset, not a commercial offer).", use: "environment-notice" },
     { when: "Progress through a form or a checkout.", use: "stepper" },
     { when: "A plain eyebrow above a section's heading.", use: "page" },
   ],
