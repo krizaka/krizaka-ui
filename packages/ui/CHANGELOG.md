@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.61.0
+
+### Minor Changes
+
+- [#720](https://github.com/krizaka/krizaka-ui/pull/720) [`ce959a9`](https://github.com/krizaka/krizaka-ui/commit/ce959a93ceef9ca00487fc74af9aeb0572c42c3b) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `SiteFooter` takes `org` (the organisation's public facts from `@krizaka/org`): its signature line is `org.footer.line` (« Une entreprise de Technologies Krizaka · Fait à Montréal ») and, without `legal`, the legal links are `org.footer.legal`. `NavBar.Brand` takes `org` too: with no children it is the Krizaka mark and `org.brand.name`. `sites` exports `OrgFacts` and `orgFamilyLabels(org, locale)`. No site writes these lines by hand any more.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.61.0
+  - @krizaka/tokens@3.61.0
+
 ## 3.60.0
 
 ### Minor Changes
