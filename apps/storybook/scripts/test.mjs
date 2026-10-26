@@ -6,6 +6,8 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { extname, join, normalize, resolve } from "node:path";
 
+// the runner is this package's own dependency: its binary by path, never looked up on PATH
+const RUNNER = join(import.meta.dirname, "..", "node_modules", ".bin", process.platform === "win32" ? "test-storybook.cmd" : "test-storybook");
 const ROOT = resolve(import.meta.dirname, "..", "storybook-static");
 if (!existsSync(join(ROOT, "index.json"))) {
   console.error("storybook-static/ is missing: run `pnpm --filter storybook storybook:build` first.");
@@ -36,6 +38,6 @@ server.listen(0, "127.0.0.1", () => {
   const { port } = server.address();
   const update = process.argv.includes("--update");
   const args = ["--url", `http://127.0.0.1:${port}`, "--index-json", "--maxWorkers=2", update ? "-u" : "--ci", ...process.argv.slice(2).filter((arg) => arg !== "--update")]; // more args go to the test-runner (`--includeTags`…)
-  const runner = spawn("test-storybook", args, { stdio: "inherit", shell: process.platform === "win32" });
+  const runner = spawn(RUNNER, args, { stdio: "inherit", shell: process.platform === "win32" });
   runner.on("exit", (code) => server.close(() => process.exit(code ?? 1)));
 });
