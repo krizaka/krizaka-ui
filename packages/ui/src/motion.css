@@ -599,7 +599,12 @@ svg[data-kz-icon="ExternalIcon"] {
 @keyframes kz-flow-out { from { stroke-dashoffset: calc(var(--kz-flow-gap, 12) * -1px); } to { stroke-dashoffset: 0px; } }
 /* The engine breathes: a slow swell of its mark (compositor only), in the loop system (held off screen / while settling). */
 .kz-flow-hub-mark.kz-loop { animation: kz-flow-breathe 4.2s ease-in-out infinite alternate; }
-@keyframes kz-flow-breathe { from { scale: 1; } to { scale: 1.06; } }
+@keyframes kz-flow-breathe { from { scale: 1; } to { scale: var(--kz-flow-calm-scale, 1.06); } }
+/* The calm level (small frames): a slow breath, quiet photons. Still under Save-Data (`data-still`, set from the
+   connection) and under reduced motion (below); held off screen and while the page settles like every loop. */
+.kz-flow[data-calm] .kz-flow-hub-mark.kz-loop { animation-duration: 9s; }
+.kz-flow[data-calm] { --kz-flow-calm-scale: 1.03; }
+.kz-flow[data-still] :is(.kz-flow-photon, .kz-loop) { animation: none !important; }
 
 .kz-flow-nodes { margin: 0; padding: 0; list-style: none; }
 .kz-flow-nodes > li, .kz-flow-hub { position: absolute; translate: -50% -50%; }
@@ -607,7 +612,7 @@ svg[data-kz-icon="ExternalIcon"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.375rem;
+  position: relative;
   min-width: 2.75rem;
   min-height: 2.75rem;
   padding: 0.25rem;
@@ -630,12 +635,14 @@ svg[data-kz-icon="ExternalIcon"] {
 }
 .kz-flow-node-mark { width: var(--kz-flow-mark); height: var(--kz-flow-mark); }
 .kz-flow-node-mark > svg { width: 62%; height: 62%; }
-.kz-flow-node-label { font-size: 0.8125rem; font-weight: 600; line-height: 1.2; white-space: nowrap; }
+/* The label hangs below the circle: the circle's centre is the node's point, where its conduit is anchored. */
+.kz-flow-node-label { position: absolute; top: 100%; left: 50%; translate: -50% 0.125rem; font-size: 0.8125rem; font-weight: 600; line-height: 1.2; white-space: nowrap; }
 .kz-flow-node:is(:hover, :focus-visible, [data-active]) .kz-flow-node-mark {
   border-color: var(--kz-accent);
   box-shadow: 0 0 0 4px var(--kz-accent-soft);
 }
-.kz-flow[data-active] .kz-flow-node:not([data-active]) { opacity: 0.6; }
+/* A node not chosen dims its label and its mark, never the circle: it stays opaque over its conduit. */
+.kz-flow[data-active] .kz-flow-node:not([data-active]) :is(.kz-flow-node-label, .kz-flow-node-mark > *) { opacity: 0.6; }
 .kz-flow-node[data-planned] .kz-flow-node-mark { border-style: dashed; }
 .kz-flow-node[data-planned] .kz-flow-node-mark > * { opacity: 0.5; }
 .kz-flow-node[data-planned] .kz-flow-node-label { color: var(--kz-text-secondary); }
@@ -643,7 +650,10 @@ svg[data-kz-icon="ExternalIcon"] {
 .kz-flow-stage[data-layout="top-to-bottom"] .kz-flow-node-label {
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
 }
-.kz-flow-hub { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; pointer-events: none; }
+/* The ring's centre is the hub's point: its name and caption hang below it, where every conduit ends under the ring. */
+.kz-flow-hub { display: flex; flex-direction: column; align-items: center; text-align: center; pointer-events: none; }
+.kz-flow-hub-text { display: flex; flex-direction: column; align-items: center; gap: 0.125rem; }
+.kz-flow-hub-mark + .kz-flow-hub-text { position: absolute; top: 100%; left: 50%; translate: -50% 0.25rem; white-space: nowrap; }
 .kz-flow-hub-mark {
   width: var(--kz-flow-hub);
   height: var(--kz-flow-hub);

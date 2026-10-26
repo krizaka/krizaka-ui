@@ -5,7 +5,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { axeViolations } from "../test/axe";
-import { EngineFlow, type EngineFlowNode, flowGeometry, flowPositions, photonCount } from "./index";
+import { CALM_FLOW, EngineFlow, type EngineFlowNode, FLOW_FAN, flowGeometry, flowPositions, photonCount } from "./index";
 
 const nodes: EngineFlowNode[] = [
   { id: "a", label: "Alpha", flow: "both", description: "Search, results back.", href: "https://a.example", linkLabel: "a.example", className: "brand-a" },
@@ -159,5 +159,77 @@ describe("EngineFlow config", () => {
     const mark = (breathe: boolean) => render(<EngineFlow label="x" hub={{ label: "Hub", mark: <svg /> }} nodes={nodes} breathe={breathe} />).container.querySelector(".kz-flow-hub-mark")!;
     expect(mark(true).getAttribute("class")).toContain("kz-loop");
     expect(mark(false).getAttribute("class")).not.toContain("kz-loop");
+  });
+});
+
+describe("EngineFlow anchoring: every conduit meets the circle of its node and the ring of the hub the same way", () => {
+  const css = readFileSync(join(import.meta.dirname, "../motion.css"), "utf8");
+  const start = (path: string) => path.match(/^M([\d.]+) ([\d.]+)/)!.slice(1).map(Number);
+  const end = (path: string) => path.match(/([\d.]+) ([\d.]+)$/)!.slice(1).map(Number);
+
+  it.each([4, 6])("with %i nodes: each conduit starts at its node's point and ends under the hub's ring, in every layout", (count) => {
+    for (const layout of ["radial", "top-to-bottom", "left-to-right"] as const) {
+      for (const conduit of ["bezier", "straight"] as const) {
+        const g = flowGeometry(layout, count, conduit);
+        g.paths.forEach((path, i) => {
+          expect(start(path)).toEqual([Math.round(g.nodes[i]!.x * 100) / 100, Math.round(g.nodes[i]!.y * 100) / 100]);
+          const [x, y] = end(path) as [number, number];
+          // Within the fan of the hub's centre: under the ring, which is opaque and drawn over it.
+          const reach = Math.hypot(x - g.hub.x, y - g.hub.y);
+          expect(reach).toBeLessThanOrEqual(Math.max(g.width, g.height) * FLOW_FAN * 0.5 + 0.01);
+        });
+      }
+    }
+  });
+
+  it("the point of a node is the centre of its circle: the label hangs below it, out of the box", () => {
+    expect(css).toMatch(/\.kz-flow-node-label \{ position: absolute; top: 100%;/);
+    expect(css).toMatch(/\.kz-flow-hub-mark \+ \.kz-flow-hub-text \{ position: absolute; top: 100%;/);
+    const { container } = render(<EngineFlow label="x" hub={{ label: "Hub", caption: "engine", mark: <svg /> }} nodes={nodes} />);
+    expect(container.querySelector(".kz-flow-hub > .kz-flow-hub-mark + .kz-flow-hub-text")).toBeTruthy();
+  });
+
+  it("the circles are opaque and a node not chosen never dims its circle (the conduit must not show through)", () => {
+    expect(css).toMatch(/\.kz-flow-node-mark, \.kz-flow-hub-mark \{[^}]*background: var\(--kz-surface-1\)/);
+    expect(css).not.toMatch(/\.kz-flow-node:not\(\[data-active\]\) \{ opacity/);
+  });
+});
+
+describe("EngineFlow calm level", () => {
+  const css = readFileSync(join(import.meta.dirname, "../motion.css"), "utf8");
+
+  it("runs the photons and the breath at a low rate, with no hint and no detail line", () => {
+    const { container } = render(<EngineFlow calm label="x" hub={{ label: "Hub", mark: <svg /> }} nodes={nodes} hint="Point" speed={40} density="dense" trigger="hover" />);
+    const figure = container.querySelector("figure")!;
+    expect(figure.hasAttribute("data-calm")).toBe(true);
+    expect(figure.hasAttribute("data-trigger")).toBe(false);
+    expect(container.querySelector("figcaption")).toBeNull();
+    expect(screen.queryByText("Point")).toBeNull();
+    for (const b of container.querySelectorAll("button")) expect(b.hasAttribute("aria-controls")).toBe(false);
+    const slow = container.querySelector<SVGElement>(".kz-flow-photon")!;
+    const normal = render(<EngineFlow label="y" hub={{ label: "Hub" }} nodes={nodes} />).container.querySelector<SVGElement>(".kz-flow-photon")!;
+    expect(parseFloat(slow.style.animationDuration)).toBeGreaterThan(parseFloat(normal.style.animationDuration) * 2);
+    expect(CALM_FLOW.speed).toBeLessThan(16);
+    expect(css).toMatch(/\.kz-flow\[data-calm\] \.kz-flow-hub-mark\.kz-loop \{ animation-duration: 9s; \}/);
+  });
+
+  it("is a loop of the motion system: off screen, while settling, still under reduced motion and Save-Data, no frame loop", () => {
+    const { container } = render(<EngineFlow calm label="x" hub={{ label: "Hub", mark: <svg /> }} nodes={nodes} />);
+    expect(container.querySelector("figure")?.hasAttribute("data-motion-scope")).toBe(true);
+    expect(container.querySelector(".kz-flow-photon")?.getAttribute("class")).toContain("kz-loop");
+    expect(container.querySelector(".kz-flow-hub-mark")?.getAttribute("class")).toContain("kz-loop");
+    expect(css).toMatch(/prefers-reduced-motion: reduce[^]*\.kz-flow-photon[^{]*\{ animation: none !important; \}/);
+    expect(css).toMatch(/\.kz-flow\[data-still\] :is\(\.kz-flow-photon, \.kz-loop\) \{ animation: none !important; \}/);
+  });
+
+  it("rests under Save-Data", () => {
+    Object.defineProperty(navigator, "connection", { value: { saveData: true }, configurable: true });
+    try {
+      const { container } = render(<EngineFlow calm label="x" hub={{ label: "Hub" }} nodes={nodes} />);
+      expect(container.querySelector("figure")?.hasAttribute("data-still")).toBe(true);
+    } finally {
+      Object.defineProperty(navigator, "connection", { value: undefined, configurable: true });
+    }
+    expect(render(<EngineFlow calm label="y" hub={{ label: "Hub" }} nodes={nodes} />).container.querySelector("figure")?.hasAttribute("data-still")).toBe(false);
   });
 });
