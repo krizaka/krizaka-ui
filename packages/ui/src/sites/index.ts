@@ -4,6 +4,8 @@ export {
   companyLinks,
   type FamilyLabels,
   familyLabels,
+  type OrgFacts,
+  orgFamilyLabels,
   type Site,
   siteById,
   type SiteGroup,

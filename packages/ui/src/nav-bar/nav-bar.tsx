@@ -9,7 +9,7 @@ import { tv } from "tailwind-variants";
 import { cn } from "../cn";
 import { FamilyMark, GitHubGlyph } from "../family-mark";
 import { LanguageSwitch, type LanguageSwitchProps } from "../language-switch/language-switch";
-import { type FamilyLabels, familyLabels, type Site, type SiteId, sitesByGroup } from "../sites/sites";
+import { type FamilyLabels, familyLabels, type OrgFacts, type Site, siteById, type SiteId, sitesByGroup } from "../sites/sites";
 import { useSlidingIndicator } from "../sliding-indicator";
 import { placePanel } from "./placement";
 import { NavBarSession } from "./session";
@@ -157,12 +157,29 @@ export function NavBarRoot({ label, compactAfter = 24, floating = true, classNam
 export type NavBarBrandProps = React.ComponentProps<"a"> & {
   /** Renders your link (a router `<Link>`) with the brand's look. */
   asChild?: boolean;
+  /**
+   * The organisation's facts (`org` of `@krizaka/org`): without children, the brand is the Krizaka mark and `org.brand.name`,
+   * so no site writes the company's name by hand. Children, when given, win (a product's own brand).
+   */
+  org?: Pick<OrgFacts, "brand">;
 };
 
 /** The brand: a mark and a name, linking home. */
-export function NavBarBrand({ asChild, className, ...props }: NavBarBrandProps) {
+export function NavBarBrand({ asChild, className, org, children, ...props }: NavBarBrandProps) {
   const Comp = asChild ? Slot.Root : "a";
-  return <Comp className={s.brand({ className })} {...props} />;
+  const fromOrg = org && !asChild && children === undefined;
+  return (
+    <Comp className={s.brand({ className })} {...props}>
+      {fromOrg ? (
+        <>
+          <FamilyMark mark={siteById("krizaka").mark} size={22} />
+          {org.brand.name}
+        </>
+      ) : (
+        children
+      )}
+    </Comp>
+  );
 }
 
 export type NavBarItemsProps = Omit<React.ComponentProps<typeof Nav.Root>, "orientation">;
