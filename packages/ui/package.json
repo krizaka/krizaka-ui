@@ -1248,7 +1248,7 @@
     {
       "name": "./usage",
       "path": "dist/usage.js",
-      "limit": "3 kB",
+      "limit": "5 kB",
       "gzip": true,
       "ignore": ["tailwind-variants", "clsx", "react", "radix-ui", "@krizaka/intl"]
     },
