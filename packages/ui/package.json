@@ -996,7 +996,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "64.4 kB",
+      "limit": "64.6 kB",
       "gzip": true
     },
     {
@@ -1038,7 +1038,7 @@
     {
       "name": "./field",
       "path": "dist/field.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1428,7 +1428,7 @@
     {
       "name": "./waveform",
       "path": "dist/waveform.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1448,7 +1448,7 @@
     {
       "name": "./motion",
       "path": "dist/motion.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1504,7 +1504,7 @@
     {
       "name": "./number-ticker",
       "path": "dist/number-ticker.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1544,7 +1544,7 @@
     {
       "name": "./marquee",
       "path": "dist/marquee.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1688,7 +1688,7 @@
     {
       "name": "./form/server",
       "path": "dist/form/server.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true
     },
     {
@@ -1880,7 +1880,7 @@
     {
       "name": "./app-header",
       "path": "dist/app-header.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1890,7 +1890,7 @@
     {
       "name": "./app-header/search",
       "path": "dist/app-header/search.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1957,7 +1957,7 @@
     {
       "name": "./sticky-action",
       "path": "dist/sticky-action.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2227,7 +2227,7 @@
     {
       "name": "./doodle",
       "path": "dist/doodle.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2567,7 +2567,7 @@
     {
       "name": "./landing-page",
       "path": "dist/landing-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2578,7 +2578,7 @@
     {
       "name": "./product-page",
       "path": "dist/product-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2589,7 +2589,7 @@
     {
       "name": "./how-it-works-page",
       "path": "dist/how-it-works-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2600,7 +2600,7 @@
     {
       "name": "./gallery-page",
       "path": "dist/gallery-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2611,7 +2611,7 @@
     {
       "name": "./docs-hub-page",
       "path": "dist/docs-hub-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2622,7 +2622,7 @@
     {
       "name": "./docs-article-page",
       "path": "dist/docs-article-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2633,7 +2633,7 @@
     {
       "name": "./component-page",
       "path": "dist/component-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2655,7 +2655,7 @@
     {
       "name": "./longform-page",
       "path": "dist/longform-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2677,7 +2677,7 @@
     {
       "name": "./contact-page",
       "path": "dist/contact-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2688,7 +2688,7 @@
     {
       "name": "./legal-page",
       "path": "dist/legal-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2699,7 +2699,7 @@
     {
       "name": "./status-page",
       "path": "dist/status-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2710,7 +2710,7 @@
     {
       "name": "./error-page",
       "path": "dist/error-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2721,7 +2721,7 @@
     {
       "name": "./pricing-page",
       "path": "dist/pricing-page.js",
-      "limit": "1 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

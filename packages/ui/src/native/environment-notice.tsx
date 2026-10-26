@@ -2,7 +2,6 @@
 // real offer. The same rule as the web (`environmentNotice`): `production` renders nothing. Words are props.
 import { Pressable, StyleSheet, View, type ViewProps } from "react-native";
 
-import { environmentNotice } from "../environment-notice/model";
 import { useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -19,11 +18,14 @@ export type EnvironmentNoticeProps = Omit<ViewProps, "children"> & {
   onLinkPress?: () => void;
 };
 
+// The rule of `environmentNotice` (src/environment-notice/model.ts), restated here so /native shares no chunk with the web entry.
+const isProduction = (stage: string | null | undefined) => ["production", "prod"].includes((stage ?? "").trim().toLowerCase());
+
 /** The web `EnvironmentNotice` on React Native. */
 export function EnvironmentNotice({ stage, title, message, link, onLinkPress, style, ...props }: EnvironmentNoticeProps) {
   const { theme } = useTheme();
-  const content = environmentNotice({ stage, title, message, link: link ? { label: link.label, href: "" } : undefined });
-  if (!content) return null;
+  if (isProduction(stage)) return null;
+  const content = { title, message, link };
   return (
     <View
       role="region"
