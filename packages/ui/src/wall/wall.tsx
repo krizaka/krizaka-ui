@@ -28,6 +28,8 @@ export type WallItem = WallPosition & (
   | ({ /** The owner's sign. */ kind: "sign" } & ShopSignProps)
 );
 
+type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
+
 export interface WallProps extends Omit<React.ComponentProps<"ul">, "children" | "style" | "role"> {
   /** The read-only objects; never mutated. Sorted by z for reading, keyboard and phone order. */
   items: readonly WallItem[];
@@ -39,6 +41,13 @@ export interface WallProps extends Omit<React.ComponentProps<"ul">, "children" |
   height?: number;
   /** Desktop object width in pixels (minimum 120); defaults to 240 and never exceeds the surface. */
   itemWidth?: number;
+}
+
+/** The object of one item, straight: the wall places and tilts it. A sign on a wall is a paragraph, not a second h1. */
+function WallObject({ item }: { readonly item: DistributiveOmit<WallItem, keyof WallPosition> }) {
+  if (item.kind === "polaroid") return <Polaroid {...item} rotation={0} />;
+  if (item.kind === "note") return <PinnedNote {...item} rotation={0} />;
+  return <ShopSign {...item} as={item.as ?? "p"} rotation={0} />;
 }
 
 /** A decorative textured surface over a real keyboard-reachable list; never an editor. */
@@ -54,7 +63,7 @@ export function Wall({ items, texture = "plaster", max = 12, height, itemWidth =
           "--kz-wall-rotation": `${finite(rotation)}deg`,
           zIndex: rank,
         } as React.CSSProperties}>
-          {item.kind === "polaroid" ? <Polaroid {...item} rotation={0} /> : item.kind === "note" ? <PinnedNote {...item} rotation={0} /> : <ShopSign {...item} as={item.as ?? "p"} rotation={0} />}
+          <WallObject item={item} />
         </li>
       ))}
       {texture === "brick" && <li className="kz-wall-decoration" aria-hidden="true" role="presentation"><svg width="100%" height="100%" aria-hidden="true">

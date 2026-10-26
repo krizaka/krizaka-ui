@@ -94,6 +94,8 @@ export function RetroTv({
   const shineId = `${uid}-shine`;
 
   useInView(root, setPowered);
+  const player = src ? <VideoPlayer {...playerProps} src={src} className="kz-rtv-player" aspectRatio="9 / 16" autoPlay={autoPlay} muted={muted} loop={loop} preload={preload} /> : null;
+  const screen = children ?? player;
 
   return (
     <div ref={root} className={["kz-rtv", className].filter(Boolean).join(" ")} data-variant={variant} data-powered={powered && !reducedMotion ? "true" : undefined} data-off={off ? "true" : undefined}>
@@ -116,9 +118,9 @@ export function RetroTv({
             <filter id={noiseId}><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch" /><feColorMatrix type="saturate" values="0" /></filter>
             <rect width="100%" height="100%" filter={`url(#${noiseId})`} />
           </svg>
-        ) : children ?? (src ? (
-          <VideoPlayer {...playerProps} src={src} className="kz-rtv-player" aspectRatio="9 / 16" autoPlay={autoPlay} muted={muted} loop={loop} preload={preload} />
-        ) : null)}
+        ) : (
+          screen
+        )}
         <div className="kz-rtv-effects" aria-hidden="true">
           <svg className="kz-rtv-glass" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>

@@ -29,7 +29,7 @@ export interface ReviewSummaryProps extends Omit<React.ComponentProps<"div">, "c
 /** The score of a shop as a stamp, with the distribution of its verified reviews: nothing under the host's minimum. */
 export function ReviewSummary({ score, count, distribution, minCount = 1, scoreText, countText, summaryText, starText, className, ...props }: ReviewSummaryProps) {
   const id = React.useId();
-  if (!(count >= Math.max(1, minCount))) return null;
+  if (count < Math.max(1, minCount) || Number.isNaN(count)) return null;
   return (
     <div role="group" aria-labelledby={id} data-score={score} className={cn("kz-reviews", className)} {...props}>
       <span id={id} className="sr-only">{summaryText}</span>

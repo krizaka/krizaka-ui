@@ -7,9 +7,9 @@ export type EmbedPlatform = "tiktok" | "youtube-shorts" | "instagram";
 /** The platforms' names, as proper nouns (they are not translated). */
 export const EMBED_PLATFORMS: Readonly<Record<EmbedPlatform, string>> = Object.freeze({ tiktok: "TikTok", "youtube-shorts": "YouTube Shorts", instagram: "Instagram" });
 
-const TIKTOK_HOSTS = ["tiktok.com", "www.tiktok.com"];
-const YOUTUBE_HOSTS = ["youtube.com", "www.youtube.com", "m.youtube.com"];
-const INSTAGRAM_HOSTS = ["instagram.com", "www.instagram.com"];
+const TIKTOK_HOSTS = new Set(["tiktok.com", "www.tiktok.com"]);
+const YOUTUBE_HOSTS = new Set(["youtube.com", "www.youtube.com", "m.youtube.com"]);
+const INSTAGRAM_HOSTS = new Set(["instagram.com", "www.instagram.com"]);
 
 /** Every host a platform's frame or picture lives on: a poster served from one of them would be a request before the click. */
 const PLATFORM_DOMAINS = ["tiktok.com", "tiktokcdn.com", "tiktokcdn-us.com", "youtube.com", "youtu.be", "youtube-nocookie.com", "ytimg.com", "googlevideo.com", "instagram.com", "cdninstagram.com", "fbcdn.net", "facebook.com"];
@@ -25,24 +25,32 @@ function parse(url: string): URL | null {
   }
 }
 
+const tiktok = (host: string, path: string): string | null => {
+  const id = TIKTOK_HOSTS.has(host) ? /^\/@[\w.-]{1,64}\/video\/(\d{8,25})\/?$/.exec(path)?.[1] : undefined;
+  return id ? `https://www.tiktok.com/embed/v2/${id}` : null;
+};
+
+const youtube = (host: string, path: string): string | null => {
+  let id: string | undefined;
+  if (YOUTUBE_HOSTS.has(host)) id = /^\/shorts\/([\w-]{11})\/?$/.exec(path)?.[1];
+  else if (host === "youtu.be") id = /^\/([\w-]{11})\/?$/.exec(path)?.[1];
+  return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
+};
+
+const instagram = (host: string, path: string): string | null => {
+  const match = INSTAGRAM_HOSTS.has(host) ? /^\/(?:[\w.]{1,30}\/)?(p|reel|reels|tv)\/([\w-]{5,40})\/?$/.exec(path) : null;
+  return match ? `https://www.instagram.com/${match[1] === "reels" ? "reel" : match[1]}/${match[2]}/embed` : null;
+};
+
+const PARSERS: Readonly<Record<EmbedPlatform, (host: string, path: string) => string | null>> = { tiktok, "youtube-shorts": youtube, instagram };
+
 /**
  * The address of the platform's frame for a public post, or `null` for anything else: another host, `http:`, a short
  * link we cannot resolve without asking the platform, a profile page. Exact hosts, exact paths.
  */
 export function embedUrl(platform: EmbedPlatform, url: string): string | null {
   const u = parse(url);
-  if (!u) return null;
-  const host = u.hostname.toLowerCase();
-  if (platform === "tiktok") {
-    const id = TIKTOK_HOSTS.includes(host) ? /^\/@[\w.-]{1,64}\/video\/(\d{8,25})\/?$/.exec(u.pathname)?.[1] : undefined;
-    return id ? `https://www.tiktok.com/embed/v2/${id}` : null;
-  }
-  if (platform === "youtube-shorts") {
-    const id = YOUTUBE_HOSTS.includes(host) ? /^\/shorts\/([\w-]{11})\/?$/.exec(u.pathname)?.[1] : host === "youtu.be" ? /^\/([\w-]{11})\/?$/.exec(u.pathname)?.[1] : undefined;
-    return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
-  }
-  const match = INSTAGRAM_HOSTS.includes(host) ? /^\/(?:[\w.]{1,30}\/)?(p|reel|reels|tv)\/([\w-]{5,40})\/?$/.exec(u.pathname) : null;
-  return match ? `https://www.instagram.com/${match[1] === "reels" ? "reel" : match[1]}/${match[2]}/embed` : null;
+  return u ? PARSERS[platform](u.hostname.toLowerCase(), u.pathname) : null;
 }
 
 /** Whether a poster may be drawn before the click: a path of the host's own origin, or an https picture that is not on a platform's domain (the host copies it to its own storage). */
