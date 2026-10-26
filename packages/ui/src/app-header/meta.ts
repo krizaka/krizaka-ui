@@ -9,7 +9,7 @@ export const meta = {
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [
-    "Beside a `RailNav`, as the bar of every signed-in screen of a Krizaka app (Orochia, Yomizaka, Akinaza): the same bar in every product.",
+    "Beside a `RailNav`, as the bar of every signed-in screen of a Krizaka app (Orazaka, Yomizaka, Akinaza): the same bar in every product.",
     "With `search` (`AppHeaderSearch`) when the app has a palette (`CommandDialog`): ⌘K opens it from anywhere.",
     "With `messages` and `notifications` (`AppHeaderCount`) when the app has an inbox: the unread count is drawn and said.",
   ],

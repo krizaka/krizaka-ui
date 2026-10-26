@@ -8,7 +8,7 @@ export default function SearchFieldGlobal() {
   const [last, setLast] = useState<string | null>(null);
   return (
     <div className="flex w-full max-w-md flex-col gap-2">
-      <SearchField label="Search Orochia" placeholder="Search creators, videos, tags" shortcut="k" onSubmit={(query) => setLast(query)} />
+      <SearchField label="Search the studio" placeholder="Search creators, videos, tags" shortcut="k" onSubmit={(query) => setLast(query)} />
       {last !== null && (
         <p role="status" className="text-xs text-fg-secondary">
           Goes to <code>/explore?q={encodeURIComponent(last)}</code>

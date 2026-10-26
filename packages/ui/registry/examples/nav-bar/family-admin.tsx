@@ -1,4 +1,4 @@
-import { OrochiaLogo } from "@krizaka/ui";
+import { OrazakaLogo } from "@krizaka/ui";
 import { NavBar } from "@krizaka/ui/nav-bar";
 import { familyLabels } from "@krizaka/ui/sites";
 
@@ -7,12 +7,12 @@ import { familyLabels } from "@krizaka/ui/sites";
 export default function NavBarFamilyAdmin() {
   return (
     <NavBar.Root label="Console" floating={false} compactAfter={false}>
-      <NavBar.Brand href="#home"><OrochiaLogo size={22} />Orochia admin</NavBar.Brand>
-      <NavBar.Family current="orochia" labels={familyLabels.en} />
+      <NavBar.Brand href="#home"><OrazakaLogo size={22} />Orazaka admin</NavBar.Brand>
+      <NavBar.Family current="orazaka" labels={familyLabels.en} />
       <NavBar.Badge env="DEV" />
       <NavBar.Actions>
         <NavBar.Mobile openLabel="Open the menu" closeLabel="Close the menu">
-          <NavBar.Family current="orochia" labels={familyLabels.en} />
+          <NavBar.Family current="orazaka" labels={familyLabels.en} />
         </NavBar.Mobile>
       </NavBar.Actions>
     </NavBar.Root>

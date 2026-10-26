@@ -16,9 +16,9 @@ import { cn } from "../cn";
 import { type FlowConduit, flowGeometry, type FlowLayout } from "./geometry";
 
 export interface EngineFlowNode {
-  /** A stable id (`orochia`). */
+  /** A stable id (`yomizaka`). */
   id: string;
-  /** Its name, the button's accessible name ("Orochia"). */
+  /** Its name, the button's accessible name ("Yomizaka"). */
   label: string;
   /** Its mark (a `ProductLogo`), decorative. */
   mark?: React.ReactNode;
@@ -26,7 +26,7 @@ export interface EngineFlowNode {
   description?: React.ReactNode;
   /** Where it lives (its site). */
   href?: string;
-  /** The link's words ("Visit dev.orochia.com"); defaults to the label. */
+  /** The link's words ("Visit dev.yomizaka.com"); defaults to the label. */
   linkLabel?: React.ReactNode;
   /** Opens the link in a new tab. */
   external?: boolean;
@@ -37,7 +37,7 @@ export interface EngineFlowNode {
   planned?: boolean;
   /** A word beside the name in the detail line ("planned"), passed translated. */
   status?: React.ReactNode;
-  /** Its brand scope (`brand-orochia`): its conduit, photons and ring take its `--kz-accent`. */
+  /** Its brand scope (`brand-yomizaka`): its conduit, photons and ring take its `--kz-accent`. */
   className?: string;
 }
 

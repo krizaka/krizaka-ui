@@ -9,7 +9,7 @@ const icon = (d: string) => (on: boolean, color: string) => (
   </Svg>
 );
 
-// Orochia's main sections: the current one in the accent, a badge on Messages, a tick on change.
+// A video app's main sections: the current one in the accent, a badge on Messages, a tick on change.
 export default function NativeTabBarMainSections() {
   const [tab, setTab] = useState<"home" | "auctions" | "messages" | "me">("home");
   return (

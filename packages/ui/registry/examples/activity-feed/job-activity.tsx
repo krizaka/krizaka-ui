@@ -11,7 +11,7 @@ const events = [
   { id: "e7", at: "2026-10-09T09:00:00Z", title: "Your payout of $120 was sent", tone: "info" as const },
 ];
 
-// Grouped by day, a run of tips folded into one (×3), how long ago — Orazaka's and Orochia's activity.
+// Grouped by day, a run of tips folded into one (×3), how long ago — Orazaka's and a creator studio's activity.
 export default function ActivityFeedJobActivity() {
   return <ActivityFeed aria-label="Activity" events={events} now={now} ticking={false} className="max-w-md" />;
 }

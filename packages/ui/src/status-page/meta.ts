@@ -27,7 +27,7 @@ export const meta = {
     imports: ["StatusPage"],
     examples: [
       { name: "operational", title: "Status", description: "Three services, one slower than usual.", template: true, purpose: "recover", why: "A person checks in one look whether the service works and which part is slow." },
-      { name: "building", title: "Under construction", description: "Yasakia on its way: progress and how to hear about it.", template: true, purpose: "recover", why: "A visitor learns honestly what is coming, how far it is and how to hear about it." },
+      { name: "building", title: "Under construction", description: "Akinaza on its way: progress and how to hear about it.", template: true, purpose: "recover", why: "A visitor learns honestly what is coming, how far it is and how to hear about it." },
       { name: "maintenance", title: "Planned maintenance", description: "What is paused until when, and what still works.", template: true, purpose: "recover", why: "A person learns what is down, until when, and what they can still do." },
     ],
   },

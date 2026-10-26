@@ -5,7 +5,7 @@ import { LinkCard } from "@krizaka/ui/link-card";
 const shortcuts = [
   { id: "cli", logo: "orazaka", title: "The CLI", text: "npx orazaka install, start, dev — then every command and option." },
   { id: "packs", logo: "orazaka", title: "Packs & Studios", text: "The business offers Orazaka installs without code." },
-  { id: "admin", logo: "orochia", title: "Orochia admin console", text: "Verification, moderation, payouts — behind four gates." },
+  { id: "admin", logo: "orazaka", title: "The admin console", text: "Users, models, quotas and the audit log — behind four gates." },
 ] as const;
 
 // The quiet hover on a card: no glow, a 2 px lift, one step of surface and border, a ring on focus.

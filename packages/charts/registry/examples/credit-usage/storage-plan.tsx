@@ -1,6 +1,6 @@
 import { CreditUsage } from "@krizaka/charts/credits";
 
-// Orochia's console: the platform's video storage, in gigabytes, past the warning level.
+// A platform's console: its video storage, in gigabytes, past the warning level.
 export default function StoragePlan() {
   return (
     <CreditUsage

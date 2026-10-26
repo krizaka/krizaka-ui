@@ -4,9 +4,8 @@ import { CardGrid } from "@krizaka/ui/card-grid";
 import { LinkCard } from "@krizaka/ui/link-card";
 
 const products = [
-  { id: "orochia", name: "Orochia", hook: "Recommendations, search and captions." },
   { id: "yomizaka", name: "Yomizaka", hook: "Document checks and signed reports." },
-  { id: "kachizaka", name: "Kachizaka", hook: "Live match feeds." },
+  { id: "akinaza", name: "Akinaza", hook: "Receipts read and sorted for the shop." },
 ] as const;
 
 // `foundation`: one wide card that the cards below stand on, a hairline stem to a frame around them. One column on a phone.

@@ -22,14 +22,14 @@ npm install -D tailwindcss @krizaka/tailwind @krizaka/tokens @krizaka/ui
 
 ## Wiring an app
 
-Four lines in the app's global stylesheet (Orochia web, `app/globals.css`), in this order:
+Four lines in the app's global stylesheet (a product's web app, `app/globals.css`), in this order:
 
 ```css
 @import "tailwindcss";
 @import "@krizaka/tailwind";                           /* tokens + utilities + variants + motion */
 @import "@krizaka/ui/tailwind.css";                    /* `@source "./dist"`: Tailwind scans the primitives */
-@import "@krizaka/orochia-design-system/theme.css";    /* Orochia identity: --kz-* overrides + @source of the kit */
-@source "../../../packages";                           /* the packages of the Orochia workspace */
+@import "@krizaka/myapp-design-system/theme.css";      /* the product's identity: --kz-* overrides + @source of the kit */
+@source "../../../packages";                           /* the packages of the product's workspace */
 ```
 
 The first two lines are enough to get the whole vocabulary. `@krizaka/ui/tailwind.css` arrives with the
@@ -86,7 +86,7 @@ illustration or an image that has a light and a dark version — and are refused
 A product never redefines a palette: it overrides roles, in its design system's `theme.css`.
 
 ```css
-/* @krizaka/orochia-design-system/theme.css — Obsidian Velvet Noir, expressed as roles */
+/* @krizaka/myapp-design-system/theme.css — a product identity, expressed as roles */
 @source "./dist";
 
 :root, .theme-dark {
@@ -111,7 +111,7 @@ html.light {
 }
 
 /* Product tokens: prefixed, never generic */
-:root { --orochia-story-ring: linear-gradient(135deg, var(--kz-accent), var(--kz-accent-2)); }
+:root { --myapp-story-ring: linear-gradient(135deg, var(--kz-accent), var(--kz-accent-2)); }
 ```
 
 Every utility above follows, without one line in the components: `bg-accent` is velvet, and so is every ring, tint and

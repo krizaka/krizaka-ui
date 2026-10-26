@@ -1,5 +1,5 @@
 "use client";
-// A pot towards its goal (an Orochia challenge, a crowdfunded request): the amount raised in money minor units on a
+// A pot towards its goal (a creator's challenge, a crowdfunded request): the amount raised in money minor units on a
 // gauge whose arc fills towards the goal, “raised of $500” under it, the supporters and the time left beside the
 // title, the success tone once the goal is reached (and the amount past it still written). A Gauge preset.
 import type { ReactNode } from "react";

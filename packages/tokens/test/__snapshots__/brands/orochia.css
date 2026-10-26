@@ -1,4 +1,5 @@
-/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/orochia.brand.json par scripts/build.mjs : ne pas éditer.
+/* DEPRECATED — a paused product (2026-10-25); removed in the next major.
+   @krizaka/tokens — GÉNÉRÉ depuis src/brands/orochia.brand.json par scripts/build.mjs : ne pas éditer.
    Orochia — velours violet → magenta, les couleurs du serpent du logo (inchangé). Les valeurs de @krizaka/orochia-design-system (ajustées AA) : velvet #7c3aed sous texte blanc (5.7:1), magenta #db2777 en second accent (4.6:1), lavande #a78bfa pour le texte et l'anneau sur fond sombre.
    Importé après tokens.css (ou @krizaka/tailwind) : l'identité orochia sur toute l'app, dans les deux thèmes. */
 

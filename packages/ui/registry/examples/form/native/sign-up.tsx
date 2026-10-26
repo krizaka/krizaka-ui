@@ -15,7 +15,7 @@ const signUp = createKrizakaForm({
 });
 const WORDS: Record<string, string> = { "signUp.username.format": "Lowercase letters, digits and _ only.", "signUp.username.taken": "This username is taken.", "signUp.terms.required": "Accept the terms to continue.", "form.errors.UNDERAGE": "You must be 18 or older.", "form.errors.BIRTH_DATE_INVALID": "Enter your real date of birth.", "form.errors.USERNAME_RESERVED": "This username is reserved.", "apiErrors.ACCOUNT_EXISTS": "This e-mail already has an account. Sign in instead." };
 const taken = (u: string) => new Promise<boolean>((done) => setTimeout(() => done(["eric", "elena"].includes(u)), 300));
-const register = async (v: { email: string; username: string }) => { if (v.username === "admin") throw new KrizakaApiError({ status: 400, code: "USERNAME_RESERVED" }); if (v.email.endsWith("@orochia.com")) throw new KrizakaApiError({ status: 409, code: "ACCOUNT_EXISTS" }); };
+const register = async (v: { email: string; username: string }) => { if (v.username === "admin") throw new KrizakaApiError({ status: 400, code: "USERNAME_RESERVED" }); if (v.email.endsWith("@example.com")) throw new KrizakaApiError({ status: 409, code: "ACCOUNT_EXISTS" }); };
 
 // Sign-up in the app: the return key walks the fields, the username is checked as typed, the 18+ birth date is day · month · year.
 export default function NativeFormSignUp() {
@@ -28,7 +28,7 @@ export default function NativeFormSignUp() {
       <form.DateField name="dateOfBirth" label="Date of birth" autoComplete="bday" hint="Private, never shown." />
       <form.Checkbox name="acceptTerms" label="I accept the terms and the privacy policy" />
       <form.FormError />
-      <form.Submit label="Create my account" brand="orochia" />
+      <form.Submit label="Create my account" brand="orazaka" />
     </form.Form>
   );
 }

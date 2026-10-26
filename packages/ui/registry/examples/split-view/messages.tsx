@@ -9,7 +9,7 @@ const THREADS = [
   { id: "ines", name: "Inès B.", last: "I won the auction 🎉", time: "Mon" },
 ];
 
-// TEMPLATE — a creator's messages (Orochia): the threads beside the open one; on a phone the open thread replaces the
+// TEMPLATE — a creator's messages: the threads beside the open one; on a phone the open thread replaces the
 // list (`showDetail`, from the address) with the way back above it. The reply box stays at the foot of the thread.
 export default function SplitViewMessages() {
   return (

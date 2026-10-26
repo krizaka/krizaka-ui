@@ -32,7 +32,7 @@ export const arc = (cx, cy, r, a0, a1) => {
  * Groups: product (the vocabulary of the products), interface (navigation and actions), system.
  */
 export const GLYPHS = {
-  // ── Product: creators and audiences (Orochia) ──
+  // ── Product: creators and audiences ──
   tip: { group: "product", keywords: "tip gift support creator", p: ["M5 9.5h14v3.5H5z", "M6.5 13v6.5h11V13", "M12 9.5v10", "M12 9.5C10.5 6 7 5.5 7.5 8c.3 1.2 2.5 1.5 4.5 1.5", "M12 9.5c1.5-3.5 5-4 4.5-1.5-.3 1.2-2.5 1.5-4.5 1.5"], n: [[12, 16]] },
   unlock: { group: "product", keywords: "unlock open paid content", p: [cut(5, 11, 14, 10, 2), "M8 11V7.5a4 4 0 0 1 7.7-1.5"], n: [[12, 16]] },
   paid: { group: "product", keywords: "paid premium ticket pass access", p: ["M4 7.5 6.5 5h11L20 7.5v2.5a2 2 0 0 0 0 4v2.5L17.5 19h-11L4 16.5V14a2 2 0 0 0 0-4z", "M15 7.5v1.5M15 11.25v1.5M15 15v1.5"], n: [[9.75, 12]] },
@@ -79,7 +79,7 @@ export const GLYPHS = {
   thread: { group: "product", keywords: "thread continuity memory context carry on follow up", p: ["M2.5 16c2.5 0 3.5-7.5 6.5-7.5s3.5 9 6.5 9 3-4 5-4.5"] , n: [[20.5, 13]] },
   keep: { group: "product", keywords: "keep save hold open hand notebook summary", p: [cut(2.5, 13, 3, 8, 1), "M5.5 19.5H14l6.4-3.9a1.6 1.6 0 0 0-1.7-2.7L14.5 15", "M5.5 14.5 8 13h4.5a1.5 1.5 0 0 1 0 3H9.5"], n: [[13, 8]] },
 
-  // ── Product: the neighbourhood café (Yororis) — an espresso, a plant, a window, the stoop, a bistro chair ──
+  // ── Product: the neighbourhood café — an espresso, a plant, a window, the stoop, a bistro chair ──
   espresso: { group: "product", keywords: "espresso coffee cup cafe drink demitasse", p: ["M4.5 9.5h12v5l-3 3.5h-6l-3-3.5z", "M16.5 11h2.5l1.5 1.5v1.5l-1.5 1.5h-2.5", "M3 21h15", "M8 3.5c-1 1 1 2 0 3.5M12.5 3.5c-1 1 1 2 0 3.5"], n: [[10.5, 13.25]] },
   plant: { group: "product", keywords: "plant leaf pot green houseplant cafe", p: ["M7.5 15.5h9l-1.25 5.5h-6.5z", "M12 15.5V10", "M12 11.5C12 8 9.5 5.5 5.5 5.5 5.5 9 8 11.5 12 11.5z", "M12 9C12 5.5 14.5 3.5 18.5 3.5 18.5 7 16 9 12 9z"], n: [[12, 13.5]] },
   window: { group: "product", keywords: "window pane light sill cafe front", p: [cut(4.5, 3, 15, 15, 2.5), "M12 3v15", "M4.5 10.5h15", "M3 21h18"], n: [[15.75, 6.75]] },

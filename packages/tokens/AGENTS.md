@@ -7,7 +7,7 @@
 
 - The **semantic tokens** `--kz-*` (level 0 — foundations): roles, never palette steps. A token names what a value is
   *for* (`text-secondary`, `scrim`), not what it looks like (`zinc-400`).
-- No product word in the roles. The **brand themes** (`src/brands/<id>.brand.json`: krizaka, orazaka, orochia, yasakia, yororis, yomizaka, kachizaka, akinaza) set
+- No product word in the roles. The **brand themes** (`src/brands/<id>.brand.json`: krizaka, orazaka, orochia, yasakia, yororis, yomizaka, kachizaka, akinaza — the paused products' four, `PAUSED_BRANDS`, ship with a DEPRECATED header until the next major) set
   the accent family and the section gradient (`BRAND_ROLES` in `scripts/build.mjs`, all of them, nothing else) and
   ship as `brands/<id>.css`, `brands/scoped.css`, `brands` (index, native). [`BRAND.md`](./BRAND.md) is the brand
   system: colours, marks, icons, page language. A product theme imports its brand and overrides only what is its own.

@@ -6,7 +6,7 @@ export default function AvatarDefault() {
   return (
     <div className="flex items-center gap-3">
       {people.map((id) => (
-        <Avatar key={id} defaultAvatar={{ brand: "orochia", seed: id }} alt={id} fallback={id.slice(0, 2)} size="lg" />
+        <Avatar key={id} defaultAvatar={{ brand: "orazaka", seed: id }} alt={id} fallback={id.slice(0, 2)} size="lg" />
       ))}
     </div>
   );

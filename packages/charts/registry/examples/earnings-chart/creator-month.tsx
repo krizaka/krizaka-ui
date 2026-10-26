@@ -1,6 +1,6 @@
 import { EarningsChart } from "@krizaka/charts/earnings";
 
-// Net earnings in cents, as the ledger stores them (Orochia /earnings).
+// Net earnings in cents, as the ledger stores them (a creator's earnings page).
 const months = [
   { month: "2026-05", net: 182_40 },
   { month: "2026-06", net: 245_10 },

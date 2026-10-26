@@ -5,7 +5,7 @@ import { ProfileCard } from "@krizaka/ui/profile-card";
 export default function ProfileCardMatch() {
   return (
     <ProfileCard
-      brand="yasakia"
+      brand="yomizaka"
       visual={<Avatar src="https://krizaka-assets.b-cdn.net/site/people/ui/camille-256.dc2943029a.webp" alt="Camille Roy" fallback="CR" size="xl" />}
       visualSize={88}
       name="Camille, 29"

@@ -7,7 +7,7 @@ export default function NativePullToRefreshBranded() {
   const [refreshing, setRefreshing] = useState(true);
   return (
     <View style={{ width: 360, height: 240 }}>
-      <BrandedRefresh product="orochia" refreshing={refreshing} onRefresh={() => setRefreshing(true)} label="Refreshing your videos">
+      <BrandedRefresh product="orazaka" refreshing={refreshing} onRefresh={() => setRefreshing(true)} label="Refreshing your videos">
         {(scroll) => (
           <ScrollView {...scroll} contentContainerStyle={{ paddingTop: 56 }}>
             {["Sunset session · Elena · 2.4K views", "Acoustic dare · Alex · 918 views"].map((line) => (

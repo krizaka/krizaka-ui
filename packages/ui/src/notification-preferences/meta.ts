@@ -6,7 +6,7 @@ export const meta = {
   status: "beta",
   category: "forms",
   platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "On a phone one switch per category in a `SettingsGroup` already does the job (Orochia's notifications screen); the matrix is a computer's idea." }, desktop: "web" },
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "On a phone one switch per category in a `SettingsGroup` already does the job (a notifications screen); the matrix is a computer's idea." }, desktop: "web" },
   whenToUse: ["The notifications part of an account page, where the product sends in the app and by e-mail.", "Any choice of several kinds of message over several channels."],
   whenNotToUse: [
     { when: "One kind of message, one channel.", use: "switch" },

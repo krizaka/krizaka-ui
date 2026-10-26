@@ -31,7 +31,7 @@ export interface ProductReason {
 }
 
 export type ProductPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & {
-  /** The product's brand (`orazaka`, `orochia`…): the page wears `.brand-<id>`. */
+  /** The product's brand (`orazaka`, `yomizaka`…): the page wears `.brand-<id>`. */
   brand?: string;
   /** The product's mark and name, above the title. */
   mark?: React.ReactNode;

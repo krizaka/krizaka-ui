@@ -10,6 +10,8 @@ import { useSvgId, useTheme } from "./theme";
  * The Kachizaka mark for React Native — the geometry of the web mark (marks/kachizaka-geometry.ts), "the podium": three
  * steps, the winner in gold, the others in cobalt, under a gold diamond. The orbit and the ball turn, the diamond
  * breathes; still when the system reduces motion.
+ *
+ * @deprecated Paused product (2026-10-25); removed in the next major.
  */
 export function KachizakaMark({ size = 48, animated = true, title, neutral }: NativeMarkProps) {
   const { theme } = useTheme();

@@ -1,15 +1,11 @@
 {
   "name": "@krizaka/ui",
   "version": "3.60.0",
-  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia, Yasakia, Yororis) and the motion signature — web and /native.",
+  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Yomizaka, Akinaza) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
     "orazaka",
-    "orochia",
-    "yasakia",
-    "yororis",
     "yomizaka",
-    "kachizaka",
     "akinaza",
     "react",
     "logo",

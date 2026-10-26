@@ -28,16 +28,16 @@ const SALES = [
   { what: "Auction won · “Backstage cut”", who: "Inès B.", net: "€61.20" },
 ];
 
-// TEMPLATE — Orochia's creator studio, Elena's home: the shell (sidebar of the studio, drawer on a phone) around a
+// TEMPLATE — A creator studio, Elena's home: the shell (sidebar of the studio, drawer on a phone) around a
 // dashboard — this week's figures, the payout on its way, the latest sales, the next auction. On a phone the sidebar
 // is a drawer, the stats stack two by two, every widget takes the full width.
-export default function AppShellOrochiaStudio() {
+export default function AppShellCreatorStudio() {
   return (
-    <div className="brand-orochia">
+    <div className="brand-orazaka">
       <AppShell.Root>
         <AppShell.Sidebar
           label="Studio"
-          brand={<><ProductLogo id="orochia" size={24} animated={false} /> Orochia</>}
+          brand={<><ProductLogo id="orazaka" size={24} animated={false} /> Studio</>}
           collapseLabels={["Collapse", "Expand"]}
           closeLabel="Close the menu"
           footer={

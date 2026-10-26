@@ -412,8 +412,10 @@ describe("NavBar.Family", () => {
     const ui = within(family).getByRole("link", { name: /Krizaka UI/ });
     expect(ui.getAttribute("aria-current")).toBe("true");
     expect(ui.textContent).toContain("You are here");
-    expect(within(family).getByRole("link", { name: /Yororis/ }).textContent).toContain("In development");
-    expect(within(family).getByRole("link", { name: /Yasakia/ }).textContent).toContain("In development");
+    expect(within(family).getByRole("link", { name: /Yomizaka/ }).textContent).toContain("In development");
+    expect(within(family).getByRole("link", { name: /Akinaza/ }).textContent).toContain("In development");
+    // The paused products (2026-10-25) are out of the family.
+    for (const name of [/Orochia/, /Yasakia/, /Yororis/, /Kachizaka/]) expect(within(family).queryByRole("link", { name })).toBeNull();
     await user.keyboard("{Escape}");
     // Radix closes on its own tick (and the hover-intent timer may still be pending on a loaded runner): wait, don't race.
     await waitFor(() => expect(trigger.getAttribute("aria-expanded")).toBe("false"));
@@ -470,7 +472,7 @@ describe("NavBar.Family", () => {
     expect(within(group).getAllByRole("link")).toHaveLength(sites.length);
     expect(within(group).getByRole("list", { name: "Produits" })).toBeTruthy();
     expect(within(group).getByRole("link", { name: /Krizaka UI/ }).getAttribute("aria-current")).toBe("true");
-    expect(within(group).getByRole("link", { name: /Yororis/ }).textContent).toContain("En développement");
+    expect(within(group).getByRole("link", { name: /Yomizaka/ }).textContent).toContain("En développement");
   });
 
   it("says the family once in the mobile panel — the company's own group carries no second, duplicate heading", async () => {

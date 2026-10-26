@@ -19,7 +19,7 @@ export const Animated: Story = {};
 export const Still: Story = { args: { animated: false } };
 
 /** Named: an image for assistive technology. */
-export const WithTitle: Story = { args: { title: "Yororis" } };
+export const WithTitle: Story = { args: { title: "Elephant" } };
 
 /** The small size used in navigation. */
 export const Small: Story = { args: { size: 24 } };

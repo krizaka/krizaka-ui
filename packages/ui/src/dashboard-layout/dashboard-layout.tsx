@@ -1,4 +1,4 @@
-// Server-safe. A dashboard, read from the products' home screens (Orochia's creator studio, Orazaka's console for
+// Server-safe. A dashboard, read from the products' home screens (a creator studio, Orazaka's console for
 // Eric): the screen's heading with its actions and filters, then a responsive grid of widgets — one column on a phone,
 // two from `sm`, four from `xl`; a widget spans 1, 2, 3 columns or the full row, and keeps its order everywhere.
 import * as React from "react";

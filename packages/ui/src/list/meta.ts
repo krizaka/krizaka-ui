@@ -8,7 +8,7 @@ export const meta = {
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [
-    "Orazaka's jobs, Orochia's viewers and tippers of a story, a creator's payouts.",
+    "Orazaka's jobs, a story's viewers and tippers, a creator's payouts.",
     "A long feed on a phone: sections by day, pull to refresh, swipe actions (React Native).",
   ],
   whenNotToUse: [

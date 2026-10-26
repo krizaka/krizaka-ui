@@ -21,7 +21,7 @@ export const meta = {
     imports: ["Onboarding"],
     differences: [],
     examples: [
-      { name: "first-launch", title: "First launch", description: "Orochia's three promises." },
+      { name: "first-launch", title: "First launch", description: "An app's three promises." },
     ],
   },
 } satisfies ComponentMeta;

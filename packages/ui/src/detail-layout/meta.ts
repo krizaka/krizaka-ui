@@ -21,7 +21,7 @@ export const meta = {
   web: {
     imports: ["DetailLayout", "DetailSection", "DetailNotes", "FormSteps", "FormTotals"],
     examples: [
-      { name: "video", title: "A video", description: "Orochia's video page: thumbnail, status, facts, tabs and the sales beside.", template: true, purpose: "show", why: "A viewer sees the object itself first, with its facts and the actions that concern it beside it." },
+      { name: "video", title: "A video", description: "A video page: thumbnail, status, facts, tabs and the sales beside.", template: true, purpose: "show", why: "A viewer sees the object itself first, with its facts and the actions that concern it beside it." },
       { name: "checkout", title: "Tip checkout", description: "Who is paid, the amount in one tap, an optional word, the total beside the pay button.", template: true, purpose: "act", why: "A person pays in a few taps and sees the exact total before committing." },
       { name: "client", title: "A client", description: "The profile banner, binder sections (`DetailSection`) and the notes column (`notes`, `DetailNotes`) (#653).", template: true, purpose: "show", why: "An owner reads who the client is, what is open with them, and what they noted, on one page." },
       { name: "new-invoice", title: "A new invoice", description: "`FormSteps` numbered, `FormTotals` sticky beside them, and the `StickyAction` in task mode with the total (#653).", template: true, purpose: "act", why: "A person fills a long form in order and always sees the total and the one action that commits it." },

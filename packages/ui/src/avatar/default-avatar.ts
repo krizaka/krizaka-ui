@@ -2,6 +2,7 @@
 // They are generated from this file (tools/export-brand.mjs renders them to SVG and WebP and uploads them to Bunny,
 // `people/defaults/v1/<brand>/…`), so the pictures and the URLs that name them cannot drift apart.
 
+/** A brand of the default avatars. `orochia`, `yasakia`, `yororis` and `kachizaka` are deprecated: paused products (2026-10-25), removed in the next major; their pictures stay served until then. */
 export type DefaultAvatarBrand = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka" | "kachizaka" | "akinaza";
 /** `person`: a neutral silhouette. `plain`: the brand's gradient alone, ready for initials. */
 export type DefaultAvatarKind = "person" | "plain";
@@ -102,7 +103,7 @@ function trimTrailingSlashes(value: string): string {
 }
 
 /**
- * The URL of a default avatar: `defaultAvatarUrl({ brand: "orochia", seed: user.id })`.
+ * The URL of a default avatar: `defaultAvatarUrl({ brand: "orazaka", seed: user.id })`.
  * @param size 256 for lists, 512 for a profile; `"svg"` for the vector.
  * @param base Another host or version of the set (a self-hosted copy); the default is the Krizaka CDN.
  */

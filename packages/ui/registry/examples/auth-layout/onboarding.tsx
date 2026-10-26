@@ -6,13 +6,13 @@ import { Stepper } from "@krizaka/ui/stepper";
 
 const labels = { done: "Done", current: "Current step", upcoming: "Upcoming", error: "Failed" };
 
-// TEMPLATE — onboarding a creator (Orochia): the steps said in words above the form of the current one; the brand panel
+// TEMPLATE — onboarding a creator: the steps said in words above the form of the current one; the brand panel
 // says why it is worth it. On a phone the steps stay horizontal and compact above the fields.
 export default function AuthLayoutOnboarding() {
   return (
-    <div className="brand-orochia">
+    <div className="brand-orazaka">
       <AuthLayout
-        brand={<><ProductLogo id="orochia" size={28} animated={false} /> Orochia</>}
+        brand={<><ProductLogo id="orazaka" size={28} animated={false} /> Studio</>}
         promise="Three steps, then your first video."
         aside={<p>Your identity is checked once, by a person, and never shown to your fans.</p>}
         asideFooter="© Krizaka · Montréal"

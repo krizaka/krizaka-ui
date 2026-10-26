@@ -29,7 +29,7 @@ export type StageBannerProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
    * @default "default"
    */
   variant?: StoryVariant;
-  /** A brand scope (`orochia` → `.brand-orochia`). */
+  /** A brand scope (`orazaka` → `.brand-orazaka`). */
   brand?: string;
 };
 

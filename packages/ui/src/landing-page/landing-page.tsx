@@ -35,7 +35,7 @@ export type LandingPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
   actions?: React.ReactNode;
   /** The product, alive, beside the words: a recording, a live demo (framed as a window). */
   visual: React.ReactNode;
-  /** The window's caption (`orochia.app — studio`). */
+  /** The window's caption (`studio.app — studio`). */
   visualLabel?: React.ReactNode;
   /** Figures or facts in a band under the hero: `{ value, label }`. */
   proofs?: readonly { value: React.ReactNode; label: React.ReactNode }[];

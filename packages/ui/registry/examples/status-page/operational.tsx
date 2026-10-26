@@ -12,7 +12,7 @@ export default function StatusPageOperational() {
       servicesLabel="Services"
       services={[
         { id: "web", name: "krizaka.com", state: "operational", label: "Operational" },
-        { id: "orochia", name: "Orochia", state: "operational", label: "Operational" },
+        { id: "orazaka", name: "Orazaka", state: "operational", label: "Operational" },
         { id: "cdn", name: "Video delivery", state: "degraded", label: "Slower than usual" },
       ]}
     />

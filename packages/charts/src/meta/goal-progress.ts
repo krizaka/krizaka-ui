@@ -10,7 +10,7 @@ export const meta = {
   parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
-    "An Orochia challenge with a goal: what fans pledged so far, on the web and in the app.",
+    "A creator's challenge with a goal: what fans pledged so far, on the web and in the app.",
     "A crowdfunded request: the amount raised, the supporters, the deadline.",
   ],
   whenNotToUse: [
@@ -31,7 +31,7 @@ export const meta = {
     entry: "goal",
     imports: ["GoalProgress"],
     examples: [
-      { name: "challenge-pot", title: "A challenge's pot", description: "An Orochia goal halfway there, its supporters and the time left." },
+      { name: "challenge-pot", title: "A challenge's pot", description: "A goal halfway there, its supporters and the time left." },
       { name: "goal-reached", title: "Goal reached", description: "Past the goal: the success tone, the amount still counting." },
     ],
   },

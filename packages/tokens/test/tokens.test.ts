@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
-import { BRAND_ROLES, BRANDS, camel, compile, compileBrands, flatten, load, loadBrands, write } from "../scripts/build.mjs";
+import { BRAND_ROLES, BRANDS, camel, compile, compileBrands, flatten, load, loadBrands, PAUSED_BRANDS, write } from "../scripts/build.mjs";
 import { contrast, over, parseHsl, toNative } from "../scripts/color.mjs";
 
 const sources = load(join(import.meta.dirname, "../src/tokens"));
@@ -362,6 +362,15 @@ describe("brands", async () => {
     expect(files["brands/scoped.css"]).toContain(".brand-orazaka {");
     expect(Object.keys(index.brands)).toEqual(BRANDS);
     expect(Object.keys(native.brands)).toEqual(BRANDS);
+  });
+
+  it("still ships the paused products' brands, each said deprecated (2026-10-25)", () => {
+    expect(PAUSED_BRANDS).toEqual(["orochia", "yasakia", "yororis", "kachizaka"]);
+    for (const id of BRANDS) {
+      const paused = PAUSED_BRANDS.includes(id);
+      expect(files[`brands/${id}.css`].startsWith("/* DEPRECATED — a paused product"), id).toBe(paused);
+      expect(files["brands/scoped.css"].includes(`/* DEPRECATED — .brand-${id}: a paused product`), id).toBe(paused);
+    }
   });
 
   it("matches the snapshots", async () => {

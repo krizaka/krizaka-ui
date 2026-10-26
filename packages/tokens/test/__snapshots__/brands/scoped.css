@@ -87,6 +87,7 @@ html .theme-dark .brand-orazaka, html .brand-orazaka.theme-dark {
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
 
+/* DEPRECATED — .brand-orochia: a paused product (2026-10-25); removed in the next major. */
 .brand-orochia {
   --kz-accent: hsl(262.1 83.3% 57.8%);
   --kz-accent-hover: hsl(263.4 70% 50.4%);
@@ -130,6 +131,7 @@ html .theme-dark .brand-orochia, html .brand-orochia.theme-dark {
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
 
+/* DEPRECATED — .brand-yasakia: a paused product (2026-10-25); removed in the next major. */
 .brand-yasakia {
   --kz-accent: hsl(174 72% 50%);
   --kz-accent-hover: hsl(174 72% 58%);
@@ -173,6 +175,7 @@ html .theme-dark .brand-yasakia, html .brand-yasakia.theme-dark {
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
 
+/* DEPRECATED — .brand-yororis: a paused product (2026-10-25); removed in the next major. */
 .brand-yororis {
   --kz-accent: hsl(98 24% 62%);
   --kz-accent-hover: hsl(98 26% 70%);
@@ -259,6 +262,7 @@ html .theme-dark .brand-yomizaka, html .brand-yomizaka.theme-dark {
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
 
+/* DEPRECATED — .brand-kachizaka: a paused product (2026-10-25); removed in the next major. */
 .brand-kachizaka {
   --kz-accent: hsl(48 96% 56%);
   --kz-accent-hover: hsl(48 98% 66%);
@@ -346,6 +350,7 @@ html .theme-dark .brand-akinaza, html .brand-akinaza.theme-dark {
 }
 
 /* DEPRECATED — `.brand-yazakia` is `.brand-yasakia` (Yazakia was renamed Yasakia); kept for one minor version. */
+/* DEPRECATED — .brand-yazakia: a paused product (2026-10-25); removed in the next major. */
 .brand-yazakia {
   --kz-accent: hsl(174 72% 50%);
   --kz-accent-hover: hsl(174 72% 58%);

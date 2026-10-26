@@ -21,7 +21,7 @@ export const meta = {
   web: {
     imports: ["AuthLayout"],
     examples: [
-      { name: "sign-in", title: "Orochia · sign in", description: "The brand panel with the promise and a creator's words, email and password, a passkey.", template: true, purpose: "act", why: "A returning person signs in fast, with the product's promise beside the form." },
+      { name: "sign-in", title: "Studio · sign in", description: "The brand panel with the promise and a creator's words, email and password, a passkey.", template: true, purpose: "act", why: "A returning person signs in fast, with the product's promise beside the form." },
       { name: "onboarding", title: "Onboarding", description: "The steps in words above the current step's form.", template: true, purpose: "act", why: "A new person completes a setup one step at a time, knowing how many remain." },
       { name: "verify", title: "Verify an email", description: "The smallest entry screen: a code." },
     ],

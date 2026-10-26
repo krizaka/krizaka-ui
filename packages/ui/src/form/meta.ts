@@ -42,7 +42,7 @@ export const meta = {
   web: {
     imports: ["createKrizakaForm", "useFormWithAction", "latestBirthDate", "useKrizakaField", "formMessage"],
     examples: [
-      { name: "sign-up", title: "Sign-up", description: "Orochia's sign-up: a username checked as it is typed with a free one offered, an 18+ date of birth typed as day · month · year, a server refusal on its field." },
+      { name: "sign-up", title: "Sign-up", description: "A creator app's sign-up: a username checked as it is typed with a free one offered, an 18+ date of birth typed as day · month · year, a server refusal on its field." },
       { name: "profile", title: "Profile", description: "Saved by a mutation of @krizaka/query: categories, tags, a list of links that grows (`form.FieldArray`)." },
       { name: "upload", title: "Upload", description: "A video and what describes it — the file, a title, a description, tags, who can watch — sent together." },
       { name: "amount", title: "Amount", description: "A tip stored in cents (`Money`), typed the locale's way; presets set the field from outside." },

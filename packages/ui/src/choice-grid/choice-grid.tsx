@@ -68,7 +68,7 @@ export type ChoiceGridProps = Omit<React.HTMLAttributes<HTMLDivElement>, "defaul
    * @default "default"
    */
   variant?: StoryVariant;
-  /** A brand scope for the whole grid (`orochia` → `.brand-orochia`). */
+  /** A brand scope for the whole grid (`orazaka` → `.brand-orazaka`). */
   brand?: string;
   /**
    * The tiles' arrival on mount (arcade: the corners locking one by one, the gauges filling). Always off under

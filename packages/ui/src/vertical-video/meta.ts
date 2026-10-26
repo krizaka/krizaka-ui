@@ -9,7 +9,7 @@ export const meta = {
   parity: { desktop: "web" },
   whenToUse: [
     "A creator's short clips: a feed, stories, an explore grid that opens on a video.",
-    "A phone-first product page where the video is the page (Orochia's feed, the home gallery's phone).",
+    "A phone-first product page where the video is the page (a video feed, the home gallery's phone).",
     "With `tipSlot`, `topStart` (an auction's time left) and `aboveCaption` (a goal gauge) for what is the product's own.",
   ],
   whenNotToUse: [

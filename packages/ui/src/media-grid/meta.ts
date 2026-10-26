@@ -6,7 +6,7 @@ export const meta = {
   status: "beta",
   category: "media",
   platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#228", reason: "orochia-mobile hand-rolls its tiles and stories rail (Tiles, StoriesRail)." }, desktop: "web" },
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#228", reason: "A mobile app hand-rolls its tiles and stories rail." }, desktop: "web" },
   whenToUse: [
     "A home, an explore page or a profile's Videos tab where creators publish both vertical and horizontal video.",
     "A gallery whose items come from different sources (`uniform`: everything in one frame, the odd one drawn whole over a blurred copy).",

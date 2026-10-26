@@ -7,6 +7,9 @@ overrides). A product never re-invents its values: it imports its brand.
 
 ## 1. Colours — one per brand
 
+> **Paused (2026-10-25):** Orochia, Yasakia, Yororis and Kachizaka are paused products. Their themes and marks still
+> ship, deprecated, until the next major; they are kept below as the reference of what ships, never used in new work.
+
 | Brand | Identity | Why |
 | :-- | :-- | :-- |
 | **Krizaka** (parent) | **Ink + Krizaka steel blue** (hue 208, saturation ≤ 60 %). The neutral surfaces and text of the platform carry the brand; one muted steel blue, the core of the Krizaka mark, is the only accent. | The parent frames its products without competing with them: ink is neutral next to orange and violet, and the steel sits at 182° from the Orazaka orange (26), its exact complement. It replaced the saturated electric blue (hue 217, 92 %) of every AI product in 3.31 (krizaka-ui#393, [ADR-003](../../docs/adr/ADR-003-steel-blue-and-quiet-surfaces.md)). It is also the platform default (`tokens.css` = the Krizaka brand). |
@@ -73,7 +76,7 @@ Every pair is a test (`test/tokens.test.ts`, "brands"): `on-accent` ≥ 4.5:1 on
 ```tsx
 // A page that shows several brands (krizaka.com, the catalogue): the scoped classes.
 import "@krizaka/tokens/brands/scoped.css";
-<section className="brand-orochia">…</section>
+<section className="brand-orazaka">…</section>
 
 // React Native
 import { brands } from "@krizaka/tokens/native";

@@ -9,7 +9,7 @@
 
 **The Krizaka front-end platform's components, shared by every product.**
 The primitives (button, badge, avatar, field, theme, countdown…) on the semantic `--kz-*` tokens, the animated marks
-of Krizaka, Orazaka, Orochia, Yasakia, Yororis, Yomizaka, Kachizaka and Akinaza, and the Krizaka motion signature — one easing, one way to enter, reveal, roll, shine
+of Krizaka, Orazaka, Yomizaka and Akinaza (the paused products' marks — Orochia, Yasakia, Yororis, Kachizaka — still ship, deprecated until the next major), and the Krizaka motion signature — one easing, one way to enter, reveal, roll, shine
 and open.
 
 [![npm](https://img.shields.io/npm/v/@krizaka/ui?color=196df5&label=npm)](https://www.npmjs.com/package/@krizaka/ui)
@@ -324,13 +324,13 @@ boundary stays where it is: a template is a Server Component.
 
 > Category **layouts** of ui.krizaka.com, and **templates**: whole screens composed from the platform.
 
-The shells of the products' screens, read from their real screens (Orochia web, admin and mobile; Orazaka web-client,
+The shells of the products' screens, read from their real screens (Orazaka web-client,
 web-admin and mobile; krizaka.com): `AppShell` (sidebar that collapses, header, drawer on a phone), `DashboardLayout`
 (a grid of widgets), `SettingsLayout`, `AuthLayout`, `DetailLayout`, `SplitView`, and for a site `MarketingLayout` and
 `DocsLayout`. Every layout is responsive by construction — one column, a drawer, chips or a disclosure on a phone.
 
 A **template** is an example flagged `template: true` in its layout's `meta.ts` (≤ 160 lines): a complete screen with
-real words — Orochia's creator studio, Orazaka's console for Eric, an administration console, sign-in, onboarding,
+real words — a creator studio, Orazaka's console for Eric, an administration console, sign-in, onboarding,
 settings, a video's page, messages, a product page, pricing and credits, a documentation hub. Each has a phone story
 (`parameters.phone`: captured at 390 × 844). Copy one into the product, keep its structure, change the words. The
 React Native shells are `@krizaka/ui/native`'s (DS4): same names where the concept is the same.
@@ -380,8 +380,7 @@ A site that renders the examples adds them to Tailwind's sources: `@source "../n
 
 ## React Native
 
-`@krizaka/ui/native` is the platform for the React Native apps
-([orochia-mobile](https://github.com/krizaka/orochia-mobile)): the same primitives as the web, **the same prop names
+`@krizaka/ui/native` is the platform for the React Native apps: the same primitives as the web, **the same prop names
 where the concept is the same**, the same tokens — `StyleSheet` only, no NativeWind, no dependency beyond
 `react-native` (≥ 0.76) and `react-native-svg` (≥ 15), which the apps already have. The `@krizaka/tokens/native` values
 are inlined in the bundle: the app installs nothing else. `react-dom`, `react-native` and `react-native-svg` are
@@ -394,13 +393,13 @@ npm install @krizaka/ui   # react, react-native and react-native-svg come from t
 ### Theme
 
 Once, at the root. `mode` is `dark` · `light` · `system` (followed through `useColorScheme`); `overrides` are a
-product's roles over the platform's, per theme — e.g. `nativeTheme` from `@krizaka/orochia-design-system/tokens`.
+product's roles over the platform's, per theme — e.g. `nativeTheme` from your product's design system (`@krizaka/<product>-design-system/tokens`).
 Without a provider, `useTheme()` follows the system with the platform's roles. No storage dependency: the app
 persists the choice in `onModeChange`.
 
 ```tsx
 import { ThemeProvider, Toaster, useTheme } from "@krizaka/ui/native";
-import { nativeTheme } from "@krizaka/orochia-design-system/tokens";
+import { nativeTheme } from "./theme"; // your product's roles
 
 <ThemeProvider mode={mode} onModeChange={saveMode} overrides={nativeTheme} fonts={{ display: "Outfit-Bold" }}>
   <App />
@@ -427,7 +426,7 @@ const { theme, scheme, mode, setMode, radius } = useTheme(); // theme.surface1, 
 | `Segmented` | `options` (`value`, `label`, `disabled`), `value`, `onValueChange`, `size` | The web `Tabs variant="segmented"` (a tab list). To filter, `Chip.Group`. |
 | `Progress` | `variant` bar·ring, `size`, `value`/`max`, `label`, `valueText`, a ring's centre as children | The fill is the `accent` → `accent2` gradient (react-native-svg); it animates to each new value. |
 | `Toaster`, `toast` | `toast(title, { description, tone, icon, action, onPress, id, duration, onDismiss })`, `toast.success/warning/error/info`, `toast.dismiss(id?)`; `Toaster closeLabel position offset duration max` | No sonner: a light queue of its own. `offset` takes the safe-area inset (no safe-area dependency). |
-| `KrizakaMark`, `OrazakaMark`, `OrochiaMark`, `YasakiaMark`, `YororisMark`, `YomizakaMark`, `KachizakaMark`, `AkinazaMark`, `ProductMark` (`id`) | `size`, `animated`, `title`, `neutral` (default `theme.textMuted`) | The brand marks, drawn with react-native-svg from the web marks' geometry. |
+| `KrizakaMark`, `OrazakaMark`, `YomizakaMark`, `AkinazaMark`, `ProductMark` (`id`) — `OrochiaMark`, `YasakiaMark`, `YororisMark`, `KachizakaMark` deprecated (paused products) | `size`, `animated`, `title`, `neutral` (default `theme.textMuted`) | The brand marks, drawn with react-native-svg from the web marks' geometry. |
 
 Every animation (skeleton, badge dot, urgent countdown, progress, toast entrance, the marks) stops when the system
 asks to reduce motion (`useReducedMotion()`). Accessibility goes through `role` and `aria-*` (RN ≥ 0.71): headings,
@@ -435,7 +434,7 @@ asks to reduce motion (`useReducedMotion()`). Accessibility goes through `role` 
 region for the toasts.
 
 ```tsx
-import { Button, Card, Countdown, OrochiaMark } from "@krizaka/ui/native";
+import { Button, Card, Countdown, OrazakaMark } from "@krizaka/ui/native";
 
 <Card.Root onPress={open}>
   <Card.Body>
@@ -445,7 +444,7 @@ import { Button, Card, Countdown, OrochiaMark } from "@krizaka/ui/native";
   </Card.Body>
 </Card.Root>
 
-<OrochiaMark size={72} title="Orochia" neutral={theme.borderDefault} />
+<OrazakaMark size={72} title="Orazaka" neutral={theme.borderDefault} />
 ```
 
 The native stories (`Native/*`, rendering the `registry/examples/<name>/native` examples) render through
@@ -457,15 +456,12 @@ Testing Library (`src/native/*.test.tsx`); `scripts/native-dist.mjs` checks that
 ## The marks
 
 ```tsx
-import { AkinazaLogo, KachizakaLogo, KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, WuSamaMark, YasakiaLogo, YomizakaLogo, YororisLogo } from "@krizaka/ui";
+import { AkinazaLogo, KrizakaLogo, OrazakaLogo, ProductLogo, WuSamaMark, YomizakaLogo } from "@krizaka/ui";
 
-<OrochiaLogo size={36} />                       // decorative (aria-hidden)
+<OrazakaLogo size={36} />                       // decorative (aria-hidden)
 <KrizakaLogo size={48} title="Krizaka" />       // an image with an accessible name
 <ProductLogo id="orazaka" animated={false} />   // by id, still
-<YasakiaLogo size={32} />                       // Yasakia: emerald → turquoise, two voices that meet
-<YororisLogo size={32} />                       // Yororis: sand → sage, the hold
 <YomizakaLogo size={32} />                      // Yomizaka: ink → indigo, the reading
-<KachizakaLogo size={32} />                     // Kachizaka: cobalt → gold, the sealed cup
 <AkinazaLogo size={32} />                       // Akinaza: forest → copper, the open shop
 <WuSamaMark size={32} title="Wu-sama" />         // the founder's byline mark (a person, not a product): a gold W in the Krizaka hexagon
 ```
@@ -539,7 +535,8 @@ Releases go through [Changesets](https://github.com/changesets/changesets): a pu
 ## Used by
 
 [krizaka.com](https://github.com/krizaka/krizaka-com) ·
-[Orochia](https://github.com/krizaka/orochia) (through [`@krizaka/orochia-design-system`](https://github.com/krizaka/orochia-design-system)) ·
+[Yomizaka](https://github.com/krizaka/yomizaka) ·
+[Akinaza](https://github.com/krizaka/akinaza) ·
 [Orazaka](https://github.com/krizaka/orazaka)
 
 ---

@@ -19,7 +19,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** Orochia's sign-up: `BirthDateField` (18+, day · month · year) and `UsernameField` (checked as typed, a free one offered). */
+/** A creator app's sign-up: `BirthDateField` (18+, day · month · year) and `UsernameField` (checked as typed, a free one offered). */
 export const SignUp: Story = { render: () => <SignUpExample /> };
 export const Profile: Story = { render: () => <ProfileExample /> };
 export const Upload: Story = { render: () => <UploadExample /> };

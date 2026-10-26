@@ -8,7 +8,7 @@ const COLLECTIONS = [
   { id: "ui", title: "Krizaka UI", href: "#ui", mark: <ProductLogo id="krizaka" size={26} animated={false} />, description: "Tokens, a Tailwind preset, the components — live, generated from their code.", links: [{ href: "#blocks", label: "Blocks" }, { href: "#layouts", label: "Layouts" }, { href: "#templates", label: "Templates" }] },
   { id: "java", title: "Krizaka Java", href: "#java", mark: <ProductLogo id="krizaka" size={26} animated={false} />, description: "Parent, BOM, starters, messaging, Problem Details.", links: [{ href: "#bom", label: "BOM" }, { href: "#messaging", label: "Messaging" }] },
   { id: "orazaka", brand: "orazaka", title: "Orazaka", href: "#orazaka", mark: <ProductLogo id="orazaka" size={26} animated={false} />, description: "The sovereign AI engine: install, packs, administration.", links: [{ href: "#cli", label: "CLI" }, { href: "#packs", label: "Packs" }, { href: "#admin", label: "Admin" }] },
-  { id: "orochia", brand: "orochia", title: "Orochia", href: "#orochia", mark: <ProductLogo id="orochia" size={26} animated={false} />, description: "The creator platform: payments, auctions, the admin console.", links: [{ href: "#payouts", label: "Payouts" }, { href: "#console", label: "Console" }] },
+  { id: "yomizaka", brand: "yomizaka", title: "Yomizaka", href: "#yomizaka", mark: <ProductLogo id="yomizaka" size={26} animated={false} />, description: "Reads your leases, contracts and invoices: the checks, the signed report.", links: [{ href: "#checks", label: "Checks" }, { href: "#reports", label: "Reports" }] },
 ];
 
 // TEMPLATE — krizaka.com/docs: the search in the middle of the hero (⌘K), the collections each in its product's brand

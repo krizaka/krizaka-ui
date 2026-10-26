@@ -10,7 +10,7 @@
 **The Krizaka front-end platform.** The shared packages every Krizaka product builds on, published on npm under
 `@krizaka/*`.
 
-**3.x is stable**: web primitives and their React Native counterparts, the Krizaka · Orazaka · Orochia · Yasakia · Yororis · Yomizaka · Kachizaka · Akinaza marks and the
+**3.x is stable**: web primitives and their React Native counterparts, the Krizaka · Orazaka · Yomizaka · Akinaza marks and the
 signature icons — charts are next. Documented at [ui.krizaka.com](https://ui.krizaka.com).
 
 [![CI](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml)
@@ -60,7 +60,7 @@ npm install @krizaka/ui @krizaka/tailwind tailwindcss   # the primitives and the
 @import "tailwindcss";
 @import "@krizaka/tailwind";
 @import "@krizaka/ui/tailwind.css";
-@import "@krizaka/tokens/brands/orochia.css"; /* the product's identity: krizaka · orazaka · orochia · yasakia · yororis · yomizaka · kachizaka · akinaza */
+@import "@krizaka/tokens/brands/orazaka.css"; /* the product's identity: krizaka · orazaka · yomizaka · akinaza */
 ```
 
 Import one primitive per entry (`import { Button } from "@krizaka/ui/button"`), React Native from
