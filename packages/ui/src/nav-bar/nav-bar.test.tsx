@@ -490,3 +490,28 @@ describe("NavBar.Family", () => {
     expect(screen.getByRole("link", { name: "Source on GitHub" }).getAttribute("href")).toBe("https://github.com/krizaka/krizaka-ui");
   });
 });
+
+describe("NavBar.Brand with the organisation's facts (@krizaka/org)", () => {
+  it("is the Krizaka mark and the org's brand name, linking home, when it has no children", () => {
+    render(
+      <NavBar.Root label="Main">
+        <NavBar.Brand href="https://www.krizaka.com" org={{ brand: { name: "Krizaka" } }} />
+      </NavBar.Root>,
+    );
+    const brand = screen.getByRole("link", { name: "Krizaka" });
+    expect(brand.getAttribute("href")).toBe("https://www.krizaka.com");
+    expect(brand.querySelector("svg")).not.toBeNull();
+  });
+
+  it("lets its children win (a product's own brand)", () => {
+    render(
+      <NavBar.Root label="Main">
+        <NavBar.Brand href="#home" org={{ brand: { name: "Krizaka" } }}>
+          Orazaka
+        </NavBar.Brand>
+      </NavBar.Root>,
+    );
+    expect(screen.getByRole("link", { name: "Orazaka" })).toBeTruthy();
+    expect(screen.queryByRole("link", { name: "Krizaka" })).toBeNull();
+  });
+});

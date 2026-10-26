@@ -1281,6 +1281,9 @@ importers:
       '@krizaka/config':
         specifier: workspace:*
         version: link:../config
+      '@krizaka/org':
+        specifier: ^0.1.0
+        version: 0.1.0
       '@krizaka/query':
         specifier: workspace:*
         version: link:../query
@@ -2661,6 +2664,10 @@ packages:
     resolution: {integrity: sha512-jRVXr+zsVHxzDXRoh+CDeXzvCsFJ6uiHhqqNQ26Cw9ZsZ3D6nqPUBt1gGVtj2ZPmRL3a9Uk1v8D1aJ8/I12Dow==}
     peerDependencies:
       solid-js: ^1.8.8
+
+  '@krizaka/org@0.1.0':
+    resolution: {integrity: sha512-nvk6fmuvxxqPQnEogzpokV1k0xiKgsnfj8U2wAwKbb0QCVz3z4ketaNQ0BGOXZoKEcTK8ou1qUfQFZaFJ4F1Mg==}
+    engines: {node: '>=22'}
 
   '@krizaka/organize@0.4.0':
     resolution: {integrity: sha512-6b9tjOfsCsiawp4mMSNKK3N2UvOdg90PRyYUXJuD2bZccGSsnYWzvaSuJHSiK+4mKR81iu6ioEf4YWtR1Hg1pg==}
@@ -11888,6 +11895,8 @@ snapshots:
       '@solid-primitives/refs': 1.1.4(solid-js@1.9.17)
       '@solid-primitives/utils': 6.4.1(solid-js@1.9.17)
       solid-js: 1.9.17
+
+  '@krizaka/org@0.1.0': {}
 
   '@krizaka/organize@0.4.0(vitest@5.0.5)':
     optionalDependencies:

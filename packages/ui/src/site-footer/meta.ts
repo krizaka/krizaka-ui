@@ -23,6 +23,7 @@ export const meta = {
     "Set `current` to the site's id: it chooses the mark, the line, the signature (company, product, open source) and marks the site in the family.",
     "One or two own columns at most (`SiteFooter.Column` + `SiteFooter.Link`), never a link the family's columns already hold — another site, the story, the blog, contact (www adds none): on the Krizaka sites the family columns hold them, on a product (`family={false}`) there is none.",
     "Pass the version the site runs (`version`, and `env=\"DEV\"` on a dev environment) and the legal links in `legal`.",
+    "Pass the organisation's facts as `org` (`org` of `@krizaka/org`): the signature line is then « Une entreprise de Technologies Krizaka · Fait à Montréal » on every site and, without `legal`, the legal links are the org's — never write these lines by hand.",
     "Pass the words translated: `labels={familyLabels[locale]}` from `@krizaka/ui/sites`.",
   ],
   accessibility: {

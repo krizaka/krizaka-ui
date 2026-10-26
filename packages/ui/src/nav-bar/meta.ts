@@ -20,6 +20,7 @@ export const meta = {
     { when: "To link to another site of the family from the bar's middle: the family switcher holds them.", use: "sites" },
   ],
   bestPractices: [
+    "The company's bar: `<NavBar.Brand href=… org={org} />` with `org` of `@krizaka/org` is the Krizaka mark and the brand name, so no site writes the company's name by hand; a product keeps its own children.",
     "A product's bar ends with `ProductBarActions`: the primary action is using the app (« Sign in » while sign-up is closed, « Try » once it opens, from the product's `signupOpen` setting), « Sign in » never twice, and no « Contact » or « Talk to us » — contact is a plain link in the footer. krizaka.com, the company site, keeps its « Contact us ».",
     "Who is here is one contract for every product: `GET /api/me` answers 200 `{ signedIn, signupOpen, account? }` with `Cache-Control: private, no-store` and `Vary: Cookie` (`import { meResponse } from \"@krizaka/ui/nav-bar/me\"` in a route handler or server module), signed out is never a 401. `NavBar.Session` (in `NavBar.Actions`, needs a `@krizaka/query` provider) asks it and shows your `ProductBarActions` or your account menu — never a local copy of the island.",
     "Five items at most on the bar; group the rest in a menu, each link with a name and one short line (`NavBar.MenuLink`, one line, ≤ 45 characters).",
