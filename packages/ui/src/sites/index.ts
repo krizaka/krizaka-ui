@@ -5,6 +5,8 @@ export {
   type FamilyLabels,
   familyLabels,
   type PausedSiteId,
+  type OrgFacts,
+  orgFamilyLabels,
   type Site,
   siteById,
   type SiteGroup,

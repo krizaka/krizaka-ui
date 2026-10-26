@@ -1,4 +1,4 @@
-import { familyLabels, siteById, siteGroups, sites, sitesByGroup } from "./index";
+import { familyLabels, type OrgFacts, orgFamilyLabels, siteById, siteGroups, sites, sitesByGroup } from "./index";
 
 describe("sites — the Krizaka family", () => {
   it("lists every site once, with an https address and a repository on GitHub", () => {
@@ -90,5 +90,30 @@ describe("sites — the Krizaka family", () => {
       expect(t.descriptions.akinaza).not.toMatch(/e-?fil|t[ée]l[ée]transm|transmission|file your|produire/i);
       expect(t.status.development.trim().length).toBeGreaterThan(0);
     }
+  });
+});
+
+describe("orgFamilyLabels", () => {
+  const org = {
+    brand: { name: "Krizaka" },
+    footer: { line: { fr: "Une entreprise de Technologies Krizaka · Fait à Montréal", en: "A Technologies Krizaka company · Made in Montréal" }, legal: [] },
+  };
+
+  it("takes the place line from the org and keeps every other word of the language", () => {
+    const fr = orgFamilyLabels(org, "fr");
+    expect(fr.place).toBe("Une entreprise de Technologies Krizaka · Fait à Montréal");
+    expect(fr.groups).toEqual(familyLabels.fr.groups);
+    expect(fr.lang).toBe("fr");
+    expect(orgFamilyLabels(org, "en").place).toBe("A Technologies Krizaka company · Made in Montréal");
+  });
+});
+
+describe("the published @krizaka/org", () => {
+  it("fits OrgFacts and gives the footer line in both languages", async () => {
+    const { org } = await import("@krizaka/org");
+    const facts: OrgFacts = org;
+    expect(orgFamilyLabels(facts, "fr").place).toBe("Une entreprise de Technologies Krizaka · Fait à Montréal");
+    expect(orgFamilyLabels(facts, "en").place).toBe("A Technologies Krizaka company · Made in Montréal");
+    expect(facts.footer.legal.map((l) => l.id)).toEqual(["privacy", "terms"]);
   });
 });

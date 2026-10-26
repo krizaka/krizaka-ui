@@ -173,3 +173,21 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
     company: { story: "Notre histoire", blog: "Blogue", contact: "Nous écrire" },
   },
 };
+
+/**
+ * What the footer and the bar read from `@krizaka/org` (the organisation's public facts, one validated JSON): the brand's
+ * name, the footer line and the legal links, each in both languages. Structural: the whole `Org` of `@krizaka/org` fits.
+ */
+export interface OrgFacts {
+  brand: { name: string };
+  footer: {
+    /** « Une entreprise de Technologies Krizaka · Fait à Montréal ». */
+    line: Record<SiteLocale, string>;
+    legal: readonly { id: string; label: Record<SiteLocale, string>; url: Record<SiteLocale, string> }[];
+  };
+}
+
+/** The family's words with the organisation's facts in them: the place line is the org's, not a copy. */
+export function orgFamilyLabels(org: OrgFacts, locale: SiteLocale): FamilyLabels {
+  return { ...familyLabels[locale], place: org.footer.line[locale] };
+}

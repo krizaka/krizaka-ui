@@ -20,6 +20,7 @@
     "@krizaka/fonts": "workspace:*",
     "@krizaka/i18n": "workspace:*",
     "@krizaka/icons": "workspace:*",
+    "@krizaka/org": "^0.1.0",
     "@krizaka/query": "workspace:*",
     "@krizaka/tailwind": "workspace:*",
     "@krizaka/tokens": "workspace:*",

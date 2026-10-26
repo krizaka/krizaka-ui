@@ -886,6 +886,7 @@
     "@babel/core": "^7.29.7",
     "@jest/globals": "30.5.2",
     "@krizaka/config": "workspace:*",
+    "@krizaka/org": "^0.1.0",
     "@krizaka/query": "workspace:*",
     "@maplibre/maplibre-react-native": "11.5.0",
     "@react-native/babel-preset": "0.86.3",
@@ -1208,7 +1209,12 @@
       "path": "dist/notification-preferences.js",
       "limit": "3.1 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react",
+        "radix-ui"
+      ]
     },
     {
       "name": "./agenda",
@@ -1225,7 +1231,12 @@
       "path": "dist/quota-meter.js",
       "limit": "2.3 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react",
+        "radix-ui"
+      ]
     },
     {
       "name": "./alert",
@@ -1917,7 +1928,10 @@
       "path": "dist/wall.js",
       "limit": "3.5 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
     },
     {
       "name": "./cover-hero",

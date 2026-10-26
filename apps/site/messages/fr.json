@@ -495,7 +495,7 @@
       },
       "catalog": {
         "heading": "Tous les composants",
-        "lead": "Chaque composant de Krizaka UI, rangé par le travail qu'il fait. Filtrez par plateforme, groupe, statut ou produit qui l'utilise.",
+        "lead": "Filtrez par plateforme, groupe, statut ou produit qui l'utilise.",
         "filters": "Filtres",
         "platform": "Plateforme",
         "group": "Groupe",
@@ -527,7 +527,6 @@
       "templates": {
         "whyLayout": "Pourquoi cette mise en page",
         "all": "Tous les modèles",
-        "overviewLead": "Des pages et des écrans entiers, rangés par ce que la personne doit faire. Choisissez l'intention, puis copiez le modèle qui convient.",
         "count": "{count} modèles",
         "open": "Ouvrir les modèles « {intent} »",
         "native": "Mobile",

@@ -9,7 +9,7 @@ import { tv } from "tailwind-variants";
 
 import { FamilyMark } from "../family-mark";
 import { KrizakaLogo } from "../marks/KrizakaLogo";
-import { companyLinks, type FamilyLabels, familyLabels, siteById, type SiteId, sitesByGroup } from "../sites/sites";
+import { companyLinks, type FamilyLabels, familyLabels, type OrgFacts, siteById, type SiteId, sitesByGroup } from "../sites/sites";
 
 export const siteFooter = tv({
   slots: {
@@ -102,6 +102,12 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
    * and all of them once the reader asks for the whole notebook). Omit it to list every product.
    */
   products?: readonly SiteId[];
+  /**
+   * The organisation's public facts (`org` of `@krizaka/org`). The signature line is then `org.footer.line` — « Une
+   * entreprise de Technologies Krizaka · Fait à Montréal », the same on every site — and, when `legal` is not given, the
+   * legal links are `org.footer.legal`, in the language of `labels`. No site writes these lines by hand.
+   */
+  org?: OrgFacts;
   /** The end of the signature line: legal links, a language switch (`SiteFooter.Link`s or any inline content). */
   legal?: React.ReactNode;
   /**
@@ -122,7 +128,8 @@ export function SiteFooter({
   version,
   env,
   path,
-  legal,
+  legal: legalProp,
+  org,
   family: familyProp,
   products,
   variant = "site",
@@ -139,6 +146,17 @@ export function SiteFooter({
   const own = React.Children.toArray(children).length > 0;
   const lang = labels.lang ?? "en";
   const company = labels.company ?? familyLabels.en.company!;
+  const legal =
+    legalProp ??
+    (org && (
+      <>
+        {org.footer.legal.map((l) => (
+          <SiteFooterLink key={l.id} href={l.url[lang]}>
+            {l.label[lang]}
+          </SiteFooterLink>
+        ))}
+      </>
+    ));
   const here = (href: string) => path !== undefined && isThisPage(href, site.url, path);
   // Products · Open source (GitHub, every repository, closes it) · Krizaka (the company's pages): three columns, no
   // column that lists only Krizaka.
@@ -202,7 +220,7 @@ export function SiteFooter({
         <div className={s.bottom()}>
           <a href={krizaka.url} className={s.signature()}>
             <KrizakaLogo size={18} animated={false} />
-            {labels.signature[site.kind]}
+            {org ? org.footer.line[lang] : labels.signature[site.kind]}
           </a>
           {tag && (
             <span className={s.version()}>
@@ -210,7 +228,7 @@ export function SiteFooter({
               {tag}
             </span>
           )}
-          {!slim && <span>{labels.place}</span>}
+          {!slim && !org && <span>{labels.place}</span>}
           {legal && <div className={s.legal()}>{legal}</div>}
         </div>
       </div>
