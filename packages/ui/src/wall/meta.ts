@@ -15,6 +15,9 @@ export const meta = {
   bestPractices: [
     "Import @krizaka/ui/blocks.css once. All four components are exported from @krizaka/ui/wall.",
     "Each example includes its own words, so copied snippets are self-contained. Choose the host locale and pass its words as data; the French composition demonstrates the same surface unchanged.",
+    "Wall draws at most `max` items (12 by default, the first in z order) in a fixed 16:9 box on a desktop; show the rest behind a « see the whole wall » of your own. Pass `height` only for a fixed pixel height. On a phone it stacks them in z order, straight.",
+    "`ShopSign` renders its text children as the heading (`as=\"h1\"` by default): the page's one h1 is the sign. On a Wall a sign is a paragraph unless you pass `as`. `variant=\"none\"` is the name alone on paper; the neon flickers once, the first time it is seen, and never loops.",
+    "`PinnedNote`: `hold` (tape or pin, through Stuck), `ink` (blue, margin, hue) and `lines` (a fixed box of N lines, default 4, read in full by assistive technology); `attachment` still works as an alias of `hold`.",
     "Provide stable ids, explicit x/y percentages, rotation in degrees and z for every item. Positions are clamped to 0–100; z sorts the real list stably, including keyboard and phone order.",
     "Use kind polaroid with img, kind note with text, or kind sign with logo. Items carry the same props as their standalone component; no editor or random placement is added.",
     "Use height and itemWidth for layout, not style: style is intentionally omitted from the public props so percentage placement and the mobile stack cannot be overwritten accidentally.",

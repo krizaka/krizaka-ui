@@ -14,5 +14,5 @@ const items: WallItem[] = [
 ];
 
 export default function CompositionExample() {
-  return <Wall aria-label={m.wallLabel} texture="brick" items={items} height={520} itemWidth={220} />;
+  return <Wall aria-label={m.wallLabel} texture="brick" items={items} itemWidth={220} />;
 }
