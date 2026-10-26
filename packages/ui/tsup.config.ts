@@ -66,6 +66,8 @@ export default defineConfig([
       "margin-layout": "src/margin-layout/index.ts",
       // The blocks of a « Credits & usage » page.
       usage: "src/usage/index.ts",
+      // The result of an AI analysis: summary, findings, limits, provenance.
+      "analysis-report": "src/analysis-report/index.ts",
       alert: "src/alert/index.ts",
       separator: "src/separator/index.ts",
       kbd: "src/kbd/index.ts",

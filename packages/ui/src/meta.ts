@@ -15,6 +15,7 @@ export type ComponentName =
   | "embed-facade"
   | "reviews"
   | "margin-layout"
+  | "analysis-report"
   | "status-chip"
   | "kind-config-editor"
   | "agenda"
