@@ -1,15 +1,11 @@
 {
   "name": "@krizaka/ui",
-  "version": "3.60.0",
-  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Orochia, Yasakia, Yororis) and the motion signature — web and /native.",
+  "version": "3.61.0",
+  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Yomizaka, Akinaza) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
     "orazaka",
-    "orochia",
-    "yasakia",
-    "yororis",
     "yomizaka",
-    "kachizaka",
     "akinaza",
     "react",
     "logo",
@@ -874,7 +870,7 @@
   },
   "peerDependencies": {
     "@krizaka/query": ">=0.2.2",
-    "@krizaka/tailwind": ">=3.60.0",
+    "@krizaka/tailwind": ">=3.61.0",
     "@maplibre/maplibre-react-native": ">=11",
     "@shopify/flash-list": ">=2",
     "expo-camera": ">=16",
@@ -894,6 +890,7 @@
     "@babel/core": "^7.29.7",
     "@jest/globals": "30.5.2",
     "@krizaka/config": "workspace:*",
+    "@krizaka/org": "^0.1.0",
     "@krizaka/query": "workspace:*",
     "@maplibre/maplibre-react-native": "11.5.0",
     "@react-native/babel-preset": "0.86.3",
@@ -1216,7 +1213,12 @@
       "path": "dist/notification-preferences.js",
       "limit": "3.1 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react",
+        "radix-ui"
+      ]
     },
     {
       "name": "./agenda",
@@ -1240,7 +1242,12 @@
       "path": "dist/quota-meter.js",
       "limit": "2.3 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react",
+        "radix-ui"
+      ]
     },
     {
       "name": "./alert",
@@ -1534,7 +1541,7 @@
     {
       "name": "./engine-flow",
       "path": "dist/engine-flow.js",
-      "limit": "2.4 kB",
+      "limit": "2.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1932,7 +1939,10 @@
       "path": "dist/wall.js",
       "limit": "3.5 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
     },
     {
       "name": "./cover-hero",

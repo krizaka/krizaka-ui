@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import CalmExample from "../../registry/examples/engine-flow/calm";
 import CompactExample from "../../registry/examples/engine-flow/compact";
 import RadialExample from "../../registry/examples/engine-flow/radial";
 import { EngineFlow } from "./engine-flow";
@@ -45,6 +46,20 @@ const moves: NonNullable<Story["play"]> = async ({ canvasElement }) => {
     if (hub && getComputedStyle(hub).animationName === "none") throw new Error("the hub does not breathe");
   }
 };
+
+// The anchoring of the conduits on the node circles and the hub ring, at 4 and at 6 nodes (the baselines show them).
+const sample = (count: number) =>
+  Array.from({ length: count }, (_, i) => ({ id: `n${i}`, label: `Node ${i + 1}`, flow: "both" as const, mark: <svg viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="3" fill="currentColor" /></svg> }));
+const anchored = (count: number, layout: "radial" | "top-to-bottom") => (
+  <div style={{ maxWidth: layout === "radial" ? 640 : 360 }}>
+    <EngineFlow label={`${count} nodes`} layout={layout} compactLayout={false} hub={{ label: "Hub", caption: "the engine", mark: <svg viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="4" fill="currentColor" /></svg> }} nodes={sample(count)} particles="none" breathe={false} hint="Point at a node." />
+  </div>
+);
+export const Radial4: Story = { render: () => anchored(4, "radial") };
+export const Radial6: Story = { render: () => anchored(6, "radial") };
+export const Column4: Story = { render: () => anchored(4, "top-to-bottom") };
+export const Column6: Story = { render: () => anchored(6, "top-to-bottom") };
+export const Calm: Story = { render: () => <CalmExample />, play: moves };
 
 export const Radial: Story = { render: () => <RadialExample />, play: moves };
 export const Compact: Story = { render: () => <CompactExample />, play: moves };

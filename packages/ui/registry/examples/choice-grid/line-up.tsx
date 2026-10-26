@@ -4,7 +4,7 @@ import { StatGauge } from "@krizaka/ui/profile-card";
 
 const LINE_UP = [
   { id: "orazaka", name: "Orazaka", title: "Sovereign AI", stat: "Data kept at home", value: 100 },
-  { id: "orochia", name: "Orochia", title: "Creator video", stat: "Creator share", value: 90 },
+  { id: "yomizaka", name: "Yomizaka", title: "Document reader", stat: "Passages checked", value: 90 },
 ] as const;
 
 // The select screen of a told page: each card in its brand, a gauge, and a link to its chapter.

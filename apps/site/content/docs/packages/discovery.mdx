@@ -5,12 +5,12 @@ description: Service discovery for the mobile apps — a signed manifest of back
 
 A phone app cannot change its backend address without a new build and a store review. `@krizaka/discovery` removes that:
 the app loads a **signed manifest** from `https://www.krizaka.com/.well-known/krizaka/services.json` and asks it for
-`getService("orochia").apiBase`. A move of a product is an edit of one list and a deploy of krizaka.com.
+`getService("yomizaka").apiBase`. A move of a product is an edit of one list and a deploy of krizaka.com.
 
 ```ts
 const discovery = createDiscovery({ environment: "dev", appVersion, manifestUrls, publicKeys, allowedHostSuffixes, defaults, legacy, storage });
 await discovery.start();
-discovery.getService("orochia").apiBase; // live → cache → baked default → legacy host
+discovery.getService("yomizaka").apiBase; // live → cache → baked default → legacy host
 ```
 
 ## What keeps it safe
@@ -28,6 +28,6 @@ discovery.getService("orochia").apiBase; // live → cache → baked default →
 The manifest carries `minAppVersion`, `latestAppVersion`, `status` and a bilingual message per product and environment:
 a coarse kill switch that works when the backend has moved or is down. [`@krizaka/app-config`](/packages/app-config)
 stays the backend's own, database-driven contract (soft update, contract range, `426`); give its client
-`baseUrl: () => discovery.getService("orochia").apiBase` and it follows the manifest.
+`baseUrl: () => discovery.getService("yomizaka").apiBase` and it follows the manifest.
 
 The decision and the threat model: [ADR-003](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-003-mobile-service-discovery.md).

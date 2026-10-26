@@ -5,7 +5,10 @@
 // The words of the family (a site's one line, the groups, the statuses, the footer's signature) are brand data, written
 // here in English and French (`familyLabels`) — a site passes the set of its locale, or its own translation.
 
-/** A site of the family. */
+/**
+ * A site of the family. `orochia`, `yasakia`, `yororis` and `kachizaka` are kept for compatibility only: they are paused
+ * products and are not listed in `sites` any more.
+ */
 export type SiteId = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka" | "kachizaka" | "akinaza" | "ui" | "java" | "ts" | "motion" | "github";
 
 /** What a site is: the company, a product, or an open-source project. It chooses the footer's signature line. */
@@ -21,8 +24,14 @@ export type SiteStatus = "released" | "upcoming" | "construction" | "development
 /** The groups of the family, in reading order: Krizaka · Products · Open source · GitHub. */
 export type SiteGroup = "krizaka" | "products" | "open-source" | "github";
 
-/** The mark a site wears: a brand of `ProductLogo` (Krizaka UI and Krizaka Java wear Krizaka's), or GitHub's. */
+/** The mark a site wears (the paused products' marks are kept for compatibility only, see `PausedSiteId`): a brand of `ProductLogo` (Krizaka UI and Krizaka Java wear Krizaka's), or GitHub's. */
 export type SiteMark = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka" | "kachizaka" | "akinaza" | "github";
+
+/**
+ * @deprecated Paused product (2026-10-25); removed in the next major. The sites of the paused products: out of the family
+ * (`sites`), their ids still accepted by the types.
+ */
+export type PausedSiteId = "orochia" | "yasakia" | "yororis" | "kachizaka";
 
 export interface Site {
   readonly id: SiteId;
@@ -46,26 +55,33 @@ const site = (s: Omit<Site, "host">): Site => ({ ...s, host: s.url.replace(/^htt
 export const sites: readonly Site[] = [
   site({ id: "krizaka", name: "Krizaka", url: "https://www.krizaka.com", kind: "company", group: "krizaka", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-com" }),
   site({ id: "orazaka", name: "Orazaka", url: "https://www.orazaka.com", kind: "product", group: "products", status: "released", mark: "orazaka", repo: "https://github.com/krizaka/orazaka" }),
-  site({ id: "orochia", name: "Orochia", url: "https://www.orochia.com", kind: "product", group: "products", status: "released", mark: "orochia", repo: "https://github.com/krizaka/orochia" }),
-  site({ id: "yasakia", name: "Yasakia", url: "https://www.yasakia.com", kind: "product", group: "products", status: "development", mark: "yasakia", repo: "https://github.com/krizaka/yasakia" }),
-  site({ id: "yororis", name: "Yororis", url: "https://www.yororis.com", kind: "product", group: "products", status: "development", mark: "yororis", repo: "https://github.com/krizaka/yororis" }),
   site({ id: "yomizaka", name: "Yomizaka", url: "https://www.yomizaka.com", kind: "product", group: "products", status: "development", mark: "yomizaka", repo: "https://github.com/krizaka/yomizaka" }),
-  site({ id: "kachizaka", name: "Kachizaka", url: "https://www.kachizaka.com", kind: "product", group: "products", status: "development", mark: "kachizaka", repo: "https://github.com/krizaka/kachizaka" }),
   site({ id: "akinaza", name: "Akinaza", url: "https://www.akinaza.com", kind: "product", group: "products", status: "development", mark: "akinaza", repo: "https://github.com/krizaka/akinaza" }),
   site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
   site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-build" }),
   site({ id: "ts", name: "Krizaka TypeScript", url: "https://ts.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ts" }),
-  // The motion lab: built in the open on GitHub Pages; what proves itself there moves into Krizaka UI.
-  site({ id: "motion", name: "Krizaka Motion", url: "https://krizaka.github.io/krizaka-motion", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-motion" }),
+  // The motion lab: built in the open, served at motion.krizaka.com; what proves itself there moves into Krizaka UI.
+  site({ id: "motion", name: "Krizaka Motion", url: "https://motion.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-motion" }),
   site({ id: "github", name: "GitHub", url: "https://github.com/krizaka", kind: "open-source", group: "github", status: "released", mark: "github", repo: "https://github.com/krizaka" }),
+];
+
+/**
+ * @deprecated Paused product (2026-10-25); removed in the next major. The paused products' sites, out of the family: no
+ * switcher or footer lists them, `siteById` still finds them so a page that names one as `current` keeps rendering.
+ */
+export const pausedSites: readonly Site[] = [
+  site({ id: "orochia", name: "Orochia", url: "https://www.orochia.com", kind: "product", group: "products", status: "development", mark: "orochia", repo: "https://github.com/krizaka/orochia" }),
+  site({ id: "yasakia", name: "Yasakia", url: "https://www.yasakia.com", kind: "product", group: "products", status: "development", mark: "yasakia", repo: "https://github.com/krizaka/yasakia" }),
+  site({ id: "yororis", name: "Yororis", url: "https://www.yororis.com", kind: "product", group: "products", status: "development", mark: "yororis", repo: "https://github.com/krizaka/yororis" }),
+  site({ id: "kachizaka", name: "Kachizaka", url: "https://www.kachizaka.com", kind: "product", group: "products", status: "development", mark: "kachizaka", repo: "https://github.com/krizaka/kachizaka" }),
 ];
 
 /** The groups, in reading order. */
 export const siteGroups: readonly SiteGroup[] = ["krizaka", "products", "open-source", "github"];
 
-/** A site by id. */
+/** A site by id (a paused product's too, see `pausedSites`). */
 export function siteById(id: SiteId): Site {
-  const found = sites.find((s) => s.id === id);
+  const found = sites.find((s) => s.id === id) ?? pausedSites.find((s) => s.id === id);
   if (!found) throw new Error(`Unknown Krizaka site "${id}".`);
   return found;
 }
@@ -97,7 +113,7 @@ export interface FamilyLabels {
   /** Says which site is the current one (“You are here”). */
   current: string;
   /** One line per site: what it is. */
-  descriptions: Record<SiteId, string>;
+  descriptions: Record<Exclude<SiteId, PausedSiteId>, string> & Partial<Record<PausedSiteId, string>>;
   /** The footer's signature, by the kind of the current site (“A Krizaka product”). */
   signature: Record<SiteKind, string>;
   /** The footer's place line (“Made in Montréal”). */
@@ -120,11 +136,7 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
     descriptions: {
       krizaka: "The company: our products, our open source, our story.",
       orazaka: "Sovereign AI on your own servers: chat, documents, images and video — and the engine under the other products.",
-      orochia: "A video platform for creators.",
-      yasakia: "Meet real people: introductions, and photos checked before you see them.",
-      yororis: "A listening space with a face and a voice.",
       yomizaka: "Yomizaka reads your leases, contracts and invoices.",
-      kachizaka: "Predictions among friends — live data, in real time.",
       akinaza: "Running a shop in Québec, for less — Loi 25 by design.",
       ui: "Components, tokens, icons and charts — web and React Native.",
       java: "Spring Boot building blocks on Maven Central.",
@@ -146,11 +158,7 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
     descriptions: {
       krizaka: "La compagnie : nos produits, notre open source, notre histoire.",
       orazaka: "L’IA souveraine sur vos propres serveurs : conversation, documents, images et vidéo — et le moteur des autres produits.",
-      orochia: "Une plateforme vidéo pour les créateurs.",
-      yasakia: "Rencontrez de vraies personnes : des présentations, et des photos vérifiées avant que vous les voyiez.",
-      yororis: "Un espace d’écoute avec un visage et une voix.",
       yomizaka: "Yomizaka lit vos baux, contrats et factures.",
-      kachizaka: "Les pronostics entre amis — des données en direct.",
       akinaza: "Tenir une boutique au Québec, pour moins cher — Loi 25 dès la conception.",
       ui: "Composants, jetons, icônes et graphiques — web et React Native.",
       java: "Des briques Spring Boot sur Maven Central.",
@@ -165,3 +173,21 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
     company: { story: "Notre histoire", blog: "Blogue", contact: "Nous écrire" },
   },
 };
+
+/**
+ * What the footer and the bar read from `@krizaka/org` (the organisation's public facts, one validated JSON): the brand's
+ * name, the footer line and the legal links, each in both languages. Structural: the whole `Org` of `@krizaka/org` fits.
+ */
+export interface OrgFacts {
+  brand: { name: string };
+  footer: {
+    /** « Une entreprise de Technologies Krizaka · Fait à Montréal ». */
+    line: Record<SiteLocale, string>;
+    legal: readonly { id: string; label: Record<SiteLocale, string>; url: Record<SiteLocale, string> }[];
+  };
+}
+
+/** The family's words with the organisation's facts in them: the place line is the org's, not a copy. */
+export function orgFamilyLabels(org: OrgFacts, locale: SiteLocale): FamilyLabels {
+  return { ...familyLabels[locale], place: org.footer.line[locale] };
+}

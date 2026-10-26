@@ -9,7 +9,7 @@ export const meta = {
   platforms: "both",
   parity: { desktop: "web" },
   engine: "svg",
-  whenToUse: ["Orochia's auction room, on the web and in the app: the bids as they arrive.", "Any price that moves by discrete steps: a bid, a quote, an offer."],
+  whenToUse: ["An auction room, on the web and in the app: the bids as they arrive.", "Any price that moves by discrete steps: a bid, a quote, an offer."],
   whenNotToUse: [
     { when: "A price series over days with open, high, low and close.", use: "candlestick" },
     { when: "Money per period.", use: "earnings-chart" },
@@ -31,7 +31,7 @@ export const meta = {
     entry: "ticker",
     imports: ["PriceTicker"],
     examples: [
-      { name: "auction-room", title: "Auction room", description: "Eight bids in an Orochia auction, the reserve met." },
+      { name: "auction-room", title: "Auction room", description: "Eight bids in an auction, the reserve met." },
       { name: "no-bid-yet", title: "No bid yet", description: "The opening price, the reserve ahead." },
     ],
   },

@@ -1,5 +1,5 @@
 // Client (the collapse, the drawer, the shortcuts). The shell of an application screen, read from the products' consoles
-// (Orochia admin and studio, Orazaka web-admin and web-client): a sidebar of sections that collapses to its icons on a
+// (a creator studio and its admin, Orazaka web-admin and web-client): a sidebar of sections that collapses to its icons on a
 // desktop, a header with the screen's title, a search that opens the app's command palette and its actions, the content —
 // and below `md` the sidebar becomes a drawer opened from the header (Radix Dialog: focus trap, Escape, focus return).
 // Keyboard: ⌘/Ctrl+B folds the sidebar, ⌘/Ctrl+K opens the search, `g` then a letter goes to a section (`shortcut` of an

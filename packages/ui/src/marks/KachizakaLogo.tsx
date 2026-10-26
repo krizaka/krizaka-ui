@@ -8,6 +8,8 @@ const CSS = familyMotion("kcm", { ...G.motion, ...G.pulse });
  * (the brand's two colours, kept apart), under a gold diamond — the family's lit node — that breathes: a friendly
  * leaderboard where only points change hands. One node, the ball, rides the dashed orbit. Below 48 px it crops to the
  * emblem.
+ *
+ * @deprecated Paused product (2026-10-25); removed in the next major.
  */
 export function KachizakaLogo({ size = 32, animated = true, title, className }: MarkProps) {
   const id = useIds("kcm", ["glow"] as const);

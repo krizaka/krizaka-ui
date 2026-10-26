@@ -11,7 +11,7 @@ export default function AppShellBasic() {
     <AppShell.Root className="min-h-[32rem]">
       <AppShell.Sidebar
         label="Studio"
-        brand={<><ProductLogo id="orochia" size={24} animated={false} /> Studio</>}
+        brand={<><ProductLogo id="orazaka" size={24} animated={false} /> Studio</>}
         collapseLabels={["Collapse", "Expand"]}
         closeLabel="Close the menu"
       >

@@ -12,6 +12,8 @@ const CENTER = G.offset + 180;
  * The Orochia mark for React Native — the same geometry as the web mark (marks/orochia-geometry.ts), drawn with
  * react-native-svg. Three layers so that the motion runs on the native driver: the orbit turns, the eye and the flame
  * breathe, the serpent stays still.
+ *
+ * @deprecated Paused product (2026-10-25); removed in the next major.
  */
 export function OrochiaMark({ size = 48, animated = true, title, neutral: neutralProp }: NativeMarkProps) {
   const { theme } = useTheme();

@@ -17,6 +17,19 @@ function Footer(props: Partial<React.ComponentProps<typeof SiteFooter>>) {
   );
 }
 
+
+// The organisation's facts as `@krizaka/org` publishes them (the part the footer and the bar read).
+const org = {
+  brand: { name: "Krizaka" },
+  footer: {
+    line: { fr: "Une entreprise de Technologies Krizaka · Fait à Montréal", en: "A Technologies Krizaka company · Made in Montréal" },
+    legal: [
+      { id: "privacy", label: { fr: "Confidentialité", en: "Privacy" }, url: { fr: "https://www.krizaka.com/fr/privacy", en: "https://www.krizaka.com/en/privacy" } },
+      { id: "terms", label: { fr: "Conditions", en: "Terms" }, url: { fr: "https://www.krizaka.com/fr/terms", en: "https://www.krizaka.com/en/terms" } },
+    ],
+  },
+};
+
 describe("SiteFooter", () => {
   it("is a footer with the family as a named navigation, every site linked once, and no axe violation", async () => {
     const { container } = render(<Footer />);
@@ -59,8 +72,9 @@ describe("SiteFooter", () => {
     const current = within(family).getByRole("link", { name: /Orazaka/ });
     expect(current.getAttribute("aria-current")).toBe("true");
     expect(current.textContent).toContain("You are here");
-    expect(within(family).getByRole("link", { name: /Yasakia/ }).textContent).toContain("In development");
-    expect(within(family).getByRole("link", { name: /Yororis/ }).textContent).toContain("In development");
+    expect(within(family).getByRole("link", { name: /Yomizaka/ }).textContent).toContain("In development");
+    expect(within(family).getByRole("link", { name: /Akinaza/ }).textContent).toContain("In development");
+    for (const name of [/Orochia/, /Yasakia/, /Yororis/, /Kachizaka/]) expect(within(family).queryByRole("link", { name })).toBeNull();
   });
 
   it("renders the site's own columns, the signature by kind, the version and Montréal", () => {
@@ -234,5 +248,39 @@ describe("SiteFooter", () => {
     expect(hrefs.some((h) => h.includes("yomizaka"))).toBe(true);
     expect(hrefs.some((h) => h.includes("orochia"))).toBe(false);
     expect(hrefs.some((h) => h.includes("kachizaka"))).toBe(false);
+  });
+
+  describe("with the organisation's facts (@krizaka/org)", () => {
+    it("writes the org line as the signature, in the language of the labels, and not the place twice", () => {
+      render(<SiteFooter current="ui" labels={familyLabels.fr} org={org} />);
+      const footer = screen.getByRole("contentinfo");
+      expect(footer.textContent).toContain("Une entreprise de Technologies Krizaka · Fait à Montréal");
+      expect(footer.textContent).not.toContain("Un projet open source de Krizaka");
+      expect(footer.textContent?.match(/Fait à Montréal/g)).toHaveLength(1);
+      expect(within(footer).getByRole("link", { name: /Une entreprise de Technologies Krizaka/ }).getAttribute("href")).toBe("https://www.krizaka.com");
+    });
+
+    it("links the org's legal pages when no `legal` is given, and lets an explicit `legal` win", () => {
+      const { unmount } = render(<SiteFooter current="ui" labels={familyLabels.fr} org={org} />);
+      expect(screen.getByRole("link", { name: "Confidentialité" }).getAttribute("href")).toBe("https://www.krizaka.com/fr/privacy");
+      expect(screen.getByRole("link", { name: "Conditions" }).getAttribute("href")).toBe("https://www.krizaka.com/fr/terms");
+      unmount();
+      render(<SiteFooter current="ui" org={org} legal={<SiteFooter.Link href="#mine">Mine</SiteFooter.Link>} />);
+      expect(screen.queryByRole("link", { name: "Privacy" })).toBeNull();
+      expect(screen.getByRole("link", { name: "Mine" })).toBeTruthy();
+    });
+
+    it("keeps the English line and the slim app variant working, with no axe violation", async () => {
+      const { container } = render(<SiteFooter current="orazaka" variant="app" org={org} version="1.2.3" />);
+      expect(container.textContent).toContain("A Technologies Krizaka company · Made in Montréal");
+      expect(container.textContent).toContain("v1.2.3");
+      expect(await axeViolations(container)).toEqual([]);
+    });
+
+    it("without `org`, nothing changes: the kind's signature and the place line", () => {
+      render(<SiteFooter current="ui" />);
+      expect(screen.getByRole("contentinfo").textContent).toContain("A Krizaka open-source project");
+      expect(screen.getByRole("contentinfo").textContent).toContain("Made in Montréal");
+    });
   });
 });

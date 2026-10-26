@@ -8,10 +8,17 @@ import { YasakiaLogo } from "./YasakiaLogo";
 import { YomizakaLogo } from "./YomizakaLogo";
 import { YororisLogo } from "./YororisLogo";
 
+/**
+ * A Krizaka brand. `orochia`, `yasakia`, `yororis` and `kachizaka` are paused products, kept so nothing published
+ * breaks — see `PausedBrandId`.
+ */
 export type BrandId = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka" | "kachizaka" | "akinaza";
 
+/** @deprecated Paused product (2026-10-25); removed in the next major. The brands of the paused products. */
+export type PausedBrandId = "orochia" | "yasakia" | "yororis" | "kachizaka";
+
 /** The mark of a Krizaka brand by id — for navigation, cards and lists driven by data. */
-export function ProductLogo({ id, ...props }: MarkProps & { /** The brand: `krizaka`, `orazaka`, `orochia`, `yasakia`, `yororis`, `yomizaka`, `kachizaka` or `akinaza` (`yazakia`, deprecated: the old name of `yasakia`). */ id: BrandId | "yazakia" }) {
+export function ProductLogo({ id, ...props }: MarkProps & { /** The brand: `krizaka`, `orazaka`, `yomizaka` or `akinaza` (`orochia`, `yasakia`, `yororis`, `kachizaka`: deprecated, paused products; `yazakia`: the old name of `yasakia`). */ id: BrandId | "yazakia" }) {
   if (id === "krizaka") return <KrizakaLogo {...props} />;
   if (id === "orazaka") return <OrazakaLogo {...props} />;
   if (id === "yasakia" || id === "yazakia") return <YasakiaLogo {...props} />;

@@ -20,7 +20,7 @@ export const meta = {
   accessibility: {
     keyboard: [],
     notes: [
-      "A `progressbar` named by `label` (“Orochia is opening”), busy until it leaves; the first screen takes the reading order after it.",
+      "A `progressbar` named by `label` (“Orazaka is opening”), busy until it leaves; the first screen takes the reading order after it.",
       "Reduced motion: the mark stands still and the splash leaves without fading.",
     ],
   },
@@ -28,6 +28,6 @@ export const meta = {
   native: {
     imports: ["SplashHandoff"],
     differences: [],
-    examples: [{ name: "default", title: "Opening", description: "Orochia's animated mark on the splash's background while the app gets ready." }],
+    examples: [{ name: "default", title: "Opening", description: "Orazaka's animated mark on the splash's background while the app gets ready." }],
   },
 } satisfies ComponentMeta;

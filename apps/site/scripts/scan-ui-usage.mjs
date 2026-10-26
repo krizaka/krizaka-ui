@@ -24,19 +24,16 @@ const flag = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : nul
 const base = path.resolve(flag("--root") ?? path.join(homedir(), "krizaka-com"));
 const fetchFirst = !args.includes("--no-fetch");
 
-/** The product repositories (clones under <root>), grouped by product. A repo's own path is where its sources start. */
+/** The product repositories (clones under <root>), grouped by product — the products in focus (Orochia and Yasakia,
+    paused on 2026-10-25, are no longer read). A repo's own path is where its sources start. */
 export const PRODUCTS = {
-  orochia: [
-    { repo: "products/orochia", dir: "apps/web" },
-    { repo: "products/orochia-mobile" },
-    { repo: "products/orochia-design-system" },
-  ],
   orazaka: [
     { repo: "products/orazaka/orazaka-apps/ui/orazaka-web-client" },
     { repo: "products/orazaka/orazaka-apps/ui/orazaka-mobile-client" },
     { repo: "products/orazaka/orazaka-apps/ui/orazaka-ui-kit" },
   ],
-  yasakia: [{ repo: "products/yasakia" }],
+  yomizaka: [{ repo: "products/yomizaka" }],
+  akinaza: [{ repo: "products/akinaza" }],
   krizaka: [{ repo: ".", skip: /^(products|company|orazaka-content|content|public)\// }],
 };
 

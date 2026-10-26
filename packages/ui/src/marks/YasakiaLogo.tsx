@@ -8,6 +8,8 @@ const CSS = familyMotion("yzm", { ...G.motion, ...G.pulse });
  * can never read as a face) in the Yasakia gradient (emerald → turquoise, the same in dark and light), and the spark
  * inside it — the family's lit node — that breathes: talk first, both ways. One node rides the dashed orbit. Below 48 px
  * it crops to the emblem.
+ *
+ * @deprecated Paused product (2026-10-25); removed in the next major.
  */
 export function YasakiaLogo({ size = 32, animated = true, title, className }: MarkProps) {
   const id = useIds("yzm", ["gradient", "glow"] as const);

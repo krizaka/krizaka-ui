@@ -1,6 +1,6 @@
 import { PriceTicker } from "@krizaka/charts/ticker";
 
-// An Orochia auction: the bids in cents, as they arrived.
+// An auction: the bids in cents, as they arrived.
 const bids = [
   { at: "2026-10-11T18:02:00Z", amount: 25_00 },
   { at: "2026-10-11T18:05:00Z", amount: 30_00 },

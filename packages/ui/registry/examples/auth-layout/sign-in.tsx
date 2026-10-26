@@ -4,13 +4,13 @@ import { Button } from "@krizaka/ui/button";
 import { Field, Input } from "@krizaka/ui/field";
 import { Mascot } from "@krizaka/ui/mascots";
 
-// TEMPLATE — Orochia's sign-in: the brand panel (its gradient, the promise, a creator's sentence) beside a calm form;
+// TEMPLATE — a creator studio's sign-in: the brand panel (its gradient, the promise, a creator's sentence) beside a calm form;
 // on a phone one column, the mark above the form, the fields at full width with 44 px targets.
 export default function AuthLayoutSignIn() {
   return (
-    <div className="brand-orochia">
+    <div className="brand-orazaka">
       <AuthLayout
-        brand={<><ProductLogo id="orochia" size={28} animated={false} /> Orochia</>}
+        brand={<><ProductLogo id="orazaka" size={28} animated={false} /> Studio</>}
         promise="Your fans pay you, not an algorithm."
         aside={
           <div className="flex items-end gap-3">

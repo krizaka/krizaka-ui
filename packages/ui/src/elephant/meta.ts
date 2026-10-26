@@ -3,7 +3,7 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Elephant",
   summary:
-    "A small, playful elephant mark — « the elephant with those ears can fly »: standing with its ear folded down, or flying with the ear spread like a wing. Sage body, sand ear, flat colours that read on both themes. A figure of the neighbour (Yororis), not a product logo.",
+    "A small, playful elephant mark — « the elephant with those ears can fly »: standing with its ear folded down, or flying with the ear spread like a wing. Sage body, sand ear, flat colours that read on both themes. A figure, not a product logo.",
   status: "deprecated",
   deprecated: {
     since: "3.55.0",
@@ -28,7 +28,7 @@ export const meta = {
     "Use it small and rarely: once per screen at most, never as a pattern or a background.",
     "Keep the words beside it: the elephant never carries the message alone.",
     "Standing is the default; flying is for a moment that lifts (a goodbye, a good news).",
-    "Leave the colours as they are: the sage and the sand are the Yororis mark's two stops, each readable on both themes.",
+    "Leave the colours as they are: the sage and the sand are two stops of the brand palette, each readable on both themes.",
   ],
   accessibility: {
     keyboard: [],

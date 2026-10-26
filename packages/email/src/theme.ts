@@ -2,18 +2,25 @@ import { BRAND_COLOURS, type BrandColours, type BrandId } from "./themes.generat
 
 export { BRAND_COLOURS, type BrandColours, type BrandId };
 
-/** Every brand an email can wear: Krizaka (the default) and one per product, generated from @krizaka/tokens. */
+/**
+ * Every brand an email can wear: Krizaka (the default) and one per product, generated from @krizaka/tokens.
+ * `orochia`, `yasakia`, `yororis` and `kachizaka` are paused products (2026-10-25): still accepted, removed in the next major.
+ */
 export const BRAND_IDS = Object.keys(BRAND_COLOURS) as BrandId[];
 
 /** The names of the brands, as written on the logo and in the signature (a name is not translated). */
 export const BRAND_NAMES: Record<BrandId, string> = {
   akinaza: "Akinaza",
+  // Deprecated: a paused product (2026-10-25); its theme stays until the next major.
   kachizaka: "Kachizaka",
   krizaka: "Krizaka",
   orazaka: "Orazaka",
+  // Deprecated: a paused product (2026-10-25); its theme stays until the next major.
   orochia: "Orochia",
+  // Deprecated: a paused product (2026-10-25); its theme stays until the next major.
   yasakia: "Yasakia",
   yomizaka: "Yomizaka",
+  // Deprecated: a paused product (2026-10-25); its theme stays until the next major.
   yororis: "Yororis",
 };
 

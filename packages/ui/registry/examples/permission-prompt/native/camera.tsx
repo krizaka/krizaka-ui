@@ -10,7 +10,7 @@ export default function NativePermissionPromptCamera() {
       <PermissionPrompt
         status={status}
         title="Film your answer"
-        description="Orochia uses the camera only while you record a challenge. Nothing is filmed before you press record."
+        description="The app uses the camera only while you record a challenge. Nothing is filmed before you press record."
         allowLabel="Allow the camera"
         onAllow={() => setStatus("granted")}
         dismissLabel="Not now"

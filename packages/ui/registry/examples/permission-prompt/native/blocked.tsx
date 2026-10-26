@@ -10,7 +10,7 @@ export default function NativePermissionPromptBlocked() {
         mascot="pigeon"
         title="Know when you are outbid"
         description="Turn on notifications to hear about your auctions."
-        blockedDescription="Notifications are off for Orochia. Turn them on in the settings to hear when you are outbid."
+        blockedDescription="Notifications are off for this app. Turn them on in the settings to hear when you are outbid."
         allowLabel="Turn on notifications"
         onAllow={() => undefined}
         settingsLabel="Open the settings"

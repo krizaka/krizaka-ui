@@ -10,7 +10,7 @@
 **The Krizaka front-end platform.** The shared packages every Krizaka product builds on, published on npm under
 `@krizaka/*`.
 
-**3.x is stable**: web primitives and their React Native counterparts, the Krizaka · Orazaka · Orochia · Yasakia · Yororis · Yomizaka · Kachizaka · Akinaza marks and the
+**3.x is stable**: web primitives and their React Native counterparts, the Krizaka · Orazaka · Yomizaka · Akinaza marks and the
 signature icons — charts are next. Documented at [ui.krizaka.com](https://ui.krizaka.com).
 
 [![CI](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/krizaka/krizaka-ui/actions/workflows/ci.yml)
@@ -19,6 +19,7 @@ signature icons — charts are next. Documented at [ui.krizaka.com](https://ui.k
 [![npm downloads](https://img.shields.io/npm/dw/@krizaka/ui?label=downloads&color=196df5)](https://www.npmjs.com/package/@krizaka/ui)
 [![Docs](https://img.shields.io/badge/docs-ui.krizaka.com-196df5)](https://ui.krizaka.com)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=krizaka_krizaka-ui&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=krizaka_krizaka-ui) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=krizaka_krizaka-ui&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=krizaka_krizaka-ui) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=krizaka_krizaka-ui&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=krizaka_krizaka-ui) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=krizaka_krizaka-ui&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=krizaka_krizaka-ui) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=krizaka_krizaka-ui&metric=coverage)](https://sonarcloud.io/summary/new_code?id=krizaka_krizaka-ui)
 
 </div>
 
@@ -60,7 +61,7 @@ npm install @krizaka/ui @krizaka/tailwind tailwindcss   # the primitives and the
 @import "tailwindcss";
 @import "@krizaka/tailwind";
 @import "@krizaka/ui/tailwind.css";
-@import "@krizaka/tokens/brands/orochia.css"; /* the product's identity: krizaka · orazaka · orochia · yasakia · yororis · yomizaka · kachizaka · akinaza */
+@import "@krizaka/tokens/brands/orazaka.css"; /* the product's identity: krizaka · orazaka · yomizaka · akinaza */
 ```
 
 Import one primitive per entry (`import { Button } from "@krizaka/ui/button"`), React Native from

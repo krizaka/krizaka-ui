@@ -1,7 +1,7 @@
 # @krizaka/discovery
 
 Service discovery for the Krizaka **mobile apps**: they load their backend addresses from a **signed manifest** instead
-of hard-coding them, so moving a product (`dev.orochia.com` → `www.orochia.com`, a new edge) never forces a store
+of hard-coding them, so moving a product (`dev.yomizaka.com` → `www.yomizaka.com`, a new edge) never forces a store
 republish. Decision and threat model: [ADR-003](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-003-mobile-service-discovery.md).
 
 ```bash
@@ -20,10 +20,10 @@ ESM only, Node ≥ 22 / React Native (Hermes). One dependency: [`@noble/curves`]
   "keyId": "k1",
   "issuedAt": "2026-10-21T14:00:00Z",
   "services": {
-    "orochia": {
+    "yomizaka": {
       "dev": {
-        "apiBase": "https://dev.orochia.com",
-        "webBase": "https://dev.orochia.com",
+        "apiBase": "https://dev.yomizaka.com",
+        "webBase": "https://dev.yomizaka.com",
         "minAppVersion": "1.0.0",
         "latestAppVersion": "1.0.0",
         "status": "ok"
@@ -47,22 +47,22 @@ export const discovery = createDiscovery({
     "https://krizaka-assets.b-cdn.net/discovery/services.json",   // the fallback copy
   ],
   publicKeys: KRIZAKA_PUBLIC_KEYS,                      // baked: k1 signs, k2 is the standby
-  allowedHostSuffixes: ["krizaka.com", "orochia.com"],  // baked
-  defaults: { orochia: { apiBase: "https://dev.orochia.com", webBase: "https://dev.orochia.com" } },
-  legacy: { orochia: { apiBase: "https://dev.orochia.com", webBase: "https://dev.orochia.com" } },
+  allowedHostSuffixes: ["krizaka.com", "yomizaka.com"],  // baked
+  defaults: { yomizaka: { apiBase: "https://dev.yomizaka.com", webBase: "https://dev.yomizaka.com" } },
+  legacy: { yomizaka: { apiBase: "https://dev.yomizaka.com", webBase: "https://dev.yomizaka.com" } },
   storage: chunkedStorage(secureStoreAdapter),          // Keychain / Keystore, in pieces under the 2 KB limit
 });
 
 await discovery.start();                                // cache first, else a fetch bounded by 3 s
-discovery.getService("orochia").apiBase;                // live → cache → default → legacy
-discovery.getGate("orochia");                           // ok | update-required | maintenance
+discovery.getService("yomizaka").apiBase;                // live → cache → default → legacy
+discovery.getGate("yomizaka");                           // ok | update-required | maintenance
 ```
 
 ```tsx
 import { DiscoveryGate, DiscoveryProvider, useService } from "@krizaka/discovery/react";
 
 <DiscoveryProvider discovery={discovery} subscribeForeground={onForeground}>
-  <DiscoveryGate product="orochia" update={(g) => <UpdateScreen {...g} />} maintenance={(g) => <MaintenanceScreen {...g} />}>
+  <DiscoveryGate product="yomizaka" update={(g) => <UpdateScreen {...g} />} maintenance={(g) => <MaintenanceScreen {...g} />}>
     <App />
   </DiscoveryGate>
 </DiscoveryProvider>;

@@ -17,10 +17,10 @@ const signUp = createKrizakaForm({
 });
 const WORDS: Record<string, string> = { "signUp.username.format": "Lowercase letters, digits and _ only.", "signUp.username.taken": "This username is taken.", "signUp.terms.required": "Accept the terms to continue.", "form.errors.UNDERAGE": "You must be 18 or older.", "form.errors.BIRTH_DATE_INVALID": "Enter your real date of birth.", "form.errors.USERNAME_RESERVED": "This username is reserved.", "apiErrors.ACCOUNT_EXISTS": "This e-mail already has an account. Sign in instead." };
 const taken = (u: string) => new Promise<boolean>((done) => setTimeout(() => done(["eric", "elena"].includes(u)), 300));
-// The server's codes (Orochia's register API): the ones that belong to a field land under it, the others above the button.
-const register = async (v: { email: string; username: string }) => { if (v.username === "admin") throw new KrizakaApiError({ status: 400, code: "USERNAME_RESERVED" }); if (v.email.endsWith("@orochia.com")) throw new KrizakaApiError({ status: 409, code: "ACCOUNT_EXISTS" }); };
+// The server's codes (a creator app's register API): the ones that belong to a field land under it, the others above the button.
+const register = async (v: { email: string; username: string }) => { if (v.username === "admin") throw new KrizakaApiError({ status: 400, code: "USERNAME_RESERVED" }); if (v.email.endsWith("@example.com")) throw new KrizakaApiError({ status: 409, code: "ACCOUNT_EXISTS" }); };
 
-// Orochia's sign-up: the username checked as it is typed (a free one offered), an 18+ birth date, the server's refusals in place.
+// A creator app's sign-up: the username checked as it is typed (a free one offered), an 18+ birth date, the server's refusals in place.
 export default function FormSignUp() {
   const form = signUp.useForm({ i18n: { t: (key) => WORDS[key] }, codeFields: { UNDERAGE: "dateOfBirth", BIRTH_DATE_INVALID: "dateOfBirth", USERNAME_RESERVED: "username" }, onSubmit: register });
   return (

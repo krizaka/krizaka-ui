@@ -12,7 +12,7 @@ export const meta = {
   category: "data-display",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A board needs width and dragging between columns; on a phone each column is a tab over a list.", use: "tabs" }, desktop: "web" },
-  whenToUse: ["Orochia's moderation queue: to review, reviewing, resolved.", "A release plan, a support queue."],
+  whenToUse: ["A moderation queue: to review, reviewing, resolved.", "A release plan, a support queue."],
   whenNotToUse: [
     { when: "On a phone: a segmented list per column moves cards with an action sheet.", use: "segmented" },
     { when: "For an ordered list without stages.", use: "list" },

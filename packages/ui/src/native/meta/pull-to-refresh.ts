@@ -22,7 +22,7 @@ export const meta = {
     differences: [],
     examples: [
       { name: "feed", title: "A feed", description: "The spinner at the top of a ScrollView, in the accent." },
-      { name: "branded", title: "The product's mark", description: "`BrandedRefresh`: Orochia's mark grows into place as you pull and turns while it refreshes; announced when it starts." },
+      { name: "branded", title: "The product's mark", description: "`BrandedRefresh`: Orazaka's mark grows into place as you pull and turns while it refreshes; announced when it starts." },
     ],
   },
 } satisfies ComponentMeta;

@@ -22,7 +22,7 @@ export const meta = {
     imports: ["TabBar"],
     differences: [],
     examples: [
-      { name: "main-sections", title: "Main sections", description: "Orochia's four sections, three unread messages." },
+      { name: "main-sections", title: "Main sections", description: "A video app's four sections, three unread messages." },
     ],
   },
 } satisfies ComponentMeta;

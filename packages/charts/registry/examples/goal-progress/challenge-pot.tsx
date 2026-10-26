@@ -1,6 +1,6 @@
 import { GoalProgress } from "@krizaka/charts/goal";
 
-// An Orochia challenge: fans pledge towards a goal, held in escrow until it is met.
+// A creator's challenge: fans pledge towards a goal, held in escrow until it is met.
 export default function ChallengePot() {
   return (
     <GoalProgress

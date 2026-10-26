@@ -76,7 +76,7 @@ Details:
 The app knows its currency and its locale; the components only pass cents. One file, one line per format:
 
 ```ts
-// orochia/apps/web/lib/money.ts — the only line that knows Orochia's currency
+// apps/web/lib/money.ts — the only line that knows the app's currency
 import { formatMoney } from "@krizaka/intl";
 import { currentLocale } from "@/lib/i18n";
 

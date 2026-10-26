@@ -12,7 +12,7 @@ const nodes = [
       { id: "api", label: "API reference" },
     ],
   },
-  { id: "orochia", label: "Orochia", children: [{ id: "auctions", label: "Auctions" }, { id: "challenges", label: "Challenges" }] },
+  { id: "yomizaka", label: "Yomizaka", children: [{ id: "checks", label: "Checks" }, { id: "reports", label: "Reports" }] },
   { id: "ui", label: "Krizaka UI", children: [{ id: "components", label: "Components" }] },
 ];
 

@@ -23,6 +23,8 @@ import { parseHsl, toNative } from "./color.mjs";
 export const SOURCES = ["color", "radius", "shadow", "material", "motion", "typography"];
 /** The brands (src/brands/<id>.brand.json), in output order: the parent first. */
 export const BRANDS = ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"];
+/** The paused products (2026-10-25): their brands still ship, said deprecated, until the next major. */
+export const PAUSED_BRANDS = ["orochia", "yasakia", "yororis", "kachizaka"];
 /** The roles a brand sets — all of them, so that a brand never inherits another brand's accent. */
 export const BRAND_ROLES = ["accent", "accent-hover", "accent-soft", "accent-text", "accent-2", "on-accent", "ring", "info", "info-text", "brand-gradient-from", "brand-gradient-via", "brand-gradient-to"];
 const EXT = "com.krizaka";
@@ -564,6 +566,7 @@ export function compileBrands(base, brandSources) {
     const cls = `.brand-${id}`;
     scoped.push(
       "",
+      ...(PAUSED_BRANDS.includes(id) ? [`/* DEPRECATED — ${cls}: a paused product (2026-10-25); removed in the next major. */`] : []),
       `${cls} {\n${decls("dark", true)}\n}`,
       `html.light ${cls}, html .theme-light ${cls}, html ${cls}.theme-light {\n${decls("light", true)}\n}`,
       `html .theme-dark ${cls}, html ${cls}.theme-dark {\n${decls("dark", true)}\n}`,
@@ -589,6 +592,9 @@ export function compileBrands(base, brandSources) {
     css["brands/yazakia.css"] = css["brands/yasakia.css"].replace("/* @krizaka/tokens", "/* DEPRECATED — renamed Yasakia (import brands/yasakia.css); kept for one minor version.\n   @krizaka/tokens");
     const dark = scoped.filter((b) => b.includes(".brand-yasakia"));
     scoped.push("", "/* DEPRECATED — `.brand-yazakia` is `.brand-yasakia` (Yazakia was renamed Yasakia); kept for one minor version. */", ...dark.map((b) => b.replaceAll("yasakia", "yazakia")));
+  }
+  for (const id of ids.filter((b) => PAUSED_BRANDS.includes(b))) {
+    css[`brands/${id}.css`] = css[`brands/${id}.css`].replace("/* @krizaka/tokens", "/* DEPRECATED — a paused product (2026-10-25); removed in the next major.\n   @krizaka/tokens");
   }
   if (ids.length) css["brands/scoped.css"] = `${scoped.join("\n")}\n`;
   return { ids, css, values, native, marks, marksNative };

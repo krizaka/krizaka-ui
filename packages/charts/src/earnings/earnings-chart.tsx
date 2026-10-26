@@ -1,5 +1,5 @@
 "use client";
-// A creator's earnings per period (Orochia /earnings, the console's treasury): bars of the net amount in money minor
+// A creator's earnings per period (a creator platform's earnings page, a console's treasury): bars of the net amount in money minor
 // units, the total and the last period's change written above, the payout threshold as a line. A BarChart preset:
 // the money format, the period format and the words are chosen for the need.
 import { useMemo } from "react";

@@ -12,7 +12,7 @@ description: Maps in a Krizaka app (Next.js or Expo) with @krizaka/ui/map and @k
    location usage strings). `pmtiles` and `@protomaps/basemaps` come with `@krizaka/ui`.
 2. Every `Map` has a `label`, every `Marker` / `Cluster` point a `label`: they are the text alternative (a list of places
    on the web, the map's name on native). Give the web `Map` a `fallback` — a `StaticMap` with the same centre and places.
-3. Pass the product: `brand="orochia"` paints the accent (markers, the water's tint); the scheme follows the page
+3. Pass the product: `brand="orazaka"` paints the accent (markers, the water's tint); the scheme follows the page
    (`html.light`) or the native theme.
 4. Ask for the position only when the person presses Near me (`LocationPicker`); never on load. Every answer has its words
    (`labels.denied`, `labels.unavailable`), passed translated.
@@ -26,7 +26,7 @@ description: Maps in a Krizaka app (Next.js or Expo) with @krizaka/ui/map and @k
 ```tsx
 import { Map, Marker, StaticMap, LocationPicker } from "@krizaka/ui/map";
 
-<Map label={t("pickup.title")} center={[-73.59, 45.52]} zoom={13} brand="orochia" className="h-80"
+<Map label={t("pickup.title")} center={[-73.59, 45.52]} zoom={13} brand="orazaka" className="h-80"
   fallback={<StaticMap label={t("pickup.title")} center={[-73.59, 45.52]} zoom={13} places={spots} />}>
   {spots.map((s) => <Marker key={s.id} position={s.position} label={s.label} selected={s.id === chosen} onPress={() => setChosen(s.id)} />)}
 </Map>

@@ -130,7 +130,7 @@
   },
   "accent": {
     "$type": "color",
-    "$description": "Accent : l'identité de la marque (Krizaka par défaut ; Orazaka, Orochia, Yasakia, Yororis dans src/brands). Surchargé par un thème de marque, jamais par un composant.",
+    "$description": "Accent : l'identité de la marque (Krizaka par défaut ; Orazaka, Yomizaka, Akinaza dans src/brands). Surchargé par un thème de marque, jamais par un composant.",
     "$root": {
       "$value": "hsl(208 46% 45%)",
       "$description": "Action principale, lien, sélection",

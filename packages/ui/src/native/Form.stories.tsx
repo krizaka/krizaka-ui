@@ -20,7 +20,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The sign-up of the Orochia app: the username checked as typed, the 18+ birth date as day · month · year. */
+/** The sign-up of a creator app: the username checked as typed, the 18+ birth date as day · month · year. */
 export const SignUp: Story = { render: () => <SignUpExample /> };
 export const Profile: Story = { render: () => <ProfileExample /> };
 export const Upload: Story = { render: () => <UploadExample /> };

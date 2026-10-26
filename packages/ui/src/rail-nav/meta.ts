@@ -22,7 +22,7 @@ export const meta = {
     "Give every item an icon and a word: the icon is all a desktop shows, the word is the tooltip, the tab's caption and the accessible name.",
     "Put the product's mark in `mark` and its name in `AppHeader`: the mark is shown once, in the rail on a desktop and in the header on a phone. Never draw it in both.",
     "Render your router's links with `RailNav.Item asChild`; set `current` from the route.",
-    "Scope the product's colours with `accent` (`orazaka`, `orochia`…) or let the page's brand class do it.",
+    "Scope the product's colours with `accent` (`orazaka`, `yomizaka`…) or let the page's brand class do it.",
     "`expandable` is for apps whose users know the icons less well: it widens the rail to show the words. Uncontrolled and without `defaultExpanded`, it is expanded from 1280 px (the words fit there) until the person toggles it.",
     "`shortcuts` (with `shortcutsLabel`, « Raccourcis ») holds the product's quick ways in — a saved view, a frequent client, « New invoice » — above the footer; two to four, never a second navigation. Desktop only: a phone's tab bar keeps its destinations.",
   ],

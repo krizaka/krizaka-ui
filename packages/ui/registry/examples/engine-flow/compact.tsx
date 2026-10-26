@@ -1,7 +1,7 @@
 import { ProductLogo } from "@krizaka/ui";
 import { EngineFlow } from "@krizaka/ui/engine-flow";
 
-const ids = ["orochia", "yomizaka", "kachizaka", "akinaza", "yasakia", "yororis"] as const;
+const ids = ["yomizaka", "akinaza"] as const;
 
 // On a phone: the products in a row above, flowing down into the engine; the detail line names the chosen one.
 export default function EngineFlowCompact() {
@@ -20,9 +20,9 @@ export default function EngineFlowCompact() {
           label: id[0]!.toUpperCase() + id.slice(1),
           className: `brand-${id}`,
           mark: <ProductLogo id={id} size={24} animated={false} />,
-          flow: i < 3 ? "both" : "in",
-          planned: i >= 3,
-          description: i < 3 ? "Requests in, results back." : "Planned: not wired yet.",
+          flow: i < 1 ? "both" : "in",
+          planned: i >= 1,
+          description: i < 1 ? "Requests in, results back." : "Planned: not wired yet.",
         }))}
       />
     </div>

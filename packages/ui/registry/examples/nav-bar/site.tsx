@@ -3,7 +3,7 @@ import { NavBar } from "@krizaka/ui/nav-bar";
 
 const products = [
   { href: "#orazaka", title: "Orazaka", description: "Sovereign AI, on your own servers." },
-  { href: "#orochia", title: "Orochia", description: "Creators keep 90 % of every support." },
+  { href: "#yomizaka", title: "Yomizaka", description: "Reads your leases, contracts and invoices." },
   { href: "#ui", title: "Krizaka UI", description: "The components behind both." },
 ];
 

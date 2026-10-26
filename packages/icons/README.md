@@ -1,6 +1,6 @@
 # @krizaka/icons
 
-**The Krizaka signature icons.** 76 icons drawn for the Krizaka products — the vocabulary of Orochia (tips, unlocks,
+**The Krizaka signature icons.** 76 icons drawn for the Krizaka products — the vocabulary of creators and audiences (tips, unlocks,
 auctions, challenges, 24 h stories, payouts, the 90 % share) and of Orazaka (sovereign chat, agents, studio, packs,
 automations, knowledge, local and self-hosted), meeting people (small batches, debriefs, introductions), listening (a moment, the thread, what you keep) plus the usual interface — in one drawing language. React
 (tree-shakable, server-safe) and React Native (react-native-svg), the same names and drawings.
@@ -42,7 +42,7 @@ const { theme } = useTheme();
 - **Grid 24**, live area 2–22, **stroke 1.5**, square caps and mitred joins (a pen line, Cahier — ADR-004); one weight across the set.
 - **Cut corners.** Containers (cards, screens, wallet, server, calendar…) have 45° chamfers where other sets round
   them: the angle of the Krizaka hexagon, which also shapes the creator, pack, credits, settings and info glyphs.
-- **The node.** Every product icon has one filled dot — the core of the Krizaka, Orazaka and Orochia marks — at its
+- **The node.** Every product icon has one filled dot — the core of the Krizaka and Orazaka marks — at its
   meaningful point (the message's voice, the auction's hammer head, the story's open end, the payout's balance). It
   takes the icon's colour, or the brand accent with `nodeColor`. Utility glyphs (arrows, chevrons, close, plus, check,
   menu) stay bare, so the nodes stay meaningful.

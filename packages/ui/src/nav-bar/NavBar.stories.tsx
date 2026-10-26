@@ -119,7 +119,7 @@ export const MenuInline: Story = {
   ),
 };
 
-/** Akinaza's and Yasakia's French bar: three long labels in a section, a link, the actions. */
+/** Akinaza's and Yomizaka's French bar: three long labels in a section, a link, the actions. */
 const FrBar = () => (
   <NavBar.Root label="Principal" floating={false}>
     <NavBar.Brand href="#home">Akinaza</NavBar.Brand>

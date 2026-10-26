@@ -102,7 +102,7 @@ export interface LoaderProps extends Omit<React.ComponentProps<"div">, "children
    */
   variant?: LoaderVariants["variant"];
   /**
-   * The product's mark in place of the Krizaka glyph while it waits — `<OrochiaLogo animated />` (or `ProductLogo`) of
+   * The product's mark in place of the Krizaka glyph while it waits — `<OrazakaLogo animated />` (or `ProductLogo`) of
    * `@krizaka/ui`; it takes the loader's size. The ending (check or cross) stays the glyph's. Decorative: leave `title` off.
    */
   mark?: React.ReactNode;

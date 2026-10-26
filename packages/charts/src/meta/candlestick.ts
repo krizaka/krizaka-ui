@@ -26,6 +26,6 @@ export const meta = {
   web: {
     entry: "candlestick",
     imports: ["Candlestick"],
-    examples: [{ name: "auction-bids", title: "Auction bids", description: "An Orochia auction's bids per hour, with the volume and the reserve price." }],
+    examples: [{ name: "auction-bids", title: "Auction bids", description: "An auction's bids per hour, with the volume and the reserve price." }],
   },
 } satisfies ComponentMeta;

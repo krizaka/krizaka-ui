@@ -1,362 +1,542 @@
 {
-  "scannedAt": "2026-10-14",
+  "scannedAt": "2026-10-25",
   "repos": {
-    "orochia": [
-      {
-        "repo": "products/orochia",
-        "commit": "6e73704",
-        "files": 378
-      },
-      {
-        "repo": "products/orochia-mobile",
-        "commit": "63047bd",
-        "files": 50
-      },
-      {
-        "repo": "products/orochia-design-system",
-        "commit": "4450784",
-        "files": 27
-      }
-    ],
     "orazaka": [
       {
         "repo": "products/orazaka/orazaka-apps/ui/orazaka-web-client",
-        "commit": "b1040bd",
-        "files": 266
+        "commit": "c0c9d84",
+        "files": 454
       },
       {
         "repo": "products/orazaka/orazaka-apps/ui/orazaka-mobile-client",
-        "commit": "02f1715",
-        "files": 32
+        "commit": "57cdf47",
+        "files": 70
       },
       {
         "repo": "products/orazaka/orazaka-apps/ui/orazaka-ui-kit",
-        "commit": "4a48b6f",
-        "files": 41
+        "commit": "96c9956",
+        "files": 54
       }
     ],
-    "yasakia": [
+    "yomizaka": [
       {
-        "repo": "products/yasakia",
-        "commit": "be2d850",
-        "files": 92
+        "repo": "products/yomizaka",
+        "commit": "4646921",
+        "files": 583
+      }
+    ],
+    "akinaza": [
+      {
+        "repo": "products/akinaza",
+        "commit": "d1f7ec4",
+        "files": 526
       }
     ],
     "krizaka": [
       {
         "repo": ".",
-        "commit": "7edd299",
-        "files": 143
+        "commit": "224d5df",
+        "files": 171
       }
     ]
   },
   "components": {
-    "achievement": {
-      "krizaka": 1
+    "account-menu": {
+      "akinaza": 1,
+      "orazaka": 1,
+      "yomizaka": 3
+    },
+    "account-settings": {
+      "akinaza": 2,
+      "yomizaka": 5
     },
     "action-bar": {
       "krizaka": 2
     },
+    "action-sheet": {
+      "orazaka": 2
+    },
+    "agenda": {
+      "akinaza": 1
+    },
     "alert": {
-      "orazaka": 3
+      "akinaza": 35,
+      "orazaka": 19,
+      "yomizaka": 42
+    },
+    "app-header": {
+      "akinaza": 1,
+      "orazaka": 1,
+      "yomizaka": 2
+    },
+    "app-shell": {
+      "akinaza": 1,
+      "yomizaka": 3
     },
     "argument-card": {
       "krizaka": 1
     },
+    "auth-layout": {
+      "akinaza": 3,
+      "orazaka": 2,
+      "yomizaka": 3
+    },
     "avatar": {
-      "orochia": 7
+      "akinaza": 4,
+      "krizaka": 1,
+      "orazaka": 3,
+      "yomizaka": 2
     },
     "badge": {
+      "akinaza": 27,
       "krizaka": 1,
-      "orazaka": 15,
-      "orochia": 6
+      "orazaka": 36,
+      "yomizaka": 38
     },
     "bar-chart": {
       "orazaka": 4,
-      "orochia": 2
+      "yomizaka": 1
     },
     "button": {
-      "krizaka": 10,
-      "orazaka": 63,
-      "orochia": 19,
-      "yasakia": 3
+      "akinaza": 46,
+      "krizaka": 7,
+      "orazaka": 94,
+      "yomizaka": 44
     },
     "card": {
+      "akinaza": 26,
       "krizaka": 1,
-      "orazaka": 43,
-      "orochia": 8
+      "orazaka": 29,
+      "yomizaka": 22
     },
     "card-grid": {
-      "krizaka": 2
+      "akinaza": 1,
+      "krizaka": 2,
+      "yomizaka": 1
     },
     "catalogue-page": {
+      "yomizaka": 1
+    },
+    "changelog-page": {
       "krizaka": 1
     },
     "charts-provider": {
-      "orazaka": 2,
-      "orochia": 2
+      "orazaka": 2
     },
     "chat": {
-      "krizaka": 1
+      "krizaka": 1,
+      "orazaka": 4
+    },
+    "checkbox": {
+      "akinaza": 2,
+      "orazaka": 1,
+      "yomizaka": 2
     },
     "chip": {
-      "krizaka": 2,
-      "orazaka": 2,
-      "orochia": 3
+      "akinaza": 4,
+      "krizaka": 3,
+      "orazaka": 5,
+      "yomizaka": 4
     },
     "chip-link": {
-      "krizaka": 1
+      "akinaza": 5,
+      "krizaka": 2,
+      "yomizaka": 2
     },
     "choice-grid": {
-      "krizaka": 2
+      "akinaza": 1
     },
     "cn": {
-      "krizaka": 13,
-      "orazaka": 44,
-      "orochia": 4
+      "krizaka": 5,
+      "orazaka": 34
     },
     "code-block": {
-      "krizaka": 3
+      "krizaka": 2,
+      "orazaka": 4
     },
-    "command": {
-      "krizaka": 1,
+    "combobox": {
       "orazaka": 1
     },
-    "confirm-button": {
-      "orochia": 1
-    },
-    "continue-prompt": {
-      "krizaka": 1
-    },
-    "countdown": {
-      "krizaka": 1,
-      "orochia": 5
-    },
-    "cta-panel": {
-      "krizaka": 3
-    },
-    "data-table": {
+    "command": {
+      "akinaza": 1,
       "krizaka": 1,
       "orazaka": 1,
-      "orochia": 1
+      "yomizaka": 1
+    },
+    "confirm-button": {
+      "akinaza": 3,
+      "orazaka": 1,
+      "yomizaka": 1
+    },
+    "cover-hero": {
+      "akinaza": 1
+    },
+    "cta-panel": {
+      "akinaza": 1,
+      "krizaka": 2
+    },
+    "dashboard-layout": {
+      "akinaza": 2,
+      "yomizaka": 1
+    },
+    "data-table": {
+      "akinaza": 6,
+      "krizaka": 2,
+      "orazaka": 19,
+      "yomizaka": 10
+    },
+    "date-picker": {
+      "akinaza": 1
     },
     "decision-list": {
       "krizaka": 1
     },
+    "description-list": {
+      "akinaza": 6,
+      "orazaka": 3,
+      "yomizaka": 8
+    },
+    "detail-layout": {
+      "akinaza": 2,
+      "yomizaka": 2
+    },
     "dialog": {
-      "orazaka": 7,
-      "orochia": 3
+      "akinaza": 4,
+      "krizaka": 3,
+      "orazaka": 17,
+      "yomizaka": 5
+    },
+    "docs-article-page": {
+      "orazaka": 1
     },
     "docs-hub-page": {
-      "krizaka": 1
+      "orazaka": 1
+    },
+    "document-viewer": {
+      "yomizaka": 1
+    },
+    "drop-overlay": {
+      "yomizaka": 1
     },
     "dropdown-menu": {
-      "orazaka": 1
+      "akinaza": 2,
+      "orazaka": 1,
+      "yomizaka": 3
     },
     "empty-state": {
-      "orazaka": 2,
-      "orochia": 8
+      "akinaza": 8,
+      "orazaka": 4,
+      "yomizaka": 13
+    },
+    "engine-flow": {
+      "krizaka": 2
     },
     "error-page": {
-      "krizaka": 1
+      "akinaza": 1,
+      "krizaka": 1,
+      "yomizaka": 1
     },
     "field": {
-      "orazaka": 7,
-      "orochia": 2
+      "akinaza": 9,
+      "orazaka": 24,
+      "yomizaka": 3
     },
-    "gauge": {
-      "orochia": 2
+    "file-upload": {
+      "orazaka": 1,
+      "yomizaka": 4
     },
-    "glow-card": {
+    "filter-bar": {
+      "akinaza": 1,
+      "yomizaka": 5
+    },
+    "flock": {
+      "krizaka": 2
+    },
+    "footnote": {
       "krizaka": 1,
-      "orazaka": 2
+      "yomizaka": 2
     },
-    "goal-gauge": {
-      "krizaka": 1
-    },
-    "image-cropper": {
-      "krizaka": 1
-    },
-    "kbd": {
-      "krizaka": 3,
+    "force-update-screen": {
       "orazaka": 1
     },
-    "landscape": {
-      "krizaka": 2
+    "form": {
+      "akinaza": 16,
+      "orazaka": 9,
+      "yomizaka": 16
+    },
+    "genui": {
+      "orazaka": 1
+    },
+    "genui-catalog": {
+      "orazaka": 1
+    },
+    "glow-card": {
+      "orazaka": 2
+    },
+    "header": {
+      "akinaza": 3,
+      "orazaka": 9,
+      "yomizaka": 3
+    },
+    "kbd": {
+      "akinaza": 1,
+      "krizaka": 2,
+      "orazaka": 1
+    },
+    "kind-config-editor": {
+      "akinaza": 1,
+      "yomizaka": 1
+    },
+    "kpi-stat": {
+      "orazaka": 4
+    },
+    "landing-page": {
+      "akinaza": 1,
+      "orazaka": 1,
+      "yomizaka": 1
+    },
+    "language-switch": {
+      "akinaza": 3,
+      "krizaka": 1,
+      "orazaka": 1,
+      "yomizaka": 3
     },
     "legal-page": {
       "krizaka": 1
     },
-    "line-chart": {
-      "krizaka": 1,
-      "orochia": 2
-    },
     "link-card": {
-      "krizaka": 1
+      "krizaka": 1,
+      "orazaka": 1,
+      "yomizaka": 2
+    },
+    "list": {
+      "akinaza": 1,
+      "orazaka": 3,
+      "yomizaka": 10
     },
     "loader": {
-      "krizaka": 1,
-      "orazaka": 4,
-      "orochia": 1
+      "orazaka": 3
+    },
+    "maintenance-screen": {
+      "orazaka": 1
     },
     "map": {
-      "krizaka": 2
+      "akinaza": 1
     },
-    "marquee": {
-      "krizaka": 1,
-      "orochia": 1
+    "markdown": {
+      "orazaka": 2
     },
     "mascot-quote": {
-      "krizaka": 1
+      "krizaka": 1,
+      "yomizaka": 1
+    },
+    "mascot-state": {
+      "akinaza": 1
     },
     "mascots": {
-      "krizaka": 7,
-      "orazaka": 10,
-      "orochia": 3,
-      "yasakia": 3
+      "akinaza": 10,
+      "krizaka": 6,
+      "orazaka": 7,
+      "yomizaka": 11
     },
-    "match-dialog": {
-      "krizaka": 1
+    "media-gallery": {
+      "akinaza": 1
     },
-    "media-capture": {
-      "krizaka": 1
+    "media-picker": {
+      "orazaka": 1
     },
     "meter": {
+      "akinaza": 3,
+      "krizaka": 1,
       "orazaka": 1,
-      "orochia": 1
+      "yomizaka": 2
     },
     "nav-bar": {
+      "akinaza": 2,
       "krizaka": 2,
-      "orazaka": 1
+      "orazaka": 3,
+      "yomizaka": 2
     },
     "number-ticker": {
       "krizaka": 3,
-      "orazaka": 4,
-      "orochia": 1
+      "orazaka": 3
+    },
+    "opening-hours": {
+      "akinaza": 1
     },
     "page": {
-      "krizaka": 10,
-      "yasakia": 3
+      "akinaza": 6,
+      "krizaka": 8,
+      "orazaka": 1,
+      "yomizaka": 6
     },
     "page-header": {
-      "orochia": 1
+      "akinaza": 13,
+      "yomizaka": 10
     },
     "page-hero": {
-      "krizaka": 3,
-      "yasakia": 2
-    },
-    "pagination": {
-      "orazaka": 1,
-      "orochia": 1
+      "akinaza": 4,
+      "krizaka": 4,
+      "yomizaka": 5
     },
     "pie-chart": {
-      "orazaka": 2,
-      "orochia": 1
-    },
-    "popover": {
-      "orazaka": 1
-    },
-    "profile-card": {
-      "krizaka": 1
-    },
-    "progress": {
-      "krizaka": 2,
-      "orazaka": 4,
-      "orochia": 2
-    },
-    "promise-card": {
-      "krizaka": 1
-    },
-    "radio-group": {
       "orazaka": 2
     },
-    "screen": {
-      "krizaka": 1
+    "popover": {
+      "akinaza": 1,
+      "orazaka": 1
     },
-    "scroll-stage": {
-      "krizaka": 1
+    "progress": {
+      "krizaka": 1,
+      "orazaka": 5,
+      "yomizaka": 2
+    },
+    "radio-group": {
+      "orazaka": 2,
+      "yomizaka": 4
+    },
+    "rail-nav": {
+      "akinaza": 1,
+      "orazaka": 7,
+      "yomizaka": 1
+    },
+    "router": {
+      "orazaka": 2,
+      "yomizaka": 2
+    },
+    "screen": {
+      "akinaza": 8,
+      "orazaka": 10,
+      "yomizaka": 7
+    },
+    "search-field": {
+      "akinaza": 2,
+      "orazaka": 2,
+      "yomizaka": 3
     },
     "section-backdrop": {
-      "krizaka": 3,
-      "orazaka": 11,
-      "yasakia": 1
+      "krizaka": 1,
+      "orazaka": 1
+    },
+    "segmented": {
+      "akinaza": 1,
+      "orazaka": 1,
+      "yomizaka": 3
+    },
+    "service-card": {
+      "akinaza": 1
+    },
+    "settings-layout": {
+      "akinaza": 9,
+      "orazaka": 8,
+      "yomizaka": 5
+    },
+    "site-footer": {
+      "akinaza": 1,
+      "krizaka": 1,
+      "orazaka": 2,
+      "yomizaka": 1
+    },
+    "sites": {
+      "akinaza": 1,
+      "krizaka": 1,
+      "orazaka": 1,
+      "yomizaka": 1
     },
     "skeleton": {
-      "orazaka": 3,
-      "orochia": 11
+      "akinaza": 1,
+      "orazaka": 4,
+      "yomizaka": 2
     },
-    "slider": {
-      "krizaka": 1,
-      "orochia": 1
+    "skip-link": {
+      "akinaza": 1
+    },
+    "slot-picker": {
+      "akinaza": 2
     },
     "sparkline": {
+      "akinaza": 1,
       "krizaka": 1,
       "orazaka": 2,
-      "orochia": 3
+      "yomizaka": 1
+    },
+    "specimen-tag": {
+      "krizaka": 2
     },
     "spinner": {
-      "orazaka": 2,
-      "orochia": 1
+      "orazaka": 2
     },
-    "stage-banner": {
-      "krizaka": 1
+    "split-view": {
+      "akinaza": 1
     },
     "stat": {
-      "orochia": 1
+      "akinaza": 2,
+      "krizaka": 1,
+      "orazaka": 4,
+      "yomizaka": 2
+    },
+    "status-chip": {
+      "akinaza": 1,
+      "yomizaka": 2
+    },
+    "step-showcase": {
+      "akinaza": 1,
+      "orazaka": 1
     },
     "stepper": {
-      "krizaka": 1,
       "orazaka": 1,
-      "orochia": 1
+      "yomizaka": 3
     },
-    "swipe-deck": {
-      "krizaka": 1
+    "sticky-action": {
+      "akinaza": 2
     },
     "switch": {
+      "akinaza": 2,
       "krizaka": 1,
-      "orazaka": 3,
-      "orochia": 1
+      "orazaka": 8,
+      "yomizaka": 4
+    },
+    "tab-bar": {
+      "akinaza": 1,
+      "orazaka": 1,
+      "yomizaka": 1
     },
     "tabs": {
-      "krizaka": 3,
-      "orazaka": 4,
-      "orochia": 1
+      "akinaza": 2,
+      "orazaka": 8,
+      "yomizaka": 6
     },
     "tag-selector": {
-      "krizaka": 1
+      "akinaza": 1,
+      "yomizaka": 3
     },
-    "terminal-replay": {
-      "krizaka": 1
+    "taped-photo": {
+      "krizaka": 4
     },
     "theme": {
+      "akinaza": 6,
       "krizaka": 2,
-      "orazaka": 11,
-      "orochia": 28,
-      "yasakia": 3
+      "orazaka": 23,
+      "yomizaka": 8
     },
     "toast": {
-      "krizaka": 2,
-      "orazaka": 4,
-      "orochia": 3
+      "orazaka": 5
     },
     "toc": {
-      "krizaka": 1
+      "krizaka": 2
     },
     "tooltip": {
-      "orazaka": 1,
-      "orochia": 1
+      "orazaka": 1
     },
     "txt": {
-      "orazaka": 1,
-      "orochia": 18
+      "akinaza": 8,
+      "orazaka": 20,
+      "yomizaka": 10
     },
-    "verified-badge": {
-      "krizaka": 1
+    "upload-queue": {
+      "yomizaka": 1
     },
-    "vertical-video": {
-      "krizaka": 1
-    },
-    "video-trimmer": {
+    "waveform": {
       "krizaka": 1
     }
   }

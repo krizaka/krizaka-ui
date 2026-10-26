@@ -23,7 +23,7 @@ export type AchievementProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title
    * @default "default"
    */
   variant?: StoryVariant;
-  /** A brand scope (`orochia` → `.brand-orochia`). */
+  /** A brand scope (`orazaka` → `.brand-orazaka`). */
   brand?: string;
 };
 
@@ -60,7 +60,7 @@ export type AchievementListProps = React.OlHTMLAttributes<HTMLOListElement> & {
   minWidth?: string;
   /** The look of every card: `default` or `arcade`. */
   variant?: StoryVariant;
-  /** A brand scope (`orochia` → `.brand-orochia`). */
+  /** A brand scope (`orazaka` → `.brand-orazaka`). */
   brand?: string;
 };
 

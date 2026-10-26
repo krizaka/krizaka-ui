@@ -11,7 +11,7 @@ export const meta = {
   },
   category: "media",
   platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#278", reason: "Orochia's upload from the phone will need it." }, desktop: "web" },
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#278", reason: "An upload from the phone will need it." }, desktop: "web" },
   whenToUse: [
     "To keep a part of a clip before publishing it: a story, a highlight, a reply.",
     "To choose a segment of any timeline (a sound with a waveform as `children`, a recording).",

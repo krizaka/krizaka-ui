@@ -9,12 +9,12 @@ import * as React from "react";
 
 const AMOUNTS = [3, 5, 10, 20];
 
-// TEMPLATE — tipping a creator (Orochia): who is paid, the amount in one tap, an optional word, the summary beside the
+// TEMPLATE — tipping a creator: who is paid, the amount in one tap, an optional word, the summary beside the
 // action — under the form on a phone, where the pay button stays last. The total is always said before the button.
 export default function DetailLayoutCheckout() {
   const [amount, setAmount] = React.useState("5");
   return (
-    <div className="brand-orochia w-full">
+    <div className="brand-orazaka w-full">
       <DetailLayout
         back={<a href="#elena">← Elena's page</a>}
         eyebrow="Tip"

@@ -32,12 +32,12 @@ defaults chosen; the core charts are what they are built on; the advanced ones h
 
 | Need (screen) | Ready-made chart | Entry | Native |
 | :-- | :-- | :-- | :-- |
-| Earnings per month (Orochia /earnings, the console's treasury) | `EarningsChart` | `@krizaka/charts/earnings` | yes |
+| Earnings per month (a creator's earnings page, a console's treasury) | `EarningsChart` | `@krizaka/charts/earnings` | yes |
 | Jobs per day by status, success rate (Orazaka insights, supervision, mobile Jobs) | `JobThroughput` | `@krizaka/charts/throughput` | yes |
 | Latency / time to result per capability, against an objective | `LatencyChart` | `@krizaka/charts/latency` | yes |
-| Credits or storage left, run-out date (Orazaka billing, Orochia storage) | `CreditUsage` | `@krizaka/charts/credits` | yes |
-| A challenge's pot towards its goal (Orochia web and app) | `GoalProgress` | `@krizaka/charts/goal` | yes |
-| A live auction's price (Orochia auction room, web and app) | `PriceTicker` | `@krizaka/charts/ticker` | yes |
+| Credits or storage left, run-out date (Orazaka billing, a storage plan) | `CreditUsage` | `@krizaka/charts/credits` | yes |
+| A challenge's pot towards its goal (web and app) | `GoalProgress` | `@krizaka/charts/goal` | yes |
+| A live auction's price (an auction room, web and app) | `PriceTicker` | `@krizaka/charts/ticker` | yes |
 
 | Entry | Charts | Engine |
 | :-- | :-- | :-- |
@@ -55,6 +55,6 @@ defaults chosen; the core charts are what they are built on; the advanced ones h
 
 Needs React 19 and the Krizaka tokens in the page (`@krizaka/tokens/tokens.css`, or `@krizaka/tailwind`); the
 charts' own CSS is embedded. Themes follow `color-scheme` (`html.light`, `.theme-light`); brands follow a
-`.brand-<id>` ancestor or `brand` (`krizaka`, `orazaka`, `orochia`).
+`.brand-<id>` ancestor or `brand` (`krizaka`, `orazaka`; `orochia` is deprecated — a paused product, removed in the next major).
 
 Apache-2.0. The world map data is Natural Earth (public domain) through world-atlas (ISC).

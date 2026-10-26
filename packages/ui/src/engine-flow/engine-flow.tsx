@@ -4,8 +4,12 @@
 //
 // Motion is the Krizaka signature's (motion.css): CSS animations of `stroke-dashoffset`, no animation frame, no canvas;
 // paused off screen (`data-motion-scope` → MotionObserver's `data-offscreen`), held while the page settles (`kz-loop`),
-// a still frame under reduced motion (the photons rest along their conduit). The stage keeps its aspect ratio and the
+// a still frame under reduced motion and Save-Data (the photons rest along their conduit). The stage keeps its aspect ratio and the
 // detail line its height: no layout shift.
+//
+// Anchoring: a conduit runs between the centres of the node's circle and of the hub's ring (the label and the caption hang
+// below them, out of the box), and both circles are opaque and drawn over it — so every conduit meets the circle at the point
+// facing the other end, whatever the layout and the number of nodes.
 //
 // Accessible: the drawing is hidden from assistive technology; every node is a real button named by its label, and the
 // detail line (polite live region) says the chosen node's description with its link. Pair it with a text version (a
@@ -16,9 +20,9 @@ import { cn } from "../cn";
 import { type FlowConduit, flowGeometry, type FlowLayout } from "./geometry";
 
 export interface EngineFlowNode {
-  /** A stable id (`orochia`). */
+  /** A stable id (`yomizaka`). */
   id: string;
-  /** Its name, the button's accessible name ("Orochia"). */
+  /** Its name, the button's accessible name ("Yomizaka"). */
   label: string;
   /** Its mark (a `ProductLogo`), decorative. */
   mark?: React.ReactNode;
@@ -26,7 +30,7 @@ export interface EngineFlowNode {
   description?: React.ReactNode;
   /** Where it lives (its site). */
   href?: string;
-  /** The link's words ("Visit dev.orochia.com"); defaults to the label. */
+  /** The link's words ("Visit dev.yomizaka.com"); defaults to the label. */
   linkLabel?: React.ReactNode;
   /** Opens the link in a new tab. */
   external?: boolean;
@@ -37,7 +41,7 @@ export interface EngineFlowNode {
   planned?: boolean;
   /** A word beside the name in the detail line ("planned"), passed translated. */
   status?: React.ReactNode;
-  /** Its brand scope (`brand-orochia`): its conduit, photons and ring take its `--kz-accent`. */
+  /** Its brand scope (`brand-yomizaka`): its conduit, photons and ring take its `--kz-accent`. */
   className?: string;
 }
 
@@ -96,7 +100,23 @@ export type EngineFlowProps = Omit<React.ComponentProps<"figure">, "children"> &
   /** The engine's mark swells slowly (a loop, still under reduced motion).
    * @default true */
   breathe?: boolean;
+  /** The calm level, for a small frame (a tile of a home page): sparse photons at a low rate, a slow breath, no hint and
+   * no detail line, nothing to tune. It plays only on screen and once the page has settled, and stays still under
+   * reduced motion and Save-Data. Overrides `speed`, `density`, `stagger` and `trigger`.
+   * @default false */
+  calm?: boolean;
 };
+
+/** The calm level's pace: units per second, photons per conduit, milliseconds between conduits. */
+export const CALM_FLOW = { speed: 4, density: "sparse", stagger: 1200 } as const satisfies { speed: number; density: FlowDensity; stagger: number };
+
+const subscribeSaveData = (onChange: () => void) => {
+  const c = (navigator as Navigator & { connection?: EventTarget }).connection;
+  c?.addEventListener?.("change", onChange);
+  return () => c?.removeEventListener?.("change", onChange);
+};
+const readSaveData = () => (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true;
+
 
 export type FlowDensity = "sparse" | "normal" | "dense";
 export type FlowTrigger = "always" | "hover" | "active";
@@ -139,7 +159,7 @@ function Stage({
   breathe: boolean;
   active: string | undefined;
   onActive: (id: string) => void;
-  detailId: string;
+  detailId: string | undefined;
 }) {
   const g = flowGeometry(layout, nodes.length, conduit);
   const pct = (v: number, of: number) => `${((v / of) * 100).toFixed(3)}%`;
@@ -182,8 +202,10 @@ function Stage({
       </svg>
       <div className={cn("kz-flow-hub", hub.className)} style={{ left: pct(g.hub.x, g.width), top: pct(g.hub.y, g.height) }}>
         {hub.mark ? <span className={cn("kz-flow-hub-mark", breathe && "kz-loop")}>{hub.mark}</span> : null}
-        <span className="kz-flow-hub-label">{hub.label}</span>
-        {hub.caption ? <span className="kz-flow-hub-caption">{hub.caption}</span> : null}
+        <span className="kz-flow-hub-text">
+          <span className="kz-flow-hub-label">{hub.label}</span>
+          {hub.caption ? <span className="kz-flow-hub-caption">{hub.caption}</span> : null}
+        </span>
       </div>
       <ul className="kz-flow-nodes">
         {nodes.map((node, i) => {
@@ -234,6 +256,7 @@ export function EngineFlow({
   easing = "linear",
   stagger = 300,
   breathe = true,
+  calm = false,
   className,
   ...props
 }: EngineFlowProps) {
@@ -241,20 +264,26 @@ export function EngineFlow({
   const detailId = `${React.useId()}-detail`;
   const chosen = nodes.find((n) => n.id === active);
   const compact = compactLayout && compactLayout !== layout ? compactLayout : undefined;
-  const stage = { nodes, hub, conduit, particles, speed: Math.max(1, speed), density, easing, stagger: Math.max(0, stagger), breathe, active, onActive: setActive, detailId };
+  // Save-Data: the calm and the full levels both rest (a still frame, like reduced motion).
+  const saveData = React.useSyncExternalStore(subscribeSaveData, readSaveData, () => false);
+  const pace = calm ? CALM_FLOW : { speed: Math.max(1, speed), density, stagger: Math.max(0, stagger) };
+  const stage = { nodes, hub, conduit, particles, ...pace, easing, breathe, active, onActive: setActive, detailId: calm ? undefined : detailId };
   return (
     <figure
       aria-label={label}
       className={cn("kz-flow", className)}
       data-motion-scope=""
       data-active={chosen ? "" : undefined}
-      data-trigger={trigger === "always" ? undefined : trigger}
-      data-density={density === "normal" ? undefined : density}
+      data-calm={calm ? "" : undefined}
+      data-still={saveData ? "" : undefined}
+      data-trigger={calm || trigger === "always" ? undefined : trigger}
+      data-density={calm ? "sparse" : density === "normal" ? undefined : density}
       data-compact={compact ? "" : undefined}
       {...props}
     >
       <Stage layout={layout} variant="wide" {...stage} />
       {compact ? <Stage layout={compact} variant="compact" {...stage} /> : null}
+      {calm ? null : (
       <figcaption id={detailId} className={cn("kz-flow-detail", chosen?.className)} aria-live="polite">
         {chosen ? (
           <>
@@ -275,6 +304,7 @@ export function EngineFlow({
           hint
         )}
       </figcaption>
+      )}
     </figure>
   );
 }

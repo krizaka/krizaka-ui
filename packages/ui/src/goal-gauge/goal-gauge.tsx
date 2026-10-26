@@ -33,7 +33,7 @@ export type GoalGaugeProps = Omit<React.HTMLAttributes<HTMLDivElement>, "childre
    * @default "default"
    */
   variant?: StoryVariant;
-  /** A brand scope (`orochia` → `.brand-orochia`). */
+  /** A brand scope (`orazaka` → `.brand-orazaka`). */
   brand?: string;
 };
 

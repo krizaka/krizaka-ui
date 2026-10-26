@@ -15,7 +15,7 @@ export type StatusPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> &
   back?: { href: string; label: string };
   /** A mono line above the title. */
   eyebrow?: React.ReactNode;
-  /** The page's `h1` (`Status`, `Yasakia is on its way`). */
+  /** The page's `h1` (`Status`, `Akinaza is on its way`). */
   title: React.ReactNode;
   /** One sentence under it. */
   lead?: React.ReactNode;

@@ -4,8 +4,8 @@ import AdminConsoleExample from "../../registry/examples/app-shell/admin-console
 import BasicExample from "../../registry/examples/app-shell/basic";
 import CollapseOverflowExample from "../../registry/examples/app-shell/collapse-overflow";
 import ConsoleExample from "../../registry/examples/app-shell/console";
+import CreatorStudioExample from "../../registry/examples/app-shell/creator-studio";
 import DesktopExample from "../../registry/examples/app-shell/desktop";
-import OrochiaStudioExample from "../../registry/examples/app-shell/orochia-studio";
 import { AppShellRoot } from "./app-shell";
 
 /** App shell — a layout. Each story renders a named example; a template has its phone story too. */
@@ -18,9 +18,9 @@ export default meta;
 
 type Story = StoryObj;
 
-export const OrochiaStudio: Story = { render: () => <OrochiaStudioExample /> };
+export const CreatorStudio: Story = { render: () => <CreatorStudioExample /> };
 /** The same template on a phone (390 × 844): the screenshot is taken at that width. */
-export const OrochiaStudioPhone: Story = { render: () => <OrochiaStudioExample />, parameters: { phone: true } };
+export const CreatorStudioPhone: Story = { render: () => <CreatorStudioExample />, parameters: { phone: true } };
 export const AdminConsole: Story = { render: () => <AdminConsoleExample /> };
 /** The same template on a phone (390 × 844): the screenshot is taken at that width. */
 export const AdminConsolePhone: Story = { render: () => <AdminConsoleExample />, parameters: { phone: true } };

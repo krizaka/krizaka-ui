@@ -20,4 +20,4 @@ export const Flying: Story = { args: { pose: "flying" } };
 export const FlyingStill: Story = { args: { pose: "flying", animated: false } };
 
 /** Small, as in a chat's closing line. */
-export const Small: Story = { args: { size: 32, title: "Yororis" } };
+export const Small: Story = { args: { size: 32, title: "Elephant" } };

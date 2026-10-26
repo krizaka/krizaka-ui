@@ -44,8 +44,8 @@ export const meta = {
         description: "Three named stages under a dome, a lit core; chats and documents flow in, answers flow out. Hover or tab to explore.",
       },
       {
-        name: "orochia-hero",
-        title: "Support toward a creator (Orochia)",
+        name: "creator-hero",
+        title: "Support toward a creator",
         description: "The creator in the centre, tips, unlocks, auctions and challenges flowing toward them, their amounts on the links, 90 % pinned above.",
       },
       { name: "compose", title: "Composed by hand", description: "The primitives — scene, links, dome, prisms, node, tiles — painted back to front with an entrance order." },

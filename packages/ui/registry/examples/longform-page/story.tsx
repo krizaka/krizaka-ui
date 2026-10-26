@@ -24,9 +24,9 @@ export default function LongformPageStory() {
           ),
         },
         {
-          id: "creators",
-          title: "Then came the creators",
-          children: <p>Orochia pays creators 90 % of what their fans spend, every Monday — no algorithm in between.</p>,
+          id: "shops",
+          title: "Then came the shops",
+          children: <p>Akinaza keeps a Québec shop's till, receipts and taxes in one place — and the data stays with the shop.</p>,
           figure: <MascotQuote bird="flamingo" label="The flamingo's rule">Whoever does the work gets paid first.</MascotQuote>,
         },
       ]}

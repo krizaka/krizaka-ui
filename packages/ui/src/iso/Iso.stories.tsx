@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import ComposeExample from "../../registry/examples/iso/compose";
+import CreatorHeroExample from "../../registry/examples/iso/creator-hero";
 import OrazakaHeroExample from "../../registry/examples/iso/orazaka-hero";
-import OrochiaHeroExample from "../../registry/examples/iso/orochia-hero";
 import StillExample from "../../registry/examples/iso/still";
 import { IsoHub } from "./iso";
 
@@ -20,6 +20,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const OrazakaHero: Story = { render: () => <OrazakaHeroExample /> };
-export const OrochiaHero: Story = { render: () => <OrochiaHeroExample /> };
+export const CreatorHero: Story = { render: () => <CreatorHeroExample /> };
 export const Compose: Story = { render: () => <ComposeExample /> };
 export const Still: Story = { render: () => <StillExample /> };
