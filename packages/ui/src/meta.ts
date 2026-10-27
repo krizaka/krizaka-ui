@@ -129,6 +129,7 @@ export type ComponentName =
   | "markdown"
   | "meta-row"
   | "waveform"
+  | "qr-code"
   | "marketing-layout"
   | "marquee"
   | "mascot-quote"
