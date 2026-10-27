@@ -8,7 +8,7 @@
 - **What every Krizaka Expo app does the same way**: the bearer session over a storage port (`createSessionStore`), the
   discovery client of the signed services manifest with the product's address, host suffix and build inputs
   (`createAppDiscovery`), the API client (`createApiClient`: bearer, no cookie, timeout, 401 drops the session), and in
-  `./react` the auth context the screens read (`createAuth`, `useSessionStatus`; React is an optional peer).
+  `./react` the auth context the screens read (`createAuth`, `useSessionStatus`; React is an optional peer), and in `./server` what the backend of those apps reads (`sessionTokenOf`: the bearer before the cookie, `signInClientOf`: `client: "native"` gets its token in the body) — pure, headers in.
 - Not here: a product's endpoints, types, screens or messages; the update and maintenance **screens** (`@krizaka/ui/native`);
   the manifest itself (`@krizaka/discovery`); the version contract (`@krizaka/app-config`).
 
@@ -24,8 +24,8 @@
 
 - `pnpm turbo run check --filter=@krizaka/app-client`: ESLint and `tsc`, tests (Vitest, **100 % coverage enforced**), build,
   size, publint + attw (`esm-only`).
-- **Size budget** (gzip): `.` ≤ 3 kB, `./react` ≤ 1 kB.
-- Published surface: `.`, `./react`, `./package.json`. Changing a header, the 401 rule, the timeout message or the storage key
+- **Size budget** (gzip): `.` ≤ 3 kB, `./react` ≤ 1 kB, `./server` ≤ 0.5 kB.
+- Published surface: `.`, `./react`, `./server`, `./package.json`. Changing a header, the 401 rule, the timeout message or the storage key
   layout is a breaking change: apps in the stores depend on it.
 
 ## 4. Release

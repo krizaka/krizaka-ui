@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 
-/** ESM + types: the client (`.`) and the React auth context (`./react`). The discovery client and React stay external. */
-const declarations = { index: "src/index.ts", react: "src/react.tsx" };
+/** ESM + types: the client (`.`), the React auth context (`./react`) and the server's side of the session (`./server`). The discovery client and React stay external. */
+const declarations = { index: "src/index.ts", react: "src/react.tsx", server: "src/server.ts" };
 
 export default defineConfig({
   entry: declarations,
