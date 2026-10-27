@@ -43,6 +43,7 @@
     "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsup",
     "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
     "typecheck": "tsc --noEmit",
+    "pretest": "playwright-core install chromium",
     "test": "vitest run --coverage",
     "size": "size-limit",
     "publint": "publint && attw --pack . --profile esm-only",

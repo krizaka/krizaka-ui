@@ -16,7 +16,7 @@
 
 ## 3. Quality gates
 
-- `pnpm turbo run check --filter=@krizaka/a11y-audit`: ESLint and `tsc`, tests (Vitest; the axe wrapper is proved in real Chromium), build, size, publint + attw.
+- `pnpm turbo run check --filter=@krizaka/a11y-audit`: ESLint and `tsc`, tests (Vitest; the axe wrapper is proved in real Chromium, installed by `pretest`), build, size, publint + attw.
 - Published surface: export `.`, `./package.json`; files `dist`, `README.md`, `SKILL.md`, `LICENSE`.
 
 ## 4. Release
