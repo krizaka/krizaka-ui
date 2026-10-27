@@ -151,15 +151,67 @@ describe("krizakaStack — the three stack rules (S1–S3, S11)", () => {
       `export function useX(u: string) { useEffect(() => { void fetch(u); void window.fetch(u); void krizakaFetch(u); }, [u]); }\ndeclare function krizakaFetch(u: string): Promise<unknown>;`,
     );
     const messages = await lint(krizakaStack(), code, "hooks/use-x.ts");
-    expect(ids(messages)).toEqual(Array(3).fill("krizaka/no-fetch-in-client-effect"));
-    expect(messages[0]!.severity).toBe(1); // a warning: the ratchet holds the count
+    expect(ids(messages).filter((id) => id === "krizaka/no-fetch-in-client-effect")).toHaveLength(3);
+    expect(messages.find((m) => m.ruleId === "krizaka/no-fetch-in-client-effect")!.severity).toBe(1); // a warning: the ratchet holds the count
   });
 
   it("no-fetch-in-client-effect: allows a fetch outside an effect, refetch, and server files", async () => {
     const outside = client(`export function useX(u: string, refetch: () => void) { useEffect(() => { refetch(); }, [refetch]); return () => fetch(u); }`);
     expect(await lint(krizakaStack(), outside, "hooks/use-x.ts")).toEqual([]);
     const server = `import { useEffect } from "react";\nexport function useX(u: string) { useEffect(() => { void fetch(u); }, [u]); }`;
-    expect(await lint(krizakaStack(), server, "hooks/use-x.ts")).toEqual([]);
+    // not a client file: the old rule is silent, the effects rule (any file) is not
+    expect(ids(await lint(krizakaStack(), server, "hooks/use-x.ts"))).toEqual(["krizaka/no-async-in-effect"]);
+  });
+
+  it("no-async-in-effect: an await, .then, fetch, invoke, api.* or *Client.* in an effect — an error by default", async () => {
+    const code = [
+      `import { useEffect } from "react";`,
+      `declare const api: { get(id: string): Promise<void> }; declare const sdkClient: { list(): Promise<void> };`,
+      `declare function invoke(c: string): Promise<void>;`,
+      `export function X({ id }: { id: string }) {`,
+      `  useEffect(() => { invoke("a").then(() => undefined); }, []);`,
+      `  useEffect(() => { void api.get(id); }, [id]);`,
+      `  useEffect(() => { void sdkClient.list(); }, []);`,
+      `  useEffect(() => { void (async () => { await Promise.resolve(); })(); }, []);`,
+      `  return null;`,
+      `}`,
+    ].join("\n");
+    const messages = await lint(krizakaStack(), code, "src/x.tsx");
+    expect(ids(messages)).toEqual(Array(4).fill("krizaka/no-async-in-effect"));
+    expect(messages[0]!.severity).toBe(2);
+    const warned = await lint(krizakaStack({ effects: "warn" }), code, "src/x.tsx");
+    expect(warned[0]!.severity).toBe(1);
+  });
+
+  it("no-async-in-effect: allows a subscription with its cleanup, an object URL, a plain side effect", async () => {
+    const code = [
+      `import { useEffect } from "react";`,
+      `declare function listen(e: string, cb: () => void): Promise<() => void>;`,
+      `declare const session: { onChange(cb: () => void): () => void };`,
+      `export function X({ blob, qc, queryClient }: { blob: Blob; qc: { invalidateQueries(): Promise<void> }; queryClient: { cancelQueries(): Promise<void> } }) {`,
+      `  useEffect(() => { const un = listen("file-added", () => { void qc.invalidateQueries(); }); return () => { void un.then((off) => off()); }; }, [qc]);`,
+      `  useEffect(() => { const u = URL.createObjectURL(blob); return () => URL.revokeObjectURL(u); }, [blob]);`,
+      `  useEffect(() => { document.title = "x"; }, []);`,
+      `  useEffect(() => session.onChange(() => { void queryClient.cancelQueries(); }), [queryClient]);`,
+      `  return null;`,
+      `}`,
+    ].join("\n");
+    expect(await lint(krizakaStack(), code, "src/x.tsx")).toEqual([]);
+  });
+
+  it("no-derived-state-in-effect: an effect whose only statements are setState calls", async () => {
+    const code = [
+      `import { useEffect, useState } from "react";`,
+      `export function X({ root, open }: { root: string; open: boolean }) {`,
+      `  const [dir, setDir] = useState(root); const [q, setQ] = useState(""); const [n, setN] = useState(0);`,
+      `  useEffect(() => { setDir(root); }, [root]);`,
+      `  useEffect(() => { if (!open) { setQ(""); setN(0); } }, [open]);`,
+      `  useEffect(() => { setN((c) => c + 1); document.title = dir; }, [dir]);`,
+      `  return <b>{dir}{q}{n}</b>;`,
+      `}`,
+    ].join("\n");
+    const messages = await lint(krizakaStack(), code, "src/x.tsx");
+    expect(ids(messages)).toEqual(Array(2).fill("krizaka/no-derived-state-in-effect"));
   });
 
   it("no-direct-tanstack-import: every import form, never a facade", async () => {
@@ -205,8 +257,8 @@ describe("krizakaStack — the three stack rules (S1–S3, S11)", () => {
     ]);
   });
 
-  it("names exactly the stack rules (three, the family switcher ban, the route state, the page template)", () => {
-    expect(STACK_RULES).toHaveLength(6);
+  it("names exactly the stack rules (three, the two effect rules, the family switcher ban, the route state, the page template)", () => {
+    expect(STACK_RULES).toHaveLength(8);
     expect(krizakaStack().flatMap((config) => Object.keys(config.rules!))).toEqual([...STACK_RULES]);
   });
 });

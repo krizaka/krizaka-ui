@@ -10,7 +10,7 @@ import { CodeBlock } from "@krizaka/ui/code-block";
 import { Input } from "@krizaka/ui/field";
 import { Slider } from "@krizaka/ui/slider";
 import { Switch } from "@krizaka/ui/switch";
-import { type ComponentType, useEffect, useId, useState } from "react";
+import { type ComponentType, lazy, Suspense, useId, useState } from "react";
 
 import { type PlaygroundControl, playgroundJsx, type PlaygroundName,PLAYGROUNDS } from "@/lib/ui-playgrounds";
 
@@ -35,6 +35,11 @@ const LOADERS: Record<PlaygroundName, () => Promise<AnyComponent>> = {
   spinner: () => import("@krizaka/ui/spinner").then((m) => m.Spinner as unknown as AnyComponent),
 };
 
+/* One lazy component per playground, made once at load: its module is fetched when the first one is drawn, in a Suspense. */
+const LAZY_PLAYGROUNDS = Object.fromEntries(
+  (Object.keys(LOADERS) as PlaygroundName[]).map((name) => [name, lazy(async () => ({ default: await LOADERS[name]() }))]),
+) as unknown as Record<PlaygroundName, AnyComponent>;
+
 export interface PlaygroundWords {
   controls: string;
   text: string;
@@ -47,19 +52,12 @@ export interface PlaygroundWords {
 export function Playground({ name, controls, words }: { name: PlaygroundName; controls: PlaygroundControl[]; words: PlaygroundWords }) {
   const spec = PLAYGROUNDS[name];
   const id = useId();
-  const [Component, setComponent] = useState<AnyComponent | null>(null);
   const [values, setValues] = useState<Record<string, string | boolean>>(() =>
     Object.fromEntries(controls.map((c) => [c.prop, ("start" in spec ? (spec.start as Record<string, string | boolean>)[c.prop] : undefined) ?? c.initial])),
   );
   const [text, setText] = useState("text" in spec ? spec.text.value : "");
   const [number, setNumber] = useState("number" in spec ? spec.number.value : 0);
-  useEffect(() => {
-    let alive = true;
-    void LOADERS[name]().then((loaded) => alive && setComponent(() => loaded));
-    return () => {
-      alive = false;
-    };
-  }, [name]);
+  const Component = LAZY_PLAYGROUNDS[name];
 
   const props: Record<string, unknown> = { ...spec.base, ...values };
   if ("text" in spec) props[spec.text.prop] = text;
@@ -69,7 +67,9 @@ export function Playground({ name, controls, words }: { name: PlaygroundName; co
   return (
     <div className="kz-play">
       <div className="kz-play-canvas" aria-live="polite">
-        {Component ? <Component key={String(values.variant ?? "")} {...props} /> : <span className="kz-play-wait" aria-hidden />}
+        <Suspense fallback={<span className="kz-play-wait" aria-hidden />}>
+          <Component key={String(values.variant ?? "")} {...props} />
+        </Suspense>
       </div>
       <div role="group" className="kz-play-controls" aria-label={words.controls}>
         {controls.map((control) =>
