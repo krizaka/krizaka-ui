@@ -60,6 +60,7 @@ export {
 export { ComposerMeta, type ComposerMetaProps, ConversationItem, type ConversationItemProps, MessageBubble, type MessageBubbleLabels, type MessageBubbleProps, MessageComposer, type MessageComposerProps, type MessageStatus, TypingIndicator, type TypingIndicatorProps } from "./chat";
 export { Checkbox, type CheckboxProps } from "./checkbox";
 export { Chip, type ChipGroupProps, type ChipProps, type ChipSize } from "./chip";
+export { CollectionSwitcher, type CollectionSwitcherProps } from "./collection-switcher";
 export { Combobox, type ComboboxLabels, comboboxLabels, type ComboboxProps, Select, type SelectOption, type SelectProps } from "./combobox";
 export { Countdown, type CountdownProps, type CountdownUnits } from "./countdown";
 export { DateField, type DateFieldLabels, dateFieldLabels, type DateFieldProps } from "./date-picker";
@@ -81,6 +82,7 @@ export {
 export { type DescriptionItem, DescriptionList, type DescriptionListProps } from "./description-list";
 export { Sheet, type SheetProps } from "./dialog";
 export { EmptyState, type EmptyStateProps } from "./empty-state";
+export { EntityHeader, type EntityHeaderProps } from "./entity-header";
 export { EnvironmentNotice, type EnvironmentNoticeProps } from "./environment-notice";
 export { Fab, type FabProps } from "./fab";
 export { TextField, type TextFieldProps } from "./field";

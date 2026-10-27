@@ -50,6 +50,8 @@ export const PLANNED: Record<string, string> = {
   wall: "Akinaza's shop pages: the owner's photos, short notes and logo on a textured wall (krizaka/akinaza#236, krizaka-ui#537).",
   "notification-preferences": "Akinaza's and Yomizaka's account baseline (notifications) (krizaka-ui#515).",
   "qr-code": "Akinaza's Boutique › Agenda: the owner scans the private calendar feed from the phone (krizaka/akinaza#282, krizaka-ui#760).",
+  "entity-header": "Akinaza's multi-shop and the collections of Yomizaka and Akinaza: the head of one shop or collection (ADR-006, krizaka-ui#740).",
+  "collection-switcher": "Akinaza's multi-shop switcher and the collections of a workspace (ADR-006, krizaka-ui#740).",
   "quota-meter": "Yomizaka's library quota and Akinaza's plan (krizaka-ui#515).",
   "margin-layout": "Yomizaka (krizaka/yomizaka#314) for its report and check flow, then any product that reads numbered findings.",
   usage: "Yomizaka « Crédits et usage » (krizaka/yomizaka#314), Akinaza's activity panel (akinaza#325); Orazaka moves onto it in its dispatch.",

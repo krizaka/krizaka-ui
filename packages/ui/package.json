@@ -249,6 +249,14 @@
       "types": "./dist/qr-code.d.ts",
       "import": "./dist/qr-code.js"
     },
+    "./entity-header": {
+      "types": "./dist/entity-header.d.ts",
+      "import": "./dist/entity-header.js"
+    },
+    "./collection-switcher": {
+      "types": "./dist/collection-switcher.d.ts",
+      "import": "./dist/collection-switcher.js"
+    },
     "./section-backdrop": {
       "types": "./dist/section-backdrop.d.ts",
       "import": "./dist/section-backdrop.js"
@@ -1098,7 +1106,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "73 kB",
+      "limit": "75 kB",
       "gzip": true
     },
     {
@@ -1583,6 +1591,26 @@
       "name": "./qr-code (the encoder and its drawing; no dependency)",
       "path": "dist/qr-code.js",
       "limit": "9 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./entity-header",
+      "path": "dist/entity-header.js",
+      "limit": "41 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./collection-switcher",
+      "path": "dist/collection-switcher.js",
+      "limit": "28 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

@@ -130,6 +130,8 @@ export type ComponentName =
   | "meta-row"
   | "waveform"
   | "qr-code"
+  | "entity-header"
+  | "collection-switcher"
   | "marketing-layout"
   | "marquee"
   | "mascot-quote"
