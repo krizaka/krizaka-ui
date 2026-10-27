@@ -16,3 +16,14 @@ test("release.yml goes through the script and keeps NPM_TOKEN for the other pack
   assert.match(workflow, /NODE_AUTH_TOKEN: \$\{\{ secrets\.NPM_TOKEN \}\}/);
   assert.match(workflow, /id-token: write/);
 });
+
+test("the fallback publish runs on the commit of the run, not on the changesets version branch", () => {
+  const i = workflow.indexOf("Publish the versions on main that npm does not have yet");
+  const step = workflow.slice(i, workflow.indexOf("- name:", i + 10));
+  assert.match(step, /git checkout -f "\$GITHUB_SHA"/);
+  assert.ok(step.indexOf("git checkout -f") < step.indexOf("publish-packages.sh"));
+});
+
+test("@krizaka/ui builds its workspace dependencies before packing", () => {
+  assert.match(script, /turbo run build --filter='@krizaka\/ui\.\.\.'/);
+});

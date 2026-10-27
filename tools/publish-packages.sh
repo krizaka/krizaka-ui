@@ -9,7 +9,7 @@ ver=$(node -p "require('./packages/ui/package.json').version")
 if [ "$(npm view "@krizaka/ui@$ver" version 2>/dev/null || true)" != "$ver" ]; then
   echo "Publishing @krizaka/ui@$ver with trusted publishing (OIDC, no token)"
   tmp=$(mktemp -d); echo "registry=https://registry.npmjs.org/" > "$tmp/npmrc"
-  pnpm --filter @krizaka/ui run build
+  pnpm turbo run build --filter='@krizaka/ui...'   # its workspace dependencies (tokens/native…) first
   pnpm --filter @krizaka/ui pack --pack-destination "$tmp"
   env -u NODE_AUTH_TOKEN NPM_CONFIG_USERCONFIG="$tmp/npmrc" npm publish "$tmp"/krizaka-ui-*.tgz --access public --provenance
 fi

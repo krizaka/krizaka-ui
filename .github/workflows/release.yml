@@ -65,7 +65,11 @@ jobs:
       # a version on main is not on npm yet (`changeset publish` skips what exists), then fail loudly if one still is not.
       - name: Publish the versions on main that npm does not have yet
         if: steps.changesets.outputs.published != 'true'
-        run: bash tools/publish-packages.sh
+        # The changesets step leaves the checkout on its « changeset-release/main » branch, versions bumped but not merged (2026-10-27 runs:
+        # it tried to publish 3.67.1 from there, unbuilt). Back to the commit that triggered the run: only what main holds is published.
+        run: |
+          git checkout -f "$GITHUB_SHA"
+          bash tools/publish-packages.sh
         env:
           NPM_CONFIG_PROVENANCE: "true"
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
