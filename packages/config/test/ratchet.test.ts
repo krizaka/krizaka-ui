@@ -70,7 +70,7 @@ describe("countStackSource", () => {
       `useEffect(() => { const un = listen("file-added", async () => { await qc.invalidateQueries(); }); return () => { void un.then((f) => f()); }; }, []);`,
       `useEffect(() => { const url = URL.createObjectURL(blob); setUrl(url); return () => URL.revokeObjectURL(url); }, [blob]);`,
       `useEffect(() => { document.title = "x"; }, []);`,
-      `useEffect(() => { const off = on("stack-probe", (p) => setProbe(p)); return () => { void off.then((f) => f()); }; }, []);`,
+      `useEffect(() => { const off = on<Probe>("stack-probe", (p) => setProbe(p)); return () => { void off.then((f) => f()); }; }, []);`,
     ].join("\n");
     expect(countStackSource(code)).toMatchObject({ asyncInEffect: 2, derivedStateInEffect: 2 });
   });

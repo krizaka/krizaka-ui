@@ -56,7 +56,7 @@ export const FETCH_NAMES_SOURCE = "^(fetch|krizakaFetch)$";
 export const ASYNC_EFFECT_SOURCE = String.raw`\bawait\b|\.then\s*\(|\b(?:fetch|krizakaFetch|invoke)\s*\(|\bapi\.\w+|\b\w*Client\.\w+\s*\(`;
 
 /** A subscription to a system that pushes events: its callback may be async, the cleanup undoes it. */
-export const SUBSCRIBE_EFFECT_SOURCE = String.raw`\b(?:listen|once|on|addEventListener|subscribe|addListener|new\s+(?:WebSocket|EventSource|ResizeObserver|IntersectionObserver|MutationObserver|BroadcastChannel)|\w+\.on)\s*\(`;
+export const SUBSCRIBE_EFFECT_SOURCE = String.raw`\b(?:listen|once|on|addEventListener|subscribe|addListener|new\s+(?:WebSocket|EventSource|ResizeObserver|IntersectionObserver|MutationObserver|BroadcastChannel)|\w+\.on)\s*(?:<[^()]*>)?\s*\(`;
 
 /**
  * Text with its strings, template literals and comments blanked (same length), so a keyword in a string is not read.
