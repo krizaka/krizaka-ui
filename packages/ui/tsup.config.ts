@@ -187,11 +187,13 @@ export default defineConfig([
     external: [...shared.external, /^@krizaka\/ui(\/|$)/, "zod", /^zod\//],
   },
   {
-    // Client — the shop's map gate (a still, the live map behind a button on a phone). A separate entry: the block it draws is
-    // imported through the package's own entries (external).
+    // Client — the shop's map gate (a still, the live map behind a button on a phone) and its composer (ADR-007 §5): the outline,
+    // the inspector, the history, the publish diff. Separate entries, never in a public page's bundle; the blocks they draw are
+    // imported through the package's own entries (external), the shop's sections by relative path (one copy in the composer).
     ...shared,
     entry: {
       "shop/map-gate": "src/shop/map-gate/index.ts",
+      "shop-composer": "src/shop-composer/index.ts",
     },
     external: [...shared.external, /^@krizaka\/ui(\/|$)/, "zod", /^zod\//],
     banner: { js: '"use client";' },
