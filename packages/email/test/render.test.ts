@@ -65,7 +65,7 @@ describe.each(matrix)("%s (%s)", (id, locale) => {
   });
 });
 
-const ACTION_URL = { newsletterConfirm: "confirmUrl", signInLink: "signInUrl", accountDeletion: "confirmUrl", confirmEmail: "confirmUrl", passwordReset: "resetUrl", emailChange: "confirmUrl", dataExport: "downloadUrl", commentReply: "url", newPost: "url" } as const;
+const ACTION_URL = { newsletterConfirm: "confirmUrl", signInLink: "signInUrl", accountDeletion: "confirmUrl", confirmEmail: "confirmUrl", passwordReset: "resetUrl", emailChange: "confirmUrl", dataExport: "downloadUrl", shareLink: "shareUrl", commentReply: "url", newPost: "url" } as const;
 
 describe("the action", () => {
   it.each(Object.entries(ACTION_URL))("%s: one button, and the link also in the plain text and as a small fallback", async (id, field) => {
@@ -116,5 +116,40 @@ describe("the action", () => {
     const email = await renderEmail("contactAutoreply", { name: "Camille", message }, { locale: "fr" });
     expect(email.text).toContain("…");
     expect(email.text).not.toContain("fin");
+  });
+});
+
+describe("shareLink", () => {
+  const props = { ...templates.shareLink.example, brand: "yomizaka" as const };
+
+  it("says who shares, the link and the expiry, in both languages, and nothing else", async () => {
+    const en = await renderEmail("shareLink", props, { locale: "en" });
+    const fr = await renderEmail("shareLink", props, { locale: "fr" });
+    expect(en.subject).toBe("Samir Tremblay shared a Yomizaka report with you");
+    expect(en.text).toContain("November 3, 2026");
+    expect(fr.subject).toBe("Samir Tremblay a partagé un rapport Yomizaka avec vous");
+    expect(fr.text).toContain("3 novembre 2026");
+    expect(fr.text).toContain(props.shareUrl);
+  });
+
+  it("escapes the sender's message in the HTML and keeps it as plain text in the text version", async () => {
+    const en = await renderEmail("shareLink", props, { locale: "en" });
+    expect(en.html).not.toContain("<b>No action needed</b>");
+    expect(en.html).toContain("&lt;b&gt;No action needed&lt;/b&gt;");
+    expect(en.text).toContain("<b>No action needed</b>");
+  });
+
+  it("wears the product's brand and only that one", async () => {
+    const en = await renderEmail("shareLink", props, { locale: "en" });
+    expect(en.html).toContain("brand/yomizaka/mark-light-256.png");
+    expect(en.html).toContain('alt="Yomizaka"');
+    expect(en.html).not.toContain("brand/krizaka/");
+  });
+
+  it("works without a message and refuses a plain-http link", async () => {
+    const { message: _m, ...bare } = props;
+    const email = await renderEmail("shareLink", bare, { locale: "en" });
+    expect(email.html).not.toContain("&lt;b&gt;");
+    await expect(renderEmail("shareLink", { ...props, shareUrl: "http://app.yomizaka.com/x" }, { locale: "en" })).rejects.toThrow();
   });
 });
