@@ -5,7 +5,6 @@
 import * as React from "react";
 
 import { Button } from "../button/button";
-import { Chip } from "../chip/chip";
 import { cn } from "../cn";
 import { Field, Input } from "../field/field";
 
@@ -52,17 +51,23 @@ export function PromoCodeField({ label, applyLabel, removeLabel, onApply, onRemo
       {state.step === "applied" ? (
         <>
           <span className="text-xs font-semibold text-fg-secondary">{label}</span>
-          <Chip
-            removable
-            removeLabel={`${removeLabel} ${state.code}`}
-            onRemove={() => {
-              setState({ step: "idle" });
-              setCode("");
-              onRemove?.();
-            }}
-          >
-            <b className="font-semibold">{state.code}</b> · {state.effect}
-          </Chip>
+          <span className="inline-flex h-9 w-fit max-w-full items-center gap-1.5 rounded-sm border border-border-default bg-surface-1 pl-3.5 pr-1.5 text-xs font-semibold text-fg-secondary">
+            <span className="truncate">
+              <b className="font-semibold text-fg">{state.code}</b> · {state.effect}
+            </span>
+            <button
+              type="button"
+              aria-label={`${removeLabel} ${state.code}`}
+              className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-fg-secondary transition-colors hover:bg-surface-3 hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
+              onClick={() => {
+                setState({ step: "idle" });
+                setCode("");
+                onRemove?.();
+              }}
+            >
+              <span aria-hidden>×</span>
+            </button>
+          </span>
         </>
       ) : (
         <form
@@ -98,7 +103,7 @@ export function PromoCodeField({ label, applyLabel, removeLabel, onApply, onRemo
             {state.message}
           </p>
         )}
-        {state.step === "applied" && <span className="sr-only">{`${state.code} · ${state.effect}`}</span>}
+        {state.step === "applied" && <span className="sr-only">{state.code + " · " + state.effect}</span>}
       </div>
     </div>
   );

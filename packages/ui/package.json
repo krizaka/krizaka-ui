@@ -3369,8 +3369,7 @@
       "gzip": true,
       "ignore": [
         "tailwind-variants",
-        "clsx",
-        "radix-ui"
+        "clsx"
       ]
     }
   ],
