@@ -28,6 +28,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ app-desktop/           # @krizaka/app-desktop — the typed page side of tauri-plugin-krizaka (folders, Keychain storage, menu bar, deep links; Tauri passed in)
 │  ├─ discovery/            # @krizaka/discovery — mobile service discovery: a signed manifest of backend addresses (Ed25519, allow-list), pure (no UI)
 │  ├─ pacer/                # @krizaka/pacer — cadence: debounce, throttle, a job queue (priority, retries, pause per job), a rate limiter (TanStack Pacer behind the facade; hooks in ./react)
+│  ├─ a11y-audit/           # @krizaka/a11y-audit — the accessibility guard of the products' page audits: axe-core (WCAG 2.1 AA) on a Playwright page + a ratchet baseline (Node, test tool)
 ├─ tools/                   # not published — inventory.mjs (the duplicate audit of the products), consumer-smoke/ (the published
 │                           #   packages in fresh Next.js · Expo · Node apps), and their tests
 ├─ docs/adr/                # the architecture decisions (ADR-001: TanStack under @krizaka facades; ADR-002: desktop is the web in a window)

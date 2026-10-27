@@ -1,0 +1,88 @@
+{
+  "name": "@krizaka/a11y-audit",
+  "version": "0.1.0",
+  "description": "The accessibility guard of every Krizaka product's page audit: axe-core (WCAG 2.1 AA) run on the pages a Playwright crawl already visits, in dark and light, and a ratchet — violations counted per rule in a baseline file, a new one fails, the count only goes down.",
+  "keywords": [
+    "krizaka",
+    "accessibility",
+    "a11y",
+    "axe-core",
+    "wcag",
+    "contrast",
+    "playwright",
+    "ratchet"
+  ],
+  "homepage": "https://ui.krizaka.com",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/a11y-audit"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "SKILL.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsup",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "pretest": "playwright-core install chromium",
+    "test": "vitest run --coverage",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile esm-only",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "axe-core": "4.11.0"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "^0.9.1",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@types/node": "^22.15.0",
+    "@vitest/coverage-v8": "5.0.5",
+    "eslint": "^9.39.0",
+    "playwright-core": "1.64.0",
+    "publint": "^0.3.25",
+    "size-limit": "^14.2.0",
+    "tsup": "^9.0.0",
+    "typescript": "^5.9.0",
+    "vitest": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": ".",
+      "path": "dist/index.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "axe-core",
+        "node:fs",
+        "fs"
+      ]
+    }
+  ]
+}
