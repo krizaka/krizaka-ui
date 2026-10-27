@@ -1,5 +1,11 @@
 # @krizaka/discovery
 
+## 0.1.2
+
+### Patch Changes
+
+- [#781](https://github.com/krizaka/krizaka-ui/pull/781) [`209618f`](https://github.com/krizaka/krizaka-ui/commit/209618fc4e32e620ae426b0598f1f7889ba7a1d9) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Fix 37 SonarCloud bugs in the published packages (comparators, regular expressions, number parsing). No API change. @krizaka/tokens and @krizaka/tailwind follow @krizaka/ui (fixed group).
+
 ## 0.1.1
 
 ### Patch Changes

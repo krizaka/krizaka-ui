@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/discovery",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Service discovery for every Krizaka mobile app: load a signed manifest of backend addresses (Ed25519 over canonical JSON), allow-list the hosts, cache it, fall back cached → baked default → legacy host, and honour minimum version and maintenance — so a URL change never forces a store republish.",
   "keywords": [
     "krizaka",
