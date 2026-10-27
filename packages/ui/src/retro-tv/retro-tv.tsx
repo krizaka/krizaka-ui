@@ -108,7 +108,7 @@ function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, renderE
   React.useEffect(() => { if (!active) return; const id = setTimeout(() => setActive(false), 2500); return () => clearTimeout(id); }, [active]);
   React.useEffect(() => { if (prev === null) return; const id = setTimeout(() => setPrev(null), reduced ? 0 : 650); return () => clearTimeout(id); }, [prev, reduced]);
   React.useEffect(() => { if (seen && autoPlay && !reduced && current?.src) playSafely(video.current); }, [seen, autoPlay, reduced, index, current?.src]);
-  React.useEffect(() => { const tracks = video.current?.textTracks; if (tracks) for (let i = 0; i < tracks.length; i++) tracks[i].mode = captionsOn && i === 0 ? "showing" : "disabled"; }, [captionsOn, index]);
+  React.useEffect(() => { const list = video.current?.textTracks; if (list) Array.from(list).forEach((track, i) => { track.mode = captionsOn && i === 0 ? "showing" : "disabled"; }); }, [captionsOn, index]);
 
   const go = (to: number) => {
     const next = ((to % n) + n) % n;
@@ -167,7 +167,7 @@ function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, renderE
 }
 
 /** A vertical video in a CSS-and-SVG television cabinet. */
-export interface RetroTvProps extends Omit<VideoPlayerProps, "aspectRatio" | "autoPlay" | "className" | "loop" | "muted" | "preload" | "src"> {
+export interface RetroTvProps extends Omit<VideoPlayerProps, "aspectRatio" | "labels" | "autoPlay" | "className" | "loop" | "muted" | "preload" | "src"> {
   /** The video's address. Optional when the screen shows `children`. */
   src?: VideoPlayerProps["src"];
   /** What the screen shows instead of the video player: an `EmbedFacade` for a platform's short video. */
