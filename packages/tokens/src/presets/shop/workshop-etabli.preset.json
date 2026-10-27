@@ -1,0 +1,34 @@
+{
+  "id": "workshop-etabli",
+  "version": 1,
+  "name": "Établi",
+  "trades": [
+    "workshop"
+  ],
+  "paper": "seyes",
+  "accent": "krizaka",
+  "accents": [
+    "krizaka",
+    "akinaza",
+    "akinaza:accent-2",
+    "yomizaka",
+    "orazaka"
+  ],
+  "faces": {
+    "title": "product-display",
+    "note": "mono"
+  },
+  "density": "compact",
+  "photo": {
+    "grade": "none",
+    "grain": 0,
+    "radius": "xs"
+  },
+  "variants": {
+    "hero": "banner",
+    "services": "menu",
+    "booking": "strip",
+    "gallery": "grid",
+    "visit": "card"
+  }
+}

@@ -23,11 +23,23 @@ export type ShopFrameProps = React.HTMLAttributes<HTMLDivElement> & {
    * @default "compact"
    */
   density?: "compact" | "airy";
+  /**
+   * One of the accents the preset lists as tested (`krizaka`, `akinaza:accent-2`…): the owner's choice within the look. Without it, the preset's own.
+   * @see @krizaka/tokens `shopPresets`
+   */
+  accent?: string;
+  /**
+   * The paper under the page, from the preset: `seyes` (ruled), `kraft` (brown — mount `PaperGrain` once), `washi` (a tint of the accent) or `plain`.
+   * @default "plain"
+   */
+  paper?: "plain" | "seyes" | "kraft" | "washi";
 };
 
-/** The page: sets the preset and the density the sections below read. */
-export function ShopFrame({ preset, density = "compact", className, ...props }: ShopFrameProps) {
-  return <div data-shop-preset={preset} data-density={density} className={cn("kz-shop", className)} {...props} />;
+const PAPERS = { plain: undefined, seyes: "ruled", kraft: "kraft", washi: "washi" } as const;
+
+/** The page: sets the look preset, the accent, the paper and the density the sections below read. */
+export function ShopFrame({ preset, density = "compact", accent, paper = "plain", className, ...props }: ShopFrameProps) {
+  return <div data-shop-preset={preset} data-shop-accent={accent} data-paper={PAPERS[paper]} data-density={density} className={cn("kz-shop", className)} {...props} />;
 }
 
 export type ShopSectionProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & {

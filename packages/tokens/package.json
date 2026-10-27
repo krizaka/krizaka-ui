@@ -34,6 +34,11 @@
     },
     "./tokens.css": "./dist/tokens.css",
     "./appearance.css": "./dist/appearance.css",
+    "./shop-presets.css": "./dist/shop-presets.css",
+    "./shop-presets": {
+      "types": "./dist/shop-presets.d.ts",
+      "import": "./dist/shop-presets.js"
+    },
     "./brands/krizaka.css": "./dist/brands/krizaka.css",
     "./brands/orazaka.css": "./dist/brands/orazaka.css",
     "./brands/orochia.css": "./dist/brands/orochia.css",
@@ -65,7 +70,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./appearance.css ./brands/krizaka.css ./brands/orazaka.css ./brands/orochia.css ./brands/yasakia.css ./brands/yazakia.css ./brands/yororis.css ./brands/yomizaka.css ./brands/kachizaka.css ./brands/akinaza.css ./brands/scoped.css",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./appearance.css ./shop-presets.css ./brands/krizaka.css ./brands/orazaka.css ./brands/orochia.css ./brands/yasakia.css ./brands/yazakia.css ./brands/yororis.css ./brands/yomizaka.css ./brands/kachizaka.css ./brands/akinaza.css ./brands/scoped.css",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
@@ -108,6 +113,13 @@
       "rolldown": false
     },
     {
+      "name": "./shop-presets.css",
+      "path": "dist/shop-presets.css",
+      "limit": "3.2 kB",
+      "gzip": true,
+      "rolldown": false
+    },
+    {
       "name": ".",
       "path": "dist/index.js",
       "limit": "5.2 kB",
@@ -117,6 +129,12 @@
       "name": "./native",
       "path": "dist/native.js",
       "limit": "3 kB",
+      "gzip": true
+    },
+    {
+      "name": "./shop-presets",
+      "path": "dist/shop-presets.js",
+      "limit": "1.5 kB",
       "gzip": true
     }
   ]

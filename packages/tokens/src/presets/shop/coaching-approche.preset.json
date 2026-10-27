@@ -1,0 +1,33 @@
+{
+  "id": "coaching-approche",
+  "version": 1,
+  "name": "Approche",
+  "trades": [
+    "coaching"
+  ],
+  "paper": "washi",
+  "accent": "yomizaka",
+  "accents": [
+    "yomizaka",
+    "akinaza",
+    "akinaza:accent-2",
+    "krizaka"
+  ],
+  "faces": {
+    "title": "display",
+    "note": "mono"
+  },
+  "density": "airy",
+  "photo": {
+    "grade": "cool",
+    "grain": 0,
+    "radius": "none"
+  },
+  "variants": {
+    "hero": "banner",
+    "services": "cards",
+    "booking": "panel",
+    "story": "quote",
+    "faq": "list"
+  }
+}

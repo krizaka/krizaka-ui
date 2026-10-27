@@ -1,0 +1,51 @@
+---
+title: Shop presets
+description: The twelve looks of a shop page — two per trade — as data in @krizaka/tokens, each proven accessible in both themes.
+---
+
+> **A shop picks a look, never a colour.** A preset is data: an accent of the brands, a paper, the roles of the faces, a spacing and a photo treatment. It cannot break contrast because it can only name tokens, and the build proves every combination.
+
+`@krizaka/tokens` ships the presets twice: as CSS (`@krizaka/tokens/shop-presets.css`) scoped by `[data-shop-preset="<id>"]`, in dark and in light, and as data (`shopPresets` from `@krizaka/tokens/shop-presets`) for a studio that lists them. The visitor's dark or light choice is kept; the page never stores a mode.
+
+```tsx
+import "@krizaka/tokens/shop-presets.css";
+import { ShopFrame } from "@krizaka/ui/shop";
+
+<ShopFrame preset="salon-atelier" density="airy" accent="krizaka" paper="plain">…</ShopFrame>
+```
+
+`accent` is optional: the owner may swap the preset's accent for another one **from the short list the preset carries** (`accents`), all tested — never a colour wheel. `paper` and `density` come from the document or the preset.
+
+## The twelve
+
+| Trade | Look | `data-shop-preset` | Accent | Paper | Titles | Notes | Spacing | Photos |
+| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
+| salon | Atelier | `salon-atelier` | akinaza (copper) | plain | Young Serif | the typewriter | airy | warm |
+| salon | Vitrine | `salon-vitrine` | akinaza | plain | Plus Jakarta Sans | the typewriter | compact | none |
+| pets | Canal | `pets-canal` | akinaza | plain | Plus Jakarta Sans | the pen (Krizaka Cahier) | compact | none |
+| pets | Carnet | `pets-carnet` | akinaza | kraft | Young Serif | the pen (Krizaka Cahier) | airy | warm + grain |
+| coaching | Approche | `coaching-approche` | yomizaka | washi | Young Serif | the typewriter | airy | cool |
+| coaching | Studio | `coaching-studio` | krizaka | plain | Plus Jakarta Sans | the typewriter | compact | none |
+| workshop | Atelier | `workshop-atelier` | akinaza (copper) | kraft | Young Serif | the pen (Krizaka Cahier) | airy | warm + grain |
+| workshop | Établi | `workshop-etabli` | krizaka | seyes | Plus Jakarta Sans | the typewriter | compact | none |
+| cleaning | Forfait | `cleaning-forfait` | akinaza | seyes | Plus Jakarta Sans | the typewriter | compact | none |
+| cleaning | Net | `cleaning-net` | krizaka | plain | Plus Jakarta Sans | the typewriter | compact | cool |
+| consulting | Bureau | `consulting-bureau` | yomizaka | plain | Plus Jakarta Sans | the typewriter | compact | none |
+| consulting | Cabinet | `consulting-cabinet` | krizaka | seyes | Young Serif | the typewriter | airy | none |
+
+No café, restaurant or bar look: Akinaza is for service shops. The accents are those of the live brands (Krizaka, Orazaka, Yomizaka, Akinaza and its copper); a paused product's accent is never offered.
+
+## What is proven
+
+`packages/tokens/test/shop-presets.test.ts` computes, for every preset, in dark and light, on the product register's surfaces 0 to 2 and on the preset's paper, for every accent the preset lists:
+
+- body and small text on the surface: **at least 4.5:1**;
+- the accent as text on the surface: **at least 4.5:1**; the label on the accent button, and on its hover: **at least 4.5:1**;
+- the accent as a fill, a ring or a decoration: **at least 3:1**;
+- the ink on the paper: **at least 7:1**; the hue on the paper: **at least 3:1**.
+
+A combination that fails is removed from the preset's list (the kraft looks do not offer the Krizaka blue in dark, nor Orazaka's orange in light), and a preset that fails does not build. A test also refuses any raw colour in a preset source.
+
+## The photo treatment
+
+The grade (`warm`, `cool`) is a CSS filter on the photo's box, the grain a faint overlay, the radius a token: no photo is re-encoded, and none of it is motion.

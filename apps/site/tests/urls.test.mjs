@@ -18,6 +18,7 @@ test("every old /docs/ui page has its new address", () => {
     navigation: "/foundations/navigation",
     "brand-marks": "/foundations/brand-marks",
     "cahier-site": "/foundations/cahier-site",
+    "shop-presets": "/foundations/shop-presets",
     tailwind: "/packages/tailwind",
     query: "/packages/query",
     config: "/packages/config",

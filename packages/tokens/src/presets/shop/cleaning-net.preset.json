@@ -1,0 +1,33 @@
+{
+  "id": "cleaning-net",
+  "version": 1,
+  "name": "Net",
+  "trades": [
+    "cleaning"
+  ],
+  "paper": "plain",
+  "accent": "krizaka",
+  "accents": [
+    "krizaka",
+    "akinaza",
+    "akinaza:accent-2",
+    "yomizaka"
+  ],
+  "faces": {
+    "title": "product-display",
+    "note": "mono"
+  },
+  "density": "compact",
+  "photo": {
+    "grade": "cool",
+    "grain": 0,
+    "radius": "xs"
+  },
+  "variants": {
+    "hero": "poster",
+    "services": "menu",
+    "booking": "strip",
+    "reviews": "strip",
+    "policies": "inline"
+  }
+}

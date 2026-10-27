@@ -1,0 +1,33 @@
+{
+  "id": "cleaning-forfait",
+  "version": 1,
+  "name": "Forfait",
+  "trades": [
+    "cleaning"
+  ],
+  "paper": "seyes",
+  "accent": "akinaza",
+  "accents": [
+    "akinaza",
+    "akinaza:accent-2",
+    "krizaka",
+    "yomizaka"
+  ],
+  "faces": {
+    "title": "product-display",
+    "note": "mono"
+  },
+  "density": "compact",
+  "photo": {
+    "grade": "none",
+    "grain": 0,
+    "radius": "xs"
+  },
+  "variants": {
+    "hero": "banner",
+    "services": "cards",
+    "booking": "panel",
+    "faq": "list",
+    "policies": "inline"
+  }
+}

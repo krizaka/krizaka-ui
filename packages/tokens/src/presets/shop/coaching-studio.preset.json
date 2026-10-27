@@ -1,0 +1,34 @@
+{
+  "id": "coaching-studio",
+  "version": 1,
+  "name": "Studio",
+  "trades": [
+    "coaching"
+  ],
+  "paper": "plain",
+  "accent": "krizaka",
+  "accents": [
+    "krizaka",
+    "akinaza",
+    "akinaza:accent-2",
+    "yomizaka"
+  ],
+  "faces": {
+    "title": "product-display",
+    "note": "mono"
+  },
+  "density": "compact",
+  "photo": {
+    "grade": "none",
+    "grain": 0,
+    "radius": "xs"
+  },
+  "variants": {
+    "hero": "poster",
+    "services": "cards",
+    "booking": "panel",
+    "reviews": "summary-cards",
+    "story": "owner",
+    "faq": "list"
+  }
+}

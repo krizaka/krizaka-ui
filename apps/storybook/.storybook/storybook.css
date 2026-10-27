@@ -4,6 +4,8 @@
 @import "@krizaka/ui/tailwind.css";
 /* The page blocks' stylesheet (plain CSS, imported once by the app, like a product does). */
 @import "@krizaka/ui/blocks.css";
+/* The look presets of a shop page (`data-shop-preset`): accent, faces, paper, photo treatment, both themes. */
+@import "@krizaka/tokens/shop-presets.css";
 /* The storytelling kit's stylesheet (ScrollStage, ChoiceGrid, ProfileCard, StageBanner, GoalGauge…), the same way. */
 @import "@krizaka/ui/story.css";
 

@@ -1,0 +1,32 @@
+{
+  "id": "workshop-atelier",
+  "version": 1,
+  "name": "Atelier",
+  "trades": [
+    "workshop"
+  ],
+  "paper": "kraft",
+  "accent": "akinaza:accent-2",
+  "accents": [
+    "akinaza:accent-2",
+    "akinaza",
+    "yomizaka"
+  ],
+  "faces": {
+    "title": "display",
+    "note": "cahier"
+  },
+  "density": "airy",
+  "photo": {
+    "grade": "warm",
+    "grain": 1,
+    "radius": "none"
+  },
+  "variants": {
+    "hero": "split",
+    "services": "index",
+    "booking": "panel",
+    "gallery": "wall",
+    "story": "owner"
+  }
+}
