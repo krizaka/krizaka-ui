@@ -24,6 +24,9 @@ export interface AccountMenuLanguage {
   onChange: (value: string) => void;
 }
 
+/** The theme row: the same shape as the language's (a submenu that shows the current choice). */
+export type AccountMenuTheme = AccountMenuLanguage;
+
 export interface AccountMenuProps {
   /** The trigger's accessible name (`Account`). */
   label: string;
@@ -45,7 +48,9 @@ export interface AccountMenuProps {
   linkAs?: React.ElementType;
   /** The language, as a submenu that shows the current one. */
   language?: AccountMenuLanguage;
-  /** Extra rows between the language and Sign out (a theme switch…). */
+  /** The theme (light, dark, system), as a submenu under the language: the family keeps preferences in the account menu. */
+  theme?: AccountMenuTheme;
+  /** Extra rows between the preferences and Sign out. */
   children?: React.ReactNode;
   /** The last row: its words, what it does, an optional icon. */
   signOut: { label: string; onSelect: () => void; icon?: React.ReactNode };
@@ -54,9 +59,8 @@ export interface AccountMenuProps {
 }
 
 /** The account menu: avatar trigger → identity header, links, language submenu, Sign out. */
-export function AccountMenu({ label, name, email, avatar, showName = true, links = [], linkAs: Link = "a", language, children, signOut, className }: AccountMenuProps) {
+export function AccountMenu({ label, name, email, avatar, showName = true, links = [], linkAs: Link = "a", language, theme, children, signOut, className }: AccountMenuProps) {
   const title = name || email || "";
-  const current = language?.options.find((o) => o.value === language.value)?.label;
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger
@@ -90,24 +94,9 @@ export function AccountMenu({ label, name, email, avatar, showName = true, links
             </Link>
           </DropdownMenu.Item>
         ))}
-        {(language || children) && <DropdownMenu.Separator />}
-        {language && (
-          <DropdownMenu.Sub>
-            <DropdownMenu.SubTrigger>
-              {language.label}
-              {current && <span className="ml-auto mr-1 text-xs text-fg-secondary">{current}</span>}
-            </DropdownMenu.SubTrigger>
-            <DropdownMenu.SubContent>
-              <DropdownMenu.RadioGroup value={language.value} onValueChange={language.onChange}>
-                {language.options.map((o) => (
-                  <DropdownMenu.RadioItem key={o.value} value={o.value}>
-                    {o.label}
-                  </DropdownMenu.RadioItem>
-                ))}
-              </DropdownMenu.RadioGroup>
-            </DropdownMenu.SubContent>
-          </DropdownMenu.Sub>
-        )}
+        {(language || theme || children) && <DropdownMenu.Separator />}
+        {language && <Choice {...language} />}
+        {theme && <Choice {...theme} />}
         {children}
         <DropdownMenu.Separator />
         <DropdownMenu.Item onSelect={() => signOut.onSelect()}>
@@ -116,5 +105,27 @@ export function AccountMenu({ label, name, email, avatar, showName = true, links
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
+  );
+}
+
+/** A preference as a submenu that names the current choice. */
+function Choice({ label, value, options, onChange }: AccountMenuLanguage) {
+  const current = options.find((o) => o.value === value)?.label;
+  return (
+    <DropdownMenu.Sub>
+      <DropdownMenu.SubTrigger>
+        {label}
+        {current && <span className="ml-auto mr-1 text-xs text-fg-secondary">{current}</span>}
+      </DropdownMenu.SubTrigger>
+      <DropdownMenu.SubContent>
+        <DropdownMenu.RadioGroup value={value} onValueChange={onChange}>
+          {options.map((o) => (
+            <DropdownMenu.RadioItem key={o.value} value={o.value}>
+              {o.label}
+            </DropdownMenu.RadioItem>
+          ))}
+        </DropdownMenu.RadioGroup>
+      </DropdownMenu.SubContent>
+    </DropdownMenu.Sub>
   );
 }

@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Account menu",
-  summary: "The menu under a signed-in person's avatar: who they are, their profile and settings, the language as a compact submenu, Sign out.",
+  summary: "The menu under a signed-in person's avatar: who they are, their profile and settings, the language and the theme as compact submenus, Sign out.",
   status: "beta",
   category: "navigation",
   platforms: "web",
