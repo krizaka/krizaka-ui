@@ -77,6 +77,20 @@ export function readTable(search: string, key: string, defaults: RouteDefaults, 
 
 type Change = { sort?: RouteSort; filters?: DataTableFilterState; page?: number };
 
+/** Replaces the table's filter parameters: none when they equal the defaults, a marker when they were all cleared. */
+function writeFilters(params: URLSearchParams, key: string, filters: DataTableFilterState, defaults: RouteDefaults): void {
+  for (const name of [...params.keys()]) if (name.startsWith(filterPrefix(key)) || name === clearedFilters(key)) params.delete(name);
+  if (sameFilters(filters, defaults.filters ?? {})) return;
+  let written = 0;
+  for (const [column, value] of Object.entries(filters)) {
+    const encoded = encodeFilter(value);
+    if (encoded === "" || encoded === "[]") continue;
+    params.set(`${filterPrefix(key)}${column}`, encoded);
+    written += 1;
+  }
+  if (written === 0) params.set(clearedFilters(key), "");
+}
+
 /**
  * The query string with the table's parameters changed; every other parameter is kept. A change of sort or filters goes
  * back to the first page (as the table does) unless it says otherwise; a value equal to the default is not written.
@@ -87,20 +101,7 @@ export function writeTable(search: string, key: string, change: Change, defaults
     if (sameSort(change.sort, defaults.sort)) params.delete(`${key}.sort`);
     else params.set(`${key}.sort`, encodeSort(change.sort));
   }
-  if (change.filters !== undefined) {
-    for (const name of [...params.keys()]) if (name.startsWith(filterPrefix(key)) || name === clearedFilters(key)) params.delete(name);
-    if (!sameFilters(change.filters, defaults.filters ?? {})) {
-      let written = 0;
-      for (const [column, value] of Object.entries(change.filters)) {
-        const encoded = encodeFilter(value);
-        if (encoded !== "" && encoded !== "[]") {
-          params.set(`${filterPrefix(key)}${column}`, encoded);
-          written += 1;
-        }
-      }
-      if (written === 0) params.set(clearedFilters(key), "");
-    }
-  }
+  if (change.filters !== undefined) writeFilters(params, key, change.filters, defaults);
   const page = change.page ?? (change.sort !== undefined || change.filters !== undefined ? 1 : undefined);
   if (page !== undefined) {
     if (page === defaults.page) params.delete(`${key}.page`);

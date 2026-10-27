@@ -167,6 +167,61 @@ const Count = ({ n }: { n?: number }) =>
     </>
   );
 
+/** The current id when it is one of these items, otherwise nothing selected. */
+const selectedIn = (items: readonly SavedViewItem[], current: string | null | undefined) => (items.some((v) => v.id === current) ? (current ?? "") : "");
+
+/** The name form of a save (new view) or of a rename, whichever is open; nothing when neither is. */
+function ActiveForm({
+  saving,
+  renamed,
+  labels,
+  maxLength,
+  onSave,
+  onRename,
+  setSaving,
+  setRenaming,
+}: {
+  saving: boolean;
+  renamed: SavedViewItem | undefined;
+  labels: SavedViewsLabels;
+  maxLength: number;
+  onSave: ((name: string) => void) | undefined;
+  onRename: ((id: string, name: string) => void) | undefined;
+  setSaving: (on: boolean) => void;
+  setRenaming: (id: string | null) => void;
+}) {
+  if (saving) {
+    return (
+      <NameForm
+        label={labels.name}
+        confirm={labels.confirm}
+        cancel={labels.cancel}
+        maxLength={maxLength}
+        onCancel={() => setSaving(false)}
+        onSubmit={(name) => {
+          setSaving(false);
+          onSave?.(name);
+        }}
+      />
+    );
+  }
+  if (!renamed) return null;
+  return (
+    <NameForm
+      label={labels.name}
+      initial={renamed.label}
+      confirm={labels.confirm}
+      cancel={labels.cancel}
+      maxLength={maxLength}
+      onCancel={() => setRenaming(null)}
+      onSubmit={(name) => {
+        setRenaming(null);
+        onRename?.(renamed.id, name);
+      }}
+    />
+  );
+}
+
 /** The views of a list: chips with counts on a wide screen, one menu on a phone; save, rename and delete; the mark of a modified view. */
 export function SavedViews({ views, current, modified, onSelect, onSave, onRename, onDelete, linkAs, maxLength = 80, labels: given, className }: SavedViewsProps) {
   const labels: SavedViewsLabels = { ...savedViewsLabels, ...given, groups: { ...savedViewsLabels.groups, ...given?.groups } };
@@ -180,32 +235,9 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
   const grouped = GROUPS.map((group) => ({ group, items: views.filter((v) => v.group === group) })).filter((g) => g.items.length > 0);
   const renamed = views.find((v) => v.id === renaming);
 
-  const form = saving ? (
-    <NameForm
-      label={labels.name}
-      confirm={labels.confirm}
-      cancel={labels.cancel}
-      maxLength={maxLength}
-      onCancel={() => setSaving(false)}
-      onSubmit={(name) => {
-        setSaving(false);
-        onSave?.(name);
-      }}
-    />
-  ) : renamed ? (
-    <NameForm
-      label={labels.name}
-      initial={renamed.label}
-      confirm={labels.confirm}
-      cancel={labels.cancel}
-      maxLength={maxLength}
-      onCancel={() => setRenaming(null)}
-      onSubmit={(name) => {
-        setRenaming(null);
-        onRename?.(renamed.id, name);
-      }}
-    />
-  ) : null;
+  const form = (
+    <ActiveForm saving={saving} renamed={renamed} labels={labels} maxLength={maxLength} onSave={onSave} onRename={onRename} setSaving={setSaving} setRenaming={setRenaming} />
+  );
 
   const actions =
     canChange && active && (onRename || onDelete) ? (
@@ -258,7 +290,7 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
                 type="single"
                 size="sm"
                 label={labels.groups[group]}
-                value={items.some((v) => v.id === current) ? (current ?? "") : ""}
+                value={selectedIn(items, current)}
                 onValueChange={(id) => id && onSelect?.(id)}
               >
                 {items.map((view) => (
@@ -289,7 +321,7 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
               <React.Fragment key={group}>
                 {index > 0 ? <DropdownMenu.Separator /> : null}
                 <DropdownMenu.Label>{labels.groups[group]}</DropdownMenu.Label>
-                <MenuPrimitive.RadioGroup value={items.some((v) => v.id === current) ? (current ?? "") : ""}>
+                <MenuPrimitive.RadioGroup value={selectedIn(items, current)}>
                   {items.map((view) =>
                     view.href ? (
                       <DropdownMenu.Item key={view.id} asChild>
