@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/app-desktop",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "What every Krizaka Mac app (Tauri 2) calls on its native side, typed: folder grants and watched folders, dropped files, the Keychain as @krizaka/app-client's storage, the native menu bar, deep links and the update channel — over tauri-plugin-krizaka. Tauri is passed in, never imported.",
   "keywords": [
     "krizaka",
