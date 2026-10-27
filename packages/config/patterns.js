@@ -48,6 +48,84 @@ export const FETCH_CALL_SOURCE = String.raw`\b(?:fetch|krizakaFetch)\s*\(`;
 export const EFFECT_NAMES_SOURCE = "^use(Layout)?Effect$";
 export const FETCH_NAMES_SOURCE = "^(fetch|krizakaFetch)$";
 
+// ── Effects are for the outside world (Oussama, 2026-10-27: « bug à adresser partout ») ─────────────────────────────
+// Standard: krizaka/.github docs/standards/react-effects.md. Read by the rules `krizaka/no-async-in-effect` and
+// `krizaka/no-derived-state-in-effect` (eslint/rules.js) and by the ratchet, through `effectProblem`.
+
+/** What makes an effect load data: an await, `.then(`, `fetch(`, a Tauri `invoke(`, `api.x(`, `fooClient.x(`. */
+export const ASYNC_EFFECT_SOURCE = String.raw`\bawait\b|\.then\s*\(|\b(?:fetch|krizakaFetch|invoke)\s*\(|\bapi\.\w+|\b\w*Client\.\w+\s*\(`;
+
+/** A subscription to a system that pushes events: its callback may be async, the cleanup undoes it. */
+export const SUBSCRIBE_EFFECT_SOURCE = String.raw`\b(?:listen|once|addEventListener|subscribe|addListener|new\s+(?:WebSocket|EventSource|ResizeObserver|IntersectionObserver|MutationObserver|BroadcastChannel)|\w+\.on)\s*\(`;
+
+/**
+ * Text with its strings, template literals and comments blanked (same length), so a keyword in a string is not read.
+ * @param {string} source
+ * @returns {string}
+ */
+export function blankStrings(source) {
+  let out = "";
+  for (let i = 0; i < source.length; i += 1) {
+    const c = source[i];
+    if (c === '"' || c === "'" || c === "`") {
+      let j = i + 1;
+      for (; j < source.length && source[j] !== c; j += 1) if (source[j] === "\\") j += 1;
+      out += c + " ".repeat(Math.max(0, j - i - 1)) + c;
+      i = j;
+    } else if (c === "/" && source[i + 1] === "/") {
+      const end = source.indexOf("\n", i);
+      const stop = end < 0 ? source.length : end;
+      out += " ".repeat(stop - i);
+      i = stop - 1;
+    } else if (c === "/" && source[i + 1] === "*") {
+      const end = source.indexOf("*/", i + 2);
+      const stop = end < 0 ? source.length : end + 2;
+      out += source.slice(i, stop).replace(/[^\n]/g, " ");
+      i = stop - 1;
+    } else out += c;
+  }
+  return out;
+}
+
+/**
+ * Removes every `setX(…)` call (balanced) from a blanked text.
+ * @param {string} text
+ * @returns {{ rest: string, found: number }}
+ */
+function withoutSetStateCalls(text) {
+  let out = "";
+  let found = 0;
+  const re = /\bset[A-Z]\w*\s*\(/g;
+  let last = 0;
+  for (let m = re.exec(text); m; m = re.exec(text)) {
+    const open = m.index + m[0].length - 1;
+    const inner = balancedArguments(text, open);
+    out += text.slice(last, m.index);
+    last = open + inner.length + 2;
+    re.lastIndex = last;
+    found += 1;
+  }
+  return { rest: out + text.slice(last), found };
+}
+
+/**
+ * What an effect body is wrong about: `"async"` (it loads data — use `useQuery` / `useMutation`) or `"derived"` (its
+ * only statements are `setX(…)` calls — compute the value in render, or reset with a `key`), else null.
+ * A subscribe-and-cleanup effect (a push source and a `return` that undoes it) is the legitimate use and is never wrong.
+ * @param {string} body the text of the effect callback (with or without its braces)
+ * @returns {"async" | "derived" | null}
+ */
+export function effectProblem(body) {
+  // the ratchet passes the whole callback (`() => { … }`), the ESLint rule its body: strip the signature
+  const text = blankStrings(body).replace(/^\s*(?:async\s+)?(?:function\s*\w*\s*\([^)]*\)|\([^)]*\)|\w+)\s*(?:=>)?/, (head) => (/=>|function/.test(head) ? "" : head));
+  if (new RegExp(SUBSCRIBE_EFFECT_SOURCE).test(text) && /\breturn\b/.test(text)) return null;
+  if (new RegExp(ASYNC_EFFECT_SOURCE).test(text)) return "async";
+  const { rest, found } = withoutSetStateCalls(text);
+  if (found === 0) return null;
+  const leftover = rest.replace(/\b(?:if|else)\b/g, "").replace(/\([^()]*(?:\([^()]*\)[^()]*)*\)/g, "").replace(/[\s;{}]/g, "");
+  return leftover === "" ? "derived" : null;
+}
+
 /** The headless engines that only enter through a `@krizaka/*` package. */
 export const TANSTACK_SCOPE = "@tanstack/";
 
