@@ -55,7 +55,7 @@ export type FootnotesProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & 
 /** The notes at the foot of a page: a short rule, numbered notes in small print, each with its way back to the text. */
 export function Footnotes({ notes, prefix = "fn", label = "Notes", backLabel = "Back to the text", className, ...props }: FootnotesProps) {
   return (
-    <aside aria-label={label} className={cn("kz-footnotes", className)} {...props}>
+    <section aria-label={label} className={cn("kz-footnotes", className)} {...props}>
       <ol>
         {notes.map((note, i) => (
           <li key={i} id={`${prefix}-${i + 1}`}>
@@ -66,6 +66,6 @@ export function Footnotes({ notes, prefix = "fn", label = "Notes", backLabel = "
           </li>
         ))}
       </ol>
-    </aside>
+    </section>
   );
 }
