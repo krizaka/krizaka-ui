@@ -20,7 +20,7 @@ for f in packages/*/package.json; do
   if env -u NODE_AUTH_TOKEN NPM_CONFIG_USERCONFIG="$tmp/oidc.npmrc" npm publish "$tgz" --access public --provenance --loglevel verbose 2>&1 | tee "$tmp/log"; then
     echo "$name@$ver published via OIDC"; continue
   fi
-  if node tools/npm-publish-error.mjs "$tmp/log"; then
+  if node tools/npm-publish-error.mjs < "$tmp/log"; then
     echo "::warning::$name: trusted publisher not configured or mismatched (OIDC publish failed), retrying with NPM_TOKEN"
     NPM_CONFIG_USERCONFIG="$tmp/token.npmrc" npm publish "$tgz" --access public --provenance
     echo "$name@$ver published via NPM_TOKEN"
