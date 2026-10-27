@@ -48,16 +48,16 @@ jobs:
         uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2
         with:
           version-script: pnpm changeset version
-          publish-script: bash tools/publish-packages.sh   # @krizaka/ui by OIDC (trusted publishing), the others by NPM_TOKEN; tags @krizaka/ui@2.0.0…
+          publish-script: bash tools/publish-packages.sh   # every package by OIDC first, NPM_TOKEN as the logged fallback; tags
           pr-title: "chore: version packages"
           github-token: ${{ steps.app.outputs.token || secrets.GITHUB_TOKEN }}
         env:
           NPM_CONFIG_PROVENANCE: "true"
           # npm answered E404 to the OIDC (trusted publishing) PUT: the packages have no trusted publisher yet. An automation
           # token (repository secret NPM_TOKEN) authenticates the publish; provenance still comes from id-token.
-          # @krizaka/ui alone has a trusted publisher now: tools/publish-packages.sh publishes it WITHOUT this token (npm docs,
+          # Every package is tried by OIDC first (no token); tools/publish-packages.sh uses this token only when npm answers ENEEDAUTH / 404
           # « Trusted publishing for npm packages »: the CLI uses OIDC credentials before falling back to tokens; the script removes the
-          # token so precedence cannot matter). The other packages keep it until their trusted publishers are configured.
+          # for a package whose trusted publisher is not configured yet (a ::warning:: names it).
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # changesets/action publishes only when NO changeset is pending; while other PRs keep merging it only re-opens the version PR,

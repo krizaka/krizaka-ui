@@ -142,5 +142,15 @@
     "button": "Confirm the change",
     "ignore": "If it wasn't you, ignore this email: the address of the account stays as it is.",
     "why": "You receive this email because this address was given as the new address of an account."
+  },
+  "shareLink": {
+    "subject": "{name} shared a {brand} report with you",
+    "preheader": "{name} sent you a read-only link, valid until {date}.",
+    "heading": "{name} shared a report with you",
+    "body": "{name} sent you a read-only link on {brand}. Open it to read; nothing can be changed from it.",
+    "button": "Open the report",
+    "expiry": "The link works until {date}.",
+    "ignore": "If you weren't expecting this, ignore this email: nothing happens unless you open the link.",
+    "why": "You receive this email because {name} chose to share a link with you."
   }
 }
