@@ -5,7 +5,7 @@ import { ServicesSection } from "@krizaka/ui/shop/services";
 // Services · carousel: the same resolved services, another drawing.
 export default function ShopCarousel() {
   return (
-    <ShopFrame density="compact" preset="pets-canal">
+    <ShopFrame density="compact">
       <ServicesSection variant="carousel" title="Walks and visits" services={demoPets.services} chooseLabel="Choose" popularLabel="Popular" />
     </ShopFrame>
   );
