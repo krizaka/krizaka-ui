@@ -175,6 +175,9 @@ async function main() {
       const from = m.location()?.url ? ` (${m.location().url.replace(origin, "")})` : "";
       // A third-party player (YouTube's embed) complains about its own permissions policy: not our page's error.
       if (/^Permissions policy violation: .* is not allowed in this document/.test(text) && m.location()?.url && !m.location().url.startsWith(origin)) return;
+      // The console of a third-party embed that a click woke (Instagram's reel player, a report-only CSP, its own error
+      // handler) is that site's, not this page's: the page's own errors keep their origin and are still reported.
+      if (phase === "interaction" && /^https?:\/\//.test(m.location()?.url ?? "") && !m.location().url.startsWith(origin)) return;
       note(REACT_ERROR.test(text) ? "react-error" : phase === "interaction" ? "interaction-error" : "console-error", text.slice(0, 220) + from);
     });
     page.on("pageerror", (e) => note(REACT_ERROR.test(e.message) ? "react-error" : phase === "interaction" ? "interaction-error" : "page-error", e.message.slice(0, 220)));
