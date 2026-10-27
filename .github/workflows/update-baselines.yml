@@ -3,7 +3,8 @@ name: Update baselines
 # The Storybook screenshot baselines are Linux ones, compared pixel by pixel by CI. Running `test:update` locally means an
 # amd64 Docker run on a Mac (over an hour). This workflow does it on a runner, in the same Playwright image as the CI check
 # (keep the tag equal to ci.yml's), and pushes only the changed snapshots to the branch.
-#   Actions > Update baselines > Run workflow > branch    or    comment `/update-baselines` on a pull request (maintainers).
+#   Actions > Update baselines > Run workflow > branch   (or: gh workflow run update-baselines.yml -f branch=<branch>).
+# Manual only, on purpose: a pull-request comment trigger would check out a branch's code in a job holding the App key.
 
 on:
   workflow_dispatch:
@@ -12,24 +13,17 @@ on:
         description: Branch to update (never main or production)
         required: true
         type: string
-  issue_comment:
-    types: [created]
 
 permissions:
   contents: read
 
 concurrency:
-  group: update-baselines-${{ github.event.inputs.branch || github.event.issue.number }}
+  group: update-baselines-${{ github.event.inputs.branch }}
   cancel-in-progress: false
 
 jobs:
   update:
     name: Update the screenshot baselines
-    # A comment counts only on a pull request, exactly `/update-baselines`, from someone who can push.
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      (github.event.issue.pull_request && startsWith(github.event.comment.body, '/update-baselines') &&
-       contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association))
     runs-on: ubuntu-latest
     timeout-minutes: 60
     container: mcr.microsoft.com/playwright:v1.64.0-noble
@@ -43,18 +37,11 @@ jobs:
           app-id: ${{ vars.RELEASE_APP_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
           permission-contents: write
-          permission-pull-requests: read
       - id: target
         env:
-          GH_TOKEN: ${{ steps.app.outputs.token }}
           INPUT_BRANCH: ${{ github.event.inputs.branch }}
-          PR_NUMBER: ${{ github.event.issue.number }}
         run: |
           branch="$INPUT_BRANCH"
-          if [ "$GITHUB_EVENT_NAME" = issue_comment ]; then
-            read -r branch same < <(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" --jq '[.head.ref, (.head.repo.full_name == .base.repo.full_name)] | @tsv')
-            [ "$same" = true ] || { echo "::error::Pull request from a fork: refusing."; exit 1; }
-          fi
           case "$branch" in
             ""|main|production|refs/*|-*|*..*) echo "::error::Refusing branch '$branch'."; exit 1;;
           esac
