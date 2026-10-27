@@ -1,6 +1,7 @@
 import { accountDeletion, commentReply, confirmEmail, dataExport, emailChange, passwordReset, signInLink } from "./accounts";
 import { contactAutoreply, contactNotification } from "./contact";
 import { newPost, newsletterConfirm, newsletterUnsubscribed, newsletterWelcome } from "./newsletter";
+import { shareLink } from "./sharing";
 
 /** Every template of Krizaka's emails, by id. */
 export const templates = {
@@ -17,6 +18,7 @@ export const templates = {
   confirmEmail,
   passwordReset,
   emailChange,
+  shareLink,
 } as const;
 
 export type TemplateId = keyof typeof templates;

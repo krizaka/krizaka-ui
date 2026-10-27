@@ -142,5 +142,15 @@
     "button": "Confirmer le changement",
     "ignore": "Si ce n'était pas vous, ignorez ce courriel : l'adresse du compte reste telle quelle.",
     "why": "Vous recevez ce courriel parce que cette adresse a été donnée comme nouvelle adresse d'un compte."
+  },
+  "shareLink": {
+    "subject": "{name} a partagé un rapport {brand} avec vous",
+    "preheader": "{name} vous a envoyé un lien en lecture seule, valable jusqu'au {date}.",
+    "heading": "{name} a partagé un rapport avec vous",
+    "body": "{name} vous a envoyé un lien en lecture seule sur {brand}. Ouvrez-le pour le lire ; rien ne peut y être modifié.",
+    "button": "Ouvrir le rapport",
+    "expiry": "Le lien fonctionne jusqu'au {date}.",
+    "ignore": "Si vous n'attendiez pas ce courriel, ignorez-le : il ne se passe rien tant que vous n'ouvrez pas le lien.",
+    "why": "Vous recevez ce courriel parce que {name} a choisi de partager un lien avec vous."
   }
 }
