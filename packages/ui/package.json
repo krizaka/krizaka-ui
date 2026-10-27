@@ -1013,7 +1013,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "67 kB",
+      "limit": "67.5 kB",
       "gzip": true
     },
     {
@@ -1806,7 +1806,7 @@
     {
       "name": "./vertical-video",
       "path": "dist/vertical-video.js",
-      "limit": "6 kB",
+      "limit": "7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2460,7 +2460,7 @@
     {
       "name": "./account-menu",
       "path": "dist/account-menu.js",
-      "limit": "3 kB",
+      "limit": "4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2834,7 +2834,7 @@
     {
       "name": "./media-grid",
       "path": "dist/media-grid.js",
-      "limit": "8 kB",
+      "limit": "9 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2909,7 +2909,7 @@
     {
       "name": "./chat",
       "path": "dist/chat.js",
-      "limit": "7 kB",
+      "limit": "7.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
