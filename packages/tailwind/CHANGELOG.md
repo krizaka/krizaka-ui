@@ -1,5 +1,14 @@
 # @krizaka/tailwind
 
+## 3.64.1
+
+### Patch Changes
+
+- [#765](https://github.com/krizaka/krizaka-ui/pull/765) [`412d948`](https://github.com/krizaka/krizaka-ui/commit/412d948a3386262b80b68bae03630c1b81dc65ca) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Release bump: 3.64.0 was already on npm (published before the B70 pull requests merged) when the shop surfaces were versioned as 3.64.0 on main. This patch publishes them: `@krizaka/ui/shop` and its sections (`shop/hero`, `services`, `booking`, `gallery`, `video`, `reviews`, `bulletin`, `team`, `visit`, `story`, `social`, `faq`, `policies`, `map-gate`, `demo`), `@krizaka/ui/shop-composer`, and the look presets of `@krizaka/tokens` (`shop-presets.css`, `shop-presets`) (krizaka-ui#742, [#744](https://github.com/krizaka/krizaka-ui/issues/744), [#745](https://github.com/krizaka/krizaka-ui/issues/745), [#746](https://github.com/krizaka/krizaka-ui/issues/746)).
+- Updated dependencies [[`412d948`](https://github.com/krizaka/krizaka-ui/commit/412d948a3386262b80b68bae03630c1b81dc65ca)]:
+  - @krizaka/ui@3.64.1
+  - @krizaka/tokens@3.64.1
+
 ## 3.64.0
 
 ### Patch Changes
