@@ -74,6 +74,8 @@ export default defineConfig([
       progress: "src/progress/index.ts",
       waveform: "src/waveform/index.ts",
       "qr-code": "src/qr-code/index.ts",
+      "entity-header": "src/entity-header/index.ts",
+      "collection-switcher": "src/collection-switcher/index.ts",
       "section-backdrop": "src/section-backdrop/index.ts",
       iso: "src/iso/index.ts",
       stepper: "src/stepper/index.ts",
