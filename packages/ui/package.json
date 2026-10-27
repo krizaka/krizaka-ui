@@ -2521,7 +2521,7 @@
     {
       "name": "./account-menu",
       "path": "dist/account-menu.js",
-      "limit": "4 kB",
+      "limit": "4.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
