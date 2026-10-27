@@ -1,0 +1,70 @@
+// Server-safe. The frame and the rhythm of a shop page (ADR-007 §2): every section draws inside the page frame between the
+// gutters (`bleed` for a photo only), one vertical rhythm set by the density, a hairline between sections. No section sets
+// its own margin: it only says what it holds.
+import * as React from "react";
+
+import { cn } from "../cn";
+import { Page, SectionHeading } from "../page/page";
+
+/** A photo the product resolved: the address, its words, and the widths it has (`srcSet`). */
+export type ShopPhoto = {
+  src: string;
+  /** What it shows, in words; empty when it only sets a mood. */
+  alt: string;
+  /** The widths the product holds (`/a-480.avif 480w, /a-960.avif 960w`); the section brings the `sizes`. */
+  srcSet?: string;
+};
+
+export type ShopFrameProps = React.HTMLAttributes<HTMLDivElement> & {
+  /** The look preset (`salon-vitrine`, `@krizaka/tokens`): its tokens apply to everything inside. */
+  preset?: string;
+  /**
+   * The rhythm: `compact` 40 px between sections (24 on a phone), `airy` 64 px (40). The document's, or the preset's.
+   * @default "compact"
+   */
+  density?: "compact" | "airy";
+};
+
+/** The page: sets the preset and the density the sections below read. */
+export function ShopFrame({ preset, density = "compact", className, ...props }: ShopFrameProps) {
+  return <div data-shop-preset={preset} data-density={density} className={cn("kz-shop", className)} {...props} />;
+}
+
+export type ShopSectionProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & {
+  /** The section's id: the anchor, and the heading's id. */
+  id?: string;
+  /** The `h2`. Without one the section is named by `aria-label`. */
+  title?: React.ReactNode;
+  /** A short lower-case note above the title. */
+  eyebrow?: React.ReactNode;
+  /** One sentence under the title. */
+  lead?: React.ReactNode;
+  /** A link or a button on the right of the heading (« All times → »). */
+  actions?: React.ReactNode;
+  /** The content reaches the edges of the screen (a photo, a strip); the heading stays on the frame. */
+  bleed?: boolean;
+  /** The section is the page's first (the hero): no hairline, no padding. */
+  first?: boolean;
+};
+
+/** A section of a shop page. */
+export function ShopSection({ id, title, eyebrow, lead, actions, bleed, first, className, children, ...props }: ShopSectionProps) {
+  const auto = React.useId();
+  const headingId = title ? `${id ?? auto}-title` : undefined;
+  const heading = title ? <SectionHeading id={headingId} size="sm" eyebrow={eyebrow} title={title} lead={lead} actions={actions} /> : null;
+  return (
+    <section id={id} aria-labelledby={headingId} data-first={first ? "" : undefined} data-bleed={bleed ? "" : undefined} className={cn("kz-shop-section", className)} {...props}>
+      {bleed ? (
+        <>
+          {heading && <Page>{heading}</Page>}
+          {children}
+        </>
+      ) : (
+        <Page>
+          {heading}
+          {children}
+        </Page>
+      )}
+    </section>
+  );
+}

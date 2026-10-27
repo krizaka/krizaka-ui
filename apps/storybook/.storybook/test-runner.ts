@@ -27,6 +27,8 @@ const FIXTURES = join(process.cwd(), "fixtures");
 const FIRST_PARTY = /(^|\.)krizaka\.com$/;
 const routed = new WeakSet<object>();
 const missing: string[] = [];
+// The viewport every story starts from: a failed story must not leave the next one at a phone's width.
+let startViewport: { width: number; height: number } | null = null;
 const THEMES = ["dark", "light"] as const;
 
 const config: TestRunnerConfig = {
@@ -34,6 +36,8 @@ const config: TestRunnerConfig = {
     expect.extend({ toMatchImageSnapshot });
   },
   async preVisit(page) {
+    startViewport ??= page.viewportSize();
+    if (startViewport) await page.setViewportSize(startViewport);
     // Every story starts in dark: the previous story's light pass must not leak into the next one (the page is reused,
     // and the native frame reads `html.light` when it mounts).
     await page.evaluate(() => document.documentElement.classList.remove("light"));
@@ -74,6 +78,13 @@ const config: TestRunnerConfig = {
         return { pageOverflow: document.documentElement.scrollWidth > w, bad };
       });
       expect(out).toEqual({ pageOverflow: false, bad: [] });
+    }
+    // `parameters.maxHeight`: a section is at most so high at this width (a layout budget: ADR-007's compact price board).
+    if (story.parameters?.maxHeight) {
+      const { selector, px } = story.parameters.maxHeight as { selector: string; px: number };
+      await page.waitForFunction((sel: string) => document.querySelector(sel) !== null, selector);
+      const height = await page.evaluate((sel: string) => document.querySelector(sel)!.getBoundingClientRect().height, selector);
+      expect({ selector, height: Math.ceil(height), within: Math.ceil(height) <= px }).toEqual({ selector, height: Math.ceil(height), within: true });
     }
     // @krizaka/charts: an ECharts engine and the world's countries load lazily (`data-pending` until drawn).
     await page.waitForFunction(() => !document.querySelector("[data-pending]"), undefined, { timeout: 15_000 });

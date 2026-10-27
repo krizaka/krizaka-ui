@@ -53,12 +53,15 @@ export const serviceCard = tv({
         foot: "border-t-0 pt-1",
       },
     },
+    // `density="list"` is deprecated (ADR-007): a list of services is `ServicesSection variant="menu"` of `@krizaka/ui/shop/services`.
     density: { grid: {}, list: {} },
+    // The photo's box: the wide 16:9 band, or the 4:3 of `services · cards` (ADR-007 §6).
+    mediaRatio: { wide: {}, photo: { media: "aspect-[4/3]" } },
   },
   compoundVariants: [
     { variant: "index", density: "list", class: { root: "sm:flex-row", media: "sm:aspect-auto sm:w-1/3 sm:shrink-0", body: "sm:flex-1" } },
   ],
-  defaultVariants: { variant: "default", density: "grid" },
+  defaultVariants: { variant: "default", density: "grid", mediaRatio: "wide" },
 });
 
 export type ServiceCardProps = Omit<React.ComponentProps<"article">, "title" | "children"> & {
@@ -100,9 +103,15 @@ export type ServiceCardProps = Omit<React.ComponentProps<"article">, "title" | "
   variant?: "default" | "index";
   /**
    * `variant="index"`: `list` lays the card out as a row for a single column (the media on the left from `sm`).
+   * @deprecated Since 3.64: use `ServicesSection variant="menu"` of `@krizaka/ui/shop/services` (the compact price board). Removed in 4.0.0.
    * @default "grid"
    */
   density?: "grid" | "list";
+  /**
+   * The photo's box: `wide` (16:9) or `photo` (4:3).
+   * @default "wide"
+   */
+  mediaRatio?: "wide" | "photo";
   /**
    * The heading level of the name.
    * @default "h3"
@@ -114,9 +123,9 @@ export type ServiceCardProps = Omit<React.ComponentProps<"article">, "title" | "
 
 /** A service as a card: icon or photo, duration, price, what is included, the capacity, a tag — one way in. */
 export function ServiceCard({
-  name, price, priceFrom, duration, capacity, description, included, tag, icon, media, selected, actionLabel, href, linkAs, onSelect, titleAs: Title = "h3", reveal, variant = "default", density = "grid", className, style, ...props
+  name, price, priceFrom, duration, capacity, description, included, tag, icon, media, selected, actionLabel, href, linkAs, onSelect, titleAs: Title = "h3", reveal, variant = "default", density = "grid", mediaRatio = "wide", className, style, ...props
 }: ServiceCardProps) {
-  const s = serviceCard({ variant, density });
+  const s = serviceCard({ variant, density, mediaRatio });
   const index = variant === "index";
   const id = React.useId();
   const facts = [duration, capacity].filter(Boolean);
