@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 3.67.1
+
+### Patch Changes
+
+- [#781](https://github.com/krizaka/krizaka-ui/pull/781) [`209618f`](https://github.com/krizaka/krizaka-ui/commit/209618fc4e32e620ae426b0598f1f7889ba7a1d9) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Fix 37 SonarCloud bugs in the published packages (comparators, regular expressions, number parsing). No API change. @krizaka/tokens and @krizaka/tailwind follow @krizaka/ui (fixed group).
+- Updated dependencies []:
+  - @krizaka/tailwind@3.67.1
+  - @krizaka/tokens@3.67.1
+
 ## 3.67.0
 
 ### Minor Changes

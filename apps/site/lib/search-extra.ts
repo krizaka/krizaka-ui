@@ -92,6 +92,6 @@ export function componentSearchContents(item: SearchableItem): SearchContent[] {
 
 /** The tokens page's extra words: every --kz-* custom property @krizaka/tokens defines (`tokens`: key → `var(--kz-…)`). */
 export function tokenSearchContents(tokens: Readonly<Record<string, unknown>>): SearchContent[] {
-  const names = [...new Set(Object.values(tokens).flatMap((v) => String(v).match(/--kz-[\w-]+/g) ?? []))].sort();
+  const names = [...new Set(Object.values(tokens).flatMap((v) => String(v).match(/--kz-[\w-]+/g) ?? []))].sort((a, b) => a.localeCompare(b));
   return names.map((name) => ({ content: name }));
 }

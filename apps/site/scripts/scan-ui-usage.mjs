@@ -124,7 +124,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       }
     }
   }
-  const sorted = Object.fromEntries(Object.keys(components).sort().map((k) => [k, Object.fromEntries(Object.entries(components[k]).sort())]));
+  const sorted = Object.fromEntries(Object.keys(components).sort((a, b) => a.localeCompare(b)).map((k) => [k, Object.fromEntries(Object.entries(components[k]).sort(([a], [b]) => a.localeCompare(b)))]));
   const out = { scannedAt: new Date().toLocaleDateString("sv"), repos, components: sorted };
   writeFileSync(path.join(root, "lib", "ui-usage.json"), `${JSON.stringify(out, null, 2)}\n`);
   console.log(`ui-usage: ${Object.keys(sorted).length} components used by ${Object.keys(repos).join(", ")} → lib/ui-usage.json`);

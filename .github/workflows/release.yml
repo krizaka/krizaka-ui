@@ -10,7 +10,7 @@ jobs:
     permissions: { contents: write, pull-requests: write, id-token: write }
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-        with: { fetch-depth: 0 }
+        with: { fetch-depth: 0, persist-credentials: false }
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with: { node-version: 22, cache: pnpm, registry-url: https://registry.npmjs.org }
@@ -48,13 +48,16 @@ jobs:
         uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2
         with:
           version-script: pnpm changeset version
-          publish-script: pnpm changeset publish   # → npm publish --provenance ; tags @krizaka/ui@2.0.0, @krizaka/tokens@1.0.0…
+          publish-script: bash tools/publish-packages.sh   # @krizaka/ui by OIDC (trusted publishing), the others by NPM_TOKEN; tags @krizaka/ui@2.0.0…
           pr-title: "chore: version packages"
           github-token: ${{ steps.app.outputs.token || secrets.GITHUB_TOKEN }}
         env:
           NPM_CONFIG_PROVENANCE: "true"
           # npm answered E404 to the OIDC (trusted publishing) PUT: the packages have no trusted publisher yet. An automation
           # token (repository secret NPM_TOKEN) authenticates the publish; provenance still comes from id-token.
+          # @krizaka/ui alone has a trusted publisher now: tools/publish-packages.sh publishes it WITHOUT this token (npm docs,
+          # « Trusted publishing for npm packages »: the CLI uses OIDC credentials before falling back to tokens; the script removes the
+          # token so precedence cannot matter). The other packages keep it until their trusted publishers are configured.
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # changesets/action publishes only when NO changeset is pending; while other PRs keep merging it only re-opens the version PR,
@@ -62,19 +65,16 @@ jobs:
       # a version on main is not on npm yet (`changeset publish` skips what exists), then fail loudly if one still is not.
       - name: Publish the versions on main that npm does not have yet
         if: steps.changesets.outputs.published != 'true'
-        run: pnpm changeset publish
+        # The changesets step leaves the checkout on its « changeset-release/main » branch, versions bumped but not merged (2026-10-27 runs:
+        # it tried to publish 3.67.1 from there, unbuilt). Back to the commit that triggered the run: only what main holds is published.
+        run: |
+          git checkout -f "$GITHUB_SHA"
+          bash tools/publish-packages.sh
         env:
           NPM_CONFIG_PROVENANCE: "true"
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Every version on main is on npm
-        run: |
-          missing=0
-          for f in packages/*/package.json; do
-            node -e 'const p=require("./"+process.argv[1]);process.exit(p.private?1:0)' "$f" || continue
-            name=$(node -p "require('./$f').name"); ver=$(node -p "require('./$f').version")
-            if [ "$(npm view "$name@$ver" version 2>/dev/null)" != "$ver" ]; then echo "::error::$name@$ver is on main but not on npm"; missing=1; fi
-          done
-          exit $missing
+        run: bash tools/check-published.sh   # polls the registry (it lags a publish), fails if still missing after 5 min
 
       # Brand marks (krizaka-ui#217): the public copies of every logo, at stable URLs on Bunny (brand/<product>/…, brand/index.json),
       # regenerated when this push changes the version of @krizaka/ui (the merge of "chore: version packages", or a publish) or on demand.

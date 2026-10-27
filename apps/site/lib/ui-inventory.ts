@@ -47,6 +47,7 @@ export const PLANNED: Record<string, string> = {
   "contact-page": `${SITE}: /contact.`,
   shop: "Akinaza's public shop page and its composer: a page as a document of sections and variants (krizaka/akinaza#398, ADR-007, krizaka-ui#742).",
   "shop-composer": "Akinaza's studio (Boutique › Page): the owner arranges the sections of the public page, with a live preview, undo and a publish step (krizaka/akinaza#402, ADR-007, krizaka-ui#746).",
+  "copy-button": "The coupons (@krizaka/coupons): the owner-link block of Yomizaka and the founder offer code of Akinaza — copy in one click, with a read-only field as the fallback (krizaka-ui#576, #783).",
   wall: "Akinaza's shop pages: the owner's photos, short notes and logo on a textured wall (krizaka/akinaza#236, krizaka-ui#537).",
   "notification-preferences": "Akinaza's and Yomizaka's account baseline (notifications) (krizaka-ui#515).",
   "qr-code": "Akinaza's Boutique › Agenda: the owner scans the private calendar feed from the phone (krizaka/akinaza#282, krizaka-ui#760).",

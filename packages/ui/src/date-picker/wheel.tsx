@@ -183,6 +183,7 @@ export function Wheel({ label, options, value: valueProp, defaultValue, onValueC
         {options.map((o, i) => (
           <div
             key={o.value}
+            role="presentation"
             data-value={o.value}
             data-selected={i === index ? "" : undefined}
             data-disabled={o.disabled ? "" : undefined}

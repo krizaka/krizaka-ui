@@ -19,7 +19,7 @@ export function format(message: string, values: Values = {}): string {
 
 /** The placeholder names of a message, sorted and without duplicates: `"{b} {a} {b}"` → `["a", "b"]`. */
 export function placeholdersOf(message: string): string[] {
-  return [...new Set([...message.matchAll(PLACEHOLDER)].map((m) => m[1] as string))].sort();
+  return [...new Set([...message.matchAll(PLACEHOLDER)].map((m) => m[1] as string))].sort((a, b) => a.localeCompare(b));
 }
 
 /** True when a catalogue value is a plural set: an object of plural categories with an `other` string. */
