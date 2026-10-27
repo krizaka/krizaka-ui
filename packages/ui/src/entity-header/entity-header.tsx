@@ -1,22 +1,33 @@
 // Client (inline editing, the avatar popover). The head of an entity — a collection, a shop, a studio: its picture, its
 // name and description edited where they are read, its tags. Plain data in (the shapes of `@krizaka/organize/contract`),
 // a refusal `code` out, mapped to the message the product passes.
+import { AvatarPicker } from "@krizaka/ui/account-settings";
+import { Avatar } from "@krizaka/ui/avatar";
+import { TagChip, TagMarker } from "@krizaka/ui/chip";
+import { cn } from "@krizaka/ui/cn";
+import { Popover } from "@krizaka/ui/popover";
 import * as React from "react";
 
-import { type AvatarOption, AvatarPicker, type AvatarPickerProps } from "../account-settings/avatar-picker";
-import { Avatar } from "../avatar";
-import { TagChip, TagMarker } from "../chip/tag-chip";
-import { cn } from "../cn";
 import { PencilGlyph } from "../glyphs";
-import { Popover } from "../popover";
-import { type EditableBase, editName, type EntityHeaderBase, type EntityRefusals, type EntityTag, useEditable, useRefusal } from "./shared";
+import { type EditableBase, editName, type EntityAvatarOption, type EntityHeaderBase, type EntityRefusals, type EntityTag, useEditable, useRefusal } from "./shared";
 
 export type { EntityRefusals, EntityTag };
 
 export type EntityHeaderProps = EntityHeaderBase & {
   /** Makes the picture changeable: a button over it opens the library's `AvatarPicker`. */
-  avatarPicker?: Pick<AvatarPickerProps, "label" | "kind" | "noneLabel" | "uploadFile" | "value" | "onValueChange"> & {
-    options: readonly AvatarOption[];
+  avatarPicker?: {
+    /** The picker's accessible name (“Profile picture”), passed translated. */
+    label: string;
+    /** What the pictures are of: `folder`, `organisation`, `shop`, `person`. */
+    kind?: EntityAvatarOption["kind"];
+    /** The pictures to choose from. */
+    options: readonly EntityAvatarOption[];
+    /** Adds a « no picture » tile first, with these words, passed translated. */
+    noneLabel?: string;
+    /** The chosen id. */
+    value?: string;
+    /** The viewer chooses another picture. */
+    onValueChange?: (id: string) => void;
     /** The accessible name of the picture's button (“Change the picture”), passed translated. */
     triggerLabel: string;
   };

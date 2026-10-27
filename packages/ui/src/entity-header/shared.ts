@@ -3,13 +3,27 @@
 import type { Marker, OrganizeCode } from "@krizaka/organize/contract";
 import * as React from "react";
 
-import type { DefaultAvatar } from "../avatar/default-avatar";
+import type { DefaultAvatar, DefaultAvatarEntityKind } from "../avatar/default-avatar";
 
 /** The refusals a header knows how to say: the product passes the words (translated) for the codes it can get. */
 export type EntityRefusals = Partial<Record<OrganizeCode, string>>;
 
 /** The entity's picture: an address, or one of Krizaka's default pictures. */
 export type EntityAvatar = { src?: string | null; defaultAvatar?: DefaultAvatar; fallback?: React.ReactNode };
+
+/** One picture to choose from (the shape of `AvatarPicker`'s options). */
+export type EntityAvatarOption = {
+  /** The value of the choice. */
+  id: string;
+  /** Its name for assistive technology, passed translated. */
+  label: string;
+  /** A picture's address; otherwise `defaultAvatar` draws one of the family's pictures. */
+  src?: string;
+  /** One of Krizaka's default pictures. */
+  defaultAvatar?: DefaultAvatar;
+  /** What this picture is of. */
+  kind?: DefaultAvatarEntityKind;
+};
 
 export type EntityTag = { id: string; label: string; marker: Marker };
 

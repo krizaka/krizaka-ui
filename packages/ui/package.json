@@ -1591,9 +1591,16 @@
       "name": "./qr-code (the encoder and its drawing; no dependency)",
       "path": "dist/qr-code.js",
       "limit": "9 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
       "name": "./entity-header",
       "path": "dist/entity-header.js",
-      "limit": "38 kB",
+      "limit": "41 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

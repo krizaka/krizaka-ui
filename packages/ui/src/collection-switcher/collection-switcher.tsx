@@ -1,12 +1,12 @@
 // Client (the open state of the entity popover, the tree's keyboard). Moves between the collections of a workspace — or,
 // in `entity` mode, between the shops or studios of an account. The current one is held by the URL: the product passes
 // `value` from it and navigates in `onValueChange` (or gives `href`, and each row is a real link).
+import { Avatar } from "@krizaka/ui/avatar";
+import { cn } from "@krizaka/ui/cn";
+import { Popover } from "@krizaka/ui/popover";
 import * as React from "react";
 
-import { Avatar } from "../avatar";
-import { cn } from "../cn";
 import { ChevronGlyph, CloseGlyph, PlusGlyph } from "../glyphs";
-import { Popover } from "../popover";
 import { type CollectionBranch, type CollectionItem, collectionTree, isRemovable } from "./tree";
 
 export type CollectionSwitcherProps = {
