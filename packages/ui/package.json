@@ -954,6 +954,18 @@
     "./shop-composer": {
       "types": "./dist/shop-composer.d.ts",
       "import": "./dist/shop-composer.js"
+    },
+    "./copy-button": {
+      "types": "./dist/copy-button.d.ts",
+      "import": "./dist/copy-button.js"
+    },
+    "./money-input": {
+      "types": "./dist/money-input.d.ts",
+      "import": "./dist/money-input.js"
+    },
+    "./promo-code-field": {
+      "types": "./dist/promo-code-field.d.ts",
+      "import": "./dist/promo-code-field.js"
     }
   },
   "files": [
@@ -3327,6 +3339,37 @@
         "@krizaka/ui",
         "zod",
         "zod/mini"
+      ]
+    },
+    {
+      "name": "./copy-button",
+      "path": "dist/copy-button.js",
+      "limit": "4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./money-input",
+      "path": "dist/money-input.js",
+      "limit": "4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/intl"
+      ]
+    },
+    {
+      "name": "./promo-code-field",
+      "path": "dist/promo-code-field.js",
+      "limit": "4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
       ]
     }
   ],
