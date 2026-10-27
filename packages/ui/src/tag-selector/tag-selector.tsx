@@ -53,6 +53,10 @@ export type TagSelectorProps = CreatableProps & {
   className?: string;
 };
 
+/** The options whose label holds the typed text, and those already chosen. */
+const matching = (options: readonly TagOption[], needle: string, value: readonly string[]) =>
+  options.filter((o) => o.label.toLocaleLowerCase().includes(needle) || value.includes(o.value));
+
 /** Toggle chips with a limit and a count — the others rest once the limit is reached; `creatable` types a new one. */
 export function TagSelector({
   label,
@@ -79,7 +83,7 @@ export function TagSelector({
   const typed = draft.replace(/\s+/g, " ").trim();
   const needle = typed.toLocaleLowerCase();
   const exact = options.find((o) => o.label.toLocaleLowerCase() === needle);
-  const shown = creatable && needle ? options.filter((o) => o.label.toLocaleLowerCase().includes(needle) || value.includes(o.value)) : options;
+  const shown = creatable && needle ? matching(options, needle, value) : options;
   const canCreate = Boolean(creatable && onCreate && typed && !exact && !full);
   const toggle = (option: TagOption, on: boolean) => onValueChange(on ? [...value, option.value] : value.filter((v) => v !== option.value));
 
