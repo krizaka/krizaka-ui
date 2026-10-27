@@ -51,7 +51,7 @@ export function flatten(value: unknown, prefix = "", out = new Map<string, unkno
 }
 
 const forms = (leaf: Leaf): string[] => (typeof leaf === "string" ? [leaf] : (Object.values(leaf) as string[]));
-const signature = (list: string[]): string => list.sort().join(",");
+const signature = (list: string[]): string => list.sort((a, b) => a.localeCompare(b)).join(",");
 const placeholders = (leaf: Leaf): string => signature([...new Set(forms(leaf).flatMap(placeholdersOf))]);
 const TAG = /<\/?([A-Za-z][\w-]*)[^>]*>/g;
 const tags = (text: string): string[] => [...text.matchAll(TAG)].map((m) => m[0]);

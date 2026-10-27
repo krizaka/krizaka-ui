@@ -25,7 +25,9 @@ export const Profile: Story = { render: () => <ProfileExample /> };
 export const Feed: Story = { render: () => <FeedExample />, parameters: { a11y: { test: "off" } } };
 export const Chat: Story = { render: () => <ChatExample /> };
 export const Settings: Story = { render: () => <SettingsExample /> };
-export const Map: Story = { render: () => <MapExample /> };
+const MapStory: Story = { render: () => <MapExample /> };
 export const Notifications: Story = { render: () => <NotificationsExample /> };
 export const Dashboard: Story = { render: () => <DashboardExample /> };
 export const SettingsHome: Story = { render: () => <SettingsHomeExample /> };
+
+export { MapStory as Map };

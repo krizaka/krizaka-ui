@@ -50,7 +50,8 @@ export function neighbourOf(s: Stage, i: number): number | null {
   const at = s.order.indexOf(i);
   const near = [s.order[at - 1], s.order[at + 1]].filter((n): n is number => n !== undefined);
   if (!near.length) return null;
-  return near.reduce((a, b) => (Math.abs(s.birds[a]!.x - s.birds[i]!.x) <= Math.abs(s.birds[b]!.x - s.birds[i]!.x) ? a : b));
+  const gap = (n: number) => Math.abs(s.birds[n]!.x - s.birds[i]!.x);
+  return near.reduce((a, b) => (gap(a) <= gap(b) ? a : b), near[0]!);
 }
 
 // @fixed: the choreography's pace — how long each beat lasts. A rhythm to the eye, not a business parameter.

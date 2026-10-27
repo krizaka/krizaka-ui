@@ -11,6 +11,7 @@
     "no-hand-ms-minutes": 0,
     "no-hand-ms-one-hour": 0,
     "no-hand-written-email": 0,
+    "no-sort-without-compare": 39,
     "no-ts-enum": 0,
     "no-types-at-package-root": 2,
     "no-unjustified-numeric-export": 10

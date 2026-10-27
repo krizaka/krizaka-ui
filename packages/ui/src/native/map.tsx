@@ -57,7 +57,7 @@ export type MapProps = {
 };
 
 /** A map: MapLibre Native over our Protomaps tiles, styled from the tokens in the app's scheme; its places in its name. */
-export function Map({ label, center, zoom = 12, brand, lang, region, world, interactive = true, onMoveEnd, onPress, children, style }: MapProps) {
+function NativeMap({ label, center, zoom = 12, brand, lang, region, world, interactive = true, onMoveEnd, onPress, children, style }: MapProps) {
   const { scheme, theme, radius, motion } = useTheme();
   const reduce = motion.duration.base === 0;
   const camera = React.useRef<CameraRef>(null);
@@ -332,10 +332,10 @@ export function LocationPicker({ label, value, onValueChange, locale, zoom = 14,
   return (
     <View role="group" aria-label={label} style={[styles.picker, style]}>
       <View style={styles.pickerFrame}>
-        <Map {...map} label={label} center={camera} zoom={zoom} onMoveEnd={(v) => onValueChange(v.center)} style={StyleSheet.absoluteFill}>
+        <NativeMap {...map} label={label} center={camera} zoom={zoom} onMoveEnd={(v) => onValueChange(v.center)} style={StyleSheet.absoluteFill}>
           {zone ? <RadiusCircle center={value} radius={zone} /> : null}
           {origin ? <UserPosition position={origin} label={labels.you} /> : null}
-        </Map>
+        </NativeMap>
         <View pointerEvents="none" style={styles.pin}>
           <Svg width={30} height={40} viewBox="0 0 24 32" aria-hidden>
             <Path d="M12 0C5.4 0 0 5.2 0 11.7 0 20.4 12 32 12 32s12-11.6 12-20.3C24 5.2 18.6 0 12 0Z" fill={theme.accent} />
@@ -387,3 +387,5 @@ const styles = StyleSheet.create({
 export { MAP_ATTRIBUTION, MAP_GLYPHS, MAP_TILES } from "../map/assets";
 export { circlePolygon, distanceMeters, formatDistance, type LngLat } from "../map/geo";
 export { mapPalette, type MapRegion, mapStyle } from "../map/style";
+
+export { NativeMap as Map };

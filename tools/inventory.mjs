@@ -231,7 +231,7 @@ export function sourceFiles(root, skip = []) {
     }
   };
   walk(root, 0);
-  return out.sort();
+  return out.sort((a, b) => a.localeCompare(b));
 }
 
 const DEFINITION = /^(?:export\s+)?(?:default\s+)?(?:async\s+)?(?:function\s+([A-Za-z_$][\w$]*)|(?:const|let)\s+([A-Za-z_$][\w$]*)\s*(?::[^=\n]+)?=\s*([^\n]*))/gm;

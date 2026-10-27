@@ -92,7 +92,7 @@ function isEditable(target: EventTarget | null): { field: boolean; rich: boolean
  */
 export function useShortcuts(map: ShortcutMap, { enabled = true, timeout = 900 }: { enabled?: boolean; timeout?: number } = {}) {
   const latest = useLatest(map);
-  const names = Object.keys(map).sort().join("\n");
+  const names = Object.keys(map).sort((a, b) => a.localeCompare(b)).join("\n");
   React.useEffect(() => {
     if (!enabled) return;
     const bindings = names.split("\n").filter(Boolean);

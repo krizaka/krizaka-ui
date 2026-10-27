@@ -72,7 +72,7 @@ def use_sage() -> None:
         q, k, v = (list(args) + [kw.pop(n, None) for n in ("query", "key", "value")][len(args):])[:3]
         attn_mask, dropout_p = kw.pop("attn_mask", None), kw.pop("dropout_p", 0.0)
         is_causal, scale = kw.pop("is_causal", False), kw.pop("scale", None)
-        if (attn_mask is None and dropout_p == 0.0 and not kw.get("enable_gqa") and q.dtype in (torch.bfloat16, torch.float16)
+        if (attn_mask is None and not dropout_p and not kw.get("enable_gqa") and q.dtype in (torch.bfloat16, torch.float16)
                 and q.dim() == 4 and q.shape[-1] in (64, 96, 128) and q.shape[1] == k.shape[1] == v.shape[1]):
             return sageattn(q, k, v, tensor_layout="HND", is_causal=is_causal, sm_scale=scale)
         return original(q, k, v, attn_mask=attn_mask, dropout_p=dropout_p, is_causal=is_causal, scale=scale, **kw)

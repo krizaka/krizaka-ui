@@ -7,12 +7,12 @@
 /* The classes the @krizaka/ui primitives use, read from the built package — and those of the registry examples that the
    site renders live (both packages). */
 @import "@krizaka/ui/tailwind.css";
-@source "../node_modules/@krizaka/ui/registry/examples";
-@source "../node_modules/@krizaka/charts/registry/examples";
-@source "../node_modules/@krizaka/charts/dist";
 /* Fumadocs (docs layout, TOC, search, code blocks): its colours are mapped to --kz-* below. */
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
+@source "../node_modules/@krizaka/ui/registry/examples";
+@source "../node_modules/@krizaka/charts/registry/examples";
+@source "../node_modules/@krizaka/charts/dist";
 
 /* ═══════════════════════════════════════════════════════════════════
    ui.krizaka.com — the site's own styles, on the Krizaka tokens. Ported from krizaka.com (/docs/ui), where the

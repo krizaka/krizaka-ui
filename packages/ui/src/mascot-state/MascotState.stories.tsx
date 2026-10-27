@@ -21,7 +21,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Empty: Story = { render: () => <EmptyExample /> };
-export const Error: Story = { render: () => <ErrorExample /> };
+const ErrorStory: Story = { render: () => <ErrorExample /> };
 export const Success: Story = { render: () => <SuccessExample /> };
 export const Loading: Story = { render: () => <LoadingExample /> };
 export const Welcome: Story = { render: () => <WelcomeExample /> };
+
+export { ErrorStory as Error };

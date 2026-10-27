@@ -51,7 +51,7 @@ export const Pinned: Story = { render: () => <PinnedExample /> };
 export const Cards: Story = { render: () => <CardsExample /> };
 export const Loading: Story = { render: () => <LoadingExample /> };
 export const Empty: Story = { render: () => <EmptyExample /> };
-export const Error: Story = { render: () => <ErrorExample /> };
+const ErrorStory: Story = { render: () => <ErrorExample /> };
 /** 50,000 rows. */
 export const Virtualized: Story = { render: () => <VirtualizedExample /> };
 
@@ -100,3 +100,5 @@ export const AutoWrapLongValues: Story = {
   render: () => <DataTable caption="People" rows={people} columns={peopleColumns} getRowId={(r) => r.id} />,
   play: CardsWrapLongValues.play,
 };
+
+export { ErrorStory as Error };

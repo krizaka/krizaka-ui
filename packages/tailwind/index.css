@@ -191,13 +191,8 @@
 
 /* Variantes de thème : réservées aux illustrations et aux images. Interdites par lint dans les produits
    (les tokens font le travail). `.theme-dark` reste un îlot sombre dans les deux thèmes. */
-@custom-variant light {
-  html.light &:where(:not(.theme-dark, .theme-dark *)) { @slot; }
-}
-@custom-variant dark {
-  :root:not(.light) & { @slot; }
-  .theme-dark & { @slot; }
-}
+@custom-variant light (html.light &:where(:not(.theme-dark, .theme-dark *)));
+@custom-variant dark (:root:not(.light) &, .theme-dark &);
 
 /* Rendu v3 des bordures (Tailwind v4 utilise currentColor par défaut). */
 @layer base {

@@ -59,7 +59,7 @@ export function Heatmap<T extends Datum>(props: HeatmapProps<T>) {
       .map((d, i) => ({ xi: xs.findIndex((c) => String(c) === String(read(x, d, i))), yi: ys.findIndex((c) => String(c) === String(read(y, d, i))), v: Number(read(value, d, i)) }))
       .filter((c) => c.xi >= 0 && c.yi >= 0 && Number.isFinite(c.v));
     const values = cells.map((c) => c.v);
-    return { xs: xs.map(fmt.x), ys: ys.map(fmt.y), cells, min: Math.min(...values, 0), max: Math.max(...values, 0) };
+    return { xs: xs.map((v) => fmt.x(v)), ys: ys.map((v) => fmt.y(v)), cells, min: Math.min(...values, 0), max: Math.max(...values, 0) };
   }, [data, x, y, value, xCategories, yCategories, fmt]);
   const isEmpty = model.cells.length === 0;
   const peak = model.cells.reduce<(typeof model.cells)[number] | null>((best, c) => (!best || c.v > best.v ? c : best), null);

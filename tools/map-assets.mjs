@@ -38,7 +38,7 @@ export function filesOf(dir) {
     }
   };
   walk(dir);
-  return out.sort();
+  return out.sort((a, b) => a.localeCompare(b));
 }
 
 export function parseEnv(text) {
