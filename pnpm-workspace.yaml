@@ -9,7 +9,9 @@ onlyBuiltDependencies:
 # @storybook/test-runner (end of support upstream) loads its config through Storybook's importModule, which calls
 # node:module register(); jest-runtime >= 30.5 refuses it. Hold the runtime at 30.4 until the runner moves on.
 overrides:
+  "esbuild@<0.28.1": "^0.28.2"
   jest-runtime: 30.4.2
   # Dependabot: patched releases of transitive dev tooling (uuid 8 via @storybook/test-runner, esbuild 0.27 via a build tool).
   "uuid@<11.1.1": "^11.1.1"
-  "esbuild@<0.28.1": "^0.28.2"
+patchedDependencies:
+  tsup@9.0.0: patches/tsup@9.0.0.patch

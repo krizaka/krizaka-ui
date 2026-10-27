@@ -98,9 +98,7 @@ jobs:
           path: .turbo/cache
           key: turbo-site-${{ github.sha }}
           restore-keys: turbo-site-
-      # The declaration bundler of @krizaka/ui (tsup dts worker) outgrew the default heap with the number of entries.
       - run: pnpm turbo run build --filter=@krizaka/site...
-        env: { NODE_OPTIONS: --max-old-space-size=6144 }
       - run: pnpm turbo run lint typecheck test --filter=@krizaka/site
       - name: The family SEO contract on the export (krizaka-com AGENTS.md §2.4)
         run: |
