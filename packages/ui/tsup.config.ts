@@ -174,8 +174,27 @@ export default defineConfig([
       "shop/booking": "src/shop/booking/index.ts",
       "shop/gallery": "src/shop/gallery/index.ts",
       "shop/demo": "src/shop/demo/index.ts",
+      "shop/video": "src/shop/video/index.ts",
+      "shop/reviews": "src/shop/reviews/index.ts",
+      "shop/bulletin": "src/shop/bulletin/index.ts",
+      "shop/team": "src/shop/team/index.ts",
+      "shop/visit": "src/shop/visit/index.ts",
+      "shop/story": "src/shop/story/index.ts",
+      "shop/social": "src/shop/social/index.ts",
+      "shop/faq": "src/shop/faq/index.ts",
+      "shop/policies": "src/shop/policies/index.ts",
     },
     external: [...shared.external, /^@krizaka\/ui(\/|$)/, "zod", /^zod\//],
+  },
+  {
+    // Client — the shop's map gate (a still, the live map behind a button on a phone). A separate entry: the block it draws is
+    // imported through the package's own entries (external).
+    ...shared,
+    entry: {
+      "shop/map-gate": "src/shop/map-gate/index.ts",
+    },
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "zod", /^zod\//],
+    banner: { js: '"use client";' },
   },
   {
     // Client — the page blocks with a hook (the pointer's light, the bird's id, the copy button, the reading position).

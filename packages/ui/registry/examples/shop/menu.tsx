@@ -7,7 +7,7 @@ import { ServicesSection } from "@krizaka/ui/shop/services";
 export default function ShopMenu() {
   const { services, hours, status } = demoSalon;
   return (
-    <ShopFrame density="compact" preset="salon-vitrine">
+    <ShopFrame density="compact">
       <ServicesSection
         title="Services"
         lead="Prices before taxes. Pick one, then the time."

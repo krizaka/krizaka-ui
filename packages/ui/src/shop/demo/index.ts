@@ -98,3 +98,49 @@ export const demoPets: DemoShop = {
   address: "Saint-Henri, Montréal",
   phone: "514-555-0142",
 };
+
+// The rest of the demo salon's page (U2): what clients say, its news, its questions, its rules, its story, its reels, its map.
+export const demoReviews = {
+  summary: {
+    score: 4.7,
+    count: 38,
+    distribution: [0, 1, 2, 7, 28] as [number, number, number, number, number],
+    scoreText: "4.7 / 5",
+    countText: "38 verified reviews",
+    summaryText: "4.7 out of 5 from 38 verified reviews",
+    starText: (stars: number, count: number) => `${stars} stars: ${count} reviews`,
+  },
+  reviews: [
+    { id: "r1", author: "Nadia F.", date: "October 2026", dateTime: "2026-10", service: "Cut and blow-dry", rating: 5, ratingText: "5 out of 5", text: "The best blow-dry in the neighbourhood, simply. Booked in two taps." },
+    { id: "r2", author: "Léo P.", date: "October 2026", dateTime: "2026-10", service: "Balayage", rating: 5, ratingText: "5 out of 5", text: "Jade listened, never pushed. The price was the one announced." },
+    { id: "r3", author: "Camille L.", date: "September 2026", dateTime: "2026-09", service: "Beard trim", rating: 4, ratingText: "4 out of 5", text: "Quick, precise, and the hot towel is a treat." },
+  ],
+};
+
+export const demoReel = { id: "reel", platform: "tiktok" as const, url: "https://www.tiktok.com/@salon.cedre/video/7123456789012345678", title: "The salon's latest reel" };
+
+export const demoFlyers = [
+  { id: "f1", text: "New: hot-towel beard care, every day this week.", signature: "Jade", until: "2026-11-10" },
+  { id: "f2", text: "Closed Monday November 3 — back Tuesday at 9.", signature: "Éric", until: "2026-11-03" },
+  { id: "f3", text: "Gift cards at the counter, any amount.", signature: "Camille" },
+];
+
+export const demoFaq = [
+  { id: "q1", question: "Do I need to book?", answer: "Booking is the surest way to have the person you want. We also take walk-ins when a chair is free." },
+  { id: "q2", question: "Can I cancel?", answer: "Free up to 24 hours before. After that the first half of the service is kept." },
+  { id: "q3", question: "Do you do kids' cuts?", answer: "Yes, from age 4, with Éric on Saturday mornings." },
+];
+
+export const demoPolicies = [
+  { id: "p1", term: "Cancellation", details: "Free up to 24 hours before" },
+  { id: "p2", term: "Prices", details: "Before taxes; colour is confirmed at the consultation" },
+  { id: "p3", term: "Booking window", details: "Up to 60 days ahead" },
+];
+
+export const demoStory = {
+  quote: "Cuts that last, and advice that is honest.",
+  body: "Three friends opened the salon in 2019 on the corner where the old bakery stood. We kept the brick, the big windows and the habit of asking before cutting.",
+  owner: { name: "Jade" },
+};
+
+export const demoMap = { label: "Where the salon is", center: [-73.5859, 45.4789] as [number, number], zoom: 15, showLabel: "Show the map", places: [{ position: [-73.5859, 45.4789] as [number, number], label: "Salon Cèdre & Ciseaux" }] };

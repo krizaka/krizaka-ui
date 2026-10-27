@@ -16,7 +16,7 @@ export default function ShopPage() {
     </>
   );
   return (
-    <ShopFrame preset={shop.preset} density="compact">
+    <ShopFrame density="compact">
       <HeroSection title={shop.name} eyebrow={shop.eyebrow} lead={shop.promise} cover={shop.cover} actions={<Button variant="primary" size="lg">Book</Button>} />
       <BookingSection label="Next free times" times={shop.times} href="#book" actionLabel="All times" />
       <ServicesSection title="Services" lead="Prices before taxes. Pick one, then the time." services={shop.services} chooseLabel="Choose" popularLabel="Popular" aside={hours} />

@@ -109,10 +109,11 @@ function collectSources(name, versions) {
           files.add(target);
           queue.push(target);
         }
-      } else if (/^@krizaka\/ui\/[a-z-]+$/.test(specifier)) {
+      } else if (/^@krizaka\/ui\/[a-z-]+(\/[a-z-]+)?$/.test(specifier)) {
         // A page template imports the blocks through the package's own entries (their client boundary stays): a
         // registry dependency, not an npm one.
-        const entry = specifier.slice("@krizaka/ui/".length);
+        // A nested entry (`@krizaka/ui/shop/map-gate`) belongs to the primitive of its first segment.
+        const entry = specifier.slice("@krizaka/ui/".length).split("/")[0];
         if (entry !== name && entry !== "cn") registryDependencies.add(entry);
       } else {
         const pkg = packageName(specifier);

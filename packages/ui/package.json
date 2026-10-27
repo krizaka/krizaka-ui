@@ -886,6 +886,46 @@
     "./shop/demo": {
       "types": "./dist/shop/demo.d.ts",
       "import": "./dist/shop/demo.js"
+    },
+    "./shop/video": {
+      "types": "./dist/shop/video.d.ts",
+      "import": "./dist/shop/video.js"
+    },
+    "./shop/reviews": {
+      "types": "./dist/shop/reviews.d.ts",
+      "import": "./dist/shop/reviews.js"
+    },
+    "./shop/bulletin": {
+      "types": "./dist/shop/bulletin.d.ts",
+      "import": "./dist/shop/bulletin.js"
+    },
+    "./shop/team": {
+      "types": "./dist/shop/team.d.ts",
+      "import": "./dist/shop/team.js"
+    },
+    "./shop/visit": {
+      "types": "./dist/shop/visit.d.ts",
+      "import": "./dist/shop/visit.js"
+    },
+    "./shop/story": {
+      "types": "./dist/shop/story.d.ts",
+      "import": "./dist/shop/story.js"
+    },
+    "./shop/social": {
+      "types": "./dist/shop/social.d.ts",
+      "import": "./dist/shop/social.js"
+    },
+    "./shop/faq": {
+      "types": "./dist/shop/faq.d.ts",
+      "import": "./dist/shop/faq.js"
+    },
+    "./shop/policies": {
+      "types": "./dist/shop/policies.d.ts",
+      "import": "./dist/shop/policies.js"
+    },
+    "./shop/map-gate": {
+      "types": "./dist/shop/map-gate.d.ts",
+      "import": "./dist/shop/map-gate.js"
     }
   },
   "files": [
@@ -3069,7 +3109,117 @@
     {
       "name": "./shop/demo",
       "path": "dist/shop/demo.js",
-      "limit": "2.5 kB",
+      "limit": "3.3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/video",
+      "path": "dist/shop/video.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/reviews",
+      "path": "dist/shop/reviews.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/bulletin",
+      "path": "dist/shop/bulletin.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/team",
+      "path": "dist/shop/team.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/visit",
+      "path": "dist/shop/visit.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/story",
+      "path": "dist/shop/story.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/social",
+      "path": "dist/shop/social.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/faq",
+      "path": "dist/shop/faq.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/policies",
+      "path": "dist/shop/policies.js",
+      "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/map-gate",
+      "path": "dist/shop/map-gate.js",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
