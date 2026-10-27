@@ -70,14 +70,7 @@ jobs:
           NPM_CONFIG_PROVENANCE: "true"
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Every version on main is on npm
-        run: |
-          missing=0
-          for f in packages/*/package.json; do
-            node -e 'const p=require("./"+process.argv[1]);process.exit(p.private?1:0)' "$f" || continue
-            name=$(node -p "require('./$f').name"); ver=$(node -p "require('./$f').version")
-            if [ "$(npm view "$name@$ver" version 2>/dev/null)" != "$ver" ]; then echo "::error::$name@$ver is on main but not on npm"; missing=1; fi
-          done
-          exit $missing
+        run: bash tools/check-published.sh   # polls the registry (it lags a publish), fails if still missing after 5 min
 
       # Brand marks (krizaka-ui#217): the public copies of every logo, at stable URLs on Bunny (brand/<product>/…, brand/index.json),
       # regenerated when this push changes the version of @krizaka/ui (the merge of "chore: version packages", or a publish) or on demand.
