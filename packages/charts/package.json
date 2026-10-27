@@ -192,7 +192,7 @@
     "@arethetypeswrong/cli": "^0.18.5",
     "@babel/core": "^7.29.7",
     "@jest/globals": "30.5.2",
-    "@krizaka/config": "workspace:*",
+    "@krizaka/config": "^0.9.1",
     "@krizaka/tokens": "workspace:*",
     "@krizaka/ui": "workspace:*",
     "@react-native/babel-preset": "0.86.3",

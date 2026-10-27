@@ -16,6 +16,12 @@ jobs:
         with: { node-version: 22, cache: pnpm, registry-url: https://registry.npmjs.org }
       - run: npm install -g --ignore-scripts npm@11.21.1      # trusted publishing (OIDC) needs npm >= 11.5.1; Node 22 ships npm 10
       - run: pnpm install --frozen-lockfile
+      # @krizaka/config is published from krizaka/krizaka-ts (packages/config), the single source: a stale copy here published 0.9.0 without
+      # `krizaka-known-violations` and the presets (krizaka-ui#639). Fails before any publish if a workspace package carries that name.
+      - name: "@krizaka/config is published from krizaka-ts, never from here"
+        run: |
+          bad=$(grep -l '"name": "@krizaka/config"' package.json packages/*/package.json apps/*/package.json 2>/dev/null || true)
+          if [ -n "$bad" ]; then echo "::error::@krizaka/config must not be a package of krizaka-ui (krizaka-ts is the single source): $bad"; exit 1; fi
       # The last gate before a publish: only when this push can publish — the merge of « chore: version packages » changes a
       # package.json — or on demand. Every other push to main was re-running the whole check CI had just run (CI-COST); the
       # step fails open (a git error runs the check).

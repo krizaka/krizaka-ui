@@ -28,7 +28,6 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ app-desktop/           # @krizaka/app-desktop — the typed page side of tauri-plugin-krizaka (folders, Keychain storage, menu bar, deep links; Tauri passed in)
 │  ├─ discovery/            # @krizaka/discovery — mobile service discovery: a signed manifest of backend addresses (Ed25519, allow-list), pure (no UI)
 │  ├─ pacer/                # @krizaka/pacer — cadence: debounce, throttle, a job queue (priority, retries, pause per job), a rate limiter (TanStack Pacer behind the facade; hooks in ./react)
-│  └─ config/               # @krizaka/config — ESLint, tsconfig, Prettier, EditorConfig, the krizaka-ratchet counter
 ├─ tools/                   # not published — inventory.mjs (the duplicate audit of the products), consumer-smoke/ (the published
 │                           #   packages in fresh Next.js · Expo · Node apps), and their tests
 ├─ docs/adr/                # the architecture decisions (ADR-001: TanStack under @krizaka facades; ADR-002: desktop is the web in a window)
@@ -77,7 +76,7 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 
 - **pnpm only** (version pinned by `packageManager`), Node ≥ 22. `pnpm install --frozen-lockfile` must pass.
 - Every task goes through Turborepo: `pnpm turbo run check` = lint · typecheck · test · build · size · publint.
-- The monorepo uses what it publishes: `eslint.config.mjs` is `@krizaka/config` (base everywhere, the four UI rules
+- The monorepo uses `@krizaka/config` **as published from [krizaka-ts](https://github.com/krizaka/krizaka-ts) (`packages/config`, the single source — never a copy here; `tools/no-config-package.test.mjs` and the release workflow refuse one, krizaka-ui#639)**: `eslint.config.mjs` is `@krizaka/config` (base everywhere, the four UI rules
   strict on `packages/ui`, the three stack rules on `apps/`), every package's `lint` runs `eslint . --max-warnings 0`, and its `tsconfig.json` extends
   a base of `@krizaka/config`.
 - **The code drives the documentation.** The public documentation is **ui.krizaka.com**, generated from the
@@ -162,7 +161,7 @@ pnpm test:tools                                              # the tools/ tests 
 pnpm smoke:consumers --only next,expo,node --keep            # the published packages in fresh apps (npm, ~2 min)
 pnpm inventory                                               # duplicates left in the products (clones under ~/krizaka-com); --json, --strict
 pnpm inventory --repo krizaka-com=../krizaka-com-wt          # …with one repository read from another folder
-node packages/config/bin/krizaka-ratchet.mjs --json --root <app>   # the UI debt counters of an app (lint-ratchet.json)
+pnpm exec krizaka-ratchet --json --root <app>   # the UI debt counters of an app (lint-ratchet.json)
 pnpm --filter @krizaka/icons glyphs                          # regenerate the icons from scripts/glyphs.mjs
 pnpm --filter @krizaka/tokens build                          # recompile the tokens (DTCG → CSS, TS, native, brands)
 pnpm --filter @krizaka/fonts subset                          # re-cut the font files from src/families.json (uv + fontTools, by hand)

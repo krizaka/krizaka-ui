@@ -48,7 +48,7 @@
     "tailwindcss": "^4.1"
   },
   "devDependencies": {
-    "@krizaka/config": "workspace:*",
+    "@krizaka/config": "^0.9.1",
     "@krizaka/tokens": "workspace:^",
     "@krizaka/ui": "workspace:^",
     "@size-limit/file": "^14.2.0",

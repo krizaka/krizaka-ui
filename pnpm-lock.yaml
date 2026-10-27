@@ -23,8 +23,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:packages/config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       eslint:
         specifier: ^9.39.0
         version: 9.39.5(jiti@2.7.0)
@@ -90,8 +90,8 @@ importers:
         version: 19.3.1(react@19.3.1)
     devDependencies:
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../../packages/config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@tailwindcss/postcss':
         specifier: ^4.3.3
         version: 4.3.3
@@ -129,8 +129,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/charts
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../../packages/config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@krizaka/icons':
         specifier: workspace:*
         version: link:../../packages/icons
@@ -223,8 +223,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/preset-small-lib':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -277,8 +277,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/preset-small-lib':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -338,8 +338,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/preset-small-lib':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -393,8 +393,8 @@ importers:
         specifier: 30.5.2
         version: 30.5.2
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@krizaka/tokens':
         specifier: workspace:*
         version: link:../tokens
@@ -507,64 +507,6 @@ importers:
         specifier: ^2.0.2
         version: 2.0.2
 
-  packages/config:
-    dependencies:
-      '@eslint/js':
-        specifier: ^10.0.1
-        version: 10.0.1(eslint@9.39.5(jiti@2.7.0))
-      eslint-plugin-react-hooks:
-        specifier: ^7.1.1
-        version: 7.1.1(eslint@9.39.5(jiti@2.7.0))
-      eslint-plugin-simple-import-sort:
-        specifier: ^14.0.0
-        version: 14.0.0(eslint@9.39.5(jiti@2.7.0))
-      globals:
-        specifier: ^17.13.0
-        version: 17.13.0
-      tinyglobby:
-        specifier: ^0.2.17
-        version: 0.2.17
-      typescript-eslint:
-        specifier: ^8.72.0
-        version: 8.72.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
-    devDependencies:
-      '@size-limit/file':
-        specifier: ^14.2.0
-        version: 14.2.0(size-limit@14.2.0)
-      '@types/estree':
-        specifier: ^1.0.8
-        version: 1.0.9
-      '@types/node':
-        specifier: ^22.15.0
-        version: 22.20.5
-      dependency-cruiser:
-        specifier: ^18.7.0
-        version: 18.7.0
-      eslint:
-        specifier: ^9.39.0
-        version: 9.39.5(jiti@2.7.0)
-      eslint-config-next:
-        specifier: ^16.4.2
-        version: 16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
-      next:
-        specifier: ^16.4.2
-        version: 16.4.2(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      prettier:
-        specifier: ^3.9.10
-        version: 3.9.10
-      publint:
-        specifier: ^0.3.25
-        version: 0.3.25
-      size-limit:
-        specifier: ^14.2.0
-        version: 14.2.0
-      typescript:
-        specifier: ^5.9.0
-        version: 5.9.3
-      vitest:
-        specifier: ^5.0.5
-        version: 5.0.5(@types/node@22.20.5)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@8.3.5(@types/node@22.20.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
-
   packages/discovery:
     dependencies:
       '@noble/curves':
@@ -575,8 +517,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/preset-small-lib':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -681,8 +623,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@types/node':
         specifier: ^22.15.0
         version: 22.20.5
@@ -720,8 +662,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/file':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -754,8 +696,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/preset-small-lib':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -802,8 +744,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/preset-small-lib':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -856,8 +798,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/preset-small-lib':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -896,8 +838,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/preset-small-lib':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -950,8 +892,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/preset-small-lib':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -986,8 +928,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/preset-small-lib':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -1038,8 +980,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@react-native-async-storage/async-storage':
         specifier: ^3.1.1
         version: 3.1.1(react-native@0.86.3(@babel/core@7.29.7)(@react-native/jest-preset@0.86.3(@babel/core@7.29.7)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)
@@ -1104,8 +1046,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/preset-small-lib':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -1146,8 +1088,8 @@ importers:
   packages/tailwind:
     devDependencies:
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@krizaka/tokens':
         specifier: workspace:^
         version: link:../tokens
@@ -1191,8 +1133,8 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@size-limit/preset-small-lib':
         specifier: ^14.2.0
         version: 14.2.0(size-limit@14.2.0)
@@ -1282,8 +1224,8 @@ importers:
         specifier: 30.5.2
         version: 30.5.2
       '@krizaka/config':
-        specifier: workspace:*
-        version: link:../config
+        specifier: ^0.9.1
+        version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@krizaka/org':
         specifier: ^0.1.0
         version: 0.1.0
@@ -2667,6 +2609,21 @@ packages:
     resolution: {integrity: sha512-jRVXr+zsVHxzDXRoh+CDeXzvCsFJ6uiHhqqNQ26Cw9ZsZ3D6nqPUBt1gGVtj2ZPmRL3a9Uk1v8D1aJ8/I12Dow==}
     peerDependencies:
       solid-js: ^1.8.8
+
+  '@krizaka/config@0.9.1':
+    resolution: {integrity: sha512-lFlf0HtVCWoYmK3DH0oI6m1CIraAcWHY2kEDNK2t6em8IAvDuS1lNLq9JIjWU4/TfBJ8LKHp9B2iGlLQqfLK/w==}
+    engines: {node: '>=22'}
+    hasBin: true
+    peerDependencies:
+      eslint: ^9 || ^10
+      eslint-config-next: '>=16'
+      prettier: ^3
+      typescript: ^5
+    peerDependenciesMeta:
+      eslint-config-next:
+        optional: true
+      prettier:
+        optional: true
 
   '@krizaka/org@0.1.0':
     resolution: {integrity: sha512-nvk6fmuvxxqPQnEogzpokV1k0xiKgsnfj8U2wAwKbb0QCVz3z4ketaNQ0BGOXZoKEcTK8ou1qUfQFZaFJ4F1Mg==}
@@ -11898,6 +11855,23 @@ snapshots:
       '@solid-primitives/refs': 1.1.4(solid-js@1.9.17)
       '@solid-primitives/utils': 6.4.1(solid-js@1.9.17)
       solid-js: 1.9.17
+
+  '@krizaka/config@0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)':
+    dependencies:
+      '@eslint/js': 10.0.1(eslint@9.39.5(jiti@2.7.0))
+      dependency-cruiser: 18.7.0
+      eslint: 9.39.5(jiti@2.7.0)
+      eslint-plugin-react-hooks: 7.1.1(eslint@9.39.5(jiti@2.7.0))
+      eslint-plugin-simple-import-sort: 14.0.0(eslint@9.39.5(jiti@2.7.0))
+      globals: 17.13.0
+      tinyglobby: 0.2.17
+      typescript: 5.9.3
+      typescript-eslint: 8.72.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
+    optionalDependencies:
+      eslint-config-next: 16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
+      prettier: 3.9.10
+    transitivePeerDependencies:
+      - supports-color
 
   '@krizaka/org@0.1.0': {}
 

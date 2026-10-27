@@ -47,7 +47,6 @@ const PACKAGES: { name: string; path?: string; dir: string }[] = [
   { name: "@krizaka/realtime", path: "/packages/realtime", dir: "realtime" },
   { name: "@krizaka/push", path: "/packages/push", dir: "push" },
   { name: "@krizaka/app-config", path: "/packages/app-config", dir: "app-config" },
-  { name: "@krizaka/config", path: "/packages/config", dir: "config" },
 ];
 
 /** A package's description, cut to its first clause (before a colon or a full stop), at most ~90 characters. */
