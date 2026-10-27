@@ -132,6 +132,7 @@ export { ProductMark } from "./ProductMark";
 export { ProfileBanner, type ProfileBannerProps, ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
 export { Progress, type ProgressProps } from "./progress";
 export { BrandedRefresh, type BrandedRefreshProps, type BrandedRefreshScrollProps, PullToRefresh, type PullToRefreshProps } from "./pull-to-refresh";
+export { QrCode, type QrCodeProps } from "./qr-code";
 export { RadioGroup, type RadioGroupProps, type RadioOption } from "./radio-group";
 export { Screen, type ScreenProps } from "./screen";
 export { SearchField, type SearchFieldProps } from "./search-field";
@@ -174,7 +175,6 @@ export { toast, Toaster, type ToasterProps, type ToastItem, type ToastOptions, t
 export { textStyles, Txt, type TxtProps, type TxtTone, type TxtVariant } from "./txt";
 export { UpdatePrompt, type UpdatePromptProps } from "./update-prompt";
 export { VerifiedBadge, type VerifiedBadgeProps } from "./verified-badge";
-export { QrCode, type QrCodeProps } from "./qr-code";
 export { Waveform, type WaveformProps } from "./waveform";
 export { Wheel, WheelDivider, type WheelOption, WheelPicker, type WheelPickerProps, type WheelProps } from "./wheel";
 export { YasakiaMark, YazakiaMark } from "./YasakiaMark";

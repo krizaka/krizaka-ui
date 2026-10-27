@@ -93,7 +93,11 @@ function codewords(bytes: readonly number[], version: number, level: QrLevel): n
   const capacity = dataCodewords(version, level) * 8;
   pushBits(bits, 0, Math.min(4, capacity - bits.length));
   pushBits(bits, 0, (8 - (bits.length % 8)) % 8);
-  for (let pad = 0xec; bits.length < capacity; pad ^= 0xec ^ 0x11) pushBits(bits, pad, 8);
+  let pad = 0xec;
+  while (bits.length < capacity) {
+    pushBits(bits, pad, 8);
+    pad ^= 0xec ^ 0x11;
+  }
   const data: number[] = [];
   for (let i = 0; i < bits.length; i += 8) data.push(parseInt(bits.slice(i, i + 8).join(""), 2));
 
@@ -120,7 +124,11 @@ function alignmentPositions(version: number): number[] {
   const count = Math.floor(version / 7) + 2;
   const step = version === 32 ? 26 : Math.ceil((version * 4 + 4) / (count * 2 - 2)) * 2;
   const result = [6];
-  for (let pos = version * 4 + 10; result.length < count; pos -= step) result.splice(1, 0, pos);
+  let pos = version * 4 + 10;
+  while (result.length < count) {
+    result.splice(1, 0, pos);
+    pos -= step;
+  }
   return result;
 }
 
@@ -194,20 +202,25 @@ function drawFormat(dark: boolean[][], fn: boolean[][], size: number, level: QrL
   set(8, size - 8, true);
 }
 
+/** The data modules in the standard's order: two-column strips from the right, up then down, skipping the timing column. */
+function* dataPositions(size: number): Generator<[number, number]> {
+  for (let right = size - 1; right >= 1; right -= 2) {
+    if (right === 6) right = 5;
+    for (let vert = 0; vert < size; vert++) {
+      const y = ((right + 1) & 2) === 0 ? size - 1 - vert : vert;
+      yield [right, y];
+      yield [right - 1, y];
+    }
+  }
+}
+
 function placeData(grid: Grid, data: readonly number[]) {
   const { size, dark, fn } = grid;
   let i = 0;
-  for (let right = size - 1; right >= 1; right -= 2) {
-    if (right === 6) right = 5;
-    for (let vert = 0; vert < size; vert++)
-      for (let j = 0; j < 2; j++) {
-        const x = right - j;
-        const y = ((right + 1) & 2) === 0 ? size - 1 - vert : vert;
-        if (!fn[y]![x] && i < data.length * 8) {
-          dark[y]![x] = ((data[i >>> 3]! >>> (7 - (i & 7))) & 1) !== 0;
-          i++;
-        }
-      }
+  for (const [x, y] of dataPositions(size)) {
+    if (fn[y]![x] || i >= data.length * 8) continue;
+    dark[y]![x] = ((data[i >>> 3]! >>> (7 - (i & 7))) & 1) !== 0;
+    i++;
   }
 }
 
@@ -222,36 +235,52 @@ const MASKS: ((x: number, y: number) => boolean)[] = [
   (x, y) => (((x + y) % 2) + ((x * y) % 3)) % 2 === 0,
 ];
 
-function penalty(dark: readonly (readonly boolean[])[]): number {
-  const size = dark.length;
+type Dark = readonly (readonly boolean[])[];
+
+/** Rule 1: runs of five or more of one colour in a line (3, then 1 per module beyond). */
+function runPenalty(line: readonly boolean[]): number {
   let score = 0;
-  // Rule 1 (runs of five or more) and rule 3 (the finder-like pattern 1011101 with four light modules beside it).
-  const lines = (get: (a: number, b: number) => boolean) => {
-    for (let a = 0; a < size; a++) {
-      let run = 1;
-      for (let b = 1; b < size; b++) {
-        if (get(a, b) === get(a, b - 1)) {
-          run++;
-          if (run === 5) score += 3;
-          else if (run > 5) score++;
-        } else run = 1;
-      }
-      const line = Array.from({ length: size }, (_, b) => (get(a, b) ? "1" : "0")).join("");
-      for (const pattern of ["00001011101", "10111010000"]) {
-        for (let at = line.indexOf(pattern); at >= 0; at = line.indexOf(pattern, at + 1)) score += 40;
-      }
-    }
-  };
-  lines((a, b) => dark[a]![b]!);
-  lines((a, b) => dark[b]![a]!);
-  for (let y = 0; y < size - 1; y++)
-    for (let x = 0; x < size - 1; x++) {
+  let run = 1;
+  for (let i = 1; i < line.length; i++) {
+    run = line[i] === line[i - 1] ? run + 1 : 1;
+    if (run === 5) score += 3;
+    else if (run > 5) score++;
+  }
+  return score;
+}
+
+/** Rule 3: the finder-like pattern 1011101 with four light modules on one side, 40 each. */
+function finderPenalty(line: readonly boolean[]): number {
+  const text = line.map((on) => (on ? "1" : "0")).join("");
+  let score = 0;
+  for (const pattern of ["00001011101", "10111010000"]) {
+    for (let at = text.indexOf(pattern); at >= 0; at = text.indexOf(pattern, at + 1)) score += 40;
+  }
+  return score;
+}
+
+/** Rule 2: 2x2 blocks of one colour, 3 each. */
+function blockPenalty(dark: Dark): number {
+  let score = 0;
+  for (let y = 0; y < dark.length - 1; y++)
+    for (let x = 0; x < dark.length - 1; x++) {
       const c = dark[y]![x]!;
       if (c === dark[y]![x + 1] && c === dark[y + 1]![x] && c === dark[y + 1]![x + 1]) score += 3;
     }
+  return score;
+}
+
+/** Rule 4: the share of dark modules away from 50 %, 10 per started 5 %. */
+function balancePenalty(dark: Dark): number {
+  const size = dark.length;
   const total = dark.reduce((n, row) => n + row.filter(Boolean).length, 0);
-  const k = Math.ceil(Math.abs(total * 20 - size * size * 10) / (size * size)) - 1;
-  return score + k * 10;
+  return (Math.ceil(Math.abs(total * 20 - size * size * 10) / (size * size)) - 1) * 10;
+}
+
+function penalty(dark: Dark): number {
+  const columns = dark.map((_, x) => dark.map((row) => row[x]!));
+  const lines = [...dark, ...columns];
+  return lines.reduce((n, line) => n + runPenalty(line) + finderPenalty(line), 0) + blockPenalty(dark) + balancePenalty(dark);
 }
 
 /** Thrown when the text does not fit the biggest code (version 40) at the asked level. */
@@ -262,32 +291,32 @@ export class QrTooLongError extends Error {
   }
 }
 
+/** The smallest version whose data capacity holds the bytes (mode and length fields included). */
+function smallestVersion(bytes: readonly number[], level: QrLevel): number {
+  for (let version = 1; version <= 40; version++) {
+    if (4 + (version <= 9 ? 8 : 16) + bytes.length * 8 <= dataCodewords(version, level) * 8) return version;
+  }
+  throw new QrTooLongError(bytes.length, level);
+}
+
+/** The grid with one mask applied to its data modules and its format bits written. */
+function masked(base: Grid, mask: number, level: QrLevel): boolean[][] {
+  const dark = base.dark.map((row) => [...row]);
+  const fn = base.fn.map((row) => [...row]);
+  for (let y = 0; y < base.size; y++) for (let x = 0; x < base.size; x++) if (!fn[y]![x] && MASKS[mask]!(x, y)) dark[y]![x] = !dark[y]![x];
+  drawFormat(dark, fn, base.size, level, mask);
+  return dark;
+}
+
 /** Encodes a text as a QR code: the smallest version that holds it at `level`, the best of the eight masks. */
 export function encodeQr(text: string, level: QrLevel = "M"): QrMatrix {
   const bytes = utf8(text);
-  let version = 1;
-  for (; ; version++) {
-    if (version > 40) throw new QrTooLongError(bytes.length, level);
-    const used = 4 + (version <= 9 ? 8 : 16) + bytes.length * 8;
-    if (used <= dataCodewords(version, level) * 8) break;
-  }
-  const data = codewords(bytes, version, level);
+  const version = smallestVersion(bytes, level);
   const base = drawFunctionPatterns(version, level);
-  placeData(base, data);
-  let best: boolean[][] | undefined;
-  let bestScore = Infinity;
-  for (let mask = 0; mask < 8; mask++) {
-    const dark = base.dark.map((row) => [...row]);
-    const fn = base.fn.map((row) => [...row]);
-    for (let y = 0; y < base.size; y++) for (let x = 0; x < base.size; x++) if (!fn[y]![x] && MASKS[mask]!(x, y)) dark[y]![x] = !dark[y]![x];
-    drawFormat(dark, fn, base.size, level, mask);
-    const score = penalty(dark);
-    if (score < bestScore) {
-      best = dark;
-      bestScore = score;
-    }
-  }
-  return best!;
+  placeData(base, codewords(bytes, version, level));
+  const candidates = MASKS.map((_, mask) => masked(base, mask, level));
+  const scores = candidates.map(penalty);
+  return candidates[scores.indexOf(Math.min(...scores))]!;
 }
 
 /**
