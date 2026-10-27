@@ -4,12 +4,20 @@
 
 /** A brand of the default avatars. `orochia`, `yasakia`, `yororis` and `kachizaka` are deprecated: paused products (2026-10-25), removed in the next major; their pictures stay served until then. */
 export type DefaultAvatarBrand = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka" | "kachizaka" | "akinaza";
-/** `person`: a neutral silhouette. `plain`: the brand's gradient alone, ready for initials. */
-export type DefaultAvatarKind = "person" | "plain";
+/**
+ * What the picture is of. `person`: a neutral silhouette. `plain`: the brand's gradient alone, ready for initials.
+ * `folder`, `organisation` and `shop` are the pictures of a thing that is not a person (a folder or collection, a company, a shop):
+ * a glyph on the gradient, never a silhouette. The central sets of these kinds are in the Krizaka org JSON (`defaults`, `@krizaka/org`).
+ */
+export type DefaultAvatarKind = "person" | "plain" | "folder" | "organisation" | "shop";
+/** The kinds of entity that have a set of default pictures of their own (`plain` is a style of `person`). */
+export type DefaultAvatarEntityKind = "person" | "folder" | "organisation" | "shop";
 export type DefaultAvatarSize = 256 | 512;
 
 export const DEFAULT_AVATAR_BRANDS: readonly DefaultAvatarBrand[] = ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"];
+/** The two styles of the legacy brand sets (`people/defaults/v1/<brand>`); the kinds of the central sets are `DEFAULT_AVATAR_ENTITY_KINDS`. */
 export const DEFAULT_AVATAR_KINDS: readonly DefaultAvatarKind[] = ["person", "plain"];
+export const DEFAULT_AVATAR_ENTITY_KINDS: readonly DefaultAvatarEntityKind[] = ["person", "folder", "organisation", "shop"];
 export const DEFAULT_AVATAR_SIZES: readonly DefaultAvatarSize[] = [256, 512];
 /** How many tones each brand has: a person always gets the same one from their seed, so a list is not one colour. */
 export const DEFAULT_AVATAR_TONES = 6;
@@ -25,7 +33,8 @@ export interface DefaultAvatar {
   /** Force a tone, 1 to 6, instead of deriving it from `seed`. */
   tone?: number;
   /**
-   * `person` (default): a silhouette. `plain`: the gradient alone.
+   * `person` (default): a silhouette. `plain`: the gradient alone. `folder`, `organisation`, `shop`: that thing's glyph, drawn here
+   * (a data URL, no request) — a folder is never given a person.
    * @default "person"
    */
   kind?: DefaultAvatarKind;
@@ -108,14 +117,35 @@ function trimTrailingSlashes(value: string): string {
  * @param base Another host or version of the set (a self-hosted copy); the default is the Krizaka CDN.
  */
 export function defaultAvatarUrl(avatar: DefaultAvatar, { size = 256, base = DEFAULT_AVATAR_BASE }: { size?: DefaultAvatarSize | "svg"; base?: string } = {}): string {
+  if (isGlyphKind(avatar.kind)) return defaultAvatarDataUrl(avatar);
   return `${trimTrailingSlashes(base)}/${avatar.brand}/${defaultAvatarFile(avatar.kind ?? "person", resolveTone(avatar), size)}`;
+}
+
+const GLYPHS: Record<"folder" | "organisation" | "shop", (from: string) => string> = {
+  folder: () => `<path d="M96 176a28 28 0 0 1 28-28h92l40 44h132a28 28 0 0 1 28 28v152a28 28 0 0 1-28 28H124a28 28 0 0 1-28-28z" fill="#fff" fill-opacity=".92"/>`,
+  organisation: (from) =>
+    `<rect x="136" y="104" width="240" height="304" rx="16" fill="#fff" fill-opacity=".92"/>${[160, 226, 292]
+      .flatMap((y) => [168, 236, 304].map((x) => `<rect x="${x}" y="${y}" width="40" height="40" rx="6" fill="${from}"/>`))
+      .join("")}<rect x="232" y="352" width="48" height="56" rx="6" fill="${from}"/>`,
+  shop: (from) =>
+    `<path d="M112 132h288l24 84a56 56 0 0 1-112 0 56 56 0 0 1-112 0 56 56 0 0 1-112 0z" fill="#fff" fill-opacity=".92"/><rect x="136" y="292" width="240" height="116" rx="12" fill="#fff" fill-opacity=".92"/><rect x="226" y="326" width="60" height="82" rx="8" fill="${from}"/><rect x="156" y="318" width="48" height="44" rx="6" fill="${from}"/><rect x="308" y="318" width="48" height="44" rx="6" fill="${from}"/>`,
+};
+
+type GlyphKind = keyof typeof GLYPHS;
+const isGlyphKind = (kind: DefaultAvatarKind | undefined): kind is GlyphKind => kind === "folder" || kind === "organisation" || kind === "shop";
+
+/** The picture as a `data:` URL: nothing to fetch, so a folder, an organisation or a shop always has its picture (offline, in a test, before the CDN answers). */
+export function defaultAvatarDataUrl(avatar: DefaultAvatar): string {
+  return `data:image/svg+xml,${encodeURIComponent(defaultAvatarSvg(avatar))}`;
 }
 
 /** The SVG source of a default avatar, 512 × 512 and square (the Avatar clips it round). */
 export function defaultAvatarSvg(avatar: DefaultAvatar): string {
   const [from, to] = defaultAvatarTone(avatar.brand, resolveTone(avatar));
-  const person =
-    (avatar.kind ?? "person") === "person"
+  const kind = avatar.kind ?? "person";
+  const person = isGlyphKind(kind)
+    ? GLYPHS[kind](from)
+    : kind === "person"
       ? `<circle cx="256" cy="200" r="86" fill="#fff" fill-opacity=".92"/><path d="M84 512c0-108 78-182 172-182s172 74 172 182z" fill="#fff" fill-opacity=".92"/>`
       : "";
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${from}"/><stop offset="1" stop-color="${to}"/></linearGradient><radialGradient id="l" cx=".28" cy=".18" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".24"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><rect width="512" height="512" fill="url(#g)"/><rect width="512" height="512" fill="url(#l)"/>${person}</svg>`;
