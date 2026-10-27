@@ -1,0 +1,35 @@
+{
+  "id": "salon-atelier",
+  "version": 1,
+  "name": "Atelier",
+  "trades": [
+    "salon"
+  ],
+  "paper": "plain",
+  "accent": "akinaza:accent-2",
+  "accents": [
+    "akinaza:accent-2",
+    "akinaza",
+    "krizaka",
+    "yomizaka"
+  ],
+  "faces": {
+    "title": "display",
+    "note": "mono"
+  },
+  "density": "airy",
+  "photo": {
+    "grade": "warm",
+    "grain": 0,
+    "radius": "none"
+  },
+  "variants": {
+    "hero": "split",
+    "services": "menu",
+    "booking": "panel",
+    "gallery": "mosaic",
+    "reviews": "quote",
+    "story": "quote",
+    "visit": "split"
+  }
+}

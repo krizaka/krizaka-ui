@@ -1,0 +1,33 @@
+{
+  "id": "consulting-bureau",
+  "version": 1,
+  "name": "Bureau",
+  "trades": [
+    "consulting"
+  ],
+  "paper": "plain",
+  "accent": "yomizaka",
+  "accents": [
+    "yomizaka",
+    "akinaza",
+    "akinaza:accent-2",
+    "krizaka"
+  ],
+  "faces": {
+    "title": "product-display",
+    "note": "mono"
+  },
+  "density": "compact",
+  "photo": {
+    "grade": "none",
+    "grain": 0,
+    "radius": "xs"
+  },
+  "variants": {
+    "hero": "banner",
+    "services": "cards",
+    "booking": "panel",
+    "story": "owner",
+    "team": "row"
+  }
+}

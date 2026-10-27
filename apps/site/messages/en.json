@@ -243,6 +243,10 @@
           "title": "Cahier site",
           "description": "How a tool site wears krizaka.com's identity: the Cahier, its own bird and hue, taped prints, doodles and grades — one language, never one layout."
         },
+        "shop-presets": {
+          "title": "Shop presets",
+          "description": "The twelve looks of a shop page, two per trade: accent, paper, faces and photo treatment as data, each proven accessible in both themes."
+        },
         "brand-marks": {
           "title": "Brand marks",
           "description": "The four marks of the Krizaka family — drawn in code, animated, still under reduced motion."

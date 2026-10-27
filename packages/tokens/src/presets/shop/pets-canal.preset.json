@@ -1,0 +1,33 @@
+{
+  "id": "pets-canal",
+  "version": 1,
+  "name": "Canal",
+  "trades": [
+    "pets"
+  ],
+  "paper": "plain",
+  "accent": "akinaza",
+  "accents": [
+    "akinaza",
+    "akinaza:accent-2",
+    "krizaka",
+    "yomizaka"
+  ],
+  "faces": {
+    "title": "product-display",
+    "note": "cahier"
+  },
+  "density": "compact",
+  "photo": {
+    "grade": "none",
+    "grain": 0,
+    "radius": "xs"
+  },
+  "variants": {
+    "hero": "poster",
+    "services": "menu",
+    "booking": "strip",
+    "gallery": "filmstrip",
+    "visit": "map"
+  }
+}

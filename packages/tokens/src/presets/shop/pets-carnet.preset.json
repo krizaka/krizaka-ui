@@ -1,0 +1,33 @@
+{
+  "id": "pets-carnet",
+  "version": 1,
+  "name": "Carnet",
+  "trades": [
+    "pets"
+  ],
+  "paper": "kraft",
+  "accent": "akinaza",
+  "accents": [
+    "akinaza",
+    "akinaza:accent-2",
+    "yomizaka"
+  ],
+  "faces": {
+    "title": "display",
+    "note": "cahier"
+  },
+  "density": "airy",
+  "photo": {
+    "grade": "warm",
+    "grain": 1,
+    "radius": "none"
+  },
+  "variants": {
+    "hero": "split",
+    "services": "index",
+    "booking": "panel",
+    "gallery": "wall",
+    "video": "tv",
+    "bulletin": "board"
+  }
+}

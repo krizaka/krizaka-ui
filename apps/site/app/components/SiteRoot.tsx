@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 /* The page blocks and the storytelling kit of @krizaka/ui (their live examples): their stylesheets, by package path. */
 import "@krizaka/ui/blocks.css";
+import "@krizaka/tokens/shop-presets.css"; // the look presets of the shop page examples (`data-shop-preset`)
 import "@krizaka/ui/story.css";
 
 import { KrizakaLogo } from "@krizaka/ui";

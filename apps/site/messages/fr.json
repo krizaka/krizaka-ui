@@ -243,6 +243,10 @@
           "title": "Site Cahier",
           "description": "Comment un site d'outil porte l'identité de krizaka.com : le Cahier, son oiseau et sa teinte, des tirages scotchés, des doodles et des notes — un seul langage, jamais une seule mise en page."
         },
+        "shop-presets": {
+          "title": "Looks de boutique",
+          "description": "Les douze looks d'une page de boutique, deux par métier : accent, papier, polices et traitement des photos en données, chacun prouvé accessible dans les deux thèmes."
+        },
         "brand-marks": {
           "title": "Marques",
           "description": "Les quatre marques de la famille Krizaka — dessinées en code, animées, immobiles si le mouvement est réduit."

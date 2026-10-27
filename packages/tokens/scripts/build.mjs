@@ -12,12 +12,13 @@
 //                          aliases on `html.light` would override a product's `:root` overrides (html.light wins);
 //   `:root`              — the invariants: literal values identical in both themes (media overlays, statuses, radii…).
 
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { appearanceCss, appearanceModule, compileAppearance, parseColor } from "./appearance.mjs";
 import { parseHsl, toNative } from "./color.mjs";
+import { compileShopPresets, shopPresetsModule } from "./shop-presets.mjs";
 
 /** Source files, in output order. */
 export const SOURCES = ["color", "radius", "shadow", "material", "motion", "typography"];
@@ -253,8 +254,11 @@ export function typeScale(sources) {
 /**
  * Builds every output from the sources.
  * @param {Record<string, unknown>} sources
+ * @param {Record<string, unknown>} [brandSources]
+ * @param {any} [appearanceSource]
+ * @param {unknown[] | null} [shopPresetSources] the look presets of a shop page (src/presets/shop)
  */
-export function compile(sources, brandSources = {}, appearanceSource = null) {
+export function compile(sources, brandSources = {}, appearanceSource = null, shopPresetSources = null) {
   const tokens = flatten(sources);
   const { resolve, target } = resolver(tokens);
   const themed = tokens.filter((t) => t.light !== undefined || isAlias(t.dark));
@@ -501,6 +505,7 @@ export declare const marks: { readonly [B in BrandId]: readonly MarkStop[] };\n`
     "native.js": pure(nativeJs + brandsNativeJs + (appearanceNative ? `\n/** Appearance (ADR-006 §4): the themes with their miniature's colours, the accents per theme, what each reads on, the densities. */\nexport const appearance = Object.freeze(${json(appearanceNative)});\n` : "")),
     "native.d.ts": nativeDts + brandsNativeDts + (appearance ? `\n${appearanceMod.dts.replace(/export type AppearanceThemeId[\s\S]*?export declare const appearance: \{[\s\S]*?\n\};\n/, nativeAppearanceDts(appearance))}` : ""),
     ...(appearance ? { "appearance.css": appearanceCss(appearanceSource, appearance) } : {}),
+    ...shopPresetFiles(shopPresetSources, brands, pure),
     ...brands.css,
   };
   return { tokens, brands: brands.ids, files };
@@ -622,6 +627,28 @@ export function write(files, outDir) {
 }
 
 /**
+ * The files of the look presets of a shop page (`shop-presets.css`, `.js`, `.d.ts`), or none without sources or brands.
+ * @param {unknown[] | null | undefined} sources
+ * @param {{ ids: string[], values: Record<string, { dark: Record<string, string>, light: Record<string, string> }> }} brands
+ * @param {(js: string) => string} pure
+ * @returns {Record<string, string>}
+ */
+function shopPresetFiles(sources, brands, pure) {
+  if (!sources || brands.ids.length === 0) return {};
+  const { css, data } = compileShopPresets(sources, brands.values);
+  const mod = shopPresetsModule(data);
+  return { "shop-presets.css": css, "shop-presets.js": pure(mod.js.trimStart()), "shop-presets.d.ts": mod.dts.trimStart() };
+}
+
+/**
+ * Reads the look presets of a shop page (`src/presets/shop/*.preset.json`), in file-name order.
+ * @param {string} dir
+ */
+export function loadShopPresets(dir) {
+  return readdirSync(dir).filter((f) => f.endsWith(".preset.json")).sort().map((f) => JSON.parse(readFileSync(join(dir, f), "utf8")));
+}
+
+/**
  * Reads the appearance source (`src/appearance/appearance.json`).
  * @param {string} dir
  */
@@ -650,7 +677,7 @@ export declare const appearance: {
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-  const { tokens, brands, files } = compile(load(join(root, "src/tokens")), loadBrands(join(root, "src/brands")), loadAppearance(join(root, "src/appearance")));
+  const { tokens, brands, files } = compile(load(join(root, "src/tokens")), loadBrands(join(root, "src/brands")), loadAppearance(join(root, "src/appearance")), loadShopPresets(join(root, "src/presets/shop")));
   write(files, join(root, "dist"));
   console.log(`@krizaka/tokens: ${tokens.length} tokens, ${brands.length} brands → dist/{${Object.keys(files).join(",")}}`);
 }
