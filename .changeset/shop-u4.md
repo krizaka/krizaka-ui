@@ -1,0 +1,5 @@
+---
+"@krizaka/ui": minor
+---
+
+`@krizaka/ui/shop-composer` — our own shop composer (ADR-007 §5, krizaka-ui#746), a separate entry that never reaches a public page: the outline of the sections (a visibility switch, a menu, `Alt+↑` / `Alt+↓` to reorder, every move announced and focus kept), the live preview of the product's own route in a titled `iframe` (phone / desktop), the inspector of the selected section — its variant as a radio group of live thumbnails drawn from the section itself with demo data, its settings as a `@krizaka/ui/form` form generated from the zod schema of its type, its words in each language, its blocks as a sortable list — the look (preset, spacing), undo and redo (⌘Z / ⇧⌘Z, 100 steps, a burst of typing is one step), a draft saved after 800 ms, and a publish step that shows what changes and refuses while a setting is invalid. Two steps on a phone. The page's half of the preview bridge (`connectShopPreview`, origin-checked, `select` / `scroll` / `refresh` only) is in `@krizaka/ui/shop`. No third-party editor: Puck was weighed and not adopted.

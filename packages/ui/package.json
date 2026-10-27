@@ -938,6 +938,10 @@
     "./desktop-window": {
       "types": "./dist/desktop-window.d.ts",
       "import": "./dist/desktop-window.js"
+    },
+    "./shop-composer": {
+      "types": "./dist/shop-composer.d.ts",
+      "import": "./dist/shop-composer.js"
     }
   },
   "files": [
@@ -3065,7 +3069,7 @@
     {
       "name": "./shop",
       "path": "dist/shop.js",
-      "limit": "4 kB",
+      "limit": "4.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -3258,6 +3262,19 @@
       "limit": "3.5 kB",
       "gzip": true,
       "ignore": ["tailwind-variants", "clsx", "radix-ui", "@krizaka/ui"]
+    },
+    {
+      "name": "./shop-composer",
+      "path": "dist/shop-composer.js",
+      "limit": "24 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui",
+        "zod",
+        "zod/mini"
+      ]
     }
   ],
   "dependencies": {

@@ -1913,3 +1913,9 @@ svg[data-bird="beaver"]{--kzb-pivot:60px 56px;--kzb-head-a:kzb-beaver-head 10s e
 }
 /* Washi: a thin paper, the page's surface warmed by a few percent of the accent (the contrast test reads the same mix). */
 [data-paper="washi"] { background-color: color-mix(in srgb, var(--kz-surface-0) 94%, var(--kz-accent) 6%); }
+
+/* The composer's thumbnails (ADR-007 §5): a section drawn with demo data at the size of a card — 960 px of page in 160 × 96. */
+.kz-shop-thumb { position: relative; width: 160px; height: 96px; margin-inline: auto; overflow: hidden; border-radius: 6px; background: var(--kz-surface-0); pointer-events: none; }
+.kz-shop-thumb-inner { position: absolute; top: 0; left: 0; width: 960px; transform-origin: top left; transform: scale(0.16667); }
+/* The section the composer outlines in the preview page (the bridge sets `data-shop-selected` on the block wrapped around it): a ring, never a layout change. */
+[data-shop-key][data-shop-selected] { outline: 2px solid var(--kz-accent); outline-offset: -2px; }
