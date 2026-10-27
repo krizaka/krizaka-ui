@@ -1,5 +1,11 @@
 # @krizaka/app-client
 
+## 0.3.0
+
+### Minor Changes
+
+- [#763](https://github.com/krizaka/krizaka-ui/pull/763) [`bcb993e`](https://github.com/krizaka/krizaka-ui/commit/bcb993e78b7e6854ef85db96e47312fd32cfd895) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(app-client): `@krizaka/app-client/server` — `sessionTokenOf(headers, cookieName)` (the native app's `Authorization: Bearer` before the web's cookie), `cookieValue` and `signInClientOf(body)` (`client: "native"` gets its token in the body). Yomizaka and Akinaza carried a copy of each (krizaka-ui#741).
+
 ## 0.2.1
 
 ### Patch Changes

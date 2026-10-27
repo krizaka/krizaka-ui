@@ -1,5 +1,12 @@
 # @krizaka/app-desktop
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`bcb993e`](https://github.com/krizaka/krizaka-ui/commit/bcb993e78b7e6854ef85db96e47312fd32cfd895)]:
+  - @krizaka/app-client@0.3.0
+
 ## 0.1.1
 
 ### Patch Changes
