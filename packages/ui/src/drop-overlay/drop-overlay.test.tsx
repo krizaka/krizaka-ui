@@ -33,15 +33,17 @@ const drag = (type: string, files = true) => {
 
 describe("DropOverlay", () => {
   it("requires a callback unless active is a defined boolean", () => {
-    void <DropOverlay label="Déposez" onFiles={() => {}} />;
-    void <DropOverlay label="Déposez" active={false} />;
-    void <DropOverlay label="Déposez" active />;
-    // @ts-expect-error DOM drops need a callback.
-    void <DropOverlay label="Déposez" />;
-    // @ts-expect-error An undefined active prop still selects DOM mode.
-    void <DropOverlay label="Déposez" active={undefined} />;
-    // @ts-expect-error A possibly undefined active prop can select DOM mode.
-    void <DropOverlay label="Déposez" active={undefined as boolean | undefined} />;
+    const valid = [<DropOverlay key="a" label="Déposez" onFiles={() => {}} />, <DropOverlay key="b" label="Déposez" active={false} />, <DropOverlay key="c" label="Déposez" active />];
+    const refused = [
+      // @ts-expect-error DOM drops need a callback.
+      <DropOverlay key="d" label="Déposez" />,
+      // @ts-expect-error An undefined active prop still selects DOM mode.
+      <DropOverlay key="e" label="Déposez" active={undefined} />,
+      // @ts-expect-error A possibly undefined active prop can select DOM mode.
+      <DropOverlay key="f" label="Déposez" active={undefined as boolean | undefined} />,
+    ];
+    expect(valid).toHaveLength(3);
+    expect(refused).toHaveLength(3);
   });
 
   it("covers the window while files are dragged over it, and hands the dropped files over", () => {

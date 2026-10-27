@@ -102,6 +102,8 @@ pnpm --filter storybook dev   # the internal catalogue on http://localhost:6006
 pnpm changeset         # describe a change that ships
 ```
 
+**Visual baselines.** The Storybook screenshots are Linux ones. After adding or changing a story, do not regenerate them locally: run the *Update baselines* workflow on your branch (Actions > Update baselines > Run workflow, or `gh workflow run update-baselines.yml -f branch=<branch>`). It pushes only the changed snapshots.
+
 pnpm + Turborepo, released with Changesets. The rules are in [AGENTS.md](AGENTS.md).
 
 ## License
