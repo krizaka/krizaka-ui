@@ -1,5 +1,11 @@
 # @krizaka/email
 
+## 0.3.0
+
+### Minor Changes
+
+- [#792](https://github.com/krizaka/krizaka-ui/pull/792) [`52d69f0`](https://github.com/krizaka/krizaka-ui/commit/52d69f057aa790d3c0583ddaeda7715662fb35c2) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - New `shareLink` template (EN/FR): a person shares a read-only link (sender name, link, expiry date, optional escaped note) and never the shared content. Wears the brand's tokens, so a product such as Yomizaka or Akinaza reuses it.
+
 ## 0.2.0
 
 ### Minor Changes
