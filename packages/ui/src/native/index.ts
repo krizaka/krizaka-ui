@@ -132,6 +132,7 @@ export { ProductMark } from "./ProductMark";
 export { ProfileBanner, type ProfileBannerProps, ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
 export { Progress, type ProgressProps } from "./progress";
 export { BrandedRefresh, type BrandedRefreshProps, type BrandedRefreshScrollProps, PullToRefresh, type PullToRefreshProps } from "./pull-to-refresh";
+export { QrCode, type QrCodeProps } from "./qr-code";
 export { RadioGroup, type RadioGroupProps, type RadioOption } from "./radio-group";
 export { Screen, type ScreenProps } from "./screen";
 export { SearchField, type SearchFieldProps } from "./search-field";

@@ -245,6 +245,10 @@
       "types": "./dist/waveform.d.ts",
       "import": "./dist/waveform.js"
     },
+    "./qr-code": {
+      "types": "./dist/qr-code.d.ts",
+      "import": "./dist/qr-code.js"
+    },
     "./section-backdrop": {
       "types": "./dist/section-backdrop.d.ts",
       "import": "./dist/section-backdrop.js"
@@ -1016,6 +1020,7 @@
     "happy-dom": "^21.0.4",
     "jest": "30.5.2",
     "jest-environment-node": "30.5.2",
+    "jsqr": "1.4.0",
     "maplibre-gl": "6.15.0",
     "pdfjs-dist": "6.4.299",
     "publint": "^0.3.25",
@@ -1093,7 +1098,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "69.6 kB",
+      "limit": "73 kB",
       "gzip": true
     },
     {
@@ -1568,6 +1573,16 @@
       "name": "./progress",
       "path": "dist/progress.js",
       "limit": "1.8 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./qr-code (the encoder and its drawing; no dependency)",
+      "path": "dist/qr-code.js",
+      "limit": "9 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -3248,7 +3263,12 @@
       "path": "dist/app-frame.js",
       "limit": "2.3 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx", "radix-ui", "@krizaka/ui"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "radix-ui",
+        "@krizaka/ui"
+      ]
     },
     {
       "name": "./app-frame/server",
@@ -3261,7 +3281,12 @@
       "path": "dist/desktop-window.js",
       "limit": "3.5 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx", "radix-ui", "@krizaka/ui"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "radix-ui",
+        "@krizaka/ui"
+      ]
     },
     {
       "name": "./shop-composer",

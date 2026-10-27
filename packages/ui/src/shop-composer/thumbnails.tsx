@@ -36,7 +36,7 @@ function Demo({ type, variant }: { type: SectionType; variant: string }): React.
   const v = variant as never;
   switch (type) {
     case "hero":
-      return <HeroSection variant={v} title={shop.name} eyebrow={shop.eyebrow} lead={shop.promise} cover={shop.cover} actions={<Button variant="primary">Book</Button>} tv={{ src: "/demo.mp4", poster: shop.cover.src, title: "Latest video" } as never} />;
+      return <HeroSection variant={v} title={shop.name} eyebrow={shop.eyebrow} lead={shop.promise} cover={shop.cover} actions={<Button variant="primary">Book</Button>} tv={{ poster: shop.cover.src, title: "Latest video" } as never} />;
     case "services":
       return <ServicesSection variant={v} title="Services" services={shop.services} chooseLabel="Choose" popularLabel="Popular" />;
     case "booking":
