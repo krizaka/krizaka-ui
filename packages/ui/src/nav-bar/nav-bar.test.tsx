@@ -468,7 +468,8 @@ describe("NavBar.Family", () => {
     await user.click(screen.getByRole("button", { name: "Open the menu" }));
     const panel = screen.getAllByRole("navigation", { name: "Main" }).find((n) => n.tagName === "NAV" && n.id)!;
     const group = within(panel).getByRole("group", { name: "Famille Krizaka" });
-    expect(panel.lastElementChild).toBe(group);
+    // the panel's content sits in one display:contents wrapper (the delegated link-close handler): the group is still its last child
+    expect(panel.lastElementChild?.lastElementChild).toBe(group);
     expect(within(group).getAllByRole("link")).toHaveLength(sites.length);
     expect(within(group).getByRole("list", { name: "Produits" })).toBeTruthy();
     expect(within(group).getByRole("link", { name: /Krizaka UI/ }).getAttribute("aria-current")).toBe("true");
