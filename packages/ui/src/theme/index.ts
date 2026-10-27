@@ -10,5 +10,6 @@ export {
   ThemeToggle,
   type ThemeToggleProps,
   useAppearance,
+  useOptionalTheme,
   useTheme,
 } from "./theme";

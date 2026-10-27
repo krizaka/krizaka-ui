@@ -48,6 +48,7 @@ export const CATEGORIES = [
    never counted as a failure. */
 export const TOLERATED = [
   { re: /krizaka-assets\.b-cdn\.net\/maps\/v1\//, why: "the CDN's map tiles may lack CORS headers; MapGate shows the photograph meanwhile" },
+  { re: /tiktok(cdn-us)?\.com/, why: "TikTok's own embed answers 400 / 429 to a headless browser and complains about its permissions policy: the platform's, behind a facade a visitor opens on purpose" },
   { re: /net::ERR_ABORTED/, why: "a request cancelled by a navigation or a prefetch" },
 ];
 

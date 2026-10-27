@@ -141,6 +141,11 @@ export function ThemeProvider({ children, defaultMode = "system" }: ThemeProvide
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
+/** The theme context, or `null` outside a `ThemeProvider` (a frame that offers the theme only when the app has one). */
+export function useOptionalTheme(): ThemeContextValue | null {
+  return React.useContext(ThemeContext);
+}
+
 export function useTheme(): ThemeContextValue {
   const context = React.useContext(ThemeContext);
   if (!context) throw new Error("useTheme: wrap the app in <ThemeProvider>");

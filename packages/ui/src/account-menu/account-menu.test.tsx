@@ -85,4 +85,27 @@ describe("AccountMenu — the name's breakpoint (#647)", () => {
     expect(name).toContain("lg:inline-block");
     expect(name).not.toContain("sm:inline-block");
   });
+
+  it("the theme is a submenu under the language, showing the current choice, and choosing calls back", async () => {
+    const user = userEvent.setup();
+    const onTheme = vi.fn();
+    render(
+      <AccountMenu
+        label="Account"
+        name="Eric"
+        language={{ label: "Language", value: "en", options: [{ value: "en", label: "English" }], onChange: () => {} }}
+        theme={{ label: "Theme", value: "dark", options: [{ value: "light", label: "Light" }, { value: "dark", label: "Dark" }], onChange: onTheme }}
+        signOut={{ label: "Sign out", onSelect: () => {} }}
+      />,
+    );
+    await user.click(screen.getByRole("button", { name: "Account" }));
+    const rows = screen.getAllByRole("menuitem").map((i) => i.textContent);
+    expect(rows).toEqual(["LanguageEnglish", "ThemeDark", "Sign out"]);
+    screen.getByRole("menuitem", { name: /Theme/ }).focus();
+    await user.keyboard("{ArrowRight}");
+    const light = await screen.findByRole("menuitemradio", { name: "Light" });
+    light.focus();
+    await user.keyboard("{Enter}");
+    expect(onTheme).toHaveBeenCalledWith("light");
+  });
 });

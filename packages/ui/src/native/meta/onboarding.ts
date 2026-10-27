@@ -21,7 +21,7 @@ export const meta = {
     imports: ["Onboarding"],
     differences: [],
     examples: [
-      { name: "first-launch", title: "First launch", description: "An app's three promises." },
+      { name: "first-launch", title: "First launch", description: "An app's three promises.", template: true, purpose: "explain", why: "A person learns what the app does in three swipes, and can skip at any moment." },
     ],
   },
 } satisfies ComponentMeta;

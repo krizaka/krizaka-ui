@@ -24,7 +24,7 @@ export const meta = {
       "Only the rows: `SettingsGroup` (a titled card of hairline-divided rows) and `SettingsRow` (icon tile, label, help, value or control, a chevron when `onPress` opens something). The sections-on-the-side layout is a web idea; on a phone each section is a screen.",
       "A row with `onPress` is a button named by its visible words; a row with a `trailing` control (a `Switch`) leaves the control as the thing to press.",
     ],
-    examples: [{ name: "account", title: "Account settings", description: "A group of rows: a value, a link that opens a screen, a switch, a destructive action." }],
+    examples: [{ name: "account", title: "Account settings", description: "A group of rows: a value, a link that opens a screen, a switch, a destructive action.", template: true, purpose: "operate", why: "A person reviews their account and changes one thing, with the dangerous action set apart at the end." }],
   },
   web: {
     imports: ["SettingsLayout", "SettingsSection", "SettingsRow"],
