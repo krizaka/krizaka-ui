@@ -46,6 +46,12 @@ const sha = (buf) => createHash("sha256").update(buf).digest("hex");
 /** A founder file name that would read as something else in the org JSON (« street » trips the no-address scan) is published under another id. */
 export const ID_ALIASES = { "abstract-street-art": "abstract-stripes" };
 
+/**
+ * Pictures withdrawn from the set (`<kind>/<id>`), the same as `DISABLED_DEFAULTS` of `@krizaka/org`: the neon flamingo carries the Orochia wordmark, so it is neither
+ * rendered nor uploaded. Its file in the founder's folder is left alone; a new render simply has no `banner/the-neon-flamingo-*`.
+ */
+export const DISABLED = new Set(["banner/the-neon-flamingo"]);
+
 /** The founder's pictures from the FILE NAMES of its folder: `avatar-01-boom-bap.png` → { kind: "person", id: "boom-bap" }. Only `.png` sources, only these patterns; anything else is ignored, unread. */
 export function founderItems(names) {
   return names
@@ -53,6 +59,7 @@ export function founderItems(names) {
       const m = /^(avatar|banner)-(\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)\.png$/.exec(name);
       return m ? [{ kind: m[1] === "avatar" ? "person" : "banner", id: ID_ALIASES[m[3]] ?? m[3], order: Number(m[2]), source: name }] : [];
     })
+    .filter((item) => !DISABLED.has(`${item.kind}/${item.id}`))
     .sort((a, b) => a.kind.localeCompare(b.kind) || a.order - b.order);
 }
 

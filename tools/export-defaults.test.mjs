@@ -4,13 +4,22 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 
-import { assertWritable, build, drawnItems, fileOf, founderItems, KINDS, manifestOf, PREFIX } from "./export-defaults.mjs";
+import { assertWritable, build, DISABLED, drawnItems, fileOf, founderItems, KINDS, manifestOf, PREFIX } from "./export-defaults.mjs";
 
 test("reads the founder's pictures from file names only, and nothing else in the folder", () => {
   const items = founderItems(["manifest.json", "avatar-02-rasta-creative.png", "avatar-02-rasta-creative.webp", "avatar-01-boom-bap.png", "banner-07-the-mascot-flock.png", "notes.txt"]);
   assert.deepEqual(
     items.map((i) => `${i.kind}:${i.id}`),
     ["banner:the-mascot-flock", "person:boom-bap", "person:rasta-creative"],
+  );
+});
+
+test("leaves out the withdrawn pictures: the neon flamingo with the Orochia wordmark (banner 11), as @krizaka/org does", () => {
+  assert.ok(DISABLED.has("banner/the-neon-flamingo"));
+  const items = founderItems(["banner-11-the-neon-flamingo.png", "banner-07-the-mascot-flock.png"]);
+  assert.deepEqual(
+    items.map((i) => `${i.kind}:${i.id}`),
+    ["banner:the-mascot-flock"],
   );
 });
 
