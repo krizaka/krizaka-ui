@@ -36,27 +36,41 @@ export interface DesktopMenus {
   shortcuts: Record<string, () => void>;
 }
 
+/** Refuses an id the native side would refuse, or one already declared. */
+function checkId(out: DesktopMenus, id: string): void {
+  if (!ID.test(id)) throw new Error(`desktopMenus: "${id}" is not a menu id (lowercase letters, digits, "." and "-").`);
+  if (out.handlers[id]) throw new Error(`desktopMenus: "${id}" is declared twice.`);
+}
+
+/** Records the chord of a command for the page, refusing one given to two commands. */
+function addShortcut(out: DesktopMenus, shortcut: string, run: () => void): void {
+  const key = shortcut.toLowerCase();
+  if (out.shortcuts[key]) throw new Error(`desktopMenus: "${shortcut}" is the shortcut of two commands.`);
+  out.shortcuts[key] = run;
+}
+
+/** The menu item of a command: its accelerator, and only the flags it sets. */
+function itemOf(command: DesktopCommand): DesktopMenu["items"][number] {
+  const accelerator = command.shortcut ? acceleratorOf(command.shortcut) : undefined;
+  return {
+    id: command.id,
+    label: command.label,
+    ...(accelerator ? { accelerator } : {}),
+    ...(command.enabled === false ? { enabled: false } : {}),
+    ...(command.separated ? { separated: true } : {}),
+  };
+}
+
 /** Turns the commands into the menu bar's menus, its handlers and the page's shortcuts — one source for the three. Throws on a bad or repeated id, or a shortcut given twice. */
 export function desktopMenus(commands: readonly DesktopCommand[]): DesktopMenus {
   const out: DesktopMenus = { menus: [], handlers: {}, shortcuts: {} };
   for (const command of commands) {
-    if (!ID.test(command.id)) throw new Error(`desktopMenus: "${command.id}" is not a menu id (lowercase letters, digits, "." and "-").`);
-    if (out.handlers[command.id]) throw new Error(`desktopMenus: "${command.id}" is declared twice.`);
+    checkId(out, command.id);
     out.handlers[command.id] = command.run;
-    if (command.shortcut) {
-      const key = command.shortcut.toLowerCase();
-      if (out.shortcuts[key]) throw new Error(`desktopMenus: "${command.shortcut}" is the shortcut of two commands.`);
-      out.shortcuts[key] = command.run;
-    }
+    if (command.shortcut) addShortcut(out, command.shortcut, command.run);
     let menu = out.menus.find((m) => m.title === command.menu);
     if (!menu) out.menus.push((menu = { title: command.menu, items: [] }));
-    menu.items.push({
-      id: command.id,
-      label: command.label,
-      ...(command.shortcut && acceleratorOf(command.shortcut) ? { accelerator: acceleratorOf(command.shortcut) as string } : {}),
-      ...(command.enabled === false ? { enabled: false } : {}),
-      ...(command.separated ? { separated: true } : {}),
-    });
+    menu.items.push(itemOf(command));
   }
   return out;
 }

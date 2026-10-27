@@ -12,5 +12,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Empty: Story = { render: () => <EmptyExample /> };
-export const Error: Story = { render: () => <ErrorExample /> };
+const Failure: Story = { render: () => <ErrorExample /> };
+// Exported as `Error` (the story's id is `error`, as the example's name): a variable of that name is refused.
+export { Failure as Error };
 export const Offline: Story = { render: () => <OfflineExample /> };
