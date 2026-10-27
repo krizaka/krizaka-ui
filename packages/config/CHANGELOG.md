@@ -1,5 +1,15 @@
 # @krizaka/config
 
+## 0.9.0
+
+### Minor Changes
+
+- [#767](https://github.com/krizaka/krizaka-ui/pull/767) [`d529291`](https://github.com/krizaka/krizaka-ui/commit/d529291f62e46d71a2cda8bdaeee020e3d64bec0) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - React effects are for the outside world (krizaka/.github `docs/standards/react-effects.md`): `krizakaStack()` gains
+  `krizaka/no-async-in-effect` (an effect that loads data: use `useQuery` / `useMutation`) and
+  `krizaka/no-derived-state-in-effect` (an effect that only sets state: derive in render or use a `key`), errors by default
+  (`effects: "warn"` while a repository has debt), and `krizaka-ratchet` counts them (`asyncInEffect`,
+  `derivedStateInEffect`) so the debt only goes down.
+
 ## 0.8.0
 
 ### Minor Changes
