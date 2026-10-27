@@ -32,6 +32,10 @@
       "types": "./dist/react.d.ts",
       "import": "./dist/react.js"
     },
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -95,6 +99,12 @@
       "ignore": [
         "react"
       ]
+    },
+    {
+      "name": "./server",
+      "path": "dist/server.js",
+      "limit": "0.5 kB",
+      "gzip": true
     }
   ],
   "peerDependencies": {

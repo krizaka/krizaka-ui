@@ -45,6 +45,7 @@ export const api = createApiClient({
 | `secureStorage`, `browserStorage`, `discoveryStorage` | The storage port: Keychain / Keystore, the web preview, the manifest in pieces |
 | `createAppDiscovery` | Krizaka's manifest, keys and host allow-list plus the product's address; `EXPO_PUBLIC_APP_URL` wins for local work |
 | `createApiClient`, `ApiError` | JSON with the bearer, no cookie, a timeout, a 401 drops the session |
+| `@krizaka/app-client/server`: `sessionTokenOf`, `signInClientOf` | The backend's side: the token of a request (the app's `Authorization: Bearer` before the web's cookie) and the client a sign-in body declares (`native` gets the token in the response body) — pure, headers in, for a Next.js route |
 | `@krizaka/app-client/react`: `createAuth`, `useSessionStatus`, `AUTH` | The auth context of an app's screens: `loading`, then `signedIn` / `signedOut`, followed when a session starts or ends (a 401 included); `signIn` / `signOut` are the product's API calls |
 
 ```tsx
