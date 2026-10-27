@@ -19,6 +19,17 @@ describe("DashboardLayout", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
+  it("keeps the rows of the widgets at the height of their content next to a taller side column (yomizaka#435)", () => {
+    render(
+      <DashboardLayout title="Home" side={<div style={{ height: 900 }}>side</div>}>
+        <Widget title="Binder" span="full">
+          card
+        </Widget>
+      </DashboardLayout>,
+    );
+    expect(screen.getByRole("region", { name: "Binder" }).parentElement?.className).toContain("content-start");
+  });
+
   it("can be an h2 inside a shell", () => {
     render(<DashboardLayout title="Studio" headingAs="h2"><Widget title="A">a</Widget></DashboardLayout>);
     expect(screen.getByRole("heading", { level: 2, name: "Studio" })).toBeTruthy();

@@ -27,7 +27,8 @@ export const dashboardLayout = tv({
     tileHint: "text-xs text-fg-secondary",
     actions: "flex shrink-0 flex-wrap items-center gap-2",
     toolbar: "flex flex-wrap items-center gap-2",
-    grid: "grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4",
+    // content-start: next to a taller side column the rows keep the height of their content (an auto row would stretch, and a card inside a widget with it: yomizaka#435).
+    grid: "grid grid-cols-1 content-start gap-4 sm:grid-cols-2 xl:grid-cols-4",
     widget: "flex min-w-0 flex-col gap-3 rounded-xl border border-border-default bg-surface-1 p-4 sm:p-5",
     widgetHead: "flex items-start justify-between gap-3",
     widgetTitle: "text-sm font-semibold text-fg",
