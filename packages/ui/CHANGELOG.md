@@ -1,5 +1,19 @@
 # @krizaka/ui
 
+## 3.65.0
+
+### Minor Changes
+
+- [#761](https://github.com/krizaka/krizaka-ui/pull/761) [`cd60fe7`](https://github.com/krizaka/krizaka-ui/commit/cd60fe7fc559fef751ed7e40b3e470c289e635d4) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(app-frame): `AppFrame` — the one signed-in frame of every Krizaka web product (UX audit F1, F2, F4, F6). Sections (`place` main | foot, `gated`, `badge`), account (`links`: profile, settings, billing, administration), the primary action, the search, the notifications and chips go in; the rail (a tab bar on a phone), the family's top bar and the account menu come out. The frame fixes the account menu's order (identity, Profile, Settings, Billing, Administration, Language, Theme, Sign out), keeps the preferences in the menu, and refuses a place on both the rail and the avatar. `variant="admin"` for the administration. The shared EN/FR vocabulary (`navWords`: Docs, Terms / Conditions d'utilisation, Settings / Réglages, Billing…) and `publicBarLinks` (the public bar: flat links, four at most) are in `@krizaka/ui/app-frame/server` for Server Components. `AccountMenu` gains a `theme` submenu; `useOptionalTheme` is exported from `@krizaka/ui/theme`.
+
+- [#761](https://github.com/krizaka/krizaka-ui/pull/761) [`cd60fe7`](https://github.com/krizaka/krizaka-ui/commit/cd60fe7fc559fef751ed7e40b3e470c289e635d4) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(layouts): native `Grid` / `Columns` by size class, mobile templates, and the Mac window (krizaka-ui#753, [#741](https://github.com/krizaka/krizaka-ui/issues/741)). Native: `Grid` picks its columns from the width it is given (compact < 600 pt, regular < 840, expanded) — never from a device name — with `minItemWidth` (grown by the text scale, so nothing overflows at 200 %), gap tokens, equal heights and right-to-left safety; `Columns` sit side by side or stack; `useSizeClass`, `useFontScale`. New templates on `Screen`: `ListDetail` (one pane on a phone, two when the room holds them), `FormFlow` (steps, pinned action), `StateScreen` and `OfflineBanner` (empty, error, offline), a dashboard and a settings home; `Screen` gains `onRefresh` (pull to refresh). Web: `DesktopWindow` (`@krizaka/ui/desktop-window`), the window of a Tauri Mac app — sidebar · content · inspector, resizable by pointer and keyboard, collapsible, a toolbar that moves the window and clears the traffic lights, the desktop's density and the macOS focus ring — and `desktopMenus` / `useDesktopCommands`, which turn the window's commands into the menu bar's menus (`setNativeMenu` of `@krizaka/app-desktop`), handlers and the page's shortcuts. A « Frames, layouts and templates » page on ui.krizaka.com says which to use at which size class.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.65.0
+  - @krizaka/tokens@3.65.0
+
 ## 3.64.1
 
 ### Patch Changes
