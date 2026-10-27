@@ -44,12 +44,15 @@ const encodePath = (p) => p.split("/").map(encodeURIComponent).join("/");
 
 // ---- pure helpers (tested) ----------------------------------------------------------------------------------------
 
+/** A founder file name that would read as something else in the org JSON (« street » trips the no-address scan) is published under another id. */
+export const ID_ALIASES = { "abstract-street-art": "abstract-stripes" };
+
 /** The founder's pictures from the FILE NAMES of its folder: `avatar-01-boom-bap.png` → { kind: "person", id: "boom-bap" }. Only `.png` sources, only these patterns; anything else is ignored, unread. */
 export function founderItems(names) {
   return names
     .flatMap((name) => {
       const m = /^(avatar|banner)-(\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)\.png$/.exec(name);
-      return m ? [{ kind: m[1] === "avatar" ? "person" : "banner", id: m[3], order: Number(m[2]), source: name }] : [];
+      return m ? [{ kind: m[1] === "avatar" ? "person" : "banner", id: ID_ALIASES[m[3]] ?? m[3], order: Number(m[2]), source: name }] : [];
     })
     .sort((a, b) => a.kind.localeCompare(b.kind) || a.order - b.order);
 }
