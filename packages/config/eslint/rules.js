@@ -3,7 +3,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-import { countFormFields, effectProblem, EFFECT_NAMES_SOURCE, FETCH_NAMES_SOURCE, isLocalSelection, isPageFile, LIGHT_VARIANT_SOURCE, PAGE_TEMPLATES, pageTemplateProblem, paletteSource, TANSTACK_SCOPE } from "../patterns.js";
+import { countFormFields, EFFECT_NAMES_SOURCE, effectProblem, FETCH_NAMES_SOURCE, isLocalSelection, isPageFile, LIGHT_VARIANT_SOURCE, PAGE_TEMPLATES, pageTemplateProblem, paletteSource, TANSTACK_SCOPE } from "../patterns.js";
 
 /** @typedef {import("eslint").Rule.RuleModule} RuleModule */
 /** @typedef {import("estree").Node} Node */

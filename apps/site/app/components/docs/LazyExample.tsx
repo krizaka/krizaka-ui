@@ -1,16 +1,21 @@
 "use client";
 
-import { Component, type ComponentType, type ReactNode, useEffect, useRef, useState } from "react";
+import { Component, type ComponentType, lazy, type ReactNode, Suspense, useEffect, useRef, useState } from "react";
 
 import { mapSnapshotOf } from "@/lib/map-gate";
 import { examplePropsOf } from "@/lib/ui-example-props";
-import { UI_EXAMPLES, type UiExampleKey } from "@/lib/ui-examples";
+import { UI_EXAMPLES } from "@/lib/ui-examples";
 
 import { MapGate } from "./MapGate";
 
 /* A named example of the registry, loaded when it scrolls into view: the catalogue shows 150 of them and ships none of
    their code until a card is near the screen. The heavy ones (maps, charts, media, whole pages) wait a moment more, once
    the page has settled. Static first: until it is loaded the card shows its placeholder, and a failure leaves it there. */
+/* One lazy component per example, made once at load: the module is fetched when the card first renders it, in a Suspense. */
+const LAZY_EXAMPLES = Object.fromEntries(
+  Object.entries(UI_EXAMPLES).map(([key, load]) => [key, lazy(async () => ({ default: (await load()).default as ComponentType<Record<string, unknown>> }))]),
+) as Record<string, ComponentType<Record<string, unknown>>>;
+
 class Guard extends Component<{ fallback: ReactNode; children: ReactNode }, { failed: boolean }> {
   state = { failed: false };
   static getDerivedStateFromError() {
@@ -25,7 +30,6 @@ export function LazyExample({ exampleKey, heavy, placeholder }: { exampleKey: st
   const host = useRef<HTMLDivElement>(null);
   const snapshot = mapSnapshotOf(exampleKey);
   const [wanted, setWanted] = useState(false);
-  const [Example, setExample] = useState<ComponentType<Record<string, unknown>> | null>(null);
 
   useEffect(() => {
     const el = host.current;
@@ -47,27 +51,21 @@ export function LazyExample({ exampleKey, heavy, placeholder }: { exampleKey: st
     };
   }, [heavy]);
 
-  useEffect(() => {
-    if (!wanted) return;
-    let alive = true;
-    const load = UI_EXAMPLES[exampleKey as UiExampleKey];
-    void load?.().then((module) => alive && setExample(() => module.default as ComponentType<Record<string, unknown>>));
-    return () => {
-      alive = false;
-    };
-  }, [wanted, exampleKey]);
+  const Example = wanted ? LAZY_EXAMPLES[exampleKey] : undefined;
 
   return (
     <div ref={host} className="kz-catalog-live" inert>
       {Example ? (
         <Guard fallback={placeholder}>
-          {snapshot ? (
-            <MapGate snapshot={snapshot} alt="">
+          <Suspense fallback={placeholder}>
+            {snapshot ? (
+              <MapGate snapshot={snapshot} alt="">
+                <Example {...examplePropsOf(exampleKey)} />
+              </MapGate>
+            ) : (
               <Example {...examplePropsOf(exampleKey)} />
-            </MapGate>
-          ) : (
-            <Example {...examplePropsOf(exampleKey)} />
-          )}
+            )}
+          </Suspense>
         </Guard>
       ) : (
         placeholder
