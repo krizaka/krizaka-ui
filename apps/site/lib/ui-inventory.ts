@@ -103,6 +103,7 @@ export const PLANNED: Record<string, string> = {
   reviews: "Akinaza's shop pages (krizaka/akinaza#313): the shop's verified score and its review cards.",
   "embed-facade": "Akinaza's shop pages (krizaka/akinaza#312): the latest TikTok, YouTube Shorts or Instagram reel behind a click, nothing third-party before it.",
   "retro-tv": "Akinaza's shop pages: a vertical reel or behind-the-scenes story displayed in the shop's television cabinet.",
+  "shop-gallery": "Akinaza's shop pages (krizaka/akinaza#403): the « Photos » section as a mosaic that opens a lightbox, replacing the raw photo scroller.",
   "video-player": "The products' tours: the demos moved to the product sites with the showcase (#150).",
   virtual: "The data table and the long lists are built on it.",
   // @krizaka/charts — what the products will draw (PS-C: creator revenue, credits, latency, funnel, goal gauge, KPI sparkline, activity heat map, geo map).

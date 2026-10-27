@@ -299,6 +299,7 @@ export default defineConfig([
       "search-field": "src/search-field/index.ts",
       "video-player": "src/video-player/index.ts",
       "retro-tv": "src/retro-tv/index.ts",
+      "shop-gallery": "src/shop-gallery/index.ts",
       // Client since krizaka-ui#608: it hides while the page's own action is on screen.
       "sticky-action": "src/sticky-action/index.ts",
       // A platform's short video behind a click (Law 25); fits a RetroTv's screen.
