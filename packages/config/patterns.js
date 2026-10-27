@@ -65,26 +65,89 @@ export const SUBSCRIBE_EFFECT_SOURCE = String.raw`\b(?:listen|once|on|addEventLi
  */
 export function blankStrings(source) {
   let out = "";
-  for (let i = 0; i < source.length; i += 1) {
-    const c = source[i];
-    if (c === '"' || c === "'" || c === "`") {
-      let j = i + 1;
-      for (; j < source.length && source[j] !== c; j += 1) if (source[j] === "\\") j += 1;
-      out += c + " ".repeat(Math.max(0, j - i - 1)) + c;
-      i = j;
-    } else if (c === "/" && source[i + 1] === "/") {
-      const end = source.indexOf("\n", i);
-      const stop = end < 0 ? source.length : end;
-      out += " ".repeat(stop - i);
-      i = stop - 1;
-    } else if (c === "/" && source[i + 1] === "*") {
-      const end = source.indexOf("*/", i + 2);
-      const stop = end < 0 ? source.length : end + 2;
-      out += source.slice(i, stop).replace(/[^\n]/g, " ");
-      i = stop - 1;
-    } else out += c;
+  let i = 0;
+  while (i < source.length) {
+    const [blanked, next] = blankedAt(source, i);
+    out += blanked;
+    i = next;
   }
   return out;
+}
+
+/**
+ * What `source` holds at `i` once blanked, and where the text goes on: a string or template literal keeps its quotes, a
+ * comment is spaces (newlines kept), any other character is itself.
+ * @param {string} source
+ * @param {number} i
+ * @returns {[string, number]}
+ */
+function blankedAt(source, i) {
+  const c = source[i];
+  if (c === '"' || c === "'" || c === "`") {
+    let j = i + 1;
+    for (; j < source.length && source[j] !== c; j += 1) if (source[j] === "\\") j += 1;
+    return [c + " ".repeat(Math.max(0, j - i - 1)) + c, j + 1];
+  }
+  if (c === "/" && source[i + 1] === "/") {
+    const end = source.indexOf("\n", i);
+    const stop = end < 0 ? source.length : end;
+    return [" ".repeat(stop - i), stop];
+  }
+  if (c === "/" && source[i + 1] === "*") {
+    const end = source.indexOf("*/", i + 2);
+    const stop = end < 0 ? source.length : end + 2;
+    return [source.slice(i, stop).replace(/[^\n]/g, " "), stop];
+  }
+  return [c ?? "", i + 1];
+}
+
+/**
+ * An effect callback without its signature (`() =>`, `async () =>`, `function () `, `cb =>`): what is left is its body.
+ * Scanned, not matched by a regular expression, so no input makes it slow.
+ * @param {string} callback
+ * @returns {string}
+ */
+function withoutSignature(callback) {
+  let i = 0;
+  const skipSpace = () => {
+    while (i < callback.length && /\s/.test(/** @type {string} */ (callback[i]))) i += 1;
+  };
+  skipSpace();
+  if (callback.startsWith("async", i) && /\s/.test(callback[i + 5] ?? "")) {
+    i += 5;
+    skipSpace();
+  }
+  const isFunction = callback.startsWith("function", i);
+  if (isFunction) {
+    i += 8;
+    while (i < callback.length && callback[i] !== "(") i += 1;
+  }
+  if (callback[i] === "(") {
+    const close = callback.indexOf(")", i);
+    if (close < 0) return callback;
+    i = close + 1;
+  } else if (!isFunction) {
+    while (i < callback.length && /\w/.test(/** @type {string} */ (callback[i]))) i += 1;
+  }
+  const afterParams = i;
+  skipSpace();
+  if (callback.startsWith("=>", i)) return callback.slice(i + 2);
+  return isFunction ? callback.slice(afterParams) : callback;
+}
+
+/**
+ * The callback of an effect call without the dependency array that follows it (`cb, [a, b]`).
+ * @param {string} args the balanced arguments of `useEffect(…)`
+ * @returns {string}
+ */
+export function withoutDependencyArray(args) {
+  let end = args.trimEnd();
+  if (end.endsWith(",")) end = end.slice(0, -1).trimEnd();
+  if (!end.endsWith("]")) return args;
+  const open = end.lastIndexOf("[");
+  if (open < 0) return args;
+  const before = end.slice(0, open).trimEnd();
+  return before.endsWith(",") ? before.slice(0, -1) : args;
 }
 
 /**
@@ -117,7 +180,7 @@ function withoutSetStateCalls(text) {
  */
 export function effectProblem(body) {
   // the ratchet passes the whole callback (`() => { … }`), the ESLint rule its body: strip the signature
-  const text = blankStrings(body).replace(/^\s*(?:async\s+)?(?:function\s*\w*\s*\([^)]*\)|\([^)]*\)|\w+)\s*(?:=>)?/, (head) => (/=>|function/.test(head) ? "" : head));
+  const text = withoutSignature(blankStrings(body));
   // an expression body (`() => session.onChange(…)`) returns its cleanup as well as a block that says `return`
   const returnsCleanup = /\breturn\b/.test(text) || !/^\s*\{/.test(text);
   if (new RegExp(SUBSCRIBE_EFFECT_SOURCE).test(text) && returnsCleanup) return null;

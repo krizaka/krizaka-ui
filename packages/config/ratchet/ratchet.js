@@ -24,6 +24,7 @@ import {
   TABLE_OR_FORM_SOURCE,
   TANSTACK_SCOPE,
   USE_CLIENT_SOURCE,
+  withoutDependencyArray,
 } from "../patterns.js";
 
 export const RATCHET_FILE = "lint-ratchet.json";
@@ -112,7 +113,7 @@ export function countStackSource(source, { retire = [], maxFormFields = 1 } = {}
   let derivedStateInEffect = 0;
   for (const effect of source.matchAll(new RegExp(EFFECT_CALL_SOURCE, "g"))) {
     const body = balancedArguments(source, (effect.index ?? 0) + effect[0].length - 1);
-    const problem = effectProblem(body.replace(/,\s*\[[^\]]*\]\s*,?\s*$/, "")); // the dependency array is not the callback
+    const problem = effectProblem(withoutDependencyArray(body)); // the dependency array is not the callback
     if (problem === "async") asyncInEffect += 1;
     else if (problem === "derived") derivedStateInEffect += 1;
   }
