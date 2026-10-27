@@ -232,7 +232,7 @@ export function parseEnv(text) {
   return env;
 }
 
-function config(argv) {
+export function config(argv) {
   const i = argv.indexOf("--env-file");
   const env = { ...process.env, ...(i >= 0 ? parseEnv(readFileSync(argv[i + 1], "utf8")) : {}) };
   const host = (v) => (v ?? "").trim().replace(/^https?:\/\//, "").replace(/\/+$/, "");
@@ -241,10 +241,10 @@ function config(argv) {
   return cfg;
 }
 
-async function send(cfg, files) {
+export async function send(cfg, files, guard = assertWritable) {
   const queue = [...files];
   const put = async ([path, body]) => {
-    const res = await fetch(`https://${cfg.endpoint}/${encodeURIComponent(cfg.zone)}/${encodePath(assertWritable(path))}`, {
+    const res = await fetch(`https://${cfg.endpoint}/${encodeURIComponent(cfg.zone)}/${encodePath(guard(path))}`, {
       method: "PUT",
       headers: { AccessKey: cfg.key, "Content-Type": contentTypeOf(path), Checksum: sha(body).toUpperCase() },
       body,

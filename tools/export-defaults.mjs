@@ -22,7 +22,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { DEFAULT_AVATAR_TONES, defaultAvatarSvg } from "../packages/ui/src/avatar/default-avatar.ts";
-import { contentTypeOf, parseEnv } from "./export-brand.mjs";
+import { config, send } from "./export-brand.mjs";
 
 export const VERSION = "v1";
 export const PREFIX = `defaults/${VERSION}`;
@@ -40,7 +40,6 @@ export const DRAWN = [
 ];
 
 const sha = (buf) => createHash("sha256").update(buf).digest("hex");
-const encodePath = (p) => p.split("/").map(encodeURIComponent).join("/");
 
 // ---- pure helpers (tested) ----------------------------------------------------------------------------------------
 
@@ -118,33 +117,6 @@ export async function build({ founderDirs = [] } = {}) {
 
 // ---- storage -----------------------------------------------------------------------------------------------------
 
-function config(argv) {
-  const i = argv.indexOf("--env-file");
-  const env = { ...process.env, ...(i >= 0 ? parseEnv(readFileSync(argv[i + 1], "utf8")) : {}) };
-  const host = (v) => (v ?? "").trim().replace(/^https?:\/\//, "").replace(/\/+$/, "");
-  const cfg = { key: env.MEDIA_STORAGE_API_KEY ?? "", zone: (env.MEDIA_STORAGE_ZONE ?? "").trim(), endpoint: host(env.MEDIA_STORAGE_ENDPOINT) || "storage.bunnycdn.com" };
-  if (!cfg.key || !cfg.zone) throw new Error("MEDIA_STORAGE_API_KEY and MEDIA_STORAGE_ZONE are required to upload");
-  return cfg;
-}
-
-async function send(cfg, files) {
-  const queue = [...files];
-  const put = async ([path, body]) => {
-    const res = await fetch(`https://${cfg.endpoint}/${encodeURIComponent(cfg.zone)}/${encodePath(assertWritable(path))}`, {
-      method: "PUT",
-      headers: { AccessKey: cfg.key, "Content-Type": contentTypeOf(path), Checksum: sha(body).toUpperCase() },
-      body,
-    });
-    if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
-  };
-  await Promise.all(
-    Array.from({ length: 8 }, async () => {
-      for (let f = queue.shift(); f; f = queue.shift()) await put(f);
-    }),
-  );
-  return files.size;
-}
-
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   const argv = process.argv.slice(2);
   const args = (name) => argv.flatMap((a, i) => (a === name && argv[i + 1] ? [argv[i + 1]] : []));
@@ -161,5 +133,5 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
     writeFileSync(join(outDir, path), body);
   }
   console.log(`${files.size} file(s) from @krizaka/ui@${version} written to ${outDir}`);
-  if (cfg) console.log(`${await send(cfg, files)} file(s) uploaded to the storage zone`);
+  if (cfg) console.log(`${await send(cfg, files, assertWritable)} file(s) uploaded to the storage zone`);
 }
