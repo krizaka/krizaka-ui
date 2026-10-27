@@ -46,6 +46,7 @@ export const meta = {
     examples: [
       { name: "profile", title: "Profile page", description: "A whole profile section: identity, name, pictures, language, side — one save, dirty then saved with Undo.", template: true, purpose: "operate", why: "A person changes who they are in the app in one place, and sees at once that it was kept." },
       { name: "avatar-picker", title: "Avatar picker", description: "The family's default pictures as one radio group, the upload beside them." },
+      { name: "avatar-picker-folder", title: "Avatar picker of a folder", description: "`kind=\"folder\"`: the folder set, never a person; a « no picture » tile; the library's `Dropzone` to upload." },
       { name: "choice-cards", title: "Choice cards", description: "A single choice as two cards with an icon, a title and a line." },
       { name: "language-picker", title: "Language picker", description: "Labelled, native names." },
       { name: "appearance", title: "Appearance", description: "Theme cards (live miniatures, one check), accent, density and language as settings rows; applied at once with `useAppearance()`." },

@@ -1,6 +1,8 @@
 import {
   DEFAULT_AVATAR_BRANDS,
+  DEFAULT_AVATAR_ENTITY_KINDS,
   DEFAULT_AVATAR_TONES,
+  defaultAvatarDataUrl,
   defaultAvatarFile,
   defaultAvatarSvg,
   defaultAvatarTone,
@@ -58,5 +60,31 @@ describe("default avatars", () => {
     expect(url.startsWith("https://cdn.example/")).toBe(true);
     expect(performance.now() - start).toBeLessThan(500);
     expect(defaultAvatarUrl({ brand: "orochia", tone: 1 }, { base: "https://cdn.example/a///" })).toBe("https://cdn.example/a/orochia/person-1-256.webp");
+  });
+});
+
+describe("default pictures of a folder, an organisation and a shop", () => {
+  it("are drawn here, as a data URL: nothing to fetch", () => {
+    for (const kind of ["folder", "organisation", "shop"] as const) {
+      const url = defaultAvatarUrl({ brand: "krizaka", kind, tone: 2 });
+      expect(url).toBe(defaultAvatarDataUrl({ brand: "krizaka", kind, tone: 2 }));
+      expect(url.startsWith("data:image/svg+xml,")).toBe(true);
+    }
+  });
+
+  it("never draw the silhouette of a person", () => {
+    const person = defaultAvatarSvg({ brand: "krizaka", kind: "person", tone: 1 });
+    expect(person).toContain("<circle");
+    for (const kind of ["folder", "organisation", "shop"] as const) expect(defaultAvatarSvg({ brand: "krizaka", kind, tone: 1 })).not.toContain("<circle");
+  });
+
+  it("differ from each other, and keep the tones of the brand", () => {
+    const svgs = DEFAULT_AVATAR_ENTITY_KINDS.map((kind) => defaultAvatarSvg({ brand: "krizaka", kind, tone: 3 }));
+    expect(new Set(svgs).size).toBe(4);
+    expect(defaultAvatarSvg({ brand: "krizaka", kind: "shop", tone: 3 })).toContain(defaultAvatarTone("krizaka", 3)[0]);
+  });
+
+  it("are the same for the same seed", () => {
+    expect(defaultAvatarUrl({ brand: "yomizaka", kind: "folder", seed: "f-1" })).toBe(defaultAvatarUrl({ brand: "yomizaka", kind: "folder", seed: "f-1" }));
   });
 });

@@ -18,6 +18,7 @@ export const meta = {
   bestPractices: [
     "Always pass a `fallback` (initials) on the web: images fail, and the layout should not jump.",
     "A profile can lack a photo: pass `defaultAvatar={{ brand, seed: user.id }}` and the person gets the product's own default picture (a silhouette on the brand's gradient, one of six tones, always the same for the same id) instead of an empty circle. It also replaces a photo that fails to load. `fallbackSrc` is the same for your own image; `kind: \"plain\"` is the gradient alone, for initials.",
+    "`defaultAvatar.kind` is what the picture is of: `person` (default, a silhouette), `folder`, `organisation` or `shop` (a glyph on the gradient, drawn in the page, never a person). A folder, a company or a shop never gets a silhouette. The central sets of those kinds, and the founder's illustrated people and banners, are in the Krizaka org JSON (`defaults` of `@krizaka/org`): an app lists and picks them from there, it never bundles or hard-codes a default media URL.",
     "The default pictures are generated from the code (`defaultAvatarSvg`) and served by the Krizaka CDN (`defaultAvatarUrl`, 256 and 512 px WebP, SVG): a product never draws its own.",
     "Use one size per list: `sm` in dense lists, `md` by default, `lg`/`xl` on a profile.",
     "In a group, set `max` so a long list ends with `+n` instead of overflowing.",
