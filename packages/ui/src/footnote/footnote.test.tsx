@@ -22,7 +22,7 @@ describe("Footnote & caption", () => {
     const ref = screen.getByRole("link", { name: "Note 1" });
     expect(ref.getAttribute("href")).toBe("#fn-1");
     expect(ref.closest("sup")?.id).toBe("fn-ref-1");
-    const notes = screen.getByRole("complementary", { name: "Notes" });
+    const notes = screen.getByRole("region", { name: "Notes" });
     expect(notes.querySelector("li")?.id).toBe("fn-1");
     expect(screen.getByRole("link", { name: "Back to the text (1)" }).getAttribute("href")).toBe("#fn-ref-1");
     expect(await axeViolations(container)).toEqual([]);

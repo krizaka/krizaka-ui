@@ -96,6 +96,8 @@ export type DropzoneProps = {
   onReject?: (rejections: FileRejection[]) => void;
   /** The words of a refusal, shown in the zone: `(r) => r.file.name + " is too large"`. Without it, nothing is shown. */
   refusalLabel?: (rejection: FileRejection) => string;
+  /** The accessible name of the file input, passed translated. Defaults to `title`. */
+  inputLabel?: string;
   /** An icon instead of the upload glyph. */
   icon?: React.ReactNode;
   /** Classes merged on the zone. */
@@ -116,6 +118,7 @@ export function Dropzone({
   onFiles,
   onReject,
   refusalLabel,
+  inputLabel,
   icon,
   className,
 }: DropzoneProps) {
@@ -195,6 +198,7 @@ export function Dropzone({
         type="file"
         tabIndex={-1}
         aria-hidden
+        aria-label={inputLabel ?? title}
         className="sr-only"
         accept={accept}
         multiple={multiple}

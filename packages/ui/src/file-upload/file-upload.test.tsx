@@ -26,6 +26,13 @@ describe("Dropzone", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
+  it("names the hidden file input: the title by default, or inputLabel", () => {
+    const { container, rerender } = render(<Dropzone title="Drop your video" browseLabel="Choose" onFiles={() => undefined} />);
+    expect(container.querySelector("input[type=file]")?.getAttribute("aria-label")).toBe("Drop your video");
+    rerender(<Dropzone title="Drop your video" browseLabel="Choose" inputLabel="Video file" onFiles={() => undefined} />);
+    expect(container.querySelector("input[type=file]")?.getAttribute("aria-label")).toBe("Video file");
+  });
+
   it("accepts and refuses dropped files by type, size and count, and says why", () => {
     const onFiles = vi.fn();
     const onReject = vi.fn();
