@@ -13,7 +13,7 @@ export function canonicalize(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(canonicalize).join(",")}]`;
   if (typeof value === "object") {
     const record = value as Record<string, unknown>;
-    const keys = Object.keys(record).sort();
+    const keys = Object.keys(record).sort((a, b) => a.localeCompare(b));
     return `{${keys
       .map((key) => {
         if (record[key] === undefined) throw new Error(`${key} is undefined: it has no canonical form`);

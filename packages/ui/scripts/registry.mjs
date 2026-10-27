@@ -30,7 +30,7 @@ const isSource = (file) => /\.tsx?$/.test(file) && !/\.(test|stories)\.tsx?$/.te
 /** The primitives: every folder of `src/` but the excluded ones, and `cn` (a single file, `src/cn.ts`). */
 export function primitiveNames() {
   const folders = readdirSync(SRC).filter((name) => statSync(join(SRC, name)).isDirectory() && !EXCLUDED.has(name));
-  return [...folders, "cn"].sort();
+  return [...folders, "cn"].sort((a, b) => a.localeCompare(b));
 }
 
 /** The components that exist only in React Native: `src/native/meta/<name>.ts`. */
@@ -40,7 +40,7 @@ export function nativeOnlyNames() {
 }
 
 /** Every documented component, web primitives and native-only ones, in name order. */
-export const componentNames = () => [...primitiveNames(), ...nativeOnlyNames()].sort();
+export const componentNames = () => [...primitiveNames(), ...nativeOnlyNames()].sort((a, b) => a.localeCompare(b));
 
 /** The `meta.ts` of a component (src/meta.ts): a web primitive's beside its source, a native-only one's in src/native/meta. */
 export const metaFileOf = (name) =>
@@ -124,9 +124,9 @@ function collectSources(name, versions) {
     }
   }
   return {
-    files: [...files].sort().map((file) => ({ path: posix(relative(SRC, file)), content: readFileSync(file, "utf8") })),
-    dependencies: [...dependencies].sort(),
-    registryDependencies: [...registryDependencies].sort(),
+    files: [...files].sort((a, b) => a.localeCompare(b)).map((file) => ({ path: posix(relative(SRC, file)), content: readFileSync(file, "utf8") })),
+    dependencies: [...dependencies].sort((a, b) => a.localeCompare(b)),
+    registryDependencies: [...registryDependencies].sort((a, b) => a.localeCompare(b)),
   };
 }
 

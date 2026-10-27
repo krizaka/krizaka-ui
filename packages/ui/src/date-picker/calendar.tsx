@@ -325,7 +325,7 @@ export function Calendar({
         {fullTitle}
       </span>
       {view === "days" ? (
-        <div className={s.months()}>{shown.map(renderMonth)}</div>
+        <div className={s.months()}>{shown.map((first, index) => renderMonth(first, index))}</div>
       ) : (
         <MonthPicker
           locale={locale}

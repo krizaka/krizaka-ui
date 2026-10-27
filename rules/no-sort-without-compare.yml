@@ -1,0 +1,10 @@
+id: no-sort-without-compare
+language: Tsx
+severity: error
+message: "`.sort()` without a compare function sorts by UTF-16 code unit (and `[10, 9]` as text). Pass one: `(a, b) => a.localeCompare(b)` for strings, `(a, b) => a - b` for numbers (SonarCloud S2871)."
+rule:
+  pattern: $A.sort()
+ignores:
+  - "**/node_modules/**"
+  - "**/.next/**"
+  - "**/dist/**"

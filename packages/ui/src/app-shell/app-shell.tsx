@@ -194,8 +194,11 @@ export function AppShellSidebar({ label, brand, children, footer, collapseLabels
           <DialogPrimitive.Content className={s.drawer()} aria-describedby={undefined}>
             <DialogPrimitive.Title className="sr-only">{label}</DialogPrimitive.Title>
             <ShellContext.Provider value={{ ...shell, collapsed: false, inDrawer: true }}>
-              <nav aria-label={label} className="flex min-h-0 flex-1 flex-col" onClick={(e) => (e.target as Element).closest("a") && shell.setOpen(false)}>
-                <SidebarContent {...content} />
+              <nav aria-label={label} className="flex min-h-0 flex-1 flex-col">
+                {/* Delegated close on link activation; keyboard activation of a link fires a click too. */}
+                <div role="presentation" className="contents" onClick={(e) => (e.target as Element).closest("a") && shell.setOpen(false)}>
+                  <SidebarContent {...content} />
+                </div>
               </nav>
             </ShellContext.Provider>
           </DialogPrimitive.Content>

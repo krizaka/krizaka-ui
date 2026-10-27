@@ -11,7 +11,7 @@ import { useTheme } from "../theme";
 type Props = { children?: React.ReactNode; [key: string]: unknown };
 const View2D = React.createContext({ center: [0, 0] as readonly [number, number], zoom: 12, width: 0, height: 0 });
 
-export function Map({ children, style: _style, ...props }: Props) {
+function MockMap({ children, style: _style, ...props }: Props) {
   const { theme } = useTheme();
   const [size, setSize] = React.useState({ width: 0, height: 0 });
   const camera = React.Children.toArray(children).find((c) => React.isValidElement(c) && c.type === Camera) as React.ReactElement<{ center?: [number, number]; zoom?: number }> | undefined;
@@ -57,3 +57,5 @@ export const LocationManager = {
   getCurrentPosition: async () => LocationManager.position,
 };
 export type CameraRef = unknown;
+
+export { MockMap as Map };

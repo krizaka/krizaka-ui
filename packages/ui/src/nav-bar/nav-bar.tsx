@@ -421,12 +421,18 @@ export function NavBarMobile({ openLabel, closeLabel, className, children, ...pr
           id={panelId}
           aria-label={label}
           className={s.mobile({ className })}
-          onClick={(e) => {
-            if ((e.target as Element).closest("a")) setOpen(false);
-          }}
           {...props}
         >
-          <MobileContext.Provider value>{children}</MobileContext.Provider>
+          {/* Delegated close on link activation; keyboard activation of a link fires a click too. */}
+          <div
+            role="presentation"
+            className="contents"
+            onClick={(e) => {
+              if ((e.target as Element).closest("a")) setOpen(false);
+            }}
+          >
+            <MobileContext.Provider value>{children}</MobileContext.Provider>
+          </div>
         </nav>
       )}
     </>

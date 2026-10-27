@@ -148,7 +148,7 @@ export type MapProps = {
 };
 
 /** A map: MapLibre over our Protomaps tiles, styled from the tokens, with its places as a list for screen readers. */
-export function Map({
+function MapRoot({
   label,
   center,
   zoom = 12,
@@ -661,3 +661,5 @@ export function Cluster({ points, onPointPress, radius = 48 }: ClusterProps) {
   }, [m, ready, id, points, onPointPress, reduce]);
   return null;
 }
+
+export { MapRoot as Map };
