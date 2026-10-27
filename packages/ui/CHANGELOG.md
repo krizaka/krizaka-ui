@@ -1,5 +1,20 @@
 # @krizaka/ui
 
+## 3.67.0
+
+### Minor Changes
+
+- [#779](https://github.com/krizaka/krizaka-ui/pull/779) [`1542d74`](https://github.com/krizaka/krizaka-ui/commit/1542d74737512b0d271ee685a3c21e2442d56259) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Dropzone: `inputLabel` names the hidden file input (the title by default), so a page audit no longer reports an unlabelled file input (krizaka-ui#775).
+
+### Patch Changes
+
+- [#779](https://github.com/krizaka/krizaka-ui/pull/779) [`1542d74`](https://github.com/krizaka/krizaka-ui/commit/1542d74737512b0d271ee685a3c21e2442d56259) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - AuthLayout: the brand panel is a `complementary` landmark, so its promise is no longer content outside a landmark (axe `region`).
+
+- [#779](https://github.com/krizaka/krizaka-ui/pull/779) [`1542d74`](https://github.com/krizaka/krizaka-ui/commit/1542d74737512b0d271ee685a3c21e2442d56259) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Footnotes: the notes are a named `region`, not an `aside`, so they can sit inside a page's `main` without a nested complementary landmark (axe `landmark-complementary-is-top-level`).
+- Updated dependencies []:
+  - @krizaka/tailwind@3.67.0
+  - @krizaka/tokens@3.67.0
+
 ## 3.66.0
 
 ### Minor Changes

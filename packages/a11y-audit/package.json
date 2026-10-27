@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/a11y-audit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The accessibility guard of every Krizaka product's page audit: axe-core (WCAG 2.1 AA) run on the pages a Playwright crawl already visits, in dark and light, and a ratchet — violations counted per rule in a baseline file, a new one fails, the count only goes down.",
   "keywords": [
     "krizaka",
