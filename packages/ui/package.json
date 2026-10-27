@@ -958,6 +958,18 @@
     "./shop-composer": {
       "types": "./dist/shop-composer.d.ts",
       "import": "./dist/shop-composer.js"
+    },
+    "./copy-button": {
+      "types": "./dist/copy-button.d.ts",
+      "import": "./dist/copy-button.js"
+    },
+    "./money-input": {
+      "types": "./dist/money-input.d.ts",
+      "import": "./dist/money-input.js"
+    },
+    "./promo-code-field": {
+      "types": "./dist/promo-code-field.d.ts",
+      "import": "./dist/promo-code-field.js"
     }
   },
   "files": [
@@ -3342,6 +3354,37 @@
         "@krizaka/ui",
         "zod",
         "zod/mini"
+      ]
+    },
+    {
+      "name": "./copy-button",
+      "path": "dist/copy-button.js",
+      "limit": "4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./money-input",
+      "path": "dist/money-input.js",
+      "limit": "4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/intl"
+      ]
+    },
+    {
+      "name": "./promo-code-field (composes the shared Button and Field; marginal cost is small; CTO 2026-10-27, krizaka-ui#783)",
+      "path": "dist/promo-code-field.js",
+      "limit": "4.25 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
       ]
     }
   ],
