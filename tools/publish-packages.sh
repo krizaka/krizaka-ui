@@ -11,7 +11,7 @@ if [ "$(npm view "@krizaka/ui@$ver" version 2>/dev/null || true)" != "$ver" ]; t
   tmp=$(mktemp -d); echo "registry=https://registry.npmjs.org/" > "$tmp/npmrc"
   pnpm turbo run build --filter='@krizaka/ui...'   # its workspace dependencies (tokens/native…) first
   pnpm --filter @krizaka/ui pack --pack-destination "$tmp"
-  env -u NODE_AUTH_TOKEN NPM_CONFIG_USERCONFIG="$tmp/npmrc" npm publish "$tmp"/krizaka-ui-*.tgz --access public --provenance
+  env -u NODE_AUTH_TOKEN NPM_CONFIG_USERCONFIG="$tmp/npmrc" npm publish "$tmp"/krizaka-ui-*.tgz --access public --provenance --loglevel verbose
 fi
 pnpm changeset publish
 pnpm changeset tag
