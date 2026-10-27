@@ -1,5 +1,20 @@
 # @krizaka/ui
 
+## 3.66.0
+
+### Minor Changes
+
+- [#773](https://github.com/krizaka/krizaka-ui/pull/773) [`b3a8f0e`](https://github.com/krizaka/krizaka-ui/commit/b3a8f0e1673af87568755b7e3afff8a891b6e52a) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - New `EntityHeader` (`@krizaka/ui/entity-header`, and on `@krizaka/ui/native`): the head of a collection, shop or studio — its picture (`avatar`, and an `avatarPicker` that opens the library's `AvatarPicker`), name and description edited in place, `TagChip` tags, and a refusal said with the product's words: `onNameChange` throws an error with a `code` and `refusals[code]` (`NAME_TAKEN`, `AVATAR_NOT_ALLOWED`, `DEFAULT_COLLECTION`, … of `@krizaka/organize/contract`) is shown. New `CollectionSwitcher` (`@krizaka/ui/collection-switcher`, and native): a list or a nesting (`parentId`), the default collection marked and never removable, the current one held by the URL (`value` + `onValueChange`, or `href` for real links), and `mode="entity"` for a shop or studio switcher in the shell. Adds `PencilGlyph`. Closes krizaka-ui#740.
+
+- [#771](https://github.com/krizaka/krizaka-ui/pull/771) [`2126ed9`](https://github.com/krizaka/krizaka-ui/commit/2126ed973088d61069358c75595b93939f80c3e7) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - New `QrCode` (`@krizaka/ui/qr-code`, and `QrCode` on `@krizaka/ui/native`): a QR code drawn offline from a `value`, with no dependency and no call to any service. Dark modules on a light tile in dark and light themes alike (a phone reads dark on light), a quiet zone (`quietZone`, 4 modules by default), `size`, the error-correction `level` (L · M · Q · H), an image named by `label`, and an optional copy action (`copyLabel`, `copiedLabel`, `onCopy`; on native `onCopy` receives the text for the app to put on the clipboard). The pure encoder is exported too: `encodeQr` and `qrPath`. Closes krizaka-ui#760 (for krizaka/akinaza#282).
+
+### Patch Changes
+
+- [#771](https://github.com/krizaka/krizaka-ui/pull/771) [`2126ed9`](https://github.com/krizaka/krizaka-ui/commit/2126ed973088d61069358c75595b93939f80c3e7) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The shop composer's thumbnails no longer request a video that does not exist (`/demo.mp4`, a 404 on every page that drew them): the TV hero thumbnail is the cabinet and its poster.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.66.0
+  - @krizaka/tokens@3.66.0
+
 ## 3.65.0
 
 ### Minor Changes
