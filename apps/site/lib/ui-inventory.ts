@@ -32,6 +32,11 @@ const LEFT = "Its only users were products now paused (2026-10-25): kept until t
 
 /** Why an unused component stays: the planned work that needs it. */
 export const PLANNED: Record<string, string> = {
+  grid: `${MOBILE}: the dashboards, the galleries and the stat strips by size class (krizaka-ui#753; adoption yomizaka#430, akinaza#397).`,
+  "list-detail": `${MOBILE}: messages, jobs and files as one pane on a phone and two on a tablet (krizaka-ui#753).`,
+  "form-flow": `${MOBILE}: sign-up and the profile in steps (krizaka-ui#753, #741: Yomizaka and Akinaza switch to the native templates).`,
+  "state-screen": `${MOBILE}: the empty, error and offline screens (krizaka-ui#753, #741).`,
+  "desktop-window": "The Mac apps' window (Orazaka, Yomizaka, Akinaza; Tauri, ADR-002): three panes, the toolbar and the menu bar's commands (krizaka-ui#753).",
   "app-frame": "The one signed-in frame of Yomizaka, Akinaza and Orazaka (UX audit F1, F2; yomizaka#429, akinaza#396, orazaka-web-client#294).",
   elephant: `${PAUSED}: the small flying elephant of the neighbour joke.`,
   "activity-feed": "Orazaka's job history (the adoption of Elements, PS-E).",

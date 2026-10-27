@@ -3,11 +3,13 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import AppShellExample from "../../registry/examples/screen/native/app-shell";
 import AuthExample from "../../registry/examples/screen/native/auth";
 import ChatExample from "../../registry/examples/screen/native/chat";
+import DashboardExample from "../../registry/examples/screen/native/dashboard";
 import FeedExample from "../../registry/examples/screen/native/feed";
 import MapExample from "../../registry/examples/screen/native/map";
 import NotificationsExample from "../../registry/examples/screen/native/notifications";
 import ProfileExample from "../../registry/examples/screen/native/profile";
 import SettingsExample from "../../registry/examples/screen/native/settings";
+import SettingsHomeExample from "../../registry/examples/screen/native/settings-home";
 import { nativeFrame } from "./story-frame";
 
 /** Native — Screen. Each story renders a named example of the registry (`registry/examples/screen/native/*`). */
@@ -25,3 +27,5 @@ export const Chat: Story = { render: () => <ChatExample /> };
 export const Settings: Story = { render: () => <SettingsExample /> };
 export const Map: Story = { render: () => <MapExample /> };
 export const Notifications: Story = { render: () => <NotificationsExample /> };
+export const Dashboard: Story = { render: () => <DashboardExample /> };
+export const SettingsHome: Story = { render: () => <SettingsHomeExample /> };

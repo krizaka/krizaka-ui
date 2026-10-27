@@ -1,0 +1,66 @@
+---
+title: Frames, layouts and templates
+description: Which frame, layout or template to start from — on the web, on a phone and in a Mac window — and at which size class, never by device name.
+---
+
+A screen of a Krizaka product starts from **one frame** and a few layouts, chosen by **the room it is given**, not by the
+device it runs on. A tablet in split view is a compact room; a phone in landscape can be a regular one. Every layout below
+measures the width it receives and decides from that — so a rotation, a split view or a resized window just works.
+
+## Size classes
+
+| Class | Width of the room | Typical rooms | Columns by default |
+| :-- | :-- | :-- | :-- |
+| **Compact** | under 600 pt | a phone in portrait, a split-view sliver | 1 |
+| **Regular** | 600 to 839 pt | a large phone in landscape, a small tablet | 2 |
+| **Expanded** | 840 pt and more | a tablet, a Mac window | 3 or more |
+
+On the phone, [`Grid`](/components/grid) and [`Columns`](/components/grid) read the width of their own container
+(`sizeClassOf(width)`); `useSizeClass()` reads the window's. A cell is never narrower than `minItemWidth`, and that minimum
+grows with the system's text scale: at **200 % text** a card that held two per row on a phone stacks into one, so no
+number is cut. They use no physical edge, so right-to-left needs nothing.
+
+## Which one to start from
+
+| You build | On the web | On a phone | In a Mac window |
+| :-- | :-- | :-- | :-- |
+| The signed-in app of a product | [`AppFrame`](/components/app-frame) — rail (a tab bar on a phone), top bar, account menu | [`Screen`](/components/screen) + [`TabBar`](/components/tab-bar) | [`DesktopWindow`](/components/desktop-window) |
+| A console with grouped sections and shortcuts | [`AppShell`](/components/app-shell) | — | `AppShell` with `desktop` |
+| A list and the item open from it | [`SplitView`](/components/split-view) | [`ListDetail`](/components/list-detail) — one pane, or both when the room holds them | `DesktopWindow` (list · content · inspector) |
+| A dashboard | [`DashboardLayout`](/components/dashboard-layout) | the dashboard template: stat strip in a `Grid`, then a list | `DesktopWindow` |
+| A form in steps | `Stepper` above a form | [`FormFlow`](/components/form-flow) | a `Dialog` with `Stepper` |
+| Settings | [`SettingsLayout`](/components/settings-layout) | the settings home template (`SettingsGroup`, `SettingsRow`) | a `DesktopWindow` pane |
+| Nothing to show, a failure, no network | [`EmptyState`](/components/empty-state), `ErrorPage` | [`StateScreen`](/components/state-screen), `OfflineBanner` | `EmptyState` |
+| A first launch | `ProductPage` | `Onboarding` | — |
+
+## The signed-in frame (web)
+
+One frame for every product, so a person who uses two of them finds the same things in the same places:
+
+- **The account menu is fixed**: identity, Profile, Settings, Billing (only for a product that sells), Administration
+  (only for an admin), then Language and Theme, then Sign out. Settings is one entry that lands on the settings home.
+- **A place is on the rail or under the avatar, never both.** A section with the id of an account link leaves the rail.
+- **Preferences live in the menu**, not in the header: a phone's header has no room for them.
+- **The public bar is flat**: How it works · Pricing · Docs · Download, four links at most (`publicBarLinks`), and the
+  words are the shared vocabulary (`navWords`: Docs, Terms / Conditions d'utilisation, Settings / Réglages).
+
+## A phone's screens
+
+Every phone template sits on `Screen`: the header keeps clear of the status bar, the footer of the home indicator, the
+content rises with the keyboard (`keyboard`) and refreshes on a pull (`onRefresh`). The templates are listed by what
+they are for on [the templates page](/templates).
+
+## A Mac window
+
+`DesktopWindow` is the window of a Tauri app: a sidebar, the content and an inspector, **resizable** (drag a divider, or
+focus it and use the arrows) and **collapsible** (⌘B, ⌘I). The toolbar is the drag region and clears the traffic lights
+(`--kz-titlebar-inset`, `--kz-traffic-lights-inset`); the density is the desktop's and the focus ring the macOS halo.
+Write the window's commands once with `useDesktopCommands`: the page answers the keys and the native menu bar gets the
+same ones through `setNativeMenu` of [`@krizaka/app-desktop`](/packages/app-desktop).
+
+```tsx
+const { menus, handlers } = useDesktopCommands([
+  { id: "view.sidebar", menu: "View", label: "Hide sidebar", shortcut: "mod+b", run: toggleSidebar },
+]);
+useEffect(() => { void setNativeMenu(bridge, { labels, menus }, handlers); }, [menus, handlers]);
+```

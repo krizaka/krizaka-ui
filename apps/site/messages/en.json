@@ -239,6 +239,10 @@
           "title": "Navigation in the family",
           "description": "One top bar for every Krizaka site and product: what is shared, what each product makes its own, the language switch, the check."
         },
+        "layouts": {
+          "title": "Frames, layouts and templates",
+          "description": "Which frame, layout or template to start from, on the web, on a phone and in a Mac window, and at which size class."
+        },
         "cahier-site": {
           "title": "Cahier site",
           "description": "How a tool site wears krizaka.com's identity: the Cahier, its own bird and hue, taped prints, doodles and grades — one language, never one layout."
