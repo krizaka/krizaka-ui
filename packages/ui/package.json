@@ -862,6 +862,30 @@
     "./maintenance-screen": {
       "types": "./dist/maintenance-screen.d.ts",
       "import": "./dist/maintenance-screen.js"
+    },
+    "./shop": {
+      "types": "./dist/shop.d.ts",
+      "import": "./dist/shop.js"
+    },
+    "./shop/hero": {
+      "types": "./dist/shop/hero.d.ts",
+      "import": "./dist/shop/hero.js"
+    },
+    "./shop/services": {
+      "types": "./dist/shop/services.d.ts",
+      "import": "./dist/shop/services.js"
+    },
+    "./shop/booking": {
+      "types": "./dist/shop/booking.d.ts",
+      "import": "./dist/shop/booking.js"
+    },
+    "./shop/gallery": {
+      "types": "./dist/shop/gallery.d.ts",
+      "import": "./dist/shop/gallery.js"
+    },
+    "./shop/demo": {
+      "types": "./dist/shop/demo.d.ts",
+      "import": "./dist/shop/demo.js"
     }
   },
   "files": [
@@ -1255,28 +1279,49 @@
       "path": "dist/margin-layout.js",
       "limit": "1 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react",
+        "radix-ui"
+      ]
     },
     {
       "name": "./usage",
       "path": "dist/usage.js",
       "limit": "5 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui", "@krizaka/intl"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react",
+        "radix-ui",
+        "@krizaka/intl"
+      ]
     },
     {
       "name": "./analysis-report",
       "path": "dist/analysis-report.js",
       "limit": "4.5 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react",
+        "radix-ui"
+      ]
     },
     {
       "name": "./environment-notice",
       "path": "dist/environment-notice.js",
       "limit": "1 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx", "react", "radix-ui"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react",
+        "radix-ui"
+      ]
     },
     {
       "name": "./quota-meter",
@@ -1830,14 +1875,22 @@
       "path": "dist/reviews.js",
       "limit": "6 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx", "react"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react"
+      ]
     },
     {
       "name": "./embed-facade",
       "path": "dist/embed-facade.js",
       "limit": "2 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx", "react"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react"
+      ]
     },
     {
       "name": "./retro-tv",
@@ -2955,6 +3008,73 @@
       "ignore": [
         "tailwind-variants",
         "clsx"
+      ]
+    },
+    {
+      "name": "./shop",
+      "path": "dist/shop.js",
+      "limit": "4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "zod",
+        "zod/mini"
+      ]
+    },
+    {
+      "name": "./shop/hero",
+      "path": "dist/shop/hero.js",
+      "limit": "1.6 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/services",
+      "path": "dist/shop/services.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/booking",
+      "path": "dist/shop/booking.js",
+      "limit": "1.7 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/gallery",
+      "path": "dist/shop/gallery.js",
+      "limit": "2.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/demo",
+      "path": "dist/shop/demo.js",
+      "limit": "2.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
       ]
     }
   ],

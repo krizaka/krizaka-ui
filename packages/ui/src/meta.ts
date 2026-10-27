@@ -166,6 +166,7 @@ export type ComponentName =
   | "segmented"
   | "separator"
   | "service-card"
+  | "shop"
   | "settings-layout"
   | "account-menu"
   | "showcase"

@@ -39,6 +39,7 @@ export const PLANNED: Record<string, string> = {
   captcha: "krizaka.com's contact form and the blog's newsletter form (the public forms, behind Cloudflare Turnstile).",
   "component-page": `${SITE}: the component pages of /docs.`,
   "contact-page": `${SITE}: /contact.`,
+  shop: "Akinaza's public shop page and its composer: a page as a document of sections and variants (krizaka/akinaza#398, ADR-007, krizaka-ui#742).",
   wall: "Akinaza's shop pages: the owner's photos, short notes and logo on a textured wall (krizaka/akinaza#236, krizaka-ui#537).",
   "notification-preferences": "Akinaza's and Yomizaka's account baseline (notifications) (krizaka-ui#515).",
   "quota-meter": "Yomizaka's library quota and Akinaza's plan (krizaka-ui#515).",

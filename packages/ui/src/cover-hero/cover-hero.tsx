@@ -11,7 +11,7 @@ import { Page } from "../page/page";
 export const coverHero = tv({
   slots: {
     root: "relative isolate flex min-h-[26rem] items-end overflow-hidden bg-surface-1 text-fg data-[cover]:text-fg-on-media sm:min-h-[30rem] lg:min-h-[34rem]",
-    media: "absolute inset-0 -z-20 h-full w-full object-cover",
+    media: "absolute inset-0 -z-20 h-full w-full object-cover data-[focus=top]:object-top data-[focus=bottom]:object-bottom",
     veil: "absolute inset-0 -z-10 bg-linear-to-t from-scrim-strong via-scrim/55 to-scrim/10",
     plain: "absolute inset-0 -z-10 bg-linear-to-br from-accent/25 via-surface-1 to-accent-2/20",
     body: "flex flex-col gap-4 pb-8 pt-24 sm:pb-12",
@@ -32,6 +32,10 @@ export type CoverMedia = {
   alt?: string;
   /** A muted loop over the still: WebM first, MP4 for Safari. */
   video?: { webm?: string; mp4?: string };
+  /** An art-directed crop for a phone (a 4:5 of the same photo): used below 40 rem instead of `src`. */
+  phone?: string;
+  /** Where the photo is cropped to when the box is not its ratio. @default "center" */
+  focus?: "center" | "top" | "bottom";
 };
 
 export type CoverHeroProps = Omit<React.ComponentProps<"header">, "title"> & {
@@ -73,7 +77,10 @@ export function CoverHero({ cover, eyebrow, title, lead, facts, actions, back, l
     <header data-cover={cover ? "" : undefined} className={s.root({ className })} {...props}>
       {cover ? (
         <>
-          <img src={cover.src} alt={cover.alt ?? ""} className={s.media()} fetchPriority="high" decoding="async" />
+          <picture>
+            {cover.phone && <source media="(max-width: 39.99rem)" srcSet={cover.phone} />}
+            <img src={cover.src} alt={cover.alt ?? ""} className={s.media()} data-focus={cover.focus === "center" ? undefined : cover.focus} fetchPriority="high" decoding="async" />
+          </picture>
           {play && cover.video && (
             <video className={s.media()} poster={cover.src} autoPlay muted loop playsInline preload="metadata" aria-hidden tabIndex={-1}>
               {cover.video.webm && <source src={cover.video.webm} type="video/webm" />}

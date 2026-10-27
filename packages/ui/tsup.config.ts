@@ -163,6 +163,21 @@ export default defineConfig([
     external: [...shared.external, /^@krizaka\/ui(\/|$)/],
   },
   {
+    // Server — the shop page (ADR-007): the document (`shop`: schema, catalogue, migrations, the frame) and one entry per
+    // section type. The blocks they draw (the cover, the TV, the wall, the phone bar) are imported through the package's
+    // own entries (external), so a client boundary stays where it is.
+    ...shared,
+    entry: {
+      shop: "src/shop/index.ts",
+      "shop/hero": "src/shop/hero/index.ts",
+      "shop/services": "src/shop/services/index.ts",
+      "shop/booking": "src/shop/booking/index.ts",
+      "shop/gallery": "src/shop/gallery/index.ts",
+      "shop/demo": "src/shop/demo/index.ts",
+    },
+    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "zod", /^zod\//],
+  },
+  {
     // Client — the page blocks with a hook (the pointer's light, the bird's id, the copy button, the reading position).
     ...shared,
     entry: {

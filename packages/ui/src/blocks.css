@@ -1878,3 +1878,27 @@ svg[data-bird="beaver"]{--kzb-pivot:60px 56px;--kzb-head-a:kzb-beaver-head 10s e
 .kz-review-reply { margin-inline-start: 1rem; padding-inline-start: .75rem; border-inline-start: 2px solid var(--kz-paper-rule-margin); display: grid; gap: .25rem; }
 .kz-review-reply-label { margin: 0; font: .8125rem/1.4 var(--kz-font-mono); color: var(--kz-text-secondary); }
 .kz-review-reply-text { margin: 0; font: .9375rem/1.55 var(--kz-font-sans); color: var(--kz-accent-text); white-space: pre-wrap; }
+
+/* ─── Shop page (ADR-007 §2, krizaka-ui#742): the frame and the rhythm of every section of a shop page ───
+   The density sets one rhythm for the page: `compact` 40 px between two sections (24 on a phone), `airy` 64 px (40);
+   heading to content 16 px; a hairline between sections, inside the gutters. A section never sets its own margin. */
+.kz-shop { --kz-shop-gap: 24px; --kz-shop-g: var(--kz-page-gutter, clamp(16px, 3.2vw, 32px)); }
+.kz-shop[data-density="airy"] { --kz-shop-gap: 40px; }
+@media (min-width: 40rem) {
+  .kz-shop { --kz-shop-gap: 40px; }
+  .kz-shop[data-density="airy"] { --kz-shop-gap: 64px; }
+}
+.kz-shop-section { position: relative; padding-block: calc(var(--kz-shop-gap) / 2); }
+.kz-shop-section + .kz-shop-section::before {
+  content: ""; position: absolute; top: 0; left: 50%; height: 1px; transform: translateX(-50%);
+  width: min(calc(100% - 2 * var(--kz-shop-g)), var(--kz-page-max, 72rem)); background: var(--kz-border-subtle);
+}
+.kz-shop-section[data-first] { padding-block: 0; }
+.kz-shop-section[data-first] + .kz-shop-section::before { display: none; }
+.kz-shop-section :is(h2, h3)[id] { scroll-margin-top: var(--kz-anchor-offset, 96px); }
+.kz-shop-section .kz-heading { margin-bottom: 16px; gap: 4px; }
+.kz-shop-section .kz-heading-title { max-width: none; font-size: clamp(1.35rem, 2.4vw, 1.75rem); }
+.kz-shop-section .kz-heading-lead { font-size: 14.5px; line-height: 1.55; }
+/* The look preset's photo treatment (a CSS filter on the media box: no re-encoded image) — see @krizaka/tokens presets/shop. */
+.kz-shop [data-shop-photo] { filter: var(--kz-shop-photo-filter, none); border-radius: var(--kz-shop-photo-radius, var(--kz-radius-md, 8px)); }
+@media (min-width: 64rem) { .kz-shop-aside { position: sticky; top: var(--kz-anchor-offset, 96px); } }
