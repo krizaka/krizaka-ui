@@ -52,7 +52,7 @@ export type AuthLayoutProps = Omit<React.ComponentProps<"div">, "title"> & {
 export function AuthLayout({ brand, title, description, children, footer, legal, promise, aside, asideFooter, className, ...props }: AuthLayoutProps) {
   return (
     <div className={s.root({ className })} {...props}>
-      <SectionBackdrop as="div" grid className={s.aside()} aria-hidden={!promise && !aside ? true : undefined}>
+      <SectionBackdrop as="div" grid className={s.aside()} role={promise || aside ? "complementary" : undefined} aria-hidden={!promise && !aside ? true : undefined}>
         <div className={s.asideBrand()}>{brand}</div>
         <div className={s.asideBody()}>
           {promise && <p className={s.asideTitle()}>{promise}</p>}

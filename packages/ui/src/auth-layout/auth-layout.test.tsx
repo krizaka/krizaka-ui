@@ -15,6 +15,8 @@ describe("AuthLayout", () => {
     );
     expect(screen.getByRole("main").querySelector("h1")?.textContent).toBe("Welcome back");
     expect(screen.getByText("Paid by your fans.")).toBeTruthy();
+    // The brand panel is a landmark of its own: no content outside a landmark (axe `region`).
+    expect(screen.getByRole("complementary").textContent).toContain("Paid by your fans.");
     expect(await axeViolations(container)).toEqual([]);
   });
 });
