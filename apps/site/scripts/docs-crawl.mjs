@@ -173,6 +173,8 @@ async function main() {
       const text = m.text();
       if (/^Failed to load resource/.test(text)) return; // reported by the response / requestfailed handlers, with the URL
       const from = m.location()?.url ? ` (${m.location().url.replace(origin, "")})` : "";
+      // A third-party player (YouTube's embed) complains about its own permissions policy: not our page's error.
+      if (/^Permissions policy violation: .* is not allowed in this document/.test(text) && m.location()?.url && !m.location().url.startsWith(origin)) return;
       note(REACT_ERROR.test(text) ? "react-error" : phase === "interaction" ? "interaction-error" : "console-error", text.slice(0, 220) + from);
     });
     page.on("pageerror", (e) => note(REACT_ERROR.test(e.message) ? "react-error" : phase === "interaction" ? "interaction-error" : "page-error", e.message.slice(0, 220)));
