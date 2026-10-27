@@ -1,5 +1,11 @@
 # @krizaka/email
 
+## 0.2.0
+
+### Minor Changes
+
+- [#735](https://github.com/krizaka/krizaka-ui/pull/735) [`8694d93`](https://github.com/krizaka/krizaka-ui/commit/8694d93088111feae412c77089d2cbb7a303c616) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Three account templates, in English and French: `confirmEmail` (a new account's address), `passwordReset` and `emailChange` (the link to the new address). Yomizaka sends them through `sendEmail` instead of a hand-written text (yomizaka#48).
+
 ## 0.1.2
 
 ### Patch Changes
