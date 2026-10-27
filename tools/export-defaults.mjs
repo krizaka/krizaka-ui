@@ -88,28 +88,32 @@ export function manifestOf(files, uiVersion) {
 
 // ---- rendering ---------------------------------------------------------------------------------------------------
 
-/** All the files: Map<path under the zone, Buffer>. `founderDirs` are optional (without them only the drawn sets are built). */
-export async function build({ founderDirs = [] } = {}) {
-  const sharp = (await import("sharp")).default;
-  const out = new Map();
-  const here = dirname(fileURLToPath(import.meta.url));
-  const uiVersion = JSON.parse(readFileSync(join(here, "../packages/ui/package.json"), "utf8")).version;
-
+/** The files of the sets drawn from the code: an SVG and the square WebPs of each. */
+async function drawnFiles(sharp, out) {
   for (const item of drawnItems()) {
     const svg = defaultAvatarSvg({ brand: BRAND, kind: item.kind, tone: item.tone });
     out.set(`${PREFIX}/${fileOf(item.kind, item.id, "svg")}`, Buffer.from(`${svg}\n`));
     for (const size of SQUARE_SIZES) out.set(`${PREFIX}/${fileOf(item.kind, item.id, size)}`, await sharp(Buffer.from(svg), { density: 384 }).resize(size, size).webp({ quality: 92 }).toBuffer());
   }
+}
 
-  for (const founderDir of founderDirs) {
-    for (const item of founderItems(readdirSync(founderDir))) {
-      const source = readFileSync(join(founderDir, item.source));
-      if (item.kind === "banner") {
-        for (const width of BANNER_WIDTHS) out.set(`${PREFIX}/${fileOf("banner", item.id, width)}`, await sharp(source).resize({ width, height: Math.round(width / 3), fit: "cover" }).webp({ quality: 86 }).toBuffer());
-      } else {
-        for (const size of SQUARE_SIZES) out.set(`${PREFIX}/${fileOf("person", item.id, size)}`, await sharp(source).resize(size, size, { fit: "cover" }).webp({ quality: 88 }).toBuffer());
-      }
-    }
+/** The WebPs of one picture of the founder's set: squares for a person, 3:1 widths for a banner. */
+async function founderFiles(sharp, out, source, item) {
+  const banner = item.kind === "banner";
+  for (const size of banner ? BANNER_WIDTHS : SQUARE_SIZES) {
+    const resize = banner ? { width: size, height: Math.round(size / 3), fit: "cover" } : { width: size, height: size, fit: "cover" };
+    out.set(`${PREFIX}/${fileOf(item.kind, item.id, size)}`, await sharp(source).resize(resize).webp({ quality: banner ? 86 : 88 }).toBuffer());
+  }
+}
+
+/** All the files: Map<path under the zone, Buffer>. `founderDirs` are optional (without them only the drawn sets are built). */
+export async function build({ founderDirs = [] } = {}) {
+  const sharp = (await import("sharp")).default;
+  const out = new Map();
+  const uiVersion = JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "../packages/ui/package.json"), "utf8")).version;
+  await drawnFiles(sharp, out);
+  for (const dir of founderDirs) {
+    for (const item of founderItems(readdirSync(dir))) await founderFiles(sharp, out, readFileSync(join(dir, item.source)), item);
   }
   out.set(`${PREFIX}/manifest.json`, Buffer.from(`${JSON.stringify(manifestOf(out, uiVersion), null, 2)}\n`));
   return { files: out, version: uiVersion };
