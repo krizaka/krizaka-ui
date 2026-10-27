@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
-    "@krizaka/config": "workspace:*",
+    "@krizaka/config": "^0.9.1",
     "@size-limit/preset-small-lib": "^14.2.0",
     "@types/node": "^22.15.0",
     "@vitest/coverage-v8": "5.0.5",

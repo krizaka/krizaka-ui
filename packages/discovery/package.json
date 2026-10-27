@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
-    "@krizaka/config": "workspace:*",
+    "@krizaka/config": "^0.9.1",
     "@size-limit/preset-small-lib": "^14.2.0",
     "@testing-library/react": "^16.3.0",
     "@types/node": "^22.15.0",
