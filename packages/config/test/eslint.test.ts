@@ -187,10 +187,12 @@ describe("krizakaStack — the three stack rules (S1–S3, S11)", () => {
     const code = [
       `import { useEffect } from "react";`,
       `declare function listen(e: string, cb: () => void): Promise<() => void>;`,
-      `export function X({ blob, qc }: { blob: Blob; qc: { invalidateQueries(): Promise<void> } }) {`,
+      `declare const session: { onChange(cb: () => void): () => void };`,
+      `export function X({ blob, qc, queryClient }: { blob: Blob; qc: { invalidateQueries(): Promise<void> }; queryClient: { cancelQueries(): Promise<void> } }) {`,
       `  useEffect(() => { const un = listen("file-added", () => { void qc.invalidateQueries(); }); return () => { void un.then((off) => off()); }; }, [qc]);`,
       `  useEffect(() => { const u = URL.createObjectURL(blob); return () => URL.revokeObjectURL(u); }, [blob]);`,
       `  useEffect(() => { document.title = "x"; }, []);`,
+      `  useEffect(() => session.onChange(() => { void queryClient.cancelQueries(); }), [queryClient]);`,
       `  return null;`,
       `}`,
     ].join("\n");

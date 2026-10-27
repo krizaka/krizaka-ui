@@ -56,7 +56,7 @@ export const FETCH_NAMES_SOURCE = "^(fetch|krizakaFetch)$";
 export const ASYNC_EFFECT_SOURCE = String.raw`\bawait\b|\.then\s*\(|\b(?:fetch|krizakaFetch|invoke)\s*\(|\bapi\.\w+|\b\w*Client\.\w+\s*\(`;
 
 /** A subscription to a system that pushes events: its callback may be async, the cleanup undoes it. */
-export const SUBSCRIBE_EFFECT_SOURCE = String.raw`\b(?:listen|once|on|addEventListener|subscribe|addListener|new\s+(?:WebSocket|EventSource|ResizeObserver|IntersectionObserver|MutationObserver|BroadcastChannel)|\w+\.on)\s*(?:<[^()]*>)?\s*\(`;
+export const SUBSCRIBE_EFFECT_SOURCE = String.raw`\b(?:listen|once|on|addEventListener|subscribe|addListener|new\s+(?:WebSocket|EventSource|ResizeObserver|IntersectionObserver|MutationObserver|BroadcastChannel)|\w+\.on|\w+\.on[A-Z]\w*)\s*(?:<[^()]*>)?\s*\(`;
 
 /**
  * Text with its strings, template literals and comments blanked (same length), so a keyword in a string is not read.
@@ -118,7 +118,9 @@ function withoutSetStateCalls(text) {
 export function effectProblem(body) {
   // the ratchet passes the whole callback (`() => { … }`), the ESLint rule its body: strip the signature
   const text = blankStrings(body).replace(/^\s*(?:async\s+)?(?:function\s*\w*\s*\([^)]*\)|\([^)]*\)|\w+)\s*(?:=>)?/, (head) => (/=>|function/.test(head) ? "" : head));
-  if (new RegExp(SUBSCRIBE_EFFECT_SOURCE).test(text) && /\breturn\b/.test(text)) return null;
+  // an expression body (`() => session.onChange(…)`) returns its cleanup as well as a block that says `return`
+  const returnsCleanup = /\breturn\b/.test(text) || !/^\s*\{/.test(text);
+  if (new RegExp(SUBSCRIBE_EFFECT_SOURCE).test(text) && returnsCleanup) return null;
   if (new RegExp(ASYNC_EFFECT_SOURCE).test(text)) return "async";
   const { rest, found } = withoutSetStateCalls(text);
   if (found === 0) return null;
