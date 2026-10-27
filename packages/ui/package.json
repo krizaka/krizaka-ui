@@ -3363,9 +3363,9 @@
       ]
     },
     {
-      "name": "./promo-code-field",
+      "name": "./promo-code-field (composes the shared Button and Field; marginal cost is small; CTO 2026-10-27, krizaka-ui#783)",
       "path": "dist/promo-code-field.js",
-      "limit": "4 kB",
+      "limit": "4.25 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
