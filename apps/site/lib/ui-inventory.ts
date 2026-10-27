@@ -32,6 +32,7 @@ const LEFT = "Its only users were products now paused (2026-10-25): kept until t
 
 /** Why an unused component stays: the planned work that needs it. */
 export const PLANNED: Record<string, string> = {
+  "app-frame": "The one signed-in frame of Yomizaka, Akinaza and Orazaka (UX audit F1, F2; yomizaka#429, akinaza#396, orazaka-web-client#294).",
   elephant: `${PAUSED}: the small flying elephant of the neighbour joke.`,
   "activity-feed": "Orazaka's job history (the adoption of Elements, PS-E).",
   "media-grid": `${PAUSED}: a video feed — a shelf for the 9:16, a uniform grid for the 16:9.`,

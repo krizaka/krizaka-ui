@@ -44,6 +44,7 @@ export type ComponentName =
   | "action-sheet"
   | "activity-feed"
   | "alert"
+  | "app-frame"
   | "app-header"
   | "app-shell"
   | "argument-card"

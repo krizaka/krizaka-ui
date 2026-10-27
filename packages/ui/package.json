@@ -926,6 +926,14 @@
     "./shop/map-gate": {
       "types": "./dist/shop/map-gate.d.ts",
       "import": "./dist/shop/map-gate.js"
+    },
+    "./app-frame": {
+      "types": "./dist/app-frame.d.ts",
+      "import": "./dist/app-frame.js"
+    },
+    "./app-frame/server": {
+      "types": "./dist/app-frame/server.d.ts",
+      "import": "./dist/app-frame/server.js"
     }
   },
   "files": [
@@ -3226,6 +3234,19 @@
         "clsx",
         "@krizaka/ui"
       ]
+    },
+    {
+      "name": "./app-frame",
+      "path": "dist/app-frame.js",
+      "limit": "2.3 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "radix-ui", "@krizaka/ui"]
+    },
+    {
+      "name": "./app-frame/server",
+      "path": "dist/app-frame/server.js",
+      "limit": "1.3 kB",
+      "gzip": true
     }
   ],
   "dependencies": {
