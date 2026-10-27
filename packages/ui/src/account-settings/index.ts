@@ -9,6 +9,6 @@ export {
   type ThemeCardOption,
   type ThemePreview,
 } from "./appearance-settings";
-export { type AvatarOption, AvatarPicker, type AvatarPickerProps } from "./avatar-picker";
+export { AVATAR_NONE, type AvatarOption, avatarOptionKind, AvatarPicker, type AvatarPickerProps, builtInAvatarOptions, optionsOfKind } from "./avatar-picker";
 export { type ChoiceCardOption, ChoiceCards, type ChoiceCardsProps } from "./choice-cards";
 export { type LanguageOption, LanguagePicker, type LanguagePickerProps } from "./language-picker";
