@@ -31,6 +31,7 @@ export type StateScreenProps = {
   inline?: boolean;
   /** For tests. */
   testID?: string;
+  /** Styles merged last. */
   style?: ViewStyle;
 };
 
@@ -81,6 +82,7 @@ export type OfflineBannerProps = {
   label: string;
   /** “Try again”. */
   actionLabel?: string;
+  /** Called by the action. */
   onAction?: () => void;
   /** For tests. */
   testID?: string;

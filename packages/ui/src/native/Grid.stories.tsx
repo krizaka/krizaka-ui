@@ -10,7 +10,7 @@ import { Txt } from "./txt";
 
 /**
  * Native — Grid and Columns. A story per example, then each at the three size classes of the room it is given
- * (compact 360, regular 700, expanded 1000 pt), in right-to-left, and with 200 % text. The containment check
+ * (compact 360, regular 700, expanded 900 pt), in right-to-left, and with 200 % text. The containment check
  * (`parameters.contain`) fails the story if anything sticks out of the room.
  */
 const meta = { title: "Native/Grid", decorators: [nativeFrame], parameters: { contain: true } } satisfies Meta;
@@ -26,12 +26,12 @@ const room = (width: number, node: React.ReactNode, dir?: "rtl") => (
 
 export const Photos: Story = { render: () => room(360, <PhotosExample />) };
 export const PhotosRegular: Story = { render: () => room(700, <PhotosExample />) };
-export const PhotosExpanded: Story = { render: () => room(1000, <PhotosExample />) };
+export const PhotosExpanded: Story = { render: () => room(900, <PhotosExample />) };
 export const PhotosRtl: Story = { render: () => room(360, <PhotosExample />, "rtl") };
 
 export const Stats: Story = { render: () => room(360, <StatsExample />) };
 export const StatsRegular: Story = { render: () => room(700, <StatsExample />) };
-export const StatsExpanded: Story = { render: () => room(1000, <StatsExample />) };
+export const StatsExpanded: Story = { render: () => room(900, <StatsExample />) };
 
 export const Columns: Story = { render: () => room(360, <ColumnsExample />) };
 export const ColumnsRegular: Story = { render: () => room(700, <ColumnsExample />) };

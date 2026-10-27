@@ -23,6 +23,7 @@ export type FormFlowStep = {
 };
 
 export type FormFlowProps = {
+  /** The steps, in order. */
   steps: readonly FormFlowStep[];
   /** The words — passed translated. */
   labels: {
@@ -39,6 +40,7 @@ export type FormFlowProps = {
   step?: number;
   /** The step to start on when the flow drives itself (default 0). */
   defaultStep?: number;
+  /** Called with the new step (from 0) when Next or Back moves it. */
   onStepChange?: (step: number) => void;
   /** The main action on the last step. */
   onDone: () => void;

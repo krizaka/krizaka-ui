@@ -9,7 +9,7 @@ export default function NativeGridPhotos() {
   return (
     <Grid columns={{ compact: 2, regular: 3, expanded: 4 }} minItemWidth={120} gap="sm" aria-label="Photos">
       {PLACES.map((place) => (
-        <View key={place} style={{ aspectRatio: 1, justifyContent: "flex-end", padding: 10, borderRadius: 12, backgroundColor: theme.surface2 }}>
+        <View key={place} style={{ aspectRatio: 1, justifyContent: "flex-end", padding: 10, borderRadius: 12, borderWidth: 1, borderColor: theme.borderSubtle, backgroundColor: theme.surface2 }}>
           <Txt variant="caption" numberOfLines={2}>{place}</Txt>
         </View>
       ))}

@@ -19,7 +19,7 @@ export default function NativeListDetailInbox() {
       <ListDetail
         listTitle="Messages"
         list={MESSAGES.map((m) => (
-          <Pressable key={m.id} role="button" onPress={() => setOpen(m.id)} accessibilityLabel={`${m.from}, ${m.subject}`} style={{ padding: 16, gap: 2, borderBottomWidth: 1, borderBottomColor: theme.borderSubtle }}>
+          <Pressable key={m.id} role="button" onPress={() => setOpen(m.id)} style={{ padding: 16, gap: 2, borderBottomWidth: 1, borderBottomColor: theme.borderSubtle }}>
             <Txt variant="label">{m.from}</Txt>
             <Txt tone="secondary" numberOfLines={1}>{m.subject}</Txt>
           </Pressable>

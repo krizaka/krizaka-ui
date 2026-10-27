@@ -63,21 +63,29 @@ export interface DesktopWindowProps {
   toolbarStart?: React.ReactNode;
   /** Before the inspector's toggle, at the end of the toolbar (actions, search). */
   toolbarEnd?: React.ReactNode;
+  /** The words of the panes, the dividers and the toggles — passed translated. */
   labels: DesktopWindowLabels;
   /** The sidebar is open (controlled). Pair with `onSidebarOpenChange`: the menu bar's command toggles it too. */
   sidebarOpen?: boolean;
+  /** The sidebar starts open (default true) when uncontrolled. */
   defaultSidebarOpen?: boolean;
+  /** Called when the sidebar folds or unfolds (the toolbar, a divider, the shortcut). */
   onSidebarOpenChange?: (open: boolean) => void;
+  /** The inspector is open (controlled). */
   inspectorOpen?: boolean;
+  /** The inspector starts open (default true) when uncontrolled. */
   defaultInspectorOpen?: boolean;
+  /** Called when the inspector folds or unfolds. */
   onInspectorOpenChange?: (open: boolean) => void;
   /** The sizes in px: the sidebar's, the inspector's. Persist them with `onSizesChange`. */
   defaultSizes?: { sidebar?: number; inspector?: number };
+  /** Called with the sizes in px after a drag or a key: persist them. */
   onSizesChange?: (sizes: { sidebar: number; inspector: number }) => void;
   /** The least the content keeps when the window is narrow (default 360). */
   contentMin?: number;
   /** The keys that fold the panes (a chord, or `false` for none): ⌘B and ⌘I by default. Pass `false` when the menu bar's commands (`useDesktopCommands`) own them. */
   shortcuts?: { sidebar?: string | false; inspector?: string | false };
+  /** Classes for the window (`[--kz-window-height:34rem]` to size it inside a page). */
   className?: string;
 }
 

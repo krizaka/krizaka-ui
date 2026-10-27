@@ -82,6 +82,7 @@ export type GridProps = {
   testID?: string;
   /** The accessible name when the grid is a list of things (`role="list"`). */
   "aria-label"?: string;
+  /** Styles merged last. */
   style?: StyleProp<ViewStyle>;
 };
 
@@ -122,6 +123,7 @@ export type ColumnsProps = {
   fontScale?: number;
   /** For tests. */
   testID?: string;
+  /** Styles merged last. */
   style?: StyleProp<ViewStyle>;
 };
 
