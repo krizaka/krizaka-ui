@@ -324,8 +324,8 @@ export default defineConfig([
     // Client — the form (TanStack Form v1 behind the facade): its fields are adapters over the primitives, which they
     // import through the package's own entries (external) — one copy of each primitive, swapped without touching a form.
     ...shared,
-    // The signed-in frame composes the rail, the top bar, the account menu and the theme through their entries.
-    entry: { form: "src/form/index.ts", "text-style": "src/text-style/index.ts", "app-frame": "src/app-frame/index.ts" },
+    // The signed-in frame composes the rail, the top bar, the account menu and the theme through their entries; the Mac window the shell's shortcuts.
+    entry: { form: "src/form/index.ts", "text-style": "src/text-style/index.ts", "app-frame": "src/app-frame/index.ts", "desktop-window": "src/desktop-window/index.ts" },
     external: [...shared.external, /^@krizaka\/ui(\/|$)/],
     banner: { js: '"use client";' },
   },

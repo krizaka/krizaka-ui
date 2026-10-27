@@ -934,6 +934,10 @@
     "./app-frame/server": {
       "types": "./dist/app-frame/server.d.ts",
       "import": "./dist/app-frame/server.js"
+    },
+    "./desktop-window": {
+      "types": "./dist/desktop-window.d.ts",
+      "import": "./dist/desktop-window.js"
     }
   },
   "files": [
@@ -1085,7 +1089,7 @@
     {
       "name": "./native (bundled into the app by Metro, never downloaded: a regression guard, not a budget)",
       "path": "dist/native.js",
-      "limit": "67.5 kB",
+      "limit": "69.6 kB",
       "gzip": true
     },
     {
@@ -3247,6 +3251,13 @@
       "path": "dist/app-frame/server.js",
       "limit": "1.3 kB",
       "gzip": true
+    },
+    {
+      "name": "./desktop-window",
+      "path": "dist/desktop-window.js",
+      "limit": "3.5 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx", "radix-ui", "@krizaka/ui"]
     }
   ],
   "dependencies": {

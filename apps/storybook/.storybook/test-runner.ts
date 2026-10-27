@@ -86,6 +86,35 @@ const config: TestRunnerConfig = {
       const height = await page.evaluate((sel: string) => document.querySelector(sel)!.getBoundingClientRect().height, selector);
       expect({ selector, height: Math.ceil(height), within: Math.ceil(height) <= px }).toEqual({ selector, height: Math.ceil(height), within: true });
     }
+    // `parameters.contain`: nothing sticks out of its room (krizaka-ui#753). Every element lies inside the horizontal
+    // bounds of the story, and inside the room of the grid, columns or pane it belongs to (`[data-columns]`,
+    // `[data-layout]`, `[data-panes]`), unless a scrolling or clipping ancestor holds it — the same containment rule as
+    // the site's page audit (`crawl-check`), at the width of the story. It reads the layout, so it holds at 200 % text
+    // and in right-to-left as in the default.
+    if (story.parameters?.contain) {
+      const out = await page.evaluate(() => {
+        const root = document.querySelector<HTMLElement>("#storybook-root");
+        if (!root) return { bad: ["no #storybook-root"] };
+        const holds = (el: Element) => {
+          for (let p = el.parentElement; p && p !== root.parentElement; p = p.parentElement) {
+            if (/(hidden|auto|scroll|clip)/.test(getComputedStyle(p).overflowX)) return true;
+          }
+          return false;
+        };
+        const rooms = [root, ...root.querySelectorAll<HTMLElement>("[data-columns],[data-layout],[data-panes]")];
+        const bad: string[] = [];
+        for (const room of rooms) {
+          const box = room.getBoundingClientRect();
+          for (const el of room.querySelectorAll<HTMLElement>("*")) {
+            if (el.getClientRects().length === 0 || holds(el)) continue;
+            const r = el.getBoundingClientRect();
+            if (r.width > 0 && (r.left < box.left - 1 || r.right > box.right + 1)) bad.push(`${el.tagName.toLowerCase()} "${(el.textContent ?? "").trim().slice(0, 24)}" ${Math.round(r.left)}–${Math.round(r.right)} outside ${Math.round(box.left)}–${Math.round(box.right)}`);
+          }
+        }
+        return { bad: [...new Set(bad)].slice(0, 8) };
+      });
+      expect(out).toEqual({ bad: [] });
+    }
     // @krizaka/charts: an ECharts engine and the world's countries load lazily (`data-pending` until drawn).
     await page.waitForFunction(() => !document.querySelector("[data-pending]"), undefined, { timeout: 15_000 });
     for (const theme of THEMES) {
