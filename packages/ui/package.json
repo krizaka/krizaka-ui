@@ -926,6 +926,10 @@
     "./shop/map-gate": {
       "types": "./dist/shop/map-gate.d.ts",
       "import": "./dist/shop/map-gate.js"
+    },
+    "./shop-composer": {
+      "types": "./dist/shop-composer.d.ts",
+      "import": "./dist/shop-composer.js"
     }
   },
   "files": [
@@ -3053,7 +3057,7 @@
     {
       "name": "./shop",
       "path": "dist/shop.js",
-      "limit": "4 kB",
+      "limit": "4.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -3225,6 +3229,19 @@
         "tailwind-variants",
         "clsx",
         "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop-composer",
+      "path": "dist/shop-composer.js",
+      "limit": "24 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui",
+        "zod",
+        "zod/mini"
       ]
     }
   ],
