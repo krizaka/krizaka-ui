@@ -96,7 +96,7 @@ export function ShopGallery({ photos, label, sizes, labels: given, className, ..
                 tiles.current[i] = node;
               }}
               className="kz-sg-tile"
-              aria-label={i === BENTO - 1 && total > BENTO ? `${labels.open(photo.alt, i + 1, total)} (${labels.more(total - BENTO + 1)})` : labels.open(photo.alt, i + 1, total)}
+              aria-label={i === BENTO - 1 && total > BENTO ? `${labels.more(total - BENTO + 1)}: ${labels.open(photo.alt, i + 1, total)}` : labels.open(photo.alt, i + 1, total)}
               onClick={() => {
                 opener.current = i;
                 setOpen(i);
