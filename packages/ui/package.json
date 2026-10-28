@@ -245,6 +245,10 @@
       "types": "./dist/waveform.d.ts",
       "import": "./dist/waveform.js"
     },
+    "./proposal": {
+      "types": "./dist/proposal.d.ts",
+      "import": "./dist/proposal.js"
+    },
     "./qr-code": {
       "types": "./dist/qr-code.d.ts",
       "import": "./dist/qr-code.js"
@@ -1598,6 +1602,16 @@
       "name": "./progress",
       "path": "dist/progress.js",
       "limit": "1.8 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./proposal (composes Button, Badge and ConfirmButton; krizaka-ui#673)",
+      "path": "dist/proposal.js",
+      "limit": "6.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
