@@ -42,15 +42,55 @@ describe("NavBar.Session", () => {
     expect(fetch).toHaveBeenCalledWith("https://api.example.com/api/me", expect.objectContaining({ credentials: "include" }));
   });
 
-  it("falls back to signed out after a failed refetch, even with a cached account", async () => {
+  it("keeps the last known state after a failed refetch: a throttled or failing /api/me never signs a signed-in person out (krizaka-ui#800)", async () => {
     const fetch = vi.fn<() => Promise<Response>>()
       .mockResolvedValueOnce(meResponse({ signedIn: true, signupOpen: true, account: { name: "Ada" } }))
       .mockResolvedValueOnce(new Response("{}", { status: 500 }));
     const client = setup(fetch);
     expect(await screen.findByRole("button", { name: "Ada" })).toBeTruthy();
     await act(async () => { await client.refetchQueries({ queryKey: sessionKey("/api/me") }); });
-    expect(await screen.findByRole("link", { name: "Sign in" })).toBeTruthy();
-    expect(screen.queryByRole("button", { name: "Ada" })).toBeNull();
+    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(screen.getByRole("button", { name: "Ada" })).toBeTruthy();
+    expect(screen.queryByRole("link", { name: "Sign in" })).toBeNull();
+  });
+
+  it("signs out when the server SAYS so (a 200 signedIn:false after a signed-in answer)", async () => {
+    const fetch = vi.fn<() => Promise<Response>>()
+      .mockResolvedValueOnce(meResponse({ signedIn: true, signupOpen: true, account: { name: "Ada" } }))
+      .mockResolvedValueOnce(meResponse({ signedIn: false, signupOpen: true }));
+    const client = setup(fetch);
+    expect(await screen.findByRole("button", { name: "Ada" })).toBeTruthy();
+    await act(async () => { await client.refetchQueries({ queryKey: sessionKey("/api/me") }); });
+    expect(await screen.findByRole("link", { name: "Try" })).toBeTruthy();
+  });
+
+  it("never draws the signed-out actions while the answer is pending (first paint is neither state)", () => {
+    setup(() => new Promise<Response>(() => {}));
+    expect(screen.getByRole("status").textContent).toBe("Checking your session…");
+    expect(screen.queryByRole("link", { name: "Sign in" })).toBeNull();
+  });
+
+  it("draws the server's answer at the FIRST render when given `initial`: signed in, then signed out, no placeholder", () => {
+    restore = configureKrizakaFetch({ fetch: () => new Promise<Response>(() => {}) });
+    const signedOut = ({ signupOpen }: { signupOpen: boolean }) => <a href="/sign-in">{signupOpen ? "Try" : "Sign in"}</a>;
+    const signedIn = (a: { name: string }) => <button>{a.name}</button>;
+    const first = (initial: Parameters<typeof NavBar.Session<{ name: string }>>[0]["initial"]) => {
+      const { container, unmount } = render(
+        <QueryClientProvider client={createQueryClient()}>
+          <NavBar.Session<{ name: string }> hint="Checking…" initial={initial} signedOut={signedOut} signedIn={signedIn} />
+        </QueryClientProvider>,
+      );
+      const html = container.innerHTML; // read synchronously: nothing has been fetched or awaited yet
+      unmount();
+      return html;
+    };
+    const inHtml = first({ signedIn: true, signupOpen: false, account: { name: "Ada" } });
+    expect(inHtml).toContain("Ada");
+    expect(inHtml).not.toContain("Sign in");
+    expect(inHtml).not.toContain('data-state="loading"');
+    const outHtml = first({ signedIn: false, signupOpen: false });
+    expect(outHtml).toContain("Sign in");
+    expect(outHtml).not.toContain("Ada");
   });
 
   it("says the hint while the answer is on its way, then shows the account menu when signed in", async () => {
