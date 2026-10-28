@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { messages } from "../../registry/examples/schema-form/default";
 import { axeViolations } from "../test/axe";
-import { checkValues, fieldsFromSchema, initialValues, payloadOf, SchemaForm,type SchemaFormMessages } from "./index";
+import { checkValues, fieldsFromSchema, initialValues, payloadOf, SchemaForm } from "./index";
 
-const messages: SchemaFormMessages = { required: "Required.", tooShort: "At least {min}.", tooLong: "At most {max}.", belowMin: "Not below {min}.", aboveMax: "Not above {max}.", notANumber: "Not a number.", badPattern: "Bad form.", tooMany: "At most {max} items." };
 const schema = {
   type: "object",
   required: ["title", "format"],
@@ -41,7 +41,7 @@ describe("checkValues and payloadOf", () => {
   const fields = fieldsFromSchema(schema, "en");
   it("applies the schema's rules", () => {
     const errors = checkValues(fields, { ...initialValues(fields), title: "far too long a title", copies: "11", tags: "a, b, c", format: "" }, messages);
-    expect(errors).toEqual({ title: "At most 10.", format: "Required.", copies: "Not above 10.", tags: "At most 2 items." });
+    expect(errors).toEqual({ title: "At most 10 characters.", format: "Required.", copies: "Not above 10.", tags: "At most 2 items." });
     expect(checkValues(fields, { ...initialValues(fields), title: "" }, messages).title).toBe("Required.");
     expect(checkValues(fields, { ...initialValues(fields), title: "ok", copies: "1.5" }, messages).copies).toBe("Not a number.");
   });

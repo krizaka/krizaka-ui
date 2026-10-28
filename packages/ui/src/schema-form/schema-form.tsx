@@ -52,7 +52,7 @@ export interface SchemaFormProps extends Omit<React.ComponentProps<"form">, "onS
   footer?: React.ReactNode;
 }
 
-function FieldControl({ field, ctx, locale }: { field: SchemaField; ctx: SchemaFieldContext; locale: string }) {
+function FieldControl({ field, ctx, locale }: Readonly<{ field: SchemaField; ctx: SchemaFieldContext; locale: string }>) {
   const { id, value, setValue, error, disabled } = ctx;
   const describedBy = [field.description ? `${id}-help` : null, error ? `${id}-error` : null].filter(Boolean).join(" ") || undefined;
   const common = { id, disabled, "aria-describedby": describedBy, "aria-required": field.required || undefined } as const;
@@ -86,7 +86,7 @@ function FieldControl({ field, ctx, locale }: { field: SchemaField; ctx: SchemaF
 }
 
 /** A form from a JSON Schema: typed fields, the schema's rules, `x-i18n` words, `x-advanced` folded. */
-export function SchemaForm({ schema, locale, words, messages, values: given, onSubmit, submitting = false, renderField, footer, className, ...props }: SchemaFormProps) {
+export function SchemaForm({ schema, locale, words, messages, values: given, onSubmit, submitting = false, renderField, footer, className, ...props }: Readonly<SchemaFormProps>) {
   const base = React.useId();
   const fields = React.useMemo(() => fieldsFromSchema(schema, locale), [schema, locale]);
   const [answers, setAnswers] = React.useState(() => initialValues(fields, given));

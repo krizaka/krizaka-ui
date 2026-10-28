@@ -156,24 +156,33 @@ const fill = (template: string, vars: Record<string, number>) => template.replac
 /** A list typed as « a, b, c »: its items. */
 export const listItems = (text: string) => text.split(",").map((s) => s.trim()).filter(Boolean);
 
-/** The raw answer of a field as the form holds it (a string, a boolean, or cents), checked against the schema's rules. Returns the message, or null. */
-export function checkField(field: SchemaField, value: unknown, m: SchemaFormMessages): string | null {
-  if (field.kind === "boolean") return null;
-  if (field.kind === "money") return value === null || value === undefined ? (field.required ? m.required : null) : null;
-  const text = typeof value === "string" ? value.trim() : "";
-  if (text === "") return field.required ? m.required : null;
-  if (field.kind === "number" || field.kind === "integer") {
-    const n = Number(text.replace(",", "."));
-    if (!Number.isFinite(n) || (field.kind === "integer" && !Number.isInteger(n))) return m.notANumber;
-    if (field.min !== null && n < field.min) return fill(m.belowMin, { min: field.min });
-    if (field.max !== null && n > field.max) return fill(m.aboveMax, { max: field.max });
-    return null;
-  }
-  if (field.kind === "list") return field.maxItems !== null && listItems(text).length > field.maxItems ? fill(m.tooMany, { max: field.maxItems }) : null;
+const asNumber = (text: string) => Number(text.replace(",", "."));
+
+function checkNumber(field: SchemaField, text: string, m: SchemaFormMessages): string | null {
+  const n = asNumber(text);
+  if (!Number.isFinite(n) || (field.kind === "integer" && !Number.isInteger(n))) return m.notANumber;
+  if (field.min !== null && n < field.min) return fill(m.belowMin, { min: field.min });
+  if (field.max !== null && n > field.max) return fill(m.aboveMax, { max: field.max });
+  return null;
+}
+
+function checkText(field: SchemaField, text: string, m: SchemaFormMessages): string | null {
   if (field.minLength !== null && text.length < field.minLength) return fill(m.tooShort, { min: field.minLength });
   if (field.maxLength !== null && text.length > field.maxLength) return fill(m.tooLong, { max: field.maxLength });
   if (field.pattern !== null && !new RegExp(field.pattern, "u").test(text)) return m.badPattern;
   return null;
+}
+
+/** The raw answer of a field as the form holds it (a string, a boolean, or cents), checked against the schema's rules. Returns the message, or null. */
+export function checkField(field: SchemaField, value: unknown, m: SchemaFormMessages): string | null {
+  if (field.kind === "boolean") return null;
+  const empty = field.kind === "money" ? value === null || value === undefined : textOf(value) === "";
+  if (empty) return field.required ? m.required : null;
+  if (field.kind === "money") return null;
+  const text = textOf(value);
+  if (field.kind === "number" || field.kind === "integer") return checkNumber(field, text, m);
+  if (field.kind === "list") return field.maxItems !== null && listItems(text).length > field.maxItems ? fill(m.tooMany, { max: field.maxItems }) : null;
+  return checkText(field, text, m);
 }
 
 /** The messages of every field that fails; an empty object is a valid form. */
@@ -186,17 +195,26 @@ export function checkValues(fields: readonly SchemaField[], values: Record<strin
   return errors;
 }
 
+const textOf = (v: unknown) => (typeof v === "string" ? v.trim() : "");
+
+/** The answer a field starts on, from what was given or the schema's default. */
+function startOf(f: SchemaField, v: unknown): unknown {
+  if (f.kind === "boolean") return v === true;
+  if (f.kind === "money") return typeof v === "number" ? v : null;
+  if (f.kind === "list" && Array.isArray(v)) return v.join(", ");
+  if (typeof v === "string" || typeof v === "number" || typeof v === "boolean") return String(v);
+  return "";
+}
+
 /** What a form holds at the start: the schema's defaults, then the given values. */
 export function initialValues(fields: readonly SchemaField[], given: Record<string, unknown> = {}): Record<string, unknown> {
-  const out: Record<string, unknown> = {};
-  for (const f of fields) {
-    const v = given[f.key] ?? f.defaultValue;
-    if (f.kind === "boolean") out[f.key] = v === true;
-    else if (f.kind === "money") out[f.key] = typeof v === "number" ? v : null;
-    else if (f.kind === "list") out[f.key] = Array.isArray(v) ? v.join(", ") : typeof v === "string" ? v : "";
-    else out[f.key] = v === null || v === undefined ? "" : String(v);
-  }
-  return out;
+  return Object.fromEntries(fields.map((f) => [f.key, startOf(f, given[f.key] ?? f.defaultValue)]));
+}
+
+/** The typed value of a non-empty answer. */
+function typed(f: SchemaField, text: string): unknown {
+  if (f.kind === "number" || f.kind === "integer") return asNumber(text);
+  return f.kind === "list" ? listItems(text) : text;
 }
 
 /** The typed payload the host receives: numbers as numbers, lists as arrays, money as integer cents, empty answers left out. */
@@ -207,11 +225,7 @@ export function payloadOf(fields: readonly SchemaField[], values: Record<string,
     if (f.kind === "boolean") out[f.key] = v === true;
     else if (f.kind === "money") {
       if (typeof v === "number") out[f.key] = v;
-    } else {
-      const text = typeof v === "string" ? v.trim() : "";
-      if (text === "") continue;
-      out[f.key] = f.kind === "number" || f.kind === "integer" ? Number(text.replace(",", ".")) : f.kind === "list" ? listItems(text) : text;
-    }
+    } else if (textOf(v) !== "") out[f.key] = typed(f, textOf(v));
   }
   return out;
 }

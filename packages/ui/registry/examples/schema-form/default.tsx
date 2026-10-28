@@ -14,7 +14,7 @@ const schema = {
     notes: { type: "string", maxLength: 600, "x-advanced": true, "x-i18n": { en: { title: "Notes" } } },
   },
 };
-const messages: SchemaFormMessages = { required: "Required.", tooShort: "At least {min} characters.", tooLong: "At most {max} characters.", belowMin: "Not below {min}.", aboveMax: "Not above {max}.", notANumber: "Not a number.", badPattern: "Not in the expected form.", tooMany: "At most {max} items." };
+export const messages: SchemaFormMessages = { required: "Required.", tooShort: "At least {min} characters.", tooLong: "At most {max} characters.", belowMin: "Not below {min}.", aboveMax: "Not above {max}.", notANumber: "Not a number.", badPattern: "Not in the expected form.", tooMany: "At most {max} items." };
 
 export default function SchemaFormDefault() {
   const [sent, setSent] = useState<string>("");
