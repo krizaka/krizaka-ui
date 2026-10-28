@@ -1,5 +1,25 @@
 # @krizaka/ui
 
+## 3.71.0
+
+### Minor Changes
+
+- [#824](https://github.com/krizaka/krizaka-ui/pull/824) [`639e273`](https://github.com/krizaka/krizaka-ui/commit/639e2737406d453f067472aa424d062c6f05ff75) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(avatar): `defaultAvatar.set` — the family's central set of pictures (`listDefaults("person")` of `@krizaka/org`) as the default of an `Avatar` / `defaultAvatarUrl`: `set[fnv1a(seed) mod n]` among the pictures not disabled, the same rule as `@krizaka/org`'s `defaultFor`, so the same person has the same picture in every product (krizaka-ui#598, part 1). No set, an empty one or no seed keep the brand's silhouette. `pickDefaultPicture` and `defaultAvatarSeedHash` are exported from `@krizaka/ui/avatar/defaults`.
+
+- [#829](https://github.com/krizaka/krizaka-ui/pull/829) [`d6dd702`](https://github.com/krizaka/krizaka-ui/commit/d6dd702202b29ff6f438d256b41fa126b2077ce3) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(nav-bar): `NavBar.Session` takes a `sessionHint` (or reads the readable `kz-session=1` flag cookie, `useSessionHint`) and, while `/api/me` answers, reserves the signed-in placeholder (`data-state="signed-in-pending"`) instead of an empty place, so a signed-in person never sees « Sign in » for an instant. The flag is a hint, never an authorization; it is kept by `sessionHint` of `@krizaka/auth`, which also redirects a signed-in landing request to the home (krizaka-ui#827).
+
+- [#828](https://github.com/krizaka/krizaka-ui/pull/828) [`317df7c`](https://github.com/krizaka/krizaka-ui/commit/317df7cb90d1d77a4551f3fb9656732e56f0851c) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(wall): `PinnedNote` takes a post-it `paper` (butter, rose, mint, sky), an `action` slot kept inside the note (a link, keyboard reachable) and a `limit` of code points (default 140), so a host's neighbourhood board stops being plain white boxes (akinaza#504).
+
+- [#820](https://github.com/krizaka/krizaka-ui/pull/820) [`35abae8`](https://github.com/krizaka/krizaka-ui/commit/35abae8b5652f9008756f3ae269b85b3654a0552) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - New `@krizaka/ui/price-catalogue-editor` (`PriceCatalogueEditor`, web, beta; krizaka/krizaka-ui#713): a product's admin edits its price entries, fed by `describePrices()` of `@krizaka/settings`. One row per entry (product · plan, the amount in the locale's way or « on quote », the unit, « plus taxes », the availability as a word in a chip, the limits); a change takes effect from a date (today by default, never the past) and says that current subscriptions keep their price; the scheduled changes and the history (loaded when the fold opens) are folded. The host owns the save and the clock; words are props. 360 px, both themes, keyboard.
+
+- [#821](https://github.com/krizaka/krizaka-ui/pull/821) [`c1d2bd3`](https://github.com/krizaka/krizaka-ui/commit/c1d2bd35d88809a89002ec2ba8a40da0441a7f59) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - New `@krizaka/ui/schema-form` (`SchemaForm`, web, beta; krizaka/krizaka-ui#527), extracted from Orazaka's `RunForm` / `useInputSchema`: a form drawn from a JSON Schema. Its pure parts are exported too (`fieldsFromSchema`, `checkValues`, `payloadOf`). Types become `Input`, `Select`, `Textarea`, `Switch`, `MoneyInput` (integer cents, `x-money`) and a date; `required`, `minimum`/`maximum`, lengths, `pattern` and `maxItems` are checked (shown after the field is left or on submit, the first failing field takes focus); `x-i18n` gives the title, help, placeholder and option labels by language; `x-advanced` fields fold under « more options »; `renderField` keeps the host's own fields (uploads, pickers); `submitting` blocks the fields. Words are props.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.71.0
+  - @krizaka/tokens@3.71.0
+
 ## 3.70.0
 
 ### Minor Changes
