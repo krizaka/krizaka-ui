@@ -128,6 +128,7 @@ export default defineConfig([
     entry: {
       "dashboard-layout": "src/dashboard-layout/index.ts",
       "account-settings": "src/account-settings/index.ts",
+      "schema-form": "src/schema-form/index.ts",
       "settings-layout": "src/settings-layout/index.ts",
       "drop-overlay": "src/drop-overlay/index.ts",
       "upload-queue": "src/upload-queue/index.ts",

@@ -50,6 +50,7 @@ export const PLANNED: Record<string, string> = {
   "copy-button": "The coupons (@krizaka/coupons): the owner-link block of Yomizaka and the founder offer code of Akinaza — copy in one click, with a read-only field as the fallback (krizaka-ui#576, #783).",
   "money-input": "The coupons (@krizaka/coupons) and the plans' prices: a Canadian-dollar amount typed in a field, kept as integer cents, for the founder offer and the owner's own prices (krizaka-ui#576, #783).",
   "promo-code-field": "The coupons (@krizaka/coupons): the code a customer types at checkout on Yomizaka's and Akinaza's plans, checked on the server, with the discount said back (krizaka-ui#576, #783).",
+  "schema-form": "Orazaka's studio run form (replaces RunForm's own schema reading) and Akinaza's shop setup (krizaka/akinaza#104; krizaka-ui#527, B09).",
   wall: "Akinaza's shop pages: the owner's photos, short notes and logo on a textured wall (krizaka/akinaza#236, krizaka-ui#537).",
   "notification-preferences": "Akinaza's and Yomizaka's account baseline (notifications) (krizaka-ui#515).",
   "qr-code": "Akinaza's Boutique › Agenda: the owner scans the private calendar feed from the phone (krizaka/akinaza#282, krizaka-ui#760).",

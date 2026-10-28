@@ -665,6 +665,10 @@
       "types": "./dist/account-menu.d.ts",
       "import": "./dist/account-menu.js"
     },
+    "./schema-form": {
+      "types": "./dist/schema-form.d.ts",
+      "import": "./dist/schema-form.js"
+    },
     "./settings-layout": {
       "types": "./dist/settings-layout.d.ts",
       "import": "./dist/settings-layout.js"
@@ -2646,6 +2650,17 @@
         "clsx",
         "radix-ui",
         "react"
+      ]
+    },
+    {
+      "name": "./schema-form (composes Button, Field, Switch and MoneyInput; krizaka-ui#527)",
+      "path": "dist/schema-form.js",
+      "limit": "10.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/intl"
       ]
     },
     {
