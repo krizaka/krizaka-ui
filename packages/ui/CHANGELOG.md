@@ -1,5 +1,18 @@
 # @krizaka/ui
 
+## 3.70.0
+
+### Minor Changes
+
+- [#822](https://github.com/krizaka/krizaka-ui/pull/822) [`40a4f15`](https://github.com/krizaka/krizaka-ui/commit/40a4f15dc815f56fe231572f53f232203a9b0961) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - New `@krizaka/ui/proposal` (`ProposalReview` and `DiffView`, web, beta; krizaka/krizaka-ui#673, ADR-006 §6): an agent proposes, a person approves, rejects or edits. `ProposalReview` names who proposes (with its bird), what, the confidence in words and figures, the evidence (children) and the actions — Approve (a two-step `ConfirmButton` when `irreversible`), Reject, Edit — and announces the state (waiting · approved · rejected · expired). `DiffView` signs every line (− / +) and labels it for screen readers; colour is never the only signal; lines wrap on a phone. No slide-to-approve, no haptics.
+
+### Patch Changes
+
+- [#811](https://github.com/krizaka/krizaka-ui/pull/811) [`6eee447`](https://github.com/krizaka/krizaka-ui/commit/6eee447038d3a282c88a972c9724666647bfc0d3) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - fix(shop): `MapGate` — the live map fills its frame (krizaka/akinaza#488). The live `Map` is `absolute inset-0` inside the gate's aspect-ratio box and had no height of its own, so on a laptop it measured 0 px and drew as an empty grey box (MapLibre fell back to its 300 px canvas). The gate now gives the map `h-full w-full` (the host's `map.className` still wins).
+- Updated dependencies []:
+  - @krizaka/tailwind@3.70.0
+  - @krizaka/tokens@3.70.0
+
 ## 3.69.0
 
 ### Minor Changes
