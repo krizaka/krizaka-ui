@@ -18,6 +18,10 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import path from "node:path";
 
+import { fixedBin } from "../../../scripts/fixed-bin.mjs";
+
+const GIT = fixedBin("git");
+
 const root = path.resolve(import.meta.dirname, "..");
 const args = process.argv.slice(2);
 const flag = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : null);
@@ -40,7 +44,7 @@ export const PRODUCTS = {
 const SOURCE = /\.(tsx|ts|jsx|js|mjs)$/;
 const NOT_SOURCE = /(^|\/)(node_modules|\.next|dist|build|out|coverage|storybook-static|\.turbo|\.expo|android|ios|__screenshots__|e2e|\.source|tests?|__tests__|__mocks__)\/|\.(test|spec|stories|d)\.[cm]?[jt]sx?$|\.config\.[cm]?[jt]s$/;
 
-const git = (cwd, ...a) => execFileSync("git", a, { cwd, encoding: "utf8", maxBuffer: 1 << 28, stdio: ["ignore", "pipe", "pipe"] });
+const git = (cwd, ...a) => execFileSync(GIT, a, { cwd, encoding: "utf8", maxBuffer: 1 << 28, stdio: ["ignore", "pipe", "pipe"] });
 
 /** The registries: which module and which names stand for which component. */
 export function loadResolvers() {

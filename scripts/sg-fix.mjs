@@ -5,11 +5,14 @@
 //   node scripts/sg-fix.mjs [paths…]     (default: the whole repository)
 // Identical in every Krizaka TypeScript repository (keep the copies identical). Dependency-free.
 import { spawnSync } from "node:child_process";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { localBin } from "./sg-ratchet.mjs";
+
+// git by its absolute path, never through `PATH` (Sonar S4036).
+const GIT = ["/usr/bin/git", "/usr/local/bin/git", "/opt/homebrew/bin/git"].find((file) => existsSync(file)) ?? "/usr/bin/git";
 
 export const DATE_FNS = ["hoursToMilliseconds", "minutesToMilliseconds", "differenceInMilliseconds"];
 
@@ -38,10 +41,10 @@ function run() {
   const root = process.cwd();
   const bin = localBin(root);
   const paths = process.argv.slice(2);
-  const before = spawnSync("git", ["diff", "--name-only"], { cwd: root, encoding: "utf8" }).stdout.split("\n");
+  const before = spawnSync(GIT, ["diff", "--name-only"], { cwd: root, encoding: "utf8" }).stdout.split("\n");
   const scan = spawnSync(bin, ["scan", "--update-all", ...paths], { cwd: root, encoding: "utf8" });
   if (scan.error) throw scan.error;
-  const after = spawnSync("git", ["diff", "--name-only"], { cwd: root, encoding: "utf8" }).stdout.split("\n");
+  const after = spawnSync(GIT, ["diff", "--name-only"], { cwd: root, encoding: "utf8" }).stdout.split("\n");
   const files = after.filter((f) => /\.(ts|tsx|mts)$/.test(f));
   void before;
   let touched = 0;

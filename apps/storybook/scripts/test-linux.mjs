@@ -5,12 +5,16 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { resolve } from "node:path";
 
+import { fixedBin } from "../../../scripts/fixed-bin.mjs";
+
+const DOCKER = fixedBin("docker");
+
 const require = createRequire(import.meta.url);
 const { version } = JSON.parse(readFileSync(require.resolve("playwright/package.json"), "utf8"));
 const repo = resolve(import.meta.dirname, "..", "..", "..");
 
 execFileSync(
-  "docker",
+  DOCKER,
   [
     "run", "--rm", "--platform", "linux/amd64", "--ipc=host",
     "-v", `${repo}:/repo`,

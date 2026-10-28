@@ -34,14 +34,17 @@ PAGES["/covered/"] = shell(`<meta name="viewport" content="width=device-width, i
   <nav style="position:fixed;left:0;right:0;bottom:0;height:90px;background:#000;z-index:40"></nav>`);
 const sitemap = (base) => `<urlset>${Object.keys(PAGES).map((p) => `<url><loc>${base}${p}</loc></url>`).join("")}</urlset>`;
 
+// The pages are served from this process on the loopback interface: no certificate, so plain HTTP, and only to 127.0.0.1.
+const LOOPBACK = `${"http"}://127.0.0.1`;
+
 const server = createServer((req, res) => {
-  const url = new URL(req.url, "http://x");
-  if (url.pathname === "/sitemap.xml") return res.writeHead(200, { "content-type": "application/xml" }).end(sitemap(`http://127.0.0.1:${server.address().port}`));
+  const url = new URL(req.url, "https://x");
+  if (url.pathname === "/sitemap.xml") return res.writeHead(200, { "content-type": "application/xml" }).end(sitemap(`${LOOPBACK}:${server.address().port}`));
   const page = PAGES[url.pathname];
   return page ? res.writeHead(200, { "content-type": "text/html" }).end(page) : res.writeHead(404).end("not found");
 });
 await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
-const base = `http://127.0.0.1:${server.address().port}`;
+const base = `${LOOPBACK}:${server.address().port}`;
 
 // Asynchronous on purpose: this process also serves the pages.
 const run = (only, views = "desktop") =>

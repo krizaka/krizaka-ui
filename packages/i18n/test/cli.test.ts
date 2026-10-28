@@ -52,6 +52,15 @@ describe("krizaka-i18n", () => {
     expect(JSON.parse(json.out[0] as string)).toMatchObject({ ok: false, problems: [{ kind: "unused", key: "a" }] });
   });
 
+  it("refuses a catalogue folder outside the working folder, and a reference that is a path", async () => {
+    const dir = tree({ "messages/en.json": { a: "A" } });
+    const out = io(dir);
+    expect(await main(["check", "../elsewhere"], out.io)).toBe(2);
+    expect(out.err[0]).toContain("is outside");
+    const ref = io(dir);
+    expect(await main(["check", "messages", "--reference", "../x"], ref.io)).toBe(1);
+  });
+
   it("scans sources, human, summary and JSON", async () => {
     const args = ["scan", "components", "app", "--allow", "Acme, Krizaka", "--allow", "", "--skip", "/app/api/"];
     const human = io(fixtures);
