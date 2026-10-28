@@ -81,6 +81,7 @@ jobs:
         env:
           PATHS: packages/*/coverage/lcov.info
           OUT: ${{ runner.temp }}/sonar-coverage.tar
+        shell: bash   # the job runs in the Playwright container, whose default shell is sh (no `shopt`)
         run: |
           shopt -s globstar nullglob
           files=()
