@@ -281,6 +281,22 @@ describe("the wall's addendum (krizaka-ui#604)", () => {
     expect(container.querySelector(".kz-wall-pin")).toBeNull();
   });
 
+  it("PinnedNote takes a post-it paper, an action inside the note and a longer limit", () => {
+    const long = "x".repeat(300);
+    const { container } = render(<PinnedNote text={long} limit={500} paper="rose" action={<a href="/s/x">Voir X</a>} />);
+    const note = container.querySelector(".kz-pinned-note") as HTMLElement;
+    expect(note.getAttribute("data-paper")).toBe("rose");
+    expect(note.querySelector(".kz-pinned-note-action a")?.getAttribute("href")).toBe("/s/x");
+    expect(container.querySelector(".kz-pinned-note-text")?.textContent).toHaveLength(300);
+    expect(wallCss()).toMatch(/\[data-paper="butter"\][^{]*\{[^}]*background/);
+  });
+
+  it("PinnedNote has no paper attribute by default and still caps at 140", () => {
+    const { container } = render(<PinnedNote text={"y".repeat(200)} />);
+    expect((container.querySelector(".kz-pinned-note") as HTMLElement).hasAttribute("data-paper")).toBe(false);
+    expect(container.querySelector(".kz-pinned-note-text")?.textContent).toHaveLength(140);
+  });
+
   it("PinnedNote lines and ink default to 4 and blue, and the hold to tape", () => {
     const { container, rerender } = render(<PinnedNote text="Mot" />);
     expect((container.querySelector(".kz-pinned-note") as HTMLElement).getAttribute("data-ink")).toBe("blue");
