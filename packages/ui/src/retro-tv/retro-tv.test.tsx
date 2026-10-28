@@ -146,6 +146,13 @@ describe("RetroTv playlist (akinaza#469)", () => {
     { id: "c", title: "Gamma", src: "/c.mp4", poster: "/c.jpg" },
   ];
   const tv = (props: Partial<React.ComponentProps<typeof RetroTv>> = {}) => <RetroTv title="Shorts" playlist={list} {...props} />;
+  /** The playlist is its own chunk, loaded when first used: render, then let it arrive. */
+  const mount = async (ui: React.ReactElement) => {
+    let view!: ReturnType<typeof render>;
+    await act(async () => { view = render(ui); });
+    await act(async () => { await import("./playlist-screen"); });
+    return view;
+  };
   const now = () => screen.getByText(/^Now playing:/).textContent;
   const reduce = () => {
     window.matchMedia = ((query: string) => ({ matches: query.includes("reduce"), media: query, addEventListener: () => undefined, removeEventListener: () => undefined })) as unknown as typeof window.matchMedia;
@@ -153,8 +160,8 @@ describe("RetroTv playlist (akinaza#469)", () => {
   const original = window.matchMedia;
   afterEach(() => { window.matchMedia = original; });
 
-  it("plays in order and loops back to the first", () => {
-    const { container } = render(tv());
+  it("plays in order and loops back to the first", async () => {
+    const { container } = await mount(tv());
     expect(now()).toContain("Alpha (1/3)");
     for (const title of ["Beta (2/3)", "Gamma (3/3)", "Alpha (1/3)"]) {
       fireEvent.ended(container.querySelector(".kz-rtv-layer[data-role=in] video")!);
@@ -162,15 +169,15 @@ describe("RetroTv playlist (akinaza#469)", () => {
     }
   });
 
-  it("goes back from the first to the last", () => {
-    render(tv());
+  it("goes back from the first to the last", async () => {
+    await mount(tv());
     fireEvent.click(screen.getByRole("button", { name: "Previous video" }));
     expect(now()).toContain("Gamma (3/3)");
   });
 
-  it.each(["channel", "crossfade", "slide"] as const)("transition %s keeps the outgoing layer, then drops it", (transition) => {
+  it.each(["channel", "crossfade", "slide"] as const)("transition %s keeps the outgoing layer, then drops it", async (transition) => {
     vi.useFakeTimers();
-    const { container } = render(tv({ transition }));
+    const { container } = await mount(tv({ transition }));
     fireEvent.click(screen.getByRole("button", { name: "Next video" }));
     expect(container.querySelector(".kz-rtv-layer[data-role=out]")?.getAttribute("data-tr")).toBe(transition);
     expect(container.querySelector(".kz-rtv-static") !== null).toBe(transition === "channel");
@@ -179,26 +186,26 @@ describe("RetroTv playlist (akinaza#469)", () => {
     vi.useRealTimers();
   });
 
-  it("cuts under reduced motion", () => {
+  it("cuts under reduced motion", async () => {
     reduce();
-    const { container } = render(tv());
+    const { container } = await mount(tv());
     fireEvent.click(screen.getByRole("button", { name: "Next video" }));
     expect(container.querySelector(".kz-rtv-layer[data-role=out]")).toBeNull();
     expect(container.querySelector(".kz-rtv-static")).toBeNull();
     expect(now()).toContain("Beta");
   });
 
-  it("is muted by default and reports the visitor's choice", () => {
+  it("is muted by default and reports the visitor's choice", async () => {
     const onMutedChange = vi.fn();
-    const { container } = render(tv({ onMutedChange }));
+    const { container } = await mount(tv({ onMutedChange }));
     expect((container.querySelector("video") as HTMLVideoElement).muted).toBe(true);
     fireEvent.click(screen.getByRole("button", { name: "Sound off: turn on" }));
     expect(onMutedChange).toHaveBeenCalledWith(false);
     expect(screen.getByRole("button", { name: "Sound on: turn off" }).getAttribute("aria-pressed")).toBe("true");
   });
 
-  it("is driven from the keyboard", () => {
-    render(tv());
+  it("is driven from the keyboard", async () => {
+    await mount(tv());
     const region = screen.getByRole("region", { name: "Shorts" });
     fireEvent.keyDown(region, { key: "n" });
     expect(now()).toContain("Beta");
@@ -208,22 +215,43 @@ describe("RetroTv playlist (akinaza#469)", () => {
     expect(screen.getByRole("button", { name: "Sound on: turn off" })).toBeTruthy();
   });
 
-  it("offers captions only when the programme has tracks", () => {
-    render(tv());
+  it("offers captions only when the programme has tracks", async () => {
+    await mount(tv());
     expect(screen.queryByRole("button", { name: "Captions" })).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Next video" }));
     fireEvent.click(screen.getByRole("button", { name: "Captions" }));
     expect(screen.getByRole("button", { name: "Captions" }).getAttribute("aria-pressed")).toBe("true");
   });
 
-  it("lets the host fill an embed slot and loads no third-party script itself", () => {
-    const { container } = render(tv({ playlist: [{ id: "e", title: "Reel" }], renderEmbed: (s) => <span data-testid="embed">{s.title}</span> }));
+  it("lets the host fill an embed slot and loads no third-party script itself", async () => {
+    const { container } = await mount(tv({ playlist: [{ id: "e", title: "Reel" }], renderEmbed: (s) => <span data-testid="embed">{s.title}</span> }));
     expect(screen.getByTestId("embed").textContent).toBe("Reel");
     expect(container.querySelector("iframe, script")).toBeNull();
   });
 
   it("has no axe violations", async () => {
-    const { container } = render(tv());
+    const { container } = await mount(tv());
     expect(await axeViolations(container)).toEqual([]);
+  });
+});
+
+describe("RetroTv single clip", () => {
+  it("does not load the playlist chunk", () => {
+    const loaded = vi.fn();
+    vi.doMock("./playlist-screen", () => { loaded(); return { PlaylistScreen: () => null }; });
+    render(<RetroTv title="Story" src="/story.mp4" />);
+    expect(loaded).not.toHaveBeenCalled();
+    vi.doUnmock("./playlist-screen");
+  });
+});
+
+describe("RetroTv bundle shape", () => {
+  it("reaches the playlist only through a dynamic import, so a single clip never downloads it", async () => {
+    const { readFileSync } = await import("node:fs");
+    const read = (name: string) => readFileSync(`${process.cwd()}/src/retro-tv/${name}`, "utf8");
+    const source = read("retro-tv.tsx");
+    expect(source).not.toMatch(/^import .*playlist-screen/m);
+    expect(source).toContain('import("./playlist-screen")');
+    expect(read("playlist-screen.tsx")).not.toMatch(/^import (?!type).*from "\.\/retro-tv"/m);
   });
 });
