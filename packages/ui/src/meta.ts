@@ -167,6 +167,7 @@ export type ComponentName =
   | "promise-card"
   | "pull-to-refresh"
   | "retro-tv"
+  | "shop-gallery"
   | "radio-group"
   | "router"
   | "rail-nav"
