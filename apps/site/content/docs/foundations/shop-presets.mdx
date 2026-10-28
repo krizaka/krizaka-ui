@@ -1,6 +1,6 @@
 ---
 title: Shop presets
-description: The twelve looks of a shop page — two per trade — as data in @krizaka/tokens, each proven accessible in both themes.
+description: The looks of a shop page — two per trade, and six that suit any trade — as data in @krizaka/tokens, each proven accessible in both themes.
 ---
 
 > **A shop picks a look, never a colour.** A preset is data: an accent of the brands, a paper, the roles of the faces, a spacing and a photo treatment. It cannot break contrast because it can only name tokens, and the build proves every combination.
@@ -16,7 +16,7 @@ import { ShopFrame } from "@krizaka/ui/shop";
 
 `accent` is optional: the owner may swap the preset's accent for another one **from the short list the preset carries** (`accents`), all tested — never a colour wheel. `paper` and `density` come from the document or the preset.
 
-## The twelve
+## The presets
 
 | Trade | Look | `data-shop-preset` | Accent | Paper | Titles | Notes | Spacing | Photos |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
@@ -32,6 +32,14 @@ import { ShopFrame } from "@krizaka/ui/shop";
 | cleaning | Net | `cleaning-net` | krizaka | plain | Plus Jakarta Sans | the typewriter | compact | cool |
 | consulting | Bureau | `consulting-bureau` | yomizaka | plain | Plus Jakarta Sans | the typewriter | compact | none |
 | consulting | Cabinet | `consulting-cabinet` | krizaka | seyes | Young Serif | the typewriter | airy | none |
+| any | Affiche | `look-affiche` | akinaza | plain | Plus Jakarta Sans (heavy, tight) | the typewriter | compact | none |
+| any | Boutique | `look-boutique` | akinaza | washi | Young Serif | the pen (Krizaka Cahier) | airy | warm |
+| any | Cahier | `look-cahier` | akinaza | seyes | Young Serif | the pen (Krizaka Cahier) | airy | warm + grain |
+| any | Éditorial | `look-editorial` | akinaza | plain | Young Serif | the typewriter | airy | none |
+| any | Krizaka | `look-krizaka` | krizaka | plain | Plus Jakarta Sans | the typewriter | compact | none |
+| any | Nuit | `look-nuit` | krizaka | plain | Plus Jakarta Sans | the typewriter | compact | cool |
+
+The six `look-*` presets are not tied to a trade: each also sets the surface, the motion, the mascots, the closing and the page transition, and the photo frame. They are what `@krizaka/ui/shop/look` applies.
 
 No café, restaurant or bar look: Akinaza is for service shops. The accents are those of the live brands (Krizaka, Orazaka, Yomizaka, Akinaza and its copper); a paused product's accent is never offered.
 

@@ -9,7 +9,7 @@ import { shopPresets } from "@krizaka/tokens/shop-presets";
 const page = readFileSync(new URL("../content/docs/foundations/shop-presets.mdx", import.meta.url), "utf8");
 
 test("the page lists every preset by its id, its name, its accent and its paper", () => {
-  assert.equal(shopPresets.length, 12);
+  assert.equal(shopPresets.length, 18);
   for (const p of shopPresets) {
     const row = page.split("\n").find((line) => line.includes(`\`${p.id}\``));
     assert.ok(row, `${p.id} is not in the table`);
