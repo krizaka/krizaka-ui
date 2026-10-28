@@ -20,6 +20,7 @@
     "dev:check": "turbo run lint typecheck test --filter='...[origin/main]' --filter='!@krizaka/site' --filter='!@krizaka/storybook'",
     "changeset": "changeset",
     "inventory": "node tools/inventory.mjs",
+    "inventory:usage": "node tools/usage-inventory.mjs --out docs/inventory",
     "test:tools": "node --test 'tools/**/*.test.mjs'",
     "smoke:consumers": "node tools/consumer-smoke/run.mjs",
     "release": "turbo run check && changeset publish",
