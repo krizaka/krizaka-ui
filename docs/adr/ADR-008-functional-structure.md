@@ -377,43 +377,43 @@ codemod wherever the mapping is mechanical.
 
 ## 9. The slices (sub-issues of #837, in order, one session each)
 
-1. **Registry: domains and support levels.**
+1. **[#838](https://github.com/krizaka/krizaka-ui/issues/838) Registry: domains and support levels.**
    - `domain` and `experimental` in `meta.ts` types.
    - Fill every entry from `ui-usage.json`.
    - The adoption issue on each experimental entry.
    - Promote the two-product entries.
    - Registry test and `--check`.
    - Release 3.73.
-2. **Size budgets per domain and the weekly inventory refresh.**
+2. **[#839](https://github.com/krizaka/krizaka-ui/issues/839) Size budgets per domain and the weekly inventory refresh.**
    - Domain sums frozen as a ratchet.
    - The over-budget rows of §5 measured with size-limit and fixed.
    - The scheduled workflow.
-3. **Deprecation batch 3** (3.74).
+3. **[#840](https://github.com/krizaka/krizaka-ui/issues/840) Deprecation batch 3** (3.74).
    - The 17 new retirements, the 6 leave-core entries and `photo-grid`.
    - The founder's answers on the 8 asks.
    - Changesets.
    - The paused products pinned to `~3.73.0` (one-line PRs in orochia, yasakia, yororis, kachizaka and their mobile
      apps).
-4. **The guard: `krizaka/no-retired-ui` in `@krizaka/config`** (krizaka-ts).
+4. **[krizaka-ts#230](https://github.com/krizaka/krizaka-ts/issues/230) The guard: `krizaka/no-retired-ui` in `@krizaka/config`.**
    - Generated from the registry.
    - Warn in 3.x.
    - Cahier refused in products.
    - Adopted by the four live repos.
-5. **ui.krizaka.com by domain.**
+5. **[#841](https://github.com/krizaka/krizaka-ui/issues/841) ui.krizaka.com by domain.**
    - Sidebar, catalogue and domain pages.
    - The support-level badges.
    - « Who uses it » on each page, from `ui-usage.json`.
    - Fumadocs kept behind the adapter, with its test.
-6. **motion.krizaka.com by domain.**
+6. **[krizaka-motion#62](https://github.com/krizaka/krizaka-motion/issues/62) motion.krizaka.com by domain.**
    - The guides regrouped.
    - The library build and `exports` dropped.
    - `yororis-synthesis` removed.
    - Each guide linked to its `@krizaka/ui` entry.
-7. **Adoption in the apps.**
+7. **[akinaza#521](https://github.com/krizaka/akinaza/issues/521) Adoption in the apps.**
    - Akinaza (`kpi-explained`, `glossary`, `choice-grid`, the native `mascot-state`), the cockpit's `tree-view` and
      `tag-input`, and the motion lab's `step-progress`.
    - The codemods written for #676 run first here.
-8. **4.0** — the existing #676, re-scoped to the inventory's `merge`, `retire` and `leave-core` rows.
+8. **[#676](https://github.com/krizaka/krizaka-ui/issues/676) 4.0** — the existing issue, re-scoped to the inventory's `merge`, `retire` and `leave-core` rows.
 
 ## Consequences
 
