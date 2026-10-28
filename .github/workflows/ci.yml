@@ -6,6 +6,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  merge_group:
   workflow_dispatch:
 
 permissions:
@@ -19,7 +20,7 @@ jobs:
   changes:
     # Docs-only pull requests (root markdown, docs/, changesets, workflows other than this one) skip the heavy jobs below.
     # A skipped job reports « Skipped », which keeps the required checks satisfied; the gate fails open (krizaka/.github changes.yml).
-    uses: krizaka/.github/.github/workflows/changes.yml@ccd224612f5bb9db815335654f359a595a597fbb # main
+    uses: krizaka/.github/.github/workflows/changes.yml@52867e939aae51e061389109d52b1e463f8fe72f # main
     with:
       ignore: '^[^/]+\.md$|^LICENSE|^docs/|^\.changeset/|^\.github/(?!workflows/ci\.yml$)'
 
@@ -74,6 +75,44 @@ jobs:
           name: storybook-screenshot-diffs
           path: apps/storybook/__screenshots__/__diff__
           if-no-files-found: ignore
+
+      # The coverage the analysis reads: only the leg that ran the tests uploads it, as one tar that keeps the paths.
+      - name: Collect the coverage for SonarCloud
+        env:
+          PATHS: packages/*/coverage/lcov.info
+          OUT: ${{ runner.temp }}/sonar-coverage.tar
+        shell: bash   # the job runs in the Playwright container, whose default shell is sh (no `shopt`)
+        run: |
+          shopt -s globstar nullglob
+          files=()
+          while IFS= read -r pattern; do
+            [ -z "$pattern" ] && continue
+            # shellcheck disable=SC2206  # the pattern is a glob on purpose
+            matches=($pattern)
+            files+=("${matches[@]}")
+          done <<< "$PATHS"
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "::warning::no coverage report found ($PATHS): the analysis runs without coverage and the new-code coverage condition will fail"
+            tar -cf "$OUT" --files-from /dev/null
+          else
+            # A monorepo package writes its lcov with paths relative to the package (SF:src/a.ts); the scanner resolves them from the
+            # project root. Rebase them in place (SF:packages/core/src/a.ts); absolute paths and a root-level report are left alone.
+            for f in "${files[@]}"; do
+              case "$f" in *.info) ;; *) continue ;; esac
+              pkg=$(dirname "$f"); [ "$(basename "$pkg")" = coverage ] && pkg=$(dirname "$pkg")
+              [ "$pkg" = "." ] && continue
+              awk -v p="$pkg" '/^SF:/ && substr($0,4,1) != "/" { $0 = "SF:" p "/" substr($0,4) } { print }' "$f" > "$f.rebased" && mv "$f.rebased" "$f"
+            done
+            tar -cf "$OUT" "${files[@]}"
+            echo "coverage: ${files[*]}"
+          fi
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: sonar-coverage
+          path: ${{ runner.temp }}/sonar-coverage.tar
+          retention-days: 1
+          if-no-files-found: error
 
   site:
     # ui.krizaka.com (apps/site), built from the packages of this commit: lint (with gen-ui-docs --check), types, tests
@@ -221,6 +260,99 @@ jobs:
       - run: |
           echo "results: $RESULTS"
           for r in $RESULTS; do [ "$r" = success ] || { echo "::error::$r"; exit 1; }; done
+
+  # A docs-only change skips the heavy jobs, yet the required « SonarCloud Code Analysis » must still be posted by the SonarCloud app:
+  # a light scan (checkout, no build, no tests, no coverage) does it, and its quality gate is real on the changed files (.github#330).
+  # Never a synthetic status: that would forge a check which belongs to another app.
+  sonar-light:
+    name: SonarCloud (docs only)
+    needs: changes
+    if: ${{ !cancelled() && needs.changes.outputs.code == 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    steps:
+      - name: The token is there
+        run: |
+          if [ -z "$SONAR_TOKEN" ]; then echo "::error::SONAR_TOKEN is empty: pass the org secret to the workflow (secrets: SONAR_TOKEN) and, for Dependabot, add it as a Dependabot secret"; exit 1; fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0  # blame and new-code detection need the history
+          persist-credentials: false
+
+      - uses: SonarSource/sonarqube-scan-action@d209202bc7d53ff1cc128f7f907dac145c9d6ae9 # v8.3.0
+        env:
+          SONAR_HOST_URL: https://sonarcloud.io
+        with:
+          projectBaseDir: .
+          args: -Dsonar.qualitygate.wait=true
+
+  sonar:
+    name: SonarCloud
+    needs: [changes, check]
+    if: ${{ !cancelled() && needs.changes.outputs.code != 'false' && needs.check.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    steps:
+      - name: The token is there
+        run: |
+          if [ -z "$SONAR_TOKEN" ]; then echo "::error::SONAR_TOKEN is empty: pass the org secret to the workflow (secrets: SONAR_TOKEN) and, for Dependabot, add it as a Dependabot secret"; exit 1; fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0  # blame and new-code detection need the history
+          persist-credentials: false
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: sonar-coverage
+          path: ${{ runner.temp }}/sonar-coverage
+
+      - name: Restore the reports
+        env:
+          TAR: ${{ runner.temp }}/sonar-coverage/sonar-coverage.tar
+        run: tar -xf "$TAR"
+
+      # CI analysis: the SonarCloud app still decorates the pull request and posts « SonarCloud Code Analysis »; the quality gate is awaited
+      # here so the CI gate carries its verdict too.
+      - uses: SonarSource/sonarqube-scan-action@d209202bc7d53ff1cc128f7f907dac145c9d6ae9 # v8.3.0
+        env:
+          SONAR_HOST_URL: https://sonarcloud.io
+        with:
+          projectBaseDir: .
+          args: -Dsonar.qualitygate.wait=true
+
+  # ALWAYS reports: green when the check succeeded (or the changes gate legitimately skipped it) and the SonarCloud leg did what it owed.
+  gate:
+    name: CI gate
+    needs: [changes, check, sonar, sonar-light]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - env:
+          CODE: ${{ needs.changes.outputs.code }}
+          CHECK: ${{ needs.check.result }}
+          SONAR: ${{ needs.sonar.result }}
+          SONAR_LIGHT: ${{ needs.sonar-light.result }}
+        run: |
+          fail=0
+          echo "gate: code=${CODE:-unknown} check=$CHECK sonar=$SONAR sonar-light=$SONAR_LIGHT"
+          case "$CHECK" in success|skipped) ;; *) echo "::error::check $CHECK"; fail=1 ;; esac
+          case "$SONAR" in success|skipped) ;; *) echo "::error::sonar $SONAR"; fail=1 ;; esac
+          case "$SONAR_LIGHT" in success|skipped) ;; *) echo "::error::sonar-light $SONAR_LIGHT"; fail=1 ;; esac
+          if [ "$CODE" != "false" ] && { [ "$CHECK" != success ] || [ "$SONAR" != success ]; }; then echo "::error::check and sonar must run and succeed when the gate did not answer false"; fail=1; fi
+          if [ "$CODE" = "false" ] && [ "$SONAR_LIGHT" != success ]; then echo "::error::sonar-light must run and succeed on a docs-only change"; fail=1; fi
+          exit "$fail"
 
   duplication:
     # No copy-pasted code (org rule 2026-10-22): jscpd with the shared thresholds; the duplicated lines of dup-ratchet.json may only go down.

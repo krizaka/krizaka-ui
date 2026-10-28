@@ -999,7 +999,7 @@
     "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/examples',{recursive:true}))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/examples/'+f)\" && tsup && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css');require('node:fs').copyFileSync('src/blocks.css','dist/blocks.css');require('node:fs').copyFileSync('src/story.css','dist/story.css')\" && node scripts/build-registry.mjs",
     "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run && jest",
+    "test": "vitest run --coverage && jest",
     "size": "size-limit",
     "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./blocks.css ./story.css ./tailwind.css && node scripts/consumer.mjs && node scripts/native-dist.mjs",
     "prepublishOnly": "pnpm run build"
@@ -1041,6 +1041,7 @@
     "@types/node": "^22.15.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "@vitest/coverage-v8": "5.0.5",
     "axe-core": "^4.14.0",
     "babel-jest": "30.5.2",
     "eslint": "^9.39.0",
