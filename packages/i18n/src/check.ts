@@ -72,7 +72,7 @@ function checkLeaf(locale: string, key: string, value: unknown, problems: Proble
 }
 
 /** `<dir>/<locale>.json`, and nothing outside `dir`: a locale name is a file stem, never a path. */
-function catalogue(dir: string, locale: string): string {
+export function catalogue(dir: string, locale: string): string {
   const file = path.resolve(dir, `${locale}.json`);
   const rel = path.relative(dir, file);
   if (rel.startsWith("..") || path.isAbsolute(rel)) throw new Error(`${locale} is not a catalogue of ${dir}`);

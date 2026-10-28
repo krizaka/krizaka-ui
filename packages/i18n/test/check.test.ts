@@ -1,5 +1,6 @@
 import path from "node:path";
 
+import { catalogue } from "../src/check";
 import { checkMessages, findUnused, flatten, formatReport } from "../src/check-entry";
 import { tree } from "./helpers";
 
@@ -104,5 +105,16 @@ describe("findUnused", () => {
     const dir = tree({ "a.ts": 'k("x.y")' });
     expect(findUnused(["x.y", "x.z"], [path.join(dir, "a.ts")])).toEqual(["x.z"]);
     expect(findUnused(["x.y"], [path.join(dir, "a.ts.txt")])).toEqual(["x.y"]);
+  });
+});
+
+describe("catalogue", () => {
+  it("is `<dir>/<locale>.json`", () => {
+    expect(catalogue("/m", "fr")).toBe(path.resolve("/m", "fr.json"));
+  });
+
+  it("refuses a locale that leaves the folder (a locale is a file stem, never a path)", () => {
+    expect(() => catalogue("/m/messages", "../secrets")).toThrow("../secrets is not a catalogue of /m/messages");
+    expect(() => catalogue("/m/messages", "/etc/passwd")).toThrow(/is not a catalogue of/);
   });
 });
