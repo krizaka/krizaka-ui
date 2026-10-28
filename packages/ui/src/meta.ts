@@ -132,6 +132,7 @@ export type ComponentName =
   | "markdown"
   | "meta-row"
   | "waveform"
+  | "proposal"
   | "qr-code"
   | "entity-header"
   | "collection-switcher"
