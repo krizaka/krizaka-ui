@@ -10,6 +10,7 @@ export const meta = {
     reason: "No web user (ADR-006 audit, 2026-10-25), and no app imports `@krizaka/ui/native/media-capture`. Nothing is removed before 4.0; pick files with `FileUpload` on the web or `MediaPicker` in a mobile app.",
   },
   category: "media",
+  domain: "media",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

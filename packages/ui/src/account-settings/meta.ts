@@ -6,6 +6,7 @@ export const meta = {
     "The blocks of an account page, so every app has the same polished one: the identity card (picture, name, verified e-mail, member since), a picture grid to choose from, a labelled language control, selectable cards for a single choice — beside `SettingsSection`'s one inline save.",
   status: "beta",
   category: "forms",
+  domain: "identity",
   platforms: "web",
   parity: {
     native: { status: "gap", issue: "krizaka/krizaka-ui#503", reason: "The Expo apps get the same blocks on @krizaka/ui/native." },

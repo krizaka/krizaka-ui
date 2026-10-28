@@ -5,6 +5,7 @@ export const meta = {
   summary: "A segmented control that switches between views of a screen — the native counterpart of the web's segmented tabs.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "The web's segmented control is the radio group's segments.", use: "radio-group" }, desktop: { status: "n/a", reason: "The Mac app uses the web's segments.", use: "radio-group" } },
   whenToUse: ["At the top of a screen, to switch between two to four views of the same content: feed, auctions, challenges."],

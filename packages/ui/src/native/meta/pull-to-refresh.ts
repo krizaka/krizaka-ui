@@ -5,6 +5,7 @@ export const meta = {
   summary: "The platform's pull to refresh in the theme's accent, for any ScrollView or FlatList — or `BrandedRefresh`, where the product's own mark is drawn as you pull and turns while it refreshes.",
   status: "beta",
   category: "feedback",
+  domain: "feedback",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "A web page refreshes by reloading or with a button.", use: "button" }, desktop: { status: "n/a", reason: "A desktop window refreshes with Cmd+R or a toolbar button.", use: "button" } },
   whenToUse: ["A ScrollView or a FlatList the app draws itself: a feed, a profile."],

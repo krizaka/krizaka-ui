@@ -6,6 +6,7 @@ export const meta = {
     "The bot check of a public form: Cloudflare Turnstile that shows nothing to a normal visitor, a framed box on the tokens only when a challenge needs them, and an accessible error with a retry.",
   status: "beta",
   category: "forms",
+  domain: "identity",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Turnstile is a web widget; a phone app proves itself with its own session." }, desktop: "web" },
   whenToUse: [

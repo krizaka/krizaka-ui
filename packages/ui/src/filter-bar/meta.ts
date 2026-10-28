@@ -5,6 +5,7 @@ export const meta = {
   summary: "The bar above a list: its saved views, the controls that narrow it, the filters in force as removable chips, “Clear filters”, and the count of results — the state kept by the app, in the address.",
   status: "beta",
   category: "forms",
+  domain: "forms",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#277", reason: "No phone list screen filters yet; when one does, chips and a sheet." }, desktop: "web" },
   whenToUse: [

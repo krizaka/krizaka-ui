@@ -5,6 +5,7 @@ export const meta = {
   summary: "Dark, light or the system's: `ThemeProvider`, `ThemeScript` against the flash, and `ThemeToggle`.",
   status: "stable",
   category: "foundations",
+  domain: "foundations",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

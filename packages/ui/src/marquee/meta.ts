@@ -6,6 +6,7 @@ export const meta = {
     "A band of items that slides forever — at a speed in pixels per second, paused by the pointer, the focus or its own pause button, read once by assistive technology, and a still row you scroll under reduced motion.",
   status: "beta",
   category: "data-display",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Decorative scrolling logos of a site's page." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

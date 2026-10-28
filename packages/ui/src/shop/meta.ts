@@ -5,6 +5,7 @@ export const meta = {
   summary: "A shop's public page as a document, not as code: an ordered list of sections, each a type and a variant with its settings and blocks, drawn inside one frame and one rhythm. `shopPageSchema` validates it, `defineSection` defines a type, one component per type draws the variants. Services come first as a compact price board. First consumer: Akinaza (akinaza#398); demo data only.",
   status: "beta",
   category: "blocks",
+  domain: "commerce",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A shop's public page is a web page; the studio that edits it is the product's.", use: "profile-card" }, desktop: "web" },
   whenToUse: [

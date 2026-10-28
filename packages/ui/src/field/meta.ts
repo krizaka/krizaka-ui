@@ -5,6 +5,7 @@ export const meta = {
   summary: "A form field: a label, a hint and an error around an `Input`, a `Textarea` or a native `Select`.",
   status: "stable",
   category: "forms",
+  domain: "forms",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

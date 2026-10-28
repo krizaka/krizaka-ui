@@ -6,6 +6,7 @@
 // Read-only: it reads checkouts, prints nothing of a consumer but the counts of its imports of @krizaka/*.
 //
 //   node tools/usage-inventory.mjs           # writes docs/inventory/ui-usage.{json,md}
+//   node tools/usage-inventory.mjs --check   # no checkout: the registry against the committed inventory (CI)
 //   node tools/usage-inventory.mjs --clone   # first shallow-clones the public consumers it cannot find (CI, a new machine)
 //
 // No path comes from the command line. Each consumer is read from the codegraph index (~/.krizaka-index/<repo>), else
@@ -205,6 +206,8 @@ export function readMeta(text) {
     title: str("title"),
     status: str("status"),
     category: str("category"),
+    domain: str("domain"),
+    adoption: str("adoption"),
     platforms: str("platforms"),
     deprecatedUse: deprecation ? (/\buse: "([^"]+)"/.exec(deprecation)?.[1] ?? null) : null,
     nativeImports: nativeImports ? [...nativeImports.matchAll(/"([^"]+)"/g)].map((m) => m[1]) : [],
@@ -424,7 +427,7 @@ function nativeCount(scan, names) {
 function entryRow(key, srcDir) {
   const name = key === "." ? "." : key.slice(2);
   const dir = name.split("/")[0].replace(/\.css$/, "");
-  const metaPath = join(srcDir, dir, "meta.ts");
+  const metaPath = name === "cn" ? join(srcDir, "cn.meta.ts") : join(srcDir, dir, "meta.ts");
   const meta = existsSync(metaPath) ? readMeta(readFileSync(metaPath, "utf8")) : {};
   const sub = name.includes("/");
   return { name, dir, meta: sub ? {} : meta, parentCategory: sub ? (meta.category ?? null) : null, kind: name.endsWith(".css") ? "css" : "entry" };
@@ -485,7 +488,9 @@ function describe(r, ctx) {
     title: r.meta.title ?? null,
     category: r.meta.category ?? null,
     status: r.meta.status ?? null,
-    domain: domainOf(r.name, r.meta.category, r.parentCategory),
+    // The registry says it (`domain` in meta.ts, ADR-008 §3); a sub-entry takes its parent's.
+    domain: r.meta.domain ?? domainOf(r.name, r.meta.category, r.parentCategory),
+    adoption: r.meta.adoption ?? null,
     ...usage(r, ctx.consumers, ctx.paused),
     builtOnBy: [...(ctx.deps.get(r.dir) ?? [])].filter((d) => d !== "test").sort(byText),
     issue: ctx.prior.issues.get(r.name) ?? null,
@@ -641,8 +646,51 @@ export function toMarkdown(inv) {
   return lines.join("\n") + "\n";
 }
 
+/**
+ * The guards that need no consumer checkout (ADR-008 §8.2.2), on the committed inventory and the registry's own rows.
+ * Returns the problems as sentences; an empty list is a pass.
+ */
+export function checkInventory({ inventory, rows }) {
+  const problems = [];
+  const known = new Map(inventory.entries.map((e) => [e.name, e]));
+  for (const r of rows) {
+    const row = known.get(r.name);
+    const experimental = r.meta.status === "experimental";
+    if (r.kind === "entry" && !r.name.includes("/") && !r.name.endsWith(".css") && r.name !== "." && !r.meta.domain && r.meta.title) {
+      problems.push(`${r.name}: no \`domain\` in its meta.ts`);
+    }
+    if (r.meta.domain && !(r.meta.domain in DOMAINS)) problems.push(`${r.name}: \`${r.meta.domain}\` is not one of the twelve domains`);
+    if (experimental && !/^[\w.-]+#\d+$/.test(r.meta.adoption ?? "")) problems.push(`${r.name}: experimental, so it names its first consumer's issue (\`adoption: "<repo>#<n>"\`)`);
+    if (!experimental && r.meta.adoption) problems.push(`${r.name}: only an experimental entry has an \`adoption\` issue`);
+    if (!row) {
+      if (!(experimental && r.meta.adoption)) problems.push(`${r.name}: missing from docs/inventory/ui-usage.json (run \`pnpm inventory:usage\`), unless it is experimental with an adoption issue`);
+    } else if (r.meta.domain && row.domain !== r.meta.domain) {
+      problems.push(`${r.name}: the inventory says \`${row.domain}\`, its meta.ts says \`${r.meta.domain}\` (run \`pnpm inventory:usage\`)`);
+    }
+  }
+  const live = new Set(rows.map((r) => r.name));
+  for (const e of inventory.entries) {
+    if (!live.has(e.name)) problems.push(`${e.name}: in docs/inventory/ui-usage.json but no longer in the package (run \`pnpm inventory:usage\`)`);
+    if (e.verdict === "keep" && e.status === "deprecated") problems.push(`${e.name}: a \`keep\` row that is deprecated`);
+  }
+  return problems;
+}
+
+function check() {
+  const pkg = readJson(join(ROOT, "packages/ui/package.json"));
+  const rows = collectRows(new Set(Object.keys(pkg.exports)), join(ROOT, "packages/ui/src"));
+  const inventory = readJson(join(ROOT, "docs/inventory/ui-usage.json"));
+  const problems = checkInventory({ inventory, rows });
+  if (problems.length) {
+    process.stderr.write(`usage inventory: ${problems.length} problem(s)\n${problems.map((p) => `  - ${p}`).join("\n")}\n`);
+    process.exit(1);
+  }
+  process.stdout.write(`usage inventory: ${rows.length} entries checked against docs/inventory/ui-usage.json\n`);
+}
+
 function main() {
-  const { values } = parseArgs({ options: { clone: { type: "boolean" } } });
+  const { values } = parseArgs({ options: { clone: { type: "boolean" }, check: { type: "boolean" } } });
+  if (values.check) return check();
   if (values.clone) cloneMissing([...CONSUMERS, ...PAUSED]);
   const at = (c) => ({ ...c, path: locate(c) });
   const consumers = CONSUMERS.map(at);

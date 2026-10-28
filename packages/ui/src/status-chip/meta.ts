@@ -6,6 +6,7 @@ export const meta = {
     "A state of a status set (`@krizaka/organize`, krizaka-ts#89): its label in the person's language and its tone as a badge; read-only, or a menu of the moves the role may make — a second press to confirm, a reason picked from a list.",
   status: "beta",
   category: "data-display",
+  domain: "data-display",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

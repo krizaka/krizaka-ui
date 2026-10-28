@@ -37,7 +37,9 @@ export interface Parity {
   native: ParityCell;
   desktop: ParityCell;
 }
-export type Status = "stable" | "beta" | "deprecated";
+export type Status = "experimental" | "stable" | "beta" | "deprecated";
+/** The twelve functional domains of the catalogue (ADR-008 §3); the list and its words live in krizaka-ui `src/meta.ts`. */
+export type Domain = "foundations" | "forms" | "data-display" | "navigation-shell" | "feedback" | "maps" | "media" | "commerce" | "identity" | "conversation" | "page-blocks" | "cahier";
 export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "media" | "charts" | "blocks" | "layouts" | "templates" | "layout" | "foundations";
 export const CATEGORIES: Category[] = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "media", "charts", "blocks", "layouts", "templates", "layout", "foundations"];
 
@@ -96,7 +98,11 @@ export interface RegistryItem {
   summary: string;
   description: string;
   status: Status;
+  /** The issue of the first consumer, required while the status is `experimental` (`akinaza#481`). */
+  adoption?: string | null;
   category: Category;
+  /** What the component is for (ADR-008 §3). */
+  domain: Domain;
   platforms: Platform;
   /** The parity matrix's row: web · native · desktop. */
   parity: Parity;

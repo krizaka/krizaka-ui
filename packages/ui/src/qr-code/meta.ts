@@ -6,6 +6,7 @@ export const meta = {
     "A QR code drawn offline from a text: dark modules on a light tile in both themes, with its quiet zone, an accessible name and an optional « copy the link » action.",
   status: "beta",
   category: "data-display",
+  domain: "data-display",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

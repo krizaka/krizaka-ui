@@ -6,6 +6,7 @@ export const meta = {
     "A moment told by a bird of the flock: nothing yet, a long wait, done, it failed, welcome — the bird of the job beside the words and the next action.",
   status: "beta",
   category: "feedback",
+  domain: "feedback",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

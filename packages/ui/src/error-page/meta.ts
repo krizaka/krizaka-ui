@@ -5,6 +5,7 @@ export const meta = {
   summary: "When a page is not there: the code drawn huge, the bird that lost its way, one sentence, a search and the ways back — never a dead end.",
   status: "beta",
   category: "templates",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: "web" },
   whenToUse: ["Not found (404), server error (500), offline.", "Any page that cannot show what was asked."],

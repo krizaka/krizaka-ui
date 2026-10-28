@@ -5,6 +5,7 @@ export const meta = {
   summary: "The one signed-in frame of a Krizaka web product: the rail (a bottom tab bar on a phone), the family's top bar and the account menu, composed from data — sections, account and the primary action. The frame owns what must not differ between products: the account menu's content and order, the preferences living in the menu, a place being on the rail or under the avatar, never both.",
   status: "beta",
   category: "layouts",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "On a phone the frame is a tab bar, a header and a screen: the native twin is the tabs shell template.", use: "tab-bar" }, desktop: "web" },
   whenToUse: [

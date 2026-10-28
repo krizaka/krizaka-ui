@@ -3,8 +3,10 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Usage",
   summary: "The blocks of a « Credits & usage » page: the balance on a meter, the period switch (the address holds it), the figures on a strip with their trend in words, and the activity stacked by outcome.",
-  status: "beta",
+  status: "experimental",
+  adoption: "orazaka-web-client#88",
   category: "data-display",
+  domain: "commerce",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#728", reason: "The phone apps show their credits through Meter and Stat by hand; a native twin of the blocks follows the first app that moves onto them." }, desktop: "web" },
   whenToUse: [

@@ -5,6 +5,7 @@ export const meta = {
   summary: "The app's main sections at the bottom of the screen: an icon and a word each, a badge for what is new, clear of the home indicator.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "A web app navigates with its sidebar or a site's bar.", use: "app-shell" }, desktop: { status: "n/a", reason: "The Mac app navigates with its sidebar.", use: "app-shell" } },
   whenToUse: ["The root of a mobile app with two to five sections (Home, Auctions, Messages, Me).", "As the `tabBar` of expo-router or React Navigation."],

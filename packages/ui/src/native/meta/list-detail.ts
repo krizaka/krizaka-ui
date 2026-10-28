@@ -5,6 +5,7 @@ export const meta = {
   summary: "A list and the item open from it. One pane at a time on a phone — the list, then the item with the way back — and both side by side when the room holds them, decided by the width the layout is given, not by the device.",
   status: "beta",
   category: "layout",
+  domain: "navigation-shell",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "On the web the same two panes are the split view.", use: "split-view" }, desktop: { status: "n/a", reason: "The Mac app's window is the web: its list and detail are the split view.", use: "split-view" } },
   whenToUse: ["Messages, jobs, files: a list where each item opens a screen of its own.", "An app that must work on a phone and a tablet with the same screens."],

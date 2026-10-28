@@ -11,6 +11,7 @@ export const meta = {
     reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
   },
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "A documentation figure on a reading page; an app explains a control in its own screen." },

@@ -6,6 +6,7 @@ export const meta = {
     "The flock as a naturalist's plate: each bird a numbered figure, a hairline from the drawing to its caption, and the caption is its promise as the film says it.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "gap", issue: "krizaka/krizaka-ui#421", reason: "An app's welcome or empty state can carry its bird as a plate; it comes with the native paper roles." },

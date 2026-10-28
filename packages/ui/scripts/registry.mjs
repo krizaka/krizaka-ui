@@ -258,6 +258,8 @@ export async function collectRegistry() {
       status: meta?.status ?? "beta",
       deprecated: meta?.deprecated ?? null,
       category: meta?.category ?? "foundations",
+      domain: meta?.domain ?? null,
+      adoption: meta?.adoption ?? null,
       platforms: meta?.platforms ?? (web ? "web" : "native"),
       // web · native · desktop, each ✓ / ✗ (gap, its issue) / n/a (why, and what answers there): ui.krizaka.com/platforms.
       parity: meta?.parity ? parityRow(meta) : null,

@@ -6,6 +6,7 @@ export const meta = {
     "A form = a schema (zod 4) + the package's fields, on TanStack Form v1: each error shows once the field is left and goes as soon as it is fixed, in the person's language (i18n keys, never the engine's English), a value can be checked on the server as it is typed, and the server's refusals land under their fields — web and React Native, the same schema.",
   status: "beta",
   category: "forms",
+  domain: "forms",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

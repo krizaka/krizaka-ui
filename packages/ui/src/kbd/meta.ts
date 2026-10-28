@@ -5,6 +5,7 @@ export const meta = {
   summary: "A key or a keyboard shortcut, set as keys: one `Kbd` per key.",
   status: "stable",
   category: "data-display",
+  domain: "foundations",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A phone has no keyboard shortcuts to show." }, desktop: "web" },
   whenToUse: [

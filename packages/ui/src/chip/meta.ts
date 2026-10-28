@@ -5,6 +5,7 @@ export const meta = {
   summary: "A selectable pill: alone a toggle, in a group a single or multiple choice, or a removable tag. Also the tags of a workspace: `TagChip`, with a colour marker from the closed palette.",
   status: "beta",
   category: "forms",
+  domain: "foundations",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

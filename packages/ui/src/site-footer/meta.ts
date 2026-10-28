@@ -6,6 +6,7 @@ export const meta = {
     "The footer of a Krizaka site, one calm band: its own columns beside the family's — Products · Open source (GitHub with them) · Krizaka (our story, the blog, contact) — on the Krizaka sites (`family={false}` for an independent product), then one line: “A Krizaka company / product / open-source project”, the version, Montréal and the legal links. No site block, no link twice.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A site's footer; an app has none." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

@@ -5,6 +5,7 @@ export const meta = {
   summary: "A short label shown on hover and on keyboard focus, next to its trigger.",
   status: "stable",
   category: "overlays",
+  domain: "feedback",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A phone has no hover: say it in the label or the hint." }, desktop: "web" },
   whenToUse: ["To name an icon button for sighted mouse users: copy, share, more.", "To show a shortcut next to an action."],

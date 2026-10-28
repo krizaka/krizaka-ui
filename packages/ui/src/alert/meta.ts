@@ -5,6 +5,7 @@ export const meta = {
   summary: "A message in the flow of the page: a tone, an icon, a title, a text and an optional action.",
   status: "stable",
   category: "feedback",
+  domain: "feedback",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "An inline message above a form or a list; the apps use an empty state or a toast instead today." }, desktop: "web" },
   whenToUse: [

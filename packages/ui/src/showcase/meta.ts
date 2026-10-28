@@ -11,6 +11,7 @@ export const meta = {
     reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
   },
   category: "data-display",
+  domain: "data-display",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

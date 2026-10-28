@@ -6,6 +6,7 @@ export const meta = {
     "A print taped in the notebook: slightly tilted, a thin white print border, a soft paper shadow and strips of tape. It holds any picture — an image, a video, a live scene.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "gap", issue: "krizaka/krizaka-ui#421", reason: "It comes with the native paper roles of the Cahier." },

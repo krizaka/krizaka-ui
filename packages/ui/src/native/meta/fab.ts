@@ -5,6 +5,7 @@ export const meta = {
   summary: "The screen's one main action, floating above the content in the accent, clear of the safe area and the tab bar.",
   status: "beta",
   category: "actions",
+  domain: "foundations",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "A floating thumb-zone button is a touch idiom; a web screen puts its main action in the header.", use: "button" }, desktop: { status: "n/a", reason: "The Mac app puts its main action in the toolbar.", use: "button" } },
   whenToUse: ["Create on a list screen: a new challenge, a new message.", "Record on a camera-first screen."],

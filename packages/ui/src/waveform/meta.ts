@@ -6,6 +6,7 @@ export const meta = {
     "The bars of a sound, drawn on their own: decorative by default, in the brand's accent or a quiet tone, breathing gently while it plays and still under reduced motion.",
   status: "beta",
   category: "data-display",
+  domain: "media",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

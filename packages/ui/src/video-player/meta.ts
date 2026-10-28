@@ -5,6 +5,7 @@ export const meta = {
   summary: "A video with accessible controls — HLS through an hls.js loaded only when needed, signed sources resolved at the last moment, subtitles, speed, full screen, a pause when it leaves the screen.",
   status: "beta",
   category: "media",
+  domain: "media",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

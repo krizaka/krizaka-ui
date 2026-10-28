@@ -5,6 +5,7 @@ export const meta = {
   summary: "A policy or terms: the date in force, the short version in plain words, the sections in a narrow column with their contents beside them.",
   status: "beta",
   category: "templates",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: ["Privacy, terms, cookies, a licence.", "Any document read section by section."],

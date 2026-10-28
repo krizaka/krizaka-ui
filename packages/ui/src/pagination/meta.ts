@@ -5,6 +5,7 @@ export const meta = {
   summary: "Moves through a long list page by page: numbers with ellipses that fold into “Page 3 of 12” on a phone, or previous / next on a cursor.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

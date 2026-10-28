@@ -6,6 +6,7 @@ export const meta = {
     "The steps of a journey or a job: done steps checked, the current one traced by the Krizaka glyph (growing to its value), failures crossed, connectors that fill — and every state said in words.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

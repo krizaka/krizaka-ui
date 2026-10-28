@@ -6,6 +6,7 @@ export const meta = {
     "A rule, a promise or a decision told by a bird: the sentence in a speech bubble, the bird under its tail and who speaks — `inline` in a card, `callout` alone in a section.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A bird quoting a rule on a site's page; on a phone the bird carries a state.", use: "mascot-state" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

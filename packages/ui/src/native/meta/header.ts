@@ -5,6 +5,7 @@ export const meta = {
   summary: "A screen's header: the bar under the status bar, and a large title that folds into it as the content scrolls.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "A web screen's title and actions are its page header.", use: "page-header" }, desktop: { status: "n/a", reason: "The Mac app's title bar is the shell's header.", use: "app-shell" } },
   whenToUse: ["The top of a section of the app: Earnings, Messages, Jobs.", "A detail screen with a back button (`size=\"inline\"`)."],

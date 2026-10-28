@@ -5,6 +5,7 @@ export const meta = {
   summary: "The look of one text role chosen by a person — font, size, weight, spacing, alignment, case, italic and tone — as a plain value the app stores, a live preview, and the same value drawn safely by `StyledText`.",
   status: "beta",
   category: "forms",
+  domain: "foundations",
   platforms: "web",
   parity: {
     native: { status: "gap", issue: "krizaka/krizaka-ui#561", reason: "A shop owner styles the storefront's text from a computer; the native picker is a follow-up when a mobile admin needs it. `StyledText`'s value is the same on a phone." },

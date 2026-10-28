@@ -5,6 +5,7 @@ export const meta = {
   summary: "An on/off setting that applies at once.",
   status: "beta",
   category: "forms",
+  domain: "forms",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["For a setting that takes effect immediately: autoplay, notifications, a weekly digest."],

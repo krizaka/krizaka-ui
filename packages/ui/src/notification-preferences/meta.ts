@@ -5,6 +5,7 @@ export const meta = {
   summary: "What reaches a person: categories down, channels across, a switch at each crossing, presets that set it all at once, a locked row for what cannot be turned off (security).",
   status: "beta",
   category: "forms",
+  domain: "identity",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "On a phone one switch per category in a `SettingsGroup` already does the job (a notifications screen); the matrix is a computer's idea." }, desktop: "web" },
   whenToUse: ["The notifications part of an account page, where the product sends in the app and by e-mail.", "Any choice of several kinds of message over several channels."],

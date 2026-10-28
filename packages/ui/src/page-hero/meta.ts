@@ -6,6 +6,7 @@ export const meta = {
     "The first screen of a page: the way back, an eyebrow, the `h1`, a lead, what follows them (facts, actions) and an aside (the page's bird) — on the brand's backdrop, painted at once.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "header" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

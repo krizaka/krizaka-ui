@@ -5,6 +5,7 @@ export const meta = {
   summary: "A shop's own photos and loops in tiles — the first featured, loops playing muted while their tile is on screen (a still under reduced motion), a caption on the foot of a tile.",
   status: "beta",
   category: "media",
+  domain: "media",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A shop's public storefront is a web page.", use: "photo-grid" }, desktop: "web" },
   whenToUse: ["The « look inside » of a business page: its real photos and short clips."],

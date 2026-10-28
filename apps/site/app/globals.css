@@ -420,6 +420,7 @@ html.light .kz-preview-theme:not([data-shown]) .kz-preview-to-dark,
 }
 .kz-chip-meta[data-tone="accent"] { color: var(--kz-accent-text); border-color: color-mix(in srgb, var(--kz-accent) 40%, transparent); background: var(--kz-accent-soft); }
 .kz-chip-meta[data-tone="deprecated"] { color: var(--kz-danger-text); border-color: color-mix(in srgb, var(--kz-danger) 45%, transparent); background: color-mix(in srgb, var(--kz-danger) 10%, transparent); }
+.kz-chip-meta[data-tone="experimental"] { color: var(--kz-text-primary); border-style: dashed; border-color: color-mix(in srgb, var(--kz-accent) 55%, transparent); background: var(--kz-accent-soft); }
 .kz-chip-meta[data-tone="beta"] { color: var(--kz-text-primary); border-color: color-mix(in srgb, var(--kz-warning) 55%, transparent); background: color-mix(in srgb, var(--kz-warning) 12%, transparent); }
 .kz-chip-meta svg { width: 13px; height: 13px; }
 .kz-when { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin: 1rem 0 1.5rem; }

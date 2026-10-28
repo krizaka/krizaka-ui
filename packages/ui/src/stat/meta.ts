@@ -5,6 +5,7 @@ export const meta = {
   summary: "A key figure: a label, a value in tabular digits, a hint and a trend said in words.",
   status: "stable",
   category: "data-display",
+  domain: "data-display",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "The phone dashboards (a creator's earnings, Orazaka usage) write a figure and its caption by hand." }, desktop: "web" },
   whenToUse: ["On a dashboard: revenue, views, supporters.", "In a row of a few figures that compare over the same period."],

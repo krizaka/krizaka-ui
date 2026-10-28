@@ -5,6 +5,7 @@ export const meta = {
   summary: "Before the system's permission dialog, the app says why: a bird, what it is for, the button that asks — and the way to the settings once refused.",
   status: "beta",
   category: "feedback",
+  domain: "feedback",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "The browser asks for a permission itself; the page explains it beforehand.", use: "alert" }, desktop: { status: "n/a", reason: "macOS asks for a permission itself; the app explains it beforehand.", use: "alert" } },
   whenToUse: ["Before the camera, the microphone, notifications, the photo library.", "When the permission was refused for good: the way to the settings."],

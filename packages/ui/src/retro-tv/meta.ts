@@ -5,6 +5,7 @@ export const meta = {
   summary: "A vertical video presented in a detailed television cabinet, with an accessible player, channel label, scanlines and an animated off-state.",
   status: "beta",
   category: "media",
+  domain: "media",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "The CSS cabinet and SVG static belong to the web presentation; use the native video player for mobile playback.", use: "video-player" },

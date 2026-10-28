@@ -5,6 +5,7 @@ export const meta = {
   summary: "A row whose actions show under a swipe: left for the trailing ones, right for the leading ones, a full swipe runs the outermost.",
   status: "beta",
   category: "data-display",
+  domain: "data-display",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "Swiping a row is a touch gesture; on the web a row's actions are a menu.", use: "dropdown-menu" }, desktop: { status: "n/a", reason: "On the Mac a row's actions are a menu.", use: "dropdown-menu" } },
   whenToUse: ["A conversation: pin, archive, delete.", "A notification: mark read, delete."],

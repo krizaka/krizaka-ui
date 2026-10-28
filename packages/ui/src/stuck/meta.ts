@@ -6,6 +6,7 @@ export const meta = {
     "Any block stuck into the notebook: a figure, a specimen tag, a card or a taped photo, held by tape, a pin, photo corners or a lifted edge, slightly tilted from data, on the hard paper shadow of the Cahier.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "gap", issue: "krizaka/krizaka-ui#421", reason: "It comes with the native paper roles of the Cahier." },

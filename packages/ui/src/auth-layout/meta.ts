@@ -5,6 +5,7 @@ export const meta = {
   summary: "An entry screen — sign in, sign up, verify, onboarding: the product's brand panel (its gradient, a promise, a quote) beside a calm form; one column on a phone with the mark above the form.",
   status: "beta",
   category: "layouts",
+  domain: "identity",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "orazaka-mobile-client hand-rolls it (src/ui/AuthShell.tsx)." }, desktop: "web" },
   whenToUse: ["Sign-in, sign-up, password reset, email verification.", "The first steps of an onboarding."],

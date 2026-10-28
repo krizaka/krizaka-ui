@@ -5,6 +5,7 @@ export const meta = {
   summary: "The first tab stop of a page: a link that skips the navigation and lands on the content — hidden until it is focused.",
   status: "stable",
   category: "navigation",
+  domain: "foundations",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Screen readers on a phone move by headings and the rotor; there is no keyboard to skip with." }, desktop: "web" },
   whenToUse: [

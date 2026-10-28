@@ -5,6 +5,7 @@ export const meta = {
   summary: "The composed chassis of every card: a media with overlays, a body with a title, a description, stats and a footer.",
   status: "stable",
   category: "layout",
+  domain: "foundations",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

@@ -6,6 +6,7 @@ export const meta = {
     "The admin's editors of a kind's vocabulary (`@krizaka/organize` `KindConfig`, krizaka-ts#89): `TagSetEditor` — the tags offered, who manages them, whether people add their own, the most — and `StatusSetEditor` — the states in their order, the initial state, the moves from × to with their roles, confirmation and reasons. Value in, `onChange` out; the product posts the save.",
   status: "beta",
   category: "forms",
+  domain: "commerce",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

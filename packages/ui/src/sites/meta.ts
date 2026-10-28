@@ -6,6 +6,7 @@ export const meta = {
     "The Krizaka family as data: every site (the company, the products, the open-source projects, GitHub) with its address, kind, status, mark and repository, and the family's words in English and French — read by the bar's family switcher and the common footer.",
   status: "beta",
   category: "foundations",
+  domain: "foundations",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "The Krizaka family as data for the sites' bars; the apps are independent products." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

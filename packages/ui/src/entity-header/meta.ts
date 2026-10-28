@@ -6,6 +6,7 @@ export const meta = {
     "The head of an entity (a collection, a shop, a studio): its picture, its name and description edited where they are read, its tags, and a refusal said with the product's own words.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

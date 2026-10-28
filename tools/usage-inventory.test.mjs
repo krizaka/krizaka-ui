@@ -4,7 +4,7 @@ import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { budgets, closureSize, decideAll, domainOf, entryOf, gitHead, locate, parseImports, readMeta, readPriorAudit, verdict, walk } from "./usage-inventory.mjs";
+import { budgets, checkInventory, closureSize, decideAll, domainOf, entryOf, gitHead, locate, parseImports, readMeta, readPriorAudit, verdict, walk } from "./usage-inventory.mjs";
 
 test("parseImports finds every @krizaka/ui and @krizaka/motion specifier, and the names taken from the barrels", () => {
   const src = [
@@ -142,4 +142,36 @@ test("gitHead reads the commit from .git without running git (loose ref, packed 
   mkdirSync(join(repo, "site"));
   assert.equal(gitHead(join(repo, "site")), "aaaaaaaa", "a folder of a checkout reads the checkout's commit");
   assert.equal(gitHead(mkdtempSync(join(tmpdir(), "inv-nogit-"))), null);
+});
+
+test("checkInventory fails an entry without a domain, a wrong domain, an experimental one without its adoption issue, and a missing row", () => {
+  const entry = (name, domain, extra = {}) => ({ name, kind: "entry", domain, verdict: "keep", status: "beta", ...extra });
+  const row = (name, meta, kind = "entry") => ({ name, kind, meta: { title: name, ...meta } });
+  const inventory = { entries: [entry("button", "foundations"), entry("tabs", "navigation-shell")] };
+  const ok = [row("button", { domain: "foundations", status: "stable" }), row("tabs", { domain: "navigation-shell", status: "beta" })];
+  assert.deepEqual(checkInventory({ inventory, rows: ok }), []);
+
+  const bad = checkInventory({
+    inventory,
+    rows: [
+      row("button", { status: "stable" }),
+      row("tabs", { domain: "forms", status: "beta" }),
+      row("novel", { domain: "forms", status: "experimental" }),
+      row("odd", { domain: "widgets", status: "beta", adoption: "akinaza#1" }),
+    ],
+  });
+  const text = bad.join("\n");
+  assert.match(text, /button: no `domain`/);
+  assert.match(text, /tabs: the inventory says `navigation-shell`, its meta.ts says `forms`/);
+  assert.match(text, /novel: experimental, so it names its first consumer's issue/);
+  assert.match(text, /odd: `widgets` is not one of the twelve domains/);
+  assert.match(text, /odd: only an experimental entry has an `adoption` issue/);
+});
+
+test("checkInventory lets an experimental entry with its adoption issue be new, and flags a row whose entry is gone", () => {
+  const inventory = { entries: [{ name: "gone", kind: "entry", domain: "forms", verdict: "keep", status: "beta" }] };
+  const rows = [{ name: "fresh", kind: "entry", meta: { title: "Fresh", domain: "forms", status: "experimental", adoption: "akinaza#9" } }];
+  const text = checkInventory({ inventory, rows }).join("\n");
+  assert.doesNotMatch(text, /fresh/);
+  assert.match(text, /gone: in docs\/inventory\/ui-usage.json but no longer in the package/);
 });

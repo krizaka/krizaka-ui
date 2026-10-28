@@ -68,6 +68,7 @@ jobs:
       - run: pnpm turbo run lint typecheck --filter="$TURBO_FILTER" --filter='!@krizaka/site'
       - run: pnpm turbo run check --filter="$TURBO_FILTER" --filter='!@krizaka/site'   # the documentation site has its own job (below)
       - run: pnpm test:tools   # tools/ (the inventory): node:test, no build
+      - run: pnpm inventory:check   # every entry has its domain, experimental ones their adoption issue; no consumer checkout (ADR-008 §8.2)
       - name: Upload the screenshot diffs
         if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7

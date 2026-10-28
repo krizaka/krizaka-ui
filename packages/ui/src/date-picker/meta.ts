@@ -6,6 +6,7 @@ export const meta = {
     "Dates and times chosen the way the task asks — a calendar, a period with presets, a strip of days, wheels, time slots, a month, a date of birth — as ISO values (`2026-10-11`, `2026-10`, `18:30`) the form, the address and the API share, in the locale's own words.",
   status: "beta",
   category: "forms",
+  domain: "forms",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

@@ -6,6 +6,7 @@ export const meta = {
     "A measure within a known range — a quota, a balance, a share: thresholds turn it to warning then danger (or the reverse when high is good), and split into parts it becomes a stacked bar or ring with its legend.",
   status: "beta",
   category: "data-display",
+  domain: "data-display",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

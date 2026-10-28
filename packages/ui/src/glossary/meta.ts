@@ -5,6 +5,7 @@ export const meta = {
   summary: "A page or panel listing terms and definitions from the host's catalogue.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "The native twin is a follow-up; present the same catalogue in a native list for now.", use: "description-list" },

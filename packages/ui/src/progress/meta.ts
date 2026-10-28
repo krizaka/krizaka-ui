@@ -6,6 +6,7 @@ export const meta = {
     "How far a task or a goal has come: a bar or a ring — with its words and time left, what is buffered ahead, its steps as segments, and a paused or failed state that says where it stopped.",
   status: "beta",
   category: "feedback",
+  domain: "feedback",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

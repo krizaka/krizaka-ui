@@ -5,6 +5,7 @@ export const meta = {
   summary: "A platform's short video (TikTok, YouTube Shorts, Instagram) behind a button: until the visitor asks, no frame, no script and no platform picture is requested — the frame is added on the click, sandboxed.",
   status: "beta",
   category: "media",
+  domain: "media",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A web page's embed; a native app opens the platform's own app or a link.", use: "video-player" }, desktop: "web" },
   whenToUse: [

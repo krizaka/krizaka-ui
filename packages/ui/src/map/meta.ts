@@ -6,6 +6,7 @@ export const meta = {
     "Maps that cost nothing per view — MapLibre (open source) over Protomaps tiles on the Krizaka CDN, painted from the tokens in dark or light and in the product's accent — with markers, clusters, the person's position, a radius and a location picker.",
   status: "beta",
   category: "data-display",
+  domain: "maps",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

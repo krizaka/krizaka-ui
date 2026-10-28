@@ -6,6 +6,7 @@ export const meta = {
     "The decisions behind a product, numbered: what was chosen, large, then side by side what was refused, why, and what it costs the reader — each with its mark and its colour.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "description-list" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

@@ -6,6 +6,7 @@ export const meta = {
     "The variants of a component written once, as classes of the Krizaka tokens: the web wears them with `tv(recipe)`, React Native reads the same classes into styles on the theme's roles with `nativeRecipe(recipe).resolve(props, theme)`. Button, Badge, Chip and Card are built this way, so the two platforms cannot name different tokens.",
   status: "beta",
   category: "foundations",
+  domain: "foundations",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "The recipes are already shared: the native Button, Badge, Chip and Card read the same definitions through nativeRecipe." }, desktop: "web" },
   whenToUse: [

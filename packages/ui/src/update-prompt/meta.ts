@@ -10,6 +10,7 @@ export const meta = {
     reason: "The web entry has no user (ADR-006 audit, 2026-10-25). The native `UpdatePrompt`, used by three mobile apps, stays.",
   },
   category: "feedback",
+  domain: "feedback",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["When the backend says `updateMode: soft`: a newer version exists but the installed one still works.", "Once per version: after “Later”, the app does not ask again until the next release."],

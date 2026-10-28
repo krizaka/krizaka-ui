@@ -11,6 +11,7 @@ export const meta = {
     reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
   },
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

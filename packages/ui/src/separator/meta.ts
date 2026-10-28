@@ -5,6 +5,7 @@ export const meta = {
   summary: "A line between groups of content, horizontal or vertical, decorative by default.",
   status: "stable",
   category: "layout",
+  domain: "foundations",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "A hairline between rows; Orazaka's settings group draws its own." }, desktop: "web" },
   whenToUse: ["Between groups of a list or a menu.", "Between items of a toolbar or a row of links (`orientation=\"vertical\"`)."],

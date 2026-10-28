@@ -5,6 +5,7 @@ export const meta = {
   summary: "A landing page: the promise beside the product alive in a window, a band of proofs, the features as a bento where the main one takes the room, the closing call.",
   status: "beta",
   category: "templates",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: ["The home of a company or a product line.", "A campaign page that must sell in one screen."],

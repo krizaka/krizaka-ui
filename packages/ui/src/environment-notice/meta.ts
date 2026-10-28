@@ -6,6 +6,7 @@ export const meta = {
     "A thin band above the app bar that says this deployment is a development version — its data can be reset and it is not a commercial offer — driven by the deployment's stage: it renders nothing in production.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

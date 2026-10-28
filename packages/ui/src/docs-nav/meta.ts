@@ -5,6 +5,7 @@ export const meta = {
   summary: "The pages of a documentation in quiet groups: each group folds, the one holding the current page is open, only the current page is marked.",
   status: "beta",
   category: "navigation",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Documentation is read on the sites, not inside an app." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: ["The `sidebar` of a `DocsLayout` or `DocsArticlePage`.", "A documentation with two or more audiences (a guide, a reference) that must not be mixed."],

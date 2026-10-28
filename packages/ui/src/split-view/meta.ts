@@ -5,6 +5,7 @@ export const meta = {
   summary: "A list and its open item: two panes on a desktop; on a phone one at a time, the open item with the way back — chosen by showDetail, from the address.",
   status: "beta",
   category: "layouts",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A phone shows one pane at a time: the list, then the item on its own screen.", use: "screen" }, desktop: "web" },
   whenToUse: ["Messages, moderation queues, jobs, notifications.", "Any list the user works through item by item."],

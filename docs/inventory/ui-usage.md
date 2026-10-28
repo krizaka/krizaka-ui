@@ -70,7 +70,7 @@ an entry with itself over time, not with its budget).
 | `native:otp-input` | Forms | beta | — | — | — | — / — | — | — | 2026-10-16 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native/form` | Forms | — | — | — | — | 8.5 / 23.0 | — | — | 2026-10-27 | **keep** | filed need orochia-mobile#37 |
 | `radio-group` | Forms | beta | Yo 6 Oz 3 | orochia | 4 | 4.3 / 12.7 | 1 | 2 | 2026-10-25 | **keep** | 9 live importer file(s) |
-| `schema-form` | Forms | beta | — | — | — | 10.4 / 10.5 | 1 | 1 | 2026-10-28 | **ask** | unused, new (2026-10-28): its adoption issue? |
+| `schema-form` | Forms | experimental | — | — | — | 10.4 / 10.5 | 1 | 1 | 2026-10-28 | **ask** | unused, new (2026-10-28): its adoption issue? |
 | `search-field` | Forms | beta | Yo 3 Ak 1 Oz 2 ui 1 cockpit 1 (native: Ak 1) | — | 1 | 5.9 / 5.5 | 1 | 2 | 2026-10-25 | **keep** | 9 live importer file(s) |
 | `slider` | Forms | beta | Ak 1 ui 1 motion 3 | orochia | 4 | 3.0 / 12.0 | 1 | 2 | 2026-10-21 | **keep** | 2 live importer file(s) |
 | `switch` | Forms | beta | Yo 4 Ak 2 Oz 8 www 1 ui 1 motion 3 | orochia, yasakia, yororis | 7 | 1.0 / 6.0 | 1 | 2 | 2026-10-16 | **keep** | 16 live importer file(s) |
@@ -102,12 +102,12 @@ an entry with itself over time, not with its budget).
 | `collection-switcher` | Navigation & shell | beta | — | — | 1 | 2.5 / 28.0 | 1 | 2 | 2026-10-27 | **keep** | built on by native |
 | `command` | Navigation & shell | beta | Yo 1 Ak 1 www 1 | orochia | — | 7.3 / 21.0 | 1 | 1 | 2026-10-20 | **keep** | 3 live importer file(s) |
 | `dashboard-layout` | Navigation & shell | beta | Yo 1 Ak 2 | yasakia, yororis | — | 1.8 / 2.0 | 1 | 1 | 2026-10-27 | **keep** | 3 live importer file(s) |
-| `desktop-window` | Navigation & shell | beta | — | — | — | 4.2 / 3.5 | 1 | 1 | 2026-10-27 | **ask** | unused, new (2026-10-27): its adoption issue? |
+| `desktop-window` | Navigation & shell | experimental | — | — | — | 4.2 / 3.5 | 1 | 1 | 2026-10-27 | **ask** | unused, new (2026-10-27): its adoption issue? |
 | `detail-layout` | Navigation & shell | beta | Yo 3 Ak 2 | yasakia, yororis | 1 | 2.9 / 3.0 | 1 | 1 | 2026-10-26 | **keep** | 5 live importer file(s) |
 | `language-switch` | Navigation & shell | beta | Yo 3 Ak 3 Oz 1 www 1 blog 1 ui 2 java 1 ts 1 cockpit 1 | orochia, yasakia, yororis, kachizaka | 1 | 2.6 / 2.4 | 2 | 1 | 2026-10-21 | **keep** | 14 live importer file(s) |
 | `language-switch/server` | Navigation & shell | — | — | — | 1 | 0.5 / 1.0 | 2 | 1 | 2026-10-21 | **keep** | built on by nav-bar |
 | `native` | Navigation & shell | — | Yo 17 Ak 20 blog 2 ui 3 | kachizaka | — | 100.7 / 75.0 | — | — | 2026-10-27 | **keep** | 42 live importer file(s) |
-| `native:form-flow` | Navigation & shell | beta | — | — | — | — / — | — | — | 2026-10-27 | **ask** | unused, new (2026-10-27): its adoption issue? |
+| `native:form-flow` | Navigation & shell | experimental | — | — | — | — / — | — | — | 2026-10-27 | **ask** | unused, new (2026-10-27): its adoption issue? |
 | `native:grid` | Navigation & shell | beta | Ak 1 | — | — | — / — | — | — | 2026-10-27 | **keep** | 1 live importer file(s) |
 | `native:header` | Navigation & shell | beta | Yo 3 Ak 3 | — | — | — / — | — | — | 2026-10-16 | **keep** | 6 live importer file(s) |
 | `native:list-detail` | Navigation & shell | beta | Ak 1 | — | — | — / — | — | — | 2026-10-27 | **keep** | 1 live importer file(s) |
@@ -143,7 +143,7 @@ an entry with itself over time, not with its budget).
 | `native:permission-prompt` | Feedback & overlays | beta | — | — | — | — / — | — | — | 2026-10-25 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native:pull-to-refresh` | Feedback & overlays | beta | — | — | — | — / — | — | — | 2026-10-26 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native:splash-handoff` | Feedback & overlays | beta | — | — | — | — / — | — | — | 2026-10-26 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
-| `native:state-screen` | Feedback & overlays | beta | — | — | — | — / — | — | — | 2026-10-27 | **ask** | unused, new (2026-10-27): its adoption issue? |
+| `native:state-screen` | Feedback & overlays | experimental | — | — | — | — / — | — | — | 2026-10-27 | **ask** | unused, new (2026-10-27): its adoption issue? |
 | `popover` | Feedback & overlays | stable | Ak 1 Oz 1 | orochia | 3 | 1.0 / 25.0 | 1 | 1 | 2026-10-22 | **keep** | 2 live importer file(s) |
 | `progress` | Feedback & overlays | beta | Yo 2 Oz 2 ui 1 motion 4 | orochia | 1 | 2.1 / 1.8 | 1 | 2 | 2026-10-21 | **keep** | 5 live importer file(s) |
 | `toast` | Feedback & overlays | stable | Oz 8 motion 2 | orochia | — | 3.0 / 11.5 | 1 | 2 | 2026-10-21 | **keep** | 8 live importer file(s) |
@@ -175,17 +175,17 @@ an entry with itself over time, not with its budget).
 | `waveform` | Media | beta | motion 1 | yororis | 2 | 1.4 / 1.5 | 1 | 2 | 2026-10-17 | **keep** | built on by native |
 | `agenda` | Commerce | beta | Ak 1 | — | — | 1.8 / 2.0 | 1 | 1 | 2026-10-22 | **keep** | 1 live importer file(s) |
 | `kind-config-editor` | Commerce | beta | Yo 1 Ak 1 | — | 1 | 16.2 / 21.0 | 2 | 2 | 2026-10-25 | **keep** | 2 live importer file(s) |
-| `money-input` | Commerce | beta | — | — | 2 | 3.0 / 4.0 | 1 | 1 | 2026-10-27 | **ask** | unused, new (2026-10-27): its adoption issue? |
+| `money-input` | Commerce | experimental | — | — | 2 | 3.0 / 4.0 | 1 | 1 | 2026-10-27 | **ask** | unused, new (2026-10-27): its adoption issue? |
 | `opening-hours` | Commerce | beta | Ak 1 | — | 1 | 1.8 / 2.0 | 1 | 1 | 2026-10-17 | **keep** | 1 live importer file(s) |
-| `price-catalogue-editor` | Commerce | beta | — | — | — | 9.8 / 7.0 | 1 | 1 | 2026-10-28 | **ask** | unused, new (2026-10-28): its adoption issue? |
+| `price-catalogue-editor` | Commerce | experimental | — | — | — | 9.8 / 7.0 | 1 | 1 | 2026-10-28 | **ask** | unused, new (2026-10-28): its adoption issue? |
 | `pricing-page` | Commerce | beta | Yo 1 Ak 1 Oz 1 | — | — | 1.5 / 1.5 | 1 | 1 | 2026-10-25 | **keep** | 3 live importer file(s) |
-| `promo-code-field` | Commerce | beta | — | — | — | 6.0 / 4.3 | 1 | 1 | 2026-10-27 | **ask** | unused, new (2026-10-27): its adoption issue? |
+| `promo-code-field` | Commerce | experimental | — | — | — | 6.0 / 4.3 | 1 | 1 | 2026-10-27 | **ask** | unused, new (2026-10-27): its adoption issue? |
 | `quota-meter` | Commerce | beta | — | — | — | 3.3 / 2.3 | 1 | 1 | 2026-10-25 | **merge** → `meter` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `reviews` | Commerce | beta | Ak 1 | — | 1 | 4.3 / 6.0 | 1 | 1 | 2026-10-26 | **keep** | 1 live importer file(s) |
 | `service-card` | Commerce | beta | — | — | 1 | 8.0 / 3.0 | 1 | 1 | 2026-10-27 | **keep** | built on by shop |
 | `shop` | Commerce | beta | Ak 10 ui 1 | — | 1 | 6.9 / 4.3 | 7 | 3 | 2026-10-28 | **keep** | 11 live importer file(s) |
 | `shop-composer` | Commerce | beta | Ak 1 | — | — | 30.2 / 25.5 | 3 | 1 | 2026-10-28 | **keep** | 1 live importer file(s) |
-| `shop-gallery` | Commerce | beta | — | — | — | 2.7 / 6.5 | 1 | 1 | 2026-10-28 | **ask** | unused, new (2026-10-28): its adoption issue? |
+| `shop-gallery` | Commerce | experimental | — | — | — | 2.7 / 6.5 | 1 | 1 | 2026-10-28 | **ask** | unused, new (2026-10-28): its adoption issue? |
 | `shop/booking` | Commerce | — | Ak 3 | — | 1 | 1.6 / 2.4 | 7 | 3 | 2026-10-28 | **keep** | 3 live importer file(s) |
 | `shop/bulletin` | Commerce | — | Ak 1 | — | 1 | 0.7 / 1.5 | 7 | 3 | 2026-10-28 | **keep** | 1 live importer file(s) |
 | `shop/demo` | Commerce | — | — | — | 1 | 3.2 / 3.3 | 7 | 3 | 2026-10-28 | **keep** | built on by shop-composer |
@@ -203,7 +203,7 @@ an entry with itself over time, not with its budget).
 | `shop/video` | Commerce | — | Ak 2 | — | 1 | 0.8 / 1.5 | 7 | 3 | 2026-10-28 | **keep** | 2 live importer file(s) |
 | `shop/visit` | Commerce | — | Ak 1 | — | 1 | 0.7 / 1.5 | 7 | 3 | 2026-10-28 | **keep** | 1 live importer file(s) |
 | `slot-picker` | Commerce | beta | Ak 3 | — | — | 2.8 / 4.0 | 1 | 1 | 2026-10-25 | **keep** | 3 live importer file(s) |
-| `usage` | Commerce | beta | — | — | — | 7.3 / 5.0 | 1 | 1 | 2026-10-26 | **ask** | unused, new (2026-10-26): its adoption issue? |
+| `usage` | Commerce | experimental | — | — | — | 7.3 / 5.0 | 1 | 1 | 2026-10-26 | **ask** | unused, new (2026-10-26): its adoption issue? |
 | `account-menu` | Identity & people | beta | Yo 2 Ak 1 | orochia | 1 | 5.7 / 4.2 | 1 | 1 | 2026-10-27 | **keep** | 3 live importer file(s) |
 | `account-settings` | Identity & people | beta | Yo 7 Ak 3 | — | 1 | 18.1 / — | 2 | 1 | 2026-10-27 | **keep** | 10 live importer file(s) |
 | `achievement` | Identity & people | beta | motion 1 | — | — | 1.5 / 1.2 | 0 | 1 | 2026-10-26 | **ask** | used only by the motion lab |
@@ -221,7 +221,7 @@ an entry with itself over time, not with its budget).
 | `markdown` | Conversation & AI | beta | Oz 2 cockpit 4 | — | 1 | 2.5 / 17.0 | 1 | 2 | 2026-10-25 | **keep** | 6 live importer file(s) |
 | `native/markdown` | Conversation & AI | — | — | — | — | 3.7 / — | — | — | 2026-10-27 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `next-actions` | Conversation & AI | beta | Ak 1 | — | — | 0.5 / 1.0 | 1 | 1 | 2026-10-24 | **keep** | 1 live importer file(s) |
-| `proposal` | Conversation & AI | beta | — | — | — | 6.6 / 6.5 | 1 | 1 | 2026-10-28 | **ask** | unused, new (2026-10-28): its adoption issue? |
+| `proposal` | Conversation & AI | experimental | — | — | — | 6.6 / 6.5 | 1 | 1 | 2026-10-28 | **ask** | unused, new (2026-10-28): its adoption issue? |
 | `action-bar` | Page blocks & templates | beta | Oz 1 www 2 | yororis | — | 5.2 / 1.4 | 1 | 1 | 2026-10-20 | **keep** | 3 live importer file(s) |
 | `argument-card` | Page blocks & templates | beta | www 1 java 1 ts 1 | — | 1 | 4.8 / 1.4 | 1 | 1 | 2026-10-20 | **keep** | 3 live importer file(s) |
 | `blocks.css` | Page blocks & templates | — | Yo 3 Ak 3 Oz 1 www 1 blog 2 ui 1 java 1 ts 1 motion 1 cockpit 1 | orochia, yasakia, yororis, kachizaka | — | — / — | — | — | 2026-10-28 | **keep** | 14 live importer file(s) |

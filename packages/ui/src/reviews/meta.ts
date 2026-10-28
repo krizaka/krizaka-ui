@@ -5,6 +5,7 @@ export const meta = {
   summary: "A score you can trust: `ReviewSummary` shows the shop's score as a stamp with the verified count, five meters for the distribution and its text equivalent — nothing under the host's minimum — and `ReviewCard` one review with the owner's reply indented.",
   status: "beta",
   category: "blocks",
+  domain: "commerce",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A public storefront's block; the native apps read reviews in their own lists.", use: "card" }, desktop: "web" },
   whenToUse: [

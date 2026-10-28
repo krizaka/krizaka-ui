@@ -5,6 +5,7 @@ export const meta = {
   summary: "A profile's photos in slots: the first is the main one, empty slots invite to add, photos reorder by drag (web), by their menu (React Native) or by buttons — every move announced.",
   status: "beta",
   category: "media",
+  domain: "media",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["A dating profile's photos, the first one shown first.", "A product's gallery to order before publishing."],

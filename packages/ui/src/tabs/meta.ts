@@ -5,6 +5,7 @@ export const meta = {
   summary: "Views of the same page, one at a time: underlined sections, a segmented switch, pills or binder dividers that organise collections — one light glides from the active tab to the next.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

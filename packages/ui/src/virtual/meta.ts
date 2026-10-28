@@ -5,6 +5,7 @@ export const meta = {
   summary: "Long lists and galleries rendered by what is in view, on TanStack Virtual: a list in its own region or the page's, a grid that fits the width, measured items, the end announced for infinite loading.",
   status: "beta",
   category: "data-display",
+  domain: "data-display",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "The native list windows its rows already (FlashList).", use: "list" }, desktop: "web" },
   whenToUse: [

@@ -6,6 +6,7 @@ export const meta = {
     "An entry point where the whole card is one link: an icon tile, a title, one sentence and the way in — compact, the same on every page; under the pointer its surface and hairline go one step up, nothing moves.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "card" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

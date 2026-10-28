@@ -6,6 +6,7 @@ export const meta = {
     "A line-up of choices as tiles — a visual, a name, a line: a radio group with roving focus when selectable, a named showcase otherwise; sober by default, a select screen in the arcade flavour.",
   status: "beta",
   category: "forms",
+  domain: "forms",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Part of the storytelling kit of scroll-driven site pages; a phone app tells its first steps with Onboarding.", use: "radio-group" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

@@ -5,6 +5,7 @@ export const meta = {
   summary: "A PDF drawn page by page with pdf.js, and the passages of a report lit where they sit — found from the PDF's own text positions, one box per line; the page and the quote when the text layer cannot place them.",
   status: "beta",
   category: "media",
+  domain: "media",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#278", reason: "Needs a PDF module; Yomizaka has no phone app yet." }, desktop: "web" },
   whenToUse: [

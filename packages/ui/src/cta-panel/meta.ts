@@ -5,6 +5,7 @@ export const meta = {
   summary: "The invitation at the end of a section or a page: a title, why it matters, the ways to answer — in the hue of the page.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "button" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

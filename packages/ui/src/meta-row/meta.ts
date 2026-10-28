@@ -5,6 +5,7 @@ export const meta = {
   summary: "One quiet line of facts about a thing, separated by dots, with optional status chips at its end: the line under a title.",
   status: "beta",
   category: "data-display",
+  domain: "data-display",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

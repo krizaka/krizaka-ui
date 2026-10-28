@@ -3,8 +3,10 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Price catalogue editor",
   summary: "An administrator edits a product's price entries: the amount, unit, availability and limits, from a date that is never in the past, with the scheduled changes and the history folded.",
-  status: "beta",
+  status: "experimental",
+  adoption: "orazaka#417",
   category: "blocks",
+  domain: "commerce",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#713", reason: "An admin task on the web consoles; a phone twin follows only when an admin app needs one." }, desktop: "web" },
   whenToUse: ["The admin screen of a product whose prices are data (`describePrices()` of @krizaka/settings, ADR-009).", "Any list of priced entries that change from a date while current subscriptions keep their price."],

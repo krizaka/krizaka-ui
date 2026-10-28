@@ -6,6 +6,7 @@ export const meta = {
     "A figure that climbs into view once, or rolls digit by digit to each new value — server-rendered at its final value, its width held from the first paint, read once by assistive technology.",
   status: "beta",
   category: "data-display",
+  domain: "page-blocks",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

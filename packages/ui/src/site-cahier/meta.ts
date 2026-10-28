@@ -6,6 +6,7 @@ export const meta = {
     "The template of a tool site (ui., java., ts., the motion lab) that wears krizaka.com's identity: the Cahier's paper, the site's own bird and hue, taped prints, doodles, grades — a frame and regions to compose, never a fixed page.",
   status: "beta",
   category: "templates",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." },

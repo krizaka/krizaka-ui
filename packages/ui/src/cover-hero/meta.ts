@@ -5,6 +5,7 @@ export const meta = {
   summary: "The first screen of a shop or a place: its cover — a photo, or a muted loop that stays a still under reduced motion — behind the name, a one-line promise, a few true facts and the main action. Without a cover, the brand's colours.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A shop's public storefront is a web page.", use: "profile-card" }, desktop: "web" },
   whenToUse: [

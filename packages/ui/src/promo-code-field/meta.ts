@@ -3,8 +3,10 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Promo code field",
   summary: "Enter a code, apply it, and see the state: checking, applied with its effect, or refused (invalid, expired). The caller validates.",
-  status: "beta",
+  status: "experimental",
+  adoption: "orazaka#417",
   category: "forms",
+  domain: "commerce",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#782", reason: "The native twins of PromoCodeField, MoneyInput and CopyButton are a follow-up of the coupons surfaces." }, desktop: "web" },
   whenToUse: ["At checkout or on a plan page where a coupon is applied.", "When the check is the product's (a request, a rule) and the field only shows the result."],

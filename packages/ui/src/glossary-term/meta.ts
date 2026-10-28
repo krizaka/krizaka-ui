@@ -5,6 +5,7 @@ export const meta = {
   summary: "An underlined host-defined term with a keyboard-accessible definition tooltip.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "The inline web tooltip has no native twin yet; a native screen can present the same definition in text.", use: "description-list" },

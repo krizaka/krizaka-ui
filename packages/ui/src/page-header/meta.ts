@@ -5,6 +5,7 @@ export const meta = {
   summary: "The top of a page: a breadcrumb, the title, a description and the page's actions.",
   status: "stable",
   category: "layout",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A phone screen's title and actions are its header.", use: "header" }, desktop: "web" },
   whenToUse: ["At the top of every page of an app: settings, dashboards, lists.", "With `actions` for what applies to the whole page: export, create, withdraw."],

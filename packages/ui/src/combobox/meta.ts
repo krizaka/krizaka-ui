@@ -5,6 +5,7 @@ export const meta = {
   summary: "A text field that suggests and completes — one value or several as chips, from a static list or a server, with values created from what was typed.",
   status: "beta",
   category: "forms",
+  domain: "forms",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

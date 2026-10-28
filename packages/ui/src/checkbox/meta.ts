@@ -5,6 +5,7 @@ export const meta = {
   summary: "A box to check: checked, unchecked or indeterminate, with its words as one clickable label.",
   status: "beta",
   category: "forms",
+  domain: "forms",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

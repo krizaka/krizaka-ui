@@ -6,6 +6,7 @@ export const meta = {
     "The result of an AI analysis, honest and calm: one sentence and an overall status, findings grouped by status with what was observed and what it may indicate, what the report did not examine, the next steps and where the result comes from.",
   status: "beta",
   category: "blocks",
+  domain: "conversation",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

@@ -5,6 +5,7 @@ export const meta = {
   summary: "Records read top to bottom — a leading visual, a title and a line, details and actions beside — dense or comfortable, selectable, windowed when long.",
   status: "beta",
   category: "data-display",
+  domain: "data-display",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

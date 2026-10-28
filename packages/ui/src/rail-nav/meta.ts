@@ -5,6 +5,7 @@ export const meta = {
   summary: "The compact navigation of an application: a vertical rail of icons on a desktop — the product's mark on top, a tooltip on each icon, an accent bar on the current one, a footer for settings and the account — that becomes a bottom tab bar on a phone. Paired with `AppHeader`, which carries the product's name (and, on a phone, its mark).",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "On a phone the rail is already a bottom tab bar; a native app uses the TabBar.", use: "tab-bar" }, desktop: "web" },
   whenToUse: [

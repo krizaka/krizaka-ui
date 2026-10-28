@@ -5,6 +5,7 @@ export const meta = {
   summary: "One object's page: the way back, its media, name, status, facts and actions, its tabs, the content and a side panel that goes under the content on a phone.",
   status: "beta",
   category: "layouts",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A phone shows one object per screen, under its header.", use: "screen" }, desktop: "web" },
   whenToUse: ["A video, a job, an account, a pack, an order.", "Any object reached from a list."],

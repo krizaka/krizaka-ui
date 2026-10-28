@@ -3,8 +3,10 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Desktop window",
   summary: "The window of a Mac app (Tauri 2 on the system WebView): a sidebar, the content and an inspector in a three-pane split — resizable by pointer and keyboard, collapsible — under a toolbar that moves the window and clears the traffic lights, at the desktop's density with a native-feeling focus ring. Its commands are written once for the menu bar, the page's shortcuts and the palette.",
-  status: "beta",
+  status: "experimental",
+  adoption: "orazaka#87",
   category: "layouts",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A phone has no windows: its screens are the list and detail, the tabs and the sheets.", use: "list-detail" }, desktop: "desktop" },
   whenToUse: [

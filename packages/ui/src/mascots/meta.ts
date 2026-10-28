@@ -5,6 +5,7 @@ export const meta = {
   summary: "The Krizaka flock: nine figures (falcon, owl, duck, flamingo, pigeon, lovebird, crane, magpie — and the beaver) in five moods, drawn in the product's brand colours — and the phoenix, the comeback.",
   status: "beta",
   category: "feedback",
+  domain: "foundations",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

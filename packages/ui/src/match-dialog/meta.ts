@@ -10,6 +10,7 @@ export const meta = {
     reason: "No user: Yasakia is paused and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
   },
   category: "overlays",
+  domain: "feedback",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["A mutual like in a dating app.", "Two parties agree: a deal, a duo for a challenge."],

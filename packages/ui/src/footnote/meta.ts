@@ -5,6 +5,7 @@ export const meta = {
   summary: "The small print of the Cahier: `Caption` names a figure (`fig. 2 — …`), `FootnoteRef` is the number in the text, `Footnotes` the notes at the foot, each with its way back.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "Reading-page typography; an app says it in its own words.", use: "txt" },

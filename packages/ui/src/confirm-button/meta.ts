@@ -5,6 +5,7 @@ export const meta = {
   summary: "A destructive action in two presses: the first arms it and says what will happen, the second runs it.",
   status: "beta",
   category: "actions",
+  domain: "feedback",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#276", reason: "A destructive action confirmed in place: no phone screen needs it yet beyond SwipeableRow." }, desktop: "web" },
   whenToUse: [

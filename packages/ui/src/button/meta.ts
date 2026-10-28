@@ -6,6 +6,7 @@ export const meta = {
     "The action: six looks, three sizes, two shapes (an 8 px radius, the pill) — and the whole life of an action built in: a wait traced by the loader glyph, its progress, a success or a failure drawn and announced.",
   status: "stable",
   category: "actions",
+  domain: "foundations",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

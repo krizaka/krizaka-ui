@@ -3,8 +3,10 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Money input",
   summary: "An amount in integer minor units (cents) and a currency, typed the way the locale writes it, never as a float.",
-  status: "beta",
+  status: "experimental",
+  adoption: "krizaka-ui#596",
   category: "forms",
+  domain: "commerce",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#782", reason: "The native twins of PromoCodeField, MoneyInput and CopyButton are a follow-up of the coupons surfaces." }, desktop: "web" },
   whenToUse: ["For a price, a discount or a budget the app stores as cents.", "When the person may pick the currency among a short list."],

@@ -6,6 +6,7 @@ export const meta = {
     "A row of link actions — discuss, propose, report, read the docs, see the code: buttons with their words at the end of a page, or icon buttons whose words are a tooltip at the foot of a card.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "button" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

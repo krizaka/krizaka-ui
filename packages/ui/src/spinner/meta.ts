@@ -5,6 +5,7 @@ export const meta = {
   summary: "The Krizaka spinner: light traced around a hexagon, its node breathing — indeterminate, or growing to a `value`; still and legible under reduced motion.",
   status: "stable",
   category: "feedback",
+  domain: "foundations",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["For a short wait of unknown length: a search, a refresh, an infinite list loading more."],

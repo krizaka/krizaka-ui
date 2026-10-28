@@ -5,6 +5,7 @@ export const meta = {
   summary: "The next free times of a service as tappable chips: a strip of days, then the day's times — each a link to the booking page or a toggle the reader presses.",
   status: "beta",
   category: "forms",
+  domain: "commerce",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "The apps pick a time in their own booking flow; a native twin of the weeks follows the first app that needs it.", use: "date-picker" }, desktop: "web" },
   whenToUse: [

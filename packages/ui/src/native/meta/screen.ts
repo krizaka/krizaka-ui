@@ -5,6 +5,7 @@ export const meta = {
   summary: "A screen of the app — a header, the content (scrolling, rising with the keyboard, refreshing on a pull), a footer — and the templates built on it: app shell, dashboard, sign-in, profile, feed, chat, settings, a map, notifications.",
   status: "beta",
   category: "layout",
+  domain: "navigation-shell",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "A web screen's frame is the application shell.", use: "app-shell" }, desktop: { status: "n/a", reason: "The Mac app's window is the application shell.", use: "app-shell" } },
   whenToUse: ["Every screen of a React Native app.", "The starting point of a new app: copy a template and fill it."],

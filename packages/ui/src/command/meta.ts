@@ -5,6 +5,7 @@ export const meta = {
   summary: "A command palette on cmdk: a search input over a filtered list of commands, inline or in a dialog.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A command palette is a keyboard tool; a phone searches.", use: "search-field" }, desktop: "web" },
   whenToUse: [

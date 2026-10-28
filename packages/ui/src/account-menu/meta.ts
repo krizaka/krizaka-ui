@@ -5,6 +5,7 @@ export const meta = {
   summary: "The menu under a signed-in person's avatar: who they are, their profile and settings, the language and the theme as compact submenus, Sign out.",
   status: "beta",
   category: "navigation",
+  domain: "identity",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "On a phone the account is a screen of the tab bar, not a menu.", use: "settings-layout" }, desktop: "web" },
   whenToUse: ["The top bar of a signed-in web app, at the right.", "Any app that offers profile, settings, language and Sign out in one place."],
