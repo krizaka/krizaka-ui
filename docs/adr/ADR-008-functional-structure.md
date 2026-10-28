@@ -31,7 +31,7 @@ This ADR does three things:
 
 ### What was measured (2026-10-28)
 
-`node tools/usage-inventory.mjs --out docs/inventory`, against `main` of each consumer:
+`pnpm inventory:usage`, against `main` of each consumer:
 
 - **Live products:** Yomizaka, Akinaza, orazaka-web-client.
 - **Live sites:** krizaka-com, the blog, ui.krizaka.com's own chrome (`apps/site`; the registry examples are not
