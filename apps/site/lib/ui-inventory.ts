@@ -49,6 +49,7 @@ export const PLANNED: Record<string, string> = {
   "shop-composer": "Akinaza's studio (Boutique › Page): the owner arranges the sections of the public page, with a live preview, undo and a publish step (krizaka/akinaza#402, ADR-007, krizaka-ui#746).",
   "copy-button": "The coupons (@krizaka/coupons): the owner-link block of Yomizaka and the founder offer code of Akinaza — copy in one click, with a read-only field as the fallback (krizaka-ui#576, #783).",
   "money-input": "The coupons (@krizaka/coupons) and the plans' prices: a Canadian-dollar amount typed in a field, kept as integer cents, for the founder offer and the owner's own prices (krizaka-ui#576, #783).",
+  "price-catalogue-editor": "Every product's admin (ADR-009): Akinaza and Yomizaka edit their plans' prices from a date, Orazaka its catalogue (krizaka-ui#713, B09).",
   "promo-code-field": "The coupons (@krizaka/coupons): the code a customer types at checkout on Yomizaka's and Akinaza's plans, checked on the server, with the discount said back (krizaka-ui#576, #783).",
   wall: "Akinaza's shop pages: the owner's photos, short notes and logo on a textured wall (krizaka/akinaza#236, krizaka-ui#537).",
   "notification-preferences": "Akinaza's and Yomizaka's account baseline (notifications) (krizaka-ui#515).",
