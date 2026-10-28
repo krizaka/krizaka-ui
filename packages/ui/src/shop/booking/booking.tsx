@@ -59,9 +59,60 @@ export type BookingSectionProps = Omit<React.ComponentProps<"section">, "title">
   hideWhileVisible?: string;
 };
 
+type ClosingCallProps = Omit<React.ComponentProps<"section">, "title"> &
+  Pick<BookingSectionProps, "body" | "photo" | "mark" | "nextTime" | "nextTimeLabel" | "secondary" | "href" | "actionLabel" | "linkAs"> & { title: React.ReactNode };
+
+/** The photo, or the mark when there is none, or nothing: the call then reads on one column. */
+function ClosingMedia({ photo, mark }: Pick<BookingSectionProps, "photo" | "mark">) {
+  if (photo) return <Photo photo={photo} ratio="4/3" sizes="(min-width: 64rem) 36rem, calc(100vw - 2rem)" />;
+  if (!mark) return null;
+  return (
+    <div aria-hidden className="grid aspect-[4/3] w-full place-items-center overflow-hidden rounded-xl bg-accent-soft text-fg-accent [&>svg]:h-1/2 [&>svg]:w-auto">
+      {mark}
+    </div>
+  );
+}
+
+function ClosingCall({ title, body, photo, mark, nextTime, nextTimeLabel, secondary, href, actionLabel, linkAs, className, ...props }: ClosingCallProps) {
+  const headingId = React.useId();
+  const hasMedia = Boolean(photo ?? mark);
+  return (
+    <ShopSection aria-labelledby={headingId} data-variant="closing" bleed className={className} {...props}>
+      <Page>
+        <div className={cn("grid items-center gap-6 rounded-2xl bg-surface-1 p-4 sm:p-6 lg:gap-10 lg:p-8", hasMedia && "lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]")}>
+          <ClosingMedia photo={photo} mark={mark} />
+          <div className="flex min-w-0 flex-col items-start gap-4">
+            <h2 id={headingId} className="m-0 text-2xl font-bold leading-tight text-fg sm:text-3xl">
+              {title}
+            </h2>
+            {body ? <p className="m-0 max-w-prose text-[15px] leading-relaxed text-fg-secondary">{body}</p> : null}
+            {nextTime ? (
+              <p className="m-0 flex flex-wrap items-center gap-2 text-sm text-fg-secondary">
+                {nextTimeLabel ? <span>{nextTimeLabel}</span> : null}
+                <BlockLink href={nextTime.href} linkAs={linkAs} className="inline-flex min-h-11 items-center rounded-md border border-border-control bg-surface-2 px-3 text-sm font-semibold tabular-nums text-fg no-underline hover:border-accent hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
+                  {nextTime.label}
+                </BlockLink>
+              </p>
+            ) : null}
+            <div className="flex flex-wrap items-center gap-3">
+              <BlockLink href={href} linkAs={linkAs} className={cn(buttonVariants({ variant: "primary", size: "lg" }), "no-underline")}>
+                {actionLabel}
+              </BlockLink>
+              {secondary ? (
+                <BlockLink href={secondary.href} linkAs={linkAs} className={cn(buttonVariants({ variant: "secondary", size: "lg" }), "no-underline")}>
+                  {secondary.label}
+                </BlockLink>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      </Page>
+    </ShopSection>
+  );
+}
+
 /** The way to book: the next free times, a closing call, or the phone bar. */
 export function BookingSection({ variant = "strip", times = [], label, emptyLabel, href, actionLabel, title, body, linkAs, hideWhileVisible, photo, mark, nextTime, nextTimeLabel, secondary, className, ...props }: BookingSectionProps) {
-  const headingId = React.useId();
   const action = (size: "md" | "lg") => (
     <BlockLink href={href} linkAs={linkAs} className={cn(buttonVariants({ variant: "primary", size }), "no-underline")}>
       {actionLabel}
@@ -77,44 +128,7 @@ export function BookingSection({ variant = "strip", times = [], label, emptyLabe
     );
   }
   if (variant === "closing") {
-    const hasMedia = Boolean(photo ?? mark);
-    return (
-      <ShopSection aria-labelledby={headingId} data-variant="closing" bleed className={className} {...props}>
-        <Page>
-          <div className={cn("grid items-center gap-6 rounded-2xl bg-surface-1 p-4 sm:p-6 lg:gap-10 lg:p-8", hasMedia && "lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]")}>
-            {photo ? (
-              <Photo photo={photo} ratio="4/3" sizes="(min-width: 64rem) 36rem, calc(100vw - 2rem)" />
-            ) : mark ? (
-              <div aria-hidden className="grid aspect-[4/3] w-full place-items-center overflow-hidden rounded-xl bg-accent-soft text-fg-accent [&>svg]:h-1/2 [&>svg]:w-auto">
-                {mark}
-              </div>
-            ) : null}
-            <div className="flex min-w-0 flex-col items-start gap-4">
-              <h2 id={headingId} className="m-0 text-2xl font-bold leading-tight text-fg sm:text-3xl">
-                {title ?? label}
-              </h2>
-              {body ? <p className="m-0 max-w-prose text-[15px] leading-relaxed text-fg-secondary">{body}</p> : null}
-              {nextTime ? (
-                <p className="m-0 flex flex-wrap items-center gap-2 text-sm text-fg-secondary">
-                  {nextTimeLabel ? <span>{nextTimeLabel}</span> : null}
-                  <BlockLink href={nextTime.href} linkAs={linkAs} className="inline-flex min-h-11 items-center rounded-md border border-border-control bg-surface-2 px-3 text-sm font-semibold tabular-nums text-fg no-underline hover:border-accent hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
-                    {nextTime.label}
-                  </BlockLink>
-                </p>
-              ) : null}
-              <div className="flex flex-wrap items-center gap-3">
-                {action("lg")}
-                {secondary ? (
-                  <BlockLink href={secondary.href} linkAs={linkAs} className={cn(buttonVariants({ variant: "secondary", size: "lg" }), "no-underline")}>
-                    {secondary.label}
-                  </BlockLink>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        </Page>
-      </ShopSection>
-    );
+    return <ClosingCall title={title ?? label} body={body} photo={photo} mark={mark} nextTime={nextTime} nextTimeLabel={nextTimeLabel} secondary={secondary} href={href} actionLabel={actionLabel} linkAs={linkAs} className={className} {...props} />;
   }
   if (variant === "panel") {
     return (
