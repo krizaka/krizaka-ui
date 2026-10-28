@@ -1,5 +1,19 @@
 # @krizaka/ui
 
+## 3.72.0
+
+### Minor Changes
+
+- [#833](https://github.com/krizaka/krizaka-ui/pull/833) [`229dca2`](https://github.com/krizaka/krizaka-ui/commit/229dca2da994d126775398ba26f18d1ff3ad8ddf) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(shop): `applyLook`, the composer's look picker and a mascot slot per section (akinaza#478 slice 3, krizaka-ui#804). `@krizaka/ui/shop/look` (new entry): `applyLook(page, look)` rewrites only the variants of the sections a page has (order, keys, settings, blocks and text kept; the closing call and the sticky bar keep their job; pure, idempotent), `SHOP_LOOKS` (the six looks), `shopLookOf`, `mascotFor` and `ShopMascot` (the Krizaka look's beaver, owl, falcon, crane, flamingo and pigeon: at most one per section, never on the hero, gallery, wall or TV, decorative, server-rendered SVG with its CSS-only life). `ShopSection` and the booking, reviews, policies, story and FAQ sections take a `mascot` slot. The document gains an optional `accent` (one of the look's tested list). `ShopFrame` takes `motion` (`still` · `soft` · `paper` · `lively`, CSS only: `data-shop-motion`, still under reduced motion). `@krizaka/ui/shop-composer`: a `LookPicker` (radio group of the looks as swatches, then the accent) when `presets` holds `look-*` ids, the commands `applyLook` and `setAccent`, the messages `lookChoice`, `lookApplied`, `accentChoice`, `accentNames`; the composer chunk grows, the public shop bundle does not.
+
+- [#832](https://github.com/krizaka/krizaka-ui/pull/832) [`fd5e399`](https://github.com/krizaka/krizaka-ui/commit/fd5e399000b61f1148baa1288872d663e79171f8) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(tokens): six trade-agnostic look presets for the shop page (`look-cahier`, `look-krizaka`, `look-editorial`, `look-boutique`, `look-affiche`, `look-nuit`) in `@krizaka/tokens/shop-presets` (akinaza#478 slice 2, krizaka-ui#803). New keys, required of a look and refused on a trade preset: `surface` (`paper` · `ink` · `warm` · `contrast` · `deep` · `dusk`, tokens only, per mode), `motion` (`still` · `soft` · `paper` · `lively`), `mascots` (`off` · `on`), `closing`, `transition` and `photo.frame` (`none` · `polaroid`); the title face `poster` (the product face, heavy and tight: `@krizaka/fonts` has no other, so no new font file). The checker still refuses a raw colour. The 12 trade presets are unchanged. The AA matrix covers 6 looks × 2 modes × each accent (ink ≥ 7:1, accent text, label, fill and control border ≥ 3:1); the generated CSS stays under 3.5 kB per look. `@krizaka/ui` reads `--kz-shop-surface`, `--kz-shop-photo-frame` and `--kz-shop-title-tracking` in `blocks.css` (unset without a look: pages unchanged).
+
+### Patch Changes
+
+- Updated dependencies [[`fd5e399`](https://github.com/krizaka/krizaka-ui/commit/fd5e399000b61f1148baa1288872d663e79171f8)]:
+  - @krizaka/tokens@3.72.0
+  - @krizaka/tailwind@3.72.0
+
 ## 3.71.0
 
 ### Minor Changes
