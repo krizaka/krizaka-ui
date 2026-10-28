@@ -4,7 +4,7 @@ import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { budgets, closureSize, decideAll, domainOf, entryOf, parseImports, readMeta, readPriorAudit, verdict, walk } from "./usage-inventory.mjs";
+import { budgets, closureSize, decideAll, domainOf, entryOf, gitHead, parseImports, readMeta, readPriorAudit, safePath, verdict, walk } from "./usage-inventory.mjs";
 
 test("parseImports finds every @krizaka/ui and @krizaka/motion specifier, and the names taken from the barrels", () => {
   const src = [
@@ -115,4 +115,27 @@ test("walk skips dependencies and build output", () => {
   writeFileSync(join(dir, ".next/server/c.js"), "");
   writeFileSync(join(dir, "dist/d.js"), "");
   assert.deepEqual(walk(dir).map((f) => f.slice(dir.length)), ["/src/a.tsx"]);
+});
+
+test("safePath refuses a path outside the allowed folders", () => {
+  const base = mkdtempSync(join(tmpdir(), "inv-safe-"));
+  assert.equal(safePath(join(base, "a"), [base]), join(base, "a"));
+  assert.throws(() => safePath("/etc/passwd", [base]), /refused path/);
+  assert.throws(() => safePath(join(base, "..", "elsewhere"), [base]), /refused path/);
+});
+
+test("gitHead reads the commit from .git without running git (loose ref, packed ref, detached)", () => {
+  const repo = mkdtempSync(join(tmpdir(), "inv-git-"));
+  mkdirSync(join(repo, ".git/refs/heads"), { recursive: true });
+  writeFileSync(join(repo, ".git/HEAD"), "ref: refs/heads/main\n");
+  writeFileSync(join(repo, ".git/refs/heads/main"), "0123456789abcdef\n");
+  assert.equal(gitHead(repo), "01234567");
+  writeFileSync(join(repo, ".git/HEAD"), "ref: refs/heads/other\n");
+  writeFileSync(join(repo, ".git/packed-refs"), "# pack-refs\nfedcba9876543210 refs/heads/other\n");
+  assert.equal(gitHead(repo), "fedcba98");
+  writeFileSync(join(repo, ".git/HEAD"), "aaaaaaaabbbb\n");
+  assert.equal(gitHead(repo), "aaaaaaaa");
+  mkdirSync(join(repo, "site"));
+  assert.equal(gitHead(join(repo, "site")), "aaaaaaaa", "a folder of a checkout reads the checkout's commit");
+  assert.equal(gitHead(mkdtempSync(join(tmpdir(), "inv-nogit-"))), null);
 });
