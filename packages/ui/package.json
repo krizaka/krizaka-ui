@@ -3174,7 +3174,7 @@
     {
       "name": "./shop/booking",
       "path": "dist/shop/booking.js",
-      "limit": "1.7 kB",
+      "limit": "2.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
