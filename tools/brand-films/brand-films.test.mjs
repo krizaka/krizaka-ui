@@ -118,6 +118,23 @@ test("the loops' hashes go from krizaka-com's manifest into the site module, and
   assert.equal(withHashes(src, { "owl-square-dark.mp4": "0123456789" }), 'a\nexport const LOOP_HASHES: Record<string, string> = {\n  "owl-square-dark.mp4": "0123456789",\n};\nb');
 });
 
+test("the manifest named on the command line is a .json file under the working folder or the home, never outside", async () => {
+  const { manifestPath } = await import("./hashes.mjs");
+  assert.equal(manifestPath("lib/cdn-manifest.json", "/work/ui", "/home/me"), "/work/ui/lib/cdn-manifest.json");
+  assert.equal(manifestPath("/home/me/krizaka-com/lib/cdn-manifest.json", "/work/ui", "/home/me"), "/home/me/krizaka-com/lib/cdn-manifest.json");
+  assert.throws(() => manifestPath("/etc/passwd.json", "/work/ui", "/home/me"), /outside/);
+  assert.throws(() => manifestPath("../../../etc/x.json", "/work/ui", "/home/me"), /outside/);
+  assert.throws(() => manifestPath("notes.txt", "/work/ui", "/home/me"), /usage/);
+  assert.throws(() => manifestPath(undefined), /usage/);
+});
+
+test("a tool is looked up in the system folders only, never through PATH", async () => {
+  const { fixedBin } = await import("../../scripts/fixed-bin.mjs");
+  assert.match(fixedBin("node", [process.execPath.replace(/\/node$/, "")]), /\/node$/);
+  assert.throws(() => fixedBin("no-such-tool-here", ["/usr/bin"]), /not installed/);
+  assert.throws(() => fixedBin("../evil"), /not a command name/);
+});
+
 test("the home's ambient loop: 10–14 s, each bird's turn inside it, the sweep crossing once, every track closing", async () => {
   const { AMBIENT, ambientGesture, stretch } = await import("./film.mjs");
   assert.ok(AMBIENT.seconds >= 10 && AMBIENT.seconds <= 14);

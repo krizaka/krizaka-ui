@@ -5,7 +5,8 @@
 //
 //   node tools/brand-films/hashes.mjs <krizaka-com>/lib/cdn-manifest.json
 import { readFileSync, writeFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { homedir } from "node:os";
+import { dirname, isAbsolute, relative, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const SITE_FILE = resolve(dirname(fileURLToPath(import.meta.url)), "../../apps/site/lib/brand-films.ts");
@@ -21,6 +22,21 @@ export function loopHashes(manifest) {
   );
 }
 
+/**
+ * The manifest file named on the command line: a `.json` file under the folder the command runs from or under the user's
+ * home (krizaka-com is a sibling checkout), never a path that climbs out of both.
+ * @param {string | undefined} arg
+ * @param {string} [cwd]
+ * @param {string} [home]
+ */
+export function manifestPath(arg, cwd = process.cwd(), home = homedir()) {
+  if (!arg || !arg.endsWith(".json")) throw new Error("usage: node tools/brand-films/hashes.mjs <krizaka-com>/lib/cdn-manifest.json");
+  const file = resolve(cwd, arg);
+  const inside = (base) => !relative(base, file).startsWith("..") && !isAbsolute(relative(base, file));
+  if (!inside(cwd) && !inside(home)) throw new Error(`${arg} is outside ${cwd} and ${home}`);
+  return file;
+}
+
 /** The site module with its `LOOP_HASHES` replaced. */
 export function withHashes(source, hashes) {
   const body = Object.entries(hashes)
@@ -32,7 +48,7 @@ export function withHashes(source, hashes) {
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const manifest = JSON.parse(readFileSync(resolve(process.argv[2] ?? ""), "utf8"));
+  const manifest = JSON.parse(readFileSync(manifestPath(process.argv[2]), "utf8"));
   const hashes = loopHashes(manifest);
   writeFileSync(SITE_FILE, withHashes(readFileSync(SITE_FILE, "utf8"), hashes));
   console.log(`${Object.keys(hashes).length} loop files → apps/site/lib/brand-films.ts`);

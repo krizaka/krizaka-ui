@@ -71,6 +71,14 @@ function checkLeaf(locale: string, key: string, value: unknown, problems: Proble
   return true;
 }
 
+/** `<dir>/<locale>.json`, and nothing outside `dir`: a locale name is a file stem, never a path. */
+function catalogue(dir: string, locale: string): string {
+  const file = path.resolve(dir, `${locale}.json`);
+  const rel = path.relative(dir, file);
+  if (rel.startsWith("..") || path.isAbsolute(rel)) throw new Error(`${locale} is not a catalogue of ${dir}`);
+  return file;
+}
+
 function load(file: string, problems: Problem[], locale: string): Map<string, unknown> | undefined {
   try {
     return flatten(JSON.parse(fs.readFileSync(file, "utf8")));
@@ -92,12 +100,12 @@ export function checkMessages(options: CheckOptions): CheckResult {
     problems.push({ locale: reference, key: options.dir, kind: "invalid", message: `no ${reference}.json in ${options.dir}` });
     return result(0);
   }
-  const ref = load(path.join(options.dir, `${reference}.json`), problems, reference);
+  const ref = load(catalogue(options.dir, reference), problems, reference);
   if (!ref) return result(0);
   for (const [key, value] of ref) checkLeaf(reference, key, value, problems);
 
   for (const locale of locales.filter((l) => l !== reference)) {
-    const other = load(path.join(options.dir, `${locale}.json`), problems, locale);
+    const other = load(catalogue(options.dir, locale), problems, locale);
     if (!other) continue;
     for (const key of ref.keys()) if (!other.has(key)) problems.push({ locale, key, kind: "missing", message: `${locale}: missing ${key}` });
     for (const [key, value] of other) {

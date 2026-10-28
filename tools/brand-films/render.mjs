@@ -23,6 +23,7 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { fixedBin } from "../../scripts/fixed-bin.mjs";
 import { birdLoops, LOOP, LOOP_BIRDS } from "./choreography.mjs";
 import { AMBIENT, FILM, vtt } from "./film.mjs";
 import { ambientHtml, captionHtml, filmHtml, loadKit, loopBackgroundHtml, loopLayerHtml } from "./stage.mjs";
@@ -59,9 +60,11 @@ export const ENC = {
   opus: ["-c:a", "libopus", "-b:a", "128k"],
 };
 
+const FFMPEG = () => fixedBin("ffmpeg"); // looked up when a render starts: importing the module needs no ffmpeg
+
 function ffmpeg(args, { input } = {}) {
   return new Promise((ok, fail) => {
-    const p = spawn("ffmpeg", ["-hide_banner", "-loglevel", "error", "-y", ...args], { stdio: [input ? "pipe" : "ignore", "ignore", "pipe"] });
+    const p = spawn(FFMPEG(), ["-hide_banner", "-loglevel", "error", "-y", ...args], { stdio: [input ? "pipe" : "ignore", "ignore", "pipe"] });
     let err = "";
     p.stderr.on("data", (d) => (err += d));
     p.on("error", fail);
@@ -109,7 +112,7 @@ export const SEAMLESS_DB = 45;
 /** The PSNR of two images, in dB (Infinity when identical). */
 function psnr(a, b) {
   return new Promise((ok, fail) => {
-    const p = spawn("ffmpeg", ["-hide_banner", "-i", a, "-i", b, "-lavfi", "psnr", "-f", "null", "-"], { stdio: ["ignore", "ignore", "pipe"] });
+    const p = spawn(FFMPEG(), ["-hide_banner", "-i", a, "-i", b, "-lavfi", "psnr", "-f", "null", "-"], { stdio: ["ignore", "ignore", "pipe"] });
     let err = "";
     p.stderr.on("data", (d) => (err += d));
     p.on("close", () => {

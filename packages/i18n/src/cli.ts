@@ -70,8 +70,14 @@ export async function main(argv: readonly string[], io: CliIO = defaultIO): Prom
       io.stderr(`check takes one folder of catalogues.\n\n${USAGE}`);
       return 2;
     }
+    const dir = resolve(positionals[0] as string);
+    const rel = path.relative(io.cwd, dir);
+    if (rel.startsWith("..") || path.isAbsolute(rel)) {
+      io.stderr(`${positionals[0]} is outside ${io.cwd}: run the check from a folder that holds the catalogues.\n\n${USAGE}`);
+      return 2;
+    }
     const result = checkMessages({
-      dir: resolve(positionals[0] as string),
+      dir,
       reference: values.reference,
       unused: values.unused?.map(resolve),
     });

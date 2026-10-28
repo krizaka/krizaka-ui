@@ -26,7 +26,7 @@ const TYPES = {
 };
 
 const server = createServer((req, res) => {
-  const path = normalize(decodeURIComponent(new URL(req.url ?? "/", "http://x").pathname)).replace(/^([/\\])+/, "");
+  const path = normalize(decodeURIComponent(new URL(req.url ?? "/", "https://x").pathname)).replace(/^([/\\])+/, "");
   let file = join(ROOT, path);
   if (!file.startsWith(ROOT)) return void res.writeHead(403).end();
   if (existsSync(file) && statSync(file).isDirectory()) file = join(file, "index.html");
