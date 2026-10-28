@@ -21,10 +21,11 @@ const token = (name: string, mode: "dark" | "light") => {
 };
 
 describe("Shop look presets (ADR-007 §4, krizaka-ui#745)", () => {
-  it("has twelve presets, two per trade, and no café, restaurant or bar", () => {
-    expect(data).toHaveLength(12);
-    for (const trade of SHOP_TRADES) expect(data.filter((p: any) => p.trades[0] === trade).map((p: any) => p.name).length, trade).toBe(2);
-    expect(data.map((p: any) => p.id)).toEqual([
+  it("has twelve trade presets, two per trade, and no café, restaurant or bar", () => {
+    const trade = data.filter((p: any) => !p.id.startsWith("look-"));
+    expect(trade).toHaveLength(12);
+    for (const t of SHOP_TRADES) expect(trade.filter((p: any) => p.trades[0] === t).map((p: any) => p.name).length, t).toBe(2);
+    expect(trade.map((p: any) => p.id)).toEqual([
       "cleaning-forfait", "cleaning-net", "coaching-approche", "coaching-studio", "consulting-bureau", "consulting-cabinet",
       "pets-canal", "pets-carnet", "salon-atelier", "salon-vitrine", "workshop-atelier", "workshop-etabli",
     ]);
@@ -45,7 +46,7 @@ describe("Shop look presets (ADR-007 §4, krizaka-ui#745)", () => {
     expect(() => compileShopPresets([{ ...sources[0], extra: 1 }, ...sources.slice(1)], brands)).toThrow(/unknown key/);
     expect(() => compileShopPresets([{ ...sources[0], accent: "yasakia", accents: ["yasakia"] }, ...sources.slice(1)], brands)).toThrow(/live brand/);
     expect(() => compileShopPresets([{ ...sources[0], accents: ["krizaka"] }, ...sources.slice(1)], brands)).toThrow(/accents lists/);
-    expect(() => compileShopPresets([...sources, { ...sources[0], id: "cleaning-extra" }], brands)).toThrow(/two presets/);
+    expect(() => compileShopPresets([...sources, { ...sources.find((x) => !x.id.startsWith("look-")), id: "cleaning-extra" }], brands)).toThrow(/two presets/);
   });
 
   it("applies each preset under its own selector in both modes, with the Young Serif of the tokens", () => {
@@ -98,4 +99,83 @@ describe("Shop look presets (ADR-007 §4, krizaka-ui#745)", () => {
   it("lists only accents of live brands", () => {
     for (const p of sources) for (const a of p.accents) expect(SHOP_ACCENT_BRANDS).toContain(a.split(":")[0]);
   });
+});
+
+const looks = sources.filter((p) => p.id.startsWith("look-"));
+const dataOf = (id: string) => (data as any[]).find((p) => p.id === id);
+
+describe("The six looks (akinaza#478, ADR-004 addendum §3)", () => {
+  it("are six, trade-agnostic, and each names a surface, a motion, mascots and a variant for every section it styles", () => {
+    expect(looks.map((p) => p.id)).toEqual(["look-affiche", "look-boutique", "look-cahier", "look-editorial", "look-krizaka", "look-nuit"]);
+    for (const p of looks) {
+      expect(p.trades, p.id).toEqual(SHOP_TRADES);
+      for (const k of ["hero", "services", "booking", "gallery", "video", "reviews", "bulletin", "visit"]) expect(p.variants[k], `${p.id}.${k}`).toBeTruthy();
+      expect(dataOf(p.id).surface).toBe(p.surface);
+    }
+    expect(looks.filter((p) => p.mascots === "on").map((p) => p.id)).toEqual(["look-krizaka"]);
+    expect(new Set(looks.map((p) => p.variants.hero + p.variants.services + p.variants.gallery + p.motion)).size, "no look is a colour swap of another").toBe(6);
+  });
+
+  it("emit the new keys: surface per mode, the poster face, the polaroid frame", () => {
+    expect(css).toMatch(/\[data-shop-preset="look-affiche"\] \{[^}]*--kz-shop-title-weight: 800;[^}]*--kz-shop-title-tracking: -0\.03em;/);
+    expect(css).toMatch(/\[data-shop-preset="look-cahier"\] \{[^}]*--kz-shop-photo-frame: 0 0 0 6px/);
+    expect(css).toMatch(/html\.light \[data-shop-preset="look-nuit"\][^{]*\{\s*--kz-shop-surface: color-mix\(in oklab, var\(--kz-accent\) 6%, var\(--kz-surface-2\)\)/);
+    expect(css).toMatch(/\[data-shop-preset="look-nuit"\] \{[^}]*--kz-shop-surface: var\(--kz-surface-0\);/);
+    expect(css).toMatch(/\[data-shop-preset="look-affiche"\] \{[^}]*--kz-shop-rule: var\(--kz-border-strong\);/);
+  });
+
+  it("stay within a size budget: 3.5 kB of CSS per look (two accents, both modes), and no new font", () => {
+    for (const p of looks) {
+      const own = css.split("\n/* ").filter((b) => b.startsWith(`${p.id} `)).join("");
+      expect(own.length, p.id).toBeLessThan(3500);
+    }
+    expect(css).not.toMatch(/@font-face/);
+  });
+
+  it("refuse a trade preset wearing a look's key, a look missing one, an unknown surface or motion", () => {
+    const trade = sources.find((x) => !x.id.startsWith("look-"));
+    expect(() => compileShopPresets([{ ...trade, motion: "soft" }, ...sources.filter((x) => x !== trade)], brands)).toThrow(/unknown key/);
+    const l = looks[0];
+    const rest = sources.filter((x) => x !== l);
+    const { motion: _m, ...noMotion } = l;
+    expect(() => compileShopPresets([noMotion, ...rest], brands)).toThrow(/missing "motion"/);
+    expect(() => compileShopPresets([{ ...l, surface: "neon" }, ...rest], brands)).toThrow(/surface/);
+    expect(() => compileShopPresets([{ ...l, motion: "wild" }, ...rest], brands)).toThrow(/motion/);
+    expect(() => compileShopPresets([{ ...l, trades: ["salon"] }, ...rest], brands)).toThrow(/trade-agnostic/);
+    expect(() => compileShopPresets([{ ...trade, faces: { title: "poster", note: "mono" } }, ...sources.filter((x) => x !== trade)], brands)).toThrow(/faces/);
+  });
+
+  for (const look of looks) {
+    for (const mode of modes) {
+      for (const ref of look.accents as string[]) {
+        it(`${look.id} · ${mode} · ${ref}: AA on the look's surface — ink ≥ 7:1, accent text ≥ 4.5:1, label ≥ 4.5:1, fill and borders ≥ 3:1`, () => {
+          const base = appearance.base[mode] as Record<string, string>;
+          const f = accentFamily(brands, ref, mode);
+          const accent = parseColor(f.accent);
+          const s0 = parseColor(base["surface-0"]!);
+          const s1 = parseColor(base["surface-1"]!);
+          const s2 = parseColor(base["surface-2"]!);
+          const kind = look.surface === "deep" ? (mode === "dark" ? "paper" : "dusk") : look.surface;
+          const pages = {
+            paper: [s0, s1],
+            ink: [s1, s2],
+            contrast: [s0, s0],
+            // `color-mix(in oklab…)` is read here as the sRGB mix: the margins below are wide enough for the difference.
+            warm: [over({ ...accent, a: 0.06 }, s0), s1],
+            dusk: [over({ ...accent, a: 0.06 }, s2), over({ ...accent, a: 0.03 }, s2)],
+          }[kind as "paper"]!;
+          for (const bg of pages) {
+            expect(contrast(parseColor(base["text-primary"]!), bg), "ink").toBeGreaterThanOrEqual(7);
+            expect(contrast(parseColor(base["text-secondary"]!), bg), "small text").toBeGreaterThanOrEqual(4.5);
+            expect(contrast(parseColor(f.accentText), bg), "accent text").toBeGreaterThanOrEqual(4.5);
+            expect(contrast(accent, bg), "accent fill").toBeGreaterThanOrEqual(3);
+            expect(contrast(parseColor(f.ring), bg), "focus ring").toBeGreaterThanOrEqual(3);
+            expect(contrast(parseColor(mode === "dark" ? "#646d7e" : "#7d8799") /* --kz-border-control of blocks.css */, bg), "control border").toBeGreaterThanOrEqual(3);
+          }
+          expect(contrast(parseColor(f.onAccent), accent), "label on the accent").toBeGreaterThanOrEqual(4.5);
+          expect(contrast(parseColor(f.onAccent), parseColor(f.accentHover)), "label on the hover").toBeGreaterThanOrEqual(4.5);
+        });
+      }
+    }
+  }
 });
