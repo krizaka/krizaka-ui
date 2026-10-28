@@ -135,11 +135,12 @@ const config: TestRunnerConfig = {
           axeOptions: story.parameters?.a11y?.options,
         });
       }
-      // Remote pictures (a poster, a filmstrip) are in the screenshot only once loaded and decoded.
+      // Remote pictures (a poster, a filmstrip) are in the screenshot only once loaded and decoded; a lazy picture that is
+      // not displayed (a mosaic's hidden tiles) never loads and is not in the screenshot: not waited for.
       await page
-        .waitForFunction(() => [...document.images].every((img) => img.complete), undefined, { timeout: 15_000 })
+        .waitForFunction(() => [...document.images].every((img) => img.complete || img.getClientRects().length === 0), undefined, { timeout: 15_000 })
         .catch(() => undefined);
-      await page.evaluate(() => Promise.all([...document.images].map((img) => img.decode().catch(() => undefined))));
+      await page.evaluate(() => Promise.all([...document.images].filter((img) => img.getClientRects().length > 0).map((img) => img.decode().catch(() => undefined))));
       // A video with a source that preloads its metadata shows its length once it has it: wait for it, as for the pictures.
       await page
         .waitForFunction(() => [...document.querySelectorAll("video")].every((v) => !v.currentSrc || v.preload === "none" || v.readyState >= 1 || v.error), undefined, { timeout: 15_000 })

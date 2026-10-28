@@ -429,6 +429,10 @@
       "types": "./dist/video-player.d.ts",
       "import": "./dist/video-player.js"
     },
+    "./shop-gallery": {
+      "types": "./dist/shop-gallery.d.ts",
+      "import": "./dist/shop-gallery.js"
+    },
     "./retro-tv": {
       "types": "./dist/retro-tv.d.ts",
       "import": "./dist/retro-tv.js"
@@ -2001,6 +2005,17 @@
         "tailwind-variants",
         "clsx",
         "react"
+      ]
+    },
+    {
+      "name": "./shop-gallery",
+      "path": "dist/shop-gallery.js",
+      "limit": "6.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "radix-ui"
       ]
     },
     {
