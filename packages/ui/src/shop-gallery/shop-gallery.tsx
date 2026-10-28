@@ -62,7 +62,7 @@ const styles = `
 .kz-sg[data-count="3"] .kz-sg-list>li:nth-child(n+2){grid-column:3/5}
 .kz-sg[data-count="4"] .kz-sg-list>li:nth-child(2){grid-column:3/5}
 .kz-sg[data-strip=true] .kz-sg-list>li:nth-child(n+6){display:none}
-.kz-sg[data-more=true] .kz-sg-list>li:nth-child(5) .kz-sg-more{position:absolute;inset:0;display:grid;place-items:center;background:var(--kz-scrim-strong);font:700 1.125rem/1.2 var(--kz-font-sans,system-ui);text-align:center}
+.kz-sg[data-more=true] .kz-sg-list>li:nth-child(5) .kz-sg-more{position:absolute;inset:0;display:grid;place-items:center;background:color-mix(in srgb,var(--kz-scrim-strong) 62%,transparent);font:700 1.125rem/1.2 var(--kz-font-sans,system-ui);text-align:center}
 }
 `;
 
@@ -96,7 +96,7 @@ export function ShopGallery({ photos, label, sizes, labels: given, className, ..
                 tiles.current[i] = node;
               }}
               className="kz-sg-tile"
-              aria-label={labels.open(photo.alt, i + 1, total)}
+              aria-label={i === BENTO - 1 && total > BENTO ? `${labels.open(photo.alt, i + 1, total)} (${labels.more(total - BENTO + 1)})` : labels.open(photo.alt, i + 1, total)}
               onClick={() => {
                 opener.current = i;
                 setOpen(i);
