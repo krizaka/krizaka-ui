@@ -27,6 +27,14 @@ const oneRouter: NonNullable<Options["esbuildPlugins"]>[number] = {
   },
 };
 
+// RetroTv reaches its playlist through a dynamic import: it stays outside the `retro-tv` entry, as the file the build below writes.
+const retroTvPlaylistApart: NonNullable<Options["esbuildPlugins"]>[number] = {
+  name: "krizaka-retro-tv-playlist-apart",
+  setup(build) {
+    build.onResolve({ filter: /^\.\/playlist-screen$/ }, () => ({ path: "./retro-tv-playlist.js", external: true }));
+  },
+};
+
 const shared = {
   format: ["esm"],
   dts: true,
@@ -307,8 +315,6 @@ export default defineConfig([
       "search-field": "src/search-field/index.ts",
       "video-player": "src/video-player/index.ts",
       "retro-tv": "src/retro-tv/index.ts",
-      // RetroTv's playlist, loaded on demand by `retro-tv`. An entry so its file name is stable: the size budget measures the single clip without it.
-      "retro-tv-playlist": "src/retro-tv/playlist-screen.tsx",
       "shop-gallery": "src/shop-gallery/index.ts",
       // Client since krizaka-ui#608: it hides while the page's own action is on screen.
       "sticky-action": "src/sticky-action/index.ts",
@@ -332,6 +338,14 @@ export default defineConfig([
       "tag-selector": "src/tag-selector/index.ts",
       "chat": "src/chat/index.ts",
     },
+    esbuildPlugins: [oneRouter, retroTvPlaylistApart],
+    banner: { js: '"use client";' },
+  },
+  {
+    // Client — RetroTv's playlist, loaded on demand by `retro-tv` (React.lazy). Its own build, so the file name is stable and the
+    // size budget measures the single clip without it (it bundles its small helpers: they are loaded only with a playlist).
+    ...shared,
+    entry: { "retro-tv-playlist": "src/retro-tv/playlist-screen.tsx" },
     banner: { js: '"use client";' },
   },
   {
