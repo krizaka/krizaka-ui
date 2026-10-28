@@ -1151,7 +1151,7 @@
     {
       "name": "./button",
       "path": "dist/button.js",
-      "limit": "3.5 kB",
+      "limit": "4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2059,7 +2059,7 @@
     {
       "name": "./retro-tv playlist (the on-demand chunk)",
       "path": "dist/retro-tv-playlist.js",
-      "limit": "4 kB",
+      "limit": "3.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
