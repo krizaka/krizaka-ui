@@ -4,13 +4,13 @@
 import { ReviewCard, type ReviewCardProps, ReviewSummary, type ReviewSummaryProps } from "@krizaka/ui/reviews";
 import * as React from "react";
 
-import { ShopSection } from "../frame";
+import { ShopSection, type ShopSectionProps } from "../frame";
 
 export type ReviewsVariant = "summary-cards" | "quote" | "strip";
 
 export type ShopReview = Omit<ReviewCardProps, "className" | "style"> & { id: string };
 
-export type ReviewsSectionProps = Omit<React.ComponentProps<"section">, "title"> & {
+export type ReviewsSectionProps = Omit<React.ComponentProps<"section">, "title"> & Pick<ShopSectionProps, "mascot"> & {
   /** @default "summary-cards" */
   variant?: ReviewsVariant;
   title: React.ReactNode;

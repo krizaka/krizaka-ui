@@ -3,11 +3,11 @@
 import { DescriptionList } from "@krizaka/ui/description-list";
 import * as React from "react";
 
-import { ShopSection } from "../frame";
+import { ShopSection, type ShopSectionProps } from "../frame";
 
 export type ShopPolicy = { id: string; term: string; details: React.ReactNode };
 
-export type PoliciesSectionProps = Omit<React.ComponentProps<"section">, "title"> & {
+export type PoliciesSectionProps = Omit<React.ComponentProps<"section">, "title"> & Pick<ShopSectionProps, "mascot"> & {
   /** @default "inline" */
   variant?: "inline";
   title: React.ReactNode;

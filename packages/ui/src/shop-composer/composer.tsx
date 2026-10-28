@@ -19,6 +19,7 @@ import { type DiffEntry, diffPages } from "./diff";
 import { canRedo, canUndo, createHistory, type History, redo, run, undo } from "./history";
 import { Inspector } from "./inspector";
 import { newKey } from "./keys";
+import { LookPicker } from "./look-picker";
 import { defaultShopComposerMessages, fill, type ShopComposerMessages } from "./messages";
 import { Outline, sectionLabel } from "./outline";
 
@@ -26,7 +27,16 @@ import { Outline, sectionLabel } from "./outline";
 // @fixed: ADR-007 §5 — the autosave debounce of the editor, 800 ms; not a shop setting.
 export const AUTOSAVE_MS = 800;
 
-export type ShopComposerPreset = { id: string; version: number; name: string; density: "compact" | "airy"; variants: Readonly<Record<string, string>> };
+export type ShopComposerPreset = {
+  id: string;
+  version: number;
+  name: string;
+  density: "compact" | "airy";
+  variants: Readonly<Record<string, string>>;
+  /** A look's (`look-*`): the accent it starts with and the tested list the owner chooses from. Presets without a list are trade presets (the « Style » select). */
+  accent?: string;
+  accents?: readonly string[];
+};
 
 export type ShopComposerProps = {
   /** The draft to edit. The composer keeps its own history from it. */
@@ -128,6 +138,8 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
   }, [resetKey]);
 
   const parsed = React.useMemo(() => parseShopPage(page), [page]);
+  const looks = React.useMemo(() => presets.filter((p) => p.id.startsWith("look-")), [presets]);
+  const styles = React.useMemo(() => presets.filter((p) => !p.id.startsWith("look-")), [presets]);
   const announce = React.useCallback((message: string) => setLive((prev) => (prev === message ? message + String.fromCodePoint(0x200b) : message)), []);
   const exec = React.useCallback((cmd: Command, merge?: string) => dispatch({ type: "run", cmd, merge }), []);
   const selectedSection = page.sections.find((s) => s.key === selected) ?? null;
@@ -233,7 +245,8 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
           <details className="rounded-lg border border-border-default p-3" open>
             <summary className="min-h-9 cursor-pointer text-sm font-semibold text-fg">{m.look}</summary>
             <div className="mt-2 grid gap-3">
-              <label className="grid gap-1 text-xs font-semibold text-fg-secondary">
+              {looks.length > 0 && <LookPicker looks={looks} page={page} messages={m} run={exec} announce={announce} />}
+              {styles.length > 0 && <label className="grid gap-1 text-xs font-semibold text-fg-secondary">
                 {m.preset}
                 <select
                   className="min-h-10 rounded-md border border-border-control bg-surface-1 px-2 text-sm font-normal text-fg"
@@ -243,9 +256,9 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
                     if (p) exec({ type: "setPreset", preset: { id: p.id, version: p.version }, density: null });
                   }}
                 >
-                  {presets.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+                  {styles.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
                 </select>
-              </label>
+              </label>}
               <RadioGroup.Root label={m.density} variant="segmented" value={page.density ?? presets.find((p) => p.id === page.preset.id)?.density ?? "compact"} onValueChange={(d) => exec({ type: "setDensity", density: d as "compact" | "airy" })}>
                 <RadioGroup.Segment value="compact">{m.densityCompact}</RadioGroup.Segment>
                 <RadioGroup.Segment value="airy">{m.densityAiry}</RadioGroup.Segment>

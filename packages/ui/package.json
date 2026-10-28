@@ -947,6 +947,10 @@
       "types": "./dist/shop/policies.d.ts",
       "import": "./dist/shop/policies.js"
     },
+    "./shop/look": {
+      "types": "./dist/shop/look.d.ts",
+      "import": "./dist/shop/look.js"
+    },
     "./shop/map-gate": {
       "types": "./dist/shop/map-gate.d.ts",
       "import": "./dist/shop/map-gate.js"
@@ -3207,7 +3211,7 @@
     {
       "name": "./shop/booking",
       "path": "dist/shop/booking.js",
-      "limit": "2.3 kB",
+      "limit": "2.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -3337,6 +3341,21 @@
       ]
     },
     {
+      "name": "./shop/look",
+      "path": "dist/shop/look.js",
+      "limit": "2.6 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui",
+        "@krizaka/tokens",
+        "@krizaka/ui/mascots",
+        "zod",
+        "zod/mini"
+      ]
+    },
+    {
       "name": "./shop/map-gate",
       "path": "dist/shop/map-gate.js",
       "limit": "1.5 kB",
@@ -3380,7 +3399,7 @@
     {
       "name": "./shop-composer",
       "path": "dist/shop-composer.js",
-      "limit": "24 kB",
+      "limit": "25.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

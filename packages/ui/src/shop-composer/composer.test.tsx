@@ -11,6 +11,10 @@ const presets: ShopComposerPreset[] = [
   { id: "salon-vitrine", version: 1, name: "Vitrine", density: "compact", variants: { hero: "poster", services: "menu" } },
   { id: "salon-atelier", version: 1, name: "Atelier", density: "airy", variants: { hero: "split", services: "menu", faq: "list" } },
 ];
+const looks: ShopComposerPreset[] = [
+  { id: "look-cahier", version: 1, name: "Cahier", density: "airy", variants: { hero: "split", services: "index" }, accent: "akinaza", accents: ["akinaza", "akinaza:accent-2"] },
+  { id: "look-affiche", version: 1, name: "Affiche", density: "compact", variants: { hero: "banner", services: "menu" }, accent: "akinaza", accents: ["akinaza", "yomizaka"] },
+];
 
 beforeEach(() => {
   // happy-dom refuses to load an iframe page and reports it: the preview's page is the product's, not under test here.
@@ -216,5 +220,33 @@ describe("the composer — keyboard only", () => {
     const saved = onChange.mock.calls.at(-1)![0] as ShopPage;
     expect(saved.preset.id).toBe("salon-atelier");
     expect(saved.density).toBe("compact");
+  });
+});
+
+describe("the look picker (akinaza#478)", () => {
+  it("is a radio group of the looks; choosing one rewrites the variants of the draft and says so", async () => {
+    const { user, onChange } = setup({ presets: [...presets, ...looks] });
+    const group = screen.getByRole("radiogroup", { name: "Look of the page" });
+    expect(within(group).getAllByRole("radio").map((r) => r.textContent)).toEqual([expect.stringContaining("Cahier"), expect.stringContaining("Affiche")]);
+    await user.click(within(group).getByRole("radio", { name: /Affiche/ }));
+    expect(live()).toBe("Look: Affiche");
+    await vi.waitFor(() => expect(onChange).toHaveBeenCalled(), { timeout: AUTOSAVE_MS + 1500 });
+    const saved = onChange.mock.calls.at(-1)![0] as ShopPage;
+    expect(saved.preset.id).toBe("look-affiche");
+    expect(saved.sections.find((s) => s.type === "hero")!.variant).toBe("banner");
+  });
+
+  it("offers the accents of the chosen look and keeps the trade styles in their select", async () => {
+    const { user } = setup({ presets: [...presets, ...looks] });
+    expect(screen.queryByRole("radiogroup", { name: "Accent" })).toBeNull();
+    await user.click(screen.getByRole("radio", { name: /Cahier/ }));
+    const accent = screen.getByRole("radiogroup", { name: "Accent" });
+    expect(within(accent).getAllByRole("radio").map((r) => r.textContent)).toEqual(["Akinaza green", "Copper"]);
+    expect(screen.getByRole("combobox", { name: "Style" })).toBeTruthy();
+  });
+
+  it("has no axe violation", async () => {
+    const { container } = setup({ presets: [...presets, ...looks] });
+    expect(await axeViolations(container)).toEqual([]);
   });
 });

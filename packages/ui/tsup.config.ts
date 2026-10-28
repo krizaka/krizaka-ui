@@ -184,6 +184,7 @@ export default defineConfig([
       "shop/social": "src/shop/social/index.ts",
       "shop/faq": "src/shop/faq/index.ts",
       "shop/policies": "src/shop/policies/index.ts",
+      "shop/look": "src/shop/look/index.ts",
     },
     external: [...shared.external, /^@krizaka\/ui(\/|$)/, "zod", /^zod\//],
   },
