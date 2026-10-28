@@ -127,7 +127,8 @@ export interface PriceCatalogueEditorProps extends Omit<React.ComponentProps<"se
 
 const fill = (template: string, vars: Record<string, string | number>) => template.replace(/\{(\w+)\}/g, (_, name: string) => String(vars[name] ?? ""));
 
-const availabilityTone = (id: string) => (id === "public" ? "success" : id === "founder-limited" ? "accent" : id === "preparing" ? "warning" : "neutral");
+const TONES: Record<string, "success" | "accent" | "warning"> = { public: "success", "founder-limited": "accent", preparing: "warning" };
+const availabilityTone = (id: string) => TONES[id] ?? "neutral";
 
 /** « 9,99 $ » / « $9.99 » by locale, or the « on quote » word. Cents are bounded integers, so the division is exact for display. */
 function amountText(cents: number | null, currency: string, locale: string, onQuote: string): string {
@@ -140,7 +141,7 @@ const dateText = (iso: string, locale: string) => new Intl.DateTimeFormat(locale
 const figuresText = (f: PriceFigures | null, currency: string, locale: string, w: PriceCatalogueWords) =>
   f === null ? "—" : `${amountText(f.amountCents, currency, locale, w.onQuote)} ${w.units[f.unit] ?? f.unit}`;
 
-function EntryForm({ entry, prices, words, locale, today, onSchedule, onDone }: { entry: PriceEntryView; prices: PricesView; words: PriceCatalogueWords; locale: string; today: string; onSchedule: PriceCatalogueEditorProps["onSchedule"]; onDone: () => void }) {
+function EntryForm({ entry, prices, words, locale, today, onSchedule, onDone }: Readonly<{ entry: PriceEntryView; prices: PricesView; words: PriceCatalogueWords; locale: string; today: string; onSchedule: PriceCatalogueEditorProps["onSchedule"]; onDone: () => void }>) {
   const id = React.useId();
   const [cents, setCents] = React.useState<number | null>(entry.amountCents);
   const [unit, setUnit] = React.useState(entry.unit);
@@ -223,7 +224,7 @@ function EntryForm({ entry, prices, words, locale, today, onSchedule, onDone }: 
   );
 }
 
-function HistoryFold({ entry, words, locale, loadHistory }: { entry: PriceEntryView; words: PriceCatalogueWords; locale: string; loadHistory: NonNullable<PriceCatalogueEditorProps["loadHistory"]> }) {
+function HistoryFold({ entry, words, locale, loadHistory }: Readonly<{ entry: PriceEntryView; words: PriceCatalogueWords; locale: string; loadHistory: NonNullable<PriceCatalogueEditorProps["loadHistory"]> }>) {
   const [lines, setLines] = React.useState<PriceHistoryEntry[] | null>(null);
   const asked = React.useRef(false);
   return (
@@ -236,11 +237,9 @@ function HistoryFold({ entry, words, locale, loadHistory }: { entry: PriceEntryV
       }}
     >
       <summary className="cursor-pointer text-sm font-medium text-fg-secondary hover:text-fg">{words.history}</summary>
-      {lines === null ? (
-        <p className="mt-2 text-sm text-fg-secondary">{words.loading}</p>
-      ) : lines.length === 0 ? (
-        <p className="mt-2 text-sm text-fg-secondary">{words.historyEmpty}</p>
-      ) : (
+      {lines === null && <p className="mt-2 text-sm text-fg-secondary">{words.loading}</p>}
+      {lines?.length === 0 && <p className="mt-2 text-sm text-fg-secondary">{words.historyEmpty}</p>}
+      {lines && lines.length > 0 && (
         <ol className="mt-2 grid gap-1.5 text-sm text-fg-secondary">
           {lines.map((line) => (
             <li key={line.versionId}>
@@ -260,7 +259,7 @@ function HistoryFold({ entry, words, locale, loadHistory }: { entry: PriceEntryV
 }
 
 /** The price entries of a product, each editable from a date, with what is scheduled and its history folded. */
-export function PriceCatalogueEditor({ prices, words, locale, today, onSchedule, loadHistory, headingLevel = 3, className, ...props }: PriceCatalogueEditorProps) {
+export function PriceCatalogueEditor({ prices, words, locale, today, onSchedule, loadHistory, headingLevel = 3, className, ...props }: Readonly<PriceCatalogueEditorProps>) {
   const [open, setOpen] = React.useState<string | null>(null);
   const [saved, setSaved] = React.useState(false);
   const Heading = `h${headingLevel}` as "h3";
@@ -288,7 +287,10 @@ export function PriceCatalogueEditor({ prices, words, locale, today, onSchedule,
                   {words.availabilities[entry.availability] ?? entry.availability}
                 </Badge>
                 {open !== entry.key && (
-                  <Button type="button" size="sm" variant="secondary" aria-label={`${words.edit} — ${entry.product} · ${entry.plan}`} onClick={() => (setOpen(entry.key), setSaved(false))}>
+                  <Button type="button" size="sm" variant="secondary" aria-label={`${words.edit} — ${entry.product} · ${entry.plan}`} onClick={() => {
+                      setOpen(entry.key);
+                      setSaved(false);
+                    }}>
                     {words.edit}
                   </Button>
                 )}
@@ -338,9 +340,7 @@ export function PriceCatalogueEditor({ prices, words, locale, today, onSchedule,
           </li>
         ))}
       </ul>
-      <p role="status" className="sr-only">
-        {saved ? words.saved : ""}
-      </p>
+      <output className="sr-only">{saved ? words.saved : ""}</output>
     </section>
   );
 }
