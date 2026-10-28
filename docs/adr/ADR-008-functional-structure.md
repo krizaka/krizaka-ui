@@ -70,17 +70,17 @@ The verdict rules are in `verdict()`; each step is tested:
 | | Rows |
 | :-- | --: |
 | Inventoried | **256** (233 JS entries, 4 stylesheets, 19 native-only components) |
-| Keep | **176** |
+| Keep | **177** |
 | Merge into the entry that does the job | **21** (ADR-006's 14, plus 7 deprecations that name a replacement) |
 | Retire | **34** (17 already deprecated, plus 17 new: no live importer, no filed need, no kept entry built on them) |
 | Leave the core: paused products only | **6**, plus `photo-grid`, whose merge target leaves too |
-| Ask: the founder, or the entry's adoption issue | **19** |
+| Ask: the founder, or the entry's adoption issue | **18** |
 
 Rows by domain:
 
 | Domain | Keep | Merge | Retire | Leave core | Ask |
 | :-- | --: | --: | --: | --: | --: |
-| Foundations | 22 | 2 | 3 | 1 | 2 |
+| Foundations | 23 | 2 | 3 | 1 | 1 |
 | Forms | 13 | 2 | 1 | 0 | 1 |
 | Data display | 11 | 1 | 5 | 1 | 0 |
 | Navigation & shell | 27 | 4 | 1 | 0 | 3 |
@@ -93,19 +93,19 @@ Rows by domain:
 | Page blocks & templates | 32 | 8 | 3 | 2 | 1 |
 | Cahier (sites register) | 10 | 0 | 3 | 0 | 4 |
 
-After 4.0, about **176 entries** remain: the kept ones, plus the asks the founder confirms. That is down from 256 rows,
+After 4.0, about **177 entries** remain: the kept ones, plus the asks the founder confirms. That is down from 256 rows,
 about −31 %. Commerce's 25 include the 16 `shop/*` section entries of the shop composer (ADR-007).
 
 ## 2. Keep · merge · retire
 
-### 2.1 Keep — the 176 entries with a live use
+### 2.1 Keep — the 177 entries with a live use
 
 The table in `ui-usage.md` lists them, with their importers.
 
 - **74 are imported by two or more live products.** These are the real core: button, badge, card, field, dialog,
   data-table, theme, nav-bar, alert, page-header, tabs…
 - **56 are imported by one product.**
-- **46 are imported by sites or the cockpit only.** These are mostly the page blocks and the Cahier.
+- **47 are imported by sites or the cockpit only** (or kept because a kept entry is built on them). These are mostly the page blocks and the Cahier.
 
 ### 2.2 Merge — 21, into the entry that already has the users
 
@@ -134,7 +134,7 @@ The pairs (`ui-usage.md`, verdict `merge`):
 
 `photo-grid` → `media-grid` does not happen. `media-grid` leaves the core (§2.4), so `photo-grid` leaves with it.
 
-**Seven of them are still imported by a live consumer.** Each of these gets its adoption before 4.0 (slice 7):
+**Eight of them are still imported by a live consumer.** Each of these gets its adoption before 4.0 (slice 7):
 
 | Entry | Imported by (files) |
 | :-- | :-- |
@@ -145,6 +145,7 @@ The pairs (`ui-usage.md`, verdict `merge`):
 | `tree-view` | cockpit 3 |
 | `step-progress` | motion lab 2 |
 | `mascot-state` | Akinaza's native screens 2 |
+| `text-style/server` | Akinaza 3 (it keeps `text-style` itself in use) |
 
 ### 2.3 Retire — 34
 
@@ -182,7 +183,8 @@ nothing, keeps the paused apps building, and is undone in one line when a produc
 
 ### 2.5 Ask — the founder's short list
 
-The script cannot read taste. Of the 19 asks, **these 8 are « do we like them? » questions**. Without a « yes »
+The script cannot read taste. **Eight « do we like them? » questions** go to the founder: seven of the 18 asks, and
+`captcha`, which the script retires but ADR-006 had kept for an adoption. Without a « yes »
 they retire with the next deprecation batch:
 
 | Entry | What it is | Why it is asked |
@@ -199,7 +201,7 @@ they retire with the next deprecation batch:
 **The other 11 asks are not a question of taste:**
 
 - `proposal`, `schema-form`, `money-input`, `price-catalogue-editor`, `promo-code-field`, `shop-gallery`, `usage`,
-  `text-style`, `desktop-window` and `app-frame/server` are new;
+  `desktop-window` and `app-frame/server` are new;
 - `native:form-flow` and `native:state-screen` are new native components.
 
 They were created in the last 10 days for a filed need. They stay **experimental** (§4) while their first consumer's
@@ -296,7 +298,7 @@ metadata, not a path. The other options were rejected:
 
 | Option | Why not |
 | :-- | :-- |
-| Several packages (`@krizaka/forms`, `@krizaka/maps`…) | **Churn:** 1,833 importing (file, entry) pairs would change, 1,295 of them in the three products (`ui-usage.json`; `button` alone has 240 importer files). **Version skew:** packages released apart drift. **Singletons:** the router context must be one module in the whole package (`tsup.config.ts`, `krizaka-one-router`), and so must the theme and the motion conductor. Several packages would ship several copies, which breaks them silently. **Releases:** twelve changesets and twelve version PRs per change. |
+| Several packages (`@krizaka/forms`, `@krizaka/maps`…) | **Churn:** 1,843 importing (file, entry) pairs would change, 1,304 of them in the three products (`ui-usage.json`; `button` alone has 240 importer files). **Version skew:** packages released apart drift. **Singletons:** the router context must be one module in the whole package (`tsup.config.ts`, `krizaka-one-router`), and so must the theme and the motion conductor. Several packages would ship several copies, which breaks them silently. **Releases:** twelve changesets and twelve version PRs per change. |
 | Domain paths (`@krizaka/ui/forms/field`) | The same churn for the apps, for no gain in tree-shaking. Each subpath is already its own entry: an app pays only for what it imports (size-limit proves it per entry). |
 | **Flat entries + `domain` in `meta.ts`** (chosen) | Zero churn. Tree-shaking unchanged. One release. The domain still drives the docs, the budgets, the owners and the guards. |
 

@@ -3,29 +3,29 @@
   "package": {
     "name": "@krizaka/ui",
     "version": "3.72.0",
-    "distMeasured": "npm @krizaka/ui@3.72.0"
+    "distMeasured": "packages/ui/dist (@krizaka/ui@3.72.0)"
   },
   "consumers": [
     {
       "name": "yomizaka",
       "kind": "product",
       "absent": false,
-      "head": "3ffacd05",
-      "files": 1034
+      "head": "fa530eea",
+      "files": 1037
     },
     {
       "name": "akinaza",
       "kind": "product",
       "absent": false,
-      "head": "b8ddca17",
-      "files": 1006
+      "head": "8cd61e14",
+      "files": 1024
     },
     {
       "name": "orazaka-web-client",
       "kind": "product",
       "absent": false,
-      "head": "2f86d0df",
-      "files": 718
+      "head": "6ae7baf4",
+      "files": 724
     },
     {
       "name": "krizaka-com",
@@ -45,7 +45,7 @@
       "name": "ui-site",
       "kind": "site",
       "absent": false,
-      "head": "258c2c15",
+      "head": "f83e1959",
       "files": 151
     },
     {
@@ -59,7 +59,7 @@
       "name": "ts-site",
       "kind": "site",
       "absent": false,
-      "head": "1412e545",
+      "head": "2b30ee86",
       "files": 59
     },
     {
@@ -314,7 +314,7 @@
       "domain": "foundations",
       "importers": {
         "yomizaka": 44,
-        "akinaza": 53,
+        "akinaza": 54,
         "orazaka-web-client": 83,
         "krizaka-com": 7,
         "blog": 11,
@@ -330,7 +330,7 @@
         "blog": 2,
         "ui-site": 2
       },
-      "live": 257,
+      "live": 258,
       "paused": 47,
       "pausedBy": [
         "orochia",
@@ -379,7 +379,7 @@
       "lastChange": "2026-10-26",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "240 live importer file(s)"
+      "why": "241 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -442,7 +442,7 @@
       "domain": "forms",
       "importers": {
         "yomizaka": 5,
-        "akinaza": 11,
+        "akinaza": 12,
         "orazaka-web-client": 18,
         "blog": 1,
         "ui-site": 2,
@@ -452,7 +452,7 @@
         "yomizaka": 1,
         "akinaza": 2
       },
-      "live": 41,
+      "live": 42,
       "paused": 6,
       "pausedBy": [
         "orochia",
@@ -478,7 +478,7 @@
       "lastChange": "2026-10-25",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "41 live importer file(s)"
+      "why": "42 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -1328,13 +1328,13 @@
       "domain": "feedback",
       "importers": {
         "yomizaka": 48,
-        "akinaza": 48,
+        "akinaza": 49,
         "orazaka-web-client": 21,
         "blog": 1,
         "cockpit": 2
       },
       "nativeUse": {},
-      "live": 120,
+      "live": 121,
       "paused": 33,
       "pausedBy": [
         "yasakia",
@@ -1354,7 +1354,7 @@
       "lastChange": "2026-10-16",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "120 live importer file(s)"
+      "why": "121 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -2959,14 +2959,14 @@
       "importers": {
         "yomizaka": 16,
         "akinaza": 9,
-        "orazaka-web-client": 21,
+        "orazaka-web-client": 22,
         "krizaka-com": 1,
         "ui-site": 2,
         "motion-lab": 4,
         "cockpit": 6
       },
       "nativeUse": {},
-      "live": 59,
+      "live": 60,
       "paused": 15,
       "pausedBy": [
         "orochia",
@@ -2986,7 +2986,7 @@
       "lastChange": "2026-10-27",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "55 live importer file(s)"
+      "why": "56 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -3222,8 +3222,8 @@
       "stories": 1,
       "lastChange": "2026-10-23",
       "created": "2026-10-23",
-      "verdict": "ask",
-      "why": "unused, new (2026-10-23): its adoption issue?"
+      "verdict": "keep",
+      "why": "a sub-entry of it is imported"
     },
     {
       "pkg": "ui",
@@ -3233,9 +3233,11 @@
       "category": null,
       "status": null,
       "domain": "foundations",
-      "importers": {},
+      "importers": {
+        "akinaza": 3
+      },
       "nativeUse": {},
-      "live": 0,
+      "live": 3,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -3352,12 +3354,12 @@
       "status": "beta",
       "domain": "maps",
       "importers": {
-        "akinaza": 1,
+        "akinaza": 3,
         "ui-site": 1,
         "motion-lab": 3
       },
       "nativeUse": {},
-      "live": 5,
+      "live": 7,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -3373,7 +3375,7 @@
       "lastChange": "2026-10-27",
       "created": "2026-10-13",
       "verdict": "keep",
-      "why": "2 live importer file(s)"
+      "why": "4 live importer file(s)"
     },
     {
       "pkg": "ui",

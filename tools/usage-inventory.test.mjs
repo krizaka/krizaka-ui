@@ -4,7 +4,7 @@ import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { budgets, closureSize, decideAll, domainOf, entryOf, gitHead, parseImports, readMeta, readPriorAudit, safePath, verdict, walk } from "./usage-inventory.mjs";
+import { budgets, closureSize, decideAll, domainOf, entryOf, gitHead, locate, parseImports, readMeta, readPriorAudit, verdict, walk } from "./usage-inventory.mjs";
 
 test("parseImports finds every @krizaka/ui and @krizaka/motion specifier, and the names taken from the barrels", () => {
   const src = [
@@ -104,6 +104,8 @@ test("decideAll: « built on » keeps an entry only when what is built on it is 
   ];
   const v = Object.fromEntries(decideAll(rows, { today }).map((r) => [r.name, r.verdict]));
   assert.deepEqual(v, { card: "keep", slot: "keep", glyph: "retire", gone: "retire" });
+  const subs = decideAll([row({ name: "text-style" }), row({ name: "text-style/server", importers: { akinaza: 3 }, live: 3, mergeInto: "text-style" })], { today });
+  assert.equal(subs[0].verdict, "keep", "a parent whose sub-entry is imported is used");
 });
 
 test("walk skips dependencies and build output", () => {
@@ -117,11 +119,13 @@ test("walk skips dependencies and build output", () => {
   assert.deepEqual(walk(dir).map((f) => f.slice(dir.length)), ["/src/a.tsx"]);
 });
 
-test("safePath refuses a path outside the allowed folders", () => {
-  const base = mkdtempSync(join(tmpdir(), "inv-safe-"));
-  assert.equal(safePath(join(base, "a"), [base]), join(base, "a"));
-  assert.throws(() => safePath("/etc/passwd", [base]), /refused path/);
-  assert.throws(() => safePath(join(base, "..", "elsewhere"), [base]), /refused path/);
+test("locate: a fixed local folder, else the index clone, else the inventory's cache, with the site's sub-folder", () => {
+  const index = mkdtempSync(join(tmpdir(), "inv-index-"));
+  const cache = mkdtempSync(join(tmpdir(), "inv-cache-"));
+  mkdirSync(join(index, "akinaza"));
+  assert.equal(locate({ local: "/fixed" }, [index, cache]), "/fixed");
+  assert.equal(locate({ repo: "akinaza" }, [index, cache]), join(index, "akinaza"));
+  assert.equal(locate({ repo: "krizaka-ts", sub: "site" }, [index, cache]), join(cache, "krizaka-ts", "site"));
 });
 
 test("gitHead reads the commit from .git without running git (loose ref, packed ref, detached)", () => {

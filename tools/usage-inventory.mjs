@@ -5,18 +5,17 @@
 // the domain ADR-008 gives it; then a proposed verdict (keep · merge · retire · leave-core · ask) from the data.
 // Read-only: it reads checkouts, prints nothing of a consumer but the counts of its imports of @krizaka/*.
 //
-//   node tools/usage-inventory.mjs                       # markdown on stdout (default checkouts, see CONSUMERS)
-//   node tools/usage-inventory.mjs --json                # JSON on stdout
-//   node tools/usage-inventory.mjs --out docs/inventory  # writes ui-usage.json + ui-usage.md
-//   node tools/usage-inventory.mjs --consumer blog=../krizaka-blog --paused orochia=../orochia --motion ../krizaka-motion
-//   node tools/usage-inventory.mjs --dist /tmp/package/dist   # measure sizes from a built (or published) dist
+//   node tools/usage-inventory.mjs           # writes docs/inventory/ui-usage.{json,md}
+//   node tools/usage-inventory.mjs --clone   # first shallow-clones the public consumers it cannot find (CI, a new machine)
 //
-// Paths given on the command line must lie under the home folder, the temp folder or this repository.
-// A consumer whose checkout is missing is recorded as `absent` (CI has none of them): rerun on a machine that has them.
+// No path comes from the command line. Each consumer is read from the codegraph index (~/.krizaka-index/<repo>), else
+// from the inventory's own clone cache (~/.cache/krizaka-inventory/<repo>, filled by --clone); a consumer found in
+// neither is recorded as `absent`. Sizes are measured from packages/ui/dist (`pnpm --filter @krizaka/ui build`, or the
+// published tarball's dist unpacked there).
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readdirSync, readFileSync, realpathSync, statSync, writeFileSync } from "node:fs";
-import { homedir, tmpdir } from "node:os";
-import { basename, dirname, join, relative, resolve, sep } from "node:path";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { homedir } from "node:os";
+import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 import { gzipSync } from "node:zlib";
@@ -24,25 +23,43 @@ import { gzipSync } from "node:zlib";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const HOME = homedir();
 const INDEX = join(HOME, ".krizaka-index");
+const CACHE = join(HOME, ".cache/krizaka-inventory");
 /** git at a fixed path: no lookup through PATH. */
 const GIT = "/usr/bin/git";
 
 /** Live consumers (kind: product · site · tool). `ui-site` = ui.krizaka.com's own chrome (examples are not counted). */
 export const CONSUMERS = [
-  { name: "yomizaka", kind: "product", path: join(INDEX, "yomizaka") },
-  { name: "akinaza", kind: "product", path: join(INDEX, "akinaza") },
-  { name: "orazaka-web-client", kind: "product", path: join(INDEX, "orazaka-web-client") },
-  { name: "krizaka-com", kind: "site", path: join(INDEX, "krizaka-com") },
-  { name: "blog", kind: "site", path: join(INDEX, "krizaka-blog") },
-  { name: "ui-site", kind: "site", path: join(ROOT, "apps/site") },
-  { name: "java-site", kind: "site", path: join(INDEX, "krizaka-build/site") },
-  { name: "ts-site", kind: "site", path: join(INDEX, "krizaka-ts/site") },
-  { name: "motion-lab", kind: "site", path: join(INDEX, "krizaka-motion") },
-  { name: "cockpit", kind: "tool", path: join(HOME, "Documents/krizaka/tools/cockpit-next") },
+  { name: "yomizaka", kind: "product", repo: "yomizaka" },
+  { name: "akinaza", kind: "product", repo: "akinaza" },
+  { name: "orazaka-web-client", kind: "product", repo: "orazaka-web-client" },
+  { name: "krizaka-com", kind: "site", repo: "krizaka-com" },
+  { name: "blog", kind: "site", repo: "krizaka-blog" },
+  { name: "ui-site", kind: "site", local: join(ROOT, "apps/site") },
+  { name: "java-site", kind: "site", repo: "krizaka-build", sub: "site" },
+  { name: "ts-site", kind: "site", repo: "krizaka-ts", sub: "site" },
+  { name: "motion-lab", kind: "site", repo: "krizaka-motion" },
+  // private, on the founder's machine only: read for import names, never cloned
+  { name: "cockpit", kind: "tool", local: join(HOME, "Documents/krizaka/tools/cockpit-next") },
 ];
 const PAUSED_NAMES = new Set(["orochia", "yasakia", "yororis", "kachizaka"]);
 /** Paused products (Orochia, Yasakia, Yororis, Kachizaka): counted apart, they keep nothing in the core. */
-export const PAUSED = [...PAUSED_NAMES].map((name) => ({ name, kind: "paused", path: join(INDEX, name) }));
+export const PAUSED = [...PAUSED_NAMES].map((name) => ({ name, kind: "paused", repo: name }));
+
+/** Where a consumer is read from: its fixed local folder, else the index clone, else the inventory's own clone. */
+export function locate(c, roots = [INDEX, CACHE]) {
+  if (c.local) return c.local;
+  const found = roots.map((r) => join(r, c.repo)).find((p) => existsSync(p)) ?? join(roots.at(-1), c.repo);
+  return c.sub ? join(found, c.sub) : found;
+}
+
+/** Shallow-clones (main) the public consumers found nowhere, into the inventory's cache. Fixed names, fixed URLs. */
+function cloneMissing(list) {
+  mkdirSync(CACHE, { recursive: true });
+  for (const c of list) {
+    if (c.local || [INDEX, CACHE].some((r) => existsSync(join(r, c.repo)))) continue;
+    execFileSync(GIT, ["clone", "--quiet", "--depth", "1", `https://github.com/krizaka/${c.repo}.git`, join(CACHE, c.repo)], { stdio: ["ignore", "ignore", "inherit"] });
+  }
+}
 /** Consumers whose use alone does not keep an entry: the motion lab only shows things off. */
 export const SHOWCASE = new Set(["motion-lab"]);
 
@@ -103,14 +120,6 @@ export function domainOf(name, category, parentCategory = null) {
   if (own) return own;
   if (!name.includes("/") || name.startsWith("native/")) return null;
   return OVERRIDE.get(name.split("/")[0]) ?? CATEGORY_DOMAIN[parentCategory] ?? null;
-}
-
-/** A path from the command line, resolved, refused unless it lies under the home folder, the temp folder or the repo. */
-export function safePath(input, bases = [HOME, tmpdir(), "/tmp", ROOT]) {
-  const full = resolve(input);
-  const roots = bases.flatMap((b) => [resolve(b), existsSync(b) ? realpathSync(b) : resolve(b)]);
-  if (!roots.some((r) => full === r || full.startsWith(r + sep))) throw new Error(`refused path outside the allowed folders: ${input}`);
-  return full;
 }
 
 const SKIP_DIRS = new Set(["node_modules", ".next", "dist", "build", ".git", "coverage", ".turbo", "out", "storybook-static", ".expo", "android", "ios", ".vercel", ".codegraph", "__screenshots__"]);
@@ -244,7 +253,7 @@ export function closureSize(dist, file, cache = new Map()) {
 
 const UNIT = { B: 1, kB: 1000, KB: 1024, MB: 1e6 };
 const parseLimit = (s) => {
-  const m = /([\d.]+)\s*(B|kB|KB|MB)/.exec(String(s));
+  const m = /([\d.]+) ?(B|kB|KB|MB)/.exec(String(s));
   return m ? Math.round(Number(m[1]) * UNIT[m[2]]) : null;
 };
 
@@ -258,6 +267,11 @@ export function budgets(sizeLimit) {
   }
   return map;
 }
+
+const stripExt = (name) => {
+  const dot = name.lastIndexOf(".");
+  return dot > 0 ? name.slice(0, dot) : name;
+};
 
 /** The last change and the first commit (YYYY-MM-DD) of each top item under `dir` of this repository, in one git pass. */
 function history(dir) {
@@ -274,7 +288,7 @@ function history(dir) {
     if (line.startsWith("@")) date = line.slice(1);
     else if (line.startsWith(dir + "/")) {
       const rest = line.slice(dir.length + 1);
-      const top = rest.includes("/") ? rest.split("/")[0] : rest.replace(/\.[^.]+$/, "");
+      const top = rest.includes("/") ? rest.split("/")[0] : stripExt(rest);
       if (!last.has(top)) last.set(top, date);
       first.set(top, date); // newest first: the last date seen is the first commit
     }
@@ -324,7 +338,7 @@ function unusedVerdict(e, newDays, today) {
  * The proposed verdict of an entry, from its facts (ADR-008 §2), given the entries already kept (`kept`): « built on »
  * keeps an entry only when the entry built on it is itself kept (ADR-006 §7 rule c).
  */
-export function verdict(e, { kept = new Set(), newDays = 10, today = new Date().toISOString().slice(0, 10) } = {}) {
+export function verdict(e, { kept = new Set(), usedSubs = new Set(), newDays = 10, today = new Date().toISOString().slice(0, 10) } = {}) {
   if (e.mergeInto) return { verdict: "merge", into: e.mergeInto, why: "ADR-006 merge (#675), or deprecated in favour of another entry" };
   if (e.status === "deprecated") return { verdict: "retire", why: "already deprecated (#674), removed in 4.0" };
   const real = realUse(e);
@@ -332,15 +346,17 @@ export function verdict(e, { kept = new Set(), newDays = 10, today = new Date().
   const keptBy = e.builtOnBy.filter((d) => kept.has(d));
   if (keptBy.length) return { verdict: "keep", why: `built on by ${keptBy.slice(0, 3).join(", ")}${keptBy.length > 3 ? "…" : ""}` };
   if (e.issue) return { verdict: "keep", why: `filed need ${e.issue}` };
+  if (usedSubs.has(e.name)) return { verdict: "keep", why: "a sub-entry of it is imported" };
   return unusedVerdict(e, newDays, today);
 }
 
 /** Verdicts for all rows: the kept set grows until nothing changes (an entry kept by use keeps what it is built on). */
 export function decideAll(rows, opts = {}) {
+  const usedSubs = new Set(rows.filter((r) => r.name.includes("/") && realUse(r) > 0).map((r) => r.name.split("/")[0]));
   let kept = new Set();
   let out = rows;
   for (let i = 0; i < 10; i++) {
-    out = rows.map((r) => ({ ...r, ...verdict(r, { ...opts, kept }) }));
+    out = rows.map((r) => ({ ...r, ...verdict(r, { ...opts, kept, usedSubs }) }));
     const next = new Set(out.filter((r) => r.verdict === "keep" && r.kind === "entry").map((r) => r.name.split("/")[0]));
     const stable = next.size === kept.size && [...next].every((n) => kept.has(n));
     kept = next;
@@ -373,8 +389,8 @@ function scanConsumer(c, keys, motionKeys) {
   return { ...scan, head: gitHead(c.path), files: files.length };
 }
 
-const RELATIVE_IMPORT = /from\s*["']\.\.\/(?:\.\.\/)?([\w-]+)[^"']*["']/g;
-const OWN_ENTRY_IMPORT = /from\s*["']@krizaka\/ui\/([\w-]+)["']/g;
+const RELATIVE_IMPORT = /from ["']\.\.\/(?:\.\.\/)?([\w-]+)/g;
+const OWN_ENTRY_IMPORT = /from ["']@krizaka\/ui\/([\w-]+)["']/g;
 
 /** Which src/<dir> of the package imports which other src/<dir> (relative imports, or its own entries): « built on ». */
 function internalDeps(srcDir, dirs, entryNames) {
@@ -405,48 +421,45 @@ function nativeCount(scan, names) {
   return n;
 }
 
+function entryRow(key, srcDir) {
+  const name = key === "." ? "." : key.slice(2);
+  const dir = name.split("/")[0].replace(/\.css$/, "");
+  const metaPath = join(srcDir, dir, "meta.ts");
+  const meta = existsSync(metaPath) ? readMeta(readFileSync(metaPath, "utf8")) : {};
+  const sub = name.includes("/");
+  return { name, dir, meta: sub ? {} : meta, parentCategory: sub ? (meta.category ?? null) : null, kind: name.endsWith(".css") ? "css" : "entry" };
+}
+
 /** The rows: every export key (wildcard registry keys aside), then the native-only components of the registry. */
 function collectRows(keys, srcDir) {
-  const rows = [];
-  for (const key of keys) {
-    if (key.includes("*") || key === "./package.json") continue;
-    const name = key === "." ? "." : key.slice(2);
-    const dir = name.split("/")[0].replace(/\.css$/, "");
-    const metaPath = join(srcDir, dir, "meta.ts");
-    const metaText = existsSync(metaPath) ? readFileSync(metaPath, "utf8") : null;
-    const sub = name.includes("/");
-    rows.push({
-      name,
-      dir,
-      meta: metaText && !sub ? readMeta(metaText) : {},
-      parentCategory: metaText && sub ? readMeta(metaText).category : null,
-      kind: name.endsWith(".css") ? "css" : "entry",
-    });
-  }
+  const rows = [...keys].filter((k) => !k.includes("*") && k !== "./package.json").map((k) => entryRow(k, srcDir));
   const nativeMetaDir = join(srcDir, "native/meta");
-  for (const f of existsSync(nativeMetaDir) ? readdirSync(nativeMetaDir) : []) {
+  const nativeFiles = existsSync(nativeMetaDir) ? readdirSync(nativeMetaDir) : [];
+  for (const f of nativeFiles) {
     rows.push({ name: `native:${basename(f, ".ts")}`, dir: "native", meta: readMeta(readFileSync(join(nativeMetaDir, f), "utf8")), kind: "native-only" });
   }
   return rows;
 }
 
+/** Per scan, the files that take this web+native component's names from @krizaka/ui/native. */
+function nativeUseOf(r, scans) {
+  const nativeUse = {};
+  if (r.kind !== "entry" || !r.meta.nativeImports?.length) return nativeUse;
+  const names = new Set(r.meta.nativeImports);
+  for (const scan of scans) {
+    const n = nativeCount(scan, names);
+    if (n) nativeUse[scan.name] = n;
+  }
+  return nativeUse;
+}
+
 /** Importers of a row across the scans: per consumer, the total, and which paused products use it. */
 function usage(r, consumers, paused) {
-  const count = r.kind === "native-only" ? (scan) => nativeCount(scan, new Set(r.meta.nativeImports)) : (scan) => scan.entries.get(`ui:${r.name}`) ?? 0;
-  const importers = {};
-  for (const scan of consumers) {
-    const n = count(scan);
-    if (n) importers[scan.name] = n;
-  }
+  const names = new Set(r.meta.nativeImports ?? []);
+  const count = r.kind === "native-only" ? (scan) => nativeCount(scan, names) : (scan) => scan.entries.get(`ui:${r.name}`) ?? 0;
+  const importers = Object.fromEntries(consumers.map((scan) => [scan.name, count(scan)]).filter(([, n]) => n > 0));
   const pausedBy = paused.filter((scan) => count(scan) > 0).map((scan) => scan.name);
-  const nativeUse = {};
-  if (r.kind === "entry" && r.meta.nativeImports?.length) {
-    const names = new Set(r.meta.nativeImports);
-    for (const scan of [...consumers, ...paused]) {
-      const n = nativeCount(scan, names);
-      if (n) nativeUse[scan.name] = n;
-    }
-  }
+  const nativeUse = nativeUseOf(r, [...consumers, ...paused]);
   const liveNative = sum(Object.entries(nativeUse).filter(([n]) => !PAUSED_NAMES.has(n)).map(([, c]) => c));
   return { importers, nativeUse, live: sum(Object.values(importers)) + liveNative, paused: sum(paused.map(count)), pausedBy };
 }
@@ -516,7 +529,7 @@ export function buildInventory(opts) {
   const srcDir = join(uiDir, "src");
   const dirs = readdirSync(srcDir).filter((d) => statSync(join(srcDir, d)).isDirectory());
   const adr006 = join(ROOT, "docs/adr/ADR-006-krizaka-ui-2027.md");
-  const dist = opts.dist ?? join(uiDir, "dist");
+  const dist = join(uiDir, "dist");
   const consumers = opts.consumers.map((c) => scanConsumer(c, keys, motionKeys));
   const paused = opts.paused.map((c) => scanConsumer(c, keys, motionKeys));
   const ctx = {
@@ -538,7 +551,7 @@ export function buildInventory(opts) {
   const head = (c) => ({ name: c.name, kind: c.kind, absent: c.absent, head: c.head ?? null, files: c.files });
   return {
     generated: today,
-    package: { name: pkg.name, version: pkg.version, distMeasured: ctx.hasDist ? (opts.distLabel ?? relative(ROOT, dist)) : null },
+    package: { name: pkg.name, version: pkg.version, distMeasured: ctx.hasDist ? `packages/ui/dist (@krizaka/ui@${pkg.version})` : null },
     consumers: consumers.map(head),
     paused: paused.map(head),
     entries: decideAll(collectRows(keys, srcDir).map((r) => describe(r, ctx)), { today }),
@@ -628,50 +641,22 @@ export function toMarkdown(inv) {
   return lines.join("\n") + "\n";
 }
 
-function parsePairs(list, kind) {
-  return (list ?? []).map((s) => {
-    const [name, path] = s.split("=");
-    return { name, kind, path: safePath(path) };
-  });
-}
-
-function withOverrides(base, pairs) {
-  return base.map((c) => {
-    const hit = pairs.find((p) => p.name === c.name);
-    return hit ? { ...c, path: hit.path } : c;
-  });
-}
-
 function main() {
-  const { values } = parseArgs({
-    options: {
-      json: { type: "boolean" },
-      out: { type: "string" },
-      dist: { type: "string" },
-      "dist-label": { type: "string" },
-      motion: { type: "string" },
-      consumer: { type: "string", multiple: true },
-      paused: { type: "string", multiple: true },
-    },
-  });
-  const motionPath = values.motion ? safePath(values.motion) : CONSUMERS.find((c) => c.name === "motion-lab").path;
-  const consumers = withOverrides(CONSUMERS, parsePairs(values.consumer, "site")).map((c) => (c.name === "motion-lab" ? { ...c, path: motionPath } : c));
+  const { values } = parseArgs({ options: { clone: { type: "boolean" } } });
+  if (values.clone) cloneMissing([...CONSUMERS, ...PAUSED]);
+  const at = (c) => ({ ...c, path: locate(c) });
+  const consumers = CONSUMERS.map(at);
   const inv = buildInventory({
     consumers,
-    paused: withOverrides(PAUSED, parsePairs(values.paused, "paused")),
-    motion: motionPath,
-    dist: values.dist ? safePath(values.dist) : undefined,
-    distLabel: values["dist-label"],
+    paused: PAUSED.map(at),
+    motion: consumers.find((c) => c.name === "motion-lab").path,
   });
-  if (!values.out) {
-    console.log(values.json ? JSON.stringify(inv, null, 2) : toMarkdown(inv));
-    return;
-  }
-  const out = safePath(values.out);
+  const out = join(ROOT, "docs/inventory");
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "ui-usage.json"), JSON.stringify(inv, null, 2) + "\n");
   writeFileSync(join(out, "ui-usage.md"), toMarkdown(inv));
-  console.log(`wrote ${relative(process.cwd(), out) || "."}/ui-usage.{json,md}: ${inv.entries.length} entries, ${listOf(summarise(inv).verdicts)}`);
+  const verdicts = summarise(inv).verdicts;
+  process.stdout.write(`docs/inventory/ui-usage.{json,md}: ${inv.entries.length} entries, ${listOf(verdicts)}\n`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();
