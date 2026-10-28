@@ -81,6 +81,17 @@
 .kz-pinned-note[data-ink="hue"] { --kz-note-ink: var(--kz-hue-text, var(--kz-accent-text)); }
 .kz-pinned-note-text { margin: 0; overflow: hidden; block-size: calc(var(--kz-note-lines) * 1.4em); font: 1.25rem/1.4 var(--kz-font-cahier); white-space: pre-wrap; color: var(--kz-note-ink); }
 .kz-pinned-note-signature { margin: 1rem 0 0; text-align: end; font: 1.25rem/1.3 var(--kz-font-cahier); color: var(--kz-note-ink); }
+/* A real post-it: pale paper in both themes, the pen dark on it (4.5:1 and more); the action keeps the ink and a visible focus. */
+.kz-pinned-note[data-paper] { --kz-note-ink: #1f2a44; }
+.kz-pinned-note[data-paper][data-ink="margin"] { --kz-note-ink: #8c1d2c; }
+.kz-pinned-note[data-paper] .kz-pinned-note-paper { color: var(--kz-note-ink); }
+.kz-pinned-note[data-paper="butter"] .kz-pinned-note-paper { background: #fff3a8; }
+.kz-pinned-note[data-paper="rose"] .kz-pinned-note-paper { background: #ffd1dc; }
+.kz-pinned-note[data-paper="mint"] .kz-pinned-note-paper { background: #c9f0d8; }
+.kz-pinned-note[data-paper="sky"] .kz-pinned-note-paper { background: #cfe6ff; }
+.kz-pinned-note-action { margin-block-start: .75rem; font: 600 .875rem/1.3 var(--kz-font-sans, inherit); }
+.kz-pinned-note-action a, .kz-pinned-note-action button { color: var(--kz-note-ink); text-decoration: underline; text-underline-offset: 3px; }
+.kz-pinned-note-action :focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 /* The sign is its own size container: its text scales to its width (cqi of the content box), so a long name fits whole — a word is never cut or hyphenated. */
 .kz-shop-sign { container-type: inline-size; padding: 1.75rem; text-align: center; overflow-wrap: normal; hyphens: manual; word-break: normal; }
 .kz-shop-sign-logo { font: min(1.75rem, 12cqi)/1.25 var(--kz-font-display); overflow-wrap: normal; }
