@@ -16,7 +16,7 @@ export type MapGateProps = {
   places?: StaticMapProps["places"];
   /** The button's words (`Show the map`). */
   showLabel: string;
-  /** More props of the live map (`brand`, `lang`, `labels`). */
+  /** More props of the live map (`brand`, `lang`, `labels`). Its `className` replaces the default `h-full w-full`: the map fills the gate's frame. */
   map?: Partial<Omit<MapProps, "label" | "center" | "zoom" | "fallback">>;
   className?: string;
 };
@@ -38,7 +38,7 @@ export function MapGate({ label, center, zoom = 14, places, showLabel, map, clas
   return (
     <div className={className} data-live={live ? "" : undefined}>
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-border-default sm:aspect-[16/9]">
-        {live ? <LiveMap label={label} center={center} zoom={zoom} fallback={still} {...map} /> : still}
+        {live ? <LiveMap label={label} center={center} zoom={zoom} fallback={still} {...map} className={map?.className ?? "h-full w-full"} /> : still}
         {!live && (
           <button
             type="button"
