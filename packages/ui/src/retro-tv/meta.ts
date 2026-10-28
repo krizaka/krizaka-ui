@@ -22,11 +22,16 @@ export const meta = {
     "Give the player a title, poster and translated `labels`; pass WebVTT captions as `tracks`.",
     "Keep autoplay muted; it starts only while the player is on screen and waits under reduced motion.",
     "Use `off` for the static screen; the video is not loaded or played in this state.",
+    "`playlist` plays the programmes in order, then loops; `transition` is `channel`, `crossfade` or `slide` and is a plain cut under reduced motion. Sound starts off: remember the visitor's choice from `onMutedChange`.",
+    "A programme without `src` is a slot: fill it with `renderEmbed` (an `EmbedFacade` behind its consent click); the library loads no third-party script.",
     "A platform's short video (TikTok, YouTube Shorts, Instagram) goes in as `children`, an `EmbedFacade`: the television's screen shows the facade, and nothing is requested from the platform before the visitor's click.",
   ],
   accessibility: {
     keyboard: [
       { keys: "Space / K", action: "Play or pause the focused video." },
+      { keys: "N / P", action: "Next or previous programme of a playlist." },
+      { keys: "M", action: "Turn the sound on or off." },
+      { keys: "Arrow left / right", action: "Seek 5 seconds." },
       { keys: "Tab", action: "Move through the player's named controls." },
     ],
     notes: [
@@ -41,6 +46,9 @@ export const meta = {
     examples: [
       { name: "cabinet", title: "Wood cabinet", description: "A vertical shop story in the cabinet television, with its channel label and player controls." },
       { name: "portable", title: "Portable set", description: "The same vertical story in a compact cream television cabinet." },
+      { name: "playlist-channel", title: "Playlist, channel switch", description: "`playlist` with `transition=\"channel\"`: static and a roll between programmes, in order, then looping." },
+      { name: "playlist-crossfade", title: "Playlist, crossfade", description: "`transition=\"crossfade\"`: one programme dissolves into the next." },
+      { name: "playlist-slide", title: "Playlist, slide", description: "`transition=\"slide\"`: the next programme pushes the last one out." },
       { name: "facade", title: "A platform's reel behind a facade", description: "`children`: an `EmbedFacade` on the screen, nothing loaded until the click." },
     ],
   },

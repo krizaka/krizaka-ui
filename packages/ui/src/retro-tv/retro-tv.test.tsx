@@ -1,4 +1,4 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 
 import { EmbedFacade } from "../embed-facade";
 import { axeViolations } from "../test/axe";
@@ -138,3 +138,92 @@ describe("RetroTv with a platform's reel (krizaka-ui#605)", () => {
   });
 });
 
+
+describe("RetroTv playlist (akinaza#469)", () => {
+  const list = [
+    { id: "a", title: "Alpha", src: "/a.mp4", poster: "/a.jpg" },
+    { id: "b", title: "Beta", src: "/b.mp4", poster: "/b.jpg", tracks: [{ src: "/b.vtt", srcLang: "en", label: "English" }] },
+    { id: "c", title: "Gamma", src: "/c.mp4", poster: "/c.jpg" },
+  ];
+  const tv = (props: Partial<React.ComponentProps<typeof RetroTv>> = {}) => <RetroTv title="Shorts" playlist={list} {...props} />;
+  const now = () => screen.getByText(/^Now playing:/).textContent;
+  const reduce = () => {
+    window.matchMedia = ((query: string) => ({ matches: query.includes("reduce"), media: query, addEventListener: () => undefined, removeEventListener: () => undefined })) as unknown as typeof window.matchMedia;
+  };
+  const original = window.matchMedia;
+  afterEach(() => { window.matchMedia = original; });
+
+  it("plays in order and loops back to the first", () => {
+    const { container } = render(tv());
+    expect(now()).toContain("Alpha (1/3)");
+    for (const title of ["Beta (2/3)", "Gamma (3/3)", "Alpha (1/3)"]) {
+      fireEvent.ended(container.querySelector(".kz-rtv-layer[data-role=in] video")!);
+      expect(now()).toContain(title);
+    }
+  });
+
+  it("goes back from the first to the last", () => {
+    render(tv());
+    fireEvent.click(screen.getByRole("button", { name: "Previous video" }));
+    expect(now()).toContain("Gamma (3/3)");
+  });
+
+  it.each(["channel", "crossfade", "slide"] as const)("transition %s keeps the outgoing layer, then drops it", (transition) => {
+    vi.useFakeTimers();
+    const { container } = render(tv({ transition }));
+    fireEvent.click(screen.getByRole("button", { name: "Next video" }));
+    expect(container.querySelector(".kz-rtv-layer[data-role=out]")?.getAttribute("data-tr")).toBe(transition);
+    expect(container.querySelector(".kz-rtv-static") !== null).toBe(transition === "channel");
+    act(() => { vi.advanceTimersByTime(700); });
+    expect(container.querySelector(".kz-rtv-layer[data-role=out]")).toBeNull();
+    vi.useRealTimers();
+  });
+
+  it("cuts under reduced motion", () => {
+    reduce();
+    const { container } = render(tv());
+    fireEvent.click(screen.getByRole("button", { name: "Next video" }));
+    expect(container.querySelector(".kz-rtv-layer[data-role=out]")).toBeNull();
+    expect(container.querySelector(".kz-rtv-static")).toBeNull();
+    expect(now()).toContain("Beta");
+  });
+
+  it("is muted by default and reports the visitor's choice", () => {
+    const onMutedChange = vi.fn();
+    const { container } = render(tv({ onMutedChange }));
+    expect((container.querySelector("video") as HTMLVideoElement).muted).toBe(true);
+    fireEvent.click(screen.getByRole("button", { name: "Sound off: turn on" }));
+    expect(onMutedChange).toHaveBeenCalledWith(false);
+    expect(screen.getByRole("button", { name: "Sound on: turn off" }).getAttribute("aria-pressed")).toBe("true");
+  });
+
+  it("is driven from the keyboard", () => {
+    render(tv());
+    const region = screen.getByRole("region", { name: "Shorts" });
+    fireEvent.keyDown(region, { key: "n" });
+    expect(now()).toContain("Beta");
+    fireEvent.keyDown(region, { key: "p" });
+    expect(now()).toContain("Alpha");
+    fireEvent.keyDown(region, { key: "m" });
+    expect(screen.getByRole("button", { name: "Sound on: turn off" })).toBeTruthy();
+  });
+
+  it("offers captions only when the programme has tracks", () => {
+    render(tv());
+    expect(screen.queryByRole("button", { name: "Captions" })).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Next video" }));
+    fireEvent.click(screen.getByRole("button", { name: "Captions" }));
+    expect(screen.getByRole("button", { name: "Captions" }).getAttribute("aria-pressed")).toBe("true");
+  });
+
+  it("lets the host fill an embed slot and loads no third-party script itself", () => {
+    const { container } = render(tv({ playlist: [{ id: "e", title: "Reel" }], renderEmbed: (s) => <span data-testid="embed">{s.title}</span> }));
+    expect(screen.getByTestId("embed").textContent).toBe("Reel");
+    expect(container.querySelector("iframe, script")).toBeNull();
+  });
+
+  it("has no axe violations", async () => {
+    const { container } = render(tv());
+    expect(await axeViolations(container)).toEqual([]);
+  });
+});
