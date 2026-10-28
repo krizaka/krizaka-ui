@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import BookingClosing from "../../registry/examples/shop/booking-closing";
+import BookingClosingClosed from "../../registry/examples/shop/booking-closing-closed";
+import BookingClosingMark from "../../registry/examples/shop/booking-closing-mark";
 import BookingPanel from "../../registry/examples/shop/booking-panel";
 import BookingSticky from "../../registry/examples/shop/booking-sticky";
 import BookingStrip from "../../registry/examples/shop/booking-strip";
@@ -42,6 +45,11 @@ export const HeroTv: Story = { name: "Hero · tv", render: () => <TvExample />, 
 export const BookingStrip_: Story = { name: "Booking · strip", render: () => <BookingStrip /> };
 export const BookingStripPhone: Story = { name: "Booking · strip (phone)", render: () => <BookingStrip />, parameters: { phone: true, noOverflow: true } };
 export const BookingPanel_: Story = { name: "Booking · panel", render: () => <BookingPanel /> };
+export const BookingClosing_: Story = { name: "Booking · closing", render: () => <BookingClosing /> };
+export const BookingClosingPhone: Story = { name: "Booking · closing (phone)", render: () => <BookingClosing />, parameters: { phone: true, noOverflow: true } };
+export const BookingClosingClosed_: Story = { name: "Booking · closing, closed today", render: () => <BookingClosingClosed /> };
+export const BookingClosingMark_: Story = { name: "Booking · closing, mark only", render: () => <BookingClosingMark /> };
+export const BookingClosingMarkPhone: Story = { name: "Booking · closing, mark only (phone)", render: () => <BookingClosingMark />, parameters: { phone: true, noOverflow: true } };
 export const BookingSticky_: Story = { name: "Booking · sticky", render: () => <BookingSticky />, parameters: { phone: true } };
 
 export const GalleryMosaic_: Story = { name: "Gallery · mosaic", render: () => <GalleryMosaic /> };

@@ -53,7 +53,7 @@ const renderers: Record<string, Record<string, (shop: DemoShop) => React.ReactEl
     ]),
   ),
   booking: Object.fromEntries(
-    (["strip", "panel", "sticky"] as const).map((variant) => [
+    (["strip", "panel", "closing", "sticky"] as const).map((variant) => [
       variant,
       (shop: DemoShop) => <BookingSection variant={variant} label="Next free times" times={shop.times} href="#book" actionLabel="Book" title="Ready when you are" body="A few taps." />,
     ]),
@@ -220,6 +220,49 @@ describe("booking", () => {
     expect(screen.getAllByRole("link").length).toBe(5);
     rerender(<BookingSection label="Next free times" times={[]} emptyLabel="Nothing free this week" href="#book" actionLabel="All times" />);
     expect(screen.getByText("Nothing free this week")).toBeTruthy();
+  });
+});
+
+describe("booking · closing", () => {
+  const photo = { src: "/p.webp", alt: "The chair", srcSet: "/p-480.webp 480w" };
+  const nextTime = { id: "t1", label: "Tomorrow 9 am", href: "#t1" };
+  const base = { variant: "closing" as const, label: "Book", title: "Ready when you are", href: "#book", actionLabel: "Book" };
+
+  it("is a section named by its h2, with the photo in a fixed box, lazy", () => {
+    const { container } = render(<BookingSection {...base} photo={photo} nextTime={nextTime} nextTimeLabel="Next free time" secondary={{ label: "Call", href: "tel:+15145550100" }} />);
+    expect(screen.getByRole("region", { name: "Ready when you are" })).toBeTruthy();
+    expect(screen.getByRole("heading", { level: 2, name: "Ready when you are" })).toBeTruthy();
+    expect(container.querySelector("[data-shop-photo]")!.getAttribute("data-ratio")).toBe("4/3");
+    expect(container.querySelector("img")!.getAttribute("loading")).toBe("lazy");
+    expect(container.querySelector("img")!.getAttribute("fetchpriority")).toBeNull();
+  });
+
+  it("shows the next free time as a text link, the primary « Book » and the secondary action", () => {
+    render(<BookingSection {...base} nextTime={nextTime} secondary={{ label: "Call", href: "tel:+15145550100" }} />);
+    expect(screen.getByRole("link", { name: "Tomorrow 9 am" }).getAttribute("href")).toBe("#t1");
+    expect(screen.getByRole("link", { name: "Book" }).getAttribute("href")).toBe("#book");
+    expect(screen.getByRole("link", { name: "Call" })).toBeTruthy();
+  });
+
+  it("without a free time or a photo: the title and the primary alone, never an empty box", () => {
+    const { container } = render(<BookingSection {...base} mark={<svg data-testid="mark" />} />);
+    expect(screen.getAllByRole("link")).toHaveLength(1);
+    expect(container.querySelector("[aria-hidden]")!.querySelector("[data-testid=mark]")).toBeTruthy();
+    expect(container.querySelector("[data-shop-photo]")).toBeNull();
+  });
+
+  it("holds no client code: it renders to static markup", async () => {
+    const { renderToStaticMarkup } = await import("react-dom/server");
+    const html = renderToStaticMarkup(<BookingSection {...base} photo={photo} nextTime={nextTime} />);
+    expect(html).toContain("Tomorrow 9 am");
+    expect(html).not.toMatch(/<script/i);
+  });
+
+  it("has no axe violation, with and without a photo", async () => {
+    const { container, rerender } = render(<BookingSection {...base} photo={photo} nextTime={nextTime} secondary={{ label: "Call", href: "tel:+15145550100" }} />);
+    expect(await axeViolations(container)).toEqual([]);
+    rerender(<BookingSection {...base} />);
+    expect(await axeViolations(container)).toEqual([]);
   });
 });
 
