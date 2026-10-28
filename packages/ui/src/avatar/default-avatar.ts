@@ -38,6 +38,11 @@ export interface DefaultAvatar {
    * @default "person"
    */
   kind?: DefaultAvatarKind;
+  /**
+   * The family's central set (`listDefaults("person")` of `@krizaka/org`): when given with a `seed`, the avatar is the set's picture for that seed —
+   * the same person has the same picture in every product — instead of the brand's silhouette. An empty set, or no seed, draws the silhouette.
+   */
+  set?: readonly DefaultAvatarPicture[];
 }
 
 /** The mark gradient of each brand (BRAND.md, `$extensions["com.krizaka"].mark`) as [hue, saturation %, lightness %] and the hue spread of its tones. */
@@ -86,15 +91,36 @@ export function defaultAvatarTone(brand: DefaultAvatarBrand, tone: number): read
 
 const clampTone = (tone: number) => Math.min(DEFAULT_AVATAR_TONES, Math.max(1, Math.round(tone)));
 
-/** 1 to 6 from a seed (FNV-1a): stable across renders, devices and products. */
-export function defaultAvatarToneOf(seed: string | number | undefined): number {
-  if (seed === undefined) return 1;
+/** 32-bit FNV-1a of a seed: the rule of the family's default pictures (`@krizaka/org`'s `seedHash` is the same function). */
+export function defaultAvatarSeedHash(seed: string | number): number {
   let h = 0x811c9dc5;
   for (const ch of String(seed)) {
     h ^= ch.codePointAt(0) ?? 0;
     h = Math.imul(h, 0x01000193) >>> 0;
   }
-  return (h % DEFAULT_AVATAR_TONES) + 1;
+  return h;
+}
+
+/** 1 to 6 from a seed (FNV-1a): stable across renders, devices and products. */
+export function defaultAvatarToneOf(seed: string | number | undefined): number {
+  if (seed === undefined) return 1;
+  return (defaultAvatarSeedHash(seed) % DEFAULT_AVATAR_TONES) + 1;
+}
+
+/**
+ * One picture of the family's central set, as `@krizaka/org` lists it (`listDefaults("person")` items fit as they are): the sizes it is served in.
+ * `disabled` pictures are never picked.
+ */
+export interface DefaultAvatarPicture {
+  id: string;
+  disabled?: boolean;
+  urls: { webp: Readonly<Record<string, string>> };
+}
+
+/** The picture a seed gets from a set: `set[fnv1a(seed) mod n]` among the pictures not disabled, in the set's order — the same rule as `@krizaka/org`'s `defaultFor`. */
+export function pickDefaultPicture<T extends DefaultAvatarPicture>(set: readonly T[], seed: string | number): T | undefined {
+  const usable = set.filter((picture) => picture.disabled !== true);
+  return usable.length === 0 ? undefined : usable[defaultAvatarSeedHash(seed) % usable.length];
 }
 
 const resolveTone = (a: DefaultAvatar) => (a.tone === undefined ? defaultAvatarToneOf(a.seed) : clampTone(a.tone));
@@ -118,7 +144,18 @@ function trimTrailingSlashes(value: string): string {
  */
 export function defaultAvatarUrl(avatar: DefaultAvatar, { size = 256, base = DEFAULT_AVATAR_BASE }: { size?: DefaultAvatarSize | "svg"; base?: string } = {}): string {
   if (isGlyphKind(avatar.kind)) return defaultAvatarDataUrl(avatar);
+  if (avatar.set && avatar.seed !== undefined && size !== "svg") {
+    const picked = pickDefaultPicture(avatar.set, avatar.seed);
+    if (picked) return nearestSize(picked.urls.webp, size) ?? "";
+  }
   return `${trimTrailingSlashes(base)}/${avatar.brand}/${defaultAvatarFile(avatar.kind ?? "person", resolveTone(avatar), size)}`;
+}
+
+/** The address at the smallest size that is at least `size` (or the largest there is). */
+function nearestSize(webp: Readonly<Record<string, string>>, size: number): string | undefined {
+  const sizes = Object.keys(webp).map(Number).sort((a, b) => a - b);
+  const chosen = sizes.find((candidate) => candidate >= size) ?? sizes[sizes.length - 1];
+  return chosen === undefined ? undefined : webp[String(chosen)];
 }
 
 const GLYPHS: Record<"folder" | "organisation" | "shop", (from: string) => string> = {
