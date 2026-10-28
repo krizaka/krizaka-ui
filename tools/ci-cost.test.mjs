@@ -46,6 +46,17 @@ for (const file of readdirSync(WORKFLOWS).filter((n) => /\.ya?ml$/.test(n))) {
     });
     it("a job behind the `changes` gate runs unless the gate said exactly false (fail open)", () => {
       for (const job of jobsOf(text).filter((j) => /^\s{4}needs:\s*(\[?\s*)?.*\bchanges\b/m.test(j.text))) {
+        // The one complement: a `-light` job (the docs-only Sonar scan) runs ONLY when the gate said exactly false. It stays safe when
+        // the gate breaks (its output is empty, so the light job is skipped and the full jobs, which fail open, run the analysis).
+        // And the gate: the always-reporting « CI gate » (required check) must run whatever the changes job said, to judge the others.
+        if (job.name === "gate") {
+          assert.match(job.text, /^\s{4}if:\s*\$\{\{\s*always\(\)\s*\}\}/m, `${file}: the gate must run always()`);
+          continue;
+        }
+        if (/-light$/.test(job.name)) {
+          assert.match(job.text, /!cancelled\(\) && needs\.changes\.outputs\.[a-z-]+ == 'false'/, `${file}: ${job.name} runs only when the gate said exactly false`);
+          continue;
+        }
         assert.match(job.text, /!cancelled\(\) && needs\.changes\.outputs\.[a-z-]+ != 'false'/, `${file}: ${job.name} must use the fail-open if`);
       }
     });
