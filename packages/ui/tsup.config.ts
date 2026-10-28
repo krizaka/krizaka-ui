@@ -268,6 +268,8 @@ export default defineConfig([
       "price-catalogue-editor": "src/price-catalogue-editor/index.ts",
       "promo-code-field": "src/promo-code-field/index.ts",
       proposal: "src/proposal/index.ts",
+      // A form from a JSON Schema: the answers and what has been touched are state, so it is a client entry.
+      "schema-form": "src/schema-form/index.ts",
       mascots: "src/mascots/index.ts",
       "mascot-state": "src/mascot-state/index.ts",
       motion: "src/motion/index.ts",
