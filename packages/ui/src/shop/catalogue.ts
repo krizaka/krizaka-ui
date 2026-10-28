@@ -53,7 +53,7 @@ export const servicesSection = defineSection({
 
 export const bookingSection = defineSection({
   type: "booking",
-  variants: ["strip", "panel", "sticky"],
+  variants: ["strip", "panel", "closing", "sticky"],
   settings: z.object({
     /** A service the times are for; absent, the next free times of any service. */
     serviceId: z.optional(ref),

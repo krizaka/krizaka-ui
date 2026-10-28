@@ -1,5 +1,5 @@
 // Server-safe (the phone bar is a client island imported through its own entry). The way to book (ADR-007 §3): `strip` —
-// the next free times, one tap each, in one line; `panel` — the closing call; `sticky` — the phone bar, held at the bottom
+// the next free times, one tap each, in one line; `panel` — the closing call in a box; `closing` — the closing call of a look (the shop's photo or mark, the next free time, Book); `sticky` — the phone bar, held at the bottom
 // edge and never over content. The times are resolved by the product: the section draws them, it never fetches.
 import { buttonVariants } from "@krizaka/ui/button";
 import { CtaPanel } from "@krizaka/ui/cta-panel";
@@ -8,9 +8,14 @@ import * as React from "react";
 
 import { BlockLink, type LinkComponent } from "../../block-link";
 import { cn } from "../../cn";
-import { ShopSection } from "../frame";
+import { Page } from "../../page/page";
+import { type ShopPhoto, ShopSection } from "../frame";
+import { Photo } from "../photo";
 
-export type BookingVariant = "strip" | "panel" | "sticky";
+export type BookingVariant = "strip" | "panel" | "closing" | "sticky";
+
+/** `closing`: the second action beside « Book » (`Call`, `Directions`): the host chooses it from the shop's settings. */
+export type BookingSecondary = { label: string; href: string };
 
 export type BookingTime = {
   id: string;
@@ -36,13 +41,27 @@ export type BookingSectionProps = Omit<React.ComponentProps<"section">, "title">
   /** `panel`: the invitation (`Ready when you are`), and why. */
   title?: React.ReactNode;
   body?: React.ReactNode;
+  /** `closing`: the shop's photo, one the page does not already show (the host plans it). Wins over `mark`. */
+  photo?: ShopPhoto;
+  /** `closing`: the shop's mark, when there is no photo. Decorative (hidden from assistive technology). */
+  mark?: React.ReactNode;
+  /**
+   * `closing`: the next free time (`Tomorrow 9 am`). On a closed day it is the next opening's. Absent, the call is the
+   * title and the primary action alone: never an empty box.
+   */
+  nextTime?: BookingTime;
+  /** `closing`: the words before the time (`Next free time`). */
+  nextTimeLabel?: string;
+  /** `closing`: « Call » or « Directions ». */
+  secondary?: BookingSecondary;
   linkAs?: LinkComponent;
   /** `sticky`: the selector of the page's own action (`#hero-book`): while it is on screen the bar hides. */
   hideWhileVisible?: string;
 };
 
 /** The way to book: the next free times, a closing call, or the phone bar. */
-export function BookingSection({ variant = "strip", times = [], label, emptyLabel, href, actionLabel, title, body, linkAs, hideWhileVisible, className, ...props }: BookingSectionProps) {
+export function BookingSection({ variant = "strip", times = [], label, emptyLabel, href, actionLabel, title, body, linkAs, hideWhileVisible, photo, mark, nextTime, nextTimeLabel, secondary, className, ...props }: BookingSectionProps) {
+  const headingId = React.useId();
   const action = (size: "md" | "lg") => (
     <BlockLink href={href} linkAs={linkAs} className={cn(buttonVariants({ variant: "primary", size }), "no-underline")}>
       {actionLabel}
@@ -55,6 +74,46 @@ export function BookingSection({ variant = "strip", times = [], label, emptyLabe
           {actionLabel}
         </BlockLink>
       </StickyAction>
+    );
+  }
+  if (variant === "closing") {
+    const hasMedia = Boolean(photo ?? mark);
+    return (
+      <ShopSection aria-labelledby={headingId} data-variant="closing" bleed className={className} {...props}>
+        <Page>
+          <div className={cn("grid items-center gap-6 rounded-2xl bg-surface-1 p-4 sm:p-6 lg:gap-10 lg:p-8", hasMedia && "lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]")}>
+            {photo ? (
+              <Photo photo={photo} ratio="4/3" sizes="(min-width: 64rem) 36rem, calc(100vw - 2rem)" />
+            ) : mark ? (
+              <div aria-hidden className="grid aspect-[4/3] w-full place-items-center overflow-hidden rounded-xl bg-accent-soft text-fg-accent [&>svg]:h-1/2 [&>svg]:w-auto">
+                {mark}
+              </div>
+            ) : null}
+            <div className="flex min-w-0 flex-col items-start gap-4">
+              <h2 id={headingId} className="m-0 text-2xl font-bold leading-tight text-fg sm:text-3xl">
+                {title ?? label}
+              </h2>
+              {body ? <p className="m-0 max-w-prose text-[15px] leading-relaxed text-fg-secondary">{body}</p> : null}
+              {nextTime ? (
+                <p className="m-0 flex flex-wrap items-center gap-2 text-sm text-fg-secondary">
+                  {nextTimeLabel ? <span>{nextTimeLabel}</span> : null}
+                  <BlockLink href={nextTime.href} linkAs={linkAs} className="inline-flex min-h-11 items-center rounded-md border border-border-control bg-surface-2 px-3 text-sm font-semibold tabular-nums text-fg no-underline hover:border-accent hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
+                    {nextTime.label}
+                  </BlockLink>
+                </p>
+              ) : null}
+              <div className="flex flex-wrap items-center gap-3">
+                {action("lg")}
+                {secondary ? (
+                  <BlockLink href={secondary.href} linkAs={linkAs} className={cn(buttonVariants({ variant: "secondary", size: "lg" }), "no-underline")}>
+                    {secondary.label}
+                  </BlockLink>
+                ) : null}
+              </div>
+            </div>
+          </div>
+        </Page>
+      </ShopSection>
     );
   }
   if (variant === "panel") {
