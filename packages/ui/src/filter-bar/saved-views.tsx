@@ -222,6 +222,29 @@ function ActiveForm({
   );
 }
 
+/** The "⋯" menu of the current view: rename and delete, only the ones the host wired. */
+function ViewActions({ active, labels, onRename, onDelete }: { active: SavedViewItem; labels: SavedViewsLabels; onRename?: () => void; onDelete?: () => void }) {
+  return (
+    <DropdownMenu.Root modal={false}>
+      <DropdownMenu.Trigger aria-label={labels.actions(active.label)} className={cn(quiet, "px-2 text-fg-secondary")}>
+        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+          <circle cx="5" cy="12" r="1.8" />
+          <circle cx="12" cy="12" r="1.8" />
+          <circle cx="19" cy="12" r="1.8" />
+        </svg>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content align="start" aria-label={labels.actions(active.label)}>
+        {onRename ? <DropdownMenu.Item onSelect={onRename}>{labels.rename}</DropdownMenu.Item> : null}
+        {onDelete ? (
+          <DropdownMenu.Item tone="danger" onSelect={onDelete}>
+            {labels.remove}
+          </DropdownMenu.Item>
+        ) : null}
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
+  );
+}
+
 /** The views of a list: chips with counts on a wide screen, one menu on a phone; save, rename and delete; the mark of a modified view. */
 export function SavedViews({ views, current, modified, onSelect, onSave, onRename, onDelete, linkAs, maxLength = 80, labels: given, className }: SavedViewsProps) {
   const labels: SavedViewsLabels = { ...savedViewsLabels, ...given, groups: { ...savedViewsLabels.groups, ...given?.groups } };
@@ -241,23 +264,7 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
 
   const actions =
     canChange && active && (onRename || onDelete) ? (
-      <DropdownMenu.Root modal={false}>
-        <DropdownMenu.Trigger aria-label={labels.actions(active.label)} className={cn(quiet, "px-2 text-fg-secondary")}>
-          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
-            <circle cx="5" cy="12" r="1.8" />
-            <circle cx="12" cy="12" r="1.8" />
-            <circle cx="19" cy="12" r="1.8" />
-          </svg>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content align="start" aria-label={labels.actions(active.label)}>
-          {onRename ? <DropdownMenu.Item onSelect={() => setRenaming(active.id)}>{labels.rename}</DropdownMenu.Item> : null}
-          {onDelete ? (
-            <DropdownMenu.Item tone="danger" onSelect={() => onDelete(active.id)}>
-              {labels.remove}
-            </DropdownMenu.Item>
-          ) : null}
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
+      <ViewActions active={active} labels={labels} onRename={onRename ? () => setRenaming(active.id) : undefined} onDelete={onDelete ? () => onDelete(active.id) : undefined} />
     ) : null;
 
   const mark = modified && active ? <span className="text-xs font-semibold text-fg-secondary">({labels.modified})</span> : null;
