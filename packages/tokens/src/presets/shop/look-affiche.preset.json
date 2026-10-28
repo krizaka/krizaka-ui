@@ -1,0 +1,45 @@
+{
+  "id": "look-affiche",
+  "version": 1,
+  "name": "Affiche",
+  "trades": [
+    "salon",
+    "pets",
+    "coaching",
+    "workshop",
+    "cleaning",
+    "consulting"
+  ],
+  "paper": "plain",
+  "surface": "contrast",
+  "accent": "akinaza",
+  "accents": [
+    "akinaza",
+    "yomizaka"
+  ],
+  "faces": {
+    "title": "poster",
+    "note": "mono"
+  },
+  "density": "compact",
+  "photo": {
+    "grade": "none",
+    "grain": 0,
+    "radius": "none",
+    "frame": "none"
+  },
+  "motion": "lively",
+  "mascots": "off",
+  "transition": "slide",
+  "closing": "mark",
+  "variants": {
+    "hero": "banner",
+    "services": "menu",
+    "booking": "strip",
+    "gallery": "filmstrip",
+    "video": "shorts",
+    "reviews": "strip",
+    "bulletin": "banner",
+    "visit": "card"
+  }
+}

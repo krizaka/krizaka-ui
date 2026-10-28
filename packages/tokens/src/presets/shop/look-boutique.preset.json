@@ -1,0 +1,45 @@
+{
+  "id": "look-boutique",
+  "version": 1,
+  "name": "Boutique",
+  "trades": [
+    "salon",
+    "pets",
+    "coaching",
+    "workshop",
+    "cleaning",
+    "consulting"
+  ],
+  "paper": "washi",
+  "surface": "warm",
+  "accent": "akinaza:accent-2",
+  "accents": [
+    "akinaza:accent-2",
+    "akinaza"
+  ],
+  "faces": {
+    "title": "display",
+    "note": "cahier"
+  },
+  "density": "airy",
+  "photo": {
+    "grade": "warm",
+    "grain": 0,
+    "radius": "xs",
+    "frame": "none"
+  },
+  "motion": "soft",
+  "mascots": "off",
+  "transition": "slide",
+  "closing": "photo",
+  "variants": {
+    "hero": "poster",
+    "services": "cards",
+    "booking": "strip",
+    "gallery": "mosaic",
+    "video": "tv",
+    "reviews": "summary-cards",
+    "bulletin": "board",
+    "visit": "split"
+  }
+}

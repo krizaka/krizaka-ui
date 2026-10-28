@@ -1,0 +1,45 @@
+{
+  "id": "look-krizaka",
+  "version": 1,
+  "name": "Krizaka",
+  "trades": [
+    "salon",
+    "pets",
+    "coaching",
+    "workshop",
+    "cleaning",
+    "consulting"
+  ],
+  "paper": "plain",
+  "surface": "ink",
+  "accent": "krizaka",
+  "accents": [
+    "krizaka",
+    "akinaza"
+  ],
+  "faces": {
+    "title": "product-display",
+    "note": "mono"
+  },
+  "density": "compact",
+  "photo": {
+    "grade": "none",
+    "grain": 0,
+    "radius": "xs",
+    "frame": "none"
+  },
+  "motion": "soft",
+  "mascots": "on",
+  "transition": "crossfade",
+  "closing": "pigeon",
+  "variants": {
+    "hero": "poster",
+    "services": "menu",
+    "booking": "strip",
+    "gallery": "mosaic",
+    "video": "tv",
+    "reviews": "summary-cards",
+    "bulletin": "banner",
+    "visit": "card"
+  }
+}

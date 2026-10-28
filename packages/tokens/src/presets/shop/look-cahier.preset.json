@@ -1,0 +1,45 @@
+{
+  "id": "look-cahier",
+  "version": 1,
+  "name": "Cahier",
+  "trades": [
+    "salon",
+    "pets",
+    "coaching",
+    "workshop",
+    "cleaning",
+    "consulting"
+  ],
+  "paper": "seyes",
+  "surface": "paper",
+  "accent": "akinaza",
+  "accents": [
+    "akinaza",
+    "akinaza:accent-2"
+  ],
+  "faces": {
+    "title": "display",
+    "note": "cahier"
+  },
+  "density": "airy",
+  "photo": {
+    "grade": "warm",
+    "grain": 1,
+    "radius": "none",
+    "frame": "polaroid"
+  },
+  "motion": "paper",
+  "mascots": "off",
+  "transition": "channel",
+  "closing": "stamp",
+  "variants": {
+    "hero": "split",
+    "services": "index",
+    "booking": "strip",
+    "gallery": "wall",
+    "video": "tv",
+    "reviews": "quote",
+    "bulletin": "board",
+    "visit": "split"
+  }
+}

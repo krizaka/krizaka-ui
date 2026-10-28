@@ -1912,6 +1912,11 @@ svg[data-bird="beaver"]{--kzb-pivot:60px 56px;--kzb-head-a:kzb-beaver-head 10s e
 .kz-shop-section .kz-heading-lead { font-size: 14.5px; line-height: 1.55; }
 /* The look preset's photo treatment (a CSS filter on the media box: no re-encoded image) — see @krizaka/tokens presets/shop. */
 .kz-shop [data-shop-photo] { filter: var(--kz-shop-photo-filter, none); border-radius: var(--kz-shop-photo-radius, var(--kz-radius-md, 8px)); }
+/* A look (`look-*`, @krizaka/tokens): the surface under the page, the print frame of a photo, the poster title's tracking. Without a look
+   these variables are unset and the page is unchanged. */
+.kz-shop { background: var(--kz-shop-surface, transparent); }
+.kz-shop [data-shop-photo] { box-shadow: var(--kz-shop-photo-frame, none); }
+.kz-shop-section .kz-heading-title { letter-spacing: var(--kz-shop-title-tracking, inherit); }
 @media (min-width: 64rem) { .kz-shop-aside { position: sticky; top: var(--kz-anchor-offset, 96px); } }
 
 /* The look presets' typography and photo treatment (@krizaka/tokens `shop-presets.css`, krizaka-ui#745): the title weight and the

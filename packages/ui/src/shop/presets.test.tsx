@@ -37,6 +37,19 @@ describe("the look presets and the catalogue agree (ADR-007 §4)", () => {
   });
 });
 
+describe("the six looks (akinaza#478)", () => {
+  const looks = shopPresets.filter((p) => p.id.startsWith("look-"));
+  it("every look is on the catalogue: its variants exist, and it names a surface, a motion and the birds", () => {
+    expect(looks).toHaveLength(6);
+    for (const p of looks) {
+      expect(p.surface, p.id).toBeTruthy();
+      expect(p.motion, p.id).toBeTruthy();
+      expect(["off", "on"], p.id).toContain(p.mascots);
+      expect(sectionDefinition("booking").variants, p.id).toContain("closing");
+    }
+  });
+});
+
 describe("ShopFrame wears the preset", () => {
   it("sets the preset, the accent, the paper and the density the stylesheet reads", () => {
     const { container } = render(<ShopFrame preset="pets-carnet" accent="akinaza:accent-2" paper="kraft" density="airy" />);
