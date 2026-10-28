@@ -1935,3 +1935,24 @@ svg[data-bird="beaver"]{--kzb-pivot:60px 56px;--kzb-head-a:kzb-beaver-head 10s e
 .kz-shop-thumb-inner { position: absolute; top: 0; left: 0; width: 960px; transform-origin: top left; transform: scale(0.16667); }
 /* The section the composer outlines in the preview page (the bridge sets `data-shop-selected` on the block wrapped around it): a ring, never a layout change. */
 [data-shop-key][data-shop-selected] { outline: 2px solid var(--kz-accent); outline-offset: -2px; }
+
+/* A look's motion mode (`ShopFrame motion`, akinaza#478): CSS only, no animation frame; every mode is still under reduced motion. */
+.kz-shop[data-shop-motion="still"] [data-reveal] { opacity: 1; transform: none; transition: none; }
+.kz-shop[data-shop-motion="soft"] { --kz-shop-ms: 180ms; }
+.kz-shop[data-shop-motion="paper"] { --kz-shop-ms: 260ms; }
+.kz-shop[data-shop-motion="lively"] { --kz-shop-ms: 320ms; }
+.kz-shop[data-shop-motion] [data-reveal] { transition-duration: var(--kz-shop-ms, 180ms); }
+@keyframes kz-shop-settle { from { transform: rotate(1.2deg) translateY(-3px); } to { transform: none; } }
+.kz-shop[data-shop-motion="paper"] [data-shop-photo] { animation: kz-shop-settle var(--kz-shop-ms) ease-out 1 both; }
+@media (prefers-reduced-motion: reduce) {
+  .kz-shop[data-shop-motion] [data-reveal] { transition: none; }
+  .kz-shop[data-shop-motion="paper"] [data-shop-photo] { animation: none; }
+}
+/* The Krizaka look's bird sits in the corner of its section, beside the words, never over them. */
+.kz-shop-section { position: relative; }
+.kz-shop-mascot { position: absolute; inset-block-start: 0; inset-inline-end: var(--kz-shop-g, 16px); width: 56px; height: 56px; pointer-events: none; }
+@media (max-width: 40rem) { .kz-shop-mascot { width: 40px; height: 40px; } .kz-shop-mascot svg { width: 100%; height: 100%; } }
+/* The look picker's swatch (shop-composer): the look's own surface and accent, drawn by its tokens. */
+.kz-look-swatch { display: flex; align-items: center; gap: 6px; min-height: 40px; padding: 8px; border-radius: 8px; background: var(--kz-shop-surface, var(--kz-surface-0)); color: var(--kz-text-primary, inherit); border: 1px solid var(--kz-border-default); }
+.kz-look-swatch i { width: 14px; height: 14px; border-radius: 50%; background: var(--kz-accent); display: inline-block; }
+.kz-look-chip { display: inline-flex; }

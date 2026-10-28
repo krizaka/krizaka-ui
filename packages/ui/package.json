@@ -947,6 +947,10 @@
       "types": "./dist/shop/policies.d.ts",
       "import": "./dist/shop/policies.js"
     },
+    "./shop/look": {
+      "types": "./dist/shop/look.d.ts",
+      "import": "./dist/shop/look.js"
+    },
     "./shop/map-gate": {
       "types": "./dist/shop/map-gate.d.ts",
       "import": "./dist/shop/map-gate.js"
@@ -3329,6 +3333,17 @@
       "name": "./shop/policies",
       "path": "dist/shop/policies.js",
       "limit": "1.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./shop/look",
+      "path": "dist/shop/look.js",
+      "limit": "4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

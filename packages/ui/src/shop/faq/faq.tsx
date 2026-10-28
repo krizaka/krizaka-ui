@@ -2,11 +2,11 @@
 // JSON-LD, so a search engine reads the same answers.
 import * as React from "react";
 
-import { ShopSection } from "../frame";
+import { ShopSection, type ShopSectionProps } from "../frame";
 
 export type ShopQuestion = { id: string; question: string; answer: string };
 
-export type FaqSectionProps = Omit<React.ComponentProps<"section">, "title"> & {
+export type FaqSectionProps = Omit<React.ComponentProps<"section">, "title"> & Pick<ShopSectionProps, "mascot"> & {
   /** @default "list" */
   variant?: "list";
   title: React.ReactNode;

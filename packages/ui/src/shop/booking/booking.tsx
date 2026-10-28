@@ -9,7 +9,7 @@ import * as React from "react";
 import { BlockLink, type LinkComponent } from "../../block-link";
 import { cn } from "../../cn";
 import { Page } from "../../page/page";
-import { type ShopPhoto, ShopSection } from "../frame";
+import { type ShopPhoto, ShopSection, type ShopSectionProps } from "../frame";
 import { Photo } from "../photo";
 
 export type BookingVariant = "strip" | "panel" | "closing" | "sticky";
@@ -25,7 +25,7 @@ export type BookingTime = {
   href: string;
 };
 
-export type BookingSectionProps = Omit<React.ComponentProps<"section">, "title"> & {
+export type BookingSectionProps = Omit<React.ComponentProps<"section">, "title"> & Pick<ShopSectionProps, "mascot"> & {
   /** @default "strip" */
   variant?: BookingVariant;
   /** `strip`: the next free times, in order (the first `count`). */
@@ -59,7 +59,7 @@ export type BookingSectionProps = Omit<React.ComponentProps<"section">, "title">
   hideWhileVisible?: string;
 };
 
-type ClosingCallProps = Omit<React.ComponentProps<"section">, "title"> &
+type ClosingCallProps = Omit<React.ComponentProps<"section">, "title"> & Pick<ShopSectionProps, "mascot"> &
   Pick<BookingSectionProps, "body" | "photo" | "mark" | "nextTime" | "nextTimeLabel" | "secondary" | "href" | "actionLabel" | "linkAs"> & { title: React.ReactNode };
 
 /** The photo, or the mark when there is none, or nothing: the call then reads on one column. */

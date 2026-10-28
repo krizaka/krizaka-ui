@@ -42,6 +42,14 @@ export type ShopComposerMessages = {
   removeBlock: string;
   /** The look. */
   look: string;
+  /** The six looks, as a group of swatches. */
+  lookChoice: string;
+  /** Said when a look is applied (`{name}`). */
+  lookApplied: string;
+  /** The accent within the chosen look. */
+  accentChoice: string;
+  /** The names of the accents a look lists (`krizaka`, `akinaza:accent-2`…); an unknown one reads as its id. */
+  accentNames: Readonly<Record<string, string>>;
   preset: string;
   density: string;
   densityCompact: string;
@@ -137,6 +145,10 @@ export const defaultShopComposerMessages: ShopComposerMessages = {
   addBlock: "Add",
   removeBlock: "Remove {name}",
   look: "Look",
+  lookChoice: "Look of the page",
+  lookApplied: "Look: {name}",
+  accentChoice: "Accent",
+  accentNames: { krizaka: "Krizaka blue", akinaza: "Akinaza green", "akinaza:accent-2": "Copper", yomizaka: "Indigo", orazaka: "Orange" },
   preset: "Style",
   density: "Spacing",
   densityCompact: "Compact",

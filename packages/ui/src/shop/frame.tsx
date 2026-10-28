@@ -33,13 +33,18 @@ export type ShopFrameProps = React.HTMLAttributes<HTMLDivElement> & {
    * @default "plain"
    */
   paper?: "plain" | "seyes" | "kraft" | "washi";
+  /**
+   * The look's motion mode, CSS only (`still` · `soft` · `paper` · `lively`): the arrival of blocks and the settling of photos. Under `prefers-reduced-motion` every mode is still.
+   * @see @krizaka/tokens `shopPresets`
+   */
+  motion?: "still" | "soft" | "paper" | "lively";
 };
 
 const PAPERS = { plain: undefined, seyes: "ruled", kraft: "kraft", washi: "washi" } as const;
 
 /** The page: sets the look preset, the accent, the paper and the density the sections below read. */
-export function ShopFrame({ preset, density = "compact", accent, paper = "plain", className, ...props }: ShopFrameProps) {
-  return <div data-shop-preset={preset} data-shop-accent={accent} data-paper={PAPERS[paper]} data-density={density} className={cn("kz-shop", className)} {...props} />;
+export function ShopFrame({ preset, density = "compact", accent, paper = "plain", motion, className, ...props }: ShopFrameProps) {
+  return <div data-shop-preset={preset} data-shop-accent={accent} data-paper={PAPERS[paper]} data-density={density} data-shop-motion={motion} className={cn("kz-shop", className)} {...props} />;
 }
 
 export type ShopSectionProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & {
@@ -57,15 +62,18 @@ export type ShopSectionProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
   bleed?: boolean;
   /** The section is the page's first (the hero): no hairline, no padding. */
   first?: boolean;
+  /** A bird of the Krizaka look (`mascotFor`, `ShopMascot` of `@krizaka/ui/shop/look`), decorative, in the corner of the heading. Never on the first screen. */
+  mascot?: React.ReactNode;
 };
 
 /** A section of a shop page. */
-export function ShopSection({ id, title, eyebrow, lead, actions, bleed, first, className, children, ...props }: ShopSectionProps) {
+export function ShopSection({ id, title, eyebrow, lead, actions, bleed, first, mascot, className, children, ...props }: ShopSectionProps) {
   const auto = React.useId();
   const headingId = title ? `${id ?? auto}-title` : undefined;
   const heading = title ? <SectionHeading id={headingId} size="sm" eyebrow={eyebrow} title={title} lead={lead} actions={actions} /> : null;
   return (
     <section id={id} aria-labelledby={headingId} data-first={first ? "" : undefined} data-bleed={bleed ? "" : undefined} className={cn("kz-shop-section", className)} {...props}>
+      {mascot ? <div aria-hidden className="kz-shop-mascot">{mascot}</div> : null}
       {bleed ? (
         <>
           {heading && <Page>{heading}</Page>}

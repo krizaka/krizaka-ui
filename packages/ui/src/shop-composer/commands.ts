@@ -3,6 +3,7 @@
 // of a type) hold after every step. A command that would break a rule is a no-op: the page stays valid, always.
 import { SECTION_DEFINITIONS, sectionDefinition,type SectionType } from "../shop/catalogue";
 import { SHOP_LIMITS } from "../shop/limits";
+import { applyLook, type ShopLookLike } from "../shop/look/apply-look";
 import type { Section, ShopPage } from "../shop/schema";
 import type { LocalizedText } from "../shop/text";
 
@@ -21,6 +22,10 @@ export type Command =
   | { type: "toggleDisabled"; key: string }
   | { type: "setPreset"; preset: { id: string; version: number }; density?: "compact" | "airy" | null }
   | { type: "setDensity"; density: "compact" | "airy" | undefined }
+  /** A whole look (`look-*`): the variants of the sections, nothing of their content (`applyLook`). */
+  | { type: "applyLook"; look: ShopLookLike }
+  /** The accent within the look's tested list. */
+  | { type: "setAccent"; accent: string | undefined }
   | { type: "addBlock"; key: string; blockKey: string; blockType: string; settings?: Rec; at?: number }
   | { type: "removeBlock"; key: string; blockKey: string }
   | { type: "moveBlock"; key: string; blockKey: string; to: number }
@@ -117,6 +122,10 @@ const setPreset: Handler<"setPreset"> = (page, cmd) => {
 
 const setDensity: Handler<"setDensity"> = (page, cmd) => (page.density === cmd.density ? page : { ...page, density: cmd.density });
 
+const applyLookCmd: Handler<"applyLook"> = (page, cmd) => applyLook(page, cmd.look);
+
+const setAccent: Handler<"setAccent"> = (page, cmd) => (page.accent === cmd.accent ? page : { ...page, accent: cmd.accent });
+
 type Keyed = { key: string; type?: string; settings?: Rec };
 
 const addBlock: Handler<"addBlock"> = (page, cmd) =>
@@ -154,7 +163,7 @@ const patchBlock: Handler<"patchBlock"> = (page, cmd) =>
   });
 
 const handlers: { [T in Command["type"]]: Handler<T> } = {
-  addSection, removeSection, moveSection, setVariant, patchSettings, setText, toggleDisabled, setPreset, setDensity, addBlock, removeBlock, moveBlock, patchBlock,
+  addSection, removeSection, moveSection, setVariant, patchSettings, setText, toggleDisabled, setPreset, setDensity, applyLook: applyLookCmd, setAccent, addBlock, removeBlock, moveBlock, patchBlock,
 };
 
 /** Applies a command to a document; returns the same object when nothing changes. */

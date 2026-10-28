@@ -3,11 +3,11 @@
 import { Avatar } from "@krizaka/ui/avatar";
 import * as React from "react";
 
-import { ShopSection } from "../frame";
+import { ShopSection, type ShopSectionProps } from "../frame";
 
 export type StoryVariant = "quote" | "owner";
 
-export type StorySectionProps = Omit<React.ComponentProps<"section">, "title"> & {
+export type StorySectionProps = Omit<React.ComponentProps<"section">, "title"> & Pick<ShopSectionProps, "mascot"> & {
   /** @default "quote" */
   variant?: StoryVariant;
   title: React.ReactNode;
