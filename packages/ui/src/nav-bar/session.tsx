@@ -84,7 +84,7 @@ export function NavBarSession<TAccount = unknown>({ endpoint = "/api/me", initia
     if (sessionHint ?? flagged) {
       return (
         <span role="status" aria-live="polite" data-state="signed-in-pending" className={className}>
-          <span aria-hidden="true" className="inline-block size-9 rounded-full bg-[var(--kz-surface-2,currentColor)] opacity-20" />
+          <span aria-hidden="true" className="inline-block size-9 rounded-full bg-surface-2" />
           <span className="sr-only">{hint}</span>
         </span>
       );
