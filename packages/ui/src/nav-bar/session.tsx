@@ -1,7 +1,7 @@
 // Client. The bar's « who is here » island, the same for every product: it asks `GET /api/me` (the contract of ./me)
 // through @krizaka/query and shows the product's account menu or its sign-in actions. It needs a QueryClient above it.
 import { krizakaFetch, useQuery } from "@krizaka/query";
-import type * as React from "react";
+import * as React from "react";
 
 import { type MeResponse, meSchema } from "./me";
 
@@ -20,11 +20,29 @@ export type NavBarSessionProps<TAccount = unknown> = {
   signedOut: (state: { signupOpen: boolean }) => React.ReactNode;
   /** Signed in: the product's `AccountMenu`, given the account. */
   signedIn: (account: TAccount, state: { signupOpen: boolean }) => React.ReactNode;
+  /**
+   * The server's hint that a session cookie exists (krizaka-ui#827): while the answer is on its way the bar then reserves
+   * a signed-in placeholder (account-sized, `data-state="signed-in-pending"`) instead of an empty place, and never the
+   * « Sign in » action. A hint, never the proof: `/api/me` still decides. Left out, it is read from the family's readable
+   * flag cookie (`kz-session=1`, kept by `sessionHint` of `@krizaka/auth` in the proxy), so a static page needs no prop.
+   */
+  sessionHint?: boolean;
   /** The hint's words while the answer is on its way (“Checking your session…”) — passed translated. */
   hint: string;
   /** Classes of the loading placeholder. */
   className?: string;
 };
+
+/** The readable flag the proxy keeps next to the HttpOnly session cookie (`@krizaka/auth` `SESSION_HINT_COOKIE`; a test pins the two). */
+export const SESSION_HINT_COOKIE = "kz-session";
+
+const noop = () => () => {};
+const readFlag = () => typeof document !== "undefined" && document.cookie.split(";").some((part) => part.trim() === `${SESSION_HINT_COOKIE}=1`);
+
+/** Whether the readable flag cookie says a session exists. False on the server and on the first hydration pass (no mismatch). */
+export function useSessionHint(): boolean {
+  return React.useSyncExternalStore(noop, readFlag, () => false);
+}
 
 export const sessionKey = (endpoint: string) => ["krizaka", "session", endpoint] as const;
 
@@ -59,9 +77,18 @@ export function useNavSession<TAccount = unknown>(endpoint = "/api/me", initial?
  * `hint` politely (or, given `initial`, draws the server's answer at once); if the first request fails it shows the
  * signed-out actions (the visitor can still sign in).
  */
-export function NavBarSession<TAccount = unknown>({ endpoint = "/api/me", initial, signedOut, signedIn, hint, className }: NavBarSessionProps<TAccount>) {
+export function NavBarSession<TAccount = unknown>({ endpoint = "/api/me", initial, sessionHint, signedOut, signedIn, hint, className }: NavBarSessionProps<TAccount>) {
   const session = useNavSession<TAccount>(endpoint, initial);
+  const flagged = useSessionHint();
   if (session.status === "pending") {
+    if (sessionHint ?? flagged) {
+      return (
+        <span role="status" aria-live="polite" data-state="signed-in-pending" className={className}>
+          <span aria-hidden="true" className="inline-block size-9 rounded-full bg-[var(--kz-surface-2,currentColor)] opacity-20" />
+          <span className="sr-only">{hint}</span>
+        </span>
+      );
+    }
     return (
       <span role="status" aria-live="polite" data-state="loading" className={className}>
         <span className="sr-only">{hint}</span>

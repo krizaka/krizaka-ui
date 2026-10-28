@@ -109,3 +109,52 @@ describe("NavBar.Session", () => {
     expect(await screen.findByRole("link", { name: "Sign in" })).toBeTruthy();
   });
 });
+
+describe("the session hint: a signed-in person never sees « Sign in » while the answer is on its way (krizaka-ui#827)", () => {
+  const pending = (props: { sessionHint?: boolean }) => {
+    restore = configureKrizakaFetch({ fetch: () => new Promise<Response>(() => {}) });
+    render(
+      <QueryClientProvider client={createQueryClient()}>
+        <NavBar.Session<{ name: string }> hint="Checking your session…" {...props} signedOut={() => <a href="/sign-in">Sign in</a>} signedIn={(a) => <button>{a.name}</button>} />
+      </QueryClientProvider>,
+    );
+  };
+  afterEach(() => {
+    document.cookie = "kz-session=; Max-Age=0; Path=/";
+  });
+
+  it("the server's hint draws the signed-in placeholder, never the sign-in action", () => {
+    pending({ sessionHint: true });
+    expect(document.querySelector('[data-state="signed-in-pending"]')).not.toBeNull();
+    expect(screen.queryByRole("link", { name: "Sign in" })).toBeNull();
+  });
+
+  it("without a hint, the place is only reserved (and « Sign in » still waits for the answer)", () => {
+    pending({});
+    expect(document.querySelector('[data-state="loading"]')).not.toBeNull();
+    expect(document.querySelector('[data-state="signed-in-pending"]')).toBeNull();
+    expect(screen.queryByRole("link", { name: "Sign in" })).toBeNull();
+  });
+
+  it("reads the readable flag cookie when no prop is given", () => {
+    document.cookie = "kz-session=1; Path=/";
+    pending({});
+    expect(document.querySelector('[data-state="signed-in-pending"]')).not.toBeNull();
+  });
+
+  it("the first server render with the hint holds no « Sign in »", async () => {
+    const { renderToString } = await import("react-dom/server");
+    const html = renderToString(
+      <QueryClientProvider client={createQueryClient()}>
+        <NavBar.Session hint="Checking…" sessionHint signedOut={() => <a href="/sign-in">Sign in</a>} signedIn={() => <button>Account</button>} />
+      </QueryClientProvider>,
+    );
+    expect(html).toContain("signed-in-pending");
+    expect(html).not.toContain("Sign in");
+  });
+
+  it("names the same flag cookie as @krizaka/auth", async () => {
+    const { SESSION_HINT_COOKIE } = await import("./session");
+    expect(SESSION_HINT_COOKIE).toBe("kz-session");
+  });
+});
