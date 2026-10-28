@@ -38,6 +38,11 @@ export interface DefaultAvatar {
    * @default "person"
    */
   kind?: DefaultAvatarKind;
+  /**
+   * The family's central set (`listDefaults("person")` of `@krizaka/org`): when given with a `seed`, the avatar is the set's picture for that seed —
+   * the same person has the same picture in every product — instead of the brand's silhouette. An empty set, or no seed, draws the silhouette.
+   */
+  set?: readonly DefaultAvatarPicture[];
 }
 
 /** The mark gradient of each brand (BRAND.md, `$extensions["com.krizaka"].mark`) as [hue, saturation %, lightness %] and the hue spread of its tones. */
@@ -61,7 +66,7 @@ function hslToHex([h, s, l]: [number, number, number]): string {
   const light = l / 100;
   const k = (n: number) => (n + (((h % 360) + 360) % 360) / 30) % 12;
   const a = sat * Math.min(light, 1 - light);
-  const channel = (n: number) => Math.round(255 * (light - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))));
+  const channel = (n: number) => Math.round(255 * (light - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1))));
   return `#${[0, 8, 4].map((n) => channel(n).toString(16).padStart(2, "0")).join("")}`;
 }
 
@@ -86,15 +91,36 @@ export function defaultAvatarTone(brand: DefaultAvatarBrand, tone: number): read
 
 const clampTone = (tone: number) => Math.min(DEFAULT_AVATAR_TONES, Math.max(1, Math.round(tone)));
 
+/** 32-bit FNV-1a of a seed: the rule of the family's default pictures (`@krizaka/org`'s `seedHash` is the same function). */
+export function defaultAvatarSeedHash(seed: string | number): number {
+  let h = 0x811c9dc5;
+  for (const ch of String(seed)) {
+    h ^= ch.codePointAt(0)!;
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h;
+}
+
 /** 1 to 6 from a seed (FNV-1a): stable across renders, devices and products. */
 export function defaultAvatarToneOf(seed: string | number | undefined): number {
   if (seed === undefined) return 1;
-  let h = 0x811c9dc5;
-  for (const ch of String(seed)) {
-    h ^= ch.codePointAt(0) ?? 0;
-    h = Math.imul(h, 0x01000193) >>> 0;
-  }
-  return (h % DEFAULT_AVATAR_TONES) + 1;
+  return (defaultAvatarSeedHash(seed) % DEFAULT_AVATAR_TONES) + 1;
+}
+
+/**
+ * One picture of the family's central set, as `@krizaka/org` lists it (`listDefaults("person")` items fit as they are): the sizes it is served in.
+ * `disabled` pictures are never picked.
+ */
+export interface DefaultAvatarPicture {
+  id: string;
+  disabled?: boolean;
+  urls: { webp: Readonly<Record<string, string>> };
+}
+
+/** The picture a seed gets from a set: `set[fnv1a(seed) mod n]` among the pictures not disabled, in the set's order — the same rule as `@krizaka/org`'s `defaultFor`. */
+export function pickDefaultPicture<T extends DefaultAvatarPicture>(set: readonly T[], seed: string | number): T | undefined {
+  const usable = set.filter((picture) => !picture.disabled);
+  return usable[defaultAvatarSeedHash(seed) % usable.length];
 }
 
 const resolveTone = (a: DefaultAvatar) => (a.tone === undefined ? defaultAvatarToneOf(a.seed) : clampTone(a.tone));
@@ -107,7 +133,7 @@ export function defaultAvatarFile(kind: DefaultAvatarKind, tone: number, size: D
 /** Linear on purpose: a `/\/+$/` regex backtracks quadratically on a long run of slashes. */
 function trimTrailingSlashes(value: string): string {
   let end = value.length;
-  while (end > 0 && value.charCodeAt(end - 1) === 47) end--;
+  while (end > 0 && value[end - 1] === "/") end--;
   return value.slice(0, end);
 }
 
@@ -118,6 +144,11 @@ function trimTrailingSlashes(value: string): string {
  */
 export function defaultAvatarUrl(avatar: DefaultAvatar, { size = 256, base = DEFAULT_AVATAR_BASE }: { size?: DefaultAvatarSize | "svg"; base?: string } = {}): string {
   if (isGlyphKind(avatar.kind)) return defaultAvatarDataUrl(avatar);
+  if (avatar.set && avatar.seed !== undefined) {
+    // The size asked, as the set serves it (256 and 512; the vector has none, so it stays the brand's silhouette).
+    const picked = pickDefaultPicture(avatar.set, avatar.seed)?.urls.webp[size];
+    if (picked) return picked;
+  }
   return `${trimTrailingSlashes(base)}/${avatar.brand}/${defaultAvatarFile(avatar.kind ?? "person", resolveTone(avatar), size)}`;
 }
 
