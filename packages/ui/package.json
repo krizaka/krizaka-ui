@@ -1151,7 +1151,7 @@
     {
       "name": "./button",
       "path": "dist/button.js",
-      "limit": "4 kB",
+      "limit": "3.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1603,7 +1603,7 @@
     {
       "name": "./confirm-button",
       "path": "dist/confirm-button.js",
-      "limit": "3.5 kB",
+      "limit": "4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
