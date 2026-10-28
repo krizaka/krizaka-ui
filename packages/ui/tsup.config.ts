@@ -128,7 +128,6 @@ export default defineConfig([
     entry: {
       "dashboard-layout": "src/dashboard-layout/index.ts",
       "account-settings": "src/account-settings/index.ts",
-      "schema-form": "src/schema-form/index.ts",
       "settings-layout": "src/settings-layout/index.ts",
       "drop-overlay": "src/drop-overlay/index.ts",
       "upload-queue": "src/upload-queue/index.ts",
@@ -268,6 +267,8 @@ export default defineConfig([
       "money-input": "src/money-input/index.ts",
       "promo-code-field": "src/promo-code-field/index.ts",
       proposal: "src/proposal/index.ts",
+      // A form from a JSON Schema: the answers and what has been touched are state, so it is a client entry.
+      "schema-form": "src/schema-form/index.ts",
       mascots: "src/mascots/index.ts",
       "mascot-state": "src/mascot-state/index.ts",
       motion: "src/motion/index.ts",
