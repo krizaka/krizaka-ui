@@ -4,10 +4,12 @@ import {
   DEFAULT_AVATAR_TONES,
   defaultAvatarDataUrl,
   defaultAvatarFile,
+  defaultAvatarSeedHash,
   defaultAvatarSvg,
   defaultAvatarTone,
   defaultAvatarToneOf,
   defaultAvatarUrl,
+  pickDefaultPicture,
 } from "./default-avatar";
 
 const luminance = (hex: string) => {
@@ -86,5 +88,41 @@ describe("default pictures of a folder, an organisation and a shop", () => {
 
   it("are the same for the same seed", () => {
     expect(defaultAvatarUrl({ brand: "yomizaka", kind: "folder", seed: "f-1" })).toBe(defaultAvatarUrl({ brand: "yomizaka", kind: "folder", seed: "f-1" }));
+  });
+});
+
+describe("the family's central set (krizaka-ui#598)", () => {
+  const picture = (id: string, disabled = false) => ({ id, ...(disabled ? { disabled: true as const } : {}), urls: { webp: { "256": `https://cdn.example.test/${id}-256.webp`, "512": `https://cdn.example.test/${id}-512.webp` } } });
+  const set = [picture("a"), picture("b"), picture("gone", true), picture("c")];
+
+  it("gives the same person the same picture, from the set, at the size asked", () => {
+    const avatar = { brand: "akinaza", seed: "account-1", set } as const;
+    expect(defaultAvatarUrl(avatar)).toBe(defaultAvatarUrl({ ...avatar, brand: "orazaka" }));
+    expect(defaultAvatarUrl(avatar)).toMatch(/\/(a|b|c)-256\.webp$/);
+    expect(defaultAvatarUrl(avatar, { size: 512 })).toMatch(/\/(a|b|c)-512\.webp$/);
+  });
+
+  it("draws the silhouette when the picture is not served in the size asked", () => {
+    const only512 = [{ id: "z", urls: { webp: { "512": "https://cdn.example.test/z-512.webp" } } }];
+    expect(defaultAvatarUrl({ brand: "akinaza", seed: "x", set: only512 }, { size: 512 })).toBe("https://cdn.example.test/z-512.webp");
+    expect(defaultAvatarUrl({ brand: "akinaza", seed: "x", set: only512 })).toBe(defaultAvatarUrl({ brand: "akinaza", seed: "x" }));
+  });
+
+  it("never picks a disabled picture and spreads people over the set", () => {
+    const ids = Array.from({ length: 60 }, (_, i) => pickDefaultPicture(set, `person-${i}`)!.id);
+    expect(ids).not.toContain("gone");
+    expect(new Set(ids)).toEqual(new Set(["a", "b", "c"]));
+  });
+
+  it("draws the brand's silhouette when there is no set, an empty one, no seed, or the vector is asked", () => {
+    const silhouette = defaultAvatarUrl({ brand: "akinaza", seed: "x" });
+    expect(defaultAvatarUrl({ brand: "akinaza", seed: "x", set: [] })).toBe(silhouette);
+    expect(defaultAvatarUrl({ brand: "akinaza", set })).toBe(defaultAvatarUrl({ brand: "akinaza" }));
+    expect(defaultAvatarUrl({ brand: "akinaza", seed: "x", set }, { size: "svg" })).toBe(defaultAvatarUrl({ brand: "akinaza", seed: "x" }, { size: "svg" }));
+  });
+
+  it("follows the org rule: fnv1a modulo the usable pictures", () => {
+    expect(defaultAvatarSeedHash("eric")).toBe(defaultAvatarSeedHash("eric"));
+    expect(pickDefaultPicture(set, "eric")!.id).toBe(["a", "b", "c"][defaultAvatarSeedHash("eric") % 3]);
   });
 });
