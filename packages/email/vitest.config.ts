@@ -8,7 +8,7 @@ export default defineConfig({
       provider: "v8",
       include: ["src/**/*.{ts,tsx}"],
       exclude: ["src/themes.generated.ts"],
-      reporter: ["text"],
+      reporter: ["text", "lcov"],
       thresholds: { functions: 90, lines: 95, statements: 95, branches: 85 },
     },
   },

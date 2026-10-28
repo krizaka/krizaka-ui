@@ -14,5 +14,17 @@ export default defineConfig({
     ],
   },
   // axe over a whole chart is slow on a busy CI runner (turbo runs the other tasks beside it).
-  test: { environment: "happy-dom", globals: true, testTimeout: 30_000, exclude: [...configDefaults.exclude, "src/native/**"] },
+  test: {
+    environment: "happy-dom",
+    globals: true,
+    testTimeout: 30_000,
+    exclude: [...configDefaults.exclude, "src/native/**"],
+    // The report SonarCloud reads (CI analysis); no threshold: the quality gate judges the new code.
+    coverage: {
+      provider: "v8",
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: ["src/native/**"],
+      reporter: ["text-summary", "lcov"],
+    },
+  },
 });
