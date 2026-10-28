@@ -102,6 +102,12 @@ describe("the family's central set (krizaka-ui#598)", () => {
     expect(defaultAvatarUrl(avatar, { size: 512 })).toMatch(/\/(a|b|c)-512\.webp$/);
   });
 
+  it("draws the silhouette when the picture is not served in the size asked", () => {
+    const only512 = [{ id: "z", urls: { webp: { "512": "https://cdn.example.test/z-512.webp" } } }];
+    expect(defaultAvatarUrl({ brand: "akinaza", seed: "x", set: only512 }, { size: 512 })).toBe("https://cdn.example.test/z-512.webp");
+    expect(defaultAvatarUrl({ brand: "akinaza", seed: "x", set: only512 })).toBe(defaultAvatarUrl({ brand: "akinaza", seed: "x" }));
+  });
+
   it("never picks a disabled picture and spreads people over the set", () => {
     const ids = Array.from({ length: 60 }, (_, i) => pickDefaultPicture(set, `person-${i}`)!.id);
     expect(ids).not.toContain("gone");
