@@ -183,6 +183,7 @@ export type ComponentName =
   | "service-card"
   | "shop"
   | "shop-composer"
+  | "schema-form"
   | "settings-layout"
   | "account-menu"
   | "showcase"
