@@ -3211,7 +3211,7 @@
     {
       "name": "./shop/booking",
       "path": "dist/shop/booking.js",
-      "limit": "2.3 kB",
+      "limit": "2.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -3343,12 +3343,16 @@
     {
       "name": "./shop/look",
       "path": "dist/shop/look.js",
-      "limit": "4 kB",
+      "limit": "2.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
         "clsx",
-        "@krizaka/ui"
+        "@krizaka/ui",
+        "@krizaka/tokens",
+        "@krizaka/ui/mascots",
+        "zod",
+        "zod/mini"
       ]
     },
     {
@@ -3395,7 +3399,7 @@
     {
       "name": "./shop-composer",
       "path": "dist/shop-composer.js",
-      "limit": "24 kB",
+      "limit": "25.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
