@@ -14,9 +14,12 @@ export {
   type DefaultAvatarEntityKind,
   defaultAvatarFile,
   type DefaultAvatarKind,
+  type DefaultAvatarPicture,
+  defaultAvatarSeedHash,
   type DefaultAvatarSize,
   defaultAvatarSvg,
   defaultAvatarTone,
   defaultAvatarToneOf,
   defaultAvatarUrl,
+  pickDefaultPicture,
 } from "./default-avatar";
