@@ -971,6 +971,10 @@
       "types": "./dist/money-input.d.ts",
       "import": "./dist/money-input.js"
     },
+    "./price-catalogue-editor": {
+      "types": "./dist/price-catalogue-editor.d.ts",
+      "import": "./dist/price-catalogue-editor.js"
+    },
     "./promo-code-field": {
       "types": "./dist/promo-code-field.d.ts",
       "import": "./dist/promo-code-field.js"
@@ -3385,6 +3389,17 @@
       "name": "./money-input",
       "path": "dist/money-input.js",
       "limit": "4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/intl"
+      ]
+    },
+    {
+      "name": "./price-catalogue-editor (composes the shared Button, Badge, Field and MoneyInput, 6.5 kB measured; krizaka-ui#713)",
+      "path": "dist/price-catalogue-editor.js",
+      "limit": "7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

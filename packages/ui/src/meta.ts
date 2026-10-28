@@ -78,6 +78,7 @@ export type ComponentName =
   | "confirm-button"
   | "copy-button"
   | "money-input"
+  | "price-catalogue-editor"
   | "promo-code-field"
   | "contact-page"
   | "continue-prompt"
