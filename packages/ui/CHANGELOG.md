@@ -1,5 +1,21 @@
 # @krizaka/ui
 
+## 3.68.0
+
+### Minor Changes
+
+- [#783](https://github.com/krizaka/krizaka-ui/pull/783) [`520090f`](https://github.com/krizaka/krizaka-ui/commit/520090f64529ab521a34f93e288672e41dd8675d) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - New `@krizaka/ui/promo-code-field` (enter, apply, applied · invalid · expired; the caller validates), `@krizaka/ui/money-input` (an amount in integer minor units and a currency, typed in the locale's way, no floats) and `@krizaka/ui/copy-button` (copies a value, says "Copied" politely, falls back to a selected field without the Clipboard API), for the coupons. Native twins follow.
+
+- [#801](https://github.com/krizaka/krizaka-ui/pull/801) [`14e4fe6`](https://github.com/krizaka/krizaka-ui/commit/14e4fe6bc61d5eddc27113258c51d0ba8a40719f) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `NavBar.Session` and the new `useNavSession`: pending is never drawn as signed out, a failed or throttled `/api/me` refetch keeps the last known state instead of flipping a signed-in person to « Sign in », and `initial` (the server-read session of a dynamic page) makes the first paint the answer (krizaka-ui#800).
+
+- [#796](https://github.com/krizaka/krizaka-ui/pull/796) [`757cb95`](https://github.com/krizaka/krizaka-ui/commit/757cb9506f29abd5cf39f6c6521bbfbf434c0e94) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - RetroTv: a wide layout, a `playlist` played in order and looping, three transitions (`channel`, `crossfade`, `slide`; a cut under reduced motion), sound off by default with `onMutedChange`, captions, and a `renderEmbed` slot (krizaka/akinaza#469).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.68.0
+  - @krizaka/tokens@3.68.0
+
 ## 3.67.1
 
 ### Patch Changes
