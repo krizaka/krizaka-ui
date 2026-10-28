@@ -3159,6 +3159,7 @@
       "name": "./shop/booking",
       "path": "dist/shop/booking.js",
       "limit": "2.3 kB",
+      "//": "+ closing variant (server-only), CTO 2026-10-27, #802",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
