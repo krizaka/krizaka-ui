@@ -307,6 +307,8 @@ export default defineConfig([
       "search-field": "src/search-field/index.ts",
       "video-player": "src/video-player/index.ts",
       "retro-tv": "src/retro-tv/index.ts",
+      // RetroTv's playlist, loaded on demand by `retro-tv`. An entry so its file name is stable: the size budget measures the single clip without it.
+      "retro-tv-playlist": "src/retro-tv/playlist-screen.tsx",
       "shop-gallery": "src/shop-gallery/index.ts",
       // Client since krizaka-ui#608: it hides while the page's own action is on screen.
       "sticky-action": "src/sticky-action/index.ts",

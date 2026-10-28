@@ -1603,7 +1603,7 @@
     {
       "name": "./confirm-button",
       "path": "dist/confirm-button.js",
-      "limit": "4 kB",
+      "limit": "3.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2046,9 +2046,20 @@
       ]
     },
     {
-      "name": "./retro-tv",
+      "name": "./retro-tv (a single clip: the playlist chunk is loaded only when a playlist is given)",
       "path": "dist/retro-tv.js",
-      "limit": "20 kB",
+      "limit": "18.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "./retro-tv-playlist.js"
+      ]
+    },
+    {
+      "name": "./retro-tv playlist (the on-demand chunk)",
+      "path": "dist/retro-tv-playlist.js",
+      "limit": "4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
