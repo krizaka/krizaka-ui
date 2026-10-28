@@ -1,5 +1,11 @@
 # @krizaka/i18n
 
+## 0.2.7
+
+### Patch Changes
+
+- [#831](https://github.com/krizaka/krizaka-ui/pull/831) [`b115fa7`](https://github.com/krizaka/krizaka-ui/commit/b115fa7dc198c93c1daeb0c69e8b9e275657cb93) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `krizaka-i18n check` reads catalogues only inside the folder it is given, and refuses a folder outside the working folder (path traversal through a command-line argument).
+
 ## 0.2.6
 
 ### Patch Changes
