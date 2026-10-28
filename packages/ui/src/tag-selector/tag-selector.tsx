@@ -57,6 +57,18 @@ export type TagSelectorProps = CreatableProps & {
 const matching = (options: readonly TagOption[], needle: string, value: readonly string[]) =>
   options.filter((o) => o.label.toLocaleLowerCase().includes(needle) || value.includes(o.value));
 
+/** One toggle chip: a marked tag wears its marker; the others rest once the limit is reached. */
+function OptionChip({ option, on, full, onToggle }: { option: TagOption; on: boolean; full: boolean; onToggle: (next: boolean) => void }) {
+  const props = { selected: on, disabled: !on && full, onSelectedChange: onToggle };
+  return option.marker ? (
+    <TagChip marker={option.marker} {...props}>
+      {option.label}
+    </TagChip>
+  ) : (
+    <Chip {...props}>{option.label}</Chip>
+  );
+}
+
 /** Toggle chips with a limit and a count — the others rest once the limit is reached; `creatable` types a new one. */
 export function TagSelector({
   label,
@@ -101,19 +113,9 @@ export function TagSelector({
   return (
     <div className={["flex flex-col gap-2", className].filter(Boolean).join(" ")}>
       <div role="group" aria-label={label} id={listId} className="flex flex-wrap gap-2">
-        {shown.map((option) => {
-          const on = value.includes(option.value);
-          const props = { selected: on, disabled: !on && full, onSelectedChange: (next: boolean) => toggle(option, next) };
-          return option.marker ? (
-            <TagChip key={option.value} marker={option.marker} {...props}>
-              {option.label}
-            </TagChip>
-          ) : (
-            <Chip key={option.value} {...props}>
-              {option.label}
-            </Chip>
-          );
-        })}
+        {shown.map((option) => (
+          <OptionChip key={option.value} option={option} on={value.includes(option.value)} full={full} onToggle={(next) => toggle(option, next)} />
+        ))}
         {creatable && needle && shown.length === 0 && !canCreate && emptyLabel ? <p className="m-0 text-xs text-fg-secondary">{emptyLabel}</p> : null}
       </div>
       {creatable ? (
