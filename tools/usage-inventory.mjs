@@ -7,6 +7,8 @@
 //
 //   node tools/usage-inventory.mjs           # writes docs/inventory/ui-usage.{json,md}
 //   node tools/usage-inventory.mjs --check   # no checkout: the registry against the committed inventory (CI)
+//   node tools/usage-inventory.mjs --budgets [--update]   # the per-domain size ratchet (packages/ui/size-budgets.json)
+//   node tools/usage-inventory.mjs --clone --keep-local   # CI: also keeps the local-only consumer (the cockpit) from the committed file, and refuses a partial result
 //   node tools/usage-inventory.mjs --clone   # first shallow-clones the public consumers it cannot find (CI, a new machine)
 //
 // No path comes from the command line. Each consumer is read from the codegraph index (~/.krizaka-index/<repo>), else
@@ -255,9 +257,14 @@ export function closureSize(dist, file, cache = new Map()) {
 }
 
 const UNIT = { B: 1, kB: 1000, KB: 1024, MB: 1e6 };
-const parseLimit = (s) => {
-  const m = /([\d.]+) ?(B|kB|KB|MB)/.exec(String(s));
-  return m ? Math.round(Number(m[1]) * UNIT[m[2]]) : null;
+/** « 8 kB » to bytes: the digits first, then the unit. Parsed by hand (a regex here backtracks, Sonar S8786). */
+export const parseLimit = (s) => {
+  const text = String(s).trim();
+  let end = 0;
+  while (end < text.length && ((text[end] >= "0" && text[end] <= "9") || text[end] === ".")) end += 1;
+  const amount = Number(text.slice(0, end));
+  const unit = text.slice(end).trimStart().split(/\s/, 1)[0];
+  return end > 0 && Number.isFinite(amount) && Object.hasOwn(UNIT, unit) ? Math.round(amount * UNIT[unit]) : null;
 };
 
 /** The size-limit budget of an entry: the row whose name is `./<entry>` (optionally followed by a comment). */
@@ -381,8 +388,24 @@ function tally(text, keys, motionKeys, scan) {
   for (const id of new Set(names.map(({ from, name }) => `${from}#${name}`))) bump(scan.names, id);
 }
 
-function scanConsumer(c, keys, motionKeys) {
+/** Consumers that exist only on the founder's machine: a CI run keeps their last counts from the committed inventory. */
+export const LOCAL_ONLY = new Set(["cockpit"]);
+
+/**
+ * The scan of a local-only consumer, rebuilt from the committed inventory (its import counts per entry, its file count),
+ * so the weekly refresh does not erase what it cannot read. Names taken from the native barrel are not restored: the
+ * cockpit takes none.
+ */
+export function restoredScan(c, prior) {
+  const entries = new Map();
+  for (const e of prior.entries) if (e.importers?.[c.name] > 0) entries.set(`ui:${e.name}`, e.importers[c.name]);
+  const was = prior.consumers.find((p) => p.name === c.name);
+  return { ...c, absent: was?.absent ?? false, head: was?.head ?? null, files: was?.files ?? 0, entries, names: new Map() };
+}
+
+function scanConsumer(c, keys, motionKeys, prior = null) {
   const scan = { ...c, absent: !existsSync(c.path), files: 0, entries: new Map(), names: new Map() };
+  if (scan.absent && prior && LOCAL_ONLY.has(c.name)) return restoredScan(c, prior);
   if (scan.absent) return scan;
   const files = walk(c.path).filter((f) => !f.includes(join("registry", "examples")));
   for (const f of files) {
@@ -535,7 +558,7 @@ export function buildInventory(opts) {
   const dirs = readdirSync(srcDir).filter((d) => statSync(join(srcDir, d)).isDirectory());
   const adr006 = join(ROOT, "docs/adr/ADR-006-krizaka-ui-2027.md");
   const dist = join(uiDir, "dist");
-  const consumers = opts.consumers.map((c) => scanConsumer(c, keys, motionKeys));
+  const consumers = opts.consumers.map((c) => scanConsumer(c, keys, motionKeys, opts.prior));
   const paused = opts.paused.map((c) => scanConsumer(c, keys, motionKeys));
   const ctx = {
     srcDir,
@@ -676,6 +699,63 @@ function rowProblems(r, row) {
   return problems;
 }
 
+const BUDGETS_FILE = "packages/ui/size-budgets.json";
+
+/**
+ * The size budget of each domain (ADR-008 §5): the sum of the size-limit rows of its entries that stay (verdict keep or
+ * ask; an entry not in the inventory yet counts, so a new one has to fit). Bytes.
+ */
+export function domainBudgets({ rows, inventory, sizeLimit }) {
+  const verdicts = new Map(inventory.entries.map((e) => [e.name, e.verdict]));
+  const domains = new Map(rows.map((r) => [r.name, r.meta.domain ?? domainOf(r.name, r.meta.category, r.parentCategory)]));
+  const out = Object.fromEntries(Object.keys(DOMAINS).map((d) => [d, 0]));
+  for (const [entry, bytes] of budgets(sizeLimit)) {
+    const domain = domains.get(entry);
+    const verdict = verdicts.get(entry);
+    if (!domain || verdict === "retire" || verdict === "merge" || verdict === "leave-core") continue;
+    out[domain] += bytes;
+  }
+  return out;
+}
+
+/** The ratchet: a domain over its frozen budget fails; a domain below it asks for the budget to be lowered. */
+export function checkBudgets({ current, frozen }) {
+  const problems = [];
+  for (const [domain, bytes] of Object.entries(current)) {
+    const limit = frozen[domain];
+    if (limit === undefined) problems.push(`${domain}: no frozen budget (run \`node tools/usage-inventory.mjs --budgets --update\`)`);
+    else if (bytes > limit) problems.push(`${domain}: size-limit rows add up to ${kbOf(bytes)} kB, over its frozen budget of ${kbOf(limit)} kB: shrink something in the domain, or an ADR raises the budget (never silently)`);
+    else if (bytes < limit) problems.push(`${domain}: ${kbOf(bytes)} kB, under its frozen ${kbOf(limit)} kB: lock the gain with \`node tools/usage-inventory.mjs --budgets --update\``);
+  }
+  return problems;
+}
+const kbOf = (bytes) => (bytes / 1000).toFixed(1);
+
+/** `--update` only ever lowers a budget; a domain without one is recorded at its current sum. */
+export function lowerBudgets({ current, frozen }) {
+  return Object.fromEntries(Object.entries(current).map(([d, bytes]) => [d, frozen[d] === undefined ? bytes : Math.min(bytes, frozen[d])]));
+}
+
+function budgetsCommand(update) {
+  const pkg = readJson(join(ROOT, "packages/ui/package.json"));
+  const rows = collectRows(new Set(Object.keys(pkg.exports)), join(ROOT, "packages/ui/src"));
+  const inventory = readJson(join(ROOT, "docs/inventory/ui-usage.json"));
+  const current = domainBudgets({ rows, inventory, sizeLimit: pkg["size-limit"] });
+  const file = join(ROOT, BUDGETS_FILE);
+  const frozen = existsSync(file) ? readJson(file).domains : {};
+  if (update) {
+    writeFileSync(file, JSON.stringify({ unit: "bytes", note: "ADR-008 §5: only goes down. node tools/usage-inventory.mjs --budgets --update", domains: lowerBudgets({ current, frozen }) }, null, 2) + "\n");
+    process.stdout.write(`${BUDGETS_FILE} written\n`);
+    return;
+  }
+  const problems = checkBudgets({ current, frozen });
+  if (problems.length) {
+    process.stderr.write(`domain size budgets: ${problems.length} problem(s)\n${problems.map((p) => `  - ${p}`).join("\n")}\n`);
+    process.exit(1);
+  }
+  process.stdout.write(`domain size budgets: ${Object.keys(current).length} domains within ${BUDGETS_FILE}\n`);
+}
+
 function check() {
   const pkg = readJson(join(ROOT, "packages/ui/package.json"));
   const rows = collectRows(new Set(Object.keys(pkg.exports)), join(ROOT, "packages/ui/src"));
@@ -690,16 +770,24 @@ function check() {
 }
 
 function main() {
-  const { values } = parseArgs({ options: { clone: { type: "boolean" }, check: { type: "boolean" } } });
+  const { values } = parseArgs({ options: { clone: { type: "boolean" }, "keep-local": { type: "boolean" }, check: { type: "boolean" }, budgets: { type: "boolean" }, update: { type: "boolean" } } });
+  if (values.budgets) return budgetsCommand(values.update);
   if (values.check) return check();
   if (values.clone) cloneMissing([...CONSUMERS, ...PAUSED]);
   const at = (c) => ({ ...c, path: locate(c) });
   const consumers = CONSUMERS.map(at);
+  const committed = join(ROOT, "docs/inventory/ui-usage.json");
   const inv = buildInventory({
+    prior: values["keep-local"] && existsSync(committed) ? readJson(committed) : null,
     consumers,
     paused: PAUSED.map(at),
     motion: consumers.find((c) => c.name === "motion-lab").path,
   });
+  const missing = [...inv.consumers, ...inv.paused].filter((c) => c.absent).map((c) => c.name);
+  if (values["keep-local"] && missing.length) {
+    process.stderr.write(`usage inventory: not readable here: ${missing.join(", ")}: refusing to write a partial inventory\n`);
+    process.exit(1);
+  }
   const out = join(ROOT, "docs/inventory");
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "ui-usage.json"), JSON.stringify(inv, null, 2) + "\n");

@@ -4,7 +4,7 @@ import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { budgets, checkInventory, closureSize, decideAll, domainOf, entryOf, gitHead, locate, parseImports, readMeta, readPriorAudit, verdict, walk } from "./usage-inventory.mjs";
+import { budgets, checkBudgets, checkInventory, closureSize, decideAll, domainBudgets, domainOf, entryOf, gitHead, locate, lowerBudgets, parseImports, restoredScan, parseLimit, readMeta, readPriorAudit, verdict, walk } from "./usage-inventory.mjs";
 
 test("parseImports finds every @krizaka/ui and @krizaka/motion specifier, and the names taken from the barrels", () => {
   const src = [
@@ -174,4 +174,52 @@ test("checkInventory lets an experimental entry with its adoption issue be new, 
   const text = checkInventory({ inventory, rows }).join("\n");
   assert.doesNotMatch(text, /fresh/);
   assert.match(text, /gone: in docs\/inventory\/ui-usage.json but no longer in the package/);
+});
+
+test("parseLimit reads the number and the unit without a regex, and refuses the rest", () => {
+  assert.equal(parseLimit("8 kB"), 8000);
+  assert.equal(parseLimit("12.5 kB"), 12500);
+  assert.equal(parseLimit("900 B"), 900);
+  assert.equal(parseLimit("2KB"), 2048);
+  assert.equal(parseLimit("1 MB"), 1e6);
+  assert.equal(parseLimit("kB"), null);
+  assert.equal(parseLimit("8 parsecs"), null);
+  assert.equal(parseLimit(undefined), null);
+});
+
+test("domainBudgets sums the size-limit rows of the entries that stay, per domain", () => {
+  const row = (name, domain) => ({ name, kind: "entry", meta: { domain, category: "actions" } });
+  const rows = [row("button", "foundations"), row("card", "foundations"), row("old", "foundations"), row("field", "forms"), row("fresh", "forms")];
+  const inventory = { entries: [{ name: "button", verdict: "keep" }, { name: "card", verdict: "ask" }, { name: "old", verdict: "retire" }, { name: "field", verdict: "keep" }] };
+  const sizeLimit = [
+    { name: "./button", limit: "2 kB" },
+    { name: "./card (with a note)", limit: "3 kB" },
+    { name: "./old", limit: "9 kB" },
+    { name: "./field", limit: "4 kB" },
+    { name: "./fresh", limit: "1 kB" },
+  ];
+  const sums = domainBudgets({ rows, inventory, sizeLimit });
+  assert.equal(sums.foundations, 5000);
+  assert.equal(sums.forms, 5000, "a new entry counts: it has to fit");
+  assert.equal(sums.cahier, 0);
+});
+
+test("checkBudgets is a ratchet: over the frozen budget fails, below asks to lock the gain, never raised", () => {
+  const frozen = { forms: 5000, media: 1000 };
+  assert.deepEqual(checkBudgets({ current: { forms: 5000, media: 1000 }, frozen }), []);
+  assert.match(checkBudgets({ current: { forms: 5100, media: 1000 }, frozen }).join(), /forms: .* over its frozen budget/);
+  assert.match(checkBudgets({ current: { forms: 4000, media: 1000 }, frozen }).join(), /forms: .* lock the gain/);
+  assert.match(checkBudgets({ current: { maps: 10 }, frozen }).join(), /maps: no frozen budget/);
+  assert.deepEqual(lowerBudgets({ current: { forms: 6000, media: 500, maps: 10 }, frozen }), { forms: 5000, media: 500, maps: 10 });
+});
+
+test("restoredScan rebuilds a local-only consumer's counts from the committed inventory", () => {
+  const prior = {
+    consumers: [{ name: "cockpit", absent: false, head: null, files: 90 }],
+    entries: [{ name: "tree-view", importers: { cockpit: 3, akinaza: 1 } }, { name: "button", importers: { akinaza: 9 } }, { name: "tag-input", importers: { cockpit: 1 } }],
+  };
+  const scan = restoredScan({ name: "cockpit", kind: "tool" }, prior);
+  assert.equal(scan.files, 90);
+  assert.equal(scan.absent, false);
+  assert.deepEqual([...scan.entries], [["ui:tree-view", 3], ["ui:tag-input", 1]]);
 });
