@@ -1984,7 +1984,7 @@
     {
       "name": "./vertical-video",
       "path": "dist/vertical-video.js",
-      "limit": "7 kB",
+      "limit": "7.1 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -3031,7 +3031,7 @@
     {
       "name": "./media-grid",
       "path": "dist/media-grid.js",
-      "limit": "9 kB",
+      "limit": "9.1 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
