@@ -11,3 +11,6 @@ __pycache__/
 *.pyc
 
 .preview/
+
+# vitest reporter output (generated)
+.vitest/
