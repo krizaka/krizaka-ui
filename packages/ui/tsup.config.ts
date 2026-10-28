@@ -265,6 +265,7 @@ export default defineConfig([
       "confirm-button": "src/confirm-button/index.ts",
       "copy-button": "src/copy-button/index.ts",
       "money-input": "src/money-input/index.ts",
+      "price-catalogue-editor": "src/price-catalogue-editor/index.ts",
       "promo-code-field": "src/promo-code-field/index.ts",
       proposal: "src/proposal/index.ts",
       mascots: "src/mascots/index.ts",
