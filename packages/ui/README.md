@@ -9,7 +9,7 @@
 
 **The Krizaka front-end platform's components, shared by every product.**
 The primitives (button, badge, avatar, field, theme, countdown…) on the semantic `--kz-*` tokens, the animated marks
-of Krizaka, Orazaka, Yomizaka and Akinaza (the paused products' marks — Orochia, Yasakia, Yororis, Kachizaka — still ship, deprecated until the next major), and the Krizaka motion signature — one easing, one way to enter, reveal, roll, shine
+of Krizaka, Orazaka, Yomizaka and Akinaza, and the Krizaka motion signature — one easing, one way to enter, reveal, roll, shine
 and open.
 
 [![npm](https://img.shields.io/npm/v/@krizaka/ui?color=196df5&label=npm)](https://www.npmjs.com/package/@krizaka/ui)
@@ -430,7 +430,7 @@ const { theme, scheme, mode, setMode, radius } = useTheme(); // theme.surface1, 
 | `Segmented` | `options` (`value`, `label`, `disabled`), `value`, `onValueChange`, `size` | The web `Tabs variant="segmented"` (a tab list). To filter, `Chip.Group`. |
 | `Progress` | `variant` bar·ring, `size`, `value`/`max`, `label`, `valueText`, a ring's centre as children | The fill is the `accent` → `accent2` gradient (react-native-svg); it animates to each new value. |
 | `Toaster`, `toast` | `toast(title, { description, tone, icon, action, onPress, id, duration, onDismiss })`, `toast.success/warning/error/info`, `toast.dismiss(id?)`; `Toaster closeLabel position offset duration max` | No sonner: a light queue of its own. `offset` takes the safe-area inset (no safe-area dependency). |
-| `KrizakaMark`, `OrazakaMark`, `YomizakaMark`, `AkinazaMark`, `ProductMark` (`id`) — `OrochiaMark`, `YasakiaMark`, `YororisMark`, `KachizakaMark` deprecated (paused products) | `size`, `animated`, `title`, `neutral` (default `theme.textMuted`) | The brand marks, drawn with react-native-svg from the web marks' geometry. |
+| `KrizakaMark`, `OrazakaMark`, `YomizakaMark`, `AkinazaMark`, `ProductMark` (`id`) | `size`, `animated`, `title`, `neutral` (default `theme.textMuted`) | The brand marks, drawn with react-native-svg from the web marks' geometry. |
 
 Every animation (skeleton, badge dot, urgent countdown, progress, toast entrance, the marks) stops when the system
 asks to reduce motion (`useReducedMotion()`). Accessibility goes through `role` and `aria-*` (RN ≥ 0.71): headings,

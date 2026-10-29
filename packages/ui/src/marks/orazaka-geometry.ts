@@ -2,11 +2,11 @@ import { marks } from "@krizaka/tokens/native";
 
 /**
  * The Orazaka mark's geometry — drawn by the web mark (OrazakaLogo) and the native one (OrazakaMark). The same
- * grammar as Orochia and Krizaka (packages/tokens/BRAND.md, "Marks"): 400×400 view box, dashed orbit and ring, a bold
+ * grammar as Krizaka (packages/tokens/BRAND.md, "Marks"): 400×400 view box, dashed orbit and ring, a bold
  * emblem in the brand gradient, a bright core; below 48 px the view box crops to the emblem.
  *
  * The emblem keeps the original idea — three hexagonal shards orbiting a core — drawn as solid shards (the weight of
- * Orochia's body) in the Orazaka orange: the brand's mark gradient (`marks.orazaka` of @krizaka/tokens, the same source
+ * the family's bodies) in the Orazaka orange: the brand's mark gradient (`marks.orazaka` of @krizaka/tokens, the same source
  * as the accent), deep orange → orange on the accent's hue 26 — never the amber of --kz-warning (hue 38). Every stop
  * reads ≥ 3:1 on the page surfaces of both themes (tested in @krizaka/tokens), so one mark serves dark and light.
  */

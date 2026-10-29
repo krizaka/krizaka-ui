@@ -58,7 +58,7 @@ describe("changelog adapter", () => {
         { title: "feat: older (#9)", html_url: "https://github.com/o/r/pull/9", merged_at: "2026-10-06T10:00:00Z" },
         { title: "feat: never merged", html_url: "https://github.com/o/r/pull/8", merged_at: null },
       ],
-      "Yasakia",
+      "Yomizaka",
     );
     expect(r.map((x) => [x.version, x.date, x.changes.length])).toEqual([["2026-10-12", "2026-10-16", 2], ["2026-10-05", "2026-10-06", 1]]);
     expect(r[0].changes[0].pr?.number).toBe(12);

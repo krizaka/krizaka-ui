@@ -24,8 +24,8 @@ describe("SpecimenTag", () => {
   });
 
   it("hangs from a wire, takes another title level, and keeps the mark decorative", () => {
-    render(<SpecimenTag mount="hang" title="Orochia" titleAs="h4" mark={<svg data-testid="m" />} />);
-    expect(screen.getByRole("heading", { level: 4, name: "Orochia" }).closest("article")?.dataset.mount).toBe("hang");
+    render(<SpecimenTag mount="hang" title="Yomizaka" titleAs="h4" mark={<svg data-testid="m" />} />);
+    expect(screen.getByRole("heading", { level: 4, name: "Yomizaka" }).closest("article")?.dataset.mount).toBe("hang");
     expect(screen.getByTestId("m").parentElement?.getAttribute("aria-hidden")).toBe("true");
   });
 

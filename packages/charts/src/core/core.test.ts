@@ -118,10 +118,9 @@ describe.each(Object.keys(ORDERS) as (keyof typeof ORDERS)[])("the %s palette", 
     expect(new Set(colors).size).toBe(8);
     for (let i = 0; i < colors.length - 1; i += 1) {
       const [a, b] = [colors[i]!, colors[i + 1]!];
-      // Adjacent pairs (stacks, bars, lines): ≥ 15 for everyone; ≥ 6 under protan and deutan (≥ 8 but for Orochia
-      // light, 7.2, in the band legal with the secondary encoding every chart carries: legend, labels, table).
+      // Adjacent pairs (stacks, bars, lines): ≥ 15 for everyone; ≥ 8 under protan and deutan.
       expect(deltaE(a, b), `${a}↔${b} normal`).toBeGreaterThanOrEqual(15);
-      expect(Math.min(deltaE(a, b, "protan"), deltaE(a, b, "deutan")), `${a}↔${b} CVD`).toBeGreaterThanOrEqual(brand === "orochia" && mode === "light" ? 7 : 8);
+      expect(Math.min(deltaE(a, b, "protan"), deltaE(a, b, "deutan")), `${a}↔${b} CVD`).toBeGreaterThanOrEqual(8);
     }
     // The first three slots stay apart all-pairs (scatter, maps).
     for (const [a, b] of [[0, 1], [0, 2], [1, 2]] as const) expect(Math.min(deltaE(colors[a]!, colors[b]!, "protan"), deltaE(colors[a]!, colors[b]!, "deutan"))).toBeGreaterThanOrEqual(8);
@@ -129,7 +128,7 @@ describe.each(Object.keys(ORDERS) as (keyof typeof ORDERS)[])("the %s palette", 
   });
 
   it("leads with the brand's hue", () => {
-    expect(ORDERS[brand][0]).toBe({ krizaka: "blue", orazaka: "orange", orochia: "violet" }[brand]);
+    expect(ORDERS[brand][0]).toBe({ krizaka: "blue", orazaka: "orange" }[brand]);
   });
 });
 

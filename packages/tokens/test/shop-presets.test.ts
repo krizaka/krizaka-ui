@@ -42,9 +42,9 @@ describe("Shop look presets (ADR-007 §4, krizaka-ui#745)", () => {
     expect(() => compileShopPresets([{ ...sources[0], accent: "hsl(10 10% 10%)", accents: ["hsl(10 10% 10%)"] }, ...sources.slice(1)], brands)).toThrow(/raw colour/);
   });
 
-  it("refuses an unknown key, a paused brand's accent, an accent missing from its list, a third preset in a trade", () => {
+  it("refuses an unknown key, a brand that is not live, an accent missing from its list, a third preset in a trade", () => {
     expect(() => compileShopPresets([{ ...sources[0], extra: 1 }, ...sources.slice(1)], brands)).toThrow(/unknown key/);
-    expect(() => compileShopPresets([{ ...sources[0], accent: "yasakia", accents: ["yasakia"] }, ...sources.slice(1)], brands)).toThrow(/live brand/);
+    expect(() => compileShopPresets([{ ...sources[0], accent: "elsewhere", accents: ["elsewhere"] }, ...sources.slice(1)], brands)).toThrow(/live brand/);
     expect(() => compileShopPresets([{ ...sources[0], accents: ["krizaka"] }, ...sources.slice(1)], brands)).toThrow(/accents lists/);
     expect(() => compileShopPresets([...sources, { ...sources.find((x) => !x.id.startsWith("look-")), id: "cleaning-extra" }], brands)).toThrow(/two presets/);
   });

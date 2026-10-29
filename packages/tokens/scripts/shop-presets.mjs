@@ -8,7 +8,7 @@
 export const SHOP_TRADES = ["salon", "pets", "coaching", "workshop", "cleaning", "consulting"];
 export const SHOP_PAPERS = ["plain", "seyes", "kraft", "washi"];
 export const SHOP_GRADES = ["none", "warm", "cool"];
-/** The brands whose accent a shop may wear: the products that are live (the paused ones' accents are deprecated). */
+/** The brands whose accent a shop may wear: the products that are live. */
 export const SHOP_ACCENT_BRANDS = ["krizaka", "orazaka", "yomizaka", "akinaza"];
 const KEYS = new Set(["id", "version", "name", "trades", "paper", "accent", "accents", "faces", "density", "photo", "variants"]);
 /** The look presets (`look-<name>`, trade-agnostic, akinaza#478): the keys they add to a trade preset's. */

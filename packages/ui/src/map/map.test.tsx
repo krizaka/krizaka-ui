@@ -107,7 +107,7 @@ describe("the style, from the tokens", () => {
     expect(style.glyphs).toContain("{fontstack}/{range}.pbf");
     expect(JSON.stringify(style.layers)).not.toMatch(/icon-image/);
     expect(mapPalette("dark").land).not.toBe(mapPalette("light").land);
-    expect(mapPalette("dark", "orochia").accent).toBe("#7c3aed");
+    expect(mapPalette("dark", "yomizaka").accent).toBe("#8888f2");
   });
 
   it("measures distances and draws circles", () => {

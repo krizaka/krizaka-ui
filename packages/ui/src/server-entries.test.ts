@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import config from "../tsup.config";
 
 // A function exported from an entry WITHOUT a "use client" banner can be called in a Server Component; a function
-// reached through a client entry cannot ("Attempted to call defaultAvatarUrl() from the server" — a 500 on dev.orochia.com).
+// reached through a client entry cannot ("Attempted to call defaultAvatarUrl() from the server" — a 500 on a product site).
 // So: every server entry (no banner) must not reach, through its relative imports, a file that says "use client",
 // and the pure helpers that products call on the server have a server entry of their own.
 const root = join(__dirname, "..");
@@ -41,7 +41,7 @@ describe("server entries", () => {
     const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
     expect(pkg.exports["./avatar/defaults"]).toBeTruthy();
     const mod = await import("./avatar/defaults");
-    expect(mod.defaultAvatarUrl({ brand: "orochia", seed: "Eric" })).toMatch(/^https:\/\//);
+    expect(mod.defaultAvatarUrl({ brand: "yomizaka", seed: "Eric" })).toMatch(/^https:\/\//);
     expect(typeof mod.defaultAvatarSvg).toBe("function");
   });
 });

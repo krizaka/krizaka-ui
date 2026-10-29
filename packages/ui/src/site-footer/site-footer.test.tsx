@@ -74,7 +74,6 @@ describe("SiteFooter", () => {
     expect(current.textContent).toContain("You are here");
     expect(within(family).getByRole("link", { name: /Yomizaka/ }).textContent).toContain("In development");
     expect(within(family).getByRole("link", { name: /Akinaza/ }).textContent).toContain("In development");
-    for (const name of [/Orochia/, /Yasakia/, /Yororis/, /Kachizaka/]) expect(within(family).queryByRole("link", { name })).toBeNull();
   });
 
   it("renders the site's own columns, the signature by kind, the version and Montréal", () => {
@@ -109,7 +108,7 @@ describe("SiteFooter", () => {
     expect(screen.queryByRole("navigation", { name: "Krizaka family" })).toBeNull();
     expect(screen.getByRole("list", { name: "Orazaka" })).toBeTruthy();
     const hrefs = screen.getAllByRole("link").map((a) => a.getAttribute("href"));
-    for (const other of ["orochia", "yasakia", "yororis", "ui.krizaka", "java.krizaka", "github.com"]) {
+    for (const other of ["ui.krizaka", "java.krizaka", "github.com"]) {
       expect(hrefs.filter((h) => h?.includes(other))).toEqual([]);
     }
     expect(screen.getByRole("link", { name: /A Krizaka product/ }).getAttribute("href")).toBe("https://www.krizaka.com");
@@ -125,7 +124,7 @@ describe("SiteFooter", () => {
 
   it("renders no column for a group with no link (empty, null or false children), and no wrapper when no group is left", () => {
     const { container } = render(
-      <SiteFooter current="kachizaka" family={false}>
+      <SiteFooter current="akinaza" family={false}>
         <SiteFooter.Column title="Empty">{null}</SiteFooter.Column>
         <SiteFooter.Column title="Falsy">{[false, undefined]}</SiteFooter.Column>
       </SiteFooter>,
@@ -137,15 +136,15 @@ describe("SiteFooter", () => {
 
   it("keeps a column with at least one link, and drops the falsy ones around it", () => {
     render(
-      <SiteFooter current="kachizaka" family={false}>
-        <SiteFooter.Column title="Kachizaka">
+      <SiteFooter current="akinaza" family={false}>
+        <SiteFooter.Column title="Akinaza">
           {false}
           <SiteFooter.Link href="#privacy">Privacy</SiteFooter.Link>
           {null}
         </SiteFooter.Column>
       </SiteFooter>,
     );
-    expect(within(screen.getByRole("list", { name: "Kachizaka" })).getAllByRole("listitem")).toHaveLength(1);
+    expect(within(screen.getByRole("list", { name: "Akinaza" })).getAllByRole("listitem")).toHaveLength(1);
   });
 
   it("the site's own columns share the row (auto-fit), never a fixed 2/3-column grid that leaves empty cells", () => {
@@ -246,8 +245,6 @@ describe("SiteFooter", () => {
     const hrefs = screen.getAllByRole("link").map((a) => a.getAttribute("href") ?? "");
     expect(hrefs.some((h) => h.includes("orazaka"))).toBe(true);
     expect(hrefs.some((h) => h.includes("yomizaka"))).toBe(true);
-    expect(hrefs.some((h) => h.includes("orochia"))).toBe(false);
-    expect(hrefs.some((h) => h.includes("kachizaka"))).toBe(false);
   });
 
   describe("with the organisation's facts (@krizaka/org)", () => {

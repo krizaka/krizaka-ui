@@ -52,7 +52,7 @@ describe("Mascot", () => {
     for (const g of Object.values(BIRDS)) for (const [x, y] of g.eyes.at) expect(x > 0 && x < 120 && y > 0 && y < 120).toBe(true);
   });
 
-  it("welcomes the magpie (Kachizaka: the score) and the beaver (Akinaza: the shop), each with its own palette", () => {
+  it("welcomes the magpie (the score) and the beaver (the shop), each with its own palette", () => {
     expect(MASCOT_BIRDS.slice(-2)).toEqual(["magpie", "beaver"]);
     for (const bird of ["magpie", "beaver"] as const) {
       expect(OWN_PALETTES[bird]).toBeDefined();

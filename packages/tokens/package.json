@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/tokens",
   "version": "3.73.0",
-  "description": "The Krizaka semantic design tokens (--kz-*) and the brand themes (Krizaka, Orazaka, Yomizaka, Akinaza; the paused Orochia, Yasakia, Yororis and Kachizaka deprecated): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
+  "description": "The Krizaka semantic design tokens (--kz-*) and the brand themes (Krizaka, Orazaka, Yomizaka, Akinaza): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
   "keywords": [
     "krizaka",
     "design-tokens",
@@ -41,12 +41,7 @@
     },
     "./brands/krizaka.css": "./dist/brands/krizaka.css",
     "./brands/orazaka.css": "./dist/brands/orazaka.css",
-    "./brands/orochia.css": "./dist/brands/orochia.css",
-    "./brands/yasakia.css": "./dist/brands/yasakia.css",
-    "./brands/yazakia.css": "./dist/brands/yazakia.css",
-    "./brands/yororis.css": "./dist/brands/yororis.css",
     "./brands/yomizaka.css": "./dist/brands/yomizaka.css",
-    "./brands/kachizaka.css": "./dist/brands/kachizaka.css",
     "./brands/akinaza.css": "./dist/brands/akinaza.css",
     "./brands/scoped.css": "./dist/brands/scoped.css",
     "./native": {
@@ -70,7 +65,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./appearance.css ./shop-presets.css ./brands/krizaka.css ./brands/orazaka.css ./brands/orochia.css ./brands/yasakia.css ./brands/yazakia.css ./brands/yororis.css ./brands/yomizaka.css ./brands/kachizaka.css ./brands/akinaza.css ./brands/scoped.css",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./appearance.css ./shop-presets.css ./brands/krizaka.css ./brands/orazaka.css ./brands/yomizaka.css ./brands/akinaza.css ./brands/scoped.css",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {

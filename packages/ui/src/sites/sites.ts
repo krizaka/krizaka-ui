@@ -5,11 +5,8 @@
 // The words of the family (a site's one line, the groups, the statuses, the footer's signature) are brand data, written
 // here in English and French (`familyLabels`) — a site passes the set of its locale, or its own translation.
 
-/**
- * A site of the family. `orochia`, `yasakia`, `yororis` and `kachizaka` are kept for compatibility only: they are paused
- * products and are not listed in `sites` any more.
- */
-export type SiteId = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka" | "kachizaka" | "akinaza" | "ui" | "java" | "ts" | "motion" | "github";
+/** A site of the family. */
+export type SiteId = "krizaka" | "orazaka" | "yomizaka" | "akinaza" | "ui" | "java" | "ts" | "motion" | "github";
 
 /** What a site is: the company, a product, or an open-source project. It chooses the footer's signature line. */
 export type SiteKind = "company" | "product" | "open-source";
@@ -24,14 +21,8 @@ export type SiteStatus = "released" | "upcoming" | "construction" | "development
 /** The groups of the family, in reading order: Krizaka · Products · Open source · GitHub. */
 export type SiteGroup = "krizaka" | "products" | "open-source" | "github";
 
-/** The mark a site wears (the paused products' marks are kept for compatibility only, see `PausedSiteId`): a brand of `ProductLogo` (Krizaka UI and Krizaka Java wear Krizaka's), or GitHub's. */
-export type SiteMark = "krizaka" | "orazaka" | "orochia" | "yasakia" | "yororis" | "yomizaka" | "kachizaka" | "akinaza" | "github";
-
-/**
- * @deprecated Paused product (2026-10-25); removed in the next major. The sites of the paused products: out of the family
- * (`sites`), their ids still accepted by the types.
- */
-export type PausedSiteId = "orochia" | "yasakia" | "yororis" | "kachizaka";
+/** The mark a site wears: a brand of `ProductLogo` (Krizaka UI and Krizaka Java wear Krizaka's), or GitHub's. */
+export type SiteMark = "krizaka" | "orazaka" | "yomizaka" | "akinaza" | "github";
 
 export interface Site {
   readonly id: SiteId;
@@ -65,23 +56,12 @@ export const sites: readonly Site[] = [
   site({ id: "github", name: "GitHub", url: "https://github.com/krizaka", kind: "open-source", group: "github", status: "released", mark: "github", repo: "https://github.com/krizaka" }),
 ];
 
-/**
- * @deprecated Paused product (2026-10-25); removed in the next major. The paused products' sites, out of the family: no
- * switcher or footer lists them, `siteById` still finds them so a page that names one as `current` keeps rendering.
- */
-export const pausedSites: readonly Site[] = [
-  site({ id: "orochia", name: "Orochia", url: "https://www.orochia.com", kind: "product", group: "products", status: "development", mark: "orochia", repo: "https://github.com/krizaka/orochia" }),
-  site({ id: "yasakia", name: "Yasakia", url: "https://www.yasakia.com", kind: "product", group: "products", status: "development", mark: "yasakia", repo: "https://github.com/krizaka/yasakia" }),
-  site({ id: "yororis", name: "Yororis", url: "https://www.yororis.com", kind: "product", group: "products", status: "development", mark: "yororis", repo: "https://github.com/krizaka/yororis" }),
-  site({ id: "kachizaka", name: "Kachizaka", url: "https://www.kachizaka.com", kind: "product", group: "products", status: "development", mark: "kachizaka", repo: "https://github.com/krizaka/kachizaka" }),
-];
-
 /** The groups, in reading order. */
 export const siteGroups: readonly SiteGroup[] = ["krizaka", "products", "open-source", "github"];
 
-/** A site by id (a paused product's too, see `pausedSites`). */
+/** A site by id. */
 export function siteById(id: SiteId): Site {
-  const found = sites.find((s) => s.id === id) ?? pausedSites.find((s) => s.id === id);
+  const found = sites.find((s) => s.id === id);
   if (!found) throw new Error(`Unknown Krizaka site "${id}".`);
   return found;
 }
@@ -113,7 +93,7 @@ export interface FamilyLabels {
   /** Says which site is the current one (“You are here”). */
   current: string;
   /** One line per site: what it is. */
-  descriptions: Record<Exclude<SiteId, PausedSiteId>, string> & Partial<Record<PausedSiteId, string>>;
+  descriptions: Record<SiteId, string>;
   /** The footer's signature, by the kind of the current site (“A Krizaka product”). */
   signature: Record<SiteKind, string>;
   /** The footer's place line (“Made in Montréal”). */

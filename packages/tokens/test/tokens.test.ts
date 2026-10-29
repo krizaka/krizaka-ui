@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
-import { BRAND_ROLES, BRANDS, camel, compile, compileBrands, flatten, load, loadBrands, PAUSED_BRANDS, write } from "../scripts/build.mjs";
+import { BRAND_ROLES, BRANDS, camel, compile, compileBrands, flatten, load, loadBrands, write } from "../scripts/build.mjs";
 import { contrast, over, parseHsl, toNative } from "../scripts/color.mjs";
 
 const sources = load(join(import.meta.dirname, "../src/tokens"));
@@ -357,20 +357,11 @@ describe("brands", async () => {
   const surfaces = ["surface0", "surface1", "surface2", "surface3"] as const;
 
   it("compiles one theme per brand and the scoped classes", () => {
-    expect(BRANDS).toEqual(["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"]);
+    expect(BRANDS).toEqual(["krizaka", "orazaka", "yomizaka", "akinaza"]);
     for (const id of BRANDS) expect(files[`brands/${id}.css`], id).toBeDefined();
     expect(files["brands/scoped.css"]).toContain(".brand-orazaka {");
     expect(Object.keys(index.brands)).toEqual(BRANDS);
     expect(Object.keys(native.brands)).toEqual(BRANDS);
-  });
-
-  it("still ships the paused products' brands, each said deprecated (2026-10-25)", () => {
-    expect(PAUSED_BRANDS).toEqual(["orochia", "yasakia", "yororis", "kachizaka"]);
-    for (const id of BRANDS) {
-      const paused = PAUSED_BRANDS.includes(id);
-      expect(files[`brands/${id}.css`].startsWith("/* DEPRECATED — a paused product"), id).toBe(paused);
-      expect(files["brands/scoped.css"].includes(`/* DEPRECATED — .brand-${id}: a paused product`), id).toBe(paused);
-    }
   });
 
   it("matches the snapshots", async () => {
@@ -398,12 +389,9 @@ describe("brands", async () => {
     }
   });
 
-  it("keeps the Orazaka orange and the Orochia values of its design system", () => {
+  it("keeps the Orazaka orange", () => {
     expect(native.brands.orazaka.light.accent).toBe("#b45309"); // the deep orange, also the first stop of the mark
     expect(native.brands.orazaka.dark.accent2).toBe("#f59e0b"); // the buttons' gradient closes on amber (not the mark)
-    expect(native.brands.orochia.dark.accent).toBe("#7c3aed");
-    expect(native.brands.orochia.light.accent2).toBe("#db2777");
-    expect(native.brands.orochia.dark.ring).toBe("#a78bfa");
   });
 
   for (const id of BRANDS) {
@@ -452,13 +440,6 @@ describe("brands", async () => {
 
     it("draws each mark in its brand's colour", () => {
       expect(index.marks.krizaka.map(([, c]: [string, string]) => c)).toEqual([index.brands.krizaka.dark.accent, index.brands.krizaka.dark.accentText]);
-      expect(native.marks.orochia[0][1]).toBe(native.brands.orochia.dark.accent);
-      expect(native.marks.orochia.map(([, c]: [string, string]) => c)).toEqual(["#7c3aed", "#d946ef", "#f472b6"]); // unchanged
-      // Yasakia: emerald → turquoise, the turquoise end on the accent's hue family.
-      expect(index.marks.yasakia.map(([, c]: [string, string]) => hue(c))).toEqual([156, 178]);
-      // Yororis: sand → sage, the sage end on the accent's hue.
-      expect(index.marks.yororis.map(([, c]: [string, string]) => hue(c))).toEqual([34, 104]);
-      expect(Math.abs(hue(index.marks.yororis.at(-1)[1]) - hue(index.brands.yororis.dark.accent))).toBeLessThanOrEqual(10);
       // Orazaka: deep orange (its light accent) → orange, both on the accent's hue 26 — never the amber of --kz-warning.
       expect(index.marks.orazaka[0][1]).toBe(index.brands.orazaka.light.accent);
       for (const [, c] of index.marks.orazaka) {
@@ -467,7 +448,7 @@ describe("brands", async () => {
       }
     });
 
-    it.each(["orazaka", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
+    it.each(["orazaka", "yomizaka", "akinaza"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
       for (const mode of ["dark", "light"] as const) {
         for (const s of ["surface0", "surface1", "surface2"] as const) {
           for (const [, c] of index.marks[id]) expect(contrast(parseHsl(c), parseHsl(index.values[mode][s])), `${mode} ${s} ${c}`).toBeGreaterThanOrEqual(3);
@@ -481,60 +462,14 @@ describe("brands", async () => {
     });
   });
 
-  it("keeps Yasakia's turquoise accent apart from the success status (its emerald is the mark and accent-2 only)", () => {
-    const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);
-    for (const mode of ["dark", "light"] as const) {
-      expect(Math.abs(hue(index.brands.yasakia[mode].accent) - hue(index.values[mode].success)), mode).toBeGreaterThanOrEqual(10);
-      expect(index.brands.yasakia[mode].info).not.toBe(index.brands.yasakia[mode].accent);
-    }
-  });
-
-  it("gives Yasakia the same roles as every brand, dark, light and native (key parity)", () => {
-    for (const mode of ["dark", "light"] as const) {
-      expect(Object.keys(index.brands.yasakia[mode])).toEqual(Object.keys(index.brands.orochia[mode]));
-      expect(Object.keys(native.brands.yasakia[mode])).toEqual(Object.keys(native.brands.orochia[mode]));
-    }
-    expect(files["brands/scoped.css"]).toContain(".brand-yasakia {");
-    expect(files["brands/scoped.css"]).toContain("html.light .brand-yasakia");
-  });
-
-  it("keeps Yororis' sage accent apart from every status, and its sand (accent-2, mark) apart from the warning amber", () => {
-    const hsl = (v: string) => /hsl\(([\d.]+) ([\d.]+)%/.exec(v)!.slice(1).map(Number) as [number, number];
-    const gap = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
-    for (const mode of ["dark", "light"] as const) {
-      const [accent] = hsl(index.brands.yororis[mode].accent);
-      for (const status of ["success", "warning", "danger"] as const) {
-        expect(gap(accent, hsl(index.values[mode][status])[0]), `${mode} ${status}`).toBeGreaterThanOrEqual(30);
-      }
-      // The sand shares the amber's hue family: it is told apart by its chroma — at most half the warning's saturation.
-      const [, warningSat] = hsl(index.values[mode].warning);
-      for (const sand of [index.brands.yororis[mode].accent2, index.marks.yororis[0][1]]) {
-        expect(hsl(sand)[1], `${mode} ${sand}`).toBeLessThanOrEqual(warningSat / 2);
-      }
-      expect(index.brands.yororis[mode].info).not.toBe(index.brands.yororis[mode].accent);
-    }
-    // Apart from Yasakia's turquoise and emerald too: two products, two colours.
-    expect(gap(hsl(index.brands.yororis.dark.accent)[0], hsl(index.brands.yasakia.dark.accent2)[0])).toBeGreaterThanOrEqual(30);
-  });
-
-  it("gives Yororis the same roles as every brand, dark, light and native (key parity)", () => {
-    for (const mode of ["dark", "light"] as const) {
-      expect(Object.keys(index.brands.yororis[mode])).toEqual(Object.keys(index.brands.orochia[mode]));
-      expect(Object.keys(native.brands.yororis[mode])).toEqual(Object.keys(native.brands.orochia[mode]));
-    }
-    expect(files["brands/scoped.css"]).toContain(".brand-yororis {");
-    expect(files["brands/scoped.css"]).toContain("html.light .brand-yororis");
-  });
-
-  it("keeps Yomizaka's indigo apart from the Krizaka blue, the Orochia violet, every other brand and every status", () => {
+  it("keeps Yomizaka's indigo apart from the Krizaka blue, every other brand and every status", () => {
     const hsl = (v: string) => /hsl\(([\d.]+) ([\d.]+)%/.exec(v)!.slice(1).map(Number) as [number, number];
     const gap = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
     for (const mode of ["dark", "light"] as const) {
       const [accent] = hsl(index.brands.yomizaka[mode].accent);
-      // The ink indigo sits between the parent's blue and Orochia's violet, at least 20° from each.
+      // The ink indigo sits at least 20° from the parent's blue.
       expect(gap(accent, hsl(index.brands.krizaka[mode].accent)[0]), `${mode} krizaka`).toBeGreaterThanOrEqual(20);
-      expect(gap(accent, hsl(index.brands.orochia.dark.accent)[0]), `${mode} orochia`).toBeGreaterThanOrEqual(20);
-      for (const other of ["orazaka", "yasakia", "yororis"] as const) {
+      for (const other of ["orazaka"] as const) {
         expect(gap(accent, hsl(index.brands[other][mode].accent)[0]), `${mode} ${other}`).toBeGreaterThanOrEqual(60);
       }
       for (const status of ["success", "warning", "danger"] as const) {
@@ -551,45 +486,21 @@ describe("brands", async () => {
 
   it("gives Yomizaka the same roles as every brand, dark, light and native (key parity)", () => {
     for (const mode of ["dark", "light"] as const) {
-      expect(Object.keys(index.brands.yomizaka[mode])).toEqual(Object.keys(index.brands.orochia[mode]));
-      expect(Object.keys(native.brands.yomizaka[mode])).toEqual(Object.keys(native.brands.orochia[mode]));
+      expect(Object.keys(index.brands.yomizaka[mode])).toEqual(Object.keys(index.brands.krizaka[mode]));
+      expect(Object.keys(native.brands.yomizaka[mode])).toEqual(Object.keys(native.brands.krizaka[mode]));
     }
     expect(files["brands/scoped.css"]).toContain(".brand-yomizaka {");
     expect(files["brands/scoped.css"]).toContain("html.light .brand-yomizaka");
   });
 
-  it("gives Kachizaka the only gold accent of the family, its cobalt second, ink on both (and says the cobalt alone is not distinct)", () => {
-    const hsl = (v: string) => /hsl\(([\d.]+) ([\d.]+)%/.exec(v)!.slice(1).map(Number) as [number, number];
-    const gap = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
-    for (const mode of ["dark", "light"] as const) {
-      const b = index.brands.kachizaka[mode];
-      const [gold] = hsl(b.accent);
-      const [cobalt] = hsl(b.accent2);
-      // The gold carries the identity: ≥ 10° from the warning amber (the Orazaka rule), ≥ 20° from every brand accent.
-      expect(gap(gold, hsl(index.values[mode].warning)[0]), `${mode} warning`).toBeGreaterThanOrEqual(10);
-      for (const other of ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "akinaza"] as const) {
-        expect(gap(gold, hsl(index.brands[other][mode].accent)[0]), `${mode} ${other}`).toBeGreaterThanOrEqual(20);
-      }
-      // The cobalt sits 9° from the Krizaka blue: never the accent, always paired with the gold (accent-2, gradient, mark).
-      expect(gap(cobalt, hsl(index.brands.krizaka[mode].accent)[0])).toBeLessThan(20);
-      expect(cobalt).toBe(226);
-      expect(b.onAccent).toBe(index.brands.kachizaka.dark.onAccent);
-      expect(b.info).not.toBe(b.accent);
-    }
-    // Cobalt (226) → gold (44): the mark pairs the two, its first stop on accent-2's hue.
-    const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);
-    expect(index.marks.kachizaka.map(([, c]: [string, string]) => hue(c))).toEqual([226, 44]);
-  });
-
-  it("gives Akinaza the forest green, apart from the sage, the emerald and success; a matte copper second, never Orazaka's orange", () => {
+  it("gives Akinaza the forest green, apart from success; a matte copper second, never Orazaka's orange", () => {
     const hsl = (v: string) => /hsl\(([\d.]+) ([\d.]+)%/.exec(v)!.slice(1).map(Number) as [number, number];
     const gap = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
     for (const mode of ["dark", "light"] as const) {
       const [green] = hsl(index.brands.akinaza[mode].accent);
-      for (const other of ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka"] as const) {
+      for (const other of ["krizaka", "orazaka", "yomizaka"] as const) {
         expect(gap(green, hsl(index.brands[other][mode].accent)[0]), `${mode} ${other}`).toBeGreaterThanOrEqual(20);
       }
-      expect(gap(green, hsl(index.brands.yasakia[mode].accent2)[0]), `${mode} emerald`).toBeGreaterThanOrEqual(20);
       expect(gap(green, hsl(index.values[mode].success)[0]), `${mode} success`).toBeGreaterThanOrEqual(20);
       // The copper is a matte metal: saturation ≤ 65 %, where Orazaka's orange is ≥ 90 %.
       const [, copperSat] = hsl(index.brands.akinaza[mode].accent2);
@@ -600,10 +511,10 @@ describe("brands", async () => {
     expect(index.marks.akinaza.map(([, c]: [string, string]) => hue(c))).toEqual([140, 22]);
   });
 
-  it.each(["kachizaka", "akinaza"] as const)("gives %s the same roles as every brand, dark, light and native (key parity)", (id) => {
+  it.each(["akinaza"] as const)("gives %s the same roles as every brand, dark, light and native (key parity)", (id) => {
     for (const mode of ["dark", "light"] as const) {
-      expect(Object.keys(index.brands[id][mode])).toEqual(Object.keys(index.brands.orochia[mode]));
-      expect(Object.keys(native.brands[id][mode])).toEqual(Object.keys(native.brands.orochia[mode]));
+      expect(Object.keys(index.brands[id][mode])).toEqual(Object.keys(index.brands.krizaka[mode]));
+      expect(Object.keys(native.brands[id][mode])).toEqual(Object.keys(native.brands.krizaka[mode]));
     }
     expect(files["brands/scoped.css"]).toContain(`.brand-${id} {`);
     expect(files["brands/scoped.css"]).toContain(`html.light .brand-${id}`);

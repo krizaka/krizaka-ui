@@ -25,8 +25,8 @@ describe("default avatars", () => {
   it("name their files by kind, tone and size, under the brand", () => {
     expect(defaultAvatarFile("person", 3, 256)).toBe("person-3-256.webp");
     expect(defaultAvatarFile("plain", 1, "svg")).toBe("plain-1.svg");
-    expect(defaultAvatarUrl({ brand: "orochia", tone: 4 })).toBe("https://krizaka-assets.b-cdn.net/people/defaults/v1/orochia/person-4-256.webp");
-    expect(defaultAvatarUrl({ brand: "yasakia", tone: 2, kind: "plain" }, { size: 512, base: "https://cdn.example/x/" })).toBe("https://cdn.example/x/yasakia/plain-2-512.webp");
+    expect(defaultAvatarUrl({ brand: "yomizaka", tone: 4 })).toBe("https://krizaka-assets.b-cdn.net/people/defaults/v1/yomizaka/person-4-256.webp");
+    expect(defaultAvatarUrl({ brand: "akinaza", tone: 2, kind: "plain" }, { size: 512, base: "https://cdn.example/x/" })).toBe("https://cdn.example/x/akinaza/plain-2-512.webp");
   });
 
   it("give a person the same tone everywhere, spread over all six", () => {
@@ -58,10 +58,10 @@ describe("default avatars", () => {
 
   it("trims the trailing slashes of a base in linear time", () => {
     const start = performance.now();
-    const url = defaultAvatarUrl({ brand: "orochia", tone: 1 }, { base: `https://cdn.example/${"/".repeat(200_000)}x` });
+    const url = defaultAvatarUrl({ brand: "yomizaka", tone: 1 }, { base: `https://cdn.example/${"/".repeat(200_000)}x` });
     expect(url.startsWith("https://cdn.example/")).toBe(true);
     expect(performance.now() - start).toBeLessThan(500);
-    expect(defaultAvatarUrl({ brand: "orochia", tone: 1 }, { base: "https://cdn.example/a///" })).toBe("https://cdn.example/a/orochia/person-1-256.webp");
+    expect(defaultAvatarUrl({ brand: "yomizaka", tone: 1 }, { base: "https://cdn.example/a///" })).toBe("https://cdn.example/a/yomizaka/person-1-256.webp");
   });
 });
 
