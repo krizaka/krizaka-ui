@@ -128,6 +128,9 @@ const config: TestRunnerConfig = {
     // machine (fixtures above). The video's frame/poster paint is decoder- and timing-bound (the same story drew its poster in
     // the baselines run and a black glass in CI, krizaka-ui#875): the screen is captured as its glass, the picture is not compared.
     await page.addStyleTag({ content: ".kz-rtv-bar{opacity:0!important;transition:none!important}.kz-rtv video{opacity:0!important}" });
+    // A RetroTv's screen is a lazy chunk (`React.Suspense`, fallback `null`): the capture waits until it is mounted, or the
+    // glass is photographed empty on a loaded runner and with its layers on a quick one (krizaka-ui#875, Playlist Channel).
+    await page.waitForFunction(() => [...document.querySelectorAll(".kz-rtv-screen")].every((el) => el.querySelector(":scope > :not(.kz-rtv-effects)")), undefined, { timeout: 15_000 });
     // @krizaka/charts: an ECharts engine and the world's countries load lazily (`data-pending` until drawn).
     await page.waitForFunction(() => !document.querySelector("[data-pending]"), undefined, { timeout: 15_000 });
     for (const theme of THEMES) {
