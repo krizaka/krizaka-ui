@@ -14,7 +14,8 @@
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
-    "lint": "turbo run lint && ast-grep test --skip-snapshot-tests && node scripts/sg-ratchet.mjs && node --test scripts/sg-ratchet.test.mjs",
+    "lint:workspace": "npx --yes -p @krizaka/config krizaka-workspace-guard",
+    "lint": "pnpm run lint:workspace && turbo run lint && ast-grep test --skip-snapshot-tests && node scripts/sg-ratchet.mjs && node --test scripts/sg-ratchet.test.mjs",
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
     "dev:check": "turbo run lint typecheck test --filter='...[origin/main]' --filter='!@krizaka/site' --filter='!@krizaka/storybook'",
