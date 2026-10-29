@@ -285,11 +285,9 @@ jobs:
           fetch-depth: 0  # blame and new-code detection need the history
           persist-credentials: false
 
-      - uses: SonarSource/sonarqube-scan-action@d209202bc7d53ff1cc128f7f907dac145c9d6ae9 # v8.3.0
-        env:
-          SONAR_HOST_URL: https://sonarcloud.io
+      - uses: krizaka/.github/actions/sonar-scan@b75b62ecb19b835c8f32fd186c913419e2ae4da6 # main
         with:
-          projectBaseDir: .
+          token: ${{ secrets.SONAR_TOKEN }}
           args: -Dsonar.qualitygate.wait=true
 
   sonar:
@@ -324,11 +322,9 @@ jobs:
 
       # CI analysis: the SonarCloud app still decorates the pull request and posts « SonarCloud Code Analysis »; the quality gate is awaited
       # here so the CI gate carries its verdict too.
-      - uses: SonarSource/sonarqube-scan-action@d209202bc7d53ff1cc128f7f907dac145c9d6ae9 # v8.3.0
-        env:
-          SONAR_HOST_URL: https://sonarcloud.io
+      - uses: krizaka/.github/actions/sonar-scan@b75b62ecb19b835c8f32fd186c913419e2ae4da6 # main
         with:
-          projectBaseDir: .
+          token: ${{ secrets.SONAR_TOKEN }}
           args: -Dsonar.qualitygate.wait=true
 
   # ALWAYS reports: green when the check succeeded (or the changes gate legitimately skipped it) and the SonarCloud leg did what it owed.
