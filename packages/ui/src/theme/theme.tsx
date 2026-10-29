@@ -71,14 +71,19 @@ export type ThemeScriptProps = {
   defaultMode?: Mode;
 };
 
+/** The readable flag cookie of a session (`kz-session=1`, kept by `@krizaka/auth`): a hint, never the proof. */
+const SESSION_HINT_COOKIE = "kz-session";
+
 /**
  * In <head>, before anything renders: applies the persisted mode (else `defaultMode`) and named theme, so the page
- * never flashes. `nonce` for a strict Content-Security-Policy.
+ * never flashes. It also sets `html[data-session]` when the readable `kz-session` hint cookie says a session exists, so
+ * `blocks.css` hides the bar's signed-out-only actions from the first paint (krizaka-ui#827). `nonce` for a strict
+ * Content-Security-Policy.
  */
 export function ThemeScript({ nonce, defaultMode = "system" }: ThemeScriptProps) {
   const fallback = isMode(defaultMode) ? defaultMode : "system";
   const js =
-    `(function(){try{var m=localStorage.getItem("${MODE_KEY}");if(m!=="dark"&&m!=="light"&&m!=="system")m="${fallback}";` +
+    `(function(){try{if(/(?:^|;\\s*)${SESSION_HINT_COOKIE}=1(?:;|$)/.test(document.cookie))document.documentElement.setAttribute("data-session","")}catch(e){}try{var m=localStorage.getItem("${MODE_KEY}");if(m!=="dark"&&m!=="light"&&m!=="system")m="${fallback}";` +
     `var n=localStorage.getItem("${NAME_KEY}");var d=matchMedia("${DARK_QUERY}").matches;var c=document.documentElement.classList;` +
     `c.toggle("light",m==="light"||(m==="system"&&!d));if(n)c.add("theme-"+n);var a=localStorage.getItem("${ACCENT_KEY}");if(a)document.documentElement.setAttribute("data-accent",a);var y=localStorage.getItem("${DENSITY_KEY}");if(y)document.documentElement.setAttribute("data-density",y)}catch(e){}})()`;
   return <script nonce={nonce} dangerouslySetInnerHTML={{ __html: js }} />;

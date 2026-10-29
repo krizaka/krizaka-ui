@@ -1,5 +1,11 @@
 # @krizaka/fonts
 
+## 0.5.3
+
+### Patch Changes
+
+- [#872](https://github.com/krizaka/krizaka-ui/pull/872) [`09dae07`](https://github.com/krizaka/krizaka-ui/commit/09dae072dbb49d7d6606295a8d589ae6dea7e219) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The published build no longer names the four departed products in its family map (the source was cleaned in the departed-products change, the package was not released with it).
+
 ## 0.5.2
 
 ### Patch Changes

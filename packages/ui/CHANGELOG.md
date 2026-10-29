@@ -1,5 +1,22 @@
 # @krizaka/ui
 
+## 3.75.0
+
+### Minor Changes
+
+- [#865](https://github.com/krizaka/krizaka-ui/pull/865) [`ce80639`](https://github.com/krizaka/krizaka-ui/commit/ce8063928150d44f1aff92ca28756470dd9492fe) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/audio-player` (`AudioPlayer`), `@krizaka/ui/media-grid` (`MediaGrid`, `VideoCard`, `LoadMore`, the skeletons) and `@krizaka/ui/photo-grid` (`PhotoGrid`, with its React Native twin in `@krizaka/ui/native`) leave the core and move to Krizaka Lab (`experiments/ui/audio-player`, `media-grid`, `photo-grid`, parked, decide later). No Krizaka app imports them (the usage inventory) and there is no external consumer. `Waveform` stays.
+
+- [#867](https://github.com/krizaka/krizaka-ui/pull/867) [`94a954f`](https://github.com/krizaka/krizaka-ui/commit/94a954fcc21cac5a0fc5ad9954246e63b9ef4751) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/marquee` (`Marquee`, with its `kz-marquee` / `kz-band` motion CSS) and `@krizaka/ui/how-it-works-page` (`HowItWorksPage`) leave the core and move to Krizaka Lab (`experiments/ui/marquee`, `how-it-works-page`, parked, decide later). No Krizaka app imports them (the usage inventory) and there is no external consumer.
+
+### Patch Changes
+
+- [#869](https://github.com/krizaka/krizaka-ui/pull/869) [`e86188d`](https://github.com/krizaka/krizaka-ui/commit/e86188dd0fba939b9788a4fca631dbb7e51d623e) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `useInfiniteList` (native): reaching the end again from a stale render no longer cancels the page already on its way and asks for it a second time (`fetchNextPage({ cancelRefetch: false })`).
+
+- [#868](https://github.com/krizaka/krizaka-ui/pull/868) [`1075ac5`](https://github.com/krizaka/krizaka-ui/commit/1075ac5ad37e135a78fb53bf2760a0c455956ff5) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - SavedViews and TagSelector are split into smaller functions (phone menu, bar extras, draft commit); behaviour unchanged.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.75.0
+  - @krizaka/tokens@3.75.0
+
 ## 3.74.0
 
 ### Minor Changes

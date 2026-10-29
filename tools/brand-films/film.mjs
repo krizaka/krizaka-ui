@@ -8,19 +8,25 @@
 import { DEFAULT_VIEW, EASE, FALL, OUT, POP } from "./choreography.mjs";
 import { birdLoops } from "./choreography.mjs";
 
-const CAST = ["falcon", "owl", "duck", "flamingo", "pigeon"];
-const FAMILY = ["lovebird", "crane", "magpie", "beaver"];
-const STEP = 6;
+// The family as it is today (2026-10-29): Krizaka (the falcon watches), Orazaka (the flamingo answers), Yomizaka (the owl
+// reads), Akinaza (the beaver builds the shop). The birds of the products that left the family are not in the film.
+const CAST = ["falcon", "flamingo", "owl", "beaver"];
+const FAMILY = [];
+/** The home's ambient loop keeps its own flock (it is a backdrop with no words). */
+const AMBIENT_CAST = ["falcon", "owl", "duck", "flamingo", "pigeon"];
+const STEP = 7;
 const FIRST = 6;
 const spotlight = Object.fromEntries(CAST.map((b, i) => [b, FIRST + STEP * i]));
 const LAST_BACK = FIRST + STEP * (CAST.length - 1) + 5.4;
 
+export const AMBIENT_BIRDS = AMBIENT_CAST;
+
 export const FILM = {
-  name: "le-monde-de-krizaka",
+  name: "la-famille-krizaka",
   seconds: 44,
   fps: 30,
-  /** The still the page shows before play (and under reduced motion): the five on the ridge, together. */
-  poster: 36.6,
+  /** The still the page shows before play (and under reduced motion): the four on the ridge, together. */
+  poster: 34.4,
   aspects: { "16x9": [1920, 1080], "9x16": [1080, 1920], "4x5": [1080, 1350] },
   cast: CAST,
   family: FAMILY,
@@ -31,14 +37,12 @@ export const FILM = {
   gestureLead: 0.4,
   /** The captions: EN/FR, the same words as krizaka.com's /story (the site renders its own WebVTT from its messages). */
   cues: [
-    { id: "title", start: 0.6, end: 3.6, en: "The world of Krizaka.", fr: "Le monde de Krizaka." },
-    { id: "falcon", start: spotlight.falcon + 0.2, end: spotlight.falcon + 4.8, en: "The falcon keeps watch: security comes first.", fr: "Le faucon veille : la sécurité d’abord." },
-    { id: "owl", start: spotlight.owl + 0.2, end: spotlight.owl + 4.8, en: "The owl reads every page and knows every face.", fr: "Le hibou lit chaque page et reconnaît chaque visage." },
-    { id: "duck", start: spotlight.duck + 0.2, end: spotlight.duck + 4.8, en: "The duck builds, line by line, in the open.", fr: "Le canard construit, ligne après ligne, en open source." },
-    { id: "flamingo", start: spotlight.flamingo + 0.2, end: spotlight.flamingo + 4.8, en: "The flamingo answers, and the payment follows.", fr: "Le flamant répond, et le paiement suit." },
-    { id: "pigeon", start: spotlight.pigeon + 0.2, end: spotlight.pigeon + 4.8, en: "The pigeon delivers, every time.", fr: "Le pigeon livre, à chaque fois." },
-    { id: "together", start: LAST_BACK, end: LAST_BACK + 2.0, en: "Each bird carries a promise.", fr: "Chaque oiseau porte une promesse." },
-    { id: "family", start: LAST_BACK + 2.2, end: LAST_BACK + 4.2, en: "And the family keeps growing.", fr: "Et la famille s’agrandit." },
+    { id: "title", start: 0.6, end: 3.6, en: "The Krizaka family.", fr: "La famille Krizaka." },
+    { id: "falcon", start: spotlight.falcon + 0.2, end: spotlight.falcon + 4.8, en: "The falcon is Krizaka: it keeps watch, security comes first.", fr: "Le faucon, c’est Krizaka : il veille, la sécurité d’abord." },
+    { id: "flamingo", start: spotlight.flamingo + 0.2, end: spotlight.flamingo + 4.8, en: "The flamingo is Orazaka: the engine that runs the family’s AI.", fr: "Le flamant, c’est Orazaka : le moteur qui fait tourner l’IA de la famille." },
+    { id: "owl", start: spotlight.owl + 0.2, end: spotlight.owl + 4.8, en: "The owl is Yomizaka: it reads a lease and quotes the exact passage.", fr: "Le hibou, c’est Yomizaka : il lit un bail et cite le passage exact." },
+    { id: "beaver", start: spotlight.beaver + 0.2, end: spotlight.beaver + 4.8, en: "The beaver is Akinaza: bookings, invoices, a tax return to review.", fr: "Le castor, c’est Akinaza : réservations, factures, une déclaration à relire." },
+    { id: "together", start: LAST_BACK, end: LAST_BACK + 2.4, en: "Four birds, one family.", fr: "Quatre oiseaux, une famille." },
   ],
   /** Where each bird stands and moves (seconds over the whole film). */
   actorTrack,
@@ -52,16 +56,55 @@ export const FILM = {
   },
 };
 
-/** Per aspect: the actors' places and sizes, the spotlight, the ridge, the captions and the end card, in pixels. */
-export function layout(aspect) {
+/** What changes with the frame, in pixels: the birds' size and feet, the rows, the captions and the end card. */
+const WIDE = {
+  A: 250,
+  feet: 900,
+  famGap: 14,
+  famX: [0.275, 0.425, 0.575, 0.725],
+  spotScale: 2.0,
+  caption: 1000,
+  world: 1.18,
+  captionSize: 46,
+  captionMax: 1500,
+  mark: 380,
+  word: 100,
+  tag: 22,
+  endGap: 18,
+  castX: { 4: [0.2, 0.4, 0.6, 0.8], 5: [0.2, 0.35, 0.5, 0.65, 0.8] },
+};
+const TALL = {
+  A: 230,
+  feet: 1600,
+  famGap: 16,
+  famX: [0.215, 0.405, 0.595, 0.785],
+  spotScale: 2.3,
+  caption: 1790,
+  world: 1.2,
+  captionSize: 54,
+  captionMax: 940,
+  mark: 440,
+  word: 112,
+  tag: 26,
+  endGap: 26,
+  castX: { 4: [0.14, 0.38, 0.62, 0.86], 5: [0.11, 0.305, 0.5, 0.695, 0.89] },
+};
+/** The 4x5 frame is tall, with its own size, feet and caption line. */
+const FOUR_BY_FIVE = { ...TALL, A: 210, feet: 1180, caption: 1270 };
+const FRAMES = { "4x5": FOUR_BY_FIVE };
+
+function frameMetrics(aspect, cast) {
   const [W, H] = FILM.aspects[aspect];
   const vertical = H > W;
-  const portrait = aspect === "4x5";
-  const A = portrait ? 210 : vertical ? 230 : 250;
-  const feet = portrait ? 1180 : vertical ? 1600 : 900;
-  const famFeet = feet - (vertical ? 16 : 14);
-  const castX = vertical ? [0.11, 0.305, 0.5, 0.695, 0.89] : [0.2, 0.35, 0.5, 0.65, 0.8];
-  const famX = vertical ? [0.215, 0.405, 0.595, 0.785] : [0.275, 0.425, 0.575, 0.725];
+  const frame = FRAMES[aspect] ?? (vertical ? TALL : WIDE);
+  return { ...frame, W, H, vertical, castX: frame.castX[cast.length === 4 ? 4 : 5] };
+}
+
+/** Per aspect: the actors' places and sizes, the spotlight, the ridge, the captions and the end card, in pixels. */
+export function layout(aspect, cast = CAST) {
+  const m = frameMetrics(aspect, cast);
+  const { W, H, vertical, A, feet, castX, famX, spotScale } = m;
+  const famFeet = feet - m.famGap;
   const loops = birdLoops();
   /** The feet are at view y 108 of the bird's frame; its centre line at x 60. */
   const place = (bird, x, feetY, size) => {
@@ -71,9 +114,8 @@ export function layout(aspect) {
     return { x: Math.round(cx), y: Math.round(cy), size, feetY, birdX: x };
   };
   const actors = {};
-  CAST.forEach((b, i) => (actors[b] = place(b, castX[i] * W, feet, A)));
+  cast.forEach((b, i) => (actors[b] = place(b, castX[i] * W, feet, A)));
   FAMILY.forEach((b, i) => (actors[b] = place(b, famX[i] * W, famFeet, Math.round(A * 0.66))));
-  const spotScale = vertical ? 2.3 : 2.0;
   const spotSize = A * spotScale;
   const ridgeY = feet + 6;
   return {
@@ -87,17 +129,17 @@ export function layout(aspect) {
     hide: Math.round(A * 0.95),
     ridge: `M0 ${H} L0 ${ridgeY + 10} C${W * 0.22} ${ridgeY - 2} ${W * 0.4} ${ridgeY + 6} ${W * 0.5} ${ridgeY + 2} S${W * 0.82} ${ridgeY - 4} ${W} ${ridgeY + 8} L${W} ${H} Z`,
     ridgeEdge: `M0 ${ridgeY + 10} C${W * 0.22} ${ridgeY - 2} ${W * 0.4} ${ridgeY + 6} ${W * 0.5} ${ridgeY + 2} S${W * 0.82} ${ridgeY - 4} ${W} ${ridgeY + 8}`,
-    caption: portrait ? 1270 : vertical ? 1790 : 1000,
+    caption: m.caption,
     /** The valley is lifted a little, so the ridge where the birds stand is low in the frame. */
-    world: vertical ? 1.2 : 1.18,
+    world: m.world,
     /** The phoenix stands at the centre of the valley: behind the row in the wide frame, in the middle bird's way in the tall one. */
     phoenix: !vertical,
-    captionSize: vertical ? 54 : 46,
-    captionMax: vertical ? 940 : 1500,
-    mark: vertical ? 440 : 380,
-    word: vertical ? 112 : 100,
-    tag: vertical ? 26 : 22,
-    endGap: vertical ? 26 : 18,
+    captionSize: m.captionSize,
+    captionMax: m.captionMax,
+    mark: m.mark,
+    word: m.word,
+    tag: m.tag,
+    endGap: m.endGap,
   };
 }
 
@@ -190,7 +232,7 @@ export const AMBIENT = {
   /** The still before play and under reduced motion / Save-Data: the five on the ridge, at rest. */
   poster: 0,
   /** Each bird's turn: its second in the loop. */
-  turns: Object.fromEntries(CAST.map((b, i) => [b, 0.8 + 2.3 * i])),
+  turns: Object.fromEntries(AMBIENT_CAST.map((b, i) => [b, 0.8 + 2.3 * i])),
   sweep: [7.6, 10.4],
 };
 
