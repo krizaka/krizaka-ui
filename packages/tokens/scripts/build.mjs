@@ -510,6 +510,39 @@ export declare const marks: { readonly [B in BrandId]: readonly MarkStop[] };\n`
 }
 
 /**
+ * A brand sets only colour tokens of the platform, and exactly the brand roles.
+ * @param {string} id
+ * @param {Token[]} tokens
+ * @param {Map<string, Token>} baseNames
+ * @param {Set<string>} roles
+ */
+function assertBrandTokens(id, tokens, baseNames, roles) {
+  for (const t of tokens) {
+    if (!baseNames.has(t.name)) throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a platform token`);
+    if (t.type !== "color" || baseNames.get(t.name)?.type !== "color") throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a colour`);
+    if (!roles.has(t.name)) throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a brand role (${BRAND_ROLES.join(", ")})`);
+  }
+  const missing = BRAND_ROLES.filter((r) => !tokens.some((t) => t.name === r));
+  if (missing.length) throw new Error(`brand ${id}: missing ${missing.map((r) => PREFIX + r).join(", ")}`);
+}
+
+/**
+ * The mark's gradient stops of a brand, checked: at least two `["<n>%", "hsl(...)"]`.
+ * @param {string} id
+ * @param {Record<string, any>} source
+ * @returns {[string, string][]}
+ */
+function brandMark(id, source) {
+  const mark = isObject(source?.$extensions) ? source.$extensions[EXT]?.mark : undefined;
+  if (!Array.isArray(mark) || mark.length < 2) throw new Error(`brand ${id}: $extensions["${EXT}"].mark must list the mark's gradient stops`);
+  for (const stop of mark) {
+    if (!Array.isArray(stop) || stop.length !== 2 || !/^\d+(\.\d+)?%$/.test(String(stop[0])) || typeof stop[1] !== "string") throw new Error(`brand ${id}: a mark stop is ["<n>%", "hsl(...)"]`);
+    parseHsl(stop[1]);
+  }
+  return mark;
+}
+
+/**
  * Compiles the brand themes. A brand is a DTCG file of colour tokens that must set exactly the accent family
  * (BRAND_ROLES) of the platform's tokens; its aliases point inside the brand, or to a platform token the brand does
  * not set (`brand-gradient-to` → `{surface.0}`: the section ends on the page surface, whatever the app makes of it). Outputs, per brand, `brands/<id>.css`
@@ -537,13 +570,7 @@ export function compileBrands(base, brandSources) {
   const scoped = ["/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/*.brand.json par scripts/build.mjs : ne pas éditer.\n   Chaque marque en classe `.brand-<id>` : pour une page qui montre plusieurs marques (le site, le catalogue). */"];
   for (const id of ids) {
     const tokens = flatten({ [id]: brandSources[id] });
-    for (const t of tokens) {
-      if (!baseNames.has(t.name)) throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a platform token`);
-      if (t.type !== "color" || baseNames.get(t.name)?.type !== "color") throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a colour`);
-      if (!roles.has(t.name)) throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a brand role (${BRAND_ROLES.join(", ")})`);
-    }
-    const missing = BRAND_ROLES.filter((r) => !tokens.some((t) => t.name === r));
-    if (missing.length) throw new Error(`brand ${id}: missing ${missing.map((r) => PREFIX + r).join(", ")}`);
+    assertBrandTokens(id, tokens, baseNames, roles);
     const own = new Set(tokens.map((t) => t.name));
     const { resolve, target } = resolver([...tokens, ...base.filter((t) => !own.has(t.name))]);
     const ordered = BRAND_ROLES.map((r) => /** @type {Token} */ (tokens.find((t) => t.name === r)));
@@ -580,12 +607,7 @@ export function compileBrands(base, brandSources) {
     const hex = (mode) => Object.fromEntries(ordered.map((t) => [t.key, toNative(parseHsl(/** @type {string} */ (resolve(t, mode))))]));
     native[id] = { dark: hex("dark"), light: hex("light") };
     const source = /** @type {Record<string, any>} */ (brandSources[id]);
-    const mark = isObject(source?.$extensions) ? source.$extensions[EXT]?.mark : undefined;
-    if (!Array.isArray(mark) || mark.length < 2) throw new Error(`brand ${id}: $extensions["${EXT}"].mark must list the mark's gradient stops`);
-    for (const stop of mark) {
-      if (!Array.isArray(stop) || stop.length !== 2 || !/^\d+(\.\d+)?%$/.test(String(stop[0])) || typeof stop[1] !== "string") throw new Error(`brand ${id}: a mark stop is ["<n>%", "hsl(...)"]`);
-      parseHsl(stop[1]);
-    }
+    const mark = brandMark(id, source);
     marks[id] = mark.map(([offset, color]) => [offset, color]);
     marksNative[id] = mark.map(([offset, color]) => [offset, toNative(parseHsl(color))]);
   }
