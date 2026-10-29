@@ -51,7 +51,7 @@ describe("ScrollStage", () => {
     const { observed, fire } = mockMotion(false);
     render(
       <ScrollStage variant="arcade" data-testid="stage">
-        <Scene brand="orochia" data-testid="scene">
+        <Scene brand="yomizaka" data-testid="scene">
           <p>Chapter</p>
         </Scene>
       </ScrollStage>,
@@ -60,7 +60,7 @@ describe("ScrollStage", () => {
     const scene = screen.getByTestId("scene");
     expect(stage.getAttribute("data-kzs-stage")).toBe("on");
     expect(stage.className).toContain("kzs-arcade");
-    expect(scene.className).toBe("brand-orochia");
+    expect(scene.className).toBe("brand-yomizaka");
     expect(observed).toContain(scene);
     fire(scene, true);
     expect(scene.hasAttribute("data-in") && scene.hasAttribute("data-live")).toBe(true);
@@ -121,10 +121,10 @@ describe("ProfileCard", () => {
         value={80}
         stats={[{ label: "Challenges met", value: 12, max: 15, valueText: "12 of 15" }]}
         caption="Montréal"
-        brand="orochia"
+        brand="yomizaka"
       />,
     );
-    expect(screen.getByRole("article").className).toContain("brand-orochia");
+    expect(screen.getByRole("article").className).toContain("brand-yomizaka");
     expect(screen.getByRole("heading", { level: 3, name: "Elena" })).toBeTruthy();
     const meters = screen.getAllByRole("meter");
     expect(meters.map((m) => m.getAttribute("aria-valuetext"))).toEqual(["80 %", "12 of 15"]);

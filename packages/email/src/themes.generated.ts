@@ -23,20 +23,6 @@ export const BRAND_COLOURS = {
       "dark": "#7dd48b"
     }
   },
-  "kachizaka": {
-    "accent": {
-      "light": "#fac905",
-      "dark": "#fbcf23"
-    },
-    "onAccent": {
-      "light": "#0c0e17",
-      "dark": "#0c0e17"
-    },
-    "link": {
-      "light": "#1d3faf",
-      "dark": "#fbd84b"
-    }
-  },
   "krizaka": {
     "accent": {
       "light": "#2a5f8d",
@@ -65,34 +51,6 @@ export const BRAND_COLOURS = {
       "dark": "#f78c3b"
     }
   },
-  "orochia": {
-    "accent": {
-      "light": "#7c3aed",
-      "dark": "#7c3aed"
-    },
-    "onAccent": {
-      "light": "#ffffff",
-      "dark": "#ffffff"
-    },
-    "link": {
-      "light": "#6d28d9",
-      "dark": "#a78bfa"
-    }
-  },
-  "yasakia": {
-    "accent": {
-      "light": "#097169",
-      "dark": "#24dbc9"
-    },
-    "onAccent": {
-      "light": "#ffffff",
-      "dark": "#0c0c0e"
-    },
-    "link": {
-      "light": "#096d64",
-      "dark": "#3ee0cf"
-    }
-  },
   "yomizaka": {
     "accent": {
       "light": "#3c38b2",
@@ -105,20 +63,6 @@ export const BRAND_COLOURS = {
     "link": {
       "light": "#3a36ab",
       "dark": "#9797f7"
-    }
-  },
-  "yororis": {
-    "accent": {
-      "light": "#456237",
-      "dark": "#98b587"
-    },
-    "onAccent": {
-      "light": "#ffffff",
-      "dark": "#0c0c0e"
-    },
-    "link": {
-      "light": "#415b33",
-      "dark": "#a7c497"
     }
   }
 } as const satisfies Record<string, BrandColours>;

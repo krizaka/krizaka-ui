@@ -61,14 +61,14 @@ describe("Avatar default pictures", () => {
   });
 
   it("shows the brand's default picture when there is no photo", async () => {
-    const { container } = render(<Avatar fallback="AB" defaultAvatar={{ brand: "orochia", tone: 2 }} />);
-    await waitFor(() => expect(container.querySelector("img")?.getAttribute("src")).toBe("https://krizaka-assets.b-cdn.net/people/defaults/v1/orochia/person-2-256.webp"));
+    const { container } = render(<Avatar fallback="AB" defaultAvatar={{ brand: "yomizaka", tone: 2 }} />);
+    await waitFor(() => expect(container.querySelector("img")?.getAttribute("src")).toBe("https://krizaka-assets.b-cdn.net/people/defaults/v1/yomizaka/person-2-256.webp"));
   });
 
   it("falls back to the default picture when the photo fails, and fallbackSrc wins over it", async () => {
-    const { container, rerender } = render(<Avatar src="https://example.test/broken.jpg" defaultAvatar={{ brand: "yasakia", tone: 5 }} size="xl" />);
-    await waitFor(() => expect(container.querySelector("img")?.getAttribute("src")).toBe("https://krizaka-assets.b-cdn.net/people/defaults/v1/yasakia/person-5-512.webp"));
-    rerender(<Avatar src="https://example.test/broken.jpg" fallbackSrc="https://example.test/mine.webp" defaultAvatar={{ brand: "yasakia", tone: 5 }} />);
+    const { container, rerender } = render(<Avatar src="https://example.test/broken.jpg" defaultAvatar={{ brand: "akinaza", tone: 5 }} size="xl" />);
+    await waitFor(() => expect(container.querySelector("img")?.getAttribute("src")).toBe("https://krizaka-assets.b-cdn.net/people/defaults/v1/akinaza/person-5-512.webp"));
+    rerender(<Avatar src="https://example.test/broken.jpg" fallbackSrc="https://example.test/mine.webp" defaultAvatar={{ brand: "akinaza", tone: 5 }} />);
     await waitFor(() => expect(container.querySelector("img")?.getAttribute("src")).toBe("https://example.test/mine.webp"));
   });
 

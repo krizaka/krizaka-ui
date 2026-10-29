@@ -7,7 +7,7 @@ export const meta = {
   deprecated: {
     since: "3.55.0",
     removedIn: "4.0.0",
-    reason: "No user: Yasakia is paused and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+    reason: "No user: the product it was built for left the organisation and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
   },
   category: "data-display",
   domain: "data-display",

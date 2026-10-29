@@ -2,7 +2,7 @@ import { marks } from "@krizaka/tokens/native";
 
 /**
  * The Krizaka mark's geometry — the one description drawn by the web mark (KrizakaLogo) and the native one
- * (KrizakaMark). Built on the Orochia mark's grammar (docs: packages/tokens/BRAND.md, "Marks"): a 360×360 artwork at
+ * (KrizakaMark). Built on the family's mark grammar (docs: packages/tokens/BRAND.md, "Marks"): a 360×360 artwork at
  * (20, 20) in a 400×400 view box, one bold stroke (22) drawn as an open figure, an end that breaks out as a node, a
  * core, a dashed orbit and a ring; below 48 px the view box crops to the emblem.
  *
@@ -18,7 +18,7 @@ export const KRIZAKA = {
   stroke: 22,
   ink: { x1: 70, y1: 290, x2: 290, y2: 70 },
   blue: { x1: 180, y1: 180, x2: 300, y2: 60, stops: marks.krizaka },
-  /** The vertex where the shield opens: a node (the serpent's head in Orochia's grammar). */
+  /** The vertex where the shield opens: a node (the head of the line). */
   node: { cx: 259.7, cy: 134, r: 19, inner: 6 },
   core: { cx: 180, cy: 180, r: 24, inner: 8 },
   highlight: "#ddeaf4",

@@ -6,7 +6,7 @@ import { AuthLayout } from "./index";
 describe("AuthLayout", () => {
   it("renders the form under the page's h1, in main, with the brand panel, and no axe violation", async () => {
     const { container } = render(
-      <AuthLayout brand="Orochia" title="Welcome back" description="Sign in." promise="Paid by your fans." footer="No account?" legal="Terms">
+      <AuthLayout brand="Yomizaka" title="Welcome back" description="Sign in." promise="Paid by your fans." footer="No account?" legal="Terms">
         <form aria-label="Sign in">
           <label htmlFor="e">Email</label>
           <input id="e" />
