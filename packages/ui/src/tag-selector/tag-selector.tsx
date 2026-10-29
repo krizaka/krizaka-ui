@@ -90,6 +90,35 @@ function fieldKey(event: React.KeyboardEvent<HTMLInputElement>, { draft, value, 
   }
 }
 
+const reached = (max: number | undefined, count: number) => max !== undefined && count >= max;
+
+type CommitArgs = {
+  typed: string;
+  exact: TagOption | undefined;
+  canCreate: boolean;
+  full: boolean;
+  value: readonly string[];
+  marker: Marker;
+  onValueChange: (value: string[]) => void;
+  onCreate?: (name: string, marker: Marker) => void;
+  setDraft: (draft: string) => void;
+};
+
+/** Enter or the button: pick the option the text names, or create it; nothing happens when neither applies. */
+function commitDraft({ typed, exact, canCreate, full, value, marker, onValueChange, onCreate, setDraft }: CommitArgs) {
+  if (!typed) return;
+  if (exact) {
+    if (value.includes(exact.value) || full) {
+      setDraft("");
+      return;
+    }
+    onValueChange([...value, exact.value]);
+  } else if (canCreate) {
+    onCreate?.(typed, marker);
+  } else return;
+  setDraft("");
+}
+
 /** Toggle chips with a limit and a count — the others rest once the limit is reached; `creatable` types a new one. */
 export function TagSelector({
   label,
@@ -110,7 +139,7 @@ export function TagSelector({
   maxLength = 80,
   emptyLabel,
 }: TagSelectorProps) {
-  const full = max !== undefined && value.length >= max;
+  const full = reached(max, value.length);
   const [draft, setDraft] = React.useState("");
   const [marker, setMarker] = React.useState<Marker>(defaultMarker);
   const typed = draft.replace(/\s+/g, " ").trim();
@@ -120,15 +149,7 @@ export function TagSelector({
   const canCreate = Boolean(creatable && onCreate && typed && !exact && !full);
   const toggle = (option: TagOption, on: boolean) => onValueChange(on ? [...value, option.value] : value.filter((v) => v !== option.value));
 
-  const commit = () => {
-    if (!typed) return;
-    if (exact) {
-      if (!value.includes(exact.value) && !full) onValueChange([...value, exact.value]);
-    } else if (canCreate) {
-      onCreate?.(typed, marker);
-    } else return;
-    setDraft("");
-  };
+  const commit = () => commitDraft({ typed, exact, canCreate, full, value, marker, onValueChange, onCreate, setDraft });
   const listId = React.useId();
 
   return (
