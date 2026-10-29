@@ -1,5 +1,24 @@
 # @krizaka/ui
 
+## 3.74.0
+
+### Minor Changes
+
+- [#856](https://github.com/krizaka/krizaka-ui/pull/856) [`7072887`](https://github.com/krizaka/krizaka-ui/commit/7072887e009582863469a80428d77e39ee181777) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Four products left the organisation (krizaka/.github#413): their brands, marks, sites, avatars and chart palettes are removed. The family is Krizaka, Orazaka, Yomizaka and Akinaza. Removed: the brand themes and `brands/<id>.css` of the four, their web and native marks (`ProductLogo` and `ProductMark` take the four remaining ids), their entries in `SiteId`, `SiteMark`, `DefaultAvatarBrand`, the charts' `BrandId` and the email brands. The marks are parked in krizaka-lab.
+
+- [#862](https://github.com/krizaka/krizaka-ui/pull/862) [`4831379`](https://github.com/krizaka/krizaka-ui/commit/483137931106b7a5c8a78927ec24041f4b830588) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/iso` (the isometric kit: `IsoHub`, `IsoScene`, `IsoPrism`, `IsoStack`, `IsoDome`, `IsoTile`, `IsoLink`, `IsoNode`, `IsoLabel`) leaves the core and moves to Krizaka Lab (`experiments/ui/iso`, parked, decide later), together with its `.kz-iso-*` styles in `motion.css`. No Krizaka app imports it (the usage inventory), and there is no external consumer yet, so there is no deprecation period and no major (ADR-008, founder 2026-10-29). First slice of the move by domain (Foundations).
+  
+  New: `pnpm devx:check` (CI) measures the import cost of a typical page and the cold type-check time against `packages/ui/devx-budget.json`.
+
+- [#862](https://github.com/krizaka/krizaka-ui/pull/862) [`4831379`](https://github.com/krizaka/krizaka-ui/commit/483137931106b7a5c8a78927ec24041f4b830588) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/meta-row` (`MetaRow`, the quiet line of dot-separated facts with status chips) and its React Native twin in `@krizaka/ui/native` leave the core and move to Krizaka Lab (`experiments/ui/meta-row`, parked, decide later). No Krizaka app imports it (the usage inventory) and there is no external consumer yet, so there is no deprecation period and no major (ADR-008, founder 2026-10-29). Second slice of the move by domain (Data display).
+
+### Patch Changes
+
+- [#855](https://github.com/krizaka/krizaka-ui/pull/855) [`d8ae175`](https://github.com/krizaka/krizaka-ui/commit/d8ae1755e2774b0e929f2dfeb34b224608e607b2) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - sites: the lab is Krizaka Lab, at lab.krizaka.com (repository krizaka-lab); `motion.krizaka.com` answers a permanent redirect to it.
+- Updated dependencies [[`7072887`](https://github.com/krizaka/krizaka-ui/commit/7072887e009582863469a80428d77e39ee181777)]:
+  - @krizaka/tokens@3.74.0
+  - @krizaka/tailwind@3.74.0
+
 ## 3.73.0
 
 ### Minor Changes
