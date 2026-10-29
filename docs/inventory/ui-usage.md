@@ -6,7 +6,7 @@ Package: @krizaka/ui@3.72.0; sizes measured from packages/ui/dist (@krizaka/ui@3
 Consumers: yomizaka fa530eea · akinaza 8cd61e14 · orazaka-web-client 6ae7baf4 · krizaka-com 25132588 · blog 3d585c2f · ui-site c57acf3b · java-site fe38501c · ts-site 2b30ee86 · motion-lab 0dfddfe3 · cockpit.
 Paused (counted apart): .
 
-Verdicts: keep 177 · retire 34 · merge 21 · ask 18 · leave-core 5.
+Verdicts: keep 177 · retire 34 · merge 21 · ask 18 · leave-core 4.
 
 Sizes: the gzip of an entry's own file and every chunk it pulls in (shared chunks are counted in each entry, so a sum
 over-counts); the budget is the entry's size-limit row in packages/ui/package.json (size-limit measures differently: compare
@@ -16,7 +16,7 @@ an entry with itself over time, not with its budget).
 | :-- | --: | --: | --: |
 | Foundations | 24 | 61.7 | 115.0 |
 | Forms | 14 | 88.2 | 203.0 |
-| Data display | 11 | 71.9 | 72.0 |
+| Data display | 10 | 71.3 | 71.0 |
 | Navigation & shell | 30 | 195.4 | 227.9 |
 | Feedback & overlays | 12 | 25.1 | 112.9 |
 | Geolocation & maps | 2 | 21.3 | 31.5 |
@@ -82,7 +82,6 @@ an entry with itself over time, not with its budget).
 | `goal-gauge` | Data display | beta | — | — | — | 1.2 / 1.0 | 0 | 2 | 2026-10-26 | **merge** → `meter` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `kanban` | Data display | deprecated | — | — | — | 3.1 / 3.0 | 0 | 1 | 2026-10-26 | **retire** | already deprecated (#674), removed in 4.0 |
 | `list` | Data display | beta | Yo 8 Ak 1 Oz 3 | — | — | 5.4 / 8.0 | 1 | 2 | 2026-10-26 | **keep** | 12 live importer file(s) |
-| `meta-row` | Data display | beta | — | — | — | 0.6 / 1.0 | 1 | 2 | 2026-10-17 | **leave-core** | its only users left the organisation (2026-10-29): leaves the core |
 | `meter` | Data display | beta | Yo 2 Ak 3 Oz 1 www 1 ui 1 | — | 5 | 2.4 / 2.0 | 2 | 2 | 2026-10-22 | **keep** | 8 live importer file(s) |
 | `native:swipeable-row` | Data display | beta | — | — | — | — / — | — | — | 2026-10-16 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native/list` | Data display | — | Yo 3 Ak 1 | — | — | 1.8 / 2.0 | — | — | 2026-10-27 | **keep** | 4 live importer file(s) |

@@ -130,7 +130,6 @@ export type ComponentName =
   | "maintenance-screen"
   | "map"
   | "markdown"
-  | "meta-row"
   | "waveform"
   | "proposal"
   | "qr-code"

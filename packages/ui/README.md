@@ -154,7 +154,6 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/chip` | `Chip` (`selected`/`defaultSelected` + `onSelectedChange`, `size` sm·md; `removable` + `removeLabel` + `onRemove`), `Chip.Group` (`type` single·multiple, `label`, `required` for single), `chip` (the slots) | client |
 | `@krizaka/ui/chip-link` | `ChipLink` (a filter that is a link: `selected`, `current`, `size`, `asChild`), `chipVariants` (`size`, `selected`) | server |
 | `@krizaka/ui/chip-row` | `ChipRow`, `ChipRow.Item` (a scroll-snap row of chip links, wraps from `md`: `selected`, `badge`, `asChild`) | client (arrow keys) |
-| `@krizaka/ui/meta-row` | `MetaRow` (`items`, `chips`, `size` sm·md): one quiet line of dot-separated facts with status chips at its end; a real list, dots hidden from assistive technology; `/native` has the same | server |
 | `@krizaka/ui/switch` | `Switch` (`checked`/`defaultChecked` + `onCheckedChange`, `label` unless a visible label names it, `size` sm·md, `invalid`), `switchVariants` | client |
 | `@krizaka/ui/slider` | `Slider` (`value`: a number or a `[min, max]` range, `onValueChange`, `onValueCommit`, `label`, `thumbLabels`, `formatValue` → aria-valuetext, `showLabel`, `origin`), `slider` (the slots) | client |
 | `@krizaka/ui/checkbox` | `Checkbox` (`checked` true·false·"indeterminate" + `onCheckedChange`, `invalid`, its words as children) — sits in a `Field` | client |
