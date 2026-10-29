@@ -8,7 +8,7 @@ import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { BASE_CSS, birdLoops, DEFAULT_VIEW, EASE, IDLE, LOOP, tracksCss } from "./choreography.mjs";
-import { AMBIENT, ambientGesture, FILM, layout, stretch } from "./film.mjs";
+import { AMBIENT, AMBIENT_BIRDS, ambientGesture, FILM, layout, stretch } from "./film.mjs";
 import { OWN_PALETTES } from "../../packages/ui/src/mascots/geometry.ts";
 
 /** React, the server renderer and the components, from the built package at <uiRoot> (pnpm turbo run build --filter=@krizaka/ui). */
@@ -127,7 +127,7 @@ export function filmHtml({ kit, aspect }) {
 .bf-endsweep { z-index: 9; background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.10) 50%, transparent 58%); mix-blend-mode: screen; transform: translateX(-110%); }`);
 
   // The valley: the same Landscape as krizaka.com's hero, its own flock left out — the flock of the film is the Mascot one.
-  body.push(`<div class="layer bf-world">${kit.landscape({ tone: "own", flock: false, phoenix: L.phoenix, animated: true, fade: false, position: "absolute" })}</div>`);
+  body.push(`<div class="layer bf-world">${kit.landscape({ tone: "own", flock: false, phoenix: false, animated: true, fade: false, position: "absolute" })}</div>`);
   body.push(`<svg class="layer bf-ridge" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none"><path d="${L.ridge}" fill="var(--kz-surface-0)"/><path d="${L.ridgeEdge}" stroke="rgba(255,255,255,.10)" stroke-width="2" fill="none"/></svg>`);
   body.push(`<div class="layer bf-scrim"></div>`);
   for (const bird of FILM.cast) {
@@ -177,7 +177,7 @@ export function drawable(svg) {
  * `Flock` (krizaka-ui `Flock`) on it — and no phoenix: the Orazaka flamingo stands at the centre of that flock and would hide it.
  */
 export function ambientHtml({ kit, aspect, theme = "dark", birds = true }) {
-  const L = layout(aspect);
+  const L = layout(aspect, AMBIENT_BIRDS);
   const [width, height] = FILM.aspects[aspect];
   const k = AMBIENT.seconds / 8;
   const css = [`body { background: var(--kz-surface-0); }
@@ -193,7 +193,7 @@ export function ambientHtml({ kit, aspect, theme = "dark", birds = true }) {
     `<div class="layer bf-world">${kit.landscape({ tone: "own", flock: false, phoenix: birds && L.phoenix, animated: true, fade: false, position: "absolute" })}</div>`,
     `<svg class="layer bf-ridge" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none"><path d="${L.ridge}" fill="var(--kz-surface-0)"/><path d="${L.ridgeEdge}" stroke="${theme === "light" ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.10)"}" stroke-width="2" fill="none"/></svg>`,
   ];
-  (birds ? FILM.cast : []).forEach((bird, i) => {
+  (birds ? AMBIENT_BIRDS : []).forEach((bird, i) => {
     const a = L.actors[bird];
     const svg = dress(kit.mascot(bird), { view: birdLoops()[bird].view, uid: bird });
     body.push(`<div class="bf-actor bf-actor-${bird}" style="left:${a.x - a.size / 2}px; top:${a.y - a.size / 2}px; width:${a.size}px; height:${a.size}px">${svg}</div>`);

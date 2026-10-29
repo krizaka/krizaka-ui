@@ -68,6 +68,12 @@ test("the mark's shield gets a path length, to draw itself", () => {
   assert.throws(() => drawable("<svg><circle/></svg>"), /no stroked shield/);
 });
 
+test("the film shows only the family of today: Krizaka, Orazaka, Yomizaka, Akinaza", () => {
+  assert.deepEqual(FILM.cast, ["falcon", "flamingo", "owl", "beaver"]);
+  assert.deepEqual(FILM.family, []);
+  for (const c of FILM.cues) assert.doesNotMatch(`${c.en} ${c.fr}`, /pay|paiement|yasakia|yororis|orochia|kachizaka/i, c.id);
+});
+
 test("the film lasts 30–45 s, each bird has its moment alone, and the captions follow in order", () => {
   assert.ok(FILM.seconds >= 30 && FILM.seconds <= 45);
   const moments = FILM.cast.map((b) => FILM.spotlight[b]);
@@ -96,9 +102,9 @@ test("in each aspect, the bird in front stands on the ridge like the others, and
 
 test("captions are written as WebVTT, one cue per line said", () => {
   const en = vtt("en");
-  assert.match(en, /^WEBVTT\n\ntitle\n00:00:00\.600 --> 00:00:03\.600\nThe world of Krizaka\.\n/);
+  assert.match(en, /^WEBVTT\n\ntitle\n00:00:00\.600 --> 00:00:03\.600\nThe Krizaka family\.\n/);
   assert.equal(en.split(" --" + "> ").length - 1, FILM.cues.length);
-  assert.match(vtt("fr"), /Le monde de Krizaka\./);
+  assert.match(vtt("fr"), /La famille Krizaka\./);
 });
 
 test("the CLI wants an output folder and knows its birds and aspects", () => {
@@ -136,9 +142,9 @@ test("a tool is looked up in the system folders only, never through PATH", async
 });
 
 test("the home's ambient loop: 10–14 s, each bird's turn inside it, the sweep crossing once, every track closing", async () => {
-  const { AMBIENT, ambientGesture, stretch } = await import("./film.mjs");
+  const { AMBIENT, AMBIENT_BIRDS, ambientGesture, stretch } = await import("./film.mjs");
   assert.ok(AMBIENT.seconds >= 10 && AMBIENT.seconds <= 14);
-  assert.deepEqual(Object.keys(AMBIENT.turns), FILM.cast);
+  assert.deepEqual(Object.keys(AMBIENT.turns), AMBIENT_BIRDS);
   for (const t of Object.values(AMBIENT.turns)) {
     assert.ok(t + 1.4 < AMBIENT.seconds);
     assert.doesNotThrow(() => tracksCss([...IDLE.map(([s, st]) => [s, stretch(st, AMBIENT.seconds / LOOP.seconds)]), ...ambientGesture(t)], { total: AMBIENT.seconds }));
