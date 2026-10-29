@@ -3,7 +3,12 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Speed lines",
   summary: "Manga action lines behind a hero element: a burst around it or streaks across it, drawn in SVG, deterministic and still under reduced motion.",
-  status: "beta",
+  status: "deprecated",
+  deprecated: {
+    since: "3.74.0",
+    removedIn: "4.0.0",
+    reason: "Decided by the CTO on krizaka-ui#840 (2026-10-29): no product uses it and no planned work needs it; there is no replacement.",
+  },
   category: "blocks",
   domain: "cahier",
   platforms: "web",

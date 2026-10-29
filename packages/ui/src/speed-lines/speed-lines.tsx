@@ -51,6 +51,7 @@ function horizontal(count: number) {
 }
 
 /** Manga action lines behind a hero element: a burst or streaks in SVG, still under reduced motion. */
+/** @deprecated Krizaka UI 3.74: removed in 4.0.0 (krizaka-ui#840). No product uses it and there is no replacement. */
 export function SpeedLines({ kind = "radial", count = 36, clear = 34, animated = false, className, children, ...props }: SpeedLinesProps) {
   const n = Math.min(120, Math.max(4, Math.round(count)));
   const gap = Math.min(80, Math.max(0, clear));
