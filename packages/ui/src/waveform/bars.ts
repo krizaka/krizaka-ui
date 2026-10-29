@@ -1,4 +1,4 @@
-// The bars of a waveform, shared by AudioPlayer (the seekable one) and Waveform (the decorative one). Pure: no React.
+// The bars of a waveform, used by Waveform (the decorative one). Pure: no React.
 
 /** Resamples peaks to `count` bars (the maximum of each slice), normalised to the loudest. No peaks: a flat line at 15 %. */
 export function resamplePeaks(peaks: readonly number[], count: number): number[] {

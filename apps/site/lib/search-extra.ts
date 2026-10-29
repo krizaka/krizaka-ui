@@ -44,7 +44,6 @@ export const ALIASES: Readonly<Record<string, readonly string[]>> = {
   command: ["command palette", "cmdk", "spotlight"],
   "code-block": ["code snippet", "syntax highlighting"],
   "video-player": ["video", "media player"],
-  "audio-player": ["audio", "podcast player"],
   "vertical-video": ["shorts", "reels", "stories"],
   map: ["maps", "geo", "location"],
   kanban: ["board", "columns"],
