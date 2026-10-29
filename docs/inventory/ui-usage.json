@@ -77,36 +77,7 @@
       "files": 90
     }
   ],
-  "paused": [
-    {
-      "name": "orochia",
-      "kind": "paused",
-      "absent": false,
-      "head": "189bbb2d",
-      "files": 906
-    },
-    {
-      "name": "yasakia",
-      "kind": "paused",
-      "absent": false,
-      "head": "c7de02ec",
-      "files": 383
-    },
-    {
-      "name": "yororis",
-      "kind": "paused",
-      "absent": false,
-      "head": "1708fb36",
-      "files": 181
-    },
-    {
-      "name": "kachizaka",
-      "kind": "paused",
-      "absent": false,
-      "head": "798d9ba6",
-      "files": 231
-    }
-  ],
+  "paused": [],
   "entries": [
     {
       "pkg": "ui",
@@ -131,13 +102,8 @@
       },
       "nativeUse": {},
       "live": 47,
-      "paused": 20,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -171,12 +137,8 @@
       },
       "nativeUse": {},
       "live": 49,
-      "paused": 8,
-      "pausedBy": [
-        "orochia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-menu",
         "account-settings",
@@ -335,13 +297,8 @@
         "ui-site": 2
       },
       "live": 258,
-      "paused": 47,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "action-bar",
         "analysis-report",
@@ -408,13 +365,8 @@
         "akinaza": 5
       },
       "live": 126,
-      "paused": 37,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-settings",
         "analysis-report",
@@ -459,12 +411,8 @@
         "akinaza": 2
       },
       "live": 42,
-      "paused": 6,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-settings",
         "data-table",
@@ -502,10 +450,8 @@
       },
       "nativeUse": {},
       "live": 6,
-      "paused": 2,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "genui",
         "media-grid"
@@ -541,13 +487,8 @@
         "akinaza": 3
       },
       "live": 32,
-      "paused": 9,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -576,11 +517,8 @@
       },
       "nativeUse": {},
       "live": 4,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "button",
         "form",
@@ -622,13 +560,8 @@
         "akinaza": 1
       },
       "live": 11,
-      "paused": 9,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-menu",
         "account-settings",
@@ -715,17 +648,11 @@
       "nativeUse": {
         "yomizaka": 4,
         "akinaza": 5,
-        "ui-site": 2,
-        "kachizaka": 1
+        "ui-site": 2
       },
       "live": 62,
-      "paused": 20,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "app-frame",
         "native"
@@ -779,11 +706,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "native"
       ],
@@ -822,13 +746,8 @@
         "akinaza": 8
       },
       "live": 95,
-      "paused": 11,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "genui",
         "media-grid",
@@ -864,11 +783,8 @@
       },
       "nativeUse": {},
       "live": 38,
-      "paused": 4,
-      "pausedBy": [
-        "orochia",
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "command",
         "match-dialog",
@@ -901,10 +817,8 @@
       },
       "nativeUse": {},
       "live": 10,
-      "paused": 2,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -932,10 +846,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 2,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "collection-switcher",
         "date-picker",
@@ -968,10 +880,8 @@
       },
       "nativeUse": {},
       "live": 6,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-menu",
         "data-table",
@@ -1005,11 +915,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "glossary-term",
         "grade-stamp",
@@ -1074,13 +981,8 @@
       },
       "nativeUse": {},
       "live": 18,
-      "paused": 7,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "usage"
       ],
@@ -1139,12 +1041,8 @@
       },
       "nativeUse": {},
       "live": 26,
-      "paused": 9,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -1172,7 +1070,7 @@
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "orochia-mobile#37",
+      "issue": null,
       "mergeInto": null,
       "sizeGzip": 5282,
       "budget": 3100,
@@ -1181,7 +1079,7 @@
       "lastChange": "2026-10-26",
       "created": "2026-10-25",
       "verdict": "keep",
-      "why": "filed need orochia-mobile#37"
+      "why": "a filed need (its repository left the organisation)"
     },
     {
       "pkg": "ui",
@@ -1367,12 +1265,8 @@
       },
       "nativeUse": {},
       "live": 121,
-      "paused": 33,
-      "pausedBy": [
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "form",
         "genui"
@@ -1434,10 +1328,8 @@
       },
       "nativeUse": {},
       "live": 5,
-      "paused": 1,
-      "pausedBy": [
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "app-shell",
         "marketing-layout"
@@ -1470,10 +1362,8 @@
       },
       "nativeUse": {},
       "live": 8,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "app-header",
         "app-shell",
@@ -1510,11 +1400,8 @@
       },
       "nativeUse": {},
       "live": 25,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "code-block"
       ],
@@ -1587,10 +1474,8 @@
         "akinaza": 2
       },
       "live": 21,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "combobox",
         "entity-header",
@@ -1689,10 +1574,8 @@
       },
       "nativeUse": {},
       "live": 11,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "chip-row",
         "filter-bar"
@@ -1754,12 +1637,8 @@
       },
       "nativeUse": {},
       "live": 19,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-settings",
         "form",
@@ -1796,10 +1675,8 @@
       },
       "nativeUse": {},
       "live": 5,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "form",
         "image-cropper",
@@ -1834,11 +1711,8 @@
       },
       "nativeUse": {},
       "live": 7,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "data-table",
         "form",
@@ -1870,10 +1744,8 @@
       },
       "nativeUse": {},
       "live": 9,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-settings",
         "form",
@@ -1907,10 +1779,8 @@
       },
       "nativeUse": {},
       "live": 3,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -1939,12 +1809,8 @@
       },
       "nativeUse": {},
       "live": 5,
-      "paused": 6,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "proposal"
       ],
@@ -1976,10 +1842,8 @@
       },
       "nativeUse": {},
       "live": 9,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "file-upload"
       ],
@@ -2008,10 +1872,8 @@
       },
       "nativeUse": {},
       "live": 1,
-      "paused": 1,
-      "pausedBy": [
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "audio-player",
         "native"
@@ -2155,11 +2017,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 2,
-      "pausedBy": [
-        "orochia",
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "auth-layout",
         "landing-page",
@@ -2194,17 +2053,10 @@
         "krizaka-com": 9,
         "java-site": 1
       },
-      "nativeUse": {
-        "kachizaka": 1
-      },
+      "nativeUse": {},
       "live": 42,
-      "paused": 19,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "bird-plate",
         "flock",
@@ -2268,10 +2120,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2282,7 +2132,7 @@
       "lastChange": "2026-10-26",
       "created": "2026-10-11",
       "verdict": "leave-core",
-      "why": "used only by paused products (orochia)"
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
@@ -2306,12 +2156,8 @@
       },
       "nativeUse": {},
       "live": 13,
-      "paused": 3,
-      "pausedBy": [
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2341,10 +2187,8 @@
         "ui-site": 1
       },
       "live": 5,
-      "paused": 2,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2379,13 +2223,8 @@
       },
       "nativeUse": {},
       "live": 18,
-      "paused": 4,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2534,13 +2373,8 @@
       },
       "nativeUse": {},
       "live": 14,
-      "paused": 8,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "nav-bar"
       ],
@@ -2605,13 +2439,8 @@
       },
       "nativeUse": {},
       "live": 13,
-      "paused": 9,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "site-cahier"
       ],
@@ -2648,12 +2477,8 @@
       },
       "nativeUse": {},
       "live": 18,
-      "paused": 6,
-      "pausedBy": [
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "nav-bar",
         "site-cahier",
@@ -2689,12 +2514,8 @@
       },
       "nativeUse": {},
       "live": 12,
-      "paused": 4,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2750,10 +2571,8 @@
       },
       "nativeUse": {},
       "live": 4,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2810,10 +2629,8 @@
       },
       "nativeUse": {},
       "live": 1,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2824,7 +2641,7 @@
       "lastChange": "2026-10-16",
       "created": "2026-10-11",
       "verdict": "leave-core",
-      "why": "used only by paused products (orochia)"
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
@@ -2841,11 +2658,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 2,
-      "pausedBy": [
-        "yasakia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2873,13 +2687,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 6,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2937,11 +2746,8 @@
         "yomizaka": 1
       },
       "live": 7,
-      "paused": 2,
-      "pausedBy": [
-        "orochia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2972,12 +2778,8 @@
       },
       "nativeUse": {},
       "live": 8,
-      "paused": 5,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "catalogue-page",
         "native",
@@ -3010,10 +2812,8 @@
       },
       "nativeUse": {},
       "live": 1,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "data-table"
       ],
@@ -3048,13 +2848,8 @@
       },
       "nativeUse": {},
       "live": 60,
-      "paused": 15,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "genui"
       ],
@@ -3238,12 +3033,8 @@
         "akinaza": 2
       },
       "live": 51,
-      "paused": 15,
-      "pausedBy": [
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "native",
         "shop-composer"
@@ -3519,10 +3310,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "native"
       ],
@@ -3552,10 +3341,8 @@
       },
       "nativeUse": {},
       "live": 3,
-      "paused": 2,
-      "pausedBy": [
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "retro-tv"
       ],
@@ -3782,10 +3569,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 2,
-      "pausedBy": [
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -3796,7 +3581,7 @@
       "lastChange": "2026-10-26",
       "created": "2026-10-11",
       "verdict": "leave-core",
-      "why": "used only by paused products (yasakia)"
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
@@ -3903,12 +3688,8 @@
         "akinaza": 1
       },
       "live": 18,
-      "paused": 12,
-      "pausedBy": [
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "shop"
       ],
@@ -3935,11 +3716,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -3950,7 +3728,7 @@
       "lastChange": "2026-10-17",
       "created": "2026-10-17",
       "verdict": "leave-core",
-      "why": "used only by paused products (orochia, kachizaka)"
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
@@ -3964,10 +3742,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "app-frame",
         "native"
@@ -4228,10 +4004,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 2,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "app-frame"
       ],
@@ -4260,11 +4034,8 @@
       },
       "nativeUse": {},
       "live": 1,
-      "paused": 2,
-      "pausedBy": [
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "native"
       ],
@@ -4356,13 +4127,8 @@
       },
       "nativeUse": {},
       "live": 52,
-      "paused": 19,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "argument-card",
         "catalogue-page",
@@ -4415,12 +4181,8 @@
       },
       "nativeUse": {},
       "live": 30,
-      "paused": 6,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "catalogue-page",
         "changelog-page",
@@ -4470,12 +4232,8 @@
       },
       "nativeUse": {},
       "live": 14,
-      "paused": 5,
-      "pausedBy": [
-        "orochia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "product-page"
       ],
@@ -4538,12 +4296,8 @@
       },
       "nativeUse": {},
       "live": 11,
-      "paused": 5,
-      "pausedBy": [
-        "orochia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "argument-card",
         "card-grid"
@@ -4606,12 +4360,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "docs-hub-page",
         "product-page"
@@ -4641,11 +4391,8 @@
       },
       "nativeUse": {},
       "live": 1,
-      "paused": 2,
-      "pausedBy": [
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "product-page"
       ],
@@ -5161,10 +4908,8 @@
       },
       "nativeUse": {},
       "live": 3,
-      "paused": 1,
-      "pausedBy": [
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -5248,11 +4993,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 2,
-      "pausedBy": [
-        "orochia",
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "gallery-page",
         "how-it-works-page",
@@ -5318,13 +5060,8 @@
       },
       "nativeUse": {},
       "live": 4,
-      "paused": 5,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "desktop-window"
       ],
@@ -5354,11 +5091,8 @@
       },
       "nativeUse": {},
       "live": 3,
-      "paused": 8,
-      "pausedBy": [
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -5386,10 +5120,8 @@
       },
       "nativeUse": {},
       "live": 3,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "app-frame"
       ],
@@ -5446,11 +5178,8 @@
       },
       "nativeUse": {},
       "live": 25,
-      "paused": 4,
-      "pausedBy": [
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-settings",
         "kind-config-editor"
@@ -5482,13 +5211,8 @@
       },
       "nativeUse": {},
       "live": 8,
-      "paused": 12,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -5516,11 +5240,8 @@
       },
       "nativeUse": {},
       "live": 5,
-      "paused": 2,
-      "pausedBy": [
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "component-page"
       ],
@@ -5633,10 +5354,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -5690,10 +5409,8 @@
       },
       "nativeUse": {},
       "live": 1,
-      "paused": 1,
-      "pausedBy": [
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": "account-settings",
@@ -5914,12 +5631,8 @@
       },
       "nativeUse": {},
       "live": 6,
-      "paused": 6,
-      "pausedBy": [
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -5971,10 +5684,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 1,
-      "pausedBy": [
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -5985,7 +5696,7 @@
       "lastChange": "2026-10-25",
       "created": "2026-10-12",
       "verdict": "leave-core",
-      "why": "used only by paused products (yasakia)"
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
@@ -6029,10 +5740,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6061,10 +5770,8 @@
       },
       "nativeUse": {},
       "live": 3,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6175,13 +5882,8 @@
       },
       "nativeUse": {},
       "live": 8,
-      "paused": 12,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6292,11 +5994,8 @@
       },
       "nativeUse": {},
       "live": 5,
-      "paused": 2,
-      "pausedBy": [
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6354,11 +6053,8 @@
       },
       "nativeUse": {},
       "live": 5,
-      "paused": 4,
-      "pausedBy": [
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6524,10 +6220,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 4,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6538,7 +6232,7 @@
       "lastChange": "2026-10-26",
       "created": "2026-10-15",
       "verdict": "leave-core",
-      "why": "used only by paused products (orochia)"
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
@@ -6552,10 +6246,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 1,
-      "pausedBy": [
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": "media-grid",
@@ -6620,13 +6312,8 @@
       },
       "nativeUse": {},
       "live": 15,
-      "paused": 9,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6658,10 +6345,8 @@
       },
       "nativeUse": {},
       "live": 6,
-      "paused": 1,
-      "pausedBy": [
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6697,13 +6382,8 @@
       },
       "nativeUse": {},
       "live": 15,
-      "paused": 7,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6733,10 +6413,8 @@
       },
       "nativeUse": {},
       "live": 42,
-      "paused": 2,
-      "pausedBy": [
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6790,7 +6468,7 @@
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "orochia-mobile#88",
+      "issue": null,
       "mergeInto": null,
       "sizeGzip": 1033,
       "budget": 2000,
@@ -6799,7 +6477,7 @@
       "lastChange": "2026-10-27",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "filed need orochia-mobile#88"
+      "why": "a filed need (its repository left the organisation)"
     },
     {
       "pkg": "ui",
@@ -6897,7 +6575,7 @@
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "orochia-mobile#37",
+      "issue": null,
       "mergeInto": null,
       "sizeGzip": 8458,
       "budget": 23000,
@@ -6906,7 +6584,7 @@
       "lastChange": "2026-10-27",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "filed need orochia-mobile#37"
+      "why": "a filed need (its repository left the organisation)"
     },
     {
       "pkg": "ui",
@@ -8097,10 +7775,8 @@
       },
       "nativeUse": {},
       "live": 17,
-      "paused": 1,
-      "pausedBy": [
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -8264,10 +7940,8 @@
       },
       "nativeUse": {},
       "live": 21,
-      "paused": 1,
-      "pausedBy": [
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -8299,7 +7973,6 @@
       "name": "react",
       "exports": [
         "* ./OrazakaEngineFlow",
-        "* ./YororisPresenceOrb",
         "* ./JarvisHUD",
         "* ./LiquidCausticsView",
         "* ./NeuralLatticeView"
@@ -8317,7 +7990,6 @@
         "* ./motion-controller",
         "* ./spring-physics",
         "* ./orazaka-engine",
-        "* ./yororis-synthesis",
         "* ./jarvis-hud",
         "* ./liquid-caustics",
         "* ./neural-lattice",

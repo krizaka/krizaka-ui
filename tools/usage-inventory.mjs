@@ -44,8 +44,9 @@ export const CONSUMERS = [
   // private, on the founder's machine only: read for import names, never cloned
   { name: "cockpit", kind: "tool", local: join(HOME, "Documents/krizaka/tools/cockpit-next") },
 ];
-const PAUSED_NAMES = new Set(["orochia", "yasakia", "yororis", "kachizaka"]);
-/** Paused products (Orochia, Yasakia, Yororis, Kachizaka): counted apart, they keep nothing in the core. */
+/** Products that left the organisation (2026-10-29): none is read any more. */
+const PAUSED_NAMES = new Set([]);
+/** No paused product is counted apart any more. */
 export const PAUSED = [...PAUSED_NAMES].map((name) => ({ name, kind: "paused", repo: name }));
 
 /** Where a consumer is read from: its fixed local folder, else the index clone, else the inventory's own clone. */
@@ -216,6 +217,8 @@ export function readMeta(text) {
   };
 }
 
+const LIVE_REPOS = new Set([...CONSUMERS.map((c) => c.repo).filter(Boolean), "krizaka-ui", "orazaka-mobile-client"]);
+
 /** The decisions ADR-006 (appendix A) already took: `merge` rows (target) and the issues that keep an entry. */
 export function readPriorAudit(text) {
   const merges = new Map();
@@ -227,8 +230,9 @@ export function readPriorAudit(text) {
     if (!entry || !decided) continue;
     const reason = cells[5] ?? "";
     if (decided === "merge") merges.set(entry, /into ([\w-]+)/.exec(reason)?.[1] ?? null);
+    // Only an issue of a repository that is still in the organisation keeps an entry (the repositories that left are not read).
     const issue = /\b([\w-]+#\d+)/.exec(reason)?.[1];
-    if (issue) issues.set(entry, issue);
+    if (issue && LIVE_REPOS.has(issue.split("#")[0])) issues.set(entry, issue);
   }
   return { merges, issues };
 }

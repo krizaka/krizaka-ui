@@ -25,10 +25,10 @@ export const usedBy = (name: string): Product[] => PRODUCTS.filter((product) => 
 
 const MOBILE = "the native apps: Yomizaka and Akinaza mobile, Orazaka mobile";
 const SITE = "krizaka.com migrating its pages to the specialised template (TPL)";
-/** A component built for a product now paused (Orochia, Yasakia, Yororis, Kachizaka — 2026-10-25). */
-const PAUSED = "Built for a product now paused (2026-10-25): kept until the next major's audit decides";
-/** A component whose only users were the paused products: no product in focus imports it yet. */
-const LEFT = "Its only users were products now paused (2026-10-25): kept until the next major's audit decides.";
+/** A component built for a product that left the organisation (2026-10-29). */
+const PAUSED = "Built for a product that left the organisation (2026-10-29): kept until the next major's audit decides";
+/** A component whose only users were the products that left: no product in focus imports it yet. */
+const LEFT = "Its only users were products that left the organisation (2026-10-29): kept until the next major's audit decides.";
 
 /** Why an unused component stays: the planned work that needs it. */
 export const PLANNED: Record<string, string> = {

@@ -86,7 +86,7 @@ test("verdict: use keeps, a merge or a deprecation wins, paused-only leaves the 
   assert.equal(verdict(row({ importers: { yomizaka: 2 }, live: 2 }), { today }).verdict, "keep");
   assert.equal(verdict(row({ importers: { yomizaka: 2 }, live: 2, mergeInto: "chip" }), { today }).verdict, "merge");
   assert.equal(verdict(row({ status: "deprecated" }), { today }).verdict, "retire");
-  assert.equal(verdict(row({ paused: 3, pausedBy: ["orochia"] }), { today }).verdict, "leave-core");
+  assert.equal(verdict(row({ paused: 3, pausedBy: ["a-product"] }), { today }).verdict, "leave-core");
   assert.equal(verdict(row({ issue: "akinaza#260" }), { today }).verdict, "keep");
   assert.equal(verdict(row({ created: "2026-10-25" }), { today }).verdict, "ask");
   assert.equal(verdict(row({ domain: "cahier" }), { today }).verdict, "ask");
