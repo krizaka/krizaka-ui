@@ -1155,32 +1155,27 @@ function engineHandlers<T extends RowData>(
   };
 }
 
-/** A table of records — sort, filters and facets, groups, details, pages, selection, visibility, pinning, resizing — on the client or the server, cards on a phone, windowing for long lists. */
-export function DataTable<T extends RowData>(props: DataTableProps<T>) {
-  const { rows, columns, getRowId, caption, showCaption, routeKey, selectable, bulkActions, bulkMax, bulkResult, pinning, resizing, getSubRows, renderDetail, rowLabel, pageSizeOptions, manual, rowCount } = props;
-  const { loading, loadingRows: loadingCount = 5, error, empty, layout = "auto", phone = "cards", density, stickyHeader, striped, scroll, stickyFirstColumn, virtualized, toolbar, footer, className } = props;
-  const labels = { ...dataTableLabels, ...props.labels };
-  const L: Layout = virtualized ? "table" : layout;
+/** What the props and the columns say about the table's layout. */
+function shapeOf<T extends RowData>(props: DataTableProps<T>) {
+  const { columns, phone = "cards", virtualized, renderDetail, getSubRows } = props;
+  const L: Layout = virtualized ? "table" : (props.layout ?? "auto");
   const typed = columns.some((c) => c.type || c.priority);
   const list = phone === "list" && L !== "table";
-  const s = dataTable({ layout: L, density, sticky: Boolean(stickyHeader), striped: Boolean(striped), typed, phone: list ? "list" : "cards" });
-
-  const route = useRouteTable(routeKey, { sort: props.defaultSort ?? null, page: props.defaultPage ?? 1, filters: props.defaultFilters ?? NO_RECORD }, columns.map((c) => c.id));
-  const c = useControlled(props, route);
-  const changes = useQueryChanges(props, c, route);
-  const { paginated, page, pageSize, selected, setSelected } = c;
-  const [sizing, setSizing] = React.useState<Record<string, number>>({});
-  const [resizeState, setResizeState] = React.useState<ColumnResizingState | undefined>(undefined);
-
   const hasExpander = Boolean(renderDetail || getSubRows);
   const maxPriority = columns.reduce<1 | Priority>((max, column) => (priorityOf(column) > max ? priorityOf(column) : max), 1);
   const titleColumn = columns.find((col) => col.card === "title" || (!col.card && col.type === "title")) ?? columns[0];
   const listAway = list ? columns.filter((col) => placeOf(titleColumn, col) === "away" && priorityOf(col) === 1) : [];
   const facts = list ? columns.filter((col) => placeOf(titleColumn, col) === "facts") : [];
   const inlineToggle = (maxPriority > 1 || listAway.length > 0) && !hasExpander;
-  const detailed = Boolean(renderDetail) || inlineToggle;
-  const defs = React.useMemo(() => columnDefs(columns, resizing), [columns, resizing]);
+  return { L, typed, list, hasExpander, maxPriority, inlineToggle, detailed: Boolean(renderDetail) || inlineToggle, titleColumn, listAway, facts };
+}
 
+/** The engine, fed by our own state: sizing and resizing live here, everything else in `c`. */
+function useEngine<T extends RowData>(props: DataTableProps<T>, c: Controlled, changes: Changes, detailed: boolean) {
+  const { rows, columns, getRowId, getSubRows, pinning, resizing, manual, rowCount, stickyFirstColumn } = props;
+  const [sizing, setSizing] = React.useState<Record<string, number>>({});
+  const [resizeState, setResizeState] = React.useState<ColumnResizingState | undefined>(undefined);
+  const defs = React.useMemo(() => columnDefs(columns, resizing), [columns, resizing]);
   const firstId = columns[0]?.id;
   const pinned = stickyFirstColumn && firstId && !pinning?.start?.length ? { ...pinning, start: [firstId] } : pinning;
   const table: DataTableInstance<T> = useTable<typeof features, T>({
@@ -1196,7 +1191,7 @@ export function DataTable<T extends RowData>(props: DataTableProps<T>) {
     sortDescFirst: false,
     manualSorting: manual?.sorting,
     manualFiltering: manual?.filtering,
-    manualPagination: manual?.pagination || !paginated,
+    manualPagination: manual?.pagination || !c.paginated,
     rowCount: manual?.pagination ? rowCount : undefined,
     autoResetPageIndex: false,
     autoResetExpanded: false,
@@ -1204,45 +1199,54 @@ export function DataTable<T extends RowData>(props: DataTableProps<T>) {
     columnResizeMode: "onChange",
     enableRowSelection: (row) => !row.getIsGrouped(),
   }) as unknown as DataTableInstance<T>;
+  return { table, pinned, setSizing };
+}
 
-  const visibleColumns = table.getVisibleLeafColumns();
-  const pageRows = table.getRowModel().rows;
+/** The count of results and of pages; a page beyond the last (the filters shrank the list) shows the last one. */
+function usePaging<T extends RowData>(props: DataTableProps<T>, c: Controlled, changes: Changes, table: DataTableInstance<T>) {
+  const { manual, rowCount, rows, loading } = props;
+  const { paginated, page, pageSize } = c;
   const leafCount = (manual?.pagination || manual?.filtering) && rowCount !== undefined ? rowCount : table.getFilteredRowModel().rows.length;
   const pageCount = paginated ? Math.max(1, manual?.pagination ? Math.ceil((rowCount ?? rows.length) / pageSize) : table.getPageCount()) : 1;
-  // A page beyond the last (the filters shrank the list): show the last one.
   React.useEffect(() => {
     if (paginated && !loading && page > pageCount) changes.changePage(pageCount);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- only when the count of pages drops under the page
   }, [pageCount]);
+  return { leafCount, pageCount };
+}
 
+/** What is chosen on this page: the ids that can be, whether all or some are, and the toggle. */
+function useChoice<T extends RowData>(pageRows: TableRow<T>[], selected: readonly string[], setSelected: (ids: string[]) => void) {
   const selectableIds = pageRows.filter((r) => !r.getIsGrouped()).map((r) => r.id);
   const chosen = new Set(selected);
   const allChosen = selectableIds.length > 0 && selectableIds.every((id) => chosen.has(id));
   const someChosen = selectableIds.some((id) => chosen.has(id));
   const toggleAll = () => setSelected(allChosen ? selected.filter((id) => !selectableIds.includes(id)) : [...new Set([...selected, ...selectableIds])]);
+  return { chosen, allChosen, someChosen, toggleAll, selectableCount: selectableIds.length };
+}
 
-  const span = visibleColumns.length + (selectable ? 1 : 0) + (hasExpander ? 1 : 0);
-  const fixedLayout = Boolean(resizing || pinned?.start?.length || pinned?.end?.length);
-  const sideways = scroll ?? (!typed && !stickyHeader);
+/** The query in the address (or in memory): the sort, the page, the filters. */
+function useRoute<T extends RowData>(props: DataTableProps<T>) {
+  const { defaultSort, defaultPage, defaultFilters, columns } = props;
+  return useRouteTable(props.routeKey, { sort: defaultSort ?? null, page: defaultPage ?? 1, filters: defaultFilters ?? NO_RECORD }, columns.map((c) => c.id));
+}
 
-  const scroller = React.useRef<HTMLDivElement>(null);
-  const win = useWindow(virtualized, loading, pageRows, scroller);
-
-  const v: View<T> = {
-    s, L, list, labels, byId: new Map(columns.map((col) => [col.id, col])), titleColumn, facts, listAway, maxPriority, inlineToggle, hasExpander, detailed,
-    selectable: Boolean(selectable), span, chosen, virtualized: Boolean(virtualized), fixedLayout, renderDetail,
-    rowLabel, visibleColumns, measureElement: win.measureElement, loading, loadingCount, error, empty, pageRows, windowItems: win.items, resizing, stickyHeader, setSizing,
-    allChosen, someChosen, selectableCount: selectableIds.length, toggleAll,
-  };
-
+/** The table element: caption, header and the body between two spacer rows when windowed. */
+function tableOf<T extends RowData>(v: View<T>, table: DataTableInstance<T>, caption: string, showCaption: boolean | undefined, before: number, after: number) {
+  const { s, labels, virtualized, span, fixedLayout, loading } = v;
   const headers = table.getHeaderGroups().at(-1)?.headers ?? [];
-  const tableElement = (
+  const spacer = (height: number) => (
+    <tr aria-hidden style={{ height }}>
+      <td colSpan={span} />
+    </tr>
+  );
+  return (
     <table
       role="table"
       aria-busy={loading || undefined}
-      aria-rowcount={virtualized ? pageRows.length + 1 : undefined}
+      aria-rowcount={virtualized ? v.pageRows.length + 1 : undefined}
       className={s.table({ className: fixedLayout ? "table-fixed" : undefined })}
-      style={fixedLayout ? { minWidth: table.getTotalSize() + (selectable ? 40 : 0) + (hasExpander ? 40 : 0) } : undefined}
+      style={fixedLayout ? { minWidth: table.getTotalSize() + (v.selectable ? 40 : 0) + (v.hasExpander ? 40 : 0) } : undefined}
     >
       <caption className={showCaption ? s.caption() : "sr-only"}>
         {caption}
@@ -1252,20 +1256,56 @@ export function DataTable<T extends RowData>(props: DataTableProps<T>) {
         {headerRow(v, headers as unknown as TableHeader<T>[])}
       </thead>
       <tbody role="rowgroup" className={s.tbody()}>
-        {win.before > 0 && (
-          <tr aria-hidden style={{ height: win.before }}>
-            <td colSpan={span} />
-          </tr>
-        )}
+        {before > 0 && spacer(before)}
         {bodyRows(v)}
-        {win.after > 0 && (
-          <tr aria-hidden style={{ height: win.after }}>
-            <td colSpan={span} />
-          </tr>
-        )}
+        {after > 0 && spacer(after)}
       </tbody>
     </table>
   );
+}
+
+/** The page controls under the table. */
+function pager<T extends RowData>(props: DataTableProps<T>, c: Controlled, changes: Changes, pageCount: number, labels: DataTableLabels) {
+  const { pageSizeOptions, loading } = props;
+  return (
+    <Pagination
+      page={Math.min(c.page, pageCount)}
+      pageCount={pageCount}
+      onPageChange={changes.changePage}
+      pageSize={pageSizeOptions ? c.pageSize : undefined}
+      pageSizeOptions={pageSizeOptions}
+      onPageSizeChange={pageSizeOptions ? changes.changePageSize : undefined}
+      disabled={loading}
+      labels={labels.pagination}
+    />
+  );
+}
+
+/** A table of records — sort, filters and facets, groups, details, pages, selection, visibility, pinning, resizing — on the client or the server, cards on a phone, windowing for long lists. */
+export function DataTable<T extends RowData>(props: DataTableProps<T>) {
+  const { columns, caption, showCaption, selectable, bulkActions, bulkMax, bulkResult, resizing, renderDetail, rowLabel, toolbar, footer, className, virtualized, loading, stickyHeader, scroll, manual } = props;
+  const labels = { ...dataTableLabels, ...props.labels };
+  const shape = shapeOf(props);
+  const s = dataTable({ layout: shape.L, density: props.density, sticky: Boolean(stickyHeader), striped: Boolean(props.striped), typed: shape.typed, phone: shape.list ? "list" : "cards" });
+
+  const route = useRoute(props);
+  const c = useControlled(props, route);
+  const changes = useQueryChanges(props, c, route);
+  const { table, pinned, setSizing } = useEngine(props, c, changes, shape.detailed);
+  const { leafCount, pageCount } = usePaging(props, c, changes, table);
+  const pageRows = table.getRowModel().rows;
+  const pick = useChoice(pageRows, c.selected, c.setSelected);
+  const scroller = React.useRef<HTMLDivElement>(null);
+  const win = useWindow(virtualized, loading, pageRows, scroller);
+
+  const span = table.getVisibleLeafColumns().length + (selectable ? 1 : 0) + (shape.hasExpander ? 1 : 0);
+  const fixedLayout = Boolean(resizing || pinned?.start?.length || pinned?.end?.length);
+  const v: View<T> = {
+    ...shape, ...pick,
+    s, labels, byId: new Map(columns.map((col) => [col.id, col])),
+    selectable: Boolean(selectable), span, virtualized: Boolean(virtualized), fixedLayout, renderDetail,
+    rowLabel, visibleColumns: table.getVisibleLeafColumns(), measureElement: win.measureElement, loading, loadingCount: props.loadingRows ?? 5, error: props.error, empty: props.empty, pageRows, windowItems: win.items, resizing, stickyHeader, setSizing,
+  };
 
   const context: Context = {
     table: table as unknown as DataTableInstance<object>,
@@ -1278,18 +1318,9 @@ export function DataTable<T extends RowData>(props: DataTableProps<T>) {
     manualFiltering: Boolean(manual?.filtering),
   };
 
-  const pagination = paginated ? (
-    <Pagination
-      page={Math.min(page, pageCount)}
-      pageCount={pageCount}
-      onPageChange={changes.changePage}
-      pageSize={pageSizeOptions ? pageSize : undefined}
-      pageSizeOptions={pageSizeOptions}
-      onPageSizeChange={pageSizeOptions ? changes.changePageSize : undefined}
-      disabled={loading}
-      labels={labels.pagination}
-    />
-  ) : null;
+  const tableElement = tableOf(v, table, caption, showCaption, win.before, win.after);
+  const sideways = scroll ?? (!shape.typed && !stickyHeader);
+  const pagination = c.paginated ? pager(props, c, changes, pageCount, labels) : null;
 
   return (
     <DataTableContext.Provider value={context}>
@@ -1308,11 +1339,11 @@ export function DataTable<T extends RowData>(props: DataTableProps<T>) {
             {tableElement}
           </div>
         ) : (
-          <div className={s.scroller({ className: sideways ? (scroll ? SHADOWS : CARD_CLIP[L]) : "overflow-x-clip" })}>{tableElement}</div>
+          <div className={s.scroller({ className: sideways ? (scroll ? SHADOWS : CARD_CLIP[shape.L]) : "overflow-x-clip" })}>{tableElement}</div>
         )}
         {selectable && bulkActions ? (
-          <SelectionBar count={selected.length} max={bulkMax} result={bulkResult} labels={labels.selection} onClear={() => setSelected([])}>
-            {bulkActions({ selected: [...selected], clear: () => setSelected([]) })}
+          <SelectionBar count={c.selected.length} max={bulkMax} result={bulkResult} labels={labels.selection} onClear={() => c.setSelected([])}>
+            {bulkActions({ selected: [...c.selected], clear: () => c.setSelected([]) })}
           </SelectionBar>
         ) : null}
         {pagination || footer ? (

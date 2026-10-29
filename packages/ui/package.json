@@ -1870,7 +1870,7 @@
       "name": "./data-table: DataTable (TanStack Table v9, the windowing of TanStack Virtual, Radix Checkbox, the pagination) // 2026-10-29: split for Sonar S3776 (was 137); +700 B accepted by the CTO; win back in #861",
       "path": "dist/data-table.js",
       "import": "{ DataTable }",
-      "limit": "49.4 kB",
+      "limit": "49.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -3178,7 +3178,7 @@
       "name": "./genui: GenUiStream (A2UI v0.9 validator, store, surface, base catalog with DataTable) // 2026-10-29: carries the DataTable split for Sonar S3776; +800 B accepted by the CTO; win back in #861",
       "path": "dist/genui.js",
       "import": "{ GenUiStream, baseGenUiCatalog }",
-      "limit": "55.1 kB",
+      "limit": "55.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
