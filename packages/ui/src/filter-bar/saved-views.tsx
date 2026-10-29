@@ -300,33 +300,106 @@ function GroupMenuItems({ items, current, Link, onSelect }: GroupProps) {
   );
 }
 
+type PhoneMenuProps = {
+  active: SavedViewItem | undefined;
+  grouped: { group: ViewGroup; items: SavedViewItem[] }[];
+  current: string | null | undefined;
+  Link: React.ElementType;
+  labels: SavedViewsLabels;
+  mark: React.ReactNode;
+  showSave: boolean;
+  canChange: boolean;
+  onSelect: SavedViewsProps["onSelect"];
+  onSave: () => void;
+  onRename?: () => void;
+  onDelete?: () => void;
+};
+
+/** A phone: the views and their actions in one menu. */
+function PhoneMenu({ active, grouped, current, Link, labels, mark, showSave, canChange, onSelect, onSave, onRename, onDelete }: PhoneMenuProps) {
+  const rename = canChange ? onRename : undefined;
+  const remove = canChange ? onDelete : undefined;
+  return (
+    <div className="flex flex-wrap items-center gap-2 md:hidden">
+      <MenuPrimitive.Root modal={false}>
+        <MenuPrimitive.Trigger className="inline-flex h-11 min-w-0 items-center gap-2 rounded-lg border border-border-control bg-surface-1 px-3.5 text-sm font-semibold text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
+          <span className="truncate">{labels.menu(active?.label ?? labels.none)}</span>
+          {mark}
+          <ChevronGlyph className="h-4 w-4 shrink-0" />
+        </MenuPrimitive.Trigger>
+        <DropdownMenu.Content align="start">
+          {grouped.map(({ group, items }, index) => (
+            <React.Fragment key={group}>
+              {index > 0 ? <DropdownMenu.Separator /> : null}
+              <DropdownMenu.Label>{labels.groups[group]}</DropdownMenu.Label>
+              <GroupMenuItems items={items} current={current} Link={Link} onSelect={onSelect} />
+            </React.Fragment>
+          ))}
+          {showSave || rename || remove ? <DropdownMenu.Separator /> : null}
+          {showSave ? <DropdownMenu.Item onSelect={onSave}>{labels.save}</DropdownMenu.Item> : null}
+          {rename ? <DropdownMenu.Item onSelect={rename}>{labels.rename}</DropdownMenu.Item> : null}
+          {remove ? (
+            <DropdownMenu.Item tone="danger" onSelect={remove}>
+              {labels.remove}
+            </DropdownMenu.Item>
+          ) : null}
+        </DropdownMenu.Content>
+      </MenuPrimitive.Root>
+    </div>
+  );
+}
+
 /** The views of a list: chips with counts on a wide screen, one menu on a phone; save, rename and delete; the mark of a modified view. */
+const mergeLabels = (given: SavedViewsProps["labels"]): SavedViewsLabels => ({ ...savedViewsLabels, ...given, groups: { ...savedViewsLabels.groups, ...given?.groups } });
+
+function deriveViews(views: readonly SavedViewItem[], current: string | null | undefined, renaming: string | null) {
+  const active = views.find((v) => v.id === current);
+  const canChange = Boolean(active && (active.editable ?? active.group === "mine"));
+  const grouped = GROUPS.map((group) => ({ group, items: views.filter((v) => v.group === group) })).filter((g) => g.items.length > 0);
+  return { active, canChange, grouped, renamed: views.find((v) => v.id === renaming) };
+}
+
+type BarExtrasProps = {
+  active: SavedViewItem | undefined;
+  labels: SavedViewsLabels;
+  modified?: boolean;
+  showSave: boolean;
+  saving: boolean;
+  canChange: boolean;
+  onStartSave: () => void;
+  onRename?: () => void;
+  onDelete?: () => void;
+};
+
+/** The wide bar's tail: the mark of a modified view, its actions, the save button. */
+function BarExtras({ active, labels, modified, showSave, saving, canChange, onStartSave, onRename, onDelete }: BarExtrasProps) {
+  return (
+    <>
+      {modified && active ? <span className="text-xs font-semibold text-fg-secondary">({labels.modified})</span> : null}
+      {canChange && active && (onRename || onDelete) ? <ViewActions active={active} labels={labels} onRename={onRename} onDelete={onDelete} /> : null}
+      {showSave && !saving ? (
+        <button type="button" onClick={onStartSave} className={quiet}>
+          {labels.save}
+        </button>
+      ) : null}
+    </>
+  );
+}
+
 export function SavedViews({ views, current, modified, onSelect, onSave, onRename, onDelete, linkAs, maxLength = 80, labels: given, className }: SavedViewsProps) {
-  const labels: SavedViewsLabels = { ...savedViewsLabels, ...given, groups: { ...savedViewsLabels.groups, ...given?.groups } };
+  const labels = mergeLabels(given);
   const [saving, setSaving] = React.useState(false);
   const [renaming, setRenaming] = React.useState<string | null>(null);
   const Link = (linkAs ?? "a") as React.ElementType;
-  const active = views.find((v) => v.id === current);
-  const canChange = Boolean(active && (active.editable ?? active.group === "mine"));
+  const { active, canChange, grouped, renamed } = deriveViews(views, current, renaming);
   const showSave = Boolean(onSave && modified);
-  const grouped = GROUPS.map((group) => ({ group, items: views.filter((v) => v.group === group) })).filter((g) => g.items.length > 0);
-  const renamed = views.find((v) => v.id === renaming);
+  const startRename = onRename && active ? () => setRenaming(active.id) : undefined;
+  const startDelete = onDelete && active ? () => onDelete(active.id) : undefined;
+  const mark = modified && active ? <span className="text-xs font-semibold text-fg-secondary">({labels.modified})</span> : null;
 
   const form = (
     <ActiveForm saving={saving} renamed={renamed} labels={labels} maxLength={maxLength} onSave={onSave} onRename={onRename} setSaving={setSaving} setRenaming={setRenaming} />
   );
-
-  const actions =
-    canChange && active && (onRename || onDelete) ? (
-      <ViewActions active={active} labels={labels} onRename={onRename ? () => setRenaming(active.id) : undefined} onDelete={onDelete ? () => onDelete(active.id) : undefined} />
-    ) : null;
-
-  const mark = modified && active ? <span className="text-xs font-semibold text-fg-secondary">({labels.modified})</span> : null;
-  const saveButton = showSave && !saving ? (
-    <button type="button" onClick={() => setSaving(true)} className={quiet}>
-      {labels.save}
-    </button>
-  ) : null;
 
   return (
     <div className={cn("flex flex-col gap-2", className)}>
@@ -338,38 +411,24 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
             <GroupChips label={labels.groups[group]} items={items} current={current} Link={Link} onSelect={onSelect} />
           </React.Fragment>
         ))}
-        {mark}
-        {actions}
-        {saveButton}
+        <BarExtras active={active} labels={labels} modified={modified} showSave={showSave} saving={saving} canChange={canChange} onStartSave={() => setSaving(true)} onRename={startRename} onDelete={startDelete} />
       </div>
 
       {/* A phone: one menu. */}
-      <div className="flex flex-wrap items-center gap-2 md:hidden">
-        <MenuPrimitive.Root modal={false}>
-          <MenuPrimitive.Trigger className="inline-flex h-11 min-w-0 items-center gap-2 rounded-lg border border-border-control bg-surface-1 px-3.5 text-sm font-semibold text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
-            <span className="truncate">{labels.menu(active?.label ?? labels.none)}</span>
-            {mark}
-            <ChevronGlyph className="h-4 w-4 shrink-0" />
-          </MenuPrimitive.Trigger>
-          <DropdownMenu.Content align="start">
-            {grouped.map(({ group, items }, index) => (
-              <React.Fragment key={group}>
-                {index > 0 ? <DropdownMenu.Separator /> : null}
-                <DropdownMenu.Label>{labels.groups[group]}</DropdownMenu.Label>
-                <GroupMenuItems items={items} current={current} Link={Link} onSelect={onSelect} />
-              </React.Fragment>
-            ))}
-            {(showSave || (canChange && (onRename || onDelete))) && <DropdownMenu.Separator />}
-            {showSave ? <DropdownMenu.Item onSelect={() => setSaving(true)}>{labels.save}</DropdownMenu.Item> : null}
-            {canChange && active && onRename ? <DropdownMenu.Item onSelect={() => setRenaming(active.id)}>{labels.rename}</DropdownMenu.Item> : null}
-            {canChange && active && onDelete ? (
-              <DropdownMenu.Item tone="danger" onSelect={() => onDelete(active.id)}>
-                {labels.remove}
-              </DropdownMenu.Item>
-            ) : null}
-          </DropdownMenu.Content>
-        </MenuPrimitive.Root>
-      </div>
+      <PhoneMenu
+        active={active}
+        grouped={grouped}
+        current={current}
+        Link={Link}
+        labels={labels}
+        mark={mark}
+        showSave={showSave}
+        canChange={canChange}
+        onSelect={onSelect}
+        onSave={() => setSaving(true)}
+        onRename={startRename}
+        onDelete={startDelete}
+      />
       {form}
     </div>
   );
