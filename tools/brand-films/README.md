@@ -19,9 +19,7 @@ changes in the films at the next render.
 | Duck | `Mascot bird="duck"` | builds — code | stacks three blocks of code, the stack lights up |
 | Flamingo | `Mascot bird="flamingo"` | answers, gets paid | a question, its answer typed, a coin of points falls |
 | Pigeon | `Mascot bird="pigeon"` (its parcel is part of the figure) | delivers | takes off with the parcel, lands on the doorstep, the check |
-| Lovebird | `Mascot bird="lovebird"` — Yasakia | introduces | two people come closer, a heart between them |
-| Crane | `Mascot bird="crane"` — Yororis | listens | sound comes to it, it closes its eyes and listens |
-| Magpie | `Mascot bird="magpie"` — Kachizaka | keeps the score | the podium rises, the star lands on first place |
+| Magpie | `Mascot bird="magpie"` | keeps the score | the podium rises, the star lands on first place |
 | Beaver | `Mascot bird="beaver"` — Akinaza | builds the shop | taps the till, the receipt prints, the stamp |
 | Phoenix | `Phoenix` | the comeback (no job) | — (no loop: it carries no promise) |
 | The hero's flock | inside `Landscape` (`flock`): `kzl-falcon-bot` (the robot-faced sentry falcon, cyan eyes and scan laser), `kzl-owl-bot`, `kzl-developer-duck` (laptop and hologram), `kzl-flamingo-bot` (the high-neck bird **with a hat** — the "heron"), and the phoenix over the river | the same promises, drawn for the hero | their own loops in krizaka.com's hero |
