@@ -60,8 +60,8 @@ export const sites: readonly Site[] = [
   site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
   site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-build" }),
   site({ id: "ts", name: "Krizaka TypeScript", url: "https://ts.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ts" }),
-  // The motion lab: built in the open, served at motion.krizaka.com; what proves itself there moves into Krizaka UI.
-  site({ id: "motion", name: "Krizaka Motion", url: "https://motion.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-motion" }),
+  // The family lab: built in the open, served at lab.krizaka.com; what proves itself there moves into Krizaka UI.
+  site({ id: "motion", name: "Krizaka Lab", url: "https://lab.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-lab" }),
   site({ id: "github", name: "GitHub", url: "https://github.com/krizaka", kind: "open-source", group: "github", status: "released", mark: "github", repo: "https://github.com/krizaka" }),
 ];
 
@@ -141,7 +141,7 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       ui: "Components, tokens, icons and charts — web and React Native.",
       java: "Spring Boot building blocks on Maven Central.",
       ts: "TypeScript backend building blocks on npm.",
-      motion: "The motion lab: the kit's motion, played live with its knobs.",
+      motion: "The family lab: the kit's motion, played live with its knobs.",
       github: "Every repository, in the open.",
     },
     signature: { company: "A Krizaka company", product: "A Krizaka product", "open-source": "A Krizaka open-source project" },

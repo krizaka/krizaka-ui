@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 
-// The Motion section of ui.krizaka.com (Krizaka Motion roadmap, krizaka-motion#22): the principles, the one config
+// The Motion section of ui.krizaka.com (Krizaka Motion roadmap, krizaka-lab#22): the principles, the one config
 // vocabulary, the primitives that move, the reduced-motion policy, the budget, and the lab that plays them.
 const page = readFileSync(new URL("../content/docs/foundations/motion.mdx", import.meta.url), "utf8");
 

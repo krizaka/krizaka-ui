@@ -40,7 +40,7 @@ export const CONSUMERS = [
   { name: "ui-site", kind: "site", local: join(ROOT, "apps/site") },
   { name: "java-site", kind: "site", repo: "krizaka-build", sub: "site" },
   { name: "ts-site", kind: "site", repo: "krizaka-ts", sub: "site" },
-  { name: "motion-lab", kind: "site", repo: "krizaka-motion" },
+  { name: "motion-lab", kind: "site", repo: "krizaka-lab" },
   // private, on the founder's machine only: read for import names, never cloned
   { name: "cockpit", kind: "tool", local: join(HOME, "Documents/krizaka/tools/cockpit-next") },
 ];

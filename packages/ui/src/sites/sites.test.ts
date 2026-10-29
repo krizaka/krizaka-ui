@@ -20,7 +20,7 @@ describe("sites — the Krizaka family", () => {
       "ui.krizaka.com",
       "java.krizaka.com",
       "ts.krizaka.com",
-      "motion.krizaka.com",
+      "lab.krizaka.com",
       "github.com/krizaka",
     ]);
   });
@@ -37,8 +37,8 @@ describe("sites — the Krizaka family", () => {
     expect(siteById("java").repo).toBe("https://github.com/krizaka/krizaka-build");
     // Its full name, never « Krizaka TS » (#585).
     expect(siteById("ts")).toMatchObject({ name: "Krizaka TypeScript", kind: "open-source", status: "released", url: "https://ts.krizaka.com", repo: "https://github.com/krizaka/krizaka-ts" });
-    // The motion lab: Krizaka UI's motion played live, built in the open, served at motion.krizaka.com.
-    expect(siteById("motion")).toMatchObject({ kind: "open-source", group: "open-source", status: "development", url: "https://motion.krizaka.com", repo: "https://github.com/krizaka/krizaka-motion" });
+    // The family lab: Krizaka UI's motion played live, built in the open, served at lab.krizaka.com.
+    expect(siteById("motion")).toMatchObject({ kind: "open-source", group: "open-source", status: "development", url: "https://lab.krizaka.com", repo: "https://github.com/krizaka/krizaka-lab" });
   });
 
   it("groups them in reading order: Krizaka · Products · Open source · GitHub", () => {
