@@ -333,10 +333,6 @@
       "types": "./dist/engine-flow.d.ts",
       "import": "./dist/engine-flow.js"
     },
-    "./marquee": {
-      "types": "./dist/marquee.d.ts",
-      "import": "./dist/marquee.js"
-    },
     "./comparison-table": {
       "types": "./dist/comparison-table.d.ts",
       "import": "./dist/comparison-table.js"
@@ -732,10 +728,6 @@
     "./product-page": {
       "types": "./dist/product-page.d.ts",
       "import": "./dist/product-page.js"
-    },
-    "./how-it-works-page": {
-      "types": "./dist/how-it-works-page.d.ts",
-      "import": "./dist/how-it-works-page.js"
     },
     "./gallery-page": {
       "types": "./dist/gallery-page.d.ts",
@@ -1740,16 +1732,6 @@
       "name": "./engine-flow",
       "path": "dist/engine-flow.js",
       "limit": "2.7 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
-      "name": "./marquee",
-      "path": "dist/marquee.js",
-      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2821,17 +2803,6 @@
     {
       "name": "./product-page",
       "path": "dist/product-page.js",
-      "limit": "1.5 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx",
-        "@krizaka/ui"
-      ]
-    },
-    {
-      "name": "./how-it-works-page",
-      "path": "dist/how-it-works-page.js",
       "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
