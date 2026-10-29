@@ -125,8 +125,9 @@ const config: TestRunnerConfig = {
     }
     // A visual run is deterministic: the on-screen display of a player (RetroTv's bar, shown by the pointer, focus or a
     // 2.5 s timer) is pinned at its resting state, reduced motion is set by the runner's context, and nothing leaves the
-    // machine (fixtures above).
-    await page.addStyleTag({ content: ".kz-rtv-bar{opacity:0!important;transition:none!important}" });
+    // machine (fixtures above). The video's frame/poster paint is decoder- and timing-bound (the same story drew its poster in
+    // the baselines run and a black glass in CI, krizaka-ui#875): the screen is captured as its glass, the picture is not compared.
+    await page.addStyleTag({ content: ".kz-rtv-bar{opacity:0!important;transition:none!important}.kz-rtv video{opacity:0!important}" });
     // @krizaka/charts: an ECharts engine and the world's countries load lazily (`data-pending` until drawn).
     await page.waitForFunction(() => !document.querySelector("[data-pending]"), undefined, { timeout: 15_000 });
     for (const theme of THEMES) {
