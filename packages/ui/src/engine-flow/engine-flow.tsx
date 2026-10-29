@@ -239,6 +239,46 @@ function Stage({
   );
 }
 
+type FlowDataInput = { chosen: boolean; calm: boolean; saveData: boolean; trigger: string; density: string; compact: boolean };
+
+/** The figure's data attributes: the CSS reads the state from them. */
+function flowData({ chosen, calm, saveData, trigger, density, compact }: FlowDataInput) {
+  return {
+    "data-active": chosen ? "" : undefined,
+    "data-calm": calm ? "" : undefined,
+    "data-still": saveData ? "" : undefined,
+    "data-trigger": calm || trigger === "always" ? undefined : trigger,
+    "data-density": calm ? "sparse" : density === "normal" ? undefined : density,
+    "data-compact": compact ? "" : undefined,
+  };
+}
+
+/** What the chosen node says, or the hint when none is chosen. */
+function FlowDetail({ id, chosen, hint }: { id: string; chosen: EngineFlowNode | undefined; hint: React.ReactNode }) {
+  return (
+    <figcaption id={id} className={cn("kz-flow-detail", chosen?.className)} aria-live="polite">
+      {chosen ? (
+        <>
+          <strong>{chosen.label}</strong>
+          {chosen.status ? <span className="kz-flow-status">{chosen.status}</span> : null}
+          {chosen.description ? <span> {chosen.description}</span> : null}
+          {chosen.href ? (
+            <>
+              {" "}
+              <a href={chosen.href} {...(chosen.external ? { target: "_blank", rel: "noopener" } : {})}>
+                {chosen.linkLabel ?? chosen.label}
+                <span aria-hidden="true"> →</span>
+              </a>
+            </>
+          ) : null}
+        </>
+      ) : (
+        hint
+      )}
+    </figcaption>
+  );
+}
+
 /** An engine at the hub and the apps it serves, with what travels between them. */
 export function EngineFlow({
   label,
@@ -273,38 +313,12 @@ export function EngineFlow({
       aria-label={label}
       className={cn("kz-flow", className)}
       data-motion-scope=""
-      data-active={chosen ? "" : undefined}
-      data-calm={calm ? "" : undefined}
-      data-still={saveData ? "" : undefined}
-      data-trigger={calm || trigger === "always" ? undefined : trigger}
-      data-density={calm ? "sparse" : density === "normal" ? undefined : density}
-      data-compact={compact ? "" : undefined}
+      {...flowData({ chosen: Boolean(chosen), calm, saveData, trigger, density, compact: Boolean(compact) })}
       {...props}
     >
       <Stage layout={layout} variant="wide" {...stage} />
       {compact ? <Stage layout={compact} variant="compact" {...stage} /> : null}
-      {calm ? null : (
-      <figcaption id={detailId} className={cn("kz-flow-detail", chosen?.className)} aria-live="polite">
-        {chosen ? (
-          <>
-            <strong>{chosen.label}</strong>
-            {chosen.status ? <span className="kz-flow-status">{chosen.status}</span> : null}
-            {chosen.description ? <span> {chosen.description}</span> : null}
-            {chosen.href ? (
-              <>
-                {" "}
-                <a href={chosen.href} {...(chosen.external ? { target: "_blank", rel: "noopener" } : {})}>
-                  {chosen.linkLabel ?? chosen.label}
-                  <span aria-hidden="true"> →</span>
-                </a>
-              </>
-            ) : null}
-          </>
-        ) : (
-          hint
-        )}
-      </figcaption>
-      )}
+      {calm ? null : <FlowDetail id={detailId} chosen={chosen} hint={hint} />}
     </figure>
   );
 }

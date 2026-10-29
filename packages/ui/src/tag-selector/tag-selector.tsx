@@ -69,6 +69,27 @@ function OptionChip({ option, on, full, onToggle }: { option: TagOption; on: boo
   );
 }
 
+type FieldKeyContext = {
+  draft: string;
+  value: readonly string[];
+  commit: () => void;
+  onValueChange: (next: string[]) => void;
+  setDraft: (next: string) => void;
+};
+
+/** The typed field's keys: Enter commits, Backspace on an empty field takes the last tag back, Escape clears the draft. */
+function fieldKey(event: React.KeyboardEvent<HTMLInputElement>, { draft, value, commit, onValueChange, setDraft }: FieldKeyContext) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    commit();
+  } else if (event.key === "Backspace" && !draft && value.length > 0) {
+    onValueChange(value.slice(0, -1));
+  } else if (event.key === "Escape" && draft) {
+    event.stopPropagation();
+    setDraft("");
+  }
+}
+
 /** Toggle chips with a limit and a count — the others rest once the limit is reached; `creatable` types a new one. */
 export function TagSelector({
   label,
@@ -128,18 +149,7 @@ export function TagSelector({
             aria-controls={listId}
             placeholder={placeholder}
             onChange={(event) => setDraft(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                event.preventDefault();
-                commit();
-              } else if (event.key === "Backspace" && !draft && value.length > 0) {
-                // As in a tag field: Backspace on an empty field takes the last tag back.
-                onValueChange(value.slice(0, -1));
-              } else if (event.key === "Escape" && draft) {
-                event.stopPropagation();
-                setDraft("");
-              }
-            }}
+            onKeyDown={(event) => fieldKey(event, { draft, value, commit, onValueChange, setDraft })}
             className="h-9 min-w-40 flex-1 rounded-md border border-border-control bg-surface-1 px-3 text-sm text-fg placeholder:text-fg-muted focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
           />
           {canCreate ? (
