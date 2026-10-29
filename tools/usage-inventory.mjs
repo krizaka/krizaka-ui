@@ -127,7 +127,7 @@ const DOMAIN_OVERRIDES = {
   "navigation-shell": ["native", "nav-bar", "language-switch", "language-switch/server", "site-footer", "page-header"],
   feedback: ["confirm-button"],
   maps: ["map", "native/map"],
-  media: ["waveform", "retro-tv", "photo-grid", "native/vertical-video", "native/video-player", "native/media-capture", "native/media-picker"],
+  media: ["waveform", "retro-tv", "native/vertical-video", "native/video-player", "native/media-capture", "native/media-picker"],
   commerce: ["money-input", "price-catalogue-editor", "promo-code-field", "shop", "shop-composer", "shop-gallery", "service-card", "slot-picker",
     "agenda", "opening-hours", "reviews", "pricing-page", "kind-config-editor", "usage", "quota-meter"],
   identity: ["avatar", "avatar/defaults", "profile-card", "account-menu", "account-settings", "verified-badge", "notification-preferences", "auth-layout", "captcha", "achievement"],

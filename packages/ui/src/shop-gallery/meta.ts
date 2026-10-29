@@ -8,14 +8,13 @@ export const meta = {
   category: "media",
   domain: "commerce",
   platforms: "web",
-  parity: { native: { status: "n/a", reason: "A shop's public page is a web page.", use: "photo-grid" }, desktop: "web" },
+  parity: { native: { status: "n/a", reason: "A shop's public page is a web page." }, desktop: "web" },
   whenToUse: [
     "The « Photos » section of a shop page: five to a few dozen real photos that a visitor looks at, then opens one by one.",
     "Any set of still images where a quiet mosaic and a full-size viewer are enough.",
   ],
   whenNotToUse: [
     { when: "Photos mixed with muted loops and captions on the tiles.", use: "media-gallery" },
-    { when: "A feed of creator videos with counts and a preview.", use: "media-grid" },
   ],
   bestPractices: [
     "Give each photo its `alt`: it names the tile for a screen reader and is the lightbox's caption.",
