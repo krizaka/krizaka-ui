@@ -985,7 +985,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
-    "@krizaka/query": ">=0.2.2",
+    "@krizaka/query": ">=0.3.0",
     "@krizaka/tailwind": ">=3.76.0",
     "@maplibre/maplibre-react-native": ">=11",
     "@shopify/flash-list": ">=2",
