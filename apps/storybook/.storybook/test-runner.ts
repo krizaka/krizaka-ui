@@ -34,6 +34,12 @@ const missing: string[] = [];
 // The viewport every story starts from: a failed story must not leave the next one at a phone's width.
 let startViewport: { width: number; height: number } | null = null;
 const THEMES = ["dark", "light"] as const;
+// Flake policy (krizaka/.github#423): a flaky screenshot is quarantined with an issue, never rerun in silence. Only the
+// screenshot comparison is skipped (the axe audit still runs). Capped: a second entry fails the run.
+const QUARANTINE = [
+  { id: "primitives-retrotv--playlist-channel", theme: "dark", issue: "krizaka-ui#878", reason: "poster/timer paint differs between runs (65 698 B vs 79 291 B baseline)" },
+] as const;
+const QUARANTINE_MAX = 1;
 
 const config: TestRunnerConfig = {
   setup() {
@@ -168,6 +174,8 @@ const config: TestRunnerConfig = {
       // A story whose picture depends on a media decoder (a video frame) is audited but not screenshot-compared:
       // `parameters: { screenshot: false }`, with the reason beside it — exceptional, reviewed.
       if (story.parameters?.screenshot === false) continue;
+      if (QUARANTINE.length > QUARANTINE_MAX) throw new Error(`Quarantine is capped at ${QUARANTINE_MAX} story: fix a flake, do not list it.`);
+      if (QUARANTINE.some((q) => q.id === context.id && q.theme === theme)) continue;
       const image = viewport
         ? await page.screenshot({ animations: "disabled" })
         : await page.locator("#storybook-root").screenshot({ animations: "disabled" });
