@@ -310,7 +310,7 @@
         "cursive"
       ],
       "description": "The pen of the notebook: margin marks (§ 4), rule numbers, page folios (page 4 sur 6), handwritten notes and stamps, the café chalkboard line. A sparing accent, never reading text.",
-      "why": "A neat handwritten pen, the kind written in a notebook margin: readable at small sizes, full Latin for French accents, lining and tabular figures, and the § sign. Derived from Caveat (SIL OFL 1.1) and renamed Krizaka Cahier as the licence asks: one weight at our ink, line metrics that sit on the 8 px ruled grid, figures of one width so folios and rule numbers align. It is the voice of the Cahier identity (ADR-004) where a person would write by hand, and it also sets the chalkboard line of Yororis.",
+      "why": "A neat handwritten pen, the kind written in a notebook margin: readable at small sizes, full Latin for French accents, lining and tabular figures, and the § sign. Derived from Caveat (SIL OFL 1.1) and renamed Krizaka Cahier as the licence asks: one weight at our ink, line metrics that sit on the 8 px ruled grid, figures of one width so folios and rule numbers align. It is the voice of the Cahier identity (ADR-004) where a person would write by hand.",
       "use": [
         "Margin marks (§ 4), rule numbers and page folios (page 4 sur 6)",
         "A handwritten note or a stamp (Fait à Montréal)",

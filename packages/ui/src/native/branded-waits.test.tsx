@@ -10,12 +10,12 @@ import { SplashHandoff } from "./splash-handoff";
 describe("branded waits (native)", () => {
   test("Loader carries the product's mark while it waits, and the check when it ends", async () => {
     jest.useFakeTimers();
-    const { rerender } = await render(<Loader label="Loading your videos" product="orochia" />);
+    const { rerender } = await render(<Loader label="Loading your videos" product="yomizaka" />);
     await act(async () => jest.advanceTimersByTime(300));
     expect(screen.getByRole("progressbar", { name: "Loading your videos" })).toBeTruthy();
     // The mark is decorative: the loader's words name the wait.
     expect(screen.queryByRole("image")).toBeNull();
-    await rerender(<Loader label="Loading your videos" product="orochia" status="success" successLabel="Videos loaded" />);
+    await rerender(<Loader label="Loading your videos" product="yomizaka" status="success" successLabel="Videos loaded" />);
     await act(async () => jest.advanceTimersByTime(700));
     await act(async () => jest.advanceTimersByTime(10));
     expect(screen.getByLabelText("Videos loaded")).toBeTruthy();
@@ -34,7 +34,7 @@ describe("branded waits (native)", () => {
     announce.mockClear();
     const onRefresh = jest.fn();
     const { rerender } = await render(
-      <BrandedRefresh product="orochia" refreshing={false} onRefresh={onRefresh} label="Refreshing your videos">
+      <BrandedRefresh product="yomizaka" refreshing={false} onRefresh={onRefresh} label="Refreshing your videos">
         {(scroll) => <ScrollView testID="list" {...scroll} />}
       </BrandedRefresh>,
     );
@@ -46,7 +46,7 @@ describe("branded waits (native)", () => {
     expect(onRefresh).toHaveBeenCalledTimes(1);
     expect(list.props.scrollEventThrottle).toBe(16);
     await rerender(
-      <BrandedRefresh product="orochia" refreshing onRefresh={onRefresh} label="Refreshing your videos">
+      <BrandedRefresh product="yomizaka" refreshing onRefresh={onRefresh} label="Refreshing your videos">
         {(scroll) => <ScrollView testID="list" {...scroll} />}
       </BrandedRefresh>,
     );
@@ -57,15 +57,15 @@ describe("branded waits (native)", () => {
     jest.useFakeTimers();
     const onShown = jest.fn();
     const onDone = jest.fn();
-    const { rerender } = await render(<SplashHandoff product="orochia" ready={false} label="Orochia is opening" onShown={onShown} onDone={onDone} />);
-    const splash = screen.getByRole("progressbar", { name: "Orochia is opening" });
+    const { rerender } = await render(<SplashHandoff product="yomizaka" ready={false} label="Yomizaka is opening" onShown={onShown} onDone={onDone} />);
+    const splash = screen.getByRole("progressbar", { name: "Yomizaka is opening" });
     expect(splash).toBeTruthy();
     await act(async () => splash.props.onLayout?.({ nativeEvent: { layout: { width: 360, height: 640, x: 0, y: 0 } } }));
     expect(onShown).toHaveBeenCalledTimes(1);
-    await rerender(<SplashHandoff product="orochia" ready label="Orochia is opening" onShown={onShown} onDone={onDone} />);
+    await rerender(<SplashHandoff product="yomizaka" ready label="Yomizaka is opening" onShown={onShown} onDone={onDone} />);
     await act(async () => jest.advanceTimersByTime(600));
     expect(onDone).toHaveBeenCalledTimes(1);
-    expect(screen.queryByRole("progressbar", { name: "Orochia is opening" })).toBeNull();
+    expect(screen.queryByRole("progressbar", { name: "Yomizaka is opening" })).toBeNull();
     jest.useRealTimers();
   });
 });

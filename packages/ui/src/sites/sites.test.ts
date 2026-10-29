@@ -73,13 +73,7 @@ describe("sites — the Krizaka family", () => {
     expect(familyLabels.fr.descriptions.yomizaka).toBe("Yomizaka lit vos baux, contrats et factures.");
   });
 
-  it("leaves the paused products (Orochia, Yasakia, Yororis, Kachizaka) out of the family, still found by id", () => {
-    const paused = ["orochia", "yasakia", "yororis", "kachizaka"] as const;
-    for (const id of paused) {
-      expect(sites.some((s) => s.id === id)).toBe(false);
-      expect(siteById(id).url).toBe(`https://www.${id}.com`);
-      for (const t of Object.values(familyLabels)) expect(t.descriptions[id]).toBeUndefined();
-    }
+  it("says the statuses in words", () => {
     expect(familyLabels.en.status.construction).toBe("Under construction");
     expect(familyLabels.en.status.development).toBe("In development");
     expect(familyLabels.en.status.upcoming).toBe("Coming soon");

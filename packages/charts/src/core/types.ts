@@ -9,9 +9,8 @@ export type Accessor<T, V> = (keyof T & string) | ((datum: T, index: number) => 
 
 /**
  * A Krizaka brand: its palette leads with the brand's own hue (Krizaka blue, Orazaka orange).
- * `"orochia"` (violet) is @deprecated Paused product (2026-10-25); removed in the next major.
  */
-export type BrandId = "krizaka" | "orazaka" | "orochia";
+export type BrandId = "krizaka" | "orazaka";
 
 /** A BCP 47 locale (`"en-US"`, `"fr-FR"`), always explicit: server and client write the same figures. */
 export type Locale = string | readonly string[];

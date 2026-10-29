@@ -55,6 +55,6 @@ defaults chosen; the core charts are what they are built on; the advanced ones h
 
 Needs React 19 and the Krizaka tokens in the page (`@krizaka/tokens/tokens.css`, or `@krizaka/tailwind`); the
 charts' own CSS is embedded. Themes follow `color-scheme` (`html.light`, `.theme-light`); brands follow a
-`.brand-<id>` ancestor or `brand` (`krizaka`, `orazaka`; `orochia` is deprecated — a paused product, removed in the next major).
+`.brand-<id>` ancestor or `brand` (`krizaka`, `orazaka`).
 
 Apache-2.0. The world map data is Natural Earth (public domain) through world-atlas (ISC).

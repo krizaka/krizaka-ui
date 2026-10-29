@@ -62,12 +62,10 @@ describe("Appearance (ADR-006 §4, krizaka-ui#657): the themes are data", () => 
     }
   });
 
-  it("every accent but Orochia's and Kachizaka's own gaps reads on all four surface sets; the two are named, not hidden", () => {
+  it("every accent reads on all four surface sets", () => {
     const full = ["light", "dark", "blueprint", "carbone"];
     const partial = Object.entries<string[]>(data.passes).filter(([, themes]) => themes.length < full.length).map(([id]) => id);
-    expect(partial.sort()).toEqual(["kachizaka", "orochia"]);
-    expect(data.passes.kachizaka).toEqual(["dark", "blueprint", "carbone"]);
-    expect(data.passes.orochia).toEqual(["light"]);
+    expect(partial).toEqual([]);
   });
 
   it("Carbone's green keeps a dark label on the accent: white on it is 2.3:1 and would fail", () => {

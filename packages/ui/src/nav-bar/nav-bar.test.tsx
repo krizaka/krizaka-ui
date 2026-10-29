@@ -12,7 +12,7 @@ function Bar() {
       <NavBar.Items>
         <NavBar.Menu label="Products" inlineUpTo={0}>
           <NavBar.MenuLink href="#a" title="Orazaka" description="Sovereign AI." />
-          <NavBar.MenuLink href="#b" title="Orochia" />
+          <NavBar.MenuLink href="#b" title="Yomizaka" />
         </NavBar.Menu>
         <NavBar.Link href="#story" active>
           Our story
@@ -414,8 +414,6 @@ describe("NavBar.Family", () => {
     expect(ui.textContent).toContain("You are here");
     expect(within(family).getByRole("link", { name: /Yomizaka/ }).textContent).toContain("In development");
     expect(within(family).getByRole("link", { name: /Akinaza/ }).textContent).toContain("In development");
-    // The paused products (2026-10-25) are out of the family.
-    for (const name of [/Orochia/, /Yasakia/, /Yororis/, /Kachizaka/]) expect(within(family).queryByRole("link", { name })).toBeNull();
     await user.keyboard("{Escape}");
     // Radix closes on its own tick (and the hover-intent timer may still be pending on a loaded runner): wait, don't race.
     await waitFor(() => expect(trigger.getAttribute("aria-expanded")).toBe("false"));

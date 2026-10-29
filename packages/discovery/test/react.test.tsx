@@ -18,14 +18,14 @@ function setup(initial = signed()) {
     manifestUrls: [URL_],
     publicKeys: PUBLIC_KEYS,
     allowedHostSuffixes: SUFFIXES,
-    defaults: { orochia: { apiBase: "https://default.orochia.com", webBase: "https://default.orochia.com" } },
+    defaults: { yomizaka: { apiBase: "https://default.yomizaka.com", webBase: "https://default.yomizaka.com" } },
     storage: memory(),
     fetch: fetchImpl,
   });
   return { d, set: (m: ReturnType<typeof signed>) => (current = json(m)) };
 }
 
-const Show = () => <p>{useService("orochia").apiBase}</p>;
+const Show = () => <p>{useService("yomizaka").apiBase}</p>;
 
 describe("react bindings", () => {
   it("shows the loading node, then the app with the discovered address", async () => {
@@ -36,7 +36,7 @@ describe("react bindings", () => {
       </DiscoveryProvider>,
     );
     expect(screen.getByText("loading")).toBeTruthy();
-    expect(await screen.findByText("https://dev.orochia.com")).toBeTruthy();
+    expect(await screen.findByText("https://dev.yomizaka.com")).toBeTruthy();
   });
 
   it("re-renders when the manifest moves an address", async () => {
@@ -46,10 +46,10 @@ describe("react bindings", () => {
         <Show />
       </DiscoveryProvider>,
     );
-    await screen.findByText("https://dev.orochia.com");
-    set(signed(body({ issuedAt: "2026-10-21T13:00:00Z" }, { apiBase: "https://www.orochia.com" })));
+    await screen.findByText("https://dev.yomizaka.com");
+    set(signed(body({ issuedAt: "2026-10-21T13:00:00Z" }, { apiBase: "https://www.yomizaka.com" })));
     await act(async () => void (await d.refresh()));
-    expect(screen.getByText("https://www.orochia.com")).toBeTruthy();
+    expect(screen.getByText("https://www.yomizaka.com")).toBeTruthy();
   });
 
   it("refreshes when the app returns to the foreground, and unsubscribes on unmount", async () => {
@@ -66,7 +66,7 @@ describe("react bindings", () => {
         <Show />
       </DiscoveryProvider>,
     );
-    await screen.findByText("https://dev.orochia.com");
+    await screen.findByText("https://dev.yomizaka.com");
     refresh.mockClear();
     fire();
     expect(refresh).toHaveBeenCalledTimes(1);
@@ -82,7 +82,7 @@ describe("react bindings", () => {
         <Show />
       </DiscoveryProvider>,
     );
-    await screen.findByText("https://dev.orochia.com");
+    await screen.findByText("https://dev.yomizaka.com");
     expect(start).toHaveBeenCalledWith(5000);
   });
 
@@ -94,7 +94,7 @@ describe("react bindings", () => {
     const old = setup(signed(body({}, { minAppVersion: "2.0.0" })));
     const a = render(
       <DiscoveryProvider discovery={old.d} refreshEveryMs={0}>
-        <DiscoveryGate product="orochia" {...screens}>
+        <DiscoveryGate product="yomizaka" {...screens}>
           <p>app</p>
         </DiscoveryGate>
       </DiscoveryProvider>,
@@ -104,7 +104,7 @@ describe("react bindings", () => {
     const down = setup(signed(body({}, { status: "maintenance", message: { en: "soon", fr: "bientôt" } })));
     const b = render(
       <DiscoveryProvider discovery={down.d} refreshEveryMs={0}>
-        <DiscoveryGate product="orochia" {...screens}>
+        <DiscoveryGate product="yomizaka" {...screens}>
           <p>app</p>
         </DiscoveryGate>
       </DiscoveryProvider>,
@@ -114,7 +114,7 @@ describe("react bindings", () => {
     const fine = setup();
     render(
       <DiscoveryProvider discovery={fine.d} refreshEveryMs={0}>
-        <DiscoveryGate product="orochia" {...screens}>
+        <DiscoveryGate product="yomizaka" {...screens}>
           <p>app</p>
         </DiscoveryGate>
       </DiscoveryProvider>,
@@ -124,7 +124,7 @@ describe("react bindings", () => {
 
   it("useGate reads the gate, and the hooks refuse to run outside the provider", async () => {
     const { d } = setup();
-    const Gate = () => <p>{useGate("orochia").state}</p>;
+    const Gate = () => <p>{useGate("yomizaka").state}</p>;
     render(
       <DiscoveryProvider discovery={d} refreshEveryMs={0}>
         <Gate />

@@ -1,16 +1,13 @@
-import { marks } from "@krizaka/tokens/native";
-
 /**
  * The elephant's geometry (200 × 200 view box, a pen line of 8, square caps, mitred joins — the Cahier grammar of the
  * marks and of @krizaka/icons: straight runs and 45° cuts, no rounded outline). It faces right. Two poses of one
  * animal: `standing`, the ear folded down beside the head, and `flying`, the ear spread up like a wing (the darija
  * joke: « l'éléphant avec ses oreilles, il peut voler »), the legs tucked, three lines of wind behind.
  *
- * The body and the trunk are sage, the ear and the wing sand: the two stops of the sand → sage mark gradient (`marks.yororis`
- * of @krizaka/tokens), each ≥ 3:1 on the page surfaces of both themes. Flat colours: no glow, no gradient.
+ * The body and the trunk are sage, the ear and the wing sand: the two stops of a sand → sage gradient, each ≥ 3:1 on the page surfaces of both themes. Flat colours: no glow, no gradient.
  */
-export const SAND = marks.yororis[0]![1];
-export const SAGE = marks.yororis[marks.yororis.length - 1]![1];
+export const SAND = "#a4773d";
+export const SAGE = "#5d894d";
 
 /** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const ELEPHANT = {

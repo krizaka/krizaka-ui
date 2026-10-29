@@ -61,18 +61,18 @@ describe("compareVersions", () => {
 });
 
 describe("host allow-list", () => {
-  const suffixes = ["krizaka.com", "orochia.com"];
+  const suffixes = ["krizaka.com", "yomizaka.com"];
   it("accepts https on the domain, its subdomains and nothing else", () => {
     expect(isAllowedUrl("https://www.krizaka.com", suffixes)).toBe(true);
     expect(isAllowedUrl("https://krizaka.com/x", suffixes)).toBe(true);
-    expect(isAllowedUrl("https://api.dev.orochia.com/edge", suffixes)).toBe(true);
-    expect(isAllowedUrl("https://HOST.Orochia.COM", suffixes)).toBe(true);
+    expect(isAllowedUrl("https://api.dev.yomizaka.com/edge", suffixes)).toBe(true);
+    expect(isAllowedUrl("https://HOST.Yomizaka.COM", suffixes)).toBe(true);
   });
   it("refuses look-alikes: a longer name, a prefix, a different TLD", () => {
     expect(isAllowedUrl("https://evilkrizaka.com", suffixes)).toBe(false);
     expect(isAllowedUrl("https://krizaka.com.evil.io", suffixes)).toBe(false);
     expect(isAllowedUrl("https://krizaka.co", suffixes)).toBe(false);
-    expect(isAllowedUrl("https://orochia.com.attacker.net/", suffixes)).toBe(false);
+    expect(isAllowedUrl("https://yomizaka.com.attacker.net/", suffixes)).toBe(false);
   });
   it("refuses http, credentials, an explicit port, a non-URL, an IP, a multi-tenant host", () => {
     expect(isAllowedUrl("http://www.krizaka.com", suffixes)).toBe(false);

@@ -7,7 +7,7 @@ const meta = {
   title: "Brand/ProductLogo",
   component: ProductLogo,
   args: { id: "krizaka", size: 96, animated: true },
-  argTypes: { id: { control: "inline-radio", options: ["krizaka", "orazaka", "orochia", "yasakia", "yororis"] } },
+  argTypes: { id: { control: "inline-radio", options: ["krizaka", "orazaka", "yomizaka", "akinaza"] } },
 } satisfies Meta<typeof ProductLogo>;
 export default meta;
 
@@ -15,9 +15,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Krizaka: Story = {};
 export const Orazaka: Story = { args: { id: "orazaka" } };
-export const Orochia: Story = { args: { id: "orochia" } };
-export const Yasakia: Story = { args: { id: "yasakia" } };
-export const Yororis: Story = { args: { id: "yororis" } };
+export const Yomizaka: Story = { args: { id: "yomizaka" } };
+export const Akinaza: Story = { args: { id: "akinaza" } };
 
 /** Every mark, still (`animated={false}`). */
 export const AllStill: Story = {
@@ -25,9 +24,8 @@ export const AllStill: Story = {
     <div className="flex items-center gap-6">
       <ProductLogo {...args} id="krizaka" />
       <ProductLogo {...args} id="orazaka" />
-      <ProductLogo {...args} id="orochia" />
-      <ProductLogo {...args} id="yasakia" />
-      <ProductLogo {...args} id="yororis" />
+      <ProductLogo {...args} id="yomizaka" />
+      <ProductLogo {...args} id="akinaza" />
     </div>
   ),
   args: { animated: false },

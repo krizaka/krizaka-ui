@@ -6,11 +6,10 @@ import { KrizakaLogoV1 } from "./legacy/KrizakaLogoV1";
 import { OrazakaLogoV1 } from "./legacy/OrazakaLogoV1";
 import { OrazakaLogoV2 } from "./legacy/OrazakaLogoV2";
 import { OrazakaLogo } from "./OrazakaLogo";
-import { OrochiaLogo } from "./OrochiaLogo";
 
 /**
- * The brand family, before and after 2.0.0-beta.5. Orochia's mark is the reference and does not change; Krizaka and
- * Orazaka take its grammar — one bold emblem in an orbit, a bright core, a crop below 48 px — and their brand colour
+ * The brand family, before and after 2.0.0-beta.5. Krizaka and
+ * Orazaka share one grammar — one bold emblem in an orbit, a bright core, a crop below 48 px — and their brand colour
  * (Krizaka: ink + blue). In 2.1.0 the Orazaka mark leaves amber (#b45309 → #f59e0b, whose light stop is the hue of
  * --kz-warning and read at 2:1 on a light page) for the brand's orange: deep orange → orange on hue 26, from the brand
  * tokens (`marks.orazaka`), ≥ 3:1 on dark and light. The previous marks live only in this story.
@@ -47,7 +46,6 @@ export const BeforeAfter: Story = {
       <Row label="Orazaka · 1.x">{(size) => <OrazakaLogoV1 size={size} animated={false} />}</Row>
       <Row label="Orazaka · 2.0 amber">{(size) => <OrazakaLogoV2 size={size} animated={false} />}</Row>
       <Row label="Orazaka · 2.1 orange">{(size) => <OrazakaLogo size={size} animated={false} />}</Row>
-      <Row label="Orochia · kept">{(size) => <OrochiaLogo size={size} animated={false} />}</Row>
     </div>
   ),
 };
@@ -58,7 +56,6 @@ export const Family: Story = {
     <div className="flex items-center gap-8">
       <KrizakaLogo size={128} animated={false} title="Krizaka" />
       <OrazakaLogo size={128} animated={false} title="Orazaka" />
-      <OrochiaLogo size={128} animated={false} title="Orochia" />
     </div>
   ),
 };

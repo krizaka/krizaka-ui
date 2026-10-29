@@ -5,14 +5,13 @@ import { MediaGrid, VideoCard } from "@krizaka/ui/media-grid";
 
 const CDN = "https://krizaka-assets.b-cdn.net/site";
 const WIDE = `${CDN}/products/orazaka/gallery`;
-const TALL = `${CDN}/docs/orochia/mobile`;
 const CLIPS = [
   { id: "tea", title: "Pouring the mint tea, slow", poster: `${WIDE}/tea-pour.d69c3a5700.webp`, tall: false },
-  { id: "story", title: "Backstage, a minute before", poster: `${TALL}/clip-feed-stories-poster.fd7835fa74.webp`, tall: true },
+  { id: "story", title: "Backstage, a minute before", poster: `${WIDE}/tea-pour.d69c3a5700.webp`, tall: true },
   { id: "snow", title: "First snow on rue Saint-Denis", poster: `${WIDE}/mtl-snow.e3ecb20e82.webp`, tall: false },
-  { id: "watch", title: "The unlock in one tap", poster: `${TALL}/clip-watch-poster.9fc5d19c39.webp`, tall: true },
+  { id: "watch", title: "The unlock in one tap", poster: `${WIDE}/desert-camp.78c6c0d26c.webp`, tall: true },
   { id: "desert", title: "Desert camp at blue hour", poster: `${WIDE}/desert-camp.78c6c0d26c.webp`, tall: false },
-  { id: "thanks", title: "Three ways to say thanks", poster: `${TALL}/clip-unlock-poster.57e13fee5f.webp`, tall: true },
+  { id: "thanks", title: "Three ways to say thanks", poster: `${WIDE}/mtl-snow.e3ecb20e82.webp`, tall: true },
 ];
 
 // 'split' (the feed default): vertical clips on a Shorts shelf, the others in a 16:9 grid whose cards share one height.

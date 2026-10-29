@@ -1,6 +1,6 @@
 // The data palettes. One categorical set of eight hues, stepped for each theme (the dark steps are chosen for the
 // dark surface, not flipped), ordered per brand so that the first series wears the brand's own hue — Krizaka blue,
-// Orazaka orange (and violet then magenta for `orochia`, a paused product kept until the next major). Every order was chosen among the ones that pass the
+// Orazaka orange. Every order was chosen among the ones that pass the
 // colour-vision checks (scripts/palette.test: lightness band, chroma floor, adjacent ΔE under protan/deutan ≥ 8 —
 // the violet order light 7.2, inside the 6–8 band that requires the secondary encoding every chart carries: legend, direct
 // labels, data table —, normal-vision ΔE ≥ 15, ≥ 3:1 on the surface, the first three slots distinct all-pairs).
@@ -28,7 +28,6 @@ export const ORDERS: Record<BrandId, readonly Hue[]> = {
   krizaka: ["blue", "green", "magenta", "yellow", "aqua", "orange", "violet", "red"],
   orazaka: ["orange", "blue", "aqua", "yellow", "magenta", "green", "violet", "red"],
   // Deprecated: a paused product (2026-10-25); removed in the next major.
-  orochia: ["violet", "magenta", "yellow", "aqua", "orange", "blue", "green", "red"],
 };
 
 /** The categorical palette of a brand in a theme: eight hex colours, slot 1 first. */

@@ -1,25 +1,17 @@
 import { brands, marks } from "@krizaka/tokens/native";
 import { render } from "@testing-library/react";
 
-import { AkinazaLogo, cx, KachizakaLogo, KrizakaLogo, OrazakaLogo, OrochiaLogo, ProductLogo, RotatingWord, YasakiaLogo, YomizakaLogo, YororisLogo } from "./index";
+import { AkinazaLogo, cx, KrizakaLogo, OrazakaLogo, ProductLogo, RotatingWord, YomizakaLogo } from "./index";
 import { AKINAZA } from "./marks/akinaza-geometry";
-import { KACHIZAKA } from "./marks/kachizaka-geometry";
 import { KRIZAKA } from "./marks/krizaka-geometry";
 import { ORAZAKA } from "./marks/orazaka-geometry";
-import { OROCHIA } from "./marks/orochia-geometry";
-import { YASAKIA } from "./marks/yasakia-geometry";
 import { YOMIZAKA } from "./marks/yomizaka-geometry";
-import { YORORIS } from "./marks/yororis-geometry";
 
 describe("marks", () => {
   it.each([
     ["Krizaka", KrizakaLogo],
     ["Orazaka", OrazakaLogo],
-    ["Orochia", OrochiaLogo],
-    ["Yasakia", YasakiaLogo],
-    ["Yororis", YororisLogo],
     ["Yomizaka", YomizakaLogo],
-    ["Kachizaka", KachizakaLogo],
     ["Akinaza", AkinazaLogo],
   ])("%s is decorative by default and named with a title", (name, Mark) => {
     const { container, rerender } = render(<Mark />);
@@ -40,7 +32,7 @@ describe("marks", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it.each([KrizakaLogo, OrazakaLogo, OrochiaLogo, YasakiaLogo, YororisLogo, YomizakaLogo, KachizakaLogo, AkinazaLogo])("stops moving with animated={false} (%#)", (Mark) => {
+  it.each([KrizakaLogo, OrazakaLogo, YomizakaLogo, AkinazaLogo])("stops moving with animated={false} (%#)", (Mark) => {
     const { container } = render(<Mark animated={false} />);
     expect(container.querySelector("[class]:not(svg)")).toBeNull();
     const moving = render(<Mark />);
@@ -50,11 +42,7 @@ describe("marks", () => {
   it.each([
     [KrizakaLogo, KRIZAKA],
     [OrazakaLogo, ORAZAKA],
-    [OrochiaLogo, OROCHIA],
-    [YasakiaLogo, YASAKIA],
-    [YororisLogo, YORORIS],
     [YomizakaLogo, YOMIZAKA],
-    [KachizakaLogo, KACHIZAKA],
     [AkinazaLogo, AKINAZA],
   ] as const)("shares the family frame and crops to the emblem below 48 px (%#)", (Mark, geometry) => {
     const { container, rerender } = render(<Mark size={24} />);
@@ -68,26 +56,18 @@ describe("marks", () => {
   it("draws each mark in its brand theme's colours (@krizaka/tokens brands)", () => {
     expect(KRIZAKA.blue.stops).toEqual(marks.krizaka);
     expect(ORAZAKA.gradient.stops).toEqual(marks.orazaka);
-    expect(OROCHIA.body.stops).toEqual(marks.orochia);
     expect(KRIZAKA.blue.stops.map(([, c]) => c)).toEqual([brands.krizaka.dark.accent, brands.krizaka.dark.accentText]);
-    expect(OROCHIA.body.stops[0]![1]).toBe(brands.orochia.dark.accent);
     // Orazaka: deep orange (its light accent) → orange — no amber left (#f59e0b was the old light stop).
     expect(ORAZAKA.gradient.stops[0]![1]).toBe(brands.orazaka.light.accent);
     expect(ORAZAKA.gradient.stops.map(([, c]) => c)).not.toContain("#f59e0b");
     expect(ORAZAKA.glow.color).toBe(ORAZAKA.gradient.stops.at(-1)![1]);
-    // Yasakia, Yomizaka: the brand's mark gradient; the halo and the core's breath in its last stop.
-    expect(YASAKIA.gradient.stops).toEqual(marks.yasakia);
-    expect(YASAKIA.glow.color).toBe(YASAKIA.gradient.stops.at(-1)![1]);
+    // Yomizaka: the brand's mark gradient; the halo and the core's breath in its last stop.
     expect(YOMIZAKA.gradient.stops).toEqual(marks.yomizaka);
     expect(YOMIZAKA.glow.color).toBe(YOMIZAKA.gradient.stops.at(-1)![1]);
     expect(YOMIZAKA.pulse.color).toBe(YOMIZAKA.glow.color);
     // Two-colour brands keep their colours apart: each colour is one stop of the brand's mark gradient, never a blend.
-    expect([KACHIZAKA.cobalt, KACHIZAKA.gold]).toEqual(marks.kachizaka.map(([, c]) => c));
-    expect(KACHIZAKA.glow.color).toBe(KACHIZAKA.gold);
     expect([AKINAZA.forest, AKINAZA.copper]).toEqual(marks.akinaza.map(([, c]) => c));
     expect(AKINAZA.glow.color).toBe(AKINAZA.copper);
-    expect([YORORIS.sand, YORORIS.sage]).toEqual(marks.yororis.map(([, c]) => c));
-    expect(YORORIS.glow.color).toBe(YORORIS.sage);
   });
 
   /** Every number of a path: the emblem stays inside the cropped frame (80 → 320), a stroke's half-width included. */
@@ -111,22 +91,6 @@ describe("marks", () => {
     expect(render(<YomizakaLogo size={96} />).container.querySelector(".ymm-core")).not.toBeNull();
   });
 
-  it("draws the Kachizaka emblem: the podium, gold winner and cobalt steps cut at their corners, the lit diamond (snapshot)", async () => {
-    const { container } = render(<KachizakaLogo size={96} animated={false} />);
-    const svg = container.querySelector("svg")!;
-    // Three steps, the diamond and its light; halo, ring, orbit, the ball.
-    expect(svg.querySelectorAll("path")).toHaveLength(5);
-    expect(svg.querySelectorAll("circle")).toHaveLength(4);
-    // The winner is gold, the others cobalt; the outer corners are 45° cuts (equal runs in x and y).
-    expect([...svg.querySelectorAll("path")].map((p) => p.getAttribute("fill")).slice(0, 3)).toEqual([KACHIZAKA.cobalt, KACHIZAKA.gold, KACHIZAKA.cobalt]);
-    expect(KACHIZAKA.steps.second).toContain("M102 240 L122 220");
-    expect(KACHIZAKA.steps.third).toContain("H278 L298 268");
-    for (const d of Object.values(KACHIZAKA.steps)) expect(inFrame(d)).toBe(true);
-    // No class collides with Krizaka's ("kzm").
-    expect(render(<KachizakaLogo size={96} />).container.querySelector(".kcm-core")).not.toBeNull();
-    await expect(normalise(svg, "kcm")).toMatchFileSnapshot("./marks/__snapshots__/KachizakaLogo.svg");
-  });
-
   it("draws the Akinaza emblem: the log cut at 45°, its copper face, the rings inside it, the copper heart (snapshot)", async () => {
     const { container } = render(<AkinazaLogo size={96} animated={false} />);
     const svg = container.querySelector("svg")!;
@@ -141,38 +105,10 @@ describe("marks", () => {
     expect(render(<AkinazaLogo size={96} />).container.querySelector(".akm-core")).not.toBeNull();
   });
 
-  it("draws the Yororis emblem: two open hands cup a warm core without closing on it (snapshot)", async () => {
-    const { container } = render(<YororisLogo size={96} animated={false} />);
-    const svg = container.querySelector("svg")!;
-    expect(svg.querySelectorAll("path")).toHaveLength(1);
-    expect(svg.querySelectorAll("circle")).toHaveLength(4 + 2);
-    // Two arcs of one circle, open at the bottom: the core is held, never enclosed, and sits inside the hands.
-    expect(YORORIS.hands.match(/A92 92/g)).toHaveLength(2);
-    expect(YORORIS.core.cy - YORORIS.core.r).toBeGreaterThan(136.6 - YORORIS.stroke);
-    expect(inFrame(YORORIS.hands, YORORIS.stroke / 2)).toBe(true);
-    await expect(normalise(svg, "yrm")).toMatchFileSnapshot("./marks/__snapshots__/YororisLogo.svg");
-  });
-
-  it("draws the Yasakia emblem: one bubble with a tail on each side, turned 180° (never a face), the spark inside (snapshot)", async () => {
-    const { container } = render(<YasakiaLogo size={96} animated={false} />);
-    const svg = container.querySelector("svg")!;
-    // Tails, spark; halo, ring, orbit, node, the bubble.
-    expect(svg.querySelectorAll("path")).toHaveLength(2);
-    expect(svg.querySelectorAll("circle")).toHaveLength(5);
-    // The second tail is the first turned 180° about the centre: (x, y) → (400 − x, 400 − y).
-    const [a, b] = YASAKIA.tails.map((d) => d.match(/\d+(\.\d+)?/g)!.map(Number));
-    expect(b!.map((n) => +(400 - n).toFixed(1))).toEqual(a);
-    for (const d of YASAKIA.tails) expect(inFrame(d)).toBe(true);
-    await expect(normalise(svg, "yzm")).toMatchFileSnapshot("./marks/__snapshots__/YasakiaLogo.svg");
-  });
-
   it("picks a mark by id", () => {
     const { container } = render(<ProductLogo id="orazaka" title="Orazaka" size={64} />);
     expect(container.querySelector("svg")?.getAttribute("aria-label")).toBe("Orazaka");
     expect(container.querySelectorAll("path")).toHaveLength(ORAZAKA.shards.length);
-    const yororis = render(<ProductLogo id="yororis" title="Yororis" size={64} />);
-    expect(yororis.container.querySelector("svg")?.getAttribute("aria-label")).toBe("Yororis");
-    expect(yororis.container.querySelectorAll("path")).toHaveLength(1);
     const yomizaka = render(<ProductLogo id="yomizaka" title="Yomizaka" size={64} animated={false} />);
     expect(yomizaka.container.querySelector("svg")?.getAttribute("aria-label")).toBe("Yomizaka");
   });
