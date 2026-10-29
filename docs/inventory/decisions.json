@@ -1,0 +1,25 @@
+{
+  "note": "ADR-008: decisions the data cannot derive (an entry leaves the core for Krizaka Lab, or is kept for a need whose repository left). Read by tools/usage-inventory.mjs; an entry with a live importer ignores its decision. Edit here, then pnpm inventory:usage.",
+  "entries": {
+    "notification-preferences": {
+      "verdict": "keep",
+      "why": "a filed need (its repository left the organisation)"
+    },
+    "marquee": {
+      "verdict": "leave-core",
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
+    },
+    "how-it-works-page": {
+      "verdict": "leave-core",
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
+    },
+    "native/video-player": {
+      "verdict": "keep",
+      "why": "a filed need (its repository left the organisation)"
+    },
+    "native/form": {
+      "verdict": "keep",
+      "why": "a filed need (its repository left the organisation)"
+    }
+  }
+}
