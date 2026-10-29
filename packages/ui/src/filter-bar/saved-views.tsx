@@ -245,6 +245,64 @@ function ViewActions({ active, labels, onRename, onDelete }: { active: SavedView
   );
 }
 
+type GroupProps = {
+  items: readonly SavedViewItem[];
+  current: string | null | undefined;
+  Link: React.ElementType;
+  onSelect: ((id: string) => void) | undefined;
+};
+
+/** One group on a wide screen: links when the views have an address, a single-choice chip group otherwise. */
+function GroupChips({ group, items, current, labels, Link, onSelect }: GroupProps & { group: ViewGroup; labels: SavedViewsLabels }) {
+  if (items.some((v) => v.href)) {
+    return (
+      <nav aria-label={labels.groups[group]} className="flex flex-wrap items-center gap-2">
+        {items.map((view) => (
+          <ChipLink key={view.id} asChild size="sm" selected={view.id === current}>
+            <Link href={view.href ?? "#"} onClick={() => onSelect?.(view.id)}>
+              {view.label}
+              <Count n={view.count} />
+            </Link>
+          </ChipLink>
+        ))}
+      </nav>
+    );
+  }
+  return (
+    <Chip.Group type="single" size="sm" label={labels.groups[group]} value={selectedIn(items, current)} onValueChange={(id) => id && onSelect?.(id)}>
+      {items.map((view) => (
+        <Chip key={view.id} value={view.id}>
+          {view.label}
+          <Count n={view.count} />
+        </Chip>
+      ))}
+    </Chip.Group>
+  );
+}
+
+/** One group in the phone menu: a link per view with an address, a radio item otherwise. */
+function GroupMenuItems({ items, current, Link, onSelect }: GroupProps) {
+  return (
+    <MenuPrimitive.RadioGroup value={selectedIn(items, current)}>
+      {items.map((view) =>
+        view.href ? (
+          <DropdownMenu.Item key={view.id} asChild>
+            <Link href={view.href} aria-current={view.id === current ? "page" : undefined} onClick={() => onSelect?.(view.id)}>
+              {view.label}
+              <Count n={view.count} />
+            </Link>
+          </DropdownMenu.Item>
+        ) : (
+          <DropdownMenu.RadioItem key={view.id} value={view.id} onSelect={() => onSelect?.(view.id)}>
+            {view.label}
+            <Count n={view.count} />
+          </DropdownMenu.RadioItem>
+        ),
+      )}
+    </MenuPrimitive.RadioGroup>
+  );
+}
+
 /** The views of a list: chips with counts on a wide screen, one menu on a phone; save, rename and delete; the mark of a modified view. */
 export function SavedViews({ views, current, modified, onSelect, onSave, onRename, onDelete, linkAs, maxLength = 80, labels: given, className }: SavedViewsProps) {
   const labels: SavedViewsLabels = { ...savedViewsLabels, ...given, groups: { ...savedViewsLabels.groups, ...given?.groups } };
@@ -281,33 +339,7 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
         {grouped.map(({ group, items }, index) => (
           <React.Fragment key={group}>
             {index > 0 ? <span aria-hidden className="h-5 w-px bg-border-default" /> : null}
-            {items.some((v) => v.href) ? (
-              <nav aria-label={labels.groups[group]} className="flex flex-wrap items-center gap-2">
-                {items.map((view) => (
-                  <ChipLink key={view.id} asChild size="sm" selected={view.id === current}>
-                    <Link href={view.href ?? "#"} onClick={() => onSelect?.(view.id)}>
-                      {view.label}
-                      <Count n={view.count} />
-                    </Link>
-                  </ChipLink>
-                ))}
-              </nav>
-            ) : (
-              <Chip.Group
-                type="single"
-                size="sm"
-                label={labels.groups[group]}
-                value={selectedIn(items, current)}
-                onValueChange={(id) => id && onSelect?.(id)}
-              >
-                {items.map((view) => (
-                  <Chip key={view.id} value={view.id}>
-                    {view.label}
-                    <Count n={view.count} />
-                  </Chip>
-                ))}
-              </Chip.Group>
-            )}
+            <GroupChips group={group} items={items} current={current} labels={labels} Link={Link} onSelect={onSelect} />
           </React.Fragment>
         ))}
         {mark}
@@ -328,23 +360,7 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
               <React.Fragment key={group}>
                 {index > 0 ? <DropdownMenu.Separator /> : null}
                 <DropdownMenu.Label>{labels.groups[group]}</DropdownMenu.Label>
-                <MenuPrimitive.RadioGroup value={selectedIn(items, current)}>
-                  {items.map((view) =>
-                    view.href ? (
-                      <DropdownMenu.Item key={view.id} asChild>
-                        <Link href={view.href} aria-current={view.id === current ? "page" : undefined} onClick={() => onSelect?.(view.id)}>
-                          {view.label}
-                          <Count n={view.count} />
-                        </Link>
-                      </DropdownMenu.Item>
-                    ) : (
-                      <DropdownMenu.RadioItem key={view.id} value={view.id} onSelect={() => onSelect?.(view.id)}>
-                        {view.label}
-                        <Count n={view.count} />
-                      </DropdownMenu.RadioItem>
-                    ),
-                  )}
-                </MenuPrimitive.RadioGroup>
+                <GroupMenuItems items={items} current={current} Link={Link} onSelect={onSelect} />
               </React.Fragment>
             ))}
             {(showSave || (canChange && (onRename || onDelete))) && <DropdownMenu.Separator />}
