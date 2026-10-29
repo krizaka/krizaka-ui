@@ -273,10 +273,6 @@
       "types": "./dist/mascot-state.d.ts",
       "import": "./dist/mascot-state.js"
     },
-    "./iso": {
-      "types": "./dist/iso.d.ts",
-      "import": "./dist/iso.js"
-    },
     "./motion": {
       "types": "./dist/motion.d.ts",
       "import": "./dist/motion.js"
@@ -1664,16 +1660,6 @@
       "name": "./waveform",
       "path": "dist/waveform.js",
       "limit": "1.5 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
-      "name": "./iso (a hero costs no client JavaScript: server components, static SVG)",
-      "path": "dist/iso.js",
-      "limit": "4.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

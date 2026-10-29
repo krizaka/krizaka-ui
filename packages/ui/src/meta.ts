@@ -117,7 +117,6 @@ export type ComponentName =
   | "how-it-works-page"
   | "image-cropper"
   | "image-viewer"
-  | "iso"
   | "kanban"
   | "kbd"
   | "kpi-explained"

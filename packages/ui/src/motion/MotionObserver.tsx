@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 /** What gets `data-offscreen` while out of view: its animations pause (motion.css). */
-const SCOPES = ".kz-backdrop, .kz-iso, [data-motion-scope], main > section, main > header, footer";
+const SCOPES = ".kz-backdrop, [data-motion-scope], main > section, main > header, footer";
 const REVEAL = "[data-reveal]:not(.kz-in)";
 /** How long after `load` the first screen's loops wait before they start (LCP first). */
 const SETTLE_MS = 1200;
@@ -15,7 +15,7 @@ export interface MotionObserverProps {
    */
   settle?: boolean;
   /**
-   * Pause every animation of a scope while it is off screen (`data-offscreen` on `.kz-backdrop`, `.kz-iso`,
+   * Pause every animation of a scope while it is off screen (`data-offscreen` on `.kz-backdrop`,
    * `[data-motion-scope]` and the page's sections).
    * @default true
    */

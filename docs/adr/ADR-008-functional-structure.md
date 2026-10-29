@@ -181,6 +181,12 @@ The pairs (`ui-usage.md`, verdict `merge`):
 Why pin and not move the components into a package of their own: nobody would maintain that package. A pin costs
 nothing, keeps the paused apps building, and is undone in one line when a product comes back.
 
+**Update 2026-10-29 (founder): no deprecation, no major.** There is no external consumer yet, and our apps do not
+import these entries (the inventory). The entries that leave the core therefore **move to Krizaka Lab** (`experiments/ui/<name>/`,
+status `idea`, « parked, decide later », unchanged as plain text) and are **removed from `@krizaka/ui` in the same pull
+request**, one pull request per domain, released as a normal minor. Move, never delete. Codemods and deprecation notices
+are dropped from the plan. Done so far: Foundations (`iso`).
+
 ### 2.5 Ask — the founder's short list
 
 The script cannot read taste. **Eight « do we like them? » questions** go to the founder: seven of the 18 asks, and

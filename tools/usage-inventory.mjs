@@ -102,7 +102,7 @@ const CATEGORY_DOMAIN = {
 };
 const DOMAIN_OVERRIDES = {
   foundations: [".", "cn", "slot", "theme", "recipes", "sites", "motion", "motion.css", "tailwind.css", "router", "text-style",
-    "card", "badge", "chip", "chip-link", "chip-row", "kbd", "separator", "skeleton", "spinner", "loader", "skip-link", "iso", "mascots", "marks", "native:txt"],
+    "card", "badge", "chip", "chip-link", "chip-row", "kbd", "separator", "skeleton", "spinner", "loader", "skip-link", "mascots", "marks", "native:txt"],
   forms: ["native/form"],
   "data-display": ["native/list"],
   "navigation-shell": ["native", "nav-bar", "language-switch", "language-switch/server", "site-footer", "page-header"],

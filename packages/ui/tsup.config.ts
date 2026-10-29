@@ -83,7 +83,6 @@ export default defineConfig([
       waveform: "src/waveform/index.ts",
       "qr-code": "src/qr-code/index.ts",
       "section-backdrop": "src/section-backdrop/index.ts",
-      iso: "src/iso/index.ts",
       stepper: "src/stepper/index.ts",
       "chip-link": "src/chip-link/index.ts",
       "chip-row": "src/chip-row/index.ts",

@@ -86,7 +86,6 @@ export const PLANNED: Record<string, string> = {
   "how-it-works-page": `${SITE}: the "how it works" pages of the products.`,
   kanban: `${PAUSED}: a moderation queue (to review, reviewing, resolved), moved by keyboard as well as by drag.`,
   "image-viewer": `${MOBILE}: full-screen photos of a profile or a gallery.`,
-  iso: "The product heroes on dev.orazaka.com (IsoHub), which left krizaka.com with the product pages (#150).",
   "longform-page": `${SITE}: /story.`,
   "marketing-layout": `${SITE}: the frame of every public page.`,
   onboarding: `${MOBILE}: first launch and profile set-up flows.`,
