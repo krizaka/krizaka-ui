@@ -76,7 +76,7 @@ describe("@krizaka/tailwind", () => {
 
   it("brings the tokens, the motion signature and the Krizaka easing", () => {
     expect(css).toContain("--kz-surface-1:");
-    expect(css).toContain(".kz-marquee");
+    expect(css).toContain(".kz-overlay");
     // krizaka-ui#393: no pointer light, no lift, no sheen in the motion signature.
     for (const gone of [".kz-spotlight {", ".kz-lift {", ".kz-sheen {"]) expect(css).not.toContain(gone);
   });

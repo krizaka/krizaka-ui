@@ -84,16 +84,6 @@
   50% { background-position: 100% center; }
 }
 
-/* Marquee (logos, feature words): two copies side by side, sliding forever. */
-.kz-marquee {
-  display: flex;
-  width: max-content;
-  animation: kz-marquee var(--kz-marquee-duration, 40s) linear infinite;
-}
-@keyframes kz-marquee {
-  to { transform: translateX(-50%); }
-}
-
 /* Entrances of what opens over the page — one vocabulary for every overlay, dialog, menu and swapped view.
    Opacity and transform only, `backwards` fill: nothing stays transformed once in place. */
 .kz-overlay { animation: kz-fade-in 0.22s var(--kz-ease) backwards; }   /* the dimmed backdrop */
@@ -297,20 +287,6 @@ svg[data-kz-icon="ExternalIcon"] {
 }
 @keyframes kz-count-flash-down {
   from { color: var(--kz-danger-text, currentColor); }
-}
-
-/* ─── Marquee: a band that slides at a speed, pauses for the reader, and is a still row under reduced motion ─── */
-.kz-band {
-  --kz-band-gap: 2.5rem;
-}
-.kz-band[data-fade] > .kz-band-viewport {
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-.kz-band[data-direction="right"] .kz-marquee {
-  animation-direction: reverse;
-}
-.kz-band:is([data-paused], :hover, :focus-within) .kz-marquee {
-  animation-play-state: paused;
 }
 
 /* ─── GlowCard: a still hairline ring of the brand gradient (krizaka-ui#393: no bloom under the pointer, no turning
@@ -613,7 +589,7 @@ svg[data-kz-icon="ExternalIcon"] {
 @keyframes kz-grow-wipe { from { clip-path: inset(-4px 100% -4px -4px); } to { clip-path: inset(-4px -4px -4px -4px); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .kz-page, .kz-word, .kz-gradient-text, .kz-marquee, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
+  .kz-page, .kz-word, .kz-gradient-text, .kz-backdrop-drift, .kz-overlay, .kz-dialog, .kz-pop, .kz-fade, .kz-progress,
   .kz-skeleton, .kz-skeleton-shape *, .kz-toast::after,
   .kz-rotating > *, .kz-loop, .kz-count-roll, .kz-loader-trace, .kz-loader-node, .kz-loader-mark,
   [data-kz-status], .kz-replay-caret, .kz-month, .kz-map-user::after, .kz-flow-photon, [data-kz-marker] > [data-drop], .kz-map-pulse::before, .kz-map-pulse::after { animation: none !important; }

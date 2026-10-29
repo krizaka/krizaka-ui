@@ -132,7 +132,7 @@ const DOMAIN_OVERRIDES = {
     "agenda", "opening-hours", "reviews", "pricing-page", "kind-config-editor", "usage", "quota-meter"],
   identity: ["avatar", "avatar/defaults", "profile-card", "account-menu", "account-settings", "verified-badge", "notification-preferences", "auth-layout", "captcha", "achievement"],
   conversation: ["chat", "genui", "proposal", "analysis-report", "markdown", "native/markdown", "engine-flow", "next-actions"],
-  "page-blocks": ["blocks.css", "story.css", "marketing-layout", "docs-layout", "docs-nav", "toc", "page-index", "section-backdrop", "glow-card", "number-ticker", "marquee"],
+  "page-blocks": ["blocks.css", "story.css", "marketing-layout", "docs-layout", "docs-nav", "toc", "page-index", "section-backdrop", "glow-card", "number-ticker"],
   cahier: ["site-cahier", "doodle", "taped-photo", "stuck", "footnote", "specimen-tag", "bird-plate", "anatomy-plate", "chapter", "margin-layout", "grade-stamp", "speed-lines", "versus-card", "flock", "mascot-quote", "signature", "elephant"],
 };
 const OVERRIDE = new Map(Object.entries(DOMAIN_OVERRIDES).flatMap(([d, names]) => names.map((n) => [n, d])));
