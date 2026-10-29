@@ -153,6 +153,13 @@ const config: TestRunnerConfig = {
         .waitForFunction(() => [...document.images].every((img) => img.complete || img.getClientRects().length === 0), undefined, { timeout: 15_000 })
         .catch(() => undefined);
       await page.evaluate(() => Promise.all([...document.images].filter((img) => img.getClientRects().length > 0).map((img) => img.decode().catch(() => undefined))));
+      // A video's poster is not an <img>: it paints when the browser has decoded it, after the checks above. Load it the same
+      // way, then let two frames paint it (the RetroTv screens were black on a loaded runner, krizaka-ui#875).
+      await page.evaluate(async () => {
+        const posters = [...document.querySelectorAll<HTMLVideoElement>("video[poster]")].filter((v) => v.getClientRects().length > 0).map((v) => v.poster);
+        await Promise.all(posters.map((src) => { const img = new Image(); img.src = src; return img.decode().catch(() => undefined); }));
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      });
       // A video with a source that preloads its metadata shows its length once it has it: wait for it, as for the pictures.
       await page
         .waitForFunction(() => [...document.querySelectorAll("video")].every((v) => !v.currentSrc || v.preload === "none" || v.readyState >= 1 || v.error), undefined, { timeout: 15_000 })
