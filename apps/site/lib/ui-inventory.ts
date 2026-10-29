@@ -64,7 +64,6 @@ export const PLANNED: Record<string, string> = {
   "analysis-report": "Yomizaka (the report of a check, krizaka/yomizaka#314), Orazaka's Studios, then every product that shows an Orazaka analysis.",
   "environment-notice": "Yomizaka (krizaka/yomizaka#364) on every surface of its dev deployment, then Akinaza and Orazaka.",
   "chip-row": "Yomizaka's « Pour qui ? » audience picker (krizaka/yomizaka home redesign, AudiencePicker moves into it), then any page of filters that are addresses.",
-  "meta-row": `${PAUSED}: the quiet line under a video's title — quality, shape, duration, date, and an AI badge.`,
   "docs-layout": "Builds the documentation article template.",
   "text-style": "Akinaza storefronts: the shop owner sets the font, size and tone of the shop's titles and text (krizaka/akinaza#236); then the product theme settings of the admin consoles (krizaka-ui#561).",
   stuck: "The Cahier (ADR-004, krizaka-ui#554): the products' cards and figures stuck into the notebook on www.krizaka.com's #products.",

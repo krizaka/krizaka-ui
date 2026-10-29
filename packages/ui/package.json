@@ -477,10 +477,6 @@
       "types": "./dist/description-list.d.ts",
       "import": "./dist/description-list.js"
     },
-    "./meta-row": {
-      "types": "./dist/meta-row.d.ts",
-      "import": "./dist/meta-row.js"
-    },
     "./app-header": {
       "types": "./dist/app-header.d.ts",
       "import": "./dist/app-header.js"
@@ -2125,16 +2121,6 @@
     {
       "name": "./description-list",
       "path": "dist/description-list.js",
-      "limit": "1 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
-      "name": "./meta-row",
-      "path": "dist/meta-row.js",
       "limit": "1 kB",
       "gzip": true,
       "ignore": [

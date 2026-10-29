@@ -89,7 +89,6 @@ export default defineConfig([
       meter: "src/meter/index.ts",
       pagination: "src/pagination/index.ts",
       "description-list": "src/description-list/index.ts",
-      "meta-row": "src/meta-row/index.ts",
       // The header beside a RailNav: the name as text, the mark below md (server-safe).
       "app-header": "src/app-header/index.ts",
       // A shop's storefront: the service card and the weekly hours (server-safe).
