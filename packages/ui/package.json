@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/ui",
-  "version": "3.73.0",
+  "version": "3.74.0",
   "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Yomizaka, Akinaza) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
@@ -273,10 +273,6 @@
       "types": "./dist/mascot-state.d.ts",
       "import": "./dist/mascot-state.js"
     },
-    "./iso": {
-      "types": "./dist/iso.d.ts",
-      "import": "./dist/iso.js"
-    },
     "./motion": {
       "types": "./dist/motion.d.ts",
       "import": "./dist/motion.js"
@@ -336,10 +332,6 @@
     "./engine-flow": {
       "types": "./dist/engine-flow.d.ts",
       "import": "./dist/engine-flow.js"
-    },
-    "./marquee": {
-      "types": "./dist/marquee.d.ts",
-      "import": "./dist/marquee.js"
     },
     "./comparison-table": {
       "types": "./dist/comparison-table.d.ts",
@@ -461,10 +453,6 @@
       "types": "./dist/video-trimmer.d.ts",
       "import": "./dist/video-trimmer.js"
     },
-    "./audio-player": {
-      "types": "./dist/audio-player.d.ts",
-      "import": "./dist/audio-player.js"
-    },
     "./image-cropper": {
       "types": "./dist/image-cropper.d.ts",
       "import": "./dist/image-cropper.js"
@@ -480,10 +468,6 @@
     "./description-list": {
       "types": "./dist/description-list.d.ts",
       "import": "./dist/description-list.js"
-    },
-    "./meta-row": {
-      "types": "./dist/meta-row.d.ts",
-      "import": "./dist/meta-row.js"
     },
     "./app-header": {
       "types": "./dist/app-header.d.ts",
@@ -745,10 +729,6 @@
       "types": "./dist/product-page.d.ts",
       "import": "./dist/product-page.js"
     },
-    "./how-it-works-page": {
-      "types": "./dist/how-it-works-page.d.ts",
-      "import": "./dist/how-it-works-page.js"
-    },
     "./gallery-page": {
       "types": "./dist/gallery-page.d.ts",
       "import": "./dist/gallery-page.js"
@@ -820,14 +800,6 @@
     "./verified-badge": {
       "types": "./dist/verified-badge.d.ts",
       "import": "./dist/verified-badge.js"
-    },
-    "./media-grid": {
-      "types": "./dist/media-grid.d.ts",
-      "import": "./dist/media-grid.js"
-    },
-    "./photo-grid": {
-      "types": "./dist/photo-grid.d.ts",
-      "import": "./dist/photo-grid.js"
     },
     "./motion.css": "./dist/motion.css",
     "./blocks.css": "./dist/blocks.css",
@@ -1014,7 +986,7 @@
   },
   "peerDependencies": {
     "@krizaka/query": ">=0.2.2",
-    "@krizaka/tailwind": ">=3.73.0",
+    "@krizaka/tailwind": ">=3.74.0",
     "@maplibre/maplibre-react-native": ">=11",
     "@shopify/flash-list": ">=2",
     "expo-camera": ">=16",
@@ -1671,16 +1643,6 @@
       ]
     },
     {
-      "name": "./iso (a hero costs no client JavaScript: server components, static SVG)",
-      "path": "dist/iso.js",
-      "limit": "4.5 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./motion",
       "path": "dist/motion.js",
       "limit": "1.5 kB",
@@ -1770,16 +1732,6 @@
       "name": "./engine-flow",
       "path": "dist/engine-flow.js",
       "limit": "2.7 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
-      "name": "./marquee",
-      "path": "dist/marquee.js",
-      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2097,16 +2049,6 @@
       ]
     },
     {
-      "name": "./audio-player",
-      "path": "dist/audio-player.js",
-      "limit": "2.8 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./image-cropper",
       "path": "dist/image-cropper.js",
       "limit": "12.8 kB",
@@ -2139,16 +2081,6 @@
     {
       "name": "./description-list",
       "path": "dist/description-list.js",
-      "limit": "1 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
-      "name": "./meta-row",
-      "path": "dist/meta-row.js",
       "limit": "1 kB",
       "gzip": true,
       "ignore": [
@@ -2880,17 +2812,6 @@
       ]
     },
     {
-      "name": "./how-it-works-page",
-      "path": "dist/how-it-works-page.js",
-      "limit": "1.5 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx",
-        "@krizaka/ui"
-      ]
-    },
-    {
       "name": "./gallery-page",
       "path": "dist/gallery-page.js",
       "limit": "1.5 kB",
@@ -3057,31 +2978,6 @@
         "expo-camera",
         "expo-image-picker",
         "@krizaka/ui"
-      ]
-    },
-    {
-      "name": "./media-grid",
-      "path": "dist/media-grid.js",
-      "limit": "9.1 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "tailwind-merge",
-        "react",
-        "react-dom",
-        "radix-ui",
-        "clsx",
-        "@krizaka/ui"
-      ]
-    },
-    {
-      "name": "./photo-grid",
-      "path": "dist/photo-grid.js",
-      "limit": "2.5 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
       ]
     },
     {

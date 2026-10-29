@@ -11,11 +11,10 @@ import type { BrandId } from "../core/types";
 const slots = (brand: BrandId) =>
   ORDERS[brand].map((hue, i) => `--kzc-${i + 1}:light-dark(${HUES[hue].light},${HUES[hue].dark});`).join("");
 
-// `orochia` stays until the next major (a paused product, deprecated 2026-10-25).
 const PALETTE = [
   `[data-kzc]{${slots("krizaka")}--kzc-low:light-dark(${HUES.blue.light},${HUES.blue.dark});--kzc-high:light-dark(${HUES.red.light},${HUES.red.dark});}`,
-  ...(["orazaka", "orochia", "krizaka"] as const).map((brand) => `:where(.brand-${brand}) [data-kzc]{${slots(brand)}}`),
-  ...(["orazaka", "orochia", "krizaka"] as const).map((brand) => `[data-kzc][data-brand=${brand}]{${slots(brand)}}`),
+  ...(["orazaka", "krizaka"] as const).map((brand) => `:where(.brand-${brand}) [data-kzc]{${slots(brand)}}`),
+  ...(["orazaka", "krizaka"] as const).map((brand) => `[data-kzc][data-brand=${brand}]{${slots(brand)}}`),
 ].join("");
 
 const tone = (name: string, value: string) => `.kzc [data-tone=${name}]{--kzc-tone:${value}}`;

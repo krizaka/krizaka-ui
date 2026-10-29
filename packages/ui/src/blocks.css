@@ -237,13 +237,13 @@
 /* Products wear plain Krizaka UI, in their brand colour (Oussama, 2026-10-22): a product's root carries `data-surface="product"` (an app themed at :root, no brand class) or its `.brand-<id>`; the margin red is the notebook's, for the
    Krizaka sites (www, the blog, ui.). Under a product's brand the margin ink is the brand's accent, so no eyebrow, folio or
    margin note shows red there, and the faces are the sans and the system monospace. */
-:is([data-surface="product"], .brand-orazaka, .brand-orochia, .brand-yasakia, .brand-yororis, .brand-yomizaka, .brand-kachizaka, .brand-akinaza) {
+:is([data-surface="product"], .brand-orazaka, .brand-yomizaka, .brand-akinaza) {
   --kz-paper-rule-margin: var(--kz-accent-text);
   /* Nor the notebook's faces: headings in the sans (Young Serif and Courier Prime are Cahier's), code in the system monospace. */
   --kz-font-display: var(--kz-font-sans);
   --kz-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
-:is([data-surface="product"], .brand-orazaka, .brand-orochia, .brand-yasakia, .brand-yororis, .brand-yomizaka, .brand-kachizaka, .brand-akinaza) :is(.kz-heading-title, .kz-hero-title) {
+:is([data-surface="product"], .brand-orazaka, .brand-yomizaka, .brand-akinaza) :is(.kz-heading-title, .kz-hero-title) {
   font-weight: 650; /* the serif had one weight; the sans carries the hierarchy with a semibold */
 }
 
@@ -257,7 +257,7 @@
    Text roles are ≥ 4.5:1 and the control edge ≥ 3:1 on surfaces 0–2 (product-register.test.ts); a hairline is a
    decoration (1.16:1) and never a field's only edge. `:root:is()` outranks `html.light`; the second selector keeps the
    register inside a theme island of a product. The card rules below read `--kz-card-*`, set here and nowhere else. */
-:is([data-surface="product"], :root:is(.brand-orazaka, .brand-orochia, .brand-yasakia, .brand-yororis, .brand-yomizaka, .brand-kachizaka, .brand-akinaza), body:is(.brand-orazaka, .brand-orochia, .brand-yasakia, .brand-yororis, .brand-yomizaka, .brand-kachizaka, .brand-akinaza)), :is([data-surface="product"], :root:is(.brand-orazaka, .brand-orochia, .brand-yasakia, .brand-yororis, .brand-yomizaka, .brand-kachizaka, .brand-akinaza), body:is(.brand-orazaka, .brand-orochia, .brand-yasakia, .brand-yororis, .brand-yomizaka, .brand-kachizaka, .brand-akinaza)) :is(.theme-dark, .theme-light) {
+:is([data-surface="product"], :root:is(.brand-orazaka, .brand-yomizaka, .brand-akinaza), body:is(.brand-orazaka, .brand-yomizaka, .brand-akinaza)), :is([data-surface="product"], :root:is(.brand-orazaka, .brand-yomizaka, .brand-akinaza), body:is(.brand-orazaka, .brand-yomizaka, .brand-akinaza)) :is(.theme-dark, .theme-light) {
   --kz-surface-0: light-dark(#fbfbfa, #111318);
   --kz-surface-1: light-dark(#ffffff, #171a21);
   --kz-surface-2: light-dark(#f4f4f2, #1e222b);
@@ -297,7 +297,7 @@
   --kz-type-display-sm-tracking: -0.015em;
 }
 /* Titles at 700 (PageHeader's title, Stat's value) in the title ink. */
-:is([data-surface="product"], :root:is(.brand-orazaka, .brand-orochia, .brand-yasakia, .brand-yororis, .brand-yomizaka, .brand-kachizaka, .brand-akinaza), body:is(.brand-orazaka, .brand-orochia, .brand-yasakia, .brand-yororis, .brand-yomizaka, .brand-kachizaka, .brand-akinaza)) :is(.kz-page-title, .kz-stat-value) { font-weight: 700; color: var(--kz-text-title); }
+:is([data-surface="product"], :root:is(.brand-orazaka, .brand-yomizaka, .brand-akinaza), body:is(.brand-orazaka, .brand-yomizaka, .brand-akinaza)) :is(.kz-page-title, .kz-stat-value) { font-weight: 700; color: var(--kz-text-title); }
 /* The hover of an INTERACTIVE card only (a link or a button; ADR-006 amends ADR-003 here): the brand border, a soft shadow
    and a 1 px lift in 150 ms. A static card never moves, nothing moves under reduced motion (the border and the shadow
    still answer), a button keeps its colour-only hover. The Cahier sets none of the `--kz-card-hover-*`: it stays quiet. */

@@ -25,10 +25,10 @@ export const usedBy = (name: string): Product[] => PRODUCTS.filter((product) => 
 
 const MOBILE = "the native apps: Yomizaka and Akinaza mobile, Orazaka mobile";
 const SITE = "krizaka.com migrating its pages to the specialised template (TPL)";
-/** A component built for a product now paused (Orochia, Yasakia, Yororis, Kachizaka — 2026-10-25). */
-const PAUSED = "Built for a product now paused (2026-10-25): kept until the next major's audit decides";
-/** A component whose only users were the paused products: no product in focus imports it yet. */
-const LEFT = "Its only users were products now paused (2026-10-25): kept until the next major's audit decides.";
+/** A component built for a product that left the organisation (2026-10-29). */
+const PAUSED = "Built for a product that left the organisation (2026-10-29): kept until the next major's audit decides";
+/** A component whose only users were the products that left: no product in focus imports it yet. */
+const LEFT = "Its only users were products that left the organisation (2026-10-29): kept until the next major's audit decides.";
 
 /** Why an unused component stays: the planned work that needs it. */
 export const PLANNED: Record<string, string> = {
@@ -40,8 +40,6 @@ export const PLANNED: Record<string, string> = {
   "app-frame": "The one signed-in frame of Yomizaka, Akinaza and Orazaka (UX audit F1, F2; yomizaka#429, akinaza#396, orazaka-web-client#294).",
   elephant: `${PAUSED}: the small flying elephant of the neighbour joke.`,
   "activity-feed": "Orazaka's job history (the adoption of Elements, PS-E).",
-  "media-grid": `${PAUSED}: a video feed — a shelf for the 9:16, a uniform grid for the 16:9.`,
-  "audio-player": "Orazaka's speech studio (audio outputs).",
   captcha: "krizaka.com's contact form and the blog's newsletter form (the public forms, behind Cloudflare Turnstile).",
   "component-page": `${SITE}: the component pages of /docs.`,
   "contact-page": `${SITE}: /contact.`,
@@ -64,7 +62,6 @@ export const PLANNED: Record<string, string> = {
   "analysis-report": "Yomizaka (the report of a check, krizaka/yomizaka#314), Orazaka's Studios, then every product that shows an Orazaka analysis.",
   "environment-notice": "Yomizaka (krizaka/yomizaka#364) on every surface of its dev deployment, then Akinaza and Orazaka.",
   "chip-row": "Yomizaka's « Pour qui ? » audience picker (krizaka/yomizaka home redesign, AudiencePicker moves into it), then any page of filters that are addresses.",
-  "meta-row": `${PAUSED}: the quiet line under a video's title — quality, shape, duration, date, and an AI badge.`,
   "docs-layout": "Builds the documentation article template.",
   "text-style": "Akinaza storefronts: the shop owner sets the font, size and tone of the shop's titles and text (krizaka/akinaza#236); then the product theme settings of the admin consoles (krizaka-ui#561).",
   stuck: "The Cahier (ADR-004, krizaka-ui#554): the products' cards and figures stuck into the notebook on www.krizaka.com's #products.",
@@ -83,17 +80,14 @@ export const PLANNED: Record<string, string> = {
   "gallery-page": `${SITE}: the demo gallery.`,
   "comparison-table": "Orazaka's « The same AI. Different ownership. » on dev.orazaka.com (the landing restructure, krizaka/orazaka#183), and every product's « why us ».",
   showcase: "Orazaka's \"Prompt → image\" gallery on dev.orazaka.com (KZ-AUTOPLAY), and the demo galleries of the products.",
-  "how-it-works-page": `${SITE}: the "how it works" pages of the products.`,
   kanban: `${PAUSED}: a moderation queue (to review, reviewing, resolved), moved by keyboard as well as by drag.`,
   "image-viewer": `${MOBILE}: full-screen photos of a profile or a gallery.`,
-  iso: "The product heroes on dev.orazaka.com (IsoHub), which left krizaka.com with the product pages (#150).",
   "longform-page": `${SITE}: /story.`,
   "marketing-layout": `${SITE}: the frame of every public page.`,
   onboarding: `${MOBILE}: first launch and profile set-up flows.`,
   "otp-input": `${MOBILE}: the code of a sign-in or a phone check.`,
   "update-prompt": "krizaka/.github#75: the soft update of Orazaka mobile and of the Mac app.",
   "permission-prompt": `${MOBILE}: asking for the camera, the location, notifications — in words, before the system dialog.`,
-  "photo-grid": `${PAUSED}: people screens and creator pages.`,
   "pointer-light": "Deprecated (krizaka-ui#393): the light that followed the pointer is retired.",
   "pricing-page": `${SITE}: /pricing of the products.`,
   "product-page": `${SITE}: the product pages.`,
@@ -132,7 +126,6 @@ export const PLANNED: Record<string, string> = {
   achievement: LEFT,
   countdown: LEFT,
   "goal-gauge": LEFT,
-  marquee: LEFT,
   pagination: LEFT,
   "profile-card": LEFT,
   slider: LEFT,

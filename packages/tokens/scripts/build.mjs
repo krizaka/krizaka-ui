@@ -23,9 +23,7 @@ import { compileShopPresets, shopPresetsModule } from "./shop-presets.mjs";
 /** Source files, in output order. */
 export const SOURCES = ["color", "radius", "shadow", "material", "motion", "typography"];
 /** The brands (src/brands/<id>.brand.json), in output order: the parent first. */
-export const BRANDS = ["krizaka", "orazaka", "orochia", "yasakia", "yororis", "yomizaka", "kachizaka", "akinaza"];
-/** The paused products (2026-10-25): their brands still ship, said deprecated, until the next major. */
-export const PAUSED_BRANDS = ["orochia", "yasakia", "yororis", "kachizaka"];
+export const BRANDS = ["krizaka", "orazaka", "yomizaka", "akinaza"];
 /** The roles a brand sets — all of them, so that a brand never inherits another brand's accent. */
 export const BRAND_ROLES = ["accent", "accent-hover", "accent-soft", "accent-text", "accent-2", "on-accent", "ring", "info", "info-text", "brand-gradient-from", "brand-gradient-via", "brand-gradient-to"];
 const EXT = "com.krizaka";
@@ -512,6 +510,39 @@ export declare const marks: { readonly [B in BrandId]: readonly MarkStop[] };\n`
 }
 
 /**
+ * A brand sets only colour tokens of the platform, and exactly the brand roles.
+ * @param {string} id
+ * @param {Token[]} tokens
+ * @param {Map<string, Token>} baseNames
+ * @param {Set<string>} roles
+ */
+function assertBrandTokens(id, tokens, baseNames, roles) {
+  for (const t of tokens) {
+    if (!baseNames.has(t.name)) throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a platform token`);
+    if (t.type !== "color" || baseNames.get(t.name)?.type !== "color") throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a colour`);
+    if (!roles.has(t.name)) throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a brand role (${BRAND_ROLES.join(", ")})`);
+  }
+  const missing = BRAND_ROLES.filter((r) => !tokens.some((t) => t.name === r));
+  if (missing.length) throw new Error(`brand ${id}: missing ${missing.map((r) => PREFIX + r).join(", ")}`);
+}
+
+/**
+ * The mark's gradient stops of a brand, checked: at least two `["<n>%", "hsl(...)"]`.
+ * @param {string} id
+ * @param {Record<string, any>} source
+ * @returns {[string, string][]}
+ */
+function brandMark(id, source) {
+  const mark = isObject(source?.$extensions) ? source.$extensions[EXT]?.mark : undefined;
+  if (!Array.isArray(mark) || mark.length < 2) throw new Error(`brand ${id}: $extensions["${EXT}"].mark must list the mark's gradient stops`);
+  for (const stop of mark) {
+    if (!Array.isArray(stop) || stop.length !== 2 || !/^\d+(\.\d+)?%$/.test(String(stop[0])) || typeof stop[1] !== "string") throw new Error(`brand ${id}: a mark stop is ["<n>%", "hsl(...)"]`);
+    parseHsl(stop[1]);
+  }
+  return mark;
+}
+
+/**
  * Compiles the brand themes. A brand is a DTCG file of colour tokens that must set exactly the accent family
  * (BRAND_ROLES) of the platform's tokens; its aliases point inside the brand, or to a platform token the brand does
  * not set (`brand-gradient-to` → `{surface.0}`: the section ends on the page surface, whatever the app makes of it). Outputs, per brand, `brands/<id>.css`
@@ -539,13 +570,7 @@ export function compileBrands(base, brandSources) {
   const scoped = ["/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/*.brand.json par scripts/build.mjs : ne pas éditer.\n   Chaque marque en classe `.brand-<id>` : pour une page qui montre plusieurs marques (le site, le catalogue). */"];
   for (const id of ids) {
     const tokens = flatten({ [id]: brandSources[id] });
-    for (const t of tokens) {
-      if (!baseNames.has(t.name)) throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a platform token`);
-      if (t.type !== "color" || baseNames.get(t.name)?.type !== "color") throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a colour`);
-      if (!roles.has(t.name)) throw new Error(`brand ${id}: ${PREFIX}${t.name} is not a brand role (${BRAND_ROLES.join(", ")})`);
-    }
-    const missing = BRAND_ROLES.filter((r) => !tokens.some((t) => t.name === r));
-    if (missing.length) throw new Error(`brand ${id}: missing ${missing.map((r) => PREFIX + r).join(", ")}`);
+    assertBrandTokens(id, tokens, baseNames, roles);
     const own = new Set(tokens.map((t) => t.name));
     const { resolve, target } = resolver([...tokens, ...base.filter((t) => !own.has(t.name))]);
     const ordered = BRAND_ROLES.map((r) => /** @type {Token} */ (tokens.find((t) => t.name === r)));
@@ -571,7 +596,6 @@ export function compileBrands(base, brandSources) {
     const cls = `.brand-${id}`;
     scoped.push(
       "",
-      ...(PAUSED_BRANDS.includes(id) ? [`/* DEPRECATED — ${cls}: a paused product (2026-10-25); removed in the next major. */`] : []),
       `${cls} {\n${decls("dark", true)}\n}`,
       `html.light ${cls}, html .theme-light ${cls}, html ${cls}.theme-light {\n${decls("light", true)}\n}`,
       `html .theme-dark ${cls}, html ${cls}.theme-dark {\n${decls("dark", true)}\n}`,
@@ -583,23 +607,9 @@ export function compileBrands(base, brandSources) {
     const hex = (mode) => Object.fromEntries(ordered.map((t) => [t.key, toNative(parseHsl(/** @type {string} */ (resolve(t, mode))))]));
     native[id] = { dark: hex("dark"), light: hex("light") };
     const source = /** @type {Record<string, any>} */ (brandSources[id]);
-    const mark = isObject(source?.$extensions) ? source.$extensions[EXT]?.mark : undefined;
-    if (!Array.isArray(mark) || mark.length < 2) throw new Error(`brand ${id}: $extensions["${EXT}"].mark must list the mark's gradient stops`);
-    for (const stop of mark) {
-      if (!Array.isArray(stop) || stop.length !== 2 || !/^\d+(\.\d+)?%$/.test(String(stop[0])) || typeof stop[1] !== "string") throw new Error(`brand ${id}: a mark stop is ["<n>%", "hsl(...)"]`);
-      parseHsl(stop[1]);
-    }
+    const mark = brandMark(id, source);
     marks[id] = mark.map(([offset, color]) => [offset, color]);
     marksNative[id] = mark.map(([offset, color]) => [offset, toNative(parseHsl(color))]);
-  }
-  if (ids.includes("yasakia")) {
-    // Deprecated alias (Yazakia was renamed Yasakia, 2026-10): `brands/yazakia.css` and `.brand-yazakia` stay for one minor version.
-    css["brands/yazakia.css"] = css["brands/yasakia.css"].replace("/* @krizaka/tokens", "/* DEPRECATED — renamed Yasakia (import brands/yasakia.css); kept for one minor version.\n   @krizaka/tokens");
-    const dark = scoped.filter((b) => b.includes(".brand-yasakia"));
-    scoped.push("", "/* DEPRECATED — `.brand-yazakia` is `.brand-yasakia` (Yazakia was renamed Yasakia); kept for one minor version. */", ...dark.map((b) => b.replaceAll("yasakia", "yazakia")));
-  }
-  for (const id of ids.filter((b) => PAUSED_BRANDS.includes(b))) {
-    css[`brands/${id}.css`] = css[`brands/${id}.css`].replace("/* @krizaka/tokens", "/* DEPRECATED — a paused product (2026-10-25); removed in the next major.\n   @krizaka/tokens");
   }
   if (ids.length) css["brands/scoped.css"] = `${scoped.join("\n")}\n`;
   return { ids, css, values, native, marks, marksNative };

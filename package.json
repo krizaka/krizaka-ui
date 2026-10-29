@@ -14,7 +14,8 @@
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
-    "lint": "turbo run lint && ast-grep test --skip-snapshot-tests && node scripts/sg-ratchet.mjs && node --test scripts/sg-ratchet.test.mjs",
+    "lint:workspace": "npx --yes -p @krizaka/config krizaka-workspace-guard",
+    "lint": "pnpm run lint:workspace && turbo run lint && ast-grep test --skip-snapshot-tests && node scripts/sg-ratchet.mjs && node --test scripts/sg-ratchet.test.mjs",
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
     "dev:check": "turbo run lint typecheck test --filter='...[origin/main]' --filter='!@krizaka/site' --filter='!@krizaka/storybook'",
@@ -22,6 +23,7 @@
     "inventory": "node tools/inventory.mjs",
     "inventory:usage": "node tools/usage-inventory.mjs",
     "inventory:check": "node tools/usage-inventory.mjs --check && node tools/usage-inventory.mjs --budgets",
+    "devx:check": "node tools/devx-check.mjs",
     "test:tools": "node --test 'tools/**/*.test.mjs'",
     "smoke:consumers": "node tools/consumer-smoke/run.mjs",
     "release": "turbo run check && changeset publish",

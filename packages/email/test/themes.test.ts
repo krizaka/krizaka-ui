@@ -63,10 +63,10 @@ describe("House of Brands: a product email never shows another product", () => {
   });
 
   it("signs a product's email as its team, and the company's as Oussama", async () => {
-    const product = await renderEmail("signInLink", { ...templates.signInLink.example, brand: "orochia" }, { locale: "fr" });
+    const product = await renderEmail("signInLink", { ...templates.signInLink.example, brand: "yomizaka" }, { locale: "fr" });
     const company = await renderEmail("signInLink", templates.signInLink.example, { locale: "fr" });
-    expect(product.text).toContain("L'équipe Orochia");
-    expect(product.subject).toBe("Votre lien de connexion à Orochia");
+    expect(product.text).toContain("L'équipe Yomizaka");
+    expect(product.subject).toBe("Votre lien de connexion à Yomizaka");
     expect(company.text).toContain("Oussama");
   });
 });

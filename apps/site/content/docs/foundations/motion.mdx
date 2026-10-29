@@ -7,7 +7,7 @@ Krizaka moves little, and always the same way. Motion is a system of tokens and 
 component brings its own curve, no hover moves a card, and no pointer light follows the cursor. A figure moves because it
 shows something — traffic on a route, a total climbing, a step completing — never to decorate.
 
-The [Krizaka Motion lab](https://motion.krizaka.com/) plays every primitive on this page with live knobs, the
+The [Krizaka Lab](https://lab.krizaka.com/) plays every primitive on this page with live knobs, the
 code that follows them and the install line.
 
 ## The tokens
@@ -39,7 +39,7 @@ the ones that make sense for it:
 | `paused` | boolean | A controlled pause, on top of the off-screen pause. |
 
 `EngineFlow` offers `speed`, `density`, `trigger`, `easing`, `stagger`, `layout` and `breathe` today; the rest arrive
-primitive by primitive, tracked in [krizaka-motion#8](https://github.com/krizaka/krizaka-motion/issues/8).
+primitive by primitive, tracked in [krizaka-lab#8](https://github.com/krizaka/krizaka-lab/issues/8).
 
 ## The primitives that move
 
@@ -72,7 +72,7 @@ browser with reduced motion off** (it moves) **and on** (it rests).
 
 A block arrives once, as it scrolls into view: put `data-reveal` on it and stagger the siblings (70 ms apart). Never on
 the first screen of a page — that is what the visitor waits for, and what the performance budget measures. Figures climb
-with `NumberTicker`; loops (a mark's orbit, a marquee) pause off screen.
+with `NumberTicker`; loops (a mark's orbit) pause off screen.
 
 ## Reduced motion
 

@@ -39,7 +39,7 @@ export const meta = {
       "The playhead is a slider too when `onSeek` is given; read-only otherwise.",
     ],
   },
-  related: ["slider", "video-player", "audio-player"],
+  related: ["slider", "video-player"],
   web: {
     imports: ["VideoTrimmer"],
     examples: [

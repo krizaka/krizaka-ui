@@ -7,7 +7,7 @@ export const meta = {
   deprecated: {
     since: "3.55.0",
     removedIn: "4.0.0",
-    reason: "No user: Yasakia is paused and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
+    reason: "No user: the product it was built for left the organisation and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
   },
   category: "data-display",
   domain: "data-display",
@@ -23,7 +23,7 @@ export const meta = {
       { keys: "Tab", action: "Reaches the card's photo buttons and the like and pass buttons." }],
     notes: ["The top card is the only one exposed; the next waits hidden from assistive technology.", "React Native offers Like and Pass as accessibility actions of the card.", "Under reduced motion the card leaves without flying."],
   },
-  related: ["verified-badge", "match-dialog", "photo-grid"],
+  related: ["verified-badge", "match-dialog"],
   web: {
     imports: ["SwipeDeck", "PersonCard"],
     examples: [

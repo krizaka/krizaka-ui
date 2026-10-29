@@ -2,111 +2,92 @@
   "generated": "2026-10-28",
   "package": {
     "name": "@krizaka/ui",
-    "version": "3.72.0",
-    "distMeasured": "packages/ui/dist (@krizaka/ui@3.72.0)"
+    "version": "3.74.0",
+    "distMeasured": "packages/ui/dist (@krizaka/ui@3.73.0)"
   },
   "consumers": [
     {
       "name": "yomizaka",
       "kind": "product",
       "absent": false,
-      "head": "fa530eea",
-      "files": 1037
+      "head": "dccc2437",
+      "sha": "dccc2437d65b380c38288fc3d2ad1f3e734d9c3b",
+      "files": 1085
     },
     {
       "name": "akinaza",
       "kind": "product",
       "absent": false,
-      "head": "8cd61e14",
-      "files": 1024
+      "head": "1ff09edc",
+      "sha": "1ff09edc1b2d044e995057f44067c9839586ac87",
+      "files": 1042
     },
     {
       "name": "orazaka-web-client",
       "kind": "product",
       "absent": false,
-      "head": "6ae7baf4",
-      "files": 724
+      "head": "a9eef3dd",
+      "sha": "a9eef3dd1625cd5cd2874ab1b9edce38f99533de",
+      "files": 728
     },
     {
       "name": "krizaka-com",
       "kind": "site",
       "absent": false,
-      "head": "25132588",
-      "files": 261
+      "head": "2fccb2bb",
+      "sha": "2fccb2bb7516a75cfc9a117c1cc133aa306d75d3",
+      "files": 264
     },
     {
       "name": "blog",
       "kind": "site",
       "absent": false,
-      "head": "3d585c2f",
-      "files": 223
+      "head": "5aa73cba",
+      "sha": "5aa73cbae3ae97a6c05fc728f2457857ebb6f5ce",
+      "files": 231
     },
     {
       "name": "ui-site",
       "kind": "site",
       "absent": false,
-      "head": "c57acf3b",
-      "files": 151
+      "head": null,
+      "sha": null,
+      "files": 158
     },
     {
       "name": "java-site",
       "kind": "site",
       "absent": false,
-      "head": "fe38501c",
+      "head": "2bd81c6a",
+      "sha": "2bd81c6acfe4facc70cb1cdc2e07213da387d616",
       "files": 135
     },
     {
       "name": "ts-site",
       "kind": "site",
       "absent": false,
-      "head": "2b30ee86",
+      "head": "f316e288",
+      "sha": "f316e2881c8aa88fb01a8e7adab95813672c96ca",
       "files": 59
     },
     {
       "name": "motion-lab",
       "kind": "site",
       "absent": false,
-      "head": "0dfddfe3",
-      "files": 102
+      "head": "187ac1fc",
+      "sha": "187ac1fc309d96eb833eda2c25552041470ba699",
+      "files": 99
     },
     {
       "name": "cockpit",
       "kind": "tool",
       "absent": false,
       "head": null,
+      "sha": null,
       "files": 90
     }
   ],
-  "paused": [
-    {
-      "name": "orochia",
-      "kind": "paused",
-      "absent": false,
-      "head": "189bbb2d",
-      "files": 906
-    },
-    {
-      "name": "yasakia",
-      "kind": "paused",
-      "absent": false,
-      "head": "c7de02ec",
-      "files": 383
-    },
-    {
-      "name": "yororis",
-      "kind": "paused",
-      "absent": false,
-      "head": "1708fb36",
-      "files": 181
-    },
-    {
-      "name": "kachizaka",
-      "kind": "paused",
-      "absent": false,
-      "head": "798d9ba6",
-      "files": 231
-    }
-  ],
+  "paused": [],
   "entries": [
     {
       "pkg": "ui",
@@ -131,17 +112,12 @@
       },
       "nativeUse": {},
       "live": 47,
-      "paused": 20,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 9868,
+      "sizeGzip": 7157,
       "budget": 8000,
       "tests": null,
       "stories": null,
@@ -154,9 +130,9 @@
       "pkg": "ui",
       "name": "cn",
       "kind": "entry",
-      "title": null,
-      "category": null,
-      "status": null,
+      "title": "cn",
+      "category": "foundations",
+      "status": "stable",
       "domain": "foundations",
       "adoption": null,
       "importers": {
@@ -171,12 +147,8 @@
       },
       "nativeUse": {},
       "live": 49,
-      "paused": 8,
-      "pausedBy": [
-        "orochia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-menu",
         "account-settings",
@@ -219,15 +191,12 @@
         "glow-card",
         "goal-gauge",
         "grade-stamp",
-        "how-it-works-page",
         "kind-config-editor",
         "landscape",
         "link-card",
         "longform-page",
         "markdown",
-        "marquee",
         "mascot-quote",
-        "media-grid",
         "money-input",
         "nav-bar",
         "page",
@@ -302,7 +271,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 0,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -317,7 +286,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 44,
+        "yomizaka": 49,
         "akinaza": 54,
         "orazaka-web-client": 83,
         "krizaka-com": 7,
@@ -334,14 +303,9 @@
         "blog": 2,
         "ui-site": 2
       },
-      "live": 258,
-      "paused": 47,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "live": 263,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "action-bar",
         "analysis-report",
@@ -356,7 +320,6 @@
         "kind-config-editor",
         "maintenance-screen",
         "match-dialog",
-        "media-grid",
         "native",
         "nav-bar",
         "price-catalogue-editor",
@@ -380,10 +343,10 @@
       "budget": 3500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "241 live importer file(s)"
+      "why": "246 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -395,7 +358,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 40,
+        "yomizaka": 42,
         "akinaza": 32,
         "orazaka-web-client": 28,
         "blog": 1,
@@ -407,14 +370,9 @@
         "yomizaka": 4,
         "akinaza": 5
       },
-      "live": 126,
-      "paused": 37,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "live": 128,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-settings",
         "analysis-report",
@@ -432,10 +390,10 @@
       "budget": 1000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-21",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "122 live importer file(s)"
+      "why": "124 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -447,7 +405,7 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 5,
+        "yomizaka": 4,
         "akinaza": 12,
         "orazaka-web-client": 18,
         "blog": 1,
@@ -458,13 +416,9 @@
         "yomizaka": 1,
         "akinaza": 2
       },
-      "live": 42,
-      "paused": 6,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "kachizaka"
-      ],
+      "live": 41,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-settings",
         "data-table",
@@ -481,10 +435,10 @@
       "budget": 1500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "42 live importer file(s)"
+      "why": "41 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -502,13 +456,10 @@
       },
       "nativeUse": {},
       "live": 6,
-      "paused": 2,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
-        "genui",
-        "media-grid"
+        "genui"
       ],
       "issue": null,
       "mergeInto": null,
@@ -516,7 +467,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "6 live importer file(s)"
@@ -541,13 +492,8 @@
         "akinaza": 3
       },
       "live": 32,
-      "paused": 9,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -555,7 +501,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "32 live importer file(s)"
@@ -576,16 +522,12 @@
       },
       "nativeUse": {},
       "live": 4,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "button",
         "form",
         "loader",
-        "media-grid",
         "stepper",
         "toast"
       ],
@@ -595,7 +537,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -614,21 +556,16 @@
         "akinaza": 2,
         "orazaka-web-client": 2,
         "krizaka-com": 1,
-        "motion-lab": 2,
+        "motion-lab": 1,
         "cockpit": 1
       },
       "nativeUse": {
         "yomizaka": 1,
         "akinaza": 1
       },
-      "live": 11,
-      "paused": 9,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "live": 10,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-menu",
         "account-settings",
@@ -636,18 +573,17 @@
         "collection-switcher",
         "entity-header",
         "match-dialog",
-        "media-grid",
         "native",
         "shop",
         "vertical-video"
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 3233,
+      "sizeGzip": 3120,
       "budget": 6000,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "9 live importer file(s)"
@@ -675,18 +611,17 @@
         "collection-switcher",
         "entity-header",
         "match-dialog",
-        "media-grid",
         "native",
         "shop",
         "vertical-video"
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2329,
+      "sizeGzip": 2219,
       "budget": null,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -715,17 +650,11 @@
       "nativeUse": {
         "yomizaka": 4,
         "akinaza": 5,
-        "ui-site": 2,
-        "kachizaka": 1
+        "ui-site": 2
       },
       "live": 62,
-      "paused": 20,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "app-frame",
         "native"
@@ -736,7 +665,7 @@
       "budget": 2400,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "61 live importer file(s)"
@@ -762,7 +691,7 @@
       "budget": 5000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-17",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -779,11 +708,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "native"
       ],
@@ -793,7 +719,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "built on by native"
@@ -822,16 +748,10 @@
         "akinaza": 8
       },
       "live": 95,
-      "paused": 11,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "genui",
-        "media-grid",
         "native"
       ],
       "issue": null,
@@ -840,7 +760,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-21",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "91 live importer file(s)"
@@ -855,7 +775,7 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 5,
+        "yomizaka": 7,
         "akinaza": 5,
         "orazaka-web-client": 16,
         "krizaka-com": 3,
@@ -863,12 +783,9 @@
         "cockpit": 6
       },
       "nativeUse": {},
-      "live": 38,
-      "paused": 4,
-      "pausedBy": [
-        "orochia",
-        "yasakia"
-      ],
+      "live": 40,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "command",
         "match-dialog",
@@ -881,10 +798,10 @@
       "budget": 16600,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "35 live importer file(s)"
+      "why": "37 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -901,10 +818,8 @@
       },
       "nativeUse": {},
       "live": 10,
-      "paused": 2,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -912,7 +827,7 @@
       "budget": 11500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-21",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "8 live importer file(s)"
@@ -932,10 +847,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 2,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "collection-switcher",
         "date-picker",
@@ -947,7 +860,7 @@
       "budget": 25000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-22",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -962,16 +875,14 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
+        "yomizaka": 4,
         "akinaza": 2,
         "orazaka-web-client": 1
       },
       "nativeUse": {},
-      "live": 6,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "live": 7,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-menu",
         "data-table",
@@ -985,10 +896,10 @@
       "budget": 32000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "6 live importer file(s)"
+      "why": "7 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -1005,11 +916,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "glossary-term",
         "grade-stamp",
@@ -1021,7 +929,7 @@
       "budget": 20000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -1049,7 +957,7 @@
       "budget": 20000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-24",
+      "lastChange": "2026-10-29",
       "created": "2026-10-24",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -1074,13 +982,8 @@
       },
       "nativeUse": {},
       "live": 18,
-      "paused": 7,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "usage"
       ],
@@ -1090,7 +993,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "14 live importer file(s)"
@@ -1118,7 +1021,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-24",
+      "lastChange": "2026-10-29",
       "created": "2026-10-24",
       "verdict": "merge",
       "into": "stat",
@@ -1139,12 +1042,8 @@
       },
       "nativeUse": {},
       "live": 26,
-      "paused": 9,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -1152,7 +1051,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "26 live importer file(s)"
@@ -1172,16 +1071,16 @@
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "orochia-mobile#37",
+      "issue": null,
       "mergeInto": null,
       "sizeGzip": 5282,
       "budget": 3100,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
       "verdict": "keep",
-      "why": "filed need orochia-mobile#37"
+      "why": "a filed need (its repository left the organisation)"
     },
     {
       "pkg": "ui",
@@ -1206,7 +1105,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-22",
+      "lastChange": "2026-10-29",
       "created": "2026-10-22",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -1232,7 +1131,7 @@
       "budget": 2300,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
       "verdict": "merge",
       "into": "meter",
@@ -1264,7 +1163,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-26",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -1290,7 +1189,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-26",
       "verdict": "ask",
       "why": "unused, Cahier register (sites)"
@@ -1316,7 +1215,7 @@
       "budget": 5000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-26",
       "verdict": "ask",
       "why": "unused, new (2026-10-26): its adoption issue?"
@@ -1344,7 +1243,7 @@
       "budget": 4500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-26",
       "verdict": "keep",
       "why": "built on by native"
@@ -1359,20 +1258,16 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 48,
+        "yomizaka": 51,
         "akinaza": 49,
         "orazaka-web-client": 21,
         "blog": 1,
         "cockpit": 2
       },
       "nativeUse": {},
-      "live": 121,
-      "paused": 33,
-      "pausedBy": [
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "live": 124,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "form",
         "genui"
@@ -1383,10 +1278,10 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "121 live importer file(s)"
+      "why": "124 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -1412,7 +1307,7 @@
       "budget": 2600,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -1434,10 +1329,8 @@
       },
       "nativeUse": {},
       "live": 5,
-      "paused": 1,
-      "pausedBy": [
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "app-shell",
         "marketing-layout"
@@ -1448,7 +1341,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-21",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "5 live importer file(s)"
@@ -1470,10 +1363,8 @@
       },
       "nativeUse": {},
       "live": 8,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "app-header",
         "app-shell",
@@ -1485,7 +1376,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "8 live importer file(s)"
@@ -1510,11 +1401,8 @@
       },
       "nativeUse": {},
       "live": 25,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "code-block"
       ],
@@ -1524,7 +1412,7 @@
       "budget": 12300,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "23 live importer file(s)"
@@ -1559,7 +1447,7 @@
       "budget": 1200,
       "tests": 2,
       "stories": 0,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-22",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -1574,7 +1462,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
+        "yomizaka": 4,
         "akinaza": 2,
         "orazaka-web-client": 3,
         "krizaka-com": 3,
@@ -1586,11 +1474,9 @@
         "yomizaka": 1,
         "akinaza": 2
       },
-      "live": 21,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "live": 22,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "combobox",
         "entity-header",
@@ -1606,10 +1492,10 @@
       "budget": 13000,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "16 live importer file(s)"
+      "why": "17 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -1637,7 +1523,7 @@
       "budget": 21000,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -1667,7 +1553,7 @@
       "budget": 32000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -1689,10 +1575,8 @@
       },
       "nativeUse": {},
       "live": 11,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "chip-row",
         "filter-bar"
@@ -1703,7 +1587,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-21",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "11 live importer file(s)"
@@ -1729,7 +1613,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-21",
+      "lastChange": "2026-10-29",
       "created": "2026-10-20",
       "verdict": "merge",
       "into": "chip",
@@ -1754,12 +1638,8 @@
       },
       "nativeUse": {},
       "live": 19,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-settings",
         "form",
@@ -1775,7 +1655,7 @@
       "budget": 6000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "16 live importer file(s)"
@@ -1796,10 +1676,8 @@
       },
       "nativeUse": {},
       "live": 5,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "form",
         "image-cropper",
@@ -1812,7 +1690,7 @@
       "budget": 12000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-21",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -1834,11 +1712,8 @@
       },
       "nativeUse": {},
       "live": 7,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "data-table",
         "form",
@@ -1850,7 +1725,7 @@
       "budget": 6200,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "7 live importer file(s)"
@@ -1865,15 +1740,13 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 6,
+        "yomizaka": 5,
         "orazaka-web-client": 3
       },
       "nativeUse": {},
-      "live": 9,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "live": 8,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-settings",
         "form",
@@ -1886,10 +1759,10 @@
       "budget": 12700,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "9 live importer file(s)"
+      "why": "8 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -1907,10 +1780,8 @@
       },
       "nativeUse": {},
       "live": 3,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -1918,7 +1789,7 @@
       "budget": 21000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -1939,12 +1810,8 @@
       },
       "nativeUse": {},
       "live": 5,
-      "paused": 6,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "proposal"
       ],
@@ -1954,7 +1821,7 @@
       "budget": 4000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "5 live importer file(s)"
@@ -1969,17 +1836,15 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
+        "yomizaka": 3,
         "orazaka-web-client": 2,
         "ui-site": 1,
         "motion-lab": 4
       },
       "nativeUse": {},
-      "live": 9,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "live": 10,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "file-upload"
       ],
@@ -1989,10 +1854,10 @@
       "budget": 1800,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-21",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "5 live importer file(s)"
+      "why": "6 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -2008,12 +1873,9 @@
       },
       "nativeUse": {},
       "live": 1,
-      "paused": 1,
-      "pausedBy": [
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
-        "audio-player",
         "native"
       ],
       "issue": null,
@@ -2022,7 +1884,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-17",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by native"
@@ -2048,7 +1910,7 @@
       "budget": 6500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-28",
       "verdict": "ask",
       "why": "unused, new (2026-10-28): its adoption issue?"
@@ -2079,7 +1941,7 @@
       "budget": 9000,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -2107,7 +1969,7 @@
       "budget": 41000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "built on by native"
@@ -2135,7 +1997,7 @@
       "budget": 28000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "built on by native"
@@ -2155,11 +2017,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 2,
-      "pausedBy": [
-        "orochia",
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "auth-layout",
         "landing-page",
@@ -2173,7 +2032,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -2194,17 +2053,10 @@
         "krizaka-com": 9,
         "java-site": 1
       },
-      "nativeUse": {
-        "kachizaka": 1
-      },
+      "nativeUse": {},
       "live": 42,
-      "paused": 19,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "bird-plate",
         "flock",
@@ -2222,7 +2074,7 @@
       "budget": 6600,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "42 live importer file(s)"
@@ -2250,39 +2102,11 @@
       "budget": 6600,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "empty-state",
       "why": "ADR-006 merge (#675), or deprecated in favour of another entry"
-    },
-    {
-      "pkg": "ui",
-      "name": "iso",
-      "kind": "entry",
-      "title": "Iso",
-      "category": "layout",
-      "status": "beta",
-      "domain": "foundations",
-      "adoption": null,
-      "importers": {},
-      "nativeUse": {},
-      "live": 0,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
-      "builtOnBy": [],
-      "issue": null,
-      "mergeInto": null,
-      "sizeGzip": 5341,
-      "budget": 4500,
-      "tests": 1,
-      "stories": 1,
-      "lastChange": "2026-10-26",
-      "created": "2026-10-11",
-      "verdict": "leave-core",
-      "why": "used only by paused products (orochia)"
     },
     {
       "pkg": "ui",
@@ -2306,20 +2130,16 @@
       },
       "nativeUse": {},
       "live": 13,
-      "paused": 3,
-      "pausedBy": [
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2164,
+      "sizeGzip": 2160,
       "budget": 1500,
       "tests": 3,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "10 live importer file(s)"
@@ -2341,10 +2161,8 @@
         "ui-site": 1
       },
       "live": 5,
-      "paused": 2,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2352,7 +2170,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "5 live importer file(s)"
@@ -2379,21 +2197,16 @@
       },
       "nativeUse": {},
       "live": 18,
-      "paused": 4,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 23466,
+      "sizeGzip": 20662,
       "budget": 27600,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "15 live importer file(s)"
@@ -2419,7 +2232,7 @@
       "budget": 1000,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "nav-bar",
@@ -2447,11 +2260,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 18093,
+      "sizeGzip": 17996,
       "budget": null,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-22",
       "verdict": "keep",
       "why": "10 live importer file(s)"
@@ -2479,7 +2292,7 @@
       "budget": null,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-22",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -2507,7 +2320,7 @@
       "budget": null,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-22",
+      "lastChange": "2026-10-29",
       "created": "2026-10-22",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -2534,13 +2347,8 @@
       },
       "nativeUse": {},
       "live": 14,
-      "paused": 8,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "nav-bar"
       ],
@@ -2550,7 +2358,7 @@
       "budget": 2400,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-21",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "14 live importer file(s)"
@@ -2578,7 +2386,7 @@
       "budget": 1000,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-21",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by nav-bar"
@@ -2605,23 +2413,18 @@
       },
       "nativeUse": {},
       "live": 13,
-      "paused": 9,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "site-cahier"
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 12145,
+      "sizeGzip": 9340,
       "budget": 11000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "12 live importer file(s)"
@@ -2648,12 +2451,8 @@
       },
       "nativeUse": {},
       "live": 18,
-      "paused": 6,
-      "pausedBy": [
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "nav-bar",
         "site-cahier",
@@ -2661,11 +2460,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 1900,
+      "sizeGzip": 1779,
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "17 live importer file(s)"
@@ -2689,12 +2488,8 @@
       },
       "nativeUse": {},
       "live": 12,
-      "paused": 4,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2702,7 +2497,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "8 live importer file(s)"
@@ -2728,7 +2523,7 @@
       "budget": 2500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "code-block",
@@ -2750,10 +2545,8 @@
       },
       "nativeUse": {},
       "live": 4,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2761,7 +2554,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -2787,44 +2580,14 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 3584,
+      "sizeGzip": 3672,
       "budget": 2700,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-20",
       "verdict": "keep",
       "why": "3 live importer file(s)"
-    },
-    {
-      "pkg": "ui",
-      "name": "marquee",
-      "kind": "entry",
-      "title": "Marquee",
-      "category": "data-display",
-      "status": "beta",
-      "domain": "page-blocks",
-      "adoption": null,
-      "importers": {
-        "motion-lab": 1
-      },
-      "nativeUse": {},
-      "live": 1,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
-      "builtOnBy": [],
-      "issue": null,
-      "mergeInto": null,
-      "sizeGzip": 1515,
-      "budget": 1500,
-      "tests": 1,
-      "stories": 1,
-      "lastChange": "2026-10-16",
-      "created": "2026-10-11",
-      "verdict": "leave-core",
-      "why": "used only by paused products (orochia)"
     },
     {
       "pkg": "ui",
@@ -2841,11 +2604,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 2,
-      "pausedBy": [
-        "yasakia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2853,7 +2613,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -2873,13 +2633,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 6,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2887,7 +2642,7 @@
       "budget": 3200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -2913,7 +2668,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-14",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -2937,11 +2692,8 @@
         "yomizaka": 1
       },
       "live": 7,
-      "paused": 2,
-      "pausedBy": [
-        "orochia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -2949,7 +2701,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "6 live importer file(s)"
@@ -2972,12 +2724,8 @@
       },
       "nativeUse": {},
       "live": 8,
-      "paused": 5,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "catalogue-page",
         "native",
@@ -2991,7 +2739,7 @@
       "budget": 2000,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-10-22",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "8 live importer file(s)"
@@ -3010,10 +2758,8 @@
       },
       "nativeUse": {},
       "live": 1,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "data-table"
       ],
@@ -3023,7 +2769,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3038,7 +2784,7 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 16,
+        "yomizaka": 15,
         "akinaza": 9,
         "orazaka-web-client": 22,
         "krizaka-com": 1,
@@ -3047,27 +2793,22 @@
         "cockpit": 6
       },
       "nativeUse": {},
-      "live": 60,
-      "paused": 15,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "live": 59,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "genui"
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 38897,
+      "sizeGzip": 38890,
       "budget": null,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "56 live importer file(s)"
+      "why": "55 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -3088,11 +2829,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 47565,
+      "sizeGzip": 47558,
       "budget": null,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-17",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3120,7 +2861,7 @@
       "budget": 12000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "built on by data-table"
@@ -3152,7 +2893,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "built on by badge, button, card…"
@@ -3183,7 +2924,7 @@
       "budget": 17000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "6 live importer file(s)"
@@ -3210,11 +2951,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 10054,
+      "sizeGzip": 10053,
       "budget": 35400,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "6 live importer file(s)"
@@ -3229,7 +2970,7 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 18,
+        "yomizaka": 19,
         "akinaza": 21,
         "orazaka-web-client": 9
       },
@@ -3237,13 +2978,9 @@
         "yomizaka": 1,
         "akinaza": 2
       },
-      "live": 51,
-      "paused": 15,
-      "pausedBy": [
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "live": 52,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "native",
         "shop-composer"
@@ -3254,10 +2991,10 @@
       "budget": 24500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
-      "why": "51 live importer file(s)"
+      "why": "52 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -3283,7 +3020,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "built on by native, shop-composer"
@@ -3309,7 +3046,7 @@
       "budget": 41200,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-23",
+      "lastChange": "2026-10-29",
       "created": "2026-10-23",
       "verdict": "keep",
       "why": "a sub-entry of it is imported"
@@ -3337,7 +3074,7 @@
       "budget": 9000,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-23",
+      "lastChange": "2026-10-29",
       "created": "2026-10-23",
       "verdict": "merge",
       "into": "text-style",
@@ -3369,7 +3106,7 @@
       "budget": 15500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3399,7 +3136,7 @@
       "budget": 16000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "tag-selector",
@@ -3414,13 +3151,11 @@
       "status": "beta",
       "domain": "forms",
       "adoption": null,
-      "importers": {
-        "yomizaka": 1
-      },
+      "importers": {},
       "nativeUse": {
         "akinaza": 1
       },
-      "live": 2,
+      "live": 1,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -3433,10 +3168,10 @@
       "budget": 35000,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "2 live importer file(s)"
+      "why": "1 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -3462,11 +3197,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 13065,
+      "sizeGzip": 12621,
       "budget": 18000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -3502,7 +3237,7 @@
       "budget": 5500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "9 live importer file(s)"
@@ -3519,20 +3254,18 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "native"
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 10770,
+      "sizeGzip": 10668,
       "budget": 7100,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "built on by native"
@@ -3552,10 +3285,8 @@
       },
       "nativeUse": {},
       "live": 3,
-      "paused": 2,
-      "pausedBy": [
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "retro-tv"
       ],
@@ -3565,7 +3296,7 @@
       "budget": 15500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -3591,7 +3322,7 @@
       "budget": 6500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-28",
       "verdict": "ask",
       "why": "unused, new (2026-10-28): its adoption issue?"
@@ -3617,11 +3348,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 16235,
-      "budget": 20000,
+      "sizeGzip": 13872,
+      "budget": 22000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3651,7 +3382,7 @@
       "budget": 6000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-26",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3681,7 +3412,7 @@
       "budget": 2000,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-26",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3713,7 +3444,7 @@
       "budget": 9000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "5 live importer file(s)"
@@ -3739,7 +3470,7 @@
       "budget": 3800,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -3765,38 +3496,10 @@
       "budget": 2400,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
-    },
-    {
-      "pkg": "ui",
-      "name": "audio-player",
-      "kind": "entry",
-      "title": "Audio player",
-      "category": "media",
-      "status": "beta",
-      "domain": "media",
-      "adoption": null,
-      "importers": {},
-      "nativeUse": {},
-      "live": 0,
-      "paused": 2,
-      "pausedBy": [
-        "yasakia"
-      ],
-      "builtOnBy": [],
-      "issue": null,
-      "mergeInto": null,
-      "sizeGzip": 5046,
-      "budget": 2800,
-      "tests": 1,
-      "stories": 1,
-      "lastChange": "2026-10-26",
-      "created": "2026-10-11",
-      "verdict": "leave-core",
-      "why": "used only by paused products (yasakia)"
     },
     {
       "pkg": "ui",
@@ -3819,7 +3522,7 @@
       "budget": 12800,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -3848,7 +3551,7 @@
       "budget": 5000,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-15",
       "verdict": "keep",
       "why": "7 live importer file(s)"
@@ -3878,7 +3581,7 @@
       "budget": 8000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "12 live importer file(s)"
@@ -3903,12 +3606,8 @@
         "akinaza": 1
       },
       "live": 18,
-      "paused": 12,
-      "pausedBy": [
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "shop"
       ],
@@ -3918,39 +3617,10 @@
       "budget": 1000,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "18 live importer file(s)"
-    },
-    {
-      "pkg": "ui",
-      "name": "meta-row",
-      "kind": "entry",
-      "title": "Meta row",
-      "category": "data-display",
-      "status": "beta",
-      "domain": "data-display",
-      "adoption": null,
-      "importers": {},
-      "nativeUse": {},
-      "live": 0,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "kachizaka"
-      ],
-      "builtOnBy": [],
-      "issue": null,
-      "mergeInto": null,
-      "sizeGzip": 608,
-      "budget": 1000,
-      "tests": 1,
-      "stories": 2,
-      "lastChange": "2026-10-17",
-      "created": "2026-10-17",
-      "verdict": "leave-core",
-      "why": "used only by paused products (orochia, kachizaka)"
     },
     {
       "pkg": "ui",
@@ -3964,10 +3634,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "app-frame",
         "native"
@@ -3978,7 +3646,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by app-frame, native"
@@ -4009,7 +3677,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4039,7 +3707,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-17",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4067,7 +3735,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by shop"
@@ -4095,7 +3763,7 @@
       "budget": 4000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -4125,7 +3793,7 @@
       "budget": 3500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4153,7 +3821,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by shop"
@@ -4181,7 +3849,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by shop"
@@ -4211,7 +3879,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4228,10 +3896,8 @@
       "importers": {},
       "nativeUse": {},
       "live": 0,
-      "paused": 2,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "app-frame"
       ],
@@ -4241,7 +3907,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by app-frame"
@@ -4260,11 +3926,8 @@
       },
       "nativeUse": {},
       "live": 1,
-      "paused": 2,
-      "pausedBy": [
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "native"
       ],
@@ -4274,7 +3937,7 @@
       "budget": 2500,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4302,7 +3965,7 @@
       "budget": 2500,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "merge",
       "into": "list",
@@ -4329,7 +3992,7 @@
       "budget": 3000,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -4345,7 +4008,7 @@
       "adoption": null,
       "importers": {
         "yomizaka": 8,
-        "akinaza": 7,
+        "akinaza": 8,
         "orazaka-web-client": 2,
         "krizaka-com": 11,
         "blog": 7,
@@ -4355,14 +4018,9 @@
         "cockpit": 10
       },
       "nativeUse": {},
-      "live": 52,
-      "paused": 19,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "live": 53,
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "argument-card",
         "catalogue-page",
@@ -4373,7 +4031,6 @@
         "docs-article-page",
         "docs-hub-page",
         "gallery-page",
-        "how-it-works-page",
         "landing-page",
         "legal-page",
         "longform-page",
@@ -4390,10 +4047,10 @@
       "budget": 1600,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "47 live importer file(s)"
+      "why": "48 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -4415,12 +4072,8 @@
       },
       "nativeUse": {},
       "live": 30,
-      "paused": 6,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "catalogue-page",
         "changelog-page",
@@ -4429,7 +4082,6 @@
         "docs-hub-page",
         "docs-nav",
         "gallery-page",
-        "how-it-works-page",
         "legal-page",
         "longform-page",
         "pricing-page",
@@ -4443,7 +4095,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "27 live importer file(s)"
@@ -4470,12 +4122,8 @@
       },
       "nativeUse": {},
       "live": 14,
-      "paused": 5,
-      "pausedBy": [
-        "orochia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "product-page"
       ],
@@ -4485,7 +4133,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "13 live importer file(s)"
@@ -4511,7 +4159,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "card-grid",
@@ -4538,12 +4186,8 @@
       },
       "nativeUse": {},
       "live": 11,
-      "paused": 5,
-      "pausedBy": [
-        "orochia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "argument-card",
         "card-grid"
@@ -4554,7 +4198,7 @@
       "budget": 1250,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "10 live importer file(s)"
@@ -4586,7 +4230,7 @@
       "budget": 1400,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -4606,12 +4250,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 3,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "docs-hub-page",
         "product-page"
@@ -4622,7 +4262,7 @@
       "budget": 6100,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -4641,11 +4281,8 @@
       },
       "nativeUse": {},
       "live": 1,
-      "paused": 2,
-      "pausedBy": [
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "product-page"
       ],
@@ -4655,7 +4292,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4687,7 +4324,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-20",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -4713,7 +4350,7 @@
       "budget": 6300,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-20",
       "verdict": "ask",
       "why": "unused, Cahier register (sites)"
@@ -4745,7 +4382,7 @@
       "budget": 600,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-23",
+      "lastChange": "2026-10-29",
       "created": "2026-10-23",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -4771,7 +4408,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
       "verdict": "ask",
       "why": "unused, Cahier register (sites)"
@@ -4797,7 +4434,7 @@
       "budget": 19400,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
       "verdict": "ask",
       "why": "unused, Cahier register (sites)"
@@ -4825,7 +4462,7 @@
       "budget": 7000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4849,11 +4486,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 23022,
+      "sizeGzip": 20171,
       "budget": 18000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4875,11 +4512,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 1901,
+      "sizeGzip": 1866,
       "budget": 1400,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-22",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -4907,7 +4544,7 @@
       "budget": 10500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-21",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -4933,7 +4570,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-20",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -4961,7 +4598,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-20",
       "verdict": "ask",
       "why": "used only by the motion lab"
@@ -4989,7 +4626,7 @@
       "budget": 1800,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-24",
+      "lastChange": "2026-10-29",
       "created": "2026-10-24",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -5019,7 +4656,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-20",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -5049,7 +4686,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -5069,16 +4706,16 @@
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "www#373",
+      "issue": null,
       "mergeInto": null,
       "sizeGzip": 2112,
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
-      "verdict": "keep",
-      "why": "filed need www#373"
+      "verdict": "ask",
+      "why": "unused, Cahier register (sites)"
     },
     {
       "pkg": "ui",
@@ -5101,7 +4738,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-25",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -5141,7 +4778,7 @@
       "budget": 20300,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "13 live importer file(s)"
@@ -5161,10 +4798,8 @@
       },
       "nativeUse": {},
       "live": 3,
-      "paused": 1,
-      "pausedBy": [
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -5172,7 +4807,7 @@
       "budget": 1400,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -5200,7 +4835,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-24",
+      "lastChange": "2026-10-29",
       "created": "2026-10-24",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -5228,7 +4863,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-24",
+      "lastChange": "2026-10-29",
       "created": "2026-10-24",
       "verdict": "merge",
       "into": "glossary-term",
@@ -5248,14 +4883,10 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 2,
-      "pausedBy": [
-        "orochia",
-        "yasakia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "gallery-page",
-        "how-it-works-page",
         "landing-page",
         "product-page",
         "shop"
@@ -5266,7 +4897,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -5298,7 +4929,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -5318,13 +4949,8 @@
       },
       "nativeUse": {},
       "live": 4,
-      "paused": 5,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "desktop-window"
       ],
@@ -5334,7 +4960,7 @@
       "budget": 18000,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -5354,11 +4980,8 @@
       },
       "nativeUse": {},
       "live": 3,
-      "paused": 8,
-      "pausedBy": [
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -5366,7 +4989,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -5386,20 +5009,18 @@
       },
       "nativeUse": {},
       "live": 3,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "app-frame"
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 5701,
+      "sizeGzip": 5604,
       "budget": 4200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -5425,7 +5046,7 @@
       "budget": 10500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-28",
       "verdict": "ask",
       "why": "unused, new (2026-10-28): its adoption issue?"
@@ -5446,11 +5067,8 @@
       },
       "nativeUse": {},
       "live": 25,
-      "paused": 4,
-      "pausedBy": [
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "account-settings",
         "kind-config-editor"
@@ -5461,7 +5079,7 @@
       "budget": 6000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "25 live importer file(s)"
@@ -5482,13 +5100,8 @@
       },
       "nativeUse": {},
       "live": 8,
-      "paused": 12,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -5496,7 +5109,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "8 live importer file(s)"
@@ -5516,11 +5129,8 @@
       },
       "nativeUse": {},
       "live": 5,
-      "paused": 2,
-      "pausedBy": [
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [
         "component-page"
       ],
@@ -5530,7 +5140,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "5 live importer file(s)"
@@ -5558,7 +5168,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -5584,7 +5194,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "landing-page",
@@ -5613,7 +5223,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "built on by docs-article-page"
@@ -5633,10 +5243,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -5644,7 +5252,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -5670,7 +5278,7 @@
       "budget": 1200,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "step-showcase",
@@ -5690,10 +5298,8 @@
       },
       "nativeUse": {},
       "live": 1,
-      "paused": 1,
-      "pausedBy": [
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": "account-settings",
@@ -5701,7 +5307,7 @@
       "budget": 2200,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "account-settings",
@@ -5730,7 +5336,7 @@
       "budget": 1700,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "built on by detail-layout"
@@ -5758,7 +5364,7 @@
       "budget": 1000,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -5784,7 +5390,7 @@
       "budget": 1000,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "meter",
@@ -5811,7 +5417,7 @@
       "budget": 4000,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -5839,7 +5445,7 @@
       "budget": 1200,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "ask",
       "why": "used only by the motion lab"
@@ -5865,7 +5471,7 @@
       "budget": 1000,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -5891,7 +5497,7 @@
       "budget": 8000,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -5914,12 +5520,8 @@
       },
       "nativeUse": {},
       "live": 6,
-      "paused": 6,
-      "pausedBy": [
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -5927,7 +5529,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "6 live importer file(s)"
@@ -5953,39 +5555,11 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "merge",
       "into": "landing-page",
       "why": "ADR-006 merge (#675), or deprecated in favour of another entry"
-    },
-    {
-      "pkg": "ui",
-      "name": "how-it-works-page",
-      "kind": "entry",
-      "title": "How-it-works page",
-      "category": "templates",
-      "status": "beta",
-      "domain": "page-blocks",
-      "adoption": null,
-      "importers": {},
-      "nativeUse": {},
-      "live": 0,
-      "paused": 1,
-      "pausedBy": [
-        "yasakia"
-      ],
-      "builtOnBy": [],
-      "issue": null,
-      "mergeInto": null,
-      "sizeGzip": 985,
-      "budget": 1500,
-      "tests": 1,
-      "stories": 1,
-      "lastChange": "2026-10-25",
-      "created": "2026-10-12",
-      "verdict": "leave-core",
-      "why": "used only by paused products (yasakia)"
     },
     {
       "pkg": "ui",
@@ -6008,7 +5582,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "merge",
       "into": "catalogue-page",
@@ -6029,10 +5603,8 @@
       },
       "nativeUse": {},
       "live": 2,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6040,7 +5612,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-20",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -6061,10 +5633,8 @@
       },
       "nativeUse": {},
       "live": 3,
-      "paused": 1,
-      "pausedBy": [
-        "orochia"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6072,7 +5642,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -6098,7 +5668,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "merge",
       "into": "docs-article-page",
@@ -6127,7 +5697,7 @@
       "budget": 2500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6153,7 +5723,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "merge",
       "into": "docs-article-page",
@@ -6175,13 +5745,8 @@
       },
       "nativeUse": {},
       "live": 8,
-      "paused": 12,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6189,7 +5754,7 @@
       "budget": 2700,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "8 live importer file(s)"
@@ -6215,7 +5780,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -6243,7 +5808,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6269,7 +5834,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -6292,11 +5857,8 @@
       },
       "nativeUse": {},
       "live": 5,
-      "paused": 2,
-      "pausedBy": [
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6304,7 +5866,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "5 live importer file(s)"
@@ -6334,7 +5896,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -6354,19 +5916,16 @@
       },
       "nativeUse": {},
       "live": 5,
-      "paused": 4,
-      "pausedBy": [
-        "yasakia",
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 6288,
+      "sizeGzip": 6188,
       "budget": 7600,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6392,7 +5951,7 @@
       "budget": 3000,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -6414,11 +5973,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 10101,
+      "sizeGzip": 10000,
       "budget": 20000,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -6443,11 +6002,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 4594,
+      "sizeGzip": 4613,
       "budget": 13700,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -6475,7 +6034,7 @@
       "budget": 1000,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-10-21",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "merge",
       "into": "stepper",
@@ -6507,67 +6066,10 @@
       "budget": 1000,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "1 live importer file(s)"
-    },
-    {
-      "pkg": "ui",
-      "name": "media-grid",
-      "kind": "entry",
-      "title": "Media grid",
-      "category": "media",
-      "status": "beta",
-      "domain": "media",
-      "adoption": null,
-      "importers": {},
-      "nativeUse": {},
-      "live": 0,
-      "paused": 4,
-      "pausedBy": [
-        "orochia"
-      ],
-      "builtOnBy": [],
-      "issue": null,
-      "mergeInto": null,
-      "sizeGzip": 14545,
-      "budget": 9100,
-      "tests": 3,
-      "stories": 1,
-      "lastChange": "2026-10-26",
-      "created": "2026-10-15",
-      "verdict": "leave-core",
-      "why": "used only by paused products (orochia)"
-    },
-    {
-      "pkg": "ui",
-      "name": "photo-grid",
-      "kind": "entry",
-      "title": "Photo grid",
-      "category": "media",
-      "status": "beta",
-      "domain": "media",
-      "adoption": null,
-      "importers": {},
-      "nativeUse": {},
-      "live": 0,
-      "paused": 1,
-      "pausedBy": [
-        "yasakia"
-      ],
-      "builtOnBy": [],
-      "issue": null,
-      "mergeInto": "media-grid",
-      "sizeGzip": 3233,
-      "budget": 2500,
-      "tests": 0,
-      "stories": 2,
-      "lastChange": "2026-10-25",
-      "created": "2026-10-13",
-      "verdict": "merge",
-      "into": "media-grid",
-      "why": "ADR-006 merge (#675), or deprecated in favour of another entry"
     },
     {
       "pkg": "ui",
@@ -6592,7 +6094,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "ask",
       "why": "used only by the motion lab"
@@ -6620,13 +6122,8 @@
       },
       "nativeUse": {},
       "live": 15,
-      "paused": 9,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6634,7 +6131,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "14 live importer file(s)"
@@ -6658,10 +6155,8 @@
       },
       "nativeUse": {},
       "live": 6,
-      "paused": 1,
-      "pausedBy": [
-        "yororis"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6697,13 +6192,8 @@
       },
       "nativeUse": {},
       "live": 15,
-      "paused": 7,
-      "pausedBy": [
-        "orochia",
-        "yasakia",
-        "yororis",
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -6733,18 +6223,16 @@
       },
       "nativeUse": {},
       "live": 42,
-      "paused": 2,
-      "pausedBy": [
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 100676,
+      "sizeGzip": 96808,
       "budget": 75000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "42 live importer file(s)"
@@ -6770,7 +6258,7 @@
       "budget": 6000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -6790,16 +6278,16 @@
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "orochia-mobile#88",
+      "issue": null,
       "mergeInto": null,
       "sizeGzip": 1033,
       "budget": 2000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "filed need orochia-mobile#88"
+      "why": "a filed need (its repository left the organisation)"
     },
     {
       "pkg": "ui",
@@ -6822,7 +6310,7 @@
       "budget": 2500,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -6848,7 +6336,7 @@
       "budget": 2500,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -6877,7 +6365,7 @@
       "budget": 2000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -6897,16 +6385,16 @@
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "orochia-mobile#37",
+      "issue": null,
       "mergeInto": null,
       "sizeGzip": 8458,
       "budget": 23000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "filed need orochia-mobile#37"
+      "why": "a filed need (its repository left the organisation)"
     },
     {
       "pkg": "ui",
@@ -6925,11 +6413,11 @@
       "builtOnBy": [],
       "issue": "akinaza#235",
       "mergeInto": null,
-      "sizeGzip": 8205,
+      "sizeGzip": 7805,
       "budget": 13500,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "filed need akinaza#235"
@@ -6955,7 +6443,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -6981,7 +6469,7 @@
       "budget": 3500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-16",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -7007,7 +6495,7 @@
       "budget": 3500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-16",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -7033,7 +6521,7 @@
       "budget": 3500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-16",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -7064,7 +6552,7 @@
       "budget": 4300,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "11 live importer file(s)"
@@ -7094,7 +6582,7 @@
       "budget": 1600,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7124,7 +6612,7 @@
       "budget": 3000,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7154,7 +6642,7 @@
       "budget": 2400,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -7184,7 +6672,7 @@
       "budget": 2500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7212,7 +6700,7 @@
       "budget": 3300,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "built on by shop-composer"
@@ -7242,7 +6730,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -7272,7 +6760,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7302,7 +6790,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7332,7 +6820,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7362,7 +6850,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7392,7 +6880,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7422,7 +6910,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7452,7 +6940,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7482,7 +6970,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7510,7 +6998,7 @@
       "budget": 2600,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "built on by shop-composer"
@@ -7538,7 +7026,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "built on by shop-composer"
@@ -7568,7 +7056,7 @@
       "budget": 2300,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "7 live importer file(s)"
@@ -7594,7 +7082,7 @@
       "budget": 1300,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "ask",
       "why": "unused, new (2026-10-27): its adoption issue?"
@@ -7620,7 +7108,7 @@
       "budget": 3500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "ask",
       "why": "unused, new (2026-10-27): its adoption issue?"
@@ -7648,7 +7136,7 @@
       "budget": 25500,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7676,7 +7164,7 @@
       "budget": 4000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7705,10 +7193,10 @@
       "budget": 4000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
-      "verdict": "ask",
-      "why": "unused, new (2026-10-27): its adoption issue?"
+      "verdict": "keep",
+      "why": "built on by price-catalogue-editor"
     },
     {
       "pkg": "ui",
@@ -7719,9 +7207,11 @@
       "status": "experimental",
       "domain": "commerce",
       "adoption": "orazaka#417",
-      "importers": {},
+      "importers": {
+        "yomizaka": 1
+      },
       "nativeUse": {},
-      "live": 0,
+      "live": 1,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -7731,10 +7221,10 @@
       "budget": 7000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-28",
+      "lastChange": "2026-10-29",
       "created": "2026-10-28",
-      "verdict": "ask",
-      "why": "unused, new (2026-10-28): its adoption issue?"
+      "verdict": "keep",
+      "why": "1 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -7757,7 +7247,7 @@
       "budget": 4250,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "ask",
       "why": "unused, new (2026-10-27): its adoption issue?"
@@ -7783,7 +7273,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -7809,7 +7299,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -7835,7 +7325,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "ask",
       "why": "unused, new (2026-10-27): its adoption issue?"
@@ -7863,7 +7353,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7892,7 +7382,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "6 live importer file(s)"
@@ -7918,7 +7408,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -7946,7 +7436,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7972,7 +7462,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -7998,7 +7488,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -8024,7 +7514,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -8050,7 +7540,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-25",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -8076,7 +7566,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -8097,10 +7587,8 @@
       },
       "nativeUse": {},
       "live": 17,
-      "paused": 1,
-      "pausedBy": [
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -8108,7 +7596,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "17 live importer file(s)"
@@ -8137,7 +7625,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -8163,7 +7651,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -8189,7 +7677,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-27",
+      "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "ask",
       "why": "unused, new (2026-10-27): its adoption issue?"
@@ -8215,7 +7703,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -8244,7 +7732,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-26",
+      "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -8264,10 +7752,8 @@
       },
       "nativeUse": {},
       "live": 21,
-      "paused": 1,
-      "pausedBy": [
-        "kachizaka"
-      ],
+      "paused": 0,
+      "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
@@ -8275,66 +7761,11 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-16",
+      "lastChange": "2026-10-29",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "21 live importer file(s)"
     }
   ],
-  "motion": [
-    {
-      "pkg": "motion",
-      "name": ".",
-      "exports": [
-        "* ./core",
-        "* ./react",
-        "* ./native/ReactNativeAdapters"
-      ],
-      "importers": {},
-      "live": 0,
-      "private": true
-    },
-    {
-      "pkg": "motion",
-      "name": "react",
-      "exports": [
-        "* ./OrazakaEngineFlow",
-        "* ./YororisPresenceOrb",
-        "* ./JarvisHUD",
-        "* ./LiquidCausticsView",
-        "* ./NeuralLatticeView"
-      ],
-      "importers": {},
-      "live": 0,
-      "private": true
-    },
-    {
-      "pkg": "motion",
-      "name": "core",
-      "exports": [
-        "* ./types",
-        "* ./color-palettes",
-        "* ./motion-controller",
-        "* ./spring-physics",
-        "* ./orazaka-engine",
-        "* ./yororis-synthesis",
-        "* ./jarvis-hud",
-        "* ./liquid-caustics",
-        "* ./neural-lattice",
-        "* ./router",
-        "* ./view-transition"
-      ],
-      "importers": {},
-      "live": 0,
-      "private": true
-    },
-    {
-      "pkg": "motion",
-      "name": "native",
-      "exports": [],
-      "importers": {},
-      "live": 0,
-      "private": true
-    }
-  ]
+  "motion": []
 }

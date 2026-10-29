@@ -60,10 +60,10 @@ describe("ThemeToggle", () => {
 describe("useTheme", () => {
   it("sets a named theme as html.theme-<name>, and replaces it", () => {
     const { result } = renderHook(() => useTheme(), { wrapper: ThemeProvider });
-    act(() => result.current.setTheme("orochia"));
-    expect(document.documentElement.classList.contains("theme-orochia")).toBe(true);
+    act(() => result.current.setTheme("yomizaka"));
+    expect(document.documentElement.classList.contains("theme-yomizaka")).toBe(true);
     act(() => result.current.setTheme(null));
-    expect(document.documentElement.classList.contains("theme-orochia")).toBe(false);
+    expect(document.documentElement.classList.contains("theme-yomizaka")).toBe(false);
     expect(localStorage.getItem("kz-theme-name")).toBeNull();
   });
 

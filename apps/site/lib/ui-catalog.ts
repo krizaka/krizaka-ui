@@ -35,7 +35,7 @@ export interface CatalogEntry {
 
 /** Categories whose examples are whole pages, maps, charts or media: they load once the page has settled. */
 const HEAVY_CATEGORIES = new Set(["charts", "media", "templates", "layouts"]);
-const HEAVY_NAMES = new Set(["map", "video-player", "audio-player", "terminal-replay", "scroll-stage", "iso", "landscape"]);
+const HEAVY_NAMES = new Set(["map", "video-player", "terminal-replay", "scroll-stage", "landscape"]);
 
 /** A PNG's size from its header, so a screenshot reserves its space. */
 function pngSize(file: string): { width: number; height: number } {
@@ -95,7 +95,7 @@ export const FAMILY_COVERS: Record<string, { component: string; example?: string
   "navigation-shell": { component: "nav-bar", example: "site" },
   feedback: { component: "alert", example: "warning", scale: 0.7 },
   maps: { component: "map", example: "places" },
-  media: { component: "media-grid", example: "uniform" },
+  media: { component: "video-player", example: "default" },
   "page-blocks": { component: "cta-panel", example: "discuss" },
 };
 

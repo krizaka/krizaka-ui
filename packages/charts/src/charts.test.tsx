@@ -103,7 +103,6 @@ describe("theme and locale", () => {
   it("ships the palettes in light-dark() for every brand and guards every entrance with reduced motion", () => {
     expect(CSS).toContain("[data-kzc]{--kzc-1:light-dark(#2a78d6,#3987e5)");
     expect(CSS).toContain("[data-kzc][data-brand=orazaka]{--kzc-1:light-dark(#eb6834,#d95926)");
-    expect(CSS).toContain(":where(.brand-orochia) [data-kzc]{--kzc-1:light-dark(#6250d6,#9085e9)");
     const motion = CSS.slice(CSS.indexOf("@media (prefers-reduced-motion:no-preference)"));
     expect(CSS.slice(0, CSS.indexOf("@media (prefers-reduced-motion:no-preference)"))).not.toMatch(/animation:kzc-/);
     expect(motion).toContain("kzc-draw");

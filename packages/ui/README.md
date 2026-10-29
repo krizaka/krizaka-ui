@@ -9,7 +9,7 @@
 
 **The Krizaka front-end platform's components, shared by every product.**
 The primitives (button, badge, avatar, field, theme, countdown…) on the semantic `--kz-*` tokens, the animated marks
-of Krizaka, Orazaka, Yomizaka and Akinaza (the paused products' marks — Orochia, Yasakia, Yororis, Kachizaka — still ship, deprecated until the next major), and the Krizaka motion signature — one easing, one way to enter, reveal, roll, shine
+of Krizaka, Orazaka, Yomizaka and Akinaza, and the Krizaka motion signature — one easing, one way to enter, reveal, roll, shine
 and open.
 
 [![npm](https://img.shields.io/npm/v/@krizaka/ui?color=196df5&label=npm)](https://www.npmjs.com/package/@krizaka/ui)
@@ -154,7 +154,6 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/chip` | `Chip` (`selected`/`defaultSelected` + `onSelectedChange`, `size` sm·md; `removable` + `removeLabel` + `onRemove`), `Chip.Group` (`type` single·multiple, `label`, `required` for single), `chip` (the slots) | client |
 | `@krizaka/ui/chip-link` | `ChipLink` (a filter that is a link: `selected`, `current`, `size`, `asChild`), `chipVariants` (`size`, `selected`) | server |
 | `@krizaka/ui/chip-row` | `ChipRow`, `ChipRow.Item` (a scroll-snap row of chip links, wraps from `md`: `selected`, `badge`, `asChild`) | client (arrow keys) |
-| `@krizaka/ui/meta-row` | `MetaRow` (`items`, `chips`, `size` sm·md): one quiet line of dot-separated facts with status chips at its end; a real list, dots hidden from assistive technology; `/native` has the same | server |
 | `@krizaka/ui/switch` | `Switch` (`checked`/`defaultChecked` + `onCheckedChange`, `label` unless a visible label names it, `size` sm·md, `invalid`), `switchVariants` | client |
 | `@krizaka/ui/slider` | `Slider` (`value`: a number or a `[min, max]` range, `onValueChange`, `onValueCommit`, `label`, `thumbLabels`, `formatValue` → aria-valuetext, `showLabel`, `origin`), `slider` (the slots) | client |
 | `@krizaka/ui/checkbox` | `Checkbox` (`checked` true·false·"indeterminate" + `onCheckedChange`, `invalid`, its words as children) — sits in a `Field` | client |
@@ -177,10 +176,8 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/landscape` | `Landscape` (`tone` own · brand, `flock`, `phoenix`, `animated`, `position`, `fade`): the Krizaka valley at dusk, decorative | client |
 | `@krizaka/ui/glow-card` | `GlowCard` (`glow` border·spotlight·both, `alive`, `asChild`) | client |
 | `@krizaka/ui/engine-flow` | `EngineFlow` (`label`, `hub`, `nodes` with `flow` in·out·both, `planned`, `status`, `description`, `href`; `layout` radial·top-to-bottom·left-to-right, `compactLayout` under 560 px, `particles`, `conduit` bezier·straight, `hint`, `speed`): an engine and the apps it serves, photons along SVG conduits (motion.css), no animation frame | client |
-| `@krizaka/ui/marquee` | `Marquee` (`label`, `pauseLabel`, `playLabel`, `speed` px/s, `direction`, `fade`, `defaultPaused`) | client |
 | `@krizaka/ui/section-backdrop` | `SectionBackdrop` (`as`, `direction` down·up, `dome`, `grid`, `media` blurred for depth of field, `animated`): a page section on the brand's section gradient — see `@krizaka/tokens` BRAND.md, "Visual language" | server |
 | `@krizaka/ui/mascots` | `Mascot` (`bird` falcon·owl·duck·flamingo·pigeon·lovebird·crane, `mood` welcome·thinking·success·empty·error, `tone` brand·own, `size`, `animated`, `title`), `MASCOT_BIRDS`, `MASCOT_MOODS`: the Krizaka flock, in the host brand's accent — one bird at a moment that matters (onboarding, a long wait, a success, an empty list, an error); native `Mascot` in `/native` | client |
-| `@krizaka/ui/iso` | the isometric kit: `IsoHub` (a hero driven by data: `layers`, `dome`, `satellites`, `highlight`), `IsoScene`, `IsoPrism`, `IsoStack`, `IsoDome`, `IsoTile`, `IsoLink`, `IsoNode`, `IsoLabel`, the projection helpers — static SVG animated by motion.css | server |
 | `@krizaka/ui/motion` | `MotionObserver` (reveal, off-screen pause, settle, spotlight, magnetism) `RotatingWord` (no layout shift), `PageTransition` (wrap the root layout's children once: the page cross-fades through React's ViewTransition, instant under reduced motion) and the view-transition helpers | client |
 | `@krizaka/ui/pagination` | `Pagination` (pages: `page`, `pageCount`, `onPageChange` or `getHref` for links; cursor: `hasPrevious`/`hasNext`, `onPrevious`/`onNext`; `status`, `pageSize` + `pageSizeOptions`, `siblings`, `boundaries`, `labels`; folds into "Page 3 of 12" in a narrow container), `pageRange` | server |
 | `@krizaka/ui/data-table` | **v2, on TanStack Table v9** (never imported by a product): `DataTable` (`rows`, `columns` with `header`, `cell`, `value`, `sortable`, `filter` text·facet·range + `options`, `groupable` + `aggregate`, `align`, `width`, `card`, `hideable`; `caption`, `sort`, `filters`, `selected` + `selectable`, `groupBy`, `columnVisibility`, `expanded` + `renderDetail` / `getSubRows`, `page` + `pageSize` / `pageSizeOptions`, each controlled or `default*`; `pinning`, `resizing`, `manual` sorting·filtering·pagination + `rowCount` + `onStateChange` (server mode), `virtualized`, `loading`, `empty`, `error`, `layout` auto·table·cards, `density`, `toolbar`, `footer`, `labels`), the toolbar `DataTableFilters` · `DataTableColumnsMenu` · `DataTableExport`, `useDataTable()` (the TanStack instance), `dataTableCsv` | client |
@@ -196,7 +193,6 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/file-upload` | `Dropzone` (`accept`, `maxSize`, `maxFiles`, refusals with reasons), `UploadList` (preview, progress, speed, pause/resume/retry/cancel), `useUploadQueue` (`upload(file, { signal, onProgress, resumed })`: Tus-ready without depending on it; `retries`, `backoff`, `shouldRetry` — a queue of `@krizaka/pacer`), `acceptsFile`, `formatBytes` | client |
 | `@krizaka/ui/media-capture` | `MediaCapture` (`mode` photo·video·both, `facing`, `maxDuration`, permission asked on a gesture, the file picker as the way out, `onCapture({ blob, kind, url })`) | client |
 | `@krizaka/ui/video-trimmer` | `VideoTrimmer` (`duration`, `value` [start, end], `minLength`, `step`/`largeStep`, `frames` or children, `time` + `onSeek`, `classNames` per part, `renderHandle`) | client |
-| `@krizaka/ui/audio-player` | `AudioPlayer` (a seekable waveform: `peaks` or `computePeaks`, `bars`, `playbackRates`, `duration`), `resamplePeaks`, `computeAudioPeaks` | client |
 | `@krizaka/ui/waveform` | `Waveform` (`peaks`, `bars`, `size` sm·md·lg, `tone` accent·neutral, `playing`, `label`): the bars of a sound, decorative by default (`aria-hidden`), breathing gently while it plays, still under reduced motion and off screen; `/native` has the same | client |
 | `@krizaka/ui/qr-code` | `QrCode` (`value`, `label`, `size`, `quietZone`, `level` L·M·Q·H, `copyLabel` / `copiedLabel` / `onCopy`) and the pure `encodeQr` / `qrPath`: a QR code drawn offline, dark modules on a light tile in both themes, an image named by `label`; `/native` has the same (`onCopy` receives the text) | client |
 | `@krizaka/ui/entity-header` | `EntityHeader` (`name` / `onNameChange`, `description` / `onDescriptionChange`, `avatar`, `avatarPicker`, `tags`, `refusal` + `refusals` by `OrganizeCode`, `actions`): the head of a collection, shop or studio, edited in place; `/native` has the same (`onAvatarPress`) | client |
@@ -238,7 +234,6 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/docs-nav` | `DocsNav` (`label`, `groups`, `current`) | server |
 | `@krizaka/ui/landing-page` | `LandingPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/product-page` | `ProductPage` — a page template, see [Page templates](#page-templates) | server |
-| `@krizaka/ui/how-it-works-page` | `HowItWorksPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/gallery-page` | `GalleryPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/docs-hub-page` | `DocsHubPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/docs-article-page` | `DocsArticlePage` — a page template, see [Page templates](#page-templates) | server |
@@ -310,8 +305,7 @@ import { LinkCard } from "@krizaka/ui/link-card";
 
 Fifteen templates, each a **distinct composition** of the blocks — not the same card grid everywhere: `LandingPage`
 (split hero with the product alive, a band of proofs, a bento), `ProductPage` (split hero in the product's brand,
-compact argument cards, decisions, the bird's promise), `HowItWorksPage` (a numbered timeline, the visuals
-alternating), `GalleryPage` (filters, staggered columns of media), `DocsHubPage` (search first, the collections in
+compact argument cards, decisions, the bird's promise), `GalleryPage` (filters, staggered columns of media), `DocsHubPage` (search first, the collections in
 their brand with quick links, quick starts, most read, what is new), `DocsArticlePage` (pages · article · contents,
 pager), `ComponentPage` (preview, install, sections, related), `CataloguePage` (sticky filters beside the results),
 `LongformPage` (chapters with outlined numbers, pull quotes in the margin), `ChangelogPage` (a sticky date beside each
@@ -430,7 +424,7 @@ const { theme, scheme, mode, setMode, radius } = useTheme(); // theme.surface1, 
 | `Segmented` | `options` (`value`, `label`, `disabled`), `value`, `onValueChange`, `size` | The web `Tabs variant="segmented"` (a tab list). To filter, `Chip.Group`. |
 | `Progress` | `variant` bar·ring, `size`, `value`/`max`, `label`, `valueText`, a ring's centre as children | The fill is the `accent` → `accent2` gradient (react-native-svg); it animates to each new value. |
 | `Toaster`, `toast` | `toast(title, { description, tone, icon, action, onPress, id, duration, onDismiss })`, `toast.success/warning/error/info`, `toast.dismiss(id?)`; `Toaster closeLabel position offset duration max` | No sonner: a light queue of its own. `offset` takes the safe-area inset (no safe-area dependency). |
-| `KrizakaMark`, `OrazakaMark`, `YomizakaMark`, `AkinazaMark`, `ProductMark` (`id`) — `OrochiaMark`, `YasakiaMark`, `YororisMark`, `KachizakaMark` deprecated (paused products) | `size`, `animated`, `title`, `neutral` (default `theme.textMuted`) | The brand marks, drawn with react-native-svg from the web marks' geometry. |
+| `KrizakaMark`, `OrazakaMark`, `YomizakaMark`, `AkinazaMark`, `ProductMark` (`id`) | `size`, `animated`, `title`, `neutral` (default `theme.textMuted`) | The brand marks, drawn with react-native-svg from the web marks' geometry. |
 
 Every animation (skeleton, badge dot, urgent countdown, progress, toast entrance, the marks) stops when the system
 asks to reduce motion (`useReducedMotion()`). Accessibility goes through `role` and `aria-*` (RN ≥ 0.71): headings,
@@ -493,7 +487,7 @@ import { MotionObserver, RotatingWord } from "@krizaka/ui";
 | `kz-page` | A page entering (put it on a route wrapper) |
 | `data-reveal` (+ `--kz-delay`) | Rises into place when it enters the viewport (`MotionObserver`) |
 | `RotatingWord` / `kz-word` | A word that rolls through alternatives |
-| `kz-gradient-text`, `kz-marquee` | Drifting gradient text, endless bands |
+| `kz-gradient-text` | Drifting gradient text |
 | `kz-flow` | EngineFlow's conduits and photons: paused off screen, held while settling, still under reduced motion |
 | `kz-overlay`, `kz-dialog`, `kz-pop`, `kz-fade` | Backdrops, dialogs (from the bottom on phones), menus, views swapped in place |
 | `kz-progress` | The indeterminate progress bar's travelling segment |

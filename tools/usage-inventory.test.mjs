@@ -4,7 +4,7 @@ import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { CONSUMERS, PAUSED, budgets, checkBudgets, checkInventory, closureSize, decideAll, domainBudgets, domainOf, entryOf, gitHead, locate, lowerBudgets, parseImports, restoredScan, parseLimit, readMeta, readPriorAudit, verdict, walk } from "./usage-inventory.mjs";
+import { CONSUMERS, PAUSED, carryFacts, pinnedHeads, rederive, readDecisions, budgets, checkBudgets, checkInventory, closureSize, decideAll, domainBudgets, domainOf, entryOf, gitHead, locate, lowerBudgets, parseImports, restoredScan, toMarkdown, parseLimit, readMeta, readPriorAudit, verdict, walk } from "./usage-inventory.mjs";
 
 test("parseImports finds every @krizaka/ui and @krizaka/motion specifier, and the names taken from the barrels", () => {
   const src = [
@@ -86,7 +86,7 @@ test("verdict: use keeps, a merge or a deprecation wins, paused-only leaves the 
   assert.equal(verdict(row({ importers: { yomizaka: 2 }, live: 2 }), { today }).verdict, "keep");
   assert.equal(verdict(row({ importers: { yomizaka: 2 }, live: 2, mergeInto: "chip" }), { today }).verdict, "merge");
   assert.equal(verdict(row({ status: "deprecated" }), { today }).verdict, "retire");
-  assert.equal(verdict(row({ paused: 3, pausedBy: ["orochia"] }), { today }).verdict, "leave-core");
+  assert.equal(verdict(row({ paused: 3, pausedBy: ["a-product"] }), { today }).verdict, "leave-core");
   assert.equal(verdict(row({ issue: "akinaza#260" }), { today }).verdict, "keep");
   assert.equal(verdict(row({ created: "2026-10-25" }), { today }).verdict, "ask");
   assert.equal(verdict(row({ domain: "cahier" }), { today }).verdict, "ask");
@@ -119,13 +119,40 @@ test("walk skips dependencies and build output", () => {
   assert.deepEqual(walk(dir).map((f) => f.slice(dir.length)), ["/src/a.tsx"]);
 });
 
-test("locate: a fixed local folder, else the index clone, else the inventory's cache, with the site's sub-folder", () => {
-  const index = mkdtempSync(join(tmpdir(), "inv-index-"));
+test("locate: a fixed local folder, else the inventory's own cache (never the codegraph index, which sits on any commit), with the site's sub-folder", () => {
   const cache = mkdtempSync(join(tmpdir(), "inv-cache-"));
-  mkdirSync(join(index, "akinaza"));
-  assert.equal(locate({ local: "/fixed" }, [index, cache]), "/fixed");
-  assert.equal(locate({ repo: "akinaza" }, [index, cache]), join(index, "akinaza"));
-  assert.equal(locate({ repo: "krizaka-ts", sub: "site" }, [index, cache]), join(cache, "krizaka-ts", "site"));
+  assert.equal(locate({ local: "/fixed" }, [cache]), "/fixed");
+  assert.equal(locate({ repo: "krizaka-ts", sub: "site" }, [cache]), join(cache, "krizaka-ts", "site"));
+  assert.doesNotMatch(locate({ repo: "akinaza" }), /krizaka-index/);
+});
+
+test("pinnedHeads: the commit each consumer had in the committed inventory is the one the next run reads", () => {
+  const prior = { consumers: [{ name: "akinaza", sha: "a".repeat(40) }, { name: "blog", sha: null }, { name: "krizaka-com", sha: "b".repeat(40) }] };
+  const list = [{ name: "akinaza", repo: "akinaza" }, { name: "blog", repo: "krizaka-blog" }, { name: "ui-site", local: "/x" }];
+  assert.deepEqual(pinnedHeads(list, prior), { akinaza: "a".repeat(40) });
+  assert.deepEqual(pinnedHeads(list, null), {}, "no committed inventory: nothing pinned, the clone takes main");
+});
+
+test("carryFacts: what this checkout cannot measure (no dist, shallow history) is carried from the committed row, never zeroed", () => {
+  const row = { name: "button", sizeGzip: null, lastChange: "2026-10-29", created: "2026-10-29" };
+  const was = { name: "button", sizeGzip: 1200, lastChange: "2026-09-01", created: "2026-01-02" };
+  assert.deepEqual(carryFacts(row, was, { hasDist: false, shallow: true }), { name: "button", sizeGzip: 1200, lastChange: "2026-09-01", created: "2026-01-02" });
+  assert.deepEqual(carryFacts({ ...row, sizeGzip: 900 }, was, { hasDist: true, shallow: false }), { ...row, sizeGzip: 900 });
+  assert.deepEqual(carryFacts(row, undefined, { hasDist: false, shallow: true }), row, "a new entry has nothing to carry");
+});
+
+test("rederive: the committed inventory is regenerated from its own facts, and a hand edit of a verdict, a reason or the markdown is caught", () => {
+  const entry = (name, importers, extra = {}) => ({ pkg: "ui", name, kind: "entry", title: null, category: null, status: "stable", domain: "forms", adoption: null, importers, nativeUse: {}, live: Object.values(importers).reduce((a, b) => a + b, 0), paused: 0, pausedBy: [], builtOnBy: [], issue: null, mergeInto: null, sizeGzip: 100, budget: 200, tests: 1, stories: 1, lastChange: "2026-10-01", created: "2026-01-01", ...extra });
+  const base = { generated: "2026-10-28", package: { name: "@krizaka/ui", version: "1", distMeasured: null }, consumers: [], paused: [], motion: [] };
+  const entries = decideAll([entry("button", { akinaza: 4 }), entry("gone", {})], { today: base.generated });
+  const inventory = { ...base, entries };
+  const markdown = toMarkdown(inventory);
+  assert.deepEqual(rederive({ inventory, markdown }), []);
+  const edited = { ...inventory, entries: entries.map((e) => (e.name === "gone" ? { ...e, verdict: "keep", why: "hand edit" } : e)) };
+  assert.match(rederive({ inventory: edited, markdown: toMarkdown(edited) }).join("\n"), /gone: verdict `keep`.*regenerated `retire`/);
+  assert.match(rederive({ inventory, markdown: markdown.replace("button", "buttons") }).join("\n"), /ui-usage\.md is not what the json renders/);
+  const moved = { ...inventory, entries: entries.map((e) => (e.name === "button" ? { ...e, live: 99 } : e)) };
+  assert.match(rederive({ inventory: moved, markdown: toMarkdown(moved) }).join("\n"), /button: live importers 99.*4/);
 });
 
 test("gitHead reads the commit from .git without running git (loose ref, packed ref, detached)", () => {
@@ -229,4 +256,20 @@ test("the weekly workflow scopes its read token to the consumers it clones (zizm
   const scoped = new Set(yml.match(/repositories: \|-\n((?: {12}[\w-]+\n)+)/)?.[1].split("\n").map((l) => l.trim()).filter(Boolean));
   const wanted = [...CONSUMERS, ...PAUSED].filter((c) => c.repo).map((c) => c.repo);
   assert.deepEqual(wanted.filter((r) => !scoped.has(r)), []);
+});
+
+test("a decision (docs/inventory/decisions.json) sets the verdict of an unused entry; a live importer wins over it", () => {
+  const base = { name: "marquee", status: "stable", importers: {}, nativeUse: {}, pausedBy: [], paused: 0, live: 0, builtOnBy: [], issue: null, mergeInto: null, created: "2026-01-01", domain: "page-blocks" };
+  const decisions = new Map([["marquee", { verdict: "leave-core", why: "leaves for the lab" }]]);
+  assert.deepEqual(verdict(base, { decisions, today: "2026-10-29" }), { verdict: "leave-core", why: "leaves for the lab" });
+  assert.equal(verdict({ ...base, importers: { akinaza: 2 }, live: 2 }, { decisions, today: "2026-10-29" }).verdict, "keep");
+  assert.equal(verdict(base, { today: "2026-10-29" }).verdict, "retire", "without the decision the data alone says retire");
+});
+
+test("the committed inventory is exactly what its own facts regenerate (no hand edit), and the weekly run moves the pins", () => {
+  const read = (f) => readFileSync(new URL(`../${f}`, import.meta.url), "utf8");
+  const inventory = JSON.parse(read("docs/inventory/ui-usage.json"));
+  assert.deepEqual(rederive({ inventory, markdown: read("docs/inventory/ui-usage.md"), decisions: readDecisions() }), []);
+  assert.match(read(".github/workflows/usage-inventory.yml"), /usage-inventory\.mjs --latest --keep-local/);
+  assert.match(read(".github/workflows/usage-inventory.yml"), /fetch-depth: 0/);
 });

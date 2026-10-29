@@ -28,7 +28,7 @@ npm install @krizaka/tokens
 | `@krizaka/tokens/tokens.css` | Web (imported once, usually through `@krizaka/tailwind`) | The `--kz-*` custom properties. |
 | `@krizaka/tokens` | TS / JS on the web (canvas, charts, e-mails, inline styles) | `tokens` (`var(--kz-…)` references, camelCase keys), `values.dark` / `values.light` (raw CSS, aliases resolved), `TokenName`. |
 | `@krizaka/tokens/native` | React Native / Expo | `themes.dark` / `themes.light` (hex, `rgba()` when translucent), `radius` (dp), `typography`, `motion.ease`, type `Theme`; `brands.<id>` (ThemeProvider overrides); `marks.<id>` (the mark's emblem gradient, `[offset, #rrggbb]` stops). |
-| `@krizaka/tokens/brands/<id>.css` | A product app (`krizaka`, `orazaka`, `yomizaka`, `akinaza`; `orochia`, `yasakia`, `yororis`, `kachizaka` deprecated — paused products), after the tokens | The brand's accent family and section gradient, dark and light. |
+| `@krizaka/tokens/brands/<id>.css` | A product app (`krizaka`, `orazaka`, `yomizaka`, `akinaza`), after the tokens | The brand's accent family and section gradient, dark and light. |
 | `@krizaka/tokens/brands/scoped.css` | A page showing several brands | `.brand-krizaka`, `.brand-orazaka`, `.brand-yomizaka`, `.brand-akinaza` (the paused products' scopes still ship, deprecated). |
 
 **Brands:** one colour per brand, its marks, icons and page language are in [`BRAND.md`](./BRAND.md).

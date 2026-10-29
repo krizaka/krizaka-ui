@@ -1,0 +1,8 @@
+{
+  "note": "krizaka-ui#837 (founder 2026-10-29): Krizaka UI stays light to import. A ratchet: lower it when the numbers drop, never raise it. node tools/devx-check.mjs",
+  "typicalPage": {
+    "entries": ["button", "card", "badge", "field", "dialog", "tabs", "data-table", "nav-bar", "page-header", "theme"],
+    "gzipBytes": 77000
+  },
+  "typecheck": { "seconds": 10 }
+}

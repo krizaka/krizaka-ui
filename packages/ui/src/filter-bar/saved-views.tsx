@@ -123,15 +123,12 @@ function NameForm({
 }) {
   const [name, setName] = React.useState(initial);
   const clean = name.replace(/\s+/g, " ").trim();
-  const submit = () => {
-    if (clean) onSubmit(clean);
-  };
   return (
     <form
       className="flex flex-wrap items-center gap-2"
       onSubmit={(event) => {
         event.preventDefault();
-        submit();
+        if (clean) onSubmit(clean);
       }}
     >
       <input
@@ -168,7 +165,7 @@ const Count = ({ n }: { n?: number }) =>
   );
 
 /** The current id when it is one of these items, otherwise nothing selected. */
-const selectedIn = (items: readonly SavedViewItem[], current: string | null | undefined) => (items.some((v) => v.id === current) ? (current ?? "") : "");
+const selectedIn = (items: readonly SavedViewItem[], current: string | null | undefined) => (items.some((v) => v.id === current) ? String(current) : "");
 
 /** The name form of a save (new view) or of a rename, whichever is open; nothing when neither is. */
 function ActiveForm({
@@ -245,6 +242,64 @@ function ViewActions({ active, labels, onRename, onDelete }: { active: SavedView
   );
 }
 
+type GroupProps = {
+  items: readonly SavedViewItem[];
+  current: string | null | undefined;
+  Link: React.ElementType;
+  onSelect: ((id: string) => void) | undefined;
+};
+
+/** One group on a wide screen: links when the views have an address, a single-choice chip group otherwise. */
+function GroupChips({ label, items, current, Link, onSelect }: GroupProps & { label: string }) {
+  if (items.some((v) => v.href)) {
+    return (
+      <nav aria-label={label} className="flex flex-wrap items-center gap-2">
+        {items.map((view) => (
+          <ChipLink key={view.id} asChild size="sm" selected={view.id === current}>
+            <Link href={view.href ?? "#"} onClick={() => onSelect?.(view.id)}>
+              {view.label}
+              <Count n={view.count} />
+            </Link>
+          </ChipLink>
+        ))}
+      </nav>
+    );
+  }
+  return (
+    <Chip.Group type="single" size="sm" label={label} value={selectedIn(items, current)} onValueChange={(id) => id && onSelect?.(id)}>
+      {items.map((view) => (
+        <Chip key={view.id} value={view.id}>
+          {view.label}
+          <Count n={view.count} />
+        </Chip>
+      ))}
+    </Chip.Group>
+  );
+}
+
+/** One group in the phone menu: a link per view with an address, a radio item otherwise. */
+function GroupMenuItems({ items, current, Link, onSelect }: GroupProps) {
+  return (
+    <MenuPrimitive.RadioGroup value={selectedIn(items, current)}>
+      {items.map((view) =>
+        view.href ? (
+          <DropdownMenu.Item key={view.id} asChild>
+            <Link href={view.href} aria-current={view.id === current ? "page" : undefined} onClick={() => onSelect?.(view.id)}>
+              {view.label}
+              <Count n={view.count} />
+            </Link>
+          </DropdownMenu.Item>
+        ) : (
+          <DropdownMenu.RadioItem key={view.id} value={view.id} onSelect={() => onSelect?.(view.id)}>
+            {view.label}
+            <Count n={view.count} />
+          </DropdownMenu.RadioItem>
+        ),
+      )}
+    </MenuPrimitive.RadioGroup>
+  );
+}
+
 /** The views of a list: chips with counts on a wide screen, one menu on a phone; save, rename and delete; the mark of a modified view. */
 export function SavedViews({ views, current, modified, onSelect, onSave, onRename, onDelete, linkAs, maxLength = 80, labels: given, className }: SavedViewsProps) {
   const labels: SavedViewsLabels = { ...savedViewsLabels, ...given, groups: { ...savedViewsLabels.groups, ...given?.groups } };
@@ -252,27 +307,23 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
   const [renaming, setRenaming] = React.useState<string | null>(null);
   const Link = (linkAs ?? "a") as React.ElementType;
   const active = views.find((v) => v.id === current);
-  const editable = (view: SavedViewItem | undefined) => Boolean(view && (view.editable ?? view.group === "mine"));
-  const canChange = editable(active);
-  const showSave = Boolean(onSave && modified);
+  const own = (active?.editable ?? active?.group === "mine") ? active : undefined;
   const grouped = GROUPS.map((group) => ({ group, items: views.filter((v) => v.group === group) })).filter((g) => g.items.length > 0);
   const renamed = views.find((v) => v.id === renaming);
-
-  const form = (
-    <ActiveForm saving={saving} renamed={renamed} labels={labels} maxLength={maxLength} onSave={onSave} onRename={onRename} setSaving={setSaving} setRenaming={setRenaming} />
-  );
-
-  const actions =
-    canChange && active && (onRename || onDelete) ? (
-      <ViewActions active={active} labels={labels} onRename={onRename ? () => setRenaming(active.id) : undefined} onDelete={onDelete ? () => onDelete(active.id) : undefined} />
-    ) : null;
-
-  const mark = modified && active ? <span className="text-xs font-semibold text-fg-secondary">({labels.modified})</span> : null;
+  const showSave = onSave && modified;
+  const startRename = own && onRename && (() => setRenaming(own.id));
+  const startDelete = own && onDelete && (() => onDelete(own.id));
+  const actions = own && (startRename || startDelete) ? <ViewActions active={own} labels={labels} onRename={startRename} onDelete={startDelete} /> : null;
   const saveButton = showSave && !saving ? (
     <button type="button" onClick={() => setSaving(true)} className={quiet}>
       {labels.save}
     </button>
   ) : null;
+  const mark = modified && active ? <span className="text-xs font-semibold text-fg-secondary">({labels.modified})</span> : null;
+
+  const form = (
+    <ActiveForm saving={saving} renamed={renamed} labels={labels} maxLength={maxLength} onSave={onSave} onRename={onRename} setSaving={setSaving} setRenaming={setRenaming} />
+  );
 
   return (
     <div className={cn("flex flex-col gap-2", className)}>
@@ -281,33 +332,7 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
         {grouped.map(({ group, items }, index) => (
           <React.Fragment key={group}>
             {index > 0 ? <span aria-hidden className="h-5 w-px bg-border-default" /> : null}
-            {items.some((v) => v.href) ? (
-              <nav aria-label={labels.groups[group]} className="flex flex-wrap items-center gap-2">
-                {items.map((view) => (
-                  <ChipLink key={view.id} asChild size="sm" selected={view.id === current}>
-                    <Link href={view.href ?? "#"} onClick={() => onSelect?.(view.id)}>
-                      {view.label}
-                      <Count n={view.count} />
-                    </Link>
-                  </ChipLink>
-                ))}
-              </nav>
-            ) : (
-              <Chip.Group
-                type="single"
-                size="sm"
-                label={labels.groups[group]}
-                value={selectedIn(items, current)}
-                onValueChange={(id) => id && onSelect?.(id)}
-              >
-                {items.map((view) => (
-                  <Chip key={view.id} value={view.id}>
-                    {view.label}
-                    <Count n={view.count} />
-                  </Chip>
-                ))}
-              </Chip.Group>
-            )}
+            <GroupChips label={labels.groups[group]} items={items} current={current} Link={Link} onSelect={onSelect} />
           </React.Fragment>
         ))}
         {mark}
@@ -328,30 +353,14 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
               <React.Fragment key={group}>
                 {index > 0 ? <DropdownMenu.Separator /> : null}
                 <DropdownMenu.Label>{labels.groups[group]}</DropdownMenu.Label>
-                <MenuPrimitive.RadioGroup value={selectedIn(items, current)}>
-                  {items.map((view) =>
-                    view.href ? (
-                      <DropdownMenu.Item key={view.id} asChild>
-                        <Link href={view.href} aria-current={view.id === current ? "page" : undefined} onClick={() => onSelect?.(view.id)}>
-                          {view.label}
-                          <Count n={view.count} />
-                        </Link>
-                      </DropdownMenu.Item>
-                    ) : (
-                      <DropdownMenu.RadioItem key={view.id} value={view.id} onSelect={() => onSelect?.(view.id)}>
-                        {view.label}
-                        <Count n={view.count} />
-                      </DropdownMenu.RadioItem>
-                    ),
-                  )}
-                </MenuPrimitive.RadioGroup>
+                <GroupMenuItems items={items} current={current} Link={Link} onSelect={onSelect} />
               </React.Fragment>
             ))}
-            {(showSave || (canChange && (onRename || onDelete))) && <DropdownMenu.Separator />}
+            {showSave || startRename || startDelete ? <DropdownMenu.Separator /> : null}
             {showSave ? <DropdownMenu.Item onSelect={() => setSaving(true)}>{labels.save}</DropdownMenu.Item> : null}
-            {canChange && active && onRename ? <DropdownMenu.Item onSelect={() => setRenaming(active.id)}>{labels.rename}</DropdownMenu.Item> : null}
-            {canChange && active && onDelete ? (
-              <DropdownMenu.Item tone="danger" onSelect={() => onDelete(active.id)}>
+            {startRename ? <DropdownMenu.Item onSelect={startRename}>{labels.rename}</DropdownMenu.Item> : null}
+            {startDelete ? (
+              <DropdownMenu.Item tone="danger" onSelect={startDelete}>
                 {labels.remove}
               </DropdownMenu.Item>
             ) : null}

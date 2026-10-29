@@ -90,38 +90,44 @@ function published(dependencies) {
   );
 }
 
+/** One import of a primitive's source: a file of its own, another primitive (registry dependency) or an npm package. */
+function scanSpecifier(specifier, file, { name, versions, files, dependencies, registryDependencies, queue }) {
+  if (specifier.startsWith(".")) {
+    const target = resolveImport(file, specifier);
+    const owner = ownerOf(target);
+    if (owner === name) return;
+    if (owner) registryDependencies.add(owner);
+    else if (!files.has(target)) {
+      files.add(target);
+      queue.push(target);
+    }
+    return;
+  }
+  if (/^@krizaka\/ui\/[a-z-]+(\/[a-z-]+)?$/.test(specifier)) {
+    // A page template imports the blocks through the package's own entries (their client boundary stays): a
+    // registry dependency, not an npm one.
+    // A nested entry (`@krizaka/ui/shop/map-gate`) belongs to the primitive of its first segment.
+    const entry = specifier.slice("@krizaka/ui/".length).split("/")[0];
+    if (entry !== name && entry !== "cn") registryDependencies.add(entry);
+    return;
+  }
+  const pkg = packageName(specifier);
+  if (PEERS.has(pkg)) return;
+  if (!versions[pkg]) throw new Error(`${posix(relative(PKG, file))}: "${pkg}" is not a dependency of @krizaka/ui`);
+  dependencies.add(`${pkg}@${versions[pkg]}`);
+}
+
 function collectSources(name, versions) {
   const own = name === "cn" ? [entryOf("cn")] : readdirSync(join(SRC, name), { recursive: true }).map((f) => join(SRC, name, f)).filter(isSource);
   const files = new Set(own);
   const dependencies = new Set();
   const registryDependencies = new Set();
   const queue = [...own];
+  const scan = { name, versions, files, dependencies, registryDependencies, queue };
   while (queue.length > 0) {
     const file = queue.shift();
     const source = readFileSync(file, "utf8");
-    for (const [, specifier] of source.matchAll(/(?:from|import)\s+"([^"]+)"/g)) {
-      if (specifier.startsWith(".")) {
-        const target = resolveImport(file, specifier);
-        const owner = ownerOf(target);
-        if (owner === name) continue;
-        if (owner) registryDependencies.add(owner);
-        else if (!files.has(target)) {
-          files.add(target);
-          queue.push(target);
-        }
-      } else if (/^@krizaka\/ui\/[a-z-]+(\/[a-z-]+)?$/.test(specifier)) {
-        // A page template imports the blocks through the package's own entries (their client boundary stays): a
-        // registry dependency, not an npm one.
-        // A nested entry (`@krizaka/ui/shop/map-gate`) belongs to the primitive of its first segment.
-        const entry = specifier.slice("@krizaka/ui/".length).split("/")[0];
-        if (entry !== name && entry !== "cn") registryDependencies.add(entry);
-      } else {
-        const pkg = packageName(specifier);
-        if (PEERS.has(pkg)) continue;
-        if (!versions[pkg]) throw new Error(`${posix(relative(PKG, file))}: "${pkg}" is not a dependency of @krizaka/ui`);
-        dependencies.add(`${pkg}@${versions[pkg]}`);
-      }
-    }
+    for (const [, specifier] of source.matchAll(/(?:from|import)\s+"([^"]+)"/g)) scanSpecifier(specifier, file, scan);
   }
   return {
     files: [...files].sort((a, b) => a.localeCompare(b)).map((file) => ({ path: posix(relative(SRC, file)), content: readFileSync(file, "utf8") })),

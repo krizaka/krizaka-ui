@@ -5,16 +5,19 @@
 // the domain ADR-008 gives it; then a proposed verdict (keep · merge · retire · leave-core · ask) from the data.
 // Read-only: it reads checkouts, prints nothing of a consumer but the counts of its imports of @krizaka/*.
 //
-//   node tools/usage-inventory.mjs           # writes docs/inventory/ui-usage.{json,md}
-//   node tools/usage-inventory.mjs --check   # no checkout: the registry against the committed inventory (CI)
+//   node tools/usage-inventory.mjs           # regenerates docs/inventory/ui-usage.{json,md} PINNED: the consumers at the commits
+//                                            # the committed inventory records, its date, its sizes: same inputs, same output
+//   node tools/usage-inventory.mjs --latest  # moves the pins: consumers at their main, today's date (the weekly workflow)
+//   node tools/usage-inventory.mjs --check   # no checkout: the registry against the committed inventory, and the inventory
+//                                            # regenerated from its own facts (a hand edit fails) (CI)
 //   node tools/usage-inventory.mjs --budgets [--update]   # the per-domain size ratchet (packages/ui/size-budgets.json)
-//   node tools/usage-inventory.mjs --clone --keep-local   # CI: also keeps the local-only consumer (the cockpit) from the committed file, and refuses a partial result
-//   node tools/usage-inventory.mjs --clone   # first shallow-clones the public consumers it cannot find (CI, a new machine)
+//   node tools/usage-inventory.mjs --latest --keep-local   # CI: also keeps the local-only consumer (the cockpit) from the committed file, and refuses a partial result
 //
-// No path comes from the command line. Each consumer is read from the codegraph index (~/.krizaka-index/<repo>), else
-// from the inventory's own clone cache (~/.cache/krizaka-inventory/<repo>, filled by --clone); a consumer found in
-// neither is recorded as `absent`. Sizes are measured from packages/ui/dist (`pnpm --filter @krizaka/ui build`, or the
-// published tarball's dist unpacked there).
+// No path comes from the command line. Each consumer is read from the inventory's own clone cache
+// (~/.cache/krizaka-inventory/<repo>), fetched at the exact commit the committed inventory records (or at main with
+// --latest): never from the codegraph index, which sits on any branch and moves every 30 minutes. A consumer found nowhere
+// is recorded as `absent`. Sizes are measured from packages/ui/dist (`pnpm --filter @krizaka/ui build`, or the published
+// tarball's dist unpacked there); without a dist, or in a shallow checkout, the committed sizes and dates are carried over.
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
@@ -25,7 +28,6 @@ import { gzipSync } from "node:zlib";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const HOME = homedir();
-const INDEX = join(HOME, ".krizaka-index");
 const CACHE = join(HOME, ".cache/krizaka-inventory");
 /** git at a fixed path: no lookup through PATH. */
 const GIT = "/usr/bin/git";
@@ -40,27 +42,45 @@ export const CONSUMERS = [
   { name: "ui-site", kind: "site", local: join(ROOT, "apps/site") },
   { name: "java-site", kind: "site", repo: "krizaka-build", sub: "site" },
   { name: "ts-site", kind: "site", repo: "krizaka-ts", sub: "site" },
-  { name: "motion-lab", kind: "site", repo: "krizaka-motion" },
+  { name: "motion-lab", kind: "site", repo: "krizaka-lab" },
   // private, on the founder's machine only: read for import names, never cloned
   { name: "cockpit", kind: "tool", local: join(HOME, "Documents/krizaka/tools/cockpit-next") },
 ];
-const PAUSED_NAMES = new Set(["orochia", "yasakia", "yororis", "kachizaka"]);
-/** Paused products (Orochia, Yasakia, Yororis, Kachizaka): counted apart, they keep nothing in the core. */
+/** Products that left the organisation (2026-10-29): none is read any more. */
+const PAUSED_NAMES = new Set([]);
+/** No paused product is counted apart any more. */
 export const PAUSED = [...PAUSED_NAMES].map((name) => ({ name, kind: "paused", repo: name }));
 
-/** Where a consumer is read from: its fixed local folder, else the index clone, else the inventory's own clone. */
-export function locate(c, roots = [INDEX, CACHE]) {
+/** Where a consumer is read from: its fixed local folder, else the inventory's own clone (never the codegraph index: any branch, any hour). */
+export function locate(c, roots = [CACHE]) {
   if (c.local) return c.local;
-  const found = roots.map((r) => join(r, c.repo)).find((p) => existsSync(p)) ?? join(roots.at(-1), c.repo);
+  const found = join(roots[0], c.repo);
   return c.sub ? join(found, c.sub) : found;
 }
 
-/** Shallow-clones (main) the public consumers found nowhere, into the inventory's cache. Fixed names, fixed URLs. */
-function cloneMissing(list) {
+/** The commit (full sha) each remote consumer had in the committed inventory: the pin the next run reads. */
+export function pinnedHeads(list, prior) {
+  const shas = new Map((prior?.consumers ?? []).filter((c) => c.sha).map((c) => [c.name, c.sha]));
+  return Object.fromEntries(list.filter((c) => c.repo && shas.has(c.name)).map((c) => [c.name, shas.get(c.name)]));
+}
+
+const git = (cwd, ...args) => execFileSync(GIT, args, { cwd, stdio: ["ignore", "ignore", "inherit"] });
+
+/** Puts each remote consumer in the inventory's cache at its pinned commit (main when not pinned, or with --latest). Fixed names, fixed URLs. */
+function cloneAt(list, pins) {
   mkdirSync(CACHE, { recursive: true });
   for (const c of list) {
-    if (c.local || [INDEX, CACHE].some((r) => existsSync(join(r, c.repo)))) continue;
-    execFileSync(GIT, ["clone", "--quiet", "--depth", "1", `https://github.com/krizaka/${c.repo}.git`, join(CACHE, c.repo)], { stdio: ["ignore", "ignore", "inherit"] });
+    if (c.local) continue;
+    const dir = join(CACHE, c.repo);
+    const want = pins[c.name] ?? "main";
+    if (!existsSync(join(dir, ".git"))) {
+      mkdirSync(dir, { recursive: true });
+      git(dir, "init", "--quiet");
+      git(dir, "remote", "add", "origin", `https://github.com/krizaka/${c.repo}.git`);
+    }
+    if (want.length === 40 && gitHead(dir, 40) === want) continue;
+    git(dir, "fetch", "--quiet", "--depth", "1", "origin", want);
+    git(dir, "checkout", "--quiet", "--force", "FETCH_HEAD");
   }
 }
 /** Consumers whose use alone does not keep an entry: the motion lab only shows things off. */
@@ -101,18 +121,18 @@ const CATEGORY_DOMAIN = {
 };
 const DOMAIN_OVERRIDES = {
   foundations: [".", "cn", "slot", "theme", "recipes", "sites", "motion", "motion.css", "tailwind.css", "router", "text-style",
-    "card", "badge", "chip", "chip-link", "chip-row", "kbd", "separator", "skeleton", "spinner", "loader", "skip-link", "iso", "mascots", "marks", "native:txt"],
+    "card", "badge", "chip", "chip-link", "chip-row", "kbd", "separator", "skeleton", "spinner", "loader", "skip-link", "mascots", "marks", "native:txt"],
   forms: ["native/form"],
   "data-display": ["native/list"],
   "navigation-shell": ["native", "nav-bar", "language-switch", "language-switch/server", "site-footer", "page-header"],
   feedback: ["confirm-button"],
   maps: ["map", "native/map"],
-  media: ["waveform", "retro-tv", "photo-grid", "native/vertical-video", "native/video-player", "native/media-capture", "native/media-picker"],
+  media: ["waveform", "retro-tv", "native/vertical-video", "native/video-player", "native/media-capture", "native/media-picker"],
   commerce: ["money-input", "price-catalogue-editor", "promo-code-field", "shop", "shop-composer", "shop-gallery", "service-card", "slot-picker",
     "agenda", "opening-hours", "reviews", "pricing-page", "kind-config-editor", "usage", "quota-meter"],
   identity: ["avatar", "avatar/defaults", "profile-card", "account-menu", "account-settings", "verified-badge", "notification-preferences", "auth-layout", "captcha", "achievement"],
   conversation: ["chat", "genui", "proposal", "analysis-report", "markdown", "native/markdown", "engine-flow", "next-actions"],
-  "page-blocks": ["blocks.css", "story.css", "marketing-layout", "docs-layout", "docs-nav", "toc", "page-index", "section-backdrop", "glow-card", "number-ticker", "marquee"],
+  "page-blocks": ["blocks.css", "story.css", "marketing-layout", "docs-layout", "docs-nav", "toc", "page-index", "section-backdrop", "glow-card", "number-ticker"],
   cahier: ["site-cahier", "doodle", "taped-photo", "stuck", "footnote", "specimen-tag", "bird-plate", "anatomy-plate", "chapter", "margin-layout", "grade-stamp", "speed-lines", "versus-card", "flock", "mascot-quote", "signature", "elephant"],
 };
 const OVERRIDE = new Map(Object.entries(DOMAIN_OVERRIDES).flatMap(([d, names]) => names.map((n) => [n, d])));
@@ -216,6 +236,8 @@ export function readMeta(text) {
   };
 }
 
+const LIVE_REPOS = new Set([...CONSUMERS.map((c) => c.repo).filter(Boolean), "krizaka-ui", "orazaka-mobile-client"]);
+
 /** The decisions ADR-006 (appendix A) already took: `merge` rows (target) and the issues that keep an entry. */
 export function readPriorAudit(text) {
   const merges = new Map();
@@ -227,8 +249,9 @@ export function readPriorAudit(text) {
     if (!entry || !decided) continue;
     const reason = cells[5] ?? "";
     if (decided === "merge") merges.set(entry, /into ([\w-]+)/.exec(reason)?.[1] ?? null);
+    // Only an issue of a repository that is still in the organisation keeps an entry (the repositories that left are not read).
     const issue = /\b([\w-]+#\d+)/.exec(reason)?.[1];
-    if (issue) issues.set(entry, issue);
+    if (issue && LIVE_REPOS.has(issue.split("#")[0])) issues.set(entry, issue);
   }
   return { merges, issues };
 }
@@ -307,20 +330,20 @@ function history(dir) {
 }
 
 /** The short commit a checkout is on, read from its .git (no subprocess). */
-export function gitHead(path) {
+export function gitHead(path, length = 8) {
   let top = resolve(path);
   while (!existsSync(join(top, ".git")) && dirname(top) !== top) top = dirname(top);
   try {
     let gitDir = join(top, ".git");
     if (statSync(gitDir).isFile()) gitDir = resolve(top, readFileSync(gitDir, "utf8").replace("gitdir:", "").trim());
     const head = readFileSync(join(gitDir, "HEAD"), "utf8").trim();
-    if (!head.startsWith("ref: ")) return head.slice(0, 8);
+    if (!head.startsWith("ref: ")) return head.slice(0, length);
     const ref = head.slice(5);
     const common = existsSync(join(gitDir, "commondir")) ? resolve(gitDir, readFileSync(join(gitDir, "commondir"), "utf8").trim()) : gitDir;
     const loose = [join(gitDir, ref), join(common, ref)].find(existsSync);
-    if (loose) return readFileSync(loose, "utf8").trim().slice(0, 8);
+    if (loose) return readFileSync(loose, "utf8").trim().slice(0, length);
     const packed = readFileSync(join(common, "packed-refs"), "utf8").split("\n").find((l) => l.endsWith(` ${ref}`));
-    return packed ? packed.slice(0, 8) : null;
+    return packed ? packed.slice(0, length) : null;
   } catch {
     return null;
   }
@@ -348,11 +371,13 @@ function unusedVerdict(e, newDays, today) {
  * The proposed verdict of an entry, from its facts (ADR-008 §2), given the entries already kept (`kept`): « built on »
  * keeps an entry only when the entry built on it is itself kept (ADR-006 §7 rule c).
  */
-export function verdict(e, { kept = new Set(), usedSubs = new Set(), newDays = 10, today = new Date().toISOString().slice(0, 10) } = {}) {
+export function verdict(e, { kept = new Set(), usedSubs = new Set(), decisions = new Map(), newDays = 10, today = new Date().toISOString().slice(0, 10) } = {}) {
   if (e.mergeInto) return { verdict: "merge", into: e.mergeInto, why: "ADR-006 merge (#675), or deprecated in favour of another entry" };
   if (e.status === "deprecated") return { verdict: "retire", why: "already deprecated (#674), removed in 4.0" };
   const real = realUse(e);
   if (real > 0) return { verdict: "keep", why: `${real} live importer file(s)` };
+  const decided = decisions.get(e.name);
+  if (decided) return { verdict: decided.verdict, why: decided.why };
   const keptBy = e.builtOnBy.filter((d) => kept.has(d));
   if (keptBy.length) return { verdict: "keep", why: `built on by ${keptBy.slice(0, 3).join(", ")}${keptBy.length > 3 ? "…" : ""}` };
   if (e.issue) return { verdict: "keep", why: `filed need ${e.issue}` };
@@ -400,19 +425,21 @@ export function restoredScan(c, prior) {
   const entries = new Map();
   for (const e of prior.entries) if (e.importers?.[c.name] > 0) entries.set(`ui:${e.name}`, e.importers[c.name]);
   const was = prior.consumers.find((p) => p.name === c.name);
-  return { ...c, absent: was?.absent ?? false, head: was?.head ?? null, files: was?.files ?? 0, entries, names: new Map() };
+  return { ...c, absent: was?.absent ?? false, head: was?.head ?? null, sha: was?.sha ?? null, files: was?.files ?? 0, entries, names: new Map() };
 }
 
-function scanConsumer(c, keys, motionKeys, prior = null) {
+function scanConsumer(c, keys, motionKeys, prior = null, restoreLocal = false) {
   const scan = { ...c, absent: !existsSync(c.path), files: 0, entries: new Map(), names: new Map() };
-  if (scan.absent && prior && LOCAL_ONLY.has(c.name)) return restoredScan(c, prior);
+  if (prior && LOCAL_ONLY.has(c.name) && (scan.absent || restoreLocal)) return restoredScan(c, prior);
   if (scan.absent) return scan;
   const files = walk(c.path).filter((f) => !f.includes(join("registry", "examples")));
   for (const f of files) {
     const text = readFileSync(f, "utf8");
     if (text.includes("@krizaka/")) tally(text, keys, motionKeys, scan);
   }
-  return { ...scan, head: gitHead(c.path), files: files.length };
+  // This repository's own site (`local` inside it) has no pin: its commit is the one being committed.
+  const inRepo = c.local?.startsWith(ROOT);
+  return { ...scan, head: inRepo ? null : gitHead(c.path), sha: inRepo ? null : gitHead(c.path, 40), files: files.length };
 }
 
 const RELATIVE_IMPORT = /from ["']\.\.\/(?:\.\.\/)?([\w-]+)/g;
@@ -548,6 +575,34 @@ function motionRows(motionDir, motionPkg, scans) {
 
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
 
+/** The decisions the data cannot derive (docs/inventory/decisions.json): entry name to { verdict, why }. */
+export function readDecisions(root = ROOT) {
+  const file = join(root, "docs/inventory/decisions.json");
+  return new Map(Object.entries(existsSync(file) ? readJson(file).entries : {}));
+}
+
+/**
+ * What this checkout cannot measure is carried over from the committed row instead of being zeroed: the sizes without a
+ * built dist, the dates of the last change and of the first commit in a shallow clone. Otherwise two machines would
+ * write two inventories from the same inputs.
+ */
+export function carryFacts(row, was, { hasDist, shallow }) {
+  if (!was) return row;
+  return {
+    ...row,
+    ...(hasDist ? {} : { sizeGzip: was.sizeGzip ?? null }),
+    ...(shallow ? { lastChange: was.lastChange ?? null, created: was.created ?? null } : {}),
+  };
+}
+
+const isShallow = () => {
+  try {
+    return execFileSync(GIT, ["rev-parse", "--is-shallow-repository"], { cwd: ROOT, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim() === "true";
+  } catch {
+    return true;
+  }
+};
+
 export function buildInventory(opts) {
   const uiDir = join(ROOT, "packages/ui");
   const pkg = readJson(join(uiDir, "package.json"));
@@ -558,7 +613,7 @@ export function buildInventory(opts) {
   const dirs = readdirSync(srcDir).filter((d) => statSync(join(srcDir, d)).isDirectory());
   const adr006 = join(ROOT, "docs/adr/ADR-006-krizaka-ui-2027.md");
   const dist = join(uiDir, "dist");
-  const consumers = opts.consumers.map((c) => scanConsumer(c, keys, motionKeys, opts.prior));
+  const consumers = opts.consumers.map((c) => scanConsumer(c, keys, motionKeys, opts.prior, opts.restoreLocal));
   const paused = opts.paused.map((c) => scanConsumer(c, keys, motionKeys));
   const ctx = {
     srcDir,
@@ -575,14 +630,17 @@ export function buildInventory(opts) {
     deps: internalDeps(srcDir, dirs, [...keys].map((k) => k.slice(2))),
     storyFiles: [...walk(srcDir), ...walk(join(ROOT, "apps/storybook/src"))].filter((f) => f.includes(".stories.")),
   };
-  const today = opts.today ?? new Date().toISOString().slice(0, 10);
-  const head = (c) => ({ name: c.name, kind: c.kind, absent: c.absent, head: c.head ?? null, files: c.files });
+  const today = opts.today ?? opts.prior?.generated ?? new Date().toISOString().slice(0, 10);
+  const was = new Map((opts.prior?.entries ?? []).map((e) => [e.name, e]));
+  const shallow = isShallow();
+  const carried = (row) => carryFacts(row, was.get(row.name), { hasDist: ctx.hasDist, shallow });
+  const head = (c) => ({ name: c.name, kind: c.kind, absent: c.absent, head: c.head ?? null, sha: c.sha ?? null, files: c.files });
   return {
     generated: today,
-    package: { name: pkg.name, version: pkg.version, distMeasured: ctx.hasDist ? `packages/ui/dist (@krizaka/ui@${pkg.version})` : null },
+    package: { name: pkg.name, version: pkg.version, distMeasured: ctx.hasDist ? `packages/ui/dist (@krizaka/ui@${pkg.version})` : (opts.prior?.package?.distMeasured ?? null) },
     consumers: consumers.map(head),
     paused: paused.map(head),
-    entries: decideAll(collectRows(keys, srcDir).map((r) => describe(r, ctx)), { today }),
+    entries: decideAll(collectRows(keys, srcDir).map((r) => carried(describe(r, ctx))), { today, decisions: readDecisions() }),
     motion: motionRows(opts.motion, motionPkg, [...consumers, ...paused]),
   };
 }
@@ -684,6 +742,57 @@ export function checkInventory({ inventory, rows }) {
   return problems;
 }
 
+/**
+ * The inventory regenerated from its own facts (ADR-008 §8.2.2, « generated data is never hand-edited »): the verdicts,
+ * the reasons and the live counts are recomputed from the committed importers, status, budget and dates; the markdown is
+ * rendered again from the json. Any difference is a hand edit (or a generator change not regenerated).
+ */
+export function rederive({ inventory, markdown, decisions = new Map() }) {
+  const problems = [];
+  const bare = inventory.entries.map(({ verdict: _v, into: _i, why: _w, ...facts }) => facts);
+  const again = new Map(decideAll(bare, { today: inventory.generated, decisions }).map((e) => [e.name, e]));
+  for (const e of inventory.entries) {
+    const r = again.get(e.name);
+    if (e.verdict !== r.verdict || (e.into ?? null) !== (r.into ?? null) || e.why !== r.why) {
+      problems.push(`${e.name}: verdict \`${e.verdict}\` (${e.why}), regenerated \`${r.verdict}\` (${r.why}): never hand-edit docs/inventory, run \`pnpm inventory:usage\``);
+    }
+    const live = sum(Object.values(e.importers)) + sum(Object.entries(e.nativeUse ?? {}).filter(([n]) => !PAUSED_NAMES.has(n)).map(([, c]) => c));
+    if (e.live !== live) problems.push(`${e.name}: live importers ${e.live}, its own importers add up to ${live}: never hand-edit docs/inventory`);
+  }
+  if (markdown !== toMarkdown(inventory)) problems.push("docs/inventory/ui-usage.md is not what the json renders: never hand-edit it, run `pnpm inventory:usage`");
+  return problems;
+}
+
+const STATIC_FACTS = ["domain", "status", "category", "title", "adoption", "builtOnBy", "issue", "mergeInto", "budget", "tests", "stories"];
+
+/** The facts of the registry itself (no consumer, no dist, no git history), recomputed and compared with the committed rows. */
+function staticProblems(inventory) {
+  const uiDir = join(ROOT, "packages/ui");
+  const pkg = readJson(join(uiDir, "package.json"));
+  const keys = new Set(Object.keys(pkg.exports));
+  const srcDir = join(uiDir, "src");
+  const dirs = readdirSync(srcDir).filter((d) => statSync(join(srcDir, d)).isDirectory());
+  const adr006 = join(ROOT, "docs/adr/ADR-006-krizaka-ui-2027.md");
+  const none = { last: new Map(), first: new Map() };
+  const ctx = {
+    srcDir, dirs, consumers: [], paused: [], history: none, nativeHistory: none, dist: "", hasDist: false, cache: new Map(),
+    prior: existsSync(adr006) ? readPriorAudit(readFileSync(adr006, "utf8")) : { merges: new Map(), issues: new Map() },
+    budget: budgets(pkg["size-limit"]),
+    deps: internalDeps(srcDir, dirs, [...keys].map((k) => k.slice(2))),
+    storyFiles: [...walk(srcDir), ...walk(join(ROOT, "apps/storybook/src"))].filter((f) => f.includes(".stories.")),
+  };
+  const fresh = new Map(collectRows(keys, srcDir).map((r) => describe(r, ctx)).map((e) => [e.name, e]));
+  const problems = [];
+  for (const e of inventory.entries) {
+    const f = fresh.get(e.name);
+    if (!f) continue; // reported by checkInventory
+    for (const k of STATIC_FACTS) {
+      if (JSON.stringify(e[k] ?? null) !== JSON.stringify(f[k] ?? null)) problems.push(`${e.name}: \`${k}\` is ${JSON.stringify(e[k] ?? null)} in docs/inventory, ${JSON.stringify(f[k] ?? null)} in the package: never hand-edit it, run \`pnpm inventory:usage\``);
+    }
+  }
+  return problems;
+}
+
 /** The domain and adoption rules of one registry row against its inventory row (undefined when the row is new). */
 function rowProblems(r, row) {
   const { domain, adoption, status, title } = r.meta;
@@ -760,7 +869,8 @@ function check() {
   const pkg = readJson(join(ROOT, "packages/ui/package.json"));
   const rows = collectRows(new Set(Object.keys(pkg.exports)), join(ROOT, "packages/ui/src"));
   const inventory = readJson(join(ROOT, "docs/inventory/ui-usage.json"));
-  const problems = checkInventory({ inventory, rows });
+  const markdown = readFileSync(join(ROOT, "docs/inventory/ui-usage.md"), "utf8");
+  const problems = [...checkInventory({ inventory, rows }), ...rederive({ inventory, markdown, decisions: readDecisions() }), ...staticProblems(inventory)];
   if (problems.length) {
     const list = problems.map((p) => "  - " + p).join("\n");
     process.stderr.write(`usage inventory: ${problems.length} problem(s)\n${list}\n`);
@@ -770,15 +880,19 @@ function check() {
 }
 
 function main() {
-  const { values } = parseArgs({ options: { clone: { type: "boolean" }, "keep-local": { type: "boolean" }, check: { type: "boolean" }, budgets: { type: "boolean" }, update: { type: "boolean" } } });
+  const { values } = parseArgs({ options: { latest: { type: "boolean" }, "keep-local": { type: "boolean" }, check: { type: "boolean" }, budgets: { type: "boolean" }, update: { type: "boolean" } } });
   if (values.budgets) return budgetsCommand(values.update);
   if (values.check) return check();
-  if (values.clone) cloneMissing([...CONSUMERS, ...PAUSED]);
+  const committed = join(ROOT, "docs/inventory/ui-usage.json");
+  const prior = existsSync(committed) ? readJson(committed) : null;
+  // Pinned unless --latest: the consumers at the commits the inventory records, its date, its carried sizes.
+  cloneAt([...CONSUMERS, ...PAUSED], values.latest ? {} : pinnedHeads([...CONSUMERS, ...PAUSED], prior));
   const at = (c) => ({ ...c, path: locate(c) });
   const consumers = CONSUMERS.map(at);
-  const committed = join(ROOT, "docs/inventory/ui-usage.json");
   const inv = buildInventory({
-    prior: values["keep-local"] && existsSync(committed) ? readJson(committed) : null,
+    prior,
+    today: values.latest ? new Date().toISOString().slice(0, 10) : undefined,
+    restoreLocal: values["keep-local"] || !values.latest,
     consumers,
     paused: PAUSED.map(at),
     motion: consumers.find((c) => c.name === "motion-lab").path,
