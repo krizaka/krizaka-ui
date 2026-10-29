@@ -1,5 +1,18 @@
 # @krizaka/ui
 
+## 3.73.0
+
+### Minor Changes
+
+- [#843](https://github.com/krizaka/krizaka-ui/pull/843) [`94ccc8b`](https://github.com/krizaka/krizaka-ui/commit/94ccc8be8c16f90c89f4313eca0706f5374b842a) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Every registry entry now says what it is for and how far to trust it (krizaka-ui#838, ADR-008 slices 1). `meta.ts` gains `domain` (one of twelve: foundations, forms, data-display, navigation-shell, feedback, maps, media, commerce, identity, conversation, page-blocks, cahier) and the `experimental` status with its `adoption: "<repo>#<n>"` issue. Ten entries made for a filed need start as `experimental`: `proposal`, `schema-form`, `money-input`, `price-catalogue-editor`, `promo-code-field`, `shop-gallery`, `usage`, `desktop-window` and the native `form-flow` and `state-screen`. The registry JSON carries both fields, and ui.krizaka.com shows the new badge and filter. Nothing breaks: the entries stay flat (`@krizaka/ui/<name>`).
+
+### Patch Changes
+
+- [#836](https://github.com/krizaka/krizaka-ui/pull/836) [`6c72200`](https://github.com/krizaka/krizaka-ui/commit/6c72200c568928c58417d924a4f0ae157617fb29) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `RetroTv`: the playlist (transitions, bar, seek, captions, sound chip and their styles) is its own chunk, loaded only when a `playlist` is given. A single clip or an embed (a shop's video) no longer downloads it (akinaza perf budget).
+- Updated dependencies []:
+  - @krizaka/tailwind@3.73.0
+  - @krizaka/tokens@3.73.0
+
 ## 3.72.0
 
 ### Minor Changes
