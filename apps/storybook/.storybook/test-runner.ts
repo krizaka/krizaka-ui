@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { platform } from "node:os";
 import { join } from "node:path";
 
@@ -21,15 +21,25 @@ const SCREENSHOTS = join(process.cwd(), "__screenshots__", platform());
  * time made a native story 88 % different on CI). A request to another host is answered from `fixtures/<host>/<path>`
  * when the file exists (the tour's posters and clips, copied from krizaka.com), and refused otherwise — the example
  * hosts (`example.com`, `api.example.com`…) are unreachable on purpose. A refused krizaka.com asset fails the story:
- * add its fixture.
+ * add its fixture. The guard is for every host: a story that asks for anything else than a fixture or a reserved
+ * example name fails (krizaka-ui "primitives-retrotv" flake: posters and clips from the CDN, with no fixture).
  */
 const FIXTURES = join(process.cwd(), "fixtures");
-const FIRST_PARTY = /(^|\.)krizaka\.com$/;
+// Reserved names (RFC 2606/6761) that can never resolve: a story may name them as a stand-in, and they are refused.
+const UNREACHABLE = /(^|\.)(example(\.(com|org|net))?|test|invalid|localhost)$/;
+// Requests the stories already made before this guard, refused as before (fixtures/outbound-baseline.json: it only goes down).
+const BASELINE = new Set<string>((JSON.parse(readFileSync(join(FIXTURES, "outbound-baseline.json"), "utf8")) as { urls: string[] }).urls);
 const routed = new WeakSet<object>();
 const missing: string[] = [];
 // The viewport every story starts from: a failed story must not leave the next one at a phone's width.
 let startViewport: { width: number; height: number } | null = null;
 const THEMES = ["dark", "light"] as const;
+// Flake policy (krizaka/.github#423): a flaky screenshot is quarantined with an issue, never rerun in silence. Only the
+// screenshot comparison is skipped (the axe audit still runs). Capped: a second entry fails the run.
+const QUARANTINE = [
+  { id: "primitives-retrotv--playlist-channel", theme: "dark", issue: "krizaka-ui#878", reason: "poster/timer paint differs between runs (65 698 B vs 79 291 B baseline)" },
+] as const;
+const QUARANTINE_MAX = 1;
 
 type Page = Parameters<NonNullable<TestRunnerConfig["postVisit"]>>[0];
 type Story = Awaited<ReturnType<typeof getStoryContext>>;
@@ -93,6 +103,34 @@ async function checkContain(page: Page, story: Story) {
   expect(out).toEqual({ bad: [] });
 }
 
+/**
+ * A visual run is deterministic: the on-screen display of a player (RetroTv's bar, shown by the pointer, focus or a
+ * 2.5 s timer) is pinned at its resting state, reduced motion is set by the runner's context, and nothing leaves the
+ * machine (fixtures above). The video's frame/poster paint is decoder- and timing-bound (the same story drew its poster in
+ * the baselines run and a black glass in CI, krizaka-ui#875): the screen is captured as its glass, the picture is not compared.
+ */
+async function pinPlayerChrome(page: Page) {
+  await page.addStyleTag({ content: ".kz-rtv-bar{opacity:0!important;transition:none!important}.kz-rtv video{opacity:0!important}" });
+}
+
+/**
+ * A video's poster is not an <img>: it paints when the browser has decoded it, after the checks on the pictures. Load it the same
+ * way, then let two frames paint it (the RetroTv screens were black on a loaded runner, krizaka-ui#875).
+ */
+async function decodePosters(page: Page) {
+  await page.evaluate(async () => {
+    const posters = [...document.querySelectorAll<HTMLVideoElement>("video[poster]")].filter((v) => v.getClientRects().length > 0).map((v) => v.poster);
+    await Promise.all(posters.map((src) => { const img = new Image(); img.src = src; return img.decode().catch(() => undefined); }));
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  });
+}
+
+/** A story-and-theme listed in QUARANTINE has its screenshot comparison skipped (capped at one entry). */
+function isQuarantined(storyId: string, theme: (typeof THEMES)[number]): boolean {
+  if (QUARANTINE.length > QUARANTINE_MAX) throw new Error(`Quarantine is capped at ${QUARANTINE_MAX} story: fix a flake, do not list it.`);
+  return QUARANTINE.some((q) => q.id === storyId && q.theme === theme);
+}
+
 /** One theme of a story: the axe audit, the pictures decoded, then the screenshot compared with its baseline. */
 async function auditTheme(page: Page, story: Story, context: { id: string }, theme: (typeof THEMES)[number], viewport: boolean) {
   await page.evaluate((light) => document.documentElement.classList.toggle("light", light), theme === "light");
@@ -118,6 +156,7 @@ async function auditTheme(page: Page, story: Story, context: { id: string }, the
     .waitForFunction(() => [...document.images].every((img) => img.complete || img.getClientRects().length === 0), undefined, { timeout: 15_000 })
     .catch(() => undefined);
   await page.evaluate(() => Promise.all([...document.images].filter((img) => img.getClientRects().length > 0).map((img) => img.decode().catch(() => undefined))));
+  await decodePosters(page);
   // A video with a source that preloads its metadata shows its length once it has it: wait for it, as for the pictures.
   await page
     .waitForFunction(() => [...document.querySelectorAll("video")].every((v) => !v.currentSrc || v.preload === "none" || v.readyState >= 1 || v.error), undefined, { timeout: 15_000 })
@@ -125,6 +164,7 @@ async function auditTheme(page: Page, story: Story, context: { id: string }, the
   // A story whose picture depends on a media decoder (a video frame) is audited but not screenshot-compared:
   // `parameters: { screenshot: false }`, with the reason beside it — exceptional, reviewed.
   if (story.parameters?.screenshot === false) return;
+  if (isQuarantined(context.id, theme)) return;
   const image = viewport
     ? await page.screenshot({ animations: "disabled" })
     : await page.locator("#storybook-root").screenshot({ animations: "disabled" });
@@ -178,11 +218,15 @@ const config: TestRunnerConfig = {
         const url = new URL(route.request().url());
         const file = join(FIXTURES, url.host, decodeURIComponent(url.pathname));
         if (existsSync(file)) return route.fulfill({ path: file });
-        if (FIRST_PARTY.test(url.host)) missing.push(url.href);
+        if (!UNREACHABLE.test(url.hostname) && !BASELINE.has(url.href)) missing.push(url.href);
         return route.abort("blockedbyclient");
       });
     }
     missing.length = 0;
+    // The pointer left by the previous story must not hover this one (a RetroTv's control bar shows under it, then a
+    // 2.5 s timer hides it): park it in a corner and drop the focus; the bar's resting state is pinned in postVisit.
+    await page.mouse.move(0, 0);
+    await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur?.());
     await injectAxe(page);
   },
   async postVisit(page, context) {
@@ -202,10 +246,13 @@ const config: TestRunnerConfig = {
     await checkNoOverflow(page, story);
     await checkMaxHeight(page, story);
     await checkContain(page, story);
+    await pinPlayerChrome(page);
     // @krizaka/charts: an ECharts engine and the world's countries load lazily (`data-pending` until drawn).
     await page.waitForFunction(() => !document.querySelector("[data-pending]"), undefined, { timeout: 15_000 });
     for (const theme of THEMES) await auditTheme(page, story, context, theme, viewport);
     await checkQuietHover(page);
+    // Requests made while the screenshots were taken (a lazy clip, a late picture) count too.
+    expect({ missingFixtures: missing }).toEqual({ missingFixtures: [] });
     if (width && before) await page.setViewportSize(before);
   },
 };

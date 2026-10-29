@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/ui",
-  "version": "3.75.0",
+  "version": "3.76.0",
   "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Yomizaka, Akinaza) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
@@ -986,7 +986,7 @@
   },
   "peerDependencies": {
     "@krizaka/query": ">=0.2.2",
-    "@krizaka/tailwind": ">=3.75.0",
+    "@krizaka/tailwind": ">=3.76.0",
     "@maplibre/maplibre-react-native": ">=11",
     "@shopify/flash-list": ">=2",
     "expo-camera": ">=16",
@@ -1819,10 +1819,10 @@
       ]
     },
     {
-      "name": "./data-table: DataTable (TanStack Table v9, the windowing of TanStack Virtual, Radix Checkbox, the pagination)",
+      "name": "./data-table: DataTable (TanStack Table v9, the windowing of TanStack Virtual, Radix Checkbox, the pagination) // 2026-10-29: split for Sonar S3776 (was 137); +700 B accepted by the CTO; win back in #861",
       "path": "dist/data-table.js",
       "import": "{ DataTable }",
-      "limit": "48.6 kB",
+      "limit": "49.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -3071,10 +3071,10 @@
       ]
     },
     {
-      "name": "./genui: GenUiStream (A2UI v0.9 validator, store, surface, base catalog with DataTable)",
+      "name": "./genui: GenUiStream (A2UI v0.9 validator, store, surface, base catalog with DataTable) // 2026-10-29: carries the DataTable split for Sonar S3776; +800 B accepted by the CTO; win back in #861",
       "path": "dist/genui.js",
       "import": "{ GenUiStream, baseGenUiCatalog }",
-      "limit": "54.3 kB",
+      "limit": "55.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

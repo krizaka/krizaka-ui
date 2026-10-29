@@ -296,6 +296,8 @@ and foundations' root entry (9.9 against 8.0). This comes from the script's clos
 in every entry, so it is an upper bound and not a failure. Slice 2 measures them with size-limit itself. Any row that
 really fails is fixed there: the code is reduced, the budget is never raised.
 
+- 2026-10-29: the DataTable entry moves from 48.6 to 49.5 kB and GenUiStream (which carries it) from 54.3 to 55.2 kB (the domain budgets do not count these rows, unchanged) for the split that clears Sonar S3776 (body 137; the first split left one function at 92, the second clears it, +100 B more); accepted by the CTO, won back in krizaka-ui#861.
+
 ## 6. The package layout: one package, domain entry groups
 
 **Decision.** **One package, `@krizaka/ui`, with today's flat subpath entries** (`@krizaka/ui/button`). The domain is

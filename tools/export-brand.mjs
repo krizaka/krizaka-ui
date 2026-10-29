@@ -14,6 +14,7 @@
 //   pnpm turbo run build --filter=@krizaka/ui     # the exports read the built package
 //   node tools/export-brand.mjs --out <dir>                             # write the files, nothing is sent
 //   node tools/export-brand.mjs --out <dir> --upload --env-file <path>  # and send them to the storage zone
+//   node tools/export-brand.mjs --out <dir> --upload --prune --env-file <path>  # and remove what the export no longer produces (a brand that left)
 //
 // Credentials (environment or --env-file, never printed): MEDIA_STORAGE_API_KEY, MEDIA_STORAGE_ZONE,
 // MEDIA_STORAGE_ENDPOINT (default storage.bunnycdn.com), MEDIA_CDN_HOSTNAME. Names are stable (the library is "the latest
@@ -255,6 +256,36 @@ export async function send(cfg, files, guard = assertWritable) {
   return files.size;
 }
 
+/** The paths of `listed` (everything the zone holds under the export's roots) that the export no longer produces: a brand that left the family. */
+export function stalePaths(listed, files) {
+  return listed.filter((path) => !files.has(path)).sort();
+}
+
+const ROOTS = ["brand", "people/defaults/v1"];
+
+/** Every file under `dir` in the zone (the storage API lists one folder at a time). */
+async function list(cfg, dir) {
+  const res = await fetch(`https://${cfg.endpoint}/${encodeURIComponent(cfg.zone)}/${encodePath(dir)}/`, { headers: { AccessKey: cfg.key } });
+  if (!res.ok) throw new Error(`${dir}: HTTP ${res.status}`);
+  const found = [];
+  for (const o of await res.json()) {
+    if (o.IsDirectory) found.push(...(await list(cfg, `${dir}/${o.ObjectName}`)));
+    else found.push(`${dir}/${o.ObjectName}`);
+  }
+  return found;
+}
+
+/** Deletes what the zone holds under the export's roots and the export no longer produces. The export is the only writer of these prefixes, so it is the only one to remove from them. */
+export async function prune(cfg, files, guard = assertWritable) {
+  const listed = (await Promise.all(ROOTS.map((root) => list(cfg, root)))).flat();
+  const stale = stalePaths(listed, files);
+  for (const path of stale) {
+    const res = await fetch(`https://${cfg.endpoint}/${encodeURIComponent(cfg.zone)}/${encodePath(guard(path))}`, { method: "DELETE", headers: { AccessKey: cfg.key } });
+    if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
+  }
+  return stale;
+}
+
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   const argv = process.argv.slice(2);
   const outIndex = argv.indexOf("--out");
@@ -271,4 +302,5 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   }
   console.log(`${files.size} file(s) from @krizaka/ui@${version} written to ${outDir}`);
   if (cfg) console.log(`${await send(cfg, files)} file(s) uploaded to the storage zone`);
+  if (cfg && argv.includes("--prune")) console.log(`${(await prune(cfg, files)).length} stale file(s) removed from the storage zone`);
 }
