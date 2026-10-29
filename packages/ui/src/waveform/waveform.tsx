@@ -1,4 +1,4 @@
-// Client (the idle motion and the pause off screen). The bars of an AudioPlayer, drawn on their own: a decorative
+// Client (the idle motion and the pause off screen). The bars of a waveform, drawn on their own: a decorative
 // waveform for a card, a banner or a sound's identity. Hidden from assistive technology unless it has a `label`.
 // Its motion runs only while `playing`, never under prefers-reduced-motion, and pauses when it leaves the screen.
 import * as React from "react";

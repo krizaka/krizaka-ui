@@ -7,10 +7,9 @@ export const meta = {
   category: "blocks",
   domain: "page-blocks",
   platforms: "web",
-  parity: { native: { status: "n/a", reason: "An ornamental storefront surface belongs to web pages; native content should stay in a scrolling gallery.", use: "media-grid" }, desktop: "web" },
+  parity: { native: { status: "n/a", reason: "An ornamental storefront surface belongs to web pages; native content should stay in a scrolling gallery." }, desktop: "web" },
   whenToUse: ["A shop or community page whose owner's photos, words and identity should feel personally pinned up."],
   whenNotToUse: [
-    { when: "A searchable or large image collection.", use: "photo-grid" },
     { when: "Rows of data to compare or sort.", use: "data-table" },
   ],
   bestPractices: [
@@ -39,7 +38,7 @@ export const meta = {
       "Neon only flickers softly once, never flashes or loops. All effects stop under prefers-reduced-motion; reading and focus order never depend on visual positions.",
     ],
   },
-  related: ["taped-photo", "cover-hero", "media-gallery", "photo-grid", "profile-card"],
+  related: ["taped-photo", "cover-hero", "media-gallery", "profile-card"],
   web: {
     imports: ["Wall", "Polaroid", "PinnedNote", "ShopSign"],
     examples: [

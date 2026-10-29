@@ -126,7 +126,6 @@ export { OtpInput, type OtpInputProps } from "./otp-input";
 export { Pagination, type PaginationLabels, type PaginationProps } from "./pagination";
 export { PermissionPrompt, type PermissionPromptProps, type PermissionStatus } from "./permission-prompt";
 export { Phoenix, type PhoenixProps } from "./phoenix";
-export { type GridPhoto, PhotoGrid, type PhotoGridLabels, type PhotoGridProps } from "./photo-grid";
 export { ProductMark } from "./ProductMark";
 export { ProfileBanner, type ProfileBannerProps, ProfileCard, type ProfileCardProps, type ProfileStat } from "./profile-card";
 export { Progress, type ProgressProps } from "./progress";

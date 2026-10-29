@@ -15,7 +15,6 @@ export const meta = {
   ],
   whenNotToUse: [
     { when: "For a short decorative loop with no sound: `controls={false}`, `autoPlay`, `loop`, `muted` — or a still image under reduced motion." },
-    { when: "For a sound without a picture: the audio player.", use: "audio-player" },
   ],
   bestPractices: [
     "Pass hls.js as `loadHls={() => import(\"hls.js\")}`: the module is downloaded only by browsers without native HLS (Chrome, Firefox), never by Safari or iOS.",
@@ -40,7 +39,7 @@ export const meta = {
       "Under reduced motion autoplay waits for a gesture and the controls appear without fading.",
     ],
   },
-  related: ["audio-player", "slider"],
+  related: ["slider"],
   web: {
     imports: ["VideoPlayer"],
     examples: [
