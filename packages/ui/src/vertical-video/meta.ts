@@ -15,7 +15,6 @@ export const meta = {
   ],
   whenNotToUse: [
     { when: "For a watch page with a seek bar, subtitles and speed: the full player.", use: "video-player" },
-    { when: "For a sound without a picture.", use: "audio-player" },
   ],
   bestPractices: [
     "Give every word in `labels` and a `title` that names the clip; the rail's buttons are named, 44 px and say their state (`aria-pressed`).",

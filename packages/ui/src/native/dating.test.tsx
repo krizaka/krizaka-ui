@@ -1,11 +1,10 @@
-// The dating kit of /native: the age gate, distances, the deck, the photo menu's actions, tags at their limit, the step
+// The dating kit of /native: the age gate, distances, the deck, tags at their limit, the step
 // head, the chat parts and the range — what a screen reader hears and the ticks the app's haptics play.
 import { describe, expect, jest, test } from "@jest/globals";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import * as React from "react";
 
 import { ConversationItem, MessageBubble } from "./chat";
-import { PhotoGrid } from "./photo-grid";
 import { StepProgress } from "./step-progress";
 import { PersonCard, SwipeDeck } from "./swipe-deck";
 import { TagSelector } from "./tag-selector";
@@ -46,19 +45,6 @@ describe("dating kit (native)", () => {
     const scrim = screen.getByTestId("person-card-scrim", { includeHiddenElements: true });
     expect(scrim.props.width ?? scrim.props.bbWidth).toBe(358);
     expect(scrim.props.height ?? scrim.props.bbHeight).toBe(190);
-  });
-
-  test("PhotoGrid moves a photo through its accessibility action", async () => {
-    const changes: string[][] = [];
-    await render(
-      <PhotoGrid
-        value={[{ id: "a", uri: "a.png" }, { id: "b", uri: "b.png" }]}
-        onValueChange={(p) => changes.push(p.map((x) => x.id))}
-        labels={{ add: "Add", main: "Main", photo: (n) => `Photo ${n}`, makeMain: "Make main", moveEarlier: "Earlier", moveLater: "Later", remove: "Remove", cancel: "Cancel" }}
-      />,
-    );
-    await act(async () => fireEvent(screen.getByRole("button", { name: "Photo 2" }), "accessibilityAction", { nativeEvent: { actionName: "makeMain" } }));
-    expect(changes).toEqual([["b", "a"]]);
   });
 
   test("TagSelector rests the others at the limit; StepProgress says the step", async () => {

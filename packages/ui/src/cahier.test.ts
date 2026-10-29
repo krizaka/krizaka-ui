@@ -6,7 +6,7 @@ import { join } from "node:path";
 
 const SRC = import.meta.dirname;
 /** Over a media (a video, a photo), a caps label or a blur reads the picture, not the template: allowed there only. */
-const MEDIA = ["vertical-video", "video-player", "media-grid", "photo-grid", "avatar"];
+const MEDIA = ["vertical-video", "video-player", "avatar"];
 
 /** A person's own choice, not a class of the primitives: the text style's case (« upper ») is drawn as the CSS value they picked. */
 const CHOSEN = ["text-style/text-style.ts"];

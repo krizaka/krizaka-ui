@@ -41,7 +41,7 @@ export const meta = {
       "Under reduced motion the power-on and static effects stop, and autoplay waits for a gesture.",
     ],
   },
-  related: ["video-player", "vertical-video", "audio-player", "embed-facade"],
+  related: ["video-player", "vertical-video", "embed-facade"],
   web: {
     imports: ["RetroTv"],
     examples: [
