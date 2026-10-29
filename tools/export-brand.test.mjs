@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { assertWritable, avatarFiles, brandFiles, brandIndex, emblem, hslToRgba, standalone, tokensOf } from "./export-brand.mjs";
+import { assertWritable, avatarFiles, brandFiles, brandIndex, emblem, hslToRgba, stalePaths, standalone, tokensOf } from "./export-brand.mjs";
 
 test("reads the tokens of a theme block", () => {
   const css = ":root, .theme-dark {\n  --kz-text-primary: hsl(0 0% 96%); /* x */\n}\nhtml.light {\n  --kz-text-primary: hsl(240 6% 10%);\n}\n";
@@ -58,4 +58,10 @@ test("brand/index.json lists every URL and the producing version", () => {
 test("cuts the orbit and ring as React renders them (open and close tags)", () => {
   const out = emblem('<svg viewBox="0 0 400 400"><circle r="1" stroke-dasharray="8 8" opacity=".6"></circle><circle r="2" opacity=".35"></circle><circle r="3"></circle></svg>');
   assert.equal((out.match(/<circle/g) ?? []).length, 1);
+});
+
+test("names the files of the zone the export no longer produces (a brand that left)", () => {
+  const files = new Map([["brand/krizaka/logo-dark.svg", Buffer.from("")], ["brand/manifest.json", Buffer.from("")]]);
+  const listed = ["brand/orochia/logo-dark.svg", "brand/krizaka/logo-dark.svg", "brand/manifest.json", "people/defaults/v1/yororis/person-1.svg"];
+  assert.deepEqual(stalePaths(listed, files), ["brand/orochia/logo-dark.svg", "people/defaults/v1/yororis/person-1.svg"]);
 });
