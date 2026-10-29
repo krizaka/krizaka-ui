@@ -35,7 +35,7 @@ export interface CatalogEntry {
 
 /** Categories whose examples are whole pages, maps, charts or media: they load once the page has settled. */
 const HEAVY_CATEGORIES = new Set(["charts", "media", "templates", "layouts"]);
-const HEAVY_NAMES = new Set(["map", "video-player", "audio-player", "terminal-replay", "scroll-stage", "iso", "landscape"]);
+const HEAVY_NAMES = new Set(["map", "video-player", "audio-player", "terminal-replay", "scroll-stage", "landscape"]);
 
 /** A PNG's size from its header, so a screenshot reserves its space. */
 function pngSize(file: string): { width: number; height: number } {

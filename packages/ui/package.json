@@ -273,10 +273,6 @@
       "types": "./dist/mascot-state.d.ts",
       "import": "./dist/mascot-state.js"
     },
-    "./iso": {
-      "types": "./dist/iso.d.ts",
-      "import": "./dist/iso.js"
-    },
     "./motion": {
       "types": "./dist/motion.d.ts",
       "import": "./dist/motion.js"
@@ -480,10 +476,6 @@
     "./description-list": {
       "types": "./dist/description-list.d.ts",
       "import": "./dist/description-list.js"
-    },
-    "./meta-row": {
-      "types": "./dist/meta-row.d.ts",
-      "import": "./dist/meta-row.js"
     },
     "./app-header": {
       "types": "./dist/app-header.d.ts",
@@ -1671,16 +1663,6 @@
       ]
     },
     {
-      "name": "./iso (a hero costs no client JavaScript: server components, static SVG)",
-      "path": "dist/iso.js",
-      "limit": "4.5 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./motion",
       "path": "dist/motion.js",
       "limit": "1.5 kB",
@@ -2139,16 +2121,6 @@
     {
       "name": "./description-list",
       "path": "dist/description-list.js",
-      "limit": "1 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
-      "name": "./meta-row",
-      "path": "dist/meta-row.js",
       "limit": "1 kB",
       "gzip": true,
       "ignore": [
