@@ -1,5 +1,19 @@
 # @krizaka/ui
 
+## 3.76.0
+
+### Minor Changes
+
+- [#866](https://github.com/krizaka/krizaka-ui/pull/866) [`1edc1dc`](https://github.com/krizaka/krizaka-ui/commit/1edc1dc9f1f70205c1844c13f5a88f30110df8ce) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ProductBarActions` marks its sign-in and try buttons `data-signed-out-only`, and `blocks.css` hides them under `html[data-session]`: an app that sets that attribute from the readable `kz-session` hint before first paint never draws « Sign in » to a signed-in visitor (krizaka-ui#827).
+  
+  `ThemeScript` also sets `html[data-session]` from the readable `kz-session` hint cookie, before first paint.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.76.0
+  - @krizaka/tokens@3.76.0
+
 ## 3.75.0
 
 ### Minor Changes
