@@ -165,3 +165,22 @@ A query with `meta: { persist: false }` is never written to the device.
 ## License
 
 Apache-2.0 © Krizaka
+
+## The URL as state — `@krizaka/query/url`
+
+nuqs behind the Krizaka door (ADR-006): a filter, a tab, a page or a sort lives in the address, never in a client effect.
+
+```tsx
+// app/layout.tsx (Server Component): mount the adapter once
+import { NuqsAdapter } from "@krizaka/query/url/next";
+
+// a client component
+import { parseAsString, useQueryState, withUrlDefaults } from "@krizaka/query/url";
+const [tab, setTab] = useQueryState("tab", withUrlDefaults(parseAsString).withDefault("all"));
+
+// a Server Component reads the same key
+import { createLoader, parseAsString } from "@krizaka/query/url/server";
+const load = createLoader({ tab: parseAsString.withDefault("all") });
+```
+
+`withUrlDefaults` = `replace` history, shallow, default cleared from the address. `next` is an optional peer (only `./url/next`).

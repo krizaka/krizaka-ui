@@ -8,7 +8,7 @@
 - **Server state shared by every product** (stack decision S1): TanStack Query v5 re-exported whole, the Krizaka
   defaults (`createQueryClient`), the typed fetch and its error (`krizakaFetch`, `KrizakaApiError`), typed keys
   (`defineKeys`), the realtime → cache bridge (`useLiveInvalidation`, `eventSourceLive`), App Router hydration
-  (`./server`), the offline cache (`./persist`), the device wiring (`./native`), the devtools (`./devtools`).
+  (`./server`), the offline cache (`./persist`), the device wiring (`./native`), the devtools (`./devtools`), the URL as state (`./url`, `./url/server`, `./url/next`: nuqs behind the door, ADR-006).
 - Not here: a product's endpoints, keys, schemas or event names (the app's `lib/<resource>.ts` or `packages/core`), the
   server side of the stream (`@krizaka/realtime`), the words of an error (the app's catalogue, by `messageKey()`).
 
@@ -33,7 +33,7 @@
   compiles.
 - **Size budget** (gzip, TanStack and React excluded): `.` ≤ 4 kB, `./server` ≤ 1.5 kB, `./persist` ≤ 600 B,
   `./native` ≤ 500 B, `./devtools` ≤ 300 B.
-- Published surface: exports `.`, `./server`, `./persist`, `./native`, `./devtools`, `./package.json`; files `dist`,
+- Published surface: exports `.`, `./server`, `./persist`, `./native`, `./devtools`, `./url`, `./url/server`, `./url/next`, `./package.json`; files `dist`,
   `README.md`, `SKILL.md`, `LICENSE`. Renaming an export, a `KrizakaApiError` field, an error code or a default is a
   breaking change.
 
