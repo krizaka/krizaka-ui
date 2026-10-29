@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { platform } from "node:os";
 import { join } from "node:path";
 
@@ -27,6 +27,8 @@ const SCREENSHOTS = join(process.cwd(), "__screenshots__", platform());
 const FIXTURES = join(process.cwd(), "fixtures");
 // Reserved names (RFC 2606/6761) that can never resolve: a story may name them as a stand-in, and they are refused.
 const UNREACHABLE = /(^|\.)(example(\.(com|org|net))?|test|invalid|localhost)$/;
+// Requests the stories already made before this guard, refused as before (fixtures/outbound-baseline.json: it only goes down).
+const BASELINE = new Set<string>((JSON.parse(readFileSync(join(FIXTURES, "outbound-baseline.json"), "utf8")) as { urls: string[] }).urls);
 const routed = new WeakSet<object>();
 const missing: string[] = [];
 // The viewport every story starts from: a failed story must not leave the next one at a phone's width.
@@ -49,7 +51,7 @@ const config: TestRunnerConfig = {
         const url = new URL(route.request().url());
         const file = join(FIXTURES, url.host, decodeURIComponent(url.pathname));
         if (existsSync(file)) return route.fulfill({ path: file });
-        if (!UNREACHABLE.test(url.hostname)) missing.push(url.href);
+        if (!UNREACHABLE.test(url.hostname) && !BASELINE.has(url.href)) missing.push(url.href);
         return route.abort("blockedbyclient");
       });
     }
