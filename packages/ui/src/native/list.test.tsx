@@ -44,6 +44,7 @@ describe("useInfiniteList (@krizaka/query)", () => {
   const page = (cursor: number) => ({ items: notes.slice(cursor, cursor + 2), next: cursor + 2 < notes.length ? cursor + 2 : null });
 
   let latest: ReturnType<typeof useInfiniteList<ReturnType<typeof page>, Note, number>>["listProps"] | undefined;
+  const renders: NonNullable<typeof latest>[] = [];
   function Notes() {
     const { listProps, error } = useInfiniteList({
       queryKey: ["notes", "list"],
@@ -53,6 +54,7 @@ describe("useInfiniteList (@krizaka/query)", () => {
       getItems: (p) => p.items,
     });
     latest = listProps;
+    renders.push(listProps);
     return <List label="Notes" {...listProps} error={error ? <Text>{error.message}</Text> : undefined} keyExtractor={(n) => n.id} renderItem={draw} />;
   }
 
@@ -91,6 +93,41 @@ describe("useInfiniteList (@krizaka/query)", () => {
     await act(async () => open());
     await waitFor(() => expect(latest?.refreshing).toBe(false));
     expect(calls.slice(3)).toEqual(["/api/notes?cursor=0", "/api/notes?cursor=2", "/api/notes?cursor=4"]);
+    restore();
+    client.clear();
+  });
+
+  test("never asks for the same page twice, even from a stale render's onEndReached while that page is on its way", async () => {
+    const calls: string[] = [];
+    let release = () => undefined as void;
+    const gate = new Promise<void>((resolve) => (release = resolve));
+    const fake = jest.fn(async (url: string) => {
+      calls.push(url);
+      const cursor = Number(new URL(url, "https://app.test").searchParams.get("cursor"));
+      if (cursor === 4) await gate;
+      return new Response(JSON.stringify(page(cursor)), { headers: { "content-type": "application/json" } });
+    });
+    const restore = configureKrizakaFetch({ fetch: fake as unknown as typeof fetch });
+    const client = createQueryClient({ maxRetries: 0, gcTime: Number.POSITIVE_INFINITY });
+    renders.length = 0;
+    await render(
+      themed(
+        <KrizakaQueryProvider client={client}>
+          <Notes />
+        </KrizakaQueryProvider>,
+      ),
+    );
+    await waitFor(() => expect(calls).toContain("/api/notes?cursor=4"));
+    // The render that showed four notes, before the last page was asked for: its closure still says « not fetching ».
+    const stale = renders.find((r) => r.data.length === 4 && !r.loadingMore);
+    expect(stale).toBeDefined();
+    await act(async () => {
+      stale?.onEndReached?.();
+      stale?.onEndReached?.();
+    });
+    await act(async () => release());
+    await waitFor(() => expect(screen.getByText("Note 5")).toBeTruthy());
+    expect(calls).toEqual(["/api/notes?cursor=0", "/api/notes?cursor=2", "/api/notes?cursor=4"]);
     restore();
     client.clear();
   });
