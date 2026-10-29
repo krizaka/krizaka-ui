@@ -14,7 +14,6 @@ export const meta = {
     "Beside a sound's title when the shape is the identity (a voice note, a podcast episode) and nothing is seekable.",
   ],
   whenNotToUse: [
-    { when: "For a sound a person plays, seeks or speeds up.", use: "audio-player" },
     { when: "For a figure on its own, with its trend.", use: "stat" },
   ],
   bestPractices: [
@@ -30,7 +29,7 @@ export const meta = {
       "Colour comes from the tokens (the accent or the neutral border), never a fixed value: it reads in dark and light.",
     ],
   },
-  related: ["audio-player", "progress", "meter"],
+  related: ["progress", "meter"],
   web: {
     imports: ["Waveform"],
     examples: [

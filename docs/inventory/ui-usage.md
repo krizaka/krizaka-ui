@@ -6,7 +6,7 @@ Package: @krizaka/ui@3.72.0; sizes measured from packages/ui/dist (@krizaka/ui@3
 Consumers: yomizaka fa530eea · akinaza 8cd61e14 · orazaka-web-client 6ae7baf4 · krizaka-com 25132588 · blog 3d585c2f · ui-site c57acf3b · java-site fe38501c · ts-site 2b30ee86 · motion-lab 0dfddfe3 · cockpit.
 Paused (counted apart): .
 
-Verdicts: keep 177 · retire 34 · merge 21 · ask 18 · leave-core 4.
+Verdicts: keep 177 · retire 34 · merge 20 · ask 18 · leave-core 2.
 
 Sizes: the gzip of an entry's own file and every chunk it pulls in (shared chunks are counted in each entry, so a sum
 over-counts); the budget is the entry's size-limit row in packages/ui/package.json (size-limit measures differently: compare
@@ -20,7 +20,7 @@ an entry with itself over time, not with its budget).
 | Navigation & shell | 30 | 195.4 | 227.9 |
 | Feedback & overlays | 12 | 25.1 | 112.9 |
 | Geolocation & maps | 2 | 21.3 | 31.5 |
-| Media | 9 | 56.7 | 64.1 |
+| Media | 6 | 34.0 | 49.7 |
 | Commerce | 30 | 120.5 | 126.5 |
 | Identity & people | 9 | 40.3 | 18.4 |
 | Conversation & AI | 7 | 74.1 | 39.3 |
@@ -150,21 +150,18 @@ an entry with itself over time, not with its budget).
 | `upload-queue` | Feedback & overlays | beta | Yo 1 | — | — | 1.9 / — | 1 | 1 | 2026-10-22 | **keep** | 1 live importer file(s) |
 | `map` | Geolocation & maps | beta | Ak 3 ui 1 motion 3 | — | 2 | 13.1 / 18.0 | 1 | 2 | 2026-10-27 | **keep** | 4 live importer file(s) |
 | `native/map` | Geolocation & maps | — | — | — | — | 8.2 / 13.5 | — | — | 2026-10-27 | **keep** | filed need akinaza#235 |
-| `audio-player` | Media | beta | — | — | — | 5.0 / 2.8 | 1 | 1 | 2026-10-26 | **leave-core** | its only users left the organisation (2026-10-29): leaves the core |
 | `document-viewer` | Media | beta | Yo 6 cockpit 1 | — | — | 5.6 / 5.0 | 2 | 1 | 2026-10-25 | **keep** | 7 live importer file(s) |
 | `embed-facade` | Media | beta | Ak 1 | — | 1 | 2.1 / 2.0 | 2 | 1 | 2026-10-26 | **keep** | 1 live importer file(s) |
 | `file-upload` | Media | beta | Yo 4 Oz 1 | — | 2 | 8.0 / 9.0 | 1 | 1 | 2026-10-27 | **keep** | 5 live importer file(s) |
 | `image-cropper` | Media | deprecated | — | — | — | 6.8 / 12.8 | 1 | 1 | 2026-10-25 | **retire** | already deprecated (#674), removed in 4.0 |
 | `media-capture` | Media | deprecated | — | — | — | 6.4 / 3.8 | 1 | 2 | 2026-10-25 | **retire** | already deprecated (#674), removed in 4.0 |
 | `media-gallery` | Media | beta | — | — | 1 | 1.2 / 2.0 | 1 | 1 | 2026-10-25 | **keep** | built on by shop |
-| `media-grid` | Media | beta | — | — | — | 14.5 / 9.1 | 3 | 1 | 2026-10-26 | **leave-core** | its only users left the organisation (2026-10-29): leaves the core |
 | `native:image-viewer` | Media | beta | — | — | — | — / — | — | — | 2026-10-25 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native:media-picker` | Media | beta | — | — | — | — / — | — | — | 2026-10-25 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native/media-capture` | Media | — | — | — | — | 1.8 / 2.5 | — | — | 2026-10-27 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native/media-picker` | Media | — | — | — | — | 1.7 / 2.5 | — | — | 2026-10-27 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native/vertical-video` | Media | — | — | — | — | 3.0 / 6.0 | — | — | 2026-10-27 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native/video-player` | Media | — | — | — | — | 1.0 / 2.0 | — | — | 2026-10-27 | **keep** | a filed need (its repository left the organisation) |
-| `photo-grid` | Media | beta | — | — | — | 3.2 / 2.5 | 0 | 2 | 2026-10-25 | **merge** → `media-grid` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `retro-tv` | Media | beta | Ak 1 | — | 1 | 16.2 / 20.0 | 1 | 1 | 2026-10-28 | **keep** | 1 live importer file(s) |
 | `terminal-replay` | Media | deprecated | — | — | — | 4.3 / 2.5 | 1 | 1 | 2026-10-25 | **merge** → `code-block` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `vertical-video` | Media | beta | — | — | 1 | 10.8 / 7.1 | 1 | 2 | 2026-10-26 | **keep** | built on by native |

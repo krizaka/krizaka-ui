@@ -1,4 +1,4 @@
-// The dating kit on the web: the age gate, the time, distances, the photo grid, the deck, the match, the tags, the
+// The dating kit on the web: the age gate, the time, distances, the deck, the match, the tags, the
 // step head and the chat parts — roles, words, keyboard, no axe violation.
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -7,21 +7,10 @@ import Conversation from "../../registry/examples/chat/conversation";
 import Inbox from "../../registry/examples/chat/inbox";
 import PillComposer from "../../registry/examples/chat/pill-composer";
 import ItsAMatch from "../../registry/examples/match-dialog/its-a-match";
-import ProfilePhotos from "../../registry/examples/photo-grid/profile-photos";
 import SignUp from "../../registry/examples/step-progress/sign-up";
 import Discover from "../../registry/examples/swipe-deck/discover";
 import Interests from "../../registry/examples/tag-selector/interests";
 import { axeViolations } from "../test/axe";
-
-describe("photo grid", () => {
-  it("moves a photo with its buttons and announces it", async () => {
-    const { container } = render(<ProfilePhotos />);
-    await userEvent.click(screen.getByRole("button", { name: "Move earlier — Photo 2" }));
-    expect(screen.getByText("Moved to place 1")).toBeTruthy();
-    expect(screen.getAllByRole("group")[0]!.getAttribute("aria-label")).toContain("Elena with her guitar, Main");
-    expect(await axeViolations(container)).toEqual([]);
-  });
-});
 
 describe("swipe deck", () => {
   it("decides with the keys and the buttons, and says it", async () => {
