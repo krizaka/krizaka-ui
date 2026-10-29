@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 
-// The Motion section of ui.krizaka.com (Krizaka Motion roadmap, krizaka-motion#22): the principles, the one config
+// The Motion section of ui.krizaka.com (Krizaka Motion roadmap, krizaka-lab#22): the principles, the one config
 // vocabulary, the primitives that move, the reduced-motion policy, the budget, and the lab that plays them.
 const page = readFileSync(new URL("../content/docs/foundations/motion.mdx", import.meta.url), "utf8");
 
@@ -19,7 +19,7 @@ test("says what the conductor guarantees and what reduced motion keeps", () => {
 });
 
 test("points to the lab where each one is played and tuned", () => {
-  assert.match(page, /https:\/\/motion\.krizaka\.com\//);
+  assert.match(page, /https:\/\/lab\.krizaka\.com\//);
 });
 
 test("keeps the page's own rules: no hover movement, no pointer light", () => {
