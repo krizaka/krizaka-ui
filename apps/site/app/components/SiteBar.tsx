@@ -12,7 +12,6 @@ import { Button } from "@krizaka/ui/button";
 import { Kbd } from "@krizaka/ui/kbd";
 import { languageNames } from "@krizaka/ui/language-switch";
 import { NavBar } from "@krizaka/ui/nav-bar";
-import { useSearchContext } from "fumadocs-ui/contexts/search";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -20,6 +19,7 @@ import { LOCALES } from "@/lib/locales";
 import { KRIZAKA_UI_REPO_URL } from "@/lib/site";
 import { localePath } from "@/lib/urls";
 
+import { useSearchContext } from "./docs/fumadocs/client";
 import { useI18n } from "./I18nProvider";
 import { useSiteTheme } from "./SiteTheme";
 

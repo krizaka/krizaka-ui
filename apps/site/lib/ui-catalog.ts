@@ -4,6 +4,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
+import { levelRank } from "@/lib/ui-domains";
 import { filterKeyOf } from "@/lib/ui-ia";
 import { inventoryOf, type InventoryState, type Product } from "@/lib/ui-inventory";
 import { exampleKey, getRegistryItems, type Platform, type RegistryItem, type Status } from "@/lib/ui-registry";
@@ -21,7 +22,7 @@ export interface CatalogEntry {
   summary: string;
   platforms: Platform;
   status: Status;
-  /** The filter value of its group: a job, a pattern or `templates` (lib/ui-ia.ts FILTER_KEYS). */
+  /** The filter value of its group: its domain (lib/ui-ia.ts FILTER_KEYS). */
   group: string;
   /** Who imports it today. */
   usedBy: Product[];
@@ -56,7 +57,9 @@ function previewOf(item: RegistryItem, alt: string): CatalogPreview {
 }
 
 export function catalogEntries(locale: string, previewAlt: (name: string) => string): CatalogEntry[] {
-  return getRegistryItems().map((item) => {
+  // In reading order within a domain: stable and beta, then experimental, deprecated last.
+  const ordered = [...getRegistryItems()].sort((a, b) => levelRank(a.status) - levelRank(b.status) || a.title.localeCompare(b.title));
+  return ordered.map((item) => {
     const inventory = inventoryOf(item.name, item.status, item.deprecated);
     return {
       name: item.name,
@@ -74,7 +77,7 @@ export function catalogEntries(locale: string, previewAlt: (name: string) => str
   });
 }
 
-/** A family of the catalogue (a job, a pattern or the templates): its cover — a live example of one of its components —
+/** A family of the catalogue (a functional domain): its cover — a live example of one of its components —
     and its counts, read from the registry. */
 export interface CatalogFamily {
   key: string;
@@ -86,19 +89,14 @@ export interface CatalogFamily {
 
 /** The component whose example stands for its family on the family's card (its first web example unless named). */
 export const FAMILY_COVERS: Record<string, { component: string; example?: string; scale?: number }> = {
-  actions: { component: "button", example: "sizes", scale: 0.65 },
-  inputs: { component: "date-picker", example: "calendar" },
-  navigation: { component: "nav-bar", example: "site" },
-  overlays: { component: "command", example: "inline" },
+  foundations: { component: "button", example: "sizes", scale: 0.65 },
+  forms: { component: "date-picker", example: "calendar" },
+  "data-display": { component: "stat", example: "grid" },
+  "navigation-shell": { component: "nav-bar", example: "site" },
   feedback: { component: "alert", example: "warning", scale: 0.7 },
-  data: { component: "stat", example: "grid" },
-  media: { component: "media-grid", example: "uniform" },
   maps: { component: "map", example: "places" },
-  charts: { component: "line-chart", example: "creator-earnings", scale: 0.55 },
-  brand: { component: "mascots", example: "flock" },
-  utilities: { component: "kbd", example: "shortcut", scale: 1 },
-  blocks: { component: "cta-panel", example: "discuss" },
-  layouts: { component: "app-shell", example: "console" },
+  media: { component: "media-grid", example: "uniform" },
+  "page-blocks": { component: "cta-panel", example: "discuss" },
 };
 
 export function catalogFamilies(entries: CatalogEntry[], keys: readonly string[]): CatalogFamily[] {

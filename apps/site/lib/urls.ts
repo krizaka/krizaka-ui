@@ -5,6 +5,7 @@
      /installation, /theming    get started
      /foundations/<page>        tokens · typography · icons · motion · navigation · layouts · brand-marks · cahier-site · shop-presets
      /components                the catalogue: every component, filters, live previews
+     /domains/<domain>          one page per functional domain (ADR-008 §3): what belongs, the owner rule, the budget, the entries
      /components/<name>         one page per component of the registries (@krizaka/ui, @krizaka/charts)
      /templates                 every template; /templates/<intent> one intent
      /packages/<package>        the packages without UI: tailwind · intl · i18n · query · realtime · push · app-config · config
@@ -63,3 +64,6 @@ export function absoluteUrl(locale: string, path: string): string {
   const p = localePath(locale, path);
   return `${SITE_URL}${p.endsWith("/") ? p : `${p}/`}`;
 }
+
+/** The address of a domain's page (ADR-008 §3). */
+export const domainPath = (locale: string, domain: string) => localePath(locale, `/domains/${domain}`);

@@ -966,3 +966,15 @@ html.light .kz-phone { background: linear-gradient(160deg, #d9dce2, #a9adb6); }
 
 /* A live example (LiveExample): its wrapper adds no box — the example lays out in its frame as if it were alone. */
 .kz-live-example { display: contents; }
+
+/* ENTRY FACTS (ADR-008 §7): domain · support level · size against budget · who uses it, on a component's and a domain's page. */
+.kz-entry-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0.75rem 1.5rem; margin: 0 0 1.5rem; padding: 0; }
+.kz-entry-facts > div { min-width: 0; border-top: 1px solid var(--kz-border-subtle); padding-top: 0.5rem; }
+.kz-entry-facts dt { color: var(--kz-text-secondary); font-size: 0.75rem; font-weight: 600; }
+.kz-entry-facts dd { margin: 0.25rem 0 0; color: var(--kz-text-primary); font-size: 0.9375rem; overflow-wrap: anywhere; }
+.kz-entry-facts dd a { color: var(--kz-accent-text); font-weight: 600; }
+.kz-entry-facts-by, .kz-entry-facts-date { color: var(--kz-text-secondary); font-size: 0.8125rem; }
+.kz-domain-entries { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.kz-domain-entries li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; border-top: 1px solid var(--kz-border-subtle); padding-top: 0.5rem; }
+.kz-domain-entries .kz-catalog-card-text { flex: 1 1 18rem; }
+.kz-domain-entry-live { color: var(--kz-text-secondary); font-size: 0.8125rem; }

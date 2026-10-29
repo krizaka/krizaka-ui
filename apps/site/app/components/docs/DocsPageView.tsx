@@ -1,4 +1,3 @@
-import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -14,6 +13,8 @@ import { absoluteUrl } from "@/lib/urls";
 import { JsonLd } from "../JsonLd";
 import { BrandMarksDoc } from "./BrandMarksDoc";
 import { ComponentDoc, componentToc } from "./ComponentDoc";
+import { DomainDoc } from "./DomainDoc";
+import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "./fumadocs/server";
 import { IconsDoc, iconsToc } from "./IconsDoc";
 import { InlineCode } from "./InlineCode";
 import { getMdxComponents } from "./mdx";
@@ -71,7 +72,7 @@ export function DocsPageView({ locale, slug = [] }: { locale: Locale; slug?: str
 async function PageBody({ locale, page }: { locale: Locale; page: Page }) {
   const t = getDictionary(locale);
   const { title, description } = pageText(page, t);
-  const { component, foundation } = page.data as ComponentPageData;
+  const { component, foundation, domain } = page.data as ComponentPageData;
 
   // A component of the registry: generated from its code; an enrichment MDX, if any, becomes its notes.
   if (component) {
@@ -84,6 +85,19 @@ async function PageBody({ locale, page }: { locale: Locale; page: Page }) {
         </DocsDescription>
         <DocsBody>
           <ComponentDoc name={component} locale={locale} notes={Notes && <Notes components={getMdxComponents(locale)} />} />
+        </DocsBody>
+      </DocsPage>
+    );
+  }
+
+  // A functional domain (ADR-008 §7): what belongs, the owner rule, the budget and the entries.
+  if (domain) {
+    return (
+      <DocsPage toc={[{ title: t.docs.domainPage.entries, url: "#entries", depth: 2 }]}>
+        <DocsTitle>{title}</DocsTitle>
+        <DocsDescription>{description}</DocsDescription>
+        <DocsBody>
+          <DomainDoc domain={domain} locale={locale} />
         </DocsBody>
       </DocsPage>
     );

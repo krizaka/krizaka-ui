@@ -2,7 +2,6 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { cn } from "@krizaka/ui/cn";
-import { ServerCodeBlock } from "fumadocs-ui/components/codeblock.rsc";
 import Image from "next/image";
 
 import { format, getDictionary, type Locale } from "@/lib/i18n";
@@ -10,6 +9,7 @@ import { mapSnapshotOf } from "@/lib/map-gate";
 import { UI_EXAMPLE_KEYS } from "@/lib/ui-example-keys";
 import { exampleKey, exampleSource, type RegistryExample } from "@/lib/ui-registry";
 
+import { ServerCodeBlock } from "./fumadocs/server";
 import { LiveExample } from "./LiveExample";
 import { MapGate } from "./MapGate";
 import { PreviewFrame } from "./PreviewFrame";

@@ -4,7 +4,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 
-import { FILTER_KEYS, filterKeyOf, GROUPS, JOBS, PATTERNS, placementOf, sidebarHeadings } from "../lib/ui-ia.ts";
+import { DOMAINS } from "../lib/domains.ts";
+import { FILTER_KEYS, filterKeyOf, GROUPS, sidebarHeadings } from "../lib/ui-ia.ts";
 import { inventoryOf, PLANNED, PRODUCTS, RETIRED,USAGE } from "../lib/ui-inventory.ts";
 
 const root = new URL("..", import.meta.url);
@@ -21,19 +22,16 @@ const items = [...ui.items, ...charts.items];
 test("the wall is a documented block planned for Akinaza's shop pages", () => {
   const wall = ui.items.find((item) => item.name === "wall");
   assert.ok(wall, "the wall is in the generated UI registry");
-  assert.deepEqual(placementOf(wall), { group: "patterns", pattern: "blocks" });
+  assert.equal(filterKeyOf(wall), wall.domain);
   const inventory = inventoryOf(wall.name, wall.status);
   assert.equal(inventory?.state, "planned");
   assert.match(inventory.why, /krizaka\/akinaza#236/);
 });
 
-test("every component of the catalogue is placed in a group and a job", () => {
+test("every component of the catalogue is placed in a domain, and the catalogue filters on it", () => {
   assert.ok(items.length > 100);
   for (const item of items) {
-    const placement = placementOf(item);
-    assert.ok(GROUPS.includes(placement.group), `${item.name}: group`);
-    if (placement.group === "components") assert.ok(JOBS.includes(placement.job), `${item.name}: job ${placement.job}`);
-    if (placement.group === "patterns") assert.ok(PATTERNS.includes(placement.pattern), `${item.name}: pattern`);
+    assert.ok(DOMAINS.includes(filterKeyOf(item)), `${item.name}: domain ${filterKeyOf(item)}`);
     assert.ok(FILTER_KEYS.includes(filterKeyOf(item)), `${item.name}: catalogue filter`);
   }
 });
@@ -76,10 +74,10 @@ test("no heading of the sidebar is said twice, in English or in French", () => {
   }
 });
 
-test("every group, job, pattern and intent says 'you come here when…' in both languages", () => {
+test("every group, domain and intent says 'you come here when…' in both languages", () => {
   const purposes = Object.keys(ui.index.templatePurposes);
   assert.equal(purposes.length, 7);
-  const expected = { groups: GROUPS, jobs: JOBS, patterns: PATTERNS, purposes };
+  const expected = { groups: GROUPS, domains: DOMAINS, purposes };
   for (const lang of ["en", "fr"]) {
     for (const [kind, ids] of Object.entries(expected)) {
       assert.deepEqual(Object.keys(messages[lang][kind]).sort(), [...ids].sort(), `${lang}.${kind}`);

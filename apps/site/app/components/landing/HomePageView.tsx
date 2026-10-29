@@ -1,4 +1,3 @@
-import { DocsBody, DocsPage } from "fumadocs-ui/layouts/docs/page";
 import type { Metadata } from "next";
 
 import { getSource, pageText } from "@/lib/docs-source";
@@ -7,6 +6,7 @@ import { localizedMetadata } from "@/lib/seo";
 import { buildBreadcrumbJsonLd, buildTechArticleJsonLd } from "@/lib/structured-data";
 import { absoluteUrl } from "@/lib/urls";
 
+import { DocsBody, DocsPage } from "../docs/fumadocs/server";
 import { JsonLd } from "../JsonLd";
 import { Landing } from "./Landing";
 
