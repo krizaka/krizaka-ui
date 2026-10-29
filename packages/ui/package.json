@@ -1008,7 +1008,7 @@
     "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --coverage && jest",
-    "size": "size-limit",
+    "size": "size-limit && node ../../tools/usage-inventory.mjs --budgets",
     "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./blocks.css ./story.css ./tailwind.css && node scripts/consumer.mjs && node scripts/native-dist.mjs",
     "prepublishOnly": "pnpm run build"
   },

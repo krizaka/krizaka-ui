@@ -1,0 +1,115 @@
+name: Usage inventory
+
+# Who uses what of @krizaka/ui (ADR-008 §8.2.3, docs/inventory/ui-usage.{json,md}). Every Monday it shallow-clones the
+# consumers, reruns `tools/usage-inventory.mjs`, and, when an entry's users, verdict, status or domain moved, opens a
+# pull request with the App identity: a reviewer sees an entry lose its last user. A run that cannot read a consumer
+# fails instead of writing a partial inventory. Manual runs: Actions > Usage inventory > Run workflow.
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: usage-inventory
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Refresh the usage inventory
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      # Two App tokens, each as narrow as its job: one reads every consumer (the paused products are private), one writes this repository.
+      - id: read
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ vars.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: krizaka
+          repositories: |-
+            yomizaka
+            akinaza
+            orazaka-web-client
+            krizaka-com
+            krizaka-blog
+            krizaka-build
+            krizaka-ts
+            krizaka-motion
+            orochia
+            yasakia
+            yororis
+            kachizaka
+          permission-contents: read
+      - id: write
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ vars.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 22
+      # The sizes are measured on the published build: its dist, unpacked where the inventory looks for it.
+      - name: Unpack the published dist
+        run: |
+          npm pack @krizaka/ui@latest --silent --pack-destination "$RUNNER_TEMP"
+          tar -xzf "$RUNNER_TEMP"/krizaka-ui-*.tgz -C packages/ui --strip-components=1 package/dist
+      - name: Read the consumers
+        env:
+          READ_TOKEN: ${{ steps.read.outputs.token }}
+        run: |
+          echo "::add-mask::$READ_TOKEN"
+          git config --global http.https://github.com/.extraheader "AUTHORIZATION: basic $(printf 'x-access-token:%s' "$READ_TOKEN" | base64 -w0)"
+          cp docs/inventory/ui-usage.json "$RUNNER_TEMP/before.json"
+          node tools/usage-inventory.mjs --clone --keep-local
+          git config --global --unset-all http.https://github.com/.extraheader
+      - name: What moved
+        id: moved
+        run: |
+          shape='[.entries[] | {name, verdict, status, domain, importers, pausedBy}]'
+          if [ "$(jq -S "$shape" "$RUNNER_TEMP/before.json")" = "$(jq -S "$shape" docs/inventory/ui-usage.json)" ]; then
+            echo "Nothing moved."; echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          jq -nr --slurpfile a "$RUNNER_TEMP/before.json" --slurpfile b docs/inventory/ui-usage.json '
+            ($a[0].entries | map({key: .name, value: .}) | from_entries) as $old
+            | $b[0].entries[]
+            | select(($old[.name] // {}) as $o | [$o.verdict, $o.status, $o.domain, $o.importers] != [.verdict, .status, .domain, .importers])
+            | "- `\(.name)`: \($old[.name].verdict // "new") -> \(.verdict); live importers \(.live)" ' > "$RUNNER_TEMP/moved.md"
+          cat "$RUNNER_TEMP/moved.md"
+      - name: Open the pull request
+        if: steps.moved.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ steps.write.outputs.token }}
+          BRANCH: chore/usage-inventory-refresh
+        run: |
+          export GIT_AUTHOR_NAME='krizaka-agents[bot]' GIT_COMMITTER_NAME='krizaka-agents[bot]'
+          export GIT_AUTHOR_EMAIL='krizaka-agents[bot]@users.noreply.github.com' GIT_COMMITTER_EMAIL='krizaka-agents[bot]@users.noreply.github.com'
+          git switch -c "$BRANCH"
+          git add docs/inventory
+          git commit -q -m "chore(inventory): weekly usage refresh" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
+          echo "::add-mask::$GH_TOKEN"
+          git config --global http.https://github.com/.extraheader "AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          git push --force origin "HEAD:refs/heads/$BRANCH"
+          {
+            echo "The weekly rerun of \`tools/usage-inventory.mjs\` (ADR-008 §8.2.3). Entries whose users, verdict, status or domain moved:"
+            echo
+            cat "$RUNNER_TEMP/moved.md"
+            echo
+            echo "An entry that lost its last live importer is a candidate to deprecate; one that gained a user may be promoted."
+            echo
+            echo "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+          } > "$RUNNER_TEMP/body.md"
+          if gh pr view "$BRANCH" --json state --jq .state 2>/dev/null | grep -q OPEN; then
+            gh pr edit "$BRANCH" --body-file "$RUNNER_TEMP/body.md"
+          else
+            gh pr create --head "$BRANCH" --base main --title "chore(inventory): weekly usage refresh" --body-file "$RUNNER_TEMP/body.md"
+          fi
