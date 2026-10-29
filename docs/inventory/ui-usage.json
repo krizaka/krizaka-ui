@@ -18,9 +18,9 @@
       "name": "akinaza",
       "kind": "product",
       "absent": false,
-      "head": "aeb6e7df",
-      "sha": "aeb6e7df7d42eb424c24f9a10ad8e442a0dd2f60",
-      "files": 1035
+      "head": "1ff09edc",
+      "sha": "1ff09edc1b2d044e995057f44067c9839586ac87",
+      "files": 1042
     },
     {
       "name": "orazaka-web-client",
@@ -3685,32 +3685,6 @@
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "18 live importer file(s)"
-    },
-    {
-      "pkg": "ui",
-      "name": "meta-row",
-      "kind": "entry",
-      "title": "Meta row",
-      "category": "data-display",
-      "status": "beta",
-      "domain": "data-display",
-      "adoption": null,
-      "importers": {},
-      "nativeUse": {},
-      "live": 0,
-      "paused": 0,
-      "pausedBy": [],
-      "builtOnBy": [],
-      "issue": null,
-      "mergeInto": null,
-      "sizeGzip": 608,
-      "budget": 1000,
-      "tests": 1,
-      "stories": 2,
-      "lastChange": "2026-10-29",
-      "created": "2026-10-17",
-      "verdict": "leave-core",
-      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
