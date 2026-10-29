@@ -651,28 +651,28 @@ export function toMarkdown(inv) {
  * Returns the problems as sentences; an empty list is a pass.
  */
 export function checkInventory({ inventory, rows }) {
-  const problems = [];
   const known = new Map(inventory.entries.map((e) => [e.name, e]));
-  for (const r of rows) {
-    const row = known.get(r.name);
-    const experimental = r.meta.status === "experimental";
-    if (r.kind === "entry" && !r.name.includes("/") && !r.name.endsWith(".css") && r.name !== "." && !r.meta.domain && r.meta.title) {
-      problems.push(`${r.name}: no \`domain\` in its meta.ts`);
-    }
-    if (r.meta.domain && !(r.meta.domain in DOMAINS)) problems.push(`${r.name}: \`${r.meta.domain}\` is not one of the twelve domains`);
-    if (experimental && !/^[\w.-]+#\d+$/.test(r.meta.adoption ?? "")) problems.push(`${r.name}: experimental, so it names its first consumer's issue (\`adoption: "<repo>#<n>"\`)`);
-    if (!experimental && r.meta.adoption) problems.push(`${r.name}: only an experimental entry has an \`adoption\` issue`);
-    if (!row) {
-      if (!(experimental && r.meta.adoption)) problems.push(`${r.name}: missing from docs/inventory/ui-usage.json (run \`pnpm inventory:usage\`), unless it is experimental with an adoption issue`);
-    } else if (r.meta.domain && row.domain !== r.meta.domain) {
-      problems.push(`${r.name}: the inventory says \`${row.domain}\`, its meta.ts says \`${r.meta.domain}\` (run \`pnpm inventory:usage\`)`);
-    }
-  }
+  const problems = rows.flatMap((r) => rowProblems(r, known.get(r.name)));
   const live = new Set(rows.map((r) => r.name));
   for (const e of inventory.entries) {
     if (!live.has(e.name)) problems.push(`${e.name}: in docs/inventory/ui-usage.json but no longer in the package (run \`pnpm inventory:usage\`)`);
     if (e.verdict === "keep" && e.status === "deprecated") problems.push(`${e.name}: a \`keep\` row that is deprecated`);
   }
+  return problems;
+}
+
+/** The domain and adoption rules of one registry row against its inventory row (undefined when the row is new). */
+function rowProblems(r, row) {
+  const { domain, adoption, status, title } = r.meta;
+  const experimental = status === "experimental";
+  const problems = [];
+  const hasOwnMeta = r.kind === "entry" && !r.name.includes("/") && !r.name.endsWith(".css") && r.name !== "." && title;
+  if (hasOwnMeta && !domain) problems.push(`${r.name}: no \`domain\` in its meta.ts`);
+  if (domain && !(domain in DOMAINS)) problems.push(`${r.name}: \`${domain}\` is not one of the twelve domains`);
+  if (experimental && !/^[\w.-]+#\d+$/.test(adoption ?? "")) problems.push(`${r.name}: experimental, so it names its first consumer's issue (\`adoption: "<repo>#<n>"\`)`);
+  if (!experimental && adoption) problems.push(`${r.name}: only an experimental entry has an \`adoption\` issue`);
+  if (!row && !(experimental && adoption)) problems.push(`${r.name}: missing from docs/inventory/ui-usage.json (run \`pnpm inventory:usage\`), unless it is experimental with an adoption issue`);
+  if (row && domain && row.domain !== domain) problems.push(`${r.name}: the inventory says \`${row.domain}\`, its meta.ts says \`${domain}\` (run \`pnpm inventory:usage\`)`);
   return problems;
 }
 
@@ -682,7 +682,8 @@ function check() {
   const inventory = readJson(join(ROOT, "docs/inventory/ui-usage.json"));
   const problems = checkInventory({ inventory, rows });
   if (problems.length) {
-    process.stderr.write(`usage inventory: ${problems.length} problem(s)\n${problems.map((p) => `  - ${p}`).join("\n")}\n`);
+    const list = problems.map((p) => "  - " + p).join("\n");
+    process.stderr.write(`usage inventory: ${problems.length} problem(s)\n${list}\n`);
     process.exit(1);
   }
   process.stdout.write(`usage inventory: ${rows.length} entries checked against docs/inventory/ui-usage.json\n`);
