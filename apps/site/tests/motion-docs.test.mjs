@@ -19,7 +19,7 @@ test("says what the conductor guarantees and what reduced motion keeps", () => {
 });
 
 test("points to the lab where each one is played and tuned", () => {
-  assert.match(page, /https:\/\/motion\.krizaka\.com\//);
+  assert.match(page, /https:\/\/lab\.krizaka\.com\//);
 });
 
 test("keeps the page's own rules: no hover movement, no pointer light", () => {
