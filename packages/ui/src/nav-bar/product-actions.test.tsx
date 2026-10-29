@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
@@ -39,5 +42,19 @@ describe("ProductBarActions", () => {
     );
     expect(screen.getByRole("link", { name: "Essayer gratuitement" }).getAttribute("data-variant")).toBe("primary");
     expect(screen.getByRole("link", { name: "Se connecter" }).getAttribute("data-variant")).toBe("ghost");
+  });
+
+  it("marks every sign-in and try action signed-out-only, so an app can hide them for a hinted visitor (krizaka-ui#827)", () => {
+    render(
+      <NavBarRoot label="Menu">
+        <ProductBarActions signIn={signIn} tryIt={attempt} signupOpen />
+      </NavBarRoot>,
+    );
+    for (const name of ["Essayer gratuitement", "Se connecter"]) expect(screen.getByRole("link", { name }).hasAttribute("data-signed-out-only")).toBe(true);
+  });
+
+  it("ships the rule that hides them under html[data-session], beating the buttons' own display", () => {
+    const css = readFileSync(join(import.meta.dirname, "..", "blocks.css"), "utf8");
+    expect(css).toMatch(/html\[data-session\] \[data-signed-out-only\]\s*\{\s*display:\s*none\s*!important/);
   });
 });

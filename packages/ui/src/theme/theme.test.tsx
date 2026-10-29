@@ -150,3 +150,25 @@ describe("ThemeScript", () => {
     expect(document.documentElement.classList.contains("theme-orazaka")).toBe(true);
   });
 });
+
+describe("ThemeScript and the session hint (krizaka-ui#827)", () => {
+  afterEach(() => {
+    document.documentElement.removeAttribute("data-session");
+    document.cookie = "kz-session=; Path=/; Max-Age=0";
+  });
+
+  it("sets html[data-session] when the kz-session hint cookie is there", () => {
+    document.cookie = "kz-theme-x=1; Path=/";
+    document.cookie = "kz-session=1; Path=/";
+    runScript(<ThemeScript defaultMode="dark" />);
+    expect(document.documentElement.hasAttribute("data-session")).toBe(true);
+  });
+
+  it("leaves it off without the cookie, or with another value", () => {
+    runScript(<ThemeScript defaultMode="dark" />);
+    expect(document.documentElement.hasAttribute("data-session")).toBe(false);
+    document.cookie = "kz-session=0; Path=/";
+    runScript(<ThemeScript defaultMode="dark" />);
+    expect(document.documentElement.hasAttribute("data-session")).toBe(false);
+  });
+});

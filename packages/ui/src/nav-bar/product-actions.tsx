@@ -49,7 +49,7 @@ export function ProductBarActions({ signIn, tryIt, signupOpen, linkAs: Link = "a
   const link = (kind: ProductBarAction) => (kind === ProductBarAction.Try && tryIt ? tryIt : signIn);
   const panel = placement === "panel";
   const button = (kind: ProductBarAction, variant: "primary" | "ghost") => (
-    <Button key={kind} asChild variant={variant} size={panel ? "md" : "sm"} className={panel ? (variant === "primary" ? "mt-2 w-full font-bold" : "w-full") : variant === "primary" ? "ml-1 hidden font-bold md:inline-flex" : "hidden md:inline-flex"}>
+    <Button key={kind} asChild data-signed-out-only="" variant={variant} size={panel ? "md" : "sm"} className={panel ? (variant === "primary" ? "mt-2 w-full font-bold" : "w-full") : variant === "primary" ? "ml-1 hidden font-bold md:inline-flex" : "hidden md:inline-flex"}>
       <Link href={link(kind).href}>{link(kind).label}</Link>
     </Button>
   );

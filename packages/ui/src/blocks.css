@@ -1956,3 +1956,5 @@ svg[data-bird="beaver"]{--kzb-pivot:60px 56px;--kzb-head-a:kzb-beaver-head 10s e
 .kz-look-swatch { display: flex; align-items: center; gap: 6px; min-height: 40px; padding: 8px; border-radius: 8px; background: var(--kz-shop-surface, var(--kz-surface-0)); color: var(--kz-text-primary, inherit); border: 1px solid var(--kz-border-default); }
 .kz-look-swatch i { width: 14px; height: 14px; border-radius: 50%; background: var(--kz-accent); display: inline-block; }
 .kz-look-chip { display: inline-flex; }
+/* Signed-out-only actions (krizaka-ui#827): the app's head script sets html[data-session] from the readable kz-session hint before the first paint, so a signed-in visitor never sees « Sign in », not even in the static HTML. */
+html[data-session] [data-signed-out-only] { display: none !important; }
