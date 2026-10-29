@@ -123,15 +123,12 @@ function NameForm({
 }) {
   const [name, setName] = React.useState(initial);
   const clean = name.replace(/\s+/g, " ").trim();
-  const submit = () => {
-    if (clean) onSubmit(clean);
-  };
   return (
     <form
       className="flex flex-wrap items-center gap-2"
       onSubmit={(event) => {
         event.preventDefault();
-        submit();
+        if (clean) onSubmit(clean);
       }}
     >
       <input
@@ -168,7 +165,7 @@ const Count = ({ n }: { n?: number }) =>
   );
 
 /** The current id when it is one of these items, otherwise nothing selected. */
-const selectedIn = (items: readonly SavedViewItem[], current: string | null | undefined) => (items.some((v) => v.id === current) ? (current ?? "") : "");
+const selectedIn = (items: readonly SavedViewItem[], current: string | null | undefined) => (items.some((v) => v.id === current) ? String(current) : "");
 
 /** The name form of a save (new view) or of a rename, whichever is open; nothing when neither is. */
 function ActiveForm({
@@ -253,10 +250,10 @@ type GroupProps = {
 };
 
 /** One group on a wide screen: links when the views have an address, a single-choice chip group otherwise. */
-function GroupChips({ group, items, current, labels, Link, onSelect }: GroupProps & { group: ViewGroup; labels: SavedViewsLabels }) {
+function GroupChips({ label, items, current, Link, onSelect }: GroupProps & { label: string }) {
   if (items.some((v) => v.href)) {
     return (
-      <nav aria-label={labels.groups[group]} className="flex flex-wrap items-center gap-2">
+      <nav aria-label={label} className="flex flex-wrap items-center gap-2">
         {items.map((view) => (
           <ChipLink key={view.id} asChild size="sm" selected={view.id === current}>
             <Link href={view.href ?? "#"} onClick={() => onSelect?.(view.id)}>
@@ -269,7 +266,7 @@ function GroupChips({ group, items, current, labels, Link, onSelect }: GroupProp
     );
   }
   return (
-    <Chip.Group type="single" size="sm" label={labels.groups[group]} value={selectedIn(items, current)} onValueChange={(id) => id && onSelect?.(id)}>
+    <Chip.Group type="single" size="sm" label={label} value={selectedIn(items, current)} onValueChange={(id) => id && onSelect?.(id)}>
       {items.map((view) => (
         <Chip key={view.id} value={view.id}>
           {view.label}
@@ -310,8 +307,7 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
   const [renaming, setRenaming] = React.useState<string | null>(null);
   const Link = (linkAs ?? "a") as React.ElementType;
   const active = views.find((v) => v.id === current);
-  const editable = (view: SavedViewItem | undefined) => Boolean(view && (view.editable ?? view.group === "mine"));
-  const canChange = editable(active);
+  const canChange = Boolean(active && (active.editable ?? active.group === "mine"));
   const showSave = Boolean(onSave && modified);
   const grouped = GROUPS.map((group) => ({ group, items: views.filter((v) => v.group === group) })).filter((g) => g.items.length > 0);
   const renamed = views.find((v) => v.id === renaming);
@@ -339,7 +335,7 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
         {grouped.map(({ group, items }, index) => (
           <React.Fragment key={group}>
             {index > 0 ? <span aria-hidden className="h-5 w-px bg-border-default" /> : null}
-            <GroupChips group={group} items={items} current={current} labels={labels} Link={Link} onSelect={onSelect} />
+            <GroupChips label={labels.groups[group]} items={items} current={current} Link={Link} onSelect={onSelect} />
           </React.Fragment>
         ))}
         {mark}
