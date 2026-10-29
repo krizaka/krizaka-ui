@@ -21,10 +21,12 @@ const SCREENSHOTS = join(process.cwd(), "__screenshots__", platform());
  * time made a native story 88 % different on CI). A request to another host is answered from `fixtures/<host>/<path>`
  * when the file exists (the tour's posters and clips, copied from krizaka.com), and refused otherwise — the example
  * hosts (`example.com`, `api.example.com`…) are unreachable on purpose. A refused krizaka.com asset fails the story:
- * add its fixture.
+ * add its fixture. The guard is for every host: a story that asks for anything else than a fixture or a reserved
+ * example name fails (krizaka-ui "primitives-retrotv" flake: posters and clips from the CDN, with no fixture).
  */
 const FIXTURES = join(process.cwd(), "fixtures");
-const FIRST_PARTY = /(^|\.)krizaka\.com$/;
+// Reserved names (RFC 2606/6761) that can never resolve: a story may name them as a stand-in, and they are refused.
+const UNREACHABLE = /(^|\.)(example(\.(com|org|net))?|test|invalid|localhost)$/;
 const routed = new WeakSet<object>();
 const missing: string[] = [];
 // The viewport every story starts from: a failed story must not leave the next one at a phone's width.
@@ -47,11 +49,15 @@ const config: TestRunnerConfig = {
         const url = new URL(route.request().url());
         const file = join(FIXTURES, url.host, decodeURIComponent(url.pathname));
         if (existsSync(file)) return route.fulfill({ path: file });
-        if (FIRST_PARTY.test(url.host)) missing.push(url.href);
+        if (!UNREACHABLE.test(url.hostname)) missing.push(url.href);
         return route.abort("blockedbyclient");
       });
     }
     missing.length = 0;
+    // The pointer left by the previous story must not hover this one (a RetroTv's control bar shows under it, then a
+    // 2.5 s timer hides it): park it in a corner and drop the focus; the bar's resting state is pinned in postVisit.
+    await page.mouse.move(0, 0);
+    await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur?.());
     await injectAxe(page);
   },
   async postVisit(page, context) {
@@ -115,6 +121,10 @@ const config: TestRunnerConfig = {
       });
       expect(out).toEqual({ bad: [] });
     }
+    // A visual run is deterministic: the on-screen display of a player (RetroTv's bar, shown by the pointer, focus or a
+    // 2.5 s timer) is pinned at its resting state, reduced motion is set by the runner's context, and nothing leaves the
+    // machine (fixtures above).
+    await page.addStyleTag({ content: ".kz-rtv-bar{opacity:0!important;transition:none!important}" });
     // @krizaka/charts: an ECharts engine and the world's countries load lazily (`data-pending` until drawn).
     await page.waitForFunction(() => !document.querySelector("[data-pending]"), undefined, { timeout: 15_000 });
     for (const theme of THEMES) {
@@ -180,6 +190,8 @@ const config: TestRunnerConfig = {
       expect(await read()).toEqual({ ...rest, light: "none", pointer: "" });
       await page.mouse.move(0, 0);
     }
+    // Requests made while the screenshots were taken (a lazy clip, a late picture) count too.
+    expect({ missingFixtures: missing }).toEqual({ missingFixtures: [] });
     if (width && before) await page.setViewportSize(before);
   },
 };
