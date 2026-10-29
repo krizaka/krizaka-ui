@@ -183,7 +183,27 @@
       },
       "useIt": "L’utiliser",
       "copyImport": "Copier",
-      "copiedImport": "Copié"
+      "copiedImport": "Copié",
+      "experimentalName": "{name} (expérimental)",
+      "domain": {
+        "label": "Domaine",
+        "level": "Niveau de support",
+        "size": "Taille",
+        "sizeOf": "{size} gzip, budget {budget}",
+        "sizeAlone": "{size} gzip",
+        "sizeNone": "Non mesurée",
+        "users": "Qui l'utilise",
+        "usersLive": "{count} fichiers des produits et sites en production l'importent",
+        "usersNone": "Aucun produit en production ne l'importe encore",
+        "usersBy": "{name} : {count}",
+        "inventory": "Compté dans l'inventaire daté du {date}."
+      },
+      "levels": {
+        "stable": "Stable",
+        "beta": "Bêta",
+        "experimental": "Expérimental",
+        "deprecated": "Déprécié"
+      }
     },
     "catalog": {
       "heading": "Tous les composants",
@@ -393,16 +413,12 @@
           "when": "Vous venez ici pour installer Krizaka UI, habiller un produit de son thème et voir un premier écran fonctionner."
         },
         "foundations": {
-          "title": "Fondations",
+          "title": "Fondations du design",
           "when": "Vous venez ici pour la matière première : couleurs et tokens, typographie, icônes, mouvement et marques."
         },
         "components": {
           "title": "Composants",
-          "when": "Vous venez ici pour trouver la pièce qui fait un travail — un bouton, un champ, une boîte de dialogue, un graphique — rangée par ce qu'elle fait."
-        },
-        "patterns": {
-          "title": "Patrons",
-          "when": "Vous venez ici quand un composant ne suffit pas : les blocs dont une page est faite et les gabarits d'écrans entiers."
+          "when": "Vous venez ici pour trouver la pièce qui fait un travail — un bouton, un champ, une boîte de dialogue, un graphique — dans le domaine auquel elle sert, des formulaires au commerce, le stable d'abord."
         },
         "templates": {
           "title": "Modèles",
@@ -417,60 +433,66 @@
           "when": "Vous venez ici savoir où un composant tourne — web, mobile, l'app de bureau —, pourquoi il ne tourne pas ailleurs, et comment installer chaque plateforme."
         }
       },
-      "jobs": {
-        "actions": {
-          "title": "Actions",
-          "when": "Vous venez ici pour laisser quelqu'un faire quelque chose : un bouton, une confirmation, une action flottante."
+      "domains": {
+        "foundations": {
+          "title": "Fondations",
+          "when": "Vous venez ici pour ce dont tout écran est fait : le thème, l'aide aux classes, le mouvement, le routeur et les primitives de base — bouton, badge, carte, pastille, squelette.",
+          "owner": "Modifié seulement avec deux produits consommateurs en tête, et stable d'abord."
         },
-        "inputs": {
-          "title": "Saisie et formulaires",
-          "when": "Vous venez ici pour recueillir quelque chose : un champ, un choix, une date, un formulaire entier."
+        "forms": {
+          "title": "Formulaires",
+          "when": "Vous venez ici pour saisir et valider des données : un champ, un choix, une date, un formulaire entier.",
+          "owner": "Chaque champ parle le contrat d'étiquette, d'erreur et de description de Field."
         },
-        "navigation": {
-          "title": "Navigation",
-          "when": "Vous venez ici pour circuler : barres, onglets, étapes, palette de commandes."
+        "data-display": {
+          "title": "Affichage de données",
+          "when": "Vous venez ici pour lire des données : tableaux, listes, chiffres, jauges, descriptions.",
+          "owner": "Les tableaux et les listes reposent uniquement sur les façades @krizaka/* (ADR-001)."
         },
-        "overlays": {
-          "title": "Superpositions",
-          "when": "Vous venez ici pour poser quelque chose au-dessus de la page : dialogues, menus, bulles, infobulles, feuilles."
+        "navigation-shell": {
+          "title": "Navigation et cadre",
+          "when": "Vous venez ici pour aller quelque part et cadrer un écran : barres, onglets, cadre d'application, palette de commandes, réglages et tableaux de bord.",
+          "owner": "Une seule barre pour toute la famille (NAV-SYS)."
         },
         "feedback": {
-          "title": "Retours",
-          "when": "Vous venez ici pour dire ce qui se passe : alertes, chargements, toasts, états vides, progression."
+          "title": "Retours et surcouches",
+          "when": "Vous venez ici pour dire, confirmer et demander : alertes, toasts, dialogues, popovers, infobulles, états vides, progression.",
+          "owner": "Jamais la couleur seule, toujours accessible au clavier."
         },
-        "data": {
-          "title": "Données",
-          "when": "Vous venez ici pour montrer de l'information : tableaux, listes, cartes, chiffres, profils, conversation."
+        "maps": {
+          "title": "Géolocalisation et cartes",
+          "when": "Vous venez ici pour les lieux et les cartes : le fond de carte, les repères, une vue d'exploration.",
+          "owner": "Le fond de carte passe par @krizaka/discovery (le JSON de l'organisation), jamais par une URL de tuiles écrite en dur."
         },
         "media": {
           "title": "Médias",
-          "when": "Vous venez ici pour lire, capturer ou retoucher images, vidéo et son."
+          "when": "Vous venez ici pour la vidéo, le son, les images et les fichiers : lecteurs, galeries, visionneuses, envois.",
+          "owner": "Les médias viennent de Bunny par le manifeste de l'application, jamais versés dans le dépôt."
         },
-        "maps": {
-          "title": "Cartes",
-          "when": "Vous venez ici pour montrer où sont les choses, avec des cartes open source qui ne coûtent rien par vue."
+        "commerce": {
+          "title": "Commerce",
+          "when": "Vous venez ici pour les prix, la réservation et la boutique : montants, créneaux, agendas, horaires, avis, la boutique et son compositeur.",
+          "owner": "L'argent est en unités mineures avec une devise, jamais un flottant."
         },
-        "charts": {
-          "title": "Graphiques",
-          "when": "Vous venez ici pour dessiner des chiffres : courbes, barres, jauges, entonnoirs — accessibles, avec leur tableau."
+        "identity": {
+          "title": "Identité et personnes",
+          "when": "Vous venez ici pour savoir qui est là : avatars, profils, menu et réglages du compte, préférences de notification, écrans de connexion.",
+          "owner": "Les images par défaut viennent du JSON de l'organisation, jamais en ligne dans le code."
         },
-        "brand": {
-          "title": "Marque et mascottes",
-          "when": "Vous venez ici pour qu'une page sente Krizaka : les oiseaux, les visuels et les effets signature."
+        "conversation": {
+          "title": "Conversation et IA",
+          "when": "Vous venez ici pour parler avec les personnes et avec le moteur : discussion, interfaces générées, propositions, rapports, markdown.",
+          "owner": "La sortie d'un modèle n'est jamais crue comme du balisage."
         },
-        "utilities": {
-          "title": "Utilitaires",
-          "when": "Vous venez ici pour les petits outils sur lesquels tout composant repose : fusion de classes, slots, thème, texte, séparateurs."
-        }
-      },
-      "patterns": {
-        "blocks": {
-          "title": "Blocs de page",
-          "when": "Les pièces dont une page est faite : héros, sections, cartes qui argumentent, appels à l'action."
+        "page-blocks": {
+          "title": "Blocs de page et gabarits",
+          "when": "Vous venez ici pour construire les pages des sites : le cadre de page, les bandeaux, les grilles de cartes, les appels à l'action, les blocs de code, la mise en page de la documentation et les gabarits.",
+          "owner": "Un gabarit par page (page-templates)."
         },
-        "layouts": {
-          "title": "Gabarits d'écran",
-          "when": "Les coques d'écrans entiers : une application, un tableau de bord, des réglages, une connexion, un objet et sa liste."
+        "cahier": {
+          "title": "Cahier (registre des sites)",
+          "when": "Vous venez ici pour le registre papier et encre des sites : le cadre Cahier, les gribouillis, les photos scotchées, les notes, les chapitres, la volée d'oiseaux.",
+          "owner": "Réservé aux sites : un produit ne l'importe jamais."
         }
       },
       "purposes": {
@@ -659,6 +681,16 @@
         "copy": "Copier",
         "copied": "Copié"
       }
+    },
+    "domainPage": {
+      "ownerRule": "Règle du responsable",
+      "budget": "Budget de taille",
+      "budgetValue": "{size} gzip pour tout le domaine ; il ne fait que baisser.",
+      "entries": "Entrées",
+      "count": "{count} entrées, dont {live} utilisées par des produits et sites en production.",
+      "experimentalNote": "Les entrées expérimentales viennent en dernier : elles peuvent changer ou disparaître à toute version mineure.",
+      "all": "Tous les domaines",
+      "liveFiles": "{count} fichiers l'importent"
     }
   },
   "landing": {

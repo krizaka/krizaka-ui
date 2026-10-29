@@ -1,11 +1,11 @@
 "use client";
 
-import { RootProvider } from "fumadocs-ui/provider/next";
 import type { ReactNode } from "react";
 
 import { localePath } from "@/lib/urls";
 
 import { useI18n } from "../I18nProvider";
+import { RootProvider } from "./fumadocs/client";
 
 /* Fumadocs' providers: the search (a static index per language, built with the site — app/search.json and
    app/(fr)/fr/search.json; ⌘K or "/" opens it) and its interface texts from the site's messages. The theme stays the

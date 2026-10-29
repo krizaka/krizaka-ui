@@ -6,10 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { type ReactNode, useMemo, useSyncExternalStore } from "react";
 
+import { DOMAINS as FILTER_KEYS } from "@/lib/domains";
 import type { CatalogEntry, CatalogFamily } from "@/lib/ui-catalog";
-import { FILTER_KEYS, JOBS, PATTERNS } from "@/lib/ui-ia";
 import { type Product,PRODUCT_NAMES, PRODUCTS } from "@/lib/ui-inventory";
-import type { Platform, Status } from "@/lib/ui-registry";
+import type { Domain, Platform, Status } from "@/lib/ui-registry";
+import { domainPath } from "@/lib/urls";
 
 import { useI18n } from "../I18nProvider";
 import { FamilyCards } from "./FamilyCards";
@@ -64,7 +65,7 @@ const writeFilters = (filters: ReturnType<typeof readFilters>) => {
 };
 
 export function UiCatalog({ entries, families, usageDate }: { entries: CatalogEntry[]; families: CatalogFamily[]; usageDate: string }) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const c = t.docs.ia.catalog;
   const labels = t.docs.component;
   const search = useSyncExternalStore(subscribe, readSearch, () => "");
@@ -84,8 +85,7 @@ export function UiCatalog({ entries, families, usageDate }: { entries: CatalogEn
   const set = <K extends keyof typeof filters>(key: K, value: (typeof filters)[K]) => writeFilters({ ...filters, [key]: value });
   const filtered = Object.values(filters).some((value) => value !== "all");
 
-  const sectionTitle = (key: string) => (JOBS as readonly string[]).includes(key) ? t.docs.ia.jobs[key as (typeof JOBS)[number]] : (PATTERNS as readonly string[]).includes(key) ? t.docs.ia.patterns[key as (typeof PATTERNS)[number]] : t.docs.ia.groups.templates;
-  const parent = (key: string) => ((JOBS as readonly string[]).includes(key) ? "components" : (PATTERNS as readonly string[]).includes(key) ? "patterns" : "templates") as "components" | "patterns" | "templates";
+  const sectionTitle = (key: string) => t.docs.ia.domains[key as Domain];
 
   const chips = <V extends string>(label: string, value: V, options: { value: V; label: string }[], onChange: (v: V) => void): ReactNode => (
     <div role="group" aria-label={label} className="kz-catalog-filter">
@@ -97,18 +97,6 @@ export function UiCatalog({ entries, families, usageDate }: { entries: CatalogEn
     </div>
   );
 
-  const firstOfParent = new Set<string>();
-  {
-    const seen = new Set<string>();
-    for (const key of FILTER_KEYS) {
-      if (!shown.some((entry) => entry.group === key)) continue;
-      const group = parent(key);
-      if (!seen.has(group)) {
-        seen.add(group);
-        firstOfParent.add(key);
-      }
-    }
-  }
   return (
     <section className="kz-catalog not-prose" aria-labelledby="catalog-title">
       <h2 id="catalog-title" className="sr-only">
@@ -167,12 +155,11 @@ export function UiCatalog({ entries, families, usageDate }: { entries: CatalogEn
         const items = shown.filter((entry) => entry.group === key);
         if (items.length === 0) return null;
         const words = sectionTitle(key);
-        const group = parent(key);
-        const heading = firstOfParent.has(key) ? group : null;
         return (
           <div key={key} className="kz-catalog-group">
-            {heading && <h3 className="kz-catalog-parent">{t.docs.ia.groups[group].title}</h3>}
-            <h4>{words.title}</h4>
+            <h3>
+              <Link href={domainPath(locale, key)}>{words.title}</Link>
+            </h3>
             <p className="kz-docs-note">{words.when}</p>
             <ul className="kz-catalog-grid">
               {items.map((entry) => {

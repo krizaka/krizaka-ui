@@ -101,8 +101,8 @@ export interface RegistryItem {
   /** The issue of the first consumer, required while the status is `experimental` (`akinaza#481`). */
   adoption?: string | null;
   category: Category;
-  /** What the component is for (ADR-008 §3). */
-  domain: Domain;
+  /** What the component is for (ADR-008 §3); absent from @krizaka/charts, which is data display (lib/ui-domains.ts). */
+  domain?: Domain;
   platforms: Platform;
   /** The parity matrix's row: web · native · desktop. */
   parity: Parity;

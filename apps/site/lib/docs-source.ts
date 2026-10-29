@@ -16,9 +16,10 @@ import { loader, update, type VirtualFile } from "fumadocs-core/source";
 
 import { docs } from "@/.source/server";
 import { format, getDictionary, type Locale, type TranslationDictionary } from "@/lib/i18n";
+import { DOMAINS, inDomain } from "@/lib/ui-domains";
 import { type Foundation, foundationSlugs, foundationStructuredData, purposeOf } from "@/lib/ui-foundations";
-import { GROUP_PAGES, JOBS, PATTERNS, placementOf, templatePurposeSlug } from "@/lib/ui-ia";
-import { getRegistryItems, type RegistryItem } from "@/lib/ui-registry";
+import { GROUP_PAGES, templatePurposeSlug } from "@/lib/ui-ia";
+import { type Domain, getRegistryItems, type RegistryItem } from "@/lib/ui-registry";
 import { localePath } from "@/lib/urls";
 
 /** What a generated page carries: the registry item it renders (title and description are its own), or the
@@ -27,6 +28,8 @@ export interface ComponentPageData {
   component?: string;
   /** A foundation of Krizaka UI laid out from the packages' data (Typography, Icons). */
   foundation?: Foundation;
+  /** A functional domain (ADR-008 §3): its page lists the entries, the owner rule and the budget. */
+  domain?: Domain;
 }
 
 /** Plain text of the code-written documentation: `asChild` → asChild (titles, SEO, search, sidebar). */
@@ -76,6 +79,10 @@ function componentFiles(files: VirtualFile[]): VirtualFile[] {
       data: { title: foundation, foundation, structuredData: foundationStructuredData(foundation) } as never,
     });
   }
+  // One page per functional domain (ADR-008 §7): /domains/<domain>, laid out from the registry by DomainDoc.
+  for (const domain of DOMAINS) {
+    out.push({ type: "page", path: `domains/${domain}.mdx`, data: { title: domain, domain } as never });
+  }
   return out;
 }
 
@@ -114,6 +121,12 @@ export function pageText(page: DocsPage, t: TranslationDictionary): PageText {
     const words = t.docs.ia.purposes[purpose];
     return { title: words.title, description: words.when };
   }
+  // A domain page: its title and what belongs there, from the messages.
+  const domain = (page.data as ComponentPageData).domain;
+  if (domain) {
+    const words = t.docs.ia.domains[domain];
+    return { title: words.title, description: words.when };
+  }
   // A component page: its title and summary come from its code (the registry), in English.
   const component = (page.data as ComponentPageData).component;
   if (component) return { title: page.data.title ?? component, description: page.data.description ?? "" };
@@ -123,9 +136,9 @@ export function pageText(page: DocsPage, t: TranslationDictionary): PageText {
 }
 
 /**
- * The sidebar: seven groups, each with its "you come here when…" (lib/ui-ia.ts) — Get started, Foundations,
- * Components (by the job they do), Patterns (blocks, then screen layouts), Templates (by intent), Tooling, Mobile. A
- * heading appears once; a component is in one place; the deprecated ones close their job, flagged.
+ * The sidebar: six groups, each with its "you come here when…" (lib/ui-ia.ts) — Get started, Foundations,
+ * Components (the twelve domains, each with its entries: stable and beta first, experimental last), Templates (by intent), Tooling, Mobile. A
+ * heading appears once; a component is in one place; the deprecated ones leave the sidebar (their page stays).
  */
 function uiTree(source: DocsSource, t: TranslationDictionary, name: string): PageTree.Root {
   const ia = t.docs.ia;
@@ -136,7 +149,6 @@ function uiTree(source: DocsSource, t: TranslationDictionary, name: string): Pag
     url: page.url,
     $id: `ui:${page.url}`,
   });
-  const separator = (id: string, label: string): PageTree.Separator => ({ type: "separator", $id: `ui:${id}`, name: label });
   const written = (slugs: readonly string[]) => slugs.flatMap((slug) => pages.get(slug === "index" ? "" : slug)).filter((page): page is DocsPage => Boolean(page)).map((page) => item(page));
   // The first two groups open at once; the long ones (components, patterns…) open on the group of the page being read.
   const folder = (group: keyof typeof ia.groups, children: PageTree.Node[]): PageTree.Folder => ({
@@ -148,20 +160,17 @@ function uiTree(source: DocsSource, t: TranslationDictionary, name: string): Pag
     children,
   });
   const items = getRegistryItems();
-  const itemsOf = (match: (placement: ReturnType<typeof placementOf>) => boolean) => items.filter((entry) => match(placementOf(entry)));
-  const components = (entries: RegistryItem[]) =>
-    entries.flatMap((entry) => {
+  // A deprecated entry leaves the navigation (its page stays, with the replacement and the codemod); a template is in Templates.
+  const listed = items.filter((entry) => entry.status !== "deprecated" && entry.category !== "templates");
+  const domains = DOMAINS.flatMap((domain): PageTree.Folder[] => {
+    const entries = inDomain(listed, domain);
+    const index = pages.get(`domains/${domain}`);
+    if (entries.length === 0 || !index) return [];
+    const children = entries.flatMap((entry) => {
       const page = pages.get(`components/${entry.name}`);
-      if (!page) return [];
-      return [item(page, entry.status === "deprecated" ? format(t.docs.component.deprecatedName, { name: entry.title }) : undefined)];
+      return page ? [item(page, entry.status === "experimental" ? format(t.docs.component.experimentalName, { name: entry.title }) : undefined)] : [];
     });
-  const jobs = JOBS.flatMap((job) => {
-    const nodes = components(itemsOf((p) => p.group === "components" && p.job === job));
-    return nodes.length ? [separator(`job:${job}`, ia.jobs[job].title), ...nodes] : [];
-  });
-  const patterns = PATTERNS.flatMap((pattern) => {
-    const nodes = components(itemsOf((p) => p.group === "patterns" && p.pattern === pattern));
-    return nodes.length ? [separator(`pattern:${pattern}`, ia.patterns[pattern].title), ...nodes] : [];
+    return [{ type: "folder", $id: `ui:domain:${domain}`, name: ia.domains[domain].title, index: item(index), children }];
   });
   const templates = [pages.get("templates"), ...Object.keys(ia.purposes).map((purpose) => pages.get(templatePurposeSlug(purpose)))]
     .filter((page): page is DocsPage => Boolean(page))
@@ -171,8 +180,7 @@ function uiTree(source: DocsSource, t: TranslationDictionary, name: string): Pag
     children: [
       folder("get-started", written(GROUP_PAGES["get-started"])),
       folder("foundations", written(GROUP_PAGES.foundations)),
-      folder("components", [...written(["components"]), ...jobs]),
-      folder("patterns", patterns),
+      folder("components", [...written(["components"]), ...domains]),
       folder("templates", templates),
       folder("tooling", written(GROUP_PAGES.tooling)),
       folder("platforms", written(GROUP_PAGES.platforms)),

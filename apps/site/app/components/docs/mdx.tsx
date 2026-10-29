@@ -1,4 +1,3 @@
-import defaultMdxComponents from "fumadocs-ui/mdx";
 import type { MDXComponents } from "mdx/types";
 import type { AnchorHTMLAttributes } from "react";
 
@@ -7,6 +6,7 @@ import { resolveDocHref } from "@/lib/urls";
 
 import { ComponentCatalog } from "./ComponentCatalog";
 import { ComponentHero } from "./ComponentHero";
+import { defaultMdxComponents } from "./fumadocs/server";
 
 /** The components a written page may use, and its links in the reader's language (lib/urls.ts). */
 export function getMdxComponents(locale: Locale): MDXComponents {

@@ -4,7 +4,8 @@
 
 import { SearchIcon } from "@krizaka/icons";
 import { Kbd } from "@krizaka/ui/kbd";
-import { useSearchContext } from "fumadocs-ui/contexts/search";
+
+import { useSearchContext } from "../docs/fumadocs/client";
 
 export function HomeSearch({ label, placeholder }: { label: string; placeholder: string }) {
   const { setOpenSearch } = useSearchContext();

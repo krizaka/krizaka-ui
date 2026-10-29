@@ -8,7 +8,6 @@ import { KrizakaLogo } from "@krizaka/ui";
 import { cn } from "@krizaka/ui/cn";
 import { MotionObserver } from "@krizaka/ui/motion";
 import { ThemeProvider, ThemeScript } from "@krizaka/ui/theme";
-import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import type { Metadata, Viewport } from "next";
 import type { CSSProperties, ReactNode } from "react";
 
@@ -21,6 +20,7 @@ import { buildSiteGraph } from "@/lib/structured-data";
 import { localePath } from "@/lib/urls";
 
 import { DocsChrome } from "./docs/DocsChrome";
+import { DocsLayout } from "./docs/fumadocs/server";
 import { I18nProvider } from "./I18nProvider";
 import { JsonLd } from "./JsonLd";
 import { SiteBar } from "./SiteBar";
