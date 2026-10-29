@@ -167,8 +167,8 @@ The pairs (`ui-usage.md`, verdict `merge`):
 **Decision.** A paused product (Orochia, Yasakia, Yororis, Kachizaka) **pins** `@krizaka/ui` to its last 3.x minor
 (`~3.<n>.0`) and keeps working as it is. The core stops carrying components for it:
 
-- **The six entries only paused products import are deprecated in 3.x and removed in 4.0:** `iso`, `marquee`,
-  `audio-player`, `meta-row` (moved), `how-it-works-page` and `media-grid`, plus `photo-grid`. Each deprecation reason says
+- **The six entries only paused products import are deprecated in 3.x and removed in 4.0:** `iso`, `marquee` (moved),
+  `audio-player`, `meta-row` (moved), `how-it-works-page` (moved) and `media-grid`, plus `photo-grid`. Each deprecation reason says
   « paused product only ».
 - **When a product resumes,** it first upgrades to the current major. A component it still needs then has two ways
   back:
@@ -185,7 +185,7 @@ nothing, keeps the paused apps building, and is undone in one line when a produc
 import these entries (the inventory). The entries that leave the core therefore **move to Krizaka Lab** (`experiments/ui/<name>/`,
 status `idea`, « parked, decide later », unchanged as plain text) and are **removed from `@krizaka/ui` in the same pull
 request**, one pull request per domain, released as a normal minor. Move, never delete. Codemods and deprecation notices
-are dropped from the plan. Done so far: Foundations (`iso`), Data display (`meta-row`).
+are dropped from the plan. Done so far: Foundations (`iso`), Data display (`meta-row`), Media (`audio-player`, `media-grid`, `photo-grid`), Page blocks (`marquee`, `how-it-works-page`): every domain with a leave entry is done.
 
 ### 2.5 Ask — the founder's short list
 

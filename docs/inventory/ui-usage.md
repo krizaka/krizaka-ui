@@ -6,7 +6,7 @@ Package: @krizaka/ui@3.73.0; sizes measured from packages/ui/dist (@krizaka/ui@3
 Consumers: yomizaka dccc2437 · akinaza 1ff09edc · orazaka-web-client a9eef3dd · krizaka-com 2fccb2bb · blog 5aa73cba · ui-site · java-site 2bd81c6a · ts-site f316e288 · motion-lab 187ac1fc · cockpit.
 Paused (counted apart): .
 
-Verdicts: keep 178 · retire 34 · merge 21 · ask 17 · leave-core 4.
+Verdicts: keep 178 · retire 34 · merge 21 · ask 17 · leave-core 2.
 
 Sizes: the gzip of an entry's own file and every chunk it pulls in (shared chunks are counted in each entry, so a sum
 over-counts); the budget is the entry's size-limit row in packages/ui/package.json (size-limit measures differently: compare
@@ -36,7 +36,7 @@ an entry with itself over time, not with its budget).
 | `chip` | Foundations | beta | Yo 4 Ak 2 Oz 3 www 3 ui 1 java 1 motion 5 (native: Yo 1 Ak 2) | — | 7 | 3.2 / 13.0 | 2 | 2 | 2026-10-29 | **keep** | 17 live importer file(s) |
 | `chip-link` | Foundations | beta | Yo 2 Ak 5 www 2 cockpit 2 | — | 2 | 0.8 / 2.0 | 1 | 1 | 2026-10-29 | **keep** | 11 live importer file(s) |
 | `chip-row` | Foundations | beta | — | — | — | 1.9 / 3.0 | 1 | 1 | 2026-10-29 | **merge** → `chip` | ADR-006 merge (#675), or deprecated in favour of another entry |
-| `cn` | Foundations | stable | Ak 3 Oz 30 www 4 blog 2 ui 3 java 3 ts 2 cockpit 2 | — | 91 | 0.5 / 14.0 | — | — | 2026-10-17 | **keep** | 49 live importer file(s) |
+| `cn` | Foundations | stable | Ak 3 Oz 30 www 4 blog 2 ui 3 java 3 ts 2 cockpit 2 | — | 89 | 0.5 / 14.0 | — | — | 2026-10-17 | **keep** | 49 live importer file(s) |
 | `continue-prompt` | Foundations | deprecated | — | — | — | 4.5 / 4.0 | 0 | 1 | 2026-10-29 | **retire** | already deprecated (#674), removed in 4.0 |
 | `copy-button` | Foundations | beta | cockpit 1 | — | — | 5.2 / 4.0 | 1 | 1 | 2026-10-29 | **keep** | 1 live importer file(s) |
 | `kbd` | Foundations | stable | www 2 ui 4 java 1 ts 1 | — | 3 | 0.4 / 1.0 | 1 | 1 | 2026-10-29 | **keep** | 8 live importer file(s) |
@@ -231,7 +231,7 @@ an entry with itself over time, not with its budget).
 | `component-page` | Page blocks & templates | deprecated | — | — | — | 1.0 / 1.5 | 1 | 1 | 2026-10-29 | **merge** → `docs-article-page` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `contact-page` | Page blocks & templates | beta | — | — | — | 0.5 / 1.5 | 1 | 1 | 2026-10-29 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `cover-hero` | Page blocks & templates | beta | — | — | 1 | 3.6 / 2.0 | 1 | 1 | 2026-10-29 | **keep** | built on by shop |
-| `cta-panel` | Page blocks & templates | beta | www 2 | — | 5 | 0.7 / 1.0 | 1 | 1 | 2026-10-29 | **keep** | 2 live importer file(s) |
+| `cta-panel` | Page blocks & templates | beta | www 2 | — | 4 | 0.7 / 1.0 | 1 | 1 | 2026-10-29 | **keep** | 2 live importer file(s) |
 | `decision-list` | Page blocks & templates | beta | www 1 | — | 1 | 1.8 / 1.0 | 1 | 1 | 2026-10-29 | **keep** | 1 live importer file(s) |
 | `docs-article-page` | Page blocks & templates | beta | Yo 1 Ak 1 Oz 1 | — | — | 0.7 / 1.5 | 1 | 1 | 2026-10-29 | **keep** | 3 live importer file(s) |
 | `docs-hub-page` | Page blocks & templates | beta | Ak 1 Oz 1 | — | — | 1.1 / 1.5 | 1 | 1 | 2026-10-29 | **keep** | 2 live importer file(s) |
@@ -244,7 +244,6 @@ an entry with itself over time, not with its budget).
 | `glossary` | Page blocks & templates | beta | Ak 1 | — | — | 0.4 / 1.0 | 1 | 1 | 2026-10-29 | **merge** → `glossary-term` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `glossary-term` | Page blocks & templates | beta | Ak 1 | — | — | 1.4 / 20.0 | 1 | 1 | 2026-10-29 | **keep** | 1 live importer file(s) |
 | `glow-card` | Page blocks & templates | beta | Oz 2 motion 1 cockpit 1 | — | — | 0.7 / 2.0 | 1 | 1 | 2026-10-29 | **keep** | 3 live importer file(s) |
-| `how-it-works-page` | Page blocks & templates | beta | — | — | — | 1.0 / 1.5 | 1 | 1 | 2026-10-29 | **leave-core** | its only users left the organisation (2026-10-29): leaves the core |
 | `kpi-explained` | Page blocks & templates | beta | Ak 1 | — | — | 1.1 / 3.0 | 1 | 1 | 2026-10-29 | **merge** → `stat` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `landing-page` | Page blocks & templates | beta | Yo 1 Ak 2 Oz 1 java 1 ts 1 | — | — | 0.8 / 1.5 | 1 | 1 | 2026-10-29 | **keep** | 6 live importer file(s) |
 | `landscape` | Page blocks & templates | deprecated | — | — | — | 8.1 / 8.0 | 0 | 1 | 2026-10-29 | **retire** | already deprecated (#674), removed in 4.0 |
@@ -252,10 +251,9 @@ an entry with itself over time, not with its budget).
 | `link-card` | Page blocks & templates | beta | Yo 1 Oz 2 www 3 blog 1 ui 1 java 1 ts 1 motion 1 | — | 2 | 2.3 / 1.3 | 1 | 1 | 2026-10-29 | **keep** | 10 live importer file(s) |
 | `longform-page` | Page blocks & templates | beta | — | — | — | 0.9 / 1.5 | 1 | 1 | 2026-10-29 | **merge** → `docs-article-page` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `marketing-layout` | Page blocks & templates | beta | — | — | — | 0.9 / 1.0 | 1 | 1 | 2026-10-29 | **merge** → `landing-page` | ADR-006 merge (#675), or deprecated in favour of another entry |
-| `marquee` | Page blocks & templates | beta | motion 1 | — | — | 1.5 / 1.5 | 1 | 1 | 2026-10-29 | **leave-core** | its only users left the organisation (2026-10-29): leaves the core |
 | `number-ticker` | Page blocks & templates | beta | Oz 3 www 2 blog 1 java 1 ts 1 motion 4 | — | — | 1.4 / 1.5 | 1 | 2 | 2026-10-29 | **keep** | 8 live importer file(s) |
-| `page` | Page blocks & templates | beta | Yo 8 Ak 8 Oz 2 www 11 blog 7 java 1 ts 1 motion 5 cockpit 10 | — | 19 | 2.6 / 1.6 | 1 | 1 | 2026-10-29 | **keep** | 48 live importer file(s) |
-| `page-hero` | Page blocks & templates | beta | Yo 5 Ak 6 Oz 1 www 4 blog 5 motion 3 cockpit 6 | — | 14 | 3.8 / 1.2 | 1 | 1 | 2026-10-29 | **keep** | 27 live importer file(s) |
+| `page` | Page blocks & templates | beta | Yo 8 Ak 8 Oz 2 www 11 blog 7 java 1 ts 1 motion 5 cockpit 10 | — | 18 | 2.6 / 1.6 | 1 | 1 | 2026-10-29 | **keep** | 48 live importer file(s) |
+| `page-hero` | Page blocks & templates | beta | Yo 5 Ak 6 Oz 1 www 4 blog 5 motion 3 cockpit 6 | — | 13 | 3.8 / 1.2 | 1 | 1 | 2026-10-29 | **keep** | 27 live importer file(s) |
 | `page-index` | Page blocks & templates | beta | motion 1 | — | — | 1.2 / 1.2 | 1 | 1 | 2026-10-29 | **ask** | used only by the motion lab |
 | `pointer-light` | Page blocks & templates | deprecated | — | — | — | 0.8 / 1.0 | 1 | 1 | 2026-10-29 | **merge** → `card-grid` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `product-page` | Page blocks & templates | deprecated | — | — | — | 1.9 / 1.5 | 1 | 1 | 2026-10-29 | **merge** → `landing-page` | ADR-006 merge (#675), or deprecated in favour of another entry |

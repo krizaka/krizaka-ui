@@ -153,7 +153,6 @@ export default defineConfig([
     entry: {
       "landing-page": "src/landing-page/index.ts",
       "product-page": "src/product-page/index.ts",
-      "how-it-works-page": "src/how-it-works-page/index.ts",
       "gallery-page": "src/gallery-page/index.ts",
       "docs-hub-page": "src/docs-hub-page/index.ts",
       "docs-article-page": "src/docs-article-page/index.ts",
@@ -287,7 +286,6 @@ export default defineConfig([
       "site-footer": "src/site-footer/index.ts",
       "number-ticker": "src/number-ticker/index.ts",
       "glow-card": "src/glow-card/index.ts",
-      marquee: "src/marquee/index.ts",
       // The engine and the apps it serves: conduits and photons in SVG + CSS (motion.css), a node chosen by hover or focus.
       "engine-flow": "src/engine-flow/index.ts",
       "comparison-table": "src/comparison-table/index.ts",
