@@ -31,6 +31,137 @@ const missing: string[] = [];
 let startViewport: { width: number; height: number } | null = null;
 const THEMES = ["dark", "light"] as const;
 
+type Page = Parameters<NonNullable<TestRunnerConfig["postVisit"]>>[0];
+type Story = Awaited<ReturnType<typeof getStoryContext>>;
+
+/**
+ * `parameters.noOverflow`: nothing of the page sticks out sideways at this width (a bar whose labels are too long).
+ */
+async function checkNoOverflow(page: Page, story: Story) {
+  if (!story.parameters?.noOverflow) return;
+  const out = await page.evaluate(() => {
+    const w = document.documentElement.clientWidth;
+    const bad = [...document.querySelectorAll<HTMLElement>("a,button")]
+      .filter((el) => el.getClientRects().length > 0 && el.getBoundingClientRect().right > w + 0.5)
+      .map((el) => el.textContent?.trim() ?? "");
+    return { pageOverflow: document.documentElement.scrollWidth > w, bad };
+  });
+  expect(out).toEqual({ pageOverflow: false, bad: [] });
+}
+
+/**
+ * `parameters.maxHeight`: a section is at most so high at this width (a layout budget: ADR-007's compact price board).
+ */
+async function checkMaxHeight(page: Page, story: Story) {
+  if (!story.parameters?.maxHeight) return;
+  const { selector, px } = story.parameters.maxHeight as { selector: string; px: number };
+  await page.waitForFunction((sel: string) => document.querySelector(sel) !== null, selector);
+  const height = await page.evaluate((sel: string) => document.querySelector(sel)!.getBoundingClientRect().height, selector);
+  expect({ selector, height: Math.ceil(height), within: Math.ceil(height) <= px }).toEqual({ selector, height: Math.ceil(height), within: true });
+}
+
+/**
+ * `parameters.contain`: nothing sticks out of its room (krizaka-ui#753). Every element lies inside the horizontal
+ * bounds of the story, and inside the room of the grid, columns or pane it belongs to (`[data-columns]`,
+ * `[data-layout]`, `[data-panes]`), unless a scrolling or clipping ancestor holds it — the same containment rule as
+ * the site's page audit (`crawl-check`), at the width of the story. It reads the layout, so it holds at 200 % text
+ * and in right-to-left as in the default.
+ */
+async function checkContain(page: Page, story: Story) {
+  if (!story.parameters?.contain) return;
+  const out = await page.evaluate(() => {
+    const root = document.querySelector<HTMLElement>("#storybook-root");
+    if (!root) return { bad: ["no #storybook-root"] };
+    const holds = (el: Element) => {
+      for (let p = el.parentElement; p && p !== root.parentElement; p = p.parentElement) {
+        if (/(hidden|auto|scroll|clip)/.test(getComputedStyle(p).overflowX)) return true;
+      }
+      return false;
+    };
+    const rooms = [root, ...root.querySelectorAll<HTMLElement>("[data-columns],[data-layout],[data-panes]")];
+    const bad: string[] = [];
+    for (const room of rooms) {
+      const box = room.getBoundingClientRect();
+      for (const el of room.querySelectorAll<HTMLElement>("*")) {
+        if (el.getClientRects().length === 0 || holds(el)) continue;
+        const r = el.getBoundingClientRect();
+        if (r.width > 0 && (r.left < box.left - 1 || r.right > box.right + 1)) bad.push(`${el.tagName.toLowerCase()} "${(el.textContent ?? "").trim().slice(0, 24)}" ${Math.round(r.left)}–${Math.round(r.right)} outside ${Math.round(box.left)}–${Math.round(box.right)}`);
+      }
+    }
+    return { bad: [...new Set(bad)].slice(0, 8) };
+  });
+  expect(out).toEqual({ bad: [] });
+}
+
+/** One theme of a story: the axe audit, the pictures decoded, then the screenshot compared with its baseline. */
+async function auditTheme(page: Page, story: Story, context: { id: string }, theme: (typeof THEMES)[number], viewport: boolean) {
+  await page.evaluate((light) => document.documentElement.classList.toggle("light", light), theme === "light");
+  // The native frame follows `html.light` through a MutationObserver and a React state: let it re-render.
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  // A canvas or ECharts chart re-reads its colours after a theme switch (a MutationObserver, then its own frame).
+  if (await page.locator("[data-kzc] .kzc-host").count()) await page.waitForTimeout(250);
+  await waitForPageReady(page);
+  if (story.parameters?.a11y?.test !== "off" && !story.parameters?.a11y?.disable) {
+    // A page-level audit: "region" (all content inside landmarks) belongs to the app's layout, not to a portal.
+    const rules = [...(story.parameters?.a11y?.config?.rules ?? []), ...(viewport ? [{ id: "region", enabled: false }] : [])];
+    await configureAxe(page, { rules });
+    await checkA11y(page, viewport ? "body" : "#storybook-root", {
+      detailedReport: true,
+      detailedReportOptions: { html: true },
+      verbose: false,
+      axeOptions: story.parameters?.a11y?.options,
+    });
+  }
+  // Remote pictures (a poster, a filmstrip) are in the screenshot only once loaded and decoded; a lazy picture that is
+  // not displayed (a mosaic's hidden tiles) never loads and is not in the screenshot: not waited for.
+  await page
+    .waitForFunction(() => [...document.images].every((img) => img.complete || img.getClientRects().length === 0), undefined, { timeout: 15_000 })
+    .catch(() => undefined);
+  await page.evaluate(() => Promise.all([...document.images].filter((img) => img.getClientRects().length > 0).map((img) => img.decode().catch(() => undefined))));
+  // A video with a source that preloads its metadata shows its length once it has it: wait for it, as for the pictures.
+  await page
+    .waitForFunction(() => [...document.querySelectorAll("video")].every((v) => !v.currentSrc || v.preload === "none" || v.readyState >= 1 || v.error), undefined, { timeout: 15_000 })
+    .catch(() => undefined);
+  // A story whose picture depends on a media decoder (a video frame) is audited but not screenshot-compared:
+  // `parameters: { screenshot: false }`, with the reason beside it — exceptional, reviewed.
+  if (story.parameters?.screenshot === false) return;
+  const image = viewport
+    ? await page.screenshot({ animations: "disabled" })
+    : await page.locator("#storybook-root").screenshot({ animations: "disabled" });
+  expect(image).toMatchImageSnapshot({
+    customSnapshotsDir: SCREENSHOTS,
+    customSnapshotIdentifier: `${context.id}--${theme}`,
+    failureThreshold: 0.001,
+    failureThresholdType: "percent",
+    customDiffDir: join(process.cwd(), "__screenshots__", "__diff__"),
+  });
+}
+
+/** krizaka-ui#393: the quiet hover of a card or a button. */
+async function checkQuietHover(page: Page) {
+  // krizaka-ui#393 — the quiet hover: a card or a button under a real pointer does not move (its transform, translate
+  // and scale are the same as at rest — a control may be centred by a translate) and no light layer appears.
+  const target = page.locator("#storybook-root :is(.kz-block-card, .kz-glow, button[data-variant])").first();
+  if ((await target.count()) && (await target.isVisible())) {
+    const read = () =>
+      target.evaluate((el) => {
+        const s = getComputedStyle(el);
+        return {
+          transform: s.transform,
+          translate: s.translate,
+          scale: s.scale,
+          light: el.classList.contains("kz-block-card") ? getComputedStyle(el, "::after").content : "none",
+          pointer: el.style.getPropertyValue("--kz-pointer-x") || el.style.getPropertyValue("--kz-glow-x"),
+        };
+      });
+    const rest = await read();
+    await target.hover({ timeout: 2_000 }).catch(() => undefined);
+    await page.waitForTimeout(200);
+    expect(await read()).toEqual({ ...rest, light: "none", pointer: "" });
+    await page.mouse.move(0, 0);
+  }
+}
+
 const config: TestRunnerConfig = {
   setup() {
     expect.extend({ toMatchImageSnapshot });
@@ -68,118 +199,13 @@ const config: TestRunnerConfig = {
       await page.setViewportSize({ width, height: 844 });
       await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
     }
-    // `parameters.noOverflow`: nothing of the page sticks out sideways at this width (a bar whose labels are too long).
-    if (story.parameters?.noOverflow) {
-      const out = await page.evaluate(() => {
-        const w = document.documentElement.clientWidth;
-        const bad = [...document.querySelectorAll<HTMLElement>("a,button")]
-          .filter((el) => el.getClientRects().length > 0 && el.getBoundingClientRect().right > w + 0.5)
-          .map((el) => el.textContent?.trim() ?? "");
-        return { pageOverflow: document.documentElement.scrollWidth > w, bad };
-      });
-      expect(out).toEqual({ pageOverflow: false, bad: [] });
-    }
-    // `parameters.maxHeight`: a section is at most so high at this width (a layout budget: ADR-007's compact price board).
-    if (story.parameters?.maxHeight) {
-      const { selector, px } = story.parameters.maxHeight as { selector: string; px: number };
-      await page.waitForFunction((sel: string) => document.querySelector(sel) !== null, selector);
-      const height = await page.evaluate((sel: string) => document.querySelector(sel)!.getBoundingClientRect().height, selector);
-      expect({ selector, height: Math.ceil(height), within: Math.ceil(height) <= px }).toEqual({ selector, height: Math.ceil(height), within: true });
-    }
-    // `parameters.contain`: nothing sticks out of its room (krizaka-ui#753). Every element lies inside the horizontal
-    // bounds of the story, and inside the room of the grid, columns or pane it belongs to (`[data-columns]`,
-    // `[data-layout]`, `[data-panes]`), unless a scrolling or clipping ancestor holds it — the same containment rule as
-    // the site's page audit (`crawl-check`), at the width of the story. It reads the layout, so it holds at 200 % text
-    // and in right-to-left as in the default.
-    if (story.parameters?.contain) {
-      const out = await page.evaluate(() => {
-        const root = document.querySelector<HTMLElement>("#storybook-root");
-        if (!root) return { bad: ["no #storybook-root"] };
-        const holds = (el: Element) => {
-          for (let p = el.parentElement; p && p !== root.parentElement; p = p.parentElement) {
-            if (/(hidden|auto|scroll|clip)/.test(getComputedStyle(p).overflowX)) return true;
-          }
-          return false;
-        };
-        const rooms = [root, ...root.querySelectorAll<HTMLElement>("[data-columns],[data-layout],[data-panes]")];
-        const bad: string[] = [];
-        for (const room of rooms) {
-          const box = room.getBoundingClientRect();
-          for (const el of room.querySelectorAll<HTMLElement>("*")) {
-            if (el.getClientRects().length === 0 || holds(el)) continue;
-            const r = el.getBoundingClientRect();
-            if (r.width > 0 && (r.left < box.left - 1 || r.right > box.right + 1)) bad.push(`${el.tagName.toLowerCase()} "${(el.textContent ?? "").trim().slice(0, 24)}" ${Math.round(r.left)}–${Math.round(r.right)} outside ${Math.round(box.left)}–${Math.round(box.right)}`);
-          }
-        }
-        return { bad: [...new Set(bad)].slice(0, 8) };
-      });
-      expect(out).toEqual({ bad: [] });
-    }
+    await checkNoOverflow(page, story);
+    await checkMaxHeight(page, story);
+    await checkContain(page, story);
     // @krizaka/charts: an ECharts engine and the world's countries load lazily (`data-pending` until drawn).
     await page.waitForFunction(() => !document.querySelector("[data-pending]"), undefined, { timeout: 15_000 });
-    for (const theme of THEMES) {
-      await page.evaluate((light) => document.documentElement.classList.toggle("light", light), theme === "light");
-      // The native frame follows `html.light` through a MutationObserver and a React state: let it re-render.
-      await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-      // A canvas or ECharts chart re-reads its colours after a theme switch (a MutationObserver, then its own frame).
-      if (await page.locator("[data-kzc] .kzc-host").count()) await page.waitForTimeout(250);
-      await waitForPageReady(page);
-      if (story.parameters?.a11y?.test !== "off" && !story.parameters?.a11y?.disable) {
-        // A page-level audit: "region" (all content inside landmarks) belongs to the app's layout, not to a portal.
-        const rules = [...(story.parameters?.a11y?.config?.rules ?? []), ...(viewport ? [{ id: "region", enabled: false }] : [])];
-        await configureAxe(page, { rules });
-        await checkA11y(page, viewport ? "body" : "#storybook-root", {
-          detailedReport: true,
-          detailedReportOptions: { html: true },
-          verbose: false,
-          axeOptions: story.parameters?.a11y?.options,
-        });
-      }
-      // Remote pictures (a poster, a filmstrip) are in the screenshot only once loaded and decoded; a lazy picture that is
-      // not displayed (a mosaic's hidden tiles) never loads and is not in the screenshot: not waited for.
-      await page
-        .waitForFunction(() => [...document.images].every((img) => img.complete || img.getClientRects().length === 0), undefined, { timeout: 15_000 })
-        .catch(() => undefined);
-      await page.evaluate(() => Promise.all([...document.images].filter((img) => img.getClientRects().length > 0).map((img) => img.decode().catch(() => undefined))));
-      // A video with a source that preloads its metadata shows its length once it has it: wait for it, as for the pictures.
-      await page
-        .waitForFunction(() => [...document.querySelectorAll("video")].every((v) => !v.currentSrc || v.preload === "none" || v.readyState >= 1 || v.error), undefined, { timeout: 15_000 })
-        .catch(() => undefined);
-      // A story whose picture depends on a media decoder (a video frame) is audited but not screenshot-compared:
-      // `parameters: { screenshot: false }`, with the reason beside it — exceptional, reviewed.
-      if (story.parameters?.screenshot === false) continue;
-      const image = viewport
-        ? await page.screenshot({ animations: "disabled" })
-        : await page.locator("#storybook-root").screenshot({ animations: "disabled" });
-      expect(image).toMatchImageSnapshot({
-        customSnapshotsDir: SCREENSHOTS,
-        customSnapshotIdentifier: `${context.id}--${theme}`,
-        failureThreshold: 0.001,
-        failureThresholdType: "percent",
-        customDiffDir: join(process.cwd(), "__screenshots__", "__diff__"),
-      });
-    }
-    // krizaka-ui#393 — the quiet hover: a card or a button under a real pointer does not move (its transform, translate
-    // and scale are the same as at rest — a control may be centred by a translate) and no light layer appears.
-    const target = page.locator("#storybook-root :is(.kz-block-card, .kz-glow, button[data-variant])").first();
-    if ((await target.count()) && (await target.isVisible())) {
-      const read = () =>
-        target.evaluate((el) => {
-          const s = getComputedStyle(el);
-          return {
-            transform: s.transform,
-            translate: s.translate,
-            scale: s.scale,
-            light: el.classList.contains("kz-block-card") ? getComputedStyle(el, "::after").content : "none",
-            pointer: el.style.getPropertyValue("--kz-pointer-x") || el.style.getPropertyValue("--kz-glow-x"),
-          };
-        });
-      const rest = await read();
-      await target.hover({ timeout: 2_000 }).catch(() => undefined);
-      await page.waitForTimeout(200);
-      expect(await read()).toEqual({ ...rest, light: "none", pointer: "" });
-      await page.mouse.move(0, 0);
-    }
+    for (const theme of THEMES) await auditTheme(page, story, context, theme, viewport);
+    await checkQuietHover(page);
     if (width && before) await page.setViewportSize(before);
   },
 };
