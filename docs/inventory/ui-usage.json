@@ -2131,8 +2131,8 @@
       "stories": 1,
       "lastChange": "2026-10-26",
       "created": "2026-10-11",
-      "verdict": "ask",
-      "why": "its only users left the organisation (2026-10-29): keep or retire?"
+      "verdict": "leave-core",
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
@@ -2640,8 +2640,8 @@
       "stories": 1,
       "lastChange": "2026-10-16",
       "created": "2026-10-11",
-      "verdict": "ask",
-      "why": "its only users left the organisation (2026-10-29): keep or retire?"
+      "verdict": "leave-core",
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
@@ -3580,8 +3580,8 @@
       "stories": 1,
       "lastChange": "2026-10-26",
       "created": "2026-10-11",
-      "verdict": "ask",
-      "why": "its only users left the organisation (2026-10-29): keep or retire?"
+      "verdict": "leave-core",
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
@@ -3727,8 +3727,8 @@
       "stories": 2,
       "lastChange": "2026-10-17",
       "created": "2026-10-17",
-      "verdict": "ask",
-      "why": "its only users left the organisation (2026-10-29): keep or retire?"
+      "verdict": "leave-core",
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
@@ -5695,8 +5695,8 @@
       "stories": 1,
       "lastChange": "2026-10-25",
       "created": "2026-10-12",
-      "verdict": "ask",
-      "why": "its only users left the organisation (2026-10-29): keep or retire?"
+      "verdict": "leave-core",
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
@@ -6231,8 +6231,8 @@
       "stories": 1,
       "lastChange": "2026-10-26",
       "created": "2026-10-15",
-      "verdict": "ask",
-      "why": "its only users left the organisation (2026-10-29): keep or retire?"
+      "verdict": "leave-core",
+      "why": "its only users left the organisation (2026-10-29): leaves the core"
     },
     {
       "pkg": "ui",
