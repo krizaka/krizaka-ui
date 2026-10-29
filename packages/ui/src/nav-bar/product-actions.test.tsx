@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
@@ -53,7 +54,7 @@ describe("ProductBarActions", () => {
   });
 
   it("ships the rule that hides them under html[data-session], beating the buttons' own display", () => {
-    const css = readFileSync(new URL("../blocks.css", import.meta.url), "utf8");
+    const css = readFileSync(join(import.meta.dirname, "..", "blocks.css"), "utf8");
     expect(css).toMatch(/html\[data-session\] \[data-signed-out-only\]\s*\{\s*display:\s*none\s*!important/);
   });
 });
