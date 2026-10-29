@@ -1,5 +1,16 @@
 # @krizaka/charts
 
+## 0.8.0
+
+### Minor Changes
+
+- [#856](https://github.com/krizaka/krizaka-ui/pull/856) [`7072887`](https://github.com/krizaka/krizaka-ui/commit/7072887e009582863469a80428d77e39ee181777) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Four products left the organisation (krizaka/.github#413): their brands, marks, sites, avatars and chart palettes are removed. The family is Krizaka, Orazaka, Yomizaka and Akinaza. Removed: the brand themes and `brands/<id>.css` of the four, their web and native marks (`ProductLogo` and `ProductMark` take the four remaining ids), their entries in `SiteId`, `SiteMark`, `DefaultAvatarBrand`, the charts' `BrandId` and the email brands. The marks are parked in krizaka-lab.
+
+### Patch Changes
+
+- Updated dependencies [[`7072887`](https://github.com/krizaka/krizaka-ui/commit/7072887e009582863469a80428d77e39ee181777), [`4831379`](https://github.com/krizaka/krizaka-ui/commit/483137931106b7a5c8a78927ec24041f4b830588), [`d8ae175`](https://github.com/krizaka/krizaka-ui/commit/d8ae1755e2774b0e929f2dfeb34b224608e607b2), [`4831379`](https://github.com/krizaka/krizaka-ui/commit/483137931106b7a5c8a78927ec24041f4b830588)]:
+  - @krizaka/ui@3.74.0
+
 ## 0.7.1
 
 ### Patch Changes
