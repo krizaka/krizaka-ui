@@ -50,6 +50,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
+          fetch-depth: 0 # the last-change and first-commit dates come from the history
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: 22
@@ -65,7 +66,7 @@ jobs:
           echo "::add-mask::$READ_TOKEN"
           git config --global http.https://github.com/.extraheader "AUTHORIZATION: basic $(printf 'x-access-token:%s' "$READ_TOKEN" | base64 -w0)"
           cp docs/inventory/ui-usage.json "$RUNNER_TEMP/before.json"
-          node tools/usage-inventory.mjs --clone --keep-local
+          node tools/usage-inventory.mjs --latest --keep-local
           git config --global --unset-all http.https://github.com/.extraheader
       - name: What moved
         id: moved
