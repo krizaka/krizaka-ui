@@ -17,7 +17,6 @@ export const meta = {
   whenToUse: ["The overview of each product (Orazaka, Yomizaka, Akinaza).", "A building block's page that argues its decisions."],
   whenNotToUse: [
     { when: "For the whole company's home.", use: "landing-page" },
-    { when: "For the steps of how it works.", use: "how-it-works-page" },
   ],
   bestPractices: ["The traps in one line each; the long version on the page `href` leads to.", "Say what every decision costs: a decision without its cost is an advertisement.", "Pass `brand`: the page wears the product's colour.", "Words and content arrive as props; the motion is the platform's (`[data-reveal]`, still under reduced motion)."],
   accessibility: {

@@ -20,7 +20,6 @@ export const meta = {
   ],
   whenNotToUse: [
     { when: "For content the reader must compare or read in order: lay the items out." },
-    { when: "For a band of logos or short quotes that slides continuously.", use: "marquee" },
     { when: "For cards to swipe away and decide on.", use: "swipe-deck" },
   ],
   bestPractices: [
@@ -45,7 +44,7 @@ export const meta = {
       "On a phone: swipe the pages; Reduce Motion turns the autoplay off; the app in the background holds it.",
     ],
   },
-  related: ["marquee", "swipe-deck", "step-progress", "tabs"],
+  related: ["swipe-deck", "step-progress", "tabs"],
   web: {
     imports: ["Showcase", "useTypedText", "showcaseLabels"],
     examples: [

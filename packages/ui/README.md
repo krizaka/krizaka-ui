@@ -176,7 +176,6 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/landscape` | `Landscape` (`tone` own · brand, `flock`, `phoenix`, `animated`, `position`, `fade`): the Krizaka valley at dusk, decorative | client |
 | `@krizaka/ui/glow-card` | `GlowCard` (`glow` border·spotlight·both, `alive`, `asChild`) | client |
 | `@krizaka/ui/engine-flow` | `EngineFlow` (`label`, `hub`, `nodes` with `flow` in·out·both, `planned`, `status`, `description`, `href`; `layout` radial·top-to-bottom·left-to-right, `compactLayout` under 560 px, `particles`, `conduit` bezier·straight, `hint`, `speed`): an engine and the apps it serves, photons along SVG conduits (motion.css), no animation frame | client |
-| `@krizaka/ui/marquee` | `Marquee` (`label`, `pauseLabel`, `playLabel`, `speed` px/s, `direction`, `fade`, `defaultPaused`) | client |
 | `@krizaka/ui/section-backdrop` | `SectionBackdrop` (`as`, `direction` down·up, `dome`, `grid`, `media` blurred for depth of field, `animated`): a page section on the brand's section gradient — see `@krizaka/tokens` BRAND.md, "Visual language" | server |
 | `@krizaka/ui/mascots` | `Mascot` (`bird` falcon·owl·duck·flamingo·pigeon·lovebird·crane, `mood` welcome·thinking·success·empty·error, `tone` brand·own, `size`, `animated`, `title`), `MASCOT_BIRDS`, `MASCOT_MOODS`: the Krizaka flock, in the host brand's accent — one bird at a moment that matters (onboarding, a long wait, a success, an empty list, an error); native `Mascot` in `/native` | client |
 | `@krizaka/ui/motion` | `MotionObserver` (reveal, off-screen pause, settle, spotlight, magnetism) `RotatingWord` (no layout shift), `PageTransition` (wrap the root layout's children once: the page cross-fades through React's ViewTransition, instant under reduced motion) and the view-transition helpers | client |
@@ -235,7 +234,6 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/docs-nav` | `DocsNav` (`label`, `groups`, `current`) | server |
 | `@krizaka/ui/landing-page` | `LandingPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/product-page` | `ProductPage` — a page template, see [Page templates](#page-templates) | server |
-| `@krizaka/ui/how-it-works-page` | `HowItWorksPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/gallery-page` | `GalleryPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/docs-hub-page` | `DocsHubPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/docs-article-page` | `DocsArticlePage` — a page template, see [Page templates](#page-templates) | server |
@@ -307,8 +305,7 @@ import { LinkCard } from "@krizaka/ui/link-card";
 
 Fifteen templates, each a **distinct composition** of the blocks — not the same card grid everywhere: `LandingPage`
 (split hero with the product alive, a band of proofs, a bento), `ProductPage` (split hero in the product's brand,
-compact argument cards, decisions, the bird's promise), `HowItWorksPage` (a numbered timeline, the visuals
-alternating), `GalleryPage` (filters, staggered columns of media), `DocsHubPage` (search first, the collections in
+compact argument cards, decisions, the bird's promise), `GalleryPage` (filters, staggered columns of media), `DocsHubPage` (search first, the collections in
 their brand with quick links, quick starts, most read, what is new), `DocsArticlePage` (pages · article · contents,
 pager), `ComponentPage` (preview, install, sections, related), `CataloguePage` (sticky filters beside the results),
 `LongformPage` (chapters with outlined numbers, pull quotes in the margin), `ChangelogPage` (a sticky date beside each
@@ -490,7 +487,7 @@ import { MotionObserver, RotatingWord } from "@krizaka/ui";
 | `kz-page` | A page entering (put it on a route wrapper) |
 | `data-reveal` (+ `--kz-delay`) | Rises into place when it enters the viewport (`MotionObserver`) |
 | `RotatingWord` / `kz-word` | A word that rolls through alternatives |
-| `kz-gradient-text`, `kz-marquee` | Drifting gradient text, endless bands |
+| `kz-gradient-text` | Drifting gradient text |
 | `kz-flow` | EngineFlow's conduits and photons: paused off screen, held while settling, still under reduced motion |
 | `kz-overlay`, `kz-dialog`, `kz-pop`, `kz-fade` | Backdrops, dialogs (from the bottom on phones), menus, views swapped in place |
 | `kz-progress` | The indeterminate progress bar's travelling segment |
