@@ -232,7 +232,9 @@ export function useInfiniteList<TPage, TItem, TParam = unknown>({
         void refetch().finally(() => setPulled(false));
       },
       onEndReached: () => {
-        if (hasNextPage && !isFetchingNextPage && !isError) void fetchNextPage();
+        // `cancelRefetch: false`: a render's closure can be stale (FlashList asks again before the next paint), and the
+        // default would cancel the page on its way and ask for it a second time.
+        if (hasNextPage && !isFetchingNextPage && !isError) void fetchNextPage({ cancelRefetch: false });
       },
       loadingMore: isFetchingNextPage,
     },
