@@ -92,3 +92,21 @@ jobs:
           if [ -z "$MEDIA_STORAGE_API_KEY" ] || [ -z "$MEDIA_STORAGE_ZONE" ]; then echo "::warning::MEDIA_STORAGE_API_KEY / MEDIA_STORAGE_ZONE are not set: brand marks not published"; exit 0; fi
           pnpm turbo run build --filter=@krizaka/ui
           node tools/export-brand.mjs --out "$RUNNER_TEMP/brand" --upload
+      # A brand change must never reach a consumer as a red `brand-icons` test (krizaka/.github#388): tell krizaka/.github, whose
+      # brand-icons-sync workflow opens one pull request per drifted repository of its registry. Skipped as the export is (no storage secrets).
+      - id: brand-app
+        if: ${{ steps.ver.outputs.changed == 'true' && vars.RELEASE_APP_ID != '' && env.MEDIA_STORAGE_API_KEY != '' }}
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        env:
+          MEDIA_STORAGE_API_KEY: ${{ secrets.MEDIA_STORAGE_API_KEY }}
+        with:
+          app-id: ${{ vars.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: krizaka
+          repositories: .github
+          permission-contents: write
+      - name: Tell krizaka/.github the brand files changed
+        if: ${{ steps.brand-app.outputs.token != '' }}
+        env:
+          GH_TOKEN: ${{ steps.brand-app.outputs.token }}
+        run: gh api repos/krizaka/.github/dispatches -f event_type=brand-changed -f "client_payload[source]=krizaka-ui@${GITHUB_SHA}"
