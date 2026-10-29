@@ -189,7 +189,7 @@ const NATIVE = /@krizaka\/ui\/native\b/;
 const PRODUCT_KIT = /@krizaka\/[a-z]+-design-system\b/;
 
 /** The clones scanned, relative to the base folder (default ~/krizaka-com). `slug` is the GitHub repository. The products in
-    focus only: Orochia's repositories (paused, 2026-10-25) are no longer read. */
+    focus only: the repositories of the products that left the organisation are not read. */
 export const REPOS = [
   { name: "krizaka-com", path: ".", slug: "krizaka/krizaka-com", prompt: "P2.6 / P3.2 transposés au site", skip: ["products", "company", "orazaka-content", "content", "public"] },
   { name: "yomizaka-web", path: "products/yomizaka/apps/web", slug: "krizaka/yomizaka", prompt: "Yomizaka web" },
