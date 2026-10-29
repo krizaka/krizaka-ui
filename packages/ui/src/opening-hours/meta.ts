@@ -28,7 +28,7 @@ export const meta = {
       "Today's row is `aria-current=\"date\"`; the status dot is decorative, the words say open or closed.",
     ],
   },
-  related: ["service-card", "slot-picker", "description-list", "meta-row"],
+  related: ["service-card", "slot-picker", "description-list"],
   web: {
     imports: ["OpeningHours"],
     examples: [{ name: "week", title: "Week", description: "Open now, closing at 5 pm, with the week unfolded and Tuesday marked." }],

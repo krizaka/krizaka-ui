@@ -42,7 +42,7 @@ export const meta = {
       "The stage keeps its aspect ratio and the detail line its height: no layout shift.",
     ],
   },
-  related: ["card-grid", "glow-card", "iso", "number-ticker"],
+  related: ["card-grid", "glow-card", "number-ticker"],
   web: {
     imports: ["EngineFlow"],
     examples: [
