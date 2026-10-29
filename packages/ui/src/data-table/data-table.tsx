@@ -602,13 +602,25 @@ type View<T extends RowData> = {
   selectable: boolean;
   span: number;
   chosen: Set<string>;
-  windowed: boolean;
   virtualized: boolean;
   fixedLayout: boolean;
   renderDetail: ((row: T) => React.ReactNode) | undefined;
   rowLabel: ((row: T) => string) | undefined;
   visibleColumns: TableColumn<T>[];
   measureElement: ((node: Element | null) => void) | undefined;
+  loading: boolean | undefined;
+  loadingCount: number;
+  error: React.ReactNode;
+  empty: React.ReactNode;
+  pageRows: TableRow<T>[];
+  windowItems: { index: number }[] | null;
+  resizing: boolean | undefined;
+  stickyHeader: boolean | number | undefined;
+  setSizing: React.Dispatch<React.SetStateAction<Record<string, number>>>;
+  allChosen: boolean;
+  someChosen: boolean;
+  selectableCount: number;
+  toggleAll: () => void;
 };
 
 const nameOf = <T extends RowData>(v: View<T>, row: TableRow<T>) => (v.rowLabel ? v.rowLabel(row.original) : row.id);
@@ -776,7 +788,7 @@ function cellClass<T extends RowData>(v: View<T>, column: DataTableColumn<T>) {
 }
 
 function cardRole<T extends RowData>(v: View<T>, row: TableRow<T>, column: DataTableColumn<T>, columnId: string) {
-  if (v.list) return placeOf(v.titleColumn, column) === "hidden" ? "hidden" : undefined;
+  if (v.list) return column.card === "hidden" ? "hidden" : undefined;
   if (!row.getIsGrouped()) return cardOf(column);
   if (columnId === row.groupingColumnId) return "title";
   return column.aggregate ? undefined : "hidden";
@@ -821,9 +833,10 @@ function detailRow<T extends RowData>(v: View<T>, row: TableRow<T>) {
   });
   const { L, s, renderDetail } = v;
   const panel = cn("px-4 py-4", v.maxPriority > 1 ? PANEL[L][v.maxPriority as Priority] : "hidden", v.listAway.length > 0 && LIST_PANEL[L]);
-  return (
-    <tr role="row" className={s.tr({ className: "hover:bg-transparent" })}>
-      <td role="cell" colSpan={v.span} data-card="message" className={s.td({ className: renderDetail ? s.detail() : "bg-surface-0 p-0 text-left" })}>
+  return wideRow(
+    v,
+    renderDetail ? s.detail() : "bg-surface-0 p-0 text-left",
+    <>
         {left.length > 0 ? (
           <dl className={cn("m-0 grid gap-3 text-left", renderDetail ? "mb-4" : panel)}>
             {left.map((c) => {
@@ -839,8 +852,7 @@ function detailRow<T extends RowData>(v: View<T>, row: TableRow<T>) {
           </dl>
         ) : null}
         {renderDetail ? renderDetail(row.original) : null}
-      </td>
-    </tr>
+    </>,
   );
 }
 
@@ -876,8 +888,8 @@ function renderRow<T extends RowData>(v: View<T>, row: TableRow<T>, index: numbe
   const main = (
     <tr
       role="row"
-      data-index={v.windowed ? index : undefined}
-      ref={v.windowed ? v.measureElement : undefined}
+      data-index={v.measureElement ? index : undefined}
+      ref={v.measureElement}
       aria-rowindex={v.virtualized ? index + 2 : undefined}
       data-state={isChosen ? "selected" : undefined}
       data-group={grouped ? "" : undefined}
@@ -896,14 +908,19 @@ function renderRow<T extends RowData>(v: View<T>, row: TableRow<T>, index: numbe
   );
 }
 
-function messageRow<T extends RowData>(v: View<T>, content: React.ReactNode, alert?: boolean) {
+/** A full-width row: a message, or the opened row's detail. */
+function wideRow<T extends RowData>(v: View<T>, tdClass: string, children: React.ReactNode) {
   return (
     <tr role="row" className={v.s.tr({ className: "hover:bg-transparent" })}>
-      <td role="cell" colSpan={v.span} data-card="message" className={v.s.td({ className: v.s.message() })}>
-        {alert ? <div role="alert">{content}</div> : content}
+      <td role="cell" colSpan={v.span} data-card="message" className={v.s.td({ className: tdClass })}>
+        {children}
       </td>
     </tr>
   );
+}
+
+function messageRow<T extends RowData>(v: View<T>, content: React.ReactNode, alert?: boolean) {
+  return wideRow(v, v.s.message(), alert ? <div role="alert">{content}</div> : content);
 }
 
 function skeletonRows<T extends RowData>(v: View<T>, count: number) {
@@ -921,29 +938,14 @@ function skeletonRows<T extends RowData>(v: View<T>, count: number) {
   ));
 }
 
-type Body = {
-  loading: boolean | undefined;
-  loadingCount: number;
-  error: React.ReactNode;
-  empty: React.ReactNode;
-  pageRows: TableRow<never>[];
-  windowItems: { index: number }[] | null;
-};
-
-function bodyRows<T extends RowData>(v: View<T>, b: Body) {
-  const rows = b.pageRows as unknown as TableRow<T>[];
-  if (b.loading) return skeletonRows(v, b.loadingCount);
-  if (b.error) return messageRow(v, b.error, true);
-  if (rows.length === 0) return messageRow(v, b.empty ?? v.labels.empty);
-  if (b.windowItems) return b.windowItems.map((item) => renderRow(v, rows[item.index] as TableRow<T>, item.index));
+function bodyRows<T extends RowData>(v: View<T>) {
+  const { pageRows: rows, windowItems } = v;
+  if (v.loading) return skeletonRows(v, v.loadingCount);
+  if (v.error) return messageRow(v, v.error, true);
+  if (rows.length === 0) return messageRow(v, v.empty ?? v.labels.empty);
+  if (windowItems) return windowItems.map((item) => renderRow(v, rows[item.index] as TableRow<T>, item.index));
   return rows.map((row, i) => renderRow(v, row, i));
 }
-
-type HeaderExtras = {
-  resizing: boolean | undefined;
-  stickyHeader: boolean | number | undefined;
-  setSizing: React.Dispatch<React.SetStateAction<Record<string, number>>>;
-};
 
 function headerLabel<T extends RowData>(v: View<T>, header: TableHeader<T>, column: DataTableColumn<T>, direction: SortDirection | undefined) {
   if (column.sortable) {
@@ -957,14 +959,14 @@ function headerLabel<T extends RowData>(v: View<T>, header: TableHeader<T>, colu
   return column.headerHidden ? <span className="sr-only">{column.header}</span> : column.header;
 }
 
-function headerCell<T extends RowData>(v: View<T>, header: TableHeader<T>, x: HeaderExtras) {
+function headerCell<T extends RowData>(v: View<T>, header: TableHeader<T>) {
   const column = v.byId.get(header.column.id);
   if (!column) return null;
   const sorted = header.column.getIsSorted();
   const direction: SortDirection | undefined = sorted === "asc" ? "ascending" : sorted === "desc" ? "descending" : undefined;
   const { style, ...pinnedProps } = pin(header.column);
   const level = priorityOf(column);
-  const top = typeof x.stickyHeader === "number" ? { ["--dt-top" as string]: `${x.stickyHeader}px` } : {};
+  const top = typeof v.stickyHeader === "number" ? { ["--dt-top" as string]: `${v.stickyHeader}px` } : {};
   return (
     <th
       role="columnheader"
@@ -977,7 +979,7 @@ function headerCell<T extends RowData>(v: View<T>, header: TableHeader<T>, x: He
       style={{ ...style, ...top, ...widthOf(v, header.column) }}
     >
       {headerLabel(v, header, column, direction)}
-      {x.resizing && header.column.getCanResize() ? (
+      {v.resizing && header.column.getCanResize() ? (
         <ResizeHandle
           label={v.labels.resize(column.header)}
           size={header.column.getSize()}
@@ -985,23 +987,23 @@ function headerCell<T extends RowData>(v: View<T>, header: TableHeader<T>, x: He
           resizing={header.column.getIsResizing()}
           className={v.s.resizer()}
           onPointerStart={header.getResizeHandler()}
-          onSize={(size) => x.setSizing((old) => ({ ...old, [header.column.id]: size }))}
+          onSize={(size) => v.setSizing((old) => ({ ...old, [header.column.id]: size }))}
         />
       ) : null}
     </th>
   );
 }
 
-function headerRow<T extends RowData>(v: View<T>, headers: TableHeader<T>[], x: HeaderExtras & { loading: boolean | undefined; allChosen: boolean; someChosen: boolean; selectableCount: number; toggleAll: () => void }) {
+function headerRow<T extends RowData>(v: View<T>, headers: TableHeader<T>[]) {
   const { s, labels } = v;
   return (
     <tr role="row" aria-rowindex={v.virtualized ? 1 : undefined} className={s.headRow()}>
       {v.selectable && (
         <th role="columnheader" scope="col" data-keep="" className={s.th({ className: s.select() })}>
           <Checkbox
-            checked={x.allChosen ? true : x.someChosen ? "indeterminate" : false}
-            onCheckedChange={x.toggleAll}
-            disabled={x.loading || x.selectableCount === 0}
+            checked={v.allChosen ? true : v.someChosen ? "indeterminate" : false}
+            onCheckedChange={v.toggleAll}
+            disabled={v.loading || v.selectableCount === 0}
             aria-label={labels.selectAll}
           />
         </th>
@@ -1011,7 +1013,7 @@ function headerRow<T extends RowData>(v: View<T>, headers: TableHeader<T>[], x: 
           <span className="sr-only">{labels.details}</span>
         </th>
       )}
-      {headers.map((header) => headerCell(v, header, x))}
+      {headers.map((header) => headerCell(v, header))}
     </tr>
   );
 }
@@ -1125,7 +1127,8 @@ function engineState(c: Controlled, rowCount: number, pinned: Pinning, sizing: R
 function engineHandlers<T extends RowData>(
   c: Controlled,
   changes: Changes,
-  local: { setSizing: React.Dispatch<React.SetStateAction<Record<string, number>>>; setResizeState: React.Dispatch<React.SetStateAction<ColumnResizingState | undefined>> },
+  setSizing: React.Dispatch<React.SetStateAction<Record<string, number>>>,
+  setResizeState: React.Dispatch<React.SetStateAction<ColumnResizingState | undefined>>,
   currentRows: () => TableRow<T>[],
 ) {
   return {
@@ -1147,8 +1150,8 @@ function engineHandlers<T extends RowData>(
       const next = apply<Record<string, boolean> | true>(updater, { ...c.expanded });
       c.setExpanded(next === true ? Object.fromEntries(currentRows().map((r) => [r.id, true])) : next);
     },
-    onColumnSizingChange: (updater: Up<Record<string, number>>) => local.setSizing((old: Record<string, number>) => apply(updater, old)),
-    onColumnResizingChange: (updater: Up<ColumnResizingState>) => local.setResizeState((old) => apply(updater, old as ColumnResizingState)),
+    onColumnSizingChange: (updater: Up<Record<string, number>>) => setSizing((old: Record<string, number>) => apply(updater, old)),
+    onColumnResizingChange: (updater: Up<ColumnResizingState>) => setResizeState((old) => apply(updater, old as ColumnResizingState)),
   };
 }
 
@@ -1188,7 +1191,7 @@ export function DataTable<T extends RowData>(props: DataTableProps<T>) {
     getSubRows: getSubRows ? (row) => getSubRows(row) as T[] | undefined : undefined,
     getRowCanExpand: detailed ? () => true : undefined,
     state: engineState(c, rows.length, pinned, sizing, resizeState),
-    ...engineHandlers<T>(c, changes, { setSizing, setResizeState }, () => table.getRowModel().rows),
+    ...engineHandlers<T>(c, changes, setSizing, setResizeState, () => table.getRowModel().rows),
     enableSortingRemoval: true,
     sortDescFirst: false,
     manualSorting: manual?.sorting,
@@ -1227,12 +1230,12 @@ export function DataTable<T extends RowData>(props: DataTableProps<T>) {
 
   const v: View<T> = {
     s, L, list, labels, byId: new Map(columns.map((col) => [col.id, col])), titleColumn, facts, listAway, maxPriority, inlineToggle, hasExpander, detailed,
-    selectable: Boolean(selectable), span, chosen, windowed: win.items !== null, virtualized: Boolean(virtualized), fixedLayout, renderDetail,
-    rowLabel, visibleColumns, measureElement: win.measureElement,
+    selectable: Boolean(selectable), span, chosen, virtualized: Boolean(virtualized), fixedLayout, renderDetail,
+    rowLabel, visibleColumns, measureElement: win.measureElement, loading, loadingCount, error, empty, pageRows, windowItems: win.items, resizing, stickyHeader, setSizing,
+    allChosen, someChosen, selectableCount: selectableIds.length, toggleAll,
   };
 
   const headers = table.getHeaderGroups().at(-1)?.headers ?? [];
-  const extras = { resizing, stickyHeader, setSizing, loading, allChosen, someChosen, selectableCount: selectableIds.length, toggleAll };
   const tableElement = (
     <table
       role="table"
@@ -1246,7 +1249,7 @@ export function DataTable<T extends RowData>(props: DataTableProps<T>) {
         {loading ? <span className="sr-only">{` — ${labels.loading}`}</span> : null}
       </caption>
       <thead role="rowgroup" className={s.thead({ className: virtualized ? "sticky top-0 z-10 bg-surface-2" : undefined })}>
-        {headerRow(v, headers as unknown as TableHeader<T>[], extras)}
+        {headerRow(v, headers as unknown as TableHeader<T>[])}
       </thead>
       <tbody role="rowgroup" className={s.tbody()}>
         {win.before > 0 && (
@@ -1254,7 +1257,7 @@ export function DataTable<T extends RowData>(props: DataTableProps<T>) {
             <td colSpan={span} />
           </tr>
         )}
-        {bodyRows(v, { loading, loadingCount, error, empty, pageRows: pageRows as unknown as TableRow<never>[], windowItems: win.items })}
+        {bodyRows(v)}
         {win.after > 0 && (
           <tr aria-hidden style={{ height: win.after }}>
             <td colSpan={span} />
