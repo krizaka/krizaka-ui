@@ -167,8 +167,7 @@ The pairs (`ui-usage.md`, verdict `merge`):
 **Decision.** A paused product (Orochia, Yasakia, Yororis, Kachizaka) **pins** `@krizaka/ui` to its last 3.x minor
 (`~3.<n>.0`) and keeps working as it is. The core stops carrying components for it:
 
-- **The six entries only paused products import are deprecated in 3.x and removed in 4.0:** `iso`, `marquee` (moved),
-  `audio-player`, `meta-row` (moved), `how-it-works-page` (moved) and `media-grid`, plus `photo-grid`. Each deprecation reason says
+- **The six entries only paused products import are deprecated in 3.x and removed in 4.0:** `iso`, `marquee`, `audio-player`, `meta-row`, `how-it-works-page`, `media-grid` and `photo-grid` (all moved). Each deprecation reason says
   « paused product only ».
 - **When a product resumes,** it first upgrades to the current major. A component it still needs then has two ways
   back:

@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/ui",
-  "version": "3.73.0",
+  "version": "3.74.0",
   "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Yomizaka, Akinaza) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
@@ -453,10 +453,6 @@
       "types": "./dist/video-trimmer.d.ts",
       "import": "./dist/video-trimmer.js"
     },
-    "./audio-player": {
-      "types": "./dist/audio-player.d.ts",
-      "import": "./dist/audio-player.js"
-    },
     "./image-cropper": {
       "types": "./dist/image-cropper.d.ts",
       "import": "./dist/image-cropper.js"
@@ -805,14 +801,6 @@
       "types": "./dist/verified-badge.d.ts",
       "import": "./dist/verified-badge.js"
     },
-    "./media-grid": {
-      "types": "./dist/media-grid.d.ts",
-      "import": "./dist/media-grid.js"
-    },
-    "./photo-grid": {
-      "types": "./dist/photo-grid.d.ts",
-      "import": "./dist/photo-grid.js"
-    },
     "./motion.css": "./dist/motion.css",
     "./blocks.css": "./dist/blocks.css",
     "./story.css": "./dist/story.css",
@@ -998,7 +986,7 @@
   },
   "peerDependencies": {
     "@krizaka/query": ">=0.2.2",
-    "@krizaka/tailwind": ">=3.73.0",
+    "@krizaka/tailwind": ">=3.74.0",
     "@maplibre/maplibre-react-native": ">=11",
     "@shopify/flash-list": ">=2",
     "expo-camera": ">=16",
@@ -2061,16 +2049,6 @@
       ]
     },
     {
-      "name": "./audio-player",
-      "path": "dist/audio-player.js",
-      "limit": "2.8 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./image-cropper",
       "path": "dist/image-cropper.js",
       "limit": "12.8 kB",
@@ -3000,31 +2978,6 @@
         "expo-camera",
         "expo-image-picker",
         "@krizaka/ui"
-      ]
-    },
-    {
-      "name": "./media-grid",
-      "path": "dist/media-grid.js",
-      "limit": "9.1 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "tailwind-merge",
-        "react",
-        "react-dom",
-        "radix-ui",
-        "clsx",
-        "@krizaka/ui"
-      ]
-    },
-    {
-      "name": "./photo-grid",
-      "path": "dist/photo-grid.js",
-      "limit": "2.5 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
       ]
     },
     {
