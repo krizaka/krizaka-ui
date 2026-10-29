@@ -5,6 +5,7 @@ export const meta = {
   summary: "A read-only wall of photos, short notes and the owner's sign: Montréal brick, Moroccan eight-point zellige, Grenoble ridgelines or warm plaster, over a real keyboard-reachable list.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "An ornamental storefront surface belongs to web pages; native content should stay in a scrolling gallery.", use: "media-grid" }, desktop: "web" },
   whenToUse: ["A shop or community page whose owner's photos, words and identity should feel personally pinned up."],

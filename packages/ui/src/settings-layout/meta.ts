@@ -5,6 +5,7 @@ export const meta = {
   summary: "Settings: the sections on the side, alone or in titled groups (a row of chips on a phone, one menu past five), an optional identity header and the current section's forms, as titled cards with their own save or, flat, as hairline-divided rows (`SettingsRow`).",
   status: "beta",
   category: "layouts",
+  domain: "navigation-shell",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["Account, workspace and administration settings.", "Any long form that splits into independent groups."],

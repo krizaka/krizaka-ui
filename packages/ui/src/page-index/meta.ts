@@ -5,6 +5,7 @@ export const meta = {
   summary: "A book's index for a documentation or a catalogue: groups, entries, a dotted leader and the page number at the end of the line; the current entry marked in the margin.",
   status: "beta",
   category: "navigation",
+  domain: "page-blocks",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "A documentation sidebar; an app's navigation is its tab bar and lists.", use: "list" },

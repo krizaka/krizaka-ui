@@ -5,6 +5,7 @@ export const meta = {
   summary: "What happened, newest first: grouped by day, runs folded (“×3”), “2 min ago” kept fresh, new events announced — and `Timeline`, one thing's history on a rail.",
   status: "beta",
   category: "data-display",
+  domain: "data-display",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["Orazaka's job activity, a creator's notifications and tips.", "The bids of a live auction (`live`).", "A payout's or a job's history (`Timeline`)."],

@@ -5,6 +5,7 @@ export const meta = {
   summary: "A seal that says the person or the account was verified (a selfie, an ID) — the accent, named in words.",
   status: "beta",
   category: "feedback",
+  domain: "identity",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["Beside a name on a profile, a card, a message header.", "On a photo (`onMedia` / `on=\"media\"`)."],

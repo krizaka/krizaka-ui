@@ -5,6 +5,7 @@ export const meta = {
   summary: "A figure with its meaning, formula, source, freshness and host-defined thresholds.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "The native twin is a follow-up; compose the same data in a native screen for now.", use: "stat" },

@@ -10,6 +10,7 @@ export const meta = {
     reason: "The web entry has no user (ADR-006 audit, 2026-10-25). The native `ForceUpdateScreen`, used by mobile apps, stays.",
   },
   category: "feedback",
+  domain: "feedback",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["When the backend says `updateMode: force` or answers `426 Upgrade Required`.", "In place of the whole app: nothing behind it must be reachable."],

@@ -6,6 +6,7 @@ export const meta = {
     "The chapters of a story on the Cahier's ruled lines (ADR-004): `ChapterIndex` (one ruled line per chapter, the number in the margin, the serif title the link, the latest marked « New »), `ChapterHead` and `ChapterFoot` for the top and bottom of a chapter's page. No boxes. `variant=\"album\"` draws each chapter's cover as a taped print beside its title, the rows alternating left and right.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "A long read's index and page frame on a public site; an app lists its items with List.", use: "list" },

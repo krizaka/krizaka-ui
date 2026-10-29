@@ -5,6 +5,7 @@ export const meta = {
   summary: "Two or three ranked, host-provided actions with their reason and urgency.",
   status: "beta",
   category: "blocks",
+  domain: "conversation",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "The native twin is a follow-up; compose the same actions in a native screen for now.", use: "button" },

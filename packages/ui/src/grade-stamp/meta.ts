@@ -5,6 +5,7 @@ export const meta = {
   summary: "A teacher's red-ink grade, « 18/20 », with a short remark — only from a real measurement passed in by the host, its source in a tooltip.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "gap", issue: "krizaka/krizaka-ui#421", reason: "It comes with the native paper roles of the Cahier." },

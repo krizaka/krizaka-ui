@@ -5,6 +5,7 @@ export const meta = {
   summary: "A row of chip links that scrolls sideways with scroll-snap on a phone (the edge fades) and wraps from md: an audience picker, a page's filters.",
   status: "beta",
   category: "navigation",
+  domain: "foundations",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen uses Chip.Group with `scrollable`.", use: "chip" }, desktop: "web" },
   whenToUse: [

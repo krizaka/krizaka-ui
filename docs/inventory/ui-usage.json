@@ -116,6 +116,7 @@
       "category": null,
       "status": null,
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 7,
         "akinaza": 6,
@@ -157,6 +158,7 @@
       "category": null,
       "status": null,
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "akinaza": 3,
         "orazaka-web-client": 30,
@@ -287,6 +289,7 @@
       "category": "foundations",
       "status": "stable",
       "domain": "foundations",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -312,6 +315,7 @@
       "category": "actions",
       "status": "stable",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 44,
         "akinaza": 54,
@@ -389,6 +393,7 @@
       "category": "data-display",
       "status": "stable",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 40,
         "akinaza": 32,
@@ -440,6 +445,7 @@
       "category": "forms",
       "status": "stable",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "yomizaka": 5,
         "akinaza": 12,
@@ -488,6 +494,7 @@
       "category": "feedback",
       "status": "stable",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "akinaza": 1,
@@ -522,6 +529,7 @@
       "category": "feedback",
       "status": "stable",
       "domain": "feedback",
+      "adoption": null,
       "importers": {
         "yomizaka": 9,
         "akinaza": 6,
@@ -560,6 +568,7 @@
       "category": "feedback",
       "status": "stable",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "orazaka-web-client": 1,
         "ui-site": 1,
@@ -599,6 +608,7 @@
       "category": "data-display",
       "status": "stable",
       "domain": "identity",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 2,
@@ -650,6 +660,7 @@
       "category": null,
       "status": null,
       "domain": "identity",
+      "adoption": null,
       "importers": {
         "yomizaka": 1
       },
@@ -688,6 +699,7 @@
       "category": "foundations",
       "status": "stable",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 11,
         "akinaza": 6,
@@ -737,6 +749,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "identity",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -762,6 +775,7 @@
       "category": "data-display",
       "status": "stable",
       "domain": "data-display",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -792,6 +806,7 @@
       "category": "layout",
       "status": "stable",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 16,
         "akinaza": 29,
@@ -838,6 +853,7 @@
       "category": "overlays",
       "status": "stable",
       "domain": "feedback",
+      "adoption": null,
       "importers": {
         "yomizaka": 5,
         "akinaza": 5,
@@ -878,6 +894,7 @@
       "category": "feedback",
       "status": "stable",
       "domain": "feedback",
+      "adoption": null,
       "importers": {
         "orazaka-web-client": 8,
         "motion-lab": 2
@@ -908,6 +925,7 @@
       "category": "overlays",
       "status": "stable",
       "domain": "feedback",
+      "adoption": null,
       "importers": {
         "akinaza": 1,
         "orazaka-web-client": 1
@@ -942,6 +960,7 @@
       "category": "overlays",
       "status": "stable",
       "domain": "feedback",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "akinaza": 2,
@@ -979,6 +998,7 @@
       "category": "overlays",
       "status": "stable",
       "domain": "feedback",
+      "adoption": null,
       "importers": {
         "orazaka-web-client": 1,
         "cockpit": 1
@@ -1014,6 +1034,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -1041,6 +1062,7 @@
       "category": "data-display",
       "status": "stable",
       "domain": "data-display",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "akinaza": 3,
@@ -1081,6 +1103,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -1109,6 +1132,7 @@
       "category": "layout",
       "status": "stable",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 12,
         "akinaza": 14
@@ -1141,6 +1165,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "identity",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -1166,6 +1191,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -1193,6 +1219,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "commerce",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -1219,6 +1246,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "akinaza": 1
@@ -1249,6 +1277,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -1272,8 +1301,9 @@
       "kind": "entry",
       "title": "Usage",
       "category": "data-display",
-      "status": "beta",
+      "status": "experimental",
       "domain": "commerce",
+      "adoption": "orazaka-web-client#88",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -1299,6 +1329,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "conversation",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -1326,6 +1357,7 @@
       "category": "feedback",
       "status": "stable",
       "domain": "feedback",
+      "adoption": null,
       "importers": {
         "yomizaka": 48,
         "akinaza": 49,
@@ -1364,6 +1396,7 @@
       "category": "layout",
       "status": "stable",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "akinaza": 1,
         "blog": 1
@@ -1392,6 +1425,7 @@
       "category": "navigation",
       "status": "stable",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "akinaza": 2,
         "blog": 1,
@@ -1427,6 +1461,7 @@
       "category": "data-display",
       "status": "stable",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "krizaka-com": 2,
         "ui-site": 4,
@@ -1463,6 +1498,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 6,
         "akinaza": 2,
@@ -1501,6 +1537,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "orazaka-web-client": 2
@@ -1535,6 +1572,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "akinaza": 2,
@@ -1581,6 +1619,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 1
@@ -1611,6 +1650,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "data-display",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "akinaza": 1,
@@ -1640,6 +1680,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "akinaza": 5,
@@ -1675,6 +1716,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -1701,6 +1743,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "yomizaka": 4,
         "akinaza": 2,
@@ -1745,6 +1788,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "akinaza": 1,
         "ui-site": 1,
@@ -1781,6 +1825,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "akinaza": 2,
@@ -1818,6 +1863,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "yomizaka": 6,
         "orazaka-web-client": 3
@@ -1853,6 +1899,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 1,
@@ -1884,6 +1931,7 @@
       "category": "actions",
       "status": "beta",
       "domain": "feedback",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 3,
@@ -1919,6 +1967,7 @@
       "category": "feedback",
       "status": "beta",
       "domain": "feedback",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "orazaka-web-client": 2,
@@ -1953,6 +2002,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {
         "motion-lab": 1
       },
@@ -1983,8 +2033,9 @@
       "kind": "entry",
       "title": "Proposal review",
       "category": "blocks",
-      "status": "beta",
+      "status": "experimental",
       "domain": "conversation",
+      "adoption": "orazaka-web-client#98",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -2010,6 +2061,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "data-display",
+      "adoption": null,
       "importers": {
         "akinaza": 1,
         "cockpit": 1
@@ -2040,6 +2092,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -2067,6 +2120,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -2094,6 +2148,7 @@
       "category": "layout",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "orazaka-web-client": 1,
         "krizaka-com": 1
@@ -2131,6 +2186,7 @@
       "category": "feedback",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 11,
         "akinaza": 11,
@@ -2179,6 +2235,7 @@
       "category": "feedback",
       "status": "beta",
       "domain": "feedback",
+      "adoption": null,
       "importers": {},
       "nativeUse": {
         "akinaza": 2
@@ -2207,6 +2264,7 @@
       "category": "layout",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -2234,6 +2292,7 @@
       "category": null,
       "status": null,
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 2,
@@ -2273,6 +2332,7 @@
       "category": "feedback",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "orazaka-web-client": 3,
         "ui-site": 1
@@ -2305,6 +2365,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "akinaza": 3,
@@ -2345,6 +2406,7 @@
       "category": null,
       "status": null,
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -2371,6 +2433,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "identity",
+      "adoption": null,
       "importers": {
         "yomizaka": 7,
         "akinaza": 3
@@ -2401,6 +2464,7 @@
       "category": "feedback",
       "status": "beta",
       "domain": "feedback",
+      "adoption": null,
       "importers": {
         "yomizaka": 1
       },
@@ -2428,6 +2492,7 @@
       "category": "feedback",
       "status": "beta",
       "domain": "feedback",
+      "adoption": null,
       "importers": {
         "yomizaka": 1
       },
@@ -2455,6 +2520,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "akinaza": 3,
@@ -2497,6 +2563,7 @@
       "category": null,
       "status": null,
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -2524,6 +2591,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "akinaza": 2,
@@ -2566,6 +2634,7 @@
       "category": "foundations",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 1,
@@ -2609,6 +2678,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "orazaka-web-client": 3,
         "krizaka-com": 2,
@@ -2645,6 +2715,7 @@
       "category": "media",
       "status": "deprecated",
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -2671,6 +2742,7 @@
       "category": "layout",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "orazaka-web-client": 2,
         "motion-lab": 1,
@@ -2702,6 +2774,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "conversation",
+      "adoption": null,
       "importers": {
         "krizaka-com": 2,
         "ui-site": 1,
@@ -2731,6 +2804,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "motion-lab": 1
       },
@@ -2760,6 +2834,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "blog": 1,
         "java-site": 1
@@ -2791,6 +2866,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "akinaza": 1,
         "orazaka-web-client": 1
@@ -2824,6 +2900,7 @@
       "category": "data-display",
       "status": "deprecated",
       "domain": "data-display",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -2849,6 +2926,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "orazaka-web-client": 1,
@@ -2884,6 +2962,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "data-display",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "akinaza": 3,
@@ -2925,6 +3004,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "ui-site": 1
       },
@@ -2956,6 +3036,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "data-display",
+      "adoption": null,
       "importers": {
         "yomizaka": 16,
         "akinaza": 9,
@@ -2996,6 +3077,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "conversation",
+      "adoption": null,
       "importers": {
         "orazaka-web-client": 1
       },
@@ -3023,6 +3105,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "data-display",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3050,6 +3133,7 @@
       "category": "foundations",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3081,6 +3165,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "conversation",
+      "adoption": null,
       "importers": {
         "orazaka-web-client": 2,
         "cockpit": 4
@@ -3111,6 +3196,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "yomizaka": 5,
         "akinaza": 1
@@ -3141,6 +3227,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "yomizaka": 18,
         "akinaza": 21,
@@ -3180,6 +3267,7 @@
       "category": null,
       "status": null,
       "domain": "forms",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3208,6 +3296,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3233,6 +3322,7 @@
       "category": null,
       "status": null,
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "akinaza": 3
       },
@@ -3261,6 +3351,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "orazaka-web-client": 1
       },
@@ -3291,6 +3382,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "cockpit": 1
       },
@@ -3321,6 +3413,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "yomizaka": 1
       },
@@ -3353,6 +3446,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "maps",
+      "adoption": null,
       "importers": {
         "akinaza": 3,
         "ui-site": 1,
@@ -3385,6 +3479,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "akinaza": 1,
@@ -3420,6 +3515,7 @@
       "category": "media",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3449,6 +3545,7 @@
       "category": "media",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {
         "krizaka-com": 2,
         "ui-site": 1
@@ -3479,8 +3576,9 @@
       "kind": "entry",
       "title": "Shop gallery",
       "category": "media",
-      "status": "beta",
+      "status": "experimental",
       "domain": "commerce",
+      "adoption": "akinaza#481",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3506,6 +3604,7 @@
       "category": "media",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -3535,6 +3634,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -3564,6 +3664,7 @@
       "category": "media",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -3593,6 +3694,7 @@
       "category": "media",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {
         "yomizaka": 4,
         "orazaka-web-client": 1
@@ -3624,6 +3726,7 @@
       "category": "media",
       "status": "deprecated",
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3649,6 +3752,7 @@
       "category": "media",
       "status": "deprecated",
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3674,6 +3778,7 @@
       "category": "media",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3701,6 +3806,7 @@
       "category": "media",
       "status": "deprecated",
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3726,6 +3832,7 @@
       "category": "media",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {
         "yomizaka": 6,
         "cockpit": 1
@@ -3754,6 +3861,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "data-display",
+      "adoption": null,
       "importers": {
         "yomizaka": 8,
         "akinaza": 1,
@@ -3783,6 +3891,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "data-display",
+      "adoption": null,
       "importers": {
         "yomizaka": 7,
         "akinaza": 5,
@@ -3822,6 +3931,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "data-display",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3850,6 +3960,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3880,6 +3991,7 @@
       "category": null,
       "status": null,
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 1
       },
@@ -3910,6 +4022,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -3939,6 +4052,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "commerce",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -3966,6 +4080,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 3
       },
@@ -3993,6 +4108,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -4022,6 +4138,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -4049,6 +4166,7 @@
       "category": "media",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -4076,6 +4194,7 @@
       "category": "layout",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -4105,6 +4224,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -4134,6 +4254,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "data-display",
+      "adoption": null,
       "importers": {
         "cockpit": 1
       },
@@ -4166,6 +4287,7 @@
       "category": "navigation",
       "status": "deprecated",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "cockpit": 3
       },
@@ -4194,6 +4316,7 @@
       "category": "data-display",
       "status": "deprecated",
       "domain": "data-display",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -4219,6 +4342,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "yomizaka": 8,
         "akinaza": 7,
@@ -4279,6 +4403,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "yomizaka": 5,
         "akinaza": 6,
@@ -4331,6 +4456,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "orazaka-web-client": 1,
@@ -4372,6 +4498,7 @@
       "category": "blocks",
       "status": "deprecated",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -4398,6 +4525,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "orazaka-web-client": 2,
@@ -4439,6 +4567,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "krizaka-com": 1,
         "java-site": 1,
@@ -4470,6 +4599,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {
         "krizaka-com": 1,
         "java-site": 1
@@ -4505,6 +4635,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "krizaka-com": 1
       },
@@ -4537,6 +4668,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {
         "akinaza": 2,
         "krizaka-com": 2
@@ -4568,6 +4700,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -4593,6 +4726,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {
         "krizaka-com": 4
       },
@@ -4624,6 +4758,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -4649,6 +4784,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -4674,6 +4810,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {
         "ui-site": 1
       },
@@ -4701,6 +4838,7 @@
       "category": "templates",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {
         "ui-site": 1
       },
@@ -4728,6 +4866,7 @@
       "category": "feedback",
       "status": "deprecated",
       "domain": "cahier",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -4753,6 +4892,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {
         "krizaka-com": 3
       },
@@ -4780,6 +4920,7 @@
       "category": "blocks",
       "status": "deprecated",
       "domain": "cahier",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -4805,6 +4946,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "motion-lab": 1
       },
@@ -4832,6 +4974,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {
         "blog": 2
       },
@@ -4859,6 +5002,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "krizaka-com": 2,
@@ -4888,6 +5032,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -4917,6 +5062,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "cahier",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -4942,6 +5088,7 @@
       "category": "blocks",
       "status": "deprecated",
       "domain": "cahier",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -4967,6 +5114,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "orazaka-web-client": 3,
@@ -5006,6 +5154,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "orazaka-web-client": 1,
         "krizaka-com": 2
@@ -5036,6 +5185,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "conversation",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -5063,6 +5213,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -5091,6 +5242,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "krizaka-com": 2
       },
@@ -5127,6 +5279,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "krizaka-com": 2,
         "blog": 2
@@ -5158,6 +5311,7 @@
       "category": "layouts",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "cockpit": 1
@@ -5193,6 +5347,7 @@
       "category": "layouts",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 2
@@ -5224,6 +5379,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "identity",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "akinaza": 1
@@ -5254,8 +5410,9 @@
       "kind": "entry",
       "title": "Schema form",
       "category": "forms",
-      "status": "beta",
+      "status": "experimental",
       "domain": "forms",
+      "adoption": "orazaka#207",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5281,6 +5438,7 @@
       "category": "layouts",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 6,
         "akinaza": 11,
@@ -5316,6 +5474,7 @@
       "category": "layouts",
       "status": "beta",
       "domain": "identity",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "akinaza": 3,
@@ -5350,6 +5509,7 @@
       "category": "layouts",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "akinaza": 2
@@ -5383,6 +5543,7 @@
       "category": "layouts",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -5410,6 +5571,7 @@
       "category": "layouts",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5436,6 +5598,7 @@
       "category": "layouts",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5463,6 +5626,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 1
@@ -5493,6 +5657,7 @@
       "category": "layout",
       "status": "deprecated",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5519,6 +5684,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -5549,6 +5715,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "identity",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5576,6 +5743,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "blog": 1
       },
@@ -5603,6 +5771,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "data-display",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5629,6 +5798,7 @@
       "category": "actions",
       "status": "deprecated",
       "domain": "foundations",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5654,6 +5824,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "identity",
+      "adoption": null,
       "importers": {
         "motion-lab": 1
       },
@@ -5681,6 +5852,7 @@
       "category": "data-display",
       "status": "deprecated",
       "domain": "data-display",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5706,6 +5878,7 @@
       "category": "blocks",
       "status": "deprecated",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5731,6 +5904,7 @@
       "category": "templates",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 2,
@@ -5766,6 +5940,7 @@
       "category": "templates",
       "status": "deprecated",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5792,6 +5967,7 @@
       "category": "templates",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5819,6 +5995,7 @@
       "category": "templates",
       "status": "deprecated",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5845,6 +6022,7 @@
       "category": "templates",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "akinaza": 1,
         "orazaka-web-client": 1
@@ -5875,6 +6053,7 @@
       "category": "templates",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 1,
@@ -5906,6 +6085,7 @@
       "category": "templates",
       "status": "deprecated",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5932,6 +6112,7 @@
       "category": "templates",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "yomizaka": 1
       },
@@ -5959,6 +6140,7 @@
       "category": "templates",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5985,6 +6167,7 @@
       "category": "templates",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "krizaka-com": 2,
         "ui-site": 3,
@@ -6019,6 +6202,7 @@
       "category": "templates",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6044,6 +6228,7 @@
       "category": "templates",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "krizaka-com": 1
       },
@@ -6071,6 +6256,7 @@
       "category": "templates",
       "status": "deprecated",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6096,6 +6282,7 @@
       "category": "templates",
       "status": "beta",
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 1,
@@ -6130,6 +6317,7 @@
       "category": "templates",
       "status": "beta",
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 1,
@@ -6159,6 +6347,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "conversation",
+      "adoption": null,
       "importers": {
         "orazaka-web-client": 1,
         "motion-lab": 4
@@ -6190,6 +6379,7 @@
       "category": "data-display",
       "status": "deprecated",
       "domain": "data-display",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6215,6 +6405,7 @@
       "category": "overlays",
       "status": "deprecated",
       "domain": "feedback",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6240,6 +6431,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "akinaza": 1
@@ -6268,6 +6460,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "motion-lab": 2
       },
@@ -6296,6 +6489,7 @@
       "category": "feedback",
       "status": "beta",
       "domain": "identity",
+      "adoption": null,
       "importers": {
         "ui-site": 1,
         "motion-lab": 1
@@ -6326,6 +6520,7 @@
       "category": "media",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6353,6 +6548,7 @@
       "category": "media",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6381,6 +6577,7 @@
       "category": null,
       "status": null,
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "motion-lab": 2
       },
@@ -6408,6 +6605,7 @@
       "category": null,
       "status": null,
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "akinaza": 3,
@@ -6449,6 +6647,7 @@
       "category": null,
       "status": null,
       "domain": "page-blocks",
+      "adoption": null,
       "importers": {
         "akinaza": 1,
         "krizaka-com": 1,
@@ -6483,6 +6682,7 @@
       "category": null,
       "status": null,
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 2,
         "akinaza": 1,
@@ -6524,6 +6724,7 @@
       "category": null,
       "status": null,
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 17,
         "akinaza": 20,
@@ -6556,6 +6757,7 @@
       "category": null,
       "status": null,
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6581,6 +6783,7 @@
       "category": null,
       "status": null,
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6606,6 +6809,7 @@
       "category": null,
       "status": null,
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6631,6 +6835,7 @@
       "category": null,
       "status": null,
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6656,6 +6861,7 @@
       "category": null,
       "status": null,
       "domain": "data-display",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "akinaza": 1
@@ -6684,6 +6890,7 @@
       "category": null,
       "status": null,
       "domain": "forms",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6709,6 +6916,7 @@
       "category": null,
       "status": null,
       "domain": "maps",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6734,6 +6942,7 @@
       "category": null,
       "status": null,
       "domain": "conversation",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6759,6 +6968,7 @@
       "category": "feedback",
       "status": "deprecated",
       "domain": "feedback",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6784,6 +6994,7 @@
       "category": "feedback",
       "status": "deprecated",
       "domain": "feedback",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6809,6 +7020,7 @@
       "category": "feedback",
       "status": "deprecated",
       "domain": "feedback",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -6834,6 +7046,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 10,
         "ui-site": 1
@@ -6864,6 +7077,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -6893,6 +7107,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -6922,6 +7137,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 3
       },
@@ -6951,6 +7167,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -6980,6 +7197,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7007,6 +7225,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 2
       },
@@ -7036,6 +7255,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -7065,6 +7285,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -7094,6 +7315,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -7123,6 +7345,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -7152,6 +7375,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -7181,6 +7405,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -7210,6 +7435,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -7239,6 +7465,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -7268,6 +7495,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7295,6 +7523,7 @@
       "category": null,
       "status": null,
       "domain": "commerce",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7322,6 +7551,7 @@
       "category": "layouts",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 4,
@@ -7351,6 +7581,7 @@
       "category": null,
       "status": null,
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7374,8 +7605,9 @@
       "kind": "entry",
       "title": "Desktop window",
       "category": "layouts",
-      "status": "beta",
+      "status": "experimental",
       "domain": "navigation-shell",
+      "adoption": "orazaka#87",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7401,6 +7633,7 @@
       "category": "blocks",
       "status": "beta",
       "domain": "commerce",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -7428,6 +7661,7 @@
       "category": "actions",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "cockpit": 1
       },
@@ -7453,8 +7687,9 @@
       "kind": "entry",
       "title": "Money input",
       "category": "forms",
-      "status": "beta",
+      "status": "experimental",
       "domain": "commerce",
+      "adoption": "krizaka-ui#596",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7481,8 +7716,9 @@
       "kind": "entry",
       "title": "Price catalogue editor",
       "category": "blocks",
-      "status": "beta",
+      "status": "experimental",
       "domain": "commerce",
+      "adoption": "orazaka#417",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7506,8 +7742,9 @@
       "kind": "entry",
       "title": "Promo code field",
       "category": "forms",
-      "status": "beta",
+      "status": "experimental",
       "domain": "commerce",
+      "adoption": "orazaka#417",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7533,6 +7770,7 @@
       "category": "overlays",
       "status": "beta",
       "domain": "feedback",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7558,6 +7796,7 @@
       "category": "actions",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7581,8 +7820,9 @@
       "kind": "native-only",
       "title": "Form flow",
       "category": "layout",
-      "status": "beta",
+      "status": "experimental",
       "domain": "navigation-shell",
+      "adoption": "akinaza#104",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7608,6 +7848,7 @@
       "category": "layout",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -7635,6 +7876,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "akinaza": 3
@@ -7663,6 +7905,7 @@
       "category": "media",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7688,6 +7931,7 @@
       "category": "layout",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "akinaza": 1
       },
@@ -7715,6 +7959,7 @@
       "category": "media",
       "status": "beta",
       "domain": "media",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7740,6 +7985,7 @@
       "category": "layout",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7765,6 +8011,7 @@
       "category": "forms",
       "status": "beta",
       "domain": "forms",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7790,6 +8037,7 @@
       "category": "feedback",
       "status": "beta",
       "domain": "feedback",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7815,6 +8063,7 @@
       "category": "feedback",
       "status": "beta",
       "domain": "feedback",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7840,6 +8089,7 @@
       "category": "layout",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 7,
         "akinaza": 9,
@@ -7871,6 +8121,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 3,
         "akinaza": 1
@@ -7899,6 +8150,7 @@
       "category": "feedback",
       "status": "beta",
       "domain": "feedback",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7922,8 +8174,9 @@
       "kind": "native-only",
       "title": "State screen",
       "category": "feedback",
-      "status": "beta",
+      "status": "experimental",
       "domain": "feedback",
+      "adoption": "akinaza#278",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7949,6 +8202,7 @@
       "category": "data-display",
       "status": "beta",
       "domain": "data-display",
+      "adoption": null,
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7974,6 +8228,7 @@
       "category": "navigation",
       "status": "beta",
       "domain": "navigation-shell",
+      "adoption": null,
       "importers": {
         "yomizaka": 1,
         "akinaza": 1
@@ -8002,6 +8257,7 @@
       "category": "foundations",
       "status": "beta",
       "domain": "foundations",
+      "adoption": null,
       "importers": {
         "yomizaka": 10,
         "akinaza": 11

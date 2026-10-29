@@ -5,6 +5,7 @@ export const meta = {
   summary: "Interests, languages, a workspace's tags: toggle chips with a limit and a count — the others rest once the limit is reached. With a `marker` an option is a tag with its colour; `creatable` adds a field where Enter takes the tag typed or creates it.",
   status: "beta",
   category: "forms",
+  domain: "forms",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["A profile's interests, up to five.", "Filters by topic with a limit.", "A workspace's tags on a file (`creatable`): choose among the tags that exist, or type a new one and give it a colour of the closed palette."],

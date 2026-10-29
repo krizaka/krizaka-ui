@@ -6,6 +6,7 @@ export const meta = {
     "The Krizaka navigation bar, the same on every site of the family: a floating pill that tightens as the page scrolls, the family switcher on the brand, one light that glides to the item under the pointer or the focus and rests on the current page, accessible menus with rich links, and a mobile panel.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A site's top bar; an app on a phone navigates with its tab bar.", use: "tab-bar" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

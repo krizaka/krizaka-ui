@@ -6,6 +6,7 @@ export const meta = {
     "The one language control of the family: a globe and the current code (FR) that opens a short list of the languages, each named in its own language (Français · English), as links with hreflang to the same page.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "An app on a phone follows the system language, with a choice in its settings.", use: "settings-layout" }, desktop: "web" },
   whenToUse: [

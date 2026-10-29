@@ -6,6 +6,7 @@ export const meta = {
     "The family's top bar beside a `RailNav`: the product's name as text, optional status chips, then the session's controls in a fixed order — search (⌘K), language, the host's actions, messages and notifications with their unread counts, the primary action, the account with its name. Every slot is the host's; an empty one draws nothing.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

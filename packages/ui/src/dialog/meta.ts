@@ -5,6 +5,7 @@ export const meta = {
   summary: "A window over the page — centred, a bottom sheet or a side panel — and `AlertDialog` for a confirmation.",
   status: "stable",
   category: "overlays",
+  domain: "feedback",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

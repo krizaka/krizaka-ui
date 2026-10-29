@@ -5,6 +5,7 @@ export const meta = {
   summary: "A value or a range chosen by dragging a thumb along a track — steps you can see, the value floating over the thumb, the brand\u2019s gradient, horizontal or vertical — with arrows and Page keys.",
   status: "beta",
   category: "forms",
+  domain: "forms",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["For a value chosen by feel within bounds: volume, speed, brightness.", "Two thumbs for a range: a price, a duration."],

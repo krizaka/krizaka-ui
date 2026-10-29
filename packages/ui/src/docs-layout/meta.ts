@@ -5,6 +5,7 @@ export const meta = {
   summary: "A documentation page in the site's frame: the pages, the article and its contents on a wide screen; on a phone the pages fold into a disclosure above the article.",
   status: "beta",
   category: "layouts",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Documentation is read on the sites, not inside an app." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: ["A documentation without a docs engine, or around one.", "Guides and references of a product."],

@@ -6,6 +6,7 @@ export const meta = {
     "A code sample: its language and file name, the code highlighted by TanStack Highlight on the tokens (TS, TSX, JS, JSON, YAML, Bash, HTML, CSS, Java, Kotlin, diff — it scrolls sideways, never shrinks), numbered lines, lines set apart (highlighted, added, removed, in focus) and a copy button that says it copied — `CodeTabs` puts several build tools side by side.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Code on a phone is read inside an answer: the native Markdown renders its code blocks.", use: "markdown" }, desktop: "web" },
   whenToUse: [

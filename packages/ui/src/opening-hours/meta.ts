@@ -5,6 +5,7 @@ export const meta = {
   summary: "A shop's weekly hours in one quiet row — « Open now · closes at 5 pm » and today's hours — that unfolds into the whole week, today highlighted.",
   status: "beta",
   category: "data-display",
+  domain: "commerce",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A shop's public storefront is a web page.", use: "list" }, desktop: "web" },
   whenToUse: [

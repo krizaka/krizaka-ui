@@ -10,6 +10,7 @@ export const meta = {
     reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
   },
   category: "data-display",
+  domain: "data-display",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A board needs width and dragging between columns; on a phone each column is a tab over a list.", use: "tabs" }, desktop: "web" },
   whenToUse: ["A moderation queue: to review, reviewing, resolved.", "A release plan, a support queue."],

@@ -259,10 +259,30 @@ export interface Parity {
 }
 
 /**
- * `stable`: its API only changes in a major. `beta`: it may still change in a minor. `deprecated`: no product uses it and
+ * `experimental`: created for a filed need (ADR-008 §4), it may change or go in any minor until its first consumer imports it; `adoption`
+ * names that consumer's issue. `stable`: its API only changes in a major. `beta`: it may still change in a minor. `deprecated`: no product uses it and
  * no work plans to — it still works, says what replaces it, and goes in the major named by `deprecated.removedIn`.
  */
-export type Status = "stable" | "beta" | "deprecated";
+export type Status = "experimental" | "stable" | "beta" | "deprecated";
+
+/**
+ * What a component is for (ADR-008 §3): the twelve domains the documentation, the size budgets and the guards are
+ * organised by. The domain is metadata: the entries stay flat (`@krizaka/ui/<name>`). `cahier` is the sites' register
+ * (ADR-004): a product never imports it.
+ */
+export type Domain =
+  | "foundations"
+  | "forms"
+  | "data-display"
+  | "navigation-shell"
+  | "feedback"
+  | "maps"
+  | "media"
+  | "commerce"
+  | "identity"
+  | "conversation"
+  | "page-blocks"
+  | "cahier";
 
 /** What a deprecated component says (required when `status` is `deprecated`, absent otherwise). */
 export interface Deprecation {
@@ -366,6 +386,10 @@ export interface ComponentMeta {
   /** Required for, and only for, a `deprecated` component. */
   readonly deprecated?: Deprecation;
   readonly category: Category;
+  /** What it is for: one of the twelve domains (ADR-008 §3). */
+  readonly domain: Domain;
+  /** The `<repo>#<n>` issue of its first consumer: required for, and only for, an `experimental` component. */
+  readonly adoption?: string;
   /** Must match the sides below: `both` ⇔ `web` and `native`. */
   readonly platforms: Platform;
   /** The platforms it is not on, and why; and its desktop form (see `Parity`). */

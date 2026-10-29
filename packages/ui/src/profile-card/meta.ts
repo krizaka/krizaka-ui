@@ -6,6 +6,7 @@ export const meta = {
     "A profile at a glance — a portrait, a name, a headline gauge, a few stats with their values in words, a line and actions: a creator, a match, a member, a plan. `ProfileBanner` is the top of a person's or a place's page: a cover, the avatar overlapping it, the name, its facts, the actions.",
   status: "beta",
   category: "data-display",
+  domain: "identity",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

@@ -5,6 +5,7 @@ export const meta = {
   summary: "What a list, a search or a panel says when it has nothing to show: an icon, a title, a line and an action.",
   status: "stable",
   category: "feedback",
+  domain: "feedback",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

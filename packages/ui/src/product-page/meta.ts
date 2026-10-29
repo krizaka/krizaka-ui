@@ -11,6 +11,7 @@ export const meta = {
     reason: "No page uses this template and no filed need names it (ADR-006 audit, 2026-10-25). Compose a product page on `LandingPage`.",
   },
   category: "templates",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: ["The overview of each product (Orazaka, Yomizaka, Akinaza).", "A building block's page that argues its decisions."],

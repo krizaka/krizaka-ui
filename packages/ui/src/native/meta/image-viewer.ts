@@ -5,6 +5,7 @@ export const meta = {
   summary: "Images full screen on black: pinch and double tap to zoom, swipe between images, swipe down to close.",
   status: "beta",
   category: "media",
+  domain: "media",
   platforms: "native",
   parity: { web: { status: "gap", issue: "krizaka/krizaka-ui#279", reason: "The web galleries need a full-screen viewer too." }, desktop: { status: "gap", issue: "krizaka/krizaka-ui#279", reason: "The Mac app renders the web's viewer once it exists." } },
   whenToUse: ["The photos of a post or a message, opened full screen.", "A creator's gallery."],

@@ -5,6 +5,7 @@ export const meta = {
   summary: "The one action of a page held at the bottom edge of a phone's screen while it scrolls — pure CSS, not drawn from `md` up.",
   status: "beta",
   category: "layout",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A native screen has its own bottom bar.", use: "fab" }, desktop: "web" },
   whenToUse: ["A public page with one thing to do (book, buy, contact) that must stay within thumb reach on a phone."],

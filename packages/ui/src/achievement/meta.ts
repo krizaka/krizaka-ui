@@ -6,6 +6,7 @@ export const meta = {
     "Something done, and what it replaced: a milestone reached, a dare completed, a problem out of the way — on one grid of hairlines in a list, their badges arriving one by one; with three line emblems.",
   status: "beta",
   category: "data-display",
+  domain: "identity",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Part of the storytelling kit of scroll-driven site pages; a phone app tells its first steps with Onboarding.", use: "mascot-state" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

@@ -5,6 +5,7 @@ export const meta = {
   summary: "The URL is the state: `useRouteState` keeps a selection (a tab, a type, a filter) in a search parameter, and Tabs, Chip.Group and ChoiceGrid bind to it with `routeKey`.",
   status: "beta",
   category: "navigation",
+  domain: "foundations",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A native app routes with its navigator's params, not with a web address." }, desktop: "web" },
   whenToUse: [

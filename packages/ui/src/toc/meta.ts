@@ -6,6 +6,7 @@ export const meta = {
     "The sections of a reading page: sticky beside the content on a wide screen, a row of chips that scrolls sideways on a phone, the section being read marked — with `TocLayout` to place it.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A reading page's sticky contents; a phone screen is short and scrolls." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

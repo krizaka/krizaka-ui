@@ -5,6 +5,7 @@ export const meta = {
   summary: "A 9:16 short video with the action rail of a short-video feed — follow, like, comments, share, your own tip button — and the creator's caption over the picture; `ShortFeed` stacks them as a snap-scrolling feed that plays the one in view.",
   status: "beta",
   category: "media",
+  domain: "media",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

@@ -5,6 +5,7 @@ export const meta = {
   summary: "A queue of files that stays on screen: each row appears at once, says in words what it is doing, shows live progress while it works, and ends in a result chip; a non-blocking tray holds it.",
   status: "beta",
   category: "feedback",
+  domain: "feedback",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#511", reason: "The Expo apps get the same queue on @krizaka/ui/native." }, desktop: "web" },
   whenToUse: ["Several files are checked, encoded or imported at once and the user keeps browsing.", "Progress comes from live events (Orazaka's run events): the row shows their words."],

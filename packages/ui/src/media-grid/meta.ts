@@ -5,6 +5,7 @@ export const meta = {
   summary: "A feed of videos in mixed orientations that never staggers, with its loading states (`MediaGridSkeleton`, `VideoCardSkeleton`, `LoadMore`): `MediaGrid` routes the 9:16 clips to a `ShortsShelf` (equal-height cards, snap scroll, arrows, “See all”) and lays the others in a uniform 16:9 grid; `VideoCard` is aspect-aware and gives every card the same body height so rows align.",
   status: "beta",
   category: "media",
+  domain: "media",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#228", reason: "A mobile app hand-rolls its tiles and stories rail." }, desktop: "web" },
   whenToUse: [

@@ -5,6 +5,7 @@ export const meta = {
   summary: "A search box: a clear button, a global ⌘K / Ctrl+K shortcut, a debounced `onSearch`, Enter to submit, and suggestions with the keyboard.",
   status: "beta",
   category: "forms",
+  domain: "forms",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

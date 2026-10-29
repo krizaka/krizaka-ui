@@ -5,6 +5,7 @@ export const meta = {
   summary: "A sound with a waveform you seek on — the peaks given by the server or computed once with Web Audio — play, time and speed, paused when it leaves the screen.",
   status: "beta",
   category: "media",
+  domain: "media",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#278", reason: "Needs an Expo audio module as an optional peer; voice notes will need it." }, desktop: "web" },
   whenToUse: [

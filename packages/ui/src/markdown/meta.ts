@@ -6,6 +6,7 @@ export const meta = {
     "A Markdown text on the tokens — headings, lists and tasks, quotes, tables, links, images, footnotes, fenced code in `CodeBlock` — parsed by TanStack Markdown, safe by default (raw HTML is never rendered), with a streaming mode for a text that arrives in pieces: an AI answer. React Native draws the same AST in `Text` and `View`.",
   status: "beta",
   category: "data-display",
+  domain: "conversation",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

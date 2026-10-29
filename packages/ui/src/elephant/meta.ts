@@ -11,6 +11,7 @@ export const meta = {
     reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
   },
   category: "feedback",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "A web mark for a page's hero or a chat's closing line; the app takes the same drawing from the mark assets until an app screen needs it.", use: "mascots" },

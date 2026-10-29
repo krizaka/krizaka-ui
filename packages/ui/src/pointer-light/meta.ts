@@ -12,6 +12,7 @@ export const meta = {
     reason: "krizaka-ui#393: the light that followed the pointer is retired — every card has one quiet hover (a surface and hairline step, no movement, no light). It renders a hidden span and does nothing.",
   },
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "It follows a mouse pointer; a phone has none." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

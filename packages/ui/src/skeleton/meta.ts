@@ -6,6 +6,7 @@ export const meta = {
     "A placeholder the shape of what is loading — lines, circles, blocks, or the real component turned into its own skeleton (`SkeletonShape`) — crossed by one reflection of the brand light.",
   status: "stable",
   category: "feedback",
+  domain: "foundations",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["While a list, a card or a profile loads, in its final layout: the page does not jump when it arrives."],

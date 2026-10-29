@@ -5,6 +5,7 @@ export const meta = {
   summary: "The backdrop of a page section: the brand's gradient, a light dome, an optional perspective grid and a blurred foreground.",
   status: "beta",
   category: "layout",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

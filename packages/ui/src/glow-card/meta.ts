@@ -6,6 +6,7 @@ export const meta = {
     "A card ringed by the brand: its border is a still hairline of the brand gradient, a step brighter under the pointer or the focus, fuller on a featured card. Nothing follows the pointer, nothing turns (krizaka-ui#393).",
   status: "beta",
   category: "layout",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "card" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

@@ -5,6 +5,7 @@ export const meta = {
   summary: "Free words as removable chips — Enter or a comma adds one, a paste adds several, suggestions complete, `normalize` cleans and `validate` refuses with a reason.",
   status: "beta",
   category: "forms",
+  domain: "forms",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Typing free tags is a keyboard task; on a phone the tags are chosen.", use: "tag-selector" }, desktop: "web" },
   whenToUse: [

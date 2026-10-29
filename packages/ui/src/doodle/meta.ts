@@ -6,6 +6,7 @@ export const meta = {
     "A doodle in the margin ink of the Cahier: an arrow pointing at a block, a circled word, a star, a wavy underline or a small sketch of the site's bird — inline SVG, the same on the server and on the client. Beside a block on a wide screen, or in the flow around a real word.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "A phone has no margin to scribble in." },

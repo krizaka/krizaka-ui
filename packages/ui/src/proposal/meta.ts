@@ -3,8 +3,10 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Proposal review",
   summary: "An agent proposes, a person approves, rejects or edits: who proposes, what, how sure it is (in words and figures), the evidence as a signed diff, and the decision announced.",
-  status: "beta",
+  status: "experimental",
+  adoption: "orazaka-web-client#98",
   category: "blocks",
+  domain: "conversation",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#673", reason: "The Orazaka Mac app renders the web block (orazaka#109); a phone twin follows with the first phone approval screen." }, desktop: "web" },
   whenToUse: ["A run needs a human to approve what an agent proposes (a timeline step, a review queue, a diff with approval).", "Any proposal whose approval must be explicit, keyboard-reachable and announced."],

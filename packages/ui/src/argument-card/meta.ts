@@ -6,6 +6,7 @@ export const meta = {
     "A compact card that argues — about a third of a full card: who (icon, name, the bird in the corner), the trap in one line, facts and one short action; the long version lives on a detail page or unfolds in place.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "card" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

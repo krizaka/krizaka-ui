@@ -19,7 +19,7 @@ import { LazyExample } from "./LazyExample";
 type PlatformFilter = "all" | Platform;
 type UsedFilter = "all" | Product | "none";
 const PLATFORMS: PlatformFilter[] = ["all", "web", "native", "both"];
-const STATUSES: Status[] = ["stable", "beta", "deprecated"];
+const STATUSES: Status[] = ["stable", "beta", "experimental", "deprecated"];
 const ICON = { web: Monitor, native: Smartphone, both: MonitorSmartphone };
 
 /** Web shows what runs on the web (web and both), Mobile what runs in React Native (native and both), Both what runs on both. */

@@ -10,6 +10,7 @@ export const meta = {
     reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25): there is no replacement.",
   },
   category: "media",
+  domain: "media",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#278", reason: "Avatars and covers are sent uncropped from the phone today." }, desktop: "web" },
   whenToUse: [

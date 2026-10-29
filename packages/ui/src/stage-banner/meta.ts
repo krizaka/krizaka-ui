@@ -5,6 +5,7 @@ export const meta = {
   summary: "The announcement of a chapter: a stage and its name on one line, or, large, a stage above a title and a line — a sober eyebrow by default, a stage call that slams in for the arcade flavour.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Part of the storytelling kit of scroll-driven site pages; a phone app tells its first steps with Onboarding." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

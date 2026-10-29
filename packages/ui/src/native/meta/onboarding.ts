@@ -5,6 +5,7 @@ export const meta = {
   summary: "A first launch in a few slides: swipe or tap Next, Skip at any time, dots that say where you are.",
   status: "beta",
   category: "layout",
+  domain: "navigation-shell",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "A web first run is a few steps on one page.", use: "stepper" }, desktop: { status: "n/a", reason: "The Mac app's first run is the install wizard, a stepper.", use: "stepper" } },
   whenToUse: ["The first launch of an app: three promises, then the sign-in."],

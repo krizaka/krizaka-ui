@@ -5,6 +5,7 @@ export const meta = {
   summary: "A chip that is a link — a filter that is an address — with the look of `Chip`, the current one marked, and `chipVariants` to style anything else; server-safe.",
   status: "beta",
   category: "navigation",
+  domain: "foundations",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "chip" }, desktop: "web" },
   whenToUse: ["Filters that change the address (`/explore?tag=night`): each tag is a link, shareable and server-rendered."],

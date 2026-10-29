@@ -3,8 +3,10 @@ import type { ComponentMeta } from "../meta";
 export const meta = {
   title: "Schema form",
   summary: "A form drawn from a JSON Schema: typed fields, the schema's own rules, the words of the language (`x-i18n`) and the rarely needed fields folded (`x-advanced`).",
-  status: "beta",
+  status: "experimental",
+  adoption: "orazaka#207",
   category: "forms",
+  domain: "forms",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#527", reason: "The native twin draws the same `fieldsFromSchema` on the native fields; it follows with the first phone screen that needs it." }, desktop: "web" },
   whenToUse: ["When the fields are data: a studio's input schema, a shop's setup, a product's settings described by a schema.", "When the host checks the same schema on the server."],

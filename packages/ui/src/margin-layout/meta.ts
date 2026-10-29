@@ -6,6 +6,7 @@ export const meta = {
     "Numbered items with margin notes for product reading pages: the number in the left margin in tabular display figures, the note (the article cited, « See in the document ») in the right margin from 64 rem and under the item below it.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "gap", issue: "krizaka/krizaka-ui#645", reason: "A phone is always the folded layout (the note under the item); the apps compose it from a numbered List until a screen asks for a twin." },

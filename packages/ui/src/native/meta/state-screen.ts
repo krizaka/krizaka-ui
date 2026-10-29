@@ -3,8 +3,10 @@ import type { ComponentMeta } from "../../meta";
 export const meta = {
   title: "State screen",
   summary: "What a screen says when it has nothing to show, when it failed, or when the network is gone: an icon, a title in plain words, the reason and the way out — announced as it should be. With the slim offline banner for a screen that still shows saved data.",
-  status: "beta",
+  status: "experimental",
+  adoption: "akinaza#278",
   category: "feedback",
+  domain: "feedback",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "On the web these are the empty state and the error page.", use: "empty-state" }, desktop: { status: "n/a", reason: "The Mac app's window is the web: its states are the empty state and the error page.", use: "empty-state" } },
   whenToUse: ["A list or a screen with nothing in it yet.", "A request that failed and can be retried.", "The network is gone: the banner when saved data shows, the full state when nothing does."],

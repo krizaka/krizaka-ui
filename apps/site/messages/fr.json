@@ -123,11 +123,13 @@
       "status": {
         "stable": "Stable",
         "beta": "Bêta",
+        "experimental": "Expérimental",
         "deprecated": "Déprécié"
       },
       "statusLong": {
         "stable": "Stable : son API ne change qu’à une version majeure.",
         "beta": "Bêta : son API peut encore changer à une version mineure.",
+        "experimental": "Expérimental : créé pour un besoin déposé, il peut changer ou disparaître à toute version mineure, jusqu'à ce qu'une première app l'utilise.",
         "deprecated": "Déprécié : conservé pour les apps qui l'utilisent encore, retiré à sa prochaine version majeure."
       },
       "categories": {

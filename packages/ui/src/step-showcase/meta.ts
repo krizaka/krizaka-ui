@@ -6,6 +6,7 @@ export const meta = {
     "A product's guided tour in one device frame — phone, browser or macOS window: the steps beside it, each real recording played muted then the next, crossfading; it plays only in view, holds on hover and focus, and keeps a pause button.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A product site's tour of the app; inside the phone app the real screens are the tour." }, desktop: "web" },
   whenToUse: [

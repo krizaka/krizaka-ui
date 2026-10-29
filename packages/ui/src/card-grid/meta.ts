@@ -6,6 +6,7 @@ export const meta = {
     "A responsive grid of cards: as many columns as the width allows (one on a phone), the cells of a row at one height, a staggered reveal; each card keeps its own quiet hover.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "card" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

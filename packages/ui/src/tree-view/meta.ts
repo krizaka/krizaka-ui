@@ -11,6 +11,7 @@ export const meta = {
     reason: "No product uses it and no planned work needs it: the documentation tree is Fumadocs' and the datasets screens drill down with a list.",
   },
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "Deprecated: no product uses it." }, desktop: { status: "n/a", reason: "Deprecated: no product uses it." } },
   whenToUse: ["The documentation's sections (krizaka.com/docs).", "A studio's datasets, folders of files."],

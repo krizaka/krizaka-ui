@@ -5,6 +5,7 @@ export const meta = {
   summary: "A drop zone that checks type, size and count, a list of uploads with preview, progress, speed and the actions each state allows, and a queue that pauses and resumes — Tus-ready without depending on it.",
   status: "beta",
   category: "media",
+  domain: "media",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "On a phone files come from the camera roll or the camera.", use: "media-picker" }, desktop: "web" },
   whenToUse: [

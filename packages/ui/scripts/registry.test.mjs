@@ -25,7 +25,8 @@ const exportsOf = (file) => {
   const listed = [...source.matchAll(/\bexport\s*\{([^}]*)\}(?!\s*from)/g)].flatMap((m) => m[1].split(",").map((n) => n.trim().replace(/^type\s+/, "").split(/\s+as\s+/).pop()).filter(Boolean));
   return new Set([...declared, ...listed]);
 };
-const STATUSES = ["stable", "beta", "deprecated"];
+const STATUSES = ["experimental", "stable", "beta", "deprecated"];
+const DOMAINS = ["foundations", "forms", "data-display", "navigation-shell", "feedback", "maps", "media", "commerce", "identity", "conversation", "page-blocks", "cahier"];
 const CATEGORIES = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "media", "blocks", "layouts", "templates", "layout", "foundations"];
 
 /** Native examples without a story (so without a screenshot): the provider wraps every story already. */
@@ -95,6 +96,9 @@ describe("documentation carried by the code (meta.ts)", () => {
     expect(sentence(meta.summary), "summary").toBe(true);
     expect(STATUSES).toContain(meta.status);
     expect(CATEGORIES).toContain(meta.category);
+    expect(DOMAINS, `${name} needs a domain of ADR-008 §3`).toContain(meta.domain);
+    if (meta.status === "experimental") expect(meta.adoption, "an experimental component names its first consumer's issue").toMatch(/^[\w.-]+#\d+$/);
+    else expect(meta.adoption, "only an experimental component has an adoption issue").toBeUndefined();
     expect(PLATFORMS).toContain(meta.platforms);
     if (meta.status === "deprecated") {
       expect(meta.deprecated, "a deprecated component says since, removedIn and why").toMatchObject({ since: expect.stringMatching(/^\d+\.\d+\.\d+$/), removedIn: expect.stringMatching(/^\d+\.0\.0$/) });

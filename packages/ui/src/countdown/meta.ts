@@ -5,6 +5,7 @@ export const meta = {
   summary: "The time left until a moment, in tabular figures, turning urgent under a threshold.",
   status: "stable",
   category: "data-display",
+  domain: "data-display",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

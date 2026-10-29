@@ -6,6 +6,7 @@ export const meta = {
     "A wait from start to end: nothing for the first instants, then the Krizaka glyph with its words, a percentage and an ETA, held long enough to read, ending on a check or a cross that is drawn and announced — and `LoadingRegion`, which hands a region over to a skeleton of its shape.",
   status: "beta",
   category: "feedback",
+  domain: "foundations",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

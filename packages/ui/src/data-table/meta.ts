@@ -6,6 +6,7 @@ export const meta = {
     "A table of records on TanStack Table v9 — sort, filters and facets, groups, details, pages, selection, column visibility, pinning and resizing — in the browser or on the server, cards on a phone, windowing for long lists.",
   status: "beta",
   category: "data-display",
+  domain: "data-display",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "On a phone the rows are a list of cards, each with its fields as a description list — not a table to scroll sideways.", use: "list" }, desktop: "web" },
   whenToUse: [

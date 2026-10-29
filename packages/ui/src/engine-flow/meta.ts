@@ -6,6 +6,7 @@ export const meta = {
     "An engine at the hub and the apps it serves around it, with what travels between them: photons going in (requests) and coming back (results) along each conduit — radial on a wide screen, top to bottom on a phone, planned apps dim and still.",
   status: "beta",
   category: "data-display",
+  domain: "conversation",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "A diagram of a public site's page; an app screen lists the same facts." , use: "list" },

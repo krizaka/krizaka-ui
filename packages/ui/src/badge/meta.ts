@@ -5,6 +5,7 @@ export const meta = {
   summary: "A short status or label: a tone, two sizes, an optional dot that can pulse.",
   status: "stable",
   category: "data-display",
+  domain: "foundations",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

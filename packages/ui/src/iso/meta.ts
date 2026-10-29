@@ -6,6 +6,7 @@ export const meta = {
     "The isometric kit: luminous objects built from the Krizaka vocabulary (hexagons, cut corners, the node) on a perspective grid — a hero driven by data (`IsoHub`) or composed from primitives.",
   status: "beta",
   category: "layout",
+  domain: "foundations",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "An isometric drawing of a site's hero." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

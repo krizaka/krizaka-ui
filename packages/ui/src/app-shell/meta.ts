@@ -5,6 +5,7 @@ export const meta = {
   summary: "The shell of an application screen: a sidebar of sections that collapses to its icons on a desktop and opens as a drawer on a phone, a sticky header with the screen's title, a search that opens the command palette and its actions, the content — and the keyboard shortcuts a console lives by (⌘B, ⌘K, `g` then a letter).",
   status: "beta",
   category: "layouts",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "On a phone the app shell is a tab bar, a header and a screen.", use: "tab-bar" }, desktop: "desktop" },
   whenToUse: ["Every signed-in screen of a product: a studio, a console, an administration.", "When the app has more than four destinations — fewer fit a NavBar."],

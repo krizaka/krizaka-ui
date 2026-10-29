@@ -6,6 +6,7 @@ export const meta = {
     "A goal counted in steps — 6 of 10 backers, 3 dares done, 3 seats left: a meter whose reached steps light one by one (or whose spent ones drain) when its chapter plays.",
   status: "beta",
   category: "data-display",
+  domain: "data-display",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

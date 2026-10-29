@@ -5,6 +5,7 @@ export const meta = {
   summary: "One choice among a few options, all visible: dots with their words, whole cards, tactile keys that press in, or a segmented control.",
   status: "beta",
   category: "forms",
+  domain: "forms",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

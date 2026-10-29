@@ -12,6 +12,7 @@ export const meta = {
     reason: "No product or site imports it and no filed need names it (ADR-006 audit, 2026-10-25). Show a command with `CodeBlock`.",
   },
   category: "media",
+  domain: "media",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A recorded terminal session shown on a site's page." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

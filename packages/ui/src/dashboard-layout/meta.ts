@@ -5,6 +5,7 @@ export const meta = {
   summary: "A dashboard: the screen's heading with its actions and filters, then a responsive grid of widgets — one column on a phone, two from sm, four from xl — each a titled region that spans one to four columns.",
   status: "beta",
   category: "layouts",
+  domain: "navigation-shell",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A phone dashboard is one scrolling screen of cards.", use: "screen" }, desktop: "web" },
   whenToUse: ["The home of a signed-in product: figures, what is running, what needs attention.", "A console's overview above its tables."],

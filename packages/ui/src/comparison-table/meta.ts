@@ -6,6 +6,7 @@ export const meta = {
     "A fair “versus” block: one grid where every row lines up across the columns, your column drawn as a highlighted band of the same grid (the brand's tint and light, its header part of it), a small icon per question, each answer as a bold key phrase then its detail; the other answers stay neutral. On a phone, one card per question with the answers stacked.",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's landing page; a phone app does not argue against a competitor." }, desktop: "web" },
   whenToUse: [

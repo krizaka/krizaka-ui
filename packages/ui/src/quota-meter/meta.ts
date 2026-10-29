@@ -5,6 +5,7 @@ export const meta = {
   summary: "Space or time used against a plan: the figure in words, a meter that turns amber at 80 % and red at 95 %, the sentence that says what to do, the small figures and the way out.",
   status: "beta",
   category: "data-display",
+  domain: "commerce",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "The native twin is a `Card` with a `Meter`; it follows when a mobile screen shows a quota (Yomizaka's library)." }, desktop: "web" },
   whenToUse: ["A creator's or an owner's storage, minutes or credits against their plan.", "Any limit the person can run into and should hear about before."],

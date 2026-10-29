@@ -5,6 +5,7 @@ export const meta = {
   summary: "Facts about one thing as term and value: stacked, inline like a receipt, or a grid of key figures (`KeyValueGrid`).",
   status: "beta",
   category: "data-display",
+  domain: "data-display",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["A job's details in a side panel.", "A payout's or a tip's breakdown.", "An account's limits as a grid of figures."],

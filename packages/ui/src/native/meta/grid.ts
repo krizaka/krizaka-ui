@@ -5,6 +5,7 @@ export const meta = {
   summary: "Layouts that choose their columns from the room they are given — compact, regular or expanded — never from a device name: a grid of equal cells that never gets narrower than `minItemWidth`, and columns that sit side by side or stack. Safe with right-to-left and with text at 200 %.",
   status: "beta",
   category: "layout",
+  domain: "navigation-shell",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "On the web the grid is CSS and the page's width is the container query.", use: "card-grid" }, desktop: { status: "n/a", reason: "The Mac app's window is the web: its columns are the web grid's.", use: "card-grid" } },
   whenToUse: [

@@ -5,6 +5,7 @@ export const meta = {
   summary: "Draws the interface a model describes in A2UI v0.9 — tables, figures, charts, cards, callouts — from a catalog the app declares, never from code.",
   status: "beta",
   category: "data-display",
+  domain: "conversation",
   platforms: "web",
   parity: {
     native: { status: "gap", issue: "krizaka/orazaka#207", reason: "Slice 3 of the data-driven UI epic: the same messages drawn with the native primitives." },

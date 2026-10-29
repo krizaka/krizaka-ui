@@ -5,6 +5,7 @@ export const meta = {
   summary: "Manga action lines behind a hero element: a burst around it or streaks across it, drawn in SVG, deterministic and still under reduced motion.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "gap", issue: "krizaka/krizaka-ui#421", reason: "It comes with the native paper roles of the Cahier." },

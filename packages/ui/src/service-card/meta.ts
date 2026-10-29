@@ -5,6 +5,7 @@ export const meta = {
   summary: "A service a shop sells, as a card that argues: icon or photo, name, duration, capacity, price (« from » when it varies), what is included, a « Popular » tag — and one way in, the whole card pressable.",
   status: "beta",
   category: "data-display",
+  domain: "commerce",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A shop's public storefront is a web page; the apps book through their own lists.", use: "list" }, desktop: "web" },
   whenToUse: [

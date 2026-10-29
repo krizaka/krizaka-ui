@@ -5,6 +5,7 @@ export const meta = {
   summary: "The head of a multi-step flow — a sign-up, a profile to fill: back, segments that fill, the position in words.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["The onboarding of a dating app: name, birth date, photos, interests, location.", "A checkout in several steps."],

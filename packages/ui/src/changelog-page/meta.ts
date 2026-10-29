@@ -5,6 +5,7 @@ export const meta = {
   summary: "What changed and why: each entry with its date and version sticking beside it, its changes by kind in words and colour, its reasons under it.",
   status: "beta",
   category: "templates",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: ["Release notes, a product's changelog, a decisions log.", "Any history read newest first."],

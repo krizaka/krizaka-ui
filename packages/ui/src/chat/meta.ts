@@ -5,6 +5,7 @@ export const meta = {
   summary: "A conversation's parts — `MessageBubble` (time, receipt, retry), `TypingIndicator`, `MessageComposer`, `ConversationItem` — the same API on the web and React Native.",
   status: "beta",
   category: "data-display",
+  domain: "conversation",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["A creator app's messages, a community's chats, support threads.", "An inbox of conversations with presence and unread counts."],

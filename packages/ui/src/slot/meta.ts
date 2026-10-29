@@ -5,6 +5,7 @@ export const meta = {
   summary: "`Slot` merges its props and classes into its only child — the engine of `asChild` — and `VisuallyHidden` names things for screen readers only.",
   status: "stable",
   category: "foundations",
+  domain: "foundations",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "asChild merges props into a DOM child; React Native composes with Pressable instead." }, desktop: "web" },
   whenToUse: ["To give your own component an `asChild` prop.", "`VisuallyHidden` for words that only assistive technology needs: an icon button's name, a table caption."],

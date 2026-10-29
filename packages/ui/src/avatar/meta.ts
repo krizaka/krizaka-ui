@@ -5,6 +5,7 @@ export const meta = {
   summary: "A person or an account: their picture, or initials while it loads, when it fails or when there is none.",
   status: "stable",
   category: "data-display",
+  domain: "identity",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

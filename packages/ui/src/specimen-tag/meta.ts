@@ -6,6 +6,7 @@ export const meta = {
     "The Cahier's label for a product or a component: a manila tag with an eyelet, a typed catalogue number, a name, a stamp for its honest status and the fields of its record — and `Stamp`, the rubber stamp alone.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "gap", issue: "krizaka/krizaka-ui#421", reason: "A product app's status deserves the same tag; it comes with the native paper roles." },

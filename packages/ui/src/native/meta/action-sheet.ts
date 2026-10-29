@@ -5,6 +5,7 @@ export const meta = {
   summary: "A short list of actions on an item from the bottom edge, the destructive one in danger, cancel apart.",
   status: "beta",
   category: "overlays",
+  domain: "feedback",
   platforms: "native",
   parity: { web: { status: "n/a", reason: "The web opens a menu next to its trigger.", use: "dropdown-menu" }, desktop: { status: "n/a", reason: "The Mac app opens a menu next to its trigger.", use: "dropdown-menu" } },
   whenToUse: ["The “more” button of a video, a message, a comment.", "Choosing where a photo comes from: the library or the camera."],

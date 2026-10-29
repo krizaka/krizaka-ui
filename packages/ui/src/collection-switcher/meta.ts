@@ -6,6 +6,7 @@ export const meta = {
     "Moves between the collections of a workspace, flat or nested, with the default one marked and never removable; in entity mode, a compact switcher for a shop or a studio.",
   status: "beta",
   category: "navigation",
+  domain: "navigation-shell",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [

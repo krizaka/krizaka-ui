@@ -10,6 +10,7 @@ export const meta = {
     reason: "The web entry has no user (ADR-006 audit, 2026-10-25). The native `MaintenanceScreen`, used by mobile apps, stays.",
   },
   category: "feedback",
+  domain: "feedback",
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: ["When the backend's parameters say maintenance is on.", "In place of the app, for the minutes the service is down."],

@@ -5,6 +5,7 @@ export const meta = {
   summary: "An arcade « character select » card: two subjects face to face, a bird as each fighter, stat bars from real data, and a « VS » between them.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "gap", issue: "krizaka/krizaka-ui#421", reason: "It comes with the native paper roles of the Cahier." },

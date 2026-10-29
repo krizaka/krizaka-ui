@@ -5,6 +5,7 @@ export const meta = {
   summary: "The whole window is the drop target: while files are dragged over the page, a full-window overlay says where to drop and hands the files over. No dashed box inside the page.",
   status: "beta",
   category: "feedback",
+  domain: "feedback",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A phone has no drag and drop from outside the app: the app offers the picker and the camera.", use: "file-upload" }, desktop: "web" },
   whenToUse: ["An app whose main job is receiving documents (Yomizaka, Orazaka's workspace): drag a file anywhere.", "Beside a primary action that opens the picker: the overlay is the shortcut, never the only way."],

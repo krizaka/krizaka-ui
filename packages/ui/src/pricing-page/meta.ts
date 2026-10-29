@@ -5,6 +5,7 @@ export const meta = {
   summary: "Plans and what they cost: the plans side by side with the featured one lifted, the comparison as a table, what a credit buys, the questions people ask.",
   status: "beta",
   category: "templates",
+  domain: "commerce",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: ["Pricing, credits, plans.", "Any choice between offers."],

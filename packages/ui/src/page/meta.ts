@@ -6,6 +6,7 @@ export const meta = {
     "The frame of every page: one width (`--kz-page-max`), one pair of gutters, one vertical rhythm — `Page`, `Section` (full-bleed, its heading, a hairline or the brand's backdrop as transition) and `SectionHeading`, with `Facts` and `Ticks`, and the papers (`ruled`, `lines`, `dot-grid`, `kraft`).",
   status: "beta",
   category: "blocks",
+  domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A block of a public site's page; an app screen on a phone is built from Screen, Header and Card.", use: "screen" }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
   whenToUse: [

@@ -6,6 +6,7 @@ export const meta = {
     "The Krizaka birds standing on a stage, alive: each at ease in character, two neighbours glancing at each other, the pigeon carrying its parcel across, a bird looking up when you come near or tap it — and, with `scenes`, a short scene for each bird.",
   status: "beta",
   category: "blocks",
+  domain: "cahier",
   platforms: "web",
   parity: {
     native: { status: "n/a", reason: "A decorative stage for a public page's first screen; an app screen speaks with MascotState.", use: "mascot-state" },

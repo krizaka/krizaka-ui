@@ -5,6 +5,7 @@ export const meta = {
   summary: "A menu of actions opened from a trigger: items with icons, checkbox items, labels, separators, a destructive item.",
   status: "stable",
   category: "overlays",
+  domain: "feedback",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A phone's menu of actions rises from the bottom.", use: "action-sheet" }, desktop: "web" },
   whenToUse: [
