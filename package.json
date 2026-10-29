@@ -15,7 +15,7 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "lint:workspace": "npx --yes -p @krizaka/config krizaka-workspace-guard",
-    "lint": "pnpm run lint:workspace && turbo run lint && ast-grep test --skip-snapshot-tests && node scripts/sg-ratchet.mjs && node --test scripts/sg-ratchet.test.mjs",
+    "lint": "pnpm run lint:workspace && turbo run lint && ast-grep test --skip-snapshot-tests && krizaka-sg-ratchet",
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
     "dev:check": "turbo run lint typecheck test --filter='...[origin/main]' --filter='!@krizaka/site' --filter='!@krizaka/storybook'",
@@ -28,16 +28,16 @@
     "smoke:consumers": "node tools/consumer-smoke/run.mjs",
     "release": "turbo run check && changeset publish",
     "export:brand": "node tools/export-brand.mjs",
-    "lint:sg": "node scripts/sg-ratchet.mjs",
+    "lint:sg": "krizaka-sg-ratchet",
     "lint:sg:test": "ast-grep test --skip-snapshot-tests",
-    "sg:ratchet:update": "node scripts/sg-ratchet.mjs --update",
+    "sg:ratchet:update": "krizaka-sg-ratchet --update",
     "sg:fix": "node scripts/sg-fix.mjs"
   },
   "devDependencies": {
     "@ast-grep/cli": "0.51.0",
     "@changesets/changelog-github": "^1.0.1",
     "@changesets/cli": "^3.0.3",
-    "@krizaka/config": "^0.9.1",
+    "@krizaka/config": "^0.17.0",
     "eslint": "^9.39.0",
     "sharp": "^0.35.5",
     "turbo": "^2.11.10"
