@@ -30,6 +30,19 @@ jobs:
           app-id: ${{ vars.RELEASE_APP_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
           owner: krizaka
+          repositories: |-
+            yomizaka
+            akinaza
+            orazaka-web-client
+            krizaka-com
+            krizaka-blog
+            krizaka-build
+            krizaka-ts
+            krizaka-motion
+            orochia
+            yasakia
+            yororis
+            kachizaka
           permission-contents: read
       - id: write
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0

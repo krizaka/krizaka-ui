@@ -1,10 +1,10 @@
 // The usage inventory (krizaka-ui#837, ADR-008): parsing, resolution, sizes and the verdict rules, on fixtures.
 import assert from "node:assert/strict";
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { budgets, checkBudgets, checkInventory, closureSize, decideAll, domainBudgets, domainOf, entryOf, gitHead, locate, lowerBudgets, parseImports, restoredScan, parseLimit, readMeta, readPriorAudit, verdict, walk } from "./usage-inventory.mjs";
+import { CONSUMERS, PAUSED, budgets, checkBudgets, checkInventory, closureSize, decideAll, domainBudgets, domainOf, entryOf, gitHead, locate, lowerBudgets, parseImports, restoredScan, parseLimit, readMeta, readPriorAudit, verdict, walk } from "./usage-inventory.mjs";
 
 test("parseImports finds every @krizaka/ui and @krizaka/motion specifier, and the names taken from the barrels", () => {
   const src = [
@@ -222,4 +222,11 @@ test("restoredScan rebuilds a local-only consumer's counts from the committed in
   assert.equal(scan.files, 90);
   assert.equal(scan.absent, false);
   assert.deepEqual([...scan.entries], [["ui:tree-view", 3], ["ui:tag-input", 1]]);
+});
+
+test("the weekly workflow scopes its read token to the consumers it clones (zizmor: no token for every repository of the owner)", () => {
+  const yml = readFileSync(new URL("../.github/workflows/usage-inventory.yml", import.meta.url), "utf8");
+  const scoped = new Set(yml.match(/repositories: \|-\n((?: {12}[\w-]+\n)+)/)?.[1].split("\n").map((l) => l.trim()).filter(Boolean));
+  const wanted = [...CONSUMERS, ...PAUSED].filter((c) => c.repo).map((c) => c.repo);
+  assert.deepEqual(wanted.filter((r) => !scoped.has(r)), []);
 });
