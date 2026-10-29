@@ -40,8 +40,8 @@ test("names the files of the library", () => {
 });
 
 test("writes only brand/ and people/defaults/v1/", () => {
-  assert.equal(assertWritable("brand/orochia/logo-dark.svg"), "brand/orochia/logo-dark.svg");
-  assert.equal(assertWritable("people/defaults/v1/yasakia/person-1.svg"), "people/defaults/v1/yasakia/person-1.svg");
+  assert.equal(assertWritable("brand/yomizaka/logo-dark.svg"), "brand/yomizaka/logo-dark.svg");
+  assert.equal(assertWritable("people/defaults/v1/akinaza/person-1.svg"), "people/defaults/v1/akinaza/person-1.svg");
   assert.equal(assertWritable("brand/manifest.json"), "brand/manifest.json");
   assert.throws(() => assertWritable("site/home/x.png"));
   assert.throws(() => assertWritable("brand/../site/x.png"));

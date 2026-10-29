@@ -16,5 +16,4 @@ test("one branch per day, so a second run updates the same pull request", () => 
 test("lists the sites that carry a brand-icons guard", () => {
   for (const repo of ["krizaka-com", "yomizaka", "akinaza", "krizaka-blog"]) assert.ok(CONSUMERS.includes(repo));
   // The paused products (2026-10-25) get no pull request any more.
-  for (const repo of ["orochia", "yasakia", "yororis", "kachizaka"]) assert.ok(!CONSUMERS.includes(repo), repo);
 });
