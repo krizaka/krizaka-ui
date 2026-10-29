@@ -307,26 +307,23 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
   const [renaming, setRenaming] = React.useState<string | null>(null);
   const Link = (linkAs ?? "a") as React.ElementType;
   const active = views.find((v) => v.id === current);
-  const canChange = Boolean(active && (active.editable ?? active.group === "mine"));
-  const showSave = Boolean(onSave && modified);
+  const own = (active?.editable ?? active?.group === "mine") ? active : undefined;
   const grouped = GROUPS.map((group) => ({ group, items: views.filter((v) => v.group === group) })).filter((g) => g.items.length > 0);
   const renamed = views.find((v) => v.id === renaming);
-
-  const form = (
-    <ActiveForm saving={saving} renamed={renamed} labels={labels} maxLength={maxLength} onSave={onSave} onRename={onRename} setSaving={setSaving} setRenaming={setRenaming} />
-  );
-
-  const actions =
-    canChange && active && (onRename || onDelete) ? (
-      <ViewActions active={active} labels={labels} onRename={onRename ? () => setRenaming(active.id) : undefined} onDelete={onDelete ? () => onDelete(active.id) : undefined} />
-    ) : null;
-
-  const mark = modified && active ? <span className="text-xs font-semibold text-fg-secondary">({labels.modified})</span> : null;
+  const showSave = onSave && modified;
+  const startRename = own && onRename && (() => setRenaming(own.id));
+  const startDelete = own && onDelete && (() => onDelete(own.id));
+  const actions = own && (startRename || startDelete) ? <ViewActions active={own} labels={labels} onRename={startRename} onDelete={startDelete} /> : null;
   const saveButton = showSave && !saving ? (
     <button type="button" onClick={() => setSaving(true)} className={quiet}>
       {labels.save}
     </button>
   ) : null;
+  const mark = modified && active ? <span className="text-xs font-semibold text-fg-secondary">({labels.modified})</span> : null;
+
+  const form = (
+    <ActiveForm saving={saving} renamed={renamed} labels={labels} maxLength={maxLength} onSave={onSave} onRename={onRename} setSaving={setSaving} setRenaming={setRenaming} />
+  );
 
   return (
     <div className={cn("flex flex-col gap-2", className)}>
@@ -359,11 +356,11 @@ export function SavedViews({ views, current, modified, onSelect, onSave, onRenam
                 <GroupMenuItems items={items} current={current} Link={Link} onSelect={onSelect} />
               </React.Fragment>
             ))}
-            {(showSave || (canChange && (onRename || onDelete))) && <DropdownMenu.Separator />}
+            {showSave || startRename || startDelete ? <DropdownMenu.Separator /> : null}
             {showSave ? <DropdownMenu.Item onSelect={() => setSaving(true)}>{labels.save}</DropdownMenu.Item> : null}
-            {canChange && active && onRename ? <DropdownMenu.Item onSelect={() => setRenaming(active.id)}>{labels.rename}</DropdownMenu.Item> : null}
-            {canChange && active && onDelete ? (
-              <DropdownMenu.Item tone="danger" onSelect={() => onDelete(active.id)}>
+            {startRename ? <DropdownMenu.Item onSelect={startRename}>{labels.rename}</DropdownMenu.Item> : null}
+            {startDelete ? (
+              <DropdownMenu.Item tone="danger" onSelect={startDelete}>
                 {labels.remove}
               </DropdownMenu.Item>
             ) : null}
