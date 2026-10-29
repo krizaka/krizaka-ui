@@ -656,6 +656,31 @@ function titleContent<T extends RowData>(v: View<T>, column: DataTableColumn<T>,
   );
 }
 
+function numberContent<T extends RowData>(column: DataTableColumn<T>, value: CellValue, text: string) {
+  return (
+    <span>
+      {typeof value === "number" ? value.toLocaleString("en") : text}
+      {column.unit ? <span className="ms-1 text-fg-secondary">{column.unit}</span> : null}
+    </span>
+  );
+}
+
+function linkContent<T extends RowData>(column: DataTableColumn<T>, original: T, text: string, cut: string) {
+  const href = column.href?.(original);
+  if (!href) {
+    return (
+      <span className={cn("block", cut)} title={text}>
+        {text}
+      </span>
+    );
+  }
+  return (
+    <a href={href} title={text} className={cn("block text-fg-accent underline-offset-2 hover:underline", cut)}>
+      {text}
+    </a>
+  );
+}
+
 function plainContent<T extends RowData>(column: DataTableColumn<T>, text: string, cut: string) {
   const lines = column.clamp ?? (column.type === "text" ? 2 : undefined);
   if (!column.nowrap && !lines) return text;
@@ -676,24 +701,9 @@ function contentOf<T extends RowData>(v: View<T>, column: DataTableColumn<T>, or
     case "title":
       return titleContent(v, column, original, text, cut);
     case "number":
-      return (
-        <span>
-          {typeof value === "number" ? value.toLocaleString("en") : text}
-          {column.unit ? <span className="ms-1 text-fg-secondary">{column.unit}</span> : null}
-        </span>
-      );
-    case "link": {
-      const href = column.href?.(original);
-      return href ? (
-        <a href={href} title={text} className={cn("block text-fg-accent underline-offset-2 hover:underline", cut)}>
-          {text}
-        </a>
-      ) : (
-        <span className={cn("block", cut)} title={text}>
-          {text}
-        </span>
-      );
-    }
+      return numberContent(column, value, text);
+    case "link":
+      return linkContent(column, original, text, cut);
     default:
       return plainContent(column, text, cut);
   }
@@ -722,42 +732,46 @@ function groupContent<T extends RowData>(v: View<T>, row: TableRow<T>, column: D
   );
 }
 
-/** The cell's content; the list row's title carries its facts under it, the first cell its chevron (columns that left the row). */
+/** The list row's title cell: the title, and under it the facts joined by a dot. */
+function withFacts<T extends RowData>(v: View<T>, content: React.ReactNode, original: T) {
+  return (
+    <span className="block min-w-0">
+      {content}
+      <span data-facts="" className={LIST_FACTS[v.L]}>
+        {v.facts.map((c, i) => (
+          <React.Fragment key={c.id}>
+            {i > 0 ? <span aria-hidden>{" · "}</span> : null}
+            {contentOf(v, c, original)}
+          </React.Fragment>
+        ))}
+      </span>
+    </span>
+  );
+}
+
+/** The first cell with its chevron, when the columns that left the row are shown in its detail. */
+function withToggle<T extends RowData>(v: View<T>, content: React.ReactNode, row: TableRow<T>) {
+  const shown = v.maxPriority > 1 ? TOGGLE[v.L][v.maxPriority as Priority] : "hidden";
+  return (
+    <span className="flex min-w-0 items-center gap-1">
+      <button
+        type="button"
+        className={v.s.toggle({ className: cn(shown, v.listAway.length > 0 && LIST_TOGGLE[v.L], v.list && "relative z-[1]") })}
+        aria-expanded={row.getIsExpanded()}
+        aria-label={v.labels.showMore(nameOf(v, row))}
+        onClick={row.getToggleExpandedHandler()}
+      >
+        <ChevronGlyph direction="right" className="h-4 w-4" />
+      </button>
+      <span className="min-w-0 flex-1">{content}</span>
+    </span>
+  );
+}
+
 function bodyContent<T extends RowData>(v: View<T>, row: TableRow<T>, column: DataTableColumn<T>, first: boolean) {
-  const { original } = row;
-  let content = contentOf(v, column, original);
-  if (v.list && column === v.titleColumn && v.facts.length > 0) {
-    content = (
-      <span className="block min-w-0">
-        {content}
-        <span data-facts="" className={LIST_FACTS[v.L]}>
-          {v.facts.map((c, i) => (
-            <React.Fragment key={c.id}>
-              {i > 0 ? <span aria-hidden>{" · "}</span> : null}
-              {contentOf(v, c, original)}
-            </React.Fragment>
-          ))}
-        </span>
-      </span>
-    );
-  }
-  if (first && v.inlineToggle) {
-    const shown = v.maxPriority > 1 ? TOGGLE[v.L][v.maxPriority as Priority] : "hidden";
-    content = (
-      <span className="flex min-w-0 items-center gap-1">
-        <button
-          type="button"
-          className={v.s.toggle({ className: cn(shown, v.listAway.length > 0 && LIST_TOGGLE[v.L], v.list && "relative z-[1]") })}
-          aria-expanded={row.getIsExpanded()}
-          aria-label={v.labels.showMore(nameOf(v, row))}
-          onClick={row.getToggleExpandedHandler()}
-        >
-          <ChevronGlyph direction="right" className="h-4 w-4" />
-        </button>
-        <span className="min-w-0 flex-1">{content}</span>
-      </span>
-    );
-  }
+  let content = contentOf(v, column, row.original);
+  if (v.list && column === v.titleColumn && v.facts.length > 0) content = withFacts(v, content, row.original);
+  if (first && v.inlineToggle) content = withToggle(v, content, row);
   return content;
 }
 
@@ -780,6 +794,16 @@ function cardRole<T extends RowData>(v: View<T>, row: TableRow<T>, column: DataT
   return column.aggregate ? undefined : "hidden";
 }
 
+function cellStyle<T extends RowData>(row: TableRow<T>, column: DataTableColumn<T>, first: boolean, base: React.CSSProperties | undefined): React.CSSProperties {
+  const indent = first && row.depth > 0 && !row.getIsGrouped();
+  return {
+    ...base,
+    ...(column.minWidth !== undefined ? { ["--dt-min" as string]: `${column.minWidth}px` } : {}),
+    ...(column.maxWidth !== undefined ? { ["--dt-max" as string]: `${column.maxWidth}px` } : {}),
+    ...(indent ? { paddingInlineStart: `${1 + row.depth * 1.25}rem` } : {}),
+  };
+}
+
 function dataCell<T extends RowData>(v: View<T>, row: TableRow<T>, cell: TableCell<T>, first: boolean) {
   const column = v.byId.get(cell.column.id);
   if (!column) return null;
@@ -794,12 +818,7 @@ function dataCell<T extends RowData>(v: View<T>, row: TableRow<T>, cell: TableCe
       data-list={v.list ? listPlace(v, row, column) : undefined}
       {...pinnedProps}
       className={v.s.td({ className: cellClass(v, column) })}
-      style={{
-        ...style,
-        ...(column.minWidth !== undefined ? { ["--dt-min" as string]: `${column.minWidth}px` } : {}),
-        ...(column.maxWidth !== undefined ? { ["--dt-max" as string]: `${column.maxWidth}px` } : {}),
-        ...(first && row.depth > 0 && !row.getIsGrouped() ? { paddingInlineStart: `${1 + row.depth * 1.25}rem` } : {}),
-      }}
+      style={cellStyle(row, column, first, style)}
     >
       {content}
     </td>
@@ -837,22 +856,13 @@ function detailRow<T extends RowData>(v: View<T>, row: TableRow<T>) {
   );
 }
 
-function renderRow<T extends RowData>(v: View<T>, row: TableRow<T>, index: number) {
-  const isChosen = v.chosen.has(row.id);
-  const grouped = row.getIsGrouped();
-  const showDetail = v.detailed && !grouped && row.getIsExpanded() && !v.virtualized;
+/** The leading cells of a row: its checkbox, then the button that opens it. */
+function rowLeadCells<T extends RowData>(v: View<T>, row: TableRow<T>, isChosen: boolean) {
   const { s, labels } = v;
+  const grouped = row.getIsGrouped();
   const canExpand = !grouped && (v.renderDetail ? true : row.getCanExpand());
-  const main = (
-    <tr
-      role="row"
-      data-index={v.measureElement ? index : undefined}
-      ref={v.measureElement}
-      aria-rowindex={v.virtualized ? index + 2 : undefined}
-      data-state={isChosen ? "selected" : undefined}
-      data-group={grouped ? "" : undefined}
-      className={s.tr({ className: grouped ? s.groupRow() : undefined })}
-    >
+  return (
+    <>
       {v.selectable && (
         <td role="cell" className={s.td({ className: s.select() })}>
           {grouped ? null : <Checkbox checked={isChosen} onCheckedChange={() => row.toggleSelected()} aria-label={labels.selectRow(nameOf(v, row))} />}
@@ -867,6 +877,25 @@ function renderRow<T extends RowData>(v: View<T>, row: TableRow<T>, index: numbe
           ) : null}
         </td>
       )}
+    </>
+  );
+}
+
+function renderRow<T extends RowData>(v: View<T>, row: TableRow<T>, index: number) {
+  const isChosen = v.chosen.has(row.id);
+  const grouped = row.getIsGrouped();
+  const showDetail = v.detailed && !grouped && row.getIsExpanded() && !v.virtualized;
+  const main = (
+    <tr
+      role="row"
+      data-index={v.measureElement ? index : undefined}
+      ref={v.measureElement}
+      aria-rowindex={v.virtualized ? index + 2 : undefined}
+      data-state={isChosen ? "selected" : undefined}
+      data-group={grouped ? "" : undefined}
+      className={v.s.tr({ className: grouped ? v.s.groupRow() : undefined })}
+    >
+      {rowLeadCells(v, row, isChosen)}
       {row.getVisibleCells().map((cell, i) => dataCell(v, row, cell, i === 0))}
     </tr>
   );
@@ -894,22 +923,24 @@ function messageRow<T extends RowData>(v: View<T>, content: React.ReactNode, ale
   return wideRow(v, v.s.message(), alert ? <div role="alert">{content}</div> : content);
 }
 
+function skeletonRows<T extends RowData>(v: View<T>, count: number) {
+  const { s, list } = v;
+  return Array.from({ length: count }, (_, i) => (
+    <tr role="row" key={`loading-${i}`} aria-hidden className={s.tr()}>
+      {v.selectable && <td role="cell" className={s.td({ className: s.select() })} />}
+      {v.hasExpander && <td role="cell" className={s.td({ className: s.expander() })} />}
+      {v.visibleColumns.map((column) => (
+        <td role="cell" key={column.id} data-card={list ? undefined : cardOf(v.byId.get(column.id))} data-list={list ? listPlace(v, null, v.byId.get(column.id) as DataTableColumn<T>) : undefined} className={s.td()}>
+          <div className={s.skeleton()} />
+        </td>
+      ))}
+    </tr>
+  ));
+}
+
 function bodyRows<T extends RowData>(v: View<T>) {
   const { pageRows: rows, windowItems } = v;
-  if (v.loading) {
-    const { s, list } = v;
-    return Array.from({ length: v.loadingCount }, (_, i) => (
-      <tr role="row" key={`loading-${i}`} aria-hidden className={s.tr()}>
-        {v.selectable && <td role="cell" className={s.td({ className: s.select() })} />}
-        {v.hasExpander && <td role="cell" className={s.td({ className: s.expander() })} />}
-        {v.visibleColumns.map((column) => (
-          <td role="cell" key={column.id} data-card={list ? undefined : cardOf(v.byId.get(column.id))} data-list={list ? listPlace(v, null, v.byId.get(column.id) as DataTableColumn<T>) : undefined} className={s.td()}>
-            <div className={s.skeleton()} />
-          </td>
-        ))}
-      </tr>
-    ));
-  }
+  if (v.loading) return skeletonRows(v, v.loadingCount);
   if (v.error) return messageRow(v, v.error, true);
   if (rows.length === 0) return messageRow(v, v.empty ?? v.labels.empty);
   if (windowItems) return windowItems.map((item) => renderRow(v, rows[item.index] as TableRow<T>, item.index));
