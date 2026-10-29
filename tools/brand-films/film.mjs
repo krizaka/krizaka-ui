@@ -56,16 +56,55 @@ export const FILM = {
   },
 };
 
-/** Per aspect: the actors' places and sizes, the spotlight, the ridge, the captions and the end card, in pixels. */
-export function layout(aspect, cast = CAST) {
+/** What changes with the frame, in pixels: the birds' size and feet, the rows, the captions and the end card. */
+const WIDE = {
+  A: 250,
+  feet: 900,
+  famGap: 14,
+  famX: [0.275, 0.425, 0.575, 0.725],
+  spotScale: 2.0,
+  caption: 1000,
+  world: 1.18,
+  captionSize: 46,
+  captionMax: 1500,
+  mark: 380,
+  word: 100,
+  tag: 22,
+  endGap: 18,
+  castX: { 4: [0.2, 0.4, 0.6, 0.8], 5: [0.2, 0.35, 0.5, 0.65, 0.8] },
+};
+const TALL = {
+  A: 230,
+  feet: 1600,
+  famGap: 16,
+  famX: [0.215, 0.405, 0.595, 0.785],
+  spotScale: 2.3,
+  caption: 1790,
+  world: 1.2,
+  captionSize: 54,
+  captionMax: 940,
+  mark: 440,
+  word: 112,
+  tag: 26,
+  endGap: 26,
+  castX: { 4: [0.14, 0.38, 0.62, 0.86], 5: [0.11, 0.305, 0.5, 0.695, 0.89] },
+};
+/** The 4x5 frame is tall, with its own size, feet and caption line. */
+const FOUR_BY_FIVE = { ...TALL, A: 210, feet: 1180, caption: 1270 };
+const FRAMES = { "4x5": FOUR_BY_FIVE };
+
+function frameMetrics(aspect, cast) {
   const [W, H] = FILM.aspects[aspect];
   const vertical = H > W;
-  const portrait = aspect === "4x5";
-  const A = portrait ? 210 : vertical ? 230 : 250;
-  const feet = portrait ? 1180 : vertical ? 1600 : 900;
-  const famFeet = feet - (vertical ? 16 : 14);
-  const castX = cast.length === 4 ? (vertical ? [0.14, 0.38, 0.62, 0.86] : [0.2, 0.4, 0.6, 0.8]) : vertical ? [0.11, 0.305, 0.5, 0.695, 0.89] : [0.2, 0.35, 0.5, 0.65, 0.8];
-  const famX = vertical ? [0.215, 0.405, 0.595, 0.785] : [0.275, 0.425, 0.575, 0.725];
+  const frame = FRAMES[aspect] ?? (vertical ? TALL : WIDE);
+  return { ...frame, W, H, vertical, castX: frame.castX[cast.length === 4 ? 4 : 5] };
+}
+
+/** Per aspect: the actors' places and sizes, the spotlight, the ridge, the captions and the end card, in pixels. */
+export function layout(aspect, cast = CAST) {
+  const m = frameMetrics(aspect, cast);
+  const { W, H, vertical, A, feet, castX, famX, spotScale } = m;
+  const famFeet = feet - m.famGap;
   const loops = birdLoops();
   /** The feet are at view y 108 of the bird's frame; its centre line at x 60. */
   const place = (bird, x, feetY, size) => {
@@ -77,7 +116,6 @@ export function layout(aspect, cast = CAST) {
   const actors = {};
   cast.forEach((b, i) => (actors[b] = place(b, castX[i] * W, feet, A)));
   FAMILY.forEach((b, i) => (actors[b] = place(b, famX[i] * W, famFeet, Math.round(A * 0.66))));
-  const spotScale = vertical ? 2.3 : 2.0;
   const spotSize = A * spotScale;
   const ridgeY = feet + 6;
   return {
@@ -91,17 +129,17 @@ export function layout(aspect, cast = CAST) {
     hide: Math.round(A * 0.95),
     ridge: `M0 ${H} L0 ${ridgeY + 10} C${W * 0.22} ${ridgeY - 2} ${W * 0.4} ${ridgeY + 6} ${W * 0.5} ${ridgeY + 2} S${W * 0.82} ${ridgeY - 4} ${W} ${ridgeY + 8} L${W} ${H} Z`,
     ridgeEdge: `M0 ${ridgeY + 10} C${W * 0.22} ${ridgeY - 2} ${W * 0.4} ${ridgeY + 6} ${W * 0.5} ${ridgeY + 2} S${W * 0.82} ${ridgeY - 4} ${W} ${ridgeY + 8}`,
-    caption: portrait ? 1270 : vertical ? 1790 : 1000,
+    caption: m.caption,
     /** The valley is lifted a little, so the ridge where the birds stand is low in the frame. */
-    world: vertical ? 1.2 : 1.18,
+    world: m.world,
     /** The phoenix stands at the centre of the valley: behind the row in the wide frame, in the middle bird's way in the tall one. */
     phoenix: !vertical,
-    captionSize: vertical ? 54 : 46,
-    captionMax: vertical ? 940 : 1500,
-    mark: vertical ? 440 : 380,
-    word: vertical ? 112 : 100,
-    tag: vertical ? 26 : 22,
-    endGap: vertical ? 26 : 18,
+    captionSize: m.captionSize,
+    captionMax: m.captionMax,
+    mark: m.mark,
+    word: m.word,
+    tag: m.tag,
+    endGap: m.endGap,
   };
 }
 
