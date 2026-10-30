@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Last step of release.yml: every non-private workspace package version on main must be on npm. The registry can lag a few
-# seconds to minutes behind a publish, so each missing version is polled with a growing wait (default 300 s total) and only
+# seconds to minutes behind a publish, so each missing version is polled with a growing wait (default 1200 s total: the @krizaka/ui 3.77.0 tarball took ~9 min to be served on 2026-10-30) and only
 # fails if it is still missing after that. Never skipped.
 set -uo pipefail
-budget=${PUBLISHED_WAIT_SECONDS:-300}
+budget=${PUBLISHED_WAIT_SECONDS:-1200}
 missing=0
 for f in packages/*/package.json; do
   node -e 'const p=require("./"+process.argv[1]);process.exit(p.private?1:0)' "$f" || continue
