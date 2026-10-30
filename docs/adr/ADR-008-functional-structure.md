@@ -85,7 +85,7 @@ Rows by domain:
 | Data display | 11 | 1 | 5 | 1 | 0 |
 | Navigation & shell | 27 | 4 | 1 | 0 | 3 |
 | Feedback & overlays | 11 | 1 | 8 | 0 | 1 |
-| Geolocation & maps | 2 | 0 | 0 | 0 | 0 |
+| Geolocation & maps | 4 | 0 | 0 | 0 | 0 |
 | Media | 9 | 2 | 8 | 2 | 0 |
 | Commerce | 25 | 1 | 0 | 0 | 5 |
 | Identity & people | 8 | 0 | 1 | 0 | 1 |
@@ -228,7 +228,7 @@ adoption issue is open, and they retire if that issue is closed without them. Sl
 | **Data display** | Reading data | `data-table` `list` `stat` `meter` `description-list` `virtual` `qr-code` `status-chip` `countdown` | Tables and lists sit only on the `@krizaka/*` facades (ADR-001) |
 | **Navigation & shell** | Going somewhere and the frame of a screen | `nav-bar` `app-shell` `app-header` `page-header` `tabs` `command` `site-footer` `language-switch` `dashboard-layout` `settings-layout` `native` | One bar for the family (NAV-SYS) |
 | **Feedback & overlays** | Telling, confirming, asking | `alert` `toast` `dialog` `popover` `tooltip` `dropdown-menu` `confirm-button` `empty-state` `progress` `upload-queue` | Never colour alone, always reachable from the keyboard |
-| **Geolocation & maps** | Places and maps | `map`, `native/map` (Akinaza's explore) | The basemap through `@krizaka/discovery` (org JSON), never a hard-coded tile URL |
+| **Geolocation & maps** | Places and maps | `map`, `map/sheet`, `map/cards`, `native/map` (Akinaza's explore) | The basemap through `@krizaka/discovery` (org JSON), never a hard-coded tile URL |
 | **Media** | Video, sound, images, files | `video-player` `vertical-video` `media-gallery` `document-viewer` `file-upload` `embed-facade` `waveform` `retro-tv` | Media from Bunny through the app's manifest, never committed |
 | **Commerce** | Prices, booking, the shop | `money-input` `slot-picker` `agenda` `opening-hours` `reviews` `service-card` `shop` + `shop/*` `shop-composer` `pricing-page` | Money as minor units and a currency, never a float |
 | **Identity & people** | Who is there | `avatar` `profile-card` `account-menu` `account-settings` `verified-badge` `notification-preferences` `auth-layout` | Default pictures from the org JSON, never inlined |
@@ -283,7 +283,7 @@ The 2026-10-28 sums of the entries not retired:
 | Data display | 11 | 72.0 |
 | Navigation & shell | 30 | 227.9 (75 of it is `./native`) |
 | Feedback & overlays | 12 | 112.9 |
-| Geolocation & maps | 2 | 31.5 |
+| Geolocation & maps | 4 | 32.9 (`map` 17.2, `native/map` 13.2, `map/sheet` 1.1, `map/cards` 1.4: the sheet and the cards are their own entries so a page that only draws a map pays nothing for them; `map` itself is back under its former 18) |
 | Media | 9 | 64.1 |
 | Commerce | 30 | 126.5 |
 | Identity & people | 9 | 18.4 |

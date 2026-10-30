@@ -1,7 +1,9 @@
 "use client";
 
 import { Button } from "@krizaka/ui/button";
-import { MapInfoCard, MapSheet, type MapSheetSnap, RouteCard, StaticMap } from "@krizaka/ui/map";
+import { StaticMap } from "@krizaka/ui/map";
+import { MapInfoCard, RouteCard } from "@krizaka/ui/map/cards";
+import { MapSheet, type MapSheetSnap } from "@krizaka/ui/map/sheet";
 import * as React from "react";
 
 const SHOP = [-73.5673, 45.5017] as const;

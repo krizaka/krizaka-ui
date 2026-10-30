@@ -1,6 +1,6 @@
 // Server-safe, pure. The links that open a destination in the person's own navigation app: Apple Maps, Google Maps,
 // OpenStreetMap, Waze and public transit. No key, no request: a URL each, opened by the person.
-import type { LngLat } from "./geo";
+import type { LngLat } from "../geo";
 
 export type RouteLinks = {
   apple: string;

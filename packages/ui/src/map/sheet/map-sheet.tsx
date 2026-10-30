@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { tv } from "../tv";
+import { tv } from "../../tv";
 
 export const mapSheet = tv({
   slots: {

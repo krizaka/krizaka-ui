@@ -3,9 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
 import { axeViolations } from "../test/axe";
-import { MapInfoCard, RouteCard } from "./map-cards";
-import { MapSheet } from "./map-sheet";
-import { routeLinks } from "./route-links";
+import { MapInfoCard, RouteCard, routeLinks } from "./cards";
+import { MapSheet } from "./sheet";
 
 const DEST: [number, number] = [-73.5673, 45.5017];
 const FROM: [number, number] = [-73.58, 45.51];

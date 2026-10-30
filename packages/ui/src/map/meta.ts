@@ -25,6 +25,7 @@ export const meta = {
     "Motion on a map: `Marker drop={index * 90}` drops pins in turn, `Route` draws its line once (and a `courier` makes one trip, `repeatAfter` repeats it while the map is on screen), `Pulse` beats around a hot spot. The drawing is finite — nothing runs afterwards — and everything is in place at once under reduced motion.",
     "Ask for the position only on a press (`LocationPicker`'s Near me), never on load; every refusal has its words.",
     "Keep the attribution visible (OpenStreetMap's licence, the ODbL, asks for it): the components draw it.",
+    "Import the place sheet from `@krizaka/ui/map/sheet` (`MapSheet`) and the cards from `@krizaka/ui/map/cards` (`MapInfoCard`, `RouteCard`, `routeLinks`): their own entries, so a page that only draws a map does not pay for them.",
     "Install the engine only where a map is shown: `maplibre-gl` (web) or `@maplibre/maplibre-react-native` (Expo) — optional peers.",
   ],
   accessibility: {
@@ -42,7 +43,7 @@ export const meta = {
   },
   related: ["dialog", "search-field", "chip"],
   web: {
-    imports: ["Map", "Marker", "Cluster", "UserPosition", "RadiusCircle", "Route", "Pulse", "LocationPicker", "StaticMap", "MapSheet", "MapInfoCard", "RouteCard", "routeLinks", "mapStyle", "distanceMeters", "formatDistance", "pathLength", "pointAlong", "sliceLine"],
+    imports: ["Map", "Marker", "Cluster", "UserPosition", "RadiusCircle", "Route", "Pulse", "LocationPicker", "StaticMap", "mapStyle", "distanceMeters", "formatDistance", "pathLength", "pointAlong", "sliceLine"],
     examples: [
       { name: "places", title: "Places", description: "Pick-up points in Montréal: markers are buttons, the chosen one shows its name." },
       { name: "cluster", title: "Cluster", description: "Sixty creators grouped while they are close; a group opens by zooming in." },

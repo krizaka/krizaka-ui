@@ -2,8 +2,8 @@
 
 import * as React from "react";
 
-import { tv } from "../tv";
-import type { LngLat } from "./geo";
+import { tv } from "../../tv";
+import type { LngLat } from "../geo";
 import { ROUTE_APPS, type RouteApp, routeLinks } from "./route-links";
 
 export const mapCard = tv({
