@@ -31,5 +31,6 @@ export {
   UserPosition,
   type UserPositionProps,
 } from "./map";
+export { MapPin, mapPin, type MapPinProps, type MapPinShape, type MapPinState } from "./map-pin";
 export { StaticMap, staticMap, type StaticMapPlace, type StaticMapProps } from "./static-map";
-export { type MapBrand, mapFlavor, mapPalette, type MapRegion, mapStyle, type MapStyleOptions, mix, REGION_FROM_ZOOM } from "./style";
+export { type MapBrand, mapFlavor, mapPalette, type MapRegion, type MapScheme, mapStyle, type MapStyleOptions, type MapVariant, mix, REGION_FROM_ZOOM } from "./style";

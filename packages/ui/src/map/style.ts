@@ -17,12 +17,21 @@ export function mix(a: string, b: string, t: number): string {
   return `#${x.map((v, i) => Math.round(v + (y[i]! - v) * t).toString(16).padStart(2, "0")).join("")}`;
 }
 
-/** The colours of the map in a scheme (and a brand): what the style, the markers and the static map share. */
-export function mapPalette(scheme: "dark" | "light", brand: MapBrand = "krizaka") {
+/**
+ * The look of the map: `plain` (the product register), `notebook` (the Cahier: ink lines on the paper in light, chalk on
+ * the slate in dark, the margin's red for the main roads) or `muted` (the colours drawn back, so the places stand out).
+ */
+export type MapVariant = "plain" | "notebook" | "muted";
+
+/** The scheme a map is asked for: `auto` follows the page (web) or the app (native). */
+export type MapScheme = "dark" | "light" | "auto";
+
+/** The colours of the map in a scheme (and a brand, a variant): what the style, the markers, the clusters and the static map share. */
+export function mapPalette(scheme: "dark" | "light", brand: MapBrand = "krizaka", variant: MapVariant = "plain") {
   const t = { ...themes[scheme], ...(brands as Record<string, Partial<Record<"dark" | "light", Partial<typeof themes.dark>>>>)[brand]?.[scheme] };
   const dark = scheme === "dark";
   const land = dark ? t.surface1 : t.surface0;
-  return {
+  const plain = {
     land,
     background: dark ? t.surface0 : t.surface2,
     water: mix(land, t.accent, dark ? 0.18 : 0.14),
@@ -37,12 +46,52 @@ export function mapPalette(scheme: "dark" | "light", brand: MapBrand = "krizaka"
     halo: land,
     accent: t.accent,
     onAccent: t.onAccent,
+    // The clusters and the pins' ring: a disc of the accent in the product register.
+    cluster: { fill: t.accent, stroke: land, text: t.onAccent },
+    point: { fill: t.accent, stroke: land },
   };
+  if (variant === "muted") {
+    const grey = (c: string, by: number) => mix(c, land, by);
+    return {
+      ...plain,
+      water: grey(plain.water, 0.45),
+      park: grey(plain.park, 0.6),
+      road: dark ? mix(land, t.textPrimary, 0.08) : mix(land, t.textPrimary, 0.04),
+      roadMajor: dark ? mix(land, t.textPrimary, 0.14) : mix(land, t.textPrimary, 0.09),
+      building: mix(land, t.textPrimary, dark ? 0.04 : 0.05),
+      boundary: mix(land, t.textPrimary, 0.18),
+      label: mix(land, t.textSecondary, 0.8),
+    };
+  }
+  if (variant === "notebook") {
+    // The paper is the page's surface; the lines are the ink, drawn without casings, as with a pen.
+    const paper = t.surface0;
+    const margin = t.paperRuleMargin;
+    return {
+      ...plain,
+      land: paper,
+      background: paper,
+      water: mix(paper, t.accent, dark ? 0.26 : 0.2),
+      park: mix(paper, t.paperTag, dark ? 0.7 : 0.55),
+      road: mix(paper, t.textPrimary, dark ? 0.32 : 0.28),
+      roadMajor: mix(paper, margin, dark ? 0.75 : 0.7),
+      casing: paper,
+      building: mix(paper, t.textPrimary, dark ? 0.1 : 0.09),
+      boundary: mix(paper, margin, 0.5),
+      label: t.textSecondary,
+      labelStrong: t.textPrimary,
+      halo: paper,
+      // A cluster is a manila tag with its eyelet edge; a single point is the margin's red.
+      cluster: { fill: t.paperTag, stroke: t.paperTagEdge, text: t.paperTagInk },
+      point: { fill: margin, stroke: paper },
+    };
+  }
+  return plain;
 }
 
 /** The basemap flavour of a palette: every role of Protomaps' layers filled from the tokens. */
-export function mapFlavor(scheme: "dark" | "light", brand?: MapBrand): Flavor {
-  const c = mapPalette(scheme, brand);
+export function mapFlavor(scheme: "dark" | "light", brand?: MapBrand, variant?: MapVariant): Flavor {
+  const c = mapPalette(scheme, brand, variant);
   const base = namedFlavor(scheme);
   return {
     ...base,
@@ -135,6 +184,8 @@ export type MapStyleOptions = {
   scheme: "dark" | "light";
   /** The product whose accent the map carries (its markers, its water's tint). Default `krizaka`. */
   brand?: MapBrand;
+  /** The look: `plain` (default), `notebook` (the Cahier's paper and ink) or `muted`. */
+  variant?: MapVariant;
   /** The language of the labels (`fr`, `en`): the place names in it where OpenStreetMap has them. Default `en`. */
   lang?: string;
   /** The low zooms of the whole world. Default: our world extract (zoom 0–6). */
@@ -153,8 +204,8 @@ export const REGION_FROM_ZOOM = 6.5;
  * painted from the tokens. The `pmtiles://` sources need the PMTiles protocol (the web `Map` registers it; MapLibre
  * Native reads it as it is).
  */
-export function mapStyle({ scheme, brand, lang = "en", world = { url: mapAssets().tiles.world, maxzoom: 6 }, region = { url: mapAssets().tiles.quebec, maxzoom: 14 }, glyphs = mapAssets().glyphs }: MapStyleOptions) {
-  const flavor = mapFlavor(scheme, brand);
+export function mapStyle({ scheme, brand, variant, lang = "en", world = { url: mapAssets().tiles.world, maxzoom: 6 }, region = { url: mapAssets().tiles.quebec, maxzoom: 14 }, glyphs = mapAssets().glyphs }: MapStyleOptions) {
+  const flavor = mapFlavor(scheme, brand, variant);
   const attribution = `<a href="${MAP_ATTRIBUTION.protomapsUrl}">${MAP_ATTRIBUTION.protomaps}</a> · <a href="${MAP_ATTRIBUTION.osmUrl}">${MAP_ATTRIBUTION.osm}</a>`;
   const sources: Record<string, unknown> = {};
   const all: { id: string; minzoom?: number; maxzoom?: number; [k: string]: unknown }[] = [];

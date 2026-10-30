@@ -19,7 +19,7 @@ import Svg, { Circle, Path } from "react-native-svg";
 
 import { MAP_ATTRIBUTION } from "../map/assets";
 import { circlePolygon, distanceMeters, formatDistance, type LngLat } from "../map/geo";
-import { mapPalette, type MapRegion,mapStyle } from "../map/style";
+import { mapPalette, type MapRegion, mapStyle, type MapVariant } from "../map/style";
 
 type Ctx = { palette: ReturnType<typeof mapPalette>; reduce: boolean; places: { add: (id: string, text: string) => void; remove: (id: string) => void } };
 const MapContext = React.createContext<Ctx | null>(null);
@@ -36,6 +36,8 @@ export type MapProps = {
   center: LngLat;
   /** The zoom (0 the world, 12 a city, 16 a street). Default 12. */
   zoom?: number;
+  /** The look: `plain` (default), `notebook` (the Cahier) or `muted`. The scheme is the app's (`auto`). */
+  variant?: MapVariant;
   /** The product whose accent the map carries. Default `krizaka`. */
   brand?: BrandId;
   /** The language of the labels (`fr`, `en`). Default `en`. */
@@ -57,7 +59,7 @@ export type MapProps = {
 };
 
 /** A map: MapLibre Native over our Protomaps tiles, styled from the tokens in the app's scheme; its places in its name. */
-function NativeMap({ label, center, zoom = 12, brand, lang, region, world, interactive = true, onMoveEnd, onPress, children, style }: MapProps) {
+function NativeMap({ label, center, zoom = 12, brand, variant, lang, region, world, interactive = true, onMoveEnd, onPress, children, style }: MapProps) {
   const { scheme, theme, radius, motion } = useTheme();
   const reduce = motion.duration.base === 0;
   const camera = React.useRef<CameraRef>(null);
@@ -73,8 +75,8 @@ function NativeMap({ label, center, zoom = 12, brand, lang, region, world, inter
     }),
     [],
   );
-  const styleJson = React.useMemo(() => mapStyle({ scheme, brand, lang, ...(region !== undefined ? { region } : {}), ...(world !== undefined ? { world } : {}) }), [scheme, brand, lang, region, world]);
-  const palette = React.useMemo(() => mapPalette(scheme, brand), [scheme, brand]);
+  const styleJson = React.useMemo(() => mapStyle({ scheme, brand, variant, lang, ...(region !== undefined ? { region } : {}), ...(world !== undefined ? { world } : {}) }), [scheme, brand, variant, lang, region, world]);
+  const palette = React.useMemo(() => mapPalette(scheme, brand, variant), [scheme, brand, variant]);
   const listed = Object.values(places);
   const ctx = React.useMemo(() => ({ palette, reduce, places: registry }), [palette, reduce, registry]);
   return (
@@ -255,9 +257,9 @@ export function Cluster({ points, onPointPress, radius = 48 }: ClusterProps) {
         if (point) onPointPress?.(point);
       }}
     >
-      <Layer type="circle" id={`${id}-groups`} filter={["has", "point_count"]} paint={{ "circle-color": palette.accent, "circle-radius": ["step", ["get", "point_count"], 16, 10, 20, 50, 26], "circle-stroke-width": 3, "circle-stroke-color": palette.halo }} />
-      <Layer type="symbol" id={`${id}-count`} filter={["has", "point_count"]} layout={{ "text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Medium"], "text-size": 13 }} paint={{ "text-color": palette.onAccent }} />
-      <Layer type="circle" id={`${id}-points`} filter={["!", ["has", "point_count"]]} paint={{ "circle-color": palette.accent, "circle-radius": 7, "circle-stroke-width": 2.5, "circle-stroke-color": palette.halo }} />
+      <Layer type="circle" id={`${id}-groups`} filter={["has", "point_count"]} paint={{ "circle-color": palette.cluster.fill, "circle-radius": ["step", ["get", "point_count"], 16, 10, 20, 50, 26], "circle-stroke-width": 3, "circle-stroke-color": palette.cluster.stroke }} />
+      <Layer type="symbol" id={`${id}-count`} filter={["has", "point_count"]} layout={{ "text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Medium"], "text-size": 13 }} paint={{ "text-color": palette.cluster.text }} />
+      <Layer type="circle" id={`${id}-points`} filter={["!", ["has", "point_count"]]} paint={{ "circle-color": palette.point.fill, "circle-radius": 7, "circle-stroke-width": 2.5, "circle-stroke-color": palette.point.stroke }} />
     </GeoJSONSource>
   );
 }

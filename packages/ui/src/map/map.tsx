@@ -14,7 +14,7 @@ import { usePrefersReducedMotion } from "../media";
 import { tv } from "../tv";
 import { MAP_ATTRIBUTION, setMapAssetsBase } from "./assets";
 import { circlePolygon, type LngLat, pointAlong, sliceLine } from "./geo";
-import { type MapBrand, mapPalette, type MapRegion, mapStyle } from "./style";
+import { type MapBrand, mapPalette, type MapRegion, type MapScheme, mapStyle, type MapVariant } from "./style";
 
 type MapLibre = typeof import("maplibre-gl");
 type MapInstance = import("maplibre-gl").Map;
@@ -40,7 +40,8 @@ export const map = tv({
 });
 
 type Registry = { add: (id: string, text: string) => void; remove: (id: string) => void };
-type Ctx = { map: MapInstance | null; lib: MapLibre | null; ready: boolean; reduce: boolean; places: Registry };
+type Look = { scheme: "dark" | "light"; brand?: MapBrand; variant?: MapVariant };
+type Ctx = { map: MapInstance | null; lib: MapLibre | null; ready: boolean; reduce: boolean; places: Registry; look: Look };
 const MapContext = React.createContext<Ctx | null>(null);
 
 /** The map a child is drawn on (`Marker`, `RadiusCircle`, `Cluster`…): the MapLibre instance once it is ready. */
@@ -119,8 +120,10 @@ export type MapProps = {
   zoom?: number;
   /** The camera follows `center` and `zoom` when they change (flies, or jumps under reduced motion). */
   controlled?: boolean;
-  /** The scheme. Default: the page's (`html.light`), followed. */
-  scheme?: "dark" | "light";
+  /** The scheme: `auto` (default) follows the page (`html.light`) as it changes; `dark` or `light` pins it. */
+  scheme?: MapScheme;
+  /** The look: `plain` (default), `notebook` (the Cahier: paper and ink, manila tags for clusters) or `muted`. */
+  variant?: MapVariant;
   /** The product whose accent the map carries. Default `krizaka`. */
   brand?: MapBrand;
   /** The language of the labels (`fr`, `en`). Default `en`. */
@@ -153,7 +156,8 @@ function MapRoot({
   center,
   zoom = 12,
   controlled,
-  scheme: schemeProp,
+  scheme: schemeProp = "auto",
+  variant,
   brand,
   lang,
   region,
@@ -170,7 +174,7 @@ function MapRoot({
   const labels = { ...mapLabels, ...given };
   const s = map();
   const pageScheme = usePageScheme();
-  const scheme = schemeProp ?? pageScheme;
+  const scheme = schemeProp === "auto" ? pageScheme : schemeProp;
   const reduce = usePrefersReducedMotion();
   const host = React.useRef<HTMLDivElement>(null);
   const [instance, setInstance] = React.useState<MapInstance | null>(null);
@@ -193,7 +197,7 @@ function MapRoot({
   React.useEffect(() => {
     latest.current = { onMoveEnd, onPress };
   });
-  const styleOf = React.useCallback((sc: "dark" | "light") => mapStyle({ scheme: sc, brand, lang, ...(region !== undefined ? { region } : {}), ...(world !== undefined ? { world } : {}) }), [brand, lang, region, world]);
+  const styleOf = React.useCallback((sc: "dark" | "light") => mapStyle({ scheme: sc, brand, variant, lang, ...(region !== undefined ? { region } : {}), ...(world !== undefined ? { world } : {}) }), [brand, variant, lang, region, world]);
 
   // The style the map wears now: the engine loads asynchronously, so the scheme it is created with is read when it is ready
   // (the page's theme may have flipped since the first render), and the effect below applies whatever differs.
@@ -267,7 +271,7 @@ function MapRoot({
   }, [instance, controlled, center[0], center[1], zoom, reduce]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const zoomBy = (by: number) => instance && (reduce ? instance.setZoom(instance.getZoom() + by) : instance.zoomTo(instance.getZoom() + by, { duration: 250 }));
-  const ctx = React.useMemo<Ctx>(() => ({ map: instance, lib, ready, reduce, places: registry }), [instance, lib, ready, reduce, registry]);
+  const ctx = React.useMemo<Ctx>(() => ({ map: instance, lib, ready, reduce, places: registry, look: { scheme, brand, variant } }), [instance, lib, ready, reduce, registry, scheme, brand, variant]);
   const listed = Object.entries(places);
   return (
     <MapContext.Provider value={ctx}>
@@ -557,7 +561,11 @@ export function Route({ path, label, draw = true, duration = 1400, courier, trip
 
 /** Adds a GeoJSON source and its layers while the map has a style (again after a change of scheme). */
 function useGeoLayer(id: string, data: GeoJSON.GeoJSON, layers: (palette: ReturnType<typeof mapPalette>) => object[], source: object = {}) {
-  const { map: m, ready } = useMap();
+  const { map: m, ready, look } = useMap();
+  const lookRef = React.useRef(look);
+  React.useEffect(() => {
+    lookRef.current = look;
+  });
   const dataRef = React.useRef(data);
   React.useEffect(() => {
     dataRef.current = data;
@@ -568,9 +576,9 @@ function useGeoLayer(id: string, data: GeoJSON.GeoJSON, layers: (palette: Return
     if (!m || !ready) return;
     const add = () => {
       if (m.getSource(id)) return;
-      const scheme = document.documentElement.classList.contains("light") ? "light" : "dark";
+      const { scheme, brand, variant } = lookRef.current;
       m.addSource(id, { type: "geojson", data: dataRef.current, ...source } as never);
-      for (const layer of layers(mapPalette(scheme))) m.addLayer(layer as never);
+      for (const layer of layers(mapPalette(scheme, brand, variant))) m.addLayer(layer as never);
     };
     add();
     m.on("styledata", add);
@@ -630,9 +638,9 @@ export function Cluster({ points, onPointPress, radius = 48 }: ClusterProps) {
     id,
     data,
     (c) => [
-      { id: `${id}-groups`, type: "circle", source: id, filter: ["has", "point_count"], paint: { "circle-color": c.accent, "circle-opacity": 0.92, "circle-radius": ["step", ["get", "point_count"], 16, 10, 20, 50, 26], "circle-stroke-width": 3, "circle-stroke-color": c.halo } },
-      { id: `${id}-count`, type: "symbol", source: id, filter: ["has", "point_count"], layout: { "text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Medium"], "text-size": 13 }, paint: { "text-color": c.onAccent } },
-      { id: `${id}-points`, type: "circle", source: id, filter: ["!", ["has", "point_count"]], paint: { "circle-color": c.accent, "circle-radius": 7, "circle-stroke-width": 2.5, "circle-stroke-color": c.halo } },
+      { id: `${id}-groups`, type: "circle", source: id, filter: ["has", "point_count"], paint: { "circle-color": c.cluster.fill, "circle-opacity": 0.95, "circle-radius": ["step", ["get", "point_count"], 16, 10, 20, 50, 26], "circle-stroke-width": 3, "circle-stroke-color": c.cluster.stroke } },
+      { id: `${id}-count`, type: "symbol", source: id, filter: ["has", "point_count"], layout: { "text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Medium"], "text-size": 13 }, paint: { "text-color": c.cluster.text } },
+      { id: `${id}-points`, type: "circle", source: id, filter: ["!", ["has", "point_count"]], paint: { "circle-color": c.point.fill, "circle-radius": 7, "circle-stroke-width": 2.5, "circle-stroke-color": c.point.stroke } },
     ],
     { cluster: true, clusterRadius: radius, clusterMaxZoom: 15 },
   );
