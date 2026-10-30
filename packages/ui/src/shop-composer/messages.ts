@@ -42,7 +42,7 @@ export type ShopComposerMessages = {
   removeBlock: string;
   /** The look. */
   look: string;
-  /** The six looks, as a group of swatches. */
+  /** The looks, as a group of swatches. */
   lookChoice: string;
   /** Said when a look is applied (`{name}`). */
   lookApplied: string;
@@ -50,6 +50,14 @@ export type ShopComposerMessages = {
   accentChoice: string;
   /** The names of the accents a look lists (`krizaka`, `akinaza:accent-2`…); an unknown one reads as its id. */
   accentNames: Readonly<Record<string, string>>;
+  /** The owner's title face over the look's, and the names of the faces (`serif` · `sans` · `poster`). */
+  faceChoice: string;
+  faceOwn: string;
+  faceNames: Readonly<Record<"serif" | "sans" | "poster", string>>;
+  /** The owner's motion level over the look's, and the names of the levels (`calm` · `soft` · `editorial` · `lively`). */
+  motionChoice: string;
+  motionOwn: string;
+  motionNames: Readonly<Record<"calm" | "soft" | "editorial" | "lively", string>>;
   preset: string;
   density: string;
   densityCompact: string;
@@ -149,6 +157,12 @@ export const defaultShopComposerMessages: ShopComposerMessages = {
   lookApplied: "Look: {name}",
   accentChoice: "Accent",
   accentNames: { krizaka: "Krizaka blue", akinaza: "Akinaza green", "akinaza:accent-2": "Copper", yomizaka: "Indigo", orazaka: "Orange" },
+  faceChoice: "Titles",
+  faceOwn: "The look's",
+  faceNames: { serif: "Serif", sans: "Sans", poster: "Poster" },
+  motionChoice: "Motion",
+  motionOwn: "The look's",
+  motionNames: { calm: "Calm", soft: "Soft", editorial: "Editorial", lively: "Lively" },
   preset: "Style",
   density: "Spacing",
   densityCompact: "Compact",

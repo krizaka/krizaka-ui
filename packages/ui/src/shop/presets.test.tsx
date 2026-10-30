@@ -37,10 +37,10 @@ describe("the look presets and the catalogue agree (ADR-007 §4)", () => {
   });
 });
 
-describe("the six looks (akinaza#478)", () => {
+describe("the looks (akinaza#478, the owners' advanced looks)", () => {
   const looks = shopPresets.filter((p) => p.id.startsWith("look-"));
   it("every look is on the catalogue: its variants exist, and it names a surface, a motion and the birds", () => {
-    expect(looks).toHaveLength(6);
+    expect(looks).toHaveLength(9);
     for (const p of looks) {
       expect(p.surface, p.id).toBeTruthy();
       expect(p.motion, p.id).toBeTruthy();

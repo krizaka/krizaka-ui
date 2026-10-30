@@ -1,10 +1,11 @@
+import { shopPresets } from "@krizaka/tokens/shop-presets";
 import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { SECTION_DEFINITIONS } from "../catalogue";
 import { parseShopPage, type ShopPage } from "../schema";
 import { shopStarters } from "../starters";
-import { applyLook, SHOP_LOOKS, shopLookOf } from "./apply-look";
+import { applyLook, SHOP_LOOK_ORDER, SHOP_LOOKS, shopLookOf } from "./apply-look";
 import { MASCOT_SLOTS, mascotFor, ShopMascot } from "./mascots";
 
 /** Everything of a page that is the owner's: the order, the keys, the settings, the blocks, the text. */
@@ -12,10 +13,16 @@ const content = (p: ShopPage) => p.sections.map(({ variant: _v, ...rest }) => re
 const pages = Object.entries(shopStarters) as [string, ShopPage][];
 
 describe("applyLook (akinaza#478)", () => {
-  it("offers the six looks, in the addendum's order", () => {
-    expect(SHOP_LOOKS.map((l) => l.id)).toEqual(["look-cahier", "look-krizaka", "look-editorial", "look-boutique", "look-affiche", "look-nuit"]);
+  it("offers the looks, in the addendum's order, then the owners' advanced looks", () => {
+    expect(SHOP_LOOKS.map((l) => l.id)).toEqual(["look-cahier", "look-krizaka", "look-editorial", "look-boutique", "look-affiche", "look-nuit", "look-atelier", "look-rue", "look-velours"]);
     expect(shopLookOf("look-nuit")?.surface).toBe("deep");
     expect(shopLookOf("salon-vitrine")).toBeUndefined();
+  });
+
+  it("offers every look of @krizaka/tokens: none is dropped because the order forgot it, none is named that does not exist", () => {
+    const tokensLooks = shopPresets.filter((p) => p.id.startsWith("look-")).map((p) => p.id).sort();
+    expect([...SHOP_LOOK_ORDER].sort()).toEqual(tokensLooks);
+    expect(SHOP_LOOKS).toHaveLength(SHOP_LOOK_ORDER.length);
   });
 
   it("every variant a look names exists in the catalogue", () => {

@@ -5,7 +5,9 @@ import { join } from "node:path";
 import { parseColor } from "../scripts/appearance.mjs";
 import { compile, compileBrands, load, loadAppearance, loadBrands, loadShopPresets } from "../scripts/build.mjs";
 import { contrast, over } from "../scripts/color.mjs";
-import { accentFamily, compileShopPresets, SHOP_ACCENT_BRANDS, SHOP_TRADES, YOUNG_SERIF } from "../scripts/shop-presets.mjs";
+import { accentFamily, compileShopPresets, SHOP_ACCENT_BRANDS, SHOP_MOTIONS, SHOP_OWNER_FACES as ownerFaces, SHOP_OWNER_MOTIONS as ownerMotions, SHOP_TRADES, YOUNG_SERIF } from "../scripts/shop-presets.mjs";
+
+const shopOwnerChoices = { faces: ownerFaces, motions: ownerMotions };
 
 const root = join(import.meta.dirname, "..");
 const appearance = loadAppearance(join(root, "src/appearance"));
@@ -104,16 +106,16 @@ describe("Shop look presets (ADR-007 §4, krizaka-ui#745)", () => {
 const looks = sources.filter((p) => p.id.startsWith("look-"));
 const dataOf = (id: string) => (data as any[]).find((p) => p.id === id);
 
-describe("The six looks (akinaza#478, ADR-004 addendum §3)", () => {
-  it("are six, trade-agnostic, and each names a surface, a motion, mascots and a variant for every section it styles", () => {
-    expect(looks.map((p) => p.id)).toEqual(["look-affiche", "look-boutique", "look-cahier", "look-editorial", "look-krizaka", "look-nuit"]);
+describe("The looks (akinaza#478, ADR-004 addendum §3; the owners' advanced looks)", () => {
+  it("are nine, trade-agnostic, and each names a surface, a motion, mascots and a variant for every section it styles", () => {
+    expect(looks.map((p) => p.id)).toEqual(["look-affiche", "look-atelier", "look-boutique", "look-cahier", "look-editorial", "look-krizaka", "look-nuit", "look-rue", "look-velours"]);
     for (const p of looks) {
       expect(p.trades, p.id).toEqual(SHOP_TRADES);
       for (const k of ["hero", "services", "booking", "gallery", "video", "reviews", "bulletin", "visit"]) expect(p.variants[k], `${p.id}.${k}`).toBeTruthy();
       expect(dataOf(p.id).surface).toBe(p.surface);
     }
     expect(looks.filter((p) => p.mascots === "on").map((p) => p.id)).toEqual(["look-krizaka"]);
-    expect(new Set(looks.map((p) => p.variants.hero + p.variants.services + p.variants.gallery + p.motion)).size, "no look is a colour swap of another").toBe(6);
+    expect(new Set(looks.map((p) => p.variants.hero + p.variants.services + p.variants.gallery + p.motion)).size, "no look is a colour swap of another").toBe(looks.length);
   });
 
   it("emit the new keys: surface per mode, the poster face, the polaroid frame", () => {
@@ -130,6 +132,17 @@ describe("The six looks (akinaza#478, ADR-004 addendum §3)", () => {
       expect(own.length, p.id).toBeLessThan(3500);
     }
     expect(css).not.toMatch(/@font-face/);
+  });
+
+  it("let an owner change the title face from a closed list only, resetting the poster's tracking, with no new font", () => {
+    expect(shopOwnerChoices.faces).toEqual({ serif: "display", sans: "product-display", poster: "poster" });
+    expect(css).toMatch(/\.kz-shop\[data-shop-face="serif"\] \{[^}]*--kz-shop-title-weight: 400;[^}]*Young Serif[^}]*--kz-shop-title-tracking: normal;/);
+    expect(css).toMatch(/\.kz-shop\[data-shop-face="poster"\] \{[^}]*--kz-shop-title-weight: 800;[^}]*--kz-shop-title-tracking: -0\.03em;/);
+    expect(css.match(/data-shop-face=/g)).toHaveLength(3);
+  });
+
+  it("map every owner motion level onto a CSS mode a look may name", () => {
+    expect(Object.values(shopOwnerChoices.motions).sort()).toEqual([...SHOP_MOTIONS].sort());
   });
 
   it("refuse a trade preset wearing a look's key, a look missing one, an unknown surface or motion", () => {

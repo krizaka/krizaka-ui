@@ -1,0 +1,45 @@
+{
+  "id": "look-rue",
+  "version": 1,
+  "name": "Rue",
+  "trades": [
+    "salon",
+    "pets",
+    "coaching",
+    "workshop",
+    "cleaning",
+    "consulting"
+  ],
+  "paper": "plain",
+  "surface": "deep",
+  "accent": "akinaza",
+  "accents": [
+    "akinaza",
+    "orazaka"
+  ],
+  "faces": {
+    "title": "poster",
+    "note": "mono"
+  },
+  "density": "compact",
+  "photo": {
+    "grade": "cool",
+    "grain": 1,
+    "radius": "none",
+    "frame": "none"
+  },
+  "motion": "lively",
+  "mascots": "off",
+  "transition": "slide",
+  "closing": "mark",
+  "variants": {
+    "hero": "tv",
+    "services": "cards",
+    "booking": "strip",
+    "gallery": "grid",
+    "video": "shorts",
+    "reviews": "strip",
+    "bulletin": "banner",
+    "visit": "card"
+  }
+}

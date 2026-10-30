@@ -1,5 +1,6 @@
 // The document a shop page is (ADR-007 §1): an ordered list of sections, each a `type` × `variant` with its settings and
 // its blocks. Parsed on write (a route refuses an invalid one, with the path) and on read. The storage is the product's.
+import { shopOwnerChoices, shopPresets } from "@krizaka/tokens/shop-presets";
 import * as z from "zod/mini";
 
 import { SECTION_DEFINITIONS, type SectionType } from "./catalogue";
@@ -28,11 +29,20 @@ export const shopPageSchema = z
     density: z.optional(z.enum(["compact", "airy"])),
     /** One of the accents the look lists as tested (`krizaka`, `akinaza:accent-2`…): the owner's choice within the look. */
     accent: z.optional(z.string().check(z.regex(/^[a-z]+(:accent-2)?$/, "an accent of the look"))),
+    /** The owner's title face over the look's (`serif` · `sans` · `poster`, `shopOwnerChoices` of `@krizaka/tokens`). */
+    face: z.optional(z.enum(Object.keys(shopOwnerChoices.faces) as [keyof typeof shopOwnerChoices.faces])),
+    /** The owner's motion level over the look's (`calm` · `soft` · `editorial` · `lively`): CSS only, still under reduced motion. */
+    motion: z.optional(z.enum(Object.keys(shopOwnerChoices.motions) as [keyof typeof shopOwnerChoices.motions])),
     sections: z.array(sectionUnion).check(z.minLength(1), z.maxLength(SHOP_LIMITS.sections)),
   })
   .check(
     z.superRefine((page, ctx) => {
       const add = (path: (string | number)[], message: string) => ctx.issues.push({ code: "custom", message, path, input: page });
+      // The look exists at the version named, and the accent is one of its tested list: a document can only wear a proven combination.
+      const preset = shopPresets.find((p) => p.id === page.preset.id);
+      if (!preset) add(["preset", "id"], `no look preset "${page.preset.id}"`);
+      else if (page.preset.version > preset.version) add(["preset", "version"], `${preset.id} has no version ${page.preset.version}`);
+      if (preset && page.accent !== undefined && !preset.accents.includes(page.accent)) add(["accent"], `"${page.accent}" is not one of the accents of ${preset.id}`);
       const seen = new Set<string>();
       page.sections.forEach((section, i) => {
         const s = section as { key: string; type: string };
@@ -50,6 +60,8 @@ export type ShopPage = {
   preset: z.output<typeof presetRef>;
   density?: "compact" | "airy" | undefined;
   accent?: string | undefined;
+  face?: keyof typeof shopOwnerChoices.faces | undefined;
+  motion?: keyof typeof shopOwnerChoices.motions | undefined;
   sections: Section[];
 };
 export type SectionOf<T extends SectionType> = Extract<Section, { type: T }>;

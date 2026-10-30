@@ -1,8 +1,9 @@
-// The look of the page (akinaza#478): a radio group of the six looks as swatches (name, the look's own surface and its accent
+// The look of the page (akinaza#478): a radio group of the looks as swatches (name, the look's own surface and its accent
 // chips), then the accent within the chosen look's tested list. It applies to the draft only; publishing goes through the diff.
 import { RadioGroup } from "@krizaka/ui/radio-group";
 
 import { cn } from "../cn";
+import { SHOP_OWNER_FACES, SHOP_OWNER_MOTIONS } from "../shop/look/owner-choice";
 import type { ShopPage } from "../shop/schema";
 import type { Command } from "./commands";
 import type { ShopComposerPreset } from "./composer";
@@ -15,6 +16,9 @@ export type LookPickerProps = {
   run: (cmd: Command) => void;
   announce: (message: string) => void;
 };
+
+/** The value of « the look's own » in the face and motion groups (no owner choice stored). */
+const OWN = "own";
 
 /** The accent chips of a look, drawn by its own tokens. */
 function Chips({ look }: { look: ShopComposerPreset }) {
@@ -64,6 +68,22 @@ export function LookPicker({ looks, page, messages: m, run, announce }: LookPick
           ))}
         </RadioGroup.Root>
       )}
+      <RadioGroup.Root label={m.faceChoice} variant="buttons" value={page.face ?? OWN} onValueChange={(v) => run({ type: "setFace", face: v === OWN ? undefined : (v as (typeof SHOP_OWNER_FACES)[number]) })}>
+        <RadioGroup.Button value={OWN}>{m.faceOwn}</RadioGroup.Button>
+        {SHOP_OWNER_FACES.map((f) => (
+          <RadioGroup.Button key={f} value={f}>
+            {m.faceNames[f]}
+          </RadioGroup.Button>
+        ))}
+      </RadioGroup.Root>
+      <RadioGroup.Root label={m.motionChoice} variant="buttons" value={page.motion ?? OWN} onValueChange={(v) => run({ type: "setMotion", motion: v === OWN ? undefined : (v as (typeof SHOP_OWNER_MOTIONS)[number]) })}>
+        <RadioGroup.Button value={OWN}>{m.motionOwn}</RadioGroup.Button>
+        {SHOP_OWNER_MOTIONS.map((l) => (
+          <RadioGroup.Button key={l} value={l}>
+            {m.motionNames[l]}
+          </RadioGroup.Button>
+        ))}
+      </RadioGroup.Root>
     </div>
   );
 }

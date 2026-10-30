@@ -120,6 +120,21 @@ function accentDecls(brands, mode, ref) {
   return [`--kz-accent: ${f.accent};`, `--kz-accent-hover: ${f.accentHover};`, `--kz-accent-soft: ${f.accentSoft};`, `--kz-accent-text: ${f.accentText};`, `--kz-accent-2: ${f.accent2};`, `--kz-on-accent: ${f.onAccent};`, `--kz-ring: ${f.ring};`];
 }
 
+/**
+ * What an owner may choose over a look (akinaza « advanced » looks): every choice is from a closed, tested list, so no choice can
+ * break the contrast (the accents are the look's AA-proven list), the fonts (only the faces of `@krizaka/fonts` the page already
+ * loads) or the budgets (every motion level is CSS only, at most 320 ms, and still under `prefers-reduced-motion`).
+ * - `face`: the title face, by its short name. The note face stays the look's.
+ * - `motion`: the owner's words for the CSS modes of `ShopFrame`.
+ */
+export const SHOP_OWNER_FACES = { serif: "display", sans: "product-display", poster: "poster" };
+export const SHOP_OWNER_MOTIONS = { calm: "still", soft: "soft", editorial: "paper", lively: "lively" };
+
+/** The owner's title faces as CSS: `.kz-shop[data-shop-face="<name>"]` wins over the look's own (one more attribute). */
+function ownerFaceCss() {
+  return Object.entries(SHOP_OWNER_FACES).map(([name, title]) => block(`.kz-shop[data-shop-face="${name}"]`, titleFaceDecls(title, true)));
+}
+
 /** @param {string} sel @param {string[]} decls */
 const block = (sel, decls) => `${sel} {\n${decls.map((d) => `  ${d}`).join("\n")}\n}`;
 
@@ -130,14 +145,22 @@ function accentBlocks(brands, sel, ref, extra = []) {
   return [block(sel, [...accentDecls(brands, "dark", ref), ...extra]), block(light, accentDecls(brands, "light", ref)), block(island, accentDecls(brands, "dark", ref))];
 }
 
+/**
+ * The declarations of a title face: its family, its weight and its tracking. `reset` writes the tracking even when it is the
+ * default, so an owner's face over a look's `poster` never keeps the poster's tight tracking.
+ * @param {string} title @param {boolean} [reset]
+ */
+function titleFaceDecls(title, reset = false) {
+  const display = title === "display";
+  const poster = title === "poster";
+  const tracking = poster ? ["--kz-shop-title-tracking: -0.03em;"] : reset ? ["--kz-shop-title-tracking: normal;"] : [];
+  return [`--kz-shop-title-weight: ${display ? 400 : poster ? 800 : 650};`, `--kz-font-display: ${display ? YOUNG_SERIF : "var(--kz-font-product-display)"};`, ...tracking];
+}
+
 /** What a preset sets besides its accent: the faces, the photo treatment. @param {any} p */
 function ownDecls(p) {
-  const display = p.faces.title === "display";
-  const poster = p.faces.title === "poster";
   return [
-    `--kz-shop-title-weight: ${display ? 400 : poster ? 800 : 650};`,
-    `--kz-font-display: ${display ? YOUNG_SERIF : "var(--kz-font-product-display)"};`,
-    ...(poster ? ["--kz-shop-title-tracking: -0.03em;"] : []),
+    ...titleFaceDecls(p.faces.title),
     ...(p.faces.note === "cahier" ? ["--kz-font-mono: var(--kz-font-cahier);"] : []),
     `--kz-shop-photo-filter: ${GRADE_FILTER[/** @type {"none"} */ (p.photo.grade)]};`,
     `--kz-shop-photo-radius: ${RADIUS[/** @type {"none"} */ (p.photo.radius)]};`,
@@ -186,7 +209,7 @@ export function compileShopPresets(sources, brands) {
   }
   for (const t of SHOP_TRADES) if (perTrade[t] !== 2) throw new Error(`trade ${t}: two presets, not ${perTrade[t] ?? 0}`);
   const intro = "/* @krizaka/tokens — GÉNÉRÉ depuis src/presets/shop/*.preset.json par scripts/build.mjs : ne pas éditer.\n   Les looks d'une page de boutique (ADR-007 §4) : `[data-shop-preset=\"<id>\"]` pose l'accent, les polices, le grain et le traitement des photos,\n   dans les deux thèmes ; `[data-shop-accent=\"<marque>[:accent-2]\"]` en plus choisit un autre accent de la liste testée du look. */";
-  const css = [intro, ...list.flatMap((p) => ["", ...presetCss(brands, p)])];
+  const css = [intro, ...list.flatMap((p) => ["", ...presetCss(brands, p)]), "", "/* The owner's title face over the look's (SHOP_OWNER_FACES): a closed list, no new font. */", ...ownerFaceCss()];
   const data = list.map((p) => ({ id: p.id, version: p.version, name: p.name, trades: p.trades, paper: p.paper, accent: p.accent, accents: p.accents, faces: p.faces, density: p.density, photo: p.photo, variants: p.variants, ...Object.fromEntries([...LOOK_KEYS].filter((k) => k in p).map((k) => [k, p[k]])) }));
   return { css: `${css.join("\n")}\n`, data };
 }
@@ -201,6 +224,9 @@ export function shopPresetsModule(data) {
  * accent of the preset's tested list.
  */
 export const shopPresets = Object.freeze(${json(data)});
+
+/** What an owner may choose over a look: the title face (\`data-shop-face\`) and the motion level, by the owner's words. */
+export const shopOwnerChoices = Object.freeze({ faces: Object.freeze(${json(SHOP_OWNER_FACES)}), motions: Object.freeze(${json(SHOP_OWNER_MOTIONS)}) });
 `;
   const dts = `
 export type ShopPresetId = ${data.map((p) => json(p.id)).join(" | ")};
@@ -235,6 +261,13 @@ export interface ShopPreset {
 }
 /** The twelve trade presets (two per trade, ADR-007 §4) and the six trade-agnostic looks (\`look-*\`) of a shop page. */
 export declare const shopPresets: readonly ShopPreset[];
+/** The owner's title faces (\`serif\` · \`sans\` · \`poster\`) and motion levels (\`calm\` · \`soft\` · \`editorial\` · \`lively\`), each mapped to what the look data names. */
+export declare const shopOwnerChoices: {
+  readonly faces: { readonly serif: "display"; readonly sans: "product-display"; readonly poster: "poster" };
+  readonly motions: { readonly calm: "still"; readonly soft: "soft"; readonly editorial: "paper"; readonly lively: "lively" };
+};
+export type ShopOwnerFace = keyof typeof shopOwnerChoices.faces;
+export type ShopOwnerMotion = keyof typeof shopOwnerChoices.motions;
 `;
   return { js, dts };
 }

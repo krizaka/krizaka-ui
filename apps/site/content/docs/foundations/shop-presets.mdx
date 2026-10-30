@@ -1,6 +1,6 @@
 ---
 title: Shop presets
-description: The looks of a shop page — two per trade, and six that suit any trade — as data in @krizaka/tokens, each proven accessible in both themes.
+description: The looks of a shop page — two per trade, and nine that suit any trade — as data in @krizaka/tokens, each proven accessible in both themes.
 ---
 
 > **A shop picks a look, never a colour.** A preset is data: an accent of the brands, a paper, the roles of the faces, a spacing and a photo treatment. It cannot break contrast because it can only name tokens, and the build proves every combination.
@@ -38,8 +38,15 @@ import { ShopFrame } from "@krizaka/ui/shop";
 | any | Éditorial | `look-editorial` | akinaza | plain | Young Serif | the typewriter | airy | none |
 | any | Krizaka | `look-krizaka` | krizaka | plain | Plus Jakarta Sans | the typewriter | compact | none |
 | any | Nuit | `look-nuit` | krizaka | plain | Plus Jakarta Sans | the typewriter | compact | cool |
+| any | Atelier | `look-atelier` | akinaza copper | plain | Young Serif | the typewriter | airy | none |
+| any | Rue | `look-rue` | akinaza | plain | Plus Jakarta Sans (heavy, tight) | the typewriter | compact | cool + grain |
+| any | Velours | `look-velours` | akinaza copper | plain | Young Serif | the typewriter | airy | warm |
 
-The six `look-*` presets are not tied to a trade: each also sets the surface, the motion, the mascots, the closing and the page transition, and the photo frame. They are what `@krizaka/ui/shop/look` applies.
+The nine `look-*` presets are not tied to a trade: each also sets the surface, the motion, the mascots, the closing and the page transition, and the photo frame. They are what `@krizaka/ui/shop/look` applies. Atelier is an editorial boutique (split hero, service cards, a filmstrip), Rue a bold, dark-leaning page (the TV hero, the poster face, lively motion), Velours a calm premium salon (a warm surface, the price board, no motion).
+
+## What an owner may change
+
+Over a look, an owner chooses only from closed lists (`shopOwnerChoices`): an accent from the look's tested list, a title face (`serif`, `sans`, `poster` — faces the page already loads, no new font) and a motion level (`calm`, `soft`, `editorial`, `lively` — CSS only, at most 320 ms, still under reduced motion). The document refuses anything else, and `shopFrameLook(page)` gives `ShopFrame` the look and the allowed choices at once, so no host wires a look by hand.
 
 No café, restaurant or bar look: Akinaza is for service shops. The accents are those of the live brands (Krizaka, Orazaka, Yomizaka, Akinaza and its copper); a paused product's accent is never offered.
 

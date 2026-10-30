@@ -26,6 +26,8 @@ export type Command =
   | { type: "applyLook"; look: ShopLookLike }
   /** The accent within the look's tested list. */
   | { type: "setAccent"; accent: string | undefined }
+  | { type: "setFace"; face: ShopPage["face"] }
+  | { type: "setMotion"; motion: ShopPage["motion"] }
   | { type: "addBlock"; key: string; blockKey: string; blockType: string; settings?: Rec; at?: number }
   | { type: "removeBlock"; key: string; blockKey: string }
   | { type: "moveBlock"; key: string; blockKey: string; to: number }
@@ -125,6 +127,9 @@ const setDensity: Handler<"setDensity"> = (page, cmd) => (page.density === cmd.d
 const applyLookCmd: Handler<"applyLook"> = (page, cmd) => applyLook(page, cmd.look);
 
 const setAccent: Handler<"setAccent"> = (page, cmd) => (page.accent === cmd.accent ? page : { ...page, accent: cmd.accent });
+/** The owner's title face and motion level are closed lists (`shopOwnerChoices`); `undefined` goes back to the look's own. */
+const setFace: Handler<"setFace"> = (page, cmd) => (page.face === cmd.face ? page : { ...page, face: cmd.face });
+const setMotion: Handler<"setMotion"> = (page, cmd) => (page.motion === cmd.motion ? page : { ...page, motion: cmd.motion });
 
 type Keyed = { key: string; type?: string; settings?: Rec };
 
@@ -163,7 +168,7 @@ const patchBlock: Handler<"patchBlock"> = (page, cmd) =>
   });
 
 const handlers: { [T in Command["type"]]: Handler<T> } = {
-  addSection, removeSection, moveSection, setVariant, patchSettings, setText, toggleDisabled, setPreset, setDensity, applyLook: applyLookCmd, setAccent, addBlock, removeBlock, moveBlock, patchBlock,
+  addSection, removeSection, moveSection, setVariant, patchSettings, setText, toggleDisabled, setPreset, setDensity, applyLook: applyLookCmd, setAccent, setFace, setMotion, addBlock, removeBlock, moveBlock, patchBlock,
 };
 
 /** Applies a command to a document; returns the same object when nothing changes. */

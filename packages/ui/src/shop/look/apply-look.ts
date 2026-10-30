@@ -9,8 +9,10 @@ import type { Section, ShopPage } from "../schema";
 /** What `applyLook` reads of a look: its id and version, and one variant per section type. */
 export type ShopLookLike = { id: string; version: number; variants: Readonly<Record<string, string>> };
 
-/** The six looks, in the order of the addendum (Cahier first). */
-export const SHOP_LOOKS = ["look-cahier", "look-krizaka", "look-editorial", "look-boutique", "look-affiche", "look-nuit"]
+/** The looks, in the order of the addendum (Cahier first), then the owners' advanced looks. Every `look-*` preset is listed (a test). */
+export const SHOP_LOOK_ORDER = ["look-cahier", "look-krizaka", "look-editorial", "look-boutique", "look-affiche", "look-nuit", "look-atelier", "look-rue", "look-velours"] as const;
+
+export const SHOP_LOOKS = SHOP_LOOK_ORDER
   .map((id) => shopPresets.find((p) => p.id === id))
   .filter((p): p is (typeof shopPresets)[number] => p !== undefined);
 

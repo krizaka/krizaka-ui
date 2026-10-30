@@ -25,7 +25,7 @@ export const SalonVitrineCopper: Story = { name: "salon-vitrine · copper accent
 export const SalonAtelierPhone: Story = { name: "salon-atelier (phone)", render: () => <PresetPage id="salon-atelier" />, parameters: { phone: true, noOverflow: true } };
 export const PetsCarnetPhone: Story = { name: "pets-carnet (phone)", render: () => <PresetPage id="pets-carnet" />, parameters: { phone: true, noOverflow: true } };
 
-// The six looks (akinaza#478): the same page, six surfaces, faces, motions; desktop, then phone.
+// The six looks of the addendum (akinaza#478): the same page, six surfaces, faces, motions; desktop, then phone.
 export const LookCahier: Story = { name: "look-cahier", render: () => <PresetPage id="look-cahier" /> };
 export const LookKrizaka: Story = { name: "look-krizaka", render: () => <PresetPage id="look-krizaka" /> };
 export const LookEditorial: Story = { name: "look-editorial", render: () => <PresetPage id="look-editorial" /> };
@@ -35,4 +35,12 @@ export const LookNuit: Story = { name: "look-nuit", render: () => <PresetPage id
 export const LookCahierPhone: Story = { name: "look-cahier (phone)", render: () => <PresetPage id="look-cahier" />, parameters: { phone: true, noOverflow: true } };
 export const LookKrizakaPhone: Story = { name: "look-krizaka (phone)", render: () => <PresetPage id="look-krizaka" />, parameters: { phone: true, noOverflow: true } };
 export const LookAffichePhone: Story = { name: "look-affiche (phone)", render: () => <PresetPage id="look-affiche" />, parameters: { phone: true, noOverflow: true } };
+// The owners' advanced looks: an editorial boutique, a bold dark-leaning street page, a calm premium salon; then an owner's choices over a look.
+export const LookAtelier: Story = { name: "look-atelier", render: () => <PresetPage id="look-atelier" /> };
+export const LookRue: Story = { name: "look-rue", render: () => <PresetPage id="look-rue" /> };
+export const LookVelours: Story = { name: "look-velours", render: () => <PresetPage id="look-velours" /> };
+export const LookAtelierPhone: Story = { name: "look-atelier (phone)", render: () => <PresetPage id="look-atelier" />, parameters: { phone: true, noOverflow: true } };
+export const LookRuePhone: Story = { name: "look-rue (phone)", render: () => <PresetPage id="look-rue" />, parameters: { phone: true, noOverflow: true } };
+export const LookVeloursPhone: Story = { name: "look-velours (phone)", render: () => <PresetPage id="look-velours" />, parameters: { phone: true, noOverflow: true } };
+export const LookRueOwnerChoice: Story = { name: "look-rue · orange, serif titles, calm", render: () => <PresetPage id="look-rue" accent="orazaka" face="serif" motion="calm" /> };
 export const LookNuitPhone: Story = { name: "look-nuit (phone)", render: () => <PresetPage id="look-nuit" />, parameters: { phone: true, noOverflow: true } };

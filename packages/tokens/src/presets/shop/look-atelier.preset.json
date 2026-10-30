@@ -1,0 +1,45 @@
+{
+  "id": "look-atelier",
+  "version": 1,
+  "name": "Atelier",
+  "trades": [
+    "salon",
+    "pets",
+    "coaching",
+    "workshop",
+    "cleaning",
+    "consulting"
+  ],
+  "paper": "plain",
+  "surface": "paper",
+  "accent": "akinaza:accent-2",
+  "accents": [
+    "akinaza:accent-2",
+    "krizaka"
+  ],
+  "faces": {
+    "title": "display",
+    "note": "mono"
+  },
+  "density": "airy",
+  "photo": {
+    "grade": "none",
+    "grain": 0,
+    "radius": "none",
+    "frame": "none"
+  },
+  "motion": "soft",
+  "mascots": "off",
+  "transition": "crossfade",
+  "closing": "photo",
+  "variants": {
+    "hero": "split",
+    "services": "cards",
+    "booking": "strip",
+    "gallery": "filmstrip",
+    "video": "shorts",
+    "reviews": "quote",
+    "bulletin": "banner",
+    "visit": "split"
+  }
+}
