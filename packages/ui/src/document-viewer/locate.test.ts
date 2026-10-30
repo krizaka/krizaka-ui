@@ -1,5 +1,5 @@
 import { samplePdf } from "../test/sample-pdf";
-import { fold, locateQuote, type PageText, type TextItem } from "./index";
+import { fold, locateQuote, locateRegion, type PageText, resolveHighlight, type TextItem } from "./index";
 
 const item = (str: string, x: number, baseline: number, width: number, height = 12): TextItem => ({ str, transform: [height, 0, 0, height, x, baseline], width, height });
 const page = (n: number, items: TextItem[]): PageText => ({ page: n, width: 600, height: 800, items });
@@ -96,5 +96,38 @@ describe("locateQuote on a real PDF read by pdf.js", () => {
     expect(deposit.boxes[0]!.y).toBeGreaterThan(rent.boxes[0]!.y); // lower on the page
     expect(locateQuote([text], "Le locateur peut résilier sans motif")).toBeNull();
     await task.destroy();
+  });
+});
+
+describe("locateRegion", () => {
+  const pages = [page(1, [item("BAIL", 72, 700, 40)]), page(2, [])];
+
+  it("places a region of a page as it is: one box, in fractions, no text needed", () => {
+    expect(locateRegion(pages, { page: 2, x: 0.1, y: 0.2, width: 0.3, height: 0.05 })).toEqual({ page: 2, boxes: [{ x: 0.1, y: 0.2, width: 0.3, height: 0.05 }], match: "region" });
+  });
+
+  it("never draws a region that is not on the page: unknown page, outside 0–1, empty or not a number", () => {
+    for (const region of [
+      { page: 3, x: 0, y: 0, width: 0.5, height: 0.5 },
+      { page: 1, x: 0.8, y: 0, width: 0.5, height: 0.5 },
+      { page: 1, x: -0.1, y: 0, width: 0.5, height: 0.5 },
+      { page: 1, x: 0, y: 0, width: 0, height: 0.5 },
+      { page: 1, x: Number.NaN, y: 0, width: 0.5, height: 0.5 },
+    ]) expect(locateRegion(pages, region)).toBeNull();
+  });
+});
+
+describe("resolveHighlight", () => {
+  const pages = [page(1, [item("Le locateur peut augmenter", 72, 600, 200)])];
+  const region = { page: 1, x: 0.1, y: 0.1, width: 0.2, height: 0.1 };
+
+  it("uses the region when there is one, and the quote otherwise", () => {
+    expect(resolveHighlight(pages, { region })?.match).toBe("region");
+    expect(resolveHighlight(pages, { quote: "Le locateur peut augmenter" })?.match).toBe("exact");
+    expect(resolveHighlight(pages, {})).toBeNull();
+  });
+
+  it("falls back to the quote when the region is invalid", () => {
+    expect(resolveHighlight(pages, { quote: "Le locateur peut augmenter", region: { ...region, page: 9 } })?.match).toBe("exact");
   });
 });

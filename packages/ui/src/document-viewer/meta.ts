@@ -19,6 +19,7 @@ export const meta = {
   ],
   bestPractices: [
     "Keep the list of passages in the page, next to the viewer: the viewer is not a keyboard route to each box, your list is (`activeId` / `onActiveChange`).",
+    "Light a region instead of a quote when the app already knows where the evidence sits (`region: { page, x, y, width, height }`, fractions of the page): no text layer needed, and a region outside the page is never drawn.",
     "Pass the quote as the text layer reads it and, when you know it, the page: a quote the layout cut is still placed by its opening words, and a page alone still scrolls.",
     "Use `onLocate` to tell the person what was placed and what was not (« page 3 », « not found in the text layer ») — a passage is never drawn at a guessed place.",
     "Load pdf.js with `() => import(\"pdfjs-dist\")` and give it a same-origin worker (`workerSrc`): the engine only reaches pages that show a document.",
@@ -34,9 +35,9 @@ export const meta = {
   },
   related: ["tabs", "split-view", "video-player"],
   web: {
-    imports: ["DocumentViewer", "locateQuote"],
+    imports: ["DocumentViewer", "locateQuote", "locateRegion"],
     examples: [
-      { name: "highlights", title: "Findings in the file", description: "A one-page lease and two passages; pick one and the page scrolls to it and lights it." },
+      { name: "highlights", title: "Findings in the file", description: "A one-page lease, two passages told by their quote and one by a region; pick one and the page scrolls to it and lights it." },
     ],
   },
 } satisfies ComponentMeta;
