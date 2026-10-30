@@ -32,3 +32,8 @@ test("still fails when the version never appears (the guard stays strict)", () =
   assert.equal(r.status, 1);
   assert.match(r.out, /not on npm yet/);
 });
+
+test("the default wait covers a slow registry: @krizaka/ui 3.77.0 needed ~9 minutes to be served (release run 41050762091 failed after a good publish at 300 s)", () => {
+  const m = readFileSync(script, "utf8").match(/PUBLISHED_WAIT_SECONDS:-(\d+)/);
+  assert.ok(m && Number(m[1]) >= 900, "default budget is at least 15 minutes");
+});
