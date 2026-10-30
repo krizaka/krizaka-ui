@@ -59,12 +59,11 @@ type Palette = ReturnType<typeof plainPalette>;
 /** `muted`: the colours drawn back, so the places stand out. */
 function mutedPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
   const land = plain.land;
-  const grey = (c: string, by: number) => mix(c, land, by);
   const ink = (d: number, l: number) => mix(land, t.textPrimary!, dark ? d : l);
   return {
     ...plain,
-    water: grey(plain.water, 0.45),
-    park: grey(plain.park, 0.6),
+    water: mix(plain.water, land, 0.45),
+    park: mix(plain.park, land, 0.6),
     road: ink(0.08, 0.04),
     roadMajor: ink(0.14, 0.09),
     building: ink(0.04, 0.05),
