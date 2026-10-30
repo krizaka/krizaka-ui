@@ -29,5 +29,8 @@ export {
   UserPosition,
   type UserPositionProps,
 } from "./map";
+export { mapCard, MapInfoCard, type MapInfoCardProps, RouteCard, type RouteCardProps, type RouteTime } from "./map-cards";
+export { MAP_SHEET_SNAPS, MapSheet, mapSheet, type MapSheetProps, type MapSheetSnap } from "./map-sheet";
+export { ROUTE_APPS, type RouteApp, type RouteLinks, routeLinks } from "./route-links";
 export { StaticMap, staticMap, type StaticMapPlace, type StaticMapProps } from "./static-map";
 export { type MapBrand, mapFlavor, mapPalette, type MapRegion, mapStyle, type MapStyleOptions, mix, REGION_FROM_ZOOM } from "./style";

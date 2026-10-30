@@ -42,12 +42,13 @@ export const meta = {
   },
   related: ["dialog", "search-field", "chip"],
   web: {
-    imports: ["Map", "Marker", "Cluster", "UserPosition", "RadiusCircle", "Route", "Pulse", "LocationPicker", "StaticMap", "mapStyle", "distanceMeters", "formatDistance", "pathLength", "pointAlong", "sliceLine"],
+    imports: ["Map", "Marker", "Cluster", "UserPosition", "RadiusCircle", "Route", "Pulse", "LocationPicker", "StaticMap", "MapSheet", "MapInfoCard", "RouteCard", "routeLinks", "mapStyle", "distanceMeters", "formatDistance", "pathLength", "pointAlong", "sliceLine"],
     examples: [
       { name: "places", title: "Places", description: "Pick-up points in Montréal: markers are buttons, the chosen one shows its name." },
       { name: "cluster", title: "Cluster", description: "Sixty creators grouped while they are close; a group opens by zooming in." },
       { name: "location-picker", title: "Location picker", description: "A meeting point under the pin, its distance from the person, a 1-km zone and Near me." },
       { name: "route", title: "Route", description: "A delivery: pins that drop, a route that draws itself, a courier that travels it, a demand pulse — still under reduced motion." },
+      { name: "place-sheet", title: "Place sheet", description: "A non-modal sheet over the map (snap points on a phone, a side card from md): an info card with one action and a route card that opens the person's own navigation app." },
       { name: "static", title: "Static map", description: "The places on the map's paper, without an engine: a card, a list item, a fallback." },
     ],
   },
