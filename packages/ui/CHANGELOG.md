@@ -1,5 +1,21 @@
 # @krizaka/ui
 
+## 3.77.0
+
+### Minor Changes
+
+- [#900](https://github.com/krizaka/krizaka-ui/pull/900) [`8b4bfb5`](https://github.com/krizaka/krizaka-ui/commit/8b4bfb5d8b3583e33a8d662ba6266ca411ab586c) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - DocumentViewer lights a region of a page, not only a quote: `highlights` accept `region: { page, x, y, width, height }` (fractions of the page) with an optional `quote`; a valid region wins, a region outside the pages is never drawn (`locateRegion`, `resolveHighlight`, `Located.match: "region"`) ([#898](https://github.com/krizaka/krizaka-ui/issues/898)).
+
+- [#888](https://github.com/krizaka/krizaka-ui/pull/888) [`eab6346`](https://github.com/krizaka/krizaka-ui/commit/eab6346ffd74168ee49c2b46f37817a6dd235b0e) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/map/sheet`: `MapSheet` (a non-modal sheet over a map: three snap points on a phone, a side card from `md`, keyboard on the handle); `@krizaka/ui/map/cards`: `MapInfoCard` (photo, title, meta, status, one action) and `RouteCard` (destination, honest times given by the host, « Directions » links), with the pure `routeLinks(destination, origin?)` for Apple Maps, Google Maps, OpenStreetMap, Waze and transit (krizaka-ui#879, [#880](https://github.com/krizaka/krizaka-ui/issues/880), akinaza#571).
+
+- [#888](https://github.com/krizaka/krizaka-ui/pull/888) [`eab6346`](https://github.com/krizaka/krizaka-ui/commit/eab6346ffd74168ee49c2b46f37817a6dd235b0e) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `Wall layout="tidy"` (krizaka-ui#805, akinaza#477): the tidy Cahier pinboard — a dense CSS grid (3 columns, 2 on a phone, 1 on a very small one), a note may span two, a deterministic tilt of 1 to 2 degrees derived from each item's id, captions clamped to two lines, tilts off under reduced motion. `x` and `y` are now optional (unused by the tidy layout).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.77.0
+  - @krizaka/tokens@3.77.0
+
 ## 3.76.1
 
 ### Patch Changes
