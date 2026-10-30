@@ -70,6 +70,28 @@ describe("DocumentViewer", () => {
     await waitFor(() => expect(screen.getByRole("alert").textContent).toContain("could not be displayed"));
   });
 
+  it("lights a region of a page with no quote, scrolls to it and says nothing in the bar", async () => {
+    const onLocate = vi.fn();
+    const region = { page: 2, x: 0.1, y: 0.2, width: 0.3, height: 0.05 };
+    const { container } = render(
+      <DocumentViewer src="/lease.pdf" loadPdfjs={async () => fakePdfjs()} workerSrc="/w.mjs" highlights={[{ id: "stamp", region, label: "Stamp" }]} activeId="stamp" onLocate={onLocate} />,
+    );
+    await waitFor(() => expect(container.querySelector('[data-highlight="stamp"]')).not.toBeNull());
+    const box = container.querySelector<HTMLElement>('[data-page="2"] [data-highlight="stamp"]')!;
+    expect(box.style.left).toBe("10%");
+    expect(box.style.width).toBe("30%");
+    expect(onLocate.mock.calls.at(-1)![0].stamp).toMatchObject({ page: 2, match: "region" });
+    await waitFor(() => expect(Element.prototype.scrollIntoView).toHaveBeenCalled());
+    expect(screen.queryByTestId("document-viewer-bar")).toBeNull();
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("says a region is not in the document when it is off the pages, without a quote to show", async () => {
+    render(<DocumentViewer src="/lease.pdf" loadPdfjs={async () => fakePdfjs()} workerSrc="/w.mjs" highlights={[{ id: "z", region: { page: 9, x: 0, y: 0, width: 0.2, height: 0.2 }, label: "Stamp" }]} activeId="z" />);
+    await waitFor(() => expect(screen.getByTestId("document-viewer-bar").textContent).toContain("not in the document's text layer"));
+    expect(screen.getByTestId("document-viewer-bar").querySelector("q")).toBeNull();
+  });
+
   it("never draws boxes on a rotated page", async () => {
     const { container } = render(<DocumentViewer src="/lease.pdf" loadPdfjs={async () => fakePdfjs(90)} workerSrc="/w.mjs" highlights={[{ id: "r1", quote: "Le locateur peut augmenter", page: 1 }]} activeId="r1" />);
     await waitFor(() => expect(screen.getByTestId("document-viewer-bar").textContent).toContain("Passage on page 1:"));
