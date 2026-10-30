@@ -9,7 +9,7 @@ import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { useLatest, usePrefersReducedMotion } from "../media";
-import { type Located, locateQuote, type PageText } from "./locate";
+import { type Located, type PageText, type Region, resolveHighlight } from "./locate";
 
 export const documentViewer = tv({
   slots: {
@@ -47,8 +47,9 @@ export const documentViewerLabels: DocumentViewerLabels = {
   notFound: "This passage is not in the document's text layer:",
 };
 
-/** A passage to light: its quote (as the text layer reads it), the page if the app knows it, a name for screen readers. */
-export type DocumentHighlight = { id: string; quote: string; page?: number; label?: string };
+/** A passage to light: its quote (as the text layer reads it) and/or a `region` of a page the app already knows (a stamp, a
+    mismatch — fractions of the page, origin top-left); the page if known, a name for screen readers. A valid region wins. */
+export type DocumentHighlight = { id: string; quote?: string; region?: Region; page?: number; label?: string };
 
 /** What the viewer found for a passage. */
 export type { Located };
@@ -89,6 +90,7 @@ export type DocumentViewerProps = Omit<React.ComponentProps<"div">, "children" |
   labels?: Partial<DocumentViewerLabels>;
 };
 
+const regionKey = (r: Region | undefined) => (r ? [r.page, r.x, r.y, r.width, r.height].join(",") : "");
 const fill = (template: string, vars: Record<string, string | number>) => template.replace(/\{(\w+)\}/g, (m, k: string) => (k in vars ? String(vars[k]) : m));
 
 type Loaded = { doc: PdfDocument; texts: PageText[]; sizes: { width: number; height: number }[] };
@@ -186,10 +188,10 @@ export function DocumentViewer({ src, loadPdfjs, workerSrc, highlights = [], act
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bytes, loadPdfjs, workerSrc, callbacks]);
 
-  const key = highlights.map((h) => `${h.id}\u0000${h.page ?? ""}\u0000${h.quote}`).join("\u0001");
+  const key = highlights.map((h) => `${h.id}\u0000${h.page ?? ""}\u0000${h.quote ?? ""}\u0000${regionKey(h.region)}`).join("\u0001");
   const found = React.useMemo(() => {
     const out: Record<string, Located | null> = {};
-    if (phase.state === "ready") for (const h of highlights) out[h.id] = locateQuote(phase.texts, h.quote, h.page);
+    if (phase.state === "ready") for (const h of highlights) out[h.id] = resolveHighlight(phase.texts, h);
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, key]);
@@ -210,9 +212,9 @@ export function DocumentViewer({ src, loadPdfjs, workerSrc, highlights = [], act
 
   return (
     <div className={s.root({ className })} {...props}>
-      {active && where !== undefined && where?.match !== "exact" && where?.match !== "start" ? (
+      {active && where !== undefined && where?.match !== "exact" && where?.match !== "start" && where?.match !== "region" ? (
         <p className={s.bar()} data-testid="document-viewer-bar">
-          {where?.match === "page" ? fill(words.onPage, { page: where.page }) : words.notFound} <q>{active.quote}</q>
+          {where?.match === "page" ? fill(words.onPage, { page: where.page }) : words.notFound} {active.quote ? <q>{active.quote}</q> : null}
         </p>
       ) : null}
       <div ref={containerRef} className={s.pages()} role="region" aria-label={words.region} tabIndex={0}>

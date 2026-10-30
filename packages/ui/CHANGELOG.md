@@ -1,5 +1,16 @@
 # @krizaka/ui
 
+## 3.76.1
+
+### Patch Changes
+
+- [#894](https://github.com/krizaka/krizaka-ui/pull/894) [`f3ad5b9`](https://github.com/krizaka/krizaka-ui/commit/f3ad5b928c5e29d052af58c769ddd7bb312cc7c9) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - ServicesSection (and so ShopComposer): the `aside` beside the price board is a plain block with the `kz-shop-aside` class, no longer an `<aside>` landmark inside `<main>` (axe `landmark-complementary-is-top-level`, 4 shop pages of akinaza). Same look and sticky rule (krizaka-ui#891).
+
+- [#883](https://github.com/krizaka/krizaka-ui/pull/883) [`32b72ef`](https://github.com/krizaka/krizaka-ui/commit/32b72efd0a955ee46b2f430769b62bac452889f6) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - ShopGallery: on desktop, with an odd count of five photos or more, the lead tile kept the phone strip's 4/5 ratio and painted taller than its 2:1 grid, overlapping the next heading. The lead tile takes its ratio from the grid, and the tracks are `minmax(0, 1fr)` so no photo can stretch them (akinaza#572).
+- Updated dependencies []:
+  - @krizaka/tailwind@3.76.1
+  - @krizaka/tokens@3.76.1
+
 ## 3.76.0
 
 ### Minor Changes

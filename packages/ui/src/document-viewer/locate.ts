@@ -15,9 +15,12 @@ export type Located = {
   page: number;
   /** One box per line of the passage (merged along a line); empty when only the page is known. */
   boxes: Box[];
-  /** `exact`: the whole quote was found; `start`: only its opening words were (a quote cut by a different layout). */
-  match: "exact" | "start" | "page";
+  /** `region`: the box the app gave, as it is; `exact`: the whole quote was found; `start`: only its opening words were (a quote cut by a different layout). */
+  match: "exact" | "start" | "page" | "region";
 };
+
+/** A region of a page the app already knows (a stamp, a font mismatch, a metadata area): its page and a box in fractions. */
+export type Region = Box & { page: number };
 
 const FOLD: Record<string, string> = { "’": "'", "‘": "'", "“": '"', "”": '"', "«": '"', "»": '"', "–": "-", "—": "-", " ": " ", " ": " ", "ﬁ": "fi", "ﬂ": "fl" };
 
@@ -130,4 +133,25 @@ export function locateQuote(pages: readonly PageText[], quote: string, hintPage?
     }
   }
   return hintPage && pages.some((p) => p.page === hintPage) ? { page: hintPage, boxes: [], match: "page" } : null;
+}
+
+const inUnit = (n: number) => Number.isFinite(n) && n >= 0 && n <= 1;
+
+/**
+ * A region of a page, as it is: one box, no text needed. Never drawn when it is not on the pages — an unknown page, a box
+ * outside 0–1 or empty, a value that is not a number — so a wrong box is `null`, not a guess.
+ */
+export function locateRegion(pages: readonly PageText[], region: Region): Located | null {
+  const { page, x, y, width, height } = region;
+  const valid = pages.some((p) => p.page === page) && inUnit(x) && inUnit(y) && width > 0 && height > 0 && inUnit(x + width) && inUnit(y + height);
+  return valid ? { page, boxes: [{ x, y, width, height }], match: "region" } : null;
+}
+
+/** What to light for a highlight: its region when it has a valid one, otherwise its quote (if any). */
+export function resolveHighlight(pages: readonly PageText[], h: { quote?: string; page?: number; region?: Region }): Located | null {
+  const byRegion = h.region ? locateRegion(pages, h.region) : null;
+  if (byRegion) return byRegion;
+  if (h.quote) return locateQuote(pages, h.quote, h.page ?? h.region?.page);
+  const hinted = h.page !== undefined && pages.some((p) => p.page === h.page);
+  return hinted ? { page: h.page!, boxes: [], match: "page" } : null;
 }
