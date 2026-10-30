@@ -291,6 +291,11 @@ The 2026-10-28 sums of the entries not retired:
 | Page blocks & templates | 33 | 125.7 |
 | Cahier | 14 | 76.6 |
 
+**Geolocation & maps (CTO decision, 2026-10-29).** The domain sum rises from 31.5 to 32.9 kB only because of the new entries
+`map/sheet` and `map/cards`, each with its own limit; no existing entry got heavier (`map` 18 → 17.2, `native/map` 13.5 → 13.2).
+A page pays only for what it imports: one that draws a map pays nothing for the sheet or the cards. The same rule applies to the
+next piece of the domain (`map/pin`: 34.6): a new piece is a new entry, never weight added to `./map`.
+
 Three domains measure above the sum of their rows: identity (40.3 kB against 18.4), conversation (74.1 against 39.3)
 and foundations' root entry (9.9 against 8.0). This comes from the script's closure measure, which counts shared chunks
 in every entry, so it is an upper bound and not a failure. Slice 2 measures them with size-limit itself. Any row that
