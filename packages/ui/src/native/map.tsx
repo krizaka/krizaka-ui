@@ -243,6 +243,7 @@ export function Cluster({ points, onPointPress, radius = 48 }: ClusterProps) {
     () => ({ type: "FeatureCollection", features: points.map((p) => ({ type: "Feature", properties: { id: p.id, label: p.label }, geometry: { type: "Point", coordinates: [...p.position] } })) }),
     [points],
   );
+  const { cluster: group, point: dot } = palette;
   return (
     <GeoJSONSource
       id={id}
@@ -257,9 +258,9 @@ export function Cluster({ points, onPointPress, radius = 48 }: ClusterProps) {
         if (point) onPointPress?.(point);
       }}
     >
-      <Layer type="circle" id={`${id}-groups`} filter={["has", "point_count"]} paint={{ "circle-color": palette.cluster.fill, "circle-radius": ["step", ["get", "point_count"], 16, 10, 20, 50, 26], "circle-stroke-width": 3, "circle-stroke-color": palette.cluster.stroke }} />
-      <Layer type="symbol" id={`${id}-count`} filter={["has", "point_count"]} layout={{ "text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Medium"], "text-size": 13 }} paint={{ "text-color": palette.cluster.text }} />
-      <Layer type="circle" id={`${id}-points`} filter={["!", ["has", "point_count"]]} paint={{ "circle-color": palette.point.fill, "circle-radius": 7, "circle-stroke-width": 2.5, "circle-stroke-color": palette.point.stroke }} />
+      <Layer type="circle" id={`${id}-groups`} filter={["has", "point_count"]} paint={{ "circle-color": group.fill, "circle-radius": ["step", ["get", "point_count"], 16, 10, 20, 50, 26], "circle-stroke-width": 3, "circle-stroke-color": group.stroke }} />
+      <Layer type="symbol" id={`${id}-count`} filter={["has", "point_count"]} layout={{ "text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Medium"], "text-size": 13 }} paint={{ "text-color": group.text }} />
+      <Layer type="circle" id={`${id}-points`} filter={["!", ["has", "point_count"]]} paint={{ "circle-color": dot.fill, "circle-radius": 7, "circle-stroke-width": 2.5, "circle-stroke-color": dot.stroke }} />
     </GeoJSONSource>
   );
 }
