@@ -11,8 +11,8 @@ export const mapPin = tv({
     glyph: "absolute inset-0 flex items-center justify-center text-[0.55em] font-semibold leading-none [&>svg]:h-[55%] [&>svg]:w-[55%]",
   },
   variants: {
-    state: {
-      selected: { root: "scale-125" },
+    selected: {
+      true: { root: "scale-125" },
     },
   },
 });
@@ -60,7 +60,7 @@ const GLYPH_TOP: Record<MapPinShape, string | number> = { drop: "-8%", tag: "6%"
  * the `Marker` carries the label — and the state is also said by shape (hollow, struck), never by colour alone.
  */
 export function MapPin({ shape = "drop", state = "default", tone = "accent", size = 28, children, className }: Readonly<MapPinProps>) {
-  const s = mapPin({ state });
+  const s = mapPin({ selected: state === "selected" });
   const p = PATHS[shape];
   const c = pinColours(shape, state, tone);
   const closed = state === "closed";
