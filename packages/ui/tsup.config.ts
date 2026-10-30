@@ -368,6 +368,12 @@ export default defineConfig([
     banner: { js: '"use client";' },
   },
   {
+    // Client — the map's place sheet and cards (ADR-008: apart from `map`, a page that only draws a map does not pay for them).
+    ...shared,
+    entry: { "map/sheet": "src/map/sheet/index.ts", "map/cards": "src/map/cards/index.ts" },
+    banner: { js: '"use client";' },
+  },
+  {
     // Server — the form's server side (a Server Action re-validating with the form's schema): no React, no directive.
     ...shared,
     entry: { "form/server": "src/form/server.ts", "text-style/server": "src/text-style/server.ts", "app-frame/server": "src/app-frame/server.ts" },

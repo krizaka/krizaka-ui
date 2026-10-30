@@ -2,11 +2,12 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 
 import { themes } from "@krizaka/tokens/native";
-import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 
 import FrenchCompositionExample from "../../registry/examples/wall/composition-fr";
 import { axeViolations } from "../test/axe";
 import { PinnedNote, Polaroid, ShopSign, Wall, type WallItem } from "./index";
+import { tidyTilt } from "./wall";
 
 const items: WallItem[] = [
   { id: "late", kind: "note", x: 70, y: 40, rotation: 4, z: 3, text: "Last" },
@@ -339,5 +340,53 @@ describe("the wall's addendum (krizaka-ui#604)", () => {
     expect(screen.queryByRole("heading", { level: 1 })).toBeNull();
     const css = wallCss();
     expect(css).toMatch(/\.kz-shop-sign\[data-variant="painted"\][^{]*\{[^}]*background:/);
+  });
+});
+
+describe("Wall layout=\"tidy\"", () => {
+  const tidy: WallItem[] = [
+    { id: "a", kind: "polaroid", z: 1, img: <img alt="Front" src="a.png" />, caption: "Atelier Rose" },
+    { id: "b", kind: "note", z: 2, text: "Open late on Fridays" },
+    { id: "c", kind: "polaroid", z: 3, img: <img alt="Window" src="c.png" />, caption: "The window" },
+  ];
+
+  it("needs no coordinates, marks the layout and lets a note span two columns", () => {
+    render(<Wall aria-label="Our wall" layout="tidy" items={tidy} />);
+    const list = screen.getByRole("list", { name: "Our wall" });
+    expect(list.getAttribute("data-layout")).toBe("tidy");
+    const rows = within(list).getAllByRole("listitem");
+    expect(rows.map((r) => r.getAttribute("data-span"))).toEqual([null, "2", null]);
+  });
+
+  it("tilts each item by 1 to 2 degrees derived from its id: never random, the same on every render", () => {
+    const tilts = (l: HTMLElement) => within(l).getAllByRole("listitem").map((r) => r.style.getPropertyValue("--kz-wall-rotation"));
+    const first = render(<Wall aria-label="One" layout="tidy" items={tidy} />);
+    const a = tilts(screen.getByRole("list", { name: "One" }));
+    first.unmount();
+    render(<Wall aria-label="Two" layout="tidy" items={tidy} />);
+    expect(tilts(screen.getByRole("list", { name: "Two" }))).toEqual(a);
+    for (const t of a) expect([1, 2]).toContain(Math.abs(parseFloat(t)));
+    for (const id of ["a", "b", "c", "x1", "x2", "long-id-1234"]) expect([1, 2]).toContain(Math.abs(tidyTilt(id)));
+    expect(new Set(Array.from({ length: 40 }, (_, i) => tidyTilt(`item-${i}`))).size).toBeGreaterThan(1);
+  });
+
+  it("keeps the reading order of z (tab order = visual order) and the default layout unchanged", () => {
+    render(<Wall aria-label="Order" layout="tidy" items={[...tidy].reverse()} />);
+    expect(within(screen.getByRole("list")).getAllByRole("listitem").map((r) => r.textContent)).toEqual(["Atelier Rose", "Open late on Fridays", "The window"]);
+    cleanup();
+    render(<Wall aria-label="Pinned" items={items} />);
+    expect(screen.getByRole("list").getAttribute("data-layout")).toBeNull();
+  });
+
+  it("has no axe violations", async () => {
+    const { container } = render(<Wall aria-label="Our wall" layout="tidy" items={tidy} />);
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("turns the tilt off under reduced motion and lays out in a grid in the stylesheet", () => {
+    const css = readFileSync("src/blocks.css", "utf8");
+    expect(css).toMatch(/\[data-layout="tidy"\][^{]*\{[^}]*grid-auto-flow: dense/);
+    expect(css).toMatch(/repeat\(3, minmax\(0, 1fr\)\)/);
+    expect(css).toMatch(/prefers-reduced-motion: reduce\)\s*\{\s*\.kz-wall\[data-layout="tidy"\] \.kz-wall-item \{ transform: none/);
   });
 });

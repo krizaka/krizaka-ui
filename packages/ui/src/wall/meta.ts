@@ -44,6 +44,7 @@ export const meta = {
     examples: [
       { name: "composition", title: "The owner's wall", description: "A photograph, a signed word and an enamel sign, positioned from deterministic data." },
       { name: "composition-fr", title: "The owner's wall in French", description: "The same deterministic layout reads its French words and alternatives from the example's local catalogue." },
+      { name: "tidy", title: "The tidy pinboard", description: "layout=\"tidy\": a dense grid (3 columns, 2 on a phone, 1 on a very small one), a note spanning two, a tilt of 1-2 degrees derived from each id, no coordinates." },
       { name: "brick", title: "Montréal brick", description: "Staggered masonry and mortar on a warm token-based surface." },
       { name: "zellige", title: "Moroccan zellige", description: "A repeating deterministic eight-point SVG star, without an image download." },
       { name: "ridge", title: "Grenoble ridges", description: "Three layered mountain silhouettes behind the owner's words." },

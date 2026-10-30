@@ -25,6 +25,7 @@ export const meta = {
     "Motion on a map: `Marker drop={index * 90}` drops pins in turn, `Route` draws its line once (and a `courier` makes one trip, `repeatAfter` repeats it while the map is on screen), `Pulse` beats around a hot spot. The drawing is finite — nothing runs afterwards — and everything is in place at once under reduced motion.",
     "Ask for the position only on a press (`LocationPicker`'s Near me), never on load; every refusal has its words.",
     "Keep the attribution visible (OpenStreetMap's licence, the ODbL, asks for it): the components draw it.",
+    "Import the place sheet from `@krizaka/ui/map/sheet` (`MapSheet`) and the cards from `@krizaka/ui/map/cards` (`MapInfoCard`, `RouteCard`, `routeLinks`): their own entries, so a page that only draws a map does not pay for them.",
     "Install the engine only where a map is shown: `maplibre-gl` (web) or `@maplibre/maplibre-react-native` (Expo) — optional peers.",
   ],
   accessibility: {
@@ -48,6 +49,7 @@ export const meta = {
       { name: "cluster", title: "Cluster", description: "Sixty creators grouped while they are close; a group opens by zooming in." },
       { name: "location-picker", title: "Location picker", description: "A meeting point under the pin, its distance from the person, a 1-km zone and Near me." },
       { name: "route", title: "Route", description: "A delivery: pins that drop, a route that draws itself, a courier that travels it, a demand pulse — still under reduced motion." },
+      { name: "place-sheet", title: "Place sheet", description: "A non-modal sheet over the map (snap points on a phone, a side card from md): an info card with one action and a route card that opens the person's own navigation app." },
       { name: "static", title: "Static map", description: "The places on the map's paper, without an engine: a card, a list item, a fallback." },
     ],
   },

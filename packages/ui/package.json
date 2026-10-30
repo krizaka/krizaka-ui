@@ -413,6 +413,14 @@
       "types": "./dist/map.d.ts",
       "import": "./dist/map.js"
     },
+    "./map/sheet": {
+      "types": "./dist/map/sheet.d.ts",
+      "import": "./dist/map/sheet.js"
+    },
+    "./map/cards": {
+      "types": "./dist/map/cards.d.ts",
+      "import": "./dist/map/cards.js"
+    },
     "./search-field": {
       "types": "./dist/search-field.d.ts",
       "import": "./dist/search-field.js"
@@ -2944,9 +2952,31 @@
       ]
     },
     {
+      "name": "./map/sheet",
+      "path": "dist/map/sheet.js",
+      "limit": "1.1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react-dom"
+      ]
+    },
+    {
+      "name": "./map/cards",
+      "path": "dist/map/cards.js",
+      "limit": "1.4 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react-dom"
+      ]
+    },
+    {
       "name": "./map",
       "path": "dist/map.js",
-      "limit": "18 kB",
+      "limit": "17.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2959,7 +2989,7 @@
     {
       "name": "./native/map",
       "path": "dist/native/map.js",
-      "limit": "13.5 kB",
+      "limit": "13.2 kB",
       "gzip": true,
       "ignore": [
         "react-native",
