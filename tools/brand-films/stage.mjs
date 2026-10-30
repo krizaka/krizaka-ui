@@ -174,7 +174,7 @@ export function drawable(svg) {
  * The home's ambient loop: the valley held still, the five on the ridge breathing and blinking, one small gesture each
  * in turn, a light across the valley once. No text. Its top and bottom melt into the page's surface (`theme`), so it
  * sits in the hero's backdrop instead of in a box. `birds: false` is the valley and its ridge alone — the home puts the live
- * `Flock` (krizaka-ui `Flock`) on it — and no phoenix: the Orazaka flamingo stands at the centre of that flock and would hide it.
+ * `Flock` (krizaka-ui `Flock`) on it — and no phoenix: the flock’s flamingo stands at the centre of that flock and would hide it.
  */
 export function ambientHtml({ kit, aspect, theme = "dark", birds = true }) {
   const L = layout(aspect, AMBIENT_BIRDS);
