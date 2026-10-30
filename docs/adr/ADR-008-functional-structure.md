@@ -283,7 +283,7 @@ The 2026-10-28 sums of the entries not retired:
 | Data display | 11 | 72.0 |
 | Navigation & shell | 30 | 227.9 (75 of it is `./native`) |
 | Feedback & overlays | 12 | 112.9 |
-| Geolocation & maps | 5 | 34.6 (`map` 17.5, `native/map` 13.4, `map/sheet` 1.1, `map/cards` 1.4, `map/pin` 1.2: the sheet, the cards and the pin are their own entries so a page that only draws a map pays nothing for them; `map` itself is back under its former 18) |
+| Geolocation & maps | 5 | 34.1 (`map` 17.2, `native/map` 13.2, `map/sheet` 1.1, `map/cards` 1.4, `map/pin` 1.2: the sheet, the cards and the pin are their own entries so a page that only draws a map pays nothing for them; `map` itself is back under its former 18) |
 | Media | 9 | 64.1 |
 | Commerce | 30 | 126.5 |
 | Identity & people | 9 | 18.4 |
@@ -294,7 +294,7 @@ The 2026-10-28 sums of the entries not retired:
 **Geolocation & maps (CTO decision, 2026-10-29).** The domain sum rises from 31.5 to 32.9 kB only because of the new entries
 `map/sheet` and `map/cards`, each with its own limit; no existing entry got heavier (`map` 18 → 17.2, `native/map` 13.5 → 13.2).
 A page pays only for what it imports: one that draws a map pays nothing for the sheet or the cards. The same rule applies to the
-next piece of the domain (`map/pin`: 34.6): a new piece is a new entry, never weight added to `./map`.
+next piece of the domain (`map/pin`: 34.1): a new piece is a new entry, never weight added to `./map`.
 
 Three domains measure above the sum of their rows: identity (40.3 kB against 18.4), conversation (74.1 against 39.3)
 and foundations' root entry (9.9 against 8.0). This comes from the script's closure measure, which counts shared chunks

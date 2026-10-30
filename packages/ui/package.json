@@ -2991,7 +2991,7 @@
     {
       "name": "./map",
       "path": "dist/map.js",
-      "limit": "17.5 kB",
+      "limit": "17.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -3004,7 +3004,7 @@
     {
       "name": "./native/map",
       "path": "dist/native/map.js",
-      "limit": "13.4 kB",
+      "limit": "13.2 kB",
       "gzip": true,
       "ignore": [
         "react-native",
