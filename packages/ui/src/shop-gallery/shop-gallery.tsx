@@ -56,9 +56,9 @@ const styles = `
 .kz-sg[data-count="1"] .kz-sg-list{grid-template-columns:1fr}
 .kz-sg[data-count="1"] .kz-sg-list>li{aspect-ratio:16/9}
 .kz-sg[data-count="2"] .kz-sg-list>li,.kz-sg[data-count="2"] .kz-sg-list>li:first-child:nth-last-child(odd){aspect-ratio:4/3;grid-column:auto}
-.kz-sg:not([data-count="1"]):not([data-count="2"]) .kz-sg-list{grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);aspect-ratio:2/1}
+.kz-sg:not([data-count="1"]):not([data-count="2"]) .kz-sg-list{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));aspect-ratio:2/1}
 .kz-sg:not([data-count="1"]):not([data-count="2"]) .kz-sg-list>li,.kz-sg[data-strip=true] .kz-sg-list>li{aspect-ratio:auto;flex:none}
-.kz-sg:not([data-count="1"]):not([data-count="2"]) .kz-sg-list>li:first-child{grid-column:1/3;grid-row:1/3}
+.kz-sg:not([data-count="1"]):not([data-count="2"]) .kz-sg-list>li:first-child{grid-column:1/3;grid-row:1/3;aspect-ratio:auto}
 .kz-sg[data-count="3"] .kz-sg-list>li:nth-child(n+2){grid-column:3/5}
 .kz-sg[data-count="4"] .kz-sg-list>li:nth-child(2){grid-column:3/5}
 .kz-sg[data-strip=true] .kz-sg-list>li:nth-child(n+6){display:none}
