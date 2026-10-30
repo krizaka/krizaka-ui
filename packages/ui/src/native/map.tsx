@@ -59,7 +59,7 @@ export type MapProps = {
 };
 
 /** A map: MapLibre Native over our Protomaps tiles, styled from the tokens in the app's scheme; its places in its name. */
-function NativeMap({ label, center, zoom = 12, brand, variant, lang, region, world, interactive = true, onMoveEnd, onPress, children, style }: MapProps) {
+function NativeMap({ label, center, zoom = 12, brand, variant, lang, region, world, interactive = true, onMoveEnd, onPress, children, style }: Readonly<MapProps>) {
   const { scheme, theme, radius, motion } = useTheme();
   const reduce = motion.duration.base === 0;
   const camera = React.useRef<CameraRef>(null);

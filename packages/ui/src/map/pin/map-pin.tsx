@@ -47,26 +47,42 @@ const PATHS: Record<MapPinShape, { d: string; viewBox: string; height: number; h
   tag: { d: "M5 2h14a2 2 0 0 1 2 2v12l-9 7.5L3 16V4a2 2 0 0 1 2-2Z", viewBox: "0 0 24 26", height: 26 / 24, head: [12, 10] },
 };
 
+type PinColours = { base: string; edge: string; fill: string; stroke: string; glyph: string; headFill: string };
+
+/** The colours a pin wears for its shape, state and tone: the state is also said by shape (hollow, struck), never by colour alone. */
+function pinColours(shape: MapPinShape, state: MapPinState, tone: "accent" | "margin"): PinColours {
+  const tag = shape === "tag";
+  const margin = tone === "margin";
+  const accentBase = margin ? "var(--kz-paper-rule-margin)" : "var(--kz-accent)";
+  const base = tag ? "var(--kz-paper-tag)" : accentBase;
+  const edge = tag ? "var(--kz-paper-tag-edge)" : "var(--kz-on-accent)";
+  const onBase = tag ? "var(--kz-paper-tag-ink)" : "var(--kz-on-accent)";
+  const muted = "var(--kz-text-muted)";
+  if (state === "closed") return { base, edge, fill: "var(--kz-surface-3)", stroke: muted, glyph: muted, headFill: "none" };
+  if (state === "visited") return { base, edge, fill: "var(--kz-surface-1)", stroke: base, glyph: base, headFill: base };
+  return { base, edge, fill: base, stroke: edge, glyph: onBase, headFill: "var(--kz-surface-0)" };
+}
+
+const GLYPH_TOP: Record<MapPinShape, string | number> = { drop: "-8%", tag: "6%", disc: 0 };
+
 /**
  * A pin for a `Marker`'s children: three shapes, four states, drawn from the tokens (both themes). Decorative by itself —
  * the `Marker` carries the label — and the state is also said by shape (hollow, struck), never by colour alone.
  */
-export function MapPin({ shape = "drop", state = "default", tone = "accent", size = 28, children, className }: MapPinProps) {
+export function MapPin({ shape = "drop", state = "default", tone = "accent", size = 28, children, className }: Readonly<MapPinProps>) {
   const s = mapPin({ state, tone });
   const p = PATHS[shape];
-  const base = shape === "tag" ? "var(--kz-paper-tag)" : tone === "margin" ? "var(--kz-paper-rule-margin)" : "var(--kz-accent)";
-  const edge = shape === "tag" ? "var(--kz-paper-tag-edge)" : "var(--kz-on-accent)";
-  const fill = state === "closed" ? "var(--kz-surface-3)" : state === "visited" ? "var(--kz-surface-1)" : base;
-  const stroke = state === "closed" ? "var(--kz-text-muted)" : state === "visited" ? base : edge;
+  const c = pinColours(shape, state, tone);
+  const closed = state === "closed";
   return (
     <span className={s.root({ className })} style={{ width: size, height: size * p.height }} data-shape={shape} data-state={state} aria-hidden="true">
       <svg className={s.shape()} viewBox={p.viewBox} focusable="false">
-        <path d={p.d} fill={fill} stroke={stroke} strokeWidth={state === "selected" ? 2.5 : 1.75} strokeDasharray={state === "closed" ? "3 2" : undefined} />
-        {shape === "tag" ? <circle cx={12} cy={5.5} r={1.6} fill="var(--kz-surface-0)" stroke={edge} strokeWidth={1} /> : null}
-        {children ? null : <circle cx={p.head[0]} cy={p.head[1]} r={shape === "disc" ? 3 : 3.2} fill={state === "visited" ? base : stroke === edge ? "var(--kz-surface-0)" : "none"} opacity={state === "closed" ? 0 : 1} />}
+        <path d={p.d} fill={c.fill} stroke={c.stroke} strokeWidth={state === "selected" ? 2.5 : 1.75} strokeDasharray={closed ? "3 2" : undefined} />
+        {shape === "tag" ? <circle cx={12} cy={5.5} r={1.6} fill="var(--kz-surface-0)" stroke={c.edge} strokeWidth={1} /> : null}
+        {children ? null : <circle cx={p.head[0]} cy={p.head[1]} r={shape === "disc" ? 3 : 3.2} fill={c.headFill} opacity={closed ? 0 : 1} />}
       </svg>
       {children ? (
-        <span className={s.glyph()} style={{ color: state === "visited" ? base : state === "closed" ? "var(--kz-text-muted)" : shape === "tag" ? "var(--kz-paper-tag-ink)" : "var(--kz-on-accent)", top: shape === "drop" ? "-8%" : shape === "tag" ? "6%" : 0 }}>
+        <span className={s.glyph()} style={{ color: c.glyph, top: GLYPH_TOP[shape] }}>
           {children}
         </span>
       ) : null}

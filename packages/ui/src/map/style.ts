@@ -26,66 +26,81 @@ export type MapVariant = "plain" | "notebook" | "muted";
 /** The scheme a map is asked for: `auto` follows the page (web) or the app (native). */
 export type MapScheme = "dark" | "light" | "auto";
 
+type Tokens = Record<string, string>;
+
+/** The product register: the page's surfaces, the accent softened for the water, the roads in white (light) or a lift of the land (dark). */
+function plainPalette(t: Tokens, dark: boolean) {
+  const land = dark ? t.surface1! : t.surface0!;
+  return {
+    land,
+    background: dark ? t.surface0! : t.surface2!,
+    water: mix(land, t.accent!, dark ? 0.18 : 0.14),
+    park: mix(land, t.success!, dark ? 0.1 : 0.12),
+    road: dark ? mix(land, t.textPrimary!, 0.12) : "#ffffff",
+    roadMajor: dark ? mix(land, t.textPrimary!, 0.2) : mix(land, t.textPrimary!, 0.06),
+    casing: mix(land, t.textPrimary!, dark ? 0.05 : 0.12),
+    building: mix(land, t.textPrimary!, dark ? 0.06 : 0.07),
+    boundary: mix(land, t.textPrimary!, 0.3),
+    label: t.textSecondary!,
+    labelStrong: t.textPrimary!,
+    halo: land,
+    accent: t.accent!,
+    onAccent: t.onAccent!,
+    // The clusters and the pins' ring: a disc of the accent in the product register.
+    cluster: { fill: t.accent!, stroke: land, text: t.onAccent! },
+    point: { fill: t.accent!, stroke: land },
+  };
+}
+
+type Palette = ReturnType<typeof plainPalette>;
+
+/** `muted`: the colours drawn back, so the places stand out. */
+function mutedPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
+  const land = plain.land;
+  const grey = (c: string, by: number) => mix(c, land, by);
+  return {
+    ...plain,
+    water: grey(plain.water, 0.45),
+    park: grey(plain.park, 0.6),
+    road: mix(land, t.textPrimary!, dark ? 0.08 : 0.04),
+    roadMajor: mix(land, t.textPrimary!, dark ? 0.14 : 0.09),
+    building: mix(land, t.textPrimary!, dark ? 0.04 : 0.05),
+    boundary: mix(land, t.textPrimary!, 0.18),
+    label: mix(land, t.textSecondary!, 0.8),
+  };
+}
+
+/** `notebook`: the paper is the page's surface; the lines are the ink, drawn without casings, as with a pen. */
+function notebookPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
+  const paper = t.surface0!;
+  const margin = t.paperRuleMargin!;
+  return {
+    ...plain,
+    land: paper,
+    background: paper,
+    water: mix(paper, t.accent!, dark ? 0.26 : 0.2),
+    park: mix(paper, t.paperTag!, dark ? 0.7 : 0.55),
+    road: mix(paper, t.textPrimary!, dark ? 0.32 : 0.28),
+    roadMajor: mix(paper, margin, dark ? 0.75 : 0.7),
+    casing: paper,
+    building: mix(paper, t.textPrimary!, dark ? 0.1 : 0.09),
+    boundary: mix(paper, margin, 0.5),
+    label: t.textSecondary!,
+    labelStrong: t.textPrimary!,
+    halo: paper,
+    // A cluster is a manila tag with its eyelet edge; a single point is the margin's red.
+    cluster: { fill: t.paperTag!, stroke: t.paperTagEdge!, text: t.paperTagInk! },
+    point: { fill: margin, stroke: paper },
+  };
+}
+
 /** The colours of the map in a scheme (and a brand, a variant): what the style, the markers, the clusters and the static map share. */
 export function mapPalette(scheme: "dark" | "light", brand: MapBrand = "krizaka", variant: MapVariant = "plain") {
-  const t = { ...themes[scheme], ...(brands as Record<string, Partial<Record<"dark" | "light", Partial<typeof themes.dark>>>>)[brand]?.[scheme] };
+  const t = { ...themes[scheme], ...(brands as Record<string, Partial<Record<"dark" | "light", Partial<typeof themes.dark>>>>)[brand]?.[scheme] } as unknown as Tokens;
   const dark = scheme === "dark";
-  const land = dark ? t.surface1 : t.surface0;
-  const plain = {
-    land,
-    background: dark ? t.surface0 : t.surface2,
-    water: mix(land, t.accent, dark ? 0.18 : 0.14),
-    park: mix(land, t.success, dark ? 0.1 : 0.12),
-    road: dark ? mix(land, t.textPrimary, 0.12) : "#ffffff",
-    roadMajor: dark ? mix(land, t.textPrimary, 0.2) : mix(land, t.textPrimary, 0.06),
-    casing: mix(land, t.textPrimary, dark ? 0.05 : 0.12),
-    building: mix(land, t.textPrimary, dark ? 0.06 : 0.07),
-    boundary: mix(land, t.textPrimary, 0.3),
-    label: t.textSecondary,
-    labelStrong: t.textPrimary,
-    halo: land,
-    accent: t.accent,
-    onAccent: t.onAccent,
-    // The clusters and the pins' ring: a disc of the accent in the product register.
-    cluster: { fill: t.accent, stroke: land, text: t.onAccent },
-    point: { fill: t.accent, stroke: land },
-  };
-  if (variant === "muted") {
-    const grey = (c: string, by: number) => mix(c, land, by);
-    return {
-      ...plain,
-      water: grey(plain.water, 0.45),
-      park: grey(plain.park, 0.6),
-      road: dark ? mix(land, t.textPrimary, 0.08) : mix(land, t.textPrimary, 0.04),
-      roadMajor: dark ? mix(land, t.textPrimary, 0.14) : mix(land, t.textPrimary, 0.09),
-      building: mix(land, t.textPrimary, dark ? 0.04 : 0.05),
-      boundary: mix(land, t.textPrimary, 0.18),
-      label: mix(land, t.textSecondary, 0.8),
-    };
-  }
-  if (variant === "notebook") {
-    // The paper is the page's surface; the lines are the ink, drawn without casings, as with a pen.
-    const paper = t.surface0;
-    const margin = t.paperRuleMargin;
-    return {
-      ...plain,
-      land: paper,
-      background: paper,
-      water: mix(paper, t.accent, dark ? 0.26 : 0.2),
-      park: mix(paper, t.paperTag, dark ? 0.7 : 0.55),
-      road: mix(paper, t.textPrimary, dark ? 0.32 : 0.28),
-      roadMajor: mix(paper, margin, dark ? 0.75 : 0.7),
-      casing: paper,
-      building: mix(paper, t.textPrimary, dark ? 0.1 : 0.09),
-      boundary: mix(paper, margin, 0.5),
-      label: t.textSecondary,
-      labelStrong: t.textPrimary,
-      halo: paper,
-      // A cluster is a manila tag with its eyelet edge; a single point is the margin's red.
-      cluster: { fill: t.paperTag, stroke: t.paperTagEdge, text: t.paperTagInk },
-      point: { fill: margin, stroke: paper },
-    };
-  }
+  const plain = plainPalette(t, dark);
+  if (variant === "muted") return mutedPalette(plain, t, dark);
+  if (variant === "notebook") return notebookPalette(plain, t, dark);
   return plain;
 }
 
@@ -199,6 +214,23 @@ export type MapStyleOptions = {
 /** The zoom where the detailed region takes over from the world. */
 export const REGION_FROM_ZOOM = 6.5;
 
+type StyleLayer = { id: string; minzoom?: number; maxzoom?: number; [k: string]: unknown };
+
+/** The world's layers: the background once, the others under `world-` and cut where the region takes over. */
+function worldLayers(layerList: StyleLayer[], hasRegion: boolean): StyleLayer[] {
+  return layerList.map((l) => (l.id === "background" ? l : { ...l, id: `world-${l.id}`, maxzoom: hasRegion ? Math.min(l.maxzoom ?? 24, REGION_FROM_ZOOM) : l.maxzoom }));
+}
+
+/** The region's layers under `region-`, from the zoom where it takes over; its background only when there is no world. */
+function regionLayers(layerList: StyleLayer[], hasWorld: boolean): StyleLayer[] {
+  const out: StyleLayer[] = [];
+  for (const l of layerList) {
+    if (l.id !== "background") out.push({ ...l, id: `region-${l.id}`, minzoom: hasWorld ? Math.max(l.minzoom ?? 0, REGION_FROM_ZOOM) : l.minzoom });
+    else if (!hasWorld) out.push(l);
+  }
+  return out;
+}
+
 /**
  * The MapLibre style of a Krizaka map (a `StyleSpecification`): the world's low zooms, then the detailed region,
  * painted from the tokens. The `pmtiles://` sources need the PMTiles protocol (the web `Map` registers it; MapLibre
@@ -208,23 +240,14 @@ export function mapStyle({ scheme, brand, variant, lang = "en", world = { url: m
   const flavor = mapFlavor(scheme, brand, variant);
   const attribution = `<a href="${MAP_ATTRIBUTION.protomapsUrl}">${MAP_ATTRIBUTION.protomaps}</a> · <a href="${MAP_ATTRIBUTION.osmUrl}">${MAP_ATTRIBUTION.osm}</a>`;
   const sources: Record<string, unknown> = {};
-  const all: { id: string; minzoom?: number; maxzoom?: number; [k: string]: unknown }[] = [];
+  const all: StyleLayer[] = [];
   if (world) {
     sources.world = { type: "vector", url: `pmtiles://${world.url}`, attribution };
-    for (const l of layers("world", flavor, { lang }) as typeof all) {
-      if (l.id === "background") all.push(l);
-      else all.push({ ...l, id: `world-${l.id}`, maxzoom: region ? Math.min(l.maxzoom ?? 24, REGION_FROM_ZOOM) : l.maxzoom });
-    }
+    all.push(...worldLayers(layers("world", flavor, { lang }) as StyleLayer[], Boolean(region)));
   }
   if (region) {
     sources.region = { type: "vector", url: `pmtiles://${region.url}`, attribution };
-    for (const l of layers("region", flavor, { lang }) as typeof all) {
-      if (l.id === "background") {
-        if (!world) all.push(l);
-        continue;
-      }
-      all.push({ ...l, id: `region-${l.id}`, minzoom: world ? Math.max(l.minzoom ?? 0, REGION_FROM_ZOOM) : l.minzoom });
-    }
+    all.push(...regionLayers(layers("region", flavor, { lang }) as StyleLayer[], Boolean(world)));
   }
   // No sprite is hosted: a layer that needs an icon (points of interest) is left out — the app's markers carry the places.
   const drawn = all.filter((l) => !(l.layout as Record<string, unknown> | undefined)?.["icon-image"]);
