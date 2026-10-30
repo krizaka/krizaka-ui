@@ -11,10 +11,10 @@ import { ShopSign, type ShopSignProps } from "./shop-sign";
 export interface WallPosition {
   /** Stable identity for this object. */
   id: string;
-  /** Horizontal placement as a percentage (0–100); clamped to the wall. */
-  x: number;
-  /** Vertical placement as a percentage (0–100); clamped to the wall. */
-  y: number;
+  /** Horizontal placement as a percentage (0–100); clamped to the wall. Unused by the tidy layout. */
+  x?: number;
+  /** Vertical placement as a percentage (0–100); clamped to the wall. Unused by the tidy layout. */
+  y?: number;
   /** Tilt in degrees; defaults to zero. */
   rotation?: number;
   /** Stacking and reading order, ascending; ties preserve input order. */
@@ -41,6 +41,19 @@ export interface WallProps extends Omit<React.ComponentProps<"ul">, "children" |
   height?: number;
   /** Desktop object width in pixels (minimum 120); defaults to 240 and never exceeds the surface. */
   itemWidth?: number;
+  /**
+   * `pinned` (default): objects placed at x / y on a fixed surface. `tidy`: the Cahier pinboard — a dense CSS grid (3 columns,
+   * 2 on a phone, 1 on a very small one), a note may span two, each tilted 1–2° by its id (no random position), no JS layout.
+   */
+  layout?: "pinned" | "tidy";
+}
+
+/** A tilt of 1 to 2 degrees, either way, derived from the id: the same wall draws the same everywhere (server and client). */
+export function tidyTilt(id: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < id.length; i += 1) h = Math.imul(h ^ id.charCodeAt(i), 16777619);
+  const n = (h >>> 0) % 4; // 0..3
+  return [-2, -1, 1, 2][n]!;
 }
 
 /** The object of one item, straight: the wall places and tilts it. A sign on a wall is a paragraph, not a second h1. */
@@ -51,16 +64,16 @@ function WallObject({ item }: { readonly item: DistributiveOmit<WallItem, keyof 
 }
 
 /** A decorative textured surface over a real keyboard-reachable list; never an editor. */
-export function Wall({ items, texture = "plaster", max = 12, height, itemWidth = 240, className, ...props }: WallProps) {
+export function Wall({ items, texture = "plaster", max = 12, height, itemWidth = 240, layout = "pinned", className, ...props }: WallProps) {
   const patternId = React.useId().replace(/:/g, "");
   const drawn = Math.max(0, Math.floor(finite(max)));
   return (
-    <ul {...props} role="list" className={cn("kz-wall", className)} data-texture={texture} data-count={Math.min(items.length, drawn)} data-fixed-height={height === undefined ? undefined : ""} style={{ ...(height === undefined ? null : { "--kz-wall-height": `${Math.max(320, finite(height))}px` }), "--kz-wall-item-width": `${Math.max(120, finite(itemWidth))}px` } as React.CSSProperties}>
-      {[...items].sort((a, b) => finite(a.z) - finite(b.z)).slice(0, drawn).map(({ id, x, y, rotation = 0, z: _z, ...item }, rank) => (
-        <li key={id} className="kz-wall-item" tabIndex={0} style={{
+    <ul {...props} role="list" className={cn("kz-wall", className)} data-texture={texture} data-layout={layout === "tidy" ? "tidy" : undefined} data-count={Math.min(items.length, drawn)} data-fixed-height={height === undefined ? undefined : ""} style={{ ...(height === undefined ? null : { "--kz-wall-height": `${Math.max(320, finite(height))}px` }), "--kz-wall-item-width": `${Math.max(120, finite(itemWidth))}px` } as React.CSSProperties}>
+      {[...items].sort((a, b) => finite(a.z) - finite(b.z)).slice(0, drawn).map(({ id, x = 0, y = 0, rotation, z: _z, ...item }, rank) => (
+        <li key={id} className="kz-wall-item" tabIndex={0} data-span={layout === "tidy" && item.kind === "note" ? "2" : undefined} style={{
           "--kz-wall-x": `${Math.min(100, Math.max(0, finite(x)))}%`,
           "--kz-wall-y": `${Math.min(100, Math.max(0, finite(y)))}%`,
-          "--kz-wall-rotation": `${finite(rotation)}deg`,
+          "--kz-wall-rotation": `${layout === "tidy" ? tidyTilt(id) : finite(rotation ?? 0)}deg`,
           zIndex: rank,
         } as React.CSSProperties}>
           <WallObject item={item} />

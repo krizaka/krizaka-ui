@@ -131,7 +131,21 @@
     transform: translate(calc(-1 * var(--kz-wall-x)), calc(-1 * var(--kz-wall-y))) rotate(var(--kz-wall-rotation));
   }
 }
+/* Tidy layout: the Cahier pinboard — dense grid, the tilt (from the id) on the item, no absolute placement */
+.kz-wall[data-layout="tidy"] { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: dense; gap: 1.5rem; aspect-ratio: auto; height: auto; padding: 1.5rem; align-items: start; }
+.kz-wall[data-layout="tidy"] .kz-wall-item { position: relative; left: auto; top: auto; width: 100%; max-height: none; margin: 0; transform: rotate(var(--kz-wall-rotation, 0deg)); }
+.kz-wall[data-layout="tidy"] .kz-wall-item[data-span="2"] { grid-column: span 2; }
+.kz-wall[data-layout="tidy"] .kz-polaroid figcaption { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+@media (max-width: 22rem) {
+  .kz-wall[data-layout="tidy"] { grid-template-columns: minmax(0, 1fr); }
+  .kz-wall[data-layout="tidy"] .kz-wall-item[data-span="2"] { grid-column: auto; }
+}
+@media (min-width: 48rem) {
+  .kz-wall[data-layout="tidy"] { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); aspect-ratio: auto; }
+  .kz-wall[data-layout="tidy"] .kz-wall-item { position: relative; left: auto; top: auto; width: 100%; margin: 0; transform: rotate(var(--kz-wall-rotation, 0deg)); }
+}
 @media (prefers-reduced-motion: reduce) {
+  .kz-wall[data-layout="tidy"] .kz-wall-item { transform: none; }
   .kz-polaroid .kz-polaroid-photo { animation: none; filter: none; opacity: 1; }
   .kz-shop-sign[data-variant="neon"][data-animated][data-lit] :is(.kz-shop-sign-logo, .kz-shop-sign-name) { animation: none; }
 }

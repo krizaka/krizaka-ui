@@ -8,6 +8,7 @@ import PlasterExample from "../../registry/examples/wall/plaster";
 import PolaroidExample from "../../registry/examples/wall/polaroid";
 import RidgeExample from "../../registry/examples/wall/ridge";
 import ShopSignExample from "../../registry/examples/wall/shop-sign";
+import TidyExample from "../../registry/examples/wall/tidy";
 import ZelligeExample from "../../registry/examples/wall/zellige";
 import { Wall } from "./index";
 
@@ -30,3 +31,5 @@ export const ShopSign: Story = { render: () => <ShopSignExample /> };
 export const ShopSignLongWord: Story = {
   render: () => <Wall texture="plaster" height={360} itemWidth={220} items={[{ id: "sign", kind: "sign", x: 50, y: 50, z: 1, logo: "Neighbourhood workshop" }]} />,
 };
+export const Tidy: Story = { render: () => <TidyExample /> };
+export const TidyPhone: Story = { render: () => <TidyExample />, parameters: { phone: true } };
