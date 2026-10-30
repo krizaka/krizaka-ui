@@ -28,23 +28,26 @@ export type MapScheme = "dark" | "light" | "auto";
 
 type Tokens = Record<string, string>;
 
+/** A colour mixed into a base, by `d` in dark or `l` in light. */
+const tint = (base: string, dark: boolean) => (colour: string, d: number, l: number) => mix(base, colour, dark ? d : l);
+
 /** The product register: the page's surfaces, the accent softened for the water, the roads in white (light) or a lift of the land (dark). */
 function plainPalette(t: Tokens, dark: boolean) {
   const land = dark ? t.surface1! : t.surface0!;
-  const ink = (by: number) => mix(land, t.textPrimary!, by);
-  const pick = (d: number, l: number) => (dark ? d : l);
+  const on = tint(land, dark);
+  const text = t.textPrimary!;
   return {
     land,
     background: dark ? t.surface0! : t.surface2!,
-    water: mix(land, t.accent!, pick(0.18, 0.14)),
-    park: mix(land, t.success!, pick(0.1, 0.12)),
-    road: dark ? ink(0.12) : "#ffffff",
-    roadMajor: ink(pick(0.2, 0.06)),
-    casing: ink(pick(0.05, 0.12)),
-    building: ink(pick(0.06, 0.07)),
-    boundary: ink(0.3),
+    water: on(t.accent!, 0.18, 0.14),
+    park: on(t.success!, 0.1, 0.12),
+    road: dark ? on(text, 0.12, 0) : "#ffffff",
+    roadMajor: on(text, 0.2, 0.06),
+    casing: on(text, 0.05, 0.12),
+    building: on(text, 0.06, 0.07),
+    boundary: on(text, 0.3, 0.3),
     label: t.textSecondary!,
-    labelStrong: t.textPrimary!,
+    labelStrong: text,
     halo: land,
     accent: t.accent!,
     onAccent: t.onAccent!,
@@ -59,15 +62,16 @@ type Palette = ReturnType<typeof plainPalette>;
 /** `muted`: the colours drawn back, so the places stand out. */
 function mutedPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
   const land = plain.land;
-  const ink = (d: number, l: number) => mix(land, t.textPrimary!, dark ? d : l);
+  const on = tint(land, dark);
+  const text = t.textPrimary!;
   return {
     ...plain,
     water: mix(plain.water, land, 0.45),
     park: mix(plain.park, land, 0.6),
-    road: ink(0.08, 0.04),
-    roadMajor: ink(0.14, 0.09),
-    building: ink(0.04, 0.05),
-    boundary: ink(0.18, 0.18),
+    road: on(text, 0.08, 0.04),
+    roadMajor: on(text, 0.14, 0.09),
+    building: on(text, 0.04, 0.05),
+    boundary: on(text, 0.18, 0.18),
     label: mix(land, t.textSecondary!, 0.8),
   };
 }
@@ -76,7 +80,7 @@ function mutedPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
 function notebookPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
   const paper = t.surface0!;
   const margin = t.paperRuleMargin!;
-  const on = (c: string, d: number, l: number) => mix(paper, c, dark ? d : l);
+  const on = tint(paper, dark);
   const ink = t.textPrimary!;
   return {
     ...plain,
@@ -165,17 +169,18 @@ type StyleLayer = { id: string; minzoom?: number; maxzoom?: number; [k: string]:
 
 /** The world's layers: the background once, the others under `world-` and cut where the region takes over. */
 function worldLayers(layerList: StyleLayer[], hasRegion: boolean): StyleLayer[] {
-  return layerList.map((l) => (l.id === "background" ? l : { ...l, id: `world-${l.id}`, maxzoom: hasRegion ? Math.min(l.maxzoom ?? 24, REGION_FROM_ZOOM) : l.maxzoom }));
+  return layerList.map((l) => {
+    if (l.id === "background") return l;
+    const maxzoom = hasRegion ? Math.min(l.maxzoom ?? 24, REGION_FROM_ZOOM) : l.maxzoom;
+    return { ...l, id: `world-${l.id}`, ...(maxzoom === undefined ? {} : { maxzoom }) };
+  });
 }
 
 /** The region's layers under `region-`, from the zoom where it takes over; its background only when there is no world. */
 function regionLayers(layerList: StyleLayer[], hasWorld: boolean): StyleLayer[] {
-  const out: StyleLayer[] = [];
-  for (const l of layerList) {
-    if (l.id !== "background") out.push({ ...l, id: `region-${l.id}`, minzoom: hasWorld ? Math.max(l.minzoom ?? 0, REGION_FROM_ZOOM) : l.minzoom });
-    else if (!hasWorld) out.push(l);
-  }
-  return out;
+  return layerList
+    .filter((l) => l.id !== "background" || !hasWorld)
+    .map((l) => (l.id === "background" ? l : { ...l, id: `region-${l.id}`, minzoom: hasWorld ? Math.max(l.minzoom ?? 0, REGION_FROM_ZOOM) : l.minzoom }));
 }
 
 /**
@@ -198,7 +203,5 @@ export function mapStyle({ scheme, brand, variant, lang = "en", world = { url: m
   }
   // No sprite is hosted: a layer that needs an icon (points of interest) is left out — the app's markers carry the places.
   const drawn = all.filter((l) => !(l.layout as Record<string, unknown> | undefined)?.["icon-image"]);
-  return { version: 8 as const, glyphs, sources, layers: drawn.map((l) => (l.maxzoom === undefined ? withoutKey(l, "maxzoom") : l)) };
+  return { version: 8 as const, glyphs, sources, layers: drawn };
 }
-
-const withoutKey = <T extends Record<string, unknown>>(o: T, key: string) => Object.fromEntries(Object.entries(o).filter(([k]) => k !== key)) as T;
