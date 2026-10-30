@@ -47,20 +47,17 @@ const PATHS: Record<MapPinShape, { d: string; viewBox: string; height: number; h
   tag: { d: "M5 2h14a2 2 0 0 1 2 2v12l-9 7.5L3 16V4a2 2 0 0 1 2-2Z", viewBox: "0 0 24 26", height: 26 / 24, head: [12, 10] },
 };
 
-type PinColours = { base: string; edge: string; fill: string; stroke: string; glyph: string; headFill: string };
+type PinColours = { edge: string; fill: string; stroke: string; glyph: string; headFill: string };
 
 /** The colours a pin wears for its shape, state and tone: the state is also said by shape (hollow, struck), never by colour alone. */
 function pinColours(shape: MapPinShape, state: MapPinState, tone: "accent" | "margin"): PinColours {
   const tag = shape === "tag";
-  const margin = tone === "margin";
-  const accentBase = margin ? "var(--kz-paper-rule-margin)" : "var(--kz-accent)";
-  const base = tag ? "var(--kz-paper-tag)" : accentBase;
+  const base = tag ? "var(--kz-paper-tag)" : `var(--kz-${tone === "margin" ? "paper-rule-margin" : "accent"})`;
   const edge = tag ? "var(--kz-paper-tag-edge)" : "var(--kz-on-accent)";
-  const onBase = tag ? "var(--kz-paper-tag-ink)" : "var(--kz-on-accent)";
   const muted = "var(--kz-text-muted)";
-  if (state === "closed") return { base, edge, fill: "var(--kz-surface-3)", stroke: muted, glyph: muted, headFill: "none" };
-  if (state === "visited") return { base, edge, fill: "var(--kz-surface-1)", stroke: base, glyph: base, headFill: base };
-  return { base, edge, fill: base, stroke: edge, glyph: onBase, headFill: "var(--kz-surface-0)" };
+  if (state === "closed") return { edge, fill: "var(--kz-surface-3)", stroke: muted, glyph: muted, headFill: "none" };
+  if (state === "visited") return { edge, fill: "var(--kz-surface-1)", stroke: base, glyph: base, headFill: base };
+  return { edge, fill: base, stroke: edge, glyph: tag ? "var(--kz-paper-tag-ink)" : edge, headFill: "var(--kz-surface-0)" };
 }
 
 const GLYPH_TOP: Record<MapPinShape, string | number> = { drop: "-8%", tag: "6%", disc: 0 };

@@ -31,16 +31,18 @@ type Tokens = Record<string, string>;
 /** The product register: the page's surfaces, the accent softened for the water, the roads in white (light) or a lift of the land (dark). */
 function plainPalette(t: Tokens, dark: boolean) {
   const land = dark ? t.surface1! : t.surface0!;
+  const ink = (by: number) => mix(land, t.textPrimary!, by);
+  const pick = (d: number, l: number) => (dark ? d : l);
   return {
     land,
     background: dark ? t.surface0! : t.surface2!,
-    water: mix(land, t.accent!, dark ? 0.18 : 0.14),
-    park: mix(land, t.success!, dark ? 0.1 : 0.12),
-    road: dark ? mix(land, t.textPrimary!, 0.12) : "#ffffff",
-    roadMajor: dark ? mix(land, t.textPrimary!, 0.2) : mix(land, t.textPrimary!, 0.06),
-    casing: mix(land, t.textPrimary!, dark ? 0.05 : 0.12),
-    building: mix(land, t.textPrimary!, dark ? 0.06 : 0.07),
-    boundary: mix(land, t.textPrimary!, 0.3),
+    water: mix(land, t.accent!, pick(0.18, 0.14)),
+    park: mix(land, t.success!, pick(0.1, 0.12)),
+    road: dark ? ink(0.12) : "#ffffff",
+    roadMajor: ink(pick(0.2, 0.06)),
+    casing: ink(pick(0.05, 0.12)),
+    building: ink(pick(0.06, 0.07)),
+    boundary: ink(0.3),
     label: t.textSecondary!,
     labelStrong: t.textPrimary!,
     halo: land,
@@ -58,14 +60,15 @@ type Palette = ReturnType<typeof plainPalette>;
 function mutedPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
   const land = plain.land;
   const grey = (c: string, by: number) => mix(c, land, by);
+  const ink = (d: number, l: number) => mix(land, t.textPrimary!, dark ? d : l);
   return {
     ...plain,
     water: grey(plain.water, 0.45),
     park: grey(plain.park, 0.6),
-    road: mix(land, t.textPrimary!, dark ? 0.08 : 0.04),
-    roadMajor: mix(land, t.textPrimary!, dark ? 0.14 : 0.09),
-    building: mix(land, t.textPrimary!, dark ? 0.04 : 0.05),
-    boundary: mix(land, t.textPrimary!, 0.18),
+    road: ink(0.08, 0.04),
+    roadMajor: ink(0.14, 0.09),
+    building: ink(0.04, 0.05),
+    boundary: ink(0.18, 0.18),
     label: mix(land, t.textSecondary!, 0.8),
   };
 }
@@ -74,19 +77,19 @@ function mutedPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
 function notebookPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
   const paper = t.surface0!;
   const margin = t.paperRuleMargin!;
+  const on = (c: string, d: number, l: number) => mix(paper, c, dark ? d : l);
+  const ink = t.textPrimary!;
   return {
     ...plain,
     land: paper,
     background: paper,
-    water: mix(paper, t.accent!, dark ? 0.26 : 0.2),
-    park: mix(paper, t.paperTag!, dark ? 0.7 : 0.55),
-    road: mix(paper, t.textPrimary!, dark ? 0.32 : 0.28),
-    roadMajor: mix(paper, margin, dark ? 0.75 : 0.7),
+    water: on(t.accent!, 0.26, 0.2),
+    park: on(t.paperTag!, 0.7, 0.55),
+    road: on(ink, 0.32, 0.28),
+    roadMajor: on(margin, 0.75, 0.7),
     casing: paper,
-    building: mix(paper, t.textPrimary!, dark ? 0.1 : 0.09),
+    building: on(ink, 0.1, 0.09),
     boundary: mix(paper, margin, 0.5),
-    label: t.textSecondary!,
-    labelStrong: t.textPrimary!,
     halo: paper,
     // A cluster is a manila tag with its eyelet edge; a single point is the margin's red.
     cluster: { fill: t.paperTag!, stroke: t.paperTagEdge!, text: t.paperTagInk! },
