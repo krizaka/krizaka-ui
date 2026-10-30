@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.78.0
+
+### Minor Changes
+
+- [#890](https://github.com/krizaka/krizaka-ui/pull/890) [`9d5ff02`](https://github.com/krizaka/krizaka-ui/commit/9d5ff02b77b05a65aeae4b469d60ec7bd546cbd4) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/map`: the Cahier look. `Map` and `mapStyle` take `variant` (`plain`, `notebook`) and `scheme="auto"` (follows the page), generated from the tokens in light and dark (`mapPalette(scheme, brand, variant)`); in the notebook look a cluster is a manila tag and a lone place the margin's red, on the web and in the native map. New `@krizaka/ui/map/pin` with `MapPin` (three shapes, four states said by shape as well as colour) for a `Marker`'s children (krizaka-ui#879, akinaza#571).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.78.0
+  - @krizaka/tokens@3.78.0
+
 ## 3.77.0
 
 ### Minor Changes
