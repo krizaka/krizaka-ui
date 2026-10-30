@@ -1,4 +1,4 @@
-import { MapPin, type MapPinShape, type MapPinState } from "@krizaka/ui/map";
+import { MapPin, type MapPinShape, type MapPinState } from "@krizaka/ui/map/pin";
 
 const SHAPES: MapPinShape[] = ["drop", "disc", "tag"];
 const STATES: MapPinState[] = ["default", "selected", "visited", "closed"];

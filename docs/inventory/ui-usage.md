@@ -6,7 +6,7 @@ Package: @krizaka/ui@3.76.0; sizes measured from packages/ui/dist (@krizaka/ui@3
 Consumers: yomizaka dccc2437 · akinaza 1ff09edc · orazaka-web-client a9eef3dd · krizaka-com 2fccb2bb · blog 5aa73cba · ui-site · java-site 2bd81c6a · ts-site f316e288 · motion-lab 187ac1fc · cockpit.
 Paused (counted apart): .
 
-Verdicts: keep 180 · retire 34 · merge 20 · ask 17.
+Verdicts: keep 181 · retire 34 · merge 20 · ask 17.
 
 Sizes: the gzip of an entry's own file and every chunk it pulls in (shared chunks are counted in each entry, so a sum
 over-counts); the budget is the entry's size-limit row in packages/ui/package.json (size-limit measures differently: compare
@@ -19,7 +19,7 @@ an entry with itself over time, not with its budget).
 | Data display | 11 | 73.1 | 72.0 |
 | Navigation & shell | 30 | 184.4 | 227.9 |
 | Feedback & overlays | 12 | 25.1 | 112.9 |
-| Geolocation & maps | 4 | 23.0 | 32.9 |
+| Geolocation & maps | 5 | 25.2 | 34.6 |
 | Media | 9 | 54.3 | 66.1 |
 | Commerce | 30 | 120.5 | 126.5 |
 | Identity & people | 9 | 39.9 | 18.4 |
@@ -148,10 +148,11 @@ an entry with itself over time, not with its budget).
 | `tooltip` | Feedback & overlays | stable | Oz 1 cockpit 1 | — | 3 | 1.2 / 20.0 | 1 | 1 | 2026-10-29 | **keep** | 2 live importer file(s) |
 | `update-prompt` | Feedback & overlays | deprecated | — | — | — | 4.8 / 3.5 | 1 | 2 | 2026-10-29 | **retire** | already deprecated (#674), removed in 4.0 |
 | `upload-queue` | Feedback & overlays | beta | Yo 1 | — | — | 1.9 / — | 1 | 1 | 2026-10-29 | **keep** | 1 live importer file(s) |
-| `map` | Geolocation & maps | beta | Ak 3 ui 1 motion 3 | — | 2 | 12.6 / 17.2 | 2 | 2 | 2026-10-29 | **keep** | 4 live importer file(s) |
+| `map` | Geolocation & maps | beta | Ak 3 ui 1 motion 3 | — | 2 | 13.1 / 17.5 | 2 | 2 | 2026-10-29 | **keep** | 4 live importer file(s) |
 | `map/cards` | Geolocation & maps | — | — | — | 2 | 1.5 / 1.4 | 2 | 2 | 2026-10-29 | **keep** | built on by native, shop |
+| `map/pin` | Geolocation & maps | — | — | — | 2 | 1.2 / 1.2 | 2 | 2 | 2026-10-29 | **keep** | built on by native, shop |
 | `map/sheet` | Geolocation & maps | — | — | — | 2 | 1.1 / 1.1 | 2 | 2 | 2026-10-29 | **keep** | built on by native, shop |
-| `native/map` | Geolocation & maps | — | — | — | — | 7.8 / 13.2 | — | — | 2026-10-29 | **keep** | filed need akinaza#235 |
+| `native/map` | Geolocation & maps | — | — | — | — | 8.2 / 13.4 | — | — | 2026-10-29 | **keep** | filed need akinaza#235 |
 | `document-viewer` | Media | beta | Yo 6 cockpit 1 | — | — | 5.6 / 5.0 | 2 | 1 | 2026-10-29 | **keep** | 7 live importer file(s) |
 | `embed-facade` | Media | beta | Ak 1 | — | 1 | 2.1 / 2.0 | 2 | 1 | 2026-10-29 | **keep** | 1 live importer file(s) |
 | `file-upload` | Media | beta | Yo 4 Oz 1 | — | 2 | 8.0 / 9.0 | 1 | 1 | 2026-10-29 | **keep** | 5 live importer file(s) |

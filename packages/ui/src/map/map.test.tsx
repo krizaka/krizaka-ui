@@ -8,7 +8,8 @@ import { hydrateRoot } from "react-dom/client";
 import { renderToString } from "react-dom/server";
 
 import { axeViolations } from "../test/axe";
-import { circlePolygon, distanceMeters, formatDistance, LocationPicker, Map, mapPalette, MapPin, mapStyle, Marker, pathLength, pointAlong, Pulse, REGION_FROM_ZOOM, Route, sliceLine, StaticMap } from "./index";
+import { circlePolygon, distanceMeters, formatDistance, LocationPicker, Map, mapPalette, mapStyle, Marker, pathLength, pointAlong, Pulse, REGION_FROM_ZOOM, Route, sliceLine, StaticMap } from "./index";
+import { MapPin } from "./pin";
 
 // The engine: a MapLibre stand-in that records what the components ask of it (happy-dom has no WebGL).
 const calls: string[] = [];
