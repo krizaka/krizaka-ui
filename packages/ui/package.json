@@ -417,6 +417,10 @@
       "types": "./dist/map/sheet.d.ts",
       "import": "./dist/map/sheet.js"
     },
+    "./map/pin": {
+      "types": "./dist/map/pin.d.ts",
+      "import": "./dist/map/pin.js"
+    },
     "./map/cards": {
       "types": "./dist/map/cards.d.ts",
       "import": "./dist/map/cards.js"
@@ -2955,6 +2959,17 @@
       "name": "./map/sheet",
       "path": "dist/map/sheet.js",
       "limit": "1.1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react-dom"
+      ]
+    },
+    {
+      "name": "./map/pin",
+      "path": "dist/map/pin.js",
+      "limit": "1.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

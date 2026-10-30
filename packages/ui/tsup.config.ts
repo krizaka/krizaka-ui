@@ -370,7 +370,7 @@ export default defineConfig([
   {
     // Client — the map's place sheet and cards (ADR-008: apart from `map`, a page that only draws a map does not pay for them).
     ...shared,
-    entry: { "map/sheet": "src/map/sheet/index.ts", "map/cards": "src/map/cards/index.ts" },
+    entry: { "map/sheet": "src/map/sheet/index.ts", "map/cards": "src/map/cards/index.ts", "map/pin": "src/map/pin/index.ts" },
     banner: { js: '"use client";' },
   },
   {

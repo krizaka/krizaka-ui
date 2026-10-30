@@ -1,13 +1,15 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { themes } from "@krizaka/tokens/native";
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { hydrateRoot } from "react-dom/client";
 import { renderToString } from "react-dom/server";
 
 import { axeViolations } from "../test/axe";
-import { circlePolygon, distanceMeters, formatDistance, LocationPicker, Map, mapPalette, mapStyle, Marker, pathLength, pointAlong, Pulse, REGION_FROM_ZOOM, Route, sliceLine, StaticMap } from "./index";
+import { circlePolygon, distanceMeters, formatDistance, LocationPicker, Map, mapFlavor, mapPalette, mapStyle, Marker, pathLength, pointAlong, Pulse, REGION_FROM_ZOOM, Route, sliceLine, StaticMap } from "./index";
+import { MapPin } from "./pin";
 
 // The engine: a MapLibre stand-in that records what the components ask of it (happy-dom has no WebGL).
 const calls: string[] = [];
@@ -110,6 +112,37 @@ describe("the style, from the tokens", () => {
     expect(mapPalette("dark", "yomizaka").accent).toBe("#8888f2");
   });
 
+  it("the notebook variant is the Cahier's paper and ink, drawn from the tokens in both schemes", () => {
+    for (const scheme of ["light", "dark"] as const) {
+      const plain = mapPalette(scheme);
+      const nb = mapPalette(scheme, "krizaka", "notebook");
+      const colours = [nb.land, nb.water, nb.park, nb.road, nb.roadMajor, nb.building, nb.cluster.fill, nb.cluster.stroke, nb.cluster.text, nb.point.fill];
+      expect(colours.every((c) => /^#[0-9a-f]{6}$/.test(c))).toBe(true);
+      expect(nb.land).toBe(themes[scheme].surface0); // the paper (light) or the slate (dark)
+      expect(nb.cluster.fill).toBe(themes[scheme].paperTag); // a cluster is a manila tag
+      expect(nb.point.fill).toBe(themes[scheme].paperRuleMargin); // a single place is the margin's red
+      expect(nb.casing).toBe(nb.land); // no casings: lines as drawn with a pen
+      expect(nb.roadMajor).not.toBe(plain.roadMajor);
+      expect(plain.cluster.fill).toBe(plain.accent); // the product register keeps the accent disc
+    }
+    expect(mapPalette("light", "krizaka", "notebook").land).not.toBe(mapPalette("dark", "krizaka", "notebook").land);
+  });
+
+  it("every role of the basemap flavour is painted from the palette", () => {
+    const c = mapPalette("dark");
+    const f = mapFlavor("dark") as unknown as Record<string, string | undefined>;
+    const painted = { earth: c.land, water: c.water, park_a: c.park, wood_b: c.park, buildings: c.building, railway: c.casing, bridges_highway_casing: c.casing, minor_service: c.road, tunnel_link: c.road, major: c.roadMajor, bridges_highway: c.roadMajor, boundaries: c.boundary, roads_label_minor: c.label, city_label: c.labelStrong, state_label_halo: c.halo, background: c.background };
+    for (const [role, colour] of Object.entries(painted)) expect(f[role], role).toBe(colour);
+    expect(f.pois).toBeUndefined();
+  });
+
+  it("a variant reaches the style", () => {
+    expect(JSON.stringify(mapStyle({ scheme: "light", variant: "notebook" }))).not.toBe(JSON.stringify(mapStyle({ scheme: "light" })));
+    expect(JSON.stringify(mapStyle({ scheme: "light", variant: "plain" }))).toBe(JSON.stringify(mapStyle({ scheme: "light" })));
+    const bg = (v: Parameters<typeof mapStyle>[0]["variant"]) => (mapStyle({ scheme: "dark", variant: v }).layers.find((l) => l.id === "background") as unknown as { paint: Record<string, string> }).paint["background-color"];
+    expect(bg("notebook")).toBe(mapPalette("dark", "krizaka", "notebook").background);
+  });
+
   it("measures distances and draws circles", () => {
     expect(Math.round(distanceMeters([-73.5673, 45.5017], [-71.208, 46.8139]) / 1000)).toBe(233);
     const ring = circlePolygon([-73.5, 45.5], 1000).geometry.coordinates[0]!;
@@ -201,6 +234,40 @@ describe("the assets' base", () => {
     expect(style.glyphs).toBe("https://www.krizaka.com/maps/v1/fonts/{fontstack}/{range}.pbf");
     setMapAssetsBase(null);
     expect(mapStyle({ scheme: "light" }).glyphs).toContain("b-cdn.net");
+  });
+});
+
+describe("MapPin", () => {
+  const html = (p: Parameters<typeof MapPin>[0]) => renderToString(<MapPin {...p} />);
+  it("draws three shapes from the tokens, never a hard-coded colour", () => {
+    for (const shape of ["drop", "disc", "tag"] as const) {
+      const out = html({ shape });
+      expect(out).toContain(`data-shape="${shape}"`);
+      expect(out).toContain("aria-hidden");
+      expect(out).not.toMatch(/#[0-9a-f]{3,6}\b|rgb\(/i);
+    }
+    expect(html({ shape: "tag" })).toContain("--kz-paper-tag");
+    expect(html({ tone: "margin" })).toContain("--kz-paper-rule-margin");
+  });
+  it("says its state by shape as well as by colour: hollow when visited, dashed when closed, larger when selected", () => {
+    expect(html({ state: "default" })).not.toContain("stroke-dasharray");
+    expect(html({ state: "closed" })).toContain("stroke-dasharray");
+    expect(html({ state: "visited" })).toContain("var(--kz-surface-1)");
+    expect(html({ state: "selected" })).toContain("scale-125");
+    expect(html({ state: "closed" })).toContain("--kz-text-muted");
+  });
+  it("sits in a Marker without changing its accessible name", async () => {
+    const webgl = withWebGL();
+    const { container } = render(
+      <Map label="Places" center={[-73.58, 45.52]}>
+        <Marker position={[-73.6, 45.52]} label="Atelier Rose" onPress={() => undefined}>
+          <MapPin shape="tag" state="selected">3</MapPin>
+        </Marker>
+      </Map>,
+    );
+    expect(await screen.findByRole("button", { name: "Atelier Rose" })).toBeTruthy();
+    expect(await axeViolations(container)).toEqual([]);
+    webgl.mockRestore();
   });
 });
 
@@ -327,6 +394,20 @@ describe("Map follows the page's scheme", () => {
     await waitFor(() => expect(JSON.stringify(lastStyle)).toBe(JSON.stringify(mapStyle({ scheme: "light" }))));
     document.documentElement.classList.remove("light");
     await waitFor(() => expect(JSON.stringify(lastStyle)).toBe(JSON.stringify(mapStyle({ scheme: "dark" }))));
+    webgl.mockRestore();
+  });
+
+  it("`scheme=\"auto\"` follows the page, a pinned scheme does not, and a variant is worn", async () => {
+    const webgl = withWebGL();
+    document.documentElement.classList.remove("light");
+    const { unmount } = render(<Map label="Places" center={[-73.58, 45.52]} scheme="auto" variant="notebook" />);
+    await waitFor(() => expect(JSON.stringify(lastStyle)).toBe(JSON.stringify(mapStyle({ scheme: "dark", variant: "notebook" }))));
+    document.documentElement.classList.add("light");
+    await waitFor(() => expect(JSON.stringify(lastStyle)).toBe(JSON.stringify(mapStyle({ scheme: "light", variant: "notebook" }))));
+    unmount();
+    render(<Map label="Pinned" center={[-73.58, 45.52]} scheme="dark" />);
+    await waitFor(() => expect(JSON.stringify(lastStyle)).toBe(JSON.stringify(mapStyle({ scheme: "dark" }))));
+    document.documentElement.classList.remove("light");
     webgl.mockRestore();
   });
 
