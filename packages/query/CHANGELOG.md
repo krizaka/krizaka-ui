@@ -1,5 +1,11 @@
 # @krizaka/query
 
+## 0.3.0
+
+### Minor Changes
+
+- [#882](https://github.com/krizaka/krizaka-ui/pull/882) [`24f784d`](https://github.com/krizaka/krizaka-ui/commit/24f784d427242d4cf620bd43604ce6df696b225e) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/query/url`, `/url/server`, `/url/next`: the URL as state, nuqs 2.10.2 behind the Krizaka door (ADR-006). `useQueryState`, `useQueryStates` and the `parseAs*` parsers, `withUrlDefaults` (replace history, shallow, default cleared), the server loader/cache/serializer and the Next.js App Router adapter. `next` is an optional peer.
+
 ## 0.2.2
 
 ### Patch Changes

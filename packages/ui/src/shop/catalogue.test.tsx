@@ -171,10 +171,21 @@ describe("services · menu", () => {
 
   it("puts the aside beside the list, and two columns only when nothing is beside it", () => {
     const { container, rerender } = render(<ServicesSection title="Services" services={demoSalon.services} chooseLabel="Choose" popularLabel="Popular" aside={<p>Open now</p>} columns={2} />);
-    expect(container.querySelector("aside")?.textContent).toBe("Open now");
+    expect(container.querySelector(".kz-shop-aside")?.textContent).toBe("Open now");
     expect(container.querySelector(".lg\\:grid-cols-2")).toBeNull();
     rerender(<ServicesSection title="Services" services={demoSalon.services} chooseLabel="Choose" popularLabel="Popular" columns={2} />);
     expect(container.querySelector(".lg\\:grid-cols-2")).toBeTruthy();
+  });
+
+  it("keeps the aside out of the landmarks: a complementary inside main is a violation (krizaka-ui#891)", async () => {
+    const { container } = render(
+      <main>
+        <ServicesSection title="Services" services={demoSalon.services} chooseLabel="Choose" popularLabel="Popular" aside={<p>Open now</p>} />
+      </main>,
+    );
+    expect(container.querySelector("aside")).toBeNull();
+    expect(screen.queryByRole("complementary")).toBeNull();
+    expect(await axeViolations(container)).toEqual([]);
   });
 
   it("does not group when asked not to", () => {

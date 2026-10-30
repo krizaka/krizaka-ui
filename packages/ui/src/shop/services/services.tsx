@@ -1,7 +1,7 @@
 // Server-safe: no hook. The services of a shop (ADR-007 §3). `menu` — the compact price board, the default of every preset:
 // one row per service (an optional 56 px square thumbnail of the service's own photo, the name, « Popular », a dotted leader,
 // the price in tabular figures, the duration and one line, a « Choose » button that names the service), grouped by category
-// under a lower-case typewriter note, in one column beside an `aside` or in two. `cards` (4:3, six at most), `index` (the
+// under a lower-case typewriter note, in one column beside an `aside` (a plain block, never a landmark) or in two. `cards` (4:3, six at most), `index` (the
 // Cahier's stamped cards), `carousel` (a snap strip, phone first). The section receives resolved services; it never fetches.
 import { Badge } from "@krizaka/ui/badge";
 import { buttonVariants } from "@krizaka/ui/button";
@@ -139,7 +139,7 @@ function Menu({ services, groupBy, columns, aside, chooseLabel, popularLabel, li
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-12">
       {list}
-      <aside className="kz-shop-aside flex flex-col gap-4">{aside}</aside>
+      <div className="kz-shop-aside flex flex-col gap-4">{aside}</div>
     </div>
   );
 }
