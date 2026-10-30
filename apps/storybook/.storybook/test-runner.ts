@@ -249,6 +249,11 @@ const config: TestRunnerConfig = {
     await pinPlayerChrome(page);
     // @krizaka/charts: an ECharts engine and the world's countries load lazily (`data-pending` until drawn).
     await page.waitForFunction(() => !document.querySelector("[data-pending]"), undefined, { timeout: 15_000 });
+    // A RetroTv's playlist screen is a lazy chunk behind `Suspense fallback={null}`: on a loaded runner the glass was
+    // photographed before its layers mounted (krizaka-ui#878, dark then light). Scoped to the RetroTv playlist stories (the others have no lazy screen; a global wait broke ShopComposer).
+    if (context.id.startsWith("primitives-retrotv--playlist")) {
+      await page.waitForFunction(() => !document.querySelector(".kz-rtv") || document.querySelector(".kz-rtv-layer") !== null, undefined, { timeout: 15_000 });
+    }
     for (const theme of THEMES) await auditTheme(page, story, context, theme, viewport);
     await checkQuietHover(page);
     // Requests made while the screenshots were taken (a lazy clip, a late picture) count too.
