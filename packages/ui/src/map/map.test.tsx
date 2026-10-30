@@ -8,7 +8,7 @@ import { hydrateRoot } from "react-dom/client";
 import { renderToString } from "react-dom/server";
 
 import { axeViolations } from "../test/axe";
-import { circlePolygon, distanceMeters, formatDistance, LocationPicker, Map, mapPalette, mapStyle, Marker, pathLength, pointAlong, Pulse, REGION_FROM_ZOOM, Route, sliceLine, StaticMap } from "./index";
+import { circlePolygon, distanceMeters, formatDistance, LocationPicker, Map, mapFlavor, mapPalette, mapStyle, Marker, pathLength, pointAlong, Pulse, REGION_FROM_ZOOM, Route, sliceLine, StaticMap } from "./index";
 import { MapPin } from "./pin";
 
 // The engine: a MapLibre stand-in that records what the components ask of it (happy-dom has no WebGL).
@@ -128,11 +128,15 @@ describe("the style, from the tokens", () => {
     expect(mapPalette("light", "krizaka", "notebook").land).not.toBe(mapPalette("dark", "krizaka", "notebook").land);
   });
 
-  it("the muted variant draws the colours back, and a variant reaches the style", () => {
-    const plain = mapPalette("light");
-    const muted = mapPalette("light", "krizaka", "muted");
-    expect(muted.water).not.toBe(plain.water);
-    expect(muted.label).not.toBe(plain.label);
+  it("every role of the basemap flavour is painted from the palette", () => {
+    const c = mapPalette("dark");
+    const f = mapFlavor("dark") as unknown as Record<string, string | undefined>;
+    const painted = { earth: c.land, water: c.water, park_a: c.park, wood_b: c.park, buildings: c.building, railway: c.casing, bridges_highway_casing: c.casing, minor_service: c.road, tunnel_link: c.road, major: c.roadMajor, bridges_highway: c.roadMajor, boundaries: c.boundary, roads_label_minor: c.label, city_label: c.labelStrong, state_label_halo: c.halo, background: c.background };
+    for (const [role, colour] of Object.entries(painted)) expect(f[role], role).toBe(colour);
+    expect(f.pois).toBeUndefined();
+  });
+
+  it("a variant reaches the style", () => {
     expect(JSON.stringify(mapStyle({ scheme: "light", variant: "notebook" }))).not.toBe(JSON.stringify(mapStyle({ scheme: "light" })));
     expect(JSON.stringify(mapStyle({ scheme: "light", variant: "plain" }))).toBe(JSON.stringify(mapStyle({ scheme: "light" })));
     const bg = (v: Parameters<typeof mapStyle>[0]["variant"]) => (mapStyle({ scheme: "dark", variant: v }).layers.find((l) => l.id === "background") as unknown as { paint: Record<string, string> }).paint["background-color"];

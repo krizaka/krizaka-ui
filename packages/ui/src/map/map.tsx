@@ -122,7 +122,7 @@ export type MapProps = {
   controlled?: boolean;
   /** The scheme: `auto` (default) follows the page (`html.light`) as it changes; `dark` or `light` pins it. */
   scheme?: MapScheme;
-  /** The look: `plain` (default), `notebook` (the Cahier: paper and ink, manila tags for clusters) or `muted`. */
+  /** The look: `plain` (default), `notebook` (the Cahier: paper and ink, manila tags for clusters). */
   variant?: MapVariant;
   /** The product whose accent the map carries. Default `krizaka`. */
   brand?: MapBrand;
@@ -561,11 +561,7 @@ export function Route({ path, label, draw = true, duration = 1400, courier, trip
 
 /** Adds a GeoJSON source and its layers while the map has a style (again after a change of scheme). */
 function useGeoLayer(id: string, data: GeoJSON.GeoJSON, layers: (palette: ReturnType<typeof mapPalette>) => object[], source: object = {}) {
-  const { map: m, ready, look } = useMap();
-  const lookRef = React.useRef(look);
-  React.useEffect(() => {
-    lookRef.current = look;
-  });
+  const { map: m, ready, look: { scheme, brand, variant } } = useMap();
   const dataRef = React.useRef(data);
   React.useEffect(() => {
     dataRef.current = data;
@@ -576,7 +572,6 @@ function useGeoLayer(id: string, data: GeoJSON.GeoJSON, layers: (palette: Return
     if (!m || !ready) return;
     const add = () => {
       if (m.getSource(id)) return;
-      const { scheme, brand, variant } = lookRef.current;
       m.addSource(id, { type: "geojson", data: dataRef.current, ...source } as never);
       for (const layer of layers(mapPalette(scheme, brand, variant))) m.addLayer(layer as never);
     };
@@ -588,7 +583,7 @@ function useGeoLayer(id: string, data: GeoJSON.GeoJSON, layers: (palette: Return
       for (const layer of m.getStyle().layers.filter((l) => "source" in l && l.source === id)) m.removeLayer(layer.id);
       if (m.getSource(id)) m.removeSource(id);
     };
-  }, [m, ready, id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [m, ready, id, scheme, brand, variant]); // eslint-disable-line react-hooks/exhaustive-deps
 }
 
 export type RadiusCircleProps = {

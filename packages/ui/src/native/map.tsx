@@ -36,7 +36,7 @@ export type MapProps = {
   center: LngLat;
   /** The zoom (0 the world, 12 a city, 16 a street). Default 12. */
   zoom?: number;
-  /** The look: `plain` (default), `notebook` (the Cahier) or `muted`. The scheme is the app's (`auto`). */
+  /** The look: `plain` (default), or `notebook` (the Cahier). The scheme is the app's (`auto`). */
   variant?: MapVariant;
   /** The product whose accent the map carries. Default `krizaka`. */
   brand?: BrandId;

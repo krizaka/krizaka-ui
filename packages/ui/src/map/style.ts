@@ -18,10 +18,10 @@ export function mix(a: string, b: string, t: number): string {
 }
 
 /**
- * The look of the map: `plain` (the product register), `notebook` (the Cahier: ink lines on the paper in light, chalk on
- * the slate in dark, the margin's red for the main roads) or `muted` (the colours drawn back, so the places stand out).
+ * The look of the map: `plain` (the product register) or `notebook` (the Cahier: ink lines on the paper in light, chalk on
+ * the slate in dark, the margin's red for the main roads).
  */
-export type MapVariant = "plain" | "notebook" | "muted";
+export type MapVariant = "plain" | "notebook";
 
 /** The scheme a map is asked for: `auto` follows the page (web) or the app (native). */
 export type MapScheme = "dark" | "light" | "auto";
@@ -59,23 +59,6 @@ function plainPalette(t: Tokens, dark: boolean) {
 
 type Palette = ReturnType<typeof plainPalette>;
 
-/** `muted`: the colours drawn back, so the places stand out. */
-function mutedPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
-  const land = plain.land;
-  const on = tint(land, dark);
-  const text = t.textPrimary!;
-  return {
-    ...plain,
-    water: mix(plain.water, land, 0.45),
-    park: mix(plain.park, land, 0.6),
-    road: on(text, 0.08, 0.04),
-    roadMajor: on(text, 0.14, 0.09),
-    building: on(text, 0.04, 0.05),
-    boundary: on(text, 0.18, 0.18),
-    label: mix(land, t.textSecondary!, 0.8),
-  };
-}
-
 /** `notebook`: the paper is the page's surface; the lines are the ink, drawn without casings, as with a pen. */
 function notebookPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
   const paper = t.surface0!;
@@ -91,8 +74,6 @@ function notebookPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
     road: on(ink, 0.32, 0.28),
     roadMajor: on(margin, 0.75, 0.7),
     casing: paper,
-    building: on(ink, 0.1, 0.09),
-    boundary: mix(paper, margin, 0.5),
     halo: paper,
     // A cluster is a manila tag with its eyelet edge; a single point is the margin's red.
     cluster: { fill: t.paperTag!, stroke: t.paperTagEdge!, text: t.paperTagInk! },
@@ -105,34 +86,32 @@ export function mapPalette(scheme: "dark" | "light", brand: MapBrand = "krizaka"
   const t = { ...themes[scheme], ...(brands as Record<string, Partial<Record<"dark" | "light", Partial<typeof themes.dark>>>>)[brand]?.[scheme] } as unknown as Tokens;
   const dark = scheme === "dark";
   const plain = plainPalette(t, dark);
-  if (variant === "muted") return mutedPalette(plain, t, dark);
   if (variant === "notebook") return notebookPalette(plain, t, dark);
   return plain;
 }
 
-/** The roles of the basemap flavour that each colour of the palette paints. */
-const FLAVOR_ROLES: Record<string, string> = {
-  background: "background",
-  land: "earth glacier sand beach hospital industrial school military aerodrome pedestrian",
-  park: "park_a park_b wood_a wood_b scrub_a scrub_b zoo",
-  building: "runway buildings pier",
-  water: "water",
-  boundary: "boundaries",
-  casing: "railway minor_service_casing minor_casing link_casing major_casing_late major_casing_early highway_casing_late highway_casing_early bridges_other_casing bridges_minor_casing bridges_link_casing bridges_major_casing bridges_highway_casing tunnel_other_casing tunnel_minor_casing tunnel_link_casing tunnel_major_casing tunnel_highway_casing",
-  road: "other minor_service minor_a minor_b link bridges_other bridges_minor bridges_link tunnel_other tunnel_minor tunnel_link",
-  roadMajor: "major highway bridges_major bridges_highway tunnel_major tunnel_highway",
-  label: "roads_label_minor roads_label_major ocean_label subplace_label state_label country_label address_label",
-  halo: "roads_label_minor_halo roads_label_major_halo subplace_label_halo city_label_halo state_label_halo address_label_halo",
-  labelStrong: "city_label",
-};
+/** Which colour of the palette paints each role of the basemap flavour (the first pattern that matches the role's name; the land otherwise). */
+const FLAVOR_ROLES: [RegExp, string][] = [
+  [/halo/, "halo"],
+  [/city_label/, "labelStrong"],
+  [/label/, "label"],
+  [/casing|railway/, "casing"],
+  [/major|highway/, "roadMajor"],
+  [/^(other|minor|link|bridges|tunnel)/, "road"],
+  [/park|wood|scrub|zoo/, "park"],
+  [/runway|buildings|pier/, "building"],
+  [/water/, "water"],
+  [/boundaries/, "boundary"],
+  [/background/, "background"],
+];
 
 /** The basemap flavour of a palette: every role of Protomaps' layers filled from the tokens. */
 export function mapFlavor(scheme: "dark" | "light", brand?: MapBrand, variant?: MapVariant): Flavor {
-  const c = mapPalette(scheme, brand, variant);
+  const c = mapPalette(scheme, brand, variant) as unknown as Record<string, string>;
   const base = namedFlavor(scheme);
   return {
     ...base,
-    ...Object.fromEntries(Object.entries(FLAVOR_ROLES).flatMap(([colour, roles]) => roles.split(" ").map((role) => [role, c[colour as "land"]]))),
+    ...Object.fromEntries(Object.keys(base).map((role) => [role, c[FLAVOR_ROLES.find(([re]) => re.test(role))?.[1] ?? "land"]])),
     regular: "Noto Sans Regular",
     bold: "Noto Sans Medium",
     italic: "Noto Sans Italic",
@@ -150,7 +129,7 @@ export type MapStyleOptions = {
   scheme: "dark" | "light";
   /** The product whose accent the map carries (its markers, its water's tint). Default `krizaka`. */
   brand?: MapBrand;
-  /** The look: `plain` (default), `notebook` (the Cahier's paper and ink) or `muted`. */
+  /** The look: `plain` (default), or `notebook` (the Cahier's paper and ink). */
   variant?: MapVariant;
   /** The language of the labels (`fr`, `en`): the place names in it where OpenStreetMap has them. Default `en`. */
   lang?: string;
