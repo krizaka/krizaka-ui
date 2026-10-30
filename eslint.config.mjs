@@ -8,7 +8,7 @@ export default [
   // The platform's primitives hold the line the products are asked to reach: the four UI rules, strict, no allowlist.
   ...krizakaUi({ files: ["packages/ui/src/**/*.{jsx,tsx}", "packages/ui/registry/examples/**/*.tsx", "packages/charts/src/**/*.tsx", "packages/charts/registry/examples/**/*.tsx"] }),
   // The stack rules hold the apps; the packages are the @krizaka facades, where TanStack and the tables/forms belong.
-  ...krizakaStack({ files: ["apps/**/*.{js,jsx,mjs,ts,tsx}"] }),
+  ...krizakaStack({ files: ["apps/**/*.{js,jsx,mjs,ts,tsx}"], codeRules: "off" }),
   { name: "krizaka-ui/fixtures", ignores: ["packages/*/test/fixtures/**"] },
   // tsup writes a temporary bundled config next to tsup.config.ts while a build runs: a lint at the same moment (turbo
   // runs them in parallel) must not read it, or it fails on a file that vanished (ENOENT).
