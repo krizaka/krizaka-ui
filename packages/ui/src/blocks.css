@@ -1968,7 +1968,11 @@ svg[data-bird="beaver"]{--kzb-pivot:60px 56px;--kzb-head-a:kzb-beaver-head 10s e
 @media (max-width: 40rem) { .kz-shop-mascot { width: 40px; height: 40px; } .kz-shop-mascot svg { width: 100%; height: 100%; } }
 /* The look picker's swatch (shop-composer): the look's own surface and accent, drawn by its tokens. */
 .kz-look-swatch { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 4px; width: 100%; min-width: 0; min-height: 40px; padding: 8px; border-radius: 8px; background: var(--kz-shop-surface, var(--kz-surface-0)); color: var(--kz-text-primary, inherit); border: 1px solid var(--kz-border-default); }
+.kz-look-swatch > span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .875rem; font-weight: 600; }
 .kz-look-swatch i { width: 14px; height: 14px; border-radius: 50%; background: var(--kz-accent); display: inline-block; }
 .kz-look-chip { display: inline-flex; }
+/* The shop composer's three columns on a laptop: a folded side panel is a 3rem rail (akinaza#214). */
+button.kz-composer-fold { display: none; flex-shrink: 0; align-self: flex-start; }
+@media (min-width: 1024px) { button.kz-composer-fold { display: inline-flex; } .kz-composer-grid { grid-template-columns: 3rem minmax(0, 1fr) 3rem; } .kz-composer-grid[data-panels~="outline"] { grid-template-columns: 15rem minmax(0, 1fr) 3rem; } .kz-composer-grid[data-panels~="inspector"] { grid-template-columns: 3rem minmax(0, 1fr) 20rem; } .kz-composer-grid[data-panels="outline inspector"] { grid-template-columns: 15rem minmax(0, 1fr) 20rem; } .kz-composer-grid:not([data-panels~="outline"]) > aside:first-child > :not(button), .kz-composer-grid:not([data-panels~="inspector"]) > aside:last-child > :not(button) { display: none; } }
 /* Signed-out-only actions (krizaka-ui#827): the app's head script sets html[data-session] from the readable kz-session hint before the first paint, so a signed-in visitor never sees « Sign in », not even in the static HTML. */
 html[data-session] [data-signed-out-only] { display: none !important; }

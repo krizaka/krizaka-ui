@@ -258,22 +258,20 @@ describe("the composer — folding side panels (akinaza#214)", () => {
   it("starts with the outline open and the inspector folded, so the preview keeps the room", () => {
     setup();
     expect(grid().dataset.panels).toBe("outline");
-    expect(grid().className).toContain("lg:grid-cols-[15rem_minmax(0,1fr)_3rem]");
-    expect(screen.getByRole("button", { name: "Show Section" }).getAttribute("aria-expanded")).toBe("false");
-    expect(screen.getByRole("button", { name: "Hide Sections" }).getAttribute("aria-expanded")).toBe("true");
+    expect(screen.getByRole("button", { name: "Section" }).getAttribute("aria-expanded")).toBe("false");
+    expect(screen.getByRole("button", { name: "Sections" }).getAttribute("aria-expanded")).toBe("true");
   });
 
   it("folds and opens a panel, and remembers the choice for the next visit", async () => {
     const { user, unmount } = setup();
-    await user.click(screen.getByRole("button", { name: "Hide Sections" }));
+    await user.click(screen.getByRole("button", { name: "Sections" }));
     expect(grid().dataset.panels).toBe("");
-    expect(grid().className).toContain("lg:grid-cols-[3rem_minmax(0,1fr)_3rem]");
     unmount();
     setup();
     expect(grid().dataset.panels).toBe("");
-    await userEvent.setup().click(screen.getByRole("button", { name: "Show Section" }));
+    await userEvent.setup().click(screen.getByRole("button", { name: "Section" }));
     expect(grid().dataset.panels).toBe("inspector");
-    expect(JSON.parse(localStorage.getItem("kz-shop-composer-panels")!)).toEqual({ outline: false, inspector: true });
+    expect(localStorage.getItem("kz-shop-composer-panels")).toBe("inspector");
   });
 
   it("opens the inspector when a section is picked by someone who never chose, and keeps it folded for someone who did", async () => {
@@ -281,7 +279,7 @@ describe("the composer — folding side panels (akinaza#214)", () => {
     await first.user.click(rowButtons()[1]!);
     expect(grid().dataset.panels).toBe("outline inspector");
     first.unmount();
-    localStorage.setItem("kz-shop-composer-panels", JSON.stringify({ outline: true, inspector: false }));
+    localStorage.setItem("kz-shop-composer-panels", "outline");
     const second = setup();
     await second.user.click(rowButtons()[1]!);
     expect(grid().dataset.panels).toBe("outline");

@@ -2,7 +2,6 @@
 // chips), then the accent within the chosen look's tested list. It applies to the draft only; publishing goes through the diff.
 import { RadioGroup } from "@krizaka/ui/radio-group";
 
-import { cn } from "../cn";
 import type { ShopPage } from "../shop/schema";
 import type { Command } from "./commands";
 import type { ShopComposerPreset } from "./composer";
@@ -48,8 +47,8 @@ export function LookPicker({ looks, page, messages: m, run, announce }: LookPick
       >
         {looks.map((l) => (
           <RadioGroup.Card key={l.id} value={l.id} className="p-2 pr-9">
-            <span data-shop-preset={l.id} className={cn("kz-look-swatch")}>
-              <span className="min-w-0 max-w-full truncate text-sm font-semibold">{l.name}</span>
+            <span data-shop-preset={l.id} className="kz-look-swatch">
+              <span>{l.name}</span>
               <Chips look={l} />
             </span>
           </RadioGroup.Card>
