@@ -131,6 +131,7 @@ export type ComponentName =
   | "waveform"
   | "proposal"
   | "qr-code"
+  | "identity-card"
   | "entity-header"
   | "collection-switcher"
   | "marketing-layout"

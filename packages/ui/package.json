@@ -253,6 +253,10 @@
       "types": "./dist/qr-code.d.ts",
       "import": "./dist/qr-code.js"
     },
+    "./identity-card": {
+      "types": "./dist/identity-card.d.ts",
+      "import": "./dist/identity-card.js"
+    },
     "./entity-header": {
       "types": "./dist/entity-header.d.ts",
       "import": "./dist/entity-header.js"
@@ -1607,6 +1611,16 @@
     {
       "name": "./proposal (composes Button, Badge and ConfirmButton; krizaka-ui#673)",
       "path": "dist/proposal.js",
+      "limit": "6.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
+      "name": "./identity-card (the card around a QR code)",
+      "path": "dist/identity-card.js",
       "limit": "6.5 kB",
       "gzip": true,
       "ignore": [
