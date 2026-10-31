@@ -160,11 +160,26 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
  */
 export interface OrgFacts {
   brand: { name: string };
+  /**
+   * Every name of the family (`org.family` of `@krizaka/org`, krizaka/krizaka-internal#754): when given, the footer reads
+   * the names and addresses here, never from this package's registry — the company « Krizaka », products by their own
+   * name, libraries « Krizaka <X> ».
+   */
+  family?: readonly OrgFamilyEntry[];
   footer: {
     /** « Une entreprise de Technologies Krizaka · Fait à Montréal ». */
     line: Record<SiteLocale, string>;
     legal: readonly { id: string; label: Record<SiteLocale, string>; url: Record<SiteLocale, string> }[];
   };
+}
+
+/** One entry of `org.family` (`@krizaka/org`), the part the footer reads. */
+export interface OrgFamilyEntry {
+  id: string;
+  name: string;
+  group: SiteGroup;
+  status: "released" | "development";
+  url: string;
 }
 
 /** The family's words with the organisation's facts in them: the place line is the org's, not a copy. */

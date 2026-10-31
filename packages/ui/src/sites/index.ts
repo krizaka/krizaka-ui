@@ -5,6 +5,7 @@ export {
   type FamilyLabels,
   familyLabels,
   type OrgFacts,
+  type OrgFamilyEntry,
   orgFamilyLabels,
   type Site,
   siteById,
@@ -18,3 +19,4 @@ export {
   sitesByGroup,
   type SiteStatus,
 } from "./sites";
+export { familyGroups, orgIdOf } from "./family-groups";

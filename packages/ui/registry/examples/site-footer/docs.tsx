@@ -1,7 +1,7 @@
 import { SiteFooter } from "@krizaka/ui/site-footer";
 import { familyLabels } from "@krizaka/ui/sites";
 
-// The footer of a documentation page: no site block, the columns in one row, the documentation's width, no family.
+// The footer of a documentation page: the same three lines as a site, on the documentation's width.
 export default function SiteFooterDocs() {
   return (
     <SiteFooter

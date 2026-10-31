@@ -1,55 +1,68 @@
-// Client (the marks hold an id). The footer shared by every site of the Krizaka family — one calm band (Cahier, ADR-004;
-// peer review krizaka-ui#434: « too much, a double footer »): the site's own columns and the family's columns side by
-// side — Products · Open source (GitHub with them) · Krizaka (our story, the blog, contact) — then one line, with no
-// rule above it (a bottom bar under the columns read as a second footer, 2026-10-21): the signature (“A Krizaka product”, by the kind of the current site, to www), the version, the place, the legal links.
-// No site block (the bar already names the site), no column that lists only Krizaka, no link twice.
+// Client (the mark holds an id). The footer shared by every site and app of the Krizaka family — compact (founder,
+// 2026-10-30, krizaka/krizaka-internal#754: « des footers de 10 lignes »): at most three lines on a desktop —
+//   1. the site's own links, each group inline (`Docs  Get started · Components`);
+//   2. the family, grouped inline (Products · Open source · Krizaka), names read from `org.family` of `@krizaka/org`;
+//   3. one line: the mark and the org's signature, the version, the legal links, the host's controls (language, theme).
+// On a phone the family's groups fold (`<details>`), the rest wraps. `variant="app"` keeps line 3 only. Same structure on
+// the Cahier sites and the products (`tone`). No link twice, no site block, no names typed here when `org` is given.
 import { Slot } from "radix-ui";
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
-import { FamilyMark } from "../family-mark";
 import { KrizakaLogo } from "../marks/KrizakaLogo";
-import { companyLinks, type FamilyLabels, familyLabels, type OrgFacts, siteById, type SiteId, sitesByGroup } from "../sites/sites";
+import { familyGroups, orgIdOf } from "../sites/family-groups";
+import { companyLinks, type FamilyLabels, familyLabels, type OrgFacts, siteById, type SiteId } from "../sites/sites";
 
 export const siteFooter = tv({
   slots: {
     root: "w-full border-t border-border-subtle bg-surface-0 text-fg",
     inner:
-      "mx-auto grid w-full max-w-[calc(var(--kz-page-max,72rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))] grid-cols-[minmax(0,1fr)] gap-10 px-[var(--kz-page-gutter,clamp(16px,3.2vw,32px))] py-12",
-    band: "grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-flow-col lg:auto-cols-[minmax(0,1fr)]",
-    own: "grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-8",
-    family: "grid grid-cols-2 gap-8 sm:grid-cols-3",
-    column: "grid min-w-0 content-start gap-3",
-    title: "text-[11px] font-semibold text-fg-secondary",
-    list: "grid min-w-0 gap-2",
+      "mx-auto grid w-full max-w-[calc(var(--kz-page-max,72rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))] grid-cols-[minmax(0,1fr)] gap-3 px-[var(--kz-page-gutter,clamp(16px,3.2vw,32px))] py-6",
+    row: "flex min-w-0 flex-wrap items-baseline gap-x-6 gap-y-2",
+    family: "grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 lg:flex lg:flex-wrap lg:items-baseline lg:gap-x-6 lg:gap-y-2",
+    group:
+      "group/fold min-w-0 lg:[&::details-content]:[content-visibility:visible] lg:[&::details-content]:contents lg:[&>summary]:pointer-events-none lg:inline-flex lg:items-baseline lg:gap-2",
+    summary:
+      "flex min-h-11 cursor-pointer list-none items-center justify-between rounded-md text-xs font-semibold text-fg-secondary [&::-webkit-details-marker]:hidden " +
+      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring lg:inline lg:min-h-0 lg:cursor-default",
+    chevron: "size-4 shrink-0 transition-transform group-open/fold:rotate-180 motion-reduce:transition-none lg:hidden",
+    column: "inline-flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1",
+    title: "text-xs font-semibold text-fg-secondary",
+    list: "flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1 pb-2 lg:pb-0",
     link:
-      "inline-flex min-h-6 min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5 rounded-md text-sm [overflow-wrap:anywhere] text-fg-secondary no-underline transition-colors hover:text-fg " +
+      "inline-flex min-h-6 min-w-0 items-center rounded-md text-sm [overflow-wrap:anywhere] text-fg-secondary no-underline transition-colors hover:text-fg " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:text-fg aria-[current=page]:font-semibold aria-[current=true]:text-fg aria-[current=true]:font-semibold",
-    mark: "flex h-4 w-4 shrink-0 items-center justify-center text-fg",
-    tag: "rounded-sm bg-surface-3 px-1.5 py-px text-[10px] font-semibold text-fg-secondary",
-    bottom: "flex flex-wrap items-center gap-x-5 gap-y-3 text-xs text-fg-secondary",
+    bottom: "flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-fg-secondary",
     signature:
       "inline-flex items-center gap-2 rounded-md font-medium text-fg no-underline hover:text-fg-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     version:
       "rounded-sm border border-border-subtle bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-fg-secondary",
-    legal: "flex flex-wrap items-center gap-x-4 gap-y-2 sm:ml-auto",
+    legal: "flex flex-wrap items-center gap-x-4 gap-y-2",
+    controls: "flex flex-wrap items-center gap-2 sm:ml-auto",
   },
   variants: {
-    // `site`: the full footer. `docs`: no site block, the columns in one row, on the documentation's width. `app`: one
-    // slim line inside a signed-in product — signature, version, legal links.
+    // `site`: the three lines. `docs`: the same on the documentation's width. `app`: line 3 only, inside a signed-in product.
     variant: {
       site: {},
       docs: {
-        inner: "max-w-[calc(var(--kz-page-max-docs,88rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))] gap-6 py-8",
-        own: "sm:grid-cols-4",
+        inner: "max-w-[calc(var(--kz-page-max-docs,88rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))]",
       },
       app: {
         root: "bg-transparent",
-        inner: "gap-0 py-3",
+        inner: "py-3",
+      },
+    },
+    // `product`: the products' plain Krizaka UI. `cahier`: the Cahier sites (www, blog, ui., java., ts., lab.) — the
+    // headings in the Cahier's hand; the structure is the same.
+    tone: {
+      product: {},
+      cahier: {
+        title: "font-[family-name:var(--kz-font-display,inherit)] italic",
+        summary: "font-[family-name:var(--kz-font-display,inherit)] italic",
       },
     },
   },
-  defaultVariants: { variant: "site" },
+  defaultVariants: { variant: "site", tone: "product" },
 });
 
 const bare = (p: string) => p.replace(/^\/(en|fr)(?=\/|$)/, "").replace(/\/+$/, "") || "/";
@@ -71,15 +84,18 @@ function backToTop(event: React.MouseEvent<HTMLAnchorElement>) {
   window.scrollTo({ top: 0, behavior: "auto" });
 }
 
+type Tone = "product" | "cahier";
+const ToneContext = React.createContext<Tone>("product");
+
 export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> & {
-  /** The site this footer belongs to (`@krizaka/ui/sites`): its mark and line, its signature, marked in the family. */
+  /** The site this footer belongs to (`@krizaka/ui/sites`): marked in the family, its address for `path`. */
   current: SiteId;
   /**
    * The family's words, passed translated: `familyLabels.fr` from `@krizaka/ui/sites`, or your own of the same shape.
    * @default familyLabels.en
    */
   labels?: FamilyLabels;
-  /** The site's own columns (`SiteFooter.Column`), before the family. */
+  /** The site's own link groups (`SiteFooter.Column`), on the first line. */
   children?: React.ReactNode;
   /** The version the site runs (`1.2.3`, shown `v1.2.3`). */
   version?: string;
@@ -87,40 +103,38 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
   env?: string;
   /**
    * The path of the page being read on this site (`/en/story`, `/blog/…`): the company link that points to this very
-   * page says so (`aria-current="page"`, a visible state) and a click on it scrolls to the top instead of reloading.
+   * page says so (`aria-current="page"`) and a click on it scrolls to the top instead of reloading.
    */
   path?: string;
   /**
-   * Shows the family in columns. Only the hub, krizaka.com, lists the family: every other site (ui., java., the blog, the
-   * products) holds its own columns, the legal links, the version and one quiet publisher line — “A Krizaka project” —
-   * that links back to www.krizaka.com, the only way back between the sites (2026-10-22).
-   * @default current === "krizaka"
+   * Shows the family on the second line, folded on a phone. The links to the other sites live on krizaka.com only
+   * (founder rule, 2026-10-30): every other site and its documentation opts in on purpose, none by default.
+   * @default current === "krizaka" (and never in `variant="app"`)
    */
   family?: boolean;
-  /**
-   * The hub's product list: only these products appear in the Products column (krizaka.com shows its focus products,
-   * and all of them once the reader asks for the whole notebook). Omit it to list every product.
-   */
+  /** Only these products in the Products group (the current site always kept). Omit it to list every product. */
   products?: readonly SiteId[];
   /**
-   * The organisation's public facts (`org` of `@krizaka/org`). The signature line is then `org.footer.line` — « Une
-   * entreprise de Technologies Krizaka · Fait à Montréal », the same on every site — and, when `legal` is not given, the
-   * legal links are `org.footer.legal`, in the language of `labels`. No site writes these lines by hand.
+   * The organisation's public facts (`org` of `@krizaka/org`) — pass them on every site. The names and addresses of the
+   * family are then `org.family`, the signature is `org.footer.line` (« Une entreprise de Technologies Krizaka · Fait à
+   * Montréal », the same everywhere) and, without `legal`, the legal links are `org.footer.legal`.
    */
   org?: OrgFacts;
-  /** The end of the signature line: legal links, a language switch (`SiteFooter.Link`s or any inline content). */
+  /** The legal links, when not the org's (`SiteFooter.Link`s). */
   legal?: React.ReactNode;
+  /** The host's controls at the end of the last line: the language switch, the theme toggle. */
+  controls?: React.ReactNode;
   /**
-   * `site` — the full footer of a marketing or company site. `docs` — a compact one for documentation pages (no site
-   * block, the columns in a row, the documentation's width; never the family). `app` — one slim line inside a signed-in
-   * product: the publisher line, the version and the legal links (no columns, no family); render it once, in the
-   * layout, and not at all where the app shell has a sidebar that holds them.
+   * `site` — every public site. `docs` — the same under documentation, on its width. `app` — inside a signed-in product:
+   * the last line only; render it once, in the layout.
    * @default "site"
    */
   variant?: "site" | "docs" | "app";
+  /** `cahier` on the Cahier sites (www, blog, ui., java., ts., lab.), `product` in the products. @default "product" */
+  tone?: Tone;
 };
 
-/** The footer of a Krizaka site, one band: its own columns and the family's, then one line — signature, version, Montréal, legal. */
+/** The footer of a Krizaka site or app: at most three lines — its links, the family, then signature · version · legal. */
 export function SiteFooter({
   current,
   labels = familyLabels.en,
@@ -129,21 +143,24 @@ export function SiteFooter({
   env,
   path,
   legal: legalProp,
+  controls,
   org,
   family: familyProp,
   products,
   variant = "site",
+  tone = "product",
   className,
   ...props
 }: SiteFooterProps) {
   const id = React.useId();
-  const s = siteFooter({ variant });
-  const family = variant === "site" && (familyProp ?? current === "krizaka");
+  const s = siteFooter({ variant, tone });
   const slim = variant === "app";
+  const family = !slim && (familyProp ?? current === "krizaka");
   const site = siteById(current);
   const krizaka = siteById("krizaka");
+  const currentId = orgIdOf(current);
   const tag = [env, version && `v${version.replace(/^v/, "")}`].filter(Boolean).join(" · ");
-  const own = React.Children.toArray(children).length > 0;
+  const own = !slim && React.Children.toArray(children).length > 0;
   const lang = labels.lang ?? "en";
   const company = labels.company ?? familyLabels.en.company!;
   const legal =
@@ -158,103 +175,100 @@ export function SiteFooter({
       </>
     ));
   const here = (href: string) => path !== undefined && isThisPage(href, site.url, path);
-  // Products · Open source (GitHub, every repository, closes it) · Krizaka (the company's pages): three columns, no
-  // column that lists only Krizaka.
-  const groups = sitesByGroup();
+  const productIds = products?.map(orgIdOf);
+  // Products · Open source (GitHub closes it) · Krizaka (the company's pages; its home is the signature's link).
+  const groups = familyGroups(org);
   const columns = [
-    ...groups.filter((g) => g.group === "products").map((g) => (products ? { ...g, sites: g.sites.filter((x) => products.includes(x.id) || x.id === current) } : g)),
-    { group: "open-source" as const, sites: groups.filter((g) => g.group === "open-source" || g.group === "github").flatMap((g) => g.sites) },
+    ...groups
+      .filter((g) => g.group === "products")
+      .map((g) => ({ ...g, entries: productIds ? g.entries.filter((e) => productIds.includes(e.id) || e.id === currentId) : g.entries })),
+    { group: "open-source" as const, entries: groups.filter((g) => g.group === "open-source" || g.group === "github").flatMap((g) => g.entries) },
   ];
+  const companyEntries = companyLinks.map((l) => ({ id: l.id, name: company[l.id], url: l.url[lang] }));
   return (
-    <footer className={s.root({ className })} {...props}>
-      <div className={s.inner()}>
-        {!slim && (own || family) && (
-          <div className={s.band()}>
-            {own && <div className={s.own()}>{children}</div>}
-            {family && (
-              <nav aria-label={labels.family} className={s.family()}>
-                {columns.map(({ group, sites }) => (
-                  <div key={group} className={s.column()}>
-                    <p id={`${id}-${group}`} className={s.title()}>
-                      {labels.groups[group]}
-                    </p>
-                    <ul aria-labelledby={`${id}-${group}`} className={s.list()}>
-                      {sites.map((item) => (
-                        <li key={item.id}>
-                          <a href={item.url} aria-current={item.id === current ? "true" : undefined} className={s.link()}>
-                            <span className={s.mark()}>
-                              <FamilyMark mark={item.mark} size={16} />
-                            </span>
-                            {item.name}
-                            {item.status !== "released" && <span className={s.tag()}>{labels.status[item.status]}</span>}
-                            {item.id === current && <span className="sr-only">({labels.current})</span>}
-                          </a>
-                        </li>
-                      ))}
+    <ToneContext.Provider value={tone}>
+      <footer className={s.root({ className })} {...props}>
+        <div className={s.inner()}>
+          {own && <div className={s.row()}>{children}</div>}
+          {family && (
+            <nav aria-label={labels.family} className={s.family()}>
+              {[
+                ...columns.map((c) => ({ key: c.group, title: labels.groups[c.group], entries: c.entries })),
+                { key: "krizaka" as const, title: labels.groups.krizaka, entries: companyEntries },
+              ]
+                .filter((c) => c.entries.length > 0)
+                .map((c) => (
+                  <details key={c.key} className={s.group()}>
+                    <summary id={`${id}-${c.key}`} className={s.summary()}>
+                      {c.title}
+                      <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className={s.chevron()}>
+                        <path d="M4 6l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </summary>
+                    <ul aria-labelledby={`${id}-${c.key}`} className={s.list()}>
+                      {c.entries.map((e) => {
+                        const isCompany = c.key === "krizaka";
+                        const atHome = isCompany && here(e.url);
+                        const isCurrent = !isCompany && e.id === currentId;
+                        return (
+                          <li key={e.id}>
+                            <a
+                              href={e.url}
+                              aria-current={atHome ? "page" : isCurrent ? "true" : undefined}
+                              onClick={atHome ? backToTop : undefined}
+                              className={s.link()}
+                            >
+                              {e.name}
+                              {isCurrent && <span className="sr-only"> ({labels.current})</span>}
+                            </a>
+                          </li>
+                        );
+                      })}
                     </ul>
-                  </div>
+                  </details>
                 ))}
-                <div className={s.column()}>
-                  <p id={`${id}-krizaka`} className={s.title()}>
-                    {labels.groups.krizaka}
-                  </p>
-                  <ul aria-labelledby={`${id}-krizaka`} className={s.list()}>
-                    {companyLinks.map((l) => (
-                      <li key={l.id}>
-                        <a
-                          href={l.url[lang]}
-                          aria-current={here(l.url[lang]) ? "page" : undefined}
-                          onClick={here(l.url[lang]) ? backToTop : undefined}
-                          className={s.link()}
-                        >
-                          {company[l.id]}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </nav>
-            )}
-          </div>
-        )}
-        <div className={s.bottom()}>
-          <a href={krizaka.url} className={s.signature()}>
-            <KrizakaLogo size={18} animated={false} />
-            {org ? org.footer.line[lang] : labels.signature[site.kind]}
-          </a>
-          {tag && (
-            <span className={s.version()}>
-              <span className="sr-only">{labels.version} </span>
-              {tag}
-            </span>
+            </nav>
           )}
-          {!slim && !org && <span>{labels.place}</span>}
-          {legal && <div className={s.legal()}>{legal}</div>}
+          <div className={s.bottom()}>
+            <a href={krizaka.url} className={s.signature()}>
+              <KrizakaLogo size={18} animated={false} />
+              {org ? org.footer.line[lang] : `${labels.signature[site.kind]} · ${labels.place}`}
+            </a>
+            {tag && (
+              <span className={s.version()}>
+                <span className="sr-only">{labels.version} </span>
+                {tag}
+              </span>
+            )}
+            {legal && <div className={s.legal()}>{legal}</div>}
+            {controls && <div className={s.controls()}>{controls}</div>}
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </ToneContext.Provider>
   );
 }
 
 export type SiteFooterColumnProps = Omit<React.ComponentProps<"div">, "title"> & {
-  /** The column's heading (“Docs”) — passed translated. */
+  /** The group's heading (“Docs”) — passed translated. */
   title: string;
   /** Its links (`SiteFooter.Link`). */
   children: React.ReactNode;
 };
 
-/** One of the site's own columns: a heading and its links. */
+/** One of the site's own link groups, inline on the first line: its heading, then its links. */
 export function SiteFooterColumn({ title, children, className, ...props }: SiteFooterColumnProps) {
   const id = React.useId();
-  // A group with no link is not a column: only a heading over nothing.
+  const tone = React.useContext(ToneContext);
+  // A group with no link is not a group: only a heading over nothing.
   if (React.Children.toArray(children).length === 0) return null;
-  const s = siteFooter();
+  const s = siteFooter({ tone });
   return (
     <div className={s.column({ className })} {...props}>
       <p id={id} className={s.title()}>
         {title}
       </p>
-      <ul aria-labelledby={id} className={s.list()}>
+      <ul aria-labelledby={id} className={s.list({ className: "pb-0" })}>
         {React.Children.toArray(children).map((child, i) => <li key={i}>{child}</li>)}
       </ul>
     </div>

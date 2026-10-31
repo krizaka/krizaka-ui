@@ -5,7 +5,7 @@ import { familyLabels } from "@krizaka/ui/sites";
 // from `familyLabels.fr`.
 export default function SiteFooterOpenSourceFr() {
   return (
-    <SiteFooter current="ui" labels={familyLabels.fr} version="3.9.0">
+    <SiteFooter current="ui" tone="cahier" labels={familyLabels.fr} version="3.9.0">
       <SiteFooter.Column title="Documentation">
         <SiteFooter.Link href="#start">Démarrer</SiteFooter.Link>
         <SiteFooter.Link href="#foundations">Fondations</SiteFooter.Link>
