@@ -1,12 +1,13 @@
 import { SiteFooter } from "@krizaka/ui/site-footer";
 import { familyLabels } from "@krizaka/ui/sites";
 
-// www.krizaka.com: “A Krizaka company” — the family's columns already hold the company's pages (story, blog, contact),
-// so www adds no column of its own; the legal links end the signature line.
+// www.krizaka.com, a Cahier site: the family line already holds the company's pages (story, blog, contact), so www adds
+// no link of its own; two lines — the family, then the signature and the legal links.
 export default function SiteFooterCompany() {
   return (
     <SiteFooter
       current="krizaka"
+      tone="cahier"
       labels={familyLabels.en}
       legal={
         <>

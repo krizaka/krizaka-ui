@@ -55,8 +55,8 @@ describe("SiteFooter", () => {
       const only = Array.from(list.querySelectorAll("a")).map((a) => a.getAttribute("href"));
       expect(only).not.toEqual(["https://www.krizaka.com"]);
     }
-    // The band, then the line: two children in the frame, not three bands.
-    expect(footer.firstElementChild!.children).toHaveLength(2);
+    // Compact (krizaka/krizaka-internal#754): at most three lines — the site's links, the family, the signature line.
+    expect(footer.firstElementChild!.children).toHaveLength(3);
   });
 
   it("the company's pages open in the reader's language", () => {
@@ -66,14 +66,14 @@ describe("SiteFooter", () => {
     expect(within(company).getByRole("link", { name: "Nous écrire" }).getAttribute("href")).toBe("https://www.krizaka.com/fr/contact");
   });
 
-  it("marks the current site and says the statuses in words", () => {
+  it("marks the current site in words, and lists names only (the statuses live in the switcher and the product pages)", () => {
     render(<Footer />);
     const family = screen.getByRole("navigation", { name: "Krizaka family" });
     const current = within(family).getByRole("link", { name: /Orazaka/ });
     expect(current.getAttribute("aria-current")).toBe("true");
     expect(current.textContent).toContain("You are here");
-    expect(within(family).getByRole("link", { name: /Yomizaka/ }).textContent).toContain("In development");
-    expect(within(family).getByRole("link", { name: /Akinaza/ }).textContent).toContain("In development");
+    expect(within(family).getByRole("link", { name: /Yomizaka/ }).textContent).toBe("Yomizaka");
+    expect(within(family).getByRole("link", { name: /Akinaza/ }).textContent).toBe("Akinaza");
   });
 
   it("renders the site's own columns, the signature by kind, the version and Montréal", () => {
@@ -82,7 +82,7 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("link", { name: "How it works" }).getAttribute("aria-current")).toBe("page");
     expect(screen.getByRole("link", { name: /A Krizaka product/ }).getAttribute("href")).toBe("https://www.krizaka.com");
     expect(screen.getByText("DEV · v1.2.3")).toBeTruthy();
-    expect(screen.getByText("Made in Montréal")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "A Krizaka product · Made in Montréal" })).toBeTruthy();
   });
 
   it.each([
@@ -99,8 +99,16 @@ describe("SiteFooter", () => {
     const family = screen.getByRole("navigation", { name: "Famille Krizaka" });
     expect(within(family).getByRole("list", { name: "Produits" })).toBeTruthy();
     expect(screen.getByRole("link", { name: /Un projet open source de Krizaka/ })).toBeTruthy();
-    expect(screen.getByText("Fait à Montréal")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Un projet open source de Krizaka · Fait à Montréal" })).toBeTruthy();
     expect(screen.getByRole("link", { name: "Confidentialité" })).toBeTruthy();
+  });
+
+  it("shows the family by default on krizaka.com only (founder rule: links to the other sites live there)", () => {
+    const { unmount } = render(<SiteFooter current="orazaka" />);
+    expect(screen.queryByRole("navigation", { name: "Krizaka family" })).toBeNull();
+    unmount();
+    render(<SiteFooter current="krizaka" />);
+    expect(screen.getByRole("navigation", { name: "Krizaka family" })).toBeTruthy();
   });
 
   it("with family={false} holds no family column and no link to another site, only the publisher line", async () => {
@@ -147,11 +155,39 @@ describe("SiteFooter", () => {
     expect(within(screen.getByRole("list", { name: "Akinaza" })).getAllByRole("listitem")).toHaveLength(1);
   });
 
-  it("the site's own columns share the row (auto-fit), never a fixed 2/3-column grid that leaves empty cells", () => {
+  it("the site's own groups sit inline on one wrapping line, never in stacked columns (« des footers de 10 lignes », #754)", () => {
     const { container } = render(<Footer family={false} />);
-    const own = container.querySelector("footer ul")!.parentElement!.parentElement!;
-    expect(own.className).toContain("auto-fit");
-    expect(own.className).not.toMatch(/grid-cols-2|sm:grid-cols-3/);
+    const group = container.querySelector("footer ul")!.parentElement!;
+    const row = group.parentElement!;
+    expect(row.className).toMatch(/flex-wrap/);
+    expect(group.className).toMatch(/inline-flex/);
+    expect(container.querySelector("footer ul")!.className).toMatch(/flex-wrap/);
+  });
+
+  it("folds the family's groups on a phone (details/summary) and opens them as one line on a desktop", () => {
+    const { container } = render(<Footer />);
+    const groups = Array.from(container.querySelectorAll("nav details"));
+    expect(groups.map((d) => d.querySelector("summary")!.textContent)).toEqual(["Products", "Open source", "Krizaka"]);
+    for (const d of groups) {
+      expect(d.hasAttribute("open")).toBe(false);
+      expect(d.className).toMatch(/lg:\[&::details-content\]:\[content-visibility:visible\]/);
+    }
+  });
+
+  it("reads the family's names and addresses from `org.family` when the host passes it", () => {
+    const family = [
+      { id: "krizaka", name: "Krizaka", group: "krizaka", status: "released", url: "https://www.krizaka.com" },
+      { id: "yomizaka", name: "Yomizaka", group: "products", status: "development", url: "https://www.yomizaka.com" },
+      { id: "ts", name: "Krizaka TypeScript", group: "open-source", status: "released", url: "https://ts.krizaka.com" },
+      { id: "lab", name: "Krizaka Lab", group: "open-source", status: "development", url: "https://lab.krizaka.com" },
+    ] as const;
+    render(<SiteFooter current="motion" family org={{ ...org, family }} />);
+    const nav = screen.getByRole("navigation", { name: "Krizaka family" });
+    expect(within(within(nav).getByRole("list", { name: "Open source" })).getAllByRole("link").map((a) => a.textContent)).toEqual([
+      "Krizaka TypeScript",
+      "Krizaka Lab (You are here)",
+    ]);
+    expect(within(nav).queryByRole("link", { name: /Orazaka/ })).toBeNull();
   });
 
   it("footer text uses the readable tokens only (fg / fg-secondary), never the muted or an unset colour", () => {
@@ -191,11 +227,11 @@ describe("SiteFooter", () => {
       expect(screen.queryByRole("navigation", { name: "Krizaka family" })).toBeNull();
     });
 
-    it("docs: the site's columns without the site block, never the family, one contentinfo", async () => {
+    it("docs: the same three lines as a site (the family included, #754), one contentinfo", async () => {
       const { container } = render(<Footer variant="docs" family legal={legal} />);
       expect(screen.getAllByRole("contentinfo")).toHaveLength(1);
       expect(screen.getByRole("list", { name: "Orazaka" })).toBeTruthy();
-      expect(screen.queryByRole("navigation", { name: "Krizaka family" })).toBeNull();
+      expect(screen.getByRole("navigation", { name: "Krizaka family" })).toBeTruthy();
       expect(screen.queryByText(labelsDescription())).toBeNull();
       expect(screen.getByRole("link", { name: /A Krizaka product/ })).toBeTruthy();
       expect(await axeViolations(container)).toEqual([]);
@@ -231,13 +267,12 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("link", { name: familyLabels.en.company!.story }).getAttribute("aria-current")).toBeNull();
   });
 
-  it("lists the family on the hub only: every other site links back to krizaka.com and nothing else (2026-10-22)", () => {
-    const { unmount } = render(<SiteFooter current="ui" />);
-    expect(screen.queryByRole("navigation", { name: /family|famille/i })).toBeNull();
-    expect(screen.getAllByRole("link").map((a) => a.getAttribute("href"))).toEqual(["https://www.krizaka.com"]);
+  it("an opted-in site lists the family; without it only the link back to krizaka.com remains", () => {
+    const { unmount } = render(<SiteFooter current="ui" family />);
+    expect(screen.getAllByRole("navigation", { name: "Krizaka family" })).toHaveLength(1);
     unmount();
-    render(<SiteFooter current="krizaka" />);
-    expect(screen.getAllByRole("navigation").length).toBe(1);
+    render(<SiteFooter current="ui" />);
+    expect(screen.getAllByRole("link").map((a) => a.getAttribute("href"))).toEqual(["https://www.krizaka.com"]);
   });
 
   it("filters the hub's Products column with `products` (the focus products), the current site always kept", () => {

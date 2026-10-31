@@ -1,10 +1,12 @@
 /** @krizaka/ui/sites — the Krizaka family as data: `sites`, `siteGroups`, `siteById`, `sitesByGroup`, `familyLabels`. Server-safe. */
+export { familyGroups, orgIdOf } from "./family-groups";
 export {
   type CompanyLinkId,
   companyLinks,
   type FamilyLabels,
   familyLabels,
   type OrgFacts,
+  type OrgFamilyEntry,
   orgFamilyLabels,
   type Site,
   siteById,

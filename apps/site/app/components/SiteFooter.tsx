@@ -10,7 +10,7 @@ import { packageVersion } from "@/lib/package-version";
 import { localePath } from "@/lib/urls";
 
 /* The footer every Krizaka site shares (@krizaka/ui/site-footer, NAV-SYS): the org line (@krizaka/org), the
-   version of @krizaka/ui this site was built from (linking /changelog#<version>), the family in columns — and this site's own column first. */
+   version of @krizaka/ui this site was built from (linking /changelog#<version>), the family on one line — and this site's own links first (three lines, krizaka-internal#754). */
 export async function SiteFooter({ locale }: { locale: Locale }) {
   const t = getDictionary(locale).site;
   const entries = (await loadReleases()).map(releaseId);
@@ -23,6 +23,7 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
   return (
     <FamilyFooter
       current="ui"
+      tone="cahier"
       labels={familyLabels[locale]}
       org={org}
       legal={
