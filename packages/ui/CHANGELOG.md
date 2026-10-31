@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 3.78.1
+
+### Patch Changes
+
+- Updated dependencies [[`0caeef8`](https://github.com/krizaka/krizaka-ui/commit/0caeef8fdf1421831de42a5ec18a0b24680029e8)]:
+  - @krizaka/pacer@0.2.0
+  - @krizaka/tailwind@3.78.1
+  - @krizaka/tokens@3.78.1
+
 ## 3.78.0
 
 ### Minor Changes

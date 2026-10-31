@@ -1,5 +1,11 @@
 # @krizaka/pacer
 
+## 0.2.0
+
+### Minor Changes
+
+- [#915](https://github.com/krizaka/krizaka-ui/pull/915) [`0caeef8`](https://github.com/krizaka/krizaka-ui/commit/0caeef8fdf1421831de42a5ec18a0b24680029e8) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `mapConcurrent(items, task, { concurrency, signal })`: one task per item, at most `concurrency` at once (default 3), every outcome kept in the items' order (a failure never stops the others). For « upload these photos, then save once » — the forms stop hand-writing a sequential loop.
+
 ## 0.1.0
 
 ### Minor Changes
