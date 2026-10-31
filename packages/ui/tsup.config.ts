@@ -82,6 +82,7 @@ export default defineConfig([
       progress: "src/progress/index.ts",
       waveform: "src/waveform/index.ts",
       "qr-code": "src/qr-code/index.ts",
+      "identity-card": "src/identity-card/index.ts",
       "section-backdrop": "src/section-backdrop/index.ts",
       stepper: "src/stepper/index.ts",
       "chip-link": "src/chip-link/index.ts",

@@ -54,6 +54,7 @@ export const PLANNED: Record<string, string> = {
   wall: "Akinaza's shop pages: the owner's photos, short notes and logo on a textured wall (krizaka/akinaza#236, krizaka-ui#537).",
   "notification-preferences": "Akinaza's and Yomizaka's account baseline (notifications) (krizaka-ui#515).",
   "qr-code": "Akinaza's Boutique › Agenda: the owner scans the private calendar feed from the phone (krizaka/akinaza#282, krizaka-ui#760).",
+  "identity-card": "Akinaza's business sheet: the shop's legal and trade names, registration number and a vCard QR code, above the numbers an owner copies (krizaka/akinaza#497).",
   "entity-header": "Akinaza's multi-shop and the collections of Yomizaka and Akinaza: the head of one shop or collection (ADR-006, krizaka-ui#740).",
   "collection-switcher": "Akinaza's multi-shop switcher and the collections of a workspace (ADR-006, krizaka-ui#740).",
   "quota-meter": "Yomizaka's library quota and Akinaza's plan (krizaka-ui#515).",
