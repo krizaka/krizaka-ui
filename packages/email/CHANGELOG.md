@@ -1,5 +1,11 @@
 # @krizaka/email
 
+## 0.5.0
+
+### Minor Changes
+
+- [#924](https://github.com/krizaka/krizaka-ui/pull/924) [`c7855d8`](https://github.com/krizaka/krizaka-ui/commit/c7855d88f52ef969413c8082c6c222244f375637) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - New `bookingReceipt` template (krizaka-internal#1910): the e-mail of a confirmed booking - business, service, when, who, where, the price line as the screen shows it (taxes included), the cancellation rule for that visit, and a button to the booking. EN/FR, branded.
+
 ## 0.4.0
 
 ### Minor Changes
