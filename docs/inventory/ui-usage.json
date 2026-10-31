@@ -2,7 +2,7 @@
   "generated": "2026-10-28",
   "package": {
     "name": "@krizaka/ui",
-    "version": "3.76.1",
+    "version": "3.78.1",
     "distMeasured": "packages/ui/dist (@krizaka/ui@3.76.1)"
   },
   "consumers": [
@@ -52,7 +52,7 @@
       "absent": false,
       "head": null,
       "sha": null,
-      "files": 162
+      "files": 158
     },
     {
       "name": "java-site",
@@ -191,6 +191,7 @@
         "glow-card",
         "goal-gauge",
         "grade-stamp",
+        "identity-card",
         "kind-config-editor",
         "landscape",
         "link-card",
@@ -1933,18 +1934,45 @@
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
+        "identity-card",
         "native"
       ],
       "issue": null,
       "mergeInto": null,
       "sizeGzip": 8434,
       "budget": 9000,
-      "tests": 2,
+      "tests": 3,
       "stories": 2,
       "lastChange": "2026-10-29",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "2 live importer file(s)"
+    },
+    {
+      "pkg": "ui",
+      "name": "identity-card",
+      "kind": "entry",
+      "title": "Identity card",
+      "category": "data-display",
+      "status": "beta",
+      "domain": "identity",
+      "adoption": null,
+      "importers": {},
+      "nativeUse": {},
+      "live": 0,
+      "paused": 0,
+      "pausedBy": [],
+      "builtOnBy": [],
+      "issue": null,
+      "mergeInto": null,
+      "sizeGzip": null,
+      "budget": 6500,
+      "tests": 1,
+      "stories": 1,
+      "lastChange": "2026-10-31",
+      "created": "2026-10-31",
+      "verdict": "ask",
+      "why": "unused, new (2026-10-31): its adoption issue?"
     },
     {
       "pkg": "ui",
