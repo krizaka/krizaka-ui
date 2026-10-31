@@ -44,7 +44,6 @@ jobs:
           branch="$INPUT_BRANCH"
           case "$branch" in
             ""|main|production|refs/*|-*|*..*) echo "::error::Refusing branch '$branch'."; exit 1;;
-            *) ;;
           esac
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7

@@ -46,7 +46,7 @@ ui.krizaka.com), in dark and light:
 **Why E.** Hue 208 is the exact complement of the Orazaka orange (26 + 182): the parent still frames its products
 without competing with them, now by construction. A saturation under 60 % turns « tech blue » into ink and steel, the
 material of the shield in the mark. It stays a blue (the family recognises its parent), ≥ 20° from Yomizaka's indigo and
-apart from Orochia's violet; Kachizaka's cobalt (226) still never leads alone.
+apart from a former product's violet; a former product's cobalt (226) still never leads alone.
 
 | Role | Dark | Light |
 | :-- | :-- | :-- |
@@ -59,8 +59,8 @@ apart from Orochia's violet; Kachizaka's cobalt (226) still never leads alone.
 | products' `info` | `hsl(207 50% 58%)` | `hsl(208 54% 36%)` |
 
 The Krizaka mark follows (its node and core are `marks.krizaka` = accent → accent-text; its highlight `#ddeaf4`), so
-the brand export (`tools/export-brand.mjs`) is re-run. The products' own colours (Orazaka orange, Orochia violet,
-Yasakia, Yororis, Yomizaka, Kachizaka, Akinaza) do not change.
+the brand export (`tools/export-brand.mjs`) is re-run. The products' own colours (Orazaka orange, a former product violet,
+the former products, Yomizaka, a former product, Akinaza) do not change.
 
 ### One button shape
 
@@ -96,5 +96,5 @@ scales or glows; no light follows the pointer. The keyboard focus is a 2 px ring
 ## Refused
 
 - **Keeping the chamfer only on the primary action** — the founder found it not beautiful, not just overused.
-- **A violet or teal accent** — violet is Orochia's; teal/green sits near Yasakia, Akinaza and the success status.
+- **A violet or teal accent** — violet is a former product's; teal/green sits near a former product, Akinaza and the success status.
 - **A hover that lifts by 1 px** — still movement; a grid of cards still shifts under a passing mouse.

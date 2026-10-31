@@ -62,6 +62,6 @@ test("cuts the orbit and ring as React renders them (open and close tags)", () =
 
 test("names the files of the zone the export no longer produces (a brand that left)", () => {
   const files = new Map([["brand/krizaka/logo-dark.svg", Buffer.from("")], ["brand/manifest.json", Buffer.from("")]]);
-  const listed = ["brand/orochia/logo-dark.svg", "brand/krizaka/logo-dark.svg", "brand/manifest.json", "people/defaults/v1/yororis/person-1.svg"];
-  assert.deepEqual(stalePaths(listed, files), ["brand/orochia/logo-dark.svg", "people/defaults/v1/yororis/person-1.svg"]);
+  const listed = ["brand/retired/logo-dark.svg", "brand/krizaka/logo-dark.svg", "brand/manifest.json", "people/defaults/v1/retired/person-1.svg"];
+  assert.deepEqual(stalePaths(listed, files), ["brand/retired/logo-dark.svg", "people/defaults/v1/retired/person-1.svg"]);
 });

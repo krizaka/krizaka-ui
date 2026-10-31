@@ -146,11 +146,11 @@ All in `@krizaka/tokens`, read through `--kz-*`.
 
 | App | `rounded-*` | radius | lift | Expected |
 | :-- | --: | --: | --: | :-- |
-| orochia | 425 | 5 | 5 | the largest: its own cards keep their local radius until its dispatch |
+| a former product | 425 | 5 | 5 | the largest: its own cards keep their local radius until its dispatch |
 | orazaka-web-client | 157 | 5 | 0 | follows; `kz-sheen` removed |
 | yomizaka | 37 | 1 | 0 | follows with no code change: the first consumer |
 | akinaza | 33 | 0 | 0 | follows; its public pages keep the paper |
-| yasakia / kachizaka / yororis | 19 / 10 / 6 | 0 / 0 / 8 | 0 / 0 / 1 | follow |
+| the former products | 19 / 10 / 6 | 0 / 0 / 8 | 0 / 0 / 1 | follow |
 | krizaka-com / krizaka-blog | 2 / 0 | 36 / 19 | 1 / 0 | **unchanged** (Cahier register) |
 
 - Inside `@krizaka/ui`, the primitives read the radius roles (219 `rounded-*` uses in `src`, 55 radius rules in
@@ -296,10 +296,10 @@ example against this list.
 | `@krizaka/ui` 3.55, tokens and fonts minors | #669 tokens, #670 fonts, #674 deprecations, #659 focus ring | Yomizaka and Akinaza bump |
 | 3.56 | #640 the family top bar, #636 phone list rows, #648 binder tabs, #651 `StatGrid variant="strip"`, #641 usage | **Yomizaka P0 adoption**, Akinaza |
 | 3.57 | #657 Appearance and the themes, #672 SlotPicker, #627 tags and filters, #653 templates, #650 profile banner, #675 merges | **Akinaza P1 adoption**, Orazaka web |
-| 3.58 | #671 the wordmark (after Oussama's choice), #673 proposal | krizaka.com, the blog, Orochia |
+| 3.58 | #671 the wordmark (after Oussama's choice), #673 proposal | krizaka.com, the blog, a former product |
 | 4.0 | #676 the removals and the codemods | every app |
 
-There is one dispatch issue per app: Yomizaka, Akinaza, Orazaka web, krizaka.com, the blog, Orochia. Each bumps
+There is one dispatch issue per app: Yomizaka, Akinaza, Orazaka web, krizaka.com, the blog, a former product. Each bumps
 `@krizaka/ui`, adopts what its release brings, and deletes its local copy.
 
 ## Consequences
@@ -315,9 +315,9 @@ There is one dispatch issue per app: Yomizaka, Akinaza, Orazaka web, krizaka.com
 Counts are the number of files importing the entry in each repository's `main`.
 
 **Products:**
-- Yo yomizaka · Ak akinaza · Oz orazaka-web-client · Or orochia · Ya yasakia · Yr yororis · Ka kachizaka;
-- the mobile apps: OrM orochia-mobile · OzM orazaka-mobile-client · YaM yasakia-mobile · YrM yororis-mobile;
-- the kits: OzKit orazaka-ui-kit · OrDS orochia-design-system.
+- Yo yomizaka · Ak akinaza · Oz orazaka-web-client;
+- the mobile apps: OzM orazaka-mobile-client;
+- the kits: OzKit orazaka-ui-kit.
 
 **Sites:**
 - www krizaka-com · blog · ui (ui.krizaka.com, `apps/site`) · java (krizaka-build/site) · ts · motion;
@@ -351,7 +351,7 @@ ThemeProvider 29, Screen 29, Card 29, Badge 24, EmptyState 20, Header 19…). Al
 | `stat` | Oz 4 Ak 3 Ya 3 Yo 2 Or 2 Yr 1 Ka 1 | motion 4 blog 2 www 1 | **keep** | keep: `StatGrid variant="strip"` (#651), absorbs kpi-explained |
 | `kpi-explained` | — | — | **merge** (#675) | into stat (`Stat explain`, akinaza#260) |
 | `page-header` | Ak 14 Yo 10 Ya 7 Or 1 Yr 1 | — | **keep** | keep: products |
-| `notification-preferences` | — | — | **keep** | keep: orochia-mobile#37, the settings of every app |
+| `notification-preferences` | — | — | **keep** | keep: a former product's issue, the settings of every app |
 | `agenda` | Ak 1 | — | **keep** | keep: products |
 | `quota-meter` | — | — | **merge** (#675) | into meter (`Meter` with a quota label) |
 | `alert` | Yo 38 Ak 32 Ya 15 Oz 12 Yr 10 Ka 8 | blog 1 | **keep** | keep: products |
@@ -446,7 +446,7 @@ ThemeProvider 29, Screen 29, Card 29, Badge 24, EmptyState 20, Header 19…). Al
 | `specimen-tag` | — | www 4 | **keep** | keep: sites (Cahier) |
 | `bird-plate` | — | — | **keep** | keep: Cahier, #548 / #421 (sites) |
 | `taped-photo` | — | www 4 | **keep** | keep: sites (Cahier) |
-| `elephant` | — | — | **deprecate** (#674) | no user since the Yororis pivot |
+| `elephant` | — | — | **deprecate** (#674) | no user since a former product's pivot |
 | `flock` | — | www 3 | **keep** | keep: sites (Cahier) |
 | `anatomy-plate` | — | — | **deprecate** (#674) | no user (Cahier plate never adopted) |
 | `page-index` | — | motion 1 | **keep** | keep: sites (Cahier) |
@@ -496,8 +496,8 @@ ThemeProvider 29, Screen 29, Card 29, Badge 24, EmptyState 20, Header 19…). Al
 | `error-page` | Yo 1 Ak 1 Yr 1 Ka 1 | www 1 blog 1 | **keep** | keep: products |
 | `pricing-page` | — | — | **keep** | keep, on watch: Yomizaka and Akinaza sell (pricing pages); deprecated in the next pass if still unused |
 | `chat` | Ya 3 Oz 2 Yr 1 OzKit 1 | motion 4 www 2 | **keep** | keep: products |
-| `swipe-deck` | — | — | **deprecate** (#674) | no user (Yasakia paused) |
-| `match-dialog` | — | — | **deprecate** (#674) | no user (Yasakia paused) |
+| `swipe-deck` | — | — | **deprecate** (#674) | no user (a former product paused) |
+| `match-dialog` | — | — | **deprecate** (#674) | no user (a former product paused) |
 | `tag-selector` | Yo 2 | — | **keep** | keep: absorbs tag-input (KZ-04) |
 | `step-progress` | — | motion 2 | **merge** (#675) | into stepper (`variant="progress"`) |
 | `verified-badge` | — | ui 1 motion 1 | **keep** | keep: sites (Cahier) |
@@ -505,11 +505,11 @@ ThemeProvider 29, Screen 29, Card 29, Badge 24, EmptyState 20, Header 19…). Al
 | `photo-grid` | Ya 1 | — | **merge** (#675) | into media-grid (`kind="photo"`) |
 | `native` | OzM 45 OrM 43 YaM 17 Yo 15 Ak 13 Ka 2 | ui 4 blog 2 tplE 2 | **keep** | keep: products |
 | `native/vertical-video` | — | — | **deprecate** (#674) | no app imports it (to confirm with #663) |
-| `native/video-player` | — | — | **keep** | keep: orochia-mobile#88 |
+| `native/video-player` | — | — | **keep** | keep: a former product's issue |
 | `native/media-capture` | — | — | **deprecate** (#674) | no app imports it |
 | `native/media-picker` | OzM 2 | — | **keep** | keep: products |
 | `native/list` | Yo 3 | ui 1 | **keep** | keep: products |
-| `native/form` | — | — | **keep** | keep: #380, orochia-mobile#37 |
+| `native/form` | — | — | **keep** | keep: #380, a former product's issue |
 | `native/map` | — | ui 1 | **keep** | keep: ui docs; Akinaza explore (akinaza#235) |
 | `native/markdown` | — | — | **deprecate** (#674) | no app imports it |
 | `update-prompt` | — | — | **deprecate** (#674) | no web user (native UpdatePrompt stays) |

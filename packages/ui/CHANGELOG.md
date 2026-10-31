@@ -332,12 +332,11 @@
   
   The family lists Krizaka Motion at https://motion.krizaka.com (HTTPS), no longer krizaka.github.io/krizaka-motion.
 
-- [#714](https://github.com/krizaka/krizaka-ui/pull/714) [`972f53c`](https://github.com/krizaka/krizaka-ui/commit/972f53c41f865139041c5df510e1c18a6bc72967) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Paused products (2026-10-25): Orochia, Yasakia, Yororis and Kachizaka leave the family. The family switcher and the
+- [#714](https://github.com/krizaka/krizaka-ui/pull/714) [`972f53c`](https://github.com/krizaka/krizaka-ui/commit/972f53c41f865139041c5df510e1c18a6bc72967) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Paused products (2026-10-25): the former products leave the family. The family switcher and the
   footer (`sites`) list only Krizaka, Orazaka, Yomizaka and Akinaza; `siteById` still finds a paused site (`pausedSites`), so
-  a page that names one as `current` keeps rendering. Nothing published is removed: their marks (`OrochiaLogo`,
-  `YasakiaLogo`, `YororisLogo`, `KachizakaLogo`, the native `*Mark`s, their `ProductLogo` / `ProductMark` ids — the new
-  `PausedBrandId`, `PausedSiteId`), their brand themes (`@krizaka/tokens/brands/{orochia,yasakia,yororis,kachizaka}.css`
-  and the `.brand-*` scopes, now headed DEPRECATED), the charts' `orochia` palette and the email themes stay, marked
+  a page that names one as `current` keeps rendering. Nothing published is removed: their marks (retired exports, the native `*Mark`s, their `ProductLogo` / `ProductMark` ids — the new
+  `PausedBrandId`, `PausedSiteId`), their brand themes (a retired export
+  and the `.brand-*` scopes, now headed DEPRECATED), the charts' a retired export palette and the email themes stay, marked
   `@deprecated`, and are removed in the next major. The examples, metas and docs speak of the products in focus only.
 
 ### Patch Changes
@@ -443,7 +442,7 @@
 
 ### Minor Changes
 
-- [#693](https://github.com/krizaka/krizaka-ui/pull/693) [`33f3849`](https://github.com/krizaka/krizaka-ui/commit/33f384959f3fbe72d91019e1b9167ee243413726) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ProfileBanner` (in `@krizaka/ui/profile-card`, [#650](https://github.com/krizaka/krizaka-ui/issues/650)): the top of a page about one person or place — a client, a shop, a creator, a building. It has a slim cover (an image, or a tint of the brand's accent), the avatar overlapping its lower edge at every width, the eyebrow, the name (the `h1`), a status, its facts and the actions. No text is ever drawn on the cover. `DetailLayout` gains `cover`: its header becomes the banner, with `media` as the avatar. React Native: `ProfileBanner` in `@krizaka/ui/native`. Extracted from Orochia's profile hero ([#515](https://github.com/krizaka/krizaka-ui/issues/515)).
+- [#693](https://github.com/krizaka/krizaka-ui/pull/693) [`33f3849`](https://github.com/krizaka/krizaka-ui/commit/33f384959f3fbe72d91019e1b9167ee243413726) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ProfileBanner` (in `@krizaka/ui/profile-card`, [#650](https://github.com/krizaka/krizaka-ui/issues/650)): the top of a page about one person or place — a client, a shop, a creator, a building. It has a slim cover (an image, or a tint of the brand's accent), the avatar overlapping its lower edge at every width, the eyebrow, the name (the `h1`), a status, its facts and the actions. No text is ever drawn on the cover. `DetailLayout` gains `cover`: its header becomes the banner, with `media` as the avatar. React Native: `ProfileBanner` in `@krizaka/ui/native`. Extracted from a former product's profile hero ([#515](https://github.com/krizaka/krizaka-ui/issues/515)).
 
 ### Patch Changes
 
@@ -455,7 +454,7 @@
 
 ### Minor Changes
 
-- [#687](https://github.com/krizaka/krizaka-ui/pull/687) [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `AppHeader` becomes the family's top bar ([#640](https://github.com/krizaka/krizaka-ui/issues/640)), extracted from Orochia's: the slots `search`, `language`, `messages`, `notifications`, `primary` and `account` beside `actions`, drawn in a fixed order (search · language · actions · messages · notifications · primary · account), an empty slot hidden. `AppHeaderCount` (in `@krizaka/ui/app-header`) is an icon button or link with an unread count, said in its name (« Notifications, 3 new »), `max+` above `max`. `AppHeaderSearch` (new client entry `@krizaka/ui/app-header/search`) is the field-like trigger with ⌘K / Ctrl+K that opens the host's `CommandDialog`; an icon below `md`, named at every width. React Native: `AppHeader`, `AppHeaderCount` and `AppHeaderSearch` in `@krizaka/ui/native`. Existing `AppHeader` props are unchanged.
+- [#687](https://github.com/krizaka/krizaka-ui/pull/687) [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `AppHeader` becomes the family's top bar ([#640](https://github.com/krizaka/krizaka-ui/issues/640)), extracted from a former product's: the slots `search`, `language`, `messages`, `notifications`, `primary` and `account` beside `actions`, drawn in a fixed order (search · language · actions · messages · notifications · primary · account), an empty slot hidden. `AppHeaderCount` (in `@krizaka/ui/app-header`) is an icon button or link with an unread count, said in its name (« Notifications, 3 new »), `max+` above `max`. `AppHeaderSearch` (new client entry `@krizaka/ui/app-header/search`) is the field-like trigger with ⌘K / Ctrl+K that opens the host's `CommandDialog`; an icon below `md`, named at every width. React Native: `AppHeader`, `AppHeaderCount` and `AppHeaderSearch` in `@krizaka/ui/native`. Existing `AppHeader` props are unchanged.
 
 - [#687](https://github.com/krizaka/krizaka-ui/pull/687) [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `DataTable` `phone="list"` ([#636](https://github.com/krizaka/krizaka-ui/issues/636)): on a phone (under 36 rem, or always with `layout="cards"`) each row draws as a list row instead of a card in a box — the selection's checkbox first, the `title` column with its `priority: 2` columns joined as one line of facts (« Facture · 23 oct. »), the `status` / `badge` column at the end, a hairline between rows; the other columns go to the row's detail. A `title` column now takes `href`: its name becomes the row's link (stretched over the whole list row). The table semantics, the selection and the detail work as before; the default stays `phone="cards"`.
 
@@ -469,13 +468,13 @@
 
 - [#687](https://github.com/krizaka/krizaka-ui/pull/687) [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `NavBar.Session`: the bar's « who is here » island for every product, over one contract — `GET /api/me` answers 200 `{ signedIn, signupOpen, account? }` with `Cache-Control: private, no-store` and `Vary: Cookie` (`meResponse`, `meHeaders`, `meSchema` from the server-safe `@krizaka/ui/nav-bar/me` entry); signed out is never a 401 and its schema rejects an account. It takes `ProductBarActions` and the account menu for the two states, uses `@krizaka/query` with the app's credential policy, and falls back to signed out even if a failed refetch leaves a cached account.
 
-- [#687](https://github.com/krizaka/krizaka-ui/pull/687) [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/notification-preferences`: `NotificationPreferences`, categories by channels with a switch at each crossing, presets that set the whole matrix, a locked row for security. Extracted from Orochia's notification settings (krizaka-ui#515).
+- [#687](https://github.com/krizaka/krizaka-ui/pull/687) [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/notification-preferences`: `NotificationPreferences`, categories by channels with a switch at each crossing, presets that set the whole matrix, a locked row for security. Extracted from a former product's notification settings (krizaka-ui#515).
 
 - [#681](https://github.com/krizaka/krizaka-ui/pull/681) [`8a65333`](https://github.com/krizaka/krizaka-ui/commit/8a65333d4ec58f164178d5eab7b81709374bb45c) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The product register, 2027 (ADR-006 §3, krizaka-ui#669). A product's root (`data-surface="product"`, or its `.brand-<id>` on `<html>` / `<body>`) now wears, from `@krizaka/ui/blocks.css` and in both themes: the slate ink (title `#222a3a`, primary `#242c3d`, secondary `[#576275](https://github.com/krizaka/krizaka-ui/issues/576275)`, muted `#646d80` — the mockup's `#8c96a8` is 2.9:1 and refused), the surfaces `#fbfbfa` / `#ffffff` / `#f4f4f2` and `[#111318](https://github.com/krizaka/krizaka-ui/issues/111318)` / `#171a21` / `#1e222b`, translucent hairlines (4 % / 8 %) on cards and separators, radius 4 / 8 / 8 / 14 / 14 / 14, titles at 700, and on an interactive card (a link or a button) the brand border, a soft shadow and a 1 px lift in 150 ms (none under reduced motion). The Cahier sites are unchanged.
   
   New roles in `@krizaka/tokens` (Cahier values, no existing value changes): `--kz-text-title`, `--kz-border-control` (a field, a checkbox, a radio: ≥ 3:1 on surfaces 0–2 in the register, WCAG 1.4.11), `--kz-border-hover`, `--kz-shadow-hover`, plus `--kz-control-row`, `--kz-density-gap` and `--kz-density-pad` tightened by `[data-density="compact"]`. `@krizaka/tailwind` maps them (`border-control`, `border-hover`, `text-fg-title`, `shadow-hover`). `Field`, `Combobox`, `SearchField`, `DatePicker`, `DateField`, `Chat`, `Checkbox` and `RadioGroup` draw `border-control`: on the Cahier sites a field's edge is now the strong border. Contrast of every role is tested per theme and per brand.
 
-- [#687](https://github.com/krizaka/krizaka-ui/pull/687) [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/quota-meter`: `QuotaMeter`, space or time used against a plan: the figure in words, a Meter amber from 80 % and red from 95 %, the sentence for the level (a status when it matters), notices, small figures and the way out. Extracted from Orochia's storage meter (krizaka-ui#515).
+- [#687](https://github.com/krizaka/krizaka-ui/pull/687) [`a01eca5`](https://github.com/krizaka/krizaka-ui/commit/a01eca5d9611a0e462ff5217ac2e597c2e572812) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/quota-meter`: `QuotaMeter`, space or time used against a plan: the figure in words, a Meter amber from 80 % and red from 95 %, the sentence for the level (a status when it matters), notices, small figures and the way out. Extracted from a former product's storage meter (krizaka-ui#515).
 
 - [#689](https://github.com/krizaka/krizaka-ui/pull/689) [`68cad54`](https://github.com/krizaka/krizaka-ui/commit/68cad54b00f217ecaf4de93a62f57d894a408cac) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `RailNav` ([#647](https://github.com/krizaka/krizaka-ui/issues/647)): `shortcuts` with `shortcutsLabel` adds the product's quick ways in (a saved view, a frequent client, « New invoice ») as a named group above the footer and the expand toggle, on desktop only. An expandable rail with no `defaultExpanded` and no `expanded` now shows its words from 1280 px and stays narrow below, until the person toggles it. `AccountMenu` `showName="lg"` shows the name from 1024 px, for the family's top bar (`AppHeader` `account`).
 
@@ -579,7 +578,7 @@
 
 - [#529](https://github.com/krizaka/krizaka-ui/pull/529) [`07d8b52`](https://github.com/krizaka/krizaka-ui/commit/07d8b5295454c01f0f4056b27ab836b75b5e769e) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The family knows Krizaka TS (`ts.krizaka.com`, the TypeScript backend building blocks on npm): `SiteId` gains `"ts"`, so its bar and footer say « You are here », and the other open-source sites list it in the switcher and the footer.
 
-- [#520](https://github.com/krizaka/krizaka-ui/pull/520) [`f1e97a9`](https://github.com/krizaka/krizaka-ui/commit/f1e97a9ded3b90f3d35ee12c39d29d170c9c8881) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `SettingsLayout`: the sections can be in titled groups (`nav` as `SettingsNavGroup[]`), carry a count or status (`badge`), and past five a phone gets one menu (a disclosure, no script) instead of a strip of chips. A `header` slot puts who the account is above the sections, in place of `title` and `description`. The extraction of Orochia's private-space shell (krizaka-ui#515).
+- [#520](https://github.com/krizaka/krizaka-ui/pull/520) [`f1e97a9`](https://github.com/krizaka/krizaka-ui/commit/f1e97a9ded3b90f3d35ee12c39d29d170c9c8881) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `SettingsLayout`: the sections can be in titled groups (`nav` as `SettingsNavGroup[]`), carry a count or status (`badge`), and past five a phone gets one menu (a disclosure, no script) instead of a strip of chips. A `header` slot puts who the account is above the sections, in place of `title` and `description`. The extraction of a former product's private-space shell (krizaka-ui#515).
 
 ### Patch Changes
 
@@ -662,7 +661,7 @@
 
 ### Patch Changes
 
-- [#492](https://github.com/krizaka/krizaka-ui/pull/492) [`f032b3b`](https://github.com/krizaka/krizaka-ui/commit/f032b3b5693e233c397e579b0452951033ed9932) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Products wear plain Krizaka UI: under `data-surface="product"` on the root (an app themed at :root: set it on `<html>`) or a product brand (`.brand-orazaka`, `-orochia`, `-yasakia`, `-yororis`, `-yomizaka`, `-kachizaka`, `-akinaza`) the margin ink (`--kz-paper-rule-margin`, the red of every eyebrow, folio and margin note) is the brand's accent text colour; the red margin stays on the Krizaka sites. The same scope drops the notebook's faces: headings use the sans (`--kz-font-display` → `--kz-font-sans`, semibold) and the mono is the system monospace (no Young Serif, no Courier Prime). krizaka.com, the blog and ui.krizaka.com keep them. Test: the list equals the product brands of @krizaka/tokens. Fixes [#491](https://github.com/krizaka/krizaka-ui/issues/491).
+- [#492](https://github.com/krizaka/krizaka-ui/pull/492) [`f032b3b`](https://github.com/krizaka/krizaka-ui/commit/f032b3b5693e233c397e579b0452951033ed9932) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Products wear plain Krizaka UI: under `data-surface="product"` on the root (an app themed at :root: set it on `<html>`) or a product brand (`.brand-orazaka`, retired exports, `-yomizaka`, a retired export, `-akinaza`) the margin ink (`--kz-paper-rule-margin`, the red of every eyebrow, folio and margin note) is the brand's accent text colour; the red margin stays on the Krizaka sites. The same scope drops the notebook's faces: headings use the sans (`--kz-font-display` → `--kz-font-sans`, semibold) and the mono is the system monospace (no Young Serif, no Courier Prime). krizaka.com, the blog and ui.krizaka.com keep them. Test: the list equals the product brands of @krizaka/tokens. Fixes [#491](https://github.com/krizaka/krizaka-ui/issues/491).
 - Updated dependencies []:
   - @krizaka/tailwind@3.43.1
   - @krizaka/tokens@3.43.1
@@ -697,7 +696,7 @@
 
 - [#466](https://github.com/krizaka/krizaka-ui/pull/466) [`d66fd35`](https://github.com/krizaka/krizaka-ui/commit/d66fd35b25c40dbbe3ca411f4da0b25d0c56528c) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Flock `scenes`: each bird does a short scene true to its promise — the owl reads a book and turns a leaf, the flamingo and the lovebird talk with a speech mark and their neighbour answers, the crane steps out and bows, the beaver taps a log, the magpie takes a shiny point, the duck builds, the falcon scans — and the pigeon hands its parcel over (it flies back light) while the receiver reacts in its own way. One scene at a time, picked at random with long pauses now and then. CSS-free: Web Animations on a few small elements and timers between scenes, none off screen or under reduced motion. The flock now also waits for `html[data-motion="settling"]` and its stage is a `data-motion-scope` (the page pauses its loops off screen). `Mascot` gets `carrying` (the pigeon's parcel).
 
-- [#463](https://github.com/krizaka/krizaka-ui/pull/463) [`8875459`](https://github.com/krizaka/krizaka-ui/commit/887545936a29f32d6b231e4a17b54aaf5c0895bb) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `SiteFooter`: one band, for real. The hairline between the columns and the last line is gone (a bottom bar under the columns read as a second footer). New `path` prop: the company link that points to the page you are on (« Our story » on /story) carries `aria-current="page"` with a visible state (semibold), and a click on it scrolls to the top instead of reloading the page. `@krizaka/ui/sites`: Yororis is `development` (its card and footer chip say « In development »).
+- [#463](https://github.com/krizaka/krizaka-ui/pull/463) [`8875459`](https://github.com/krizaka/krizaka-ui/commit/887545936a29f32d6b231e4a17b54aaf5c0895bb) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `SiteFooter`: one band, for real. The hairline between the columns and the last line is gone (a bottom bar under the columns read as a second footer). New `path` prop: the company link that points to the page you are on (« Our story » on /story) carries `aria-current="page"` with a visible state (semibold), and a click on it scrolls to the top instead of reloading the page. `@krizaka/ui/sites`: a former product is `development` (its card and footer chip say « In development »).
 
 ### Patch Changes
 
@@ -893,7 +892,7 @@
 
 - [#394](https://github.com/krizaka/krizaka-ui/pull/394) [`b1b2ee1`](https://github.com/krizaka/krizaka-ui/commit/b1b2ee1e4bc7f50d0096f474bd8a2b3878678fed) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `EngineFlow`: the photons travel again and the engine breathes. The `kz-flow-in/out` keyframes animated `stroke-dashoffset` to `calc(var(--kz-flow-gap) * -1)`, a unitless number the browser cannot interpolate with a length, so each dot only flipped between two equivalent offsets and looked frozen on every site; the gap now carries its unit (`* -1px`). The hub's mark swells slowly in the loop system (`kz-loop`: held off screen and while the page settles, still under reduced motion). The Storybook stories sample the dash offsets in a real browser and fail if nothing moves (or if something moves under reduced motion).
 
-- [#375](https://github.com/krizaka/krizaka-ui/pull/375) [`b2bf5dd`](https://github.com/krizaka/krizaka-ui/commit/b2bf5dd7a50ba60f166001eb06d60e753e0f3af6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `sites`: Kachizaka and Akinaza now have their dev sites (`dev.kachizaka.com`, `dev.akinaza.com`), Yasakia's line says what it is (real people, introductions and photos checked before you see them) and Orazaka's is product-first, in English and French.
+- [#375](https://github.com/krizaka/krizaka-ui/pull/375) [`b2bf5dd`](https://github.com/krizaka/krizaka-ui/commit/b2bf5dd7a50ba60f166001eb06d60e753e0f3af6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `sites`: a former product and Akinaza now have their dev sites (a retired export, `dev.akinaza.com`), a former product's line says what it is (real people, introductions and photos checked before you see them) and Orazaka's is product-first, in English and French.
 - Updated dependencies []:
   - @krizaka/tailwind@3.31.0
   - @krizaka/tokens@3.31.0
@@ -1006,7 +1005,7 @@
 
 ### Minor Changes
 
-- [#296](https://github.com/krizaka/krizaka-ui/pull/296) [`08aab96`](https://github.com/krizaka/krizaka-ui/commit/08aab961e16999c9ef393c7bca57acf499e6ba3f) Thanks [@oussamaABID](https://github.com/oussamaABID)! - New marks for Yomizaka, Kachizaka, Akinaza, Yororis and Yasakia (web and native, same geometry), chosen from three directions per brand: Yomizaka "the watch" (the owl, two lenses under a calm brow), Kachizaka "the podium" (gold winner, cobalt steps, a lit diamond), Akinaza "the cut log" (year rings, a 45° copper cut, a copper heart), Yororis "held" (two open hands cup a warm core), Yasakia "one conversation" (one bubble, a tail on each side, the spark inside). The family grammar is kept: dashed orbit and ring, the lit core breathes, everything still under reduced motion, and below 48 px the view box crops to the emblem. Two-colour brands keep their colours apart. The Kachizaka mark's classes move from `kzm-` (Krizaka's) to `kcm-`. `familyMotion` (marks/shared) is the shared web motion.
+- [#296](https://github.com/krizaka/krizaka-ui/pull/296) [`08aab96`](https://github.com/krizaka/krizaka-ui/commit/08aab961e16999c9ef393c7bca57acf499e6ba3f) Thanks [@oussamaABID](https://github.com/oussamaABID)! - New marks for Yomizaka, a former product, Akinaza, the former products (web and native, same geometry), chosen from three directions per brand: Yomizaka "the watch" (the owl, two lenses under a calm brow), a former product "the podium" (gold winner, cobalt steps, a lit diamond), Akinaza "the cut log" (year rings, a 45° copper cut, a copper heart), a former product "held" (two open hands cup a warm core), a former product "one conversation" (one bubble, a tail on each side, the spark inside). The family grammar is kept: dashed orbit and ring, the lit core breathes, everything still under reduced motion, and below 48 px the view box crops to the emblem. Two-colour brands keep their colours apart. The former product's mark's classes move from `kzm-` (Krizaka's) to `kcm-`. `familyMotion` (marks/shared) is the shared web motion.
 
 - [#300](https://github.com/krizaka/krizaka-ui/pull/300) [`9b7a4d7`](https://github.com/krizaka/krizaka-ui/commit/9b7a4d7c6b48ca69adaf51e3d2c7d65329b19e25) Thanks [@oussamaABID](https://github.com/oussamaABID)! - captcha: new `Captcha` and `CaptchaDisclosure` (`@krizaka/ui/captcha`) — Cloudflare Turnstile that stays hidden unless a challenge is needed (managed mode, `appearance: "interaction-only"`), a framed box on the tokens when it does appear, the theme following the page, an accessible error with a retry, and the « Protected by Cloudflare Turnstile · Privacy · Terms » line (EN/FR) for under the submit button.
 
@@ -1038,7 +1037,7 @@
 
 - [#328](https://github.com/krizaka/krizaka-ui/pull/328) [`fba8ca4`](https://github.com/krizaka/krizaka-ui/commit/fba8ca409e5bfc8a206f88c3243f0f1cc7757f63) Thanks [@oussamaABID](https://github.com/oussamaABID)! - NavBar test: the Escape assertion waits for Radix's close instead of racing it (flaky on loaded CI runners, red on main).
 
-- [#281](https://github.com/krizaka/krizaka-ui/pull/281) [`4dfbbc9`](https://github.com/krizaka/krizaka-ui/commit/4dfbbc904efa0d97549f7b16bc939e94dd28bc22) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `SiteFooter`: a `SiteFooter.Column` with no link (empty, `null` or `false` children) now renders nothing instead of a heading over an empty list, the site's own columns share the row with an auto-fit grid (it was a fixed 2/3-column grid that left empty cells beside a single column on the Kachizaka and Yomizaka dev sites), and falsy children are dropped one by one.
+- [#281](https://github.com/krizaka/krizaka-ui/pull/281) [`4dfbbc9`](https://github.com/krizaka/krizaka-ui/commit/4dfbbc904efa0d97549f7b16bc939e94dd28bc22) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `SiteFooter`: a `SiteFooter.Column` with no link (empty, `null` or `false` children) now renders nothing instead of a heading over an empty list, the site's own columns share the row with an auto-fit grid (it was a fixed 2/3-column grid that left empty cells beside a single column on a former product's and Yomizaka dev sites), and falsy children are dropped one by one.
 
 - [#244](https://github.com/krizaka/krizaka-ui/pull/244) [`07efd21`](https://github.com/krizaka/krizaka-ui/commit/07efd218c85f87f97be91b1081ad22215c013b53) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Tabs: add missing `data-[state=inactive]:hidden` to `TabsContent` to prevent ghost rendering and vertical stacking under `forceMount` (fixes [#213](https://github.com/krizaka/krizaka-ui/issues/213)).
   cn, Button: memoize `{ twMergeConfig }` in `cn()` at module scope and use `cn()` in `Button` (fixes [#211](https://github.com/krizaka/krizaka-ui/issues/211)).
@@ -1113,7 +1112,7 @@
 
 ### Patch Changes
 
-- [#243](https://github.com/krizaka/krizaka-ui/pull/243) [`1ceaa22`](https://github.com/krizaka/krizaka-ui/commit/1ceaa2202dce57169a698d0de7926dd6f1d832e4) Thanks [@oussamaABID](https://github.com/oussamaABID)! - fix(sites): Yasakia is in development, not coming soon.
+- [#243](https://github.com/krizaka/krizaka-ui/pull/243) [`1ceaa22`](https://github.com/krizaka/krizaka-ui/commit/1ceaa2202dce57169a698d0de7926dd6f1d832e4) Thanks [@oussamaABID](https://github.com/oussamaABID)! - fix(sites): a former product is in development, not coming soon.
 - Updated dependencies []:
   - @krizaka/tailwind@3.18.2
   - @krizaka/tokens@3.18.2
@@ -1176,10 +1175,10 @@
 
 ### Minor Changes
 
-- [#202](https://github.com/krizaka/krizaka-ui/pull/202) [`bd53e0c`](https://github.com/krizaka/krizaka-ui/commit/bd53e0c279034f364513b2530812a94a1043b267) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Kachizaka (predictions among friends, points only) and Akinaza (the shop OS for Québec): their brands, marks and mascots.
+- [#202](https://github.com/krizaka/krizaka-ui/pull/202) [`bd53e0c`](https://github.com/krizaka/krizaka-ui/commit/bd53e0c279034f364513b2530812a94a1043b267) Thanks [@oussamaABID](https://github.com/oussamaABID)! - a former product (predictions among friends, points only) and Akinaza (the shop OS for Québec): their brands, marks and mascots.
   
-  - `@krizaka/tokens`: `brands/kachizaka.css` / `.brand-kachizaka` — **victorious gold** accent (hue 48, the family's only gold, ≥ 10° from warning and ≥ 20° from every brand accent) with **electric cobalt** (226) as `accent-2`, section ground, light accent text and ring; the cobalt alone sits 9° from the Krizaka blue, so it never leads (a test says so). `brands/akinaza.css` / `.brand-akinaza` — **Laurentian forest green** accent (hue 130, ≥ 20° from sage, emerald, success and every accent) with a matte **copper** `accent-2` (≤ 65 % saturation, never Orazaka's orange). `marks.kachizaka` (cobalt → gold) and `marks.akinaza` (forest → copper), every stop ≥ 3:1 in both themes. Budgets `.` 4.2 kB, `./native` 2.5 kB, `scoped.css` 1.5 kB.
-  - `@krizaka/ui`: `KachizakaLogo` / `KachizakaMark` ("the sealed cup": a trophy cut at its rim, the seal — a star — breathes, the ball on the orbit) and `AkinazaLogo` / `AkinazaMark` ("the open shop": an awning cut at its corner, the shop front, the open door's warm light, a coin on the orbit); `ProductLogo` / `ProductMark` accept both ids; default avatars for both. The flock welcomes **the magpie** (keeps the score) and **the beaver** (builds the shop) in `Mascot` (web and native) with their own palettes. `@krizaka/ui/sites`: a new status `development` ("In development" / "En développement") and both products in it, their address the repository until a dev site exists.
+  - `@krizaka/tokens`: retired exports — **victorious gold** accent (hue 48, the family's only gold, ≥ 10° from warning and ≥ 20° from every brand accent) with **electric cobalt** (226) as `accent-2`, section ground, light accent text and ring; the cobalt alone sits 9° from the Krizaka blue, so it never leads (a test says so). `brands/akinaza.css` / `.brand-akinaza` — **Laurentian forest green** accent (hue 130, ≥ 20° from sage, emerald, success and every accent) with a matte **copper** `accent-2` (≤ 65 % saturation, never Orazaka's orange). a retired export (cobalt → gold) and `marks.akinaza` (forest → copper), every stop ≥ 3:1 in both themes. Budgets `.` 4.2 kB, `./native` 2.5 kB, `scoped.css` 1.5 kB.
+  - `@krizaka/ui`: retired exports ("the sealed cup": a trophy cut at its rim, the seal — a star — breathes, the ball on the orbit) and `AkinazaLogo` / `AkinazaMark` ("the open shop": an awning cut at its corner, the shop front, the open door's warm light, a coin on the orbit); `ProductLogo` / `ProductMark` accept both ids; default avatars for both. The flock welcomes **the magpie** (keeps the score) and **the beaver** (builds the shop) in `Mascot` (web and native) with their own palettes. `@krizaka/ui/sites`: a new status `development` ("In development" / "En développement") and both products in it, their address the repository until a dev site exists.
 
 ### Patch Changes
 
@@ -1206,7 +1205,7 @@
 
 - [#196](https://github.com/krizaka/krizaka-ui/pull/196) [`bab3e55`](https://github.com/krizaka/krizaka-ui/commit/bab3e55003effe5ed2f5fa802e368d1b93199a43) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Yomizaka, the fifth product (documents read, classified and checked by Orazaka): its brand and its mark.
   
-  - `@krizaka/tokens`: the Yomizaka brand — **ink indigo** (藍, *ai*), accent hue 240–242 placed by test ≥ 20° from the Krizaka blue and the Orochia violet and ≥ 60° from every other brand and every status; `brands/yomizaka.css`, `.brand-yomizaka` in `brands/scoped.css`, `brands.yomizaka` and `marks.yomizaka` (ink `hsl(232 50% 55%)` → indigo `hsl(248 50% 58%)`, every stop ≥ 3:1 on surfaces 0–2 in dark and light). Size budgets `.` 3.9 kB, `./native` 2.2 kB.
+  - `@krizaka/tokens`: the Yomizaka brand — **ink indigo** (藍, *ai*), accent hue 240–242 placed by test ≥ 20° from the Krizaka blue and a former product's violet and ≥ 60° from every other brand and every status; `brands/yomizaka.css`, `.brand-yomizaka` in `brands/scoped.css`, `brands.yomizaka` and `marks.yomizaka` (ink `hsl(232 50% 55%)` → indigo `hsl(248 50% 58%)`, every stop ≥ 3:1 on surfaces 0–2 in dark and light). Size budgets `.` 3.9 kB, `./native` 2.2 kB.
   - `@krizaka/ui`: `YomizakaLogo` (web) and `YomizakaMark` (native), "the reading" — a page with the Krizaka cut at its corner, three lines of text, and a lens resting on it; a line of light scans the page (web), the lens breathes, one node rides the orbit. `ProductLogo` / `ProductMark` accept `id="yomizaka"`; `@krizaka/ui/sites` lists Yomizaka (`dev.yomizaka.com`, upcoming).
 
 ### Patch Changes
@@ -1251,7 +1250,7 @@
 
 - [#181](https://github.com/krizaka/krizaka-ui/pull/181) [`be56fb5`](https://github.com/krizaka/krizaka-ui/commit/be56fb5997859a7f7fdc6319651696ed9d18f0df) Thanks [@oussamaABID](https://github.com/oussamaABID)! - One navigation for the whole Krizaka family (NAV-SYS).
   
-  - `@krizaka/ui/sites` (new, server-safe): the family as data — `sites` (id, name, url, host, kind `company · product · open-source`, group, status `released · upcoming · construction`, mark, repo) for www.krizaka.com, dev.orazaka.com, dev.orochia.com, dev.yasakia.com, dev.yororis.com, ui.krizaka.com, java.krizaka.com and github.com/krizaka; `siteGroups`, `siteById`, `sitesByGroup`; `familyLabels.en` / `.fr` (each site's line, groups, statuses, signature, place).
+  - `@krizaka/ui/sites` (new, server-safe): the family as data — `sites` (id, name, url, host, kind `company · product · open-source`, group, status `released · upcoming · construction`, mark, repo) for www.krizaka.com, dev.orazaka.com, dev.a former product.com, dev.a former product.com, dev.a former product.com, ui.krizaka.com, java.krizaka.com and github.com/krizaka; `siteGroups`, `siteById`, `sitesByGroup`; `familyLabels.en` / `.fr` (each site's line, groups, statuses, signature, place).
   - `NavBar.Family` (`current`, `labels`, `defaultOpen`): the family switcher attached to the brand — a chevron that opens every site grouped Krizaka · Products · Open source · GitHub, the current one marked (`aria-current="true"`, “You are here”), statuses in words; click or keyboard only (never on hover), Escape returns the focus; inside `NavBar.Mobile` it renders as the panel's last group.
   - `NavBar.Badge` (`env`, `version`): `DEV · v1.2.3` beside the brand. `NavBar.Repo` (`href`, `label`): the site's repository as an icon link.
   - `@krizaka/ui/site-footer` (new): `SiteFooter` (`current`, `labels`, `version`, `env`, `legal`, own columns with `SiteFooter.Column` / `SiteFooter.Link`) — the family in columns, “A Krizaka company / product / open-source project”, the version, Montréal.
@@ -1291,7 +1290,7 @@
 
 ### Minor Changes
 
-- [#176](https://github.com/krizaka/krizaka-ui/pull/176) [`336293a`](https://github.com/krizaka/krizaka-ui/commit/336293a904d6d0fc844add376ce6dd56e57c4ba9) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Yazakia is renamed **Yasakia**: `YasakiaLogo` / `YasakiaMark`, `ProductLogo` / `ProductMark` id `yasakia`, `@krizaka/tokens/brands/yasakia.css` and `.brand-yasakia` in `brands/scoped.css`, `brands.yasakia` / `marks.yasakia`. The old names (`YazakiaLogo`, `YazakiaMark`, id `yazakia`, `brands/yazakia.css`, `.brand-yazakia`) stay as deprecated aliases for one minor version.
+- [#176](https://github.com/krizaka/krizaka-ui/pull/176) [`336293a`](https://github.com/krizaka/krizaka-ui/commit/336293a904d6d0fc844add376ce6dd56e57c4ba9) Thanks [@oussamaABID](https://github.com/oussamaABID)! - a former product is renamed **a former product**: retired exports, `ProductLogo` / `ProductMark` id retired exports in `brands/scoped.css`, retired exports. The old names (retired exports, id retired exports) stay as deprecated aliases for one minor version.
 
 ### Patch Changes
 
@@ -1312,7 +1311,7 @@
 
 ### Minor Changes
 
-- [#165](https://github.com/krizaka/krizaka-ui/pull/165) [`45ab77b`](https://github.com/krizaka/krizaka-ui/commit/45ab77b1b731058c167d184906085a39ad588c1b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Product-branded waits (web and React Native). `Loader` takes the product's animated mark in place of the Krizaka glyph while it waits (`mark={<OrochiaLogo animated />}` on the web, `product="orochia"` natively; the ending is still the drawn check or cross, the delay and the words stay). New native `BrandedRefresh`: a pull-to-refresh where the product's mark grows into place as you pull (iOS) and turns while it refreshes (iOS and Android), announced when the refresh starts. New native `SplashHandoff`: the static native splash dissolves into the animated mark until the first screen is ready, then leaves (still under reduced motion). Replaces each app's own `BusyMark` and static splash.
+- [#165](https://github.com/krizaka/krizaka-ui/pull/165) [`45ab77b`](https://github.com/krizaka/krizaka-ui/commit/45ab77b1b731058c167d184906085a39ad588c1b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Product-branded waits (web and React Native). `Loader` takes the product's animated mark in place of the Krizaka glyph while it waits (a retired export on the web, a retired export natively; the ending is still the drawn check or cross, the delay and the words stay). New native `BrandedRefresh`: a pull-to-refresh where the product's mark grows into place as you pull (iOS) and turns while it refreshes (iOS and Android), announced when the refresh starts. New native `SplashHandoff`: the static native splash dissolves into the animated mark until the first screen is ready, then leaves (still under reduced motion). Replaces each app's own `BusyMark` and static splash.
 
 - [#171](https://github.com/krizaka/krizaka-ui/pull/171) [`e53f6c5`](https://github.com/krizaka/krizaka-ui/commit/e53f6c575e6fc46753ff4698040a752c8ff297be) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `VerticalVideo` and `ShortFeed` (`@krizaka/ui/vertical-video`, native `@krizaka/ui/native/vertical-video` on expo-video): a 9:16 short video with the action rail of a short-video feed on the right — the creator's avatar with follow (+), like, comments, share (counts compact in the viewer's locale), a `tipSlot` for the product's own action and `topStart` / `aboveCaption` slots — and the creator's caption bottom-left (name, seal, an "AI-GENERATED"-style `disclosure` pill, two-line caption that expands, tags, credit), a progress hairline, everything over the picture on the invariant `scrim` / `fg-on-media` tokens. Tap pauses, double tap (long press on a phone) likes, Space/K and L on the focused video; under reduced motion nothing autoplays. `ShortFeed` is a snap-scrolling feed (web: CSS scroll-snap, only the slides near the one in view mounted, the next preloaded, ↑/↓ move; native: a paging FlatList) that plays the one in view. All words are props; no media is hard-coded (`src` / `uri` are yours). The mobile `feed` template is now a vertical feed built on them.
 
@@ -1513,7 +1512,7 @@
   calls to action, staged motion, one column on a phone (each example has a phone story). Templates are Server
   Components: they import the blocks through the package's entries, keeping each block's client boundary.
 
-- [#105](https://github.com/krizaka/krizaka-ui/pull/105) [`dc6156f`](https://github.com/krizaka/krizaka-ui/commit/dc6156fcac67f6285b966c2a27d56af75fc8db10) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Yororis brand: mark, theme, mascot, icons. `@krizaka/tokens`: the `yororis` brand — `brands/yororis.css`, `.brand-yororis` in `brands/scoped.css`, `brands.yororis` and `marks.yororis` (web and native) — sand → sage, the accent on sage (≥ 60° from `--kz-success` and `--kz-warning`), the sand (mark, `accent-2`) told apart from the warning amber by its chroma, AA-tested in dark and light. `@krizaka/ui`: `YororisLogo` (web) and `YororisMark` (native) — "the hold": two filled leaves rising into a "Y" that cup a warm core, one node, the moment, on the orbit — `ProductLogo` / `ProductMark` accept `id="yororis"`, the "Brand family" story shows Krizaka and its four products; the flock gains the `crane` ("la grue écoute", the bird of listening). `@krizaka/icons`: `MomentIcon`, `ThreadIcon`, `KeepIcon`.
+- [#105](https://github.com/krizaka/krizaka-ui/pull/105) [`dc6156f`](https://github.com/krizaka/krizaka-ui/commit/dc6156fcac67f6285b966c2a27d56af75fc8db10) Thanks [@oussamaABID](https://github.com/oussamaABID)! - a former product brand: mark, theme, mascot, icons. `@krizaka/tokens`: the a retired export brand — retired exports in `brands/scoped.css`, retired exports (web and native) — sand → sage, the accent on sage (≥ 60° from `--kz-success` and `--kz-warning`), the sand (mark, `accent-2`) told apart from the warning amber by its chroma, AA-tested in dark and light. `@krizaka/ui`: a retired export (web) and a retired export (native) — "the hold": two filled leaves rising into a "Y" that cup a warm core, one node, the moment, on the orbit — `ProductLogo` / `ProductMark` accept a retired export, the "Brand family" story shows Krizaka and its four products; the flock gains the `crane` ("la grue écoute", the bird of listening). `@krizaka/icons`: `MomentIcon`, `ThreadIcon`, `KeepIcon`.
 
 ### Patch Changes
 
@@ -1529,15 +1528,15 @@
   phone), `dashboard-layout` (`DashboardLayout`, `Widget`), `settings-layout` (`SettingsLayout`, `SettingsSection`),
   `auth-layout` (`AuthLayout`), `detail-layout` (`DetailLayout`), `split-view` (`SplitView`), `marketing-layout`
   (`MarketingLayout`) and `docs-layout` (`DocsLayout`). Eleven **templates** — examples flagged `template: true`, whole
-  screens with real words and a phone story: Orochia's creator studio, an administration console, Orazaka's console for
+  screens with real words and a phone story: a former product's creator studio, an administration console, Orazaka's console for
   Eric, sign-in, onboarding, account settings, a video's page, messages, a product page, pricing and credits, a
   documentation hub.
 
-- [#95](https://github.com/krizaka/krizaka-ui/pull/95) [`3336895`](https://github.com/krizaka/krizaka-ui/commit/33368951b781d41323e086e24d8548c8c2801a11) Thanks [@oussamaABID](https://github.com/oussamaABID)! - A finer Yazakia mark: **two voices** — two solid speech bubbles, mirrored, that overlap, the left a shade deeper;
-  where they overlap, a lens lit from above is the bright core that breathes. A filled glyph of Orochia's weight that
+- [#95](https://github.com/krizaka/krizaka-ui/pull/95) [`3336895`](https://github.com/krizaka/krizaka-ui/commit/33368951b781d41323e086e24d8548c8c2801a11) Thanks [@oussamaABID](https://github.com/oussamaABID)! - A finer a former product mark: **two voices** — two solid speech bubbles, mirrored, that overlap, the left a shade deeper;
+  where they overlap, a lens lit from above is the bright core that breathes. A filled glyph of a former product's weight that
   reads at 16–24 px in a navigation chip (the first mark read as a thin "Y") and stays rich at 128 px. Same API
-  (`YazakiaLogo`, `YazakiaMark`, `ProductLogo`/`ProductMark id="yazakia"`: `size`, `animated`, `title`), same gradient
-  (`marks.yazakia` of @krizaka/tokens), same motion (the orbit and the pair turn, the core breathes; still under
+  (retired exports, `ProductLogo`/a retired export: `size`, `animated`, `title`), same gradient
+  (a retired export of @krizaka/tokens), same motion (the orbit and the pair turn, the core breathes; still under
   reduced motion), web and native drawn from one geometry without masks.
 
 - [#106](https://github.com/krizaka/krizaka-ui/pull/106) [`32bf2c4`](https://github.com/krizaka/krizaka-ui/commit/32bf2c45beb6960b23bdacf318cb71c4b55ee819) Thanks [@oussamaABID](https://github.com/oussamaABID)! - The storytelling kit, generalised from krizaka.com/story: `ScrollStage` + `Scene` (chapters played once as they scroll
@@ -1557,7 +1556,7 @@
 
 ### Minor Changes
 
-- [#90](https://github.com/krizaka/krizaka-ui/pull/90) [`afce4b2`](https://github.com/krizaka/krizaka-ui/commit/afce4b2ec14c42c7550fc911af7db46d2a5d8bb6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Yazakia brand: mark, theme, mascot, icons. `@krizaka/tokens`: the `yazakia` brand — `brands/yazakia.css`, `.brand-yazakia` in `brands/scoped.css`, `brands.yazakia` and `marks.yazakia` (web and native) — emerald → turquoise, the accent on turquoise (hue 174, 14° from `--kz-success`), AA-tested in dark and light. `@krizaka/ui`: `YazakiaLogo` (web) and `YazakiaMark` (native) — two arms that lean in and meet, a core, the pair on the orbit — `ProductLogo` / `ProductMark` accept `id="yazakia"`, the "Brand family" story; the flock gains the `lovebird` ("l'inséparable présente", the bird of introductions). `@krizaka/icons`: `BatchIcon`, `DebriefIcon`, `IntroIcon`.
+- [#90](https://github.com/krizaka/krizaka-ui/pull/90) [`afce4b2`](https://github.com/krizaka/krizaka-ui/commit/afce4b2ec14c42c7550fc911af7db46d2a5d8bb6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - a former product brand: mark, theme, mascot, icons. `@krizaka/tokens`: the a retired export brand — retired exports in `brands/scoped.css`, retired exports (web and native) — emerald → turquoise, the accent on turquoise (hue 174, 14° from `--kz-success`), AA-tested in dark and light. `@krizaka/ui`: a retired export (web) and a retired export (native) — two arms that lean in and meet, a core, the pair on the orbit — `ProductLogo` / `ProductMark` accept a retired export, the "Brand family" story; the flock gains the `lovebird` ("l'inséparable présente", the bird of introductions). `@krizaka/icons`: `BatchIcon`, `DebriefIcon`, `IntroIcon`.
 
 ### Patch Changes
 
@@ -1696,7 +1695,7 @@
 - [#51](https://github.com/krizaka/krizaka-ui/pull/51) [`430dc6d`](https://github.com/krizaka/krizaka-ui/commit/430dc6dacf233e8c9f754d4e5ccc1ab8cbac23ce) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `@krizaka/ui/mascots` — the Krizaka flock as a shared module: `Mascot` (web) and `Mascot` in `@krizaka/ui/native`. Five
   birds (falcon, owl, duck, flamingo, pigeon) in five moods (`welcome`, `thinking`, `success`, `empty`, `error`), drawn on
   one 120 × 120 grid from the site's original birds. `tone="brand"` (default) paints them in the host's accent
-  (`--kz-accent`, `--kz-accent-2`) — blue on krizaka.com, orange in Orazaka, violet in Orochia — and `tone="own"` in each
+  (`--kz-accent`, `--kz-accent-2`) — blue on krizaka.com, orange in Orazaka, violet in a former product — and `tone="own"` in each
   bird's signature colours of the Krizaka story. Light idle motion and a gesture per mood (wave, thinking dots, hop and
   badge, shake), all off under `prefers-reduced-motion` or with `animated={false}`. Documented by its `meta.ts` and five
   named examples (+ one native) on krizaka.com/docs/ui.
@@ -1719,7 +1718,7 @@
     Geometry and animation unchanged. The 2.0 version stays visible in Storybook, *Brand/Evolution*.
   - **`marks` (`@krizaka/tokens`, `@krizaka/tokens/native`).** Each brand file carries its mark's emblem gradient
     (`$extensions["com.krizaka"].mark`), exported as `marks.<id>` (`[offset, colour]` stops); the three marks read it —
-    no colour copied into `@krizaka/ui`. Krizaka and Orochia values are unchanged. The generated constants are marked
+    no colour copied into `@krizaka/ui`. Krizaka and a former product values are unchanged. The generated constants are marked
     pure, so a bundler keeps only what an app imports.
   - **`ThemeScript defaultMode`** (fixes [#47](https://github.com/krizaka/krizaka-ui/issues/47)). `ThemeScript` takes the same `defaultMode` (`"dark" | "light" | "system"`,
     default `"system"`) as `ThemeProvider`: with nothing persisted, the script applies it before the first paint and the
@@ -1742,7 +1741,7 @@
   
   Migrating from `@krizaka/ui` 1.x:
   
-  - **Nothing changes for the marks and the motion signature**: `KrizakaLogo`, `OrazakaLogo`, `OrochiaLogo`,
+  - **Nothing changes for the marks and the motion signature**: `KrizakaLogo`, `OrazakaLogo`, a retired export,
     `ProductLogo`, the `/native` marks and `motion.css` keep their names and props.
   - **New: the primitives**, one entry each (`@krizaka/ui/button`, `/card`, `/dialog`, `/toast`, `/tabs`, `/command`,
     `/countdown`…), their React Native parity in `@krizaka/ui/native`, and the registry (`@krizaka/ui/registry/*`) that
@@ -1761,13 +1760,13 @@
   `@krizaka/ui/cn`, `/slot` (`Slot`, `VisuallyHidden`), `/button` (`Button`, `IconButton`, `buttonVariants`), `/badge`
   (`Badge`, `badgeVariants`), `/avatar` (`Avatar`, `Avatar.Group`), `/field` (`Field.Root/Label/Hint/Error`, `Input`,
   `Textarea`, `Select`), `/theme` (`ThemeScript`, `ThemeProvider`, `useTheme`, `ThemeToggle`), `/skeleton`,
-  `/empty-state`, `/spinner` and `/countdown` (`Countdown`, `useCountdown`, `splitDuration` — the Orochia kit's API,
+  `/empty-state`, `/spinner` and `/countdown` (`Countdown`, `useCountdown`, `splitDuration` — a former product's kit's API,
   unchanged). Server entries carry no directive; `avatar`, `theme` and `countdown` are client entries.
   
   The primitives need React 19 and Tailwind CSS v4 with `@krizaka/tailwind` then `@krizaka/ui/tailwind.css`
   (`tailwindcss` and `@krizaka/tailwind` are optional peers). New dependencies: `radix-ui`, `tailwind-variants`, `clsx`.
   
-  **The marks stay compatible**: `.` (`KrizakaLogo`, `OrazakaLogo`, `OrochiaLogo`, `ProductLogo`, `MotionObserver`,
+  **The marks stay compatible**: `.` (`KrizakaLogo`, `OrazakaLogo`, a retired export, `ProductLogo`, `MotionObserver`,
   `RotatingWord`, `cx`), `./native`, `./motion.css` and `./tailwind.css` are unchanged and still run on React 18. The
   major is the start of the 2.0 line (pre-release `beta`); `@krizaka/tokens` and `@krizaka/tailwind` move with it as
   members of the fixed group, without change.
@@ -1797,9 +1796,9 @@
     avatars no longer fall back to the initial.
   - **`Countdown showLabel`** (web and native): the label written before the segments, still its accessible name.
 
-- [#33](https://github.com/krizaka/krizaka-ui/pull/33) [`07eb219`](https://github.com/krizaka/krizaka-ui/commit/07eb2192da82fddd7525dc1dd382b262f9cbdc8b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - One family of marks. `KrizakaLogo` and `OrazakaLogo` are redrawn on the grammar of `OrochiaLogo` (unchanged): a bold
+- [#33](https://github.com/krizaka/krizaka-ui/pull/33) [`07eb219`](https://github.com/krizaka/krizaka-ui/commit/07eb2192da82fddd7525dc1dd382b262f9cbdc8b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - One family of marks. `KrizakaLogo` and `OrazakaLogo` are redrawn on the grammar of a retired export (unchanged): a bold
   emblem in an orbit, a bright core, a crop below 48 px — Krizaka an ink hexagonal shield with a blue node and core,
-  Orazaka three solid shards in its orange. Native `KrizakaMark`, `OrazakaMark` and `ProductMark` join `OrochiaMark`,
+  Orazaka three solid shards in its orange. Native `KrizakaMark`, `OrazakaMark` and `ProductMark` join a retired export,
   whose neutral strokes now follow the theme. New primitive `@krizaka/ui/section-backdrop` (`SectionBackdrop`: the
   brand's section gradient, light dome, perspective grid, blurred foreground, a 40 s drift that stops under reduced
   motion). Words in the accent now use `text-fg-accent` (outline button hover, card title hover, menu indicator; native
@@ -1906,9 +1905,9 @@
 
 ### Minor Changes
 
-- [#33](https://github.com/krizaka/krizaka-ui/pull/33) [`07eb219`](https://github.com/krizaka/krizaka-ui/commit/07eb2192da82fddd7525dc1dd382b262f9cbdc8b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - One family of marks. `KrizakaLogo` and `OrazakaLogo` are redrawn on the grammar of `OrochiaLogo` (unchanged): a bold
+- [#33](https://github.com/krizaka/krizaka-ui/pull/33) [`07eb219`](https://github.com/krizaka/krizaka-ui/commit/07eb2192da82fddd7525dc1dd382b262f9cbdc8b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - One family of marks. `KrizakaLogo` and `OrazakaLogo` are redrawn on the grammar of a retired export (unchanged): a bold
   emblem in an orbit, a bright core, a crop below 48 px — Krizaka an ink hexagonal shield with a blue node and core,
-  Orazaka three solid shards in its orange. Native `KrizakaMark`, `OrazakaMark` and `ProductMark` join `OrochiaMark`,
+  Orazaka three solid shards in its orange. Native `KrizakaMark`, `OrazakaMark` and `ProductMark` join a retired export,
   whose neutral strokes now follow the theme. New primitive `@krizaka/ui/section-backdrop` (`SectionBackdrop`: the
   brand's section gradient, light dome, perspective grid, blurred foreground, a 40 s drift that stops under reduced
   motion). Words in the accent now use `text-fg-accent` (outline button hover, card title hover, menu indicator; native
@@ -2014,13 +2013,13 @@
   `@krizaka/ui/cn`, `/slot` (`Slot`, `VisuallyHidden`), `/button` (`Button`, `IconButton`, `buttonVariants`), `/badge`
   (`Badge`, `badgeVariants`), `/avatar` (`Avatar`, `Avatar.Group`), `/field` (`Field.Root/Label/Hint/Error`, `Input`,
   `Textarea`, `Select`), `/theme` (`ThemeScript`, `ThemeProvider`, `useTheme`, `ThemeToggle`), `/skeleton`,
-  `/empty-state`, `/spinner` and `/countdown` (`Countdown`, `useCountdown`, `splitDuration` — the Orochia kit's API,
+  `/empty-state`, `/spinner` and `/countdown` (`Countdown`, `useCountdown`, `splitDuration` — a former product's kit's API,
   unchanged). Server entries carry no directive; `avatar`, `theme` and `countdown` are client entries.
   
   The primitives need React 19 and Tailwind CSS v4 with `@krizaka/tailwind` then `@krizaka/ui/tailwind.css`
   (`tailwindcss` and `@krizaka/tailwind` are optional peers). New dependencies: `radix-ui`, `tailwind-variants`, `clsx`.
   
-  **The marks stay compatible**: `.` (`KrizakaLogo`, `OrazakaLogo`, `OrochiaLogo`, `ProductLogo`, `MotionObserver`,
+  **The marks stay compatible**: `.` (`KrizakaLogo`, `OrazakaLogo`, a retired export, `ProductLogo`, `MotionObserver`,
   `RotatingWord`, `cx`), `./native`, `./motion.css` and `./tailwind.css` are unchanged and still run on React 18. The
   major is the start of the 2.0 line (pre-release `beta`); `@krizaka/tokens` and `@krizaka/tailwind` move with it as
   members of the fixed group, without change.
