@@ -1,4 +1,4 @@
-import { type OrgFacts, type SiteGroup, type SiteId, siteGroups, sites } from "./sites";
+import { type OrgFacts, type SiteGroup, siteGroups, type SiteId, sites } from "./sites";
 
 /** The registry's id of Krizaka Lab was `motion`; `@krizaka/org` says `lab`. */
 const ORG_ID: Partial<Record<SiteId, string>> = { motion: "lab" };
