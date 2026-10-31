@@ -1,6 +1,6 @@
 Booked: Dog walk at Pattes Saint-Henri
 
-Akinaza
+Krizaka
 
 
 YOUR BOOKING IS CONFIRMED
@@ -21,7 +21,9 @@ See my booking https://dev.akinaza.com/en/account/bookings/example
 
 ----------------------------------------
 
-The Akinaza team
+Oussama
+
+Founder, Krizaka
 
 You receive this email because you booked a visit with Pattes Saint-Henri.
 

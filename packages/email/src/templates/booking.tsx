@@ -47,5 +47,5 @@ export const bookingReceipt = defineTemplate({
       </>
     );
   },
-  example: { businessName: "Pattes Saint-Henri", serviceName: "Dog walk", when: "Tuesday, October 27 at 1 pm", who: "Karim", where: "4100 rue Notre-Dame O., Montréal QC", priceLine: "$40.00 + GST $2.00 + QST $3.99 = $45.99", cancelRule: "Free cancellation until 24 h before.", manageUrl: "https://dev.akinaza.com/en/account/bookings/example", brand: "akinaza" },
+  example: { businessName: "Pattes Saint-Henri", serviceName: "Dog walk", when: "Tuesday, October 27 at 1 pm", who: "Karim", where: "4100 rue Notre-Dame O., Montréal QC", priceLine: "$40.00 + GST $2.00 + QST $3.99 = $45.99", cancelRule: "Free cancellation until 24 h before.", manageUrl: "https://dev.akinaza.com/en/account/bookings/example" },
 });
