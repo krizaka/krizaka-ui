@@ -9,7 +9,8 @@ import { Slot } from "radix-ui";
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
-import { KrizakaLogo } from "../marks/KrizakaLogo";
+// ProductLogo, not KrizakaLogo: one import path keeps every mark in one shared chunk (KrizakaLogo alone split it: +871 B gzip on the typical page).
+import { ProductLogo } from "../marks/ProductLogo";
 import { familyGroups, orgIdOf } from "../sites/family-groups";
 import { companyLinks, type FamilyLabels, familyLabels, type OrgFacts, siteById, type SiteId } from "../sites/sites";
 
@@ -231,7 +232,7 @@ export function SiteFooter({
           )}
           <div className={s.bottom()}>
             <a href={krizaka.url} className={s.signature()}>
-              <KrizakaLogo size={18} animated={false} />
+              <ProductLogo id="krizaka" size={18} animated={false} />
               {org ? org.footer.line[lang] : `${labels.signature[site.kind]} · ${labels.place}`}
             </a>
             {tag && (
