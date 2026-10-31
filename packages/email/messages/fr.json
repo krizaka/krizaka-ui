@@ -152,5 +152,17 @@
     "expiry": "Le lien fonctionne jusqu'au {date}.",
     "ignore": "Si vous n'attendiez pas ce courriel, ignorez-le : il ne se passe rien tant que vous n'ouvrez pas le lien.",
     "why": "Vous recevez ce courriel parce que {name} a choisi de partager un lien avec vous."
+  },
+  "bookingReceipt": {
+    "subject": "Réservé : {service} chez {business}",
+    "preheader": "{when}",
+    "heading": "Votre réservation est confirmée",
+    "body": "{service} chez {business}.",
+    "when": "Quand : {when}",
+    "who": "Avec : {who}",
+    "where": "Où : {where}",
+    "price": "Prix : {price}",
+    "button": "Voir ma réservation",
+    "why": "Vous recevez ce courriel parce que vous avez réservé une visite chez {business}."
   }
 }
