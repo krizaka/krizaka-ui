@@ -11,7 +11,7 @@ const listeners = new Set<() => void>();
 let cache: { raw: string | null; value: Panels; chosen: boolean } = { raw: null, value: DEFAULT_PANELS, chosen: false };
 
 function read(): typeof cache {
-  let raw: string | null = null;
+  let raw: string | null;
   try {
     raw = typeof localStorage === "undefined" ? null : localStorage.getItem(PANELS_KEY);
   } catch {

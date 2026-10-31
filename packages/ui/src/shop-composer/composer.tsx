@@ -19,10 +19,10 @@ import { type DiffEntry, diffPages } from "./diff";
 import { canRedo, canUndo, createHistory, type History, redo, run, undo } from "./history";
 import { Inspector } from "./inspector";
 import { newKey } from "./keys";
-import { usePanels } from "./panels";
 import { LookPicker } from "./look-picker";
 import { defaultShopComposerMessages, fill, type ShopComposerMessages } from "./messages";
 import { Outline, sectionLabel } from "./outline";
+import { usePanels } from "./panels";
 
 /** How long the draft waits for calm before it is saved. */
 // @fixed: ADR-007 §5 — the autosave debounce of the editor, 800 ms; not a shop setting.
@@ -101,6 +101,11 @@ const COLUMNS: Record<string, string> = {
   "false-true": "lg:grid-cols-[3rem_minmax(0,1fr)_20rem]",
   "false-false": "lg:grid-cols-[3rem_minmax(0,1fr)_3rem]",
 };
+
+/** The grid of the three panes for the two panels' state (kept out of the className call). */
+function columnsFor(p: { outline: boolean; inspector: boolean }): string {
+  return COLUMNS[`${p.outline}-${p.inspector}`] ?? "";
+}
 
 /** The fold button of a side panel (laptop only): it stays in the rail when the panel is folded. */
 function PanelToggle({ open, name, messages: m, onToggle, end }: { open: boolean; name: string; messages: ShopComposerMessages; onToggle: () => void; end?: boolean }) {
@@ -262,7 +267,7 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
       {/* One polite live region says every move, add, remove, undo. */}
       <p role="status" aria-live="polite" className="sr-only">{live}</p>
 
-      <div data-panels={`${panels.outline ? "outline" : ""} ${panels.inspector ? "inspector" : ""}`.trim()} className={cn("grid min-h-0 flex-1 gap-4", COLUMNS[`${panels.outline}-${panels.inspector}`])}>
+      <div data-panels={`${panels.outline ? "outline" : ""} ${panels.inspector ? "inspector" : ""}`.trim()} className={cn("grid min-h-0 flex-1 gap-4", columnsFor(panels))}>
         <aside aria-label={m.sections} className={cn("flex min-h-0 flex-col gap-4 overflow-y-auto", step === "section" && "hidden lg:flex")}>
           <PanelToggle open={panels.outline} name={m.sections} messages={m} onToggle={() => setPanels({ outline: !panels.outline })} />
           <div className={cn("flex min-h-0 flex-col gap-4", !panels.outline && "lg:hidden")}>
