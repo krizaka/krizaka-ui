@@ -53,7 +53,7 @@ function run(argv) {
       const branch = branchFor(new Date());
       sh("git", ["checkout", "-b", branch], dir);
       sh("git", ["add", "-A"], dir);
-      sh("git", ["commit", "-m", "chore(brand): icons follow the CDN brand manifest\n\nCo-authored-by: Claude <81847+claude@users.noreply.github.com>"], dir);
+      sh("git", ["commit", "-m", "chore(brand): icons follow the CDN brand manifest"], dir);
       sh("git", ["push", "-u", "origin", branch], dir);
       const url = sh("gh", ["pr", "create", "--title", "chore(brand): icons follow the CDN brand manifest", "--body", "Re-synced by krizaka-ui `tools/brand-propagate.mjs` after a brand export.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)"], dir);
       sh("gh", ["pr", "merge", url, "--auto", "--squash"], dir);
