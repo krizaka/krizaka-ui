@@ -1,0 +1,32 @@
+Booked: Dog walk at Pattes Saint-Henri
+
+Krizaka
+
+
+YOUR BOOKING IS CONFIRMED
+
+Dog walk at Pattes Saint-Henri.
+
+When: Tuesday, October 27 at 1 pm
+
+With: Karim
+
+Where: 4100 rue Notre-Dame O., Montréal QC
+
+Price: $40.00 + GST $2.00 + QST $3.99 = $45.99
+
+Free cancellation until 24 h before.
+
+See my booking https://dev.akinaza.com/en/account/bookings/example
+
+----------------------------------------
+
+Oussama
+
+Founder, Krizaka
+
+You receive this email because you booked a visit with Pattes Saint-Henri.
+
+Privacy https://www.krizaka.com/privacy · Contact https://www.krizaka.com/contact
+
+Sent by Technologies Krizaka Inc., Montréal (Québec), Canada.

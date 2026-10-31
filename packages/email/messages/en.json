@@ -152,5 +152,17 @@
     "expiry": "The link works until {date}.",
     "ignore": "If you weren't expecting this, ignore this email: nothing happens unless you open the link.",
     "why": "You receive this email because {name} chose to share a link with you."
+  },
+  "bookingReceipt": {
+    "subject": "Booked: {service} at {business}",
+    "preheader": "{when}",
+    "heading": "Your booking is confirmed",
+    "body": "{service} at {business}.",
+    "when": "When: {when}",
+    "who": "With: {who}",
+    "where": "Where: {where}",
+    "price": "Price: {price}",
+    "button": "See my booking",
+    "why": "You receive this email because you booked a visit with {business}."
   }
 }

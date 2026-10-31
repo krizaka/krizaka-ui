@@ -65,7 +65,7 @@ describe.each(matrix)("%s (%s)", (id, locale) => {
   });
 });
 
-const ACTION_URL = { newsletterConfirm: "confirmUrl", signInLink: "signInUrl", accountDeletion: "confirmUrl", confirmEmail: "confirmUrl", passwordReset: "resetUrl", emailChange: "confirmUrl", dataExport: "downloadUrl", shareLink: "shareUrl", commentReply: "url", newPost: "url" } as const;
+const ACTION_URL = { newsletterConfirm: "confirmUrl", signInLink: "signInUrl", accountDeletion: "confirmUrl", confirmEmail: "confirmUrl", passwordReset: "resetUrl", emailChange: "confirmUrl", dataExport: "downloadUrl", shareLink: "shareUrl", bookingReceipt: "manageUrl", commentReply: "url", newPost: "url" } as const;
 
 describe("the action", () => {
   it.each(Object.entries(ACTION_URL))("%s: one button, and the link also in the plain text and as a small fallback", async (id, field) => {
