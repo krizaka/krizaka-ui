@@ -1,5 +1,19 @@
 # @krizaka/ui
 
+## 3.79.0
+
+### Minor Changes
+
+- [#916](https://github.com/krizaka/krizaka-ui/pull/916) [`771cdf6`](https://github.com/krizaka/krizaka-ui/commit/771cdf6802f67a11804fcb030d7406a6ceb93bf6) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `SiteFooter` is compact (krizaka/krizaka-internal#754, « des footers de 10 lignes »): at most three lines on a desktop — the site's own links (each `SiteFooter.Column` inline), the family grouped inline (Products · Open source · Krizaka), then the signature, the version, the legal links and the new `controls` slot (language, theme). On a phone the family's groups fold (`<details>`). The family line shows on krizaka.com only by default (the founder's rule: links to the other sites live there; `family` opts another site in); its names and addresses come from `org.family` of `@krizaka/org` when `org` is passed (`familyGroups`, `orgIdOf` in `@krizaka/ui/sites`); the statuses are no longer repeated in the footer. New `tone`: `cahier` for the Cahier sites, `product` (default) for the products — same structure.
+
+- [#823](https://github.com/krizaka/krizaka-ui/pull/823) [`8be469b`](https://github.com/krizaka/krizaka-ui/commit/8be469b18bc48b43089a10bd0c13f99059451789) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(identity-card, qr-code): `IdentityCard` (`@krizaka/ui/identity-card`) — the identity of a business or a person at the top of a sheet: mark, name, subtitle, chips (status, registration number, city) and a contact QR code; `vCard(fields)` / `escapeVCard` (`@krizaka/ui/qr-code`) write the vCard 3.0 text to put in it. Needed by Akinaza's business sheet (krizaka/akinaza#497) and generic for every product's company or profile page.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.79.0
+  - @krizaka/tokens@3.79.0
+
 ## 3.78.1
 
 ### Patch Changes
