@@ -19,6 +19,7 @@ import { type DiffEntry, diffPages } from "./diff";
 import { canRedo, canUndo, createHistory, type History, redo, run, undo } from "./history";
 import { Inspector } from "./inspector";
 import { newKey } from "./keys";
+import { usePanels } from "./panels";
 import { LookPicker } from "./look-picker";
 import { defaultShopComposerMessages, fill, type ShopComposerMessages } from "./messages";
 import { Outline, sectionLabel } from "./outline";
@@ -93,6 +94,25 @@ function PreviewFrame({ src, title, phone, frame }: { src: string; title: string
   );
 }
 
+// The three columns on a laptop, by panel state: a folded panel is a 3rem rail with its button, so the preview keeps the room.
+const COLUMNS: Record<string, string> = {
+  "true-true": "lg:grid-cols-[15rem_minmax(0,1fr)_20rem]",
+  "true-false": "lg:grid-cols-[15rem_minmax(0,1fr)_3rem]",
+  "false-true": "lg:grid-cols-[3rem_minmax(0,1fr)_20rem]",
+  "false-false": "lg:grid-cols-[3rem_minmax(0,1fr)_3rem]",
+};
+
+/** The fold button of a side panel (laptop only): it stays in the rail when the panel is folded. */
+function PanelToggle({ open, name, messages: m, onToggle, end }: { open: boolean; name: string; messages: ShopComposerMessages; onToggle: () => void; end?: boolean }) {
+  const label = fill(open ? m.hidePanel : m.showPanel, { name });
+  const arrow = open === !end ? "‹" : "›";
+  return (
+    <Button variant="ghost" size="sm" aria-expanded={open} aria-label={label} title={label} className={cn("hidden shrink-0 lg:inline-flex", end ? "self-end" : "self-start")} onClick={onToggle}>
+      <span aria-hidden>{arrow}</span>
+    </Button>
+  );
+}
+
 /** The shop composer. */
 export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, published, previewUrl, presets, foldedTypes = [], messages = defaultShopComposerMessages, className }: ShopComposerProps) {
   const m = messages;
@@ -110,6 +130,7 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
   const [invalid, setInvalid] = React.useState<ReadonlySet<string>>(new Set());
   const [focusRequest, setFocusRequest] = React.useState<{ key: string } | null>(null);
   const frame = React.useRef<HTMLIFrameElement | null>(null);
+  const { panels, chosen, set: setPanels } = usePanels();
   const origin = React.useMemo(() => {
     try {
       return new URL(previewUrl, typeof location === "undefined" ? undefined : location.href).origin;
@@ -170,6 +191,8 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
   const select = (key: string) => {
     setSelected(key);
     setStep("section");
+    // Whoever never chose: picking a section opens its inspector. A person who folded it keeps it folded.
+    if (!chosen) setPanels({ inspector: true });
   };
 
   const addSection = (type: SectionType) => {
@@ -239,8 +262,10 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
       {/* One polite live region says every move, add, remove, undo. */}
       <p role="status" aria-live="polite" className="sr-only">{live}</p>
 
-      <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[18rem_minmax(0,1fr)_24rem]">
+      <div data-panels={`${panels.outline ? "outline" : ""} ${panels.inspector ? "inspector" : ""}`.trim()} className={cn("grid min-h-0 flex-1 gap-4", COLUMNS[`${panels.outline}-${panels.inspector}`])}>
         <aside aria-label={m.sections} className={cn("flex min-h-0 flex-col gap-4 overflow-y-auto", step === "section" && "hidden lg:flex")}>
+          <PanelToggle open={panels.outline} name={m.sections} messages={m} onToggle={() => setPanels({ outline: !panels.outline })} />
+          <div className={cn("flex min-h-0 flex-col gap-4", !panels.outline && "lg:hidden")}>
           <Outline sections={page.sections} selected={selected} onSelect={select} run={exec} messages={m} announce={announce} onAdd={() => setAdding(true)} focusRequest={focusRequest} />
           <details className="rounded-lg border border-border-default p-3" open>
             <summary className="min-h-9 cursor-pointer text-sm font-semibold text-fg">{m.look}</summary>
@@ -265,6 +290,7 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
               </RadioGroup.Root>
             </div>
           </details>
+          </div>
         </aside>
 
         <section aria-label={m.preview} className="hidden min-h-0 flex-col gap-2 lg:flex">
@@ -276,7 +302,9 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
         </section>
 
         <aside aria-label={m.inspector} className={cn("flex min-h-0 flex-col gap-4 overflow-y-auto", step === "list" && "hidden lg:flex")}>
+          <PanelToggle open={panels.inspector} name={m.inspector} messages={m} end onToggle={() => setPanels({ inspector: !panels.inspector })} />
           <Button variant="ghost" size="sm" className="self-start lg:hidden" onClick={() => setStep("list")}>← {m.backToSections}</Button>
+          <div className={cn("flex min-h-0 flex-col gap-4", !panels.inspector && "lg:hidden")}>
           {selectedSection ? (
             <Inspector
               section={selectedSection}
@@ -292,6 +320,7 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
           ) : (
             <p className="m-0 text-sm text-fg-secondary">{m.noSelection}</p>
           )}
+          </div>
         </aside>
       </div>
 

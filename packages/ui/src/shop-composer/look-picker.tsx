@@ -47,9 +47,9 @@ export function LookPicker({ looks, page, messages: m, run, announce }: LookPick
         className="grid-cols-2"
       >
         {looks.map((l) => (
-          <RadioGroup.Card key={l.id} value={l.id}>
-            <span data-shop-preset={l.id} className={cn("kz-look-swatch", "w-full justify-between")}>
-              <span className="text-sm font-semibold">{l.name}</span>
+          <RadioGroup.Card key={l.id} value={l.id} className="p-2 pr-9">
+            <span data-shop-preset={l.id} className={cn("kz-look-swatch")}>
+              <span className="min-w-0 max-w-full truncate text-sm font-semibold">{l.name}</span>
               <Chips look={l} />
             </span>
           </RadioGroup.Card>

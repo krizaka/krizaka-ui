@@ -17,6 +17,7 @@ const looks: ShopComposerPreset[] = [
 ];
 
 beforeEach(() => {
+  localStorage.clear();
   // happy-dom refuses to load an iframe page and reports it: the preview's page is the product's, not under test here.
   const error = console.error.bind(console);
   vi.spyOn(console, "error").mockImplementation((...args) => {
@@ -248,5 +249,50 @@ describe("the look picker (akinaza#478)", () => {
   it("has no axe violation", async () => {
     const { container } = setup({ presets: [...presets, ...looks] });
     expect(await axeViolations(container)).toEqual([]);
+  });
+});
+
+describe("the composer — folding side panels (akinaza#214)", () => {
+  const grid = () => document.querySelector("[data-panels]") as HTMLElement;
+
+  it("starts with the outline open and the inspector folded, so the preview keeps the room", () => {
+    setup();
+    expect(grid().dataset.panels).toBe("outline");
+    expect(grid().className).toContain("lg:grid-cols-[15rem_minmax(0,1fr)_3rem]");
+    expect(screen.getByRole("button", { name: "Show Section" }).getAttribute("aria-expanded")).toBe("false");
+    expect(screen.getByRole("button", { name: "Hide Sections" }).getAttribute("aria-expanded")).toBe("true");
+  });
+
+  it("folds and opens a panel, and remembers the choice for the next visit", async () => {
+    const { user, unmount } = setup();
+    await user.click(screen.getByRole("button", { name: "Hide Sections" }));
+    expect(grid().dataset.panels).toBe("");
+    expect(grid().className).toContain("lg:grid-cols-[3rem_minmax(0,1fr)_3rem]");
+    unmount();
+    setup();
+    expect(grid().dataset.panels).toBe("");
+    await userEvent.setup().click(screen.getByRole("button", { name: "Show Section" }));
+    expect(grid().dataset.panels).toBe("inspector");
+    expect(JSON.parse(localStorage.getItem("kz-shop-composer-panels")!)).toEqual({ outline: false, inspector: true });
+  });
+
+  it("opens the inspector when a section is picked by someone who never chose, and keeps it folded for someone who did", async () => {
+    const first = setup();
+    await first.user.click(rowButtons()[1]!);
+    expect(grid().dataset.panels).toBe("outline inspector");
+    first.unmount();
+    localStorage.setItem("kz-shop-composer-panels", JSON.stringify({ outline: true, inspector: false }));
+    const second = setup();
+    await second.user.click(rowButtons()[1]!);
+    expect(grid().dataset.panels).toBe("outline");
+  });
+
+  it("puts the name of each look inside its card, above the accent chips, clear of the check", () => {
+    setup({ presets: [...presets, ...looks] });
+    const card = screen.getByRole("radio", { name: /Cahier/ });
+    const swatch = card.querySelector(".kz-look-swatch") as HTMLElement;
+    expect(card.contains(swatch)).toBe(true);
+    expect(card.className).toContain("pr-9");
+    expect(swatch.className).not.toContain("justify-between");
   });
 });

@@ -28,6 +28,9 @@ export type ShopComposerMessages = {
   hiddenNote: string;
   /** The inspector. */
   inspector: string;
+  /** The side panels' fold buttons on a laptop: « Hide {name} » / « Show {name} » (the name is `sections` or `inspector`). */
+  hidePanel: string;
+  showPanel: string;
   noSelection: string;
   backToSections: string;
   variant: string;
@@ -132,6 +135,8 @@ export const defaultShopComposerMessages: ShopComposerMessages = {
   announceRedone: "Redone",
   hiddenNote: "hidden",
   inspector: "Section",
+  hidePanel: "Hide {name}",
+  showPanel: "Show {name}",
   noSelection: "Choose a section to change how it is drawn.",
   backToSections: "Back to sections",
   variant: "How it is drawn",
