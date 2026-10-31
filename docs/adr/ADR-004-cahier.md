@@ -59,7 +59,7 @@ footnote and caption) follow in their own pull request, then the sites, one by o
   (`--kz-paper-*`). A product that needs its previous corner or shadow sets it in its own theme, as a brand override.
 - `@krizaka/fonts` 0.3.0 changes the roles; the faces before it stay in the package as `legacyFonts` (files kept, out
   of `fonts.css`) so a pinned `next/font/local` path keeps resolving until the app moves.
-- Products keep their own identity (Orochia's Outfit display, each brand's accent); the notebook's ruling is opt-in per
+- Products keep their own identity (a former product's Outfit display, each brand's accent); the notebook's ruling is opt-in per
   page, never forced under a dense app screen.
 - The Storybook screenshot baselines are regenerated in the same pull request (every story changes).
 - Risks, said honestly: the notebook can turn quaint (the ruling stays on canvases, docs and showcases, not under

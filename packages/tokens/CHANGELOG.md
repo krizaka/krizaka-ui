@@ -106,12 +106,11 @@ No changes in this release.
 
 ### Minor Changes
 
-- [#714](https://github.com/krizaka/krizaka-ui/pull/714) [`972f53c`](https://github.com/krizaka/krizaka-ui/commit/972f53c41f865139041c5df510e1c18a6bc72967) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Paused products (2026-10-25): Orochia, Yasakia, Yororis and Kachizaka leave the family. The family switcher and the
+- [#714](https://github.com/krizaka/krizaka-ui/pull/714) [`972f53c`](https://github.com/krizaka/krizaka-ui/commit/972f53c41f865139041c5df510e1c18a6bc72967) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Paused products (2026-10-25): the former products leave the family. The family switcher and the
   footer (`sites`) list only Krizaka, Orazaka, Yomizaka and Akinaza; `siteById` still finds a paused site (`pausedSites`), so
-  a page that names one as `current` keeps rendering. Nothing published is removed: their marks (`OrochiaLogo`,
-  `YasakiaLogo`, `YororisLogo`, `KachizakaLogo`, the native `*Mark`s, their `ProductLogo` / `ProductMark` ids — the new
-  `PausedBrandId`, `PausedSiteId`), their brand themes (`@krizaka/tokens/brands/{orochia,yasakia,yororis,kachizaka}.css`
-  and the `.brand-*` scopes, now headed DEPRECATED), the charts' `orochia` palette and the email themes stay, marked
+  a page that names one as `current` keeps rendering. Nothing published is removed: their marks (retired exports, the native `*Mark`s, their `ProductLogo` / `ProductMark` ids — the new
+  `PausedBrandId`, `PausedSiteId`), their brand themes (a retired export
+  and the `.brand-*` scopes, now headed DEPRECATED), the charts' a retired export palette and the email themes stay, marked
   `@deprecated`, and are removed in the next major. The examples, metas and docs speak of the products in focus only.
 
 ## 3.61.0
@@ -383,10 +382,10 @@ No changes in this release.
 
 ### Minor Changes
 
-- [#202](https://github.com/krizaka/krizaka-ui/pull/202) [`bd53e0c`](https://github.com/krizaka/krizaka-ui/commit/bd53e0c279034f364513b2530812a94a1043b267) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Kachizaka (predictions among friends, points only) and Akinaza (the shop OS for Québec): their brands, marks and mascots.
+- [#202](https://github.com/krizaka/krizaka-ui/pull/202) [`bd53e0c`](https://github.com/krizaka/krizaka-ui/commit/bd53e0c279034f364513b2530812a94a1043b267) Thanks [@oussamaABID](https://github.com/oussamaABID)! - a former product (predictions among friends, points only) and Akinaza (the shop OS for Québec): their brands, marks and mascots.
   
-  - `@krizaka/tokens`: `brands/kachizaka.css` / `.brand-kachizaka` — **victorious gold** accent (hue 48, the family's only gold, ≥ 10° from warning and ≥ 20° from every brand accent) with **electric cobalt** (226) as `accent-2`, section ground, light accent text and ring; the cobalt alone sits 9° from the Krizaka blue, so it never leads (a test says so). `brands/akinaza.css` / `.brand-akinaza` — **Laurentian forest green** accent (hue 130, ≥ 20° from sage, emerald, success and every accent) with a matte **copper** `accent-2` (≤ 65 % saturation, never Orazaka's orange). `marks.kachizaka` (cobalt → gold) and `marks.akinaza` (forest → copper), every stop ≥ 3:1 in both themes. Budgets `.` 4.2 kB, `./native` 2.5 kB, `scoped.css` 1.5 kB.
-  - `@krizaka/ui`: `KachizakaLogo` / `KachizakaMark` ("the sealed cup": a trophy cut at its rim, the seal — a star — breathes, the ball on the orbit) and `AkinazaLogo` / `AkinazaMark` ("the open shop": an awning cut at its corner, the shop front, the open door's warm light, a coin on the orbit); `ProductLogo` / `ProductMark` accept both ids; default avatars for both. The flock welcomes **the magpie** (keeps the score) and **the beaver** (builds the shop) in `Mascot` (web and native) with their own palettes. `@krizaka/ui/sites`: a new status `development` ("In development" / "En développement") and both products in it, their address the repository until a dev site exists.
+  - `@krizaka/tokens`: retired exports — **victorious gold** accent (hue 48, the family's only gold, ≥ 10° from warning and ≥ 20° from every brand accent) with **electric cobalt** (226) as `accent-2`, section ground, light accent text and ring; the cobalt alone sits 9° from the Krizaka blue, so it never leads (a test says so). `brands/akinaza.css` / `.brand-akinaza` — **Laurentian forest green** accent (hue 130, ≥ 20° from sage, emerald, success and every accent) with a matte **copper** `accent-2` (≤ 65 % saturation, never Orazaka's orange). a retired export (cobalt → gold) and `marks.akinaza` (forest → copper), every stop ≥ 3:1 in both themes. Budgets `.` 4.2 kB, `./native` 2.5 kB, `scoped.css` 1.5 kB.
+  - `@krizaka/ui`: retired exports ("the sealed cup": a trophy cut at its rim, the seal — a star — breathes, the ball on the orbit) and `AkinazaLogo` / `AkinazaMark` ("the open shop": an awning cut at its corner, the shop front, the open door's warm light, a coin on the orbit); `ProductLogo` / `ProductMark` accept both ids; default avatars for both. The flock welcomes **the magpie** (keeps the score) and **the beaver** (builds the shop) in `Mascot` (web and native) with their own palettes. `@krizaka/ui/sites`: a new status `development` ("In development" / "En développement") and both products in it, their address the repository until a dev site exists.
 
 ## 3.14.0
 
@@ -398,7 +397,7 @@ No changes in this release.
 
 - [#196](https://github.com/krizaka/krizaka-ui/pull/196) [`bab3e55`](https://github.com/krizaka/krizaka-ui/commit/bab3e55003effe5ed2f5fa802e368d1b93199a43) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Yomizaka, the fifth product (documents read, classified and checked by Orazaka): its brand and its mark.
   
-  - `@krizaka/tokens`: the Yomizaka brand — **ink indigo** (藍, *ai*), accent hue 240–242 placed by test ≥ 20° from the Krizaka blue and the Orochia violet and ≥ 60° from every other brand and every status; `brands/yomizaka.css`, `.brand-yomizaka` in `brands/scoped.css`, `brands.yomizaka` and `marks.yomizaka` (ink `hsl(232 50% 55%)` → indigo `hsl(248 50% 58%)`, every stop ≥ 3:1 on surfaces 0–2 in dark and light). Size budgets `.` 3.9 kB, `./native` 2.2 kB.
+  - `@krizaka/tokens`: the Yomizaka brand — **ink indigo** (藍, *ai*), accent hue 240–242 placed by test ≥ 20° from the Krizaka blue and a former product's violet and ≥ 60° from every other brand and every status; `brands/yomizaka.css`, `.brand-yomizaka` in `brands/scoped.css`, `brands.yomizaka` and `marks.yomizaka` (ink `hsl(232 50% 55%)` → indigo `hsl(248 50% 58%)`, every stop ≥ 3:1 on surfaces 0–2 in dark and light). Size budgets `.` 3.9 kB, `./native` 2.2 kB.
   - `@krizaka/ui`: `YomizakaLogo` (web) and `YomizakaMark` (native), "the reading" — a page with the Krizaka cut at its corner, three lines of text, and a lens resting on it; a line of light scans the page (web), the lens breathes, one node rides the orbit. `ProductLogo` / `ProductMark` accept `id="yomizaka"`; `@krizaka/ui/sites` lists Yomizaka (`dev.yomizaka.com`, upcoming).
 
 ## 3.12.0
@@ -435,7 +434,7 @@ No changes in this release.
 
 ### Minor Changes
 
-- [#176](https://github.com/krizaka/krizaka-ui/pull/176) [`336293a`](https://github.com/krizaka/krizaka-ui/commit/336293a904d6d0fc844add376ce6dd56e57c4ba9) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Yazakia is renamed **Yasakia**: `YasakiaLogo` / `YasakiaMark`, `ProductLogo` / `ProductMark` id `yasakia`, `@krizaka/tokens/brands/yasakia.css` and `.brand-yasakia` in `brands/scoped.css`, `brands.yasakia` / `marks.yasakia`. The old names (`YazakiaLogo`, `YazakiaMark`, id `yazakia`, `brands/yazakia.css`, `.brand-yazakia`) stay as deprecated aliases for one minor version.
+- [#176](https://github.com/krizaka/krizaka-ui/pull/176) [`336293a`](https://github.com/krizaka/krizaka-ui/commit/336293a904d6d0fc844add376ce6dd56e57c4ba9) Thanks [@oussamaABID](https://github.com/oussamaABID)! - a former product is renamed **a former product**: retired exports, `ProductLogo` / `ProductMark` id retired exports in `brands/scoped.css`, retired exports. The old names (retired exports, id retired exports) stay as deprecated aliases for one minor version.
 
 ## 3.7.1
 
@@ -481,7 +480,7 @@ No changes in this release.
 
 ### Minor Changes
 
-- [#105](https://github.com/krizaka/krizaka-ui/pull/105) [`dc6156f`](https://github.com/krizaka/krizaka-ui/commit/dc6156fcac67f6285b966c2a27d56af75fc8db10) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Yororis brand: mark, theme, mascot, icons. `@krizaka/tokens`: the `yororis` brand — `brands/yororis.css`, `.brand-yororis` in `brands/scoped.css`, `brands.yororis` and `marks.yororis` (web and native) — sand → sage, the accent on sage (≥ 60° from `--kz-success` and `--kz-warning`), the sand (mark, `accent-2`) told apart from the warning amber by its chroma, AA-tested in dark and light. `@krizaka/ui`: `YororisLogo` (web) and `YororisMark` (native) — "the hold": two filled leaves rising into a "Y" that cup a warm core, one node, the moment, on the orbit — `ProductLogo` / `ProductMark` accept `id="yororis"`, the "Brand family" story shows Krizaka and its four products; the flock gains the `crane` ("la grue écoute", the bird of listening). `@krizaka/icons`: `MomentIcon`, `ThreadIcon`, `KeepIcon`.
+- [#105](https://github.com/krizaka/krizaka-ui/pull/105) [`dc6156f`](https://github.com/krizaka/krizaka-ui/commit/dc6156fcac67f6285b966c2a27d56af75fc8db10) Thanks [@oussamaABID](https://github.com/oussamaABID)! - a former product brand: mark, theme, mascot, icons. `@krizaka/tokens`: the a retired export brand — retired exports in `brands/scoped.css`, retired exports (web and native) — sand → sage, the accent on sage (≥ 60° from `--kz-success` and `--kz-warning`), the sand (mark, `accent-2`) told apart from the warning amber by its chroma, AA-tested in dark and light. `@krizaka/ui`: a retired export (web) and a retired export (native) — "the hold": two filled leaves rising into a "Y" that cup a warm core, one node, the moment, on the orbit — `ProductLogo` / `ProductMark` accept a retired export, the "Brand family" story shows Krizaka and its four products; the flock gains the `crane` ("la grue écoute", the bird of listening). `@krizaka/icons`: `MomentIcon`, `ThreadIcon`, `KeepIcon`.
 
 ## 2.9.0
 
@@ -491,7 +490,7 @@ No changes in this release.
 
 ### Minor Changes
 
-- [#90](https://github.com/krizaka/krizaka-ui/pull/90) [`afce4b2`](https://github.com/krizaka/krizaka-ui/commit/afce4b2ec14c42c7550fc911af7db46d2a5d8bb6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Yazakia brand: mark, theme, mascot, icons. `@krizaka/tokens`: the `yazakia` brand — `brands/yazakia.css`, `.brand-yazakia` in `brands/scoped.css`, `brands.yazakia` and `marks.yazakia` (web and native) — emerald → turquoise, the accent on turquoise (hue 174, 14° from `--kz-success`), AA-tested in dark and light. `@krizaka/ui`: `YazakiaLogo` (web) and `YazakiaMark` (native) — two arms that lean in and meet, a core, the pair on the orbit — `ProductLogo` / `ProductMark` accept `id="yazakia"`, the "Brand family" story; the flock gains the `lovebird` ("l'inséparable présente", the bird of introductions). `@krizaka/icons`: `BatchIcon`, `DebriefIcon`, `IntroIcon`.
+- [#90](https://github.com/krizaka/krizaka-ui/pull/90) [`afce4b2`](https://github.com/krizaka/krizaka-ui/commit/afce4b2ec14c42c7550fc911af7db46d2a5d8bb6) Thanks [@oussamaABID](https://github.com/oussamaABID)! - a former product brand: mark, theme, mascot, icons. `@krizaka/tokens`: the a retired export brand — retired exports in `brands/scoped.css`, retired exports (web and native) — emerald → turquoise, the accent on turquoise (hue 174, 14° from `--kz-success`), AA-tested in dark and light. `@krizaka/ui`: a retired export (web) and a retired export (native) — two arms that lean in and meet, a core, the pair on the orbit — `ProductLogo` / `ProductMark` accept a retired export, the "Brand family" story; the flock gains the `lovebird` ("l'inséparable présente", the bird of introductions). `@krizaka/icons`: `BatchIcon`, `DebriefIcon`, `IntroIcon`.
 
 ## 2.7.0
 
@@ -567,7 +566,7 @@ No changes in this release.
     Geometry and animation unchanged. The 2.0 version stays visible in Storybook, *Brand/Evolution*.
   - **`marks` (`@krizaka/tokens`, `@krizaka/tokens/native`).** Each brand file carries its mark's emblem gradient
     (`$extensions["com.krizaka"].mark`), exported as `marks.<id>` (`[offset, colour]` stops); the three marks read it —
-    no colour copied into `@krizaka/ui`. Krizaka and Orochia values are unchanged. The generated constants are marked
+    no colour copied into `@krizaka/ui`. Krizaka and a former product values are unchanged. The generated constants are marked
     pure, so a bundler keeps only what an app imports.
   - **`ThemeScript defaultMode`** (fixes [#47](https://github.com/krizaka/krizaka-ui/issues/47)). `ThemeScript` takes the same `defaultMode` (`"dark" | "light" | "system"`,
     default `"system"`) as `ThemeProvider`: with nothing persisted, the script applies it before the first paint and the
@@ -585,7 +584,7 @@ No changes in this release.
   
   Migrating from `@krizaka/ui` 1.x:
   
-  - **Nothing changes for the marks and the motion signature**: `KrizakaLogo`, `OrazakaLogo`, `OrochiaLogo`,
+  - **Nothing changes for the marks and the motion signature**: `KrizakaLogo`, `OrazakaLogo`, a retired export,
     `ProductLogo`, the `/native` marks and `motion.css` keep their names and props.
   - **New: the primitives**, one entry each (`@krizaka/ui/button`, `/card`, `/dialog`, `/toast`, `/tabs`, `/command`,
     `/countdown`…), their React Native parity in `@krizaka/ui/native`, and the registry (`@krizaka/ui/registry/*`) that
@@ -611,10 +610,10 @@ No changes in this release.
     brand file: an app that changes its page surface no longer gets a line under each `SectionBackdrop`. The resolved
     values (`values`, `brands`, `/native`) are unchanged.
 
-- [#33](https://github.com/krizaka/krizaka-ui/pull/33) [`07eb219`](https://github.com/krizaka/krizaka-ui/commit/07eb2192da82fddd7525dc1dd382b262f9cbdc8b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Brand themes: one colour per Krizaka brand. `@krizaka/tokens/brands/{krizaka,orazaka,orochia}.css` (a product's
+- [#33](https://github.com/krizaka/krizaka-ui/pull/33) [`07eb219`](https://github.com/krizaka/krizaka-ui/commit/07eb2192da82fddd7525dc1dd382b262f9cbdc8b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Brand themes: one colour per Krizaka brand. a retired export (a product's
   identity, dark and light, imported after the tokens), `brands/scoped.css` (`.brand-<id>` classes for pages that show
   several brands), `brands` in the web and native modules (`<ThemeProvider overrides={brands.orazaka}>`). Orazaka is
-  orange (from its mark: `hsl(26 92% 55%)` dark under near-black text, `#b45309` light under white), Orochia velvet →
+  orange (from its mark: `hsl(26 92% 55%)` dark under near-black text, `#b45309` light under white), a former product velvet →
   magenta, Krizaka ink + blue (the platform default). New roles: `--kz-accent-text` (the accent as text, ≥ 4.5:1 on
   every surface; `text-fg-accent`) and the section gradient `--kz-brand-gradient-{from,via,to}`
   (`from-brand-from via-brand-via to-brand-to`), every pair tested at WCAG AA in both themes. `BRAND.md` documents the
@@ -632,10 +631,10 @@ No changes in this release.
 
 ### Minor Changes
 
-- [#33](https://github.com/krizaka/krizaka-ui/pull/33) [`07eb219`](https://github.com/krizaka/krizaka-ui/commit/07eb2192da82fddd7525dc1dd382b262f9cbdc8b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Brand themes: one colour per Krizaka brand. `@krizaka/tokens/brands/{krizaka,orazaka,orochia}.css` (a product's
+- [#33](https://github.com/krizaka/krizaka-ui/pull/33) [`07eb219`](https://github.com/krizaka/krizaka-ui/commit/07eb2192da82fddd7525dc1dd382b262f9cbdc8b) Thanks [@oussamaABID](https://github.com/oussamaABID)! - Brand themes: one colour per Krizaka brand. a retired export (a product's
   identity, dark and light, imported after the tokens), `brands/scoped.css` (`.brand-<id>` classes for pages that show
   several brands), `brands` in the web and native modules (`<ThemeProvider overrides={brands.orazaka}>`). Orazaka is
-  orange (from its mark: `hsl(26 92% 55%)` dark under near-black text, `#b45309` light under white), Orochia velvet →
+  orange (from its mark: `hsl(26 92% 55%)` dark under near-black text, `#b45309` light under white), a former product velvet →
   magenta, Krizaka ink + blue (the platform default). New roles: `--kz-accent-text` (the accent as text, ≥ 4.5:1 on
   every surface; `text-fg-accent`) and the section gradient `--kz-brand-gradient-{from,via,to}`
   (`from-brand-from via-brand-via to-brand-to`), every pair tested at WCAG AA in both themes. `BRAND.md` documents the

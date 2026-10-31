@@ -37,7 +37,7 @@ This ADR does three things:
 - **Live sites:** krizaka-com, the blog, ui.krizaka.com's own chrome (`apps/site`; the registry examples are not
   counted), java.krizaka.com (`krizaka-build/site`), the ts site (`krizaka-ts/site`) and the motion lab.
 - **Tool:** the internal cockpit. Only its import names are read.
-- **Paused, counted apart:** Orochia, Yasakia, Yororis, Kachizaka.
+- **Paused, counted apart:** the former products.
 
 Each row lists:
 
@@ -159,12 +159,12 @@ The pairs (`ui-usage.md`, verdict `merge`):
   - The native sub-entries `native/vertical-video`, `native/media-capture`, `native/media-picker` and
     `native/markdown`. Yomizaka's and Akinaza's mobile screens import none of them.
 
-  The native components were built for the paused mobile apps (Orochia, Yasakia, Yororis), which pin their version
+  The native components were built for the paused mobile apps (the former products), which pin their version
   (§2.4). Yomizaka and Akinaza do not use them.
 
 ### 2.4 The paused products leave the core
 
-**Decision.** A paused product (Orochia, Yasakia, Yororis, Kachizaka) **pins** `@krizaka/ui` to its last 3.x minor
+**Decision.** A paused product (the former products) **pins** `@krizaka/ui` to its last 3.x minor
 (`~3.<n>.0`) and keeps working as it is. The core stops carrying components for it:
 
 - **The six entries only paused products import are deprecated in 3.x and removed in 4.0:** `iso`, `marquee`, `audio-player`, `meta-row`, `how-it-works-page`, `media-grid` and `photo-grid` (all moved). Each deprecation reason says
@@ -173,9 +173,9 @@ The pairs (`ui-usage.md`, verdict `merge`):
   back:
   - into its own repository, as a product composite;
   - back into the core, through the needs-driven rule (ADR-006 §7), from a filed issue.
-- **The marks stay in the root entry.** `OrochiaLogo`, `YasakiaLogo`, `YororisLogo` and `KachizakaLogo` are brand, not
+- **The marks stay in the root entry.** retired exports are brand, not
   product UI. krizaka.com lists the whole family, and `PausedBrandId` already says so.
-- **Krizaka Motion drops its paused-product experiment.** The lab removes `yororis-synthesis` (slice 6).
+- **Krizaka Motion drops its paused-product experiment.** The lab removes a retired export (slice 6).
 
 Why pin and not move the components into a package of their own: nobody would maintain that package. A pin costs
 nothing, keeps the paused apps building, and is undone in one line when a product comes back.
@@ -406,7 +406,7 @@ codemod wherever the mapping is mechanical.
    - The 17 new retirements, the 6 leave-core entries and `photo-grid`.
    - The founder's answers on the 8 asks.
    - Changesets.
-   - The paused products pinned to `~3.73.0` (one-line PRs in orochia, yasakia, yororis, kachizaka and their mobile
+   - The paused products pinned to `~3.73.0` (one-line PRs in the former products and their mobile
      apps).
 4. **[krizaka-ts#230](https://github.com/krizaka/krizaka-ts/issues/230) The guard: `krizaka/no-retired-ui` in `@krizaka/config`.**
    - Generated from the registry.
@@ -421,7 +421,7 @@ codemod wherever the mapping is mechanical.
 6. **[krizaka-motion#62](https://github.com/krizaka/krizaka-motion/issues/62) motion.krizaka.com by domain.**
    - The guides regrouped.
    - The library build and `exports` dropped.
-   - `yororis-synthesis` removed.
+   - a retired export removed.
    - Each guide linked to its `@krizaka/ui` entry.
 7. **[akinaza#521](https://github.com/krizaka/akinaza/issues/521) Adoption in the apps.**
    - Akinaza (`kpi-explained`, `glossary`, `choice-grid`, the native `mascot-state`), the cockpit's `tree-view` and

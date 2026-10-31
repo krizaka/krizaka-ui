@@ -78,7 +78,7 @@ test("the captions pair each product with its bird: the duck is Orazaka (founder
 test("the film shows only the family of today: Krizaka, Orazaka, Yomizaka, Akinaza", () => {
   assert.deepEqual(FILM.cast, ["falcon", "duck", "owl", "beaver"]);
   assert.deepEqual(FILM.family, []);
-  for (const c of FILM.cues) assert.doesNotMatch(`${c.en} ${c.fr}`, /pay|paiement|yasakia|yororis|orochia|kachizaka/i, c.id);
+  for (const c of FILM.cues) assert.doesNotMatch(`${c.en} ${c.fr}`, /pay|paiement/i, c.id);
 });
 
 test("the film lasts 30–45 s, each bird has its moment alone, and the captions follow in order", () => {

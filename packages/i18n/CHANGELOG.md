@@ -30,7 +30,7 @@
 
 ### Patch Changes
 
-- [#332](https://github.com/krizaka/krizaka-ui/pull/332) [`057732b`](https://github.com/krizaka/krizaka-ui/commit/057732be1fdf99688163920b4bfc3550357e86e1) Thanks [@oussamaABID](https://github.com/oussamaABID)! - The TypeScript peer is `>=5`, not `^5`: an app on TypeScript 6 (orochia-mobile) installs it without an override.
+- [#332](https://github.com/krizaka/krizaka-ui/pull/332) [`057732b`](https://github.com/krizaka/krizaka-ui/commit/057732be1fdf99688163920b4bfc3550357e86e1) Thanks [@oussamaABID](https://github.com/oussamaABID)! - The TypeScript peer is `>=5`, not `^5`: an app on TypeScript 6 (a former repository) installs it without an override.
 
 ## 0.2.2
 
@@ -84,11 +84,11 @@
   (`{placeholder}`), `<Rich>` (`<b>`, `<a>` with `href`/`renderLink`, server-safe) in `./rich`, `createI18nReact(i18n)`
   → `I18nProvider`/`useI18n` in `./react` (client). The `krizaka-i18n` CLI: `check <dir>` (same keys as `en.json`, no
   empty string, same placeholders and markup, `--unused`, `--json`) and `scan <path>…` (hard-coded user-facing strings,
-  TypeScript optional peer). Replaces the site's `scripts/check-messages.mjs` and Orochia's `scripts/check-i18n.mjs`.
+  TypeScript optional peer). Replaces the site's `scripts/check-messages.mjs` and a former product's `scripts/check-i18n.mjs`.
 
 - [#26](https://github.com/krizaka/krizaka-ui/pull/26) [`440f052`](https://github.com/krizaka/krizaka-ui/commit/440f052ba070f73fd7cf4c968ece3e61a6a47054) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `<Rich>` takes `slots` (nodes in place of `{name}` placeholders — a link, an emphasised value — in plain text, bold and
   links; a placeholder without a slot stays as written) and `renderBold` (style the `<b>`, default `<strong>`): what
-  Orochia's own `Rich` did, so it can re-export this one.
+  a former product's own `Rich` did, so it can re-export this one.
 
 ### Patch Changes
 
@@ -104,7 +104,7 @@
 
 - [#26](https://github.com/krizaka/krizaka-ui/pull/26) [`440f052`](https://github.com/krizaka/krizaka-ui/commit/440f052ba070f73fd7cf4c968ece3e61a6a47054) Thanks [@oussamaABID](https://github.com/oussamaABID)! - `<Rich>` takes `slots` (nodes in place of `{name}` placeholders — a link, an emphasised value — in plain text, bold and
   links; a placeholder without a slot stays as written) and `renderBold` (style the `<b>`, default `<strong>`): what
-  Orochia's own `Rich` did, so it can re-export this one.
+  a former product's own `Rich` did, so it can re-export this one.
 
 ## 0.1.0-beta.1
 
@@ -126,4 +126,4 @@
   (`{placeholder}`), `<Rich>` (`<b>`, `<a>` with `href`/`renderLink`, server-safe) in `./rich`, `createI18nReact(i18n)`
   → `I18nProvider`/`useI18n` in `./react` (client). The `krizaka-i18n` CLI: `check <dir>` (same keys as `en.json`, no
   empty string, same placeholders and markup, `--unused`, `--json`) and `scan <path>…` (hard-coded user-facing strings,
-  TypeScript optional peer). Replaces the site's `scripts/check-messages.mjs` and Orochia's `scripts/check-i18n.mjs`.
+  TypeScript optional peer). Replaces the site's `scripts/check-messages.mjs` and a former product's `scripts/check-i18n.mjs`.
