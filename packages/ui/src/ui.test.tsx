@@ -142,7 +142,7 @@ describe("commercial names (krizaka-internal#2035)", () => {
     expect(KRIDOC.page.endsWith(`${KRIDOC.node.cx},${KRIDOC.node.cy}`)).toBe(false); // the page is open: its stroke stops short of the node
     expect(container.querySelector(".kdm-spin, .kdm-pulse")).toBeNull();
     expect(render(<KridocLogo size={96} />).container.querySelector(".kdm-pulse")).not.toBeNull();
-    expect(render(<ProductLogo id="kachizaka" title="Kridoc" />).container.querySelector("svg")?.getAttribute("aria-label")).toBe("Kridoc");
+    expect(render(<ProductLockup id="kachizaka" name="Kridoc" endorsement="by Krizaka" />).container.querySelector(".kdm-pulse")).not.toBeNull(); // the lockup, not ProductLogo, carries Kridoc: the typical page stays light
   });
 
   it("writes the lockup from data: the name read aloud, the mark decorative", () => {
