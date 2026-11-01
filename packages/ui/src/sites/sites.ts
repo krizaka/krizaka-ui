@@ -45,12 +45,12 @@ const site = (s: Omit<Site, "host">): Site => ({ ...s, host: s.url.replace(/^htt
 /** Every site of the family, in reading order (the group order, then the order inside each group). */
 export const sites: readonly Site[] = [
   site({ id: "krizaka", name: "Krizaka", url: "https://www.krizaka.com", kind: "company", group: "krizaka", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-com" }),
-  site({ id: "orazaka", name: "Orazaka", url: "https://www.orazaka.com", kind: "product", group: "products", status: "released", mark: "orazaka", repo: "https://github.com/krizaka/orazaka" }),
+  site({ id: "orazaka", name: "Orazaka", url: "https://www.orazaka.com", kind: "product", group: "products", status: "development", mark: "orazaka", repo: "https://github.com/krizaka/orazaka" }),
   site({ id: "yomizaka", name: "Yomizaka", url: "https://www.yomizaka.com", kind: "product", group: "products", status: "development", mark: "yomizaka", repo: "https://github.com/krizaka/yomizaka" }),
   site({ id: "akinaza", name: "Akinaza", url: "https://www.akinaza.com", kind: "product", group: "products", status: "development", mark: "akinaza", repo: "https://github.com/krizaka/akinaza" }),
-  site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
-  site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-build" }),
-  site({ id: "ts", name: "Krizaka TypeScript", url: "https://ts.krizaka.com", kind: "open-source", group: "open-source", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ts" }),
+  site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
+  site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-build" }),
+  site({ id: "ts", name: "Krizaka TypeScript", url: "https://ts.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ts" }),
   // The family lab: built in the open, served at lab.krizaka.com; what proves itself there moves into Krizaka UI.
   site({ id: "motion", name: "Krizaka Lab", url: "https://lab.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-lab" }),
   site({ id: "github", name: "GitHub", url: "https://github.com/krizaka", kind: "open-source", group: "github", status: "released", mark: "github", repo: "https://github.com/krizaka" }),
@@ -178,7 +178,7 @@ export interface OrgFamilyEntry {
   id: string;
   name: string;
   group: SiteGroup;
-  status: "released" | "development";
+  status: SiteStatus;
   url: string;
 }
 

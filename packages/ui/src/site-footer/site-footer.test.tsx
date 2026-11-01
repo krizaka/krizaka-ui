@@ -167,7 +167,7 @@ describe("SiteFooter", () => {
   it("folds the family's groups on a phone (details/summary) and opens them as one line on a desktop", () => {
     const { container } = render(<Footer />);
     const groups = Array.from(container.querySelectorAll("nav details"));
-    expect(groups.map((d) => d.querySelector("summary")!.textContent)).toEqual(["Products", "Open source", "Krizaka"]);
+    expect(groups.map((d) => d.querySelector("summary")!.textContent)).toEqual(["Products · In development", "Open source · In development", "Krizaka"]);
     for (const d of groups) {
       expect(d.hasAttribute("open")).toBe(false);
       expect(d.className).toMatch(/lg:\[&::details-content\]:\[content-visibility:visible\]/);
@@ -178,7 +178,7 @@ describe("SiteFooter", () => {
     const family = [
       { id: "krizaka", name: "Krizaka", group: "krizaka", status: "released", url: "https://www.krizaka.com" },
       { id: "yomizaka", name: "Yomizaka", group: "products", status: "development", url: "https://www.yomizaka.com" },
-      { id: "ts", name: "Krizaka TypeScript", group: "open-source", status: "released", url: "https://ts.krizaka.com" },
+      { id: "ts", name: "Krizaka TypeScript", group: "open-source", status: "development", url: "https://ts.krizaka.com" },
       { id: "lab", name: "Krizaka Lab", group: "open-source", status: "development", url: "https://lab.krizaka.com" },
     ] as const;
     render(<SiteFooter current="motion" family org={{ ...org, family }} />);
@@ -188,6 +188,27 @@ describe("SiteFooter", () => {
       "Krizaka Lab (You are here)",
     ]);
     expect(within(nav).queryByRole("link", { name: /Orazaka/ })).toBeNull();
+  });
+
+  it("says the status once per column, from data: no badge on each item", () => {
+    render(<Footer />);
+    const nav = screen.getByRole("navigation", { name: "Krizaka family" });
+    const summaries = Array.from(nav.querySelectorAll("summary")).map((x) => x.textContent);
+    expect(summaries).toEqual(["Products · In development", "Open source · In development", "Krizaka"]);
+    expect(within(nav).queryAllByText(/\(In development\)/)).toHaveLength(0);
+  });
+
+  it("a badge shows on the exception only, when a column's statuses differ", () => {
+    const family = [
+      { id: "orazaka", name: "Orazaka", group: "products", status: "development", url: "https://www.orazaka.com" },
+      { id: "yomizaka", name: "Yomizaka", group: "products", status: "development", url: "https://www.yomizaka.com" },
+      { id: "akinaza", name: "Akinaza", group: "products", status: "construction", url: "https://www.akinaza.com" },
+    ] as const;
+    render(<SiteFooter current="krizaka" family org={{ ...org, family }} />);
+    const nav = screen.getByRole("navigation", { name: "Krizaka family" });
+    expect(within(nav).getAllByText(/Under construction/)).toHaveLength(1);
+    expect(within(nav).getByRole("link", { name: /Akinaza/ }).textContent).toBe("Akinaza (Under construction)");
+    expect(within(nav).getByRole("link", { name: "Yomizaka" })).toBeTruthy();
   });
 
   it("footer text uses the readable tokens only (fg / fg-secondary), never the muted or an unset colour", () => {
