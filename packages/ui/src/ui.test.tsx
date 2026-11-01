@@ -1,8 +1,22 @@
 import { brands, marks } from "@krizaka/tokens/native";
 import { render } from "@testing-library/react";
 
-import { AkinazaLogo, cx, KrizakaLogo, OrazakaLogo, ProductLogo, RotatingWord, YomizakaLogo } from "./index";
+import {
+  AkinazaLogo,
+  cx,
+  FoliovivLogo,
+  KridocLogo,
+  KrizakaLogo,
+  OrazakaLogo,
+  ProductLockup,
+  ProductLogo,
+  RotatingWord,
+  SovkoraLogo,
+  VerikoraLogo,
+  YomizakaLogo,
+} from "./index";
 import { AKINAZA } from "./marks/akinaza-geometry";
+import { KRIDOC } from "./marks/kridoc-geometry";
 import { KRIZAKA } from "./marks/krizaka-geometry";
 import { ORAZAKA } from "./marks/orazaka-geometry";
 import { YOMIZAKA } from "./marks/yomizaka-geometry";
@@ -13,6 +27,7 @@ describe("marks", () => {
     ["Orazaka", OrazakaLogo],
     ["Yomizaka", YomizakaLogo],
     ["Akinaza", AkinazaLogo],
+    ["Kridoc", KridocLogo],
   ])("%s is decorative by default and named with a title", (name, Mark) => {
     const { container, rerender } = render(<Mark />);
     expect(container.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
@@ -111,6 +126,33 @@ describe("marks", () => {
     expect(container.querySelectorAll("path")).toHaveLength(ORAZAKA.shards.length);
     const yomizaka = render(<ProductLogo id="yomizaka" title="Yomizaka" size={64} animated={false} />);
     expect(yomizaka.container.querySelector("svg")?.getAttribute("aria-label")).toBe("Yomizaka");
+  });
+});
+
+describe("commercial names (krizaka-internal#2035)", () => {
+  it("keeps each product's mark under its commercial name", () => {
+    expect(VerikoraLogo).toBe(YomizakaLogo);
+    expect(FoliovivLogo).toBe(AkinazaLogo);
+    expect(SovkoraLogo).toBe(OrazakaLogo);
+  });
+
+  it("draws Kridoc as an open page with a fold, its node at the fold, and stops moving with animated={false}", () => {
+    const { container } = render(<KridocLogo size={96} animated={false} />);
+    expect([...container.querySelectorAll("path")].map((p) => p.getAttribute("d"))).toEqual([KRIDOC.page, KRIDOC.fold, ...KRIDOC.lines]);
+    expect(KRIDOC.page.endsWith(`${KRIDOC.node.cx},${KRIDOC.node.cy}`)).toBe(false); // the page is open: its stroke stops short of the node
+    expect(container.querySelector(".kdm-spin, .kdm-pulse")).toBeNull();
+    expect(render(<KridocLogo size={96} />).container.querySelector(".kdm-pulse")).not.toBeNull();
+    expect(render(<ProductLogo id="kachizaka" title="Kridoc" />).container.querySelector("svg")?.getAttribute("aria-label")).toBe("Kridoc");
+  });
+
+  it("writes the lockup from data: the name read aloud, the mark decorative", () => {
+    const { container } = render(<ProductLockup id="yomizaka" name="Verikora" endorsement="by Krizaka" animated={false} />);
+    const words = (c: HTMLElement) => c.querySelector("[data-brand] > span")?.textContent;
+    expect(words(container)).toBe("Verikoraby Krizaka");
+    expect(container.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
+    expect(container.firstElementChild?.getAttribute("data-brand")).toBe("yomizaka");
+    const fr = render(<ProductLockup id="akinaza" name="Folioviv" endorsement="par Krizaka" layout="inline" size={64} />);
+    expect(words(fr.container)).toBe("Foliovivpar Krizaka");
   });
 });
 
