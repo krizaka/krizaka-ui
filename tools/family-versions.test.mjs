@@ -2,7 +2,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { familyOf } from "./family-versions.mjs";
+import { assertCommit, familyOf } from "./family-versions.mjs";
 
 test("only the public @krizaka/* manifests, with their versions", () => {
   const texts = [
@@ -20,4 +20,10 @@ test("the release tells the consumers once every version is on npm", () => {
   const dispatch = wf.indexOf("krizaka/.github/actions/dispatch-release@");
   assert.ok(check > 0 && dispatch > check, "dispatch-release runs after check-published");
   assert.match(wf, /node tools\/family-versions\.mjs "\$GITHUB_SHA"/);
+});
+
+test("a commit is a SHA or HEAD, never an option or a path handed to git", () => {
+  assert.equal(assertCommit("HEAD"), "HEAD");
+  assert.equal(assertCommit("2eb79be5"), "2eb79be5");
+  for (const bad of ["--output=/tmp/x", "main; rm -rf /", "../x", "", "HEAD~1"]) assert.throws(() => assertCommit(bad), /not a commit/);
 });

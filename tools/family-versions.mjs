@@ -22,8 +22,18 @@ export function familyOf(texts) {
   return out;
 }
 
-function manifestsAt(commit) {
-  const git = (...args) => execFileSync("git", args, { encoding: "utf8" });
+/** A commit the way a workflow passes it (a SHA, or HEAD): anything else is refused, never handed to git as an argument. */
+export function assertCommit(commit) {
+  if (!/^(?:[0-9a-f]{7,64}|HEAD)$/.test(commit)) throw new Error(`not a commit: ${JSON.stringify(commit)}`);
+  return commit;
+}
+
+/** git is looked up in the system directories only, never in a PATH a job could have extended. */
+const GIT_ENV = { PATH: "/usr/bin:/bin:/usr/local/bin" };
+
+function manifestsAt(rawCommit) {
+  const commit = assertCommit(rawCommit);
+  const git = (...args) => execFileSync("git", args, { encoding: "utf8", env: GIT_ENV });
   return git("ls-tree", "--name-only", commit, "packages/")
     .split("\n")
     .filter(Boolean)
