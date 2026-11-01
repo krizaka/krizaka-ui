@@ -76,6 +76,23 @@ jobs:
       - name: Every version on main is on npm
         run: bash tools/check-published.sh   # polls the registry (it lags a publish), fails if still missing after 5 min
 
+      # A rule change reaches every repository (krizaka/.github#388, krizaka-internal#879): every version on main is on npm now, so the
+      # repositories of krizaka/.github's release-consumers.json that depend on one get a `krizaka-release` dispatch and their
+      # bump-krizaka.yml opens the bump pull request (it only ever raises a range). Only when this push changed a package's version
+      # (the merge of « chore: version packages ») or published. The versions are read from the commit, never from the release branch.
+      - id: family
+        run: |
+          if [ "$PUBLISHED" != "true" ] && git diff --quiet HEAD~1 "$GITHUB_SHA" -- 'packages/*/package.json'; then exit 0; fi
+          echo "packages=$(node tools/family-versions.mjs "$GITHUB_SHA")" >> "$GITHUB_OUTPUT"
+        env:
+          PUBLISHED: ${{ steps.changesets.outputs.published }}
+      - if: steps.family.outputs.packages != '' && vars.RELEASE_APP_ID != ''
+        uses: krizaka/.github/actions/dispatch-release@ea12aa78187da74ed63387383885c85606bf4051 # main
+        with:
+          packages: ${{ steps.family.outputs.packages }}
+          app-id: ${{ vars.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
       # Brand marks (krizaka-ui#217): the public copies of every logo, at stable URLs on Bunny (brand/<product>/…, brand/index.json),
       # regenerated when this push changes the version of @krizaka/ui (the merge of "chore: version packages", or a publish) or on demand.
       # Needs the repository secrets MEDIA_STORAGE_API_KEY, MEDIA_STORAGE_ZONE (and optionally MEDIA_CDN_HOSTNAME); without them the step says so and is skipped.
