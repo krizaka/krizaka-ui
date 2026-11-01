@@ -28,12 +28,12 @@ export function assertCommit(commit) {
   return commit;
 }
 
-/** git is looked up in the system directories only, never in a PATH a job could have extended. */
-const GIT_ENV = { PATH: "/usr/bin:/bin:/usr/local/bin" };
+/** git is run from its fixed system path, never looked up in a PATH a job could have extended. */
+const GIT = "/usr/bin/git";
 
 function manifestsAt(rawCommit) {
   const commit = assertCommit(rawCommit);
-  const git = (...args) => execFileSync("git", args, { encoding: "utf8", env: GIT_ENV });
+  const git = (...args) => execFileSync(GIT, args, { encoding: "utf8" });
   return git("ls-tree", "--name-only", commit, "packages/")
     .split("\n")
     .filter(Boolean)
