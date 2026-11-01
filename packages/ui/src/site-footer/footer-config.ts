@@ -23,6 +23,8 @@ export type FooterLegal = {
   neq?: string;
   city: string;
   showVersion: boolean;
+  /** Where the version leads (the release's page), when it is a link. */
+  versionHref?: string;
   links: readonly FooterLink[];
 };
 
@@ -45,7 +47,7 @@ export type FooterLinkSetting = ({ labelKey: string; label?: never } | { label: 
 export type FooterSettings = {
   labelKey: string;
   columns: readonly { id: string; titleKey: string; status?: FooterStatus; links: readonly FooterLinkSetting[] }[];
-  legal: { legalName: string; neq?: string; city: string; showVersion: boolean; links: readonly FooterLinkSetting[] };
+  legal: { legalName: string; neq?: string; city: string; showVersion: boolean; versionHref?: string; links: readonly FooterLinkSetting[] };
   /** The ids of the org's social links (`@krizaka/org`) to show; their addresses are the org's, never typed here. */
   social?: readonly string[];
 };

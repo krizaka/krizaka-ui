@@ -102,8 +102,14 @@ describe("SiteFooter with a config", () => {
     expect(text).toContain("Technologies Krizaka Inc. · NEQ 1182652231 · Montréal (Québec)");
     expect(text.split("Technologies Krizaka")).toHaveLength(2);
     expect(text).toContain("v0.15.0");
+    expect(screen.queryByRole("link", { name: /v0\.15\.0/ })).toBeNull();
     expect(screen.getByRole("link", { name: "Instagram" }).getAttribute("href")).toBe("https://www.instagram.com/krizakahq");
     expect(screen.getByRole("link", { name: "Krizaka" }).getAttribute("href")).toBe("https://www.krizaka.com");
+  });
+
+  it("links the version to its release when the admin gives the address", () => {
+    render(<SiteFooter current="krizaka" version="0.15.0" config={{ ...config, legal: { ...config.legal, versionHref: "https://github.com/krizaka/krizaka-com/releases/tag/v0.15.0" } }} />);
+    expect(screen.getByRole("link", { name: /v0\.15\.0/ }).getAttribute("href")).toBe("https://github.com/krizaka/krizaka-com/releases/tag/v0.15.0");
   });
 
   it("hides the version when the admin says so, and keeps only the last line in an app", () => {

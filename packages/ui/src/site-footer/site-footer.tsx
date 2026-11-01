@@ -294,12 +294,18 @@ export function SiteFooter({
               <span className={s.identity()}>
                 {[config.legal.legalName, config.legal.neq && `NEQ ${config.legal.neq}`, config.legal.city].filter(Boolean).join(" · ")}
               </span>
-              {(config.legal.showVersion ? tag : env) && (
-                <span className={s.version()}>
-                  <span className="sr-only">{labels.version} </span>
-                  {config.legal.showVersion ? tag : env}
-                </span>
-              )}
+              {(config.legal.showVersion ? tag : env) &&
+                (config.legal.showVersion && config.legal.versionHref ? (
+                  <a href={config.legal.versionHref} className={s.version({ className: "no-underline hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring" })}>
+                    <span className="sr-only">{labels.version} </span>
+                    {tag}
+                  </a>
+                ) : (
+                  <span className={s.version()}>
+                    <span className="sr-only">{labels.version} </span>
+                    {config.legal.showVersion ? tag : env}
+                  </span>
+                ))}
               {config.legal.links.length > 0 && <div className={s.legal()}>{config.legal.links.map(configured)}</div>}
               {config.social && config.social.length > 0 && (
                 <div className={s.legal()}>{config.social.map((x) => configured({ label: x.label, href: x.href, external: true }))}</div>
