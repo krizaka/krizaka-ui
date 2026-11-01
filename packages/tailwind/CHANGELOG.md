@@ -1,5 +1,13 @@
 # @krizaka/tailwind
 
+## 3.80.0
+
+### Patch Changes
+
+- Updated dependencies [[`171b95a`](https://github.com/krizaka/krizaka-ui/commit/171b95a5222707b6a96bfae2cab1aa2e246d0b6a)]:
+  - @krizaka/ui@3.80.0
+  - @krizaka/tokens@3.80.0
+
 ## 3.79.0
 
 ### Patch Changes
