@@ -30,7 +30,7 @@ export type TagSelectorProps = {
 };
 
 /** Interests, languages, what one is looking for: toggle chips with a limit and a count — the others rest once it is reached. */
-export function TagSelector({ label, options, value, onValueChange, max, countLabel, style }: TagSelectorProps) {
+export function TagSelector({ label, options, value, onValueChange, max, countLabel, style }: Readonly<TagSelectorProps>) {
   const { haptic } = useTheme();
   const full = max !== undefined && value.length >= max;
   return (

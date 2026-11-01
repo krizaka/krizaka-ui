@@ -50,7 +50,7 @@ const EAGER_COVERS = 2;
 /** The prints face each other: the left one leans left, the right one leans right (TapedPhoto's practice). */
 const ALBUM_TILT = 1.4;
 
-function ChapterPrint({ cover, index }: { cover: ChapterCover; index: number }) {
+function ChapterPrint({ cover, index }: Readonly<{ cover: ChapterCover; index: number }>) {
   return (
     <TapedPhoto className="kz-chapter-print" tilt={index % 2 === 0 ? -ALBUM_TILT : ALBUM_TILT} aria-hidden>
       <img

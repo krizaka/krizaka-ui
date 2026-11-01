@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 // @fixed: how long « Copied » stays — a feedback rhythm, not a business delay.
 const COPIED_MS = 1600;
 
-export function CopyLine({ code, label, copy, copied }: { code: string; label: string; copy: string; copied: string }) {
+export function CopyLine({ code, label, copy, copied }: Readonly<{ code: string; label: string; copy: string; copied: string }>) {
   const [done, setDone] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => clearTimeout(timer.current), []);

@@ -16,7 +16,7 @@ export interface PolaroidProps extends Omit<React.ComponentProps<"figure">, "chi
 }
 
 /** A photo held to the wall by tape or a pin, with a handwritten caption. */
-export function Polaroid({ img, caption, rotation = 0, attachment = "tape", attachmentRotation = 0, develop = true, className, ...props }: PolaroidProps) {
+export function Polaroid({ img, caption, rotation = 0, attachment = "tape", attachmentRotation = 0, develop = true, className, ...props }: Readonly<PolaroidProps>) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [state, setState] = React.useState<"waiting" | "ready" | undefined>();
   React.useEffect(() => {

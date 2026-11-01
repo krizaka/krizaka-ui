@@ -36,7 +36,7 @@ export type TabBarProps<T extends string> = {
  * badge for what is new; clear of the home indicator (the safe area), a tick on change, a second press to go back to
  * the top. Plug it in expo-router's or React Navigation's `tabBar`.
  */
-export function TabBar<T extends string>({ items, value, onValueChange, onReselect, "aria-label": label, style }: TabBarProps<T>) {
+export function TabBar<T extends string>({ items, value, onValueChange, onReselect, "aria-label": label, style }: Readonly<TabBarProps<T>>) {
   const { theme, insets, haptic } = useTheme();
   return (
     <View role="tablist" aria-label={label} style={[styles.bar, { backgroundColor: theme.glassBg, borderTopColor: theme.glassBorder, paddingBottom: Math.max(6, insets.bottom) }, style]}>

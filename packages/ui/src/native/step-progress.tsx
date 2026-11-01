@@ -22,7 +22,7 @@ export type StepProgressProps = {
 };
 
 /** The head of a multi-step flow (a sign-up, a profile to fill): back, segments that fill, the position in words. */
-export function StepProgress({ step, total, label, backLabel, onBack, trailing, style }: StepProgressProps) {
+export function StepProgress({ step, total, label, backLabel, onBack, trailing, style }: Readonly<StepProgressProps>) {
   const { theme, insets } = useTheme();
   const words = label(step, total);
   return (

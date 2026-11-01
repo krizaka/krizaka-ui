@@ -36,7 +36,7 @@ export interface SankeyProps<T extends Datum> extends ChartFrameProps, EnginePro
   valueLabel?: string;
 }
 
-export function Sankey<T extends Datum>(props: SankeyProps<T>) {
+export function Sankey<T extends Datum>(props: Readonly<SankeyProps<T>>) {
   const { data, source, target, value, format, vertical, sourceLabel, targetLabel, valueLabel } = props;
   const { locale, labels } = useSettings(props);
   const fmt = useMemo(() => ({ value: valueFormatter(format, locale, labels.noValue), share: shareFormatter(locale) }), [format, locale, labels.noValue]);

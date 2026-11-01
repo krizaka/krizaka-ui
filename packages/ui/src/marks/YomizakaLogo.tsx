@@ -8,7 +8,7 @@ const CSS = familyMotion("ymm", { ...G.motion, ...G.pulse });
  * down the line it reads — in the Yomizaka gradient (ink → indigo, the same in dark and light). The pupils are the lit
  * cores and breathe; one node, a page, rides the dashed orbit. Below 48 px it crops to the emblem.
  */
-export function YomizakaLogo({ size = 32, animated = true, title, className }: MarkProps) {
+export function YomizakaLogo({ size = 32, animated = true, title, className }: Readonly<MarkProps>) {
   const id = useIds("ymm", ["gradient", "glow"] as const);
   const fill = `url(#${id.gradient})`;
   const m = (cls: string) => (animated ? `ymm-${cls}` : undefined);

@@ -49,7 +49,7 @@ export interface Globe3DProps extends ChartFrameProps {
 const SPEED = 6; // degrees per second: one turn a minute.
 
 /** The world as a lit sphere: deployment regions, the arcs between them, a slow turn. */
-export function Globe3D(props: Globe3DProps) {
+export function Globe3D(props: Readonly<Globe3DProps>) {
   const { points, arcs = [], regions = [], format, center, autoRotate = true, pointLabel, valueLabel } = props;
   const { locale, labels } = useSettings(props);
   const mounted = useMounted();

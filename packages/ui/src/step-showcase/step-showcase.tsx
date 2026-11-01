@@ -71,7 +71,7 @@ export interface StepShowcaseProps extends Omit<React.ComponentProps<"section">,
 }
 
 /** One device frame, its steps beside it, playing each recording then the next — a product's guided tour. */
-export function StepShowcase({ label, steps, device, deviceTitle, autoplay = true, labels = stepShowcaseLabels, defaultIndex = 0, onIndexChange, className, ...props }: StepShowcaseProps) {
+export function StepShowcase({ label, steps, device, deviceTitle, autoplay = true, labels = stepShowcaseLabels, defaultIndex = 0, onIndexChange, className, ...props }: Readonly<StepShowcaseProps>) {
   const total = steps.length;
   const id = React.useId();
   const root = React.useRef<HTMLElement>(null);

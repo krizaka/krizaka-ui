@@ -39,7 +39,7 @@ export function iconsToc(t: TranslationDictionary): TOCItemType[] {
   ].map(([id, title]) => ({ title, url: `#${id}`, depth: 2 }));
 }
 
-function List({ items }: { items: readonly string[] }) {
+function List({ items }: Readonly<{ items: readonly string[] }>) {
   return (
     <ul lang="en">
       {items.map((text) => (
@@ -51,7 +51,7 @@ function List({ items }: { items: readonly string[] }) {
   );
 }
 
-export function IconsDoc({ locale }: { locale: Locale }) {
+export function IconsDoc({ locale }: Readonly<{ locale: Locale }>) {
   const t = getDictionary(locale);
   const c = t.docs.foundations;
   const ic = c.icons;

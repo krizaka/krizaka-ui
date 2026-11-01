@@ -147,7 +147,7 @@ function FormRoot({ value, children, style, scroll, "aria-label": label }: FormP
   );
 }
 
-function Suggestion({ field }: { field: KrizakaField }) {
+function Suggestion({ field }: Readonly<{ field: KrizakaField }>) {
   const suggestion = field.errorDetail?.suggestion;
   if (!field.error || !suggestion) return null;
   return (
@@ -171,7 +171,7 @@ export type SubmitProps = {
 };
 
 /** Sends the form: busy while it is sent (the product's mark turning, or a spinner); a refused submit announces its first error. */
-export function Submit({ label, variant = "primary", brand, style }: SubmitProps) {
+export function Submit({ label, variant = "primary", brand, style }: Readonly<SubmitProps>) {
   const ctx = useFormContext();
   const { submitting } = useFormStatus();
   const mark = submitting && brand ? <ProductMark id={brand} size={18} animated /> : undefined;
@@ -186,7 +186,7 @@ export type FormErrorProps = {
 };
 
 /** The whole form's error — a refusal that belongs to no field (a conflict, too many tries, no network). */
-export function FormError({ title, style }: FormErrorProps) {
+export function FormError({ title, style }: Readonly<FormErrorProps>) {
   const ctx = useFormContext();
   const { theme, radius } = useTheme();
   if (!ctx.error) return null;
@@ -278,7 +278,7 @@ export function Checkbox({ name, label, accessibleLabel, disabled, style }: Chec
 }
 
 /** An on/off setting of the form (`boolean`): a settings row — the label and its hint beside the switch, all pressable. */
-export function Switch({ name, label, hint, disabled, style }: Base) {
+export function Switch({ name, label, hint, disabled, style }: Readonly<Base>) {
   const f = useKrizakaField<boolean>(name);
   return (
     <SwitchControl
@@ -300,7 +300,7 @@ export function Switch({ name, label, hint, disabled, style }: Base) {
 /** A choice of the form: the value stored and its words (passed translated), a line under them. */
 export type FormOption = { value: string; label: string; description?: string; disabled?: boolean };
 
-function Caption({ field, hint }: { field: KrizakaField; hint?: string }) {
+function Caption({ field, hint }: Readonly<{ field: KrizakaField; hint?: string }>) {
   if (field.error)
     return (
       <Txt variant="caption" tone="danger" role="alert">

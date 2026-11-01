@@ -40,7 +40,7 @@ export type ProfileCardProps = Omit<ViewProps, "children"> & {
 
 const ratioOf = (value: number, max = 100) => Math.min(1, Math.max(0, value / (max || 1)));
 
-function Bar({ label, ratio, words, animated, delay }: { label: string; ratio: number; words: string; animated: boolean; delay: number }) {
+function Bar({ label, ratio, words, animated, delay }: Readonly<{ label: string; ratio: number; words: string; animated: boolean; delay: number }>) {
   const { theme } = useTheme();
   const t = useEntrance(animated, delay, 900);
   const [width, setWidth] = React.useState(0);

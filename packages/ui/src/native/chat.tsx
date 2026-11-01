@@ -44,7 +44,7 @@ export type MessageBubbleProps = {
 const STATUS: Record<MessageStatus, string> = { sending: "Sending", sent: "Sent", delivered: "Delivered", read: "Read", failed: "Not sent" };
 
 /** A message: yours in the accent on the right, theirs on the left, the time inside, the receipt under the last of yours. */
-export function MessageBubble({ text, children, mine, time, status, showStatus, context, onRetry, grouped = "single", labels, style }: MessageBubbleProps) {
+export function MessageBubble({ text, children, mine, time, status, showStatus, context, onRetry, grouped = "single", labels, style }: Readonly<MessageBubbleProps>) {
   const { theme, radius } = useTheme();
   const words = { ...STATUS, ...labels?.status };
   const failed = status === "failed";
@@ -115,7 +115,7 @@ export type TypingIndicatorProps = {
 };
 
 /** Three dots that breathe in a bubble while the other person types; still under reduced motion. */
-export function TypingIndicator({ label, showLabel, style }: TypingIndicatorProps) {
+export function TypingIndicator({ label, showLabel, style }: Readonly<TypingIndicatorProps>) {
   const { theme, radius } = useTheme();
   const reduce = useReducedMotion();
   const [t] = React.useState(() => new Animated.Value(0));
@@ -172,7 +172,7 @@ export type MessageComposerProps = {
 };
 
 /** Where a message is written: a growing input, an attach slot, a send button that wakes when there is something to send. */
-export function MessageComposer({ value, onValueChange, onSend, placeholder, sendLabel, leading, disabledReason, meta, maxLength = 4000, style }: MessageComposerProps) {
+export function MessageComposer({ value, onValueChange, onSend, placeholder, sendLabel, leading, disabledReason, meta, maxLength = 4000, style }: Readonly<MessageComposerProps>) {
   const { theme, radius, insets, haptic } = useTheme();
   const ready = value.trim().length > 0;
   return (
@@ -226,7 +226,7 @@ export type ComposerMetaProps = {
 };
 
 /** The line above a `MessageComposer`: the model chip and, only when true, a status line with a shield. */
-export function ComposerMeta({ model, status }: ComposerMetaProps) {
+export function ComposerMeta({ model, status }: Readonly<ComposerMetaProps>) {
   const { theme } = useTheme();
   if (!model && !status) return null;
   return (
@@ -286,7 +286,7 @@ export type ConversationItemProps = {
 };
 
 /** A conversation in the list: avatar and presence, name, the last message or typing, the time, the unread count. */
-export function ConversationItem({ name, avatar, presence, presenceLabel, preview, typing, time, unread = 0, unreadLabel, onPress, style }: ConversationItemProps) {
+export function ConversationItem({ name, avatar, presence, presenceLabel, preview, typing, time, unread = 0, unreadLabel, onPress, style }: Readonly<ConversationItemProps>) {
   const { theme, radius } = useTheme();
   const said = [unread > 0 ? unreadLabel : null, presence ? presenceLabel : null].filter(Boolean).join(", ");
   return (

@@ -49,7 +49,7 @@ export interface PlaygroundWords {
   copied: string;
 }
 
-export function Playground({ name, controls, words }: { name: PlaygroundName; controls: PlaygroundControl[]; words: PlaygroundWords }) {
+export function Playground({ name, controls, words }: Readonly<{ name: PlaygroundName; controls: PlaygroundControl[]; words: PlaygroundWords }>) {
   const spec = PLAYGROUNDS[name];
   const id = useId();
   const [values, setValues] = useState<Record<string, string | boolean>>(() =>

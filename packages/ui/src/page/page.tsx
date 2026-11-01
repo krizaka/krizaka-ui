@@ -198,7 +198,7 @@ export type TicksProps = {
 };
 
 /** A sentence of a message catalogue where words between backticks read as code — no markup in the translations. */
-export function Ticks({ children }: TicksProps) {
+export function Ticks({ children }: Readonly<TicksProps>) {
   const parts = children.split("`");
   return (
     <>

@@ -39,7 +39,7 @@ export type StepperProps = {
 const WORDS: Record<StepStatus, string> = { done: "done", current: "in progress", upcoming: "to come", error: "failed" };
 
 /** The steps of a process, where it stands — the web `Stepper`: done steps checked, the current one tracing, a failure crossed. */
-export function Stepper({ steps, current = 0, orientation = "vertical", statusLabels, "aria-label": label, style }: StepperProps) {
+export function Stepper({ steps, current = 0, orientation = "vertical", statusLabels, "aria-label": label, style }: Readonly<StepperProps>) {
   const { theme } = useTheme();
   const words = { ...WORDS, ...statusLabels };
   const vertical = orientation === "vertical";

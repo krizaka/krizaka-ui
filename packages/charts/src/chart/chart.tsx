@@ -32,7 +32,7 @@ export interface ChartProps extends ChartFrameProps, EngineProps {
 }
 
 /** Any ECharts option, themed and framed like the typed charts. Memoise `option` when it is a function. */
-export function Chart({ option, modules = fullEngine, summaryText, table, items, onItem, ...frame }: ChartProps) {
+export function Chart({ option, modules = fullEngine, summaryText, table, items, onItem, ...frame }: Readonly<ChartProps>) {
   const build = useCallback(
     (theme: ResolvedTheme, size: { width: number; height: number }) => {
       const own = typeof option === "function" ? option(theme, size) : option;

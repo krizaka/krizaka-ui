@@ -31,7 +31,7 @@ const number = (text: string) => (text.trim() === "" || Number.isNaN(Number(text
  * `facet` column, two bounds per `range` column; the filters in force as removable chips, "clear all", and the count
  * of results, announced.
  */
-export function DataTableFilters({ debounce = 250, children, className }: DataTableFiltersProps) {
+export function DataTableFilters({ debounce = 250, children, className }: Readonly<DataTableFiltersProps>) {
   const { table, columns, labels, filters, setFilters, resultCount, manualFiltering } = useDataTable();
   const set = (id: string, value: FilterValue | null) => {
     const next = { ...filters };
@@ -129,7 +129,7 @@ export type DataTableColumnsMenuProps = {
 };
 
 /** A menu of the `hideable` columns, each a checkbox: the person chooses what the table shows. */
-export function DataTableColumnsMenu({ defaultOpen, className }: DataTableColumnsMenuProps) {
+export function DataTableColumnsMenu({ defaultOpen, className }: Readonly<DataTableColumnsMenuProps>) {
   const { table, columns, labels } = useDataTable();
   return (
     <DropdownMenu.Root defaultOpen={defaultOpen} modal={false}>
@@ -170,7 +170,7 @@ export type DataTableExportProps = {
 };
 
 /** Downloads what the table shows — the filtered and sorted rows of every page, the visible columns — as CSV. */
-export function DataTableExport({ filename = "export.csv", onExport, className }: DataTableExportProps) {
+export function DataTableExport({ filename = "export.csv", onExport, className }: Readonly<DataTableExportProps>) {
   const { table, columns, labels, exportRows } = useDataTable();
   const run = () => {
     const visible = columns.filter((column) => table.getColumn(column.id)?.getIsVisible() !== false);
@@ -192,7 +192,7 @@ export function DataTableExport({ filename = "export.csv", onExport, className }
  * A text filter: what is typed stays a draft until the debounce commits it, and a value that changes from outside
  * (back or forward on a `routeKey` table, « Clear all ») replaces the draft — the box always says what filters the rows.
  */
-function TextFilter({ label, value, debounce, onCommit }: { label: string; value: string; debounce?: number; onCommit: (query: string) => void }) {
+function TextFilter({ label, value, debounce, onCommit }: Readonly<{ label: string; value: string; debounce?: number; onCommit: (query: string) => void }>) {
   const [draft, setDraft] = React.useState(value);
   const [seen, setSeen] = React.useState(value);
   const [committed, setCommitted] = React.useState(value);

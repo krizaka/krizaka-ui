@@ -11,7 +11,7 @@ import type { ShopGalleryPhoto } from "./shop-gallery";
 
 const SWIPE = 50;
 
-function Arrow({ dir }: { dir: "left" | "right" }) {
+function Arrow({ dir }: Readonly<{ dir: "left" | "right" }>) {
   return (
     <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <path d={dir === "left" ? "m15 6-6 6 6 6" : "m9 6 6 6-6 6"} />
@@ -30,7 +30,7 @@ export type ShopGalleryLightboxProps = {
   returnFocus: () => HTMLElement | null;
 };
 
-export default function ShopGalleryLightbox({ photos, index, onIndexChange, onClose, label, labels, returnFocus }: ShopGalleryLightboxProps) {
+export default function ShopGalleryLightbox({ photos, index, onIndexChange, onClose, label, labels, returnFocus }: Readonly<ShopGalleryLightboxProps>) {
   const total = photos.length;
   const photo = photos[index];
   const startX = React.useRef<number | null>(null);

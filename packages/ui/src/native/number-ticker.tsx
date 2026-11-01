@@ -29,7 +29,7 @@ export type NumberTickerProps = {
  * A figure that climbs to its value — the web `NumberTicker`: tabular digits (no jitter), the final value for screen
  * readers from the first frame, still under reduced motion.
  */
-export function NumberTicker({ value, locale, format, trigger = "mount", duration = 1100, announce, variant = "display", tone = "text", style }: NumberTickerProps) {
+export function NumberTicker({ value, locale, format, trigger = "mount", duration = 1100, announce, variant = "display", tone = "text", style }: Readonly<NumberTickerProps>) {
   const reduce = useReducedMotion();
   const writer = React.useMemo(() => new Intl.NumberFormat(locale, format), [locale, format]);
   const [shown, setShown] = React.useState(() => (reduce ? value : trigger === "mount" ? 0 : value));

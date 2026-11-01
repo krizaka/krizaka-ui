@@ -30,7 +30,7 @@ const LINKS = [
   { id: "templates", path: "/templates", match: ["/templates"] },
 ] as const;
 
-export function SiteBar({ version }: { version: string }) {
+export function SiteBar({ version }: Readonly<{ version: string }>) {
   const { t, locale } = useI18n();
   const b = t.site.bar;
   const { theme, toggleTheme } = useSiteTheme();

@@ -33,7 +33,7 @@ const STROKE = { sm: 12, md: 9, lg: 7 } as const; // in a 100-unit box, as on th
  * A progress bar or ring in the accent gradient (`accent` → `accent2`): it moves to `value` / `max` when it changes,
  * indeterminate without a value. Still under reduced motion. A `progressbar` with its value for screen readers.
  */
-export function Progress({ variant = "bar", size = "md", value, max = 100, label, valueText, children, style }: ProgressProps) {
+export function Progress({ variant = "bar", size = "md", value, max = 100, label, valueText, children, style }: Readonly<ProgressProps>) {
   const { theme } = useTheme();
   const reduce = useReducedMotion();
   const id = useSvgId("kz-progress-");

@@ -46,7 +46,7 @@ const toneText = (tone: SwipeAction["tone"]) => (tone === "neutral" || tone === 
  * a full swipe runs the outermost one, a tick marks the threshold. Screen readers get the same actions from the
  * rotor (accessibility actions): nothing is reachable only by a gesture.
  */
-export function SwipeableRow({ children, trailing = [], leading = [], fullSwipe = 0.6, actionWidth = 80, onActivate, testID, style }: SwipeableRowProps) {
+export function SwipeableRow({ children, trailing = [], leading = [], fullSwipe = 0.6, actionWidth = 80, onActivate, testID, style }: Readonly<SwipeableRowProps>) {
   const { theme, haptic } = useTheme();
   const reduce = useReducedMotion();
   const [x] = React.useState(() => new Animated.Value(0));

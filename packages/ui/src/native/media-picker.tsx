@@ -63,7 +63,7 @@ const typesOf = (accept: MediaPickerProps["accept"]) => (accept === "videos" ? [
  * Photos and videos picked from the library or the camera, as a grid of square tiles: an add tile (the system's
  * picker, or a sheet to choose library or camera), a remove button on each tile, a count against `max`.
  */
-export function MediaPicker({ value, onValueChange, accept = "images", max = 1, camera = true, labels, onPermissionDenied, style }: MediaPickerProps) {
+export function MediaPicker({ value, onValueChange, accept = "images", max = 1, camera = true, labels, onPermissionDenied, style }: Readonly<MediaPickerProps>) {
   const { theme, radius, haptic } = useTheme();
   const [choosing, setChoosing] = React.useState(false);
   const left = max - value.length;

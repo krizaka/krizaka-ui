@@ -148,7 +148,7 @@ export type AppShellSidebarProps = Omit<React.ComponentProps<"nav">, "children">
   closeLabel: string;
 };
 
-function SidebarContent({ brand, children, footer, collapseLabels, closeLabel }: Pick<AppShellSidebarProps, "brand" | "children" | "footer" | "collapseLabels" | "closeLabel">) {
+function SidebarContent({ brand, children, footer, collapseLabels, closeLabel }: Readonly<Pick<AppShellSidebarProps, "brand" | "children" | "footer" | "collapseLabels" | "closeLabel">>) {
   const { collapsed, setCollapsed, inDrawer, desktop } = useShell();
   const drag = desktop ? { "data-tauri-drag-region": "" } : {};
   return (

@@ -69,7 +69,7 @@ export interface CartesianOptions {
 
 const M = { top: 12, bottom: 26, right: 14 };
 
-export function Cartesian<T extends Datum>({ props, options }: { props: CartesianProps<T>; options: CartesianOptions }) {
+export function Cartesian<T extends Datum>({ props, options }: Readonly<{ props: CartesianProps<T>; options: CartesianOptions }>) {
   const { data, x, y, yLabel, series: seriesProp, format, xFormat, xLabel, thresholds = [], markers = [], legend = true, zero, onSelect, autoRange = false, minPoints = 7, filterable = true } = props;
   const { kind, mode, stacked = false, horizontal = false } = options;
   const { locale, labels } = useSettings(props);
@@ -214,7 +214,7 @@ interface PlotProps {
   labels: { thresholdTemplate: string; total: string };
 }
 
-function Plot({ table, width, height, options, fmt, colors, thresholds, markers, zero, autoZero, stacked, horizontal, active, pointer, onPointer, onSelect, labels }: PlotProps) {
+function Plot({ table, width, height, options, fmt, colors, thresholds, markers, zero, autoZero, stacked, horizontal, active, pointer, onPointer, onSelect, labels }: Readonly<PlotProps>) {
   const { mode, curve = "monotone", dots, endLabels, valueLabels } = options;
   const series = table.series;
   const count = table.categories.length;

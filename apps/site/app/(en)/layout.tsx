@@ -6,6 +6,6 @@ import { siteMetadata, SiteRoot, siteViewport } from "@/app/components/SiteRoot"
 export const metadata = siteMetadata("en");
 export const viewport = siteViewport;
 
-export default function EnglishLayout({ children }: { children: ReactNode }) {
+export default function EnglishLayout({ children }: Readonly<{ children: ReactNode }>) {
   return <SiteRoot locale="en">{children}</SiteRoot>;
 }

@@ -63,7 +63,7 @@ export function componentToc(name: string, t: TranslationDictionary, hasNotes: b
   return entries.filter(([, title]) => title).map(([id, title]) => ({ title, url: `#${id}`, depth: 2 }));
 }
 
-export function PlatformBadges({ item, t }: { item: Pick<RegistryItem, "platforms" | "status" | "category" | "parity">; t: TranslationDictionary }) {
+export function PlatformBadges({ item, t }: Readonly<{ item: Pick<RegistryItem, "platforms" | "status" | "category" | "parity">; t: TranslationDictionary }>) {
   const c = t.docs.component;
   const words = t.docs.ia.platforms;
   return (
@@ -92,7 +92,7 @@ export function PlatformBadges({ item, t }: { item: Pick<RegistryItem, "platform
 }
 
 /** Where the component is not, and why — the issue that tracks it, or what to use there (the parity of its meta). */
-function PlatformAbsences({ item, t, locale }: { item: RegistryItem; t: TranslationDictionary; locale: Locale }) {
+function PlatformAbsences({ item, t, locale }: Readonly<{ item: RegistryItem; t: TranslationDictionary; locale: Locale }>) {
   const words = t.docs.ia.platforms;
   const absent = PARITY_PLATFORMS.flatMap((p) => {
     const cell = item.parity?.[p];
@@ -122,7 +122,7 @@ function PlatformAbsences({ item, t, locale }: { item: RegistryItem; t: Translat
 }
 
 /** One tab per platform the component exists on (@krizaka/ui tabs); a single platform needs no tabs. */
-function PlatformTabs({ item, t, web, native }: { item: RegistryItem; t: TranslationDictionary; web: ReactNode; native: ReactNode }) {
+function PlatformTabs({ item, t, web, native }: Readonly<{ item: RegistryItem; t: TranslationDictionary; web: ReactNode; native: ReactNode }>) {
   const c = t.docs.component;
   if (item.web && item.native) {
     return (
@@ -139,7 +139,7 @@ function PlatformTabs({ item, t, web, native }: { item: RegistryItem; t: Transla
   return <>{item.web ? web : native}</>;
 }
 
-export async function ComponentDoc({ name, locale, notes }: { name: string; locale: Locale; notes?: ReactNode }) {
+export async function ComponentDoc({ name, locale, notes }: Readonly<{ name: string; locale: Locale; notes?: ReactNode }>) {
   const item = getRegistryItem(name);
   const t = getDictionary(locale);
   const c = t.docs.component;

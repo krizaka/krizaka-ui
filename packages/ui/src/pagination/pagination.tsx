@@ -120,7 +120,7 @@ type ItemProps = {
   children: React.ReactNode;
 };
 
-function Item({ href, onClick, disabled, current, label, className, children }: ItemProps) {
+function Item({ href, onClick, disabled, current, label, className, children }: Readonly<ItemProps>) {
   const common = { "aria-label": label, "aria-current": current ? ("page" as const) : undefined, className };
   if (href && !disabled) {
     return (

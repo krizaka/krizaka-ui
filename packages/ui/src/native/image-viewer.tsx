@@ -34,7 +34,7 @@ const MAX_SCALE = 4;
  * and right between images, swipe down to close. Screen readers get the image's words, its position, and the close
  * button; their swipes move between images (accessibility actions).
  */
-export function ImageViewer({ images, index, onIndexChange, closeLabel, positionLabel = (n, total) => `${n} / ${total}` }: ImageViewerProps) {
+export function ImageViewer({ images, index, onIndexChange, closeLabel, positionLabel = (n, total) => `${n} / ${total}` }: Readonly<ImageViewerProps>) {
   const { theme, insets, haptic } = useTheme();
   const reduce = useReducedMotion();
   const { width, height } = useWindowDimensions();

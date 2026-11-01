@@ -43,7 +43,7 @@ export type CaptchaProps = {
  * fires. Only when Cloudflare needs the visitor does a framed box appear, on the tokens (radius, border, theme).
  * If the check cannot run, an alert with a retry button replaces it. Pair it with `CaptchaDisclosure` under the submit.
  */
-export function Captcha({ siteKey, onToken, locale = "en", theme = "auto", labels, className }: CaptchaProps) {
+export function Captcha({ siteKey, onToken, locale = "en", theme = "auto", labels, className }: Readonly<CaptchaProps>) {
   const host = useRef<HTMLDivElement>(null);
   const widget = useRef<string | null>(null);
   const onTokenRef = useRef(onToken);
@@ -137,7 +137,7 @@ export type CaptchaDisclosureProps = {
 };
 
 /** « Protected by Cloudflare Turnstile · Privacy · Terms »: the line Cloudflare's terms ask for under the submit button. */
-export function CaptchaDisclosure({ locale = "en", labels, privacyHref = TURNSTILE_PRIVACY, termsHref = TURNSTILE_TERMS, className }: CaptchaDisclosureProps) {
+export function CaptchaDisclosure({ locale = "en", labels, privacyHref = TURNSTILE_PRIVACY, termsHref = TURNSTILE_TERMS, className }: Readonly<CaptchaDisclosureProps>) {
   const words = labelsFor(locale, labels);
   const { disclosure, link } = captcha();
   return (

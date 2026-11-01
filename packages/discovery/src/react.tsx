@@ -16,7 +16,7 @@ export interface DiscoveryProviderProps {
 }
 
 /** Starts discovery once, keeps it fresh, and re-renders its readers when an address or a gate changes. */
-export function DiscoveryProvider({ discovery, loading = null, subscribeForeground, refreshEveryMs, children }: DiscoveryProviderProps) {
+export function DiscoveryProvider({ discovery, loading = null, subscribeForeground, refreshEveryMs, children }: Readonly<DiscoveryProviderProps>) {
   const [ready, setReady] = useState(false);
   useEffect(() => {
     let alive = true;
@@ -61,7 +61,7 @@ export interface DiscoveryGateProps {
 }
 
 /** Renders the app, or its update / maintenance screen when the verified manifest says so. */
-export function DiscoveryGate({ product, update, maintenance, children }: DiscoveryGateProps) {
+export function DiscoveryGate({ product, update, maintenance, children }: Readonly<DiscoveryGateProps>) {
   const gate = useGate(product);
   if (gate.state === "update-required") return <>{update(gate)}</>;
   if (gate.state === "maintenance") return <>{maintenance(gate)}</>;

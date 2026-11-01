@@ -24,7 +24,7 @@ export type GoalGaugeProps = Omit<ViewProps, "children"> & {
   animated?: boolean;
 };
 
-function Cell({ lit, animate, order, animated, arcade }: { lit: boolean; animate: boolean; order: number; animated: boolean; arcade: boolean }) {
+function Cell({ lit, animate, order, animated, arcade }: Readonly<{ lit: boolean; animate: boolean; order: number; animated: boolean; arcade: boolean }>) {
   const { theme } = useTheme();
   const t = useEntrance(animated && animate, 300 + order * 100, 350);
   const spentOpacity = arcade ? 0.14 : 1;

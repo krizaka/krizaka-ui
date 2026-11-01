@@ -8,7 +8,7 @@ const CSS = familyMotion("akm", { ...G.motion, ...G.pulse });
  * (the Krizaka chamfer) with the fresh face in copper, and a copper heart that breathes — a shop built ring by ring.
  * One node, a coin, rides the dashed orbit. Below 48 px it crops to the emblem.
  */
-export function AkinazaLogo({ size = 32, animated = true, title, className }: MarkProps) {
+export function AkinazaLogo({ size = 32, animated = true, title, className }: Readonly<MarkProps>) {
   const id = useIds("akm", ["glow"] as const);
   const m = (cls: string) => (animated ? `akm-${cls}` : undefined);
   return (

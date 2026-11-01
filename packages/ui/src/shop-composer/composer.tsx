@@ -85,7 +85,7 @@ function reducer(state: State, a: Action): State {
   }
 }
 
-function PreviewFrame({ src, title, phone, frame }: { src: string; title: string; phone: boolean; frame: React.Ref<HTMLIFrameElement> }) {
+function PreviewFrame({ src, title, phone, frame }: Readonly<{ src: string; title: string; phone: boolean; frame: React.Ref<HTMLIFrameElement> }>) {
   return (
     <div className="flex h-full min-h-0 justify-center overflow-auto bg-surface-2 p-3">
       <iframe ref={frame} src={src || undefined} title={title} data-device={phone ? "phone" : "desktop"} className={phone ? "h-full min-h-[34rem] w-[390px] max-w-full rounded-xl border border-border-default bg-surface-0" : "h-full min-h-[34rem] w-full rounded-xl border border-border-default bg-surface-0"} />
@@ -94,7 +94,7 @@ function PreviewFrame({ src, title, phone, frame }: { src: string; title: string
 }
 
 /** The shop composer. */
-export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, published, previewUrl, presets, foldedTypes = [], messages = defaultShopComposerMessages, className }: ShopComposerProps) {
+export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, published, previewUrl, presets, foldedTypes = [], messages = defaultShopComposerMessages, className }: Readonly<ShopComposerProps>) {
   const m = messages;
   const [{ history, epoch }, dispatch] = React.useReducer(reducer, value, (v): State => ({ history: createHistory(v), epoch: 0 }));
   const page = history.present;

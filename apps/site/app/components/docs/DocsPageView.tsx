@@ -54,7 +54,7 @@ export function docsMetadata(locale: Locale, slug: string[] = []): Metadata {
 }
 
 /* A page plus its JSON-LD — a BreadcrumbList (Krizaka UI › page) and a TechArticle. */
-export function DocsPageView({ locale, slug = [] }: { locale: Locale; slug?: string[] }) {
+export function DocsPageView({ locale, slug = [] }: Readonly<{ locale: Locale; slug?: string[] }>) {
   const page = resolve(locale, slug);
   const t = getDictionary(locale);
   const own = pageText(page, t);
@@ -69,7 +69,7 @@ export function DocsPageView({ locale, slug = [] }: { locale: Locale; slug?: str
   );
 }
 
-async function PageBody({ locale, page }: { locale: Locale; page: Page }) {
+async function PageBody({ locale, page }: Readonly<{ locale: Locale; page: Page }>) {
   const t = getDictionary(locale);
   const { title, description } = pageText(page, t);
   const { component, foundation, domain } = page.data as ComponentPageData;

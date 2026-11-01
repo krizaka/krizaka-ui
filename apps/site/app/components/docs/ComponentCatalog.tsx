@@ -9,7 +9,7 @@ import { UiCatalog } from "./UiCatalog";
    does (lib/ui-ia.ts), with why it is there (lib/ui-inventory.ts), a preview on every card, filtered by platform, group,
    status and the product that uses it. Rendered on /docs/ui (`<ComponentCatalog />` in content/docs/ui/index.mdx). Server
    Component: the filter and the lazy previews are the client part. */
-export function ComponentCatalog({ locale }: { locale: Locale }) {
+export function ComponentCatalog({ locale }: Readonly<{ locale: Locale }>) {
   const t = getDictionary(locale).docs.ia;
   const entries = catalogEntries(locale, (name) => format(t.catalog.preview, { name }));
   return <UiCatalog entries={entries} families={catalogFamilies(entries, FILTER_KEYS)} usageDate={USAGE.scannedAt} />;

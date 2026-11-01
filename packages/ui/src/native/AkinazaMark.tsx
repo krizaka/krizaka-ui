@@ -11,7 +11,7 @@ import { useSvgId, useTheme } from "./theme";
  * end-on, its rings in light, cut at 45° with a copper face, a copper heart. The orbit and the coin turn, the heart
  * breathes; still when the system reduces motion.
  */
-export function AkinazaMark({ size = 48, animated = true, title, neutral }: NativeMarkProps) {
+export function AkinazaMark({ size = 48, animated = true, title, neutral }: Readonly<NativeMarkProps>) {
   const { theme } = useTheme();
   const { Animated, layer, spinStyle, pulseStyle } = useMarkMotion(size, animated, G.motion.spin * 1000);
   const id = useSvgId("akm");

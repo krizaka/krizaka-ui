@@ -29,7 +29,7 @@ export type ForceUpdateScreenProps = {
 };
 
 /** The forced update: replaces the app, with one thing to do and the way to do it. */
-export function ForceUpdateScreen({ title, message, versionLabel, mark, updateLabel, onUpdate, retryLabel, onRetry, fill = true, style }: ForceUpdateScreenProps) {
+export function ForceUpdateScreen({ title, message, versionLabel, mark, updateLabel, onUpdate, retryLabel, onRetry, fill = true, style }: Readonly<ForceUpdateScreenProps>) {
   const { theme } = useTheme();
   return (
     <View style={[styles.root, fill ? styles.fill : null, { backgroundColor: theme.surface0 }, style]}>

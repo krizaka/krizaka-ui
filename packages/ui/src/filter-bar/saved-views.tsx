@@ -220,7 +220,7 @@ function ActiveForm({
 }
 
 /** The "⋯" menu of the current view: rename and delete, only the ones the host wired. */
-function ViewActions({ active, labels, onRename, onDelete }: { active: SavedViewItem; labels: SavedViewsLabels; onRename?: () => void; onDelete?: () => void }) {
+function ViewActions({ active, labels, onRename, onDelete }: Readonly<{ active: SavedViewItem; labels: SavedViewsLabels; onRename?: () => void; onDelete?: () => void }>) {
   return (
     <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger aria-label={labels.actions(active.label)} className={cn(quiet, "px-2 text-fg-secondary")}>
@@ -278,7 +278,7 @@ function GroupChips({ label, items, current, Link, onSelect }: GroupProps & { la
 }
 
 /** One group in the phone menu: a link per view with an address, a radio item otherwise. */
-function GroupMenuItems({ items, current, Link, onSelect }: GroupProps) {
+function GroupMenuItems({ items, current, Link, onSelect }: Readonly<GroupProps>) {
   return (
     <MenuPrimitive.RadioGroup value={selectedIn(items, current)}>
       {items.map((view) =>
@@ -301,7 +301,7 @@ function GroupMenuItems({ items, current, Link, onSelect }: GroupProps) {
 }
 
 /** The views of a list: chips with counts on a wide screen, one menu on a phone; save, rename and delete; the mark of a modified view. */
-export function SavedViews({ views, current, modified, onSelect, onSave, onRename, onDelete, linkAs, maxLength = 80, labels: given, className }: SavedViewsProps) {
+export function SavedViews({ views, current, modified, onSelect, onSave, onRename, onDelete, linkAs, maxLength = 80, labels: given, className }: Readonly<SavedViewsProps>) {
   const labels: SavedViewsLabels = { ...savedViewsLabels, ...given, groups: { ...savedViewsLabels.groups, ...given?.groups } };
   const [saving, setSaving] = React.useState(false);
   const [renaming, setRenaming] = React.useState<string | null>(null);

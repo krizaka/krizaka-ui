@@ -479,7 +479,7 @@ const tagTone = {
 };
 
 /** A site's name and its tags: status when not released, “You are here” on the current one. */
-function FamilyName({ site, current, labels }: { site: Site; current: boolean; labels: FamilyLabels }) {
+function FamilyName({ site, current, labels }: Readonly<{ site: Site; current: boolean; labels: FamilyLabels }>) {
   return (
     <span className={s.familyName()}>
       {site.name}
@@ -511,7 +511,7 @@ export type NavBarFamilyProps = {
  * or ↓ (never on hover); ↑ ↓ walk the sites, Escape closes and returns the focus. Hidden below `md`: place a second
  * `NavBar.Family` as the last child of `NavBar.Mobile`, where it renders as the panel's last group.
  */
-export function NavBarFamily({ current, labels = familyLabels.en, defaultOpen, className }: NavBarFamilyProps) {
+export function NavBarFamily({ current, labels = familyLabels.en, defaultOpen, className }: Readonly<NavBarFamilyProps>) {
   const inMobile = React.useContext(MobileContext);
   const id = React.useId();
   const groups = sitesByGroup();
@@ -617,7 +617,7 @@ export type NavBarLanguageProps = Omit<LanguageSwitchProps, "variant">;
  * The language switch, the same on every site: in the bar a globe and the current code (FR) opening a short menu of
  * the languages by their own names; inside `NavBar.Mobile` the same languages as a row in the preferences.
  */
-export function NavBarLanguage(props: NavBarLanguageProps) {
+export function NavBarLanguage(props: Readonly<NavBarLanguageProps>) {
   const inMobile = React.useContext(MobileContext);
   return <LanguageSwitch variant={inMobile ? "inline" : "menu"} {...props} />;
 }

@@ -38,7 +38,7 @@ export type PaginationProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-function Chevron({ direction, color }: { direction: "left" | "right"; color: string }) {
+function Chevron({ direction, color }: Readonly<{ direction: "left" | "right"; color: string }>) {
   return (
     <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <Path d={direction === "left" ? "m15 6-6 6 6 6" : "m9 6 6 6-6 6"} />
@@ -50,7 +50,7 @@ function Chevron({ direction, color }: { direction: "left" | "right"; color: str
  * Previous / next with where the list stands ("Page 3 of 12"), or the two buttons of a cursor — the web
  * `Pagination` folded, the form a phone's thumb reaches. On a feed, prefer loading more at the end of the list.
  */
-export function Pagination({ page = 1, pageCount, onPageChange, hasPrevious, hasNext, onPrevious, onNext, status, disabled, labels, style }: PaginationProps) {
+export function Pagination({ page = 1, pageCount, onPageChange, hasPrevious, hasNext, onPrevious, onNext, status, disabled, labels, style }: Readonly<PaginationProps>) {
   const { theme, radius } = useTheme();
   const paged = pageCount !== undefined;
   const count = Math.max(1, pageCount ?? 1);

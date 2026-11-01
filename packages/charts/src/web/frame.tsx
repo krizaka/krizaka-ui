@@ -357,7 +357,7 @@ export function ChartFrame({
 }
 
 /** The ⋯ button as the server and the first browser pass draw it, until the kit's menu has loaded. */
-function MoreButton({ label }: { label: string }) {
+function MoreButton({ label }: Readonly<{ label: string }>) {
   return (
     <button type="button" className="kzc-more" aria-label={label} disabled>
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden width="16" height="16">

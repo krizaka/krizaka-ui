@@ -47,7 +47,7 @@ export interface CandlestickProps<T extends Datum> extends ChartFrameProps, Engi
 
 const DEFAULT_COLUMNS = { open: "Open", high: "High", low: "Low", close: "Close", volume: "Volume" };
 
-export function Candlestick<T extends Datum>(props: CandlestickProps<T>) {
+export function Candlestick<T extends Datum>(props: Readonly<CandlestickProps<T>>) {
   const { data, x, open, high, low, close, volume, format, volumeFormat = "compact", xFormat, thresholds = [], zoom, columnLabels = DEFAULT_COLUMNS } = props;
   const { locale, labels } = useSettings(props);
   const fmt = useMemo(

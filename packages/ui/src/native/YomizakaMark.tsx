@@ -10,7 +10,7 @@ import { useSvgId, useTheme } from "./theme";
  * The Yomizaka mark for React Native — the geometry of the web mark (marks/yomizaka-geometry.ts), "the watch": the owl's
  * two lenses under one calm brow. The orbit and its node turn, the pupils breathe; still when the system reduces motion.
  */
-export function YomizakaMark({ size = 48, animated = true, title, neutral }: NativeMarkProps) {
+export function YomizakaMark({ size = 48, animated = true, title, neutral }: Readonly<NativeMarkProps>) {
   const { theme } = useTheme();
   const { Animated, layer, spinStyle, pulseStyle } = useMarkMotion(size, animated, G.motion.spin * 1000);
   const id = useSvgId("ymm");

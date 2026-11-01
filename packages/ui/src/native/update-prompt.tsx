@@ -27,7 +27,7 @@ export type UpdatePromptProps = {
 };
 
 /** The soft update: a card the person can dismiss, never a blocker. */
-export function UpdatePrompt({ title, message, versionLabel, mark, updateLabel, onUpdate, laterLabel, onLater, style }: UpdatePromptProps) {
+export function UpdatePrompt({ title, message, versionLabel, mark, updateLabel, onUpdate, laterLabel, onLater, style }: Readonly<UpdatePromptProps>) {
   const { theme, radius } = useTheme();
   return (
     <View

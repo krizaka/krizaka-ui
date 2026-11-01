@@ -48,7 +48,7 @@ function useBob(animated: boolean) {
  * One of the nine Krizaka figures in one mood, for React Native — the geometry of the web `Mascot`
  * (mascots/geometry.ts), in the theme's accent by default.
  */
-export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 96, animated = true, title, style }: MascotProps) {
+export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 96, animated = true, title, style }: Readonly<MascotProps>) {
   const { theme } = useTheme();
   const id = useSvgId("kzb");
   const bob = useBob(animated);

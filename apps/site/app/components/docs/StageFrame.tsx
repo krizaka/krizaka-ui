@@ -13,7 +13,7 @@ import { Playground } from "./Playground";
 /* The frame of a stage (Stage.tsx): web · iOS · Android, the web panel given by the caller. Apart from Stage so that a
    page showing only playgrounds (the home) does not import the registry's examples map (lib/ui-examples.ts): a route
    ships the client code of every module its server components may import. Server Component. */
-export function StageFrame({ item, locale, web }: { item: RegistryItem; locale: Locale; web: ReactNode | null }) {
+export function StageFrame({ item, locale, web }: Readonly<{ item: RegistryItem; locale: Locale; web: ReactNode | null }>) {
   const t = getDictionary(locale).docs;
   const s = t.stage;
   // The richest React Native story (the tallest screenshot) is the one the phone shows.
@@ -76,6 +76,6 @@ export function playgroundPanel(item: RegistryItem, locale: Locale): ReactNode |
 }
 
 /** A stage for a component that has a playground — what the home shows. */
-export function PlayStage({ item, locale }: { item: RegistryItem; locale: Locale }) {
+export function PlayStage({ item, locale }: Readonly<{ item: RegistryItem; locale: Locale }>) {
   return <StageFrame item={item} locale={locale} web={playgroundPanel(item, locale)} />;
 }

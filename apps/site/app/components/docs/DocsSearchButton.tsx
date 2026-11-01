@@ -5,7 +5,7 @@ import { Button } from "@krizaka/ui/button";
 import { Kbd } from "@krizaka/ui/kbd";
 
 /** The docs hub's search, front and centre: it opens the site's command palette (SearchCommand, ⌘K). */
-export function DocsSearchButton({ label }: { label: string }) {
+export function DocsSearchButton({ label }: Readonly<{ label: string }>) {
   return (
     <Button
       type="button"

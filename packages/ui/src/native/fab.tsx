@@ -25,7 +25,7 @@ export type FabProps = {
  * The screen's main action, floating above the content in the accent — one per screen (create, compose, record). It
  * keeps clear of the safe area and the tab bar (`offset`), shows its words when `extended`, a light tap confirms.
  */
-export function Fab({ label, icon, onPress, extended, placement = "end", offset = 0, style }: FabProps) {
+export function Fab({ label, icon, onPress, extended, placement = "end", offset = 0, style }: Readonly<FabProps>) {
   const { theme, insets, haptic } = useTheme();
   const position: ViewStyle =
     placement === "center" ? { alignSelf: "center" } : placement === "start" ? { left: 16 + insets.left } : { right: 16 + insets.right };

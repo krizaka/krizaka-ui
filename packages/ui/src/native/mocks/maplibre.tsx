@@ -11,7 +11,7 @@ import { useTheme } from "../theme";
 type Props = { children?: React.ReactNode; [key: string]: unknown };
 const View2D = React.createContext({ center: [0, 0] as readonly [number, number], zoom: 12, width: 0, height: 0 });
 
-function MockMap({ children, style: _style, ...props }: Props) {
+function MockMap({ children, style: _style, ...props }: Readonly<Props>) {
   const { theme } = useTheme();
   const [size, setSize] = React.useState({ width: 0, height: 0 });
   const camera = React.Children.toArray(children).find((c) => React.isValidElement(c) && c.type === Camera) as React.ReactElement<{ center?: [number, number]; zoom?: number }> | undefined;
@@ -30,7 +30,7 @@ function MockMap({ children, style: _style, ...props }: Props) {
 export const Camera = React.forwardRef<unknown, Props>(function Camera(_props, _ref) {
   return null;
 });
-export function Marker({ children, lngLat }: Props) {
+export function Marker({ children, lngLat }: Readonly<Props>) {
   const { center, zoom, width, height } = React.useContext(View2D);
   const [cx, cy] = project(center, zoom);
   const [x, y] = project(lngLat as [number, number], zoom);
@@ -40,14 +40,14 @@ export function Marker({ children, lngLat }: Props) {
     </View>
   );
 }
-export function GeoJSONSource({ children, onPress, data, ...props }: Props) {
+export function GeoJSONSource({ children, onPress, data, ...props }: Readonly<Props>) {
   return (
     <Pressable testID={`maplibre-source-${String(props.id)}`} accessible={false} onPress={() => (onPress as (e: unknown) => void)?.({ nativeEvent: { features: (data as { features?: unknown[] })?.features?.slice(0, 1) ?? [] } })}>
       {children}
     </Pressable>
   );
 }
-export function Layer(props: Props) {
+export function Layer(props: Readonly<Props>) {
   return <View testID={`maplibre-layer-${String(props.id)}`} />;
 }
 export const LocationManager = {

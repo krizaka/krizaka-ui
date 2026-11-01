@@ -36,7 +36,7 @@ function keepSamplesInPlace(event: SyntheticEvent) {
   }
 }
 
-export function LiveExample({ exampleKey }: { exampleKey: string }) {
+export function LiveExample({ exampleKey }: Readonly<{ exampleKey: string }>) {
   const host = useRef<HTMLDivElement>(null);
   const [Live, setLive] = useState<AnyExample | null>(null);
 

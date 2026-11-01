@@ -11,7 +11,7 @@ import type { TableModel } from "./frame";
 
 type Row = { readonly id: string; readonly cells: readonly string[] };
 
-export default function TableSheet({ title, table, labels, onClose }: { title: string; table: TableModel; labels: ChartLabels; onClose: () => void }) {
+export default function TableSheet({ title, table, labels, onClose }: Readonly<{ title: string; table: TableModel; labels: ChartLabels; onClose: () => void }>) {
   const rows = useMemo<Row[]>(() => table.rows.map((cells, i) => ({ id: String(i), cells })), [table.rows]);
   const columns = useMemo<DataTableColumn<Row>[]>(
     () =>

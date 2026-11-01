@@ -53,7 +53,7 @@ type Base = {
 
 const ids = (f: KrizakaField, hint?: string) => [hint && !f.error ? f.hintId : null, f.error ? f.errorId : null].filter(Boolean).join(" ") || undefined;
 
-function Caption({ field, hint, ok }: { field: KrizakaField; hint?: string; ok?: string }) {
+function Caption({ field, hint, ok }: Readonly<{ field: KrizakaField; hint?: string; ok?: string }>) {
   const suggestion = field.errorDetail?.suggestion;
   if (field.error)
     return (
@@ -130,7 +130,7 @@ export type FormErrorProps = {
 };
 
 /** The whole form's error — a refusal of the server that belongs to no field (a conflict, too many tries, no network). */
-export function FormError({ title, className }: FormErrorProps) {
+export function FormError({ title, className }: Readonly<FormErrorProps>) {
   const ctx = useFormContext();
   if (!ctx.error) return null;
   return (
@@ -234,7 +234,7 @@ export function Checkbox({ name, label, hint, disabled, className }: CheckboxPro
 }
 
 /** An on/off setting of the form (`boolean`): the label and its hint beside the switch. */
-export function Switch({ name, label, hint, disabled, className }: Base) {
+export function Switch({ name, label, hint, disabled, className }: Readonly<Base>) {
   const f = useKrizakaField<boolean>(name);
   return (
     <div className={className ?? "flex items-start justify-between gap-4"}>

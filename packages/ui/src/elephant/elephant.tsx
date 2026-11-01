@@ -28,7 +28,7 @@ const line = { strokeWidth: G.stroke, strokeLinecap: "square", strokeLinejoin: "
  * both themes; decorative by default.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function Elephant({ pose = "standing", size = 64, animated = true, title, className, ...rest }: ElephantProps) {
+export function Elephant({ pose = "standing", size = 64, animated = true, title, className, ...rest }: Readonly<ElephantProps>) {
   warnDeprecated("elephant");
   const flying = pose === "flying";
   const p = flying ? G.flying : G.standing;

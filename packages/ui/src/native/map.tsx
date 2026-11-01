@@ -137,7 +137,7 @@ export type MarkerProps = {
 };
 
 /** A place: an accent dot (or your view) that is a button when it does something. */
-export function Marker({ position, label, onPress, selected, children }: MarkerProps) {
+export function Marker({ position, label, onPress, selected, children }: Readonly<MarkerProps>) {
   const { palette } = useMapContext();
   const { theme, radius, haptic } = useTheme();
   const id = usePlace(label);
@@ -175,7 +175,7 @@ export type UserPositionProps = {
 };
 
 /** The person's position: a dot that pulses (still when the system reduces motion). */
-export function UserPosition({ position, label, accuracy }: UserPositionProps) {
+export function UserPosition({ position, label, accuracy }: Readonly<UserPositionProps>) {
   const { palette, reduce } = useMapContext();
   const id = usePlace(label);
   const [pulse] = React.useState(() => new Animated.Value(0));
@@ -208,7 +208,7 @@ export type RadiusCircleProps = {
 };
 
 /** A circle on the ground: a delivery zone, a search radius. */
-export function RadiusCircle({ center, radius, tone = "accent" }: RadiusCircleProps) {
+export function RadiusCircle({ center, radius, tone = "accent" }: Readonly<RadiusCircleProps>) {
   const { palette } = useMapContext();
   const id = `kz-circle-${React.useId().replace(/[^a-zA-Z0-9]/g, "")}`;
   const data = React.useMemo(() => circlePolygon(center, radius), [center, radius]);
@@ -232,7 +232,7 @@ export type ClusterProps = {
 };
 
 /** Many points grouped while they are close: a disc with the count; each point is part of the map's name. */
-export function Cluster({ points, onPointPress, radius = 48 }: ClusterProps) {
+export function Cluster({ points, onPointPress, radius = 48 }: Readonly<ClusterProps>) {
   const { palette, places } = useMapContext();
   const id = `kz-cluster-${React.useId().replace(/[^a-zA-Z0-9]/g, "")}`;
   React.useEffect(() => {

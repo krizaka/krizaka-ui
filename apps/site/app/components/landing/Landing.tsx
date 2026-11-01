@@ -72,7 +72,7 @@ function descriptions(): Map<string, string> {
 }
 
 /** Plate I: four real pieces of the kit, drawn here by the kit, numbered like the plates of a field guide. */
-function Sheet({ sheet }: { sheet: ReturnType<typeof getDictionary>["landing"]["sheet"] }) {
+function Sheet({ sheet }: Readonly<{ sheet: ReturnType<typeof getDictionary>["landing"]["sheet"] }>) {
   const figures = [
     {
       key: "button",
@@ -146,7 +146,7 @@ function Sheet({ sheet }: { sheet: ReturnType<typeof getDictionary>["landing"]["
   );
 }
 
-export async function Landing({ locale }: { locale: Locale }) {
+export async function Landing({ locale }: Readonly<{ locale: Locale }>) {
   const t = getDictionary(locale).landing;
   const count = getRegistryItems().filter((item) => item.status !== "deprecated").length;
   const about = descriptions();

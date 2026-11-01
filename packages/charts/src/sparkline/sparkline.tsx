@@ -31,7 +31,7 @@ export interface SparklineProps extends Omit<ChartFrameProps, "hideTitle" | "dat
 }
 
 /** The shape of a trend in a few pixels: a stat's last 30 days, a job's throughput. */
-export function Sparkline(props: SparklineProps) {
+export function Sparkline(props: Readonly<SparklineProps>) {
   const { data, categories, variant = "line", color, trendTone, threshold, format, width: fixed, height = 32 } = props;
   const { locale, labels } = useSettings(props);
   const table = useMemo(() => ({ categories: categories ?? data.map((_, i) => i + 1), series: [{ id: "v", label: props.title ?? "", values: data, slot: 1 }] }), [data, categories, props.title]);

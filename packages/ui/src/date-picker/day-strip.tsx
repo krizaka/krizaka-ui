@@ -76,7 +76,7 @@ export type DayStripProps = {
 };
 
 /** The days ahead in a row that scrolls sideways: one picked, today and the marked days shown. */
-export function DayStrip({ label, locale, value: valueProp, defaultValue = null, onValueChange, start, days = 14, isDateDisabled, isDateMarked, today: todayProp, showHeader = true, labels: given, className }: DayStripProps) {
+export function DayStrip({ label, locale, value: valueProp, defaultValue = null, onValueChange, start, days = 14, isDateDisabled, isDateMarked, today: todayProp, showHeader = true, labels: given, className }: Readonly<DayStripProps>) {
   const labels = { ...dayStripLabels, ...given };
   const s = dayStrip();
   const today = todayProp ?? toIsoDate(new Date());

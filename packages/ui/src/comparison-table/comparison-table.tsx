@@ -48,7 +48,7 @@ export interface ComparisonTableProps extends Omit<React.ComponentProps<"div">, 
   reveal?: boolean;
 }
 
-function Answer({ answer }: { answer?: ComparisonAnswer }) {
+function Answer({ answer }: Readonly<{ answer?: ComparisonAnswer }>) {
   if (!answer) return null;
   return (
     <>
@@ -62,7 +62,7 @@ function Answer({ answer }: { answer?: ComparisonAnswer }) {
 const stagger = (i: number): React.CSSProperties => ({ "--kz-delay": `${i * 70}ms` }) as React.CSSProperties;
 
 /** A comparison where your column is a highlighted band of the same grid — aligned rows, fair neutral answers, cards on a phone. */
-export function ComparisonTable({ label, topicLabel, columns, highlight, rows, reveal = true, className, ...props }: ComparisonTableProps) {
+export function ComparisonTable({ label, topicLabel, columns, highlight, rows, reveal = true, className, ...props }: Readonly<ComparisonTableProps>) {
   const at = Math.max(columns.findIndex((c) => c.id === highlight), 0);
   const grid = { gridTemplateColumns: `minmax(10rem, 0.9fr) repeat(${columns.length}, minmax(0, 1fr))` };
   const band = (i: number) => i === at;

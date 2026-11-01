@@ -10,7 +10,7 @@ const WALL_MIN_HEIGHT = 300;
 
 /* /docs/ui/mobile — what exists in React Native and how it differs from the web: the parity of the registry, one row per
    component that runs on mobile. Generated from the registry (`platforms`, `native.differences`): never written here. */
-export function MobileDoc({ locale }: { locale: Locale }) {
+export function MobileDoc({ locale }: Readonly<{ locale: Locale }>) {
   const t = getDictionary(locale).docs;
   const x = t.ia.mobile;
   const items = getRegistryItems();

@@ -25,7 +25,7 @@ export type WheelPickerProps = {
 };
 
 /** The frame of one or several wheels: a raised surface, the lit band across them — the web `WheelPicker`. */
-export function WheelPicker({ label, children, visible = 5, invalid, unset = false, style }: WheelPickerProps) {
+export function WheelPicker({ label, children, visible = 5, invalid, unset = false, style }: Readonly<WheelPickerProps>) {
   const { theme, radius } = useTheme();
   return (
     <FrameContext.Provider value={React.useMemo(() => ({ visible, unset }), [visible, unset])}>
@@ -42,7 +42,7 @@ export function WheelPicker({ label, children, visible = 5, invalid, unset = fal
 }
 
 /** A divider between two wheels (`:` between the hours and the minutes). */
-export function WheelDivider({ children }: { children: string }) {
+export function WheelDivider({ children }: Readonly<{ children: string }>) {
   const { theme } = useTheme();
   return (
     <Text aria-hidden style={[styles.divider, { color: theme.textSecondary }]}>
@@ -80,7 +80,7 @@ const nearestEnabled = (options: readonly WheelOption[], index: number) => {
  * One column of a `WheelPicker`: values that snap under the band, a tick of the hand (`selection` haptic) at each one
  * passed. For VoiceOver and TalkBack it is an adjustable control: swipe up or down to change it, its value read as words.
  */
-export function Wheel({ label, options, value: valueProp, defaultValue, onValueChange, disabled, style }: WheelProps) {
+export function Wheel({ label, options, value: valueProp, defaultValue, onValueChange, disabled, style }: Readonly<WheelProps>) {
   const { theme, haptic } = useTheme();
   const { visible, unset } = React.useContext(FrameContext);
   const [own, setOwn] = React.useState(defaultValue ?? options[0]?.value ?? "");

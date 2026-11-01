@@ -30,7 +30,7 @@ const COMMENT = "M4 5h16v11H9l-5 4z";
 const SHARE = "M4 12v7h16v-7M12 3v12M7 8l5-5 5 5";
 const MORE = "M5 12h.01M12 12h.01M19 12h.01";
 
-function Glyph({ d, color, filled }: { d: string; color: string; filled?: boolean }) {
+function Glyph({ d, color, filled }: Readonly<{ d: string; color: string; filled?: boolean }>) {
   return (
     <Svg width={24} height={24} viewBox="0 0 24 24" fill={filled ? color : "none"} stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <Path d={d} />
@@ -38,7 +38,7 @@ function Glyph({ d, color, filled }: { d: string; color: string; filled?: boolea
   );
 }
 
-function RailButton({ label, count, pressed, onPress, children }: { label: string; count?: string | undefined; pressed?: boolean | undefined; onPress?: (() => void) | undefined; children: React.ReactNode }) {
+function RailButton({ label, count, pressed, onPress, children }: Readonly<{ label: string; count?: string | undefined; pressed?: boolean | undefined; onPress?: (() => void) | undefined; children: React.ReactNode }>) {
   const { theme } = useTheme();
   return (
     <View style={styles.railItem}>
@@ -195,7 +195,7 @@ export type ShortFeedProps<T> = {
  * A vertical paging feed: one video per screen, the one in view plays, the others pause.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no app imports it. Removed in 4.0.
  */
-export function ShortFeed<T>({ label, items, getId, renderItem, height, onActiveChange, style }: ShortFeedProps<T>) {
+export function ShortFeed<T>({ label, items, getId, renderItem, height, onActiveChange, style }: Readonly<ShortFeedProps<T>>) {
   warnDeprecated("native/vertical-video");
   const [active, setActive] = React.useState(0);
   // FlatList wants one stable callback for its whole life.

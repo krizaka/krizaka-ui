@@ -242,7 +242,7 @@ const LEAF: Keyframe[] = [
   { transform: "scaleX(-1)", offset: 1 },
 ];
 
-export function Prop({ shown, size }: { shown: Shown; size: number }) {
+export function Prop({ shown, size }: Readonly<{ shown: Shown; size: number }>) {
   const ref = React.useRef<HTMLDivElement>(null);
   const leaf = React.useRef<HTMLDivElement>(null);
   const dir = shown.side ?? 1;

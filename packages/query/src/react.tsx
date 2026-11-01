@@ -14,7 +14,7 @@ export interface KrizakaQueryProviderProps extends KrizakaQueryClientOptions {
 }
 
 /** The app's query client, created once per mount (never shared between two requests of a server). */
-export function KrizakaQueryProvider({ children, client, ...options }: KrizakaQueryProviderProps) {
+export function KrizakaQueryProvider({ children, client, ...options }: Readonly<KrizakaQueryProviderProps>) {
   const [own] = useState(() => client ?? createQueryClient(options));
   return <QueryClientProvider client={client ?? own}>{children}</QueryClientProvider>;
 }

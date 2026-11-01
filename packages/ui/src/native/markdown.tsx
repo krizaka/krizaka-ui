@@ -32,7 +32,7 @@ function Inlines({ nodes, ctx }: { nodes: readonly InlineNode[]; ctx: Context })
   return nodes.map((node, i) => <Inline key={i} node={node} ctx={ctx} />);
 }
 
-function Inline({ node, ctx }: { node: InlineNode; ctx: Context }): React.ReactNode {
+function Inline({ node, ctx }: Readonly<{ node: InlineNode; ctx: Context }>): React.ReactNode {
   const { theme } = ctx;
   switch (node.type) {
     case "text":
@@ -78,7 +78,7 @@ function Inline({ node, ctx }: { node: InlineNode; ctx: Context }): React.ReactN
 }
 
 /** Code, coloured by the web's grammars from the theme's text roles. */
-function Code({ node, ctx }: { node: Extract<BlockNode, { type: "code" }>; ctx: Context }) {
+function Code({ node, ctx }: Readonly<{ node: Extract<BlockNode, { type: "code" }>; ctx: Context }>) {
   const { theme } = ctx;
   const colour: Record<string, string> = {
     comment: theme.textSecondary,
@@ -123,7 +123,7 @@ function Blocks({ nodes, ctx }: { nodes: readonly BlockNode[]; ctx: Context }) {
   return nodes.map((node, i) => <Block key={i} node={node} ctx={ctx} />);
 }
 
-function Table({ node, ctx }: { node: Extract<BlockNode, { type: "table" }>; ctx: Context }) {
+function Table({ node, ctx }: Readonly<{ node: Extract<BlockNode, { type: "table" }>; ctx: Context }>) {
   const { theme } = ctx;
   const signature = JSON.stringify([node, ctx.measureKey]);
   const [measurement, setMeasurement] = React.useState<{ signature: string; widths: number[] }>({ signature, widths: [] });
@@ -164,7 +164,7 @@ function Table({ node, ctx }: { node: Extract<BlockNode, { type: "table" }>; ctx
   );
 }
 
-function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNode {
+function Block({ node, ctx }: Readonly<{ node: BlockNode; ctx: Context }>): React.ReactNode {
   const { theme } = ctx;
   switch (node.type) {
     case "heading":
@@ -244,7 +244,7 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
  * A Markdown text in Text and View: headings, paragraphs, lists (and tasks), quotes, tables, coloured code, links, pictures.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no app imports it. Removed in 4.0.
  */
-export function Markdown({ children, streaming, generated, generatedLabel, onLinkPress, style }: MarkdownProps) {
+export function Markdown({ children, streaming, generated, generatedLabel, onLinkPress, style }: Readonly<MarkdownProps>) {
   warnDeprecated("native/markdown");
   const { theme, fonts } = useTheme();
   const { fontScale } = useWindowDimensions();

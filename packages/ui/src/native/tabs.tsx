@@ -45,7 +45,7 @@ export type TabsProps<T extends string> = {
  * Sections of one screen — the web `Tabs`: a tab list (underlined, scrolling sideways when long, or segmented) and the
  * selected panel under it. For the app's main sections, use `TabBar`.
  */
-export function Tabs<T extends string>({ items, value, defaultValue, onValueChange, "aria-label": label, variant = "underline", add, style }: TabsProps<T>) {
+export function Tabs<T extends string>({ items, value, defaultValue, onValueChange, "aria-label": label, variant = "underline", add, style }: Readonly<TabsProps<T>>) {
   const { theme, radius, haptic } = useTheme();
   const [own, setOwn] = React.useState<T | undefined>(defaultValue ?? items[0]?.value);
   const current = value ?? own;

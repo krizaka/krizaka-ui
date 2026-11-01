@@ -10,7 +10,7 @@ import { useSvgId, useTheme } from "./theme";
  * The Orazaka mark for React Native — the geometry of the web mark (marks/orazaka-geometry.ts): the three shards turn
  * slowly around the core, which breathes; still when the system reduces motion.
  */
-export function OrazakaMark({ size = 48, animated = true, title, neutral }: NativeMarkProps) {
+export function OrazakaMark({ size = 48, animated = true, title, neutral }: Readonly<NativeMarkProps>) {
   const { theme } = useTheme();
   const { Animated, layer, spinStyle, pulseStyle } = useMarkMotion(size, animated);
   const id = useSvgId("ozm");

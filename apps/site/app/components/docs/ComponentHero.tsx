@@ -29,7 +29,7 @@ function pngSize(file: string): { width: number; height: number } {
   return { width: header.readUInt32BE(0), height: header.readUInt32BE(4) };
 }
 
-export function ComponentHero({ locale }: { locale: Locale }) {
+export function ComponentHero({ locale }: Readonly<{ locale: Locale }>) {
   const t = getDictionary(locale).docs.ia.catalog;
   const live = LIVE.map(({ key, component }) => ({ key, component, title: getRegistryItem(component).title }));
   const phone = getRegistryItem(PHONE.component);

@@ -58,7 +58,7 @@ const stepStyle = (name: string, role: keyof typeof ROLE_FONT): CSSProperties =>
   textTransform: name === "overline" ? "uppercase" : undefined,
 });
 
-export function TypographyDoc({ locale }: { locale: Locale }) {
+export function TypographyDoc({ locale }: Readonly<{ locale: Locale }>) {
   const t = getDictionary(locale);
   const c = t.docs.foundations;
   const ty = c.typography;

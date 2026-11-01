@@ -18,7 +18,7 @@ export interface RotatingWordProps {
  * render shows the first word; it stays put under prefers-reduced-motion and while the tab is hidden. Decorative
  * (`aria-hidden`): give the heading a stable accessible label.
  */
-export function RotatingWord({ words, interval = 2600, className }: RotatingWordProps) {
+export function RotatingWord({ words, interval = 2600, className }: Readonly<RotatingWordProps>) {
   const [i, setI] = useState(0);
   useEffect(() => {
     if (words.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;

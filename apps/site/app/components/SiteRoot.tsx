@@ -58,7 +58,7 @@ export const siteViewport: Viewport = { width: "device-width", initialScale: 1, 
 /* The root of every page, in one language (each language has its own root layout, for <html lang>): the theme before
    the first paint, the providers, the bar, Fumadocs' docs layout (the sidebar of lib/docs-source.ts, the table of
    contents), the footer. */
-export function SiteRoot({ locale, children }: { locale: Locale; children: ReactNode }) {
+export function SiteRoot({ locale, children }: Readonly<{ locale: Locale; children: ReactNode }>) {
   const t = getDictionary(locale);
   return (
     <html lang={locale} className={cn(fontVariables, "h-full dark")} data-scroll-behavior="smooth" suppressHydrationWarning>

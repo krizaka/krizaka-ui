@@ -31,7 +31,7 @@ export type MatchDialogProps = {
  * The moment two people choose each other — a match, a pair, a deal: full screen in the brand gradient, the two avatars
  * meeting at a heart, a success tick, the next step. Under reduced motion they are simply there.
  */
-export function MatchDialog({ open, onOpenChange, title, description, people, primaryLabel, onPrimary, secondaryLabel }: MatchDialogProps) {
+export function MatchDialog({ open, onOpenChange, title, description, people, primaryLabel, onPrimary, secondaryLabel }: Readonly<MatchDialogProps>) {
   const { theme, haptic } = useTheme();
   const reduce = useReducedMotion();
   const [t] = React.useState(() => new Animated.Value(0));

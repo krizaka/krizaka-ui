@@ -17,7 +17,7 @@ export type StepProgressProps = {
 };
 
 /** The head of a sign-up or a profile to fill: back, segments that fill, the position in words. */
-export function StepProgress({ step, total, label, back, trailing, className }: StepProgressProps) {
+export function StepProgress({ step, total, label, back, trailing, className }: Readonly<StepProgressProps>) {
   const words = label(step, total);
   return (
     <div className={["flex flex-col gap-1.5", className].filter(Boolean).join(" ")}>

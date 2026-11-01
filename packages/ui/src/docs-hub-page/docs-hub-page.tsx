@@ -66,7 +66,7 @@ export type DocsHubPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
   linksLayout?: "wrap" | "stack";
 };
 
-function List({ items, linkAs: Link = "a" }: { items: readonly DocsHubLink[]; linkAs?: LinkComponent }) {
+function List({ items, linkAs: Link = "a" }: Readonly<{ items: readonly DocsHubLink[]; linkAs?: LinkComponent }>) {
   const L = Link as React.ElementType;
   return (
     <ul className="kz-tpl-links">

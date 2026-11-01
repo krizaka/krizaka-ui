@@ -66,7 +66,7 @@ function useButton({ variant = "secondary", size = "md", shape = "rounded", load
 }
 
 /** The gradient fill behind the content (react-native-svg: no native gradient in React Native). */
-function Fill({ colors, id }: { colors: Look; id: string }) {
+function Fill({ colors, id }: Readonly<{ colors: Look; id: string }>) {
   if (!colors.gradient) return null;
   return (
     <Svg aria-hidden pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%">

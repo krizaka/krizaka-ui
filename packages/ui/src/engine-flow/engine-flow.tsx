@@ -254,7 +254,7 @@ function flowData({ chosen, calm, saveData, trigger, density, compact }: FlowDat
 }
 
 /** What the chosen node says, or the hint when none is chosen. */
-function FlowDetail({ id, chosen, hint }: { id: string; chosen: EngineFlowNode | undefined; hint: React.ReactNode }) {
+function FlowDetail({ id, chosen, hint }: Readonly<{ id: string; chosen: EngineFlowNode | undefined; hint: React.ReactNode }>) {
   return (
     <figcaption id={id} className={cn("kz-flow-detail", chosen?.className)} aria-live="polite">
       {chosen ? (

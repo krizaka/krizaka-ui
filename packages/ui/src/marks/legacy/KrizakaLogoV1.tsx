@@ -12,7 +12,7 @@ const CSS = `
 `;
 
 /** The Krizaka mark before 2.0.0-beta.5 (kept for the Evolution story only, never exported): a hexagonal shield with a neural core, inside slow orbits. Blue accent: `--kz-accent`. */
-export function KrizakaLogoV1({ size = 32, animated = true, title, className }: MarkProps) {
+export function KrizakaLogoV1({ size = 32, animated = true, title, className }: Readonly<MarkProps>) {
   const id = useIds("kzm", ["blue", "steel", "core", "ambient"] as const);
   const accent = "var(--kz-accent, hsl(217, 92%, 60%))";
   const m = (cls: string) => (animated ? cls : undefined);

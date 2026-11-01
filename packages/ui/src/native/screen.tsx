@@ -35,7 +35,7 @@ export type ScreenProps = {
  * A screen of the app: a header, the content (scrolling, rising with the keyboard), a footer — on the theme's surface,
  * clear of the safe areas through its parts. The base of the templates: app shell, sign-in, profile, feed, chat, settings.
  */
-export function Screen({ header, footer, children, scroll = true, keyboard = true, padding = 16, surface = "surface0", contentStyle, onRefresh, refreshing = false, refreshLabel, testID }: ScreenProps) {
+export function Screen({ header, footer, children, scroll = true, keyboard = true, padding = 16, surface = "surface0", contentStyle, onRefresh, refreshing = false, refreshLabel, testID }: Readonly<ScreenProps>) {
   const { theme, insets } = useTheme();
   const body = scroll ? (
     <ScrollView testID={testID} style={styles.flex} contentContainerStyle={[{ padding, paddingTop: header ? padding : padding + insets.top, gap: 16 }, contentStyle]} keyboardShouldPersistTaps="handled" tabIndex={0} refreshControl={onRefresh ? <PullToRefresh refreshing={refreshing} onRefresh={onRefresh} label={refreshLabel} /> : undefined}>

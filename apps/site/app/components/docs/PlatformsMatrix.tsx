@@ -30,7 +30,7 @@ export interface MatrixLabels {
 const ORDER = { yes: 0, desktop: 0, gap: 1, "n/a": 2 } as const;
 
 /** One cell: the state as a chip, and — when it is not there — why, the issue that tracks it or what to use instead. */
-function Cell({ cell, labels, titleOf }: { cell: ParityCell; labels: MatrixLabels; titleOf: (name: string) => { title: string; href: string } | null }) {
+function Cell({ cell, labels, titleOf }: Readonly<{ cell: ParityCell; labels: MatrixLabels; titleOf: (name: string) => { title: string; href: string } | null }>) {
   const use = cell.state === "n/a" && cell.use ? titleOf(cell.use) : null;
   return (
     <span className="kz-parity-cell">
@@ -59,7 +59,7 @@ function Cell({ cell, labels, titleOf }: { cell: ParityCell; labels: MatrixLabel
 }
 
 /** The parity matrix: every component, web · mobile · desktop, sortable; cards on a phone (DataTable of @krizaka/ui). */
-export function PlatformsMatrix({ rows, labels }: { rows: MatrixRow[]; labels: MatrixLabels }) {
+export function PlatformsMatrix({ rows, labels }: Readonly<{ rows: MatrixRow[]; labels: MatrixLabels }>) {
   const byName = new Map(rows.map((row) => [row.name, { title: row.title, href: row.href }]));
   const titleOf = (name: string) => byName.get(name) ?? null;
   const column = (id: "web" | "native" | "desktop", header: string): DataTableColumn<MatrixRow> => ({

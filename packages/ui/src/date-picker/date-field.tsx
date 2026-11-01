@@ -66,7 +66,7 @@ export type DateFieldProps = Common & {
   autoComplete?: "bday" | "off";
 };
 
-function Caption({ id, hint, error }: { id: string; hint?: string; error?: string }) {
+function Caption({ id, hint, error }: Readonly<{ id: string; hint?: string; error?: string }>) {
   const s = dateField();
   if (error)
     return (

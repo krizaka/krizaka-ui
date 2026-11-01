@@ -101,7 +101,7 @@ export interface NativeEarningsChartProps<T extends Datum> extends Base<T> {
 }
 
 /** Earnings per period in money (React Native): the total and the change first, the bars under them. */
-export function EarningsChart<T extends Datum>({ x = "month" as Accessor<T, unknown>, net, gross, currency, period = "month", payoutThreshold, labels: given, title, hideTitle, data, ...props }: NativeEarningsChartProps<T>) {
+export function EarningsChart<T extends Datum>({ x = "month" as Accessor<T, unknown>, net, gross, currency, period = "month", payoutThreshold, labels: given, title, hideTitle, data, ...props }: Readonly<NativeEarningsChartProps<T>>) {
   const words = { ...EARNINGS_LABELS, ...given };
   const resolved = useNativeSettings(props);
   const format = { style: "money", currency } as const;
@@ -137,7 +137,7 @@ export interface NativeJobThroughputProps<T extends Datum> extends Base<T> {
 }
 
 /** Jobs per period stacked by status (React Native): the total and the success rate first. */
-export function JobThroughput<T extends Datum>({ x = "day" as Accessor<T, unknown>, period = "day", statuses = DEFAULT_STATUSES, labels: given, title, hideTitle, data, ...props }: NativeJobThroughputProps<T>) {
+export function JobThroughput<T extends Datum>({ x = "day" as Accessor<T, unknown>, period = "day", statuses = DEFAULT_STATUSES, labels: given, title, hideTitle, data, ...props }: Readonly<NativeJobThroughputProps<T>>) {
   const words = { ...THROUGHPUT_LABELS, ...given };
   const resolved = useNativeSettings(props);
   const sum = (outcome?: "succeeded" | "failed") => statuses.filter((s) => outcome === undefined || s.outcome === outcome).reduce((n, s) => n + total(data, s.key as Accessor<T, number>), 0);
@@ -243,7 +243,7 @@ export interface NativeCreditUsageProps extends Omit<NativeChartsSettings, "labe
 }
 
 /** What is left of an allowance (React Native): the remaining amount, a meter in tones, the use per day, the run-out date. */
-export function CreditUsage({ title, hideTitle, used, limit, format = "integer", daily, renewsAt, now, levels = [0.8, 0.95], labels: given, style, ...settings }: NativeCreditUsageProps) {
+export function CreditUsage({ title, hideTitle, used, limit, format = "integer", daily, renewsAt, now, levels = [0.8, 0.95], labels: given, style, ...settings }: Readonly<NativeCreditUsageProps>) {
   const words = { ...CREDIT_LABELS, ...given };
   const resolved = useNativeSettings(settings);
   const { theme, locale } = resolved;
@@ -299,7 +299,7 @@ export interface NativeGoalProgressProps extends Omit<NativeFrameProps, "loading
 }
 
 /** A pot towards its goal, in money (React Native): the arc fills, the words say how much of what. */
-export function GoalProgress({ raised, goal, currency, supporters, timeLeft, labels: given, ...props }: NativeGoalProgressProps) {
+export function GoalProgress({ raised, goal, currency, supporters, timeLeft, labels: given, ...props }: Readonly<NativeGoalProgressProps>) {
   const words = { ...GOAL_LABELS, ...given };
   const resolved = useNativeSettings(props);
   const format = roundMoney(currency);
@@ -335,7 +335,7 @@ export interface NativePriceTickerProps extends Omit<NativeFrameProps, "loading"
 }
 
 /** A live auction's price (React Native): the current bid in large, the change since the opening, the steps of the bids. */
-export function PriceTicker({ bids, opening, openedAt, currency, reserve, timeFormat = "time", labels: given, title, hideTitle, ...props }: NativePriceTickerProps) {
+export function PriceTicker({ bids, opening, openedAt, currency, reserve, timeFormat = "time", labels: given, title, hideTitle, ...props }: Readonly<NativePriceTickerProps>) {
   const words = { ...TICKER_LABELS, ...given };
   const resolved = useNativeSettings(props);
   const format = { style: "money", currency } as const;

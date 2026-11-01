@@ -26,7 +26,7 @@ export interface GoalProgressProps extends Omit<GaugeProps, "value" | "min" | "m
 }
 
 /** A pot towards its goal, in money: the arc fills, the words say how much of what, and who chipped in. */
-export function GoalProgress({ raised, goal, currency, supporters, timeLeft, labels: given, description, ...props }: GoalProgressProps) {
+export function GoalProgress({ raised, goal, currency, supporters, timeLeft, labels: given, description, ...props }: Readonly<GoalProgressProps>) {
   const words = { ...GOAL_LABELS, ...given };
   const { locale } = useSettings(props);
   const format = roundMoney(currency);

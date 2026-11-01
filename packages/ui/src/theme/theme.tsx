@@ -80,7 +80,7 @@ const SESSION_HINT_COOKIE = "kz-session";
  * `blocks.css` hides the bar's signed-out-only actions from the first paint (krizaka-ui#827). `nonce` for a strict
  * Content-Security-Policy.
  */
-export function ThemeScript({ nonce, defaultMode = "system" }: ThemeScriptProps) {
+export function ThemeScript({ nonce, defaultMode = "system" }: Readonly<ThemeScriptProps>) {
   const fallback = isMode(defaultMode) ? defaultMode : "system";
   const js =
     `(function(){try{if(/(?:^|;\\s*)${SESSION_HINT_COOKIE}=1(?:;|$)/.test(document.cookie))document.documentElement.setAttribute("data-session","")}catch(e){}try{var m=localStorage.getItem("${MODE_KEY}");if(m!=="dark"&&m!=="light"&&m!=="system")m="${fallback}";` +
@@ -109,7 +109,7 @@ export type ThemeProviderProps = {
   defaultMode?: Mode;
 };
 
-export function ThemeProvider({ children, defaultMode = "system" }: ThemeProviderProps) {
+export function ThemeProvider({ children, defaultMode = "system" }: Readonly<ThemeProviderProps>) {
   // Before hydration the server knows nothing persisted (ThemeScript has already applied it to <html>).
   const stored = React.useSyncExternalStore(subscribe, () => read(MODE_KEY), () => null);
   const mode: Mode = isMode(stored) ? stored : defaultMode;

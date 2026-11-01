@@ -10,7 +10,7 @@ import { RootProvider } from "./fumadocs/client";
 /* Fumadocs' providers: the search (a static index per language, built with the site — app/search.json and
    app/(fr)/fr/search.json; ⌘K or "/" opens it) and its interface texts from the site's messages. The theme stays the
    site's (@krizaka/ui ThemeProvider, html.light). */
-export function DocsChrome({ children }: { children: ReactNode }) {
+export function DocsChrome({ children }: Readonly<{ children: ReactNode }>) {
   const { locale, t } = useI18n();
   const c = t.docs.chrome;
   const translations: Record<string, string> = {

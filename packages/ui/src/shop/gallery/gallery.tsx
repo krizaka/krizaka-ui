@@ -54,7 +54,7 @@ export function wallLayout(count: number): { x: number; y: number; rotation: num
   });
 }
 
-function Mosaic({ photos }: { photos: readonly ShopGalleryPhoto[] }) {
+function Mosaic({ photos }: Readonly<{ photos: readonly ShopGalleryPhoto[] }>) {
   const [lead, ...rest] = photos;
   if (!lead) return null;
   return (
@@ -71,7 +71,7 @@ function Mosaic({ photos }: { photos: readonly ShopGalleryPhoto[] }) {
   );
 }
 
-function Filmstrip({ photos, label }: { photos: readonly ShopGalleryPhoto[]; label: string }) {
+function Filmstrip({ photos, label }: Readonly<{ photos: readonly ShopGalleryPhoto[]; label: string }>) {
   return (
     <div role="group" aria-label={label} tabIndex={0} className="-mx-4 overflow-x-auto px-4 pb-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:mx-0 sm:px-0">
       <ul className="m-0 flex w-max snap-x snap-mandatory list-none gap-3 p-0">
@@ -85,7 +85,7 @@ function Filmstrip({ photos, label }: { photos: readonly ShopGalleryPhoto[]; lab
   );
 }
 
-function ShopWall({ photos, notes, sign, texture, label }: { photos: readonly ShopGalleryPhoto[]; notes: readonly ShopGalleryNote[]; sign?: string; texture: NonNullable<GallerySectionProps["texture"]>; label: string }) {
+function ShopWall({ photos, notes, sign, texture, label }: Readonly<{ photos: readonly ShopGalleryPhoto[]; notes: readonly ShopGalleryNote[]; sign?: string; texture: NonNullable<GallerySectionProps["texture"]>; label: string }>) {
   const pieces = [
     ...(sign ? [{ id: "sign", kind: "sign" as const, children: sign, variant: "neon" as const }] : []),
     ...photos.slice(0, SHOP_LIMITS.photos).map((p) => ({

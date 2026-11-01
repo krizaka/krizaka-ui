@@ -38,7 +38,7 @@ export type MediaGalleryProps = Omit<React.ComponentProps<"ul">, "children"> & {
   label: string;
 };
 
-function Tile({ item, featured }: { item: GalleryMedia; featured: boolean }) {
+function Tile({ item, featured }: Readonly<{ item: GalleryMedia; featured: boolean }>) {
   const ref = React.useRef<HTMLLIElement>(null);
   const [play, setPlay] = React.useState(false);
   React.useEffect(() => {

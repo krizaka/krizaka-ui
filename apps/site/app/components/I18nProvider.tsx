@@ -24,7 +24,7 @@ interface I18nValue {
   toggleLocale: () => void;
 }
 
-export function I18nProvider({ children, locale, messages }: { children: ReactNode; locale: Locale; messages: TranslationDictionary }) {
+export function I18nProvider({ children, locale, messages }: Readonly<{ children: ReactNode; locale: Locale; messages: TranslationDictionary }>) {
   const pathname = usePathname();
   const router = useRouter();
 

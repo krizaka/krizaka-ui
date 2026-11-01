@@ -29,7 +29,7 @@ export interface NativePieChartProps<T extends Datum> extends NativeFrameProps {
 }
 
 /** Part of a whole (React Native). */
-export function PieChart<T extends Datum>(props: NativePieChartProps<T>) {
+export function PieChart<T extends Datum>(props: Readonly<NativePieChartProps<T>>) {
   const { data, label, value, format, donut, centerLabel, maxSlices = 6, otherLabel = "Other" } = props;
   const resolved = useNativeSettings(props);
   const { locale, labels, theme, color } = resolved;
@@ -86,7 +86,7 @@ export function PieChart<T extends Datum>(props: NativePieChartProps<T>) {
 }
 
 /** A pie with a hole (React Native). */
-export function DonutChart<T extends Datum>(props: Omit<NativePieChartProps<T>, "donut">) {
+export function DonutChart<T extends Datum>(props: Readonly<Omit<NativePieChartProps<T>, "donut">>) {
   return <PieChart {...props} donut />;
 }
 
@@ -113,7 +113,7 @@ const START = (-120 * Math.PI) / 180;
 const END = (120 * Math.PI) / 180;
 
 /** One figure against its range (React Native). */
-export function Gauge(props: NativeGaugeProps) {
+export function Gauge(props: Readonly<NativeGaugeProps>) {
   const { value, min = 0, max = 100, format, caption, target, zones = [], tone = "accent" } = props;
   const resolved = useNativeSettings(props);
   const { locale, labels, theme, color } = resolved;
@@ -178,7 +178,7 @@ export interface NativeSparklineProps extends Omit<NativeFrameProps, "hideTitle"
 }
 
 /** A word-sized trend (React Native). */
-export function Sparkline(props: NativeSparklineProps) {
+export function Sparkline(props: Readonly<NativeSparklineProps>) {
   const { data, categories, variant = "line", color: own, trendTone, format, width: fixed, height = 32 } = props;
   const resolved = useNativeSettings(props);
   const { locale, labels, color } = resolved;

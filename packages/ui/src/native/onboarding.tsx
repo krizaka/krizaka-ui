@@ -38,7 +38,7 @@ export type OnboardingProps = {
  * A first launch in a few slides: swipe or tap Next, Skip at any time, dots that say where you are, the safe areas
  * kept. Each slide is announced with its position; the buttons do everything a swipe does.
  */
-export function Onboarding({ slides, labels, onDone, style }: OnboardingProps) {
+export function Onboarding({ slides, labels, onDone, style }: Readonly<OnboardingProps>) {
   const { theme, insets, haptic } = useTheme();
   const [width, setWidth] = React.useState(0);
   const [page, setPage] = React.useState(0);

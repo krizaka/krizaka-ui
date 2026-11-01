@@ -33,7 +33,7 @@ export interface ChartsProviderProps extends ChartsSettings {
 }
 
 /** Sets the locale, the brand and the words of every chart below it. */
-export function ChartsProvider({ locale, brand, labels, children }: ChartsProviderProps) {
+export function ChartsProvider({ locale, brand, labels, children }: Readonly<ChartsProviderProps>) {
   const parent = useContext(Context);
   const value = useMemo<ResolvedSettings>(() => {
     const raw: ChartLabelsInput | undefined = labels ? { ...parent.raw, ...labels, kinds: { ...parent.raw?.kinds, ...labels.kinds } } : parent.raw;

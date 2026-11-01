@@ -4,7 +4,7 @@ import Svg, { Path } from "react-native-svg";
 
 import { useTheme } from "./theme";
 
-function Icon({ d, color, size = 16 }: { d: string; color?: string; size?: number }) {
+function Icon({ d, color, size = 16 }: Readonly<{ d: string; color?: string; size?: number }>) {
   const { theme } = useTheme();
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color ?? theme.textPrimary} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">

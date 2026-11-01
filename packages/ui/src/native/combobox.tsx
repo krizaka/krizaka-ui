@@ -8,7 +8,7 @@ import { useTheme } from "./theme";
 /** An option: the value stored and its words (passed translated), a line under them. */
 export type SelectOption = { value: string; label: string; description?: string; disabled?: boolean };
 
-function Chevron({ color }: { color: string }) {
+function Chevron({ color }: Readonly<{ color: string }>) {
   return (
     <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <Path d="m6 9 6 6 6-6" />
@@ -16,7 +16,7 @@ function Chevron({ color }: { color: string }) {
   );
 }
 
-function Tick({ color }: { color: string }) {
+function Tick({ color }: Readonly<{ color: string }>) {
   return (
     <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <Path d="M20 6 9 17l-5-5" />
@@ -42,7 +42,7 @@ type FieldShared = {
 };
 
 /** The field that opens the sheet: a well with the label above, the value (or the placeholder), a chevron. */
-function Trigger({ shared, text, onPress, open }: { shared: FieldShared; text: string | null; onPress: () => void; open: boolean }) {
+function Trigger({ shared, text, onPress, open }: Readonly<{ shared: FieldShared; text: string | null; onPress: () => void; open: boolean }>) {
   const { theme, radius } = useTheme();
   const { label, placeholder, hint, error, disabled } = shared;
   const caption = error ?? hint;
@@ -75,7 +75,7 @@ function Trigger({ shared, text, onPress, open }: { shared: FieldShared; text: s
 }
 
 /** The options as rows of the sheet: radios (one) or checkboxes (several), each 48 pt. */
-function Options({ options, isChosen, onPick, multiple }: { options: readonly SelectOption[]; isChosen: (v: string) => boolean; onPick: (o: SelectOption) => void; multiple?: boolean }) {
+function Options({ options, isChosen, onPick, multiple }: Readonly<{ options: readonly SelectOption[]; isChosen: (v: string) => boolean; onPick: (o: SelectOption) => void; multiple?: boolean }>) {
   const { theme, radius, haptic } = useTheme();
   return (
     <ScrollView role={multiple ? "list" : "radiogroup"} keyboardShouldPersistTaps="handled" style={styles.options}>

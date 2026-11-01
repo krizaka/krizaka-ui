@@ -51,7 +51,7 @@ export type ChipProps = ToggleChipProps | RemovableChipProps;
 
 const RECIPE = nativeRecipe(chipRecipe);
 
-function Label({ children, color, fontSize }: { children: React.ReactNode; color: string; fontSize: number }) {
+function Label({ children, color, fontSize }: Readonly<{ children: React.ReactNode; color: string; fontSize: number }>) {
   // A text child is drawn in the chip's face; a node (an icon, a tag's marker) is left as it is, so both can sit together.
   return (
     <>

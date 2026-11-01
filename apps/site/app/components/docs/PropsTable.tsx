@@ -5,7 +5,7 @@ import { InlineCode } from "./InlineCode";
 
 /* The props of a component, generated from its types (react-docgen-typescript, in the @krizaka/ui registry): one table
    per exported component, web or React Native. Server Component. */
-export function PropsTable({ groups: all, locale }: { groups: RegistryComponent[]; locale: Locale }) {
+export function PropsTable({ groups: all, locale }: Readonly<{ groups: RegistryComponent[]; locale: Locale }>) {
   const t = getDictionary(locale).docs.props;
   const groups = all.filter((group) => group.props.length > 0);
   if (groups.length === 0) return <p className="kz-docs-note">{t.none}</p>;

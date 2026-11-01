@@ -64,7 +64,7 @@ const writeFilters = (filters: ReturnType<typeof readFilters>) => {
   listeners.forEach((listener) => listener());
 };
 
-export function UiCatalog({ entries, families, usageDate }: { entries: CatalogEntry[]; families: CatalogFamily[]; usageDate: string }) {
+export function UiCatalog({ entries, families, usageDate }: Readonly<{ entries: CatalogEntry[]; families: CatalogFamily[]; usageDate: string }>) {
   const { t, locale } = useI18n();
   const c = t.docs.ia.catalog;
   const labels = t.docs.component;
@@ -207,7 +207,7 @@ export function UiCatalog({ entries, families, usageDate }: { entries: CatalogEn
 }
 
 /** The card's picture: the live example when it is near (web), the screenshot of the mobile one, an icon until then. */
-function Preview({ entry }: { entry: CatalogEntry }) {
+function Preview({ entry }: Readonly<{ entry: CatalogEntry }>) {
   const { preview } = entry;
   const Icon = ICON[entry.platforms];
   const placeholder = (

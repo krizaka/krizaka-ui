@@ -92,7 +92,7 @@ export type MarkerPickerProps = {
 };
 
 /** Recolours a tag from the closed palette: a radio group of swatches (arrow keys), the chosen one ticked and named. */
-export function MarkerPicker({ label, names, value, defaultValue, onValueChange, markers = MARKERS, disabled, className }: MarkerPickerProps) {
+export function MarkerPicker({ label, names, value, defaultValue, onValueChange, markers = MARKERS, disabled, className }: Readonly<MarkerPickerProps>) {
   return (
     <RadioPrimitive.Root
       aria-label={label}

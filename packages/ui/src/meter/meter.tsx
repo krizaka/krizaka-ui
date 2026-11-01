@@ -173,7 +173,7 @@ export interface MeterValueProps {
 }
 
 /** For the ring's centre when it shows a figure and a word. */
-export function MeterValue({ value, caption }: MeterValueProps) {
+export function MeterValue({ value, caption }: Readonly<MeterValueProps>) {
   return (
     <>
       <span className="font-display text-lg font-semibold text-fg tabular-nums">{value}</span>

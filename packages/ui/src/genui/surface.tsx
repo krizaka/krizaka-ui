@@ -63,7 +63,7 @@ export type GenUiSurfaceProps = {
 };
 
 /** One surface, drawn from its root. */
-export function GenUiSurface({ surface, catalog, streaming = false, labels, locale = "en", onError, className }: GenUiSurfaceProps) {
+export function GenUiSurface({ surface, catalog, streaming = false, labels, locale = "en", onError, className }: Readonly<GenUiSurfaceProps>) {
   const words = { ...genUiLabels, ...labels };
   const problems: string[] = [];
   const seen = new Set<string>();

@@ -160,7 +160,7 @@ export type UsageChartProps = Omit<React.ComponentProps<"figure">, "children"> &
   locale?: string;
 };
 
-function Column({ bar, outcomes }: { bar: UsageBar; outcomes: readonly UsageOutcome[] }) {
+function Column({ bar, outcomes }: Readonly<{ bar: UsageBar; outcomes: readonly UsageOutcome[] }>) {
   const s = usage();
   return (
     <div className={s.column()}>

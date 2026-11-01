@@ -239,7 +239,7 @@ export function VerticalVideo({
 /** "Follow {name}" → "Follow Elena". */
 const format = (message: string, name: string) => message.replace("{name}", name);
 
-function Rail({ label, count, pressed, onClick, tone, children }: { label: string; count?: string | undefined; pressed?: boolean; onClick?: (() => void) | undefined; tone?: string | undefined; children: React.ReactNode }) {
+function Rail({ label, count, pressed, onClick, tone, children }: Readonly<{ label: string; count?: string | undefined; pressed?: boolean; onClick?: (() => void) | undefined; tone?: string | undefined; children: React.ReactNode }>) {
   return (
     <div className="flex flex-col items-center gap-0.5">
       <IconButton label={label} aria-pressed={pressed} variant="ghost" shape="pill" onClick={onClick} className={cn("h-11 min-h-11 w-11 min-w-11 bg-scrim text-fg-on-media backdrop-blur-md hover:bg-scrim", tone)}>

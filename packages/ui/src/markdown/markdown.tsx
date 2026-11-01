@@ -36,7 +36,7 @@ function Inlines({ nodes, ctx }: { nodes: readonly InlineNode[]; ctx: Context })
   return nodes.map((node, i) => <Inline key={i} node={node} ctx={ctx} />);
 }
 
-function Inline({ node, ctx }: { node: InlineNode; ctx: Context }): React.ReactNode {
+function Inline({ node, ctx }: Readonly<{ node: InlineNode; ctx: Context }>): React.ReactNode {
   switch (node.type) {
     case "text":
       return node.value;
@@ -93,7 +93,7 @@ function Blocks({ nodes, ctx }: { nodes: readonly BlockNode[]; ctx: Context }) {
   return nodes.map((node, i) => <Block key={i} node={node} ctx={ctx} />);
 }
 
-function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNode {
+function Block({ node, ctx }: Readonly<{ node: BlockNode; ctx: Context }>): React.ReactNode {
   switch (node.type) {
     case "heading": {
       const Tag = `h${node.depth}` as const;

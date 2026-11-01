@@ -17,7 +17,7 @@ const CSS = `
  * gradient of @krizaka/tokens, deep orange → orange, hue 26 — the same in dark and light) orbiting slowly around a core that breathes —
  * the family's grammar (dashed orbit, ring, bold emblem, bright core). Below 48 px it crops to the emblem.
  */
-export function OrazakaLogo({ size = 32, animated = true, title, className }: MarkProps) {
+export function OrazakaLogo({ size = 32, animated = true, title, className }: Readonly<MarkProps>) {
   const id = useIds("ozm", ["gradient", "glow"] as const);
   const fill = `url(#${id.gradient})`;
   return (

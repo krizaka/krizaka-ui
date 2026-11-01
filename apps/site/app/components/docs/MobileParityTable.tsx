@@ -27,7 +27,7 @@ export interface ParityLabels {
 }
 
 /** The parity of the components between the web and React Native: sortable, cards on a phone (DataTable of @krizaka/ui). */
-export function MobileParityTable({ rows, labels }: { rows: ParityRow[]; labels: ParityLabels }) {
+export function MobileParityTable({ rows, labels }: Readonly<{ rows: ParityRow[]; labels: ParityLabels }>) {
   const columns: DataTableColumn<ParityRow>[] = [
     { id: "title", header: labels.component, sortable: true, card: "title", cell: (row) => <Link href={row.href}>{row.title}</Link> },
     { id: "web", header: labels.web, cell: (row) => (row.web ? labels.yes : labels.no) },

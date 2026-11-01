@@ -50,7 +50,7 @@ export const pullProgress = (offset: number, threshold: number) => Math.min(1, M
  * gesture, so the system announces it too; ours announces `label` when the refresh starts. Under reduced motion the mark
  * is still and appears without the growing.
  */
-export function BrandedRefresh({ product, refreshing, onRefresh, label, children, threshold = 72 }: BrandedRefreshProps) {
+export function BrandedRefresh({ product, refreshing, onRefresh, label, children, threshold = 72 }: Readonly<BrandedRefreshProps>) {
   const { theme } = useTheme();
   const reduce = useReducedMotion();
   const [pull] = React.useState(() => new Animated.Value(0));

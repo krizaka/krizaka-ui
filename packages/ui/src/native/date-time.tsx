@@ -34,7 +34,7 @@ const useOwn = <T,>(value: T | undefined, initial: T) => {
   return [value !== undefined ? value : own, (next: T) => value === undefined && setOwn(next)] as const;
 };
 
-function Chevron({ direction, color }: { direction: "left" | "right"; color: string }) {
+function Chevron({ direction, color }: Readonly<{ direction: "left" | "right"; color: string }>) {
   return (
     <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <Path d={direction === "left" ? "m15 18-6-6 6-6" : "m9 18 6-6-6-6"} />
@@ -42,7 +42,7 @@ function Chevron({ direction, color }: { direction: "left" | "right"; color: str
   );
 }
 
-function NavButton({ label, direction, disabled, onPress }: { label: string; direction: "left" | "right"; disabled?: boolean; onPress: () => void }) {
+function NavButton({ label, direction, disabled, onPress }: Readonly<{ label: string; direction: "left" | "right"; disabled?: boolean; onPress: () => void }>) {
   const { theme, radius } = useTheme();
   return (
     <Pressable
@@ -60,7 +60,7 @@ function NavButton({ label, direction, disabled, onPress }: { label: string; dir
 }
 
 /** The node of the marks (a small diamond): today. */
-function Node({ color, style }: { color: string; style?: StyleProp<ViewStyle> }) {
+function Node({ color, style }: Readonly<{ color: string; style?: StyleProp<ViewStyle> }>) {
   return <View aria-hidden style={[styles.node, { backgroundColor: color }, style]} />;
 }
 
@@ -101,7 +101,7 @@ export type CalendarProps = {
 };
 
 /** A month to pick a day or the ends of a period — the web `Calendar`: 44-pt days, today's node, the range as a band. */
-export function Calendar({ locale, value, range, onSelect, defaultMonth, min, max, isDateDisabled, weekStartsOn, today: todayProp, labels: given, style }: CalendarProps) {
+export function Calendar({ locale, value, range, onSelect, defaultMonth, min, max, isDateDisabled, weekStartsOn, today: todayProp, labels: given, style }: Readonly<CalendarProps>) {
   const labels = { ...calendarLabels, ...given };
   const { theme, radius, haptic } = useTheme();
   const today = todayProp ?? todayIso();
@@ -205,7 +205,7 @@ export type MonthPickerProps = {
 };
 
 /** A month of a year: the twelve months in a grid, the year above them — the web `MonthPicker`. */
-export function MonthPicker({ locale, value, onValueChange, min, max, labels, style }: MonthPickerProps) {
+export function MonthPicker({ locale, value, onValueChange, min, max, labels, style }: Readonly<MonthPickerProps>) {
   const { theme, radius, haptic } = useTheme();
   const [year, setYear] = React.useState(Number((value ?? todayIso()).slice(0, 4)));
   const names = monthNames(locale, "short").map((n) => n.replace(/\.$/, ""));
@@ -275,7 +275,7 @@ export type DayStripProps = {
 };
 
 /** The days ahead in a row that scrolls sideways — the web `DayStrip`: a radio group of 56×72-pt days. */
-export function DayStrip({ label, locale, value: valueProp, defaultValue = null, onValueChange, start, days = 14, isDateDisabled, isDateMarked, markedLabel = "has events", today: todayProp, style }: DayStripProps) {
+export function DayStrip({ label, locale, value: valueProp, defaultValue = null, onValueChange, start, days = 14, isDateDisabled, isDateMarked, markedLabel = "has events", today: todayProp, style }: Readonly<DayStripProps>) {
   const { theme, radius, haptic } = useTheme();
   const today = todayProp ?? todayIso();
   const first = start ?? today;
@@ -364,7 +364,7 @@ export type TimePickerProps = {
 };
 
 /** A time of day: wheels to set one, or slots to book one — the web `TimePicker`. */
-export function TimePicker({ label, locale, value: valueProp, defaultValue = null, onValueChange, variant = "wheel", minuteStep = 5, hour12, labels: given, slots = [], isTimeDisabled, disabled, style }: TimePickerProps) {
+export function TimePicker({ label, locale, value: valueProp, defaultValue = null, onValueChange, variant = "wheel", minuteStep = 5, hour12, labels: given, slots = [], isTimeDisabled, disabled, style }: Readonly<TimePickerProps>) {
   const { theme, radius, haptic } = useTheme();
   const [value, setOwn] = useOwn(valueProp, defaultValue);
   const set = (next: TimeValue) => {
@@ -468,7 +468,7 @@ export type DateWheelProps = {
 };
 
 /** Day, month and year as three wheels in the locale's order, bounded by `min` and `max` — the web `DateWheel`. */
-export function DateWheel({ label, locale, value: valueProp, defaultValue = null, onValueChange, min, max, defaultView, hint, error, labels: given, disabled, style }: DateWheelProps) {
+export function DateWheel({ label, locale, value: valueProp, defaultValue = null, onValueChange, min, max, defaultView, hint, error, labels: given, disabled, style }: Readonly<DateWheelProps>) {
   const { theme } = useTheme();
   const names = { day: "Day", month: "Month", year: "Year", ...given };
   const [value, setOwn] = useOwn(valueProp, defaultValue);

@@ -27,7 +27,7 @@ export type CheckboxProps = {
  * A checkbox for React Native: a 44-pt row — the box and its words, pressed as one — with an error under it. The web
  * `Checkbox` with `children`.
  */
-export function Checkbox({ children, label, checked, defaultChecked = false, onCheckedChange, error, disabled, style }: CheckboxProps) {
+export function Checkbox({ children, label, checked, defaultChecked = false, onCheckedChange, error, disabled, style }: Readonly<CheckboxProps>) {
   const { theme, radius } = useTheme();
   const [own, setOwn] = React.useState(defaultChecked);
   const on = checked ?? own;

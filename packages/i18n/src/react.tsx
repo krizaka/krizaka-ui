@@ -88,7 +88,7 @@ export function createI18nReact<D extends Dictionary, L extends string>(source: 
   const Context = createContext<I18nContextValue<D, L> | null>(engine ? valueOf(engine.defaultLocale, noop) : null);
   Context.displayName = "I18nContext";
 
-  function I18nProvider({ locale, messages, setLocale = noop, children }: I18nProviderProps<D, L>) {
+  function I18nProvider({ locale, messages, setLocale = noop, children }: Readonly<I18nProviderProps<D, L>>) {
     const current = asLocale(locale);
     const value = useMemo(() => valueOf(current, setLocale, messages), [current, setLocale, messages]);
     return <Context.Provider value={value}>{children}</Context.Provider>;

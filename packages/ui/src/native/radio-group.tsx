@@ -32,7 +32,7 @@ export type RadioGroupProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-function Check({ color }: { color: string }) {
+function Check({ color }: Readonly<{ color: string }>) {
   return (
     <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <Path d="M20 6 9 17l-5-5" />
@@ -41,7 +41,7 @@ function Check({ color }: { color: string }) {
 }
 
 /** A tactile key: raised on its ledge, sunk while pressed and once chosen (the spring of the theme). */
-function Key({ option, checked, disabled, onPress }: { option: RadioOption; checked: boolean; disabled: boolean; onPress: () => void }) {
+function Key({ option, checked, disabled, onPress }: Readonly<{ option: RadioOption; checked: boolean; disabled: boolean; onPress: () => void }>) {
   const { theme, radius, motion } = useTheme();
   const [held, setHeld] = React.useState(false);
   const [sink] = React.useState(() => new Animated.Value(checked ? 1 : 0));
@@ -84,7 +84,7 @@ function Key({ option, checked, disabled, onPress }: { option: RadioOption; chec
  * One choice among a few, all visible — the web `RadioGroup` in its four looks. A radio group for VoiceOver and
  * TalkBack; each press plays a haptic (`selection`, `impact` for a tactile key) when the app passes `haptics`.
  */
-export function RadioGroup({ label, options, value: valueProp, defaultValue = null, onValueChange, variant = "list", error, disabled, style }: RadioGroupProps) {
+export function RadioGroup({ label, options, value: valueProp, defaultValue = null, onValueChange, variant = "list", error, disabled, style }: Readonly<RadioGroupProps>) {
   const { theme, radius, haptic } = useTheme();
   const [own, setOwn] = React.useState<string | null>(defaultValue);
   const value = valueProp !== undefined ? valueProp : own;

@@ -169,7 +169,7 @@ export function NativeFrame({ frame, defaultHeight, resolved, summary, isEmpty, 
 }
 
 /** The legend: a key in the series' colour beside its name in the text colour (two series or more). */
-export function NativeLegend({ items, theme }: { items: readonly { label: string; color: string }[]; theme: ChartTheme }) {
+export function NativeLegend({ items, theme }: Readonly<{ items: readonly { label: string; color: string }[]; theme: ChartTheme }>) {
   if (items.length < 2) return null;
   return (
     <View style={styles.legend} aria-hidden>

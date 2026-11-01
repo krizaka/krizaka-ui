@@ -287,7 +287,7 @@ export type FormFieldProps<T = unknown> = {
 };
 
 /** A field drawn by the app (a control the package does not have): the form's value and errors, any markup. */
-export function FormField({ name, validateAsync, asyncDebounceMs, children }: FormFieldProps) {
+export function FormField({ name, validateAsync, asyncDebounceMs, children }: Readonly<FormFieldProps>) {
   return <>{children(useKrizakaField(name, { validateAsync, asyncDebounceMs }))}</>;
 }
 
@@ -299,7 +299,7 @@ export type FieldArrayProps<T = unknown> = {
 };
 
 /** A list of fields that grows and shrinks (links, tiers, guests): each item's fields named `links[0].url`. */
-export function FieldArray({ name, children }: FieldArrayProps) {
+export function FieldArray({ name, children }: Readonly<FieldArrayProps>) {
   return <>{children(useKrizakaFieldArray(name))}</>;
 }
 
@@ -311,7 +311,7 @@ export type WatchProps<T = unknown> = {
 };
 
 /** Renders from a field's current value (a part shown only when a choice is made, a total). */
-export function Watch({ name, children }: WatchProps) {
+export function Watch({ name, children }: Readonly<WatchProps>) {
   return <>{children(useFormValue(name))}</>;
 }
 
@@ -429,7 +429,7 @@ function createStore<T>(initial: T): Store<T> {
   };
 }
 
-function Bound<RootProps extends object>({ store, Root, props }: { store: Store<FormContextValue>; Root: (props: RootProps & { value: FormContextValue }) => React.ReactElement; props: RootProps }) {
+function Bound<RootProps extends object>({ store, Root, props }: Readonly<{ store: Store<FormContextValue>; Root: (props: RootProps & { value: FormContextValue }) => React.ReactElement; props: RootProps }>) {
   const value = React.useSyncExternalStore(store.subscribe, store.get, store.get);
   return <Root {...props} value={value} />;
 }

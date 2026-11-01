@@ -118,7 +118,7 @@ export type SettingsLayoutProps = Omit<React.ComponentProps<"div">, "title"> & {
   children: React.ReactNode;
 };
 
-function NavLink({ item, Link, className }: { item: SettingsNavItem; Link: React.ElementType; className: string }) {
+function NavLink({ item, Link, className }: Readonly<{ item: SettingsNavItem; Link: React.ElementType; className: string }>) {
   const s = settingsLayout();
   return (
     <Link href={item.href} className={className} aria-current={item.current ? (item.href.startsWith("#") ? "location" : "page") : undefined}>
@@ -129,7 +129,7 @@ function NavLink({ item, Link, className }: { item: SettingsNavItem; Link: React
   );
 }
 
-function NavGroups({ groups, Link }: { groups: readonly SettingsNavGroup[]; Link: React.ElementType }) {
+function NavGroups({ groups, Link }: Readonly<{ groups: readonly SettingsNavGroup[]; Link: React.ElementType }>) {
   const s = settingsLayout();
   return (
     <div className={s.sidebarList()}>
@@ -308,7 +308,7 @@ export function SettingsSection({ title, description, footer, save, variant = "c
 }
 
 /** The result of the last save: « Saved » (with Undo) in a polite live region, a failure as an alert. The region stays mounted so the change is announced. */
-function SaveFeedback({ save }: { save: SectionSave }) {
+function SaveFeedback({ save }: Readonly<{ save: SectionSave }>) {
   const failed = save.status === SaveStatus.Error;
   const saved = save.status === SaveStatus.Saved;
   return (

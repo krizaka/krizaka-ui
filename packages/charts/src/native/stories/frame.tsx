@@ -11,7 +11,7 @@ import { ChartsProvider } from "../frame";
 
 const isLight = () => typeof document !== "undefined" && document.documentElement.classList.contains("light");
 
-function Frame({ brand, children }: { brand: BrandId; children: ReactNode }) {
+function Frame({ brand, children }: Readonly<{ brand: BrandId; children: ReactNode }>) {
   const [light, setLight] = useState(isLight);
   useEffect(() => {
     const observer = new MutationObserver(() => setLight(isLight()));

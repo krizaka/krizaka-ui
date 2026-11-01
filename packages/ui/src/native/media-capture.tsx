@@ -55,7 +55,7 @@ export type MediaCaptureProps = {
  * cameras. The web `MediaCapture` with the same words.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no app imports it. Removed in 4.0.
  */
-export function MediaCapture({ mode = "photo", facing: initialFacing = "front", maxDuration, onCapture, onError, aspectRatio = 3 / 4, labels, style }: MediaCaptureProps) {
+export function MediaCapture({ mode = "photo", facing: initialFacing = "front", maxDuration, onCapture, onError, aspectRatio = 3 / 4, labels, style }: Readonly<MediaCaptureProps>) {
   warnDeprecated("native/media-capture");
   const { theme, radius } = useTheme();
   const reduce = useReducedMotion();

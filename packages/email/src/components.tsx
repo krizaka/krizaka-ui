@@ -47,7 +47,7 @@ export function darkCss(theme: EmailTheme): string {
 }
 
 /** The frame of every email: language, colour schemes, a hidden preheader, one 600 px column on the page colour. */
-export function EmailShell({ preheader, children }: { preheader: string; children: ReactNode }) {
+export function EmailShell({ preheader, children }: Readonly<{ preheader: string; children: ReactNode }>) {
   const { theme, locale } = useEmail();
   const light = theme.neutrals.light;
   return (
@@ -91,7 +91,7 @@ export function Header() {
 }
 
 /** The white (or dark) card holding the message. */
-export function Card({ children }: { children: ReactNode }) {
+export function Card({ children }: Readonly<{ children: ReactNode }>) {
   const { theme } = useEmail();
   const light = theme.neutrals.light;
   return (
@@ -101,7 +101,7 @@ export function Card({ children }: { children: ReactNode }) {
   );
 }
 
-export function Heading({ children }: { children: ReactNode }) {
+export function Heading({ children }: Readonly<{ children: ReactNode }>) {
   const light = useEmail().theme.neutrals.light;
   return (
     <RHeading as="h1" className="kz-text kz-h1" style={{ margin: "0 0 16px", fontSize: 26, lineHeight: "32px", fontWeight: 700, color: light.text, fontFamily: FONT }}>
@@ -111,7 +111,7 @@ export function Heading({ children }: { children: ReactNode }) {
 }
 
 /** A small label above a heading. */
-export function Eyebrow({ children }: { children: ReactNode }) {
+export function Eyebrow({ children }: Readonly<{ children: ReactNode }>) {
   const { theme } = useEmail();
   return (
     <RText className="kz-link" style={{ margin: "0 0 8px", fontSize: 12, lineHeight: "16px", fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: theme.colours.link.light, fontFamily: FONT }}>
@@ -120,7 +120,7 @@ export function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
-export function Text({ children, muted = false, small = false }: { children: ReactNode; muted?: boolean; small?: boolean }) {
+export function Text({ children, muted = false, small = false }: Readonly<{ children: ReactNode; muted?: boolean; small?: boolean }>) {
   const light = useEmail().theme.neutrals.light;
   return (
     <RText className={muted ? "kz-muted" : "kz-text"} style={{ margin: "0 0 16px", fontSize: small ? 13 : 16, lineHeight: small ? "20px" : "26px", color: muted ? light.muted : light.text, fontFamily: FONT }}>
@@ -130,7 +130,7 @@ export function Text({ children, muted = false, small = false }: { children: Rea
 }
 
 /** Text with line breaks kept (a visitor's message): each line is escaped by React, joined with `<br>`. */
-export function Multiline({ text }: { text: string }) {
+export function Multiline({ text }: Readonly<{ text: string }>) {
   const lines = text.split(/\r?\n/);
   return (
     <>
@@ -145,7 +145,7 @@ export function Multiline({ text }: { text: string }) {
 }
 
 /** The one action of the email: a brand-coloured button, bulletproof in Outlook, at least 44 px tall. */
-export function Button({ href, children }: { href: string; children: ReactNode }) {
+export function Button({ href, children }: Readonly<{ href: string; children: ReactNode }>) {
   const { theme } = useEmail();
   const { accent, onAccent } = theme.colours;
   return (
@@ -164,7 +164,7 @@ export function Button({ href, children }: { href: string; children: ReactNode }
 }
 
 /** « If the button doesn't work »: the link, small and wrapped, for the mail clients that block buttons. */
-export function FallbackLink({ href }: { href: string }) {
+export function FallbackLink({ href }: Readonly<{ href: string }>) {
   const { theme, t } = useEmail();
   const light = theme.neutrals.light;
   return (
@@ -182,7 +182,7 @@ export function FallbackLink({ href }: { href: string }) {
 }
 
 /** A quoted block (the visitor's own message, a comment excerpt): a quiet panel with the brand's rule on the left. */
-export function Quote({ children }: { children: ReactNode }) {
+export function Quote({ children }: Readonly<{ children: ReactNode }>) {
   const { theme } = useEmail();
   const light = theme.neutrals.light;
   return (
@@ -195,7 +195,7 @@ export function Quote({ children }: { children: ReactNode }) {
 }
 
 /** A post in an email: cover (when there is one), title, excerpt. The button is the template's. */
-export function PostPreview({ eyebrow, title, excerpt, coverUrl, coverAlt }: { eyebrow: string; title: string; excerpt: string; coverUrl?: string | undefined; coverAlt?: string | undefined }) {
+export function PostPreview({ eyebrow, title, excerpt, coverUrl, coverAlt }: Readonly<{ eyebrow: string; title: string; excerpt: string; coverUrl?: string | undefined; coverAlt?: string | undefined }>) {
   return (
     <Section>
       {coverUrl ? <Img src={coverUrl} alt={coverAlt ?? ""} width={536} style={{ display: "block", width: "100%", maxWidth: 536, height: "auto", borderRadius: 8, margin: "0 0 20px", border: 0 }} /> : null}
@@ -207,7 +207,7 @@ export function PostPreview({ eyebrow, title, excerpt, coverUrl, coverAlt }: { e
 }
 
 /** A one-time code or a key: large, spaced, monospaced, selectable. */
-export function Code({ children }: { children: ReactNode }) {
+export function Code({ children }: Readonly<{ children: ReactNode }>) {
   const light = useEmail().theme.neutrals.light;
   return (
     <Section className="kz-quote" style={{ margin: "0 0 20px", padding: "16px", backgroundColor: light.quote, borderRadius: 8, textAlign: "center" }}>
@@ -219,7 +219,7 @@ export function Code({ children }: { children: ReactNode }) {
 }
 
 /** A table of labelled values (the contact notification): label, value, one row each. */
-export function Facts({ rows }: { rows: readonly (readonly [string, string])[] }) {
+export function Facts({ rows }: Readonly<{ rows: readonly (readonly [string, string])[] }>) {
   const light = useEmail().theme.neutrals.light;
   return (
     <Section style={{ margin: "0 0 20px" }}>

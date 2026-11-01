@@ -53,7 +53,7 @@ export function createAuth(session: Pick<SessionStore, "readToken" | "onChange">
   const Context = createContext<AuthState | null>(null);
   Context.displayName = "AuthContext";
 
-  function AuthProvider({ children }: { children: ReactNode }) {
+  function AuthProvider({ children }: Readonly<{ children: ReactNode }>) {
     const status = useSessionStatus(session);
     const value = useMemo<AuthState>(
       () => ({

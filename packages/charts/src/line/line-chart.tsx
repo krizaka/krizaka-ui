@@ -13,7 +13,7 @@ export interface LineChartProps<T extends Datum> extends CartesianProps<T> {
 }
 
 /** Change over time: one line per series, the last value written at its end, a crosshair tooltip, the keyboard. */
-export function LineChart<T extends Datum>({ curve, dots, endLabels = true, ...props }: LineChartProps<T>) {
+export function LineChart<T extends Datum>({ curve, dots, endLabels = true, ...props }: Readonly<LineChartProps<T>>) {
   return <Cartesian props={props} options={{ kind: "line", mode: "line", curve, dots, endLabels }} />;
 }
 
@@ -23,6 +23,6 @@ export interface AreaChartProps<T extends Datum> extends LineChartProps<T> {
 }
 
 /** A volume over time: a line over a soft wash (stacked: the parts of a total). */
-export function AreaChart<T extends Datum>({ curve, dots, endLabels = true, stacked, ...props }: AreaChartProps<T>) {
+export function AreaChart<T extends Datum>({ curve, dots, endLabels = true, stacked, ...props }: Readonly<AreaChartProps<T>>) {
   return <Cartesian props={props} options={{ kind: "area", mode: "area", curve, dots, endLabels: endLabels && !stacked, stacked }} />;
 }

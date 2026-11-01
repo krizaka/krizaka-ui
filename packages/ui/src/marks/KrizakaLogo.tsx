@@ -17,7 +17,7 @@ const CSS = `
  * the parent of the family (Orazaka's shards). The orbit turns, the node and the core
  * breathe. The shield reads the host's text roles, so it is ink in both themes. Below 48 px it crops to the emblem.
  */
-export function KrizakaLogo({ size = 32, animated = true, title, className }: MarkProps) {
+export function KrizakaLogo({ size = 32, animated = true, title, className }: Readonly<MarkProps>) {
   const id = useIds("kzm", ["ink", "blue", "glow"] as const);
   const m = (cls: string) => (animated ? cls : undefined);
   return (

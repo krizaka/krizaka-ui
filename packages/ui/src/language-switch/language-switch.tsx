@@ -61,7 +61,7 @@ const Globe = ({ className }: { className?: string }) => (
  * `hreflang` to the same page. It shows the language you are in, never the “other” one. `variant="inline"` lays the
  * languages in a row for a phone's panel or a settings page.
  */
-export function LanguageSwitch({ label, current, languages, variant = "menu", linkAs, defaultOpen = false, className }: LanguageSwitchProps) {
+export function LanguageSwitch({ label, current, languages, variant = "menu", linkAs, defaultOpen = false, className }: Readonly<LanguageSwitchProps>) {
   const Link = linkAs ?? "a";
   const id = React.useId();
   const [open, setOpen] = React.useState(defaultOpen);

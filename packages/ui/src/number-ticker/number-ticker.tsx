@@ -43,7 +43,7 @@ const easeOut = (t: number) => 1 - Math.pow(1 - t, 4);
 const curves: Record<string, (t: number) => number> = { linear: (t) => t, "ease-in-out": (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2) };
 
 /** A figure that climbs into view, or rolls digit by digit to each new value. */
-export function NumberTicker({ value, locale, format, trigger = "view", duration, announce, align = "end", easing, className, style, ...props }: NumberTickerProps) {
+export function NumberTicker({ value, locale, format, trigger = "view", duration, announce, align = "end", easing, className, style, ...props }: Readonly<NumberTickerProps>) {
   const climb = duration ?? 1100;
   const curve = (easing && curves[easing]) || easeOut;
   const formatter = React.useMemo(() => new Intl.NumberFormat(locale, format), [locale, format]);

@@ -52,7 +52,7 @@ function useFirstView(enabled: boolean) {
 }
 
 /** A shop's own mark, as a plate, a neon, a painted sign, or the name alone. */
-export function ShopSign({ children, as: Name = "h1", logo, variant = "enamel", rotation = 0, animated = true, className, ...props }: ShopSignProps) {
+export function ShopSign({ children, as: Name = "h1", logo, variant = "enamel", rotation = 0, animated = true, className, ...props }: Readonly<ShopSignProps>) {
   const [ref, lit] = useFirstView(variant === "neon" && animated);
   return (
     <div {...props} ref={ref} className={cn("kz-shop-sign kz-wall-object", className)} style={rotationStyle(rotation)} data-variant={variant} data-animated={animated ? "" : undefined} data-lit={lit}>

@@ -19,7 +19,7 @@ const CSS = `
  * The Orazaka mark of 2.0.0-beta.5 → 2.0.x: the family's grammar in amber (#b45309 → #f59e0b). Replaced in 2.1.0 by the
  * brand's orange (hue 26): its light stop was the hue of --kz-warning and read at 2:1 on a light page.
  */
-export function OrazakaLogoV2({ size = 32, animated = true, title, className }: MarkProps) {
+export function OrazakaLogoV2({ size = 32, animated = true, title, className }: Readonly<MarkProps>) {
   const id = useIds("ozv2", ["amber", "glow"] as const);
   const fill = `url(#${id.amber})`;
   return (

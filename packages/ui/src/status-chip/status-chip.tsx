@@ -59,7 +59,7 @@ export type StatusChipProps = {
 };
 
 /** The state of a status set as a badge; a menu of the allowed moves when the set, the role and `onMove` allow it. */
-export function StatusChip({ set, state, role, locale, onMove, labels: given, size = "sm", className }: StatusChipProps) {
+export function StatusChip({ set, state, role, locale, onMove, labels: given, size = "sm", className }: Readonly<StatusChipProps>) {
   const labels = { ...defaultLabels, ...given };
   const current = stateOf(set, state);
   const text = current ? current.label[locale] : state;

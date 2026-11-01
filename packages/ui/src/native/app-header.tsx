@@ -36,7 +36,7 @@ export type AppHeaderProps = {
  * search · language · actions · messages · notifications · primary · account — under the status bar's safe area. The
  * name truncates first; the controls keep their size.
  */
-export function AppHeader({ name, mark, onHome, search, language, actions, messages, notifications, primary, account, style }: AppHeaderProps) {
+export function AppHeader({ name, mark, onHome, search, language, actions, messages, notifications, primary, account, style }: Readonly<AppHeaderProps>) {
   const { theme, insets } = useTheme();
   const brand = (
     <>
@@ -88,7 +88,7 @@ export type AppHeaderCountProps = {
 };
 
 /** An icon button of the top bar with an unread count, the count said in its name (« Notifications, 3 new »). */
-export function AppHeaderCount({ label, icon, count, countLabel, max = 99, onPress, current }: AppHeaderCountProps) {
+export function AppHeaderCount({ label, icon, count, countLabel, max = 99, onPress, current }: Readonly<AppHeaderCountProps>) {
   const { theme } = useTheme();
   const text = countText(count, max);
   return (
@@ -117,7 +117,7 @@ export type AppHeaderSearchProps = {
 };
 
 /** The top bar's search trigger on a phone: a magnifier, named by `label`, that opens the app's search. */
-export function AppHeaderSearch({ label, onOpen }: AppHeaderSearchProps) {
+export function AppHeaderSearch({ label, onOpen }: Readonly<AppHeaderSearchProps>) {
   const { theme } = useTheme();
   return (
     <Pressable role="button" aria-label={label} onPress={onOpen} hitSlop={4} style={({ pressed }) => [styles.icon, pressed && { backgroundColor: theme.surface2 }]}>

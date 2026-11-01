@@ -289,14 +289,14 @@ export type UploadListProps = {
   className?: string;
 };
 
-function Preview({ item }: { item: UploadItem }) {
+function Preview({ item }: Readonly<{ item: UploadItem }>) {
   if (item.previewUrl && item.type?.startsWith("image/")) return <img src={item.previewUrl} alt="" className="h-full w-full object-cover" />;
   if (item.previewUrl && item.type?.startsWith("video/")) return <video src={item.previewUrl} muted playsInline preload="metadata" className="h-full w-full object-cover" aria-hidden />;
   return <FileGlyph className="h-5 w-5" />;
 }
 
 /** The files being sent: preview, size, progress, speed and time left, and the actions each state allows. */
-export function UploadList({ items, onPause, onResume, onRetry, onCancel, onRemove, locale = "en", labels: given, className }: UploadListProps) {
+export function UploadList({ items, onPause, onResume, onRetry, onCancel, onRemove, locale = "en", labels: given, className }: Readonly<UploadListProps>) {
   const labels = { ...uploadListLabels, ...given };
   const s = fileUpload();
   const action = (label: string, run: () => void, glyph: React.ReactNode) => (

@@ -47,7 +47,7 @@ export interface GeoMapProps<T extends Datum> extends ChartFrameProps {
   onSelect?: (datum: T, index: number) => void;
 }
 
-export function GeoMap<T extends Datum>(props: GeoMapProps<T>) {
+export function GeoMap<T extends Datum>(props: Readonly<GeoMapProps<T>>) {
   const { data, region, value, format, points = [], steps = 5, regionLabel, valueLabel, onSelect } = props;
   const { locale, labels } = useSettings(props);
   const mounted = useMounted();

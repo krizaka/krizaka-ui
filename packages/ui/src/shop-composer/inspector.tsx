@@ -115,7 +115,7 @@ function defaultBlockSettings(type: string): Record<string, unknown> {
   }
 }
 
-export function Inspector({ section, name, messages: m, run, epoch, announce, onInvalid, preset, density }: InspectorProps) {
+export function Inspector({ section, name, messages: m, run, epoch, announce, onInvalid, preset, density }: Readonly<InspectorProps>) {
   const def = sectionDefinition(section.type);
   const label = React.useId();
   return (

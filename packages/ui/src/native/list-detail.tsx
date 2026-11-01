@@ -40,7 +40,7 @@ export type ListDetailProps = {
 };
 
 /** The two panes of a list and its item, or one of them, chosen by the width of the room. */
-export function ListDetail({ listTitle, listActions, list, detailTitle, detailActions, detail, empty, backLabel, onBack, listWidth = 340, minDetailWidth = 400, fontScale, testID }: ListDetailProps) {
+export function ListDetail({ listTitle, listActions, list, detailTitle, detailActions, detail, empty, backLabel, onBack, listWidth = 340, minDetailWidth = 400, fontScale, testID }: Readonly<ListDetailProps>) {
   const { theme } = useTheme();
   const system = useFontScale();
   const [width, setWidth] = React.useState(0);

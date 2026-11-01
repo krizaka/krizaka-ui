@@ -7,7 +7,7 @@ import { Kbd } from "@krizaka/ui/kbd";
 
 import { useSearchContext } from "../docs/fumadocs/client";
 
-export function HomeSearch({ label, placeholder }: { label: string; placeholder: string }) {
+export function HomeSearch({ label, placeholder }: Readonly<{ label: string; placeholder: string }>) {
   const { setOpenSearch } = useSearchContext();
   return (
     <button type="button" className="kz-home-search" onClick={() => setOpenSearch(true)} aria-label={label} aria-keyshortcuts="Meta+K Control+K">

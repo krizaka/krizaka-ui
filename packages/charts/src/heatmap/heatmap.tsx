@@ -45,7 +45,7 @@ export interface HeatmapProps<T extends Datum> extends ChartFrameProps, EnginePr
   yLabel?: string;
 }
 
-export function Heatmap<T extends Datum>(props: HeatmapProps<T>) {
+export function Heatmap<T extends Datum>(props: Readonly<HeatmapProps<T>>) {
   const { data, x, y, value, xCategories, yCategories, format, xFormat, yFormat, xLabel, yLabel } = props;
   const { locale, labels } = useSettings(props);
   const fmt = useMemo(
@@ -131,7 +131,7 @@ export interface CalendarHeatmapProps<T extends Datum> extends ChartFrameProps, 
 
 const iso = (date: Date) => date.toISOString().slice(0, 10);
 
-export function CalendarHeatmap<T extends Datum>(props: CalendarHeatmapProps<T>) {
+export function CalendarHeatmap<T extends Datum>(props: Readonly<CalendarHeatmapProps<T>>) {
   const { data, date, value, range, format, valueLabel } = props;
   const { locale, labels } = useSettings(props);
   const fmt = useMemo(() => ({ value: valueFormatter(format, locale, labels.noValue), axis: valueFormatter(format, locale, labels.noValue, true), day: categoryFormatter("date", locale) }), [format, locale, labels.noValue]);

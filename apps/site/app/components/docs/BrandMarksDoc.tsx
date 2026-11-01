@@ -14,7 +14,7 @@ const SCOPE: Record<(typeof MARKS)[number], string> = { krizaka: "brand-krizaka"
 
 /* /docs/ui/brand-marks — the four marks of the Krizaka family, drawn by @krizaka/ui (the same component the products and
    this site's navigation use). Nothing is copied here: the marks are rendered, never re-drawn. */
-export function BrandMarksDoc({ locale }: { locale: Locale }) {
+export function BrandMarksDoc({ locale }: Readonly<{ locale: Locale }>) {
   const x = getDictionary(locale).docs.ia.brand;
   return (
     <div>

@@ -27,7 +27,7 @@ export function homeMetadata(locale: Locale): Metadata {
   return { ...localizedMetadata(locale, { path: "/", title, description }), title: { absolute: title } };
 }
 
-export function HomePageView({ locale }: { locale: Locale }) {
+export function HomePageView({ locale }: Readonly<{ locale: Locale }>) {
   const t = getDictionary(locale);
   const { title, description } = homeText(locale);
   const url = absoluteUrl(locale, "/");

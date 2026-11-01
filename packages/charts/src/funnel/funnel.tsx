@@ -35,7 +35,7 @@ export interface FunnelProps<T extends Datum> extends ChartFrameProps, EnginePro
   fromPreviousLabel?: string;
 }
 
-export function Funnel<T extends Datum>(props: FunnelProps<T>) {
+export function Funnel<T extends Datum>(props: Readonly<FunnelProps<T>>) {
   const { data, label, value, format = "integer", stageLabel, valueLabel, fromFirstLabel = "% first", fromPreviousLabel = "% previous" } = props;
   const { locale, labels } = useSettings(props);
   const fmt = useMemo(() => ({ value: valueFormatter(format, locale, labels.noValue), share: shareFormatter(locale) }), [format, locale, labels.noValue]);

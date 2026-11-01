@@ -20,7 +20,7 @@ const screen: Record<DeviceKind, string> = {
 };
 
 /** A phone, a browser window or a macOS window around a screen of content. */
-export function DeviceFrame({ kind, title, className, children, ...props }: DeviceFrameProps) {
+export function DeviceFrame({ kind, title, className, children, ...props }: Readonly<DeviceFrameProps>) {
   if (kind === "phone") {
     return (
       <div data-device="phone" className={cn("relative mx-auto w-full max-w-[18rem] rounded-[2.4rem] border border-border-strong bg-surface-3 p-2 shadow-2xl", className)} {...props}>

@@ -98,7 +98,7 @@ type Phase = { state: "loading" } | { state: "error"; key: string } | ({ state: 
 
 const isItem = (x: unknown): x is PageText["items"][number] => typeof x === "object" && x !== null && typeof (x as { str?: unknown }).str === "string" && Array.isArray((x as { transform?: unknown }).transform);
 
-function PageCanvas({ page, doc, caption, onReady, className }: { page: number; doc: PdfDocument; caption: string; onReady?: () => void; className: string }) {
+function PageCanvas({ page, doc, caption, onReady, className }: Readonly<{ page: number; doc: PdfDocument; caption: string; onReady?: () => void; className: string }>) {
   const ref = React.useRef<HTMLCanvasElement>(null);
   const wrapper = React.useRef<HTMLDivElement>(null);
   const [visible, setVisible] = React.useState(() => typeof IntersectionObserver === "undefined");

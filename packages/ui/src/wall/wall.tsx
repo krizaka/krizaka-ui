@@ -64,7 +64,7 @@ function WallObject({ item }: { readonly item: DistributiveOmit<WallItem, keyof 
 }
 
 /** A decorative textured surface over a real keyboard-reachable list; never an editor. */
-export function Wall({ items, texture = "plaster", max = 12, height, itemWidth = 240, layout = "pinned", className, ...props }: WallProps) {
+export function Wall({ items, texture = "plaster", max = 12, height, itemWidth = 240, layout = "pinned", className, ...props }: Readonly<WallProps>) {
   const patternId = React.useId().replace(/:/g, "");
   const drawn = Math.max(0, Math.floor(finite(max)));
   return (

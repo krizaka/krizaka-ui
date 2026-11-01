@@ -19,7 +19,7 @@ export function pngSize(file: string): { width: number; height: number } {
   return { width: header.readUInt32BE(0), height: header.readUInt32BE(4) };
 }
 
-export function PhoneFrame({ example, os, alt, eager = false, inset = false }: { example: RegistryExample; os: "ios" | "android"; alt: string; eager?: boolean; inset?: boolean }) {
+export function PhoneFrame({ example, os, alt, eager = false, inset = false }: Readonly<{ example: RegistryExample; os: "ios" | "android"; alt: string; eager?: boolean; inset?: boolean }>) {
   const window = inset ? STORY_SCREEN : STORY_SCREEN + 2 * STORY_MARGIN;
   const shift = inset ? `${(-STORY_MARGIN / window) * 100}%` : "0";
   if (!example.screenshots) return null;

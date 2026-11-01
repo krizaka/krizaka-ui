@@ -47,7 +47,7 @@ function flatten(items: readonly CollectionItem[], layout: "list" | "tree"): Fla
   return out;
 }
 
-function Rows({ rows, props, close }: { rows: Flat[]; props: CollectionSwitcherProps; close?: () => void }) {
+function Rows({ rows, props, close }: Readonly<{ rows: Flat[]; props: CollectionSwitcherProps; close?: () => void }>) {
   const { theme } = useTheme();
   const { value, onValueChange, defaultLabel, onRemove, removeLabel, onCreate, createLabel } = props;
   return (

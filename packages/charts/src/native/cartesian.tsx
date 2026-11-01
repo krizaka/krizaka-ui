@@ -35,7 +35,7 @@ type Mode = { kind: "line" | "area" | "bar"; curve?: Curve; stacked?: boolean };
 
 const textWidth = (text: string) => Math.ceil(text.length * 6.4);
 
-function NativeCartesian<T extends Datum>({ props, mode }: { props: NativeCartesianProps<T>; mode: Mode }) {
+function NativeCartesian<T extends Datum>({ props, mode }: Readonly<{ props: NativeCartesianProps<T>; mode: Mode }>) {
   const { data, x, y, yLabel, series: seriesProp, format, xFormat, thresholds = [] } = props;
   const resolved = useNativeSettings(props);
   const { locale, labels, theme, color } = resolved;
@@ -158,7 +158,7 @@ export interface NativeLineChartProps<T extends Datum> extends NativeCartesianPr
 }
 
 /** Change over time (React Native): one line per series. */
-export function LineChart<T extends Datum>({ curve = "monotone", ...props }: NativeLineChartProps<T>) {
+export function LineChart<T extends Datum>({ curve = "monotone", ...props }: Readonly<NativeLineChartProps<T>>) {
   return <NativeCartesian props={props} mode={{ kind: "line", curve }} />;
 }
 
@@ -173,11 +173,11 @@ export interface NativeBarChartProps<T extends Datum> extends NativeCartesianPro
 }
 
 /** A volume over time (React Native): a line over a wash; `stacked` for the parts of a total. */
-export function AreaChart<T extends Datum>({ curve = "monotone", stacked, ...props }: NativeAreaChartProps<T>) {
+export function AreaChart<T extends Datum>({ curve = "monotone", stacked, ...props }: Readonly<NativeAreaChartProps<T>>) {
   return <NativeCartesian props={props} mode={{ kind: "area", curve, stacked }} />;
 }
 
 /** Amounts across categories (React Native): grouped or `stacked` bars. */
-export function BarChart<T extends Datum>({ stacked, ...props }: NativeBarChartProps<T>) {
+export function BarChart<T extends Datum>({ stacked, ...props }: Readonly<NativeBarChartProps<T>>) {
   return <NativeCartesian props={props} mode={{ kind: "bar", stacked }} />;
 }

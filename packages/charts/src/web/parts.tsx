@@ -154,7 +154,7 @@ export function Tooltip({ x, y, width, title, rows, note }: TooltipProps) {
 export const stepColor = (i: number, n: number) => `color-mix(in oklab, var(--kzc-1) ${Math.round(22 + (78 * i) / Math.max(1, n - 1))}%, var(--kz-surface-1))`;
 
 /** The legend of a sequential scale: its lowest value, the steps from near the surface to the full hue, its highest. */
-export function RampLegend({ min, max, steps, write }: { min: number; max: number; steps: number; write: (v: number) => string }) {
+export function RampLegend({ min, max, steps, write }: Readonly<{ min: number; max: number; steps: number; write: (v: number) => string }>) {
   return (
     <div className="kzc-legend" aria-hidden>
       <span>{write(min)}</span>
