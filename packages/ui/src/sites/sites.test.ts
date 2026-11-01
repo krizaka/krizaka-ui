@@ -36,7 +36,7 @@ describe("sites — the Krizaka family", () => {
     expect(siteById("ui").kind).toBe("open-source");
     expect(siteById("java").repo).toBe("https://github.com/krizaka/krizaka-build");
     // Its full name, never « Krizaka TS » (#585).
-    expect(siteById("ts")).toMatchObject({ name: "Krizaka TypeScript", kind: "open-source", status: "released", url: "https://ts.krizaka.com", repo: "https://github.com/krizaka/krizaka-ts" });
+    expect(siteById("ts")).toMatchObject({ name: "Krizaka TypeScript", kind: "open-source", status: "development", url: "https://ts.krizaka.com", repo: "https://github.com/krizaka/krizaka-ts" });
     // The family lab: Krizaka UI's motion played live, built in the open, served at lab.krizaka.com.
     expect(siteById("motion")).toMatchObject({ kind: "open-source", group: "open-source", status: "development", url: "https://lab.krizaka.com", repo: "https://github.com/krizaka/krizaka-lab" });
   });
@@ -109,5 +109,12 @@ describe("the published @krizaka/org", () => {
     expect(orgFamilyLabels(facts, "fr").place).toBe("Une entreprise de Technologies Krizaka · Fait à Montréal");
     expect(orgFamilyLabels(facts, "en").place).toBe("A Technologies Krizaka company · Made in Montréal");
     expect(facts.footer.legal.map((l) => l.id)).toEqual(["privacy", "terms"]);
+  });
+
+  it("guard: every product and open-source entry of one column says the same status (everything is in development, founder 2026-11-01)", () => {
+    for (const group of ["products", "open-source"] as const) {
+      const statuses = new Set(sites.filter((x) => x.group === group).map((x) => x.status));
+      expect([...statuses], `${group} column`).toEqual(["development"]);
+    }
   });
 });

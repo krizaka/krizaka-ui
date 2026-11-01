@@ -11,8 +11,8 @@ import { tv } from "tailwind-variants";
 
 // ProductLogo, not KrizakaLogo: one import path keeps every mark in one shared chunk (KrizakaLogo alone split it: +871 B gzip on the typical page).
 import { ProductLogo } from "../marks/ProductLogo";
-import { familyGroups, orgIdOf } from "../sites/family-groups";
-import { companyLinks, type FamilyLabels, familyLabels, type OrgFacts, siteById, type SiteId } from "../sites/sites";
+import { columnStatus, familyGroups, orgIdOf } from "../sites/family-groups";
+import { companyLinks, type FamilyLabels, familyLabels, type OrgFacts, siteById, type SiteId, type SiteStatus } from "../sites/sites";
 
 export const siteFooter = tv({
   slots: {
@@ -29,6 +29,7 @@ export const siteFooter = tv({
     chevron: "size-4 shrink-0 transition-transform group-open/fold:rotate-180 motion-reduce:transition-none lg:hidden",
     column: "inline-flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1",
     title: "text-xs font-semibold text-fg-secondary",
+    note: "font-normal",
     list: "flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1 pb-2 lg:pb-0",
     link:
       "inline-flex min-h-6 min-w-0 items-center rounded-md text-sm [overflow-wrap:anywhere] text-fg-secondary no-underline transition-colors hover:text-fg " +
@@ -135,6 +136,8 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
   tone?: Tone;
 };
 
+const NO_STATUS = { shared: null, exceptions: new Map<string, Exclude<SiteStatus, "released">>() } as const;
+
 /** The footer of a Krizaka site or app: at most three lines — its links, the family, then signature · version · legal. */
 export function SiteFooter({
   current,
@@ -194,14 +197,22 @@ export function SiteFooter({
           {family && (
             <nav aria-label={labels.family} className={s.family()}>
               {[
-                ...columns.map((c) => ({ key: c.group, title: labels.groups[c.group], entries: c.entries })),
-                { key: "krizaka" as const, title: labels.groups.krizaka, entries: companyEntries },
+                ...columns.map((c) => ({ key: c.group, title: labels.groups[c.group], entries: c.entries, ...columnStatus(c.entries) })),
+                { key: "krizaka" as const, title: labels.groups.krizaka, entries: companyEntries, ...NO_STATUS },
               ]
                 .filter((c) => c.entries.length > 0)
                 .map((c) => (
                   <details key={c.key} className={s.group()}>
-                    <summary id={`${id}-${c.key}`} className={s.summary()}>
-                      {c.title}
+                    <summary className={s.summary()}>
+                      <span>
+                        <span id={`${id}-${c.key}`}>{c.title}</span>
+                        {c.shared && (
+                          <span className={s.note()}>
+                            <span aria-hidden="true"> · </span>
+                            {labels.status[c.shared]}
+                          </span>
+                        )}
+                      </span>
                       <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className={s.chevron()}>
                         <path d="M4 6l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
@@ -210,6 +221,7 @@ export function SiteFooter({
                       {c.entries.map((e) => {
                         const isCompany = c.key === "krizaka";
                         const atHome = isCompany && here(e.url);
+                        const exception = c.exceptions.get(e.id);
                         const isCurrent = !isCompany && e.id === currentId;
                         return (
                           <li key={e.id}>
@@ -220,6 +232,7 @@ export function SiteFooter({
                               className={s.link()}
                             >
                               {e.name}
+                              {exception && <span className={s.note()}> ({labels.status[exception]})</span>}
                               {isCurrent && <span className="sr-only"> ({labels.current})</span>}
                             </a>
                           </li>
