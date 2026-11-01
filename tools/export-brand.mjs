@@ -33,7 +33,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const UI = resolve(HERE, "../packages/ui");
 const TOKENS_CSS = resolve(HERE, "../packages/tokens/dist/tokens.css");
 
-export const BRANDS = ["krizaka", "orazaka", "yomizaka", "akinaza"];
+export const BRANDS = ["krizaka", "orazaka", "yomizaka", "akinaza", "kachizaka"]; // kachizaka: Kridoc, the managed storage (krizaka-internal#2035)
 export const THEMES = ["dark", "light"];
 export const LOGO_SIZES = [64, 256, 512, 1024];
 /** The stable public names (krizaka/krizaka-ui#217), on top of the library: lockup = the whole logo, favicon.svg, og-mark.png. */
