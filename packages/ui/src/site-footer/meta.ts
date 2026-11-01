@@ -13,6 +13,7 @@ export const meta = {
     "The bottom of every page of every Krizaka site — www, blog, ui., java., ts., lab. (`tone=\"cahier\"`) and the products' sites (`tone=\"product\"`): pass `org` from `@krizaka/org`, so every name, address, signature and legal link is the org's.",
     "`variant=\"docs\"` — under documentation pages: the same three lines on the documentation's width.",
     "`variant=\"app\"` — inside a signed-in product or an admin console: the last line only (signature, version, legal), rendered once by the layout.",
+    "`config` — the footer as the app's admin configured it (`FooterSettings` in `@krizaka/settings`, resolved by `resolveFooterSettings`): at most four columns of at most six links, then one legal line `legalName · NEQ · city`, the version when `showVersion`, the legal links, the org's socials. `footerSettingsProblems` is the admin form's validation.",
     "With `MarketingLayout`'s `footer` slot, under a bar of `@krizaka/ui/nav-bar` with `NavBar.Family`.",
   ],
   whenNotToUse: [
@@ -23,6 +24,7 @@ export const meta = {
     "Pass `org` (`org` of `@krizaka/org`): the family's names come from `org.family` — the company « Krizaka », products by their own name, libraries « Krizaka <X> » — and the signature is `org.footer.line`. Never type a family name or the legal line in a site.",
     "One or two own groups (`SiteFooter.Column` + `SiteFooter.Link`), a handful of links: what a reader looks for at the bottom (docs, pricing, download, source). Never a link the family line already holds — another site, the story, the blog, contact.",
     "Pass the version the site runs (`version`, `env=\"DEV\"` on a dev environment) and the language switch and theme toggle in `controls`.",
+    "With `config`, name the company once: the legal line is the publisher's identity; no « A Technologies Krizaka company » beside it, no column that repeats the bar, no newsletter form, no package version, no development host.",
     "Pass the words translated: `labels={familyLabels[locale]}` from `@krizaka/ui/sites`.",
   ],
   accessibility: {
@@ -36,11 +38,12 @@ export const meta = {
   },
   related: ["sites", "nav-bar", "marketing-layout"],
   web: {
-    imports: ["SiteFooter", "SiteFooterColumn", "SiteFooterLink"],
+    imports: ["SiteFooter", "SiteFooterColumn", "SiteFooterLink", "resolveFooterSettings", "footerSettingsProblems", "FOOTER_LIMITS"],
     examples: [
       { name: "product", title: "A product", description: "www.yomizaka.com: its links on one line, the family on the second, then the org's line, `DEV · v1.2.3`, the legal links and the language switch." },
       { name: "company", title: "The company (Cahier)", description: "www.krizaka.com, `tone=\"cahier\"`: no own links needed, the family and the signature line." },
       { name: "app", title: "In a signed-in app", description: "`variant=\"app\"`: one slim line — the org's line, `DEV · v1.2.3`, the legal links." },
+      { name: "configured", title: "Configured by the admin", description: "`config` from the app's settings: three columns (the product, help, by Krizaka), then `Technologies Krizaka Inc. · NEQ … · Montréal (Québec)`, `v1.2.3`, the legal links and GitHub." },
       { name: "docs", title: "Under documentation", description: "`variant=\"docs\"`: the same three lines on the documentation's width." },
       { name: "open-source-fr", title: "Open source, in French", description: "ui.krizaka.com in French, `tone=\"cahier\"`: « Une entreprise de Technologies Krizaka · Fait à Montréal », the version of the packages." },
     ],

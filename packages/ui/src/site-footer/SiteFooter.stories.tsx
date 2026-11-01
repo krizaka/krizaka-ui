@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import AppExample from "../../registry/examples/site-footer/app";
 import CompanyExample from "../../registry/examples/site-footer/company";
+import ConfiguredExample from "../../registry/examples/site-footer/configured";
 import DocsExample from "../../registry/examples/site-footer/docs";
 import OpenSourceFrExample from "../../registry/examples/site-footer/open-source-fr";
 import ProductExample from "../../registry/examples/site-footer/product";
@@ -29,3 +30,5 @@ export const Company: Story = { render: () => <CompanyExample /> };
 export const OpenSourceFr: Story = { render: () => <OpenSourceFrExample /> };
 export const App: Story = { render: () => <AppExample /> };
 export const Docs: Story = { render: () => <DocsExample /> };
+/** The footer as the admin configured it (`config`): real columns, then one legal line that names the company once. */
+export const Configured: Story = { render: () => <ConfiguredExample /> };

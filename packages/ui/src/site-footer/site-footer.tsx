@@ -10,9 +10,11 @@ import * as React from "react";
 import { tv } from "tailwind-variants";
 
 // ProductLogo, not KrizakaLogo: one import path keeps every mark in one shared chunk (KrizakaLogo alone split it: +871 B gzip on the typical page).
+import type { LinkComponent } from "../block-link";
 import { ProductLogo } from "../marks/ProductLogo";
 import { columnStatus, familyGroups, orgIdOf } from "../sites/family-groups";
 import { companyLinks, type FamilyLabels, familyLabels, type OrgFacts, siteById, type SiteId, type SiteStatus } from "../sites/sites";
+import type { FooterLink, SiteFooterConfig } from "./footer-config";
 
 export const siteFooter = tv({
   slots: {
@@ -41,6 +43,11 @@ export const siteFooter = tv({
       "rounded-sm border border-border-subtle bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-fg-secondary",
     legal: "flex flex-wrap items-center gap-x-4 gap-y-2",
     controls: "flex flex-wrap items-center gap-2 sm:ml-auto",
+    // `config`: real columns — two on a phone, side by side from `sm`, each a heading over a stacked list.
+    columns: "grid min-w-0 grid-cols-2 gap-x-6 gap-y-6 pb-2 sm:grid-flow-col sm:grid-cols-none sm:auto-cols-[minmax(0,13rem)] sm:gap-x-10",
+    stack: "flex min-w-0 flex-col gap-2",
+    stackList: "flex min-w-0 flex-col gap-1",
+    identity: "text-fg-secondary",
   },
   variants: {
     // `site`: the three lines. `docs`: the same on the documentation's width. `app`: line 3 only, inside a signed-in product.
@@ -134,6 +141,14 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
   variant?: "site" | "docs" | "app";
   /** `cahier` on the Cahier sites (www, blog, ui., java., ts., lab.), `product` in the products. @default "product" */
   tone?: Tone;
+  /**
+   * The footer as the admin configured it (`resolveFooterSettings` of the app's settings): its columns, then one legal
+   * line — `legalName · NEQ … · city`, the version when `showVersion`, the legal links, the socials. With it the family
+   * is not drawn (the columns hold what the site wants) and the org's signature gives way to the legal identity.
+   */
+  config?: SiteFooterConfig;
+  /** The app's router link for the config's internal links (Next's `Link`). @default "a" */
+  linkAs?: LinkComponent;
 };
 
 const NO_STATUS = { shared: null, exceptions: new Map<string, Exclude<SiteStatus, "released">>() } as const;
@@ -153,13 +168,15 @@ export function SiteFooter({
   products,
   variant = "site",
   tone = "product",
+  config,
+  linkAs,
   className,
   ...props
 }: SiteFooterProps) {
   const id = React.useId();
   const s = siteFooter({ variant, tone });
   const slim = variant === "app";
-  const family = !slim && (familyProp ?? current === "krizaka");
+  const family = !slim && (familyProp ?? (current === "krizaka" && !config));
   const site = siteById(current);
   const krizaka = siteById("krizaka");
   const currentId = orgIdOf(current);
@@ -179,6 +196,9 @@ export function SiteFooter({
       </>
     ));
   const here = (href: string) => path !== undefined && isThisPage(href, site.url, path);
+  const configured = (l: FooterLink) => (
+    <ConfigLink key={l.href} link={l} linkAs={linkAs} current={path !== undefined && !l.external && bare(l.href.split(/[?#]/)[0]!) === bare(path.split(/[?#]/)[0]!)} />
+  );
   const productIds = products?.map(orgIdOf);
   // Products · Open source (GitHub closes it) · Krizaka (the company's pages; its home is the signature's link).
   const groups = familyGroups(org);
@@ -194,6 +214,28 @@ export function SiteFooter({
       <footer className={s.root({ className })} {...props}>
         <div className={s.inner()}>
           {own && <div className={s.row()}>{children}</div>}
+          {config && !slim && config.columns.length > 0 && (
+            <nav aria-label={config.label} className={s.columns()}>
+              {config.columns.map((c) => (
+                <div key={c.id} className={s.stack()}>
+                  <p id={`${id}-c-${c.id}`} className={s.title()}>
+                    {c.title}
+                    {c.status && (
+                      <span className={s.note()}>
+                        <span aria-hidden="true"> · </span>
+                        {labels.status[c.status]}
+                      </span>
+                    )}
+                  </p>
+                  <ul aria-labelledby={`${id}-c-${c.id}`} className={s.stackList()}>
+                    {c.links.map((l) => (
+                      <li key={l.href}>{configured(l)}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </nav>
+          )}
           {family && (
             <nav aria-label={labels.family} className={s.family()}>
               {[
@@ -243,6 +285,28 @@ export function SiteFooter({
                 ))}
             </nav>
           )}
+          {config ? (
+            <div className={s.bottom()}>
+              {/* The company named once: its mark (home) beside its legal identity — never a second « by Technologies Krizaka ». */}
+              <a href={krizaka.url} className={s.signature()} aria-label={org?.brand.name ?? "Krizaka"}>
+                <ProductLogo id="krizaka" size={18} animated={false} />
+              </a>
+              <span className={s.identity()}>
+                {[config.legal.legalName, config.legal.neq && `NEQ ${config.legal.neq}`, config.legal.city].filter(Boolean).join(" · ")}
+              </span>
+              {(config.legal.showVersion ? tag : env) && (
+                <span className={s.version()}>
+                  <span className="sr-only">{labels.version} </span>
+                  {config.legal.showVersion ? tag : env}
+                </span>
+              )}
+              {config.legal.links.length > 0 && <div className={s.legal()}>{config.legal.links.map(configured)}</div>}
+              {config.social && config.social.length > 0 && (
+                <div className={s.legal()}>{config.social.map((x) => configured({ label: x.label, href: x.href, external: true }))}</div>
+              )}
+              {controls && <div className={s.controls()}>{controls}</div>}
+            </div>
+          ) : (
           <div className={s.bottom()}>
             <a href={krizaka.url} className={s.signature()}>
               <ProductLogo id="krizaka" size={18} animated={false} />
@@ -257,9 +321,21 @@ export function SiteFooter({
             {legal && <div className={s.legal()}>{legal}</div>}
             {controls && <div className={s.controls()}>{controls}</div>}
           </div>
+          )}
         </div>
       </footer>
     </ToneContext.Provider>
+  );
+}
+
+/** A configured link: the router's link inside the site, a plain `<a>` when it leaves it. */
+function ConfigLink({ link, linkAs, current }: { link: FooterLink; linkAs?: LinkComponent; current: boolean }) {
+  const s = siteFooter();
+  const Comp = (link.external || !linkAs ? "a" : linkAs) as React.ElementType;
+  return (
+    <Comp href={link.href} className={s.link()} aria-current={current ? "page" : undefined}>
+      {link.label}
+    </Comp>
   );
 }
 
