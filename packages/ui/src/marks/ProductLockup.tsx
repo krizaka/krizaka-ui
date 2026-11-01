@@ -26,8 +26,14 @@ export interface ProductLockupProps {
  * it — for heroes, bars, footers, emails and store art. The words are data passed in (from `@krizaka/org` and the app's
  * `brand.displayName` setting), never typed here; the mark is decorative, the name is the text a screen reader reads.
  */
-export function ProductLockup({ id, name, endorsement, size = 32, animated = true, layout = "stacked", className }: ProductLockupProps) {
-  const text = size >= 64 ? "text-2xl" : size >= 40 ? "text-lg" : "text-base";
+function textSize(size: number): string {
+  if (size >= 64) return "text-2xl";
+  if (size >= 40) return "text-lg";
+  return "text-base";
+}
+
+export function ProductLockup({ id, name, endorsement, size = 32, animated = true, layout = "stacked", className }: Readonly<ProductLockupProps>) {
+  const text = textSize(size);
   return (
     <span className={cx("inline-flex items-center gap-2.5", className)} data-brand={id}>
       {id === "kachizaka" ? <KridocLogo size={size} animated={animated} /> : <ProductLogo id={id} size={size} animated={animated} />}

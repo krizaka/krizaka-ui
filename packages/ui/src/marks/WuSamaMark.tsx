@@ -1,3 +1,4 @@
+import { InkDefs } from "./InkMark";
 import { a11y, type MarkProps, neutral, useIds } from "./shared";
 import { WU_SAMA as G } from "./wu-sama-geometry";
 
@@ -10,21 +11,7 @@ export function WuSamaMark({ size = 32, title, className }: Omit<MarkProps, "ani
   const id = useIds("wsm", ["ink", "blue", "glow"] as const);
   return (
     <svg width={size} height={size} viewBox={size < 48 ? G.croppedViewBox : G.viewBox} fill="none" xmlns="http://www.w3.org/2000/svg" className={className} {...a11y(title)}>
-      <defs>
-        <linearGradient id={id.ink} gradientUnits="userSpaceOnUse" x1={G.ink.x1} y1={G.ink.y1} x2={G.ink.x2} y2={G.ink.y2}>
-          <stop offset="0%" stopColor={neutral("--kz-text-secondary", 60)} />
-          <stop offset="100%" stopColor={neutral("--kz-text-primary", 92)} />
-        </linearGradient>
-        <linearGradient id={id.blue} gradientUnits="userSpaceOnUse" x1={G.blue.x1} y1={G.blue.y1} x2={G.blue.x2} y2={G.blue.y2}>
-          {G.blue.stops.map(([offset, color]) => (
-            <stop key={offset} offset={offset} stopColor={color} />
-          ))}
-        </linearGradient>
-        <radialGradient id={id.glow} cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor={G.glow.color} stopOpacity={G.glow.opacity} />
-          <stop offset="100%" stopColor={G.glow.color} stopOpacity="0" />
-        </radialGradient>
-      </defs>
+      <InkDefs ids={id} geometry={G} />
       {size >= 48 ? <circle cx="200" cy="200" r="190" fill={`url(#${id.glow})`} /> : null}
       {size >= 48 ? (
         <>
