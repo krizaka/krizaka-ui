@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.81.0
+
+### Minor Changes
+
+- [#931](https://github.com/krizaka/krizaka-ui/pull/931) [`dabae55`](https://github.com/krizaka/krizaka-ui/commit/dabae556adab35cb2866351e9a6ba570a5667bd5) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The family footer says the status once per column (« Produits · En développement »), from the data, with a badge only on an exception; no per-item badge. The sites registry now says « development » for every product and open-source site, and `columnStatus` is the one rule (krizaka-internal, founder 2026-11-01).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.81.0
+  - @krizaka/tokens@3.81.0
+
 ## 3.80.0
 
 ### Minor Changes
