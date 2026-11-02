@@ -46,7 +46,7 @@ export const meta = {
     examples: [
       { name: "app", title: "A product's signed-in app", description: "Yomizaka: four sections with a count, the search, the primary action « Check a document », and the account menu with Language and Theme.", template: true, purpose: "operate", why: "A person works in a few sections all day and finds their account, language and theme in the same place in every Krizaka product." },
       { name: "admin", title: "The administration", description: "`variant=\"admin\"` in French: the same frame, a chip that says where you are, and no way into the administration offered again.", template: true, purpose: "operate", why: "An administrator moves from the app to its administration without the frame changing under them." },
-      { name: "touch", title: "Touch targets at 44 px", description: "`touchTargets`: the rail's places and mark, the home link, the search and the account are 44 x 44 px at least.", purpose: "operate", why: "A thumb on a phone or a tablet reaches every control of the frame without a miss (WCAG 2.5.5)." },
+      { name: "touch", title: "Touch targets at 44 px", description: "`touchTargets`: the rail's places and mark, the home link, the search and the account are 44 x 44 px at least, so a thumb on a phone or a tablet reaches every control of the frame without a miss (WCAG 2.5.5)." },
     ],
   },
 } satisfies ComponentMeta;
