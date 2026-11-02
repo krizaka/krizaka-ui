@@ -22,6 +22,10 @@ static_sites:
       - key: NODE_OPTIONS
         value: --max-old-space-size=6144
         scope: BUILD_TIME
+      # The commit being built, served at /build.json for the post-deploy workflow (scripts/build-info.mjs).
+      - key: APP_COMMIT
+        value: ${_self.COMMIT_HASH}
+        scope: BUILD_TIME
 
 # Explicit, as in the live app: every path goes to the site.
 ingress:
