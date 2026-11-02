@@ -10,6 +10,18 @@ const CSS = `
 @media (prefers-reduced-motion: reduce) { .kdm-spin, .kdm-pulse { animation: none; } }
 `;
 
+function figure(ink: string) {
+  return (
+    <>
+      <path d={G.page} stroke={ink} strokeWidth={G.stroke} strokeLinecap="round" strokeLinejoin="round" />
+      <path d={G.fold} stroke={ink} strokeWidth={G.stroke} strokeLinecap="round" strokeLinejoin="round" />
+      {G.lines.map((d) => (
+        <path key={d} d={d} stroke={ink} strokeWidth={G.stroke * 0.6} strokeLinecap="round" />
+      ))}
+    </>
+  );
+}
+
 /**
  * The Kridoc mark (the managed storage, sold as « Kridoc by Krizaka »): an ink page with its corner folded, open at the
  * fold where a blue node — the share link — breaks out, and a blue seal on the page. Krizaka's colours: a service of the
@@ -22,15 +34,7 @@ export function KridocLogo(props: Readonly<MarkProps>) {
       prefix="kdm"
       css={CSS}
       geometry={G}
-      figure={(ink) => (
-        <>
-          <path d={G.page} stroke={ink} strokeWidth={G.stroke} strokeLinecap="round" strokeLinejoin="round" />
-          <path d={G.fold} stroke={ink} strokeWidth={G.stroke} strokeLinecap="round" strokeLinejoin="round" />
-          {G.lines.map((d) => (
-            <path key={d} d={d} stroke={ink} strokeWidth={G.stroke * 0.6} strokeLinecap="round" />
-          ))}
-        </>
-      )}
+      figure={figure}
     />
   );
 }

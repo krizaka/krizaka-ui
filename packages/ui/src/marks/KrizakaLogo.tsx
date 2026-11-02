@@ -13,6 +13,10 @@ const CSS = `
 @media (prefers-reduced-motion: reduce) { .kzm-spin, .kzm-pulse { animation: none; } }
 `;
 
+function figure(ink: string) {
+  return <path d={G.shield} stroke={ink} strokeWidth={G.stroke} strokeLinecap="round" strokeLinejoin="round" />;
+}
+
 /**
  * The Krizaka mark: an ink hexagonal shield, open at one vertex where a blue node breaks out, around a blue core —
  * the parent of the family (Orazaka's shards). The orbit turns, the node and the core
@@ -25,7 +29,7 @@ export function KrizakaLogo(props: Readonly<MarkProps>) {
       prefix="kzm"
       css={CSS}
       geometry={G}
-      figure={(ink) => <path d={G.shield} stroke={ink} strokeWidth={G.stroke} strokeLinecap="round" strokeLinejoin="round" />}
+      figure={figure}
     />
   );
 }
