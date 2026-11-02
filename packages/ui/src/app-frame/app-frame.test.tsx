@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 
 import AdminExample from "../../registry/examples/app-frame/admin";
 import AppExample from "../../registry/examples/app-frame/app";
+import TouchExample from "../../registry/examples/app-frame/touch";
 import { axeViolations } from "../test/axe";
 import { ThemeProvider } from "../theme";
 import { ACCOUNT_MENU_ORDER, AppFrame, frameIssues, framePlaces, type FrameSection, navVocabulary, navWord, navWords, orderAccountLinks, publicBarLinks } from "./index";
@@ -142,5 +143,28 @@ describe("AppFrame", () => {
     unmount();
     const admin = render(<AdminExample />);
     expect(await axeViolations(admin.container)).toEqual([]);
+  });
+});
+
+describe("touchTargets", () => {
+  it("gives the rail's places, the mark, the home link, the search and the account a 44 px floor", () => {
+    render(<TouchExample />);
+    const nav = screen.getByRole("navigation", { name: "Yomizaka" });
+    for (const item of within(nav).getAllByRole("link")) expect(item.className).toMatch(/md:h-11|min-h-11/);
+    expect(within(screen.getByRole("banner")).getByRole("link").className).toMatch(/min-h-11/);
+    expect(screen.getByRole("button", { name: /search files and checks/i }).className).toMatch(/\bh-11\b.*\bw-11\b/);
+    expect(screen.getByRole("button", { name: "Account" }).className).toMatch(/min-h-11/);
+  });
+
+  it("leaves the default frame alone", () => {
+    render(<AppExample />);
+    const nav = screen.getByRole("navigation", { name: "Yomizaka" });
+    for (const item of within(nav).getAllByRole("link")) expect(item.className).not.toMatch(/h-11|min-h-11/);
+    expect(screen.getByRole("button", { name: "Account" }).className).not.toMatch(/min-h-11/);
+  });
+
+  it("has no accessibility violation", async () => {
+    const { container } = render(<TouchExample />);
+    expect(await axeViolations(container)).toEqual([]);
   });
 });

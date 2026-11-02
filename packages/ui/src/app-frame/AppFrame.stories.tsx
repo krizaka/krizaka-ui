@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import AdminExample from "../../registry/examples/app-frame/admin";
 import AppExample from "../../registry/examples/app-frame/app";
+import TouchExample from "../../registry/examples/app-frame/touch";
 
 /** App frame — the one signed-in frame. Each story renders a named example; the phone story is the tab bar. */
 const meta = { title: "Layouts/AppFrame", parameters: { layout: "fullscreen" } } satisfies Meta;
@@ -14,3 +15,6 @@ export const App: Story = { render: () => <AppExample /> };
 export const AppPhone: Story = { render: () => <AppExample />, parameters: { phone: true } };
 export const Admin: Story = { render: () => <AdminExample /> };
 export const AdminPhone: Story = { render: () => <AdminExample />, parameters: { phone: true } };
+/** `touchTargets`: every control of the frame at 44 x 44 px or more. */
+export const TouchTargets: Story = { render: () => <TouchExample /> };
+export const TouchTargetsPhone: Story = { render: () => <TouchExample />, parameters: { phone: true } };

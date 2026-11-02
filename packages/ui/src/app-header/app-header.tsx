@@ -60,7 +60,7 @@ export function AppHeader({ name, mark, href, homeLink, chips, search, language,
   return (
     <header className={s.root({ className })} {...props}>
       {homeLink ? (
-        React.cloneElement(homeLink, { className: s.brand() }, brand)
+        React.cloneElement(homeLink, { className: s.brand({ className: homeLink.props.className }) }, brand)
       ) : href ? (
         <a href={href} className={s.brand()}>{brand}</a>
       ) : (

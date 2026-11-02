@@ -24,6 +24,7 @@ export const meta = {
     "The theme and the language are always in the menu, never in the header: a phone's header has no room. The theme is the `ThemeProvider`'s unless you pass `theme`.",
     "Say the shared words with the shared vocabulary (`navWords`, EN/FR): Docs, Terms / Conditions d'utilisation, Settings / Réglages. Override one (`words`) only when the product truly says it otherwise (« Credits and usage »).",
     "The public bar is the other half of the family: `publicBarLinks` gives its flat links, four at most — How it works · Pricing · Docs · Download.",
+    "`touchTargets` brings every control of the frame to 44 x 44 px (the rail's places go from 40 to 44 px on a desktop). A product turns it on when it audits touch targets (`smallTargets` of the page audit) and re-takes its visual baselines.",
     "The page inside is `<main id=\"content\">`; the frame does not draw it.",
   ],
   accessibility: {
@@ -45,6 +46,7 @@ export const meta = {
     examples: [
       { name: "app", title: "A product's signed-in app", description: "Yomizaka: four sections with a count, the search, the primary action « Check a document », and the account menu with Language and Theme.", template: true, purpose: "operate", why: "A person works in a few sections all day and finds their account, language and theme in the same place in every Krizaka product." },
       { name: "admin", title: "The administration", description: "`variant=\"admin\"` in French: the same frame, a chip that says where you are, and no way into the administration offered again.", template: true, purpose: "operate", why: "An administrator moves from the app to its administration without the frame changing under them." },
+      { name: "touch", title: "Touch targets at 44 px", description: "`touchTargets`: the rail's places and mark, the home link, the search and the account are 44 x 44 px at least.", purpose: "operate", why: "A thumb on a phone or a tablet reaches every control of the frame without a miss (WCAG 2.5.5)." },
     ],
   },
 } satisfies ComponentMeta;
