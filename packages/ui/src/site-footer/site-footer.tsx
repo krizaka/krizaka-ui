@@ -195,7 +195,6 @@ export function SiteFooter({
         ))}
       </>
     ));
-  const configured = (l: FooterLink) => <ConfigLink key={l.href} link={l} linkAs={linkAs} current={isCurrent(l, path)} />;
   const here = (href: string) => path !== undefined && isThisPage(href, site.url, path);
   const productIds = products?.map(orgIdOf);
   // Products · Open source (GitHub closes it) · Krizaka (the company's pages; its home is the signature's link).
@@ -263,32 +262,7 @@ export function SiteFooter({
             </nav>
           )}
           {config ? (
-            <div className={s.bottom()}>
-              {/* The company named once: its mark (home) beside its legal identity — never a second « by Technologies Krizaka ». */}
-              <a href={krizaka.url} className={s.signature()} aria-label={org?.brand.name ?? "Krizaka"}>
-                <ProductLogo id="krizaka" size={18} animated={false} />
-              </a>
-              <span className={s.identity()}>
-                {[config.legal.legalName, config.legal.neq && `NEQ ${config.legal.neq}`, config.legal.city].filter(Boolean).join(" · ")}
-              </span>
-              {(config.legal.showVersion ? tag : env) &&
-                (config.legal.showVersion && config.legal.versionHref ? (
-                  <a href={config.legal.versionHref} className={s.version({ className: "no-underline hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring" })}>
-                    <span className="sr-only">{labels.version} </span>
-                    {tag}
-                  </a>
-                ) : (
-                  <span className={s.version()}>
-                    <span className="sr-only">{labels.version} </span>
-                    {config.legal.showVersion ? tag : env}
-                  </span>
-                ))}
-              {config.legal.links.length > 0 && <div className={s.legal()}>{config.legal.links.map(configured)}</div>}
-              {config.social && config.social.length > 0 && (
-                <div className={s.legal()}>{config.social.map((x) => configured({ label: x.label, href: x.href, external: true }))}</div>
-              )}
-              {controls && <div className={s.controls()}>{controls}</div>}
-            </div>
+            <ConfigBottom s={s} config={config} krizaka={krizaka.url} brand={org?.brand.name ?? "Krizaka"} tag={tag} env={env} versionLabel={labels.version} linkAs={linkAs} path={path} controls={controls} />
           ) : (
           <div className={s.bottom()}>
             <a href={krizaka.url} className={s.signature()}>
@@ -312,6 +286,62 @@ export function SiteFooter({
 }
 
 const isCurrent = (l: FooterLink, path?: string) => path !== undefined && !l.external && bare(l.href.split(/[?#]/)[0]!) === bare(path.split(/[?#]/)[0]!);
+
+/** The configured bottom line: the mark beside the legal identity, the version, the legal links and the socials. */
+function ConfigBottom({
+  s,
+  config,
+  krizaka,
+  brand,
+  tag,
+  env,
+  versionLabel,
+  linkAs,
+  path,
+  controls,
+}: Readonly<{
+  s: ReturnType<typeof siteFooter>;
+  config: SiteFooterConfig;
+  krizaka: string;
+  brand: string;
+  tag: string;
+  env?: string;
+  versionLabel: string;
+  linkAs?: LinkComponent;
+  path?: string;
+  controls?: React.ReactNode;
+}>) {
+  const { legal, social } = config;
+  const configured = (l: FooterLink) => <ConfigLink key={l.href} link={l} linkAs={linkAs} current={isCurrent(l, path)} />;
+  const shown = legal.showVersion ? tag : env;
+  const identity = [legal.legalName, legal.neq && `NEQ ${legal.neq}`, legal.city].filter(Boolean).join(" · ");
+  const versionText = (
+    <>
+      <span className="sr-only">{versionLabel} </span>
+      {shown}
+    </>
+  );
+  return (
+    <div className={s.bottom()}>
+      {/* The company named once: its mark (home) beside its legal identity — never a second « by Technologies Krizaka ». */}
+      <a href={krizaka} className={s.signature()} aria-label={brand}>
+        <ProductLogo id="krizaka" size={18} animated={false} />
+      </a>
+      <span className={s.identity()}>{identity}</span>
+      {shown &&
+        (legal.showVersion && legal.versionHref ? (
+          <a href={legal.versionHref} className={s.version({ className: "no-underline hover:text-fg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring" })}>
+            {versionText}
+          </a>
+        ) : (
+          <span className={s.version()}>{versionText}</span>
+        ))}
+      {legal.links.length > 0 && <div className={s.legal()}>{legal.links.map(configured)}</div>}
+      {social && social.length > 0 && <div className={s.legal()}>{social.map((x) => configured({ label: x.label, href: x.href, external: true }))}</div>}
+      {controls && <div className={s.controls()}>{controls}</div>}
+    </div>
+  );
+}
 
 /** The admin-configured columns: a title (and status) over a list of links. */
 function ConfigColumns({
