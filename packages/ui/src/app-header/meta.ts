@@ -27,7 +27,7 @@ export const meta = {
     "Give each count its words with their plural (`countLabel=\"3 nouvelles\"`): the badge is decorative, the name says it.",
     "The language is `LanguageSwitch` (the same control as `NavBar.Language`); the account is `AccountMenu` with `showName` (the name from `sm`).",
     "Chips say a state, not a place: « Local · Sovereign », « Dev », a version.",
-    "Make the name a link home with `homeLink` (your router's link) or `href`.",
+    "Make the name a link home with `homeLink` (your router's link) or `href`; `homeClassName` adds classes to that link (a 44 px floor).",
   ],
   accessibility: {
     keyboard: [

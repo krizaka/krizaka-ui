@@ -87,7 +87,23 @@ export interface AppFrameProps {
   children: React.ReactNode;
   /** The rail's accessible name. Defaults to the product's name. */
   label?: string;
+  /**
+   * `true`: every control of the frame (the rail's places and mark, the home link, the search, the account) is at least
+   * 44 x 44 px, the touch-target floor of WCAG 2.5.5 and of the page audit's `smallTargets`. Off by default so a product
+   * adopts it with its own visual baselines; the rail's places grow from 40 to 44 px on a desktop.
+   * @default false
+   */
+  touchTargets?: boolean;
 }
+
+// The classes the frame adds to its own controls when `touchTargets` is on (tailwind-variants merges them over the defaults).
+const TOUCH = {
+  item: "md:h-11",
+  mark: "flex min-h-11 min-w-11 items-center justify-center",
+  home: "min-h-11",
+  search: "h-11 w-11",
+  account: "min-h-11 min-w-11",
+} as const;
 
 const MODES: readonly Mode[] = ["light", "dark", "system"];
 
@@ -100,13 +116,14 @@ function useFrameTheme(theme: AppFrameProps["theme"]): AppFrameTheme | null {
 
 /** The signed-in frame: sections, account and the primary action in; the rail, the top bar and the account menu out. */
 export function AppFrame({
-  name, mark, headerMark, homeHref, accent, sections, currentId, account, primary, search, notifications, chips, variant = "app", language, theme, locale = "en", words, linkAs: Link, children, label,
+  name, mark, headerMark, homeHref, accent, sections, currentId, account, primary, search, notifications, chips, variant = "app", language, theme, locale = "en", words, linkAs: Link, children, label, touchTargets = false,
 }: AppFrameProps) {
   const w = { ...navVocabulary(locale), ...words };
   const admin = variant === "admin";
   const links = orderAccountLinks(account.links, admin);
   const places = framePlaces(sections, links.map((l) => l.id));
   const frameTheme = useFrameTheme(theme);
+  const touch = (key: keyof typeof TOUCH) => (touchTargets ? TOUCH[key] : undefined);
   const item = (section: FrameSection) => (
     <RailNav.Item
       key={section.id}
@@ -117,6 +134,7 @@ export function AppFrame({
       current={section.id === currentId}
       badge={section.badge}
       badgeLabel={section.badgeLabel}
+      className={touch("item")}
     >
       {Link ? <Link href={section.href} /> : undefined}
     </RailNav.Item>
@@ -128,7 +146,7 @@ export function AppFrame({
       <RailNav.Root
         label={label ?? name}
         accent={accent}
-        mark={Link ? <Link href={homeHref} aria-label={name}>{mark}</Link> : <a href={homeHref} aria-label={name}>{mark}</a>}
+        mark={Link ? <Link href={homeHref} aria-label={name} className={touch("mark")}>{mark}</Link> : <a href={homeHref} aria-label={name} className={touch("mark")}>{mark}</a>}
         footer={places.foot.length > 0 ? places.foot.map(item) : undefined}
       >
         {places.main.map(item)}
@@ -138,14 +156,15 @@ export function AppFrame({
           name={name}
           mark={headerMark ?? mark}
           href={Link ? undefined : homeHref}
-          homeLink={Link ? <Link href={homeHref} /> : undefined}
+          homeLink={Link && <Link href={homeHref} />}
+          homeClassName={touch("home")}
           chips={
             <>
               {admin && <Badge tone="accent">{w.administration}</Badge>}
               {chips}
             </>
           }
-          search={search && <AppHeaderSearch label={search.label} onOpen={search.onOpen} />}
+          search={search && <AppHeaderSearch label={search.label} onOpen={search.onOpen} className={touch("search")} />}
           notifications={notifications}
           primary={primary}
           account={
@@ -157,6 +176,7 @@ export function AppFrame({
               showName="lg"
               links={menuLinks}
               linkAs={Link}
+              className={touch("account")}
               language={language && { label: w.language, value: language.value, options: language.options, onChange: language.onChange }}
               theme={frameTheme ? { label: w.theme, value: frameTheme.value, options: MODES.map((value) => ({ value, label: modeLabels[value] })), onChange: (value) => frameTheme.onChange(value as Mode) } : undefined}
               signOut={{ label: w.signOut, onSelect: account.onSignOut }}
