@@ -195,10 +195,8 @@ export function SiteFooter({
         ))}
       </>
     ));
+  const configured = (l: FooterLink) => <ConfigLink key={l.href} link={l} linkAs={linkAs} current={isCurrent(l, path)} />;
   const here = (href: string) => path !== undefined && isThisPage(href, site.url, path);
-  const configured = (l: FooterLink) => (
-    <ConfigLink key={l.href} link={l} linkAs={linkAs} current={path !== undefined && !l.external && bare(l.href.split(/[?#]/)[0]!) === bare(path.split(/[?#]/)[0]!)} />
-  );
   const productIds = products?.map(orgIdOf);
   // Products · Open source (GitHub closes it) · Krizaka (the company's pages; its home is the signature's link).
   const groups = familyGroups(org);
@@ -214,28 +212,7 @@ export function SiteFooter({
       <footer className={s.root({ className })} {...props}>
         <div className={s.inner()}>
           {own && <div className={s.row()}>{children}</div>}
-          {config && !slim && config.columns.length > 0 && (
-            <nav aria-label={config.label} className={s.columns()}>
-              {config.columns.map((c) => (
-                <div key={c.id} className={s.stack()}>
-                  <p id={`${id}-c-${c.id}`} className={s.title()}>
-                    {c.title}
-                    {c.status && (
-                      <span className={s.note()}>
-                        <span aria-hidden="true"> · </span>
-                        {labels.status[c.status]}
-                      </span>
-                    )}
-                  </p>
-                  <ul aria-labelledby={`${id}-c-${c.id}`} className={s.stackList()}>
-                    {c.links.map((l) => (
-                      <li key={l.href}>{configured(l)}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </nav>
-          )}
+          {config && !slim && <ConfigColumns s={s} config={config} id={id} labels={labels} linkAs={linkAs} path={path} />}
           {family && (
             <nav aria-label={labels.family} className={s.family()}>
               {[
@@ -334,8 +311,46 @@ export function SiteFooter({
   );
 }
 
+const isCurrent = (l: FooterLink, path?: string) => path !== undefined && !l.external && bare(l.href.split(/[?#]/)[0]!) === bare(path.split(/[?#]/)[0]!);
+
+/** The admin-configured columns: a title (and status) over a list of links. */
+function ConfigColumns({
+  s,
+  config,
+  id,
+  labels,
+  linkAs,
+  path,
+}: Readonly<{ s: ReturnType<typeof siteFooter>; config: SiteFooterConfig; id: string; labels: FamilyLabels; linkAs?: LinkComponent; path?: string }>) {
+  if (config.columns.length === 0) return null;
+  return (
+    <nav aria-label={config.label} className={s.columns()}>
+      {config.columns.map((c) => (
+        <div key={c.id} className={s.stack()}>
+          <p id={`${id}-c-${c.id}`} className={s.title()}>
+            {c.title}
+            {c.status && (
+              <span className={s.note()}>
+                <span aria-hidden="true"> · </span>
+                {labels.status[c.status]}
+              </span>
+            )}
+          </p>
+          <ul aria-labelledby={`${id}-c-${c.id}`} className={s.stackList()}>
+            {c.links.map((l) => (
+              <li key={l.href}>
+                <ConfigLink link={l} linkAs={linkAs} current={isCurrent(l, path)} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+  );
+}
+
 /** A configured link: the router's link inside the site, a plain `<a>` when it leaves it. */
-function ConfigLink({ link, linkAs, current }: { link: FooterLink; linkAs?: LinkComponent; current: boolean }) {
+function ConfigLink({ link, linkAs, current }: Readonly<{ link: FooterLink; linkAs?: LinkComponent; current: boolean }>) {
   const s = siteFooter();
   const Comp = (link.external || !linkAs ? "a" : linkAs) as React.ElementType;
   return (

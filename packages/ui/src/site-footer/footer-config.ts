@@ -86,22 +86,42 @@ export function resolveFooterSettings(
  * columns or links, a link twice, an empty column, an `http:` or a development address, a malformed NEQ.
  */
 export function footerSettingsProblems(settings: FooterSettings): string[] {
+  return [...limitProblems(settings), ...linkProblems(settings), ...legalProblems(settings)];
+}
+
+function limitProblems(settings: FooterSettings): string[] {
   const problems: string[] = [];
   if (settings.columns.length > FOOTER_LIMITS.columns) problems.push(`at most ${FOOTER_LIMITS.columns} columns`);
   if (settings.legal.links.length > FOOTER_LIMITS.legalLinks) problems.push(`at most ${FOOTER_LIMITS.legalLinks} legal links`);
-  const seen = new Set<string>();
-  const all = [...settings.columns.flatMap((c) => c.links.map((l) => ({ where: c.id, l }))), ...settings.legal.links.map((l) => ({ where: "legal", l }))];
   for (const c of settings.columns) {
     if (c.links.length === 0) problems.push(`column ${c.id}: no link`);
     if (c.links.length > FOOTER_LIMITS.links) problems.push(`column ${c.id}: at most ${FOOTER_LIMITS.links} links`);
   }
+  return problems;
+}
+
+function hrefProblems(where: string, l: { href: string; external?: boolean }): string[] {
+  const problems: string[] = [];
+  if (/^http:/i.test(l.href)) problems.push(`${where}: ${l.href} is not https`);
+  if (/^https?:\/\/dev\./i.test(l.href)) problems.push(`${where}: ${l.href} is a development host`);
+  if (l.external && !/^[a-z][a-z0-9+.-]*:/i.test(l.href)) problems.push(`${where}: ${l.href} is external but relative`);
+  return problems;
+}
+
+function linkProblems(settings: FooterSettings): string[] {
+  const problems: string[] = [];
+  const seen = new Set<string>();
+  const all = [...settings.columns.flatMap((c) => c.links.map((l) => ({ where: c.id, l }))), ...settings.legal.links.map((l) => ({ where: "legal", l }))];
   for (const { where, l } of all) {
     if (seen.has(l.href)) problems.push(`${where}: ${l.href} is already in the footer`);
     seen.add(l.href);
-    if (/^http:/i.test(l.href)) problems.push(`${where}: ${l.href} is not https`);
-    if (/^https?:\/\/dev\./i.test(l.href)) problems.push(`${where}: ${l.href} is a development host`);
-    if (l.external && !/^[a-z][a-z0-9+.-]*:/i.test(l.href)) problems.push(`${where}: ${l.href} is external but relative`);
+    problems.push(...hrefProblems(where, l));
   }
+  return problems;
+}
+
+function legalProblems(settings: FooterSettings): string[] {
+  const problems: string[] = [];
   if (settings.legal.neq !== undefined && !/^\d{10}$/.test(settings.legal.neq)) problems.push("legal: the NEQ has ten digits");
   if (settings.legal.legalName.trim() === "") problems.push("legal: the legal name is required");
   return problems;
