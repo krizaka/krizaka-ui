@@ -20,7 +20,7 @@ jobs:
   changes:
     # Docs-only pull requests (root markdown, docs/, changesets, workflows other than this one) skip the heavy jobs below.
     # A skipped job reports « Skipped », which keeps the required checks satisfied; the gate fails open (krizaka/.github changes.yml).
-    uses: krizaka/.github/.github/workflows/changes.yml@8b8ba2244f8348479fe6b85f245049da036195d2 # main
+    uses: krizaka/.github/.github/workflows/changes.yml@2864f385faba4132e1818818cad3abd1b839b18c # main
     with:
       ignore: '^[^/]+\.md$|^LICENSE|^docs/|^\.changeset/|^\.github/(?!workflows/ci\.yml$)'
 
