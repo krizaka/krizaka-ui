@@ -63,13 +63,15 @@ describe("the shared vocabulary", () => {
   });
 });
 
-function Frame({ admin = false, billing = true, language = true }: { admin?: boolean; billing?: boolean; language?: boolean }) {
+function Frame({ admin = false, billing = true, language = true, linkAs, touchTargets }: { admin?: boolean; billing?: boolean; language?: boolean } & Pick<React.ComponentProps<typeof AppFrame>, "linkAs" | "touchTargets">) {
   return (
     <ThemeProvider>
       <AppFrame
         name="Yomizaka"
         mark="M"
         homeHref="/app"
+        linkAs={linkAs}
+        touchTargets={touchTargets}
         variant={admin ? "admin" : "app"}
         sections={sections}
         currentId="home"
@@ -156,11 +158,21 @@ describe("touchTargets", () => {
     expect(screen.getByRole("button", { name: "Account" }).className).toMatch(/min-h-11/);
   });
 
+  it("gives the home link the floor through the router's link too, filled with the name (never an empty link)", () => {
+    const RouterLink = ({ href, ...rest }: React.ComponentProps<"a"> & { href: string }) => <a href={href} data-router="" {...rest} />;
+    render(<Frame linkAs={RouterLink} touchTargets />);
+    const home = within(screen.getByRole("banner")).getByRole("link", { name: /Yomizaka/ });
+    expect(home.hasAttribute("data-router")).toBe(true);
+    expect(home.getAttribute("href")).toBe("/app");
+    expect(home.className).toMatch(/min-h-11/);
+  });
+
   it("leaves the default frame alone", () => {
     render(<AppExample />);
     const nav = screen.getByRole("navigation", { name: "Yomizaka" });
     for (const item of within(nav).getAllByRole("link")) expect(item.className).not.toMatch(/h-11|min-h-11/);
     expect(screen.getByRole("button", { name: "Account" }).className).not.toMatch(/min-h-11/);
+    expect(within(screen.getByRole("banner")).getByRole("link", { name: "Yomizaka" }).className).not.toMatch(/min-h-11/);
   });
 
   it("has no accessibility violation", async () => {

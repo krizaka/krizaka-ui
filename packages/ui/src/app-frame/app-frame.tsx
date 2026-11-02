@@ -155,8 +155,9 @@ export function AppFrame({
         <AppHeader
           name={name}
           mark={headerMark ?? mark}
-          href={Link || touchTargets ? undefined : homeHref}
-          homeLink={Link ? <Link href={homeHref} className={touch("home")} /> : touchTargets ? <a href={homeHref} className={TOUCH.home} /> : undefined}
+          href={Link ? undefined : homeHref}
+          homeLink={Link && <Link href={homeHref} />}
+          homeClassName={touch("home")}
           chips={
             <>
               {admin && <Badge tone="accent">{w.administration}</Badge>}

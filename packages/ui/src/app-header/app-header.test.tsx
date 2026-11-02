@@ -29,6 +29,17 @@ describe("AppHeader", () => {
     expect(screen.getByRole("link", { name: "Orazaka" }).hasAttribute("data-router")).toBe(true);
   });
 
+  it("adds homeClassName to the home link, from an href or from the router's link, and keeps the link's own class", () => {
+    const { rerender } = render(<AppHeader name="Orazaka" href="/" homeClassName="min-h-11" />);
+    expect(screen.getByRole("link", { name: "Orazaka" }).className).toMatch(/\bmin-h-11\b/);
+    rerender(<AppHeader name="Orazaka" homeLink={<a href="/home" className="own" />} homeClassName="min-h-11" />);
+    const link = screen.getByRole("link", { name: "Orazaka" });
+    expect(link.className).toMatch(/\bmin-h-11\b/);
+    expect(link.className).toMatch(/\bown\b/);
+    rerender(<AppHeader name="Orazaka" />);
+    expect(screen.queryByRole("link")).toBeNull();
+  });
+
   it("lines the name up with the rail: the bar is 3.5 rem tall like the rail's mark, and the name sits close to the rail", () => {
     render(<AppHeader name="Orazaka" />);
     const cls = screen.getByRole("banner").className;

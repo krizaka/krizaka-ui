@@ -30,6 +30,8 @@ export type AppHeaderProps = Omit<React.ComponentProps<"header">, "children"> & 
   href?: string;
   /** Your router's link element for the home link; it receives the name and the mark as children. */
   homeLink?: React.ReactElement<{ className?: string; children?: React.ReactNode }>;
+  /** Classes added to the home link (from `href` or `homeLink`), e.g. a 44 px floor; the header fills the link itself. */
+  homeClassName?: string;
   /** Status chips beside the name (`Badge`): « Local · Sovereign », « Dev », a version. */
   chips?: React.ReactNode;
   /** The search trigger, first of the controls: `AppHeaderSearch` (`@krizaka/ui/app-header/search`) — a field from `md`, an icon below, ⌘K. */
@@ -49,7 +51,7 @@ export type AppHeaderProps = Omit<React.ComponentProps<"header">, "children"> & 
 };
 
 /** The app's top bar: the name next to the rail, the mark on a phone, chips, then search · language · actions · messages · notifications · primary · account. */
-export function AppHeader({ name, mark, href, homeLink, chips, search, language, actions, messages, notifications, primary, account, className, ...props }: AppHeaderProps) {
+export function AppHeader({ name, mark, href, homeLink, homeClassName, chips, search, language, actions, messages, notifications, primary, account, className, ...props }: AppHeaderProps) {
   const brand = (
     <>
       {mark && <span data-brand-mark className={s.mark()}>{mark}</span>}
@@ -60,9 +62,9 @@ export function AppHeader({ name, mark, href, homeLink, chips, search, language,
   return (
     <header className={s.root({ className })} {...props}>
       {homeLink ? (
-        React.cloneElement(homeLink, { className: s.brand({ className: homeLink.props.className }) }, brand)
+        React.cloneElement(homeLink, { className: s.brand({ className: [homeLink.props.className, homeClassName] }) }, brand)
       ) : href ? (
-        <a href={href} className={s.brand()}>{brand}</a>
+        <a href={href} className={s.brand({ className: homeClassName })}>{brand}</a>
       ) : (
         <div className={s.brand()}>{brand}</div>
       )}
