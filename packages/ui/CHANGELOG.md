@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.82.0
+
+### Minor Changes
+
+- [#934](https://github.com/krizaka/krizaka-ui/pull/934) [`fa62080`](https://github.com/krizaka/krizaka-ui/commit/fa620806e0482d3abab8826d2d3908d2b785651b) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `SiteFooter` takes `config`, the footer as the app's admin configured it: real columns (two on a phone, side by side from `sm`), the status once per column, then one legal line that names the company once (`legalName · NEQ · city`), the version when `showVersion`, the legal links and the org's socials. `FooterSettings` (the stored shape, message keys), `resolveFooterSettings`, `footerSettingsProblems` (the admin form's validation) and `FOOTER_LIMITS` (4 columns, 6 links) ship from `@krizaka/ui/site-footer`; `linkAs` renders internal links through the router (krizaka-internal#591).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.82.0
+  - @krizaka/tokens@3.82.0
+
 ## 3.81.0
 
 ### Minor Changes
