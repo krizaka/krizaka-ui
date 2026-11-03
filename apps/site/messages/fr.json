@@ -479,6 +479,11 @@
           "when": "Vous venez ici pour savoir qui est là : avatars, profils, menu et réglages du compte, préférences de notification, écrans de connexion.",
           "owner": "Les images par défaut viennent du JSON de l'organisation, jamais en ligne dans le code."
         },
+        "abuse": {
+          "title": "Protection contre les abus",
+          "when": "Vous venez ici pour tenir les robots et les abus loin d'un formulaire public : le captcha.",
+          "owner": "Le fournisseur et ses clés sont des réglages d'administration de l'app, jamais dans le code."
+        },
         "conversation": {
           "title": "Conversation et IA",
           "when": "Vous venez ici pour parler avec les personnes et avec le moteur : discussion, interfaces générées, propositions, rapports, markdown.",

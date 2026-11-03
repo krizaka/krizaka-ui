@@ -80,7 +80,8 @@ describe("DocumentViewer", () => {
     const box = container.querySelector<HTMLElement>('[data-page="2"] [data-highlight="stamp"]')!;
     expect(box.style.left).toBe("10%");
     expect(box.style.width).toBe("30%");
-    expect(onLocate.mock.calls.at(-1)![0].stamp).toMatchObject({ page: 2, match: "region" });
+    // onLocate fires once the page has laid the region out, a tick after the box appears: wait for it, never read it at once.
+    await waitFor(() => expect(onLocate.mock.calls.at(-1)?.[0].stamp).toMatchObject({ page: 2, match: "region" }));
     await waitFor(() => expect(Element.prototype.scrollIntoView).toHaveBeenCalled());
     expect(screen.queryByTestId("document-viewer-bar")).toBeNull();
     expect(await axeViolations(container)).toEqual([]);

@@ -678,7 +678,7 @@
       "title": "Captcha",
       "category": "forms",
       "status": "beta",
-      "domain": "identity",
+      "domain": "abuse",
       "adoption": null,
       "importers": {
         "akinaza": 1
