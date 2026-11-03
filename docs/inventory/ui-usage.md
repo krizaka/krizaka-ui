@@ -22,7 +22,8 @@ an entry with itself over time, not with its budget).
 | Geolocation & maps | 5 | 24.8 | 34.1 |
 | Media | 9 | 54.5 | 66.1 |
 | Commerce | 30 | 120.5 | 126.5 |
-| Identity & people | 11 | 54.8 | 29.9 |
+| Identity & people | 10 | 49.1 | 24.9 |
+| Abuse protection | 1 | 5.8 | 5.0 |
 | Conversation & AI | 7 | 74.3 | 39.3 |
 | Page blocks & templates | 33 | 64.9 | 125.7 |
 | Cahier (sites register) | 14 | 74.7 | 76.6 |
@@ -208,11 +209,11 @@ an entry with itself over time, not with its budget).
 | `auth-layout` | Identity & people | beta | Yo 3 Ak 3 Oz 2 | — | — | 1.2 / 1.2 | 1 | 1 | 2026-10-29 | **keep** | 8 live importer file(s) |
 | `avatar` | Identity & people | stable | Yo 1 Ak 2 Oz 2 www 1 motion 1 cockpit 1 (native: Yo 1 Ak 1) | — | 9 | 3.1 / 6.0 | 2 | 2 | 2026-10-29 | **keep** | 9 live importer file(s) |
 | `avatar/defaults` | Identity & people | — | Yo 1 | — | 9 | 2.2 / — | 2 | 2 | 2026-10-29 | **keep** | 1 live importer file(s) |
-| `captcha` | Identity & people | beta | Ak 1 | — | — | 5.8 / 5.0 | 1 | 1 | 2026-10-29 | **keep** | 1 live importer file(s) |
 | `identity-card` | Identity & people | beta | — | — | — | 9.2 / 6.5 | 1 | 1 | 2026-10-31 | **ask** | unused, new (2026-10-31): its adoption issue? |
 | `notification-preferences` | Identity & people | beta | — | — | — | 5.3 / 3.1 | 1 | 1 | 2026-10-29 | **keep** | a filed need (its repository left the organisation) |
 | `profile-card` | Identity & people | beta | — | — | 1 | 2.3 / 1.7 | 1 | 2 | 2026-10-29 | **keep** | built on by detail-layout |
 | `verified-badge` | Identity & people | beta | ui 1 motion 1 | — | 1 | 0.7 / 1.0 | 0 | 2 | 2026-10-29 | **keep** | 1 live importer file(s) |
+| `captcha` | Abuse protection | beta | Ak 1 | — | — | 5.8 / 5.0 | 1 | 1 | 2026-10-29 | **keep** | 1 live importer file(s) |
 | `analysis-report` | Conversation & AI | beta | — | — | 1 | 7.0 / 4.5 | 1 | 2 | 2026-10-29 | **keep** | built on by native |
 | `chat` | Conversation & AI | beta | Oz 1 motion 4 | — | — | 6.2 / 7.6 | 1 | 2 | 2026-10-29 | **keep** | 1 live importer file(s) |
 | `engine-flow` | Conversation & AI | beta | www 2 ui 1 motion 2 | — | — | 3.7 / 2.7 | 1 | 1 | 2026-10-29 | **keep** | 3 live importer file(s) |

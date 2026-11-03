@@ -4,7 +4,7 @@ import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { CONSUMERS, PAUSED, carryFacts, pinnedHeads, rederive, readDecisions, budgets, checkBudgets, checkInventory, closureSize, decideAll, domainBudgets, domainOf, entryOf, gitHead, locate, lowerBudgets, parseImports, restoredScan, toMarkdown, parseLimit, readMeta, readPriorAudit, verdict, walk } from "./usage-inventory.mjs";
+import { CONSUMERS, PAUSED, carryFacts, pinnedHeads, rederive, readDecisions, budgets, checkBudgets, checkInventory, closureSize, decideAll, DOMAINS, domainBudgets, domainOf, entryOf, gitHead, locate, lowerBudgets, parseImports, restoredScan, toMarkdown, parseLimit, readMeta, readPriorAudit, verdict, walk } from "./usage-inventory.mjs";
 
 test("parseImports finds every @krizaka/ui and @krizaka/motion specifier, and the names taken from the barrels", () => {
   const src = [
@@ -191,7 +191,7 @@ test("checkInventory fails an entry without a domain, a wrong domain, an experim
   assert.match(text, /button: no `domain`/);
   assert.match(text, /tabs: the inventory says `navigation-shell`, its meta.ts says `forms`/);
   assert.match(text, /novel: experimental, so it names its first consumer's issue/);
-  assert.match(text, /odd: `widgets` is not one of the twelve domains/);
+  assert.match(text, /odd: `widgets` is not one of the thirteen domains/);
   assert.match(text, /odd: only an experimental entry has an `adoption` issue/);
 });
 
@@ -272,4 +272,13 @@ test("the committed inventory is exactly what its own facts regenerate (no hand 
   assert.deepEqual(rederive({ inventory, markdown: read("docs/inventory/ui-usage.md"), decisions: readDecisions() }), []);
   assert.match(read(".github/workflows/usage-inventory.yml"), /usage-inventory\.mjs --latest --keep-local/);
   assert.match(read(".github/workflows/usage-inventory.yml"), /fetch-depth: 0/);
+});
+
+test("captcha is in its own domain abuse, with its own frozen 5 kB, and identity keeps its 24.9 kB (krizaka-internal#2285)", () => {
+  assert.ok("abuse" in DOMAINS);
+  assert.equal(domainOf("captcha", "forms"), "abuse");
+  assert.notEqual(domainOf("avatar", "media"), "abuse");
+  const frozen = JSON.parse(readFileSync(new URL("../packages/ui/size-budgets.json", import.meta.url), "utf8")).domains;
+  assert.equal(frozen.abuse, 5000);
+  assert.equal(frozen.identity, 24900);
 });

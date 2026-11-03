@@ -286,7 +286,8 @@ The 2026-10-28 sums of the entries not retired:
 | Geolocation & maps | 5 | 34.1 (`map` 17.2, `native/map` 13.2, `map/sheet` 1.1, `map/cards` 1.4, `map/pin` 1.2: the sheet, the cards and the pin are their own entries so a page that only draws a map pays nothing for them; `map` itself is back under its former 18) |
 | Media | 9 | 64.1 |
 | Commerce | 30 | 126.5 |
-| Identity & people | 9 | 18.4 |
+| Identity & people | 9 | 18.4 (24.9 in `size-budgets.json` since 2026-10-31, where the budget is frozen) |
+| Abuse protection | 1 | 5.0 (`captcha`, from 2026-11-03) |
 | Conversation & AI | 7 | 39.3 |
 | Page blocks & templates | 33 | 125.7 |
 | Cahier | 14 | 76.6 |
@@ -301,6 +302,7 @@ and foundations' root entry (9.9 against 8.0). This comes from the script's clos
 in every entry, so it is an upper bound and not a failure. Slice 2 measures them with size-limit itself. Any row that
 really fails is fixed there: the code is reduced, the budget is never raised.
 
+- 2026-11-03: **`captcha` leaves `identity` for its own domain `abuse`, with its own budget of 5.0 kB** (founder decision, krizaka-internal#2285). Akinaza's public guest booking brought captcha back from `retire` to `keep` (+5 kB of rows in `identity`, 29.9 against the frozen 24.9 kB); the CTO's rule (no budget raised) holds for `identity`, which keeps its frozen 24.9 kB. Captcha blocks abuse, it does not identify anyone, and `ABUSE_` is already a bounded context. Recorded openly: the library's total budget grows by 5 kB because a real product need returned. The domains are now thirteen. Lightening Button and its Slot (about 1.2 to 1.3 kB pulled into captcha and identity-card) is filed separately, keeping `asChild`.
 - 2026-10-29: the DataTable entry moves from 48.6 to 49.5 kB and GenUiStream (which carries it) from 54.3 to 55.2 kB (the domain budgets do not count these rows, unchanged) for the split that clears Sonar S3776 (body 137; the first split left one function at 92, the second clears it, +100 B more); accepted by the CTO, won back in krizaka-ui#861.
 
 ## 6. The package layout: one package, domain entry groups
