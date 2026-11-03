@@ -14,6 +14,7 @@ import { MapPin } from "./pin";
 // The engine: a MapLibre stand-in that records what the components ask of it (happy-dom has no WebGL).
 const calls: string[] = [];
 let lastStyle: unknown;
+let lastOptions: Record<string, unknown> | undefined;
 let lastMap: { sources: Record<string, { data: unknown }> } | undefined;
 class FakeMap {
   handlers: Record<string, (() => void)[]> = {};
@@ -21,6 +22,7 @@ class FakeMap {
   constructor(public options: { center: [number, number]; zoom: number }) {
     calls.push(`map ${options.center.join(",")} ${options.zoom}`);
     lastStyle = (options as { style?: unknown }).style;
+    lastOptions = options as unknown as Record<string, unknown>;
     this.zoom = options.zoom;
     setTimeout(() => this.handlers.load?.forEach((h) => h()), 0);
   }
@@ -196,6 +198,53 @@ describe("Map", () => {
     screen.getByRole("region", { name: "Pick-up points" }).focus();
     await user.keyboard("{ArrowRight}");
     expect(calls).toContain("panBy 80,0");
+    webgl.mockRestore();
+  });
+});
+
+describe("the wheel scrolls the page, not the map (krizaka-internal#2329)", () => {
+  const mounted = async (props: Partial<React.ComponentProps<typeof Map>> = {}) => {
+    lastOptions = undefined;
+    const view = render(<Map label="Places" center={[-73.58, 45.52]} {...props} />);
+    await waitFor(() => expect(lastOptions).toBeDefined());
+    return view;
+  };
+  const hint = () => screen.queryByRole("status");
+  // happy-dom's WheelEvent drops the modifier keys: the event is built by hand.
+  const wheel = (el: Element, keys: { ctrlKey?: boolean; metaKey?: boolean } = {}) => {
+    const e = new Event("wheel", { bubbles: true, cancelable: true });
+    Object.assign(e, { deltaY: 40, ctrlKey: false, metaKey: false, ...keys });
+    act(() => void el.dispatchEvent(e));
+  };
+
+  it("by default the engine asks for a modifier to zoom (cooperative gestures), and `gestures=\"map\"` opts out", async () => {
+    const webgl = withWebGL();
+    const first = await mounted();
+    expect(lastOptions?.cooperativeGestures).toBe(true);
+    first.unmount();
+    await mounted({ gestures: "map" });
+    expect(lastOptions?.cooperativeGestures).toBe(false);
+    webgl.mockRestore();
+  });
+
+  it("a plain wheel over the map says how to zoom, in the map's words; Ctrl or ⌘ + wheel says nothing", async () => {
+    const webgl = withWebGL();
+    await mounted({ labels: { hint: "Hold Ctrl and scroll to zoom the map" } });
+    const region = screen.getByRole("region", { name: "Places" });
+    expect(hint()).toBeNull();
+    wheel(region, { ctrlKey: true });
+    wheel(region, { metaKey: true });
+    expect(hint()).toBeNull();
+    wheel(region);
+    expect(hint()?.textContent).toBe("Hold Ctrl and scroll to zoom the map");
+    webgl.mockRestore();
+  });
+
+  it("a map that owns the screen never shows the hint", async () => {
+    const webgl = withWebGL();
+    await mounted({ gestures: "map" });
+    wheel(screen.getByRole("region", { name: "Places" }));
+    expect(hint()).toBeNull();
     webgl.mockRestore();
   });
 });

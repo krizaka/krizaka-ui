@@ -151,6 +151,12 @@
 .maplibregl-canvas { position: absolute; left: 0; top: 0; }
 .maplibregl-canvas-container.maplibregl-interactive { cursor: grab; }
 .maplibregl-canvas-container.maplibregl-interactive:active { cursor: grabbing; }
+/* The engine's own cooperative-gestures overlay is not drawn: the Map says it in its own words (`labels.hint`). */
+.maplibregl-cooperative-gesture-screen { display: none; }
+/* The hint of a map in a page ("Ctrl or ⌘ + scroll…"): shown, then gone by itself — a fade, nothing moves. */
+.kz-map-hint { position: absolute; z-index: 10; bottom: 2rem; left: 50%; translate: -50% 0; max-width: calc(100% - 1.5rem); padding: 0.5rem 0.75rem; border: 1px solid var(--kz-border-default); border-radius: 0.5rem; background: var(--kz-surface-1); color: var(--kz-text-primary); box-shadow: var(--kz-shadow-md); font-size: 0.875rem; text-align: center; pointer-events: none; animation: kz-map-hint 1.6s forwards; }
+@keyframes kz-map-hint { 0%, 75% { opacity: 1; } 100% { opacity: 0; } }
+.maplibregl-cooperative-gestures .maplibregl-canvas { touch-action: pan-x pan-y; }
 .maplibregl-marker { position: absolute; top: 0; left: 0; will-change: transform; }
 .kz-map-user { position: relative; width: 16px; height: 16px; border-radius: 9999px; background: var(--kz-accent); border: 3px solid var(--kz-surface-1); box-shadow: var(--kz-shadow-md); }
 .kz-map-user::after { content: ""; position: absolute; inset: -3px; border-radius: inherit; background: var(--kz-accent); opacity: 0.35; animation: kz-map-pulse 2s var(--kz-ease) infinite; }

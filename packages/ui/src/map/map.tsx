@@ -107,9 +107,20 @@ export type MapLabels = {
   zoomOut: string;
   /** Before the list of places read in place of the map ("Places on the map"). */
   places: string;
+  /** The hint when the wheel turns over a map in a page (the page scrolls; the map zooms with Ctrl/⌘). */
+  hint: string;
 };
 
-export const mapLabels: MapLabels = { zoomIn: "Zoom in", zoomOut: "Zoom out", places: "Places on the map" };
+export const mapLabels: MapLabels = {
+  zoomIn: "Zoom in",
+  zoomOut: "Zoom out",
+  places: "Places on the map",
+  hint: "Ctrl or ⌘ + scroll to zoom",
+};
+
+/** Who owns the gestures: `page` (default) lets the wheel and one finger scroll the page; `map` is for a map that is the screen. */
+export type MapGestures = "page" | "map";
+
 
 export type MapProps = {
   /** The map's accessible name ("Pick-up points near you"), passed translated. */
@@ -132,6 +143,12 @@ export type MapProps = {
   region?: MapRegion | null;
   /** The world's low zooms (PMTiles). Default: our world extract (to zoom 6). */
   world?: MapRegion | null;
+  /**
+   * Who owns the wheel and the fingers. `page` (default): the wheel and one finger scroll the page past the map; the map zooms
+   * with Ctrl/⌘ + wheel, two fingers and the buttons, and a short hint says so. `map`: the map is the screen (full height) and
+   * takes every gesture.
+   */
+  gestures?: MapGestures;
   /** The zoom buttons (default) — the keyboard also zooms with + and − on the focused map. */
   controls?: boolean;
   /** Moves with the hand (default); `false` makes a still picture of a place. */
@@ -162,6 +179,7 @@ function MapRoot({
   lang,
   region,
   world,
+  gestures = "page",
   controls = true,
   interactive = true,
   fallback,
@@ -172,6 +190,10 @@ function MapRoot({
   className,
 }: MapProps) {
   const labels = { ...mapLabels, ...given };
+  const cooperative = gestures === "page";
+  // Each plain wheel turn remounts the hint, which fades out by itself (`kz-map-hint`, motion.css).
+  const [hints, setHints] = React.useState(0);
+  const say = () => setHints((n) => n + 1);
   const s = map();
   const pageScheme = usePageScheme();
   const scheme = schemeProp === "auto" ? pageScheme : schemeProp;
@@ -224,7 +246,7 @@ function MapRoot({
           interactive,
           attributionControl: false,
           fadeDuration: reduce ? 0 : 300,
-          cooperativeGestures: false,
+          cooperativeGestures: cooperative,
         });
         created.getCanvas().setAttribute("aria-hidden", "true");
         created.getCanvas().setAttribute("tabindex", "-1");
@@ -280,6 +302,7 @@ function MapRoot({
         className={s.root({ className })}
         data-ready={ready ? "" : undefined}
         tabIndex={interactive ? 0 : undefined}
+        onWheel={(e) => cooperative && !e.ctrlKey && !e.metaKey && say()}
         onKeyDown={(e) => {
           if (e.target !== e.currentTarget || !instance) return;
           if (e.key === "+" || e.key === "=") zoomBy(1);
@@ -303,6 +326,11 @@ function MapRoot({
               −
             </button>
           </div>
+        ) : null}
+        {hints ? (
+          <p key={hints} role="status" className="kz-map-hint">
+            {labels.hint}
+          </p>
         ) : null}
         <p className={s.attribution()}>
           <a href={MAP_ATTRIBUTION.protomapsUrl} target="_blank" rel="noreferrer">
@@ -346,6 +374,14 @@ export type MarkerProps = {
   drop?: number;
 };
 
+/** Lists a place for screen readers while the component stands. */
+function usePlace(id: string, label: string, places: Registry) {
+  React.useEffect(() => {
+    places.add(id, label);
+    return () => places.remove(id);
+  }, [id, label, places]);
+}
+
 const noSubscription = () => () => undefined;
 
 /** A place on the map: an accent dot (or your content) that is a button when it does something. */
@@ -361,10 +397,7 @@ export function Marker({ position, label, onPress, selected, size = 18, children
     () => (host.current ??= document.createElement("div")),
     () => null,
   );
-  React.useEffect(() => {
-    places.add(id, label);
-    return () => places.remove(id);
-  }, [id, label, places]);
+  usePlace(id, label, places);
   React.useEffect(() => {
     if (!m || !lib || !el) return;
     el.setAttribute("data-kz-marker", "");
@@ -405,10 +438,7 @@ export type UserPositionProps = {
 export function UserPosition({ position, label, accuracy }: UserPositionProps) {
   const { map: m, lib, places } = useMap();
   const id = React.useId();
-  React.useEffect(() => {
-    places.add(id, label);
-    return () => places.remove(id);
-  }, [id, label, places]);
+  usePlace(id, label, places);
   React.useEffect(() => {
     if (!m || !lib) return;
     const el = document.createElement("div");
@@ -435,10 +465,7 @@ export type PulseProps = {
 export function Pulse({ position, label, size = 56, tone = "accent" }: PulseProps) {
   const { map: m, lib, places } = useMap();
   const id = React.useId();
-  React.useEffect(() => {
-    places.add(id, label);
-    return () => places.remove(id);
-  }, [id, label, places]);
+  usePlace(id, label, places);
   React.useEffect(() => {
     if (!m || !lib) return;
     const el = document.createElement("div");
@@ -496,10 +523,7 @@ export function Route({ path, label, draw = true, duration = 1400, courier, trip
   const drawn = !animated || doneFor === token;
   const whole = React.useMemo(() => sliceLine(path, 1), [path]);
   const start = React.useMemo(() => sliceLine(path, 0), [path]);
-  React.useEffect(() => {
-    places.add(id, label);
-    return () => places.remove(id);
-  }, [id, label, places]);
+  usePlace(id, label, places);
   useGeoLayer(id, drawn ? whole : start, (c) => [
     { id: `${id}-casing`, type: "line", source: id, layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.accent, "line-width": 9, "line-opacity": tone === "soft" ? 0.08 : 0.16, "line-blur": 3 } },
     { id: `${id}-line`, type: "line", source: id, layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.accent, "line-width": tone === "soft" ? 2 : 3.5, "line-opacity": tone === "soft" ? 0.6 : 1 } },

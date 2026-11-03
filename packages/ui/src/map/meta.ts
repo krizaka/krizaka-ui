@@ -26,6 +26,7 @@ export const meta = {
     "Ask for the position only on a press (`LocationPicker`'s Near me), never on load; every refusal has its words.",
     "`variant` is the look: `plain` (the product register, default), `notebook` (the Cahier — paper and ink, a cluster as a manila tag, a lone place in the margin's red). `scheme=\"auto\"` (default) follows the page; `dark` or `light` pins it. Both come from the tokens — never a hand-written map style.",
     "`MapPin` (from `@krizaka/ui/map/pin`) is the marker's face when the dot is not enough: put it in a `Marker`'s children. Its state is also said by shape (hollow visited, dashed closed, larger selected).",
+    "In a page the wheel scrolls the page, not the map (`gestures=\"page\"`, the default): the map zooms with Ctrl/⌘ + wheel, two fingers on a phone and its + / − buttons, and a short hint in the map's words (`labels.hint`) says so. A map that IS the screen (an explorer, full height) opts in with `gestures=\"map\"`.",
     "Keep the attribution visible (OpenStreetMap's licence, the ODbL, asks for it): the components draw it.",
     "Import the place sheet from `@krizaka/ui/map/sheet` (`MapSheet`) and the cards from `@krizaka/ui/map/cards` (`MapInfoCard`, `RouteCard`, `routeLinks`): their own entries, so a page that only draws a map does not pay for them.",
     "Install the engine only where a map is shown: `maplibre-gl` (web) or `@maplibre/maplibre-react-native` (Expo) — optional peers.",
@@ -34,6 +35,7 @@ export const meta = {
     keyboard: [
       { keys: "Tab", action: "The map (a region named by `label`), then its buttons: zoom, the markers that do something, Near me." },
       { keys: "Arrow keys", action: "Pan the focused map." },
+      { keys: "Ctrl / ⌘ + wheel", action: "Zoom the map; a plain wheel scrolls the page (unless `gestures=\"map\"`)." },
       { keys: "+ / −", action: "Zoom the focused map in or out." },
     ],
     notes: [
@@ -50,6 +52,7 @@ export const meta = {
       { name: "places", title: "Places", description: "Pick-up points in Montréal: markers are buttons, the chosen one shows its name." },
       { name: "cluster", title: "Cluster", description: "Sixty creators grouped while they are close; a group opens by zooming in." },
       { name: "location-picker", title: "Location picker", description: "A meeting point under the pin, its distance from the person, a 1-km zone and Near me." },
+      { name: "full-screen", title: "Full-screen map", description: "A map that is the whole screen takes the wheel and one finger with `gestures=\"map\"`; in a page the default leaves them to the page." },
       { name: "route", title: "Route", description: "A delivery: pins that drop, a route that draws itself, a courier that travels it, a demand pulse — still under reduced motion." },
       { name: "place-sheet", title: "Place sheet", description: "A non-modal sheet over the map (snap points on a phone, a side card from md): an info card with one action and a route card that opens the person's own navigation app." },
       { name: "pins", title: "Pins", description: "MapPin in its three shapes (drop, disc, the Cahier's tag) and four states (default, selected, visited, closed): the state is said by shape as well as colour." },
