@@ -209,14 +209,6 @@ describe("the wheel scrolls the page, not the map (krizaka-internal#2329)", () =
     await waitFor(() => expect(lastOptions).toBeDefined());
     return view;
   };
-  const hint = () => screen.queryByRole("status");
-  // happy-dom's WheelEvent drops the modifier keys: the event is built by hand.
-  const wheel = (el: Element, keys: { ctrlKey?: boolean; metaKey?: boolean } = {}) => {
-    const e = new Event("wheel", { bubbles: true, cancelable: true });
-    Object.assign(e, { deltaY: 40, ctrlKey: false, metaKey: false, ...keys });
-    act(() => void el.dispatchEvent(e));
-  };
-
   it("by default the engine asks for a modifier to zoom (cooperative gestures), and `gestures=\"map\"` opts out", async () => {
     const webgl = withWebGL();
     const first = await mounted();
@@ -227,24 +219,15 @@ describe("the wheel scrolls the page, not the map (krizaka-internal#2329)", () =
     webgl.mockRestore();
   });
 
-  it("a plain wheel over the map says how to zoom, in the map's words; Ctrl or ⌘ + wheel says nothing", async () => {
+  it("the engine's own overlay speaks the map's words: desktop and phone (French from the products)", async () => {
     const webgl = withWebGL();
-    await mounted({ labels: { hint: "Hold Ctrl and scroll to zoom the map" } });
-    const region = screen.getByRole("region", { name: "Places" });
-    expect(hint()).toBeNull();
-    wheel(region, { ctrlKey: true });
-    wheel(region, { metaKey: true });
-    expect(hint()).toBeNull();
-    wheel(region);
-    expect(hint()?.textContent).toBe("Hold Ctrl and scroll to zoom the map");
-    webgl.mockRestore();
-  });
-
-  it("a map that owns the screen never shows the hint", async () => {
-    const webgl = withWebGL();
-    await mounted({ gestures: "map" });
-    wheel(screen.getByRole("region", { name: "Places" }));
-    expect(hint()).toBeNull();
+    const gestureHelp = {
+      "CooperativeGesturesHandler.WindowsHelpText": "Ctrl + molette pour zoomer",
+      "CooperativeGesturesHandler.MacHelpText": "⌘ + molette pour zoomer",
+      "CooperativeGesturesHandler.MobileHelpText": "Deux doigts pour déplacer la carte",
+    } as const;
+    await mounted({ labels: { gestureHelp } });
+    expect(lastOptions?.locale).toEqual(gestureHelp);
     webgl.mockRestore();
   });
 });

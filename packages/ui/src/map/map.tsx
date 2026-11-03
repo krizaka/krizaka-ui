@@ -107,15 +107,18 @@ export type MapLabels = {
   zoomOut: string;
   /** Before the list of places read in place of the map ("Places on the map"). */
   places: string;
-  /** The hint when the wheel turns over a map in a page (the page scrolls; the map zooms with Ctrl/⌘). */
-  hint: string;
+  /**
+   * The words of the engine's overlay when the wheel turns over a map in a page (the page scrolls; the map zooms with Ctrl or ⌘,
+   * or two fingers): MapLibre's `locale` keys `CooperativeGesturesHandler.WindowsHelpText`, `.MacHelpText` and `.MobileHelpText`.
+   * Missing: the engine's English.
+   */
+  gestureHelp?: Partial<Record<`CooperativeGesturesHandler.${"Windows" | "Mac" | "Mobile"}HelpText`, string>>;
 };
 
 export const mapLabels: MapLabels = {
   zoomIn: "Zoom in",
   zoomOut: "Zoom out",
   places: "Places on the map",
-  hint: "Ctrl or ⌘ + scroll to zoom",
 };
 
 /** Who owns the gestures: `page` (default) lets the wheel and one finger scroll the page; `map` is for a map that is the screen. */
@@ -190,10 +193,6 @@ function MapRoot({
   className,
 }: MapProps) {
   const labels = { ...mapLabels, ...given };
-  const cooperative = gestures === "page";
-  // Each plain wheel turn remounts the hint, which fades out by itself (`kz-map-hint`, motion.css).
-  const [hints, setHints] = React.useState(0);
-  const say = () => setHints((n) => n + 1);
   const s = map();
   const pageScheme = usePageScheme();
   const scheme = schemeProp === "auto" ? pageScheme : schemeProp;
@@ -246,7 +245,10 @@ function MapRoot({
           interactive,
           attributionControl: false,
           fadeDuration: reduce ? 0 : 300,
-          cooperativeGestures: cooperative,
+          cooperativeGestures: gestures === "page",
+          // The engine's own overlay (styled in motion.css) says it in the words given; its English is the default.
+          locale: labels.gestureHelp,
+          // The engine's own overlay (styled in motion.css) says it in the words given; its English is the default.
         });
         created.getCanvas().setAttribute("aria-hidden", "true");
         created.getCanvas().setAttribute("tabindex", "-1");
@@ -302,7 +304,6 @@ function MapRoot({
         className={s.root({ className })}
         data-ready={ready ? "" : undefined}
         tabIndex={interactive ? 0 : undefined}
-        onWheel={(e) => cooperative && !e.ctrlKey && !e.metaKey && say()}
         onKeyDown={(e) => {
           if (e.target !== e.currentTarget || !instance) return;
           if (e.key === "+" || e.key === "=") zoomBy(1);
@@ -326,11 +327,6 @@ function MapRoot({
               −
             </button>
           </div>
-        ) : null}
-        {hints ? (
-          <p key={hints} role="status" className="kz-map-hint">
-            {labels.hint}
-          </p>
         ) : null}
         <p className={s.attribution()}>
           <a href={MAP_ATTRIBUTION.protomapsUrl} target="_blank" rel="noreferrer">
