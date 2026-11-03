@@ -39,7 +39,7 @@ export interface Parity {
 }
 export type Status = "experimental" | "stable" | "beta" | "deprecated";
 /** The twelve functional domains of the catalogue (ADR-008 §3); the list and its words live in krizaka-ui `src/meta.ts`. */
-export type Domain = "foundations" | "forms" | "data-display" | "navigation-shell" | "feedback" | "maps" | "media" | "commerce" | "identity" | "conversation" | "page-blocks" | "cahier";
+export type Domain = "foundations" | "forms" | "data-display" | "navigation-shell" | "feedback" | "maps" | "media" | "commerce" | "identity" | "abuse" | "conversation" | "page-blocks" | "cahier";
 export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "media" | "charts" | "blocks" | "layouts" | "templates" | "layout" | "foundations";
 export const CATEGORIES: Category[] = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "media", "charts", "blocks", "layouts", "templates", "layout", "foundations"];
 
