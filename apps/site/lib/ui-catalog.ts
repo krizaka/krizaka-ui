@@ -4,6 +4,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
+import { FAMILY_COVERS, previewExample, THIRD_PARTY_EXAMPLES } from "@/lib/catalog-covers";
 import { levelRank } from "@/lib/ui-domains";
 import { filterKeyOf } from "@/lib/ui-ia";
 import { inventoryOf, type InventoryState, type Product } from "@/lib/ui-inventory";
@@ -44,7 +45,7 @@ function pngSize(file: string): { width: number; height: number } {
 }
 
 function previewOf(item: RegistryItem, alt: string): CatalogPreview {
-  const web = item.web?.examples[0];
+  const web = item.web ? previewExample(item.web.examples, exampleKey) : undefined;
   if (web) return { kind: "live", key: exampleKey(web), heavy: HEAVY_CATEGORIES.has(item.category) || HEAVY_NAMES.has(item.name) };
   const shot = item.native?.examples.find((example) => example.screenshots);
   if (!shot?.screenshots) return null;
@@ -87,18 +88,6 @@ export interface CatalogFamily {
   cover: { key: string; heavy: boolean; scale: number } | null;
 }
 
-/** The component whose example stands for its family on the family's card (its first web example unless named). */
-export const FAMILY_COVERS: Record<string, { component: string; example?: string; scale?: number }> = {
-  foundations: { component: "button", example: "sizes", scale: 0.65 },
-  forms: { component: "date-picker", example: "calendar" },
-  "data-display": { component: "stat", example: "grid" },
-  "navigation-shell": { component: "nav-bar", example: "site" },
-  feedback: { component: "alert", example: "warning", scale: 0.7 },
-  maps: { component: "map", example: "places" },
-  media: { component: "video-player", example: "default" },
-  "page-blocks": { component: "cta-panel", example: "discuss" },
-};
-
 export function catalogFamilies(entries: CatalogEntry[], keys: readonly string[]): CatalogFamily[] {
   const items = new Map(getRegistryItems().map((item) => [item.name, item]));
   return keys.flatMap((key) => {
@@ -107,10 +96,12 @@ export function catalogFamilies(entries: CatalogEntry[], keys: readonly string[]
     const examples = members.reduce((n, entry) => n + (items.get(entry.name)?.web?.examples.length ?? 0) + (items.get(entry.name)?.native?.examples.length ?? 0), 0);
     const wanted = FAMILY_COVERS[key];
     const item = wanted && items.has(wanted.component) ? items.get(wanted.component)! : items.get(members.find((m) => m.preview?.kind === "live")?.name ?? "");
-    const example = item?.web?.examples.find((e) => e.name === wanted?.example) ?? item?.web?.examples[0];
+    const example = item?.web?.examples.find((e) => e.name === wanted?.example) ?? (item?.web ? previewExample(item.web.examples, exampleKey) : undefined);
     // A cover that names a component or an example the registry no longer has fails the build: never a blank card.
     if (wanted && (!items.has(wanted.component) || (wanted.example && example?.name !== wanted.example)))
       throw new Error(`catalogue: the cover of "${key}" (${wanted.component}/${wanted.example ?? "first"}) is not in the registry`);
+    if (example && THIRD_PARTY_EXAMPLES.has(exampleKey(example)))
+      throw new Error(`catalogue: the cover of "${key}" (${exampleKey(example)}) calls a third party`);
     return [{
       key,
       components: members.length,

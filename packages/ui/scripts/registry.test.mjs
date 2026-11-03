@@ -26,7 +26,7 @@ const exportsOf = (file) => {
   return new Set([...declared, ...listed]);
 };
 const STATUSES = ["experimental", "stable", "beta", "deprecated"];
-const DOMAINS = ["foundations", "forms", "data-display", "navigation-shell", "feedback", "maps", "media", "commerce", "identity", "conversation", "page-blocks", "cahier"];
+const DOMAINS = ["foundations", "forms", "data-display", "navigation-shell", "feedback", "maps", "media", "commerce", "identity", "abuse", "conversation", "page-blocks", "cahier"];
 const CATEGORIES = ["actions", "forms", "navigation", "overlays", "feedback", "data-display", "media", "blocks", "layouts", "templates", "layout", "foundations"];
 
 /** Native examples without a story (so without a screenshot): the provider wraps every story already. */

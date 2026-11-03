@@ -260,7 +260,7 @@ export interface Parity {
 export type Status = "experimental" | "stable" | "beta" | "deprecated";
 
 /**
- * What a component is for (ADR-008 §3): the twelve domains the documentation, the size budgets and the guards are
+ * What a component is for (ADR-008 §3): the thirteen domains the documentation, the size budgets and the guards are
  * organised by. The domain is metadata: the entries stay flat (`@krizaka/ui/<name>`). `cahier` is the sites' register
  * (ADR-004): a product never imports it.
  */
@@ -274,6 +274,7 @@ export type Domain =
   | "media"
   | "commerce"
   | "identity"
+  | "abuse"
   | "conversation"
   | "page-blocks"
   | "cahier";
