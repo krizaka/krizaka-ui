@@ -9,6 +9,8 @@
 import { mkdirSync } from "node:fs";
 import { createRequire } from "node:module";
 
+import { isNetworkIdleTimeout, pendingReport, pendingRequests } from "./pending-requests.mjs";
+
 const args = process.argv.slice(2);
 const flag = (name, fallback) => (args.includes(name) ? args[args.indexOf(name) + 1] : fallback);
 const base = flag("--base", "http://localhost:4600").replace(/\/$/, "");
@@ -33,12 +35,23 @@ for (const theme of ["dark", "light"]) {
     const context = await browser.newContext({ viewport: { width: view.width, height: view.height }, deviceScaleFactor: view.width < 500 ? 2 : 1 });
     await context.addInitScript((t) => localStorage.setItem("kz-theme", t), theme);
     const page = await context.newPage();
+    const pending = pendingRequests(page);
     const errors = [];
     page.on("console", (m) => m.type() === "error" && !TOLERATED.some((re) => re.test(m.text())) && errors.push(m.text().slice(0, 200)));
     page.on("pageerror", (e) => errors.push(`exception: ${e.message.slice(0, 200)}`));
     for (const path of PAGES) {
       const where = `${theme} ${view.name} ${path}`;
-      const response = await page.goto(base + path, { waitUntil: "networkidle" });
+      pending.reset();
+      let response;
+      try {
+        response = await page.goto(base + path, { waitUntil: "networkidle" });
+      } catch (error) {
+        if (!isNetworkIdleTimeout(error)) throw error;
+        // krizaka-ui#952: name what keeps the page busy (a third-party widget in a preview), then judge the next page.
+        problems.push(`${where}: ${pendingReport(pending.list())}`);
+        for (const e of errors.splice(0)) problems.push(`${where}: console ${e}`);
+        continue;
+      }
       if (!response || response.status() !== 200) problems.push(`${where}: HTTP ${response?.status()}`);
       for (let y = 0; y < 6000; y += 600) {
         await page.mouse.wheel(0, 600);

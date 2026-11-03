@@ -138,6 +138,11 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 - **Its look is tested**: `scripts/crawl-check.mjs` (CI, on the export) opens the top pages at desktop and phone width, dark
   and light, and fails on a sideways scroll, content or code cut at an edge, an example wider than its frame, an empty
   canvas, a console error. The bar and the footer are NAV-SYS's (`NavBar.Family`, `NavBar.Badge`, `NavBar.Repo`, `SiteFooter`).
+  A page that never reaches `networkidle` is reported with the requests still pending (`scripts/pending-requests.mjs`), not a bare timeout.
+- **No third-party script in a preview** (krizaka-ui#952): an example that loads a third-party script or widget (a captcha such as
+  Cloudflare Turnstile, a payment or map SDK, an embed) is never a catalogue, gallery or home preview: it keeps a request open, so the
+  page never settles and the crawl times out. Its page shows it live on demand; the catalogue shows a still cover
+  (`apps/site/tests/catalog-covers.test.mjs`).
 - Run it: `pnpm turbo run build --filter=@krizaka/site...` once (the packages), then `pnpm --filter @krizaka/site dev`.
 
 ## 4. Release (Changesets)
