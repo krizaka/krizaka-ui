@@ -6,7 +6,7 @@ Package: @krizaka/ui@3.82.0; sizes measured from packages/ui/dist (@krizaka/ui@3
 Consumers: yomizaka f3b26763 · akinaza dd58a2d6 · orazaka-web-client 83172018 · krizaka-com 30b70cec · blog e1c342f4 · ui-site · java-site abcedb11 · ts-site b252e48c · motion-lab dbb0339c · cockpit.
 Paused (counted apart): .
 
-Verdicts: keep 183 · retire 33 · merge 20 · ask 17.
+Verdicts: keep 183 · retire 35 · merge 20 · ask 17.
 
 Sizes: the gzip of an entry's own file and every chunk it pulls in (shared chunks are counted in each entry, so a sum
 over-counts); the budget is the entry's size-limit row in packages/ui/package.json (size-limit measures differently: compare
@@ -30,9 +30,11 @@ an entry with itself over time, not with its budget).
 
 | Entry | Domain | Status | Live importers (files) | Paused | Built on by | gzip kB / budget | Tests | Stories | Last change | Verdict | Why |
 | :-- | :-- | :-- | :-- | :-- | --: | :-- | --: | --: | :-- | :-- | :-- |
+| `media-carousel` | **none** | — | — | — | — | — / 31.0 | — | — | — | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
+| `media-player` | **none** | — | — | — | — | — / 29.9 | — | — | — | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `.` | Foundations | — | Yo 7 Ak 4 Oz 8 www 12 blog 5 ui 3 java 1 ts 1 motion 4 cockpit 3 | — | — | 8.1 / 8.0 | — | — | — | **keep** | 44 live importer file(s) |
 | `badge` | Foundations | stable | Yo 44 Ak 35 Oz 31 www 1 ui 2 motion 4 cockpit 10 (native: Yo 4 Ak 5) | — | 9 | 1.1 / 1.0 | 1 | 2 | 2026-10-29 | **keep** | 132 live importer file(s) |
-| `button` | Foundations | stable | Yo 54 Ak 58 Oz 89 www 8 blog 14 ui 8 java 3 ts 2 motion 17 cockpit 9 (native: Yo 5 Ak 11 blog 2 ui 2) | — | 29 | 3.7 / 3.5 | 1 | 2 | 2026-10-29 | **keep** | 265 live importer file(s) |
+| `button` | Foundations | stable | Yo 54 Ak 58 Oz 89 www 8 blog 14 ui 8 java 3 ts 2 motion 17 cockpit 9 (native: Yo 5 Ak 11 blog 2 ui 2) | — | 30 | 3.7 / 3.5 | 1 | 2 | 2026-10-29 | **keep** | 265 live importer file(s) |
 | `card` | Foundations | stable | Yo 17 Ak 30 Oz 28 www 1 blog 1 ui 2 motion 4 cockpit 2 (native: Yo 7 Ak 8) | — | 2 | 2.1 / 3.0 | 1 | 2 | 2026-10-29 | **keep** | 96 live importer file(s) |
 | `chip` | Foundations | beta | Yo 4 Ak 3 Oz 3 www 2 ui 1 java 1 motion 4 (native: Yo 1 Ak 2) | — | 7 | 3.2 / 13.0 | 2 | 2 | 2026-10-29 | **keep** | 17 live importer file(s) |
 | `chip-link` | Foundations | beta | Yo 2 Ak 5 www 1 cockpit 2 | — | 2 | 0.8 / 2.0 | 1 | 1 | 2026-10-29 | **keep** | 10 live importer file(s) |
@@ -130,7 +132,7 @@ an entry with itself over time, not with its budget).
 | `tree-view` | Navigation & shell | deprecated | cockpit 3 | — | — | 5.0 / 2.5 | 0 | 1 | 2026-10-29 | **merge** → `list` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `alert` | Feedback & overlays | stable | Yo 54 Ak 53 Oz 23 blog 1 cockpit 2 | — | 2 | 0.7 / 1.0 | 1 | 1 | 2026-10-29 | **keep** | 133 live importer file(s) |
 | `confirm-button` | Feedback & overlays | beta | Yo 1 Ak 3 Oz 1 | — | 1 | 4.5 / 4.0 | 1 | 1 | 2026-10-29 | **keep** | 5 live importer file(s) |
-| `dialog` | Feedback & overlays | stable | Yo 7 Ak 5 Oz 16 www 3 motion 3 cockpit 6 | — | 4 | 6.5 / 16.6 | 1 | 2 | 2026-10-29 | **keep** | 37 live importer file(s) |
+| `dialog` | Feedback & overlays | stable | Yo 7 Ak 5 Oz 16 www 3 motion 3 cockpit 6 | — | 5 | 6.5 / 16.6 | 1 | 2 | 2026-10-29 | **keep** | 37 live importer file(s) |
 | `drop-overlay` | Feedback & overlays | beta | Yo 1 | — | — | 1.5 / — | 1 | 1 | 2026-10-29 | **keep** | 1 live importer file(s) |
 | `dropdown-menu` | Feedback & overlays | stable | Yo 4 Ak 2 Oz 1 | — | 5 | 2.2 / 32.0 | 1 | 1 | 2026-10-29 | **keep** | 7 live importer file(s) |
 | `empty-state` | Feedback & overlays | stable | Yo 9 Ak 6 Oz 2 cockpit 8 (native: Yo 4 Ak 3) | — | — | 0.6 / 1.0 | 1 | 2 | 2026-10-29 | **keep** | 32 live importer file(s) |
@@ -159,7 +161,7 @@ an entry with itself over time, not with its budget).
 | `file-upload` | Media | beta | Yo 4 Oz 1 | — | 2 | 8.0 / 9.0 | 1 | 1 | 2026-10-29 | **keep** | 5 live importer file(s) |
 | `image-cropper` | Media | deprecated | — | — | — | 6.8 / 12.8 | 1 | 1 | 2026-10-29 | **retire** | already deprecated (#674), removed in 4.0 |
 | `media-capture` | Media | deprecated | — | — | — | 6.4 / 3.8 | 1 | 2 | 2026-10-29 | **retire** | already deprecated (#674), removed in 4.0 |
-| `media-gallery` | Media | beta | — | — | 1 | 1.2 / 2.0 | 1 | 1 | 2026-10-29 | **keep** | built on by shop |
+| `media-gallery` | Media | beta | — | — | 1 | 1.2 / 2.0 | 3 | 1 | 2026-11-02 | **keep** | built on by shop |
 | `native:image-viewer` | Media | beta | — | — | — | — / — | — | — | 2026-10-29 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native:media-picker` | Media | beta | — | — | — | — / — | — | — | 2026-10-29 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native/media-capture` | Media | — | — | — | — | 1.8 / 2.5 | — | — | 2026-10-30 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
@@ -169,7 +171,7 @@ an entry with itself over time, not with its budget).
 | `retro-tv` | Media | beta | Ak 3 | — | 1 | 13.9 / 22.0 | 1 | 1 | 2026-10-29 | **keep** | 3 live importer file(s) |
 | `terminal-replay` | Media | deprecated | — | — | — | 4.3 / 2.5 | 1 | 1 | 2026-10-29 | **merge** → `code-block` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `vertical-video` | Media | beta | — | — | 1 | 10.7 / 7.1 | 1 | 2 | 2026-10-29 | **keep** | built on by native |
-| `video-player` | Media | beta | www 2 ui 1 | — | 1 | 10.4 / 15.5 | 1 | 2 | 2026-10-29 | **keep** | 3 live importer file(s) |
+| `video-player` | Media | beta | www 2 ui 1 | — | 2 | 10.4 / 15.5 | 1 | 2 | 2026-11-02 | **keep** | 3 live importer file(s) |
 | `video-trimmer` | Media | deprecated | — | — | — | 4.0 / 2.4 | 1 | 1 | 2026-10-29 | **retire** | already deprecated (#674), removed in 4.0 |
 | `waveform` | Media | beta | motion 1 | — | 1 | 1.4 / 1.5 | 1 | 2 | 2026-10-29 | **keep** | built on by native |
 | `agenda` | Commerce | beta | Ak 1 | — | — | 1.8 / 2.0 | 1 | 1 | 2026-10-29 | **keep** | 1 live importer file(s) |

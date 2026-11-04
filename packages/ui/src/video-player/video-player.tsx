@@ -124,6 +124,8 @@ export type VideoPlayerProps = {
   autoPlay?: boolean;
   /** Starts muted. */
   muted?: boolean;
+  /** Starts playing as soon as it mounts, with sound: for a player opened by a press (a lightbox), never for one that was already on the page. */
+  playOnMount?: boolean;
   /** Plays again from the start at the end. */
   loop?: boolean;
   /** How much to fetch before playback: `none` (a list of many videos), `metadata` (default), `auto`. */
@@ -174,6 +176,7 @@ export function VideoPlayer({
   poster,
   autoPlay,
   muted: initiallyMuted = false,
+  playOnMount = false,
   loop,
   preload = "metadata",
   tracks = [],
@@ -197,7 +200,7 @@ export function VideoPlayer({
   const reduce = usePrefersReducedMotion();
   const [resolved, setResolved] = React.useState<{ attempt: number; url: string } | null>(null);
   const [attempt, setAttempt] = React.useState(0);
-  const [wanted, setWanted] = React.useState(false);
+  const [wanted, setWanted] = React.useState(playOnMount);
   const [playing, setPlaying] = React.useState(false);
   const [time, setTime] = React.useState(0);
   const [duration, setDuration] = React.useState(0);
