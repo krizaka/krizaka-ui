@@ -10,6 +10,12 @@ export interface ProductLockupProps {
   /** The endorsement under it — `brandOf(codeName).endorsement[locale]` of `@krizaka/org` (« by Krizaka » / « par Krizaka »). */
   endorsement: string;
   /**
+   * The code name line under the endorsement — « code name: yomizaka » / « nom de code : yomizaka », worded by the app from its
+   * messages. Pass it on a development deployment only, so a person can tell the host (`yomizaka`) from the screen (« Verikora »);
+   * leave it out in production. The library holds no words.
+   */
+  codeName?: string;
+  /**
    * The mark's size in px; the words follow it (`sm` under 40 px, `md` from 40, `lg` from 64).
    * @default 32
    */
@@ -32,7 +38,16 @@ function textSize(size: number): string {
   return "text-base";
 }
 
-export function ProductLockup({ id, name, endorsement, size = 32, animated = true, layout = "stacked", className }: Readonly<ProductLockupProps>) {
+/** The small code-name line of a lockup: for the bars that draw their own lockup markup, so the line looks the same everywhere. */
+export function CodeNameLine({ children, className }: Readonly<{ children: string; className?: string }>) {
+  return (
+    <span className={cx("font-mono text-xs text-fg-secondary", className)} data-code-name="">
+      {children}
+    </span>
+  );
+}
+
+export function ProductLockup({ id, name, endorsement, codeName, size = 32, animated = true, layout = "stacked", className }: Readonly<ProductLockupProps>) {
   const text = textSize(size);
   return (
     <span className={cx("inline-flex items-center gap-2.5", className)} data-brand={id}>
@@ -40,6 +55,7 @@ export function ProductLockup({ id, name, endorsement, size = 32, animated = tru
       <span className={cx("flex leading-tight", layout === "stacked" ? "flex-col" : "items-baseline gap-1.5")}>
         <span className={cx("font-semibold tracking-tight text-fg", text)}>{name}</span>
         <span className="text-xs text-fg-secondary">{endorsement}</span>
+        {codeName ? <CodeNameLine>{codeName}</CodeNameLine> : null}
       </span>
     </span>
   );

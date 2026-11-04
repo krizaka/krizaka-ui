@@ -16,3 +16,5 @@ export const Verikora: Story = {};
 export const FoliovivInline: Story = { args: { id: "akinaza", name: "Folioviv", endorsement: "par Krizaka", layout: "inline" } };
 export const Sovkora: Story = { args: { id: "orazaka", name: "Sovkora", size: 64 } };
 export const Kridoc: Story = { args: { id: "kachizaka", name: "Kridoc" } };
+export const WithCodeName: Story = { args: { codeName: "code name: yomizaka" } };
+export const WithCodeNameFr: Story = { args: { id: "akinaza", name: "Folioviv", endorsement: "par Krizaka", codeName: "nom de code : akinaza", layout: "inline" } };

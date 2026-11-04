@@ -5,7 +5,7 @@ export { FoliovivLogo, SovkoraLogo, VerikoraLogo } from "./marks/commercial";
 export { KridocLogo } from "./marks/KridocLogo";
 export { KrizakaLogo } from "./marks/KrizakaLogo";
 export { OrazakaLogo } from "./marks/OrazakaLogo";
-export { ProductLockup, type ProductLockupProps } from "./marks/ProductLockup";
+export { CodeNameLine, ProductLockup, type ProductLockupProps } from "./marks/ProductLockup";
 export { type BrandId, type MarkId, ProductLogo } from "./marks/ProductLogo";
 export type { MarkProps } from "./marks/shared";
 export { WuSamaMark } from "./marks/WuSamaMark";
