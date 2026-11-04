@@ -16,6 +16,10 @@
     "map/route": {
       "dark": "https://krizaka-assets.b-cdn.net/ui/maps/route-dark.eafa024a88.png",
       "light": "https://krizaka-assets.b-cdn.net/ui/maps/route-light.d487c30a93.png"
+    },
+    "map/full-screen": {
+      "dark": "https://krizaka-assets.b-cdn.net/ui/maps/full-screen-dark.53123a8374.png",
+      "light": "https://krizaka-assets.b-cdn.net/ui/maps/full-screen-light.0ed06c0479.png"
     }
   }
 }
