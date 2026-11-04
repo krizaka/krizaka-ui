@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.87.0
+
+### Minor Changes
+
+- [#959](https://github.com/krizaka/krizaka-ui/pull/959) [`560b787`](https://github.com/krizaka/krizaka-ui/commit/560b787b76bc7c0c81f2632b864daa9cb43f69f1) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - marks: `ProductLockup` takes an optional `codeName` (the worded line « code name: yomizaka » / « nom de code : yomizaka », passed by the app on a development deployment only) and `CodeNameLine` exports the same line for bars that draw their own lockup.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.87.0
+  - @krizaka/tokens@3.87.0
+
 ## 3.86.0
 
 ### Minor Changes
