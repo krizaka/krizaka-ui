@@ -237,6 +237,7 @@ export default defineConfig([
       // The video frame and the carousel have their own entries: the tiles do not pay for the player.
       "media-player": "src/media-gallery/player-index.ts",
       "media-carousel": "src/media-gallery/carousel-index.ts",
+      "pausable-loop": "src/media-gallery/loop-index.ts",
       // The skip link moves focus to its target.
       "skip-link": "src/skip-link/index.ts",
       // The top bar's search trigger: its global ⌘K (the bar itself, ./app-header, stays server-safe).

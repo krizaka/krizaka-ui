@@ -12,9 +12,10 @@ const PlayerLightbox = React.lazy(() => import("./player-lightbox"));
 
 export const mediaPlayer = tv({
   slots: {
+    frame: "relative block w-full overflow-hidden rounded-xl border border-border-default bg-media p-0 text-fg-on-media",
     poster:
-      "group relative isolate block w-full overflow-hidden rounded-xl border border-border-default bg-media p-0 text-fg-on-media " +
-      "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+      "group absolute inset-0 block h-full w-full " +
+      "focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring",
     image: "absolute inset-0 h-full w-full object-cover",
     play:
       "absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full " +
@@ -30,8 +31,10 @@ export type MediaPlayerProps = Pick<
 > & {
   /** `inline`: the player itself. `lightbox`: a poster that opens it in a dialog. Default `inline`. */
   mode?: "inline" | "lightbox";
-  /** `9 / 16` frame for a vertical film; default `16 / 9`. */
+  /** `9 / 16` frame and the narrow dialog for a vertical film; default `16 / 9`. */
   vertical?: boolean;
+  /** Any frame ratio (`19 / 16`, `4 / 3`): wins over the frame of `vertical` (give both for a portrait ratio: `vertical ratio="3 / 4"`). Default `16 / 9` (`9 / 16` when `vertical`). */
+  ratio?: string;
   /** The poster's words in the lightbox ("Play the film"), passed translated. Required for `lightbox`. */
   playLabel?: string;
   /** The close button's words, passed translated. Default `Close`. */
@@ -40,6 +43,12 @@ export type MediaPlayerProps = Pick<
   posterAlt?: string;
   /** A line over the foot of the poster (« Fig. 1a »). */
   caption?: string;
+  /** Lightbox: drawn over the poster, under its press (the frame is `relative`): a `<PausableLoop>` of `@krizaka/ui/pausable-loop` previews the film with a muted loop. */
+  preview?: React.ReactNode;
+  /** Lightbox: opens or closes it from outside (controlled). With it, `onOpenChange` is how the lightbox asks to close. */
+  open?: boolean;
+  /** Lightbox: replaces the poster with your own opener (`(open) => <button onClick={open}>…`); `null` draws nothing, for a lightbox driven by `open` alone. */
+  trigger?: ((open: () => void) => React.ReactNode) | null;
   /** Called when the lightbox opens or closes. */
   onOpenChange?: (open: boolean) => void;
   /** Classes merged on the player or the poster. */
@@ -54,34 +63,46 @@ export function MediaPlayer({
   closeLabel = "Close",
   posterAlt = "",
   caption,
+  preview,
+  open: given,
+  trigger,
   onOpenChange,
+  ratio: freeRatio,
   className,
   ...player
 }: MediaPlayerProps) {
-  const ratio = vertical ? "9 / 16" : "16 / 9";
-  const [open, setOpen] = React.useState(false);
-  const poster = React.useRef<HTMLButtonElement>(null);
-  const toggle = React.useCallback(
-    (next: boolean) => {
-      setOpen(next);
-      onOpenChange?.(next);
-      if (!next) poster.current?.focus();
-    },
-    [onOpenChange],
-  );
+  const ratio = freeRatio ?? (vertical ? "9 / 16" : "16 / 9");
+  const [inner, setInner] = React.useState(false);
+  const open = given ?? inner;
+  const setOpen = (next: boolean) => {
+    setInner(next);
+    onOpenChange?.(next);
+  };
+  // The dialog hands the focus back to whatever opened it (the poster or the page's own trigger) when it closes.
   if (mode === "inline") return <VideoPlayer {...player} aspectRatio={ratio} className={className} />;
+  const name = playLabel ?? player.title;
+  // The default opener: the poster (and its loop) in a frame, one button named by `playLabel`; the pause is a sibling, never nested.
+  const opener =
+    trigger === undefined ? (
+      <div className={s.frame({ className })} style={{ aspectRatio: ratio }}>
+        {player.poster && <img src={player.poster} alt={posterAlt} loading="lazy" decoding="async" className={s.image()} />}
+        {preview}
+        <button type="button" className={s.poster()} aria-label={caption ? `${caption}. ${name}` : name} onClick={() => setOpen(true)}>
+          <span className={s.play()} aria-hidden>
+            <PlayGlyph className="ml-1 h-6 w-6" />
+          </span>
+          {caption && <span className={s.caption()}>{caption}</span>}
+        </button>
+      </div>
+    ) : (
+      trigger?.(() => setOpen(true))
+    );
   return (
     <>
-      <button ref={poster} type="button" className={s.poster({ className })} style={{ aspectRatio: ratio }} aria-label={caption ? `${caption}. ${playLabel ?? player.title}` : (playLabel ?? player.title)} onClick={() => toggle(true)}>
-        {player.poster && <img src={player.poster} alt={posterAlt} loading="lazy" decoding="async" className={s.image()} />}
-        <span className={s.play()} aria-hidden>
-          <PlayGlyph className="ml-1 h-6 w-6" />
-        </span>
-        {caption && <span className={s.caption()}>{caption}</span>}
-      </button>
+      {opener}
       {open && (
         <React.Suspense fallback={null}>
-          <PlayerLightbox player={player} ratio={ratio} vertical={vertical} closeLabel={closeLabel} onClose={() => toggle(false)} />
+          <PlayerLightbox player={player} ratio={ratio} vertical={vertical} closeLabel={closeLabel} onClose={() => setOpen(false)} />
         </React.Suspense>
       )}
     </>

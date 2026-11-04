@@ -525,6 +525,10 @@
       "types": "./dist/media-carousel.d.ts",
       "import": "./dist/media-carousel.js"
     },
+    "./pausable-loop": {
+      "types": "./dist/pausable-loop.d.ts",
+      "import": "./dist/pausable-loop.js"
+    },
     "./sticky-action": {
       "types": "./dist/sticky-action.d.ts",
       "import": "./dist/sticky-action.js"
@@ -2203,6 +2207,13 @@
       "name": "./media-carousel",
       "path": "dist/media-carousel.js",
       "limit": "31 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx"]
+    },
+    {
+      "name": "./pausable-loop",
+      "path": "dist/pausable-loop.js",
+      "limit": "2 kB",
       "gzip": true,
       "ignore": ["tailwind-variants", "clsx"]
     },
