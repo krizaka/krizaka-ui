@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Media gallery",
-  summary: "Also `MediaCarousel` (3 to 4 realisations, one at a time), `MediaPlayer` (the one video frame: inline, lightbox, 9:16) and `PausableLoop` (a silent loop with a visible pause, its own entry: the carousel and the player stay light without it). A shop's own photos and loops in tiles — the first featured, loops playing muted while their tile is on screen (a still under reduced motion), a caption on the foot of a tile.",
+  summary: "Also `MediaCarousel` (3 to 4 realisations, one at a time), `MediaPlayer` (the one video frame: inline, lightbox, 9:16) and `PausableLoop` (a silent loop with a visible pause, its own entry). A shop's own photos and loops in tiles, the first featured, a caption on the foot of a tile.",
   status: "beta",
   category: "media",
   domain: "media",
