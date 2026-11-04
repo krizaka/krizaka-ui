@@ -1,6 +1,6 @@
 /* The information architecture of ui.krizaka.com (krizaka-com#115, ADR-008 §7): where every component sits, reader-first.
 
-     Get started → Foundations → Components (by what they are for: the twelve domains) → Templates (by intent) → Tooling → Platforms
+     Get started → Foundations → Components (by what they are for: the thirteen domains) → Templates (by intent) → Tooling → Platforms
 
    Each group answers "you come here when…" (messages: docs.ia.groups.<id>.when); each domain too, with the owner rule of
    its entries (docs.ia.domains.<id>). The registry says what a component is (domain, category, platforms, status); this

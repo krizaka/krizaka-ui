@@ -479,6 +479,11 @@
           "when": "You come here for who is there: avatars, profiles, the account menu and settings, notification preferences, sign-in layouts.",
           "owner": "Default pictures come from the org JSON, never inlined."
         },
+        "abuse": {
+          "title": "Abuse protection",
+          "when": "You come here to keep bots and abuse out of a public form: the captcha.",
+          "owner": "The provider and its keys are the app's admin settings, never in the code."
+        },
         "conversation": {
           "title": "Conversation & AI",
           "when": "You come here to talk with people and with the engine: chat, generated interfaces, proposals, reports, markdown.",

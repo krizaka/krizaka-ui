@@ -100,6 +100,7 @@ export const DOMAINS = {
   media: "Media",
   commerce: "Commerce",
   identity: "Identity & people",
+  abuse: "Abuse protection",
   conversation: "Conversation & AI",
   "page-blocks": "Page blocks & templates",
   cahier: "Cahier (sites register)",
@@ -130,7 +131,8 @@ const DOMAIN_OVERRIDES = {
   media: ["waveform", "retro-tv", "native/vertical-video", "native/video-player", "native/media-capture", "native/media-picker"],
   commerce: ["money-input", "price-catalogue-editor", "promo-code-field", "shop", "shop-composer", "shop-gallery", "service-card", "slot-picker",
     "agenda", "opening-hours", "reviews", "pricing-page", "kind-config-editor", "usage", "quota-meter"],
-  identity: ["avatar", "avatar/defaults", "profile-card", "account-menu", "account-settings", "verified-badge", "notification-preferences", "auth-layout", "captcha", "achievement"],
+  identity: ["avatar", "avatar/defaults", "profile-card", "account-menu", "account-settings", "verified-badge", "notification-preferences", "auth-layout", "achievement"],
+  abuse: ["captcha"],
   conversation: ["chat", "genui", "proposal", "analysis-report", "markdown", "native/markdown", "engine-flow", "next-actions"],
   "page-blocks": ["blocks.css", "story.css", "marketing-layout", "docs-layout", "docs-nav", "toc", "page-index", "section-backdrop", "glow-card", "number-ticker"],
   cahier: ["site-cahier", "doodle", "taped-photo", "stuck", "footnote", "specimen-tag", "bird-plate", "anatomy-plate", "chapter", "margin-layout", "grade-stamp", "speed-lines", "versus-card", "flock", "mascot-quote", "signature", "elephant"],
@@ -800,7 +802,7 @@ function rowProblems(r, row) {
   const problems = [];
   const hasOwnMeta = r.kind === "entry" && !r.name.includes("/") && !r.name.endsWith(".css") && r.name !== "." && title;
   if (hasOwnMeta && !domain) problems.push(`${r.name}: no \`domain\` in its meta.ts`);
-  if (domain && !(domain in DOMAINS)) problems.push(`${r.name}: \`${domain}\` is not one of the twelve domains`);
+  if (domain && !(domain in DOMAINS)) problems.push(`${r.name}: \`${domain}\` is not one of the thirteen domains`);
   if (experimental && !/^[\w.-]+#\d+$/.test(adoption ?? "")) problems.push(`${r.name}: experimental, so it names its first consumer's issue (\`adoption: "<repo>#<n>"\`)`);
   if (!experimental && adoption) problems.push(`${r.name}: only an experimental entry has an \`adoption\` issue`);
   if (!row && !(experimental && adoption)) problems.push(`${r.name}: missing from docs/inventory/ui-usage.json (run \`pnpm inventory:usage\`), unless it is experimental with an adoption issue`);

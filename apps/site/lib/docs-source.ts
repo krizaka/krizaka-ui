@@ -137,7 +137,7 @@ export function pageText(page: DocsPage, t: TranslationDictionary): PageText {
 
 /**
  * The sidebar: six groups, each with its "you come here when…" (lib/ui-ia.ts) — Get started, Foundations,
- * Components (the twelve domains, each with its entries: stable and beta first, experimental last), Templates (by intent), Tooling, Mobile. A
+ * Components (the thirteen domains, each with its entries: stable and beta first, experimental last), Templates (by intent), Tooling, Mobile. A
  * heading appears once; a component is in one place; the deprecated ones leave the sidebar (their page stays).
  */
 function uiTree(source: DocsSource, t: TranslationDictionary, name: string): PageTree.Root {

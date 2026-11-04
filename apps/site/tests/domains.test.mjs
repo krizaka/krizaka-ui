@@ -18,9 +18,9 @@ const registry = (pkg) => {
 const items = [...registry("ui"), ...registry("charts")];
 const messages = { en: read("messages/en.json"), fr: read("messages/fr.json") };
 
-test("there are twelve domains, and every entry belongs to one", () => {
-  assert.equal(DOMAINS.length, 12);
-  assert.equal(new Set(DOMAINS).size, 12);
+test("there are thirteen domains, and every entry belongs to one", () => {
+  assert.equal(DOMAINS.length, 13);
+  assert.equal(new Set(DOMAINS).size, 13);
   for (const item of items) assert.ok(DOMAINS.includes(domainOf(item)), `${item.name}: domain ${item.domain}`);
   // @krizaka/charts has no meta domain yet: it is data display.
   for (const item of registry("charts")) assert.equal(domainOf(item), "data-display", item.name);
