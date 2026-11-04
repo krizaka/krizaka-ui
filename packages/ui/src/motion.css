@@ -151,6 +151,13 @@
 .maplibregl-canvas { position: absolute; left: 0; top: 0; }
 .maplibregl-canvas-container.maplibregl-interactive { cursor: grab; }
 .maplibregl-canvas-container.maplibregl-interactive:active { cursor: grabbing; }
+/* The engine's cooperative-gestures overlay ("Ctrl + scroll to zoom the map"), in the map's words (`labels.hint*`) and the tokens: shown on a plain wheel, gone by itself — a fade, nothing moves. */
+.maplibregl-cooperative-gesture-screen { position: absolute; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center; padding: 1rem; background: color-mix(in srgb, var(--kz-surface-1) 82%, transparent); color: var(--kz-text-primary); font-size: 0.875rem; line-height: 1.3; text-align: center; opacity: 0; pointer-events: none; transition: opacity 1s 1s; }
+.maplibregl-cooperative-gesture-screen.maplibregl-show { opacity: 1; transition: opacity 0.05s; }
+.maplibregl-cooperative-gesture-screen .maplibregl-mobile-message { display: none; }
+@media (hover: none) { .maplibregl-cooperative-gesture-screen .maplibregl-desktop-message { display: none; } .maplibregl-cooperative-gesture-screen .maplibregl-mobile-message { display: block; } }
+@media (prefers-reduced-motion: reduce) { .maplibregl-cooperative-gesture-screen, .maplibregl-cooperative-gesture-screen.maplibregl-show { transition: none; } }
+.maplibregl-cooperative-gestures .maplibregl-canvas { touch-action: pan-x pan-y; }
 .maplibregl-marker { position: absolute; top: 0; left: 0; will-change: transform; }
 .kz-map-user { position: relative; width: 16px; height: 16px; border-radius: 9999px; background: var(--kz-accent); border: 3px solid var(--kz-surface-1); box-shadow: var(--kz-shadow-md); }
 .kz-map-user::after { content: ""; position: absolute; inset: -3px; border-radius: inherit; background: var(--kz-accent); opacity: 0.35; animation: kz-map-pulse 2s var(--kz-ease) infinite; }

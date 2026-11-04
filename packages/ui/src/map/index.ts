@@ -16,6 +16,7 @@ export {
   configureMaps,
   Map,
   map,
+  type MapGestures,
   type MapLabels,
   mapLabels,
   type MapProps,

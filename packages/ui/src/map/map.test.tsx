@@ -14,6 +14,7 @@ import { MapPin } from "./pin";
 // The engine: a MapLibre stand-in that records what the components ask of it (happy-dom has no WebGL).
 const calls: string[] = [];
 let lastStyle: unknown;
+let lastOptions: Record<string, unknown> | undefined;
 let lastMap: { sources: Record<string, { data: unknown }> } | undefined;
 class FakeMap {
   handlers: Record<string, (() => void)[]> = {};
@@ -21,6 +22,7 @@ class FakeMap {
   constructor(public options: { center: [number, number]; zoom: number }) {
     calls.push(`map ${options.center.join(",")} ${options.zoom}`);
     lastStyle = (options as { style?: unknown }).style;
+    lastOptions = options as unknown as Record<string, unknown>;
     this.zoom = options.zoom;
     setTimeout(() => this.handlers.load?.forEach((h) => h()), 0);
   }
@@ -196,6 +198,36 @@ describe("Map", () => {
     screen.getByRole("region", { name: "Pick-up points" }).focus();
     await user.keyboard("{ArrowRight}");
     expect(calls).toContain("panBy 80,0");
+    webgl.mockRestore();
+  });
+});
+
+describe("the wheel scrolls the page, not the map (krizaka-internal#2329)", () => {
+  const mounted = async (props: Partial<React.ComponentProps<typeof Map>> = {}) => {
+    lastOptions = undefined;
+    const view = render(<Map label="Places" center={[-73.58, 45.52]} {...props} />);
+    await waitFor(() => expect(lastOptions).toBeDefined());
+    return view;
+  };
+  it("by default the engine asks for a modifier to zoom (cooperative gestures), and `gestures=\"map\"` opts out", async () => {
+    const webgl = withWebGL();
+    const first = await mounted();
+    expect(lastOptions?.cooperativeGestures).toBe(true);
+    first.unmount();
+    await mounted({ gestures: "map" });
+    expect(lastOptions?.cooperativeGestures).toBe(false);
+    webgl.mockRestore();
+  });
+
+  it("the engine's own overlay speaks the map's words: desktop and phone (French from the products)", async () => {
+    const webgl = withWebGL();
+    const gestureHelp = {
+      "CooperativeGesturesHandler.WindowsHelpText": "Ctrl + molette pour zoomer",
+      "CooperativeGesturesHandler.MacHelpText": "⌘ + molette pour zoomer",
+      "CooperativeGesturesHandler.MobileHelpText": "Deux doigts pour déplacer la carte",
+    } as const;
+    await mounted({ labels: { gestureHelp } });
+    expect(lastOptions?.locale).toEqual(gestureHelp);
     webgl.mockRestore();
   });
 });

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import ClusterExample from "../../registry/examples/map/cluster";
+import FullScreenExample from "../../registry/examples/map/full-screen";
 import LocationPickerExample from "../../registry/examples/map/location-picker";
 import PinsExample from "../../registry/examples/map/pins";
 import PlaceSheetExample from "../../registry/examples/map/place-sheet";
@@ -21,6 +22,7 @@ type Story = StoryObj<typeof meta>;
 export const Places: Story = { render: () => <PlacesExample />, parameters: { screenshot: false } };
 export const Cluster: Story = { render: () => <ClusterExample />, parameters: { screenshot: false } };
 export const LocationPicker: Story = { render: () => <LocationPickerExample />, parameters: { screenshot: false } };
+export const FullScreen: Story = { render: () => <FullScreenExample />, parameters: { screenshot: false } };
 export const Route: Story = { render: () => <RouteExample />, parameters: { screenshot: false } };
 export const Static: Story = { render: () => <StaticExample /> };
 export const PlaceSheet: Story = { render: () => <PlaceSheetExample /> };
