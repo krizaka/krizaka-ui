@@ -3,12 +3,12 @@ import { render } from "@testing-library/react";
 
 import {
   AkinazaLogo,
+  CodeNameLine,
   cx,
   FoliovivLogo,
   KridocLogo,
   KrizakaLogo,
   OrazakaLogo,
-  CodeNameLine,
   ProductLockup,
   ProductLogo,
   RotatingWord,
