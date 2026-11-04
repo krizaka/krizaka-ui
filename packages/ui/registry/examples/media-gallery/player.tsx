@@ -6,8 +6,8 @@ const POSTER = `data:image/svg+xml,${encodeURIComponent("<svg xmlns='http://www.
 export default function MediaPlayerExample() {
   return (
     <div className="grid max-w-2xl grid-cols-[2fr_1fr] items-start gap-3">
-      <MediaPlayer mode="lightbox" src="/film.mp4" poster={POSTER} title="Film: the world of Krizaka" playLabel="Play the film" caption="Fig. 1" />
-      <MediaPlayer mode="lightbox" vertical src="/film-9x16.mp4" poster={POSTER} title="Film: the world of Krizaka, vertical" playLabel="Play the vertical film" />
+      <MediaPlayer mode="lightbox" src="https://krizaka-assets.b-cdn.net/org/v1/films/film/le-monde-de-krizaka-16x9.b1c7c4ee51.mp4" poster={POSTER} title="Film: the world of Krizaka" playLabel="Play the film" caption="Fig. 1" />
+      <MediaPlayer mode="lightbox" vertical src="https://krizaka-assets.b-cdn.net/org/v1/films/film/le-monde-de-krizaka-9x16.aa28980db3.mp4" poster={POSTER} title="Film: the world of Krizaka, vertical" playLabel="Play the vertical film" />
     </div>
   );
 }

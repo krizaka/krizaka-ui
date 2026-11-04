@@ -10,7 +10,7 @@ export default function MediaCarouselExample() {
       <MediaCarousel
         label="Realisations"
         slides={[
-          { id: "a", src: PIC("#1d3f6b", "#4d7fb8"), alt: "The brand film", caption: "Fig. 1a", film: { src: "/film.mp4", title: "Film: the world of Krizaka", playLabel: "Play the film" } },
+          { id: "a", src: PIC("#1d3f6b", "#4d7fb8"), alt: "The brand film", caption: "Fig. 1a", film: { src: "https://krizaka-assets.b-cdn.net/org/v1/films/film/le-monde-de-krizaka-16x9.b1c7c4ee51.mp4", title: "Film: the world of Krizaka", playLabel: "Play the film" } },
           { id: "b", src: PIC("#23496f", "#6b9bc9"), alt: "A lease read in a minute", caption: "Fig. 1b" },
           { id: "c", src: PIC("#2a3f5c", "#7aa5d6"), alt: "A return prepared, never filed", caption: "Fig. 1c" },
         ]}
