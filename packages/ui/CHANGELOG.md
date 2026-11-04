@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.84.0
+
+### Minor Changes
+
+- [#953](https://github.com/krizaka/krizaka-ui/pull/953) [`2de331d`](https://github.com/krizaka/krizaka-ui/commit/2de331dad53476856cf872942db01354bf5e3086) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `Map` leaves the wheel and one finger to the page: in a page the wheel scrolls past the map, which zooms with Ctrl/⌘ + wheel, two fingers and its buttons, and the engine's own overlay says so in the map's words (`labels.gestureHelp`: MapLibre's `CooperativeGesturesHandler.*HelpText` keys). A map that is the whole screen opts back in with `gestures="map"` (default `page`).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.84.0
+  - @krizaka/tokens@3.84.0
+
 ## 3.83.0
 
 ### Minor Changes
