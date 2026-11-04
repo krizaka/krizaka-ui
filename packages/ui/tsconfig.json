@@ -8,6 +8,8 @@
       "@krizaka/ui": ["./src/index.ts"],
       "@krizaka/ui/cn": ["./src/cn.ts"],
       "@krizaka/ui/native/*": ["./src/native/*.tsx"],
+      "@krizaka/ui/media-player": ["./src/media-gallery/player-index.ts"],
+      "@krizaka/ui/media-carousel": ["./src/media-gallery/carousel-index.ts"],
       "@krizaka/ui/*": ["./src/*/index.ts"]
     }
   },

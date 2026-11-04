@@ -150,7 +150,13 @@ describe("documentation carried by the code (meta.ts)", () => {
 
   it.each(names)("%s: the web imports are exported by its entry", async (name) => {
     const entry = await import(`../src/${name === "cn" ? "cn.ts" : `${name}/index.ts`}`);
-    for (const imported of metas[name].web.imports) expect(entry, `@krizaka/ui/${name} exports ${imported}`).toHaveProperty(imported);
+    // A heavier part has its own entry beside the index (`media-gallery/player-index.ts` = `@krizaka/ui/media-player`).
+    const own = name === "cn" ? [] : readdirSync(join(PKG, "src", name)).filter((f) => f.endsWith("-index.ts"));
+    const parts = await Promise.all(own.map((f) => import(`../src/${name}/${f}`)));
+    for (const imported of metas[name].web.imports) {
+      const where = [entry, ...parts].find((module) => imported in module);
+      expect(where, `@krizaka/ui/${name} (or one of its own entries) exports ${imported}`).toBeDefined();
+    }
   });
 });
 

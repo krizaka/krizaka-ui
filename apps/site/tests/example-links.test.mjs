@@ -21,3 +21,13 @@ test("no example leaves the page: a sample never navigates (the docs would show 
   const leaving = sources.filter(([, code]) => /window\.location\.(assign|replace|href\s*=)|location\.href\s*=/.test(code)).map(([file]) => file);
   assert.deepEqual(leaving, []);
 });
+
+// The docs crawler opened a MediaPlayer whose film was `src="/film.mp4"`: ui.krizaka.com serves no such file, so the
+// lightbox answered 404 — and the crawl runs only in the merge queue. A sample's media is a real, served address (the
+// org's CDN, a data URI) or a file of this site's `public/`; never a root-relative path nothing serves.
+test("no example points a media at a root-relative file the docs site does not serve", () => {
+  const served = new Set(readdirSync(new URL("../public/", import.meta.url), { recursive: true }).map((f) => `/${String(f).split("\\").join("/")}`));
+  const media = /\b(?:src|poster|webm|mp4|workerSrc)\s*[=:]\s*\{?\s*["'`](\/(?!\/)[^"'`?#]*)/g;
+  const missing = sources.flatMap(([file, code]) => [...code.matchAll(media)].map((m) => m[1]).filter((path) => !served.has(path)).map((path) => `${file} → ${path}`));
+  assert.deepEqual(missing, []);
+});

@@ -11,6 +11,9 @@ export default defineConfig({
     alias: [
       { find: /^@krizaka\/ui$/, replacement: `${src}/index.ts` },
       { find: /^@krizaka\/ui\/cn$/, replacement: `${src}/cn.ts` },
+      // Heavier parts with their own entry, beside their component's index (tsconfig.json, tsup.config.ts).
+      { find: /^@krizaka\/ui\/media-player$/, replacement: `${src}/media-gallery/player-index.ts` },
+      { find: /^@krizaka\/ui\/media-carousel$/, replacement: `${src}/media-gallery/carousel-index.ts` },
       { find: /^@krizaka\/ui\/([a-z-]+)$/, replacement: `${src}/$1/index.ts` },
       // A nested entry (`@krizaka/ui/app-header/search`): its own folder with an index.
       { find: /^@krizaka\/ui\/([a-z-]+)\/([a-z-]+)$/, replacement: `${src}/$1/$2/index.ts` },

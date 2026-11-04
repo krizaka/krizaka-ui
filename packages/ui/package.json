@@ -517,6 +517,14 @@
       "types": "./dist/media-gallery.d.ts",
       "import": "./dist/media-gallery.js"
     },
+    "./media-player": {
+      "types": "./dist/media-player.d.ts",
+      "import": "./dist/media-player.js"
+    },
+    "./media-carousel": {
+      "types": "./dist/media-carousel.d.ts",
+      "import": "./dist/media-carousel.js"
+    },
     "./sticky-action": {
       "types": "./dist/sticky-action.d.ts",
       "import": "./dist/sticky-action.js"
@@ -2183,6 +2191,20 @@
         "tailwind-variants",
         "clsx"
       ]
+    },
+    {
+      "name": "./media-player (VideoPlayer inline; the lightbox dialog is a lazy chunk, counted here)",
+      "path": "dist/media-player.js",
+      "limit": "29.9 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx"]
+    },
+    {
+      "name": "./media-carousel",
+      "path": "dist/media-carousel.js",
+      "limit": "31 kB",
+      "gzip": true,
+      "ignore": ["tailwind-variants", "clsx"]
     },
     {
       "name": "./media-gallery",

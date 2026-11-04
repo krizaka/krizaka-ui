@@ -41,6 +41,9 @@ const config: StorybookConfig = {
         { find: /^expo-camera$/, replacement: `${ui}/native/mocks/expo-camera.tsx` },
         { find: /^@maplibre\/maplibre-react-native$/, replacement: `${ui}/native/mocks/maplibre.tsx` },
         { find: /^expo-image-picker$/, replacement: `${ui}/native/mocks/expo-image-picker.tsx` },
+        // The two entries of media-gallery live in its folder under their own index files (tsup.config.ts, tsconfig paths).
+        { find: /^@krizaka\/ui\/media-carousel$/, replacement: `${ui}/media-gallery/carousel-index.ts` },
+        { find: /^@krizaka\/ui\/media-player$/, replacement: `${ui}/media-gallery/player-index.ts` },
         { find: /^@krizaka\/ui\/([a-z-]+)$/, replacement: `${ui}/$1/index.ts` },
         // A nested entry (`@krizaka/ui/app-header/search`): its own folder with an index (after the native ones above).
         { find: /^@krizaka\/ui\/([a-z-]+)\/([a-z-]+)$/, replacement: `${ui}/$1/$2/index.ts` },
