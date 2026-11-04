@@ -10,8 +10,25 @@ const slides = [
   { id: "c", src: "/c.jpg", alt: "A return", caption: "Fig. 1c" },
 ];
 
+const calm = (matches: boolean) => {
+  window.matchMedia = vi.fn().mockReturnValue({ matches, addEventListener: vi.fn(), removeEventListener: vi.fn(), addListener: vi.fn(), removeListener: vi.fn() }) as never;
+};
+
+// The loop plays only while on screen: a viewport that always sees it.
+class SeenObserver {
+  constructor(private readonly notify: (entries: { isIntersecting: boolean }[]) => void) {}
+  observe() {
+    this.notify([{ isIntersecting: true }]);
+  }
+  disconnect() {}
+}
+vi.stubGlobal("IntersectionObserver", SeenObserver);
+
 beforeEach(() => {
   Element.prototype.scrollTo = vi.fn();
+  calm(false);
+  Object.defineProperty(HTMLMediaElement.prototype, "play", { configurable: true, value: vi.fn(() => Promise.resolve()) });
+  Object.defineProperty(HTMLMediaElement.prototype, "pause", { configurable: true, value: vi.fn() });
 });
 
 describe("MediaCarousel", () => {
@@ -78,5 +95,82 @@ describe("MediaCarousel", () => {
     window.matchMedia = vi.fn().mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn(), addListener: vi.fn(), removeListener: vi.fn() }) as never;
     render(<MediaCarousel label="Realisations" slides={slides.slice(1)} />);
     expect(document.querySelector("video")).toBeNull();
+  });
+
+  it("draws no chrome for a single slide: no arrows, no count", () => {
+    render(<MediaCarousel label="Realisations" slides={slides.slice(0, 1)} />);
+    expect(screen.queryByRole("toolbar")).toBeNull();
+    expect(screen.queryByRole("button", { name: "Next" })).toBeNull();
+    expect(screen.queryByText("1 / 1")).toBeNull();
+    expect(screen.getByRole("button", { name: /Play the film/ })).toBeTruthy();
+  });
+
+  it("loops a still with a visible pause that stops the video and resumes it", async () => {
+    const user = userEvent.setup();
+    render(<MediaCarousel label="Realisations" slides={slides.slice(1, 2)} />);
+    const video = document.querySelector("video") as HTMLVideoElement;
+    expect(video).toBeTruthy();
+    expect(video.muted).toBe(true);
+    expect(HTMLMediaElement.prototype.play).toHaveBeenCalled();
+    await user.click(screen.getByRole("button", { name: "Pause the animation" }));
+    expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
+    expect(screen.getByRole("button", { name: "Play the animation" })).toBeTruthy();
+  });
+
+  it("previews a film slide with its loop, pausable, and still opens the film in the lightbox", async () => {
+    const user = userEvent.setup();
+    const film = [{ ...slides[0]!, video: { webm: "/loop.webm" } }];
+    render(<MediaCarousel label="Realisations" slides={film} />);
+    expect(document.querySelector("video source")?.getAttribute("src")).toBe("/loop.webm");
+    expect(screen.getByRole("button", { name: "Pause the animation" })).toBeTruthy();
+    await user.click(screen.getByRole("button", { name: /Play the film/ }));
+    expect(await screen.findByRole("dialog", { name: "Film: Krizaka" })).toBeTruthy();
+  });
+
+  it("fetches no loop before the page has loaded", () => {
+    const state = vi.spyOn(document, "readyState", "get").mockReturnValue("loading");
+    render(<MediaCarousel label="Realisations" slides={slides.slice(1, 2)} />);
+    expect(document.querySelector("video")).toBeNull();
+    state.mockRestore();
+  });
+
+  it("keeps the poster alone, with no pause to press, under reduced motion", () => {
+    calm(true);
+    render(<MediaCarousel label="Realisations" slides={[{ ...slides[0]!, video: { webm: "/loop.webm" } }]} />);
+    expect(document.querySelector("video")).toBeNull();
+    expect(screen.queryByRole("button", { name: /animation/ })).toBeNull();
+  });
+
+  it("speaks the translated words in the carousel, the loop control and the lightbox player", async () => {
+    const user = userEvent.setup();
+    render(
+      <MediaCarousel
+        label="Réalisations"
+        slides={[{ ...slides[0]!, video: { webm: "/loop.webm" } }, slides[1]!]}
+        labels={{ previous: "Précédent", next: "Suivant", close: "Fermer", pauseLoop: "Mettre l’animation en pause", playLoop: "Lancer l’animation" }}
+        playerLabels={{ play: "Lire", pause: "Pause", seek: "Position" }}
+      />,
+    );
+    expect(screen.getByRole("button", { name: "Suivant" })).toBeTruthy();
+    await user.click(screen.getByRole("button", { name: "Mettre l’animation en pause" }));
+    expect(screen.getByRole("button", { name: "Lancer l’animation" })).toBeTruthy();
+    await user.click(screen.getByRole("button", { name: /Play the film/ }));
+    await screen.findByRole("dialog");
+    expect(screen.getByRole("button", { name: "Fermer" })).toBeTruthy();
+    expect(screen.getByRole("slider", { name: "Position" })).toBeTruthy();
+  });
+
+  it("pauses the loop when it leaves the screen", () => {
+    class UnseenObserver {
+      constructor(private readonly notify: (entries: { isIntersecting: boolean }[]) => void) {}
+      observe() {
+        this.notify([{ isIntersecting: false }]);
+      }
+      disconnect() {}
+    }
+    vi.stubGlobal("IntersectionObserver", UnseenObserver);
+    render(<MediaCarousel label="Realisations" slides={slides.slice(1, 2)} />);
+    expect(HTMLMediaElement.prototype.play).not.toHaveBeenCalled();
+    vi.stubGlobal("IntersectionObserver", SeenObserver);
   });
 });

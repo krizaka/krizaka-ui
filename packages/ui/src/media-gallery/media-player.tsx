@@ -5,16 +5,19 @@ import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { PlayGlyph } from "../glyphs";
+import { useControllable } from "../media";
 import { VideoPlayer, type VideoPlayerProps } from "../video-player";
+import { type LoopLabels, loopLabels, type LoopSources, LoopToggle, LoopVideo, useLoop } from "./pausable-loop";
 
 // The dialog and the player of the lightbox load when the poster is pressed, not with the page.
 const PlayerLightbox = React.lazy(() => import("./player-lightbox"));
 
 export const mediaPlayer = tv({
   slots: {
+    frame: "relative isolate block w-full overflow-hidden rounded-xl border border-border-default bg-media p-0 text-fg-on-media",
     poster:
-      "group relative isolate block w-full overflow-hidden rounded-xl border border-border-default bg-media p-0 text-fg-on-media " +
-      "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+      "group absolute inset-0 block h-full w-full cursor-pointer border-0 bg-transparent p-0 text-fg-on-media " +
+      "focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring",
     image: "absolute inset-0 h-full w-full object-cover",
     play:
       "absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full " +
@@ -32,6 +35,8 @@ export type MediaPlayerProps = Pick<
   mode?: "inline" | "lightbox";
   /** `9 / 16` frame for a vertical film; default `16 / 9`. */
   vertical?: boolean;
+  /** Any frame ratio (`19 / 16`, `4 / 3`): wins over `vertical`. Default `16 / 9` (`9 / 16` when `vertical`). */
+  ratio?: string;
   /** The poster's words in the lightbox ("Play the film"), passed translated. Required for `lightbox`. */
   playLabel?: string;
   /** The close button's words, passed translated. Default `Close`. */
@@ -40,6 +45,16 @@ export type MediaPlayerProps = Pick<
   posterAlt?: string;
   /** A line over the foot of the poster (« Fig. 1a »). */
   caption?: string;
+  /** Lightbox: a muted, silent loop previewing the poster. Fetched after the page's `load`, plays only on screen, has a visible pause; a still under reduced motion or Save-Data. */
+  preview?: LoopSources;
+  /** The preview's pause / play words, passed translated. English by default. */
+  previewLabels?: LoopLabels;
+  /** Lightbox: opens or closes it from outside (controlled). With it, `onOpenChange` is how the lightbox asks to close. */
+  open?: boolean;
+  /** Lightbox: starts open (uncontrolled). */
+  defaultOpen?: boolean;
+  /** Lightbox: replaces the poster with your own opener (`(open) => <button onClick={open}>…`); `null` draws nothing, for a lightbox driven by `open` alone. */
+  trigger?: ((open: () => void) => React.ReactNode) | null;
   /** Called when the lightbox opens or closes. */
   onOpenChange?: (open: boolean) => void;
   /** Classes merged on the player or the poster. */
@@ -54,36 +69,64 @@ export function MediaPlayer({
   closeLabel = "Close",
   posterAlt = "",
   caption,
+  preview,
+  previewLabels,
+  open: given,
+  defaultOpen = false,
+  trigger,
   onOpenChange,
+  ratio: freeRatio,
   className,
   ...player
 }: MediaPlayerProps) {
-  const ratio = vertical ? "9 / 16" : "16 / 9";
-  const [open, setOpen] = React.useState(false);
-  const poster = React.useRef<HTMLButtonElement>(null);
-  const toggle = React.useCallback(
-    (next: boolean) => {
-      setOpen(next);
-      onOpenChange?.(next);
-      if (!next) poster.current?.focus();
-    },
-    [onOpenChange],
-  );
+  const ratio = freeRatio ?? (vertical ? "9 / 16" : "16 / 9");
+  const [open, setOpen] = useControllable(given, defaultOpen, onOpenChange);
+  // The dialog hands the focus back to whatever opened it (the poster or the page's own trigger) when it closes.
   if (mode === "inline") return <VideoPlayer {...player} aspectRatio={ratio} className={className} />;
+  const opener =
+    trigger === undefined ? (
+      <PosterFrame {...{ ratio, className, caption, posterAlt, preview, previewLabels }} name={playLabel ?? player.title} poster={player.poster} onOpen={() => setOpen(true)} />
+    ) : (
+      trigger?.(() => setOpen(true))
+    );
   return (
     <>
-      <button ref={poster} type="button" className={s.poster({ className })} style={{ aspectRatio: ratio }} aria-label={caption ? `${caption}. ${playLabel ?? player.title}` : (playLabel ?? player.title)} onClick={() => toggle(true)}>
-        {player.poster && <img src={player.poster} alt={posterAlt} loading="lazy" decoding="async" className={s.image()} />}
+      {opener}
+      {open && (
+        <React.Suspense fallback={null}>
+          <PlayerLightbox player={player} ratio={ratio} closeLabel={closeLabel} onClose={() => setOpen(false)} />
+        </React.Suspense>
+      )}
+    </>
+  );
+}
+
+type PosterFrameProps = Readonly<{
+  ratio: string;
+  className?: string;
+  caption?: string;
+  posterAlt: string;
+  poster?: string;
+  name: string;
+  preview?: LoopSources;
+  previewLabels?: LoopLabels;
+  onOpen: () => void;
+}>;
+
+/** The default opener: the poster (and its loop) in a frame, one button named by `playLabel`; the pause is a sibling, never nested. */
+function PosterFrame({ ratio, className, caption, posterAlt, poster, name, preview, previewLabels, onOpen }: PosterFrameProps) {
+  const loop = useLoop();
+  return (
+    <div className={s.frame({ className })} style={{ aspectRatio: ratio }}>
+      {poster && <img src={poster} alt={posterAlt} loading="lazy" decoding="async" className={s.image()} />}
+      {preview && poster && <LoopVideo loop={loop} sources={preview} poster={poster} className={s.image()} />}
+      <button type="button" className={s.poster()} aria-label={caption ? `${caption}. ${name}` : name} onClick={onOpen}>
         <span className={s.play()} aria-hidden>
           <PlayGlyph className="ml-1 h-6 w-6" />
         </span>
         {caption && <span className={s.caption()}>{caption}</span>}
       </button>
-      {open && (
-        <React.Suspense fallback={null}>
-          <PlayerLightbox player={player} ratio={ratio} vertical={vertical} closeLabel={closeLabel} onClose={() => toggle(false)} />
-        </React.Suspense>
-      )}
-    </>
+      {preview && <LoopToggle loop={loop} labels={previewLabels ?? loopLabels} />}
+    </div>
   );
 }
