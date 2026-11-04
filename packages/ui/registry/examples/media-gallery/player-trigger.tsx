@@ -6,7 +6,7 @@ const FILM = "https://krizaka-assets.b-cdn.net/org/v1/films/film/le-monde-de-kri
 const POSTER = `data:image/svg+xml,${encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'><rect width='800' height='450' fill='#1d3f6b'/></svg>")}`;
 
 // The page's own button opens the lightbox (`trigger`); a second one drives it from outside (`open`), on a free 19 / 16 frame.
-// Under reduced motion or Save-Data the dialog opens on the poster and waits for the press on play.
+// Under reduced motion the dialog opens on the poster and waits for the press on play.
 export default function MediaPlayerTriggerExample() {
   const [open, setOpen] = React.useState(false);
   return (

@@ -8,7 +8,6 @@ import { IconButton } from "../button/button";
 import { ChevronGlyph } from "../glyphs";
 import { usePrefersReducedMotion } from "../media";
 import { MediaPlayer, type MediaPlayerProps } from "./media-player";
-import { loopLabels, LoopToggle, LoopVideo, useLoop } from "./pausable-loop";
 
 export const mediaCarousel = tv({
   slots: {
@@ -39,15 +38,8 @@ export type CarouselSlide = {
   film?: Pick<MediaPlayerProps, "src" | "title" | "tracks" | "loadHls" | "labels" | "ratio"> & { playLabel: string; vertical?: boolean };
 };
 
-export type MediaCarouselLabels = { previous: string; next: string; close: string; slide: string; pauseLoop: string; playLoop: string };
-export const mediaCarouselLabels: MediaCarouselLabels = {
-  previous: "Previous",
-  next: "Next",
-  close: "Close",
-  slide: "{n} of {total}",
-  pauseLoop: loopLabels.pause,
-  playLoop: loopLabels.play,
-};
+export type MediaCarouselLabels = { previous: string; next: string; close: string; slide: string };
+export const mediaCarouselLabels: MediaCarouselLabels = { previous: "Previous", next: "Next", close: "Close", slide: "{n} of {total}" };
 
 export type MediaCarouselProps = Omit<React.ComponentProps<"section">, "children"> & {
   /** The slides, in order: 3 to 4 realisations. */
@@ -60,6 +52,8 @@ export type MediaCarouselProps = Omit<React.ComponentProps<"section">, "children
   labels?: Partial<MediaCarouselLabels>;
   /** The words of the lightbox player of every film (speed, captions, time…), passed translated; a slide's own `film.labels` wins. */
   playerLabels?: MediaPlayerProps["labels"];
+  /** Draws a slide's `video`: `(video, { poster, inView }) => <PausableLoop sources={video} poster={poster} active={inView} />` (`@krizaka/ui/pausable-loop`, which brings the pause and play). Without it a slide stays a still, and this entry stays light. */
+  renderLoop?: (video: NonNullable<CarouselSlide["video"]>, context: { poster: string; inView: boolean }) => React.ReactNode;
 };
 
 /** How far a swipe travels, in CSS pixels, before it turns the slide. */
@@ -102,7 +96,7 @@ function useSwipe(turn: (delta: 1 | -1) => void) {
 
 /** At an end the button just used is disabled: the focus moves to the other one, never to the page. */
 function keepFocus(toolbar: HTMLElement | null, at: number, count: number) {
-  if (!toolbar?.contains(document.activeElement) || count < 2) return;
+  if (!toolbar?.contains(document.activeElement)) return;
   const [previous, next] = toolbar.querySelectorAll("button");
   if (at === 0) next?.focus();
   if (at === count - 1) previous?.focus();
@@ -111,51 +105,36 @@ function keepFocus(toolbar: HTMLElement | null, at: number, count: number) {
 /** The arrow keys of the toolbar: right turns forward, left back. */
 const ARROWS: Partial<Record<string, 1 | -1>> = { ArrowRight: 1, ArrowLeft: -1 };
 
-type SlideMediaProps = Readonly<{ slide: CarouselSlide; inView: boolean; ratio: string; labels: MediaCarouselLabels; playerLabels?: MediaPlayerProps["labels"] }>;
+type SlideMediaProps = Readonly<{ slide: CarouselSlide; loop: React.ReactNode; ratio: string; closeLabel: string; playerLabels?: MediaPlayerProps["labels"] }>;
 
-function SlideMedia(props: SlideMediaProps) {
-  return props.slide.film ? <FilmSlide {...props} /> : <StillSlide {...props} />;
-}
-
-const loopWords = (labels: MediaCarouselLabels) => ({ pause: labels.pauseLoop, play: labels.playLoop });
-
-/** A poster that opens its film; its loop, when it has one, previews the film. */
-function FilmSlide({ slide, labels, playerLabels }: SlideMediaProps) {
-  if (!slide.film) return null;
-  const { playLabel, vertical, labels: own, ...film } = slide.film;
-  return (
+/** A poster that opens its film, or a still; its loop, when `renderLoop` draws one, previews the film or plays over the still while the slide is the one in view. */
+function SlideMedia({ slide, loop, ratio, closeLabel, playerLabels }: SlideMediaProps) {
+  if (slide.film) {
+    return (
       <MediaPlayer
-        {...film}
-        labels={own ?? playerLabels}
+        {...slide.film}
+        labels={slide.film.labels ?? playerLabels}
         mode="lightbox"
         poster={slide.src}
         posterAlt={slide.alt}
-        playLabel={playLabel}
-        vertical={vertical}
         caption={slide.caption}
-        closeLabel={labels.close}
-        preview={slide.video}
-        previewLabels={loopWords(labels)}
+        closeLabel={closeLabel}
+        preview={loop}
         className="h-full rounded-none border-0"
       />
-  );
-}
-
-/** A still, with a loop over it while the slide is the one in view. */
-function StillSlide({ slide, inView, ratio, labels }: SlideMediaProps) {
-  const loop = useLoop(inView);
+    );
+  }
   return (
     <>
       <img src={slide.src} alt={slide.alt} loading="lazy" decoding="async" draggable={false} className={s.media()} style={{ aspectRatio: ratio }} />
-      {slide.video && <LoopVideo loop={loop} sources={slide.video} poster={slide.src} className={s.media()} />}
+      {loop}
       {slide.caption && <figcaption className={s.caption()}>{slide.caption}</figcaption>}
-      {slide.video && <LoopToggle loop={loop} labels={loopWords(labels)} />}
     </>
   );
 }
 
 /** A few realisations in one frame, one at a time: swipe, buttons or arrow keys on them; nothing advances by itself. */
-export function MediaCarousel({ slides, label, ratio = "16 / 10", labels: given, playerLabels, className, ...props }: Readonly<MediaCarouselProps>) {
+export function MediaCarousel({ slides, label, ratio = "16 / 10", labels: given, playerLabels, renderLoop, className, ...props }: Readonly<MediaCarouselProps>) {
   const labels = { ...mediaCarouselLabels, ...given };
   const track = React.useRef<HTMLUListElement>(null);
   const toolbar = React.useRef<HTMLDivElement>(null);
@@ -175,7 +154,7 @@ export function MediaCarousel({ slides, label, ratio = "16 / 10", labels: given,
         {slides.map((slide, i) => (
           <li key={slide.id} aria-roledescription="slide" aria-label={name(i)} className={s.slide()} style={{ aspectRatio: ratio }} aria-hidden={i === active ? undefined : true} inert={i === active ? undefined : true}>
             <figure className="m-0 h-full w-full">
-              <SlideMedia slide={slide} inView={i === active} ratio={ratio} labels={labels} playerLabels={playerLabels} />
+              <SlideMedia slide={slide} loop={slide.video && renderLoop?.(slide.video, { poster: slide.src, inView: i === active })} ratio={ratio} closeLabel={labels.close} playerLabels={playerLabels} />
             </figure>
           </li>
         ))}

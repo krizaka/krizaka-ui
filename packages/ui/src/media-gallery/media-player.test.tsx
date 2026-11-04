@@ -2,6 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { axeViolations } from "../test/axe";
+import { PausableLoop } from "./loop-index";
 import { MediaPlayer } from "./player-index";
 
 // The loop plays only while on screen: a viewport that always sees it.
@@ -91,7 +92,7 @@ describe("MediaPlayer", () => {
     const user = userEvent.setup();
     Object.defineProperty(HTMLMediaElement.prototype, "pause", { configurable: true, value: vi.fn() });
     Object.defineProperty(HTMLMediaElement.prototype, "play", { configurable: true, value: vi.fn(() => Promise.resolve()) });
-    const { container } = render(<MediaPlayer mode="lightbox" src="/f.mp4" poster="/p.jpg" preview={{ mp4: "/l.mp4" }} title="Film" playLabel="Play the film" previewLabels={{ pause: "Pause l’aperçu", play: "Lancer l’aperçu" }} />);
+    const { container } = render(<MediaPlayer mode="lightbox" src="/f.mp4" poster="/p.jpg" preview={<PausableLoop sources={{ mp4: "/l.mp4" }} poster="/p.jpg" labels={{ pause: "Pause l’aperçu", play: "Lancer l’aperçu" }} />} title="Film" playLabel="Play the film" />);
     expect(container.querySelector("button video, button button")).toBeNull();
     await user.click(screen.getByRole("button", { name: "Pause l’aperçu" }));
     expect(screen.getByRole("button", { name: "Lancer l’aperçu" })).toBeTruthy();

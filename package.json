@@ -19,6 +19,7 @@
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
     "dev:check": "turbo run lint typecheck test --filter='...[origin/main]' --filter='!@krizaka/site' --filter='!@krizaka/storybook'",
+    "dev:size": "turbo run size --filter='...[origin/main]' --filter='!@krizaka/site' --filter='!@krizaka/storybook'",
     "changeset": "changeset",
     "inventory": "node tools/inventory.mjs",
     "inventory:usage": "node tools/usage-inventory.mjs",

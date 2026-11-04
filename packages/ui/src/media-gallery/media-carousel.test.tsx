@@ -2,13 +2,16 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { axeViolations } from "../test/axe";
-import { MediaCarousel } from "./carousel-index";
+import { MediaCarousel, type MediaCarouselProps } from "./carousel-index";
+import { PausableLoop } from "./loop-index";
 
 const slides = [
   { id: "a", src: "/a.jpg", alt: "The film", caption: "Fig. 1a", film: { src: "/f.mp4", title: "Film: Krizaka", playLabel: "Play the film" } },
   { id: "b", src: "/b.jpg", alt: "A lease", caption: "Fig. 1b", video: { webm: "/b.webm" } },
   { id: "c", src: "/c.jpg", alt: "A return", caption: "Fig. 1c" },
 ];
+
+const renderLoop: MediaCarouselProps["renderLoop"] = (video, { poster, inView }) => <PausableLoop sources={video} poster={poster} active={inView} />;
 
 const calm = (matches: boolean) => {
   window.matchMedia = vi.fn().mockReturnValue({ matches, addEventListener: vi.fn(), removeEventListener: vi.fn(), addListener: vi.fn(), removeListener: vi.fn() }) as never;
@@ -91,9 +94,15 @@ describe("MediaCarousel", () => {
     expect(document.querySelector("video")).toBeTruthy();
   });
 
+  it("leaves a slide with a video as a still when no renderLoop is given, so the loop stays out of this entry", () => {
+    render(<MediaCarousel label="Realisations" slides={slides.slice(1, 2)} />);
+    expect(document.querySelector("video")).toBeNull();
+    expect(screen.queryByRole("button", { name: /animation/ })).toBeNull();
+  });
+
   it("starts no loop under reduced motion", () => {
     window.matchMedia = vi.fn().mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn(), addListener: vi.fn(), removeListener: vi.fn() }) as never;
-    render(<MediaCarousel label="Realisations" slides={slides.slice(1)} />);
+    render(<MediaCarousel label="Realisations" slides={slides.slice(1)} renderLoop={renderLoop} />);
     expect(document.querySelector("video")).toBeNull();
   });
 
@@ -107,7 +116,7 @@ describe("MediaCarousel", () => {
 
   it("loops a still with a visible pause that stops the video and resumes it", async () => {
     const user = userEvent.setup();
-    render(<MediaCarousel label="Realisations" slides={slides.slice(1, 2)} />);
+    render(<MediaCarousel label="Realisations" slides={slides.slice(1, 2)} renderLoop={renderLoop} />);
     const video = document.querySelector("video") as HTMLVideoElement;
     expect(video).toBeTruthy();
     expect(video.muted).toBe(true);
@@ -120,7 +129,7 @@ describe("MediaCarousel", () => {
   it("previews a film slide with its loop, pausable, and still opens the film in the lightbox", async () => {
     const user = userEvent.setup();
     const film = [{ ...slides[0]!, video: { webm: "/loop.webm" } }];
-    render(<MediaCarousel label="Realisations" slides={film} />);
+    render(<MediaCarousel label="Realisations" slides={film} renderLoop={renderLoop} />);
     expect(document.querySelector("video source")?.getAttribute("src")).toBe("/loop.webm");
     expect(screen.getByRole("button", { name: "Pause the animation" })).toBeTruthy();
     await user.click(screen.getByRole("button", { name: /Play the film/ }));
@@ -129,14 +138,14 @@ describe("MediaCarousel", () => {
 
   it("fetches no loop before the page has loaded", () => {
     const state = vi.spyOn(document, "readyState", "get").mockReturnValue("loading");
-    render(<MediaCarousel label="Realisations" slides={slides.slice(1, 2)} />);
+    render(<MediaCarousel label="Realisations" slides={slides.slice(1, 2)} renderLoop={renderLoop} />);
     expect(document.querySelector("video")).toBeNull();
     state.mockRestore();
   });
 
   it("keeps the poster alone, with no pause to press, under reduced motion", () => {
     calm(true);
-    render(<MediaCarousel label="Realisations" slides={[{ ...slides[0]!, video: { webm: "/loop.webm" } }]} />);
+    render(<MediaCarousel label="Realisations" slides={[{ ...slides[0]!, video: { webm: "/loop.webm" } }]} renderLoop={renderLoop} />);
     expect(document.querySelector("video")).toBeNull();
     expect(screen.queryByRole("button", { name: /animation/ })).toBeNull();
   });
@@ -147,7 +156,8 @@ describe("MediaCarousel", () => {
       <MediaCarousel
         label="Réalisations"
         slides={[{ ...slides[0]!, video: { webm: "/loop.webm" } }, slides[1]!]}
-        labels={{ previous: "Précédent", next: "Suivant", close: "Fermer", pauseLoop: "Mettre l’animation en pause", playLoop: "Lancer l’animation" }}
+        labels={{ previous: "Précédent", next: "Suivant", close: "Fermer" }}
+        renderLoop={(video, { poster, inView }) => <PausableLoop sources={video} poster={poster} active={inView} labels={{ pause: "Mettre l’animation en pause", play: "Lancer l’animation" }} />}
         playerLabels={{ play: "Lire", pause: "Pause", seek: "Position" }}
       />,
     );
@@ -169,7 +179,7 @@ describe("MediaCarousel", () => {
       disconnect() {}
     }
     vi.stubGlobal("IntersectionObserver", UnseenObserver);
-    render(<MediaCarousel label="Realisations" slides={slides.slice(1, 2)} />);
+    render(<MediaCarousel label="Realisations" slides={slides.slice(1, 2)} renderLoop={renderLoop} />);
     expect(HTMLMediaElement.prototype.play).not.toHaveBeenCalled();
     vi.stubGlobal("IntersectionObserver", SeenObserver);
   });
