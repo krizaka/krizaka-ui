@@ -8,6 +8,7 @@ import {
   KridocLogo,
   KrizakaLogo,
   OrazakaLogo,
+  CodeNameLine,
   ProductLockup,
   ProductLogo,
   RotatingWord,
@@ -153,6 +154,15 @@ describe("commercial names (krizaka-internal#2035)", () => {
     expect(container.firstElementChild?.getAttribute("data-brand")).toBe("yomizaka");
     const fr = render(<ProductLockup id="akinaza" name="Folioviv" endorsement="par Krizaka" layout="inline" size={64} />);
     expect(words(fr.container)).toBe("Foliovivpar Krizaka");
+  });
+
+  it("shows the code name line only when the app passes it", () => {
+    const without = render(<ProductLockup id="yomizaka" name="Verikora" endorsement="by Krizaka" animated={false} />);
+    expect(without.container.querySelector("[data-code-name]")).toBeNull();
+    const dev = render(<ProductLockup id="yomizaka" name="Verikora" endorsement="by Krizaka" codeName="code name: yomizaka" animated={false} />);
+    expect(dev.container.querySelector("[data-code-name]")?.textContent).toBe("code name: yomizaka");
+    expect(dev.container.querySelector("[data-brand] > span")?.textContent).toBe("Verikoraby Krizakacode name: yomizaka");
+    expect(render(<CodeNameLine>nom de code : akinaza</CodeNameLine>).container.textContent).toBe("nom de code : akinaza");
   });
 });
 
