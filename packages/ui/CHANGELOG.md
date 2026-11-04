@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.86.0
+
+### Minor Changes
+
+- [#957](https://github.com/krizaka/krizaka-ui/pull/957) [`52b7f86`](https://github.com/krizaka/krizaka-ui/commit/52b7f867c3c36c808c487909c8664eb8d532c4b4) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `MediaCarousel` and `MediaPlayer`, six gaps found while adopting them on krizaka.com: a carousel of one slide draws no arrows and no count; the new entry `@krizaka/ui/pausable-loop` (`PausableLoop`) is a silent loop fetched after the page's `load`, playing only on screen, with a visible pause / play button (a still under reduced motion or Save-Data); the carousel draws a slide's `video` through `renderLoop` (also on a `film` slide, where it previews the film) and the player through `preview`, so neither entry carries it; `playerLabels` (and `film.labels`) translate the lightbox player; the lightbox opens on its poster, waiting for a press on play, under reduced motion; `MediaPlayer` takes `trigger` (your own opener, or `null`), `open` / `defaultOpen` / `onOpenChange` and `preview`; and `ratio` takes any frame (`19 / 16`). All additive.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.86.0
+  - @krizaka/tokens@3.86.0
+
 ## 3.85.0
 
 ### Minor Changes
