@@ -1,5 +1,18 @@
 # @krizaka/ui
 
+## 3.83.0
+
+### Minor Changes
+
+- [#948](https://github.com/krizaka/krizaka-ui/pull/948) [`da828b7`](https://github.com/krizaka/krizaka-ui/commit/da828b7f0bde23113eed538e9e2f9edc427f5877) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `AppFrame` takes `touchTargets`: the rail's places and mark, the home link, the search and the account at 44 x 44 px or more. `AppHeader` merges the class of its `homeLink` and takes `homeClassName`, added to the home link (from `href` or `homeLink`).
+
+### Patch Changes
+
+- [#952](https://github.com/krizaka/krizaka-ui/pull/952) [`2c24650`](https://github.com/krizaka/krizaka-ui/commit/2c246506a26ffd88c44045b8f7eb43d642b4627f) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `Captcha` moves from the `identity` domain to its own `abuse` domain (5 kB budget); `identity` keeps its frozen 24.9 kB (ADR-008 §5, krizaka-internal#2285). No change to the component.
+- Updated dependencies []:
+  - @krizaka/tailwind@3.83.0
+  - @krizaka/tokens@3.83.0
+
 ## 3.82.0
 
 ### Minor Changes
