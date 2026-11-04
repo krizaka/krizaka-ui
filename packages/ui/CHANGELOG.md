@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 3.85.0
+
+### Minor Changes
+
+- [#937](https://github.com/krizaka/krizaka-ui/pull/937) [`51c0c71`](https://github.com/krizaka/krizaka-ui/commit/51c0c71c04e7db56c8c10134cea68de82669236e) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - media-gallery: `MediaCarousel` (3 to 4 realisations one at a time, buttons, swipe, arrow keys, nothing advances by itself) and `MediaPlayer` (the one video frame: inline, lightbox started by the press with sound, vertical 9:16); `VideoPlayer` gains `playOnMount`.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@3.85.0
+  - @krizaka/tokens@3.85.0
+
 ## 3.84.0
 
 ### Minor Changes
