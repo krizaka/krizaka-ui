@@ -1,5 +1,21 @@
 # @krizaka/charts
 
+## 1.0.0
+
+### Major Changes
+
+- [#966](https://github.com/krizaka/krizaka-ui/pull/966) [`d536d8e`](https://github.com/krizaka/krizaka-ui/commit/d536d8e39f60dbf389ff09c582a7d54ab4db8031) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The commercial names replace the code names everywhere (2026-11-06, krizaka-internal#2664): no code name is published any more.
+  
+  - `@krizaka/tokens`: the brand themes are `sovkora`, `verikora` and `folioviv` — `@krizaka/tokens/brands/sovkora.css` (was `orazaka.css`), `verikora.css` (`yomizaka.css`), `folioviv.css` (`akinaza.css`); the scope classes are `.brand-sovkora`, `.brand-verikora`, `.brand-folioviv`; the keys of `brands`, `marks` and the native themes follow.
+  - `@krizaka/ui`: `SovkoraLogo`, `VerikoraLogo`, `FoliovivLogo` (and the native `SovkoraMark`, `VerikoraMark`, `FoliovivMark`) are the marks — `OrazakaLogo`, `YomizakaLogo`, `AkinazaLogo` and their native twins are gone; `ProductLogo`, `ProductLockup`, `BrandId`, `MarkId`, `SiteId` and the family sites take `sovkora | verikora | folioviv | kridoc`. `CodeNameLine` and the `codeName` prop of `ProductLockup` are removed: a screen never shows a code name. `ActivityFeed` takes `now` from the host (required): the feed never reads the clock, its time moves a minute every minute from `now` while `ticking`.
+  - `@krizaka/charts`: `BrandId` is `"krizaka" | "sovkora"` (the palette was `orazaka`). `CreditUsage` draws the run-out date only when the host passes `now` (it no longer reads the clock).
+  - `@krizaka/email`: the themes are `sovkora`, `verikora`, `folioviv` (`getTheme("sovkora")`); the logos are read under `brand/<id>/` on the CDN.
+
+### Patch Changes
+
+- Updated dependencies [[`d536d8e`](https://github.com/krizaka/krizaka-ui/commit/d536d8e39f60dbf389ff09c582a7d54ab4db8031), [`feed5f2`](https://github.com/krizaka/krizaka-ui/commit/feed5f285eb3a3e25ce9e003d85d400c831502be)]:
+  - @krizaka/ui@4.0.0
+
 ## 0.8.0
 
 ### Minor Changes
