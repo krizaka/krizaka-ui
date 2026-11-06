@@ -50,8 +50,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/icons
       '@krizaka/org':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^1.0.0
+        version: 1.0.0
       '@krizaka/query':
         specifier: workspace:*
         version: link:../../packages/query
@@ -1240,8 +1240,8 @@ importers:
         specifier: ^0.9.1
         version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@krizaka/org':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^1.0.0
+        version: 1.0.0
       '@krizaka/query':
         specifier: workspace:*
         version: link:../query
@@ -2659,9 +2659,10 @@ packages:
       prettier:
         optional: true
 
-  '@krizaka/org@0.1.0':
-    resolution: {integrity: sha512-nvk6fmuvxxqPQnEogzpokV1k0xiKgsnfj8U2wAwKbb0QCVz3z4ketaNQ0BGOXZoKEcTK8ou1qUfQFZaFJ4F1Mg==}
+  '@krizaka/org@1.0.0':
+    resolution: {integrity: sha512-mJibS2PATuWYYBVzbwTeIuLxNHuzLrj/AEGFfQqkWJI5nUR32Rs4NaCJf+FYwSfyXe2/XWuVtczFt6x5lPUKWg==}
     engines: {node: '>=22'}
+    hasBin: true
 
   '@krizaka/organize@0.4.0':
     resolution: {integrity: sha512-6b9tjOfsCsiawp4mMSNKK3N2UvOdg90PRyYUXJuD2bZccGSsnYWzvaSuJHSiK+4mKR81iu6ioEf4YWtR1Hg1pg==}
@@ -11993,7 +11994,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@krizaka/org@0.1.0': {}
+  '@krizaka/org@1.0.0': {}
 
   '@krizaka/organize@0.4.0(vitest@5.0.5)':
     optionalDependencies:
