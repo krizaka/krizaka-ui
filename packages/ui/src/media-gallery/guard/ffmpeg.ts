@@ -19,7 +19,7 @@ export function parseProbe(json: string): FileFacts {
   const raw = JSON.parse(json) as { streams?: Record<string, unknown>[]; format?: { duration?: string } };
   const streams = (raw.streams ?? []).map((s) => ({
     kind: KINDS[String(s.codec_type)] ?? StreamKind.Other,
-    codec: String(s.codec_name ?? ""),
+    codec: typeof s.codec_name === "string" ? s.codec_name : "",
     width: typeof s.width === "number" ? s.width : undefined,
     height: typeof s.height === "number" ? s.height : undefined,
     pixFmt: typeof s.pix_fmt === "string" ? s.pix_fmt : undefined,

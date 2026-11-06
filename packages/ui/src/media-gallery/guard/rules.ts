@@ -95,4 +95,9 @@ export function pictureProblems(name: string, frames: readonly FrameBands[], las
 }
 
 /** The type a URL must answer with. */
-export const expectedType = (url: string) => (/\.webm(\?|$)/.test(url) ? EXPECTED.webm.type : /\.mp4(\?|$)/.test(url) ? EXPECTED.mp4.type : "image/");
+export function expectedType(url: string): string {
+  const path = url.split("?")[0] ?? url;
+  if (path.endsWith(".webm")) return EXPECTED.webm.type;
+  if (path.endsWith(".mp4")) return EXPECTED.mp4.type;
+  return "image/";
+}

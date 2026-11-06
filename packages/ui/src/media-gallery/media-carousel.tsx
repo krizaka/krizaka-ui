@@ -193,12 +193,12 @@ function useSwipe(turn: (delta: 1 | -1) => void) {
 }
 
 const subscribeSound = (notify: () => void) => {
-  window.addEventListener(SOUND_EVENT, notify);
-  return () => window.removeEventListener(SOUND_EVENT, notify);
+  globalThis.addEventListener(SOUND_EVENT, notify);
+  return () => globalThis.removeEventListener(SOUND_EVENT, notify);
 };
 const readSound = () => {
   try {
-    return window.sessionStorage.getItem(SOUND_KEY) === "1";
+    return globalThis.sessionStorage.getItem(SOUND_KEY) === "1";
   } catch {
     return false;
   }
@@ -208,11 +208,11 @@ function useSoundChoice(): [boolean, () => void] {
   const on = React.useSyncExternalStore(subscribeSound, readSound, () => false);
   const toggle = () => {
     try {
-      window.sessionStorage.setItem(SOUND_KEY, on ? "0" : "1");
+      globalThis.sessionStorage.setItem(SOUND_KEY, on ? "0" : "1");
     } catch {
       // No storage (a private window): the choice holds until the next render only.
     }
-    window.dispatchEvent(new Event(SOUND_EVENT));
+    globalThis.dispatchEvent(new Event(SOUND_EVENT));
   };
   return [on, toggle];
 }
@@ -331,6 +331,123 @@ function useChapter(slide: CarouselSlide | undefined) {
   return { chapter: slide?.chapters?.[chapter], onTime };
 }
 
+/** What holds the clock and what lets the sound play: the pointer (not a touch), any focus inside, a keyboard focus inside. */
+function useHolds() {
+  const [hovered, setHovered] = React.useState(false);
+  const [focusIn, setFocusIn] = React.useState(false);
+  const [keyboardIn, setKeyboardIn] = React.useState(false);
+  const handlers = {
+    onPointerEnter: (e: React.PointerEvent) => setHovered(e.pointerType !== "touch"),
+    onPointerLeave: () => setHovered(false),
+    onFocus: (e: React.FocusEvent) => {
+      setFocusIn(true);
+      setKeyboardIn(keyboardFocus(e.target));
+    },
+    onBlur: (e: React.FocusEvent) => {
+      if (e.currentTarget.contains(e.relatedTarget as Node | null)) return;
+      setFocusIn(false);
+      setKeyboardIn(false);
+    },
+  };
+  return { hovered, focusIn, keyboardIn, handlers };
+}
+
+type TicksProps = Readonly<{ slides: readonly CarouselSlide[]; active: number; calm: boolean; dwell: number; advancing: boolean; onEnd: () => void; s: ReturnType<typeof mediaCarousel> }>;
+
+/** One hairline per slide; the current one fills over its dwell — the clock — and holds with the carousel. */
+function CarouselTicks({ slides, active, calm, dwell, advancing, onEnd, s }: TicksProps) {
+  return (
+    <div className={s.ticks()} aria-hidden>
+      {slides.map((slide, i) => (
+        <span key={slide.id} className={s.tick()} data-state={tickState(i, active, !calm)}>
+          {i === active && !calm && (
+            <span
+              key={`${active}`}
+              className={s.fill()}
+              style={{ animationDuration: `${dwell}ms`, animationPlayState: advancing ? "running" : "paused" }}
+              onAnimationEnd={() => advancing && onEnd()}
+            />
+          )}
+          {i === active && <ChapterMarks slide={slide} className={s.mark()} />}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+type ToolbarProps = Readonly<{
+  labels: MediaCarouselLabels;
+  turns: boolean;
+  atStart: boolean;
+  atEnd: boolean;
+  moving: boolean;
+  paused: boolean;
+  onPause: () => void;
+  sound: { shown: boolean; on: boolean; toggle: () => void };
+  onTurn: (delta: number) => void;
+  onKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  className: string;
+}>;
+
+/** Previous, pause / play, « Sound on », next: one toolbar that also takes ← → Home End. */
+const CarouselToolbar = React.forwardRef<HTMLDivElement, ToolbarProps>(function CarouselToolbar(
+  { labels, turns, atStart, atEnd, moving, paused, onPause, sound, onTurn, onKeyDown, className },
+  ref,
+) {
+  return (
+    <div ref={ref} role="toolbar" aria-orientation="horizontal" className={className} onKeyDown={onKeyDown}>
+      {turns && (
+        <IconButton variant="secondary" label={labels.previous} disabled={atStart} onClick={() => onTurn(-1)}>
+          <ChevronGlyph direction="left" className="h-5 w-5" />
+        </IconButton>
+      )}
+      {moving && (
+        <IconButton variant="secondary" label={paused ? labels.play : labels.pause} onClick={onPause}>
+          {paused ? <PlayGlyph className="h-4 w-4" /> : <PauseGlyph className="h-4 w-4" />}
+        </IconButton>
+      )}
+      {sound.shown && (
+        <IconButton variant="secondary" label={labels.soundOn} aria-pressed={sound.on} onClick={sound.toggle}>
+          <VolumeGlyph muted={!sound.on} className="h-4 w-4" />
+        </IconButton>
+      )}
+      {turns && (
+        <IconButton variant="secondary" label={labels.next} disabled={atEnd} onClick={() => onTurn(1)}>
+          <ChevronGlyph direction="right" className="h-5 w-5" />
+        </IconButton>
+      )}
+    </div>
+  );
+});
+
+/** Every slide's caption and text, and a screen demo's chapters, in a native `<details>`; the host's `children` inside. */
+function TextVersion({ slides, summary, className, children }: Readonly<{ slides: readonly CarouselSlide[]; summary: string; className: string; children?: React.ReactNode }>) {
+  return (
+    <details className={className}>
+      <summary>{summary}</summary>
+      <ol>
+        {slides.map((slide) => (
+          <li key={slide.id}>
+            {slide.caption && <b>{slide.caption}</b>} {slide.text ?? slide.alt}
+            {slide.chapters?.length ? (
+              <ol>
+                {slide.chapters.map((c) => (
+                  <li key={c.at}>{c.label}</li>
+                ))}
+              </ol>
+            ) : null}
+          </li>
+        ))}
+      </ol>
+      {children}
+    </details>
+  );
+}
+
+/** The caption shown in the bar: the slide's, with the chapter under the playhead. */
+const barCaptionOf = (placement: "overlay" | "bar", slide: CarouselSlide | undefined, chapter: CarouselChapter | undefined) =>
+  placement === "bar" && slide?.caption ? `${slide.caption}${chapter ? ` · ${chapter.label}` : ""}` : undefined;
+
 /** A sequence of clips, screen demos and stills, one at a time: buttons, arrow keys, swipe, and with `autoplay` it advances at the media's pace. */
 export function MediaCarousel({
   slides,
@@ -362,9 +479,7 @@ export function MediaCarousel({
   const [seen, setSeen] = React.useState<ReadonlySet<number>>(() => new Set([0]));
   const [broken, setBroken] = React.useState<ReadonlySet<string>>(() => new Set());
   const [paused, setPaused] = React.useState(false);
-  const [hovered, setHovered] = React.useState(false);
-  const [focusIn, setFocusIn] = React.useState(false);
-  const [keyboardIn, setKeyboardIn] = React.useState(false);
+  const { hovered, focusIn, keyboardIn, handlers } = useHolds();
   const [onScreen, setOnScreen] = React.useState(() => typeof IntersectionObserver === "undefined");
   useInView(root, setOnScreen);
 
@@ -421,8 +536,7 @@ export function MediaCarousel({
     );
   };
   const dwell = current ? carouselDwell(current, bounds) : 0;
-  const chapterLine = chapter ? ` · ${chapter.label}` : "";
-  const barCaption = caption === "bar" && current?.caption ? `${current.caption}${chapterLine}` : undefined;
+  const barCaption = barCaptionOf(caption, current, chapter);
   const showBar = total > 1 || moving || Boolean(barCaption);
 
   return (
@@ -433,17 +547,7 @@ export function MediaCarousel({
       data-frame={frame}
       data-advancing={advancing ? "" : undefined}
       className={s.root({ className })}
-      onPointerEnter={(e) => setHovered(e.pointerType !== "touch")}
-      onPointerLeave={() => setHovered(false)}
-      onFocus={(e) => {
-        setFocusIn(true);
-        setKeyboardIn(keyboardFocus(e.target));
-      }}
-      onBlur={(e) => {
-        if (e.currentTarget.contains(e.relatedTarget as Node | null)) return;
-        setFocusIn(false);
-        setKeyboardIn(false);
-      }}
+      {...handlers}
       {...props}
     >
       {wraps && (
@@ -483,23 +587,7 @@ export function MediaCarousel({
             );
           })}
         </ul>
-        {wraps && (
-          <div className={s.ticks()} aria-hidden>
-            {slides.map((slide, i) => (
-              <span key={slide.id} className={s.tick()} data-state={tickState(i, active, !calm)}>
-                {i === active && !calm && (
-                  <span
-                    key={`${active}`}
-                    className={s.fill()}
-                    style={{ animationDuration: `${dwell}ms`, animationPlayState: advancing ? "running" : "paused" }}
-                    onAnimationEnd={() => advancing && turn(1)}
-                  />
-                )}
-                {i === active && <ChapterMarks slide={slide} className={s.mark()} />}
-              </span>
-            ))}
-          </div>
-        )}
+        {wraps && <CarouselTicks slides={slides} active={active} calm={calm} dwell={dwell} advancing={advancing} onEnd={() => turn(1)} s={s} />}
       </div>
       {showBar && (
         <div className={s.bar()}>
@@ -511,49 +599,26 @@ export function MediaCarousel({
             )}
             {barCaption && <> {barCaption}</>}
           </p>
-          <div ref={toolbar} role="toolbar" aria-orientation="horizontal" className={s.buttons()} onKeyDown={keys}>
-            {total > 1 && (
-              <IconButton variant="secondary" label={labels.previous} disabled={!wraps && active === 0} onClick={() => turn(-1)}>
-                <ChevronGlyph direction="left" className="h-5 w-5" />
-              </IconButton>
-            )}
-            {moving && (
-              <IconButton variant="secondary" label={paused ? labels.play : labels.pause} onClick={() => setPaused((p) => !p)}>
-                {paused ? <PlayGlyph className="h-4 w-4" /> : <PauseGlyph className="h-4 w-4" />}
-              </IconButton>
-            )}
-            {hasAudio && (
-              <IconButton variant="secondary" label={labels.soundOn} aria-pressed={soundChosen} onClick={toggleSound}>
-                <VolumeGlyph muted={!soundChosen} className="h-4 w-4" />
-              </IconButton>
-            )}
-            {total > 1 && (
-              <IconButton variant="secondary" label={labels.next} disabled={!wraps && active === total - 1} onClick={() => turn(1)}>
-                <ChevronGlyph direction="right" className="h-5 w-5" />
-              </IconButton>
-            )}
-          </div>
+          <CarouselToolbar
+            ref={toolbar}
+            labels={labels}
+            turns={total > 1}
+            atStart={!wraps && active === 0}
+            atEnd={!wraps && active === total - 1}
+            moving={moving}
+            paused={paused}
+            onPause={() => setPaused((p) => !p)}
+            sound={{ shown: hasAudio, on: soundChosen, toggle: toggleSound }}
+            onTurn={turn}
+            onKeyDown={keys}
+            className={s.buttons()}
+          />
         </div>
       )}
       {textVersion ? (
-        <details className={s.text()}>
-          <summary>{labels.textVersion}</summary>
-          <ol>
-            {slides.map((slide) => (
-              <li key={slide.id}>
-                {slide.caption && <b>{slide.caption}</b>} {slide.text ?? slide.alt}
-                {slide.chapters?.length ? (
-                  <ol>
-                    {slide.chapters.map((c) => (
-                      <li key={c.at}>{c.label}</li>
-                    ))}
-                  </ol>
-                ) : null}
-              </li>
-            ))}
-          </ol>
+        <TextVersion slides={slides} summary={labels.textVersion} className={s.text()}>
           {children}
-        </details>
+        </TextVersion>
       ) : (
         children
       )}
