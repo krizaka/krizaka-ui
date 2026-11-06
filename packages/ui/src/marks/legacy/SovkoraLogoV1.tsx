@@ -12,7 +12,7 @@ const CSS = `
 `;
 
 /** The Sovkora mark before 2.0.0-beta.5 (kept for the Evolution story only, never exported): three shards orbiting slowly around an amber core that breathes. */
-export function SovkoraLogoV1({ size = 28, animated = true, title, className }: MarkProps) {
+export function SovkoraLogoV1({ size = 28, animated = true, title, className }: Readonly<MarkProps>) {
   const id = useIds("ozm", ["amber"] as const);
   return (
     <svg width={size} height={size} viewBox="-66 -66 132 132" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} {...a11y(title)}>

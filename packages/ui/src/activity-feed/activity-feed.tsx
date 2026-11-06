@@ -58,9 +58,9 @@ export type ActivityFeedProps<T extends ActivityEvent> = {
   "aria-label": string;
   /** The locale of the dates and the “… ago”. Default `en-US`. */
   locale?: string;
-  /** Now, for the “… ago” and the day headings (pass it from the server for the same text on both sides). */
-  now?: Date;
-  /** Refresh the “… ago” every minute. Default true. */
+  /** Now, for the “… ago” and the day headings: the host gives the time (from the server, the same text on both sides); the feed never reads the clock. */
+  now: Date;
+  /** Keep the “… ago” fresh: the feed's time moves a minute every minute from `now`. Default true. */
   ticking?: boolean;
   /** Fold the runs of the same actor and kind. Default true. */
   fold?: boolean;
@@ -78,24 +78,35 @@ export type ActivityFeedProps<T extends ActivityEvent> = {
   className?: string;
 };
 
-function useNow(initial: Date | undefined, ticking: boolean) {
-  const [now, setNow] = React.useState(() => initial ?? new Date());
+// @fixed: the « … ago » is worded to the minute, so the feed's time moves by one minute, every minute
+const MINUTE_MS = 60_000;
+
+/** `start`, `minutes` later (calendar arithmetic, no millisecond sums). */
+const minutesAfter = (start: Date, minutes: number): Date => {
+  const at = new Date(start);
+  at.setMinutes(at.getMinutes() + minutes);
+  return at;
+};
+
+/** The feed's time: `start`, then one minute later every minute while it ticks. Never the wall clock: the host gives it. */
+function useNow(start: Date, ticking: boolean) {
+  const [minutes, setMinutes] = React.useState(0);
   React.useEffect(() => {
     if (!ticking) return;
-    const timer = setInterval(() => setNow(new Date()), 60_000);
+    const timer = setInterval(() => setMinutes((m) => m + 1), MINUTE_MS);
     return () => clearInterval(timer);
   }, [ticking]);
-  return now;
+  return minutes === 0 ? start : minutesAfter(start, minutes);
 }
 
 /**
  * What happened, newest first: grouped by day, runs folded (“Mina tipped ×3”), “2 min ago” kept fresh, new events
- * announced when `live`. Orazaka's job activity, a creator's notifications, the console's audit log.
+ * announced when `live`. Sovkora's job activity, a creator's notifications, the console's audit log.
  */
 export function ActivityFeed<T extends ActivityEvent>({ events, "aria-label": label, locale = "en-US", now: given, ticking = true, fold = true, live, leading, action, labels: words, empty, className }: ActivityFeedProps<T>) {
   const labels = { ...activityFeedLabels, ...words };
   const s = activityFeed();
-  const now = useNow(given, ticking && !given);
+  const now = useNow(given, ticking);
   const groups = groupActivity(events, { now, locale, today: labels.today, yesterday: labels.yesterday, fold });
   const seen = React.useRef(events.length);
   const [announcement, setAnnouncement] = React.useState("");

@@ -166,7 +166,7 @@ storyboard, and the loop keeps a bad tail from being held on screen.
    checked by the guard; Kridoc's two-slide film uses `autoplay`.
 3. **The blog**: `ClipPlayer` → a one-slide `MediaCarousel` (provenance as caption); `CardLoop` stays (a card cover, not a
    sequence).
-4. **Sovkora** (orazaka-web-client): `Clip` → `MediaCarousel` with `kind: "screen-demo"` and chapters for the new
+4. **Sovkora** (sovkora-web): `Clip` → `MediaCarousel` with `kind: "screen-demo"` and chapters for the new
    journeys (#2655); results of the cinema pack as slides.
 5. **Folioviv / Verikora**: the rotating previews (#2107) and the showcase clips (#2248) — `autoplay` with the owner's
    bounded dwell for the shop (#2107: 3–10 s, `minDwell` = `maxDwell` = the owner's value).
