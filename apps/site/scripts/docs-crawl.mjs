@@ -22,95 +22,30 @@
             [--concurrency <n>]      default 4
             [--out <dir>]            report.json, report.md and the screenshots of the pages with problems
             [--playwright <path>]    where to require playwright from
-   Exit code 1 when a problem is found, unless it matches TOLERATED (the reasons are written there, in one place). */
+   Exit code 1 when a problem is found, unless it matches TOLERATED (the reasons are written there, in one place).
+
+   Why: the docs of ui.krizaka.com are the product's face; a broken example or dead link must fail the PR, not be found by a reader.
+   Owner: krizaka-ui (lane platform). How it is split (ADR-026 phase D): docs-crawl-verdicts.mjs (what is a problem, what is
+   tolerated), docs-crawl-pages.mjs (which pages), docs-crawl-interact.mjs (what a reader does), docs-crawl-report.mjs (the report). */
 
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 
-export const CATEGORIES = [
-  "console-error",
-  "page-error",
-  "react-error",
-  "failed-request",
-  "http-error",
-  "empty-example",
-  "zero-size-example",
-  "knob-noop",
-  "playground-empty",
-  "copy-empty",
-  "dead-link",
-  "dead-anchor",
-  "overflow-x",
-  "interaction-error",
-];
+import { DEBUG, interact } from "./docs-crawl-interact.mjs";
+import { parseArgs, pathsOfSitemap, pickShard, pickSubset } from "./docs-crawl-pages.mjs";
+import { buildReport } from "./docs-crawl-report.mjs";
+import {
+  htmlDeclaresAnchor,
+  isFailedResourceLine,
+  isReactError,
+  isUnreachableHost,
+  PERMISSIONS_POLICY,
+  toleratedBy,
+} from "./docs-crawl-verdicts.mjs";
 
-/* Known and tolerated while it lasts, each with its reason. A tolerated problem is still listed (as « tolerated »),
-   never counted as a failure. */
-export const TOLERATED = [
-  { re: /krizaka-assets\.b-cdn\.net\/maps\/v1\//, why: "the CDN's map tiles may lack CORS headers; MapGate shows the photograph meanwhile" },
-  { re: /tiktok(cdn-us)?\.com/, why: "TikTok's own embed answers 400 / 429 to a headless browser and complains about its permissions policy: the platform's, behind a facade a visitor opens on purpose" },
-  { re: /net::ERR_ABORTED/, why: "a request cancelled by a navigation or a prefetch" },
-];
+export * from "./docs-crawl-pages.mjs";
+export * from "./docs-crawl-verdicts.mjs";
 
-const REACT_ERROR = /Minified React error #\d+|React error #\d+|Hydration failed|hydrat\w+ (error|mismatch)|did not match|Text content does not match|Maximum update depth|Cannot update a component|Each child in a list should have a unique "key"/i;
-
-/** `2/3` -> { index: 2, count: 3 }; null when absent. A malformed value is a mistake, not a silent full crawl. */
-export function parseShard(value) {
-  if (value == null) return null;
-  const m = /^(\d+)\/(\d+)$/.exec(value);
-  if (!m || Number(m[1]) < 1 || Number(m[1]) > Number(m[2])) throw new Error(`--shard expects i/n with 1 <= i <= n, got '${value}'`);
-  return { index: Number(m[1]), count: Number(m[2]) };
-}
-
-/** Slice `index` (1-based) of `count`: every count-th page, so the slices are disjoint and together cover every page. */
-export function pickShard(paths, shard) {
-  return shard ? paths.filter((_, k) => k % shard.count === shard.index - 1) : paths;
-}
-
-export function parseArgs(argv) {
-  const get = (name, fallback) => (argv.includes(name) ? argv[argv.indexOf(name) + 1] : fallback);
-  return {
-    base: get("--base", "http://localhost:4600").replace(/\/$/, ""),
-    sitemap: get("--sitemap", null),
-    lang: get("--lang", "both"),
-    views: get("--views", "desktop,phone").split(","),
-    subset: get("--subset", null) ? Number(get("--subset")) : null,
-    only: get("--only", null),
-    shard: parseShard(get("--shard", null)),
-    external: !argv.includes("--no-external"),
-    concurrency: Number(get("--concurrency", "4")),
-    out: get("--out", null),
-    playwright: get("--playwright", "playwright"),
-  };
-}
-
-/** The paths of a sitemap's <loc> entries, made relative (the host of the file is the production one). */
-export function pathsOfSitemap(xml) {
-  return [...xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map((m) => new URL(m[1]).pathname).filter((p, i, all) => all.indexOf(p) === i);
-}
-
-/** The pages of a fast subset: every page that is not a component page, and `sample` component pages (stable). */
-export function pickSubset(paths, sample) {
-  const isComponent = (p) => /^\/(fr\/)?components\/[^/]+\/?$/.test(p);
-  const components = paths.filter(isComponent);
-  const step = Math.max(1, Math.floor(components.length / Math.max(1, sample)));
-  const picked = new Set(components.filter((_, i) => i % step === 0).slice(0, sample));
-  for (const key of ["button", "dialog", "map", "line-chart", "vertical-video"]) for (const p of components) if (p.replace(/\/$/, "").endsWith(`/${key}`)) picked.add(p);
-  return paths.filter((p) => !isComponent(p) || picked.has(p));
-}
-
-export function toleratedBy(text) {
-  return TOLERATED.find((t) => t.re.test(text))?.why ?? null;
-}
-
-export function summarize(problems) {
-  const counts = Object.fromEntries(CATEGORIES.map((c) => [c, 0]));
-  const tolerated = Object.fromEntries(CATEGORIES.map((c) => [c, 0]));
-  for (const p of problems) (p.tolerated ? tolerated : counts)[p.category]++;
-  return { counts, tolerated };
-}
-
-const DEBUG = process.argv.includes("--debug");
 const VIEWPORTS = { desktop: { width: 1440, height: 900, scale: 1 }, phone: { width: 390, height: 844, scale: 2 } };
 
 async function main() {
@@ -171,16 +106,16 @@ async function main() {
     page.on("console", (m) => {
       if (m.type() !== "error") return;
       const text = m.text();
-      if (/^Failed to load resource/.test(text)) return; // reported by the response / requestfailed handlers, with the URL
+      if (isFailedResourceLine(text)) return; // reported by the response / requestfailed handlers, with the URL
       const from = m.location()?.url ? ` (${m.location().url.replace(origin, "")})` : "";
       // A third-party player (YouTube's embed) complains about its own permissions policy: not our page's error.
-      if (/^Permissions policy violation: .* is not allowed in this document/.test(text) && m.location()?.url && !m.location().url.startsWith(origin)) return;
+      if (PERMISSIONS_POLICY.test(text) && m.location()?.url && !m.location().url.startsWith(origin)) return;
       // The console of a third-party embed that a click woke (Instagram's reel player, a report-only CSP, its own error
       // handler) is that site's, not this page's: the page's own errors keep their origin and are still reported.
       if (phase === "interaction" && /^https?:\/\//.test(m.location()?.url ?? "") && !m.location().url.startsWith(origin)) return;
-      note(REACT_ERROR.test(text) ? "react-error" : phase === "interaction" ? "interaction-error" : "console-error", text.slice(0, 220) + from);
+      note(isReactError(text) ? "react-error" : phase === "interaction" ? "interaction-error" : "console-error", text.slice(0, 220) + from);
     });
-    page.on("pageerror", (e) => note(REACT_ERROR.test(e.message) ? "react-error" : phase === "interaction" ? "interaction-error" : "page-error", e.message.slice(0, 220)));
+    page.on("pageerror", (e) => note(isReactError(e.message) ? "react-error" : phase === "interaction" ? "interaction-error" : "page-error", e.message.slice(0, 220)));
     page.on("requestfailed", (r) => note("failed-request", `${r.method()} ${r.url().replace(origin, "")} — ${r.failure()?.errorText}`));
     page.on("response", (r) => {
       if (r.status() >= 400 && !r.url().startsWith("data:")) note("http-error", `${r.status()} ${r.url().replace(origin, "")}`);
@@ -240,7 +175,7 @@ async function main() {
     for (const e of facts.empty) note(e.kind === "zero" ? "zero-size-example" : "empty-example", e.label);
     for (const a of facts.anchors) note("dead-anchor", `${a.href} (« ${a.text} »)${a.where ? ` in ${a.where}` : ""}: no such id on the page`);
     for (const l of facts.links) {
-      if (/\/_next\//.test(new URL(l.href).pathname)) continue;
+      if (new URL(l.href).pathname.includes("/_next/")) continue;
       const key = l.href;
       if (!linkRefs.has(key)) linkRefs.set(key, []);
       linkRefs.get(key).push({ path, view, text: l.text });
@@ -289,12 +224,12 @@ async function main() {
       const url = new URL(href);
       const internal = url.origin === origin;
       const status = await fetchStatus(url.origin + url.pathname + url.search);
-      const dead = typeof status === "string" ? /ENOTFOUND|certificate/.test(status) : internal ? status >= 400 : status === 404 || status === 410;
+      const dead = typeof status === "string" ? isUnreachableHost(status) : internal ? status >= 400 : status === 404 || status === 410;
       let anchorDead = false;
       if (!dead && internal && url.hash && status === 200) {
         const id = decodeURIComponent(url.hash.slice(1));
         const html = await htmlOf(origin + url.pathname);
-        anchorDead = Boolean(id && html && !new RegExp(`(id|name)=["']${id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']`).test(html));
+        anchorDead = Boolean(id && html && !htmlDeclaresAnchor(html, id));
       }
       if (!dead && !anchorDead) continue;
       for (const ref of linkRefs.get(href)) add(ref.path, ref.view, dead ? "dead-link" : "dead-anchor", dead ? `${href} → ${status} (« ${ref.text} »)` : `${href}: no such id on the target page`);
@@ -303,31 +238,8 @@ async function main() {
   await Promise.all(Array.from({ length: 16 }, checkWorker));
   await browser.close();
 
-  const { counts, tolerated } = summarize(problems);
-  const failures = problems.filter((p) => !p.tolerated);
-  const byComponent = {};
-  for (const p of failures) {
-    const m = /^\/(?:fr\/)?components\/([^/]+)/.exec(p.page);
-    const k = m ? m[1] : p.page;
-    byComponent[k] ??= {};
-    byComponent[k][p.category] = (byComponent[k][p.category] ?? 0) + 1;
-  }
-  const report = { base: opts.base, pages: paths.length, views: opts.views, counts, tolerated, total: failures.length, byComponent, problems };
-  const sum = (o) => Object.values(o).reduce((x, y) => x + y, 0);
-  const md = [
-    `# docs-crawl — ${opts.base}`,
-    `${paths.length} pages × ${opts.views.join(" + ")}; ${failures.length} problem(s), ${problems.length - failures.length} tolerated.`,
-    "",
-    "| Category | Problems | Tolerated |",
-    "|---|---:|---:|",
-    ...CATEGORIES.map((c) => `| ${c} | ${counts[c]} | ${tolerated[c]} |`),
-    "",
-    "## By component or page",
-    ...Object.entries(byComponent).sort((a, b) => sum(b[1]) - sum(a[1])).map(([k, v]) => `- ${k}: ${Object.entries(v).map(([c, n]) => `${c} ×${n}`).join(", ")}`),
-    "",
-    "## Problems",
-    ...failures.map((p) => `- [${p.category}] ${p.view} ${p.page} — ${p.detail}`),
-  ].join("\n");
+  const { report, md, failures } = buildReport(opts, paths, problems);
+  const { counts } = report;
   if (opts.out) {
     writeFileSync(`${opts.out}/report.json`, JSON.stringify(report, null, 2));
     writeFileSync(`${opts.out}/report.md`, md + "\n");
@@ -339,141 +251,5 @@ async function main() {
   process.exit(failures.length ? 1 : 0);
 }
 
-/* The examples and playgrounds of the page, driven like a reader would. Errors raised meanwhile are attributed to the
-   interaction by `note` (the phase). */
-async function interact(page, note) {
-  const lap = (what, t) => DEBUG && console.log(`    ${what}: ${Date.now() - t} ms`);
-  let t = Date.now();
-  // Playgrounds: every control must change the canvas or the code.
-  const plays = page.locator(".kz-play");
-  for (let i = 0; i < (await plays.count()); i++) {
-    const play = plays.nth(i);
-    await play.scrollIntoViewIfNeeded().catch(() => {});
-    await page.waitForTimeout(400);
-    const canvas = play.locator(".kz-play-canvas");
-    const snap = async () => ({
-      html: await canvas.evaluate((c) => c.innerHTML).catch(() => ""),
-      code: await play.locator(".kz-play-code").evaluate((c) => c.textContent).catch(() => ""),
-      shot: (await canvas.screenshot({ animations: "disabled" }).catch(() => Buffer.alloc(0))).toString("base64"),
-    });
-    const same = (a, b) => a.html === b.html && a.code === b.code && a.shot === b.shot;
-    const box = await canvas.boundingBox();
-    const filled = await canvas.evaluate((c) => c.children.length > 0 && !c.querySelector(".kz-play-wait")).catch(() => false);
-    if (!box || box.width < 4 || box.height < 4 || !filled) note("playground-empty", "the playground canvas renders nothing");
-    const rows = play.locator(".kz-play-row");
-    for (let r = 0; r < (await rows.count()); r++) {
-      const row = rows.nth(r);
-      const label = ((await row.locator(".kz-play-label").first().textContent().catch(() => "")) ?? "").trim().slice(0, 30);
-      const before = await snap();
-      let acted = false;
-      const sw = row.locator('[role="switch"]');
-      const slider = row.locator('[role="slider"]');
-      const input = row.locator('input[type="text"], input:not([type]), textarea');
-      const options = row.locator('[role="radio"], button');
-      try {
-        if (await sw.count()) {
-          await sw.first().click({ timeout: 3000 });
-          acted = true;
-        } else if (await slider.count()) {
-          await slider.first().focus();
-          await page.keyboard.press("ArrowRight");
-          await page.keyboard.press("ArrowRight");
-          acted = true;
-        } else if (await input.count()) {
-          await input.first().fill("Krizaka x");
-          acted = true;
-        } else if (await options.count()) {
-          // choose the options in turn until one changes the canvas
-          for (let c = 0; c < (await options.count()); c++) {
-            const el = options.nth(c);
-            const on = (await el.getAttribute("aria-checked")) === "true" || (await el.getAttribute("aria-pressed")) === "true" || ["on", "checked"].includes((await el.getAttribute("data-state")) ?? "");
-            if (on) continue;
-            await el.click({ timeout: 3000 });
-            acted = true;
-            await page.waitForTimeout(200);
-            if (!same(before, await snap())) break;
-          }
-        }
-      } catch (e) {
-        note("interaction-error", `playground control « ${label} »: ${String(e.message).split("\n")[0].slice(0, 120)}`);
-        continue;
-      }
-      if (!acted) continue;
-      await page.waitForTimeout(250);
-      if (same(before, await snap())) note("knob-noop", `playground control « ${label} » changes neither the canvas nor the code`);
-    }
-  }
-
-  lap("playgrounds", t);
-  t = Date.now();
-  // Copy buttons: they must copy something.
-  const copies = page.locator('button[aria-label*="opy" i], button[aria-label*="opier" i], button[data-copy], pre ~ button[aria-live], figure button[aria-live="polite"]');
-  const copyCount = Math.min(await copies.count(), 40);
-  for (let i = 0; i < copyCount; i++) {
-    const btn = copies.nth(i);
-    // A « Copy » button inside an example is sample content (a tooltip's trigger), unless it sits in a code block.
-    const sample = await btn.evaluate((b) => Boolean(b.closest(".kz-live-example, .kz-catalog-live")) && !b.parentElement?.querySelector("pre, code") && !b.closest("figure, [data-rehype-pretty-code-figure]")).catch(() => false);
-    if (sample) continue;
-    // To the middle of the screen: « visible » is not enough on a phone, where a fixed bar (the site's RailNav) covers the bottom edge
-    // and the forced press would land on the bar, not on the button.
-    await btn.evaluate((b) => b.scrollIntoView({ block: "center", inline: "nearest", behavior: "instant" })).catch(() => {});
-    if (!(await btn.isVisible().catch(() => false))) continue;
-    try {
-      await page.evaluate(() => navigator.clipboard.writeText("__empty__"));
-      await btn.click({ timeout: 3000, force: true });
-      let text = "";
-      for (let tries = 0; tries < 8 && (!text.trim() || text === "__empty__"); tries++) {
-        await page.waitForTimeout(150);
-        text = await page.evaluate(() => navigator.clipboard.readText());
-      }
-      if (!text.trim() || text === "__empty__") note("copy-empty", `a copy button copied nothing (« ${((await btn.getAttribute("aria-label")) ?? "").slice(0, 40)} »)`);
-    } catch (e) {
-      note("interaction-error", `a copy button threw: ${String(e.message).split("\n")[0].slice(0, 120)}`);
-    }
-  }
-
-  lap("copy", t);
-  t = Date.now();
-  // Examples: click the first control, open what opens, type in the first field, focus the tabbables.
-  const examples = page.locator(".kz-live-example");
-  const total = Math.min(await examples.count(), 60);
-  for (let i = 0; i < total; i++) {
-    const ex = examples.nth(i);
-    try {
-      await ex.scrollIntoViewIfNeeded({ timeout: 2000 });
-    } catch {
-      continue;
-    }
-    await page.waitForTimeout(120);
-    const url = page.url();
-    const targets = ex.locator('button:not([disabled]), [role="tab"], [role="switch"], [role="checkbox"], [role="combobox"], summary, [role="button"]:not([aria-disabled="true"])');
-    if (await targets.count()) {
-      const first = targets.first();
-      if (await first.isVisible().catch(() => false)) {
-        await first.click({ timeout: 2500 }).catch((e) => {
-          if (!/intercepts pointer|not stable|detached|outside of the viewport|not visible|Timeout/.test(String(e.message))) note("interaction-error", `click threw: ${String(e.message).split("\n")[0].slice(0, 120)}`);
-        });
-        await page.waitForTimeout(250);
-        if (await page.locator('[role="dialog"], [role="alertdialog"], [role="menu"], [role="listbox"], [data-radix-popper-content-wrapper]').count()) {
-          await page.keyboard.press("Escape");
-          await page.waitForTimeout(150);
-        }
-      }
-    }
-    const field = ex.locator('input[type="text"], input[type="search"], input[type="email"], input:not([type]), textarea').first();
-    if (await field.count()) {
-      await field.fill("Krizaka", { timeout: 2000 }).catch(() => {});
-      await field.press("Enter", { timeout: 1000 }).catch(() => {});
-    }
-    const tabbables = ex.locator('a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex="0"]');
-    for (let t = 0; t < Math.min(await tabbables.count(), 3); t++) await tabbables.nth(t).focus({ timeout: 800 }).catch(() => {});
-    if (page.url() !== url) {
-      // An example that navigates away is a link doing its job; come back.
-      await page.goBack({ waitUntil: "networkidle" }).catch(() => {});
-      break;
-    }
-  }
-  lap("examples", t);
-}
 
 if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) await main();
