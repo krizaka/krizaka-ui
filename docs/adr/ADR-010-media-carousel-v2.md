@@ -32,9 +32,9 @@
 | krizaka.com `/story` (takes), the brand film's lightbox and watch page | real screen recordings, the film | `TakeCard` + a hand-made dialog; `MediaPlayer` on the watch page |
 | krizaka-coming-soon (`www.verikora.com`, `www.folioviv.com`, `www.sovkora.com`, `www.kridoc.com`) | one reel loop per product; Kridoc's planned 2-slide emotion film (#2655) | hand-made `<video>` + pause, hashes copied by hand |
 | the blog (`<Clip>`, card loops, chapter figures) | generated clips and films, provenance under them | hand-made `ClipPlayer`, `CardLoop` |
-| Sovkora (orazaka-web-client) — landing, studio, cinema pack results | demo recordings (16:10 and phone), the film, job results | hand-made `Clip` — its own comment calls it a stand-in |
-| Folioviv (akinaza) — hero take, previews to rotate (#2107), the shop's gallery and TV | a real phone journey, 3–4 realisations, the owner's photos and videos | hand-made `HeroTake`, `PreviewFrame`; `ShopGallery`, `RetroTv` |
-| Verikora (yomizaka) — five showcase clips (#2248) | recorded analyses | planned |
+| Sovkora (sovkora-web) — landing, studio, cinema pack results | demo recordings (16:10 and phone), the film, job results | hand-made `Clip` — its own comment calls it a stand-in |
+| Folioviv — hero take, previews to rotate (#2107), the shop's gallery and TV | a real phone journey, 3–4 realisations, the owner's photos and videos | hand-made `HeroTake`, `PreviewFrame`; `ShopGallery`, `RetroTv` |
+| Verikora — five showcase clips (#2248) | recorded analyses | planned |
 | the products' new demo videos (#2655) | 20–45 s 16:9 screen journeys with zooms, a highlight on what is clicked, chapters | being produced by another session |
 | ui.krizaka.com | the examples of the media family | `MediaCarousel`, `MediaPlayer`, `PausableLoop` |
 
