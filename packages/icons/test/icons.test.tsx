@@ -15,9 +15,21 @@ describe("the set", () => {
   it("covers the product vocabulary and the usual navigation (40–100 icons)", () => {
     expect(names.length).toBeGreaterThanOrEqual(40);
     expect(names.length).toBeLessThanOrEqual(100);
-    for (const word of ["tip", "unlock", "paid", "auction", "challenge", "goal", "creator", "story", "story24h", "payout", "wallet", "share90", "lock", "follow", "message", "upload", "video", "chat", "ai", "agent", "studio", "pack", "automation", "knowledge", "shield", "local", "server", "billing", "credits", "theme", "search", "settings", "notification", "soccer", "hockey", "basketball", "trophy", "medal", "podium", "star", "bolt", "wave", "flame", "crown", "leaf", "mountain"]) {
+    for (const word of ["tip", "unlock", "paid", "auction", "challenge", "goal", "creator", "story", "story24h", "payout", "wallet", "share90", "lock", "follow", "message", "upload", "video", "chat", "ai", "agent", "studio", "pack", "automation", "knowledge", "shield", "local", "server", "billing", "credits", "theme", "search", "settings", "notification", "soccer", "hockey", "basketball", "trophy", "medal", "podium", "star", "bolt", "wave", "flame", "crown", "leaf", "mountain", "instagram"]) {
       expect(names, word).toContain(word);
     }
+  });
+
+  it("draws the Instagram glyph as a bare monochrome outline: a link affordance, no node, no colour", () => {
+    const g = (GLYPHS as Record<string, { group: string; n?: unknown[]; p?: string[]; c?: unknown[][] }>).instagram;
+    expect(g.group).toBe("interface");
+    expect(g.n).toBeUndefined();
+    expect(g.p?.length).toBe(2);
+    expect(g.c?.length).toBe(1);
+    const { container } = render(<icons.InstagramIcon title="Instagram" />);
+    const svg = container.querySelector("svg")!;
+    expect(svg.getAttribute("aria-label")).toBe("Instagram");
+    expect(container.innerHTML).not.toMatch(/gradient|#[0-9a-f]{3,6}|rgb/i);
   });
 
   it("exports one component per glyph, named <Name>Icon", () => {
@@ -35,7 +47,7 @@ describe("the set", () => {
 describe("the documentation (ui.krizaka.com/foundations/icons)", () => {
   it("describes every group the set uses, in reading order", () => {
     const used = new Set(Object.values(catalog.glyphIndex).map((g) => g.group));
-    expect(catalog.iconGroups.map((g) => g.id).sort()).toEqual([...used].sort());
+    expect(catalog.iconGroups.map((g) => g.id).sort((a, b) => a.localeCompare(b))).toEqual([...used].sort((a, b) => a.localeCompare(b)));
     for (const g of catalog.iconGroups) expect(g.description.length).toBeGreaterThan(40);
   });
 

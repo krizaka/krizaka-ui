@@ -188,5 +188,7 @@ export const BookmarkIcon = /* @__PURE__ */ createNativeIcon("BookmarkIcon", g.b
 export const SoundIcon = /* @__PURE__ */ createNativeIcon("SoundIcon", g.sound);
 /** mute sound off silent volume speaker */
 export const MuteIcon = /* @__PURE__ */ createNativeIcon("MuteIcon", g.mute);
+/** instagram social account link camera photo */
+export const InstagramIcon = /* @__PURE__ */ createNativeIcon("InstagramIcon", g.instagram);
 /** flag report abuse moderation */
 export const FlagIcon = /* @__PURE__ */ createNativeIcon("FlagIcon", g.flag);

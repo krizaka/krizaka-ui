@@ -6,6 +6,7 @@ import ConfiguredExample from "../../registry/examples/site-footer/configured";
 import DocsExample from "../../registry/examples/site-footer/docs";
 import OpenSourceFrExample from "../../registry/examples/site-footer/open-source-fr";
 import ProductExample from "../../registry/examples/site-footer/product";
+import SocialsExample from "../../registry/examples/site-footer/socials";
 import { SiteFooter } from "./site-footer";
 
 /** The footer of every Krizaka site. Each story renders a named example of the registry (`registry/examples/site-footer/*`). */
@@ -32,3 +33,5 @@ export const App: Story = { render: () => <AppExample /> };
 export const Docs: Story = { render: () => <DocsExample /> };
 /** The footer as the admin configured it (`config`): real columns, then one legal line that names the company once. */
 export const Configured: Story = { render: () => <ConfiguredExample /> };
+/** The company's Instagram from `org.links.social`, drawn as its icon on the last line. */
+export const Socials: Story = { render: () => <SocialsExample /> };
