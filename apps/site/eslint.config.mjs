@@ -5,7 +5,7 @@ import { noLocaleTernary } from "@krizaka/config/eslint/no-locale-ternary";
 import { krizakaStack } from "@krizaka/config/eslint/stack";
 
 const config = [
-  { name: "site/ignores", ignores: [".next/**", "out/**", ".source/**", "next-env.d.ts", "lib/ui-examples.ts", "public/**"] },
+  { name: "site/ignores", ignores: [".next/**", "out/**", ".source/**", "next-env.d.ts", "lib/ui-examples.ts", "lib/ui-registry-data.ts", "public/**"] },
   ...krizakaNext,
   ...krizakaStack({ files: ["app/**/*.{ts,tsx}", "lib/**/*.ts"] }),
   ...noLocaleTernary({ files: ["app/**/*.{ts,tsx}", "lib/**/*.ts"], routing: ["**/lib/i18n.ts", "**/lib/urls.ts", "**/I18nProvider.tsx", "**/SiteRoot.tsx"] }),
