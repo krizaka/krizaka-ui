@@ -23,6 +23,8 @@
 // cannot purge, and Bunny storage takes no per-object Cache-Control): set the pull zone's cache expiry for brand/* to 5 minutes
 // (dashboard → pull zone → Caching) or purge with the account API key. Release workflow: .github/workflows/release.yml.
 // The layout of the zone: krizaka-com scripts/bunny-layout.mjs, AGENTS.md §5.2.
+// Why: the family's marks must come from the code, never from a hand-made file. Owner: krizaka-ui (lane platform).
+// ADR-026 phase D: no regex over 80 characters; the SVG edits below are string edits on React's own markup, each a named, tested pattern.
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
@@ -46,6 +48,33 @@ export const SOCIAL = { width: 1280, height: 640 };
 /** The page behind the avatar and the social preview: the dark surface of the family. */
 const INK = "#0d0d10";
 
+// ---- the SVG edits: string edits on React's own markup, each pattern named (tested) --------------------------------
+
+/** The animation stylesheet React renders inside the logo. */
+export const STYLE_BLOCK = /<style>[\s\S]*?<\/style>/g;
+/** `var(--kz-ink, color-mix(…))`: a host token with its fallback; the name is captured. */
+export const TOKEN_WITH_FALLBACK = /var\((--kz-[a-z0-9-]+),\s*color-mix\([^)]*\)\)/g;
+/** ` width="…"` or ` height="…"`: a size attribute, wherever it is. */
+export const SIZE_ATTRIBUTE = /\s(?:width|height)="[^"]*"/g;
+/** ` aria-hidden="true"`: the marker React puts on a decorative logo. */
+export const ARIA_HIDDEN = / aria-hidden="true"/;
+/** The orbit of the logo: a `<circle>` with a dash pattern (open or self-closing). */
+export const DASHED_CIRCLE = /<circle\b[^>]*\bstroke-dasharray="[^"]*"[^>]*(?:\/>|><\/circle>)/g;
+/** The halo of the logo: a `<circle>` at 35 % opacity. */
+export const FAINT_CIRCLE = /<circle\b[^>]*\bopacity="\.35"[^>]*(?:\/>|><\/circle>)/g;
+/** `viewBox="x y w h"`: the four numbers are captured. */
+export const VIEW_BOX = /viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"/;
+/** The opening `<svg ` of a file. */
+export const SVG_OPEN = /^<svg /;
+/** The `<svg x="15%" y="15%" width="…" height="…"` the avatar nests; its pixel size is replaced. */
+export const NESTED_MARK_BOX = /<svg x="15%" y="15%" width="\d+" height="\d+"/;
+/** ` width="100" height="100"` on the favicon's root. */
+export const SQUARE_100 = / width="100" height="100"/;
+/** The root of a 400 × 400 logo, as `standalone` writes it. */
+export const LOGO_ROOT_400 = /^<svg width="400" height="400"/;
+/** A file name's extension: `.png`. */
+export const EXTENSION = /\.[a-z]+$/;
+
 // ---- pure helpers (tested) --------------------------------------------------------------------------------------
 
 /** The `--kz-*` custom properties of a CSS block that starts with <selector> (the first one). */
@@ -58,9 +87,15 @@ export function tokensOf(css, selector) {
   return out;
 }
 
+/** `hsl( … )` / `hsla( … )`: what is between the parentheses, without the spaces around it. */
+export const HSL_FUNCTION = /^hsla?\(\s*([\s\S]*?)\s*\)$/;
+/** `240 4% 64%`, `240deg, 4%, 64%`, `240 4% 64% / 0.1`, `240, 4%, 64%, 10%`: hue, saturation %, lightness %, then an optional alpha (a number or a %). */
+export const HSL_ARGUMENTS = /^([\d.]+)(?:deg)?[\s,]+([\d.]+)%[\s,]+([\d.]+)%(?:\s*[/,]\s*([\d.]+)(%?))?$/;
+
 /** `hsl(240 4% 64%)` or `hsl(0 0% 100% / 0.10)` → `rgba(163, 163, 171, 1)`: what every SVG renderer reads. */
 export function hslToRgba(value) {
-  const m = /^hsla?\(\s*([\d.]+)(?:deg)?[\s,]+([\d.]+)%[\s,]+([\d.]+)%(?:\s*[/,]\s*([\d.]+)(%?))?\s*\)$/.exec(value.trim());
+  const inside = HSL_FUNCTION.exec(value.trim())?.[1];
+  const m = inside === undefined ? null : HSL_ARGUMENTS.exec(inside);
   if (!m) throw new Error(`not an hsl() colour: ${value}`);
   const h = Number(m[1]);
   const s = Number(m[2]) / 100;
@@ -77,14 +112,14 @@ export function hslToRgba(value) {
  */
 export function standalone(svg, tokens, size) {
   return svg
-    .replace(/<style>[\s\S]*?<\/style>/g, "")
-    .replace(/var\((--kz-[a-z0-9-]+),\s*color-mix\([^)]*\)\)/g, (_, name) => {
+    .replace(STYLE_BLOCK, "")
+    .replace(TOKEN_WITH_FALLBACK, (_, name) => {
       if (!tokens[name]) throw new Error(`the theme has no ${name}`);
       return hslToRgba(tokens[name]);
     })
-    .replace(/\s(?:width|height)="[^"]*"/g, "")
+    .replace(SIZE_ATTRIBUTE, "")
     .replace("<svg ", `<svg width="${size}" height="${size}" `)
-    .replace(/ aria-hidden="true"/, "");
+    .replace(ARIA_HIDDEN, "");
 }
 
 /**
@@ -93,9 +128,9 @@ export function standalone(svg, tokens, size) {
  */
 export function emblem(svg, margin = 0.06) {
   return svg
-    .replace(/<circle\b[^>]*\bstroke-dasharray="[^"]*"[^>]*(?:\/>|><\/circle>)/g, "")
-    .replace(/<circle\b[^>]*\bopacity="\.35"[^>]*(?:\/>|><\/circle>)/g, "")
-    .replace(/viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"/, (_, x, y, w, h) => {
+    .replace(DASHED_CIRCLE, "")
+    .replace(FAINT_CIRCLE, "")
+    .replace(VIEW_BOX, (_, x, y, w, h) => {
       const [X, Y, W, H] = [x, y, w, h].map(Number);
       const mx = W * margin;
       const my = H * margin;
@@ -126,7 +161,7 @@ export function brandIndex(brands, version, cdn = DEFAULT_CDN) {
     about: "Public, stable URLs of the logos and marks of the Krizaka family — generated from @krizaka/ui on every release, never hand-made",
     generatedFrom: `@krizaka/ui@${version}`,
     source: "https://github.com/krizaka/krizaka-ui/blob/main/tools/export-brand.mjs",
-    brands: Object.fromEntries(brands.map((b) => [b, Object.fromEntries(brandFiles().map((f) => [f.replace(/\.[a-z]+$/, ""), `${base}/${b}/${f}`]))])),
+    brands: Object.fromEntries(brands.map((b) => [b, Object.fromEntries(brandFiles().map((f) => [f.replace(EXTENSION, ""), `${base}/${b}/${f}`]))])),
   };
 }
 
@@ -140,9 +175,27 @@ export function avatarFiles(kinds, sizes, tones) {
 export const contentTypeOf = (name) => ({ svg: "image/svg+xml", png: "image/png", webp: "image/webp", json: "application/json" })[name.split(".").pop()] ?? "application/octet-stream";
 const encodePath = (p) => p.split("/").map(encodeURIComponent).join("/");
 
+/** The folders of the zone this script writes: the brand marks, and the default profile pictures of the first version. */
+export const WRITABLE_ROOTS = ["brand", "people/defaults/v1"];
+/** A folder of one brand: lower-case words and digits with dashes. */
+export const BRAND_FOLDER = /^[a-z0-9-]+$/;
+/** A file name: letters, digits, dot, dash, underscore. */
+export const FILE_NAME = /^[A-Za-z0-9._-]+$/;
+
+/** True for `<root>/<brand>/<file>`, `<root>/manifest.json` and `brand/index.json`, where <root> is one of WRITABLE_ROOTS. */
+export function isWritable(path) {
+  if (path === "brand/index.json") return true;
+  const root = WRITABLE_ROOTS.find((r) => path.startsWith(`${r}/`));
+  if (!root) return false;
+  const rest = path.slice(root.length + 1);
+  if (rest === "manifest.json") return true;
+  const [folder, file, ...more] = rest.split("/");
+  return more.length === 0 && file !== undefined && BRAND_FOLDER.test(folder) && FILE_NAME.test(file);
+}
+
 /** Throws unless <path> is under one of the prefixes this script writes. */
 export function assertWritable(path) {
-  if (!/^(brand|people\/defaults\/v1)\/[a-z0-9-]+\/[A-Za-z0-9._-]+$|^(brand|people\/defaults\/v1)\/manifest\.json$|^brand\/index\.json$/.test(path)) {
+  if (!isWritable(path)) {
     throw new Error(`${path} is outside brand/ and people/defaults/v1/ — this script writes only those (see the Bunny layout)`);
   }
   return path;
@@ -186,18 +239,18 @@ export async function build() {
       for (const size of LOGO_SIZES) out.set(`${dir}/${name}-${size}.png`, await png(svg, size));
     }
     // The avatar of an account (GitHub, npm, social): the mark on the family's dark surface, full-bleed square — the platform rounds it.
-    const markDark = svgs["mark-dark"].replace(/^<svg /, '<svg x="15%" y="15%" ');
-    const avatarSvg = (s) => `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 100 100"><rect width="100" height="100" fill="${INK}"/>${markDark.replace(/<svg x="15%" y="15%" width="\d+" height="\d+"/, '<svg x="15" y="15" width="70" height="70"')}</svg>`;
+    const markDark = svgs["mark-dark"].replace(SVG_OPEN, '<svg x="15%" y="15%" ');
+    const avatarSvg = (s) => `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 100 100"><rect width="100" height="100" fill="${INK}"/>${markDark.replace(NESTED_MARK_BOX, '<svg x="15" y="15" width="70" height="70"')}</svg>`;
     for (const s of AVATAR_SIZES) out.set(`${dir}/avatar-${s}.png`, await png(avatarSvg(s), s));
     // favicon.svg: the emblem on the family's dark surface (legible in any tab); og-mark.png: the same, 1200×630 for Open Graph.
-    out.set(`${dir}/favicon.svg`, Buffer.from(`${avatarSvg(100).replace(/ width="100" height="100"/, "").replace("<rect ", '<rect rx="22" ')}\n`));
+    out.set(`${dir}/favicon.svg`, Buffer.from(`${avatarSvg(100).replace(SQUARE_100, "").replace("<rect ", '<rect rx="22" ')}\n`));
     // The tab, home-screen and manifest icons of every site, from the same favicon.svg (krizaka-com: a site's icons are these files, never redrawn).
     const faviconSvg = out.get(`${dir}/favicon.svg`).toString();
     for (const [name, size] of FAVICON_PNGS) out.set(`${dir}/${name}`, await png(faviconSvg.replace("<svg ", `<svg width="${size}" height="${size}" `), size));
-    out.set(`${dir}/og-mark.png`, await png(`<svg xmlns="http://www.w3.org/2000/svg" width="${OG.width}" height="${OG.height}" viewBox="0 0 ${OG.width} ${OG.height}"><rect width="${OG.width}" height="${OG.height}" fill="${INK}"/>${svgs["mark-dark"].replace(/^<svg width="400" height="400"/, `<svg x="${(OG.width - 360) / 2}" y="${(OG.height - 360) / 2}" width="360" height="360"`)}</svg>`, OG.width, OG.height));
+    out.set(`${dir}/og-mark.png`, await png(`<svg xmlns="http://www.w3.org/2000/svg" width="${OG.width}" height="${OG.height}" viewBox="0 0 ${OG.width} ${OG.height}"><rect width="${OG.width}" height="${OG.height}" fill="${INK}"/>${svgs["mark-dark"].replace(LOGO_ROOT_400, `<svg x="${(OG.width - 360) / 2}" y="${(OG.height - 360) / 2}" width="360" height="360"`)}</svg>`, OG.width, OG.height));
     // The social preview: the whole logo, large, on the dark surface lit by the brand's halo.
     const { width: W, height: H } = SOCIAL;
-    const logo = svgs["logo-dark"].replace(/^<svg width="400" height="400"/, `<svg x="${(W - 600) / 2}" y="${(H - 600) / 2}" width="600" height="600"`);
+    const logo = svgs["logo-dark"].replace(LOGO_ROOT_400, `<svg x="${(W - 600) / 2}" y="${(H - 600) / 2}" width="600" height="600"`);
     out.set(`${dir}/social-preview-${W}x${H}.png`, await png(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" fill="${INK}"/>${logo}</svg>`, W, H));
   }
 
@@ -224,11 +277,16 @@ export async function build() {
 
 // ---- storage ----------------------------------------------------------------------------------------------------
 
+/** `export KEY=value` or `KEY = value`: the name and the value (the value may be quoted). */
+export const ENV_LINE = /^\s*(?:export\s+)?([A-Z0-9_]+)\s*=\s*(.*)\s*$/;
+/** `"value"` or `'value'`: the same quote at both ends; the inside is captured as the second group. */
+export const QUOTED_VALUE = /^(['"])(.*)\1$/;
+
 export function parseEnv(text) {
   const env = {};
   for (const line of text.split(/\r?\n/)) {
-    const m = /^\s*(?:export\s+)?([A-Z0-9_]+)\s*=\s*(.*)\s*$/.exec(line);
-    if (m) env[m[1]] = m[2].replace(/^(['"])(.*)\1$/, "$2");
+    const m = ENV_LINE.exec(line);
+    if (m) env[m[1]] = m[2].replace(QUOTED_VALUE, "$2");
   }
   return env;
 }
@@ -261,7 +319,7 @@ export function stalePaths(listed, files) {
   return listed.filter((path) => !files.has(path)).sort();
 }
 
-const ROOTS = ["brand", "people/defaults/v1"];
+const ROOTS = WRITABLE_ROOTS;
 
 /** Every file under `dir` in the zone (the storage API lists one folder at a time). */
 async function list(cfg, dir) {
