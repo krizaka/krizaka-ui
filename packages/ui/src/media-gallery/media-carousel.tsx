@@ -445,8 +445,10 @@ function TextVersion({ slides, summary, className, children }: Readonly<{ slides
 }
 
 /** The caption shown in the bar: the slide's, with the chapter under the playhead. */
-const barCaptionOf = (placement: "overlay" | "bar", slide: CarouselSlide | undefined, chapter: CarouselChapter | undefined) =>
-  placement === "bar" && slide?.caption ? `${slide.caption}${chapter ? ` · ${chapter.label}` : ""}` : undefined;
+function barCaptionOf(placement: "overlay" | "bar", slide: CarouselSlide | undefined, chapter: CarouselChapter | undefined) {
+  if (placement !== "bar" || !slide?.caption) return undefined;
+  return chapter ? [slide.caption, chapter.label].join(" · ") : slide.caption;
+}
 
 /** A sequence of clips, screen demos and stills, one at a time: buttons, arrow keys, swipe, and with `autoplay` it advances at the media's pace. */
 export function MediaCarousel({
