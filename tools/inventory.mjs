@@ -28,8 +28,8 @@ import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 
-import { CONCEPTS, COMPOSITES, conceptOf, mentionsPrimitive, NATIVE, PRODUCT_KIT } from "./inventory-concepts.mjs";
-import { isDuplicate, issueBody, toMarkdown } from "./inventory-report.mjs";
+import { COMPOSITES, conceptOf, CONCEPTS, mentionsPrimitive, NATIVE, PRODUCT_KIT } from "./inventory-concepts.mjs";
+import { isDuplicate, toMarkdown } from "./inventory-report.mjs";
 import { definitions, doorSources, ILLUSTRATION, readDoor, sourceFiles } from "./inventory-source.mjs";
 
 export * from "./inventory-concepts.mjs";
