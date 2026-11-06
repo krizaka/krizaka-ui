@@ -8,7 +8,7 @@
 - **The app-version contract shared by every Krizaka backend and client**: versions, the payload, the rules (`none |
   soft | force`, 426, N-1 with `Deprecation`/`Sunset`), the Next.js server helpers, the framework-free client and its
   React hook. Level 0, no UI (the screens are `@krizaka/ui`: `UpdatePrompt`, `ForceUpdateScreen`, `MaintenanceScreen`).
-- It is the **twin of the Java building block** `krizaka-app-config` (krizaka-build, `krizaka-platform-kit/`). `test/cases.json` and
+- It is the **twin of the Java building block** `krizaka-app-config` (krizaka-java, `krizaka-service-kit/`). `test/cases.json` and
   `contract/app-config.schema.json` are copies of the Java module's `contract/` files; a change to the contract is made
   in both repositories, in the same sprint, and both suites keep passing the same cases.
 - Not here: where a product stores the parameters (its own database, the tables are `schemaSql` of `/server`), its admin screens,
