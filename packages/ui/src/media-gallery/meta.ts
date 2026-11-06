@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Media gallery",
-  summary: "Also `MediaCarousel` (v2, ADR-010: a sequence of clips, screen demos and stills given as data, one at a time; `autoplay` at the media's pace with a visible pause, optional sound, the Cahier frame, a text version; its files checked by `@krizaka/ui/media-guard` and the `krizaka-media-guard` bin), `MediaPlayer` (the one video frame: inline, lightbox, 9:16) and `PausableLoop` (a silent loop with a visible pause, its own entry). A shop's own photos and loops in tiles, the first featured, a caption on the foot of a tile.",
+  summary: "Also `MediaCarousel` (clips, screen demos and stills one at a time; `autoplay` with a visible pause, optional sound, its files checked by `krizaka-media-guard`), `MediaPlayer` (the one video frame: inline, lightbox, 9:16) and `PausableLoop` (a silent loop with a visible pause). A shop's own photos and loops in tiles, the first featured.",
   status: "beta",
   category: "media",
   domain: "media",

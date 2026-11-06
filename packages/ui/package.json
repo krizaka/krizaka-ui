@@ -2213,7 +2213,7 @@
     {
       "name": "./media-carousel",
       "path": "dist/media-carousel.js",
-      "limit": "31 kB",
+      "limit": "34 kB",
       "gzip": true,
       "ignore": ["tailwind-variants", "clsx"]
     },

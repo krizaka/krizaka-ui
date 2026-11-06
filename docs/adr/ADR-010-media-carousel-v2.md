@@ -146,8 +146,8 @@ storyboard, and the loop keeps a bad tail from being held on screen.
 
 ### 5. Budget and tests
 
-- `./media-carousel` ≤ 31 kB gzip (unchanged: `MediaPlayer`'s lightbox is the bulk; the clock, sound and chapters
-  measure < 1.5 kB). `./media-guard` is not shipped to browsers.
+- `./media-carousel` ≤ 34 kB gzip (`MediaPlayer`'s lightbox is the bulk; the clock, the clip, the sound and the chapters
+  measure +2.4 kB over v1). `./media-guard` (≤ 3 kB) is Node only, never shipped to browsers.
 - Unit (Vitest + happy-dom): the clock (dwell bounds, `animationend`, holds), reduced motion, Save-Data, page load, the
   sound gesture, a failing source, chapters, the text version, keyboard, swipe, axe; the guard's rules on fixtures.
 - Stories (Storybook, axe + screenshots dark and light, phone): autoplay with ticks, the Cahier frame with a hue, a screen

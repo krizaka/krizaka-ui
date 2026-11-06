@@ -30,7 +30,7 @@ an entry with itself over time, not with its budget).
 
 | Entry | Domain | Status | Live importers (files) | Paused | Built on by | gzip kB / budget | Tests | Stories | Last change | Verdict | Why |
 | :-- | :-- | :-- | :-- | :-- | --: | :-- | --: | --: | :-- | :-- | :-- |
-| `media-carousel` | **none** | — | — | — | — | 18.6 / 31.0 | — | — | — | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
+| `media-carousel` | **none** | — | — | — | — | 18.6 / 34.0 | — | — | — | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `media-guard` | **none** | — | — | — | — | 2.7 / 3.0 | — | — | — | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `media-player` | **none** | — | — | — | — | 10.8 / 29.9 | — | — | — | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `pausable-loop` | **none** | — | — | — | — | 3.5 / 2.0 | — | — | — | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
