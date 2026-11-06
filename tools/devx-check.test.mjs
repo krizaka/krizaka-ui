@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 import { gzipSync } from "node:zlib";
-import { distFileOf, fixture, hygiene, unionGzip } from "./devx-check.mjs";
+import { distFileOf, fixture, hygiene, uiInScope, unionGzip } from "./devx-check.mjs";
 
 const pkg = (over = {}) => ({
   sideEffects: ["**/*.css"],
@@ -46,4 +46,12 @@ test("fixture is one deep import per entry, each used", () => {
   assert.match(text, /from "@krizaka\/ui\/button"/);
   assert.match(text, /from "@krizaka\/ui\/card"/);
   assert.equal(text.split("\n").filter((l) => l.startsWith("export const")).length, 2);
+});
+
+test("uiInScope: the change builds @krizaka/ui only when turbo lists it; unreadable input throws", () => {
+  const ls = (...names) => JSON.stringify({ packageManager: "pnpm", packages: { count: names.length, items: names.map((name) => ({ name, path: "x" })) } });
+  assert.equal(uiInScope(ls("@krizaka/app-config")), false);
+  assert.equal(uiInScope(ls("@krizaka/tokens", "@krizaka/ui", "@krizaka/site")), true);
+  assert.throws(() => uiInScope("{}"), /no packages\.items/);
+  assert.throws(() => uiInScope(""));
 });
