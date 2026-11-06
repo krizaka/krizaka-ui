@@ -20,7 +20,7 @@ jobs:
   changes:
     # Docs-only pull requests (root markdown, docs/ but not docs/inventory/, which the checks read, changesets, workflows other than this one) skip the heavy jobs below.
     # A skipped job reports « Skipped », which keeps the required checks satisfied; the gate fails open (krizaka/.github changes.yml).
-    uses: krizaka/.github/.github/workflows/changes.yml@79f6ff6292edefebc59fc968dbc2c203da81c3ea # main
+    uses: krizaka/.github/.github/workflows/changes.yml@a888de63a6049d329d7a8522c8d50af62a0f6350 # main
     with:
       ignore: '^[^/]+\.md$|^LICENSE|^docs/(?!inventory/)|^\.changeset/|^\.github/(?!workflows/ci\.yml$)'
 
@@ -292,7 +292,7 @@ jobs:
           fetch-depth: 0  # blame and new-code detection need the history
           persist-credentials: false
 
-      - uses: krizaka/.github/actions/sonar-scan@79f6ff6292edefebc59fc968dbc2c203da81c3ea # main
+      - uses: krizaka/.github/actions/sonar-scan@a888de63a6049d329d7a8522c8d50af62a0f6350 # main
         with:
           token: ${{ secrets.SONAR_TOKEN }}
           args: -Dsonar.qualitygate.wait=true
@@ -329,7 +329,7 @@ jobs:
 
       # CI analysis: the SonarCloud app still decorates the pull request and posts « SonarCloud Code Analysis »; the quality gate is awaited
       # here so the CI gate carries its verdict too.
-      - uses: krizaka/.github/actions/sonar-scan@79f6ff6292edefebc59fc968dbc2c203da81c3ea # main
+      - uses: krizaka/.github/actions/sonar-scan@a888de63a6049d329d7a8522c8d50af62a0f6350 # main
         with:
           token: ${{ secrets.SONAR_TOKEN }}
           args: -Dsonar.qualitygate.wait=true
@@ -371,7 +371,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with: { node-version: 22 }
-      - uses: krizaka/.github/actions/dup-check@79f6ff6292edefebc59fc968dbc2c203da81c3ea # v1.5.2
+      - uses: krizaka/.github/actions/dup-check@a888de63a6049d329d7a8522c8d50af62a0f6350 # v1.5.2
 
   realtime:
     # @krizaka/realtime against real servers: two buses per adapter standing for two app instances (PostgreSQL
