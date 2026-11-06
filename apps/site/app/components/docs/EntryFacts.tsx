@@ -5,7 +5,7 @@ import { CONSUMERS, domainOf, factsOf, INVENTORY_DATE, kb } from "@/lib/ui-domai
 import type { RegistryItem } from "@/lib/ui-registry";
 import { domainPath } from "@/lib/urls";
 
-const CONSUMER_NAMES: Record<(typeof CONSUMERS)[number], string> = { yomizaka: "Yomizaka", akinaza: "Akinaza", "orazaka-web-client": "Orazaka", "krizaka-com": "krizaka.com" };
+const CONSUMER_NAMES: Record<(typeof CONSUMERS)[number], string> = { verikora: "Verikora", folioviv: "Folioviv", "sovkora-web": "Sovkora", "krizaka-com": "krizaka.com" };
 
 /* What a reader needs to judge an entry before using it (ADR-008 §7): the domain it belongs to, its support level, its
    size against its budget, and who really imports it — the live consumers' counts of the dated inventory

@@ -37,5 +37,5 @@ export const PhoenixStory: Story = { name: "Phoenix", render: () => <PhoenixExam
 export const Crane: Story = { render: () => <CraneExample /> };
 /** The magpie — "la pie compte les points": the score, the standings, the trophies. */
 export const Magpie: Story = { render: () => <MagpieExample /> };
-/** The beaver — "le castor artisan": the shop at work (Akinaza). */
+/** The beaver — "le castor artisan": the shop at work (Folioviv). */
 export const Beaver: Story = { render: () => <BeaverExample /> };

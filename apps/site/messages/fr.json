@@ -591,9 +591,9 @@
         "mark": "{name} : la marque de {role}",
         "use": "Utilisez la marque là où le produit est nommé : l'en-tête, la connexion, le chargement et l'écran de lancement — jamais une copie, jamais un substitut.",
         "krizaka": "le studio",
-        "orazaka": "le moteur d'IA souverain",
-        "yomizaka": "les documents, lus et vérifiés",
-        "akinaza": "la boutique, tenue pour moins cher",
+        "sovkora": "le moteur d'IA souverain",
+        "verikora": "les documents, lus et vérifiés",
+        "folioviv": "la boutique, tenue pour moins cher",
         "downloads": "Téléchargements",
         "svgDark": "SVG · sombre",
         "svgLight": "SVG · clair",
@@ -627,12 +627,12 @@
             "lovebird": "présente deux personnes",
             "crane": "écoute",
             "magpie": "compte les points",
-            "beaver": "monte la boutique — Akinaza"
+            "beaver": "monte la boutique — Folioviv"
           }
         }
       },
       "platforms": {
-        "intro": "Krizaka UI est un seul design system sur trois plateformes : le web (React), le mobile (React Native et Expo) et le bureau (l'app Mac d'Orazaka, dont la fenêtre Tauri affiche les composants web). Chaque composant dit où il tourne et, là où il ne tourne pas, pourquoi — un manque à construire, suivi par une issue, ou une plateforme à laquelle il n'est pas destiné, avec ce qu'on y utilise.",
+        "intro": "Krizaka UI est un seul design system sur trois plateformes : le web (React), le mobile (React Native et Expo) et le bureau (l'app Mac d'Sovkora, dont la fenêtre Tauri affiche les composants web). Chaque composant dit où il tourne et, là où il ne tourne pas, pourquoi — un manque à construire, suivi par une issue, ou une plateforme à laquelle il n'est pas destiné, avec ce qu'on y utilise.",
         "count": "{yes} composants · {gap} à construire · {na} sans objet",
         "install": "Installer",
         "cards": {
@@ -648,7 +648,7 @@
           },
           "desktop": {
             "title": "Bureau",
-            "what": "L'app Mac d'Orazaka est une fenêtre Tauri 2 : les composants web y tournent tels quels, et quelques-uns ont une forme bureau — la barre de titre, la densité et les touches de menu du shell d'application (ADR-002).",
+            "what": "L'app Mac d'Sovkora est une fenêtre Tauri 2 : les composants web y tournent tels quels, et quelques-uns ont une forme bureau — la barre de titre, la densité et les touches de menu du shell d'application (ADR-002).",
             "use": "Puis, la fenêtre"
           }
         },

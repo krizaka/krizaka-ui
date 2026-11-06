@@ -25,7 +25,7 @@ const sample = (n: number) => Array.from({ length: n }, (_, i) => String.fromCha
 
 describe("encodeQr", () => {
   it("round-trips a private feed address at every level", () => {
-    const url = "https://akinaza.com/ical/7f3c9a1e-4b2d-4c8e-9a51-0d6f2b8e3c17.ics?token=Zk3pQw9sLm2Xv8Rt";
+    const url = "https://folioviv.com/ical/7f3c9a1e-4b2d-4c8e-9a51-0d6f2b8e3c17.ics?token=Zk3pQw9sLm2Xv8Rt";
     for (const level of ["L", "M", "Q", "H"] as QrLevel[]) expect(decode(encodeQr(url, level))).toBe(url);
   });
 

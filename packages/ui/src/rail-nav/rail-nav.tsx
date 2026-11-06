@@ -1,4 +1,4 @@
-// Client (the expand state, the arrow keys, the tooltip). The compact navigation of an application, read from Orazaka's
+// Client (the expand state, the arrow keys, the tooltip). The compact navigation of an application, read from Sovkora's
 // web client: a vertical rail of icons on a desktop — the product's mark on top, a tooltip on each icon, the current one
 // marked by an accent bar on its left edge, a footer for settings and the account — that becomes a bottom tab bar on a
 // phone. The same nodes in both: only the layout changes, so the items, their order and their words are written once.
@@ -72,11 +72,11 @@ export function RailNavBody({ className, ...props }: React.ComponentProps<"div">
 }
 
 export type RailNavRootProps = Omit<React.ComponentProps<"nav">, "children"> & {
-  /** The navigation's accessible name (`Orazaka`, `Studio`). */
+  /** The navigation's accessible name (`Sovkora`, `Studio`). */
   label: string;
-  /** The product's mark on top of the rail, as a link home (`<Link href="/"><ProductLogo id="orazaka" /></Link>`); named by the app (its `aria-label`). Hidden on a phone: `AppHeader` shows it there. */
+  /** The product's mark on top of the rail, as a link home (`<Link href="/"><ProductLogo id="sovkora" /></Link>`); named by the app (its `aria-label`). Hidden on a phone: `AppHeader` shows it there. */
   mark?: React.ReactNode;
-  /** The product's brand: scopes its colours (`brand-orazaka`…) over the rail, so the accent follows. Omit it inside a page that already wears the brand. */
+  /** The product's brand: scopes its colours (`brand-sovkora`…) over the rail, so the accent follows. Omit it inside a page that already wears the brand. */
   accent?: BrandId;
   /** The main destinations: `RailNav.Item`, the ones you work in. Five at most so that they fit a phone's tab bar. */
   children: React.ReactNode;

@@ -9,7 +9,7 @@ export interface BrandColours {
 }
 
 export const BRAND_COLOURS = {
-  "akinaza": {
+  "folioviv": {
     "accent": {
       "light": "#21692f",
       "dark": "#65c374"
@@ -37,7 +37,7 @@ export const BRAND_COLOURS = {
       "dark": "#8ebde1"
     }
   },
-  "orazaka": {
+  "sovkora": {
     "accent": {
       "light": "#b45309",
       "dark": "#f67e23"
@@ -51,7 +51,7 @@ export const BRAND_COLOURS = {
       "dark": "#f78c3b"
     }
   },
-  "yomizaka": {
+  "verikora": {
     "accent": {
       "light": "#3c38b2",
       "dark": "#8888f2"

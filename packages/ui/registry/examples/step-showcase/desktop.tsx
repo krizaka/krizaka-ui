@@ -6,9 +6,9 @@ const still = (n: number) => `data:image/svg+xml,${encodeURIComponent(`<svg xmln
 export default function StepShowcaseDesktop() {
   return (
     <StepShowcase
-      label="Orazaka on your Mac"
+      label="Sovkora on your Mac"
       device="desktop"
-      deviceTitle="Orazaka"
+      deviceTitle="Sovkora"
       steps={[
         { id: "panel", title: "The control panel", description: "Connected to your workspace, or local.", poster: still(1), alt: "The control panel", duration: 4000 },
         { id: "start", title: "Start the local stack", description: "Each service turns green.", poster: still(2), alt: "Services starting", duration: 4000 },

@@ -24,7 +24,7 @@ export default function DocsLayoutPage() {
     >
       <h1 className="font-display text-3xl font-extrabold text-fg">Getting started</h1>
       <h2 id="install" className="mt-6 text-xl font-bold text-fg">Install</h2>
-      <p className="mt-2 text-sm text-fg-secondary">npx orazaka install</p>
+      <p className="mt-2 text-sm text-fg-secondary">npx sovkora install</p>
     </DocsLayout>
   );
 }

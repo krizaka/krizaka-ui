@@ -3,9 +3,8 @@
    registry/examples, the props' JSDoc). Never copied into this repository.
    Shape: <package>/registry/<name>.json (packages/ui/scripts/build-registry.mjs in krizaka-ui). */
 
-import { readFileSync } from "node:fs";
-import path from "node:path";
 
+import { REGISTRY_FILES } from "@/lib/ui-registry-data";
 import { componentPath } from "@/lib/urls";
 
 export interface RegistryProp {
@@ -37,7 +36,9 @@ export interface Parity {
   native: ParityCell;
   desktop: ParityCell;
 }
-export type Status = "experimental" | "stable" | "beta" | "deprecated";
+/** The statuses of a component, one closed set (the catalogue compares to it, never to a literal). */
+export const STATUS = { experimental: "experimental", stable: "stable", beta: "beta", deprecated: "deprecated" } as const;
+export type Status = (typeof STATUS)[keyof typeof STATUS];
 /** The twelve functional domains of the catalogue (ADR-008 §3); the list and its words live in krizaka-ui `src/meta.ts`. */
 export type Domain = "foundations" | "forms" | "data-display" | "navigation-shell" | "feedback" | "maps" | "media" | "commerce" | "identity" | "abuse" | "conversation" | "page-blocks" | "cahier";
 export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "media" | "charts" | "blocks" | "layouts" | "templates" | "layout" | "foundations";
@@ -98,7 +99,7 @@ export interface RegistryItem {
   summary: string;
   description: string;
   status: Status;
-  /** The issue of the first consumer, required while the status is `experimental` (`akinaza#481`). */
+  /** The issue of the first consumer, required while the status is `experimental` (`folioviv#481`). */
   adoption?: string | null;
   category: Category;
   /** What the component is for (ADR-008 §3); absent from @krizaka/charts, which is data display (lib/ui-domains.ts). */
@@ -142,12 +143,11 @@ export interface RegistryIndex {
 /** The packages whose registries make Krizaka UI (/docs/ui): the primitives, then the charts — one catalogue. */
 export const UI_PACKAGES = ["@krizaka/ui", "@krizaka/charts"] as const;
 
-const packageDir = (pkg: string) => path.join(process.cwd(), "node_modules", ...pkg.split("/"), "registry");
-const cache = new Map<string, unknown>();
+/** A registry file of a package (`index.json`, `button.json`), from the static imports of lib/ui-registry-data.ts. */
 function readPackageJson<T>(pkg: string, file: string): T {
-  const key = `${pkg}/${file}`;
-  if (!cache.has(key)) cache.set(key, JSON.parse(readFileSync(path.join(packageDir(pkg), file), "utf8")));
-  return cache.get(key) as T;
+  const data = REGISTRY_FILES[`${pkg}/${file}`];
+  if (data === undefined) throw new Error(`${pkg}/${file} is not in the registry (lib/ui-registry-data.ts: run scripts/gen-ui-docs.mjs)`);
+  return data as T;
 }
 /** The package that documents a name: the first of UI_PACKAGES that has it. */
 function packageOf(name: string): string {
@@ -171,7 +171,7 @@ export function getRegistryItem(name: string): RegistryItem {
 
 /** Every documented component, in the catalogue's order: by category, then by title (deprecated ones last). */
 export function getRegistryItems(): RegistryItem[] {
-  const retired = (item: RegistryItem) => Number(item.status === "deprecated");
+  const retired = (item: RegistryItem) => Number(item.status === STATUS.deprecated);
   return UI_PACKAGES.flatMap((pkg) => getPackageIndex(pkg).items)
     .map((entry) => getRegistryItem(entry.name))
     .sort(

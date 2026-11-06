@@ -23,7 +23,7 @@ import { compileShopPresets, shopPresetsModule } from "./shop-presets.mjs";
 /** Source files, in output order. */
 export const SOURCES = ["color", "radius", "shadow", "material", "motion", "typography"];
 /** The brands (src/brands/<id>.brand.json), in output order: the parent first. */
-export const BRANDS = ["krizaka", "orazaka", "yomizaka", "akinaza"];
+export const BRANDS = ["krizaka", "sovkora", "verikora", "folioviv"];
 /** The roles a brand sets — all of them, so that a brand never inherits another brand's accent. */
 export const BRAND_ROLES = ["accent", "accent-hover", "accent-soft", "accent-text", "accent-2", "on-accent", "ring", "info", "info-text", "brand-gradient-from", "brand-gradient-via", "brand-gradient-to"];
 const EXT = "com.krizaka";
@@ -466,7 +466,7 @@ export type MarkStop = readonly [offset: string, color: string];
 /** The marks' emblem gradients: [offset, colour] stops, the same in both themes (raw CSS). */
 export declare const marks: { readonly [B in BrandId]: readonly MarkStop[] };\n`;
   const brandsNativeJs = brands.ids.length
-    ? `\n/** The brand themes as ThemeProvider overrides (\`overrides={brands.orazaka}\`): the accent family per theme. */
+    ? `\n/** The brand themes as ThemeProvider overrides (\`overrides={brands.sovkora}\`): the accent family per theme. */
 export const brands = Object.freeze(${json(brands.native)});
 /** The marks' emblem gradients: [offset, #rrggbb] stops, the same in both themes. */
 export const marks = Object.freeze(${json(brands.marksNative)});\n`
@@ -475,7 +475,7 @@ export const marks = Object.freeze(${json(brands.marksNative)});\n`
 export type BrandId = ${brands.ids.length ? brands.ids.map((b) => json(b)).join(" | ") : "never"};
 /** The colour roles a brand theme sets, per theme. */
 export type BrandTheme = { readonly dark: { readonly [R in ${BRAND_ROLES.map((r) => json(camel(r))).join(" | ")}]: string }; readonly light: { readonly [R in ${BRAND_ROLES.map((r) => json(camel(r))).join(" | ")}]: string } };
-/** The brand themes as ThemeProvider overrides (\`overrides={brands.orazaka}\`): the accent family per theme. */
+/** The brand themes as ThemeProvider overrides (\`overrides={brands.sovkora}\`): the accent family per theme. */
 export declare const brands: { readonly [B in BrandId]: BrandTheme };
 /** A gradient stop of a mark: [offset, #rrggbb]. */
 export type MarkStop = readonly [offset: string, color: string];

@@ -28,12 +28,12 @@ export const Console: Story = { render: () => <ConsoleExample /> };
 /** The console on a phone (390 × 844): the sidebar is a drawer, the table shows cards, the search is an icon. */
 export const ConsolePhone: Story = { render: () => <ConsoleExample />, parameters: { phone: true } };
 export const Basic: Story = { render: () => <BasicExample /> };
-/** The window of the Orazaka Mac app (Tauri 2): the desktop form of the shell (ADR-002). */
+/** The window of the Sovkora Mac app (Tauri 2): the desktop form of the shell (ADR-002). */
 export const Desktop: Story = { render: () => <DesktopExample /> };
 
 /** Collapsing never lets a word out of the sidebar: sampled at 40, 120, 250 ms and at rest, no visible text ends right of the sidebar's edge (krizaka-ui#482). */
 const noSpill: NonNullable<Story["play"]> = async ({ canvasElement }) => {
-  const nav = canvasElement.querySelector<HTMLElement>("nav[aria-label=Yomizaka]");
+  const nav = canvasElement.querySelector<HTMLElement>("nav[aria-label=Verikora]");
   const toggle = [...canvasElement.querySelectorAll<HTMLButtonElement>("button[aria-expanded]")].find((b) => b.getClientRects().length > 0);
   if (!nav || !toggle) throw new Error("no sidebar or collapse button");
   const spill = () => {

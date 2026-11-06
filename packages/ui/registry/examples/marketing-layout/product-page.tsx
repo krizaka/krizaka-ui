@@ -23,17 +23,17 @@ const DECISIONS = [
 ];
 const labels = { chose: "We chose", refused: "We refused", because: "Because", cost: "What it costs you" };
 
-// TEMPLATE — a product page (Orazaka): the hero with its facts and its main action, the reasons as compact
+// TEMPLATE — a product page (Sovkora): the hero with its facts and its main action, the reasons as compact
 // argument cards (the bird in the corner), the decisions with their cost, the owl's promise, the closing call. On a
 // phone the hero's bird goes above the title, the cards stack, the decisions' three parts stack under the choice.
 export default function MarketingLayoutProductPage() {
   return (
-    <div className="brand-orazaka">
+    <div className="brand-sovkora">
       <MarketingLayout
         skipLabel="Skip to content"
         header={
           <NavBar.Root label="Main" compactAfter={false} className="max-w-(--kz-page-max,72rem)">
-            <NavBar.Brand href="#home"><ProductLogo id="orazaka" size={22} animated={false} /> Orazaka</NavBar.Brand>
+            <NavBar.Brand href="#home"><ProductLogo id="sovkora" size={22} animated={false} /> Sovkora</NavBar.Brand>
             <NavBar.Items>
               <NavBar.Link href="#why" active>Why</NavBar.Link>
               <NavBar.Link href="#decisions">Decisions</NavBar.Link>

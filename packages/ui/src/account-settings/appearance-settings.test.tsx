@@ -48,7 +48,7 @@ function Probe() {
     <>
       <button type="button" onClick={() => a.setThemeId("blueprint")}>blueprint</button>
       <button type="button" onClick={() => a.setDensity("compact")}>compact</button>
-      <button type="button" onClick={() => a.setAccent("akinaza")}>accent</button>
+      <button type="button" onClick={() => a.setAccent("folioviv")}>accent</button>
       <output>{`${a.themeId}|${a.density}|${a.accent}`}</output>
     </>
   );
@@ -66,9 +66,9 @@ describe("useAppearance (#657)", () => {
     expect(html.classList.contains("theme-blueprint")).toBe(true);
     expect(html.classList.contains("light")).toBe(false);
     expect(html.getAttribute("data-density")).toBe("compact");
-    expect(html.getAttribute("data-accent")).toBe("akinaza");
-    expect(screen.getByRole("status", { hidden: true }).textContent).toBe("blueprint|compact|akinaza");
+    expect(html.getAttribute("data-accent")).toBe("folioviv");
+    expect(screen.getByRole("status", { hidden: true }).textContent).toBe("blueprint|compact|folioviv");
     expect(localStorage.getItem("kz-density")).toBe("compact");
-    expect(localStorage.getItem("kz-accent")).toBe("akinaza");
+    expect(localStorage.getItem("kz-accent")).toBe("folioviv");
   });
 });

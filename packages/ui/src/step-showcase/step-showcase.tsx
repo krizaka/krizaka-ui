@@ -52,7 +52,7 @@ export const stepShowcaseLabels: StepShowcaseLabels = {
 };
 
 export interface StepShowcaseProps extends Omit<React.ComponentProps<"section">, "children"> {
-  /** The sequence's accessible name (“Orazaka in your pocket”), passed translated. */
+  /** The sequence's accessible name (“Sovkora in your pocket”), passed translated. */
   label: string;
   /** The steps, in the order of the journey. */
   steps: readonly ShowcaseStep[];

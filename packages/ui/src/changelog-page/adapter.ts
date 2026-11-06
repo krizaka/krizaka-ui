@@ -15,7 +15,7 @@ export interface ChangeItem {
 }
 
 export interface Release {
-  /** What was released: `@krizaka/ui`, `Orazaka`. */
+  /** What was released: `@krizaka/ui`, `Sovkora`. */
   source: string;
   version: string;
   /** ISO date, `2026-10-17`. */
@@ -27,7 +27,8 @@ export interface Release {
 
 export const CHANGE_TAGS: readonly ChangeTag[] = ["breaking", "security", "feature", "fix", "change"];
 
-const REPO_PR = /https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/pull\/(\d+)/;
+const GITHUB = "https://github.com/";
+const LINK_START = "https://";
 
 /** A line of markdown as a reader reads it: links keep their words, backticks and emphasis go. */
 export function plain(md: string): string {
@@ -55,8 +56,22 @@ const clip = (s: string, max = 220) => {
 
 /** The first PR a line links to, read from its markdown (`[#293](…/pull/293)`) or a bare URL. */
 export function prOf(line: string): ChangeItem["pr"] {
-  const url = REPO_PR.exec(line);
-  return url ? { number: Number(url[1]), url: url[0] } : undefined;
+  for (let at = line.indexOf(GITHUB); at >= 0; at = line.indexOf(GITHUB, at + 1)) {
+    const [owner, repo, kind, rest] = (line.slice(at + GITHUB.length).split(/[\s)\]>]/, 1)[0] ?? "").split("/");
+    const digits = /^\d+/.exec(rest ?? "")?.[0];
+    if (owner && repo && kind === "pull" && digits) return { number: Number(digits), url: GITHUB + [owner, repo, kind, digits].join("/") };
+  }
+  return undefined;
+}
+
+/** The words of a release line, without its trailing link and GitHub's credit (`… by @someone in https://…`). */
+function titleOf(line: string): string {
+  const words = line.trimEnd();
+  const space = words.lastIndexOf(" ");
+  if (!words.startsWith(LINK_START, space + 1)) return words;
+  const rest = words.slice(0, Math.max(space, 0));
+  const by = rest.lastIndexOf(" by @");
+  return by >= 0 && rest.endsWith(" in") ? rest.slice(0, by) : rest.trimEnd();
 }
 
 const CHANGESET_TAG: Record<string, ChangeTag> = { major: "breaking", minor: "feature", patch: "fix" };
@@ -113,9 +128,8 @@ export function parseReleaseBody(body: string): ChangeItem[] {
   for (const raw of body.split("\n")) {
     const bullet = /^\s*[-*] (.+)$/.exec(raw);
     if (!bullet) continue;
-    const line = bullet[1].replace(/\s+by @[\w-]+ in (https:\/\/\S+)\s*$/, " $1");
-    const pr = prOf(line);
-    const title = line.replace(/\s*https:\/\/\S+\s*$/, "");
+    const pr = prOf(bullet[1]);
+    const title = titleOf(bullet[1]);
     const item = changeFromTitle(plain(title), pr?.url);
     if (item) items.push({ ...item, pr: pr ?? item.pr, text: clip(item.text) });
   }

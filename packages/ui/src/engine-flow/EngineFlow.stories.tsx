@@ -9,7 +9,7 @@ import { EngineFlow } from "./engine-flow";
 const meta = {
   title: "Primitives/EngineFlow",
   component: EngineFlow,
-  args: { label: "Orazaka and the products it powers", hub: { label: "Orazaka" }, nodes: [] },
+  args: { label: "Sovkora and the products it powers", hub: { label: "Sovkora" }, nodes: [] },
 } satisfies Meta<typeof EngineFlow>;
 export default meta;
 

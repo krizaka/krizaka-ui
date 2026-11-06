@@ -32,7 +32,7 @@ export default function DesktopWindowLibrary() {
       toolbarEnd={<Button size="sm" variant="primary">New file</Button>}
       sidebar={
         <div className="flex flex-col gap-0.5 p-2">
-          <div className="flex items-center gap-2 px-2 py-1.5 font-semibold"><ProductLogo id="yomizaka" size={18} animated={false} /> Yomizaka</div>
+          <div className="flex items-center gap-2 px-2 py-1.5 font-semibold"><ProductLogo id="verikora" size={18} animated={false} /> Verikora</div>
           {["All files", "To decide", "Verified"].map((name, i) => (
             <button key={name} type="button" aria-current={i === 0 ? "page" : undefined} className="h-8 cursor-default rounded-md px-2 text-start hover:bg-surface-2 aria-[current=page]:bg-accent-soft">{name}</button>
           ))}

@@ -54,9 +54,9 @@ export function useDelayedWait(active: boolean, delay = 250, minDuration = 600):
   const since = React.useRef(0);
   React.useEffect(() => {
     if (active === shown) return;
-    const wait = active ? delay : Math.max(0, minDuration - (Date.now() - since.current));
+    const wait = active ? delay : Math.max(0, minDuration - (performance.now() - since.current));
     const timer = setTimeout(() => {
-      since.current = Date.now();
+      since.current = performance.now();
       setShown(active);
     }, wait);
     return () => clearTimeout(timer);
@@ -102,7 +102,7 @@ export interface LoaderProps extends Omit<React.ComponentProps<"div">, "children
    */
   variant?: LoaderVariants["variant"];
   /**
-   * The product's mark in place of the Krizaka glyph while it waits — `<OrazakaLogo animated />` (or `ProductLogo`) of
+   * The product's mark in place of the Krizaka glyph while it waits — `<SovkoraLogo animated />` (or `ProductLogo`) of
    * `@krizaka/ui`; it takes the loader's size. The ending (check or cross) stays the glyph's. Decorative: leave `title` off.
    */
   mark?: React.ReactNode;

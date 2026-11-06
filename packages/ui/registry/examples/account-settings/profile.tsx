@@ -10,7 +10,7 @@ const NAV = [
   { id: "storage", label: "Stockage", href: "/app/settings/stockage" },
   { id: "data", label: "Mes données", href: "/app/settings/donnees" },
 ];
-const AVATARS = [1, 2, 3, 4, 5, 6].map((tone) => ({ id: `tone-${tone}`, label: `Teinte ${tone}`, defaultAvatar: { brand: "yomizaka", tone } as const }));
+const AVATARS = [1, 2, 3, 4, 5, 6].map((tone) => ({ id: `tone-${tone}`, label: `Teinte ${tone}`, defaultAvatar: { brand: "verikora", tone } as const }));
 const LABELS = { save: "Enregistrer", saving: "Enregistrement…", saved: "Enregistré", error: "Impossible d'enregistrer. Réessayez.", undo: "Annuler", discard: "Rétablir" };
 
 /** One section's draft: dirty against what is saved, saved with one call, undone to what it was. */
@@ -41,7 +41,7 @@ function useDraft<T>(saved: T) {
   };
 }
 
-// TEMPLATE — an account's profile page, the Orazaka way: one calm column of rows (label and help left, control right), a
+// TEMPLATE — an account's profile page, the Sovkora way: one calm column of rows (label and help left, control right), a
 // section per subject with its own save (dirty → enabled, saved → Undo), the role question as cards in a section of its own.
 export default function AccountProfile() {
   const profile = useDraft({ name: "Éric Tremblay", avatar: "tone-2", language: "fr" });
@@ -49,7 +49,7 @@ export default function AccountProfile() {
   return (
     <SettingsLayout variant="flat" className="w-full" title="Réglages" description="Votre profil et la façon dont l'application vous répond." nav={NAV} navLabel="Sections des réglages">
       <SettingsSection variant="flat" title="Profil" description="Ce que l'application sait de vous." save={profile.save}>
-        <SettingsRow label={<AccountProfileCard compact name={profile.draft.name} email="eric@example.com" verified verifiedLabel="Adresse vérifiée" unverifiedLabel="Adresse non vérifiée" avatar={{ defaultAvatar: { brand: "yomizaka", tone: Number(profile.draft.avatar.slice(5)) } }} />} />
+        <SettingsRow label={<AccountProfileCard compact name={profile.draft.name} email="eric@example.com" verified verifiedLabel="Adresse vérifiée" unverifiedLabel="Adresse non vérifiée" avatar={{ defaultAvatar: { brand: "verikora", tone: Number(profile.draft.avatar.slice(5)) } }} />} />
         <SettingsRow label="Nom" description="Affiché dans le menu du compte." htmlFor="profile-name">
           <Field.Root>
             <Input id="profile-name" value={profile.draft.name} onChange={(event) => profile.set({ name: event.target.value })} />

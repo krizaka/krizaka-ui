@@ -12,8 +12,8 @@ const presets: ShopComposerPreset[] = [
   { id: "salon-atelier", version: 1, name: "Atelier", density: "airy", variants: { hero: "split", services: "menu", faq: "list" } },
 ];
 const looks: ShopComposerPreset[] = [
-  { id: "look-cahier", version: 1, name: "Cahier", density: "airy", variants: { hero: "split", services: "index" }, accent: "akinaza", accents: ["akinaza", "akinaza:accent-2"] },
-  { id: "look-affiche", version: 1, name: "Affiche", density: "compact", variants: { hero: "banner", services: "menu" }, accent: "akinaza", accents: ["akinaza", "yomizaka"] },
+  { id: "look-cahier", version: 1, name: "Cahier", density: "airy", variants: { hero: "split", services: "index" }, accent: "folioviv", accents: ["folioviv", "folioviv:accent-2"] },
+  { id: "look-affiche", version: 1, name: "Affiche", density: "compact", variants: { hero: "banner", services: "menu" }, accent: "folioviv", accents: ["folioviv", "verikora"] },
 ];
 
 beforeEach(() => {
@@ -223,7 +223,7 @@ describe("the composer — keyboard only", () => {
   });
 });
 
-describe("the look picker (akinaza#478)", () => {
+describe("the look picker (folioviv#478)", () => {
   it("is a radio group of the looks; choosing one rewrites the variants of the draft and says so", async () => {
     const { user, onChange } = setup({ presets: [...presets, ...looks] });
     const group = screen.getByRole("radiogroup", { name: "Look of the page" });
@@ -241,7 +241,7 @@ describe("the look picker (akinaza#478)", () => {
     expect(screen.queryByRole("radiogroup", { name: "Accent" })).toBeNull();
     await user.click(screen.getByRole("radio", { name: /Cahier/ }));
     const accent = screen.getByRole("radiogroup", { name: "Accent" });
-    expect(within(accent).getAllByRole("radio").map((r) => r.textContent)).toEqual(["Akinaza green", "Copper"]);
+    expect(within(accent).getAllByRole("radio").map((r) => r.textContent)).toEqual(["Folioviv green", "Copper"]);
     expect(screen.getByRole("combobox", { name: "Style" })).toBeTruthy();
   });
 

@@ -28,7 +28,7 @@ export default function NativeFormSignUp() {
       <form.DateField name="dateOfBirth" label="Date of birth" autoComplete="bday" hint="Private, never shown." />
       <form.Checkbox name="acceptTerms" label="I accept the terms and the privacy policy" />
       <form.FormError />
-      <form.Submit label="Create my account" brand="orazaka" />
+      <form.Submit label="Create my account" brand="sovkora" />
     </form.Form>
   );
 }

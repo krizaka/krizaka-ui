@@ -7,7 +7,7 @@ export interface TauriBridge {
   listen<T>(event: string, handler: (event: { payload: T }) => void): Promise<() => void>;
 }
 
-/** The plugin's name in `tauri-plugin-krizaka` (krizaka-tauri-kit): its commands are `plugin:krizaka|<command>`. */
+/** The plugin's name in `tauri-plugin-krizaka` (krizaka-desktop): its commands are `plugin:krizaka|<command>`. */
 export const PLUGIN = "krizaka";
 
 /**

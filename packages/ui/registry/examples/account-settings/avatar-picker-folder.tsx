@@ -1,7 +1,7 @@
 import { AVATAR_NONE, AvatarPicker, builtInAvatarOptions } from "@krizaka/ui/account-settings";
 import * as React from "react";
 
-const OPTIONS = builtInAvatarOptions("folder", "yomizaka", (tone) => `Teinte ${tone}`);
+const OPTIONS = builtInAvatarOptions("folder", "verikora", (tone) => `Teinte ${tone}`);
 
 // A folder's picture: the set of the folder kind (never a person), the « no picture » tile and the library's upload control.
 export default function AvatarPickerFolderExample() {

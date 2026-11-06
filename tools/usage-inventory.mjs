@@ -34,13 +34,13 @@ const GIT = "/usr/bin/git";
 
 /** Live consumers (kind: product · site · tool). `ui-site` = ui.krizaka.com's own chrome (examples are not counted). */
 export const CONSUMERS = [
-  { name: "yomizaka", kind: "product", repo: "yomizaka" },
-  { name: "akinaza", kind: "product", repo: "akinaza" },
-  { name: "orazaka-web-client", kind: "product", repo: "orazaka-web-client" },
+  { name: "verikora", kind: "product", repo: "verikora" },
+  { name: "folioviv", kind: "product", repo: "folioviv" },
+  { name: "sovkora-web", kind: "product", repo: "sovkora-web" },
   { name: "krizaka-com", kind: "site", repo: "krizaka-com" },
   { name: "blog", kind: "site", repo: "krizaka-blog" },
   { name: "ui-site", kind: "site", local: join(ROOT, "apps/site") },
-  { name: "java-site", kind: "site", repo: "krizaka-build", sub: "site" },
+  { name: "java-site", kind: "site", repo: "krizaka-java", sub: "site" },
   { name: "ts-site", kind: "site", repo: "krizaka-ts", sub: "site" },
   { name: "motion-lab", kind: "site", repo: "krizaka-lab" },
   // private, on the founder's machine only: read for import names, never cloned
@@ -238,7 +238,7 @@ export function readMeta(text) {
   };
 }
 
-const LIVE_REPOS = new Set([...CONSUMERS.map((c) => c.repo).filter(Boolean), "krizaka-ui", "orazaka-mobile-client"]);
+const LIVE_REPOS = new Set([...CONSUMERS.map((c) => c.repo).filter(Boolean), "krizaka-ui", "sovkora-mobile"]);
 
 /** The decisions ADR-006 (appendix A) already took: `merge` rows (target) and the issues that keep an entry. */
 export function readPriorAudit(text) {
@@ -667,7 +667,7 @@ export function summarise(inv) {
 }
 
 const kb = (b) => (b == null ? "—" : (b / 1000).toFixed(1));
-const SHORT = { yomizaka: "Yo", akinaza: "Ak", "orazaka-web-client": "Oz", "krizaka-com": "www", blog: "blog", "ui-site": "ui", "java-site": "java", "ts-site": "ts", "motion-lab": "motion", cockpit: "cockpit" };
+const SHORT = { verikora: "Yo", folioviv: "Ak", "sovkora-web": "Oz", "krizaka-com": "www", blog: "blog", "ui-site": "ui", "java-site": "java", "ts-site": "ts", "motion-lab": "motion", cockpit: "cockpit" };
 const counts = (obj) => Object.entries(obj ?? {}).map(([k, v]) => `${SHORT[k] ?? k} ${v}`).join(" ");
 const listOf = (obj) => Object.entries(obj).map(([k, v]) => k + " " + v).join(" · ");
 const consumerLabel = (c) => (c.absent ? `${c.name} (absent)` : `${c.name} ${c.head ?? ""}`.trim());

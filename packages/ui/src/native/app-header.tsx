@@ -7,9 +7,9 @@ import { useTheme } from "./theme";
 import { Txt } from "./txt";
 
 export type AppHeaderProps = {
-  /** The product's name, as text (`Yomizaka`). */
+  /** The product's name, as text (`Verikora`). */
   name: string;
-  /** The product's mark (`<ProductMark id="yomizaka" size={24} />`), before the name. */
+  /** The product's mark (`<ProductMark id="verikora" size={24} />`), before the name. */
   mark?: React.ReactNode;
   /** Makes the name a button home; its accessible name is `name`. */
   onHome?: () => void;

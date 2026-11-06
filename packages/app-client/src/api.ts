@@ -27,7 +27,7 @@ export interface ApiClientOptions {
   fetch: typeof fetch;
   /** The `Accept-Language` value. */
   language: () => string;
-  /** The product's name for the timeout message (`Yomizaka did not answer in time`). */
+  /** The product's name for the timeout message (`Verikora did not answer in time`). */
   productName: string;
   /** How long a call may wait before it fails like a network error. */
   timeoutMs: number;

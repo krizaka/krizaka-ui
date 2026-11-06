@@ -5,7 +5,7 @@ import { View } from "react-native";
 export default function NativeSplashHandoffDefault() {
   return (
     <View style={{ width: 360, height: 640 }}>
-      <SplashHandoff product="orazaka" ready={false} label="Orazaka is opening" />
+      <SplashHandoff product="sovkora" ready={false} label="Sovkora is opening" />
     </View>
   );
 }

@@ -12,7 +12,7 @@ export type UpdatePromptProps = {
   message?: string;
   /** The versions, in mono (“1.2.0 → 1.4.0”). */
   versionLabel?: string;
-  /** The product's mark (decorative), e.g. `<ProductMark id="orazaka" size={40} />`. */
+  /** The product's mark (decorative), e.g. `<ProductMark id="sovkora" size={40} />`. */
   mark?: React.ReactNode;
   /** The button that updates (“Update”). */
   updateLabel: string;

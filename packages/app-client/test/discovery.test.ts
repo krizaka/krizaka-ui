@@ -4,10 +4,10 @@ import { appEnvironmentFrom, appUrlOverrideFrom, createAppDiscovery } from "../s
 import type { KeyValueStorage } from "../src/storage";
 
 const storage: KeyValueStorage = { get: async () => null, set: async () => {}, remove: async () => {} };
-const baked = { apiBase: "https://www.yomizaka.com", webBase: "https://www.yomizaka.com" };
+const baked = { apiBase: "https://www.verikora.com", webBase: "https://www.verikora.com" };
 const offline = (() => Promise.reject(new TypeError("offline"))) as unknown as typeof fetch;
 
-const base = { product: "yomizaka", hostSuffix: "yomizaka.com", appVersion: "1.0.0", baked, storage, discovery: { fetch: offline } };
+const base = { product: "verikora", hostSuffix: "verikora.com", appVersion: "1.0.0", baked, storage, discovery: { fetch: offline } };
 
 describe("appUrlOverrideFrom", () => {
   it.each([
@@ -38,17 +38,17 @@ describe("appEnvironmentFrom", () => {
 describe("createAppDiscovery", () => {
   it("answers the baked address when nothing was fetched", () => {
     const discovery = createAppDiscovery({ ...base, env: {} });
-    expect(discovery.getService("yomizaka").apiBase).toBe(baked.apiBase);
+    expect(discovery.getService("verikora").apiBase).toBe(baked.apiBase);
   });
 
   it("lets the build input win over everything", () => {
     const discovery = createAppDiscovery({ ...base, env: { url: "http://192.168.1.4:3000/" } });
-    expect(discovery.getService("yomizaka").apiBase).toBe("http://192.168.1.4:3000");
+    expect(discovery.getService("verikora").apiBase).toBe("http://192.168.1.4:3000");
   });
 
   it("falls back to the baked address as the legacy one when none is given", () => {
-    const legacy = { apiBase: "https://old.yomizaka.com", webBase: "https://old.yomizaka.com" };
-    expect(createAppDiscovery({ ...base, legacy, env: {} }).getService("yomizaka")).toBeDefined();
+    const legacy = { apiBase: "https://old.verikora.com", webBase: "https://old.verikora.com" };
+    expect(createAppDiscovery({ ...base, legacy, env: {} }).getService("verikora")).toBeDefined();
   });
 
   it("fails at start on a malformed build input", () => {

@@ -9,9 +9,9 @@ const GROUPS = [
     id: "start",
     title: "Start here",
     cards: [
-      { id: "cli", logo: "orazaka", title: "The CLI", text: "npx orazaka install, start, dev — then every command." },
-      { id: "packs", logo: "orazaka", title: "Packs & Studios", text: "The business offers Orazaka installs without code." },
-      { id: "admin", logo: "orazaka", title: "The admin console", text: "Users, models, quotas and the audit log — behind four gates." },
+      { id: "cli", logo: "sovkora", title: "The CLI", text: "npx sovkora install, start, dev — then every command." },
+      { id: "packs", logo: "sovkora", title: "Packs & Studios", text: "The business offers Sovkora installs without code." },
+      { id: "admin", logo: "sovkora", title: "The admin console", text: "Users, models, quotas and the audit log — behind four gates." },
     ],
   },
   {

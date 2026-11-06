@@ -10,7 +10,7 @@ export const meta = {
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [
-    "Beside a `RailNav`, as the bar of every signed-in screen of a Krizaka app (Orazaka, Yomizaka, Akinaza): the same bar in every product.",
+    "Beside a `RailNav`, as the bar of every signed-in screen of a Krizaka app (Sovkora, Verikora, Folioviv): the same bar in every product.",
     "With `search` (`AppHeaderSearch`) when the app has a palette (`CommandDialog`): ⌘K opens it from anywhere.",
     "With `messages` and `notifications` (`AppHeaderCount`) when the app has an inbox: the unread count is drawn and said.",
   ],
@@ -47,8 +47,8 @@ export const meta = {
   web: {
     imports: ["AppHeader", "AppHeaderCount"],
     examples: [
-      { name: "basic", title: "Name, chip and actions", description: "Orazaka's bar: the name, a « Local · Sovereign » chip, and the account on the right; the mark joins the name below `md`." },
-      { name: "family", title: "The family's bar", description: "Yomizaka's bar: search with ⌘K and its palette, the language, messages and notifications with their counts, the account with its name." },
+      { name: "basic", title: "Name, chip and actions", description: "Sovkora's bar: the name, a « Local · Sovereign » chip, and the account on the right; the mark joins the name below `md`." },
+      { name: "family", title: "The family's bar", description: "Verikora's bar: search with ⌘K and its palette, the language, messages and notifications with their counts, the account with its name." },
     ],
   },
   native: {

@@ -1,6 +1,6 @@
 import { BirdPlate } from "@krizaka/ui/bird-plate";
 
-// `layout="single"`: one bird, large, its caption beside it — the subject of a page (here, the owl on Yomizaka's).
+// `layout="single"`: one bird, large, its caption beside it — the subject of a page (here, the owl on Verikora's).
 export default function BirdPlateSingle() {
   return (
     <BirdPlate

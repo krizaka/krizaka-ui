@@ -22,8 +22,8 @@ const PRODUCTS = BRAND_IDS.filter((b) => b !== "krizaka");
 describe("brands", () => {
   it("has the company and every product of @krizaka/tokens", () => {
     const files = fs.readdirSync(path.join(__dirname, "../../tokens/src/brands")).filter((f) => f.endsWith(".brand.json")).map((f) => f.replace(".brand.json", ""));
-    expect([...BRAND_IDS].sort()).toEqual(files.sort());
-    expect(Object.keys(BRAND_NAMES).sort()).toEqual(files.sort());
+    expect([...BRAND_IDS].sort((a, b) => a.localeCompare(b))).toEqual(files.sort((a, b) => a.localeCompare(b)));
+    expect(Object.keys(BRAND_NAMES).sort((a, b) => a.localeCompare(b))).toEqual(files.sort((a, b) => a.localeCompare(b)));
   });
 
   it.each(BRAND_IDS)("%s: the button, the links and the text are readable (WCAG AA) in light and dark", (id) => {
@@ -38,7 +38,7 @@ describe("brands", () => {
   });
 
   it("hosts the marks under brand/<brand>/ on the CDN", () => {
-    expect(getTheme("orazaka").logo).toEqual({ light: "https://krizaka-assets.b-cdn.net/brand/orazaka/mark-light-256.png", dark: "https://krizaka-assets.b-cdn.net/brand/orazaka/mark-dark-256.png" });
+    expect(getTheme("sovkora").logo).toEqual({ light: "https://krizaka-assets.b-cdn.net/brand/sovkora/mark-light-256.png", dark: "https://krizaka-assets.b-cdn.net/brand/sovkora/mark-dark-256.png" });
     expect(getTheme().id).toBe("krizaka");
   });
 });
@@ -63,10 +63,10 @@ describe("House of Brands: a product email never shows another product", () => {
   });
 
   it("signs a product's email as its team, and the company's as Oussama", async () => {
-    const product = await renderEmail("signInLink", { ...templates.signInLink.example, brand: "yomizaka" }, { locale: "fr" });
+    const product = await renderEmail("signInLink", { ...templates.signInLink.example, brand: "verikora" }, { locale: "fr" });
     const company = await renderEmail("signInLink", templates.signInLink.example, { locale: "fr" });
-    expect(product.text).toContain("L'équipe Yomizaka");
-    expect(product.subject).toBe("Votre lien de connexion à Yomizaka");
+    expect(product.text).toContain("L'équipe Verikora");
+    expect(product.subject).toBe("Votre lien de connexion à Verikora");
     expect(company.text).toContain("Oussama");
   });
 });

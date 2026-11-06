@@ -19,7 +19,7 @@ function figure(ink: string) {
 
 /**
  * The Krizaka mark: an ink hexagonal shield, open at one vertex where a blue node breaks out, around a blue core —
- * the parent of the family (Orazaka's shards). The orbit turns, the node and the core
+ * the parent of the family (Sovkora's shards). The orbit turns, the node and the core
  * breathe. The shield reads the host's text roles, so it is ink in both themes. Below 48 px it crops to the emblem.
  */
 export function KrizakaLogo(props: Readonly<MarkProps>) {

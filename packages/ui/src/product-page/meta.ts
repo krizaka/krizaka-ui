@@ -14,7 +14,7 @@ export const meta = {
   domain: "page-blocks",
   platforms: "web",
   parity: { native: { status: "n/a", reason: "A whole page of a public site; a phone app's screens are built from Screen, Header and the native primitives." }, desktop: { status: "n/a", reason: "A public site's page, not a window of the Mac app." } },
-  whenToUse: ["The overview of each product (Orazaka, Yomizaka, Akinaza).", "A building block's page that argues its decisions."],
+  whenToUse: ["The overview of each product (Sovkora, Verikora, Folioviv).", "A building block's page that argues its decisions."],
   whenNotToUse: [
     { when: "For the whole company's home.", use: "landing-page" },
   ],
@@ -27,7 +27,7 @@ export const meta = {
   web: {
     imports: ["ProductPage"],
     examples: [
-      { name: "orazaka", title: "Orazaka", description: "The sovereign AI engine's overview, in its orange.", template: true, purpose: "convince", why: "A visitor understands what a product does, the traps it avoids and the decisions behind it, then acts." },
+      { name: "sovkora", title: "Sovkora", description: "The sovereign AI engine's overview, in its orange.", template: true, purpose: "convince", why: "A visitor understands what a product does, the traps it avoids and the decisions behind it, then acts." },
     ],
   },
 } satisfies ComponentMeta;

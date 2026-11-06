@@ -7,8 +7,8 @@ import { Kbd } from "@krizaka/ui/kbd";
 const COLLECTIONS = [
   { id: "ui", title: "Krizaka UI", href: "#ui", mark: <ProductLogo id="krizaka" size={26} animated={false} />, description: "Tokens, a Tailwind preset, the components — live, generated from their code.", links: [{ href: "#blocks", label: "Blocks" }, { href: "#layouts", label: "Layouts" }, { href: "#templates", label: "Templates" }] },
   { id: "java", title: "Krizaka Java", href: "#java", mark: <ProductLogo id="krizaka" size={26} animated={false} />, description: "Parent, BOM, starters, messaging, Problem Details.", links: [{ href: "#bom", label: "BOM" }, { href: "#messaging", label: "Messaging" }] },
-  { id: "orazaka", brand: "orazaka", title: "Orazaka", href: "#orazaka", mark: <ProductLogo id="orazaka" size={26} animated={false} />, description: "The sovereign AI engine: install, packs, administration.", links: [{ href: "#cli", label: "CLI" }, { href: "#packs", label: "Packs" }, { href: "#admin", label: "Admin" }] },
-  { id: "yomizaka", brand: "yomizaka", title: "Yomizaka", href: "#yomizaka", mark: <ProductLogo id="yomizaka" size={26} animated={false} />, description: "Reads your leases, contracts and invoices: the checks, the signed report.", links: [{ href: "#checks", label: "Checks" }, { href: "#reports", label: "Reports" }] },
+  { id: "sovkora", brand: "sovkora", title: "Sovkora", href: "#sovkora", mark: <ProductLogo id="sovkora" size={26} animated={false} />, description: "The sovereign AI engine: install, packs, administration.", links: [{ href: "#cli", label: "CLI" }, { href: "#packs", label: "Packs" }, { href: "#admin", label: "Admin" }] },
+  { id: "verikora", brand: "verikora", title: "Verikora", href: "#verikora", mark: <ProductLogo id="verikora" size={26} animated={false} />, description: "Reads your leases, contracts and invoices: the checks, the signed report.", links: [{ href: "#checks", label: "Checks" }, { href: "#reports", label: "Reports" }] },
 ];
 
 // TEMPLATE — krizaka.com/docs: the search in the middle of the hero (⌘K), the collections each in its product's brand
@@ -25,11 +25,11 @@ export default function DocsHubPageKrizaka() {
           Search the documentation <Kbd>⌘K</Kbd>
         </Button>
       }
-      searchHints={<>Try: <a href="#cli">orazaka install</a> · <a href="#button">Button</a> · <a href="#bom">BOM</a></>}
+      searchHints={<>Try: <a href="#cli">sovkora install</a> · <a href="#button">Button</a> · <a href="#bom">BOM</a></>}
       collectionsTitle="Collections"
       collections={COLLECTIONS}
-      quickstarts={{ title: "Start in one line", children: <CodeBlock code="npx orazaka install" language="bash" file="Terminal" copyLabel="Copy" copiedLabel="Copied" /> }}
-      popular={{ title: "Most read", items: [{ href: "#cli", title: "The CLI", meta: "Orazaka" }, { href: "#button", title: "Button", meta: "Krizaka UI" }, { href: "#bom", title: "The BOM", meta: "Java" }] }}
+      quickstarts={{ title: "Start in one line", children: <CodeBlock code="npx sovkora install" language="bash" file="Terminal" copyLabel="Copy" copiedLabel="Copied" /> }}
+      popular={{ title: "Most read", items: [{ href: "#cli", title: "The CLI", meta: "Sovkora" }, { href: "#button", title: "Button", meta: "Krizaka UI" }, { href: "#bom", title: "The BOM", meta: "Java" }] }}
       whatsNew={{ title: "What's new", items: [{ href: "#ui-260", title: "Page blocks: frame, hero, cards, decisions", meta: "@krizaka/ui 2.6.0" }, { href: "#java-010", title: "The platform kit on Maven Central", meta: "0.1.0" }] }}
       promise={{ label: "The owl's promise", text: "Every page here is generated from the code it documents — when the code changes, the page does." }}
     />

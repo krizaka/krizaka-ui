@@ -6,7 +6,7 @@ export default function NativeProfileCardBanner() {
   return (
     <View style={{ width: 340 }}>
       <ProfileBanner
-        avatar={<Avatar defaultAvatar={{ brand: "akinaza", seed: "eric" }} fallback="E" size="xl" />}
+        avatar={<Avatar defaultAvatar={{ brand: "folioviv", seed: "eric" }} fallback="E" size="xl" />}
         eyebrow="Client"
         title="Eric Tremblay"
         status={<Badge tone="success">Regular</Badge>}

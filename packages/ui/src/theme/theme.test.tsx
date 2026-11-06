@@ -60,10 +60,10 @@ describe("ThemeToggle", () => {
 describe("useTheme", () => {
   it("sets a named theme as html.theme-<name>, and replaces it", () => {
     const { result } = renderHook(() => useTheme(), { wrapper: ThemeProvider });
-    act(() => result.current.setTheme("yomizaka"));
-    expect(document.documentElement.classList.contains("theme-yomizaka")).toBe(true);
+    act(() => result.current.setTheme("verikora"));
+    expect(document.documentElement.classList.contains("theme-verikora")).toBe(true);
     act(() => result.current.setTheme(null));
-    expect(document.documentElement.classList.contains("theme-yomizaka")).toBe(false);
+    expect(document.documentElement.classList.contains("theme-verikora")).toBe(false);
     expect(localStorage.getItem("kz-theme-name")).toBeNull();
   });
 
@@ -141,13 +141,13 @@ describe("defaultMode (ThemeScript and ThemeProvider agree)", () => {
 describe("ThemeScript", () => {
   it("applies the persisted mode and theme before the first render", () => {
     localStorage.setItem("kz-theme", "light");
-    localStorage.setItem("kz-theme-name", "orazaka");
+    localStorage.setItem("kz-theme-name", "sovkora");
     const html = renderToStaticMarkup(<ThemeScript nonce="abc" />);
     expect(html).toContain('nonce="abc"');
     const code = html.replace(/^<script[^>]*>/, "").replace(/<\/script>$/, "");
     new Function(code)();
     expect(document.documentElement.classList.contains("light")).toBe(true);
-    expect(document.documentElement.classList.contains("theme-orazaka")).toBe(true);
+    expect(document.documentElement.classList.contains("theme-sovkora")).toBe(true);
   });
 });
 

@@ -29,13 +29,13 @@
   (FlashList v2 and `@krizaka/query`: `List` + `useInfiniteList`, the app's QueryClient context) and `./native/form` (the forms of `./form` on the native fields; TanStack Form is a dependency); they import the
   platform through `@krizaka/ui/native` (one theme context). Jest and Storybook render them on stand-ins
   (`src/native/mocks`).
-- The **brand layer shared by every Krizaka product**: the animated marks (`KrizakaLogo`, `OrazakaLogo`,
-  `YomizakaLogo`, `AkinazaLogo`, `ProductLogo`; native `KrizakaMark`, `OrazakaMark`, `YomizakaMark`, `AkinazaMark`, `ProductMark`;
+- The **brand layer shared by every Krizaka product**: the animated marks (`KrizakaLogo`, `SovkoraLogo`,
+  `VerikoraLogo`, `FoliovivLogo`, `ProductLogo`; native `KrizakaMark`, `SovkoraMark`, `VerikoraMark`, `FoliovivMark`, `ProductMark`;
   shared geometry (`marks/*-geometry.ts`, colours tested against the brand themes of `@krizaka/tokens`, see its
   `BRAND.md`), and the **Krizaka motion signature** (`motion.css`, `./motion`: `MotionObserver` — reveal, off-screen
   pause, settle, spotlight, magnetism — and `RotatingWord`; the section backdrop's layers; the loader glyph).
 - The **shop page family** (ADR-007, `docs/adr/ADR-007-shop-composer.md`): `shop` (the document of a shop's public page — `shopPageSchema`, `defineSection`, `migrateShopPage`, the 13 section types and their variants, the starter documents, the frame `ShopFrame` / `ShopSection`, the page's half of the preview bridge), one server entry per section type (`shop/hero`, `shop/services` — **`menu`, the compact price board, is the default** —, `shop/booking`, `shop/gallery`, `shop/video`, `shop/reviews`, `shop/bulletin`, `shop/team`, `shop/visit`, `shop/story`, `shop/social`, `shop/faq`, `shop/policies`), `shop/map-gate` (client: the map behind a button on a phone), `shop/demo` (two fictional shops, demo data only) and `shop-composer` (client: our own editor — never imported by a public entry, a test says so). Sections receive resolved data and never fetch; a photo appears once per page; a platform's media and the map on a phone request nothing before a click. The look presets are data in `@krizaka/tokens` (`shop-presets`).
-- Nothing product-specific: a product's components live in its own design system (`@krizaka/orazaka-design-system`), which builds on this package.
+- Nothing product-specific: a product's components live in its own design system (`@krizaka/sovkora-design-system`), which builds on this package.
 
 ## 2. Rules
 
@@ -65,7 +65,7 @@
 
 - `pnpm turbo run check --filter=@krizaka/ui`: type-check, tests (Vitest + happy-dom for the web; Jest with React
   Native's preset and Testing Library for `src/native`), build (tsup), size, publint.
-- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 69.6 kB (the layouts of the room — `Grid`, `Columns`, `ListDetail`, `FormFlow`, `StateScreen` — +1.2 kB; earlier: 31.5 kB with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the lovebird; 2.9: a finer mark, +0.15 kB; the storytelling kit's ProfileCard, GoalGauge and the phoenix; the crane and the fifth brand's inlined tokens, +0.7 kB; 3.13: the Yomizaka mark, +0.9 kB; 3.15: the Akinaza mark, the magpie and the beaver, +1.3 kB; 3.1: the form fields TextField, Checkbox and DateField and the date helpers, +1.7 kB; 3.2: the dates and times — Calendar, MonthPicker, DayStrip, the wheels, TimePicker, DateWheel — +4.9 kB; the controls — Switch, RadioGroup, Slider, Sheet, Select, Combobox — +4.9 kB; 3.56: the binder tabs and ProfileBanner, +0.3 kB) (Metro
+- **Size budgets** (`size-limit`, gzip, peers excluded): `.` ≤ 8 kB; `./native` ≤ 69.6 kB (the layouts of the room — `Grid`, `Columns`, `ListDetail`, `FormFlow`, `StateScreen` — +1.2 kB; earlier: 31.5 kB with the flock's geometry; 2.5.0: the material's roles and shadows of the inlined tokens; 2.8.0: the lovebird; 2.9: a finer mark, +0.15 kB; the storytelling kit's ProfileCard, GoalGauge and the phoenix; the crane and the fifth brand's inlined tokens, +0.7 kB; 3.13: the Verikora mark, +0.9 kB; 3.15: the Folioviv mark, the magpie and the beaver, +1.3 kB; 3.1: the form fields TextField, Checkbox and DateField and the date helpers, +1.7 kB; 3.2: the dates and times — Calendar, MonthPicker, DayStrip, the wheels, TimePicker, DateWheel — +4.9 kB; the controls — Switch, RadioGroup, Slider, Sheet, Select, Combobox — +4.9 kB; 3.56: the binder tabs and ProfileBanner, +0.3 kB) (Metro
   bundles it into the app, nothing is downloaded: a regression guard, not a budget); the shared runtime
   (`./cn`: clsx + tailwind-variants and its merge engine, paid once per app) ≤ 14 kB; each primitive is measured
   without that runtime (Radix included): `./button` ≤ 3.5 kB (it draws the loader glyph), `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
@@ -75,7 +75,7 @@
   or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6 kB, `./chip` ≤ 13 kB (3.57: `TagChip` and `MarkerPicker` on Radix's radio group, #627), `./status-chip` ≤ 32 kB (the badge, Radix's menu and `@krizaka/organize/contract`), `./tabs` ≤ 12.3 kB (3.56: the binder dividers, #648), `./radio-group`
   ≤ 12.5 kB (3.2: the tactile keys, the cards' check and the segments' gliding light), `./slider` ≤ 12 kB. What opens over the page carries Radix's machinery (dismissable layer, focus scope, scroll lock,
   and Floating UI for what is placed next to a trigger) — shared between these entries in an app, but counted in
-  each: `./dialog` ≤ 16.5 kB, `./toast` ≤ 11.5 kB (sonner), `./nav-bar` ≤ 24.6 kB (Radix NavigationMenu and the family's marks — 3.13: +0.6 kB for the Yomizaka mark; 3.15: +0.8 kB for the Akinaza mark; NAV-STD: +0.7 kB for the language switch and the panel placement), `./language-switch` ≤ 2.4 kB (a disclosure, no menu engine), `./tooltip` ≤ 20 kB, `./popover` ≤ 25 kB,
+  each: `./dialog` ≤ 16.5 kB, `./toast` ≤ 11.5 kB (sonner), `./nav-bar` ≤ 24.6 kB (Radix NavigationMenu and the family's marks — 3.13: +0.6 kB for the Verikora mark; 3.15: +0.8 kB for the Folioviv mark; NAV-STD: +0.7 kB for the language switch and the panel placement), `./language-switch` ≤ 2.4 kB (a disclosure, no menu engine), `./tooltip` ≤ 20 kB, `./popover` ≤ 25 kB,
   `./dropdown-menu` ≤ 32 kB, `./command` ≤ 21 kB (cmdk alone is 14.9 kB: it imports Radix's Dialog itself; with
   `CommandDialog` on the platform's Dialog, 19 kB measured, +10 %). The data and media primitives (`@krizaka/intl`
   counted, the optional peers hls.js / expo-video / expo-camera never bundled — the app passes or installs them):
@@ -122,7 +122,7 @@
   - a JSDoc on every prop its web and native components declare.
   - its **parity** (`parity` in the meta, `Parity` of `src/meta.ts`): the platform it lacks says why — `gap` (✗, the
     issue that tracks it) or `n/a` (the reason, and `use`: the component that answers there) — and its desktop form (the
-    Orazaka Mac app renders the web components, ADR-002). `tools/parity.mjs` checks it; a new web component without a
+    Sovkora Mac app renders the web components, ADR-002). `tools/parity.mjs` checks it; a new web component without a
     native and a desktop decision fails `scripts/registry.test.mjs` with the shape to write.
   `scripts/registry.test.mjs` fails otherwise. The JSON and the compiled examples are build output (git-ignored).
 

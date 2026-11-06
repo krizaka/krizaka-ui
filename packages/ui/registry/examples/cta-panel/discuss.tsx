@@ -15,7 +15,7 @@ export default function CtaPanelDiscuss() {
         primaryFirst
         actions={[
           { href: "https://github.com/krizaka/krizaka-ui/discussions", label: "Discuss" },
-          { href: "https://github.com/krizaka/krizaka-build/issues/new", label: "Propose" },
+          { href: "https://github.com/krizaka/krizaka-java/issues/new", label: "Propose" },
         ]}
       />
     </CtaPanel>

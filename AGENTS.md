@@ -89,7 +89,7 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
   fail on a missing or incomplete one. An example flagged `template` also carries its `purpose` (convince · explain · show · act ·
   operate · converse · recover) and a `why` (the user goal its layout serves): ui.krizaka.com groups the templates by them.
   **Three platforms — web · native · desktop**: every meta declares its `parity` (the side it lacks: `gap` with its issue,
-  or `n/a` with why; desktop = the Orazaka Mac app, Tauri 2 on the system WebView, ADR-002), checked by `tools/parity.mjs`
+  or `n/a` with why; desktop = the Sovkora Mac app, Tauri 2 on the system WebView, ADR-002), checked by `tools/parity.mjs`
   in both registries' tests and drawn as the matrix of ui.krizaka.com/platforms.
   A component nobody uses and nothing plans is `status: deprecated` with `deprecated: { since, removedIn, reason }`. Never write a component's documentation anywhere else.
 - **No test, not done.** Every feature and every fix ships with its tests in the same pull request: a unit test for

@@ -1,6 +1,6 @@
 import { createContext, type ReactNode, useContext, useEffect, useState, useSyncExternalStore } from "react";
 
-import type { Discovery, Gate, ResolvedService } from "./client";
+import { type Discovery, type Gate, GATE_STATE, type ResolvedService } from "./client";
 
 const Context = createContext<Discovery | null>(null);
 
@@ -38,7 +38,7 @@ export function useDiscovery(): Discovery {
   return discovery;
 }
 
-/** `useService("yomizaka").apiBase`: re-renders when the manifest moves it. */
+/** `useService("verikora").apiBase`: re-renders when the manifest moves it. */
 export function useService(product: string): ResolvedService {
   const discovery = useDiscovery();
   useSyncExternalStore(discovery.subscribe, discovery.version, discovery.version);
@@ -63,7 +63,7 @@ export interface DiscoveryGateProps {
 /** Renders the app, or its update / maintenance screen when the verified manifest says so. */
 export function DiscoveryGate({ product, update, maintenance, children }: DiscoveryGateProps) {
   const gate = useGate(product);
-  if (gate.state === "update-required") return <>{update(gate)}</>;
-  if (gate.state === "maintenance") return <>{maintenance(gate)}</>;
+  if (gate.state === GATE_STATE.updateRequired) return <>{update(gate)}</>;
+  if (gate.state === GATE_STATE.maintenance) return <>{maintenance(gate)}</>;
   return <>{children}</>;
 }

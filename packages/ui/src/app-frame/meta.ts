@@ -9,7 +9,7 @@ export const meta = {
   platforms: "web",
   parity: { native: { status: "n/a", reason: "On a phone the frame is a tab bar, a header and a screen: the native twin is the tabs shell template.", use: "tab-bar" }, desktop: "web" },
   whenToUse: [
-    "Every signed-in screen of a product: Yomizaka, Akinaza, Orazaka — and each one's administration (`variant=\"admin\"`).",
+    "Every signed-in screen of a product: Verikora, Folioviv, Sovkora — and each one's administration (`variant=\"admin\"`).",
     "When a fourth product needs the frame: write its sections, not another header.",
   ],
   whenNotToUse: [
@@ -44,7 +44,7 @@ export const meta = {
   web: {
     imports: ["AppFrame", "navWords", "publicBarLinks", "framePlaces"],
     examples: [
-      { name: "app", title: "A product's signed-in app", description: "Yomizaka: four sections with a count, the search, the primary action « Check a document », and the account menu with Language and Theme.", template: true, purpose: "operate", why: "A person works in a few sections all day and finds their account, language and theme in the same place in every Krizaka product." },
+      { name: "app", title: "A product's signed-in app", description: "Verikora: four sections with a count, the search, the primary action « Check a document », and the account menu with Language and Theme.", template: true, purpose: "operate", why: "A person works in a few sections all day and finds their account, language and theme in the same place in every Krizaka product." },
       { name: "admin", title: "The administration", description: "`variant=\"admin\"` in French: the same frame, a chip that says where you are, and no way into the administration offered again.", template: true, purpose: "operate", why: "An administrator moves from the app to its administration without the frame changing under them." },
       { name: "touch", title: "Touch targets at 44 px", description: "`touchTargets`: the rail's places and mark, the home link, the search and the account are 44 x 44 px at least, so a thumb on a phone or a tablet reaches every control of the frame without a miss (WCAG 2.5.5)." },
     ],

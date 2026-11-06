@@ -9,7 +9,7 @@ export type DeviceKind = "phone" | "browser" | "desktop";
 export interface DeviceFrameProps extends React.ComponentProps<"div"> {
   /** The device: a phone, a browser window or a macOS window. */
   kind: DeviceKind;
-  /** The browser's address or the window's title (“dev.orazaka.com”, “Orazaka”). */
+  /** The browser's address or the window's title (“dev.sovkora.com”, “Sovkora”). */
   title?: string;
 }
 

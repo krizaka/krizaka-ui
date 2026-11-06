@@ -1,6 +1,6 @@
 import { CreditUsage } from "@krizaka/charts/credits";
 
-// The credits used each day of the last two weeks (an Orazaka Pro plan of 5,000 credits).
+// The credits used each day of the last two weeks (an Sovkora Pro plan of 5,000 credits).
 const daily = [120, 180, 95, 210, 260, 140, 60, 75, 230, 310, 280, 190, 240, 300];
 
 export default function MonthlyCredits() {

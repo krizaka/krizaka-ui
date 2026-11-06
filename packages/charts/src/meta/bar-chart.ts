@@ -46,7 +46,7 @@ export const meta = {
     entry: "bar",
     imports: ["BarChart"],
     examples: [
-      { name: "jobs-by-status", title: "Jobs by status", description: "A week of Orazaka jobs per day, stacked by status in the status tones." },
+      { name: "jobs-by-status", title: "Jobs by status", description: "A week of Sovkora jobs per day, stacked by status in the status tones." },
       { name: "top-supporters", title: "Ranking", description: "Horizontal bars: a creator's top supporters, the value at each tip." },
       { name: "plans-by-quarter", title: "Grouped", description: "Revenue per plan, grouped by quarter." },
     ],

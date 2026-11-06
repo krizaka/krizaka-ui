@@ -78,5 +78,5 @@ export const contactNotification = defineTemplate({
       </>
     );
   },
-  example: { name: "Camille Tremblay", email: "camille@example.com", company: "Cabinet Tremblay", topic: "Orazaka", timeline: "This quarter", language: "fr", source: "orazaka", message: "Bonjour,\nNous cherchons une IA hébergée au Québec pour nos documents." },
+  example: { name: "Camille Tremblay", email: "camille@example.com", company: "Cabinet Tremblay", topic: "Sovkora", timeline: "This quarter", language: "fr", source: "sovkora", message: "Bonjour,\nNous cherchons une IA hébergée au Québec pour nos documents." },
 });

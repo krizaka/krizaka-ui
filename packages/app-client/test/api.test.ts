@@ -18,7 +18,7 @@ const json = (status: number, body: unknown) => new Response(JSON.stringify(body
 
 function client(fetchImpl: typeof fetch, token: string | null = "tok", timeoutMs = 50) {
   const session = sessionWith(token);
-  return { session, api: createApiClient({ baseUrl: () => "https://api.example.com", session, fetch: fetchImpl, language: () => "fr-CA", productName: "Yomizaka", timeoutMs }) };
+  return { session, api: createApiClient({ baseUrl: () => "https://api.example.com", session, fetch: fetchImpl, language: () => "fr-CA", productName: "Verikora", timeoutMs }) };
 }
 
 describe("createApiClient", () => {
@@ -98,7 +98,7 @@ describe("createApiClient", () => {
     const hang = ((_: string, init: RequestInit) => new Promise((_, reject) => init.signal?.addEventListener("abort", () => reject(new DOMException("aborted", "AbortError"))))) as unknown as typeof fetch;
     const { api } = client(hang, "tok", 10);
     const failure = await api.call("/x").catch((error: unknown) => error);
-    expect(failure).toEqual(new TypeError("Yomizaka did not answer in time"));
+    expect(failure).toEqual(new TypeError("Verikora did not answer in time"));
     expect((failure as Error).cause).toBeDefined();
   });
 

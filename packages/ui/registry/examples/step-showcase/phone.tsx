@@ -6,7 +6,7 @@ const still = (n: number) => `data:image/svg+xml,${encodeURIComponent(`<svg xmln
 export default function StepShowcasePhone() {
   return (
     <StepShowcase
-      label="Orazaka in your pocket"
+      label="Sovkora in your pocket"
       device="phone"
       steps={[
         { id: "sign-in", title: "Sign in", description: "Your workspace, on your phone.", poster: still(1), alt: "The sign-in screen", duration: 4000 },

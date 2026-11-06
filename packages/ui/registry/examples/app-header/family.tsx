@@ -16,14 +16,14 @@ export default function AppHeaderFamily() {
   return (
     <>
       <AppHeader
-        name="Yomizaka"
-        mark={<ProductLogo id="yomizaka" size={22} animated={false} />}
+        name="Verikora"
+        mark={<ProductLogo id="verikora" size={22} animated={false} />}
         href="#home"
         search={<AppHeaderSearch label="Search files and checks" onOpen={() => setOpen(true)} />}
         language={<LanguageSwitch label="Language" current="en" languages={languagesFor("/en/files")} />}
         messages={<AppHeaderCount label="Messages" icon={icon("M4 5h16v11H8l-4 4z")} count={2} countLabel="2 unread" href="#messages" />}
         notifications={<AppHeaderCount label="Notifications" icon={icon("M6 16V11a6 6 0 1 1 12 0v5l2 2H4zM10 20h4")} count={3} countLabel="3 new" />}
-        account={<AccountMenu label="Account" name="Eric Tremblay" email="eric@example.com" showName avatar={{ defaultAvatar: { brand: "yomizaka", seed: "eric" } }} signOut={{ label: "Sign out", onSelect: () => {} }} />}
+        account={<AccountMenu label="Account" name="Eric Tremblay" email="eric@example.com" showName avatar={{ defaultAvatar: { brand: "verikora", seed: "eric" } }} signOut={{ label: "Sign out", onSelect: () => {} }} />}
       />
       <CommandDialog open={open} onOpenChange={setOpen} label="Search">
         <Command.Input placeholder="Search files and checks" />

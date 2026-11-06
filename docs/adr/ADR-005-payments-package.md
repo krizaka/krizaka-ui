@@ -1,9 +1,9 @@
 # ADR-005 — `@krizaka/payments`: the payments port, shared
 
-Status: accepted (2026-10-22). Issue: krizaka/krizaka-ui#480 (consumers: krizaka/akinaza#136, Yomizaka).
+Status: superseded on 2026-11-06 — `@krizaka/payments` has one publisher, **krizaka-ts** (`packages/payments`, the version on npm and its consumers: Verikora, Folioviv, krizaka-ts coupons and webhooks); the stale copy here (0.2.2, never the npm source since 0.3) is deleted (krizaka-internal#2664). Accepted (2026-10-22). Issue: krizaka/krizaka-ui#480 (consumers: krizaka/folioviv#136, Verikora).
 
 ## Context
-Akinaza and Yomizaka each carried a copy of the same payments port and Stripe adapter (webhook verification, idempotent
+Folioviv and Verikora each carried a copy of the same payments port and Stripe adapter (webhook verification, idempotent
 events, setup script). The org rule is « share before a second copy », and the stack rule is that a vendor is chosen in
 configuration while prices and rules are data.
 

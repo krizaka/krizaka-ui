@@ -7,7 +7,7 @@ export const meta = {
   tier: "advanced",
   category: "charts",
   platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/orazaka#207", reason: "Slice 3 of the data-driven UI epic: the same messages drawn by the native charts." }, desktop: "web" },
+  parity: { native: { status: "gap", issue: "krizaka/sovkora#207", reason: "Slice 3 of the data-driven UI epic: the same messages drawn by the native charts." }, desktop: "web" },
   whenToUse: [
     "With `GenUiStream` of @krizaka/ui: merge `chartsGenUiCatalog` with `baseGenUiCatalog` so a model's answer can hold figures and charts.",
     "When an assistant answers a question about data with a dashboard the reader can then refine.",

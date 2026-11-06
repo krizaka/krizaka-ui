@@ -2,6 +2,7 @@
 lib/ui-examples.ts
 lib/release-times.json
 lib/ui-example-keys.ts
+lib/ui-registry-data.ts
 public/ui-examples/
 .source/
 .next/

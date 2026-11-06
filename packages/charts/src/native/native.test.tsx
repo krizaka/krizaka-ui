@@ -34,7 +34,7 @@ describe("native charts", () => {
 
   it("write the figures in the provider's locale and follow its brand", async () => {
     await render(
-      <ChartsProvider locale="fr-FR" brand="orazaka" scheme="light">
+      <ChartsProvider locale="fr-FR" brand="sovkora" scheme="light">
         <BarChart title="Crédits" data={data} x="month" y="v" yLabel="Crédits" format="compact" />
       </ChartsProvider>,
     );

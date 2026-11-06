@@ -26,7 +26,7 @@ export type UpdatePromptProps = Omit<React.ComponentProps<"section">, "title"> &
   message?: React.ReactNode;
   /** The versions, in words and mono (“1.2.0 → 1.4.0”). */
   versionLabel?: React.ReactNode;
-  /** The product's mark (decorative), e.g. `<OrazakaLogo />`. */
+  /** The product's mark (decorative), e.g. `<SovkoraLogo />`. */
   mark?: React.ReactNode;
   /** The button that updates (“Update”). */
   updateLabel: string;

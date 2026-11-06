@@ -13,7 +13,7 @@ export default function ModelComparison() {
   return (
     <RadarChart
       title="Two chat models compared"
-      description="Orazaka evaluation set, October 2026 · out of 100"
+      description="Sovkora evaluation set, October 2026 · out of 100"
       data={scores}
       x="measure"
       xLabel="Measure"

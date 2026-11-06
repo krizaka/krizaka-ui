@@ -1,17 +1,17 @@
 // The look presets of a shop page (ADR-007 §4, krizaka-ui#745), as data: `src/presets/shop/<id>.preset.json` → CSS scoped by
 // `[data-shop-preset="<id>"]` (both modes) and the same data for the composer. A preset names only tokens — an accent of the
-// brands (`akinaza`, or `akinaza:accent-2` for the copper), a paper, the roles of the fonts, a density, a photo treatment — and
+// brands (`folioviv`, or `folioviv:accent-2` for the copper), a paper, the roles of the fonts, a density, a photo treatment — and
 // never a colour: a raw colour in a source is refused. The visitor's dark / light choice is kept: a preset defines both modes.
 // Pure: the build and its tests call it with data.
 
-/** The trades with a preset. No café, restaurant or bar (ADR-006 §5, row 23): Akinaza is for service shops. */
+/** The trades with a preset. No café, restaurant or bar (ADR-006 §5, row 23): Folioviv is for service shops. */
 export const SHOP_TRADES = ["salon", "pets", "coaching", "workshop", "cleaning", "consulting"];
 export const SHOP_PAPERS = ["plain", "seyes", "kraft", "washi"];
 export const SHOP_GRADES = ["none", "warm", "cool"];
 /** The brands whose accent a shop may wear: the products that are live. */
-export const SHOP_ACCENT_BRANDS = ["krizaka", "orazaka", "yomizaka", "akinaza"];
+export const SHOP_ACCENT_BRANDS = ["krizaka", "sovkora", "verikora", "folioviv"];
 const KEYS = new Set(["id", "version", "name", "trades", "paper", "accent", "accents", "faces", "density", "photo", "variants"]);
-/** The look presets (`look-<name>`, trade-agnostic, akinaza#478): the keys they add to a trade preset's. */
+/** The look presets (`look-<name>`, trade-agnostic, folioviv#478): the keys they add to a trade preset's. */
 export const LOOK_KEYS = new Set(["surface", "motion", "mascots", "closing", "transition"]);
 /** The surface under the page: `paper` and `ink` are two steps of the product surfaces, `warm` a tint of the accent, `contrast` the page with strong rules, `deep` the night's (a tinted dusk in light), `dusk` that tint in both modes. */
 export const SHOP_SURFACES = ["paper", "ink", "warm", "contrast", "deep", "dusk"];
@@ -40,7 +40,7 @@ const hsl = (p, a) => {
 };
 
 /**
- * The accent family a reference names, in one mode: `akinaza` is the brand's accent; `akinaza:accent-2` makes its second colour
+ * The accent family a reference names, in one mode: `folioviv` is the brand's accent; `folioviv:accent-2` makes its second colour
  * (the copper) the accent, its hover one step toward the text, its text the colour itself.
  * @param {Record<string, { dark: Record<string, string>, light: Record<string, string> }>} brands
  * @param {string} ref
@@ -212,7 +212,7 @@ export interface ShopPreset {
   readonly name: string;
   readonly trades: readonly ShopTrade[];
   readonly paper: "plain" | "seyes" | "kraft" | "washi";
-  /** An accent of the brands: \`akinaza\`, or \`akinaza:accent-2\` (the copper). */
+  /** An accent of the brands: \`folioviv\`, or \`folioviv:accent-2\` (the copper). */
   readonly accent: string;
   /** The accents the owner may choose within this look: all tested. */
   readonly accents: readonly string[];
@@ -222,7 +222,7 @@ export interface ShopPreset {
   readonly photo: { readonly grade: "none" | "warm" | "cool"; readonly grain: 0 | 1; readonly radius: "none" | "xs"; /** A look's: \`polaroid\` borders the photo like a print. */ readonly frame?: "none" | "polaroid" };
   /** The default variant per section type when a section is added. */
   readonly variants: { readonly [type: string]: string };
-  /** A look's (\`look-<name>\`, trade-agnostic, akinaza#478): the surface under the page. \`deep\` is the night's, a tinted dusk in light. */
+  /** A look's (\`look-<name>\`, trade-agnostic, folioviv#478): the surface under the page. \`deep\` is the night's, a tinted dusk in light. */
   readonly surface?: "paper" | "ink" | "warm" | "contrast" | "deep" | "dusk";
   /** A look's: \`still\` · \`soft\` · \`paper\` · \`lively\`, the CSS motion mode of the page. */
   readonly motion?: "still" | "soft" | "paper" | "lively";

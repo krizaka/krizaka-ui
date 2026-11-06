@@ -1,4 +1,4 @@
-// The desktop form of the shell (ADR-002): the window of the Orazaka Mac app (Tauri 2). The title bar moves the window,
+// The desktop form of the shell (ADR-002): the window of the Sovkora Mac app (Tauri 2). The title bar moves the window,
 // there is no drawer, the top clears the traffic lights — and the native menu bar answers the shell's own keys.
 import { render, screen } from "@testing-library/react";
 
@@ -8,7 +8,7 @@ import { acceleratorOf, AppShell } from "./index";
 function Window({ desktop = true }: { desktop?: boolean }) {
   return (
     <AppShell.Root desktop={desktop}>
-      <AppShell.Sidebar label="Orazaka" brand="Orazaka" collapseLabels={["Collapse", "Expand"]} closeLabel="Close the menu">
+      <AppShell.Sidebar label="Sovkora" brand="Sovkora" collapseLabels={["Collapse", "Expand"]} closeLabel="Close the menu">
         <AppShell.Item href="#models" icon={<svg aria-hidden />} label="Models" current shortcut="mod+1" />
       </AppShell.Sidebar>
       <AppShell.Body>
@@ -27,7 +27,7 @@ describe("AppShell desktop (a desktop app's window)", () => {
     expect(header.hasAttribute("data-tauri-drag-region")).toBe(true);
     expect(screen.getByRole("heading", { name: "Models" }).hasAttribute("data-tauri-drag-region")).toBe(true);
     expect(screen.getByRole("button", { name: "Start" }).hasAttribute("data-tauri-drag-region")).toBe(false);
-    const sidebar = screen.getByRole("navigation", { name: "Orazaka" });
+    const sidebar = screen.getByRole("navigation", { name: "Sovkora" });
     expect(sidebar.querySelectorAll("[data-tauri-drag-region]")).toHaveLength(2);
     expect(screen.getByRole("link", { name: /Models/ }).hasAttribute("data-tauri-drag-region")).toBe(false);
   });

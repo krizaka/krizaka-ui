@@ -4,7 +4,7 @@ export const meta = {
   title: "Schema form",
   summary: "A form drawn from a JSON Schema: typed fields, the schema's own rules, the words of the language (`x-i18n`) and the rarely needed fields folded (`x-advanced`).",
   status: "experimental",
-  adoption: "orazaka#207",
+  adoption: "sovkora#207",
   category: "forms",
   domain: "forms",
   platforms: "web",

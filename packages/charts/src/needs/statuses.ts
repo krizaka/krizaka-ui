@@ -12,7 +12,7 @@ export interface JobStatus {
   readonly outcome?: "succeeded" | "failed";
 }
 
-/** The four statuses of an Orazaka job, in English: pass your own (translated) `statuses`. */
+/** The four statuses of an Sovkora job, in English: pass your own (translated) `statuses`. */
 export const DEFAULT_STATUSES: readonly JobStatus[] = [
   { key: "completed", label: "Completed", tone: "success", outcome: "succeeded" },
   { key: "failed", label: "Failed", tone: "danger", outcome: "failed" },

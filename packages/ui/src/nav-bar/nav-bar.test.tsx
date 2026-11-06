@@ -11,8 +11,8 @@ function Bar() {
       <NavBar.Brand href="#home">Krizaka</NavBar.Brand>
       <NavBar.Items>
         <NavBar.Menu label="Products" inlineUpTo={0}>
-          <NavBar.MenuLink href="#a" title="Orazaka" description="Sovereign AI." />
-          <NavBar.MenuLink href="#b" title="Yomizaka" />
+          <NavBar.MenuLink href="#a" title="Sovkora" description="Sovereign AI." />
+          <NavBar.MenuLink href="#b" title="Verikora" />
         </NavBar.Menu>
         <NavBar.Link href="#story" active>
           Our story
@@ -34,7 +34,7 @@ function ProductBar() {
     <div>
       <p>The page</p>
       <NavBar.Root label="Main">
-        <NavBar.Brand href="#home">Orazaka</NavBar.Brand>
+        <NavBar.Brand href="#home">Sovkora</NavBar.Brand>
         <NavBar.Items>
           <NavBar.Menu label="Product" inlineUpTo={0}>
             <NavBar.MenuLink href="#how" title="How it works" description="Install to first answer in three commands." />
@@ -249,7 +249,7 @@ describe("NavBar.Language — one switch in the bar and in the mobile panel", ()
   function WithLanguage() {
     return (
       <NavBar.Root label="Main">
-        <NavBar.Brand href="#home">Yomizaka</NavBar.Brand>
+        <NavBar.Brand href="#home">Verikora</NavBar.Brand>
         <NavBar.Actions>
           <NavBar.Language label="Langue" current="fr" languages={languages} />
           <NavBar.Mobile openLabel="Open the menu" closeLabel="Close the menu">
@@ -318,7 +318,7 @@ describe("NavBar", () => {
     const trigger = screen.getByRole("button", { name: "Products" });
     await user.click(trigger);
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
-    expect(await screen.findByRole("link", { name: /Orazaka/ })).toBeTruthy();
+    expect(await screen.findByRole("link", { name: /Sovkora/ })).toBeTruthy();
     // The pointer is still on the trigger: let the hover-intent timer (200 ms) run its course, or it would reopen the
     // menu right after Escape closed it (what made this test flaky on slow runners).
     await act(async () => {
@@ -412,8 +412,8 @@ describe("NavBar.Family", () => {
     const ui = within(family).getByRole("link", { name: /Krizaka UI/ });
     expect(ui.getAttribute("aria-current")).toBe("true");
     expect(ui.textContent).toContain("You are here");
-    expect(within(family).getByRole("link", { name: /Yomizaka/ }).textContent).toContain("In development");
-    expect(within(family).getByRole("link", { name: /Akinaza/ }).textContent).toContain("In development");
+    expect(within(family).getByRole("link", { name: /Verikora/ }).textContent).toContain("In development");
+    expect(within(family).getByRole("link", { name: /Folioviv/ }).textContent).toContain("In development");
     await user.keyboard("{Escape}");
     // Radix closes on its own tick (and the hover-intent timer may still be pending on a loaded runner): wait, don't race.
     await waitFor(() => expect(trigger.getAttribute("aria-expanded")).toBe("false"));
@@ -471,7 +471,7 @@ describe("NavBar.Family", () => {
     expect(within(group).getAllByRole("link")).toHaveLength(sites.length);
     expect(within(group).getByRole("list", { name: "Produits" })).toBeTruthy();
     expect(within(group).getByRole("link", { name: /Krizaka UI/ }).getAttribute("aria-current")).toBe("true");
-    expect(within(group).getByRole("link", { name: /Yomizaka/ }).textContent).toContain("En développement");
+    expect(within(group).getByRole("link", { name: /Verikora/ }).textContent).toContain("En développement");
   });
 
   it("says the family once in the mobile panel — the company's own group carries no second, duplicate heading", async () => {
@@ -508,11 +508,11 @@ describe("NavBar.Brand with the organisation's facts (@krizaka/org)", () => {
     render(
       <NavBar.Root label="Main">
         <NavBar.Brand href="#home" org={{ brand: { name: "Krizaka" } }}>
-          Orazaka
+          Sovkora
         </NavBar.Brand>
       </NavBar.Root>,
     );
-    expect(screen.getByRole("link", { name: "Orazaka" })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Sovkora" })).toBeTruthy();
     expect(screen.queryByRole("link", { name: "Krizaka" })).toBeNull();
   });
 });

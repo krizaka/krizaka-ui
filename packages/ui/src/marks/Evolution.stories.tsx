@@ -3,16 +3,16 @@ import type { ReactNode } from "react";
 
 import { KrizakaLogo } from "./KrizakaLogo";
 import { KrizakaLogoV1 } from "./legacy/KrizakaLogoV1";
-import { OrazakaLogoV1 } from "./legacy/OrazakaLogoV1";
-import { OrazakaLogoV2 } from "./legacy/OrazakaLogoV2";
-import { OrazakaLogo } from "./OrazakaLogo";
+import { SovkoraLogoV1 } from "./legacy/SovkoraLogoV1";
+import { SovkoraLogoV2 } from "./legacy/SovkoraLogoV2";
+import { SovkoraLogo } from "./SovkoraLogo";
 
 /**
  * The brand family, before and after 2.0.0-beta.5. Krizaka and
- * Orazaka share one grammar — one bold emblem in an orbit, a bright core, a crop below 48 px — and their brand colour
- * (Krizaka: ink + blue). In 2.1.0 the Orazaka mark leaves amber (#b45309 → #f59e0b, whose light stop is the hue of
+ * Sovkora share one grammar — one bold emblem in an orbit, a bright core, a crop below 48 px — and their brand colour
+ * (Krizaka: ink + blue). In 2.1.0 the Sovkora mark leaves amber (#b45309 → #f59e0b, whose light stop is the hue of
  * --kz-warning and read at 2:1 on a light page) for the brand's orange: deep orange → orange on hue 26, from the brand
- * tokens (`marks.orazaka`), ≥ 3:1 on dark and light. The previous marks live only in this story.
+ * tokens (`marks.sovkora`), ≥ 3:1 on dark and light. The previous marks live only in this story.
  */
 const meta = {
   title: "Brand/Evolution",
@@ -43,9 +43,9 @@ export const BeforeAfter: Story = {
     <div className="flex flex-col gap-4">
       <Row label="Krizaka · before">{(size) => <KrizakaLogoV1 size={size} animated={false} />}</Row>
       <Row label="Krizaka · after">{(size) => <KrizakaLogo size={size} animated={false} />}</Row>
-      <Row label="Orazaka · 1.x">{(size) => <OrazakaLogoV1 size={size} animated={false} />}</Row>
-      <Row label="Orazaka · 2.0 amber">{(size) => <OrazakaLogoV2 size={size} animated={false} />}</Row>
-      <Row label="Orazaka · 2.1 orange">{(size) => <OrazakaLogo size={size} animated={false} />}</Row>
+      <Row label="Sovkora · 1.x">{(size) => <SovkoraLogoV1 size={size} animated={false} />}</Row>
+      <Row label="Sovkora · 2.0 amber">{(size) => <SovkoraLogoV2 size={size} animated={false} />}</Row>
+      <Row label="Sovkora · 2.1 orange">{(size) => <SovkoraLogo size={size} animated={false} />}</Row>
     </div>
   ),
 };
@@ -55,7 +55,7 @@ export const Family: Story = {
   render: () => (
     <div className="flex items-center gap-8">
       <KrizakaLogo size={128} animated={false} title="Krizaka" />
-      <OrazakaLogo size={128} animated={false} title="Orazaka" />
+      <SovkoraLogo size={128} animated={false} title="Sovkora" />
     </div>
   ),
 };

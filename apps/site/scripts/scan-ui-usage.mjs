@@ -30,14 +30,14 @@ const fetchFirst = !args.includes("--no-fetch");
 
 /** The product repositories (clones under <root>), grouped by product. A repo's own path is where its sources start. */
 export const PRODUCTS = {
-  orazaka: [
-    { repo: "products/orazaka/orazaka-apps/ui/orazaka-web-client" },
-    { repo: "products/orazaka/orazaka-apps/ui/orazaka-mobile-client" },
-    { repo: "products/orazaka/orazaka-apps/ui/orazaka-ui-kit" },
+  sovkora: [
+    { repo: "products/sovkora/sovkora-apps/ui/sovkora-web" },
+    { repo: "products/sovkora/sovkora-apps/ui/sovkora-mobile" },
+    { repo: "products/sovkora/sovkora-apps/ui/sovkora-ui-kit" },
   ],
-  yomizaka: [{ repo: "products/yomizaka" }],
-  akinaza: [{ repo: "products/akinaza" }],
-  krizaka: [{ repo: ".", skip: /^(products|company|orazaka-content|content|public)\// }],
+  verikora: [{ repo: "products/verikora" }],
+  folioviv: [{ repo: "products/folioviv" }],
+  krizaka: [{ repo: ".", skip: /^(products|company|sovkora-content|content|public)\// }],
 };
 
 const SOURCE = /\.(tsx|ts|jsx|js|mjs)$/;

@@ -4,7 +4,7 @@ export const meta = {
   title: "Form flow",
   summary: "A form told in steps on a screen: the step's question, its fields, the position in words, the main action pinned above the keyboard and clear of the home indicator, dimmed until the step is valid.",
   status: "experimental",
-  adoption: "akinaza#104",
+  adoption: "folioviv#104",
   category: "layout",
   domain: "navigation-shell",
   platforms: "native",

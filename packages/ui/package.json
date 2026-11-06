@@ -1,12 +1,12 @@
 {
   "name": "@krizaka/ui",
   "version": "3.87.0",
-  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Orazaka, Yomizaka, Akinaza) and the motion signature — web and /native.",
+  "description": "The Krizaka front-end platform's components: the primitives (button, card, dialog, toast, menu, field, tabs, chip, switch, slider, command palette, theme, countdown…) on the semantic --kz-* tokens, the animated marks (Krizaka, Sovkora, Verikora, Folioviv) and the motion signature — web and /native.",
   "keywords": [
     "krizaka",
-    "orazaka",
-    "yomizaka",
-    "akinaza",
+    "sovkora",
+    "verikora",
+    "folioviv",
     "react",
     "logo",
     "motion",
@@ -1041,7 +1041,7 @@
     "@babel/core": "^7.29.7",
     "@jest/globals": "30.5.2",
     "@krizaka/config": "^0.9.1",
-    "@krizaka/org": "^0.1.0",
+    "@krizaka/org": "^1.0.0",
     "@krizaka/query": "workspace:*",
     "@maplibre/maplibre-react-native": "11.5.0",
     "@react-native/babel-preset": "0.86.3",
@@ -3018,7 +3018,7 @@
     {
       "name": "./map/sheet",
       "path": "dist/map/sheet.js",
-      "limit": "1.1 kB",
+      "limit": "1.05 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -3051,7 +3051,7 @@
     {
       "name": "./map",
       "path": "dist/map.js",
-      "limit": "17.2 kB",
+      "limit": "17.25 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

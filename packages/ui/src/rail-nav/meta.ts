@@ -23,7 +23,7 @@ export const meta = {
     "Give every item an icon and a word: the icon is all a desktop shows, the word is the tooltip, the tab's caption and the accessible name.",
     "Put the product's mark in `mark` and its name in `AppHeader`: the mark is shown once, in the rail on a desktop and in the header on a phone. Never draw it in both.",
     "Render your router's links with `RailNav.Item asChild`; set `current` from the route.",
-    "Scope the product's colours with `accent` (`orazaka`, `yomizaka`…) or let the page's brand class do it.",
+    "Scope the product's colours with `accent` (`sovkora`, `verikora`…) or let the page's brand class do it.",
     "`expandable` is for apps whose users know the icons less well: it widens the rail to show the words. Uncontrolled and without `defaultExpanded`, it is expanded from 1280 px (the words fit there) until the person toggles it.",
     "`shortcuts` (with `shortcutsLabel`, « Raccourcis ») holds the product's quick ways in — a saved view, a frequent client, « New invoice » — above the footer; two to four, never a second navigation. Desktop only: a phone's tab bar keeps its destinations.",
   ],
@@ -47,8 +47,8 @@ export const meta = {
   web: {
     imports: ["RailNav"],
     examples: [
-      { name: "studio", title: "A studio", description: "Orazaka's signed-in app: the mark on top of the rail, five sections with the current one lit, settings at the foot, the header with the name and a status chip.", template: true, purpose: "operate", why: "A person works in a few sections all day: the rail keeps them one icon away and leaves the screen to the work; on a phone the same sections are the tabs." },
-      { name: "shortcuts", title: "Shortcuts and the family's bar", description: "Akinaza's frame: the rail with a « Shortcuts » group above the expand toggle, expanded from 1280 px, and the family's top bar — search, notifications with a count, the account with its name from 1024 px." },
+      { name: "studio", title: "A studio", description: "Sovkora's signed-in app: the mark on top of the rail, five sections with the current one lit, settings at the foot, the header with the name and a status chip.", template: true, purpose: "operate", why: "A person works in a few sections all day: the rail keeps them one icon away and leaves the screen to the work; on a phone the same sections are the tabs." },
+      { name: "shortcuts", title: "Shortcuts and the family's bar", description: "Folioviv's frame: the rail with a « Shortcuts » group above the expand toggle, expanded from 1280 px, and the family's top bar — search, notifications with a count, the account with its name from 1024 px." },
       { name: "expandable", title: "Expandable", description: "The same rail with a button that widens it to show the words, for users who do not know the icons yet." },
     ],
   },

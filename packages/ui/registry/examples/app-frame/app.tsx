@@ -19,7 +19,7 @@ const SECTIONS: FrameSection[] = [
   { id: "checks", label: "Checks", href: "#checks", icon: icon("M5 12l4 4 10-10") },
 ];
 
-// TEMPLATE — The signed-in frame of a product (Yomizaka): the rail (a tab bar on a phone), the top bar with its search, the
+// TEMPLATE — The signed-in frame of a product (Verikora): the rail (a tab bar on a phone), the top bar with its search, the
 // one primary action and the account menu. Settings is under the avatar, so it is not a section. The product writes only its sections; the menu, its order and the preferences are the frame's.
 export default function AppFrameApp() {
   const [language, setLanguage] = useState("en");
@@ -27,10 +27,10 @@ export default function AppFrameApp() {
   const [mode, setMode] = useState<Mode>("system");
   return (
     <AppFrame
-      name="Yomizaka"
-      accent="yomizaka"
-      mark={<ProductLogo id="yomizaka" size={26} animated={false} />}
-      headerMark={<ProductLogo id="yomizaka" size={22} animated={false} />}
+      name="Verikora"
+      accent="verikora"
+      mark={<ProductLogo id="verikora" size={26} animated={false} />}
+      headerMark={<ProductLogo id="verikora" size={22} animated={false} />}
       homeHref="#home"
       sections={SECTIONS}
       currentId="home"
@@ -39,7 +39,7 @@ export default function AppFrameApp() {
       account={{
         name: "Eric Tremblay",
         email: "eric@example.com",
-        avatar: { defaultAvatar: { brand: "yomizaka", seed: "eric" } },
+        avatar: { defaultAvatar: { brand: "verikora", seed: "eric" } },
         links: { settings: { href: "#settings" }, profile: { href: "#profile" }, billing: { href: "#billing", label: "Credits and usage" } },
         onSignOut: () => {},
       }}

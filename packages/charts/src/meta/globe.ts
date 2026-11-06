@@ -38,6 +38,6 @@ export const meta = {
   web: {
     entry: "globe",
     imports: ["Globe3D"],
-    examples: [{ name: "deployment-regions", title: "Deployment regions", description: "Orazaka's regions, their health as tones, the replication arcs between them." }],
+    examples: [{ name: "deployment-regions", title: "Deployment regions", description: "Sovkora's regions, their health as tones, the replication arcs between them." }],
   },
 } satisfies ComponentMeta;

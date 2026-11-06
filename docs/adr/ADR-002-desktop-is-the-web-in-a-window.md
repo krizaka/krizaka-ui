@@ -1,17 +1,17 @@
 # ADR-002 — Desktop is the web in a window: one design system on three platforms
 
 - **Status:** accepted — 2026-10-16
-- **Scope:** `@krizaka/ui` (and `@krizaka/charts`): what "desktop" means for a component, and the Orazaka Mac app
-  (`krizaka/orazaka`, `apps/desktop`, Delivery 12 — krizaka/orazaka#87)
+- **Scope:** `@krizaka/ui` (and `@krizaka/charts`): what "desktop" means for a component, and the Sovkora Mac app
+  (`krizaka/sovkora`, `apps/desktop`, Delivery 12 — krizaka/sovkora#87)
 - **Enforced by:** the `parity` of every meta (`tools/parity.mjs`, run by both registry tests) and the matrix of
   ui.krizaka.com/platforms
 
 ## Context
 
 Krizaka UI is one design system on **three platforms**: the web (`@krizaka/ui/<name>`), mobile (`@krizaka/ui/native`,
-React Native and Expo) and desktop. The only desktop client is the Orazaka Mac app, decided on 2026-10-14
-(`docs/DELIVERY.md` of krizaka/orazaka): **Tauri 2** — the system WebView (WKWebView on macOS), a ~10 MB Rust binary
-that drives the `orazaka` CLI as a sidecar — chosen over Electron (a 150 MB Chromium per app) and over a native
+React Native and Expo) and desktop. The only desktop client is the Sovkora Mac app, decided on 2026-10-14
+(`docs/DELIVERY.md` of krizaka/sovkora): **Tauri 2** — the system WebView (WKWebView on macOS), a ~10 MB Rust binary
+that drives the `sovkora` CLI as a sidecar — chosen over Electron (a 150 MB Chromium per app) and over a native
 SwiftUI app (a third UI to write and keep in step with the web and the phone). The app does not exist yet; it is
 built by the ORA-DESKTOP session once the Apple Developer ID is active.
 

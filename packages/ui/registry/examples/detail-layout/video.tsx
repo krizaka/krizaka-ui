@@ -12,7 +12,7 @@ import { Tabs } from "@krizaka/ui/tabs";
 // a phone, where the actions wrap under the title.
 export default function DetailLayoutVideo() {
   return (
-    <div className="brand-orazaka w-full">
+    <div className="brand-sovkora w-full">
       <Tabs.Root defaultValue="overview">
         <DetailLayout
           back={<a href="#videos">← Videos</a>}

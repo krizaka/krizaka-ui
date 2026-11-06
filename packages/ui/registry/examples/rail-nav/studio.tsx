@@ -14,9 +14,9 @@ export default function RailNavStudio() {
   return (
     <RailNav.Shell>
       <RailNav.Root
-        label="Orazaka"
-        accent="orazaka"
-        mark={<a href="#home" aria-label="Orazaka, home"><ProductLogo id="orazaka" size={26} animated={false} /></a>}
+        label="Sovkora"
+        accent="sovkora"
+        mark={<a href="#home" aria-label="Sovkora, home"><ProductLogo id="sovkora" size={26} animated={false} /></a>}
         footer={<RailNav.Item href="#settings" icon={icon("M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19 12l2-1-2-4-2 1-2-1-1-2h-4l-1 2-2 1-2-1-2 4 2 1v2l-2 1 2 4 2-1 2 1 1 2h4l1-2 2-1 2 1 2-4-2-1z")} label="Settings" />}
       >
         <RailNav.Item href="#home" icon={icon("M4 11 12 4l8 7v9H4z")} label="Home" current />
@@ -26,8 +26,8 @@ export default function RailNavStudio() {
       </RailNav.Root>
       <RailNav.Body>
         <AppHeader
-          name="Orazaka"
-          mark={<ProductLogo id="orazaka" size={22} animated={false} />}
+          name="Sovkora"
+          mark={<ProductLogo id="sovkora" size={22} animated={false} />}
           href="#home"
           chips={<Badge tone="success" dot>Local · Sovereign</Badge>}
         />

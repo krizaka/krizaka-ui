@@ -1,5 +1,5 @@
 "use client";
-// What is left of a credit allowance (Orazaka's billing meter, the console's quotas, a storage plan): the
+// What is left of a credit allowance (Sovkora's billing meter, the console's quotas, a storage plan): the
 // remaining amount in large, a meter that turns to warning then danger, the use per day as a sparkline, and the day it
 // runs out at the current pace. A `meter` for assistive technology, its value said in words.
 import { type CSSProperties, type ReactNode, useId } from "react";
@@ -34,7 +34,7 @@ export interface CreditUsageProps extends Omit<ChartsSettings, "labels"> {
   days?: readonly unknown[];
   /** When the allowance renews (an ISO date or a `Date`). */
   renewsAt?: string | Date;
-  /** Today, for the projection (pass it from the server to render the same date on both sides). Default: now. */
+  /** Today, for the run-out projection: the host gives the time (from the server, the same date on both sides); without it no run-out date is shown. */
   now?: Date;
   /** The share where the meter turns to warning, then danger. Default `[0.8, 0.95]`. */
   levels?: readonly [number, number];
@@ -78,8 +78,7 @@ export function CreditUsage({
   const percent = valueFormatter("percent", locale)(ratio);
   const usedText = fillIn(words.used, { used: write(used), percent });
   const left = daily ? daysLeft(remaining, daily) : null;
-  const today = now ?? new Date();
-  const runOut = left == null ? null : addDays(today, left);
+  const runOut = left == null || !now ? null : addDays(now, left);
   const renews = renewsAt ? new Date(renewsAt) : null;
   // The run-out date only matters when it comes before the renewal.
   const projection = daily ? (runOut && (!renews || runOut < renews) ? fillIn(words.runsOut, { date: date(runOut) }) : left == null ? words.steady : null) : null;

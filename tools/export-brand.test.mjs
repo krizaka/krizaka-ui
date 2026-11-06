@@ -40,18 +40,18 @@ test("names the files of the library", () => {
 });
 
 test("writes only brand/ and people/defaults/v1/", () => {
-  assert.equal(assertWritable("brand/yomizaka/logo-dark.svg"), "brand/yomizaka/logo-dark.svg");
-  assert.equal(assertWritable("people/defaults/v1/akinaza/person-1.svg"), "people/defaults/v1/akinaza/person-1.svg");
+  assert.equal(assertWritable("brand/verikora/logo-dark.svg"), "brand/verikora/logo-dark.svg");
+  assert.equal(assertWritable("people/defaults/v1/folioviv/person-1.svg"), "people/defaults/v1/folioviv/person-1.svg");
   assert.equal(assertWritable("brand/manifest.json"), "brand/manifest.json");
   assert.throws(() => assertWritable("site/home/x.png"));
   assert.throws(() => assertWritable("brand/../site/x.png"));
 });
 
 test("brand/index.json lists every URL and the producing version", () => {
-  const idx = brandIndex(["orazaka"], "9.9.9", "cdn.example");
+  const idx = brandIndex(["sovkora"], "9.9.9", "cdn.example");
   assert.equal(idx.generatedFrom, "@krizaka/ui@9.9.9");
-  assert.equal(idx.brands.orazaka["mark-dark-64"], "https://cdn.example/brand/orazaka/mark-dark-64.png");
-  assert.equal(idx.brands.orazaka["favicon"], "https://cdn.example/brand/orazaka/favicon.svg");
+  assert.equal(idx.brands.sovkora["mark-dark-64"], "https://cdn.example/brand/sovkora/mark-dark-64.png");
+  assert.equal(idx.brands.sovkora["favicon"], "https://cdn.example/brand/sovkora/favicon.svg");
   assert.equal(assertWritable("brand/index.json"), "brand/index.json");
 });
 

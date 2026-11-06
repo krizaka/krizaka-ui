@@ -9,9 +9,9 @@ Three Expo apps had copied the same session, discovery and API code, and two mor
 
 ```ts
 const storage = secureStorage(SecureStore);
-const session = createSessionStore({ storage, key: "yomizaka.session" });
-const discovery = createAppDiscovery({ product: "yomizaka", hostSuffix: "yomizaka.com", appVersion, baked, storage, env });
-const api = createApiClient({ baseUrl: () => discovery.getService("yomizaka").apiBase, session, fetch: appConfig.fetch, language, productName: "Yomizaka", timeoutMs: 20_000 });
+const session = createSessionStore({ storage, key: "verikora.session" });
+const discovery = createAppDiscovery({ product: "verikora", hostSuffix: "verikora.com", appVersion, baked, storage, env });
+const api = createApiClient({ baseUrl: () => discovery.getService("verikora").apiBase, session, fetch: appConfig.fetch, language, productName: "Verikora", timeoutMs: 20_000 });
 ```
 
 - **Session.** The bearer token lives in the Keychain or Keystore, never a cookie; `onChange` fires when a session starts or ends.

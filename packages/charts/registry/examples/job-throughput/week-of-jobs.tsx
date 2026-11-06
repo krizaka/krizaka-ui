@@ -1,6 +1,6 @@
 import { JobThroughput } from "@krizaka/charts/throughput";
 
-// Orazaka jobs per day, by status (the default statuses: completed, failed, running, queued).
+// Sovkora jobs per day, by status (the default statuses: completed, failed, running, queued).
 const days = [
   { day: "2026-10-05", completed: 1_240, failed: 38, running: 0, queued: 0 },
   { day: "2026-10-06", completed: 1_612, failed: 41, running: 0, queued: 0 },

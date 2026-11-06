@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { AkinazaLogo } from "./AkinazaLogo";
+import { FoliovivLogo } from "./FoliovivLogo";
 import { KrizakaLogo } from "./KrizakaLogo";
-import { OrazakaLogo } from "./OrazakaLogo";
-import { YomizakaLogo } from "./YomizakaLogo";
+import { SovkoraLogo } from "./SovkoraLogo";
+import { VerikoraLogo } from "./VerikoraLogo";
 
 /**
- * The brand family side by side — Krizaka and its three products, Orazaka, Yomizaka and Akinaza: the same orbit, ring,
+ * The brand family side by side — Krizaka and its three products, Sovkora, Verikora and Folioviv: the same orbit, ring,
  * weight and core, one colour per brand. Rendered (and screenshot-tested) in dark and light.
  */
 const meta = {
@@ -19,9 +19,9 @@ type Story = StoryObj<typeof meta>;
 
 const FAMILY = [
   ["Krizaka", KrizakaLogo],
-  ["Orazaka", OrazakaLogo],
-  ["Yomizaka", YomizakaLogo],
-  ["Akinaza", AkinazaLogo],
+  ["Sovkora", SovkoraLogo],
+  ["Verikora", VerikoraLogo],
+  ["Folioviv", FoliovivLogo],
 ] as const;
 
 /** The four marks at 128 px, then cropped to their emblems at 32 px (navigation). Still. */

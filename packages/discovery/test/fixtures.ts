@@ -14,23 +14,23 @@ export function keypair() {
 export const K1 = keypair();
 export const K2 = keypair();
 export const PUBLIC_KEYS = { k1: K1.publicKey, k2: K2.publicKey };
-export const SUFFIXES = ["krizaka.com", "yomizaka.com", "orazaka.com"];
+export const SUFFIXES = ["krizaka.com", "verikora.com", "sovkora.com"];
 
 export const entry = (over: Partial<ServiceEntry> = {}): ServiceEntry => ({
-  apiBase: "https://dev.yomizaka.com",
-  webBase: "https://dev.yomizaka.com",
+  apiBase: "https://dev.verikora.com",
+  webBase: "https://dev.verikora.com",
   minAppVersion: "1.0.0",
   latestAppVersion: "1.2.0",
   status: "ok",
   ...over,
 });
 
-export function body(over: Partial<ManifestBody> = {}, yomizaka: Partial<ServiceEntry> = {}): ManifestBody {
+export function body(over: Partial<ManifestBody> = {}, verikora: Partial<ServiceEntry> = {}): ManifestBody {
   return {
     schemaVersion: 1,
     keyId: "k1",
     issuedAt: "2026-10-21T12:00:00Z",
-    services: { yomizaka: { dev: entry(yomizaka) }, orazaka: { dev: entry({ apiBase: "https://dev.orazaka.com/edge", webBase: "https://dev.orazaka.com" }) } },
+    services: { verikora: { dev: entry(verikora) }, sovkora: { dev: entry({ apiBase: "https://dev.sovkora.com/edge", webBase: "https://dev.sovkora.com" }) } },
     ...over,
   };
 }

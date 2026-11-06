@@ -11,7 +11,7 @@
 ## Context
 
 On 2026-10-25 Oussama set the direction for Krizaka UI's next year (#668). It is calm, restrained and tactile, sober
-enough for Yomizaka's document checks and Akinaza's invoices, and warm enough for consumer use. His reference is a
+enough for Verikora's document checks and Folioviv's invoices, and warm enough for consumer use. His reference is a
 self-contained HTML mockup that he built and tested himself (3,834 lines, French). It is private: it holds company
 data, so nothing is copied from it but its design.
 
@@ -30,7 +30,7 @@ The mockup meets decisions already in force:
   and ruling; Plus Jakarta Sans retired as « the trio of a thousand templates ».
 - **The product register (2026-10-22):** products wear plain Krizaka UI in their brand colour, with the Cahier's
   organising grammar but without its paper. Krizaka Cahier is for krizaka.com, the blog and the tool sites. The one
-  exception is Akinaza's public shop pages, which are an artistic notebook.
+  exception is Folioviv's public shop pages, which are an artistic notebook.
 
 This ADR reconciles the two. Where they conflict, it says so and chooses.
 
@@ -51,7 +51,7 @@ specification to follow to the letter.
 - the brand-named themes (the brand files);
 - the receipt, the fiscal balancer and the swatches (no product need);
 - the slide to approve and the default-on sound (accessibility);
-- the wording on filing returns and on Yomizaka keeping books (what the products do);
+- the wording on filing returns and on Verikora keeping books (what the products do);
 - the inline birds (never a copy).
 
 Everything else is adopted as drawn.
@@ -66,23 +66,23 @@ Everything else is adopted as drawn.
 | 4 | Hover: accent-tinted border, soft shadow, 1 px lift | **Adapted**: on interactive cards only, product register, still under reduced motion | Amends ADR-003 for the products; static cards never move; sites keep the quiet hover |
 | 5 | Radius 14 on cards, 4 / 8 / 12 on controls | **Adapted**: product register `xs` 4 · `sm`/`md` 8 · `lg`/`xl`/`2xl` 14 | The sites keep the Cahier's 2 / 0 (ADR-004) |
 | 6 | Accent `#1c52d8` | **Refused** as Krizaka's accent | It is the electric « AI » blue ADR-003 left five days ago (`#196df5`, hue 217–223); the steel blue stays, and products keep their brand accent |
-| 7 | The 32 px page grid | **Refused in products**, kept as the Cahier paper (sites, Akinaza public pages) | The product register has no paper |
+| 7 | The 32 px page grid | **Refused in products**, kept as the Cahier paper (sites, Folioviv public pages) | The product register has no paper |
 | 8 | Plus Jakarta Sans 550 for titles | **Adopted in the product register only**, from `@krizaka/fonts` (§2) | It is Oussama's tested taste; on the sites Young Serif stays |
 | 9 | Atkinson Hyperlegible, Courier Prime, Caveat | **Already ours**: Atkinson Hyperlegible Next, Courier Prime, Krizaka Cahier (derived from Caveat) | Nothing to add; never Google Fonts |
 | 10 | 8 atelier themes | **Adapted** into the data of Appearance (#657), split by register (§4) | One theme system; brand-named themes would fork the brand files |
 | 11 | The inverted Z | **Adopted**, in a drawn wordmark; three mark options for Oussama (§5) | Today's mark has no Z; `Ƶ` is another letter |
-| 12 | SlotPicker multi-week | **Adopted** as an extension of `slot-picker` (#672) | Akinaza's booking (akinaza#315) |
-| 13 | Tag input and filter chips with counts | **Adopted**, by merging `tag-input` into `tag-selector` and through #627 | Akinaza D10 (akinaza#337), Yomizaka's organisation |
-| 14 | KZ-07 receipt (GST / QST) | **Adapted**: no receipt component; Akinaza's `TotalsSummary` (#629) on `description-list` | It is one product's invoice view; French and English through messages |
+| 12 | SlotPicker multi-week | **Adopted** as an extension of `slot-picker` (#672) | Folioviv's booking (folioviv#315) |
+| 13 | Tag input and filter chips with counts | **Adopted**, by merging `tag-input` into `tag-selector` and through #627 | Folioviv D10 (folioviv#337), Verikora's organisation |
+| 14 | KZ-07 receipt (GST / QST) | **Adapted**: no receipt component; Folioviv's `TotalsSummary` (#629) on `description-list` | It is one product's invoice view; French and English through messages |
 | 15 | KZ-11 « fiscal balancer » | **Refused** as a component | Krizaka's own bookkeeping regime, not a product feature; `Meter` and `Stat` already draw a bar and three figures |
 | 16 | KZ-12 swatches | **Refused** as a component; docs-site material (ui.krizaka.com foundations) | No product needs it |
-| 17 | KZ-13 agent proposal and diff | **Adopted**, as generic `ProposalReview` + `DiffView` (#673) | Orazaka's approvals (orazaka-web-client#270, #275; orazaka#109) |
+| 17 | KZ-13 agent proposal and diff | **Adopted**, as generic `ProposalReview` + `DiffView` (#673) | Sovkora's approvals (sovkora-web#270, #275; sovkora#109) |
 | 18 | « Slide to approve » | **Refused** | No keyboard or screen-reader path; the mockup's own is a click toggle; the button with a confirm is the path |
 | 19 | Sound feedback (Web Audio) | **Adapted**: off by default, opt-in through an Appearance row, never under reduced motion; no haptics | A sound nobody asked for is noise; there is no vibration in the mockup |
-| 20 | KZ-10's « télétransmission vers Revenu Québec » | **Refused wording** | Akinaza prepares returns and never files them |
-| 21 | « Yomizaka agent » keeping books | **Refused** | Yomizaka verifies documents; it does not keep books |
+| 20 | KZ-10's « télétransmission vers Revenu Québec » | **Refused wording** | Folioviv prepares returns and never files them |
+| 21 | « Verikora agent » keeping books | **Refused** | Verikora verifies documents; it does not keep books |
 | 22 | Mascots redrawn inline | **Refused**: the birds come from `@krizaka/ui/mascots` | Never a copy of a mark or a bird |
-| 23 | Akinaza « services and accounting », restaurants in examples | **Refused** where it applies | Akinaza is for service shops, never restaurants, bars or cafés; it prepares GST / QST, it does not file |
+| 23 | Folioviv « services and accounting », restaurants in examples | **Refused** where it applies | Folioviv is for service shops, never restaurants, bars or cafés; it prepares GST / QST, it does not file |
 
 ## 2. Fonts
 
@@ -96,7 +96,7 @@ fingerprinted, CLS 0). It never loads Google Fonts, and no font file is committe
 | meta and identifiers | Courier Prime | **Courier Prime** (references, times, « KZ-03 »-style indexes) |
 | code | Courier Prime | the system monospace |
 | eyebrows | Courier Prime, lower case | the sans (#633) |
-| the pen | Krizaka Cahier | **never** (sites and Akinaza's public pages only) |
+| the pen | Krizaka Cahier | **never** (sites and Folioviv's public pages only) |
 
 - **What changes in the package:** Plus Jakarta Sans goes from `legacyFonts` to a new role, `product-display`
   (variable, latin + latin-ext). Its files are already in `packages/fonts/files/`. Slice: #670.
@@ -107,7 +107,7 @@ fingerprinted, CLS 0). It never loads Google Fonts, and no font file is committe
     counting band;
   - it is set at 550 to 700, never 800;
   - it stays out of the Cahier sites.
-- **If it still reads as a template** in the Yomizaka captures of #669, going back is one token,
+- **If it still reads as a template** in the Verikora captures of #669, going back is one token,
   `--kz-font-display: var(--kz-font-sans)`. That is reversible, so it is worth trying.
 
 ## 3. Tokens (slice #669)
@@ -147,9 +147,9 @@ All in `@krizaka/tokens`, read through `--kz-*`.
 | App | `rounded-*` | radius | lift | Expected |
 | :-- | --: | --: | --: | :-- |
 | a former product | 425 | 5 | 5 | the largest: its own cards keep their local radius until its dispatch |
-| orazaka-web-client | 157 | 5 | 0 | follows; `kz-sheen` removed |
-| yomizaka | 37 | 1 | 0 | follows with no code change: the first consumer |
-| akinaza | 33 | 0 | 0 | follows; its public pages keep the paper |
+| sovkora-web | 157 | 5 | 0 | follows; `kz-sheen` removed |
+| verikora | 37 | 1 | 0 | follows with no code change: the first consumer |
+| folioviv | 33 | 0 | 0 | follows; its public pages keep the paper |
 | the former products | 19 / 10 / 6 | 0 / 0 / 8 | 0 / 0 / 1 | follow |
 | krizaka-com / krizaka-blog | 2 / 0 | 36 / 19 | 1 / 0 | **unchanged** (Cahier register) |
 
@@ -171,14 +171,14 @@ every surface choice.
 
 | Mockup | Becomes | Where |
 | :-- | :-- | :-- |
-| `cahier-clair` (Séyès, default) | **Séyès** paper, the default **on the Cahier sites** | sites, Akinaza public pages |
-| `papier-kraft` | **Kraft** paper (with #600) | sites, Akinaza public pages |
-| `washi-mineral` | **Washi** paper | sites, Akinaza public pages |
+| `cahier-clair` (Séyès, default) | **Séyès** paper, the default **on the Cahier sites** | sites, Folioviv public pages |
+| `papier-kraft` | **Kraft** paper (with #600) | sites, Folioviv public pages |
+| `washi-mineral` | **Washi** paper | sites, Folioviv public pages |
 | `blueprint-2028` | **Blueprint**, a navy dark surface set | products (optional), sites |
 | `carbone-matrix` | **Carbone**, a near-black surface set | products (optional), sites |
-| `orazaka-ember` | Orazaka's brand dark, already in `brands/orazaka` | Orazaka |
-| `akinaza-terracotta` | **refused as a theme**: Akinaza's brand is forest green and copper; the warm clay may tint its public paper | — |
-| `yomizaka-indigo` | Yomizaka's brand (`hsl(242 52% 46%)`), already in `brands/yomizaka`; the mockup's `#6d5ec9` is not adopted | Yomizaka |
+| `sovkora-ember` | Sovkora's brand dark, already in `brands/sovkora` | Sovkora |
+| `folioviv-terracotta` | **refused as a theme**: Folioviv's brand is forest green and copper; the warm clay may tint its public paper | — |
+| `verikora-indigo` | Verikora's brand (`hsl(242 52% 46%)`), already in `brands/verikora`; the mockup's `#6d5ec9` is not adopted | Verikora |
 
 **The set a product offers:**
 - **required:** System, Light and Dark, in its brand;
@@ -191,7 +191,7 @@ every surface choice.
 **The checks:**
 - Every combination is tested: text ≥ 4.5:1 and decoration ≥ 3:1, in both modes.
 - Carbone's green with white text measures 2.3:1, so its `on-accent` is dark.
-- The Orazaka console's own themes retire into this set: Electric blue is refused (ADR-003), Sovereign becomes Carbone,
+- The Sovkora console's own themes retire into this set: Electric blue is refused (ADR-003), Sovereign becomes Carbone,
   Cyberpunk is refused, and Solarized is refused.
 - The choice persists in browser storage and, where there is an account, in the account.
 
@@ -223,11 +223,11 @@ every surface choice.
 
 | Piece | Verdict | Home | Consumer |
 | :-- | :-- | :-- | :-- |
-| SlotPicker multi-week | **generic** | `@krizaka/ui/slot-picker` (#672) | Akinaza booking (akinaza#315) |
-| Fiscal balancer (regime switch, GST / QST bar, ticker) | **not a component** | Akinaza, if ever, composes `Meter` + `Stat` | none filed |
-| Receipt with GST / QST | **product** | Akinaza `TotalsSummary` (#629) | Akinaza invoices |
-| Agent proposal + diff | **generic** | `@krizaka/ui/proposal` (#673) | Orazaka (orazaka-web-client#270, #275; orazaka#109) |
-| Ruled notebook with margin notes (KZ-05) | **Cahier**, sites only | `page paper="lines"` + `footnote` | sites, Akinaza public pages |
+| SlotPicker multi-week | **generic** | `@krizaka/ui/slot-picker` (#672) | Folioviv booking (folioviv#315) |
+| Fiscal balancer (regime switch, GST / QST bar, ticker) | **not a component** | Folioviv, if ever, composes `Meter` + `Stat` | none filed |
+| Receipt with GST / QST | **product** | Folioviv `TotalsSummary` (#629) | Folioviv invoices |
+| Agent proposal + diff | **generic** | `@krizaka/ui/proposal` (#673) | Sovkora (sovkora-web#270, #275; sovkora#109) |
+| Ruled notebook with margin notes (KZ-05) | **Cahier**, sites only | `page paper="lines"` + `footnote` | sites, Folioviv public pages |
 | Page index with leaders (KZ-06) | exists | `page-index` | sites, docs |
 | Avatar chips (KZ-09) | exists | `avatar` + `profile-card`, illustrated defaults (#661) | every product |
 
@@ -257,7 +257,7 @@ adoption issue. Two entries that do the same job merge into the one that already
 **The audit (2026-10-25):**
 - **What was counted:** every one of the 187 `@krizaka/ui/*` entries (CSS files aside), against shallow clones of
   `main` of 24 repositories: the products, the mobile apps, the kits, krizaka-com, the blog, ui.krizaka.com,
-  krizaka-build, krizaka-ts, krizaka-motion and the templates.
+  krizaka-java, krizaka-ts, krizaka-motion and the templates.
 - **What was checked for each:** the internal dependencies, and the open issues of 18 repositories.
 
 | | Entries |
@@ -293,13 +293,13 @@ example against this list.
 
 | Release | Content | Then |
 | :-- | :-- | :-- |
-| `@krizaka/ui` 3.55, tokens and fonts minors | #669 tokens, #670 fonts, #674 deprecations, #659 focus ring | Yomizaka and Akinaza bump |
-| 3.56 | #640 the family top bar, #636 phone list rows, #648 binder tabs, #651 `StatGrid variant="strip"`, #641 usage | **Yomizaka P0 adoption**, Akinaza |
-| 3.57 | #657 Appearance and the themes, #672 SlotPicker, #627 tags and filters, #653 templates, #650 profile banner, #675 merges | **Akinaza P1 adoption**, Orazaka web |
+| `@krizaka/ui` 3.55, tokens and fonts minors | #669 tokens, #670 fonts, #674 deprecations, #659 focus ring | Verikora and Folioviv bump |
+| 3.56 | #640 the family top bar, #636 phone list rows, #648 binder tabs, #651 `StatGrid variant="strip"`, #641 usage | **Verikora P0 adoption**, Folioviv |
+| 3.57 | #657 Appearance and the themes, #672 SlotPicker, #627 tags and filters, #653 templates, #650 profile banner, #675 merges | **Folioviv P1 adoption**, Sovkora web |
 | 3.58 | #671 the wordmark (after Oussama's choice), #673 proposal | krizaka.com, the blog, a former product |
 | 4.0 | #676 the removals and the codemods | every app |
 
-There is one dispatch issue per app: Yomizaka, Akinaza, Orazaka web, krizaka.com, the blog, a former product. Each bumps
+There is one dispatch issue per app: Verikora, Folioviv, Sovkora web, krizaka.com, the blog, a former product. Each bumps
 `@krizaka/ui`, adopts what its release brings, and deletes its local copy.
 
 ## Consequences
@@ -315,12 +315,12 @@ There is one dispatch issue per app: Yomizaka, Akinaza, Orazaka web, krizaka.com
 Counts are the number of files importing the entry in each repository's `main`.
 
 **Products:**
-- Yo yomizaka · Ak akinaza · Oz orazaka-web-client;
-- the mobile apps: OzM orazaka-mobile-client;
-- the kits: OzKit orazaka-ui-kit.
+- Yo verikora · Ak folioviv · Oz sovkora-web;
+- the mobile apps: OzM sovkora-mobile;
+- the kits: OzKit sovkora-ui-kit.
 
 **Sites:**
-- www krizaka-com · blog · ui (ui.krizaka.com, `apps/site`) · java (krizaka-build/site) · ts · motion;
+- www krizaka-com · blog · ui (ui.krizaka.com, `apps/site`) · java (krizaka-java/site) · ts · motion;
 - tplN / tplE / tplT: the templates.
 
 **Mobile:** the mobile apps import the native primitives from `@krizaka/ui/native` itself (Button 42, Text 37,
@@ -347,9 +347,9 @@ ThemeProvider 29, Screen 29, Card 29, Badge 24, EmptyState 20, Header 19…). Al
 | `popover` | Or 2 Oz 1 | — | **keep** | keep: products |
 | `dropdown-menu` | Yo 2 Ak 1 Oz 1 Or 1 | — | **keep** | keep: products |
 | `tooltip` | Or 2 Oz 1 Ya 1 | — | **keep** | keep: products |
-| `glossary-term` | — | — | **keep** | keep: akinaza#260 |
+| `glossary-term` | — | — | **keep** | keep: folioviv#260 |
 | `stat` | Oz 4 Ak 3 Ya 3 Yo 2 Or 2 Yr 1 Ka 1 | motion 4 blog 2 www 1 | **keep** | keep: `StatGrid variant="strip"` (#651), absorbs kpi-explained |
-| `kpi-explained` | — | — | **merge** (#675) | into stat (`Stat explain`, akinaza#260) |
+| `kpi-explained` | — | — | **merge** (#675) | into stat (`Stat explain`, folioviv#260) |
 | `page-header` | Ak 14 Yo 10 Ya 7 Or 1 Yr 1 | — | **keep** | keep: products |
 | `notification-preferences` | — | — | **keep** | keep: a former product's issue, the settings of every app |
 | `agenda` | Ak 1 | — | **keep** | keep: products |
@@ -405,7 +405,7 @@ ThemeProvider 29, Screen 29, Card 29, Badge 24, EmptyState 20, Header 19…). Al
 | `filter-bar` | Yo 4 | — | **keep** | keep: products |
 | `form` | Yo 16 Ak 15 Ya 6 Yr 5 Ka 4 Oz 3 | ts 2 ui 1 | **keep** | keep: products |
 | `form/server` | — | ui 1 | **keep** | keep: server entry of form |
-| `text-style` | — | — | **keep** | keep: Akinaza |
+| `text-style` | — | — | **keep** | keep: Folioviv |
 | `text-style/server` | — | — | **merge** (#675) | into text-style (one server-safe entry) |
 | `combobox` | Oz 1 | — | **keep** | keep: products |
 | `tag-input` | — | — | **merge** (#675) | into tag-selector (`creatable`, KZ-04) |
@@ -427,7 +427,7 @@ ThemeProvider 29, Screen 29, Card 29, Badge 24, EmptyState 20, Header 19…). Al
 | `app-header` | Or 2 Yo 1 Ak 1 Oz 1 | — | **keep** | keep: the family bar (#640) |
 | `opening-hours` | Ak 1 | — | **keep** | keep: products |
 | `service-card` | Ak 1 | — | **keep** | keep: products |
-| `slot-picker` | Ak 1 | — | **keep** | keep: extend multi-week (KZ-03, akinaza#315) |
+| `slot-picker` | Ak 1 | — | **keep** | keep: extend multi-week (KZ-03, folioviv#315) |
 | `cover-hero` | Ak 1 | — | **keep** | keep: products |
 | `media-gallery` | Ak 1 | — | **keep** | keep: products |
 | `sticky-action` | Ak 2 | — | **keep** | keep: products |
@@ -452,12 +452,12 @@ ThemeProvider 29, Screen 29, Card 29, Badge 24, EmptyState 20, Header 19…). Al
 | `page-index` | — | motion 1 | **keep** | keep: sites (Cahier) |
 | `chapter` | — | blog 3 | **keep** | keep: sites (Cahier) |
 | `footnote` | Yo 2 | www 2 motion 1 | **keep** | keep: products |
-| `stuck` | — | — | **keep** | keep: Cahier, akinaza#308 public pages, www#373 |
+| `stuck` | — | — | **keep** | keep: Cahier, folioviv#308 public pages, www#373 |
 | `doodle` | — | — | **keep** | keep: Cahier, #548, www#373 |
 | `signature` | — | — | **deprecate** (#674) | no user |
 | `code-block` | Oz 3 OzKit 1 | motion 6 www 2 ui 2 blog 1 java 1 ts 1 | **keep** | keep: products |
 | `action-bar` | Yr 1 | www 2 | **keep** | keep: products |
-| `next-actions` | — | — | **keep** | keep: #653 (Akinaza Today) |
+| `next-actions` | — | — | **keep** | keep: #653 (Folioviv Today) |
 | `glossary` | — | — | **merge** (#675) | into glossary-term (one `glossary` entry) |
 | `cta-panel` | Ak 1 Or 1 Ya 1 | www 2 | **keep** | keep: products |
 | `toc` | — | www 3 blog 2 | **keep** | keep: sites (Cahier) |
@@ -487,14 +487,14 @@ ThemeProvider 29, Screen 29, Card 29, Badge 24, EmptyState 20, Header 19…). Al
 | `docs-hub-page` | Oz 1 Or 1 | — | **keep** | keep: products |
 | `docs-article-page` | Oz 1 Or 1 | — | **keep** | keep: absorbs longform-page |
 | `component-page` | — | — | **deprecate** (#674) | no page on it, not even ui.krizaka.com |
-| `catalogue-page` | — | — | **keep** | keep: #653 (Yomizaka checks, Akinaza clients) |
+| `catalogue-page` | — | — | **keep** | keep: #653 (Verikora checks, Folioviv clients) |
 | `longform-page` | — | — | **merge** (#675) | into docs-article-page (with chapter) |
 | `changelog-page` | Or 3 Ya 3 Yr 3 Ka 3 | ui 3 java 3 www 2 | **keep** | keep: products |
 | `contact-page` | — | — | **keep** | keep: www /contact moves onto it (dispatch), else deprecated in the next pass |
 | `legal-page` | — | www 1 | **keep** | keep: sites (Cahier) |
 | `status-page` | — | — | **deprecate** (#674) | no page on it, no filed need |
 | `error-page` | Yo 1 Ak 1 Yr 1 Ka 1 | www 1 blog 1 | **keep** | keep: products |
-| `pricing-page` | — | — | **keep** | keep, on watch: Yomizaka and Akinaza sell (pricing pages); deprecated in the next pass if still unused |
+| `pricing-page` | — | — | **keep** | keep, on watch: Verikora and Folioviv sell (pricing pages); deprecated in the next pass if still unused |
 | `chat` | Ya 3 Oz 2 Yr 1 OzKit 1 | motion 4 www 2 | **keep** | keep: products |
 | `swipe-deck` | — | — | **deprecate** (#674) | no user (a former product paused) |
 | `match-dialog` | — | — | **deprecate** (#674) | no user (a former product paused) |
@@ -510,7 +510,7 @@ ThemeProvider 29, Screen 29, Card 29, Badge 24, EmptyState 20, Header 19…). Al
 | `native/media-picker` | OzM 2 | — | **keep** | keep: products |
 | `native/list` | Yo 3 | ui 1 | **keep** | keep: products |
 | `native/form` | — | — | **keep** | keep: #380, a former product's issue |
-| `native/map` | — | ui 1 | **keep** | keep: ui docs; Akinaza explore (akinaza#235) |
+| `native/map` | — | ui 1 | **keep** | keep: ui docs; Folioviv explore (folioviv#235) |
 | `native/markdown` | — | — | **deprecate** (#674) | no app imports it |
 | `update-prompt` | — | — | **deprecate** (#674) | no web user (native UpdatePrompt stays) |
 | `force-update-screen` | — | — | **deprecate** (#674) | no web user (native twin stays) |

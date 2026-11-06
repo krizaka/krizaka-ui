@@ -3,12 +3,12 @@
  * (`../native/mascots.tsx`). Five birds that have carried the Krizaka story since the first site (the sentry falcon,
  * the owl that reads, the developer duck, the flamingo that answers, the carrier pigeon), the lovebird that
  * introduces ("l'inséparable présente") and the crane that listens ("la grue écoute"), the magpie that keeps the
- * score ("la pie compte les points") and the beaver that builds the shop (2026-10, with Akinaza: "le castor artisan" — the one figure of the flock without
+ * score ("la pie compte les points") and the beaver that builds the shop (2026-10, with Folioviv: "le castor artisan" — the one figure of the flock without
  * feathers: its paws are drawn as wings, its paddle tail behind it), redrawn on one 120 × 120 grid so that any figure
  * can wear any mood.
  *
  * Colours are roles, never fixed: `brand` (the default) paints a bird in the host's accent (`--kz-accent`,
- * `--kz-accent-2`), so the same falcon is blue on krizaka.com, orange in Orazaka and indigo in Yomizaka; `own` gives
+ * `--kz-accent-2`), so the same falcon is blue on krizaka.com, orange in Sovkora and indigo in Verikora; `own` gives
  * each bird the signature palette it has in the Krizaka story (the brand layer's exception, like the marks). Shades
  * and highlights are black and white at a low opacity over the role, so they hold in both themes.
  */
@@ -193,7 +193,7 @@ export const BIRDS: Readonly<Record<MascotBird, BirdGeometry>> = {
     eyes: { at: [[50, 35], [66, 35]], white: 4.4, pupil: 2.3 },
   },
   /**
-   * The beaver — the artisan that builds the shop, Akinaza's figure (and Canada's). Round and sturdy, sitting up: two
+   * The beaver — the artisan that builds the shop, Folioviv's figure (and Canada's). Round and sturdy, sitting up: two
    * round ears and a nose (the detail colour), the two front teeth (the beak colour), small paws drawn as its wings,
    * and its flat paddle tail lying behind it. No feathers, the same moods.
    */

@@ -31,12 +31,12 @@ jobs:
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
           owner: krizaka
           repositories: |-
-            yomizaka
-            akinaza
-            orazaka-web-client
+            verikora
+            folioviv
+            sovkora-web
             krizaka-com
             krizaka-blog
-            krizaka-build
+            krizaka-java
             krizaka-ts
             krizaka-lab
           permission-contents: read

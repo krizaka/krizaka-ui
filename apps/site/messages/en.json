@@ -591,9 +591,9 @@
         "mark": "{name}: the mark of {role}",
         "use": "Use the mark where the product is named: the header, the sign-in, the loader and the splash — never a copy, never a placeholder.",
         "krizaka": "the studio",
-        "orazaka": "the sovereign AI engine",
-        "yomizaka": "the documents, read and checked",
-        "akinaza": "the shop, run for less",
+        "sovkora": "the sovereign AI engine",
+        "verikora": "the documents, read and checked",
+        "folioviv": "the shop, run for less",
         "downloads": "Downloads",
         "svgDark": "SVG · dark",
         "svgLight": "SVG · light",
@@ -627,12 +627,12 @@
             "lovebird": "introduces two people",
             "crane": "listens",
             "magpie": "keeps the score",
-            "beaver": "builds the shop — Akinaza"
+            "beaver": "builds the shop — Folioviv"
           }
         }
       },
       "platforms": {
-        "intro": "Krizaka UI is one design system on three platforms: the web (React), mobile (React Native and Expo) and the desktop (the Orazaka Mac app, whose Tauri window renders the web components). Every component says where it runs and, where it does not, why — a gap to build, tracked by an issue, or a platform it is not meant for, with what to use there.",
+        "intro": "Krizaka UI is one design system on three platforms: the web (React), mobile (React Native and Expo) and the desktop (the Sovkora Mac app, whose Tauri window renders the web components). Every component says where it runs and, where it does not, why — a gap to build, tracked by an issue, or a platform it is not meant for, with what to use there.",
         "count": "{yes} components · {gap} to build · {na} not meant for it",
         "install": "Install",
         "cards": {
@@ -648,7 +648,7 @@
           },
           "desktop": {
             "title": "Desktop",
-            "what": "The Orazaka Mac app is a Tauri 2 window: the web components run there as they are, and a few have a desktop form — the app shell's title bar, density and menu keys (ADR-002).",
+            "what": "The Sovkora Mac app is a Tauri 2 window: the web components run there as they are, and a few have a desktop form — the app shell's title bar, density and menu keys (ADR-002).",
             "use": "Then, the window"
           }
         },

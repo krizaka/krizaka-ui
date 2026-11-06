@@ -18,7 +18,7 @@ const CLIENTS = [
 export default function CataloguePageClients() {
   const [picked, setPicked] = React.useState<string[]>([]);
   return (
-    <div className="brand-akinaza">
+    <div className="brand-folioviv">
       <CataloguePage
         eyebrow="Clients"
         title="Your clients"

@@ -10,7 +10,7 @@ const link = "font-semibold text-fg-accent underline underline-offset-2";
 // On a phone the date goes under the title, the tiles are two by two and the side column comes last.
 export default function DashboardLayoutToday() {
   return (
-    <div className="brand-akinaza w-full">
+    <div className="brand-folioviv w-full">
       <DashboardLayout
         title="Good morning, Eric"
         date="Monday, October 26"

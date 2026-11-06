@@ -1,4 +1,4 @@
-// The data-driven UI spec: a strict subset of A2UI v0.9 (ADR-082, krizaka/orazaka-packs). A model describes an interface
+// The data-driven UI spec: a strict subset of A2UI v0.9 (ADR-082, krizaka/sovkora-packs). A model describes an interface
 // as data — never code — and only with the components of a catalog the client declares. Everything here is a pure
 // function over JSON: parse, validate, apply. Nothing is evaluated, nothing is trusted.
 

@@ -9,7 +9,7 @@
 
 **The Krizaka front-end platform's components, shared by every product.**
 The primitives (button, badge, avatar, field, theme, countdown…) on the semantic `--kz-*` tokens, the animated marks
-of Krizaka, Orazaka, Yomizaka and Akinaza, and the Krizaka motion signature — one easing, one way to enter, reveal, roll, shine
+of Krizaka, Sovkora, Verikora and Folioviv, and the Krizaka motion signature — one easing, one way to enter, reveal, roll, shine
 and open.
 
 [![npm](https://img.shields.io/npm/v/@krizaka/ui?color=196df5&label=npm)](https://www.npmjs.com/package/@krizaka/ui)
@@ -323,13 +323,13 @@ boundary stays where it is: a template is a Server Component.
 
 > Category **layouts** of ui.krizaka.com, and **templates**: whole screens composed from the platform.
 
-The shells of the products' screens, read from their real screens (Orazaka web-client,
+The shells of the products' screens, read from their real screens (Sovkora web-client,
 web-admin and mobile; krizaka.com): `AppShell` (sidebar that collapses, header, drawer on a phone), `DashboardLayout`
 (a grid of widgets), `SettingsLayout`, `AuthLayout`, `DetailLayout`, `SplitView`, and for a site `MarketingLayout` and
 `DocsLayout`. Every layout is responsive by construction — one column, a drawer, chips or a disclosure on a phone.
 
 A **template** is an example flagged `template: true` in its layout's `meta.ts` (≤ 160 lines): a complete screen with
-real words — a creator studio, Orazaka's console for Eric, an administration console, sign-in, onboarding,
+real words — a creator studio, Sovkora's console for Eric, an administration console, sign-in, onboarding,
 settings, a video's page, messages, a product page, pricing and credits, a documentation hub. Each has a phone story
 (`parameters.phone`: captured at 390 × 844). Copy one into the product, keep its structure, change the words. The
 React Native shells are `@krizaka/ui/native`'s (DS4): same names where the concept is the same.
@@ -425,7 +425,7 @@ const { theme, scheme, mode, setMode, radius } = useTheme(); // theme.surface1, 
 | `Segmented` | `options` (`value`, `label`, `disabled`), `value`, `onValueChange`, `size` | The web `Tabs variant="segmented"` (a tab list). To filter, `Chip.Group`. |
 | `Progress` | `variant` bar·ring, `size`, `value`/`max`, `label`, `valueText`, a ring's centre as children | The fill is the `accent` → `accent2` gradient (react-native-svg); it animates to each new value. |
 | `Toaster`, `toast` | `toast(title, { description, tone, icon, action, onPress, id, duration, onDismiss })`, `toast.success/warning/error/info`, `toast.dismiss(id?)`; `Toaster closeLabel position offset duration max` | No sonner: a light queue of its own. `offset` takes the safe-area inset (no safe-area dependency). |
-| `KrizakaMark`, `OrazakaMark`, `YomizakaMark`, `AkinazaMark`, `ProductMark` (`id`) | `size`, `animated`, `title`, `neutral` (default `theme.textMuted`) | The brand marks, drawn with react-native-svg from the web marks' geometry. |
+| `KrizakaMark`, `SovkoraMark`, `VerikoraMark`, `FoliovivMark`, `ProductMark` (`id`) | `size`, `animated`, `title`, `neutral` (default `theme.textMuted`) | The brand marks, drawn with react-native-svg from the web marks' geometry. |
 
 Every animation (skeleton, badge dot, urgent countdown, progress, toast entrance, the marks) stops when the system
 asks to reduce motion (`useReducedMotion()`). Accessibility goes through `role` and `aria-*` (RN ≥ 0.71): headings,
@@ -433,7 +433,7 @@ asks to reduce motion (`useReducedMotion()`). Accessibility goes through `role` 
 region for the toasts.
 
 ```tsx
-import { Button, Card, Countdown, OrazakaMark } from "@krizaka/ui/native";
+import { Button, Card, Countdown, SovkoraMark } from "@krizaka/ui/native";
 
 <Card.Root onPress={open}>
   <Card.Body>
@@ -443,7 +443,7 @@ import { Button, Card, Countdown, OrazakaMark } from "@krizaka/ui/native";
   </Card.Body>
 </Card.Root>
 
-<OrazakaMark size={72} title="Orazaka" neutral={theme.borderDefault} />
+<SovkoraMark size={72} title="Sovkora" neutral={theme.borderDefault} />
 ```
 
 The native stories (`Native/*`, rendering the `registry/examples/<name>/native` examples) render through
@@ -455,13 +455,13 @@ Testing Library (`src/native/*.test.tsx`); `scripts/native-dist.mjs` checks that
 ## The marks
 
 ```tsx
-import { AkinazaLogo, KrizakaLogo, OrazakaLogo, ProductLogo, WuSamaMark, YomizakaLogo } from "@krizaka/ui";
+import { FoliovivLogo, KrizakaLogo, SovkoraLogo, ProductLogo, WuSamaMark, VerikoraLogo } from "@krizaka/ui";
 
-<OrazakaLogo size={36} />                       // decorative (aria-hidden)
+<SovkoraLogo size={36} />                       // decorative (aria-hidden)
 <KrizakaLogo size={48} title="Krizaka" />       // an image with an accessible name
-<ProductLogo id="orazaka" animated={false} />   // by id, still
-<YomizakaLogo size={32} />                      // Yomizaka: ink → indigo, the reading
-<AkinazaLogo size={32} />                       // Akinaza: forest → copper, the open shop
+<ProductLogo id="sovkora" animated={false} />   // by id, still
+<VerikoraLogo size={32} />                      // Verikora: ink → indigo, the reading
+<FoliovivLogo size={32} />                       // Folioviv: forest → copper, the open shop
 <WuSamaMark size={32} title="Wu-sama" />         // the founder's byline mark (a person, not a product): a gold W in the Krizaka hexagon
 ```
 
@@ -534,9 +534,9 @@ Releases go through [Changesets](https://github.com/changesets/changesets): a pu
 ## Used by
 
 [krizaka.com](https://github.com/krizaka/krizaka-com) ·
-[Yomizaka](https://github.com/krizaka/yomizaka) ·
-[Akinaza](https://github.com/krizaka/akinaza) ·
-[Orazaka](https://github.com/krizaka/orazaka)
+[Verikora](https://github.com/krizaka/verikora) ·
+[Folioviv](https://github.com/krizaka/folioviv) ·
+[Sovkora](https://github.com/krizaka/sovkora)
 
 ---
 

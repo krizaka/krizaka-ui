@@ -1,4 +1,4 @@
-// The platform parity of Krizaka UI — web · native (React Native, Expo) · desktop (the Orazaka Mac app, Tauri 2) —
+// The platform parity of Krizaka UI — web · native (React Native, Expo) · desktop (the Sovkora Mac app, Tauri 2) —
 // read from the `parity` of every component's meta (@krizaka/ui and @krizaka/charts). Pure: no filesystem, no React.
 // The registry tests of both packages call `parityProblems` (a component without a decision fails, with the fix in the
 // message); the registries carry `parityRow` into their JSON, and ui.krizaka.com/platforms draws the matrix from it.

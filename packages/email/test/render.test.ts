@@ -120,14 +120,14 @@ describe("the action", () => {
 });
 
 describe("shareLink", () => {
-  const props = { ...templates.shareLink.example, brand: "yomizaka" as const };
+  const props = { ...templates.shareLink.example, brand: "verikora" as const };
 
   it("says who shares, the link and the expiry, in both languages, and nothing else", async () => {
     const en = await renderEmail("shareLink", props, { locale: "en" });
     const fr = await renderEmail("shareLink", props, { locale: "fr" });
-    expect(en.subject).toBe("Samir Tremblay shared a Yomizaka report with you");
+    expect(en.subject).toBe("Samir Tremblay shared a Verikora report with you");
     expect(en.text).toContain("November 3, 2026");
-    expect(fr.subject).toBe("Samir Tremblay a partagé un rapport Yomizaka avec vous");
+    expect(fr.subject).toBe("Samir Tremblay a partagé un rapport Verikora avec vous");
     expect(fr.text).toContain("3 novembre 2026");
     expect(fr.text).toContain(props.shareUrl);
   });
@@ -141,8 +141,8 @@ describe("shareLink", () => {
 
   it("wears the product's brand and only that one", async () => {
     const en = await renderEmail("shareLink", props, { locale: "en" });
-    expect(en.html).toContain("brand/yomizaka/mark-light-256.png");
-    expect(en.html).toContain('alt="Yomizaka"');
+    expect(en.html).toContain("brand/verikora/mark-light-256.png");
+    expect(en.html).toContain('alt="Verikora"');
     expect(en.html).not.toContain("brand/krizaka/");
   });
 
@@ -150,6 +150,6 @@ describe("shareLink", () => {
     const { message: _m, ...bare } = props;
     const email = await renderEmail("shareLink", bare, { locale: "en" });
     expect(email.html).not.toContain("&lt;b&gt;");
-    await expect(renderEmail("shareLink", { ...props, shareUrl: "http://app.yomizaka.com/x" }, { locale: "en" })).rejects.toThrow();
+    await expect(renderEmail("shareLink", { ...props, shareUrl: "http://app.verikora.com/x" }, { locale: "en" })).rejects.toThrow();
   });
 });

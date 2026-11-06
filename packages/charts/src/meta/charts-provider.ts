@@ -9,7 +9,7 @@ export const meta = {
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [
-    "Once near the root of an app: its locale (`fr-FR`), its brand (`orazaka`), its translated words.",
+    "Once near the root of an app: its locale (`fr-FR`), its brand (`sovkora`), its translated words.",
     "An app that loads a brand stylesheet on `:root` rather than a `.brand-<id>` class: set `brand` here.",
   ],
   whenNotToUse: [{ when: "To change one chart only: every chart takes `locale`, `brand` and `labels` itself.", use: "line-chart" }],
@@ -22,11 +22,11 @@ export const meta = {
   web: {
     entry: "provider",
     imports: ["ChartsProvider", "useSlidingWindow"],
-    examples: [{ name: "french-orazaka", title: "French, Orazaka", description: "Figures and dates in French, the Orazaka palette, the words translated." }],
+    examples: [{ name: "french-sovkora", title: "French, Sovkora", description: "Figures and dates in French, the Sovkora palette, the words translated." }],
   },
   native: {
     imports: ["ChartsProvider"],
     differences: ["Also takes `scheme` and `theme` (the app's roles); no `useSlidingWindow` export on native."],
-    examples: [{ name: "french-orazaka", title: "French, Orazaka", description: "French figures, the Orazaka palette." }],
+    examples: [{ name: "french-sovkora", title: "French, Sovkora", description: "French figures, the Sovkora palette." }],
   },
 } satisfies ComponentMeta;

@@ -5,7 +5,7 @@ import { UpdatePrompt } from "@krizaka/ui/update-prompt";
 export default function UpdatePromptDefault() {
   return (
     <UpdatePrompt
-      mark={<ProductLogo id="orazaka" size={40} animated={false} />}
+      mark={<ProductLogo id="sovkora" size={40} animated={false} />}
       title="A new version is available"
       message="Faster chats and a fix for uploads on slow networks."
       versionLabel="1.2.0 → 1.4.0"

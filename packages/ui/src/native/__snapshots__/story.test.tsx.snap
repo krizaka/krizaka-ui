@@ -154,7 +154,7 @@ exports[`ProfileBanner (native, #650) the example renders (a snapshot of its wor
           resizeMode="cover"
           source={
             {
-              "uri": "https://krizaka-assets.b-cdn.net/people/defaults/v1/akinaza/person-3-512.webp",
+              "uri": "https://krizaka-assets.b-cdn.net/people/defaults/v1/folioviv/person-3-512.webp",
             }
           }
           style={

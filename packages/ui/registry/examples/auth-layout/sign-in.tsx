@@ -8,9 +8,9 @@ import { Mascot } from "@krizaka/ui/mascots";
 // on a phone one column, the mark above the form, the fields at full width with 44 px targets.
 export default function AuthLayoutSignIn() {
   return (
-    <div className="brand-orazaka">
+    <div className="brand-sovkora">
       <AuthLayout
-        brand={<><ProductLogo id="orazaka" size={28} animated={false} /> Studio</>}
+        brand={<><ProductLogo id="sovkora" size={28} animated={false} /> Studio</>}
         promise="Your fans pay you, not an algorithm."
         aside={
           <div className="flex items-end gap-3">

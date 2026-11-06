@@ -1,7 +1,7 @@
 import { Progress, Stepper } from "@krizaka/ui/native";
 import { View } from "react-native";
 
-// An Orazaka studio run: two steps done, the third tracing its progress, the last to come.
+// An Sovkora studio run: two steps done, the third tracing its progress, the last to come.
 export default function NativeStepperRun() {
   return (
     <View style={{ width: 320 }}>

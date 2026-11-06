@@ -1,6 +1,6 @@
 import { LatencyChart } from "@krizaka/charts/latency";
 
-// Orazaka: how long a job takes to give its result, per kind — seconds turn into minutes.
+// Sovkora: how long a job takes to give its result, per kind — seconds turn into minutes.
 const kinds = [
   { kind: "Summary", median: 8_400 },
   { kind: "Transcript", median: 46_000 },

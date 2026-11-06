@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { PresetPage } from "./presets-page";
 
-/** Shop looks (ADR-007 §4, krizaka-ui#745): the same three-section page wearing each of the twelve trade presets and the six trade-agnostic looks (`look-*`, akinaza#478), in both themes. */
+/** Shop looks (ADR-007 §4, krizaka-ui#745): the same three-section page wearing each of the twelve trade presets and the six trade-agnostic looks (`look-*`, folioviv#478), in both themes. */
 const meta = { title: "Primitives/ShopPresets", parameters: { layout: "fullscreen", viewportWidth: 1100 } } satisfies Meta;
 export default meta;
 
@@ -21,11 +21,11 @@ export const SalonVitrine: Story = { name: "salon-vitrine", render: () => <Prese
 export const WorkshopAtelier: Story = { name: "workshop-atelier", render: () => <PresetPage id="workshop-atelier" /> };
 export const WorkshopEtabli: Story = { name: "workshop-etabli", render: () => <PresetPage id="workshop-etabli" /> };
 // Within a look, the owner may choose another accent from the preset's tested list.
-export const SalonVitrineCopper: Story = { name: "salon-vitrine · copper accent", render: () => <PresetPage id="salon-vitrine" accent="akinaza:accent-2" /> };
+export const SalonVitrineCopper: Story = { name: "salon-vitrine · copper accent", render: () => <PresetPage id="salon-vitrine" accent="folioviv:accent-2" /> };
 export const SalonAtelierPhone: Story = { name: "salon-atelier (phone)", render: () => <PresetPage id="salon-atelier" />, parameters: { phone: true, noOverflow: true } };
 export const PetsCarnetPhone: Story = { name: "pets-carnet (phone)", render: () => <PresetPage id="pets-carnet" />, parameters: { phone: true, noOverflow: true } };
 
-// The six looks (akinaza#478): the same page, six surfaces, faces, motions; desktop, then phone.
+// The six looks (folioviv#478): the same page, six surfaces, faces, motions; desktop, then phone.
 export const LookCahier: Story = { name: "look-cahier", render: () => <PresetPage id="look-cahier" /> };
 export const LookKrizaka: Story = { name: "look-krizaka", render: () => <PresetPage id="look-krizaka" /> };
 export const LookEditorial: Story = { name: "look-editorial", render: () => <PresetPage id="look-editorial" /> };

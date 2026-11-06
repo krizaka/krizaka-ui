@@ -40,7 +40,7 @@ export const meta = {
   web: {
     imports: ["SiteFooter", "SiteFooterColumn", "SiteFooterLink", "resolveFooterSettings", "footerSettingsProblems", "FOOTER_LIMITS"],
     examples: [
-      { name: "product", title: "A product", description: "www.yomizaka.com: its links on one line, the family on the second, then the org's line, `DEV · v1.2.3`, the legal links and the language switch." },
+      { name: "product", title: "A product", description: "www.verikora.com: its links on one line, the family on the second, then the org's line, `DEV · v1.2.3`, the legal links and the language switch." },
       { name: "company", title: "The company (Cahier)", description: "www.krizaka.com, `tone=\"cahier\"`: no own links needed, the family and the signature line." },
       { name: "app", title: "In a signed-in app", description: "`variant=\"app\"`: one slim line — the org's line, `DEV · v1.2.3`, the legal links." },
       { name: "configured", title: "Configured by the admin", description: "`config` from the app's settings: three columns (the product, help, by Krizaka), then `Technologies Krizaka Inc. · NEQ … · Montréal (Québec)`, `v1.2.3`, the legal links and GitHub." },

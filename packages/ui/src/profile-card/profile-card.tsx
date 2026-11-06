@@ -56,7 +56,7 @@ export type ProfileCardProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
    * @default "default"
    */
   variant?: StoryVariant;
-  /** A brand scope (`orazaka` → `.brand-orazaka`): the accent and gradient become that brand's. */
+  /** A brand scope (`sovkora` → `.brand-sovkora`): the accent and gradient become that brand's. */
   brand?: string;
 };
 

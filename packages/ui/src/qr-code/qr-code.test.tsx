@@ -8,7 +8,7 @@ afterEach(() => vi.restoreAllMocks());
 
 describe("QrCode", () => {
   it("is an image named by its label, drawn in dark modules on a light tile", async () => {
-    const { container } = render(<QrCode value="https://akinaza.com/ical/x.ics" label="Calendar feed — scan with your phone" />);
+    const { container } = render(<QrCode value="https://folioviv.com/ical/x.ics" label="Calendar feed — scan with your phone" />);
     const image = screen.getByRole("img", { name: "Calendar feed — scan with your phone" });
     expect(image.tagName.toLowerCase()).toBe("svg");
     expect(image.querySelector("rect")!.getAttribute("fill")).toBe("#ffffff");
@@ -36,9 +36,9 @@ describe("QrCode", () => {
     const writeText = vi.fn(async () => undefined);
     Object.defineProperty(navigator, "clipboard", { value: { writeText }, configurable: true });
     const onCopy = vi.fn();
-    const { container } = render(<QrCode value="https://akinaza.com/ical/x.ics" label="Feed" copyLabel="Copy the link" copiedLabel="Link copied" onCopy={onCopy} />);
+    const { container } = render(<QrCode value="https://folioviv.com/ical/x.ics" label="Feed" copyLabel="Copy the link" copiedLabel="Link copied" onCopy={onCopy} />);
     fireEvent.click(screen.getByRole("button", { name: "Copy the link" }));
-    expect(writeText).toHaveBeenCalledWith("https://akinaza.com/ical/x.ics");
+    expect(writeText).toHaveBeenCalledWith("https://folioviv.com/ical/x.ics");
     expect(await screen.findByRole("button", { name: "Link copied" })).toBeTruthy();
     expect(onCopy).toHaveBeenCalledOnce();
     expect(await axeViolations(container)).toEqual([]);

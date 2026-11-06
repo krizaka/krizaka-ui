@@ -16,7 +16,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Regression (akinaza#572): with an odd count of five or more, the strip rule's 4/5 ratio won over the mosaic's `auto` on the
+ * Regression (folioviv#572): with an odd count of five or more, the strip rule's 4/5 ratio won over the mosaic's `auto` on the
  * lead tile, so on desktop it painted taller than the 2:1 grid and overlapped the next heading. Measured in the browser.
  */
 export const Five: Story = {

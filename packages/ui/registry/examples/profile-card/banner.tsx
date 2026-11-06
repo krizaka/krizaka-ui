@@ -7,8 +7,8 @@ import { ProfileBanner } from "@krizaka/ui/profile-card";
 export default function ProfileCardBanner() {
   return (
     <ProfileBanner
-      brand="akinaza"
-      avatar={<Avatar defaultAvatar={{ brand: "akinaza", seed: "eric" }} alt="" fallback="E" size="xl" />}
+      brand="folioviv"
+      avatar={<Avatar defaultAvatar={{ brand: "folioviv", seed: "eric" }} alt="" fallback="E" size="xl" />}
       eyebrow="Client"
       title="Eric Tremblay"
       status={<Badge tone="success" size="sm">Regular</Badge>}

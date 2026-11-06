@@ -25,15 +25,15 @@ describe("default avatars", () => {
   it("name their files by kind, tone and size, under the brand", () => {
     expect(defaultAvatarFile("person", 3, 256)).toBe("person-3-256.webp");
     expect(defaultAvatarFile("plain", 1, "svg")).toBe("plain-1.svg");
-    expect(defaultAvatarUrl({ brand: "yomizaka", tone: 4 })).toBe("https://krizaka-assets.b-cdn.net/people/defaults/v1/yomizaka/person-4-256.webp");
-    expect(defaultAvatarUrl({ brand: "akinaza", tone: 2, kind: "plain" }, { size: 512, base: "https://cdn.example/x/" })).toBe("https://cdn.example/x/akinaza/plain-2-512.webp");
+    expect(defaultAvatarUrl({ brand: "verikora", tone: 4 })).toBe("https://krizaka-assets.b-cdn.net/people/defaults/v1/verikora/person-4-256.webp");
+    expect(defaultAvatarUrl({ brand: "folioviv", tone: 2, kind: "plain" }, { size: 512, base: "https://cdn.example/x/" })).toBe("https://cdn.example/x/folioviv/plain-2-512.webp");
   });
 
   it("give a person the same tone everywhere, spread over all six", () => {
     expect(defaultAvatarToneOf("user-1")).toBe(defaultAvatarToneOf("user-1"));
     expect(defaultAvatarToneOf(undefined)).toBe(1);
     const seen = new Set(Array.from({ length: 200 }, (_, i) => defaultAvatarToneOf(`user-${i}`)));
-    expect([...seen].sort()).toEqual([1, 2, 3, 4, 5, 6]);
+    expect([...seen].sort((a, b) => a - b)).toEqual([1, 2, 3, 4, 5, 6]);
   });
 
   it("keep every tone of every brand readable under the white silhouette (3:1) and distinct", () => {
@@ -49,8 +49,8 @@ describe("default avatars", () => {
   });
 
   it("draw a square SVG, with a silhouette only for the person kind", () => {
-    const person = defaultAvatarSvg({ brand: "orazaka", tone: 2 });
-    const plain = defaultAvatarSvg({ brand: "orazaka", tone: 2, kind: "plain" });
+    const person = defaultAvatarSvg({ brand: "sovkora", tone: 2 });
+    const plain = defaultAvatarSvg({ brand: "sovkora", tone: 2, kind: "plain" });
     expect(person).toContain('viewBox="0 0 512 512"');
     expect(person).toContain("<circle");
     expect(plain).not.toContain("<circle");
@@ -58,10 +58,10 @@ describe("default avatars", () => {
 
   it("trims the trailing slashes of a base in linear time", () => {
     const start = performance.now();
-    const url = defaultAvatarUrl({ brand: "yomizaka", tone: 1 }, { base: `https://cdn.example/${"/".repeat(200_000)}x` });
+    const url = defaultAvatarUrl({ brand: "verikora", tone: 1 }, { base: `https://cdn.example/${"/".repeat(200_000)}x` });
     expect(url.startsWith("https://cdn.example/")).toBe(true);
     expect(performance.now() - start).toBeLessThan(500);
-    expect(defaultAvatarUrl({ brand: "yomizaka", tone: 1 }, { base: "https://cdn.example/a///" })).toBe("https://cdn.example/a/yomizaka/person-1-256.webp");
+    expect(defaultAvatarUrl({ brand: "verikora", tone: 1 }, { base: "https://cdn.example/a///" })).toBe("https://cdn.example/a/verikora/person-1-256.webp");
   });
 });
 
@@ -87,7 +87,7 @@ describe("default pictures of a folder, an organisation and a shop", () => {
   });
 
   it("are the same for the same seed", () => {
-    expect(defaultAvatarUrl({ brand: "yomizaka", kind: "folder", seed: "f-1" })).toBe(defaultAvatarUrl({ brand: "yomizaka", kind: "folder", seed: "f-1" }));
+    expect(defaultAvatarUrl({ brand: "verikora", kind: "folder", seed: "f-1" })).toBe(defaultAvatarUrl({ brand: "verikora", kind: "folder", seed: "f-1" }));
   });
 });
 
@@ -96,16 +96,16 @@ describe("the family's central set (krizaka-ui#598)", () => {
   const set = [picture("a"), picture("b"), picture("gone", true), picture("c")];
 
   it("gives the same person the same picture, from the set, at the size asked", () => {
-    const avatar = { brand: "akinaza", seed: "account-1", set } as const;
-    expect(defaultAvatarUrl(avatar)).toBe(defaultAvatarUrl({ ...avatar, brand: "orazaka" }));
+    const avatar = { brand: "folioviv", seed: "account-1", set } as const;
+    expect(defaultAvatarUrl(avatar)).toBe(defaultAvatarUrl({ ...avatar, brand: "sovkora" }));
     expect(defaultAvatarUrl(avatar)).toMatch(/\/(a|b|c)-256\.webp$/);
     expect(defaultAvatarUrl(avatar, { size: 512 })).toMatch(/\/(a|b|c)-512\.webp$/);
   });
 
   it("draws the silhouette when the picture is not served in the size asked", () => {
     const only512 = [{ id: "z", urls: { webp: { "512": "https://cdn.example.test/z-512.webp" } } }];
-    expect(defaultAvatarUrl({ brand: "akinaza", seed: "x", set: only512 }, { size: 512 })).toBe("https://cdn.example.test/z-512.webp");
-    expect(defaultAvatarUrl({ brand: "akinaza", seed: "x", set: only512 })).toBe(defaultAvatarUrl({ brand: "akinaza", seed: "x" }));
+    expect(defaultAvatarUrl({ brand: "folioviv", seed: "x", set: only512 }, { size: 512 })).toBe("https://cdn.example.test/z-512.webp");
+    expect(defaultAvatarUrl({ brand: "folioviv", seed: "x", set: only512 })).toBe(defaultAvatarUrl({ brand: "folioviv", seed: "x" }));
   });
 
   it("never picks a disabled picture and spreads people over the set", () => {
@@ -115,10 +115,10 @@ describe("the family's central set (krizaka-ui#598)", () => {
   });
 
   it("draws the brand's silhouette when there is no set, an empty one, no seed, or the vector is asked", () => {
-    const silhouette = defaultAvatarUrl({ brand: "akinaza", seed: "x" });
-    expect(defaultAvatarUrl({ brand: "akinaza", seed: "x", set: [] })).toBe(silhouette);
-    expect(defaultAvatarUrl({ brand: "akinaza", set })).toBe(defaultAvatarUrl({ brand: "akinaza" }));
-    expect(defaultAvatarUrl({ brand: "akinaza", seed: "x", set }, { size: "svg" })).toBe(defaultAvatarUrl({ brand: "akinaza", seed: "x" }, { size: "svg" }));
+    const silhouette = defaultAvatarUrl({ brand: "folioviv", seed: "x" });
+    expect(defaultAvatarUrl({ brand: "folioviv", seed: "x", set: [] })).toBe(silhouette);
+    expect(defaultAvatarUrl({ brand: "folioviv", set })).toBe(defaultAvatarUrl({ brand: "folioviv" }));
+    expect(defaultAvatarUrl({ brand: "folioviv", seed: "x", set }, { size: "svg" })).toBe(defaultAvatarUrl({ brand: "folioviv", seed: "x" }, { size: "svg" }));
   });
 
   it("follows the org rule: fnv1a modulo the usable pictures", () => {

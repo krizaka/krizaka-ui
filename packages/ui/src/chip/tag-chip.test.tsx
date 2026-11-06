@@ -27,7 +27,7 @@ describe("TagChip (#627)", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
-  it("draws a dot or Yomizaka's ribbon", () => {
+  it("draws a dot or Verikora's ribbon", () => {
     const { container } = render(
       <>
         <TagMarker marker="red" />

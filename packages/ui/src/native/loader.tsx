@@ -57,13 +57,13 @@ export function useDelayedWait(active: boolean, delay = 250, minDuration = 600):
   React.useEffect(() => {
     if (active && !shown) {
       const timer = setTimeout(() => {
-        since.current = Date.now();
+        since.current = performance.now();
         setShown(true);
       }, delay);
       return () => clearTimeout(timer);
     }
     if (!active && shown) {
-      const timer = setTimeout(() => setShown(false), Math.max(0, minDuration - (Date.now() - since.current)));
+      const timer = setTimeout(() => setShown(false), Math.max(0, minDuration - (performance.now() - since.current)));
       return () => clearTimeout(timer);
     }
     return undefined;
@@ -93,7 +93,7 @@ export type LoaderProps = {
   /** inline (default) · block (a region's centre) · overlay (over its parent, frosted) · page (the whole screen). */
   variant?: "inline" | "block" | "overlay" | "page";
   /**
-   * The product whose animated mark waits in place of the Krizaka glyph (`orazaka`, `yomizaka`, `akinaza`,
+   * The product whose animated mark waits in place of the Krizaka glyph (`sovkora`, `verikora`, `folioviv`,
    * `krizaka`). Still when the system reduces motion; the ending stays the check or the cross.
    */
   product?: BrandId;

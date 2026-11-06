@@ -23,6 +23,6 @@ export const meta = {
   web: {
     entry: "sankey",
     imports: ["Sankey"],
-    examples: [{ name: "credit-flow", title: "Credit flow", description: "A month of Orazaka credits, from plans to models to outcomes." }],
+    examples: [{ name: "credit-flow", title: "Credit flow", description: "A month of Sovkora credits, from plans to models to outcomes." }],
   },
 } satisfies ComponentMeta;

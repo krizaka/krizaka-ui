@@ -1,12 +1,12 @@
 import { LongformPage } from "@krizaka/ui/longform-page";
 import { Stat } from "@krizaka/ui/stat";
 
-// TEMPLATE — a case study (a notary's office on Orazaka): the situation, what was done, the figures that prove it. Chapters
+// TEMPLATE — a case study (a notary's office on Sovkora): the situation, what was done, the figures that prove it. Chapters
 // in a reading column, the result as a figure that breaks out of the column; one column on a phone.
 export default function LongformPageCaseStudy() {
   return (
     <LongformPage
-      brand="orazaka"
+      brand="sovkora"
       eyebrow="Case study · Notary"
       title="Eleven leases a day, none of them leaving the office"
       lead="A four-person firm in Laval summarises contracts with its own AI, on its own server."
@@ -22,7 +22,7 @@ export default function LongformPageCaseStudy() {
           title: "What changed",
           children: (
             <>
-              <p>Orazaka runs on a Mac mini in the back room. A pack reads the lease and drafts the summary; the notary signs it.</p>
+              <p>Sovkora runs on a Mac mini in the back room. A pack reads the lease and drafts the summary; the notary signs it.</p>
               <p>Nothing is sent outside the building, and every request is logged for the audit.</p>
             </>
           ),

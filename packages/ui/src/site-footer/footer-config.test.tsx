@@ -22,8 +22,8 @@ const settings: FooterSettings = {
       titleKey: "footer.products",
       status: "development",
       links: [
-        { label: "Verikora", href: "https://www.yomizaka.com", external: true },
-        { label: "Folioviv", href: "https://www.akinaza.com", external: true },
+        { label: "Verikora", href: "https://www.verikora.com", external: true },
+        { label: "Folioviv", href: "https://www.folioviv.com", external: true },
       ],
     },
     { id: "company", titleKey: "footer.company", links: [{ labelKey: "footer.story", href: "/fr/story" }] },
@@ -62,7 +62,7 @@ describe("footer settings", () => {
       ...settings,
       columns: [
         ...Array.from({ length: FOOTER_LIMITS.columns }, (_, i) => ({ id: `c${i}`, titleKey: "x", links: [{ label: "x", href: `/c${i}` }] })),
-        { id: "big", titleKey: "x", links: [...many, { label: "dup", href: "/l0" }, { label: "h", href: "http://x.com", external: true }, { label: "d", href: "https://dev.yomizaka.com", external: true }] },
+        { id: "big", titleKey: "x", links: [...many, { label: "dup", href: "/l0" }, { label: "h", href: "http://x.com", external: true }, { label: "d", href: "https://dev.verikora.com", external: true }] },
       ],
       legal: { ...settings.legal, neq: "123" },
     };
@@ -73,7 +73,7 @@ describe("footer settings", () => {
         `column big: at most ${FOOTER_LIMITS.links} links`,
         "big: /l0 is already in the footer",
         "big: http://x.com is not https",
-        "big: https://dev.yomizaka.com is a development host",
+        "big: https://dev.verikora.com is a development host",
         "legal: the NEQ has ten digits",
       ]),
     );
@@ -114,7 +114,7 @@ describe("SiteFooter with a config", () => {
 
   it("hides the version when the admin says so, and keeps only the last line in an app", () => {
     const { container } = render(
-      <SiteFooter current="yomizaka" variant="app" version="1.2.3" config={{ ...config, legal: { ...config.legal, showVersion: false } }} />,
+      <SiteFooter current="verikora" variant="app" version="1.2.3" config={{ ...config, legal: { ...config.legal, showVersion: false } }} />,
     );
     expect(container.textContent).not.toContain("v1.2.3");
     expect(screen.queryByRole("navigation")).toBeNull();

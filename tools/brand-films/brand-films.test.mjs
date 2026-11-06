@@ -68,14 +68,14 @@ test("the mark's shield gets a path length, to draw itself", () => {
   assert.throws(() => drawable("<svg><circle/></svg>"), /no stroked shield/);
 });
 
-test("the captions pair each product with its bird: the duck is Orazaka (founder 2026-10-30, krizaka-ui#901), never the flamingo", () => {
+test("the captions pair each product with its bird: the duck is Sovkora (founder 2026-10-30, krizaka-ui#901), never the flamingo", () => {
   const cue = (id) => FILM.cues.find((c) => c.id === id);
-  assert.match(cue("duck").en, /^The duck is Orazaka/);
-  assert.match(cue("duck").fr, /^Le canard, c’est Orazaka/);
+  assert.match(cue("duck").en, /^The duck is Sovkora/);
+  assert.match(cue("duck").fr, /^Le canard, c’est Sovkora/);
   for (const c of FILM.cues) assert.doesNotMatch(`${c.en} ${c.fr}`, /flamingo|flamant/i, c.id);
 });
 
-test("the film shows only the family of today: Krizaka, Orazaka, Yomizaka, Akinaza", () => {
+test("the film shows only the family of today: Krizaka, Sovkora, Verikora, Folioviv", () => {
   assert.deepEqual(FILM.cast, ["falcon", "duck", "owl", "beaver"]);
   assert.deepEqual(FILM.family, []);
   for (const c of FILM.cues) assert.doesNotMatch(`${c.en} ${c.fr}`, /pay|paiement/i, c.id);

@@ -85,7 +85,7 @@ export type SceneProps = React.HTMLAttributes<HTMLElement> & {
    * @default "section"
    */
   as?: Polymorphic | "header" | "footer" | "li";
-  /** A brand scope for the scene (`orazaka` → `.brand-orazaka`): its accent and gradient become that brand's. */
+  /** A brand scope for the scene (`sovkora` → `.brand-sovkora`): its accent and gradient become that brand's. */
   brand?: string;
 };
 

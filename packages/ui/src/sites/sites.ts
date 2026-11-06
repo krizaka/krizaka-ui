@@ -6,7 +6,7 @@
 // here in English and French (`familyLabels`) — a site passes the set of its locale, or its own translation.
 
 /** A site of the family. */
-export type SiteId = "krizaka" | "orazaka" | "yomizaka" | "akinaza" | "ui" | "java" | "ts" | "motion" | "github";
+export type SiteId = "krizaka" | "sovkora" | "verikora" | "folioviv" | "ui" | "java" | "ts" | "motion" | "github";
 
 /** What a site is: the company, a product, or an open-source project. It chooses the footer's signature line. */
 export type SiteKind = "company" | "product" | "open-source";
@@ -22,7 +22,7 @@ export type SiteStatus = "released" | "upcoming" | "construction" | "development
 export type SiteGroup = "krizaka" | "products" | "open-source" | "github";
 
 /** The mark a site wears: a brand of `ProductLogo` (Krizaka UI and Krizaka Java wear Krizaka's), or GitHub's. */
-export type SiteMark = "krizaka" | "orazaka" | "yomizaka" | "akinaza" | "github";
+export type SiteMark = "krizaka" | "sovkora" | "verikora" | "folioviv" | "github";
 
 export interface Site {
   readonly id: SiteId;
@@ -40,16 +40,21 @@ export interface Site {
   readonly repo: string;
 }
 
-const site = (s: Omit<Site, "host">): Site => ({ ...s, host: s.url.replace(/^https?:\/\//, "").replace(/\/$/, "") });
+/** The address as a person reads it: the host, and the path when there is one (`github.com/krizaka`). */
+const hostOf = (url: string): string => {
+  const { host, pathname } = new URL(url);
+  return pathname === "/" ? host : host + pathname;
+};
+const site = (s: Omit<Site, "host">): Site => ({ ...s, host: hostOf(s.url) });
 
 /** Every site of the family, in reading order (the group order, then the order inside each group). */
 export const sites: readonly Site[] = [
   site({ id: "krizaka", name: "Krizaka", url: "https://www.krizaka.com", kind: "company", group: "krizaka", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-com" }),
-  site({ id: "orazaka", name: "Orazaka", url: "https://www.orazaka.com", kind: "product", group: "products", status: "development", mark: "orazaka", repo: "https://github.com/krizaka/orazaka" }),
-  site({ id: "yomizaka", name: "Yomizaka", url: "https://www.yomizaka.com", kind: "product", group: "products", status: "development", mark: "yomizaka", repo: "https://github.com/krizaka/yomizaka" }),
-  site({ id: "akinaza", name: "Akinaza", url: "https://www.akinaza.com", kind: "product", group: "products", status: "development", mark: "akinaza", repo: "https://github.com/krizaka/akinaza" }),
+  site({ id: "sovkora", name: "Sovkora", url: "https://www.sovkora.com", kind: "product", group: "products", status: "development", mark: "sovkora", repo: "https://github.com/krizaka/sovkora" }),
+  site({ id: "verikora", name: "Verikora", url: "https://www.verikora.com", kind: "product", group: "products", status: "development", mark: "verikora", repo: "https://github.com/krizaka/verikora" }),
+  site({ id: "folioviv", name: "Folioviv", url: "https://www.folioviv.com", kind: "product", group: "products", status: "development", mark: "folioviv", repo: "https://github.com/krizaka/folioviv" }),
   site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
-  site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-build" }),
+  site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-java" }),
   site({ id: "ts", name: "Krizaka TypeScript", url: "https://ts.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ts" }),
   // The family lab: built in the open, served at lab.krizaka.com; what proves itself there moves into Krizaka UI.
   site({ id: "motion", name: "Krizaka Lab", url: "https://lab.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-lab" }),
@@ -115,9 +120,9 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
     current: "You are here",
     descriptions: {
       krizaka: "The company: our products, our open source, our story.",
-      orazaka: "Sovereign AI on your own servers: chat, documents, images and video — and the engine under the other products.",
-      yomizaka: "Yomizaka reads your leases, contracts and invoices.",
-      akinaza: "Running a shop in Québec, for less — Loi 25 by design.",
+      sovkora: "Sovereign AI on your own servers: chat, documents, images and video — and the engine under the other products.",
+      verikora: "Verikora reads your leases, contracts and invoices.",
+      folioviv: "Running a shop in Québec, for less — Loi 25 by design.",
       ui: "Components, tokens, icons and charts — web and React Native.",
       java: "Spring Boot building blocks on Maven Central.",
       ts: "TypeScript backend building blocks on npm.",
@@ -137,9 +142,9 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
     current: "Vous êtes ici",
     descriptions: {
       krizaka: "La compagnie : nos produits, notre open source, notre histoire.",
-      orazaka: "L’IA souveraine sur vos propres serveurs : conversation, documents, images et vidéo — et le moteur des autres produits.",
-      yomizaka: "Yomizaka lit vos baux, contrats et factures.",
-      akinaza: "Tenir une boutique au Québec, pour moins cher — Loi 25 dès la conception.",
+      sovkora: "L’IA souveraine sur vos propres serveurs : conversation, documents, images et vidéo — et le moteur des autres produits.",
+      verikora: "Verikora lit vos baux, contrats et factures.",
+      folioviv: "Tenir une boutique au Québec, pour moins cher — Loi 25 dès la conception.",
       ui: "Composants, jetons, icônes et graphiques — web et React Native.",
       java: "Des briques Spring Boot sur Maven Central.",
       ts: "Des briques backend TypeScript sur npm.",

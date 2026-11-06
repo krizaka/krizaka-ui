@@ -1,4 +1,4 @@
-// Pure. A look (`look-*` of @krizaka/tokens, akinaza#478) is applied to a shop page by rewriting the variants of the sections the
+// Pure. A look (`look-*` of @krizaka/tokens, folioviv#478) is applied to a shop page by rewriting the variants of the sections the
 // page already has — never their order, settings, blocks, text or photos. The closing call and the sticky bar are different jobs
 // from the strip of next times, so a look leaves them as they are.
 import { shopPresets } from "@krizaka/tokens/shop-presets";

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import OrazakaExample from "../../registry/examples/product-page/orazaka";
+import SovkoraExample from "../../registry/examples/product-page/sovkora";
 import { ProductPage } from "./product-page";
 
 /** Product page — a page template. Each story renders a named example, on a desktop and on a phone. */
@@ -13,6 +13,6 @@ export default meta;
 
 type Story = StoryObj;
 
-export const Orazaka: Story = { render: () => <OrazakaExample /> };
+export const Sovkora: Story = { render: () => <SovkoraExample /> };
 /** On a phone (390 × 844). */
-export const OrazakaPhone: Story = { render: () => <OrazakaExample />, parameters: { phone: true } };
+export const SovkoraPhone: Story = { render: () => <SovkoraExample />, parameters: { phone: true } };

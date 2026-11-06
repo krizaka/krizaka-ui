@@ -6,11 +6,11 @@
     "workshop"
   ],
   "paper": "kraft",
-  "accent": "akinaza:accent-2",
+  "accent": "folioviv:accent-2",
   "accents": [
-    "akinaza:accent-2",
-    "akinaza",
-    "yomizaka"
+    "folioviv:accent-2",
+    "folioviv",
+    "verikora"
   ],
   "faces": {
     "title": "display",

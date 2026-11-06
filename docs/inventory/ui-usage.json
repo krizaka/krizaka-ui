@@ -7,7 +7,7 @@
   },
   "consumers": [
     {
-      "name": "yomizaka",
+      "name": "verikora",
       "kind": "product",
       "absent": false,
       "head": "f3b26763",
@@ -15,7 +15,7 @@
       "files": 1232
     },
     {
-      "name": "akinaza",
+      "name": "folioviv",
       "kind": "product",
       "absent": false,
       "head": "dd58a2d6",
@@ -23,7 +23,7 @@
       "files": 1198
     },
     {
-      "name": "orazaka-web-client",
+      "name": "sovkora-web",
       "kind": "product",
       "absent": false,
       "head": "83172018",
@@ -52,7 +52,7 @@
       "absent": false,
       "head": null,
       "sha": null,
-      "files": 167
+      "files": 169
     },
     {
       "name": "java-site",
@@ -99,9 +99,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 7,
-        "akinaza": 4,
-        "orazaka-web-client": 8,
+        "verikora": 7,
+        "folioviv": 4,
+        "sovkora-web": 8,
         "krizaka-com": 12,
         "blog": 5,
         "ui-site": 3,
@@ -117,7 +117,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 8175,
+      "sizeGzip": 8096,
       "budget": 8000,
       "tests": null,
       "stories": null,
@@ -136,8 +136,8 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "akinaza": 5,
-        "orazaka-web-client": 32,
+        "folioviv": 5,
+        "sovkora-web": 32,
         "krizaka-com": 4,
         "blog": 2,
         "ui-site": 3,
@@ -288,9 +288,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 54,
-        "akinaza": 58,
-        "orazaka-web-client": 89,
+        "verikora": 54,
+        "folioviv": 58,
+        "sovkora-web": 89,
         "krizaka-com": 8,
         "blog": 14,
         "ui-site": 8,
@@ -300,8 +300,8 @@
         "cockpit": 9
       },
       "nativeUse": {
-        "yomizaka": 5,
-        "akinaza": 11,
+        "verikora": 5,
+        "folioviv": 11,
         "blog": 2,
         "ui-site": 2
       },
@@ -361,17 +361,17 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 44,
-        "akinaza": 35,
-        "orazaka-web-client": 31,
+        "verikora": 44,
+        "folioviv": 35,
+        "sovkora-web": 31,
         "krizaka-com": 1,
         "ui-site": 2,
         "motion-lab": 4,
         "cockpit": 10
       },
       "nativeUse": {
-        "yomizaka": 4,
-        "akinaza": 5
+        "verikora": 4,
+        "folioviv": 5
       },
       "live": 136,
       "paused": 0,
@@ -408,16 +408,16 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 6,
-        "akinaza": 15,
-        "orazaka-web-client": 21,
+        "verikora": 6,
+        "folioviv": 15,
+        "sovkora-web": 21,
         "blog": 1,
         "ui-site": 2,
         "cockpit": 1
       },
       "nativeUse": {
-        "yomizaka": 1,
-        "akinaza": 2
+        "verikora": 1,
+        "folioviv": 2
       },
       "live": 49,
       "paused": 0,
@@ -453,9 +453,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 1,
-        "orazaka-web-client": 3
+        "verikora": 2,
+        "folioviv": 1,
+        "sovkora-web": 3
       },
       "nativeUse": {},
       "live": 6,
@@ -485,14 +485,14 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 9,
-        "akinaza": 6,
-        "orazaka-web-client": 2,
+        "verikora": 9,
+        "folioviv": 6,
+        "sovkora-web": 2,
         "cockpit": 8
       },
       "nativeUse": {
-        "yomizaka": 4,
-        "akinaza": 3
+        "verikora": 4,
+        "folioviv": 3
       },
       "live": 32,
       "paused": 0,
@@ -519,7 +519,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1,
+        "sovkora-web": 1,
         "ui-site": 1,
         "cockpit": 2
       },
@@ -555,16 +555,16 @@
       "domain": "identity",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 2,
-        "orazaka-web-client": 2,
+        "verikora": 1,
+        "folioviv": 2,
+        "sovkora-web": 2,
         "krizaka-com": 1,
         "motion-lab": 1,
         "cockpit": 1
       },
       "nativeUse": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "live": 10,
       "paused": 0,
@@ -582,11 +582,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 3120,
+      "sizeGzip": 3126,
       "budget": 6000,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "9 live importer file(s)"
@@ -601,7 +601,7 @@
       "domain": "identity",
       "adoption": null,
       "importers": {
-        "yomizaka": 1
+        "verikora": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -620,11 +620,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2219,
+      "sizeGzip": 2225,
       "budget": null,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -639,9 +639,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 11,
-        "akinaza": 7,
-        "orazaka-web-client": 17,
+        "verikora": 11,
+        "folioviv": 7,
+        "sovkora-web": 17,
         "krizaka-com": 2,
         "blog": 3,
         "ui-site": 3,
@@ -651,8 +651,8 @@
         "cockpit": 3
       },
       "nativeUse": {
-        "yomizaka": 4,
-        "akinaza": 6,
+        "verikora": 4,
+        "folioviv": 6,
         "ui-site": 2
       },
       "live": 65,
@@ -668,7 +668,7 @@
       "budget": 2400,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "64 live importer file(s)"
@@ -683,7 +683,7 @@
       "domain": "abuse",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -739,9 +739,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 17,
-        "akinaza": 30,
-        "orazaka-web-client": 28,
+        "verikora": 17,
+        "folioviv": 30,
+        "sovkora-web": 28,
         "krizaka-com": 1,
         "blog": 1,
         "ui-site": 2,
@@ -749,8 +749,8 @@
         "cockpit": 2
       },
       "nativeUse": {
-        "yomizaka": 7,
-        "akinaza": 8
+        "verikora": 7,
+        "folioviv": 8
       },
       "live": 100,
       "paused": 0,
@@ -780,9 +780,9 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 7,
-        "akinaza": 5,
-        "orazaka-web-client": 16,
+        "verikora": 7,
+        "folioviv": 5,
+        "sovkora-web": 16,
         "krizaka-com": 3,
         "motion-lab": 3,
         "cockpit": 6
@@ -819,7 +819,7 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 8,
+        "sovkora-web": 8,
         "motion-lab": 2
       },
       "nativeUse": {},
@@ -848,8 +848,8 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "akinaza": 1,
-        "orazaka-web-client": 1,
+        "folioviv": 1,
+        "sovkora-web": 1,
         "blog": 1
       },
       "nativeUse": {},
@@ -882,9 +882,9 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 4,
-        "akinaza": 2,
-        "orazaka-web-client": 1
+        "verikora": 4,
+        "folioviv": 2,
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 7,
@@ -918,7 +918,7 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1,
+        "sovkora-web": 1,
         "cockpit": 1
       },
       "nativeUse": {},
@@ -951,14 +951,14 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "akinaza#260",
+      "issue": "folioviv#260",
       "mergeInto": null,
       "sizeGzip": 1398,
       "budget": 20000,
@@ -979,9 +979,9 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 3,
-        "orazaka-web-client": 4,
+        "verikora": 1,
+        "folioviv": 3,
+        "sovkora-web": 4,
         "krizaka-com": 1,
         "blog": 2,
         "motion-lab": 4,
@@ -1000,7 +1000,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "13 live importer file(s)"
@@ -1015,14 +1015,14 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "akinaza#260",
+      "issue": "folioviv#260",
       "mergeInto": "stat",
       "sizeGzip": 1090,
       "budget": 3000,
@@ -1044,8 +1044,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 12,
-        "akinaza": 14
+        "verikora": 12,
+        "folioviv": 14
       },
       "nativeUse": {},
       "live": 26,
@@ -1080,7 +1080,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 5282,
+      "sizeGzip": 5285,
       "budget": 3100,
       "tests": 1,
       "stories": 1,
@@ -1099,7 +1099,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -1112,7 +1112,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-22",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -1138,7 +1138,7 @@
       "budget": 2300,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-25",
       "verdict": "merge",
       "into": "meter",
@@ -1154,13 +1154,13 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 1,
-        "orazaka-web-client": 2
+        "verikora": 2,
+        "folioviv": 1,
+        "sovkora-web": 2
       },
       "nativeUse": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "live": 7,
       "paused": 0,
@@ -1211,7 +1211,7 @@
       "category": "data-display",
       "status": "experimental",
       "domain": "commerce",
-      "adoption": "orazaka-web-client#88",
+      "adoption": "sovkora-web#88",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -1224,7 +1224,7 @@
       "budget": 5000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-26",
       "verdict": "ask",
       "why": "unused, new (2026-10-26): its adoption issue?"
@@ -1252,7 +1252,7 @@
       "budget": 4500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-26",
       "verdict": "keep",
       "why": "built on by native"
@@ -1267,9 +1267,9 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 54,
-        "akinaza": 53,
-        "orazaka-web-client": 23,
+        "verikora": 54,
+        "folioviv": 53,
+        "sovkora-web": 23,
         "blog": 1,
         "cockpit": 2
       },
@@ -1302,7 +1302,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -1315,7 +1315,7 @@
       "budget": 2600,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -1330,7 +1330,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "akinaza": 2,
+        "folioviv": 2,
         "blog": 1,
         "java-site": 1,
         "ts-site": 1
@@ -1399,9 +1399,9 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 6,
-        "akinaza": 2,
-        "orazaka-web-client": 8,
+        "verikora": 6,
+        "folioviv": 2,
+        "sovkora-web": 8,
         "blog": 1,
         "ui-site": 3,
         "motion-lab": 2,
@@ -1435,8 +1435,8 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "orazaka-web-client": 2
+        "verikora": 2,
+        "sovkora-web": 2
       },
       "nativeUse": {},
       "live": 4,
@@ -1470,17 +1470,17 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 4,
-        "akinaza": 3,
-        "orazaka-web-client": 3,
+        "verikora": 4,
+        "folioviv": 3,
+        "sovkora-web": 3,
         "krizaka-com": 2,
         "ui-site": 1,
         "java-site": 1,
         "motion-lab": 4
       },
       "nativeUse": {
-        "yomizaka": 1,
-        "akinaza": 2
+        "verikora": 1,
+        "folioviv": 2
       },
       "live": 21,
       "paused": 0,
@@ -1496,11 +1496,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 3156,
+      "sizeGzip": 3158,
       "budget": 13000,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "17 live importer file(s)"
@@ -1515,8 +1515,8 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 2,
@@ -1527,7 +1527,7 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 16194,
+      "sizeGzip": 16197,
       "budget": 21000,
       "tests": 2,
       "stories": 2,
@@ -1546,8 +1546,8 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 1,
+        "verikora": 2,
+        "folioviv": 1,
         "cockpit": 1
       },
       "nativeUse": {},
@@ -1576,8 +1576,8 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 5,
+        "verikora": 2,
+        "folioviv": 5,
         "krizaka-com": 1,
         "cockpit": 2
       },
@@ -1637,9 +1637,9 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 4,
-        "akinaza": 2,
-        "orazaka-web-client": 8,
+        "verikora": 4,
+        "folioviv": 2,
+        "sovkora-web": 8,
         "krizaka-com": 1,
         "ui-site": 1,
         "motion-lab": 2
@@ -1678,7 +1678,7 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "akinaza": 1,
+        "folioviv": 1,
         "ui-site": 1,
         "motion-lab": 2
       },
@@ -1713,9 +1713,9 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 2,
-        "orazaka-web-client": 1,
+        "verikora": 3,
+        "folioviv": 2,
+        "sovkora-web": 1,
         "ui-site": 1
       },
       "nativeUse": {},
@@ -1748,8 +1748,8 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 5,
-        "orazaka-web-client": 4
+        "verikora": 5,
+        "sovkora-web": 4
       },
       "nativeUse": {},
       "live": 9,
@@ -1782,8 +1782,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1,
+        "verikora": 1,
+        "folioviv": 1,
         "krizaka-com": 1
       },
       "nativeUse": {},
@@ -1812,9 +1812,9 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 3,
-        "orazaka-web-client": 1
+        "verikora": 1,
+        "folioviv": 3,
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 5,
@@ -1844,8 +1844,8 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "orazaka-web-client": 2,
+        "verikora": 3,
+        "sovkora-web": 2,
         "ui-site": 1,
         "motion-lab": 4
       },
@@ -1905,7 +1905,7 @@
       "category": "blocks",
       "status": "experimental",
       "domain": "conversation",
-      "adoption": "orazaka-web-client#98",
+      "adoption": "sovkora-web#98",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -1918,7 +1918,7 @@
       "budget": 6500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-28",
       "verdict": "ask",
       "why": "unused, new (2026-10-28): its adoption issue?"
@@ -1933,7 +1933,7 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "akinaza": 1,
+        "folioviv": 1,
         "cockpit": 1
       },
       "nativeUse": {},
@@ -1950,7 +1950,7 @@
       "budget": 9000,
       "tests": 3,
       "stories": 2,
-      "lastChange": "2026-10-31",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -2047,7 +2047,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1,
+        "sovkora-web": 1,
         "krizaka-com": 1
       },
       "nativeUse": {},
@@ -2082,9 +2082,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 11,
-        "akinaza": 11,
-        "orazaka-web-client": 11,
+        "verikora": 11,
+        "folioviv": 11,
+        "sovkora-web": 11,
         "krizaka-com": 10,
         "blog": 1,
         "java-site": 1
@@ -2110,7 +2110,7 @@
       "budget": 6600,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "45 live importer file(s)"
@@ -2126,7 +2126,7 @@
       "adoption": null,
       "importers": {},
       "nativeUse": {
-        "akinaza": 2
+        "folioviv": 2
       },
       "live": 2,
       "paused": 0,
@@ -2154,9 +2154,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 2,
-        "orazaka-web-client": 2,
+        "verikora": 1,
+        "folioviv": 2,
+        "sovkora-web": 2,
         "krizaka-com": 1,
         "blog": 1,
         "ui-site": 1,
@@ -2175,7 +2175,7 @@
       "budget": 1500,
       "tests": 3,
       "stories": 2,
-      "lastChange": "2026-11-04",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "10 live importer file(s)"
@@ -2190,7 +2190,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 3,
+        "sovkora-web": 3,
         "ui-site": 1
       },
       "nativeUse": {
@@ -2202,11 +2202,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2713,
+      "sizeGzip": 2719,
       "budget": 2000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "5 live importer file(s)"
@@ -2221,9 +2221,9 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 4,
-        "orazaka-web-client": 3,
+        "verikora": 2,
+        "folioviv": 4,
+        "sovkora-web": 3,
         "krizaka-com": 2,
         "blog": 1,
         "ui-site": 2,
@@ -2238,11 +2238,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 20691,
+      "sizeGzip": 20740,
       "budget": 27600,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "16 live importer file(s)"
@@ -2268,7 +2268,7 @@
       "budget": 1000,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "nav-bar",
@@ -2284,8 +2284,8 @@
       "domain": "identity",
       "adoption": null,
       "importers": {
-        "yomizaka": 7,
-        "akinaza": 3
+        "verikora": 7,
+        "folioviv": 3
       },
       "nativeUse": {},
       "live": 10,
@@ -2296,11 +2296,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 17996,
+      "sizeGzip": 18004,
       "budget": null,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-22",
       "verdict": "keep",
       "why": "10 live importer file(s)"
@@ -2315,7 +2315,7 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 1
+        "verikora": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -2328,7 +2328,7 @@
       "budget": null,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-22",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -2343,7 +2343,7 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 1
+        "verikora": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -2356,7 +2356,7 @@
       "budget": null,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-22",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -2371,9 +2371,9 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 3,
-        "orazaka-web-client": 1,
+        "verikora": 3,
+        "folioviv": 3,
+        "sovkora-web": 1,
         "krizaka-com": 1,
         "blog": 1,
         "ui-site": 2,
@@ -2437,9 +2437,9 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 2,
-        "orazaka-web-client": 2,
+        "verikora": 2,
+        "folioviv": 2,
+        "sovkora-web": 2,
         "krizaka-com": 3,
         "blog": 2,
         "ui-site": 1,
@@ -2456,11 +2456,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 11377,
+      "sizeGzip": 11424,
       "budget": 11000,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-02",
+      "lastChange": "2026-11-06",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "14 live importer file(s)"
@@ -2475,9 +2475,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1,
-        "orazaka-web-client": 1,
+        "verikora": 1,
+        "folioviv": 1,
+        "sovkora-web": 1,
         "krizaka-com": 2,
         "blog": 3,
         "ui-site": 4,
@@ -2496,11 +2496,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 1949,
+      "sizeGzip": 1976,
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-01",
+      "lastChange": "2026-11-06",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "16 live importer file(s)"
@@ -2515,7 +2515,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 3,
+        "sovkora-web": 3,
         "krizaka-com": 2,
         "blog": 1,
         "java-site": 1,
@@ -2559,7 +2559,7 @@
       "budget": 2500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "code-block",
@@ -2575,7 +2575,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 2,
+        "sovkora-web": 2,
         "motion-lab": 1,
         "cockpit": 1
       },
@@ -2620,7 +2620,7 @@
       "budget": 2700,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-20",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -2649,7 +2649,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -2664,8 +2664,8 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1,
-        "orazaka-web-client": 1
+        "folioviv": 1,
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 2,
@@ -2678,7 +2678,7 @@
       "budget": 3200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -2719,13 +2719,13 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 4,
-        "orazaka-web-client": 1,
+        "verikora": 4,
+        "sovkora-web": 1,
         "krizaka-com": 1,
         "motion-lab": 1
       },
       "nativeUse": {
-        "yomizaka": 1
+        "verikora": 1
       },
       "live": 8,
       "paused": 0,
@@ -2752,9 +2752,9 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 3,
-        "orazaka-web-client": 1,
+        "verikora": 1,
+        "folioviv": 3,
+        "sovkora-web": 1,
         "krizaka-com": 1,
         "ui-site": 1
       },
@@ -2820,9 +2820,9 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 15,
-        "akinaza": 10,
-        "orazaka-web-client": 22,
+        "verikora": 15,
+        "folioviv": 10,
+        "sovkora-web": 22,
         "krizaka-com": 1,
         "ui-site": 2,
         "motion-lab": 4,
@@ -2837,7 +2837,7 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 40016,
+      "sizeGzip": 40010,
       "budget": null,
       "tests": 3,
       "stories": 1,
@@ -2856,7 +2856,7 @@
       "domain": "conversation",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -2865,11 +2865,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 47807,
+      "sizeGzip": 47799,
       "budget": null,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -2944,7 +2944,7 @@
       "domain": "conversation",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 2,
+        "sovkora-web": 2,
         "cockpit": 4
       },
       "nativeUse": {},
@@ -2975,8 +2975,8 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 5,
-        "akinaza": 2
+        "verikora": 5,
+        "folioviv": 2
       },
       "nativeUse": {},
       "live": 7,
@@ -2987,7 +2987,7 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 10056,
+      "sizeGzip": 10057,
       "budget": 35400,
       "tests": 2,
       "stories": 1,
@@ -3006,13 +3006,13 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 19,
-        "akinaza": 22,
-        "orazaka-web-client": 9
+        "verikora": 19,
+        "folioviv": 22,
+        "sovkora-web": 9
       },
       "nativeUse": {
-        "yomizaka": 1,
-        "akinaza": 2
+        "verikora": 1,
+        "folioviv": 2
       },
       "live": 53,
       "paused": 0,
@@ -3097,7 +3097,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "akinaza": 3
+        "folioviv": 3
       },
       "nativeUse": {},
       "live": 3,
@@ -3126,7 +3126,7 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -3138,7 +3138,7 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 10531,
+      "sizeGzip": 10530,
       "budget": 15500,
       "tests": 1,
       "stories": 2,
@@ -3189,7 +3189,7 @@
       "adoption": null,
       "importers": {},
       "nativeUse": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "live": 1,
       "paused": 0,
@@ -3219,7 +3219,7 @@
       "domain": "maps",
       "adoption": null,
       "importers": {
-        "akinaza": 3,
+        "folioviv": 3,
         "ui-site": 1,
         "motion-lab": 3
       },
@@ -3233,11 +3233,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 12954,
-      "budget": 17200,
+      "sizeGzip": 12959,
+      "budget": 17250,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-04",
+      "lastChange": "2026-11-06",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -3263,10 +3263,10 @@
       "issue": null,
       "mergeInto": null,
       "sizeGzip": 1142,
-      "budget": 1100,
+      "budget": 1050,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-04",
+      "lastChange": "2026-11-06",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "built on by native, shop"
@@ -3295,7 +3295,7 @@
       "budget": 1200,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-04",
+      "lastChange": "2026-11-06",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "built on by native, shop"
@@ -3324,7 +3324,7 @@
       "budget": 1400,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-04",
+      "lastChange": "2026-11-06",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "built on by native, shop"
@@ -3339,14 +3339,14 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 2,
-        "orazaka-web-client": 2,
+        "verikora": 3,
+        "folioviv": 2,
+        "sovkora-web": 2,
         "ui-site": 1,
         "cockpit": 1
       },
       "nativeUse": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "live": 10,
       "paused": 0,
@@ -3384,7 +3384,7 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 10665,
+      "sizeGzip": 10674,
       "budget": 7100,
       "tests": 1,
       "stories": 2,
@@ -3433,9 +3433,9 @@
       "category": "media",
       "status": "experimental",
       "domain": "commerce",
-      "adoption": "akinaza#481",
+      "adoption": "folioviv#481",
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -3448,7 +3448,7 @@
       "budget": 6500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-28",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3463,7 +3463,7 @@
       "domain": "media",
       "adoption": null,
       "importers": {
-        "akinaza": 3
+        "folioviv": 3
       },
       "nativeUse": {},
       "live": 3,
@@ -3478,7 +3478,7 @@
       "budget": 22000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -3493,7 +3493,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -3523,7 +3523,7 @@
       "domain": "media",
       "adoption": null,
       "importers": {
-        "akinaza": 2
+        "folioviv": 2
       },
       "nativeUse": {},
       "live": 2,
@@ -3553,8 +3553,8 @@
       "domain": "media",
       "adoption": null,
       "importers": {
-        "yomizaka": 4,
-        "orazaka-web-client": 1
+        "verikora": 4,
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 5,
@@ -3663,7 +3663,7 @@
       "domain": "media",
       "adoption": null,
       "importers": {
-        "yomizaka": 6,
+        "verikora": 6,
         "cockpit": 1
       },
       "nativeUse": {},
@@ -3677,7 +3677,7 @@
       "budget": 5000,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-03",
+      "lastChange": "2026-11-06",
       "created": "2026-10-15",
       "verdict": "keep",
       "why": "7 live importer file(s)"
@@ -3692,9 +3692,9 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 9,
-        "akinaza": 1,
-        "orazaka-web-client": 3
+        "verikora": 9,
+        "folioviv": 1,
+        "sovkora-web": 3
       },
       "nativeUse": {},
       "live": 13,
@@ -3707,7 +3707,7 @@
       "budget": 8000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "13 live importer file(s)"
@@ -3722,14 +3722,14 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 7,
-        "akinaza": 6,
-        "orazaka-web-client": 2,
+        "verikora": 7,
+        "folioviv": 6,
+        "sovkora-web": 2,
         "cockpit": 2
       },
       "nativeUse": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "live": 19,
       "paused": 0,
@@ -3772,7 +3772,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-02",
+      "lastChange": "2026-11-06",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by app-frame, native"
@@ -3787,7 +3787,7 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 1
+        "verikora": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -3803,7 +3803,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-02",
+      "lastChange": "2026-11-06",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3818,7 +3818,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -3876,14 +3876,14 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 2
+        "folioviv": 2
       },
       "nativeUse": {},
       "live": 2,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "akinaza#315",
+      "issue": "folioviv#315",
       "mergeInto": null,
       "sizeGzip": 2830,
       "budget": 4000,
@@ -3904,7 +3904,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -3975,7 +3975,7 @@
       "budget": 2000,
       "tests": 5,
       "stories": 1,
-      "lastChange": "2026-11-05",
+      "lastChange": "2026-11-06",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by shop"
@@ -4023,7 +4023,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 18557,
+      "sizeGzip": 18902,
       "budget": 34000,
       "tests": null,
       "stories": null,
@@ -4075,7 +4075,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2744,
+      "sizeGzip": 2767,
       "budget": 3000,
       "tests": null,
       "stories": null,
@@ -4094,8 +4094,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 2,
@@ -4138,7 +4138,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by app-frame"
@@ -4168,7 +4168,7 @@
       "budget": 2500,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4238,9 +4238,9 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 8,
-        "akinaza": 12,
-        "orazaka-web-client": 4,
+        "verikora": 8,
+        "folioviv": 12,
+        "sovkora-web": 4,
         "krizaka-com": 13,
         "blog": 8,
         "java-site": 1,
@@ -4293,9 +4293,9 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 5,
-        "akinaza": 6,
-        "orazaka-web-client": 1,
+        "verikora": 5,
+        "folioviv": 6,
+        "sovkora-web": 1,
         "krizaka-com": 4,
         "blog": 5,
         "motion-lab": 3,
@@ -4341,8 +4341,8 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "orazaka-web-client": 1,
+        "verikora": 1,
+        "sovkora-web": 1,
         "krizaka-com": 4,
         "blog": 2,
         "ui-site": 1,
@@ -4364,7 +4364,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "13 live importer file(s)"
@@ -4406,7 +4406,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 2,
+        "sovkora-web": 2,
         "krizaka-com": 3,
         "blog": 1,
         "ui-site": 1,
@@ -4488,7 +4488,7 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 8635,
+      "sizeGzip": 8633,
       "budget": 6100,
       "tests": 1,
       "stories": 1,
@@ -4537,7 +4537,7 @@
       "domain": "cahier",
       "adoption": null,
       "importers": {
-        "akinaza": 2,
+        "folioviv": 2,
         "krizaka-com": 2
       },
       "nativeUse": {},
@@ -4554,7 +4554,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-20",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -4576,7 +4576,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 8814,
+      "sizeGzip": 8812,
       "budget": 6300,
       "tests": 1,
       "stories": 1,
@@ -4688,7 +4688,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 8922,
+      "sizeGzip": 8921,
       "budget": 7000,
       "tests": 1,
       "stories": 1,
@@ -4716,7 +4716,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 21892,
+      "sizeGzip": 21929,
       "budget": 18000,
       "tests": 1,
       "stories": 1,
@@ -4770,7 +4770,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 14559,
+      "sizeGzip": 14557,
       "budget": 10500,
       "tests": 1,
       "stories": 1,
@@ -4871,7 +4871,7 @@
       "domain": "cahier",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
+        "verikora": 2,
         "krizaka-com": 2,
         "motion-lab": 1
       },
@@ -4901,7 +4901,7 @@
       "domain": "cahier",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -4910,13 +4910,13 @@
       "builtOnBy": [
         "wall"
       ],
-      "issue": "akinaza#308",
+      "issue": "folioviv#308",
       "mergeInto": null,
       "sizeGzip": 1032,
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4942,7 +4942,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-25",
       "verdict": "ask",
       "why": "unused, Cahier register (sites)"
@@ -4983,8 +4983,8 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "orazaka-web-client": 3,
+        "verikora": 1,
+        "sovkora-web": 3,
         "krizaka-com": 4,
         "blog": 1,
         "ui-site": 2,
@@ -5023,7 +5023,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1,
+        "sovkora-web": 1,
         "krizaka-com": 2
       },
       "nativeUse": {},
@@ -5052,7 +5052,7 @@
       "domain": "conversation",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -5080,7 +5080,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -5174,7 +5174,7 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
+        "verikora": 3,
         "cockpit": 1
       },
       "nativeUse": {},
@@ -5190,7 +5190,7 @@
       "budget": 18000,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -5205,7 +5205,7 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "akinaza": 2
+        "folioviv": 2
       },
       "nativeUse": {},
       "live": 2,
@@ -5214,11 +5214,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 1849,
+      "sizeGzip": 1848,
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -5233,8 +5233,8 @@
       "domain": "identity",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 1
+        "verikora": 2,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 3,
@@ -5245,11 +5245,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 5604,
+      "sizeGzip": 5611,
       "budget": 4200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -5262,7 +5262,7 @@
       "category": "forms",
       "status": "experimental",
       "domain": "forms",
-      "adoption": "orazaka#207",
+      "adoption": "sovkora#207",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5271,11 +5271,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 10367,
+      "sizeGzip": 10456,
       "budget": 10500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-28",
       "verdict": "ask",
       "why": "unused, new (2026-10-28): its adoption issue?"
@@ -5290,9 +5290,9 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 7,
-        "akinaza": 11,
-        "orazaka-web-client": 8
+        "verikora": 7,
+        "folioviv": 11,
+        "sovkora-web": 8
       },
       "nativeUse": {},
       "live": 26,
@@ -5323,9 +5323,9 @@
       "domain": "identity",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 3,
-        "orazaka-web-client": 2
+        "verikora": 3,
+        "folioviv": 3,
+        "sovkora-web": 2
       },
       "nativeUse": {},
       "live": 8,
@@ -5338,7 +5338,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "8 live importer file(s)"
@@ -5353,8 +5353,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 2
+        "verikora": 3,
+        "folioviv": 2
       },
       "nativeUse": {},
       "live": 5,
@@ -5384,7 +5384,7 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -5423,7 +5423,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "landing-page",
@@ -5467,8 +5467,8 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 2,
@@ -5507,7 +5507,7 @@
       "budget": 1200,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "step-showcase",
@@ -5523,7 +5523,7 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -5532,11 +5532,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": "account-settings",
-      "sizeGzip": 2551,
+      "sizeGzip": 2550,
       "budget": 2200,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "account-settings",
@@ -5561,11 +5561,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2331,
+      "sizeGzip": 2334,
       "budget": 1700,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "built on by detail-layout"
@@ -5589,11 +5589,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 899,
+      "sizeGzip": 904,
       "budget": 1000,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -5615,11 +5615,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": "meter",
-      "sizeGzip": 1164,
+      "sizeGzip": 1169,
       "budget": 1000,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "meter",
@@ -5642,7 +5642,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 4472,
+      "sizeGzip": 4474,
       "budget": 4000,
       "tests": 0,
       "stories": 1,
@@ -5670,11 +5670,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 1480,
+      "sizeGzip": 1481,
       "budget": 1200,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "ask",
       "why": "used only by the motion lab"
@@ -5696,11 +5696,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 1443,
+      "sizeGzip": 1446,
       "budget": 1000,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -5741,9 +5741,9 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 2,
-        "orazaka-web-client": 1,
+        "verikora": 1,
+        "folioviv": 2,
+        "sovkora-web": 1,
         "java-site": 1,
         "ts-site": 1
       },
@@ -5784,7 +5784,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-12",
       "verdict": "merge",
       "into": "landing-page",
@@ -5811,7 +5811,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-12",
       "verdict": "merge",
       "into": "catalogue-page",
@@ -5827,8 +5827,8 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1,
-        "orazaka-web-client": 1,
+        "folioviv": 1,
+        "sovkora-web": 1,
         "krizaka-com": 1
       },
       "nativeUse": {},
@@ -5842,7 +5842,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -5857,9 +5857,9 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1,
-        "orazaka-web-client": 1
+        "verikora": 1,
+        "folioviv": 1,
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 3,
@@ -5872,7 +5872,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -5914,7 +5914,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1
+        "verikora": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -5980,11 +5980,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 3148,
+      "sizeGzip": 3366,
       "budget": 2700,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "8 live importer file(s)"
@@ -6064,7 +6064,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-12",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -6079,9 +6079,9 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1,
-        "orazaka-web-client": 1,
+        "verikora": 1,
+        "folioviv": 1,
+        "sovkora-web": 1,
         "krizaka-com": 1,
         "blog": 1
       },
@@ -6111,9 +6111,9 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1,
-        "orazaka-web-client": 1,
+        "verikora": 1,
+        "folioviv": 1,
+        "sovkora-web": 1,
         "krizaka-com": 1
       },
       "nativeUse": {},
@@ -6127,7 +6127,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -6142,7 +6142,7 @@
       "domain": "conversation",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1,
+        "sovkora-web": 1,
         "motion-lab": 4
       },
       "nativeUse": {},
@@ -6152,7 +6152,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 6188,
+      "sizeGzip": 6197,
       "budget": 7600,
       "tests": 1,
       "stories": 2,
@@ -6204,7 +6204,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 9998,
+      "sizeGzip": 10006,
       "budget": 20000,
       "tests": 0,
       "stories": 2,
@@ -6223,8 +6223,8 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 1
+        "verikora": 3,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 4,
@@ -6233,7 +6233,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 4678,
+      "sizeGzip": 4675,
       "budget": 13700,
       "tests": 1,
       "stories": 2,
@@ -6325,7 +6325,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-11-04",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "ask",
       "why": "used only by the motion lab"
@@ -6340,9 +6340,9 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 3,
-        "orazaka-web-client": 1,
+        "verikora": 3,
+        "folioviv": 3,
+        "sovkora-web": 1,
         "krizaka-com": 1,
         "blog": 2,
         "ui-site": 1,
@@ -6362,7 +6362,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "14 live importer file(s)"
@@ -6377,7 +6377,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1,
+        "folioviv": 1,
         "krizaka-com": 1,
         "blog": 1,
         "ui-site": 1,
@@ -6410,9 +6410,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 1,
-        "orazaka-web-client": 1,
+        "verikora": 2,
+        "folioviv": 1,
+        "sovkora-web": 1,
         "krizaka-com": 4,
         "blog": 1,
         "ui-site": 4,
@@ -6447,8 +6447,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 17,
-        "akinaza": 22,
+        "verikora": 17,
+        "folioviv": 22,
         "blog": 2,
         "ui-site": 3
       },
@@ -6459,11 +6459,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 95306,
+      "sizeGzip": 94790,
       "budget": 75000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "44 live importer file(s)"
@@ -6489,7 +6489,7 @@
       "budget": 6000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -6515,7 +6515,7 @@
       "budget": 2000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "a filed need (its repository left the organisation)"
@@ -6541,7 +6541,7 @@
       "budget": 2500,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -6567,7 +6567,7 @@
       "budget": 2500,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -6582,8 +6582,8 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 1
+        "verikora": 3,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 4,
@@ -6596,7 +6596,7 @@
       "budget": 2000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -6622,7 +6622,7 @@
       "budget": 23000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "a filed need (its repository left the organisation)"
@@ -6642,16 +6642,16 @@
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "akinaza#235",
+      "issue": "folioviv#235",
       "mergeInto": null,
-      "sizeGzip": 8021,
+      "sizeGzip": 8026,
       "budget": 13200,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "filed need akinaza#235"
+      "why": "filed need folioviv#235"
     },
     {
       "pkg": "ui",
@@ -6674,7 +6674,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -6700,7 +6700,7 @@
       "budget": 3500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-16",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -6767,7 +6767,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 10,
+        "folioviv": 10,
         "ui-site": 1
       },
       "nativeUse": {},
@@ -6779,11 +6779,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 6927,
+      "sizeGzip": 6926,
       "budget": 4300,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "11 live importer file(s)"
@@ -6798,7 +6798,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -6813,7 +6813,7 @@
       "budget": 1600,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6828,7 +6828,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -6843,7 +6843,7 @@
       "budget": 3000,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6858,7 +6858,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 3
+        "folioviv": 3
       },
       "nativeUse": {},
       "live": 3,
@@ -6873,7 +6873,7 @@
       "budget": 2400,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -6888,7 +6888,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -6903,7 +6903,7 @@
       "budget": 2500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6931,7 +6931,7 @@
       "budget": 3300,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "built on by shop-composer"
@@ -6946,7 +6946,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -6957,11 +6957,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 823,
+      "sizeGzip": 820,
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6976,7 +6976,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -6987,11 +6987,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 1000,
+      "sizeGzip": 1001,
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7006,7 +7006,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7021,7 +7021,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7036,7 +7036,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7051,7 +7051,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7066,37 +7066,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
-      },
-      "nativeUse": {},
-      "live": 1,
-      "paused": 0,
-      "pausedBy": [],
-      "builtOnBy": [
-        "shop-composer"
-      ],
-      "issue": null,
-      "mergeInto": null,
-      "sizeGzip": 676,
-      "budget": 1500,
-      "tests": 7,
-      "stories": 3,
-      "lastChange": "2026-10-30",
-      "created": "2026-10-27",
-      "verdict": "keep",
-      "why": "1 live importer file(s)"
-    },
-    {
-      "pkg": "ui",
-      "name": "shop/story",
-      "kind": "entry",
-      "title": null,
-      "category": null,
-      "status": null,
-      "domain": "commerce",
-      "adoption": null,
-      "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7111,7 +7081,37 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
+      "created": "2026-10-27",
+      "verdict": "keep",
+      "why": "1 live importer file(s)"
+    },
+    {
+      "pkg": "ui",
+      "name": "shop/story",
+      "kind": "entry",
+      "title": null,
+      "category": null,
+      "status": null,
+      "domain": "commerce",
+      "adoption": null,
+      "importers": {
+        "folioviv": 1
+      },
+      "nativeUse": {},
+      "live": 1,
+      "paused": 0,
+      "pausedBy": [],
+      "builtOnBy": [
+        "shop-composer"
+      ],
+      "issue": null,
+      "mergeInto": null,
+      "sizeGzip": 675,
+      "budget": 1500,
+      "tests": 7,
+      "stories": 3,
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7126,7 +7126,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7137,11 +7137,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 764,
+      "sizeGzip": 763,
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7156,7 +7156,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7171,7 +7171,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7186,7 +7186,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7197,11 +7197,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 402,
+      "sizeGzip": 401,
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7229,7 +7229,7 @@
       "budget": 2600,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "built on by shop-composer"
@@ -7257,7 +7257,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-10-30",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "built on by shop-composer"
@@ -7272,9 +7272,9 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 4,
-        "orazaka-web-client": 2
+        "verikora": 1,
+        "folioviv": 4,
+        "sovkora-web": 2
       },
       "nativeUse": {},
       "live": 7,
@@ -7287,7 +7287,7 @@
       "budget": 2300,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-02",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "7 live importer file(s)"
@@ -7313,7 +7313,7 @@
       "budget": 1300,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-02",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "ask",
       "why": "unused, new (2026-10-27): its adoption issue?"
@@ -7326,7 +7326,7 @@
       "category": "layouts",
       "status": "experimental",
       "domain": "navigation-shell",
-      "adoption": "orazaka#87",
+      "adoption": "sovkora#87",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7339,7 +7339,7 @@
       "budget": 3500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "ask",
       "why": "unused, new (2026-10-27): its adoption issue?"
@@ -7354,7 +7354,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7363,11 +7363,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 30177,
+      "sizeGzip": 30181,
       "budget": 25500,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -7437,10 +7437,10 @@
       "category": "blocks",
       "status": "experimental",
       "domain": "commerce",
-      "adoption": "orazaka#417",
+      "adoption": "sovkora#417",
       "importers": {
-        "yomizaka": 1,
-        "orazaka-web-client": 4
+        "verikora": 1,
+        "sovkora-web": 4
       },
       "nativeUse": {},
       "live": 5,
@@ -7453,7 +7453,7 @@
       "budget": 7000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-28",
       "verdict": "keep",
       "why": "5 live importer file(s)"
@@ -7466,7 +7466,7 @@
       "category": "forms",
       "status": "experimental",
       "domain": "commerce",
-      "adoption": "orazaka#417",
+      "adoption": "sovkora#417",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7479,7 +7479,7 @@
       "budget": 4250,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "ask",
       "why": "unused, new (2026-10-27): its adoption issue?"
@@ -7544,7 +7544,7 @@
       "category": "layout",
       "status": "experimental",
       "domain": "navigation-shell",
-      "adoption": "akinaza#104",
+      "adoption": "folioviv#104",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7557,7 +7557,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "ask",
       "why": "unused, new (2026-10-27): its adoption issue?"
@@ -7572,7 +7572,7 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7600,8 +7600,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 3
+        "verikora": 3,
+        "folioviv": 3
       },
       "nativeUse": {},
       "live": 6,
@@ -7655,7 +7655,7 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7798,7 +7798,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -7813,8 +7813,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 7,
-        "akinaza": 9,
+        "verikora": 7,
+        "folioviv": 9,
         "ui-site": 1
       },
       "nativeUse": {},
@@ -7843,8 +7843,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 1
+        "verikora": 3,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 4,
@@ -7883,7 +7883,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -7896,7 +7896,7 @@
       "category": "feedback",
       "status": "experimental",
       "domain": "feedback",
-      "adoption": "akinaza#278",
+      "adoption": "folioviv#278",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7909,7 +7909,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-10-29",
+      "lastChange": "2026-11-06",
       "created": "2026-10-27",
       "verdict": "ask",
       "why": "unused, new (2026-10-27): its adoption issue?"
@@ -7950,8 +7950,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 2,
@@ -7979,8 +7979,8 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 10,
-        "akinaza": 11
+        "verikora": 10,
+        "folioviv": 11
       },
       "nativeUse": {},
       "live": 21,

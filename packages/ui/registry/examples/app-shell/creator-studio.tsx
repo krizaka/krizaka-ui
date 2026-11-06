@@ -33,11 +33,11 @@ const SALES = [
 // is a drawer, the stats stack two by two, every widget takes the full width.
 export default function AppShellCreatorStudio() {
   return (
-    <div className="brand-orazaka">
+    <div className="brand-sovkora">
       <AppShell.Root>
         <AppShell.Sidebar
           label="Studio"
-          brand={<><ProductLogo id="orazaka" size={24} animated={false} /> Studio</>}
+          brand={<><ProductLogo id="sovkora" size={24} animated={false} /> Studio</>}
           collapseLabels={["Collapse", "Expand"]}
           closeLabel="Close the menu"
           footer={

@@ -1,9 +1,12 @@
 import { isAllowedUrl, normalizeBase } from "./hosts";
-import type { Environment, Manifest, ServiceBases, ServiceEntry } from "./manifest";
+import { type Environment, type Manifest, SERVICE_STATUS, type ServiceBases, type ServiceEntry } from "./manifest";
 import type { LocalizedMessage } from "./message";
 import type { DiscoveryStorage } from "./storage";
 import { type PublicKeys, verifyManifest } from "./verify";
 import { compareVersions } from "./version";
+
+// @fixed: the default period of the background refresh, 15 minutes in ms (an app passes its own); this client has no date library
+const DEFAULT_REFRESH_MS = 900_000;
 
 
 /** Where a resolved address came from, best first. */
@@ -14,6 +17,9 @@ export interface ResolvedService extends ServiceBases {
   authBase: string;
   source: ServiceSource;
 }
+
+/** The states of a gate, one closed set (the screens read it, never a literal). */
+export const GATE_STATE = { ok: "ok", updateRequired: "update-required", maintenance: "maintenance" } as const;
 
 /** What the app must do before it talks to a service. Only a verified document (live or cached) can ask for more than `ok`. */
 export type Gate =
@@ -53,7 +59,7 @@ export interface Discovery {
   start(): Promise<void>;
   /** Fetches, verifies and caches. Never rejects: a failure is a reason, and the previous state stays. */
   refresh(): Promise<RefreshResult>;
-  /** `getService("yomizaka").apiBase`. Never throws for a product with a default, a legacy address or an override. */
+  /** `getService("verikora").apiBase`. Never throws for a product with a default, a legacy address or an override. */
   getService(product: string): ResolvedService;
   getGate(product: string): Gate;
   /** The document in force (live, else cached), for diagnostics. */
@@ -227,7 +233,7 @@ export function createDiscovery(options: DiscoveryOptions): Discovery {
       if (compareVersions(appVersion, entry.minAppVersion) === -1) {
         return { state: "update-required", minAppVersion: entry.minAppVersion, latestAppVersion: entry.latestAppVersion, ...(entry.message ? { message: entry.message } : {}) };
       }
-      if (entry.status === "maintenance") return { state: "maintenance", ...(entry.message ? { message: entry.message } : {}) };
+      if (entry.status === SERVICE_STATUS.maintenance) return { state: "maintenance", ...(entry.message ? { message: entry.message } : {}) };
       return { state: "ok", updateAvailable: compareVersions(appVersion, entry.latestAppVersion) === -1, latestAppVersion: entry.latestAppVersion };
     },
     document: () => doc,
@@ -236,7 +242,7 @@ export function createDiscovery(options: DiscoveryOptions): Discovery {
       return () => void listeners.delete(listener);
     },
     version: () => counter,
-    startBackgroundRefresh(intervalMs = 15 * 60 * 1000) {
+    startBackgroundRefresh(intervalMs = DEFAULT_REFRESH_MS) {
       const timer = setInterval(() => void refresh(), intervalMs);
       return () => clearInterval(timer);
     },

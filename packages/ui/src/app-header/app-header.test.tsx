@@ -8,40 +8,40 @@ import { AppHeaderSearch, isSearchShortcut } from "./search/index";
 
 describe("AppHeader", () => {
   it("shows the name as text, the chips and the actions, with no axe violation", async () => {
-    const { container } = render(<AppHeader name="Orazaka" chips={<span>Local</span>} actions={<button type="button">Account</button>} />);
-    expect(screen.getByRole("banner").textContent).toContain("Orazaka");
+    const { container } = render(<AppHeader name="Sovkora" chips={<span>Local</span>} actions={<button type="button">Account</button>} />);
+    expect(screen.getByRole("banner").textContent).toContain("Sovkora");
     expect(screen.getByText("Local")).toBeTruthy();
     expect(screen.getByRole("button", { name: "Account" })).toBeTruthy();
     expect(await axeViolations(container)).toEqual([]);
   });
 
   it("carries the mark below md only (the rail carries it above)", () => {
-    const { container } = render(<AppHeader name="Orazaka" mark={<i>M</i>} />);
+    const { container } = render(<AppHeader name="Sovkora" mark={<i>M</i>} />);
     const mark = container.querySelector("[data-brand-mark]")!;
     expect(mark.className).toContain("md:hidden");
     expect(mark.className).not.toMatch(/(^|\s)hidden(\s|$)/);
   });
 
   it("makes the name a link home with an href or with the router's link", () => {
-    const { rerender } = render(<AppHeader name="Orazaka" href="/" />);
-    expect(screen.getByRole("link", { name: "Orazaka" }).getAttribute("href")).toBe("/");
-    rerender(<AppHeader name="Orazaka" homeLink={<a href="/home" data-router="" />} />);
-    expect(screen.getByRole("link", { name: "Orazaka" }).hasAttribute("data-router")).toBe(true);
+    const { rerender } = render(<AppHeader name="Sovkora" href="/" />);
+    expect(screen.getByRole("link", { name: "Sovkora" }).getAttribute("href")).toBe("/");
+    rerender(<AppHeader name="Sovkora" homeLink={<a href="/home" data-router="" />} />);
+    expect(screen.getByRole("link", { name: "Sovkora" }).hasAttribute("data-router")).toBe(true);
   });
 
   it("adds homeClassName to the home link, from an href or from the router's link, and keeps the link's own class", () => {
-    const { rerender } = render(<AppHeader name="Orazaka" href="/" homeClassName="min-h-11" />);
-    expect(screen.getByRole("link", { name: "Orazaka" }).className).toMatch(/\bmin-h-11\b/);
-    rerender(<AppHeader name="Orazaka" homeLink={<a href="/home" className="own" />} homeClassName="min-h-11" />);
-    const link = screen.getByRole("link", { name: "Orazaka" });
+    const { rerender } = render(<AppHeader name="Sovkora" href="/" homeClassName="min-h-11" />);
+    expect(screen.getByRole("link", { name: "Sovkora" }).className).toMatch(/\bmin-h-11\b/);
+    rerender(<AppHeader name="Sovkora" homeLink={<a href="/home" className="own" />} homeClassName="min-h-11" />);
+    const link = screen.getByRole("link", { name: "Sovkora" });
     expect(link.className).toMatch(/\bmin-h-11\b/);
     expect(link.className).toMatch(/\bown\b/);
-    rerender(<AppHeader name="Orazaka" />);
+    rerender(<AppHeader name="Sovkora" />);
     expect(screen.queryByRole("link")).toBeNull();
   });
 
   it("lines the name up with the rail: the bar is 3.5 rem tall like the rail's mark, and the name sits close to the rail", () => {
-    render(<AppHeader name="Orazaka" />);
+    render(<AppHeader name="Sovkora" />);
     const cls = screen.getByRole("banner").className;
     expect(cls).toContain("h-14");
     expect(cls).toContain("md:pl-3");
@@ -55,7 +55,7 @@ describe("AppHeader — the family's slots (#640)", () => {
     const slot = (id: string) => <button type="button" data-id={id}>{id}</button>;
     render(
       <AppHeader
-        name="Yomizaka"
+        name="Verikora"
         account={slot("account")}
         primary={slot("primary")}
         notifications={slot("notifications")}
@@ -69,9 +69,9 @@ describe("AppHeader — the family's slots (#640)", () => {
   });
 
   it("hides an empty slot and draws no controls row when every slot is empty", () => {
-    const { container, rerender } = render(<AppHeader name="Yomizaka" notifications={null} messages={false} />);
+    const { container, rerender } = render(<AppHeader name="Verikora" notifications={null} messages={false} />);
     expect(container.querySelector(".ml-auto")).toBeNull();
-    rerender(<AppHeader name="Yomizaka" account={<button type="button">Account</button>} />);
+    rerender(<AppHeader name="Verikora" account={<button type="button">Account</button>} />);
     expect(container.querySelectorAll(".ml-auto > *")).toHaveLength(1);
   });
 
@@ -86,7 +86,7 @@ describe("AppHeader — the family's slots (#640)", () => {
   it("composes the family's bar with no axe violation", async () => {
     const { container } = render(
       <AppHeader
-        name="Yomizaka"
+        name="Verikora"
         messages={<AppHeaderCount label="Messages" icon={<svg />} count={2} countLabel="2 unread" href="/messages" current />}
         notifications={<AppHeaderCount label="Notifications" icon={<svg />} count={3} countLabel="3 new" />}
       />,

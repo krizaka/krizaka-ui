@@ -1,7 +1,7 @@
 import { call, EVENTS, type TauriBridge } from "./bridge";
 
 /**
- * Deep links (`yomizaka://app/rapports`, the product's web links): the native side turns each into a route inside the app
+ * Deep links (`verikora://app/rapports`, the product's web links): the native side turns each into a route inside the app
  * or drops it; `navigate` receives the route. The links that opened the app before the page listened are taken once
  * listening has started, so none is lost (one that arrives in between may come twice; navigating twice to the same route
  * is harmless).

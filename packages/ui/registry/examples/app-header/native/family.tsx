@@ -13,8 +13,8 @@ export default function NativeAppHeaderFamily() {
   return (
     <View style={{ width: 360 }}>
       <AppHeader
-        name="Yomizaka"
-        mark={<ProductMark id="yomizaka" size={24} animated={false} />}
+        name="Verikora"
+        mark={<ProductMark id="verikora" size={24} animated={false} />}
         search={<AppHeaderSearch label="Search files and checks" onOpen={() => undefined} />}
         language={
           <Pressable role="button" aria-label="Language: EN (English)" style={{ minHeight: 40, justifyContent: "center", paddingHorizontal: 6 }}>

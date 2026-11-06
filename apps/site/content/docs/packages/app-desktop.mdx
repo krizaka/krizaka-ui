@@ -5,14 +5,14 @@ description: What every Krizaka Mac app calls on its native side, typed — fold
 
 A Krizaka Mac app is the web in a window (ADR-002); what a browser cannot do — read a folder the person chose, keep a
 session in the Keychain, answer a deep link, show a native menu — is the Rust of
-[krizaka-tauri-kit](https://github.com/krizaka/krizaka-tauri-kit) and its plugin, `tauri-plugin-krizaka`.
+[krizaka-desktop](https://github.com/krizaka/krizaka-desktop) and its plugin, `tauri-plugin-krizaka`.
 `@krizaka/app-desktop` is the page's typed side of that plugin, with **Tauri passed in, never imported**.
 
 ```ts
 const bridge = { invoke, listen };                       // from @tauri-apps/api
 const folders = createFolders(bridge);
-const session = createSessionStore({ storage: keychainStorage(bridge), key: "yomizaka.session" });
-await followLinks(bridge, (route) => navigate(route));    // yomizaka://app/rapports → /app/rapports
+const session = createSessionStore({ storage: keychainStorage(bridge), key: "verikora.session" });
+await followLinks(bridge, (route) => navigate(route));    // verikora://app/rapports → /app/rapports
 await setNativeMenu(bridge, spec, { "library.add-folder": () => void folders.grant() });
 ```
 

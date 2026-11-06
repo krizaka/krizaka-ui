@@ -7,7 +7,7 @@ export const meta = {
   category: "data-display",
   domain: "commerce",
   platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "The native twin is a `Card` with a `Meter`; it follows when a mobile screen shows a quota (Yomizaka's library)." }, desktop: "web" },
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#275", reason: "The native twin is a `Card` with a `Meter`; it follows when a mobile screen shows a quota (Verikora's library)." }, desktop: "web" },
   whenToUse: ["A creator's or an owner's storage, minutes or credits against their plan.", "Any limit the person can run into and should hear about before."],
   whenNotToUse: [
     { when: "A bare measure with no plan, no message.", use: "meter" },

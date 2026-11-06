@@ -17,7 +17,7 @@ Price: $40.00 + GST $2.00 + QST $3.99 = $45.99
 
 Free cancellation until 24 h before.
 
-See my booking https://dev.akinaza.com/en/account/bookings/example
+See my booking https://dev.folioviv.com/en/account/bookings/example
 
 ----------------------------------------
 

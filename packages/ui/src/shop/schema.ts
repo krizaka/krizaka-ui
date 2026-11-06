@@ -26,7 +26,7 @@ export const shopPageSchema = z
     preset: presetRef,
     /** Overrides the preset's density. */
     density: z.optional(z.enum(["compact", "airy"])),
-    /** One of the accents the look lists as tested (`krizaka`, `akinaza:accent-2`…): the owner's choice within the look. */
+    /** One of the accents the look lists as tested (`krizaka`, `folioviv:accent-2`…): the owner's choice within the look. */
     accent: z.optional(z.string().check(z.regex(/^[a-z]+(:accent-2)?$/, "an accent of the look"))),
     sections: z.array(sectionUnion).check(z.minLength(1), z.maxLength(SHOP_LIMITS.sections)),
   })

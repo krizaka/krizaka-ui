@@ -8,8 +8,8 @@
 import { DEFAULT_VIEW, EASE, FALL, OUT, POP } from "./choreography.mjs";
 import { birdLoops } from "./choreography.mjs";
 
-// The family as it is today (2026-10-29): Krizaka (the falcon watches), Orazaka (the duck builds, the engine), Yomizaka (the owl
-// reads), Akinaza (the beaver builds the shop). The birds of the products that left the family are not in the film.
+// The family as it is today (2026-10-29): Krizaka (the falcon watches), Sovkora (the duck builds, the engine), Verikora (the owl
+// reads), Folioviv (the beaver builds the shop). The birds of the products that left the family are not in the film.
 const CAST = ["falcon", "duck", "owl", "beaver"];
 const FAMILY = [];
 /** The home's ambient loop keeps its own flock (it is a backdrop with no words). */
@@ -39,15 +39,15 @@ export const FILM = {
   cues: [
     { id: "title", start: 0.6, end: 3.6, en: "The Krizaka family.", fr: "La famille Krizaka." },
     { id: "falcon", start: spotlight.falcon + 0.2, end: spotlight.falcon + 4.8, en: "The falcon is Krizaka: it keeps watch, security comes first.", fr: "Le faucon, c’est Krizaka : il veille, la sécurité d’abord." },
-    { id: "duck", start: spotlight.duck + 0.2, end: spotlight.duck + 4.8, en: "The duck is Orazaka: the engine that runs the family’s AI.", fr: "Le canard, c’est Orazaka : le moteur qui fait tourner l’IA de la famille." },
-    { id: "owl", start: spotlight.owl + 0.2, end: spotlight.owl + 4.8, en: "The owl is Yomizaka: it reads a lease and quotes the exact passage.", fr: "Le hibou, c’est Yomizaka : il lit un bail et cite le passage exact." },
-    { id: "beaver", start: spotlight.beaver + 0.2, end: spotlight.beaver + 4.8, en: "The beaver is Akinaza: bookings, invoices, a tax return to review.", fr: "Le castor, c’est Akinaza : réservations, factures, une déclaration à relire." },
+    { id: "duck", start: spotlight.duck + 0.2, end: spotlight.duck + 4.8, en: "The duck is Sovkora: the engine that runs the family’s AI.", fr: "Le canard, c’est Sovkora : le moteur qui fait tourner l’IA de la famille." },
+    { id: "owl", start: spotlight.owl + 0.2, end: spotlight.owl + 4.8, en: "The owl is Verikora: it reads a lease and quotes the exact passage.", fr: "Le hibou, c’est Verikora : il lit un bail et cite le passage exact." },
+    { id: "beaver", start: spotlight.beaver + 0.2, end: spotlight.beaver + 4.8, en: "The beaver is Folioviv: bookings, invoices, a tax return to review.", fr: "Le castor, c’est Folioviv : réservations, factures, une déclaration à relire." },
     { id: "together", start: LAST_BACK, end: LAST_BACK + 2.4, en: "Four birds, one family.", fr: "Quatre oiseaux, une famille." },
   ],
   /** Where each bird stands and moves (seconds over the whole film). */
   actorTrack,
   sceneTracks,
-  /** The music bed (ACE-Step through Orazaka's media worker): the prompt and the seed that made it. */
+  /** The music bed (ACE-Step through Sovkora's media worker): the prompt and the seed that made it. */
   music: {
     prompt: "warm whimsical cinematic underscore, gentle pizzicato strings, celesta and soft marimba, light woodwinds, warm pads, hopeful, premium brand film, unhurried, 92 bpm, instrumental",
     seed: 20261016,

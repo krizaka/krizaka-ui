@@ -2,7 +2,7 @@ import { familyLabels, type OrgFacts, orgFamilyLabels, siteById, siteGroups, sit
 
 describe("sites — the Krizaka family", () => {
   it("lists every site once, with an https address and a repository on GitHub", () => {
-    expect(sites.map((s) => s.id)).toEqual(["krizaka", "orazaka", "yomizaka", "akinaza", "ui", "java", "ts", "motion", "github"]);
+    expect(sites.map((s) => s.id)).toEqual(["krizaka", "sovkora", "verikora", "folioviv", "ui", "java", "ts", "motion", "github"]);
     for (const site of sites) {
       expect(site.url).toMatch(/^https:\/\//);
       expect(site.repo).toMatch(/^https:\/\/github\.com\/krizaka(\/[a-z-]+)?$/);
@@ -14,9 +14,9 @@ describe("sites — the Krizaka family", () => {
   it("names the family's addresses: www, www.<product>, ui., java., ts., GitHub", () => {
     expect(sites.map((s) => s.host)).toEqual([
       "www.krizaka.com",
-      "www.orazaka.com",
-      "www.yomizaka.com",
-      "www.akinaza.com",
+      "www.sovkora.com",
+      "www.verikora.com",
+      "www.folioviv.com",
       "ui.krizaka.com",
       "java.krizaka.com",
       "ts.krizaka.com",
@@ -25,16 +25,16 @@ describe("sites — the Krizaka family", () => {
     ]);
   });
 
-  it("says each kind and status: the company, the three products in focus (Yomizaka and Akinaza in development), open source", () => {
+  it("says each kind and status: the company, the three products in focus (Verikora and Folioviv in development), open source", () => {
     expect(siteById("krizaka").kind).toBe("company");
-    expect(sites.filter((s) => s.kind === "product").map((s) => s.id)).toEqual(["orazaka", "yomizaka", "akinaza"]);
+    expect(sites.filter((s) => s.kind === "product").map((s) => s.id)).toEqual(["sovkora", "verikora", "folioviv"]);
     // In development, with a www site each.
-    for (const id of ["yomizaka", "akinaza"] as const) {
+    for (const id of ["verikora", "folioviv"] as const) {
       expect(siteById(id).status).toBe("development");
       expect(siteById(id).url).toBe(`https://www.${id}.com`);
     }
     expect(siteById("ui").kind).toBe("open-source");
-    expect(siteById("java").repo).toBe("https://github.com/krizaka/krizaka-build");
+    expect(siteById("java").repo).toBe("https://github.com/krizaka/krizaka-java");
     // Its full name, never « Krizaka TS » (#585).
     expect(siteById("ts")).toMatchObject({ name: "Krizaka TypeScript", kind: "open-source", status: "development", url: "https://ts.krizaka.com", repo: "https://github.com/krizaka/krizaka-ts" });
     // The family lab: Krizaka UI's motion played live, built in the open, served at lab.krizaka.com.
@@ -45,7 +45,7 @@ describe("sites — the Krizaka family", () => {
     expect(siteGroups).toEqual(["krizaka", "products", "open-source", "github"]);
     expect(sitesByGroup().map((g) => [g.group, g.sites.map((s) => s.id)])).toEqual([
       ["krizaka", ["krizaka"]],
-      ["products", ["orazaka", "yomizaka", "akinaza"]],
+      ["products", ["sovkora", "verikora", "folioviv"]],
       ["open-source", ["ui", "java", "ts", "motion"]],
       ["github", ["github"]],
     ]);
@@ -63,14 +63,14 @@ describe("sites — the Krizaka family", () => {
     expect(t.place).toMatch(/Montréal/);
   });
 
-  it("makes the product the subject of its line: no product line but Orazaka's names Orazaka (the engine, never the subject)", () => {
+  it("makes the product the subject of its line: no product line but Sovkora's names Sovkora (the engine, never the subject)", () => {
     for (const t of Object.values(familyLabels)) {
       for (const site of sites) {
-        if (site.id === "orazaka") continue;
-        expect(t.descriptions[site.id], `${site.id} must not name Orazaka`).not.toMatch(/orazaka/i);
+        if (site.id === "sovkora") continue;
+        expect(t.descriptions[site.id], `${site.id} must not name Sovkora`).not.toMatch(/sovkora/i);
       }
     }
-    expect(familyLabels.fr.descriptions.yomizaka).toBe("Yomizaka lit vos baux, contrats et factures.");
+    expect(familyLabels.fr.descriptions.verikora).toBe("Verikora lit vos baux, contrats et factures.");
   });
 
   it("says the statuses in words", () => {
@@ -79,9 +79,9 @@ describe("sites — the Krizaka family", () => {
     expect(familyLabels.en.status.upcoming).toBe("Coming soon");
   });
 
-  it("keeps Akinaza to preparing, never filing", () => {
+  it("keeps Folioviv to preparing, never filing", () => {
     for (const t of Object.values(familyLabels)) {
-      expect(t.descriptions.akinaza).not.toMatch(/e-?fil|t[ée]l[ée]transm|transmission|file your|produire/i);
+      expect(t.descriptions.folioviv).not.toMatch(/e-?fil|t[ée]l[ée]transm|transmission|file your|produire/i);
       expect(t.status.development.trim().length).toBeGreaterThan(0);
     }
   });

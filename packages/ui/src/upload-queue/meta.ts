@@ -8,7 +8,7 @@ export const meta = {
   domain: "feedback",
   platforms: "web",
   parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#511", reason: "The Expo apps get the same queue on @krizaka/ui/native." }, desktop: "web" },
-  whenToUse: ["Several files are checked, encoded or imported at once and the user keeps browsing.", "Progress comes from live events (Orazaka's run events): the row shows their words."],
+  whenToUse: ["Several files are checked, encoded or imported at once and the user keeps browsing.", "Progress comes from live events (Sovkora's run events): the row shows their words."],
   whenNotToUse: [{ when: "One file in a form, with its own progress.", use: "file-upload" }, { when: "A task whose progress is a single percentage.", use: "progress" }],
   bestPractices: ["Show the row at once (optimistic), then update it from the events: queued, reading, checking, done, failed.", "Say what it does in words (`statusText`, translated): a bare spinner says nothing.", "Put the result in `result` (a chip) and one quiet action in `trailing` (keep, retry).", "Only working rows move: the shimmer and the live progress stop with the work; reduced motion stops them.", "`TaskTray` is the container: a sheet on a phone, bottom-right from `sm`."],
   accessibility: { keyboard: [{ keys: "Enter / Space", action: "Folds or opens the tray." }], notes: ["The list is named by `label` and announced politely.", "A working row's progress is a `progressbar` named by the file.", "Failures are said in words, never by colour alone."] },

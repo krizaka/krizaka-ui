@@ -11,7 +11,7 @@ const dot = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWid
 export default function AppShellDesktop() {
   return (
     <AppShell.Root desktop style={{ ["--kz-window-height" as string]: "34rem" }}>
-      <AppShell.Sidebar label="Orazaka" brand={<><ProductLogo id="orazaka" size={22} animated={false} /> Orazaka</>} collapseLabels={["Collapse", "Expand"]} closeLabel="Close">
+      <AppShell.Sidebar label="Sovkora" brand={<><ProductLogo id="sovkora" size={22} animated={false} /> Sovkora</>} collapseLabels={["Collapse", "Expand"]} closeLabel="Close">
         <AppShell.Item href="#workspace" icon={dot} label="Workspace" shortcut="mod+1" />
         <AppShell.Item href="#models" icon={dot} label="Models" shortcut="mod+2" current />
         <AppShell.Item href="#jobs" icon={dot} label="Jobs" shortcut="mod+3" badge={2} />

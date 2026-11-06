@@ -9,8 +9,8 @@ function Menu({ onLanguage = () => {}, onSignOut = () => {} }: { onLanguage?: (v
     <AccountMenu
       label="Account"
       name="Eric"
-      email="eric@orazaka.io"
-      avatar={{ defaultAvatar: { brand: "orazaka", seed: "eric" } }}
+      email="eric@sovkora.io"
+      avatar={{ defaultAvatar: { brand: "sovkora", seed: "eric" } }}
       links={[
         { id: "profile", label: "Profile", href: "/settings/account" },
         { id: "settings", label: "Settings", href: "/settings" },
@@ -26,7 +26,7 @@ describe("AccountMenu", () => {
     const user = userEvent.setup();
     render(<Menu />);
     await user.click(screen.getByRole("button", { name: "Account" }));
-    expect(screen.getByText("eric@orazaka.io")).toBeTruthy();
+    expect(screen.getByText("eric@sovkora.io")).toBeTruthy();
     expect(screen.getByRole("menuitem", { name: "Profile" }).getAttribute("href")).toBe("/settings/account");
     expect(screen.getByRole("menuitem", { name: "Settings" })).toBeTruthy();
     expect(screen.getByRole("menuitem", { name: /Language/ })).toBeTruthy();
@@ -36,9 +36,9 @@ describe("AccountMenu", () => {
 
   it("shows the e-mail once when the name is the e-mail (an account with no name yet)", async () => {
     const user = userEvent.setup();
-    render(<AccountMenu label="Account" name="eric@orazaka.io" email="eric@orazaka.io" showName signOut={{ label: "Sign out", onSelect: () => {} }} />);
+    render(<AccountMenu label="Account" name="eric@sovkora.io" email="eric@sovkora.io" showName signOut={{ label: "Sign out", onSelect: () => {} }} />);
     await user.click(screen.getByRole("button", { name: "Account" }));
-    expect(within(screen.getByRole("menu")).getAllByText("eric@orazaka.io")).toHaveLength(1);
+    expect(within(screen.getByRole("menu")).getAllByText("eric@sovkora.io")).toHaveLength(1);
   });
 
   it("the language is a compact submenu showing the current one, and changing it calls back", async () => {

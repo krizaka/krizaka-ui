@@ -235,7 +235,7 @@ export type Absence =
   | { readonly status: "n/a"; readonly reason: string; readonly use?: ComponentName; readonly issue?: undefined };
 
 /**
- * Desktop is the Orazaka Mac app (Tauri 2: the system WebView renders the web components — ADR-002). `web`: the web
+ * Desktop is the Sovkora Mac app (Tauri 2: the system WebView renders the web components — ADR-002). `web`: the web
  * component runs there as it is; `desktop`: it also has a desktop form (a window's title bar, a denser layout…), said in
  * its documentation; otherwise the absence and why.
  */

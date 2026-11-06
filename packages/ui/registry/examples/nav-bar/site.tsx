@@ -2,8 +2,8 @@ import { Button } from "@krizaka/ui/button";
 import { NavBar } from "@krizaka/ui/nav-bar";
 
 const products = [
-  { href: "#orazaka", title: "Orazaka", description: "Sovereign AI, on your own servers." },
-  { href: "#yomizaka", title: "Yomizaka", description: "Reads your leases, contracts and invoices." },
+  { href: "#sovkora", title: "Sovkora", description: "Sovereign AI, on your own servers." },
+  { href: "#verikora", title: "Verikora", description: "Reads your leases, contracts and invoices." },
   { href: "#ui", title: "Krizaka UI", description: "The components behind both." },
 ];
 

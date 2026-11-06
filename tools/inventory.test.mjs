@@ -65,7 +65,7 @@ describe("classify", () => {
 
   it("a product component on the primitive, on the product kit or listed in §2.2 is a legitimate composite", () => {
     assert.equal(classify('import { Card } from "@krizaka/ui/card";\nexport function AuctionCard() {}')[0].status, "composite");
-    assert.equal(classify('import { Dialog } from "@krizaka/orazaka-design-system";\nexport function JobModal() {}')[0].status, "composite");
+    assert.equal(classify('import { Dialog } from "@krizaka/sovkora-design-system";\nexport function JobModal() {}')[0].status, "composite");
     assert.equal(classify("export function LiveBadge() {}")[0].status, "composite");
     assert.equal(classify('import { Badge } from "@krizaka/ui/native";\nexport function MediaBadge() {}')[0].status, "composite");
   });
@@ -81,11 +81,11 @@ describe("classify", () => {
 });
 
 describe("the product's door", () => {
-  const web = "products/yomizaka/apps/web";
+  const web = "products/verikora/apps/web";
   const files = {
     [`${web}/components/ui/index.ts`]: [
       'export { Card } from "@krizaka/ui/card";',
-      'export { LiveBadge } from "@krizaka/yomizaka-design-system";',
+      'export { LiveBadge } from "@krizaka/verikora-design-system";',
       'export { Button, type ButtonProps, IconButton } from "./Button";',
       'export { Dialog, Sheet, countdownUnits } from "./client";',
     ].join("\n"),
@@ -103,7 +103,7 @@ describe("the product's door", () => {
     const door = readDoor(sourceFiles(join(base, web)));
     assert.deepEqual(Object.fromEntries(door.names), {
       Card: "@krizaka/ui/card",
-      LiveBadge: "@krizaka/yomizaka-design-system",
+      LiveBadge: "@krizaka/verikora-design-system",
       Button: "@krizaka/ui/button",
       IconButton: "@krizaka/ui/button",
       Dialog: "@krizaka/ui/dialog",
@@ -115,7 +115,7 @@ describe("the product's door", () => {
 
   it("a component importing the concept's primitive through the door is a composite; another primitive is not enough", () => {
     const report = inventory({ base: tree(files) });
-    const web = report.repos.find((r) => r.name === "yomizaka-web");
+    const web = report.repos.find((r) => r.name === "verikora-web");
     const status = Object.fromEntries(web.findings.map((f) => [f.symbol, [f.status, f.why]]));
     assert.deepEqual(status.VideoCard, ["composite", "importe la primitive par la porte du produit"]);
     assert.equal(status.WithdrawSheet[0], "composite");
@@ -129,30 +129,30 @@ describe("the product's door", () => {
 describe("inventory", () => {
   it("scans the repositories, skips tests, stories, builds and illustrations, and reports missing clones", () => {
     const base = tree({
-      "products/yomizaka/apps/web/components/VideoCard.tsx": "export function VideoCard() {}",
-      "products/yomizaka/apps/web/components/VideoCard.test.tsx": "export function VideoCard() {}",
-      "products/yomizaka/apps/web/components/Card.stories.tsx": "export function Card() {}",
-      "products/yomizaka/apps/web/node_modules/x/Button.tsx": "export function Button() {}",
-      "products/yomizaka/apps/web/components/illustrations/Mascot.tsx": "export function DuckAvatar() {}",
-      "products/yomizaka/apps/web/console/components/ConfirmDialog.tsx": 'import { AlertDialog } from "@krizaka/ui/dialog";\nexport function ConfirmDialog() {}',
+      "products/verikora/apps/web/components/VideoCard.tsx": "export function VideoCard() {}",
+      "products/verikora/apps/web/components/VideoCard.test.tsx": "export function VideoCard() {}",
+      "products/verikora/apps/web/components/Card.stories.tsx": "export function Card() {}",
+      "products/verikora/apps/web/node_modules/x/Button.tsx": "export function Button() {}",
+      "products/verikora/apps/web/components/illustrations/Mascot.tsx": "export function DuckAvatar() {}",
+      "products/verikora/apps/web/console/components/ConfirmDialog.tsx": 'import { AlertDialog } from "@krizaka/ui/dialog";\nexport function ConfirmDialog() {}',
       "products/notes.md": "",
       "app/components/ThemeProvider.tsx": "export function ThemeProvider() {}",
       "company/x.tsx": "export function Button() {}",
     });
-    assert.deepEqual(sourceFiles(join(base, "products/yomizaka/apps/web")).map((f) => f.split("/").pop()).sort(), ["ConfirmDialog.tsx", "Mascot.tsx", "VideoCard.tsx"]);
+    assert.deepEqual(sourceFiles(join(base, "products/verikora/apps/web")).map((f) => f.split("/").pop()).sort(), ["ConfirmDialog.tsx", "Mascot.tsx", "VideoCard.tsx"]);
     const report = inventory({ base });
     const byName = Object.fromEntries(report.repos.map((r) => [r.name, r]));
     assert.equal(report.repos.length, REPOS.length);
-    assert.deepEqual(byName["yomizaka-web"].findings.map((f) => [f.file, f.status]), [["components/VideoCard.tsx", "doublon"], ["console/components/ConfirmDialog.tsx", "adaptateur"]]);
-    assert.equal(byName["yomizaka-web"].findings.find((f) => f.file === "console/components/ConfirmDialog.tsx").status, "adaptateur");
+    assert.deepEqual(byName["verikora-web"].findings.map((f) => [f.file, f.status]), [["components/VideoCard.tsx", "doublon"], ["console/components/ConfirmDialog.tsx", "adaptateur"]]);
+    assert.equal(byName["verikora-web"].findings.find((f) => f.file === "console/components/ConfirmDialog.tsx").status, "adaptateur");
     assert.deepEqual(byName["krizaka-com"].findings.map((f) => f.symbol), ["ThemeProvider"]);
-    assert.equal(byName["yomizaka-mobile"].missing, true);
+    assert.equal(byName["verikora-mobile"].missing, true);
 
     const md = toMarkdown(report);
-    assert.match(md, /\| yomizaka-web \| 3 \| 1 \| 0 \| 1 \|/);
+    assert.match(md, /\| verikora-web \| 3 \| 1 \| 0 \| 1 \|/);
     assert.match(md, /\*\*2 doublon\(s\) à migrer\.\*\*/);
-    assert.match(md, /\| yomizaka-mobile \| — \| clone absent/);
-    assert.match(issueBody(byName["yomizaka-web"]), /`components\/VideoCard.tsx` \| `VideoCard` \| Carte \| `@krizaka\/ui\/card`/);
+    assert.match(md, /\| verikora-mobile \| — \| clone absent/);
+    assert.match(issueBody(byName["verikora-web"]), /`components\/VideoCard.tsx` \| `VideoCard` \| Carte \| `@krizaka\/ui\/card`/);
   });
 
   it("reads an overridden path for one repository", () => {

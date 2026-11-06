@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import FrenchOrazakaExample from "../../registry/examples/charts-provider/french-orazaka";
+import FrenchSovkoraExample from "../../registry/examples/charts-provider/french-sovkora";
 import { chartFrame } from "./frame";
 
 /** Charts provider. Each story renders a named example of the registry: the code ui.krizaka.com shows. */
@@ -9,4 +9,4 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const FrenchOrazaka: Story = { render: () => <FrenchOrazakaExample /> };
+export const FrenchSovkora: Story = { render: () => <FrenchSovkoraExample /> };

@@ -29,7 +29,7 @@ export interface ChoiceItem {
   meta?: React.ReactNode;
   /** Makes the tile a link (ignored when the grid is selectable). */
   href?: string;
-  /** A brand scope for this tile (`orazaka` → `.brand-orazaka`): its accent becomes that brand's. */
+  /** A brand scope for this tile (`sovkora` → `.brand-sovkora`): its accent becomes that brand's. */
   brand?: string;
   /** Not selectable. */
   disabled?: boolean;
@@ -68,7 +68,7 @@ export type ChoiceGridProps = Omit<React.HTMLAttributes<HTMLDivElement>, "defaul
    * @default "default"
    */
   variant?: StoryVariant;
-  /** A brand scope for the whole grid (`orazaka` → `.brand-orazaka`). */
+  /** A brand scope for the whole grid (`sovkora` → `.brand-sovkora`). */
   brand?: string;
   /**
    * The tiles' arrival on mount (arcade: the corners locking one by one, the gauges filling). Always off under

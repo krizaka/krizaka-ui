@@ -7,8 +7,8 @@ import { Button } from "@krizaka/ui/button";
 export default function AppHeaderBasic() {
   return (
     <AppHeader
-      name="Orazaka"
-      mark={<ProductLogo id="orazaka" size={22} animated={false} />}
+      name="Sovkora"
+      mark={<ProductLogo id="sovkora" size={22} animated={false} />}
       href="#home"
       chips={<Badge tone="success" dot>Local · Sovereign</Badge>}
       actions={<Button size="sm" variant="secondary">Account</Button>}

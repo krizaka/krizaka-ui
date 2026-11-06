@@ -1,5 +1,5 @@
 "use client";
-// Latency per capability, model or kind of job (the console's supervision, Orazaka's "time to result"): the median
+// Latency per capability, model or kind of job (the console's supervision, Sovkora's "time to result"): the median
 // and the 95th percentile side by side in horizontal bars, durations written in the unit that fits (ms, s, min), the
 // service objective as a line, the slowest p95 and how many go past the objective written above.
 import { useMemo } from "react";

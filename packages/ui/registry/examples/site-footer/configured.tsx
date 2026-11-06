@@ -33,5 +33,5 @@ const messages: Record<string, string> = {
 export default function SiteFooterConfigured() {
   const socials = [{ id: "github", label: "GitHub", url: "https://github.com/krizaka" }];
   const config = resolveFooterSettings(settings, (key) => messages[key] ?? key, socials);
-  return <SiteFooter current="yomizaka" labels={familyLabels.en} version="1.2.3" config={config} />;
+  return <SiteFooter current="verikora" labels={familyLabels.en} version="1.2.3" config={config} />;
 }

@@ -33,9 +33,9 @@ This ADR does three things:
 
 `pnpm inventory:usage`, against `main` of each consumer:
 
-- **Live products:** Yomizaka, Akinaza, orazaka-web-client.
+- **Live products:** Verikora, Folioviv, sovkora-web.
 - **Live sites:** krizaka-com, the blog, ui.krizaka.com's own chrome (`apps/site`; the registry examples are not
-  counted), java.krizaka.com (`krizaka-build/site`), the ts site (`krizaka-ts/site`) and the motion lab.
+  counted), java.krizaka.com (`krizaka-java/site`), the ts site (`krizaka-ts/site`) and the motion lab.
 - **Tool:** the internal cockpit. Only its import names are read.
 - **Paused, counted apart:** the former products.
 
@@ -138,14 +138,14 @@ The pairs (`ui-usage.md`, verdict `merge`):
 
 | Entry | Imported by (files) |
 | :-- | :-- |
-| `kpi-explained` | Akinaza 1 |
-| `glossary` | Akinaza 1 |
-| `choice-grid` | Akinaza 1 |
+| `kpi-explained` | Folioviv 1 |
+| `glossary` | Folioviv 1 |
+| `choice-grid` | Folioviv 1 |
 | `tag-input` | cockpit 1 |
 | `tree-view` | cockpit 3 |
 | `step-progress` | motion lab 2 |
-| `mascot-state` | Akinaza's native screens 2 |
-| `text-style/server` | Akinaza 3 (it keeps `text-style` itself in use) |
+| `mascot-state` | Folioviv's native screens 2 |
+| `text-style/server` | Folioviv 3 (it keeps `text-style` itself in use) |
 
 ### 2.3 Retire — 34
 
@@ -157,10 +157,10 @@ The pairs (`ui-usage.md`, verdict `merge`):
   - The unused native-only components: `action-sheet`, `fab`, `image-viewer`, `media-picker`, `onboarding`,
     `otp-input`, `permission-prompt`, `pull-to-refresh`, `splash-handoff`, `swipeable-row`.
   - The native sub-entries `native/vertical-video`, `native/media-capture`, `native/media-picker` and
-    `native/markdown`. Yomizaka's and Akinaza's mobile screens import none of them.
+    `native/markdown`. Verikora's and Folioviv's mobile screens import none of them.
 
   The native components were built for the paused mobile apps (the former products), which pin their version
-  (§2.4). Yomizaka and Akinaza do not use them.
+  (§2.4). Verikora and Folioviv do not use them.
 
 ### 2.4 The paused products leave the core
 
@@ -228,7 +228,7 @@ adoption issue is open, and they retire if that issue is closed without them. Sl
 | **Data display** | Reading data | `data-table` `list` `stat` `meter` `description-list` `virtual` `qr-code` `status-chip` `countdown` | Tables and lists sit only on the `@krizaka/*` facades (ADR-001) |
 | **Navigation & shell** | Going somewhere and the frame of a screen | `nav-bar` `app-shell` `app-header` `page-header` `tabs` `command` `site-footer` `language-switch` `dashboard-layout` `settings-layout` `native` | One bar for the family (NAV-SYS) |
 | **Feedback & overlays** | Telling, confirming, asking | `alert` `toast` `dialog` `popover` `tooltip` `dropdown-menu` `confirm-button` `empty-state` `progress` `upload-queue` | Never colour alone, always reachable from the keyboard |
-| **Geolocation & maps** | Places and maps | `map`, `map/sheet`, `map/cards`, `map/pin`, `native/map` (Akinaza's explore) | The basemap through `@krizaka/discovery` (org JSON), never a hard-coded tile URL |
+| **Geolocation & maps** | Places and maps | `map`, `map/sheet`, `map/cards`, `map/pin`, `native/map` (Folioviv's explore) | The basemap through `@krizaka/discovery` (org JSON), never a hard-coded tile URL |
 | **Media** | Video, sound, images, files | `video-player` `vertical-video` `media-gallery` `document-viewer` `file-upload` `embed-facade` `waveform` `retro-tv` | Media from Bunny through the app's manifest, never committed |
 | **Commerce** | Prices, booking, the shop | `money-input` `slot-picker` `agenda` `opening-hours` `reviews` `service-card` `shop` + `shop/*` `shop-composer` `pricing-page` | Money as minor units and a currency, never a float |
 | **Identity & people** | Who is there | `avatar` `profile-card` `account-menu` `account-settings` `verified-badge` `notification-preferences` `auth-layout` | Default pictures from the org JSON, never inlined |
@@ -238,7 +238,7 @@ adoption issue is open, and they retire if that issue is closed without them. Sl
 
 What the data changed from the founder's list:
 
-- **Conversation & AI is its own domain.** Orazaka's `chat`, `genui` and `proposal` and Yomizaka's `analysis-report`
+- **Conversation & AI is its own domain.** Sovkora's `chat`, `genui` and `proposal` and Verikora's `analysis-report`
   form a family that is neither forms nor data display.
 - **The Cahier is split from the page blocks.** ADR-004 keeps it out of the products, and a domain makes that rule
   checkable.
@@ -283,7 +283,7 @@ The 2026-10-28 sums of the entries not retired:
 | Data display | 11 | 72.0 |
 | Navigation & shell | 30 | 227.9 (75 of it is `./native`) |
 | Feedback & overlays | 12 | 112.9 |
-| Geolocation & maps | 5 | 34.1 (`map` 17.2, `native/map` 13.2, `map/sheet` 1.1, `map/cards` 1.4, `map/pin` 1.2: the sheet, the cards and the pin are their own entries so a page that only draws a map pays nothing for them; `map` itself is back under its former 18) |
+| Geolocation & maps | 5 | 34.1 (`map` 17.25, `native/map` 13.2, `map/sheet` 1.05 — 2026-11-06: the commercial names are a letter longer than the code names, the sheet's headroom pays it, the domain does not grow —, `map/cards` 1.4, `map/pin` 1.2: the sheet, the cards and the pin are their own entries so a page that only draws a map pays nothing for them; `map` itself is back under its former 18) |
 | Media | 9 | 64.1 |
 | Commerce | 30 | 126.5 |
 | Identity & people | 9 | 18.4 (24.9 in `size-budgets.json` since 2026-10-31, where the budget is frozen) |
@@ -302,7 +302,7 @@ and foundations' root entry (9.9 against 8.0). This comes from the script's clos
 in every entry, so it is an upper bound and not a failure. Slice 2 measures them with size-limit itself. Any row that
 really fails is fixed there: the code is reduced, the budget is never raised.
 
-- 2026-11-03: **`captcha` leaves `identity` for its own domain `abuse`, with its own budget of 5.0 kB** (founder decision, krizaka-internal#2285). Akinaza's public guest booking brought captcha back from `retire` to `keep` (+5 kB of rows in `identity`, 29.9 against the frozen 24.9 kB); the CTO's rule (no budget raised) holds for `identity`, which keeps its frozen 24.9 kB. Captcha blocks abuse, it does not identify anyone, and `ABUSE_` is already a bounded context. Recorded openly: the library's total budget grows by 5 kB because a real product need returned. The domains are now thirteen. Lightening Button and its Slot (about 1.2 to 1.3 kB pulled into captcha and identity-card) is filed separately, keeping `asChild`.
+- 2026-11-03: **`captcha` leaves `identity` for its own domain `abuse`, with its own budget of 5.0 kB** (founder decision, krizaka-internal#2285). Folioviv's public guest booking brought captcha back from `retire` to `keep` (+5 kB of rows in `identity`, 29.9 against the frozen 24.9 kB); the CTO's rule (no budget raised) holds for `identity`, which keeps its frozen 24.9 kB. Captcha blocks abuse, it does not identify anyone, and `ABUSE_` is already a bounded context. Recorded openly: the library's total budget grows by 5 kB because a real product need returned. The domains are now thirteen. Lightening Button and its Slot (about 1.2 to 1.3 kB pulled into captcha and identity-card) is filed separately, keeping `asChild`.
 - 2026-10-29: the DataTable entry moves from 48.6 to 49.5 kB and GenUiStream (which carries it) from 54.3 to 55.2 kB (the domain budgets do not count these rows, unchanged) for the split that clears Sonar S3776 (body 137; the first split left one function at 92, the second clears it, +100 B more); accepted by the CTO, won back in krizaka-ui#861.
 
 ## 6. The package layout: one package, domain entry groups
@@ -364,7 +364,7 @@ domain is Foundations.
 | :-- | :-- |
 | **3.73** (minor) | Slice 1: `domain` and `experimental` in the registry; `--check` in CI. Nothing breaks |
 | **3.74** (minor) | Slice 3: the 17 new retirements, the 6 leave-core entries and `photo-grid` get JSDoc `@deprecated` (with their replacement), `meta.ts` `status: "deprecated"` (`since: "3.74.0"`, `removedIn: "4.0.0"`), the development warning (`src/deprecated.ts`) and one changeset. The paused products pin `~3.73.0` (one-line PRs). The #675 merges keep landing in their own minors |
-| **apps** | Slice 7: Yomizaka, Akinaza, orazaka-web-client and krizaka-com move off every deprecated or merged entry they import, through the codemods. `ui-usage.json` shows 0 live importers for every `merge` and `retire` row |
+| **apps** | Slice 7: Verikora, Folioviv, sovkora-web and krizaka-com move off every deprecated or merged entry they import, through the codemods. `ui-usage.json` shows 0 live importers for every `merge` and `retire` row |
 | **4.0** (major, #676) | Removes every `merge`, `retire` and `leave-core` row. It ships `MIGRATION-4.md`, the ast-grep codemods for the mechanical mappings (`rules/codemods/*.yml`: chip-row → `Chip.Group`, quota-meter → `Meter`, step-progress → `Stepper`…) and the size before and after. It is released only when the inventory shows no live importer of a removed entry |
 
 No silent break: every removal has a deprecation of at least one minor, a replacement or a stated reason, and a
@@ -425,8 +425,8 @@ codemod wherever the mapping is mechanical.
    - The library build and `exports` dropped.
    - a retired export removed.
    - Each guide linked to its `@krizaka/ui` entry.
-7. **[akinaza#521](https://github.com/krizaka/akinaza/issues/521) Adoption in the apps.**
-   - Akinaza (`kpi-explained`, `glossary`, `choice-grid`, the native `mascot-state`), the cockpit's `tree-view` and
+7. **[folioviv#521](https://github.com/krizaka/folioviv/issues/521) Adoption in the apps.**
+   - Folioviv (`kpi-explained`, `glossary`, `choice-grid`, the native `mascot-state`), the cockpit's `tree-view` and
      `tag-input`, and the motion lab's `step-progress`.
    - The codemods written for #676 run first here.
 8. **[#676](https://github.com/krizaka/krizaka-ui/issues/676) 4.0** — the existing issue, re-scoped to the inventory's `merge`, `retire` and `leave-core` rows.

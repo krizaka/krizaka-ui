@@ -15,7 +15,7 @@ function wide(matches: boolean) {
   window.matchMedia = ((query: string) => ({ matches, media: query, addEventListener: () => {}, removeEventListener: () => {} })) as unknown as typeof window.matchMedia;
 }
 
-describe("the map gate gives the live map a box (akinaza#488)", () => {
+describe("the map gate gives the live map a box (folioviv#488)", () => {
   it("fills the aspect-ratio frame: the live map is `absolute inset-0` inside, so without a height of its own it draws as an empty 0 px box", () => {
     wide(true);
     render(<MapGate {...props} />);

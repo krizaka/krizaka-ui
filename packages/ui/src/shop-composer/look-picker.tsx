@@ -1,4 +1,4 @@
-// The look of the page (akinaza#478): a radio group of the six looks as swatches (name, the look's own surface and its accent
+// The look of the page (folioviv#478): a radio group of the six looks as swatches (name, the look's own surface and its accent
 // chips), then the accent within the chosen look's tested list. It applies to the draft only; publishing goes through the diff.
 import { RadioGroup } from "@krizaka/ui/radio-group";
 

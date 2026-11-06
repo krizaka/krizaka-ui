@@ -30,7 +30,7 @@ export interface DismissStorage {
 }
 
 export interface AppConfigClientOptions {
-  /** The backend's origin, e.g. `https://dev.orazaka.com`. A function is read at each check, so an address found by
+  /** The backend's origin, e.g. `https://dev.sovkora.com`. A function is read at each check, so an address found by
    *  `@krizaka/discovery` (and moved by its manifest) is followed without rebuilding the client. */
   baseUrl: string | (() => string);
   platform: Platform;

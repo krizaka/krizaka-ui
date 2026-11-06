@@ -9,7 +9,7 @@ export default function DetailLayoutProfile() {
       className="w-full"
       back={<a href="#clients">← Clients</a>}
       cover
-      media={<Avatar defaultAvatar={{ brand: "yomizaka", seed: "eric" }} alt="" fallback="E" size="xl" />}
+      media={<Avatar defaultAvatar={{ brand: "verikora", seed: "eric" }} alt="" fallback="E" size="xl" />}
       eyebrow="Applicant"
       title="Eric Tremblay"
       meta="Unit 4B · file complete"
