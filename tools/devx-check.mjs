@@ -80,6 +80,17 @@ function coldTypecheck(entries) {
   }
 }
 
+/**
+ * Whether a change builds @krizaka/ui, read from `turbo ls --filter=<the PR's filter> --output=json`. A pull request builds
+ * only the packages it touches and their dependents: a change elsewhere (app-config, a README) never builds packages/ui/dist,
+ * and its import cost cannot move, so CI runs the static half then. Unreadable input throws: CI must not fall back silently.
+ */
+export function uiInScope(turboLsJson) {
+  const items = JSON.parse(turboLsJson)?.packages?.items;
+  if (!Array.isArray(items)) throw new Error("devx check: `turbo ls --output=json` gave no packages.items");
+  return items.some((p) => p?.name === "@krizaka/ui");
+}
+
 function main() {
   const pkg = JSON.parse(readFileSync(join(UI, "package.json"), "utf8"));
   const budget = JSON.parse(readFileSync(join(UI, "devx-budget.json"), "utf8"));
@@ -107,4 +118,10 @@ function main() {
   process.stdout.write("devx check: ok\n");
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  if (process.argv.includes("--ui-in-scope")) {
+    process.stdout.write(uiInScope(readFileSync(0, "utf8")) ? "yes\n" : "no\n");
+  } else {
+    main();
+  }
+}
