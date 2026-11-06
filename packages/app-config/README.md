@@ -2,7 +2,7 @@
 
 App version compatibility between Krizaka apps (React Native, the Mac app, the web) and their backends. One contract,
 two implementations: this package (Next.js backends and clients) and the Java building block
-[`krizaka-app-config`](https://github.com/krizaka/krizaka-platform-kit/tree/main/krizaka-app-config), both passing the
+[`krizaka-app-config`](https://github.com/krizaka/krizaka-build/tree/main/krizaka-platform-kit/krizaka-app-config), both passing the
 same fixture (`test/cases.json`) and sharing one JSON schema (`contract/app-config.schema.json`). Zero dependency.
 
 | Entry | For |
