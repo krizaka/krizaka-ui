@@ -187,6 +187,8 @@ export const bookmark: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M6 3.5h12v17
 export const sound: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M3.5 9.5H7l5-4.5v14l-5-4.5H3.5z","M15.5 9a4.2 4.2 0 0 1 0 6","M18.3 6.3a8.2 8.2 0 0 1 0 11.4"] });
 /** mute sound off silent volume speaker */
 export const mute: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M3.5 9.5H7l5-4.5v14l-5-4.5H3.5z","M16 9.5l5 5M21 9.5l-5 5"] });
+/** instagram social account link camera photo */
+export const instagram: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M8 3H16L21 8V16L16 21H8L3 16V8Z","M17.5 6.5h.01"], c: [[12,12,4]] });
 /** flag report abuse moderation */
 export const flag: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5 21V3.5","M5 4.5c2.3-1.4 4.7-1.4 7 0s4.7 1.4 7 0v8.5c-2.3 1.4-4.7 1.4-7 0s-4.7-1.4-7 0"] });
 
@@ -656,6 +658,11 @@ export const glyphIndex = {
     "component": "MuteIcon",
     "group": "interface",
     "keywords": "mute sound off silent volume speaker"
+  },
+  "instagram": {
+    "component": "InstagramIcon",
+    "group": "interface",
+    "keywords": "instagram social account link camera photo"
   },
   "flag": {
     "component": "FlagIcon",

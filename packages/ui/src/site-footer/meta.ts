@@ -25,6 +25,7 @@ export const meta = {
     "One or two own groups (`SiteFooter.Column` + `SiteFooter.Link`), a handful of links: what a reader looks for at the bottom (docs, pricing, download, source). Never a link the family line already holds — another site, the story, the blog, contact.",
     "Pass the version the site runs (`version`, `env=\"DEV\"` on a dev environment) and the language switch and theme toggle in `controls`.",
     "With `config`, name the company once: the legal line is the publisher's identity; no « A Technologies Krizaka company » beside it, no column that repeats the bar, no newsletter form, no package version, no development host.",
+    "The company's accounts are the org's (`org.links.social`; with `config`, the ids the admin picked, resolved by `resolveFooterSettings`): each is drawn as its icon from `@krizaka/icons` (`instagram`) beside the legal links, never typed in a site. An account with no glyph stays a text link.",
     "Pass the words translated: `labels={familyLabels[locale]}` from `@krizaka/ui/sites`.",
   ],
   accessibility: {
@@ -33,6 +34,7 @@ export const meta = {
       "A `footer` landmark; the family is a `nav` named by `labels.family`, each group a list named by its heading.",
       "On a phone each family group is a native `<details>` (keyboard and screen readers for free, 44 px targets); on a desktop it stays open as one line.",
       "The current site says `aria-current=\"true\"` and “You are here” to screen readers; a status is written, never only a colour.",
+      "A social account is a link named by the account (« Instagram », written for screen readers) around a decorative icon; it opens in a new tab (`rel=\"noopener noreferrer\"`), shows the 2 px focus ring and only changes colour on hover.",
       "The marks are decorative: every site's name is written beside its mark.",
     ],
   },
@@ -44,6 +46,7 @@ export const meta = {
       { name: "company", title: "The company (Cahier)", description: "www.krizaka.com, `tone=\"cahier\"`: no own links needed, the family and the signature line." },
       { name: "app", title: "In a signed-in app", description: "`variant=\"app\"`: one slim line — the org's line, `DEV · v1.2.3`, the legal links." },
       { name: "configured", title: "Configured by the admin", description: "`config` from the app's settings: three columns (the product, help, by Krizaka), then `Technologies Krizaka Inc. · NEQ … · Montréal (Québec)`, `v1.2.3`, the legal links and GitHub." },
+      { name: "socials", title: "With the company's accounts", description: "`org.links.social` of `@krizaka/org`: Instagram drawn as its icon at the end of the last line, named « Instagram » for screen readers." },
       { name: "docs", title: "Under documentation", description: "`variant=\"docs\"`: the same three lines on the documentation's width." },
       { name: "open-source-fr", title: "Open source, in French", description: "ui.krizaka.com in French, `tone=\"cahier\"`: « Une entreprise de Technologies Krizaka · Fait à Montréal », the version of the packages." },
     ],
