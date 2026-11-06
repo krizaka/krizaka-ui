@@ -1,5 +1,13 @@
 # @krizaka/app-desktop
 
+## 0.1.3
+
+### Patch Changes
+
+- [#966](https://github.com/krizaka/krizaka-ui/pull/966) [`d536d8e`](https://github.com/krizaka/krizaka-ui/commit/d536d8e39f60dbf389ff09c582a7d54ab4db8031) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The examples and documentation use the commercial names (Verikora, Folioviv, Sovkora) and their hosts (`dev.verikora.com`), never a code name (krizaka-internal#2664). No API change.
+- Updated dependencies [[`d536d8e`](https://github.com/krizaka/krizaka-ui/commit/d536d8e39f60dbf389ff09c582a7d54ab4db8031)]:
+  - @krizaka/app-client@0.3.1
+
 ## 0.1.2
 
 ### Patch Changes
