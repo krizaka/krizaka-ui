@@ -9,10 +9,10 @@ jobs:
     timeout-minutes: 45
     permissions: { contents: write, pull-requests: write, id-token: write }
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with: { fetch-depth: 0, persist-credentials: false }
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with: { node-version: 22, cache: pnpm, registry-url: https://registry.npmjs.org }
       - run: npm install -g --ignore-scripts npm@11.21.1      # trusted publishing (OIDC) needs npm >= 11.5.1; Node 22 ships npm 10
       - run: pnpm install --frozen-lockfile
@@ -45,7 +45,7 @@ jobs:
           permission-contents: write
           permission-pull-requests: write
       - id: changesets
-        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
           version-script: pnpm changeset version
           publish-script: bash tools/publish-packages.sh   # every package by OIDC first, NPM_TOKEN as the logged fallback; tags
@@ -87,7 +87,7 @@ jobs:
         env:
           PUBLISHED: ${{ steps.changesets.outputs.published }}
       - if: steps.family.outputs.packages != '' && vars.RELEASE_APP_ID != ''
-        uses: krizaka/.github/actions/dispatch-release@ab6100359ba4962c61a021f55c53b549d385af4e # main
+        uses: krizaka/.github/actions/dispatch-release@bed6cb57edc919f2bcaf76274b724d9c11607445 # main
         with:
           packages: ${{ steps.family.outputs.packages }}
           app-id: ${{ vars.RELEASE_APP_ID }}
