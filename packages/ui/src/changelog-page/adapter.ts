@@ -59,25 +59,19 @@ export function prOf(line: string): ChangeItem["pr"] {
   for (let at = line.indexOf(GITHUB); at >= 0; at = line.indexOf(GITHUB, at + 1)) {
     const [owner, repo, kind, rest] = (line.slice(at + GITHUB.length).split(/[\s)\]>]/, 1)[0] ?? "").split("/");
     const digits = /^\d+/.exec(rest ?? "")?.[0];
-    if (owner && repo && kind === "pull" && digits) return { number: Number(digits), url: `${GITHUB}${owner}/${repo}/pull/${digits}` };
+    if (owner && repo && kind === "pull" && digits) return { number: Number(digits), url: GITHUB + [owner, repo, kind, digits].join("/") };
   }
   return undefined;
 }
 
-/** The words without GitHub's credit before the link (`… by @someone in`). */
-function withoutCredit(words: string): string {
-  const by = words.lastIndexOf(" by @");
-  if (by < 0 || !words.endsWith(" in")) return words;
-  const handle = words.slice(by + " by @".length, -" in".length);
-  return handle.length > 0 && !handle.includes(" ") ? words.slice(0, by).trimEnd() : words;
-}
-
-/** A line split before its trailing link (`… in https://…`): the words, and the link when the line ends with one. */
-function splitTrailingLink(line: string): [string, string | undefined] {
-  const trimmed = line.trimEnd();
-  const space = trimmed.lastIndexOf(" ");
-  const last = trimmed.slice(space + 1);
-  return last.startsWith(LINK_START) ? [trimmed.slice(0, Math.max(space, 0)).trimEnd(), last] : [trimmed, undefined];
+/** The words of a release line, without its trailing link and GitHub's credit (`… by @someone in https://…`). */
+function titleOf(line: string): string {
+  const words = line.trimEnd();
+  const space = words.lastIndexOf(" ");
+  if (!words.startsWith(LINK_START, space + 1)) return words;
+  const rest = words.slice(0, Math.max(space, 0));
+  const by = rest.lastIndexOf(" by @");
+  return by >= 0 && rest.endsWith(" in") ? rest.slice(0, by) : rest.trimEnd();
 }
 
 const CHANGESET_TAG: Record<string, ChangeTag> = { major: "breaking", minor: "feature", patch: "fix" };
@@ -134,9 +128,8 @@ export function parseReleaseBody(body: string): ChangeItem[] {
   for (const raw of body.split("\n")) {
     const bullet = /^\s*[-*] (.+)$/.exec(raw);
     if (!bullet) continue;
-    const [words, link] = splitTrailingLink(bullet[1]);
     const pr = prOf(bullet[1]);
-    const title = link ? withoutCredit(words) : words;
+    const title = titleOf(bullet[1]);
     const item = changeFromTitle(plain(title), pr?.url);
     if (item) items.push({ ...item, pr: pr ?? item.pr, text: clip(item.text) });
   }
