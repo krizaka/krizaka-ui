@@ -40,7 +40,12 @@ export interface Site {
   readonly repo: string;
 }
 
-const site = (s: Omit<Site, "host">): Site => ({ ...s, host: new URL(s.url).host });
+/** The address as a person reads it: the host, and the path when there is one (`github.com/krizaka`). */
+const hostOf = (url: string): string => {
+  const { host, pathname } = new URL(url);
+  return pathname === "/" ? host : host + pathname;
+};
+const site = (s: Omit<Site, "host">): Site => ({ ...s, host: hostOf(s.url) });
 
 /** Every site of the family, in reading order (the group order, then the order inside each group). */
 export const sites: readonly Site[] = [
