@@ -28,3 +28,9 @@ test("the footer reads the organisation's facts from @krizaka/org, never a hand-
   assert.match(footer, /org=\{org\}/);
   assert.doesNotMatch(footer, /Fait à Montréal|Made in Montréal|Technologies Krizaka/);
 });
+
+test("the footer gets the company's Instagram from the org's list (krizaka-internal#365), never an address typed here", async () => {
+  const { org } = await import("@krizaka/org");
+  assert.match(org.links.social.find((x) => x.id === "instagram")?.url ?? "", /^https:\/\/www\.instagram\.com\/krizakahq\/?$/);
+  assert.doesNotMatch(read("app/components/SiteFooter.tsx"), /instagram/i);
+});

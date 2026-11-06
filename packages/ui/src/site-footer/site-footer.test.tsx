@@ -28,6 +28,7 @@ const org = {
       { id: "terms", label: { fr: "Conditions", en: "Terms" }, url: { fr: "https://www.krizaka.com/fr/terms", en: "https://www.krizaka.com/en/terms" } },
     ],
   },
+  links: { social: [{ id: "instagram", label: "Instagram", url: "https://www.instagram.com/krizakahq" }] },
 };
 
 describe("SiteFooter", () => {
@@ -334,6 +335,39 @@ describe("SiteFooter", () => {
       render(<SiteFooter current="ui" />);
       expect(screen.getByRole("contentinfo").textContent).toContain("A Krizaka open-source project");
       expect(screen.getByRole("contentinfo").textContent).toContain("Made in Montréal");
+    });
+  });
+
+  // krizaka-internal#365: the founder wants « le logo et le lien Instagram dans le footer ».
+  describe("socials (org.links.social)", () => {
+    it("draws the account as its icon inside a link named by the account, on the last line, in org mode", async () => {
+      const { container } = render(<Footer org={org} />);
+      const link = within(screen.getByRole("contentinfo")).getByRole("link", { name: "Instagram" });
+      expect(link.getAttribute("href")).toBe("https://www.instagram.com/krizakahq");
+      expect(link.getAttribute("rel")).toContain("noopener");
+      const icon = link.querySelector("svg")!;
+      expect(icon.getAttribute("data-kz-icon")).toBe("InstagramIcon");
+      expect(icon.getAttribute("aria-hidden")).toBe("true");
+      expect(link.textContent).toBe("Instagram");
+      expect(link.className).toContain("focus-visible:ring-2");
+      expect(link.className).not.toMatch(/translate|scale|-mt-|hover:-?m/);
+
+      expect(await axeViolations(container)).toEqual([]);
+    });
+
+    it("keeps a text link for an account with no glyph, and draws nothing without socials", () => {
+      const { rerender } = render(<Footer org={{ ...org, links: { social: [{ id: "mastodon", label: "Mastodon", url: "https://example.org/@k" }] } }} />);
+      const link = screen.getByRole("link", { name: "Mastodon" });
+      expect(link.querySelector("svg")).toBeNull();
+      rerender(<Footer org={{ ...org, links: { social: [] } }} />);
+      expect(screen.queryByRole("link", { name: "Mastodon" })).toBeNull();
+      rerender(<Footer org={{ brand: org.brand, footer: org.footer }} />);
+      expect(screen.queryByRole("link", { name: "Instagram" })).toBeNull();
+    });
+
+    it("draws the account once", () => {
+      render(<Footer org={org} />);
+      expect(screen.getAllByRole("link", { name: "Instagram" })).toHaveLength(1);
     });
   });
 });

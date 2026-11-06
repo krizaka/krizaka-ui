@@ -5,6 +5,7 @@
 //   3. one line: the mark and the org's signature, the version, the legal links, the host's controls (language, theme).
 // On a phone the family's groups fold (`<details>`), the rest wraps. `variant="app"` keeps line 3 only. Same structure on
 // the Cahier sites and the products (`tone`). No link twice, no site block, no names typed here when `org` is given.
+import { InstagramIcon } from "@krizaka/icons";
 import { Slot } from "radix-ui";
 import * as React from "react";
 import { tv } from "tailwind-variants";
@@ -48,6 +49,11 @@ export const siteFooter = tv({
     stack: "flex min-w-0 flex-col gap-2",
     stackList: "flex min-w-0 flex-col gap-1",
     identity: "text-fg-secondary",
+    // The accounts drawn as their icon (the name stays for screen readers): colour change only on hover, never movement.
+    socials: "flex flex-wrap items-center gap-x-3 gap-y-2",
+    social:
+      "inline-flex min-h-6 min-w-6 items-center justify-center rounded-md text-fg-secondary no-underline transition-colors hover:text-fg " +
+      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
   },
   variants: {
     // `site`: the three lines. `docs`: the same on the documentation's width. `app`: line 3 only, inside a signed-in product.
@@ -276,6 +282,7 @@ export function SiteFooter({
               </span>
             )}
             {legal && <div className={s.legal()}>{legal}</div>}
+            <FooterSocials s={s} links={(org?.links?.social ?? []).map((x) => ({ id: x.id, label: x.label, href: x.url }))} />
             {controls && <div className={s.controls()}>{controls}</div>}
           </div>
           )}
@@ -337,8 +344,29 @@ function ConfigBottom({
           <span className={s.version()}>{versionText}</span>
         ))}
       {legal.links.length > 0 && <div className={s.legal()}>{legal.links.map(configured)}</div>}
-      {social && social.length > 0 && <div className={s.legal()}>{social.map((x) => configured({ label: x.label, href: x.href, external: true }))}</div>}
+      <FooterSocials s={s} links={social ?? []} />
       {controls && <div className={s.controls()}>{controls}</div>}
+    </div>
+  );
+}
+
+/** Icons of the accounts a glyph exists for; any other account stays a text link. */
+const SOCIAL_ICONS: Readonly<Partial<Record<string, typeof InstagramIcon>>> = { instagram: InstagramIcon };
+
+/** The company's accounts: each is its icon (decorative) in a link named by the account, opening in a new tab. */
+function FooterSocials({ s, links }: Readonly<{ s: ReturnType<typeof siteFooter>; links: readonly { id: string; label: string; href: string }[] }>) {
+  if (links.length === 0) return null;
+  return (
+    <div className={s.socials()}>
+      {links.map((x) => {
+        const Icon = SOCIAL_ICONS[x.id];
+        return (
+          <a key={x.id} href={x.href} target="_blank" rel="noopener noreferrer" className={Icon ? s.social() : s.link()}>
+            {Icon && <Icon size={20} />}
+            {Icon ? <span className="sr-only">{x.label}</span> : x.label}
+          </a>
+        );
+      })}
     </div>
   );
 }

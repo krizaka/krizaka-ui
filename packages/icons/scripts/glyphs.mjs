@@ -144,6 +144,8 @@ export const GLYPHS = {
   bookmark: { group: "interface", keywords: "bookmark save later", p: ["M6 3.5h12v17l-6-4.5-6 4.5z"] },
   sound: { group: "interface", keywords: "sound volume audio unmute speaker", p: ["M3.5 9.5H7l5-4.5v14l-5-4.5H3.5z", "M15.5 9a4.2 4.2 0 0 1 0 6", "M18.3 6.3a8.2 8.2 0 0 1 0 11.4"] },
   mute: { group: "interface", keywords: "mute sound off silent volume speaker", p: ["M3.5 9.5H7l5-4.5v14l-5-4.5H3.5z", "M16 9.5l5 5M21 9.5l-5 5"] },
+  // The account's own glyph, monochrome, only as a link to it (Instagram's brand guidelines allow the glyph, not the gradient): a cut-cornered frame, the lens, the flash dot (a zero-length square-capped stroke).
+  instagram: { group: "interface", keywords: "instagram social account link camera photo", p: [cut(3, 3, 18, 18, 5), "M17.5 6.5h.01"], c: [[12, 12, 4]] },
   flag: { group: "interface", keywords: "flag report abuse moderation", p: ["M5 21V3.5", "M5 4.5c2.3-1.4 4.7-1.4 7 0s4.7 1.4 7 0v8.5c-2.3 1.4-4.7 1.4-7 0s-4.7-1.4-7 0"] },
 };
 

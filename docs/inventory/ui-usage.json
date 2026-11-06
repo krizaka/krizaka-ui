@@ -2,8 +2,8 @@
   "generated": "2026-11-02",
   "package": {
     "name": "@krizaka/ui",
-    "version": "3.87.0",
-    "distMeasured": "packages/ui/dist (@krizaka/ui@3.87.0)"
+    "version": "4.0.0",
+    "distMeasured": "packages/ui/dist (@krizaka/ui@4.0.0)"
   },
   "consumers": [
     {
@@ -52,7 +52,7 @@
       "absent": false,
       "head": null,
       "sha": null,
-      "files": 169
+      "files": 167
     },
     {
       "name": "java-site",
@@ -117,7 +117,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 8096,
+      "sizeGzip": 8144,
       "budget": 8000,
       "tests": null,
       "stories": null,
@@ -2238,7 +2238,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 20740,
+      "sizeGzip": 20787,
       "budget": 27600,
       "tests": 3,
       "stories": 1,
@@ -2452,11 +2452,12 @@
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
-        "site-cahier"
+        "site-cahier",
+        "sites"
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 11424,
+      "sizeGzip": 11758,
       "budget": 11000,
       "tests": 2,
       "stories": 1,
@@ -4164,7 +4165,7 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2413,
+      "sizeGzip": 2469,
       "budget": 2500,
       "tests": 0,
       "stories": 2,
@@ -4716,7 +4717,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 21929,
+      "sizeGzip": 22260,
       "budget": 18000,
       "tests": 1,
       "stories": 1,
@@ -6459,7 +6460,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 94790,
+      "sizeGzip": 94770,
       "budget": 75000,
       "tests": null,
       "stories": null,

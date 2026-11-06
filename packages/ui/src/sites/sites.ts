@@ -5,6 +5,8 @@
 // The words of the family (a site's one line, the groups, the statuses, the footer's signature) are brand data, written
 // here in English and French (`familyLabels`) — a site passes the set of its locale, or its own translation.
 
+import type { OrgSocialLink } from "../site-footer/footer-config";
+
 /** A site of the family. */
 export type SiteId = "krizaka" | "sovkora" | "verikora" | "folioviv" | "ui" | "java" | "ts" | "motion" | "github";
 
@@ -165,6 +167,11 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
  */
 export interface OrgFacts {
   brand: { name: string };
+  /**
+   * The company's own accounts elsewhere (`org.links.social` of `@krizaka/org` ≥ 1.1.0): the footer draws each one as its
+   * icon, linked to the address given here — never typed in a site. Optional so an older `org` still fits.
+   */
+  links?: { social: readonly OrgSocialLink[] };
   /**
    * Every name of the family (`org.family` of `@krizaka/org`, krizaka/krizaka-internal#754): when given, the footer reads
    * the names and addresses here, never from this package's registry — the company « Krizaka », products by their own
