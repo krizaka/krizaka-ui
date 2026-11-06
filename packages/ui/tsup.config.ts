@@ -35,6 +35,11 @@ const retroTvPlaylistApart: NonNullable<Options["esbuildPlugins"]>[number] = {
   },
 };
 
+/** The package's own entries, imported by a block through `@krizaka/ui/<entry>`: left external (module ids, not user input). */
+// ast-grep-ignore: no-hand-written-validation-regex
+const OWN_ENTRIES = /^@krizaka\/ui(\/|$)/;
+const ZOD_SUBPATHS = /^zod\//;
+
 const shared = {
   format: ["esm"],
   dts: true,
@@ -167,7 +172,7 @@ export default defineConfig([
       "error-page": "src/error-page/index.ts",
       "pricing-page": "src/pricing-page/index.ts",
     },
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/],
+    external: [...shared.external, OWN_ENTRIES],
   },
   {
     // Server — the shop page (ADR-007): the document (`shop`: schema, catalogue, migrations, the frame) and one entry per
@@ -192,7 +197,7 @@ export default defineConfig([
       "shop/policies": "src/shop/policies/index.ts",
       "shop/look": "src/shop/look/index.ts",
     },
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "zod", /^zod\//],
+    external: [...shared.external, OWN_ENTRIES, "zod", ZOD_SUBPATHS],
   },
   {
     // Client — the shop's map gate (a still, the live map behind a button on a phone) and its composer (ADR-007 §5): the outline,
@@ -203,7 +208,7 @@ export default defineConfig([
       "shop/map-gate": "src/shop/map-gate/index.ts",
       "shop-composer": "src/shop-composer/index.ts",
     },
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "zod", /^zod\//],
+    external: [...shared.external, OWN_ENTRIES, "zod", ZOD_SUBPATHS],
     banner: { js: '"use client";' },
   },
   {
@@ -353,7 +358,7 @@ export default defineConfig([
     // The signed-in frame composes the rail, the top bar, the account menu and the theme through their entries; the Mac window the shell's shortcuts;
     // the entity header and the collection switcher the avatar, the chip, the picker and the popover (and keep the declaration bundle of the big config below its heap).
     entry: { form: "src/form/index.ts", "text-style": "src/text-style/index.ts", "app-frame": "src/app-frame/index.ts", "desktop-window": "src/desktop-window/index.ts", "entity-header": "src/entity-header/index.ts", "collection-switcher": "src/collection-switcher/index.ts" },
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/],
+    external: [...shared.external, OWN_ENTRIES],
     banner: { js: '"use client";' },
   },
   {
@@ -361,7 +366,7 @@ export default defineConfig([
     // imported through the package's own entry (external) so the client boundary stays where it is.
     ...shared,
     entry: { markdown: "src/markdown/index.ts" },
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/],
+    external: [...shared.external, OWN_ENTRIES],
   },
   {
     // Client — the map (MapLibre GL JS and PMTiles loaded on demand, optional peers): the style is generated from the
@@ -382,6 +387,19 @@ export default defineConfig([
     // Server — the form's server side (a Server Action re-validating with the form's schema): no React, no directive.
     ...shared,
     entry: { "form/server": "src/form/server.ts", "text-style/server": "src/text-style/server.ts", "app-frame/server": "src/app-frame/server.ts" },
+  },
+  {
+    // Server — the media guard of MediaCarousel (ADR-010 §4): pure rules and the ffmpeg adapter (its runner passed in), no React.
+    ...shared,
+    entry: { "media-guard": "src/media-gallery/guard/index.ts" },
+  },
+  {
+    // Node — the `krizaka-media-guard` bin (ffprobe and ffmpeg through child_process), with its shebang.
+    ...shared,
+    entry: { "media-guard-bin": "src/media-gallery/guard/bin.ts" },
+    dts: false,
+    platform: "node",
+    banner: { js: "#!/usr/bin/env node" },
   },
   {
     // Server — the language helpers (`languagesFor`, `languageHref`, `languageNames`): pure functions, usable in a Server Component
@@ -435,7 +453,7 @@ export default defineConfig([
       // Markdown: TanStack Markdown and the code grammars (dependencies, as on the web), drawn in Text and View.
       "native/markdown": "src/native/markdown.tsx",
     },
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "expo-image-picker", "@shopify/flash-list", "@krizaka/query", "@maplibre/maplibre-react-native", "@protomaps/basemaps"],
+    external: [...shared.external, OWN_ENTRIES, "react-native", "react-native-svg", "expo-video", "expo-camera", "expo-image-picker", "@shopify/flash-list", "@krizaka/query", "@maplibre/maplibre-react-native", "@protomaps/basemaps"],
     noExternal: ["@krizaka/tokens"],
   },
   {
@@ -446,7 +464,7 @@ export default defineConfig([
     // ~170 entries: one declaration build would exhaust the heap. Every example has the same signature — a component,
     // `defaultOpen` for those that open something — so build-registry.mjs writes their `.d.ts`.
     dts: false,
-    external: [...shared.external, /^@krizaka\/ui(\/|$)/, "react-native", "react-native-svg", "expo-video", "expo-camera", "expo-image-picker", "@shopify/flash-list", "@krizaka/query", "zod", "@maplibre/maplibre-react-native"],
+    external: [...shared.external, OWN_ENTRIES, "react-native", "react-native-svg", "expo-video", "expo-camera", "expo-image-picker", "@shopify/flash-list", "@krizaka/query", "zod", "@maplibre/maplibre-react-native"],
     banner: { js: '"use client";' },
   },
 ]);

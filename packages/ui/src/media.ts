@@ -76,3 +76,28 @@ export function playSafely(media: HTMLMediaElement | null | undefined) {
     // Not playable here (no media support): the controls stay as they are.
   }
 }
+
+const subscribeLoad = (notify: () => void) => {
+  window.addEventListener("load", notify);
+  return () => window.removeEventListener("load", notify);
+};
+/** `true` once the page has finished loading: a clip or a loop is not worth bytes before it (the page's LCP comes first). */
+export function usePageLoaded(): boolean {
+  return React.useSyncExternalStore(subscribeLoad, () => document.readyState === "complete", () => false);
+}
+
+type SaveDataNavigator = Navigator & { connection?: { saveData?: boolean } };
+/** `true` when the person asked for less motion or less data: nothing plays, the posters stay. */
+export function useCalm(): boolean {
+  const reduce = usePrefersReducedMotion();
+  return reduce || (typeof navigator !== "undefined" && Boolean((navigator as SaveDataNavigator).connection?.saveData));
+}
+
+const subscribeVisibility = (notify: () => void) => {
+  document.addEventListener("visibilitychange", notify);
+  return () => document.removeEventListener("visibilitychange", notify);
+};
+/** `true` while the tab is hidden: what moves waits for it. */
+export function usePageHidden(): boolean {
+  return React.useSyncExternalStore(subscribeVisibility, () => document.visibilityState === "hidden", () => false);
+}

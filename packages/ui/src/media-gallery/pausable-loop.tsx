@@ -5,27 +5,11 @@ import * as React from "react";
 
 import { cn } from "../cn";
 import { PauseGlyph, PlayGlyph } from "../glyphs";
-import { playSafely, useInView, usePrefersReducedMotion } from "../media";
+import { playSafely, useCalm, useInView, usePageLoaded } from "../media";
 
 export type LoopSources = { webm?: string; mp4?: string };
 export type LoopLabels = { pause: string; play: string };
 export const loopLabels: LoopLabels = { pause: "Pause the animation", play: "Play the animation" };
-
-const subscribeLoad = (notify: () => void) => {
-  window.addEventListener("load", notify);
-  return () => window.removeEventListener("load", notify);
-};
-/** `true` once the page has finished loading: a loop is not worth bytes before it. */
-function usePageLoaded(): boolean {
-  return React.useSyncExternalStore(subscribeLoad, () => document.readyState === "complete", () => false);
-}
-
-type SaveDataNavigator = Navigator & { connection?: { saveData?: boolean } };
-/** `true` when the person asked for less motion or less data: a loop stays a poster. */
-function useCalm(): boolean {
-  const reduce = usePrefersReducedMotion();
-  return reduce || (typeof navigator !== "undefined" && Boolean((navigator as SaveDataNavigator).connection?.saveData));
-}
 
 export type PausableLoopProps = {
   /** The loop's files; `mp4` and / or `webm`. */

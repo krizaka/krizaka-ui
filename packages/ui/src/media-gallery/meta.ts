@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Media gallery",
-  summary: "Also `MediaCarousel` (3 to 4 realisations, one at a time), `MediaPlayer` (the one video frame: inline, lightbox, 9:16) and `PausableLoop` (a silent loop with a visible pause, its own entry). A shop's own photos and loops in tiles, the first featured, a caption on the foot of a tile.",
+  summary: "Also `MediaCarousel` (clips, screen demos and stills one at a time; `autoplay` with a visible pause, optional sound, its files checked by `krizaka-media-guard`), `MediaPlayer` (the one video frame: inline, lightbox, 9:16) and `PausableLoop` (a silent loop with a visible pause). A shop's own photos and loops in tiles, the first featured.",
   status: "beta",
   category: "media",
   domain: "media",
@@ -16,6 +16,10 @@ export const meta = {
     "Real photos only; every tile has `alt` text that says what it shows.",
     "Give a landscape source `shape=\"wide\"` so it is not cropped to a portrait.",
     "Keep loops short and few: one or two per gallery.",
+    "Carousel: 16:9 files only, checked before they ship — `krizaka-media-guard slides.json` refuses a vertical reel in a wide file (pillarbox), a letterbox, a black end card, an mp4 that is not H.264 yuv420p fast start, and an `audio` or `duration` that does not match the file.",
+    "Carousel: give each clip its `duration` (the guard reports it): with `autoplay` a slide stays for it, within 5–45 s; a still stays 6.5 s. The clip loops while its slide stays, so it never holds a last frame.",
+    "Carousel: `sound` only for slides whose file has sound; it plays after the visitor presses « Sound on », then only under the pointer or the focus.",
+    "Carousel on a company site: `frame=\"cahier\"`, `caption=\"bar\"`, `textVersion`, and the product's `data-hue` on the carousel or an ancestor.",
   ],
   accessibility: {
     keyboard: [],
@@ -26,7 +30,11 @@ export const meta = {
       "One slide draws no toolbar and no count. A loop (`PausableLoop` of `@krizaka/ui/pausable-loop`, handed to the carousel's `renderLoop` for a slide's `video`, also on a film slide, where it previews the film, or to `MediaPlayer`'s `preview`) is fetched after the page's `load`, plays only while on screen and on the slide in view, and has a visible pause / play button (the words of `PausableLoop`'s `labels`); under reduced motion or Save-Data the poster stays alone and there is no control, since nothing moves.",
       "Every word is a prop: the carousel's `labels`, the lightbox player's `playerLabels` (or a film's own `labels`), `MediaPlayer`'s `labels`, `playLabel`, `closeLabel`, and `PausableLoop`'s `labels`; English by default.",
       "`MediaPlayer` in a lightbox opens on the poster, waiting for a press on play, under reduced motion. `trigger` swaps the poster for the page's own opener (focus returns to it on close), `open` / `onOpenChange` drive it from outside, `ratio` takes any frame (`19 / 16`).",
-      "Nothing moves under the pointer and nothing advances by itself; a loop plays only on the slide in view, never under reduced motion (the still shows, the buttons stay).",
+      "Nothing moves under the pointer; without `autoplay` nothing advances by itself; a loop plays only on the slide in view, never under reduced motion (the still shows, the buttons stay).",
+      "`autoplay` (WCAG 2.2.2): a visible pause / play in the toolbar; it also holds under the pointer (not a touch), on a keyboard focus inside, while the tab is hidden and off screen; the count is announced only while held; it wraps. The clock is the current tick's CSS animation, so a hold keeps it where it stood. Under reduced motion or Save-Data: no clock, no clip, no pause button, the current tick full.",
+      "The carousel draws a slide's `video` itself (v2): one `<video>`, the current slide's, muted, mounted after the page's `load`, `webm` before `mp4`; if no source plays it unmounts and the poster stays. Only the posters seen and the next one are drawn, the first eagerly.",
+      "`sound`: « Sound on » is a toggle (`aria-pressed`) shown only when a slide declares `audio`; after the press, the pointer or the focus in the carousel unmutes that slide's clip, leaving mutes it; the choice lasts the session; never under reduced motion.",
+      "Only the buttons take the focus, and their ring shows for the keyboard only (`:focus-visible`): no frame around the stage. `textVersion` adds a native `<details>` with every caption, text and chapter.",
       "A loop is decorative (`aria-hidden`), starts only while its tile is on screen and never under reduced motion.",
     ],
   },
@@ -36,6 +44,9 @@ export const meta = {
     examples: [
       { name: "shop", title: "Shop", description: "Three photos, the first featured, one with a caption." },
       { name: "carousel", title: "Carousel", description: "Three realisations one at a time, the first opens its film; buttons (and ← / → on them), swipe, nothing advances by itself." },
+      { name: "carousel-autoplay", title: "Carousel v2, autoplay", description: "It advances by itself at each slide's pace, with ticks and a visible pause; holds under the pointer, on keyboard focus and off screen; nothing moves under reduced motion." },
+      { name: "carousel-cahier", title: "Carousel v2, Cahier frame and sound", description: "The company's sites: square frame with a paper shadow, the caption in the bar, a hue, the text version, « Sound on » for the slides with sound." },
+      { name: "carousel-demo", title: "Carousel v2, screen demo with chapters", description: "A 30 s product journey: chapter marks on the tick, the caption follows the step under the playhead, the steps in the text version." },
       { name: "carousel-single", title: "Carousel, one slide", description: "A single slide draws no arrows and no count." },
       { name: "carousel-loop", title: "Carousel, loop and French words", description: "A film slide previewed by a silent loop with a visible pause (after load, on screen only), the carousel and the lightbox player in French." },
       { name: "player", title: "Player", description: "The one video frame: a poster that opens a lightbox started by the press (with sound), 16:9 and vertical 9:16." },

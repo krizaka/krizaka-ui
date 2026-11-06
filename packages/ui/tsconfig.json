@@ -11,6 +11,7 @@
       "@krizaka/ui/media-player": ["./src/media-gallery/player-index.ts"],
       "@krizaka/ui/media-carousel": ["./src/media-gallery/carousel-index.ts"],
       "@krizaka/ui/pausable-loop": ["./src/media-gallery/loop-index.ts"],
+      "@krizaka/ui/media-guard": ["./src/media-gallery/guard/index.ts"],
       "@krizaka/ui/*": ["./src/*/index.ts"]
     }
   },

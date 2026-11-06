@@ -111,6 +111,8 @@ function scanSpecifier(specifier, file, { name, versions, files, dependencies, r
     if (entry !== name && entry !== "cn") registryDependencies.add(entry);
     return;
   }
+  // Node's own modules (a Node entry such as the media guard's bin) are never an npm dependency.
+  if (specifier.startsWith("node:")) return;
   const pkg = packageName(specifier);
   if (PEERS.has(pkg)) return;
   if (!versions[pkg]) throw new Error(`${posix(relative(PKG, file))}: "${pkg}" is not a dependency of @krizaka/ui`);
