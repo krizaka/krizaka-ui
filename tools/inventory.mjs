@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 // tools/inventory.mjs — the final audit of the UI refactor (study §2.1): where does a concept of the @krizaka/ui
 // catalogue still have a local implementation? Read-only: it only reads the clones of the products and of the site.
+// Why: the catalogue is only worth its name if no product keeps its own copy. Owner: krizaka-ui (lane platform).
+// ADR-026 phase D: the concepts' names, endings and modules are lists (CONCEPTS), read by small matchers; no regex over 80 characters.
+//
 //
 //   node tools/inventory.mjs                      # markdown report on stdout (clones under ~/krizaka-com)
 //   node tools/inventory.mjs --json               # the same, as JSON (CI, scripts)
@@ -19,174 +22,19 @@
 // A product that imports the primitives through its own door (`components/ui/index.ts`, which re-exports
 // `@krizaka/ui/*` and gives them the product's words) builds on them as much as a direct import does: a name imported
 // from the door counts as an import of the module the door takes it from (`doorSources`).
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { homedir } from "node:os";
-import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
+import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 
-/** The concepts of the catalogue (study §2.1), most specific first: a name is given to the first concept it matches. */
-export const CONCEPTS = [
-  {
-    id: "confirm",
-    label: "Confirmation d'action",
-    target: "@krizaka/ui/confirm-button · AlertDialog",
-    names: ["ConfirmDialog", "ConfirmButton", "ConfirmIconButton", "AlertDialog"],
-    suffix: /^\w*Confirm\w*(Dialog|Button|Modal)$/,
-    primitive: /@krizaka\/ui\/(confirm-button|dialog)\b/,
-  },
-  {
-    id: "command",
-    label: "Palette de commandes / recherche",
-    target: "@krizaka/ui/command",
-    names: ["Command", "CommandPalette", "SearchCommand", "GlobalSearchModal", "SearchModal", "SearchPalette"],
-    suffix: /(CommandPalette|SearchCommand|SearchModal|SearchPalette)$/,
-    primitive: /@krizaka\/ui\/command\b/,
-    signature: /from\s+["']cmdk["']/,
-  },
-  {
-    // PS2: a table with its own engine (sorting, selection, filters written by hand, or TanStack Table imported by the
-    // app) is a duplicate of @krizaka/ui/data-table v2. A plain <table> of text (a schema's text version) is not.
-    id: "table",
-    label: "Table de données",
-    target: "@krizaka/ui/data-table",
-    names: ["DataTable", "DataGrid", "Table", "SortableTable"],
-    suffix: /(DataTable|DataGrid|SortableTable)$/,
-    primitive: /@krizaka\/ui\/data-table\b/,
-    signature: /from\s+["']@tanstack\/(react-)?table(-core)?["']/,
-  },
-  {
-    // PS2: a virtualised list or an infinite feed written by hand (or on TanStack Virtual / FlashList imported by the
-    // app) is a duplicate of @krizaka/ui/virtual (web) and @krizaka/ui/native/list (React Native).
-    id: "list",
-    label: "Liste longue / virtualisée",
-    target: "@krizaka/ui/virtual · native/list",
-    names: ["VirtualList", "VirtualGrid", "InfiniteList", "VirtualizedList"],
-    suffix: /(VirtualList|VirtualGrid|InfiniteList|VirtualizedList)$/,
-    primitive: /@krizaka\/ui\/(virtual|native\/list)\b/,
-    signature: /from\s+["'](@tanstack\/(react-)?virtual(-core)?|@shopify\/flash-list|react-window|react-virtualized)["']/,
-  },
-  {
-    id: "theme",
-    label: "Thème (provider, bascule)",
-    target: "@krizaka/ui/theme",
-    names: ["ThemeProvider", "ThemeToggle", "ThemeModeSelector", "ThemeSwitcher", "ThemeSwitch"],
-    suffix: /^Theme\w*(Provider|Toggle|Selector|Switcher|Switch)$/,
-    primitive: /@krizaka\/ui\/theme\b/,
-    signature: /classList\.(add|remove|toggle)\(\s*["'`](light|dark)["'`]/,
-  },
-  {
-    id: "dialog",
-    label: "Dialogue / feuille",
-    target: "@krizaka/ui/dialog",
-    names: ["Dialog", "Sheet", "Modal", "BottomSheet", "Drawer"],
-    suffix: /(Dialog|Sheet|Modal|Drawer)$/,
-    primitive: /@krizaka\/ui\/(dialog|command)\b/,
-    signature: /role=["']dialog["']|aria-modal=|createPortal\(/,
-  },
-  {
-    id: "toast",
-    label: "Toast",
-    target: "@krizaka/ui/toast",
-    names: ["Toast", "Toaster", "ToastProvider", "ToastContext", "ToastOverlay"],
-    suffix: /(Toasts?|ToastContext|ToastOverlay|ToastProvider)$/,
-    primitive: /@krizaka\/ui\/toast\b/,
-  },
-  {
-    id: "tabs",
-    label: "Onglets / segments",
-    target: "@krizaka/ui/tabs · Segmented",
-    names: ["Tabs", "Segmented", "Segments", "SegmentedControl", "TabBar"],
-    suffix: /(Tabs|Segmented|Segments|SegmentedControl)$/,
-    primitive: /@krizaka\/ui\/tabs\b/,
-    signature: /role=["']tablist["']/,
-  },
-  {
-    id: "switch",
-    label: "Switch",
-    target: "@krizaka/ui/switch",
-    names: ["Switch", "Toggle"],
-    suffix: /Switch$/,
-    primitive: /@krizaka\/ui\/switch\b/,
-    signature: /role=["']switch["']/,
-  },
-  {
-    id: "slider",
-    label: "Slider",
-    target: "@krizaka/ui/slider",
-    names: ["Slider", "Range"],
-    suffix: /Slider$/,
-    primitive: /@krizaka\/ui\/slider\b/,
-    signature: /role=["']slider["']|type=["']range["']/,
-  },
-  {
-    id: "countdown",
-    label: "Compte à rebours",
-    target: "@krizaka/ui/countdown",
-    names: ["Countdown", "CountdownTimer"],
-    suffix: /Countdown$/,
-    primitive: /@krizaka\/ui\/countdown\b/,
-  },
-  {
-    id: "avatar",
-    label: "Avatar",
-    target: "@krizaka/ui/avatar",
-    names: ["Avatar", "AvatarGroup"],
-    suffix: /Avatar$/,
-    primitive: /@krizaka\/ui\/avatar\b/,
-  },
-  {
-    id: "skeleton",
-    label: "Squelette / vide / état async",
-    target: "@krizaka/ui/skeleton · empty-state · spinner",
-    names: ["Skeleton", "Empty", "EmptyState", "AsyncState", "Spinner", "Loader"],
-    suffix: /(Skeleton|EmptyState|AsyncState)$/,
-    primitive: /@krizaka\/ui\/(skeleton|empty-state|spinner)\b/,
-  },
-  {
-    id: "field",
-    label: "Champ de formulaire",
-    target: "@krizaka/ui/field · checkbox · radio-group",
-    names: ["Input", "Field", "TextField", "Textarea", "Select", "Checkbox", "FormField"],
-    suffix: /(Field|Input)$/,
-    primitive: /@krizaka\/ui\/(field|checkbox|radio-group)\b/,
-  },
-  {
-    id: "badge",
-    label: "Badge / pastille / chip",
-    target: "@krizaka/ui/badge · chip",
-    names: ["Badge", "Chip", "Pill", "Tag"],
-    suffix: /(Badge|Chip|Pill)$/,
-    primitive: /@krizaka\/ui\/(badge|chip)\b/,
-  },
-  {
-    id: "card",
-    label: "Carte",
-    target: "@krizaka/ui/card",
-    names: ["Card", "CardHeader", "CardBody", "CardFooter", "Panel", "Tile", "Tiles"],
-    suffix: /Card$/,
-    primitive: /@krizaka\/ui\/(card|stat)\b/,
-  },
-  {
-    id: "button",
-    label: "Bouton",
-    target: "@krizaka/ui/button",
-    names: ["Button", "IconButton", "PrimaryButton", "buttonClass", "buttonVariants"],
-    suffix: /Button$/,
-    primitive: /@krizaka\/ui\/(button|confirm-button)\b/,
-  },
-];
+import { CONCEPTS, COMPOSITES, conceptOf, mentionsPrimitive, NATIVE, PRODUCT_KIT } from "./inventory-concepts.mjs";
+import { isDuplicate, issueBody, toMarkdown } from "./inventory-report.mjs";
+import { definitions, doorSources, ILLUSTRATION, readDoor, sourceFiles } from "./inventory-source.mjs";
 
-/** Product composites the study lists as legitimate (§2.2, level 2), whatever they import. */
-export const COMPOSITES = new Set([
-  "AuctionStatusBadge", "LiveBadge", "SocialIcon", "StoryRing", "AgeGate", "SentinelMini", "PackCard", "StudioCard",
-  "NotificationBell",
-]);
-
-/** An import that builds on the platform for every concept: React Native gets all its primitives from one entry. */
-const NATIVE = /@krizaka\/ui\/native\b/;
-/** The product design systems: a component built on them builds on the primitives they re-export. */
-const PRODUCT_KIT = /@krizaka\/[a-z]+-design-system\b/;
+export * from "./inventory-concepts.mjs";
+export * from "./inventory-report.mjs";
+export * from "./inventory-source.mjs";
 
 /** The clones scanned, relative to the base folder (default ~/krizaka-com). `slug` is the GitHub repository. The products in
     focus only: the repositories of the products that left the organisation are not read. */
@@ -201,138 +49,6 @@ export const REPOS = [
   { name: "sovkora-mobile", path: "products/sovkora/sovkora-apps/ui/sovkora-mobile", slug: "krizaka/sovkora-mobile", prompt: "P6.2 appliqué à Sovkora mobile" },
 ];
 
-const SKIP_DIRS = new Set([
-  "node_modules", ".next", "dist", "build", "out", "coverage", "storybook-static", ".turbo", ".expo", "android", "ios",
-  "__screenshots__", "e2e", ".git", ".source", "test", "tests", "__tests__", "__mocks__",
-]);
-const SOURCE = /\.(tsx|ts|jsx|js|mjs)$/;
-/** Drawings of a UI (a hero illustration, an isometric scene, a mock screen, the /story game): not UI to migrate. */
-export const ILLUSTRATION = /(^|\/)(illustrations?|iso|showcase|story)\//;
-const NOT_SOURCE = /\.(test|spec|stories|d)\.[cm]?[jt]sx?$|\.config\.[cm]?[jt]s$/;
-
-/** Every source file under a folder, skipping builds, dependencies, tests and stories. */
-export function sourceFiles(root, skip = []) {
-  const out = [];
-  const skipped = new Set([...SKIP_DIRS, ...skip]);
-  const walk = (dir, depth) => {
-    let entries;
-    try {
-      entries = readdirSync(dir, { withFileTypes: true });
-    } catch {
-      return;
-    }
-    for (const e of entries) {
-      if (e.name.startsWith(".") && e.isDirectory()) continue;
-      if (e.isDirectory()) {
-        if (!(depth === 0 ? skipped : SKIP_DIRS).has(e.name)) walk(join(dir, e.name), depth + 1);
-      } else if (SOURCE.test(e.name) && !NOT_SOURCE.test(e.name)) {
-        out.push(join(dir, e.name));
-      }
-    }
-  };
-  walk(root, 0);
-  return out.sort((a, b) => a.localeCompare(b));
-}
-
-const DEFINITION = /^(?:export\s+)?(?:default\s+)?(?:async\s+)?(?:function\s+([A-Za-z_$][\w$]*)|(?:const|let)\s+([A-Za-z_$][\w$]*)\s*(?::[^=\n]+)?=\s*([^\n]*))/gm;
-
-/** The top-level definitions of a file: components (capitalised) and the few lower-case helpers the catalogue names. */
-export function definitions(text) {
-  const names = [];
-  for (const m of text.matchAll(DEFINITION)) {
-    const name = m[1] ?? m[2];
-    // `const Tabs = createBottomTabNavigator()`: a library's factory, not a component written here.
-    if (m[3] !== undefined && /^create[A-Z]\w*\(/.test(m[3])) continue;
-    if (/^[A-Z]/.test(name) || name === "buttonClass" || name === "buttonVariants") names.push(name);
-  }
-  return [...new Set(names)];
-}
-
-/** The concept a name belongs to, and how (`name`: a catalogue name; `suffix`: a product component). */
-export function conceptOf(name) {
-  for (const c of CONCEPTS) if (c.names.includes(name)) return { concept: c, by: "name" };
-  for (const c of CONCEPTS) if (c.suffix.test(name)) return { concept: c, by: "suffix" };
-  return undefined;
-}
-
-/** The named items of an import or export clause (`{ A, B as C, type D }`): `[{ name, as }]`. */
-function clauseItems(clause) {
-  const braces = /\{([^}]*)\}/.exec(clause);
-  if (!braces) return [];
-  return braces[1]
-    .split(",")
-    .map((item) => item.trim().replace(/^type\s+/, ""))
-    .filter(Boolean)
-    .map((item) => {
-      const [name, as = name] = item.split(/\s+as\s+/).map((x) => x.trim());
-      return { name, as };
-    });
-}
-
-const IMPORTS = /import\s+(?:type\s+)?([^;]*?)\s+from\s+["']([^"']+)["']/g;
-const EXPORTS_FROM = /export\s+(?:type\s+)?(\{[^}]*\})\s+from\s+["']([^"']+)["']/g;
-const DOOR = /(^|\/)components\/ui\/index\.(tsx?|jsx?|mjs)$/;
-const EXTENSIONS = ["", ".ts", ".tsx", ".js", ".jsx", ".mjs", "/index.ts", "/index.tsx", "/index.js"];
-
-/** The imports of a file: `[{ spec, names: [{ name, as }] }]`. */
-export function importsOf(text) {
-  return [...text.matchAll(IMPORTS)].map((m) => ({ spec: m[2], names: clauseItems(m[1]) }));
-}
-
-/** A module specifier as a path without extension, when it is local (relative, `@/` or `~/`). */
-function localPath(spec, file, root) {
-  if (spec.startsWith(".")) return resolve(dirname(file), spec);
-  if (spec.startsWith("@/") || spec.startsWith("~/")) return join(root, spec.slice(2));
-  return undefined;
-}
-
-function readModule(path) {
-  for (const ext of EXTENSIONS) {
-    const p = path + ext;
-    if (existsSync(p) && statSync(p).isFile()) return { path: p, text: readFileSync(p, "utf8") };
-  }
-  return undefined;
-}
-
-/**
- * The product's door to the platform (`components/ui/index.ts`): every name it exports and the package module it
- * comes from — directly (`export { Card } from "@krizaka/ui/card"`) or through one of its own files that imports it
- * (`export { Button } from "./Button"`, where `Button.tsx` imports `Button` from `@krizaka/ui/button`).
- * @returns {{ path: string, dir: string, names: Map<string, string> } | undefined}
- */
-export function readDoor(files) {
-  const index = files.find((f) => DOOR.test(f.split(sep).join("/")));
-  if (!index) return undefined;
-  const names = new Map();
-  for (const m of readFileSync(index, "utf8").matchAll(EXPORTS_FROM)) {
-    const spec = m[2];
-    const local = spec.startsWith(".") ? readModule(resolve(dirname(index), spec)) : undefined;
-    for (const { name, as } of clauseItems(m[1])) {
-      if (!local) {
-        names.set(as, spec);
-        continue;
-      }
-      const from = importsOf(local.text).find((i) => !i.spec.startsWith(".") && i.names.some((n) => n.name === name));
-      if (from) names.set(as, from.spec);
-    }
-  }
-  return { path: index, dir: dirname(index), names };
-}
-
-/** The package modules a file reaches through the door: one per name it imports from it. */
-export function doorSources(text, file, root, door) {
-  if (!door) return [];
-  const out = [];
-  for (const { spec, names } of importsOf(text)) {
-    const path = localPath(spec, file, root);
-    if (path === undefined) continue;
-    const target = [path, join(root, "src", spec.slice(2))].some((p) => p === door.dir || p === join(door.dir, "index") || p === door.path);
-    if (!target) continue;
-    for (const { name } of names) if (door.names.has(name)) out.push(door.names.get(name));
-  }
-  return out;
-}
-
 /**
  * Classifies one file: its definitions that bear a concept, then the concepts it re-does without one. `door` lists
  * the package modules the file reaches through the product's door (`doorSources`).
@@ -340,8 +56,8 @@ export function doorSources(text, file, root, door) {
  */
 export function classify(text, door = []) {
   const findings = [];
-  const direct = (c) => c.primitive.test(text) || NATIVE.test(text);
-  const builds = (c) => direct(c) || door.some((spec) => c.primitive.test(spec));
+  const direct = (c) => mentionsPrimitive(text, c.primitives) || NATIVE.test(text);
+  const builds = (c) => direct(c) || door.some((spec) => mentionsPrimitive(spec, c.primitives));
   const onKit = PRODUCT_KIT.test(text) || door.some((spec) => PRODUCT_KIT.test(spec));
   const seen = new Set();
   for (const symbol of definitions(text)) {
@@ -384,52 +100,6 @@ export function inventory({ base = join(homedir(), "krizaka-com"), overrides = {
     repos.push({ ...repo, path, missing: false, files: files.length, findings });
   }
   return { date: new Date().toISOString().slice(0, 10), base, repos };
-}
-
-const isDuplicate = (f) => f.status === "doublon" || f.status === "signature";
-const STATUS = { doublon: "doublon à migrer", signature: "doublon (signature)", composite: "composite produit légitime", adaptateur: "adaptateur de la primitive" };
-
-/** The report as markdown: a summary per repository, then the concepts, then what each repository has to migrate. */
-export function toMarkdown(report) {
-  const lines = [`# Inventaire UI — ${report.date}`, "", "Concepts du catalogue `@krizaka/ui` (étude §2.1) encore implémentés localement. Lecture seule.", ""];
-  lines.push("| Dépôt | Fichiers | Doublons à migrer | Composites légitimes | Adaptateurs |", "| :-- | --: | --: | --: | --: |");
-  for (const r of report.repos) {
-    if (r.missing) {
-      lines.push(`| ${r.name} | — | clone absent | | |`);
-      continue;
-    }
-    const n = (s) => r.findings.filter(s).length;
-    lines.push(`| ${r.name} | ${r.files} | ${n(isDuplicate)} | ${n((f) => f.status === "composite")} | ${n((f) => f.status === "adaptateur")} |`);
-  }
-  const total = report.repos.flatMap((r) => r.findings).filter(isDuplicate).length;
-  lines.push("", total === 0 ? "**Aucun doublon** : seuls restent des composites produit et des adaptateurs." : `**${total} doublon(s) à migrer.**`, "");
-  for (const c of CONCEPTS) {
-    const rows = report.repos.flatMap((r) => r.findings.filter((f) => f.concept === c.id).map((f) => ({ ...f, repo: r.name })));
-    if (rows.length === 0) continue;
-    lines.push(`## ${c.label} → \`${c.target}\``, "", "| Dépôt | Fichier | Symbole | Statut |", "| :-- | :-- | :-- | :-- |");
-    for (const f of rows.sort((a, b) => Number(isDuplicate(b)) - Number(isDuplicate(a)) || a.repo.localeCompare(b.repo))) {
-      lines.push(`| ${f.repo} | \`${f.file}\` | \`${f.symbol}\` | ${STATUS[f.status]} (${f.why}) |`);
-    }
-    lines.push("");
-  }
-  return lines.join("\n");
-}
-
-/** What one repository has to migrate, as the body of an issue. */
-export function issueBody(repo) {
-  const dups = repo.findings.filter(isDuplicate);
-  const label = (id) => CONCEPTS.find((c) => c.id === id);
-  return [
-    `L'audit final du programme UI (\`krizaka-ui/tools/inventory.mjs\`, étude §2.1) trouve ${dups.length} implémentation(s) locale(s) de concepts du catalogue \`@krizaka/ui\` dans ce dépôt :`,
-    "",
-    "| Fichier | Symbole | Concept | Cible |",
-    "| :-- | :-- | :-- | :-- |",
-    ...dups.map((f) => `| \`${f.file}\` | \`${f.symbol}\` | ${label(f.concept).label} | \`${label(f.concept).target}\` |`),
-    "",
-    `**Prompt de migration** (company/prompts-claude-code.md) : ${repo.prompt}. Règle : un composite produit garde son nom s'il est construit sur la primitive (niveau 2/3, §2.2) ; une copie de primitive disparaît au profit de \`@krizaka/ui\`.`,
-    "",
-    "Vérification : `node tools/inventory.mjs --repo <ce-dépôt>=<chemin>` dans krizaka-ui ne doit plus lister ce dépôt en « doublon ».",
-  ].join("\n");
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
