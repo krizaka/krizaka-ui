@@ -20,7 +20,7 @@ jobs:
   changes:
     # Docs-only pull requests (root markdown, docs/ but not docs/inventory/, which the checks read, changesets, workflows other than this one) skip the heavy jobs below.
     # A skipped job reports « Skipped », which keeps the required checks satisfied; the gate fails open (krizaka/.github changes.yml).
-    uses: krizaka/.github/.github/workflows/changes.yml@79f6ff6292edefebc59fc968dbc2c203da81c3ea # main
+    uses: krizaka/.github/.github/workflows/changes.yml@bed6cb57edc919f2bcaf76274b724d9c11607445 # main
     with:
       ignore: '^[^/]+\.md$|^LICENSE|^docs/(?!inventory/)|^\.changeset/|^\.github/(?!workflows/ci\.yml$)'
 
@@ -37,12 +37,12 @@ jobs:
     # SWC (the test-runner's transform) refuses to cache its native addon under /github/home (writable by others): a private cache root.
     env: { XDG_CACHE_HOME: /root/.cache }
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0   # the affected-packages filter diffs against the base branch
           persist-credentials: false
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: pnpm
@@ -78,7 +78,7 @@ jobs:
           if [ "$in_scope" = yes ]; then pnpm devx:check; else echo "devx check: @krizaka/ui is not in this change, the static half only"; node tools/devx-check.mjs --static; fi
       - name: Upload the screenshot diffs
         if: failure()
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: storybook-screenshot-diffs
           path: apps/storybook/__screenshots__/__diff__
@@ -131,11 +131,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: pnpm
@@ -156,7 +156,7 @@ jobs:
           for _ in $(seq 1 20); do curl -fsS -o /dev/null http://localhost:4600/ && break; sleep 0.5; done
           node apps/site/scripts/check-seo-family.mjs --base http://localhost:4600 --host https://ui.krizaka.com --limit 400
       - name: Keep the export for the browser checks
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: site-out
           path: apps/site/out
@@ -175,17 +175,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: pnpm
       # Only what the browser checks need: Playwright (storybook's pinned copy) and the scripts' own dependencies.
       - run: pnpm install --frozen-lockfile --prefer-offline --filter @krizaka/storybook
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: site-out
           path: apps/site/out
@@ -206,7 +206,7 @@ jobs:
         run: node apps/site/scripts/docs-crawl.selftest.mjs --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')"
       - name: Upload the documentation crawl report
         if: failure()
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: docs-crawl-report-${{ matrix.shard }}
           path: docs-crawl-report
@@ -220,17 +220,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: pnpm
       # Only what the browser checks need: Playwright (storybook's pinned copy) and the scripts' own dependencies.
       - run: pnpm install --frozen-lockfile --prefer-offline --filter @krizaka/storybook
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: site-out
           path: apps/site/out
@@ -292,7 +292,7 @@ jobs:
           fetch-depth: 0  # blame and new-code detection need the history
           persist-credentials: false
 
-      - uses: krizaka/.github/actions/sonar-scan@79f6ff6292edefebc59fc968dbc2c203da81c3ea # main
+      - uses: krizaka/.github/actions/sonar-scan@bed6cb57edc919f2bcaf76274b724d9c11607445 # main
         with:
           token: ${{ secrets.SONAR_TOKEN }}
           args: -Dsonar.qualitygate.wait=true
@@ -329,7 +329,7 @@ jobs:
 
       # CI analysis: the SonarCloud app still decorates the pull request and posts « SonarCloud Code Analysis »; the quality gate is awaited
       # here so the CI gate carries its verdict too.
-      - uses: krizaka/.github/actions/sonar-scan@79f6ff6292edefebc59fc968dbc2c203da81c3ea # main
+      - uses: krizaka/.github/actions/sonar-scan@bed6cb57edc919f2bcaf76274b724d9c11607445 # main
         with:
           token: ${{ secrets.SONAR_TOKEN }}
           args: -Dsonar.qualitygate.wait=true
@@ -366,12 +366,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with: { node-version: 22 }
-      - uses: krizaka/.github/actions/dup-check@79f6ff6292edefebc59fc968dbc2c203da81c3ea # v1.5.2
+      - uses: krizaka/.github/actions/dup-check@bed6cb57edc919f2bcaf76274b724d9c11607445 # main
 
   realtime:
     # @krizaka/realtime against real servers: two buses per adapter standing for two app instances (PostgreSQL
@@ -394,11 +394,11 @@ jobs:
         options: >-
           --health-cmd "valkey-cli ping" --health-interval 5s --health-timeout 5s --health-retries 10
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: pnpm
