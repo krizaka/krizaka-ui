@@ -1,10 +1,14 @@
 import type { LocalizedMessage } from "./message";
 import { isVersion } from "./version";
 
+// @fixed: the version of the signed manifest format, part of what the key signs
 export const SCHEMA_VERSION = 1;
 
 export type Environment = "dev" | "prod";
-export type ServiceStatus = "ok" | "maintenance";
+/** The states a service may be in, one closed set: the validation and the gate read it, never a literal. */
+export const SERVICE_STATUS = { ok: "ok", maintenance: "maintenance" } as const;
+export type ServiceStatus = (typeof SERVICE_STATUS)[keyof typeof SERVICE_STATUS];
+const STATUSES: readonly unknown[] = Object.values(SERVICE_STATUS);
 
 /** The addresses of one service. A base has no trailing slash and may carry a path (`https://dev.sovkora.com/edge`). */
 export interface ServiceBases {
@@ -50,7 +54,7 @@ function validEntry(value: unknown): value is ServiceEntry {
   if (value.mediaBase !== undefined && !text(value.mediaBase)) return false;
   if (!text(value.minAppVersion) || !isVersion(value.minAppVersion)) return false;
   if (!text(value.latestAppVersion) || !isVersion(value.latestAppVersion)) return false;
-  if (value.status !== "ok" && value.status !== "maintenance") return false;
+  if (!STATUSES.includes(value.status)) return false;
   if (value.message !== undefined) {
     if (!isRecord(value.message) || !text(value.message.en, 280) || !text(value.message.fr, 280)) return false;
   }

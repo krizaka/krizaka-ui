@@ -33,7 +33,7 @@ describe("default avatars", () => {
     expect(defaultAvatarToneOf("user-1")).toBe(defaultAvatarToneOf("user-1"));
     expect(defaultAvatarToneOf(undefined)).toBe(1);
     const seen = new Set(Array.from({ length: 200 }, (_, i) => defaultAvatarToneOf(`user-${i}`)));
-    expect([...seen].sort()).toEqual([1, 2, 3, 4, 5, 6]);
+    expect([...seen].sort((a, b) => a - b)).toEqual([1, 2, 3, 4, 5, 6]);
   });
 
   it("keep every tone of every brand readable under the white silhouette (3:1) and distinct", () => {

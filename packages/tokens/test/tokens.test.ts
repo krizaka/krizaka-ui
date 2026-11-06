@@ -60,7 +60,7 @@ describe("tokens.css", () => {
   });
 
   it("gives .theme-light the light values of every token .theme-dark declares, aliases included (parity)", () => {
-    expect([...lightIsland.keys()].sort()).toEqual([...dark.keys()].sort());
+    expect([...lightIsland.keys()].sort((a, b) => a.localeCompare(b))).toEqual([...dark.keys()].sort((a, b) => a.localeCompare(b)));
     for (const [name, value] of light) expect(lightIsland.get(name), name).toBe(value);
     for (const [name, value] of lightIsland) if (!light.has(name)) expect(value, name).toBe(dark.get(name));
     expect(lightIsland.get("--kz-ring")).toBe("var(--kz-accent)");
@@ -220,7 +220,7 @@ describe("generated modules", async () => {
   it("index: camelCase keys referencing the CSS variables", () => {
     expect(index.tokens.surface0).toBe("var(--kz-surface-0)");
     expect(index.tokens.textOnMedia).toBe("var(--kz-text-on-media)");
-    expect(Object.values(index.tokens).sort()).toEqual(allNames.map((n) => `var(${n})`).sort());
+    expect(Object.values(index.tokens).map(String).sort((a, b) => a.localeCompare(b))).toEqual(allNames.map((n) => `var(${n})`).sort((a, b) => a.localeCompare(b)));
     expect(Object.isFrozen(index.tokens)).toBe(true);
   });
 
@@ -237,16 +237,16 @@ describe("generated modules", async () => {
     const colorRoles = tokens.filter((t) => t.type === "color").map((t) => camel(t.name));
     const nonColor = new Set(tokens.filter((t) => t.type !== "color").map((t) => `--kz-${t.name}`));
     const cssColorRoles = allNames.filter((n) => !nonColor.has(n)).map((n) => camel(n.slice("--kz-".length)));
-    expect(Object.keys(native.themes.dark).sort()).toEqual(cssColorRoles.sort());
-    expect(Object.keys(native.themes.dark).sort()).toEqual(colorRoles.sort());
+    expect(Object.keys(native.themes.dark).sort((a, b) => a.localeCompare(b))).toEqual(cssColorRoles.sort((a, b) => a.localeCompare(b)));
+    expect(Object.keys(native.themes.dark).sort((a, b) => a.localeCompare(b))).toEqual(colorRoles.sort((a, b) => a.localeCompare(b)));
     expect(Object.keys(native.themes.light)).toEqual(Object.keys(native.themes.dark));
   });
 
   it("native: radius and typography mirror their CSS tokens", () => {
     const keysOf = (prefix: string) =>
-      allNames.filter((n) => n.startsWith(`--kz-${prefix}-`)).map((n) => camel(n.slice(`--kz-${prefix}-`.length))).sort();
-    expect(Object.keys(native.radius).sort()).toEqual(keysOf("radius"));
-    expect(Object.keys(native.typography).sort()).toEqual(keysOf("font"));
+      allNames.filter((n) => n.startsWith(`--kz-${prefix}-`)).map((n) => camel(n.slice(`--kz-${prefix}-`.length))).sort((a, b) => a.localeCompare(b));
+    expect(Object.keys(native.radius).sort((a, b) => a.localeCompare(b))).toEqual(keysOf("radius"));
+    expect(Object.keys(native.typography).sort((a, b) => a.localeCompare(b))).toEqual(keysOf("font"));
     expect(native.radius).toEqual({ xs: 2, sm: 2, md: 2, lg: 0, xl: 0, "2xl": 0, full: 9999 });
     expect(native.typography).toEqual({ sans: "Atkinson Hyperlegible Next", text: "Atkinson Hyperlegible Next", display: "Young Serif", mono: "Courier Prime", cahier: "Krizaka Cahier", productDisplay: "Plus Jakarta Sans", monoMeta: "Courier Prime" });
     expect(native.motion.ease).toEqual([0.45, 0, 0.2, 1]);

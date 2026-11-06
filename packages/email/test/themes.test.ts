@@ -22,8 +22,8 @@ const PRODUCTS = BRAND_IDS.filter((b) => b !== "krizaka");
 describe("brands", () => {
   it("has the company and every product of @krizaka/tokens", () => {
     const files = fs.readdirSync(path.join(__dirname, "../../tokens/src/brands")).filter((f) => f.endsWith(".brand.json")).map((f) => f.replace(".brand.json", ""));
-    expect([...BRAND_IDS].sort()).toEqual(files.sort());
-    expect(Object.keys(BRAND_NAMES).sort()).toEqual(files.sort());
+    expect([...BRAND_IDS].sort((a, b) => a.localeCompare(b))).toEqual(files.sort((a, b) => a.localeCompare(b)));
+    expect(Object.keys(BRAND_NAMES).sort((a, b) => a.localeCompare(b))).toEqual(files.sort((a, b) => a.localeCompare(b)));
   });
 
   it.each(BRAND_IDS)("%s: the button, the links and the text are readable (WCAG AA) in light and dark", (id) => {

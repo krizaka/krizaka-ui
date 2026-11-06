@@ -27,7 +27,8 @@ export interface Release {
 
 export const CHANGE_TAGS: readonly ChangeTag[] = ["breaking", "security", "feature", "fix", "change"];
 
-const REPO_PR = /https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/pull\/(\d+)/;
+const GITHUB = "https://github.com/";
+const LINK_START = "https://";
 
 /** A line of markdown as a reader reads it: links keep their words, backticks and emphasis go. */
 export function plain(md: string): string {
@@ -55,8 +56,28 @@ const clip = (s: string, max = 220) => {
 
 /** The first PR a line links to, read from its markdown (`[#293](…/pull/293)`) or a bare URL. */
 export function prOf(line: string): ChangeItem["pr"] {
-  const url = REPO_PR.exec(line);
-  return url ? { number: Number(url[1]), url: url[0] } : undefined;
+  for (let at = line.indexOf(GITHUB); at >= 0; at = line.indexOf(GITHUB, at + 1)) {
+    const [owner, repo, kind, rest] = (line.slice(at + GITHUB.length).split(/[\s)\]>]/, 1)[0] ?? "").split("/");
+    const digits = /^\d+/.exec(rest ?? "")?.[0];
+    if (owner && repo && kind === "pull" && digits) return { number: Number(digits), url: `${GITHUB}${owner}/${repo}/pull/${digits}` };
+  }
+  return undefined;
+}
+
+/** The words without GitHub's credit before the link (`… by @someone in`). */
+function withoutCredit(words: string): string {
+  const by = words.lastIndexOf(" by @");
+  if (by < 0 || !words.endsWith(" in")) return words;
+  const handle = words.slice(by + " by @".length, -" in".length);
+  return handle.length > 0 && !handle.includes(" ") ? words.slice(0, by).trimEnd() : words;
+}
+
+/** A line split before its trailing link (`… in https://…`): the words, and the link when the line ends with one. */
+function splitTrailingLink(line: string): [string, string | undefined] {
+  const trimmed = line.trimEnd();
+  const space = trimmed.lastIndexOf(" ");
+  const last = trimmed.slice(space + 1);
+  return last.startsWith(LINK_START) ? [trimmed.slice(0, Math.max(space, 0)).trimEnd(), last] : [trimmed, undefined];
 }
 
 const CHANGESET_TAG: Record<string, ChangeTag> = { major: "breaking", minor: "feature", patch: "fix" };
@@ -113,9 +134,9 @@ export function parseReleaseBody(body: string): ChangeItem[] {
   for (const raw of body.split("\n")) {
     const bullet = /^\s*[-*] (.+)$/.exec(raw);
     if (!bullet) continue;
-    const line = bullet[1].replace(/\s+by @[\w-]+ in (https:\/\/\S+)\s*$/, " $1");
-    const pr = prOf(line);
-    const title = line.replace(/\s*https:\/\/\S+\s*$/, "");
+    const [words, link] = splitTrailingLink(bullet[1]);
+    const pr = prOf(bullet[1]);
+    const title = link ? withoutCredit(words) : words;
     const item = changeFromTitle(plain(title), pr?.url);
     if (item) items.push({ ...item, pr: pr ?? item.pr, text: clip(item.text) });
   }

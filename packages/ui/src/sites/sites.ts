@@ -40,7 +40,7 @@ export interface Site {
   readonly repo: string;
 }
 
-const site = (s: Omit<Site, "host">): Site => ({ ...s, host: s.url.replace(/^https?:\/\//, "").replace(/\/$/, "") });
+const site = (s: Omit<Site, "host">): Site => ({ ...s, host: new URL(s.url).host });
 
 /** Every site of the family, in reading order (the group order, then the order inside each group). */
 export const sites: readonly Site[] = [

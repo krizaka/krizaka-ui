@@ -98,7 +98,7 @@ export interface RegistryItem {
   summary: string;
   description: string;
   status: Status;
-  /** The issue of the first consumer, required while the status is `experimental` (`folioviv#481`). */
+  /** The issue of the first consumer, required while the status is `experimental` (`akinaza#481`). */
   adoption?: string | null;
   category: Category;
   /** What the component is for (ADR-008 §3); absent from @krizaka/charts, which is data display (lib/ui-domains.ts). */

@@ -46,7 +46,7 @@ describe("the frame's rules", () => {
 
 describe("the shared vocabulary", () => {
   it("says Docs, Terms and Settings the same way, EN and FR, with the same keys", () => {
-    expect(Object.keys(navWords.fr).sort()).toEqual(Object.keys(navWords.en).sort());
+    expect(Object.keys(navWords.fr).sort((a, b) => a.localeCompare(b))).toEqual(Object.keys(navWords.en).sort((a, b) => a.localeCompare(b)));
     expect(navWord("en", "terms")).toBe("Terms");
     expect(navWord("fr", "terms")).toBe("Conditions d'utilisation");
     expect(navWord("fr-CA", "settings")).toBe("Réglages");

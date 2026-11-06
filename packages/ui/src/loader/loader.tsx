@@ -54,9 +54,9 @@ export function useDelayedWait(active: boolean, delay = 250, minDuration = 600):
   const since = React.useRef(0);
   React.useEffect(() => {
     if (active === shown) return;
-    const wait = active ? delay : Math.max(0, minDuration - (Date.now() - since.current));
+    const wait = active ? delay : Math.max(0, minDuration - (performance.now() - since.current));
     const timer = setTimeout(() => {
-      since.current = Date.now();
+      since.current = performance.now();
       setShown(active);
     }, wait);
     return () => clearTimeout(timer);

@@ -20,6 +20,7 @@ export const DEFAULT_AVATAR_KINDS: readonly DefaultAvatarKind[] = ["person", "pl
 export const DEFAULT_AVATAR_ENTITY_KINDS: readonly DefaultAvatarEntityKind[] = ["person", "folder", "organisation", "shop"];
 export const DEFAULT_AVATAR_SIZES: readonly DefaultAvatarSize[] = [256, 512];
 /** How many tones each brand has: a person always gets the same one from their seed, so a list is not one colour. */
+// @fixed: the number of tone files drawn per brand in the published set (`people/defaults/v1/<brand>/person-<1..6>`)
 export const DEFAULT_AVATAR_TONES = 6;
 
 /** Where the set lives. `v1` is the set's version: a changed picture is a new version folder, never an overwrite. */
