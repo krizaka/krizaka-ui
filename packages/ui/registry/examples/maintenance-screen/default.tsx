@@ -6,7 +6,7 @@ export default function MaintenanceScreenDefault() {
   return (
     <MaintenanceScreen
       className="min-h-0"
-      mark={<ProductLogo id="orazaka" size={96} animated={false} />}
+      mark={<ProductLogo id="sovkora" size={96} animated={false} />}
       title="Back in a few minutes"
       message="We are upgrading our servers. Your work is safe."
       retryLabel="Try again"

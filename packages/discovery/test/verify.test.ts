@@ -18,7 +18,7 @@ describe("verifyManifest", () => {
 
   it("rejects a document whose content was changed after signing (a hijacked address)", () => {
     const m = signed();
-    m.services.yomizaka!.dev!.apiBase = "https://evil.example.com";
+    m.services.verikora!.dev!.apiBase = "https://evil.example.com";
     expect(verifyManifest(json(m), PUBLIC_KEYS)).toEqual({ ok: false, reason: "bad-signature" });
   });
 
@@ -61,7 +61,7 @@ describe("parseManifest", () => {
     expect(parseManifest(good())).not.toBeNull();
     expect(
       bad((m) => {
-        m.services.yomizaka.dev = { ...entry(), authBase: "https://a.yomizaka.com", mediaBase: "https://m.yomizaka.com", message: { en: "x", fr: "y" } };
+        m.services.verikora.dev = { ...entry(), authBase: "https://a.verikora.com", mediaBase: "https://m.verikora.com", message: { en: "x", fr: "y" } };
       }),
     ).not.toBeNull();
   });
@@ -72,19 +72,19 @@ describe("parseManifest", () => {
     expect(bad((m) => (m.issuedAt = "yesterday"))).toBeNull();
     expect(bad((m) => (m.issuedAt = 5))).toBeNull();
     expect(bad((m) => (m.services = []))).toBeNull();
-    expect(bad((m) => (m.services.yomizaka = []))).toBeNull();
-    expect(bad((m) => (m.services.yomizaka.staging = entry()))).toBeNull();
-    expect(bad((m) => (m.services.yomizaka.dev = "x"))).toBeNull();
-    expect(bad((m) => delete m.services.yomizaka.dev.apiBase)).toBeNull();
-    expect(bad((m) => delete m.services.yomizaka.dev.webBase)).toBeNull();
-    expect(bad((m) => (m.services.yomizaka.dev.authBase = ""))).toBeNull();
-    expect(bad((m) => (m.services.yomizaka.dev.mediaBase = 4))).toBeNull();
-    expect(bad((m) => (m.services.yomizaka.dev.minAppVersion = "1"))).toBeNull();
-    expect(bad((m) => (m.services.yomizaka.dev.minAppVersion = 1))).toBeNull();
-    expect(bad((m) => (m.services.yomizaka.dev.latestAppVersion = "x"))).toBeNull();
-    expect(bad((m) => (m.services.yomizaka.dev.status = "down"))).toBeNull();
-    expect(bad((m) => (m.services.yomizaka.dev.message = "soon"))).toBeNull();
-    expect(bad((m) => (m.services.yomizaka.dev.message = { en: "x" }))).toBeNull();
-    expect(bad((m) => (m.services.yomizaka.dev.message = { en: "x", fr: "y".repeat(281) }))).toBeNull();
+    expect(bad((m) => (m.services.verikora = []))).toBeNull();
+    expect(bad((m) => (m.services.verikora.staging = entry()))).toBeNull();
+    expect(bad((m) => (m.services.verikora.dev = "x"))).toBeNull();
+    expect(bad((m) => delete m.services.verikora.dev.apiBase)).toBeNull();
+    expect(bad((m) => delete m.services.verikora.dev.webBase)).toBeNull();
+    expect(bad((m) => (m.services.verikora.dev.authBase = ""))).toBeNull();
+    expect(bad((m) => (m.services.verikora.dev.mediaBase = 4))).toBeNull();
+    expect(bad((m) => (m.services.verikora.dev.minAppVersion = "1"))).toBeNull();
+    expect(bad((m) => (m.services.verikora.dev.minAppVersion = 1))).toBeNull();
+    expect(bad((m) => (m.services.verikora.dev.latestAppVersion = "x"))).toBeNull();
+    expect(bad((m) => (m.services.verikora.dev.status = "down"))).toBeNull();
+    expect(bad((m) => (m.services.verikora.dev.message = "soon"))).toBeNull();
+    expect(bad((m) => (m.services.verikora.dev.message = { en: "x" }))).toBeNull();
+    expect(bad((m) => (m.services.verikora.dev.message = { en: "x", fr: "y".repeat(281) }))).toBeNull();
   });
 });

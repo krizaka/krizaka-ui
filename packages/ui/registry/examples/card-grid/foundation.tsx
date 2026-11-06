@@ -4,8 +4,8 @@ import { CardGrid } from "@krizaka/ui/card-grid";
 import { LinkCard } from "@krizaka/ui/link-card";
 
 const products = [
-  { id: "yomizaka", name: "Yomizaka", hook: "Document checks and signed reports." },
-  { id: "akinaza", name: "Akinaza", hook: "Receipts read and sorted for the shop." },
+  { id: "verikora", name: "Verikora", hook: "Document checks and signed reports." },
+  { id: "folioviv", name: "Folioviv", hook: "Receipts read and sorted for the shop." },
 ] as const;
 
 // `foundation`: one wide card that the cards below stand on, a hairline stem to a frame around them. One column on a phone.
@@ -15,13 +15,13 @@ export default function CardGridFoundation() {
       className="w-full max-w-5xl"
       min={240}
       reveal={false}
-      foundationLabel="Powered by Orazaka"
+      foundationLabel="Powered by Sovkora"
       foundation={
         <LinkCard
-          href="#orazaka"
-          icon={<ProductLogo id="orazaka" size={28} animated={false} />}
+          href="#sovkora"
+          icon={<ProductLogo id="sovkora" size={28} animated={false} />}
           title="The engine"
-          description="Every product's AI runs on Orazaka: one pipeline, your models, your network."
+          description="Every product's AI runs on Sovkora: one pipeline, your models, your network."
           cta="Open the engine"
         />
       }

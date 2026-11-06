@@ -17,10 +17,10 @@ export default function LandingPageKrizaka() {
           <Button variant="secondary" size="lg">Read the docs</Button>
         </>
       }
-      visualLabel="orazaka.local — console"
+      visualLabel="sovkora.local — console"
       visual={
         <div className="grid gap-3 p-5">
-          <p className="font-mono text-xs text-fg-secondary">$ npx orazaka install</p>
+          <p className="font-mono text-xs text-fg-secondary">$ npx sovkora install</p>
           <p className="font-mono text-xs text-fg-success">✓ 1,284 answers this week, none left the server</p>
           <Meter label="Credits" value={3800} max={12000} valueText="3,800 of 12,000" showLabel />
         </div>
@@ -32,9 +32,9 @@ export default function LandingPageKrizaka() {
       ]}
       featuresHeading={{ eyebrow: "What we build", title: "Three products, one way of building" }}
       features={[
-        { id: "orazaka", size: "lg", title: "Orazaka — the AI that never leaves home", text: "Chat, image, voice and video on your own server, one governed pipeline." },
-        { id: "yomizaka", title: "Yomizaka", text: "Reads your leases, contracts and invoices." },
-        { id: "akinaza", title: "Akinaza", text: "Running a shop in Québec, for less — coming." },
+        { id: "sovkora", size: "lg", title: "Sovkora — the AI that never leaves home", text: "Chat, image, voice and video on your own server, one governed pipeline." },
+        { id: "verikora", title: "Verikora", text: "Reads your leases, contracts and invoices." },
+        { id: "folioviv", title: "Folioviv", text: "Running a shop in Québec, for less — coming." },
         { id: "blocks", size: "md", title: "Open building blocks", text: "Users, billing, notifications — on Maven Central and npm." },
         { id: "ui", size: "md", title: "One design system", text: "Krizaka UI, web and mobile, documented from its code." },
       ]}

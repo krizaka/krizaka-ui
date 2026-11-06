@@ -9,7 +9,7 @@ const rows = [
 ];
 const columns = [
   { id: "cloud", label: "A cloud assistant" },
-  { id: "mine", label: "Orazaka" },
+  { id: "mine", label: "Sovkora" },
 ];
 
 function Table() {
@@ -20,7 +20,7 @@ describe("ComparisonTable", () => {
   it("is a named table whose rows line up: every cell sits on its row's grid line, in its column", () => {
     render(<Table />);
     const table = screen.getByRole("table", { name: "Ownership" });
-    expect(within(table).getAllByRole("columnheader").map((h) => h.textContent)).toEqual(["Question", "A cloud assistant", "Orazaka"]);
+    expect(within(table).getAllByRole("columnheader").map((h) => h.textContent)).toEqual(["Question", "A cloud assistant", "Sovkora"]);
     const body = within(table).getAllByRole("row").slice(1);
     body.forEach((row, r) => {
       for (const cell of [within(row).getByRole("rowheader"), ...within(row).getAllByRole("cell")]) expect(cell.style.gridRow).toBe(String(r + 2));
@@ -33,7 +33,7 @@ describe("ComparisonTable", () => {
     const band = container.querySelector("[data-band]") as HTMLElement;
     expect(band.style.gridColumn).toBe("3");
     expect(band.style.gridRow).toBe("1 / span 3");
-    expect(screen.getAllByRole("columnheader").find((h) => h.hasAttribute("data-highlight"))?.textContent).toBe("Orazaka");
+    expect(screen.getAllByRole("columnheader").find((h) => h.hasAttribute("data-highlight"))?.textContent).toBe("Sovkora");
   });
 
   it("writes each answer as its key phrase in bold, then the detail; the other column is neutral, never struck", () => {
@@ -55,8 +55,8 @@ describe("ComparisonTable", () => {
     const cards = within(list).getAllByRole("listitem");
     expect(cards).toHaveLength(2);
     const terms = within(cards[0]).getAllByRole("term").map((t) => t.textContent);
-    expect(terms).toEqual(["A cloud assistant", "Orazaka"]);
-    expect(within(cards[0]).getByText("Orazaka").closest("[data-highlight]")).not.toBeNull();
+    expect(terms).toEqual(["A cloud assistant", "Sovkora"]);
+    expect(within(cards[0]).getByText("Sovkora").closest("[data-highlight]")).not.toBeNull();
   });
 
   it("staggers the rows' entrance through the motion system", () => {

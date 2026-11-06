@@ -10,9 +10,9 @@ const labels = { done: "Done", current: "Current step", upcoming: "Upcoming", er
 // says why it is worth it. On a phone the steps stay horizontal and compact above the fields.
 export default function AuthLayoutOnboarding() {
   return (
-    <div className="brand-orazaka">
+    <div className="brand-sovkora">
       <AuthLayout
-        brand={<><ProductLogo id="orazaka" size={28} animated={false} /> Studio</>}
+        brand={<><ProductLogo id="sovkora" size={28} animated={false} /> Studio</>}
         promise="Three steps, then your first video."
         aside={<p>Your identity is checked once, by a person, and never shown to your fans.</p>}
         asideFooter="© Krizaka · Montréal"

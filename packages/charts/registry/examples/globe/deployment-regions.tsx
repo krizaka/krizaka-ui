@@ -11,7 +11,7 @@ const regions = [
 export default function DeploymentRegions() {
   return (
     <Globe3D
-      title="Orazaka regions"
+      title="Sovkora regions"
       description="Availability over 30 days · replication from Paris"
       points={regions}
       arcs={[

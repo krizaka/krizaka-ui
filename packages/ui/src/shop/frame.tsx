@@ -24,7 +24,7 @@ export type ShopFrameProps = React.HTMLAttributes<HTMLDivElement> & {
    */
   density?: "compact" | "airy";
   /**
-   * One of the accents the preset lists as tested (`krizaka`, `akinaza:accent-2`…): the owner's choice within the look. Without it, the preset's own.
+   * One of the accents the preset lists as tested (`krizaka`, `folioviv:accent-2`…): the owner's choice within the look. Without it, the preset's own.
    * @see @krizaka/tokens `shopPresets`
    */
   accent?: string;

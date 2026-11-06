@@ -14,7 +14,7 @@ export default function JobsByStatus() {
   return (
     <BarChart
       title="Jobs per day, by status"
-      description="Orazaka · all workspaces"
+      description="Sovkora · all workspaces"
       data={days}
       x="day"
       xFormat="day"

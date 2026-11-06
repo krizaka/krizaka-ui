@@ -18,9 +18,9 @@ const SECTIONS: FrameSection[] = [
 export default function AppFrameTouch() {
   return (
     <AppFrame
-      name="Yomizaka"
-      accent="yomizaka"
-      mark={<ProductLogo id="yomizaka" size={26} animated={false} />}
+      name="Verikora"
+      accent="verikora"
+      mark={<ProductLogo id="verikora" size={26} animated={false} />}
       homeHref="#home"
       sections={SECTIONS}
       currentId="home"

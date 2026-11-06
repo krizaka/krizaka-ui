@@ -357,9 +357,9 @@ describe("brands", async () => {
   const surfaces = ["surface0", "surface1", "surface2", "surface3"] as const;
 
   it("compiles one theme per brand and the scoped classes", () => {
-    expect(BRANDS).toEqual(["krizaka", "orazaka", "yomizaka", "akinaza"]);
+    expect(BRANDS).toEqual(["krizaka", "sovkora", "verikora", "folioviv"]);
     for (const id of BRANDS) expect(files[`brands/${id}.css`], id).toBeDefined();
-    expect(files["brands/scoped.css"]).toContain(".brand-orazaka {");
+    expect(files["brands/scoped.css"]).toContain(".brand-sovkora {");
     expect(Object.keys(index.brands)).toEqual(BRANDS);
     expect(Object.keys(native.brands)).toEqual(BRANDS);
   });
@@ -389,9 +389,9 @@ describe("brands", async () => {
     }
   });
 
-  it("keeps the Orazaka orange", () => {
-    expect(native.brands.orazaka.light.accent).toBe("#b45309"); // the deep orange, also the first stop of the mark
-    expect(native.brands.orazaka.dark.accent2).toBe("#f59e0b"); // the buttons' gradient closes on amber (not the mark)
+  it("keeps the Sovkora orange", () => {
+    expect(native.brands.sovkora.light.accent).toBe("#b45309"); // the deep orange, also the first stop of the mark
+    expect(native.brands.sovkora.dark.accent2).toBe("#f59e0b"); // the buttons' gradient closes on amber (not the mark)
   });
 
   for (const id of BRANDS) {
@@ -440,15 +440,15 @@ describe("brands", async () => {
 
     it("draws each mark in its brand's colour", () => {
       expect(index.marks.krizaka.map(([, c]: [string, string]) => c)).toEqual([index.brands.krizaka.dark.accent, index.brands.krizaka.dark.accentText]);
-      // Orazaka: deep orange (its light accent) → orange, both on the accent's hue 26 — never the amber of --kz-warning.
-      expect(index.marks.orazaka[0][1]).toBe(index.brands.orazaka.light.accent);
-      for (const [, c] of index.marks.orazaka) {
-        expect(hue(c)).toBe(hue(index.brands.orazaka.dark.accent));
+      // Sovkora: deep orange (its light accent) → orange, both on the accent's hue 26 — never the amber of --kz-warning.
+      expect(index.marks.sovkora[0][1]).toBe(index.brands.sovkora.light.accent);
+      for (const [, c] of index.marks.sovkora) {
+        expect(hue(c)).toBe(hue(index.brands.sovkora.dark.accent));
         expect(Math.abs(hue(c) - hue(index.values.dark.warning))).toBeGreaterThanOrEqual(10);
       }
     });
 
-    it.each(["orazaka", "yomizaka", "akinaza"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
+    it.each(["sovkora", "verikora", "folioviv"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
       for (const mode of ["dark", "light"] as const) {
         for (const s of ["surface0", "surface1", "surface2"] as const) {
           for (const [, c] of index.marks[id]) expect(contrast(parseHsl(c), parseHsl(index.values[mode][s])), `${mode} ${s} ${c}`).toBeGreaterThanOrEqual(3);
@@ -457,61 +457,61 @@ describe("brands", async () => {
     });
 
     it("rejects a brand without a mark", () => {
-      const { $extensions: _ext, ...bare } = brandSources.orazaka as Record<string, unknown>;
+      const { $extensions: _ext, ...bare } = brandSources.sovkora as Record<string, unknown>;
       expect(() => compileBrands(tokens, { x: bare })).toThrow(/mark/);
     });
   });
 
-  it("keeps Yomizaka's indigo apart from the Krizaka blue, every other brand and every status", () => {
+  it("keeps Verikora's indigo apart from the Krizaka blue, every other brand and every status", () => {
     const hsl = (v: string) => /hsl\(([\d.]+) ([\d.]+)%/.exec(v)!.slice(1).map(Number) as [number, number];
     const gap = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
     for (const mode of ["dark", "light"] as const) {
-      const [accent] = hsl(index.brands.yomizaka[mode].accent);
+      const [accent] = hsl(index.brands.verikora[mode].accent);
       // The ink indigo sits at least 20° from the parent's blue.
       expect(gap(accent, hsl(index.brands.krizaka[mode].accent)[0]), `${mode} krizaka`).toBeGreaterThanOrEqual(20);
-      for (const other of ["orazaka"] as const) {
+      for (const other of ["sovkora"] as const) {
         expect(gap(accent, hsl(index.brands[other][mode].accent)[0]), `${mode} ${other}`).toBeGreaterThanOrEqual(60);
       }
       for (const status of ["success", "warning", "danger"] as const) {
         expect(gap(accent, hsl(index.values[mode][status])[0]), `${mode} ${status}`).toBeGreaterThanOrEqual(60);
       }
-      expect(index.brands.yomizaka[mode].info).not.toBe(index.brands.yomizaka[mode].accent);
+      expect(index.brands.verikora[mode].info).not.toBe(index.brands.verikora[mode].accent);
     }
     // Ink (232) → indigo (248): the mark's first stop is accent-2's hue, its last within 10° of the accent.
     const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);
-    expect(index.marks.yomizaka.map(([, c]: [string, string]) => hue(c))).toEqual([232, 248]);
-    expect(hue(index.brands.yomizaka.dark.accent2)).toBe(232);
-    expect(Math.abs(hue(index.marks.yomizaka.at(-1)[1]) - hue(index.brands.yomizaka.dark.accent))).toBeLessThanOrEqual(10);
+    expect(index.marks.verikora.map(([, c]: [string, string]) => hue(c))).toEqual([232, 248]);
+    expect(hue(index.brands.verikora.dark.accent2)).toBe(232);
+    expect(Math.abs(hue(index.marks.verikora.at(-1)[1]) - hue(index.brands.verikora.dark.accent))).toBeLessThanOrEqual(10);
   });
 
-  it("gives Yomizaka the same roles as every brand, dark, light and native (key parity)", () => {
+  it("gives Verikora the same roles as every brand, dark, light and native (key parity)", () => {
     for (const mode of ["dark", "light"] as const) {
-      expect(Object.keys(index.brands.yomizaka[mode])).toEqual(Object.keys(index.brands.krizaka[mode]));
-      expect(Object.keys(native.brands.yomizaka[mode])).toEqual(Object.keys(native.brands.krizaka[mode]));
+      expect(Object.keys(index.brands.verikora[mode])).toEqual(Object.keys(index.brands.krizaka[mode]));
+      expect(Object.keys(native.brands.verikora[mode])).toEqual(Object.keys(native.brands.krizaka[mode]));
     }
-    expect(files["brands/scoped.css"]).toContain(".brand-yomizaka {");
-    expect(files["brands/scoped.css"]).toContain("html.light .brand-yomizaka");
+    expect(files["brands/scoped.css"]).toContain(".brand-verikora {");
+    expect(files["brands/scoped.css"]).toContain("html.light .brand-verikora");
   });
 
-  it("gives Akinaza the forest green, apart from success; a matte copper second, never Orazaka's orange", () => {
+  it("gives Folioviv the forest green, apart from success; a matte copper second, never Sovkora's orange", () => {
     const hsl = (v: string) => /hsl\(([\d.]+) ([\d.]+)%/.exec(v)!.slice(1).map(Number) as [number, number];
     const gap = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
     for (const mode of ["dark", "light"] as const) {
-      const [green] = hsl(index.brands.akinaza[mode].accent);
-      for (const other of ["krizaka", "orazaka", "yomizaka"] as const) {
+      const [green] = hsl(index.brands.folioviv[mode].accent);
+      for (const other of ["krizaka", "sovkora", "verikora"] as const) {
         expect(gap(green, hsl(index.brands[other][mode].accent)[0]), `${mode} ${other}`).toBeGreaterThanOrEqual(20);
       }
       expect(gap(green, hsl(index.values[mode].success)[0]), `${mode} success`).toBeGreaterThanOrEqual(20);
-      // The copper is a matte metal: saturation ≤ 65 %, where Orazaka's orange is ≥ 90 %.
-      const [, copperSat] = hsl(index.brands.akinaza[mode].accent2);
+      // The copper is a matte metal: saturation ≤ 65 %, where Sovkora's orange is ≥ 90 %.
+      const [, copperSat] = hsl(index.brands.folioviv[mode].accent2);
       expect(copperSat).toBeLessThanOrEqual(65);
-      expect(hsl(index.brands.orazaka[mode].accent)[1]).toBeGreaterThanOrEqual(90);
+      expect(hsl(index.brands.sovkora[mode].accent)[1]).toBeGreaterThanOrEqual(90);
     }
     const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);
-    expect(index.marks.akinaza.map(([, c]: [string, string]) => hue(c))).toEqual([140, 22]);
+    expect(index.marks.folioviv.map(([, c]: [string, string]) => hue(c))).toEqual([140, 22]);
   });
 
-  it.each(["akinaza"] as const)("gives %s the same roles as every brand, dark, light and native (key parity)", (id) => {
+  it.each(["folioviv"] as const)("gives %s the same roles as every brand, dark, light and native (key parity)", (id) => {
     for (const mode of ["dark", "light"] as const) {
       expect(Object.keys(index.brands[id][mode])).toEqual(Object.keys(index.brands.krizaka[mode]));
       expect(Object.keys(native.brands[id][mode])).toEqual(Object.keys(native.brands.krizaka[mode]));
@@ -520,14 +520,14 @@ describe("brands", async () => {
     expect(files["brands/scoped.css"]).toContain(`html.light .brand-${id}`);
   });
 
-  it("keeps Orazaka's accent apart from the warning status", () => {
+  it("keeps Sovkora's accent apart from the warning status", () => {
     const hue = (v: string) => Number(/hsl\(([\d.]+)/.exec(v)?.[1]);
-    expect(Math.abs(hue(index.brands.orazaka.dark.accent) - hue(index.values.dark.warning))).toBeGreaterThanOrEqual(10);
-    expect(index.brands.orazaka.dark.info).not.toBe(index.brands.orazaka.dark.accent);
+    expect(Math.abs(hue(index.brands.sovkora.dark.accent) - hue(index.values.dark.warning))).toBeGreaterThanOrEqual(10);
+    expect(index.brands.sovkora.dark.info).not.toBe(index.brands.sovkora.dark.accent);
   });
 
   // krizaka-ui#393, ADR-003: the Krizaka accent is a steel blue, not the saturated electric blue every AI product wears.
-  it("gives Krizaka a steel blue: the complement of the Orazaka orange, muted, AA in both themes", () => {
+  it("gives Krizaka a steel blue: the complement of the Sovkora orange, muted, AA in both themes", () => {
     const hsl3 = (v: string) => /hsl\(([\d.]+) ([\d.]+)% ([\d.]+)%/.exec(v)!.slice(1).map(Number);
     for (const mode of ["dark", "light"] as const) {
       const b = index.brands.krizaka[mode];
@@ -538,8 +538,8 @@ describe("brands", async () => {
         expect(h, `${mode} ${role} hue`).toBeLessThanOrEqual(212);
         expect(s, `${mode} ${role} saturation`).toBeLessThanOrEqual(60);
       }
-      // ~180° from the Orazaka orange (26): the parent frames its products without competing with them.
-      expect(Math.abs(hsl3(b.accent)[0] - hsl3(index.brands.orazaka.dark.accent)[0] - 180)).toBeLessThanOrEqual(6);
+      // ~180° from the Sovkora orange (26): the parent frames its products without competing with them.
+      expect(Math.abs(hsl3(b.accent)[0] - hsl3(index.brands.sovkora.dark.accent)[0] - 180)).toBeLessThanOrEqual(6);
       // White on the button, at rest and hovered; the focus ring ≥ 3:1 where it is drawn; the accent as text ≥ 4.5:1.
       for (const fill of [b.accent, b.accentHover]) expect(contrast(parseHsl(b.onAccent), parseHsl(fill)), `${mode} ${fill}`).toBeGreaterThanOrEqual(4.5);
       for (const s of surfaces) {

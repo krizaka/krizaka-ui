@@ -14,7 +14,7 @@ const SRC = import.meta.dirname;
 const SITE = join(SRC, "..", "..", "..", "apps", "site");
 const EXAMPLES = join(SRC, "..", "registry", "examples");
 
-/** Showcase and effects (8; RetroTv came back for Akinaza's shop pages, krizaka-ui#605), data views (2), engagement (4), web media editors (3), web lifecycle screens (3), page templates (4). */
+/** Showcase and effects (8; RetroTv came back for Folioviv's shop pages, krizaka-ui#605), data views (2), engagement (4), web media editors (3), web lifecycle screens (3), page templates (4). */
 const WEB_ENTRIES = [
   "terminal-replay", "showcase", "pointer-light", "scroll-stage", "landscape", "signature", "anatomy-plate", "elephant",
   "tree-view", "kanban",
@@ -24,7 +24,7 @@ const WEB_ENTRIES = [
   "product-page", "gallery-page", "component-page", "status-page",
 ] as const;
 /** Deprecated in the batch, then brought back by a filed need: they work without a warning. */
-const RETURNED = ["retro-tv"] as const; // krizaka/akinaza#312 (the shop's reel), krizaka-ui#605
+const RETURNED = ["retro-tv"] as const; // krizaka/folioviv#312 (the shop's reel), krizaka-ui#605
 /** Native entries no app imports: the web entry of `vertical-video` and `markdown` stays (products use it); `media-capture` is in the list above. */
 const NATIVE_ONLY_DEPRECATIONS = ["vertical-video", "markdown"] as const;
 /** On watch (kept now, deprecated in the next pass if still unused): never deprecated here. */

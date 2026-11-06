@@ -21,7 +21,7 @@ export default function NavBarFamilyJava() {
         ))}
       </NavBar.Items>
       <NavBar.Actions>
-        <NavBar.Repo href="https://github.com/krizaka/krizaka-build" label="Source on GitHub" />
+        <NavBar.Repo href="https://github.com/krizaka/krizaka-java" label="Source on GitHub" />
         <NavBar.Mobile openLabel="Open the menu" closeLabel="Close the menu">
           {links.map((l) => (
             <NavBar.MobileLink key={l.href} href={l.href}>{l.label}</NavBar.MobileLink>

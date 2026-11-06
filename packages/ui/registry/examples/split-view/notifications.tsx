@@ -14,7 +14,7 @@ const EVENTS = [
 export default function SplitViewNotifications() {
   return (
     <SplitView
-      className="brand-orazaka w-full"
+      className="brand-sovkora w-full"
       listTitle="Notifications"
       showDetail={false}
       back={<a href="#notifications" className="text-sm font-medium text-fg-secondary">← Notifications</a>}

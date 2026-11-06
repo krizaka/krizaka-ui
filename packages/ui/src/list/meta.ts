@@ -9,7 +9,7 @@ export const meta = {
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [
-    "Orazaka's jobs, a story's viewers and tippers, a creator's payouts.",
+    "Sovkora's jobs, a story's viewers and tippers, a creator's payouts.",
     "A long feed on a phone: sections by day, pull to refresh, swipe actions (React Native).",
   ],
   whenNotToUse: [
@@ -34,7 +34,7 @@ export const meta = {
   web: {
     imports: ["List"],
     examples: [
-      { name: "jobs", title: "Jobs", description: "Orazaka's jobs, each row opening its run, the status beside it." },
+      { name: "jobs", title: "Jobs", description: "Sovkora's jobs, each row opening its run, the status beside it." },
       { name: "selectable", title: "Selectable, compact", description: "A story's viewers, picked for a thank-you." },
       { name: "virtualized", title: "2,000 rows", description: "`virtualize`: only the rows in view are rendered." },
     ],

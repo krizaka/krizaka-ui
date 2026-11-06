@@ -4,7 +4,7 @@ export const meta = {
   title: "Desktop window",
   summary: "The window of a Mac app (Tauri 2 on the system WebView): a sidebar, the content and an inspector in a three-pane split — resizable by pointer and keyboard, collapsible — under a toolbar that moves the window and clears the traffic lights, at the desktop's density with a native-feeling focus ring. Its commands are written once for the menu bar, the page's shortcuts and the palette.",
   status: "experimental",
-  adoption: "orazaka#87",
+  adoption: "sovkora#87",
   category: "layouts",
   domain: "navigation-shell",
   platforms: "web",

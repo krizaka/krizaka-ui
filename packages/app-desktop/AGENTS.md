@@ -5,7 +5,7 @@
 
 ## 1. What belongs here
 
-- **The typed page side of `tauri-plugin-krizaka`** ([krizaka-tauri-kit](https://github.com/krizaka/krizaka-tauri-kit)):
+- **The typed page side of `tauri-plugin-krizaka`** ([krizaka-desktop](https://github.com/krizaka/krizaka-desktop)):
   folder grants and watches, dropped files, the Keychain as the `KeyValueStorage` of `@krizaka/app-client`, the native
   menu bar, deep links, the update channel. The page never calls an untyped command.
 - Not here: the rules (they are the kit's, in Rust: the folder scope, the link and menu checks); a product's own

@@ -12,10 +12,10 @@
   ],
   "paper": "seyes",
   "surface": "paper",
-  "accent": "akinaza",
+  "accent": "folioviv",
   "accents": [
-    "akinaza",
-    "akinaza:accent-2"
+    "folioviv",
+    "folioviv:accent-2"
   ],
   "faces": {
     "title": "display",

@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/tokens",
   "version": "3.87.0",
-  "description": "The Krizaka semantic design tokens (--kz-*) and the brand themes (Krizaka, Orazaka, Yomizaka, Akinaza): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
+  "description": "The Krizaka semantic design tokens (--kz-*) and the brand themes (Krizaka, Sovkora, Verikora, Folioviv): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
   "keywords": [
     "krizaka",
     "design-tokens",
@@ -40,9 +40,9 @@
       "import": "./dist/shop-presets.js"
     },
     "./brands/krizaka.css": "./dist/brands/krizaka.css",
-    "./brands/orazaka.css": "./dist/brands/orazaka.css",
-    "./brands/yomizaka.css": "./dist/brands/yomizaka.css",
-    "./brands/akinaza.css": "./dist/brands/akinaza.css",
+    "./brands/sovkora.css": "./dist/brands/sovkora.css",
+    "./brands/verikora.css": "./dist/brands/verikora.css",
+    "./brands/folioviv.css": "./dist/brands/folioviv.css",
     "./brands/scoped.css": "./dist/brands/scoped.css",
     "./native": {
       "types": "./dist/native.d.ts",
@@ -65,7 +65,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./appearance.css ./shop-presets.css ./brands/krizaka.css ./brands/orazaka.css ./brands/yomizaka.css ./brands/akinaza.css ./brands/scoped.css",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./appearance.css ./shop-presets.css ./brands/krizaka.css ./brands/sovkora.css ./brands/verikora.css ./brands/folioviv.css ./brands/scoped.css",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
@@ -95,7 +95,7 @@
     },
     {
       "name": "./brands/<id>.css (each)",
-      "path": "dist/brands/orazaka.css",
+      "path": "dist/brands/sovkora.css",
       "limit": "0.8 kB",
       "gzip": true,
       "rolldown": false

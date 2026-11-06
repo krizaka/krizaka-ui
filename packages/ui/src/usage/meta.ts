@@ -4,7 +4,7 @@ export const meta = {
   title: "Usage",
   summary: "The blocks of a « Credits & usage » page: the balance on a meter, the period switch (the address holds it), the figures on a strip with their trend in words, and the activity stacked by outcome.",
   status: "experimental",
-  adoption: "orazaka-web-client#88",
+  adoption: "sovkora-web#88",
   category: "data-display",
   domain: "commerce",
   platforms: "web",

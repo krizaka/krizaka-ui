@@ -2,7 +2,7 @@
 
 - **Status:** accepted — 2026-10-12 (decision of 2026-10-11 23:30: complete migration, light validation)
 - **Scope:** every Krizaka JavaScript repository — the `@krizaka/*` packages of this monorepo and the product apps
-  (Orazaka, the former products, krizaka.com)
+  (Sovkora, the former products, krizaka.com)
 - **Enforced by:** `@krizaka/config` — `krizakaStack()` (ESLint), `@krizaka/config/dependency-cruiser`, `krizaka-ratchet`
 
 ## Context
@@ -10,7 +10,7 @@
 Our apps hand-write what headless engines already do better. Measured on 2026-10-11: a former product web carries ~3,000 lines
 of home-made server-state handling (chat, notifications, stories, two event streams, its own reconnecting realtime
 client, an upload queue with retries, a rate-limit store), 25 hand-written forms, 376 `useState` and 99 `useEffect`;
-Orazaka web-client adopted TanStack Query at 3 `useQuery` over 3,456 lines of hooks, with 27 tables and 11 forms of its
+Sovkora web-client adopted TanStack Query at 3 `useQuery` over 3,456 lines of hooks, with 27 tables and 11 forms of its
 own. Across the products: **36 hand-written forms, 42 tables, 23 `FlatList`s** without serious virtualisation.
 `@krizaka/ui` itself re-implements a `DataTable` (449 lines: sorting and selection only), a `Pagination`, a regex code
 highlighter and an upload queue; `@krizaka/charts` 0.x sits on ECharts (157 kB gzipped).
@@ -44,7 +44,7 @@ break is fixed in one place.
 | Highlight | 1.0 | **Adopt** → replaces the regex of `code-block` |
 | Pacer | beta | **Facade** `@krizaka/pacer` (our API) |
 | DB | beta | **Watch** — first candidates: a former product messages and notifications |
-| AI | RC | **Experiment**, client side only (`useChat` over Orazaka's SSE); the server stays Orazaka |
+| AI | RC | **Experiment**, client side only (`useChat` over Sovkora's SSE); the server stays Sovkora |
 | Store | alpha | **No** — Zustand |
 | Hotkeys | alpha | **Later** (command palette) |
 | Start / Router | RC / v1 | **No** — Next.js App Router and Expo Router stay |
@@ -63,8 +63,8 @@ break is fixed in one place.
 | S6 | Client state | Zustand, slices per domain in `packages/core/state`; never server state (Query), never URL state (router). |
 | S7 | Charts | **Migration**, no spike: `@krizaka/charts` moves to TanStack Charts (web), same public API if it holds, else the better one; ECharts removed; native stays our SVG, then Skia. |
 | S8 | Markdown & code | `@krizaka/ui/markdown` (TanStack Markdown), `code-block` on TanStack Highlight. Fumadocs stays on the site. |
-| S9 | Motion | Unchanged: CSS/WAAPI in `@krizaka/ui`; `framer-motion` leaves krizaka.com and Orazaka web-client; Aceternity is a reference, not a dependency; no R3F by default. Native: Reanimated + Skia for drawn surfaces. |
-| S10 | Product monorepo | pnpm + Turborepo, `apps/web` · `apps/mobile` · `packages/core` · `packages/*`, **no exception**: the former products (mobile inside), a former product (absorbs admin, mobile and design system by `git subtree`). Orazaka: JVM governance unchanged, its UI apps adopt in place. No Tamagui, Solito, NativeWind or react-native-web. |
+| S9 | Motion | Unchanged: CSS/WAAPI in `@krizaka/ui`; `framer-motion` leaves krizaka.com and Sovkora web-client; Aceternity is a reference, not a dependency; no R3F by default. Native: Reanimated + Skia for drawn surfaces. |
+| S10 | Product monorepo | pnpm + Turborepo, `apps/web` · `apps/mobile` · `packages/core` · `packages/*`, **no exception**: the former products (mobile inside), a former product (absorbs admin, mobile and design system by `git subtree`). Sovkora: JVM governance unchanged, its UI apps adopt in place. No Tamagui, Solito, NativeWind or react-native-web. |
 | S11 | Boundary | `@tanstack/*` is imported **only** by `@krizaka/*` packages (dependency-cruiser in every app). |
 | S12 | Agent tooling | TanStack Intent: a SKILL.md in every `@krizaka/*` (generated from `meta.ts` and the registry examples, checked in CI, `intent stale` at release); `intent install` in every product; TanStack Devtools in development. |
 | S13 | Validation | **Light**: green CI (lint, typecheck, unit, existing e2e) + a dark/light glance. No lines-removed proof, no size-limit or Lighthouse per pull request, no intermediate report. The three ratchets are at **0 at the end of each app's adoption**. One final report. |

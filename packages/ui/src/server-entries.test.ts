@@ -41,7 +41,7 @@ describe("server entries", () => {
     const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
     expect(pkg.exports["./avatar/defaults"]).toBeTruthy();
     const mod = await import("./avatar/defaults");
-    expect(mod.defaultAvatarUrl({ brand: "yomizaka", seed: "Eric" })).toMatch(/^https:\/\//);
+    expect(mod.defaultAvatarUrl({ brand: "verikora", seed: "Eric" })).toMatch(/^https:\/\//);
     expect(typeof mod.defaultAvatarSvg).toBe("function");
   });
 });

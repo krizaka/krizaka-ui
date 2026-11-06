@@ -4,7 +4,7 @@ export const meta = {
   title: "Promo code field",
   summary: "Enter a code, apply it, and see the state: checking, applied with its effect, or refused (invalid, expired). The caller validates.",
   status: "experimental",
-  adoption: "orazaka#417",
+  adoption: "sovkora#417",
   category: "forms",
   domain: "commerce",
   platforms: "web",

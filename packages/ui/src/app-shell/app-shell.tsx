@@ -1,10 +1,10 @@
 // Client (the collapse, the drawer, the shortcuts). The shell of an application screen, read from the products' consoles
-// (a creator studio and its admin, Orazaka web-admin and web-client): a sidebar of sections that collapses to its icons on a
+// (a creator studio and its admin, Sovkora web-admin and web-client): a sidebar of sections that collapses to its icons on a
 // desktop, a header with the screen's title, a search that opens the app's command palette and its actions, the content —
 // and below `md` the sidebar becomes a drawer opened from the header (Radix Dialog: focus trap, Escape, focus return).
 // Keyboard: ⌘/Ctrl+B folds the sidebar, ⌘/Ctrl+K opens the search, `g` then a letter goes to a section (`shortcut` of an
 // item). Words arrive as props; links through `asChild`.
-// `desktop` (ADR-002): the shell is the window of a desktop app (the Orazaka Mac app, Tauri 2): the sidebar is always
+// `desktop` (ADR-002): the shell is the window of a desktop app (the Sovkora Mac app, Tauri 2): the sidebar is always
 // there (a window has a minimum width, no drawer), its top clears the traffic lights, the header and the sidebar's top are
 // the title bar (`data-tauri-drag-region`: dragging them moves the window), the density is the desktop's (32 px rows,
 // 13 px text, a 48 px header), the chrome is not selectable, and the content scrolls under a fixed header.
@@ -102,7 +102,7 @@ export type AppShellRootProps = React.ComponentProps<"div"> & {
    */
   collapseShortcut?: string | false;
   /**
-   * The shell is a desktop app's window (the Orazaka Mac app, Tauri 2 — ADR-002): no drawer, the sidebar's top clears the
+   * The shell is a desktop app's window (the Sovkora Mac app, Tauri 2 — ADR-002): no drawer, the sidebar's top clears the
    * window's traffic lights (`--kz-titlebar-inset`, 28 px; the window's height is `--kz-window-height`, the viewport by default), the header and that top move the window
    * (`data-tauri-drag-region`), a denser layout, the chrome not selectable. In a browser it is a fixed-height shell.
    */

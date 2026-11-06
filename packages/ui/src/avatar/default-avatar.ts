@@ -3,7 +3,7 @@
 // `people/defaults/v1/<brand>/…`), so the pictures and the URLs that name them cannot drift apart.
 
 /** A brand of the default avatars. */
-export type DefaultAvatarBrand = "krizaka" | "orazaka" | "yomizaka" | "akinaza";
+export type DefaultAvatarBrand = "krizaka" | "sovkora" | "verikora" | "folioviv";
 /**
  * What the picture is of. `person`: a neutral silhouette. `plain`: the brand's gradient alone, ready for initials.
  * `folder`, `organisation` and `shop` are the pictures of a thing that is not a person (a folder or collection, a company, a shop):
@@ -14,7 +14,7 @@ export type DefaultAvatarKind = "person" | "plain" | "folder" | "organisation" |
 export type DefaultAvatarEntityKind = "person" | "folder" | "organisation" | "shop";
 export type DefaultAvatarSize = 256 | 512;
 
-export const DEFAULT_AVATAR_BRANDS: readonly DefaultAvatarBrand[] = ["krizaka", "orazaka", "yomizaka", "akinaza"];
+export const DEFAULT_AVATAR_BRANDS: readonly DefaultAvatarBrand[] = ["krizaka", "sovkora", "verikora", "folioviv"];
 /** The two styles of the legacy brand sets (`people/defaults/v1/<brand>`); the kinds of the central sets are `DEFAULT_AVATAR_ENTITY_KINDS`. */
 export const DEFAULT_AVATAR_KINDS: readonly DefaultAvatarKind[] = ["person", "plain"];
 export const DEFAULT_AVATAR_ENTITY_KINDS: readonly DefaultAvatarEntityKind[] = ["person", "folder", "organisation", "shop"];
@@ -48,9 +48,9 @@ export interface DefaultAvatar {
 /** The mark gradient of each brand (BRAND.md, `$extensions["com.krizaka"].mark`) as [hue, saturation %, lightness %] and the hue spread of its tones. */
 const BRANDS: Record<DefaultAvatarBrand, { from: [number, number, number]; to: [number, number, number]; spread: number }> = {
   krizaka: { from: [217, 92, 53], to: [217, 92, 68], spread: 14 },
-  orazaka: { from: [26, 90.5, 37.1], to: [26, 92, 45], spread: 7 },
-  yomizaka: { from: [232, 50, 55], to: [248, 50, 58], spread: 10 },
-  akinaza: { from: [140, 48, 34], to: [22, 60, 46], spread: 10 },
+  sovkora: { from: [26, 90.5, 37.1], to: [26, 92, 45], spread: 7 },
+  verikora: { from: [232, 50, 55], to: [248, 50, 58], spread: 10 },
+  folioviv: { from: [140, 48, 34], to: [22, 60, 46], spread: 10 },
 };
 
 /** White on top of a stop must stay visible: a stop is darkened until the contrast reaches this (WCAG 1.4.11, non-text). */
@@ -134,7 +134,7 @@ function trimTrailingSlashes(value: string): string {
 }
 
 /**
- * The URL of a default avatar: `defaultAvatarUrl({ brand: "orazaka", seed: user.id })`.
+ * The URL of a default avatar: `defaultAvatarUrl({ brand: "sovkora", seed: user.id })`.
  * @param size 256 for lists, 512 for a profile; `"svg"` for the vector.
  * @param base Another host or version of the set (a self-hosted copy); the default is the Krizaka CDN.
  */

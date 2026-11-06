@@ -35,6 +35,6 @@ export const meta = {
   related: ["decision-list", "pricing-page", "data-table", "argument-card"],
   web: {
     imports: ["ComparisonTable"],
-    examples: [{ name: "versus", title: "The same AI, different ownership", description: "Three questions, a cloud assistant against Orazaka; resize to a phone: one card per question." }],
+    examples: [{ name: "versus", title: "The same AI, different ownership", description: "Three questions, a cloud assistant against Sovkora; resize to a phone: one card per question." }],
   },
 } satisfies ComponentMeta;

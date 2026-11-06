@@ -8,12 +8,12 @@ export default function ComparisonTableVersus() {
     <ComparisonTable
       label="The same AI. Different ownership."
       topicLabel="Question"
-      highlight="orazaka"
-      columns={[{ id: "cloud", label: "A cloud assistant", icon: dot }, { id: "orazaka", label: "Orazaka", icon: dot }]}
+      highlight="sovkora"
+      columns={[{ id: "cloud", label: "A cloud assistant", icon: dot }, { id: "sovkora", label: "Sovkora", icon: dot }]}
       rows={[
-        { id: "where", icon: dot, topic: "Where do your prompts go?", answers: { cloud: { key: "To a provider's servers,", detail: "under their terms." }, orazaka: { key: "To your machines.", detail: "A cloud model only if you connect one." } } },
-        { id: "pay", icon: dot, topic: "What do you pay?", answers: { cloud: { key: "Per seat and per token,", detail: "on their price list." }, orazaka: { key: "Your hardware and credits.", detail: "A Studio shows its estimate before it runs." } } },
-        { id: "who", icon: dot, topic: "Who decides?", answers: { cloud: { key: "The vendor", detail: "changes models, limits and policies." }, orazaka: { key: "You do:", detail: "models, roles and what each team can run." } } },
+        { id: "where", icon: dot, topic: "Where do your prompts go?", answers: { cloud: { key: "To a provider's servers,", detail: "under their terms." }, sovkora: { key: "To your machines.", detail: "A cloud model only if you connect one." } } },
+        { id: "pay", icon: dot, topic: "What do you pay?", answers: { cloud: { key: "Per seat and per token,", detail: "on their price list." }, sovkora: { key: "Your hardware and credits.", detail: "A Studio shows its estimate before it runs." } } },
+        { id: "who", icon: dot, topic: "Who decides?", answers: { cloud: { key: "The vendor", detail: "changes models, limits and policies." }, sovkora: { key: "You do:", detail: "models, roles and what each team can run." } } },
       ]}
     />
   );

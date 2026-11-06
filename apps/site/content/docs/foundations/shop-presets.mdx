@@ -20,28 +20,28 @@ import { ShopFrame } from "@krizaka/ui/shop";
 
 | Trade | Look | `data-shop-preset` | Accent | Paper | Titles | Notes | Spacing | Photos |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
-| salon | Atelier | `salon-atelier` | akinaza (copper) | plain | Young Serif | the typewriter | airy | warm |
-| salon | Vitrine | `salon-vitrine` | akinaza | plain | Plus Jakarta Sans | the typewriter | compact | none |
-| pets | Canal | `pets-canal` | akinaza | plain | Plus Jakarta Sans | the pen (Krizaka Cahier) | compact | none |
-| pets | Carnet | `pets-carnet` | akinaza | kraft | Young Serif | the pen (Krizaka Cahier) | airy | warm + grain |
-| coaching | Approche | `coaching-approche` | yomizaka | washi | Young Serif | the typewriter | airy | cool |
+| salon | Atelier | `salon-atelier` | folioviv (copper) | plain | Young Serif | the typewriter | airy | warm |
+| salon | Vitrine | `salon-vitrine` | folioviv | plain | Plus Jakarta Sans | the typewriter | compact | none |
+| pets | Canal | `pets-canal` | folioviv | plain | Plus Jakarta Sans | the pen (Krizaka Cahier) | compact | none |
+| pets | Carnet | `pets-carnet` | folioviv | kraft | Young Serif | the pen (Krizaka Cahier) | airy | warm + grain |
+| coaching | Approche | `coaching-approche` | verikora | washi | Young Serif | the typewriter | airy | cool |
 | coaching | Studio | `coaching-studio` | krizaka | plain | Plus Jakarta Sans | the typewriter | compact | none |
-| workshop | Atelier | `workshop-atelier` | akinaza (copper) | kraft | Young Serif | the pen (Krizaka Cahier) | airy | warm + grain |
+| workshop | Atelier | `workshop-atelier` | folioviv (copper) | kraft | Young Serif | the pen (Krizaka Cahier) | airy | warm + grain |
 | workshop | Établi | `workshop-etabli` | krizaka | seyes | Plus Jakarta Sans | the typewriter | compact | none |
-| cleaning | Forfait | `cleaning-forfait` | akinaza | seyes | Plus Jakarta Sans | the typewriter | compact | none |
+| cleaning | Forfait | `cleaning-forfait` | folioviv | seyes | Plus Jakarta Sans | the typewriter | compact | none |
 | cleaning | Net | `cleaning-net` | krizaka | plain | Plus Jakarta Sans | the typewriter | compact | cool |
-| consulting | Bureau | `consulting-bureau` | yomizaka | plain | Plus Jakarta Sans | the typewriter | compact | none |
+| consulting | Bureau | `consulting-bureau` | verikora | plain | Plus Jakarta Sans | the typewriter | compact | none |
 | consulting | Cabinet | `consulting-cabinet` | krizaka | seyes | Young Serif | the typewriter | airy | none |
-| any | Affiche | `look-affiche` | akinaza | plain | Plus Jakarta Sans (heavy, tight) | the typewriter | compact | none |
-| any | Boutique | `look-boutique` | akinaza | washi | Young Serif | the pen (Krizaka Cahier) | airy | warm |
-| any | Cahier | `look-cahier` | akinaza | seyes | Young Serif | the pen (Krizaka Cahier) | airy | warm + grain |
-| any | Éditorial | `look-editorial` | akinaza | plain | Young Serif | the typewriter | airy | none |
+| any | Affiche | `look-affiche` | folioviv | plain | Plus Jakarta Sans (heavy, tight) | the typewriter | compact | none |
+| any | Boutique | `look-boutique` | folioviv | washi | Young Serif | the pen (Krizaka Cahier) | airy | warm |
+| any | Cahier | `look-cahier` | folioviv | seyes | Young Serif | the pen (Krizaka Cahier) | airy | warm + grain |
+| any | Éditorial | `look-editorial` | folioviv | plain | Young Serif | the typewriter | airy | none |
 | any | Krizaka | `look-krizaka` | krizaka | plain | Plus Jakarta Sans | the typewriter | compact | none |
 | any | Nuit | `look-nuit` | krizaka | plain | Plus Jakarta Sans | the typewriter | compact | cool |
 
 The six `look-*` presets are not tied to a trade: each also sets the surface, the motion, the mascots, the closing and the page transition, and the photo frame. They are what `@krizaka/ui/shop/look` applies.
 
-No café, restaurant or bar look: Akinaza is for service shops. The accents are those of the live brands (Krizaka, Orazaka, Yomizaka, Akinaza and its copper); a paused product's accent is never offered.
+No café, restaurant or bar look: Folioviv is for service shops. The accents are those of the live brands (Krizaka, Sovkora, Verikora, Folioviv and its copper); a paused product's accent is never offered.
 
 ## What is proven
 
@@ -52,7 +52,7 @@ No café, restaurant or bar look: Akinaza is for service shops. The accents are 
 - the accent as a fill, a ring or a decoration: **at least 3:1**;
 - the ink on the paper: **at least 7:1**; the hue on the paper: **at least 3:1**.
 
-A combination that fails is removed from the preset's list (the kraft looks do not offer the Krizaka blue in dark, nor Orazaka's orange in light), and a preset that fails does not build. A test also refuses any raw colour in a preset source.
+A combination that fails is removed from the preset's list (the kraft looks do not offer the Krizaka blue in dark, nor Sovkora's orange in light), and a preset that fails does not build. A test also refuses any raw colour in a preset source.
 
 ## The photo treatment
 

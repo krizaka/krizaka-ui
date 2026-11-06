@@ -111,7 +111,7 @@ describe("the style, from the tokens", () => {
     expect(style.glyphs).toContain("{fontstack}/{range}.pbf");
     expect(JSON.stringify(style.layers)).not.toMatch(/icon-image/);
     expect(mapPalette("dark").land).not.toBe(mapPalette("light").land);
-    expect(mapPalette("dark", "yomizaka").accent).toBe("#8888f2");
+    expect(mapPalette("dark", "verikora").accent).toBe("#8888f2");
   });
 
   it("the notebook variant is the Cahier's paper and ink, drawn from the tokens in both schemes", () => {

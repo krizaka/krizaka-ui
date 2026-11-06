@@ -10,7 +10,7 @@ import * as React from "react";
 export interface DocsCollection {
   /** A stable key. */
   id: string;
-  /** The product's brand (`orazaka`…): the panel wears `.brand-<id>`. */
+  /** The product's brand (`sovkora`…): the panel wears `.brand-<id>`. */
   brand?: string;
   /** The product's mark. */
   mark?: React.ReactNode;

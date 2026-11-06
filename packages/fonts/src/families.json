@@ -220,7 +220,7 @@
         "sans-serif"
       ],
       "description": "Legacy (before 0.3.0): The reading face: paragraphs, interface, forms, tables, captions.",
-      "why": "Drawn for screens: a tall x-height, open apertures and tabular figures that line up amounts. It was already the default of @krizaka/tokens and Orazaka's text face, and krizaka.com's body already asked for its character variants (cv02–cv04: open 4, 6 and 9). Cut at the text optical size (opsz 14).",
+      "why": "Drawn for screens: a tall x-height, open apertures and tabular figures that line up amounts. It was already the default of @krizaka/tokens and Sovkora's text face, and krizaka.com's body already asked for its character variants (cv02–cv04: open 4, 6 and 9). Cut at the text optical size (opsz 14).",
       "use": [
         "Body text, interface, forms, tables (body-*, caption)",
         "Numbers that must align: `font-variant-numeric: tabular-nums`",
@@ -266,7 +266,7 @@
         "monospace"
       ],
       "description": "Legacy (before 0.3.0): Code, identifiers, endpoints, and the small uppercase overlines that label a section.",
-      "why": "Used by every Krizaka surface already (krizaka.com, Orazaka). A tall x-height and unambiguous 0/O, 1/l/I make code and identifiers readable at 12 px; its rectangular forms sit well next to the cut corners.",
+      "why": "Used by every Krizaka surface already (krizaka.com, Sovkora). A tall x-height and unambiguous 0/O, 1/l/I make code and identifiers readable at 12 px; its rectangular forms sit well next to the cut corners.",
       "use": [
         "Code blocks and inline code (mono-*)",
         "Endpoints, ids, versions, keys",

@@ -6,7 +6,7 @@ import { DetailLayout, DetailNotes, DetailSection } from "@krizaka/ui/detail-lay
 // column (numbered notes, an add field) beside it — under the sections on a phone.
 export default function DetailLayoutClient() {
   return (
-    <div className="brand-akinaza w-full">
+    <div className="brand-folioviv w-full">
       <DetailLayout
         cover
         back={<a href="#clients">← Clients</a>}

@@ -18,7 +18,7 @@ describe("Appearance (ADR-006 §4, krizaka-ui#657): the themes are data", () => 
     expect(data.themes.map((t: { id: string }) => t.id)).toEqual(["system", "light", "dark", "blueprint", "carbone"]);
     expect(data.themes.filter((t: { required?: true }) => t.required).map((t: { id: string }) => t.id)).toEqual(["system", "light", "dark"]);
     const ids = data.themes.map((t: { id: string }) => t.id);
-    for (const refused of ["seyes", "kraft", "washi", "akinaza-terracotta", "yomizaka-indigo", "electric", "cyberpunk", "solarized", "sovereign"]) expect(ids).not.toContain(refused);
+    for (const refused of ["seyes", "kraft", "washi", "folioviv-terracotta", "verikora-indigo", "electric", "cyberpunk", "solarized", "sovereign"]) expect(ids).not.toContain(refused);
     expect(data.densities).toEqual(["standard", "compact"]);
   });
 
@@ -69,10 +69,10 @@ describe("Appearance (ADR-006 §4, krizaka-ui#657): the themes are data", () => 
   });
 
   it("Carbone's green keeps a dark label on the accent: white on it is 2.3:1 and would fail", () => {
-    const akinaza = brands.akinaza!.dark;
-    const green = parseColor(akinaza.accent!);
+    const folioviv = brands.folioviv!.dark;
+    const green = parseColor(folioviv.accent!);
     expect(contrast(parseColor("hsl(0 0% 100%)"), green)).toBeLessThan(4.5);
-    expect(contrast(parseColor(akinaza.onAccent!), green)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(parseColor(folioviv.onAccent!), green)).toBeGreaterThanOrEqual(4.5);
   });
 
   it("writes the CSS of the choices: both sets, and an accent rule per brand and theme, outranking the product register", () => {

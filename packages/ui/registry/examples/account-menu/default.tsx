@@ -9,8 +9,8 @@ export default function AccountMenuDefault() {
     <AccountMenu
       label="Account"
       name="Eric Tremblay"
-      email="eric@orazaka.io"
-      avatar={{ defaultAvatar: { brand: "orazaka", seed: "eric" } }}
+      email="eric@sovkora.io"
+      avatar={{ defaultAvatar: { brand: "sovkora", seed: "eric" } }}
       links={[
         { id: "profile", label: "Profile", href: "#profile" },
         { id: "settings", label: "Settings", href: "#settings" },

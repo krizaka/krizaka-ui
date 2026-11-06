@@ -51,7 +51,7 @@ describe("ScrollStage", () => {
     const { observed, fire } = mockMotion(false);
     render(
       <ScrollStage variant="arcade" data-testid="stage">
-        <Scene brand="yomizaka" data-testid="scene">
+        <Scene brand="verikora" data-testid="scene">
           <p>Chapter</p>
         </Scene>
       </ScrollStage>,
@@ -60,7 +60,7 @@ describe("ScrollStage", () => {
     const scene = screen.getByTestId("scene");
     expect(stage.getAttribute("data-kzs-stage")).toBe("on");
     expect(stage.className).toContain("kzs-arcade");
-    expect(scene.className).toBe("brand-yomizaka");
+    expect(scene.className).toBe("brand-verikora");
     expect(observed).toContain(scene);
     fire(scene, true);
     expect(scene.hasAttribute("data-in") && scene.hasAttribute("data-live")).toBe(true);
@@ -121,10 +121,10 @@ describe("ProfileCard", () => {
         value={80}
         stats={[{ label: "Challenges met", value: 12, max: 15, valueText: "12 of 15" }]}
         caption="Montréal"
-        brand="yomizaka"
+        brand="verikora"
       />,
     );
-    expect(screen.getByRole("article").className).toContain("brand-yomizaka");
+    expect(screen.getByRole("article").className).toContain("brand-verikora");
     expect(screen.getByRole("heading", { level: 3, name: "Elena" })).toBeTruthy();
     const meters = screen.getAllByRole("meter");
     expect(meters.map((m) => m.getAttribute("aria-valuetext"))).toEqual(["80 %", "12 of 15"]);
@@ -183,7 +183,7 @@ describe("StageBanner, ContinuePrompt, Achievement", () => {
 describe("ChoiceGrid links, StatGauge, PromiseCard", () => {
   it("tiles with href are links in a named list", async () => {
     const { container } = render(
-      <ChoiceGrid label="The products" items={[{ id: "a", visual: <span />, name: "Orazaka", href: "#a", badge: "P1", extra: <StatGauge label="Share" value={90} />, meta: "Stage 01" }]} />,
+      <ChoiceGrid label="The products" items={[{ id: "a", visual: <span />, name: "Sovkora", href: "#a", badge: "P1", extra: <StatGauge label="Share" value={90} />, meta: "Stage 01" }]} />,
     );
     expect(screen.getByRole("list", { name: "The products" })).toBeTruthy();
     expect(screen.getByRole("link").getAttribute("href")).toBe("#a");

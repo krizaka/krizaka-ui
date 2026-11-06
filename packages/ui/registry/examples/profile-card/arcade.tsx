@@ -7,9 +7,9 @@ export default function ProfileCardArcade() {
   return (
     <ProfileCard
       variant="arcade"
-      brand="orazaka"
+      brand="sovkora"
       nameAs="p"
-      visual={<ProductLogo id="orazaka" size={120} animated={false} />}
+      visual={<ProductLogo id="sovkora" size={120} animated={false} />}
       icon={<Emblem kind="mirror" size={16} />}
       name="Mirror clan"
       statLabel="Data kept at home"

@@ -16,25 +16,25 @@ import { createAppDiscovery, createSessionStore, createApiClient, secureStorage 
 import { createAppConfigClient } from "@krizaka/app-config/client";
 
 const storage = secureStorage(SecureStore);
-const session = createSessionStore({ storage, key: "yomizaka.session" });
+const session = createSessionStore({ storage, key: "verikora.session" });
 
 export const discovery = createAppDiscovery({
-  product: "yomizaka",
-  hostSuffix: "yomizaka.com",
+  product: "verikora",
+  hostSuffix: "verikora.com",
   appVersion: Constants.expoConfig?.version ?? "0.0.0",
-  baked: { apiBase: "https://www.yomizaka.com", webBase: "https://www.yomizaka.com" },
+  baked: { apiBase: "https://www.verikora.com", webBase: "https://www.verikora.com" },
   storage,
   env: { url: process.env.EXPO_PUBLIC_APP_URL, environment: process.env.EXPO_PUBLIC_APP_ENV },
 });
 
-const appConfig = createAppConfigClient({ /* baseUrl: () => discovery.getService("yomizaka").apiBase, … */ });
+const appConfig = createAppConfigClient({ /* baseUrl: () => discovery.getService("verikora").apiBase, … */ });
 
 export const api = createApiClient({
-  baseUrl: () => discovery.getService("yomizaka").apiBase,
+  baseUrl: () => discovery.getService("verikora").apiBase,
   session,
   fetch: appConfig.fetch,
   language: () => "fr-CA",
-  productName: "Yomizaka",
+  productName: "Verikora",
   timeoutMs: 20_000,
 });
 ```
@@ -51,6 +51,6 @@ export const api = createApiClient({
 ```tsx
 import { createAuth } from "@krizaka/app-client/react";
 
-export const { AuthProvider, useAuth } = createAuth(session, { signIn: yomizaka.signIn, signOut: yomizaka.signOut });
+export const { AuthProvider, useAuth } = createAuth(session, { signIn: verikora.signIn, signOut: verikora.signOut });
 // in a screen: const { status, signIn, signOut } = useAuth();
 ```

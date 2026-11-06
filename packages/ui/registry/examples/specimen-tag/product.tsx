@@ -6,16 +6,16 @@ export default function SpecimenTagProduct() {
     <SpecimenTag
       className="max-w-sm"
       code="KZ-02"
-      title="Yomizaka"
+      title="Verikora"
       status={{ label: "in development", tone: "wip" }}
       fields={[
         { label: "reads", value: "leases, contracts, invoices" },
-        { label: "on Orazaka", value: "document checks" },
+        { label: "on Sovkora", value: "document checks" },
       ]}
       footer={
         <>
-          <a href="https://www.yomizaka.com">www.yomizaka.com ↗</a>
-          <a href="https://github.com/krizaka/yomizaka">source</a>
+          <a href="https://www.verikora.com">www.verikora.com ↗</a>
+          <a href="https://github.com/krizaka/verikora">source</a>
         </>
       }
     >

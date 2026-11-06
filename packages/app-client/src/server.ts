@@ -1,6 +1,6 @@
 // The server's side of the bearer session: what a Next.js route reads to know who calls. A native app sends the token it
 // holds as `Authorization: Bearer` (`createApiClient`); the web sends its httpOnly cookie. Pure: headers in, a token out —
-// no framework, no cookie jar, so the two apps that carried a copy (Yomizaka, Akinaza) share one tested rule.
+// no framework, no cookie jar, so the two apps that carried a copy (Verikora, Folioviv) share one tested rule.
 
 /** `Bearer <token>`, any case of the scheme, a single token. */
 const bearerOf = (header: string | null): string | undefined => /^bearer (\S+)$/i.exec(header ?? "")?.[1];

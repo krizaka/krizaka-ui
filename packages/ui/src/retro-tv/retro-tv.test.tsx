@@ -130,7 +130,7 @@ describe("RetroTv with a platform's reel (krizaka-ui#605)", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
-  it("is no longer deprecated: Akinaza's shop pages use it", () => {
+  it("is no longer deprecated: Folioviv's shop pages use it", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     render(<RetroTv title="Story" src="/story.mp4" />);
     expect(warn).not.toHaveBeenCalled();
@@ -139,7 +139,7 @@ describe("RetroTv with a platform's reel (krizaka-ui#605)", () => {
 });
 
 
-describe("RetroTv playlist (akinaza#469)", () => {
+describe("RetroTv playlist (folioviv#469)", () => {
   const list = [
     { id: "a", title: "Alpha", src: "/a.mp4", poster: "/a.jpg" },
     { id: "b", title: "Beta", src: "/b.mp4", poster: "/b.jpg", tracks: [{ src: "/b.vtt", srcLang: "en", label: "English" }] },

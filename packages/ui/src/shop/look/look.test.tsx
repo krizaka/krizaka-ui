@@ -11,7 +11,7 @@ import { MASCOT_SLOTS, mascotFor, ShopMascot } from "./mascots";
 const content = (p: ShopPage) => p.sections.map(({ variant: _v, ...rest }) => rest);
 const pages = Object.entries(shopStarters) as [string, ShopPage][];
 
-describe("applyLook (akinaza#478)", () => {
+describe("applyLook (folioviv#478)", () => {
   it("offers the six looks, in the addendum's order", () => {
     expect(SHOP_LOOKS.map((l) => l.id)).toEqual(["look-cahier", "look-krizaka", "look-editorial", "look-boutique", "look-affiche", "look-nuit"]);
     expect(shopLookOf("look-nuit")?.surface).toBe("deep");

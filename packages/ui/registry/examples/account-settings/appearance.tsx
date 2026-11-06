@@ -16,13 +16,13 @@ const THEMES: ThemeCardOption[] = [
 // Applied at once, nothing to save: `useAppearance()` of @krizaka/ui/theme does it in a real app.
 export default function AppearanceExample() {
   const [theme, setTheme] = React.useState("system");
-  const [accent, setAccent] = React.useState("akinaza");
+  const [accent, setAccent] = React.useState("folioviv");
   const [density, setDensity] = React.useState("standard");
   const [language, setLanguage] = React.useState("en");
   return (
     <AppearanceSettings
       themes={THEMES} theme={theme} onThemeChange={setTheme}
-      accents={[{ id: "akinaza", label: "Forest green", color: "#4fa04f" }, { id: "krizaka", label: "Steel blue", color: "#3f78ab" }]} accent={accent} onAccentChange={setAccent}
+      accents={[{ id: "folioviv", label: "Forest green", color: "#4fa04f" }, { id: "krizaka", label: "Steel blue", color: "#3f78ab" }]} accent={accent} onAccentChange={setAccent}
       densities={[{ value: "standard", label: "Standard" }, { value: "compact", label: "Compact" }]} density={density} onDensityChange={setDensity}
       languages={[{ code: "en", name: "English" }, { code: "fr", name: "Français" }]} language={language} onLanguageChange={setLanguage}
     />

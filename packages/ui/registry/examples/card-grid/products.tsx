@@ -6,8 +6,8 @@ import { LinkCard } from "@krizaka/ui/link-card";
 export default function CardGridProducts() {
   return (
     <CardGrid className="w-full max-w-3xl" fit="fit" reveal={false}>
-      <LinkCard href="#orazaka" icon={<ProductLogo id="orazaka" size={24} animated={false} />} title="Orazaka" description="Sovereign AI on your own servers." cta="Overview" />
-      <LinkCard href="#yomizaka" icon={<ProductLogo id="yomizaka" size={24} animated={false} />} title="Yomizaka" description="Reads your leases, contracts and invoices." cta="Overview" />
+      <LinkCard href="#sovkora" icon={<ProductLogo id="sovkora" size={24} animated={false} />} title="Sovkora" description="Sovereign AI on your own servers." cta="Overview" />
+      <LinkCard href="#verikora" icon={<ProductLogo id="verikora" size={24} animated={false} />} title="Verikora" description="Reads your leases, contracts and invoices." cta="Overview" />
     </CardGrid>
   );
 }

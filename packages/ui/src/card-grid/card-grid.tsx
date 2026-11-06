@@ -50,7 +50,7 @@ export type CardGridProps = Omit<React.HTMLAttributes<HTMLElement>, "children"> 
    * @default "start"
    */
   foundationPosition?: "start" | "end";
-  /** A short mono label on the frame's edge, naming the relation (`Powered by Orazaka`). Only with `foundation`. */
+  /** A short mono label on the frame's edge, naming the relation (`Powered by Sovkora`). Only with `foundation`. */
   foundationLabel?: React.ReactNode;
   /** @deprecated Since 3.31 (krizaka-ui#393): does nothing — every card has the one quiet hover. Removed in 4.0. */
   hover?: CardHover;

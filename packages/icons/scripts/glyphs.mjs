@@ -55,7 +55,7 @@ export const GLYPHS = {
   image: { group: "product", keywords: "image photo picture media", p: [cut(3, 4, 18, 16, 2.5), "M3.5 17 9 11.5l4 4 2.5-2.5 5 5"], n: [[15.5, 8.5]] },
   heart: { group: "product", keywords: "like love favourite", p: ["M12 20 4.2 12.2a4.6 4.6 0 0 1 6.5-6.5L12 7l1.3-1.3a4.6 4.6 0 0 1 6.5 6.5z"], n: [[12, 12]] },
 
-  // ── Product: sovereign AI (Orazaka) ──
+  // ── Product: sovereign AI (Sovkora) ──
   chat: { group: "product", keywords: "sovereign ai chat assistant conversation", p: ["M4 5.5 5.5 4h13L20 5.5v9L18.5 16H11l-4.5 4v-4h-1L4 14.5z", "M8 8.5h8M8 11.5h5"], n: [[16, 11.5]] },
   ai: { group: "product", keywords: "ai spark sovereign model intelligence", p: ["M11 3.5 12.6 8.4 17.5 10 12.6 11.6 11 16.5 9.4 11.6 4.5 10 9.4 8.4z", "M18 15v5M15.5 17.5h5"], n: [[11, 10]] },
   agent: { group: "product", keywords: "agent bot automation assistant", p: [cut(4.5, 8, 15, 12, 2.5), "M12 8V4.5", "M2 13v3M22 13v3", "M9.5 16.5h5"], c: [[9.25, 12.5, 1.1], [14.75, 12.5, 1.1]], n: [[12, 3.6]] },

@@ -72,8 +72,8 @@ describe("TreeView", () => {
     expect(document.activeElement?.textContent).toContain("Studios");
     fireEvent.keyDown(document.activeElement!, { key: "ArrowLeft" });
     expect(screen.getByRole("treeitem", { name: "Studios 12" }).getAttribute("aria-expanded")).toBe("false");
-    fireEvent.keyDown(document.activeElement!, { key: "y" });
-    expect(document.activeElement?.textContent).toMatch(/^Yomizaka/);
+    fireEvent.keyDown(document.activeElement!, { key: "v" });
+    expect(document.activeElement?.textContent).toMatch(/^Verikora/);
     expect(await axeViolations(container)).toEqual([]);
   });
 });

@@ -4,7 +4,7 @@ export const meta = {
   title: "State screen",
   summary: "What a screen says when it has nothing to show, when it failed, or when the network is gone: an icon, a title in plain words, the reason and the way out — announced as it should be. With the slim offline banner for a screen that still shows saved data.",
   status: "experimental",
-  adoption: "akinaza#278",
+  adoption: "folioviv#278",
   category: "feedback",
   domain: "feedback",
   platforms: "native",

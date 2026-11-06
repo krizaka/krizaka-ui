@@ -41,7 +41,7 @@ export const meta = {
     entry: "line",
     imports: ["AreaChart"],
     examples: [
-      { name: "credits-usage", title: "Credits by model", description: "Eight weeks of Orazaka credits, stacked by model, the plan's weekly allowance as a threshold." },
+      { name: "credits-usage", title: "Credits by model", description: "Eight weeks of Sovkora credits, stacked by model, the plan's weekly allowance as a threshold." },
       { name: "storage", title: "Single area", description: "One volume over time: storage used by a workspace." },
     ],
   },

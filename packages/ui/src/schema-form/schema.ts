@@ -1,5 +1,5 @@
 // Pure: no React, no clock. A JSON Schema (an object of properties) read into the fields a form draws, and the checks that
-// the schema states. Extracted from Orazaka's run form (`useInputSchema`): the same vocabulary — `required`, `enum` and
+// the schema states. Extracted from Sovkora's run form (`useInputSchema`): the same vocabulary — `required`, `enum` and
 // `oneOf` of `const`, `x-i18n` words by language, `x-advanced` folded — without the studio's own parts.
 
 /** What a field is drawn as. */
@@ -40,7 +40,7 @@ interface Words {
 }
 type Raw = Record<string, unknown>;
 
-// @fixed: the schema's own threshold between a line and a text area (Orazaka's studio form: over 500 characters)
+// @fixed: the schema's own threshold between a line and a text area (Sovkora's studio form: over 500 characters)
 const MULTILINE_OVER = 500;
 
 const obj = (v: unknown): Raw | null => (v && typeof v === "object" && !Array.isArray(v) ? (v as Raw) : null);

@@ -4,7 +4,7 @@ export const meta = {
   title: "Price catalogue editor",
   summary: "An administrator edits a product's price entries: the amount, unit, availability and limits, from a date that is never in the past, with the scheduled changes and the history folded.",
   status: "experimental",
-  adoption: "orazaka#417",
+  adoption: "sovkora#417",
   category: "blocks",
   domain: "commerce",
   platforms: "web",

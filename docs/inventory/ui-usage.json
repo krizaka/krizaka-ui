@@ -7,7 +7,7 @@
   },
   "consumers": [
     {
-      "name": "yomizaka",
+      "name": "verikora",
       "kind": "product",
       "absent": false,
       "head": "f3b26763",
@@ -15,7 +15,7 @@
       "files": 1232
     },
     {
-      "name": "akinaza",
+      "name": "folioviv",
       "kind": "product",
       "absent": false,
       "head": "dd58a2d6",
@@ -23,7 +23,7 @@
       "files": 1198
     },
     {
-      "name": "orazaka-web-client",
+      "name": "sovkora-web",
       "kind": "product",
       "absent": false,
       "head": "83172018",
@@ -99,9 +99,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 7,
-        "akinaza": 4,
-        "orazaka-web-client": 8,
+        "verikora": 7,
+        "folioviv": 4,
+        "sovkora-web": 8,
         "krizaka-com": 12,
         "blog": 5,
         "ui-site": 3,
@@ -136,8 +136,8 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "akinaza": 5,
-        "orazaka-web-client": 32,
+        "folioviv": 5,
+        "sovkora-web": 32,
         "krizaka-com": 4,
         "blog": 2,
         "ui-site": 3,
@@ -288,9 +288,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 54,
-        "akinaza": 58,
-        "orazaka-web-client": 89,
+        "verikora": 54,
+        "folioviv": 58,
+        "sovkora-web": 89,
         "krizaka-com": 8,
         "blog": 14,
         "ui-site": 8,
@@ -300,8 +300,8 @@
         "cockpit": 9
       },
       "nativeUse": {
-        "yomizaka": 5,
-        "akinaza": 11,
+        "verikora": 5,
+        "folioviv": 11,
         "blog": 2,
         "ui-site": 2
       },
@@ -361,17 +361,17 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 44,
-        "akinaza": 35,
-        "orazaka-web-client": 31,
+        "verikora": 44,
+        "folioviv": 35,
+        "sovkora-web": 31,
         "krizaka-com": 1,
         "ui-site": 2,
         "motion-lab": 4,
         "cockpit": 10
       },
       "nativeUse": {
-        "yomizaka": 4,
-        "akinaza": 5
+        "verikora": 4,
+        "folioviv": 5
       },
       "live": 136,
       "paused": 0,
@@ -408,16 +408,16 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 6,
-        "akinaza": 15,
-        "orazaka-web-client": 21,
+        "verikora": 6,
+        "folioviv": 15,
+        "sovkora-web": 21,
         "blog": 1,
         "ui-site": 2,
         "cockpit": 1
       },
       "nativeUse": {
-        "yomizaka": 1,
-        "akinaza": 2
+        "verikora": 1,
+        "folioviv": 2
       },
       "live": 49,
       "paused": 0,
@@ -453,9 +453,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 1,
-        "orazaka-web-client": 3
+        "verikora": 2,
+        "folioviv": 1,
+        "sovkora-web": 3
       },
       "nativeUse": {},
       "live": 6,
@@ -485,14 +485,14 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 9,
-        "akinaza": 6,
-        "orazaka-web-client": 2,
+        "verikora": 9,
+        "folioviv": 6,
+        "sovkora-web": 2,
         "cockpit": 8
       },
       "nativeUse": {
-        "yomizaka": 4,
-        "akinaza": 3
+        "verikora": 4,
+        "folioviv": 3
       },
       "live": 32,
       "paused": 0,
@@ -519,7 +519,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1,
+        "sovkora-web": 1,
         "ui-site": 1,
         "cockpit": 2
       },
@@ -555,16 +555,16 @@
       "domain": "identity",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 2,
-        "orazaka-web-client": 2,
+        "verikora": 1,
+        "folioviv": 2,
+        "sovkora-web": 2,
         "krizaka-com": 1,
         "motion-lab": 1,
         "cockpit": 1
       },
       "nativeUse": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "live": 10,
       "paused": 0,
@@ -601,7 +601,7 @@
       "domain": "identity",
       "adoption": null,
       "importers": {
-        "yomizaka": 1
+        "verikora": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -639,9 +639,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 11,
-        "akinaza": 7,
-        "orazaka-web-client": 17,
+        "verikora": 11,
+        "folioviv": 7,
+        "sovkora-web": 17,
         "krizaka-com": 2,
         "blog": 3,
         "ui-site": 3,
@@ -651,8 +651,8 @@
         "cockpit": 3
       },
       "nativeUse": {
-        "yomizaka": 4,
-        "akinaza": 6,
+        "verikora": 4,
+        "folioviv": 6,
         "ui-site": 2
       },
       "live": 65,
@@ -683,7 +683,7 @@
       "domain": "abuse",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -739,9 +739,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 17,
-        "akinaza": 30,
-        "orazaka-web-client": 28,
+        "verikora": 17,
+        "folioviv": 30,
+        "sovkora-web": 28,
         "krizaka-com": 1,
         "blog": 1,
         "ui-site": 2,
@@ -749,8 +749,8 @@
         "cockpit": 2
       },
       "nativeUse": {
-        "yomizaka": 7,
-        "akinaza": 8
+        "verikora": 7,
+        "folioviv": 8
       },
       "live": 100,
       "paused": 0,
@@ -780,9 +780,9 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 7,
-        "akinaza": 5,
-        "orazaka-web-client": 16,
+        "verikora": 7,
+        "folioviv": 5,
+        "sovkora-web": 16,
         "krizaka-com": 3,
         "motion-lab": 3,
         "cockpit": 6
@@ -819,7 +819,7 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 8,
+        "sovkora-web": 8,
         "motion-lab": 2
       },
       "nativeUse": {},
@@ -848,8 +848,8 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "akinaza": 1,
-        "orazaka-web-client": 1,
+        "folioviv": 1,
+        "sovkora-web": 1,
         "blog": 1
       },
       "nativeUse": {},
@@ -882,9 +882,9 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 4,
-        "akinaza": 2,
-        "orazaka-web-client": 1
+        "verikora": 4,
+        "folioviv": 2,
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 7,
@@ -918,7 +918,7 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1,
+        "sovkora-web": 1,
         "cockpit": 1
       },
       "nativeUse": {},
@@ -951,14 +951,14 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "akinaza#260",
+      "issue": "folioviv#260",
       "mergeInto": null,
       "sizeGzip": 1398,
       "budget": 20000,
@@ -979,9 +979,9 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 3,
-        "orazaka-web-client": 4,
+        "verikora": 1,
+        "folioviv": 3,
+        "sovkora-web": 4,
         "krizaka-com": 1,
         "blog": 2,
         "motion-lab": 4,
@@ -1015,14 +1015,14 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "akinaza#260",
+      "issue": "folioviv#260",
       "mergeInto": "stat",
       "sizeGzip": 1090,
       "budget": 3000,
@@ -1044,8 +1044,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 12,
-        "akinaza": 14
+        "verikora": 12,
+        "folioviv": 14
       },
       "nativeUse": {},
       "live": 26,
@@ -1099,7 +1099,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -1154,13 +1154,13 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 1,
-        "orazaka-web-client": 2
+        "verikora": 2,
+        "folioviv": 1,
+        "sovkora-web": 2
       },
       "nativeUse": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "live": 7,
       "paused": 0,
@@ -1211,7 +1211,7 @@
       "category": "data-display",
       "status": "experimental",
       "domain": "commerce",
-      "adoption": "orazaka-web-client#88",
+      "adoption": "sovkora-web#88",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -1267,9 +1267,9 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 54,
-        "akinaza": 53,
-        "orazaka-web-client": 23,
+        "verikora": 54,
+        "folioviv": 53,
+        "sovkora-web": 23,
         "blog": 1,
         "cockpit": 2
       },
@@ -1302,7 +1302,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -1330,7 +1330,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "akinaza": 2,
+        "folioviv": 2,
         "blog": 1,
         "java-site": 1,
         "ts-site": 1
@@ -1399,9 +1399,9 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 6,
-        "akinaza": 2,
-        "orazaka-web-client": 8,
+        "verikora": 6,
+        "folioviv": 2,
+        "sovkora-web": 8,
         "blog": 1,
         "ui-site": 3,
         "motion-lab": 2,
@@ -1435,8 +1435,8 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "orazaka-web-client": 2
+        "verikora": 2,
+        "sovkora-web": 2
       },
       "nativeUse": {},
       "live": 4,
@@ -1470,17 +1470,17 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 4,
-        "akinaza": 3,
-        "orazaka-web-client": 3,
+        "verikora": 4,
+        "folioviv": 3,
+        "sovkora-web": 3,
         "krizaka-com": 2,
         "ui-site": 1,
         "java-site": 1,
         "motion-lab": 4
       },
       "nativeUse": {
-        "yomizaka": 1,
-        "akinaza": 2
+        "verikora": 1,
+        "folioviv": 2
       },
       "live": 21,
       "paused": 0,
@@ -1515,8 +1515,8 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 2,
@@ -1546,8 +1546,8 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 1,
+        "verikora": 2,
+        "folioviv": 1,
         "cockpit": 1
       },
       "nativeUse": {},
@@ -1576,8 +1576,8 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 5,
+        "verikora": 2,
+        "folioviv": 5,
         "krizaka-com": 1,
         "cockpit": 2
       },
@@ -1637,9 +1637,9 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 4,
-        "akinaza": 2,
-        "orazaka-web-client": 8,
+        "verikora": 4,
+        "folioviv": 2,
+        "sovkora-web": 8,
         "krizaka-com": 1,
         "ui-site": 1,
         "motion-lab": 2
@@ -1678,7 +1678,7 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "akinaza": 1,
+        "folioviv": 1,
         "ui-site": 1,
         "motion-lab": 2
       },
@@ -1713,9 +1713,9 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 2,
-        "orazaka-web-client": 1,
+        "verikora": 3,
+        "folioviv": 2,
+        "sovkora-web": 1,
         "ui-site": 1
       },
       "nativeUse": {},
@@ -1748,8 +1748,8 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 5,
-        "orazaka-web-client": 4
+        "verikora": 5,
+        "sovkora-web": 4
       },
       "nativeUse": {},
       "live": 9,
@@ -1782,8 +1782,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1,
+        "verikora": 1,
+        "folioviv": 1,
         "krizaka-com": 1
       },
       "nativeUse": {},
@@ -1812,9 +1812,9 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 3,
-        "orazaka-web-client": 1
+        "verikora": 1,
+        "folioviv": 3,
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 5,
@@ -1844,8 +1844,8 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "orazaka-web-client": 2,
+        "verikora": 3,
+        "sovkora-web": 2,
         "ui-site": 1,
         "motion-lab": 4
       },
@@ -1905,7 +1905,7 @@
       "category": "blocks",
       "status": "experimental",
       "domain": "conversation",
-      "adoption": "orazaka-web-client#98",
+      "adoption": "sovkora-web#98",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -1933,7 +1933,7 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "akinaza": 1,
+        "folioviv": 1,
         "cockpit": 1
       },
       "nativeUse": {},
@@ -2047,7 +2047,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1,
+        "sovkora-web": 1,
         "krizaka-com": 1
       },
       "nativeUse": {},
@@ -2082,9 +2082,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 11,
-        "akinaza": 11,
-        "orazaka-web-client": 11,
+        "verikora": 11,
+        "folioviv": 11,
+        "sovkora-web": 11,
         "krizaka-com": 10,
         "blog": 1,
         "java-site": 1
@@ -2126,7 +2126,7 @@
       "adoption": null,
       "importers": {},
       "nativeUse": {
-        "akinaza": 2
+        "folioviv": 2
       },
       "live": 2,
       "paused": 0,
@@ -2154,9 +2154,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 2,
-        "orazaka-web-client": 2,
+        "verikora": 1,
+        "folioviv": 2,
+        "sovkora-web": 2,
         "krizaka-com": 1,
         "blog": 1,
         "ui-site": 1,
@@ -2190,7 +2190,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 3,
+        "sovkora-web": 3,
         "ui-site": 1
       },
       "nativeUse": {
@@ -2221,9 +2221,9 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 4,
-        "orazaka-web-client": 3,
+        "verikora": 2,
+        "folioviv": 4,
+        "sovkora-web": 3,
         "krizaka-com": 2,
         "blog": 1,
         "ui-site": 2,
@@ -2284,8 +2284,8 @@
       "domain": "identity",
       "adoption": null,
       "importers": {
-        "yomizaka": 7,
-        "akinaza": 3
+        "verikora": 7,
+        "folioviv": 3
       },
       "nativeUse": {},
       "live": 10,
@@ -2315,7 +2315,7 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 1
+        "verikora": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -2343,7 +2343,7 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "yomizaka": 1
+        "verikora": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -2371,9 +2371,9 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 3,
-        "orazaka-web-client": 1,
+        "verikora": 3,
+        "folioviv": 3,
+        "sovkora-web": 1,
         "krizaka-com": 1,
         "blog": 1,
         "ui-site": 2,
@@ -2437,9 +2437,9 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 2,
-        "orazaka-web-client": 2,
+        "verikora": 2,
+        "folioviv": 2,
+        "sovkora-web": 2,
         "krizaka-com": 3,
         "blog": 2,
         "ui-site": 1,
@@ -2475,9 +2475,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1,
-        "orazaka-web-client": 1,
+        "verikora": 1,
+        "folioviv": 1,
+        "sovkora-web": 1,
         "krizaka-com": 2,
         "blog": 3,
         "ui-site": 4,
@@ -2515,7 +2515,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 3,
+        "sovkora-web": 3,
         "krizaka-com": 2,
         "blog": 1,
         "java-site": 1,
@@ -2575,7 +2575,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 2,
+        "sovkora-web": 2,
         "motion-lab": 1,
         "cockpit": 1
       },
@@ -2664,8 +2664,8 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1,
-        "orazaka-web-client": 1
+        "folioviv": 1,
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 2,
@@ -2719,13 +2719,13 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 4,
-        "orazaka-web-client": 1,
+        "verikora": 4,
+        "sovkora-web": 1,
         "krizaka-com": 1,
         "motion-lab": 1
       },
       "nativeUse": {
-        "yomizaka": 1
+        "verikora": 1
       },
       "live": 8,
       "paused": 0,
@@ -2752,9 +2752,9 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 3,
-        "orazaka-web-client": 1,
+        "verikora": 1,
+        "folioviv": 3,
+        "sovkora-web": 1,
         "krizaka-com": 1,
         "ui-site": 1
       },
@@ -2820,9 +2820,9 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 15,
-        "akinaza": 10,
-        "orazaka-web-client": 22,
+        "verikora": 15,
+        "folioviv": 10,
+        "sovkora-web": 22,
         "krizaka-com": 1,
         "ui-site": 2,
         "motion-lab": 4,
@@ -2856,7 +2856,7 @@
       "domain": "conversation",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -2944,7 +2944,7 @@
       "domain": "conversation",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 2,
+        "sovkora-web": 2,
         "cockpit": 4
       },
       "nativeUse": {},
@@ -2975,8 +2975,8 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 5,
-        "akinaza": 2
+        "verikora": 5,
+        "folioviv": 2
       },
       "nativeUse": {},
       "live": 7,
@@ -3006,13 +3006,13 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 19,
-        "akinaza": 22,
-        "orazaka-web-client": 9
+        "verikora": 19,
+        "folioviv": 22,
+        "sovkora-web": 9
       },
       "nativeUse": {
-        "yomizaka": 1,
-        "akinaza": 2
+        "verikora": 1,
+        "folioviv": 2
       },
       "live": 53,
       "paused": 0,
@@ -3097,7 +3097,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "akinaza": 3
+        "folioviv": 3
       },
       "nativeUse": {},
       "live": 3,
@@ -3126,7 +3126,7 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -3189,7 +3189,7 @@
       "adoption": null,
       "importers": {},
       "nativeUse": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "live": 1,
       "paused": 0,
@@ -3219,7 +3219,7 @@
       "domain": "maps",
       "adoption": null,
       "importers": {
-        "akinaza": 3,
+        "folioviv": 3,
         "ui-site": 1,
         "motion-lab": 3
       },
@@ -3339,14 +3339,14 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 2,
-        "orazaka-web-client": 2,
+        "verikora": 3,
+        "folioviv": 2,
+        "sovkora-web": 2,
         "ui-site": 1,
         "cockpit": 1
       },
       "nativeUse": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "live": 10,
       "paused": 0,
@@ -3433,9 +3433,9 @@
       "category": "media",
       "status": "experimental",
       "domain": "commerce",
-      "adoption": "akinaza#481",
+      "adoption": "folioviv#481",
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -3463,7 +3463,7 @@
       "domain": "media",
       "adoption": null,
       "importers": {
-        "akinaza": 3
+        "folioviv": 3
       },
       "nativeUse": {},
       "live": 3,
@@ -3493,7 +3493,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -3523,7 +3523,7 @@
       "domain": "media",
       "adoption": null,
       "importers": {
-        "akinaza": 2
+        "folioviv": 2
       },
       "nativeUse": {},
       "live": 2,
@@ -3553,8 +3553,8 @@
       "domain": "media",
       "adoption": null,
       "importers": {
-        "yomizaka": 4,
-        "orazaka-web-client": 1
+        "verikora": 4,
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 5,
@@ -3663,7 +3663,7 @@
       "domain": "media",
       "adoption": null,
       "importers": {
-        "yomizaka": 6,
+        "verikora": 6,
         "cockpit": 1
       },
       "nativeUse": {},
@@ -3692,9 +3692,9 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 9,
-        "akinaza": 1,
-        "orazaka-web-client": 3
+        "verikora": 9,
+        "folioviv": 1,
+        "sovkora-web": 3
       },
       "nativeUse": {},
       "live": 13,
@@ -3722,14 +3722,14 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 7,
-        "akinaza": 6,
-        "orazaka-web-client": 2,
+        "verikora": 7,
+        "folioviv": 6,
+        "sovkora-web": 2,
         "cockpit": 2
       },
       "nativeUse": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "live": 19,
       "paused": 0,
@@ -3787,7 +3787,7 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 1
+        "verikora": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -3818,7 +3818,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -3876,14 +3876,14 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 2
+        "folioviv": 2
       },
       "nativeUse": {},
       "live": 2,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "akinaza#315",
+      "issue": "folioviv#315",
       "mergeInto": null,
       "sizeGzip": 2830,
       "budget": 4000,
@@ -3904,7 +3904,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -4094,8 +4094,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 2,
@@ -4238,9 +4238,9 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 8,
-        "akinaza": 12,
-        "orazaka-web-client": 4,
+        "verikora": 8,
+        "folioviv": 12,
+        "sovkora-web": 4,
         "krizaka-com": 13,
         "blog": 8,
         "java-site": 1,
@@ -4293,9 +4293,9 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 5,
-        "akinaza": 6,
-        "orazaka-web-client": 1,
+        "verikora": 5,
+        "folioviv": 6,
+        "sovkora-web": 1,
         "krizaka-com": 4,
         "blog": 5,
         "motion-lab": 3,
@@ -4341,8 +4341,8 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "orazaka-web-client": 1,
+        "verikora": 1,
+        "sovkora-web": 1,
         "krizaka-com": 4,
         "blog": 2,
         "ui-site": 1,
@@ -4406,7 +4406,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 2,
+        "sovkora-web": 2,
         "krizaka-com": 3,
         "blog": 1,
         "ui-site": 1,
@@ -4537,7 +4537,7 @@
       "domain": "cahier",
       "adoption": null,
       "importers": {
-        "akinaza": 2,
+        "folioviv": 2,
         "krizaka-com": 2
       },
       "nativeUse": {},
@@ -4871,7 +4871,7 @@
       "domain": "cahier",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
+        "verikora": 2,
         "krizaka-com": 2,
         "motion-lab": 1
       },
@@ -4901,7 +4901,7 @@
       "domain": "cahier",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -4910,7 +4910,7 @@
       "builtOnBy": [
         "wall"
       ],
-      "issue": "akinaza#308",
+      "issue": "folioviv#308",
       "mergeInto": null,
       "sizeGzip": 1032,
       "budget": 1200,
@@ -4983,8 +4983,8 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "orazaka-web-client": 3,
+        "verikora": 1,
+        "sovkora-web": 3,
         "krizaka-com": 4,
         "blog": 1,
         "ui-site": 2,
@@ -5023,7 +5023,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1,
+        "sovkora-web": 1,
         "krizaka-com": 2
       },
       "nativeUse": {},
@@ -5052,7 +5052,7 @@
       "domain": "conversation",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -5080,7 +5080,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -5174,7 +5174,7 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
+        "verikora": 3,
         "cockpit": 1
       },
       "nativeUse": {},
@@ -5205,7 +5205,7 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "akinaza": 2
+        "folioviv": 2
       },
       "nativeUse": {},
       "live": 2,
@@ -5233,8 +5233,8 @@
       "domain": "identity",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 1
+        "verikora": 2,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 3,
@@ -5262,7 +5262,7 @@
       "category": "forms",
       "status": "experimental",
       "domain": "forms",
-      "adoption": "orazaka#207",
+      "adoption": "sovkora#207",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -5290,9 +5290,9 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 7,
-        "akinaza": 11,
-        "orazaka-web-client": 8
+        "verikora": 7,
+        "folioviv": 11,
+        "sovkora-web": 8
       },
       "nativeUse": {},
       "live": 26,
@@ -5323,9 +5323,9 @@
       "domain": "identity",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 3,
-        "orazaka-web-client": 2
+        "verikora": 3,
+        "folioviv": 3,
+        "sovkora-web": 2
       },
       "nativeUse": {},
       "live": 8,
@@ -5353,8 +5353,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 2
+        "verikora": 3,
+        "folioviv": 2
       },
       "nativeUse": {},
       "live": 5,
@@ -5384,7 +5384,7 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -5467,8 +5467,8 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 2,
@@ -5523,7 +5523,7 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -5741,9 +5741,9 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 2,
-        "orazaka-web-client": 1,
+        "verikora": 1,
+        "folioviv": 2,
+        "sovkora-web": 1,
         "java-site": 1,
         "ts-site": 1
       },
@@ -5827,8 +5827,8 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1,
-        "orazaka-web-client": 1,
+        "folioviv": 1,
+        "sovkora-web": 1,
         "krizaka-com": 1
       },
       "nativeUse": {},
@@ -5857,9 +5857,9 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1,
-        "orazaka-web-client": 1
+        "verikora": 1,
+        "folioviv": 1,
+        "sovkora-web": 1
       },
       "nativeUse": {},
       "live": 3,
@@ -5914,7 +5914,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1
+        "verikora": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -6079,9 +6079,9 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1,
-        "orazaka-web-client": 1,
+        "verikora": 1,
+        "folioviv": 1,
+        "sovkora-web": 1,
         "krizaka-com": 1,
         "blog": 1
       },
@@ -6111,9 +6111,9 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1,
-        "orazaka-web-client": 1,
+        "verikora": 1,
+        "folioviv": 1,
+        "sovkora-web": 1,
         "krizaka-com": 1
       },
       "nativeUse": {},
@@ -6142,7 +6142,7 @@
       "domain": "conversation",
       "adoption": null,
       "importers": {
-        "orazaka-web-client": 1,
+        "sovkora-web": 1,
         "motion-lab": 4
       },
       "nativeUse": {},
@@ -6223,8 +6223,8 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 1
+        "verikora": 3,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 4,
@@ -6340,9 +6340,9 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 3,
-        "orazaka-web-client": 1,
+        "verikora": 3,
+        "folioviv": 3,
+        "sovkora-web": 1,
         "krizaka-com": 1,
         "blog": 2,
         "ui-site": 1,
@@ -6377,7 +6377,7 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "akinaza": 1,
+        "folioviv": 1,
         "krizaka-com": 1,
         "blog": 1,
         "ui-site": 1,
@@ -6410,9 +6410,9 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 2,
-        "akinaza": 1,
-        "orazaka-web-client": 1,
+        "verikora": 2,
+        "folioviv": 1,
+        "sovkora-web": 1,
         "krizaka-com": 4,
         "blog": 1,
         "ui-site": 4,
@@ -6447,8 +6447,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 17,
-        "akinaza": 22,
+        "verikora": 17,
+        "folioviv": 22,
         "blog": 2,
         "ui-site": 3
       },
@@ -6582,8 +6582,8 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 1
+        "verikora": 3,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 4,
@@ -6642,7 +6642,7 @@
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
-      "issue": "akinaza#235",
+      "issue": "folioviv#235",
       "mergeInto": null,
       "sizeGzip": 8021,
       "budget": 13200,
@@ -6651,7 +6651,7 @@
       "lastChange": "2026-10-30",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "filed need akinaza#235"
+      "why": "filed need folioviv#235"
     },
     {
       "pkg": "ui",
@@ -6767,7 +6767,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 10,
+        "folioviv": 10,
         "ui-site": 1
       },
       "nativeUse": {},
@@ -6798,7 +6798,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -6828,7 +6828,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -6858,7 +6858,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 3
+        "folioviv": 3
       },
       "nativeUse": {},
       "live": 3,
@@ -6888,7 +6888,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -6946,7 +6946,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -6976,7 +6976,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7006,7 +7006,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7036,7 +7036,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7066,7 +7066,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7096,7 +7096,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7126,7 +7126,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7156,7 +7156,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7186,7 +7186,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7272,9 +7272,9 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 4,
-        "orazaka-web-client": 2
+        "verikora": 1,
+        "folioviv": 4,
+        "sovkora-web": 2
       },
       "nativeUse": {},
       "live": 7,
@@ -7326,7 +7326,7 @@
       "category": "layouts",
       "status": "experimental",
       "domain": "navigation-shell",
-      "adoption": "orazaka#87",
+      "adoption": "sovkora#87",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7354,7 +7354,7 @@
       "domain": "commerce",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7437,10 +7437,10 @@
       "category": "blocks",
       "status": "experimental",
       "domain": "commerce",
-      "adoption": "orazaka#417",
+      "adoption": "sovkora#417",
       "importers": {
-        "yomizaka": 1,
-        "orazaka-web-client": 4
+        "verikora": 1,
+        "sovkora-web": 4
       },
       "nativeUse": {},
       "live": 5,
@@ -7466,7 +7466,7 @@
       "category": "forms",
       "status": "experimental",
       "domain": "commerce",
-      "adoption": "orazaka#417",
+      "adoption": "sovkora#417",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7544,7 +7544,7 @@
       "category": "layout",
       "status": "experimental",
       "domain": "navigation-shell",
-      "adoption": "akinaza#104",
+      "adoption": "folioviv#104",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7572,7 +7572,7 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7600,8 +7600,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 3
+        "verikora": 3,
+        "folioviv": 3
       },
       "nativeUse": {},
       "live": 6,
@@ -7655,7 +7655,7 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "akinaza": 1
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 1,
@@ -7813,8 +7813,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 7,
-        "akinaza": 9,
+        "verikora": 7,
+        "folioviv": 9,
         "ui-site": 1
       },
       "nativeUse": {},
@@ -7843,8 +7843,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 3,
-        "akinaza": 1
+        "verikora": 3,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 4,
@@ -7896,7 +7896,7 @@
       "category": "feedback",
       "status": "experimental",
       "domain": "feedback",
-      "adoption": "akinaza#278",
+      "adoption": "folioviv#278",
       "importers": {},
       "nativeUse": {},
       "live": 0,
@@ -7950,8 +7950,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "yomizaka": 1,
-        "akinaza": 1
+        "verikora": 1,
+        "folioviv": 1
       },
       "nativeUse": {},
       "live": 2,
@@ -7979,8 +7979,8 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "yomizaka": 10,
-        "akinaza": 11
+        "verikora": 10,
+        "folioviv": 11
       },
       "nativeUse": {},
       "live": 21,

@@ -7,7 +7,7 @@ export const meta = {
   category: "media",
   domain: "media",
   platforms: "web",
-  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#278", reason: "Needs a PDF module; Yomizaka has no phone app yet." }, desktop: "web" },
+  parity: { native: { status: "gap", issue: "krizaka/krizaka-ui#278", reason: "Needs a PDF module; Verikora has no phone app yet." }, desktop: "web" },
   whenToUse: [
     "To read a document beside what was said about it: findings, comments, extracted fields.",
     "To make a quoted passage visible in the original file instead of in a copy of its text.",

@@ -68,9 +68,9 @@ describe("SettingsSection with a save", () => {
 });
 
 const avatars = [
-  { id: "a", label: "Teinte 1", defaultAvatar: { brand: "yomizaka", tone: 1 } },
-  { id: "b", label: "Teinte 2", defaultAvatar: { brand: "yomizaka", tone: 2 } },
-  { id: "c", label: "Teinte 3", defaultAvatar: { brand: "yomizaka", tone: 3 } },
+  { id: "a", label: "Teinte 1", defaultAvatar: { brand: "verikora", tone: 1 } },
+  { id: "b", label: "Teinte 2", defaultAvatar: { brand: "verikora", tone: 2 } },
+  { id: "c", label: "Teinte 3", defaultAvatar: { brand: "verikora", tone: 3 } },
 ] as const;
 
 describe("AvatarPicker", () => {
@@ -104,9 +104,9 @@ describe("AvatarPicker by kind", () => {
   const mixed = [
     { id: "p1", label: "Personne 1", kind: "person" },
     { id: "f1", label: "Dossier 1", kind: "folder" },
-    { id: "f2", label: "Dossier 2", defaultAvatar: { brand: "yomizaka", kind: "folder", tone: 2 } },
+    { id: "f2", label: "Dossier 2", defaultAvatar: { brand: "verikora", kind: "folder", tone: 2 } },
     { id: "plain", label: "Neutre" },
-    { id: "pl", label: "Uni", defaultAvatar: { brand: "yomizaka", kind: "plain", tone: 1 } },
+    { id: "pl", label: "Uni", defaultAvatar: { brand: "verikora", kind: "plain", tone: 1 } },
   ] as const;
 
   it("lists a person's pictures by default, and never a folder's", () => {
@@ -123,7 +123,7 @@ describe("AvatarPicker by kind", () => {
   });
 
   it("draws the built-in set of a kind from the code, six tones, no person for a folder", () => {
-    const options = builtInAvatarOptions("folder", "yomizaka", (n) => `Teinte ${n}`);
+    const options = builtInAvatarOptions("folder", "verikora", (n) => `Teinte ${n}`);
     expect(options).toHaveLength(6);
     expect(options.every((o) => o.kind === "folder" && o.defaultAvatar?.kind === "folder")).toBe(true);
     render(<AvatarPicker label="Photo du dossier" kind="folder" options={options} onValueChange={() => {}} />);
@@ -132,7 +132,7 @@ describe("AvatarPicker by kind", () => {
 
   it("makes the tile the radio: the keyboard selects it, the none tile is one of the tiles", async () => {
     const onValueChange = vi.fn();
-    const { container } = render(<AvatarPicker label="Photo du dossier" kind="folder" noneLabel="Aucune photo" options={builtInAvatarOptions("folder", "yomizaka", (n) => `Teinte ${n}`)} value={AVATAR_NONE} onValueChange={onValueChange} />);
+    const { container } = render(<AvatarPicker label="Photo du dossier" kind="folder" noneLabel="Aucune photo" options={builtInAvatarOptions("folder", "verikora", (n) => `Teinte ${n}`)} value={AVATAR_NONE} onValueChange={onValueChange} />);
     const radios = screen.getAllByRole("radio");
     expect(radios[0]!.getAttribute("aria-label")).toBe("Aucune photo");
     expect(radios[0]!.getAttribute("aria-checked")).toBe("true");
@@ -146,7 +146,7 @@ describe("AvatarPicker by kind", () => {
   it("uploads with the library's control: a real file input in a Dropzone, not the browser's loose one", () => {
     const onFile = vi.fn();
     const { container } = render(
-      <AvatarPicker label="Photo" kind="folder" options={builtInAvatarOptions("folder", "yomizaka", (n) => `Teinte ${n}`)} uploadFile={{ title: "Déposez une image", browseLabel: "Choisir une image", accept: "image/png", onFile }} />,
+      <AvatarPicker label="Photo" kind="folder" options={builtInAvatarOptions("folder", "verikora", (n) => `Teinte ${n}`)} uploadFile={{ title: "Déposez une image", browseLabel: "Choisir une image", accept: "image/png", onFile }} />,
     );
     expect(screen.getByRole("button", { name: "Choisir une image" })).toBeTruthy();
     const input = container.querySelector("input[type=file]") as HTMLInputElement;
@@ -206,7 +206,7 @@ describe("AccountProfileCard", () => {
         verifiedLabel="Vérifié"
         unverifiedLabel="Non vérifié"
         memberSince="Membre depuis octobre 2026"
-        avatar={{ defaultAvatar: { brand: "yomizaka", seed: "eric" } }}
+        avatar={{ defaultAvatar: { brand: "verikora", seed: "eric" } }}
         action={<button type="button">Changer la photo</button>}
       />,
     );

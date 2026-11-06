@@ -2,7 +2,7 @@ import { DocsArticlePage } from "@krizaka/ui/docs-article-page";
 
 const QUESTIONS = [
   { id: "cloud", q: "Does anything leave my server?", a: "No. Requests are answered by models on your machine; the only calls out are the ones you configure yourself." },
-  { id: "models", q: "Which models can I run?", a: "Any model your hardware can hold. Orazaka lists the ones that fit before you download them." },
+  { id: "models", q: "Which models can I run?", a: "Any model your hardware can hold. Sovkora lists the ones that fit before you download them." },
   { id: "price", q: "How is it priced?", a: "A plan with a monthly credit allowance. Credits are spent per job, and what is left is always shown." },
 ];
 
@@ -11,10 +11,10 @@ const QUESTIONS = [
 export default function DocsArticlePageFaq() {
   return (
     <DocsArticlePage
-      className="brand-orazaka pt-6"
+      className="brand-sovkora pt-6"
       sidebarLabel="Pages of the documentation"
       sidebar={
-        <nav aria-label="Orazaka documentation">
+        <nav aria-label="Sovkora documentation">
           <ul className="flex flex-col gap-1 text-sm">
             {["Getting started", "The CLI", "Questions"].map((p) => (
               <li key={p}>
@@ -24,7 +24,7 @@ export default function DocsArticlePageFaq() {
           </ul>
         </nav>
       }
-      breadcrumb={[{ href: "#docs", label: "Docs" }, { href: "#orazaka", label: "Orazaka" }]}
+      breadcrumb={[{ href: "#docs", label: "Docs" }, { href: "#sovkora", label: "Sovkora" }]}
       title="Questions, answered"
       lead="What people ask before they install."
       toc={{ label: "Questions", items: QUESTIONS.map((x) => ({ id: x.id, label: x.q })) }}

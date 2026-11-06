@@ -6,7 +6,7 @@ const chapters = [
   ["Ce que coûtent une image et une vidéo : mes factures", "15 – 21 oct."],
   ["D'un clip à un film : ce que nous avons raté d'abord", "17 – 21 oct."],
   ["Une seule interface, du web au Mac", "17 – 21 oct."],
-  ["Les premiers produits : Yomizaka et Akinaza", "17 – 23 oct."],
+  ["Les premiers produits : Verikora et Folioviv", "17 – 23 oct."],
   ["Un résultat vide n'est pas un succès", "16 – 23 oct."],
   ["Construire presque seul, avec des agents", "12 – 23 oct."],
 ] as const;

@@ -9,8 +9,8 @@ describe("DocsHubPage", () => {
     const { container } = render(<Example />);
     expect(screen.getByRole("heading", { level: 1, name: "Build with Krizaka" })).toBeTruthy();
     expect(container.querySelectorAll(".kz-tpl-collection")).toHaveLength(4);
-    expect(container.querySelector(".brand-orazaka")).toBeTruthy();
-    expect(screen.getByRole("link", { name: "Orazaka" }).getAttribute("href")).toBe("#orazaka");
+    expect(container.querySelector(".brand-sovkora")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Sovkora" }).getAttribute("href")).toBe("#sovkora");
     expect(await axeViolations(container)).toEqual([]);
   });
 

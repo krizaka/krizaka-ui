@@ -9,7 +9,7 @@ const jobs: Job[] = [
 ];
 const TONE = { running: "accent", done: "success", failed: "danger" } as const;
 
-// Orazaka's jobs: each row opens its run; the status and the time beside it.
+// Sovkora's jobs: each row opens its run; the status and the time beside it.
 export default function ListJobs() {
   return (
     <List

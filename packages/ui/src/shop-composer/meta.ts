@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Shop composer",
-  summary: "Our own editor for a shop's page document (ADR-007): the outline of the sections, the live preview of the product's page and the inspector of the selected section — variant as live thumbnails, settings as a form generated from the zod schema, words, blocks — with undo and redo, a saved draft and a publish step that shows what changes. First consumer: Akinaza's studio (akinaza#402).",
+  summary: "Our own editor for a shop's page document (ADR-007): the outline of the sections, the live preview of the product's page and the inspector of the selected section — variant as live thumbnails, settings as a form generated from the zod schema, words, blocks — with undo and redo, a saved draft and a publish step that shows what changes. First consumer: Folioviv's studio (folioviv#402).",
   status: "beta",
   category: "blocks",
   domain: "commerce",

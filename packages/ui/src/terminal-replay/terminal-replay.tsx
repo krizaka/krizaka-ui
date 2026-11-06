@@ -21,7 +21,7 @@ export interface TerminalLine {
 }
 
 export interface TerminalStep {
-  /** What is typed at the prompt (`npx orazaka install`). */
+  /** What is typed at the prompt (`npx sovkora install`). */
   command: string;
   /** What it printed, line by line. */
   output?: readonly (string | TerminalLine)[];

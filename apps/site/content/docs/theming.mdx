@@ -14,9 +14,9 @@ on a section, to show two brands on one page:
 | Class | Product | Identity |
 | :-- | :-- | :-- |
 | `.brand-krizaka` (default) | The studio and its site | Ink and blue. |
-| `.brand-orazaka` | Orazaka | Orange. |
-| `.brand-yomizaka` | Yomizaka | Ink indigo. |
-| `.brand-akinaza` | Akinaza | Laurentian forest green and warm copper. |
+| `.brand-sovkora` | Sovkora | Orange. |
+| `.brand-verikora` | Verikora | Ink indigo. |
+| `.brand-folioviv` | Folioviv | Laurentian forest green and warm copper. |
 
 ```css title="app/globals.css"
 @import "tailwindcss";
@@ -25,7 +25,7 @@ on a section, to show two brands on one page:
 ```
 
 ```tsx
-<html lang="en" className="brand-orazaka">…</html>
+<html lang="en" className="brand-sovkora">…</html>
 ```
 
 ## Dark and light
@@ -39,6 +39,6 @@ the same component with other values.
 A product theme overrides the accent roles (`--kz-accent`, `--kz-accent-text`, `--kz-brand-gradient-*`), and nothing
 else: surfaces, text, borders and radii are the platform's, so contrast stays proven. Components that carry a product's
 vocabulary live in its own design system (`@krizaka/<product>-design-system`) and are built on the primitives here —
-see [Orazaka UI](https://dev.orazaka.com/docs).
+see [Sovkora UI](https://dev.sovkora.com/docs).
 
 The roles themselves, their values in both modes and their contrasts are on the [tokens](/foundations/tokens) page.

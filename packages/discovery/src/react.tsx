@@ -38,7 +38,7 @@ export function useDiscovery(): Discovery {
   return discovery;
 }
 
-/** `useService("yomizaka").apiBase`: re-renders when the manifest moves it. */
+/** `useService("verikora").apiBase`: re-renders when the manifest moves it. */
 export function useService(product: string): ResolvedService {
   const discovery = useDiscovery();
   useSyncExternalStore(discovery.subscribe, discovery.version, discovery.version);

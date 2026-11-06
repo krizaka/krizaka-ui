@@ -11,7 +11,7 @@ export const meta = {
   engine: "svg",
   whenToUse: [
     "The console's supervision: latency per capability against the objective.",
-    "Orazaka's “time to result” per kind of job, where seconds turn into minutes.",
+    "Sovkora's “time to result” per kind of job, where seconds turn into minutes.",
     "Any duration compared across items: a model, a region, an endpoint.",
   ],
   whenNotToUse: [
@@ -39,7 +39,7 @@ export const meta = {
     imports: ["LatencyChart", "formatDuration"],
     examples: [
       { name: "by-capability", title: "By capability", description: "The console: p50 and p95 per capability against a 2 s objective." },
-      { name: "time-to-result", title: "Time to result", description: "Orazaka: the median time to a result per kind of job, in minutes when it takes minutes." },
+      { name: "time-to-result", title: "Time to result", description: "Sovkora: the median time to a result per kind of job, in minutes when it takes minutes." },
     ],
   },
   native: {

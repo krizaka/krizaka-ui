@@ -6,12 +6,12 @@
     "pets"
   ],
   "paper": "plain",
-  "accent": "akinaza",
+  "accent": "folioviv",
   "accents": [
-    "akinaza",
-    "akinaza:accent-2",
+    "folioviv",
+    "folioviv:accent-2",
     "krizaka",
-    "yomizaka"
+    "verikora"
   ],
   "faces": {
     "title": "product-display",

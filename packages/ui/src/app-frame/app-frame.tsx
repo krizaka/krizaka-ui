@@ -49,7 +49,7 @@ export interface AppFrameTheme {
 export interface AppFrameProps {
   /** The product's name, as text in the top bar. */
   name: string;
-  /** The product's mark (`<ProductLogo id="yomizaka" size={26} />`): on the rail on a desktop, in the top bar on a phone. */
+  /** The product's mark (`<ProductLogo id="verikora" size={26} />`): on the rail on a desktop, in the top bar on a phone. */
   mark: React.ReactNode;
   /** The mark in the top bar below `md` (smaller). Defaults to `mark`. */
   headerMark?: React.ReactNode;

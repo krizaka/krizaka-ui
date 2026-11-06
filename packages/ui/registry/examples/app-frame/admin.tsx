@@ -14,9 +14,9 @@ export default function AppFrameAdmin() {
   return (
     <AppFrame
       variant="admin"
-      name="Akinaza"
-      accent="akinaza"
-      mark={<ProductLogo id="akinaza" size={26} animated={false} />}
+      name="Folioviv"
+      accent="folioviv"
+      mark={<ProductLogo id="folioviv" size={26} animated={false} />}
       homeHref="#overview"
       locale="fr"
       currentId="users"

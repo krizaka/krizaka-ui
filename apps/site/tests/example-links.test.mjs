@@ -12,7 +12,7 @@ const sources = readdirSync(dir).flatMap((name) => {
 
 test("no example links to a repository or a Discussions page that does not exist", () => {
   assert.ok(sources.length > 300);
-  const dead = [/github\.com\/krizaka\/krizaka-java\b/, /github\.com\/orgs\/krizaka\/discussions/, /krizaka-build\/discussions/];
+  const dead = [/github\.com\/krizaka\/(krizaka-build|template-next-app|template-tauri-app|krizaka-tauri-kit)\b/, /github\.com\/orgs\/krizaka\/discussions/, /krizaka-java\/discussions/];
   const hits = sources.filter(([, code]) => dead.some((re) => re.test(code))).map(([file]) => file);
   assert.deepEqual(hits, []);
 });

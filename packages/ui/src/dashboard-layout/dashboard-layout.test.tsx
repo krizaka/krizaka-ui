@@ -19,7 +19,7 @@ describe("DashboardLayout", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
-  it("keeps the rows of the widgets at the height of their content next to a taller side column (yomizaka#435)", () => {
+  it("keeps the rows of the widgets at the height of their content next to a taller side column (verikora#435)", () => {
     render(
       <DashboardLayout title="Home" side={<div style={{ height: 900 }}>side</div>}>
         <Widget title="Binder" span="full">

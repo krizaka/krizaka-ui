@@ -20,7 +20,7 @@ const TOKEN = "yz_sess_3f9a1c0b7e2d4a5f8c6b";
 
 describe("createAuth", () => {
   it("reads the stored session, then follows a sign-in and a sign-out (a 401 that clears the token included)", async () => {
-    const session = createSessionStore({ storage: memory(), key: "yomizaka.session" });
+    const session = createSessionStore({ storage: memory(), key: "verikora.session" });
     const signIn = vi.fn(async () => session.saveToken(TOKEN));
     const signOut = vi.fn(async () => session.clearToken());
     const { AuthProvider, useAuth } = createAuth(session, { signIn, signOut });
@@ -48,7 +48,7 @@ describe("createAuth", () => {
   });
 
   it("starts signed in when a token is stored", async () => {
-    const session = createSessionStore({ storage: memory({ "akinaza.session": TOKEN }), key: "akinaza.session" });
+    const session = createSessionStore({ storage: memory({ "folioviv.session": TOKEN }), key: "folioviv.session" });
     const { AuthProvider, useAuth } = createAuth(session, { signIn: async () => undefined, signOut: async () => undefined });
     function Probe() {
       return <p>{useAuth().status}</p>;

@@ -8,7 +8,7 @@ export const meta = {
   domain: "conversation",
   platforms: "web",
   parity: {
-    native: { status: "gap", issue: "krizaka/orazaka#207", reason: "Slice 3 of the data-driven UI epic: the same messages drawn with the native primitives." },
+    native: { status: "gap", issue: "krizaka/sovkora#207", reason: "Slice 3 of the data-driven UI epic: the same messages drawn with the native primitives." },
     desktop: "web",
   },
   whenToUse: [

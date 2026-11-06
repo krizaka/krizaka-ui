@@ -9,17 +9,17 @@ overrides). A product never re-invents its values: it imports its brand.
 
 | Brand | Identity | Why |
 | :-- | :-- | :-- |
-| **Krizaka** (parent) | **Ink + Krizaka steel blue** (hue 208, saturation ≤ 60 %). The neutral surfaces and text of the platform carry the brand; one muted steel blue, the core of the Krizaka mark, is the only accent. | The parent frames its products without competing with them: ink is neutral next to orange and violet, and the steel sits at 182° from the Orazaka orange (26), its exact complement. It replaced the saturated electric blue (hue 217, 92 %) of every AI product in 3.31 (krizaka-ui#393, [ADR-003](../../docs/adr/ADR-003-steel-blue-and-quiet-surfaces.md)). It is also the platform default (`tokens.css` = the Krizaka brand). |
-| **Orazaka** (sovereign AI) | **Orange**, hue 26 — the accent and the mark share it. | Hue 38 (amber) is `--kz-warning`: a primary button, and since 2.1.0 the mark, must never read as a warning. The light theme's accent is the deep orange `#b45309`, also the first stop of the mark. `info` stays blue (an orange "info" would read as a warning). |
-| **Yomizaka** (documents, read and checked) | **Ink indigo** (藍, *ai*): the colour of writing and reading, a blue that leans to violet. The accent is the indigo (hue 240–242); the ink blue (hue 232) is the mark's first stop and `accent-2`. | The wheel is full, so the indigo is placed by test: ≥ 20° from the Krizaka steel (208), ≥ 60° from every other brand and every status. Dark: periwinkle under near-black text (6.3:1); light: deep indigo under white (8.7:1). `info` stays the Krizaka blue. |
-| **Akinaza** (the shop OS, Québec) | **Laurentian forest green + warm copper.** The green (hue 130) carries the accent; the copper (hue 20–22, saturation ≤ 62 %) is `accent-2` and the mark's end. | Green ≥ 20° from success (160) and every accent. The copper sits 4–6° from Orazaka's orange but is a matte metal (≤ 65 % vs ≥ 90 %, a test) and never stands alone. Dark: light green under near-black (8.9:1); light: deep green under white (6.7:1). |
+| **Krizaka** (parent) | **Ink + Krizaka steel blue** (hue 208, saturation ≤ 60 %). The neutral surfaces and text of the platform carry the brand; one muted steel blue, the core of the Krizaka mark, is the only accent. | The parent frames its products without competing with them: ink is neutral next to orange and violet, and the steel sits at 182° from the Sovkora orange (26), its exact complement. It replaced the saturated electric blue (hue 217, 92 %) of every AI product in 3.31 (krizaka-ui#393, [ADR-003](../../docs/adr/ADR-003-steel-blue-and-quiet-surfaces.md)). It is also the platform default (`tokens.css` = the Krizaka brand). |
+| **Sovkora** (sovereign AI) | **Orange**, hue 26 — the accent and the mark share it. | Hue 38 (amber) is `--kz-warning`: a primary button, and since 2.1.0 the mark, must never read as a warning. The light theme's accent is the deep orange `#b45309`, also the first stop of the mark. `info` stays blue (an orange "info" would read as a warning). |
+| **Verikora** (documents, read and checked) | **Ink indigo** (藍, *ai*): the colour of writing and reading, a blue that leans to violet. The accent is the indigo (hue 240–242); the ink blue (hue 232) is the mark's first stop and `accent-2`. | The wheel is full, so the indigo is placed by test: ≥ 20° from the Krizaka steel (208), ≥ 60° from every other brand and every status. Dark: periwinkle under near-black text (6.3:1); light: deep indigo under white (8.7:1). `info` stays the Krizaka blue. |
+| **Folioviv** (the shop OS, Québec) | **Laurentian forest green + warm copper.** The green (hue 130) carries the accent; the copper (hue 20–22, saturation ≤ 62 %) is `accent-2` and the mark's end. | Green ≥ 20° from success (160) and every accent. The copper sits 4–6° from Sovkora's orange but is a matte metal (≤ 65 % vs ≥ 90 %, a test) and never stands alone. Dark: light green under near-black (8.9:1); light: deep green under white (6.7:1). |
 
 ### Palette (the accent family)
 
 `on-accent` is the text and icon colour on the accent; `accent-text` is the accent **as text** (links, active labels),
 ≥ 4.5:1 on every surface; `accent-2` closes gradients.
 
-|  Role | Krizaka dark | Krizaka light | Orazaka dark | Orazaka light |
+|  Role | Krizaka dark | Krizaka light | Sovkora dark | Sovkora light |
 |  :-- | :-- | :-- | :-- | :-- |
 |  `accent` | `hsl(208 46% 45%)` #3e76a8 | `hsl(208 54% 36%)` #2a5e8d | `hsl(26 92% 55%)` #f67e23 | `hsl(26 90.5% 37.1%)` #b45309 |
 |  `accent-hover` | `hsl(208 48% 39%)` | `hsl(208 58% 29%)` | `hsl(26 92% 62%)` (lightens) | `hsl(26 90% 31%)` |
@@ -29,9 +29,9 @@ overrides). A product never re-invents its values: it imports its brand.
 |  `ring` | = accent | = accent | = accent | = accent |
 |  `info` | = accent | = accent | `hsl(207 50% 58%)` | `hsl(208 54% 36%)` |
 
-Yomizaka:
+Verikora:
 
-| Role | Yomizaka dark | Yomizaka light |
+| Role | Verikora dark | Verikora light |
 | :-- | :-- | :-- |
 | `accent` | `hsl(240 80% 74%)` #8888f2 | `hsl(242 52% 46%)` #3c38b2 |
 | `accent-hover` | `hsl(240 82% 80%)` (lightens) | `hsl(242 55% 40%)` |
@@ -51,17 +51,17 @@ Every pair is a test (`test/tokens.test.ts`, "brands"): `on-accent` ≥ 4.5:1 on
 /* A product app: its brand on the whole app, both themes. */
 @import "tailwindcss";
 @import "@krizaka/tailwind";
-@import "@krizaka/tokens/brands/orazaka.css";
+@import "@krizaka/tokens/brands/sovkora.css";
 ```
 
 ```tsx
 // A page that shows several brands (krizaka.com, the catalogue): the scoped classes.
 import "@krizaka/tokens/brands/scoped.css";
-<section className="brand-orazaka">…</section>
+<section className="brand-sovkora">…</section>
 
 // React Native
 import { brands } from "@krizaka/tokens/native";
-<ThemeProvider overrides={brands.orazaka}>…</ThemeProvider>
+<ThemeProvider overrides={brands.sovkora}>…</ThemeProvider>
 ```
 
 Utilities (`@krizaka/tailwind`): `bg-accent`, `text-on-accent`, `text-fg-accent` (accent as text — use it, not
@@ -69,25 +69,25 @@ Utilities (`@krizaka/tailwind`): `bg-accent`, `text-on-accent`, `text-fg-accent`
 
 ## 2. Marks — one family
 
-Krizaka and Orazaka share one mark grammar (2.0.0-beta.5; before and
+Krizaka and Sovkora share one mark grammar (2.0.0-beta.5; before and
 after in Storybook, *Brand/Evolution*):
 
 - a **400 × 400** frame, a **dashed orbit** (r 160) that turns, a **ring** (r 134), a halo in the brand colour;
 - **one bold emblem** (stroke 22 or solid shapes of the same weight) drawn as an *open* figure;
-- a **bright core** (Krizaka's blue core and node, Orazaka's core) that breathes;
+- a **bright core** (Krizaka's blue core and node, Sovkora's core) that breathes;
 - below **48 px** the view box crops to the emblem and the halo is dropped (navigation, tab bars).
 
 | Mark | Emblem | Change and reason |
 | :-- | :-- | :-- |
 | Krizaka | An **ink** hexagonal shield, open at its upper-right vertex where a **blue node** breaks out, around a blue core. | Before: hairline strokes and five hard-coded blues that vanished below 48 px and did not crop. Now the weight, crop and grammar of the family; ink + one blue, the brand palette. |
-| Orazaka | Three **solid** hexagonal shards in the brand's orange gradient, orbiting a core. | Before: two grey outlines and one amber, 3.5-unit strokes — the mark read grey and thin next to the family. Same idea, now solid, with the family's crop. **2.1.0:** amber (`#b45309 → #f59e0b`, hues 26 → 38) becomes the brand's orange — deep orange `hsl(26 90.5% 37.1%)` #b45309 → orange `hsl(26 92% 45%)` #dc6509, one hue: the old light stop was the warning's hue and read at 2:1 on a light page; every stop now reads ≥ 3:1 on surfaces 0–2 in dark and light (a test). |
-| Yomizaka | **The watch**: the owl — the bird that reads documents and knows faces — as two lenses at the family stroke under **one calm brow** (two soft curves, never a sharp V: attentive, not stern), its pupils glancing down the line it reads; the pupils are the lit cores and breathe. One node, a page, rides the orbit. | New (5th product, 2026-10). Ink `hsl(232 50% 55%)` #5362c6 → indigo `hsl(248 50% 58%)` #6d5ec9, every stop ≥ 3:1 on surfaces 0–2 in dark and light (a test). **2026-10-17:** the page and magnifier (clip-art) gave way to the owl. |
-| Akinaza | **The cut log**: a **solid** forest-green log seen end-on, its year rings in light, cut at 45° by the beaver — the cut is the Krizaka chamfer, its fresh face in **copper** — and a copper heart that breathes: a shop built ring by ring. One node, a coin, rides the orbit. | New (2026-10). Forest `hsl(140 48% 34%)` and copper `hsl(22 60% 46%)`, each ≥ 3:1 on surfaces 0–2 in dark and light (a test), kept apart. Mascot: **the beaver**, the artisan. **2026-10-17:** the shop front (awning, windows, door) gave way to the cut log. |
+| Sovkora | Three **solid** hexagonal shards in the brand's orange gradient, orbiting a core. | Before: two grey outlines and one amber, 3.5-unit strokes — the mark read grey and thin next to the family. Same idea, now solid, with the family's crop. **2.1.0:** amber (`#b45309 → #f59e0b`, hues 26 → 38) becomes the brand's orange — deep orange `hsl(26 90.5% 37.1%)` #b45309 → orange `hsl(26 92% 45%)` #dc6509, one hue: the old light stop was the warning's hue and read at 2:1 on a light page; every stop now reads ≥ 3:1 on surfaces 0–2 in dark and light (a test). |
+| Verikora | **The watch**: the owl — the bird that reads documents and knows faces — as two lenses at the family stroke under **one calm brow** (two soft curves, never a sharp V: attentive, not stern), its pupils glancing down the line it reads; the pupils are the lit cores and breathe. One node, a page, rides the orbit. | New (5th product, 2026-10). Ink `hsl(232 50% 55%)` #5362c6 → indigo `hsl(248 50% 58%)` #6d5ec9, every stop ≥ 3:1 on surfaces 0–2 in dark and light (a test). **2026-10-17:** the page and magnifier (clip-art) gave way to the owl. |
+| Folioviv | **The cut log**: a **solid** forest-green log seen end-on, its year rings in light, cut at 45° by the beaver — the cut is the Krizaka chamfer, its fresh face in **copper** — and a copper heart that breathes: a shop built ring by ring. One node, a coin, rides the orbit. | New (2026-10). Forest `hsl(140 48% 34%)` and copper `hsl(22 60% 46%)`, each ≥ 3:1 on surfaces 0–2 in dark and light (a test), kept apart. Mascot: **the beaver**, the artisan. **2026-10-17:** the shop front (awning, windows, door) gave way to the cut log. |
 
 **`WuSamaMark`** (web, `@krizaka/ui`) is not a product's mark but the founder's byline mark — Oussama's nickname, Wu-sama: a gold W of five straight legs inside the Krizaka hexagon, split at its top and bottom vertices, a small ink node at the middle summit. It is **an original mark, inspired by, not derived from** the culture its name nods to: built from the hexagon's own measures (`wu-sama-geometry.ts`, with tests that pin them), never from the Wu-Tang Clan's registered logo (no bat-wing W, no curve, no black-and-yellow copy). Ink on the host's text role, one fixed mid-tone amber `hsl(40 94% 37%)` (≥ 3:1 on both themes' surfaces), no motion. The company and the official accounts keep `KrizakaLogo`.
 
-Web: `KrizakaLogo`, `OrazakaLogo`, `YomizakaLogo`, `AkinazaLogo`, `ProductLogo id` (`@krizaka/ui`). Native: `KrizakaMark`,
-`OrazakaMark`, `YomizakaMark`, `AkinazaMark`, `ProductMark id` (`@krizaka/ui/native`). The geometry is shared
+Web: `KrizakaLogo`, `SovkoraLogo`, `VerikoraLogo`, `FoliovivLogo`, `ProductLogo id` (`@krizaka/ui`). Native: `KrizakaMark`,
+`SovkoraMark`, `VerikoraMark`, `FoliovivMark`, `ProductMark id` (`@krizaka/ui/native`). The geometry is shared
 (`packages/ui/src/marks/*-geometry.ts`); the emblem gradients are **brand tokens** — `$extensions["com.krizaka"].mark` of
 each `src/brands/<id>.brand.json`, exported as `marks.<id>` (`@krizaka/tokens`, `/native`) — read by the geometry, never
 copied. A mark is the same in both themes: its stops are chosen to read on dark and light pages.

@@ -35,9 +35,9 @@ export function appEnvironmentFrom(raw: string | undefined): Environment {
 }
 
 export interface AppDiscoveryOptions {
-  /** The product's key in the manifest (`yomizaka`). */
+  /** The product's key in the manifest (`verikora`). */
   product: string;
-  /** The product's own domain, trusted next to Krizaka's (`yomizaka.com`). */
+  /** The product's own domain, trusted next to Krizaka's (`verikora.com`). */
   hostSuffix: string;
   appVersion: string;
   /** Used until a verified manifest says otherwise. */

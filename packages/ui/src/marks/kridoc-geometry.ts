@@ -1,7 +1,7 @@
 import { KRIZAKA } from "./krizaka-geometry";
 
 /**
- * The Kridoc mark's geometry (the managed storage, code name kachizaka; krizaka-internal#2035). Same grammar as the family
+ * The Kridoc mark's geometry (the managed storage; krizaka-internal#2035). Same grammar as the family
  * (a 360×360 artwork at (20, 20), one stroke of 22, an open figure whose end breaks out as a node, a core, a dashed orbit
  * and a ring). Kridoc is a service of the company, so it wears the **Krizaka** colours — ink figure, blue node and core.
  * The figure is a page with its corner folded: the stroke stays open at the fold, where the node — the share link — sits;

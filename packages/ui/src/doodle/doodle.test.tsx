@@ -35,7 +35,7 @@ describe("Doodle", () => {
     const tilt = (seed: string) => (render(<Doodle kind="star" seed={seed} />).container.querySelector(".kz-doodle") as HTMLElement).style.getPropertyValue("--kz-doodle-tilt");
     expect(tilt("a")).toBe(tilt("a"));
     expect(tilt("a")).toMatch(/^-?\d(\.\d)?deg$/);
-    expect(Math.abs(parseFloat(tilt("akinaza")))).toBeLessThanOrEqual(8);
+    expect(Math.abs(parseFloat(tilt("folioviv")))).toBeLessThanOrEqual(8);
   });
 
   it("carries a text equivalent as an image when it has a label; a flipped mark faces the other way", async () => {

@@ -15,7 +15,7 @@ export interface ChangeItem {
 }
 
 export interface Release {
-  /** What was released: `@krizaka/ui`, `Orazaka`. */
+  /** What was released: `@krizaka/ui`, `Sovkora`. */
   source: string;
   version: string;
   /** ISO date, `2026-10-17`. */

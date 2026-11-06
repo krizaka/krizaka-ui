@@ -1,7 +1,7 @@
 import { Mascot,MASCOT_BIRDS } from "@krizaka/ui/mascots";
 
-// The nine figures in the host's brand colours: blue on Krizaka, orange in Orazaka, indigo in
-// Yomizaka, green in Akinaza.
+// The nine figures in the host's brand colours: blue on Krizaka, orange in Sovkora, indigo in
+// Verikora, green in Folioviv.
 export default function MascotFlock() {
   return (
     <div className="flex flex-wrap items-end gap-6">

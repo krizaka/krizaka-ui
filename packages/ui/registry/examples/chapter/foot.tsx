@@ -7,7 +7,7 @@ export default function ChapterFootStory() {
     <ChapterFoot
       label="Chapitres"
       labels={{ previous: "précédent", next: "suivant" }}
-      previous={{ number: "06", title: "Les premiers produits : Yomizaka et Akinaza", href: "#chapitre-6" }}
+      previous={{ number: "06", title: "Les premiers produits : Verikora et Folioviv", href: "#chapitre-6" }}
       next={{ number: "08", title: "Construire presque seul, avec des agents", href: "#chapitre-8" }}
       back={{ href: "#histoire", label: "Retour à l'histoire" }}
     />

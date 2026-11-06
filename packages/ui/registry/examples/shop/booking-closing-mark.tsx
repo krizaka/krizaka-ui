@@ -1,4 +1,4 @@
-import { AkinazaLogo } from "@krizaka/ui";
+import { FoliovivLogo } from "@krizaka/ui";
 import { ShopFrame } from "@krizaka/ui/shop";
 import { BookingSection } from "@krizaka/ui/shop/booking";
 
@@ -6,7 +6,7 @@ import { BookingSection } from "@krizaka/ui/shop/booking";
 export default function ShopBookingClosingMark() {
   return (
     <ShopFrame>
-      <BookingSection variant="closing" label="Book" title="Ready when you are" body="Choose a time in a few taps." mark={<AkinazaLogo size={96} animated={false} />} href="#book" actionLabel="Book" />
+      <BookingSection variant="closing" label="Book" title="Ready when you are" body="Choose a time in a few taps." mark={<FoliovivLogo size={96} animated={false} />} href="#book" actionLabel="Book" />
     </ShopFrame>
   );
 }

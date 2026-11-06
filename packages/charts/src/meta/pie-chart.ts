@@ -44,7 +44,7 @@ export const meta = {
     entry: "pie",
     imports: ["DonutChart", "PieChart"],
     examples: [
-      { name: "credit-spend", title: "Donut", description: "This month's Orazaka credits by model, the total in the hole." },
+      { name: "credit-spend", title: "Donut", description: "This month's Sovkora credits by model, the total in the hole." },
       { name: "storage-by-kind", title: "Pie", description: "Storage by kind of file, the small kinds folded into “Other”." },
     ],
   },

@@ -10,7 +10,7 @@ export const meta = {
   parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
-    "Orazaka's insights and the console's supervision: jobs per day by status.",
+    "Sovkora's insights and the console's supervision: jobs per day by status.",
     "The mobile Jobs screen: the total and the success rate first, the week's bars under them.",
     "Any queue whose items end in success or failure: uploads, payouts, transcodes.",
   ],
@@ -39,7 +39,7 @@ export const meta = {
     entry: "throughput",
     imports: ["JobThroughput"],
     examples: [
-      { name: "week-of-jobs", title: "A week of jobs", description: "Seven days of Orazaka jobs by status, the success rate above." },
+      { name: "week-of-jobs", title: "A week of jobs", description: "Seven days of Sovkora jobs by status, the success rate above." },
       { name: "live-hours", title: "Live, per hour", description: "The last hours, `live`, with the console's own statuses." },
     ],
   },

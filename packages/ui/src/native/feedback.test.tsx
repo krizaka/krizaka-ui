@@ -1,4 +1,4 @@
-// The feedback of /native that Orazaka's Jobs tab waits for: Loader (delayed, announced, ending in words), Stepper (each
+// The feedback of /native that Sovkora's Jobs tab waits for: Loader (delayed, announced, ending in words), Stepper (each
 // step's status read), Meter (a meter with its value in words), NumberTicker (the final value read from the first frame).
 import { describe, expect, jest, test } from "@jest/globals";
 import { act, render, screen } from "@testing-library/react-native";

@@ -1,4 +1,4 @@
-// Server-safe. A dashboard, read from the products' home screens (a creator studio, Orazaka's console for
+// Server-safe. A dashboard, read from the products' home screens (a creator studio, Sovkora's console for
 // Eric): the screen's heading with its actions and filters, then a responsive grid of widgets — one column on a phone,
 // two from `sm`, four from `xl`; a widget spans 1, 2, 3 columns or the full row, and keeps its order everywhere.
 import * as React from "react";
@@ -27,7 +27,7 @@ export const dashboardLayout = tv({
     tileHint: "text-xs text-fg-secondary",
     actions: "flex shrink-0 flex-wrap items-center gap-2",
     toolbar: "flex flex-wrap items-center gap-2",
-    // content-start: next to a taller side column the rows keep the height of their content (an auto row would stretch, and a card inside a widget with it: yomizaka#435).
+    // content-start: next to a taller side column the rows keep the height of their content (an auto row would stretch, and a card inside a widget with it: verikora#435).
     grid: "grid grid-cols-1 content-start gap-4 sm:grid-cols-2 xl:grid-cols-4",
     widget: "flex min-w-0 flex-col gap-3 rounded-xl border border-border-default bg-surface-1 p-4 sm:p-5",
     widgetHead: "flex items-start justify-between gap-3",

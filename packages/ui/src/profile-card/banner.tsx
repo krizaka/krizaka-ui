@@ -52,7 +52,7 @@ export type ProfileBannerProps = Omit<React.ComponentProps<"section">, "title"> 
   meta?: React.ReactNode;
   /** The actions (message, book, edit): at the right from `sm`, under the name on a phone. */
   actions?: React.ReactNode;
-  /** A brand scope (`akinaza` → `.brand-akinaza`): the default cover takes that brand's accent. */
+  /** A brand scope (`folioviv` → `.brand-folioviv`): the default cover takes that brand's accent. */
   brand?: string;
 };
 

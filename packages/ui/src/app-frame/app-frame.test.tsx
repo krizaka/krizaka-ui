@@ -67,7 +67,7 @@ function Frame({ admin = false, billing = true, language = true, linkAs, touchTa
   return (
     <ThemeProvider>
       <AppFrame
-        name="Yomizaka"
+        name="Verikora"
         mark="M"
         homeHref="/app"
         linkAs={linkAs}
@@ -113,7 +113,7 @@ describe("AppFrame", () => {
 
   it("never shows a place on the rail that the avatar holds, and leaves gated sections out", () => {
     render(<Frame />);
-    const rail = screen.getByRole("navigation", { name: "Yomizaka" });
+    const rail = screen.getByRole("navigation", { name: "Verikora" });
     const labels = within(rail).getAllByRole("link").map((a) => a.getAttribute("aria-label") ?? a.textContent);
     expect(labels).toEqual(expect.arrayContaining(["Home", "Checks", "Help"]));
     expect(labels).not.toContain("Settings");
@@ -151,7 +151,7 @@ describe("AppFrame", () => {
 describe("touchTargets", () => {
   it("gives the rail's places, the mark, the home link, the search and the account a 44 px floor", () => {
     render(<TouchExample />);
-    const nav = screen.getByRole("navigation", { name: "Yomizaka" });
+    const nav = screen.getByRole("navigation", { name: "Verikora" });
     for (const item of within(nav).getAllByRole("link")) expect(item.className).toMatch(/md:h-11|min-h-11/);
     expect(within(screen.getByRole("banner")).getByRole("link").className).toMatch(/min-h-11/);
     expect(screen.getByRole("button", { name: /search files and checks/i }).className).toMatch(/\bh-11\b.*\bw-11\b/);
@@ -161,7 +161,7 @@ describe("touchTargets", () => {
   it("gives the home link the floor through the router's link too, filled with the name (never an empty link)", () => {
     const RouterLink = ({ href, ...rest }: React.ComponentProps<"a"> & { href: string }) => <a href={href} data-router="" {...rest} />;
     render(<Frame linkAs={RouterLink} touchTargets />);
-    const home = within(screen.getByRole("banner")).getByRole("link", { name: /Yomizaka/ });
+    const home = within(screen.getByRole("banner")).getByRole("link", { name: /Verikora/ });
     expect(home.hasAttribute("data-router")).toBe(true);
     expect(home.getAttribute("href")).toBe("/app");
     expect(home.className).toMatch(/min-h-11/);
@@ -169,10 +169,10 @@ describe("touchTargets", () => {
 
   it("leaves the default frame alone", () => {
     render(<AppExample />);
-    const nav = screen.getByRole("navigation", { name: "Yomizaka" });
+    const nav = screen.getByRole("navigation", { name: "Verikora" });
     for (const item of within(nav).getAllByRole("link")) expect(item.className).not.toMatch(/h-11|min-h-11/);
     expect(screen.getByRole("button", { name: "Account" }).className).not.toMatch(/min-h-11/);
-    expect(within(screen.getByRole("banner")).getByRole("link", { name: "Yomizaka" }).className).not.toMatch(/min-h-11/);
+    expect(within(screen.getByRole("banner")).getByRole("link", { name: "Verikora" }).className).not.toMatch(/min-h-11/);
   });
 
   it("has no accessibility violation", async () => {

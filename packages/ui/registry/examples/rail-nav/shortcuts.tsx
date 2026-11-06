@@ -13,11 +13,11 @@ export default function RailNavShortcuts() {
   return (
     <RailNav.Shell>
       <RailNav.Root
-        label="Akinaza"
-        accent="akinaza"
+        label="Folioviv"
+        accent="folioviv"
         expandable
         expandLabels={["Show the words", "Hide the words"]}
-        mark={<a href="#home" aria-label="Akinaza, home"><ProductLogo id="akinaza" size={26} animated={false} /></a>}
+        mark={<a href="#home" aria-label="Folioviv, home"><ProductLogo id="folioviv" size={26} animated={false} /></a>}
         shortcutsLabel="Shortcuts"
         shortcuts={[<RailNav.Item key="r" href="#clients?view=regulars" icon={dot} label="Regular clients" />, <RailNav.Item key="n" href="#invoices/new" icon={dot} label="New invoice" />]}
       >
@@ -27,11 +27,11 @@ export default function RailNavShortcuts() {
       </RailNav.Root>
       <RailNav.Body>
         <AppHeader
-          name="Akinaza"
-          mark={<ProductLogo id="akinaza" size={22} animated={false} />}
+          name="Folioviv"
+          mark={<ProductLogo id="folioviv" size={22} animated={false} />}
           search={<AppHeaderSearch label="Search clients and invoices" onOpen={() => {}} shortcut={false} />}
           notifications={<AppHeaderCount label="Notifications" icon={dot} count={2} countLabel="2 new" />}
-          account={<AccountMenu label="Account" name="Eric Tremblay" showName="lg" avatar={{ defaultAvatar: { brand: "akinaza", seed: "eric" } }} signOut={{ label: "Sign out", onSelect: () => {} }} />}
+          account={<AccountMenu label="Account" name="Eric Tremblay" showName="lg" avatar={{ defaultAvatar: { brand: "folioviv", seed: "eric" } }} signOut={{ label: "Sign out", onSelect: () => {} }} />}
         />
         <main className="p-6 text-sm text-fg-secondary">The screen's content.</main>
       </RailNav.Body>

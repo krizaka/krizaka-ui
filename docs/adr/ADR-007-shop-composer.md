@@ -2,17 +2,17 @@
 
 - **Status:** proposed — 2026-10-26 (design lead, delegated; Oussama chooses between the open points at the end)
 - **Scope:** `@krizaka/ui` (a new `shop` family of section entries, `@krizaka/ui/shop-composer`), `@krizaka/tokens`
-  (the look presets as data), then Akinaza's public shop page and its studio (Boutique › Page)
-- **Issue:** [akinaza#398](https://github.com/krizaka/akinaza/issues/398); library side
+  (the look presets as data), then Folioviv's public shop page and its studio (Boutique › Page)
+- **Issue:** [folioviv#398](https://github.com/krizaka/folioviv/issues/398); library side
   [krizaka-ui#742](https://github.com/krizaka/krizaka-ui/issues/742)
 - **Builds on:** ADR-001 (a third-party engine only behind a `@krizaka/*` facade), ADR-004 (the Cahier: paper and ink
   on the public pages), ADR-006 (§4 the themes as data, §7 the needs-driven rule, §8 demo data only)
-- **Supersedes:** Akinaza's `docs/design/storefront-templates.md` §3–§6 (option C, templates as order + variants). Its
+- **Supersedes:** Folioviv's `docs/design/storefront-templates.md` §3–§6 (option C, templates as order + variants). Its
   idea survives: a template becomes a **starter document** plus a **preset** (§4 below).
 - **Enforced by (to land with the slices):** `packages/ui/src/shop/schema.test.ts` (every document parses, every
   migration round-trips), `packages/ui/src/shop/catalogue.test.tsx` (every type × variant renders in both themes, at
   390 and 1440 px, with a fixed media box), `packages/tokens/test/shop-presets.test.ts` (AA on every preset × mode),
-  Akinaza's `shop-page.media.test.ts` (no photo twice on a page)
+  Folioviv's `shop-page.media.test.ts` (no photo twice on a page)
 
 ## Context
 
@@ -21,7 +21,7 @@ photo comes back twice, the spacing is too large, and the page is not aligned wi
 wall are good; the photos and the shop can do much better. And two needs: the owner customises the page (which
 sections, in what order, **how each one is drawn**), and the two demo shops become the showcase of Krizaka UI.
 
-**Measured on dev.akinaza.com, 2026-10-26** (headless Chromium, 1440 × 900 and 390 × 844, dark and light):
+**Measured on dev.folioviv.com, 2026-10-26** (headless Chromium, 1440 × 900 and 390 × 844, dark and light):
 
 | Finding | Salon Cèdre & Ciseaux | Pattes de Saint-Henri |
 | :-- | :-- | :-- |
@@ -75,7 +75,7 @@ contrast, edited in our own composer, published from a draft.**
 | # | Question | Decision | Why |
 | :-- | :-- | :-- | :-- |
 | 1 | Model | Shopify's shape (sections → blocks, type · variant · settings, disabled), **typed in zod**, versioned, references not copies | Owners know it; it is data the admin and the tests can read; no code per shop |
-| 2 | Freedom | **Composition, not page building**: a fixed catalogue, one level of blocks, bounded counts, no free CSS, no free colour | Akinaza's UX_DECISIONS already refuses « arbitrary page building »; a salon page must stay a page that sells |
+| 2 | Freedom | **Composition, not page building**: a fixed catalogue, one level of blocks, bounded counts, no free CSS, no free colour | Folioviv's UX_DECISIONS already refuses « arbitrary page building »; a salon page must stay a page that sells |
 | 3 | Catalogue | 13 section types, 2–4 variants each, all in `@krizaka/ui/shop` (§3); **services · `menu`** (the compact price board) is the default | One author per section; every product's public page can reuse it |
 | 4 | Look | **Presets as data** in `@krizaka/tokens` (accent, faces, paper, density, photo grade), two per trade; the visitor's dark/light still applies | AA is proven once per preset × mode, never per shop |
 | 5 | Editor | **Our own composer on `@krizaka/ui`**; Puck not adopted (§5) | The model is a list, not a canvas; Puck brings a free canvas, 36 dependencies and a skin we would have to fight |
@@ -111,7 +111,7 @@ type Block = { key: string; type: string; settings: Record<string, unknown>; tex
   product's message as fallback (the page never shows an empty heading).
 - **The schema lives in `@krizaka/ui/shop`** (`shopPageSchema`, `defineSection({ type, variants, settings, blocks,
   limits })`, `migrateShopPage`), because the renderer and the validator must agree; the **storage is the product's**.
-- **Akinaza's storage** (slice A1): `shop_page_versions (id, shop_id, doc jsonb, schema int, status
+- **Folioviv's storage** (slice A1): `shop_page_versions (id, shop_id, doc jsonb, schema int, status
   'draft' | 'published' | 'archived', based_on, created_by, created_at, published_at)`, at most one draft per shop
   (partial unique index), `shop_page.published_version_id` the pointer the public page reads (one indexed read);
   publish = validate, copy the draft into a new published row, move the pointer, archive beyond the last 20;
@@ -188,7 +188,7 @@ type ShopPreset = {
 
 | Trade | Preset A | Preset B |
 | :-- | :-- | :-- |
-| salon | **Vitrine** — Akinaza green, Plus Jakarta titles, compact, no grade | **Atelier** — copper (Akinaza's `accent-2`), Young Serif, airy, warm grade |
+| salon | **Vitrine** — Folioviv green, Plus Jakarta titles, compact, no grade | **Atelier** — copper (Folioviv's `accent-2`), Young Serif, airy, warm grade |
 | pets | **Canal** — forest green, Plus Jakarta, compact, the hand for notes | **Carnet** — kraft paper, Young Serif, airy, warm grade, grain |
 | coaching | **Studio** — cyan, Plus Jakarta, compact | **Approche** — sky, Young Serif, washi |
 | workshop | **Établi** — steel, Plus Jakarta, Séyès | **Atelier** — copper, Young Serif, kraft |
@@ -201,7 +201,7 @@ type ShopPreset = {
   accents the preset lists (all pre-tested) — never a colour wheel.
 - The visitor's dark / light choice is kept: a preset defines both modes (copper is `hsl(22 62% 64%)` on slate and
   `hsl(20 62% 36%)` on paper, both ≥ 4.5:1 with their `on-accent`).
-- **No café, restaurant or bar preset**: Akinaza is for service shops (ADR-006 §5, row 23). The issue's « café » example
+- **No café, restaurant or bar preset**: Folioviv is for service shops (ADR-006 §5, row 23). The issue's « café » example
   is refused.
 - #261's twelve templates become **starter documents** (a section list) + **one of these presets**; `template_id` is
   read once by the migration, then retired.
@@ -238,7 +238,7 @@ builder behind a facade, for now.
 - **Reorder** like `PhotoGrid`: drag is an extra; the path is the keyboard — focus a row, `Alt+↑` / `Alt+↓` (or the
   row's menu: « Move up », « Move down », « Move to top »), every move announced (« Reviews moved to position 3 of 8 »),
   focus kept on the moved row.
-- **Roles:** owner and manager edit and publish (Akinaza's `catalogue` permission); staff read; the preset and the
+- **Roles:** owner and manager edit and publish (Folioviv's `catalogue` permission); staff read; the preset and the
   identity stay the owner's.
 
 ### 6. Media
@@ -265,7 +265,7 @@ builder behind a facade, for now.
   longest starter page never repeats; never a screenshot of the product, never a person's face.
 - **Demo photos in the banners' style** (`krizaka-defaults/banners`): cinematic, warm tungsten and golden-hour light,
   Montréal (Saint-Henri brick, the Lachine canal, Notre-Dame West, the outdoor stairs), generated locally, no face, no
-  text, no logo, uploaded under `site/products/akinaza/demo/<slug>/` through krizaka-com's `cdn-assets upload`
+  text, no logo, uploaded under `site/products/folioviv/demo/<slug>/` through krizaka-com's `cdn-assets upload`
   (hashed, immutable). The mock-ups of this ADR use a first batch made that way (one of fifteen was rejected: a dog
   drawn standing like a person — every batch is reviewed).
 - Formats: AVIF then WebP, 3 widths per ratio; the hero's image is `fetchpriority="high"` and preloaded; every other
@@ -294,20 +294,20 @@ builder behind a facade, for now.
 | **U2** [#744](https://github.com/krizaka/krizaka-ui/issues/744) | krizaka-ui | `video`, `reviews`, `bulletin`, `team`, `visit`, `story`, `social`, `faq`, `policies` | the whole catalogue |
 | **U3** [#745](https://github.com/krizaka/krizaka-ui/issues/745) | krizaka-ui | the presets in `@krizaka/tokens` (12, two per trade), the contrast matrix test, the photo treatments | A2, A4 |
 | **U4** [#746](https://github.com/krizaka/krizaka-ui/issues/746) | krizaka-ui | `@krizaka/ui/shop-composer`: outline, inspector, history, preview bridge, keyboard reorder | A3 |
-| **A1** [akinaza#400](https://github.com/krizaka/akinaza/issues/400) | akinaza | `shop_page_versions`, the routes (draft, publish, rollback), audit, the migration of today's pages | A2, A3 |
-| **A2** [akinaza#401](https://github.com/krizaka/akinaza/issues/401) | akinaza | the public page renders the document through `@krizaka/ui/shop`; the media resolver (once per page, no default in the menu); LCP / CLS / JS budget tests | A5 |
-| **A3** [akinaza#402](https://github.com/krizaka/akinaza/issues/402) | akinaza | Boutique › Page › Composer in the studio (owner, manager), on U4 | A5 |
-| **A4** [akinaza#403](https://github.com/krizaka/akinaza/issues/403) | akinaza | the demo photos (≥ 12 per demo shop + covers) in the banners' style, on the CDN, and `defaults/<trade>` refreshed | A5 |
-| **A5** [akinaza#404](https://github.com/krizaka/akinaza/issues/404) | akinaza | the demo shops rebuilt as the showcase: the salon on `salon-vitrine` compact, the dog walker on `pets-canal`; a « See it another way » switch on the two demo shops only (the editorial, gallery and journal documents) | — |
+| **A1** [folioviv#400](https://github.com/krizaka/folioviv/issues/400) | folioviv | `shop_page_versions`, the routes (draft, publish, rollback), audit, the migration of today's pages | A2, A3 |
+| **A2** [folioviv#401](https://github.com/krizaka/folioviv/issues/401) | folioviv | the public page renders the document through `@krizaka/ui/shop`; the media resolver (once per page, no default in the menu); LCP / CLS / JS budget tests | A5 |
+| **A3** [folioviv#402](https://github.com/krizaka/folioviv/issues/402) | folioviv | Boutique › Page › Composer in the studio (owner, manager), on U4 | A5 |
+| **A4** [folioviv#403](https://github.com/krizaka/folioviv/issues/403) | folioviv | the demo photos (≥ 12 per demo shop + covers) in the banners' style, on the CDN, and `defaults/<trade>` refreshed | A5 |
+| **A5** [folioviv#404](https://github.com/krizaka/folioviv/issues/404) | folioviv | the demo shops rebuilt as the showcase: the salon on `salon-vitrine` compact, the dog walker on `pets-canal`; a « See it another way » switch on the two demo shops only (the editorial, gallery and journal documents) | — |
 
-Milestones: B70 (krizaka-ui) and B71 (akinaza). U1 and A1 start in parallel; nothing ships to a real shop before A2 renders the migrated page identically.
+Milestones: B70 (krizaka-ui) and B71 (folioviv). U1 and A1 start in parallel; nothing ships to a real shop before A2 renders the migrated page identically.
 
 ## Consequences
 
 - The public page stops being a component and becomes a renderer of a document; `Storefront.tsx`'s section switch moves
   to the library's sections. The demo shops change look on A5; a real shop keeps its order until its owner opens the
   composer.
-- `@krizaka/ui` gains 13 section entries under one family (ADR-006 §7: the first consumer is Akinaza, named in each
+- `@krizaka/ui` gains 13 section entries under one family (ADR-006 §7: the first consumer is Folioviv, named in each
   `meta.ts`); `service-card`'s `density="list"` is folded into `services · menu` and deprecated in the next minor.
 - The composer is ours to maintain (~one slice); in exchange no third-party editor's release can break the studio.
 - Templates of #261 retire after the migration; `shop_page.template_id`, `sections_custom` and `style` are dropped one

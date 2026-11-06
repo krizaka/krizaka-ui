@@ -22,7 +22,7 @@ export function inDomain<T extends Pick<RegistryItem, "domain" | "status" | "tit
 }
 
 /** The products and sites whose imports the page counts: the live consumers, in a fixed order. */
-export const CONSUMERS = ["yomizaka", "akinaza", "orazaka-web-client", "krizaka-com"] as const;
+export const CONSUMERS = ["verikora", "folioviv", "sovkora-web", "krizaka-com"] as const;
 export type Consumer = (typeof CONSUMERS)[number];
 
 interface InventoryEntry {

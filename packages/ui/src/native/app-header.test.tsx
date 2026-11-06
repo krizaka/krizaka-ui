@@ -13,15 +13,15 @@ describe("AppHeader (native)", () => {
         <Text>{id}</Text>
       </Pressable>
     );
-    await render(<AppHeader name="Yomizaka" account={slot("account")} notifications={slot("notifications")} search={slot("search")} language={slot("language")} />);
+    await render(<AppHeader name="Verikora" account={slot("account")} notifications={slot("notifications")} search={slot("search")} language={slot("language")} />);
     expect(screen.getAllByRole("button").map((b) => b.props.accessibilityLabel ?? b.props["aria-label"])).toEqual(["search", "language", "notifications", "account"]);
-    expect(screen.getByText("Yomizaka")).toBeTruthy();
+    expect(screen.getByText("Verikora")).toBeTruthy();
   });
 
   test("the name is a link home with onHome", async () => {
     const home = jest.fn();
-    await render(<AppHeader name="Yomizaka" onHome={home} />);
-    await fireEvent.press(screen.getByRole("link", { name: "Yomizaka" }));
+    await render(<AppHeader name="Verikora" onHome={home} />);
+    await fireEvent.press(screen.getByRole("link", { name: "Verikora" }));
     expect(home).toHaveBeenCalled();
   });
 

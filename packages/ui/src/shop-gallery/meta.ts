@@ -4,7 +4,7 @@ export const meta = {
   title: "Shop gallery",
   summary: "A shop's photos as a bento mosaic (one 2×2 lead, four tiles, the last one « + N photos »), a snap strip with a counter on a phone, and a lightbox with swipe, arrow keys and the alt text as caption. Fixed ratios, no layout shift; the lightbox is a lazy chunk.",
   status: "experimental",
-  adoption: "akinaza#481",
+  adoption: "folioviv#481",
   category: "media",
   domain: "commerce",
   platforms: "web",

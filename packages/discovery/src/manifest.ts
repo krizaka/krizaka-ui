@@ -6,7 +6,7 @@ export const SCHEMA_VERSION = 1;
 export type Environment = "dev" | "prod";
 export type ServiceStatus = "ok" | "maintenance";
 
-/** The addresses of one service. A base has no trailing slash and may carry a path (`https://dev.orazaka.com/edge`). */
+/** The addresses of one service. A base has no trailing slash and may carry a path (`https://dev.sovkora.com/edge`). */
 export interface ServiceBases {
   apiBase: string;
   webBase: string;

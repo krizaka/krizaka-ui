@@ -2,14 +2,14 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 
 import { companyLinks, familyLabels, sites } from "../sites";
 
-const labelsDescription = () => familyLabels.en.descriptions.orazaka;
+const labelsDescription = () => familyLabels.en.descriptions.sovkora;
 import { axeViolations } from "../test/axe";
 import { SiteFooter } from "./index";
 
 function Footer(props: Partial<React.ComponentProps<typeof SiteFooter>>) {
   return (
-    <SiteFooter current="orazaka" family env="DEV" version="1.2.3" {...props}>
-      <SiteFooter.Column title="Orazaka">
+    <SiteFooter current="sovkora" family env="DEV" version="1.2.3" {...props}>
+      <SiteFooter.Column title="Sovkora">
         <SiteFooter.Link href="#how" active>How it works</SiteFooter.Link>
         <SiteFooter.Link href="#docs">Docs</SiteFooter.Link>
       </SiteFooter.Column>
@@ -48,7 +48,7 @@ describe("SiteFooter", () => {
     const { container } = render(<Footer />);
     expect(screen.getAllByRole("contentinfo")).toHaveLength(1);
     const footer = container.querySelector("footer")!;
-    expect(footer.textContent).not.toContain(familyLabels.en.descriptions.orazaka);
+    expect(footer.textContent).not.toContain(familyLabels.en.descriptions.sovkora);
     const hrefs = Array.from(footer.querySelectorAll("a")).map((a) => a.getAttribute("href"));
     expect(hrefs.filter((h, i) => hrefs.indexOf(h) !== i)).toEqual([]);
     for (const list of Array.from(footer.querySelectorAll("ul"))) {
@@ -69,16 +69,16 @@ describe("SiteFooter", () => {
   it("marks the current site in words, and lists names only (the statuses live in the switcher and the product pages)", () => {
     render(<Footer />);
     const family = screen.getByRole("navigation", { name: "Krizaka family" });
-    const current = within(family).getByRole("link", { name: /Orazaka/ });
+    const current = within(family).getByRole("link", { name: /Sovkora/ });
     expect(current.getAttribute("aria-current")).toBe("true");
     expect(current.textContent).toContain("You are here");
-    expect(within(family).getByRole("link", { name: /Yomizaka/ }).textContent).toBe("Yomizaka");
-    expect(within(family).getByRole("link", { name: /Akinaza/ }).textContent).toBe("Akinaza");
+    expect(within(family).getByRole("link", { name: /Verikora/ }).textContent).toBe("Verikora");
+    expect(within(family).getByRole("link", { name: /Folioviv/ }).textContent).toBe("Folioviv");
   });
 
   it("renders the site's own columns, the signature by kind, the version and Montréal", () => {
     render(<Footer />);
-    expect(screen.getByRole("list", { name: "Orazaka" })).toBeTruthy();
+    expect(screen.getByRole("list", { name: "Sovkora" })).toBeTruthy();
     expect(screen.getByRole("link", { name: "How it works" }).getAttribute("aria-current")).toBe("page");
     expect(screen.getByRole("link", { name: /A Krizaka product/ }).getAttribute("href")).toBe("https://www.krizaka.com");
     expect(screen.getByText("DEV · v1.2.3")).toBeTruthy();
@@ -104,7 +104,7 @@ describe("SiteFooter", () => {
   });
 
   it("shows the family by default on krizaka.com only (founder rule: links to the other sites live there)", () => {
-    const { unmount } = render(<SiteFooter current="orazaka" />);
+    const { unmount } = render(<SiteFooter current="sovkora" />);
     expect(screen.queryByRole("navigation", { name: "Krizaka family" })).toBeNull();
     unmount();
     render(<SiteFooter current="krizaka" />);
@@ -114,7 +114,7 @@ describe("SiteFooter", () => {
   it("with family={false} holds no family column and no link to another site, only the publisher line", async () => {
     const { container } = render(<Footer family={false} legal={<SiteFooter.Link href="#privacy">Privacy</SiteFooter.Link>} />);
     expect(screen.queryByRole("navigation", { name: "Krizaka family" })).toBeNull();
-    expect(screen.getByRole("list", { name: "Orazaka" })).toBeTruthy();
+    expect(screen.getByRole("list", { name: "Sovkora" })).toBeTruthy();
     const hrefs = screen.getAllByRole("link").map((a) => a.getAttribute("href"));
     for (const other of ["ui.krizaka", "java.krizaka", "github.com"]) {
       expect(hrefs.filter((h) => h?.includes(other))).toEqual([]);
@@ -132,7 +132,7 @@ describe("SiteFooter", () => {
 
   it("renders no column for a group with no link (empty, null or false children), and no wrapper when no group is left", () => {
     const { container } = render(
-      <SiteFooter current="akinaza" family={false}>
+      <SiteFooter current="folioviv" family={false}>
         <SiteFooter.Column title="Empty">{null}</SiteFooter.Column>
         <SiteFooter.Column title="Falsy">{[false, undefined]}</SiteFooter.Column>
       </SiteFooter>,
@@ -144,15 +144,15 @@ describe("SiteFooter", () => {
 
   it("keeps a column with at least one link, and drops the falsy ones around it", () => {
     render(
-      <SiteFooter current="akinaza" family={false}>
-        <SiteFooter.Column title="Akinaza">
+      <SiteFooter current="folioviv" family={false}>
+        <SiteFooter.Column title="Folioviv">
           {false}
           <SiteFooter.Link href="#privacy">Privacy</SiteFooter.Link>
           {null}
         </SiteFooter.Column>
       </SiteFooter>,
     );
-    expect(within(screen.getByRole("list", { name: "Akinaza" })).getAllByRole("listitem")).toHaveLength(1);
+    expect(within(screen.getByRole("list", { name: "Folioviv" })).getAllByRole("listitem")).toHaveLength(1);
   });
 
   it("the site's own groups sit inline on one wrapping line, never in stacked columns (« des footers de 10 lignes », #754)", () => {
@@ -177,7 +177,7 @@ describe("SiteFooter", () => {
   it("reads the family's names and addresses from `org.family` when the host passes it", () => {
     const family = [
       { id: "krizaka", name: "Krizaka", group: "krizaka", status: "released", url: "https://www.krizaka.com" },
-      { id: "yomizaka", name: "Yomizaka", group: "products", status: "development", url: "https://www.yomizaka.com" },
+      { id: "verikora", name: "Verikora", group: "products", status: "development", url: "https://www.verikora.com" },
       { id: "ts", name: "Krizaka TypeScript", group: "open-source", status: "development", url: "https://ts.krizaka.com" },
       { id: "lab", name: "Krizaka Lab", group: "open-source", status: "development", url: "https://lab.krizaka.com" },
     ] as const;
@@ -187,7 +187,7 @@ describe("SiteFooter", () => {
       "Krizaka TypeScript",
       "Krizaka Lab (You are here)",
     ]);
-    expect(within(nav).queryByRole("link", { name: /Orazaka/ })).toBeNull();
+    expect(within(nav).queryByRole("link", { name: /Sovkora/ })).toBeNull();
   });
 
   it("says the status once per column, from data: no badge on each item", () => {
@@ -200,15 +200,15 @@ describe("SiteFooter", () => {
 
   it("a badge shows on the exception only, when a column's statuses differ", () => {
     const family = [
-      { id: "orazaka", name: "Orazaka", group: "products", status: "development", url: "https://www.orazaka.com" },
-      { id: "yomizaka", name: "Yomizaka", group: "products", status: "development", url: "https://www.yomizaka.com" },
-      { id: "akinaza", name: "Akinaza", group: "products", status: "construction", url: "https://www.akinaza.com" },
+      { id: "sovkora", name: "Sovkora", group: "products", status: "development", url: "https://www.sovkora.com" },
+      { id: "verikora", name: "Verikora", group: "products", status: "development", url: "https://www.verikora.com" },
+      { id: "folioviv", name: "Folioviv", group: "products", status: "construction", url: "https://www.folioviv.com" },
     ] as const;
     render(<SiteFooter current="krizaka" family org={{ ...org, family }} />);
     const nav = screen.getByRole("navigation", { name: "Krizaka family" });
     expect(within(nav).getAllByText(/Under construction/)).toHaveLength(1);
-    expect(within(nav).getByRole("link", { name: /Akinaza/ }).textContent).toBe("Akinaza (Under construction)");
-    expect(within(nav).getByRole("link", { name: "Yomizaka" })).toBeTruthy();
+    expect(within(nav).getByRole("link", { name: /Folioviv/ }).textContent).toBe("Folioviv (Under construction)");
+    expect(within(nav).getByRole("link", { name: "Verikora" })).toBeTruthy();
   });
 
   it("footer text uses the readable tokens only (fg / fg-secondary), never the muted or an unset colour", () => {
@@ -251,7 +251,7 @@ describe("SiteFooter", () => {
     it("docs: the same three lines as a site (the family included, #754), one contentinfo", async () => {
       const { container } = render(<Footer variant="docs" family legal={legal} />);
       expect(screen.getAllByRole("contentinfo")).toHaveLength(1);
-      expect(screen.getByRole("list", { name: "Orazaka" })).toBeTruthy();
+      expect(screen.getByRole("list", { name: "Sovkora" })).toBeTruthy();
       expect(screen.getByRole("navigation", { name: "Krizaka family" })).toBeTruthy();
       expect(screen.queryByText(labelsDescription())).toBeNull();
       expect(screen.getByRole("link", { name: /A Krizaka product/ })).toBeTruthy();
@@ -284,7 +284,7 @@ describe("SiteFooter", () => {
   });
 
   it("marks no company page from another site (same path, other host) nor without a path", () => {
-    render(<Footer current="orazaka" path="/story" />);
+    render(<Footer current="sovkora" path="/story" />);
     expect(screen.getByRole("link", { name: familyLabels.en.company!.story }).getAttribute("aria-current")).toBeNull();
   });
 
@@ -297,10 +297,10 @@ describe("SiteFooter", () => {
   });
 
   it("filters the hub's Products column with `products` (the focus products), the current site always kept", () => {
-    render(<SiteFooter current="krizaka" products={["orazaka", "yomizaka"]} />);
+    render(<SiteFooter current="krizaka" products={["sovkora", "verikora"]} />);
     const hrefs = screen.getAllByRole("link").map((a) => a.getAttribute("href") ?? "");
-    expect(hrefs.some((h) => h.includes("orazaka"))).toBe(true);
-    expect(hrefs.some((h) => h.includes("yomizaka"))).toBe(true);
+    expect(hrefs.some((h) => h.includes("sovkora"))).toBe(true);
+    expect(hrefs.some((h) => h.includes("verikora"))).toBe(true);
   });
 
   describe("with the organisation's facts (@krizaka/org)", () => {
@@ -324,7 +324,7 @@ describe("SiteFooter", () => {
     });
 
     it("keeps the English line and the slim app variant working, with no axe violation", async () => {
-      const { container } = render(<SiteFooter current="orazaka" variant="app" org={org} version="1.2.3" />);
+      const { container } = render(<SiteFooter current="sovkora" variant="app" org={org} version="1.2.3" />);
       expect(container.textContent).toContain("A Technologies Krizaka company · Made in Montréal");
       expect(container.textContent).toContain("v1.2.3");
       expect(await axeViolations(container)).toEqual([]);

@@ -11,7 +11,7 @@ export interface ChartsSettings {
   locale?: Locale;
   /**
    * The brand whose palette the charts use. Without it, a chart follows a `.brand-<id>` ancestor, else Krizaka. Set it
-   * when the app loads a brand stylesheet on `:root` (`@krizaka/tokens/brands/orazaka.css`).
+   * when the app loads a brand stylesheet on `:root` (`@krizaka/tokens/brands/sovkora.css`).
    */
   brand?: BrandId;
   /** The words, translated: the buttons, the states, the written summary. */

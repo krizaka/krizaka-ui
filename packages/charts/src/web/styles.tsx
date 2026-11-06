@@ -13,8 +13,8 @@ const slots = (brand: BrandId) =>
 
 const PALETTE = [
   `[data-kzc]{${slots("krizaka")}--kzc-low:light-dark(${HUES.blue.light},${HUES.blue.dark});--kzc-high:light-dark(${HUES.red.light},${HUES.red.dark});}`,
-  ...(["orazaka", "krizaka"] as const).map((brand) => `:where(.brand-${brand}) [data-kzc]{${slots(brand)}}`),
-  ...(["orazaka", "krizaka"] as const).map((brand) => `[data-kzc][data-brand=${brand}]{${slots(brand)}}`),
+  ...(["sovkora", "krizaka"] as const).map((brand) => `:where(.brand-${brand}) [data-kzc]{${slots(brand)}}`),
+  ...(["sovkora", "krizaka"] as const).map((brand) => `[data-kzc][data-brand=${brand}]{${slots(brand)}}`),
 ].join("");
 
 const tone = (name: string, value: string) => `.kzc [data-tone=${name}]{--kzc-tone:${value}}`;

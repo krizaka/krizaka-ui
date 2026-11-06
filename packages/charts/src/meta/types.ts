@@ -51,7 +51,7 @@ export type Absence =
   | { readonly status: "gap"; readonly issue: string; readonly reason: string; readonly use?: undefined }
   | { readonly status: "n/a"; readonly reason: string; readonly use?: ComponentName; readonly issue?: undefined };
 
-/** Desktop is the Orazaka Mac app (Tauri 2, the system WebView — krizaka-ui ADR-002): `web` runs as it is. */
+/** Desktop is the Sovkora Mac app (Tauri 2, the system WebView — krizaka-ui ADR-002): `web` runs as it is. */
 export type DesktopSupport = "web" | "desktop" | Absence;
 
 /** web · native · desktop: the side a chart lacks says why (`native` required for a web-only chart); `desktop` always. */

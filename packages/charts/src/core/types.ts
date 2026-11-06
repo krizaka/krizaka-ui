@@ -8,9 +8,9 @@ export type Datum = object;
 export type Accessor<T, V> = (keyof T & string) | ((datum: T, index: number) => V);
 
 /**
- * A Krizaka brand: its palette leads with the brand's own hue (Krizaka blue, Orazaka orange).
+ * A Krizaka brand: its palette leads with the brand's own hue (Krizaka blue, Sovkora orange).
  */
-export type BrandId = "krizaka" | "orazaka";
+export type BrandId = "krizaka" | "sovkora";
 
 /** A BCP 47 locale (`"en-US"`, `"fr-FR"`), always explicit: server and client write the same figures. */
 export type Locale = string | readonly string[];

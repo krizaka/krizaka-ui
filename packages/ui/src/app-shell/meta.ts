@@ -13,7 +13,7 @@ export const meta = {
     { when: "For a public page of a site.", use: "marketing-layout" },
     { when: "For a mobile app's tabs: React Native has its own tab bar." },
   ],
-  bestPractices: ["Five to nine items, grouped by what the user does (`AppShell.Group`), the current one marked with `current`.", "Give every item an icon: it is all that remains when the sidebar collapses (its words become a tooltip).", "Persist the collapse with `collapsed` + `onCollapsedChange`; put the account in the sidebar's `footer`.", "Render your router's links with `AppShell.Item asChild`.", "Give the sections a `shortcut` (`g p`: G then P): it clicks the item, so a router link navigates, and the keys show on hover and focus.", "Put `AppShell.Search` in the header and open your `CommandDialog` from its `onOpen`: ⌘K (Ctrl+K) opens it from anywhere.", "In a desktop app (the Orazaka Mac app, Tauri 2) pass `desktop`: the header and the sidebar's top become the title bar that moves the window, there is no drawer, the density is the desktop's; build the native menu bar from the same shortcuts with `acceleratorOf` (`mod+k` → `CmdOrCtrl+K`)."],
+  bestPractices: ["Five to nine items, grouped by what the user does (`AppShell.Group`), the current one marked with `current`.", "Give every item an icon: it is all that remains when the sidebar collapses (its words become a tooltip).", "Persist the collapse with `collapsed` + `onCollapsedChange`; put the account in the sidebar's `footer`.", "Render your router's links with `AppShell.Item asChild`.", "Give the sections a `shortcut` (`g p`: G then P): it clicks the item, so a router link navigates, and the keys show on hover and focus.", "Put `AppShell.Search` in the header and open your `CommandDialog` from its `onOpen`: ⌘K (Ctrl+K) opens it from anywhere.", "In a desktop app (the Sovkora Mac app, Tauri 2) pass `desktop`: the header and the sidebar's top become the title bar that moves the window, there is no drawer, the density is the desktop's; build the native menu bar from the same shortcuts with `acceleratorOf` (`mod+k` → `CmdOrCtrl+K`)."],
   accessibility: {
     keyboard: [
       { keys: "Tab", action: "Moves through the sidebar's items, the collapse button and the header's actions." },
@@ -33,7 +33,7 @@ export const meta = {
       { name: "admin-console", title: "Administration console", description: "A review queue in a console: sections, counts and a sortable table with bulk actions (cards on a phone).", template: true, purpose: "operate", why: "An administrator works a queue: scans it, sorts it and acts on many rows at once." },
       { name: "basic", title: "The shell alone", description: "Sidebar with a group and a count, header with an action, the content." },
       { name: "collapse-overflow", title: "A brand name and a text footer that collapse cleanly", description: "Collapsed, only the mark shows; the name and the footer text fade and narrow with the sidebar, never spilling over the content." },
-      { name: "desktop", title: "Desktop window", description: "The Orazaka Mac app's window (`desktop`): the title bar moves the window and clears the traffic lights, no drawer, the desktop's density, ⌘1–⌘3 to the sections." },
+      { name: "desktop", title: "Desktop window", description: "The Sovkora Mac app's window (`desktop`): the title bar moves the window and clears the traffic lights, no drawer, the desktop's density, ⌘1–⌘3 to the sections." },
     ],
   },
 } satisfies ComponentMeta;

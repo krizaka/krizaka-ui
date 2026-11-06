@@ -2,7 +2,7 @@ import { Button, Loader } from "@krizaka/ui/native";
 import { useState } from "react";
 import { View } from "react-native";
 
-// An Orazaka job: shown after 250 ms, never blinking, ending on a check and its words.
+// An Sovkora job: shown after 250 ms, never blinking, ending on a check and its words.
 export default function NativeLoaderJobWait() {
   const [status, setStatus] = useState<"loading" | "success">("loading");
   return (

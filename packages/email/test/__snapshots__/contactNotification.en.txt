@@ -1,4 +1,4 @@
-[krizaka.com] Orazaka: Camille Tremblay
+[krizaka.com] Sovkora: Camille Tremblay
 
 Krizaka
 
@@ -19,7 +19,7 @@ Cabinet Tremblay
 
 Topic
 
-Orazaka
+Sovkora
 
 Timeline
 
@@ -31,14 +31,14 @@ fr
 
 Source
 
-orazaka
+sovkora
 
 Message
 
 Bonjour,
 Nous cherchons une IA hébergée au Québec pour nos documents.
 
-Reply to Camille Tremblay camille@example.com?subject=Re%3A%20Orazaka
+Reply to Camille Tremblay camille@example.com?subject=Re%3A%20Sovkora
 
 Internal notification: a visitor used the contact form of www.krizaka.com.
 

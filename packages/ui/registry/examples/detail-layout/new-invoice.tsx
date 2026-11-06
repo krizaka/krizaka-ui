@@ -8,7 +8,7 @@ import { StickyAction } from "@krizaka/ui/sticky-action";
 // primary at `lg` (no gradient) in the StickyAction in task mode, which keeps the total and the action in view on every width. No tax or receipt logic here: the product's.
 export default function DetailLayoutNewInvoice() {
   return (
-    <div className="brand-akinaza w-full">
+    <div className="brand-folioviv w-full">
       <DetailLayout
         back={<a href="#clients">← Gagnon & fils</a>}
         title="New invoice"

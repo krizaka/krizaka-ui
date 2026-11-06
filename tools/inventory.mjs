@@ -191,14 +191,14 @@ const PRODUCT_KIT = /@krizaka\/[a-z]+-design-system\b/;
 /** The clones scanned, relative to the base folder (default ~/krizaka-com). `slug` is the GitHub repository. The products in
     focus only: the repositories of the products that left the organisation are not read. */
 export const REPOS = [
-  { name: "krizaka-com", path: ".", slug: "krizaka/krizaka-com", prompt: "P2.6 / P3.2 transposés au site", skip: ["products", "company", "orazaka-content", "content", "public"] },
-  { name: "yomizaka-web", path: "products/yomizaka/apps/web", slug: "krizaka/yomizaka", prompt: "Yomizaka web" },
-  { name: "yomizaka-mobile", path: "products/yomizaka/apps/mobile", slug: "krizaka/yomizaka", prompt: "Yomizaka mobile" },
-  { name: "akinaza-web", path: "products/akinaza/apps/web", slug: "krizaka/akinaza", prompt: "Akinaza web" },
-  { name: "akinaza-mobile", path: "products/akinaza/apps/mobile", slug: "krizaka/akinaza", prompt: "Akinaza mobile" },
-  { name: "orazaka-ui-kit", path: "products/orazaka/orazaka-apps/ui/orazaka-ui-kit", slug: "krizaka/orazaka-ui-kit", prompt: "P2.5 (kit Orazaka)" },
-  { name: "orazaka-web-client", path: "products/orazaka/orazaka-apps/ui/orazaka-web-client", slug: "krizaka/orazaka-web-client", prompt: "P3.4 (Orazaka web-client)" },
-  { name: "orazaka-mobile-client", path: "products/orazaka/orazaka-apps/ui/orazaka-mobile-client", slug: "krizaka/orazaka-mobile-client", prompt: "P6.2 appliqué à Orazaka mobile" },
+  { name: "krizaka-com", path: ".", slug: "krizaka/krizaka-com", prompt: "P2.6 / P3.2 transposés au site", skip: ["products", "company", "sovkora-content", "content", "public"] },
+  { name: "verikora-web", path: "products/verikora/apps/web", slug: "krizaka/verikora", prompt: "Verikora web" },
+  { name: "verikora-mobile", path: "products/verikora/apps/mobile", slug: "krizaka/verikora", prompt: "Verikora mobile" },
+  { name: "folioviv-web", path: "products/folioviv/apps/web", slug: "krizaka/folioviv", prompt: "Folioviv web" },
+  { name: "folioviv-mobile", path: "products/folioviv/apps/mobile", slug: "krizaka/folioviv", prompt: "Folioviv mobile" },
+  { name: "sovkora-ui-kit", path: "products/sovkora/sovkora-apps/ui/sovkora-ui-kit", slug: "krizaka/sovkora-ui-kit", prompt: "P2.5 (kit Sovkora)" },
+  { name: "sovkora-web", path: "products/sovkora/sovkora-apps/ui/sovkora-web", slug: "krizaka/sovkora-web", prompt: "P3.4 (Sovkora web-client)" },
+  { name: "sovkora-mobile", path: "products/sovkora/sovkora-apps/ui/sovkora-mobile", slug: "krizaka/sovkora-mobile", prompt: "P6.2 appliqué à Sovkora mobile" },
 ];
 
 const SKIP_DIRS = new Set([

@@ -104,7 +104,7 @@ describe("Shop look presets (ADR-007 §4, krizaka-ui#745)", () => {
 const looks = sources.filter((p) => p.id.startsWith("look-"));
 const dataOf = (id: string) => (data as any[]).find((p) => p.id === id);
 
-describe("The six looks (akinaza#478, ADR-004 addendum §3)", () => {
+describe("The six looks (folioviv#478, ADR-004 addendum §3)", () => {
   it("are six, trade-agnostic, and each names a surface, a motion, mascots and a variant for every section it styles", () => {
     expect(looks.map((p) => p.id)).toEqual(["look-affiche", "look-boutique", "look-cahier", "look-editorial", "look-krizaka", "look-nuit"]);
     for (const p of looks) {

@@ -11,8 +11,8 @@ import { Stuck, stuckTilt } from "./index";
 describe("Stuck", () => {
   it("holds what it carries, adds no role, and has no axe violation", async () => {
     const { container } = render(
-      <Stuck hold="pin" seed="akinaza">
-        <SpecimenTag code="KZ-05" title="Akinaza" />
+      <Stuck hold="pin" seed="folioviv">
+        <SpecimenTag code="KZ-05" title="Folioviv" />
       </Stuck>,
     );
     const body = container.querySelector(".kz-stuck-body") as HTMLElement;
@@ -33,12 +33,12 @@ describe("Stuck", () => {
   });
 
   it("leans deterministically: the same seed, the same tilt, within ±2°; an explicit tilt wins", () => {
-    expect(stuckTilt("akinaza")).toBe(stuckTilt("akinaza"));
-    for (const seed of ["", "a", "yomizaka", "kz-02", "orazaka", "x".repeat(40)]) expect(Math.abs(stuckTilt(seed))).toBeLessThanOrEqual(2);
+    expect(stuckTilt("folioviv")).toBe(stuckTilt("folioviv"));
+    for (const seed of ["", "a", "verikora", "kz-02", "sovkora", "x".repeat(40)]) expect(Math.abs(stuckTilt(seed))).toBeLessThanOrEqual(2);
     expect(new Set(["a", "b", "c", "d", "e", "f"].map((s) => stuckTilt(s))).size).toBeGreaterThan(2);
     const tilt = (el: Element) => (el.querySelector(".kz-stuck-body") as HTMLElement).style.getPropertyValue("--kz-stuck-tilt");
-    const one = render(<Stuck seed="akinaza">x</Stuck>);
-    const two = render(<Stuck seed="akinaza">x</Stuck>);
+    const one = render(<Stuck seed="folioviv">x</Stuck>);
+    const two = render(<Stuck seed="folioviv">x</Stuck>);
     expect(tilt(one.container)).toBe(tilt(two.container));
     expect(tilt(render(<Stuck tilt={-1.4}>x</Stuck>).container)).toBe("-1.4deg");
   });

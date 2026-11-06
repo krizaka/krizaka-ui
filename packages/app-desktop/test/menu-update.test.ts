@@ -2,11 +2,11 @@ import { createUpdates, EVENTS, type MenuSpec, setNativeMenu } from "../src";
 import { fakeBridge } from "./fake";
 
 const labels = {
-  about: "À propos de Yomizaka",
-  hide: "Masquer Yomizaka",
+  about: "À propos de Verikora",
+  hide: "Masquer Verikora",
   hideOthers: "Masquer les autres",
   showAll: "Tout afficher",
-  quit: "Quitter Yomizaka",
+  quit: "Quitter Verikora",
   edit: "Édition",
   undo: "Annuler",
   redo: "Rétablir",

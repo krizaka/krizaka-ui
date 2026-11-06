@@ -44,7 +44,7 @@ html .theme-dark .brand-krizaka, html .brand-krizaka.theme-dark {
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
 
-.brand-orazaka {
+.brand-sovkora {
   --kz-accent: hsl(26 92% 55%);
   --kz-accent-hover: hsl(26 92% 62%);
   --kz-accent-soft: hsl(26 92% 55% / 0.12);
@@ -58,7 +58,7 @@ html .theme-dark .brand-krizaka, html .brand-krizaka.theme-dark {
   --kz-brand-gradient-via: var(--kz-surface-0);
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
-html.light .brand-orazaka, html .theme-light .brand-orazaka, html .brand-orazaka.theme-light {
+html.light .brand-sovkora, html .theme-light .brand-sovkora, html .brand-sovkora.theme-light {
   --kz-accent: hsl(26 90.5% 37.1%);
   --kz-accent-hover: hsl(26 90% 31%);
   --kz-accent-soft: hsl(26 90.5% 37.1% / 0.08);
@@ -72,7 +72,7 @@ html.light .brand-orazaka, html .theme-light .brand-orazaka, html .brand-orazaka
   --kz-brand-gradient-via: var(--kz-surface-0);
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
-html .theme-dark .brand-orazaka, html .brand-orazaka.theme-dark {
+html .theme-dark .brand-sovkora, html .brand-sovkora.theme-dark {
   --kz-accent: hsl(26 92% 55%);
   --kz-accent-hover: hsl(26 92% 62%);
   --kz-accent-soft: hsl(26 92% 55% / 0.12);
@@ -87,7 +87,7 @@ html .theme-dark .brand-orazaka, html .brand-orazaka.theme-dark {
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
 
-.brand-yomizaka {
+.brand-verikora {
   --kz-accent: hsl(240 80% 74%);
   --kz-accent-hover: hsl(240 82% 80%);
   --kz-accent-soft: hsl(240 80% 74% / 0.12);
@@ -101,7 +101,7 @@ html .theme-dark .brand-orazaka, html .brand-orazaka.theme-dark {
   --kz-brand-gradient-via: var(--kz-surface-0);
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
-html.light .brand-yomizaka, html .theme-light .brand-yomizaka, html .brand-yomizaka.theme-light {
+html.light .brand-verikora, html .theme-light .brand-verikora, html .brand-verikora.theme-light {
   --kz-accent: hsl(242 52% 46%);
   --kz-accent-hover: hsl(242 55% 40%);
   --kz-accent-soft: hsl(242 52% 46% / 0.08);
@@ -115,7 +115,7 @@ html.light .brand-yomizaka, html .theme-light .brand-yomizaka, html .brand-yomiz
   --kz-brand-gradient-via: var(--kz-surface-0);
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
-html .theme-dark .brand-yomizaka, html .brand-yomizaka.theme-dark {
+html .theme-dark .brand-verikora, html .brand-verikora.theme-dark {
   --kz-accent: hsl(240 80% 74%);
   --kz-accent-hover: hsl(240 82% 80%);
   --kz-accent-soft: hsl(240 80% 74% / 0.12);
@@ -130,7 +130,7 @@ html .theme-dark .brand-yomizaka, html .brand-yomizaka.theme-dark {
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
 
-.brand-akinaza {
+.brand-folioviv {
   --kz-accent: hsl(130 44% 58%);
   --kz-accent-hover: hsl(130 48% 66%);
   --kz-accent-soft: hsl(130 44% 58% / 0.12);
@@ -144,7 +144,7 @@ html .theme-dark .brand-yomizaka, html .brand-yomizaka.theme-dark {
   --kz-brand-gradient-via: var(--kz-surface-0);
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
-html.light .brand-akinaza, html .theme-light .brand-akinaza, html .brand-akinaza.theme-light {
+html.light .brand-folioviv, html .theme-light .brand-folioviv, html .brand-folioviv.theme-light {
   --kz-accent: hsl(132 52% 27%);
   --kz-accent-hover: hsl(132 55% 22%);
   --kz-accent-soft: hsl(132 52% 27% / 0.08);
@@ -158,7 +158,7 @@ html.light .brand-akinaza, html .theme-light .brand-akinaza, html .brand-akinaza
   --kz-brand-gradient-via: var(--kz-surface-0);
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
-html .theme-dark .brand-akinaza, html .brand-akinaza.theme-dark {
+html .theme-dark .brand-folioviv, html .brand-folioviv.theme-dark {
   --kz-accent: hsl(130 44% 58%);
   --kz-accent-hover: hsl(130 48% 66%);
   --kz-accent-soft: hsl(130 44% 58% / 0.12);

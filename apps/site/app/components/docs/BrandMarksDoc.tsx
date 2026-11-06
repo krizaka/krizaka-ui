@@ -8,9 +8,9 @@ import { format, getDictionary, type Locale } from "@/lib/i18n";
 const LIBRARY = "https://krizaka-assets.b-cdn.net/brand";
 
 /** The marks of the family. */
-const MARKS = ["krizaka", "orazaka", "yomizaka", "akinaza"] as const satisfies readonly BrandId[];
+const MARKS = ["krizaka", "sovkora", "verikora", "folioviv"] as const satisfies readonly BrandId[];
 /** The scope each mark wears (the brand's colours), spelled out so the class is a literal. */
-const SCOPE: Record<(typeof MARKS)[number], string> = { krizaka: "brand-krizaka", orazaka: "brand-orazaka", yomizaka: "brand-yomizaka", akinaza: "brand-akinaza" };
+const SCOPE: Record<(typeof MARKS)[number], string> = { krizaka: "brand-krizaka", sovkora: "brand-sovkora", verikora: "brand-verikora", folioviv: "brand-folioviv" };
 
 /* /docs/ui/brand-marks — the four marks of the Krizaka family, drawn by @krizaka/ui (the same component the products and
    this site's navigation use). Nothing is copied here: the marks are rendered, never re-drawn. */

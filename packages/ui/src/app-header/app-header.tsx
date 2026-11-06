@@ -22,9 +22,9 @@ export const appHeader = tv({
 const s = appHeader();
 
 export type AppHeaderProps = Omit<React.ComponentProps<"header">, "children"> & {
-  /** The product's name, as text (`Orazaka`): the only brand element on a desktop. */
+  /** The product's name, as text (`Sovkora`): the only brand element on a desktop. */
   name: string;
-  /** The product's mark (`<ProductLogo id="orazaka" size={22} />`): shown below `md` only, where the rail (which carries it) is a bottom bar. */
+  /** The product's mark (`<ProductLogo id="sovkora" size={22} />`): shown below `md` only, where the rail (which carries it) is a bottom bar. */
   mark?: React.ReactNode;
   /** Makes the name (and the mark) a link home: pass your router's link as `homeLink` or give a `href`. */
   href?: string;

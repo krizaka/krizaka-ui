@@ -1,5 +1,5 @@
 "use client";
-// Jobs per period, stacked by status (Orazaka insights, the console's supervision, the mobile Jobs screen): the total
+// Jobs per period, stacked by status (Sovkora insights, the console's supervision, the mobile Jobs screen): the total
 // and the success rate of the finished jobs written above, `live` for a stream. A stacked BarChart preset.
 import { useMemo } from "react";
 

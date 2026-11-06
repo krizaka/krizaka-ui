@@ -128,7 +128,7 @@ describe.each(Object.keys(ORDERS) as (keyof typeof ORDERS)[])("the %s palette", 
   });
 
   it("leads with the brand's hue", () => {
-    expect(ORDERS[brand][0]).toBe({ krizaka: "blue", orazaka: "orange" }[brand]);
+    expect(ORDERS[brand][0]).toBe({ krizaka: "blue", sovkora: "orange" }[brand]);
   });
 });
 

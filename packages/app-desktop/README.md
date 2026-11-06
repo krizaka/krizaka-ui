@@ -1,7 +1,7 @@
 # @krizaka/app-desktop
 
 What every Krizaka **Mac app** (Tauri 2) calls on its native side, typed — the page half of `tauri-plugin-krizaka`
-([krizaka-tauri-kit](https://github.com/krizaka/krizaka-tauri-kit)). Decision:
+([krizaka-desktop](https://github.com/krizaka/krizaka-desktop)). Decision:
 [ADR-005](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-005-tauri-app-kit.md).
 
 ```bash
@@ -19,10 +19,10 @@ import { createFolders, followLinks, keychainStorage, setNativeMenu } from "@kri
 
 const bridge = { invoke, listen };
 export const folders = createFolders(bridge);
-export const session = createSessionStore({ storage: keychainStorage(bridge), key: "yomizaka.session" });
-export const api = createApiClient({ baseUrl: () => "https://www.yomizaka.com", session, /* … as on mobile */ });
+export const session = createSessionStore({ storage: keychainStorage(bridge), key: "verikora.session" });
+export const api = createApiClient({ baseUrl: () => "https://www.verikora.com", session, /* … as on mobile */ });
 
-await followLinks(bridge, (route) => router.navigate(route));          // yomizaka://app/rapports → /app/rapports
+await followLinks(bridge, (route) => router.navigate(route));          // verikora://app/rapports → /app/rapports
 await setNativeMenu(bridge, { labels: t.menu.standard, menus: [
   { title: t.menu.file, items: [{ id: "library.add-folder", label: t.menu.addFolder, accelerator: acceleratorOf("mod+o") }] },
 ] }, { "library.add-folder": () => void folders.grant() });

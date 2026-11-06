@@ -6,7 +6,7 @@
 //
 //   node tools/brand-propagate.mjs                 # report
 //   node tools/brand-propagate.mjs --apply         # one PR per drifted repository
-//   node tools/brand-propagate.mjs --only krizaka-com,yomizaka
+//   node tools/brand-propagate.mjs --only krizaka-com,verikora
 //
 // Needs `gh` (logged in) and git. No secret is read: the sync scripts only download public files.
 import { execFileSync } from "node:child_process";
@@ -15,7 +15,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 /** The repositories that carry a brand-icons guard — the products in focus (the paused ones, 2026-10-25, are left out). */
-export const CONSUMERS = ["krizaka-com", "krizaka-blog", "krizaka-build", "yomizaka", "akinaza", "orazaka-web-client"];
+export const CONSUMERS = ["krizaka-com", "krizaka-blog", "krizaka-java", "verikora", "folioviv", "sovkora-web"];
 /** Where each repository keeps its sync script (the first that exists wins). */
 export const SYNC_SCRIPTS = ["scripts/sync-brand-icons.mjs", "site/scripts/sync-brand-icons.mjs", "apps/site/scripts/sync-brand-icons.mjs", "scripts/gen-favicon.mjs"];
 

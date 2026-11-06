@@ -10,7 +10,7 @@ export const meta = {
   platforms: "both",
   parity: { desktop: "web" },
   whenToUse: [
-    "Showing what an Orazaka analysis found in a document, a lease, an identity check or a moderated item, in any product.",
+    "Showing what an Sovkora analysis found in a document, a lease, an identity check or a moderated item, in any product.",
     "Any result that has findings of different gravity, a list of limits and a provenance the reader may need to cite.",
   ],
   whenNotToUse: [

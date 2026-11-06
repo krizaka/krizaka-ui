@@ -43,11 +43,11 @@ test("readMeta reads the registry fields as text", () => {
 test("readPriorAudit takes ADR-006's merges and the issues that keep an entry", () => {
   const { merges, issues } = readPriorAudit([
     "| `chip-row` | — | — | **merge** (#675) | into chip (`Chip.Group`) |",
-    "| `glossary-term` | — | — | **keep** | keep: akinaza#260 |",
+    "| `glossary-term` | — | — | **keep** | keep: folioviv#260 |",
     "| `button` | Oz 76 | www 8 | **keep** | keep: products |",
   ].join("\n"));
   assert.equal(merges.get("chip-row"), "chip");
-  assert.equal(issues.get("glossary-term"), "akinaza#260");
+  assert.equal(issues.get("glossary-term"), "folioviv#260");
   assert.equal(issues.has("button"), false);
 });
 
@@ -83,11 +83,11 @@ const row = (over) => ({ name: "x", kind: "entry", status: "beta", domain: "form
 
 test("verdict: use keeps, a merge or a deprecation wins, paused-only leaves the core, new or Cahier asks, the rest retires", () => {
   const today = "2026-10-28";
-  assert.equal(verdict(row({ importers: { yomizaka: 2 }, live: 2 }), { today }).verdict, "keep");
-  assert.equal(verdict(row({ importers: { yomizaka: 2 }, live: 2, mergeInto: "chip" }), { today }).verdict, "merge");
+  assert.equal(verdict(row({ importers: { verikora: 2 }, live: 2 }), { today }).verdict, "keep");
+  assert.equal(verdict(row({ importers: { verikora: 2 }, live: 2, mergeInto: "chip" }), { today }).verdict, "merge");
   assert.equal(verdict(row({ status: "deprecated" }), { today }).verdict, "retire");
   assert.equal(verdict(row({ paused: 3, pausedBy: ["a-product"] }), { today }).verdict, "leave-core");
-  assert.equal(verdict(row({ issue: "akinaza#260" }), { today }).verdict, "keep");
+  assert.equal(verdict(row({ issue: "folioviv#260" }), { today }).verdict, "keep");
   assert.equal(verdict(row({ created: "2026-10-25" }), { today }).verdict, "ask");
   assert.equal(verdict(row({ domain: "cahier" }), { today }).verdict, "ask");
   assert.equal(verdict(row({ importers: { "motion-lab": 1 }, live: 1 }), { today }).verdict, "ask", "the lab alone keeps nothing");
@@ -97,14 +97,14 @@ test("verdict: use keeps, a merge or a deprecation wins, paused-only leaves the 
 test("decideAll: « built on » keeps an entry only when what is built on it is kept", () => {
   const today = "2026-10-28";
   const rows = [
-    row({ name: "card", importers: { akinaza: 4 }, live: 4 }),
+    row({ name: "card", importers: { folioviv: 4 }, live: 4 }),
     row({ name: "slot", builtOnBy: ["card"] }),
     row({ name: "glyph", builtOnBy: ["gone"] }),
     row({ name: "gone", status: "deprecated" }),
   ];
   const v = Object.fromEntries(decideAll(rows, { today }).map((r) => [r.name, r.verdict]));
   assert.deepEqual(v, { card: "keep", slot: "keep", glyph: "retire", gone: "retire" });
-  const subs = decideAll([row({ name: "text-style" }), row({ name: "text-style/server", importers: { akinaza: 3 }, live: 3, mergeInto: "text-style" })], { today });
+  const subs = decideAll([row({ name: "text-style" }), row({ name: "text-style/server", importers: { folioviv: 3 }, live: 3, mergeInto: "text-style" })], { today });
   assert.equal(subs[0].verdict, "keep", "a parent whose sub-entry is imported is used");
 });
 
@@ -123,13 +123,13 @@ test("locate: a fixed local folder, else the inventory's own cache (never the co
   const cache = mkdtempSync(join(tmpdir(), "inv-cache-"));
   assert.equal(locate({ local: "/fixed" }, [cache]), "/fixed");
   assert.equal(locate({ repo: "krizaka-ts", sub: "site" }, [cache]), join(cache, "krizaka-ts", "site"));
-  assert.doesNotMatch(locate({ repo: "akinaza" }), /krizaka-index/);
+  assert.doesNotMatch(locate({ repo: "folioviv" }), /krizaka-index/);
 });
 
 test("pinnedHeads: the commit each consumer had in the committed inventory is the one the next run reads", () => {
-  const prior = { consumers: [{ name: "akinaza", sha: "a".repeat(40) }, { name: "blog", sha: null }, { name: "krizaka-com", sha: "b".repeat(40) }] };
-  const list = [{ name: "akinaza", repo: "akinaza" }, { name: "blog", repo: "krizaka-blog" }, { name: "ui-site", local: "/x" }];
-  assert.deepEqual(pinnedHeads(list, prior), { akinaza: "a".repeat(40) });
+  const prior = { consumers: [{ name: "folioviv", sha: "a".repeat(40) }, { name: "blog", sha: null }, { name: "krizaka-com", sha: "b".repeat(40) }] };
+  const list = [{ name: "folioviv", repo: "folioviv" }, { name: "blog", repo: "krizaka-blog" }, { name: "ui-site", local: "/x" }];
+  assert.deepEqual(pinnedHeads(list, prior), { folioviv: "a".repeat(40) });
   assert.deepEqual(pinnedHeads(list, null), {}, "no committed inventory: nothing pinned, the clone takes main");
 });
 
@@ -144,7 +144,7 @@ test("carryFacts: what this checkout cannot measure (no dist, shallow history) i
 test("rederive: the committed inventory is regenerated from its own facts, and a hand edit of a verdict, a reason or the markdown is caught", () => {
   const entry = (name, importers, extra = {}) => ({ pkg: "ui", name, kind: "entry", title: null, category: null, status: "stable", domain: "forms", adoption: null, importers, nativeUse: {}, live: Object.values(importers).reduce((a, b) => a + b, 0), paused: 0, pausedBy: [], builtOnBy: [], issue: null, mergeInto: null, sizeGzip: 100, budget: 200, tests: 1, stories: 1, lastChange: "2026-10-01", created: "2026-01-01", ...extra });
   const base = { generated: "2026-10-28", package: { name: "@krizaka/ui", version: "1", distMeasured: null }, consumers: [], paused: [], motion: [] };
-  const entries = decideAll([entry("button", { akinaza: 4 }), entry("gone", {})], { today: base.generated });
+  const entries = decideAll([entry("button", { folioviv: 4 }), entry("gone", {})], { today: base.generated });
   const inventory = { ...base, entries };
   const markdown = toMarkdown(inventory);
   assert.deepEqual(rederive({ inventory, markdown }), []);
@@ -184,7 +184,7 @@ test("checkInventory fails an entry without a domain, a wrong domain, an experim
       row("button", { status: "stable" }),
       row("tabs", { domain: "forms", status: "beta" }),
       row("novel", { domain: "forms", status: "experimental" }),
-      row("odd", { domain: "widgets", status: "beta", adoption: "akinaza#1" }),
+      row("odd", { domain: "widgets", status: "beta", adoption: "folioviv#1" }),
     ],
   });
   const text = bad.join("\n");
@@ -197,7 +197,7 @@ test("checkInventory fails an entry without a domain, a wrong domain, an experim
 
 test("checkInventory lets an experimental entry with its adoption issue be new, and flags a row whose entry is gone", () => {
   const inventory = { entries: [{ name: "gone", kind: "entry", domain: "forms", verdict: "keep", status: "beta" }] };
-  const rows = [{ name: "fresh", kind: "entry", meta: { title: "Fresh", domain: "forms", status: "experimental", adoption: "akinaza#9" } }];
+  const rows = [{ name: "fresh", kind: "entry", meta: { title: "Fresh", domain: "forms", status: "experimental", adoption: "folioviv#9" } }];
   const text = checkInventory({ inventory, rows }).join("\n");
   assert.doesNotMatch(text, /fresh/);
   assert.match(text, /gone: in docs\/inventory\/ui-usage.json but no longer in the package/);
@@ -243,7 +243,7 @@ test("checkBudgets is a ratchet: over the frozen budget fails, below asks to loc
 test("restoredScan rebuilds a local-only consumer's counts from the committed inventory", () => {
   const prior = {
     consumers: [{ name: "cockpit", absent: false, head: null, files: 90 }],
-    entries: [{ name: "tree-view", importers: { cockpit: 3, akinaza: 1 } }, { name: "button", importers: { akinaza: 9 } }, { name: "tag-input", importers: { cockpit: 1 } }],
+    entries: [{ name: "tree-view", importers: { cockpit: 3, folioviv: 1 } }, { name: "button", importers: { folioviv: 9 } }, { name: "tag-input", importers: { cockpit: 1 } }],
   };
   const scan = restoredScan({ name: "cockpit", kind: "tool" }, prior);
   assert.equal(scan.files, 90);
@@ -262,7 +262,7 @@ test("a decision (docs/inventory/decisions.json) sets the verdict of an unused e
   const base = { name: "marquee", status: "stable", importers: {}, nativeUse: {}, pausedBy: [], paused: 0, live: 0, builtOnBy: [], issue: null, mergeInto: null, created: "2026-01-01", domain: "page-blocks" };
   const decisions = new Map([["marquee", { verdict: "leave-core", why: "leaves for the lab" }]]);
   assert.deepEqual(verdict(base, { decisions, today: "2026-10-29" }), { verdict: "leave-core", why: "leaves for the lab" });
-  assert.equal(verdict({ ...base, importers: { akinaza: 2 }, live: 2 }, { decisions, today: "2026-10-29" }).verdict, "keep");
+  assert.equal(verdict({ ...base, importers: { folioviv: 2 }, live: 2 }, { decisions, today: "2026-10-29" }).verdict, "keep");
   assert.equal(verdict(base, { today: "2026-10-29" }).verdict, "retire", "without the decision the data alone says retire");
 });
 

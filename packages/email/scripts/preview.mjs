@@ -4,7 +4,7 @@
 
      pnpm --filter @krizaka/email preview                      # writes .preview/ and prints the index path
      pnpm --filter @krizaka/email preview -- --shots <dir>     # also screenshots (Playwright): light and dark, desktop and phone
-     pnpm --filter @krizaka/email preview -- --brand orazaka   # a product's theme */
+     pnpm --filter @krizaka/email preview -- --brand sovkora   # a product's theme */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";

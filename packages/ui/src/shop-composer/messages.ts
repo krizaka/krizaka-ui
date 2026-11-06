@@ -48,7 +48,7 @@ export type ShopComposerMessages = {
   lookApplied: string;
   /** The accent within the chosen look. */
   accentChoice: string;
-  /** The names of the accents a look lists (`krizaka`, `akinaza:accent-2`…); an unknown one reads as its id. */
+  /** The names of the accents a look lists (`krizaka`, `folioviv:accent-2`…); an unknown one reads as its id. */
   accentNames: Readonly<Record<string, string>>;
   preset: string;
   density: string;
@@ -148,7 +148,7 @@ export const defaultShopComposerMessages: ShopComposerMessages = {
   lookChoice: "Look of the page",
   lookApplied: "Look: {name}",
   accentChoice: "Accent",
-  accentNames: { krizaka: "Krizaka blue", akinaza: "Akinaza green", "akinaza:accent-2": "Copper", yomizaka: "Indigo", orazaka: "Orange" },
+  accentNames: { krizaka: "Krizaka blue", folioviv: "Folioviv green", "folioviv:accent-2": "Copper", verikora: "Indigo", sovkora: "Orange" },
   preset: "Style",
   density: "Spacing",
   densityCompact: "Compact",

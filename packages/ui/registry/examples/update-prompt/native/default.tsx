@@ -4,7 +4,7 @@ import { ProductMark, UpdatePrompt } from "@krizaka/ui/native";
 export default function NativeUpdatePromptDefault() {
   return (
     <UpdatePrompt
-      mark={<ProductMark id="orazaka" size={40} animated={false} />}
+      mark={<ProductMark id="sovkora" size={40} animated={false} />}
       title="A new version is available"
       message="Faster chats and a fix for uploads on slow networks."
       versionLabel="1.2.0 → 1.4.0"

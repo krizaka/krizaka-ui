@@ -26,6 +26,6 @@ export const meta = {
   web: {
     entry: "radar",
     imports: ["RadarChart"],
-    examples: [{ name: "model-comparison", title: "Model comparison", description: "Two Orazaka models scored on five measures, out of 100." }],
+    examples: [{ name: "model-comparison", title: "Model comparison", description: "Two Sovkora models scored on five measures, out of 100." }],
   },
 } satisfies ComponentMeta;

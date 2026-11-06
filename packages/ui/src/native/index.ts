@@ -29,7 +29,6 @@ export { type BrandId } from "../marks/ProductLogo";
 export { ActionSheet, type ActionSheetAction, type ActionSheetProps } from "./action-sheet";
 export { ActivityFeed, type ActivityFeedLabels, type ActivityFeedProps } from "./activity-feed";
 export { type ActivityEvent, type ActivityTone } from "./activity-feed";
-export { AkinazaMark } from "./AkinazaMark";
 export {
   AnalysisReport,
   type AnalysisReportData,
@@ -86,6 +85,7 @@ export { EntityHeader, type EntityHeaderProps } from "./entity-header";
 export { EnvironmentNotice, type EnvironmentNoticeProps } from "./environment-notice";
 export { Fab, type FabProps } from "./fab";
 export { TextField, type TextFieldProps } from "./field";
+export { FoliovivMark } from "./FoliovivMark";
 export { ForceUpdateScreen, type ForceUpdateScreenProps } from "./force-update-screen";
 export { FormFlow, type FormFlowProps, type FormFlowStep } from "./form-flow";
 export { GoalGauge, type GoalGaugeProps } from "./goal-gauge";
@@ -121,7 +121,6 @@ export { MatchDialog, type MatchDialogProps } from "./match-dialog";
 export { Meter, type MeterPart, type MeterProps } from "./meter";
 export { NumberTicker, type NumberTickerProps } from "./number-ticker";
 export { Onboarding, type OnboardingProps, type OnboardingSlide } from "./onboarding";
-export { OrazakaMark } from "./OrazakaMark";
 export { OtpInput, type OtpInputProps } from "./otp-input";
 export { Pagination, type PaginationLabels, type PaginationProps } from "./pagination";
 export { PermissionPrompt, type PermissionPromptProps, type PermissionStatus } from "./permission-prompt";
@@ -139,6 +138,7 @@ export { SettingsGroup, type SettingsGroupProps, SettingsRow, type SettingsRowPr
 export { Showcase, type ShowcaseLabels, showcaseLabels,type ShowcaseProps } from "./showcase";
 export { Skeleton, type SkeletonProps } from "./skeleton";
 export { Slider, type SliderProps, type SliderValue } from "./slider";
+export { SovkoraMark } from "./SovkoraMark";
 export { Spinner, type SpinnerProps } from "./spinner";
 export { SplashHandoff, type SplashHandoffProps } from "./splash-handoff";
 export { OfflineBanner, type OfflineBannerProps, type StateAction, type StateKind, StateScreen, type StateScreenProps } from "./state-screen";
@@ -173,6 +173,6 @@ export { toast, Toaster, type ToasterProps, type ToastItem, type ToastOptions, t
 export { textStyles, Txt, type TxtProps, type TxtTone, type TxtVariant } from "./txt";
 export { UpdatePrompt, type UpdatePromptProps } from "./update-prompt";
 export { VerifiedBadge, type VerifiedBadgeProps } from "./verified-badge";
+export { VerikoraMark } from "./VerikoraMark";
 export { Waveform, type WaveformProps } from "./waveform";
 export { Wheel, WheelDivider, type WheelOption, WheelPicker, type WheelPickerProps, type WheelProps } from "./wheel";
-export { YomizakaMark } from "./YomizakaMark";

@@ -1,5 +1,5 @@
 /* @krizaka/tokens — GÉNÉRÉ depuis src/brands/krizaka.brand.json par scripts/build.mjs : ne pas éditer.
-   Krizaka — la marque mère. Ink (les surfaces et le texte neutres de la plateforme) et un seul accent, le bleu acier Krizaka du cœur du logo (teinte 208, le complément exact de l'orange d'Orazaka, saturation ≤ 60 % : plus le bleu électrique « IA » — krizaka-ui#393, ADR-003) : il chapeaute les produits sans les concurrencer. Ce sont aussi les valeurs par défaut de tokens.css.
+   Krizaka — la marque mère. Ink (les surfaces et le texte neutres de la plateforme) et un seul accent, le bleu acier Krizaka du cœur du logo (teinte 208, le complément exact de l'orange d'Sovkora, saturation ≤ 60 % : plus le bleu électrique « IA » — krizaka-ui#393, ADR-003) : il chapeaute les produits sans les concurrencer. Ce sont aussi les valeurs par défaut de tokens.css.
    Importé après tokens.css (ou @krizaka/tailwind) : l'identité krizaka sur toute l'app, dans les deux thèmes. */
 
 :root, .theme-dark {

@@ -20,11 +20,11 @@ describe("ProfileBanner (#650)", () => {
   });
 
   it("tints the cover with the brand's accent without a picture, and lays a scrim over a picture", () => {
-    const { container, rerender } = render(<ProfileBanner brand="akinaza" avatar={<span />} title="Eric" />);
+    const { container, rerender } = render(<ProfileBanner brand="folioviv" avatar={<span />} title="Eric" />);
     const cover = container.querySelector("[data-cover]")!;
     expect(cover.className).toContain("from-accent/30");
     expect(cover.querySelector("[aria-hidden]")).toBeNull();
-    expect(container.querySelector("section")!.className).toContain("brand-akinaza");
+    expect(container.querySelector("section")!.className).toContain("brand-folioviv");
     rerender(<ProfileBanner avatar={<span />} title="Eric" banner={<img src="cover.jpg" alt="" />} />);
     const scrim = container.querySelector("[data-cover] > span[aria-hidden]")!;
     expect(scrim.className).toContain("from-surface-0/70");

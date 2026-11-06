@@ -8,10 +8,10 @@ import { RailNav } from "./index";
 const svg = <svg aria-hidden />;
 const mark = (name: string) => <a href="#home" aria-label={`${name}, home`}>M</a>;
 
-function Layout(props: { expandable?: boolean; defaultExpanded?: boolean; accent?: "orazaka" }) {
+function Layout(props: { expandable?: boolean; defaultExpanded?: boolean; accent?: "sovkora" }) {
   return (
     <RailNav.Shell>
-      <RailNav.Root label="Orazaka" mark={mark("Orazaka")} footer={<RailNav.Item href="#settings" icon={svg} label="Settings" />} expandLabels={["Show the words", "Hide the words"]} {...props}>
+      <RailNav.Root label="Sovkora" mark={mark("Sovkora")} footer={<RailNav.Item href="#settings" icon={svg} label="Settings" />} expandLabels={["Show the words", "Hide the words"]} {...props}>
         <RailNav.Item href="#home" icon={svg} label="Home" current />
         <RailNav.Item href="#studios" icon={svg} label="Studios" />
         <RailNav.Item asChild icon={svg} label="Chat" badge={2} badgeLabel="2 unread">
@@ -19,7 +19,7 @@ function Layout(props: { expandable?: boolean; defaultExpanded?: boolean; accent
         </RailNav.Item>
       </RailNav.Root>
       <RailNav.Body>
-        <AppHeader name="Orazaka" mark="M" chips={<span>Local</span>} />
+        <AppHeader name="Sovkora" mark="M" chips={<span>Local</span>} />
         <main>content</main>
       </RailNav.Body>
     </RailNav.Shell>
@@ -40,7 +40,7 @@ function visibleAt(el: Element, width: "phone" | "desktop"): boolean {
 describe("RailNav", () => {
   it("is a named navigation; the current item is marked; every item is named (the count in words too); no axe violation", async () => {
     const { container } = render(<Layout />);
-    expect(screen.getByRole("navigation", { name: "Orazaka" })).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "Sovkora" })).toBeTruthy();
     expect(screen.getByRole("link", { name: "Home" }).getAttribute("aria-current")).toBe("page");
     expect(screen.getByRole("link", { name: "Studios" }).hasAttribute("aria-current")).toBe(false);
     expect(screen.getByRole("link", { name: "Chat, 2 unread" }).hasAttribute("data-router")).toBe(true);
@@ -75,7 +75,7 @@ describe("RailNav", () => {
     const { rerender } = render(<Layout />);
     expect(screen.queryByRole("button")).toBeNull();
     rerender(<Layout expandable />);
-    const nav = screen.getByRole("navigation", { name: "Orazaka" });
+    const nav = screen.getByRole("navigation", { name: "Sovkora" });
     const toggle = screen.getByRole("button", { name: "Show the words" });
     expect(toggle.getAttribute("aria-expanded")).toBe("false");
     expect(nav.hasAttribute("data-expanded")).toBe(false);
@@ -85,8 +85,8 @@ describe("RailNav", () => {
   });
 
   it("scopes the product's brand over the rail", () => {
-    render(<Layout accent="orazaka" />);
-    expect(screen.getByRole("navigation", { name: "Orazaka" }).className).toContain("brand-orazaka");
+    render(<Layout accent="sovkora" />);
+    expect(screen.getByRole("navigation", { name: "Sovkora" }).className).toContain("brand-sovkora");
   });
 
   it("says each icon in a tooltip on a collapsed rail (keyboard focus shows it, Escape dismisses it)", async () => {
@@ -104,7 +104,7 @@ describe("RailNav", () => {
   it("puts the words on the rows of an expanded rail instead of tooltips", async () => {
     const user = userEvent.setup();
     render(<Layout expandable defaultExpanded />);
-    expect(screen.getByRole("navigation", { name: "Orazaka" }).hasAttribute("data-expanded")).toBe(true);
+    expect(screen.getByRole("navigation", { name: "Sovkora" }).hasAttribute("data-expanded")).toBe(true);
     await user.tab();
     await user.tab();
     expect(document.activeElement?.getAttribute("aria-label")).toBe("Home");
@@ -113,7 +113,7 @@ describe("RailNav", () => {
 
   it("keeps the tab bar clear of the content on a phone and gives the tabs a 56 px bar", () => {
     render(<Layout />);
-    expect(screen.getByRole("navigation", { name: "Orazaka" }).className).toContain("h-[calc(3.5rem+env(safe-area-inset-bottom))]");
+    expect(screen.getByRole("navigation", { name: "Sovkora" }).className).toContain("h-[calc(3.5rem+env(safe-area-inset-bottom))]");
     expect(screen.getByText("content").parentElement?.className).toContain("pb-[calc(3.5rem+env(safe-area-inset-bottom))]");
   });
 });
@@ -134,7 +134,7 @@ describe("one brand mark per width (RailNav + AppHeader)", () => {
 
   it("keeps the product's name as text in the header at both widths", () => {
     const { container } = render(<Layout />);
-    const name = [...container.querySelectorAll("header span")].find((s) => s.textContent === "Orazaka")!;
+    const name = [...container.querySelectorAll("header span")].find((s) => s.textContent === "Sovkora")!;
     expect(visibleAt(name, "phone") && visibleAt(name, "desktop")).toBe(true);
   });
 });
@@ -156,7 +156,7 @@ describe("RailNav — shortcuts and the wide default (#647)", () => {
   };
   const Shortcuts = (props: { defaultExpanded?: boolean }) => (
     <RailNav.Root
-      label="Akinaza"
+      label="Folioviv"
       expandable
       expandLabels={["Show the words", "Hide the words"]}
       shortcutsLabel="Shortcuts"

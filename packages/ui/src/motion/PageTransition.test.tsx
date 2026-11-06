@@ -44,7 +44,7 @@ describe("PageTransition: the component", () => {
     expect(seen).toEqual([{ default: cls }]);
   });
 
-  it("with a routeKey, only a change of page animates: updates on the same page run no transition (the dialog bug, akinaza 2026-10-23)", async () => {
+  it("with a routeKey, only a change of page animates: updates on the same page run no transition (the dialog bug, folioviv 2026-10-23)", async () => {
     vi.resetModules();
     const seen: Record<string, unknown>[] = [];
     vi.doMock("react", async (original) => ({

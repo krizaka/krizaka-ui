@@ -2,12 +2,12 @@ import { Button } from "@krizaka/ui/button";
 import { Meter } from "@krizaka/ui/meter";
 import { PricingPage } from "@krizaka/ui/pricing-page";
 
-// TEMPLATE — plans and credits (Orazaka): the plans side by side, the featured one lifted; the comparison scrolls on a
+// TEMPLATE — plans and credits (Sovkora): the plans side by side, the featured one lifted; the comparison scrolls on a
 // phone; what a credit buys; the questions people ask, folded.
 export default function PricingPageCredits() {
   return (
     <PricingPage
-      brand="orazaka"
+      brand="sovkora"
       eyebrow="Pricing"
       title="Pay once for what was done"
       lead="Credits buy answers, images and minutes of video — never a seat you do not use."

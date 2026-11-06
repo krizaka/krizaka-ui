@@ -25,7 +25,7 @@ npm install @krizaka/fonts @krizaka/tokens @krizaka/tailwind
 ```html
 <h1 class="font-display text-display-xl">Sovereign AI, on your servers</h1>
 <p class="font-text text-body-md text-fg-secondary">Atkinson Hyperlegible Next, 16/1.5, for everything you read.</p>
-<span class="font-mono text-caption text-fg-muted">fig. 2 · Orazaka v2</span>
+<span class="font-mono text-caption text-fg-muted">fig. 2 · Sovkora v2</span>
 ```
 
 The CSS points at the files with relative URLs: the bundler copies and fingerprints them. Only the latin files are

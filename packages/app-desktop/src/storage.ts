@@ -5,7 +5,7 @@ import { call, type TauriBridge } from "./bridge";
 /**
  * The macOS Keychain as the `KeyValueStorage` port of `@krizaka/app-client`: a Mac app keeps its session with the same
  * `createSessionStore` and calls its API with the same `createApiClient` as the mobile apps. A key is lowercase letters,
- * digits, `.`, `-`, `_` (`yomizaka.session`); the native side refuses anything else.
+ * digits, `.`, `-`, `_` (`verikora.session`); the native side refuses anything else.
  */
 export function keychainStorage(bridge: Pick<TauriBridge, "invoke">): KeyValueStorage {
   return {

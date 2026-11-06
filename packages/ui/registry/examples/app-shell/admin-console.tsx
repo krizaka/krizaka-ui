@@ -33,7 +33,7 @@ const columns: DataTableColumn<Request>[] = [
 export default function AppShellAdminConsole() {
   return (
     <AppShell.Root>
-      <AppShell.Sidebar label="Administration" brand={<><ProductLogo id="orazaka" size={24} animated={false} /> Admin</>} closeLabel="Close the menu" collapseLabels={["Collapse", "Expand"]}>
+      <AppShell.Sidebar label="Administration" brand={<><ProductLogo id="sovkora" size={24} animated={false} /> Admin</>} closeLabel="Close the menu" collapseLabels={["Collapse", "Expand"]}>
         <AppShell.Group>Review</AppShell.Group>
         <AppShell.Item href="#verification" icon={icon("M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z")} label="Verification" current badge={2} />
         <AppShell.Item href="#moderation" icon={icon("M4 5h16v11H9l-5 4z")} label="Moderation" badge={5} />

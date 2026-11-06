@@ -1,4 +1,4 @@
-// Server-safe. The Krizaka look's birds (akinaza#478): at most one per section, each one doing its job, never on the first
+// Server-safe. The Krizaka look's birds (folioviv#478): at most one per section, each one doing its job, never on the first
 // screen nor on the pictures. The host asks `mascotFor` and hands the result to the section's `mascot` slot.
 import { Mascot, type MascotBird } from "@krizaka/ui/mascots";
 import * as React from "react";

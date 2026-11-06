@@ -1,33 +1,33 @@
 {
   "scannedAt": "2026-10-25",
   "repos": {
-    "orazaka": [
+    "sovkora": [
       {
-        "repo": "products/orazaka/orazaka-apps/ui/orazaka-web-client",
+        "repo": "products/sovkora/sovkora-apps/ui/sovkora-web",
         "commit": "c0c9d84",
         "files": 454
       },
       {
-        "repo": "products/orazaka/orazaka-apps/ui/orazaka-mobile-client",
+        "repo": "products/sovkora/sovkora-apps/ui/sovkora-mobile",
         "commit": "57cdf47",
         "files": 70
       },
       {
-        "repo": "products/orazaka/orazaka-apps/ui/orazaka-ui-kit",
+        "repo": "products/sovkora/sovkora-apps/ui/sovkora-ui-kit",
         "commit": "96c9956",
         "files": 54
       }
     ],
-    "yomizaka": [
+    "verikora": [
       {
-        "repo": "products/yomizaka",
+        "repo": "products/verikora",
         "commit": "4646921",
         "files": 583
       }
     ],
-    "akinaza": [
+    "folioviv": [
       {
-        "repo": "products/akinaza",
+        "repo": "products/folioviv",
         "commit": "d1f7ec4",
         "files": 526
       }
@@ -42,499 +42,499 @@
   },
   "components": {
     "account-menu": {
-      "akinaza": 1,
-      "orazaka": 1,
-      "yomizaka": 3
+      "folioviv": 1,
+      "sovkora": 1,
+      "verikora": 3
     },
     "account-settings": {
-      "akinaza": 2,
-      "yomizaka": 5
+      "folioviv": 2,
+      "verikora": 5
     },
     "action-bar": {
       "krizaka": 2
     },
     "action-sheet": {
-      "orazaka": 2
+      "sovkora": 2
     },
     "agenda": {
-      "akinaza": 1
+      "folioviv": 1
     },
     "alert": {
-      "akinaza": 35,
-      "orazaka": 19,
-      "yomizaka": 42
+      "folioviv": 35,
+      "sovkora": 19,
+      "verikora": 42
     },
     "app-header": {
-      "akinaza": 1,
-      "orazaka": 1,
-      "yomizaka": 2
+      "folioviv": 1,
+      "sovkora": 1,
+      "verikora": 2
     },
     "app-shell": {
-      "akinaza": 1,
-      "yomizaka": 3
+      "folioviv": 1,
+      "verikora": 3
     },
     "argument-card": {
       "krizaka": 1
     },
     "auth-layout": {
-      "akinaza": 3,
-      "orazaka": 2,
-      "yomizaka": 3
+      "folioviv": 3,
+      "sovkora": 2,
+      "verikora": 3
     },
     "avatar": {
-      "akinaza": 4,
+      "folioviv": 4,
       "krizaka": 1,
-      "orazaka": 3,
-      "yomizaka": 2
+      "sovkora": 3,
+      "verikora": 2
     },
     "badge": {
-      "akinaza": 27,
+      "folioviv": 27,
       "krizaka": 1,
-      "orazaka": 36,
-      "yomizaka": 38
+      "sovkora": 36,
+      "verikora": 38
     },
     "bar-chart": {
-      "orazaka": 4,
-      "yomizaka": 1
+      "sovkora": 4,
+      "verikora": 1
     },
     "button": {
-      "akinaza": 46,
+      "folioviv": 46,
       "krizaka": 7,
-      "orazaka": 94,
-      "yomizaka": 44
+      "sovkora": 94,
+      "verikora": 44
     },
     "card": {
-      "akinaza": 26,
+      "folioviv": 26,
       "krizaka": 1,
-      "orazaka": 29,
-      "yomizaka": 22
+      "sovkora": 29,
+      "verikora": 22
     },
     "card-grid": {
-      "akinaza": 1,
+      "folioviv": 1,
       "krizaka": 2,
-      "yomizaka": 1
+      "verikora": 1
     },
     "catalogue-page": {
-      "yomizaka": 1
+      "verikora": 1
     },
     "changelog-page": {
       "krizaka": 1
     },
     "charts-provider": {
-      "orazaka": 2
+      "sovkora": 2
     },
     "chat": {
       "krizaka": 1,
-      "orazaka": 4
+      "sovkora": 4
     },
     "checkbox": {
-      "akinaza": 2,
-      "orazaka": 1,
-      "yomizaka": 2
+      "folioviv": 2,
+      "sovkora": 1,
+      "verikora": 2
     },
     "chip": {
-      "akinaza": 4,
+      "folioviv": 4,
       "krizaka": 3,
-      "orazaka": 5,
-      "yomizaka": 4
+      "sovkora": 5,
+      "verikora": 4
     },
     "chip-link": {
-      "akinaza": 5,
+      "folioviv": 5,
       "krizaka": 2,
-      "yomizaka": 2
+      "verikora": 2
     },
     "choice-grid": {
-      "akinaza": 1
+      "folioviv": 1
     },
     "cn": {
       "krizaka": 5,
-      "orazaka": 34
+      "sovkora": 34
     },
     "code-block": {
       "krizaka": 2,
-      "orazaka": 4
+      "sovkora": 4
     },
     "combobox": {
-      "orazaka": 1
+      "sovkora": 1
     },
     "command": {
-      "akinaza": 1,
+      "folioviv": 1,
       "krizaka": 1,
-      "orazaka": 1,
-      "yomizaka": 1
+      "sovkora": 1,
+      "verikora": 1
     },
     "confirm-button": {
-      "akinaza": 3,
-      "orazaka": 1,
-      "yomizaka": 1
+      "folioviv": 3,
+      "sovkora": 1,
+      "verikora": 1
     },
     "cover-hero": {
-      "akinaza": 1
+      "folioviv": 1
     },
     "cta-panel": {
-      "akinaza": 1,
+      "folioviv": 1,
       "krizaka": 2
     },
     "dashboard-layout": {
-      "akinaza": 2,
-      "yomizaka": 1
+      "folioviv": 2,
+      "verikora": 1
     },
     "data-table": {
-      "akinaza": 6,
+      "folioviv": 6,
       "krizaka": 2,
-      "orazaka": 19,
-      "yomizaka": 10
+      "sovkora": 19,
+      "verikora": 10
     },
     "date-picker": {
-      "akinaza": 1
+      "folioviv": 1
     },
     "decision-list": {
       "krizaka": 1
     },
     "description-list": {
-      "akinaza": 6,
-      "orazaka": 3,
-      "yomizaka": 8
+      "folioviv": 6,
+      "sovkora": 3,
+      "verikora": 8
     },
     "detail-layout": {
-      "akinaza": 2,
-      "yomizaka": 2
+      "folioviv": 2,
+      "verikora": 2
     },
     "dialog": {
-      "akinaza": 4,
+      "folioviv": 4,
       "krizaka": 3,
-      "orazaka": 17,
-      "yomizaka": 5
+      "sovkora": 17,
+      "verikora": 5
     },
     "docs-article-page": {
-      "orazaka": 1
+      "sovkora": 1
     },
     "docs-hub-page": {
-      "orazaka": 1
+      "sovkora": 1
     },
     "document-viewer": {
-      "yomizaka": 1
+      "verikora": 1
     },
     "drop-overlay": {
-      "yomizaka": 1
+      "verikora": 1
     },
     "dropdown-menu": {
-      "akinaza": 2,
-      "orazaka": 1,
-      "yomizaka": 3
+      "folioviv": 2,
+      "sovkora": 1,
+      "verikora": 3
     },
     "empty-state": {
-      "akinaza": 8,
-      "orazaka": 4,
-      "yomizaka": 13
+      "folioviv": 8,
+      "sovkora": 4,
+      "verikora": 13
     },
     "engine-flow": {
       "krizaka": 2
     },
     "error-page": {
-      "akinaza": 1,
+      "folioviv": 1,
       "krizaka": 1,
-      "yomizaka": 1
+      "verikora": 1
     },
     "field": {
-      "akinaza": 9,
-      "orazaka": 24,
-      "yomizaka": 3
+      "folioviv": 9,
+      "sovkora": 24,
+      "verikora": 3
     },
     "file-upload": {
-      "orazaka": 1,
-      "yomizaka": 4
+      "sovkora": 1,
+      "verikora": 4
     },
     "filter-bar": {
-      "akinaza": 1,
-      "yomizaka": 5
+      "folioviv": 1,
+      "verikora": 5
     },
     "flock": {
       "krizaka": 2
     },
     "footnote": {
       "krizaka": 1,
-      "yomizaka": 2
+      "verikora": 2
     },
     "force-update-screen": {
-      "orazaka": 1
+      "sovkora": 1
     },
     "form": {
-      "akinaza": 16,
-      "orazaka": 9,
-      "yomizaka": 16
+      "folioviv": 16,
+      "sovkora": 9,
+      "verikora": 16
     },
     "genui": {
-      "orazaka": 1
+      "sovkora": 1
     },
     "genui-catalog": {
-      "orazaka": 1
+      "sovkora": 1
     },
     "glow-card": {
-      "orazaka": 2
+      "sovkora": 2
     },
     "header": {
-      "akinaza": 3,
-      "orazaka": 9,
-      "yomizaka": 3
+      "folioviv": 3,
+      "sovkora": 9,
+      "verikora": 3
     },
     "kbd": {
-      "akinaza": 1,
+      "folioviv": 1,
       "krizaka": 2,
-      "orazaka": 1
+      "sovkora": 1
     },
     "kind-config-editor": {
-      "akinaza": 1,
-      "yomizaka": 1
+      "folioviv": 1,
+      "verikora": 1
     },
     "kpi-stat": {
-      "orazaka": 4
+      "sovkora": 4
     },
     "landing-page": {
-      "akinaza": 1,
-      "orazaka": 1,
-      "yomizaka": 1
+      "folioviv": 1,
+      "sovkora": 1,
+      "verikora": 1
     },
     "language-switch": {
-      "akinaza": 3,
+      "folioviv": 3,
       "krizaka": 1,
-      "orazaka": 1,
-      "yomizaka": 3
+      "sovkora": 1,
+      "verikora": 3
     },
     "legal-page": {
       "krizaka": 1
     },
     "link-card": {
       "krizaka": 1,
-      "orazaka": 1,
-      "yomizaka": 2
+      "sovkora": 1,
+      "verikora": 2
     },
     "list": {
-      "akinaza": 1,
-      "orazaka": 3,
-      "yomizaka": 10
+      "folioviv": 1,
+      "sovkora": 3,
+      "verikora": 10
     },
     "loader": {
-      "orazaka": 3
+      "sovkora": 3
     },
     "maintenance-screen": {
-      "orazaka": 1
+      "sovkora": 1
     },
     "map": {
-      "akinaza": 1
+      "folioviv": 1
     },
     "markdown": {
-      "orazaka": 2
+      "sovkora": 2
     },
     "mascot-quote": {
       "krizaka": 1,
-      "yomizaka": 1
+      "verikora": 1
     },
     "mascot-state": {
-      "akinaza": 1
+      "folioviv": 1
     },
     "mascots": {
-      "akinaza": 10,
+      "folioviv": 10,
       "krizaka": 6,
-      "orazaka": 7,
-      "yomizaka": 11
+      "sovkora": 7,
+      "verikora": 11
     },
     "media-gallery": {
-      "akinaza": 1
+      "folioviv": 1
     },
     "media-picker": {
-      "orazaka": 1
+      "sovkora": 1
     },
     "meter": {
-      "akinaza": 3,
+      "folioviv": 3,
       "krizaka": 1,
-      "orazaka": 1,
-      "yomizaka": 2
+      "sovkora": 1,
+      "verikora": 2
     },
     "nav-bar": {
-      "akinaza": 2,
+      "folioviv": 2,
       "krizaka": 2,
-      "orazaka": 3,
-      "yomizaka": 2
+      "sovkora": 3,
+      "verikora": 2
     },
     "number-ticker": {
       "krizaka": 3,
-      "orazaka": 3
+      "sovkora": 3
     },
     "opening-hours": {
-      "akinaza": 1
+      "folioviv": 1
     },
     "page": {
-      "akinaza": 6,
+      "folioviv": 6,
       "krizaka": 8,
-      "orazaka": 1,
-      "yomizaka": 6
+      "sovkora": 1,
+      "verikora": 6
     },
     "page-header": {
-      "akinaza": 13,
-      "yomizaka": 10
+      "folioviv": 13,
+      "verikora": 10
     },
     "page-hero": {
-      "akinaza": 4,
+      "folioviv": 4,
       "krizaka": 4,
-      "yomizaka": 5
+      "verikora": 5
     },
     "pie-chart": {
-      "orazaka": 2
+      "sovkora": 2
     },
     "popover": {
-      "akinaza": 1,
-      "orazaka": 1
+      "folioviv": 1,
+      "sovkora": 1
     },
     "progress": {
       "krizaka": 1,
-      "orazaka": 5,
-      "yomizaka": 2
+      "sovkora": 5,
+      "verikora": 2
     },
     "radio-group": {
-      "orazaka": 2,
-      "yomizaka": 4
+      "sovkora": 2,
+      "verikora": 4
     },
     "rail-nav": {
-      "akinaza": 1,
-      "orazaka": 7,
-      "yomizaka": 1
+      "folioviv": 1,
+      "sovkora": 7,
+      "verikora": 1
     },
     "router": {
-      "orazaka": 2,
-      "yomizaka": 2
+      "sovkora": 2,
+      "verikora": 2
     },
     "screen": {
-      "akinaza": 8,
-      "orazaka": 10,
-      "yomizaka": 7
+      "folioviv": 8,
+      "sovkora": 10,
+      "verikora": 7
     },
     "search-field": {
-      "akinaza": 2,
-      "orazaka": 2,
-      "yomizaka": 3
+      "folioviv": 2,
+      "sovkora": 2,
+      "verikora": 3
     },
     "section-backdrop": {
       "krizaka": 1,
-      "orazaka": 1
+      "sovkora": 1
     },
     "segmented": {
-      "akinaza": 1,
-      "orazaka": 1,
-      "yomizaka": 3
+      "folioviv": 1,
+      "sovkora": 1,
+      "verikora": 3
     },
     "service-card": {
-      "akinaza": 1
+      "folioviv": 1
     },
     "settings-layout": {
-      "akinaza": 9,
-      "orazaka": 8,
-      "yomizaka": 5
+      "folioviv": 9,
+      "sovkora": 8,
+      "verikora": 5
     },
     "site-footer": {
-      "akinaza": 1,
+      "folioviv": 1,
       "krizaka": 1,
-      "orazaka": 2,
-      "yomizaka": 1
+      "sovkora": 2,
+      "verikora": 1
     },
     "sites": {
-      "akinaza": 1,
+      "folioviv": 1,
       "krizaka": 1,
-      "orazaka": 1,
-      "yomizaka": 1
+      "sovkora": 1,
+      "verikora": 1
     },
     "skeleton": {
-      "akinaza": 1,
-      "orazaka": 4,
-      "yomizaka": 2
+      "folioviv": 1,
+      "sovkora": 4,
+      "verikora": 2
     },
     "skip-link": {
-      "akinaza": 1
+      "folioviv": 1
     },
     "slot-picker": {
-      "akinaza": 2
+      "folioviv": 2
     },
     "sparkline": {
-      "akinaza": 1,
+      "folioviv": 1,
       "krizaka": 1,
-      "orazaka": 2,
-      "yomizaka": 1
+      "sovkora": 2,
+      "verikora": 1
     },
     "specimen-tag": {
       "krizaka": 2
     },
     "spinner": {
-      "orazaka": 2
+      "sovkora": 2
     },
     "split-view": {
-      "akinaza": 1
+      "folioviv": 1
     },
     "stat": {
-      "akinaza": 2,
+      "folioviv": 2,
       "krizaka": 1,
-      "orazaka": 4,
-      "yomizaka": 2
+      "sovkora": 4,
+      "verikora": 2
     },
     "status-chip": {
-      "akinaza": 1,
-      "yomizaka": 2
+      "folioviv": 1,
+      "verikora": 2
     },
     "step-showcase": {
-      "akinaza": 1,
-      "orazaka": 1
+      "folioviv": 1,
+      "sovkora": 1
     },
     "stepper": {
-      "orazaka": 1,
-      "yomizaka": 3
+      "sovkora": 1,
+      "verikora": 3
     },
     "sticky-action": {
-      "akinaza": 2
+      "folioviv": 2
     },
     "switch": {
-      "akinaza": 2,
+      "folioviv": 2,
       "krizaka": 1,
-      "orazaka": 8,
-      "yomizaka": 4
+      "sovkora": 8,
+      "verikora": 4
     },
     "tab-bar": {
-      "akinaza": 1,
-      "orazaka": 1,
-      "yomizaka": 1
+      "folioviv": 1,
+      "sovkora": 1,
+      "verikora": 1
     },
     "tabs": {
-      "akinaza": 2,
-      "orazaka": 8,
-      "yomizaka": 6
+      "folioviv": 2,
+      "sovkora": 8,
+      "verikora": 6
     },
     "tag-selector": {
-      "akinaza": 1,
-      "yomizaka": 3
+      "folioviv": 1,
+      "verikora": 3
     },
     "taped-photo": {
       "krizaka": 4
     },
     "theme": {
-      "akinaza": 6,
+      "folioviv": 6,
       "krizaka": 2,
-      "orazaka": 23,
-      "yomizaka": 8
+      "sovkora": 23,
+      "verikora": 8
     },
     "toast": {
-      "orazaka": 5
+      "sovkora": 5
     },
     "toc": {
       "krizaka": 2
     },
     "tooltip": {
-      "orazaka": 1
+      "sovkora": 1
     },
     "txt": {
-      "akinaza": 8,
-      "orazaka": 20,
-      "yomizaka": 10
+      "folioviv": 8,
+      "sovkora": 20,
+      "verikora": 10
     },
     "upload-queue": {
-      "yomizaka": 1
+      "verikora": 1
     },
     "waveform": {
       "krizaka": 1

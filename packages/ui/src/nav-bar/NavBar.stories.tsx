@@ -47,10 +47,10 @@ export const FamilyJava: Story = { render: () => <FamilyJavaExample /> };
 export const FamilyProduct: Story = { render: () => <FamilyProductExample /> };
 export const FamilyAdmin: Story = { render: () => <FamilyAdminExample /> };
 
-/** The French descriptions of Yomizaka's menu — the ones that used to be cut mid-sentence. */
+/** The French descriptions of Verikora's menu — the ones that used to be cut mid-sentence. */
 const LONG = [
   ["#keep", "Garder, lire, prouver", "Garder, lire, prouver : enregistré sur la vraie application, avec chaque passage retrouvé dans votre document."],
-  ["#lease", "Bail québécois", "Un bail québécois vérifié par Orazaka, tel qu'il a été signé, avec les clauses qui méritent votre attention."],
+  ["#lease", "Bail québécois", "Un bail québécois vérifié par Sovkora, tel qu'il a été signé, avec les clauses qui méritent votre attention."],
   ["#how", "Comment ça marche", "Du dépôt du PDF au rapport en trois étapes."],
 ] as const;
 
@@ -61,7 +61,7 @@ const LONG = [
 export const MenuLongText: Story = {
   render: () => (
     <NavBar.Root label="Principal" floating={false} className="mb-80">
-      <NavBar.Brand href="#home">Yomizaka</NavBar.Brand>
+      <NavBar.Brand href="#home">Verikora</NavBar.Brand>
       <NavBar.Items defaultValue="product">
         <NavBar.Menu value="product" label="Produit" inlineUpTo={0}>
           {LONG.map(([href, title, text]) => (
@@ -102,11 +102,11 @@ export const MenuLongText: Story = {
   },
 };
 
-/** Three links or fewer (Akinaza's Product: Overview · How it works · The demo shop) stand in the bar: no hidden list. */
+/** Three links or fewer (Folioviv's Product: Overview · How it works · The demo shop) stand in the bar: no hidden list. */
 export const MenuInline: Story = {
   render: () => (
     <NavBar.Root label="Principal" floating={false}>
-      <NavBar.Brand href="#home">Akinaza</NavBar.Brand>
+      <NavBar.Brand href="#home">Folioviv</NavBar.Brand>
       <NavBar.Items>
         <NavBar.Menu label="Produit">
           <NavBar.MenuLink href="#overview" title="Vue d'ensemble" active />
@@ -119,10 +119,10 @@ export const MenuInline: Story = {
   ),
 };
 
-/** Akinaza's and Yomizaka's French bar: three long labels in a section, a link, the actions. */
+/** Folioviv's and Verikora's French bar: three long labels in a section, a link, the actions. */
 const FrBar = () => (
   <NavBar.Root label="Principal" floating={false}>
-    <NavBar.Brand href="#home">Akinaza</NavBar.Brand>
+    <NavBar.Brand href="#home">Folioviv</NavBar.Brand>
     <NavBar.Items>
       <NavBar.Menu label="Produit">
         <NavBar.MenuLink href="#a" title="Prise de rendez-vous en ligne" />

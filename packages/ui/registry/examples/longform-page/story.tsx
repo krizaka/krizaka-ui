@@ -19,14 +19,14 @@ export default function LongformPageStory() {
           children: (
             <>
               <p>A notary asked a chatbot to summarise a lease. The answer was good; the lease was now on someone else's server.</p>
-              <p>We built Orazaka so that question never has to leave the office.</p>
+              <p>We built Sovkora so that question never has to leave the office.</p>
             </>
           ),
         },
         {
           id: "shops",
           title: "Then came the shops",
-          children: <p>Akinaza keeps a Québec shop's till, receipts and taxes in one place — and the data stays with the shop.</p>,
+          children: <p>Folioviv keeps a Québec shop's till, receipts and taxes in one place — and the data stays with the shop.</p>,
           figure: <MascotQuote bird="flamingo" label="The flamingo's rule">Whoever does the work gets paid first.</MascotQuote>,
         },
       ]}

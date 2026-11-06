@@ -1,5 +1,5 @@
 {
-  "$description": "Krizaka — la marque mère. Ink (les surfaces et le texte neutres de la plateforme) et un seul accent, le bleu acier Krizaka du cœur du logo (teinte 208, le complément exact de l'orange d'Orazaka, saturation ≤ 60 % : plus le bleu électrique « IA » — krizaka-ui#393, ADR-003) : il chapeaute les produits sans les concurrencer. Ce sont aussi les valeurs par défaut de tokens.css.",
+  "$description": "Krizaka — la marque mère. Ink (les surfaces et le texte neutres de la plateforme) et un seul accent, le bleu acier Krizaka du cœur du logo (teinte 208, le complément exact de l'orange d'Sovkora, saturation ≤ 60 % : plus le bleu électrique « IA » — krizaka-ui#393, ADR-003) : il chapeaute les produits sans les concurrencer. Ce sont aussi les valeurs par défaut de tokens.css.",
   "$extensions": {
     "com.krizaka": {
       "mark": [

@@ -6,11 +6,11 @@
     "consulting"
   ],
   "paper": "plain",
-  "accent": "yomizaka",
+  "accent": "verikora",
   "accents": [
-    "yomizaka",
-    "akinaza",
-    "akinaza:accent-2",
+    "verikora",
+    "folioviv",
+    "folioviv:accent-2",
     "krizaka"
   ],
   "faces": {

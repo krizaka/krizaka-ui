@@ -1,4 +1,4 @@
-import { OrazakaLogo } from "@krizaka/ui";
+import { SovkoraLogo } from "@krizaka/ui";
 import { languagesFor } from "@krizaka/ui/language-switch";
 import { NavBar, ProductBarActions } from "@krizaka/ui/nav-bar";
 import { ThemeProvider, ThemeToggle } from "@krizaka/ui/theme";
@@ -6,7 +6,7 @@ import { ThemeProvider, ThemeToggle } from "@krizaka/ui/theme";
 // The product standard: mark · Product ▾ · Platforms ▾ · Docs; theme, language, the product actions (using the app is primary; Contact lives in the footer); phone: groups, preferences.
 const groups = [
   { id: "product", label: "Product", links: [["#how", "How it works", "Install to first answer in three commands."], ["#demo", "Demo", "Real runs: prompts, images, videos."]] },
-  { id: "platforms", label: "Platforms", links: [["#web", "Web", "The workspace in your browser."], ["#mac", "Mac", "Orazaka Desktop for Apple Silicon."]] },
+  { id: "platforms", label: "Platforms", links: [["#web", "Web", "The workspace in your browser."], ["#mac", "Mac", "Sovkora Desktop for Apple Silicon."]] },
 ];
 const icon = <svg data-kz-icon viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden><circle data-node cx="12" cy="12" r="4" /></svg>;
 const [theme, language] = [<ThemeToggle key="t" label="Change the theme" />, <NavBar.Language key="l" label="Language" current="en" languages={languagesFor("/en")} />];
@@ -14,7 +14,7 @@ export default function NavBarFamilyProduct() {
   return (
     <ThemeProvider>
       <NavBar.Root label="Main" floating={false}>
-        <NavBar.Brand href="#home"><OrazakaLogo size={22} />Orazaka</NavBar.Brand>
+        <NavBar.Brand href="#home"><SovkoraLogo size={22} />Sovkora</NavBar.Brand>
         <NavBar.Items>
           {groups.map((g) => (
             <NavBar.Menu key={g.id} value={g.id} label={g.label}>

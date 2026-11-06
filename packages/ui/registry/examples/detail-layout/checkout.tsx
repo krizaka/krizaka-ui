@@ -14,7 +14,7 @@ const AMOUNTS = [3, 5, 10, 20];
 export default function DetailLayoutCheckout() {
   const [amount, setAmount] = React.useState("5");
   return (
-    <div className="brand-orazaka w-full">
+    <div className="brand-sovkora w-full">
       <DetailLayout
         back={<a href="#elena">← Elena's page</a>}
         eyebrow="Tip"

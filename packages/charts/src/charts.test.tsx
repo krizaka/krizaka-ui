@@ -10,7 +10,7 @@ import TopSupporters from "../registry/examples/bar-chart/top-supporters";
 import Publishing from "../registry/examples/calendar-heatmap/publishing";
 import AuctionBids from "../registry/examples/candlestick/auction-bids";
 import PolarUploads from "../registry/examples/chart/polar-uploads";
-import FrenchOrazaka from "../registry/examples/charts-provider/french-orazaka";
+import FrenchSovkora from "../registry/examples/charts-provider/french-sovkora";
 import Signup from "../registry/examples/funnel/signup";
 import CreditsQuota from "../registry/examples/gauge/credits-quota";
 import Viewers from "../registry/examples/geo-map/viewers";
@@ -94,15 +94,15 @@ describe("keyboard", () => {
 
 describe("theme and locale", () => {
   it("writes the figures in the provider's locale and marks the brand on the chart", () => {
-    const { container } = render(<FrenchOrazaka />);
-    expect(container.querySelector("figure")!.getAttribute("data-brand")).toBe("orazaka");
+    const { container } = render(<FrenchSovkora />);
+    expect(container.querySelector("figure")!.getAttribute("data-brand")).toBe("sovkora");
     expect(screen.getByRole("button", { name: /Actions du graphique/ })).toBeTruthy();
     expect(container.textContent).toContain("Histogramme, 4 (juin 2026 – sept. 2026).");
   });
 
   it("ships the palettes in light-dark() for every brand and guards every entrance with reduced motion", () => {
     expect(CSS).toContain("[data-kzc]{--kzc-1:light-dark(#2a78d6,#3987e5)");
-    expect(CSS).toContain("[data-kzc][data-brand=orazaka]{--kzc-1:light-dark(#eb6834,#d95926)");
+    expect(CSS).toContain("[data-kzc][data-brand=sovkora]{--kzc-1:light-dark(#eb6834,#d95926)");
     const motion = CSS.slice(CSS.indexOf("@media (prefers-reduced-motion:no-preference)"));
     expect(CSS.slice(0, CSS.indexOf("@media (prefers-reduced-motion:no-preference)"))).not.toMatch(/animation:kzc-/);
     expect(motion).toContain("kzc-draw");

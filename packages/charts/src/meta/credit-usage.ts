@@ -10,7 +10,7 @@ export const meta = {
   parity: { desktop: "web" },
   engine: "svg",
   whenToUse: [
-    "Orazaka's billing: the credits left this month and when they run out at the current pace.",
+    "Sovkora's billing: the credits left this month and when they run out at the current pace.",
     "A storage plan (a platform's console): gigabytes used of the plan, with a unit format.",
     "Any quota that renews: API calls, minutes of video.",
   ],
@@ -35,7 +35,7 @@ export const meta = {
     entry: "credits",
     imports: ["CreditUsage"],
     examples: [
-      { name: "monthly-credits", title: "Monthly credits", description: "An Orazaka plan: credits left, the daily use, the run-out date." },
+      { name: "monthly-credits", title: "Monthly credits", description: "An Sovkora plan: credits left, the daily use, the run-out date." },
       { name: "storage-plan", title: "Storage plan", description: "A platform's console: gigabytes of the plan, past the warning level." },
     ],
   },

@@ -127,12 +127,12 @@ describe("StepShowcase", () => {
 describe("DeviceFrame", () => {
   it.each(["phone", "browser", "desktop"] as const)("draws a %s around its content", (kind) => {
     const { container } = render(
-      <DeviceFrame kind={kind} title="dev.orazaka.com">
+      <DeviceFrame kind={kind} title="dev.sovkora.com">
         <p>screen</p>
       </DeviceFrame>,
     );
     expect(container.querySelector(`[data-device="${kind}"]`)).not.toBeNull();
     expect(within(container).getByText("screen")).toBeTruthy();
-    if (kind !== "phone") expect(within(container).getByText("dev.orazaka.com")).toBeTruthy();
+    if (kind !== "phone") expect(within(container).getByText("dev.sovkora.com")).toBeTruthy();
   });
 });
