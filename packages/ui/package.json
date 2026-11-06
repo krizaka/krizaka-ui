@@ -44,6 +44,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "krizaka-media-guard": "./dist/media-guard-bin.js"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -528,6 +531,10 @@
     "./pausable-loop": {
       "types": "./dist/pausable-loop.d.ts",
       "import": "./dist/pausable-loop.js"
+    },
+    "./media-guard": {
+      "types": "./dist/media-guard.d.ts",
+      "import": "./dist/media-guard.js"
     },
     "./sticky-action": {
       "types": "./dist/sticky-action.d.ts",
@@ -2216,6 +2223,12 @@
       "limit": "2 kB",
       "gzip": true,
       "ignore": ["tailwind-variants", "clsx"]
+    },
+    {
+      "name": "./media-guard (Node: the rules and the ffmpeg adapter of the carousel's media guard)",
+      "path": "dist/media-guard.js",
+      "limit": "3 kB",
+      "gzip": true
     },
     {
       "name": "./media-gallery",

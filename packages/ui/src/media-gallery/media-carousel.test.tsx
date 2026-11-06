@@ -94,9 +94,11 @@ describe("MediaCarousel", () => {
     expect(document.querySelector("video")).toBeTruthy();
   });
 
-  it("leaves a slide with a video as a still when no renderLoop is given, so the loop stays out of this entry", () => {
+  it("draws a slide's video itself without renderLoop (v2): muted, with the carousel's pause and no loop button", () => {
     render(<MediaCarousel label="Realisations" slides={slides.slice(1, 2)} />);
-    expect(document.querySelector("video")).toBeNull();
+    const video = document.querySelector("video") as HTMLVideoElement;
+    expect(video.muted).toBe(true);
+    expect(screen.getByRole("button", { name: "Pause the carousel" })).toBeTruthy();
     expect(screen.queryByRole("button", { name: /animation/ })).toBeNull();
   });
 

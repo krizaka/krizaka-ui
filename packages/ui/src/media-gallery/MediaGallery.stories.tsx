@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import CarouselExample from "../../registry/examples/media-gallery/carousel";
+import CarouselAutoplayExample from "../../registry/examples/media-gallery/carousel-autoplay";
+import CarouselCahierExample from "../../registry/examples/media-gallery/carousel-cahier";
+import CarouselDemoExample from "../../registry/examples/media-gallery/carousel-demo";
 import CarouselLoopExample from "../../registry/examples/media-gallery/carousel-loop";
 import CarouselSingleExample from "../../registry/examples/media-gallery/carousel-single";
 import PlayerExample from "../../registry/examples/media-gallery/player";
@@ -25,3 +28,9 @@ export const CarouselLoop: Story = { render: () => <CarouselLoopExample /> };
 export const CarouselLoopPhone: Story = { render: () => <CarouselLoopExample />, parameters: { phone: true } };
 export const PlayerTrigger: Story = { render: () => <PlayerTriggerExample /> };
 export const PlayerTriggerPhone: Story = { render: () => <PlayerTriggerExample />, parameters: { phone: true } };
+export const CarouselAutoplay: Story = { render: () => <CarouselAutoplayExample /> };
+export const CarouselAutoplayPhone: Story = { render: () => <CarouselAutoplayExample />, parameters: { phone: true } };
+export const CarouselCahier: Story = { render: () => <CarouselCahierExample /> };
+export const CarouselCahierPhone: Story = { render: () => <CarouselCahierExample />, parameters: { phone: true } };
+export const CarouselDemo: Story = { render: () => <CarouselDemoExample /> };
+export const CarouselDemoPhone: Story = { render: () => <CarouselDemoExample />, parameters: { phone: true } };
