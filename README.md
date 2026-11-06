@@ -104,6 +104,14 @@ pnpm changeset         # describe a change that ships
 
 **Visual baselines.** The Storybook screenshots are Linux ones. After adding or changing a story, do not regenerate them locally: run the *Update baselines* workflow on your branch (Actions > Update baselines > Run workflow, or `gh workflow run update-baselines.yml -f branch=<branch>`). It pushes only the changed snapshots.
 
+**Manual tools.** Scripts a person runs by hand (ADR-026: nothing runs unlisted); each header says why, how and who owns it.
+
+| Script | What it does |
+| :-- | :-- |
+| `tools/brand-films/render.mjs` | films the flock from the real components (loops, ambient, « Le monde de Krizaka »); `choreography.mjs`, `film.mjs`, `stage.mjs` are its inputs. Usage: [tools/brand-films/README.md](tools/brand-films/README.md) |
+| `apps/site/scripts/sync-brand-icons.mjs` | re-downloads the site's icons from the brand CDN; also run by the `brand-icons-sync` fan-out of krizaka/.github |
+| `tools/export-brand.mjs` | publishes the brand files (named in `docs/RELEASING.md`) |
+
 pnpm + Turborepo, released with Changesets. The rules are in [AGENTS.md](AGENTS.md).
 
 ## License

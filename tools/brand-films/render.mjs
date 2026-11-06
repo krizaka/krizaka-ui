@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// MANUAL TOOL (ADR-026), run by a person; owner: platform lane; listed in README.md « Manual tools » and tools/brand-films/README.md. The usage is below.
 // Films the Krizaka flock from the code: each stage (./stage.mjs — the real @krizaka/ui components and tokens) is opened
 // in a headless Chromium, every CSS animation is paused and set to the exact time of each frame (deterministic, no
 // dropped frame, a loop's last frame meets its first), and the frames are encoded with ffmpeg.

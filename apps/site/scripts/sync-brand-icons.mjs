@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// MANUAL TOOL AND FAN-OUT STEP (ADR-026): krizaka/.github `brand-icons-fanout.mjs` runs this exact path (`apps/site/scripts/sync-brand-icons.mjs`) when the brand changes; do not move or rename it. Owner: platform lane.
 // Re-downloads this site's icons from the brand CDN, byte for byte (never redrawn).
 // The icons are generated from @krizaka/ui by krizaka-ui tools/export-brand.mjs.
 import { writeFile } from "node:fs/promises";
