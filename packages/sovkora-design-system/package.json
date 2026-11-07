@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@krizaka/icons": "workspace:^",
-    "@krizaka/orazaka-shared": "workspace:^",
+    "@krizaka/sovkora-shared": "workspace:^",
     "@krizaka/tailwind": "workspace:^",
     "@krizaka/tokens": "workspace:^",
     "@krizaka/ui": "workspace:^",
@@ -106,7 +106,7 @@
         "next",
         "@krizaka/ui",
         "@krizaka/icons",
-        "@krizaka/orazaka-shared",
+        "@krizaka/sovkora-shared",
         "@krizaka/tokens",
         "@krizaka/tailwind",
         "tailwind-variants"

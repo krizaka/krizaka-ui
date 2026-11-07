@@ -1,14 +1,14 @@
 /**
  * @file sovereign-workflow-context.ts
  * @description Zod validation schemas mirroring the backend Java SovereignWorkflowContext record.
- * Shared between orazaka-web-client (its operator console included) and orazaka-mobile-client.
+ * Shared between sovkora-web (its operator console included) and sovkora-mobile.
  */
 
 import { z } from "zod";
 
 /**
  * Zod schema for SovereignWorkflowContext — mirrors the Java record
- * at com.krizaka.orazaka.business.domain.model.SovereignWorkflowContext.
+ * at com.krizaka.sovkora.business.domain.model.SovereignWorkflowContext.
  */
 export const SovereignWorkflowContextSchema = z.object({
   contextId: z.string().min(1, "contextId must not be empty"),

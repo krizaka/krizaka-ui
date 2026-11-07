@@ -44,7 +44,7 @@ const exported = [
     .filter((s) => s && !s.startsWith("type "))
     .map((s) => s.split(/\s+as\s+/).pop()),
 );
-/** Design tokens re-exported from @krizaka/orazaka-shared: the foundations, not components. */
+/** Design tokens re-exported from @krizaka/sovkora-shared: the foundations, not components. */
 const TOKENS = new Set(["radius", "shadows", "status", "themes", "tokens", "typeScale"]);
 /** Class functions of a documented primitive (`badgeVariants` belongs to `Badge`). */
 const HELPERS = new Set(["badgeVariants", "skeletonVariants"]);

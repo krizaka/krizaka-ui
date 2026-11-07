@@ -15,7 +15,7 @@ React 19, Next.js ≥ 15, Tailwind CSS v4. The package ships its TypeScript sour
 
 ```ts
 // next.config.ts
-transpilePackages: ["@krizaka/sovkora-design-system", "@krizaka/orazaka-shared", "@krizaka/ui"],
+transpilePackages: ["@krizaka/sovkora-design-system", "@krizaka/sovkora-shared", "@krizaka/ui"],
 ```
 
 The app's global stylesheet — `theme.css` brings the platform layers (`@krizaka/tailwind`, `@krizaka/ui/tailwind.css`)
@@ -62,7 +62,7 @@ surface, focus ring ≥ 3:1.
 | **Composites** | `ChatShowcase`, `SentinelMini`, `Icon` (the icon registry), `CommandPalette` (the ⌘K palette on `CommandDialog` from `@krizaka/ui/command`: entries and words as props, `onNavigate`). |
 | **Re-exported from `@krizaka/ui`** | `Button` (default variant `primary`, as in 1.x), `IconButton`, `buttonVariants`, `Badge` (`variant` → deprecated alias of `tone`), `badgeVariants`, `Input`, `Field`, `Textarea`, `Select`, `Skeleton` (`variant`, `width`, `height` deprecated), `skeletonVariants`, `cn`. New code imports them from `@krizaka/ui`. |
 | **Documentation** | `registry/`: every component's documentation, examples and props, and the foundations (the themes resolved with their contrasts, the type scale, the rules) — rendered by [krizaka.com/docs/sovkora/ui](https://www.krizaka.com/en/docs/sovkora/ui). |
-| **Tokens** | `tokens`, `themes`, `radius`… re-exported from `@krizaka/orazaka-shared` (for React Native and the CLI: the same Sovkora orange as `theme.css`, from `@krizaka/tokens/native`). |
+| **Tokens** | `tokens`, `themes`, `radius`… re-exported from `@krizaka/sovkora-shared` (for React Native and the CLI: the same Sovkora orange as `theme.css`, from `@krizaka/tokens/native`). |
 | **Everything else** | From `@krizaka/ui` directly: `Card`, `Dialog`, `Toaster` + `toast` / `progressToast` / `groupedToast`, `Loader` / `LoadingRegion`, `Stepper`, `Progress`, `Meter`, `NumberTicker`, `GlowCard`, `Tabs`, `NavBar`… and the charts from `@krizaka/charts`. 3.0 removed the 1.x adapters and variables (see the CHANGELOG). |
 
 A product variant extends a primitive, it never copies it:

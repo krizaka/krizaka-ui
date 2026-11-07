@@ -1,6 +1,6 @@
 /**
  * @file pack.ts
- * @description Zod schemas for the Pack catalogue served by orazaka-studio-service
+ * @description Zod schemas for the Pack catalogue served by sovkora-studio-service
  * (`/api/v1/studios/packs`), mirroring PackSummaryResponse, PackDetailResponse and
  * PackCategoryResponse.
  *

@@ -1,6 +1,6 @@
 /**
  * @file preflight.ts
- * @description The document PRE-FLIGHT every Orazaka app shares (web, phone, desktop's workspace page): before a PDF is
+ * @description The document PRE-FLIGHT every Sovkora app shares (web, phone, desktop's workspace page): before a PDF is
  * sent to a Studio — a run that costs credits — decide, in-process and for nothing, whether it can be a document.
  */
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";

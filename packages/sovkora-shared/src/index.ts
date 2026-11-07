@@ -1,6 +1,6 @@
 /**
  * @file index.ts
- * @description Barrel export for orazaka-shared schemas, types, and design tokens.
+ * @description Barrel export for sovkora-shared schemas, types, and design tokens.
  */
 
 export type { IntentEnvelope, IntentToken, InterceptorPolicy, PolicyPredicate } from "./schemas/intent-envelope";

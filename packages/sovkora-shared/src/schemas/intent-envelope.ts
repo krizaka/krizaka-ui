@@ -1,8 +1,8 @@
 /**
  * @file intent-envelope.ts
  * @description Zod validation schemas for IntentEnvelope and IntentToken.
- * Mirrors the Java records in com.krizaka.orazaka.gateway.domain.model.intent.
- * Shared between all client packages via orazaka-shared.
+ * Mirrors the Java records in com.krizaka.sovkora.gateway.domain.model.intent.
+ * Shared between all client packages via sovkora-shared.
  */
 
 import { z } from "zod";

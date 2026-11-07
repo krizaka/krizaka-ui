@@ -101,8 +101,8 @@ export const foundations = {
   ],
   native: {
     summary:
-      "The mobile app has its own React Native components and takes the same tokens from `@krizaka/orazaka-shared` — the Sovkora orange of @krizaka/tokens/native.",
-    code: `import { themes, tokens } from "@krizaka/orazaka-shared";
+      "The mobile app has its own React Native components and takes the same tokens from `@krizaka/sovkora-shared` — the Sovkora orange of @krizaka/tokens/native.",
+    code: `import { themes, tokens } from "@krizaka/sovkora-shared";
 
 const t = themes[colorScheme === "light" ? "light" : "dark"];
 // t.accent, t.surface1, t.textPrimary…`,

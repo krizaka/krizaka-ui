@@ -1,4 +1,4 @@
-// The document pre-flight every Orazaka app shares: nothing reaches a Studio that cannot be a document.
+// The document pre-flight every Sovkora app shares: nothing reaches a Studio that cannot be a document.
 import assert from "node:assert/strict";
 
 import { test } from "vitest";

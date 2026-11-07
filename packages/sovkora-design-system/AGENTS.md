@@ -25,7 +25,7 @@
   finance lead) in a believable fictional workspace — never an admin account or an internal label (the registry test
   refuses "admin" in an example).
 - **250 lines a file**, except a `*.registry.ts(x)` data file, which holds data only (a function in one fails the lint).
-- Types of the domain come from `@krizaka/orazaka-shared` (`packages/orazaka-shared`), never redeclared.
+- Types of the domain come from `@krizaka/sovkora-shared` (`packages/sovkora-shared`), never redeclared.
 
 ## 2. The documentation of a component is written here
 

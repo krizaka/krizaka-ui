@@ -56,7 +56,7 @@ export interface ComponentMeta {
   /** Required when `status` is `deprecated`: since when, what replaces it, when it goes. */
   readonly deprecated?: { readonly since: string; readonly use: Reference; readonly removedIn: string };
   readonly category: Category;
-  /** The kit's components are web components; the mobile app takes the tokens (`@krizaka/orazaka-shared`). */
+  /** The kit's components are web components; the mobile app takes the tokens (`@krizaka/sovkora-shared`). */
   readonly platforms: "web";
   /** The @krizaka/ui components it is built on (`ui/command`): a product component composes, it never copies. */
   readonly builtOn: readonly UiComponent[];

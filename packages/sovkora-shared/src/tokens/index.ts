@@ -1,7 +1,7 @@
 /**
  * @file tokens/index.ts
  * @description Framework-agnostic design tokens — the single source of truth for
- * Orazaka's visual language (AGENTS.md §8). Consumed by `sovkora-design-system`
+ * Sovkora's visual language (AGENTS.md §8). Consumed by `sovkora-design-system`
  * (web, which mirrors these as CSS custom properties in `theme.css`), by the
  * mobile client (React Native, which has no CSS), and by the CLI.
  *
@@ -11,7 +11,7 @@
 /**
  * Per-theme colour roles, as CSS colour strings React Native also reads (`#rrggbb`, `rgba()`, `hsl()`).
  * The roles are those of `@krizaka/tokens` (surface, border, text, accent, on-accent, accent-text): text on the
- * accent is `onAccent` — near-black on the dark Orazaka orange, white on the light one — never a fixed white.
+ * accent is `onAccent` — near-black on the dark Sovkora orange, white on the light one — never a fixed white.
  */
 export interface ThemeColors {
   readonly surface0: string;
@@ -36,8 +36,8 @@ export interface ThemeColors {
 export type ThemeName = "light" | "dark" | "electric" | "custom" | "cyberpunk" | "solarized" | "krizaka";
 
 /**
- * Theme colour matrix. `dark` and `light` are the Krizaka platform surfaces with the **Orazaka brand** (the orange of
- * the Orazaka mark), copied from `@krizaka/tokens/native` (`themes` + `brands.sovkora`, the Orazaka brand) — this package is CommonJS and
+ * Theme colour matrix. `dark` and `light` are the Krizaka platform surfaces with the **Sovkora brand** (the orange of
+ * the Sovkora mark), copied from `@krizaka/tokens/native` (`themes` + `brands.sovkora`, the Sovkora brand) — this package is CommonJS and
  * cannot import that ES module, so `test/tokens.parity.test.mjs` fails the build the day the two disagree. The named
  * themes mirror `sovkora-design-system/theme.css`; `electric` is the 1.x blue identity, kept as a choice.
  */

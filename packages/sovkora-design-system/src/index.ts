@@ -6,11 +6,11 @@
  * other primitive — Card, Dialog, Toaster, Loader, Stepper, Meter, NumberTicker… — is imported from @krizaka/ui.
  */
 
-// ── Design tokens (framework-agnostic, from orazaka-shared) ─────────────────
+// ── Design tokens (framework-agnostic, from sovkora-shared) ─────────────────
 // The token values for React Native and the CLI (the Sovkora orange of @krizaka/tokens/native). The web theme is
 // theme.css (--kz-* roles).
-export type { ThemeColors, ThemeName, Tokens } from "@krizaka/orazaka-shared";
-export { radius, shadows, status, themes, tokens, typeScale } from "@krizaka/orazaka-shared";
+export type { ThemeColors, ThemeName, Tokens } from "@krizaka/sovkora-shared";
+export { radius, shadows, status, themes, tokens, typeScale } from "@krizaka/sovkora-shared";
 
 // ── Class helpers ───────────────────────────────────────────────────────────
 export { cn } from "@krizaka/ui/cn";

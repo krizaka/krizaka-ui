@@ -29,7 +29,7 @@ writeFileSync(
     install: {
       command: `npm install ${PACKAGE} && npm install -D tailwindcss`,
       css: `@import "tailwindcss";\n@import "${PACKAGE}/theme.css";`,
-      note: "The package ships its TypeScript sources: add it to `transpilePackages` (with @krizaka/orazaka-shared and @krizaka/ui).",
+      note: "The package ships its TypeScript sources: add it to `transpilePackages` (with @krizaka/sovkora-shared and @krizaka/ui).",
     },
     reexports: reexportsFromUi(),
     items: items.map((item) => ({

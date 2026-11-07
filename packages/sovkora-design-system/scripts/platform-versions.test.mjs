@@ -21,8 +21,8 @@ test("the design system declares @krizaka/ui, tailwind and tokens on the same ma
   assert.equal(major("@krizaka/tokens", d["@krizaka/tokens"]), ui, "tokens vs ui");
 });
 
-test("orazaka-shared's @krizaka/tokens is on the design system's major", () => {
+test("sovkora-shared's @krizaka/tokens is on the design system's major", () => {
   const ds = read("../package.json").dependencies["@krizaka/tokens"];
-  const shared = read("../../orazaka-shared/package.json").devDependencies["@krizaka/tokens"];
+  const shared = read("../../sovkora-shared/package.json").devDependencies["@krizaka/tokens"];
   assert.equal(major("@krizaka/tokens", shared), major("@krizaka/tokens", ds));
 });

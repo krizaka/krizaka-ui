@@ -1,6 +1,6 @@
-// The design tokens of @krizaka/orazaka-shared are a copy: this package is CommonJS (React Native and the CLI read it)
+// The design tokens of @krizaka/sovkora-shared are a copy: this package is CommonJS (React Native and the CLI read it)
 // and cannot import the ES module @krizaka/tokens/native. This test holds the copy to its source — the Krizaka
-// platform surfaces with the Orazaka brand (the `sovkora` brand of @krizaka/tokens since 4.0, same values) — in both modes.
+// platform surfaces with the Sovkora brand (the `sovkora` brand of @krizaka/tokens since 4.0, same values) — in both modes.
 import assert from "node:assert/strict";
 
 import { brands, themes as platform } from "@krizaka/tokens/native";
@@ -21,7 +21,7 @@ const PLATFORM_ROLES = [
   "textSecondary",
   "textMuted",
 ];
-/** The roles the Orazaka brand sets. */
+/** The roles the Sovkora brand sets. */
 const BRAND_ROLES = ["accent", "accentHover", "onAccent", "accentText"];
 
 for (const mode of ["dark", "light"]) {
@@ -29,7 +29,7 @@ for (const mode of ["dark", "light"]) {
     for (const role of PLATFORM_ROLES) assert.equal(themes[mode][role], platform[mode][role], `${mode}.${role}`);
   });
 
-  test(`${mode}: the Orazaka brand accent of @krizaka/tokens (orange, never the 1.x blue or amber)`, () => {
+  test(`${mode}: the Sovkora brand accent of @krizaka/tokens (orange, never the 1.x blue or amber)`, () => {
     for (const role of BRAND_ROLES) assert.equal(themes[mode][role], brands.sovkora[mode][role], `${mode}.${role}`);
   });
 }
