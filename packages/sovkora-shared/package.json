@@ -1,0 +1,71 @@
+{
+  "name": "@krizaka/sovkora-shared",
+  "version": "2.0.0",
+  "description": "Sovkora shared contracts: TypeScript types, Zod schemas and design tokens (framework-agnostic).",
+  "keywords": [
+    "sovkora",
+    "krizaka",
+    "zod",
+    "types",
+    "design-tokens",
+    "typescript"
+  ],
+  "homepage": "https://github.com/krizaka/krizaka-ui/tree/main/packages/sovkora-shared#readme",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/sovkora-shared"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc --project tsconfig.build.json",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedLocals --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "size": "size-limit",
+    "publint": "publint && attw --pack . --profile node16",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@krizaka/config": "^0.9.1",
+    "@krizaka/tokens": "workspace:^",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@types/node": "^22.15.0",
+    "@vitest/coverage-v8": "5.0.5",
+    "eslint": "^9.39.0",
+    "publint": "^0.3.25",
+    "size-limit": "^14.2.0",
+    "typescript": "^5.9.0",
+    "vitest": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": ".",
+      "path": "dist/index.js",
+      "limit": "25 kB",
+      "gzip": true,
+      "ignore": [
+        "zod"
+      ]
+    }
+  ]
+}
