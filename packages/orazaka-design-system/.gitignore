@@ -1,0 +1,2 @@
+# The registry: build output (pnpm build), published
+registry/*.json

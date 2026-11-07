@@ -29,6 +29,8 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ discovery/            # @krizaka/discovery — mobile service discovery: a signed manifest of backend addresses (Ed25519, allow-list), pure (no UI)
 │  ├─ pacer/                # @krizaka/pacer — cadence: debounce, throttle, a job queue (priority, retries, pause per job), a rate limiter (TanStack Pacer behind the facade; hooks in ./react)
 │  ├─ a11y-audit/           # @krizaka/a11y-audit — the accessibility guard of the products' page audits: axe-core (WCAG 2.1 AA) on a Playwright page + a ratchet baseline (Node, test tool)
+│  ├─ orazaka-shared/       # @krizaka/orazaka-shared — the Sovkora apps' shared contracts: Zod schemas, types, pre-flight, native tokens (CommonJS; ADR-029)
+│  ├─ orazaka-design-system/ # @krizaka/orazaka-design-system — the Sovkora theme and product composites with their registry (level 2, ADR-029)
 ├─ tools/                   # not published — inventory.mjs (the duplicate audit of the products), consumer-smoke/ (the published
 │                           #   packages in fresh Next.js · Expo · Node apps), and their tests
 ├─ docs/adr/                # the architecture decisions (ADR-001: TanStack under @krizaka facades; ADR-002: desktop is the web in a window)
@@ -58,7 +60,7 @@ a copy between a product and this repository — the version is the contract.
 | **0 — Foundations** | `@krizaka/tokens`, `@krizaka/tailwind` | Semantic tokens, preset, variants, `cn`, `Slot`, `VisuallyHidden`, theme. | Components. |
 | **0 — Platform bricks** | `@krizaka/intl`, `@krizaka/i18n`, `@krizaka/realtime`, `@krizaka/query`, `@krizaka/push`, `@krizaka/pacer`, `@krizaka/discovery`, `@krizaka/app-client`, `@krizaka/app-desktop` | Code without UI that every product needs the same way: formatting, messages, the realtime bus + presence + SSE (`realtime`), server state on the client (`query`), mobile push (`push`). Drivers (`pg`, `ioredis`) are optional peers; connections and URLs are injected by the app, never read from its environment. | A product word, a product's channel or key name, a table, a route. |
 | **1 — Primitives** | `@krizaka/ui/*` | Any component **without product vocabulary**: button, card, dialog, field, tabs, badge, avatar, toast, skeleton, countdown, command palette. Words arrive as props. | `t()`, domain types, network calls, palette colours, `light:`. |
-| **2 — Product composites** | `@krizaka/<product>-design-system` (own repositories) | The product theme (`--kz-*` overrides) and the components that carry its vocabulary. | A copied or forked primitive. |
+| **2 — Product composites** | `@krizaka/<product>-design-system` (own repositories; Sovkora's, `@krizaka/orazaka-design-system`, lives in `packages/` since ADR-029) | The product theme (`--kz-*` overrides) and the components that carry its vocabulary. | A copied or forked primitive. |
 | **3 — App features** | the product apps | Screens, panels, editors, business forms, orchestration. | A generic component another product could reuse. |
 
 **Headless engines enter through a `@krizaka/*` package, never through a product**
@@ -70,7 +72,8 @@ apps, `@krizaka/config` enforces it: `krizakaStack()` (ESLint, counted by `kriza
 `@krizaka/config/dependency-cruiser`.
 
 Placement test: *"Could another product use it without changing a word or a type?"* Yes → level 1. *"Does it carry a
-product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 0 and 1 live in this repository.
+product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 0 and 1 live in this repository, with one exception decided by ADR-029: Sovkora's design
+system and shared contracts (`packages/orazaka-design-system`, `packages/orazaka-shared`), moved in from sovkora-ui-kit.
 (Exception by design: the product **marks** in `@krizaka/ui` are the brand layer, see `packages/ui/AGENTS.md`.)
 
 ## 3. Rules
@@ -151,7 +154,7 @@ product's identity or domain?"* → level 2. Otherwise → level 3. Only levels 
 
 Each package must be declared once on npmjs.com as trusted publisher: repository `krizaka/krizaka-ui`, workflow
 `release.yml`. `tokens`, `tailwind` and `ui` form one `fixed` group in `.changeset/config.json` (one shared
-version); `config`, `intl`, `i18n`, `icons`, `charts`, `fonts`, `realtime`, `query`, `push`, `pacer`, `discovery`, `app-client` and `app-desktop` version on their own. Pre-releases (`pnpm changeset pre enter <tag>`)
+version); `config`, `intl`, `i18n`, `icons`, `charts`, `fonts`, `realtime`, `query`, `push`, `pacer`, `discovery`, `app-client`, `app-desktop`, `orazaka-shared` and `orazaka-design-system` version on their own. Pre-releases (`pnpm changeset pre enter <tag>`)
 are for a coming major only; `main` is out of pre-release since 2.0.0.
 
 ## 5. Maintenance commands

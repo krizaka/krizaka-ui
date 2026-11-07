@@ -1,0 +1,116 @@
+{
+  "name": "@krizaka/orazaka-design-system",
+  "version": "3.4.0",
+  "description": "The Orazaka identity on the Krizaka platform: the Orazaka Orange theme (the Orazaka brand of @krizaka/tokens) and its named themes as --kz-* token overrides, the product composites (ChatShowcase, CommandPalette, SentinelMini, icon registry) with their documentation registry (krizaka.com/docs/orazaka/ui), and the @krizaka/ui primitives re-exported.",
+  "keywords": [
+    "orazaka",
+    "krizaka",
+    "design-system",
+    "theme",
+    "design-tokens",
+    "react",
+    "nextjs",
+    "tailwindcss",
+    "tailwind-v4"
+  ],
+  "homepage": "https://github.com/krizaka/krizaka-ui/tree/main/packages/orazaka-design-system#readme",
+  "bugs": "https://github.com/krizaka/krizaka-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krizaka/krizaka-ui.git",
+    "directory": "packages/orazaka-design-system"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka (https://www.krizaka.com)",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./theme.css": "./src/theme.css",
+    "./registry/examples/*": "./registry/examples/*.tsx",
+    "./registry/*": "./registry/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "!src/**/__tests__",
+    "registry",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "node scripts/build-registry.mjs",
+    "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "size": "size-limit",
+    "publint": "publint",
+    "prepack": "node scripts/build-registry.mjs"
+  },
+  "dependencies": {
+    "@krizaka/icons": "workspace:^",
+    "@krizaka/orazaka-shared": "workspace:^",
+    "@krizaka/tailwind": "workspace:^",
+    "@krizaka/tokens": "workspace:^",
+    "@krizaka/ui": "workspace:^",
+    "tailwind-variants": "^3.3.1"
+  },
+  "peerDependencies": {
+    "next": ">=15",
+    "react": ">=19",
+    "react-dom": ">=19",
+    "tailwindcss": "^4.1"
+  },
+  "devDependencies": {
+    "@krizaka/config": "^0.9.1",
+    "@size-limit/preset-small-lib": "^14.2.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitest/coverage-v8": "5.0.5",
+    "eslint": "^9.39.0",
+    "happy-dom": "^21.0.4",
+    "next": "^16.3.0",
+    "publint": "^0.3.25",
+    "react": "^19.3.1",
+    "react-docgen-typescript": "^2.4.0",
+    "react-dom": "^19.3.1",
+    "size-limit": "^14.2.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.0",
+    "vitest": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "size-limit": [
+    {
+      "name": ".",
+      "path": "src/index.ts",
+      "limit": "60 kB",
+      "gzip": true,
+      "ignore": [
+        "react",
+        "react-dom",
+        "next",
+        "@krizaka/ui",
+        "@krizaka/icons",
+        "@krizaka/orazaka-shared",
+        "@krizaka/tokens",
+        "@krizaka/tailwind",
+        "tailwind-variants"
+      ]
+    }
+  ]
+}
