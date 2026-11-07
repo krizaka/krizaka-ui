@@ -1,5 +1,18 @@
 # @krizaka/ui
 
+## 4.1.0
+
+### Minor Changes
+
+- [#972](https://github.com/krizaka/krizaka-ui/pull/972) [`9b63927`](https://github.com/krizaka/krizaka-ui/commit/9b63927f5f7ac45e0b1dce2b43b1ef7fece63e71) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `SiteFooter` draws a social account as its icon (`@krizaka/icons`) inside a link named by the account (« Instagram » for screen readers, icon decorative, 2 px focus ring, colour-only hover), and its `org` mode now reads `org.links.social` of `@krizaka/org` ≥ 1.1.0 like the `config` mode already did (`OrgFacts.links`, optional). An account with no glyph stays a text link. `@krizaka/icons` becomes a dependency.
+
+### Patch Changes
+
+- Updated dependencies [[`9b63927`](https://github.com/krizaka/krizaka-ui/commit/9b63927f5f7ac45e0b1dce2b43b1ef7fece63e71)]:
+  - @krizaka/icons@0.10.0
+  - @krizaka/tailwind@4.1.0
+  - @krizaka/tokens@4.1.0
+
 ## 4.0.0
 
 ### Major Changes
