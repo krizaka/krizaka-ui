@@ -34,7 +34,17 @@ export const TOLERATED = [
     why: "TikTok's own embed answers 400 / 429 to a headless browser and complains about its permissions policy: the platform's, behind a facade a visitor opens on purpose",
   },
   { contains: ["net::ERR_ABORTED"], why: "a request cancelled by a navigation or a prefetch" },
+  {
+    contains: ["[from a third-party frame]"],
+    why: "a third-party embed's own telemetry or CSP report (Google's csp.withgoogle.com, TikTok's mon.tiktokv.com), sent from its frame once a click woke it: that site's, not this page's (krizaka-internal#2882)",
+  },
 ];
+
+/** The mark put before a failed request sent by a third-party frame, so TOLERATED lists it without counting it. */
+export const THIRD_PARTY_FRAME = "[from a third-party frame]";
+
+/** Is this frame another site's page (an embed's iframe)? Our own pages, about:blank and a frame without a URL are not. */
+export const isThirdPartyFrame = (frameUrl, origin) => /^https?:\/\//.test(frameUrl ?? "") && new URL(frameUrl).origin !== origin;
 
 export function toleratedBy(text) {
   return TOLERATED.find((t) => t.contains.some((part) => text.includes(part)))?.why ?? null;
