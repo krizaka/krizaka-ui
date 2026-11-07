@@ -184,8 +184,9 @@ export function createInspector(rules: PreflightRules): DocumentPreflight {
       if (!/startxref/.test(tail) || !/%%EOF/.test(tail)) return reject("TRUNCATED");
       const names = pdfNames(raw);
       if (names.has("Encrypt")) return reject("ENCRYPTED");
-      const found = [...names].filter((name) => active.has(name));
-      if (found.length > 0) return reject("ACTIVE_CONTENT", found.sort().join(", "));
+      // Sorted by code unit (the order `Array#sort` gives strings), into a new array.
+      const found = [...names].filter((name) => active.has(name)).sort((a, b) => Number(a > b) - Number(a < b));
+      if (found.length > 0) return reject("ACTIVE_CONTENT", found.join(", "));
       return { kind: "accepted", fileKind: "pdf" };
     },
   };

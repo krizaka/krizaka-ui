@@ -51,30 +51,33 @@ export const exampleFileOf = (name, example) => join(EXAMPLES, name, `${example}
 export function reexportsFromUi() {
   const found = new Map();
   const seen = new Set();
+  const visitRelative = (file, from) => {
+    const base = resolvePath(dirname(file), from);
+    for (const candidate of [`${base}.ts`, `${base}.tsx`, join(base, "index.ts")]) visit(candidate);
+  };
   const visit = (file) => {
     if (seen.has(file) || !existsSync(file)) return;
     seen.add(file);
     const source = readFileSync(file, "utf8");
     for (const [, list, from] of source.matchAll(/export\s*\{([^}]+)\}\s*from\s*"([^"]+)"/g)) {
-      const names = list
-        .split(",")
-        .map((s) => s.trim())
-        .filter((s) => s && !s.startsWith("type "))
-        .map((s) => s.split(/\s+as\s+/).pop());
-      if (from.startsWith("@krizaka/ui")) for (const n of names) found.set(n, from);
-      else if (from.startsWith(".")) {
-        const base = resolvePath(dirname(file), from);
-        for (const candidate of [`${base}.ts`, `${base}.tsx`, join(base, "index.ts")]) visit(candidate);
-      }
+      if (from.startsWith("@krizaka/ui")) for (const n of exportedNames(list)) found.set(n, from);
+      else if (from.startsWith(".")) visitRelative(file, from);
     }
     for (const [, from] of source.matchAll(/export\s*\*\s*from\s*"([^"]+)"/g)) {
-      if (!from.startsWith(".")) continue;
-      const base = resolvePath(dirname(file), from);
-      for (const candidate of [`${base}.ts`, `${base}.tsx`, join(base, "index.ts")]) visit(candidate);
+      if (from.startsWith(".")) visitRelative(file, from);
     }
   };
   visit(join(SRC, "index.ts"));
   return [...found].map(([name, from]) => ({ name, from })).sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/** The value names of an `export { a, b as c, type T }` list, as exported (`a`, `c`): the types are left out. */
+function exportedNames(list) {
+  return list
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => s && !s.startsWith("type "))
+    .map((s) => s.split(/\s+/).pop());
 }
 
 /** A prop is the component's own when it is declared in the package (inherited DOM props are not). */
@@ -301,7 +304,7 @@ export async function collectFoundations() {
       };
     }),
     typeScale: Object.entries(own.get(":root") ?? {})
-      .filter(([n]) => /^--text-/.test(n))
+      .filter(([n]) => n.startsWith("--text-"))
       .map(([name, value]) => ({ name, value })),
     productTokens: overrides.product.map(([name, value]) => ({
       name,

@@ -6,11 +6,31 @@ import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
 
+/**
+ * The `selector { body }` pairs of a stylesheet whose body holds no brace, in order: the selector is the text since the
+ * last `{`, `}`, `@` or `;`, never empty (what `/([^{}@;]+)\{([^{}]*)\}/g` finds, in one linear pass).
+ */
+function ruleBlocks(css) {
+  const found = [];
+  let start = 0;
+  for (let i = 0; i < css.length; i++) {
+    const c = css[i];
+    if (c === "}" || c === "@" || c === ";") start = i + 1;
+    else if (c === "{") {
+      let end = i + 1;
+      while (end < css.length && css[end] !== "{" && css[end] !== "}") end++;
+      if (css[end] === "}" && start < i) found.push([css.slice(start, i), css.slice(i + 1, end)]);
+      start = i + 1;
+    }
+  }
+  return found;
+}
+
 /** Top-level `selector { declarations }` blocks of a stylesheet (comments removed, at-rules skipped). */
 export function blocks(css) {
   const flat = css.replace(/\/\*[\s\S]*?\*\//g, "");
   const out = new Map();
-  for (const [, selector, body] of flat.matchAll(/([^{}@;]+)\{([^{}]*)\}/g)) {
+  for (const [selector, body] of ruleBlocks(flat)) {
     const key = selector.trim().replace(/\s+/g, " ");
     // Only declarations closed by a semicolon count: the text after the last one is dropped.
     const declarations = Object.fromEntries(
