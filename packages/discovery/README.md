@@ -2,7 +2,7 @@
 
 Service discovery for the Krizaka **mobile apps**: they load their backend addresses from a **signed manifest** instead
 of hard-coding them, so moving a product (`dev.verikora.com` → `www.verikora.com`, a new edge) never forces a store
-republish. Decision and threat model: [ADR-003](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-003-mobile-service-discovery.md).
+republish. Decision and threat model: ADR-003.
 
 ```bash
 npm install @krizaka/discovery

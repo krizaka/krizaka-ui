@@ -1,7 +1,7 @@
 # @krizaka/app-desktop — Package Contract (agent-neutral)
 
 > Published on npm as **`@krizaka/app-desktop`**. Lives in `packages/app-desktop` of the krizaka-ui monorepo: the root
-> [`AGENTS.md`](../../AGENTS.md) applies first. Decision: [krizaka/.github ADR-005](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-005-tauri-app-kit.md).
+> [`AGENTS.md`](../../AGENTS.md) applies first. Decision: [krizaka/.github ADR-005](https://github.com/krizaka/krizaka-internal/blob/main/docs/adr/.github/ADR-005-tauri-app-kit.md).
 
 ## 1. What belongs here
 

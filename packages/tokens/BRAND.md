@@ -9,7 +9,7 @@ overrides). A product never re-invents its values: it imports its brand.
 
 | Brand | Identity | Why |
 | :-- | :-- | :-- |
-| **Krizaka** (parent) | **Ink + Krizaka steel blue** (hue 208, saturation ≤ 60 %). The neutral surfaces and text of the platform carry the brand; one muted steel blue, the core of the Krizaka mark, is the only accent. | The parent frames its products without competing with them: ink is neutral next to orange and violet, and the steel sits at 182° from the Sovkora orange (26), its exact complement. It replaced the saturated electric blue (hue 217, 92 %) of every AI product in 3.31 (krizaka-ui#393, [ADR-003](../../docs/adr/ADR-003-steel-blue-and-quiet-surfaces.md)). It is also the platform default (`tokens.css` = the Krizaka brand). |
+| **Krizaka** (parent) | **Ink + Krizaka steel blue** (hue 208, saturation ≤ 60 %). The neutral surfaces and text of the platform carry the brand; one muted steel blue, the core of the Krizaka mark, is the only accent. | The parent frames its products without competing with them: ink is neutral next to orange and violet, and the steel sits at 182° from the Sovkora orange (26), its exact complement. It replaced the saturated electric blue (hue 217, 92 %) of every AI product in 3.31 (krizaka-ui#393, ADR-003). It is also the platform default (`tokens.css` = the Krizaka brand). |
 | **Sovkora** (sovereign AI) | **Orange**, hue 26 — the accent and the mark share it. | Hue 38 (amber) is `--kz-warning`: a primary button, and since 2.1.0 the mark, must never read as a warning. The light theme's accent is the deep orange `#b45309`, also the first stop of the mark. `info` stays blue (an orange "info" would read as a warning). |
 | **Verikora** (documents, read and checked) | **Ink indigo** (藍, *ai*): the colour of writing and reading, a blue that leans to violet. The accent is the indigo (hue 240–242); the ink blue (hue 232) is the mark's first stop and `accent-2`. | The wheel is full, so the indigo is placed by test: ≥ 20° from the Krizaka steel (208), ≥ 60° from every other brand and every status. Dark: periwinkle under near-black text (6.3:1); light: deep indigo under white (8.7:1). `info` stays the Krizaka blue. |
 | **Folioviv** (the shop OS, Québec) | **Laurentian forest green + warm copper.** The green (hue 130) carries the accent; the copper (hue 20–22, saturation ≤ 62 %) is `accent-2` and the mark's end. | Green ≥ 20° from success (160) and every accent. The copper sits 4–6° from Sovkora's orange but is a matte metal (≤ 65 % vs ≥ 90 %, a test) and never stands alone. Dark: light green under near-black (8.9:1); light: deep green under white (6.7:1). |
@@ -100,7 +100,7 @@ carry the brand accent (`nodeColor="var(--kz-accent)"`). Utility glyphs (arrows,
 
 ## 4. Visual language for pages — the notebook (Cahier, ADR-004)
 
-Since 2026-10-20 ([ADR-004](../../docs/adr/ADR-004-cahier.md), krizaka-ui#417) the language of Krizaka pages is a
+Since 2026-10-20 (ADR-004, krizaka-ui#417) the language of Krizaka pages is a
 **field notebook**: paper and ink, the French Seyès ruling, a red margin, captions and specimen tags. It replaces the
 « depth and light » of the first identity (section washes, the dome, luminous isometric scenes on a perspective grid,
 depth of field), which read as a generated template.
@@ -164,7 +164,7 @@ Restraint is part of it: a page has one call to action in the accent; the rest i
 
 The angle of the hexagon, the chamfer of the icons: **the cut corner is the claw mark of the brand** — in what is
 *drawn*: the marks, the signature icons of `@krizaka/icons`, the isometric scenes, a mascot's frame. It is **not** on
-the controls any more (krizaka-ui#393, [ADR-003](../../docs/adr/ADR-003-steel-blue-and-quiet-surfaces.md)): a chamfered
+the controls any more (krizaka-ui#393, ADR-003): a chamfered
 button read as a gimmick next to the products' own identities. A `Button` has one shape, an 8 px radius
 (`--kz-radius-sm`, the radius of a field, so a button beside an input lines up), and `pill` on demand; `shape="cut"`
 is a deprecated alias of it until 4.0. `--kz-cut-size` / `cut.size` (native) stay for a drawn shape that needs one.

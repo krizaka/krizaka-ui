@@ -1,0 +1,26 @@
+{
+  "_": "The audit decisions of 2026 that keep an entry (issue) or merge it into another: read by tools/usage-inventory.mjs. Source: the ADR of the library audit, now internal.",
+  "merges": {
+    "kpi-explained": "stat",
+    "quota-meter": "meter",
+    "chip-row": "chip",
+    "mascot-state": "empty-state",
+    "nav-bar/me": "nav-bar",
+    "text-style/server": "text-style",
+    "tag-input": "tag-selector",
+    "glossary": "glossary-term",
+    "marketing-layout": "landing-page",
+    "choice-grid": "account-settings",
+    "goal-gauge": "meter",
+    "longform-page": "docs-article-page",
+    "step-progress": "stepper",
+    "photo-grid": "media-grid"
+  },
+  "issues": {
+    "glossary-term": "folioviv#260",
+    "kpi-explained": "folioviv#260",
+    "slot-picker": "folioviv#315",
+    "stuck": "folioviv#308",
+    "native/map": "folioviv#235"
+  }
+}
