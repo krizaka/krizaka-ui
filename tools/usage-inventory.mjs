@@ -240,6 +240,14 @@ export function readMeta(text) {
 
 const LIVE_REPOS = new Set([...CONSUMERS.map((c) => c.repo).filter(Boolean), "krizaka-ui", "sovkora-mobile"]);
 
+/** The decisions of the 2026 library audit (ADR-006 appendix A, now internal), kept as data in docs/inventory/prior-audit.json. */
+export function readPriorAuditFile(root = ROOT) {
+  const file = join(root, "docs/inventory/prior-audit.json");
+  if (!existsSync(file)) return { merges: new Map(), issues: new Map() };
+  const data = JSON.parse(readFileSync(file, "utf8"));
+  return { merges: new Map(Object.entries(data.merges ?? {})), issues: new Map(Object.entries(data.issues ?? {})) };
+}
+
 /** The decisions ADR-006 (appendix A) already took: `merge` rows (target) and the issues that keep an entry. */
 export function readPriorAudit(text) {
   const merges = new Map();
@@ -613,7 +621,6 @@ export function buildInventory(opts) {
   const motionKeys = new Set(Object.keys(motionPkg?.exports ?? { ".": 1 }));
   const srcDir = join(uiDir, "src");
   const dirs = readdirSync(srcDir).filter((d) => statSync(join(srcDir, d)).isDirectory());
-  const adr006 = join(ROOT, "docs/adr/ADR-006-krizaka-ui-2027.md");
   const dist = join(uiDir, "dist");
   const consumers = opts.consumers.map((c) => scanConsumer(c, keys, motionKeys, opts.prior, opts.restoreLocal));
   const paused = opts.paused.map((c) => scanConsumer(c, keys, motionKeys));
@@ -622,7 +629,7 @@ export function buildInventory(opts) {
     dirs,
     consumers,
     paused,
-    prior: existsSync(adr006) ? readPriorAudit(readFileSync(adr006, "utf8")) : { merges: new Map(), issues: new Map() },
+    prior: readPriorAuditFile(),
     history: history("packages/ui/src"),
     nativeHistory: history("packages/ui/src/native/meta"),
     budget: budgets(pkg["size-limit"]),
@@ -774,11 +781,10 @@ function staticProblems(inventory) {
   const keys = new Set(Object.keys(pkg.exports));
   const srcDir = join(uiDir, "src");
   const dirs = readdirSync(srcDir).filter((d) => statSync(join(srcDir, d)).isDirectory());
-  const adr006 = join(ROOT, "docs/adr/ADR-006-krizaka-ui-2027.md");
   const none = { last: new Map(), first: new Map() };
   const ctx = {
     srcDir, dirs, consumers: [], paused: [], history: none, nativeHistory: none, dist: "", hasDist: false, cache: new Map(),
-    prior: existsSync(adr006) ? readPriorAudit(readFileSync(adr006, "utf8")) : { merges: new Map(), issues: new Map() },
+    prior: readPriorAuditFile(),
     budget: budgets(pkg["size-limit"]),
     deps: internalDeps(srcDir, dirs, [...keys].map((k) => k.slice(2))),
     storyFiles: [...walk(srcDir), ...walk(join(ROOT, "apps/storybook/src"))].filter((f) => f.includes(".stories.")),

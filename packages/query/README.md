@@ -1,7 +1,7 @@
 # @krizaka/query
 
 Server state for every Krizaka app — **TanStack Query v5** behind one Krizaka package. A product imports
-`@krizaka/query`, never `@tanstack/*` ([ADR-001](../../docs/adr/ADR-001-tanstack-under-krizaka-facades.md)): this
+`@krizaka/query`, never `@tanstack/*` (ADR-001): this
 package's version is the contract, and a TanStack break is fixed here once.
 
 ```bash

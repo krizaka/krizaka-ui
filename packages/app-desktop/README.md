@@ -2,7 +2,7 @@
 
 What every Krizaka **Mac app** (Tauri 2) calls on its native side, typed — the page half of `tauri-plugin-krizaka`
 ([krizaka-desktop](https://github.com/krizaka/krizaka-desktop)). Decision:
-[ADR-005](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-005-tauri-app-kit.md).
+ADR-005.
 
 ```bash
 npm install @krizaka/app-desktop @krizaka/app-client
