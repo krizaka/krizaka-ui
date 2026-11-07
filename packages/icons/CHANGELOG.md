@@ -1,5 +1,11 @@
 # @krizaka/icons
 
+## 0.10.0
+
+### Minor Changes
+
+- [#972](https://github.com/krizaka/krizaka-ui/pull/972) [`9b63927`](https://github.com/krizaka/krizaka-ui/commit/9b63927f5f7ac45e0b1dce2b43b1ef7fece63e71) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - New `instagram` glyph (`InstagramIcon`, web and native): the company's account as a monochrome outline (cut-cornered frame, lens, flash dot), meant only as a link to the account — no gradient, no node.
+
 ## 0.9.2
 
 ### Patch Changes
