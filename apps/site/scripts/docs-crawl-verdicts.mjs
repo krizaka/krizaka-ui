@@ -73,6 +73,14 @@ export const isHarmlessClickError = (message) => HARMLESS_CLICK_ERRORS.some((par
 export const UNREACHABLE_HOST_ERRORS = ["ENOTFOUND", "certificate"];
 export const isUnreachableHost = (status) => UNREACHABLE_HOST_ERRORS.some((part) => status.includes(part));
 
+/** Is a link dead? `status` is the HTTP status, or the error text when there was no answer. A host that cannot be reached is
+    dead; on our own site any 4xx/5xx is; other sites often refuse a robot (403, 429, 999), so there only a 404/410 is. */
+export function isDeadLink(status, internal) {
+  if (typeof status === "string") return isUnreachableHost(status);
+  if (internal) return status >= 400;
+  return status === 404 || status === 410;
+}
+
 /** The name of a component page (`/components/button/`, `/fr/components/button`), or null. Deeper paths are not component pages. */
 export function componentPageName(path) {
   if (!path.startsWith("/")) return null;

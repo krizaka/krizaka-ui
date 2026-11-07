@@ -36,9 +36,9 @@ import { parseArgs, pathsOfSitemap, pickShard, pickSubset } from "./docs-crawl-p
 import { buildReport } from "./docs-crawl-report.mjs";
 import {
   htmlDeclaresAnchor,
+  isDeadLink,
   isFailedResourceLine,
   isReactError,
-  isUnreachableHost,
   PERMISSIONS_POLICY,
   toleratedBy,
 } from "./docs-crawl-verdicts.mjs";
@@ -103,6 +103,11 @@ async function main() {
     const page = await context.newPage();
     let phase = "load";
     const note = (category, detail) => add(path, view, category, phase === "interaction" ? `[during an interaction] ${detail}` : detail);
+    // A React error is one whatever the phase; any other error raised during an interaction is the interaction's.
+    const errorCategory = (message, otherwise) => {
+      if (isReactError(message)) return "react-error";
+      return phase === "interaction" ? "interaction-error" : otherwise;
+    };
     page.on("console", (m) => {
       if (m.type() !== "error") return;
       const text = m.text();
@@ -113,9 +118,9 @@ async function main() {
       // The console of a third-party embed that a click woke (Instagram's reel player, a report-only CSP, its own error
       // handler) is that site's, not this page's: the page's own errors keep their origin and are still reported.
       if (phase === "interaction" && /^https?:\/\//.test(m.location()?.url ?? "") && !m.location().url.startsWith(origin)) return;
-      note(isReactError(text) ? "react-error" : phase === "interaction" ? "interaction-error" : "console-error", text.slice(0, 220) + from);
+      note(errorCategory(text, "console-error"), text.slice(0, 220) + from);
     });
-    page.on("pageerror", (e) => note(isReactError(e.message) ? "react-error" : phase === "interaction" ? "interaction-error" : "page-error", e.message.slice(0, 220)));
+    page.on("pageerror", (e) => note(errorCategory(e.message, "page-error"), e.message.slice(0, 220)));
     page.on("requestfailed", (r) => note("failed-request", `${r.method()} ${r.url().replace(origin, "")} — ${r.failure()?.errorText}`));
     page.on("response", (r) => {
       if (r.status() >= 400 && !r.url().startsWith("data:")) note("http-error", `${r.status()} ${r.url().replace(origin, "")}`);
@@ -224,7 +229,7 @@ async function main() {
       const url = new URL(href);
       const internal = url.origin === origin;
       const status = await fetchStatus(url.origin + url.pathname + url.search);
-      const dead = typeof status === "string" ? isUnreachableHost(status) : internal ? status >= 400 : status === 404 || status === 410;
+      const dead = isDeadLink(status, internal);
       let anchorDead = false;
       if (!dead && internal && url.hash && status === 200) {
         const id = decodeURIComponent(url.hash.slice(1));

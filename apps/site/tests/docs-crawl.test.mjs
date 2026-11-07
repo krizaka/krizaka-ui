@@ -8,6 +8,7 @@ import {
   componentOfPath,
   componentPageName,
   htmlDeclaresAnchor,
+  isDeadLink,
   isHarmlessClickError,
   isReactError,
   isUnreachableHost,
@@ -139,4 +140,16 @@ test("click errors that only say the example moved are harmless; an unreachable 
   assert.equal(isUnreachableHost("error: getaddrinfo ENOTFOUND x"), true);
   assert.equal(isUnreachableHost("error: certificate has expired"), true);
   assert.equal(isUnreachableHost("error: ECONNRESET"), false);
+});
+
+test("a link is dead when its host is unreachable, on our site at any 4xx/5xx, elsewhere only at 404 or 410", () => {
+  assert.equal(isDeadLink("getaddrinfo ENOTFOUND dev.example.com", false), true);
+  assert.equal(isDeadLink("socket hang up", true), false);
+  assert.equal(isDeadLink(403, true), true);
+  assert.equal(isDeadLink(500, true), true);
+  assert.equal(isDeadLink(200, true), false);
+  assert.equal(isDeadLink(403, false), false);
+  assert.equal(isDeadLink(429, false), false);
+  assert.equal(isDeadLink(404, false), true);
+  assert.equal(isDeadLink(410, false), true);
 });

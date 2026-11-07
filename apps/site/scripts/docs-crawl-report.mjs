@@ -19,6 +19,12 @@ export function failuresByComponent(failures) {
   return byComponent;
 }
 
+/* « interaction-error ×2, http-error ×1 »: the counts of one component or page, per category. */
+const countsOf = (byCategory) =>
+  Object.entries(byCategory)
+    .map(([c, n]) => `${c} ×${n}`)
+    .join(", ");
+
 export function buildReport(opts, paths, problems) {
   const { counts, tolerated } = summarize(problems);
   const failures = problems.filter((p) => !p.tolerated);
@@ -35,7 +41,7 @@ export function buildReport(opts, paths, problems) {
     "## By component or page",
     ...Object.entries(byComponent)
       .sort((a, b) => sum(b[1]) - sum(a[1]))
-      .map(([k, v]) => `- ${k}: ${Object.entries(v).map(([c, n]) => `${c} ×${n}`).join(", ")}`),
+      .map(([k, v]) => `- ${k}: ${countsOf(v)}`),
     "",
     "## Problems",
     ...failures.map((p) => `- [${p.category}] ${p.view} ${p.page} — ${p.detail}`),
