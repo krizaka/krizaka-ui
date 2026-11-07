@@ -3,7 +3,7 @@
 > Published on npm as **`@krizaka/orazaka-shared`**. Lives in `packages/orazaka-shared` of the krizaka-ui monorepo since
 > ADR-029 (moved from `krizaka/sovkora-ui-kit`, whose history stays in that repository's bundle): the root
 > [`AGENTS.md`](../../AGENTS.md) applies first. Its consumers are the Sovkora apps (`apps/web`, `apps/mobile`,
-> `apps/desktop` of krizaka/sovkora) and `@krizaka/orazaka-design-system`. The npm name keeps the code name until
+> `apps/desktop` of krizaka/sovkora) and `@krizaka/sovkora-design-system`. The npm name keeps the code name until
 > krizaka-internal#2872.
 
 ## 1. What belongs here
@@ -11,7 +11,7 @@
 - **The contracts the Sovkora apps share**, framework-agnostic: the Zod schemas and their types (jobs, runs, automations,
   billing, packs, studios, the intent envelope, the workflow context), the document pre-flight (`createInspector`,
   `documentRules`…) and the design tokens for React Native and the CLI (`tokens`, `themes`, `status`…).
-- Not here: a component (`@krizaka/orazaka-design-system`), a network call, a value read from the environment.
+- Not here: a component (`@krizaka/sovkora-design-system`), a network call, a value read from the environment.
 
 ## 2. Rules
 

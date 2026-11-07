@@ -6,17 +6,17 @@ import { krizakaStack } from "@krizaka/config/eslint/stack";
 export default [
   ...krizakaBase,
   // The platform's primitives hold the line the products are asked to reach: the four UI rules, strict, no allowlist.
-  ...krizakaUi({ files: ["packages/ui/src/**/*.{jsx,tsx}", "packages/ui/registry/examples/**/*.tsx", "packages/charts/src/**/*.tsx", "packages/charts/registry/examples/**/*.tsx", "packages/orazaka-design-system/src/**/*.tsx", "packages/orazaka-design-system/registry/examples/**/*.tsx"] }),
-  // The Orazaka design system (moved in from sovkora-ui-kit, ADR-029) keeps its own cap: 250 lines a file, except a
+  ...krizakaUi({ files: ["packages/ui/src/**/*.{jsx,tsx}", "packages/ui/registry/examples/**/*.tsx", "packages/charts/src/**/*.tsx", "packages/charts/registry/examples/**/*.tsx", "packages/sovkora-design-system/src/**/*.tsx", "packages/sovkora-design-system/registry/examples/**/*.tsx"] }),
+  // The Sovkora design system (moved in from sovkora-ui-kit, ADR-029) keeps its own cap: 250 lines a file, except a
   // `*.registry.ts(x)` data file, which holds data only — a function in one is a component that must move out.
   {
-    name: "krizaka-ui/orazaka-design-system",
-    files: ["packages/orazaka-design-system/**/*.{ts,tsx}"],
+    name: "krizaka-ui/sovkora-design-system",
+    files: ["packages/sovkora-design-system/**/*.{ts,tsx}"],
     rules: { "max-lines": ["error", { max: 250, skipBlankLines: false, skipComments: false }] },
   },
   {
-    name: "krizaka-ui/orazaka-design-system-registries",
-    files: ["packages/orazaka-design-system/**/*.registry.{ts,tsx}"],
+    name: "krizaka-ui/sovkora-design-system-registries",
+    files: ["packages/sovkora-design-system/**/*.registry.{ts,tsx}"],
     rules: {
       "max-lines": "off",
       "no-restricted-syntax": [
