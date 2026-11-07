@@ -1,7 +1,7 @@
 # DigitalOcean builds ui.krizaka.com on every push to main (apps/site/deploy/app.yaml): wait until the live site serves this commit
 # (/build.json, apps/site/scripts/build-info.mjs), then IndexNow (changed URLs only) and the family's SEO guard on the live host.
 # Red opens one issue here (krizaka/.github#438).
-name: post-deploy
+name: Post-deploy check
 
 on:
   push:

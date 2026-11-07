@@ -106,6 +106,26 @@ pnpm changeset         # describe a change that ships
 
 pnpm + Turborepo, released with Changesets. The rules are in [AGENTS.md](AGENTS.md).
 
+<!-- krizaka:workflows:start -->
+## Workflows
+
+What runs in the Actions tab of this repository.
+
+- **Bump @krizaka packages** (`bump-krizaka.yml`): Opens one auto-merged PR that bumps the @krizaka packages after a release. Runs when another repository triggers it, on demand.
+- **CI** (`ci.yml`): Lint, tests and build of the repository. Runs on push, on every pull request, in the merge queue, on demand.
+- **Consumer smoke** (`consumer-smoke.yml`): Installs the published packages in a consumer app and checks they work. Runs on a schedule, on push, on demand, on every pull request.
+- **Dependabot auto-merge** (`dependabot-automerge.yml`): Auto-merges safe Dependabot updates. Runs on every pull request.
+- **Documentation crawl** (`docs-crawl.yml`): Crawls the documentation site for broken links. Runs on a schedule, on demand.
+- **Docs map** (`docs-map.yml`): Checks the docs map of the repository. Runs on every pull request.
+- **Merge resolution** (`merge-resolution.yml`): Fails a PR that drops what main added without a deletion-explained line. Runs on every pull request.
+- **Post-deploy check** (`post-deploy.yml`): Waits for the live site to serve the new build, then pings IndexNow. Runs on push, on demand.
+- **Release** (`release.yml`): Versions and publishes the packages (Changesets). Runs on push, on demand.
+- **Scorecard** (`scorecard.yml`): OpenSSF Scorecard of the repository. Runs when branch rules change, on a schedule, on demand.
+- **Security scan** (`security.yml`): Secret scan (gitleaks) and workflow scan (zizmor); both are required checks. Runs on every pull request, in the merge queue, on push.
+- **Update baselines** (`update-baselines.yml`): Refreshes the visual baselines on demand. Runs on demand.
+- **Usage inventory** (`usage-inventory.yml`): Opens a PR when who uses which @krizaka/ui entry changes. Runs on a schedule, on demand.
+<!-- krizaka:workflows:end -->
+
 ## License
 
 [Apache-2.0](LICENSE)
