@@ -40,7 +40,7 @@ export const iconGuidelines = /* @__PURE__ */ Object.freeze({
   grammar: [
     "A 24-unit grid, live area 2–22, one pen stroke (1.5) with square caps and mitred joins — a line drawn with a nib, not a rounded marker (Cahier, ADR-004).",
     "Containers have cut corners — 45° chamfers, the angle of the Krizaka hexagon — where other sets round them.",
-    "A node (a filled dot, r 1.6) on every product icon, none on utility glyphs. No currency sign, no logo inside an icon.",
+    "A node (a filled dot, r 1.6) on every product icon, none on utility glyphs. No currency sign, no logo inside an icon. The one account glyph (`instagram`) is monochrome and only ever links to the company's own account (the platform's brand rules allow the glyph, not the gradient); it carries no node.",
   ],
   sizes: [
     { size: 16, use: "Dense tables, inline with 12–14 px text. Keep the default stroke: the icon thins with it." },

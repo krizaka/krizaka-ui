@@ -17,7 +17,7 @@ const settings: FooterSettings = {
     showVersion: true,
     links: [{ labelKey: "footer.privacy", href: "#privacy" }],
   },
-  social: ["github"],
+  social: ["instagram"],
 };
 
 const messages: Record<string, string> = {
@@ -31,7 +31,7 @@ const messages: Record<string, string> = {
 };
 
 export default function SiteFooterConfigured() {
-  const socials = [{ id: "github", label: "GitHub", url: "https://github.com/krizaka" }];
+  const socials = [{ id: "instagram", label: "Instagram", url: "https://www.instagram.com/krizakahq" }];
   const config = resolveFooterSettings(settings, (key) => messages[key] ?? key, socials);
   return <SiteFooter current="verikora" labels={familyLabels.en} version="1.2.3" config={config} />;
 }

@@ -103,7 +103,9 @@ describe("SiteFooter with a config", () => {
     expect(text.split("Technologies Krizaka")).toHaveLength(2);
     expect(text).toContain("v0.15.0");
     expect(screen.queryByRole("link", { name: /v0\.15\.0/ })).toBeNull();
-    expect(screen.getByRole("link", { name: "Instagram" }).getAttribute("href")).toBe("https://www.instagram.com/krizakahq");
+    const instagram = screen.getByRole("link", { name: "Instagram" });
+    expect(instagram.getAttribute("href")).toBe("https://www.instagram.com/krizakahq");
+    expect(instagram.querySelector("svg")?.getAttribute("data-kz-icon")).toBe("InstagramIcon");
     expect(screen.getByRole("link", { name: "Krizaka" }).getAttribute("href")).toBe("https://www.krizaka.com");
   });
 
