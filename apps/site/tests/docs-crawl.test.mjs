@@ -11,6 +11,7 @@ import {
   isDeadLink,
   isHarmlessClickError,
   isReactError,
+  isThirdPartyFrame,
   isUnreachableHost,
   locsOfSitemap,
   parseArgs,
@@ -19,6 +20,7 @@ import {
   pickShard,
   pickSubset,
   summarize,
+  THIRD_PARTY_FRAME,
   toleratedBy,
 } from "../scripts/docs-crawl.mjs";
 import { failuresByComponent } from "../scripts/docs-crawl-report.mjs";
@@ -101,6 +103,18 @@ test("tolerated: a text that contains a listed part, with its reason", () => {
   assert.match(toleratedBy("https://www.tiktok.com/embed"), /TikTok/);
   assert.match(toleratedBy("GET /x — net::ERR_ABORTED"), /cancelled/);
   for (const text of ["tiktokcdn.com", "tiktok com", "krizaka-assets.b-cdn.net/maps/v2/", "net::ERR_FAILED"]) assert.equal(toleratedBy(text), null, text);
+});
+
+// krizaka-internal#2882: the merge group of krizaka-ui#975 went red on 11 failed CSP reports that Google's embed sent from its own
+// frame (csp.withgoogle.com, ERR_BLOCKED_BY_ORB); the nightly crawl on TikTok's telemetry (mon.tiktokv.com). Our page's requests still count.
+test("a failed request of a third-party frame is that site's, tolerated; our page's still counts", () => {
+  const origin = "https://ui.krizaka.com";
+  assert.equal(isThirdPartyFrame("https://www.youtube-nocookie.com/embed/x", origin), true);
+  assert.equal(isThirdPartyFrame("https://www.tiktok.com/embed/v2/1", origin), true);
+  for (const url of [origin + "/components/embed-facade/", origin, "about:blank", "", undefined])
+    assert.equal(isThirdPartyFrame(url, origin), false, String(url));
+  assert.match(toleratedBy(`${THIRD_PARTY_FRAME} POST https://csp.withgoogle.com/csp/x — net::ERR_BLOCKED_BY_ORB`), /third-party/);
+  assert.equal(toleratedBy("POST https://csp.withgoogle.com/csp/x — net::ERR_BLOCKED_BY_ORB"), null);
 });
 
 test("the sitemap: each <loc> is trimmed, one word, no markup inside", () => {

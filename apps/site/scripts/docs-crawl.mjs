@@ -39,12 +39,23 @@ import {
   isDeadLink,
   isFailedResourceLine,
   isReactError,
+  isThirdPartyFrame,
   PERMISSIONS_POLICY,
+  THIRD_PARTY_FRAME,
   toleratedBy,
 } from "./docs-crawl-verdicts.mjs";
 
 export * from "./docs-crawl-pages.mjs";
 export * from "./docs-crawl-verdicts.mjs";
+
+/** The URL of the frame that sent a request; a service worker's request has no frame (it is the page's). */
+function frameUrlOf(request) {
+  try {
+    return request.frame().url();
+  } catch {
+    return undefined;
+  }
+}
 
 const VIEWPORTS = { desktop: { width: 1440, height: 900, scale: 1 }, phone: { width: 390, height: 844, scale: 2 } };
 
@@ -121,7 +132,11 @@ async function main() {
       note(errorCategory(text, "console-error"), text.slice(0, 220) + from);
     });
     page.on("pageerror", (e) => note(errorCategory(e.message, "page-error"), e.message.slice(0, 220)));
-    page.on("requestfailed", (r) => note("failed-request", `${r.method()} ${r.url().replace(origin, "")} — ${r.failure()?.errorText}`));
+    // A request that a third-party frame sends (an embed's telemetry, its CSP reports) is marked, and TOLERATED lists it without counting it.
+    page.on("requestfailed", (r) => {
+      const detail = `${r.method()} ${r.url().replace(origin, "")} — ${r.failure()?.errorText}`;
+      note("failed-request", isThirdPartyFrame(frameUrlOf(r), origin) ? `${THIRD_PARTY_FRAME} ${detail}` : detail);
+    });
     page.on("response", (r) => {
       if (r.status() >= 400 && !r.url().startsWith("data:")) note("http-error", `${r.status()} ${r.url().replace(origin, "")}`);
     });
