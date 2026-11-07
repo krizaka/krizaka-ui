@@ -2,7 +2,7 @@
 
 Cadence for every Krizaka app — debounce, throttle, a job queue and a client rate limiter on **TanStack Pacer** (beta),
 behind one Krizaka package. A product imports `@krizaka/pacer`, never `@tanstack/pacer`
-([ADR-001](../../docs/adr/ADR-001-tanstack-under-krizaka-facades.md)): this package's version is the contract.
+(ADR-001): this package's version is the contract.
 
 ```bash
 npm install @krizaka/pacer

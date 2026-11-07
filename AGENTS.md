@@ -31,7 +31,7 @@ krizaka-ui/                 # pnpm workspace + Turborepo
 │  ├─ a11y-audit/           # @krizaka/a11y-audit — the accessibility guard of the products' page audits: axe-core (WCAG 2.1 AA) on a Playwright page + a ratchet baseline (Node, test tool)
 ├─ tools/                   # not published — inventory.mjs (the duplicate audit of the products), consumer-smoke/ (the published
 │                           #   packages in fresh Next.js · Expo · Node apps), and their tests
-├─ docs/adr/                # the architecture decisions (ADR-001: TanStack under @krizaka facades; ADR-002: desktop is the web in a window)
+├─ docs/adr/                # a pointer only: the architecture decisions are internal (krizaka-internal, docs/adr/krizaka-ui/)
 ├─ renovate/krizaka.json    # the Renovate preset the products extend (group krizaka, patches automerged)
 ├─ .changeset/              # one file per change that ships
 ├─ eslint.config.mjs       # the monorepo lints itself with @krizaka/config
@@ -62,7 +62,7 @@ a copy between a product and this repository — the version is the contract.
 | **3 — App features** | the product apps | Screens, panels, editors, business forms, orchestration. | A generic component another product could reuse. |
 
 **Headless engines enter through a `@krizaka/*` package, never through a product**
-([ADR-001](docs/adr/ADR-001-tanstack-under-krizaka-facades.md)). TanStack (Query, Table, Form, Virtual, Pacer,
+([ADR-001](https://github.com/krizaka/krizaka-internal/blob/main/docs/adr/krizaka-ui/ADR-001-tanstack-under-krizaka-facades.md)). TanStack (Query, Table, Form, Virtual, Pacer,
 Charts, Markdown, Highlight) is imported by the `@krizaka/*` packages only — `@krizaka/query`, `@krizaka/ui/data-table`,
 `@krizaka/ui/form`, `@krizaka/ui/virtual`, `@krizaka/pacer`… — and a product imports the facade, never `@tanstack/*`:
 the facade's version is the contract, a TanStack break is fixed here once. The same holds for any future engine. In the
@@ -248,7 +248,7 @@ These are the defects code review found most often on 2026-10-23. Check them you
 ## 9. Anti-slop (ADR-015)
 
 What a model tends to write and the code does not need. Each line points at the rule that refuses it
-([ADR-015](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-015-ai-code-audit-measured-and-enforced.md), [docs/standards/guards.md](https://github.com/krizaka/.github/blob/main/docs/standards/guards.md)).
+([ADR-015](https://github.com/krizaka/krizaka-internal/blob/main/docs/adr/.github/ADR-015-ai-code-audit-measured-and-enforced.md), [docs/standards/guards.md](https://github.com/krizaka/.github/blob/main/docs/standards/guards.md)).
 
 1. **No defensive null on `@NullMarked` code.** No `Objects.requireNonNull` or `if (x == null)` on a value the type already
    guarantees. Enforced by NullAway at compile time; a new package is `@NullMarked` (ArchUnit).

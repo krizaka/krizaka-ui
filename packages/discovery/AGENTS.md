@@ -1,7 +1,7 @@
 # @krizaka/discovery — Package Contract (agent-neutral)
 
 > Published on npm as **`@krizaka/discovery`**. Lives in `packages/discovery` of the krizaka-ui monorepo: the root
-> [`AGENTS.md`](../../AGENTS.md) applies first. Decision: [krizaka/.github ADR-003](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-003-mobile-service-discovery.md).
+> [`AGENTS.md`](../../AGENTS.md) applies first. Decision: [krizaka/.github ADR-003](https://github.com/krizaka/krizaka-internal/blob/main/docs/adr/.github/ADR-003-mobile-service-discovery.md).
 
 ## 1. What belongs here
 

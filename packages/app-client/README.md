@@ -1,7 +1,7 @@
 # @krizaka/app-client
 
 What every Krizaka **Expo app** shares, written once: the bearer session, the discovery client and the API client.
-Decision: [ADR-004](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-004-expo-app-shell.md).
+Decision: ADR-004.
 
 ```bash
 npm install @krizaka/app-client

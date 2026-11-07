@@ -1,7 +1,7 @@
 # @krizaka/app-client — Package Contract (agent-neutral)
 
 > Published on npm as **`@krizaka/app-client`**. Lives in `packages/app-client` of the krizaka-ui monorepo: the root
-> [`AGENTS.md`](../../AGENTS.md) applies first. Decision: [krizaka/.github ADR-004](https://github.com/krizaka/.github/blob/main/docs/adr/ADR-004-expo-app-shell.md).
+> [`AGENTS.md`](../../AGENTS.md) applies first. Decision: [krizaka/.github ADR-004](https://github.com/krizaka/krizaka-internal/blob/main/docs/adr/.github/ADR-004-expo-app-shell.md).
 
 ## 1. What belongs here
 
