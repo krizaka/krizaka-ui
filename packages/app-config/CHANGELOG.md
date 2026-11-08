@@ -1,5 +1,11 @@
 # @krizaka/app-config
 
+## 0.2.2
+
+### Patch Changes
+
+- [#964](https://github.com/krizaka/krizaka-ui/pull/964) [`7fabbe1`](https://github.com/krizaka/krizaka-ui/commit/7fabbe1f35e05939af2e30dfbbeaa7b646ab68d1) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The README and AGENTS link the Java twin where it lives now: `krizaka-java`, folder `krizaka-service-kit/krizaka-app-config` (the old `krizaka-platform-kit` repository was deleted).
+
 ## 0.2.1
 
 ### Patch Changes
