@@ -1,7 +1,7 @@
 # @krizaka/app-desktop
 
 What every Krizaka **Mac app** (Tauri 2) calls on its native side, typed — the page half of `tauri-plugin-krizaka`
-([krizaka-desktop](https://github.com/krizaka/krizaka-desktop)). Decision:
+([krizaka-rust](https://github.com/krizaka/krizaka-rust)). Decision:
 ADR-005.
 
 ```bash
