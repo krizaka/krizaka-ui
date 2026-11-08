@@ -189,6 +189,8 @@ export const sound: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M3.5 9.5H7l5-4.
 export const mute: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M3.5 9.5H7l5-4.5v14l-5-4.5H3.5z","M16 9.5l5 5M21 9.5l-5 5"] });
 /** instagram social account link camera photo */
 export const instagram: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M8 3H16L21 8V16L16 21H8L3 16V8Z","M17.5 6.5h.01"], c: [[12,12,4]] });
+/** youtube video watch social account link */
+export const youtube: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5 5H19L21 7V17L19 19H5L3 17V7Z","M9.5 9L16.5 12L9.5 15Z"] });
 /** flag report abuse moderation */
 export const flag: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5 21V3.5","M5 4.5c2.3-1.4 4.7-1.4 7 0s4.7 1.4 7 0v8.5c-2.3 1.4-4.7 1.4-7 0s-4.7-1.4-7 0"] });
 
@@ -663,6 +665,11 @@ export const glyphIndex = {
     "component": "InstagramIcon",
     "group": "interface",
     "keywords": "instagram social account link camera photo"
+  },
+  "youtube": {
+    "component": "YoutubeIcon",
+    "group": "interface",
+    "keywords": "youtube video watch social account link"
   },
   "flag": {
     "component": "FlagIcon",

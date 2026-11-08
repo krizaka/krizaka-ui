@@ -5,7 +5,7 @@
 //   3. one line: the mark and the org's signature, the version, the legal links, the host's controls (language, theme).
 // On a phone the family's groups fold (`<details>`), the rest wraps. `variant="app"` keeps line 3 only. Same structure on
 // the Cahier sites and the products (`tone`). No link twice, no site block, no names typed here when `org` is given.
-import { InstagramIcon } from "@krizaka/icons";
+import { InstagramIcon, YoutubeIcon } from "@krizaka/icons";
 import { Slot } from "radix-ui";
 import * as React from "react";
 import { tv } from "tailwind-variants";
@@ -351,7 +351,7 @@ function ConfigBottom({
 }
 
 /** Icons of the accounts a glyph exists for; any other account stays a text link. */
-const SOCIAL_ICONS: Readonly<Partial<Record<string, typeof InstagramIcon>>> = { instagram: InstagramIcon };
+const SOCIAL_ICONS: Readonly<Partial<Record<string, typeof InstagramIcon>>> = { instagram: InstagramIcon, youtube: YoutubeIcon };
 
 /** The company's accounts: each is its icon (decorative) in a link named by the account, opening in a new tab. */
 function FooterSocials({ s, links }: Readonly<{ s: ReturnType<typeof siteFooter>; links: readonly { id: string; label: string; href: string }[] }>) {

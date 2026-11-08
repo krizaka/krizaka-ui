@@ -190,5 +190,7 @@ export const SoundIcon = /* @__PURE__ */ createNativeIcon("SoundIcon", g.sound);
 export const MuteIcon = /* @__PURE__ */ createNativeIcon("MuteIcon", g.mute);
 /** instagram social account link camera photo */
 export const InstagramIcon = /* @__PURE__ */ createNativeIcon("InstagramIcon", g.instagram);
+/** youtube video watch social account link */
+export const YoutubeIcon = /* @__PURE__ */ createNativeIcon("YoutubeIcon", g.youtube);
 /** flag report abuse moderation */
 export const FlagIcon = /* @__PURE__ */ createNativeIcon("FlagIcon", g.flag);
