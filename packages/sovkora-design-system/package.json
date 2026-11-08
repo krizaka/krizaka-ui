@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/sovkora-design-system",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "The Sovkora identity on the Krizaka platform: the Sovkora Orange theme (the Sovkora brand of @krizaka/tokens) and its named themes as --kz-* token overrides, the product composites (ChatShowcase, CommandPalette, SentinelMini, icon registry) with their documentation registry (krizaka.com/docs/sovkora/ui), and the @krizaka/ui primitives re-exported.",
   "keywords": [
     "sovkora",
