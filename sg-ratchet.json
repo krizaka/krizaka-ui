@@ -1,20 +1,20 @@
 {
   "counters": {
-    "no-ambient-clock": 44,
+    "no-ambient-clock": 35,
     "no-db-in-service-or-rules": 0,
-    "no-enum-string-compare": 98,
+    "no-enum-string-compare": 77,
     "no-env-in-domain": 1,
     "no-get-time-arithmetic": 4,
     "no-get-time-difference": 4,
     "no-hand-ms-days": 0,
     "no-hand-ms-hours": 1,
-    "no-hand-ms-minutes": 1,
+    "no-hand-ms-minutes": 0,
     "no-hand-ms-one-hour": 0,
-    "no-hand-written-validation-regex": 37,
-    "no-sort-without-compare": 38,
-    "no-sync-fs-in-runtime": 24,
+    "no-hand-written-validation-regex": 33,
+    "no-sort-without-compare": 18,
+    "no-sync-fs-in-runtime": 23,
     "no-ts-enum": 0,
     "no-types-at-package-root": 2,
-    "no-unjustified-numeric-export": 17
+    "no-unjustified-numeric-export": 16
   }
 }
