@@ -15,7 +15,7 @@ describe("the set", () => {
   it("covers the product vocabulary and the usual navigation (40–100 icons)", () => {
     expect(names.length).toBeGreaterThanOrEqual(40);
     expect(names.length).toBeLessThanOrEqual(100);
-    for (const word of ["tip", "unlock", "paid", "auction", "challenge", "goal", "creator", "story", "story24h", "payout", "wallet", "share90", "lock", "follow", "message", "upload", "video", "chat", "ai", "agent", "studio", "pack", "automation", "knowledge", "shield", "local", "server", "billing", "credits", "theme", "search", "settings", "notification", "soccer", "hockey", "basketball", "trophy", "medal", "podium", "star", "bolt", "wave", "flame", "crown", "leaf", "mountain", "instagram"]) {
+    for (const word of ["tip", "unlock", "paid", "auction", "challenge", "goal", "creator", "story", "story24h", "payout", "wallet", "share90", "lock", "follow", "message", "upload", "video", "chat", "ai", "agent", "studio", "pack", "automation", "knowledge", "shield", "local", "server", "billing", "credits", "theme", "search", "settings", "notification", "soccer", "hockey", "basketball", "trophy", "medal", "podium", "star", "bolt", "wave", "flame", "crown", "leaf", "mountain", "instagram", "youtube"]) {
       expect(names, word).toContain(word);
     }
   });
@@ -29,6 +29,18 @@ describe("the set", () => {
     const { container } = render(<icons.InstagramIcon title="Instagram" />);
     const svg = container.querySelector("svg")!;
     expect(svg.getAttribute("aria-label")).toBe("Instagram");
+    expect(container.innerHTML).not.toMatch(/gradient|#[0-9a-f]{3,6}|rgb/i);
+  });
+
+  it("draws the YouTube glyph as a bare monochrome outline: a link affordance, no node, no colour (krizaka-internal#2770)", () => {
+    const g = (GLYPHS as Record<string, { group: string; n?: unknown[]; p?: string[]; c?: unknown[][] }>).youtube;
+    expect(g.group).toBe("interface");
+    expect(g.n).toBeUndefined();
+    expect(g.p?.length).toBe(2);
+    expect(g.c).toBeUndefined();
+    const { container } = render(<icons.YoutubeIcon title="YouTube" />);
+    const svg = container.querySelector("svg")!;
+    expect(svg.getAttribute("aria-label")).toBe("YouTube");
     expect(container.innerHTML).not.toMatch(/gradient|#[0-9a-f]{3,6}|rgb/i);
   });
 

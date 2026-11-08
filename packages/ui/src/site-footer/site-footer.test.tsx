@@ -28,7 +28,12 @@ const org = {
       { id: "terms", label: { fr: "Conditions", en: "Terms" }, url: { fr: "https://www.krizaka.com/fr/terms", en: "https://www.krizaka.com/en/terms" } },
     ],
   },
-  links: { social: [{ id: "instagram", label: "Instagram", url: "https://www.instagram.com/krizakahq" }] },
+  links: {
+    social: [
+      { id: "instagram", label: "Instagram", url: "https://www.instagram.com/krizakahq" },
+      { id: "youtube", label: "YouTube", url: "https://www.youtube.com/@krizakahq" },
+    ],
+  },
 };
 
 describe("SiteFooter", () => {
@@ -353,6 +358,17 @@ describe("SiteFooter", () => {
       expect(link.className).not.toMatch(/translate|scale|-mt-|hover:-?m/);
 
       expect(await axeViolations(container)).toEqual([]);
+    });
+
+    it("draws YouTube as its icon inside a link named by the account (krizaka-internal#2770)", () => {
+      render(<Footer org={org} />);
+      const link = within(screen.getByRole("contentinfo")).getByRole("link", { name: "YouTube" });
+      expect(link.getAttribute("href")).toBe("https://www.youtube.com/@krizakahq");
+      expect(link.getAttribute("rel")).toContain("noopener");
+      const icon = link.querySelector("svg")!;
+      expect(icon.getAttribute("data-kz-icon")).toBe("YoutubeIcon");
+      expect(icon.getAttribute("aria-hidden")).toBe("true");
+      expect(link.textContent).toBe("YouTube");
     });
 
     it("keeps a text link for an account with no glyph, and draws nothing without socials", () => {
