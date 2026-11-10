@@ -30,6 +30,10 @@ export const TOLERATED = [
     why: "the CDN's map tiles may lack CORS headers; MapGate shows the photograph meanwhile",
   },
   {
+    all: ["krizaka-assets.b-cdn.net", "net::ERR_TIMED_OUT"],
+    why: "the asset CDN's cold cache can time out a first fetch of an example's image or video; a genuinely missing asset answers 404 (an http-error, still counted), so a timeout here is latency we do not control, not a broken example (krizaka-internal#3008)",
+  },
+  {
     contains: ["tiktok.com", "tiktokcdn-us.com"],
     why: "TikTok's own embed answers 400 / 429 to a headless browser and complains about its permissions policy: the platform's, behind a facade a visitor opens on purpose",
   },
@@ -47,7 +51,9 @@ export const THIRD_PARTY_FRAME = "[from a third-party frame]";
 export const isThirdPartyFrame = (frameUrl, origin) => /^https?:\/\//.test(frameUrl ?? "") && new URL(frameUrl).origin !== origin;
 
 export function toleratedBy(text) {
-  return TOLERATED.find((t) => t.contains.some((part) => text.includes(part)))?.why ?? null;
+  const matches = (t) =>
+    (t.contains?.some((part) => text.includes(part)) ?? false) || (t.all?.every((part) => text.includes(part)) ?? false);
+  return TOLERATED.find(matches)?.why ?? null;
 }
 
 /** The phrases (compared in lower case) that make a browser message a React error. */
