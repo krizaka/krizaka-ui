@@ -105,6 +105,16 @@ test("tolerated: a text that contains a listed part, with its reason", () => {
   for (const text of ["tiktokcdn.com", "tiktok com", "krizaka-assets.b-cdn.net/maps/v2/", "net::ERR_FAILED"]) assert.equal(toleratedBy(text), null, text);
 });
 
+// krizaka-internal#3008: main went red when the asset CDN's cold cache timed out the /components/vertical-video/ example's real
+// images and video (net::ERR_TIMED_OUT). A timeout to that CDN is latency we do not control; a genuinely missing asset answers 404
+// (an http-error, still counted), so the tolerance is scoped to that host AND a timeout — any other host, or any other error, still fails.
+test("tolerated: an asset-CDN timeout only, not another host and not another error", () => {
+  const cdn = "GET https://krizaka-assets.b-cdn.net/site/people/ui/camille-256.dc2943029a.webp";
+  assert.match(toleratedBy(`${cdn} — net::ERR_TIMED_OUT`), /asset CDN/);
+  assert.equal(toleratedBy("GET https://example.com/x — net::ERR_TIMED_OUT"), null); // a timeout to any other host still counts
+  assert.equal(toleratedBy(`${cdn} — net::ERR_CONNECTION_REFUSED`), null); // a non-timeout CDN failure still counts
+});
+
 // krizaka-internal#2882: the merge group of krizaka-ui#975 went red on 11 failed CSP reports that Google's embed sent from its own
 // frame (csp.withgoogle.com, ERR_BLOCKED_BY_ORB); the nightly crawl on TikTok's telemetry (mon.tiktokv.com). Our page's requests still count.
 test("a failed request of a third-party frame is that site's, tolerated; our page's still counts", () => {
