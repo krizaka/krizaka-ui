@@ -93,14 +93,20 @@ function clauseItems(clause) {
     });
 }
 
-const IMPORTS = /import\s+(?:type\s+)?([^;]*[^\s;])\s+from\s+["']([^"']+)["']/g;
+const IMPORTS = /\bimport\s([^;]*?)\bfrom\s*["']([^"']+)["']/g;
 const EXPORTS_FROM = /export\s+(?:type\s+)?(\{[^}]*\})\s+from\s+["']([^"']+)["']/g;
 const DOOR = /(^|\/)components\/ui\/index\.(tsx?|jsx?|mjs)$/;
 const EXTENSIONS = ["", ".ts", ".tsx", ".js", ".jsx", ".mjs", "/index.ts", "/index.tsx", "/index.js"];
 
 /** The imports of a file: `[{ spec, names: [{ name, as }] }]`. */
 export function importsOf(text) {
-  return [...text.matchAll(IMPORTS)].map((m) => ({ spec: m[2], names: clauseItems(m[1]) }));
+  const found = [];
+  for (const m of text.matchAll(IMPORTS)) {
+    if (!/\s$/.test(m[1])) continue;
+    const clause = m[1].trim().replace(/^type\s+(?=\S)/, "");
+    if (clause) found.push({ spec: m[2], names: clauseItems(clause) });
+  }
+  return found;
 }
 
 /** A module specifier as a path without extension, when it is local (relative, `@/` or `~/`). */

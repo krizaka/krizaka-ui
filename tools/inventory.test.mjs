@@ -217,3 +217,21 @@ describe("the lists behind the concepts", () => {
     assert.deepEqual(definitions(text), ["Foo", "Bar", "Baz", "Typed", "A", "buttonClass"].filter((n) => n !== "Late"));
   });
 });
+
+import { importsOf } from "./inventory-source.mjs";
+
+describe("importsOf", () => {
+  it("reads default, named, type and multi-line imports", () => {
+    const text = 'import a from "x";\nimport type { B as C, D } from "y";\nimport {\n  E,\n} from \'z\';\nimport type T from "t";';
+    assert.deepEqual(importsOf(text).map((i) => [i.spec, i.names.map((n) => n.as)]), [
+      ["x", []], ["y", ["C", "D"]], ["z", ["E"]], ["t", []],
+    ]);
+  });
+  it("returns within a bound on a long run of spaces or a missing closing token", () => {
+    const started = performance.now();
+    for (const evil of [`import ${" ".repeat(100000)}x`, `import a${" ".repeat(100000)}from`, `${"import a ".repeat(5000)}`]) {
+      assert.deepEqual(importsOf(evil), []);
+    }
+    assert.ok(performance.now() - started < 1000);
+  });
+});
