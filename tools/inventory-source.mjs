@@ -79,19 +79,21 @@ const COMPONENT_NAME = /^[A-Z]/;
 
 /** The named items of an import or export clause (`{ A, B as C, type D }`): `[{ name, as }]`. */
 function clauseItems(clause) {
-  const braces = /\{([^}]*)\}/.exec(clause);
-  if (!braces) return [];
-  return braces[1]
+  const start = clause.indexOf("{");
+  if (start === -1) return [];
+  const end = clause.indexOf("}", start + 1);
+  if (end === -1) return [];
+  return clause.slice(start + 1, end)
     .split(",")
     .map((item) => item.trim().replace(/^type\s+/, ""))
     .filter(Boolean)
     .map((item) => {
-      const [name, as = name] = item.split(/\s+as\s+/).map((x) => x.trim());
+      const [name, as = name] = item.split(/\bas\b/).map((x) => x.trim());
       return { name, as };
     });
 }
 
-const IMPORTS = /import\s+(?:type\s+)?([^;]*?)\s+from\s+["']([^"']+)["']/g;
+const IMPORTS = /import\s+(?:type\s+)?([^;]*[^\s;])\s+from\s+["']([^"']+)["']/g;
 const EXPORTS_FROM = /export\s+(?:type\s+)?(\{[^}]*\})\s+from\s+["']([^"']+)["']/g;
 const DOOR = /(^|\/)components\/ui\/index\.(tsx?|jsx?|mjs)$/;
 const EXTENSIONS = ["", ".ts", ".tsx", ".js", ".jsx", ".mjs", "/index.ts", "/index.tsx", "/index.js"];

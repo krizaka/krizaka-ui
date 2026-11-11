@@ -5,8 +5,8 @@
 
 /** The libraries a product imports to virtualise a list by hand (the signature of the `list` concept). */
 export const VIRTUAL_LIST_LIBRARIES = [
-  ...["@tanstack/virtual", "@tanstack/react-virtual", "@tanstack/virtual-core", "@tanstack/react-virtual-core"],
-  ...["@shopify/flash-list", "react-window", "react-virtualized"],
+  "@tanstack/virtual", "@tanstack/react-virtual", "@tanstack/virtual-core", "@tanstack/react-virtual-core",
+  "@shopify/flash-list", "react-window", "react-virtualized",
 ];
 /** `from "x"`: the module specifiers a file imports or re-exports from. */
 const FROM_SPECIFIER = /from\s+["']([^"']+)["']/g;
@@ -14,7 +14,7 @@ const FROM_SPECIFIER = /from\s+["']([^"']+)["']/g;
 export function importsFromAny(modules) {
   return {
     test: (text) => [...text.matchAll(FROM_SPECIFIER)].some((m) => modules.includes(m[1])),
-    source: `from ${modules.map((m) => `"${m}"`).join(" | ")}`,
+    source: "from " + modules.map((m) => '"' + m + '"').join(" | "),
   };
 }
 
