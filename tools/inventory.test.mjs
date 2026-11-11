@@ -163,3 +163,75 @@ describe("inventory", () => {
     assert.match(toMarkdown(report), /\*\*1 doublon\(s\) à migrer\.\*\*/);
   });
 });
+
+// ADR-026 phase D: the concepts' endings and modules are lists, and the declarations are read in two steps. The expectations
+// were recorded from the regex version; a comparison on 8,775 real source files, 18,000 names and 5,000 generated files gave no
+// difference (but the wording of the `why` of the virtual-list signature, which now names the modules).
+import { hasSuffix, importsFromAny, mentionsPrimitive, VIRTUAL_LIST_LIBRARIES } from "./inventory.mjs";
+
+describe("the lists behind the concepts", () => {
+  it("hasSuffix: an ending, or a word then an ending, on a plain name", () => {
+    assert.equal(hasSuffix("ShareProfileButton", ["Button"]), true);
+    assert.equal(hasSuffix("Toasts", ["Toast", "Toasts"]), true);
+    assert.equal(hasSuffix("ButtonGroup", ["Button"]), false);
+    const confirm = { contains: "Confirm", endsWith: ["Dialog", "Button", "Modal"] };
+    for (const name of ["ConfirmDialog", "CostConfirmDialog", "ConfirmPaymentButton"]) assert.equal(hasSuffix(name, confirm), true, name);
+    for (const name of ["Confirm", "ConfirmModalX", "Dialog", "Confirm$Dialog"]) assert.equal(hasSuffix(name, confirm), false, name);
+    const theme = { prefix: "Theme", endsWith: ["Provider", "Switch", "Switcher"] };
+    assert.equal(hasSuffix("ThemeSwitch", theme), true);
+    assert.equal(hasSuffix("MyThemeSwitch", theme), false);
+    assert.equal(hasSuffix("ThemeX", theme), false);
+  });
+
+  it("mentionsPrimitive: @krizaka/ui/<module> to the end of a word", () => {
+    assert.equal(mentionsPrimitive('import { Button } from "@krizaka/ui/button";', ["button", "confirm-button"]), true);
+    assert.equal(mentionsPrimitive("@krizaka/ui/button-group", ["button"]), true, "a dash ends the word");
+    assert.equal(mentionsPrimitive("@krizaka/ui/buttons", ["button"]), false);
+    assert.equal(mentionsPrimitive("@krizaka/ui/native/list", ["virtual", "native/list"]), true);
+    assert.equal(mentionsPrimitive("@krizaka/ui", ["button"]), false);
+  });
+
+  it("importsFromAny: a file that imports one of the modules", () => {
+    const virtual = importsFromAny(VIRTUAL_LIST_LIBRARIES);
+    assert.equal(virtual.test(`import { useVirtualizer } from '@tanstack/react-virtual'`), true);
+    assert.equal(virtual.test(`export * from "react-window"`), true);
+    assert.equal(virtual.test(`import x from "react-windowed"`), false);
+    assert.equal(virtual.test(`import x from "react"`), false);
+    assert.match(virtual.source, /"@tanstack\/react-virtual"/);
+  });
+
+  it("definitions: modifiers, factories, helpers, indented and destructured declarations", () => {
+    const text = [
+      "export default async function Foo() {}",
+      "export const Bar = 1",
+      "export  default",
+      "function Baz() {}",
+      "const Tabs = createBottomTabNavigator()",
+      "  const Indented = 1",
+      "let Typed: Foo<A> = 2",
+      "const Late =\n  createX(1)",
+      "const A = 1, B = 2",
+      "export const { E } = x",
+      "const buttonClass = 1",
+    ].join("\n");
+    assert.deepEqual(definitions(text), ["Foo", "Bar", "Baz", "Typed", "A", "buttonClass"].filter((n) => n !== "Late"));
+  });
+});
+
+import { importsOf } from "./inventory-source.mjs";
+
+describe("importsOf", () => {
+  it("reads default, named, type and multi-line imports", () => {
+    const text = 'import a from "x";\nimport type { B as C, D } from "y";\nimport {\n  E,\n} from \'z\';\nimport type T from "t";';
+    assert.deepEqual(importsOf(text).map((i) => [i.spec, i.names.map((n) => n.as)]), [
+      ["x", []], ["y", ["C", "D"]], ["z", ["E"]], ["t", []],
+    ]);
+  });
+  it("returns within a bound on a long run of spaces or a missing closing token", () => {
+    const started = performance.now();
+    for (const evil of [`import ${" ".repeat(100000)}x`, `import a${" ".repeat(100000)}from`, `${"import a ".repeat(5000)}`]) {
+      assert.deepEqual(importsOf(evil), []);
+    }
+    assert.ok(performance.now() - started < 1000);
+  });
+});
