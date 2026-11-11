@@ -65,3 +65,67 @@ test("names the files of the zone the export no longer produces (a brand that le
   const listed = ["brand/retired/logo-dark.svg", "brand/krizaka/logo-dark.svg", "brand/manifest.json", "people/defaults/v1/retired/person-1.svg"];
   assert.deepEqual(stalePaths(listed, files), ["brand/retired/logo-dark.svg", "people/defaults/v1/retired/person-1.svg"]);
 });
+
+// ADR-026 phase D: the two regexes over 80 characters are named parts and a function; the other patterns are named. The
+// expectations were recorded from the regex version (80,000 hsl() values and 80,000 paths gave no difference).
+import {
+  ARIA_HIDDEN,
+  BRAND_FOLDER,
+  DASHED_CIRCLE,
+  ENV_LINE,
+  EXTENSION,
+  FAINT_CIRCLE,
+  FILE_NAME,
+  HSL_ARGUMENTS,
+  hslInside,
+  isWritable,
+  QUOTED_VALUE,
+  SIZE_ATTRIBUTE,
+  STYLE_BLOCK,
+  TOKEN_WITH_FALLBACK,
+  VIEW_BOX,
+} from "./export-brand.mjs";
+
+test("hslInside cuts hsl( … ) and hsla( … ); HSL_ARGUMENTS reads hue, saturation, lightness and an optional alpha", () => {
+  assert.equal(hslInside("hsl(  240 4% 64% )"), "240 4% 64%");
+  assert.equal(hslInside("hsla(240, 4%, 64%, 0.5)"), "240, 4%, 64%, 0.5");
+  assert.equal(hslInside("rgb(1 2 3)"), undefined);
+  assert.equal(hslInside("hsl()"), undefined);
+  assert.equal(hslInside("hsl(1) )"), undefined);
+  const started = performance.now();
+  for (const evil of [`hsl(${" ".repeat(200000)}`, `hsl(${" ".repeat(200000)}x`, `hsl(${"a ".repeat(100000)}`]) {
+    assert.equal(hslInside(evil), undefined);
+    assert.equal(HSL_ARGUMENTS.exec(`1${" ".repeat(200000)}x`), null);
+  }
+  assert.ok(performance.now() - started < 1000, "no super-linear backtracking");
+  assert.deepEqual(HSL_ARGUMENTS.exec("240deg, 4%, 64%")?.slice(1, 4), ["240", "4", "64"]);
+  assert.deepEqual(HSL_ARGUMENTS.exec("0 0% 100% / 0.10")?.slice(4), ["0.10", ""]);
+  assert.deepEqual(HSL_ARGUMENTS.exec("0, 0%, 100%, 10%")?.slice(4), ["10", "%"]);
+  for (const bad of ["240 4 64", "240 4% 64% 0.5", "x 4% 64%", ""]) assert.equal(HSL_ARGUMENTS.exec(bad), null, bad);
+  });
+
+test("isWritable: brand/<brand>/<file>, the defaults' folder, the two manifests and the index; nothing else", () => {
+  for (const p of ["brand/krizaka/logo-dark.svg", "people/defaults/v1/verikora/person-1.svg", "brand/manifest.json", "people/defaults/v1/manifest.json", "brand/index.json"])
+    assert.equal(isWritable(p), true, p);
+  for (const p of ["people/defaults/v1/index.json", "brand/a/b/c", "brand//x", "brand/A/x.svg", "people/defaults/v2/a/b.svg", "site/a/b.png", "brand/krizaka/", "brand/a b/x"])
+    assert.equal(isWritable(p), false, p);
+  assert.ok(BRAND_FOLDER.test("folioviv") && !BRAND_FOLDER.test("Folioviv"));
+  assert.ok(FILE_NAME.test("mark-dark-256.png") && !FILE_NAME.test("a b.png"));
+  });
+
+test("the SVG edit patterns find what React writes", () => {
+  assert.equal("a<style>.x{}</style>b".replace(STYLE_BLOCK, ""), "ab");
+  assert.equal("var(--kz-ink, color-mix(in srgb, red, blue))".replace(TOKEN_WITH_FALLBACK, (_, name) => name), "--kz-ink");
+  assert.equal('<rect width="4" height="5" x="1"/>'.replace(SIZE_ATTRIBUTE, ""), '<rect x="1"/>');
+  assert.equal('<svg aria-hidden="true">'.replace(ARIA_HIDDEN, ""), "<svg>");
+  assert.equal('<circle r="1" stroke-dasharray="2 3"/><circle opacity=".35"></circle><circle r="2"/>'.replace(DASHED_CIRCLE, "").replace(FAINT_CIRCLE, ""), '<circle r="2"/>');
+  assert.deepEqual(VIEW_BOX.exec('<svg viewBox="-1 -2 34.5 36">')?.slice(1), ["-1", "-2", "34.5", "36"]);
+  assert.equal("logo-dark.png".replace(EXTENSION, ""), "logo-dark");
+  });
+
+test("ENV_LINE and QUOTED_VALUE read a KEY=value line and strip matching quotes", () => {
+  assert.deepEqual(ENV_LINE.exec("export KEY = 'a b'")?.slice(1), ["KEY", "'a b'"]);
+  assert.equal(ENV_LINE.exec("lower=1"), null);
+  assert.equal("'a b'".replace(QUOTED_VALUE, "$2"), "a b");
+  assert.equal("'mixed\"".replace(QUOTED_VALUE, "$2"), "'mixed\"");
+  });
