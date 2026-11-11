@@ -88,7 +88,7 @@ export function tokensOf(css, selector) {
 }
 
 /** `hsl( … )` / `hsla( … )`: what is between the parentheses, without the spaces around it. */
-export const HSL_FUNCTION = /^hsla?\(\s*([\s\S]*?)\s*\)$/;
+export const HSL_FUNCTION = /^hsla?\(\s*([^)]+?)\s*\)$/;
 /** `240 4% 64%`, `240deg, 4%, 64%`, `240 4% 64% / 0.1`, `240, 4%, 64%, 10%`: hue, saturation %, lightness %, then an optional alpha (a number or a %). */
 export const HSL_ARGUMENTS = /^([\d.]+)(?:deg)?[\s,]+([\d.]+)%[\s,]+([\d.]+)%(?:\s*[/,]\s*([\d.]+)(%?))?$/;
 
@@ -247,7 +247,10 @@ export async function build() {
     // The tab, home-screen and manifest icons of every site, from the same favicon.svg (krizaka-com: a site's icons are these files, never redrawn).
     const faviconSvg = out.get(`${dir}/favicon.svg`).toString();
     for (const [name, size] of FAVICON_PNGS) out.set(`${dir}/${name}`, await png(faviconSvg.replace("<svg ", `<svg width="${size}" height="${size}" `), size));
-    out.set(`${dir}/og-mark.png`, await png(`<svg xmlns="http://www.w3.org/2000/svg" width="${OG.width}" height="${OG.height}" viewBox="0 0 ${OG.width} ${OG.height}"><rect width="${OG.width}" height="${OG.height}" fill="${INK}"/>${svgs["mark-dark"].replace(LOGO_ROOT_400, `<svg x="${(OG.width - 360) / 2}" y="${(OG.height - 360) / 2}" width="360" height="360"`)}</svg>`, OG.width, OG.height));
+    const ogMarkX = (OG.width - 360) / 2;
+    const ogMarkY = (OG.height - 360) / 2;
+    const ogMarkEmbed = `<svg x="${ogMarkX}" y="${ogMarkY}" width="360" height="360"`;
+    out.set(`${dir}/og-mark.png`, await png(`<svg xmlns="http://www.w3.org/2000/svg" width="${OG.width}" height="${OG.height}" viewBox="0 0 ${OG.width} ${OG.height}"><rect width="${OG.width}" height="${OG.height}" fill="${INK}"/>${svgs["mark-dark"].replace(LOGO_ROOT_400, ogMarkEmbed)}</svg>`, OG.width, OG.height));
     // The social preview: the whole logo, large, on the dark surface lit by the brand's halo.
     const { width: W, height: H } = SOCIAL;
     const logo = svgs["logo-dark"].replace(LOGO_ROOT_400, `<svg x="${(W - 600) / 2}" y="${(H - 600) / 2}" width="600" height="600"`);
@@ -278,7 +281,7 @@ export async function build() {
 // ---- storage ----------------------------------------------------------------------------------------------------
 
 /** `export KEY=value` or `KEY = value`: the name and the value (the value may be quoted). */
-export const ENV_LINE = /^\s*(?:export\s+)?([A-Z0-9_]+)\s*=\s*(.*)\s*$/;
+export const ENV_LINE = /^\s*(?:export\s+)?([A-Z0-9_]+)\s*=\s*(.*)/;
 /** `"value"` or `'value'`: the same quote at both ends; the inside is captured as the second group. */
 export const QUOTED_VALUE = /^(['"])(.*)\1$/;
 
@@ -286,7 +289,7 @@ export function parseEnv(text) {
   const env = {};
   for (const line of text.split(/\r?\n/)) {
     const m = ENV_LINE.exec(line);
-    if (m) env[m[1]] = m[2].replace(QUOTED_VALUE, "$2");
+    if (m) env[m[1]] = m[2].trim().replace(QUOTED_VALUE, "$2");
   }
   return env;
 }
