@@ -18,7 +18,7 @@ export default function AccountSectionPatterns() {
       </SettingsSection>
       <SettingsSection variant="flat" title="Abonnement" description="Votre forfait et vos factures.">
         <SettingsRow label="Forfait Solo" description="Renouvelé le 1er novembre.">
-          <Button variant="secondary" size="sm" asChild><a href="https://billing.example.com/portal">Ouvrir le portail de facturation</a></Button>
+          <Button variant="secondary" size="sm" asChild><a href="https://example.com">Ouvrir le portail de facturation</a></Button>
         </SettingsRow>
       </SettingsSection>
       <SettingsSection variant="flat" title="Stockage" description="L'espace utilisé par vos documents.">
