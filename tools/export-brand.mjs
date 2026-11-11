@@ -89,9 +89,9 @@ export function tokensOf(css, selector) {
 
 /** `hsl( … )` / `hsla( … )`: what is between the parentheses, without the spaces around it. */
 export function hslInside(value) {
-  const open = value.startsWith("hsla(") ? 5 : value.startsWith("hsl(") ? 4 : -1;
-  if (open < 0 || !value.endsWith(")")) return undefined;
-  const inside = value.slice(open, -1);
+  const prefix = ["hsla(", "hsl("].find((p) => value.startsWith(p));
+  if (prefix === undefined || !value.endsWith(")")) return undefined;
+  const inside = value.slice(prefix.length, -1);
   return inside.includes(")") || inside.trim() === "" ? undefined : inside.trim();
 }
 /** `240 4% 64%`, `240deg, 4%, 64%`, `240 4% 64% / 0.1`, `240, 4%, 64%, 10%`: hue, saturation %, lightness %, then an optional alpha (a number or a %). */
