@@ -77,7 +77,7 @@ import {
   FAINT_CIRCLE,
   FILE_NAME,
   HSL_ARGUMENTS,
-  HSL_FUNCTION,
+  hslInside,
   isWritable,
   QUOTED_VALUE,
   SIZE_ATTRIBUTE,
@@ -86,10 +86,18 @@ import {
   VIEW_BOX,
 } from "./export-brand.mjs";
 
-test("HSL_FUNCTION cuts hsl( … ) and hsla( … ); HSL_ARGUMENTS reads hue, saturation, lightness and an optional alpha", () => {
-  assert.equal(HSL_FUNCTION.exec("hsl(  240 4% 64% )")[1], "240 4% 64%");
-  assert.equal(HSL_FUNCTION.exec("hsla(240, 4%, 64%, 0.5)")[1], "240, 4%, 64%, 0.5");
-  assert.equal(HSL_FUNCTION.exec("rgb(1 2 3)"), null);
+test("hslInside cuts hsl( … ) and hsla( … ); HSL_ARGUMENTS reads hue, saturation, lightness and an optional alpha", () => {
+  assert.equal(hslInside("hsl(  240 4% 64% )"), "240 4% 64%");
+  assert.equal(hslInside("hsla(240, 4%, 64%, 0.5)"), "240, 4%, 64%, 0.5");
+  assert.equal(hslInside("rgb(1 2 3)"), undefined);
+  assert.equal(hslInside("hsl()"), undefined);
+  assert.equal(hslInside("hsl(1) )"), undefined);
+  const started = performance.now();
+  for (const evil of [`hsl(${" ".repeat(200000)}`, `hsl(${" ".repeat(200000)}x`, `hsl(${"a ".repeat(100000)}`]) {
+    assert.equal(hslInside(evil), undefined);
+    assert.equal(HSL_ARGUMENTS.exec(`1${" ".repeat(200000)}x`), null);
+  }
+  assert.ok(performance.now() - started < 1000, "no super-linear backtracking");
   assert.deepEqual(HSL_ARGUMENTS.exec("240deg, 4%, 64%")?.slice(1, 4), ["240", "4", "64"]);
   assert.deepEqual(HSL_ARGUMENTS.exec("0 0% 100% / 0.10")?.slice(4), ["0.10", ""]);
   assert.deepEqual(HSL_ARGUMENTS.exec("0, 0%, 100%, 10%")?.slice(4), ["10", "%"]);

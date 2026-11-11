@@ -88,13 +88,18 @@ export function tokensOf(css, selector) {
 }
 
 /** `hsl( … )` / `hsla( … )`: what is between the parentheses, without the spaces around it. */
-export const HSL_FUNCTION = /^hsla?\(\s*([^)]+?)\s*\)$/;
+export function hslInside(value) {
+  const open = value.startsWith("hsla(") ? 5 : value.startsWith("hsl(") ? 4 : -1;
+  if (open < 0 || !value.endsWith(")")) return undefined;
+  const inside = value.slice(open, -1);
+  return inside.includes(")") || inside.trim() === "" ? undefined : inside.trim();
+}
 /** `240 4% 64%`, `240deg, 4%, 64%`, `240 4% 64% / 0.1`, `240, 4%, 64%, 10%`: hue, saturation %, lightness %, then an optional alpha (a number or a %). */
 export const HSL_ARGUMENTS = /^([\d.]+)(?:deg)?[\s,]+([\d.]+)%[\s,]+([\d.]+)%(?:\s*[/,]\s*([\d.]+)(%?))?$/;
 
 /** `hsl(240 4% 64%)` or `hsl(0 0% 100% / 0.10)` → `rgba(163, 163, 171, 1)`: what every SVG renderer reads. */
 export function hslToRgba(value) {
-  const inside = HSL_FUNCTION.exec(value.trim())?.[1];
+  const inside = hslInside(value.trim());
   const m = inside === undefined ? null : HSL_ARGUMENTS.exec(inside);
   if (!m) throw new Error(`not an hsl() colour: ${value}`);
   const h = Number(m[1]);
