@@ -11,7 +11,7 @@ Identifiers stay whole; move through the table with the arrow keys after focusin
 
 A long word: documentationidentifierswithoutanynaturalbreakopportunitiesstillfitonthephone.
 
-- A long URL: [https://example.com/documentation/reference/identifierswithoutanynaturalbreakopportunities](https://example.com/documentation/reference/identifierswithoutanynaturalbreakopportunities)
+- A long URL: [https://example.com/documentation/reference/identifierswithoutanynaturalbreakopportunities](https://example.com)
 
 \`\`\`text
 profile-photo-check account-access-review upload-retry-policy discovery-manifest-signature
