@@ -1,5 +1,11 @@
 # @krizaka/email
 
+## 1.2.0
+
+### Minor Changes
+
+- [#997](https://github.com/krizaka/krizaka-ui/pull/997) [`0cd706d`](https://github.com/krizaka/krizaka-ui/commit/0cd706db24672bbfb17844929865daed6743ca11) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(email): two generic templates, `verificationCode` (a 6-digit one-time code with its life in minutes and an optional purpose) and `notification` (a title, a line and an optional https action the caller words), both transactional, FR/EN, branded, dark mode, with a plain-text part. Products stop designing these mails themselves (ADR-033).
+
 ## 1.1.0
 
 ### Minor Changes
