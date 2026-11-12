@@ -2,11 +2,11 @@ import { AnalysisReport, type AnalysisReportLabels } from "@krizaka/ui/analysis-
 
 // The words come from the app's messages (demo wording here).
 const labels: AnalysisReportLabels = {
-  status: { inconsistent: "Not compliant", attention: "To check", unverified: "Not applicable", consistent: "Respected" },
-  findings: "Findings", mayIndicate: "May indicate", location: "Where:", evidence: "Evidence", details: "Details",
-  limits: "What this report did not examine", nextSteps: "Next steps", provenance: "Provenance",
-  model: "Ruleset", runId: "Run", duration: "Duration", version: "Version",
-  copyJson: "Copy JSON", copyMarkdown: "Copy Markdown", copied: "Copied", streaming: "Findings are arriving", noFindings: "No finding.",
+  status: { inconsistent: "Fails", attention: "Check", unverified: "Unknown", consistent: "Passes" },
+  findings: "Results", mayIndicate: "Could mean", location: "At:", evidence: "Proof", details: "More",
+  limits: "Not examined", nextSteps: "What to do", provenance: "Origin",
+  model: "Rules", runId: "Id", duration: "Time", version: "Build",
+  copyJson: "JSON", copyMarkdown: "Markdown", copied: "Done", streaming: "Loading", noFindings: "Nothing.",
 };
 
 
