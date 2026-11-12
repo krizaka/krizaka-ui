@@ -83,9 +83,46 @@ describe("MediaCarousel v2", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
-  it("holds the clock under the pointer, with the pause button, and off screen; the count is read only while held", async () => {
+  it("does not hold the clock under the pointer or on a keyboard focus by default (WCAG 2.2.2: the visible Pause is the one hold)", async () => {
     const user = userEvent.setup();
     const { container } = render(<MediaCarousel label="Work" slides={slides} autoplay />);
+    const root = container.querySelector("section")!;
+    fireEvent.pointerEnter(root, { pointerType: "mouse" });
+    expect(fill().style.animationPlayState).toBe("running");
+    expect(root.hasAttribute("data-advancing")).toBe(true);
+    await user.tab();
+    expect(fill().style.animationPlayState).toBe("running");
+  });
+
+  it("a pointer click on next, then the pointer away, keeps the clock and the clip going", async () => {
+    const user = userEvent.setup();
+    const { container } = render(<MediaCarousel label="Work" slides={slides} autoplay />);
+    const root = container.querySelector("section")!;
+    fireEvent.pointerEnter(root, { pointerType: "mouse" });
+    await user.click(screen.getByRole("button", { name: "Next" }));
+    fireEvent.pointerLeave(root);
+    expect(count()).toBe("2 / 3");
+    expect(screen.getByRole("button", { name: "Pause the carousel" }).getAttribute("aria-pressed")).toBe("false");
+    expect(fill().style.animationPlayState).toBe("running");
+    expect(root.hasAttribute("data-advancing")).toBe(true);
+  });
+
+  it("holds the clock with the pause button (label and aria-pressed from one state) and off screen", async () => {
+    const user = userEvent.setup();
+    render(<MediaCarousel label="Work" slides={slides} autoplay />);
+    await user.click(screen.getByRole("button", { name: "Pause the carousel" }));
+    const play = screen.getByRole("button", { name: "Play the carousel" });
+    expect(play.getAttribute("aria-pressed")).toBe("true");
+    expect(fill().style.animationPlayState).toBe("paused");
+    expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
+    await user.click(play);
+    expect(fill().style.animationPlayState).toBe("running");
+    act(() => notifySeen(false));
+    expect(fill().style.animationPlayState).toBe("paused");
+  });
+
+  it("holds pointer-focus keeps the old holds: the pointer holds, the count is read while held", () => {
+    const { container } = render(<MediaCarousel label="Work" slides={slides} autoplay holds="pointer-focus" />);
     const root = container.querySelector("section")!;
     fireEvent.pointerEnter(root, { pointerType: "mouse" });
     expect(fill().style.animationPlayState).toBe("paused");
@@ -95,19 +132,10 @@ describe("MediaCarousel v2", () => {
     fireEvent.pointerLeave(root);
     expect(fill().style.animationPlayState).toBe("running");
     expect(screen.getByText(/1 \/ 3/).closest("p")!.getAttribute("aria-live")).toBe("off");
-    await user.click(screen.getByRole("button", { name: "Pause the carousel" }));
-    expect(screen.getByRole("button", { name: "Play the carousel" })).toBeTruthy();
-    fireEvent.pointerLeave(root);
-    expect(fill().style.animationPlayState).toBe("paused");
-    expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
-    await user.click(screen.getByRole("button", { name: "Play the carousel" }));
-    fireEvent.pointerLeave(root);
-    act(() => notifySeen(false));
-    expect(fill().style.animationPlayState).toBe("paused");
   });
 
   it("does not hold for a touch, which is a swipe or a press", () => {
-    const { container } = render(<MediaCarousel label="Work" slides={slides} autoplay />);
+    const { container } = render(<MediaCarousel label="Work" slides={slides} autoplay holds="pointer-focus" />);
     fireEvent.pointerEnter(container.querySelector("section")!, { pointerType: "touch" });
     expect(fill().style.animationPlayState).toBe("running");
   });
