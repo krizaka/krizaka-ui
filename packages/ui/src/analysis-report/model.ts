@@ -19,7 +19,13 @@ export type AnalysisFinding = {
   location?: string;
   /** The raw evidence, shown in a code block. */
   evidence?: string;
+  /** The passage of the document the finding rests on, shown as a « » line (prose, not code: `evidence` stays for code). */
+  quote?: string;
+  /** The article of law or rule the finding cites (« C.c.Q., art. 1904, al. 1 »); `href` makes it a link. */
+  reference?: AnalysisReference;
 };
+
+export type AnalysisReference = { label: string; href?: string };
 
 export type AnalysisProvenance = { model?: string; runId?: string; duration?: string; version?: string };
 
@@ -90,6 +96,8 @@ function findingLines(f: AnalysisFinding, labels: AnalysisReportLabels): string[
     head,
     ...(f.observation ? ["", f.observation] : []),
     ...(f.mayIndicate ? ["", `**${labels.mayIndicate}** ${f.mayIndicate}`] : []),
+    ...(f.quote ? ["", `> « ${f.quote} »`] : []),
+    ...(f.reference ? ["", f.reference.href ? `[${f.reference.label}](${f.reference.href})` : f.reference.label] : []),
     ...(f.location ? ["", `**${labels.location}** ${f.location}`] : []),
     ...(f.evidence ? ["", "```", f.evidence, "```"] : []),
     "",

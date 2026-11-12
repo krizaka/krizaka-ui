@@ -36,6 +36,9 @@ export const analysisReportStyles = tv({
     muted: "text-sm text-fg-secondary",
     locate: "w-fit",
     fold: "text-sm text-fg-secondary",
+    quote: "m-0 break-words text-sm text-fg-secondary",
+    reference: "w-fit max-w-full break-words text-sm font-semibold text-fg-accent",
+    referenceLink: "rounded-sm underline underline-offset-2 focus-visible:focus-ring",
     evidence: "mt-2 overflow-x-auto rounded-md border border-border-default bg-surface-2 p-3 font-mono text-xs text-fg focus-visible:focus-ring",
     foldSummary: "w-fit cursor-pointer rounded-sm font-semibold text-fg-accent focus-visible:focus-ring",
     columns: "grid gap-6 border-t border-border-default pt-6 @lg:grid-cols-2",
@@ -43,6 +46,8 @@ export const analysisReportStyles = tv({
     columnTitle: "text-sm font-semibold text-fg",
     items: "flex list-disc flex-col gap-1 pl-5 text-sm text-fg-secondary",
     provenance: "flex flex-wrap gap-x-6 gap-y-1 border-t border-border-default pt-4 text-xs text-fg-secondary",
+    provenanceFold: "border-t border-border-default pt-4 text-xs text-fg-secondary",
+    provenanceList: "mt-2 flex flex-wrap gap-x-6 gap-y-1",
     term: "font-semibold text-fg",
     live: "text-sm text-fg-secondary",
   },
@@ -64,6 +69,10 @@ export type AnalysisReportProps = Omit<React.ComponentProps<"section">, "title" 
     onCopy?: (kind: AnalysisExport, text: string) => void;
     /** Hides the copy buttons (a read-only embed). */
     hideActions?: boolean;
+    /** Status groups closed by default (a native `details`, the count in its summary): « respected », « not applicable ». */
+    folded?: readonly AnalysisStatus[];
+    /** The provenance (run id, ruleset, version) in one closed fold, titled `labels.provenance`. */
+    provenanceFolded?: boolean;
   };
 
 function FindingCard({ finding, labels, onLocate }: { finding: AnalysisFinding; labels: AnalysisReportLabels; onLocate?: AnalysisReportProps["onLocate"] }) {
@@ -81,6 +90,18 @@ function FindingCard({ finding, labels, onLocate }: { finding: AnalysisFinding; 
       {finding.mayIndicate ? (
         <p className={s.muted()}>
           <span className={s.term()}>{labels.mayIndicate}</span> {finding.mayIndicate}
+        </p>
+      ) : null}
+      {finding.quote ? <p className={s.quote()}>« {finding.quote} »</p> : null}
+      {finding.reference ? (
+        <p className={s.reference()}>
+          {finding.reference.href ? (
+            <a href={finding.reference.href} className={s.referenceLink()}>
+              {finding.reference.label}
+            </a>
+          ) : (
+            finding.reference.label
+          )}
         </p>
       ) : null}
       {finding.location ? (
@@ -121,7 +142,7 @@ function TextColumn({ title, items }: { title: string; items: readonly string[] 
   );
 }
 
-function Provenance({ data, labels }: { data: NonNullable<AnalysisReportData["provenance"]>; labels: AnalysisReportLabels }) {
+function Provenance({ data, labels, folded }: { data: NonNullable<AnalysisReportData["provenance"]>; labels: AnalysisReportLabels; folded?: boolean }) {
   const s = analysisReportStyles();
   const rows = [
     [labels.model, data.model],
@@ -130,20 +151,27 @@ function Provenance({ data, labels }: { data: NonNullable<AnalysisReportData["pr
     [labels.version, data.version],
   ].filter((r): r is [string, string] => Boolean(r[1]));
   if (!rows.length) return null;
-  return (
-    <dl aria-label={labels.provenance} className={s.provenance()}>
+  const list = (
+    <dl aria-label={folded ? undefined : labels.provenance} className={folded ? s.provenanceList() : s.provenance()}>
       {rows.map(([k, v]) => (
-        <div key={k} className="flex gap-1.5">
+        <div key={k} className="flex min-w-0 gap-1.5">
           <dt className={s.term()}>{k}</dt>
-          <dd className="font-mono">{v}</dd>
+          <dd className="min-w-0 break-all font-mono">{v}</dd>
         </div>
       ))}
     </dl>
   );
+  if (!folded) return list;
+  return (
+    <details className={s.provenanceFold()}>
+      <summary className={s.foldSummary()}>{labels.provenance}</summary>
+      {list}
+    </details>
+  );
 }
 
 /** The result of an AI analysis: summary, findings by status, limits, next steps, provenance, copy as JSON or Markdown. */
-export function AnalysisReport({ title, summary, status, findings, limits, nextSteps, provenance, labels, mark, streaming, onLocate, onCopy, hideActions, className, ...props }: AnalysisReportProps) {
+export function AnalysisReport({ title, summary, status, findings, limits, nextSteps, provenance, labels, mark, streaming, onLocate, onCopy, hideActions, folded, provenanceFolded, className, ...props }: AnalysisReportProps) {
   const s = analysisReportStyles();
   const [copied, setCopied] = React.useState<AnalysisExport | null>(null);
   const report: AnalysisReportData = { title, summary, status, findings, limits, nextSteps, provenance };
@@ -192,18 +220,27 @@ export function AnalysisReport({ title, summary, status, findings, limits, nextS
       </p>
       <div aria-live={streaming ? "polite" : undefined} className="flex flex-col gap-6">
         {findings.length === 0 && !streaming ? <p className={s.live()}>{labels.noFindings}</p> : null}
-        {groupFindings(findings).map((g) => (
-          <section key={g.status} className={s.group()} aria-label={`${labels.findings}: ${labels.status[g.status]}`}>
-            <h3 className={s.groupTitle()}>
-              {labels.status[g.status]} · {g.findings.length}
-            </h3>
+        {groupFindings(findings).map((g) => {
+          const title = `${labels.status[g.status]} · ${g.findings.length}`;
+          const list = (
             <ul className={s.list()}>
               {g.findings.map((f) => (
                 <FindingCard key={f.id} finding={f} labels={labels} onLocate={onLocate} />
               ))}
             </ul>
-          </section>
-        ))}
+          );
+          return folded?.includes(g.status) ? (
+            <details key={g.status} className={s.group()} aria-label={`${labels.findings}: ${labels.status[g.status]}`}>
+              <summary className={s.foldSummary()}>{title}</summary>
+              <div className="mt-3">{list}</div>
+            </details>
+          ) : (
+            <section key={g.status} className={s.group()} aria-label={`${labels.findings}: ${labels.status[g.status]}`}>
+              <h3 className={s.groupTitle()}>{title}</h3>
+              {list}
+            </section>
+          );
+        })}
       </div>
       {limits?.length || nextSteps?.length ? (
         <div className="@container">
@@ -213,7 +250,7 @@ export function AnalysisReport({ title, summary, status, findings, limits, nextS
           </div>
         </div>
       ) : null}
-      {provenance ? <Provenance data={provenance} labels={labels} /> : null}
+      {provenance ? <Provenance data={provenance} labels={labels} folded={provenanceFolded} /> : null}
     </section>
   );
 }

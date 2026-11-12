@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import AuthenticityExample from "../../registry/examples/analysis-report/authenticity";
 import DocumentValidationExample from "../../registry/examples/analysis-report/document-validation";
+import LeaseReviewExample from "../../registry/examples/analysis-report/lease-review";
 import StreamingExample from "../../registry/examples/analysis-report/streaming";
 
 /** Analysis report. Each story renders a named example of the registry. */
@@ -11,3 +13,5 @@ type Story = StoryObj<typeof meta>;
 
 export const DocumentValidation: Story = { render: () => <DocumentValidationExample /> };
 export const Streaming: Story = { render: () => <StreamingExample /> };
+export const LeaseReview: Story = { render: () => <LeaseReviewExample /> };
+export const Authenticity: Story = { render: () => <AuthenticityExample /> };

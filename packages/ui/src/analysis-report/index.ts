@@ -5,6 +5,7 @@ export {
   type AnalysisExport,
   type AnalysisFinding,
   type AnalysisProvenance,
+  type AnalysisReference,
   type AnalysisReportData,
   type AnalysisReportLabels,
   type AnalysisStatus,
