@@ -44,6 +44,7 @@ export const meta = {
     examples: [
       { name: "document-validation", title: "A document validation", description: "Header, findings grouped by status, limits and next steps in two columns, provenance, copy as JSON or Markdown." },
       { name: "lease-review", title: "A lease review", description: "Each finding quotes the passage and cites its article of law; the respected and unverified groups and the provenance are folded." },
+      { name: "long-address", title: "A long unbroken token", description: "An address, a URL or an identifier with no space wraps in the finding text, the quote and the reference at phone width." },
       { name: "authenticity", title: "An authenticity check", description: "Three levels (authentic, doubtful, altered) mapped to the existing statuses, quoted passages, the calm group folded." },
       { name: "streaming", title: "While the run is open", description: "`streaming` marks the report busy and announces each finding as it arrives; the copy actions are hidden." },
     ],
