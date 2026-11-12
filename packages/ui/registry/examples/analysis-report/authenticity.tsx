@@ -3,23 +3,10 @@ import { AnalysisReport, type AnalysisReportLabels } from "@krizaka/ui/analysis-
 // The words come from the app's messages (demo wording here).
 const labels: AnalysisReportLabels = {
   status: { inconsistent: "Altered", attention: "Doubtful", unverified: "Not checked", consistent: "Authentic" },
-  findings: "Signs found",
-  mayIndicate: "Could mean",
-  location: "Seen at:",
-  evidence: "Raw data",
-  details: "More",
-  limits: "Outside this check",
-  nextSteps: "What to do",
-  provenance: "Where this comes from",
-  model: "Rules",
-  runId: "Run id",
-  duration: "Took",
-  version: "Rules version",
-  copyJson: "Copy as JSON",
-  copyMarkdown: "Copy as Markdown",
-  copied: "Copied to the clipboard",
-  streaming: "Signs are arriving",
-  noFindings: "No sign found.",
+  findings: "Signs found", mayIndicate: "Could mean", location: "Seen at:", evidence: "Raw data", details: "More",
+  limits: "Outside this check", nextSteps: "What to do", provenance: "Where this comes from",
+  model: "Rules", runId: "Run id", duration: "Took", version: "Rules version",
+  copyJson: "Copy as JSON", copyMarkdown: "Copy as Markdown", copied: "Copied", streaming: "Signs are arriving", noFindings: "No sign found.",
 };
 
 // Three levels of authenticity map to the existing statuses: authentic → consistent, doubtful → attention, altered → inconsistent.
