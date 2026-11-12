@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 4.2.1
+
+### Patch Changes
+
+- [#991](https://github.com/krizaka/krizaka-ui/pull/991) [`3a110d9`](https://github.com/krizaka/krizaka-ui/commit/3a110d9f2a462867dcba286d0e3767349e8c9c39) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - fix(analysis-report): a long unbroken token (address, URL, identifier) now wraps in the finding text, the quote and the reference at phone width (`overflow-wrap: anywhere`, web; `minWidth: 0` on the native columns). New `long-address` example and story.
+- Updated dependencies []:
+  - @krizaka/tailwind@4.2.1
+  - @krizaka/tokens@4.2.1
+
 ## 4.2.0
 
 ### Minor Changes
