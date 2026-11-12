@@ -164,5 +164,18 @@
     "price": "Price: {price}",
     "button": "See my booking",
     "why": "You receive this email because you booked a visit with {business}."
+  },
+  "signupInvitation": {
+    "subject": "{brand}: you are invited",
+    "preheader": "{brand} has opened an account for you. The link is valid for a limited time.",
+    "heading": "You are invited to {brand}",
+    "body": "{brand} invites you to create your account. Open the link below to choose how you sign in and get started.",
+    "button": "Create my account",
+    "expiry": {
+      "one": "This link is valid for {count} day.",
+      "other": "This link is valid for {count} days."
+    },
+    "ignore": "If you did not expect this, ignore it: no account is created without this link.",
+    "why": "You receive this email because {brand} invited this address to create an account."
   }
 }
