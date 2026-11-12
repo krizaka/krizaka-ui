@@ -83,11 +83,17 @@ describe("MediaCarousel v2", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
-  it("does not hold the clock under the pointer or on a keyboard focus by default (WCAG 2.2.2: the visible Pause is the one hold)", async () => {
+  /** An autoplaying carousel with the mouse over it: the start of every « no hold » case. */
+  const underPointer = () => {
     const user = userEvent.setup();
     const { container } = render(<MediaCarousel label="Work" slides={slides} autoplay />);
     const root = container.querySelector("section")!;
     fireEvent.pointerEnter(root, { pointerType: "mouse" });
+    return { user, root };
+  };
+
+  it("does not hold the clock under the pointer or on a keyboard focus by default (WCAG 2.2.2: the visible Pause is the one hold)", async () => {
+    const { user, root } = underPointer();
     expect(fill().style.animationPlayState).toBe("running");
     expect(root.hasAttribute("data-advancing")).toBe(true);
     await user.tab();
@@ -95,10 +101,7 @@ describe("MediaCarousel v2", () => {
   });
 
   it("a pointer click on next, then the pointer away, keeps the clock and the clip going", async () => {
-    const user = userEvent.setup();
-    const { container } = render(<MediaCarousel label="Work" slides={slides} autoplay />);
-    const root = container.querySelector("section")!;
-    fireEvent.pointerEnter(root, { pointerType: "mouse" });
+    const { user, root } = underPointer();
     await user.click(screen.getByRole("button", { name: "Next" }));
     fireEvent.pointerLeave(root);
     expect(count()).toBe("2 / 3");
