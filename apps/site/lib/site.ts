@@ -18,3 +18,6 @@ export const KRIZAKA_OPEN_SOURCE_URL = `${KRIZAKA_URL}/open-source`;
 export const KRIZAKA_UI_REPO_URL = `${GITHUB_ORG_URL}/krizaka-ui`;
 export const KRIZAKA_UI_ISSUES_URL = `${KRIZAKA_UI_REPO_URL}/issues`;
 export const KRIZAKA_UI_DISCUSSIONS_URL = `${KRIZAKA_UI_REPO_URL}/discussions`;
+
+/** Krizaka UI Builder, the page editor of the live demo at /builder. */
+export const KRIZAKA_UI_BUILDER_REPO_URL = `${GITHUB_ORG_URL}/krizaka-ui-builder`;

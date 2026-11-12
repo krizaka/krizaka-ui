@@ -16,7 +16,7 @@ const out = flag("--out", null);
 const require = createRequire(import.meta.url);
 const { chromium } = require(flag("--playwright", "playwright"));
 
-export const PAGES = ["/", "/components/", "/components/button/", "/components/map/", "/components/vertical-video/", "/components/line-chart/", "/components/profile-card/", "/fr/"];
+export const PAGES = ["/", "/components/", "/components/button/", "/components/map/", "/components/vertical-video/", "/components/line-chart/", "/components/profile-card/", "/fr/", "/builder/", "/fr/builder/"];
 const VIEWS = [
   { name: "desktop", width: 1440, height: 900 },
   { name: "phone", width: 390, height: 844 },
