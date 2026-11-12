@@ -3,7 +3,8 @@ import { MediaCarousel } from "@krizaka/ui/media-carousel";
 const PIC = (a: string, b: string) => `data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='${a}'/><stop offset='1' stop-color='${b}'/></linearGradient></defs><rect width='1600' height='900' fill='url(#g)'/></svg>`)}`;
 
 // Carousel v2: it advances by itself at each slide's pace (a clip for its duration, a still for a reading time), with ticks
-// and a visible pause; it holds under the pointer, on keyboard focus and off screen. Nothing moves under reduced motion.
+// and a visible pause; it holds with the Pause button and off screen
+// (`holds: pointer-focus` adds the pointer and the keyboard focus). Nothing moves under reduced motion.
 export default function MediaCarouselAutoplayExample() {
   return (
     <div className="max-w-2xl">

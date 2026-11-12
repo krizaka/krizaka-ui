@@ -138,8 +138,10 @@ export type MediaCarouselProps = Omit<React.ComponentProps<"section">, "children
   label: string;
   /** The frame ratio of every slide (width / height). Default `16 / 9`, the house ratio. */
   ratio?: string;
-  /** Advances by itself (wrapping), each slide for its `duration` within the bounds (`true`: 5–45 s). Never under reduced motion or Save-Data; held by the pause button, the pointer, the keyboard focus, a hidden tab, off screen. */
+  /** Advances by itself (wrapping), each slide for its `duration` within the bounds (`true`: 5–45 s). Never under reduced motion or Save-Data; held by the pause button, a hidden tab, off screen (and, with `holds="pointer-focus"`, the pointer and a keyboard focus). */
   autoplay?: boolean | CarouselAutoplay;
+  /** What holds the autoplay clock besides the visible pause, a hidden tab, off screen, reduced motion and Save-Data. `pause-only` (default, WCAG 2.2.2): nothing else, so a resting pointer or a click on next never freezes it. `pointer-focus`: the pointer (not a touch) and a keyboard focus inside hold it too. */
+  holds?: "pause-only" | "pointer-focus";
   /** Offers « Sound on » when a slide declares `audio`: after the press, hovering or focusing the carousel plays that slide's sound. Never without the press. */
   sound?: boolean;
   /** `product` (default): the product register's rounded frame. `cahier`: the company's sites — square, a solid paper shadow, the count in the typewriter face. */
@@ -402,7 +404,7 @@ const CarouselToolbar = React.forwardRef<HTMLDivElement, ToolbarProps>(function 
         </IconButton>
       )}
       {moving && (
-        <IconButton variant="secondary" label={paused ? labels.play : labels.pause} onClick={onPause}>
+        <IconButton variant="secondary" label={paused ? labels.play : labels.pause} aria-pressed={paused} onClick={onPause}>
           {paused ? <PlayGlyph className="h-4 w-4" /> : <PauseGlyph className="h-4 w-4" />}
         </IconButton>
       )}
@@ -456,6 +458,7 @@ export function MediaCarousel({
   label,
   ratio = "16 / 9",
   autoplay,
+  holds = "pause-only",
   sound,
   frame = "product",
   caption = "overlay",
@@ -491,7 +494,8 @@ export function MediaCarousel({
   const wraps = Boolean(autoplay) && total > 1;
   const ownClips = !renderLoop && slides.some((slide) => slide.video);
   const moving = !calm && (wraps || ownClips);
-  const advancing = wraps && !calm && !paused && !hovered && !keyboardIn && onScreen && !hidden;
+  const held = holds === "pointer-focus" && (hovered || keyboardIn);
+  const advancing = wraps && !calm && !paused && !held && onScreen && !hidden;
   const clipPlaying = onScreen && !paused && !hidden;
   const hasAudio = Boolean(sound) && !calm && ownClips && slides.some((slide) => slide.audio && slide.video);
   const audible = hasAudio && soundChosen && Boolean(current?.audio) && (hovered || focusIn);
