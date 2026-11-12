@@ -55,6 +55,8 @@ function Finding({ finding, labels, onLocate }: { finding: AnalysisFinding; labe
           <Txt variant="label">{labels.mayIndicate}</Txt> {finding.mayIndicate}
         </Txt>
       ) : null}
+      {finding.quote ? <Txt tone="secondary">« {finding.quote} »</Txt> : null}
+      {finding.reference ? <Txt variant="label" tone="accent">{finding.reference.label}</Txt> : null}
       {finding.location ? (
         <Pressable role="button" disabled={!onLocate} onPress={() => onLocate?.(finding)} hitSlop={8}>
           <Txt variant="caption" tone={onLocate ? "accent" : "secondary"}>

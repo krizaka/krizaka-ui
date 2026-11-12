@@ -25,10 +25,12 @@ export const meta = {
     "Pass every word through `labels` from your messages (`@krizaka/i18n`); the package ships none.",
     "While the run is open, set `streaming`: findings are announced politely as they arrive.",
     "Give `onLocate` to scroll a document viewer to a finding's place; without it the location is plain text.",
+    "Quote the passage the finding rests on (`quote`) and cite the rule (`reference`, with an `href` when it is public): the reader checks the source without opening the document.",
+    "Fold the calm groups (`folded`) and the provenance (`provenanceFolded`): the serious findings stay in view, the rest is one tap away.",
     "Examples and tests use demo data only.",
   ],
   accessibility: {
-    keyboard: [{ keys: "Tab / Enter", action: "Reaches the copy buttons, the locations and the folded evidence." }],
+    keyboard: [{ keys: "Tab / Enter", action: "Reaches the copy buttons, the locations, the references and the folds; Enter or Space opens a fold." }],
     notes: [
       "A section named by the studio's title; each status group is a labelled section with a heading, each finding a list item.",
       "A status is always a word with its dot, never a colour alone.",
@@ -41,6 +43,8 @@ export const meta = {
     imports: ["AnalysisReport", "groupFindings", "countByStatus", "reportToMarkdown", "reportToJson"],
     examples: [
       { name: "document-validation", title: "A document validation", description: "Header, findings grouped by status, limits and next steps in two columns, provenance, copy as JSON or Markdown." },
+      { name: "lease-review", title: "A lease review", description: "Each finding quotes the passage and cites its article of law; the respected and unverified groups and the provenance are folded." },
+      { name: "authenticity", title: "An authenticity check", description: "Three levels (authentic, doubtful, altered) mapped to the existing statuses, quoted passages, the calm group folded." },
       { name: "streaming", title: "While the run is open", description: "`streaming` marks the report busy and announces each finding as it arrives; the copy actions are hidden." },
     ],
   },
