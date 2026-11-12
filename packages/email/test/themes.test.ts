@@ -56,7 +56,10 @@ describe("House of Brands: a product email never shows another product", () => {
           expect(email.html.toLowerCase()).not.toContain(`/brand/${other.toLowerCase()}/`);
         }
         expect(email.html).toContain(`/brand/${brand}/mark-light-256.png`);
-        expect(email.html).toContain(BRAND_COLOURS[brand].accent.light);
+        // The light accent is inline on the button only: a email without a button (a one-time code) carries it in the dark scheme only.
+        if (email.html.includes('class="kz-btn"')) expect(email.html).toContain(BRAND_COLOURS[brand].accent.light);
+        // Every email still carries its brand: without a button the accent is in the dark scheme.
+        else expect(email.html).toContain(BRAND_COLOURS[brand].accent.dark);
         expect(email.html).toContain(BRAND_COLOURS[brand].accent.dark);
       }
     }
