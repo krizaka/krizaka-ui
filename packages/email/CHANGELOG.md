@@ -1,5 +1,11 @@
 # @krizaka/email
 
+## 1.1.0
+
+### Minor Changes
+
+- [#996](https://github.com/krizaka/krizaka-ui/pull/996) [`2541975`](https://github.com/krizaka/krizaka-ui/commit/25419759422e0570326592259221bd6846bae77e) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - New `signupInvitation` template (transactional): an invitation to create an account from a product, with an `inviteUrl` (https), a link lifetime in `days` (1–30), an optional one-line `allowance`, FR/EN words and the brand themes.
+
 ## 1.0.0
 
 ### Major Changes
