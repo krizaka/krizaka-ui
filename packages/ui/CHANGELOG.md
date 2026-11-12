@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 4.3.0
+
+### Minor Changes
+
+- [#994](https://github.com/krizaka/krizaka-ui/pull/994) [`2cc19cc`](https://github.com/krizaka/krizaka-ui/commit/2cc19cc3a5e4d549fe5712bccb62d420039623e9) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `MediaCarousel`: an autoplaying carousel no longer freezes under the pointer or on a keyboard focus, and a click on previous / next no longer stops it (WCAG 2.2.2: the visible Pause / Play is the one hold; its label and `aria-pressed` follow the one paused state). A hidden tab, off screen, reduced motion and Save-Data still hold. Behaviour change: to keep the old holds, pass the new `holds="pointer-focus"` (default `"pause-only"`).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@4.3.0
+  - @krizaka/tokens@4.3.0
+
 ## 4.2.1
 
 ### Patch Changes
