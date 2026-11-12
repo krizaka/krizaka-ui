@@ -67,6 +67,7 @@ export default function BuilderDemo() {
   const verdict = useMemo(() => checkDocument(doc), [doc]);
   const missing = useMemo(() => missingTranslations(doc, "fr"), [doc]);
   const outcome = useMemo(() => (picked ? checkDocument(attack(picked, doc)) : null), [picked, doc]);
+  const attackLine = outcome?.ok ? b.attacks.accepted : outcome && b.attacks.refused;
   const shown = picked ? JSON.stringify(attack(picked, doc), null, 2) : documentJson(doc);
 
   return (
@@ -132,7 +133,7 @@ export default function BuilderDemo() {
                 </Button>
               )}
             </div>
-            <output className={`block text-sm font-semibold ${outcome?.ok ? "text-fg-danger" : "text-fg-success"}`}>{outcome ? (outcome.ok ? b.attacks.accepted : b.attacks.refused) : ""}</output>
+            <output className={`block text-sm font-semibold ${outcome?.ok ? "text-fg-danger" : "text-fg-success"}`}>{attackLine}</output>
             {outcome && !outcome.ok && (
               <ul aria-label={b.attacks.resultLabel} className="grid gap-1">
                 {outcome.issues.map((issue) => (
