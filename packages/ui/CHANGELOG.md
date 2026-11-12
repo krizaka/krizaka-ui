@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 4.2.0
+
+### Minor Changes
+
+- [#989](https://github.com/krizaka/krizaka-ui/pull/989) [`8809da2`](https://github.com/krizaka/krizaka-ui/commit/8809da2d6cf78ea025e23f15372de64c327b3ef9) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `AnalysisReport`: a finding can carry the quoted passage (`quote`, a « » line) and the law or rule it cites (`reference`, a label with an optional link); `folded` closes status groups by default and `provenanceFolded` folds the provenance. Additive. Two new examples: a lease review and an authenticity check.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@4.2.0
+  - @krizaka/tokens@4.2.0
+
 ## 4.1.0
 
 ### Minor Changes
