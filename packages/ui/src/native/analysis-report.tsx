@@ -149,7 +149,7 @@ export function AnalysisReport({ title, summary, status, findings, limits, nextS
 const styles = StyleSheet.create({
   root: { gap: 16 },
   row: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: 8 },
-  grow: { flex: 1, gap: 4 },
+  grow: { flex: 1, minWidth: 0, gap: 4 },
   block: { gap: 8 },
-  finding: { padding: 12, gap: 6 },
+  finding: { padding: 12, gap: 6, minWidth: 0 },
 });

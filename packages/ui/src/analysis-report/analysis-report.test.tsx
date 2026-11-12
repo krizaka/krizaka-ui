@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import Authenticity from "../../registry/examples/analysis-report/authenticity";
 import DocumentValidation from "../../registry/examples/analysis-report/document-validation";
 import LeaseReview from "../../registry/examples/analysis-report/lease-review";
+import LongAddress from "../../registry/examples/analysis-report/long-address";
 import { axeViolations } from "../test/axe";
 import { AnalysisReport, type AnalysisReportData, type AnalysisReportLabels,countByStatus, groupFindings, reportToJson, reportToMarkdown } from "./index";
 
@@ -145,8 +146,17 @@ describe("quote, reference and folds", () => {
   it("wraps long words so nothing leaves a 360 px frame", () => {
     const long = "x".repeat(200);
     render(<AnalysisReport {...cited} findings={[{ id: "l", status: "attention", title: "t", quote: long, reference: { label: long } }]} labels={labels} />);
-    expect(screen.getByText(`« ${long} »`).className).toContain("break-words");
-    expect(screen.getByText(long).closest("p")?.className).toContain("break-words");
+    expect(screen.getByText(`« ${long} »`).className).toContain("wrap-anywhere");
+    expect(screen.getByText(long).closest("p")?.className).toContain("wrap-anywhere");
+  });
+
+  it("wraps a 120-character address in the finding text, the quote and the reference (no sideways overflow at 360 px)", async () => {
+    const { container } = render(<div style={{ width: 360 }}><LongAddress /></div>);
+    const root = container.querySelector("section") as HTMLElement;
+    expect(root.className).toContain("wrap-anywhere"); // inherited by the title, the observation, the quote, the reference
+    expect(root.className).toContain("min-w-0");
+    expect(container.querySelector("li")?.className).toContain("wrap-anywhere");
+    expect(await axeViolations(container)).toEqual([]);
   });
 
   it.each([["lease review", LeaseReview], ["authenticity", Authenticity]])("the %s example has no axe violation, folds open or closed", async (_n, Example) => {
