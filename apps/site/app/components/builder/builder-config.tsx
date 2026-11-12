@@ -36,7 +36,7 @@ function Words({ value }: { value: unknown }) {
 
 const INPUT_CLASS = "w-full rounded-md border border-border-default bg-surface-sunken px-3 py-2 text-sm text-fg focus-visible:outline-2 focus-visible:outline-offset-2";
 
-function LocalizedInput({ value, onChange, long, id, name }: { value: Record<string, string> | undefined; onChange: (next: Record<string, string>) => void; long: boolean; id: string; name: string }) {
+function LocalizedInput({ value, onChange, long, id, name }: Readonly<{ value: Record<string, string> | undefined; onChange: (next: Record<string, string>) => void; long: boolean; id: string; name: string }>) {
   const locale = useContentLocale();
   const own = value?.[locale] ?? "";
   const change = (text: string) => {

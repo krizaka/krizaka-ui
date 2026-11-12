@@ -35,7 +35,7 @@ const DOCUMENT_SCHEMA = 2;
 
 /* The canvas is an iframe with its own <html>: it takes the site's light class, or the blocks would stay dark. Nothing is
    saved, so the header keeps undo and redo and drops Publish. */
-function ThemedFrame({ children, document: frame }: { children: ReactNode; document?: Document }) {
+function ThemedFrame({ children, document: frame }: Readonly<{ children: ReactNode; document?: Document }>) {
   const { theme } = useSiteTheme();
   const { t } = useI18n();
   useEffect(() => {
@@ -72,14 +72,14 @@ export default function BuilderDemo() {
   return (
     <div className="grid gap-6">
       <div className="flex flex-wrap items-center gap-3">
-        <div role="group" aria-label={b.language.label} className="flex items-center gap-2">
-          <span className="text-sm font-medium text-fg-secondary">{b.language.label}</span>
+        <fieldset className="m-0 flex items-center gap-2 border-0 p-0">
+          <legend className="float-left mr-2 p-0 text-sm font-medium text-fg-secondary">{b.language.label}</legend>
           {CONTENT_LOCALES.map((code) => (
             <Button key={code} type="button" size="sm" variant={content === code ? "primary" : "secondary"} aria-pressed={content === code} lang={code} onClick={() => setContent(code)}>
               {b.language[code]}
             </Button>
           ))}
-        </div>
+        </fieldset>
         <p className="text-sm text-fg-secondary">{b.language.hint}</p>
       </div>
 
@@ -106,9 +106,9 @@ export default function BuilderDemo() {
             {b.document.title}
           </h2>
           <p className="text-fg-secondary">{format(b.document.lead, { schema: DOCUMENT_SCHEMA })}</p>
-          <p role="status" className={`text-sm font-semibold ${verdict.ok ? "text-fg-success" : "text-fg-danger"}`}>
+          <output className={`block text-sm font-semibold ${verdict.ok ? "text-fg-success" : "text-fg-danger"}`}>
             {verdict.ok ? format(b.document.valid, { blocks: doc.blocks.length }) : format(b.document.invalid, { count: verdict.issues.length })}
-          </p>
+          </output>
           <pre tabIndex={0} aria-label={b.document.jsonLabel} className="max-h-96 overflow-auto rounded-lg border border-border-default bg-surface-sunken p-4 text-xs text-fg">
             <code>{shown}</code>
           </pre>
@@ -132,32 +132,25 @@ export default function BuilderDemo() {
                 </Button>
               )}
             </div>
-            <div role="status" aria-label={b.attacks.resultLabel} className="grid gap-2">
-              {outcome &&
-                (outcome.ok ? (
-                  <p className="text-sm text-fg-danger">{b.attacks.accepted}</p>
-                ) : (
-                  <>
-                    <p className="text-sm font-semibold text-fg-success">{b.attacks.refused}</p>
-                    <ul className="grid gap-1">
-                      {outcome.issues.map((issue) => (
-                        <li key={`${issue.path}-${issue.code}`} className="break-words rounded-md border border-border-default bg-surface-sunken px-3 py-2 font-mono text-xs text-fg">
-                          {describeIssue(issue)}
-                        </li>
-                      ))}
-                    </ul>
-                  </>
+            <output className={`block text-sm font-semibold ${outcome?.ok ? "text-fg-danger" : "text-fg-success"}`}>{outcome ? (outcome.ok ? b.attacks.accepted : b.attacks.refused) : ""}</output>
+            {outcome && !outcome.ok && (
+              <ul aria-label={b.attacks.resultLabel} className="grid gap-1">
+                {outcome.issues.map((issue) => (
+                  <li key={`${issue.path}-${issue.code}`} className="break-words rounded-md border border-border-default bg-surface-sunken px-3 py-2 font-mono text-xs text-fg">
+                    {describeIssue(issue)}
+                  </li>
                 ))}
-            </div>
+              </ul>
+            )}
           </section>
 
           <section aria-labelledby="builder-missing" className="grid gap-3">
             <h2 id="builder-missing" className="text-xl font-bold text-fg">
               {b.missing.title}
             </h2>
-            <p role="status" className="text-fg-secondary">
+            <output className="block text-fg-secondary">
               {missing.length === 0 ? format(b.missing.none, { language: b.missing.language }) : format(b.missing.some, { count: missing.length, language: b.missing.language })}
-            </p>
+            </output>
             {missing.length > 0 && (
               <ul className="grid gap-1">
                 {missing.map((path) => (

@@ -20,7 +20,7 @@ export function builderMetadata(locale: Locale): Metadata {
   return localizedMetadata(locale, { path: "/builder", title: b.metaTitle, description: b.metaDescription });
 }
 
-export function BuilderPageView({ locale }: { locale: Locale }) {
+export function BuilderPageView({ locale }: Readonly<{ locale: Locale }>) {
   const t = getDictionary(locale);
   const b = t.site.builder;
   const url = absoluteUrl(locale, "/builder");

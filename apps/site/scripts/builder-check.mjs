@@ -40,7 +40,7 @@ for (const [locale, w] of Object.entries(WORDS)) {
       const names = { script: /script/i, handler: /onClick/, proto: /__proto__/ };
       await page.getByRole("button", { name: names[id] }).first().click();
       await page.getByText(w.refused, { exact: true }).waitFor({ timeout: 5000 });
-      const text = await page.getByLabel(/Attack|attaque/i).first().innerText();
+      const text = await page.getByRole("list", { name: /Result of the attack|Résultat de l’attaque/ }).innerText();
       if (!expected.test(text)) problems.push(`${locale}: attack ${id} shows: ${text.slice(0, 120)}`);
     }
   } catch (error) {

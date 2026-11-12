@@ -11,9 +11,7 @@ const BuilderDemo = dynamic(() => import("./BuilderDemo"), { ssr: false, loading
 function EditorPlaceholder() {
   const { t } = useI18n();
   return (
-    <div role="status" className="grid min-h-[480px] place-items-center rounded-xl border border-border-default bg-surface-sunken text-fg-secondary">
-      {t.site.builder.loading}
-    </div>
+    <output className="grid min-h-[480px] place-items-center rounded-xl border border-border-default bg-surface-sunken text-fg-secondary">{t.site.builder.loading}</output>
   );
 }
 
