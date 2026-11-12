@@ -164,5 +164,18 @@
     "price": "Prix : {price}",
     "button": "Voir ma réservation",
     "why": "Vous recevez ce courriel parce que vous avez réservé une visite chez {business}."
+  },
+  "signupInvitation": {
+    "subject": "{brand} : vous êtes invité",
+    "preheader": "{brand} vous a ouvert un accès. Le lien est valable pour une durée limitée.",
+    "heading": "Vous êtes invité sur {brand}",
+    "body": "{brand} vous invite à créer votre compte. Ouvrez le lien ci-dessous pour choisir votre mode de connexion et commencer.",
+    "button": "Créer mon compte",
+    "expiry": {
+      "one": "Ce lien est valable {count} jour.",
+      "other": "Ce lien est valable {count} jours."
+    },
+    "ignore": "Si vous n’attendiez pas ce message, ignorez-le : aucun compte n’est créé sans ce lien.",
+    "why": "Vous recevez ce courriel parce que {brand} a invité cette adresse à créer un compte."
   }
 }
