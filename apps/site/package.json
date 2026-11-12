@@ -25,6 +25,7 @@
     "@krizaka/tailwind": "workspace:*",
     "@krizaka/tokens": "workspace:*",
     "@krizaka/ui": "workspace:*",
+    "@krizaka/ui-builder": "0.3.0",
     "fumadocs-core": "16.17.7",
     "fumadocs-mdx": "15.4.9",
     "fumadocs-ui": "16.17.7",

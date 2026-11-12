@@ -28,6 +28,7 @@ const LINKS = [
   { id: "foundations", path: "/foundations/tokens", match: ["/foundations"] },
   { id: "components", path: "/components", match: ["/components"] },
   { id: "templates", path: "/templates", match: ["/templates"] },
+  { id: "builder", path: "/builder", match: ["/builder"] },
 ] as const;
 
 export function SiteBar({ version }: { version: string }) {
