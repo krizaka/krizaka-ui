@@ -177,5 +177,21 @@
     },
     "ignore": "Si vous n’attendiez pas ce message, ignorez-le : aucun compte n’est créé sans ce lien.",
     "why": "Vous recevez ce courriel parce que {brand} a invité cette adresse à créer un compte."
+  },
+  "verificationCode": {
+    "subject": "{code} est votre code {brand}",
+    "preheader": "Votre code est valable {duration}.",
+    "heading": "Votre code {brand}",
+    "body": "Saisissez ce code pour continuer. Il est valable {duration}.",
+    "minutes": {
+      "one": "{count} minute",
+      "other": "{count} minutes"
+    },
+    "ignore": "Si vous n’avez rien demandé, ignorez-le : il ne se passe rien, et personne ne peut utiliser le code sans vous.",
+    "why": "Vous recevez ce courriel parce qu’un code a été demandé pour cette adresse."
+  },
+  "notification": {
+    "about": "Ce message vous est envoyé par {brand}.",
+    "why": "Vous recevez ce courriel en raison d’une activité sur votre compte."
   }
 }

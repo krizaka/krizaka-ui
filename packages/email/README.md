@@ -27,6 +27,8 @@ Only rendering, without sending: `const { subject, html, text, headers } = await
 | `contactAutoreply` | transactional | krizaka.com contact form: « we received it », the visitor's message echoed |
 | `contactNotification` | internal | the team's notification: every field, a reply button |
 | `signInLink`, `commentReply`, `accountDeletion`, `dataExport`, `signupInvitation`, `confirmEmail`, `passwordReset`, `emailChange` | transactional | accounts |
+| `verificationCode` | transactional | a one-time code (exactly 6 digits, `ttlMinutes` 1–60, optional one-line `purpose`) in the `Code` block, and « ignore it if you didn’t ask » |
+| `notification` | transactional | generic: `title` (the subject), `line`, and optionally `actionLabel` + https-only `actionUrl`; the caller’s words, escaped |
 
 Every template takes `brand` (default `krizaka`; one theme per product, generated from `@krizaka/tokens`),
 `address` (the postal address of the sender — CASL), `signature` (a name, a role, an avatar slot) and

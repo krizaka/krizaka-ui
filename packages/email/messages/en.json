@@ -177,5 +177,21 @@
     },
     "ignore": "If you did not expect this, ignore it: no account is created without this link.",
     "why": "You receive this email because {brand} invited this address to create an account."
+  },
+  "verificationCode": {
+    "subject": "{code} is your {brand} code",
+    "preheader": "Your code is valid for {duration}.",
+    "heading": "Your {brand} code",
+    "body": "Enter this code to continue. It is valid for {duration}.",
+    "minutes": {
+      "one": "{count} minute",
+      "other": "{count} minutes"
+    },
+    "ignore": "If you didn’t ask for it, ignore this email: nothing happens, and nobody can use the code without you.",
+    "why": "You receive this email because a code was requested for this address."
+  },
+  "notification": {
+    "about": "This message was sent to you by {brand}.",
+    "why": "You receive this email because of activity on your account."
   }
 }
