@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 4.4.0
+
+### Minor Changes
+
+- [#1003](https://github.com/krizaka/krizaka-ui/pull/1003) [`19a945b`](https://github.com/krizaka/krizaka-ui/commit/19a945b3c39866d73552b6692f0bc6f4f508797b) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `LandingPage`: `visual` is optional (absent, the hero is one column of at most 46rem and draws no empty stage), a new `showcase` slot renders full width between the proofs and the features, and `backdrop="quiet"` keeps the still dome without the grid or the drift. The default render is unchanged.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@4.4.0
+  - @krizaka/tokens@4.4.0
+
 ## 4.3.0
 
 ### Minor Changes
