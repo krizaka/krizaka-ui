@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* The home, measured in a real browser (Playwright) at 1440, 1366 and 768 (desktop, tablet) and 390 (phone), dark and
+/* The home, measured in a real browser (Playwright) at 1440, 1366 and 768 (desktop, tablet) and 390 and 360 (phone), dark and
    light, EN and FR — the calmest page of the family (Cahier, krizaka-ui#434):
    - the first screen holds what it is (the title), the install line, the three ways in (components, foundations,
      templates) and the search — on a desktop all four, on a phone at least the title, the install line and the first way
@@ -8,6 +8,8 @@
      up, beside the title and above the ways in, and sits under the text below it, whole, never cut off, no layout shift;
    - the bar's brand link shows no outline after a mouse load or a mouse click (`:focus` is not `:focus-visible`) and a
      clear one after Tab (krizaka-ui#417: « a heavy dark outline on load, as if focused »);
+   - the UI Builder button (krizaka-ui#3540: the one primary action) is on the first screen, leads to the demo in the page's
+     language, is reached by Tab with a visible ring, and axe finds no serious or critical issue (with --axe);
    - the search opens the site's search dialog;
    - nothing scrolls sideways.
 
@@ -22,8 +24,9 @@ const base = flag("--base", "http://localhost:4600").replace(/\/$/, "");
 const out = flag("--out", null);
 const require = createRequire(import.meta.url);
 const { chromium } = require(flag("--playwright", "playwright"));
+const axePath = flag("--axe", null);
 
-const WIDTHS = [1440, 1366, 768, 390];
+const WIDTHS = [1440, 1366, 768, 390, 360];
 const PATHS = ["/", "/fr"];
 if (out) mkdirSync(out, { recursive: true });
 
@@ -44,6 +47,8 @@ function firstScreen() {
     ways: ways.map((a) => new URL(a.href).pathname.replace(/^\/fr/, "").replace(/\/$/, "") || "/"),
     waysSeen: ways.filter(seen).length,
     search: seen(document.querySelector(".kz-home-search")),
+    builder: seen(document.querySelector(".kz-home-try a")),
+    builderHref: document.querySelector(".kz-home-try a")?.getAttribute("href") ?? null,
     figures: document.querySelectorAll(".kz-sheet").length,
     sheet: (() => {
       const sheet = document.querySelector(".kz-sheet");
@@ -83,6 +88,8 @@ for (const path of PATHS) {
       await page.evaluate(() => document.fonts.ready);
       const f = await page.evaluate(firstScreen);
       if (!f.title) problems.push(`${where}: the title is not on the first screen`);
+      if (!f.builder) problems.push(`${where}: the UI Builder button is not on the first screen`);
+      if (f.builderHref?.replace(/\/$/, "") !== (path === "/" ? "/builder" : "/fr/builder")) problems.push(`${where}: the UI Builder button leads to ${f.builderHref}`);
       if (!f.install) problems.push(`${where}: the install line is not on the first screen`);
       if (f.ways.join() !== "/components,/foundations/tokens,/templates") problems.push(`${where}: the ways in are ${f.ways.join(", ") || "missing"}`);
       if (!phone && (f.waysSeen < 3 || !f.search)) problems.push(`${where}: the three ways in and the search are not all on the first screen (${f.waysSeen} ways, search ${f.search})`);
@@ -127,6 +134,34 @@ for (const path of PATHS) {
           dialog = await page.locator("[role=dialog]").first().waitFor({ state: "visible", timeout: 1500 }).then(() => true, () => false);
         }
         if (!dialog) problems.push(`${where}: the search does not open the search dialog`);
+      }
+      // The UI Builder button: reachable by Tab with a visible focus ring, clean for axe, and it opens the demo in the same locale.
+      {
+        await page.goto(`${base}${path}`, { waitUntil: "load" });
+        const focusBuilder = async () => {
+          for (let i = 0; i < 12; i++) {
+            await page.keyboard.press("Tab");
+            if (await page.evaluate(() => document.activeElement === document.querySelector(".kz-home-try a"))) return true;
+          }
+          return false;
+        };
+        if (!(await focusBuilder())) problems.push(`${where}: Tab does not reach the UI Builder button`);
+        else {
+          const ring = await page.evaluate(() => {
+            const cs = getComputedStyle(document.activeElement);
+            return document.activeElement.matches(":focus-visible") && cs.outlineStyle !== "none" && parseFloat(cs.outlineWidth) > 0;
+          });
+          if (!ring) problems.push(`${where}: the UI Builder button has no visible focus ring after Tab`);
+        }
+        if (axePath) {
+          await page.addScriptTag({ path: axePath });
+          const serious = await page.evaluate(async () => (await window.axe.run(document, { resultTypes: ["violations"] })).violations.filter((v) => v.impact === "serious" || v.impact === "critical").map((v) => `${v.id} on ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`));
+          if (serious.length) problems.push(`${where}: axe serious/critical: ${serious.join(", ")}`);
+        }
+        await page.locator(".kz-home-try a").click();
+        await page.waitForURL(`**${path === "/" ? "" : "/fr"}/builder{,/}`, { timeout: 10000 }).catch(() => {});
+        const landed = new URL(page.url()).pathname.replace(/\/$/, "");
+        if (landed !== (path === "/" ? "/builder" : "/fr/builder")) problems.push(`${where}: the click lands on ${landed}`);
       }
       await context.close();
     }

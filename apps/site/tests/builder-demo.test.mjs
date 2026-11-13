@@ -103,7 +103,9 @@ const source = (file) => readFileSync(new URL(`../${file}`, import.meta.url), "u
 test("the sitemap, the llms.txt and the bar list /builder", () => {
   assert.match(source("app/sitemap.ts"), /"\/builder"/);
   assert.match(source("lib/llms.ts"), /\/builder/);
-  assert.match(source("app/components/SiteBar.tsx"), /path: "\/builder"/);
+  assert.match(source("lib/urls.ts"), /BUILDER_PATH = "\/builder"/);
+  assert.match(source("app/components/SiteBar.tsx"), /path: BUILDER_PATH/);
+  assert.match(source("app/components/landing/Landing.tsx"), /localePath\(locale, BUILDER_PATH\)/);
 });
 
 test("the editor is a lazy, client-only chunk: no server module imports it", () => {

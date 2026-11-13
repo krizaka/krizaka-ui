@@ -20,6 +20,9 @@
 
 export const SITE_URL = "https://ui.krizaka.com";
 
+/** The live demo of Krizaka UI Builder: the bar and the home hero both link here. */
+export const BUILDER_PATH = "/builder";
+
 export const GET_STARTED_PAGES = ["installation", "theming"] as const;
 export const FOUNDATION_PAGES = ["tokens", "typography", "icons", "motion", "navigation", "layouts", "brand-marks", "cahier-site", "shop-presets"] as const;
 export const PACKAGE_PAGES = ["tailwind", "intl", "i18n", "query", "realtime", "push", "app-config", "config"] as const;

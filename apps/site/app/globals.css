@@ -776,13 +776,14 @@ html.light .kz-hero-strip .kz-shot-light { display: block; }
 .kz-home-hero > * { min-width: 0; }
 .kz-home-hero h1 { margin: 0; max-width: 40rem; font-family: var(--kz-font-display); font-size: clamp(2rem, 4.6vw, 3.2rem); font-weight: 400; line-height: 1.08; text-wrap: balance; color: var(--kz-text-primary); }
 .kz-home-hero .kz-land-lead { max-width: 40rem; }
+.kz-home-try { display: flex; }
 .kz-home-install { width: 100%; max-width: 40rem; }
 .kz-home-install pre { margin: 0; }
 .kz-home-ways { width: 100%; }
 @media (min-width: 1024px) {
   .kz-home-hero { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); column-gap: clamp(32px, 5vw, 72px); align-items: start; }
-  .kz-home-hero > h1, .kz-home-hero > .kz-land-lead, .kz-home-hero > .kz-home-install, .kz-home-hero > .kz-home-search { grid-column: 1; }
-  .kz-home-hero > .kz-sheet { grid-column: 2; grid-row: 1 / span 4; align-self: start; }
+  .kz-home-hero > h1, .kz-home-hero > .kz-land-lead, .kz-home-hero > .kz-home-try, .kz-home-hero > .kz-home-install, .kz-home-hero > .kz-home-search { grid-column: 1; }
+  .kz-home-hero > .kz-sheet { grid-column: 2; grid-row: 1 / span 5; align-self: start; }
   .kz-home-hero > .kz-home-ways { grid-column: 1 / -1; margin-top: 12px; }
 }
 /* Plate I — the specimen sheet: four real pieces of the kit drawn by the kit (server-rendered, inert, still), each

@@ -251,7 +251,7 @@ jobs:
       - name: The home's showcase geometry (the clip fills its tile, plans, chat, progress, nothing cut)
         run: |
           curl -fsS -o /dev/null http://localhost:4600/ || { python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 & sleep 2; }
-          node apps/site/scripts/home-geometry.mjs --base http://localhost:4600 --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')"
+          node apps/site/scripts/home-geometry.mjs --base http://localhost:4600 --playwright "$(cd apps/storybook && node -p 'require.resolve("playwright")')" --axe "$(cd apps/storybook && node -p 'require.resolve("axe-core/axe.min.js", { paths: [require.resolve("axe-playwright")] })')"
       - name: The flock moves with motion allowed and is still under reduced motion
         run: |
           curl -fsS -o /dev/null http://localhost:4600/ || { python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 & sleep 2; }

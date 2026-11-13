@@ -17,7 +17,7 @@ import { usePathname } from "next/navigation";
 
 import { LOCALES } from "@/lib/locales";
 import { KRIZAKA_UI_REPO_URL } from "@/lib/site";
-import { localePath } from "@/lib/urls";
+import { BUILDER_PATH, localePath } from "@/lib/urls";
 
 import { useSearchContext } from "./docs/fumadocs/client";
 import { useI18n } from "./I18nProvider";
@@ -28,7 +28,7 @@ const LINKS = [
   { id: "foundations", path: "/foundations/tokens", match: ["/foundations"] },
   { id: "components", path: "/components", match: ["/components"] },
   { id: "templates", path: "/templates", match: ["/templates"] },
-  { id: "builder", path: "/builder", match: ["/builder"] },
+  { id: "builder", path: BUILDER_PATH, match: [BUILDER_PATH] },
 ] as const;
 
 export function SiteBar({ version }: { version: string }) {
