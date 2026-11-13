@@ -1088,6 +1088,10 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
 /* A split hero: the words on one side, the product live on the other (a demo, a recording, a schema). */
 .kz-tpl-split { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: center; }
 .kz-tpl-split[data-reverse] > :first-child { order: 2; }
+/* Without a visual: one column, a reading measure, no empty stage. */
+.kz-tpl-split[data-single] { grid-template-columns: minmax(0, 1fr); max-width: 46rem; }
+/* The showcase: full width of the page frame, between the proofs and the features. */
+.kz-tpl-showcase { padding-block: clamp(24px, 4vw, 48px) 0; }
 @media (max-width: 900px) { .kz-tpl-split { grid-template-columns: minmax(0, 1fr); } .kz-tpl-split[data-reverse] > :first-child { order: 0; } }
 .kz-tpl-stage {
   position: relative; min-width: 0; overflow: hidden; border-radius: var(--kz-card-radius, 0); border: 1px solid var(--kz-border-default); background: var(--kz-surface-1);
