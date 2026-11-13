@@ -65,7 +65,7 @@ function WallObject({ item }: { readonly item: DistributiveOmit<WallItem, keyof 
 
 /** A decorative textured surface over a real keyboard-reachable list; never an editor. */
 export function Wall({ items, texture = "plaster", max = 12, height, itemWidth = 240, layout = "pinned", className, ...props }: Readonly<WallProps>) {
-  const patternId = React.useId().replace(/:/g, "");
+  const patternId = React.useId().replaceAll(":", "");
   const drawn = Math.max(0, Math.floor(finite(max)));
   return (
     <ul {...props} role="list" className={cn("kz-wall", className)} data-texture={texture} data-layout={layout === "tidy" ? "tidy" : undefined} data-count={Math.min(items.length, drawn)} data-fixed-height={height === undefined ? undefined : ""} style={{ ...(height === undefined ? null : { "--kz-wall-height": `${Math.max(320, finite(height))}px` }), "--kz-wall-item-width": `${Math.max(120, finite(itemWidth))}px` } as React.CSSProperties}>

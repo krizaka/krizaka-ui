@@ -57,8 +57,8 @@ export function AppHeaderSearch({ label, onOpen, shortcut = "k", className, type
       event.preventDefault();
       open.current();
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    globalThis.addEventListener("keydown", onKey);
+    return () => globalThis.removeEventListener("keydown", onKey);
   }, [shortcut]);
 
   const key = shortcut ? shortcut.toUpperCase() : null;

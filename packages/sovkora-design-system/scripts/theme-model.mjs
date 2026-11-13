@@ -62,7 +62,7 @@ export function rgba(value) {
   const hex = v.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
   if (hex) {
     const h = hex[1].length === 3 ? [...hex[1]].map((c) => c + c).join("") : hex[1];
-    return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16)).concat(1);
+    return [0, 2, 4].map((i) => Number.parseInt(h.slice(i, i + 2), 16)).concat(1);
   }
   const rgb = v.match(/^rgba?\(([^)]+)\)$/);
   if (rgb) {

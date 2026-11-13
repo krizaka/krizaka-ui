@@ -103,12 +103,12 @@ const count = (node: React.ReactNode) => React.Children.toArray(node).length;
 // The width from which an expandable rail shows its words by default — 80 rem (1280 px), Tailwind's `xl`.
 const WIDE = "(min-width: 80rem)";
 const subscribeWide = (onChange: () => void) => {
-  if (typeof window === "undefined" || !window.matchMedia) return () => undefined;
-  const query = window.matchMedia(WIDE);
+  if (typeof globalThis.window === "undefined" || !globalThis.matchMedia) return () => undefined;
+  const query = globalThis.matchMedia(WIDE);
   query.addEventListener("change", onChange);
   return () => query.removeEventListener("change", onChange);
 };
-const isWide = () => typeof window !== "undefined" && Boolean(window.matchMedia?.(WIDE).matches);
+const isWide = () => typeof globalThis.window !== "undefined" && Boolean(globalThis.matchMedia?.(WIDE).matches);
 /** Whether the window is 1280 px wide or more; `false` on the server (the rail then widens before the first paint). */
 function useWide() {
   return React.useSyncExternalStore(subscribeWide, isWide, () => false);

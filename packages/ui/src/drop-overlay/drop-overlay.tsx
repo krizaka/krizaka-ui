@@ -77,15 +77,15 @@ export function DropOverlay({
       const { accepted, rejected } = splitDropped(files, latest.current.accept);
       latest.current.onFiles?.(accepted, rejected);
     };
-    window.addEventListener("dragenter", enter);
-    window.addEventListener("dragover", over);
-    window.addEventListener("dragleave", leave);
-    window.addEventListener("drop", drop);
+    globalThis.addEventListener("dragenter", enter);
+    globalThis.addEventListener("dragover", over);
+    globalThis.addEventListener("dragleave", leave);
+    globalThis.addEventListener("drop", drop);
     return () => {
-      window.removeEventListener("dragenter", enter);
-      window.removeEventListener("dragover", over);
-      window.removeEventListener("dragleave", leave);
-      window.removeEventListener("drop", drop);
+      globalThis.removeEventListener("dragenter", enter);
+      globalThis.removeEventListener("dragover", over);
+      globalThis.removeEventListener("dragleave", leave);
+      globalThis.removeEventListener("drop", drop);
       reset();
     };
   }, [disabled, isControlled]);

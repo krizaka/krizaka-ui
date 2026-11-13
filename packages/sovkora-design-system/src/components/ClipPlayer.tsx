@@ -49,9 +49,9 @@ export interface ClipPlayerProps {
 }
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
-const readReducedMotion = () => (typeof window.matchMedia === "function" ? window.matchMedia(REDUCED).matches : false);
+const readReducedMotion = () => (typeof globalThis.window.matchMedia === "function" ? globalThis.matchMedia(REDUCED).matches : false);
 function subscribeReducedMotion(notify: () => void) {
-  const query = typeof window.matchMedia === "function" ? window.matchMedia(REDUCED) : null;
+  const query = typeof globalThis.window.matchMedia === "function" ? globalThis.matchMedia(REDUCED) : null;
   query?.addEventListener?.("change", notify);
   return () => query?.removeEventListener?.("change", notify);
 }

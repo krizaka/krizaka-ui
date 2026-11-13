@@ -29,10 +29,10 @@ function keepSamplesInPlace(event: SyntheticEvent) {
   const target = event.target instanceof Element ? event.target : null;
   if (event.type === "click") {
     const href = target?.closest("a[href]")?.getAttribute("href");
-    if (href !== undefined && href !== null && staysInPlace(href, window.location.origin)) (event as MouseEvent).preventDefault();
+    if (href !== undefined && href !== null && staysInPlace(href, globalThis.location.origin)) (event as MouseEvent).preventDefault();
   } else if (event.type === "submit") {
     const action = (target?.closest("form") ?? null)?.getAttribute("action") ?? null;
-    if (staysInPlace(action, window.location.origin)) event.preventDefault();
+    if (staysInPlace(action, globalThis.location.origin)) event.preventDefault();
   }
 }
 

@@ -356,18 +356,18 @@ describe("background refresh", () => {
     const { d, f } = make();
     const stop = d.startBackgroundRefresh(1000);
     await vi.advanceTimersByTimeAsync(3100);
-    expect(f.calls.length).toBe(3);
+    expect(f.calls).toHaveLength(3);
     stop();
     await vi.advanceTimersByTimeAsync(5000);
-    expect(f.calls.length).toBe(3);
+    expect(f.calls).toHaveLength(3);
   });
   it("defaults to fifteen minutes", async () => {
     const { d, f } = make();
     const stop = d.startBackgroundRefresh();
     await vi.advanceTimersByTimeAsync(14 * 60 * 1000);
-    expect(f.calls.length).toBe(0);
+    expect(f.calls).toHaveLength(0);
     await vi.advanceTimersByTimeAsync(61 * 1000);
-    expect(f.calls.length).toBe(1);
+    expect(f.calls).toHaveLength(1);
     stop();
   });
 });

@@ -76,7 +76,7 @@ const POKE_MS = 700;
 function useMayMove(): boolean {
   const [may, setMay] = React.useState(false);
   React.useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const query = globalThis.matchMedia("(prefers-reduced-motion: reduce)");
     // The page settles first: `html[data-motion="settling"]` (MotionObserver) holds every loop until it is `ready`.
     const settled = () => document.documentElement.getAttribute("data-motion") !== "settling";
     const update = () => setMay(!query.matches && document.visibilityState !== "hidden" && settled());

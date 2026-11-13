@@ -153,7 +153,7 @@ function pdfNames(raw: string): Set<string> {
   const names = new Set<string>();
   for (const match of raw.matchAll(/\/([A-Za-z0-9_#.+-]{1,40})/g)) {
     names.add(
-      (match[1] ?? "").replace(/#([0-9a-fA-F]{2})/g, (_, hex: string) => String.fromCharCode(parseInt(hex, 16))),
+      (match[1] ?? "").replace(/#([0-9a-fA-F]{2})/g, (_, hex: string) => String.fromCharCode(Number.parseInt(hex, 16))),
     );
   }
   return names;

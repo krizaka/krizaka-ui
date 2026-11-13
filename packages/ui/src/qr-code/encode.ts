@@ -99,7 +99,7 @@ function codewords(bytes: readonly number[], version: number, level: QrLevel): n
     pad ^= 0xec ^ 0x11;
   }
   const data: number[] = [];
-  for (let i = 0; i < bits.length; i += 8) data.push(parseInt(bits.slice(i, i + 8).join(""), 2));
+  for (let i = 0; i < bits.length; i += 8) data.push(Number.parseInt(bits.slice(i, i + 8).join(""), 2));
 
   const l = LEVEL_INDEX[level];
   const blocks = BLOCKS[l]![version]!;

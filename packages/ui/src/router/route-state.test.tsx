@@ -43,7 +43,7 @@ describe("useRouteState", () => {
     const length = window.history.length;
     await userEvent.click(screen.getByRole("button", { name: "auto" }));
     expect(window.location.search).toBe("?type=lease");
-    expect(window.history.length).toBe(length + 1);
+    expect(window.history).toHaveLength(length + 1);
     expect(screen.getByRole("button", { name: "lease" })).toBeTruthy();
     act(() => {
       window.history.replaceState(null, "", "/app/verify");

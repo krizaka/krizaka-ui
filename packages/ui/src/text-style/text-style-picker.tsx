@@ -207,7 +207,7 @@ function surfaceOf(element: HTMLElement): Rgb | null {
   }
   let background: Rgba = [0, 0, 0, 0];
   for (const node of layers.reverse()) {
-    const color = window.getComputedStyle(node).backgroundColor;
+    const color = globalThis.getComputedStyle(node).backgroundColor;
     const layer: Rgba | null = color ? parseColorWithAlpha(color) : [0, 0, 0, 0];
     if (!layer) return null;
     background = over(layer, background);
@@ -223,7 +223,7 @@ function useContrast(ref: React.RefObject<HTMLElement | null>, key: string): { r
     if (!element) return;
     const measure = () => {
       const sample = element.querySelector<HTMLElement>("[data-text-style-sample]") ?? element;
-      const computed = window.getComputedStyle(sample);
+      const computed = globalThis.getComputedStyle(sample);
       const foreground = parseColor(computed.color);
       const background = surfaceOf(sample);
       const fontSize = Number.parseFloat(computed.fontSize);
