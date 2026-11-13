@@ -79,33 +79,48 @@
         "label": "Langue du contenu",
         "en": "English",
         "fr": "Français",
-        "hint": "Les mots de la page, par langue. Videz un texte français pour le voir listé sous « Traductions manquantes »."
+        "hint": "Les mots de la page, par langue. Videz un texte anglais pour le voir listé sous « Traductions manquantes »."
       },
       "fieldsHint": "vide : repli sur l’anglais",
       "fallbackTitle": "Non traduit : affiché en anglais",
       "document": {
-        "title": "Le document",
+        "title": "Ce que votre serveur reçoit",
         "lead": "Ce que l’éditeur écrit : du JSON simple, schéma {schema}, vérifié par validateDocument à chaque modification.",
-        "valid": "Valide · {blocks} blocs",
-        "invalid": "Refusé · {count} problèmes",
+        "verdictTitle": "Verdict du validateur",
+        "valid": {
+          "one": "Valide · {blocks} bloc",
+          "other": "Valide · {blocks} blocs"
+        },
+        "refused": {
+          "one": "Refusé · {count} problème",
+          "other": "Refusé · {count} problèmes"
+        },
+        "refusedExpected": {
+          "one": "Refusé, comme prévu · {count} problème",
+          "other": "Refusé, comme prévu · {count} problèmes"
+        },
+        "validNote": "Ce JSON passe le validateur : un serveur le garderait.",
+        "refusedNote": "Le validateur refuse ce JSON : un serveur ne le garderait pas.",
+        "expectedNote": "C’est l’attaque choisie, refusée comme elle doit l’être. Le JSON ci-dessous est la version attaquée.",
         "jsonLabel": "JSON du document, en lecture seule"
       },
       "missing": {
         "title": "Traductions manquantes",
-        "none": "Chaque texte a son {language}.",
-        "some": "{count} textes n’ont pas de {language} ; la page les affiche en anglais.",
-        "language": "français"
+        "none": "Chaque texte a son anglais.",
+        "some": {
+          "one": "{count} texte n’a pas d’anglais ; la page l’affiche en français.",
+          "other": "{count} textes n’ont pas d’anglais ; la page les affiche en français."
+        }
       },
       "attacks": {
-        "title": "Essayez de le casser",
+        "title": "Trois pages que votre serveur refuse",
         "lead": "Chaque bouton envoie la page actuelle au validateur après une modification hostile. La page de l’éditeur n’est pas touchée.",
         "script": "Une balise script dans un texte",
         "handler": "Une prop onClick",
         "proto": "Une clé __proto__",
-        "refused": "Refusé",
         "accepted": "Accepté : le validateur n’a rien trouvé à refuser.",
         "clear": "Revenir au document valide",
-        "resultLabel": "Résultat de l’attaque"
+        "resultLabel": "Pourquoi le validateur refuse"
       },
       "get": {
         "title": "Le récupérer",
@@ -178,8 +193,35 @@
         "field-author": "Auteur",
         "field-label": "Bouton",
         "align-left": "Gauche",
-        "align-center": "Centré"
-      }
+        "align-center": "Centré",
+        "viewport-zoom-select": "Niveau de zoom"
+      },
+      "skip": "Passer l’éditeur",
+      "after": "Après l’éditeur",
+      "report": {
+        "document": "Document",
+        "slotItem": "{block} {number}",
+        "path": "{where} › {field}",
+        "pathLocale": "{where} › {field} ({language})",
+        "sentence": "{where} : {reason}",
+        "languages": {
+          "en": "anglais",
+          "fr": "français"
+        },
+        "reasons": {
+          "unsafe_text": "ce texte contient une balise. Une page ne garde que du texte simple.",
+          "unsafe_handler": "« {key} » n’est pas un champ autorisé. Les gestionnaires d’évènements sont refusés.",
+          "unsafe_key": "« {key} » n’est pas un champ autorisé.",
+          "proto": "la clé « {key} » est toujours refusée, car elle peut modifier les objets JavaScript.",
+          "limit": "ce texte est trop long pour ce champ.",
+          "unknown_prop": "« {key} » n’existe pas dans ce bloc.",
+          "other": "le validateur refuse cette valeur."
+        },
+        "fallback": "pas d’anglais, la page affiche le français.",
+        "rawSummary": "Code et chemin bruts",
+        "rawLine": "{path} — {code} — {message}"
+      },
+      "toFields": "Modifier le bloc sélectionné"
     }
   },
   "docs": {

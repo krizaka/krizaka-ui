@@ -72,7 +72,8 @@ export function SiteBar({ version }: { version: string }) {
           >
             <SearchIcon size={14} />
             <span className="hidden lg:inline">{b.search}</span>
-            <Kbd className="hidden lg:inline-flex">⌘K</Kbd>
+            {/* The shortcut is drawn by CSS: the visible text of the button stays « Search », which its name contains (WCAG 2.5.3). */}
+            <Kbd aria-hidden data-key="⌘K" className="hidden before:content-[attr(data-key)] lg:inline-flex" />
           </Button>
 
           <span aria-hidden className="mx-1 hidden h-4 w-px bg-border-subtle lg:block" />

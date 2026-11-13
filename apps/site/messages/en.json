@@ -84,28 +84,43 @@
       "fieldsHint": "empty: falls back to English",
       "fallbackTitle": "Not translated: shown in English",
       "document": {
-        "title": "The document",
+        "title": "What your server receives",
         "lead": "What the editor writes: plain JSON, schema {schema}, checked by validateDocument on every change.",
-        "valid": "Valid · {blocks} blocks",
-        "invalid": "Refused · {count} issues",
+        "verdictTitle": "Validator verdict",
+        "valid": {
+          "one": "Valid · {blocks} block",
+          "other": "Valid · {blocks} blocks"
+        },
+        "refused": {
+          "one": "Refused · {count} problem",
+          "other": "Refused · {count} problems"
+        },
+        "refusedExpected": {
+          "one": "Refused, as expected · {count} problem",
+          "other": "Refused, as expected · {count} problems"
+        },
+        "validNote": "This JSON passes the validator: a server would keep it.",
+        "refusedNote": "The validator refuses this JSON: a server would not keep it.",
+        "expectedNote": "This is the attack you picked, refused the way it should be. The JSON below is the attacked copy.",
         "jsonLabel": "Document JSON, read-only"
       },
       "missing": {
         "title": "Missing translations",
-        "none": "Every text has its {language}.",
-        "some": "{count} texts have no {language}; the page shows them in English.",
-        "language": "French"
+        "none": "Every text has its French.",
+        "some": {
+          "one": "{count} text has no French; the page shows it in English.",
+          "other": "{count} texts have no French; the page shows them in English."
+        }
       },
       "attacks": {
-        "title": "Try to break it",
+        "title": "Three pages your server refuses",
         "lead": "Each button sends the current page through the validator after a hostile edit. The page in the editor is not touched.",
         "script": "A script tag in a text",
         "handler": "An onClick prop",
         "proto": "A __proto__ key",
-        "refused": "Refused",
         "accepted": "Accepted: the validator found nothing to refuse.",
         "clear": "Back to the valid document",
-        "resultLabel": "Result of the attack"
+        "resultLabel": "Why the validator refuses"
       },
       "get": {
         "title": "Get it",
@@ -178,8 +193,35 @@
         "field-author": "Author",
         "field-label": "Button",
         "align-left": "Left",
-        "align-center": "Centre"
-      }
+        "align-center": "Centre",
+        "viewport-zoom-select": "Zoom level"
+      },
+      "skip": "Skip the editor",
+      "after": "After the editor",
+      "report": {
+        "document": "Document",
+        "slotItem": "{block} {number}",
+        "path": "{where} › {field}",
+        "pathLocale": "{where} › {field} ({language})",
+        "sentence": "{where}: {reason}",
+        "languages": {
+          "en": "English",
+          "fr": "French"
+        },
+        "reasons": {
+          "unsafe_text": "this text holds a tag. A page keeps plain text only.",
+          "unsafe_handler": "“{key}” is not an allowed field. Event handlers are refused.",
+          "unsafe_key": "“{key}” is not an allowed field.",
+          "proto": "the key “{key}” is always refused, because it can alter JavaScript objects.",
+          "limit": "this text is too long for this field.",
+          "unknown_prop": "“{key}” does not exist in this block.",
+          "other": "the validator refuses this value."
+        },
+        "fallback": "no French, the page shows English.",
+        "rawSummary": "Raw code and path",
+        "rawLine": "{path} — {code} — {message}"
+      },
+      "toFields": "Edit the selected block"
     }
   },
   "docs": {

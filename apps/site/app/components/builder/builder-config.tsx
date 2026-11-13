@@ -2,7 +2,8 @@
 
 /* The editor's config, built from the same BLOCKS object the validator reads (lib/builder-demo.ts): a `localized` field
    is one text box for the language being written, an `enum` a choice, a `slot` a drop zone. The blocks themselves are
-   @krizaka/ui's (Button, Card, CtaPanel). */
+   @krizaka/ui's (Button, Card, CtaPanel). The buttons of a block are a picture of the page, not controls: `inert` keeps them
+   out of the tab order (twelve stops in the canvas before the first field) and out of the accessibility tree's controls. */
 
 import { Button } from "@krizaka/ui/button";
 import { CardBody, CardDescription, CardRoot, CardTitle } from "@krizaka/ui/card";
@@ -11,10 +12,10 @@ import { type Config, type Field } from "@krizaka/ui-builder";
 import type { FieldDef } from "@krizaka/ui-builder/document";
 import type { ReactNode } from "react";
 
-import { BLOCKS, type BlockType, DEFAULT_CONTENT_LOCALE, wordsFor } from "@/lib/builder-demo";
+import { BLOCKS, type BlockType, wordsFor } from "@/lib/builder-demo";
 import type { TranslationDictionary } from "@/lib/i18n";
 
-import { useContentLocale } from "./ContentLocale";
+import { useContentLanguages } from "./ContentLocale";
 
 export type EditorMessages = TranslationDictionary["site"]["builder"];
 type Labels = EditorMessages["editor"];
@@ -23,8 +24,8 @@ const label = (labels: Labels, key: string): string => labels[key as LabelKey] ?
 
 /** The words of a field, in the language being written; a French text that is missing is shown in English and marked. */
 function Words({ value }: { value: unknown }) {
-  const locale = useContentLocale();
-  const { text, fallback } = wordsFor(value, locale);
+  const { locale, defaultLocale } = useContentLanguages();
+  const { text, fallback } = wordsFor(value, locale, defaultLocale);
   return fallback ? (
     <span data-fallback="" className="underline decoration-dashed decoration-warning underline-offset-4">
       {text}
@@ -37,12 +38,12 @@ function Words({ value }: { value: unknown }) {
 const INPUT_CLASS = "w-full rounded-md border border-border-default bg-surface-sunken px-3 py-2 text-sm text-fg focus-visible:outline-2 focus-visible:outline-offset-2";
 
 function LocalizedInput({ value, onChange, long, id, name }: Readonly<{ value: Record<string, string> | undefined; onChange: (next: Record<string, string>) => void; long: boolean; id: string; name: string }>) {
-  const locale = useContentLocale();
+  const { locale, defaultLocale } = useContentLanguages();
   const own = value?.[locale] ?? "";
   const change = (text: string) => {
     const others = Object.fromEntries(Object.entries(value ?? {}).filter(([code]) => code !== locale));
     // A cleared text leaves the language's key out: that is what « missing » means to the document.
-    onChange(text === "" && locale !== DEFAULT_CONTENT_LOCALE ? others : { ...others, [locale]: text });
+    onChange(text === "" && locale !== defaultLocale ? others : { ...others, [locale]: text });
   };
   const shared = { id, name, lang: locale, value: own, className: INPUT_CLASS };
   return (
@@ -100,10 +101,10 @@ export function createConfig(labels: Labels): Config {
               <Words value={lead} />
             </p>
             <div className={`mt-7 flex flex-wrap gap-3 ${align === "center" ? "justify-center" : ""}`}>
-              <Button variant="primary" size="lg" type="button">
+              <Button variant="primary" size="lg" type="button" inert>
                 <Words value={primary} />
               </Button>
-              <Button variant="secondary" size="lg" type="button">
+              <Button variant="secondary" size="lg" type="button" inert>
                 <Words value={secondary} />
               </Button>
             </div>
@@ -160,7 +161,7 @@ export function createConfig(labels: Labels): Config {
         render: ({ title, label: action }) => (
           <Block>
             <CtaPanel title={<Words value={title} />} level={2}>
-              <Button variant="primary" type="button">
+              <Button variant="primary" type="button" inert>
                 <Words value={action} />
               </Button>
             </CtaPanel>
