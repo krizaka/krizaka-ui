@@ -16,7 +16,7 @@ import { format, getDictionary, type Locale } from "@/lib/i18n";
 import { WEB_INSTALL } from "@/lib/install";
 import { npmDownloads } from "@/lib/npm-downloads";
 import { getRegistryItems } from "@/lib/ui-registry";
-import { localePath } from "@/lib/urls";
+import { BUILDER_PATH, localePath } from "@/lib/urls";
 
 import { HomeSearch } from "./HomeSearch";
 
@@ -158,10 +158,15 @@ export async function Landing({ locale }: { locale: Locale }) {
       <header className="kz-home-hero">
         <h1>{t.title}</h1>
         <p className="kz-land-lead">{format(t.lead, { count })}</p>
+        <div className="kz-home-try">
+          <Button variant="primary" asChild>
+            <Link href={localePath(locale, BUILDER_PATH)}>{t.tryBuilder}</Link>
+          </Button>
+        </div>
         <div className="kz-home-install" aria-label={t.install}>
           <CodeBlock code={WEB_INSTALL} language="bash" copyLabel={t.copy} copiedLabel={t.copied} />
         </div>
-        <HomeSearch label={t.search.label} placeholder={t.search.placeholder} />
+        <HomeSearch placeholder={t.search.placeholder} />
         <nav className="kz-home-ways" aria-label={t.ways.label}>
           <CardGrid min={200} columns={3} fit="fit" reveal={false}>
             {WAYS.map((w) => (

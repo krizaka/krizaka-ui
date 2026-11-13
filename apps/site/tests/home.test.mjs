@@ -36,7 +36,10 @@ test("its first screen: one title, the install line, three ways in (components, 
   assert.match(hero, /<CodeBlock code=\{WEB_INSTALL\}/);
   assert.match(hero, /<HomeSearch /);
   assert.deepEqual([...landing.matchAll(/\{ id: "(\w+)", path: "([\w/]+)" \}/g)].map((m) => m[2]), ["/components", "/foundations/tokens", "/templates"]);
-  assert.equal((hero.match(/<Button\b/g) ?? []).length, 0, "the ways in are the cards, not a row of buttons");
+  assert.equal((hero.match(/<Button\b/g) ?? []).length, 1, "one button in the hero (the UI Builder demo); the ways in are the cards, not a row of buttons");
+  assert.match(hero, /<Button variant="primary" asChild>/, "the one primary action");
+  assert.match(hero, /localePath\(locale, BUILDER_PATH\)/, "the demo's address comes from the route table (lib/urls.ts), in the page's locale");
+  assert.ok(!/["'`]\/builder/.test(landing), "the builder path is never typed in the hero");
   assert.match(hero, /<CardGrid [^>]*reveal=\{false\}/, "the first screen is painted at once, never revealed");
 });
 
@@ -67,5 +70,12 @@ test("every word of the home is a message, in English and in French", () => {
     for (const k of ["title", "lead"]) assert.ok(l[k].length > 0);
     assert.ok(l.search.placeholder.length > 0);
     for (const k of ["title", "subtitle", "figure", "button", "buttonLabel", "field", "fieldLabel", "fieldPlaceholder", "fieldHint", "badge", "badgeStable", "badgeNew", "card", "cardTitle", "cardText"]) assert.ok(l.sheet[k]?.length > 0, `landing.sheet.${k} in ${locale}`);
+  }
+});
+
+test("the hero's builder button has a word in FR and EN", () => {
+  for (const code of ["en", "fr"]) {
+    const messages = JSON.parse(readFileSync(new URL(`../messages/${code}.json`, import.meta.url), "utf8"));
+    assert.ok(typeof messages.landing.tryBuilder === "string" && messages.landing.tryBuilder.length > 0, `${code}: landing.tryBuilder`);
   }
 });

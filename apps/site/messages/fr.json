@@ -858,6 +858,7 @@
     }
   },
   "landing": {
+    "tryBuilder": "Essayer UI Builder",
     "title": "Les composants derrière chaque produit Krizaka.",
     "lead": "{count} composants pour React et React Native, avec les tokens, les polices et les icônes qu’ils portent. Open source.",
     "install": "Installer",
@@ -879,7 +880,6 @@
       }
     },
     "search": {
-      "label": "Chercher dans la documentation",
       "placeholder": "Chercher un composant, un token, un guide…"
     },
     "packages": {

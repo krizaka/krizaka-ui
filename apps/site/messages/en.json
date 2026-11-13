@@ -858,6 +858,7 @@
     }
   },
   "landing": {
+    "tryBuilder": "Try the UI Builder",
     "title": "The components behind every Krizaka product.",
     "lead": "{count} components for React and React Native, with the tokens, faces and icons they wear. Open source.",
     "install": "Install",
@@ -879,7 +880,6 @@
       }
     },
     "search": {
-      "label": "Search the documentation",
       "placeholder": "Search a component, a token, a guide…"
     },
     "packages": {
