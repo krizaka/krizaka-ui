@@ -198,9 +198,9 @@ export default function BuilderDemo() {
             <h2 id="builder-missing" className="text-xl font-bold text-fg">
               {b.missing.title}
             </h2>
-            <p role="status" className="text-fg-secondary">
+            <output className="block text-fg-secondary">
               {missing.length === 0 ? b.missing.none : format(pluralOf(b.missing.some, missing.length, locale), { count: missing.length })}
-            </p>
+            </output>
             {missing.length > 0 && (
               <ul className="grid gap-2">
                 {missing.map((path) => (

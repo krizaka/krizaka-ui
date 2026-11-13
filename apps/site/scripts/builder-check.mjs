@@ -74,7 +74,7 @@ async function axeDefects(page) {
   await page.evaluate(axeSource);
   for (const frame of page.frames()) if (frame !== page.mainFrame()) await frame.evaluate(axeSource);
   return page.evaluate(async () => {
-    const result = await window.axe.run(document, { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"] } });
+    const result = await globalThis.axe.run(document, { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"] } });
     return result.violations.filter((v) => v.impact === "serious" || v.impact === "critical").map((v) => `${v.id} (${v.impact}) ${v.nodes.slice(0, 2).map((n) => n.target.join(" ")).join(" ; ")}`);
   });
 }

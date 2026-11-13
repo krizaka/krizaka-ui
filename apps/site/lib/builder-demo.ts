@@ -276,14 +276,15 @@ function placeOf(path: string, doc: ComposerDocument, words: SentenceWords): Pla
       i += 2;
       continue;
     }
-    if (parts[i] === "props" && parts[i + 1] !== undefined) {
-      const field = parts[i + 1] as string;
-      const rest = parts[i + 2];
-      const localized = rest !== undefined && (CONTENT_LOCALES as readonly string[]).includes(rest);
-      return { chain, field, key: field, language: localized ? rest : undefined };
-    }
-    return { chain };
+    return parts[i] === "props" ? propPlace(chain, parts[i + 1], parts[i + 2]) : { chain };
   }
+}
+
+/** The field (and the language written) a `props.<name>[.<locale>]` path ends in. */
+function propPlace(chain: string[], field: string | undefined, rest: string | undefined): Place {
+  if (field === undefined) return { chain };
+  const localized = rest !== undefined && (CONTENT_LOCALES as readonly string[]).includes(rest);
+  return { chain, field, key: field, language: localized ? rest : undefined };
 }
 
 const whereOf = (place: Place, words: SentenceWords, withField: boolean): string => {
@@ -292,6 +293,12 @@ const whereOf = (place: Place, words: SentenceWords, withField: boolean): string
   const field = labelOf(words.editor, `field-${place.field}`);
   const language = place.language && words.report.languages[place.language];
   return fill(language ? words.report.pathLocale : words.report.path, { where: block, field, language: language ?? "" });
+};
+
+const keyReason = (key: string, code: "unsafe_key" | "unknown_prop", reasons: SentenceWords["report"]["reasons"]): string => {
+  if (key === "__proto__") return reasons.proto;
+  if (/^on[A-Z]/.test(key)) return reasons.unsafe_handler;
+  return reasons[code];
 };
 
 /** A refusal as a sentence: « Bandeau d’accueil › Titre (anglais) : ce texte contient une balise… ». */
@@ -311,8 +318,7 @@ export function explainIssue(issue: DocumentIssue, doc: ComposerDocument, words:
     case "unsafe_key":
     case "unknown_prop": {
       const key = place.key ?? "";
-      const reason = key === "__proto__" ? reasons.proto : /^on[A-Z]/.test(key) ? reasons.unsafe_handler : reasons[issue.code];
-      return sentence(whereOf(place, words, false), fill(reason, { key }));
+      return sentence(whereOf(place, words, false), fill(keyReason(key, issue.code, reasons), { key }));
     }
     case "limit":
       return sentence(whereOf(place, words, true), reasons.limit);
