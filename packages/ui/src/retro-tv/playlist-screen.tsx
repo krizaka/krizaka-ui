@@ -34,7 +34,7 @@ const styles = `.kz-rtv-layer{position:absolute;inset:0;background:var(--kz-scri
 
 type PlaylistProps = { playlist: readonly RetroTvSource[]; transition: RetroTvTransition; labels: RetroTvLabels; muted: boolean; autoPlay: boolean; renderEmbed?: (source: RetroTvSource) => React.ReactNode; onMutedChange?: (muted: boolean) => void; onIndexChange?: (index: number) => void; title?: string; reduced: boolean; setMutedState: (m: boolean) => void; setIndex: (i: number) => void; index: number };
 
-export function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, renderEmbed, onMutedChange, onIndexChange, title, reduced, setMutedState, setIndex, index }: PlaylistProps) {
+export function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, renderEmbed, onMutedChange, onIndexChange, title, reduced, setMutedState, setIndex, index }: Readonly<PlaylistProps>) {
   const region = React.useRef<HTMLDivElement>(null);
   const video = React.useRef<HTMLVideoElement>(null);
   const [prev, setPrev] = React.useState<number | null>(null);

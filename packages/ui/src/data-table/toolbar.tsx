@@ -192,7 +192,7 @@ export function DataTableExport({ filename = "export.csv", onExport, className }
  * A text filter: what is typed stays a draft until the debounce commits it, and a value that changes from outside
  * (back or forward on a `routeKey` table, « Clear all ») replaces the draft — the box always says what filters the rows.
  */
-function TextFilter({ label, value, debounce, onCommit }: { label: string; value: string; debounce?: number; onCommit: (query: string) => void }) {
+function TextFilter({ label, value, debounce, onCommit }: Readonly<{ label: string; value: string; debounce?: number; onCommit: (query: string) => void }>) {
   const [draft, setDraft] = React.useState(value);
   const [seen, setSeen] = React.useState(value);
   const [committed, setCommitted] = React.useState(value);

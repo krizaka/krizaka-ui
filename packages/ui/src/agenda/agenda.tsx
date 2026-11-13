@@ -94,7 +94,7 @@ export type AgendaProps<T extends AgendaItem> = {
 
 const stamp = (value: string) => Date.parse(value);
 
-export function Agenda<T extends AgendaItem>({ items, locale = "en-US", timeZone, now, selectedId, onSelect, linkAs, action, labels: given, empty, className, "aria-label": label }: AgendaProps<T>) {
+export function Agenda<T extends AgendaItem>({ items, locale = "en-US", timeZone, now, selectedId, onSelect, linkAs, action, labels: given, empty, className, "aria-label": label }: Readonly<AgendaProps<T>>) {
   const labels = { ...agendaLabels, ...given };
   const s = agenda();
   const clock = new Intl.DateTimeFormat(locale, { hour: "numeric", minute: "2-digit", timeZone });

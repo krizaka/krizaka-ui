@@ -191,7 +191,7 @@ function MapRoot({
   children,
   labels: given,
   className,
-}: MapProps) {
+}: Readonly<MapProps>) {
   const labels = { ...mapLabels, ...given };
   const s = map();
   const pageScheme = usePageScheme();

@@ -51,7 +51,7 @@ export function StatusChip({
   reasonLabel = (target) => `${target} — pick a reason`,
   cancelLabel = "Cancel",
   size = "sm",
-}: StatusChipProps) {
+}: Readonly<StatusChipProps>) {
   const [open, setOpen] = React.useState(false);
   const [armed, setArmed] = React.useState<string | null>(null);
   const [asking, setAsking] = React.useState<StatusMoveOption | null>(null);

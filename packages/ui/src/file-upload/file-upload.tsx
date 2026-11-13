@@ -121,7 +121,7 @@ export function Dropzone({
   inputLabel,
   icon,
   className,
-}: DropzoneProps) {
+}: Readonly<DropzoneProps>) {
   const s = fileUpload();
   const input = React.useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = React.useState(false);

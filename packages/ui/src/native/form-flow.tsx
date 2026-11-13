@@ -51,7 +51,7 @@ export type FormFlowProps = {
 };
 
 /** A multi-step form on a `Screen`: head, the step, the pinned action. */
-export function FormFlow({ steps, labels, step: controlled, defaultStep = 0, onStepChange, onDone, onExit, loading }: FormFlowProps) {
+export function FormFlow({ steps, labels, step: controlled, defaultStep = 0, onStepChange, onDone, onExit, loading }: Readonly<FormFlowProps>) {
   const { insets, theme } = useTheme();
   const [own, setOwn] = React.useState(defaultStep);
   const index = Math.min(Math.max(controlled ?? own, 0), steps.length - 1);

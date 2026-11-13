@@ -42,7 +42,7 @@ export interface RouteStateProviderProps {
 }
 
 /** Gives `useRouteState` your router: `<RouteStateProvider adapter={nextAdapter}>` once, in the root layout. */
-export function RouteStateProvider({ adapter, children }: RouteStateProviderProps) {
+export function RouteStateProvider({ adapter, children }: Readonly<RouteStateProviderProps>) {
   return <AdapterContext.Provider value={adapter}>{children}</AdapterContext.Provider>;
 }
 

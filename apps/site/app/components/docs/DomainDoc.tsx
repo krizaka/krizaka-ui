@@ -10,7 +10,7 @@ import { InlineCode } from "./InlineCode";
 /* A domain's page (ADR-008 §7): what belongs there, the owner rule, the size budget, and its entries — stable and beta
    first, experimental last and flagged; deprecated ones are not listed (their page stays, with the replacement). The
    words are messages (docs.ia.domains), the entries and their counts come from the registry and the inventory. */
-export function DomainDoc({ domain, locale }: { domain: Domain; locale: Locale }) {
+export function DomainDoc({ domain, locale }: Readonly<{ domain: Domain; locale: Locale }>) {
   const t = getDictionary(locale);
   const words = t.docs.ia.domains[domain];
   const p = t.docs.domainPage;

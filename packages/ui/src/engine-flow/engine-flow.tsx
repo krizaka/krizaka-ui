@@ -145,7 +145,7 @@ function Stage({
   active,
   onActive,
   detailId,
-}: {
+}: Readonly<{
   layout: FlowLayout;
   variant: "wide" | "compact";
   nodes: readonly EngineFlowNode[];
@@ -160,7 +160,7 @@ function Stage({
   active: string | undefined;
   onActive: (id: string) => void;
   detailId: string | undefined;
-}) {
+}>) {
   const g = flowGeometry(layout, nodes.length, conduit);
   const pct = (v: number, of: number) => `${((v / of) * 100).toFixed(3)}%`;
   return (
@@ -254,7 +254,7 @@ function flowData({ chosen, calm, saveData, trigger, density, compact }: FlowDat
 }
 
 /** What the chosen node says, or the hint when none is chosen. */
-function FlowDetail({ id, chosen, hint }: { id: string; chosen: EngineFlowNode | undefined; hint: React.ReactNode }) {
+function FlowDetail({ id, chosen, hint }: Readonly<{ id: string; chosen: EngineFlowNode | undefined; hint: React.ReactNode }>) {
   return (
     <figcaption id={id} className={cn("kz-flow-detail", chosen?.className)} aria-live="polite">
       {chosen ? (

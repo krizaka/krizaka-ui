@@ -101,7 +101,7 @@ export function KpiExplained({
   maskedLabel,
   className,
   ...props
-}: KpiExplainedProps) {
+}: Readonly<KpiExplainedProps>) {
   const id = React.useId();
   const state = stateFor(value, thresholds);
   const formattedValue = formatValue(value, format, locale);

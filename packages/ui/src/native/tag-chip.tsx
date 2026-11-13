@@ -19,7 +19,7 @@ const ROLE: Record<Marker, keyof Theme> = { blue: "tagBlue", green: "tagGreen", 
 export type TagMarkerProps = { marker: Marker; shape?: MarkerShape; style?: ViewStyle };
 
 /** The marker alone, decorative: put the tag's name beside it. */
-export function TagMarker({ marker, shape = "dot", style }: TagMarkerProps) {
+export function TagMarker({ marker, shape = "dot", style }: Readonly<TagMarkerProps>) {
   const { theme } = useTheme();
   const color = theme[ROLE[marker]] as string;
   if (shape === "ribbon") {
@@ -60,7 +60,7 @@ export type MarkerPickerProps = {
 };
 
 /** Recolours a tag from the closed palette: a radio group of swatches, the chosen one ticked and named. */
-export function MarkerPicker({ label, names, value, defaultValue, onValueChange, markers = TAG_MARKERS, disabled, style }: MarkerPickerProps) {
+export function MarkerPicker({ label, names, value, defaultValue, onValueChange, markers = TAG_MARKERS, disabled, style }: Readonly<MarkerPickerProps>) {
   const { theme, haptic } = useTheme();
   const [own, setOwn] = React.useState<Marker | undefined>(defaultValue);
   const current = value ?? own;

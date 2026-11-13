@@ -72,7 +72,7 @@ function descriptions(): Map<string, string> {
 }
 
 /** Plate I: four real pieces of the kit, drawn here by the kit, numbered like the plates of a field guide. */
-function Sheet({ sheet }: { sheet: ReturnType<typeof getDictionary>["landing"]["sheet"] }) {
+function Sheet({ sheet }: Readonly<{ sheet: ReturnType<typeof getDictionary>["landing"]["sheet"] }>) {
   const figures = [
     {
       key: "button",

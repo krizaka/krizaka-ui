@@ -128,7 +128,7 @@ export function RetroTv({
   onIndexChange,
   labels,
   ...playerProps
-}: RetroTvProps) {
+}: Readonly<RetroTvProps>) {
   const [index, setIndex] = React.useState(0);
   const [mutedState, setMutedState] = React.useState(muted);
   const root = React.useRef<HTMLDivElement>(null);

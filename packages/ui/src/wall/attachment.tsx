@@ -15,6 +15,6 @@ export const finite = (value: number) => Number.isFinite(value) ? value : 0;
 export const rotationStyle = (rotation: number): CSSProperties =>
   ({ "--kz-wall-rotation": `${finite(rotation)}deg` }) as CSSProperties;
 
-export function Attachment({ attachment = "tape", attachmentRotation = 0 }: WallObjectProps) {
+export function Attachment({ attachment = "tape", attachmentRotation = 0 }: Readonly<WallObjectProps>) {
   return <span aria-hidden="true" className={cn("kz-wall-attachment", attachment === "pin" ? "kz-wall-pin" : "kz-wall-tape")} style={{ transform: `rotate(${finite(attachmentRotation)}deg)` }} />;
 }

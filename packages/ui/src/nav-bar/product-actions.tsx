@@ -44,7 +44,7 @@ export type ProductBarActionsProps = {
 };
 
 /** The product bar's actions: use the app. Put it in `NavBar.Actions` (`placement="bar"`) or in `NavBar.Mobile` (`placement="panel"`). */
-export function ProductBarActions({ signIn, tryIt, signupOpen, linkAs: Link = "a", placement = "bar" }: ProductBarActionsProps) {
+export function ProductBarActions({ signIn, tryIt, signupOpen, linkAs: Link = "a", placement = "bar" }: Readonly<ProductBarActionsProps>) {
   const { primary, secondary } = productBarActions({ signupOpen, hasTry: Boolean(tryIt) });
   const link = (kind: ProductBarAction) => (kind === ProductBarAction.Try && tryIt ? tryIt : signIn);
   const panel = placement === "panel";

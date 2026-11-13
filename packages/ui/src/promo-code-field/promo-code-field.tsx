@@ -34,7 +34,7 @@ export type PromoCodeFieldProps = {
 type State = { step: "idle" } | { step: "checking" } | { step: "applied"; code: string; effect: string } | { step: "invalid" | "expired"; message: string };
 
 /** A promo code field. State: `data-state` = idle | checking | applied | invalid | expired. */
-export function PromoCodeField({ label, applyLabel, removeLabel, onApply, onRemove, applied, placeholder, disabled, className }: PromoCodeFieldProps) {
+export function PromoCodeField({ label, applyLabel, removeLabel, onApply, onRemove, applied, placeholder, disabled, className }: Readonly<PromoCodeFieldProps>) {
   const id = React.useId();
   const [code, setCode] = React.useState("");
   const [state, setState] = React.useState<State>(applied ? { step: "applied", ...applied } : { step: "idle" });

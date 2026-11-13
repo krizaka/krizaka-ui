@@ -24,7 +24,7 @@ export interface PinnedNoteProps extends Omit<React.ComponentProps<"article">, "
 }
 
 /** A short word on a cut-corner card, stuck into the notebook. */
-export function PinnedNote({ text, signature, rotation = 0, attachment, attachmentRotation: _attachmentRotation, ink = "blue", paper = "plain", action, limit = 140, hold, lines = 4, className, ...props }: PinnedNoteProps) {
+export function PinnedNote({ text, signature, rotation = 0, attachment, attachmentRotation: _attachmentRotation, ink = "blue", paper = "plain", action, limit = 140, hold, lines = 4, className, ...props }: Readonly<PinnedNoteProps>) {
   const rows = Math.max(1, Math.round(Number.isFinite(lines) ? lines : 4));
   return (
     <Stuck hold={hold ?? attachment ?? "tape"} tilt={Number.isFinite(rotation) ? rotation : 0} className="kz-wall-object kz-pinned-stuck">

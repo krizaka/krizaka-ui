@@ -30,7 +30,7 @@ export interface EmbedFacadeProps extends Omit<React.ComponentProps<"div">, "tit
 const SANDBOX = "allow-scripts allow-same-origin allow-presentation allow-popups allow-popups-to-escape-sandbox";
 
 /** A short video from a platform, behind a button: the frame exists only after the click. */
-export function EmbedFacade({ platform, url, title, playLabel, poster, notice, aspectRatio = "9 / 16", onLoad, className, style, ...props }: EmbedFacadeProps) {
+export function EmbedFacade({ platform, url, title, playLabel, poster, notice, aspectRatio = "9 / 16", onLoad, className, style, ...props }: Readonly<EmbedFacadeProps>) {
   const frame = embedUrl(platform, url);
   const [loaded, setLoaded] = React.useState(false);
   const ref = React.useRef<HTMLIFrameElement>(null);

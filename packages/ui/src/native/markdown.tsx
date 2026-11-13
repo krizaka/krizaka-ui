@@ -123,7 +123,7 @@ function Blocks({ nodes, ctx }: { nodes: readonly BlockNode[]; ctx: Context }) {
   return nodes.map((node, i) => <Block key={i} node={node} ctx={ctx} />);
 }
 
-function Table({ node, ctx }: { node: Extract<BlockNode, { type: "table" }>; ctx: Context }) {
+function Table({ node, ctx }: Readonly<{ node: Extract<BlockNode, { type: "table" }>; ctx: Context }>) {
   const { theme } = ctx;
   const signature = JSON.stringify([node, ctx.measureKey]);
   const [measurement, setMeasurement] = React.useState<{ signature: string; widths: number[] }>({ signature, widths: [] });
@@ -244,7 +244,7 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
  * A Markdown text in Text and View: headings, paragraphs, lists (and tasks), quotes, tables, coloured code, links, pictures.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no app imports it. Removed in 4.0.
  */
-export function Markdown({ children, streaming, generated, generatedLabel, onLinkPress, style }: MarkdownProps) {
+export function Markdown({ children, streaming, generated, generatedLabel, onLinkPress, style }: Readonly<MarkdownProps>) {
   warnDeprecated("native/markdown");
   const { theme, fonts } = useTheme();
   const { fontScale } = useWindowDimensions();

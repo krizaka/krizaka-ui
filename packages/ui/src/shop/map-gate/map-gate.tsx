@@ -29,7 +29,7 @@ function subscribeWide(notify: () => void) {
 }
 
 /** The place as a still, the live map on a click — or at once on a screen that can afford it. */
-export function MapGate({ label, center, zoom = 14, places, showLabel, map, className }: MapGateProps) {
+export function MapGate({ label, center, zoom = 14, places, showLabel, map, className }: Readonly<MapGateProps>) {
   const [asked, setAsked] = React.useState(false);
   // A screen that can afford it shows the live map at once; the server and a phone start with the still.
   const wide = React.useSyncExternalStore(subscribeWide, () => window.matchMedia(WIDE).matches, () => false);

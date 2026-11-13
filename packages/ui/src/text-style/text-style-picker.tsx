@@ -259,7 +259,7 @@ export function TextStylePicker({
   role = "body",
   minBodySize = "sm",
   className,
-}: TextStylePickerProps) {
+}: Readonly<TextStylePickerProps>) {
   const labels = { ...textStyleLabels, ...given };
   const style = parseTextStyle(value);
   const shown = (field: TextStyleField) => fields.includes(field);

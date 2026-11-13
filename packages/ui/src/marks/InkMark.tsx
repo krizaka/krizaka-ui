@@ -52,7 +52,7 @@ export function InkDefs({ ids: id, geometry: G }: Readonly<{ ids: Record<"ink" |
  * The frame of the marks in Krizaka's colours (the company and its services: Krizaka, Kridoc): halo, dashed orbit, ring,
  * an ink figure, the blue node where it opens and the blue core. Below 48 px it crops to the emblem.
  */
-export function InkMark({ size = 32, animated = true, title, className, prefix, css, geometry: G, figure }: InkMarkProps) {
+export function InkMark({ size = 32, animated = true, title, className, prefix, css, geometry: G, figure }: Readonly<InkMarkProps>) {
   const id = useIds(prefix, ["ink", "blue", "glow"] as const);
   const m = (cls: string) => (animated ? `${prefix}-${cls}` : undefined);
   const dots = [G.node, G.core];

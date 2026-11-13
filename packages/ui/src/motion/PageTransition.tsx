@@ -33,7 +33,7 @@ export interface PageTransitionProps {
  * `--kz-motion-*` tokens, through the platform's View Transitions. Where the runtime has no `ViewTransition` it renders
  * its children untouched; under `prefers-reduced-motion` motion.css makes the change instant. The DOM always updates.
  */
-export function PageTransition({ children, routeKey }: PageTransitionProps) {
+export function PageTransition({ children, routeKey }: Readonly<PageTransitionProps>) {
   if (!ViewTransition) return <>{children}</>;
   if (routeKey === undefined) return <ViewTransition default={PAGE_TRANSITION_CLASS}>{children}</ViewTransition>;
   // A new key is a new boundary: React runs `exit` on the old one and `enter` on the new; updates inside run `default`.

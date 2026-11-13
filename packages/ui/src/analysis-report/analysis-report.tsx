@@ -75,7 +75,7 @@ export type AnalysisReportProps = Omit<React.ComponentProps<"section">, "title" 
     provenanceFolded?: boolean;
   };
 
-function FindingCard({ finding, labels, onLocate }: { finding: AnalysisFinding; labels: AnalysisReportLabels; onLocate?: AnalysisReportProps["onLocate"] }) {
+function FindingCard({ finding, labels, onLocate }: Readonly<{ finding: AnalysisFinding; labels: AnalysisReportLabels; onLocate?: AnalysisReportProps["onLocate"] }>) {
   const s = analysisReportStyles();
   return (
     <li className={s.finding()}>
@@ -127,7 +127,7 @@ function FindingCard({ finding, labels, onLocate }: { finding: AnalysisFinding; 
   );
 }
 
-function TextColumn({ title, items }: { title: string; items: readonly string[] | undefined }) {
+function TextColumn({ title, items }: Readonly<{ title: string; items: readonly string[] | undefined }>) {
   const s = analysisReportStyles();
   if (!items?.length) return null;
   return (
@@ -142,7 +142,7 @@ function TextColumn({ title, items }: { title: string; items: readonly string[] 
   );
 }
 
-function Provenance({ data, labels, folded }: { data: NonNullable<AnalysisReportData["provenance"]>; labels: AnalysisReportLabels; folded?: boolean }) {
+function Provenance({ data, labels, folded }: Readonly<{ data: NonNullable<AnalysisReportData["provenance"]>; labels: AnalysisReportLabels; folded?: boolean }>) {
   const s = analysisReportStyles();
   const rows = [
     [labels.model, data.model],

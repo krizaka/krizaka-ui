@@ -107,7 +107,7 @@ export function normalizeMatrix(next: NotificationMatrix, current: NotificationM
   );
 }
 
-export function NotificationPreferences({ label, channels, categories, value, onValueChange, presets, presetsLabel, customHint, className }: NotificationPreferencesProps) {
+export function NotificationPreferences({ label, channels, categories, value, onValueChange, presets, presetsLabel, customHint, className }: Readonly<NotificationPreferencesProps>) {
   const s = notificationPreferences();
   const inForce = presets ? presetInForce(value, presets, categories, channels) : null;
   const emit = (next: NotificationMatrix) => onValueChange(normalizeMatrix(next, value, categories, channels));

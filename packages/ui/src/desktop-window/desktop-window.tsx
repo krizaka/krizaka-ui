@@ -116,7 +116,7 @@ type Edge = "sidebar" | "inspector";
 /** The window of a Mac app: sidebar · content · inspector, a toolbar that moves the window, the desktop's density. */
 export function DesktopWindow({
   sidebar, children, inspector, title, toolbarStart, toolbarEnd, labels, sidebarOpen, defaultSidebarOpen = true, onSidebarOpenChange, inspectorOpen, defaultInspectorOpen = true, onInspectorOpenChange, defaultSizes, onSizesChange, contentMin = 360, shortcuts, className,
-}: DesktopWindowProps) {
+}: Readonly<DesktopWindowProps>) {
   const [sideOpen, setSideOpen] = useOpen(sidebarOpen, defaultSidebarOpen, onSidebarOpenChange);
   const [inspOpen, setInspOpen] = useOpen(inspectorOpen, defaultInspectorOpen, onInspectorOpenChange);
   const [sizes, setSizes] = React.useState({ sidebar: clamp(defaultSizes?.sidebar ?? 240, SIDEBAR.min, SIDEBAR.max), inspector: clamp(defaultSizes?.inspector ?? 300, INSPECTOR.min, INSPECTOR.max) });

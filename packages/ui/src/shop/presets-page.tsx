@@ -10,7 +10,7 @@ import { HeroSection, type HeroVariant } from "./hero/hero";
 import { mascotFor, ShopMascot } from "./look/mascots";
 import { ServicesSection, type ServicesVariant } from "./services/services";
 
-export function PresetPage({ id, accent }: { id: string; accent?: string }) {
+export function PresetPage({ id, accent }: Readonly<{ id: string; accent?: string }>) {
   const preset = shopPresets.find((p) => p.id === id)!;
   const shop: DemoShop = preset.trades[0] === "pets" ? demoPets : demoSalon;
   const hero = (preset.variants.hero ?? "poster") as HeroVariant;

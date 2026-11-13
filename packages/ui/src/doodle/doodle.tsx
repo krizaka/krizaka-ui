@@ -58,7 +58,7 @@ const BIRD_FEATURES: Record<DoodleBird, string> = {
   pigeon: "M52 20 L59 22 L52 24",
 };
 
-function BirdSketch({ bird }: { bird: DoodleBird }) {
+function BirdSketch({ bird }: Readonly<{ bird: DoodleBird }>) {
   const owl = bird === "owl";
   const tall = bird === "flamingo";
   return (

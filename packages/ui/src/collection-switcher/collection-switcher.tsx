@@ -44,7 +44,7 @@ export type CollectionSwitcherProps = {
   className?: string;
 };
 
-function Row({ branch, value, props }: { branch: CollectionBranch; value: string | null; props: CollectionSwitcherProps & { close?: () => void } }) {
+function Row({ branch, value, props }: Readonly<{ branch: CollectionBranch; value: string | null; props: CollectionSwitcherProps & { close?: () => void } }>) {
   const { item, children } = branch;
   const current = item.id === value;
   const { href, onValueChange, defaultLabel, onRemove, removeLabel, close } = props;
@@ -130,7 +130,7 @@ function Body(props: CollectionSwitcherProps & { close?: () => void }) {
 }
 
 /** The collections of a workspace — or the shops of an account — to move between; the default one marked and never removable. */
-export function CollectionSwitcher(props: CollectionSwitcherProps) {
+export function CollectionSwitcher(props: Readonly<CollectionSwitcherProps>) {
   const { mode = "collection", collections, value, label, className } = props;
   const [open, setOpen] = React.useState(false);
   if (mode === "collection") {

@@ -108,7 +108,7 @@ export type AppearanceSettingsProps = {
   className?: string;
 };
 
-function Miniature({ preview }: { preview: ThemePreview }) {
+function Miniature({ preview }: Readonly<{ preview: ThemePreview }>) {
   return (
     <span
       aria-hidden
@@ -147,7 +147,7 @@ export function AppearanceSettings({
   onSoundChange,
   labels: given,
   className,
-}: AppearanceSettingsProps) {
+}: Readonly<AppearanceSettingsProps>) {
   const labels = { ...appearanceLabels, ...given };
   const id = React.useId();
   return (
