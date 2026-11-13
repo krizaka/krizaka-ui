@@ -6,6 +6,8 @@ import { Page, Section } from "@krizaka/ui/page";
 import { SectionBackdrop } from "@krizaka/ui/section-backdrop";
 import type * as React from "react";
 
+import { HeroStage } from "../page/hero-stage";
+
 export interface LandingFeature {
   /** A stable key. */
   id: string;
@@ -69,14 +71,7 @@ export function LandingPage({ eyebrow, title, lead, actions, visual, visualLabel
               {lead && <p className="kz-hero-lead">{lead}</p>}
               {actions && <div className="kz-tpl-actions kz-hero-extra">{actions}</div>}
             </div>
-            {visual && (
-              <figure className="kz-tpl-stage">
-                <div className="kz-tpl-stage-bar" aria-hidden>
-                  {visualLabel && <span>{visualLabel}</span>}
-                </div>
-                {visual}
-              </figure>
-            )}
+            {visual && <HeroStage visual={visual} label={visualLabel} />}
           </div>
         </Page>
       </SectionBackdrop>

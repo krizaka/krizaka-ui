@@ -14,6 +14,7 @@ import type * as React from "react";
 
 import { cn } from "../cn";
 import { warnDeprecated } from "../deprecated";
+import { HeroStage } from "../page/hero-stage";
 
 export interface ProductReason {
   /** A stable key (the card's anchor). */
@@ -87,14 +88,7 @@ export function ProductPage({ brand, mark, title, lead, facts, actions, visual, 
                 </div>
               )}
             </div>
-            {visual && (
-              <figure className="kz-tpl-stage">
-                <div className="kz-tpl-stage-bar" aria-hidden>
-                  {visualLabel && <span>{visualLabel}</span>}
-                </div>
-                {visual}
-              </figure>
-            )}
+            {visual && <HeroStage visual={visual} label={visualLabel} />}
           </div>
         </Page>
       </SectionBackdrop>
