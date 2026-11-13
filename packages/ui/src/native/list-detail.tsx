@@ -64,6 +64,7 @@ export function ListDetail({ listTitle, listActions, list, detailTitle, detailAc
       )}
     </Screen>
   );
+  const single = open ? detailPane : listPane;
   return (
     <View testID={testID} onLayout={onLayout} data-panes={both ? "both" : "one"} style={styles.root}>
       {both ? (
@@ -71,10 +72,8 @@ export function ListDetail({ listTitle, listActions, list, detailTitle, detailAc
           <View style={[styles.list, { width: listWidth, borderEndColor: theme.borderSubtle, borderEndWidth: StyleSheet.hairlineWidth }]}>{listPane}</View>
           <View style={styles.detail}>{detailPane}</View>
         </View>
-      ) : open ? (
-        detailPane
       ) : (
-        listPane
+        single
       )}
     </View>
   );

@@ -11,7 +11,8 @@ export const SIZE_CLASS_FROM = { regular: 600, expanded: 840 } as const;
 
 /** The size class of a width in points. */
 export function sizeClassOf(width: number): SizeClass {
-  return width >= SIZE_CLASS_FROM.expanded ? "expanded" : width >= SIZE_CLASS_FROM.regular ? "regular" : "compact";
+  if (width >= SIZE_CLASS_FROM.expanded) return "expanded";
+  return width >= SIZE_CLASS_FROM.regular ? "regular" : "compact";
 }
 
 /** The size class of the window (use a `Grid` or `Columns` when it is the room of a container that matters). */

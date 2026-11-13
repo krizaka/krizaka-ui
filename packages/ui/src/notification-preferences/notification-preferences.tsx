@@ -101,7 +101,10 @@ export function normalizeMatrix(next: NotificationMatrix, current: NotificationM
     categories.map((c) => [
       c.id,
       Object.fromEntries(
-        channels.filter((ch) => uses(c, ch.id)).map((ch) => [ch.id, c.locked ? true : Boolean((ch.disabled ? current : next)[c.id]?.[ch.id])]),
+        channels.filter((ch) => uses(c, ch.id)).map((ch) => {
+          const source = ch.disabled ? current : next;
+          return [ch.id, c.locked ? true : Boolean(source[c.id]?.[ch.id])];
+        }),
       ),
     ]),
   );

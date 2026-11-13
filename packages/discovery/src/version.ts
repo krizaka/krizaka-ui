@@ -7,7 +7,8 @@ function compareIdentifiers(a: string, b: string): number {
   if (numeric(a) && numeric(b)) return Math.sign(Number(a) - Number(b));
   if (numeric(a)) return -1;
   if (numeric(b)) return 1;
-  return a < b ? -1 : a > b ? 1 : 0;
+  if (a < b) return -1;
+  return a > b ? 1 : 0;
 }
 
 /** Semantic-version order (`-1 | 0 | 1`), `null` when either side is not `x.y.z[-pre]`. A pre-release is below its release. */

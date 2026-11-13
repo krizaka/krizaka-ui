@@ -62,7 +62,8 @@ const addSection: Handler<"addSection"> = (page, cmd) => {
   const isHero = def.type === "hero";
   if (isHero && page.sections.some((s) => s.type === "hero")) return page;
   const heroFirst = page.sections[0]?.type === "hero";
-  const at = isHero ? 0 : clamp(cmd.at ?? page.sections.length, heroFirst ? 1 : 0, page.sections.length);
+  const minAt = heroFirst ? 1 : 0;
+  const at = isHero ? 0 : clamp(cmd.at ?? page.sections.length, minAt, page.sections.length);
   const section = { key: cmd.key, type: def.type, variant, settings: { ...(def.settingsDefault as Rec), ...cmd.settings } } as unknown as Section;
   const sections = [...page.sections];
   sections.splice(at, 0, section);

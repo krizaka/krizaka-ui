@@ -59,6 +59,7 @@ export function Tabs<T extends string>({ items, value, defaultValue, onValueChan
   const binder = variant === "binder";
   const hueOf = (hue: TabsHue | undefined) =>
     ({ accent: theme.accent, success: theme.successText, warning: theme.warningText, danger: theme.dangerText, neutral: theme.textMuted })[hue ?? "accent"];
+  const tabStyle = segmented ? styles.segment : styles.tab;
   const tabs = items.map((item) => {
     const selected = item.value === current;
     return (
@@ -71,7 +72,7 @@ export function Tabs<T extends string>({ items, value, defaultValue, onValueChan
         onPress={() => select(item.value)}
         style={[
           binder ? [styles.divider, { borderTopColor: hueOf(item.hue), borderColor: theme.borderDefault, borderTopLeftRadius: radius.md, borderTopRightRadius: radius.md, backgroundColor: selected ? theme.surface1 : theme.surface2 }] : null,
-          binder ? null : segmented ? styles.segment : styles.tab,
+          binder ? null : tabStyle,
           segmented && selected ? { backgroundColor: theme.surface0, borderColor: theme.borderDefault, borderRadius: radius.sm } : null,
           !segmented && !binder ? { borderBottomColor: selected ? theme.accent : "transparent" } : null,
           item.disabled ? styles.disabled : null,

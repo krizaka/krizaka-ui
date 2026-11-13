@@ -183,11 +183,9 @@ export function UsageChart({ title, days, outcomes, emptyLabel, columns, loading
   return (
     <figure aria-busy={loading || undefined} className={s.chart({ className })} {...props}>
       <figcaption className={s.chartTitle()}>{title}</figcaption>
-      {loading ? (
-        <div className={s.skeleton()} />
-      ) : empty ? (
-        <p className={s.state()}>{emptyLabel}</p>
-      ) : (
+      {loading && <div className={s.skeleton()} />}
+      {!loading && empty && <p className={s.state()}>{emptyLabel}</p>}
+      {!loading && !empty && (
         <>
           <div aria-hidden className={s.plot()}>
             {bars.map((bar) => (

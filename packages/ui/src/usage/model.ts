@@ -77,7 +77,10 @@ export function usageTile(input: UsageTileInput, { locale = "fr-CA", words }: Us
   const w = { ...wordsOf(locale), ...words };
   const change = changeOf(input.value, input.previous);
   const trend = direction(change);
-  const text = change === null ? undefined : trend === "flat" ? w.same : w.vsPrevious.replace("{change}", formatPercent(change, { locale, signDisplay: "exceptZero", maximumFractionDigits: 0 }));
+  let text: string | undefined;
+  if (change !== null) {
+    text = trend === "flat" ? w.same : w.vsPrevious.replace("{change}", formatPercent(change, { locale, signDisplay: "exceptZero", maximumFractionDigits: 0 }));
+  }
   return {
     id: input.id,
     label: input.label,

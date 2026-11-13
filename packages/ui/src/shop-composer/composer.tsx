@@ -223,7 +223,10 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
     }
   };
 
-  const status_ = status === "saving" ? m.saving : status === "saved" ? m.saved : status === "error" ? m.saveFailed : "";
+  let status_ = "";
+  if (status === "saving") status_ = m.saving;
+  else if (status === "saved") status_ = m.saved;
+  else if (status === "error") status_ = m.saveFailed;
 
   return (
     <div className={cn("kz-composer flex min-h-0 flex-col gap-3", className)} onKeyDown={onKeyDown} data-step={step}>
@@ -314,7 +317,9 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
                   ))}
                 </ul>
               );
-              return group.length === 0 ? null : g === 0 ? <React.Fragment key={g}>{list}</React.Fragment> : <details key={g} className="mt-3"><summary className="min-h-9 cursor-pointer text-sm text-fg-secondary">…</summary>{list}</details>;
+              if (group.length === 0) return null;
+              if (g === 0) return <React.Fragment key={g}>{list}</React.Fragment>;
+              return <details key={g} className="mt-3"><summary className="min-h-9 cursor-pointer text-sm text-fg-secondary">…</summary>{list}</details>;
             })}
           </Dialog.Body>
         </Dialog.Content>

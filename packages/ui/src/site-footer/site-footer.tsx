@@ -157,6 +157,11 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
   linkAs?: LinkComponent;
 };
 
+function currentMark(atHome: boolean, isCurrent: boolean): "page" | "true" | undefined {
+  if (atHome) return "page";
+  return isCurrent ? "true" : undefined;
+}
+
 const NO_STATUS = { shared: null, exceptions: new Map<string, Exclude<SiteStatus, "released">>() } as const;
 
 /** The footer of a Krizaka site or app: at most three lines — its links, the family, then signature · version · legal. */
@@ -251,7 +256,7 @@ export function SiteFooter({
                           <li key={e.id}>
                             <a
                               href={e.url}
-                              aria-current={atHome ? "page" : isCurrent ? "true" : undefined}
+                              aria-current={currentMark(atHome, isCurrent)}
                               onClick={atHome ? backToTop : undefined}
                               className={s.link()}
                             >

@@ -62,7 +62,12 @@ export function TypographyDoc({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
   const c = t.docs.foundations;
   const ty = c.typography;
-  const sample = (role: keyof typeof ROLE_FONT) => (role === "display" || role === "product-display" ? ty.headline : role === "mono" ? ty.code : role === "cahier" ? ty.chalk : ty.paragraph);
+  const sample = (role: keyof typeof ROLE_FONT) => {
+    if (role === "display" || role === "product-display") return ty.headline;
+    if (role === "mono") return ty.code;
+    if (role === "cahier") return ty.chalk;
+    return ty.paragraph;
+  };
 
   return (
     <>

@@ -118,10 +118,15 @@ export type SettingsLayoutProps = Omit<React.ComponentProps<"div">, "title"> & {
   children: React.ReactNode;
 };
 
+function currentOf(item: SettingsNavItem): "location" | "page" | undefined {
+  if (!item.current) return undefined;
+  return item.href.startsWith("#") ? "location" : "page";
+}
+
 function NavLink({ item, Link, className }: Readonly<{ item: SettingsNavItem; Link: React.ElementType; className: string }>) {
   const s = settingsLayout();
   return (
-    <Link href={item.href} className={className} aria-current={item.current ? (item.href.startsWith("#") ? "location" : "page") : undefined}>
+    <Link href={item.href} className={className} aria-current={currentOf(item)}>
       {item.icon}
       {item.label}
       {item.badge !== undefined && <span className={s.navBadge()}>{item.badge}</span>}
@@ -311,10 +316,14 @@ export function SettingsSection({ title, description, footer, save, variant = "c
 function SaveFeedback({ save }: Readonly<{ save: SectionSave }>) {
   const failed = save.status === SaveStatus.Error;
   const saved = save.status === SaveStatus.Saved;
+  let feedbackText = "";
+  if (failed) feedbackText = save.labels.error;
+  else if (saved) feedbackText = save.labels.saved;
+  else if (save.status === SaveStatus.Saving) feedbackText = save.labels.saving;
   return (
     <div className="mr-auto flex min-w-0 items-center gap-2 text-sm">
       <span role={failed ? "alert" : "status"} aria-live={failed ? "assertive" : "polite"} className={failed ? "text-danger-text" : "text-fg-secondary"}>
-        {failed ? save.labels.error : saved ? save.labels.saved : save.status === SaveStatus.Saving ? save.labels.saving : ""}
+        {feedbackText}
       </span>
       {saved && save.onUndo ? (
         <Button type="button" variant="ghost" size="sm" onClick={save.onUndo}>

@@ -115,7 +115,9 @@ const addDays = (iso: string, days: number) => {
 const focusables = (root: Element | null) => [...(root?.querySelectorAll<HTMLElement>("button:not(:disabled), a[href]") ?? [])];
 /** Arrows move focus inside one list of controls (`dir` -1/+1 on the arrows that follow the reading order). */
 function moveFocus(e: React.KeyboardEvent<HTMLElement>, keys: { prev: string[]; next: string[] }) {
-  const dir = keys.prev.includes(e.key) ? -1 : keys.next.includes(e.key) ? 1 : 0;
+  let dir = 0;
+  if (keys.prev.includes(e.key)) dir = -1;
+  else if (keys.next.includes(e.key)) dir = 1;
   if (!dir) return;
   const items = focusables(e.currentTarget);
   const at = items.indexOf(document.activeElement as HTMLElement);
@@ -207,7 +209,8 @@ export function SlotPicker({
     </ul>
   );
 
-  const dayName = active ? `${active.label}${active.sub ? ` ${active.sub}` : ""}` : "";
+  const subText = active?.sub ? ` ${active.sub}` : "";
+  const dayName = active ? `${active.label}${subText}` : "";
   return (
     <div ref={rootRef} className={s.root({ className })} onKeyDown={onKeyDown} {...props}>
       {weeks && weekButtons && (

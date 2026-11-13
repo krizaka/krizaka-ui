@@ -70,8 +70,11 @@ export function StateScreen({ kind, title, description, action, secondary, icon,
       }
     />
   );
+  let role: "alert" | "status" | undefined;
+  if (kind === "error") role = "alert";
+  else if (kind === "offline") role = "status";
   return (
-    <View testID={testID} role={kind === "error" ? "alert" : kind === "offline" ? "status" : undefined} data-state={kind} style={[inline ? styles.inline : styles.fill, style]}>
+    <View testID={testID} role={role} data-state={kind} style={[inline ? styles.inline : styles.fill, style]}>
       {body}
     </View>
   );

@@ -15,7 +15,10 @@ export function EntryFacts({ item, locale }: Readonly<{ item: Pick<RegistryItem,
   const c = t.docs.component;
   const domain = domainOf(item);
   const facts = factsOf(item.name);
-  const size = !facts || facts.sizeGzip === null ? c.domain.sizeNone : facts.budget ? format(c.domain.sizeOf, { size: kb(facts.sizeGzip), budget: kb(facts.budget) }) : format(c.domain.sizeAlone, { size: kb(facts.sizeGzip) });
+  let size: string;
+  if (!facts || facts.sizeGzip === null) size = c.domain.sizeNone;
+  else if (facts.budget) size = format(c.domain.sizeOf, { size: kb(facts.sizeGzip), budget: kb(facts.budget) });
+  else size = format(c.domain.sizeAlone, { size: kb(facts.sizeGzip) });
   const by = facts ? CONSUMERS.flatMap((consumer) => (facts.byConsumer[consumer] ? [format(c.domain.usersBy, { name: CONSUMER_NAMES[consumer], count: facts.byConsumer[consumer]! })] : [])) : [];
   return (
     <dl className="kz-entry-facts not-prose" aria-label={c.domain.label}>

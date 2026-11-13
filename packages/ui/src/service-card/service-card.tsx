@@ -132,6 +132,20 @@ export function ServiceCard({
   const actionClass = index ? cn(buttonVariants({ variant: "secondary", size: "md" }), "min-h-11 rounded-none no-underline") : s.action();
   const arrow = <span aria-hidden>→</span>;
   const revealStyle = reveal === undefined ? style : ({ ...style, "--kz-delay": `${Math.min(Math.max(reveal, 0), 8) * 50}ms` } as React.CSSProperties);
+  let cta: React.ReactNode = null;
+  if (href) {
+    cta = (
+      <BlockLink href={href} linkAs={linkAs} className={actionClass} aria-describedby={id}>
+        {actionLabel} {arrow}
+      </BlockLink>
+    );
+  } else if (onSelect) {
+    cta = (
+      <button type="button" onClick={onSelect} aria-pressed={selected ?? false} aria-describedby={id} className={actionClass}>
+        {actionLabel} {arrow}
+      </button>
+    );
+  }
   return (
     <article
       aria-labelledby={id}
@@ -182,15 +196,7 @@ export function ServiceCard({
             {priceFrom && <span className={s.from()}>{priceFrom}</span>}
             {index ? <Stamp tone="ink" size="sm" data-figure="" className="tabular-nums">{price}</Stamp> : <span className={s.price()}>{price}</span>}
           </p>
-          {href ? (
-            <BlockLink href={href} linkAs={linkAs} className={actionClass} aria-describedby={id}>
-              {actionLabel} {arrow}
-            </BlockLink>
-          ) : onSelect ? (
-            <button type="button" onClick={onSelect} aria-pressed={selected ?? false} aria-describedby={id} className={actionClass}>
-              {actionLabel} {arrow}
-            </button>
-          ) : null}
+          {cta}
         </div>
       </div>
     </article>

@@ -104,7 +104,8 @@ export function Agenda<T extends AgendaItem>({ items, locale = "en-US", timeZone
   const at = now ? now.getTime() : null;
   // The line goes before the first item still to come, and after the last when every one has begun.
   const upcoming = at === null ? -1 : sorted.findIndex((i) => stamp(i.start) > at);
-  const lineBefore = at === null ? -1 : upcoming === -1 ? sorted.length : upcoming;
+  let lineBefore = -1;
+  if (at !== null) lineBefore = upcoming === -1 ? sorted.length : upcoming;
   const Link = (linkAs ?? "a") as React.ElementType;
 
   const row = (item: T) => {

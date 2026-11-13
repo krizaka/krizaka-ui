@@ -134,8 +134,11 @@ function accentBlocks(brands, sel, ref, extra = []) {
 function ownDecls(p) {
   const display = p.faces.title === "display";
   const poster = p.faces.title === "poster";
+  let weight = 650;
+  if (display) weight = 400;
+  else if (poster) weight = 800;
   return [
-    `--kz-shop-title-weight: ${display ? 400 : poster ? 800 : 650};`,
+    `--kz-shop-title-weight: ${weight};`,
     `--kz-font-display: ${display ? YOUNG_SERIF : "var(--kz-font-product-display)"};`,
     ...(poster ? ["--kz-shop-title-tracking: -0.03em;"] : []),
     ...(p.faces.note === "cahier" ? ["--kz-font-mono: var(--kz-font-cahier);"] : []),
@@ -158,7 +161,9 @@ export function surfaceDecls(surface, mode) {
     contrast: ["var(--kz-surface-0)", "var(--kz-surface-0)"],
     dusk: [tint(6, "--kz-surface-2"), tint(3, "--kz-surface-2")],
   };
-  const [page, raised] = by[surface === "deep" ? (mode === "dark" ? "paper" : "dusk") : surface] ?? by.paper;
+  let key = surface;
+  if (surface === "deep") key = mode === "dark" ? "paper" : "dusk";
+  const [page, raised] = by[key] ?? by.paper;
   return [`--kz-shop-surface: ${page};`, `--kz-shop-surface-raised: ${raised};`, ...(surface === "contrast" ? ["--kz-shop-rule: var(--kz-border-strong);"] : [])];
 }
 

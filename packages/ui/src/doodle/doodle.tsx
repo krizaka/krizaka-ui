@@ -78,6 +78,29 @@ function BirdSketch({ bird }: Readonly<{ bird: DoodleBird }>) {
 export function Doodle({ kind, children, word, side = "left", place = "margin", top, seed = "", bird = "duck", flip = false, label, className, style, ...props }: DoodleProps) {
   const wraps = children != null && (kind === "circle" || kind === "wave");
   const said = !wraps && Boolean(label);
+  let art: React.ReactNode;
+  if (wraps) {
+    art = (
+      <>
+        <span className="kz-doodle-word">{children}</span>
+        <span className="kz-doodle-ink" aria-hidden>
+          <svg viewBox={WRAPS[kind as "circle" | "wave"].box} preserveAspectRatio="none" focusable="false">
+            <path d={WRAPS[kind as "circle" | "wave"].d} vectorEffect="non-scaling-stroke" />
+          </svg>
+        </span>
+      </>
+    );
+  } else if (kind === "bird") {
+    art = <BirdSketch bird={bird} />;
+  } else {
+    art = (
+      <svg viewBox={PATHS[kind].box} focusable="false">
+        {PATHS[kind].d.map((path) => (
+          <path key={path} d={path} />
+        ))}
+      </svg>
+    );
+  }
   return (
     <span
       className={cn("kz-doodle", className)}
@@ -92,24 +115,7 @@ export function Doodle({ kind, children, word, side = "left", place = "margin", 
       style={{ ...style, ["--kz-doodle-tilt" as string]: `${Math.round(seedUnit(`${kind}${seed}`) * 80) / 10}deg`, ...(top ? { ["--kz-doodle-top" as string]: top } : {}) }}
       {...props}
     >
-      {wraps ? (
-        <>
-          <span className="kz-doodle-word">{children}</span>
-          <span className="kz-doodle-ink" aria-hidden>
-            <svg viewBox={WRAPS[kind as "circle" | "wave"].box} preserveAspectRatio="none" focusable="false">
-              <path d={WRAPS[kind as "circle" | "wave"].d} vectorEffect="non-scaling-stroke" />
-            </svg>
-          </span>
-        </>
-      ) : kind === "bird" ? (
-        <BirdSketch bird={bird} />
-      ) : (
-        <svg viewBox={PATHS[kind].box} focusable="false">
-          {PATHS[kind].d.map((path) => (
-            <path key={path} d={path} />
-          ))}
-        </svg>
-      )}
+      {art}
       {!wraps && kind === "circle" && word ? <span className="kz-doodle-word">{word}</span> : null}
     </span>
   );

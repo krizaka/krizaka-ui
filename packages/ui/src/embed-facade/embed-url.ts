@@ -39,7 +39,9 @@ const youtube = (host: string, path: string): string | null => {
 
 const instagram = (host: string, path: string): string | null => {
   const match = INSTAGRAM_HOSTS.has(host) ? /^\/(?:[\w.]{1,30}\/)?(p|reel|reels|tv)\/([\w-]{5,40})\/?$/.exec(path) : null;
-  return match ? `https://www.instagram.com/${match[1] === "reels" ? "reel" : match[1]}/${match[2]}/embed` : null;
+  if (!match) return null;
+  const kind = match[1] === "reels" ? "reel" : match[1];
+  return `https://www.instagram.com/${kind}/${match[2]}/embed`;
 };
 
 const PARSERS: Readonly<Record<EmbedPlatform, (host: string, path: string) => string | null>> = { tiktok, "youtube-shorts": youtube, instagram };

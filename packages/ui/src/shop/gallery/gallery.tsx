@@ -49,7 +49,8 @@ export function wallLayout(count: number): { x: number; y: number; rotation: num
     const col = i % perRow;
     const inRow = Math.min(perRow, count - row * perRow);
     const x = inRow === 1 ? 50 : (col / (inRow - 1)) * 100;
-    const y = row === 0 ? (count <= perRow ? 50 : 8 + (col % 2) * 6) : 92 - (col % 2) * 6;
+    let y = 92 - (col % 2) * 6;
+    if (row === 0) y = count <= perRow ? 50 : 8 + (col % 2) * 6;
     return { x, y, rotation: [-2.2, 1.6, -1.2, 2.4, -1.8][(i * 3 + 1) % 5]! };
   });
 }

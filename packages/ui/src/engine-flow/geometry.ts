@@ -78,12 +78,10 @@ export function flowGeometry(layout: FlowLayout, count: number, conduit: FlowCon
   const lengths: number[] = [];
   for (const p of nodes) {
     // Each conduit lands on its own point of the hub (a fan), so the lines stay apart where they meet.
-    const end =
-      layout === "top-to-bottom"
-        ? { x: hub.x + (p.x - hub.x) * FLOW_FAN, y: hub.y }
-        : layout === "left-to-right"
-          ? { x: hub.x, y: hub.y + (p.y - hub.y) * FLOW_FAN }
-          : hub;
+    let end: FlowPoint;
+    if (layout === "top-to-bottom") end = { x: hub.x + (p.x - hub.x) * FLOW_FAN, y: hub.y };
+    else if (layout === "left-to-right") end = { x: hub.x, y: hub.y + (p.y - hub.y) * FLOW_FAN };
+    else end = hub;
     if (conduit === "straight") {
       paths.push(`M${pt(p)} L${pt(end)}`);
       lengths.push(Math.hypot(end.x - p.x, end.y - p.y));

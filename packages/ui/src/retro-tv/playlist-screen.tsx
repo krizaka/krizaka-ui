@@ -73,17 +73,23 @@ export function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, 
   const layer = (i: number, role: "in" | "out") => {
     const src = playlist[i];
     if (!src) return null;
+    let media: React.ReactNode = null;
+    if (!src.src) {
+      if (role === "in") media = renderEmbed?.(src);
+    } else if (role === "in") {
+      media = (
+        <video ref={video} src={seen ? src.src : undefined} poster={src.poster} muted={muted} playsInline preload={seen ? "auto" : "none"} loop={n === 1} aria-label={src.title}
+          onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => { if (n > 1) go(index + 1); }}
+          onTimeUpdate={(e) => setTime({ t: e.currentTarget.currentTime, d: e.currentTarget.duration || 0 })} onLoadedMetadata={(e) => setTime({ t: 0, d: e.currentTarget.duration || 0 })}>
+          {src.tracks?.map((t) => <track key={t.src} kind="captions" src={t.src} srcLang={t.srcLang} label={t.label} />)}
+        </video>
+      );
+    } else if (src.poster) {
+      media = <img src={src.poster} alt="" />;
+    }
     return (
       <div className="kz-rtv-layer" key={src.id} data-role={role} data-tr={transition}>
-        {src.src ? (
-          role === "in" ? (
-            <video ref={video} src={seen ? src.src : undefined} poster={src.poster} muted={muted} playsInline preload={seen ? "auto" : "none"} loop={n === 1} aria-label={src.title}
-              onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => { if (n > 1) go(index + 1); }}
-              onTimeUpdate={(e) => setTime({ t: e.currentTarget.currentTime, d: e.currentTarget.duration || 0 })} onLoadedMetadata={(e) => setTime({ t: 0, d: e.currentTarget.duration || 0 })}>
-              {src.tracks?.map((t) => <track key={t.src} kind="captions" src={t.src} srcLang={t.srcLang} label={t.label} />)}
-            </video>
-          ) : src.poster ? <img src={src.poster} alt="" /> : null
-        ) : role === "in" ? renderEmbed?.(src) : null}
+        {media}
       </div>
     );
   };

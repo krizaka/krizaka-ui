@@ -161,7 +161,9 @@ export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 
           <path d={g.body} fill={body} {...line} />
           <path d={g.belly} fill={LIGHT} opacity={0.28} />
           {[wl, wr].map((w, i) => {
-            const turn = mood === "success" ? (i === 0 ? 28 : -28) : mood === "welcome" && i === 1 && !alive ? -20 : 0;
+            let turn = 0;
+            if (mood === "success") turn = i === 0 ? 28 : -28;
+            else if (mood === "welcome" && i === 1 && !alive) turn = -20;
             return (
               <g key={i} className={i === 1 ? "kzb-wing kzb-wing-r" : "kzb-wing kzb-wing-l"} style={{ transformOrigin: `${w.pivot[0]}px ${w.pivot[1]}px`, transform: turn ? `rotate(${turn}deg)` : undefined }}>
                 <path d={w.d} fill={p.wing} {...line} />

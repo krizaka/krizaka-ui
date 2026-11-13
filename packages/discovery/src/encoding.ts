@@ -17,7 +17,9 @@ export function bytesToBase64(bytes: Uint8Array): string {
 
 export function base64ToBytes(text: string): Uint8Array {
   if (text.length % 4 !== 0 || !/^[A-Za-z0-9+/]*={0,2}$/.test(text)) throw new Error("invalid base64");
-  const padding = text.endsWith("==") ? 2 : text.endsWith("=") ? 1 : 0;
+  let padding = 0;
+  if (text.endsWith("==")) padding = 2;
+  else if (text.endsWith("=")) padding = 1;
   const bytes = new Uint8Array((text.length / 4) * 3 - padding);
   let written = 0;
   for (let i = 0; i < text.length; i += 4) {

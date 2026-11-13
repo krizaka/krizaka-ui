@@ -243,12 +243,14 @@ type FlowDataInput = { chosen: boolean; calm: boolean; saveData: boolean; trigge
 
 /** The figure's data attributes: the CSS reads the state from them. */
 function flowData({ chosen, calm, saveData, trigger, density, compact }: FlowDataInput) {
+  let dataDensity: string | undefined = density === "normal" ? undefined : density;
+  if (calm) dataDensity = "sparse";
   return {
     "data-active": chosen ? "" : undefined,
     "data-calm": calm ? "" : undefined,
     "data-still": saveData ? "" : undefined,
     "data-trigger": calm || trigger === "always" ? undefined : trigger,
-    "data-density": calm ? "sparse" : density === "normal" ? undefined : density,
+    "data-density": dataDensity,
     "data-compact": compact ? "" : undefined,
   };
 }

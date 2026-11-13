@@ -17,7 +17,8 @@ export function parseHsl(value) {
   const h = ((Number(hRaw) % 360) + 360) % 360;
   const s = Number(sRaw) / 100;
   const l = Number(lRaw) / 100;
-  const a = aRaw ? (aRaw.endsWith("%") ? Number(aRaw.slice(0, -1)) / 100 : Number(aRaw)) : 1;
+  let a = 1;
+  if (aRaw) a = aRaw.endsWith("%") ? Number(aRaw.slice(0, -1)) / 100 : Number(aRaw);
   /** @param {number} n */
   const channel = (n) => {
     const k = (n + h / 30) % 12;
