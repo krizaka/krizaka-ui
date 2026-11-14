@@ -73,7 +73,7 @@ export function ComparisonTable({ label, topicLabel, columns, highlight, rows, r
         <div
           aria-hidden
           data-band
-          className="pointer-events-none rounded-2xl border border-accent/35 bg-accent-soft shadow-[0_0_48px_-16px_var(--kz-accent)]"
+          className="pointer-events-none rounded-none border border-accent bg-accent-soft"
           style={{ gridColumn: at + 2, gridRow: `1 / span ${rows.length + 1}` }}
         />
         <div role="row" className="contents">
@@ -117,14 +117,14 @@ export function ComparisonTable({ label, topicLabel, columns, highlight, rows, r
       {/* Phone: one card per question, the answers stacked, the highlighted one tinted. */}
       <ul aria-label={label} className="grid gap-4 md:hidden">
         {rows.map((row, r) => (
-          <li key={row.id} data-reveal={reveal ? "soft" : undefined} style={stagger(r)} className="rounded-2xl border border-border-subtle bg-surface-1/80 p-4">
+          <li key={row.id} data-reveal={reveal ? "soft" : undefined} style={stagger(r)} className="rounded-none border border-border-subtle bg-surface-1/80 p-4">
             <p className="flex items-center gap-3 text-base font-semibold text-fg">
               {row.icon && <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-border-default bg-surface-2 text-fg-accent [&>svg]:h-4 [&>svg]:w-4">{row.icon}</span>}
               {row.topic}
             </p>
             <dl className="mt-3 grid gap-2">
               {columns.map((c, i) => (
-                <div key={c.id} data-highlight={band(i) ? "" : undefined} className={cn("rounded-xl p-3 text-sm leading-relaxed", band(i) ? "border border-accent/35 bg-accent-soft" : "bg-surface-2/60")}>
+                <div key={c.id} data-highlight={band(i) ? "" : undefined} className={cn("rounded-none p-3 text-sm leading-relaxed", band(i) ? "border border-accent bg-accent-soft" : "bg-surface-2/60")}>
                   <dt className={cn("mb-1 flex items-center gap-1.5 font-mono text-[11px] ", band(i) ? "text-fg-accent" : "text-fg-secondary")}>
                     {c.label}
                   </dt>
