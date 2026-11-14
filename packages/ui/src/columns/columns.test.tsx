@@ -63,7 +63,9 @@ describe("Grid", () => {
   });
   it("is a list of list items with an aria-label, and plain otherwise; the order of the children is kept", () => {
     const { rerender } = render(<Grid aria-label="Photos"><b>a</b><b>b</b></Grid>);
-    expect(screen.getByRole("list", { name: "Photos" })).toBeTruthy();
+    // Native semantics (Sonar S6819): a real <ul>/<li>, not a div with role="list".
+    expect(screen.getByRole("list", { name: "Photos" }).tagName).toBe("UL");
+    expect(screen.getAllByRole("listitem").every((li) => li.tagName === "LI")).toBe(true);
     expect(screen.getAllByRole("listitem").map((li) => li.textContent)).toEqual(["a", "b"]);
     rerender(<Grid><b>a</b></Grid>);
     expect(screen.queryByRole("list")).toBeNull();
