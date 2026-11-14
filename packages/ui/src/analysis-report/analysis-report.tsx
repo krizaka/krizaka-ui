@@ -75,7 +75,7 @@ export type AnalysisReportProps = Omit<React.ComponentProps<"section">, "title" 
     provenanceFolded?: boolean;
   };
 
-function FindingCard({ finding, labels, onLocate }: Readonly<{ finding: AnalysisFinding; labels: AnalysisReportLabels; onLocate?: AnalysisReportProps["onLocate"] }>) {
+function FindingCard({ finding, labels, onLocate }: Readonly<{ finding: AnalysisFinding; labels: AnalysisReportLabels; onLocate: AnalysisReportProps["onLocate"] }>) {
   const s = analysisReportStyles();
   let locationSlot: React.ReactNode = null;
   if (finding.location) {

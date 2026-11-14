@@ -38,7 +38,7 @@ export type AnalysisReportProps = Omit<ViewProps, "children"> &
     hideActions?: boolean;
   };
 
-function Finding({ finding, labels, onLocate }: Readonly<{ finding: AnalysisFinding; labels: AnalysisReportLabels; onLocate?: AnalysisReportProps["onLocate"] }>) {
+function Finding({ finding, labels, onLocate }: Readonly<{ finding: AnalysisFinding; labels: AnalysisReportLabels; onLocate: AnalysisReportProps["onLocate"] }>) {
   const [open, setOpen] = React.useState(false);
   return (
     <CardRoot style={styles.finding}>
