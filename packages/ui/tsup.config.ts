@@ -97,6 +97,8 @@ export default defineConfig([
       meter: "src/meter/index.ts",
       pagination: "src/pagination/index.ts",
       "description-list": "src/description-list/index.ts",
+      // One laid-out C4 view of @krizaka/architecture on the plate (server-safe: no id, no state; its types only, type-imported).
+      "architecture-diagram": "src/architecture-diagram/index.ts",
       // The header beside a RailNav: the name as text, the mark below md (server-safe).
       "app-header": "src/app-header/index.ts",
       // A shop's storefront: the service card and the weekly hours (server-safe).

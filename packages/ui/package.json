@@ -492,6 +492,10 @@
       "types": "./dist/description-list.d.ts",
       "import": "./dist/description-list.js"
     },
+    "./architecture-diagram": {
+      "types": "./dist/architecture-diagram.d.ts",
+      "import": "./dist/architecture-diagram.js"
+    },
     "./app-header": {
       "types": "./dist/app-header.d.ts",
       "import": "./dist/app-header.js"
@@ -1024,6 +1028,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
+    "@krizaka/architecture": ">=0.3.0",
     "@krizaka/query": ">=0.3.0",
     "@krizaka/tailwind": ">=4.6.0",
     "@maplibre/maplibre-react-native": ">=11",
@@ -1044,6 +1049,7 @@
     "@arethetypeswrong/cli": "^0.18.5",
     "@babel/core": "^7.29.7",
     "@jest/globals": "30.5.2",
+    "@krizaka/architecture": "0.3.0",
     "@krizaka/config": "^0.9.1",
     "@krizaka/org": "^1.1.0",
     "@krizaka/query": "workspace:*",
@@ -1097,6 +1103,9 @@
     "access": "public"
   },
   "peerDependenciesMeta": {
+    "@krizaka/architecture": {
+      "optional": true
+    },
     "@krizaka/query": {
       "optional": true
     },
@@ -2148,6 +2157,16 @@
       ]
     },
     {
+      "name": "./architecture-diagram",
+      "path": "dist/architecture-diagram.js",
+      "limit": "3.5 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
+    },
+    {
       "name": "./app-header",
       "path": "dist/app-header.js",
       "limit": "1.5 kB",
@@ -2222,21 +2241,30 @@
       "path": "dist/media-player.js",
       "limit": "29.9 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
     },
     {
       "name": "./media-carousel",
       "path": "dist/media-carousel.js",
       "limit": "34 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
     },
     {
       "name": "./pausable-loop",
       "path": "dist/pausable-loop.js",
       "limit": "2 kB",
       "gzip": true,
-      "ignore": ["tailwind-variants", "clsx"]
+      "ignore": [
+        "tailwind-variants",
+        "clsx"
+      ]
     },
     {
       "name": "./media-guard (Node: the rules and the ffmpeg adapter of the carousel's media guard)",
