@@ -7,7 +7,7 @@ export const meta = {
   category: "layout",
   domain: "navigation-shell",
   platforms: "native",
-  parity: { web: { status: "n/a", reason: "On the web the grid is CSS and the page's width is the container query.", use: "card-grid" }, desktop: { status: "n/a", reason: "The Mac app's window is the web: its columns are the web grid's.", use: "card-grid" } },
+  parity: { web: { status: "n/a", reason: "The web has its own Grid and Columns with the same props: CSS container queries instead of `onLayout`.", use: "columns" }, desktop: { status: "n/a", reason: "The Mac app's window is the web: its columns are the web grid's.", use: "card-grid" } },
   whenToUse: [
     "A screen of cards, photos or stats that is one column on a phone, two on a large phone in landscape or a small tablet, three or more on a tablet.",
     "A form and its summary, a master and its detail: columns that stack when the room is too narrow.",
@@ -34,7 +34,7 @@ export const meta = {
       "At 200 % text no cell is narrower than `minItemWidth` × 2: the text wraps in a wide cell instead of being cut.",
     ],
   },
-  related: ["screen", "list", "list-detail", "card-grid"],
+  related: ["screen", "list", "list-detail", "card-grid", "columns"],
   native: {
     imports: ["Grid", "Columns", "useSizeClass", "useFontScale", "sizeClassOf", "gridColumns"],
     differences: [],
