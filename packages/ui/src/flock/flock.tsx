@@ -107,6 +107,9 @@ function useOnScreen(ref: React.RefObject<Element | null>): boolean {
   return on;
 }
 
+/** The updater that drops one shown item (kept out of the component: it would nest the callbacks too deep). */
+const without = (id: number) => (all: Shown[]) => all.filter((x) => x.id !== id);
+
 /**
  * The flock on its stage, alive. Decorative (`aria-hidden`): put the words beside it. Each bird idles in character; every
  * few seconds two neighbours glance at each other; every half minute the pigeon carries its parcel to another bird and
@@ -150,7 +153,7 @@ export function Flock({ birds, ratio = 16 / 9, tone = "brand", glance = true, co
     const show = (index: number, kind: Shown["kind"], ms: number, side?: 1 | -1, mark?: string) => {
       const item: Shown = { id: ++ids.current, at: index, kind, ms, side, mark };
       setShown((all) => [...all, item]);
-      later(() => setShown((all) => all.filter((x) => x.id !== item.id)), ms);
+      later(() => setShown(without(item.id)), ms);
     };
     return {
       birds,

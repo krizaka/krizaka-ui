@@ -5,9 +5,9 @@
     "vulnerabilities": 0,
     "hotspots": 0,
     "smells_blocker": 1,
-    "smells_critical": 85,
-    "smells_major": 801,
-    "smells_minor": 841,
+    "smells_critical": 75,
+    "smells_major": 731,
+    "smells_minor": 640,
     "smells_info": 0
   }
 }
