@@ -157,7 +157,7 @@ jobs:
         run: |
           python3 -m http.server 4600 -d apps/site/out >/dev/null 2>&1 &
           for _ in $(seq 1 20); do curl -fsS -o /dev/null http://localhost:4600/ && break; sleep 0.5; done
-          node apps/site/scripts/check-seo-family.mjs --base http://localhost:4600 --host https://ui.krizaka.com --limit 400
+          pnpm exec krizaka-seo-family --base http://localhost:4600 --host https://ui.krizaka.com --limit 400
       - name: Keep the export for the browser checks
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
