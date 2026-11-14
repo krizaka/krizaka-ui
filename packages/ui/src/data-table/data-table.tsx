@@ -711,10 +711,7 @@ function contentOf<T extends RowData>(v: View<T>, column: DataTableColumn<T>, or
 
 // A group's row keeps its value as the title and its aggregates; a facts column is away (its value is in the title's line).
 function listPlace<T extends RowData>(v: View<T>, row: TableRow<T> | null, column: DataTableColumn<T>) {
-  if (row?.getIsGrouped()) {
-    if (row.groupingColumnId === column.id) return "title";
-    return column.aggregate ? "status" : "away";
-  }
+  if (row?.getIsGrouped()) return row.groupingColumnId === column.id ? "title" : column.aggregate ? "status" : "away";
   const place = placeOf(v.titleColumn, column);
   return place === "facts" || place === "hidden" ? "away" : place;
 }
@@ -999,9 +996,7 @@ function headerCell<T extends RowData>(v: View<T>, header: TableHeader<T>) {
 
 function headerRow<T extends RowData>(v: View<T>, headers: TableHeader<T>[]) {
   const { s, labels } = v;
-  let checked: boolean | "indeterminate" = false;
-  if (v.allChosen) checked = true;
-  else if (v.someChosen) checked = "indeterminate";
+  const checked = v.allChosen || (v.someChosen && "indeterminate");
   return (
     <tr role="row" aria-rowindex={v.virtualized ? 1 : undefined} className={s.headRow()}>
       {v.selectable && (
@@ -1327,8 +1322,7 @@ export function DataTable<T extends RowData>(props: Readonly<DataTableProps<T>>)
   const tableElement = tableOf(v, table, caption, showCaption, win.before, win.after);
   const sideways = scroll ?? (!shape.typed && !stickyHeader);
   const pagination = c.paginated ? pager(props, c, changes, pageCount, labels) : null;
-  let sidewaysClass: string | undefined = "overflow-x-clip";
-  if (sideways) sidewaysClass = scroll ? SHADOWS : CARD_CLIP[shape.L];
+  const scrolling = scroll ? SHADOWS : CARD_CLIP[shape.L];
 
   return (
     <DataTableContext.Provider value={context}>
@@ -1347,7 +1341,7 @@ export function DataTable<T extends RowData>(props: Readonly<DataTableProps<T>>)
             {tableElement}
           </div>
         ) : (
-          <div className={s.scroller({ className: sidewaysClass })}>{tableElement}</div>
+          <div className={s.scroller({ className: sideways ? scrolling : "overflow-x-clip" })}>{tableElement}</div>
         )}
         {selectable && bulkActions ? (
           <SelectionBar count={c.selected.length} max={bulkMax} result={bulkResult} labels={labels.selection} onClear={() => c.setSelected([])}>
