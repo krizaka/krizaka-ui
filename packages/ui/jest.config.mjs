@@ -12,6 +12,11 @@ export default {
   testEnvironment: "jest-environment-node",
   testEnvironmentOptions: { customExportConditions: ["require", "react-native"] },
   roots: ["<rootDir>/src/native"],
+  // The report SonarCloud reads (packages/ui/coverage/native/lcov.info, beside Vitest's web report); no threshold: the gate judges the new code.
+  coverageProvider: "v8",
+  coverageDirectory: "<rootDir>/coverage/native",
+  coverageReporters: ["text-summary", "lcov"],
+  collectCoverageFrom: ["src/native/**/*.{ts,tsx}", "!src/native/**/*.test.tsx", "!src/native/mocks/**", "!src/native/**/*.stories.tsx"],
   testMatch: ["**/*.test.tsx"],
   // The first suite pays React Native's Babel transform on a cold cache (CI, while turbo runs the other tasks).
   testTimeout: 30_000,

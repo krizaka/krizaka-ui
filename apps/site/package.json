@@ -11,7 +11,7 @@
     "build": "node scripts/gen-ui-docs.mjs --strict && node scripts/gen-release-times.mjs && next build",
     "lint": "eslint . --max-warnings 0 && node node_modules/@krizaka/i18n/dist/bin.js check messages && node scripts/gen-ui-docs.mjs --check",
     "typecheck": "fumadocs-mdx && node scripts/gen-ui-docs.mjs && tsc --noEmit",
-    "test": "node --disable-warning=ExperimentalWarning --test tests/*.test.mjs",
+    "test": "mkdir -p coverage && node --disable-warning=ExperimentalWarning --test --experimental-test-coverage --test-coverage-include='lib/**' --test-coverage-include='app/**' --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/lcov.info tests/*.test.mjs",
     "ui:usage": "node scripts/scan-ui-usage.mjs",
     "postinstall": "fumadocs-mdx"
   },

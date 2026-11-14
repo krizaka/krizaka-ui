@@ -87,7 +87,10 @@ jobs:
       # The coverage the analysis reads: only the leg that ran the tests uploads it, as one tar that keeps the paths.
       - name: Collect the coverage for SonarCloud
         env:
-          PATHS: packages/*/coverage/lcov.info
+          PATHS: |
+            packages/*/coverage/lcov.info
+            packages/*/coverage/native/lcov.info
+            apps/*/coverage/lcov.info
           OUT: ${{ runner.temp }}/sonar-coverage.tar
         shell: bash   # the job runs in the Playwright container, whose default shell is sh (no `shopt`)
         run: |
@@ -107,7 +110,7 @@ jobs:
             # project root. Rebase them in place (SF:packages/core/src/a.ts); absolute paths and a root-level report are left alone.
             for f in "${files[@]}"; do
               case "$f" in *.info) ;; *) continue ;; esac
-              pkg=$(dirname "$f"); [ "$(basename "$pkg")" = coverage ] && pkg=$(dirname "$pkg")
+              pkg=${f%%/coverage/*}; [ "$pkg" = "$f" ] && pkg=$(dirname "$f")
               [ "$pkg" = "." ] && continue
               awk -v p="$pkg" '/^SF:/ && substr($0,4,1) != "/" { $0 = "SF:" p "/" substr($0,4) } { print }' "$f" > "$f.rebased" && mv "$f.rebased" "$f"
             done
