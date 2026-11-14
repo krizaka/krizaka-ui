@@ -53,20 +53,16 @@ export function EntityHeader({
   const { message, setLocal } = useRefusal(refusal, refusals);
   const { theme } = useTheme();
   const picture = <Avatar size="xl" alt="" {...avatar} />;
-  let avatarSlot: React.ReactNode = null;
-  if (onAvatarPress) {
-    avatarSlot = (
-      <Pressable accessibilityRole="button" accessibilityLabel={avatarLabel} onPress={onAvatarPress}>
-        {picture}
-      </Pressable>
-    );
-  } else if (avatar) {
-    avatarSlot = picture;
-  }
 
   return (
     <View {...props} style={[{ flexDirection: "row", alignItems: "flex-start", columnGap: 16 }, style]}>
-      {avatarSlot}
+      {onAvatarPress ? (
+        <Pressable accessibilityRole="button" accessibilityLabel={avatarLabel} onPress={onAvatarPress}>
+          {picture}
+        </Pressable>
+      ) : avatar ? (
+        picture
+      ) : null}
       <View style={{ flex: 1, rowGap: 4 }}>
         <Editable value={name} label={nameLabel} onCommit={onNameChange} onRefusal={setLocal} variant="title" required />
         {description || onDescriptionChange ? (

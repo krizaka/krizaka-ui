@@ -34,7 +34,7 @@ const styles = `.kz-rtv-layer{position:absolute;inset:0;background:var(--kz-scri
 
 type PlaylistProps = { playlist: readonly RetroTvSource[]; transition: RetroTvTransition; labels: RetroTvLabels; muted: boolean; autoPlay: boolean; renderEmbed?: (source: RetroTvSource) => React.ReactNode; onMutedChange?: (muted: boolean) => void; onIndexChange?: (index: number) => void; title?: string; reduced: boolean; setMutedState: (m: boolean) => void; setIndex: (i: number) => void; index: number };
 
-export function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, renderEmbed, onMutedChange, onIndexChange, title, reduced, setMutedState, setIndex, index }: Readonly<PlaylistProps>) {
+export function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, renderEmbed, onMutedChange, onIndexChange, title, reduced, setMutedState, setIndex, index }: PlaylistProps) {
   const region = React.useRef<HTMLDivElement>(null);
   const video = React.useRef<HTMLVideoElement>(null);
   const [prev, setPrev] = React.useState<number | null>(null);
@@ -48,16 +48,8 @@ export function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, 
   const wake = React.useCallback(() => setActive(true), []);
 
   useInView(region, (v) => { if (v) setSeen(true); else video.current?.pause(); });
-  React.useEffect(() => {
-    if (!active) return;
-    const id = setTimeout(() => setActive(false), 2500);
-    return () => clearTimeout(id);
-  }, [active]);
-  React.useEffect(() => {
-    if (prev === null) return;
-    const id = setTimeout(() => setPrev(null), reduced ? 0 : 650);
-    return () => clearTimeout(id);
-  }, [prev, reduced]);
+  React.useEffect(() => { if (!active) return; const id = setTimeout(() => setActive(false), 2500); return () => clearTimeout(id); }, [active]);
+  React.useEffect(() => { if (prev === null) return; const id = setTimeout(() => setPrev(null), reduced ? 0 : 650); return () => clearTimeout(id); }, [prev, reduced]);
   React.useEffect(() => { if (seen && autoPlay && !reduced && current?.src) playSafely(video.current); }, [seen, autoPlay, reduced, index, current?.src]);
   React.useEffect(() => { const list = video.current?.textTracks; if (list) Array.from(list).forEach((track, i) => { track.mode = captionsOn && i === 0 ? "showing" : "disabled"; }); }, [captionsOn, index]);
 
@@ -69,15 +61,7 @@ export function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, 
     setTime({ t: 0, d: 0 });
     onIndexChange?.(next);
   };
-  const toggle = () => {
-    const v = video.current;
-    if (!v) return;
-    if (v.paused) {
-      playSafely(v);
-    } else {
-      v.pause();
-    }
-  };
+  const toggle = () => { const v = video.current; if (!v) return; if (v.paused) playSafely(v); else v.pause(); };
   const setMuted = (m: boolean) => { setMutedState(m); onMutedChange?.(m); };
   const onKey = (e: React.KeyboardEvent) => {
     if (e.target !== e.currentTarget) return;
@@ -89,23 +73,17 @@ export function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, 
   const layer = (i: number, role: "in" | "out") => {
     const src = playlist[i];
     if (!src) return null;
-    let media: React.ReactNode = null;
-    if (!src.src) {
-      if (role === "in") media = renderEmbed?.(src);
-    } else if (role === "in") {
-      media = (
-        <video ref={video} src={seen ? src.src : undefined} poster={src.poster} muted={muted} playsInline preload={seen ? "auto" : "none"} loop={n === 1} aria-label={src.title}
-          onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => { if (n > 1) go(index + 1); }}
-          onTimeUpdate={(e) => setTime({ t: e.currentTarget.currentTime, d: e.currentTarget.duration || 0 })} onLoadedMetadata={(e) => setTime({ t: 0, d: e.currentTarget.duration || 0 })}>
-          {src.tracks?.map((t) => <track key={t.src} kind="captions" src={t.src} srcLang={t.srcLang} label={t.label} />)}
-        </video>
-      );
-    } else if (src.poster) {
-      media = <img src={src.poster} alt="" />;
-    }
     return (
       <div className="kz-rtv-layer" key={src.id} data-role={role} data-tr={transition}>
-        {media}
+        {src.src ? (
+          role === "in" ? (
+            <video ref={video} src={seen ? src.src : undefined} poster={src.poster} muted={muted} playsInline preload={seen ? "auto" : "none"} loop={n === 1} aria-label={src.title}
+              onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => { if (n > 1) go(index + 1); }}
+              onTimeUpdate={(e) => setTime({ t: e.currentTarget.currentTime, d: e.currentTarget.duration || 0 })} onLoadedMetadata={(e) => setTime({ t: 0, d: e.currentTarget.duration || 0 })}>
+              {src.tracks?.map((t) => <track key={t.src} kind="captions" src={t.src} srcLang={t.srcLang} label={t.label} />)}
+            </video>
+          ) : src.poster ? <img src={src.poster} alt="" /> : null
+        ) : role === "in" ? renderEmbed?.(src) : null}
       </div>
     );
   };

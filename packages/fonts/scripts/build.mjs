@@ -118,19 +118,18 @@ export function compile(source, faces) {
     ...families.flatMap((f) => [
       "",
       `/* ${f.family} — ${f.role} (${f.token}) */`,
-      ...f.web.map((w) => {
-        const weight = w.weight ?? `${f.weights.min} ${f.weights.max}`;
-        return [
+      ...f.web.map((w) =>
+        [
           "@font-face {",
           `  font-family: ${quote(f.family)};`,
           "  font-style: normal;",
-          `  font-weight: ${weight};`,
+          `  font-weight: ${w.weight ?? `${f.weights.min} ${f.weights.max}`};`,
           "  font-display: swap;",
           `  src: url("../${w.path}") format("woff2");`,
           `  unicode-range: ${w.unicodeRange};`,
           "}",
-        ].join("\n");
-      }),
+        ].join("\n"),
+      ),
       [
         "@font-face {",
         `  font-family: ${quote(f.fallbackFamily)};`,
@@ -245,18 +244,13 @@ export function fontFamily(role, weight = 400) {
   return names[nearest];
 }
 `);
-  /** @param {{ role: string, native: { weight: number, name: string }[] }} f */
-  const nativeRole = (f) => {
-    const members = f.native.map((n) => `readonly ${n.weight}: ${json(n.name)}`).join("; ");
-    return `  readonly ${/^[a-z]+$/.test(f.role) ? f.role : json(f.role)}: { ${members} };`;
-  };
   const nativeDts = `// ${header}
 
 export type FontRole = "display" | "text" | "mono" | "cahier" | "product-display";
 export type NativeFontName = ${allNative.map((n) => json(n.name)).join(" | ")};
 /** The React Native font names, per role and weight: the keys of \`fontAssets\` (\`@krizaka/fonts/native/assets\`). */
 export declare const nativeFonts: {
-${families.map(nativeRole).join("\n")}
+${families.map((f) => `  readonly ${/^[a-z]+$/.test(f.role) ? f.role : json(f.role)}: { ${f.native.map((n) => `readonly ${n.weight}: ${json(n.name)}`).join("; ")} };`).join("\n")}
 };
 /** The font name for a role and a weight on React Native: the nearest weight the package ships. */
 export declare function fontFamily(role: FontRole, weight?: number): NativeFontName;

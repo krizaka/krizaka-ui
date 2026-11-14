@@ -31,58 +31,42 @@ export const Basic: Story = { render: () => <BasicExample /> };
 /** The window of the Sovkora Mac app (Tauri 2): the desktop form of the shell (ADR-002). */
 export const Desktop: Story = { render: () => <DesktopExample /> };
 
-/** Is this text node visible at all (not visibility-hidden, not transparent, not zero-sized)? */
-function isPainted(el: HTMLElement): boolean {
-  const style = getComputedStyle(el);
-  return style.visibility !== "hidden" && Number.parseFloat(style.opacity) >= 0.05 && Number.parseFloat(style.fontSize) >= 1;
-}
-
-/** What the eye sees: the text's right edge cut by every clipping ancestor (overflow hidden/clip); null for visually-hidden text. */
-function visibleRight(el: HTMLElement, nav: HTMLElement, right: number): number | null {
-  let result = right;
-  for (let a: HTMLElement | null = el; a && a !== nav.parentElement; a = a.parentElement) {
-    const cs = getComputedStyle(a);
-    if (cs.getPropertyValue("clip") !== "auto" && cs.getPropertyValue("clip") !== "") return null;
-    if (cs.overflowX !== "visible") result = Math.min(result, a.getBoundingClientRect().right);
-  }
-  return result;
-}
-
-/** One text node's overflow past the sidebar's edge, as a message; undefined when it stays in. */
-function spillOf(node: Node, nav: HTMLElement, edge: number): string | undefined {
-  const text = node.textContent?.trim();
-  const el = node.parentElement;
-  if (!text || !el || !isPainted(el)) return undefined;
-  const range = document.createRange();
-  range.selectNodeContents(node);
-  const box = range.getBoundingClientRect();
-  const right = visibleRight(el, nav, box.right);
-  if (right === null || box.width <= 0 || right <= edge) return undefined;
-  return `« ${text} » ends at ${Math.round(right)} past ${Math.round(edge)}`;
-}
-
-function spillIn(nav: HTMLElement): string[] {
-  const edge = nav.getBoundingClientRect().right + 0.5;
-  const out: string[] = [];
-  const walker = document.createTreeWalker(nav, NodeFilter.SHOW_TEXT);
-  for (let node = walker.nextNode(); node; node = walker.nextNode()) {
-    const spill = spillOf(node, nav, edge);
-    if (spill) out.push(spill);
-  }
-  return out;
-}
-
 /** Collapsing never lets a word out of the sidebar: sampled at 40, 120, 250 ms and at rest, no visible text ends right of the sidebar's edge (krizaka-ui#482). */
 const noSpill: NonNullable<Story["play"]> = async ({ canvasElement }) => {
   const nav = canvasElement.querySelector<HTMLElement>("nav[aria-label=Verikora]");
   const toggle = [...canvasElement.querySelectorAll<HTMLButtonElement>("button[aria-expanded]")].find((b) => b.getClientRects().length > 0);
   if (!nav || !toggle) throw new Error("no sidebar or collapse button");
-  const reduce = globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const spill = () => {
+    const edge = nav.getBoundingClientRect().right + 0.5;
+    const out: string[] = [];
+    const walker = document.createTreeWalker(nav, NodeFilter.SHOW_TEXT);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      const text = node.textContent?.trim();
+      const el = node.parentElement;
+      if (!text || !el) continue;
+      const style = getComputedStyle(el);
+      if (style.visibility === "hidden" || Number.parseFloat(style.opacity) < 0.05 || Number.parseFloat(style.fontSize) < 1) continue;
+      const range = document.createRange();
+      range.selectNodeContents(node);
+      const box = range.getBoundingClientRect();
+      // What the eye sees: the text's box cut by every clipping ancestor (overflow hidden/clip), nothing at all for visually-hidden text.
+      let right = box.right;
+      let hidden = false;
+      for (let a: HTMLElement | null = el; a && a !== nav.parentElement; a = a.parentElement) {
+        const cs = getComputedStyle(a);
+        if (cs.clip !== "auto" && cs.clip !== "") hidden = true;
+        if (cs.overflowX !== "visible") right = Math.min(right, a.getBoundingClientRect().right);
+      }
+      if (!hidden && box.width > 0 && right > edge) out.push(`« ${text} » ends at ${Math.round(right)} past ${Math.round(edge)}`);
+    }
+    return out;
+  };
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   toggle.click();
   const problems: string[] = [];
   for (const wait of reduce ? [0, 50] : [40, 80, 130, 400]) {
     await new Promise((resolve) => setTimeout(resolve, wait));
-    problems.push(...spillIn(nav));
+    problems.push(...spill());
   }
   if (problems.length) throw new Error(`text spills out of the collapsing sidebar: ${problems.join("; ")}`);
   const brand = nav.querySelector("a");

@@ -59,134 +59,6 @@ function frameUrlOf(request) {
 
 const VIEWPORTS = { desktop: { width: 1440, height: 900, scale: 1 }, phone: { width: 390, height: 844, scale: 2 } };
 
-/* The next functions run IN the page (page.evaluate): each is self-contained and is sent by its source, see FACTS_SCRIPT. */
-function exampleLabel(el) {
-  return (el.closest("[aria-label]")?.getAttribute("aria-label") || el.closest("[id]")?.id || "an example").slice(0, 80);
-}
-
-/** Empty: nothing in it has a box (a skeleton is a box with no text, and is not empty). Null when the example renders. */
-function emptyKindOf(el) {
-  const boxes = [...el.querySelectorAll("*")].map((e) => e.getBoundingClientRect()).filter((b) => b.width >= 1 && b.height >= 1);
-  if (!el.firstElementChild || (!boxes.length && !el.textContent.trim())) return "empty";
-  return boxes.length ? null : "zero";
-}
-
-function anchorWhere(a) {
-  const where = [];
-  for (let e = a.parentElement; e && where.length < 3; e = e.parentElement) {
-    if (typeof e.className === "string" && e.className.startsWith("kz-")) where.push(e.className.split(" ")[0]);
-  }
-  return where.join(" < ");
-}
-
-/** A link inside an example or a catalogue thumbnail is sample content (« href="#docs" » in a nav bar's example): the
-    site makes it inert. Only an absolute link to another site is checked there (« See the code » must exist). */
-function isInertSample(a, href) {
-  return Boolean(a.closest(".kz-live-example, .kz-catalog-live")) && !/^https?:\/\//.test(href);
-}
-
-function deadAnchorOf(a, url, href) {
-  const id = decodeURIComponent(url.hash.slice(1));
-  if (!id || document.getElementById(id) || document.getElementsByName(id).length) return null;
-  return { href, text: a.textContent.trim().slice(0, 40), where: anchorWhere(a) };
-}
-
-function collectFacts() {
-  const vw = document.documentElement.clientWidth;
-  const width = document.documentElement.scrollWidth;
-  const out = { overflow: width > vw + 1 ? `${width} > ${vw}` : null, links: [], anchors: [], empty: [] };
-  for (const el of document.querySelectorAll(".kz-live-example")) {
-    const kind = emptyKindOf(el);
-    if (kind) out.empty.push({ kind, label: exampleLabel(el) });
-  }
-  for (const a of document.querySelectorAll("a[href]")) {
-    const href = a.getAttribute("href");
-    if (!href || /^(mailto:|tel:|javascript:)/.test(href) || isInertSample(a, href)) continue;
-    const url = new URL(href, location.href);
-    if (url.origin === location.origin && url.pathname === location.pathname && url.hash) {
-      const dead = deadAnchorOf(a, url, href);
-      if (dead) out.anchors.push(dead);
-    } else out.links.push({ href: url.href, text: a.textContent.trim().slice(0, 40) });
-  }
-  return out;
-}
-
-const FACTS_SCRIPT = `(() => { ${exampleLabel} ${emptyKindOf} ${anchorWhere} ${isInertSample} ${deadAnchorOf} return (${collectFacts})(); })()`;
-
-/** A React error is one whatever the phase; any other error raised during an interaction is the interaction's. */
-function errorCategory(state, message, otherwise) {
-  if (isReactError(message)) return "react-error";
-  return state.phase === "interaction" ? "interaction-error" : otherwise;
-}
-
-/** The console of a third-party embed is that site's, not this page's: the page's own errors keep their origin and are still reported.
-    (YouTube's embed complains about its own permissions policy; a click may wake Instagram's reel player, a report-only CSP.) */
-function isThirdPartyConsole(text, url, origin, phase) {
-  if (!url || url.startsWith(origin)) return false;
-  if (PERMISSIONS_POLICY.test(text)) return true;
-  return phase === "interaction" && /^https?:\/\//.test(url);
-}
-
-function listenToPage(page, { origin, state, note }) {
-  page.on("console", (m) => {
-    if (m.type() !== "error") return;
-    const text = m.text();
-    if (isFailedResourceLine(text)) return; // reported by the response / requestfailed handlers, with the URL
-    const url = m.location()?.url;
-    if (isThirdPartyConsole(text, url, origin, state.phase)) return;
-    const from = url ? ` (${url.replace(origin, "")})` : "";
-    note(errorCategory(state, text, "console-error"), text.slice(0, 220) + from);
-  });
-  page.on("pageerror", (e) => note(errorCategory(state, e.message, "page-error"), e.message.slice(0, 220)));
-  // A request that a third-party frame sends (an embed's telemetry, its CSP reports) is marked, and TOLERATED lists it without counting it.
-  page.on("requestfailed", (r) => {
-    const detail = `${r.method()} ${r.url().replace(origin, "")} — ${r.failure()?.errorText}`;
-    note("failed-request", isThirdPartyFrame(frameUrlOf(r), origin) ? `${THIRD_PARTY_FRAME} ${detail}` : detail);
-  });
-  page.on("response", (r) => {
-    if (r.status() >= 400 && !r.url().startsWith("data:")) note("http-error", `${r.status()} ${r.url().replace(origin, "")}`);
-  });
-  page.on("dialog", (d) => d.dismiss().catch(() => {}));
-}
-
-/** Wake every lazy example: scroll down the page. */
-async function scrollThrough(page) {
-  const height = await page.evaluate(() => document.documentElement.scrollHeight);
-  for (let y = 0; y < Math.min(height, 40000); y += 700) {
-    await page.evaluate((top) => window.scrollTo(0, top), y);
-    await page.waitForTimeout(60);
-  }
-  await page.waitForTimeout(700);
-  await page.evaluate(() => window.scrollTo(0, 0));
-}
-
-/** Notes what the page's facts say, and files its links for the check after the crawl. */
-function recordFacts(facts, { path, view, note, linkRefs }) {
-  if (facts.overflow) note("overflow-x", `the page scrolls sideways (${facts.overflow})`);
-  for (const e of facts.empty) note(e.kind === "zero" ? "zero-size-example" : "empty-example", e.label);
-  for (const a of facts.anchors) {
-    const where = a.where ? ` in ${a.where}` : "";
-    note("dead-anchor", `${a.href} (« ${a.text} »)${where}: no such id on the page`);
-  }
-  for (const l of facts.links) {
-    if (new URL(l.href).pathname.includes("/_next/")) continue;
-    if (!linkRefs.has(l.href)) linkRefs.set(l.href, []);
-    linkRefs.get(l.href).push({ path, view, text: l.text });
-  }
-}
-
-/** Is this link dead, or its #anchor? Other sites often refuse a robot (403, 429, 999): only a 404/410 or an unresolvable host is dead there. */
-async function judgeLink(href, { origin, fetchStatus, htmlOf }) {
-  const url = new URL(href);
-  const internal = url.origin === origin;
-  const status = await fetchStatus(url.origin + url.pathname + url.search);
-  const dead = isDeadLink(status, internal);
-  if (dead || !internal || !url.hash || status !== 200) return { dead, anchorDead: false, status };
-  const id = decodeURIComponent(url.hash.slice(1));
-  const html = await htmlOf(origin + url.pathname);
-  return { dead, anchorDead: Boolean(id && html && !htmlDeclaresAnchor(html, id)), status };
-}
-
 async function main() {
   const opts = parseArgs(process.argv.slice(2));
   const require = createRequire(import.meta.url);
@@ -240,9 +112,35 @@ async function main() {
   const linkRefs = new Map(); // href -> where it was found; checked once, after the crawl
   const crawlPage = async (context, view, path) => {
     const page = await context.newPage();
-    const state = { phase: "load" };
-    const note = (category, detail) => add(path, view, category, state.phase === "interaction" ? `[during an interaction] ${detail}` : detail);
-    listenToPage(page, { origin, state, note });
+    let phase = "load";
+    const note = (category, detail) => add(path, view, category, phase === "interaction" ? `[during an interaction] ${detail}` : detail);
+    // A React error is one whatever the phase; any other error raised during an interaction is the interaction's.
+    const errorCategory = (message, otherwise) => {
+      if (isReactError(message)) return "react-error";
+      return phase === "interaction" ? "interaction-error" : otherwise;
+    };
+    page.on("console", (m) => {
+      if (m.type() !== "error") return;
+      const text = m.text();
+      if (isFailedResourceLine(text)) return; // reported by the response / requestfailed handlers, with the URL
+      const from = m.location()?.url ? ` (${m.location().url.replace(origin, "")})` : "";
+      // A third-party player (YouTube's embed) complains about its own permissions policy: not our page's error.
+      if (PERMISSIONS_POLICY.test(text) && m.location()?.url && !m.location().url.startsWith(origin)) return;
+      // The console of a third-party embed that a click woke (Instagram's reel player, a report-only CSP, its own error
+      // handler) is that site's, not this page's: the page's own errors keep their origin and are still reported.
+      if (phase === "interaction" && /^https?:\/\//.test(m.location()?.url ?? "") && !m.location().url.startsWith(origin)) return;
+      note(errorCategory(text, "console-error"), text.slice(0, 220) + from);
+    });
+    page.on("pageerror", (e) => note(errorCategory(e.message, "page-error"), e.message.slice(0, 220)));
+    // A request that a third-party frame sends (an embed's telemetry, its CSP reports) is marked, and TOLERATED lists it without counting it.
+    page.on("requestfailed", (r) => {
+      const detail = `${r.method()} ${r.url().replace(origin, "")} — ${r.failure()?.errorText}`;
+      note("failed-request", isThirdPartyFrame(frameUrlOf(r), origin) ? `${THIRD_PARTY_FRAME} ${detail}` : detail);
+    });
+    page.on("response", (r) => {
+      if (r.status() >= 400 && !r.url().startsWith("data:")) note("http-error", `${r.status()} ${r.url().replace(origin, "")}`);
+    });
+    page.on("dialog", (d) => d.dismiss().catch(() => {}));
 
     let response;
     try {
@@ -253,23 +151,66 @@ async function main() {
       await page.close();
       return;
     }
-    if (response?.status() !== 200) add(path, view, "http-error", `the page answers ${response?.status()}`);
+    if (!response || response.status() !== 200) add(path, view, "http-error", `the page answers ${response?.status()}`);
 
-    await scrollThrough(page);
+    // Wake every lazy example: scroll down the page.
+    const height = await page.evaluate(() => document.documentElement.scrollHeight);
+    for (let y = 0; y < Math.min(height, 40000); y += 700) {
+      await page.evaluate((top) => window.scrollTo(0, top), y);
+      await page.waitForTimeout(60);
+    }
+    await page.waitForTimeout(700);
+    await page.evaluate(() => window.scrollTo(0, 0));
 
     // 1 · Overflow, empty examples, links and anchors.
-    recordFacts(await page.evaluate(FACTS_SCRIPT), { path, view, note, linkRefs });
+    const facts = await page.evaluate(() => {
+      const vw = document.documentElement.clientWidth;
+      const out = { overflow: document.documentElement.scrollWidth > vw + 1 ? `${document.documentElement.scrollWidth} > ${vw}` : null, links: [], anchors: [], empty: [] };
+      for (const el of document.querySelectorAll(".kz-live-example")) {
+        const label = (el.closest("[aria-label]")?.getAttribute("aria-label") || el.closest("[id]")?.id || "an example").slice(0, 80);
+        // Empty: nothing in it has a box (a skeleton is a box with no text, and is not empty).
+        const boxes = [...el.querySelectorAll("*")].map((e) => e.getBoundingClientRect()).filter((b) => b.width >= 1 && b.height >= 1);
+        if (!el.firstElementChild || (!boxes.length && !el.textContent.trim())) out.empty.push({ kind: "empty", label });
+        else if (!boxes.length) out.empty.push({ kind: "zero", label });
+      }
+      for (const a of document.querySelectorAll("a[href]")) {
+        const href = a.getAttribute("href");
+        if (!href || /^(mailto:|tel:|javascript:)/.test(href)) continue;
+        const url = new URL(href, location.href);
+        // A link inside an example or a catalogue thumbnail is sample content (« href="#docs" » in a nav bar's example): the
+        // site makes it inert. Only an absolute link to another site is checked there (« See the code » must exist).
+        if (a.closest(".kz-live-example, .kz-catalog-live") && !/^https?:\/\//.test(href)) continue;
+        if (url.origin === location.origin && url.pathname === location.pathname && url.hash) {
+          const id = decodeURIComponent(url.hash.slice(1));
+          if (id && !document.getElementById(id) && !document.getElementsByName(id).length) {
+            const where = [];
+            for (let e = a.parentElement; e && where.length < 3; e = e.parentElement) if (typeof e.className === "string" && e.className.startsWith("kz-")) where.push(e.className.split(" ")[0]);
+            out.anchors.push({ href, text: a.textContent.trim().slice(0, 40), where: where.join(" < ") });
+          }
+        } else out.links.push({ href: url.href, text: a.textContent.trim().slice(0, 40) });
+      }
+      return out;
+    });
+    if (facts.overflow) note("overflow-x", `the page scrolls sideways (${facts.overflow})`);
+    for (const e of facts.empty) note(e.kind === "zero" ? "zero-size-example" : "empty-example", e.label);
+    for (const a of facts.anchors) note("dead-anchor", `${a.href} (« ${a.text} »)${a.where ? ` in ${a.where}` : ""}: no such id on the page`);
+    for (const l of facts.links) {
+      if (new URL(l.href).pathname.includes("/_next/")) continue;
+      const key = l.href;
+      if (!linkRefs.has(key)) linkRefs.set(key, []);
+      linkRefs.get(key).push({ path, view, text: l.text });
+    }
 
     // 2 · Interactions.
     const t0 = Date.now();
-    state.phase = "interaction";
+    phase = "interaction";
     await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin }).catch(() => {});
     await interact(page, note);
-    state.phase = "load";
+    phase = "load";
     if (DEBUG) console.log(`  ${view} ${path}: interactions ${Date.now() - t0} ms`);
 
     if (opts.out && problems.some((p) => p.page === path && p.view === view && !p.tolerated)) {
-      await page.screenshot({ path: `${opts.out}/${view}${path.replaceAll("/", "_") || "_"}.png` }).catch(() => {});
+      await page.screenshot({ path: `${opts.out}/${view}${path.replace(/\//g, "_") || "_"}.png` }).catch(() => {});
     }
     await page.close();
   };
@@ -300,7 +241,16 @@ async function main() {
   const checkWorker = async () => {
     while (cursor < hrefs.length) {
       const href = hrefs[cursor++];
-      const { dead, anchorDead, status } = await judgeLink(href, { origin, fetchStatus, htmlOf });
+      const url = new URL(href);
+      const internal = url.origin === origin;
+      const status = await fetchStatus(url.origin + url.pathname + url.search);
+      const dead = isDeadLink(status, internal);
+      let anchorDead = false;
+      if (!dead && internal && url.hash && status === 200) {
+        const id = decodeURIComponent(url.hash.slice(1));
+        const html = await htmlOf(origin + url.pathname);
+        anchorDead = Boolean(id && html && !htmlDeclaresAnchor(html, id));
+      }
       if (!dead && !anchorDead) continue;
       for (const ref of linkRefs.get(href)) add(ref.path, ref.view, dead ? "dead-link" : "dead-anchor", dead ? `${href} → ${status} (« ${ref.text} »)` : `${href}: no such id on the target page`);
     }

@@ -10,15 +10,12 @@ const CONSUMER_NAMES: Record<(typeof CONSUMERS)[number], string> = { verikora: "
 /* What a reader needs to judge an entry before using it (ADR-008 §7): the domain it belongs to, its support level, its
    size against its budget, and who really imports it — the live consumers' counts of the dated inventory
    (docs/inventory/ui-usage.json). A fact the inventory lacks says so; none is invented. Server Component. */
-export function EntryFacts({ item, locale }: Readonly<{ item: Pick<RegistryItem, "name" | "domain" | "status" | "title">; locale: Locale }>) {
+export function EntryFacts({ item, locale }: { item: Pick<RegistryItem, "name" | "domain" | "status" | "title">; locale: Locale }) {
   const t = getDictionary(locale);
   const c = t.docs.component;
   const domain = domainOf(item);
   const facts = factsOf(item.name);
-  let size: string;
-  if (facts?.sizeGzip == null) size = c.domain.sizeNone;
-  else if (facts.budget) size = format(c.domain.sizeOf, { size: kb(facts.sizeGzip), budget: kb(facts.budget) });
-  else size = format(c.domain.sizeAlone, { size: kb(facts.sizeGzip) });
+  const size = !facts || facts.sizeGzip === null ? c.domain.sizeNone : facts.budget ? format(c.domain.sizeOf, { size: kb(facts.sizeGzip), budget: kb(facts.budget) }) : format(c.domain.sizeAlone, { size: kb(facts.sizeGzip) });
   const by = facts ? CONSUMERS.flatMap((consumer) => (facts.byConsumer[consumer] ? [format(c.domain.usersBy, { name: CONSUMER_NAMES[consumer], count: facts.byConsumer[consumer]! })] : [])) : [];
   return (
     <dl className="kz-entry-facts not-prose" aria-label={c.domain.label}>

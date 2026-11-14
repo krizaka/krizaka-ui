@@ -21,8 +21,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1
   try {
     const base = baseBranch(process.argv[2]);
     const changedFiles = readFileSync(0, "utf8").split("\0").filter(Boolean);
-    const range = `...[origin/${base}]`;
-    console.log(`TURBO_FILTER=${selectTurboFilter(changedFiles, range)}`);
+    console.log(`TURBO_FILTER=${selectTurboFilter(changedFiles, `...[origin/${base}]`)}`);
   } catch (error) {
     console.error(`${error.message}\nUsage: git diff --name-only -z origin/<base>...HEAD | node tools/ci-filter.mjs <base>`);
     process.exitCode = 2;

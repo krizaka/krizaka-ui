@@ -46,9 +46,9 @@ describe("encodeQr", () => {
   });
 
   it("uses the smallest version that holds the text", () => {
-    expect(encodeQr("a")).toHaveLength(21); // version 1
-    expect(encodeQr("a".repeat(15), "M")).toHaveLength(25); // 14 bytes fit version 1-M, 15 need version 2
-    expect(encodeQr("a".repeat(14), "M")).toHaveLength(21);
+    expect(encodeQr("a").length).toBe(21); // version 1
+    expect(encodeQr("a".repeat(15), "M").length).toBe(25); // 14 bytes fit version 1-M, 15 need version 2
+    expect(encodeQr("a".repeat(14), "M").length).toBe(21);
   });
 
   it("is deterministic and refuses what cannot fit", () => {

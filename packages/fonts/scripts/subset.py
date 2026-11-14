@@ -60,13 +60,6 @@ def raw(family: dict, key: str, path: str | None = None) -> str:
     return f"https://raw.githubusercontent.com/google/fonts/{up['commit']}/{path}"
 
 
-def selection_bit(weight: int) -> int:
-    """The OS/2 fsSelection style bit of a weight: BOLD for 700, REGULAR for 400, none between."""
-    if weight == 700:
-        return 0b100000
-    return 0b1000000 if weight == 400 else 0
-
-
 def rename(static: TTFont, family: dict, weight: int, version: str) -> str:
     """Names a static instance `<NativeName>-<Style>`: the PostScript name expo-font and the iOS/Android build register."""
     postscript = f"{family['nativeName']}-{STYLE[weight]}"
@@ -85,7 +78,7 @@ def rename(static: TTFont, family: dict, weight: int, version: str) -> str:
     }.items():
         names.setName(value, name_id, 3, 1, 0x409)
     static["OS/2"].usWeightClass = weight
-    static["OS/2"].fsSelection = (static["OS/2"].fsSelection & ~0b1100001) | selection_bit(weight)
+    static["OS/2"].fsSelection = (static["OS/2"].fsSelection & ~0b1100001) | (0b100000 if weight == 700 else 0b1000000 if weight == 400 else 0)
     static["head"].macStyle = 1 if weight == 700 else 0
     return postscript
 
@@ -182,90 +175,12 @@ def entry(path: Path, data: bytes) -> dict:
     return {"file": str(path.relative_to(ROOT)), "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()}
 
 
-def narrow(family: dict, source: dict) -> list[int]:
-    """The code points a family keeps (`subsets` in src/families.json: the accent face keeps a few words per screen)."""
-    return [c for ranges in family.get("subsets", source["subsets"]).values() for c in unicodes(ranges)]
-
-
-def write_licenses(family: dict, licenses: Path) -> None:
-    (licenses / f"{family['nativeName']}-OFL.txt").write_bytes(fetch(raw(family, "license")))
-    if not family.get("derive"):
-        return
-    upstream_ofl = fetch(raw(family, "license")).decode().splitlines()[0]
-    (licenses / f"{family['nativeName']}-FONTLOG.txt").write_text(
-        f"FONTLOG for {family['family']}\n\n"
-        f"{family['family']} is a modified version of {family['upstream']['derivedFrom']} ({family['upstream']['project']}),\n"
-        f"{upstream_ofl}\n"
-        "licensed under the SIL Open Font License 1.1 (see KrizakaCahier-OFL.txt, the upstream licence kept unchanged).\n\n"
-        "Changes by Krizaka (https://www.krizaka.com), see scripts/subset.py (derive_cahier):\n"
-        "  - renamed (the licence asks a modified version to carry another name): Krizaka Cahier;\n"
-        "  - the weight instance 500 of the variable font, the other weights dropped;\n"
-        "  - line metrics set on a 1.25 em box (the 8 px ruled grid); digits checked lining and tabular;\n"
-        "  - subset to the French alphabet, WOFF2 for the web, TrueType for React Native.\n\n"
-        f"Designers of {family['upstream']['derivedFrom']}: {family['designer'].split(';')[0]}.\n"
-    )
-
-
-def build_static(family: dict, source: dict, statics: dict, web_dir: Path, native_dir: Path) -> tuple[str, TTFont, list, list]:
-    """Static families (one file per weight upstream): one WOFF2 per weight and subset, the same files for native."""
-    web, native = [], []
-    files = {int(w): fetch(raw(family, "fonts", path)) for w, path in statics.items()}
-    first = TTFont(BytesIO(files[min(files)]))
-    version = first["name"].getDebugName(5)
-    for weight, data in sorted(files.items()):
-        for name, ranges in family.get("subsets", source["subsets"]).items():
-            cut_data = cut(data, unicodes(ranges), "woff2", hinting=False)
-            web.append({"subset": name, "weight": weight, "unicodeRange": ranges, **entry(web_dir / f"{family['slug']}-{name}-{weight}.woff2", cut_data)})
-    for weight in family["nativeWeights"]:
-        static = TTFont(BytesIO(files[weight]))
-        postscript = rename(static, family, weight, version)
-        data = cut(to_bytes(static), narrow(family, source), None, hinting=False)
-        native.append({"weight": weight, "name": postscript, **entry(native_dir / f"{postscript}.ttf", data)})
-    return version, first, web, native
-
-
-def pinned_axes(family: dict, weight: int) -> dict:
-    """The axes of one static instance: wght at the weight, a fixed axis at its value, a ranged axis left out."""
-    pinned = {tag: (weight if tag == "wght" else (v if not isinstance(v, list) else None)) for tag, v in family["axes"].items()}
-    return {k: v for k, v in pinned.items() if v is not None}
-
-
-def build_variable(family: dict, source: dict, web_dir: Path, native_dir: Path) -> tuple[str, TTFont, list, list]:
-    web, native = [], []
-    upstream = fetch(raw(family, "font"))
-    version = TTFont(BytesIO(upstream))["name"].getDebugName(5)
-
-    # Web: the kept weight range, every other axis pinned.
-    limits = {tag: (tuple(v) if isinstance(v, list) else v) for tag, v in family["axes"].items()}
-    web_font = instancer.instantiateVariableFont(TTFont(BytesIO(upstream)), limits)
-    if family.get("derive") == "cahier":
-        derive_cahier(web_font, family)
-    web_bytes = to_bytes(web_font)
-    for name, ranges in family.get("subsets", source["subsets"]).items():
-        data = cut(web_bytes, unicodes(ranges), "woff2", hinting=False)
-        web.append({"subset": name, "unicodeRange": ranges, **entry(web_dir / f"{family['slug']}-{name}-wght.woff2", data)})
-
-    # Native: one static instance per weight, latin + latin-ext in one file.
-    for weight in family["nativeWeights"]:
-        static = instancer.instantiateVariableFont(TTFont(BytesIO(upstream)), pinned_axes(family, weight))
-        if family.get("derive") == "cahier":
-            derive_cahier(static, family)
-        postscript = rename(static, family, weight, version)
-        data = cut(to_bytes(static), narrow(family, source), None, hinting=False)  # iOS and Android ignore TrueType hints
-        native.append({"weight": weight, "name": postscript, **entry(native_dir / f"{postscript}.ttf", data)})
-    return version, web_font, web, native
-
-
-def measure_fallbacks() -> None:
-    for name, file in {"Arial": "Arial.ttf", "Courier New": "Courier New.ttf", "Georgia": "Georgia.ttf"}.items():
-        font = TTFont(f"/System/Library/Fonts/Supplemental/{file}")
-        print(name, font["head"].unitsPerEm, avg_width(font))
-
-
 def main() -> None:
     source = json.loads((ROOT / "src" / "families.json").read_text())
     if "--measure-fallbacks" in sys.argv:
-        measure_fallbacks()
+        for name, file in {"Arial": "Arial.ttf", "Courier New": "Courier New.ttf", "Georgia": "Georgia.ttf"}.items():
+            font = TTFont(f"/System/Library/Fonts/Supplemental/{file}")
+            print(name, font["head"].unitsPerEm, avg_width(font))
         return
 
     web_dir, native_dir, licenses = ROOT / "files" / "web", ROOT / "files" / "native", ROOT / "licenses"
@@ -275,13 +190,69 @@ def main() -> None:
     licenses.mkdir(exist_ok=True)
 
     faces = {}
+    everything = unicodes(source["subsets"]["latin"]) + unicodes(source["subsets"]["latin-ext"])
+    # a family may keep a narrower set (`subsets` in src/families.json): the accent face, a few words per screen
+    narrow = lambda family: [c for ranges in family.get("subsets", source["subsets"]).values() for c in unicodes(ranges)]
     for family in source["families"]:
-        write_licenses(family, licenses)
+        (licenses / f"{family['nativeName']}-OFL.txt").write_bytes(fetch(raw(family, "license")))
+        if family.get("derive"):
+            upstream_ofl = fetch(raw(family, "license")).decode().splitlines()[0]
+            (licenses / f"{family['nativeName']}-FONTLOG.txt").write_text(
+                f"FONTLOG for {family['family']}\n\n"
+                f"{family['family']} is a modified version of {family['upstream']['derivedFrom']} ({family['upstream']['project']}),\n"
+                f"{upstream_ofl}\n"
+                "licensed under the SIL Open Font License 1.1 (see KrizakaCahier-OFL.txt, the upstream licence kept unchanged).\n\n"
+                "Changes by Krizaka (https://www.krizaka.com), see scripts/subset.py (derive_cahier):\n"
+                "  - renamed (the licence asks a modified version to carry another name): Krizaka Cahier;\n"
+                "  - the weight instance 500 of the variable font, the other weights dropped;\n"
+                "  - line metrics set on a 1.25 em box (the 8 px ruled grid); digits checked lining and tabular;\n"
+                "  - subset to the French alphabet, WOFF2 for the web, TrueType for React Native.\n\n"
+                f"Designers of {family['upstream']['derivedFrom']}: {family['designer'].split(';')[0]}.\n"
+            )
         statics = family["upstream"].get("fonts")
+        web, native = [], []
         if statics:
-            version, measured, web, native = build_static(family, source, statics, web_dir, native_dir)
+            # Static families (one file per weight upstream): one WOFF2 per weight and subset, the same files for native.
+            files = {int(w): fetch(raw(family, "fonts", path)) for w, path in statics.items()}
+            first = TTFont(BytesIO(files[min(files)]))
+            version = first["name"].getDebugName(5)
+            measured = first
+            for weight, data in sorted(files.items()):
+                for name, ranges in family.get("subsets", source["subsets"]).items():
+                    cut_data = cut(data, unicodes(ranges), "woff2", hinting=False)
+                    web.append({"subset": name, "weight": weight, "unicodeRange": ranges, **entry(web_dir / f"{family['slug']}-{name}-{weight}.woff2", cut_data)})
+            for weight in family["nativeWeights"]:
+                static = TTFont(BytesIO(files[weight]))
+                postscript = rename(static, family, weight, version)
+                data = cut(to_bytes(static), narrow(family), None, hinting=False)
+                native.append({"weight": weight, "name": postscript, **entry(native_dir / f"{postscript}.ttf", data)})
         else:
-            version, measured, web, native = build_variable(family, source, web_dir, native_dir)
+            upstream = fetch(raw(family, "font"))
+            variable = TTFont(BytesIO(upstream))
+            version = variable["name"].getDebugName(5)
+
+            # Web: the kept weight range, every other axis pinned.
+            limits = {tag: (tuple(v) if isinstance(v, list) else v) for tag, v in family["axes"].items()}
+            web_font = instancer.instantiateVariableFont(TTFont(BytesIO(upstream)), limits)
+            if family.get("derive") == "cahier":
+                derive_cahier(web_font, family)
+            measured = web_font
+            web_bytes = to_bytes(web_font)
+            for name, ranges in family.get("subsets", source["subsets"]).items():
+                data = cut(web_bytes, unicodes(ranges), "woff2", hinting=False)
+                web.append({"subset": name, "unicodeRange": ranges, **entry(web_dir / f"{family['slug']}-{name}-wght.woff2", data)})
+
+            # Native: one static instance per weight, latin + latin-ext in one file.
+            for weight in family["nativeWeights"]:
+                pinned = {tag: (weight if tag == "wght" else (v if not isinstance(v, list) else None)) for tag, v in family["axes"].items()}
+                pinned = {k: v for k, v in pinned.items() if v is not None}
+                static = instancer.instantiateVariableFont(TTFont(BytesIO(upstream)), pinned)
+                if family.get("derive") == "cahier":
+                    derive_cahier(static, family)
+                postscript = rename(static, family, weight, version)
+                data = cut(to_bytes(static), narrow(family), None, hinting=False)  # iOS and Android ignore TrueType hints
+                native.append({"weight": weight, "name": postscript, **entry(native_dir / f"{postscript}.ttf", data)})
+
         faces[family["slug"]] = {"version": version, "metrics": metrics(measured), "web": web, "native": native}
         print(f"{family['family']} {version}: " + ", ".join(f"{w['subset']} {w['bytes'] / 1024:.1f} kB" for w in web) + f"; native {len(native)} files")
 

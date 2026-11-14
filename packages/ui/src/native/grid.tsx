@@ -11,8 +11,7 @@ export const SIZE_CLASS_FROM = { regular: 600, expanded: 840 } as const;
 
 /** The size class of a width in points. */
 export function sizeClassOf(width: number): SizeClass {
-  if (width >= SIZE_CLASS_FROM.expanded) return "expanded";
-  return width >= SIZE_CLASS_FROM.regular ? "regular" : "compact";
+  return width >= SIZE_CLASS_FROM.expanded ? "expanded" : width >= SIZE_CLASS_FROM.regular ? "regular" : "compact";
 }
 
 /** The size class of the window (use a `Grid` or `Columns` when it is the room of a container that matters). */
@@ -92,7 +91,7 @@ export type GridProps = {
  * keeps every cell at least `minItemWidth` wide so nothing overflows — in a phone, a split view or a tablet. The order is
  * the reading order, and it mirrors in right-to-left. Before the first measure it is one column.
  */
-export function Grid({ children, columns, minItemWidth = 160, gap = "md", maxColumns = 6, equalHeight = true, fontScale, testID, "aria-label": label, style }: Readonly<GridProps>) {
+export function Grid({ children, columns, minItemWidth = 160, gap = "md", maxColumns = 6, equalHeight = true, fontScale, testID, "aria-label": label, style }: GridProps) {
   const system = useFontScale();
   const [width, setWidth] = React.useState(0);
   const space = GRID_GAPS[gap];
@@ -138,7 +137,7 @@ export function columnsFit(width: number, count: number, minColumnWidth: number,
  * a form and its summary. It decides on the width it is given, not on the device, so it follows a split view or a
  * rotation. Stacked, the columns keep their order and each takes the full width.
  */
-export function Columns({ children, weights, minColumnWidth = 280, gap = "lg", fontScale, testID, style }: Readonly<ColumnsProps>) {
+export function Columns({ children, weights, minColumnWidth = 280, gap = "lg", fontScale, testID, style }: ColumnsProps) {
   const system = useFontScale();
   const [width, setWidth] = React.useState(0);
   const space = GRID_GAPS[gap];

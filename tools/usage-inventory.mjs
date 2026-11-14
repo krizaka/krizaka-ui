@@ -867,8 +867,7 @@ function budgetsCommand(update) {
   }
   const problems = checkBudgets({ current, frozen });
   if (problems.length) {
-    const lines = problems.map((p) => `  - ${p}`).join("\n");
-    process.stderr.write(`domain size budgets: ${problems.length} problem(s)\n${lines}\n`);
+    process.stderr.write(`domain size budgets: ${problems.length} problem(s)\n${problems.map((p) => `  - ${p}`).join("\n")}\n`);
     process.exit(1);
   }
   process.stdout.write(`domain size budgets: ${Object.keys(current).length} domains within ${BUDGETS_FILE}\n`);
