@@ -42,7 +42,7 @@ function visibleRight(el: HTMLElement, nav: HTMLElement, right: number): number 
   let result = right;
   for (let a: HTMLElement | null = el; a && a !== nav.parentElement; a = a.parentElement) {
     const cs = getComputedStyle(a);
-    if (cs.clip !== "auto" && cs.clip !== "") return null;
+    if (cs.getPropertyValue("clip") !== "auto" && cs.getPropertyValue("clip") !== "") return null;
     if (cs.overflowX !== "visible") result = Math.min(result, a.getBoundingClientRect().right);
   }
   return result;

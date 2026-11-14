@@ -17,7 +17,7 @@ const CHANGE = "kz-route-state";
 
 /** The History API: any web app (Vite, a static site). Next.js apps pass their router's adapter once, in the layout. */
 export const browserAdapter: RouteAdapter = {
-  search: () => (typeof globalThis.window === "undefined" ? "" : globalThis.location.search),
+  search: () => (globalThis.window === undefined ? "" : globalThis.location.search),
   navigate: (search, { replace }) => {
     const url = `${globalThis.location.pathname}${search}${globalThis.location.hash}`;
     globalThis.history[replace ? "replaceState" : "pushState"](globalThis.history.state, "", url);
