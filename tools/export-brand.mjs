@@ -219,17 +219,34 @@ async function load() {
   const sharp = (await import("sharp")).default;
   const css = readFileSync(TOKENS_CSS, "utf8");
   const version = JSON.parse(readFileSync(join(UI, "package.json"), "utf8")).version;
-  return { react, renderToStaticMarkup, ProductLogo: ui.ProductLogo, avatar, sharp, version, themes: { dark: tokensOf(css, ":root, .theme-dark"), light: tokensOf(css, "html.light") } };
+  return { react, renderToStaticMarkup, ProductLogo: ui.ProductLogo, KridocLogo: ui.KridocLogo, avatar, sharp, version, themes: { dark: tokensOf(css, ":root, .theme-dark"), light: tokensOf(css, "html.light") } };
 }
 
 const sha = (buf) => createHash("sha256").update(buf).digest("hex");
+
+/** The marks and logos of the brands: `brand/<brand>/(mark|logo|lockup)-(dark|light).svg`. */
+const MARK_FILE = /^brand\/([a-z0-9-]+)\/(?:mark|logo|lockup)-(?:dark|light)\.svg$/;
+
+/** Throws when two brands publish the same mark or logo file (same theme, same content): a brand never wears another's mark. */
+export function assertDistinctMarks(files) {
+  const seen = new Map();
+  for (const [path, bytes] of files) {
+    const m = MARK_FILE.exec(path);
+    if (!m) continue;
+    const key = `${path.split("/").pop()}:${sha(bytes)}`;
+    const other = seen.get(key);
+    if (other && other !== m[1]) throw new Error(`${m[1]} and ${other} publish the same ${path.split("/").pop()} (sha-256 ${sha(bytes).slice(0, 12)}…): a brand never wears another's mark`);
+    seen.set(key, m[1]);
+  }
+}
 
 /** All the files to publish: Map<path under the zone, Buffer>. */
 export async function build() {
   const k = await load();
   const out = new Map();
   const png = (svg, w, h = w) => k.sharp(Buffer.from(svg), { density: 384 }).resize(w, h, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
-  const markup = (brand, size) => k.renderToStaticMarkup(k.react.createElement(k.ProductLogo, { id: brand, size, animated: false }));
+  // ProductLogo has no Kridoc (it would draw Folioviv's mark, krizaka-internal#3627): Kridoc has its own component.
+  const markup = (brand, size) => k.renderToStaticMarkup(k.react.createElement(brand === "kridoc" ? k.KridocLogo : k.ProductLogo, { id: brand, size, animated: false }));
 
   for (const brand of BRANDS) {
     const dir = `brand/${brand}`;
@@ -279,6 +296,7 @@ export async function build() {
     const files = [...out].filter(([p]) => p.startsWith(`${root}/`)).map(([p, b]) => ({ path: p, bytes: b.length, sha256: sha(b) }));
     out.set(`${root}/manifest.json`, Buffer.from(`${JSON.stringify({ about: label, generatedFrom: `@krizaka/ui@${k.version}`, source: "https://github.com/krizaka/krizaka-ui/blob/main/tools/export-brand.mjs", files }, null, 2)}\n`));
   }
+  assertDistinctMarks(out);
   out.set("brand/index.json", Buffer.from(`${JSON.stringify(brandIndex(BRANDS, k.version, process.env.MEDIA_CDN_HOSTNAME || DEFAULT_CDN), null, 2)}\n`));
   return { files: out, version: k.version };
 }
