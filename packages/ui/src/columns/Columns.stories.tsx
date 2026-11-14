@@ -34,7 +34,7 @@ function firstRow(canvas: HTMLElement, selector: string) {
   return { count: inRow.length, out };
 }
 
-const cells = "[role='listitem']";
+const cells = "ul[aria-label] > li";
 const photos = (width: number, count: number): Story => ({
   render: () => room(width, <PhotosExample />),
   play: async ({ canvasElement }) => {

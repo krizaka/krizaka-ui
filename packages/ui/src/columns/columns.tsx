@@ -90,15 +90,18 @@ export function Grid({ children, columns, minItemWidth = 160, gap = "md", maxCol
     gridTemplateColumns:
       "repeat(auto-fill, minmax(max(var(--kz-grid-min), calc((100% - (var(--kz-grid-cols) - 1) * var(--kz-grid-gap)) / var(--kz-grid-cols))), 1fr))",
   } as React.CSSProperties;
+  // A labelled grid is a list: real <ul>/<li> (native semantics on every device), never a div with an ARIA role.
+  const Track = label ? "ul" : "div";
+  const Cell = label ? "li" : "div";
   return (
     <div className={s.grid({ className })} style={style} {...props}>
-      <div className={s.track()} style={vars} role={label ? "list" : undefined} aria-label={label}>
+      <Track className={s.track({ className: label ? "m-0 list-none p-0" : undefined })} style={vars} aria-label={label}>
         {items.map((child, index) => (
-          <div key={React.isValidElement(child) && child.key != null ? child.key : index} className={s.cell()} role={label ? "listitem" : undefined}>
+          <Cell key={React.isValidElement(child) && child.key != null ? child.key : index} className={s.cell()}>
             {child}
-          </div>
+          </Cell>
         ))}
-      </div>
+      </Track>
     </div>
   );
 }
