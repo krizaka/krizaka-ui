@@ -36,6 +36,18 @@ describe("ComparisonTable", () => {
     expect(screen.getAllByRole("columnheader").find((h) => h.hasAttribute("data-highlight"))?.textContent).toBe("Sovkora");
   });
 
+  it("draws the band flat: an accent rule, square, no glow (wide band and phone card)", () => {
+    const { container } = render(<Table />);
+    const wide = container.querySelector("[data-band]") as HTMLElement;
+    const card = container.querySelector("li [data-highlight]") as HTMLElement;
+    for (const el of [wide, card]) {
+      expect(el.className).not.toMatch(/shadow-/);
+      expect(el.className).not.toMatch(/rounded-(?!none\b)/);
+      expect(el.className).toContain("bg-accent-soft");
+    }
+    expect(wide.className).toMatch(/\bborder-accent\b/);
+  });
+
   it("writes each answer as its key phrase in bold, then the detail; the other column is neutral, never struck", () => {
     const { container } = render(<Table />);
     const cell = within(screen.getByRole("table")).getAllByRole("cell")[1];
