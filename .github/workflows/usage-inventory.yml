@@ -45,7 +45,7 @@ jobs:
           repositories: |-
             verikora
             folioviv
-            sovkora-web
+            sovkora
             krizaka-com
             krizaka-blog
             krizaka-java
@@ -176,7 +176,7 @@ jobs:
           repositories: |-
             verikora
             folioviv
-            sovkora-web
+            sovkora
             krizaka-com
             krizaka-blog
             krizaka-java

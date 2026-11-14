@@ -283,3 +283,11 @@ test("captcha is in its own domain abuse, with its own frozen 5 kB, and identity
   assert.ok(frozen.abuse > 0 && frozen.abuse <= 5000, `abuse ${frozen.abuse} B: its own budget, never above 5 kB`);
   assert.ok(frozen.identity > 0 && frozen.identity <= 24900, `identity ${frozen.identity} B: never back above 24.9 kB`);
 });
+
+test("the workflow's App tokens read exactly the repositories of the cloned consumers (a retired repository fails the token, 2026-11-14)", () => {
+  const workflow = readFileSync(new URL("../.github/workflows/usage-inventory.yml", import.meta.url), "utf8");
+  const lists = [...workflow.matchAll(/repositories: \|-\n((?: {12}[\w.-]+\n)+)/g)].map((m) => m[1].trim().split(/\s+/).sort());
+  const cloned = [...new Set(CONSUMERS.filter((c) => c.repo).map((c) => c.repo))].sort();
+  assert.ok(lists.length >= 2, "both token steps list their repositories");
+  for (const list of lists) assert.deepEqual(list, cloned);
+});

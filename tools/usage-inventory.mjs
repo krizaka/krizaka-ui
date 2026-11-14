@@ -36,7 +36,7 @@ const GIT = "/usr/bin/git";
 export const CONSUMERS = [
   { name: "verikora", kind: "product", repo: "verikora" },
   { name: "folioviv", kind: "product", repo: "folioviv" },
-  { name: "sovkora-web", kind: "product", repo: "sovkora-web" },
+  { name: "sovkora-web", kind: "product", repo: "sovkora", sub: "apps/web" },
   { name: "krizaka-com", kind: "site", repo: "krizaka-com" },
   { name: "blog", kind: "site", repo: "krizaka-blog" },
   { name: "ui-site", kind: "site", local: join(ROOT, "apps/site") },
