@@ -1158,7 +1158,7 @@
     {
       "name": "./button",
       "path": "dist/button.js",
-      "limit": "3.5 kB",
+      "limit": "3.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1178,7 +1178,7 @@
     {
       "name": "./avatar",
       "path": "dist/avatar.js",
-      "limit": "6 kB",
+      "limit": "5.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1364,7 +1364,7 @@
     {
       "name": "./notification-preferences",
       "path": "dist/notification-preferences.js",
-      "limit": "3.1 kB",
+      "limit": "3.25 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1540,7 +1540,7 @@
     {
       "name": "./kind-config-editor",
       "path": "dist/kind-config-editor.js",
-      "limit": "21 kB",
+      "limit": "21.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1926,7 +1926,7 @@
     {
       "name": "./text-style",
       "path": "dist/text-style.js",
-      "limit": "41.2 kB",
+      "limit": "41.4 kB",
       "gzip": true
     },
     {
@@ -3434,7 +3434,7 @@
     {
       "name": "./money-input",
       "path": "dist/money-input.js",
-      "limit": "4 kB",
+      "limit": "1.9 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
