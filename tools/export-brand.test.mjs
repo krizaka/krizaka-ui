@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { assertWritable, avatarFiles, brandFiles, brandIndex, emblem, hslToRgba, stalePaths, standalone, tokensOf } from "./export-brand.mjs";
+import { assertDistinctMarks, assertWritable, avatarFiles, brandFiles, brandIndex, emblem, hslToRgba, stalePaths, standalone, tokensOf } from "./export-brand.mjs";
 
 test("reads the tokens of a theme block", () => {
   const css = ":root, .theme-dark {\n  --kz-text-primary: hsl(0 0% 96%); /* x */\n}\nhtml.light {\n  --kz-text-primary: hsl(240 6% 10%);\n}\n";
@@ -129,3 +129,16 @@ test("ENV_LINE and QUOTED_VALUE read a KEY=value line and strip matching quotes"
   assert.equal("'a b'".replace(QUOTED_VALUE, "$2"), "a b");
   assert.equal("'mixed\"".replace(QUOTED_VALUE, "$2"), "'mixed\"");
   });
+
+test("two brands never publish the same mark: Kridoc wearing Folioviv's file is refused", () => {
+  const same = Buffer.from("<svg>same</svg>");
+  const files = new Map([
+    ["brand/folioviv/mark-light.svg", same],
+    ["brand/kridoc/mark-light.svg", same],
+  ]);
+  assert.throws(() => assertDistinctMarks(files), /kridoc and folioviv publish the same mark-light\.svg/);
+  files.set("brand/kridoc/mark-light.svg", Buffer.from("<svg>kridoc</svg>"));
+  assert.doesNotThrow(() => assertDistinctMarks(files));
+  // the dark and light files of one brand may be equal to each other; only another brand's file is refused
+  assert.doesNotThrow(() => assertDistinctMarks(new Map([["brand/a/mark-dark.svg", same], ["brand/a/mark-light.svg", same]])));
+});
