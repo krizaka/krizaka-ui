@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 4.5.0
+
+### Minor Changes
+
+- [#1012](https://github.com/krizaka/krizaka-ui/pull/1012) [`913f8c0`](https://github.com/krizaka/krizaka-ui/commit/913f8c0e35a9d5066cfb7939f78497b273579cea) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/columns` (web): `Grid` and `Columns`, the twins of the native ones with the same props (`columns` per size class, `minItemWidth`, `gap`, `maxColumns`, `equalHeight`, `fontScale`; `weights`, `minColumnWidth`, `gap`). They decide on the width of their container, not the viewport — compact < 600 px, regular < 840 px, expanded from there — in CSS (`@container`), with no JS measuring; widths are in `rem`, so text at 200 % stacks what no longer fits; the order is kept and mirrors in `rtl`.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@4.5.0
+  - @krizaka/tokens@4.5.0
+
 ## 4.4.1
 
 ### Patch Changes
