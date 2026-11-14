@@ -207,12 +207,13 @@ function surfaceOf(element: HTMLElement): Rgb | null {
   }
   let background: Rgba = [0, 0, 0, 0];
   for (const node of layers.reverse()) {
-    const color = globalThis.getComputedStyle(node).backgroundColor;
+    const color = getComputedStyle(node).backgroundColor;
     const layer: Rgba | null = color ? parseColorWithAlpha(color) : [0, 0, 0, 0];
     if (!layer) return null;
     background = over(layer, background);
   }
-  return background[3] >= 1 ? [background[0], background[1], background[2]] : null;
+  const [red, green, blue, alpha] = background;
+  return alpha >= 1 ? [red, green, blue] : null;
 }
 
 /** What the tone reaches on its surface, measured on the preview as it is drawn (the theme and the product's tokens included). */
@@ -223,7 +224,7 @@ function useContrast(ref: React.RefObject<HTMLElement | null>, key: string): { r
     if (!element) return;
     const measure = () => {
       const sample = element.querySelector<HTMLElement>("[data-text-style-sample]") ?? element;
-      const computed = globalThis.getComputedStyle(sample);
+      const computed = getComputedStyle(sample);
       const foreground = parseColor(computed.color);
       const background = surfaceOf(sample);
       const fontSize = Number.parseFloat(computed.fontSize);
@@ -259,7 +260,7 @@ export function TextStylePicker({
   role = "body",
   minBodySize = "sm",
   className,
-}: Readonly<TextStylePickerProps>) {
+}: TextStylePickerProps) {
   const labels = { ...textStyleLabels, ...given };
   const style = parseTextStyle(value);
   const shown = (field: TextStyleField) => fields.includes(field);
@@ -309,15 +310,6 @@ export function TextStylePicker({
       "sm:col-span-2",
     );
 
-  const italicRow = (
-    <div key="italic" className="flex min-w-0 items-center justify-between gap-3" data-field="italic">
-      <span id={`${id}-italic`} className="text-xs font-semibold text-fg-secondary">
-        {labels.italic}
-      </span>
-      <Switch aria-labelledby={`${id}-italic`} checked={style.italic} onCheckedChange={(italic) => set({ italic })} />
-    </div>
-  );
-
   const controls: Record<TextStyleField, () => React.ReactNode> = {
     font: () =>
       group(
@@ -352,7 +344,14 @@ export function TextStylePicker({
     tracking: () => segmented("tracking", labels.tracking, trackings, style.tracking, (t) => labels.trackings[t], (tracking) => set({ tracking })),
     align: () => segmented("align", labels.align, aligns, style.align, (a) => labels.aligns[a], (align) => set({ align })),
     case: () => segmented("case", labels.case, cases, style.case, (c) => labels.cases[c], (next) => set({ case: next })),
-    italic: () => italicRow,
+    italic: () => (
+      <div key="italic" className="flex min-w-0 items-center justify-between gap-3" data-field="italic">
+        <span id={`${id}-italic`} className="text-xs font-semibold text-fg-secondary">
+          {labels.italic}
+        </span>
+        <Switch aria-labelledby={`${id}-italic`} checked={style.italic} onCheckedChange={(italic) => set({ italic })} />
+      </div>
+    ),
     tone: () =>
       group(
         "tone",

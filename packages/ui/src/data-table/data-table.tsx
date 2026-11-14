@@ -996,13 +996,12 @@ function headerCell<T extends RowData>(v: View<T>, header: TableHeader<T>) {
 
 function headerRow<T extends RowData>(v: View<T>, headers: TableHeader<T>[]) {
   const { s, labels } = v;
-  const checked = v.allChosen || (v.someChosen && "indeterminate");
   return (
     <tr role="row" aria-rowindex={v.virtualized ? 1 : undefined} className={s.headRow()}>
       {v.selectable && (
         <th role="columnheader" scope="col" data-keep="" className={s.th({ className: s.select() })}>
           <Checkbox
-            checked={checked}
+            checked={v.allChosen ? true : v.someChosen ? "indeterminate" : false}
             onCheckedChange={v.toggleAll}
             disabled={v.loading || v.selectableCount === 0}
             aria-label={labels.selectAll}
@@ -1283,7 +1282,7 @@ function pager<T extends RowData>(props: DataTableProps<T>, c: Controlled, chang
 }
 
 /** A table of records — sort, filters and facets, groups, details, pages, selection, visibility, pinning, resizing — on the client or the server, cards on a phone, windowing for long lists. */
-export function DataTable<T extends RowData>(props: Readonly<DataTableProps<T>>) {
+export function DataTable<T extends RowData>(props: DataTableProps<T>) {
   const { columns, caption, showCaption, selectable, bulkActions, bulkMax, bulkResult, resizing, renderDetail, rowLabel, toolbar, footer, className, virtualized, loading, stickyHeader, scroll, manual } = props;
   const labels = { ...dataTableLabels, ...props.labels };
   const shape = shapeOf(props);
@@ -1322,7 +1321,6 @@ export function DataTable<T extends RowData>(props: Readonly<DataTableProps<T>>)
   const tableElement = tableOf(v, table, caption, showCaption, win.before, win.after);
   const sideways = scroll ?? (!shape.typed && !stickyHeader);
   const pagination = c.paginated ? pager(props, c, changes, pageCount, labels) : null;
-  const scrolling = scroll ? SHADOWS : CARD_CLIP[shape.L];
 
   return (
     <DataTableContext.Provider value={context}>
@@ -1341,7 +1339,7 @@ export function DataTable<T extends RowData>(props: Readonly<DataTableProps<T>>)
             {tableElement}
           </div>
         ) : (
-          <div className={s.scroller({ className: sideways ? scrolling : "overflow-x-clip" })}>{tableElement}</div>
+          <div className={s.scroller({ className: sideways ? (scroll ? SHADOWS : CARD_CLIP[shape.L]) : "overflow-x-clip" })}>{tableElement}</div>
         )}
         {selectable && bulkActions ? (
           <SelectionBar count={c.selected.length} max={bulkMax} result={bulkResult} labels={labels.selection} onClear={() => c.setSelected([])}>
