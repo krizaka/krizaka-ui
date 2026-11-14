@@ -772,19 +772,24 @@ html.light .kz-hero-strip .kz-shot-light { display: block; }
 .kz-docs:has(.kz-home) > [class*="grid-area:sidebar"], .kz-docs:has(.kz-home) > #nd-subnav, .kz-docs:has(.kz-home) > .fixed { display: none; }
 /* The first screen. On a phone and a tablet one column, the figure under the text; from 1024 px two columns — the text
    on the left, ONE figure on the right (the specimen sheet), the three ways in running under both. */
-.kz-home-hero { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: start; gap: 20px; width: 100%; padding-top: clamp(8px, 4vw, 48px); }
-.kz-home-hero > * { min-width: 0; }
-.kz-home-hero h1 { margin: 0; max-width: 40rem; font-family: var(--kz-font-display); font-size: clamp(2rem, 4.6vw, 3.2rem); font-weight: 400; line-height: 1.08; text-wrap: balance; color: var(--kz-text-primary); }
-.kz-home-hero .kz-land-lead { max-width: 40rem; }
+/* The hero is SiteCahierHero (size wide: the bar's width, so both edges line up at 1440), Plate I its aside. */
+.kz-home-hero { padding-top: 0; }
+/* The page takes the bar's width: Fumadocs' article is capped (1168 px) and padded, the bar is not — the home lifts the cap, so
+   the content's two edges are the bar's (the frame has no gutter of its own: the article's is the phone's). */
+@media (min-width: 768px) { .kz-docs:has(.kz-home) #nd-page { max-width: none; padding-inline: 0; } }
+.kz-home-hero.kz-hero > .kz-frame { max-width: none; padding-inline: 0; grid-template-columns: minmax(0, 1fr); padding-top: clamp(8px, 4vw, 48px); padding-bottom: 0; align-items: start; }
+.kz-home-hero .kz-hero-aside { order: 0; justify-content: flex-start; }
+.kz-home-hero .kz-hero-title { max-width: 40rem; font-weight: 400; }
+.kz-home-hero .kz-hero-extra { display: block; margin-top: 0; }
+.kz-home-actions { display: grid; justify-items: start; gap: 20px; margin-top: 20px; }
 .kz-home-try { display: flex; }
 .kz-home-install { width: 100%; max-width: 40rem; }
 .kz-home-install pre { margin: 0; }
-.kz-home-ways { width: 100%; }
+.kz-home-builder { margin: 0; font-size: 15px; line-height: 1.6; color: var(--kz-text-secondary); }
+.kz-home-builder a { color: var(--kz-accent-text); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 @media (min-width: 1024px) {
-  .kz-home-hero { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); column-gap: clamp(32px, 5vw, 72px); align-items: start; }
-  .kz-home-hero > h1, .kz-home-hero > .kz-land-lead, .kz-home-hero > .kz-home-try, .kz-home-hero > .kz-home-install, .kz-home-hero > .kz-home-search { grid-column: 1; }
-  .kz-home-hero > .kz-sheet { grid-column: 2; grid-row: 1 / span 5; align-self: start; }
-  .kz-home-hero > .kz-home-ways { grid-column: 1 / -1; margin-top: 12px; }
+  .kz-home-hero.kz-hero > .kz-frame { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); column-gap: clamp(32px, 5vw, 72px); align-items: start; }
+  .kz-home-hero .kz-hero-aside { justify-content: flex-end; }
 }
 /* Plate I — the specimen sheet: four real pieces of the kit drawn by the kit (server-rendered, inert, still), each
    numbered like a plate of a field guide. A fixed-shape grid: nothing loads, nothing moves, no layout shift. */

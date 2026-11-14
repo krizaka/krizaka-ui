@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 /* The home, measured in a real browser (Playwright) at 1440, 1366 and 768 (desktop, tablet) and 390 and 360 (phone), dark and
    light, EN and FR — the calmest page of the family (Cahier, krizaka-ui#434):
-   - the first screen holds what it is (the title), the install line, the three ways in (components, foundations,
-     templates) and the search — on a desktop all four, on a phone at least the title, the install line and the first way
-     in — and nothing else: no figure, no live kit, no scene, no dock;
+   - the first screen holds what it is (the title), exactly ONE filled button (Get started, to the install guide), the
+     install line and the search, the Builder as a text line — no entry cards; at 1440 the content's right edge matches
+     the bar's (± 16 px) (krizaka-ui#3598); nothing else: no live kit, no scene, no dock;
    - ONE figure — the specimen sheet (Plate I: four real pieces of the kit, numbered) — fills the right half from 1024 px
      up, beside the title and above the ways in, and sits under the text below it, whole, never cut off, no layout shift;
    - the bar's brand link shows no outline after a mouse load or a mouse click (`:focus` is not `:focus-visible`) and a
      clear one after Tab (krizaka-ui#417: « a heavy dark outline on load, as if focused »);
-   - the UI Builder button (krizaka-ui#3540: the one primary action) is on the first screen, leads to the demo in the page's
+   - the UI Builder button (krizaka-ui#3598: a quiet text line under the search; the one primary action is Get started) is on the first screen, leads to the demo in the page's
      language, is reached by Tab with a visible ring, and axe finds no serious or critical issue (with --axe);
    - the search opens the site's search dialog;
    - nothing scrolls sideways.
@@ -40,22 +40,34 @@ function firstScreen() {
     for (let n = el; n; n = n.parentElement) if (Number(getComputedStyle(n).opacity) < 0.99) return false;
     return true;
   };
-  const ways = [...document.querySelectorAll(".kz-home-ways a")];
+  const bar = document.querySelector(".kz-site-bar")?.getBoundingClientRect();
+  const frame = document.querySelector(".kz-home-hero > .kz-frame");
+  const fr = frame?.getBoundingClientRect();
+  const cs = frame && getComputedStyle(frame);
+  // Filled = a painted background on an action the reader can use (Plate I's inert specimens are drawings, not actions).
+  const filled = [...document.querySelectorAll(".kz-home-hero a, .kz-home-hero button")].filter((el) => {
+    const bg = getComputedStyle(el).backgroundColor;
+    return !el.closest("[inert]") && !el.closest(".kz-home-search, .kz-home-install") && bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent";
+  }).length;
   return {
+    filled,
+    // The content's right edge (the frame less its padding) against the bar's.
+    edge: fr && bar ? { bar: Math.round(bar.right), content: Math.round(fr.right - Number.parseFloat(cs.paddingRight)) } : null,
     title: seen(document.querySelector(".kz-home-hero h1")),
     install: seen(document.querySelector(".kz-home-install")),
-    ways: ways.map((a) => new URL(a.href).pathname.replace(/^\/fr/, "").replace(/\/$/, "") || "/"),
-    waysSeen: ways.filter(seen).length,
+    ways: document.querySelectorAll(".kz-home-ways").length,
     search: seen(document.querySelector(".kz-home-search")),
-    builder: seen(document.querySelector(".kz-home-try a")),
-    builderHref: document.querySelector(".kz-home-try a")?.getAttribute("href") ?? null,
+    builder: seen(document.querySelector(".kz-home-builder a")),
+    builderHref: document.querySelector(".kz-home-builder a")?.getAttribute("href") ?? null,
+    primary: seen(document.querySelector(".kz-home-try a")),
+    primaryHref: document.querySelector(".kz-home-try a")?.getAttribute("href") ?? null,
     figures: document.querySelectorAll(".kz-sheet").length,
     sheet: (() => {
       const sheet = document.querySelector(".kz-sheet");
       if (!sheet) return null;
       const r = sheet.getBoundingClientRect();
       const text = document.querySelector(".kz-home-hero h1").getBoundingClientRect();
-      const ways = document.querySelector(".kz-home-ways").getBoundingClientRect();
+      const ways = document.querySelector(".kz-home-install").getBoundingClientRect();
       const specimens = [...sheet.querySelectorAll(".kz-sheet-specimen")];
       return {
         beside: r.left >= text.right - 1 && r.top < ways.top,
@@ -88,12 +100,15 @@ for (const path of PATHS) {
       await page.evaluate(() => document.fonts.ready);
       const f = await page.evaluate(firstScreen);
       if (!f.title) problems.push(`${where}: the title is not on the first screen`);
-      if (!f.builder) problems.push(`${where}: the UI Builder button is not on the first screen`);
-      if (f.builderHref?.replace(/\/$/, "") !== (path === "/" ? "/builder" : "/fr/builder")) problems.push(`${where}: the UI Builder button leads to ${f.builderHref}`);
+      if (!f.builder) problems.push(`${where}: the UI Builder line is not on the first screen`);
+      if (f.builderHref?.replace(/\/$/, "") !== (path === "/" ? "/builder" : "/fr/builder")) problems.push(`${where}: the UI Builder line leads to ${f.builderHref}`);
       if (!f.install) problems.push(`${where}: the install line is not on the first screen`);
-      if (f.ways.join() !== "/components,/foundations/tokens,/templates") problems.push(`${where}: the ways in are ${f.ways.join(", ") || "missing"}`);
-      if (!phone && (f.waysSeen < 3 || !f.search)) problems.push(`${where}: the three ways in and the search are not all on the first screen (${f.waysSeen} ways, search ${f.search})`);
-      if (phone && f.waysSeen < 1) problems.push(`${where}: no way in on the first screen`);
+      if (f.ways) problems.push(`${where}: the entry cards are back in the hero`);
+      if (f.filled !== 1) problems.push(`${where}: the hero has ${f.filled} filled buttons, it should have exactly one`);
+      if (f.primaryHref?.replace(/\/$/, "") !== (path === "/" ? "/installation" : "/fr/installation")) problems.push(`${where}: Get started leads to ${f.primaryHref}`);
+      if (!f.primary) problems.push(`${where}: Get started is not on the first screen`);
+      if (width >= 1440 && f.edge && Math.abs(f.edge.bar - f.edge.content) > 16) problems.push(`${where}: the content's right edge is ${f.edge.content}px, the bar's ${f.edge.bar}px`);
+      if (!phone && !f.search) problems.push(`${where}: the search is not on the first screen`);
       if (f.figures !== 1 || !f.sheet) problems.push(`${where}: the first screen has ${f.figures} figures, it should have one`);
       else {
         const s = f.sheet;
@@ -139,9 +154,9 @@ for (const path of PATHS) {
       {
         await page.goto(`${base}${path}`, { waitUntil: "load" });
         const focusBuilder = async () => {
-          for (let i = 0; i < 12; i++) {
+          for (let i = 0; i < 30; i++) {
             await page.keyboard.press("Tab");
-            if (await page.evaluate(() => document.activeElement === document.querySelector(".kz-home-try a"))) return true;
+            if (await page.evaluate(() => document.activeElement === document.querySelector(".kz-home-builder a"))) return true;
           }
           return false;
         };
@@ -158,7 +173,7 @@ for (const path of PATHS) {
           const serious = await page.evaluate(async () => (await window.axe.run(document, { resultTypes: ["violations"] })).violations.filter((v) => v.impact === "serious" || v.impact === "critical").map((v) => `${v.id} on ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`));
           if (serious.length) problems.push(`${where}: axe serious/critical: ${serious.join(", ")}`);
         }
-        await page.locator(".kz-home-try a").click();
+        await page.locator(".kz-home-builder a").click();
         await page.waitForURL(`**${path === "/" ? "" : "/fr"}/builder{,/}`, { timeout: 10000 }).catch(() => {});
         const landed = new URL(page.url()).pathname.replace(/\/$/, "");
         if (landed !== (path === "/" ? "/builder" : "/fr/builder")) problems.push(`${where}: the click lands on ${landed}`);

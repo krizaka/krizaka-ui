@@ -8,6 +8,7 @@ import { CardGrid } from "@krizaka/ui/card-grid";
 import { CodeBlock } from "@krizaka/ui/code-block";
 import { Field, Input } from "@krizaka/ui/field";
 import { LinkCard } from "@krizaka/ui/link-card";
+import { SiteCahierHero } from "@krizaka/ui/site-cahier";
 import { familyLabels } from "@krizaka/ui/sites";
 import Link from "next/link";
 
@@ -16,23 +17,17 @@ import { format, getDictionary, type Locale } from "@/lib/i18n";
 import { WEB_INSTALL } from "@/lib/install";
 import { npmDownloads } from "@/lib/npm-downloads";
 import { getRegistryItems } from "@/lib/ui-registry";
-import { BUILDER_PATH, localePath } from "@/lib/urls";
+import { BUILDER_PATH, GET_STARTED_PATH, localePath } from "@/lib/urls";
 
 import { HomeSearch } from "./HomeSearch";
 
 /* The home of ui.krizaka.com — the calmest page of the family (Cahier, ADR-004; peer review, krizaka-ui#434: « very AI
-   and overloaded »). The first screen holds four things and nothing more: what it is (one title, one line), the install
-   line, the three ways in (components, foundations, templates) and the search. Under it, quietly: where each package
+   and overloaded »). The first screen holds what it is (one title, one line), ONE primary action (Get started, the install guide),
+   the install line and the search, with the UI Builder as a quiet text line under it; the bar carries the ways in. Under it, quietly: where each package
    lives, and the rest of the family. No counters, no live kit, no scene, no playground: each component's page has its
    own stage. On a wide screen the right half holds ONE figure (krizaka-ui#417, Cahier): a plate of four specimens
    drawn by the kit itself — server-rendered, still, inert — each with its figure number. Under the text on a phone and a
    tablet. Checked by tests/home.test.mjs and, in a browser, scripts/home-geometry.mjs. */
-
-const WAYS = [
-  { id: "components", path: "/components" },
-  { id: "foundations", path: "/foundations/tokens" },
-  { id: "templates", path: "/templates" },
-] as const;
 
 const PACKAGES: { name: string; path?: string; dir: string }[] = [
   { name: "@krizaka/ui", path: "/components", dir: "ui" },
@@ -155,27 +150,22 @@ export async function Landing({ locale }: { locale: Locale }) {
 
   return (
     <div className="kz-home not-prose">
-      <header className="kz-home-hero">
-        <h1>{t.title}</h1>
-        <p className="kz-land-lead">{format(t.lead, { count })}</p>
-        <div className="kz-home-try">
-          <Button variant="primary" asChild>
-            <Link href={localePath(locale, BUILDER_PATH)}>{t.tryBuilder}</Link>
-          </Button>
+      <SiteCahierHero className="kz-home-hero" size="wide" title={t.title} lead={format(t.lead, { count })} aside={<Sheet sheet={t.sheet} />}>
+        <div className="kz-home-actions">
+          <div className="kz-home-try">
+            <Button variant="primary" asChild>
+              <Link href={localePath(locale, GET_STARTED_PATH)}>{t.getStarted}</Link>
+            </Button>
+          </div>
+          <div className="kz-home-install" aria-label={t.install}>
+            <CodeBlock code={WEB_INSTALL} language="bash" copyLabel={t.copy} copiedLabel={t.copied} />
+          </div>
+          <HomeSearch placeholder={t.search.placeholder} />
+          <p className="kz-home-builder">
+            {t.builderBefore} <Link href={localePath(locale, BUILDER_PATH)}>{t.builderLink}</Link>
+          </p>
         </div>
-        <div className="kz-home-install" aria-label={t.install}>
-          <CodeBlock code={WEB_INSTALL} language="bash" copyLabel={t.copy} copiedLabel={t.copied} />
-        </div>
-        <HomeSearch placeholder={t.search.placeholder} />
-        <nav className="kz-home-ways" aria-label={t.ways.label}>
-          <CardGrid min={200} columns={3} fit="fit" reveal={false}>
-            {WAYS.map((w) => (
-              <LinkCard key={w.id} href={localePath(locale, w.path)} title={t.ways[w.id].title} description={format(t.ways[w.id].description, { count })} titleAs="h2" linkAs={Link} />
-            ))}
-          </CardGrid>
-        </nav>
-        <Sheet sheet={t.sheet} />
-      </header>
+      </SiteCahierHero>
 
       <section className="kz-home-section" aria-labelledby="land-packages">
         <h2 id="land-packages">{t.packages.title}</h2>
