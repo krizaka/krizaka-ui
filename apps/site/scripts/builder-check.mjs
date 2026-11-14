@@ -6,12 +6,19 @@
    - axe (WCAG 2.x A and AA) finds no serious or critical defect, in the page and in the editor's canvas;
    - the keyboard: « Skip the editor » is a link, the shortcut to the fields is within 10 tab stops and lands on a field,
      and the site's bar never covers the editor's header;
-   - the canvas is set in the site's font.
+   - the canvas is set in the site's font;
+   - the page is a workspace (krizaka-ui#3549): no docs menu, a « ← Documentation » link, the title in the Cahier's Young Serif
+     and never bold, the editor's top at 320 px or less from the top at 1440 and 780 px or less at 360, the editor as wide as
+     the window (less the gutters) and as tall as the rest of the screen, the preview 720 px wide or more at 1440, the first
+     field one tab stop from the top of the page (a shortcut; at most 10), nothing scrolls sideways, in both themes with
+     reduced motion.
    Also fails on a console error. Usage:
    node scripts/builder-check.mjs --base http://localhost:4600 [--playwright <path>] [--axe <path to axe.min.js>] [--shots <dir>] */
 
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
+
+import { LIMITS } from "./builder-limits.mjs";
 
 const args = process.argv.slice(2);
 const flag = (name, fallback) => (args.includes(name) ? args[args.indexOf(name) + 1] : fallback);
@@ -69,6 +76,29 @@ const WORDS = {
 const browser = await chromium.launch();
 const problems = [];
 
+/** Runs in the page: where things are. */
+function workspaceFacts() {
+  const rect = (el) => (el ? el.getBoundingClientRect() : null);
+  const editor = document.querySelector(".kz-builder-editor");
+  const h1 = document.querySelector("main h1");
+  const frame = document.querySelector(".kz-builder-editor iframe");
+  const back = document.querySelector(".kz-builder-crumb a");
+  const gutter = parseFloat(getComputedStyle(document.querySelector(".kz-workspace-gutter")).paddingLeft);
+  return {
+    docsMenu: !!document.querySelector("#nd-sidebar, .kz-docs"),
+    back: back ? { text: back.textContent.trim(), href: new URL(back.href).pathname } : null,
+    title: h1 ? { family: getComputedStyle(h1).fontFamily, weight: Number(getComputedStyle(h1).fontWeight) } : null,
+    editorTop: Math.round(rect(editor).top + scrollY),
+    editorWidth: Math.round(rect(editor).width),
+    editorBottom: Math.round(rect(editor).bottom + scrollY),
+    gutter,
+    previewWidth: frame ? Math.round(rect(frame).width) : 0,
+    innerWidth,
+    innerHeight,
+    scrollWidth: document.documentElement.scrollWidth,
+  };
+}
+
 async function axeDefects(page) {
   // The canvas is an iframe: axe must live in it too, or its blocks are never audited.
   await page.evaluate(axeSource);
@@ -83,7 +113,7 @@ for (const [locale, w] of Object.entries(WORDS)) {
   for (const theme of ["dark", "light"]) {
     for (const width of [1440, 360]) {
       const tag = `${locale}/${theme}/${width}`;
-      const context = await browser.newContext({ viewport: { width, height: 1000 }, colorScheme: theme, reducedMotion: "reduce" });
+      const context = await browser.newContext({ viewport: { width, height: width === 360 ? 780 : 1000 }, colorScheme: theme, reducedMotion: "reduce" });
       await context.addInitScript((t) => localStorage.setItem("kz-theme", t), theme);
       const page = await context.newPage();
       page.on("console", (m) => m.type() === "error" && problems.push(`${tag}: console: ${m.text().slice(0, 200)}`));
@@ -95,6 +125,33 @@ for (const [locale, w] of Object.entries(WORDS)) {
         const verdict = page.getByLabel(w.verdict);
         await verdict.getByText(w.valid).waitFor({ timeout: 5000 });
         if ((await page.getByText(/problems?\b|problèmes?\b/).count()) !== 0) problems.push(`${tag}: a refusal is shown on the valid starter page`);
+
+        // The workspace: where things are, measured on the first screen of a fresh load.
+        const f = await page.evaluate(workspaceFacts);
+        const limit = LIMITS[width];
+        if (f.docsMenu) problems.push(`${tag}: the docs menu is on the page`);
+        if (f.back?.text !== "← Documentation" && f.back?.text !== "Documentation") problems.push(`${tag}: no « Documentation » link (${JSON.stringify(f.back)})`);
+        if (f.back && f.back.href.replace(/\/$/, "") !== (locale === "fr" ? "/fr" : "")) problems.push(`${tag}: the Documentation link leads to ${f.back.href}`);
+        if (!/Young Serif/.test(f.title?.family ?? "") || f.title.weight > 400) problems.push(`${tag}: the title is ${JSON.stringify(f.title)}, not Young Serif at one weight`);
+        if (f.editorTop > limit.editorTop) problems.push(`${tag}: the editor starts ${f.editorTop} px from the top (limit ${limit.editorTop})`);
+        if (Math.abs(f.editorWidth - (f.innerWidth - 2 * f.gutter)) > 1) problems.push(`${tag}: the editor is ${f.editorWidth} px wide in a ${f.innerWidth} px window with ${f.gutter} px gutters`);
+        if (f.editorBottom < f.innerHeight - 20 || f.editorBottom > f.innerHeight + 560) problems.push(`${tag}: the editor ends at ${f.editorBottom} in a ${f.innerHeight} px window`);
+        if (limit.previewWidth && f.previewWidth < limit.previewWidth) problems.push(`${tag}: the preview is ${f.previewWidth} px wide (at least ${limit.previewWidth})`);
+        if (f.scrollWidth > f.innerWidth) problems.push(`${tag}: the page scrolls sideways (${f.scrollWidth} > ${f.innerWidth})`);
+        if (shots) console.log(`${tag}: editor top ${f.editorTop}, ${f.editorWidth} wide, preview ${f.previewWidth}`);
+        // The first field is one tab stop from the top of the page: the shortcut is the first stop, Enter lands on the field.
+        await page.evaluate(() => document.activeElement?.blur());
+        let stops = 0;
+        for (; stops < LIMITS.tabStops; stops++) {
+          await page.keyboard.press("Tab");
+          if ((await page.evaluate(() => document.activeElement?.textContent)) === w.toFields) break;
+        }
+        if (stops + 1 > LIMITS.tabStops) problems.push(`${tag}: the shortcut to the first field is not within ${LIMITS.tabStops} tab stops`);
+        await page.keyboard.press("Enter");
+        // On a phone the fields are a tab of the rail: opened first, the focus follows on the next frame.
+        const onField = () => /^(INPUT|TEXTAREA)$/.test(document.activeElement?.tagName ?? "") && !!document.activeElement?.closest(".kz-builder-editor");
+        if (!(await page.waitForFunction(onField, null, { timeout: 2000 }).then(() => true, () => false))) problems.push(`${tag}: Tab then Enter does not land on a field`);
+        await page.evaluate(() => document.activeElement?.blur());
 
         // One verdict, never green on a refusal: pick each attack, read the sentence, the raw block, the verdict tone.
         for (const [id, button, sentence] of w.attacks) {
@@ -118,7 +175,8 @@ for (const [locale, w] of Object.entries(WORDS)) {
         // The other language, and a missing text in a sentence.
         await page.getByRole("group", { name: w.group }).getByRole("button", { name: w.other }).click();
         await canvas.getByRole("heading", { level: 1, name: w.otherTitle }).waitFor({ timeout: 5000 });
-        if (width < 600) await page.getByRole("button", { name: w.fieldsToggle, exact: true }).first().click();
+        // On a phone the fields are a tab of the rail (the shortcut above may have opened it already).
+        if (width < 600 && (await page.locator(".kz-builder-editor input[type=text]:visible").count()) === 0) await page.getByRole("button", { name: w.fieldsToggle, exact: true }).first().click();
         await page.locator(".kz-builder-editor input[type=text]:visible").first().fill("");
         const status = page.getByRole("status").filter({ hasText: w.one });
         await status.waitFor({ timeout: 5000 });

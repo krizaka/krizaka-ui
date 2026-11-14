@@ -9,7 +9,7 @@ const read = (f) => readFileSync(new URL(f, root), "utf8");
 const messages = (l) => JSON.parse(read(`messages/${l}.json`));
 
 test("the changelog route and its feed exist in English and French, on the Changelog template", () => {
-  for (const dir of ["app/(en)/changelog", "app/(fr)/fr/changelog"]) {
+  for (const dir of ["app/(en)/(docs)/changelog", "app/(fr)/fr/(docs)/changelog"]) {
     assert.ok(existsSync(new URL(`${dir}/page.tsx`, root)), `${dir}/page.tsx`);
     assert.ok(existsSync(new URL(`${dir}/feed.xml/route.ts`, root)), `${dir}/feed.xml`);
   }
