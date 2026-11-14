@@ -32,7 +32,7 @@ export const meta = {
   accessibility: {
     keyboard: [{ keys: "Arrow keys", action: "Scroll the drawing in its frame (once the frame has focus) when it is wider than the screen." }],
     notes: [
-      "The drawing is one image (`role=\"img\"`) named by the view's title; its text version is a `<details>` built from the same view: the elements (nested in their groups), then the relations or, in a dynamic view, the ordered steps.",
+      "The drawing is one image (`role=\"img\"`) named by the view's title (`aria-label`); its text version is a `<details>` built from the same view: the elements (nested in their groups), then the relations or, in a dynamic view, the ordered steps.",
       "Every label is a text child, never markup: a hostile title renders as its characters.",
       "A link is only an `http:`/`https:` address, a same-site path or an anchor (`safeHref`); any other scheme is dropped.",
       "On a phone the drawing keeps a legible size and scrolls in its frame, which takes the keyboard focus; the text version is the phone reading.",

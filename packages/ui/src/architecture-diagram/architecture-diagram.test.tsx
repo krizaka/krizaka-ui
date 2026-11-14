@@ -67,7 +67,8 @@ describe("ArchitectureDiagram", () => {
     const { container } = render(<ArchitectureDiagram view={staticView} subtitle="C4 · level 2" />);
     const img = screen.getByRole("img", { name: "The shop · containers" });
     expect(img.tagName.toLowerCase()).toBe("svg");
-    expect(img.querySelector("title")?.textContent).toBe("The shop · containers");
+    /* Named by aria-label, never by an SVG <title>: a page has one <title> (the sites' SEO check counts them). */
+    expect(img.querySelector("title")).toBeNull();
     expect(container.querySelector("figure.kz-plate figcaption .kz-plate-title")?.textContent).toBe("The shop · containers");
     expect(screen.getByText("C4 · level 2")).toBeTruthy();
     expect(await axeViolations(container)).toEqual([]);

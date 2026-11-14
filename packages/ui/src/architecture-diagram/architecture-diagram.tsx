@@ -1,7 +1,8 @@
 // Server-safe. One laid-out C4 view drawn as a figure of the plate (blocks.css: `kz-plate`, `kz-arch-*`): the layout
 // comes from @krizaka/architecture, this file only draws it. Safe by construction: every SVG element is written here
 // from typed fields; no tag or attribute name is read from the view, every word is a React text child, and a link is
-// only an href the host passes, checked by `safeHref`. The drawing is an image (`role="img"`); its full text version
+// only an href the host passes, checked by `safeHref`. The drawing is an image (`role="img"`, named by `aria-label`: an
+// SVG `<title>` would count as a second document title for the sites' SEO check); its full text version
 // (elements, relations or the numbered steps) is a `<details>` built from the same view.
 import type { ArchEdge, ArchNode, ArchView, Box, Point } from "@krizaka/architecture";
 import type * as React from "react";
@@ -411,7 +412,6 @@ export function ArchitectureDiagram({ view, title, subtitle, links, words, textO
           className="kz-arch-svg"
           style={{ minWidth: vbWidth * SIZE.minScale, maxWidth: vbWidth }}
         >
-          <title>{name}</title>
           {groups.map((n) => (
             <Group key={n.id} node={n} />
           ))}
