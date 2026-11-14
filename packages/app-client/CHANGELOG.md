@@ -1,5 +1,13 @@
 # @krizaka/app-client
 
+## 0.3.2
+
+### Patch Changes
+
+- [#1007](https://github.com/krizaka/krizaka-ui/pull/1007) [`a858800`](https://github.com/krizaka/krizaka-ui/commit/a858800680ff17838045ac335a4d1eeb29900678) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Internal refactors for code quality (read-only props, no nested ternaries, no void operator); no behaviour change.
+- Updated dependencies [[`a858800`](https://github.com/krizaka/krizaka-ui/commit/a858800680ff17838045ac335a4d1eeb29900678)]:
+  - @krizaka/discovery@0.1.4
+
 ## 0.3.1
 
 ### Patch Changes
