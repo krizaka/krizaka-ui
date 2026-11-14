@@ -14,7 +14,7 @@ import { tv } from "tailwind-variants";
 import type { LinkComponent } from "../block-link";
 import { ProductLogo } from "../marks/ProductLogo";
 import { columnStatus, familyGroups, orgIdOf } from "../sites/family-groups";
-import { companyLinks, type FamilyLabels, familyLabels, type OrgFacts, siteById, type SiteId, type SiteStatus } from "../sites/sites";
+import { companyLinks, type FamilyLabels, familyLabels, type OrgFacts, siteById, type SiteGroup, type SiteId, type SiteStatus } from "../sites/sites";
 import type { FooterLink, SiteFooterConfig } from "./footer-config";
 
 export const siteFooter = tv({
@@ -127,6 +127,8 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
    * @default current === "krizaka" (and never in `variant="app"`)
    */
   family?: boolean;
+  /** Only these groups of the family, in reading order (`footerFor(id).groups` of `@krizaka/org`). Omit it to draw them all. */
+  groups?: readonly SiteGroup[];
   /** Only these products in the Products group (the current site always kept). Omit it to list every product. */
   products?: readonly SiteId[];
   /**
@@ -177,6 +179,7 @@ export function SiteFooter({
   org,
   family: familyProp,
   products,
+  groups: only,
   variant = "site",
   tone = "product",
   config,
@@ -229,7 +232,7 @@ export function SiteFooter({
                 ...columns.map((c) => ({ key: c.group, title: labels.groups[c.group], entries: c.entries, ...columnStatus(c.entries) })),
                 { key: "krizaka" as const, title: labels.groups.krizaka, entries: companyEntries, ...NO_STATUS },
               ]
-                .filter((c) => c.entries.length > 0)
+                .filter((c) => c.entries.length > 0 && (!only || only.includes(c.key) || (c.key === "open-source" && only.includes("github"))))
                 .map((c) => (
                   <details key={c.key} className={s.group()}>
                     <summary className={s.summary()}>
