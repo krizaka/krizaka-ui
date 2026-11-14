@@ -132,7 +132,7 @@ test("the editor's stylesheet is the one that asks no font from another site", (
 
 test("the demo runs the npm package, never a copy of it", () => {
   const pkg = JSON.parse(source("package.json"));
-  assert.equal(pkg.dependencies["@krizaka/ui-builder"], "0.3.1");
+  assert.equal(pkg.dependencies["@krizaka/ui-builder"], "0.4.0");
 });
 
 // ── One verdict, plurals, sentences (krizaka-internal#3237) ─────────────────────────────────────────────────────────

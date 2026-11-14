@@ -30,11 +30,13 @@ import {
   verdictOf,
   type VerdictState,
 } from "@/lib/builder-demo";
+import { focusFirstField } from "@/lib/builder-focus";
 import { format } from "@/lib/i18n";
 
 import { useI18n } from "../I18nProvider";
 import { useSiteTheme } from "../SiteTheme";
 import { createConfig } from "./builder-config";
+import { BuilderScreen } from "./BuilderScreen";
 import { ContentLocaleContext } from "./ContentLocale";
 
 const DOCUMENT_SCHEMA = 2;
@@ -69,7 +71,7 @@ const TONES = { valid: "success", refused: "danger", "refused-as-expected": "inf
 /* The page's default language is the one it is read in; the other one is the one that may be missing. */
 const issueClass = "break-words rounded-md border border-border-default bg-surface-sunken px-3 py-2 text-sm text-fg";
 
-export default function BuilderDemo() {
+export default function BuilderDemo({ head }: Readonly<{ head: ReactNode }>) {
   const { t, locale } = useI18n();
   const b = t.site.builder;
   const defaultLocale: ContentLocale = locale;
@@ -77,18 +79,8 @@ export default function BuilderDemo() {
   const [content, setContent] = useState<ContentLocale>(locale);
   const [picked, setPicked] = useState<AttackId | null>(null);
   const editor = useRef<HTMLElement>(null);
-  // The canvas, the panels and the blocks come first in the tab order: this lands on the first field of the selected block
-  // (on a phone the fields are a tab of the rail: it is opened first).
-  const toFields = () => {
-    const root = editor.current;
-    if (!root) return;
-    const shown = (el: Element) => el.getClientRects().length > 0;
-    const first = () => [...root.querySelectorAll<HTMLElement>("input[type=text], textarea")].find(shown);
-    const field = first();
-    if (field) return field.focus();
-    [...root.querySelectorAll("button")].find((button) => button.getAttribute("aria-label") === b.editor["plugin-fields"])?.click();
-    requestAnimationFrame(() => first()?.focus());
-  };
+  // The canvas, the panels and the blocks come first in the tab order: this lands on the first field of the selected block.
+  const toFields = () => focusFirstField(editor.current, b.editor["plugin-fields"]);
 
   const config = useMemo(() => createConfig(b.editor), [b.editor]);
   // Desktop first: the canvas opens at the page's full width, the phone is one click away.
@@ -107,41 +99,45 @@ export default function BuilderDemo() {
   const languages = useMemo(() => ({ locale: content, defaultLocale }), [content, defaultLocale]);
 
   return (
-    <div className="grid gap-6">
-      <SkipLink href="#builder-after">{b.skip}</SkipLink>
-      <div className="flex flex-wrap items-center gap-3">
-        <fieldset className="m-0 flex items-center gap-2 border-0 p-0">
-          <legend className="float-left mr-2 p-0 text-sm font-medium text-fg-secondary">{b.language.label}</legend>
-          {CONTENT_LOCALES.map((code) => (
-            <Button key={code} type="button" size="sm" variant={content === code ? "primary" : "secondary"} aria-pressed={content === code} lang={code} onClick={() => setContent(code)}>
-              {b.language[code]}
-            </Button>
-          ))}
-        </fieldset>
-        <Button type="button" size="sm" variant="ghost" onClick={toFields}>
-          {b.toFields}
-        </Button>
-        <p className="text-sm text-fg-secondary">{b.language.hint}</p>
-      </div>
+    <>
+      <BuilderScreen head={head}>
+        <div className="kz-builder-bar">
+          <SkipLink href="#builder-after">{b.skip}</SkipLink>
+          <fieldset className="m-0 flex items-center gap-2 border-0 p-0">
+            <legend className="float-left mr-2 p-0 text-sm font-medium text-fg-secondary">{b.language.label}</legend>
+            {CONTENT_LOCALES.map((code) => (
+              <Button key={code} type="button" size="sm" variant={content === code ? "primary" : "secondary"} aria-pressed={content === code} lang={code} onClick={() => setContent(code)}>
+                {b.language[code]}
+              </Button>
+            ))}
+          </fieldset>
+          <Button type="button" size="sm" variant="ghost" onClick={toFields}>
+            {b.toFields}
+          </Button>
+          <p className="hidden text-sm text-fg-secondary xl:block">{b.language.hint}</p>
+        </div>
 
-      <section ref={editor} aria-label={b.editorRegion} className="kz-builder-editor scroll-mt-28 overflow-hidden rounded-xl border border-border-default">
-        <ContentLocaleContext.Provider value={languages}>
-          <Puck
-            config={config}
-            data={data as Data}
-            onChange={(next) => setData(next as PageData)}
-            dictionary={b.editor}
-            ui={{ itemSelector: { index: 0, zone: "root:default-zone" } }}
-            iframe={{ enabled: true, waitForStyles: false }}
-            viewports={viewports}
-            height="min(80vh, 760px)"
-            headerTitle={b.eyebrow}
-            overrides={OVERRIDES}
-          />
-        </ContentLocaleContext.Provider>
-      </section>
+        <section ref={editor} id="builder-editor" tabIndex={-1} aria-label={b.editorRegion} className="kz-builder-editor kz-builder-slot scroll-mt-28 border border-border-default outline-none">
+          <ContentLocaleContext.Provider value={languages}>
+            <div className="absolute inset-0">
+              <Puck
+                config={config}
+                data={data as Data}
+                onChange={(next) => setData(next as PageData)}
+                dictionary={b.editor}
+                ui={{ itemSelector: { index: 0, zone: "root:default-zone" } }}
+                iframe={{ enabled: true, waitForStyles: false }}
+                viewports={viewports}
+                height="100%"
+                headerTitle={b.eyebrow}
+                overrides={OVERRIDES}
+              />
+            </div>
+          </ContentLocaleContext.Provider>
+        </section>
+      </BuilderScreen>
 
-      <div id="builder-after" tabIndex={-1} className="grid scroll-mt-28 gap-6 outline-none lg:grid-cols-2">
+      <div id="builder-after" tabIndex={-1} className="kz-workspace-gutter grid scroll-mt-28 gap-6 py-10 outline-none lg:grid-cols-2">
         <section aria-labelledby="builder-document" className="grid content-start gap-3">
           <h2 id="builder-document" className="text-xl font-bold text-fg">
             {b.document.title}
@@ -213,7 +209,7 @@ export default function BuilderDemo() {
           </section>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
