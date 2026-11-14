@@ -30,6 +30,7 @@ export function Signature({ variant = "both", name = "Krizaka · Montréal", dat
   const filter = `kz-ink-${React.useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   const stamp = variant !== "script";
   const script = variant !== "stamp";
+  const stampAria = script ? { "aria-hidden": true } : { role: "img" as const, "aria-label": name };
   return (
     <div className={cn("kz-signature", className)} data-variant={variant} style={{ ...style, filter: `url(#${filter})` }} {...props}>
       <svg width="0" height="0" aria-hidden focusable="false" className="kz-signature-defs">
@@ -40,7 +41,7 @@ export function Signature({ variant = "both", name = "Krizaka · Montréal", dat
         </filter>
       </svg>
       {stamp ? (
-        <svg className="kz-signature-stamp" viewBox="62 62 236 236" fill="none" {...(script ? { "aria-hidden": true } : { role: "img", "aria-label": name })} focusable="false">
+        <svg className="kz-signature-stamp" viewBox="62 62 236 236" fill="none" {...stampAria} focusable="false">
           <circle cx="180" cy="180" r="112" stroke="currentColor" strokeWidth="6" />
           <circle cx="180" cy="180" r="100" stroke="currentColor" strokeWidth="2" strokeDasharray="4 7" />
           <path d={SHIELD} stroke="currentColor" strokeWidth="18" strokeLinecap="round" strokeLinejoin="round" />

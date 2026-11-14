@@ -18,7 +18,7 @@ export interface GlossaryProps extends Omit<React.ComponentProps<"section">, "ch
 }
 
 /** A page or panel listing the terms and definitions from the host's glossary catalogue. */
-export function Glossary({ title, terms, className, ...props }: GlossaryProps) {
+export function Glossary({ title, terms, className, ...props }: Readonly<GlossaryProps>) {
   const id = React.useId();
   return (
     <section aria-labelledby={`${id}-title`} className={["kz-glossary", className].filter(Boolean).join(" ")} {...props}>

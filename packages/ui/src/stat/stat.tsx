@@ -131,7 +131,7 @@ export const statStrip = tv({
   },
 });
 
-function StatStripFigure({ item }: { item: StatStripItem }) {
+function StatStripFigure({ item }: Readonly<{ item: StatStripItem }>) {
   const s = statStrip({ trend: item.trend });
   return (
     <div className={s.item()} data-trend={item.trend}>

@@ -98,13 +98,13 @@ const hueStyle = (hue: TabsHue | undefined, style: React.CSSProperties | undefin
   hue ? { ...style, ["--kz-hue" as string]: HUE[hue] } : style;
 
 /** The count after a tab's words: part of its name (« Clients 12 »), muted, tabular. */
-function TabCount({ count }: { count: number | undefined }) {
+function TabCount({ count }: Readonly<{ count: number | undefined }>) {
   if (count === undefined) return null;
   return <span data-tab-count="" className="font-mono text-xs font-medium tabular-nums text-fg-secondary">{count}</span>;
 }
 
 /** « + Intercalaire »: a button after the dividers (outside the tab list: a tablist holds only tabs). */
-function AddButton({ add }: { add: TabsAdd }) {
+function AddButton({ add }: Readonly<{ add: TabsAdd }>) {
   return (
     <button
       type="button"

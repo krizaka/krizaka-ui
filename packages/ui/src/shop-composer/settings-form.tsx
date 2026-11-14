@@ -28,7 +28,7 @@ function factoryFor(def: SectionDefinition): Factory {
 const nameOf = (m: ShopComposerMessages, key: string) => m.settingNames[key] ?? key;
 const optionName = (m: ShopComposerMessages, o: string | number) => m.optionNames[String(o)] ?? String(o);
 
-function Choice({ spec, m }: { spec: Extract<FieldSpec, { kind: "choice" }>; m: ShopComposerMessages }) {
+function Choice({ spec, m }: Readonly<{ spec: Extract<FieldSpec, { kind: "choice" }>; m: ShopComposerMessages }>) {
   return (
     <FormField name={spec.name}>
       {(f) => (
@@ -45,7 +45,7 @@ function Choice({ spec, m }: { spec: Extract<FieldSpec, { kind: "choice" }>; m: 
   );
 }
 
-function Multi({ spec, m }: { spec: Extract<FieldSpec, { kind: "multi" }>; m: ShopComposerMessages }) {
+function Multi({ spec, m }: Readonly<{ spec: Extract<FieldSpec, { kind: "multi" }>; m: ShopComposerMessages }>) {
   return (
     <FormField name={spec.name}>
       {(f) => {
@@ -71,7 +71,7 @@ function Multi({ spec, m }: { spec: Extract<FieldSpec, { kind: "multi" }>; m: Sh
   );
 }
 
-function Field({ spec, m }: { spec: FieldSpec; m: ShopComposerMessages }) {
+function Field({ spec, m }: Readonly<{ spec: FieldSpec; m: ShopComposerMessages }>) {
   switch (spec.kind) {
     case "choice":
       return <Choice spec={spec} m={m} />;
@@ -136,7 +136,7 @@ export type SettingsFormProps = {
 };
 
 /** The form of a section's settings: remount it (a `key`) when the document is changed from outside (undo, redo). */
-export function SettingsForm({ section, messages: m, onValid, onInvalid }: SettingsFormProps) {
+export function SettingsForm({ section, messages: m, onValid, onInvalid }: Readonly<SettingsFormProps>) {
   const def = sectionDefinition(section.type);
   const factory = factoryFor(def);
   const form = factory.useForm({ defaultValues: section.settings as never }) as unknown as { Form: (p: { "aria-label": string; className?: string; children: React.ReactNode }) => React.ReactElement };

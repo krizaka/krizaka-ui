@@ -323,33 +323,23 @@ export const ICON_REGISTRY = {
   ),
 
   menu: (
-    <>
-      <path d="M4 7H20M4 12H20M4 17H20" strokeWidth="1.8" vectorEffect={VE} />
-    </>
+    <path d="M4 7H20M4 12H20M4 17H20" strokeWidth="1.8" vectorEffect={VE} />
   ),
 
   close: (
-    <>
-      <path d="M6 6L18 18M18 6L6 18" strokeWidth="1.8" vectorEffect={VE} />
-    </>
+    <path d="M6 6L18 18M18 6L6 18" strokeWidth="1.8" vectorEffect={VE} />
   ),
 
   chevronDown: (
-    <>
-      <path d="M6 9L12 15L18 9" strokeWidth="1.8" vectorEffect={VE} />
-    </>
+    <path d="M6 9L12 15L18 9" strokeWidth="1.8" vectorEffect={VE} />
   ),
 
   chevronRight: (
-    <>
-      <path d="M9 6L15 12L9 18" strokeWidth="1.8" vectorEffect={VE} />
-    </>
+    <path d="M9 6L15 12L9 18" strokeWidth="1.8" vectorEffect={VE} />
   ),
 
   plus: (
-    <>
-      <path d="M12 5V19M5 12H19" strokeWidth="1.8" vectorEffect={VE} />
-    </>
+    <path d="M12 5V19M5 12H19" strokeWidth="1.8" vectorEffect={VE} />
   ),
 
   send: (
@@ -376,12 +366,10 @@ export const ICON_REGISTRY = {
   ),
 
   attach: (
-    <>
-      <path
-        d="M21.4 11.6L12.2 20.8C9.8 23.2 5.8 23.2 3.4 20.8C1 18.4 1 14.4 3.4 12L13.6 1.8C15.2 0.2 17.8 0.2 19.4 1.8C21 3.4 21 6 19.4 7.6L9.2 17.8C8.4 18.6 7.1 18.6 6.3 17.8C5.5 17 5.5 15.7 6.3 14.9L15.5 5.7"
-        vectorEffect={VE}
-      />
-    </>
+    <path
+      d="M21.4 11.6L12.2 20.8C9.8 23.2 5.8 23.2 3.4 20.8C1 18.4 1 14.4 3.4 12L13.6 1.8C15.2 0.2 17.8 0.2 19.4 1.8C21 3.4 21 6 19.4 7.6L9.2 17.8C8.4 18.6 7.1 18.6 6.3 17.8C5.5 17 5.5 15.7 6.3 14.9L15.5 5.7"
+      vectorEffect={VE}
+    />
   ),
 
   spark: (
@@ -411,9 +399,7 @@ export const ICON_REGISTRY = {
   ),
 
   check: (
-    <>
-      <path d="M5 12L10 17L20 7" strokeWidth="2" vectorEffect={VE} />
-    </>
+    <path d="M5 12L10 17L20 7" strokeWidth="2" vectorEffect={VE} />
   ),
 
   warning: (
@@ -441,21 +427,15 @@ export const ICON_REGISTRY = {
   ),
 
   arrowLeft: (
-    <>
-      <path d="M19 12H5M12 5L5 12L12 19" strokeWidth="1.8" vectorEffect={VE} />
-    </>
+    <path d="M19 12H5M12 5L5 12L12 19" strokeWidth="1.8" vectorEffect={VE} />
   ),
 
   arrowRight: (
-    <>
-      <path d="M5 12H19M12 5L19 12L12 19" strokeWidth="1.8" vectorEffect={VE} />
-    </>
+    <path d="M5 12H19M12 5L19 12L12 19" strokeWidth="1.8" vectorEffect={VE} />
   ),
 
   arrowDown: (
-    <>
-      <path d="M12 5V19M5 12L12 19L19 12" strokeWidth="1.8" vectorEffect={VE} />
-    </>
+    <path d="M12 5V19M5 12L12 19L19 12" strokeWidth="1.8" vectorEffect={VE} />
   ),
 
   refresh: (
@@ -505,9 +485,7 @@ export const ICON_REGISTRY = {
   ),
 
   hash: (
-    <>
-      <path d="M4 9H20M4 15H20M10 3V21M14 3V21" vectorEffect={VE} />
-    </>
+    <path d="M4 9H20M4 15H20M10 3V21M14 3V21" vectorEffect={VE} />
   ),
 
   sun: (
@@ -521,9 +499,7 @@ export const ICON_REGISTRY = {
   ),
 
   moon: (
-    <>
-      <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" vectorEffect={VE} />
-    </>
+    <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" vectorEffect={VE} />
   ),
 
   gauge: (
@@ -551,9 +527,7 @@ export const ICON_REGISTRY = {
   ),
 
   activity: (
-    <>
-      <path d="M22 12H18L15 21L9 3L6 12H2" strokeWidth="1.8" vectorEffect={VE} />
-    </>
+    <path d="M22 12H18L15 21L9 3L6 12H2" strokeWidth="1.8" vectorEffect={VE} />
   ),
 
   trendingUp: (
@@ -593,9 +567,7 @@ export const ICON_REGISTRY = {
   ),
 
   circle: (
-    <>
-      <circle cx="12" cy="12" r="9" vectorEffect={VE} />
-    </>
+    <circle cx="12" cy="12" r="9" vectorEffect={VE} />
   ),
 
   checkCircle: (
@@ -606,9 +578,7 @@ export const ICON_REGISTRY = {
   ),
 
   chevronLeft: (
-    <>
-      <path d="M15 6L9 12L15 18" strokeWidth="1.8" vectorEffect={VE} />
-    </>
+    <path d="M15 6L9 12L15 18" strokeWidth="1.8" vectorEffect={VE} />
   ),
 
   zap: (

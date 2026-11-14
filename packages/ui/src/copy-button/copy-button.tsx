@@ -35,8 +35,8 @@ export function CopyButton({ value, label, copiedLabel, fallbackLabel, iconOnly,
   const fieldRef = React.useRef<HTMLInputElement>(null);
   React.useEffect(() => {
     if (!copied) return;
-    const timer = window.setTimeout(() => setCopied(false), resetMs);
-    return () => window.clearTimeout(timer);
+    const timer = globalThis.setTimeout(() => setCopied(false), resetMs);
+    return () => globalThis.clearTimeout(timer);
   }, [copied, resetMs]);
   React.useEffect(() => {
     if (manual) fieldRef.current?.select();

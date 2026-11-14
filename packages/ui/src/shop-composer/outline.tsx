@@ -34,7 +34,7 @@ export function sectionLabel(sections: readonly Section[], index: number, messag
 
 const ICON = "h-4 w-4";
 
-export function Outline({ sections, selected, onSelect, run, messages: m, announce, onAdd, focusRequest }: OutlineProps) {
+export function Outline({ sections, selected, onSelect, run, messages: m, announce, onAdd, focusRequest }: Readonly<OutlineProps>) {
   const rows = React.useRef(new Map<string, HTMLButtonElement>());
   // After a move (or a menu action) the moved row keeps the focus: the DOM may have reordered under it. A request is consumed once —
   // never on the next change of the document, which may be typing somewhere else.

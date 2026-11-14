@@ -111,7 +111,7 @@ for (const path of PATHS) {
       const brand = () => page.evaluate(() => {
         const a = document.querySelector(".kz-site-bar a");
         const cs = getComputedStyle(a);
-        return { focused: document.activeElement === a, visible: a.matches(":focus-visible"), outline: cs.outlineStyle !== "none" && parseFloat(cs.outlineWidth) > 0 };
+        return { focused: document.activeElement === a, visible: a.matches(":focus-visible"), outline: cs.outlineStyle !== "none" && Number.parseFloat(cs.outlineWidth) > 0 };
       });
       const onLoad = await brand();
       if (onLoad.focused || onLoad.outline) problems.push(`${where}: the brand link shows a focus outline on load`);

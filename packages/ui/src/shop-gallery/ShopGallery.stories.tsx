@@ -22,7 +22,7 @@ type Story = StoryObj<typeof meta>;
 export const Five: Story = {
   render: () => <FiveExample />,
   play: async ({ canvasElement }) => {
-    if (!window.matchMedia("(min-width: 40rem)").matches) return;
+    if (!globalThis.matchMedia("(min-width: 40rem)").matches) return;
     const list = within(canvasElement).getAllByRole("list")[0] as HTMLElement;
     const lead = list.querySelector("li") as HTMLElement;
     await expect(lead.getBoundingClientRect().height).toBeLessThanOrEqual(list.getBoundingClientRect().height + 1);

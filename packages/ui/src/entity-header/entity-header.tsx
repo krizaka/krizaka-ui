@@ -9,9 +9,9 @@ import { Popover } from "@krizaka/ui/popover";
 import * as React from "react";
 
 import { PencilGlyph } from "../glyphs";
-import { type EditableBase, editName, type EntityAvatarOption, type EntityHeaderBase, type EntityRefusals, type EntityTag, useEditable, useRefusal } from "./shared";
+import { type EditableBase, editName, type EntityAvatarOption, type EntityHeaderBase, useEditable, useRefusal } from "./shared";
 
-export type { EntityRefusals, EntityTag };
+export type { EntityRefusals, EntityTag } from "./shared";
 
 export type EntityHeaderProps = EntityHeaderBase & {
   /** Makes the picture changeable: a button over it opens the library's `AvatarPicker`. */
@@ -109,23 +109,27 @@ export function EntityHeader({
   const { message, setLocal } = useRefusal(refusal, refusals);
   const picture = <Avatar size="xl" alt="" {...avatar} />;
   const errorId = React.useId();
+  let avatarSlot: React.ReactNode = null;
+  if (avatarPicker) {
+    avatarSlot = (
+      <Popover.Root>
+        <Popover.Trigger asChild>
+          <button type="button" aria-label={avatarPicker.triggerLabel} className="shrink-0 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
+            {picture}
+          </button>
+        </Popover.Trigger>
+        <Popover.Content className="w-80" align="start">
+          <AvatarPicker {...avatarPicker} dense />
+        </Popover.Content>
+      </Popover.Root>
+    );
+  } else if (avatar) {
+    avatarSlot = <span className="shrink-0">{picture}</span>;
+  }
 
   return (
     <header className={cn("flex flex-wrap items-start gap-4", className)} data-entity-header>
-      {avatarPicker ? (
-        <Popover.Root>
-          <Popover.Trigger asChild>
-            <button type="button" aria-label={avatarPicker.triggerLabel} className="shrink-0 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
-              {picture}
-            </button>
-          </Popover.Trigger>
-          <Popover.Content className="w-80" align="start">
-            <AvatarPicker {...avatarPicker} dense />
-          </Popover.Content>
-        </Popover.Root>
-      ) : avatar ? (
-        <span className="shrink-0">{picture}</span>
-      ) : null}
+      {avatarSlot}
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <h1 className="m-0 min-w-0 text-xl font-semibold text-fg-title">
           <Editable

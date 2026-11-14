@@ -75,8 +75,20 @@ export type AnalysisReportProps = Omit<React.ComponentProps<"section">, "title" 
     provenanceFolded?: boolean;
   };
 
-function FindingCard({ finding, labels, onLocate }: { finding: AnalysisFinding; labels: AnalysisReportLabels; onLocate?: AnalysisReportProps["onLocate"] }) {
+function FindingCard({ finding, labels, onLocate }: Readonly<{ finding: AnalysisFinding; labels: AnalysisReportLabels; onLocate: AnalysisReportProps["onLocate"] }>) {
   const s = analysisReportStyles();
+  let locationSlot: React.ReactNode = null;
+  if (finding.location) {
+    locationSlot = onLocate ? (
+      <Button variant="ghost" size="sm" className={s.locate()} onClick={() => onLocate(finding)}>
+        {labels.location} {finding.location}
+      </Button>
+    ) : (
+      <p className={s.muted()}>
+        <span className={s.term()}>{labels.location}</span> {finding.location}
+      </p>
+    );
+  }
   return (
     <li className={s.finding()}>
       <div className={s.findingHead()}>
@@ -104,17 +116,7 @@ function FindingCard({ finding, labels, onLocate }: { finding: AnalysisFinding; 
           )}
         </p>
       ) : null}
-      {finding.location ? (
-        onLocate ? (
-          <Button variant="ghost" size="sm" className={s.locate()} onClick={() => onLocate(finding)}>
-            {labels.location} {finding.location}
-          </Button>
-        ) : (
-          <p className={s.muted()}>
-            <span className={s.term()}>{labels.location}</span> {finding.location}
-          </p>
-        )
-      ) : null}
+      {locationSlot}
       {finding.evidence ? (
         <details className={s.fold()}>
           <summary className={s.foldSummary()}>{labels.evidence}</summary>
@@ -127,7 +129,7 @@ function FindingCard({ finding, labels, onLocate }: { finding: AnalysisFinding; 
   );
 }
 
-function TextColumn({ title, items }: { title: string; items: readonly string[] | undefined }) {
+function TextColumn({ title, items }: Readonly<{ title: string; items: readonly string[] | undefined }>) {
   const s = analysisReportStyles();
   if (!items?.length) return null;
   return (
@@ -142,7 +144,7 @@ function TextColumn({ title, items }: { title: string; items: readonly string[] 
   );
 }
 
-function Provenance({ data, labels, folded }: { data: NonNullable<AnalysisReportData["provenance"]>; labels: AnalysisReportLabels; folded?: boolean }) {
+function Provenance({ data, labels, folded }: Readonly<{ data: NonNullable<AnalysisReportData["provenance"]>; labels: AnalysisReportLabels; folded?: boolean }>) {
   const s = analysisReportStyles();
   const rows = [
     [labels.model, data.model],
@@ -177,6 +179,9 @@ export function AnalysisReport({ title, summary, status, findings, limits, nextS
   const report: AnalysisReportData = { title, summary, status, findings, limits, nextSteps, provenance };
   const counts = countByStatus(findings);
   const heading = React.useId();
+  let announcement = "";
+  if (copied) announcement = labels.copied;
+  else if (streaming) announcement = labels.streaming;
   const copy = (kind: AnalysisExport) => {
     const text = exportReport(kind, report, labels);
     void navigator.clipboard?.writeText(text).then(() => setCopied(kind));
@@ -216,7 +221,7 @@ export function AnalysisReport({ title, summary, status, findings, limits, nextS
         )}
       </header>
       <p role="status" className="sr-only">
-        {copied ? labels.copied : streaming ? labels.streaming : ""}
+        {announcement}
       </p>
       <div aria-live={streaming ? "polite" : undefined} className="flex flex-col gap-6">
         {findings.length === 0 && !streaming ? <p className={s.live()}>{labels.noFindings}</p> : null}

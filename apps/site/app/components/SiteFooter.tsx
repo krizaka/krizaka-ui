@@ -11,7 +11,7 @@ import { localePath } from "@/lib/urls";
 
 /* The footer every Krizaka site shares (@krizaka/ui/site-footer, NAV-SYS): the org line (@krizaka/org), the
    version of @krizaka/ui this site was built from (linking /changelog#<version>), the family on one line — and this site's own links first (three lines, krizaka-internal#754). */
-export async function SiteFooter({ locale }: { locale: Locale }) {
+export async function SiteFooter({ locale }: Readonly<{ locale: Locale }>) {
   const t = getDictionary(locale).site;
   const entries = (await loadReleases()).map(releaseId);
   const links = [

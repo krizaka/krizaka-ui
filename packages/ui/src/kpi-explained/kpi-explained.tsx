@@ -70,10 +70,10 @@ function formatValue(value: number, format: KpiFormat, locale: Locale): string {
 }
 
 function stateFor(value: number, thresholds: KpiExplainedProps["thresholds"]): KpiState {
-  if (thresholds.direction === "above") {
-    return value >= thresholds.actAt ? "act" : value >= thresholds.watchAt ? "watch" : "ok";
-  }
-  return value <= thresholds.actAt ? "act" : value <= thresholds.watchAt ? "watch" : "ok";
+  const reaches = thresholds.direction === "above" ? (level: number) => value >= level : (level: number) => value <= level;
+  if (reaches(thresholds.actAt)) return "act";
+  if (reaches(thresholds.watchAt)) return "watch";
+  return "ok";
 }
 
 function maskValue(value: string): string {
@@ -101,7 +101,7 @@ export function KpiExplained({
   maskedLabel,
   className,
   ...props
-}: KpiExplainedProps) {
+}: Readonly<KpiExplainedProps>) {
   const id = React.useId();
   const state = stateFor(value, thresholds);
   const formattedValue = formatValue(value, format, locale);

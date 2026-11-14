@@ -108,7 +108,7 @@ export type AppearanceSettingsProps = {
   className?: string;
 };
 
-function Miniature({ preview }: { preview: ThemePreview }) {
+function Miniature({ preview }: Readonly<{ preview: ThemePreview }>) {
   return (
     <span
       aria-hidden
@@ -129,6 +129,20 @@ function Miniature({ preview }: { preview: ThemePreview }) {
   );
 }
 
+/** The picture of a theme card: its miniature, or the two halves of the System one. */
+function themeArt(option: ThemeCardOption) {
+  if (option.preview) return <Miniature preview={option.preview} />;
+  if (option.halves) {
+    return (
+      <span aria-hidden className="grid h-16 w-full grid-cols-2 overflow-hidden rounded-md border border-border-default">
+        <Miniature preview={option.halves[0]} />
+        <Miniature preview={option.halves[1]} />
+      </span>
+    );
+  }
+  return null;
+}
+
 /** The appearance rows of a settings page: theme cards, accent, density, language, sound. */
 export function AppearanceSettings({
   themes,
@@ -147,7 +161,7 @@ export function AppearanceSettings({
   onSoundChange,
   labels: given,
   className,
-}: AppearanceSettingsProps) {
+}: Readonly<AppearanceSettingsProps>) {
   const labels = { ...appearanceLabels, ...given };
   const id = React.useId();
   return (
@@ -156,14 +170,7 @@ export function AppearanceSettings({
         <RadioGroup.Root variant="cards" label={labels.theme} value={theme} onValueChange={onThemeChange} className="grid w-full grid-cols-2 gap-3 sm:grid-cols-3">
           {themes.map((option) => (
             <RadioGroup.Card key={option.id} value={option.id} aria-describedby={option.description ? `${id}-${option.id}` : undefined}>
-              {option.preview ? (
-                <Miniature preview={option.preview} />
-              ) : option.halves ? (
-                <span aria-hidden className="grid h-16 w-full grid-cols-2 overflow-hidden rounded-md border border-border-default">
-                  <Miniature preview={option.halves[0]} />
-                  <Miniature preview={option.halves[1]} />
-                </span>
-              ) : null}
+              {themeArt(option)}
               <span className="font-semibold text-fg">{option.label}</span>
               {option.description ? (
                 <span id={`${id}-${option.id}`} className="text-xs font-normal text-fg-secondary">

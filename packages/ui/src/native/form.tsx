@@ -28,13 +28,11 @@ import { AccessibilityInfo, KeyboardAvoidingView, Platform, Pressable, ScrollVie
 
 import {
   FieldArray,
-  type FieldArrayProps,
   type FieldCheck,
   firstVisibleError,
   FormContext,
   type FormContextValue,
   FormField,
-  type FormFieldProps,
   type KrizakaField,
   type KrizakaFieldArray,
   makeCreateKrizakaForm,
@@ -44,12 +42,12 @@ import {
   useKrizakaField,
   useKrizakaFieldArray,
   Watch,
-  type WatchProps,
 } from "../form/core";
 import { formMessage } from "../form/errors";
 import { currencySymbol, moneyInputText, parseMoney } from "../form/money";
 
-export { FieldArray, type FieldArrayProps, FormField, type FormFieldProps, Watch, type WatchProps };
+export { FieldArray, FormField, Watch };
+export type { FieldArrayProps, FormFieldProps, WatchProps } from "../form/core";
 
 type Base = {
   /** The field's name in the schema (typed by the form). */

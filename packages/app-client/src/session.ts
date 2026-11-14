@@ -37,7 +37,9 @@ export function createSessionStore(options: { storage: KeyValueStorage; key: str
     },
     onChange(listener) {
       listeners.add(listener);
-      return () => void listeners.delete(listener);
+      return () => {
+        listeners.delete(listener);
+      };
     },
   };
 }

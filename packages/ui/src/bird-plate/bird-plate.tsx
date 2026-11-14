@@ -46,6 +46,13 @@ export type BirdPlateProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & 
 /** A naturalist's plate of the flock: numbered figures, a leader line from each bird to its caption, its promise. */
 export function BirdPlate({ title, subtitle, figures, start = 1, figureLabel = "fig.", separator = " · ", layout = "grid", animated = false, className, ...props }: BirdPlateProps) {
   const single = layout === "single";
+  // A figure keys on its bird and on how many figures before it show that bird: unique even when a bird repeats.
+  const seen = new Map<string, number>();
+  const keys = figures.map((f) => {
+    const n = seen.get(f.bird) ?? 0;
+    seen.set(f.bird, n + 1);
+    return `${f.bird}-${n}`;
+  });
   return (
     <figure className={cn("kz-plate", className)} data-layout={single ? "single" : undefined} {...props}>
       {(title || subtitle) && (
@@ -56,7 +63,7 @@ export function BirdPlate({ title, subtitle, figures, start = 1, figureLabel = "
       )}
       <ol className="kz-plate-figures" start={start}>
         {figures.map((f, i) => (
-          <li key={i} className="kz-plate-figure">
+          <li key={keys[i]} className="kz-plate-figure">
             <Mascot bird={f.bird} mood={f.mood ?? "welcome"} tone={f.tone ?? "own"} size={single ? 168 : 112} animated={animated} className="kz-plate-bird" aria-hidden />
             <p className="kz-plate-caption">
               <b>

@@ -33,7 +33,7 @@ export type QrCodeProps = {
 };
 
 /** A QR code from a text: dark modules on a light tile in both themes, a quiet zone, an accessible name, an optional copy action. */
-export function QrCode({ value, label, size = 176, quietZone = 4, level = "M", copyLabel, copiedLabel, onCopy, className }: QrCodeProps) {
+export function QrCode({ value, label, size = 176, quietZone = 4, level = "M", copyLabel, copiedLabel, onCopy, className }: Readonly<QrCodeProps>) {
   const quiet = Math.max(2, Math.round(quietZone));
   const { matrix, path } = React.useMemo(() => {
     const m = encodeQr(value, level);

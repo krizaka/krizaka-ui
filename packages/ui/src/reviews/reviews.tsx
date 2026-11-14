@@ -27,7 +27,7 @@ export interface ReviewSummaryProps extends Omit<React.ComponentProps<"div">, "c
 }
 
 /** The score of a shop as a stamp, with the distribution of its verified reviews: nothing under the host's minimum. */
-export function ReviewSummary({ score, count, distribution, minCount = 1, scoreText, countText, summaryText, starText, className, ...props }: ReviewSummaryProps) {
+export function ReviewSummary({ score, count, distribution, minCount = 1, scoreText, countText, summaryText, starText, className, ...props }: Readonly<ReviewSummaryProps>) {
   const id = React.useId();
   if (count < Math.max(1, minCount) || Number.isNaN(count)) return null;
   return (
@@ -75,7 +75,7 @@ export interface ReviewCardProps extends Omit<React.ComponentProps<"article">, "
 const STAR = "M8 1.6l1.9 4.1 4.5.5-3.3 3 .9 4.4L8 11.4 4 13.6l.9-4.4-3.3-3 4.5-.5Z";
 
 /** One review: who, when, which service, the rating and the words — and the owner's reply. */
-export function ReviewCard({ author, date, dateTime, service, rating, ratingText, text, reply, className, ...props }: ReviewCardProps) {
+export function ReviewCard({ author, date, dateTime, service, rating, ratingText, text, reply, className, ...props }: Readonly<ReviewCardProps>) {
   const filled = Math.min(5, Math.max(0, Math.round(rating)));
   return (
     <article className={cn("kz-review", className)} {...props}>

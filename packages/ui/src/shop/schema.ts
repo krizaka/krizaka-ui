@@ -48,8 +48,8 @@ export type Section = z.output<(typeof SECTION_DEFINITIONS)[number]["schema"]>;
 export type ShopPage = {
   schema: typeof SHOP_SCHEMA_VERSION;
   preset: z.output<typeof presetRef>;
-  density?: "compact" | "airy" | undefined;
-  accent?: string | undefined;
+  density?: "compact" | "airy";
+  accent?: string;
   sections: Section[];
 };
 export type SectionOf<T extends SectionType> = Extract<Section, { type: T }>;

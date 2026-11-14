@@ -32,7 +32,7 @@ const summary = {
 const review = { id: "a", author: "Nadia F.", date: "October 2026", dateTime: "2026-10", service: "Cut and blow-dry", rating: 5, ratingText: "5 out of 5", text: "The best blow-dry in the neighbourhood, simply." };
 
 /** The section as it looks with demo data, in the variant asked. */
-function Demo({ type, variant }: { type: SectionType; variant: string }): React.ReactNode {
+function Demo({ type, variant }: Readonly<{ type: SectionType; variant: string }>): React.ReactNode {
   const v = variant as never;
   switch (type) {
     case "hero":
@@ -76,7 +76,7 @@ export type SectionThumbnailProps = {
 };
 
 /** A picture of a section: 160 × 96 px of a 960 px page, inert and hidden from assistive technology. */
-export function SectionThumbnail({ type, variant, preset, density }: SectionThumbnailProps) {
+export function SectionThumbnail({ type, variant, preset, density }: Readonly<SectionThumbnailProps>) {
   return (
     <div aria-hidden inert className="kz-shop-thumb" data-thumb={`${type}.${variant}`}>
       <div className="kz-shop-thumb-inner">

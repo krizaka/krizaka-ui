@@ -1,7 +1,7 @@
 import { cn } from "@krizaka/ui/cn";
-import { Skeleton as KzSkeleton, type SkeletonProps as KzSkeletonProps, skeletonVariants } from "@krizaka/ui/skeleton";
+import { Skeleton as KzSkeleton, type SkeletonProps as KzSkeletonProps } from "@krizaka/ui/skeleton";
 
-export { skeletonVariants };
+export { skeletonVariants } from "@krizaka/ui/skeleton";
 
 /** Props of {@link Skeleton}: the @krizaka/ui skeleton, plus the 1.x shorthands. */
 export type SkeletonProps = KzSkeletonProps & {

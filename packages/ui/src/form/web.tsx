@@ -19,24 +19,22 @@ import * as React from "react";
 import type { DatePart } from "../date-picker/parts";
 import {
   FieldArray,
-  type FieldArrayProps,
   type FieldCheck,
   FormContext,
   type FormContextValue,
   FormField,
-  type FormFieldProps,
   type KrizakaField,
   makeCreateKrizakaForm,
   useFormContext,
   useFormStatus,
   useKrizakaField,
   Watch,
-  type WatchProps,
 } from "./core";
 import { formMessage } from "./errors";
 import { currencySymbol, moneyInputText, parseMoney } from "./money";
 
-export { FieldArray, type FieldArrayProps, FormField, type FormFieldProps, Watch, type WatchProps };
+export { FieldArray, FormField, Watch };
+export type { FieldArrayProps, FormFieldProps, WatchProps } from "./core";
 
 type Base = {
   /** The field's name in the schema: `email`, `address.city`, `links[0].url` (typed by the form). */

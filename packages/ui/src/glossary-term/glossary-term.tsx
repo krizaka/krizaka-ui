@@ -11,7 +11,7 @@ export interface GlossaryTermProps {
 }
 
 /** An underlined glossary word with a keyboard- and screen-reader-accessible definition tooltip. */
-export function GlossaryTerm({ term, definition }: GlossaryTermProps) {
+export function GlossaryTerm({ term, definition }: Readonly<GlossaryTermProps>) {
   return (
     <Tooltip content={definition}>
       <dfn tabIndex={0} className="kz-glossary-term">{term}</dfn>

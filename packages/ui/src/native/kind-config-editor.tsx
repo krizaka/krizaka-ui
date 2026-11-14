@@ -41,7 +41,7 @@ import { Txt } from "./txt";
 export type { EditorRole, Lang, StatusSetEditorLabels, TagSetEditorLabels, TagSetValue };
 export { statusSetEditorLabels, tagSetEditorLabels };
 
-function Problems({ title, problems }: { title: string; problems?: readonly string[] }) {
+function Problems({ title, problems }: Readonly<{ title: string; problems?: readonly string[] }>) {
   const { theme, radius } = useTheme();
   if (!problems || problems.length === 0) return null;
   return (
@@ -82,7 +82,7 @@ export type TagSetEditorProps = {
 };
 
 /** The admin's tag set: the presets of a variant (name, colour, order), who writes, whether people add their own, the most. */
-export function TagSetEditor({ value, onChange, variant, roles, problems, labels: given, disabled }: TagSetEditorProps) {
+export function TagSetEditor({ value, onChange, variant, roles, problems, labels: given, disabled }: Readonly<TagSetEditorProps>) {
   const labels: TagSetEditorLabels = { ...tagSetEditorLabels, ...given, markerNames: { ...tagSetEditorLabels.markerNames, ...given?.markerNames } };
   const presets = value.presets[variant] ?? [];
   const twins = duplicatePresetNames(presets);
@@ -172,7 +172,7 @@ export type StatusSetEditorProps = {
 };
 
 /** The admin's status set: the states in their order (FR and EN, tone, final), the initial state, and the moves from × to. */
-export function StatusSetEditor({ value, onChange, roles, locale = "en", problems, labels: given, disabled }: StatusSetEditorProps) {
+export function StatusSetEditor({ value, onChange, roles, locale = "en", problems, labels: given, disabled }: Readonly<StatusSetEditorProps>) {
   const labels: StatusSetEditorLabels = { ...statusSetEditorLabels, ...given };
   const [chosen, setChosen] = React.useState<{ from: string; to: string } | null>(null);
   const nameOf = (key: string) => value.states.find((s) => s.key === key)?.label[locale] || key;

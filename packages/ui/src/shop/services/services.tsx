@@ -80,7 +80,7 @@ function groupsOf(services: readonly ShopService[], by: "category" | "none") {
   return groups;
 }
 
-function MenuRow({ service, chooseLabel, popularLabel, linkAs }: { service: ShopService; chooseLabel: string; popularLabel: string; linkAs?: LinkComponent }) {
+function MenuRow({ service, chooseLabel, popularLabel, linkAs }: Readonly<{ service: ShopService; chooseLabel: string; popularLabel: string; linkAs?: LinkComponent }>) {
   const facts = [service.duration, service.capacity].filter(Boolean).join(" · ");
   return (
     <li className="flex items-center gap-3 border-b border-border-subtle py-2.5 last:border-b-0" data-service={service.id}>

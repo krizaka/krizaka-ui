@@ -83,7 +83,7 @@ function exportedNames(list) {
 /** A prop is the component's own when it is declared in the package (inherited DOM props are not). */
 function isOwnProp(prop) {
   const declarations = prop.declarations ?? [];
-  if (declarations.length === 0) return !prop.parent || !prop.parent.fileName.includes("node_modules");
+  if (declarations.length === 0) return !prop.parent?.fileName.includes("node_modules");
   return declarations.some((d) => !d.fileName.includes("node_modules"));
 }
 

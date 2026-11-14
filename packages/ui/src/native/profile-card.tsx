@@ -143,7 +143,7 @@ export type ProfileBannerProps = Omit<ViewProps, "children"> & {
  */
 export function ProfileBanner({ banner, avatar, eyebrow, title, status, meta, actions, style, ...props }: ProfileBannerProps) {
   const { theme, radius } = useTheme();
-  const id = `kz-banner-${React.useId().replace(/:/g, "")}`;
+  const id = `kz-banner-${React.useId().replaceAll(":", "")}`;
   return (
     <View style={[bannerStyles.root, style]} {...props}>
       <View aria-hidden style={[bannerStyles.cover, { borderRadius: radius.lg, backgroundColor: theme.accentSoft }]}>

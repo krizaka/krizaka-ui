@@ -49,12 +49,13 @@ export function wallLayout(count: number): { x: number; y: number; rotation: num
     const col = i % perRow;
     const inRow = Math.min(perRow, count - row * perRow);
     const x = inRow === 1 ? 50 : (col / (inRow - 1)) * 100;
-    const y = row === 0 ? (count <= perRow ? 50 : 8 + (col % 2) * 6) : 92 - (col % 2) * 6;
+    let y = 92 - (col % 2) * 6;
+    if (row === 0) y = count <= perRow ? 50 : 8 + (col % 2) * 6;
     return { x, y, rotation: [-2.2, 1.6, -1.2, 2.4, -1.8][(i * 3 + 1) % 5]! };
   });
 }
 
-function Mosaic({ photos }: { photos: readonly ShopGalleryPhoto[] }) {
+function Mosaic({ photos }: Readonly<{ photos: readonly ShopGalleryPhoto[] }>) {
   const [lead, ...rest] = photos;
   if (!lead) return null;
   return (
@@ -71,7 +72,7 @@ function Mosaic({ photos }: { photos: readonly ShopGalleryPhoto[] }) {
   );
 }
 
-function Filmstrip({ photos, label }: { photos: readonly ShopGalleryPhoto[]; label: string }) {
+function Filmstrip({ photos, label }: Readonly<{ photos: readonly ShopGalleryPhoto[]; label: string }>) {
   return (
     <div role="group" aria-label={label} tabIndex={0} className="-mx-4 overflow-x-auto px-4 pb-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:mx-0 sm:px-0">
       <ul className="m-0 flex w-max snap-x snap-mandatory list-none gap-3 p-0">
@@ -85,7 +86,7 @@ function Filmstrip({ photos, label }: { photos: readonly ShopGalleryPhoto[]; lab
   );
 }
 
-function ShopWall({ photos, notes, sign, texture, label }: { photos: readonly ShopGalleryPhoto[]; notes: readonly ShopGalleryNote[]; sign?: string; texture: NonNullable<GallerySectionProps["texture"]>; label: string }) {
+function ShopWall({ photos, notes, sign, texture, label }: Readonly<{ photos: readonly ShopGalleryPhoto[]; notes: readonly ShopGalleryNote[]; sign?: string; texture: NonNullable<GallerySectionProps["texture"]>; label: string }>) {
   const pieces = [
     ...(sign ? [{ id: "sign", kind: "sign" as const, children: sign, variant: "neon" as const }] : []),
     ...photos.slice(0, SHOP_LIMITS.photos).map((p) => ({
@@ -104,18 +105,18 @@ function ShopWall({ photos, notes, sign, texture, label }: { photos: readonly Sh
 /** The photos of a shop: a mosaic, a filmstrip, a wall or a grid. */
 export function GallerySection({ variant = "mosaic", photos, title, lead, label, notes = [], sign, texture = "plaster", className, ...props }: GallerySectionProps) {
   const shown = photos.slice(0, SHOP_LIMITS.photos);
-  const bodies: Record<GalleryVariant, () => React.ReactNode> = {
-    mosaic: () => <Mosaic photos={shown} />,
-    filmstrip: () => <Filmstrip photos={shown} label={label} />,
-    wall: () => <ShopWall photos={shown} notes={notes} sign={sign} texture={texture} label={label} />,
-    grid: () => (
+  const bodies: Record<GalleryVariant, React.ReactNode> = {
+    mosaic: <Mosaic photos={shown} />,
+    filmstrip: <Filmstrip photos={shown} label={label} />,
+    wall: <ShopWall photos={shown} notes={notes} sign={sign} texture={texture} label={label} />,
+    grid: (
       <MediaGallery
         label={label}
         items={shown.map((p) => ({ id: p.id, src: p.photo.src, alt: p.photo.alt, caption: p.caption, video: p.video, shape: "wide" as const }))}
       />
     ),
   };
-  const body = bodies[variant]();
+  const body = bodies[variant];
   return (
     <ShopSection title={title} lead={lead} className={cn(className)} data-variant={variant} {...props}>
       {body}

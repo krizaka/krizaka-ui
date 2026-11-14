@@ -45,7 +45,7 @@ export type TabsProps<T extends string> = {
  * Sections of one screen — the web `Tabs`: a tab list (underlined, scrolling sideways when long, or segmented) and the
  * selected panel under it. For the app's main sections, use `TabBar`.
  */
-export function Tabs<T extends string>({ items, value, defaultValue, onValueChange, "aria-label": label, variant = "underline", add, style }: TabsProps<T>) {
+export function Tabs<T extends string>({ items, value, defaultValue, onValueChange, "aria-label": label, variant = "underline", add, style }: Readonly<TabsProps<T>>) {
   const { theme, radius, haptic } = useTheme();
   const [own, setOwn] = React.useState<T | undefined>(defaultValue ?? items[0]?.value);
   const current = value ?? own;
@@ -59,6 +59,7 @@ export function Tabs<T extends string>({ items, value, defaultValue, onValueChan
   const binder = variant === "binder";
   const hueOf = (hue: TabsHue | undefined) =>
     ({ accent: theme.accent, success: theme.successText, warning: theme.warningText, danger: theme.dangerText, neutral: theme.textMuted })[hue ?? "accent"];
+  const tabStyle = segmented ? styles.segment : styles.tab;
   const tabs = items.map((item) => {
     const selected = item.value === current;
     return (
@@ -71,7 +72,7 @@ export function Tabs<T extends string>({ items, value, defaultValue, onValueChan
         onPress={() => select(item.value)}
         style={[
           binder ? [styles.divider, { borderTopColor: hueOf(item.hue), borderColor: theme.borderDefault, borderTopLeftRadius: radius.md, borderTopRightRadius: radius.md, backgroundColor: selected ? theme.surface1 : theme.surface2 }] : null,
-          binder ? null : segmented ? styles.segment : styles.tab,
+          binder ? null : tabStyle,
           segmented && selected ? { backgroundColor: theme.surface0, borderColor: theme.borderDefault, borderRadius: radius.sm } : null,
           !segmented && !binder ? { borderBottomColor: selected ? theme.accent : "transparent" } : null,
           item.disabled ? styles.disabled : null,

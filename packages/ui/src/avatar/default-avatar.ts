@@ -171,10 +171,8 @@ export function defaultAvatarDataUrl(avatar: DefaultAvatar): string {
 export function defaultAvatarSvg(avatar: DefaultAvatar): string {
   const [from, to] = defaultAvatarTone(avatar.brand, resolveTone(avatar));
   const kind = avatar.kind ?? "person";
-  const person = isGlyphKind(kind)
-    ? GLYPHS[kind](from)
-    : kind === "person"
-      ? `<circle cx="256" cy="200" r="86" fill="#fff" fill-opacity=".92"/><path d="M84 512c0-108 78-182 172-182s172 74 172 182z" fill="#fff" fill-opacity=".92"/>`
-      : "";
+  let person = "";
+  if (isGlyphKind(kind)) person = GLYPHS[kind](from);
+  else if (kind === "person") person = `<circle cx="256" cy="200" r="86" fill="#fff" fill-opacity=".92"/><path d="M84 512c0-108 78-182 172-182s172 74 172 182z" fill="#fff" fill-opacity=".92"/>`;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${from}"/><stop offset="1" stop-color="${to}"/></linearGradient><radialGradient id="l" cx=".28" cy=".18" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".24"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><rect width="512" height="512" fill="url(#g)"/><rect width="512" height="512" fill="url(#l)"/>${person}</svg>`;
 }

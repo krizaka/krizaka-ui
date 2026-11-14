@@ -207,12 +207,13 @@ function surfaceOf(element: HTMLElement): Rgb | null {
   }
   let background: Rgba = [0, 0, 0, 0];
   for (const node of layers.reverse()) {
-    const color = window.getComputedStyle(node).backgroundColor;
+    const color = getComputedStyle(node).backgroundColor;
     const layer: Rgba | null = color ? parseColorWithAlpha(color) : [0, 0, 0, 0];
     if (!layer) return null;
     background = over(layer, background);
   }
-  return background[3] >= 1 ? [background[0], background[1], background[2]] : null;
+  const [red, green, blue, alpha] = background;
+  return alpha >= 1 ? [red, green, blue] : null;
 }
 
 /** What the tone reaches on its surface, measured on the preview as it is drawn (the theme and the product's tokens included). */
@@ -223,7 +224,7 @@ function useContrast(ref: React.RefObject<HTMLElement | null>, key: string): { r
     if (!element) return;
     const measure = () => {
       const sample = element.querySelector<HTMLElement>("[data-text-style-sample]") ?? element;
-      const computed = window.getComputedStyle(sample);
+      const computed = getComputedStyle(sample);
       const foreground = parseColor(computed.color);
       const background = surfaceOf(sample);
       const fontSize = Number.parseFloat(computed.fontSize);

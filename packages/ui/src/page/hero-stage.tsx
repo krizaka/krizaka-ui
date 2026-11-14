@@ -2,7 +2,7 @@
 import type * as React from "react";
 
 /** The framed `figure` of a hero's visual; its bar (the caption) is decorative. */
-export function HeroStage({ visual, label }: { visual: React.ReactNode; label?: React.ReactNode }) {
+export function HeroStage({ visual, label }: Readonly<{ visual: React.ReactNode; label?: React.ReactNode }>) {
   return (
     <figure className="kz-tpl-stage">
       <div className="kz-tpl-stage-bar" aria-hidden>

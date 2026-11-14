@@ -116,7 +116,7 @@ type Edge = "sidebar" | "inspector";
 /** The window of a Mac app: sidebar · content · inspector, a toolbar that moves the window, the desktop's density. */
 export function DesktopWindow({
   sidebar, children, inspector, title, toolbarStart, toolbarEnd, labels, sidebarOpen, defaultSidebarOpen = true, onSidebarOpenChange, inspectorOpen, defaultInspectorOpen = true, onInspectorOpenChange, defaultSizes, onSizesChange, contentMin = 360, shortcuts, className,
-}: DesktopWindowProps) {
+}: Readonly<DesktopWindowProps>) {
   const [sideOpen, setSideOpen] = useOpen(sidebarOpen, defaultSidebarOpen, onSidebarOpenChange);
   const [inspOpen, setInspOpen] = useOpen(inspectorOpen, defaultInspectorOpen, onInspectorOpenChange);
   const [sizes, setSizes] = React.useState({ sidebar: clamp(defaultSizes?.sidebar ?? 240, SIDEBAR.min, SIDEBAR.max), inspector: clamp(defaultSizes?.inspector ?? 300, INSPECTOR.min, INSPECTOR.max) });
@@ -153,7 +153,9 @@ export function DesktopWindow({
     return () => observer.disconnect();
   }, []);
   const ceiling = (edge: Edge) => {
-    const other = edge === "sidebar" ? (inspShown ? sizes.inspector : 0) : sideShown ? sizes.sidebar : 0;
+    let other: number;
+    if (edge === "sidebar") other = inspShown ? sizes.inspector : 0;
+    else other = sideShown ? sizes.sidebar : 0;
     const limits = edge === "sidebar" ? SIDEBAR : INSPECTOR;
     // The separators overlap the panes (negative margins): they take no width of their own.
     return paneMax(limits, width || Number.POSITIVE_INFINITY, other, contentMin, 0);

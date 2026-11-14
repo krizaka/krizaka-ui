@@ -45,7 +45,8 @@ type PinColours = { edge: string; fill: string; stroke: string; glyph: string; h
 /** The colours a pin wears for its shape, state and tone: the state is also said by shape (hollow, struck), never by colour alone. */
 function pinColours(shape: MapPinShape, state: MapPinState, tone: "accent" | "margin"): PinColours {
   const tag = shape === "tag";
-  const base = tag ? "var(--kz-paper-tag)" : `var(--kz-${tone === "margin" ? "paper-rule-margin" : "accent"})`;
+  const accent = tone === "margin" ? "paper-rule-margin" : "accent";
+  const base = tag ? "var(--kz-paper-tag)" : `var(--kz-${accent})`;
   const edge = tag ? "var(--kz-paper-tag-edge)" : "var(--kz-on-accent)";
   const muted = "var(--kz-text-muted)";
   if (state === "closed") return { edge, fill: "var(--kz-surface-3)", stroke: muted, glyph: muted, headFill: "none" };

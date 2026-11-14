@@ -59,7 +59,7 @@ export interface AccountMenuProps {
 }
 
 /** The account menu: avatar trigger → identity header, links, language submenu, Sign out. */
-export function AccountMenu({ label, name, email, avatar, showName = true, links = [], linkAs: Link = "a", language, theme, children, signOut, className }: AccountMenuProps) {
+export function AccountMenu({ label, name, email, avatar, showName = true, links = [], linkAs: Link = "a", language, theme, children, signOut, className }: Readonly<AccountMenuProps>) {
   const title = name || email || "";
   return (
     <DropdownMenu.Root>
@@ -109,7 +109,7 @@ export function AccountMenu({ label, name, email, avatar, showName = true, links
 }
 
 /** A preference as a submenu that names the current choice. */
-function Choice({ label, value, options, onChange }: AccountMenuLanguage) {
+function Choice({ label, value, options, onChange }: Readonly<AccountMenuLanguage>) {
   const current = options.find((o) => o.value === value)?.label;
   return (
     <DropdownMenu.Sub>

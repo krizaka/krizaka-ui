@@ -10,9 +10,10 @@ import { FlatList, Image,Pressable, type StyleProp, StyleSheet, View, type ViewS
 import Svg, { Path } from "react-native-svg";
 
 import { warnDeprecated } from "../deprecated";
-import { type VerticalVideoLabels, verticalVideoLabels, type VerticalVideoShared } from "../vertical-video/model";
+import { verticalVideoLabels, type VerticalVideoShared } from "../vertical-video/model";
 
-export { type VerticalVideoLabels, verticalVideoLabels };
+export type { VerticalVideoLabels } from "../vertical-video/model";
+export { verticalVideoLabels };
 
 export type VerticalVideoProps = VerticalVideoShared & {
   /** The clip's address (MP4 or HLS). Absent, the poster alone shows. */

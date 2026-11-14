@@ -160,7 +160,7 @@ export type UsageChartProps = Omit<React.ComponentProps<"figure">, "children"> &
   locale?: string;
 };
 
-function Column({ bar, outcomes }: { bar: UsageBar; outcomes: readonly UsageOutcome[] }) {
+function Column({ bar, outcomes }: Readonly<{ bar: UsageBar; outcomes: readonly UsageOutcome[] }>) {
   const s = usage();
   return (
     <div className={s.column()}>
@@ -183,11 +183,9 @@ export function UsageChart({ title, days, outcomes, emptyLabel, columns, loading
   return (
     <figure aria-busy={loading || undefined} className={s.chart({ className })} {...props}>
       <figcaption className={s.chartTitle()}>{title}</figcaption>
-      {loading ? (
-        <div className={s.skeleton()} />
-      ) : empty ? (
-        <p className={s.state()}>{emptyLabel}</p>
-      ) : (
+      {loading && <div className={s.skeleton()} />}
+      {!loading && empty && <p className={s.state()}>{emptyLabel}</p>}
+      {!loading && !empty && (
         <>
           <div aria-hidden className={s.plot()}>
             {bars.map((bar) => (

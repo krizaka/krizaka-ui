@@ -63,7 +63,7 @@ type ClosingCallProps = Omit<React.ComponentProps<"section">, "title"> & Pick<Sh
   Pick<BookingSectionProps, "body" | "photo" | "mark" | "nextTime" | "nextTimeLabel" | "secondary" | "href" | "actionLabel" | "linkAs"> & { title: React.ReactNode };
 
 /** The photo, or the mark when there is none, or nothing: the call then reads on one column. */
-function ClosingMedia({ photo, mark }: Pick<BookingSectionProps, "photo" | "mark">) {
+function ClosingMedia({ photo, mark }: Readonly<Pick<BookingSectionProps, "photo" | "mark">>) {
   if (photo) return <Photo photo={photo} ratio="4/3" sizes="(min-width: 64rem) 36rem, calc(100vw - 2rem)" />;
   if (!mark) return null;
   return (

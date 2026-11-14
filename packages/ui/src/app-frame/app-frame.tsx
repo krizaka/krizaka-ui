@@ -117,7 +117,7 @@ function useFrameTheme(theme: AppFrameProps["theme"]): AppFrameTheme | null {
 /** The signed-in frame: sections, account and the primary action in; the rail, the top bar and the account menu out. */
 export function AppFrame({
   name, mark, headerMark, homeHref, accent, sections, currentId, account, primary, search, notifications, chips, variant = "app", language, theme, locale = "en", words, linkAs: Link, children, label, touchTargets = false,
-}: AppFrameProps) {
+}: Readonly<AppFrameProps>) {
   const w = { ...navVocabulary(locale), ...words };
   const admin = variant === "admin";
   const links = orderAccountLinks(account.links, admin);

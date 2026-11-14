@@ -40,7 +40,7 @@ export type ListDetailProps = {
 };
 
 /** The two panes of a list and its item, or one of them, chosen by the width of the room. */
-export function ListDetail({ listTitle, listActions, list, detailTitle, detailActions, detail, empty, backLabel, onBack, listWidth = 340, minDetailWidth = 400, fontScale, testID }: ListDetailProps) {
+export function ListDetail({ listTitle, listActions, list, detailTitle, detailActions, detail, empty, backLabel, onBack, listWidth = 340, minDetailWidth = 400, fontScale, testID }: Readonly<ListDetailProps>) {
   const { theme } = useTheme();
   const system = useFontScale();
   const [width, setWidth] = React.useState(0);
@@ -64,6 +64,7 @@ export function ListDetail({ listTitle, listActions, list, detailTitle, detailAc
       )}
     </Screen>
   );
+  const single = open ? detailPane : listPane;
   return (
     <View testID={testID} onLayout={onLayout} data-panes={both ? "both" : "one"} style={styles.root}>
       {both ? (
@@ -71,10 +72,8 @@ export function ListDetail({ listTitle, listActions, list, detailTitle, detailAc
           <View style={[styles.list, { width: listWidth, borderEndColor: theme.borderSubtle, borderEndWidth: StyleSheet.hairlineWidth }]}>{listPane}</View>
           <View style={styles.detail}>{detailPane}</View>
         </View>
-      ) : open ? (
-        detailPane
       ) : (
-        listPane
+        single
       )}
     </View>
   );

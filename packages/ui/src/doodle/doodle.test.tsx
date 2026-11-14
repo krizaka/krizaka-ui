@@ -58,7 +58,7 @@ describe("Doodle", () => {
     expect(ring.dataset.place).toBe("inline");
     expect(ring.hasAttribute("data-wrap")).toBe(true);
     expect(container.textContent).toBe("nothing to copy and published");
-    expect(container.querySelectorAll(".kz-doodle-ink[aria-hidden='true'] svg[preserveAspectRatio='none']").length).toBe(2);
+    expect(container.querySelectorAll(".kz-doodle-ink[aria-hidden='true'] svg[preserveAspectRatio='none']")).toHaveLength(2);
     expect(await axeViolations(container)).toEqual([]);
   });
 

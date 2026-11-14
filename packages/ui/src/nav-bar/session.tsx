@@ -77,7 +77,7 @@ export function useNavSession<TAccount = unknown>(endpoint = "/api/me", initial?
  * `hint` politely (or, given `initial`, draws the server's answer at once); if the first request fails it shows the
  * signed-out actions (the visitor can still sign in).
  */
-export function NavBarSession<TAccount = unknown>({ endpoint = "/api/me", initial, sessionHint, signedOut, signedIn, hint, className }: NavBarSessionProps<TAccount>) {
+export function NavBarSession<TAccount = unknown>({ endpoint = "/api/me", initial, sessionHint, signedOut, signedIn, hint, className }: Readonly<NavBarSessionProps<TAccount>>) {
   const session = useNavSession<TAccount>(endpoint, initial);
   const flagged = useSessionHint();
   if (session.status === "pending") {

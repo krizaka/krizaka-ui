@@ -1,6 +1,6 @@
 import { generateKeyPairSync } from "node:crypto";
 
-import { bytesToBase64, type DiscoveryStorage, type Manifest, type ManifestBody, type ServiceEntry } from "../src/index";
+import { type DiscoveryStorage, type Manifest, type ManifestBody, type ServiceEntry } from "../src/index";
 import { signManifest } from "../src/sign";
 
 export function keypair() {
@@ -37,15 +37,19 @@ export function body(over: Partial<ManifestBody> = {}, verikora: Partial<Service
 
 export const signed = (b: ManifestBody = body(), seed = K1.seed): Manifest => signManifest(b, seed);
 export const json = (m: Manifest) => JSON.stringify(m);
-export { bytesToBase64 };
+export { bytesToBase64 } from "../src/index";
 
 export function memory(): DiscoveryStorage & { data: Map<string, string> } {
   const data = new Map<string, string>();
   return {
     data,
     getItem: async (k) => data.get(k) ?? null,
-    setItem: async (k, v) => void data.set(k, v),
-    removeItem: async (k) => void data.delete(k),
+    setItem: async (k, v) => {
+      data.set(k, v);
+    },
+    removeItem: async (k) => {
+      data.delete(k);
+    },
   };
 }
 

@@ -76,7 +76,7 @@ const POKE_MS = 700;
 function useMayMove(): boolean {
   const [may, setMay] = React.useState(false);
   React.useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const query = globalThis.matchMedia("(prefers-reduced-motion: reduce)");
     // The page settles first: `html[data-motion="settling"]` (MotionObserver) holds every loop until it is `ready`.
     const settled = () => document.documentElement.getAttribute("data-motion") !== "settling";
     const update = () => setMay(!query.matches && document.visibilityState !== "hidden" && settled());
@@ -106,6 +106,9 @@ function useOnScreen(ref: React.RefObject<Element | null>): boolean {
   }, [ref]);
   return on;
 }
+
+/** The updater that drops one shown item (kept out of the component: it would nest the callbacks too deep). */
+const without = (id: number) => (all: Shown[]) => all.filter((x) => x.id !== id);
 
 /**
  * The flock on its stage, alive. Decorative (`aria-hidden`): put the words beside it. Each bird idles in character; every
@@ -150,7 +153,7 @@ export function Flock({ birds, ratio = 16 / 9, tone = "brand", glance = true, co
     const show = (index: number, kind: Shown["kind"], ms: number, side?: 1 | -1, mark?: string) => {
       const item: Shown = { id: ++ids.current, at: index, kind, ms, side, mark };
       setShown((all) => [...all, item]);
-      later(() => setShown((all) => all.filter((x) => x.id !== item.id)), ms);
+      later(() => setShown(without(item.id)), ms);
     };
     return {
       birds,
@@ -336,8 +339,10 @@ export function Flock({ birds, ratio = 16 / 9, tone = "brand", glance = true, co
     greeted.current = true;
     const timers: ReturnType<typeof setTimeout>[] = [];
     order.forEach((index, n) => {
-      timers.push(setTimeout(() => setPoked((p) => ({ ...p, [index]: true })), n * GREET_STEP_MS));
-      timers.push(setTimeout(() => setPoked((p) => ({ ...p, [index]: false })), n * GREET_STEP_MS + POKE_MS));
+      timers.push(
+        setTimeout(() => setPoked((p) => ({ ...p, [index]: true })), n * GREET_STEP_MS),
+        setTimeout(() => setPoked((p) => ({ ...p, [index]: false })), n * GREET_STEP_MS + POKE_MS),
+      );
     });
     return () => timers.forEach(clearTimeout);
   }, [running, greet, order]);

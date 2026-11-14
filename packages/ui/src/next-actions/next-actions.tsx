@@ -26,7 +26,7 @@ export interface NextActionsProps extends Omit<React.ComponentProps<"section">, 
 }
 
 /** “What to do now”: two or three ranked actions, with their reason and urgency. */
-export function NextActions({ title, actions, className, ...props }: NextActionsProps) {
+export function NextActions({ title, actions, className, ...props }: Readonly<NextActionsProps>) {
   return (
     <section className={["kz-next-actions", className].filter(Boolean).join(" ")} {...props}>
       <h2 className="kz-next-actions-title">{title}</h2>

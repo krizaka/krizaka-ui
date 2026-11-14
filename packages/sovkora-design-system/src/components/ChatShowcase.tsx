@@ -53,12 +53,12 @@ type Phase = 0 | 1 | 2 | 3 | 4; // idle · user · typing · answering · done
 
 const REDUCE = "(prefers-reduced-motion: reduce)";
 const subscribeReduce = (notify: () => void) => {
-  if (typeof window === "undefined" || !window.matchMedia) return noop;
-  const query = window.matchMedia(REDUCE);
+  if (globalThis.window === undefined || !globalThis.matchMedia) return noop;
+  const query = globalThis.matchMedia(REDUCE);
   query.addEventListener?.("change", notify);
   return () => query.removeEventListener?.("change", notify);
 };
-const readReduce = () => typeof window !== "undefined" && Boolean(window.matchMedia?.(REDUCE).matches);
+const readReduce = () => globalThis.window !== undefined && Boolean(globalThis.matchMedia?.(REDUCE).matches);
 
 /** `true` when the person asked for less motion; read on the client only (the server renders the first frame). */
 function usePrefersReducedMotion(): boolean {

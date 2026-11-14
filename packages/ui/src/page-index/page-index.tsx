@@ -40,8 +40,8 @@ export function PageIndex({ groups, label = "Index", linkAs, className, ...props
         <section key={gi} className="kz-index-group">
           <h4 className="kz-index-title">{g.title}</h4>
           <ul>
-            {g.entries.map((e, i) => (
-              <li key={i}>
+            {g.entries.map((e) => (
+              <li key={e.href}>
                 <BlockLink href={e.href} linkAs={linkAs} className="kz-index-entry" aria-current={e.current ? "page" : undefined}>
                   <span className="kz-index-label">{e.label}</span>
                   <span className="kz-index-leader" aria-hidden />

@@ -23,6 +23,6 @@ export function mascotFor(section: Pick<Section, "type" | "variant">, look: { ma
 }
 
 /** The bird, small, in the brand's accent: decorative (`aria-hidden`), the words stay beside it. */
-export function ShopMascot({ bird, size = 56 }: { bird: MascotBird; size?: number }) {
+export function ShopMascot({ bird, size = 56 }: Readonly<{ bird: MascotBird; size?: number }>) {
   return <Mascot bird={bird} tone="brand" size={size} life aria-hidden />;
 }

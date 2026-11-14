@@ -71,8 +71,8 @@ export function SiteCahier({ site, name, bird, hue, nav, navLabel = "Main", home
               </BlockLink>
               <nav aria-label={navLabel}>
                 <ul className="kz-cahier-nav">
-                  {nav.map((item, i) => (
-                    <li key={i}>
+                  {nav.map((item) => (
+                    <li key={item.href}>
                       <BlockLink href={item.href} linkAs={linkAs} aria-current={item.current ? "page" : undefined}>
                         {item.label}
                       </BlockLink>

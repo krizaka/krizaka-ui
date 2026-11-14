@@ -17,7 +17,7 @@ export type LookPickerProps = {
 };
 
 /** The accent chips of a look, drawn by its own tokens. */
-function Chips({ look }: { look: ShopComposerPreset }) {
+function Chips({ look }: Readonly<{ look: ShopComposerPreset }>) {
   return (
     <span aria-hidden className="inline-flex gap-1">
       {(look.accents ?? [look.accent ?? "krizaka"]).map((a) => (
@@ -29,7 +29,7 @@ function Chips({ look }: { look: ShopComposerPreset }) {
   );
 }
 
-export function LookPicker({ looks, page, messages: m, run, announce }: LookPickerProps) {
+export function LookPicker({ looks, page, messages: m, run, announce }: Readonly<LookPickerProps>) {
   const current = looks.find((l) => l.id === page.preset.id);
   const accents = current?.accents ?? [];
   return (

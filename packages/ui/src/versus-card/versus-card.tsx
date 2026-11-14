@@ -43,7 +43,7 @@ export type VersusCardProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> &
   source?: React.ReactNode;
 };
 
-function FighterPane({ fighter, side }: { fighter: Fighter; side: "left" | "right" }) {
+function FighterPane({ fighter, side }: Readonly<{ fighter: Fighter; side: "left" | "right" }>) {
   const stats = fighter.stats.filter((s) => Number.isFinite(s.value) && Number.isFinite(s.max ?? 100) && (s.max ?? 100) > 0);
   return (
     <div className="kz-versus-fighter" data-side={side}>

@@ -136,7 +136,7 @@ describe("AppFrame", () => {
 
   it("a name that is the document has exactly one brand mark per width (the rail's and the header's)", () => {
     render(<Frame />);
-    expect(document.querySelectorAll("[data-brand-mark]").length).toBe(2);
+    expect(document.querySelectorAll("[data-brand-mark]")).toHaveLength(2);
   });
 
   it("the examples render with no axe violation", async () => {

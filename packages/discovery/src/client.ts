@@ -172,7 +172,7 @@ export function createDiscovery(options: DiscoveryOptions): Discovery {
         last = "older than the document in force";
         continue;
       }
-      const different = !doc || doc.signature !== result.manifest.signature || docSource !== "live";
+      const different = doc?.signature !== result.manifest.signature || docSource !== "live";
       doc = result.manifest;
       docSource = "live";
       try {
@@ -239,7 +239,9 @@ export function createDiscovery(options: DiscoveryOptions): Discovery {
     document: () => doc,
     subscribe(listener) {
       listeners.add(listener);
-      return () => void listeners.delete(listener);
+      return () => {
+        listeners.delete(listener);
+      };
     },
     version: () => counter,
     startBackgroundRefresh(intervalMs = DEFAULT_REFRESH_MS) {

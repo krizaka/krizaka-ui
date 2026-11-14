@@ -85,7 +85,7 @@ function reducer(state: State, a: Action): State {
   }
 }
 
-function PreviewFrame({ src, title, phone, frame }: { src: string; title: string; phone: boolean; frame: React.Ref<HTMLIFrameElement> }) {
+function PreviewFrame({ src, title, phone, frame }: Readonly<{ src: string; title: string; phone: boolean; frame: React.Ref<HTMLIFrameElement> }>) {
   return (
     <div className="flex h-full min-h-0 justify-center overflow-auto bg-surface-2 p-3">
       <iframe ref={frame} src={src || undefined} title={title} data-device={phone ? "phone" : "desktop"} className={phone ? "h-full min-h-[34rem] w-[390px] max-w-full rounded-xl border border-border-default bg-surface-0" : "h-full min-h-[34rem] w-full rounded-xl border border-border-default bg-surface-0"} />
@@ -94,7 +94,7 @@ function PreviewFrame({ src, title, phone, frame }: { src: string; title: string
 }
 
 /** The shop composer. */
-export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, published, previewUrl, presets, foldedTypes = [], messages = defaultShopComposerMessages, className }: ShopComposerProps) {
+export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, published, previewUrl, presets, foldedTypes = [], messages = defaultShopComposerMessages, className }: Readonly<ShopComposerProps>) {
   const m = messages;
   const [{ history, epoch }, dispatch] = React.useReducer(reducer, value, (v): State => ({ history: createHistory(v), epoch: 0 }));
   const page = history.present;
@@ -223,7 +223,10 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
     }
   };
 
-  const status_ = status === "saving" ? m.saving : status === "saved" ? m.saved : status === "error" ? m.saveFailed : "";
+  let status_ = "";
+  if (status === "saving") status_ = m.saving;
+  else if (status === "saved") status_ = m.saved;
+  else if (status === "error") status_ = m.saveFailed;
 
   return (
     <div className={cn("kz-composer flex min-h-0 flex-col gap-3", className)} onKeyDown={onKeyDown} data-step={step}>
@@ -285,7 +288,17 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
               run={exec}
               epoch={epoch}
               announce={announce}
-              onInvalid={(key, bad) => setInvalid((prev) => { const next = new Set(prev); if (bad) next.add(key); else next.delete(key); return next.size === prev.size && next.has(key) === prev.has(key) ? prev : next; })}
+              onInvalid={(key, bad) =>
+                setInvalid((prev) => {
+                  const next = new Set(prev);
+                  if (bad) {
+                    next.add(key);
+                  } else {
+                    next.delete(key);
+                  }
+                  return next.size === prev.size && next.has(key) === prev.has(key) ? prev : next;
+                })
+              }
               preset={page.preset.id}
               density={page.density}
             />
@@ -302,7 +315,10 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
             <Dialog.Description>{m.addSectionHint}</Dialog.Description>
           </Dialog.Header>
           <Dialog.Body>
-            {[SECTION_DEFINITIONS.filter((d) => !foldedTypes.includes(d.type)), SECTION_DEFINITIONS.filter((d) => foldedTypes.includes(d.type))].map((group, g) => {
+            {[
+              { key: "open", group: SECTION_DEFINITIONS.filter((d) => !foldedTypes.includes(d.type)) },
+              { key: "folded", group: SECTION_DEFINITIONS.filter((d) => foldedTypes.includes(d.type)) },
+            ].map(({ key: groupKey, group }) => {
               const list = (
                 <ul className="m-0 grid list-none gap-1 p-0">
                   {group.map((d) => (
@@ -314,7 +330,9 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
                   ))}
                 </ul>
               );
-              return group.length === 0 ? null : g === 0 ? <React.Fragment key={g}>{list}</React.Fragment> : <details key={g} className="mt-3"><summary className="min-h-9 cursor-pointer text-sm text-fg-secondary">…</summary>{list}</details>;
+              if (group.length === 0) return null;
+              if (groupKey === "open") return <React.Fragment key={groupKey}>{list}</React.Fragment>;
+              return <details key={groupKey} className="mt-3"><summary className="min-h-9 cursor-pointer text-sm text-fg-secondary">…</summary>{list}</details>;
             })}
           </Dialog.Body>
         </Dialog.Content>
@@ -336,7 +354,7 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
             {changes.length === 0 ? (
               <p className="m-0 text-sm text-fg-secondary">{m.publishNothing}</p>
             ) : (
-              <ul className="m-0 list-disc ps-5 text-sm text-fg">{changes.map((d, i) => <li key={i}>{describe(d)}</li>)}</ul>
+              <ul className="m-0 list-disc ps-5 text-sm text-fg">{changes.map((d) => <li key={"key" in d ? `${d.kind}:${d.key}` : d.kind}>{describe(d)}</li>)}</ul>
             )}
           </Dialog.Body>
           <Dialog.Footer>

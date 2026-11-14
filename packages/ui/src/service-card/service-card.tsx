@@ -128,10 +128,27 @@ export function ServiceCard({
   const s = serviceCard({ variant, density, mediaRatio });
   const index = variant === "index";
   const id = React.useId();
-  const facts = [duration, capacity].filter(Boolean);
+  const facts = [
+    { key: "duration", value: duration },
+    { key: "capacity", value: capacity },
+  ].filter((f) => Boolean(f.value));
   const actionClass = index ? cn(buttonVariants({ variant: "secondary", size: "md" }), "min-h-11 rounded-none no-underline") : s.action();
   const arrow = <span aria-hidden>→</span>;
   const revealStyle = reveal === undefined ? style : ({ ...style, "--kz-delay": `${Math.min(Math.max(reveal, 0), 8) * 50}ms` } as React.CSSProperties);
+  let cta: React.ReactNode = null;
+  if (href) {
+    cta = (
+      <BlockLink href={href} linkAs={linkAs} className={actionClass} aria-describedby={id}>
+        {actionLabel} {arrow}
+      </BlockLink>
+    );
+  } else if (onSelect) {
+    cta = (
+      <button type="button" onClick={onSelect} aria-pressed={selected ?? false} aria-describedby={id} className={actionClass}>
+        {actionLabel} {arrow}
+      </button>
+    );
+  }
   return (
     <article
       aria-labelledby={id}
@@ -157,8 +174,8 @@ export function ServiceCard({
             {facts.length > 0 && (
               <ul className={s.facts()}>
                 {facts.map((fact, i) => (
-                  <li key={i}>
-                    {index ? <Stamp tone="ink" size="sm">{fact}</Stamp> : <>{i > 0 && <span aria-hidden>· </span>}{fact}</>}
+                  <li key={fact.key}>
+                    {index ? <Stamp tone="ink" size="sm">{fact.value}</Stamp> : <>{i > 0 && <span aria-hidden>· </span>}{fact.value}</>}
                   </li>
                 ))}
               </ul>
@@ -182,15 +199,7 @@ export function ServiceCard({
             {priceFrom && <span className={s.from()}>{priceFrom}</span>}
             {index ? <Stamp tone="ink" size="sm" data-figure="" className="tabular-nums">{price}</Stamp> : <span className={s.price()}>{price}</span>}
           </p>
-          {href ? (
-            <BlockLink href={href} linkAs={linkAs} className={actionClass} aria-describedby={id}>
-              {actionLabel} {arrow}
-            </BlockLink>
-          ) : onSelect ? (
-            <button type="button" onClick={onSelect} aria-pressed={selected ?? false} aria-describedby={id} className={actionClass}>
-              {actionLabel} {arrow}
-            </button>
-          ) : null}
+          {cta}
         </div>
       </div>
     </article>

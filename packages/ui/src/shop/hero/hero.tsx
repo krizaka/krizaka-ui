@@ -40,7 +40,7 @@ const eyebrowClass = "m-0 font-mono text-[13px] text-fg-accent";
 // The weight comes from the preset (`--kz-shop-title-weight`: Young Serif has one, Plus Jakarta Sans 650): `blocks.css`.
 const titleClass = "kz-shop-title m-0 font-display text-4xl leading-[1.05] tracking-tight text-fg sm:text-5xl";
 
-function Text({ title, eyebrow, lead: leadText, facts, actions }: Pick<HeroSectionProps, "title" | "eyebrow" | "lead" | "facts" | "actions">) {
+function Text({ title, eyebrow, lead: leadText, facts, actions }: Readonly<Pick<HeroSectionProps, "title" | "eyebrow" | "lead" | "facts" | "actions">>) {
   return (
     <div className="flex min-w-0 flex-col items-start gap-3">
       {eyebrow && <p className={eyebrowClass}>{eyebrow}</p>}

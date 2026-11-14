@@ -46,7 +46,7 @@ export { statusSetEditorLabels, tagSetEditorLabels };
 // --- shared ----------------------------------------------------------------------------------------------------------------
 
 /** The problems the server's rules found, shown where the admin is working: a polite alert above the list. */
-function Problems({ title, problems }: { title: string; problems: readonly string[] | undefined }) {
+function Problems({ title, problems }: Readonly<{ title: string; problems: readonly string[] | undefined }>) {
   if (!problems || problems.length === 0) return null;
   return (
     <div role="alert" className="flex flex-col gap-1 rounded-lg border border-danger/40 bg-danger/10 px-3 py-2.5">
@@ -149,7 +149,7 @@ export type TagSetEditorProps = {
 };
 
 /** The admin's tag set: the presets of a variant (name, colour, order), who writes, whether people add their own, the most. */
-export function TagSetEditor({ value, onChange, variant, roles, problems, labels: given, disabled, className }: TagSetEditorProps) {
+export function TagSetEditor({ value, onChange, variant, roles, problems, labels: given, disabled, className }: Readonly<TagSetEditorProps>) {
   const labels: TagSetEditorLabels = { ...tagSetEditorLabels, ...given, markerNames: { ...tagSetEditorLabels.markerNames, ...given?.markerNames } };
   const presets = value.presets[variant] ?? [];
   const twins = duplicatePresetNames(presets);
@@ -294,7 +294,7 @@ export type StatusSetEditorProps = {
 };
 
 /** The admin's status set: the states in their order (FR and EN, tone, final), the initial state, and the moves from × to. */
-export function StatusSetEditor({ value, onChange, roles, locale = "en", problems, labels: given, disabled, className }: StatusSetEditorProps) {
+export function StatusSetEditor({ value, onChange, roles, locale = "en", problems, labels: given, disabled, className }: Readonly<StatusSetEditorProps>) {
   const labels: StatusSetEditorLabels = { ...statusSetEditorLabels, ...given };
   const [chosen, setChosen] = React.useState<{ from: string; to: string } | null>(null);
   const reorder = useReorder((from, to) => onChange(moveState(value, from, to)));

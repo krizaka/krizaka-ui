@@ -33,7 +33,8 @@ function displayedMagnitude(value: number, numbers: Intl.NumberFormat): number {
   ] as const).sort(([left], [right]) => right.length - left.length);
   const normalizeDigits = (value: string) =>
     digits.reduce((result, [localized, ascii]) => result.replaceAll(localized, ascii), value);
-  return Number(`${normalizeDigits(integer)}${fraction ? `.${normalizeDigits(fraction)}` : ""}`);
+  const fractionText = fraction ? `.${normalizeDigits(fraction)}` : "";
+  return Number(`${normalizeDigits(integer)}${fractionText}`);
 }
 
 /** Long numeric relative text (en/fr; English wording otherwise), using the cached number formatter. */

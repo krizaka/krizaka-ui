@@ -23,16 +23,16 @@ export type MapGateProps = {
 
 const WIDE = "(min-width: 40rem)";
 function subscribeWide(notify: () => void) {
-  const q = window.matchMedia(WIDE);
+  const q = globalThis.matchMedia(WIDE);
   q.addEventListener("change", notify);
   return () => q.removeEventListener("change", notify);
 }
 
 /** The place as a still, the live map on a click — or at once on a screen that can afford it. */
-export function MapGate({ label, center, zoom = 14, places, showLabel, map, className }: MapGateProps) {
+export function MapGate({ label, center, zoom = 14, places, showLabel, map, className }: Readonly<MapGateProps>) {
   const [asked, setAsked] = React.useState(false);
   // A screen that can afford it shows the live map at once; the server and a phone start with the still.
-  const wide = React.useSyncExternalStore(subscribeWide, () => window.matchMedia(WIDE).matches, () => false);
+  const wide = React.useSyncExternalStore(subscribeWide, () => globalThis.matchMedia(WIDE).matches, () => false);
   const live = asked || wide;
   const still = <StaticMap label={label} center={center} zoom={zoom} places={places} />;
   return (

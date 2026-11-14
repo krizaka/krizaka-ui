@@ -91,7 +91,8 @@ export function reportToJson(report: AnalysisReportData): string {
 const bullets = (items: readonly string[]) => items.map((i) => `- ${i}`);
 
 function findingLines(f: AnalysisFinding, labels: AnalysisReportLabels): string[] {
-  const head = `### ${f.code ? `\`${f.code}\` · ` : ""}${f.title}`;
+  const code = f.code ? `\`${f.code}\` · ` : "";
+  const head = `### ${code}${f.title}`;
   return [
     head,
     ...(f.observation ? ["", f.observation] : []),
