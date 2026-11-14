@@ -860,27 +860,14 @@
     }
   },
   "landing": {
-    "tryBuilder": "Try the UI Builder",
+    "getStarted": "Get started",
+    "builderBefore": "Or try the components live in the",
+    "builderLink": "UI Builder",
     "title": "The components behind every Krizaka product.",
     "lead": "{count} components for React and React Native, with the tokens, faces and icons they wear. Open source.",
     "install": "Install",
     "copy": "Copy",
     "copied": "Copied",
-    "ways": {
-      "label": "Ways in",
-      "components": {
-        "title": "Components",
-        "description": "All {count}, by what you are building: a page, a form, a chat, a map."
-      },
-      "foundations": {
-        "title": "Foundations",
-        "description": "Colour, type, spacing, motion: the tokens every component reads."
-      },
-      "templates": {
-        "title": "Templates",
-        "description": "Whole screens composed from the components, ready to copy."
-      }
-    },
     "search": {
       "placeholder": "Search a component, a token, a guide…"
     },
