@@ -2,8 +2,8 @@
   "generated": "2026-11-02",
   "package": {
     "name": "@krizaka/ui",
-    "version": "4.4.0",
-    "distMeasured": "packages/ui/dist (@krizaka/ui@4.4.0)"
+    "version": "4.4.1",
+    "distMeasured": "packages/ui/dist (@krizaka/ui@4.4.1)"
   },
   "consumers": [
     {
@@ -52,7 +52,7 @@
       "absent": false,
       "head": null,
       "sha": null,
-      "files": 184
+      "files": 192
     },
     {
       "name": "java-site",
@@ -1333,12 +1333,12 @@
       "importers": {
         "folioviv": 2,
         "blog": 1,
-        "ui-site": 1,
+        "ui-site": 2,
         "java-site": 1,
         "ts-site": 1
       },
       "nativeUse": {},
-      "live": 6,
+      "live": 7,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -1354,7 +1354,7 @@
       "lastChange": "2026-10-29",
       "created": "2026-10-13",
       "verdict": "keep",
-      "why": "6 live importer file(s)"
+      "why": "7 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -1453,9 +1453,9 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 1174,
+      "sizeGzip": 1205,
       "budget": 1200,
-      "tests": 2,
+      "tests": 3,
       "stories": 0,
       "lastChange": "2026-11-14",
       "created": "2026-10-22",
@@ -1650,10 +1650,10 @@
       "budget": 1300,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-13",
-      "created": "2026-11-13",
+      "lastChange": "2026-11-14",
+      "created": "2026-11-14",
       "verdict": "ask",
-      "why": "unused, new (2026-11-13): its adoption issue?"
+      "why": "unused, new (2026-11-14): its adoption issue?"
     },
     {
       "pkg": "ui",
@@ -6493,7 +6493,7 @@
       "budget": 75000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-11-13",
+      "lastChange": "2026-11-14",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "44 live importer file(s)"
@@ -6519,7 +6519,7 @@
       "budget": 6000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-11-13",
+      "lastChange": "2026-11-14",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -6545,7 +6545,7 @@
       "budget": 2000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-11-13",
+      "lastChange": "2026-11-14",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "a filed need (its repository left the organisation)"
@@ -6571,7 +6571,7 @@
       "budget": 2500,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-11-13",
+      "lastChange": "2026-11-14",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -6597,7 +6597,7 @@
       "budget": 2500,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-11-13",
+      "lastChange": "2026-11-14",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -6626,7 +6626,7 @@
       "budget": 2000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-11-13",
+      "lastChange": "2026-11-14",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -6652,7 +6652,7 @@
       "budget": 23000,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-11-13",
+      "lastChange": "2026-11-14",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "a filed need (its repository left the organisation)"
@@ -6678,7 +6678,7 @@
       "budget": 13200,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-11-13",
+      "lastChange": "2026-11-14",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "filed need folioviv#235"
@@ -6704,7 +6704,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-11-13",
+      "lastChange": "2026-11-14",
       "created": "2026-10-09",
       "verdict": "retire",
       "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
@@ -7615,7 +7615,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-11-13",
+      "lastChange": "2026-11-14",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
