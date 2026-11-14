@@ -274,11 +274,12 @@ test("the committed inventory is exactly what its own facts regenerate (no hand 
   assert.match(read(".github/workflows/usage-inventory.yml"), /fetch-depth: 0/);
 });
 
-test("captcha is in its own domain abuse, with its own frozen 5 kB, and identity keeps its 24.9 kB (krizaka-internal#2285)", () => {
+test("captcha is in its own domain abuse, with its own frozen 5 kB, and identity never goes back above its 24.9 kB (krizaka-internal#2285)", () => {
   assert.ok("abuse" in DOMAINS);
   assert.equal(domainOf("captcha", "forms"), "abuse");
   assert.notEqual(domainOf("avatar", "media"), "abuse");
   const frozen = JSON.parse(readFileSync(new URL("../packages/ui/size-budgets.json", import.meta.url), "utf8")).domains;
-  assert.equal(frozen.abuse, 5000);
-  assert.equal(frozen.identity, 24900);
+  // Ceilings, not exact values: the ratchet (ADR-008 §5) lowers a budget each time a domain shrinks (krizaka-ui#1013).
+  assert.ok(frozen.abuse > 0 && frozen.abuse <= 5000, `abuse ${frozen.abuse} B: its own budget, never above 5 kB`);
+  assert.ok(frozen.identity > 0 && frozen.identity <= 24900, `identity ${frozen.identity} B: never back above 24.9 kB`);
 });
