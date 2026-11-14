@@ -19,8 +19,16 @@ const CHANGE = "kz-route-state";
 export const browserAdapter: RouteAdapter = {
   search: () => (globalThis.window === undefined ? "" : globalThis.location.search),
   navigate: (search, { replace }) => {
+    // The address already shown adds no entry (a tab fires twice on one click: mousedown, then focus).
+    // The change event still fires: it settles what `navigateFrom` kept as pending.
+    if (search.replace(/^\?/, "") === globalThis.location.search.replace(/^\?/, "")) {
+      globalThis.dispatchEvent(new Event(CHANGE));
+      return;
+    }
     const url = `${globalThis.location.pathname}${search}${globalThis.location.hash}`;
-    globalThis.history[replace ? "replaceState" : "pushState"](globalThis.history.state, "", url);
+    // A null state, never the current one: Next.js keeps its own mark in the state, and an entry that carries it is taken
+    // as Next's own and never synced (`useSearchParams` would keep the old value). Without a state, Next adopts the entry.
+    globalThis.history[replace ? "replaceState" : "pushState"](null, "", url);
     globalThis.dispatchEvent(new Event(CHANGE));
   },
   subscribe: (onChange) => {
