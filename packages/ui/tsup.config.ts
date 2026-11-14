@@ -92,6 +92,8 @@ export default defineConfig([
       stepper: "src/stepper/index.ts",
       "chip-link": "src/chip-link/index.ts",
       "chip-row": "src/chip-row/index.ts",
+      // Grid and Columns that decide on their container's width, like the native ones (server-safe, CSS only).
+      columns: "src/columns/index.ts",
       meter: "src/meter/index.ts",
       pagination: "src/pagination/index.ts",
       "description-list": "src/description-list/index.ts",

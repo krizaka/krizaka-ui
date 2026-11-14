@@ -67,6 +67,7 @@ export type ComponentName =
   | "chip"
   | "chip-link"
   | "chip-row"
+  | "columns"
   | "choice-grid"
   | "cn"
   | "code-block"
