@@ -63,6 +63,7 @@ export const PLANNED: Record<string, string> = {
   "analysis-report": "Verikora (the report of a check, krizaka/verikora#314), Sovkora's Studios, then every product that shows an Sovkora analysis.",
   "environment-notice": "Verikora (krizaka/verikora#364) on every surface of its dev deployment, then Folioviv and Sovkora.",
   "chip-row": "Verikora's « Pour qui ? » audience picker (krizaka/verikora home redesign, AudiencePicker moves into it), then any page of filters that are addresses.",
+  columns: "The UI Builder's Columns block and any block that must follow the width of its container, in a page, a side sheet or a canvas.",
   "docs-layout": "Builds the documentation article template.",
   "text-style": "Folioviv storefronts: the shop owner sets the font, size and tone of the shop's titles and text (krizaka/folioviv#236); then the product theme settings of the admin consoles (krizaka-ui#561).",
   stuck: "The Cahier (ADR-004, krizaka-ui#554): the products' cards and figures stuck into the notebook on www.krizaka.com's #products.",
