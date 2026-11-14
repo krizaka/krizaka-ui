@@ -121,7 +121,10 @@ function accentDecls(brands, mode, ref) {
 }
 
 /** @param {string} sel @param {string[]} decls */
-const block = (sel, decls) => `${sel} {\n${decls.map((d) => `  ${d}`).join("\n")}\n}`;
+const block = (sel, decls) => {
+  const body = decls.map((d) => `  ${d}`).join("\n");
+  return `${sel} {\n${body}\n}`;
+};
 
 /** The three rules (dark, light, a dark island) of one accent under a selector; `extra` joins the dark one. @param {Record<string, any>} brands @param {string} sel @param {string} ref @param {string[]} [extra] */
 function accentBlocks(brands, sel, ref, extra = []) {

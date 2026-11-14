@@ -128,7 +128,10 @@ export function ServiceCard({
   const s = serviceCard({ variant, density, mediaRatio });
   const index = variant === "index";
   const id = React.useId();
-  const facts = [duration, capacity].filter(Boolean);
+  const facts = [
+    { key: "duration", value: duration },
+    { key: "capacity", value: capacity },
+  ].filter((f) => Boolean(f.value));
   const actionClass = index ? cn(buttonVariants({ variant: "secondary", size: "md" }), "min-h-11 rounded-none no-underline") : s.action();
   const arrow = <span aria-hidden>→</span>;
   const revealStyle = reveal === undefined ? style : ({ ...style, "--kz-delay": `${Math.min(Math.max(reveal, 0), 8) * 50}ms` } as React.CSSProperties);
@@ -171,8 +174,8 @@ export function ServiceCard({
             {facts.length > 0 && (
               <ul className={s.facts()}>
                 {facts.map((fact, i) => (
-                  <li key={i}>
-                    {index ? <Stamp tone="ink" size="sm">{fact}</Stamp> : <>{i > 0 && <span aria-hidden>· </span>}{fact}</>}
+                  <li key={fact.key}>
+                    {index ? <Stamp tone="ink" size="sm">{fact.value}</Stamp> : <>{i > 0 && <span aria-hidden>· </span>}{fact.value}</>}
                   </li>
                 ))}
               </ul>

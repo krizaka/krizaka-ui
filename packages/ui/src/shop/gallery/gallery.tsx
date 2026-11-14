@@ -105,18 +105,18 @@ function ShopWall({ photos, notes, sign, texture, label }: Readonly<{ photos: re
 /** The photos of a shop: a mosaic, a filmstrip, a wall or a grid. */
 export function GallerySection({ variant = "mosaic", photos, title, lead, label, notes = [], sign, texture = "plaster", className, ...props }: GallerySectionProps) {
   const shown = photos.slice(0, SHOP_LIMITS.photos);
-  const bodies: Record<GalleryVariant, () => React.ReactNode> = {
-    mosaic: () => <Mosaic photos={shown} />,
-    filmstrip: () => <Filmstrip photos={shown} label={label} />,
-    wall: () => <ShopWall photos={shown} notes={notes} sign={sign} texture={texture} label={label} />,
-    grid: () => (
+  const bodies: Record<GalleryVariant, React.ReactNode> = {
+    mosaic: <Mosaic photos={shown} />,
+    filmstrip: <Filmstrip photos={shown} label={label} />,
+    wall: <ShopWall photos={shown} notes={notes} sign={sign} texture={texture} label={label} />,
+    grid: (
       <MediaGallery
         label={label}
         items={shown.map((p) => ({ id: p.id, src: p.photo.src, alt: p.photo.alt, caption: p.caption, video: p.video, shape: "wide" as const }))}
       />
     ),
   };
-  const body = bodies[variant]();
+  const body = bodies[variant];
   return (
     <ShopSection title={title} lead={lead} className={cn(className)} data-variant={variant} {...props}>
       {body}

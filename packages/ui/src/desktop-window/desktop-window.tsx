@@ -153,7 +153,7 @@ export function DesktopWindow({
     return () => observer.disconnect();
   }, []);
   const ceiling = (edge: Edge) => {
-    let other = 0;
+    let other: number;
     if (edge === "sidebar") other = inspShown ? sizes.inspector : 0;
     else other = sideShown ? sizes.sidebar : 0;
     const limits = edge === "sidebar" ? SIDEBAR : INSPECTOR;

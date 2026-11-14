@@ -146,7 +146,7 @@ export function ChapterIndex({ chapters, newLabel = "New", label, paper = "lines
       {...props}
     >
       {chapters.map((c, i) => (
-        <li key={i} className="kz-chapter-row" data-new={c.isNew ? "" : undefined} data-detail={c.detail ? "" : undefined}>
+        <li key={c.href} className="kz-chapter-row" data-new={c.isNew ? "" : undefined} data-detail={c.detail ? "" : undefined}>
           {album && c.cover && <ChapterPrint cover={c.cover} index={i} />}
           <ChapterRow number={c.number} title={c.title} href={c.href} aside={c.period} mark={c.isNew ? newLabel : undefined} detail={c.detail} current={c.current} linkAs={linkAs} />
         </li>
@@ -177,7 +177,10 @@ export type ChapterHeadProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
 /** The head of a chapter: the number in the margin, the title, the period and the reading time, the standfirst once. */
 export function ChapterHead({ number, title, period, readingTime, faced, built, versusLabels, level = 1, className, children, ...props }: ChapterHeadProps) {
   const H = level === 1 ? "h1" : "h2";
-  const meta = [period, readingTime].filter((m) => m !== undefined && m !== null && m !== "");
+  const meta = [
+    { key: "period", value: period },
+    { key: "readingTime", value: readingTime },
+  ].filter((m) => m.value !== undefined && m.value !== null && m.value !== "");
   return (
     <header data-margin="" className={cn("kz-chapter-head", className)} {...props}>
       <p className="kz-chapter-no">{number}</p>
@@ -185,9 +188,9 @@ export function ChapterHead({ number, title, period, readingTime, faced, built, 
       {meta.length > 0 && (
         <p className="kz-chapter-meta">
           {meta.map((m, i) => (
-            <span key={i}>
+            <span key={m.key}>
               {i > 0 && <span aria-hidden> · </span>}
-              {m}
+              {m.value}
             </span>
           ))}
         </p>

@@ -63,7 +63,8 @@ export function drawnItems(tones = DEFAULT_AVATAR_TONES) {
 
 /** The file of a picture: `person/boom-bap-512.webp`, `banner/the-neon-flamingo-1920.webp`, `folder/folder-2.svg`. */
 export function fileOf(kind, id, size) {
-  return `${kind}/${size === "svg" ? `${id}.svg` : `${id}-${size}.webp`}`;
+  const name = size === "svg" ? `${id}.svg` : `${id}-${size}.webp`;
+  return `${kind}/${name}`;
 }
 
 /** Throws unless <path> is under the prefix this script writes: a kind folder with a picture, or the manifest. */

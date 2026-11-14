@@ -76,8 +76,8 @@ export function Meter({ label, value = 0, min = 0, max = 100, valueText, thresho
         <View style={{ width: side, height: side }}>
           <Svg width={side} height={side} viewBox="0 0 100 100" style={{ transform: [{ rotate: "-90deg" }] }}>
             <Circle cx={50} cy={50} r={r} fill="none" stroke={theme.borderDefault} strokeWidth={9} />
-            {arcs.map((arc, i) => (
-              <Circle key={i} cx={50} cy={50} r={r} fill="none" stroke={arc.part === undefined ? tone : partColor(theme, arc.part)} strokeWidth={9} strokeDasharray={`${Math.max(0, arc.len * c - (parts ? 2 : 0))} ${c}`} strokeDashoffset={-arc.start * c} strokeLinecap={parts ? "butt" : "round"} />
+            {arcs.map((arc) => (
+              <Circle key={arc.part ?? "value"} cx={50} cy={50} r={r} fill="none" stroke={arc.part === undefined ? tone : partColor(theme, arc.part)} strokeWidth={9} strokeDasharray={`${Math.max(0, arc.len * c - (parts ? 2 : 0))} ${c}`} strokeDashoffset={-arc.start * c} strokeLinecap={parts ? "butt" : "round"} />
             ))}
           </Svg>
           {children !== undefined ? <View style={[StyleSheet.absoluteFill, styles.center]}>{children}</View> : null}

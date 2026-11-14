@@ -288,7 +288,17 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
               run={exec}
               epoch={epoch}
               announce={announce}
-              onInvalid={(key, bad) => setInvalid((prev) => { const next = new Set(prev); if (bad) next.add(key); else next.delete(key); return next.size === prev.size && next.has(key) === prev.has(key) ? prev : next; })}
+              onInvalid={(key, bad) =>
+                setInvalid((prev) => {
+                  const next = new Set(prev);
+                  if (bad) {
+                    next.add(key);
+                  } else {
+                    next.delete(key);
+                  }
+                  return next.size === prev.size && next.has(key) === prev.has(key) ? prev : next;
+                })
+              }
               preset={page.preset.id}
               density={page.density}
             />
@@ -305,7 +315,10 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
             <Dialog.Description>{m.addSectionHint}</Dialog.Description>
           </Dialog.Header>
           <Dialog.Body>
-            {[SECTION_DEFINITIONS.filter((d) => !foldedTypes.includes(d.type)), SECTION_DEFINITIONS.filter((d) => foldedTypes.includes(d.type))].map((group, g) => {
+            {[
+              { key: "open", group: SECTION_DEFINITIONS.filter((d) => !foldedTypes.includes(d.type)) },
+              { key: "folded", group: SECTION_DEFINITIONS.filter((d) => foldedTypes.includes(d.type)) },
+            ].map(({ key: groupKey, group }) => {
               const list = (
                 <ul className="m-0 grid list-none gap-1 p-0">
                   {group.map((d) => (
@@ -318,8 +331,8 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
                 </ul>
               );
               if (group.length === 0) return null;
-              if (g === 0) return <React.Fragment key={g}>{list}</React.Fragment>;
-              return <details key={g} className="mt-3"><summary className="min-h-9 cursor-pointer text-sm text-fg-secondary">…</summary>{list}</details>;
+              if (groupKey === "open") return <React.Fragment key={groupKey}>{list}</React.Fragment>;
+              return <details key={groupKey} className="mt-3"><summary className="min-h-9 cursor-pointer text-sm text-fg-secondary">…</summary>{list}</details>;
             })}
           </Dialog.Body>
         </Dialog.Content>
@@ -341,7 +354,7 @@ export function ShopComposer({ value, resetKey, onChange, onPublish, onDiscard, 
             {changes.length === 0 ? (
               <p className="m-0 text-sm text-fg-secondary">{m.publishNothing}</p>
             ) : (
-              <ul className="m-0 list-disc ps-5 text-sm text-fg">{changes.map((d, i) => <li key={i}>{describe(d)}</li>)}</ul>
+              <ul className="m-0 list-disc ps-5 text-sm text-fg">{changes.map((d) => <li key={"key" in d ? `${d.kind}:${d.key}` : d.kind}>{describe(d)}</li>)}</ul>
             )}
           </Dialog.Body>
           <Dialog.Footer>

@@ -86,7 +86,7 @@ export function rgba(value) {
 /** `#rrggbb` of an opaque colour, for display; null when it is translucent or not a colour. */
 export function hex(value) {
   const c = value && rgba(value);
-  if (!c || c[3] !== 1) return null;
+  if (c?.[3] !== 1) return null;
   return `#${c
     .slice(0, 3)
     .map((x) => Math.round(x).toString(16).padStart(2, "0"))

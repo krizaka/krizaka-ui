@@ -9,9 +9,9 @@ import { Popover } from "@krizaka/ui/popover";
 import * as React from "react";
 
 import { PencilGlyph } from "../glyphs";
-import { type EditableBase, editName, type EntityAvatarOption, type EntityHeaderBase, type EntityRefusals, type EntityTag, useEditable, useRefusal } from "./shared";
+import { type EditableBase, editName, type EntityAvatarOption, type EntityHeaderBase, useEditable, useRefusal } from "./shared";
 
-export type { EntityRefusals, EntityTag };
+export type { EntityRefusals, EntityTag } from "./shared";
 
 export type EntityHeaderProps = EntityHeaderBase & {
   /** Makes the picture changeable: a button over it opens the library's `AvatarPicker`. */

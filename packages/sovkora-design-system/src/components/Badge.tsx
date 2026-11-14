@@ -1,11 +1,6 @@
-import {
-  Badge as KzBadge,
-  type BadgeProps as KzBadgeProps,
-  type BadgeVariants,
-  badgeVariants,
-} from "@krizaka/ui/badge";
+import { Badge as KzBadge, type BadgeProps as KzBadgeProps } from "@krizaka/ui/badge";
 
-export { type BadgeVariants,badgeVariants };
+export { type BadgeVariants, badgeVariants } from "@krizaka/ui/badge";
 
 /** The 1.x badge variants. @deprecated Since 2.0 — use `tone`. */
 export type BadgeVariant = "default" | "success" | "warning" | "danger" | "accent";

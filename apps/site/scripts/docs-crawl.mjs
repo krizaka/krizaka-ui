@@ -151,7 +151,7 @@ async function main() {
       await page.close();
       return;
     }
-    if (!response || response.status() !== 200) add(path, view, "http-error", `the page answers ${response?.status()}`);
+    if (response?.status() !== 200) add(path, view, "http-error", `the page answers ${response?.status()}`);
 
     // Wake every lazy example: scroll down the page.
     const height = await page.evaluate(() => document.documentElement.scrollHeight);
@@ -193,7 +193,10 @@ async function main() {
     });
     if (facts.overflow) note("overflow-x", `the page scrolls sideways (${facts.overflow})`);
     for (const e of facts.empty) note(e.kind === "zero" ? "zero-size-example" : "empty-example", e.label);
-    for (const a of facts.anchors) note("dead-anchor", `${a.href} (« ${a.text} »)${a.where ? ` in ${a.where}` : ""}: no such id on the page`);
+    for (const a of facts.anchors) {
+      const where = a.where ? ` in ${a.where}` : "";
+      note("dead-anchor", `${a.href} (« ${a.text} »)${where}: no such id on the page`);
+    }
     for (const l of facts.links) {
       if (new URL(l.href).pathname.includes("/_next/")) continue;
       const key = l.href;

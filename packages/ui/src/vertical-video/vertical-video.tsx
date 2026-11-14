@@ -9,9 +9,10 @@ import { Avatar } from "../avatar/avatar";
 import { IconButton } from "../button/button";
 import { cn } from "../cn";
 import { VerifiedBadge } from "../verified-badge/verified-badge";
-import { type VerticalVideoLabels, verticalVideoLabels, type VerticalVideoShared } from "./model";
+import { verticalVideoLabels, type VerticalVideoShared } from "./model";
 
-export { type VerticalVideoLabels, verticalVideoLabels };
+export type { VerticalVideoLabels } from "./model";
+export { verticalVideoLabels };
 
 export interface VerticalVideoCreator {
   name: string;

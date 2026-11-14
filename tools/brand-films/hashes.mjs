@@ -30,7 +30,7 @@ export function loopHashes(manifest) {
  * @param {string} [home]
  */
 export function manifestPath(arg, cwd = process.cwd(), home = homedir()) {
-  if (!arg || !arg.endsWith(".json")) throw new Error("usage: node tools/brand-films/hashes.mjs <krizaka-com>/lib/cdn-manifest.json");
+  if (!arg?.endsWith(".json")) throw new Error("usage: node tools/brand-films/hashes.mjs <krizaka-com>/lib/cdn-manifest.json");
   const file = resolve(cwd, arg);
   const inside = (base) => !relative(base, file).startsWith("..") && !isAbsolute(relative(base, file));
   if (!inside(cwd) && !inside(home)) throw new Error(`${arg} is outside ${cwd} and ${home}`);

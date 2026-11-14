@@ -44,7 +44,7 @@ export interface Stage {
 }
 
 const side = (s: Stage, i: number, j: number): 1 | -1 => (s.birds[j]!.x >= s.birds[i]!.x ? 1 : -1);
-const towards = (s: Stage, i: number, j: number): MascotLook => (side(s, i, j) > 0 ? "right" : "left");
+const towards = (s: Stage, from: number, to: number): MascotLook => (side(s, from, to) > 0 ? "right" : "left");
 /** Where a bird is among its neighbours, left to right: the one beside it (the nearer one when there are two). */
 export function neighbourOf(s: Stage, i: number): number | null {
   const at = s.order.indexOf(i);

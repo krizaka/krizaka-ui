@@ -14,10 +14,10 @@ export type ParsedSection<T extends string, V extends string, S extends Shape, B
   key: string;
   type: T;
   variant: V;
-  disabled?: boolean | undefined;
+  disabled?: boolean;
   settings: z.output<S>;
-  text?: { title?: z.output<typeof localizedText> | undefined; lead?: z.output<typeof localizedText> | undefined } | undefined;
-  blocks?: { [K in keyof B & string]: { key: string; type: K; settings: z.output<B[K]>; text?: Record<string, z.output<typeof localizedText>> | undefined } }[keyof B & string][] | undefined;
+  text?: { title?: z.output<typeof localizedText>; lead?: z.output<typeof localizedText> };
+  blocks?: { [K in keyof B & string]: { key: string; type: K; settings: z.output<B[K]>; text?: Record<string, z.output<typeof localizedText>> } }[keyof B & string][];
 };
 
 export type SectionSpec<T extends string, V extends readonly [string, ...string[]], S extends Shape, B extends BlockShapes> = {

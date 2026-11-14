@@ -101,6 +101,8 @@ export function Doodle({ kind, children, word, side = "left", place = "margin", 
       </svg>
     );
   }
+  const tiltSeed = `${kind}${seed}`;
+  const tilt = `${Math.round(seedUnit(tiltSeed) * 80) / 10}deg`;
   return (
     <span
       className={cn("kz-doodle", className)}
@@ -112,7 +114,7 @@ export function Doodle({ kind, children, word, side = "left", place = "margin", 
       role={said ? "img" : undefined}
       aria-label={said ? label : undefined}
       aria-hidden={wraps || said ? undefined : true}
-      style={{ ...style, ["--kz-doodle-tilt" as string]: `${Math.round(seedUnit(`${kind}${seed}`) * 80) / 10}deg`, ...(top ? { ["--kz-doodle-top" as string]: top } : {}) }}
+      style={{ ...style, ["--kz-doodle-tilt" as string]: tilt,...(top ? { ["--kz-doodle-top" as string]: top } : {}) }}
       {...props}
     >
       {art}

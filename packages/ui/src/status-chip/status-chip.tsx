@@ -3,7 +3,7 @@
 // picked). Read-only when the set is derived (an invoice's « paid » comes from the ledger), when no move is allowed to
 // the role, or when nobody listens (`onMove`); otherwise a menu of the moves the role may make, in the set's order. A
 // reason is picked from a list, never typed. The tone is a tint and a dot: the label always says the state.
-import { movesFrom, stateOf,type StatusSet, type StatusTone, type StatusTransition } from "@krizaka/organize/contract";
+import { movesFrom, stateOf, type StatusSet, type StatusTransition } from "@krizaka/organize/contract";
 import { DropdownMenu as MenuPrimitive } from "radix-ui";
 import * as React from "react";
 
@@ -12,7 +12,8 @@ import { cn } from "../cn";
 import { DropdownMenu } from "../dropdown-menu";
 import { ChevronGlyph } from "../glyphs";
 
-export type { StatusSet, StatusTone, StatusTransition };
+export type { StatusSet, StatusTransition };
+export type { StatusTone } from "@krizaka/organize/contract";
 
 export type StatusMove = {
   /** The transition the person chose. */

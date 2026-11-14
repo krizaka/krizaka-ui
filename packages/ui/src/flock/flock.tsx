@@ -336,8 +336,10 @@ export function Flock({ birds, ratio = 16 / 9, tone = "brand", glance = true, co
     greeted.current = true;
     const timers: ReturnType<typeof setTimeout>[] = [];
     order.forEach((index, n) => {
-      timers.push(setTimeout(() => setPoked((p) => ({ ...p, [index]: true })), n * GREET_STEP_MS));
-      timers.push(setTimeout(() => setPoked((p) => ({ ...p, [index]: false })), n * GREET_STEP_MS + POKE_MS));
+      timers.push(
+        setTimeout(() => setPoked((p) => ({ ...p, [index]: true })), n * GREET_STEP_MS),
+        setTimeout(() => setPoked((p) => ({ ...p, [index]: false })), n * GREET_STEP_MS + POKE_MS),
+      );
     });
     return () => timers.forEach(clearTimeout);
   }, [running, greet, order]);

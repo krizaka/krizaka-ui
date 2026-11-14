@@ -58,8 +58,12 @@ export function createAuth(session: Pick<SessionStore, "readToken" | "onChange">
     const value = useMemo<AuthState>(
       () => ({
         status,
-        signIn: async (email, password) => void (await actions.signIn(email, password)),
-        signOut: async () => void (await actions.signOut()),
+        signIn: async (email, password) => {
+          await actions.signIn(email, password);
+        },
+        signOut: async () => {
+          await actions.signOut();
+        },
       }),
       [status],
     );

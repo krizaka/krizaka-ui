@@ -23,9 +23,11 @@ const round = (n: number) => Math.round(n * 1e6) / 1e6;
 export function routeLinks(destination: LngLat, origin?: LngLat): RouteLinks {
   const to = at(destination);
   const from = origin ? at(origin) : undefined;
-  const google = (mode: string) => `https://www.google.com/maps/dir/?api=1&destination=${to}${from ? `&origin=${from}` : ""}&travelmode=${mode}`;
+  const originParam = from ? `&origin=${from}` : "";
+  const saddrParam = from ? `&saddr=${from}` : "";
+  const google = (mode: string) => `https://www.google.com/maps/dir/?api=1&destination=${to}${originParam}&travelmode=${mode}`;
   return {
-    apple: `https://maps.apple.com/?daddr=${to}${from ? `&saddr=${from}` : ""}&dirflg=d`,
+    apple: `https://maps.apple.com/?daddr=${to}${saddrParam}&dirflg=d`,
     google: google("driving"),
     osm: from
       ? `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${from};${to}`

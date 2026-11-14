@@ -32,7 +32,8 @@ PAGES["/covered/"] = shell(`<meta name="viewport" content="width=device-width, i
   <figure><pre>npm i x</pre><button aria-label="Copy" onclick="navigator.clipboard.writeText('npm i x')">c</button></figure>
   <div style="height:1200px"></div></main>
   <nav style="position:fixed;left:0;right:0;bottom:0;height:90px;background:#000;z-index:40"></nav>`);
-const sitemap = (base) => `<urlset>${Object.keys(PAGES).map((p) => `<url><loc>${base}${p}</loc></url>`).join("")}</urlset>`;
+const urlEntry = (base, p) => `<url><loc>${base}${p}</loc></url>`;
+const sitemap = (base) => `<urlset>${Object.keys(PAGES).map((p) => urlEntry(base, p)).join("")}</urlset>`;
 
 // The pages are served from this process on the loopback interface: no certificate, so plain HTTP, and only to 127.0.0.1.
 const LOOPBACK = `${"http"}://127.0.0.1`;

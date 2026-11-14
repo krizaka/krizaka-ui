@@ -14,7 +14,9 @@ export function fakeBridge(answers: Record<string, unknown> = {}) {
       const wrapped = handler as (event: { payload: unknown }) => void;
       set.add(wrapped);
       listeners.set(event, set);
-      return () => void set.delete(wrapped);
+      return () => {
+        set.delete(wrapped);
+      };
     },
   };
   const send = (event: string, payload: unknown) => listeners.get(event)?.forEach((handler) => handler({ payload }));

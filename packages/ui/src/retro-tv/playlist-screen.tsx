@@ -48,8 +48,16 @@ export function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, 
   const wake = React.useCallback(() => setActive(true), []);
 
   useInView(region, (v) => { if (v) setSeen(true); else video.current?.pause(); });
-  React.useEffect(() => { if (!active) return; const id = setTimeout(() => setActive(false), 2500); return () => clearTimeout(id); }, [active]);
-  React.useEffect(() => { if (prev === null) return; const id = setTimeout(() => setPrev(null), reduced ? 0 : 650); return () => clearTimeout(id); }, [prev, reduced]);
+  React.useEffect(() => {
+    if (!active) return;
+    const id = setTimeout(() => setActive(false), 2500);
+    return () => clearTimeout(id);
+  }, [active]);
+  React.useEffect(() => {
+    if (prev === null) return;
+    const id = setTimeout(() => setPrev(null), reduced ? 0 : 650);
+    return () => clearTimeout(id);
+  }, [prev, reduced]);
   React.useEffect(() => { if (seen && autoPlay && !reduced && current?.src) playSafely(video.current); }, [seen, autoPlay, reduced, index, current?.src]);
   React.useEffect(() => { const list = video.current?.textTracks; if (list) Array.from(list).forEach((track, i) => { track.mode = captionsOn && i === 0 ? "showing" : "disabled"; }); }, [captionsOn, index]);
 
@@ -61,7 +69,15 @@ export function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, 
     setTime({ t: 0, d: 0 });
     onIndexChange?.(next);
   };
-  const toggle = () => { const v = video.current; if (!v) return; if (v.paused) playSafely(v); else v.pause(); };
+  const toggle = () => {
+    const v = video.current;
+    if (!v) return;
+    if (v.paused) {
+      playSafely(v);
+    } else {
+      v.pause();
+    }
+  };
   const setMuted = (m: boolean) => { setMutedState(m); onMutedChange?.(m); };
   const onKey = (e: React.KeyboardEvent) => {
     if (e.target !== e.currentTarget) return;

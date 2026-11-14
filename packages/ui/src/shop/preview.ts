@@ -13,7 +13,7 @@ const KEY = /^[A-Za-z0-9_-]{1,40}$/;
 export function readPreviewMessage(event: Pick<MessageEvent, "origin" | "data">, origin: string): PreviewMessage | null {
   if (event.origin !== origin) return null;
   const d = event.data as Record<string, unknown> | null;
-  if (typeof d !== "object" || d === null || d.source !== SOURCE) return null;
+  if (typeof d !== "object" || d?.source !== SOURCE) return null;
   if (d.type === "refresh") return { source: SOURCE, type: "refresh" };
   if ((d.type === "select" || d.type === "scroll") && typeof d.key === "string" && KEY.test(d.key)) return { source: SOURCE, type: d.type, key: d.key };
   return null;
