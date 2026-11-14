@@ -37,26 +37,26 @@ function firstRow(canvas: HTMLElement, selector: string) {
 const cells = "[role='listitem']";
 const photos = (width: number, count: number): Story => ({
   render: () => room(width, <PhotosExample />),
-  play: ({ canvasElement }) => {
+  play: async ({ canvasElement }) => {
     const row = firstRow(canvasElement, cells);
-    expect(row.count).toBe(count);
-    expect(row.out).toBe(false);
+    await expect(row.count).toBe(count);
+    await expect(row.out).toBe(false);
   },
 });
 const stats = (width: number, count: number): Story => ({
   render: () => room(width, <StatsExample />),
-  play: ({ canvasElement }) => {
+  play: async ({ canvasElement }) => {
     const row = firstRow(canvasElement, "[data-room] > div > div > div");
-    expect(row.count).toBe(count);
-    expect(row.out).toBe(false);
+    await expect(row.count).toBe(count);
+    await expect(row.out).toBe(false);
   },
 });
 const columns = (width: number, count: number): Story => ({
   render: () => room(width, <ColumnsExample />),
-  play: ({ canvasElement }) => {
+  play: async ({ canvasElement }) => {
     const row = firstRow(canvasElement, "[data-layout='columns'] > div");
-    expect(row.count).toBe(count);
-    expect(row.out).toBe(false);
+    await expect(row.count).toBe(count);
+    await expect(row.out).toBe(false);
   },
 });
 
@@ -79,16 +79,16 @@ export const Columns1200: Story = columns(1200, 2);
 /** Right-to-left: the first item is at the start edge, on the right. */
 export const PhotosRtl: Story = {
   render: () => room(600, <PhotosExample />, "rtl"),
-  play: ({ canvasElement }) => {
+  play: async ({ canvasElement }) => {
     const items = [...canvasElement.querySelectorAll<HTMLElement>(cells)];
-    expect(items[0]!.getBoundingClientRect().left).toBeGreaterThan(items[1]!.getBoundingClientRect().left);
+    await expect(items[0]!.getBoundingClientRect().left).toBeGreaterThan(items[1]!.getBoundingClientRect().left);
   },
 };
 export const ColumnsRtl: Story = {
   render: () => room(600, <ColumnsExample />, "rtl"),
-  play: ({ canvasElement }) => {
+  play: async ({ canvasElement }) => {
     const [first, second] = [...canvasElement.querySelectorAll<HTMLElement>("[data-layout='columns'] > div")];
-    expect(first!.getBoundingClientRect().left).toBeGreaterThan(second!.getBoundingClientRect().left);
+    await expect(first!.getBoundingClientRect().left).toBeGreaterThan(second!.getBoundingClientRect().left);
   },
 };
 
@@ -106,17 +106,17 @@ export const StatsLargeText: Story = {
         ))}
       </Grid>,
     ),
-  play: ({ canvasElement }) => {
+  play: async ({ canvasElement }) => {
     const row = firstRow(canvasElement, "[data-room] > div > div > div");
-    expect(row.count).toBe(1);
-    expect(row.out).toBe(false);
+    await expect(row.count).toBe(1);
+    await expect(row.out).toBe(false);
   },
 };
 
 /** 200 % text on the columns: 2 × 220 px becomes 2 × 440 px, so they stack where they were side by side. */
 export const ColumnsLargeText: Story = {
   render: () => room(600, <Columns weights={[1, 2]} minColumnWidth={220} fontScale={2}><div>Summary</div><div>The file</div></Columns>),
-  play: ({ canvasElement }) => {
-    expect(firstRow(canvasElement, "[data-layout='columns'] > div").count).toBe(1);
+  play: async ({ canvasElement }) => {
+    await expect(firstRow(canvasElement, "[data-layout='columns'] > div").count).toBe(1);
   },
 };
