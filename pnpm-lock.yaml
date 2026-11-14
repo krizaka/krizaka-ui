@@ -1368,7 +1368,7 @@ importers:
         specifier: ^0.9.1
         version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
       '@krizaka/org':
-        specifier: ^1.4.0
+        specifier: ^1.1.0
         version: 1.4.0
       '@krizaka/query':
         specifier: workspace:*
