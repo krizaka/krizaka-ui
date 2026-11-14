@@ -4,26 +4,20 @@ import "@krizaka/ui/blocks.css";
 import "@krizaka/tokens/shop-presets.css"; // the look presets of the shop page examples (`data-shop-preset`)
 import "@krizaka/ui/story.css";
 
-import { KrizakaLogo } from "@krizaka/ui";
 import { cn } from "@krizaka/ui/cn";
 import { MotionObserver } from "@krizaka/ui/motion";
 import { ThemeProvider, ThemeScript } from "@krizaka/ui/theme";
 import type { Metadata, Viewport } from "next";
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { fontVariables } from "@/app/fonts";
-import { getPageTree } from "@/lib/docs-source";
 import { getDictionary, type Locale } from "@/lib/i18n";
-import { packageVersion } from "@/lib/package-version";
 import { SITE_URL } from "@/lib/site";
 import { buildSiteGraph } from "@/lib/structured-data";
-import { localePath } from "@/lib/urls";
 
 import { DocsChrome } from "./docs/DocsChrome";
-import { DocsLayout } from "./docs/fumadocs/server";
 import { I18nProvider } from "./I18nProvider";
 import { JsonLd } from "./JsonLd";
-import { SiteBar } from "./SiteBar";
 import { SiteFooter } from "./SiteFooter";
 import { ThemeSync } from "./SiteTheme";
 
@@ -56,8 +50,8 @@ export function siteMetadata(locale: Locale): Metadata {
 export const siteViewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: "#0d0d0f" };
 
 /* The root of every page, in one language (each language has its own root layout, for <html lang>): the theme before
-   the first paint, the providers, the bar, Fumadocs' docs layout (the sidebar of lib/docs-source.ts, the table of
-   contents), the footer. */
+   the first paint, the providers, the page, the footer. The bar belongs to the group layouts: the docs pages sit in Fumadocs' docs
+   layout (docs/DocsShell.tsx), the builder demo in the workspace (WorkspaceShell.tsx, its shortcut comes before the bar). */
 export function SiteRoot({ locale, children }: { locale: Locale; children: ReactNode }) {
   const t = getDictionary(locale);
   return (
@@ -76,17 +70,7 @@ export function SiteRoot({ locale, children }: { locale: Locale; children: React
           <ThemeSync />
           <I18nProvider locale={locale} messages={t}>
             <DocsChrome>
-              {/* A hairline that fills as the page is read (globals.css; scroll-driven, absent under reduced motion). */}
-              <div className="kz-read-progress" aria-hidden />
-              <SiteBar version={packageVersion("ui")} />
-              <DocsLayout
-                tree={getPageTree(locale)}
-                nav={{ title: <><KrizakaLogo size={18} animated={false} /> {t.docs.sections.ui.title}</>, url: localePath(locale, "/") }}
-                themeSwitch={{ enabled: false }}
-                containerProps={{ className: "kz-docs", style: { "--fd-banner-height": "var(--kz-docs-top)" } as CSSProperties }}
-              >
-                {children}
-              </DocsLayout>
+              {children}
               <SiteFooter locale={locale} />
             </DocsChrome>
           </I18nProvider>

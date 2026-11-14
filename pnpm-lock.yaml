@@ -65,8 +65,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       '@krizaka/ui-builder':
-        specifier: 0.3.1
-        version: 0.3.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(use-sync-external-store@1.7.0(react@19.3.1))
+        specifier: 0.4.0
+        version: 0.4.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(use-sync-external-store@1.7.0(react@19.3.1))
       fumadocs-core:
         specifier: 16.17.7
         version: 16.17.7(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.61.0(@types/react@19.3.0)(react@19.3.1))(next@16.4.2(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7)
@@ -2825,8 +2825,8 @@ packages:
       vitest:
         optional: true
 
-  '@krizaka/ui-builder@0.3.1':
-    resolution: {integrity: sha512-grOZ4ZYNIFAC3zG8vI5+VY+3CwaMYjvDQ1c0aMAvPXzSR/rhTEVVnj05kWjonTttc0f18TOmJi+5cVVpt4sgtg==}
+  '@krizaka/ui-builder@0.4.0':
+    resolution: {integrity: sha512-2pBKKCccWCsbXUXql1OdsptI+XnA3iPn57ms6zB4ZhqSYfwVhiTky+Hjzx9vAb5W0ysqyeZtqkwcUm2GaxP/Cw==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
@@ -12264,7 +12264,7 @@ snapshots:
     optionalDependencies:
       vitest: 5.0.5(@types/node@22.20.5)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@8.3.5(@types/node@22.20.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
 
-  '@krizaka/ui-builder@0.3.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(use-sync-external-store@1.7.0(react@19.3.1))':
+  '@krizaka/ui-builder@0.4.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(use-sync-external-store@1.7.0(react@19.3.1))':
     dependencies:
       '@dnd-kit/abstract': 0.4.0
       '@dnd-kit/dom': 0.4.0

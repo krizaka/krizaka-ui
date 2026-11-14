@@ -221,7 +221,8 @@
         "rawSummary": "Code et chemin bruts",
         "rawLine": "{path} — {code} — {message}"
       },
-      "toFields": "Modifier le bloc sélectionné"
+      "toFields": "Modifier le bloc sélectionné",
+      "backToDocs": "Documentation"
     }
   },
   "docs": {

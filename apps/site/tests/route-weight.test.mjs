@@ -39,7 +39,7 @@ function graph(entry) {
   return seen;
 }
 
-for (const route of ["app/(en)/page.tsx", "app/(fr)/fr/page.tsx", "app/(en)/[...slug]/page.tsx", "app/(fr)/fr/[...slug]/page.tsx"]) {
+for (const route of ["app/(en)/(docs)/page.tsx", "app/(fr)/fr/(docs)/page.tsx", "app/(en)/(docs)/[...slug]/page.tsx", "app/(fr)/fr/(docs)/[...slug]/page.tsx"]) {
   test(`${route}: the route's server graph never imports the registry's examples map`, () => {
     const entry = path.join(root, route);
     assert.ok(existsSync(entry), `${route} exists (the home is not a page of the docs catch-all)`);
@@ -52,8 +52,8 @@ for (const route of ["app/(en)/page.tsx", "app/(fr)/fr/page.tsx", "app/(en)/[...
 }
 
 test("the docs catch-all leaves the home to its route", () => {
-  assert.ok(!existsSync(path.join(root, "app/(en)/[[...slug]]")), "an optional catch-all would also match / and take the home back");
-  assert.ok(existsSync(path.join(root, "app/(en)/[...slug]/page.tsx")));
+  assert.ok(!existsSync(path.join(root, "app/(en)/(docs)/[[...slug]]")), "an optional catch-all would also match / and take the home back");
+  assert.ok(existsSync(path.join(root, "app/(en)/(docs)/[...slug]/page.tsx")));
 });
 
 test("a preview frame never re-renders before its example hydrates: no site-theme hook in it (a sync update there threw the server HTML away)", () => {
