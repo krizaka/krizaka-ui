@@ -16,12 +16,13 @@ export const meta = {
   ],
   bestPractices: [
     "Name the setting, not the state: “Autoplay”, not “Turn autoplay on”.",
-    "Put the label first and the switch at the end of the line (`Field.Label htmlFor`), with a hint when it helps.",
+    "Give it `children` (and a `description`): the words at the start, the switch at the end, the whole row clickable. There is no alignment prop — start and end follow the reading direction.",
   ],
   accessibility: {
     keyboard: [{ keys: "Space", action: "Toggles the switch." }],
     notes: [
       "Radix Switch: `role=\"switch\"` with `aria-checked`.",
+      "With `children` the row is a `<label>`: one control, named by the words, hinted by `description` (`aria-describedby`), never read twice.",
       "`label` names it when no visible label does; otherwise use `Field.Label htmlFor` and `aria-describedby` for the hint.",
     ],
   },
@@ -33,7 +34,8 @@ export const meta = {
       { name: "on", title: "On", description: "`defaultChecked` (or `checked` + `onCheckedChange`)." },
       { name: "disabled", title: "Disabled", description: "Off and on." },
       { name: "small", title: "Small", description: "`size=\"sm\"`." },
-      { name: "with-label", title: "With a visible label", description: "A label and a hint on the same line." },
+      { name: "with-label", title: "With a visible label", description: "A `Field.Label` and a hint on the same line." },
+      { name: "row", title: "Settings row", description: "`children` and `description`: text at the start, switch at the end, the whole row clickable (44 px)." },
     ],
   },
   native: {
