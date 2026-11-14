@@ -1,5 +1,24 @@
 # @krizaka/ui
 
+## 4.6.0
+
+### Minor Changes
+
+- [#1020](https://github.com/krizaka/krizaka-ui/pull/1020) [`e62e8ff`](https://github.com/krizaka/krizaka-ui/commit/e62e8ff2703829f605e2115606515e4d30a06f77) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `FamilyFooter` (`@krizaka/ui/site-footer`): the footer of the developer sites as one block, built on `SiteFooter`. It takes `footerFor(siteId)` of `@krizaka/org` ≥ 1.4.0 as a prop and places the family groups, the source link, the licence, the legal links, the accounts and the version line the org selects for the site; `SiteFooter` gains `groups` to draw only some family groups.
+
+- [#1013](https://github.com/krizaka/krizaka-ui/pull/1013) [`00f47fe`](https://github.com/krizaka/krizaka-ui/commit/00f47feeb662420795e96c1092463c22ac4171ea) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The web `Switch` draws its own settings row: with `children` (and a `description`) the words sit at the start, the switch at the end, the whole row is clickable and at least 44 px high, mirrored under `dir="rtl"`. It stays one control with one name. `Checkbox` and `Switch` have no alignment prop.
+
+### Patch Changes
+
+- [#1021](https://github.com/krizaka/krizaka-ui/pull/1021) [`d80f1c8`](https://github.com/krizaka/krizaka-ui/commit/d80f1c872a9e83bda3853ac16012243c68e14821) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ComparisonTable`: the highlighted column is a flat band — the `--kz-accent-soft` surface and a 1 px `--kz-accent` rule, square corners, no glow — in both themes. Visual only; rows, stagger and phone cards keep their layout.
+
+- [#1017](https://github.com/krizaka/krizaka-ui/pull/1017) [`8066dd2`](https://github.com/krizaka/krizaka-ui/commit/8066dd28607d64c7abe6af61dddcd779f98fc6a5) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - A labelled `Grid` renders a real `<ul>`/`<li>` list instead of divs with `role="list"` / `role="listitem"` (native semantics on every device; SonarCloud S6819).
+
+- [#1018](https://github.com/krizaka/krizaka-ui/pull/1018) [`435f087`](https://github.com/krizaka/krizaka-ui/commit/435f0870c1b3da221a56f2ec946f3ad3a2156d54) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `useRouteState` and the `routeKey` selections (Tabs, Chip.Group, ChoiceGrid, RadioGroup…): the default route adapter now syncs with Next.js. It writes the history entry with a null state (Next's own mark is no longer copied, so `useSearchParams` follows a routed tab), and a navigation to the address already shown writes nothing, so one click is one history entry (Radix fires on mousedown and on focus). The adapter stays injectable through `RouteStateProvider`.
+- Updated dependencies []:
+  - @krizaka/tailwind@4.6.0
+  - @krizaka/tokens@4.6.0
+
 ## 4.5.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/tokens",
-  "version": "4.5.0",
+  "version": "4.6.0",
   "description": "The Krizaka semantic design tokens (--kz-*) and the brand themes (Krizaka, Sovkora, Verikora, Folioviv): one DTCG source compiled to CSS (dark, light, media invariants), typed constants and React Native themes.",
   "keywords": [
     "krizaka",
