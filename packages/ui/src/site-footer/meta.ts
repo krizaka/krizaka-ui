@@ -14,6 +14,7 @@ export const meta = {
     "`variant=\"docs\"` — under documentation pages: the same three lines on the documentation's width.",
     "`variant=\"app\"` — inside a signed-in product or an admin console: the last line only (signature, version, legal), rendered once by the layout.",
     "`config` — the footer as the app's admin configured it (`FooterSettings` in `@krizaka/settings`, resolved by `resolveFooterSettings`): at most four columns of at most six links, then one legal line `legalName · NEQ · city`, the version when `showVersion`, the legal links, the org's socials. `footerSettingsProblems` is the admin form's validation.",
+    "`FamilyFooter` — the developer sites (ui., lab., java., ts., rust.): pass `footer={footerFor(siteId)}` (`@krizaka/org` ≥ 1.4.0); the org says which family groups, accounts, source link, licence, legal links and version line the site shows. The library never fetches.",
     "With `MarketingLayout`'s `footer` slot, under a bar of `@krizaka/ui/nav-bar` with `NavBar.Family`.",
   ],
   whenNotToUse: [
@@ -40,13 +41,14 @@ export const meta = {
   },
   related: ["sites", "nav-bar", "marketing-layout"],
   web: {
-    imports: ["SiteFooter", "SiteFooterColumn", "SiteFooterLink", "resolveFooterSettings", "footerSettingsProblems", "FOOTER_LIMITS"],
+    imports: ["FamilyFooter", "SiteFooter", "SiteFooterColumn", "SiteFooterLink", "resolveFooterSettings", "footerSettingsProblems", "FOOTER_LIMITS"],
     examples: [
       { name: "product", title: "A product", description: "www.verikora.com: its links on one line, the family on the second, then the org's line, `DEV · v1.2.3`, the legal links and the language switch." },
       { name: "company", title: "The company (Cahier)", description: "www.krizaka.com, `tone=\"cahier\"`: no own links needed, the family and the signature line." },
       { name: "app", title: "In a signed-in app", description: "`variant=\"app\"`: one slim line — the org's line, `DEV · v1.2.3`, the legal links." },
       { name: "configured", title: "Configured by the admin", description: "`config` from the app's settings: three columns (the product, help, by Krizaka), then `Technologies Krizaka Inc. · NEQ … · Montréal (Québec)`, `v1.2.3`, the legal links and GitHub." },
       { name: "socials", title: "With the company's accounts", description: "`org.links.social` of `@krizaka/org`: Instagram drawn as its icon at the end of the last line, named « Instagram » for screen readers." },
+      { name: "family", title: "A developer site (from the org JSON)", description: "`FamilyFooter` with `footerFor(\"ui\")` of `@krizaka/org`: the site's own links, the family, then the source code, the licence, the legal links, the accounts and the version — what each developer site shows is the org's selection." },
       { name: "docs", title: "Under documentation", description: "`variant=\"docs\"`: the same three lines on the documentation's width." },
       { name: "open-source-fr", title: "Open source, in French", description: "ui.krizaka.com in French, `tone=\"cahier\"`: « Une entreprise de Technologies Krizaka · Fait à Montréal », the version of the packages." },
     ],

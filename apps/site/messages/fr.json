@@ -26,6 +26,7 @@
     },
     "footer": {
       "docs": "Documentation",
+      "source": "Code source",
       "changelog": "v{version}"
     },
     "notFound": {

@@ -4,6 +4,7 @@ import AppExample from "../../registry/examples/site-footer/app";
 import CompanyExample from "../../registry/examples/site-footer/company";
 import ConfiguredExample from "../../registry/examples/site-footer/configured";
 import DocsExample from "../../registry/examples/site-footer/docs";
+import FamilyExample from "../../registry/examples/site-footer/family";
 import OpenSourceFrExample from "../../registry/examples/site-footer/open-source-fr";
 import ProductExample from "../../registry/examples/site-footer/product";
 import SocialsExample from "../../registry/examples/site-footer/socials";
@@ -35,3 +36,5 @@ export const Docs: Story = { render: () => <DocsExample /> };
 export const Configured: Story = { render: () => <ConfiguredExample /> };
 /** The company's Instagram from `org.links.social`, drawn as its icon on the last line. */
 export const Socials: Story = { render: () => <SocialsExample /> };
+/** The developer sites' footer from the org JSON (`footerFor`): at most three lines on a desktop, folded groups at 360 px. */
+export const Family: Story = { render: () => <FamilyExample /> };
