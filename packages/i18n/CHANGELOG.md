@@ -1,5 +1,11 @@
 # @krizaka/i18n
 
+## 0.2.8
+
+### Patch Changes
+
+- [#1031](https://github.com/krizaka/krizaka-ui/pull/1031) [`aab3ac6`](https://github.com/krizaka/krizaka-ui/commit/aab3ac6af65fb3613f2bf551ff5292246b1c1c58) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Mechanical SonarCloud cleanup, no behaviour change: component props are typed `Readonly<…>` (S6759, enforced by the new ast-grep rule `props-readonly`), plus `globalThis`, `replaceAll`, `.at()`, `Number.*` and `export … from` where the unicorn rules ask for them.
+
 ## 0.2.7
 
 ### Patch Changes
