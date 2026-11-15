@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 4.8.0
+
+### Minor Changes
+
+- [#1034](https://github.com/krizaka/krizaka-ui/pull/1034) [`249520a`](https://github.com/krizaka/krizaka-ui/commit/249520aa3c8a4303123940cbce0d91c7f7d5ed0f) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `textLinkClass` (`@krizaka/ui/button/text-link`) styles a discreet link — accent colour, underline on hover and focus, no box — so a site can choose a link where `buttonVariants` would draw a button. Behaviour tests for `VerifiedBadge`, `StepProgress` and `DescriptionList`, and a guard (`coverage-guard.test.ts`) that fails when an exported component has no story, no unit test or no Linux baseline, outside a list of exceptions that only goes down.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@4.8.0
+  - @krizaka/tokens@4.8.0
+
 ## 4.7.1
 
 ### Patch Changes
