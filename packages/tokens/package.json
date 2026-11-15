@@ -44,6 +44,7 @@
     "./brands/verikora.css": "./dist/brands/verikora.css",
     "./brands/folioviv.css": "./dist/brands/folioviv.css",
     "./brands/scoped.css": "./dist/brands/scoped.css",
+    "./brands.json": "./dist/brands.json",
     "./native": {
       "types": "./dist/native.d.ts",
       "import": "./dist/native.js"

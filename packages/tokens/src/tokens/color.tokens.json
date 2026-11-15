@@ -132,70 +132,40 @@
     "$type": "color",
     "$description": "Accent : l'identité de la marque (Krizaka par défaut ; Sovkora, Verikora, Folioviv dans src/brands). Surchargé par un thème de marque, jamais par un composant.",
     "$root": {
-      "$value": "hsl(208 46% 45%)",
-      "$description": "Action principale, lien, sélection",
-      "$extensions": {
-        "com.krizaka": {
-          "light": "hsl(208 54% 36%)"
-        }
-      }
+      "$description": "Action principale, lien, sélection"
     },
     "hover": {
-      "$value": "hsl(208 48% 39%)",
-      "$description": "Accent au survol",
-      "$extensions": {
-        "com.krizaka": {
-          "light": "hsl(208 58% 29%)"
-        }
-      }
+      "$description": "Accent au survol"
     },
     "soft": {
-      "$value": "hsl(208 46% 45% / 0.12)",
-      "$description": "Fond teinté (sélection, badge)",
-      "$extensions": {
-        "com.krizaka": {
-          "light": "hsl(208 54% 36% / 0.08)"
-        }
-      }
+      "$description": "Fond teinté (sélection, badge)"
     },
     "text": {
-      "$value": "hsl(206 58% 72%)",
-      "$description": "Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface",
-      "$extensions": {
-        "com.krizaka": {
-          "light": "hsl(208 54% 33%)"
-        }
-      }
+      "$description": "Accent en texte (lien, libellé actif) : ≥ 4.5:1 sur chaque surface"
     }
   },
   "accent-2": {
     "$type": "color",
-    "$value": "{accent.$root}",
     "$description": "2e accent (dégradés) ; égal à l'accent par défaut"
   },
   "on-accent": {
     "$type": "color",
-    "$value": "hsl(0 0% 100%)",
     "$description": "Texte et icône posés sur l'accent"
   },
   "ring": {
     "$type": "color",
-    "$value": "{accent.$root}",
     "$description": "Anneau de focus clavier"
   },
   "brand-gradient": {
     "$type": "color",
     "$description": "Dégradé de section de la marque (from → via → to) : les fonds de section glissent d'une teinte à l'autre ; le texte reste lisible dessus (testé).",
     "from": {
-      "$value": "{surface.0}",
       "$description": "Section : plus de lavis (Cahier, ADR-004) — la surface de page"
     },
     "via": {
-      "$value": "{surface.0}",
       "$description": "Section : plus de lavis — la surface de page"
     },
     "to": {
-      "$value": "{surface.0}",
       "$description": "Section : l'arrivée, un alias de la surface de page — la section suivante y enchaîne, même quand un produit change --kz-surface-0"
     }
   },
@@ -276,12 +246,10 @@
   },
   "info": {
     "$type": "color",
-    "$value": "{accent.$root}",
     "$description": "Statut : information"
   },
   "info-text": {
     "$type": "color",
-    "$value": "{accent.text}",
     "$description": "Statut information en texte : l'accent en texte par défaut (≥ 4.5:1)"
   },
   "tag": {

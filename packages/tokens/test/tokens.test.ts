@@ -1,4 +1,4 @@
-import { mkdtempSync } from "node:fs";
+import { mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -773,5 +773,48 @@ describe("Cahier (ADR-004, krizaka-ui#417): the template tells are gone at the s
 
   it("the motion personality is the ink stroke: an ease-in-out, not the overshooting fade-up", () => {
     expect(invariant.get("--kz-ease") ?? dark.get("--kz-ease")).toBe("cubic-bezier(0.45, 0, 0.2, 1)");
+  });
+});
+
+describe("brands.json — the one source of the product colours", () => {
+  const doc = JSON.parse(files["brands.json"]);
+  const ROLES = ["logo", "accent", "accentText", "accent2", "onAccent"] as const;
+
+  it("has each brand with its 5 roles, light and dark, in hsl and hex", () => {
+    expect(Object.keys(doc.brands)).toEqual(["krizaka", "sovkora", "verikora", "folioviv"]);
+    for (const id of Object.keys(doc.brands)) {
+      expect(Object.keys(doc.brands[id]), id).toEqual([...ROLES]);
+      for (const role of ROLES) {
+        for (const mode of ["dark", "light"]) {
+          const { hsl, hex } = doc.brands[id][role][mode];
+          if (role === "logo") {
+            expect(hsl.length, `${id} logo`).toBeGreaterThanOrEqual(2);
+            expect(hex.length).toBe(hsl.length);
+            for (const [, c] of hsl) expect(c).toMatch(/^hsl\(/);
+            for (const [, c] of hex) expect(c).toMatch(/^#[0-9a-f]{6}$/);
+          } else {
+            expect(hsl, `${id} ${role} ${mode}`).toMatch(/^hsl\(/);
+            expect(hex, `${id} ${role} ${mode}`).toMatch(/^#[0-9a-f]{6}$/);
+          }
+        }
+      }
+    }
+  });
+
+  it("agrees with the brand themes", () => {
+    for (const id of BRANDS) for (const mode of ["dark", "light"] as const) {
+      expect(doc.brands[id].accent[mode].hsl).toBe(brandsIndex[id][mode].accent);
+      expect(doc.brands[id].onAccent[mode].hsl).toBe(brandsIndex[id][mode].onAccent);
+    }
+  });
+
+  it("makes the default accent of the platform Krizaka's brand, with no copy in color.tokens.json", () => {
+    expect(doc.default).toBe("krizaka");
+    for (const mode of ["dark", "light"] as const) {
+      for (const role of BRAND_ROLES) expect(color(`--kz-${role}`, mode), `${mode} ${role}`).toBe(brandsIndex.krizaka[mode][camel(role)]);
+    }
+    const source = JSON.parse(readFileSync(join(import.meta.dirname, "../src/tokens/color.tokens.json"), "utf8"));
+    expect(source.accent.$root.$value).toBeUndefined();
+    expect(source["on-accent"].$value).toBeUndefined();
   });
 });

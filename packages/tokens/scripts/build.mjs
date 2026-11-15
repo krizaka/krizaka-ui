@@ -257,7 +257,7 @@ export function typeScale(sources) {
  * @param {unknown[] | null} [shopPresetSources] the look presets of a shop page (src/presets/shop)
  */
 export function compile(sources, brandSources = {}, appearanceSource = null, shopPresetSources = null) {
-  const tokens = flatten(sources);
+  const tokens = flatten(withBrandDefaults(sources, brandSources));
   const { resolve, target } = resolver(tokens);
   const themed = tokens.filter((t) => t.light !== undefined || isAlias(t.dark));
   const light = tokens.filter((t) => t.light !== undefined);
@@ -505,6 +505,7 @@ export declare const marks: { readonly [B in BrandId]: readonly MarkStop[] };\n`
     ...(appearance ? { "appearance.css": appearanceCss(appearanceSource, appearance) } : {}),
     ...shopPresetFiles(shopPresetSources, brands, pure),
     ...brands.css,
+    ...(brands.ids.length ? { "brands.json": brandsJson(brands) } : {}),
   };
   return { tokens, brands: brands.ids, files };
 }
@@ -613,6 +614,62 @@ export function compileBrands(base, brandSources) {
   }
   if (ids.length) css["brands/scoped.css"] = `${scoped.join("\n")}\n`;
   return { ids, css, values, native, marks, marksNative };
+}
+
+/**
+ * A base token without a `$value` takes the value and light value of the same path in the brand.
+ * @param {Record<string, any>} child
+ * @param {Record<string, any>} brand
+ */
+function takeBrandValue(child, brand) {
+  child.$value = brand.$value;
+  const light = isObject(brand.$extensions) ? brand.$extensions[EXT]?.light : undefined;
+  if (light !== undefined) child.$extensions = { ...child.$extensions, [EXT]: { ...child.$extensions?.[EXT], light } };
+}
+
+/** @param {Record<string, any>} node @param {Record<string, any>} from */
+function fillFromBrand(node, from) {
+  for (const [k, child] of Object.entries(node)) {
+    if ((k.startsWith("$") && k !== "$root") || !isObject(child) || "$value" in child) continue;
+    const brand = from?.[k];
+    if (isObject(brand) && "$value" in brand) takeBrandValue(child, brand);
+    else fillFromBrand(child, isObject(brand) ? brand : {});
+  }
+}
+
+/**
+ * The platform's default accent family IS Krizaka's brand: a colour token of the base sources that has no `$value` of
+ * its own takes the value (and the light value) of the same path in `krizaka.brand.json`. The source is not changed.
+ * Without the Krizaka brand the sources are returned as they are.
+ * @param {Record<string, unknown>} sources
+ * @param {Record<string, unknown>} brandSources
+ * @returns {Record<string, unknown>}
+ */
+export function withBrandDefaults(sources, brandSources) {
+  const krizaka = brandSources.krizaka;
+  if (!isObject(krizaka) || !isObject(sources.color)) return sources;
+  const color = structuredClone(sources.color);
+  fillFromBrand(color, krizaka);
+  return { ...sources, color };
+}
+
+/**
+ * dist/brands.json — the one file every consumer reads for a product's colours. Per brand, five roles (the logo's
+ * gradient, accent, accent text, accent-2, on-accent), each in both themes, in hsl and hex.
+ * @param {ReturnType<typeof compileBrands>} brands
+ */
+export function brandsJson(brands) {
+  /** @param {"dark" | "light"} mode @param {string} key @param {string} id */
+  const role = (mode, key, id) => ({ hsl: brands.values[id][mode][key], hex: brands.native[id][mode][key] });
+  const roles = Object.fromEntries(
+    brands.ids.map((id) => {
+      /** @param {string} key */
+      const both = (key) => ({ dark: role("dark", key, id), light: role("light", key, id) });
+      const stops = { hsl: brands.marks[id], hex: brands.marksNative[id] };
+      return [id, { logo: { dark: stops, light: stops }, accent: both("accent"), accentText: both("accentText"), accent2: both("accent2"), onAccent: both("onAccent") }];
+    }),
+  );
+  return `${JSON.stringify({ $description: "@krizaka/tokens — GÉNÉRÉ depuis src/brands/*.brand.json : la source unique des couleurs de chaque produit. Ne pas éditer, ne rien retaper ailleurs.", default: "krizaka", brands: roles }, null, 2)}\n`;
 }
 
 /**
