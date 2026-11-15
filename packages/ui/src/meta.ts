@@ -24,6 +24,7 @@ export type ComponentName =
   | "upload-queue"
   | "achievement"
   | "anatomy-plate"
+  | "architecture-diagram"
   | "bird-plate"
   | "taped-photo"
   | "stuck"

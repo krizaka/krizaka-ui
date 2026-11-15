@@ -1636,6 +1636,39 @@ a.kz-fact:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); o
   .kz-plate[data-layout="single"] .kz-plate-caption::after { top: 0; left: calc(50% - 2.5px); }
 }
 
+/* ArchitectureDiagram — one laid-out C4 view on the plate (`kz-plate`): the drawing scrolls in its frame on a phone, its
+   text version follows in a disclosure. Every colour and font of the SVG is here; its geometry is the component's. */
+.kz-arch-frame { overflow-x: auto; overscroll-behavior-x: contain; }
+.kz-arch-frame:focus-visible { outline: 2px solid var(--kz-ring, var(--kz-accent)); outline-offset: -2px; }
+.kz-arch-svg { display: block; width: 100%; height: auto; margin-inline: auto; }
+.kz-arch-body { fill: var(--kz-surface-1); stroke: var(--kz-text-primary); stroke-width: 2; }
+.kz-arch-element[data-outside] .kz-arch-body { fill: var(--kz-surface-0); stroke: var(--kz-text-muted); }
+.kz-arch-tab { stroke-width: 1.5; }
+.kz-arch-shadow { fill: var(--kz-border-default); }
+.kz-arch-detail { fill: none; stroke: var(--kz-text-primary); stroke-width: 1.5; }
+.kz-arch-element[data-outside] .kz-arch-detail { stroke: var(--kz-text-muted); }
+.kz-arch-dot { fill: var(--kz-text-primary); }
+.kz-arch-element[data-outside] .kz-arch-dot { fill: var(--kz-text-muted); }
+.kz-arch-title { font-family: var(--kz-font-sans); font-weight: 700; fill: var(--kz-text-primary); }
+.kz-arch-element[data-outside] .kz-arch-title { fill: var(--kz-text-secondary); }
+.kz-arch-technology { font-family: var(--kz-font-mono); fill: var(--kz-text-muted); }
+.kz-arch-group-frame { fill: none; stroke: var(--kz-border-strong); stroke-width: 2; stroke-dasharray: 10 7; }
+.kz-arch-group-title { font-family: var(--kz-font-mono); letter-spacing: 1px; text-transform: uppercase; fill: var(--kz-text-muted); }
+.kz-arch-line { fill: none; stroke: var(--kz-text-secondary); stroke-width: 1.75; stroke-dasharray: 7 5; }
+.kz-arch-edge[data-dynamic] .kz-arch-line { stroke-dasharray: none; }
+.kz-arch-arrow { fill: var(--kz-text-secondary); }
+.kz-arch-label-plate { fill: var(--kz-surface-1); opacity: .92; }
+.kz-arch-label-text { font-family: var(--kz-font-mono); fill: var(--kz-text-secondary); }
+.kz-arch[data-dynamic] .kz-arch-label-text { fill: var(--kz-accent-text); }
+.kz-arch-step-badge { fill: var(--kz-surface-1); stroke: var(--kz-accent-text); stroke-width: 2; }
+.kz-arch-step-number { font-family: var(--kz-font-sans); font-weight: 700; fill: var(--kz-accent-text); }
+.kz-arch-text { margin-top: 16px; font-size: 14px; line-height: 22px; color: var(--kz-text-secondary); }
+.kz-arch-text > summary { cursor: pointer; font-family: var(--kz-font-mono); font-size: 13px; color: var(--kz-text-primary); }
+.kz-arch-text-head { margin: 12px 0 4px; font-family: var(--kz-font-mono); font-size: 12.5px; font-weight: 700; color: var(--kz-text-primary); }
+.kz-arch-text-list { margin: 0; padding-inline-start: 20px; overflow-wrap: anywhere; }
+.kz-arch-text-list b, .kz-arch-text-list a { color: var(--kz-text-primary); }
+.kz-arch-text-tech { font-family: var(--kz-font-mono); font-size: 13px; }
+
 /* PageIndex — a book's index: dotted leaders and page numbers; the current entry marked in the margin. */
 .kz-index { font-size: 15px; line-height: 24px; }
 .kz-index-group + .kz-index-group { margin-top: 16px; }
