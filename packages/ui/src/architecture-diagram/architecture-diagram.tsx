@@ -89,6 +89,9 @@ export interface ArchitectureDiagramWords {
   steps: string;
 }
 
+/* The frame scrolls sideways on a narrow screen: it takes the keyboard focus so the arrow keys can scroll it (axe: scrollable-region-focusable). */
+const SCROLL_FOCUS = { tabIndex: 0 } as const;
+
 const WORDS: ArchitectureDiagramWords = {
   summary: "The diagram in words",
   elements: "Elements",
@@ -166,15 +169,16 @@ function arrowOf(points: readonly Point[]): string | null {
 }
 
 /** Lines of text, one `<text>` each, centred on `x`. */
-function Lines({ rows, x, y, size, leading, className }: { rows: string[]; x: number; y: number; size: number; leading: number; className: string }) {
+function Lines({ rows, x, y, size, leading, className }: Readonly<{ rows: string[]; x: number; y: number; size: number; leading: number; className: string }>) {
+  /* A row's text is its identity: the same line twice in one block is told apart by its place. */
   return rows.map((row, i) => (
-    <text key={i} x={x} y={y + i * size * leading} fontSize={size} textAnchor="middle" className={className}>
+    <text key={`${i}:${row}`} x={x} y={y + i * size * leading} fontSize={size} textAnchor="middle" className={className}>
       {row}
     </text>
   ));
 }
 
-function ShapeOf({ node, shape }: { node: ArchNode; shape: Shape }) {
+function ShapeOf({ node, shape }: Readonly<{ node: ArchNode; shape: Shape }>) {
   const { x, y, width: w, height: h } = node;
   const s = SIZE.shadow;
   const rect = <rect x={x} y={y} width={w} height={h} className="kz-arch-body" />;
@@ -257,7 +261,7 @@ function ShapeOf({ node, shape }: { node: ArchNode; shape: Shape }) {
 }
 
 /** A group (a compound node): a dashed frame and its name in capitals at the top left. */
-function Group({ node }: { node: ArchNode }) {
+function Group({ node }: Readonly<{ node: ArchNode }>) {
   return (
     <g className="kz-arch-group">
       <rect x={node.x} y={node.y} width={node.width} height={node.height} className="kz-arch-group-frame" />
@@ -269,7 +273,7 @@ function Group({ node }: { node: ArchNode }) {
 }
 
 /** An element: its shape, its title and its technology centred in it. */
-function Element({ node }: { node: ArchNode }) {
+function Element({ node }: Readonly<{ node: ArchNode }>) {
   const shape = SHAPES.get(node.shape) ?? "box";
   const pad = shape === "queue" ? SIZE.queuePad : SIZE.pad;
   const room = node.width - 2 * pad;
@@ -296,7 +300,7 @@ function middleOf(points: readonly Point[]): Point | undefined {
 }
 
 /** An edge's line and arrowhead (drawn under the elements). */
-function Stroke({ edge, dynamic }: { edge: ArchEdge; dynamic: boolean }) {
+function Stroke({ edge, dynamic }: Readonly<{ edge: ArchEdge; dynamic: boolean }>) {
   const arrow = arrowOf(edge.back ? [...edge.points].reverse() : edge.points);
   return (
     <g className="kz-arch-edge" data-dynamic={dynamic || undefined}>
@@ -307,7 +311,7 @@ function Stroke({ edge, dynamic }: { edge: ArchEdge; dynamic: boolean }) {
 }
 
 /** An edge's label on its plate and, in a dynamic view, its numbered badge (drawn over the elements). */
-function EdgeLabel({ edge, dynamic }: { edge: ArchEdge; dynamic: boolean }) {
+function EdgeLabel({ edge, dynamic }: Readonly<{ edge: ArchEdge; dynamic: boolean }>) {
   const step = dynamic ? edge.step : null;
   const box: Box | null = edge.labelBBox;
   const rows = edge.label && box ? wrap(edge.label, box.width + 2 * SIZE.labelPad, SIZE.label, SIZE.monoEm) : [];
@@ -346,7 +350,7 @@ function EdgeLabel({ edge, dynamic }: { edge: ArchEdge; dynamic: boolean }) {
 }
 
 /** An element's line of the text version: its title (a link when the host gave a safe one), technology, description. */
-function ElementText({ node, links }: { node: ArchNode; links: Readonly<Record<string, string>> | undefined }) {
+function ElementText({ node, links }: Readonly<{ node: ArchNode; links: Readonly<Record<string, string>> | undefined }>) {
   const given = links && Object.hasOwn(links, node.id) ? links[node.id] : undefined;
   const href = given === undefined ? undefined : safeHref(given);
   return (
@@ -359,7 +363,7 @@ function ElementText({ node, links }: { node: ArchNode; links: Readonly<Record<s
 }
 
 /** The elements as nested lists: a group lists the elements inside it. */
-function ElementList({ nodes, parent, links }: { nodes: readonly ArchNode[]; parent: string | null; links: Readonly<Record<string, string>> | undefined }) {
+function ElementList({ nodes, parent, links }: Readonly<{ nodes: readonly ArchNode[]; parent: string | null; links: Readonly<Record<string, string>> | undefined }>) {
   const ids = new Set(nodes.map((n) => n.id));
   const here = nodes.filter((n) => (parent === null ? n.parent === null || !ids.has(n.parent) : n.parent === parent));
   if (here.length === 0) return null;
@@ -404,7 +408,7 @@ export function ArchitectureDiagram({ view, title, subtitle, links, words, textO
         <span className="kz-plate-title">{name}</span>
         {subtitle && <span className="kz-plate-sub">{subtitle}</span>}
       </figcaption>
-      <div className="kz-arch-frame" tabIndex={0} role="group" aria-label={name}>
+      <section className="kz-arch-frame" aria-label={name} {...SCROLL_FOCUS}>
         <svg
           viewBox={`${x - m} ${y - m} ${vbWidth} ${vbHeight}`}
           role="img"
@@ -425,7 +429,7 @@ export function ArchitectureDiagram({ view, title, subtitle, links, words, textO
             <EdgeLabel key={e.id} edge={e} dynamic={view.dynamic} />
           ))}
         </svg>
-      </div>
+      </section>
       <details className="kz-arch-text" open={textOpen}>
         <summary>{w.summary}</summary>
         <p className="kz-arch-text-head">{w.elements}</p>
