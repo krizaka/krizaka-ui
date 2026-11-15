@@ -11,17 +11,6 @@ export const buttonVariants = tv(buttonRecipe);
 
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
 
-/**
- * A discreet link — the look of a link in a sentence or an end line (“Read more”, “Back to the blog”), not of a button:
- * the accent colour, underlined on hover and focus, no box. Style an `<a>` or a router link with it; use `buttonVariants`
- * when the action must read as a button.
- */
-export const textLinkVariants = tv({
-  base:
-    "inline text-fg-accent underline-offset-4 transition-colors hover:underline focus-visible:rounded-sm focus-visible:underline focus-visible:outline-hidden " +
-    "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0",
-});
-
 export type ButtonProps = React.ComponentProps<"button"> &
   ButtonVariants & {
     /**

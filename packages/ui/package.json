@@ -88,6 +88,10 @@
       "types": "./dist/avatar.d.ts",
       "import": "./dist/avatar.js"
     },
+    "./button/text-link": {
+      "types": "./dist/button/text-link.d.ts",
+      "import": "./dist/button/text-link.js"
+    },
     "./avatar/defaults": {
       "types": "./dist/avatar/defaults.d.ts",
       "import": "./dist/avatar/defaults.js"

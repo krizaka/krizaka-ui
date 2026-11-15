@@ -108,6 +108,7 @@ export default defineConfig([
       "step-progress": "src/step-progress/index.ts",
       // The default avatars' pure helpers (defaultAvatarUrl…): callable in a Server Component, unlike "avatar" (client).
       "avatar/defaults": "src/avatar/defaults.ts",
+      "button/text-link": "src/button/text-link.ts",
       // The Krizaka family as data (the bar's switcher and the footer read it).
       sites: "src/sites/index.ts",
       "nav-bar/me": "src/nav-bar/me.ts",

@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 
 import { axeViolations } from "../test/axe";
-import { Button, buttonVariants, IconButton, textLinkVariants } from "./index";
+import { Button, buttonVariants, IconButton } from "./index";
+import { textLinkClass } from "./text-link";
 
 describe("Button", () => {
   it("renders a type=button with its variant, and no axe violation", async () => {
@@ -131,8 +132,8 @@ describe("a link beside a button (a discreet link is not a button)", () => {
     expect(screen.queryByRole("button")).toBeNull();
   });
 
-  it("textLinkVariants draws a link with no box, no height and no fill, unlike buttonVariants", async () => {
-    const { container } = render(<a href="/blog" className={textLinkVariants()}>Back to the blog</a>);
+  it("textLinkClass draws a link with no box, no height and no fill, unlike buttonVariants", async () => {
+    const { container } = render(<a href="/blog" className={textLinkClass}>Back to the blog</a>);
     const link = screen.getByRole("link", { name: "Back to the blog" });
     expect(link.className).toContain("text-fg-accent");
     expect(link.className).toContain("hover:underline");
