@@ -44,6 +44,8 @@ export const siteFooter = tv({
       "rounded-sm border border-border-subtle bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-fg-secondary",
     legal: "flex flex-wrap items-center gap-x-4 gap-y-2",
     controls: "flex flex-wrap items-center gap-2 sm:ml-auto",
+    // `hosted`: « made with … » at the end of the one line (after the shop's legal links, before the controls).
+    made: "flex flex-wrap items-center gap-x-3 gap-y-1 sm:ml-auto",
     // `config`: real columns — two on a phone, side by side from `sm`, each a heading over a stacked list.
     columns: "grid min-w-0 grid-cols-2 gap-x-6 gap-y-6 pb-2 sm:grid-flow-col sm:grid-cols-none sm:auto-cols-[minmax(0,13rem)] sm:gap-x-10",
     stack: "flex min-w-0 flex-col gap-2",
@@ -65,6 +67,10 @@ export const siteFooter = tv({
       app: {
         root: "bg-transparent",
         inner: "py-3",
+      },
+      // `hosted`: one line for a page a platform hosts for its customer — the customer's legal links, the platform's signature.
+      hosted: {
+        inner: "py-4",
       },
     },
     // `product`: the products' plain Krizaka UI. `cahier`: the Cahier sites (www, blog, ui., java., ts., lab.) — the
@@ -139,14 +145,17 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
   org?: OrgFacts;
   /** The legal links, when not the org's (`SiteFooter.Link`s). */
   legal?: React.ReactNode;
+  /** `variant="hosted"`: the platform's signature at the end of the line (« Page faite avec Folioviv · Comment cette page est faite »), as `SiteFooter.Link`s. Passed translated. */
+  madeWith?: React.ReactNode;
   /** The host's controls at the end of the last line: the language switch, the theme toggle. */
   controls?: React.ReactNode;
   /**
    * `site` — every public site. `docs` — the same under documentation, on its width. `app` — inside a signed-in product:
-   * the last line only; render it once, in the layout.
+   * the last line only; render it once, in the layout. `hosted` — the footer of a page a platform hosts for its customer
+   * (a shop on Folioviv): one line, the customer's `legal` links then `madeWith`; no family, no signature, no version.
    * @default "site"
    */
-  variant?: "site" | "docs" | "app";
+  variant?: "site" | "docs" | "app" | "hosted";
   /** `cahier` on the Cahier sites (www, blog, ui., java., ts., lab.), `product` in the products. @default "product" */
   tone?: Tone;
   /**
@@ -176,6 +185,7 @@ export function SiteFooter({
   path,
   legal: legalProp,
   controls,
+  madeWith,
   org,
   family: familyProp,
   products,
@@ -189,6 +199,21 @@ export function SiteFooter({
 }: Readonly<SiteFooterProps>) {
   const id = React.useId();
   const s = siteFooter({ variant, tone });
+  if (variant === "hosted") {
+    return (
+      <ToneContext.Provider value={tone}>
+        <footer className={s.root({ className })} {...props}>
+          <div className={s.inner()}>
+            <div className={s.bottom()}>
+              {legalProp && <div className={s.legal()}>{legalProp}</div>}
+              {madeWith && <p className={s.made()}>{madeWith}</p>}
+              {controls && <div className={s.controls()}>{controls}</div>}
+            </div>
+          </div>
+        </footer>
+      </ToneContext.Provider>
+    );
+  }
   const slim = variant === "app";
   const family = !slim && (familyProp ?? (current === "krizaka" && !config));
   const site = siteById(current);

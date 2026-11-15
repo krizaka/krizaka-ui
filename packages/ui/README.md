@@ -169,6 +169,7 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/scroll-stage` | `ScrollStage` (`variant`, `threshold`, `as`) and `Scene` (`brand`, `as`): chapters played once as they scroll in, one loop each while on screen — the storytelling kit, styles in `@krizaka/ui/story.css` | client |
 | `@krizaka/ui/choice-grid` | `ChoiceGrid` (`items` with `badge`/`eyebrow`/`extra`/`meta`/`href`, `label`, `tag`, `caption`, `prompt`, `value`/`defaultValue`/`onValueChange`, `linkAs`, `columns`, `variant`, `brand`): choices as tiles — a radio group when selectable, links with `href` | client |
 | `@krizaka/ui/profile-card` | `ProfileCard` (`visual`, `name`, `statLabel`/`value`/`figure`, `stats`, `caption`, `variant`, `brand`): a profile at a glance; `StatGauge` (`label`, `value`, `max`, `valueText`, `figure`): one measured strength; native too | server |
+| `@krizaka/ui/platform-bar` | `PlatformBar` (`label`, `brand`, `notice`, `end`: the platform's strip above a hosted page — static, no client code; pair with `SiteFooter variant="hosted"`) | server |
 | `@krizaka/ui/stage-banner` | `StageBanner` (`stage`, `name`, `size="lg"` with `title`/`subtitle`, `variant`) | server |
 | `@krizaka/ui/goal-gauge` | `GoalGauge` (`label`, `segments`, `value`, `mode` fill · drain, `variant`): a goal in steps, a meter; native too | server |
 | `@krizaka/ui/promise-card` | `PromiseCard` (`label`, `promise`, `keys`, `bearer`, `bearerLabel`, `bearerName`, `variant`): a promise, the keys that call it, who carries it | server |

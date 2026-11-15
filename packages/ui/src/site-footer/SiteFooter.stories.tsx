@@ -5,6 +5,7 @@ import CompanyExample from "../../registry/examples/site-footer/company";
 import ConfiguredExample from "../../registry/examples/site-footer/configured";
 import DocsExample from "../../registry/examples/site-footer/docs";
 import FamilyExample from "../../registry/examples/site-footer/family";
+import HostedExample from "../../registry/examples/site-footer/hosted";
 import OpenSourceFrExample from "../../registry/examples/site-footer/open-source-fr";
 import ProductExample from "../../registry/examples/site-footer/product";
 import SocialsExample from "../../registry/examples/site-footer/socials";
@@ -38,3 +39,7 @@ export const Configured: Story = { render: () => <ConfiguredExample /> };
 export const Socials: Story = { render: () => <SocialsExample /> };
 /** The developer sites' footer from the org JSON (`footerFor`): at most three lines on a desktop, folded groups at 360 px. */
 export const Family: Story = { render: () => <FamilyExample /> };
+/** `variant="hosted"`: a shop's page on a platform — the shop's legal links and « made with » on one line, at 360, 390 and 1440 px. */
+export const Hosted360: Story = { tags: ["pb3746"], render: () => <HostedExample />, parameters: { viewportWidth: 360, noOverflow: true } };
+export const Hosted390: Story = { tags: ["pb3746"], render: () => <HostedExample />, parameters: { viewportWidth: 390, noOverflow: true } };
+export const Hosted1440: Story = { tags: ["pb3746"], render: () => <HostedExample />, parameters: { viewportWidth: 1440, noOverflow: true } };

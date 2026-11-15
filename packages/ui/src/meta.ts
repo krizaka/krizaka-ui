@@ -12,6 +12,7 @@ export type ComponentName =
   | "notification-preferences"
   | "quota-meter"
   | "environment-notice"
+  | "platform-bar"
   | "embed-facade"
   | "reviews"
   | "margin-layout"

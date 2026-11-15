@@ -74,6 +74,8 @@ export default defineConfig([
       "quota-meter": "src/quota-meter/index.ts",
       // The « development version » band, driven by the deployment's stage.
       "environment-notice": "src/environment-notice/index.ts",
+      // The platform's strip above a page it hosts for a customer: server-only, no client code.
+      "platform-bar": "src/platform-bar/index.ts",
       // The clients' word on a shop: a score as a stamp, five meters, the review cards.
       reviews: "src/reviews/index.ts",
       "margin-layout": "src/margin-layout/index.ts",

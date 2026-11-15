@@ -164,6 +164,10 @@
       "types": "./dist/environment-notice.d.ts",
       "import": "./dist/environment-notice.js"
     },
+    "./platform-bar": {
+      "types": "./dist/platform-bar.d.ts",
+      "import": "./dist/platform-bar.js"
+    },
     "./margin-layout": {
       "types": "./dist/margin-layout.d.ts",
       "import": "./dist/margin-layout.js"
@@ -1441,6 +1445,18 @@
       "name": "./environment-notice",
       "path": "dist/environment-notice.js",
       "limit": "1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "react",
+        "radix-ui"
+      ]
+    },
+    {
+      "name": "./platform-bar",
+      "path": "dist/platform-bar.js",
+      "limit": "0.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2750,7 +2766,7 @@
     {
       "name": "./settings-layout",
       "path": "dist/settings-layout.js",
-      "limit": "6 kB",
+      "limit": "5.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2770,7 +2786,7 @@
     {
       "name": "./detail-layout",
       "path": "dist/detail-layout.js",
-      "limit": "3 kB",
+      "limit": "2.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

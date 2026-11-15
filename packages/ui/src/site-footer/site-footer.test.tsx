@@ -463,3 +463,33 @@ describe("FamilyFooter", () => {
     expect(inner.className).toContain("--kz-page-max-docs");
   });
 });
+
+describe("SiteFooter variant=\"hosted\"", () => {
+  const hosted = (props: Partial<React.ComponentProps<typeof SiteFooter>> = {}) => (
+    <SiteFooter
+      current="folioviv"
+      variant="hosted"
+      legal={<SiteFooter.Link href="#privacy">Confidentialité</SiteFooter.Link>}
+      madeWith={
+        <>
+          <span>Page faite avec Folioviv</span>
+          <SiteFooter.Link href="#how">Comment cette page est faite</SiteFooter.Link>
+        </>
+      }
+      {...props}
+    />
+  );
+
+  it("is one line: the shop's legal links, then the platform's signature, and no axe violation", async () => {
+    const { container } = render(hosted());
+    expect(screen.getByRole("contentinfo").textContent).toBe("ConfidentialitéPage faite avec FoliovivComment cette page est faite");
+    expect(screen.getAllByRole("link").map((l) => l.textContent)).toEqual(["Confidentialité", "Comment cette page est faite"]);
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("draws no family, no Krizaka signature, no version and no Explorer link, even when asked for", () => {
+    const { container } = render(hosted({ family: true, version: "1.2.3", env: "DEV", org }));
+    expect(container.querySelector("nav, details")).toBeNull();
+    expect(container.textContent).not.toMatch(/Krizaka|v1\.2\.3|DEV|Explorer/);
+  });
+});
