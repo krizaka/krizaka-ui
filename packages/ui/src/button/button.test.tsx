@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { axeViolations } from "../test/axe";
-import { Button, buttonVariants, IconButton } from "./index";
+import { Button, buttonVariants, IconButton, textLinkVariants } from "./index";
 
 describe("Button", () => {
   it("renders a type=button with its variant, and no axe violation", async () => {
@@ -117,6 +117,28 @@ describe("Button", () => {
 
   it("styles anything through buttonVariants", () => {
     expect(buttonVariants({ variant: "ghost", size: "lg" })).toContain("h-12");
+  });
+});
+
+describe("a link beside a button (a discreet link is not a button)", () => {
+  it("keeps the link role, and its destination, under asChild with a button look", () => {
+    render(
+      <Button asChild variant="primary">
+        <a href="/blog">Blog</a>
+      </Button>,
+    );
+    expect(screen.getByRole("link", { name: "Blog" }).getAttribute("href")).toBe("/blog");
+    expect(screen.queryByRole("button")).toBeNull();
+  });
+
+  it("textLinkVariants draws a link with no box, no height and no fill, unlike buttonVariants", async () => {
+    const { container } = render(<a href="/blog" className={textLinkVariants()}>Back to the blog</a>);
+    const link = screen.getByRole("link", { name: "Back to the blog" });
+    expect(link.className).toContain("text-fg-accent");
+    expect(link.className).toContain("hover:underline");
+    for (const boxed of ["h-10", "px-4", "bg-", "border", " rounded-sm", "shadow"]) expect(link.className).not.toContain(boxed);
+    expect(buttonVariants({ variant: "primary" })).toContain("bg-accent");
+    expect(await axeViolations(container)).toEqual([]);
   });
 });
 
