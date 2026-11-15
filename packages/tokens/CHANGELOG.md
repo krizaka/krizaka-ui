@@ -1,5 +1,11 @@
 # @krizaka/tokens
 
+## 4.10.0
+
+### Minor Changes
+
+- [#1037](https://github.com/krizaka/krizaka-ui/pull/1037) [`df598d0`](https://github.com/krizaka/krizaka-ui/commit/df598d0cce3a55d25e7ff672b953cbf18e61a5a7) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(tokens): `@krizaka/tokens/brands.json` — the one file every consumer reads for a product's colours: each brand's logo gradient, accent, accent text, accent-2 and on-accent, light and dark, in hsl and hex. The default accent of `color.tokens.json` is now taken from `krizaka.brand.json` (the duplicate is gone; `tokens.css` is unchanged). krizaka-internal#3838.
+
 ## 4.9.0
 
 No changes in this release.
