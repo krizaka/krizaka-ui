@@ -127,13 +127,26 @@ describe("marks", () => {
 });
 
 describe("commercial names (krizaka-internal#2035)", () => {
-  it("draws Kridoc as an open page with a fold, its node at the fold, and stops moving with animated={false}", () => {
-    const { container } = render(<KridocLogo size={96} animated={false} />);
-    expect([...container.querySelectorAll("path")].map((p) => p.getAttribute("d"))).toEqual([KRIDOC.page, KRIDOC.fold, ...KRIDOC.lines]);
-    expect(KRIDOC.page.endsWith(`${KRIDOC.node.cx},${KRIDOC.node.cy}`)).toBe(false); // the page is open: its stroke stops short of the node
-    expect(container.querySelector(".kdm-spin, .kdm-pulse")).toBeNull();
-    expect(render(<KridocLogo size={96} />).container.querySelector(".kdm-pulse")).not.toBeNull();
-    expect(render(<ProductLockup id="kridoc" name="Kridoc" endorsement="by Krizaka" />).container.querySelector(".kdm-pulse")).not.toBeNull(); // the lockup, not ProductLogo, carries Kridoc: the typical page stays light
+  it("draws Kridoc from mark C (the crane) in the kridoc brand palette, through ProductLogo; KridocLogo is its alias (krizaka-internal#3839)", () => {
+    const { container } = render(<ProductLogo id="kridoc" size={96} animated={false} />);
+    const svg = container.querySelector("svg")!;
+    expect([...svg.querySelectorAll("path")].map((p) => p.getAttribute("d"))).toEqual([KRIDOC.neck, KRIDOC.beak, KRIDOC.wingUp, KRIDOC.wingDown, KRIDOC.wingDown]);
+    expect(KRIDOC.neck).toBe("M178 298 L178 162 C178 136 162 122 140 126");
+    expect(KRIDOC.gradient.stops).toEqual(marks.kridoc);
+    expect(marks.kridoc.map(([, c]) => c)).toEqual(["#2c6ae8", "#156fd5"]);
+    expect(KRIDOC.highlight).toBe("#eef4ff");
+    expect(svg.outerHTML).not.toContain(" L214,170"); // the old document glyph is gone
+    const alias = render(<KridocLogo size={96} animated={false} />).container.querySelector("svg")!;
+    expect(alias.outerHTML.replaceAll(/kdm-\w+-[\w-]+/g, "")).toBe(svg.outerHTML.replaceAll(/kdm-\w+-[\w-]+/g, ""));
+    expect(container.querySelector("[class]:not(svg)")).toBeNull();
+    expect(render(<ProductLogo id="kridoc" size={96} />).container.querySelector(".kdm-core")).not.toBeNull();
+    expect(render(<ProductLockup id="kridoc" name="Kridoc" endorsement="by Krizaka" />).container.querySelector(".kdm-core")).not.toBeNull();
+  });
+
+  it("never draws a product's mark with another product's geometry or a fallback (krizaka-internal#3839)", () => {
+    const ids = ["krizaka", "sovkora", "verikora", "folioviv", "kridoc"] as const;
+    const drawn = ids.map((id) => render(<ProductLogo id={id} size={96} animated={false} />).container.querySelector("svg")!.innerHTML.replaceAll(/[a-z]+-\w+-[\w-]+/g, "#"));
+    expect(new Set(drawn).size).toBe(ids.length);
   });
 
   it("writes the lockup from data: the name read aloud, the mark decorative", () => {

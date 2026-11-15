@@ -1,0 +1,104 @@
+{
+  "$description": "Kridoc — le saphir de la grue (marque C, 2026-11-15) : un bleu franc (220) qui penche vers le cobalt, le logo est un dégradé saphir #2c6ae8 → #156fd5, identique dans les deux thèmes, ≥ 3:1 sur les surfaces 0–2. Le clair du cœur du logo est #eef4ff. info reste le bleu de Krizaka.",
+  "$extensions": {
+    "com.krizaka": {
+      "mark": [
+        [
+          "0%",
+          "hsl(220 80% 54%)"
+        ],
+        [
+          "100%",
+          "hsl(212 82% 46%)"
+        ]
+      ]
+    }
+  },
+  "accent": {
+    "$type": "color",
+    "$root": {
+      "$value": "hsl(220 80% 70%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(220 76% 42%)"
+        }
+      }
+    },
+    "hover": {
+      "$value": "hsl(220 82% 76%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(220 78% 36%)"
+        }
+      }
+    },
+    "soft": {
+      "$value": "hsl(220 80% 70% / 0.12)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(220 76% 42% / 0.08)"
+        }
+      }
+    },
+    "text": {
+      "$value": "hsl(220 85% 76%)",
+      "$extensions": {
+        "com.krizaka": {
+          "light": "hsl(220 76% 40%)"
+        }
+      }
+    }
+  },
+  "accent-2": {
+    "$type": "color",
+    "$value": "hsl(220 80% 74%)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(220 76% 40%)"
+      }
+    }
+  },
+  "on-accent": {
+    "$type": "color",
+    "$value": "hsl(220 20% 5%)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(0 0% 100%)"
+      }
+    }
+  },
+  "ring": {
+    "$type": "color",
+    "$value": "{accent.$root}"
+  },
+  "info": {
+    "$type": "color",
+    "$value": "hsl(207 50% 58%)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(208 54% 36%)"
+      }
+    }
+  },
+  "info-text": {
+    "$type": "color",
+    "$value": "hsl(206 58% 72%)",
+    "$extensions": {
+      "com.krizaka": {
+        "light": "hsl(208 54% 33%)"
+      }
+    }
+  },
+  "brand-gradient": {
+    "$type": "color",
+    "from": {
+      "$value": "{surface.0}"
+    },
+    "via": {
+      "$value": "{surface.0}"
+    },
+    "to": {
+      "$value": "{surface.0}"
+    }
+  }
+}

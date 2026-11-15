@@ -1,5 +1,4 @@
 import { cx } from "../cx";
-import { KridocLogo } from "./KridocLogo";
 import { type MarkId, ProductLogo } from "./ProductLogo";
 
 export interface ProductLockupProps {
@@ -36,7 +35,7 @@ export function ProductLockup({ id, name, endorsement, size = 32, animated = tru
   const text = textSize(size);
   return (
     <span className={cx("inline-flex items-center gap-2.5", className)} data-brand={id}>
-      {id === "kridoc" ? <KridocLogo size={size} animated={animated} /> : <ProductLogo id={id} size={size} animated={animated} />}
+      <ProductLogo id={id} size={size} animated={animated} />
       <span className={cx("flex leading-tight", layout === "stacked" ? "flex-col" : "items-baseline gap-1.5")}>
         <span className={cx("font-semibold tracking-tight text-fg", text)}>{name}</span>
         <span className="text-xs text-fg-secondary">{endorsement}</span>
