@@ -21,7 +21,7 @@ const folders = [
       .map((name) => FOLDER_OF[name] ?? name)
       .filter((name) => existsSync(join(src, name)) && readdirSync(join(src, name), { withFileTypes: true }).length > 0 && !existsSync(join(src, `${name}.ts`))),
   ),
-].sort();
+].sort((a, b) => a.localeCompare(b));
 
 function filesUnder(dir: string): string[] {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => (entry.isDirectory() ? filesUnder(join(dir, entry.name)) : [join(dir, entry.name)]));
