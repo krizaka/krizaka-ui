@@ -108,7 +108,6 @@ export default defineConfig([
       "step-progress": "src/step-progress/index.ts",
       // The default avatars' pure helpers (defaultAvatarUrl…): callable in a Server Component, unlike "avatar" (client).
       "avatar/defaults": "src/avatar/defaults.ts",
-      "button/text-link": "src/button/text-link.ts",
       // The Krizaka family as data (the bar's switcher and the footer read it).
       sites: "src/sites/index.ts",
       "nav-bar/me": "src/nav-bar/me.ts",
@@ -391,7 +390,7 @@ export default defineConfig([
   {
     // Server — the form's server side (a Server Action re-validating with the form's schema): no React, no directive.
     ...shared,
-    entry: { "form/server": "src/form/server.ts", "text-style/server": "src/text-style/server.ts", "app-frame/server": "src/app-frame/server.ts" },
+    entry: { "form/server": "src/form/server.ts", "text-style/server": "src/text-style/server.ts", "app-frame/server": "src/app-frame/server.ts", "button/text-link": "src/button/text-link.ts" },
   },
   {
     // Server — the media guard of MediaCarousel (ADR-010 §4): pure rules and the ffmpeg adapter (its runner passed in), no React.
