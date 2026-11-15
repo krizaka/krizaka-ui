@@ -43,6 +43,7 @@
     "./brands/sovkora.css": "./dist/brands/sovkora.css",
     "./brands/verikora.css": "./dist/brands/verikora.css",
     "./brands/folioviv.css": "./dist/brands/folioviv.css",
+    "./brands/kridoc.css": "./dist/brands/kridoc.css",
     "./brands/scoped.css": "./dist/brands/scoped.css",
     "./brands.json": "./dist/brands.json",
     "./native": {
@@ -66,7 +67,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "size": "size-limit",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./appearance.css ./shop-presets.css ./brands/krizaka.css ./brands/sovkora.css ./brands/verikora.css ./brands/folioviv.css ./brands/scoped.css",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./appearance.css ./shop-presets.css ./brands/krizaka.css ./brands/sovkora.css ./brands/verikora.css ./brands/folioviv.css ./brands/kridoc.css ./brands/scoped.css",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
