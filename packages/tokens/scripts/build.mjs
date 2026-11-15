@@ -617,6 +617,27 @@ export function compileBrands(base, brandSources) {
 }
 
 /**
+ * A base token without a `$value` takes the value and light value of the same path in the brand.
+ * @param {Record<string, any>} child
+ * @param {Record<string, any>} brand
+ */
+function takeBrandValue(child, brand) {
+  child.$value = brand.$value;
+  const light = isObject(brand.$extensions) ? brand.$extensions[EXT]?.light : undefined;
+  if (light !== undefined) child.$extensions = { ...child.$extensions, [EXT]: { ...child.$extensions?.[EXT], light } };
+}
+
+/** @param {Record<string, any>} node @param {Record<string, any>} from */
+function fillFromBrand(node, from) {
+  for (const [k, child] of Object.entries(node)) {
+    if ((k.startsWith("$") && k !== "$root") || !isObject(child) || "$value" in child) continue;
+    const brand = from?.[k];
+    if (isObject(brand) && "$value" in brand) takeBrandValue(child, brand);
+    else fillFromBrand(child, isObject(brand) ? brand : {});
+  }
+}
+
+/**
  * The platform's default accent family IS Krizaka's brand: a colour token of the base sources that has no `$value` of
  * its own takes the value (and the light value) of the same path in `krizaka.brand.json`. The source is not changed.
  * Without the Krizaka brand the sources are returned as they are.
@@ -628,20 +649,7 @@ export function withBrandDefaults(sources, brandSources) {
   const krizaka = brandSources.krizaka;
   if (!isObject(krizaka) || !isObject(sources.color)) return sources;
   const color = structuredClone(sources.color);
-  /** @param {Record<string, any>} node @param {Record<string, any>} from */
-  const fill = (node, from) => {
-    for (const [k, child] of Object.entries(node)) {
-      if (k.startsWith("$") && k !== "$root") continue;
-      if (!isObject(child) || "$value" in child) continue;
-      const brand = from?.[k];
-      if (isObject(brand) && "$value" in brand) {
-        child.$value = brand.$value;
-        const light = isObject(brand.$extensions) ? brand.$extensions[EXT]?.light : undefined;
-        if (light !== undefined) child.$extensions = { ...child.$extensions, [EXT]: { ...child.$extensions?.[EXT], light } };
-      } else fill(child, isObject(brand) ? brand : {});
-    }
-  };
-  fill(color, krizaka);
+  fillFromBrand(color, krizaka);
   return { ...sources, color };
 }
 
