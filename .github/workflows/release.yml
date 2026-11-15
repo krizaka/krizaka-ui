@@ -28,8 +28,15 @@ jobs:
       - id: gate
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] || ! git diff --quiet HEAD~1 HEAD -- 'packages/*/package.json'; then echo "check=true" >> "$GITHUB_OUTPUT"; else echo "No package.json changed: nothing to publish, check skipped"; fi
+      # The published packages (the catalogue is checked by CI), uncached, split as CI splits it and bounded (krizaka-internal#3904): one
+      # `turbo run check` started lint, typecheck, test and build of @krizaka/ui together beside the other packages (tsup's declaration
+      # workers alone peak past 15 GB) and the 16 GB runner was stopped (« The runner has received a shutdown signal », run 43746219830).
+      # Lint and types first; `check` then replays them from the local cache and runs test, build, size and publint two at a time.
+      # tools/release-check.test.mjs holds this shape.
       - if: steps.gate.outputs.check == 'true'
-        run: pnpm turbo run check --filter='./packages/*'   # the published packages (the catalogue is checked by CI)
+        run: pnpm turbo run lint typecheck --filter='./packages/*' --concurrency=2
+      - if: steps.gate.outputs.check == 'true'
+        run: pnpm turbo run check --filter='./packages/*' --concurrency=2
       # changesets/action v2 = Changesets CLI v3 (v1 reads the v3 pre-release folder `.changeset/pre/` as a v1 changeset
       # and fails). Inputs are kebab-case; the token goes through `github-token`.
       # « chore: version packages » opened with GITHUB_TOKEN starts no workflow (GitHub's rule), so CI never ran on it and it

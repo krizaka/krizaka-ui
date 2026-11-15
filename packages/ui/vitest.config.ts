@@ -22,6 +22,8 @@ export default defineConfig({
   },
   test: {
     environment: "happy-dom",
+    // happy-dom's « iframe page loading is disabled » notice is dropped (it printed whole windows in CI, krizaka-internal#3904).
+    setupFiles: ["./src/test/happy-dom-iframes.ts"],
     globals: true,
     testTimeout: 15_000,
     exclude: [...configDefaults.exclude, "src/native/**"],
