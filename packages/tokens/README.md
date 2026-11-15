@@ -17,6 +17,29 @@ A theme is a set of **values**, never a set of classes. A component is written o
 light and a product theme (an override of `--kz-accent`, `--kz-font-display`…) only change the values. No `light:`
 variant, no `dark:` variant, no `zinc-*` / `slate-*` / `#hex` in a component.
 
+## The one source of product colours
+
+`@krizaka/tokens` is the only place a product's colour is written. The source is `src/brands/<id>.brand.json`; the build
+publishes it as **`brands.json`** (`@krizaka/tokens/brands.json`), the one file every consumer reads: the logos, the birds,
+the sites, the emails, the app icons.
+
+```ts
+import brands from "@krizaka/tokens/brands.json" with { type: "json" };
+
+const { accent, accentText, accent2, onAccent, logo } = brands.brands.verikora;
+accent.dark.hsl; // "hsl(…)"
+accent.light.hex; // "#rrggbb"
+logo.dark.hex; // [["0%", "#…"], ["100%", "#…"]] — the logo gradient stops
+```
+
+Per brand (`krizaka`, `verikora`, `folioviv`, `sovkora`; `default` is `krizaka`): five roles — `logo` (the gradient
+stops), `accent`, `accentText`, `accent2`, `onAccent` — each for `dark` and `light`, in `hsl` and `hex`. The default accent
+of `tokens.css` is Krizaka's brand: `color.tokens.json` holds no copy of it, the build takes it from `krizaka.brand.json`.
+
+**Nothing else may type a product colour** — no hex, no `hsl()`, no copy of a gradient in a component, a site, an
+email or a script: read `brands.json` or a `--kz-*` token. A change of a brand colour is one edit in
+`src/brands/<id>.brand.json`. (An automatic check will refuse a typed product colour: krizaka-internal#3844.)
+
 ## Install
 
 ```bash
