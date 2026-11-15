@@ -51,7 +51,7 @@ function horizontal(count: number) {
 }
 
 /** Manga action lines behind a hero element: a burst or streaks in SVG, still under reduced motion. */
-export function SpeedLines({ kind = "radial", count = 36, clear = 34, animated = false, className, children, ...props }: SpeedLinesProps) {
+export function SpeedLines({ kind = "radial", count = 36, clear = 34, animated = false, className, children, ...props }: Readonly<SpeedLinesProps>) {
   const n = Math.min(120, Math.max(4, Math.round(count)));
   const gap = Math.min(80, Math.max(0, clear));
   return (

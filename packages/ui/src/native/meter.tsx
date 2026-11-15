@@ -6,8 +6,6 @@ import { type MeterLevel, meterModel, type MeterPart, type MeterThresholds } fro
 import { type Theme, useTheme } from "./theme";
 import { Txt } from "./txt";
 
-export type { MeterPart };
-
 export type MeterProps = {
   /** The accessible name (“Storage”, “Credits”) — passed translated; shown with `showLabel`. */
   label: string;
@@ -45,7 +43,7 @@ const partColor = (t: Theme, i: number) => [t.accent, t.warning, t.success, t.te
 const levelColor = (t: Theme, level: MeterLevel) => ({ ok: t.accent, success: t.success, warning: t.warning, danger: t.danger })[level];
 
 /** A measure within a range — a quota, a balance, a share — toned by thresholds or split into parts: the web `Meter`. */
-export function Meter({ label, value = 0, min = 0, max = 100, valueText, thresholds, optimum = "low", parts, variant = "bar", size = "md", showLabel, children, style }: MeterProps) {
+export function Meter({ label, value = 0, min = 0, max = 100, valueText, thresholds, optimum = "low", parts, variant = "bar", size = "md", showLabel, children, style }: Readonly<MeterProps>) {
   const { theme } = useTheme();
   const { ratio, level, words, shares: modelShares, arcs } = meterModel({ value, min, max, valueText, thresholds, optimum, parts });
   const tone = levelColor(theme, level);
@@ -120,3 +118,5 @@ const styles = StyleSheet.create({
   ringRoot: { alignItems: "center", gap: 8 },
   center: { alignItems: "center", justifyContent: "center" },
 });
+
+export { type MeterPart } from "../meter/model";

@@ -12,8 +12,7 @@ import { cn } from "../cn";
 import { DropdownMenu } from "../dropdown-menu";
 import { ChevronGlyph } from "../glyphs";
 
-export type { StatusSet, StatusTransition };
-export type { StatusTone } from "@krizaka/organize/contract";
+export type { StatusSet, StatusTone, StatusTransition } from "@krizaka/organize/contract";
 
 export type StatusMove = {
   /** The transition the person chose. */

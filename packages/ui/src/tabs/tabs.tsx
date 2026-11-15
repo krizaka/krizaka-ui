@@ -141,7 +141,7 @@ export type TabsRootProps = React.ComponentProps<typeof TabsPrimitive.Root> & {
 };
 
 /** `value`/`defaultValue` + `onValueChange`, `orientation` (horizontal by default), `variant` for the list. */
-export function TabsRoot({ variant = "underline", className, routeKey, routeValues, ...rest }: TabsRootProps) {
+export function TabsRoot({ variant = "underline", className, routeKey, routeValues, ...rest }: Readonly<TabsRootProps>) {
   const props = useRouteBinding(routeKey, routeValues, rest);
   return (
     <VariantContext.Provider value={variant}>
@@ -156,7 +156,7 @@ export type TabsListProps = React.ComponentProps<typeof TabsPrimitive.List> & {
 };
 
 /** The tabs. Name it (`aria-label`) when no heading says what it switches. One light glides to the active tab. */
-export function TabsList({ className, add, ...props }: TabsListProps) {
+export function TabsList({ className, add, ...props }: Readonly<TabsListProps>) {
   const variant = React.useContext(VariantContext);
   const { ref } = useSlidingIndicator<HTMLDivElement>({ item: "[role=tab]", active: "[role=tab][data-state=active]" });
   const list = <TabsPrimitive.List ref={ref} data-variant={variant} className={tabs({ variant }).list({ className: cn(add && "min-w-0 flex-1 border-b-0", className) })} {...props} />;
@@ -176,7 +176,7 @@ export type TabsTriggerProps = React.ComponentProps<typeof TabsPrimitive.Trigger
   hue?: TabsHue;
 };
 
-export function TabsTrigger({ className, count, hue, style, children, ...props }: TabsTriggerProps) {
+export function TabsTrigger({ className, count, hue, style, children, ...props }: Readonly<TabsTriggerProps>) {
   const variant = React.useContext(VariantContext);
   return (
     <TabsPrimitive.Trigger className={tabs({ variant }).trigger({ className })} style={hueStyle(hue, style)} data-hue={hue} {...props}>
@@ -186,7 +186,7 @@ export function TabsTrigger({ className, count, hue, style, children, ...props }
   );
 }
 
-export function TabsContent({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>) {
+export function TabsContent({ className, ...props }: Readonly<React.ComponentProps<typeof TabsPrimitive.Content>>) {
   return <TabsPrimitive.Content className={tabs().content({ className })} {...props} />;
 }
 
@@ -236,7 +236,7 @@ export type TabsNavProps = Omit<React.ComponentProps<"nav">, "children"> & {
  * anchor, the active one carries `aria-current="page"`, the keyboard is the page's own (Tab walks the links, Enter
  * follows one) and there is no panel — the page is the panel. The same looks and the same gliding light as `Tabs.List`.
  */
-export function TabsNav({ label, current, variant = "underline", add, className, children, ...props }: TabsNavProps) {
+export function TabsNav({ label, current, variant = "underline", add, className, children, ...props }: Readonly<TabsNavProps>) {
   const { ref } = useSlidingIndicator<HTMLElement>({ item: "[data-tabs-link]", active: "[data-tabs-link][data-state=active]" });
   const value = React.useMemo(() => ({ current, variant }), [current, variant]);
   const nav = (
@@ -272,7 +272,7 @@ export type TabsNavLinkProps = React.ComponentProps<"a"> & {
 };
 
 /** One tab of `Tabs.Nav`: an anchor that is active when the current route is its `href`. */
-export function TabsNavLink({ href, exact, asChild, count, hue, style, className, children, ...props }: TabsNavLinkProps) {
+export function TabsNavLink({ href, exact, asChild, count, hue, style, className, children, ...props }: Readonly<TabsNavLinkProps>) {
   const ctx = React.useContext(NavContext);
   if (!ctx) throw new Error("Tabs.NavLink must be inside <Tabs.Nav>");
   const active = isTabActive(ctx.current, href, exact);

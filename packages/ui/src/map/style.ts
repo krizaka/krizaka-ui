@@ -12,7 +12,7 @@ export type MapBrand = keyof typeof brands;
 
 /** A colour mixed into another (`#rrggbb` only): `t` = 0 gives `a`, 1 gives `b`. */
 export function mix(a: string, b: string, t: number): string {
-  const p = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const p = (h: string) => [1, 3, 5].map((i) => Number.parseInt(h.slice(i, i + 2), 16));
   const [x, y] = [p(a), p(b)];
   return `#${x.map((v, i) => Math.round(v + (y[i]! - v) * t).toString(16).padStart(2, "0")).join("")}`;
 }

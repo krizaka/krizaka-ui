@@ -38,7 +38,7 @@ export function Tooltip({
   collisionPadding = 8,
   className,
   ...props
-}: TooltipProps) {
+}: Readonly<TooltipProps>) {
   return (
     <TooltipPrimitive.Provider delayDuration={delayDuration}>
       <TooltipPrimitive.Root open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>

@@ -40,7 +40,7 @@ export type PageHeroProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & {
 };
 
 /** The first screen of a page: back link, eyebrow, `h1`, lead, what follows them (facts, actions) and an aside. */
-export function PageHero({ title, eyebrow, lead, back, linkAs, aside, backdrop = "grid", align = "start", size, className, children, ...props }: PageHeroProps) {
+export function PageHero({ title, eyebrow, lead, back, linkAs, aside, backdrop = "grid", align = "start", size, className, children, ...props }: Readonly<PageHeroProps>) {
   const body = (
     <Page size={size}>
       <div className="kz-hero-text">

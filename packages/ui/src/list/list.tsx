@@ -125,7 +125,7 @@ export function List<T>({
   footer,
   labels: given,
   className,
-}: ListProps<T>) {
+}: Readonly<ListProps<T>>) {
   const labels = { ...listLabels, ...given };
   const s = list({ density });
   const [selected, setSelected] = useControllable<readonly string[]>(selectedProp, defaultSelected, onSelectedChange as (next: readonly string[]) => void);

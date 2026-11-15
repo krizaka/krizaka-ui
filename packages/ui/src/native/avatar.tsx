@@ -121,7 +121,7 @@ export type AvatarGroupProps = ViewProps & {
 };
 
 /** Overlapping avatars; past `max`, a `+n` avatar counts the rest. */
-export function AvatarGroup({ max, size = "md", style, children, ...props }: AvatarGroupProps) {
+export function AvatarGroup({ max, size = "md", style, children, ...props }: Readonly<AvatarGroupProps>) {
   const { theme } = useTheme();
   const items = React.Children.toArray(children);
   const shown = max === undefined ? items : items.slice(0, max);

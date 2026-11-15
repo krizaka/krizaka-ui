@@ -179,5 +179,5 @@ export function capitalize(text: string): string {
 
 /** `{name}` → its value; an unknown placeholder stays as written. */
 export function fill(template: string, values: Record<string, string | number>): string {
-  return template.replace(/\{(\w+)\}/g, (match, name: string) => (name in values ? String(values[name]) : match));
+  return template.replaceAll(/\{(\w+)\}/g, (match, name: string) => (name in values ? String(values[name]) : match));
 }

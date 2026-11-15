@@ -11,8 +11,6 @@ import type { ChartFrameProps, TableModel } from "../web/frame";
 
 const fullEngine = () => import("../echarts/engines/full");
 
-export type { ResolvedTheme };
-
 export interface ChartProps extends ChartFrameProps, EngineProps {
   /** The ECharts option, or a function of the resolved theme (colours as plain strings, the palette, the ramp). */
   option: EChartsCoreOption | ((theme: ResolvedTheme, size: { width: number; height: number }) => EChartsCoreOption);
@@ -32,7 +30,7 @@ export interface ChartProps extends ChartFrameProps, EngineProps {
 }
 
 /** Any ECharts option, themed and framed like the typed charts. Memoise `option` when it is a function. */
-export function Chart({ option, modules = fullEngine, summaryText, table, items, onItem, ...frame }: ChartProps) {
+export function Chart({ option, modules = fullEngine, summaryText, table, items, onItem, ...frame }: Readonly<ChartProps>) {
   const build = useCallback(
     (theme: ResolvedTheme, size: { width: number; height: number }) => {
       const own = typeof option === "function" ? option(theme, size) : option;
@@ -54,3 +52,5 @@ export function Chart({ option, modules = fullEngine, summaryText, table, items,
     />
   );
 }
+
+export { type ResolvedTheme } from "../echarts/theme";

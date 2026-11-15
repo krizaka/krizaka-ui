@@ -1,8 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { cnMerge, type TWMergeConfig } from "tailwind-variants";
 
-export type { ClassValue };
-
 /**
  * The preset's own utilities, told to the merge engine: the material (BRAND.md §6: `bg-sheen`, `bg-fill-shade`,
  * `bg-halo` are background images; `shadow-raised` · `-floating` · `-overlay` · `-glow` are shadows; `inset-shadow-edge`
@@ -32,3 +30,4 @@ export function cn(...inputs: ClassValue[]): string {
   return cnMerge(clsx(inputs))(mergeConfig) ?? "";
 }
 
+export { type ClassValue } from "clsx";

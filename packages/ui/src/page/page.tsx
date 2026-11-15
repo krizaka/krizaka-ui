@@ -32,7 +32,7 @@ export type PageProps = React.HTMLAttributes<HTMLElement> & {
 } & PaperProps;
 
 /** The page frame: centred, at most `--kz-page-max` wide, with the gutters of `--kz-page-gutter` (16 → 32 px). */
-export function Page({ size = "default", as: Tag = "div", paper, margin, className, ...props }: PageProps) {
+export function Page({ size = "default", as: Tag = "div", paper, margin, className, ...props }: Readonly<PageProps>) {
   return (
     <Tag
       data-size={size === "default" ? undefined : size}
@@ -77,7 +77,7 @@ export type SectionHeadingProps = Omit<React.HTMLAttributes<HTMLDivElement>, "ti
 };
 
 /** The head of a section: eyebrow (mono, the accent), title, lead — and its actions on the right. */
-export function SectionHeading({ id, eyebrow, number, title, lead, actions, level = 2, size = "md", align = "start", reveal, className, ...props }: SectionHeadingProps) {
+export function SectionHeading({ id, eyebrow, number, title, lead, actions, level = 2, size = "md", align = "start", reveal, className, ...props }: Readonly<SectionHeadingProps>) {
   const H = level === 2 ? "h2" : "h3";
   return (
     <div
@@ -163,7 +163,7 @@ export function Section({
   className,
   children,
   ...props
-}: SectionProps) {
+}: Readonly<SectionProps>) {
   const body = (
     <Page size={size} data-margin={margin ? "" : undefined}>
       {title && <SectionHeading id={id} eyebrow={eyebrow} number={number} title={title} lead={lead} actions={actions} size={headingSize} align={headingAlign} reveal={reveal} />}
@@ -198,7 +198,7 @@ export type TicksProps = {
 };
 
 /** A sentence of a message catalogue where words between backticks read as code — no markup in the translations. */
-export function Ticks({ children }: TicksProps) {
+export function Ticks({ children }: Readonly<TicksProps>) {
   const parts = children.split("`");
   return (
     <>
@@ -233,7 +233,7 @@ export type FactsProps = React.HTMLAttributes<HTMLUListElement> & {
 };
 
 /** Compact facts on one line — a dot that says the state, a few mono words. Links open in a new tab. */
-export function Facts({ items, className, ...props }: FactsProps) {
+export function Facts({ items, className, ...props }: Readonly<FactsProps>) {
   return (
     <ul className={cn("kz-facts", className)} {...props}>
       {items.map((fact) => {

@@ -25,7 +25,7 @@ export type DescriptionListProps = {
 };
 
 /** Term and value pairs — the web `DescriptionList`: a job's details, a payout's breakdown; each pair read as one. */
-export function DescriptionList({ items, layout = "stacked", style }: DescriptionListProps) {
+export function DescriptionList({ items, layout = "stacked", style }: Readonly<DescriptionListProps>) {
   const { theme, radius } = useTheme();
   return (
     <View role="list" style={[layout === "grid" ? styles.grid : layout === "inline" ? null : styles.stacked, style]}>

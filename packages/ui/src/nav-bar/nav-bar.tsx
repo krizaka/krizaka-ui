@@ -133,7 +133,7 @@ export type NavBarRootProps = React.ComponentProps<"header"> & {
 };
 
 /** The bar. Place it in a `sticky top-3` (floating) or `sticky top-0` wrapper — or let it scroll. */
-export function NavBarRoot({ label, compactAfter = 24, floating = true, className, children, ...props }: NavBarRootProps) {
+export function NavBarRoot({ label, compactAfter = 24, floating = true, className, children, ...props }: Readonly<NavBarRootProps>) {
   const [compact, setCompact] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const panelId = React.useId();
@@ -165,7 +165,7 @@ export type NavBarBrandProps = React.ComponentProps<"a"> & {
 };
 
 /** The brand: a mark and a name, linking home. */
-export function NavBarBrand({ asChild, className, org, children, ...props }: NavBarBrandProps) {
+export function NavBarBrand({ asChild, className, org, children, ...props }: Readonly<NavBarBrandProps>) {
   const Comp = asChild ? Slot.Root : "a";
   const fromOrg = org && !asChild && children === undefined;
   return (
@@ -190,7 +190,7 @@ export type NavBarItemsProps = Omit<React.ComponentProps<typeof Nav.Root>, "orie
  * `delayDuration`, 200 ms): passing over the bar opens nothing. While a menu is open the light stays on its trigger;
  * moving on to a plain link closes the menu, so the bar never shows two current items. A click outside or Escape closes.
  */
-export function NavBarItems({ className, children, value: valueProp, defaultValue, onValueChange, delayDuration = 200, ...props }: NavBarItemsProps) {
+export function NavBarItems({ className, children, value: valueProp, defaultValue, onValueChange, delayDuration = 200, ...props }: Readonly<NavBarItemsProps>) {
   const { label } = useNavBar();
   const [inner, setInner] = React.useState(defaultValue ?? "");
   const value = valueProp ?? inner;
@@ -252,7 +252,7 @@ export type NavBarLinkProps = Omit<React.ComponentProps<typeof Nav.Link>, "activ
 };
 
 /** A link of the bar. `asChild` renders your router's `<Link>`. */
-export function NavBarLink({ active, className, itemClassName, onPointerEnter, ...props }: NavBarLinkProps) {
+export function NavBarLink({ active, className, itemClassName, onPointerEnter, ...props }: Readonly<NavBarLinkProps>) {
   const { close } = React.useContext(ItemsContext);
   return (
     <Nav.Item className={itemClassName}>
@@ -308,7 +308,7 @@ const DROPDOWN_HIDE = { md: "", lg: "lg:hidden", xl: "xl:hidden" } as const;
  * fewer (3 by default) is not a menu at all: its links stand in the bar, each with its active state — a hidden list of
  * three is one click more for nothing. The phone's panel groups them as usual (`NavBar.MobileGroup`).
  */
-export function NavBarMenu({ label, active, columns = 1, inlineUpTo = 3, inlineFrom = "lg", children, className, ...props }: NavBarMenuProps) {
+export function NavBarMenu({ label, active, columns = 1, inlineUpTo = 3, inlineFrom = "lg", children, className, ...props }: Readonly<NavBarMenuProps>) {
   const links = React.Children.toArray(children);
   const dropdown = (hide: string) => (
     <Nav.Item className={cn(hide, className)} {...props}>
@@ -352,7 +352,7 @@ export type NavBarMenuLinkProps = Omit<React.ComponentProps<typeof Nav.Link>, "t
 };
 
 /** A link inside a menu: an icon, a name and a line of text. */
-export function NavBarMenuLink({ title, description, icon, active, href, className, asChild, children, ...props }: NavBarMenuLinkProps) {
+export function NavBarMenuLink({ title, description, icon, active, href, className, asChild, children, ...props }: Readonly<NavBarMenuLinkProps>) {
   const body = (
     <>
       {icon && <span className={s.menuIcon()}>{icon}</span>}
@@ -370,7 +370,7 @@ export function NavBarMenuLink({ title, description, icon, active, href, classNa
 }
 
 /** The right side: search, theme, language, the call to action. */
-export function NavBarActions({ className, ...props }: React.ComponentProps<"div">) {
+export function NavBarActions({ className, ...props }: Readonly<React.ComponentProps<"div">>) {
   return <div className={s.actions({ className })} {...props} />;
 }
 
@@ -386,7 +386,7 @@ export type NavBarMobileProps = React.ComponentProps<"nav"> & {
  * (`NavBar.MobileGroup`). A disclosure: Escape, a click on a link or a press outside close it; Escape returns the focus
  * to the toggle.
  */
-export function NavBarMobile({ openLabel, closeLabel, className, children, ...props }: NavBarMobileProps) {
+export function NavBarMobile({ openLabel, closeLabel, className, children, ...props }: Readonly<NavBarMobileProps>) {
   const { label, open, setOpen, panelId } = useNavBar();
   const toggle = React.useRef<HTMLButtonElement>(null);
   React.useEffect(() => {
@@ -465,7 +465,7 @@ export type NavBarMobileLinkProps = React.ComponentProps<"a"> & {
 };
 
 /** A link of the mobile panel. */
-export function NavBarMobileLink({ active, asChild, className, ...props }: NavBarMobileLinkProps) {
+export function NavBarMobileLink({ active, asChild, className, ...props }: Readonly<NavBarMobileLinkProps>) {
   const Comp = asChild ? Slot.Root : "a";
   return <Comp aria-current={active ? "page" : undefined} className={s.mobileLink({ className })} {...props} />;
 }
@@ -479,7 +479,7 @@ const tagTone = {
 };
 
 /** A site's name and its tags: status when not released, “You are here” on the current one. */
-function FamilyName({ site, current, labels }: { site: Site; current: boolean; labels: FamilyLabels }) {
+function FamilyName({ site, current, labels }: Readonly<{ site: Site; current: boolean; labels: FamilyLabels }>) {
   return (
     <span className={s.familyName()}>
       {site.name}
@@ -511,7 +511,7 @@ export type NavBarFamilyProps = {
  * or ↓ (never on hover); ↑ ↓ walk the sites, Escape closes and returns the focus. Hidden below `md`: place a second
  * `NavBar.Family` as the last child of `NavBar.Mobile`, where it renders as the panel's last group.
  */
-export function NavBarFamily({ current, labels = familyLabels.en, defaultOpen, className }: NavBarFamilyProps) {
+export function NavBarFamily({ current, labels = familyLabels.en, defaultOpen, className }: Readonly<NavBarFamilyProps>) {
   const inMobile = React.useContext(MobileContext);
   const id = React.useId();
   const groups = sitesByGroup();
@@ -601,7 +601,7 @@ export type NavBarBadgeProps = React.ComponentProps<"span"> & {
 };
 
 /** A small mono badge beside the brand: the environment and the version (`DEV · v1.2.3`). Hidden below `sm`. */
-export function NavBarBadge({ env, version, className, children, ...props }: NavBarBadgeProps) {
+export function NavBarBadge({ env, version, className, children, ...props }: Readonly<NavBarBadgeProps>) {
   const parts = [env, version && `v${version.replace(/^v/, "")}`].filter(Boolean);
   return (
     <span className={s.badge({ className })} {...props}>
@@ -617,7 +617,7 @@ export type NavBarLanguageProps = Omit<LanguageSwitchProps, "variant">;
  * The language switch, the same on every site: in the bar a globe and the current code (FR) opening a short menu of
  * the languages by their own names; inside `NavBar.Mobile` the same languages as a row in the preferences.
  */
-export function NavBarLanguage(props: NavBarLanguageProps) {
+export function NavBarLanguage(props: Readonly<NavBarLanguageProps>) {
   const inMobile = React.useContext(MobileContext);
   return <LanguageSwitch variant={inMobile ? "inline" : "menu"} {...props} />;
 }
@@ -648,7 +648,7 @@ export type NavBarRepoProps = Omit<React.ComponentProps<"a">, "children"> & {
 };
 
 /** The site's repository on GitHub, an icon link of `NavBar.Actions`. */
-export function NavBarRepo({ label, className, ...props }: NavBarRepoProps) {
+export function NavBarRepo({ label, className, ...props }: Readonly<NavBarRepoProps>) {
   return (
     <a aria-label={label} className={s.repo({ className })} {...props}>
       <GitHubGlyph size={18} />

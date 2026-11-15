@@ -57,7 +57,7 @@ export function tidyTilt(id: string): number {
 }
 
 /** The object of one item, straight: the wall places and tilts it. A sign on a wall is a paragraph, not a second h1. */
-function WallObject({ item }: { readonly item: DistributiveOmit<WallItem, keyof WallPosition> }) {
+function WallObject({ item }: Readonly<{ readonly item: DistributiveOmit<WallItem, keyof WallPosition> }>) {
   if (item.kind === "polaroid") return <Polaroid {...item} rotation={0} />;
   if (item.kind === "note") return <PinnedNote {...item} rotation={0} />;
   return <ShopSign {...item} as={item.as ?? "p"} rotation={0} />;

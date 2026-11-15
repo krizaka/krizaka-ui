@@ -34,7 +34,7 @@ const LARGE = 52;
  * the bar as the content scrolls — the iOS idiom, readable on Android. Feed it the list's scroll with
  * `useCollapsingHeader()`. The title is the screen's heading for screen readers either way.
  */
-export function Header({ title, subtitle, scrollY, size = "large", backLabel, onBack, actions, children, style }: HeaderProps) {
+export function Header({ title, subtitle, scrollY, size = "large", backLabel, onBack, actions, children, style }: Readonly<HeaderProps>) {
   const { theme, insets } = useTheme();
   const reduce = useReducedMotion();
   const large = size === "large";

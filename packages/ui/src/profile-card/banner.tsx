@@ -57,7 +57,7 @@ export type ProfileBannerProps = Omit<React.ComponentProps<"section">, "title"> 
 };
 
 /** A person's or a place's banner: cover, overlapping avatar, eyebrow, name (h1), facts and actions — the words never on the cover. */
-export function ProfileBanner({ banner, avatar, eyebrow, title, titleAs: Title = "h1", status, meta, actions, brand, className, ...props }: ProfileBannerProps) {
+export function ProfileBanner({ banner, avatar, eyebrow, title, titleAs: Title = "h1", status, meta, actions, brand, className, ...props }: Readonly<ProfileBannerProps>) {
   return (
     <section className={s.root({ className: cn(brandClass(brand), className) })} {...props}>
       <div data-cover="" className={s.cover()}>

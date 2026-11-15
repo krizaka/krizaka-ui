@@ -41,7 +41,7 @@ export type FamilyFooterProps = Omit<SiteFooterProps, "current" | "org" | "legal
 };
 
 /** The family footer of a developer site: the shared three lines, from the org's selection. */
-export function FamilyFooter({ footer, current, labels, sourceLabel, version, brand = "Krizaka", extra, variant = "docs", children, ...props }: FamilyFooterProps) {
+export function FamilyFooter({ footer, current, labels, sourceLabel, version, brand = "Krizaka", extra, variant = "docs", children, ...props }: Readonly<FamilyFooterProps>) {
   const lang = labels.lang ?? "en";
   const entries = footer.groups.flatMap((g) => g.entries);
   const org = {

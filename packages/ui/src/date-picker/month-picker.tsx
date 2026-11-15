@@ -76,7 +76,7 @@ export type MonthPickerProps = {
 };
 
 /** A month of a year: twelve months in a grid, the year above them. */
-export function MonthPicker({ locale, value: valueProp, defaultValue = null, onValueChange, year: yearProp, onYearChange, min, max, current, autoFocus, bare, variant, labels: given, className }: MonthPickerProps) {
+export function MonthPicker({ locale, value: valueProp, defaultValue = null, onValueChange, year: yearProp, onYearChange, min, max, current, autoFocus, bare, variant, labels: given, className }: Readonly<MonthPickerProps>) {
   const labels = { ...monthPickerLabels, ...given };
   const s = monthPicker({ variant });
   const [own, setOwn] = React.useState<IsoMonth | null>(defaultValue);

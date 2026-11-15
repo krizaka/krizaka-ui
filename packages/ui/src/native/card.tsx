@@ -21,7 +21,7 @@ export type CardRootProps = ViewProps & {
 };
 
 /** The frame: the theme's surface, a hairline border, rounded corners; `onPress` makes it a pressable card. */
-export function CardRoot({ tone = "default", radius = "xl", onPress, style, ...props }: CardRootProps) {
+export function CardRoot({ tone = "default", radius = "xl", onPress, style, ...props }: Readonly<CardRootProps>) {
   const { theme, radius: r } = useTheme();
   // The surface and the border are the web's (card/recipe.ts), read on the theme; the radius is the theme's.
   const { frame: look } = RECIPES.resolve({ tone }, theme).root!;
@@ -53,7 +53,7 @@ export type CardMediaProps = ViewProps & {
 };
 
 /** The media area at the top of a card: a fixed ratio, the `media` role behind (what shows while an image loads). */
-export function CardMedia({ aspect = "video", style, ...props }: CardMediaProps) {
+export function CardMedia({ aspect = "video", style, ...props }: Readonly<CardMediaProps>) {
   const { theme } = useTheme();
   return <View {...props} style={[styles.media, { backgroundColor: theme.media }, aspect === "auto" ? null : { aspectRatio: ASPECT[aspect] }, style]} />;
 }
@@ -66,7 +66,7 @@ export type CardImageProps = Omit<ImageProps, "source" | "src"> & {
 };
 
 /** The image of a media (it fills it), or its `fallback` when there is none. Decorative unless `alt` is given. */
-export function CardImage({ src, fallback, alt, style, ...props }: CardImageProps) {
+export function CardImage({ src, fallback, alt, style, ...props }: Readonly<CardImageProps>) {
   const { theme } = useTheme();
   if (!src) {
     return (
@@ -91,7 +91,7 @@ export type CardOverlayProps = ViewProps & {
 };
 
 /** What sits on the media (badges, a caption), in a corner. */
-export function CardOverlay({ corner = "top-left", style, ...props }: CardOverlayProps) {
+export function CardOverlay({ corner = "top-left", style, ...props }: Readonly<CardOverlayProps>) {
   return <View {...props} style={[styles.overlay, CORNER[corner], style]} />;
 }
 
@@ -100,7 +100,7 @@ export type CardBodyProps = ViewProps & {
   padding?: "none" | "sm" | "md" | "lg";
 };
 
-export function CardBody({ padding = "md", style, ...props }: CardBodyProps) {
+export function CardBody({ padding = "md", style, ...props }: Readonly<CardBodyProps>) {
   const { theme } = useTheme();
   // The padding is the web's `p-0` · `p-3` · `p-4` · `p-6` (card/recipe.ts), in points.
   const { frame } = RECIPES.resolve({ padding }, theme).body!;
@@ -108,15 +108,15 @@ export function CardBody({ padding = "md", style, ...props }: CardBodyProps) {
 }
 
 /** The card's name: one line, a header for screen readers. */
-export function CardTitle({ numberOfLines = 1, ...props }: Omit<TxtProps, "variant">) {
+export function CardTitle({ numberOfLines = 1, ...props }: Readonly<Omit<TxtProps, "variant">>) {
   return <Txt variant="label" role="heading" numberOfLines={numberOfLines} {...props} />;
 }
 
-export function CardDescription({ numberOfLines = 2, ...props }: Omit<TxtProps, "variant">) {
+export function CardDescription({ numberOfLines = 2, ...props }: Readonly<Omit<TxtProps, "variant">>) {
   return <Txt variant="caption" tone="secondary" numberOfLines={numberOfLines} {...props} />;
 }
 
-export function CardFooter({ style, ...props }: ViewProps) {
+export function CardFooter({ style, ...props }: Readonly<ViewProps>) {
   const { theme } = useTheme();
   return <View {...props} style={[styles.footer, { borderTopColor: theme.borderSubtle }, style]} />;
 }

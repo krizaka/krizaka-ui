@@ -26,6 +26,6 @@ const TONE_OF_VARIANT = {
  * @param props - {@link BadgeProps}
  * @returns A status badge.
  */
-export function Badge({ variant, tone, ...props }: BadgeProps) {
+export function Badge({ variant, tone, ...props }: Readonly<BadgeProps>) {
   return <KzBadge tone={tone ?? (variant ? TONE_OF_VARIANT[variant] : undefined)} {...props} />;
 }

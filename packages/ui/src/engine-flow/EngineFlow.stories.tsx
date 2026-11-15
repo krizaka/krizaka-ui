@@ -25,7 +25,7 @@ const moves: NonNullable<Story["play"]> = async ({ canvasElement }) => {
   if (!stage) throw new Error("no visible EngineFlow stage");
   const photons = [...stage.querySelectorAll<SVGElement>(".kz-flow-photon:not([data-halo])")];
   if (photons.length === 0) throw new Error("no photon drawn");
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduce = globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches;
   // One photon's own readings: interpolated, they are many distinct finite lengths; the bug gave two (`0px` and a `calc()`).
   const seen = photons.map(() => new Set<string>());
   for (let i = 0; i < 7; i++) {

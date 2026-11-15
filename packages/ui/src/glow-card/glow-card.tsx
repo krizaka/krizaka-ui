@@ -24,7 +24,7 @@ export type GlowCardProps = React.ComponentProps<"div"> & {
 };
 
 /** A card ringed by the brand: a still hairline of its gradient, a step brighter under the pointer. Content is yours. */
-export function GlowCard({ glow = "both", asChild, alive, className, ...props }: GlowCardProps) {
+export function GlowCard({ glow = "both", asChild, alive, className, ...props }: Readonly<GlowCardProps>) {
   const Comp = asChild ? Slot.Root : "div";
   return (
     <Comp

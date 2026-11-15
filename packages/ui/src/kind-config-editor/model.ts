@@ -30,7 +30,7 @@ const presetsOf = (tags: TagSetValue, variant: string): TagPreset[] => tags.pres
 const withPresets = (tags: TagSetValue, variant: string, list: TagPreset[]): TagSetValue => ({ ...tags, presets: { ...tags.presets, [variant]: list } });
 
 /** A name as the contract keeps it: spaces collapsed, trimmed. */
-export const cleanName = (raw: string) => raw.replace(/\s+/g, " ").trim();
+export const cleanName = (raw: string) => raw.replaceAll(/\s+/g, " ").trim();
 
 /** Adds a preset at the end — refused (same value) for an empty name or one the variant already has (case ignored). */
 export function addPreset(tags: TagSetValue, variant: string, name: string, marker: Marker): TagSetValue {

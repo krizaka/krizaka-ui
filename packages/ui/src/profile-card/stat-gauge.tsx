@@ -31,7 +31,7 @@ export type StatGaugeProps = Omit<React.HTMLAttributes<HTMLDivElement>, "childre
 const clamp = (n: number) => Math.min(1, Math.max(0, n));
 
 /** A measured strength: label, figure and bar; `role="meter"` with `aria-valuetext`. */
-export function StatGauge({ label, value = 100, max = 100, valueText, figure, hideLabel, className, style, ...props }: StatGaugeProps) {
+export function StatGauge({ label, value = 100, max = 100, valueText, figure, hideLabel, className, style, ...props }: Readonly<StatGaugeProps>) {
   const ratio = clamp(value / (max || 1));
   const words = valueText ?? `${Math.round(ratio * 100)} %`;
   return (

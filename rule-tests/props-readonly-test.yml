@@ -1,0 +1,11 @@
+id: props-readonly
+valid:
+  - |
+    export function Card({ title }: Readonly<{ title: string }>) { return null; }
+  - |
+    function helper(x: { a: number }) { return x; }
+invalid:
+  - |
+    export function Card({ title }: { title: string }) { return null; }
+  - |
+    const Card = ({ title }: CardProps) => null;

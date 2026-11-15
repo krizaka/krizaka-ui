@@ -44,7 +44,7 @@ export type SplitViewProps = React.ComponentProps<"div"> & {
 };
 
 /** A list and its open item: two panes on a desktop, one at a time on a phone. */
-export function SplitView({ listTitle, listActions, list, detailHead, detail, empty, showDetail = false, back, listLabel, className, ...props }: SplitViewProps) {
+export function SplitView({ listTitle, listActions, list, detailHead, detail, empty, showDetail = false, back, listLabel, className, ...props }: Readonly<SplitViewProps>) {
   return (
     <div className={s.root({ className })} {...props}>
       <section className={s.list()} aria-label={listLabel} data-hidden-on-phone={showDetail ? "" : undefined}>

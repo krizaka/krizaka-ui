@@ -29,7 +29,7 @@ export type InspectorProps = {
   density?: "compact" | "airy";
 };
 
-function Words({ section, m, run }: Pick<InspectorProps, "section" | "run"> & { m: ShopComposerMessages }) {
+function Words({ section, m, run }: Readonly<Pick<InspectorProps, "section" | "run"> & { m: ShopComposerMessages }>) {
   const id = React.useId();
   const text = section.text ?? {};
   const field = (name: "title" | "lead", label: string) => (
@@ -62,7 +62,7 @@ function Words({ section, m, run }: Pick<InspectorProps, "section" | "run"> & { 
   );
 }
 
-function Blocks({ section, m, run, announce }: Pick<InspectorProps, "section" | "run" | "announce"> & { m: ShopComposerMessages }) {
+function Blocks({ section, m, run, announce }: Readonly<Pick<InspectorProps, "section" | "run" | "announce"> & { m: ShopComposerMessages }>) {
   const def = sectionDefinition(section.type);
   const blocks = ((section.blocks ?? []) as { key: string; type: string }[]);
   if (def.blockTypes.length === 0) return null;

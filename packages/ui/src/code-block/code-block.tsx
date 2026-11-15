@@ -38,7 +38,7 @@ export type CodeBlockProps = Omit<React.HTMLAttributes<HTMLElement>, "children">
 };
 
 /** A code sample: language and file name, highlighted code that scrolls sideways, a copy button. */
-export function CodeBlock({ code, language = "text", file, copyLabel, copiedLabel, highlight: colour = true, lineNumbers, annotations, onCopy, className, ...props }: CodeBlockProps) {
+export function CodeBlock({ code, language = "text", file, copyLabel, copiedLabel, highlight: colour = true, lineNumbers, annotations, onCopy, className, ...props }: Readonly<CodeBlockProps>) {
   const [copied, setCopied] = React.useState(false);
   React.useEffect(() => {
     if (!copied) return;
@@ -83,7 +83,7 @@ export type CodeTabsProps = Omit<React.HTMLAttributes<HTMLDivElement>, "dir" | "
 };
 
 /** Several ways to write the same thing (Maven · Gradle · npm): segmented tabs above code samples. */
-export function CodeTabs({ label, tabs, defaultValue, className, ...props }: CodeTabsProps) {
+export function CodeTabs({ label, tabs, defaultValue, className, ...props }: Readonly<CodeTabsProps>) {
   return (
     <TabsRoot defaultValue={defaultValue ?? tabs[0]?.id} variant="segmented" className={cn("kz-code-tabs", className)} {...props}>
       <TabsList aria-label={label}>

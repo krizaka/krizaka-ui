@@ -12,7 +12,6 @@ import { TAG_MARKERS } from "./markers";
 
 /** The six names of the closed palette (`@krizaka/organize` `MARKERS`; a test keeps them equal). */
 export const MARKERS: readonly Marker[] = TAG_MARKERS;
-export type { Marker };
 
 /** The marker's shape: a `dot`, or the `ribbon` (a bookmark: a rectangle with a notch at the bottom). */
 export type MarkerShape = "dot" | "ribbon";
@@ -31,7 +30,7 @@ export type TagMarkerProps = Omit<React.ComponentProps<"span">, "children"> & {
 };
 
 /** The marker alone, decorative (`aria-hidden`): put the tag's name beside it. */
-export function TagMarker({ marker, shape = "dot", className, style, ...props }: TagMarkerProps) {
+export function TagMarker({ marker, shape = "dot", className, style, ...props }: Readonly<TagMarkerProps>) {
   return (
     <span
       aria-hidden
@@ -62,7 +61,7 @@ export type TagChipProps = ChipProps & {
  * A tag: its marker and its name. Alone a toggle (a filter), inside `Chip.Group` an item, or `removable` (a tag worn by a
  * file) — the behaviour of `Chip`, with the marker before the name.
  */
-export function TagChip({ marker, shape, children, ...props }: TagChipProps) {
+export function TagChip({ marker, shape, children, ...props }: Readonly<TagChipProps>) {
   const content = (
     <>
       <TagMarker marker={marker} shape={shape} />
@@ -129,3 +128,5 @@ export function MarkerPicker({ label, names, value, defaultValue, onValueChange,
     </RadioPrimitive.Root>
   );
 }
+
+export { type Marker } from "@krizaka/organize/contract";

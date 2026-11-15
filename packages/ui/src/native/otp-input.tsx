@@ -31,7 +31,7 @@ export type OtpInputProps = {
  * A one-time code in boxes — one real input underneath, so the keyboard's suggestion of the code from a message
  * (iOS `oneTimeCode`, Android `sms-otp`) and pasting fill every box at once; the caret shows in the next empty box.
  */
-export function OtpInput({ label, length = 6, value, onValueChange, onComplete, mode = "numeric", invalid, disabled, autoFocus, style }: OtpInputProps) {
+export function OtpInput({ label, length = 6, value, onValueChange, onComplete, mode = "numeric", invalid, disabled, autoFocus, style }: Readonly<OtpInputProps>) {
   const { theme, radius, haptic } = useTheme();
   const [own, setOwn] = React.useState("");
   const code = value ?? own;
@@ -41,7 +41,7 @@ export function OtpInput({ label, length = 6, value, onValueChange, onComplete, 
     if (invalid) haptic("warning");
   }, [invalid, haptic]);
   const change = (raw: string) => {
-    const next = (mode === "numeric" ? raw.replace(/\D/g, "") : raw.replace(/\s/g, "").toUpperCase()).slice(0, length);
+    const next = (mode === "numeric" ? raw.replaceAll(/\D/g, "") : raw.replaceAll(/\s/g, "").toUpperCase()).slice(0, length);
     if (value === undefined) setOwn(next);
     onValueChange?.(next);
     if (next.length === length && code.length !== length) {

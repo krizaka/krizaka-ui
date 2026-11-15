@@ -33,7 +33,7 @@ export type ChoiceCardsProps = Omit<React.ComponentProps<typeof RadioGroup.Root>
 };
 
 /** Cards to choose one from: a radio group where each card has an icon, a title and a description. */
-export function ChoiceCards({ label, showLabel, description, options, className, ...props }: ChoiceCardsProps) {
+export function ChoiceCards({ label, showLabel, description, options, className, ...props }: Readonly<ChoiceCardsProps>) {
   const base = React.useId();
   const group = (
     <RadioGroup.Root variant="cards" label={label} aria-labelledby={showLabel ? `${base}-label` : undefined} className={["grid grid-cols-1 gap-3 sm:grid-cols-2", !showLabel && className].filter(Boolean).join(" ")} {...props}>

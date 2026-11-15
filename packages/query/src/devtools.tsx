@@ -9,6 +9,6 @@ export { ReactQueryDevtools };
 
 export type KrizakaDevtoolsProps = ComponentProps<typeof ReactQueryDevtools>;
 
-export function KrizakaDevtools(props: KrizakaDevtoolsProps) {
+export function KrizakaDevtools(props: Readonly<KrizakaDevtoolsProps>) {
   return <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" {...props} />;
 }

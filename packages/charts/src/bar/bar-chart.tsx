@@ -12,6 +12,6 @@ export interface BarChartProps<T extends Datum> extends CartesianProps<T> {
 }
 
 /** Compare amounts across categories: grouped, stacked or horizontal bars, each value at its tip. */
-export function BarChart<T extends Datum>({ stacked, horizontal, valueLabels = true, ...props }: BarChartProps<T>) {
+export function BarChart<T extends Datum>({ stacked, horizontal, valueLabels = true, ...props }: Readonly<BarChartProps<T>>) {
   return <Cartesian props={props} options={{ kind: "bar", mode: "bar", stacked, horizontal, valueLabels }} />;
 }

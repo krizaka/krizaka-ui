@@ -42,7 +42,7 @@ export type ActionBarProps = React.HTMLAttributes<HTMLUListElement> & {
 };
 
 /** A row of link actions: buttons with their words, or icon buttons with a tooltip. */
-export function ActionBar({ actions, variant = "buttons", primaryFirst = false, size = "md", label, linkAs, className, ...props }: ActionBarProps) {
+export function ActionBar({ actions, variant = "buttons", primaryFirst = false, size = "md", label, linkAs, className, ...props }: Readonly<ActionBarProps>) {
   const icons = variant === "icons";
   return (
     <ul className={cn("kz-actions", className)} data-variant={icons ? "icons" : undefined} aria-label={label} {...props}>

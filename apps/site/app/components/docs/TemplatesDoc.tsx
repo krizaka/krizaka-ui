@@ -20,7 +20,7 @@ export function templatesToc(t: TranslationDictionary, purpose?: TemplatePurpose
 /* /docs/ui/templates and /docs/ui/templates-<intent> — the templates of @krizaka/ui (an example of a component flagged
    `template`, web or React Native), grouped by the intent that brings a reader to them. Generated from the registry like
    the components' pages: never written here. Each template says why its layout is what it is. */
-export function TemplatesDoc({ locale, purpose }: { locale: Locale; purpose?: TemplatePurpose }) {
+export function TemplatesDoc({ locale, purpose }: Readonly<{ locale: Locale; purpose?: TemplatePurpose }>) {
   const t: TranslationDictionary = getDictionary(locale);
   const w = t.docs.screens;
   const x = t.docs.ia.templates;

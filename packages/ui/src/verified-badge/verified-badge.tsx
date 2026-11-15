@@ -15,7 +15,7 @@ export type VerifiedBadgeProps = Omit<React.ComponentProps<"span">, "children"> 
 const SIZE = { sm: "h-3.5 w-3.5", md: "h-4 w-4", lg: "h-5 w-5" } as const;
 
 /** A seal that says the person or the account was verified (a selfie check, an ID), named in words. */
-export function VerifiedBadge({ label, showLabel, size = "md", onMedia, className, ...props }: VerifiedBadgeProps) {
+export function VerifiedBadge({ label, showLabel, size = "md", onMedia, className, ...props }: Readonly<VerifiedBadgeProps>) {
   return (
     <span role="img" aria-label={label} className={["inline-flex items-center gap-1 text-xs font-bold", onMedia ? "text-fg-on-media" : "text-fg-accent", className].filter(Boolean).join(" ")} {...props}>
       <svg viewBox="0 0 24 24" className={[SIZE[size], "shrink-0"].join(" ")} aria-hidden>

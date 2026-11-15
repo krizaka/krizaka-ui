@@ -111,7 +111,7 @@ function checkColumns(value: unknown): string | null {
 
 type Row = Record<string, unknown> & { __genuiRow: string };
 
-function TableView({ c, ctx }: { c: GenUiComponent; ctx: GenUiRenderContext }) {
+function TableView({ c, ctx }: Readonly<{ c: GenUiComponent; ctx: GenUiRenderContext }>) {
   const columns = c.columns as readonly Column[];
   const raw = ctx.resolve(c.rows);
   const rows: Row[] = Array.isArray(raw)

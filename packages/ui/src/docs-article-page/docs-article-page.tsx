@@ -33,7 +33,7 @@ export type DocsArticlePageProps = Omit<React.HTMLAttributes<HTMLElement>, "titl
 };
 
 /** A documentation article: pages · breadcrumb, title, lead, facts, the reading column · contents; previous and next. */
-export function DocsArticlePage({ sidebar, sidebarLabel, breadcrumb, breadcrumbLabel = "Breadcrumb", title, lead, facts, toc, pager, linkAs, children, ...props }: DocsArticlePageProps) {
+export function DocsArticlePage({ sidebar, sidebarLabel, breadcrumb, breadcrumbLabel = "Breadcrumb", title, lead, facts, toc, pager, linkAs, children, ...props }: Readonly<DocsArticlePageProps>) {
   const L = (linkAs ?? "a") as React.ElementType;
   return (
     <DocsLayout sidebar={sidebar} sidebarLabel={sidebarLabel} toc={toc && <Toc label={toc.label} items={toc.items} />} {...props}>

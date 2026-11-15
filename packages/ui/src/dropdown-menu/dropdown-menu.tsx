@@ -31,7 +31,7 @@ export type DropdownMenuContentProps = React.ComponentProps<typeof MenuPrimitive
   container?: HTMLElement | null;
 };
 
-export function DropdownMenuContent({ sideOffset = 6, align = "end", collisionPadding = 8, container, className, ...props }: DropdownMenuContentProps) {
+export function DropdownMenuContent({ sideOffset = 6, align = "end", collisionPadding = 8, container, className, ...props }: Readonly<DropdownMenuContentProps>) {
   return (
     <MenuPrimitive.Portal container={container}>
       <MenuPrimitive.Content sideOffset={sideOffset} align={align} collisionPadding={collisionPadding} className={s.content({ className })} {...props} />
@@ -45,12 +45,12 @@ export type DropdownMenuItemProps = React.ComponentProps<typeof MenuPrimitive.It
 };
 
 /** An action. `tone="danger"` for a destructive one; `onSelect` runs it (the menu closes). */
-export function DropdownMenuItem({ tone, className, ...props }: DropdownMenuItemProps) {
+export function DropdownMenuItem({ tone, className, ...props }: Readonly<DropdownMenuItemProps>) {
   return <MenuPrimitive.Item data-tone={tone ?? "default"} className={menu({ tone }).item({ className })} {...props} />;
 }
 
 /** A toggled option: `checked` + `onCheckedChange`. */
-export function DropdownMenuCheckboxItem({ className, children, ...props }: React.ComponentProps<typeof MenuPrimitive.CheckboxItem>) {
+export function DropdownMenuCheckboxItem({ className, children, ...props }: Readonly<React.ComponentProps<typeof MenuPrimitive.CheckboxItem>>) {
   return (
     <MenuPrimitive.CheckboxItem className={s.item({ className })} {...props}>
       {children}
@@ -64,7 +64,7 @@ export function DropdownMenuCheckboxItem({ className, children, ...props }: Reac
 }
 
 /** A submenu's trigger: an item that opens `DropdownMenu.SubContent`, with a chevron. */
-export function DropdownMenuSubTrigger({ className, children, ...props }: React.ComponentProps<typeof MenuPrimitive.SubTrigger>) {
+export function DropdownMenuSubTrigger({ className, children, ...props }: Readonly<React.ComponentProps<typeof MenuPrimitive.SubTrigger>>) {
   return (
     <MenuPrimitive.SubTrigger className={s.item({ className: cn("data-[state=open]:bg-surface-3", className) })} {...props}>
       {children}
@@ -76,7 +76,7 @@ export function DropdownMenuSubTrigger({ className, children, ...props }: React.
 }
 
 /** The submenu's panel (same material as the menu). */
-export function DropdownMenuSubContent({ sideOffset = 4, collisionPadding = 8, className, ...props }: React.ComponentProps<typeof MenuPrimitive.SubContent>) {
+export function DropdownMenuSubContent({ sideOffset = 4, collisionPadding = 8, className, ...props }: Readonly<React.ComponentProps<typeof MenuPrimitive.SubContent>>) {
   return (
     <MenuPrimitive.Portal>
       <MenuPrimitive.SubContent sideOffset={sideOffset} collisionPadding={collisionPadding} className={s.content({ className: cn("max-h-(--radix-dropdown-menu-content-available-height)", className) })} {...props} />
@@ -85,7 +85,7 @@ export function DropdownMenuSubContent({ sideOffset = 4, collisionPadding = 8, c
 }
 
 /** One choice among several (`DropdownMenu.RadioGroup` holds the value): a language, a sort order. */
-export function DropdownMenuRadioItem({ className, children, ...props }: React.ComponentProps<typeof MenuPrimitive.RadioItem>) {
+export function DropdownMenuRadioItem({ className, children, ...props }: Readonly<React.ComponentProps<typeof MenuPrimitive.RadioItem>>) {
   return (
     <MenuPrimitive.RadioItem className={s.item({ className })} {...props}>
       {children}
@@ -98,11 +98,11 @@ export function DropdownMenuRadioItem({ className, children, ...props }: React.C
   );
 }
 
-export function DropdownMenuLabel({ className, ...props }: React.ComponentProps<typeof MenuPrimitive.Label>) {
+export function DropdownMenuLabel({ className, ...props }: Readonly<React.ComponentProps<typeof MenuPrimitive.Label>>) {
   return <MenuPrimitive.Label className={s.label({ className })} {...props} />;
 }
 
-export function DropdownMenuSeparator({ className, ...props }: React.ComponentProps<typeof MenuPrimitive.Separator>) {
+export function DropdownMenuSeparator({ className, ...props }: Readonly<React.ComponentProps<typeof MenuPrimitive.Separator>>) {
   return <MenuPrimitive.Separator className={s.separator({ className })} {...props} />;
 }
 

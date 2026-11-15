@@ -38,9 +38,6 @@ import { MarkerPicker, TagMarker } from "./tag-chip";
 import { useTheme } from "./theme";
 import { Txt } from "./txt";
 
-export type { EditorRole, Lang, StatusSetEditorLabels, TagSetEditorLabels, TagSetValue };
-export { statusSetEditorLabels, tagSetEditorLabels };
-
 function Problems({ title, problems }: Readonly<{ title: string; problems?: readonly string[] }>) {
   const { theme, radius } = useTheme();
   if (!problems || problems.length === 0) return null;
@@ -58,7 +55,7 @@ function Problems({ title, problems }: Readonly<{ title: string; problems?: read
   );
 }
 
-const Glyph = ({ children }: { children: string }) => (
+const Glyph = ({ children }: Readonly<{ children: string }>) => (
   <Txt variant="label" aria-hidden>
     {children}
   </Txt>
@@ -147,7 +144,7 @@ export function TagSetEditor({ value, onChange, variant, roles, problems, labels
         value={String(value.max)}
         disabled={disabled}
         error={!Number.isInteger(value.max) || value.max < 1 || value.max > 200 ? labels.maxHint : undefined}
-        onValueChange={(text) => onChange({ ...value, max: text === "" ? 0 : Number(text.replace(/\D/g, "")) })}
+        onValueChange={(text) => onChange({ ...value, max: text === "" ? 0 : Number(text.replaceAll(/\D/g, "")) })}
         onBlur={() => onChange({ ...value, max: clampMax(value.max) })}
       />
     </View>
@@ -322,3 +319,6 @@ const styles = StyleSheet.create({
   wrap: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   problems: { borderWidth: 1, padding: 10, gap: 4 },
 });
+
+export { type EditorRole, type StatusSetEditorLabels, statusSetEditorLabels, type TagSetEditorLabels, tagSetEditorLabels } from "../kind-config-editor/labels";
+export { type Lang, type TagSetValue } from "../kind-config-editor/model";

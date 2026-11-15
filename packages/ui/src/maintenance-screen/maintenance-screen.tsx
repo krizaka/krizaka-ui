@@ -34,7 +34,7 @@ export type MaintenanceScreenProps = Omit<React.ComponentProps<"main">, "title">
  * The maintenance screen: announced politely, with one way to check again.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function MaintenanceScreen({ title, message, mark, retryLabel, onRetry, className, ...props }: MaintenanceScreenProps) {
+export function MaintenanceScreen({ title, message, mark, retryLabel, onRetry, className, ...props }: Readonly<MaintenanceScreenProps>) {
   warnDeprecated("maintenance-screen");
   const s = maintenanceScreen();
   return (

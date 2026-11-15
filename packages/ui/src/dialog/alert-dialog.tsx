@@ -11,7 +11,7 @@ import { useReturnFocus } from "./return-focus";
 const s = dialog({ placement: "center", size: "sm" });
 
 /** Radix's content, mounted only while open: it remembers the opener then and gives focus back on close (WCAG 2.4.3). */
-function ReturnFocusContent({ onCloseAutoFocus, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Content>) {
+function ReturnFocusContent({ onCloseAutoFocus, ...props }: Readonly<React.ComponentProps<typeof AlertDialogPrimitive.Content>>) {
   return <AlertDialogPrimitive.Content onCloseAutoFocus={useReturnFocus(onCloseAutoFocus)} {...props} />;
 }
 
@@ -58,7 +58,7 @@ export function AlertDialog({
   onConfirm,
   container,
   className,
-}: AlertDialogProps) {
+}: Readonly<AlertDialogProps>) {
   const [openState, setOpenState] = React.useState(defaultOpen);
   const [pending, setPending] = React.useState(false);
   const open = openProp ?? openState;

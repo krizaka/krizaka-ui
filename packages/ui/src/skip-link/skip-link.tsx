@@ -19,7 +19,7 @@ export type SkipLinkProps = Omit<React.ComponentProps<"a">, "href"> & {
 };
 
 /** A "skip to content" link: the first tab stop, hidden until focused; Enter moves focus to the target. */
-export function SkipLink({ href = "#content", className, onClick, children, ...props }: SkipLinkProps) {
+export function SkipLink({ href = "#content", className, onClick, children, ...props }: Readonly<SkipLinkProps>) {
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     onClick?.(event);
     if (event.defaultPrevented) return;

@@ -55,7 +55,7 @@ export type DateFieldProps = {
  * A date typed as day, month and year — a memorable date (a birth date, an expiry) that a calendar would make slow to
  * reach: numeric keypads, the boxes in the locale's order, the next box focused once one is full. No native module.
  */
-export function DateField({ label, hint, error, value, defaultValue, onValueChange, onBlur, locale = "en-US", labels: given, autoComplete, disabled, inputRef, onSubmitEditing, returnKeyType = "done", style }: DateFieldProps) {
+export function DateField({ label, hint, error, value, defaultValue, onValueChange, onBlur, locale = "en-US", labels: given, autoComplete, disabled, inputRef, onSubmitEditing, returnKeyType = "done", style }: Readonly<DateFieldProps>) {
   const { theme, radius } = useTheme();
   const labels = { ...dateFieldLabels, ...given };
   const order = React.useMemo(() => datePartsOrder(locale), [locale]);
@@ -67,7 +67,7 @@ export function DateField({ label, hint, error, value, defaultValue, onValueChan
   const caption = error ?? hint;
 
   const change = (part: Part, text: string) => {
-    const digits = text.replace(/\D/g, "").slice(0, LENGTH[part]);
+    const digits = text.replaceAll(/\D/g, "").slice(0, LENGTH[part]);
     const next = { ...parts, [part]: digits };
     setParts(next);
     onValueChange?.(composeDate(next));

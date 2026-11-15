@@ -26,7 +26,7 @@ export type TxtProps = TextProps & {
 };
 
 /** Text in the platform's scale, coloured by a role of the current theme. `title` and `display` are headers for screen readers. */
-export function Txt({ variant = "body", tone = "text", style, ...props }: TxtProps) {
+export function Txt({ variant = "body", tone = "text", style, ...props }: Readonly<TxtProps>) {
   const { theme, fonts } = useTheme();
   const family = variant === "display" || variant === "title" ? fonts.display : variant === "mono" ? fonts.mono : fonts.sans;
   return (

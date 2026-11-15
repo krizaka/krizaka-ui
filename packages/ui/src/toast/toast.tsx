@@ -48,7 +48,7 @@ export type ToasterProps = Omit<SonnerProps, "richColors" | "theme" | "container
 };
 
 /** Mount once, in the root layout. Then call `toast()`, `toast.success/warning/error/info`, `toast.custom(…)`, and the helpers below. */
-export function Toaster({ label, closeLabel, position = "bottom-right", closeButton = true, toastOptions, duration = 4000, ...props }: ToasterProps) {
+export function Toaster({ label, closeLabel, position = "bottom-right", closeButton = true, toastOptions, duration = 4000, ...props }: Readonly<ToasterProps>) {
   const extra = toastOptions?.classNames ?? {};
   const classNames = Object.fromEntries(
     Object.entries(toastClassNames).map(([key, value]) => [key, cn(value, extra[key as keyof typeof extra])]),

@@ -75,7 +75,7 @@ export type GridProps = Omit<React.ComponentProps<"div">, "children"> & {
  * A grid that fits its container: the columns come from the size class of the container's width, and no cell is narrower
  * than `minItemWidth`, so nothing overflows in a page, a side panel or a split. The order mirrors in right-to-left.
  */
-export function Grid({ children, columns, minItemWidth = 160, gap = "md", maxColumns = 6, equalHeight = true, fontScale = 1, "aria-label": label, className, style, ...props }: GridProps) {
+export function Grid({ children, columns, minItemWidth = 160, gap = "md", maxColumns = 6, equalHeight = true, fontScale = 1, "aria-label": label, className, style, ...props }: Readonly<GridProps>) {
   const s = columnsLayout({ gap, equalHeight });
   const items = React.Children.toArray(children);
   const cap = Math.max(1, Math.floor(maxColumns));
@@ -128,7 +128,7 @@ export function columnsNeed(count: number, minColumnWidth: number, gapPx: number
  * A few columns that sit side by side when their container holds them and stack when it does not — the master and the
  * detail, a form and its summary. Stacked, they keep their order and each takes the full width.
  */
-export function Columns({ children, weights, minColumnWidth = 280, gap = "lg", fontScale = 1, className, style, ...props }: ColumnsProps) {
+export function Columns({ children, weights, minColumnWidth = 280, gap = "lg", fontScale = 1, className, style, ...props }: Readonly<ColumnsProps>) {
   const s = columnsLayout({ gap });
   const items = React.Children.toArray(children);
   const need = columnsNeed(items.length, minColumnWidth, GRID_GAPS[gap], fontScale);

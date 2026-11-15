@@ -173,7 +173,7 @@ function Provenance({ data, labels, folded }: Readonly<{ data: NonNullable<Analy
 }
 
 /** The result of an AI analysis: summary, findings by status, limits, next steps, provenance, copy as JSON or Markdown. */
-export function AnalysisReport({ title, summary, status, findings, limits, nextSteps, provenance, labels, mark, streaming, onLocate, onCopy, hideActions, folded, provenanceFolded, className, ...props }: AnalysisReportProps) {
+export function AnalysisReport({ title, summary, status, findings, limits, nextSteps, provenance, labels, mark, streaming, onLocate, onCopy, hideActions, folded, provenanceFolded, className, ...props }: Readonly<AnalysisReportProps>) {
   const s = analysisReportStyles();
   const [copied, setCopied] = React.useState<AnalysisExport | null>(null);
   const report: AnalysisReportData = { title, summary, status, findings, limits, nextSteps, provenance };

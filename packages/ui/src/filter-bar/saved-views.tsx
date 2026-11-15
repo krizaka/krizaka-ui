@@ -122,7 +122,7 @@ function NameForm({
   onCancel: () => void;
 }>) {
   const [name, setName] = React.useState(initial);
-  const clean = name.replace(/\s+/g, " ").trim();
+  const clean = name.replaceAll(/\s+/g, " ").trim();
   return (
     <form
       className="flex flex-wrap items-center gap-2"
@@ -156,7 +156,7 @@ function NameForm({
   );
 }
 
-const Count = ({ n }: { n?: number }) =>
+const Count = ({ n }: Readonly<{ n?: number }>) =>
   n === undefined ? null : (
     <>
       {" "}
@@ -250,7 +250,7 @@ type GroupProps = {
 };
 
 /** One group on a wide screen: links when the views have an address, a single-choice chip group otherwise. */
-function GroupChips({ label, items, current, Link, onSelect }: GroupProps & { label: string }) {
+function GroupChips({ label, items, current, Link, onSelect }: Readonly<GroupProps & { label: string }>) {
   if (items.some((v) => v.href)) {
     return (
       <nav aria-label={label} className="flex flex-wrap items-center gap-2">

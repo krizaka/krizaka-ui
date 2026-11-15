@@ -29,7 +29,7 @@ export type SettingsRowProps = {
 };
 
 /** One setting: its label and help on the left, its value or control on the right; a button when `onPress` is given. */
-export function SettingsRow({ label, description, icon, value, trailing, onPress, destructive, accessibilityLabel, disabled }: SettingsRowProps) {
+export function SettingsRow({ label, description, icon, value, trailing, onPress, destructive, accessibilityLabel, disabled }: Readonly<SettingsRowProps>) {
   const { theme } = useTheme();
   const body = (
     <>
@@ -86,7 +86,7 @@ export type SettingsGroupProps = ViewProps & {
 };
 
 /** A titled card of `SettingsRow`s, divided by hairlines. */
-export function SettingsGroup({ title, children, style, ...props }: SettingsGroupProps) {
+export function SettingsGroup({ title, children, style, ...props }: Readonly<SettingsGroupProps>) {
   const { theme } = useTheme();
   const rows = React.Children.toArray(children).filter(Boolean);
   return (

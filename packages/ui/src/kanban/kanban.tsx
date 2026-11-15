@@ -97,7 +97,7 @@ type Placement = { column: string; index: number };
  * arrow keys, every step announced. Column limits show in the counts.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function Kanban<T>({ columns, cards, getId, getColumn, getTitle, renderCard, onMove, "aria-label": label, labels: words, className }: KanbanProps<T>) {
+export function Kanban<T>({ columns, cards, getId, getColumn, getTitle, renderCard, onMove, "aria-label": label, labels: words, className }: Readonly<KanbanProps<T>>) {
   warnDeprecated("kanban");
   const labels = { ...kanbanLabels, ...words };
   const s = kanban();

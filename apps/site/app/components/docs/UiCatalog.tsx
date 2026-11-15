@@ -46,13 +46,13 @@ function readFilters(search: string) {
 const listeners = new Set<() => void>();
 const subscribe = (listener: () => void) => {
   listeners.add(listener);
-  window.addEventListener("popstate", listener);
+  globalThis.addEventListener("popstate", listener);
   return () => {
     listeners.delete(listener);
-    window.removeEventListener("popstate", listener);
+    globalThis.removeEventListener("popstate", listener);
   };
 };
-const readSearch = () => window.location.search;
+const readSearch = () => globalThis.location.search;
 const writeFilters = (filters: ReturnType<typeof readFilters>) => {
   const params = new URLSearchParams();
   if (filters.platform !== "all") params.set("platform", filters.platform);
@@ -64,7 +64,7 @@ const writeFilters = (filters: ReturnType<typeof readFilters>) => {
   listeners.forEach((listener) => listener());
 };
 
-export function UiCatalog({ entries, families, usageDate }: { entries: CatalogEntry[]; families: CatalogFamily[]; usageDate: string }) {
+export function UiCatalog({ entries, families, usageDate }: Readonly<{ entries: CatalogEntry[]; families: CatalogFamily[]; usageDate: string }>) {
   const { t, locale } = useI18n();
   const c = t.docs.ia.catalog;
   const labels = t.docs.component;
@@ -207,7 +207,7 @@ export function UiCatalog({ entries, families, usageDate }: { entries: CatalogEn
 }
 
 /** The card's picture: the live example when it is near (web), the screenshot of the mobile one, an icon until then. */
-function Preview({ entry }: { entry: CatalogEntry }) {
+function Preview({ entry }: Readonly<{ entry: CatalogEntry }>) {
   const { preview } = entry;
   const Icon = ICON[entry.platforms];
   const placeholder = (

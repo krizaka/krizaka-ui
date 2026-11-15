@@ -27,7 +27,7 @@ export type PersonCardProps = {
 };
 
 /** A person on a card: the photos full bleed (tap a side to change), the name and age over a scrim, a line, a bio, chips. */
-export function PersonCard({ photos, name, age, badge, meta, bio, footer, photoLabel = (n, t) => `Photo ${n} of ${t}`, style }: PersonCardProps) {
+export function PersonCard({ photos, name, age, badge, meta, bio, footer, photoLabel = (n, t) => `Photo ${n} of ${t}`, style }: Readonly<PersonCardProps>) {
   const { theme, radius } = useTheme();
   const [index, setIndex] = React.useState(0);
   const gradient = useSvgId("kz-profile-");
@@ -136,7 +136,7 @@ export type SwipeDeckProps<T> = {
  * will do, past a third of the screen it flies off), or press the buttons; a tick marks the decision. Screen readers
  * get “Like” and “Pass” as actions of the card. Under reduced motion the card leaves without flying.
  */
-export function SwipeDeck<T>({ items, getId, renderCard, onSwipe, empty, labels, hideButtons, style }: SwipeDeckProps<T>) {
+export function SwipeDeck<T>({ items, getId, renderCard, onSwipe, empty, labels, hideButtons, style }: Readonly<SwipeDeckProps<T>>) {
   const { theme, haptic } = useTheme();
   const reduce = useReducedMotion();
   const { width } = useWindowDimensions();

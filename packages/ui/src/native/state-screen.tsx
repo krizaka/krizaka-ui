@@ -42,7 +42,7 @@ const PATHS: Record<StateKind, string[]> = {
 };
 
 /** The glyph of a kind, drawn in the theme's secondary text. */
-function KindIcon({ kind }: { kind: StateKind }) {
+function KindIcon({ kind }: Readonly<{ kind: StateKind }>) {
   const { theme } = useTheme();
   return (
     <Svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke={kind === "error" ? theme.dangerText : theme.textSecondary} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
@@ -54,7 +54,7 @@ function KindIcon({ kind }: { kind: StateKind }) {
 }
 
 /** The empty, error and offline screens. An error is announced as an alert, an offline state as a status; an empty one is just there. */
-export function StateScreen({ kind, title, description, action, secondary, icon, inline, testID, style }: StateScreenProps) {
+export function StateScreen({ kind, title, description, action, secondary, icon, inline, testID, style }: Readonly<StateScreenProps>) {
   const body = (
     <EmptyState
       icon={icon ?? <KindIcon kind={kind} />}
@@ -89,7 +89,7 @@ export type OfflineBannerProps = {
 };
 
 /** A slim strip at the top of a screen that still shows saved data while the network is gone. */
-export function OfflineBanner({ label, actionLabel, onAction, testID }: OfflineBannerProps) {
+export function OfflineBanner({ label, actionLabel, onAction, testID }: Readonly<OfflineBannerProps>) {
   const { theme, insets } = useTheme();
   return (
     <View testID={testID} role="status" style={[styles.banner, { backgroundColor: theme.warningSoft, paddingTop: 8 + insets.top }]}>

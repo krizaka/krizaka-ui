@@ -103,7 +103,7 @@ export function DashboardLayout({
   className,
   children,
   ...props
-}: DashboardLayoutProps) {
+}: Readonly<DashboardLayoutProps>) {
   const grid = <div className={s.grid()}>{children}</div>;
   return (
     <div className={s.root({ className })} {...props}>
@@ -176,7 +176,7 @@ export type WidgetProps = Omit<React.ComponentProps<"section">, "title"> & {
 };
 
 /** A widget of the dashboard: a titled region on a card. */
-export function Widget({ title, description, action, span = 1, level = 2, className, children, id, ...props }: WidgetProps) {
+export function Widget({ title, description, action, span = 1, level = 2, className, children, id, ...props }: Readonly<WidgetProps>) {
   const H = level === 2 ? "h2" : "h3";
   const sv = dashboardLayout({ span });
   const auto = React.useId();

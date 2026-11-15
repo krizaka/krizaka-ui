@@ -56,7 +56,7 @@ export type PersonCardProps = {
  * A person on a card: photos full bleed (a side to change), name and age over a scrim, a line, a bio, chips.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function PersonCard({ photos, name, age, badge, meta, bio, footer, photoLabels = { previous: "Previous photo", next: "Next photo" }, className }: PersonCardProps) {
+export function PersonCard({ photos, name, age, badge, meta, bio, footer, photoLabels = { previous: "Previous photo", next: "Next photo" }, className }: Readonly<PersonCardProps>) {
   warnDeprecated("swipe-deck");
   const s = swipeDeck();
   const [index, setIndex] = React.useState(0);
@@ -131,7 +131,7 @@ export type SwipeDeckProps<T> = {
  * A deck of cards decided one by one: drag, the buttons, or ← → — each decision announced.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function SwipeDeck<T>({ items, getId, getName, renderCard, onSwipe, empty, labels, className }: SwipeDeckProps<T>) {
+export function SwipeDeck<T>({ items, getId, getName, renderCard, onSwipe, empty, labels, className }: Readonly<SwipeDeckProps<T>>) {
   warnDeprecated("swipe-deck");
   const s = swipeDeck();
   const reduce = usePrefersReducedMotion();

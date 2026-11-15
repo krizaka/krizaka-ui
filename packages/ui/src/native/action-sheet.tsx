@@ -30,7 +30,7 @@ export type ActionSheetProps = Controlled & {
 };
 
 /** A short list of actions from the bottom edge — share, edit, delete — and a cancel button apart, as the platforms do. */
-export function ActionSheet({ title, description, actions, cancelLabel, ...controlled }: ActionSheetProps) {
+export function ActionSheet({ title, description, actions, cancelLabel, ...controlled }: Readonly<ActionSheetProps>) {
   const [open, setOpen] = useOpen(controlled);
   const { theme, radius, insets, haptic } = useTheme();
   const reduce = useReducedMotion();

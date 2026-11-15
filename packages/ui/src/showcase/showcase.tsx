@@ -12,9 +12,9 @@ import { warnDeprecated } from "../deprecated";
 const FILL_CSS = ".kz-showcase-fill{transform-origin:left;animation:kz-showcase-fill 6s linear forwards}@keyframes kz-showcase-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}";
 const REDUCED = "(prefers-reduced-motion: reduce)";
 const subscribeNothing = () => () => undefined;
-const readReduced = () => Boolean(typeof window !== "undefined" && window.matchMedia?.(REDUCED).matches);
+const readReduced = () => Boolean(typeof window !== "undefined" && globalThis.matchMedia?.(REDUCED).matches);
 function subscribeReduced(notify: () => void) {
-  const query = window.matchMedia?.(REDUCED);
+  const query = globalThis.matchMedia?.(REDUCED);
   query?.addEventListener?.("change", notify);
   return () => query?.removeEventListener?.("change", notify);
 }
@@ -115,7 +115,7 @@ export function Showcase<T>({
   onPointerEnter,
   onPointerLeave,
   ...props
-}: ShowcaseProps<T>) {
+}: Readonly<ShowcaseProps<T>>) {
   warnDeprecated("showcase");
   const total = items.length;
   const root = React.useRef<HTMLElement>(null);
@@ -298,14 +298,14 @@ export function useTypedText(text: string, { active = true, speed = 45 }: { acti
   const reduced = React.useSyncExternalStore(subscribeReduced, readReduced, () => false);
   React.useEffect(() => {
     if (!active || reduced) return;
-    const id = window.setInterval(() => {
+    const id = globalThis.setInterval(() => {
       setTyped((state) => {
         const count = state.of === text ? state.count + 1 : 1;
-        if (count >= text.length) window.clearInterval(id);
+        if (count >= text.length) globalThis.clearInterval(id);
         return { of: text, count };
       });
     }, Math.max(10, 1000 / speed));
-    return () => window.clearInterval(id);
+    return () => globalThis.clearInterval(id);
   }, [text, active, reduced, speed]);
   const count = typed.of === text ? typed.count : 0;
   const done = !active || reduced || count >= text.length;

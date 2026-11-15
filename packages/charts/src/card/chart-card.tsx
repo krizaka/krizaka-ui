@@ -29,7 +29,7 @@ export interface ChartCardProps {
 }
 
 /** The frame of a chart: title, insight, actions, chart, footer — used everywhere a chart is shown. */
-export function ChartCard({ title, insight, description, actions, footer, children, className, id }: ChartCardProps) {
+export function ChartCard({ title, insight, description, actions, footer, children, className, id }: Readonly<ChartCardProps>) {
   return (
     <ChartCardProvider value={{ title, insight, description, extra: actions }}>
       <Card.Root id={id} className={cx("kzc-card", className)}>

@@ -12,9 +12,9 @@ import { DeviceFrame, type DeviceKind } from "./device-frame";
 const FILL_CSS = ".kz-step-fill{transform-origin:left;animation:kz-step-fill var(--kz-step-ms,6000ms) linear forwards}@keyframes kz-step-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}";
 const REDUCED = "(prefers-reduced-motion: reduce)";
 const noop = () => () => undefined;
-const readReduced = () => Boolean(typeof window !== "undefined" && window.matchMedia?.(REDUCED).matches);
+const readReduced = () => Boolean(typeof window !== "undefined" && globalThis.matchMedia?.(REDUCED).matches);
 const subscribeReduced = (notify: () => void) => {
-  const q = window.matchMedia?.(REDUCED);
+  const q = globalThis.matchMedia?.(REDUCED);
   q?.addEventListener?.("change", notify);
   return () => q?.removeEventListener?.("change", notify);
 };
@@ -71,7 +71,7 @@ export interface StepShowcaseProps extends Omit<React.ComponentProps<"section">,
 }
 
 /** One device frame, its steps beside it, playing each recording then the next — a product's guided tour. */
-export function StepShowcase({ label, steps, device, deviceTitle, autoplay = true, labels = stepShowcaseLabels, defaultIndex = 0, onIndexChange, className, ...props }: StepShowcaseProps) {
+export function StepShowcase({ label, steps, device, deviceTitle, autoplay = true, labels = stepShowcaseLabels, defaultIndex = 0, onIndexChange, className, ...props }: Readonly<StepShowcaseProps>) {
   const total = steps.length;
   const id = React.useId();
   const root = React.useRef<HTMLElement>(null);

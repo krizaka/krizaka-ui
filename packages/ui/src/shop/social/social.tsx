@@ -25,7 +25,7 @@ export type SocialSectionProps = Omit<React.ComponentProps<"section">, "title"> 
 };
 
 /** Where else to find the shop. */
-export function SocialSection({ variant = "links", title, links, labels = {}, playLabels, reelTitle, poster, notice, className, ...props }: SocialSectionProps) {
+export function SocialSection({ variant = "links", title, links, labels = {}, playLabels, reelTitle, poster, notice, className, ...props }: Readonly<SocialSectionProps>) {
   if (links.length === 0) return null;
   const first = links[0]!;
   return (

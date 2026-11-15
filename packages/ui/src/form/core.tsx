@@ -326,7 +326,7 @@ export function useFormStatus(): { submitting: boolean; succeeded: boolean; atte
 
 function getPath(source: unknown, path: string): unknown {
   let current = source;
-  for (const part of path.replace(/\[(\d+)\]/g, ".$1").split(".")) {
+  for (const part of path.replaceAll(/\[(\d+)\]/g, ".$1").split(".")) {
     if (current === null || typeof current !== "object") return undefined;
     current = (current as Record<string, unknown>)[part];
   }
@@ -429,7 +429,7 @@ function createStore<T>(initial: T): Store<T> {
   };
 }
 
-function Bound<RootProps extends object>({ store, Root, props }: { store: Store<FormContextValue>; Root: (props: RootProps & { value: FormContextValue }) => React.ReactElement; props: RootProps }) {
+function Bound<RootProps extends object>({ store, Root, props }: Readonly<{ store: Store<FormContextValue>; Root: (props: RootProps & { value: FormContextValue }) => React.ReactElement; props: RootProps }>) {
   const value = React.useSyncExternalStore(store.subscribe, store.get, store.get);
   return <Root {...props} value={value} />;
 }

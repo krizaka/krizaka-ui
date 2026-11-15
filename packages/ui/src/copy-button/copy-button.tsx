@@ -29,7 +29,7 @@ export type CopyButtonProps = Omit<ButtonProps, "onClick" | "asChild" | "value" 
 };
 
 /** A button that copies `value`. State: `data-copied`. */
-export function CopyButton({ value, label, copiedLabel, fallbackLabel, iconOnly, icon, copiedIcon, resetMs = 1800, onCopy, variant = "secondary", className, ...props }: CopyButtonProps) {
+export function CopyButton({ value, label, copiedLabel, fallbackLabel, iconOnly, icon, copiedIcon, resetMs = 1800, onCopy, variant = "secondary", className, ...props }: Readonly<CopyButtonProps>) {
   const [copied, setCopied] = React.useState(false);
   const [manual, setManual] = React.useState(false);
   const fieldRef = React.useRef<HTMLInputElement>(null);

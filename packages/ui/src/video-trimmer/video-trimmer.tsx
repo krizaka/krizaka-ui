@@ -118,7 +118,7 @@ export function VideoTrimmer({
   classNames = {},
   renderHandle,
   labels: given,
-}: VideoTrimmerProps) {
+}: Readonly<VideoTrimmerProps>) {
   warnDeprecated("video-trimmer");
   const labels = { ...videoTrimmerLabels, ...given };
   const s = videoTrimmer();

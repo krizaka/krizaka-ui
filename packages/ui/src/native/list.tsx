@@ -94,7 +94,7 @@ export function List<T>({
   ref,
   contentContainerStyle,
   style,
-}: ListProps<T>) {
+}: Readonly<ListProps<T>>) {
   const { theme } = useTheme();
   const Separator = React.useMemo(
     () =>

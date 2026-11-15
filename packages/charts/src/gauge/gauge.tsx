@@ -46,13 +46,13 @@ const START = (-120 * Math.PI) / 180;
 const END = (120 * Math.PI) / 180;
 
 /** One figure against its range — credits used of a plan, a challenge's progress, a load. */
-export function Gauge(props: GaugeProps) {
+export function Gauge(props: Readonly<GaugeProps>) {
   const { value, min = 0, max = 100, format, caption, target, zones = [], tone = "accent" } = props;
   const { locale, labels } = useSettings(props);
   const fmt = useMemo(() => valueFormatter(format, locale, labels.noValue), [format, locale, labels.noValue]);
   const clamped = Math.min(max, Math.max(min, value));
   const ratio = max > min ? (clamped - min) / (max - min) : 0;
-  const zone = zones.find((z) => clamped <= z.to) ?? zones[zones.length - 1];
+  const zone = zones.find((z) => clamped <= z.to) ?? zones.at(-1);
   const color = colorOf(zone?.tone ?? tone, 1);
   const text = fmt(value);
   const summary = [

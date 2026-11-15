@@ -37,7 +37,7 @@ export type MapInfoCardProps = Omit<React.ComponentProps<"article">, "title"> & 
 };
 
 /** What a place says about itself on a map: photo, title, one meta line, a status and ONE action — every field optional. */
-export function MapInfoCard({ title, titleLevel = 3, photo, meta, status, action, className, ...props }: MapInfoCardProps) {
+export function MapInfoCard({ title, titleLevel = 3, photo, meta, status, action, className, ...props }: Readonly<MapInfoCardProps>) {
   const s = mapCard();
   const Heading = `h${titleLevel}` as "h3";
   return (
@@ -71,7 +71,7 @@ export type RouteCardProps = Omit<React.ComponentProps<"section">, "title"> & {
 };
 
 /** A destination, the times the host knows, and the « Directions » links to the person's own navigation app. */
-export function RouteCard({ destination, position, origin, directionsLabel, appLabels, times, apps = ROUTE_APPS, className, ...props }: RouteCardProps) {
+export function RouteCard({ destination, position, origin, directionsLabel, appLabels, times, apps = ROUTE_APPS, className, ...props }: Readonly<RouteCardProps>) {
   const s = mapCard();
   const links = routeLinks(position, origin);
   const id = React.useId();

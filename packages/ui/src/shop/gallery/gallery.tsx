@@ -103,7 +103,7 @@ function ShopWall({ photos, notes, sign, texture, label }: Readonly<{ photos: re
 }
 
 /** The photos of a shop: a mosaic, a filmstrip, a wall or a grid. */
-export function GallerySection({ variant = "mosaic", photos, title, lead, label, notes = [], sign, texture = "plaster", className, ...props }: GallerySectionProps) {
+export function GallerySection({ variant = "mosaic", photos, title, lead, label, notes = [], sign, texture = "plaster", className, ...props }: Readonly<GallerySectionProps>) {
   const shown = photos.slice(0, SHOP_LIMITS.photos);
   const bodies: Record<GalleryVariant, React.ReactNode> = {
     mosaic: <Mosaic photos={shown} />,

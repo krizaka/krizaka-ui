@@ -32,7 +32,7 @@ export type PromiseCardProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title
  * A promise, the keys that call it and who carries it.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function PromiseCard({ label, promise, keys, bearer, bearerLabel, bearerName, variant, brand, className, ...props }: PromiseCardProps) {
+export function PromiseCard({ label, promise, keys, bearer, bearerLabel, bearerName, variant, brand, className, ...props }: Readonly<PromiseCardProps>) {
   warnDeprecated("promise-card");
   return (
     <div className={cn("kzs-promise", storyVariantClass(variant), brandClass(brand), className)} {...props}>

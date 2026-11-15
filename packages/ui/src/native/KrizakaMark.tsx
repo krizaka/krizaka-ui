@@ -11,7 +11,7 @@ import { useSvgId, useTheme } from "./theme";
  * react-native-svg: the ink shield follows the theme's text roles, the node and the core are Krizaka blue. The orbit
  * turns and the core breathes on the native driver; still when the system reduces motion.
  */
-export function KrizakaMark({ size = 48, animated = true, title, neutral }: NativeMarkProps) {
+export function KrizakaMark({ size = 48, animated = true, title, neutral }: Readonly<NativeMarkProps>) {
   const { theme } = useTheme();
   const { Animated, layer, spinStyle, pulseStyle } = useMarkMotion(size, animated);
   const id = useSvgId("kzm");

@@ -23,7 +23,7 @@ export type SheetProps = {
  * a choice (`Select`, `Combobox`), the details of a pin on a map, a short form. React Native's `Modal`: focus stays
  * inside, the back button closes it. Rises with the theme's ease; still under reduced motion.
  */
-export function Sheet({ open, onOpenChange, title, closeLabel = "Close", children, style }: SheetProps) {
+export function Sheet({ open, onOpenChange, title, closeLabel = "Close", children, style }: Readonly<SheetProps>) {
   const { theme, radius, motion } = useTheme();
   const [rise] = React.useState(() => new Animated.Value(0));
   React.useEffect(() => {

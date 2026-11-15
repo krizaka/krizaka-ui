@@ -163,7 +163,7 @@ export interface SchemaFormMessages {
   tooMany: string;
 }
 
-const fill = (template: string, vars: Record<string, number>) => template.replace(/\{(\w+)\}/g, (_, k: string) => String(vars[k] ?? ""));
+const fill = (template: string, vars: Record<string, number>) => template.replaceAll(/\{(\w+)\}/g, (_, k: string) => String(vars[k] ?? ""));
 
 /** A list typed as « a, b, c »: its items. */
 export const listItems = (text: string) => text.split(",").map((s) => s.trim()).filter(Boolean);

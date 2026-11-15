@@ -67,7 +67,7 @@ export type LocationPickerProps = Pick<MapProps, "scheme" | "brand" | "lang" | "
 type Status = "idle" | "locating" | "denied" | "unavailable";
 
 /** A position picked by moving the map under a pin; its distance from the person; "near me" on request. */
-export function LocationPicker({ label, value, onValueChange, locale, zoom = 14, radius, origin: originProp = null, labels: given, className, ...map }: LocationPickerProps) {
+export function LocationPicker({ label, value, onValueChange, locale, zoom = 14, radius, origin: originProp = null, labels: given, className, ...map }: Readonly<LocationPickerProps>) {
   const labels = { ...locationPickerLabels, ...given };
   const s = locationPicker();
   const [origin, setOrigin] = React.useState<LngLat | null>(originProp);

@@ -84,7 +84,7 @@ export function MascotState({
   titleAs: Title = "p",
   className,
   ...props
-}: MascotStateProps) {
+}: Readonly<MascotStateProps>) {
   const s = mascotState({ layout, framed });
   return (
     <div
@@ -116,21 +116,21 @@ export function MascotState({
 type PresetProps = Omit<MascotStateProps, "mood">;
 
 /** It failed: what went wrong and what to do (`role="alert"`). `MascotState` with `mood="error"`. */
-export function ErrorState(props: PresetProps) {
+export function ErrorState(props: Readonly<PresetProps>) {
   return <MascotState mood="error" {...props} />;
 }
 
 /** It is done: a payment, a verification, a delivery, a sent message. `MascotState` with `mood="success"`. */
-export function SuccessState(props: PresetProps) {
+export function SuccessState(props: Readonly<PresetProps>) {
   return <MascotState mood="success" {...props} />;
 }
 
 /** A long task runs (`aria-busy`): what runs, beside the bird. `MascotState` with `mood="thinking"`. */
-export function LoadingState(props: PresetProps) {
+export function LoadingState(props: Readonly<PresetProps>) {
   return <MascotState mood="thinking" {...props} />;
 }
 
 /** A first screen, an onboarding step. `MascotState` with `mood="welcome"`. */
-export function WelcomeState(props: PresetProps) {
+export function WelcomeState(props: Readonly<PresetProps>) {
   return <MascotState mood="welcome" {...props} />;
 }

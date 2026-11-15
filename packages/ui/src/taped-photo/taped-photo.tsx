@@ -17,7 +17,7 @@ export type TapedPhotoProps = React.HTMLAttributes<HTMLElement> & {
 };
 
 /** A print taped in the notebook: tilted, a white border, a paper shadow, tape at two corners or at the top. */
-export function TapedPhoto({ children, caption, tilt = -1.6, tape = "corners", className, style, ...props }: TapedPhotoProps) {
+export function TapedPhoto({ children, caption, tilt = -1.6, tape = "corners", className, style, ...props }: Readonly<TapedPhotoProps>) {
   return (
     <figure
       className={cn("kz-taped", className)}

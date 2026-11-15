@@ -47,7 +47,7 @@ export interface GeoMapProps<T extends Datum> extends ChartFrameProps {
   onSelect?: (datum: T, index: number) => void;
 }
 
-export function GeoMap<T extends Datum>(props: GeoMapProps<T>) {
+export function GeoMap<T extends Datum>(props: Readonly<GeoMapProps<T>>) {
   const { data, region, value, format, points = [], steps = 5, regionLabel, valueLabel, onSelect } = props;
   const { locale, labels } = useSettings(props);
   const mounted = useMounted();
@@ -64,7 +64,7 @@ export function GeoMap<T extends Datum>(props: GeoMapProps<T>) {
   );
   const byCode = useMemo(() => new Map(rows.map((r) => [r.code, r])), [rows]);
   const max = rows[0]?.value ?? 0;
-  const min = rows[rows.length - 1]?.value ?? 0;
+  const min = rows.at(-1)?.value ?? 0;
   const stepOf = (v: number) => (max === min ? steps - 1 : Math.min(steps - 1, Math.floor(((v - min) / (max - min)) * steps)));
   const name = (code: string) => regionName(code, code, locale);
   const total = rows.reduce((sum, r) => sum + r.value, 0);

@@ -137,7 +137,7 @@ export type MarkerProps = {
 };
 
 /** A place: an accent dot (or your view) that is a button when it does something. */
-export function Marker({ position, label, onPress, selected, children }: MarkerProps) {
+export function Marker({ position, label, onPress, selected, children }: Readonly<MarkerProps>) {
   const { palette } = useMapContext();
   const { theme, radius, haptic } = useTheme();
   const id = usePlace(label);
@@ -175,7 +175,7 @@ export type UserPositionProps = {
 };
 
 /** The person's position: a dot that pulses (still when the system reduces motion). */
-export function UserPosition({ position, label, accuracy }: UserPositionProps) {
+export function UserPosition({ position, label, accuracy }: Readonly<UserPositionProps>) {
   const { palette, reduce } = useMapContext();
   const id = usePlace(label);
   const [pulse] = React.useState(() => new Animated.Value(0));
@@ -208,9 +208,9 @@ export type RadiusCircleProps = {
 };
 
 /** A circle on the ground: a delivery zone, a search radius. */
-export function RadiusCircle({ center, radius, tone = "accent" }: RadiusCircleProps) {
+export function RadiusCircle({ center, radius, tone = "accent" }: Readonly<RadiusCircleProps>) {
   const { palette } = useMapContext();
-  const id = `kz-circle-${React.useId().replace(/[^a-zA-Z0-9]/g, "")}`;
+  const id = `kz-circle-${React.useId().replaceAll(/[^a-zA-Z0-9]/g, "")}`;
   const data = React.useMemo(() => circlePolygon(center, radius), [center, radius]);
   return (
     <GeoJSONSource id={id} data={data}>
@@ -309,7 +309,7 @@ export type LocationPickerProps = Pick<MapProps, "brand" | "lang" | "region" | "
 };
 
 /** A position picked by moving the map under a pin; its distance from the person; "near me" asks for the location only when pressed. */
-export function LocationPicker({ label, value, onValueChange, locale, zoom = 14, radius: zone, origin: originProp = null, labels: given, style, ...map }: LocationPickerProps) {
+export function LocationPicker({ label, value, onValueChange, locale, zoom = 14, radius: zone, origin: originProp = null, labels: given, style, ...map }: Readonly<LocationPickerProps>) {
   const labels = { ...pickerLabels, ...given };
   const { theme, radius, haptic } = useTheme();
   const [origin, setOrigin] = React.useState<LngLat | null>(originProp);

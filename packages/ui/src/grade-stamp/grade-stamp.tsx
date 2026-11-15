@@ -25,7 +25,7 @@ export type GradeStampProps = Omit<React.HTMLAttributes<HTMLSpanElement>, "child
 };
 
 /** A teacher's red-ink grade, `18/20` with a remark, only from real data: its source is in a tooltip. */
-export function GradeStamp({ value, outOf = 20, remark, source, sourceLabel = "Source", locale = "en", tilt = -4, className, style, ...props }: GradeStampProps) {
+export function GradeStamp({ value, outOf = 20, remark, source, sourceLabel = "Source", locale = "en", tilt = -4, className, style, ...props }: Readonly<GradeStampProps>) {
   if (!Number.isFinite(value) || !Number.isFinite(outOf) || outOf <= 0 || value < 0 || value > outOf || !source.trim()) return null;
   const format = new Intl.NumberFormat(locale, { maximumFractionDigits: 1 });
   return (

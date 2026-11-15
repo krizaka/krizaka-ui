@@ -192,7 +192,7 @@ export function VideoPlayer({
   onError,
   labels: given,
   className,
-}: VideoPlayerProps) {
+}: Readonly<VideoPlayerProps>) {
   const labels = { ...videoPlayerLabels, ...given };
   const s = videoPlayer();
   const root = React.useRef<HTMLDivElement>(null);

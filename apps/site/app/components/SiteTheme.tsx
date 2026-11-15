@@ -11,14 +11,14 @@ import { useCallback, useEffect, useSyncExternalStore } from "react";
 const DARK_QUERY = "(prefers-color-scheme: dark)";
 
 function subscribe(onChange: () => void) {
-  const query = window.matchMedia(DARK_QUERY);
+  const query = globalThis.matchMedia(DARK_QUERY);
   query.addEventListener("change", onChange);
   return () => query.removeEventListener("change", onChange);
 }
 
 export function useSiteTheme() {
   const { mode, setMode } = useTheme();
-  const systemDark = useSyncExternalStore(subscribe, () => window.matchMedia(DARK_QUERY).matches, () => true);
+  const systemDark = useSyncExternalStore(subscribe, () => globalThis.matchMedia(DARK_QUERY).matches, () => true);
   const theme: "dark" | "light" = mode === "system" ? (systemDark ? "dark" : "light") : mode;
   const toggleTheme = useCallback(() => setMode(theme === "dark" ? "light" : "dark"), [theme, setMode]);
   return { theme, toggleTheme };

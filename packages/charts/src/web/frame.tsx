@@ -132,7 +132,7 @@ export function ChartFrame({
   plotRef,
   compact,
   pending,
-}: FrameInternals) {
+}: Readonly<FrameInternals>) {
   const card = useChartCard();
   const { hideTitle, height = defaultHeight, loading, error, empty, summaryText, dataTable = true, exportable, actionsMenu = true, live, id, className, style } = frame;
   const { brand, labels } = useChartSettings(frame);
@@ -357,7 +357,7 @@ export function ChartFrame({
 }
 
 /** The ⋯ button as the server and the first browser pass draw it, until the kit's menu has loaded. */
-function MoreButton({ label }: { label: string }) {
+function MoreButton({ label }: Readonly<{ label: string }>) {
   return (
     <button type="button" className="kzc-more" aria-label={label} disabled>
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden width="16" height="16">

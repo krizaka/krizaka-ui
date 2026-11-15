@@ -39,7 +39,7 @@ export function ConfirmButton({
   onBlur,
   onKeyDown,
   ...props
-}: ConfirmButtonProps) {
+}: Readonly<ConfirmButtonProps>) {
   const [armed, setArmedState] = React.useState(false);
   const armedRef = React.useRef(false);
   const onArmedChangeRef = React.useRef(onArmedChange);
@@ -54,8 +54,8 @@ export function ConfirmButton({
   }, []);
   React.useEffect(() => {
     if (!armed) return;
-    const timer = window.setTimeout(() => setArmed(false), timeoutMs);
-    return () => window.clearTimeout(timer);
+    const timer = globalThis.setTimeout(() => setArmed(false), timeoutMs);
+    return () => globalThis.clearTimeout(timer);
   }, [armed, timeoutMs, setArmed]);
   const name = armed ? confirmLabel : label;
   return (

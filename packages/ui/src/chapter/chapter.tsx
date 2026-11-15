@@ -132,7 +132,7 @@ export type ChapterIndexProps = Omit<React.OlHTMLAttributes<HTMLOListElement>, "
 };
 
 /** The chapters of a story as a sober timeline: one ruled line each (or a taped print each), the number in the margin, the title the link. */
-export function ChapterIndex({ chapters, newLabel = "New", label, paper = "lines", linkAs, variant = "lines", className, ...props }: ChapterIndexProps) {
+export function ChapterIndex({ chapters, newLabel = "New", label, paper = "lines", linkAs, variant = "lines", className, ...props }: Readonly<ChapterIndexProps>) {
   const album = variant === "album";
   return (
     // `role="list"`: a list without bullets is still a list to VoiceOver.
@@ -175,7 +175,7 @@ export type ChapterHeadProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
 };
 
 /** The head of a chapter: the number in the margin, the title, the period and the reading time, the standfirst once. */
-export function ChapterHead({ number, title, period, readingTime, faced, built, versusLabels, level = 1, className, children, ...props }: ChapterHeadProps) {
+export function ChapterHead({ number, title, period, readingTime, faced, built, versusLabels, level = 1, className, children, ...props }: Readonly<ChapterHeadProps>) {
   const H = level === 1 ? "h1" : "h2";
   const meta = [
     { key: "period", value: period },
@@ -248,7 +248,7 @@ export function ChapterFoot({
   linkAs,
   className,
   ...props
-}: ChapterFootProps) {
+}: Readonly<ChapterFootProps>) {
   return (
     <nav aria-label={label} data-paper={paper || undefined} data-margin="" className={cn("kz-chapters kz-chapter-foot", className)} {...props}>
       <ul role="list">

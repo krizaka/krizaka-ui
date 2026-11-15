@@ -124,7 +124,7 @@ export type ServiceCardProps = Omit<React.ComponentProps<"article">, "title" | "
 /** A service as a card: icon or photo, duration, price, what is included, the capacity, a tag — one way in. */
 export function ServiceCard({
   name, price, priceFrom, duration, capacity, description, included, tag, icon, media, selected, actionLabel, href, linkAs, onSelect, titleAs: Title = "h3", reveal, variant = "default", density = "grid", mediaRatio = "wide", className, style, ...props
-}: ServiceCardProps) {
+}: Readonly<ServiceCardProps>) {
   const s = serviceCard({ variant, density, mediaRatio });
   const index = variant === "index";
   const id = React.useId();

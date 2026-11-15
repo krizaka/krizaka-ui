@@ -80,9 +80,9 @@ export function thinLabels(count: number, max: number): number[] {
   const every = Math.ceil(count / Math.max(1, max));
   const out: number[] = [];
   for (let i = 0; i < count; i += every) out.push(i);
-  if (out[out.length - 1] !== count - 1) {
+  if (out.at(-1) !== count - 1) {
     // The last label is always written; the one before it gives way when they would touch.
-    if (count - 1 - out[out.length - 1]! < every) out.pop();
+    if (count - 1 - out.at(-1)! < every) out.pop();
     out.push(count - 1);
   }
   return out;

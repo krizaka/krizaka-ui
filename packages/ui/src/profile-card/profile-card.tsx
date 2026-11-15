@@ -79,7 +79,7 @@ export function ProfileCard({
   className,
   style,
   ...props
-}: ProfileCardProps) {
+}: Readonly<ProfileCardProps>) {
   return (
     <article
       className={cn("kzs-profile", storyVariantClass(variant), brandClass(brand), className)}

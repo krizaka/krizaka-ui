@@ -66,7 +66,7 @@ function useButton({ variant = "secondary", size = "md", shape = "rounded", load
 }
 
 /** The gradient fill behind the content (react-native-svg: no native gradient in React Native). */
-function Fill({ colors, id }: { colors: Look; id: string }) {
+function Fill({ colors, id }: Readonly<{ colors: Look; id: string }>) {
   if (!colors.gradient) return null;
   return (
     <Svg aria-hidden pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%">
@@ -82,9 +82,9 @@ function Fill({ colors, id }: { colors: Look; id: string }) {
 }
 
 /** The action. `variant` × `size` × `shape`, `loading`, `icon`; the haptics, if any, belong to the app's `onPress`. */
-export function Button({ label, icon, variant, size = "md", shape, loading = false, disabled, style, ...props }: ButtonProps) {
+export function Button({ label, icon, variant, size = "md", shape, loading = false, disabled, style, ...props }: Readonly<ButtonProps>) {
   const { colors, inactive, frame } = useButton({ variant, size, shape, loading, disabled });
-  const gradientId = `kz-button-${React.useId().replace(/:/g, "")}`;
+  const gradientId = `kz-button-${React.useId().replaceAll(':', "")}`;
   return (
     <Pressable
       role="button"
@@ -114,9 +114,9 @@ export type IconButtonProps = BaseProps & {
 };
 
 /** A square button holding only an icon: `label` is required, it is its accessible name. */
-export function IconButton({ label, icon, variant, size = "md", shape, loading = false, disabled, style, ...props }: IconButtonProps) {
+export function IconButton({ label, icon, variant, size = "md", shape, loading = false, disabled, style, ...props }: Readonly<IconButtonProps>) {
   const { colors, inactive, frame } = useButton({ variant, size, shape, loading, disabled });
-  const gradientId = `kz-button-${React.useId().replace(/:/g, "")}`;
+  const gradientId = `kz-button-${React.useId().replaceAll(':', "")}`;
   const side = colors.height;
   return (
     <Pressable

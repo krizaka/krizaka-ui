@@ -16,8 +16,6 @@ import { tv } from "tailwind-variants";
 
 import { useLatest, usePrefersReducedMotion } from "../media";
 
-export type { VirtualItem };
-
 export const virtual = tv({
   slots: {
     viewport:
@@ -145,7 +143,7 @@ export function VirtualList<T>({
   footer,
   ref,
   className,
-}: VirtualListProps<T>) {
+}: Readonly<VirtualListProps<T>>) {
   const s = virtual();
   const viewport = React.useRef<HTMLDivElement>(null);
   const list = React.useRef<HTMLDivElement>(null);
@@ -275,7 +273,7 @@ export function VirtualGrid<T>({
   footer,
   ref,
   className,
-}: VirtualGridProps<T>) {
+}: Readonly<VirtualGridProps<T>>) {
   const s = virtual();
   const viewport = React.useRef<HTMLDivElement>(null);
   const [width, setWidth] = React.useState(0);
@@ -336,3 +334,5 @@ export function VirtualGrid<T>({
     </div>
   );
 }
+
+export { type VirtualItem } from "@tanstack/react-virtual";

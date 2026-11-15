@@ -49,7 +49,7 @@ export interface Globe3DProps extends ChartFrameProps {
 const SPEED = 6; // degrees per second: one turn a minute.
 
 /** The world as a lit sphere: deployment regions, the arcs between them, a slow turn. */
-export function Globe3D(props: Globe3DProps) {
+export function Globe3D(props: Readonly<Globe3DProps>) {
   const { points, arcs = [], regions = [], format, center, autoRotate = true, pointLabel, valueLabel } = props;
   const { locale, labels } = useSettings(props);
   const mounted = useMounted();
@@ -58,7 +58,7 @@ export function Globe3D(props: Globe3DProps) {
   const plotRef = useRef<HTMLDivElement | null>(null);
   const onScreen = useInView(plotRef, { margin: "0px" });
   const fmt = useMemo(() => valueFormatter(format, locale, labels.noValue), [format, locale, labels.noValue]);
-  const uid = useId().replace(/:/g, "");
+  const uid = useId().replaceAll(':', "");
   const start = center ?? (points[0] ? [points[0].lon, points[0].lat] : [0, 20]);
   const [rotation, setRotation] = useState<[number, number]>([-start[0], -Math.max(-60, Math.min(60, start[1]))]);
   const [active, setActive] = useState<number | null>(null);

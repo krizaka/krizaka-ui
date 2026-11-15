@@ -57,7 +57,7 @@ type RemovableChipProps = Omit<React.ComponentProps<"span">, "onSelect"> &
 export type ChipProps = ToggleChipProps | RemovableChipProps;
 
 /** A selectable pill (`selected` / `onSelectedChange`), an item of `Chip.Group` (`value`), or `removable`. */
-function ChipBase(props: ChipProps) {
+function ChipBase(props: Readonly<ChipProps>) {
   const group = React.useContext(ChipGroupContext);
   if (props.removable) {
     const { removable: _removable, removeLabel, onRemove, disabled, size, className, children, ...rest } = props;
@@ -137,7 +137,7 @@ export type ChipGroupProps =
     });
 
 /** Chips that choose together: `type` single · multiple, `value`/`defaultValue` + `onValueChange`. */
-export function ChipGroup({ label, size, className, children, ...props }: ChipGroupProps) {
+export function ChipGroup({ label, size, className, children, ...props }: Readonly<ChipGroupProps>) {
   const single = props.type === "single" ? props : undefined;
   const routed = useRouteBinding(single?.routeKey, single?.routeValues, { value: single?.value, defaultValue: single?.defaultValue, onValueChange: single?.onValueChange });
   const s = chip({ size });
@@ -165,12 +165,12 @@ function SingleGroup({
   onValueChange,
   required,
   ...props
-}: Omit<GroupBase, "size" | "label"> & {
+}: Readonly<Omit<GroupBase, "size" | "label"> & {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   required?: boolean;
-}) {
+}>) {
   const [inner, setInner] = React.useState(defaultValue ?? "");
   const current = value ?? inner;
   return (

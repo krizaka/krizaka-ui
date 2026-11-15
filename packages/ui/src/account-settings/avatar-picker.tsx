@@ -78,7 +78,7 @@ export type AvatarPickerProps = Omit<React.ComponentProps<typeof RadioGroupPrimi
 const pictureOf = (option: AvatarOption) => option.src ?? (option.defaultAvatar ? defaultAvatarUrl(option.defaultAvatar, { size: 256 }) : undefined);
 
 /** A grid of pictures to choose from, with an upload beside them: a radio group, never a row of loose radios. */
-export function AvatarPicker({ label, showLabel, description, dense, kind = "person", options, noneLabel, uploadFile, upload, className, ...props }: AvatarPickerProps) {
+export function AvatarPicker({ label, showLabel, description, dense, kind = "person", options, noneLabel, uploadFile, upload, className, ...props }: Readonly<AvatarPickerProps>) {
   const id = React.useId();
   const listed = optionsOfKind(options, kind);
   const tile = cn(

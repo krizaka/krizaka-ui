@@ -35,7 +35,7 @@ export type SplashHandoffProps = {
  * (absolute, full screen) and unmount nothing yourself: it removes its own content when the dissolve ends. Reduced
  * motion: the mark stands still and the splash leaves without fading.
  */
-export function SplashHandoff({ product, ready, onShown, onDone, size = 96, background, label, duration = 320, style }: SplashHandoffProps) {
+export function SplashHandoff({ product, ready, onShown, onDone, size = 96, background, label, duration = 320, style }: Readonly<SplashHandoffProps>) {
   const { theme } = useTheme();
   const reduce = useReducedMotion();
   const [opacity] = React.useState(() => new Animated.Value(1));

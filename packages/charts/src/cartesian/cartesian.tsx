@@ -69,7 +69,7 @@ export interface CartesianOptions {
 
 const M = { top: 12, bottom: 26, right: 14 };
 
-export function Cartesian<T extends Datum>({ props, options }: { props: CartesianProps<T>; options: CartesianOptions }) {
+export function Cartesian<T extends Datum>({ props, options }: Readonly<{ props: CartesianProps<T>; options: CartesianOptions }>) {
   const { data, x, y, yLabel, series: seriesProp, format, xFormat, xLabel, thresholds = [], markers = [], legend = true, zero, onSelect, autoRange = false, minPoints = 7, filterable = true } = props;
   const { kind, mode, stacked = false, horizontal = false } = options;
   const { locale, labels } = useSettings(props);
@@ -239,7 +239,7 @@ function Plot({ table, width, height, options, fmt, colors, thresholds, markers,
   const endWidth = showEnd ? Math.max(...series.map((s) => textWidth(fmt.axis(lastValue(s))))) + 14 : 0;
 
   const left = horizontal ? Math.min(width * 0.35, Math.max(...categoryTexts.map(textWidth)) + 12) : Math.max(...tickTexts.map(textWidth)) + 10;
-  const right = Math.max(M.right, endWidth, horizontal ? textWidth(tickTexts[tickTexts.length - 1] ?? "") / 2 + 4 : 0);
+  const right = Math.max(M.right, endWidth, horizontal ? textWidth(tickTexts.at(-1) ?? "") / 2 + 4 : 0);
   const x0 = left;
   const x1 = Math.max(x0 + 10, width - right);
   const y0 = M.top + (markers.length ? 14 : 0);

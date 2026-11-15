@@ -24,7 +24,7 @@ export type WaveformProps = Omit<ViewProps, "children"> & {
 const HEIGHT = { sm: 24, md: 40, lg: 64 } as const;
 
 /** A decorative waveform: the bars of a sound, breathing gently while it plays, still otherwise. */
-export function Waveform({ peaks, bars = 32, size = "md", tone = "accent", playing = false, label, style, ...props }: WaveformProps) {
+export function Waveform({ peaks, bars = 32, size = "md", tone = "accent", playing = false, label, style, ...props }: Readonly<WaveformProps>) {
   const { theme } = useTheme();
   const reduce = useReducedMotion();
   const [active, setActive] = React.useState(() => AppState.currentState === "active");

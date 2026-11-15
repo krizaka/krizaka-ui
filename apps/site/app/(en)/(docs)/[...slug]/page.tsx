@@ -17,6 +17,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return docsMetadata("en", (await params).slug);
 }
 
-export default async function Page({ params }: Props) {
+export default async function Page({ params }: Readonly<Props>) {
   return <DocsPageView locale="en" slug={(await params).slug} />;
 }

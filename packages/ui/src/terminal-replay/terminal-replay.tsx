@@ -136,7 +136,7 @@ export function TerminalReplay({
   className,
   style,
   ...props
-}: TerminalReplayProps) {
+}: Readonly<TerminalReplayProps>) {
   warnDeprecated("terminal-replay");
   const root = React.useRef<HTMLElement>(null);
   const screenRef = React.useRef<HTMLDivElement>(null);
@@ -148,7 +148,7 @@ export function TerminalReplay({
 
   React.useEffect(() => {
     const el = root.current;
-    if (!el || !autoPlay || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!el || !autoPlay || globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     setPhase("idle");
     // Starts the first time it is seen; off screen, it waits where it is.
     const io = new IntersectionObserver(

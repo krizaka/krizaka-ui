@@ -55,7 +55,7 @@ export function PermissionPrompt({
   mascot = "falcon",
   children,
   style,
-}: PermissionPromptProps) {
+}: Readonly<PermissionPromptProps>) {
   const { theme, radius } = useTheme();
   if (status === "granted") return <>{children ?? null}</>;
   const blocked = status === "blocked" || (status === "denied" && Boolean(onOpenSettings));

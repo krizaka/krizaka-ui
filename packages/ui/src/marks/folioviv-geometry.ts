@@ -16,7 +16,7 @@ import { marks } from "@krizaka/tokens/native";
  */
 const forest = marks.folioviv[0]![1];
 /** The copper end: the cut, the heart, the halo and its breath. */
-const copper = marks.folioviv[marks.folioviv.length - 1]![1];
+const copper = marks.folioviv.at(-1)![1];
 
 export const FOLIOVIV = {
   viewBox: "0 0 400 400",

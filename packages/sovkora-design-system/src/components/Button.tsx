@@ -21,6 +21,6 @@ export {
  * @param props - {@link ButtonProps}
  * @returns A button (or its child, with `asChild`).
  */
-export function Button({ variant = "primary", ...props }: ButtonProps) {
+export function Button({ variant = "primary", ...props }: Readonly<ButtonProps>) {
   return <KzButton variant={variant} {...props} />;
 }

@@ -76,7 +76,7 @@ export type ToasterProps = {
   max?: number;
 };
 
-function ToastView({ item, closeLabel, duration }: { item: ToastItem; closeLabel: string; duration: number }) {
+function ToastView({ item, closeLabel, duration }: Readonly<{ item: ToastItem; closeLabel: string; duration: number }>) {
   const { theme, radius, haptic } = useTheme();
   const reduce = useReducedMotion();
   // A swipe sideways dismisses it (the close button stays for everyone else).
@@ -176,7 +176,7 @@ function ToastView({ item, closeLabel, duration }: { item: ToastItem; closeLabel
 }
 
 /** Mount once, at the root (inside `ThemeProvider`). Then call `toast()` from anywhere. */
-export function Toaster({ closeLabel, position = "top", offset = 12, duration = 6000, max = 3 }: ToasterProps) {
+export function Toaster({ closeLabel, position = "top", offset = 12, duration = 6000, max = 3 }: Readonly<ToasterProps>) {
   const all = React.useSyncExternalStore(subscribe, snapshot, snapshot);
   const shown = all.slice(-max);
   if (shown.length === 0) return null;

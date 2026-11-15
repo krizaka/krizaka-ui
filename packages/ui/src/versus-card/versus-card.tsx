@@ -71,7 +71,7 @@ function FighterPane({ fighter, side }: Readonly<{ fighter: Fighter; side: "left
 }
 
 /** An arcade versus card: two subjects face to face, a bird each, stat bars from real data, a « VS » between them. */
-export function VersusCard({ label, left, right, vs = "VS", source, className, ...props }: VersusCardProps) {
+export function VersusCard({ label, left, right, vs = "VS", source, className, ...props }: Readonly<VersusCardProps>) {
   return (
     <section className={cn("kz-versus", className)} aria-label={label} {...props}>
       <FighterPane fighter={left} side="left" />

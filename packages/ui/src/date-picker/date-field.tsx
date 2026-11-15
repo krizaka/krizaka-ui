@@ -66,7 +66,7 @@ export type DateFieldProps = Common & {
   autoComplete?: "bday" | "off";
 };
 
-function Caption({ id, hint, error }: { id: string; hint?: string; error?: string }) {
+function Caption({ id, hint, error }: Readonly<{ id: string; hint?: string; error?: string }>) {
   const s = dateField();
   if (error)
     return (
@@ -82,7 +82,7 @@ function Caption({ id, hint, error }: { id: string; hint?: string; error?: strin
 }
 
 /** Day · month · year typed in the locale's order: numeric keyboards, the next box focused when one is full. */
-export function DateField({ label, locale, hint, error, disabled, name, labels: given, className, value: valueProp, defaultValue = "", onValueChange, onBlur, autoComplete }: DateFieldProps) {
+export function DateField({ label, locale, hint, error, disabled, name, labels: given, className, value: valueProp, defaultValue = "", onValueChange, onBlur, autoComplete }: Readonly<DateFieldProps>) {
   const labels = { ...dateFieldLabels, ...given };
   const s = dateField();
   const id = React.useId();
@@ -110,7 +110,7 @@ export function DateField({ label, locale, hint, error, disabled, name, labels: 
               aria-invalid={error ? true : undefined}
               className={s.input({ className: part === "year" ? "w-20" : "w-14" })}
               onChange={(e) => {
-                const digits = e.target.value.replace(/\D/g, "").slice(0, DATE_PART_LENGTH[part]);
+                const digits = e.target.value.replaceAll(/\D/g, "").slice(0, DATE_PART_LENGTH[part]);
                 const next = { ...parts, [part]: digits };
                 setParts(next);
                 setValue(composeDate(next));
@@ -143,7 +143,7 @@ export type DateWheelProps = Common & {
 };
 
 /** Day, month and year as three wheels in the locale's order, bounded by `min` and `max`: always a real date. */
-export function DateWheel({ label, locale, hint, error, disabled, name, labels: given, className, value: valueProp, defaultValue = null, onValueChange, min, max, defaultView }: DateWheelProps) {
+export function DateWheel({ label, locale, hint, error, disabled, name, labels: given, className, value: valueProp, defaultValue = null, onValueChange, min, max, defaultView }: Readonly<DateWheelProps>) {
   const labels = { ...dateFieldLabels, ...given };
   const id = React.useId();
   const [value, setValue] = useControllable<string | null>(valueProp, defaultValue, (v) => v && onValueChange?.(v));

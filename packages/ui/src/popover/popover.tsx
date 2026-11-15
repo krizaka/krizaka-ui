@@ -11,7 +11,7 @@ export type PopoverContentProps = React.ComponentProps<typeof PopoverPrimitive.C
   container?: HTMLElement | null;
 };
 
-export function PopoverContent({ sideOffset = 8, collisionPadding = 8, container, className, ...props }: PopoverContentProps) {
+export function PopoverContent({ sideOffset = 8, collisionPadding = 8, container, className, ...props }: Readonly<PopoverContentProps>) {
   return (
     <PopoverPrimitive.Portal container={container}>
       <PopoverPrimitive.Content

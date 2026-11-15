@@ -44,7 +44,7 @@ export type MapSheetProps = Omit<React.ComponentProps<"section">, "children"> & 
  * inert). On a phone it rises from the bottom with three snap points; from the `md` breakpoint it is a card at the
  * side and the handle disappears. Place it in the map's positioned container.
  */
-export function MapSheet({ label, children, snap, defaultSnap = "peek", onSnapChange, handleLabel, className, ...props }: MapSheetProps) {
+export function MapSheet({ label, children, snap, defaultSnap = "peek", onSnapChange, handleLabel, className, ...props }: Readonly<MapSheetProps>) {
   const [inner, setInner] = React.useState<MapSheetSnap>(defaultSnap);
   const current = snap ?? inner;
   const set = (next: MapSheetSnap) => {

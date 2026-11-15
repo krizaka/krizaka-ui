@@ -4,8 +4,6 @@ import { Animated, type StyleProp, StyleSheet, Text, type ViewStyle } from "reac
 import { countdownParts, type CountdownUnits, useCountdown } from "../countdown/core";
 import { useReducedMotion, useTheme } from "./theme";
 
-export type { CountdownUnits };
-
 export type CountdownProps = {
   /** The moment it counts down to: a Date, an ISO string or epoch milliseconds. */
   target: Date | string | number;
@@ -33,7 +31,7 @@ const FONT = { sm: 14, md: 20, lg: 32 } as const;
  * danger text role (≥ 4.5:1 in both themes) and its last segment breathes (still when the system reduces motion).
  * `showLabel` writes `label` before the segments; it is the accessible name either way.
  */
-export function Countdown({ target, skewMs = 0, units, urgentBelowMs = 60_000, size = "md", label, showLabel = false, style }: CountdownProps) {
+export function Countdown({ target, skewMs = 0, units, urgentBelowMs = 60_000, size = "md", label, showLabel = false, style }: Readonly<CountdownProps>) {
   const { theme, fonts } = useTheme();
   const reduce = useReducedMotion();
   const ms = useCountdown(target, skewMs);
@@ -85,3 +83,5 @@ const styles = StyleSheet.create({
   unit: { marginLeft: 2, fontWeight: "700", textTransform: "uppercase" },
   label: { fontWeight: "600", marginRight: 2 },
 });
+
+export { type CountdownUnits } from "../countdown/core";

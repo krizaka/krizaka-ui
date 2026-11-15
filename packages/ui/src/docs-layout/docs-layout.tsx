@@ -36,7 +36,7 @@ export type DocsLayoutProps = React.ComponentProps<"div"> & {
 };
 
 /** A documentation page: pages · article · contents, in the site's frame. */
-export function DocsLayout({ sidebar, sidebarLabel, toc, className, children, ...props }: DocsLayoutProps) {
+export function DocsLayout({ sidebar, sidebarLabel, toc, className, children, ...props }: Readonly<DocsLayoutProps>) {
   return (
     <div className={s.root({ className })} {...props}>
       <div className={s.sidebar()}>{sidebar}</div>

@@ -44,7 +44,7 @@ export type EntityHeaderProps = EntityHeaderBase & {
 type EditableProps = EditableBase & { className: string; inputClassName: string; multiline?: boolean };
 
 /** Text that reads as text and edits in place: Enter saves, Escape gives it back, leaving the field saves. */
-function Editable({ value, label, placeholder, onCommit, onRefusal, className, inputClassName, required, multiline }: EditableProps) {
+function Editable({ value, label, placeholder, onCommit, onRefusal, className, inputClassName, required, multiline }: Readonly<EditableProps>) {
   const { editing, draft, setDraft, pending, open, stop, commit } = useEditable(value, onCommit, onRefusal, required);
   const input = React.useRef<HTMLInputElement | HTMLTextAreaElement>(null);
   React.useEffect(() => {
@@ -105,7 +105,7 @@ export function EntityHeader({
   refusals,
   actions,
   className,
-}: EntityHeaderProps) {
+}: Readonly<EntityHeaderProps>) {
   const { message, setLocal } = useRefusal(refusal, refusals);
   const picture = <Avatar size="xl" alt="" {...avatar} />;
   const errorId = React.useId();

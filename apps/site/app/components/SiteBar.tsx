@@ -31,7 +31,7 @@ const LINKS = [
   { id: "builder", path: BUILDER_PATH, match: [BUILDER_PATH] },
 ] as const;
 
-export function SiteBar({ version }: { version: string }) {
+export function SiteBar({ version }: Readonly<{ version: string }>) {
   const { t, locale } = useI18n();
   const b = t.site.bar;
   const { theme, toggleTheme } = useSiteTheme();

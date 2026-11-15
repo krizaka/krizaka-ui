@@ -14,8 +14,6 @@ import { tv } from "../tv";
 import { MonthPicker } from "./month-picker";
 import { addDays, addMonths, toIsoDate, toLocalDate, weekStartOf } from "./parts";
 
-export { addDays, addMonths, toIsoDate, toLocalDate, weekStartOf };
-
 /** A calendar date, `YYYY-MM-DD`. */
 export type IsoDate = string;
 /** A range of calendar dates; `end` is `null` while the second date is not chosen. */
@@ -144,7 +142,7 @@ export function Calendar({
   variant,
   labels: given,
   className,
-}: CalendarProps) {
+}: Readonly<CalendarProps>) {
   const labels = { ...calendarLabels, ...given };
   const s = calendar({ variant });
   const today = todayProp ?? toIsoDate(new Date());
@@ -152,7 +150,7 @@ export function Calendar({
   const [innerMonth, setInnerMonth] = React.useState(monthOf(defaultMonth ?? anchor));
   const month = monthProp ? monthOf(monthProp) : innerMonth;
   const shown = Array.from({ length: numberOfMonths }, (_, i) => addMonths(month, i));
-  const lastShown = shown[shown.length - 1]!;
+  const lastShown = shown.at(-1)!;
   const isShown = (iso: IsoDate) => iso.slice(0, 7) >= month.slice(0, 7) && iso.slice(0, 7) <= lastShown.slice(0, 7);
   const [focused, setFocused] = React.useState<IsoDate>(isShown(anchor) ? anchor : month);
   const [hover, setHover] = React.useState<IsoDate | null>(null);
@@ -349,3 +347,5 @@ export function Calendar({
     </div>
   );
 }
+
+export { addDays, addMonths, toIsoDate, toLocalDate, weekStartOf } from "./parts";

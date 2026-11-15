@@ -85,8 +85,8 @@ export type MascotProps = Omit<React.ComponentProps<"svg">, "children"> & {
  * One of the nine Krizaka figures in one mood — for the moments a product speaks to a person: a welcome, a long wait,
  * a success, an empty list, an error. Drawn in the host's brand colours by default (`tone="own"` for the story's).
  */
-export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 96, animated = true, title, life = false, phase, look, flying, bank, poked, carrying = true, className, style, ...props }: MascotProps) {
-  const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
+export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 96, animated = true, title, life = false, phase, look, flying, bank, poked, carrying = true, className, style, ...props }: Readonly<MascotProps>) {
+  const uid = useId().replaceAll(/[^a-zA-Z0-9_-]/g, "");
   const g = BIRDS[bird];
   const alive = life && mood === "welcome";
   const ph = phase ?? phaseOf(uid);

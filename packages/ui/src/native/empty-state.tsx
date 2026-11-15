@@ -16,7 +16,7 @@ export type EmptyStateProps = Omit<ViewProps, "children"> & {
 };
 
 /** What a list, a search or a screen says when it has nothing to show — every word is a prop. */
-export function EmptyState({ icon, title, description, action, style, ...props }: EmptyStateProps) {
+export function EmptyState({ icon, title, description, action, style, ...props }: Readonly<EmptyStateProps>) {
   const { theme } = useTheme();
   return (
     <View {...props} style={[styles.root, style]}>

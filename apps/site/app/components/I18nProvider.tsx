@@ -24,7 +24,7 @@ interface I18nValue {
   toggleLocale: () => void;
 }
 
-export function I18nProvider({ children, locale, messages }: { children: ReactNode; locale: Locale; messages: TranslationDictionary }) {
+export function I18nProvider({ children, locale, messages }: Readonly<{ children: ReactNode; locale: Locale; messages: TranslationDictionary }>) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -33,7 +33,7 @@ export function I18nProvider({ children, locale, messages }: { children: ReactNo
   const setLocale = useCallback((l: Locale) => {
     const bare = (pathname ?? "/").replace(/^\/fr(?=\/|$)/, "") || "/";
     const target = localePath(l, bare);
-    router.push(`${target}${window.location.hash}`);
+    router.push(`${target}${globalThis.location.hash}`);
   }, [pathname, router]);
 
   return (

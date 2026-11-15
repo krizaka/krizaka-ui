@@ -73,7 +73,7 @@ function ClosingMedia({ photo, mark }: Readonly<Pick<BookingSectionProps, "photo
   );
 }
 
-function ClosingCall({ title, body, photo, mark, nextTime, nextTimeLabel, secondary, href, actionLabel, linkAs, className, ...props }: ClosingCallProps) {
+function ClosingCall({ title, body, photo, mark, nextTime, nextTimeLabel, secondary, href, actionLabel, linkAs, className, ...props }: Readonly<ClosingCallProps>) {
   const headingId = React.useId();
   const hasMedia = Boolean(photo ?? mark);
   return (
@@ -112,7 +112,7 @@ function ClosingCall({ title, body, photo, mark, nextTime, nextTimeLabel, second
 }
 
 /** The way to book: the next free times, a closing call, or the phone bar. */
-export function BookingSection({ variant = "strip", times = [], label, emptyLabel, href, actionLabel, title, body, linkAs, hideWhileVisible, photo, mark, nextTime, nextTimeLabel, secondary, className, ...props }: BookingSectionProps) {
+export function BookingSection({ variant = "strip", times = [], label, emptyLabel, href, actionLabel, title, body, linkAs, hideWhileVisible, photo, mark, nextTime, nextTimeLabel, secondary, className, ...props }: Readonly<BookingSectionProps>) {
   const action = (size: "md" | "lg") => (
     <BlockLink href={href} linkAs={linkAs} className={cn(buttonVariants({ variant: "primary", size }), "no-underline")}>
       {actionLabel}

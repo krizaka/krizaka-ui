@@ -66,7 +66,7 @@ export function CreditUsage({
   className,
   style,
   ...settings
-}: CreditUsageProps) {
+}: Readonly<CreditUsageProps>) {
   const words = { ...CREDIT_LABELS, ...given };
   const { locale, brand } = useSettings({ title, ...settings });
   const uid = useId();

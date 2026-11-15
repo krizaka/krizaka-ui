@@ -43,7 +43,7 @@ export type ShopFrameProps = React.HTMLAttributes<HTMLDivElement> & {
 const PAPERS = { plain: undefined, seyes: "ruled", kraft: "kraft", washi: "washi" } as const;
 
 /** The page: sets the look preset, the accent, the paper and the density the sections below read. */
-export function ShopFrame({ preset, density = "compact", accent, paper = "plain", motion, className, ...props }: ShopFrameProps) {
+export function ShopFrame({ preset, density = "compact", accent, paper = "plain", motion, className, ...props }: Readonly<ShopFrameProps>) {
   return <div data-shop-preset={preset} data-shop-accent={accent} data-paper={PAPERS[paper]} data-density={density} data-shop-motion={motion} className={cn("kz-shop", className)} {...props} />;
 }
 
@@ -67,7 +67,7 @@ export type ShopSectionProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
 };
 
 /** A section of a shop page. */
-export function ShopSection({ id, title, eyebrow, lead, actions, bleed, first, mascot, className, children, ...props }: ShopSectionProps) {
+export function ShopSection({ id, title, eyebrow, lead, actions, bleed, first, mascot, className, children, ...props }: Readonly<ShopSectionProps>) {
   const auto = React.useId();
   const headingId = title ? `${id ?? auto}-title` : undefined;
   const heading = title ? <SectionHeading id={headingId} size="sm" eyebrow={eyebrow} title={title} lead={lead} actions={actions} /> : null;

@@ -58,7 +58,7 @@ const BIRD_FEATURES: Record<DoodleBird, string> = {
   pigeon: "M52 20 L59 22 L52 24",
 };
 
-function BirdSketch({ bird }: { bird: DoodleBird }) {
+function BirdSketch({ bird }: Readonly<{ bird: DoodleBird }>) {
   const owl = bird === "owl";
   const tall = bird === "flamingo";
   return (
@@ -75,7 +75,7 @@ function BirdSketch({ bird }: { bird: DoodleBird }) {
 }
 
 /** A doodle: an arrow, a circled word, a star, a wavy underline or a bird's sketch, in the margin ink. Decoration unless it has a `label`. */
-export function Doodle({ kind, children, word, side = "left", place = "margin", top, seed = "", bird = "duck", flip = false, label, className, style, ...props }: DoodleProps) {
+export function Doodle({ kind, children, word, side = "left", place = "margin", top, seed = "", bird = "duck", flip = false, label, className, style, ...props }: Readonly<DoodleProps>) {
   const wraps = children != null && (kind === "circle" || kind === "wave");
   const said = !wraps && Boolean(label);
   return (

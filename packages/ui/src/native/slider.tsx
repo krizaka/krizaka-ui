@@ -72,7 +72,7 @@ export function Slider<V extends SliderValue = number>({
   orientation = "horizontal",
   disabled,
   style,
-}: SliderProps<V>) {
+}: Readonly<SliderProps<V>>) {
   const { theme, radius, haptic } = useTheme();
   const range = Array.isArray(value ?? defaultValue);
   const vertical = orientation === "vertical";

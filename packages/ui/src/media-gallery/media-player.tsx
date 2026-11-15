@@ -70,7 +70,7 @@ export function MediaPlayer({
   ratio: freeRatio,
   className,
   ...player
-}: MediaPlayerProps) {
+}: Readonly<MediaPlayerProps>) {
   const ratio = freeRatio ?? (vertical ? "9 / 16" : "16 / 9");
   const [inner, setInner] = React.useState(false);
   const open = given ?? inner;

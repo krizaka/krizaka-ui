@@ -34,7 +34,7 @@ export type StageBannerProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
 };
 
 /** Announces a chapter: a stage and its name on one line, or (`size="lg"`) a stage, a title and a line, centred. */
-export function StageBanner({ stage, name, title, subtitle, size = "sm", titleAs: Title = "p", variant, brand, className, ...props }: StageBannerProps) {
+export function StageBanner({ stage, name, title, subtitle, size = "sm", titleAs: Title = "p", variant, brand, className, ...props }: Readonly<StageBannerProps>) {
   const cls = cn("kzs-banner", storyVariantClass(variant), brandClass(brand), className);
   if (size === "lg")
     return (

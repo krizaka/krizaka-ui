@@ -103,7 +103,7 @@ export function ImageCropper({
   showZoom = true,
   labels: given,
   className,
-}: ImageCropperProps) {
+}: Readonly<ImageCropperProps>) {
   warnDeprecated("image-cropper");
   const labels = { ...imageCropperLabels, ...given };
   const s = imageCropper();

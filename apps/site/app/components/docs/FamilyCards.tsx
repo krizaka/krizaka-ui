@@ -11,7 +11,7 @@ import { LazyExample } from "./LazyExample";
 /* The families of the catalogue as cards: each cover a live example of one of its components laid out at its real size
    and scaled in, its counts read from the registry; the whole card is the family's link (the name's link stretches over
    it, the cover is inert). On /components a click filters the list; on the home it leads there. */
-export function FamilyCards({ families, titles, hrefs, current, onSelect }: { families: CatalogFamily[]; titles: Record<string, string>; hrefs: Record<string, string>; current?: string; onSelect?: (key: string, event: MouseEvent<HTMLAnchorElement>) => void }) {
+export function FamilyCards({ families, titles, hrefs, current, onSelect }: Readonly<{ families: CatalogFamily[]; titles: Record<string, string>; hrefs: Record<string, string>; current?: string; onSelect?: (key: string, event: MouseEvent<HTMLAnchorElement>) => void }>) {
   const { t } = useI18n();
   const c = t.docs.ia.catalog.families;
   return (

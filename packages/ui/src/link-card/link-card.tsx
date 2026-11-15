@@ -52,7 +52,7 @@ export function cardHoverClass(_hover?: CardHover): string | undefined {
 }
 
 /** An entry point: the whole card is one link — icon, title, sentence, the way in. Its surface and hairline go one step up under the pointer; nothing moves. */
-export function LinkCard({ href, title, description, icon, meta, cta, extra, titleAs: Title = "h3", layout = "row", footerAlign = "bottom", linkAs, hover, className, ...props }: LinkCardProps) {
+export function LinkCard({ href, title, description, icon, meta, cta, extra, titleAs: Title = "h3", layout = "row", footerAlign = "bottom", linkAs, hover, className, ...props }: Readonly<LinkCardProps>) {
   const external = isExternal(href);
   return (
     <BlockLink

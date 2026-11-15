@@ -23,7 +23,7 @@ type LabelKey = keyof Labels;
 const label = (labels: Labels, key: string): string => labels[key as LabelKey] ?? key;
 
 /** The words of a field, in the language being written; a French text that is missing is shown in English and marked. */
-function Words({ value }: { value: unknown }) {
+function Words({ value }: Readonly<{ value: unknown }>) {
   const { locale, defaultLocale } = useContentLanguages();
   const { text, fallback } = wordsFor(value, locale, defaultLocale);
   return fallback ? (
@@ -79,7 +79,7 @@ function fieldsOf(type: BlockType, labels: Labels): Record<string, Field> {
   return Object.fromEntries(Object.entries(fields).map(([name, def]) => [name, fieldFor(name, def, labels)]));
 }
 
-const Block = ({ children, className = "" }: { children: ReactNode; className?: string }) => <div className={`px-5 py-8 sm:px-10 ${className}`}>{children}</div>;
+const Block = ({ children, className = "" }: Readonly<{ children: ReactNode; className?: string }>) => <div className={`px-5 py-8 sm:px-10 ${className}`}>{children}</div>;
 
 export function createConfig(labels: Labels): Config {
   return {

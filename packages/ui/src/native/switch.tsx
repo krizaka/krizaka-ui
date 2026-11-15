@@ -33,7 +33,7 @@ const SIZES = { sm: { w: 40, h: 24, knob: 18 }, md: { w: 52, h: 32, knob: 26 } }
  * not the system's: the same look on iOS and Android, a `selection` haptic when it flips. `showLabel` makes it a
  * settings row (the label and its description beside it, all pressable).
  */
-export function Switch({ label, checked, defaultChecked = false, onCheckedChange, description, showLabel, size = "md", error, disabled, style }: SwitchProps) {
+export function Switch({ label, checked, defaultChecked = false, onCheckedChange, description, showLabel, size = "md", error, disabled, style }: Readonly<SwitchProps>) {
   const { theme, motion, haptic } = useTheme();
   const [own, setOwn] = React.useState(defaultChecked);
   const on = checked ?? own;

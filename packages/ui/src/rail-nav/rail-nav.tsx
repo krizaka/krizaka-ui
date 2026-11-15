@@ -62,12 +62,12 @@ const useRail = () => {
 };
 
 /** The frame of the page: the rail, then `RailNav.Body` (the header and the content). A row on a desktop. */
-export function RailNavShell({ className, ...props }: React.ComponentProps<"div">) {
+export function RailNavShell({ className, ...props }: Readonly<React.ComponentProps<"div">>) {
   return <div className={s.shell({ className })} {...props} />;
 }
 
 /** The column beside the rail: the `AppHeader`, then the content. On a phone it keeps clear of the tab bar. */
-export function RailNavBody({ className, ...props }: React.ComponentProps<"div">) {
+export function RailNavBody({ className, ...props }: Readonly<React.ComponentProps<"div">>) {
   return <div className={s.body({ className })} {...props} />;
 }
 
@@ -134,7 +134,7 @@ function moveFocus(event: React.KeyboardEvent<HTMLElement>) {
 /** The rail: a vertical column of icons on a desktop, a bottom tab bar on a phone. */
 export function RailNavRoot({
   label, mark, accent, children, footer, shortcuts, shortcutsLabel, expandable, expanded: controlled, defaultExpanded, onExpandedChange, expandLabels, className, onKeyDown, ...props
-}: RailNavRootProps) {
+}: Readonly<RailNavRootProps>) {
   const [own, setOwn] = React.useState<boolean | undefined>(defaultExpanded);
   const wide = useWide();
   const headingId = React.useId();
@@ -207,7 +207,7 @@ export type RailNavItemProps = Omit<React.ComponentProps<"a">, "children"> & {
 };
 
 /** A destination of the rail. */
-export function RailNavItem({ icon, label, current, badge, badgeLabel, asChild, children, className, ...props }: RailNavItemProps) {
+export function RailNavItem({ icon, label, current, badge, badgeLabel, asChild, children, className, ...props }: Readonly<RailNavItemProps>) {
   const { expanded } = useRail();
   const Comp = asChild ? Slot.Root : "a";
   const inner = (

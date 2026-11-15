@@ -1282,7 +1282,7 @@ function pager<T extends RowData>(props: DataTableProps<T>, c: Controlled, chang
 }
 
 /** A table of records — sort, filters and facets, groups, details, pages, selection, visibility, pinning, resizing — on the client or the server, cards on a phone, windowing for long lists. */
-export function DataTable<T extends RowData>(props: DataTableProps<T>) {
+export function DataTable<T extends RowData>(props: Readonly<DataTableProps<T>>) {
   const { columns, caption, showCaption, selectable, bulkActions, bulkMax, bulkResult, resizing, renderDetail, rowLabel, toolbar, footer, className, virtualized, loading, stickyHeader, scroll, manual } = props;
   const labels = { ...dataTableLabels, ...props.labels };
   const shape = shapeOf(props);
@@ -1385,7 +1385,7 @@ function ResizeHandle({
   className,
   onPointerStart,
   onSize,
-}: {
+}: Readonly<{
   label: string;
   size: number;
   min: number;
@@ -1393,7 +1393,7 @@ function ResizeHandle({
   className: string;
   onPointerStart: (event: unknown) => void;
   onSize: (size: number) => void;
-}) {
+}>) {
   return (
     // A focusable separator is interactive (WAI-ARIA "window splitter"): its value is the width, the arrows change it.
     <div

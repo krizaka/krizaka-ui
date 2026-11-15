@@ -37,7 +37,7 @@ export function liveFlyers(flyers: readonly ShopFlyer[], today: string): ShopFly
 }
 
 /** The owner's news: pinned notes, or one line above the hero. */
-export function BulletinSection({ variant = "board", flyers, today, title, className, ...props }: BulletinSectionProps) {
+export function BulletinSection({ variant = "board", flyers, today, title, className, ...props }: Readonly<BulletinSectionProps>) {
   const live = liveFlyers(flyers, today);
   if (live.length === 0) return null;
   if (variant === "banner") {

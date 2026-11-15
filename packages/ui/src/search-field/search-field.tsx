@@ -95,7 +95,7 @@ export function SearchField({
   className,
   placeholder,
   ...props
-}: SearchFieldProps) {
+}: Readonly<SearchFieldProps>) {
   const s = searchField({ size });
   const [value, setValue] = useControllable(valueProp, defaultValue, onValueChange);
   const [open, setOpen] = React.useState(false);
@@ -123,8 +123,8 @@ export function SearchField({
         input.current?.select();
       }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    globalThis.addEventListener("keydown", onKey);
+    return () => globalThis.removeEventListener("keydown", onKey);
   }, [shortcut]);
 
   const change = (query: string) => {

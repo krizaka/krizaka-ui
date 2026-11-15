@@ -45,7 +45,7 @@ export interface NativeChartsSettings {
 const Context = createContext<NativeChartsSettings>({});
 
 /** Sets the locale, brand, words, scheme and theme of every chart below it. */
-export function ChartsProvider({ children, ...settings }: NativeChartsSettings & { children: ReactNode }) {
+export function ChartsProvider({ children, ...settings }: Readonly<NativeChartsSettings & { children: ReactNode }>) {
   const parent = useContext(Context);
   const value = useMemo(() => ({ ...parent, ...Object.fromEntries(Object.entries(settings).filter(([, v]) => v !== undefined)) }), [parent, settings]);
   return <Context.Provider value={value}>{children}</Context.Provider>;
@@ -109,7 +109,7 @@ interface FrameInternals {
   readonly children: (width: number, height: number) => ReactNode;
 }
 
-export function NativeFrame({ frame, defaultHeight, resolved, summary, isEmpty, points, active, onActive, indexAt, legend, children }: FrameInternals) {
+export function NativeFrame({ frame, defaultHeight, resolved, summary, isEmpty, points, active, onActive, indexAt, legend, children }: Readonly<FrameInternals>) {
   const { title, hideTitle, height = defaultHeight, loading, empty, style } = frame;
   const { theme, labels } = resolved;
   const [width, setWidth] = useState(0);
@@ -169,7 +169,7 @@ export function NativeFrame({ frame, defaultHeight, resolved, summary, isEmpty, 
 }
 
 /** The legend: a key in the series' colour beside its name in the text colour (two series or more). */
-export function NativeLegend({ items, theme }: { items: readonly { label: string; color: string }[]; theme: ChartTheme }) {
+export function NativeLegend({ items, theme }: Readonly<{ items: readonly { label: string; color: string }[]; theme: ChartTheme }>) {
   if (items.length < 2) return null;
   return (
     <View style={styles.legend} aria-hidden>

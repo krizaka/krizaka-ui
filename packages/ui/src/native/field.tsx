@@ -31,7 +31,7 @@ export type TextFieldProps = Omit<TextInputProps, "value" | "defaultValue" | "on
  * `autoComplete`, `returnKeyType`…), a hint or an error under it — the web `Field` + `Input`. `multiline` makes it a
  * text area.
  */
-export function TextField({ label, hint, error, value, defaultValue, onValueChange, disabled, end, inputRef, style, multiline, onFocus, onBlur, ...props }: TextFieldProps) {
+export function TextField({ label, hint, error, value, defaultValue, onValueChange, disabled, end, inputRef, style, multiline, onFocus, onBlur, ...props }: Readonly<TextFieldProps>) {
   const { theme, radius } = useTheme();
   const [focused, setFocused] = React.useState(false);
   const caption = error ?? hint;

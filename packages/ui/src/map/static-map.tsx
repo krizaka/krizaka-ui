@@ -37,7 +37,7 @@ const W = 640;
 const H = 400;
 
 /** A still map: the places on the map's paper (or on a snapshot), named in words. */
-export function StaticMap({ label, center, zoom = 12, places = [], image, className }: StaticMapProps) {
+export function StaticMap({ label, center, zoom = 12, places = [], image, className }: Readonly<StaticMapProps>) {
   const s = staticMap();
   const [cx, cy] = project(center, zoom);
   const at = (p: LngLat) => {

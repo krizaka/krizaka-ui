@@ -86,7 +86,7 @@ function Field({
   open,
   setOpen,
   children,
-}: {
+}: Readonly<{
   shared: Shared;
   text: string | null;
   hasValue: boolean;
@@ -95,7 +95,7 @@ function Field({
   open: boolean;
   setOpen: (open: boolean) => void;
   children: React.ReactNode;
-}) {
+}>) {
   const { label, placeholder, clearable, hint, error, disabled, name, className } = shared;
   const labels = { ...datePickerLabels, ...shared.labels };
   const s = datePicker();
@@ -150,7 +150,7 @@ function Field({
 }
 
 /** A date field: a button showing the date in the locale's format, a calendar in a popover, an ISO value. */
-export function DatePicker({ value: valueProp, defaultValue = null, onValueChange, defaultOpen = false, ...shared }: DatePickerProps) {
+export function DatePicker({ value: valueProp, defaultValue = null, onValueChange, defaultOpen = false, ...shared }: Readonly<DatePickerProps>) {
   const [value, setValue] = useControllable<IsoDate | null>(valueProp, defaultValue, onValueChange);
   const [open, setOpen] = React.useState(defaultOpen);
   const { locale, format = "medium" } = shared;
@@ -208,7 +208,7 @@ function formatRange(locale: string, start: IsoDate, end: IsoDate, style: "short
 }
 
 /** A period field: two clicks on one calendar (the days between tinted as you hover), optional presets. */
-export function DateRangePicker({ value: valueProp, defaultValue = null, onValueChange, presets, numberOfMonths = 2, defaultOpen = false, ...shared }: DateRangePickerProps) {
+export function DateRangePicker({ value: valueProp, defaultValue = null, onValueChange, presets, numberOfMonths = 2, defaultOpen = false, ...shared }: Readonly<DateRangePickerProps>) {
   const [value, setValue] = useControllable(valueProp, defaultValue, onValueChange);
   const [draft, setDraft] = React.useState<DateRange | null>(null);
   const [open, setOpenState] = React.useState(defaultOpen);

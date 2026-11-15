@@ -160,9 +160,9 @@ export function newestFirst(a: Release, b: Release): number {
 
 /** A stable anchor: `krizaka-ui-3-22-0`; the bare version is the anchor of the site's own entry. */
 export const anchorOf = (r: Pick<Release, "source" | "version">): string =>
-  `${r.source}-${r.version}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  `${r.source}-${r.version}`.toLowerCase().replaceAll(/[^a-z0-9]+/g, "-").replaceAll(/^-|-$/g, "");
 
-const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const esc = (s: string) => s.replaceAll('&', "&amp;").replaceAll('<', "&lt;").replaceAll('>', "&gt;").replaceAll('"', "&quot;");
 
 /** The changelog as an RSS 2.0 feed. `tagLabel` words the tags in the feed's language. */
 export function changelogRss(opts: {

@@ -186,7 +186,7 @@ export function SiteFooter({
   linkAs,
   className,
   ...props
-}: SiteFooterProps) {
+}: Readonly<SiteFooterProps>) {
   const id = React.useId();
   const s = siteFooter({ variant, tone });
   const slim = variant === "app";
@@ -434,7 +434,7 @@ export type SiteFooterColumnProps = Omit<React.ComponentProps<"div">, "title"> &
 };
 
 /** One of the site's own link groups, inline on the first line: its heading, then its links. */
-export function SiteFooterColumn({ title, children, className, ...props }: SiteFooterColumnProps) {
+export function SiteFooterColumn({ title, children, className, ...props }: Readonly<SiteFooterColumnProps>) {
   const id = React.useId();
   const tone = React.useContext(ToneContext);
   // A group with no link is not a group: only a heading over nothing.
@@ -460,7 +460,7 @@ export type SiteFooterLinkProps = React.ComponentProps<"a"> & {
 };
 
 /** A link of the footer. */
-export function SiteFooterLink({ active, asChild, className, ...props }: SiteFooterLinkProps) {
+export function SiteFooterLink({ active, asChild, className, ...props }: Readonly<SiteFooterLinkProps>) {
   const s = siteFooter();
   const Comp = asChild ? Slot.Root : "a";
   return <Comp aria-current={active ? "page" : undefined} className={s.link({ className })} {...props} />;

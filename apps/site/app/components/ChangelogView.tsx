@@ -10,7 +10,7 @@ import { EmailSafe } from "./EmailSafe";
 
 /* /changelog, in one language, on the Changelog template of @krizaka/ui: one entry per release of a package, its
    changes tagged (new · fixed · security · breaking) with the pull request behind each. */
-export async function ChangelogView({ locale }: { locale: Locale }) {
+export async function ChangelogView({ locale }: Readonly<{ locale: Locale }>) {
   const c = getDictionary(locale).site.changelog;
   const date = new Intl.DateTimeFormat(c.langTag, { dateStyle: "long", timeZone: "UTC" });
   const entries: ChangelogEntry[] = (await loadReleases()).map((r) => ({

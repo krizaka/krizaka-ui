@@ -7,7 +7,7 @@ import { WU_SAMA as G } from "./wu-sama-geometry";
  * Oussama's nickname is Wu-sama: it shares Krizaka's hexagonal shield contour and color palette (ink shield, open
  * vertex with lit blue node), with the W rendered in Krizaka blue at the center. Below 48 px it crops to the emblem.
  */
-export function WuSamaMark({ size = 32, title, className }: Omit<MarkProps, "animated"> & { animated?: boolean }) {
+export function WuSamaMark({ size = 32, title, className }: Readonly<Omit<MarkProps, "animated"> & { animated?: boolean }>) {
   const id = useIds("wsm", ["ink", "blue", "glow"] as const);
   return (
     <svg width={size} height={size} viewBox={size < 48 ? G.croppedViewBox : G.viewBox} fill="none" xmlns="http://www.w3.org/2000/svg" className={className} {...a11y(title)}>

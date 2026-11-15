@@ -31,7 +31,7 @@ export type AccountProfileCardProps = Omit<React.ComponentProps<"section">, "tit
 };
 
 /** The account's identity card: picture, name, verified e-mail, member since. */
-export function AccountProfileCard({ name, email, verified, verifiedLabel, unverifiedLabel, memberSince, avatar, action, compact, className, ...props }: AccountProfileCardProps) {
+export function AccountProfileCard({ name, email, verified, verifiedLabel, unverifiedLabel, memberSince, avatar, action, compact, className, ...props }: Readonly<AccountProfileCardProps>) {
   return (
     <section aria-label={name} className={cn("flex items-center gap-3", !compact && "flex-col items-start gap-4 sm:flex-row sm:gap-5", className)} {...props}>
       <div className="flex shrink-0 flex-col items-center gap-2">

@@ -10,7 +10,7 @@ import { playgroundPanel, StageFrame } from "./StageFrame";
    Native story in a phone (StageFrame). A platform the component does not run on yet keeps its tab, with the honest word
    of the registry's parity (planned, not applicable), so the slot lights up when the native counterpart ships. Server
    Component; the playground and the example are the client parts. */
-export function Stage({ item, locale }: { item: RegistryItem; locale: Locale }) {
+export function Stage({ item, locale }: Readonly<{ item: RegistryItem; locale: Locale }>) {
   const play = playgroundPanel(item, locale);
   const web = item.web?.examples[0];
   const key = web ? exampleKey(web) : null;

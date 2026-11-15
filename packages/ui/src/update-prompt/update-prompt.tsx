@@ -42,7 +42,7 @@ export type UpdatePromptProps = Omit<React.ComponentProps<"section">, "title"> &
  * The soft update: an invitation that can be dismissed, announced politely.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function UpdatePrompt({ title, message, versionLabel, mark, updateLabel, onUpdate, laterLabel, onLater, className, ...props }: UpdatePromptProps) {
+export function UpdatePrompt({ title, message, versionLabel, mark, updateLabel, onUpdate, laterLabel, onLater, className, ...props }: Readonly<UpdatePromptProps>) {
   warnDeprecated("update-prompt");
   const s = updatePrompt();
   return (

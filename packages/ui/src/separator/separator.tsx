@@ -48,7 +48,7 @@ export type SeparatorProps = React.ComponentProps<typeof SeparatorPrimitive.Root
   tone?: "hue" | "ink";
 };
 
-export function Separator({ orientation = "horizontal", decorative = true, variant = "line", shape = "stroke", tone = "hue", className, ...props }: SeparatorProps) {
+export function Separator({ orientation = "horizontal", decorative = true, variant = "line", shape = "stroke", tone = "hue", className, ...props }: Readonly<SeparatorProps>) {
   if (variant === "hand") {
     return (
       <SeparatorPrimitive.Root orientation="horizontal" decorative={decorative} data-variant="hand" data-shape={shape} data-tone={tone} className={handVariants({ tone, className })} {...props}>

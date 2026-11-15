@@ -89,7 +89,7 @@ export type ShopComposerMessages = {
 };
 
 /** `fill("Moved to {n}", { n: 2 })`. */
-export const fill = (message: string, vars: Record<string, string | number>) => message.replace(/\{(\w+)\}/g, (_, k: string) => String(vars[k] ?? `{${k}}`));
+export const fill = (message: string, vars: Record<string, string | number>) => message.replaceAll(/\{(\w+)\}/g, (_, k: string) => String(vars[k] ?? `{${k}}`));
 
 const sectionNames: Record<SectionType, string> = {
   hero: "Hero", services: "Services", booking: "Booking", gallery: "Photos", video: "Video", reviews: "Reviews", bulletin: "News",

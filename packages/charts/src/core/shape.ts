@@ -70,7 +70,7 @@ function monotoneTangents(points: readonly Point[]): number[] {
 export function areaPath(top: readonly Point[], base: readonly Point[] | number, curve: Curve = "monotone"): string {
   if (top.length === 0) return "";
   const line = linePath(top, curve);
-  const bottom: Point[] = typeof base === "number" ? [top[top.length - 1]!, top[0]!].map(([x]) => [x, base] as Point) : [...base].reverse();
+  const bottom: Point[] = typeof base === "number" ? [top.at(-1)!, top[0]!].map(([x]) => [x, base] as Point) : [...base].reverse();
   if (typeof base === "number") return `${line}L${r(bottom[0]![0])},${r(base)}L${r(bottom[1]![0])},${r(base)}Z`;
   return `${line}L${linePath(bottom, curve).slice(1)}Z`;
 }

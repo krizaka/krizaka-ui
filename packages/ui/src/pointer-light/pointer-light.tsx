@@ -21,7 +21,7 @@ export type PointerLightProps = {
 };
 
 /** @deprecated Since 3.31 (krizaka-ui#393): renders an empty hidden span and nothing else. Remove it. Removed in 4.0. */
-export function PointerLight(_props: PointerLightProps) {
+export function PointerLight(_props: Readonly<PointerLightProps>) {
   warnDeprecated("pointer-light", "3.31.0");
   return <span hidden />;
 }

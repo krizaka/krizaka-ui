@@ -86,7 +86,7 @@ export function Button({
   disabled,
   children,
   ...props
-}: ButtonProps) {
+}: Readonly<ButtonProps>) {
   const Comp = asChild ? Slot.Root : "button";
   if (shape === "cut") warnCut();
   const known = loading && typeof progress === "number" && Number.isFinite(progress);
@@ -156,7 +156,7 @@ export type IconButtonProps = Omit<ButtonProps, "size"> & {
 };
 
 /** An icon-only button: `label` is required, it is its accessible name. Loading or with a status, the glyph takes the icon's place. */
-export function IconButton({ label, size = "icon", children, ...props }: IconButtonProps) {
+export function IconButton({ label, size = "icon", children, ...props }: Readonly<IconButtonProps>) {
   const swap = props.indicator !== false && !props.asChild && (props.loading || props.status);
   return (
     <Button aria-label={label} title={label} size={size} {...props}>

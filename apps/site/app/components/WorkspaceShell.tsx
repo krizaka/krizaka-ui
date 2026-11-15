@@ -8,7 +8,7 @@ import { SiteBar } from "./SiteBar";
 /* The layout of a workspace page (the route group `(workspace)` of each language — the builder demo): the site's bar, no
    docs menu, no table of contents — the whole width and height belong to the tool. The first tab stop is the shortcut to
    its first field. The docs pages have DocsShell. */
-export function WorkspaceShell({ children }: { children: ReactNode }) {
+export function WorkspaceShell({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <>
       <FieldsShortcut />

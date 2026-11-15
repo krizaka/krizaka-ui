@@ -47,7 +47,7 @@ export function mailConfigured(env: MailEnv): boolean {
 
 /** The form fields of Mailgun's `POST /v3/{domain}/messages`. Exported for the tests and for apps that post themselves. */
 export function mailgunForm(email: RenderedEmail, o: { from: string; to: string; replyTo?: string | undefined; idempotencyKey?: string | undefined; testLabel?: string | undefined }): URLSearchParams {
-  const subject = o.testLabel ? `[test ${o.testLabel.replace(/[\r\n]+/g, " ").slice(0, 40)}] ${email.subject}` : email.subject;
+  const subject = o.testLabel ? `[test ${o.testLabel.replaceAll(/[\r\n]+/g, " ").slice(0, 40)}] ${email.subject}` : email.subject;
   const form = new URLSearchParams({ from: o.from, to: o.to, subject, text: email.text, html: email.html, "o:tracking": "no", "o:tag": o.testLabel ? "test" : email.template, "h:X-Krizaka-Template": email.template });
   for (const [name, value] of Object.entries(email.headers)) form.set(`h:${name}`, value);
   if (o.replyTo) form.set("h:Reply-To", o.replyTo);

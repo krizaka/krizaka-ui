@@ -63,7 +63,7 @@ export interface FormI18n {
 const KEY = /^[\w-]+(\.[\w-]+)+$/;
 
 const fill = (text: string, values?: Readonly<Record<string, FormMessageValue>>) =>
-  values ? text.replace(/\{(\w+)\}/g, (all, name: string) => (values[name] === undefined ? all : String(values[name]))) : text;
+  values ? text.replaceAll(/\{(\w+)\}/g, (all, name: string) => (values[name] === undefined ? all : String(values[name]))) : text;
 
 /** The words of an error: the app's catalogue, else the English default of its code, else the server's words, else the key. */
 export function formMessage(error: FormFieldError | string, i18n: FormI18n = {}): string {

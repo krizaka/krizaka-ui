@@ -61,7 +61,7 @@ const noSpill: NonNullable<Story["play"]> = async ({ canvasElement }) => {
     }
     return out;
   };
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduce = globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches;
   toggle.click();
   const problems: string[] = [];
   for (const wait of reduce ? [0, 50] : [40, 80, 130, 400]) {

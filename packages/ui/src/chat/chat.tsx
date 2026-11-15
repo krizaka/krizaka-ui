@@ -122,7 +122,7 @@ export type TypingIndicatorProps = {
 };
 
 /** Three dots that breathe while the other person types, announced politely; still under reduced motion. */
-export function TypingIndicator({ label, showLabel, className }: TypingIndicatorProps) {
+export function TypingIndicator({ label, showLabel, className }: Readonly<TypingIndicatorProps>) {
   const s = chat();
   return (
     <div role="status" className={["flex items-center gap-2", className].filter(Boolean).join(" ")}>
@@ -187,7 +187,7 @@ export function MessageComposer({
   inputProps,
   sendProps,
   className,
-}: MessageComposerProps) {
+}: Readonly<MessageComposerProps>) {
   const s = chat();
   const pill = variant === "pill";
   const ready = !busy && (canSend ?? value.trim().length > 0);
@@ -284,7 +284,7 @@ export type ConversationItemProps = {
 };
 
 /** A conversation in the list: avatar, name, the last message or typing, the time, the unread count. */
-export function ConversationItem({ name, avatar, preview, typing, time, unread = 0, unreadLabel, online, onlineLabel, href, onSelect, className }: ConversationItemProps) {
+export function ConversationItem({ name, avatar, preview, typing, time, unread = 0, unreadLabel, online, onlineLabel, href, onSelect, className }: Readonly<ConversationItemProps>) {
   const s = chat();
   const body = (
     <>

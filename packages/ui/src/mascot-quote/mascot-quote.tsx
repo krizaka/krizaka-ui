@@ -30,7 +30,7 @@ export type MascotQuoteProps = Omit<React.HTMLAttributes<HTMLElement>, "children
 };
 
 /** A sentence told by a bird: a speech bubble, the bird under its tail, who speaks. The bird is decorative. */
-export function MascotQuote({ bird, mood = "thinking", label, children, variant = "inline", animated, className, ...props }: MascotQuoteProps) {
+export function MascotQuote({ bird, mood = "thinking", label, children, variant = "inline", animated, className, ...props }: Readonly<MascotQuoteProps>) {
   const callout = variant === "callout";
   return (
     <figure className={cn("kz-quote", className)} data-variant={callout ? "callout" : undefined} {...props}>

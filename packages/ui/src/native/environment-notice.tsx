@@ -22,7 +22,7 @@ export type EnvironmentNoticeProps = Omit<ViewProps, "children"> & {
 const isProduction = (stage: string | null | undefined) => ["production", "prod"].includes((stage ?? "").trim().toLowerCase());
 
 /** The web `EnvironmentNotice` on React Native. */
-export function EnvironmentNotice({ stage, title, message, link, onLinkPress, style, ...props }: EnvironmentNoticeProps) {
+export function EnvironmentNotice({ stage, title, message, link, onLinkPress, style, ...props }: Readonly<EnvironmentNoticeProps>) {
   const { theme } = useTheme();
   if (isProduction(stage)) return null;
   const content = { title, message, link };

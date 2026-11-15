@@ -11,7 +11,7 @@ export type SpinnerProps = Omit<ActivityIndicatorProps, "size" | "color"> & {
 };
 
 /** An indeterminate wait: the platform's activity indicator in the accent, named by `label`. */
-export function Spinner({ label, size = "md", ...props }: SpinnerProps) {
+export function Spinner({ label, size = "md", ...props }: Readonly<SpinnerProps>) {
   const { theme } = useTheme();
   return (
     <ActivityIndicator

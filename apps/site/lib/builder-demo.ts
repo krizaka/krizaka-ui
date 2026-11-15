@@ -249,7 +249,7 @@ export type SentenceWords = {
   };
 };
 
-const fill = (template: string, values: Record<string, string | number>): string => template.replace(/\{(\w+)\}/g, (whole, name: string) => String(values[name] ?? whole));
+const fill = (template: string, values: Record<string, string | number>): string => template.replaceAll(/\{(\w+)\}/g, (whole, name: string) => String(values[name] ?? whole));
 const labelOf = (editor: SentenceWords["editor"], key: string): string => editor[key] ?? key;
 
 type Place = { chain: string[]; field?: string; language?: string; key?: string };

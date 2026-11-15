@@ -59,7 +59,7 @@ export type LandingPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
 };
 
 /** A landing page: split hero with the product alive, proofs, a bento of features, the closing call. */
-export function LandingPage({ eyebrow, title, lead, actions, visual, visualLabel, proofs, showcase, backdrop = "grid", featuresHeading, features, closing, children, ...props }: LandingPageProps) {
+export function LandingPage({ eyebrow, title, lead, actions, visual, visualLabel, proofs, showcase, backdrop = "grid", featuresHeading, features, closing, children, ...props }: Readonly<LandingPageProps>) {
   return (
     <div {...props}>
       <SectionBackdrop as="header" grid={backdrop === "grid"} animated={backdrop === "grid"} className="kz-hero">

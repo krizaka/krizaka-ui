@@ -28,7 +28,7 @@ export type BadgeProps = React.ComponentProps<"span"> &
     dot?: boolean;
   };
 
-export function Badge({ tone, size, pulse, dot, className, children, ...props }: BadgeProps) {
+export function Badge({ tone, size, pulse, dot, className, children, ...props }: Readonly<BadgeProps>) {
   return (
     <span data-tone={tone ?? "neutral"} className={badgeVariants({ tone, size, pulse, className })} {...props}>
       {dot && <span data-dot="" aria-hidden className="h-1.5 w-1.5 rounded-full bg-current" />}

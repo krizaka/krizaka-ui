@@ -46,7 +46,7 @@ export function EarningsChart<T extends Datum>({
   description,
   data,
   ...props
-}: EarningsChartProps<T>) {
+}: Readonly<EarningsChartProps<T>>) {
   const words = { ...EARNINGS_LABELS, ...given };
   const { locale } = useSettings(props as CartesianProps<T>);
   const format = { style: "money", currency } as const;

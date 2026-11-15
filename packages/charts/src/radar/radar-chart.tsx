@@ -30,7 +30,7 @@ export interface RadarChartProps<T extends Datum> extends ChartFrameProps, Engin
   xLabel?: string;
 }
 
-export function RadarChart<T extends Datum>(props: RadarChartProps<T>) {
+export function RadarChart<T extends Datum>(props: Readonly<RadarChartProps<T>>) {
   const { data, x, series, format, max, xLabel } = props;
   const { locale, labels } = useSettings(props);
   const specs = useMemo(() => normalizeSeries(series, undefined, undefined), [series]);

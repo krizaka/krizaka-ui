@@ -84,7 +84,7 @@ export type DialogContentProps = React.ComponentProps<typeof DialogPrimitive.Con
 const prevent = (event: Event) => event.preventDefault();
 
 /** Radix's content, mounted only while open: it remembers the opener then and gives focus back on close (WCAG 2.4.3). */
-function ReturnFocusContent({ onCloseAutoFocus, ...props }: React.ComponentProps<typeof DialogPrimitive.Content>) {
+function ReturnFocusContent({ onCloseAutoFocus, ...props }: Readonly<React.ComponentProps<typeof DialogPrimitive.Content>>) {
   return <DialogPrimitive.Content onCloseAutoFocus={useReturnFocus(onCloseAutoFocus)} {...props} />;
 }
 
@@ -102,7 +102,7 @@ export function DialogContent({
   onPointerDownOutside,
   onInteractOutside,
   ...props
-}: DialogContentProps) {
+}: Readonly<DialogContentProps>) {
   const v = dialog({ placement, size });
   return (
     <DialogPrimitive.Portal container={container}>
@@ -136,23 +136,23 @@ function chain<E extends Event>(handler: ((event: E) => void) | undefined, then:
   };
 }
 
-export function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
+export function DialogHeader({ className, ...props }: Readonly<React.ComponentProps<"div">>) {
   return <div className={s.header({ className })} {...props} />;
 }
 
-export function DialogTitle({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Title>) {
+export function DialogTitle({ className, ...props }: Readonly<React.ComponentProps<typeof DialogPrimitive.Title>>) {
   return <DialogPrimitive.Title className={s.title({ className })} {...props} />;
 }
 
-export function DialogDescription({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Description>) {
+export function DialogDescription({ className, ...props }: Readonly<React.ComponentProps<typeof DialogPrimitive.Description>>) {
   return <DialogPrimitive.Description className={s.description({ className })} {...props} />;
 }
 
-export function DialogBody({ className, ...props }: React.ComponentProps<"div">) {
+export function DialogBody({ className, ...props }: Readonly<React.ComponentProps<"div">>) {
   return <div className={s.body({ className })} {...props} />;
 }
 
-export function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
+export function DialogFooter({ className, ...props }: Readonly<React.ComponentProps<"div">>) {
   return <div className={s.footer({ className })} {...props} />;
 }
 
@@ -175,6 +175,6 @@ type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K>
 export type SheetProps = DistributiveOmit<DialogContentProps, "placement">;
 
 /** A sheet is a dialog anchored at the bottom (centred from `sm` up): `Dialog.Content placement="bottom"`. */
-export function Sheet(props: SheetProps) {
+export function Sheet(props: Readonly<SheetProps>) {
   return <DialogContent placement="bottom" {...props} />;
 }

@@ -53,7 +53,7 @@ function Text({ title, eyebrow, lead: leadText, facts, actions }: Readonly<Pick<
 }
 
 /** The first section of a shop page: poster, split, banner or tv. */
-export function HeroSection({ variant = "poster", title, eyebrow, lead: leadText, facts, actions, cover, focus = "center", tv, className, ...props }: HeroSectionProps) {
+export function HeroSection({ variant = "poster", title, eyebrow, lead: leadText, facts, actions, cover, focus = "center", tv, className, ...props }: Readonly<HeroSectionProps>) {
   if (variant === "poster") {
     return (
       <CoverHero

@@ -58,7 +58,7 @@ const matching = (options: readonly TagOption[], needle: string, value: readonly
   options.filter((o) => o.label.toLocaleLowerCase().includes(needle) || value.includes(o.value));
 
 /** One toggle chip: a marked tag wears its marker; the others rest once the limit is reached. */
-function OptionChip({ option, on, full, onToggle }: { option: TagOption; on: boolean; full: boolean; onToggle: (next: boolean) => void }) {
+function OptionChip({ option, on, full, onToggle }: Readonly<{ option: TagOption; on: boolean; full: boolean; onToggle: (next: boolean) => void }>) {
   const props = { selected: on, disabled: !on && full, onSelectedChange: onToggle };
   return option.marker ? (
     <TagChip marker={option.marker} {...props}>
@@ -138,11 +138,11 @@ export function TagSelector({
   defaultMarker = "blue",
   maxLength = 80,
   emptyLabel,
-}: TagSelectorProps) {
+}: Readonly<TagSelectorProps>) {
   const full = reached(max, value.length);
   const [draft, setDraft] = React.useState("");
   const [marker, setMarker] = React.useState<Marker>(defaultMarker);
-  const typed = draft.replace(/\s+/g, " ").trim();
+  const typed = draft.replaceAll(/\s+/g, " ").trim();
   const needle = typed.toLocaleLowerCase();
   const exact = options.find((o) => o.label.toLocaleLowerCase() === needle);
   const shown = creatable && needle ? matching(options, needle, value) : options;

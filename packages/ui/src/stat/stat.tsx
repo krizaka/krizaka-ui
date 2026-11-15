@@ -42,7 +42,7 @@ export type StatProps = Omit<React.ComponentProps<"div">, "children"> & {
   chart?: React.ReactNode;
 };
 
-export function Stat({ label, value, hint, trend, trendLabel, chart, className, ...props }: StatProps) {
+export function Stat({ label, value, hint, trend, trendLabel, chart, className, ...props }: Readonly<StatProps>) {
   const s = stat({ trend });
   return (
     <div data-trend={trend} className={s.root({ className })} {...props}>
@@ -154,7 +154,7 @@ function StatStripFigure({ item }: Readonly<{ item: StatStripItem }>) {
   );
 }
 
-function StatStrip({ items, period, className, ...props }: Omit<StatStripProps, "variant">) {
+function StatStrip({ items, period, className, ...props }: Readonly<Omit<StatStripProps, "variant">>) {
   const s = statStrip();
   return (
     <div className={s.root({ className })} {...props}>
@@ -172,7 +172,7 @@ function StatStrip({ items, period, className, ...props }: Omit<StatStripProps, 
  * A row of key figures. The default grid wraps with the width (a dashboard's head, the stats are its children);
  * `variant="strip"` is the discreet one: 2 to 4 figures in one row, as a `dl`, each with its sparkline and its trend in words.
  */
-export function StatGrid(props: StatGridProps) {
+export function StatGrid(props: Readonly<StatGridProps>) {
   if (props.variant === "strip") {
     const { variant: _variant, ...rest } = props;
     return <StatStrip {...rest} />;

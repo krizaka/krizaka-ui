@@ -29,7 +29,7 @@ export type StampProps = React.HTMLAttributes<HTMLSpanElement> & {
 };
 
 /** A rubber stamp: a short status pressed on a tag or a page, double-ruled, slightly askew. */
-export function Stamp({ tone = "neutral", icon, size = "md", straightText = size === "sm", className, children, ...props }: StampProps) {
+export function Stamp({ tone = "neutral", icon, size = "md", straightText = size === "sm", className, children, ...props }: Readonly<StampProps>) {
   return (
     <span className={cn("kz-stamp", className)} data-tone={tone} data-size={size} data-straight={straightText ? "" : undefined} {...props}>
       {icon && <span className="kz-stamp-icon" aria-hidden="true">{icon}</span>}
@@ -73,7 +73,7 @@ export type SpecimenTagProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
  * A specimen tag: the eyelet, a typed number, a name, a stamp, the record's fields, a sentence and a foot — the status
  * and meta of a product or a component, labelled the way a field guide labels what it saw.
  */
-export function SpecimenTag({ code, title, titleAs: Title = "h3", mark, status, fields, children, footer, mount = "pin", className, ...props }: SpecimenTagProps) {
+export function SpecimenTag({ code, title, titleAs: Title = "h3", mark, status, fields, children, footer, mount = "pin", className, ...props }: Readonly<SpecimenTagProps>) {
   return (
     <article className={cn("kz-tag", className)} data-mount={mount} {...props}>
       <span className="kz-tag-eyelet" aria-hidden />

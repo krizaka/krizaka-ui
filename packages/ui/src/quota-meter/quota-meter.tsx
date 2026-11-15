@@ -61,7 +61,7 @@ export type QuotaMeterProps = Omit<React.ComponentProps<"section">, "title"> & {
   compact?: boolean;
 };
 
-export function QuotaMeter({ title, icon, plan, value, max, usedText, meterLabel, level = "ok", statusText, notices = [], details = [], action, compact = false, className, ...props }: QuotaMeterProps) {
+export function QuotaMeter({ title, icon, plan, value, max, usedText, meterLabel, level = "ok", statusText, notices = [], details = [], action, compact = false, className, ...props }: Readonly<QuotaMeterProps>) {
   const s = quotaMeter({ level });
   const alarming = level !== "ok";
   const titleId = React.useId();

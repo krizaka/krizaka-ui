@@ -61,7 +61,7 @@ function usePlayLoop(enabled: boolean) {
   const [play, setPlay] = React.useState(false);
   React.useEffect(() => {
     if (!enabled) return;
-    const q = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const q = globalThis.matchMedia("(prefers-reduced-motion: reduce)");
     const sync = () => setPlay(!q.matches);
     sync();
     q.addEventListener("change", sync);
@@ -71,7 +71,7 @@ function usePlayLoop(enabled: boolean) {
 }
 
 /** A shop's first screen: the cover, the name, the promise, the facts and the main action. */
-export function CoverHero({ cover, eyebrow, title, lead, facts, actions, back, linkAs, className, ...props }: CoverHeroProps) {
+export function CoverHero({ cover, eyebrow, title, lead, facts, actions, back, linkAs, className, ...props }: Readonly<CoverHeroProps>) {
   const play = usePlayLoop(Boolean(cover?.video));
   return (
     <header data-cover={cover ? "" : undefined} className={s.root({ className })} {...props}>
