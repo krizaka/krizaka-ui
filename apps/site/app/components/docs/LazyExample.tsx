@@ -26,7 +26,7 @@ class Guard extends Component<{ fallback: ReactNode; children: ReactNode }, { fa
   }
 }
 
-export function LazyExample({ exampleKey, heavy, placeholder }: { exampleKey: string; heavy: boolean; placeholder: ReactNode }) {
+export function LazyExample({ exampleKey, heavy, placeholder }: Readonly<{ exampleKey: string; heavy: boolean; placeholder: ReactNode }>) {
   const host = useRef<HTMLDivElement>(null);
   const snapshot = mapSnapshotOf(exampleKey);
   const [wanted, setWanted] = useState(false);

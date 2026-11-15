@@ -32,7 +32,7 @@ export type PlanStripProps = Omit<React.ComponentProps<"section">, "children"> &
 };
 
 /** The plan strip of a catalogue: two or three figures and a `Meter` — where the account stands, at a glance. */
-export function PlanStrip({ label, figures, meter, className, ...props }: PlanStripProps) {
+export function PlanStrip({ label, figures, meter, className, ...props }: Readonly<PlanStripProps>) {
   const p = plan();
   return (
     <section aria-label={label} className={p.root({ className })} {...props}>
@@ -86,7 +86,7 @@ export type CataloguePageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"
 };
 
 /** A catalogue: hero, sticky filters beside the results (folded on a phone), the count, the results. */
-export function CataloguePage({ back, eyebrow, title, lead, search, filters, filtersLabel, plan, dividers, selection, count, toolbar, linkAs, railFrom = "default", children, ...props }: CataloguePageProps) {
+export function CataloguePage({ back, eyebrow, title, lead, search, filters, filtersLabel, plan, dividers, selection, count, toolbar, linkAs, railFrom = "default", children, ...props }: Readonly<CataloguePageProps>) {
   return (
     <div {...props}>
       <PageHero back={back} linkAs={linkAs} eyebrow={eyebrow} title={title} lead={lead} backdrop="plain">

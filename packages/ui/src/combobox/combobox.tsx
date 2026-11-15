@@ -141,7 +141,7 @@ type MultipleProps = BaseProps & {
 
 export type ComboboxProps = SingleProps | MultipleProps;
 
-const fold = (text: string) => text.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+const fold = (text: string) => text.normalize("NFD").replaceAll(/\p{Diacritic}/gu, "").toLowerCase();
 const defaultFilter = (option: ComboboxOption, query: string) => fold(option.label).includes(fold(query.trim()));
 
 type Item = { kind: "option"; option: ComboboxOption } | { kind: "create"; query: string };
@@ -292,7 +292,7 @@ export function Combobox(props: ComboboxProps) {
   const onPaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
     if (!separators?.length || !multiple) return;
     const text = event.clipboardData.getData("text");
-    const parts = text.split(new RegExp(`[${separators.map((c) => c.replace(/[\\\]^-]/g, "\\$&")).join("")}\\n]`)).map((p) => p.trim()).filter(Boolean);
+    const parts = text.split(new RegExp(`[${separators.map((c) => c.replaceAll(/[\\\]^-]/g, "\\$&")).join("")}\\n]`)).map((p) => p.trim()).filter(Boolean);
     if (parts.length < 2) return;
     event.preventDefault();
     const next = [...values];

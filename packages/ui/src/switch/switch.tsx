@@ -64,7 +64,7 @@ export type SwitchProps = Omit<React.ComponentProps<typeof SwitchPrimitive.Root>
  * own settings row: the words at the start, the switch at the end (mirrored under `dir="rtl"`), the whole row
  * clickable, 44 px high or more. It stays one control with one name (`children`) and one hint (`description`).
  */
-export function Switch({ label, size, invalid, className, children, description, ...props }: SwitchProps) {
+export function Switch({ label, size, invalid, className, children, description, ...props }: Readonly<SwitchProps>) {
   const s = switchVariants({ size });
   const id = React.useId();
   const row = children !== undefined;

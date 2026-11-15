@@ -65,7 +65,7 @@ export type CreditsMeterProps = Omit<React.ComponentProps<"section">, "children"
 };
 
 /** The balance: the figure large, a meter that turns to warning then danger as it runs low, the renewal and the way to buy. */
-export function CreditsMeter({ label, balance, total, renewal, action, locale = "fr-CA", className, ...props }: CreditsMeterProps) {
+export function CreditsMeter({ label, balance, total, renewal, action, locale = "fr-CA", className, ...props }: Readonly<CreditsMeterProps>) {
   const s = usage();
   const w = locale.toLowerCase().startsWith("en") ? CREDIT_WORDS.en : CREDIT_WORDS.fr;
   const write = (n: number) => formatNumber(n, { locale });
@@ -108,7 +108,7 @@ export type PeriodSwitchProps = Omit<React.ComponentProps<"nav">, "children"> & 
 };
 
 /** 7 · 30 · 90 d: links, so the address holds the period (`?period=30`) and the server renders it. */
-export function PeriodSwitch({ label, value, href, periods = USAGE_PERIODS, param = "period", periodLabel, locale = "fr-CA", linkAs, className, ...props }: PeriodSwitchProps) {
+export function PeriodSwitch({ label, value, href, periods = USAGE_PERIODS, param = "period", periodLabel, locale = "fr-CA", linkAs, className, ...props }: Readonly<PeriodSwitchProps>) {
   const s = usage();
   const unit = locale.toLowerCase().startsWith("en") ? "d" : "j";
   const text = periodLabel ?? ((days: number) => `${days} ${unit}`);
@@ -137,7 +137,7 @@ export type UsageTilesProps = Omit<React.ComponentProps<"div">, "children"> & {
 } & UsageTileOptions;
 
 /** The figures of the period on the strip, each compared with the previous period in words. */
-export function UsageTiles({ tiles, period, loading, locale, words, className, ...props }: UsageTilesProps) {
+export function UsageTiles({ tiles, period, loading, locale, words, className, ...props }: Readonly<UsageTilesProps>) {
   const s = usage();
   if (loading) return <div aria-busy="true" className={s.skeleton({ className: ["h-20", className].filter(Boolean).join(" ") })} {...props} />;
   return <StatGrid variant="strip" items={tiles.map((t) => usageTile(t, { locale, words }))} period={period} className={className} {...props} />;
@@ -174,7 +174,7 @@ function Column({ bar, outcomes }: Readonly<{ bar: UsageBar; outcomes: readonly 
 }
 
 /** The activity of the period, one bar per day stacked by outcome — with its legend and its text version (a table). */
-export function UsageChart({ title, days, outcomes, emptyLabel, columns, loading, locale = "fr-CA", className, ...props }: UsageChartProps) {
+export function UsageChart({ title, days, outcomes, emptyLabel, columns, loading, locale = "fr-CA", className, ...props }: Readonly<UsageChartProps>) {
   const s = usage();
   const bars = usageBars(days, outcomes);
   const sum = (id: string) => days.reduce((n, d) => n + (d.values[id] ?? 0), 0);

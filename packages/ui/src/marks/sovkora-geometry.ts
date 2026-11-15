@@ -11,7 +11,7 @@ import { marks } from "@krizaka/tokens/native";
  * reads ≥ 3:1 on the page surfaces of both themes (tested in @krizaka/tokens), so one mark serves dark and light.
  */
 /** The bright end of the gradient: the halo and the core's glow. */
-const orange = marks.sovkora[marks.sovkora.length - 1]![1];
+const orange = marks.sovkora.at(-1)![1];
 
 export const SOVKORA = {
   viewBox: "0 0 400 400",

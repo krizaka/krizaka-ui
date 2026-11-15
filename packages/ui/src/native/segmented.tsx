@@ -24,7 +24,7 @@ export type SegmentedProps<T extends string> = {
  * Switches between views of one screen: equal segments on a track, the chosen one raised — the web
  * `Tabs variant="segmented"`. A tab list for screen readers. To filter a list, use `Chip.Group`.
  */
-export function Segmented<T extends string>({ options, value, onValueChange, size = "md", "aria-label": label, style }: SegmentedProps<T>) {
+export function Segmented<T extends string>({ options, value, onValueChange, size = "md", "aria-label": label, style }: Readonly<SegmentedProps<T>>) {
   const { theme, radius } = useTheme();
   return (
     <View

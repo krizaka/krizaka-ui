@@ -63,7 +63,7 @@ export type GenUiSurfaceProps = {
 };
 
 /** One surface, drawn from its root. */
-export function GenUiSurface({ surface, catalog, streaming = false, labels, locale = "en", onError, className }: GenUiSurfaceProps) {
+export function GenUiSurface({ surface, catalog, streaming = false, labels, locale = "en", onError, className }: Readonly<GenUiSurfaceProps>) {
   const words = { ...genUiLabels, ...labels };
   const problems: string[] = [];
   const seen = new Set<string>();
@@ -123,7 +123,7 @@ export type GenUiStreamProps = Omit<GenUiSurfaceProps, "surface"> & {
  * A model's answer with its generated view: the prose, then every surface of its `a2ui` fence, growing as the answer
  * streams. An answer without a valid surface falls back to its text.
  */
-export function GenUiStream({ text, catalog, streaming, renderProse, fallback, onError, ...rest }: GenUiStreamProps) {
+export function GenUiStream({ text, catalog, streaming, renderProse, fallback, onError, ...rest }: Readonly<GenUiStreamProps>) {
   const state = React.useMemo(() => readStream(text, catalog), [text, catalog]);
   const reported = React.useRef(0);
   React.useEffect(() => {

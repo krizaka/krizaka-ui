@@ -17,7 +17,7 @@ export type EntityHeaderProps = Omit<ViewProps, "children"> &
     avatarLabel?: string;
   };
 
-function Editable({ value, label, placeholder, onCommit, onRefusal, variant, required }: EditableBase & { variant: "title" | "body" }) {
+function Editable({ value, label, placeholder, onCommit, onRefusal, variant, required }: Readonly<EditableBase & { variant: "title" | "body" }>) {
   const { theme } = useTheme();
   const { editing, draft, setDraft, pending, open, commit } = useEditable(value, onCommit, onRefusal, required);
   const tone = variant === "body" ? "secondary" : "text";
@@ -49,7 +49,7 @@ export function EntityHeader({
   avatar, onAvatarPress, avatarLabel, style, actions, refusal, refusals, tags,
   description, onDescriptionChange, descriptionLabel = "Description", descriptionPlaceholder,
   name, nameLabel = name, onNameChange, ...props
-}: EntityHeaderProps) {
+}: Readonly<EntityHeaderProps>) {
   const { message, setLocal } = useRefusal(refusal, refusals);
   const { theme } = useTheme();
   const picture = <Avatar size="xl" alt="" {...avatar} />;

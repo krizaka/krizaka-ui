@@ -155,7 +155,7 @@ function NavGroups({ groups, Link }: Readonly<{ groups: readonly SettingsNavGrou
 }
 
 /** A settings screen: sections on the left (chips on a phone, one menu past five), forms on the right. */
-export function SettingsLayout({ title, description, header, nav, navLabel, linkAs: Link = "a", variant = "card", className, children, ...props }: SettingsLayoutProps) {
+export function SettingsLayout({ title, description, header, nav, navLabel, linkAs: Link = "a", variant = "card", className, children, ...props }: Readonly<SettingsLayoutProps>) {
   const s = settingsLayout({ variant });
   const groups: readonly SettingsNavGroup[] = isGrouped(nav) ? nav : [{ id: "sections", label: "", items: nav }];
   const items = groups.flatMap((g) => g.items);
@@ -260,7 +260,7 @@ export type SettingsSectionProps = Omit<React.ComponentProps<"section">, "title"
 };
 
 /** A group of settings: a titled card with its fields and its own save, or flat rows under a title. */
-export function SettingsSection({ title, description, footer, save, variant = "card", id, className, children, ...props }: SettingsSectionProps) {
+export function SettingsSection({ title, description, footer, save, variant = "card", id, className, children, ...props }: Readonly<SettingsSectionProps>) {
   const s = settingsLayout({ variant });
   const auto = React.useId();
   const titleId = `${id ?? auto}-title`;
@@ -346,7 +346,7 @@ export type SettingsRowProps = Omit<React.ComponentProps<"div">, "title"> & {
 };
 
 /** One setting: its label and help on the left, its control or value on the right. Put rows in a flat `SettingsSection`. */
-export function SettingsRow({ label, description, htmlFor, className, children, ...props }: SettingsRowProps) {
+export function SettingsRow({ label, description, htmlFor, className, children, ...props }: Readonly<SettingsRowProps>) {
   const s = settingsLayout();
   const Label = htmlFor ? "label" : "span";
   return (

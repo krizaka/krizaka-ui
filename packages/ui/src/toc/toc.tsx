@@ -12,7 +12,7 @@ export type TocProps = Omit<React.HTMLAttributes<HTMLElement>, "children"> & {
 };
 
 /** The sections of the page, the one being read marked. */
-export function Toc({ label, items, className, ...props }: TocProps) {
+export function Toc({ label, items, className, ...props }: Readonly<TocProps>) {
   const [active, setActive] = React.useState(items[0]?.id);
   React.useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return;
@@ -51,7 +51,7 @@ export type TocLayoutProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 /** A reading page: the table of contents in a sticky column on the left, the sections beside it (one column on a phone). */
-export function TocLayout({ toc, children, className, ...props }: TocLayoutProps) {
+export function TocLayout({ toc, children, className, ...props }: Readonly<TocLayoutProps>) {
   return (
     <div className={cn("kz-toc-layout", className)} {...props}>
       <aside className="kz-toc-aside">{toc}</aside>

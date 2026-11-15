@@ -180,7 +180,7 @@ export type ThemeProviderProps = {
 };
 
 /** Once, at the root of the app. Without it, `useTheme()` follows the system with the platform's roles. */
-export function ThemeProvider({ children, mode: controlled, defaultMode = "system", onModeChange, overrides, fonts, haptics, insets }: ThemeProviderProps) {
+export function ThemeProvider({ children, mode: controlled, defaultMode = "system", onModeChange, overrides, fonts, haptics, insets }: Readonly<ThemeProviderProps>) {
   const system = useColorScheme();
   const [own, setOwn] = React.useState<Mode>(defaultMode);
   const mode = controlled ?? own;
@@ -232,11 +232,11 @@ export function useReducedMotion(): boolean {
 export function alpha(color: string, opacity: number): string {
   const hex = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(color);
   if (!hex) return color;
-  const [r, g, b] = hex.slice(1).map((part) => parseInt(part, 16));
+  const [r, g, b] = hex.slice(1).map((part) => Number.parseInt(part, 16));
   return `rgba(${r},${g},${b},${opacity})`;
 }
 
 /** An id usable in an SVG `url(#…)` reference, unique per instance. */
 export function useSvgId(prefix: string): string {
-  return `${prefix}${React.useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
+  return `${prefix}${React.useId().replaceAll(/[^a-zA-Z0-9_-]/g, "")}`;
 }

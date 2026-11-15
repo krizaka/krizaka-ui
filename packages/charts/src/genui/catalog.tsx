@@ -77,7 +77,7 @@ function rowsOf(value: unknown): Row[] {
   });
 }
 
-function Chart({ c, rows, locale }: { c: GenUiComponent; rows: Row[]; locale: string }) {
+function Chart({ c, rows, locale }: Readonly<{ c: GenUiComponent; rows: Row[]; locale: string }>) {
   const series = (c.series as { key: string; label: string }[]).map((s) => ({ key: s.key, label: s.label }));
   const format = chartFormat(c.format, c.currency);
   const common = { data: rows, x: c.x as string, series, format, locale, height: 240 };

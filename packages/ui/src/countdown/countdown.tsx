@@ -44,7 +44,7 @@ export type CountdownProps = {
  *
  * The urgent colour is `--kz-danger-text` (≥ 4.5:1 on every surface in both themes), so `size="sm"` is safe too.
  */
-export function Countdown({ target, skewMs = 0, units, urgentBelowMs = 60_000, size = "md", label, showLabel = false, className }: CountdownProps) {
+export function Countdown({ target, skewMs = 0, units, urgentBelowMs = 60_000, size = "md", label, showLabel = false, className }: Readonly<CountdownProps>) {
   const ms = useCountdown(target, skewMs);
   const urgent = ms > 0 && ms < urgentBelowMs;
   const parts = countdownParts(ms, units);

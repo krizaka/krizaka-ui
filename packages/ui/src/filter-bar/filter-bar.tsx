@@ -68,7 +68,7 @@ export function FilterBar({
   views,
   className,
   ...props
-}: FilterBarProps) {
+}: Readonly<FilterBarProps>) {
   const s = filterBar();
   return (
     <div role="group" aria-label={label} className={s.root({ className })} {...props}>
@@ -136,7 +136,7 @@ export type FilterMenuProps =
     });
 
 /** A filter's button and its menu of options — checkboxes (several values) or radios (one) — with a count of chosen ones. */
-export function FilterMenu(props: FilterMenuProps) {
+export function FilterMenu(props: Readonly<FilterMenuProps>) {
   const { label, options, defaultOpen, className } = props;
   const s = filterBar();
   const m = menu();

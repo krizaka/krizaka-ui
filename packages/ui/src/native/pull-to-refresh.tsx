@@ -14,7 +14,7 @@ export type PullToRefreshProps = Omit<RefreshControlProps, "colors" | "tintColor
  * The platform's pull to refresh in the theme's accent: the `refreshControl` of a ScrollView or a FlatList. `List`
  * draws it already with `onRefresh`.
  */
-export function PullToRefresh({ label, ...props }: PullToRefreshProps) {
+export function PullToRefresh({ label, ...props }: Readonly<PullToRefreshProps>) {
   const { theme } = useTheme();
   return <RefreshControl {...props} tintColor={theme.accent} colors={[theme.accent]} progressBackgroundColor={theme.surface2} title={label} titleColor={theme.textSecondary} />;
 }
@@ -50,7 +50,7 @@ export const pullProgress = (offset: number, threshold: number) => Math.min(1, M
  * gesture, so the system announces it too; ours announces `label` when the refresh starts. Under reduced motion the mark
  * is still and appears without the growing.
  */
-export function BrandedRefresh({ product, refreshing, onRefresh, label, children, threshold = 72 }: BrandedRefreshProps) {
+export function BrandedRefresh({ product, refreshing, onRefresh, label, children, threshold = 72 }: Readonly<BrandedRefreshProps>) {
   const { theme } = useTheme();
   const reduce = useReducedMotion();
   const [pull] = React.useState(() => new Animated.Value(0));

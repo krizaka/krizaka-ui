@@ -73,7 +73,7 @@ export function CardGrid({
   className,
   style,
   ...props
-}: CardGridProps) {
+}: Readonly<CardGridProps>) {
   const Cell = Tag === "div" ? "div" : "li";
   const grid = (
     <Tag

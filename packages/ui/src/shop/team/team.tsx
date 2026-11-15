@@ -26,7 +26,7 @@ export type TeamSectionProps = Omit<React.ComponentProps<"section">, "title"> & 
 };
 
 /** The people of the shop. */
-export function TeamSection({ variant = "row", members, title, lead, className, ...props }: TeamSectionProps) {
+export function TeamSection({ variant = "row", members, title, lead, className, ...props }: Readonly<TeamSectionProps>) {
   if (members.length === 0) return null;
   const list =
     variant === "cards" ? (

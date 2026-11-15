@@ -31,7 +31,7 @@ export type UploadQueueProps = Omit<React.ComponentProps<"div">, "children"> & {
 };
 
 /** The files being checked, one row each. Changes are announced politely. */
-export function UploadQueue({ label, items, className, ...props }: UploadQueueProps) {
+export function UploadQueue({ label, items, className, ...props }: Readonly<UploadQueueProps>) {
   return (
     <div aria-live="polite" className={className} {...props}>
       <ul aria-label={label} className="m-0 flex list-none flex-col divide-y divide-border-subtle p-0">
@@ -73,7 +73,7 @@ export type TaskTrayProps = Omit<React.ComponentProps<"section">, "title"> & {
 };
 
 /** A non-blocking tray for a queue: the user keeps browsing. Bottom edge on a phone, bottom-right from `sm`. */
-export function TaskTray({ title, summary, toggleLabel, openLabel, defaultOpen = true, className, children, ...props }: TaskTrayProps) {
+export function TaskTray({ title, summary, toggleLabel, openLabel, defaultOpen = true, className, children, ...props }: Readonly<TaskTrayProps>) {
   const [open, setOpen] = React.useState(defaultOpen);
   const id = React.useId();
   return (

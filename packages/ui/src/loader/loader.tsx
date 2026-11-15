@@ -126,7 +126,7 @@ export function Loader({
   mark,
   className,
   ...props
-}: LoaderProps) {
+}: Readonly<LoaderProps>) {
   const waiting = useDelayedWait(status === "loading", delay, minDuration);
   // Rendered already ended (a result to show), it shows its ending; otherwise only a wait that was seen ends visibly.
   const [ending, setEnding] = React.useState<"success" | "error" | null>(() => (status !== "loading" && endDuration > 0 ? status : null));
@@ -221,7 +221,7 @@ export function LoadingRegion({
   className,
   children,
   ...props
-}: LoadingRegionProps) {
+}: Readonly<LoadingRegionProps>) {
   const waiting = useDelayedWait(loading, delay, minDuration);
   const slow = useDelayedWait(waiting && loading, slowAfter, 0);
   const busy = loading || waiting;

@@ -42,7 +42,7 @@ export type ComponentPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"
  * A component's page: name, summary, facts, live preview, install, then its sections; facts and related aside.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function ComponentPage({ back, eyebrow, title, summary, facts, preview, install, sections, aside, ...props }: ComponentPageProps) {
+export function ComponentPage({ back, eyebrow, title, summary, facts, preview, install, sections, aside, ...props }: Readonly<ComponentPageProps>) {
   warnDeprecated("component-page");
   return (
     <DetailLayout back={back} eyebrow={eyebrow} title={title} meta={<span>{summary}</span>} aside={aside} {...props}>

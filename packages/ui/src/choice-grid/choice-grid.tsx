@@ -104,7 +104,7 @@ export function ChoiceGrid({
   className,
   style,
   ...props
-}: ChoiceGridProps) {
+}: Readonly<ChoiceGridProps>) {
   const { value, defaultValue, onValueChange } = useRouteBinding(routeKey, routeValues, { value: valueProp, defaultValue: defaultValueProp, onValueChange: onValueChangeProp });
   const selectable = onValueChange !== undefined || value !== undefined;
   const [inner, setInner] = React.useState(defaultValue);
@@ -126,7 +126,7 @@ export function ChoiceGrid({
     if (e.key === "ArrowRight" || e.key === "ArrowDown") next = enabled[(at + 1) % enabled.length];
     else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = enabled[(at - 1 + enabled.length) % enabled.length];
     else if (e.key === "Home") next = enabled[0];
-    else if (e.key === "End") next = enabled[enabled.length - 1];
+    else if (e.key === "End") next = enabled.at(-1);
     if (next === undefined) return;
     e.preventDefault();
     refs.current[next]?.focus();

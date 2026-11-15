@@ -7,8 +7,6 @@ import { cn } from "../cn";
 import { warnDeprecated } from "../deprecated";
 import { brandClass, type StoryVariant, storyVariantClass } from "../story-variant";
 
-export type { StoryVariant };
-
 const SCENE = "[data-kzs-scene]";
 
 type Polymorphic = "div" | "main" | "article" | "section";
@@ -38,13 +36,13 @@ export type ScrollStageProps = React.HTMLAttributes<HTMLElement> & {
  * `prefers-reduced-motion`, everything is visible and still.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function ScrollStage({ as: Tag = "div", variant, threshold = 0.2, className, children, ...props }: ScrollStageProps) {
+export function ScrollStage({ as: Tag = "div", variant, threshold = 0.2, className, children, ...props }: Readonly<ScrollStageProps>) {
   warnDeprecated("scroll-stage");
   const ref = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
     const root = ref.current;
     if (!root || typeof IntersectionObserver === "undefined") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -93,7 +91,9 @@ export type SceneProps = React.HTMLAttributes<HTMLElement> & {
  * A chapter of a `ScrollStage`: played once when it enters the viewport, its loop running while it is visible.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function Scene({ as: Tag = "section", brand, className, children, ...props }: SceneProps) {
+export function Scene({ as: Tag = "section", brand, className, children, ...props }: Readonly<SceneProps>) {
   warnDeprecated("scroll-stage");
   return React.createElement(Tag, { "data-kzs-scene": "", className: cn(brandClass(brand), className) || undefined, ...props }, children);
 }
+
+export { type StoryVariant } from "../story-variant";

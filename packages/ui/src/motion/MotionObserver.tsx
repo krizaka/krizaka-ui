@@ -29,10 +29,10 @@ export interface MotionObserverProps {
  * start. Nothing follows the pointer (krizaka-ui#393: the spotlight and the magnetic buttons are retired). Under
  * prefers-reduced-motion everything is revealed at once.
  */
-export function MotionObserver({ settle = true, pauseOffscreen = true }: MotionObserverProps = {}): null {
+export function MotionObserver({ settle = true, pauseOffscreen = true }: Readonly<MotionObserverProps> = {}): null {
   useEffect(() => {
     const root = document.documentElement;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let settleTimer: ReturnType<typeof setTimeout> | undefined;
     const ready = () => (settleTimer = setTimeout(() => root.setAttribute("data-motion", "ready"), SETTLE_MS));

@@ -47,7 +47,7 @@ export type ChangelogPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"
 };
 
 /** A changelog: entries with a sticky date and version, changes by kind, the reasons under them. */
-export function ChangelogPage({ back, eyebrow, title, lead, actions, kindLabels, logLabel, entries, linkAs, ...props }: ChangelogPageProps) {
+export function ChangelogPage({ back, eyebrow, title, lead, actions, kindLabels, logLabel, entries, linkAs, ...props }: Readonly<ChangelogPageProps>) {
   return (
     <div {...props}>
       <PageHero back={back} linkAs={linkAs} eyebrow={eyebrow} title={title} lead={lead} backdrop="plain">

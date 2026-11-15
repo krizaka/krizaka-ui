@@ -51,7 +51,7 @@ export type PricingPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
 };
 
 /** A pricing page: plans (the featured one lifted), the comparison, credits, the questions. */
-export function PricingPage({ brand, eyebrow, title, lead, toolbar, plansLabel, plans, compare, credits, faq, className, ...props }: PricingPageProps) {
+export function PricingPage({ brand, eyebrow, title, lead, toolbar, plansLabel, plans, compare, credits, faq, className, ...props }: Readonly<PricingPageProps>) {
   return (
     <div className={cn(brand && "brand-" + brand, className)} {...props}>
       <PageHero eyebrow={eyebrow} title={title} lead={lead} align="center" backdrop="plain">

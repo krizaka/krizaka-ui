@@ -23,12 +23,12 @@ function usePageScheme(): "dark" | "light" {
   return light ? "light" : "dark";
 }
 
-function Surface({ children }: { children: React.ReactNode }) {
+function Surface({ children }: Readonly<{ children: React.ReactNode }>) {
   const { theme } = useTheme();
   return <View style={{ backgroundColor: theme.surface0, padding: 16, gap: 12, alignItems: "flex-start" }}>{children}</View>;
 }
 
-function Frame({ brand, children }: { brand: string; children: React.ReactNode }) {
+function Frame({ brand, children }: Readonly<{ brand: string; children: React.ReactNode }>) {
   const scheme = usePageScheme();
   return (
     <ThemeProvider mode={scheme} overrides={BRANDS[brand]}>

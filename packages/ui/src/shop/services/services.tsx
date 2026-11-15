@@ -118,7 +118,7 @@ function MenuRow({ service, chooseLabel, popularLabel, linkAs }: Readonly<{ serv
   );
 }
 
-function Menu({ services, groupBy, columns, aside, chooseLabel, popularLabel, listLabel, linkAs }: Required<Pick<ServicesSectionProps, "services" | "groupBy" | "columns" | "chooseLabel" | "popularLabel">> & Pick<ServicesSectionProps, "aside" | "listLabel" | "linkAs">) {
+function Menu({ services, groupBy, columns, aside, chooseLabel, popularLabel, listLabel, linkAs }: Readonly<Required<Pick<ServicesSectionProps, "services" | "groupBy" | "columns" | "chooseLabel" | "popularLabel">> & Pick<ServicesSectionProps, "aside" | "listLabel" | "linkAs">>) {
   const groups = groupsOf(services, groupBy);
   const uid = React.useId();
   const list = (
@@ -145,7 +145,7 @@ function Menu({ services, groupBy, columns, aside, chooseLabel, popularLabel, li
 }
 
 /** The services of a shop: the price board by default, or cards, index cards, a carousel. */
-export function ServicesSection({ variant = "menu", services, title, lead, groupBy = "category", columns = 1, aside, chooseLabel, popularLabel, listLabel, linkAs, className, ...props }: ServicesSectionProps) {
+export function ServicesSection({ variant = "menu", services, title, lead, groupBy = "category", columns = 1, aside, chooseLabel, popularLabel, listLabel, linkAs, className, ...props }: Readonly<ServicesSectionProps>) {
   const card = (s: ShopService, i: number, extra?: string) => (
     <ServiceCard
       key={s.id}

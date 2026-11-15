@@ -20,11 +20,11 @@ export function faqJsonLd(questions: readonly ShopQuestion[]): string {
     "@type": "FAQPage",
     mainEntity: questions.map((q) => ({ "@type": "Question", name: q.question, acceptedAnswer: { "@type": "Answer", text: q.answer } })),
   };
-  return JSON.stringify(data).replace(/</g, "\\u003c");
+  return JSON.stringify(data).replaceAll('<', "\\u003c");
 }
 
 /** The questions and their answers. */
-export function FaqSection({ title, questions, className, ...props }: FaqSectionProps) {
+export function FaqSection({ title, questions, className, ...props }: Readonly<FaqSectionProps>) {
   if (questions.length === 0) return null;
   return (
     <ShopSection title={title} className={className} data-variant="list" {...props}>

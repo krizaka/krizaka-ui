@@ -16,7 +16,7 @@ export type VerifiedBadgeProps = {
 };
 
 /** A seal that says the person or the account was verified (a selfie check, an ID) — the accent, named in words. */
-export function VerifiedBadge({ label, showLabel, size = 16, on = "surface" }: VerifiedBadgeProps) {
+export function VerifiedBadge({ label, showLabel, size = 16, on = "surface" }: Readonly<VerifiedBadgeProps>) {
   const { theme } = useTheme();
   return (
     <View accessible role="img" aria-label={label} style={styles.row}>

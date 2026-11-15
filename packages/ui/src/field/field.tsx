@@ -35,16 +35,16 @@ type ControlProps = {
 
 const invalidProps = (invalid?: boolean) => (invalid ? { "aria-invalid": true as const, "data-invalid": "" } : {});
 
-export function Input({ invalid, className, ...props }: React.ComponentProps<"input"> & ControlProps) {
+export function Input({ invalid, className, ...props }: Readonly<React.ComponentProps<"input"> & ControlProps>) {
   return <input {...invalidProps(invalid)} className={s.control({ className })} {...props} />;
 }
 
-export function Textarea({ invalid, className, ...props }: React.ComponentProps<"textarea"> & ControlProps) {
+export function Textarea({ invalid, className, ...props }: Readonly<React.ComponentProps<"textarea"> & ControlProps>) {
   return <textarea {...invalidProps(invalid)} className={s.control({ className: cn("h-auto min-h-24 py-2", className) })} {...props} />;
 }
 
 /** A native <select>, styled like the other controls (the platform's menu: accessible and right on phones). */
-export function Select({ invalid, className, ...props }: React.ComponentProps<"select"> & ControlProps) {
+export function Select({ invalid, className, ...props }: Readonly<React.ComponentProps<"select"> & ControlProps>) {
   return (
     <span className={s.selectWrap()}>
       <select {...invalidProps(invalid)} className={s.control({ className: cn("appearance-none pr-9", className) })} {...props} />

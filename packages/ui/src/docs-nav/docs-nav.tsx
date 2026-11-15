@@ -26,7 +26,7 @@ export type DocsNavProps = Omit<React.HTMLAttributes<HTMLElement>, "children"> &
 };
 
 /** The pages of the documentation in groups; the group of the current page is open, the others fold. */
-export function DocsNav({ label, groups, current, linkAs, className, ...props }: DocsNavProps) {
+export function DocsNav({ label, groups, current, linkAs, className, ...props }: Readonly<DocsNavProps>) {
   const L = linkAs ?? "a";
   return (
     <nav aria-label={label} className={cn("flex flex-col gap-1 text-sm", className)} {...props}>

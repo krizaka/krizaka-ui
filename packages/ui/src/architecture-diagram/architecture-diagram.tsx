@@ -389,7 +389,7 @@ function relationText(edge: ArchEdge, titles: ReadonlyMap<string, string>): stri
  * One laid-out C4 view (context, containers, components, or a dynamic flow) drawn on the plate: groups, elements by
  * shape, edges with their labels and, in a dynamic view, numbered steps. The full text version follows it.
  */
-export function ArchitectureDiagram({ view, title, subtitle, links, words, textOpen = false, className, ...props }: ArchitectureDiagramProps) {
+export function ArchitectureDiagram({ view, title, subtitle, links, words, textOpen = false, className, ...props }: Readonly<ArchitectureDiagramProps>) {
   const w = { ...WORDS, ...words };
   const name = title ?? view.title;
   const m = SIZE.margin;

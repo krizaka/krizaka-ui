@@ -46,7 +46,7 @@ export type ActivityFeedProps<T extends ActivityEvent> = {
 const tone = (t: Theme, name: ActivityTone | undefined) => ({ neutral: t.borderStrong, accent: t.accent, success: t.success, warning: t.warning, danger: t.danger, info: t.info })[name ?? "neutral"];
 
 /** What happened, newest first — the web `ActivityFeed`: by day under sticky headings, runs folded, “2 min ago”, new events announced. */
-export function ActivityFeed<T extends ActivityEvent>({ events, "aria-label": label, locale = "en-US", now: given, fold = true, live, leading, empty, labels: words, style }: ActivityFeedProps<T>) {
+export function ActivityFeed<T extends ActivityEvent>({ events, "aria-label": label, locale = "en-US", now: given, fold = true, live, leading, empty, labels: words, style }: Readonly<ActivityFeedProps<T>>) {
   const { theme } = useTheme();
   const labels = { ...LABELS, ...words };
   const [tick, setTick] = React.useState(() => given ?? new Date());

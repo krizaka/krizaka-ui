@@ -122,7 +122,7 @@ ${tone("neutral", "var(--kz-text-secondary)")}${tone("accent", "var(--kz-accent)
 @keyframes kzc-pop{to{opacity:1;transform:none}}
 @keyframes kzc-pulse{50%{opacity:.5}}
 @media (forced-colors:active){.kzc-line{stroke:CanvasText}.kzc-key{forced-color-adjust:none}}
-`.replace(/\n/g, "");
+`.replaceAll('\n', "");
 
 /** The stylesheet, once per document (React 19 hoists and deduplicates it, on the server too). */
 export function ChartStyles() {

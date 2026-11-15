@@ -126,7 +126,7 @@ export function Slider<V extends SliderValue = number>({
   orientation = "horizontal",
   className,
   ...props
-}: SliderProps<V>) {
+}: Readonly<SliderProps<V>>) {
   const s = slider({ tone, size });
   const range = Array.isArray(value ?? defaultValue);
   const vertical = orientation === "vertical";

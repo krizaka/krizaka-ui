@@ -39,10 +39,6 @@ import {
   transitionOf,
 } from "./model";
 
-export type { EditorRole, Lang, StatusSetEditorLabels, TagSetEditorLabels, TagSetValue };
-export { statusSetEditorLabels, tagSetEditorLabels };
-
-
 // --- shared ----------------------------------------------------------------------------------------------------------------
 
 /** The problems the server's rules found, shown where the admin is working: a polite alert above the list. */
@@ -108,7 +104,7 @@ const arrow = (up: boolean) => (
     <path d={up ? "m6 15 6-6 6 6" : "m6 9 6 6 6-6"} />
   </svg>
 );
-const IconButton = ({ label, className, ...props }: React.ComponentProps<"button"> & { label: string }) => (
+const IconButton = ({ label, className, ...props }: Readonly<React.ComponentProps<"button"> & { label: string }>) => (
   <button
     type="button"
     aria-label={label}
@@ -192,7 +188,7 @@ export function TagSetEditor({ value, onChange, variant, roles, problems, labels
                       invalid={twin || !preset.name.trim()}
                       aria-describedby={twin ? `${id}-dup-${index}` : undefined}
                       onChange={(event) => onChange(renamePreset(value, variant, index, event.target.value))}
-                      onBlur={(event) => event.target.value !== event.target.value.replace(/\s+/g, " ").trim() && onChange(renamePreset(value, variant, index, event.target.value.replace(/\s+/g, " ").trim()))}
+                      onBlur={(event) => event.target.value !== event.target.value.replaceAll(/\s+/g, " ").trim() && onChange(renamePreset(value, variant, index, event.target.value.replaceAll(/\s+/g, " ").trim()))}
                       onKeyDown={reorder.keys(index, presets.length - 1)}
                       className="h-9"
                     />
@@ -503,3 +499,6 @@ export function StatusSetEditor({ value, onChange, roles, locale = "en", problem
     </div>
   );
 }
+
+export { type EditorRole, type StatusSetEditorLabels, statusSetEditorLabels, type TagSetEditorLabels, tagSetEditorLabels } from "./labels";
+export { type Lang, type TagSetValue } from "./model";

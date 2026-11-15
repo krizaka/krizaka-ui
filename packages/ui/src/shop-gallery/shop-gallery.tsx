@@ -67,7 +67,7 @@ const styles = `
 `;
 
 /** A shop's photos: a bento mosaic (one 2×2 lead and four tiles, the last one « + N photos »), a snap strip on a phone, and a lightbox. */
-export function ShopGallery({ photos, label, sizes, labels: given, className, ...props }: ShopGalleryProps) {
+export function ShopGallery({ photos, label, sizes, labels: given, className, ...props }: Readonly<ShopGalleryProps>) {
   const labels = { ...shopGalleryLabels, ...given };
   const total = photos.length;
   const strip = total >= BENTO;

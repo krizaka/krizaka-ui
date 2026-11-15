@@ -18,6 +18,6 @@ export type KbdProps = React.ComponentProps<"kbd"> & {
   size?: VariantProps<typeof kbdVariants>["size"];
 };
 
-export function Kbd({ size, className, ...props }: KbdProps) {
+export function Kbd({ size, className, ...props }: Readonly<KbdProps>) {
   return <kbd className={kbdVariants({ size, className })} {...props} />;
 }

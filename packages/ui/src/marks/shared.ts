@@ -15,7 +15,7 @@ export const neutral = (token: string, percent: number) => `var(${token}, color-
 
 /** Ids unique per instance, so several marks on a page never share a gradient. */
 export function useIds<K extends string>(prefix: string, keys: readonly K[]): Record<K, string> {
-  const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
+  const uid = useId().replaceAll(/[^a-zA-Z0-9_-]/g, "");
   return Object.fromEntries(keys.map((k) => [k, `${prefix}-${k}-${uid}`])) as Record<K, string>;
 }
 

@@ -74,7 +74,7 @@ export function VideoPlayer({
   aspectRatio = 16 / 9,
   onPlayingChange,
   style,
-}: VideoPlayerProps) {
+}: Readonly<VideoPlayerProps>) {
   const { theme, radius } = useTheme();
   const [firstFrame, setFirstFrame] = React.useState(false);
   const player = useVideoPlayer({ uri: source.uri, contentType: source.contentType, headers: source.headers }, (p) => configure(p, loop, muted));

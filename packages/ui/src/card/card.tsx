@@ -33,7 +33,7 @@ export type CardRootProps = React.ComponentProps<"div"> &
     reveal?: number;
   };
 
-export function CardRoot({ asChild, reveal, radius, tone, interactive, className, style, ...props }: CardRootProps) {
+export function CardRoot({ asChild, reveal, radius, tone, interactive, className, style, ...props }: Readonly<CardRootProps>) {
   const Comp = asChild ? Slot.Root : "div";
   const revealStyle =
     reveal === undefined ? style : ({ ...style, "--kz-delay": `${Math.min(Math.max(reveal, 0), 8) * 50}ms` } as React.CSSProperties);
@@ -54,7 +54,7 @@ export type CardMediaProps = React.ComponentProps<"div"> & {
   aspect?: keyof typeof ASPECT;
 };
 
-export function CardMedia({ aspect = "video", className, ...props }: CardMediaProps) {
+export function CardMedia({ aspect = "video", className, ...props }: Readonly<CardMediaProps>) {
   return <div data-aspect={aspect} className={slots.media({ className: cn(ASPECT[aspect], className) })} {...props} />;
 }
 
@@ -72,7 +72,7 @@ export type CardImageProps = Omit<React.ComponentProps<"img">, "src"> & {
 };
 
 /** The image of a media, or its `fallback` when there is none. `alt` is empty by default: the title names the card. */
-export function CardImage({ src, alt = "", fallback, loading = "lazy", className, ...props }: CardImageProps) {
+export function CardImage({ src, alt = "", fallback, loading = "lazy", className, ...props }: Readonly<CardImageProps>) {
   if (!src) {
     return (
       <div data-fallback="" aria-hidden className={slots.fallback({ className })}>
@@ -95,7 +95,7 @@ export type CardOverlayProps = React.ComponentProps<"div"> & {
 };
 
 /** What sits on the media (badges, a caption). `scrim` and `fg-on-media` are invariant: nothing to do for light. */
-export function CardOverlay({ corner = "top-left", className, ...props }: CardOverlayProps) {
+export function CardOverlay({ corner = "top-left", className, ...props }: Readonly<CardOverlayProps>) {
   return <div data-corner={corner} className={slots.overlay({ className: cn(CORNER[corner], className) })} {...props} />;
 }
 
@@ -107,7 +107,7 @@ export type CardBodyProps = React.ComponentProps<"div"> & {
   padding?: CardVariants["padding"];
 };
 
-export function CardBody({ padding, className, ...props }: CardBodyProps) {
+export function CardBody({ padding, className, ...props }: Readonly<CardBodyProps>) {
   return <div className={card({ padding }).body({ className })} {...props} />;
 }
 
@@ -116,11 +116,11 @@ export type CardTitleProps = React.ComponentProps<"h3"> & {
   as?: "h2" | "h3" | "h4";
 };
 
-export function CardTitle({ as: Tag = "h3", className, ...props }: CardTitleProps) {
+export function CardTitle({ as: Tag = "h3", className, ...props }: Readonly<CardTitleProps>) {
   return <Tag className={slots.title({ className })} {...props} />;
 }
 
-export function CardDescription({ className, ...props }: React.ComponentProps<"p">) {
+export function CardDescription({ className, ...props }: Readonly<React.ComponentProps<"p">>) {
   return <p className={slots.description({ className })} {...props} />;
 }
 
@@ -130,7 +130,7 @@ export type CardStatProps = React.ComponentProps<"div"> & {
 };
 
 /** A figure put forward: the label in capitals, the value in tabular digits. */
-export function CardStat({ label, className, children, ...props }: CardStatProps) {
+export function CardStat({ label, className, children, ...props }: Readonly<CardStatProps>) {
   return (
     <div className={slots.stat({ className })} {...props}>
       <p className={slots.statLabel()}>{label}</p>
@@ -139,7 +139,7 @@ export function CardStat({ label, className, children, ...props }: CardStatProps
   );
 }
 
-export function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
+export function CardFooter({ className, ...props }: Readonly<React.ComponentProps<"div">>) {
   return <div className={slots.footer({ className })} {...props} />;
 }
 

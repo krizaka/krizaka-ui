@@ -24,7 +24,7 @@ export type GoalGaugeProps = Omit<ViewProps, "children"> & {
   animated?: boolean;
 };
 
-function Cell({ lit, animate, order, animated, arcade }: { lit: boolean; animate: boolean; order: number; animated: boolean; arcade: boolean }) {
+function Cell({ lit, animate, order, animated, arcade }: Readonly<{ lit: boolean; animate: boolean; order: number; animated: boolean; arcade: boolean }>) {
   const { theme } = useTheme();
   const t = useEntrance(animated && animate, 300 + order * 100, 350);
   const spentOpacity = arcade ? 0.14 : 1;
@@ -38,7 +38,7 @@ function Cell({ lit, animate, order, animated, arcade }: { lit: boolean; animate
 }
 
 /** A goal in steps for React Native: `role="meter"`, the reached steps lit, the value in words beside the label. */
-export function GoalGauge({ label, segments, value, valueText, mode = "fill", showLabel = true, variant = "default", animated = true, style, ...props }: GoalGaugeProps) {
+export function GoalGauge({ label, segments, value, valueText, mode = "fill", showLabel = true, variant = "default", animated = true, style, ...props }: Readonly<GoalGaugeProps>) {
   const { theme } = useTheme();
   const total = Math.max(1, Math.round(segments));
   const lit = Math.min(total, Math.max(0, Math.round(value ?? total)));

@@ -59,7 +59,7 @@ const install = (module: unknown) => {
   if (typeof fn === "function") fn();
 };
 
-export function EChartHost({ kind, frame, defaultHeight, table, summary, isEmpty, legend, engine, build, items = [], onItem }: HostProps) {
+export function EChartHost({ kind, frame, defaultHeight, table, summary, isEmpty, legend, engine, build, items = [], onItem }: Readonly<HostProps>) {
   const instance = useRef<EChartsType | null>(null);
   const [active, setActive] = useState<number | null>(null);
   const [failed, setFailed] = useState(false);
@@ -138,7 +138,7 @@ interface InnerProps {
   onFail: () => void;
 }
 
-function Host({ width, height, renderer, engine, build, active, instance, onItem, onFail }: InnerProps) {
+function Host({ width, height, renderer, engine, build, active, instance, onItem, onFail }: Readonly<InnerProps>) {
   const ref = useRef<HTMLDivElement | null>(null);
   const near = useInView(ref, { once: true, margin: "200px" });
   const reduced = useReducedMotion();

@@ -12,7 +12,7 @@ import { DocsLayout } from "./fumadocs/server";
 /* The layout of the documentation pages (the route group `(docs)` of each language): Fumadocs' docs layout, the sidebar of
    lib/docs-source.ts and the table of contents. The workspace pages (the `(workspace)` group: the builder demo) are outside
    it — the whole width and height are theirs. */
-export function DocsShell({ locale, children }: { locale: Locale; children: ReactNode }) {
+export function DocsShell({ locale, children }: Readonly<{ locale: Locale; children: ReactNode }>) {
   const t = getDictionary(locale);
   return (
     <>

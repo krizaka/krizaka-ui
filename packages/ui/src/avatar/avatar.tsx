@@ -47,7 +47,7 @@ export type AvatarProps = Omit<React.ComponentProps<"span">, "children"> & {
   size?: AvatarSize;
 };
 
-export function AvatarRoot({ src, alt = "", fallback, fallbackSrc, defaultAvatar, size, className, ...props }: AvatarProps) {
+export function AvatarRoot({ src, alt = "", fallback, fallbackSrc, defaultAvatar, size, className, ...props }: Readonly<AvatarProps>) {
   const s = avatar({ size });
   const [failed, setFailed] = React.useState<string | null>(null);
   // 512 px for the big sizes, 256 for the others: sharp on a 2x screen either way.
@@ -80,7 +80,7 @@ export type AvatarGroupProps = React.ComponentProps<"div"> & {
 };
 
 /** Overlapping avatars; past `max`, a `+n` avatar counts the rest. */
-export function AvatarGroup({ max, size, className, children, ...props }: AvatarGroupProps) {
+export function AvatarGroup({ max, size, className, children, ...props }: Readonly<AvatarGroupProps>) {
   const items = React.Children.toArray(children);
   const shown = max === undefined ? items : items.slice(0, max);
   const rest = items.length - shown.length;

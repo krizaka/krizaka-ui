@@ -102,7 +102,7 @@ export function Progress({
   showLabel,
   eta,
   ...props
-}: ProgressProps) {
+}: Readonly<ProgressProps>) {
   const s = progress({ variant, size, status });
   const maskId = `kz-seg-${React.useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   const known = typeof value === "number" && Number.isFinite(value);

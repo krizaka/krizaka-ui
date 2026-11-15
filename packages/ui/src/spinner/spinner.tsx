@@ -28,7 +28,7 @@ export type SpinnerProps = Omit<React.ComponentProps<"svg">, "children"> &
  * The Krizaka spinner: a hexagon traced by a segment of light around a breathing node, in `currentColor` (the accent by
  * default). `role="status"`, named by `label`. Under prefers-reduced-motion it rests — a segment and the node lit.
  */
-export function Spinner({ label, size, value, className, ...props }: SpinnerProps) {
+export function Spinner({ label, size, value, className, ...props }: Readonly<SpinnerProps>) {
   return (
     <LoaderGlyph
       role="status"

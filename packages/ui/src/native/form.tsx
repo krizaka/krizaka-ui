@@ -34,20 +34,16 @@ import {
   type FormContextValue,
   FormField,
   type KrizakaField,
-  type KrizakaFieldArray,
   makeCreateKrizakaForm,
   useFormContext,
   useFormStatus,
-  useFormValue,
   useKrizakaField,
-  useKrizakaFieldArray,
   Watch,
 } from "../form/core";
 import { formMessage } from "../form/errors";
 import { currencySymbol, moneyInputText, parseMoney } from "../form/money";
 
-export { FieldArray, FormField, Watch };
-export type { FieldArrayProps, FormFieldProps, WatchProps } from "../form/core";
+export type { FieldArrayProps, FieldCheck, FormFieldProps, KrizakaField,KrizakaFieldArray, WatchProps } from "../form/core";
 
 type Base = {
   /** The field's name in the schema (typed by the form). */
@@ -145,7 +141,7 @@ function FormRoot({ value, children, style, scroll, "aria-label": label }: FormP
   );
 }
 
-function Suggestion({ field }: { field: KrizakaField }) {
+function Suggestion({ field }: Readonly<{ field: KrizakaField }>) {
   const suggestion = field.errorDetail?.suggestion;
   if (!field.error || !suggestion) return null;
   return (
@@ -169,7 +165,7 @@ export type SubmitProps = {
 };
 
 /** Sends the form: busy while it is sent (the product's mark turning, or a spinner); a refused submit announces its first error. */
-export function Submit({ label, variant = "primary", brand, style }: SubmitProps) {
+export function Submit({ label, variant = "primary", brand, style }: Readonly<SubmitProps>) {
   const ctx = useFormContext();
   const { submitting } = useFormStatus();
   const mark = submitting && brand ? <ProductMark id={brand} size={18} animated /> : undefined;
@@ -184,7 +180,7 @@ export type FormErrorProps = {
 };
 
 /** The whole form's error — a refusal that belongs to no field (a conflict, too many tries, no network). */
-export function FormError({ title, style }: FormErrorProps) {
+export function FormError({ title, style }: Readonly<FormErrorProps>) {
   const ctx = useFormContext();
   const { theme, radius } = useTheme();
   if (!ctx.error) return null;
@@ -211,7 +207,7 @@ export type TextFieldProps = Base &
   };
 
 /** A text field of the form: its label, the input, the hint or the error, an optional check on the server. */
-export function TextField({ name, label, hint, disabled, style, transform, validateAsync, asyncDebounceMs, availableHint, checkingLabel = "Checking", ...input }: TextFieldProps) {
+export function TextField({ name, label, hint, disabled, style, transform, validateAsync, asyncDebounceMs, availableHint, checkingLabel = "Checking", ...input }: Readonly<TextFieldProps>) {
   const f = useKrizakaField<string>(name, { validateAsync, asyncDebounceMs });
   const chained = useChained(input);
   const { theme } = useTheme();
@@ -243,7 +239,7 @@ export type TextAreaProps = Base & {
 };
 
 /** A longer text of the form (a bio, a description, a report). */
-export function TextArea({ name, label, hint, disabled, style, ...input }: TextAreaProps) {
+export function TextArea({ name, label, hint, disabled, style, ...input }: Readonly<TextAreaProps>) {
   const f = useKrizakaField<string>(name);
   return <TextFieldControl multiline label={label} hint={hint} error={f.error} disabled={disabled} value={f.value ?? ""} onValueChange={(t) => f.setValue(t)} onBlur={f.onBlur} style={style} {...input} />;
 }
@@ -256,7 +252,7 @@ export type CheckboxProps = Omit<Base, "label" | "hint"> & {
 };
 
 /** A box of the form (`boolean`): terms to accept, an option. */
-export function Checkbox({ name, label, accessibleLabel, disabled, style }: CheckboxProps) {
+export function Checkbox({ name, label, accessibleLabel, disabled, style }: Readonly<CheckboxProps>) {
   const f = useKrizakaField<boolean>(name);
   return (
     <CheckboxControl
@@ -276,7 +272,7 @@ export function Checkbox({ name, label, accessibleLabel, disabled, style }: Chec
 }
 
 /** An on/off setting of the form (`boolean`): a settings row — the label and its hint beside the switch, all pressable. */
-export function Switch({ name, label, hint, disabled, style }: Base) {
+export function Switch({ name, label, hint, disabled, style }: Readonly<Base>) {
   const f = useKrizakaField<boolean>(name);
   return (
     <SwitchControl
@@ -298,7 +294,7 @@ export function Switch({ name, label, hint, disabled, style }: Base) {
 /** A choice of the form: the value stored and its words (passed translated), a line under them. */
 export type FormOption = { value: string; label: string; description?: string; disabled?: boolean };
 
-function Caption({ field, hint }: { field: KrizakaField; hint?: string }) {
+function Caption({ field, hint }: Readonly<{ field: KrizakaField; hint?: string }>) {
   if (field.error)
     return (
       <Txt variant="caption" tone="danger" role="alert">
@@ -320,7 +316,7 @@ export type RadioGroupProps = Base & {
 };
 
 /** One choice among a few, all visible: the native `RadioGroup` (a haptic on each choice). */
-export function RadioGroup({ name, label, hint, disabled, style, options, variant = "list" }: RadioGroupProps) {
+export function RadioGroup({ name, label, hint, disabled, style, options, variant = "list" }: Readonly<RadioGroupProps>) {
   const f = useKrizakaField<string>(name);
   return (
     <View style={[styles.field, style]}>
@@ -351,7 +347,7 @@ export type SelectProps = Base & {
 };
 
 /** One choice among many (the web's `<select>`): a field that opens a sheet of options. */
-export function Select({ name, label, hint, disabled, style, options, placeholder }: SelectProps) {
+export function Select({ name, label, hint, disabled, style, options, placeholder }: Readonly<SelectProps>) {
   const f = useKrizakaField<string>(name);
   return <SelectControl label={label} hint={hint} error={f.error} disabled={disabled} style={style} options={options} placeholder={placeholder} value={f.value ?? ""} onValueChange={(v) => f.setValue(v)} onBlur={f.onBlur} />;
 }
@@ -370,7 +366,7 @@ export type ComboboxProps = Base & {
 };
 
 /** A choice among many, searched in a sheet: one value (`string`) or several (`string[]`). */
-export function Combobox({ name, label, hint, disabled, style, options, onSearch, multiple, placeholder, labels }: ComboboxProps) {
+export function Combobox({ name, label, hint, disabled, style, options, onSearch, multiple, placeholder, labels }: Readonly<ComboboxProps>) {
   const f = useKrizakaField<string | string[]>(name);
   return (
     <ComboboxControl
@@ -405,7 +401,7 @@ export type DateFieldProps = Base & {
 };
 
 /** A date of the form (`YYYY-MM-DD`): wheels in the locale's order (or day · month · year typed) — the schema checks it. */
-export function DateField({ name, label, hint, disabled, style, labels, autoComplete, entry = "wheel", min, max }: DateFieldProps) {
+export function DateField({ name, label, hint, disabled, style, labels, autoComplete, entry = "wheel", min, max }: Readonly<DateFieldProps>) {
   const f = useKrizakaField<string>(name);
   const chained = useChained({}, entry === "wheel");
   if (entry === "wheel")
@@ -447,7 +443,7 @@ export type SliderProps = Base & {
 };
 
 /** A number (or a range) of the form, chosen by feel: a share, a volume, a price range. */
-export function Slider({ name, label, hint, disabled, style, min, max, step, formatValue, thumbLabels, ticks }: SliderProps) {
+export function Slider({ name, label, hint, disabled, style, min, max, step, formatValue, thumbLabels, ticks }: Readonly<SliderProps>) {
   const f = useKrizakaField<SliderValue>(name);
   return (
     <View style={[styles.field, style]}>
@@ -465,7 +461,7 @@ export type MoneyProps = Base & {
 };
 
 /** An amount of the form, stored as integer minor units (cents), typed on the decimal keypad the locale's way. */
-export function Money({ name, label, hint, disabled, style, currency, placeholder }: MoneyProps) {
+export function Money({ name, label, hint, disabled, style, currency, placeholder }: Readonly<MoneyProps>) {
   const f = useKrizakaField<number | null>(name);
   const [text, setText] = React.useState(() => moneyInputText(f.value, currency, f.locale));
   const [editing, setEditing] = React.useState(false);
@@ -504,8 +500,8 @@ const fields = { TextField, TextArea, Checkbox, Switch, RadioGroup, Select, Comb
 /** A form, defined once — the same schema and defaults as the web (`packages/core` of a product) — on native fields. */
 export const createKrizakaForm = makeCreateKrizakaForm(fields, FormRoot);
 
-export { useFormContext, useFormStatus, useFormValue, useKrizakaField, useKrizakaFieldArray };
-export type { FieldCheck, KrizakaField, KrizakaFieldArray };
+export { useKrizakaField };
+
 export { isRealDate, latestBirthDate } from "../date-picker/parts";
 export type { FormActionResult, FormOutput, FormSchema, FormValues, KrizakaFormFactory, KrizakaFormInstance } from "../form/core";
 export { type FormFieldError, type FormI18n, formMessage, formMessages, type FormProblem } from "../form/errors";
@@ -518,3 +514,5 @@ const styles = StyleSheet.create({
   alert: { borderWidth: 1, padding: 12, gap: 4 },
   groupLabel: { fontWeight: "600" },
 });
+
+export { FieldArray, FormField, useFormContext, useFormStatus,useFormValue, useKrizakaFieldArray, Watch } from "../form/core";

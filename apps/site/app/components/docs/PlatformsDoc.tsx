@@ -32,7 +32,7 @@ function countsOf(rows: MatrixRow[]) {
 
 /* /platforms — web · mobile · desktop: what each platform is, how to install it, and the parity matrix of every component,
    generated from the `parity` of each meta (krizaka-ui tools/parity.mjs). Never written here. */
-export function PlatformsDoc({ locale }: { locale: Locale }) {
+export function PlatformsDoc({ locale }: Readonly<{ locale: Locale }>) {
   const t = getDictionary(locale).docs.ia.platforms;
   const rows: MatrixRow[] = getRegistryItems()
     .filter((item) => item.parity)

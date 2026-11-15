@@ -72,7 +72,7 @@ export type DetailLayoutProps = Omit<React.ComponentProps<"div">, "title"> & {
 };
 
 /** One object's page: header (back, media, name, status, facts, actions), tabs, content and a side panel. */
-export function DetailLayout({ back, media, cover, eyebrow, title, status, meta, actions, tabs, aside, notes, className, children, ...props }: DetailLayoutProps) {
+export function DetailLayout({ back, media, cover, eyebrow, title, status, meta, actions, tabs, aside, notes, className, children, ...props }: Readonly<DetailLayoutProps>) {
   const side = notes || aside;
   return (
     <div className={s.root({ className })} {...props}>
@@ -117,7 +117,7 @@ export type DetailSectionProps = Omit<React.ComponentProps<"section">, "title"> 
 };
 
 /** A binder section of the main column: a titled region on a card, its name on a tab at the top-left corner. */
-export function DetailSection({ title, action, level = 2, className, children, id, ...props }: DetailSectionProps) {
+export function DetailSection({ title, action, level = 2, className, children, id, ...props }: Readonly<DetailSectionProps>) {
   const H = level === 2 ? "h2" : "h3";
   const auto = React.useId();
   const titleId = `${id ?? auto}-title`;
@@ -148,7 +148,7 @@ export type DetailNotesProps = Omit<React.ComponentProps<"section">, "title"> & 
 };
 
 /** The notes column of a person's or an object's page: numbered notes and an add field. */
-export function DetailNotes({ title, notes, emptyLabel, add, className, ...props }: DetailNotesProps) {
+export function DetailNotes({ title, notes, emptyLabel, add, className, ...props }: Readonly<DetailNotesProps>) {
   const id = React.useId();
   return (
     <section aria-labelledby={id} className={s.section({ className })} {...props}>
@@ -185,7 +185,7 @@ export type FormStepsProps = Omit<React.ComponentProps<"ol">, "children"> & {
 };
 
 /** The numbered steps of a long form (a new invoice: client, lines, terms): an ordered list, each step a named region. */
-export function FormSteps({ steps, className, ...props }: FormStepsProps) {
+export function FormSteps({ steps, className, ...props }: Readonly<FormStepsProps>) {
   const base = React.useId();
   return (
     <ol className={s.steps({ className })} {...props}>
@@ -210,6 +210,6 @@ export function FormSteps({ steps, className, ...props }: FormStepsProps) {
 }
 
 /** The totals card of a form's side panel (`aside`): sticky with the panel on a desktop, under the steps on a phone. Plain primary at `lg` inside. */
-export function FormTotals({ className, ...props }: React.ComponentProps<"div">) {
+export function FormTotals({ className, ...props }: Readonly<React.ComponentProps<"div">>) {
   return <div className={s.totals({ className })} {...props} />;
 }

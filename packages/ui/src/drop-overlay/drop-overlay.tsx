@@ -40,7 +40,7 @@ export function DropOverlay({
   active: controlled,
   className,
   ...props
-}: DropOverlayProps) {
+}: Readonly<DropOverlayProps>) {
   const isControlled = controlled !== undefined;
   const [dragging, setActive] = React.useState(false);
   const depth = React.useRef(0);

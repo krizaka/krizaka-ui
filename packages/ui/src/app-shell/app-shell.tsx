@@ -110,7 +110,7 @@ export type AppShellRootProps = React.ComponentProps<"div"> & {
 };
 
 /** The shell: holds the collapse (desktop) and the drawer (phone) state. Children: Sidebar, then Body. */
-export function AppShellRoot({ defaultCollapsed = false, collapsed: controlled, onCollapsedChange, skipLabel, collapseShortcut = "mod+b", desktop = false, className, children, ...props }: AppShellRootProps) {
+export function AppShellRoot({ defaultCollapsed = false, collapsed: controlled, onCollapsedChange, skipLabel, collapseShortcut = "mod+b", desktop = false, className, children, ...props }: Readonly<AppShellRootProps>) {
   const [own, setOwn] = React.useState(defaultCollapsed);
   const [open, setOpen] = React.useState(false);
   const collapsed = controlled ?? own;
@@ -148,7 +148,7 @@ export type AppShellSidebarProps = Omit<React.ComponentProps<"nav">, "children">
   closeLabel: string;
 };
 
-function SidebarContent({ brand, children, footer, collapseLabels, closeLabel }: Pick<AppShellSidebarProps, "brand" | "children" | "footer" | "collapseLabels" | "closeLabel">) {
+function SidebarContent({ brand, children, footer, collapseLabels, closeLabel }: Readonly<Pick<AppShellSidebarProps, "brand" | "children" | "footer" | "collapseLabels" | "closeLabel">>) {
   const { collapsed, setCollapsed, inDrawer, desktop } = useShell();
   const drag = desktop ? { "data-tauri-drag-region": "" } : {};
   return (
@@ -179,7 +179,7 @@ function SidebarContent({ brand, children, footer, collapseLabels, closeLabel }:
 }
 
 /** The sidebar: on a desktop a column that collapses to its icons; on a phone the same content in a drawer. */
-export function AppShellSidebar({ label, brand, children, footer, collapseLabels, closeLabel, className, ...props }: AppShellSidebarProps) {
+export function AppShellSidebar({ label, brand, children, footer, collapseLabels, closeLabel, className, ...props }: Readonly<AppShellSidebarProps>) {
   const shell = useShell();
   const content = { brand, children, footer, collapseLabels, closeLabel };
   return (
@@ -215,7 +215,7 @@ export type AppShellGroupProps = React.ComponentProps<"p"> & {
 };
 
 /** A heading between groups of items. */
-export function AppShellGroup({ className, ...props }: AppShellGroupProps) {
+export function AppShellGroup({ className, ...props }: Readonly<AppShellGroupProps>) {
   return <p className={s.group({ className })} {...props} />;
 }
 
@@ -240,7 +240,7 @@ export type AppShellItemProps = Omit<React.ComponentProps<"a">, "children"> & {
 };
 
 /** A destination of the sidebar: icon, words, a count. */
-export function AppShellItem({ icon, label, current, badge, shortcut, asChild, children, className, ...props }: AppShellItemProps) {
+export function AppShellItem({ icon, label, current, badge, shortcut, asChild, children, className, ...props }: Readonly<AppShellItemProps>) {
   const { collapsed, inDrawer } = useShell();
   const element = React.useRef<HTMLAnchorElement>(null);
   const apple = useApple();
@@ -271,7 +271,7 @@ export function AppShellItem({ icon, label, current, badge, shortcut, asChild, c
 }
 
 /** The column right of the sidebar: Header, then Main. */
-export function AppShellBody({ className, ...props }: React.ComponentProps<"div">) {
+export function AppShellBody({ className, ...props }: Readonly<React.ComponentProps<"div">>) {
   return <div className={s.body({ className })} {...props} />;
 }
 
@@ -285,7 +285,7 @@ export type AppShellHeaderProps = Omit<React.ComponentProps<"header">, "title"> 
 };
 
 /** The top of the screen: the drawer's button (phone), the title, the actions. Sticky. */
-export function AppShellHeader({ title, menuLabel, actions, className, children, ...props }: AppShellHeaderProps) {
+export function AppShellHeader({ title, menuLabel, actions, className, children, ...props }: Readonly<AppShellHeaderProps>) {
   const { open, setOpen, desktop } = useShell();
   const drag = desktop ? { "data-tauri-drag-region": "" } : {};
   return (
@@ -319,7 +319,7 @@ export type AppShellSearchProps = Omit<React.ComponentProps<"button">, "children
 };
 
 /** The header's search: a button that looks like a field (a magnifier, its words, ⌘K) and opens the app's command palette. */
-export function AppShellSearch({ label, onOpen, shortcut = "mod+k", className, ...props }: AppShellSearchProps) {
+export function AppShellSearch({ label, onOpen, shortcut = "mod+k", className, ...props }: Readonly<AppShellSearchProps>) {
   const apple = useApple();
   useShortcuts({ [shortcut]: () => onOpen() });
   return (
@@ -338,7 +338,7 @@ export function AppShellSearch({ label, onOpen, shortcut = "mod+k", className, .
 }
 
 /** The screen's content. */
-export function AppShellMain({ className, ...props }: React.ComponentProps<"main">) {
+export function AppShellMain({ className, ...props }: Readonly<React.ComponentProps<"main">>) {
   return <main id="content" tabIndex={-1} className={s.main({ className })} {...props} />;
 }
 

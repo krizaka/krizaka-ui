@@ -62,7 +62,7 @@ export const notification = defineTemplate({
       if (p.actionUrl && !p.actionLabel) ctx.addIssue({ code: "custom", path: ["actionLabel"], message: "required with actionUrl" });
     }),
   subject: (p) => p.title,
-  preheader: (p) => p.line.replace(/\s+/g, " ").slice(0, 140),
+  preheader: (p) => p.line.replaceAll(/\s+/g, " ").slice(0, 140),
   why: (_p, t) => t("notification.why"),
   Body: (p) => {
     const { t, theme } = useEmail();

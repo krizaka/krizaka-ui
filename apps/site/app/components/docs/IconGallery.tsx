@@ -18,7 +18,7 @@ const SIZES = [16, 20, 24, 32] as const;
 
 const lookup = (component: string) => (Icons as unknown as Record<string, IconComponent | undefined>)[component];
 
-export function IconGallery({ icons, groups }: { icons: IconEntry[]; groups: { id: string; title: string }[] }) {
+export function IconGallery({ icons, groups }: Readonly<{ icons: IconEntry[]; groups: { id: string; title: string }[] }>) {
   const { t } = useI18n();
   const c = t.docs.foundations.icons;
   const [query, setQuery] = useState("");
@@ -51,7 +51,7 @@ export function IconGallery({ icons, groups }: { icons: IconEntry[]; groups: { i
     try {
       await navigator.clipboard.writeText(imports[kind]);
       setCopied(kind);
-      window.setTimeout(() => setCopied(null), 1600);
+      globalThis.setTimeout(() => setCopied(null), 1600);
     } catch {
       setCopied(null);
     }

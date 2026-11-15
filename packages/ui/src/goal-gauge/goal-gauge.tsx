@@ -38,7 +38,7 @@ export type GoalGaugeProps = Omit<React.HTMLAttributes<HTMLDivElement>, "childre
 };
 
 /** A goal in steps: `role="meter"`, the reached steps lit, the value in words beside the label. */
-export function GoalGauge({ label, segments, value, valueText, mode = "fill", showLabel = true, variant, brand, className, style, ...props }: GoalGaugeProps) {
+export function GoalGauge({ label, segments, value, valueText, mode = "fill", showLabel = true, variant, brand, className, style, ...props }: Readonly<GoalGaugeProps>) {
   const total = Math.max(1, Math.round(segments));
   const lit = Math.min(total, Math.max(0, Math.round(value ?? total)));
   const words = valueText ?? `${lit} / ${total}`;

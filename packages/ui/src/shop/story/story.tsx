@@ -22,7 +22,7 @@ export type StorySectionProps = Omit<React.ComponentProps<"section">, "title"> &
 };
 
 /** The owner's story, as a pull quote or a face and a paragraph. */
-export function StorySection({ variant = "quote", title, quote, body, owner, actions, className, ...props }: StorySectionProps) {
+export function StorySection({ variant = "quote", title, quote, body, owner, actions, className, ...props }: Readonly<StorySectionProps>) {
   if (!body && !quote) return null;
   return (
     <ShopSection title={title} className={className} data-variant={variant} {...props}>

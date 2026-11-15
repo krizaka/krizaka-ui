@@ -28,7 +28,7 @@ export type AchievementProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title
 };
 
 /** Something done: an eyebrow, a badge, what it replaced (struck through) and the outcome. */
-export function Achievement({ title, eyebrow, icon, badge, replaced, locked, variant, brand, className, ...props }: AchievementProps) {
+export function Achievement({ title, eyebrow, icon, badge, replaced, locked, variant, brand, className, ...props }: Readonly<AchievementProps>) {
   return (
     <div data-locked={locked ? "" : undefined} className={cn("kzs-achievement", storyVariantClass(variant), brandClass(brand), className)} {...props}>
       {(eyebrow || badge || icon) && (
@@ -65,7 +65,7 @@ export type AchievementListProps = React.OlHTMLAttributes<HTMLOListElement> & {
 };
 
 /** An ordered list of `Achievement`s on one grid of hairlines. */
-export function AchievementList({ children, minWidth, variant, brand, className, style, ...props }: AchievementListProps) {
+export function AchievementList({ children, minWidth, variant, brand, className, style, ...props }: Readonly<AchievementListProps>) {
   const items = React.Children.toArray(children);
   return (
     <ol
@@ -93,7 +93,7 @@ export type EmblemProps = Omit<React.SVGProps<SVGSVGElement>, "children"> & {
 };
 
 /** Three line emblems for achievements and choices (`currentColor`, decorative). */
-export function Emblem({ kind, size = 20, ...props }: EmblemProps) {
+export function Emblem({ kind, size = 20, ...props }: Readonly<EmblemProps>) {
   return (
     <svg
       viewBox="0 0 48 48"

@@ -31,7 +31,7 @@ export function useVideoPlayer(_source: unknown, setup?: (player: Player) => voi
   return player;
 }
 
-export function VideoView({ style }: { style?: ViewStyle; player?: Player }) {
+export function VideoView({ style }: Readonly<{ style?: ViewStyle; player?: Player }>) {
   return <View testID="expo-video-view" aria-hidden style={style} />;
 }
 

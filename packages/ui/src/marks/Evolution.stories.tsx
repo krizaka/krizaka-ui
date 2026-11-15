@@ -24,7 +24,7 @@ type Story = StoryObj<typeof meta>;
 
 const SIZES = [96, 32, 20] as const;
 
-function Row({ label, children }: { label: string; children: (size: number) => ReactNode }) {
+function Row({ label, children }: Readonly<{ label: string; children: (size: number) => ReactNode }>) {
   return (
     <div className="flex items-center gap-6">
       <span className="w-24 text-xs text-fg-secondary">{label}</span>

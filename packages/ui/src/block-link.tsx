@@ -15,7 +15,7 @@ export function BlockLink({
   external = isExternal(href),
   rel,
   ...props
-}: Omit<React.ComponentProps<"a">, "href"> & { href: string; linkAs?: LinkComponent; external?: boolean }) {
+}: Readonly<Omit<React.ComponentProps<"a">, "href"> & { href: string; linkAs?: LinkComponent; external?: boolean }>) {
   if (external) return <a href={href} target="_blank" rel={rel ?? "noopener noreferrer"} {...props} />;
   const Comp = Link as React.ElementType;
   return <Comp href={href} rel={rel} {...props} />;

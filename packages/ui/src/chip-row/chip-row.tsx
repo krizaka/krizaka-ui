@@ -29,7 +29,7 @@ export type ChipRowProps = Omit<React.ComponentProps<"nav">, "aria-label"> & {
 };
 
 /** A scroll-snap row of chip links; wraps from `md`. Items: `ChipRow.Item`. */
-function ChipRowRoot({ label, hint, className, children, ...props }: ChipRowProps) {
+function ChipRowRoot({ label, hint, className, children, ...props }: Readonly<ChipRowProps>) {
   const id = React.useId();
   const list = React.useRef<HTMLUListElement>(null);
   const move = (event: React.KeyboardEvent<HTMLUListElement>) => {
@@ -71,7 +71,7 @@ export type ChipRowItemProps = React.ComponentProps<"a"> & {
 };
 
 /** One link of the row. */
-function ChipRowItem({ selected = false, current = "page", badge, asChild, className, children, ...props }: ChipRowItemProps) {
+function ChipRowItem({ selected = false, current = "page", badge, asChild, className, children, ...props }: Readonly<ChipRowItemProps>) {
   const Comp = asChild ? Slot.Root : "a";
   return (
     <li className={s.item()}>

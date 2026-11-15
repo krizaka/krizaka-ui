@@ -40,7 +40,7 @@ export type ProfileCardProps = Omit<ViewProps, "children"> & {
 
 const ratioOf = (value: number, max = 100) => Math.min(1, Math.max(0, value / (max || 1)));
 
-function Bar({ label, ratio, words, animated, delay }: { label: string; ratio: number; words: string; animated: boolean; delay: number }) {
+function Bar({ label, ratio, words, animated, delay }: Readonly<{ label: string; ratio: number; words: string; animated: boolean; delay: number }>) {
   const { theme } = useTheme();
   const t = useEntrance(animated, delay, 900);
   const [width, setWidth] = React.useState(0);
@@ -63,7 +63,7 @@ function Bar({ label, ratio, words, animated, delay }: { label: string; ratio: n
 }
 
 /** A profile at a glance for React Native: portrait, name, a headline gauge, stats in words, a line, actions. */
-export function ProfileCard({ visual, name, statLabel, value = 100, valueText, stats, caption, children, animated = true, style, ...props }: ProfileCardProps) {
+export function ProfileCard({ visual, name, statLabel, value = 100, valueText, stats, caption, children, animated = true, style, ...props }: Readonly<ProfileCardProps>) {
   const { theme, radius } = useTheme();
   const ratio = ratioOf(value);
   return (
@@ -141,7 +141,7 @@ export type ProfileBannerProps = Omit<ViewProps, "children"> & {
  * The top of a person's or a place's screen — the web's `ProfileBanner`: a slim cover, the avatar overlapping its lower
  * edge, then the name (the screen's heading), its facts and the actions. No text on the cover.
  */
-export function ProfileBanner({ banner, avatar, eyebrow, title, status, meta, actions, style, ...props }: ProfileBannerProps) {
+export function ProfileBanner({ banner, avatar, eyebrow, title, status, meta, actions, style, ...props }: Readonly<ProfileBannerProps>) {
   const { theme, radius } = useTheme();
   const id = `kz-banner-${React.useId().replaceAll(":", "")}`;
   return (

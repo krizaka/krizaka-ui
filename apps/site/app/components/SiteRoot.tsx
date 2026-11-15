@@ -58,7 +58,7 @@ export const siteViewport: Viewport = { width: "device-width", initialScale: 1, 
 /* The root of every page, in one language (each language has its own root layout, for <html lang>): the theme before
    the first paint, the providers, the page, the footer. The bar belongs to the group layouts: the docs pages sit in Fumadocs' docs
    layout (docs/DocsShell.tsx), the builder demo in the workspace (WorkspaceShell.tsx, its shortcut comes before the bar). */
-export async function SiteRoot({ locale, children }: { locale: Locale; children: ReactNode }) {
+export async function SiteRoot({ locale, children }: Readonly<{ locale: Locale; children: ReactNode }>) {
   const t = getDictionary(locale);
   // What the footer shows is the org's (`footer.sites.ui` of @krizaka/org): the family, the source, the licence, the legal links, the accounts, the version.
   const footer = footerFor("ui");

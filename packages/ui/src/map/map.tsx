@@ -124,7 +124,6 @@ export const mapLabels: MapLabels = {
 /** Who owns the gestures: `page` (default) lets the wheel and one finger scroll the page; `map` is for a map that is the screen. */
 export type MapGestures = "page" | "map";
 
-
 export type MapProps = {
   /** The map's accessible name ("Pick-up points near you"), passed translated. */
   label: string;
@@ -381,7 +380,7 @@ function usePlace(id: string, label: string, places: Registry) {
 const noSubscription = () => () => undefined;
 
 /** A place on the map: an accent dot (or your content) that is a button when it does something. */
-export function Marker({ position, label, onPress, selected, size = 18, children, drop }: MarkerProps) {
+export function Marker({ position, label, onPress, selected, size = 18, children, drop }: Readonly<MarkerProps>) {
   const { map: m, lib, places } = useMap();
   const s = map();
   const id = React.useId();
@@ -509,9 +508,9 @@ const ROUTE_CURVES = {
 type RouteSource = { setData?: (d: GeoJSON.GeoJSON) => void };
 
 /** A route on the map: a line that draws itself, and a courier that travels it. Under reduced motion the line is whole and the courier rests at the end. */
-export function Route({ path, label, draw = true, duration = 1400, courier, tripDuration = 3200, repeatAfter, replayKey, tone = "accent", easing, paused = false }: RouteProps) {
+export function Route({ path, label, draw = true, duration = 1400, courier, tripDuration = 3200, repeatAfter, replayKey, tone = "accent", easing, paused = false }: Readonly<RouteProps>) {
   const { map: m, lib, ready, reduce, places } = useMap();
-  const id = `kz-route-${React.useId().replace(/[^a-zA-Z0-9]/g, "")}`;
+  const id = `kz-route-${React.useId().replaceAll(/[^a-zA-Z0-9]/g, "")}`;
   const animated = draw && !reduce;
   // The drawing is done for this `replayKey` (a new key draws again); without animation the line is whole at once.
   const token = replayKey ?? 0;
@@ -569,7 +568,7 @@ export function Route({ path, label, draw = true, duration = 1400, courier, trip
         else if (repeatAfter !== undefined) timer = setTimeout(() => setTrip((n) => n + 1), repeatAfter);
       };
       frame = requestAnimationFrame(step);
-    } else if (!reduce) marker.setLngLat([...(path[path.length - 1] ?? [0, 0])] as [number, number]);
+    } else if (!reduce) marker.setLngLat([...(path.at(-1) ?? [0, 0])] as [number, number]);
     return () => {
       cancelAnimationFrame(frame);
       clearTimeout(timer);
@@ -616,8 +615,8 @@ export type RadiusCircleProps = {
 };
 
 /** A circle on the ground: a delivery zone, a search radius — filled with the accent, its edge drawn. */
-export function RadiusCircle({ center, radius, tone = "accent" }: RadiusCircleProps) {
-  const id = `kz-circle-${React.useId().replace(/[^a-zA-Z0-9]/g, "")}`;
+export function RadiusCircle({ center, radius, tone = "accent" }: Readonly<RadiusCircleProps>) {
+  const id = `kz-circle-${React.useId().replaceAll(/[^a-zA-Z0-9]/g, "")}`;
   const data = React.useMemo(() => circlePolygon(center, radius), [center[0], center[1], radius]); // eslint-disable-line react-hooks/exhaustive-deps
   useGeoLayer(id, data, (c) => [
     { id: `${id}-fill`, type: "fill", source: id, paint: { "fill-color": c.accent, "fill-opacity": tone === "soft" ? 0.1 : 0.14 } },

@@ -43,7 +43,7 @@ export class EmailValidationError extends Error {
 
 /** A subject is one line: control characters and line breaks (header injection) become a space. */
 // eslint-disable-next-line no-control-regex -- the point of the rule is to refuse control characters
-const oneLine = (s: string) => s.replace(/[\u0000-\u001f\u007f\u2028\u2029]+/g, " ").replace(/\s+/g, " ").trim();
+const oneLine = (s: string) => s.replaceAll(/[\u0000-\u001f\u007f\u2028\u2029]+/g, " ").replaceAll(/\s+/g, " ").trim();
 
 /** RFC 8058: the two headers Gmail and Yahoo ask of bulk mail, and the mail client's own « unsubscribe » button. */
 export function unsubscribeHeaders(url: string): Record<string, string> {

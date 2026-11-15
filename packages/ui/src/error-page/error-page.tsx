@@ -22,7 +22,7 @@ export type ErrorPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & 
 };
 
 /** An error page: the code drawn, the bird, a sentence, a search and the ways back. */
-export function ErrorPage({ code, mascot, title, text, search, actions, className, children, ...props }: ErrorPageProps) {
+export function ErrorPage({ code, mascot, title, text, search, actions, className, children, ...props }: Readonly<ErrorPageProps>) {
   return (
     <div className={cn("kz-frame kz-tpl-error", className)} {...props}>
       <p className="kz-tpl-error-code" aria-hidden>

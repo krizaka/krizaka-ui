@@ -88,7 +88,7 @@ function Rows({ rows, props, close }: Readonly<{ rows: Flat[]; props: Collection
 }
 
 /** The collections of a workspace — or the shops of an account — to move between; the default one marked and never removable. */
-export function CollectionSwitcher(props: CollectionSwitcherProps) {
+export function CollectionSwitcher(props: Readonly<CollectionSwitcherProps>) {
   const { collections, label, layout = "list", mode = "collection", value, style, ...rest } = props;
   const { theme } = useTheme();
   const [open, setOpen] = React.useState(false);

@@ -48,7 +48,7 @@ function defaultBold(children: ReactNode): ReactNode {
  * <Rich text="We sent a link to {email}." slots={{ email: <strong>{email}</strong> }} />
  * ```
  */
-export function Rich({ text, href, renderLink = defaultLink, renderBold = defaultBold, slots }: RichProps): ReactNode {
+export function Rich({ text, href, renderLink = defaultLink, renderBold = defaultBold, slots }: Readonly<RichProps>): ReactNode {
   const hrefs = typeof href === "string" ? [href] : (href ?? []);
   let links = 0;
 

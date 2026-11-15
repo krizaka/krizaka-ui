@@ -31,7 +31,7 @@ export type LanguagePickerProps = Omit<React.ComponentProps<typeof RadioGroup.Ro
 };
 
 /** The language control of an account page: a labelled segmented choice, native names. */
-export function LanguagePicker({ label, showLabel = true, description, languages, className, ...props }: LanguagePickerProps) {
+export function LanguagePicker({ label, showLabel = true, description, languages, className, ...props }: Readonly<LanguagePickerProps>) {
   const id = React.useId();
   return (
     <div className={["flex flex-col gap-2", className].filter(Boolean).join(" ")}>

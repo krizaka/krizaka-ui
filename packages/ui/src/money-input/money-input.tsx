@@ -35,13 +35,13 @@ const separators = (locale: string) => {
 /** "12,50" → 1250 without a float; `undefined` when the text is not an amount or has too many decimals. */
 export function parseMinorUnits(text: string, locale: string, digits: number): number | null | undefined {
   const { decimal } = separators(locale);
-  const cleaned = text.replace(/\s/g, "");
+  const cleaned = text.replaceAll(/\s/g, "");
   if (cleaned === "") return null;
   // The locale's decimal mark, and "." or "," as a typed alternative; any other mark is a thousands separator.
   const marks = [...cleaned].filter((c) => c === "." || c === "," || c === decimal);
   if (!/^[\d.,]+$/.test(cleaned.replaceAll(decimal, ""))) return undefined;
   const last = marks.length ? Math.max(cleaned.lastIndexOf("."), cleaned.lastIndexOf(","), cleaned.lastIndexOf(decimal)) : -1;
-  const whole = (last >= 0 ? cleaned.slice(0, last) : cleaned).replace(/\D/g, "");
+  const whole = (last >= 0 ? cleaned.slice(0, last) : cleaned).replaceAll(/\D/g, "");
   const fraction = last >= 0 ? cleaned.slice(last + 1) : "";
   if (!/^\d*$/.test(fraction) || fraction.length > digits || (digits === 0 && last >= 0)) return undefined;
   const minor = Number(`${whole || "0"}${fraction.padEnd(digits, "0")}`);
@@ -57,7 +57,7 @@ export function formatMinorUnits(minor: number, locale: string, digits: number):
 }
 
 /** An amount field in minor units. The caller holds an integer; the person sees their locale's decimal. */
-export function MoneyInput({ value, onValueChange, currency, locale, currencies, onCurrencyChange, currencyLabel, invalid, className, onBlur, disabled, ...props }: MoneyInputProps) {
+export function MoneyInput({ value, onValueChange, currency, locale, currencies, onCurrencyChange, currencyLabel, invalid, className, onBlur, disabled, ...props }: Readonly<MoneyInputProps>) {
   const digits = currencyDigits(currency);
   const [text, setText] = React.useState(() => (value === null ? "" : formatMinorUnits(value, locale, digits)));
   const typed = React.useRef<number | null>(value);

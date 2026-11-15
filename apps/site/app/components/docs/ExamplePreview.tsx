@@ -19,7 +19,7 @@ const THEMES = { "light": "github-light", "dark": "github-dark" } as const; // q
 /* A named example of @krizaka/ui, live: the compiled example of the package rendered in place (LiveExample: in the
    static HTML, its code a lazy chunk), its source (exactly what is rendered) in a copyable code block, and a dark/light
    switch on the frame only. Server Component: the source is read at build time from the installed package. */
-export function ExamplePreview({ title, example, locale }: { title: string; example: RegistryExample; locale: Locale }) {
+export function ExamplePreview({ title, example, locale }: Readonly<{ title: string; example: RegistryExample; locale: Locale }>) {
   const key = exampleKey(example);
   const t = getDictionary(locale).docs.preview;
   const code = <ServerCodeBlock code={exampleSource(example)} lang="tsx" themes={THEMES} />;
@@ -64,6 +64,6 @@ export function NativeExamplePreview({ title, example, locale, eager = false }: 
   );
 }
 
-export function CodeBlock({ code, lang }: { code: string; lang: string }) {
+export function CodeBlock({ code, lang }: Readonly<{ code: string; lang: string }>) {
   return <ServerCodeBlock code={code} lang={lang} themes={THEMES} />;
 }

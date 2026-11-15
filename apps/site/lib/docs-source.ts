@@ -33,7 +33,7 @@ export interface ComponentPageData {
 }
 
 /** Plain text of the code-written documentation: `asChild` → asChild (titles, SEO, search, sidebar). */
-const plain = (text: string) => text.replace(/`/g, "");
+const plain = (text: string) => text.replaceAll('`', "");
 
 /** The words of a component for the search index: its summary and when to use it, under its title. */
 function structuredData(item: RegistryItem) {

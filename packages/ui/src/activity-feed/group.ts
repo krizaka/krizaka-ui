@@ -49,7 +49,7 @@ export function groupActivity<T extends ActivityEvent>(
       current = { label: key === todayKey ? today : key === yesterdayKey ? yesterday : day.format(date), events: [] };
       groups.push(current);
     }
-    const last = current.events[current.events.length - 1];
+    const last = current.events.at(-1);
     if (fold && last && event.actor && event.kind && last.event.actor === event.actor && last.event.kind === event.kind) last.count += 1;
     else current.events.push({ event, count: 1 });
   }

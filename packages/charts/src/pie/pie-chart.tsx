@@ -50,7 +50,7 @@ interface Slice<T> {
   readonly index: number;
 }
 
-export function PieChart<T extends Datum>(props: PieChartProps<T>) {
+export function PieChart<T extends Datum>(props: Readonly<PieChartProps<T>>) {
   const { data, label, value, color, format, donut = false, centerLabel, centerValue, maxSlices = 6, otherLabel = "Other", onSelect, labelHeader, valueHeader } = props;
   const { locale, labels } = useSettings(props);
   const fmt = useMemo(() => ({ value: valueFormatter(format, locale, labels.noValue), share: shareFormatter(locale) }), [format, locale, labels.noValue]);
@@ -188,6 +188,6 @@ export function PieChart<T extends Datum>(props: PieChartProps<T>) {
 }
 
 /** A pie with a hole: the total (or `centerValue`) and `centerLabel` in it. */
-export function DonutChart<T extends Datum>(props: Omit<PieChartProps<T>, "donut">) {
+export function DonutChart<T extends Datum>(props: Readonly<Omit<PieChartProps<T>, "donut">>) {
   return <PieChart {...props} donut />;
 }

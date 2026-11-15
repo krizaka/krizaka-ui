@@ -301,7 +301,7 @@ export function EngineFlow({
   calm = false,
   className,
   ...props
-}: EngineFlowProps) {
+}: Readonly<EngineFlowProps>) {
   const [active, setActive] = React.useState<string | undefined>(defaultActive);
   const detailId = `${React.useId()}-detail`;
   const chosen = nodes.find((n) => n.id === active);

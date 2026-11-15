@@ -38,7 +38,7 @@ export type AlertProps = Omit<React.ComponentProps<"div">, "title"> & {
   action?: React.ReactNode;
 };
 
-export function Alert({ tone = "info", icon, title, action, className, children, ...props }: AlertProps) {
+export function Alert({ tone = "info", icon, title, action, className, children, ...props }: Readonly<AlertProps>) {
   const s = alertVariants({ tone });
   return (
     <div role={tone === "danger" || tone === "warning" ? "alert" : "status"} data-tone={tone} className={s.root({ className })} {...props}>

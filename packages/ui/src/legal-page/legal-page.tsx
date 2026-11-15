@@ -33,7 +33,7 @@ export type LegalPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & 
 };
 
 /** A legal page: hero with the date, a plain-words summary, the sections with their contents. */
-export function LegalPage({ back, title, updated, summary, tocLabel, sections, linkAs, ...props }: LegalPageProps) {
+export function LegalPage({ back, title, updated, summary, tocLabel, sections, linkAs, ...props }: Readonly<LegalPageProps>) {
   return (
     <div {...props}>
       <PageHero back={back} linkAs={linkAs} title={title} lead={updated} backdrop="plain" />

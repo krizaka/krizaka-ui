@@ -248,7 +248,7 @@ type ClipProps = Readonly<{
 }>;
 
 /** The slide's clip: muted until the sound is chosen, looping while its slide stays (never a held last frame), gone if no source plays. */
-function SlideClip({ video, poster, playing, muted, onBroken, onTime }: ClipProps) {
+function SlideClip({ video, poster, playing, muted, onBroken, onTime }: Readonly<ClipProps>) {
   const ref = React.useRef<HTMLVideoElement>(null);
   React.useEffect(() => {
     if (ref.current) ref.current.muted = muted;
@@ -281,7 +281,7 @@ function SlideClip({ video, poster, playing, muted, onBroken, onTime }: ClipProp
 type SlideMediaProps = Readonly<{ slide: CarouselSlide; first: boolean; drawn: boolean; clip: React.ReactNode; ratio: string; closeLabel: string; overlay: boolean; playerLabels?: MediaPlayerProps["labels"] }>;
 
 /** A poster that opens its film, or a still; its clip plays over it while the slide is the one in view. */
-function SlideMedia({ slide, first, drawn, clip, ratio, closeLabel, overlay, playerLabels }: SlideMediaProps) {
+function SlideMedia({ slide, first, drawn, clip, ratio, closeLabel, overlay, playerLabels }: Readonly<SlideMediaProps>) {
   const s = mediaCarousel();
   if (slide.film) {
     return (
@@ -357,7 +357,7 @@ function useHolds() {
 type TicksProps = Readonly<{ slides: readonly CarouselSlide[]; active: number; calm: boolean; dwell: number; advancing: boolean; onEnd: () => void; s: ReturnType<typeof mediaCarousel> }>;
 
 /** One hairline per slide; the current one fills over its dwell — the clock — and holds with the carousel. */
-function CarouselTicks({ slides, active, calm, dwell, advancing, onEnd, s }: TicksProps) {
+function CarouselTicks({ slides, active, calm, dwell, advancing, onEnd, s }: Readonly<TicksProps>) {
   return (
     <div className={s.ticks()} aria-hidden>
       {slides.map((slide, i) => (

@@ -13,7 +13,7 @@ export type CaptionProps = React.HTMLAttributes<HTMLElement> & {
 };
 
 /** A caption in the typewriter face: the figure's number, a dash, what it shows. */
-export function Caption({ figure, as: Tag = "figcaption", className, children, ...props }: CaptionProps) {
+export function Caption({ figure, as: Tag = "figcaption", className, children, ...props }: Readonly<CaptionProps>) {
   return (
     <Tag className={cn("kz-caption", className)} {...props}>
       {figure && <b className="kz-caption-figure">{figure}</b>}
@@ -31,7 +31,7 @@ export type FootnoteRefProps = Omit<React.HTMLAttributes<HTMLElement>, "id"> & {
 };
 
 /** The superscript number in the text, linked to its note (and the note's link back lands here). */
-export function FootnoteRef({ n, prefix = "fn", className, ...props }: FootnoteRefProps) {
+export function FootnoteRef({ n, prefix = "fn", className, ...props }: Readonly<FootnoteRefProps>) {
   return (
     <sup id={`${prefix}-ref-${n}`} className={cn("kz-fnref", className)} {...props}>
       <a href={`#${prefix}-${n}`} aria-label={`Note ${n}`}>
@@ -53,7 +53,7 @@ export type FootnotesProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & 
 };
 
 /** The notes at the foot of a page: a short rule, numbered notes in small print, each with its way back to the text. */
-export function Footnotes({ notes, prefix = "fn", label = "Notes", backLabel = "Back to the text", className, ...props }: FootnotesProps) {
+export function Footnotes({ notes, prefix = "fn", label = "Notes", backLabel = "Back to the text", className, ...props }: Readonly<FootnotesProps>) {
   return (
     <section aria-label={label} className={cn("kz-footnotes", className)} {...props}>
       <ol>

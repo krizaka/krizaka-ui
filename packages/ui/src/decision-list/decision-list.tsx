@@ -34,7 +34,7 @@ export type DecisionListProps = React.HTMLAttributes<HTMLOListElement> & {
 const ICON = "h-3.5 w-3.5";
 
 /** Numbered decisions: chose, then refused · because · what it costs, side by side. */
-export function DecisionList({ decisions, labels, reveal = true, className, ...props }: DecisionListProps) {
+export function DecisionList({ decisions, labels, reveal = true, className, ...props }: Readonly<DecisionListProps>) {
   return (
     <ol className={cn("kz-decisions", className)} {...props}>
       {decisions.map((d, i) => (

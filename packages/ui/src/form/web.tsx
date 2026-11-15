@@ -33,7 +33,6 @@ import {
 import { formMessage } from "./errors";
 import { currencySymbol, moneyInputText, parseMoney } from "./money";
 
-export { FieldArray, FormField, Watch };
 export type { FieldArrayProps, FormFieldProps, WatchProps } from "./core";
 
 type Base = {
@@ -51,7 +50,7 @@ type Base = {
 
 const ids = (f: KrizakaField, hint?: string) => [hint && !f.error ? f.hintId : null, f.error ? f.errorId : null].filter(Boolean).join(" ") || undefined;
 
-function Caption({ field, hint, ok }: { field: KrizakaField; hint?: string; ok?: string }) {
+function Caption({ field, hint, ok }: Readonly<{ field: KrizakaField; hint?: string; ok?: string }>) {
   const suggestion = field.errorDetail?.suggestion;
   if (field.error)
     return (
@@ -111,7 +110,7 @@ export type SubmitProps = Omit<ButtonProps, "type" | "loading"> & {
 };
 
 /** The submit button: busy while the form is sent (not pressable twice), never disabled for an invalid form. */
-export function Submit({ variant = "primary", children, ...props }: SubmitProps) {
+export function Submit({ variant = "primary", children, ...props }: Readonly<SubmitProps>) {
   const { submitting } = useFormStatus();
   return (
     <Button type="submit" variant={variant} loading={submitting} {...props}>
@@ -128,7 +127,7 @@ export type FormErrorProps = {
 };
 
 /** The whole form's error — a refusal of the server that belongs to no field (a conflict, too many tries, no network). */
-export function FormError({ title, className }: FormErrorProps) {
+export function FormError({ title, className }: Readonly<FormErrorProps>) {
   const ctx = useFormContext();
   if (!ctx.error) return null;
   return (
@@ -164,7 +163,7 @@ export type TextFieldProps = Base & {
 };
 
 /** A text field of the form: label, input, hint or error, an optional check on the server. */
-export function TextField({ name, label, hint, disabled, className, type = "text", transform, validateAsync, asyncDebounceMs, availableHint, checkingLabel = "Checking", start, ...input }: TextFieldProps) {
+export function TextField({ name, label, hint, disabled, className, type = "text", transform, validateAsync, asyncDebounceMs, availableHint, checkingLabel = "Checking", start, ...input }: Readonly<TextFieldProps>) {
   const f = useKrizakaField<string>(name, { validateAsync, asyncDebounceMs });
   const end = f.validating ? <Spinner size="sm" label={checkingLabel} /> : f.available ? <Check /> : null;
   return (
@@ -219,7 +218,7 @@ export type CheckboxProps = Omit<Base, "label"> & {
 };
 
 /** A box of the form (`boolean`): terms to accept, an option. */
-export function Checkbox({ name, label, hint, disabled, className }: CheckboxProps) {
+export function Checkbox({ name, label, hint, disabled, className }: Readonly<CheckboxProps>) {
   const f = useKrizakaField<boolean>(name);
   return (
     <div className={className ?? "flex flex-col gap-1.5"}>
@@ -232,7 +231,7 @@ export function Checkbox({ name, label, hint, disabled, className }: CheckboxPro
 }
 
 /** An on/off setting of the form (`boolean`): the label and its hint beside the switch. */
-export function Switch({ name, label, hint, disabled, className }: Base) {
+export function Switch({ name, label, hint, disabled, className }: Readonly<Base>) {
   const f = useKrizakaField<boolean>(name);
   return (
     <div className={className ?? "flex items-start justify-between gap-4"}>
@@ -264,7 +263,7 @@ export type RadioGroupProps = Base & {
 };
 
 /** One choice among a few, all visible. */
-export function RadioGroup({ name, label, hint, disabled, className, options, variant = "list", orientation = "vertical" }: RadioGroupProps) {
+export function RadioGroup({ name, label, hint, disabled, className, options, variant = "list", orientation = "vertical" }: Readonly<RadioGroupProps>) {
   const f = useKrizakaField<string>(name);
   return (
     <Field.Root className={className} role="group" aria-labelledby={`${f.id}-label`}>
@@ -357,7 +356,7 @@ export type ComboboxProps = Base & {
 };
 
 /** A choice among many, typed to filter or fetched: one value (`string`) or several (`string[]`). */
-export function Combobox({ name, label, hint, disabled, className, options = [], onSearch, multiple, creatable, placeholder, labels }: ComboboxProps) {
+export function Combobox({ name, label, hint, disabled, className, options = [], onSearch, multiple, creatable, placeholder, labels }: Readonly<ComboboxProps>) {
   const f = useKrizakaField<string | string[]>(name);
   // The options chosen from a search, by value: their labels once the search has moved on.
   const [seen, setSeen] = React.useState<Record<string, ComboboxOption>>({});
@@ -407,7 +406,7 @@ export type DateFieldProps = Base & {
 };
 
 /** A date of the form (`YYYY-MM-DD`, `""` for none): a calendar, day · month · year typed, or wheels. */
-export function DateField({ name, label, hint, disabled, className, entry = "calendar", min, max, labels, autoComplete }: DateFieldProps) {
+export function DateField({ name, label, hint, disabled, className, entry = "calendar", min, max, labels, autoComplete }: Readonly<DateFieldProps>) {
   const f = useKrizakaField<string>(name);
   const onBlur = (e: React.FocusEvent<HTMLElement>) => !e.currentTarget.contains(e.relatedTarget as Node | null) && f.onBlur();
   if (entry === "calendar")
@@ -428,7 +427,7 @@ export function DateField({ name, label, hint, disabled, className, entry = "cal
 export type TagsProps = Base & Pick<TagInputProps, "suggestions" | "normalize" | "max" | "separators" | "placeholder" | "labels">;
 
 /** Free words of the form as chips (`string[]`): tags, keywords. */
-export function TagInput({ name, label, hint, disabled, className, ...props }: TagsProps) {
+export function TagInput({ name, label, hint, disabled, className, ...props }: Readonly<TagsProps>) {
   const f = useKrizakaField<string[]>(name);
   return (
     <div className={className} onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node | null) && f.onBlur()}>
@@ -459,7 +458,7 @@ export type FileUploadProps = Omit<Base, "hint"> & {
 };
 
 /** Files of the form (`File[]`): a drop zone, then the chosen files, each removable. */
-export function FileUpload({ name, label, hint, disabled, className, title, browseLabel, accept, maxSize, multiple, maxFiles, removeLabel, refusalLabel }: FileUploadProps) {
+export function FileUpload({ name, label, hint, disabled, className, title, browseLabel, accept, maxSize, multiple, maxFiles, removeLabel, refusalLabel }: Readonly<FileUploadProps>) {
   const f = useKrizakaField<File[]>(name);
   const files = f.value ?? [];
   return (
@@ -505,7 +504,7 @@ export type MoneyProps = Base & {
 };
 
 /** An amount of the form, stored as integer minor units (cents: `1250` = 12.50), typed the locale's way. */
-export function Money({ name, label, hint, disabled, className, currency, placeholder }: MoneyProps) {
+export function Money({ name, label, hint, disabled, className, currency, placeholder }: Readonly<MoneyProps>) {
   const f = useKrizakaField<number | null>(name);
   const [text, setText] = React.useState(() => moneyInputText(f.value, currency, f.locale));
   const [editing, setEditing] = React.useState(false);
@@ -565,7 +564,7 @@ export type SliderProps = Base & {
 };
 
 /** A number (or a range) of the form, chosen by feel: a share, a volume, a price range — the value floats while it is touched. */
-export function Slider({ name, label, hint, disabled, className, min, max, step, formatValue, thumbLabels, ticks, marks }: SliderProps) {
+export function Slider({ name, label, hint, disabled, className, min, max, step, formatValue, thumbLabels, ticks, marks }: Readonly<SliderProps>) {
   const f = useKrizakaField<SliderValue>(name);
   return (
     <div className={className ?? "flex flex-col gap-1.5"}>
@@ -588,3 +587,5 @@ export const createKrizakaForm = makeCreateKrizakaForm(fields, FormRoot);
 export function useFormWithAction<F extends { useFormWithAction: (...args: never[]) => unknown }>(form: F, ...args: Parameters<F["useFormWithAction"]>): ReturnType<F["useFormWithAction"]> {
   return form.useFormWithAction(...args) as ReturnType<F["useFormWithAction"]>;
 }
+
+export { FieldArray, FormField, Watch } from "./core";

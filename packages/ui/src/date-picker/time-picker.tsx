@@ -81,11 +81,11 @@ export type TimePickerProps = Shared &
   );
 
 /** A time of day: wheels to set one, or slots to book one. */
-export function TimePicker(props: TimePickerProps) {
+export function TimePicker(props: Readonly<TimePickerProps>) {
   return props.variant === "slots" ? <TimeSlots {...props} /> : <TimeWheels {...props} />;
 }
 
-function TimeWheels({ label, locale, value: valueProp, defaultValue = null, onValueChange, disabled, className, minuteStep = 5, hour12, labels: given }: Extract<TimePickerProps, { variant?: "wheel" }>) {
+function TimeWheels({ label, locale, value: valueProp, defaultValue = null, onValueChange, disabled, className, minuteStep = 5, hour12, labels: given }: Readonly<Extract<TimePickerProps, { variant?: "wheel" }>>) {
   const labels = { ...timePickerLabels, ...given };
   const [value, setValue] = useControllable<TimeValue | null>(valueProp, defaultValue, (v) => v && onValueChange?.(v));
   const twelve = hour12 ?? uses12Hours(locale);
@@ -130,7 +130,7 @@ function TimeWheels({ label, locale, value: valueProp, defaultValue = null, onVa
   );
 }
 
-function TimeSlots({ label, locale, value: valueProp, defaultValue = null, onValueChange, disabled, className, slots, isTimeDisabled, groupLabels }: Extract<TimePickerProps, { variant: "slots" }>) {
+function TimeSlots({ label, locale, value: valueProp, defaultValue = null, onValueChange, disabled, className, slots, isTimeDisabled, groupLabels }: Readonly<Extract<TimePickerProps, { variant: "slots" }>>) {
   const s = timePicker();
   const [value, setValue] = useControllable<TimeValue | null>(valueProp, defaultValue, (v) => v && onValueChange?.(v));
   const enabled = slots.filter((t) => !disabled && !isTimeDisabled?.(t));

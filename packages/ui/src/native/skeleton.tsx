@@ -23,7 +23,7 @@ const SHAPE = {
 } as const;
 
 /** A pulsing placeholder the size of what is loading — hidden from screen readers; still when the system reduces motion. */
-export function Skeleton({ shape = "text", width, height, style, testID }: SkeletonProps) {
+export function Skeleton({ shape = "text", width, height, style, testID }: Readonly<SkeletonProps>) {
   const { theme } = useTheme();
   const reduce = useReducedMotion();
   const [opacity] = React.useState(() => new Animated.Value(1));

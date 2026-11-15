@@ -196,12 +196,12 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
 }
 
 /** A list item: a lone paragraph is inline (a tight list), anything else keeps its blocks. */
-function ListItem({ blocks, ctx }: { blocks: readonly BlockNode[]; ctx: Context }) {
+function ListItem({ blocks, ctx }: Readonly<{ blocks: readonly BlockNode[]; ctx: Context }>) {
   return blocks.map((block, i) => (block.type === "paragraph" && blocks.length === 1 ? <Inlines key={i} nodes={block.children} ctx={ctx} /> : <Block key={i} node={block} ctx={ctx} />));
 }
 
 /** A Markdown text on the tokens: headings, paragraphs, lists (and tasks), quotes, tables, code, links, images, footnotes. */
-export function Markdown({ children, streaming, generated, generatedLabel, headingIds, codeLabels, linkAs, className, ...props }: MarkdownProps) {
+export function Markdown({ children, streaming, generated, generatedLabel, headingIds, codeLabels, linkAs, className, ...props }: Readonly<MarkdownProps>) {
   const blocks = parseSource(children, { streaming, headingIds });
   return (
     <div className={cn("kz-md", className)} data-streaming={streaming ? "" : undefined} aria-busy={streaming || undefined} {...props}>
@@ -211,4 +211,4 @@ export function Markdown({ children, streaming, generated, generatedLabel, headi
   );
 }
 
-export { textOf };
+export { textOf } from "./parse";

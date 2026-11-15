@@ -94,7 +94,7 @@ function boxesOf(page: PageText, index: Index, from: number, to: number): Box[] 
   // Merge the pieces that sit on one line and touch (several items of one sentence) into one rectangle.
   const merged: Box[] = [];
   for (const b of raw) {
-    const last = merged[merged.length - 1];
+    const last = merged.at(-1);
     const sameLine = last && Math.abs(last.y - b.y) < last.height * 0.5 && b.x - (last.x + last.width) < last.height * 1.5 && b.x >= last.x - 1e-9;
     if (last && sameLine) {
       const right = Math.max(last.x + last.width, b.x + b.width);

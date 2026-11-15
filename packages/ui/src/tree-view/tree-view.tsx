@@ -93,7 +93,7 @@ export function TreeView({
   onLoadChildren,
   loadingLabel = "Loading",
   className,
-}: TreeViewProps) {
+}: Readonly<TreeViewProps>) {
   warnDeprecated("tree-view", "3.6.0");
   const s = treeView();
   const uid = React.useId();
@@ -126,7 +126,7 @@ export function TreeView({
       ArrowDown: () => move(rows[i + 1]?.node.id),
       ArrowUp: () => move(rows[i - 1]?.node.id),
       Home: () => move(rows[0]?.node.id),
-      End: () => move(rows[rows.length - 1]?.node.id),
+      End: () => move(rows.at(-1)?.node.id),
       ArrowRight: () => (isBranch(node) && !open.has(node.id) ? toggle(node, true) : isBranch(node) ? move(rows[i + 1]?.node.id) : undefined),
       ArrowLeft: () => (open.has(node.id) ? toggle(node, false) : move(row.parent ?? undefined)),
       Enter: () => choose(node),

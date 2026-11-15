@@ -40,7 +40,7 @@ export type IdentityCardProps = Omit<React.HTMLAttributes<HTMLElement>, "title">
 };
 
 /** The identity of a business or a person: mark, name, subtitle, chips and a contact QR code. Wraps to one column on a phone. */
-export function IdentityCard({ mark, eyebrow, name, nameAs: Name = "h2", subtitle, chips, qr, className, ...props }: IdentityCardProps) {
+export function IdentityCard({ mark, eyebrow, name, nameAs: Name = "h2", subtitle, chips, qr, className, ...props }: Readonly<IdentityCardProps>) {
   return (
     <section data-slot="identity-card" className={cn("flex flex-wrap items-center justify-between gap-6 rounded-lg border border-border-default bg-surface-1 p-5 text-fg sm:p-6", className)} {...props}>
       <div className="flex min-w-0 flex-1 items-center gap-4 sm:gap-5">

@@ -44,7 +44,7 @@ export interface KrizakaHydrationProps {
 }
 
 /** Prefetches on the server and hydrates the client components under it. An async Server Component. */
-export async function KrizakaHydration({ queries, client, children }: KrizakaHydrationProps) {
+export async function KrizakaHydration({ queries, client, children }: Readonly<KrizakaHydrationProps>) {
   const state = await prefetch(queries, client);
   return <HydrationBoundary state={state}>{children}</HydrationBoundary>;
 }

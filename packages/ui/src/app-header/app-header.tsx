@@ -51,7 +51,7 @@ export type AppHeaderProps = Omit<React.ComponentProps<"header">, "children"> & 
 };
 
 /** The app's top bar: the name next to the rail, the mark on a phone, chips, then search · language · actions · messages · notifications · primary · account. */
-export function AppHeader({ name, mark, href, homeLink, homeClassName, chips, search, language, actions, messages, notifications, primary, account, className, ...props }: AppHeaderProps) {
+export function AppHeader({ name, mark, href, homeLink, homeClassName, chips, search, language, actions, messages, notifications, primary, account, className, ...props }: Readonly<AppHeaderProps>) {
   const brand = (
     <>
       {mark && <span data-brand-mark className={s.mark()}>{mark}</span>}

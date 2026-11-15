@@ -48,7 +48,7 @@ export type LanguageSwitchProps = {
   className?: string;
 };
 
-const Globe = ({ className }: { className?: string }) => (
+const Globe = ({ className }: Readonly<{ className?: string }>) => (
   <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
     <circle cx="12" cy="12" r="9" />
     <path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z" />
@@ -61,7 +61,7 @@ const Globe = ({ className }: { className?: string }) => (
  * `hreflang` to the same page. It shows the language you are in, never the “other” one. `variant="inline"` lays the
  * languages in a row for a phone's panel or a settings page.
  */
-export function LanguageSwitch({ label, current, languages, variant = "menu", linkAs, defaultOpen = false, className }: LanguageSwitchProps) {
+export function LanguageSwitch({ label, current, languages, variant = "menu", linkAs, defaultOpen = false, className }: Readonly<LanguageSwitchProps>) {
   const Link = linkAs ?? "a";
   const id = React.useId();
   const [open, setOpen] = React.useState(defaultOpen);

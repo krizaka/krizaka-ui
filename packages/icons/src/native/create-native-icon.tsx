@@ -17,7 +17,7 @@ export interface NativeIconProps {
 
 /** Builds a React Native icon (react-native-svg) from a glyph — the same drawing as the web icon. */
 export function createNativeIcon(displayName: string, glyph: Glyph) {
-  function KrizakaNativeIcon({ size = 24, color = "#000", strokeWidth = STROKE_WIDTH, title, nodeColor }: NativeIconProps) {
+  function KrizakaNativeIcon({ size = 24, color = "#000", strokeWidth = STROKE_WIDTH, title, nodeColor }: Readonly<NativeIconProps>) {
     const a11y = title
       ? { accessible: true, accessibilityRole: "image" as const, accessibilityLabel: title }
       : { accessibilityElementsHidden: true, importantForAccessibility: "no-hide-descendants" as const };

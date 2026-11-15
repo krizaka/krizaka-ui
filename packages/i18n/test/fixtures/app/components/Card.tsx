@@ -1,4 +1,4 @@
-export function Card({ ok, name }: { ok: boolean; name: string }) {
+export function Card({ ok, name }: Readonly<{ ok: boolean; name: string }>) {
   const [, setError] = useState("");
   setError("Something went wrong");
   setError(ok ? "Saved" : `Failed for ${name}`);

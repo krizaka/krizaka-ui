@@ -33,7 +33,7 @@ export interface SectionBackdropProps extends React.HTMLAttributes<HTMLElement> 
  * section ends on the page surface, so consecutive sections glide from one tint to the next. Text on it reads at AA
  * (tested in @krizaka/tokens).
  */
-export function SectionBackdrop({ as: Tag = "section", direction = "down", dome = true, grid = false, media, animated = true, className, children, ...props }: SectionBackdropProps) {
+export function SectionBackdrop({ as: Tag = "section", direction = "down", dome = true, grid = false, media, animated = true, className, children, ...props }: Readonly<SectionBackdropProps>) {
   const s = sectionBackdropVariants();
   return (
     <Tag className={s.root({ className })} data-direction={direction} {...props}>

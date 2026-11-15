@@ -23,7 +23,7 @@ export type CtaPanelProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title"> 
 };
 
 /** A call to act: title, why, the actions — the closing panel of a section or a page. */
-export function CtaPanel({ id, title, body, children, level = 2, reveal, className, ...props }: CtaPanelProps) {
+export function CtaPanel({ id, title, body, children, level = 2, reveal, className, ...props }: Readonly<CtaPanelProps>) {
   const H = level === 2 ? "h2" : "h3";
   return (
     <div className={cn("kz-cta", className)} data-reveal={reveal ? "" : undefined} {...props}>

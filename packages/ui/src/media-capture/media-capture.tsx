@@ -133,7 +133,7 @@ export function MediaCapture({
   aspectRatio = "3 / 4",
   labels: given,
   className,
-}: MediaCaptureProps) {
+}: Readonly<MediaCaptureProps>) {
   warnDeprecated("media-capture");
   const labels = { ...mediaCaptureLabels, ...given };
   const s = mediaCapture();

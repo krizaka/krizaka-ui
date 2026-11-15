@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { Providers } from "./providers";
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
       <body>

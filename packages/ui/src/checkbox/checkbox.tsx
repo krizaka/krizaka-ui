@@ -42,7 +42,7 @@ export type CheckboxProps = Omit<React.ComponentProps<typeof CheckboxPrimitive.R
 };
 
 /** A checkbox: `checked`/`defaultChecked` (`true` · `false` · `"indeterminate"`) + `onCheckedChange`. */
-export function Checkbox({ invalid, className, children, ...props }: CheckboxProps) {
+export function Checkbox({ invalid, className, children, ...props }: Readonly<CheckboxProps>) {
   const s = checkbox();
   const box = (
     <CheckboxPrimitive.Root

@@ -1,0 +1,44 @@
+id: props-readonly
+language: Tsx
+severity: error
+message: "Mark the props of the component as read-only: `Readonly<Props>` (SonarCloud S6759)."
+rule:
+  all:
+    - pattern: $T
+    - any:
+        - kind: object_type
+        - kind: type_identifier
+        - kind: generic_type
+        - kind: intersection_type
+    - not:
+        regex: ^Readonly
+    - inside:
+        kind: type_annotation
+        inside:
+          kind: required_parameter
+          inside:
+            kind: formal_parameters
+            inside:
+              any:
+                - kind: function_declaration
+                  has:
+                    field: name
+                    regex: ^[A-Z]
+                - kind: arrow_function
+                  inside:
+                    kind: variable_declarator
+                    has:
+                      field: name
+                      regex: ^[A-Z]
+fix: Readonly<$T>
+ignores:
+  - "**/node_modules/**"
+  - "**/.next/**"
+  - "**/dist/**"
+  - "**/*.test.*"
+  # `Readonly<Props & { value }>` would stop TypeScript inferring RootProps from the Root of the form factory (core.tsx).
+  # Documentation examples (not measured by Sonar) and repository tooling keep their plain props.
+  - "**/registry/**"
+  - tools/**
+  - packages/ui/src/form/web.tsx
+  - packages/ui/src/native/form.tsx

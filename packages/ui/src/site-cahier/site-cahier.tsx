@@ -49,7 +49,7 @@ export type SiteCahierProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title"
 };
 
 /** A tool site's frame: the Cahier's bar with the site's bird, its hue, the page, and the family footer. */
-export function SiteCahier({ site, name, bird, hue, nav, navLabel = "Main", homeHref = "/", linkAs, bar, footer, className, style, children, ...props }: SiteCahierProps) {
+export function SiteCahier({ site, name, bird, hue, nav, navLabel = "Main", homeHref = "/", linkAs, bar, footer, className, style, children, ...props }: Readonly<SiteCahierProps>) {
   const h = hue === undefined || !Number.isFinite(hue) ? undefined : ((Math.round(hue) % 360) + 360) % 360;
   const tint =
     h === undefined
@@ -102,7 +102,7 @@ export type SiteCahierHeroProps = Omit<PageHeroProps, "aside" | "backdrop"> & {
 };
 
 /** The first screen of a tool site's page: a `PageHero` on plain paper, the bird taped beside it, a doodle in the margin. */
-export function SiteCahierHero({ bird, birdCaption, aside, doodle, children, ...props }: SiteCahierHeroProps) {
+export function SiteCahierHero({ bird, birdCaption, aside, doodle, children, ...props }: Readonly<SiteCahierHeroProps>) {
   const print = aside ?? (bird ? (
     <TapedPhoto tape="top" tilt={2} caption={birdCaption}>
       <div className="kz-cahier-print">
@@ -134,7 +134,7 @@ export type SiteCahierDocProps = Omit<React.HTMLAttributes<HTMLElement>, "title"
 };
 
 /** A documentation page on ruled paper: the title, the article in a reading column and, beside it, the page's contents. */
-export function SiteCahierDoc({ title, eyebrow, aside, asideLabel = "On this page", className, children, ...props }: SiteCahierDocProps) {
+export function SiteCahierDoc({ title, eyebrow, aside, asideLabel = "On this page", className, children, ...props }: Readonly<SiteCahierDocProps>) {
   return (
     <Page size="wide" paper="lines" margin>
       <div className="kz-cahier-doc" data-aside={aside ? "" : undefined}>

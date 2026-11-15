@@ -15,6 +15,7 @@
     "no-sync-fs-in-runtime": 23,
     "no-ts-enum": 0,
     "no-types-at-package-root": 2,
-    "no-unjustified-numeric-export": 16
+    "no-unjustified-numeric-export": 16,
+    "props-readonly": 40
   }
 }

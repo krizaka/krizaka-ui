@@ -33,7 +33,7 @@ const ICONS = {
   copy: "M9 9h11v11H9zM5 15V4h11",
 } as const;
 
-export default function ChartActions({ title, table, labels, formats, viewTable, onExport, onCopy }: ChartActionsProps) {
+export default function ChartActions({ title, table, labels, formats, viewTable, onExport, onCopy }: Readonly<ChartActionsProps>) {
   const [sheet, setSheet] = useState(false);
   const entry: Record<ExportFormat, string> = { csv: labels.downloadCsv, png: labels.downloadPng, svg: labels.downloadSvg };
   let sheetNode: ReactNode = null;

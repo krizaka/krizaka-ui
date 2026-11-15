@@ -17,7 +17,7 @@ export interface LoaderGlyphProps extends Omit<React.ComponentProps<"svg">, "chi
 }
 
 /** The glyph alone (decorative): the Spinner, the Loader and the Button's `loading` draw it. */
-export function LoaderGlyph({ state = "loading", value, ...props }: LoaderGlyphProps) {
+export function LoaderGlyph({ state = "loading", value, ...props }: Readonly<LoaderGlyphProps>) {
   const known = typeof value === "number" && Number.isFinite(value);
   const fill = state !== "loading" ? 100 : known ? Math.round(Math.min(1, Math.max(0, value)) * 100) : null;
   return (

@@ -49,7 +49,7 @@ export type AuthLayoutProps = Omit<React.ComponentProps<"div">, "title"> & {
 };
 
 /** An entry screen: the product's brand panel beside the form (one column on a phone). */
-export function AuthLayout({ brand, title, description, children, footer, legal, promise, aside, asideFooter, className, ...props }: AuthLayoutProps) {
+export function AuthLayout({ brand, title, description, children, footer, legal, promise, aside, asideFooter, className, ...props }: Readonly<AuthLayoutProps>) {
   return (
     <div className={s.root({ className })} {...props}>
       <SectionBackdrop as="div" grid className={s.aside()} role={promise || aside ? "complementary" : undefined} aria-hidden={!promise && !aside ? true : undefined}>

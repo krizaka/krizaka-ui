@@ -21,7 +21,7 @@ export type SkeletonProps = React.ComponentProps<"span"> & {
 };
 
 /** A shape the size of what is loading. Announce the wait elsewhere (`LoadingRegion` does it, with `aria-busy`). */
-export function Skeleton({ shape, className, ...props }: SkeletonProps) {
+export function Skeleton({ shape, className, ...props }: Readonly<SkeletonProps>) {
   return <span aria-hidden data-shape={shape ?? "text"} className={skeletonVariants({ shape, className })} {...props} />;
 }
 
@@ -34,7 +34,7 @@ export type SkeletonTextProps = React.ComponentProps<"span"> & {
 };
 
 /** A paragraph on its way: `lines` lines, the last one shorter — like text that wraps. */
-export function SkeletonText({ lines = 3, className, ...props }: SkeletonTextProps) {
+export function SkeletonText({ lines = 3, className, ...props }: Readonly<SkeletonTextProps>) {
   return (
     <span aria-hidden className={["flex w-full flex-col gap-2", className].filter(Boolean).join(" ")} {...props}>
       {Array.from({ length: lines }, (_, i) => (
@@ -50,7 +50,7 @@ export type SkeletonShapeProps = React.ComponentProps<"div">;
  * The skeleton of the real thing: render your component with placeholder data inside, and its text, images and icons
  * become skeleton shapes in place — the exact layout, nothing to draw twice. Inert and hidden from assistive technology.
  */
-export function SkeletonShape({ className, children, ...props }: SkeletonShapeProps) {
+export function SkeletonShape({ className, children, ...props }: Readonly<SkeletonShapeProps>) {
   return (
     <div aria-hidden inert className={["kz-skeleton-shape", className].filter(Boolean).join(" ")} {...props}>
       {children}

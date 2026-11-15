@@ -88,7 +88,7 @@ export function ContinuePrompt({
   brand,
   className,
   ...props
-}: ContinuePromptProps) {
+}: Readonly<ContinuePromptProps>) {
   warnDeprecated("continue-prompt");
   const arcade = variant === "arcade";
   const inner = (

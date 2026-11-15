@@ -43,7 +43,7 @@ export type LongformPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title">
 };
 
 /** A long read: hero, then numbered chapters with pull quotes in the margin and figures that break out. */
-export function LongformPage({ brand, back, eyebrow, title, lead, aside, chapters, linkAs, className, children, ...props }: LongformPageProps) {
+export function LongformPage({ brand, back, eyebrow, title, lead, aside, chapters, linkAs, className, children, ...props }: Readonly<LongformPageProps>) {
   return (
     <div className={cn(brand && "brand-" + brand, className)} {...props}>
       <PageHero back={back} linkAs={linkAs} eyebrow={eyebrow} title={title} lead={lead} aside={aside} />

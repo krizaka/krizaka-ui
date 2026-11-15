@@ -66,7 +66,7 @@ export type WheelPickerProps = {
 const VisibleContext = React.createContext(5);
 
 /** The frame of one or several wheels: a raised surface, the lit band across them, a group named by `label`. */
-export function WheelPicker({ label, children, visible = 5, "aria-describedby": describedBy, invalid, unset, className }: WheelPickerProps) {
+export function WheelPicker({ label, children, visible = 5, "aria-describedby": describedBy, invalid, unset, className }: Readonly<WheelPickerProps>) {
   const s = wheel();
   return (
     <VisibleContext.Provider value={visible}>
@@ -79,7 +79,7 @@ export function WheelPicker({ label, children, visible = 5, "aria-describedby": 
 }
 
 /** A divider between two wheels (`:` between the hours and the minutes). */
-export function WheelDivider({ children }: { children: React.ReactNode }) {
+export function WheelDivider({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <span aria-hidden className={wheel().divider()}>
       {children}

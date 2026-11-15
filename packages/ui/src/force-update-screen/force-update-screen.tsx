@@ -41,7 +41,7 @@ export type ForceUpdateScreenProps = Omit<React.ComponentProps<"main">, "title">
  * The forced update: one thing to do, and the way to do it.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function ForceUpdateScreen({ title, message, versionLabel, mark, updateLabel, onUpdate, retryLabel, onRetry, className, ...props }: ForceUpdateScreenProps) {
+export function ForceUpdateScreen({ title, message, versionLabel, mark, updateLabel, onUpdate, retryLabel, onRetry, className, ...props }: Readonly<ForceUpdateScreenProps>) {
   warnDeprecated("force-update-screen");
   const s = forceUpdateScreen();
   return (

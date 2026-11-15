@@ -146,7 +146,7 @@ export function SlotPicker({
   footer,
   className,
   ...props
-}: SlotPickerProps) {
+}: Readonly<SlotPickerProps>) {
   const [dayId, setDayId] = React.useState(defaultDay ?? days[0]?.id);
   const rootRef = React.useRef<HTMLDivElement>(null);
   const refocusDays = React.useRef(false);

@@ -17,7 +17,7 @@ export function currencySymbol(currency: string, locale: string): string {
  */
 export function parseMoney(text: string, currency: string, locale = "en"): number | null | undefined {
   const digits = currencyDigits(currency);
-  const t = text.replace(/[\s\u00a0\u202f']/g, "");
+  const t = text.replaceAll(/[\s\u00a0\u202f']/g, "");
   if (!t) return undefined;
   const negative = t.startsWith("-");
   const body = negative ? t.slice(1) : t;
@@ -36,7 +36,7 @@ export function parseMoney(text: string, currency: string, locale = "en"): numbe
   }
   // What is left before the decimals: digits, grouped by three when separated (`1,234,567`).
   if (!/^(\d*|\d{1,3}([.,]\d{3})+)$/.test(int)) return null;
-  int = int.replace(/[.,]/g, "");
+  int = int.replaceAll(/[.,]/g, "");
   if (!int && !frac) return null;
   const units = BigInt(int || "0") * 10n ** BigInt(digits) + BigInt((frac || "").padEnd(digits, "0") || "0");
   const value = Number(negative ? -units : units);

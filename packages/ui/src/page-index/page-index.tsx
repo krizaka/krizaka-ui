@@ -33,7 +33,7 @@ export type PageIndexProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & 
 };
 
 /** A book's index: headings, entries, a dotted leader and the page number; the current entry marked in the margin. */
-export function PageIndex({ groups, label = "Index", linkAs, className, ...props }: PageIndexProps) {
+export function PageIndex({ groups, label = "Index", linkAs, className, ...props }: Readonly<PageIndexProps>) {
   return (
     <nav aria-label={label} className={cn("kz-index", className)} {...props}>
       {groups.map((g, gi) => (

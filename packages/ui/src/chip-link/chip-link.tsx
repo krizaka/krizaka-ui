@@ -39,7 +39,7 @@ export type ChipLinkProps = React.ComponentProps<"a"> & {
 };
 
 /** A filter that is a link, with the look of `Chip`. */
-export function ChipLink({ size, selected = false, current = "page", asChild, className, ...props }: ChipLinkProps) {
+export function ChipLink({ size, selected = false, current = "page", asChild, className, ...props }: Readonly<ChipLinkProps>) {
   const Comp = asChild ? Slot.Root : "a";
   return (
     <Comp

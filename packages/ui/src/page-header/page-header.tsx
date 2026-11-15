@@ -28,7 +28,7 @@ export type PageHeaderProps = Omit<React.ComponentProps<"div">, "title"> & {
   as?: "h1" | "h2";
 };
 
-export function PageHeader({ title, description, actions, breadcrumb, as: Heading = "h1", className, ...props }: PageHeaderProps) {
+export function PageHeader({ title, description, actions, breadcrumb, as: Heading = "h1", className, ...props }: Readonly<PageHeaderProps>) {
   return (
     <div className={s.root({ className })} {...props}>
       {breadcrumb && <div className={s.breadcrumb()}>{breadcrumb}</div>}

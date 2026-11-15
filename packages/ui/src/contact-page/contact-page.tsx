@@ -25,7 +25,7 @@ export type ContactPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
 };
 
 /** A contact page: hero, the channels beside the form, then what happens next. */
-export function ContactPage({ eyebrow, title, lead, aside, channels, form, next, linkAs, ...props }: ContactPageProps) {
+export function ContactPage({ eyebrow, title, lead, aside, channels, form, next, linkAs, ...props }: Readonly<ContactPageProps>) {
   return (
     <div {...props}>
       <PageHero eyebrow={eyebrow} title={title} lead={lead} aside={aside} linkAs={linkAs} />

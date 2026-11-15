@@ -141,7 +141,7 @@ function Sheet({ sheet }: Readonly<{ sheet: ReturnType<typeof getDictionary>["la
   );
 }
 
-export async function Landing({ locale }: { locale: Locale }) {
+export async function Landing({ locale }: Readonly<{ locale: Locale }>) {
   const t = getDictionary(locale).landing;
   const count = getRegistryItems().filter((item) => item.status !== "deprecated").length;
   const about = descriptions();

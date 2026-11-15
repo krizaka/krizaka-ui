@@ -25,9 +25,9 @@ const SHIELD = "M259.7,134 L259.7,226 L180,272 L100.3,226 L100.3,134 L180,88 L21
  * A small hand-signed mark: the Krizaka mark as an ink stamp, the house's name in the notebook's pen, an optional date.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function Signature({ variant = "both", name = "Krizaka · Montréal", date, dateTime, className, style, ...props }: SignatureProps) {
+export function Signature({ variant = "both", name = "Krizaka · Montréal", date, dateTime, className, style, ...props }: Readonly<SignatureProps>) {
   warnDeprecated("signature");
-  const filter = `kz-ink-${React.useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
+  const filter = `kz-ink-${React.useId().replaceAll(/[^a-zA-Z0-9_-]/g, "")}`;
   const stamp = variant !== "script";
   const script = variant !== "stamp";
   const stampAria = script ? { "aria-hidden": true } : { role: "img" as const, "aria-label": name };

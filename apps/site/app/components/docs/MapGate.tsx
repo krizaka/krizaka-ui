@@ -29,7 +29,7 @@ function watchTiles(watcher: () => void): () => void {
   return () => watchers.delete(watcher);
 }
 
-export function MapGate({ snapshot, alt, children }: { snapshot: MapSnapshot; alt: string; children: ReactNode }) {
+export function MapGate({ snapshot, alt, children }: Readonly<{ snapshot: MapSnapshot; alt: string; children: ReactNode }>) {
   const live = useSyncExternalStore(watchTiles, () => tilesReadable === true, () => false);
   if (live) return <>{children}</>;
   return (

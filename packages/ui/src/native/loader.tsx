@@ -23,7 +23,7 @@ export type LoaderGlyphProps = {
 };
 
 /** The Krizaka loader glyph (decorative): a hexagon traced by a segment of light around a node; done, a check or a cross. */
-export function LoaderGlyph({ state = "loading", value, size = 20, color }: LoaderGlyphProps) {
+export function LoaderGlyph({ state = "loading", value, size = 20, color }: Readonly<LoaderGlyphProps>) {
   const { theme } = useTheme();
   const reduce = useReducedMotion();
   const [spin] = React.useState(() => new Animated.Value(0));

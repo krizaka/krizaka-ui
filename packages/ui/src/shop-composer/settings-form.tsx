@@ -105,7 +105,7 @@ function normalise(values: unknown): unknown {
 }
 
 /** Reports the form's values: a valid set goes to `onValid`, an invalid one to `onInvalid` (and never reaches the document). */
-function Commit({ def, onValid, onInvalid }: { def: SectionDefinition; onValid: (settings: Record<string, unknown>) => void; onInvalid: (invalid: boolean) => void }) {
+function Commit({ def, onValid, onInvalid }: Readonly<{ def: SectionDefinition; onValid: (settings: Record<string, unknown>) => void; onInvalid: (invalid: boolean) => void }>) {
   const { api } = useFormContext();
   const latest = React.useRef({ onValid, onInvalid });
   React.useEffect(() => {

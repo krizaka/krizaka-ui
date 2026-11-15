@@ -18,8 +18,6 @@ import { Button } from "./button";
 import { CardRoot } from "./card";
 import { Txt } from "./txt";
 
-export type { AnalysisExport, AnalysisFinding, AnalysisReportData, AnalysisReportLabels, AnalysisStatus };
-
 const TONE = { inconsistent: "danger", attention: "warning", unverified: "neutral", consistent: "success" } as const satisfies Record<AnalysisStatus, BadgeTone>;
 
 export type AnalysisReportProps = Omit<ViewProps, "children"> &
@@ -89,7 +87,7 @@ function List({ title, items }: Readonly<{ title: string; items: readonly string
 }
 
 /** The web `AnalysisReport` on React Native. */
-export function AnalysisReport({ title, summary, status, findings, limits, nextSteps, provenance, labels, mark, streaming, onLocate, onCopy, hideActions, style, ...props }: AnalysisReportProps) {
+export function AnalysisReport({ title, summary, status, findings, limits, nextSteps, provenance, labels, mark, streaming, onLocate, onCopy, hideActions, style, ...props }: Readonly<AnalysisReportProps>) {
   const counts = countByStatus(findings);
   const report: AnalysisReportData = { title, summary, status, findings, limits, nextSteps, provenance };
   const rows = [
@@ -153,3 +151,5 @@ const styles = StyleSheet.create({
   block: { gap: 8 },
   finding: { padding: 12, gap: 6, minWidth: 0 },
 });
+
+export { type AnalysisExport, type AnalysisFinding, type AnalysisReportData, type AnalysisReportLabels, type AnalysisStatus } from "../analysis-report/model";

@@ -21,7 +21,7 @@ export interface ShortFeedProps<T> extends Omit<React.ComponentProps<"section">,
 }
 
 /** A vertical snap-scrolling feed that plays the video in view, preloads the next and pauses the rest. */
-export function ShortFeed<T>({ label, items, getId, renderItem, window: around = 1, onActiveChange, className, onKeyDown, ...props }: ShortFeedProps<T>) {
+export function ShortFeed<T>({ label, items, getId, renderItem, window: around = 1, onActiveChange, className, onKeyDown, ...props }: Readonly<ShortFeedProps<T>>) {
   const root = React.useRef<HTMLElement>(null);
   const [active, setActive] = React.useState(0);
   const slides = React.useRef<(HTMLDivElement | null)[]>([]);
@@ -58,7 +58,7 @@ export function ShortFeed<T>({ label, items, getId, renderItem, window: around =
   const go = (index: number) => {
     const target = slides.current[Math.max(0, Math.min(items.length - 1, index))];
     if (!target) return;
-    target.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+    target.scrollIntoView({ behavior: globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
     target.querySelector<HTMLElement>("article")?.focus({ preventScroll: true });
   };
 

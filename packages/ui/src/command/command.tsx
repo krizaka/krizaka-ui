@@ -32,7 +32,7 @@ export const command = tv({
 });
 const s = command();
 
-function SearchIcon({ className }: { className?: string }) {
+function SearchIcon({ className }: Readonly<{ className?: string }>) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <circle cx="11" cy="11" r="7" />
@@ -47,7 +47,7 @@ export type CommandRootProps = React.ComponentProps<typeof CommandPrimitive> & {
 };
 
 /** The palette: `value` / `onValueChange` (the active item), `shouldFilter`, `filter`, `loop`. */
-export function CommandRoot({ className, ...props }: CommandRootProps) {
+export function CommandRoot({ className, ...props }: Readonly<CommandRootProps>) {
   return <CommandPrimitive className={s.root({ className })} {...props} />;
 }
 
@@ -59,7 +59,7 @@ export type CommandInputProps = Omit<React.ComponentProps<typeof CommandPrimitiv
 };
 
 /** The search field (`value` / `onValueChange` for the query), with a magnifier. */
-export function CommandInput({ className, placeholder, trailing, ...props }: CommandInputProps) {
+export function CommandInput({ className, placeholder, trailing, ...props }: Readonly<CommandInputProps>) {
   return (
     <div className={s.inputWrap()} cmdk-input-wrapper="">
       <SearchIcon className={s.icon()} />
@@ -83,7 +83,7 @@ export type CommandListProps = React.ComponentProps<typeof CommandPrimitive.List
   emptyLabel?: React.ReactNode;
 };
 
-export function CommandList({ className, emptyLabel, children, ...props }: CommandListProps) {
+export function CommandList({ className, emptyLabel, children, ...props }: Readonly<CommandListProps>) {
   return (
     <>
       <CommandPrimitive.List className={s.list({ className })} {...props}>
@@ -104,7 +104,7 @@ export type CommandEmptyProps = Omit<React.ComponentProps<typeof CommandPrimitiv
  * inside it: inside, it is rendered as before but warns in development — the listbox then holds text, which axe
  * refuses (`aria-required-children`).
  */
-export function CommandEmpty({ className, emptyLabel, ...props }: CommandEmptyProps) {
+export function CommandEmpty({ className, emptyLabel, ...props }: Readonly<CommandEmptyProps>) {
   const inside = React.useContext(InsideList);
   React.useEffect(() => {
     if (inside && typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
@@ -119,27 +119,27 @@ export function CommandEmpty({ className, emptyLabel, ...props }: CommandEmptyPr
 }
 
 /** While results load (`label` is announced). */
-export function CommandLoading({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.Loading>) {
+export function CommandLoading({ className, ...props }: Readonly<React.ComponentProps<typeof CommandPrimitive.Loading>>) {
   return <CommandPrimitive.Loading className={s.loading({ className })} {...props} />;
 }
 
 /** A group of items under a `heading`. */
-export function CommandGroup({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.Group>) {
+export function CommandGroup({ className, ...props }: Readonly<React.ComponentProps<typeof CommandPrimitive.Group>>) {
   return <CommandPrimitive.Group className={s.group({ className })} {...props} />;
 }
 
 /** An option: `onSelect` on Enter or click, `value` and `keywords` for the filter, `disabled`. */
-export function CommandItem({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.Item>) {
+export function CommandItem({ className, ...props }: Readonly<React.ComponentProps<typeof CommandPrimitive.Item>>) {
   return <CommandPrimitive.Item className={s.item({ className })} {...props} />;
 }
 
 /** A line between groups. Decorative (`role="none"`): cmdk's own separator is a role a listbox may not hold (axe). */
-export function CommandSeparator({ className, ...props }: React.ComponentProps<"div">) {
+export function CommandSeparator({ className, ...props }: Readonly<React.ComponentProps<"div">>) {
   return <div role="none" className={s.separator({ className })} {...props} />;
 }
 
 /** A keyboard hint at the end of an item. */
-export function CommandShortcut({ className, ...props }: React.ComponentProps<"span">) {
+export function CommandShortcut({ className, ...props }: Readonly<React.ComponentProps<"span">>) {
   return <span className={s.shortcut({ className })} {...props} />;
 }
 
@@ -173,7 +173,7 @@ export type CommandDialogProps = Omit<CommandRootProps, "title"> & {
  * The palette in a dialog (Radix: focus trap, Escape, focus return). The dialog is named by `label`; it has no close
  * button — Escape and a click outside close it — and the input takes the focus when it opens.
  */
-export function CommandDialog({ open, defaultOpen, onOpenChange, footer, contentProps, label, className, children, ...props }: CommandDialogProps) {
+export function CommandDialog({ open, defaultOpen, onOpenChange, footer, contentProps, label, className, children, ...props }: Readonly<CommandDialogProps>) {
   const { className: contentClassName, ...content } = contentProps ?? {};
   return (
     <DialogPrimitive.Root open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>

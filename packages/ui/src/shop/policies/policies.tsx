@@ -15,7 +15,7 @@ export type PoliciesSectionProps = Omit<React.ComponentProps<"section">, "title"
 };
 
 /** Cancellation, prices and the booking window, as term and value. */
-export function PoliciesSection({ title, items, className, ...props }: PoliciesSectionProps) {
+export function PoliciesSection({ title, items, className, ...props }: Readonly<PoliciesSectionProps>) {
   if (items.length === 0) return null;
   return (
     <ShopSection title={title} className={className} data-variant="inline" {...props}>

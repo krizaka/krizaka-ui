@@ -52,7 +52,6 @@ export const documentViewerLabels: DocumentViewerLabels = {
 export type DocumentHighlight = { id: string; quote?: string; region?: Region; page?: number; label?: string };
 
 /** What the viewer found for a passage. */
-export type { Located };
 
 /** The members of pdf.js the viewer uses (`pdfjs-dist` ≥ 5), typed here so the package does not depend on it. */
 export type PdfjsModule = {
@@ -91,14 +90,14 @@ export type DocumentViewerProps = Omit<React.ComponentProps<"div">, "children" |
 };
 
 const regionKey = (r: Region | undefined) => (r ? [r.page, r.x, r.y, r.width, r.height].join(",") : "");
-const fill = (template: string, vars: Record<string, string | number>) => template.replace(/\{(\w+)\}/g, (m, k: string) => (k in vars ? String(vars[k]) : m));
+const fill = (template: string, vars: Record<string, string | number>) => template.replaceAll(/\{(\w+)\}/g, (m, k: string) => (k in vars ? String(vars[k]) : m));
 
 type Loaded = { doc: PdfDocument; texts: PageText[]; sizes: { width: number; height: number }[] };
 type Phase = { state: "loading" } | { state: "error"; key: string } | ({ state: "ready"; key: string } & Loaded);
 
 const isItem = (x: unknown): x is PageText["items"][number] => typeof x === "object" && x !== null && typeof (x as { str?: unknown }).str === "string" && Array.isArray((x as { transform?: unknown }).transform);
 
-function PageCanvas({ page, doc, caption, onReady, className }: { page: number; doc: PdfDocument; caption: string; onReady?: () => void; className: string }) {
+function PageCanvas({ page, doc, caption, onReady, className }: Readonly<{ page: number; doc: PdfDocument; caption: string; onReady?: () => void; className: string }>) {
   const ref = React.useRef<HTMLCanvasElement>(null);
   const wrapper = React.useRef<HTMLDivElement>(null);
   const [visible, setVisible] = React.useState(() => typeof IntersectionObserver === "undefined");
@@ -144,14 +143,14 @@ function PageCanvas({ page, doc, caption, onReady, className }: { page: number; 
 }
 
 /** A PDF with its passages lit — see the file's header. Client. */
-export function DocumentViewer({ src, loadPdfjs, workerSrc, highlights = [], activeId = null, onActiveChange, onLocate, onLoad, labels, className, ...props }: DocumentViewerProps) {
+export function DocumentViewer({ src, loadPdfjs, workerSrc, highlights = [], activeId = null, onActiveChange, onLocate, onLoad, labels, className, ...props }: Readonly<DocumentViewerProps>) {
   const words = { ...documentViewerLabels, ...labels };
   const s = documentViewer();
   const reduce = usePrefersReducedMotion();
   const [loaded, setPhase] = React.useState<Phase>({ state: "loading" });
   const callbacks = useLatest({ onLoad, onLocate });
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const bytes = typeof src === "string" ? src : src.byteLength + ":" + src[0] + ":" + src[src.length - 1];
+  const bytes = typeof src === "string" ? src : src.byteLength + ":" + src[0] + ":" + src.at(-1);
   // A result belongs to the document it was read from: another `src` is loading again, with no reset inside the effect.
   const phase: Phase = loaded.state !== "loading" && loaded.key !== bytes ? { state: "loading" } : loaded;
 
@@ -251,3 +250,5 @@ export function DocumentViewer({ src, loadPdfjs, workerSrc, highlights = [], act
     </div>
   );
 }
+
+export { type Located } from "./locate";

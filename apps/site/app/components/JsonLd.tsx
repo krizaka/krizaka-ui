@@ -3,7 +3,7 @@
  * build/render time, never on the client. Reuse for the sitewide @graph and for
  * page-scoped schema (BreadcrumbList, FAQPage, …).
  */
-export function JsonLd({ data }: { readonly data: object }) {
+export function JsonLd({ data }: Readonly<{ readonly data: object }>) {
   return (
     <script
       type="application/ld+json"

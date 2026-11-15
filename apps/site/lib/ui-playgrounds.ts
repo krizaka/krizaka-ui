@@ -59,7 +59,7 @@ export function playgroundControls(spec: PlaygroundSpec, props: { name: string; 
     if (prop.type === "boolean") return { prop: name, kind: "boolean", initial: prop.default === "true" };
     const options = literalOptions(prop.type)?.filter((option) => !spec.exclude?.[name]?.includes(option));
     if (!options?.length) throw new Error(`playground ${spec.component}: "${name}" is neither a boolean nor a union of strings (${prop.type})`);
-    const fallback = prop.default?.replace(/^"|"$/g, "");
+    const fallback = prop.default?.replaceAll(/^"|"$/g, "");
     return { prop: name, kind: "enum", options, initial: fallback && options.includes(fallback) ? fallback : options[0]! };
   });
 }
@@ -70,7 +70,7 @@ export function playgroundJsx(spec: PlaygroundSpec, controls: PlaygroundControl[
   const attr = (name: string, value: unknown) => {
     if (value === true) attrs.push(name);
     else if (typeof value === "number") attrs.push(`${name}={${value}}`);
-    else if (typeof value === "string") attrs.push(`${name}="${value.replace(/"/g, "&quot;")}"`);
+    else if (typeof value === "string") attrs.push(`${name}="${value.replaceAll('"', "&quot;")}"`);
   };
   for (const [name, value] of Object.entries(spec.base)) attr(name, value);
   for (const control of controls) {

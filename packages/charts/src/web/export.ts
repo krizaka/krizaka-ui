@@ -3,7 +3,7 @@
 
 /** One CSV line per row; cells quoted when they hold a separator, a quote or a line break. */
 export function toCsv(rows: readonly (readonly string[])[]): string {
-  const cell = (value: string) => (/[",\n;]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value);
+  const cell = (value: string) => (/[",\n;]/.test(value) ? `"${value.replaceAll('"', '""')}"` : value);
   return rows.map((row) => row.map(cell).join(",")).join("\n");
 }
 
@@ -12,10 +12,10 @@ export function fileName(title: string | undefined, extension: string): string {
   const base =
     (title ?? "chart")
       .normalize("NFKD")
-      .replace(/[̀-ͯ]/g, "")
+      .replaceAll(/[̀-ͯ]/g, "")
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "") || "chart";
+      .replaceAll(/[^a-z0-9]+/g, "-")
+      .replaceAll(/^-|-$/g, "") || "chart";
   return `${base}.${extension}`;
 }
 

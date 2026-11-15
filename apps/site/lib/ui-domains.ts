@@ -9,8 +9,7 @@ import budgets from "../../../packages/ui/size-budgets.json" with { type: "json"
 import { domainOf } from "./domains.ts";
 import type { Domain, RegistryItem, Status } from "./ui-registry";
 
-export { domainOf };
-export { DOMAINS } from "./domains.ts";
+export { domainOf,DOMAINS } from "./domains.ts";
 
 /** Stable and beta first, experimental after, deprecated last (and out of the sidebar). */
 const LEVEL_ORDER: Record<Status, number> = { stable: 0, beta: 1, experimental: 2, deprecated: 3 };

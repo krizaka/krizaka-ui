@@ -78,7 +78,7 @@ function Inline({ node, ctx }: { node: InlineNode; ctx: Context }): React.ReactN
 }
 
 /** Code, coloured by the web's grammars from the theme's text roles. */
-function Code({ node, ctx }: { node: Extract<BlockNode, { type: "code" }>; ctx: Context }) {
+function Code({ node, ctx }: Readonly<{ node: Extract<BlockNode, { type: "code" }>; ctx: Context }>) {
   const { theme } = ctx;
   const colour: Record<string, string> = {
     comment: theme.textSecondary,
@@ -164,7 +164,7 @@ function Table({ node, ctx }: Readonly<{ node: Extract<BlockNode, { type: "table
   );
 }
 
-function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNode {
+function Block({ node, ctx }: Readonly<{ node: BlockNode; ctx: Context }>): React.ReactNode {
   const { theme } = ctx;
   switch (node.type) {
     case "heading":
@@ -265,8 +265,6 @@ export function Markdown({ children, streaming, generated, generatedLabel, onLin
   );
 }
 
-export { textOf };
-
 const styles = StyleSheet.create({
   root: { gap: 12 },
   strong: { fontWeight: "700" },
@@ -288,3 +286,5 @@ const styles = StyleSheet.create({
   cell: { flexShrink: 0, paddingHorizontal: 10, paddingVertical: 8 },
   rule: { height: StyleSheet.hairlineWidth },
 });
+
+export { textOf } from "../markdown/parse";

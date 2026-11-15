@@ -77,7 +77,7 @@ function stateFor(value: number, thresholds: KpiExplainedProps["thresholds"]): K
 }
 
 function maskValue(value: string): string {
-  return value.replace(/[^\s]/gu, "•");
+  return value.replaceAll(/[^\s]/gu, "•");
 }
 
 /** A key figure that explains what it means, how it is calculated and where it came from. */

@@ -51,7 +51,7 @@ export type WaveformProps = {
 };
 
 /** A decorative waveform: the bars of a sound, in the accent or a neutral tone, breathing gently while it plays. */
-export function Waveform({ peaks, bars = 32, size, tone, playing = false, label, className }: WaveformProps) {
+export function Waveform({ peaks, bars = 32, size, tone, playing = false, label, className }: Readonly<WaveformProps>) {
   const s = waveform({ size, tone });
   const root = React.useRef<HTMLDivElement>(null);
   const [visible, setVisible] = React.useState(true);

@@ -12,7 +12,6 @@ import { VerifiedBadge } from "../verified-badge/verified-badge";
 import { verticalVideoLabels, type VerticalVideoShared } from "./model";
 
 export type { VerticalVideoLabels } from "./model";
-export { verticalVideoLabels };
 
 export interface VerticalVideoCreator {
   name: string;
@@ -56,11 +55,11 @@ const MORE = "M5 12h.01M12 12h.01M19 12h.01";
 const useReducedMotion = () =>
   React.useSyncExternalStore(
     (notify) => {
-      const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const query = globalThis.matchMedia("(prefers-reduced-motion: reduce)");
       query.addEventListener("change", notify);
       return () => query.removeEventListener("change", notify);
     },
-    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    () => globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches,
     () => false,
   );
 
@@ -97,7 +96,7 @@ export function VerticalVideo({
   className,
   onKeyDown,
   ...props
-}: VerticalVideoProps) {
+}: Readonly<VerticalVideoProps>) {
   const labels = { ...verticalVideoLabels, ...custom };
   const reduce = useReducedMotion();
   const video = React.useRef<HTMLVideoElement>(null);
@@ -250,3 +249,5 @@ function Rail({ label, count, pressed, onClick, tone, children }: { label: strin
     </div>
   );
 }
+
+export { verticalVideoLabels } from "./model";

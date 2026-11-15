@@ -66,7 +66,7 @@ export type DocsHubPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
   linksLayout?: "wrap" | "stack";
 };
 
-function List({ items, linkAs: Link = "a" }: { items: readonly DocsHubLink[]; linkAs?: LinkComponent }) {
+function List({ items, linkAs: Link = "a" }: Readonly<{ items: readonly DocsHubLink[]; linkAs?: LinkComponent }>) {
   const L = Link as React.ElementType;
   return (
     <ul className="kz-tpl-links">
@@ -83,7 +83,7 @@ function List({ items, linkAs: Link = "a" }: { items: readonly DocsHubLink[]; li
 }
 
 /** A documentation hub: search first, the collections in their brand, quick starts, popular and new pages. */
-export function DocsHubPage({ eyebrow, title, lead, search, searchHints, collectionsTitle, collections, quickstarts, popular, whatsNew, promise, linkAs, linksLayout = "wrap", ...props }: DocsHubPageProps) {
+export function DocsHubPage({ eyebrow, title, lead, search, searchHints, collectionsTitle, collections, quickstarts, popular, whatsNew, promise, linkAs, linksLayout = "wrap", ...props }: Readonly<DocsHubPageProps>) {
   const L = (linkAs ?? "a") as React.ElementType;
   return (
     <div {...props}>

@@ -15,7 +15,7 @@ export interface VCardFields {
 }
 
 /** Escapes a value for a vCard text field: backslash, newline, comma and semicolon. */
-export const escapeVCard = (value: string): string => value.replace(/[\\,;]/g, String.raw`\$&`).replace(/\r?\n/g, String.raw`\n`);
+export const escapeVCard = (value: string): string => value.replaceAll(/[\\,;]/g, String.raw`\$&`).replaceAll(/\r?\n/g, String.raw`\n`);
 
 const present = (value: string | null | undefined): value is string => typeof value === "string" && value.trim() !== "";
 

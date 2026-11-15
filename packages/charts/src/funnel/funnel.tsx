@@ -35,7 +35,7 @@ export interface FunnelProps<T extends Datum> extends ChartFrameProps, EnginePro
   fromPreviousLabel?: string;
 }
 
-export function Funnel<T extends Datum>(props: FunnelProps<T>) {
+export function Funnel<T extends Datum>(props: Readonly<FunnelProps<T>>) {
   const { data, label, value, format = "integer", stageLabel, valueLabel, fromFirstLabel = "% first", fromPreviousLabel = "% previous" } = props;
   const { locale, labels } = useSettings(props);
   const fmt = useMemo(() => ({ value: valueFormatter(format, locale, labels.noValue), share: shareFormatter(locale) }), [format, locale, labels.noValue]);
@@ -43,7 +43,7 @@ export function Funnel<T extends Datum>(props: FunnelProps<T>) {
   const isEmpty = stages.length === 0 || stages.every((s) => s.value === 0);
   const first = stages[0]?.value ?? 0;
   const rate = useCallback((i: number) => (i === 0 || !stages[i - 1]!.value ? 1 : stages[i]!.value / stages[i - 1]!.value), [stages]);
-  const overall = first && stages.length ? stages[stages.length - 1]!.value / first : 0;
+  const overall = first && stages.length ? stages.at(-1)!.value / first : 0;
   const summary = isEmpty
     ? labels.empty
     : [

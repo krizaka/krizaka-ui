@@ -58,7 +58,7 @@ export type ShowcaseProps<T> = {
 };
 
 /** An auto-advancing slideshow: swipeable pages, a segmented progress bar that fills over the interval (each segment a button), a counter, previous / next and a pause button. */
-export function Showcase<T>({ label, items, getId, renderItem, getTitle, interval = 6000, autoplay = true, loop = true, onIndexChange, labels = showcaseLabels, style }: ShowcaseProps<T>) {
+export function Showcase<T>({ label, items, getId, renderItem, getTitle, interval = 6000, autoplay = true, loop = true, onIndexChange, labels = showcaseLabels, style }: Readonly<ShowcaseProps<T>>) {
   const { theme } = useTheme();
   const reduced = useReducedMotion();
   const total = items.length;

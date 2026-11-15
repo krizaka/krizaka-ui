@@ -116,7 +116,7 @@ const without = (id: number) => (all: Shown[]) => all.filter((x) => x.id !== id)
  * returns; a bird looks up when you come near. All of it pauses off screen and in a hidden tab, and the flock is still
  * under `prefers-reduced-motion`.
  */
-export function Flock({ birds, ratio = 16 / 9, tone = "brand", glance = true, courier = true, react = true, scenes = false, random = Math.random, tempo = 1, active = null, greet = false, className, style, ...props }: FlockProps) {
+export function Flock({ birds, ratio = 16 / 9, tone = "brand", glance = true, courier = true, react = true, scenes = false, random = Math.random, tempo = 1, active = null, greet = false, className, style, ...props }: Readonly<FlockProps>) {
   const stage = React.useRef<HTMLDivElement>(null);
   const bodies = React.useRef<(HTMLDivElement | null)[]>([]);
   const may = useMayMove();

@@ -51,7 +51,7 @@ export type DescriptionListProps = Omit<React.ComponentProps<"dl">, "children"> 
 };
 
 /** Term and value pairs — a job's details, a payout's breakdown — stacked, inline like a receipt, or as cards. */
-export function DescriptionList({ items, layout, className, ...props }: DescriptionListProps) {
+export function DescriptionList({ items, layout, className, ...props }: Readonly<DescriptionListProps>) {
   const s = descriptionList({ layout });
   return (
     <dl className={s.root({ className })} {...props}>
@@ -74,6 +74,6 @@ export type KeyValueGridProps = Omit<DescriptionListProps, "layout"> & {
 };
 
 /** Key figures as a grid of cards that wraps with the width: a job's numbers, an account's limits. */
-export function KeyValueGrid({ minWidth = 10, style, ...props }: KeyValueGridProps) {
+export function KeyValueGrid({ minWidth = 10, style, ...props }: Readonly<KeyValueGridProps>) {
   return <DescriptionList layout="grid" style={{ ...style, ["--kz-kv-min" as string]: `${minWidth}rem` }} {...props} />;
 }

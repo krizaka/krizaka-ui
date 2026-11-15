@@ -7,8 +7,6 @@ import { tv } from "tailwind-variants";
 
 import { type MeterLevel, meterModel, type MeterPart, type MeterThresholds } from "./model";
 
-export type { MeterPart };
-
 export const meter = tv({
   slots: {
     root: "flex w-full flex-col gap-1.5",
@@ -95,7 +93,7 @@ export function Meter({
   className,
   children,
   ...props
-}: MeterProps) {
+}: Readonly<MeterProps>) {
   const s = meter({ size });
   const { ratio, level, words, shares, arcs } = meterModel({ value, min, max, valueText, thresholds, optimum, parts });
   const a11y = parts
@@ -173,7 +171,7 @@ export interface MeterValueProps {
 }
 
 /** For the ring's centre when it shows a figure and a word. */
-export function MeterValue({ value, caption }: MeterValueProps) {
+export function MeterValue({ value, caption }: Readonly<MeterValueProps>) {
   return (
     <>
       <span className="font-display text-lg font-semibold text-fg tabular-nums">{value}</span>
@@ -181,3 +179,5 @@ export function MeterValue({ value, caption }: MeterValueProps) {
     </>
   );
 }
+
+export { type MeterPart } from "./model";

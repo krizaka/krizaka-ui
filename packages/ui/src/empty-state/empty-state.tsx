@@ -24,7 +24,7 @@ export type EmptyStateProps = Omit<React.ComponentProps<"div">, "title"> & {
   action?: React.ReactNode;
 };
 
-export function EmptyState({ icon, title, description, action, className, ...props }: EmptyStateProps) {
+export function EmptyState({ icon, title, description, action, className, ...props }: Readonly<EmptyStateProps>) {
   return (
     <div role="status" className={s.root({ className })} {...props}>
       {icon && (

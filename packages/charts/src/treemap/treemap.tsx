@@ -40,7 +40,7 @@ function leaves(nodes: readonly TreemapNode[], path: string[] = []): { path: str
   return nodes.flatMap((n) => (n.children?.length ? leaves(n.children, [...path, n.name]) : [{ path: [...path, n.name], value: total(n) }]));
 }
 
-export function Treemap(props: TreemapProps) {
+export function Treemap(props: Readonly<TreemapProps>) {
   const { data, format, pathLabel, valueLabel, title } = props;
   const { locale, labels } = useSettings(props);
   const fmt = useMemo(() => ({ value: valueFormatter(format, locale, labels.noValue), share: shareFormatter(locale) }), [format, locale, labels.noValue]);

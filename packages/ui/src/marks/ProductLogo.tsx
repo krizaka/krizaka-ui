@@ -14,7 +14,7 @@ export type BrandId = "krizaka" | "sovkora" | "verikora" | "folioviv";
 export type MarkId = BrandId | "kridoc";
 
 /** The mark of a Krizaka brand by id — for navigation, cards and lists driven by data. Kridoc is drawn by `ProductLockup` or `KridocLogo`: keeping it out of here keeps the bar light (krizaka-ui#837). */
-export function ProductLogo({ id, ...props }: MarkProps & { /** The brand: `krizaka`, `sovkora`, `verikora` or `folioviv`. */ id: BrandId }) {
+export function ProductLogo({ id, ...props }: Readonly<MarkProps & { /** The brand: `krizaka`, `sovkora`, `verikora` or `folioviv`. */ id: BrandId }>) {
   if (id === "krizaka") return <KrizakaLogo {...props} />;
   if (id === "sovkora") return <SovkoraLogo {...props} />;
   if (id === "verikora") return <VerikoraLogo {...props} />;

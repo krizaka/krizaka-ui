@@ -22,8 +22,8 @@ export function total<T extends Datum>(rows: readonly T[], accessor: Accessor<T,
  */
 export function lastChange(values: readonly (number | null)[]): number | null {
   if (values.length < 2) return null;
-  const last = values[values.length - 1];
-  const previous = values[values.length - 2];
+  const last = values.at(-1);
+  const previous = values.at(-2);
   if (last == null || previous == null || previous === 0) return null;
   return last / previous - 1;
 }
@@ -62,7 +62,7 @@ export function quotaLevel(ratio: number, warning = 0.8, danger = 0.95): "ok" | 
 
 /** Replaces `{name}` placeholders. */
 export function fillIn(template: string, values: Record<string, string | number>): string {
-  return template.replace(/\{(\w+)\}/g, (match, key: string) => (key in values ? String(values[key]) : match));
+  return template.replaceAll(/\{(\w+)\}/g, (match, key: string) => (key in values ? String(values[key]) : match));
 }
 
 /** A signed ratio as a percentage for a change (`+12 %`, `−3 %`), in the locale's way. */

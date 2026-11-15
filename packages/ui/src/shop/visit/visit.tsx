@@ -27,7 +27,7 @@ export type VisitSectionProps = Omit<React.ComponentProps<"section">, "title"> &
 };
 
 /** Where and when: hours, address, call, and the place on a map. */
-export function VisitSection({ variant = "card", title, hours, today, status, hoursLabel, address, phone, map, className, ...props }: VisitSectionProps) {
+export function VisitSection({ variant = "card", title, hours, today, status, hoursLabel, address, phone, map, className, ...props }: Readonly<VisitSectionProps>) {
   const details = (
     <div className="flex flex-col gap-2 text-sm text-fg-secondary">
       {address && <p className="m-0">{address}</p>}

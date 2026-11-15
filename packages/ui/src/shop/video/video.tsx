@@ -43,7 +43,7 @@ export type VideoSectionProps = Omit<React.ComponentProps<"section">, "title"> &
 };
 
 /** The shop's videos: the old TV, or a strip of short reels behind a click. */
-export function VideoSection({ variant = "tv", title, lead, reels = [], clip, playLabels, notice, cabinet = "cabinet", channel, aside, className, ...props }: VideoSectionProps) {
+export function VideoSection({ variant = "tv", title, lead, reels = [], clip, playLabels, notice, cabinet = "cabinet", channel, aside, className, ...props }: Readonly<VideoSectionProps>) {
   const facade = (r: ShopReel, className?: string) => (
     <EmbedFacade key={r.id} platform={r.platform} url={r.url} title={r.title} playLabel={playLabels[r.platform]} poster={r.poster} notice={notice} className={className} />
   );

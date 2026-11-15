@@ -25,7 +25,7 @@ export type ReviewsSectionProps = Omit<React.ComponentProps<"section">, "title">
 };
 
 /** The score of the shop and what its clients wrote. */
-export function ReviewsSection({ variant = "summary-cards", title, summary, reviews, count = 2, minCount = 5, className, ...props }: ReviewsSectionProps) {
+export function ReviewsSection({ variant = "summary-cards", title, summary, reviews, count = 2, minCount = 5, className, ...props }: Readonly<ReviewsSectionProps>) {
   if (summary.count < Math.max(1, minCount) || reviews.length === 0) return null;
   const shown = reviews.slice(0, count);
   if (variant === "strip") {

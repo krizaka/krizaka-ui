@@ -33,7 +33,7 @@ export function stuckTilt(seed: string, tilt?: number): number {
 }
 
 /** A block stuck into the notebook: held by tape, a pin, photo corners or glue; tilted from data; a hard paper shadow. */
-export function Stuck({ children, hold = "tape", tilt, seed = "", doodle, as: Tag = "div", className, style, ...props }: StuckProps) {
+export function Stuck({ children, hold = "tape", tilt, seed = "", doodle, as: Tag = "div", className, style, ...props }: Readonly<StuckProps>) {
   return (
     <Tag className={cn("kz-stuck", className)} style={style} {...props}>
       <div className="kz-stuck-body" data-hold={hold} style={{ ["--kz-stuck-tilt" as string]: `${stuckTilt(seed, tilt)}deg` }}>

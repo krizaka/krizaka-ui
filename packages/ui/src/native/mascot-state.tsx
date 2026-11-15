@@ -50,7 +50,7 @@ function useArrival(animated: boolean) {
  * A moment told by a bird of the flock — an empty list, a long wait, a success, an error, a welcome — for React Native.
  * Announced: `alert` for an error, a polite live region otherwise (`busy` while thinking).
  */
-export function MascotState({ bird = "owl", mood = "empty", title, description, action, size = "md", layout = "stacked", tone, animated = true, style, ...props }: MascotStateProps) {
+export function MascotState({ bird = "owl", mood = "empty", title, description, action, size = "md", layout = "stacked", tone, animated = true, style, ...props }: Readonly<MascotStateProps>) {
   const opacity = useArrival(animated);
   const inline = layout === "inline";
   return (
@@ -80,13 +80,13 @@ export function MascotState({ bird = "owl", mood = "empty", title, description, 
 type PresetProps = Omit<MascotStateProps, "mood">;
 
 /** It failed: what went wrong and what to do. */
-export const ErrorState = (props: PresetProps) => <MascotState mood="error" {...props} />;
+export const ErrorState = (props: Readonly<PresetProps>) => <MascotState mood="error" {...props} />;
 /** It is done: a payment, a verification, a delivery. */
-export const SuccessState = (props: PresetProps) => <MascotState mood="success" {...props} />;
+export const SuccessState = (props: Readonly<PresetProps>) => <MascotState mood="success" {...props} />;
 /** A long task runs: what runs, beside the bird. */
-export const LoadingState = (props: PresetProps) => <MascotState mood="thinking" {...props} />;
+export const LoadingState = (props: Readonly<PresetProps>) => <MascotState mood="thinking" {...props} />;
 /** A first screen, an onboarding step. */
-export const WelcomeState = (props: PresetProps) => <MascotState mood="welcome" {...props} />;
+export const WelcomeState = (props: Readonly<PresetProps>) => <MascotState mood="welcome" {...props} />;
 
 const styles = StyleSheet.create({
   stacked: { alignItems: "center", justifyContent: "center", gap: 12, paddingVertical: 40, paddingHorizontal: 24 },

@@ -64,7 +64,7 @@ export function correlation(points: readonly { x: number; y: number }[]): number
   return sxx && syy ? sxy / Math.sqrt(sxx * syy) : null;
 }
 
-export function ScatterChart<T extends Datum>(props: ScatterChartProps<T>) {
+export function ScatterChart<T extends Datum>(props: Readonly<ScatterChartProps<T>>) {
   const { data, x, y, size, group, name, xFormat, yFormat, sizeFormat, xLabel, yLabel, sizeLabel, thresholds = [] } = props;
   const { locale, labels } = useSettings(props);
   const fmt = useMemo(

@@ -105,7 +105,7 @@ export function categoryAxis(theme: ResolvedTheme, data: readonly string[]): Rec
   };
 }
 
-const escape = (text: string) => text.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
+const escape = (text: string) => text.replaceAll(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
 
 /** The tooltip's content in the package's markup (`kzc-tip-*`): a title, rows of key · name · value, a note. */
 export function tooltipHtml(title: string | undefined, rows: readonly { label: string; value: string; color?: string }[], note?: string): string {

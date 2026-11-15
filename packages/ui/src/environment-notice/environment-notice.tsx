@@ -31,7 +31,7 @@ export type EnvironmentNoticeProps = Omit<React.ComponentProps<"div">, "title" |
   linkAs?: React.ElementType;
 };
 
-export function EnvironmentNotice({ stage, title, message, link, linkAs, className, ...props }: EnvironmentNoticeProps) {
+export function EnvironmentNotice({ stage, title, message, link, linkAs, className, ...props }: Readonly<EnvironmentNoticeProps>) {
   const content = environmentNotice({ stage, title, message, link });
   if (!content) return null;
   const s = environmentNoticeStyles();

@@ -10,8 +10,6 @@ import { typeScale } from "@krizaka/tokens";
 import { BRAND_PAGE, MOBILE_PAGE, PLATFORMS_PAGE, TEMPLATE_PAGE, templatePurposeSlug } from "@/lib/ui-ia";
 import { getRegistryIndex, getRegistryItems, type RegistryExample, type RegistryIndex, type RegistryItem, type TemplatePurpose } from "@/lib/ui-registry";
 
-export { fonts, glyphIndex, iconGroups, iconGuidelines, rules, typeScale };
-
 /** The generated pages of ui.krizaka.com that no MDX file writes: two foundations, the templates (all, then one page per
     intent: `templates/<purpose>`), the mobile parity and the brand marks — by slug. */
 export const TYPOGRAPHY_PAGE = "foundations/typography";
@@ -44,7 +42,7 @@ export function iconEntries(): IconEntry[] {
   return Object.entries(glyphIndex).map(([name, entry]) => ({ name, component: entry.component, group: entry.group, keywords: entry.keywords }));
 }
 
-const plain = (text: string) => text.replace(/`/g, "");
+const plain = (text: string) => text.replaceAll('`', "");
 
 /** A template, with the component it is an example of: the page it is shown on and the code it is copied from. */
 export interface TemplateEntry {
@@ -94,3 +92,7 @@ export function foundationStructuredData(page: Foundation) {
         ];
   return { headings: [], contents: contents.map((content) => ({ heading: undefined, content: plain(content) })) };
 }
+
+export { fonts, rules } from "@krizaka/fonts";
+export { glyphIndex, iconGroups, iconGuidelines } from "@krizaka/icons/glyphs";
+export { typeScale } from "@krizaka/tokens";

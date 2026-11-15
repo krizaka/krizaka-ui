@@ -125,7 +125,7 @@ export interface PriceCatalogueEditorProps extends Omit<React.ComponentProps<"se
   headingLevel?: 2 | 3 | 4;
 }
 
-const fill = (template: string, vars: Record<string, string | number>) => template.replace(/\{(\w+)\}/g, (_, name: string) => String(vars[name] ?? ""));
+const fill = (template: string, vars: Record<string, string | number>) => template.replaceAll(/\{(\w+)\}/g, (_, name: string) => String(vars[name] ?? ""));
 
 const TONES: Record<string, "success" | "accent" | "warning"> = { public: "success", "founder-limited": "accent", preparing: "warning" };
 const availabilityTone = (id: string) => TONES[id] ?? "neutral";
@@ -205,7 +205,7 @@ function EntryForm({ entry, prices, words, locale, today, onSchedule, onDone }: 
           {limitKeys.map((key) => (
             <Field.Root key={key}>
               <Field.Label htmlFor={`${id}-limit-${key}`}>{words.limitNames?.[key] ?? key}</Field.Label>
-              <Input id={`${id}-limit-${key}`} inputMode="numeric" pattern="[0-9]*" value={limits[key] ?? ""} onChange={(e) => setLimits({ ...limits, [key]: e.target.value.replace(/\D/g, "") })} />
+              <Input id={`${id}-limit-${key}`} inputMode="numeric" pattern="[0-9]*" value={limits[key] ?? ""} onChange={(e) => setLimits({ ...limits, [key]: e.target.value.replaceAll(/\D/g, "") })} />
             </Field.Root>
           ))}
         </fieldset>

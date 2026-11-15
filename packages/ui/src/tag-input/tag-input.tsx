@@ -58,7 +58,7 @@ export function TagInput({
   error,
   labels,
   ...props
-}: TagInputProps) {
+}: Readonly<TagInputProps>) {
   const [tags, setTags] = useControllable<readonly string[]>(value, defaultValue, onValueChange as (next: readonly string[]) => void);
   const [refusal, setRefusal] = React.useState<string | null>(null);
 

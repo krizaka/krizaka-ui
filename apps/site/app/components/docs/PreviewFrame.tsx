@@ -12,7 +12,7 @@ import { useI18n } from "../I18nProvider";
    pressed the stage follows the page's theme by inheritance, and CSS shows the right glyph (html.light): the frame reads
    no theme hook, so nothing re-renders it before its example (LiveExample) has hydrated — an update there made React
    throw the server's HTML away and render every example again (tests/route-weight.test.mjs). */
-export function PreviewFrame({ label, code, children, stageClassName = "" }: { label: string; code: ReactNode; children: ReactNode; stageClassName?: string }) {
+export function PreviewFrame({ label, code, children, stageClassName = "" }: Readonly<{ label: string; code: ReactNode; children: ReactNode; stageClassName?: string }>) {
   const { t } = useI18n();
   const text = t.docs.preview;
   const [frameTheme, setFrameTheme] = useState<"light" | "dark" | null>(null);

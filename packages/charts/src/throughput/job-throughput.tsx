@@ -37,7 +37,7 @@ export function JobThroughput<T extends Datum>({
   description,
   data,
   ...props
-}: JobThroughputProps<T>) {
+}: Readonly<JobThroughputProps<T>>) {
   const words = { ...THROUGHPUT_LABELS, ...given };
   const { locale } = useSettings(props as CartesianProps<T>);
   const series = useMemo<SeriesSpec<T>[]>(

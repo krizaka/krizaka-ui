@@ -25,7 +25,7 @@ export type PhotoProps = Omit<React.ComponentProps<"div">, "children"> & {
 };
 
 /** A photo in a fixed-ratio box; the look preset's grade and radius apply (`data-shop-photo`). */
-export function Photo({ photo, ratio, sizes, priority, className, ...props }: PhotoProps) {
+export function Photo({ photo, ratio, sizes, priority, className, ...props }: Readonly<PhotoProps>) {
   return (
     <div data-shop-photo="" data-ratio={ratio} className={cn("relative w-full overflow-hidden bg-media", RATIOS[ratio], className)} {...props}>
       <img

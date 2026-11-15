@@ -37,7 +37,7 @@ export type BadgeProps = ViewProps & {
 };
 
 /** A short status in capitals: a tone, a size, an optional (pulsing) dot. */
-export function Badge({ tone = "neutral", size = "sm", dot, pulse, style, children, ...props }: BadgeProps) {
+export function Badge({ tone = "neutral", size = "sm", dot, pulse, style, children, ...props }: Readonly<BadgeProps>) {
   const { theme } = useTheme();
   const colors = look(tone, size, theme);
   const reduce = useReducedMotion();

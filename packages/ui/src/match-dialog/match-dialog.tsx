@@ -32,7 +32,7 @@ export type MatchDialogProps = {
  * Two people choose each other: the avatars meet at a heart in the brand gradient, the next step under them.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function MatchDialog({ open, onOpenChange, title, description, people, primaryLabel, onPrimary, secondaryLabel, container }: MatchDialogProps) {
+export function MatchDialog({ open, onOpenChange, title, description, people, primaryLabel, onPrimary, secondaryLabel, container }: Readonly<MatchDialogProps>) {
   warnDeprecated("match-dialog");
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>

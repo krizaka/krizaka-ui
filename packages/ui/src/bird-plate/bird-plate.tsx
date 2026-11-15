@@ -44,7 +44,7 @@ export type BirdPlateProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & 
 };
 
 /** A naturalist's plate of the flock: numbered figures, a leader line from each bird to its caption, its promise. */
-export function BirdPlate({ title, subtitle, figures, start = 1, figureLabel = "fig.", separator = " · ", layout = "grid", animated = false, className, ...props }: BirdPlateProps) {
+export function BirdPlate({ title, subtitle, figures, start = 1, figureLabel = "fig.", separator = " · ", layout = "grid", animated = false, className, ...props }: Readonly<BirdPlateProps>) {
   const single = layout === "single";
   // A figure keys on its bird and on how many figures before it show that bird: unique even when a bird repeats.
   const seen = new Map<string, number>();

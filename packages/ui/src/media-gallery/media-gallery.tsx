@@ -38,12 +38,12 @@ export type MediaGalleryProps = Omit<React.ComponentProps<"ul">, "children"> & {
   label: string;
 };
 
-function Tile({ item, featured }: { item: GalleryMedia; featured: boolean }) {
+function Tile({ item, featured }: Readonly<{ item: GalleryMedia; featured: boolean }>) {
   const ref = React.useRef<HTMLLIElement>(null);
   const [play, setPlay] = React.useState(false);
   React.useEffect(() => {
     const node = ref.current;
-    if (!item.video || !node || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!item.video || !node || globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const io = new IntersectionObserver(([entry]) => setPlay(Boolean(entry?.isIntersecting)), { rootMargin: "120px" });
     io.observe(node);
     return () => io.disconnect();
@@ -65,7 +65,7 @@ function Tile({ item, featured }: { item: GalleryMedia; featured: boolean }) {
 }
 
 /** Photos and loops in tiles, the first featured; loops play while seen. */
-export function MediaGallery({ items, label, className, ...props }: MediaGalleryProps) {
+export function MediaGallery({ items, label, className, ...props }: Readonly<MediaGalleryProps>) {
   return (
     <ul aria-label={label} className={s.root({ className })} {...props}>
       {items.map((item, i) => (

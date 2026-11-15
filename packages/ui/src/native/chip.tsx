@@ -51,7 +51,7 @@ export type ChipProps = ToggleChipProps | RemovableChipProps;
 
 const RECIPE = nativeRecipe(chipRecipe);
 
-function Label({ children, color, fontSize }: { children: React.ReactNode; color: string; fontSize: number }) {
+function Label({ children, color, fontSize }: Readonly<{ children: React.ReactNode; color: string; fontSize: number }>) {
   // A text child is drawn in the chip's face; a node (an icon, a tag's marker) is left as it is, so both can sit together.
   return (
     <>
@@ -63,7 +63,7 @@ function Label({ children, color, fontSize }: { children: React.ReactNode; color
 }
 
 /** A selectable pill (`selected` / `onSelectedChange`), an item of `Chip.Group` (`value`), or `removable`. */
-function ChipBase(props: ChipProps) {
+function ChipBase(props: Readonly<ChipProps>) {
   const group = React.useContext(ChipGroupContext);
   const { theme, radius } = useTheme();
   const [own, setOwn] = React.useState(props.removable ? false : (props.defaultSelected ?? false));
@@ -140,7 +140,7 @@ export type ChipGroupProps =
   | (GroupBase & { type: "multiple"; value?: string[]; defaultValue?: string[]; onValueChange?: (value: string[]) => void });
 
 /** A set of chips: `single` (one value, a radio group; pressing the chosen chip keeps it) or `multiple` (toggles). */
-function ChipGroup(props: ChipGroupProps) {
+function ChipGroup(props: Readonly<ChipGroupProps>) {
   const { size, disabled, scrollable, "aria-label": label, style, children } = props;
   const initial = props.type === "single" ? (props.defaultValue ?? "") : (props.defaultValue ?? []);
   const [own, setOwn] = React.useState<string | string[]>(initial);

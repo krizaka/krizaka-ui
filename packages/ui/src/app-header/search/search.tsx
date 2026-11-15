@@ -41,7 +41,7 @@ export type AppHeaderSearchProps = Omit<React.ComponentProps<"button">, "childre
 };
 
 /** The top bar's search trigger: a field from `md`, an icon below; it opens the host's palette, also on ⌘K. */
-export function AppHeaderSearch({ label, onOpen, shortcut = "k", className, type, ...props }: AppHeaderSearchProps) {
+export function AppHeaderSearch({ label, onOpen, shortcut = "k", className, type, ...props }: Readonly<AppHeaderSearchProps>) {
   const [apple, setApple] = React.useState(true);
   const open = React.useRef(onOpen);
   React.useEffect(() => {

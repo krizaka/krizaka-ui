@@ -26,7 +26,7 @@ export type MarketingLayoutProps = React.ComponentProps<"div"> & {
 };
 
 /** A site's page: skip link, floating bar, the page, the footer. */
-export function MarketingLayout({ header, footer, skipLabel, className, children, ...props }: MarketingLayoutProps) {
+export function MarketingLayout({ header, footer, skipLabel, className, children, ...props }: Readonly<MarketingLayoutProps>) {
   return (
     <div className={s.root({ className })} {...props}>
       <SkipLink>{skipLabel}</SkipLink>

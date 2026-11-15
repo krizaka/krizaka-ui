@@ -47,7 +47,7 @@ export interface CandlestickProps<T extends Datum> extends ChartFrameProps, Engi
 
 const DEFAULT_COLUMNS = { open: "Open", high: "High", low: "Low", close: "Close", volume: "Volume" };
 
-export function Candlestick<T extends Datum>(props: CandlestickProps<T>) {
+export function Candlestick<T extends Datum>(props: Readonly<CandlestickProps<T>>) {
   const { data, x, open, high, low, close, volume, format, volumeFormat = "compact", xFormat, thresholds = [], zoom, columnLabels = DEFAULT_COLUMNS } = props;
   const { locale, labels } = useSettings(props);
   const fmt = useMemo(
@@ -74,7 +74,7 @@ export function Candlestick<T extends Datum>(props: CandlestickProps<T>) {
   );
   const isEmpty = rows.length === 0;
   const first = rows[0];
-  const last = rows[rows.length - 1];
+  const last = rows.at(-1);
   const hi = Math.max(...rows.map((r) => r.h));
   const lo = Math.min(...rows.map((r) => r.l));
   const change = first && last && first.o ? last.c / first.o - 1 : null;

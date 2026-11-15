@@ -9,7 +9,6 @@ import { TAG_MARKERS } from "../chip/markers";
 import { Chip, type ChipProps } from "./chip";
 import { type Theme, useTheme } from "./theme";
 
-export { TAG_MARKERS };
 /** One of the six names of the closed palette — the web's (`@krizaka/organize` `MARKERS`; a test keeps the two equal). */
 export type Marker = (typeof TAG_MARKERS)[number];
 export type MarkerShape = "dot" | "ribbon";
@@ -37,7 +36,7 @@ export function TagMarker({ marker, shape = "dot", style }: Readonly<TagMarkerPr
 export type TagChipProps = ChipProps & { marker: Marker; shape?: MarkerShape };
 
 /** A tag: its marker and its name — a `Chip` (alone a toggle, in a group an item, or `removable`). */
-export function TagChip({ marker, shape, children, ...props }: TagChipProps) {
+export function TagChip({ marker, shape, children, ...props }: Readonly<TagChipProps>) {
   return (
     <Chip {...(props as ChipProps)}>
       <TagMarker marker={marker} shape={shape} />
@@ -106,3 +105,5 @@ const styles = StyleSheet.create({
   swatch: { width: 40, height: 40, borderRadius: 20, borderWidth: 2, alignItems: "center", justifyContent: "center" },
   disabled: { opacity: 0.4 },
 });
+
+export { TAG_MARKERS } from "../chip/markers";

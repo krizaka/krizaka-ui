@@ -25,7 +25,7 @@ export type WheelPickerProps = {
 };
 
 /** The frame of one or several wheels: a raised surface, the lit band across them — the web `WheelPicker`. */
-export function WheelPicker({ label, children, visible = 5, invalid, unset = false, style }: WheelPickerProps) {
+export function WheelPicker({ label, children, visible = 5, invalid, unset = false, style }: Readonly<WheelPickerProps>) {
   const { theme, radius } = useTheme();
   return (
     <FrameContext.Provider value={React.useMemo(() => ({ visible, unset }), [visible, unset])}>
@@ -42,7 +42,7 @@ export function WheelPicker({ label, children, visible = 5, invalid, unset = fal
 }
 
 /** A divider between two wheels (`:` between the hours and the minutes). */
-export function WheelDivider({ children }: { children: string }) {
+export function WheelDivider({ children }: Readonly<{ children: string }>) {
   const { theme } = useTheme();
   return (
     <Text aria-hidden style={[styles.divider, { color: theme.textSecondary }]}>

@@ -63,7 +63,7 @@ const words = (value: unknown): string[] => (typeof value === "string" ? value.s
 export function withAlpha(color: string, opacity: number): string {
   const hex = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(color);
   if (!hex) return color;
-  const [r, g, b] = hex.slice(1).map((part) => parseInt(part, 16));
+  const [r, g, b] = hex.slice(1).map((part) => Number.parseInt(part, 16));
   return `rgba(${r},${g},${b},${opacity})`;
 }
 

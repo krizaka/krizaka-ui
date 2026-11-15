@@ -20,7 +20,7 @@ export type SkeletonProps = KzSkeletonProps & {
  * @param props - {@link SkeletonProps}
  * @returns A loading placeholder.
  */
-export function Skeleton({ variant, shape, width, height, style, ...props }: SkeletonProps) {
+export function Skeleton({ variant, shape, width, height, style, ...props }: Readonly<SkeletonProps>) {
   const sized = width || height ? { width, height, ...style } : style;
   return <KzSkeleton shape={shape ?? variant ?? "rect"} style={sized} {...props} />;
 }

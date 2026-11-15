@@ -41,7 +41,7 @@ export type SelectionBarProps = Omit<React.ComponentProps<"div">, "children"> & 
 };
 
 /** The count, the product's bulk actions, « Clear selection » and the result of the last change — sticky, docked on a phone. */
-export function SelectionBar({ count, children, onClear, max, result, labels: given, className, ...props }: SelectionBarProps) {
+export function SelectionBar({ count, children, onClear, max, result, labels: given, className, ...props }: Readonly<SelectionBarProps>) {
   const labels = { ...selectionBarLabels, ...given };
   const over = max !== undefined && count > max;
   // The live region exists before its text changes, so a screen reader hears the count and the result.

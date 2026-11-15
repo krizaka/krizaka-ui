@@ -71,7 +71,7 @@ export type StepperProps = Omit<React.ComponentProps<"ol">, "children"> & {
 };
 
 /** An ordered list of steps: `aria-current="step"` on the current one, each state said in words. */
-export function Stepper({ steps, current = 0, labels, orientation = "vertical", className, ...props }: StepperProps) {
+export function Stepper({ steps, current = 0, labels, orientation = "vertical", className, ...props }: Readonly<StepperProps>) {
   const s = stepper({ orientation });
   return (
     <ol className={s.root({ className })} data-orientation={orientation} {...props}>

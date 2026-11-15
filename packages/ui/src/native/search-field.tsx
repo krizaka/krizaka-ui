@@ -35,7 +35,7 @@ export type SearchFieldProps = Omit<TextInputProps, "value" | "defaultValue" | "
  * A search box: the glyph, the input with the keyboard's search key, a clear button, and a debounced `onSearch` —
  * the web `SearchField` without the shortcut and the suggestions (a screen of results is the native idiom).
  */
-export function SearchField({ label, value, defaultValue = "", onValueChange, onSearch, debounce = 300, onSubmit, clearLabel, cancelLabel, onCancel, style, placeholder, onFocus, onBlur, ...props }: SearchFieldProps) {
+export function SearchField({ label, value, defaultValue = "", onValueChange, onSearch, debounce = 300, onSubmit, clearLabel, cancelLabel, onCancel, style, placeholder, onFocus, onBlur, ...props }: Readonly<SearchFieldProps>) {
   const [focused, setFocused] = React.useState(false);
   const input = React.useRef<TextInput>(null);
   const { theme, radius } = useTheme();

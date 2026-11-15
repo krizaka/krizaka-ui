@@ -59,7 +59,7 @@ export type ArgumentCardProps = Omit<React.HTMLAttributes<HTMLElement>, "title">
  * the problem in one line → compact facts → one short action. What it does, the bird's rule and the long version are
  * never on the face: they live on the detail page (`more`) or in the card unfolded in place (`panelLabel`).
  */
-export function ArgumentCard({ id, title, icon, meta, mark, facts, hook, points, rule, details, panelLabel, more, actions, level = 3, linkAs, hover, className, ...props }: ArgumentCardProps) {
+export function ArgumentCard({ id, title, icon, meta, mark, facts, hook, points, rule, details, panelLabel, more, actions, level = 3, linkAs, hover, className, ...props }: Readonly<ArgumentCardProps>) {
   const H = `h${level}` as "h2" | "h3" | "h4";
   const fold = !more && panelLabel && (points || rule || (details && details.length > 0));
   return (

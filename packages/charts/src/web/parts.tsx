@@ -50,7 +50,7 @@ export interface LegendProps {
  * The legend: a key in the series' colour beside its name in the text colour. Shown from two series. With `onToggle`
  * the chips are buttons that filter the chart (`aria-pressed`); the last visible one cannot be switched off.
  */
-export function Legend({ items, off, onToggle, toggleName, always }: LegendProps) {
+export function Legend({ items, off, onToggle, toggleName, always }: Readonly<LegendProps>) {
   if (items.length < 2 && !always) return null;
   const live = items.filter((item) => !off?.has(item.label)).length;
   return (
@@ -130,7 +130,7 @@ export interface TooltipProps {
 }
 
 /** The rich tooltip: a title (the category), one row per series (key, name, value), an optional note. */
-export function Tooltip({ x, y, width, title, rows, note }: TooltipProps) {
+export function Tooltip({ x, y, width, title, rows, note }: Readonly<TooltipProps>) {
   const flip = x > width / 2;
   return (
     <div className="kzc-tip" aria-hidden style={{ left: flip ? x - 12 : x + 12, top: Math.max(0, y - 12), transform: flip ? "translateX(-100%)" : undefined }}>
@@ -154,7 +154,7 @@ export function Tooltip({ x, y, width, title, rows, note }: TooltipProps) {
 export const stepColor = (i: number, n: number) => `color-mix(in oklab, var(--kzc-1) ${Math.round(22 + (78 * i) / Math.max(1, n - 1))}%, var(--kz-surface-1))`;
 
 /** The legend of a sequential scale: its lowest value, the steps from near the surface to the full hue, its highest. */
-export function RampLegend({ min, max, steps, write }: { min: number; max: number; steps: number; write: (v: number) => string }) {
+export function RampLegend({ min, max, steps, write }: Readonly<{ min: number; max: number; steps: number; write: (v: number) => string }>) {
   return (
     <div className="kzc-legend" aria-hidden>
       <span>{write(min)}</span>

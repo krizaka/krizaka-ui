@@ -82,7 +82,7 @@ export type RadioGroupRootProps = React.ComponentProps<typeof RadioGroupPrimitiv
 };
 
 /** `value`/`defaultValue` + `onValueChange`, `orientation`, `required`, `name` for a form, `variant` for the layout. */
-export function RadioGroupRoot({ label, invalid, variant = "list", className, routeKey, routeValues, ...rest }: RadioGroupRootProps) {
+export function RadioGroupRoot({ label, invalid, variant = "list", className, routeKey, routeValues, ...rest }: Readonly<RadioGroupRootProps>) {
   const props = useRouteBinding(routeKey, routeValues, rest);
   const { ref } = useSlidingIndicator<HTMLDivElement>({ item: "[role=radio]", active: "[role=radio][data-state=checked]" });
   const segmented = variant === "segmented";
@@ -106,7 +106,7 @@ export type RadioGroupItemProps = Omit<React.ComponentProps<typeof RadioGroupPri
 };
 
 /** A radio: a dot, and its words when given. */
-export function RadioGroupItem({ className, children, ...props }: RadioGroupItemProps) {
+export function RadioGroupItem({ className, children, ...props }: Readonly<RadioGroupItemProps>) {
   const item = (
     <RadioGroupPrimitive.Item className={s.item({ className: children ? "mt-0.5" : className })} {...props}>
       <RadioGroupPrimitive.Indicator className={s.dot()} />
@@ -122,7 +122,7 @@ export function RadioGroupItem({ className, children, ...props }: RadioGroupItem
 }
 
 /** A whole card as the radio: its content is the radio's name; its check lights up when chosen. */
-export function RadioGroupCard({ className, children, ...props }: React.ComponentProps<typeof RadioGroupPrimitive.Item>) {
+export function RadioGroupCard({ className, children, ...props }: Readonly<React.ComponentProps<typeof RadioGroupPrimitive.Item>>) {
   return (
     <RadioGroupPrimitive.Item className={s.card({ className })} {...props}>
       {children}
@@ -141,7 +141,7 @@ export type RadioGroupButtonProps = React.ComponentProps<typeof RadioGroupPrimit
 };
 
 /** A tactile key: raised on its ledge, pressed in while held and once chosen — sizes, a tip, a level. */
-export function RadioGroupButton({ className, children, hint, ...props }: RadioGroupButtonProps) {
+export function RadioGroupButton({ className, children, hint, ...props }: Readonly<RadioGroupButtonProps>) {
   return (
     <RadioGroupPrimitive.Item className={s.button({ className: ["group", className].filter(Boolean).join(" ") })} {...props}>
       <span>{children}</span>
@@ -151,7 +151,7 @@ export function RadioGroupButton({ className, children, hint, ...props }: RadioG
 }
 
 /** A segment of a `variant="segmented"` group: equal widths, one light gliding to the choice. */
-export function RadioGroupSegment({ className, ...props }: React.ComponentProps<typeof RadioGroupPrimitive.Item>) {
+export function RadioGroupSegment({ className, ...props }: Readonly<React.ComponentProps<typeof RadioGroupPrimitive.Item>>) {
   return <RadioGroupPrimitive.Item className={s.segment({ className })} {...props} />;
 }
 

@@ -15,7 +15,7 @@ export type StyledTextProps<T extends React.ElementType = "p"> = {
 } & Omit<React.ComponentPropsWithoutRef<T>, "as" | "value" | "className" | "style" | "children">;
 
 /** A text role drawn from a `TextStyle`: its font, size, weight, spacing, alignment, case and tone, all from CSS variables. */
-export function StyledText<T extends React.ElementType = "p">({ as, value, className, children, ...rest }: StyledTextProps<T>) {
+export function StyledText<T extends React.ElementType = "p">({ as, value, className, children, ...rest }: Readonly<StyledTextProps<T>>) {
   const Tag: React.ElementType = as ?? "p";
   const props = textStyleProps(value);
   return (

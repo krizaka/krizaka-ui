@@ -42,7 +42,7 @@ export function LatencyChart<T extends Datum>({
   description,
   data,
   ...props
-}: LatencyChartProps<T>) {
+}: Readonly<LatencyChartProps<T>>) {
   const words = { ...LATENCY_LABELS, ...given };
   const { locale } = useSettings(props as CartesianProps<T>);
   const series = useMemo<SeriesSpec<T>[]>(

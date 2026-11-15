@@ -43,7 +43,7 @@ export type AppHeaderCountProps = Omit<React.ComponentProps<"button">, "children
 };
 
 /** An icon button or link of the top bar with an unread count, the count announced in its name. */
-export function AppHeaderCount({ label, icon, count, countLabel, max = 99, href, linkAs, current, className, type, ...props }: AppHeaderCountProps) {
+export function AppHeaderCount({ label, icon, count, countLabel, max = 99, href, linkAs, current, className, type, ...props }: Readonly<AppHeaderCountProps>) {
   const text = countText(count, max);
   const shared = {
     ...props,

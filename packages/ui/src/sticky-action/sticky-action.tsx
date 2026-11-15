@@ -34,7 +34,7 @@ export type StickyActionProps = React.ComponentProps<"div"> & {
 };
 
 /** The one action of a page, held at the bottom edge of a phone — or, in `task` mode, of the form on every width. */
-export function StickyAction({ mode = "phone", summary, hideWhileVisible, className, children, ...props }: StickyActionProps) {
+export function StickyAction({ mode = "phone", summary, hideWhileVisible, className, children, ...props }: Readonly<StickyActionProps>) {
   const task = mode === "task";
   const [hidden, setHidden] = React.useState(false);
   React.useEffect(() => {

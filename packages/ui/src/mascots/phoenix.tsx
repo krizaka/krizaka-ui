@@ -34,8 +34,8 @@ const BRAND: PhoenixPalette = {
 };
 
 /** The phoenix: the comeback, beside the five birds of the flock (`Mascot`). Decorative unless titled. */
-export function Phoenix({ tone = "own", size = 120, animated = true, title, className, ...props }: PhoenixProps) {
-  const id = useId().replace(/[^a-zA-Z0-9_-]/g, "");
+export function Phoenix({ tone = "own", size = 120, animated = true, title, className, ...props }: Readonly<PhoenixProps>) {
+  const id = useId().replaceAll(/[^a-zA-Z0-9_-]/g, "");
   const p = tone === "brand" ? BRAND : PHOENIX_PALETTES.own;
   const a11y = title ? { role: "img", "aria-label": title } : { "aria-hidden": true };
   return (

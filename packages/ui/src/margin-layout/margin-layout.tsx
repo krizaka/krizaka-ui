@@ -19,7 +19,7 @@ export type MarginLayoutProps = Omit<React.ComponentProps<"ol">, "children"> & {
 };
 
 /** The list of numbered items. */
-export function MarginLayout({ className, children, ...props }: MarginLayoutProps) {
+export function MarginLayout({ className, children, ...props }: Readonly<MarginLayoutProps>) {
   return (
     <ol className={marginLayoutStyles().root({ className })} {...props}>
       {children}
@@ -37,7 +37,7 @@ export type MarginItemProps = Omit<React.ComponentProps<"li">, "children"> & {
 };
 
 /** One item: its number, its content and, optionally, its margin note. */
-export function MarginItem({ number, note, className, children, ...props }: MarginItemProps) {
+export function MarginItem({ number, note, className, children, ...props }: Readonly<MarginItemProps>) {
   const s = marginLayoutStyles();
   return (
     <li className={s.item({ className })} {...props}>

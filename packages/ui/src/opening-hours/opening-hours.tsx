@@ -55,7 +55,7 @@ export type OpeningHoursProps = Omit<React.ComponentProps<"details">, "children"
 };
 
 /** The weekly hours in one row — open now, closes at… — that unfolds into the week, today highlighted. */
-export function OpeningHours({ days, today, status, label, className, ...props }: OpeningHoursProps) {
+export function OpeningHours({ days, today, status, label, className, ...props }: Readonly<OpeningHoursProps>) {
   const todayHours = days.find((d) => d.id === today)?.hours;
   return (
     <details className={s.root({ className })} {...props}>

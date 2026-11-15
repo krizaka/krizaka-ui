@@ -11,7 +11,7 @@ import { marks } from "@krizaka/tokens/native";
  * mark gradient (`marks.verikora` of @krizaka/tokens): ink → indigo, ≥ 3:1 on the page surfaces of both themes.
  */
 /** The indigo end of the gradient: the halo and the pupils' breath. */
-const indigo = marks.verikora[marks.verikora.length - 1]![1];
+const indigo = marks.verikora.at(-1)![1];
 
 export const VERIKORA = {
   viewBox: "0 0 400 400",

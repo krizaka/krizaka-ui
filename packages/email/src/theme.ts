@@ -1,7 +1,5 @@
 import { BRAND_COLOURS, type BrandColours, type BrandId } from "./themes.generated";
 
-export { BRAND_COLOURS, type BrandColours, type BrandId };
-
 /**
  * Every brand an email can wear: Krizaka (the default) and one per product, generated from @krizaka/tokens.
  */
@@ -53,3 +51,5 @@ export function getTheme(id: BrandId = "krizaka", cdn: string = BRAND_CDN): Emai
     logo: { light: `${base}/brand/${id}/mark-light-256.png`, dark: `${base}/brand/${id}/mark-dark-256.png` },
   };
 }
+
+export { BRAND_COLOURS, type BrandColours, type BrandId } from "./themes.generated";

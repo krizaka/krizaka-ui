@@ -52,7 +52,7 @@ export type GalleryPageProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
  * A demo or a gallery: hero, filters, media in staggered columns, closing call.
  * @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0.
  */
-export function GalleryPage({ brand, back, eyebrow, title, lead, actions, filters, galleryLabel, items, closing, linkAs, className, children, ...props }: GalleryPageProps) {
+export function GalleryPage({ brand, back, eyebrow, title, lead, actions, filters, galleryLabel, items, closing, linkAs, className, children, ...props }: Readonly<GalleryPageProps>) {
   warnDeprecated("gallery-page");
   return (
     <div className={cn(brand && "brand-" + brand, className)} {...props}>

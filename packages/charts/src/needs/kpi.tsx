@@ -17,7 +17,7 @@ export interface KpiProps {
   readonly tone?: Tone;
 }
 
-export function Kpi({ value, label, delta, direction, tone = "neutral" }: KpiProps) {
+export function Kpi({ value, label, delta, direction, tone = "neutral" }: Readonly<KpiProps>) {
   return (
     <span className="kzc-kpi">
       <span className="kzc-kpi-value">{value}</span>

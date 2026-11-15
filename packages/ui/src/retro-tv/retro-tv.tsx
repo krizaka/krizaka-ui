@@ -56,7 +56,6 @@ const styles = `
 
 `;
 
-
 /** One programme of the playlist: an uploaded video (`src`) or, without `src`, a slot the host fills with `renderEmbed`. */
 export interface RetroTvSource {
   id: string;
@@ -134,7 +133,7 @@ export function RetroTv({
   const root = React.useRef<HTMLDivElement>(null);
   const [powered, setPowered] = React.useState(false);
   const reducedMotion = usePrefersReducedMotion();
-  const uid = React.useId().replace(/[^a-zA-Z0-9_-]/g, "");
+  const uid = React.useId().replaceAll(/[^a-zA-Z0-9_-]/g, "");
   const noiseId = `${uid}-noise`;
   const glassId = `${uid}-glass`;
   const shineId = `${uid}-shine`;
