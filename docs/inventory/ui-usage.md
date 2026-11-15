@@ -14,7 +14,7 @@ an entry with itself over time, not with its budget).
 
 | Domain | Entries not retired | gzip sum (kB) | size-limit budgets sum (kB) |
 | :-- | --: | --: | --: |
-| Foundations | 25 | 60.2 | 115.0 |
+| Foundations | 25 | 60.3 | 115.0 |
 | Forms | 14 | 88.9 | 203.0 |
 | Data display | 12 | 78.3 | 75.5 |
 | Navigation & shell | 32 | 191.7 | 229.2 |
@@ -37,7 +37,7 @@ an entry with itself over time, not with its budget).
 | `.` | Foundations | — | Yo 7 Ak 4 Oz 8 www 12 blog 5 ui 3 java 1 ts 1 motion 4 cockpit 3 | — | — | 8.1 / 8.0 | — | — | — | **keep** | 44 live importer file(s) |
 | `badge` | Foundations | stable | Yo 44 Ak 35 Oz 31 www 1 ui 2 motion 4 cockpit 10 (native: Yo 4 Ak 5) | — | 9 | 1.1 / 1.0 | 1 | 2 | 2026-11-15 | **keep** | 132 live importer file(s) |
 | `button` | Foundations | stable | Yo 54 Ak 58 Oz 92 www 8 blog 14 ui 10 java 3 ts 2 motion 17 cockpit 9 (native: Yo 5 Ak 11 blog 2 ui 2) | — | 30 | 3.7 / 3.3 | 1 | 2 | 2026-11-15 | **keep** | 270 live importer file(s) |
-| `button/text-link` | Foundations | — | — | — | 30 | — / — | 1 | 2 | 2026-11-15 | **keep** | built on by action-bar, analysis-report, captcha… |
+| `button/text-link` | Foundations | — | — | — | 30 | 0.2 / — | 1 | 2 | 2026-11-15 | **keep** | built on by action-bar, analysis-report, captcha… |
 | `card` | Foundations | stable | Yo 17 Ak 30 Oz 27 www 1 blog 1 ui 3 motion 4 cockpit 2 (native: Yo 7 Ak 8) | — | 2 | 2.1 / 3.0 | 1 | 2 | 2026-11-15 | **keep** | 96 live importer file(s) |
 | `chip` | Foundations | beta | Yo 4 Ak 3 Oz 3 www 2 ui 1 java 1 motion 4 (native: Yo 1 Ak 2) | — | 7 | 3.2 / 13.0 | 2 | 2 | 2026-11-15 | **keep** | 17 live importer file(s) |
 | `chip-link` | Foundations | beta | Yo 2 Ak 5 www 1 cockpit 2 | — | 2 | 0.8 / 2.0 | 1 | 1 | 2026-11-15 | **keep** | 10 live importer file(s) |

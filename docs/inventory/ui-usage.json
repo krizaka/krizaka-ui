@@ -639,7 +639,7 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": null,
+      "sizeGzip": 169,
       "budget": null,
       "tests": 1,
       "stories": 2,
