@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 4.9.0
+
+### Minor Changes
+
+- [#1035](https://github.com/krizaka/krizaka-ui/pull/1035) [`8e379ab`](https://github.com/krizaka/krizaka-ui/commit/8e379abeadd607cf44e8a14ce1e9c813335999b0) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(platform-bar): `PlatformBar` (`@krizaka/ui/platform-bar`) and `SiteFooter variant="hosted"` — the platform's strip above a page it hosts for a customer (its mark, one notice line merging the development band and the demo line, the language switch; static, server-only) and the one-line footer under it (the customer's legal links, then `madeWith`). krizaka-internal#3746.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@4.9.0
+  - @krizaka/tokens@4.9.0
+
 ## 4.8.0
 
 ### Minor Changes
