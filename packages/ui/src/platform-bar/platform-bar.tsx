@@ -30,7 +30,7 @@ export type PlatformBarNotice = {
   link?: { label: string; href: string };
 };
 
-export type PlatformBarProps = Omit<React.ComponentProps<"div">, "children" | "title"> & {
+export type PlatformBarProps = Omit<React.ComponentProps<"section">, "children" | "title"> & {
   /** The platform's name, the region's accessible name (« Folioviv »). Passed translated. */
   label: string;
   /** The platform's mark and name, usually one link home. */
@@ -45,7 +45,7 @@ export type PlatformBarProps = Omit<React.ComponentProps<"div">, "children" | "t
 export function PlatformBar({ label, brand, notice, end, className, ...props }: Readonly<PlatformBarProps>) {
   const s = platformBar();
   return (
-    <div role="region" aria-label={label} className={s.root({ className })} {...props}>
+    <section aria-label={label} className={s.root({ className })} {...props}>
       <div className={s.inner()}>
         <div className={s.brand()}>{brand}</div>
         {notice && (
@@ -67,6 +67,6 @@ export function PlatformBar({ label, brand, notice, end, className, ...props }: 
         )}
         {end && <div className={s.end()}>{end}</div>}
       </div>
-    </div>
+    </section>
   );
 }

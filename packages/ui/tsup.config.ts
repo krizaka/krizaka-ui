@@ -74,8 +74,6 @@ export default defineConfig([
       "quota-meter": "src/quota-meter/index.ts",
       // The « development version » band, driven by the deployment's stage.
       "environment-notice": "src/environment-notice/index.ts",
-      // The platform's strip above a page it hosts for a customer: server-only, no client code.
-      "platform-bar": "src/platform-bar/index.ts",
       // The clients' word on a shop: a score as a stamp, five meters, the review cards.
       reviews: "src/reviews/index.ts",
       "margin-layout": "src/margin-layout/index.ts",
@@ -392,7 +390,7 @@ export default defineConfig([
   {
     // Server — the form's server side (a Server Action re-validating with the form's schema): no React, no directive.
     ...shared,
-    entry: { "form/server": "src/form/server.ts", "text-style/server": "src/text-style/server.ts", "app-frame/server": "src/app-frame/server.ts", "button/text-link": "src/button/text-link.ts" },
+    entry: { "form/server": "src/form/server.ts", "text-style/server": "src/text-style/server.ts", "app-frame/server": "src/app-frame/server.ts", "button/text-link": "src/button/text-link.ts", "platform-bar": "src/platform-bar/index.ts" },
   },
   {
     // Server — the media guard of MediaCarousel (ADR-010 §4): pure rules and the ffmpeg adapter (its runner passed in), no React.
