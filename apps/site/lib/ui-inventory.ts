@@ -38,6 +38,7 @@ export const PLANNED: Record<string, string> = {
   "state-screen": `${MOBILE}: the empty, error and offline screens (krizaka-ui#753, #741).`,
   "desktop-window": "The Mac apps' window (Sovkora, Verikora, Folioviv; Tauri, ADR-002): three panes, the toolbar and the menu bar's commands (krizaka-ui#753).",
   "app-frame": "The one signed-in frame of Verikora, Folioviv and Sovkora (UX audit F1, F2; verikora#429, folioviv#396, sovkora-web#294).",
+  "platform-bar": "The platform's strip above a shop page it hosts for a customer: Folioviv's hosted storefronts (krizaka-internal#3746).",
   elephant: `${PAUSED}: the small flying elephant of the neighbour joke.`,
   "activity-feed": "Sovkora's job history (the adoption of Elements, PS-E).",
   captcha: "krizaka.com's contact form and the blog's newsletter form (the public forms, behind Cloudflare Turnstile).",

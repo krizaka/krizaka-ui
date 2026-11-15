@@ -6,7 +6,7 @@ Package: @krizaka/ui@4.7.1; sizes measured from packages/ui/dist (@krizaka/ui@4.
 Consumers: verikora f3b26763 · folioviv dd58a2d6 · sovkora-web 48b61699 · krizaka-com 30b70cec · blog e1c342f4 · ui-site · java-site abcedb11 · ts-site b252e48c · motion-lab dbb0339c · cockpit.
 Paused (counted apart): .
 
-Verdicts: keep 184 · retire 37 · merge 20 · ask 19.
+Verdicts: keep 184 · retire 37 · merge 20 · ask 20.
 
 Sizes: the gzip of an entry's own file and every chunk it pulls in (shared chunks are counted in each entry, so a sum
 over-counts); the budget is the entry's size-limit row in packages/ui/package.json (size-limit measures differently: compare
@@ -17,7 +17,7 @@ an entry with itself over time, not with its budget).
 | Foundations | 25 | 60.3 | 115.0 |
 | Forms | 14 | 88.9 | 203.0 |
 | Data display | 12 | 78.3 | 75.5 |
-| Navigation & shell | 31 | 190.6 | 229.2 |
+| Navigation & shell | 32 | 191.7 | 229.2 |
 | Feedback & overlays | 12 | 25.1 | 112.9 |
 | Geolocation & maps | 5 | 25.0 | 34.1 |
 | Media | 9 | 54.6 | 66.1 |
@@ -26,7 +26,7 @@ an entry with itself over time, not with its budget).
 | Abuse protection | 1 | 5.7 | 5.0 |
 | Conversation & AI | 7 | 74.8 | 39.3 |
 | Page blocks & templates | 33 | 66.3 | 125.7 |
-| Cahier (sites register) | 14 | 75.8 | 76.6 |
+| Cahier (sites register) | 14 | 76.0 | 76.6 |
 
 | Entry | Domain | Status | Live importers (files) | Paused | Built on by | gzip kB / budget | Tests | Stories | Last change | Verdict | Why |
 | :-- | :-- | :-- | :-- | :-- | --: | :-- | --: | --: | :-- | :-- | :-- |
@@ -109,7 +109,7 @@ an entry with itself over time, not with its budget).
 | `command` | Navigation & shell | beta | Yo 1 Ak 1 www 1 | — | — | 7.3 / 21.0 | 1 | 1 | 2026-11-15 | **keep** | 3 live importer file(s) |
 | `dashboard-layout` | Navigation & shell | beta | Ak 2 | — | — | 1.8 / 2.0 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
 | `desktop-window` | Navigation & shell | experimental | — | — | — | 4.2 / 3.5 | 1 | 1 | 2026-11-14 | **ask** | unused, new (2026-10-27): its adoption issue? |
-| `detail-layout` | Navigation & shell | beta | Yo 3 Ak 2 | — | 1 | 2.9 / 3.0 | 1 | 1 | 2026-11-15 | **keep** | 5 live importer file(s) |
+| `detail-layout` | Navigation & shell | beta | Yo 3 Ak 2 | — | 1 | 2.9 / 2.4 | 1 | 1 | 2026-11-15 | **keep** | 5 live importer file(s) |
 | `language-switch` | Navigation & shell | beta | Yo 3 Ak 3 Oz 1 www 1 blog 1 ui 2 java 1 ts 1 cockpit 1 | — | 1 | 2.6 / 2.4 | 2 | 1 | 2026-11-15 | **keep** | 14 live importer file(s) |
 | `language-switch/server` | Navigation & shell | — | — | — | 1 | 0.5 / 1.0 | 2 | 1 | 2026-11-15 | **keep** | built on by nav-bar |
 | `native` | Navigation & shell | — | Yo 17 Ak 22 blog 2 ui 3 | — | — | 94.9 / 75.0 | — | — | 2026-11-15 | **keep** | 44 live importer file(s) |
@@ -125,10 +125,11 @@ an entry with itself over time, not with its budget).
 | `nav-bar/me` | Navigation & shell | — | — | — | — | 0.5 / 1.0 | 3 | 1 | 2026-11-15 | **merge** → `nav-bar` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `page-header` | Navigation & shell | stable | Yo 12 Ak 14 | — | — | 0.6 / 1.0 | 1 | 1 | 2026-11-15 | **keep** | 26 live importer file(s) |
 | `pagination` | Navigation & shell | beta | ui 1 | — | 1 | 2.8 / 2.0 | 1 | 2 | 2026-11-15 | **keep** | 1 live importer file(s) |
+| `platform-bar` | Navigation & shell | experimental | — | — | — | 0.9 / 0.8 | 1 | 1 | 2026-11-15 | **ask** | unused, new (2026-11-15): its adoption issue? |
 | `rail-nav` | Navigation & shell | beta | — | — | 1 | 5.3 / 3.0 | 1 | 1 | 2026-11-15 | **keep** | built on by app-frame |
 | `scroll-stage` | Navigation & shell | deprecated | — | — | — | 1.9 / 1.2 | 0 | 1 | 2026-11-15 | **merge** → `step-showcase` | ADR-006 merge (#675), or deprecated in favour of another entry |
-| `settings-layout` | Navigation & shell | beta | Yo 7 Ak 11 Oz 8 | — | 2 | 6.2 / 6.0 | 1 | 2 | 2026-11-15 | **keep** | 26 live importer file(s) |
-| `site-footer` | Navigation & shell | beta | Yo 2 Ak 2 Oz 2 www 3 blog 2 ui 1 java 1 ts 1 motion 1 | — | 2 | 12.1 / 11.0 | 2 | 1 | 2026-11-15 | **keep** | 14 live importer file(s) |
+| `settings-layout` | Navigation & shell | beta | Yo 7 Ak 11 Oz 8 | — | 2 | 6.2 / 5.8 | 1 | 2 | 2026-11-15 | **keep** | 26 live importer file(s) |
+| `site-footer` | Navigation & shell | beta | Yo 2 Ak 2 Oz 2 www 3 blog 2 ui 1 java 1 ts 1 motion 1 | — | 2 | 12.3 / 11.0 | 2 | 1 | 2026-11-15 | **keep** | 14 live importer file(s) |
 | `split-view` | Navigation & shell | beta | Ak 1 | — | — | 0.8 / 1.0 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
 | `step-progress` | Navigation & shell | beta | motion 2 | — | — | 0.6 / 1.0 | 1 | 2 | 2026-11-15 | **merge** → `stepper` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `stepper` | Navigation & shell | beta | Yo 4 Oz 1 www 1 motion 1 (native: Yo 1) | — | — | 2.1 / 2.0 | 1 | 2 | 2026-11-15 | **keep** | 7 live importer file(s) |
@@ -284,7 +285,7 @@ an entry with itself over time, not with its budget).
 | `margin-layout` | Cahier (sites register) | beta | — | — | — | 0.6 / 1.0 | 1 | 1 | 2026-11-15 | **ask** | unused, Cahier register (sites) |
 | `mascot-quote` | Cahier (sites register) | beta | www 1 java 1 | — | 2 | 8.7 / 6.1 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
 | `signature` | Cahier (sites register) | deprecated | — | — | — | 1.8 / 1.2 | 1 | 1 | 2026-11-15 | **retire** | already deprecated (#674), removed in 4.0 |
-| `site-cahier` | Cahier (sites register) | beta | ui 2 | — | — | 22.4 / 18.0 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
+| `site-cahier` | Cahier (sites register) | beta | ui 2 | — | — | 22.6 / 18.0 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
 | `specimen-tag` | Cahier (sites register) | beta | Ak 2 www 2 | — | 2 | 1.2 / 1.2 | 1 | 1 | 2026-11-15 | **keep** | 4 live importer file(s) |
 | `speed-lines` | Cahier (sites register) | beta | — | — | — | 1.4 / 1.0 | 1 | 1 | 2026-11-15 | **ask** | unused, Cahier register (sites) |
 | `stuck` | Cahier (sites register) | beta | Ak 1 | — | 1 | 1.0 / 1.2 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |

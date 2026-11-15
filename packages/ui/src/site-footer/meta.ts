@@ -15,6 +15,7 @@ export const meta = {
     "`variant=\"app\"` — inside a signed-in product or an admin console: the last line only (signature, version, legal), rendered once by the layout.",
     "`config` — the footer as the app's admin configured it (`FooterSettings` in `@krizaka/settings`, resolved by `resolveFooterSettings`): at most four columns of at most six links, then one legal line `legalName · NEQ · city`, the version when `showVersion`, the legal links, the org's socials. `footerSettingsProblems` is the admin form's validation.",
     "`FamilyFooter` — the developer sites (ui., lab., java., ts., rust.): pass `footer={footerFor(siteId)}` (`@krizaka/org` ≥ 1.4.0); the org says which family groups, accounts, source link, licence, legal links and version line the site shows. The library never fetches.",
+    "`variant=\"hosted\"` — under a page a platform hosts for its customer (a shop on Folioviv): one line, the customer's `legal` links then `madeWith` (« Page faite avec Folioviv · Comment cette page est faite »); no family, no signature, no version. Pair it with `PlatformBar` above.",
     "With `MarketingLayout`'s `footer` slot, under a bar of `@krizaka/ui/nav-bar` with `NavBar.Family`.",
   ],
   whenNotToUse: [
@@ -49,6 +50,7 @@ export const meta = {
       { name: "configured", title: "Configured by the admin", description: "`config` from the app's settings: three columns (the product, help, by Krizaka), then `Technologies Krizaka Inc. · NEQ … · Montréal (Québec)`, `v1.2.3`, the legal links and GitHub." },
       { name: "socials", title: "With the company's accounts", description: "`org.links.social` of `@krizaka/org`: Instagram drawn as its icon at the end of the last line, named « Instagram » for screen readers." },
       { name: "family", title: "A developer site (from the org JSON)", description: "`FamilyFooter` with `footerFor(\"ui\")` of `@krizaka/org`: the site's own links, the family, then the source code, the licence, the legal links, the accounts and the version — what each developer site shows is the org's selection." },
+      { name: "hosted", title: "A hosted page", description: "`variant=\"hosted\"`: the shop's legal links and « Page faite avec Folioviv · Comment cette page est faite » on one line." },
       { name: "docs", title: "Under documentation", description: "`variant=\"docs\"`: the same three lines on the documentation's width." },
       { name: "open-source-fr", title: "Open source, in French", description: "ui.krizaka.com in French, `tone=\"cahier\"`: « Une entreprise de Technologies Krizaka · Fait à Montréal », the version of the packages." },
     ],
