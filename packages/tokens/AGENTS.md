@@ -47,7 +47,7 @@
   2.5.0: +1.1 kB / +0.35 kB / +0.3 kB for the material of BRAND.md §6 — sheen, edges, glass, three ink shadows in three
   blocks, focus ring, control heights and their compact density, durations and their reduced-motion block, the griffe;
   native gains the shadows as `boxShadow` strings and `cut`.)
-- Published surface: exports `.`, `./tokens.css`, `./brands/{krizaka,sovkora,verikora,folioviv,scoped}.css`, `./native`,
+- Published surface: exports `.`, `./tokens.css`, `./brands/{krizaka,sovkora,verikora,folioviv,scoped}.css`, `./brands.json` (the one source of every product colour), `./native`,
   `./package.json`; files `dist`, `README.md`, `BRAND.md`, `LICENSE`.
   Renaming or removing a token, or changing the surface, is a breaking change.
 
