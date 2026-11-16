@@ -1,5 +1,5 @@
 // The footer of the developer sites (ui. · lab. · java. · ts. · rust.): ONE block that reads what a site shows from the
-// org JSON (`footerFor(siteId)` of `@krizaka/org` ≥ 1.4.0) and places it — the family, the source code, the licence, the
+// org JSON (`footerFor(siteId)` of `@krizaka/org` ≥ 1.11.0, which answers for every site id) and places it — the family, the source code, the licence, the
 // legal links, the socials, the version. The library does not fetch and types no word of the content: it takes the
 // resolved footer as a prop; the host passes only its own links (`children`), its version and its controls.
 import * as React from "react";
@@ -34,6 +34,8 @@ export type FamilyFooterProps = Omit<SiteFooterProps, "current" | "org" | "legal
   sourceLabel: string;
   /** The version the site runs (`1.2.3`); shown only when the footer's selection says so. */
   version?: string;
+  /** The company's contact page (`org.contact.page` of `@krizaka/org`): the « Krizaka » column's last link. */
+  contact?: Record<SiteLocale, string>;
   /** The company's name for the mark's accessible name. @default "Krizaka" */
   brand?: string;
   /** Extra links at the start of the legal group (a changelog link, for instance). */
@@ -41,12 +43,13 @@ export type FamilyFooterProps = Omit<SiteFooterProps, "current" | "org" | "legal
 };
 
 /** The family footer of a developer site: the shared three lines, from the org's selection. */
-export function FamilyFooter({ footer, current, labels, sourceLabel, version, brand = "Krizaka", extra, variant = "docs", children, ...props }: Readonly<FamilyFooterProps>) {
+export function FamilyFooter({ footer, current, labels, sourceLabel, version, contact, brand = "Krizaka", extra, variant = "docs", children, ...props }: Readonly<FamilyFooterProps>) {
   const lang = labels.lang ?? "en";
   const entries = footer.groups.flatMap((g) => g.entries);
   const org = {
     brand: { name: brand },
     links: { social: footer.social },
+    ...(contact ? { contact: { page: contact } } : {}),
     family: entries,
     footer: { line: footer.line, legal: footer.legal },
   };

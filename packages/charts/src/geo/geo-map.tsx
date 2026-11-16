@@ -118,7 +118,13 @@ export function GeoMap<T extends Datum>(props: Readonly<GeoMapProps<T>>) {
     setActive(move());
   };
   const current = active !== null ? walk[active] : null;
-  const announce = !current ? "" : current.kind === "region" ? `${name(current.code)}: ${fmt.value(byCode.get(current.code)!.value)}` : `${points[current.i]!.label}${points[current.i]!.value != null ? `: ${fmt.value(points[current.i]!.value)}` : ""}`;
+  const announceOf = (at: NonNullable<typeof current>) => {
+    if (at.kind === "region") return `${name(at.code)}: ${fmt.value(byCode.get(at.code)!.value)}`;
+    const point = points[at.i]!;
+    const valueText = point.value != null ? `: ${fmt.value(point.value)}` : "";
+    return `${point.label}${valueText}`;
+  };
+  const announce = current ? announceOf(current) : "";
 
   const legend = rows.length > 0 ? <RampLegend min={min} max={max} steps={steps} write={fmt.axis} /> : null;
 

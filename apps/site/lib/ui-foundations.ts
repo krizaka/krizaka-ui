@@ -68,28 +68,33 @@ export function templateEntries(purpose?: TemplatePurpose): TemplateEntry[] {
 }
 
 /** The words of a foundation page for the search index (Fumadocs structured data). */
+function foundationContents(page: Foundation): string[] {
+  if (page === TEMPLATE_PAGE || page.startsWith(`${TEMPLATE_PAGE}/`)) {
+    return templateEntries(purposeOf(page) ?? undefined).map(({ item, example, why }) => `${example.title} (${item.title}): ${example.description} ${why}`);
+  }
+  if (page === PLATFORMS_PAGE) {
+    return getRegistryItems().flatMap((item) => (["web", "native", "desktop"] as const).flatMap((p) => { const cell = item.parity?.[p]; return cell && (cell.state === "gap" || cell.state === "n/a") ? [`${item.title} (${p}): ${cell.reason}`] : []; }));
+  }
+  if (page === MOBILE_PAGE || page === BRAND_PAGE) return [];
+  if (page === TYPOGRAPHY_PAGE) {
+    return [
+      ...fonts.flatMap((f) => [`${f.family} — ${f.role}. ${f.description}`, f.why, ...f.use, ...f.avoid]),
+      ...typeScale.map((s) => `text-${s.name}: ${s.size} / ${s.lineHeight} · ${s.weight} — ${s.description}`),
+      ...rules,
+    ];
+  }
+  return [
+    ...iconGroups.map((g) => `${g.title}: ${g.description}`),
+    ...iconEntries().map((i) => `${i.component} — ${i.keywords}`),
+    ...iconGuidelines.grammar,
+    ...iconGuidelines.color,
+    ...iconGuidelines.accessibility,
+    ...iconGuidelines.request,
+  ];
+}
+
 export function foundationStructuredData(page: Foundation) {
-  const contents =
-    page === TEMPLATE_PAGE || page.startsWith(`${TEMPLATE_PAGE}/`)
-      ? templateEntries(purposeOf(page) ?? undefined).map(({ item, example, why }) => `${example.title} (${item.title}): ${example.description} ${why}`)
-      : page === PLATFORMS_PAGE
-      ? getRegistryItems().flatMap((item) => (["web", "native", "desktop"] as const).flatMap((p) => { const cell = item.parity?.[p]; return cell && (cell.state === "gap" || cell.state === "n/a") ? [`${item.title} (${p}): ${cell.reason}`] : []; }))
-      : page === MOBILE_PAGE || page === BRAND_PAGE
-      ? []
-      : page === TYPOGRAPHY_PAGE
-      ? [
-          ...fonts.flatMap((f) => [`${f.family} — ${f.role}. ${f.description}`, f.why, ...f.use, ...f.avoid]),
-          ...typeScale.map((s) => `text-${s.name}: ${s.size} / ${s.lineHeight} · ${s.weight} — ${s.description}`),
-          ...rules,
-        ]
-      : [
-          ...iconGroups.map((g) => `${g.title}: ${g.description}`),
-          ...iconEntries().map((i) => `${i.component} — ${i.keywords}`),
-          ...iconGuidelines.grammar,
-          ...iconGuidelines.color,
-          ...iconGuidelines.accessibility,
-          ...iconGuidelines.request,
-        ];
+  const contents = foundationContents(page);
   return { headings: [], contents: contents.map((content) => ({ heading: undefined, content: plain(content) })) };
 }
 

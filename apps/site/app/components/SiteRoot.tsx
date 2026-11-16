@@ -4,7 +4,7 @@ import "@krizaka/ui/blocks.css";
 import "@krizaka/tokens/shop-presets.css"; // the look presets of the shop page examples (`data-shop-preset`)
 import "@krizaka/ui/story.css";
 
-import { footerFor } from "@krizaka/org";
+import { footerFor, org } from "@krizaka/org";
 import { cn } from "@krizaka/ui/cn";
 import { MotionObserver } from "@krizaka/ui/motion";
 import { FamilyFooter, SiteFooterColumn, SiteFooterLink } from "@krizaka/ui/site-footer";
@@ -89,6 +89,7 @@ export async function SiteRoot({ locale, children }: Readonly<{ locale: Locale; 
               <FamilyFooter
                 footer={footer}
                 current="ui"
+                contact={org.contact.page}
                 labels={familyLabels[locale]}
                 sourceLabel={t.site.footer.source}
                 extra={

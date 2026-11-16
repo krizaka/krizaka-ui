@@ -19,7 +19,8 @@ function subscribe(onChange: () => void) {
 export function useSiteTheme() {
   const { mode, setMode } = useTheme();
   const systemDark = useSyncExternalStore(subscribe, () => globalThis.matchMedia(DARK_QUERY).matches, () => true);
-  const theme: "dark" | "light" = mode === "system" ? (systemDark ? "dark" : "light") : mode;
+  const systemTheme = systemDark ? "dark" : "light";
+  const theme: "dark" | "light" = mode === "system" ? systemTheme : mode;
   const toggleTheme = useCallback(() => setMode(theme === "dark" ? "light" : "dark"), [theme, setMode]);
   return { theme, toggleTheme };
 }

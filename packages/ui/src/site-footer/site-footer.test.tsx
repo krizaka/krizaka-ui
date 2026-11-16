@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 
-import { companyLinks, familyLabels, sites } from "../sites";
+import { familyLabels, sites } from "../sites";
 
 const labelsDescription = () => familyLabels.en.descriptions.sovkora;
 import { axeViolations } from "../test/axe";
@@ -21,6 +21,7 @@ function Footer(props: Partial<React.ComponentProps<typeof SiteFooter>>) {
 // The organisation's facts as `@krizaka/org` publishes them (the part the footer and the bar read).
 const org = {
   brand: { name: "Krizaka" },
+  contact: { page: { fr: "https://www.krizaka.com/fr/contact", en: "https://www.krizaka.com/en/contact" } },
   footer: {
     line: { fr: "Une entreprise de Technologies Krizaka · Fait à Montréal", en: "A Technologies Krizaka company · Made in Montréal" },
     legal: [
@@ -43,9 +44,9 @@ describe("SiteFooter", () => {
     const family = screen.getByRole("navigation", { name: "Krizaka family" });
     const links = within(family).getAllByRole("link");
     // Products · Open source (GitHub closes it) · Krizaka — the company's pages; the brand's home is the signature's link.
-    expect(links.map((a) => a.getAttribute("href"))).toEqual([...sites.filter((s) => s.id !== "krizaka").map((s) => s.url), ...companyLinks.map((l) => l.url.en)]);
+    expect(links.map((a) => a.getAttribute("href"))).toEqual([...sites.filter((s) => s.group !== "krizaka").map((s) => s.url), ...sites.filter((s) => s.group === "krizaka" && s.id !== "krizaka").map((s) => s.url)]);
     expect(within(family).getAllByRole("list").map((l) => l.getAttribute("aria-labelledby") && document.getElementById(l.getAttribute("aria-labelledby")!)?.textContent)).toEqual(["Products", "Open source", "Krizaka"]);
-    expect(within(within(family).getByRole("list", { name: "Krizaka" })).getAllByRole("link").map((a) => a.textContent)).toEqual(["Our story", "Blog", "Contact us"]);
+    expect(within(within(family).getByRole("list", { name: "Krizaka" })).getAllByRole("link").map((a) => a.textContent)).toEqual(["Blog"]);
     expect(await axeViolations(container)).toEqual([]);
   });
 
@@ -66,9 +67,9 @@ describe("SiteFooter", () => {
   });
 
   it("the company's pages open in the reader's language", () => {
-    render(<Footer labels={familyLabels.fr} />);
+    render(<Footer labels={familyLabels.fr} org={org} />);
     const company = screen.getByRole("list", { name: "Krizaka" });
-    expect(within(company).getByRole("link", { name: "Notre histoire" }).getAttribute("href")).toBe("https://www.krizaka.com/fr/story");
+    expect(within(company).getByRole("link", { name: "Blogue" }).getAttribute("href")).toBe("https://blog.krizaka.com");
     expect(within(company).getByRole("link", { name: "Nous écrire" }).getAttribute("href")).toBe("https://www.krizaka.com/fr/contact");
   });
 
@@ -280,18 +281,18 @@ describe("SiteFooter", () => {
   it("marks the company page you are on (aria-current) and a click on it scrolls to the top instead of reloading", () => {
     const scrollTo = vi.fn();
     window.scrollTo = scrollTo as unknown as typeof window.scrollTo;
-    render(<Footer current="krizaka" path="/en/story" />);
-    const story = screen.getByRole("link", { name: familyLabels.en.company!.story });
+    render(<Footer current="krizaka" path="/en/contact" org={org} />);
+    const story = screen.getByRole("link", { name: familyLabels.en.company!.contact });
     expect(story.getAttribute("aria-current")).toBe("page");
-    expect(screen.getByRole("link", { name: familyLabels.en.company!.contact }).getAttribute("aria-current")).toBeNull();
+    expect(screen.getByRole("link", { name: familyLabels.en.company!.blog }).getAttribute("aria-current")).toBeNull();
     expect(story.className).toMatch(/aria-\[current=page\]:font-semibold/);
     fireEvent.click(story);
     expect(scrollTo).toHaveBeenCalledWith(expect.objectContaining({ top: 0 }));
   });
 
   it("marks no company page from another site (same path, other host) nor without a path", () => {
-    render(<Footer current="sovkora" path="/story" />);
-    expect(screen.getByRole("link", { name: familyLabels.en.company!.story }).getAttribute("aria-current")).toBeNull();
+    render(<Footer current="sovkora" path="/contact" org={org} />);
+    expect(screen.getByRole("link", { name: familyLabels.en.company!.contact }).getAttribute("aria-current")).toBeNull();
   });
 
   it("an opted-in site lists the family; without it only the link back to krizaka.com remains", () => {

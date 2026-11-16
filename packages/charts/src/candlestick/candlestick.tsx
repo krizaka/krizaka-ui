@@ -78,11 +78,13 @@ export function Candlestick<T extends Datum>(props: Readonly<CandlestickProps<T>
   const hi = Math.max(...rows.map((r) => r.h));
   const lo = Math.min(...rows.map((r) => r.l));
   const change = first && last && first.o ? last.c / first.o - 1 : null;
+  const trendWords = change !== null && change < 0 ? labels.summaryTrendDown : labels.summaryTrendUp;
+  const trendText = change === null ? "" : `, ${fill(trendWords, { change: fmt.share(Math.abs(change)) })}`;
   const summary = isEmpty
     ? labels.empty
     : [
         fill(labels.summaryIntro, { kind: labels.kinds.candlestick, count: `${rows.length} (${first!.x} – ${last!.x})` }),
-        `${capitalize(fill(labels.summaryOhlc, { open: fmt.value(first!.o), close: fmt.value(last!.c), low: fmt.value(lo), high: fmt.value(hi) }))}${change === null ? "" : `, ${fill(change >= 0 ? labels.summaryTrendUp : labels.summaryTrendDown, { change: fmt.share(Math.abs(change)) })}`}.`,
+        `${capitalize(fill(labels.summaryOhlc, { open: fmt.value(first!.o), close: fmt.value(last!.c), low: fmt.value(lo), high: fmt.value(hi) }))}${trendText}.`,
       ].join(" ");
   const items: WalkItem[] = rows.map((r, i) => ({ seriesIndex: 0, dataIndex: i, text: `${r.x}: ${columnLabels.open} ${fmt.value(r.o)}, ${columnLabels.high} ${fmt.value(r.h)}, ${columnLabels.low} ${fmt.value(r.l)}, ${columnLabels.close} ${fmt.value(r.c)}` }));
   const zoomOn = zoom ?? rows.length >= 40;
@@ -139,7 +141,7 @@ export function Candlestick<T extends Datum>(props: Readonly<CandlestickProps<T>
                   data: thresholds.map((t) => ({
                     yAxis: t.value,
                     label: { formatter: fill(labels.summaryThreshold, { label: t.label, value: fmt.value(t.value) }), color: theme.text, position: "insideEndTop", fontWeight: 600 },
-                    lineStyle: { color: t.tone && t.tone !== "neutral" ? theme[t.tone === "accent" ? "accent" : t.tone] : theme.text2, type: [6, 4], width: 1.5 },
+                    lineStyle: { color: t.tone && t.tone !== "neutral" ? theme[t.tone] : theme.text2, type: [6, 4], width: 1.5 },
                   })),
                 }
               : undefined,

@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react";
 import Svg, { Circle, Line, Path, Text as SvgText } from "react-native-svg";
 
-import { read } from "../core/data";
+import { read, trendColorTone } from "../core/data";
 import { describeParts, describeSeries } from "../core/describe";
 import { categoryFormatter, shareFormatter, valueFormatter } from "../core/format";
 import { arcPath, areaPath, barPath, linePath, type Point, polar, segments, strokeArcPath } from "../core/shape";
@@ -44,7 +44,8 @@ export function PieChart<T extends Datum>(props: Readonly<NativePieChartProps<T>
   const total = slices.reduce((s, x) => s + x.value, 0);
   const [active, setActive] = useState<number | null>(null);
   const isEmpty = total <= 0;
-  const summary = isEmpty ? labels.empty : describeParts(donut ? "donut" : "pie", slices, { labels, value: fmt.value, share: fmt.share });
+  const partsKind = donut ? "donut" : "pie";
+  const summary = isEmpty ? labels.empty : describeParts(partsKind, slices, { labels, value: fmt.value, share: fmt.share });
   return (
     <NativeFrame
       frame={props}
@@ -187,7 +188,7 @@ export function Sparkline(props: Readonly<NativeSparklineProps>) {
   const table = { categories: categories ?? data.map((_, i) => i + 1), series: [{ id: "v", label: props.title, values: data, slot: 1 }] };
   const isEmpty = values.length === 0;
   const up = (values.at(-1) ?? 0) >= (values[0] ?? 0);
-  const stroke = color(own ?? (trendTone ? ((trendTone === "inverse" ? !up : up) ? "success" : "danger") : undefined), 1);
+  const stroke = color(own ?? trendColorTone(trendTone, up), 1);
   return (
     <NativeFrame
       frame={{ ...props, hideTitle: true, height, style: { ...(fixed ? { width: fixed } : {}), ...props.style } }}
@@ -204,7 +205,10 @@ export function Sparkline(props: Readonly<NativeSparklineProps>) {
         const hi = variant === "bar" ? Math.max(0, ...values) : Math.max(...values);
         const yOf = (v: number) => 3 + (1 - (v - lo) / (hi - lo || 1)) * (h - 6);
         const n = data.length;
-        const xOf = (i: number) => (variant === "bar" ? (i + 0.5) * (width / n) : n > 1 ? 3 + (i / (n - 1)) * (width - 6) : width / 2);
+        const xOf = (i: number) => {
+          if (variant === "bar") return (i + 0.5) * (width / n);
+          return n > 1 ? 3 + (i / (n - 1)) * (width - 6) : width / 2;
+        };
         const pts = data.map((v, i) => (v == null ? null : ([xOf(i), yOf(v)] as Point)));
         const last = [...pts].reverse().find(Boolean);
         return (

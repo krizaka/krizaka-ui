@@ -10,7 +10,7 @@ import { extent, normalizeSeries, type Series, stack, type Table, tabulate, trim
 import { describeSeries } from "../core/describe";
 import { categoryFormatter, shareFormatter, valueFormatter } from "../core/format";
 import { type ChartKind, fill } from "../core/labels";
-import { bandScale, linearScale, niceDomain, pointScale, thinLabels } from "../core/scale";
+import { bandScale, labelAnchor, linearScale, niceDomain, pointScale, thinLabels } from "../core/scale";
 import { areaPath, barPath, type Curve, linePath, type Point, segments } from "../core/shape";
 import type { Accessor, CategoryFormat, Datum, Marker, SeriesSpec, Threshold, ValueFormat } from "../core/types";
 import { ChartFrame, type ChartFrameProps, useSettings } from "../web/frame";
@@ -409,10 +409,13 @@ function Plot({ table, width, height, options, fmt, colors, thresholds, markers,
   const cursorAt = active !== null ? centerOf(active) : null;
   const tipRows = active !== null ? series.map((s, k) => ({ label: s.label, value: fmt.value(s.values[active]), color: colors[k], shape: mode === "bar" ? ("square" as const) : ("line" as const) })) : [];
   const stackTotal = active !== null && stacked && series.length > 1 ? series.reduce((sum, s) => sum + (s.values[active] ?? 0), 0) : null;
-  const anchor =
-    active === null
-      ? null
-      : pointer ?? (horizontal ? { x: value(Math.max(...series.map((s) => s.values[active] ?? 0))), y: cursorAt! } : { x: cursorAt!, y: Math.min(...series.map((s) => (s.values[active] == null ? y1 : value(s.values[active]!)))) });
+  const anchorAt = (at: number) => {
+    if (pointer) return pointer;
+    if (horizontal) return { x: value(Math.max(...series.map((s) => s.values[at] ?? 0))), y: cursorAt! };
+    const yOf = (s: (typeof series)[number]) => (s.values[at] == null ? y1 : value(s.values[at]!));
+    return { x: cursorAt!, y: Math.min(...series.map(yOf)) };
+  };
+  const anchor = active === null ? null : anchorAt(active);
 
   return (
     <>
@@ -440,7 +443,7 @@ function Plot({ table, width, height, options, fmt, colors, thresholds, markers,
               {clip(categoryTexts[i]!, left - 12)}
             </text>
           ) : (
-            <text key={i} x={centerOf(i)} y={y1 + 17} textAnchor={mode !== "bar" && i === 0 ? "start" : mode !== "bar" && i === count - 1 ? "end" : "middle"}>
+            <text key={i} x={centerOf(i)} y={y1 + 17} textAnchor={labelAnchor(mode === "bar", i, count)}>
               {categoryTexts[i]}
             </text>
           ),
