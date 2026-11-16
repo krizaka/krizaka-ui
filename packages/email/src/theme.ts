@@ -8,6 +8,7 @@ export const BRAND_IDS = Object.keys(BRAND_COLOURS) as BrandId[];
 /** The names of the brands, as written on the logo and in the signature (a name is not translated). */
 export const BRAND_NAMES: Record<BrandId, string> = {
   folioviv: "Folioviv",
+  kridoc: "Kridoc",
   krizaka: "Krizaka",
   sovkora: "Sovkora",
   verikora: "Verikora",
