@@ -100,7 +100,6 @@ export function runOutText(
   words: { runsOut: string; steady: string },
   writeDate: (date: Date) => string,
 ): string | null {
-  if (!daily) return null;
   if (runOut && (!renews || runOut < renews)) return fillIn(words.runsOut, { date: writeDate(runOut) });
-  return left == null ? words.steady : null;
+  return daily && left == null ? words.steady : null;
 }

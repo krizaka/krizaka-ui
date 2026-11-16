@@ -76,7 +76,7 @@ export function useNativeSettings(own: NativeChartsSettings): Resolved {
       color: (color, slot) => {
         if (color === undefined) return colors[(slot - 1) % 8]!;
         if (typeof color === "number") return colors[color - 1]!;
-        return color in tones ? tones[color as Tone] : color;
+        return tones[color as Tone] ?? color;
       },
     };
   }, [scheme, brand, shared, own.locale, own.labels, own.theme]);

@@ -90,7 +90,6 @@ export function thinLabels(count: number, max: number): number[] {
 
 /** The `text-anchor` of a category label: the ends of a line or area lean inward, a bar's label is centred under it. */
 export function labelAnchor(bar: boolean, i: number, count: number): "start" | "middle" | "end" {
-  if (bar) return "middle";
-  if (i === 0) return "start";
-  return i === count - 1 ? "end" : "middle";
+  const edge = i === 0 ? "start" : "end";
+  return bar || (i > 0 && i < count - 1) ? "middle" : edge;
 }

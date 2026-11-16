@@ -80,8 +80,8 @@ function Headline({
 }
 
 const good = (way: "up" | "down" | "flat" | null, up: boolean): Tone => {
-  if (!way || way === "flat") return "neutral";
-  return (way === "up") === up ? "success" : "danger";
+  const verdict = (way === "up") === up ? "success" : "danger";
+  return !way || way === "flat" ? "neutral" : verdict;
 };
 
 type Base<T extends Datum> = Omit<NativeCartesianProps<T>, "y" | "yLabel" | "series" | "format" | "x" | "xFormat" | "thresholds" | "labels">;
@@ -262,7 +262,7 @@ export function CreditUsage({ title, hideTitle, used, limit, format = "integer",
   const runOut = left == null ? null : addDays(now ?? new Date(), left);
   const renews = renewsAt ? new Date(renewsAt) : null;
   const projection = runOutText(daily, { left, runOut, renews }, words, date);
-  const fill = { danger: theme.danger, warning: theme.warning, ok: theme.accent }[level];
+  const fill = theme[level === "ok" ? "accent" : level];
   return (
     <View style={[styles.root, style]}>
       <Headline resolved={resolved} title={title} hideTitle={hideTitle} value={write(remaining)} label={fillIn(words.remaining, { limit: write(limit) })} />

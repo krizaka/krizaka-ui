@@ -167,6 +167,5 @@ export function trimToActivity(table: Table, min = 7): { table: Table; start: nu
 /** The tone a trend line takes: up is good unless the tone is `inverse` (a cost). `undefined` when the line has no trend tone. */
 export function trendColorTone(trendTone: boolean | "inverse" | undefined, up: boolean): "success" | "danger" | undefined {
   if (!trendTone) return undefined;
-  const good = trendTone === "inverse" ? !up : up;
-  return good ? "success" : "danger";
+  return (trendTone === "inverse") !== up ? "success" : "danger";
 }
