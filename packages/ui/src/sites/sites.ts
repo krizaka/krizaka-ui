@@ -112,6 +112,9 @@ export interface FamilyLabels {
   company?: Partial<Record<CompanyLinkId, string>>;
 }
 
+/** Krizaka Lab's line, shared by its two ids (`motion` is the registry's, `lab` the org's). */
+const LAB = { en: "The family lab: the kit's motion, played live with its knobs.", fr: "Le labo du mouvement : le mouvement du kit, joué en direct, avec ses réglages." } as const;
+
 /** The family's words in English and French. Pass `familyLabels[locale]`, or your own translation of the same shape. */
 export const familyLabels: Record<SiteLocale, FamilyLabels> = {
   en: {
@@ -127,8 +130,8 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       ui: "Components, tokens, icons and charts — web and React Native.",
       java: "Spring Boot building blocks on Maven Central.",
       ts: "TypeScript backend building blocks on npm.",
-      motion: "The family lab: the kit's motion, played live with its knobs.",
-      lab: "The family lab: the kit's motion, played live with its knobs.",
+      motion: LAB.en,
+      lab: LAB.en,
       kridoc: "Kridoc: documents, kept and found again.",
       blog: "The Krizaka blog: what we build and what we learn from it.",
       github: "Every repository, in the open.",
@@ -152,8 +155,8 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       ui: "Composants, jetons, icônes et graphiques — web et React Native.",
       java: "Des briques Spring Boot sur Maven Central.",
       ts: "Des briques backend TypeScript sur npm.",
-      motion: "Le labo du mouvement : le mouvement du kit, joué en direct, avec ses réglages.",
-      lab: "Le labo du mouvement : le mouvement du kit, joué en direct, avec ses réglages.",
+      motion: LAB.fr,
+      lab: LAB.fr,
       kridoc: "Kridoc : des documents, gardés et retrouvés.",
       blog: "Le blogue de Krizaka : ce que nous construisons et ce que nous en apprenons.",
       github: "Tous les dépôts, au grand jour.",
