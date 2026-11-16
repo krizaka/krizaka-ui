@@ -101,6 +101,11 @@ export type CalendarProps = {
   style?: StyleProp<ViewStyle>;
 };
 
+function hour24Of(shown: number, twelve: boolean, pm: boolean): number {
+  if (!twelve) return shown;
+  return (shown % 12) + (pm ? 12 : 0);
+}
+
 function orderedRange(range: CalendarProps["range"]): readonly [string | null, string | null] {
   if (!range?.end) return [null, null];
   return range.start <= range.end ? [range.start, range.end] : [range.end, range.start];
@@ -425,7 +430,7 @@ export function TimePicker({ label, locale, value: valueProp, defaultValue = nul
   const [am, pmLabel] = dayPeriods(locale);
   return (
     <WheelPicker label={value ? `${label}, ${formatTime(locale, value)}` : label} style={style}>
-      <Wheel label={labels.hours} options={hours} disabled={disabled} value={String(twelve ? h24 % 12 || 12 : h24)} onValueChange={(v) => put(twelve ? (Number(v) % 12) + (pm ? 12 : 0) : Number(v), minute)} />
+      <Wheel label={labels.hours} options={hours} disabled={disabled} value={String(twelve ? h24 % 12 || 12 : h24)} onValueChange={(v) => put(hour24Of(Number(v), twelve, pm), minute)} />
       <WheelDivider>:</WheelDivider>
       <Wheel label={labels.minutes} options={minutes} disabled={disabled} value={String(Math.min(60 - minuteStep, Math.round(minute / minuteStep) * minuteStep))} onValueChange={(v) => put(h24, Number(v))} />
       {twelve ? (

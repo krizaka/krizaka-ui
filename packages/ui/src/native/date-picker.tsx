@@ -58,6 +58,7 @@ export type DateFieldProps = {
  */
 export function DateField({ label, hint, error, value, defaultValue, onValueChange, onBlur, locale = "en-US", labels: given, autoComplete, disabled, inputRef, onSubmitEditing, returnKeyType = "done", style }: Readonly<DateFieldProps>) {
   const { theme, radius } = useTheme();
+  const bdayPrefix = Platform.OS === "web" ? "bday" : "birthdate";
   const labels = { ...dateFieldLabels, ...given };
   const order = React.useMemo(() => datePartsOrder(locale), [locale]);
   const [parts, setParts] = React.useState(() => split(value ?? defaultValue));
@@ -98,7 +99,7 @@ export function DateField({ label, hint, error, value, defaultValue, onValueChan
               keyboardType="number-pad"
               inputMode="numeric"
               maxLength={LENGTH[part]}
-              autoComplete={autoComplete === "bday" ? (`${Platform.OS === "web" ? "bday" : "birthdate"}-${part}` as TextInputProps["autoComplete"]) : "off"}
+              autoComplete={autoComplete === "bday" ? (`${bdayPrefix}-${part}` as TextInputProps["autoComplete"]) : "off"}
               returnKeyType={i === order.length - 1 ? returnKeyType : "next"}
               submitBehavior={i === order.length - 1 && returnKeyType !== "next" ? "blurAndSubmit" : "submit"}
               onSubmitEditing={() => {

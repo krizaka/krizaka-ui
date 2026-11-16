@@ -40,6 +40,18 @@ export type StepperProps = {
 
 const WORDS: Record<StepStatus, string> = { done: "done", current: "in progress", upcoming: "to come", error: "failed" };
 
+function StepGlyph({ status, value }: Readonly<{ status: StepStatus; value: number | null | undefined }>) {
+  const { theme } = useTheme();
+  if (status === "current") return <LoaderGlyph value={value ?? null} size={24} />;
+  if (status === "error") return <LoaderGlyph state="error" size={24} />;
+  return (
+    <Svg width={24} height={24} viewBox="0 0 24 24" aria-hidden>
+      <Circle cx={12} cy={12} r={10} fill={status === "done" ? theme.accent : "none"} stroke={status === "done" ? theme.accent : theme.borderStrong} strokeWidth={2} />
+      {status === "done" ? <Path d="M7.5 12.3l3 3 6-6.3" stroke={theme.onAccent} strokeWidth={2.2} fill="none" strokeLinecap="round" strokeLinejoin="round" /> : null}
+    </Svg>
+  );
+}
+
 /** The steps of a process, where it stands — the web `Stepper`: done steps checked, the current one tracing, a failure crossed. */
 export function Stepper({ steps, current = 0, orientation = "vertical", statusLabels, "aria-label": label, style }: Readonly<StepperProps>) {
   const { theme } = useTheme();
@@ -50,19 +62,7 @@ export function Stepper({ steps, current = 0, orientation = "vertical", statusLa
       {keyed(steps, (step) => step.title).map(({ key, item: step, index: i }) => {
         const status: StepStatus = step.status ?? choose<StepStatus>("upcoming", [i < current, "done"], [i === current, "current"]);
         const last = i === steps.length - 1;
-        let node: React.ReactNode;
-        if (status === "current") {
-          node = <LoaderGlyph value={step.value ?? null} size={24} />;
-        } else if (status === "error") {
-          node = <LoaderGlyph state="error" size={24} />;
-        } else {
-          node = (
-            <Svg width={24} height={24} viewBox="0 0 24 24" aria-hidden>
-              <Circle cx={12} cy={12} r={10} fill={status === "done" ? theme.accent : "none"} stroke={status === "done" ? theme.accent : theme.borderStrong} strokeWidth={2} />
-              {status === "done" ? <Path d="M7.5 12.3l3 3 6-6.3" stroke={theme.onAccent} strokeWidth={2.2} fill="none" strokeLinecap="round" strokeLinejoin="round" /> : null}
-            </Svg>
-          );
-        }
+        const node = <StepGlyph status={status} value={step.value} />;
         const connector = !last ? (
           <View aria-hidden style={[vertical ? styles.vLine : styles.hLine, { backgroundColor: status === "done" ? theme.accent : theme.borderDefault }]} />
         ) : null;
