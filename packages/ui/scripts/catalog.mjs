@@ -9,7 +9,8 @@ export const CATALOG_SCHEMA = "krizaka-catalog/v1";
 /** The `import { … } from "@krizaka/ui…"` statements of a code sample: `[module, name, typeOnly]`. */
 export function importsOf(code) {
   const found = [];
-  for (const match of code.matchAll(/import\s+(type\s+)?\{([^}]*)\}\s+from\s+"(@krizaka\/ui(?:\/[^"]*)?)"/g)) {
+  // The examples are formatted (Prettier): one space between the words of an import.
+  for (const match of code.matchAll(/import (type )?\{([^}]*)\} from "(@krizaka\/ui[^"]*)"/g)) {
     const [, typeAll, names, module] = match;
     if (module.startsWith("@krizaka/ui/registry")) continue;
     for (const raw of names.split(",")) {
@@ -33,10 +34,12 @@ export function kindOf(name, typeOnly) {
 
 /** A documented export's kind: a lower-case `const` is a constant (`textLinkClass`), the rest as `kindOf` says. */
 function declaredKindOf(name, declaration, typeOnly) {
-  if (declaration === "const" && /^[a-z]/.test(name) && !/^use[A-Z]/.test(name)) return "constant";
+  if (CONST_DECLARATIONS.has(declaration) && /^[a-z]/.test(name) && !/^use[A-Z]/.test(name)) return "constant";
   return kindOf(name, typeOnly);
 }
 
+const TYPE_DECLARATIONS = new Set(["type", "interface"]);
+const CONST_DECLARATIONS = new Set(["const"]);
 const STATUSES = new Set(["experimental", "beta", "stable", "deprecated"]);
 const plain = (text) => text.replaceAll("`", "");
 
@@ -59,6 +62,12 @@ function propsOf(side, name) {
 }
 
 const exampleOf = (example) => ({ name: example.name, title: example.title, description: plain(example.description), language: "tsx", code: example.code.trimEnd() });
+
+/** The platforms an item has, with their side (`web`, `native`). */
+const sidesOf = (item) => ["web", "native"].filter((platform) => item[platform]).map((platform) => [platform, item[platform]]);
+
+/** The names of an import line, in its order: the first is the component the item is named after. */
+const namesOf = (line) => (/\{([^}]*)\}/.exec(line)?.[1] ?? "").split(",").map((name) => name.trim()).filter(Boolean);
 
 /** Every example of the registry with the `[module, name]` pairs it imports. */
 const examplesWithImports = (items) =>
@@ -98,14 +107,7 @@ export function catalogOf(items, pkg, sources = {}) {
       docs: `https://ui.krizaka.com/components/${item.name}`,
     });
   };
-  for (const item of items) {
-    for (const platform of ["web", "native"]) {
-      const side = item[platform];
-      if (!side) continue;
-      const names = [...side.import.matchAll(/\{([^}]*)\}/g)].flatMap((m) => m[1].split(",").map((n) => n.trim()).filter(Boolean));
-      names.forEach((name, index) => add(item, platform, side.entry, name, false, index === 0));
-    }
-  }
+  for (const item of items) for (const [platform, side] of sidesOf(item)) namesOf(side.import).forEach((name, index) => add(item, platform, side.entry, name, false, index === 0));
   // The names the examples import that no meta lists (a variant helper, a `/server` half, a sub-entry).
   for (const { item, platform, imports } of samples) for (const [module, name, typeOnly] of imports) add(item, platform, module, name, typeOnly);
   for (const [module, source] of Object.entries(sources)) for (const entry of documentedExports(module, source, items)) if (!entries.has(`${module} ${entry.name}`)) entries.set(`${module} ${entry.name}`, entry);
@@ -127,12 +129,16 @@ export function catalogOf(items, pkg, sources = {}) {
 export function documentedExports(module, source, items) {
   const owner = items.find((item) => item.name === module.split("/")[2]);
   const found = [];
-  for (const match of source.matchAll(/\/\*\*([\s\S]*?)\*\/\s*export\s+(?:declare\s+)?(const|function|class|type|interface)\s+(\w+)/g)) {
-    const [, doc, declaration, name] = match;
+  for (const block of source.split("/**").slice(1)) {
+    const end = block.indexOf("*/");
+    const declared = /^\s*export (?:declare )?(const|function|class|type|interface) (\w+)/.exec(block.slice(end + 2));
+    if (end < 0 || !declared) continue;
+    const doc = block.slice(0, end);
+    const [, declaration, name] = declared;
     const text = doc.split("\n").map((line) => line.replace(/^\s*\* ?/, "")).join("\n");
     const [prose, example] = text.split(/^@example\s*$/m);
     const code = (example ?? "").replace(/^```\w*\n?|```\s*$/gm, "").trim();
-    const typeOnly = declaration === "type" || declaration === "interface";
+    const typeOnly = TYPE_DECLARATIONS.has(declaration);
     found.push({
       name,
       kind: declaredKindOf(name, declaration, typeOnly),
@@ -161,8 +167,8 @@ export function catalogGaps(catalog, pkg) {
   // Sorted, so the recorded gaps (catalog-gaps.json) compare as they are written.
   const covered = new Set(catalog.entries.map((entry) => entry.module));
   return {
-    uncovered: codeEntries(pkg).filter((module) => !covered.has(module)).sort(),
-    withoutExample: catalog.entries.filter((entry) => entry.examples.length === 0).map((entry) => `${entry.module} ${entry.name}`).sort(),
+    uncovered: codeEntries(pkg).filter((module) => !covered.has(module)).sort((a, b) => a.localeCompare(b)),
+    withoutExample: catalog.entries.filter((entry) => entry.examples.length === 0).map((entry) => `${entry.module} ${entry.name}`).sort((a, b) => a.localeCompare(b)),
   };
 }
 

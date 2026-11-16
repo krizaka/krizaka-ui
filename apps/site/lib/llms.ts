@@ -32,7 +32,9 @@ export function renderLlms(): string {
     });
   const components = getRegistryItems().map((item) => {
     const line = importLineOf(item.name);
-    return `- [${item.title}](${absoluteUrl("en", `/components/${item.name}`)}): ${item.summary.replace(/`/g, "")}${line ? ` \`${line}\`` : ""}`;
+    const url = absoluteUrl("en", `/components/${item.name}`);
+    const importText = line ? " `" + line + "`" : "";
+    return `- [${item.title}](${url}): ${item.summary.replace(/`/g, "")}${importText}`;
   });
   return [
     "# Krizaka UI",

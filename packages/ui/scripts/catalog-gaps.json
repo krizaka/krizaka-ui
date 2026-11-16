@@ -13,9 +13,9 @@
   "withoutExample": [
     "@krizaka/ui/form/server FormActionResult",
     "@krizaka/ui/form/server formProblem",
-    "@krizaka/ui/nav-bar/me MeResponse",
     "@krizaka/ui/nav-bar/me meHeaders",
     "@krizaka/ui/nav-bar/me meResponse",
+    "@krizaka/ui/nav-bar/me MeResponse",
     "@krizaka/ui/nav-bar/me meSchema"
   ]
 }
