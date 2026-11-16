@@ -4,6 +4,9 @@
   "tasks": {
     "build": {
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/apps/storybook/__screenshots__/linux/native-*.png"]
+    },
+    "test": {
+      "dependsOn": ["^build", "build"]
     }
   }
 }
