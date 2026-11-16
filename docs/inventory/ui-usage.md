@@ -6,7 +6,7 @@ Package: @krizaka/ui@4.12.0; sizes measured from packages/ui/dist (@krizaka/ui@4
 Consumers: verikora f3b26763 · folioviv dd58a2d6 · sovkora-web 48b61699 · krizaka-com 30b70cec · blog e1c342f4 · ui-site · java-site abcedb11 · ts-site b252e48c · motion-lab dbb0339c · cockpit.
 Paused (counted apart): .
 
-Verdicts: keep 184 · retire 37 · merge 20 · ask 21.
+Verdicts: keep 184 · retire 37 · merge 20 · ask 23.
 
 Sizes: the gzip of an entry's own file and every chunk it pulls in (shared chunks are counted in each entry, so a sum
 over-counts); the budget is the entry's size-limit row in packages/ui/package.json (size-limit measures differently: compare
@@ -25,8 +25,8 @@ an entry with itself over time, not with its budget).
 | Identity & people | 10 | 48.5 | 24.6 |
 | Abuse protection | 1 | 5.7 | 5.0 |
 | Conversation & AI | 7 | 74.0 | 39.3 |
-| Page blocks & templates | 33 | 66.3 | 125.7 |
-| Cahier (sites register) | 15 | 80.0 | 76.5 |
+| Page blocks & templates | 35 | 69.5 | 133.3 |
+| Cahier (sites register) | 15 | 76.0 | 76.5 |
 
 | Entry | Domain | Status | Live importers (files) | Paused | Built on by | gzip kB / budget | Tests | Stories | Last change | Verdict | Why |
 | :-- | :-- | :-- | :-- | :-- | --: | :-- | --: | --: | :-- | :-- | :-- |
@@ -129,7 +129,7 @@ an entry with itself over time, not with its budget).
 | `rail-nav` | Navigation & shell | beta | — | — | 1 | 5.3 / 3.0 | 1 | 1 | 2026-11-15 | **keep** | built on by app-frame |
 | `scroll-stage` | Navigation & shell | deprecated | — | — | — | 1.9 / 1.2 | 0 | 1 | 2026-11-15 | **merge** → `step-showcase` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `settings-layout` | Navigation & shell | beta | Yo 7 Ak 11 Oz 8 | — | 2 | 6.2 / 5.8 | 1 | 2 | 2026-11-15 | **keep** | 26 live importer file(s) |
-| `site-footer` | Navigation & shell | beta | Yo 2 Ak 2 Oz 2 www 3 blog 2 ui 1 java 1 ts 1 motion 1 | — | 2 | 12.3 / 11.0 | 2 | 1 | 2026-11-15 | **keep** | 14 live importer file(s) |
+| `site-footer` | Navigation & shell | beta | Yo 2 Ak 2 Oz 2 www 3 blog 2 ui 1 java 1 ts 1 motion 1 | — | 2 | 12.3 / 11.0 | 2 | 1 | 2026-11-16 | **keep** | 14 live importer file(s) |
 | `split-view` | Navigation & shell | beta | Ak 1 | — | — | 0.8 / 1.0 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
 | `step-progress` | Navigation & shell | beta | motion 2 | — | — | 0.6 / 1.0 | 1 | 2 | 2026-11-15 | **merge** → `stepper` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `stepper` | Navigation & shell | beta | Yo 4 Oz 1 www 1 motion 1 (native: Yo 1) | — | — | 2.1 / 2.0 | 1 | 2 | 2026-11-15 | **keep** | 7 live importer file(s) |
@@ -157,10 +157,10 @@ an entry with itself over time, not with its budget).
 | `tooltip` | Feedback & overlays | stable | Oz 1 cockpit 1 | — | 3 | 1.2 / 20.0 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
 | `update-prompt` | Feedback & overlays | deprecated | — | — | — | 4.8 / 3.5 | 1 | 2 | 2026-11-15 | **retire** | already deprecated (#674), removed in 4.0 |
 | `upload-queue` | Feedback & overlays | beta | Yo 1 | — | — | 1.9 / — | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
-| `map` | Geolocation & maps | beta | Ak 3 ui 1 motion 3 | — | 2 | 13.0 / 17.3 | 2 | 2 | 2026-11-15 | **keep** | 4 live importer file(s) |
-| `map/cards` | Geolocation & maps | — | — | — | 2 | 1.5 / 1.4 | 2 | 2 | 2026-11-15 | **keep** | built on by native, shop |
-| `map/pin` | Geolocation & maps | — | — | — | 2 | 1.3 / 1.2 | 2 | 2 | 2026-11-15 | **keep** | built on by native, shop |
-| `map/sheet` | Geolocation & maps | — | — | — | 2 | 1.1 / 1.1 | 2 | 2 | 2026-11-15 | **keep** | built on by native, shop |
+| `map` | Geolocation & maps | beta | Ak 3 ui 1 motion 3 | — | 2 | 13.0 / 17.3 | 2 | 2 | 2026-11-16 | **keep** | 4 live importer file(s) |
+| `map/cards` | Geolocation & maps | — | — | — | 2 | 1.5 / 1.4 | 2 | 2 | 2026-11-16 | **keep** | built on by native, shop |
+| `map/pin` | Geolocation & maps | — | — | — | 2 | 1.3 / 1.2 | 2 | 2 | 2026-11-16 | **keep** | built on by native, shop |
+| `map/sheet` | Geolocation & maps | — | — | — | 2 | 1.1 / 1.1 | 2 | 2 | 2026-11-16 | **keep** | built on by native, shop |
 | `native/map` | Geolocation & maps | — | — | — | — | 8.0 / 13.2 | — | — | 2026-11-16 | **keep** | filed need folioviv#235 |
 | `document-viewer` | Media | beta | Yo 6 cockpit 1 | — | — | 5.9 / 5.0 | 2 | 1 | 2026-11-15 | **keep** | 7 live importer file(s) |
 | `embed-facade` | Media | beta | Ak 2 | — | 1 | 2.2 / 2.0 | 2 | 1 | 2026-11-14 | **keep** | 2 live importer file(s) |
@@ -226,7 +226,7 @@ an entry with itself over time, not with its budget).
 | `chat` | Conversation & AI | beta | Oz 1 motion 4 | — | — | 6.2 / 7.6 | 1 | 2 | 2026-11-15 | **keep** | 1 live importer file(s) |
 | `engine-flow` | Conversation & AI | beta | www 2 ui 1 motion 2 | — | — | 3.7 / 2.7 | 1 | 1 | 2026-11-15 | **keep** | 3 live importer file(s) |
 | `genui` | Conversation & AI | beta | Oz 3 | — | — | 47.1 / — | 1 | 1 | 2026-11-15 | **keep** | 3 live importer file(s) |
-| `markdown` | Conversation & AI | beta | Oz 2 cockpit 4 | — | 1 | 2.5 / 17.0 | 1 | 2 | 2026-11-15 | **keep** | 6 live importer file(s) |
+| `markdown` | Conversation & AI | beta | Oz 2 cockpit 4 | — | 2 | 2.5 / 17.0 | 1 | 2 | 2026-11-15 | **keep** | 6 live importer file(s) |
 | `native/markdown` | Conversation & AI | — | — | — | — | 3.9 / — | — | — | 2026-11-16 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `next-actions` | Conversation & AI | beta | Ak 1 | — | — | 0.5 / 1.0 | 1 | 1 | 2026-11-14 | **keep** | 1 live importer file(s) |
 | `proposal` | Conversation & AI | experimental | — | — | — | 6.6 / 6.5 | 1 | 1 | 2026-11-06 | **ask** | unused, new (2026-10-28): its adoption issue? |
@@ -247,6 +247,8 @@ an entry with itself over time, not with its budget).
 | `docs-hub-page` | Page blocks & templates | beta | Ak 1 Oz 1 www 1 | — | — | 1.1 / 1.5 | 1 | 1 | 2026-11-15 | **keep** | 3 live importer file(s) |
 | `docs-layout` | Page blocks & templates | beta | — | — | 1 | 1.5 / 1.0 | 1 | 1 | 2026-11-15 | **keep** | built on by docs-article-page |
 | `docs-nav` | Page blocks & templates | beta | Yo 1 Ak 1 | — | — | 1.2 / 1.2 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
+| `docs-source` | Page blocks & templates | beta | — | — | — | 2.8 / 7.2 | 1 | 1 | 2026-11-16 | **ask** | unused, new (2026-11-16): its adoption issue? |
+| `docs-source/node` | Page blocks & templates | — | — | — | — | 0.4 / 0.5 | 1 | 1 | 2026-11-16 | **ask** | unused, new (2026-11-16): its adoption issue? |
 | `entity-header` | Page blocks & templates | beta | — | — | 1 | 2.8 / 41.0 | 1 | 2 | 2026-11-15 | **keep** | built on by native |
 | `environment-notice` | Page blocks & templates | beta | Yo 2 Ak 1 Oz 2 (native: Yo 1 Ak 1) | — | — | 0.9 / 1.0 | 1 | 2 | 2026-11-15 | **keep** | 7 live importer file(s) |
 | `error-page` | Page blocks & templates | beta | Yo 1 Ak 1 Oz 1 www 1 blog 1 | — | — | 0.7 / 1.5 | 1 | 1 | 2026-11-15 | **keep** | 5 live importer file(s) |
@@ -286,7 +288,7 @@ an entry with itself over time, not with its budget).
 | `mascot-quote` | Cahier (sites register) | beta | www 1 java 1 | — | 2 | 8.7 / 6.1 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
 | `signature` | Cahier (sites register) | deprecated | — | — | — | 1.8 / 1.2 | 1 | 1 | 2026-11-15 | **retire** | already deprecated (#674), removed in 4.0 |
 | `site-cahier` | Cahier (sites register) | beta | ui 2 | — | — | 22.6 / 17.0 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
-| `sketch` | Cahier (sites register) | experimental | — | — | — | 4.0 / 3.0 | 1 | 1 | 2026-11-16 | **ask** | unused, Cahier register (sites) |
+| `sketch` | Cahier (sites register) | experimental | — | — | — | — / 3.0 | 1 | 1 | 2026-11-16 | **ask** | unused, Cahier register (sites) |
 | `specimen-tag` | Cahier (sites register) | beta | Ak 2 www 2 | — | 2 | 1.2 / 0.8 | 1 | 1 | 2026-11-15 | **keep** | 4 live importer file(s) |
 | `speed-lines` | Cahier (sites register) | beta | — | — | — | 1.4 / 1.0 | 1 | 1 | 2026-11-15 | **ask** | unused, Cahier register (sites) |
 | `stuck` | Cahier (sites register) | beta | Ak 1 | — | 1 | 1.0 / 0.7 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
