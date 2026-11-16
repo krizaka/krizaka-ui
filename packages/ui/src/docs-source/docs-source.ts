@@ -75,7 +75,8 @@ type Raw = { slug: string; locale: string; path: string; meta: Record<string, st
 
 function unquote(value: string): string {
   const v = value.trim();
-  return v.length >= 2 && (v[0] === '"' || v[0] === "'") && v.at(-1) === v[0] ? v.slice(1, -1) : v;
+  const quoted = v.length >= 2 && (v.startsWith('"') || v.startsWith("'")) && v.at(-1) === v[0];
+  return quoted ? v.slice(1, -1) : v;
 }
 
 function frontMatter(content: string): { meta: Record<string, string>; body: string } {
@@ -122,6 +123,12 @@ function headingsOf(body: string): { headings: DocsHeading[]; firstH1?: string }
   return { headings, firstH1 };
 }
 
+/** `YYYY-MM-DD` and a real day (2026-02-30 is not): the date survives a round trip through `Date`. */
+function isIsoDate(text: string): boolean {
+  const day = new Date(`${text}T00:00:00Z`);
+  return !Number.isNaN(day.getTime()) && day.toISOString().startsWith(text) && text.length === 10;
+}
+
 function pageOf(raw: Raw, o: { locale: string; fallback: boolean; basePath: string; rootGroupTitle: string }): DocsPage {
   const { headings, firstH1 } = headingsOf(raw.body);
   const title = raw.meta.title ?? firstH1;
@@ -129,7 +136,7 @@ function pageOf(raw: Raw, o: { locale: string; fallback: boolean; basePath: stri
   const order = raw.meta.order === undefined ? Number.POSITIVE_INFINITY : Number(raw.meta.order);
   if (Number.isNaN(order)) throw new Error(`docs-source: "${raw.path}" has an order that is not a number ("${raw.meta.order}")`);
   const updated = raw.meta.updated;
-  if (updated !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(updated)) throw new Error(`docs-source: "${raw.path}" has an updated that is not YYYY-MM-DD ("${updated}")`);
+  if (updated !== undefined && !isIsoDate(updated)) throw new Error(`docs-source: "${raw.path}" has an updated that is not YYYY-MM-DD ("${updated}")`);
   const words = raw.body.split(/\s+/).filter(Boolean).length;
   return {
     slug: raw.slug,
@@ -152,7 +159,7 @@ export function docsSource(files: readonly DocsFile[], options: DocsSourceOption
   const { locale, defaultLocale = "en", rootGroupTitle = "Docs", homeLabel = "Docs" } = options;
   const basePath = (options.basePath ?? "/docs").replace(/\/$/, "");
   const raws = parseFiles(files);
-  const locales = [...new Set(raws.map((r) => r.locale))].sort();
+  const locales = [...new Set(raws.map((r) => r.locale))].sort((a, b) => a.localeCompare(b));
   const bySlug = new Map<string, Map<string, Raw>>();
   for (const raw of raws) bySlug.set(raw.slug, (bySlug.get(raw.slug) ?? new Map()).set(raw.locale, raw));
 

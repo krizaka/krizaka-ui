@@ -56,7 +56,15 @@ describe("docsSource", () => {
     expect(() => docsSource([{ path: "a.md", content: "# A" }], { locale: "en" })).toThrow(/a\.md.*<page>\.<locale>\.md/);
     expect(() => docsSource([{ path: "a.en.md", content: "---\ntitle: A\norder: x\n---\n" }], { locale: "en" })).toThrow(/order/);
     expect(() => docsSource([{ path: "a.en.md", content: "---\ntitle: A\nupdated: yesterday\n---\n" }], { locale: "en" })).toThrow(/updated/);
+    expect(() => docsSource([{ path: "a.en.md", content: "---\ntitle: A\nupdated: 2026-02-30\n---\n" }], { locale: "en" })).toThrow(/updated/);
     expect(() => docsSource([{ path: "a.en.md", content: "# A" }, { path: "a.en.md", content: "# B" }], { locale: "en" })).toThrow(/two files/);
+  });
+
+  it("reads quoted front matter values, a custom base path and the root group's words", () => {
+    const docs = docsSource([{ path: "a.en.md", content: "---\ntitle: 'A: first'\ndescription: \"Says it\"\n# a comment\n---\nText" }], { locale: "en", basePath: "/aide", rootGroupTitle: "Help", homeLabel: "Help centre" });
+    expect(docs.pages[0]).toMatchObject({ title: "A: first", description: "Says it", href: "/aide/a", group: "Help" });
+    expect(docs.page("a")?.breadcrumb[0]).toEqual({ href: "/aide", label: "Help centre" });
+    expect(docs.groups[0]?.title).toBe("Help");
   });
 
   it("renders in the docs frame from the example, with no axe violation", async () => {
