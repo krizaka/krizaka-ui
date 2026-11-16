@@ -258,10 +258,11 @@ function flowData({ chosen, calm, saveData, trigger, density, compact }: FlowDat
 
 /** What the chosen node says, or the hint when none is chosen. */
 function FlowDetail({ id, chosen, hint }: Readonly<{ id: string; chosen: EngineFlowNode | undefined; hint: React.ReactNode }>) {
+  const target = chosen?.external ? { target: "_blank", rel: "noopener" } : {};
   const link = chosen?.href ? (
     <>
       {" "}
-      <a href={chosen.href} {...(chosen.external ? { target: "_blank", rel: "noopener" } : {})}>
+      <a href={chosen.href} {...target}>
         {chosen.linkLabel ?? chosen.label}
         <span aria-hidden="true"> →</span>
       </a>
