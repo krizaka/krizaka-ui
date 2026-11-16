@@ -81,13 +81,13 @@ test("a __proto__ key inside a block never reaches the validated value", () => {
 test("a French field left empty is listed, with its path, and falls back to English", () => {
   const data = starterPage();
   const hero = data.content[0];
-  hero.props.eyebrow = { en: "Bakery · Montréal" };
+  hero.props.eyebrow = { en: "Dog walker · Montréal" };
   const doc = toDocument(data);
   assert.deepEqual(checkDocument(doc), { ok: true });
   assert.deepEqual(missingTranslations(doc, "fr"), ["blocks.0.props.eyebrow"]);
   assert.deepEqual(missingTranslations(doc, "en"), []);
-  assert.deepEqual(wordsFor(hero.props.eyebrow, "fr"), { text: "Bakery · Montréal", fallback: true });
-  assert.deepEqual(wordsFor(hero.props.eyebrow, "en"), { text: "Bakery · Montréal", fallback: false });
+  assert.deepEqual(wordsFor(hero.props.eyebrow, "fr"), { text: "Dog walker · Montréal", fallback: true });
+  assert.deepEqual(wordsFor(hero.props.eyebrow, "en"), { text: "Dog walker · Montréal", fallback: false });
 });
 
 test("a field missing in a nested block is listed with the nested path", () => {
@@ -207,7 +207,7 @@ test("a refusal inside a nested block names the whole chain", () => {
 
 test("a missing translation reads as a sentence naming the block and the field, FR and EN", () => {
   const en = starterPage();
-  en.content[0].props.eyebrow = { en: "Bakery · Montréal" };
+  en.content[0].props.eyebrow = { en: "Dog walker · Montréal" };
   en.content[1].props.items[0].props.body = { en: "A starter fed every day." };
   const enDoc = toDocument(en);
   const [first, second] = missingTranslations(enDoc, "fr");
@@ -250,4 +250,11 @@ test("a skip link leads past the editor, and the editor region is its target", (
     assert.equal(typeof messages(locale).skip, "string", locale);
     assert.equal(typeof messages(locale).toFields, "string", locale);
   }
+});
+
+test("the starter page is a dog walker's booking page, in both languages, with no bakery left", () => {
+  const raw = JSON.stringify(starterPage());
+  assert.match(raw, /Dog walker · Montréal/);
+  assert.match(raw, /Promeneur de chiens · Montréal/);
+  assert.doesNotMatch(raw, /bakery|boulangerie|bread|pain|sourdough|levain|croissant/i);
 });
