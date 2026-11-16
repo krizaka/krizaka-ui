@@ -1,5 +1,19 @@
 # @krizaka/ui
 
+## 4.13.0
+
+### Minor Changes
+
+- [#1041](https://github.com/krizaka/krizaka-ui/pull/1041) [`e8a29d2`](https://github.com/krizaka/krizaka-ui/commit/e8a29d28aab4aa1393a75137bdcd311724bb1904) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(ui): `ProductLogo` draws Kridoc — `id="kridoc"` is mark C, the crane (sapphire `#2c6ae8` → `#156fd5`), and the old document glyph is gone. `KridocLogo` is now a deprecated alias of `ProductLogo id="kridoc"` (removed in the next major); `MarkId` is the type of `ProductLogo`'s `id`. feat(tokens): the `kridoc` brand (`brands/kridoc.css`, `.brand-kridoc`, `marks.kridoc`, `brands.json`); `@krizaka/tokens/native` exports `brandAccents` (the accent and its text colour per brand), which the map reads instead of bundling every brand theme. krizaka-internal#3839.
+
+- [#1051](https://github.com/krizaka/krizaka-ui/pull/1051) [`3740d06`](https://github.com/krizaka/krizaka-ui/commit/3740d0664fb82cdb88db9235fdce60c90e95bc21) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/sketch`: `Sketch` and `SketchPair`, a screen drawn as with a pen in a school notebook. Boxes, buttons, scribbled lines, a few words, `@krizaka/icons` glyphs and hatched areas wobble like ink, deterministic from the spec's `seed` (server-rendered, no client JavaScript). Numbered callouts in the margin red point at the items, and a real HTML legend says what each one is for. A callout without a legend line, or the reverse, warns in development, and an unknown icon throws `SketchIconError`. `SketchPair` sets a before and an after side by side from 48rem of room.
+
+### Patch Changes
+
+- Updated dependencies [[`e8a29d2`](https://github.com/krizaka/krizaka-ui/commit/e8a29d28aab4aa1393a75137bdcd311724bb1904)]:
+  - @krizaka/tokens@4.13.0
+  - @krizaka/tailwind@4.13.0
+
 ## 4.12.0
 
 ### Minor Changes
