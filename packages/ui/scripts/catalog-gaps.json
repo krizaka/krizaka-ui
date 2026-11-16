@@ -1,0 +1,21 @@
+{
+  "why": "The entry points and exports of @krizaka/ui that the catalogue cannot document yet (no meta import, no example import, no JSDoc @example). scripts/catalog.test.mjs fails on any other gap and on a gap listed here that is gone: the list only shrinks (krizaka-internal#3947).",
+  "uncovered": [
+    "@krizaka/ui/app-frame/server",
+    "@krizaka/ui/avatar/defaults",
+    "@krizaka/ui/language-switch/server",
+    "@krizaka/ui/media-guard",
+    "@krizaka/ui/motion",
+    "@krizaka/ui/shop/look",
+    "@krizaka/ui/shop/map-gate",
+    "@krizaka/ui/text-style/server"
+  ],
+  "withoutExample": [
+    "@krizaka/ui/form/server FormActionResult",
+    "@krizaka/ui/form/server formProblem",
+    "@krizaka/ui/nav-bar/me meHeaders",
+    "@krizaka/ui/nav-bar/me meResponse",
+    "@krizaka/ui/nav-bar/me MeResponse",
+    "@krizaka/ui/nav-bar/me meSchema"
+  ]
+}

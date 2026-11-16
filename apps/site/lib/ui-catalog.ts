@@ -9,6 +9,7 @@ import { levelRank } from "@/lib/ui-domains";
 import { filterKeyOf } from "@/lib/ui-ia";
 import { inventoryOf, type InventoryState, type Product } from "@/lib/ui-inventory";
 import { exampleKey, getRegistryItems, type Platform, type RegistryItem, type Status } from "@/lib/ui-registry";
+import { UI_CATALOG } from "@/lib/ui-registry-data";
 import { componentPath } from "@/lib/urls";
 
 /** What a card shows above its title: the live example (loaded on view), a screenshot of a mobile one, or nothing yet. */
@@ -110,4 +111,25 @@ export function catalogFamilies(entries: CatalogEntry[], keys: readonly string[]
       cover: example && item ? { key: exampleKey(example), heavy: HEAVY_CATEGORIES.has(item.category) || HEAVY_NAMES.has(item.name), scale: wanted?.scale ?? 0.5 } : null,
     }];
   });
+}
+
+/** An entry of the catalogue @krizaka/ui publishes (`@krizaka/ui/catalog.json`, krizaka-catalog/v1, krizaka-internal#3947). */
+interface PackageCatalogEntry {
+  name: string;
+  kind: string;
+  module: string;
+}
+
+/** The kinds an import line names: what a product writes in `import { … }` without `type`. */
+const VALUE_KINDS: ReadonlySet<string> = new Set(["component", "hook", "function", "constant"]);
+
+/**
+ * The import line of a component, from the catalogue the package ships — the one the coding agents read through the
+ * krizaka-docs MCP, so the site and the agents give the same line: every name but the types of `@krizaka/ui/<name>`.
+ * Null when the catalogue has no entry for that module (a chart of @krizaka/charts, until its catalogue ships).
+ */
+export function importLineOf(name: string): string | null {
+  const entry = `@krizaka/ui/${name}`;
+  const names = (UI_CATALOG as { entries: PackageCatalogEntry[] }).entries.filter((item) => item.module === entry && VALUE_KINDS.has(item.kind)).map((item) => item.name);
+  return names.length > 0 ? `import { ${names.join(", ")} } from "${entry}";` : null;
 }

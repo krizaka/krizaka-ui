@@ -495,7 +495,8 @@ function entryRow(key, srcDir) {
 
 /** The rows: every export key (wildcard registry keys aside), then the native-only components of the registry. */
 function collectRows(keys, srcDir) {
-  const rows = [...keys].filter((k) => !k.includes("*") && k !== "./package.json").map((k) => entryRow(k, srcDir));
+  // `./catalog.json` is data for the coding agents (krizaka-internal#3947), like package.json: no product imports it.
+  const rows = [...keys].filter((k) => !k.includes("*") && k !== "./package.json" && k !== "./catalog.json").map((k) => entryRow(k, srcDir));
   const nativeMetaDir = join(srcDir, "native/meta");
   const nativeFiles = existsSync(nativeMetaDir) ? readdirSync(nativeMetaDir) : [];
   for (const f of nativeFiles) {
