@@ -125,7 +125,8 @@ export class RedisPresence implements PresenceStore {
         const [s, exp] = value.split("|");
         if (Number(exp) > now && rank(s as ConnectionState) > rank(state)) state = s as ConnectionState;
       }
-      out.set(id, { state, lastSeenAt: state === "offline" ? (seen ? Number(seen) : null) : now });
+      const lastKnown = seen ? Number(seen) : null;
+      out.set(id, { state, lastSeenAt: state === "offline" ? lastKnown : now });
     });
     return out;
   }

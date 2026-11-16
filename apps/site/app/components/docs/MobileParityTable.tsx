@@ -35,7 +35,10 @@ export function MobileParityTable({ rows, labels }: Readonly<{ rows: ParityRow[]
     {
       id: "differences",
       header: labels.differences,
-      cell: (row) => (row.differences === null ? labels.onlyMobile : row.differences ? <InlineCode text={row.differences} /> : labels.same),
+      cell: (row) => {
+        if (row.differences === null) return labels.onlyMobile;
+        return row.differences ? <InlineCode text={row.differences} /> : labels.same;
+      },
     },
   ];
   return <DataTable caption={labels.caption} rows={rows} columns={columns} getRowId={(row) => row.name} rowLabel={(row) => row.title} defaultSort={{ column: "title", direction: "ascending" }} />;

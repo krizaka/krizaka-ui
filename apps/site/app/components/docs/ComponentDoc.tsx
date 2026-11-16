@@ -37,11 +37,16 @@ export const WEB_CSS = `@import "tailwindcss";
 @import "@krizaka/tailwind";
 @import "@krizaka/ui/tailwind.css";`;
 
+function metaFile(item: RegistryItem): string {
+  if (item.type === "native") return `src/native/meta/${item.name}.ts`;
+  return item.name === "cn" ? "src/cn.meta.ts" : `src/${item.name}/meta.ts`;
+}
+
 /** Where the documentation of a component is written: its meta.ts in krizaka-ui. */
 export function metaSourceUrl(item: RegistryItem): string {
   // Another package of Krizaka UI (@krizaka/charts) says where its meta is, from the repository root.
   if (item.source) return `${KRIZAKA_UI_REPO_URL}/blob/main/${item.source}`;
-  const file = item.type === "native" ? `src/native/meta/${item.name}.ts` : item.name === "cn" ? "src/cn.meta.ts" : `src/${item.name}/meta.ts`;
+  const file = metaFile(item);
   return `${KRIZAKA_UI_REPO_URL}/blob/main/packages/ui/${file}`;
 }
 
@@ -103,17 +108,18 @@ function PlatformAbsences({ item, t, locale }: Readonly<{ item: RegistryItem; t:
       {absent.map(({ p, cell }) => (
         <li key={p}>
           <strong>{`${words.cards[p].title} · ${cellWord(cell, words.states)}.`}</strong> <InlineCode text={cell.reason} />
-          {cell.state === "gap" ? (
+          {cell.state === "gap" && (
             <>
               {" "}
               <a href={issueUrl(cell.issue)}>{`${words.issue} #${cell.issue.split("#")[1]}`}</a>
             </>
-          ) : cell.use ? (
+          )}
+          {cell.state === "n/a" && cell.use && (
             <>
               {" → "}
               <Link href={componentHref(locale, cell.use)}>{getRegistryItem(cell.use).title}</Link>
             </>
-          ) : null}
+          )}
         </li>
       ))}
     </ul>

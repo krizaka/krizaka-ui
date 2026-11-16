@@ -107,25 +107,26 @@ async function PageBody({ locale, page }: { locale: Locale; page: Page }) {
   if (foundation) {
     const purpose = purposeOf(foundation);
     const templates = foundation === TEMPLATE_PAGE || purpose !== null;
-    const toc = foundation === ICONS_PAGE ? iconsToc(t) : templates ? templatesToc(t, purpose ?? undefined) : foundation === TYPOGRAPHY_PAGE ? typographyToc(t) : [];
+    const foundationToc = () => {
+      if (foundation === ICONS_PAGE) return iconsToc(t);
+      if (templates) return templatesToc(t, purpose ?? undefined);
+      return foundation === TYPOGRAPHY_PAGE ? typographyToc(t) : [];
+    };
+    const foundationBody = () => {
+      if (foundation === ICONS_PAGE) return <IconsDoc locale={locale} />;
+      if (templates) return <TemplatesDoc locale={locale} purpose={purpose ?? undefined} />;
+      if (foundation === PLATFORMS_PAGE) return <PlatformsDoc locale={locale} />;
+      if (foundation === MOBILE_PAGE) return <MobileDoc locale={locale} />;
+      if (foundation === BRAND_PAGE) return <BrandMarksDoc locale={locale} />;
+      return <TypographyDoc locale={locale} />;
+    };
+    const toc = foundationToc();
     return (
       <DocsPage toc={toc} full={purpose !== null || foundation === MOBILE_PAGE}>
         <DocsTitle>{title}</DocsTitle>
         <DocsDescription>{description}</DocsDescription>
         <DocsBody>
-          {foundation === ICONS_PAGE ? (
-            <IconsDoc locale={locale} />
-          ) : templates ? (
-            <TemplatesDoc locale={locale} purpose={purpose ?? undefined} />
-          ) : foundation === PLATFORMS_PAGE ? (
-            <PlatformsDoc locale={locale} />
-          ) : foundation === MOBILE_PAGE ? (
-            <MobileDoc locale={locale} />
-          ) : foundation === BRAND_PAGE ? (
-            <BrandMarksDoc locale={locale} />
-          ) : (
-            <TypographyDoc locale={locale} />
-          )}
+          {foundationBody()}
         </DocsBody>
       </DocsPage>
     );

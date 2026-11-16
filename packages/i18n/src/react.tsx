@@ -70,8 +70,10 @@ const isEngine = <D extends Dictionary, L extends string>(source: I18n<D, L> | I
  */
 export function createI18nReact<D extends Dictionary, L extends string>(source: I18n<D, L> | I18nLocales<L>) {
   const engine = isEngine(source) ? source : undefined;
-  const asLocale = (value: unknown): L =>
-    engine ? engine.asLocale(value) : source.locales.includes(value as L) ? (value as L) : source.defaultLocale;
+  const asLocale = (value: unknown): L => {
+    if (engine) return engine.asLocale(value);
+    return source.locales.includes(value as L) ? (value as L) : source.defaultLocale;
+  };
 
   const valueOf = (locale: L, setLocale: (locale: L) => void, messages?: D): I18nContextValue<D, L> => {
     if (messages) {
