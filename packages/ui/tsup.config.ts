@@ -405,6 +405,17 @@ export default defineConfig([
     entry: { "media-guard": "src/media-gallery/guard/index.ts" },
   },
   {
+    // Server — the docs source: a folder of <page>.<locale>.md as pages, nav groups, headings and previous / next (pure).
+    ...shared,
+    entry: { "docs-source": "src/docs-source/index.ts" },
+  },
+  {
+    // Node — `readDocsFolder`, the file reading half of the docs source.
+    ...shared,
+    entry: { "docs-source/node": "src/docs-source/node.ts" },
+    platform: "node",
+  },
+  {
     // Node — the `krizaka-media-guard` bin (ffprobe and ffmpeg through child_process), with its shebang.
     ...shared,
     entry: { "media-guard-bin": "src/media-gallery/guard/bin.ts" },
