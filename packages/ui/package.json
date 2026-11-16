@@ -736,6 +736,14 @@
       "types": "./dist/docs-nav.d.ts",
       "import": "./dist/docs-nav.js"
     },
+    "./docs-source": {
+      "types": "./dist/docs-source.d.ts",
+      "import": "./dist/docs-source.js"
+    },
+    "./docs-source/node": {
+      "types": "./dist/docs-source/node.d.ts",
+      "import": "./dist/docs-source/node.js"
+    },
     "./scroll-stage": {
       "types": "./dist/scroll-stage.d.ts",
       "import": "./dist/scroll-stage.js"
@@ -2286,6 +2294,22 @@
       "ignore": [
         "tailwind-variants",
         "clsx"
+      ]
+    },
+    {
+      "name": "./docs-source (the pages, nav groups, headings and pager of a docs folder; carries the Markdown parser)",
+      "path": "dist/docs-source.js",
+      "limit": "7.2 kB",
+      "gzip": true
+    },
+    {
+      "name": "./docs-source/node (Node: reads the folder)",
+      "path": "dist/docs-source/node.js",
+      "limit": "0.5 kB",
+      "gzip": true,
+      "ignore": [
+        "fs/promises",
+        "path"
       ]
     },
     {
