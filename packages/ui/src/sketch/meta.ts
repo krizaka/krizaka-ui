@@ -19,7 +19,6 @@ export const meta = {
     "A screen that holds personal data: the sensitive area is hatched, never shown.",
   ],
   whenNotToUse: [
-    { when: "The live component, its parts named around it.", use: "anatomy-plate" },
     { when: "How a system is built: its containers and their relations.", use: "architecture-diagram" },
     { when: "A real capture of a product screen.", use: "taped-photo" },
   ],
@@ -39,7 +38,7 @@ export const meta = {
       "An `icon` shape must name an `@krizaka/icons` glyph: an unknown name throws `SketchIconError` rather than draw a blank.",
     ],
   },
-  related: ["anatomy-plate", "architecture-diagram", "taped-photo"],
+  related: ["architecture-diagram", "taped-photo"],
   web: {
     imports: ["Sketch", "SketchPair"],
     examples: [

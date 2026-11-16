@@ -171,7 +171,7 @@ function drawLead(c: SketchCallout, r: number, rng: Rng, b: Bounds): string {
 }
 
 /** The drawing alone: the SVG of a spec, the same markup for the same spec and seed. */
-function SketchDrawing({ spec, title }: { spec: SketchSpec; title: string }) {
+function SketchDrawing({ spec, title }: Readonly<{ spec: SketchSpec; title: string }>) {
   const seed = spec.seed ?? 1;
   const frame = spec.frame ?? "desktop";
   const pad = FRAME_PAD[frame] + (frame === "phone" ? 8 : 0);
