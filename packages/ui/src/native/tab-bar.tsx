@@ -36,6 +36,12 @@ export type TabBarProps<T extends string> = {
  * badge for what is new; clear of the home indicator (the safe area), a tick on change, a second press to go back to
  * the top. Plug it in expo-router's or React Navigation's `tabBar`.
  */
+function badgeText(badge: boolean | number | undefined): string | null {
+  if (badge === true) return "";
+  if (typeof badge !== "number" || badge <= 0) return null;
+  return badge > 99 ? "99+" : String(badge);
+}
+
 export function TabBar<T extends string>({ items, value, onValueChange, onReselect, "aria-label": label, style }: Readonly<TabBarProps<T>>) {
   const { theme, insets, haptic } = useTheme();
   return (
@@ -43,7 +49,7 @@ export function TabBar<T extends string>({ items, value, onValueChange, onResele
       {items.map((item) => {
         const selected = item.value === value;
         const color = selected ? theme.accentText : theme.textSecondary;
-        const badge = item.badge === true ? "" : typeof item.badge === "number" && item.badge > 0 ? (item.badge > 99 ? "99+" : String(item.badge)) : null;
+        const badge = badgeText(item.badge);
         return (
           <Pressable
             key={item.value}

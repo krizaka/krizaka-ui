@@ -2,6 +2,7 @@ import * as React from "react";
 import { Pressable, ScrollView, type StyleProp, StyleSheet, Text, TextInput, View, type ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
+import { choose } from "./choose";
 import { Sheet } from "./dialog";
 import { useTheme } from "./theme";
 
@@ -58,7 +59,7 @@ function Trigger({ shared, text, onPress, open }: Readonly<{ shared: FieldShared
         accessibilityHint={caption}
         disabled={disabled}
         onPress={onPress}
-        style={[styles.trigger, { borderRadius: radius.md, backgroundColor: theme.surface2, borderColor: error ? theme.danger : open ? theme.accent : theme.borderDefault }, disabled ? styles.disabled : null]}
+        style={[styles.trigger, { borderRadius: radius.md, backgroundColor: theme.surface2, borderColor: choose(theme.borderDefault, [error, theme.danger], [open, theme.accent]) }, disabled ? styles.disabled : null]}
       >
         <Text numberOfLines={1} style={[styles.triggerText, { color: text ? theme.textPrimary : theme.textSecondary }]}>
           {text ?? placeholder ?? ""}
@@ -93,7 +94,7 @@ function Options({ options, isChosen, onPick, multiple }: Readonly<{ options: re
               haptic("selection");
               onPick(o);
             }}
-            style={({ pressed }) => [styles.option, { borderRadius: radius.md, backgroundColor: chosen ? theme.accentSoft : pressed ? theme.surface3 : "transparent" }, o.disabled ? styles.disabled : null]}
+            style={({ pressed }) => [styles.option, { borderRadius: radius.md, backgroundColor: choose("transparent", [chosen, theme.accentSoft], [pressed, theme.surface3]) }, o.disabled ? styles.disabled : null]}
           >
             <View style={styles.optionText}>
               <Text style={[styles.optionLabel, { color: theme.textPrimary, fontWeight: chosen ? "700" : "500" }]}>{o.label}</Text>
@@ -176,6 +177,12 @@ export type ComboboxProps = FieldShared & {
 };
 
 /** A choice among many, searched: a field that opens a sheet with a search box and the matching options. */
+function toList(value: ComboboxProps["value"]): string[] {
+  if (value == null) return [];
+  if (typeof value !== "string") return [...value];
+  return value ? [value] : [];
+}
+
 export function Combobox({ options = [], onSearch, multiple, value, onValueChange, labels: given, ...shared }: Readonly<ComboboxProps>) {
   const labels = { ...comboboxLabels, ...given };
   const { theme, radius } = useTheme();
@@ -184,7 +191,7 @@ export function Combobox({ options = [], onSearch, multiple, value, onValueChang
   const [found, setFound] = React.useState<readonly SelectOption[] | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [seen, setSeen] = React.useState<Record<string, SelectOption>>({});
-  const chosen: string[] = value == null ? [] : typeof value === "string" ? (value ? [value] : []) : [...value];
+  const chosen: string[] = toList(value);
   React.useEffect(() => {
     if (!onSearch || !open) return;
     const controller = new AbortController();

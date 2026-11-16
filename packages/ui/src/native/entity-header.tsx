@@ -60,9 +60,8 @@ export function EntityHeader({
         <Pressable accessibilityRole="button" accessibilityLabel={avatarLabel} onPress={onAvatarPress}>
           {picture}
         </Pressable>
-      ) : avatar ? (
-        picture
       ) : null}
+      {!onAvatarPress && avatar ? picture : null}
       <View style={{ flex: 1, rowGap: 4 }}>
         <Editable value={name} label={nameLabel} onCommit={onNameChange} onRefusal={setLocal} variant="title" required />
         {description || onDescriptionChange ? (

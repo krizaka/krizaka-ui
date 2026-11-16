@@ -4,6 +4,8 @@
 import * as React from "react";
 import { type LayoutChangeEvent, type StyleProp, StyleSheet, useWindowDimensions, View, type ViewStyle } from "react-native";
 
+import { choose } from "./choose";
+
 export type SizeClass = "compact" | "regular" | "expanded";
 
 /** Where a size class begins, in points of the room the layout is given (Material's window size classes). */
@@ -11,7 +13,7 @@ export const SIZE_CLASS_FROM = { regular: 600, expanded: 840 } as const;
 
 /** The size class of a width in points. */
 export function sizeClassOf(width: number): SizeClass {
-  return width >= SIZE_CLASS_FROM.expanded ? "expanded" : width >= SIZE_CLASS_FROM.regular ? "regular" : "compact";
+  return choose<SizeClass>("compact", [width >= SIZE_CLASS_FROM.expanded, "expanded"], [width >= SIZE_CLASS_FROM.regular, "regular"]);
 }
 
 /** The size class of the window (use a `Grid` or `Columns` when it is the room of a container that matters). */

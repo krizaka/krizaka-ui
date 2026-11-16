@@ -211,12 +211,13 @@ export function TextField({ name, label, hint, disabled, style, transform, valid
   const f = useKrizakaField<string>(name, { validateAsync, asyncDebounceMs });
   const chained = useChained(input);
   const { theme } = useTheme();
-  const end = f.validating ? <Spinner size="sm" label={checkingLabel} /> : f.available ? <Txt aria-hidden style={{ color: theme.successText }}>✓</Txt> : null;
+  const availableMark = f.available ? <Txt aria-hidden style={{ color: theme.successText }}>✓</Txt> : null;
+  const end = f.validating ? <Spinner size="sm" label={checkingLabel} /> : availableMark;
   return (
     <View style={[styles.field, style]}>
       <TextFieldControl
         label={label}
-        hint={f.available && availableHint ? (hint ? `${availableHint} · ${hint}` : availableHint) : hint}
+        hint={f.available && availableHint ? [availableHint, hint].filter(Boolean).join(" · ") : hint}
         error={f.error}
         disabled={disabled}
         value={f.value ?? ""}
@@ -485,7 +486,10 @@ export function Money({ name, label, hint, disabled, style, currency, placeholde
       onValueChange={(next) => {
         setText(next);
         const units = parseMoney(next, currency, f.locale);
-        f.setValue(units === undefined ? null : units === null ? Number.NaN : units);
+        let parsed: number | null = null;
+        if (units === null) parsed = Number.NaN;
+        else if (units !== undefined) parsed = units;
+        f.setValue(parsed);
       }}
       onBlur={() => {
         setEditing(false);

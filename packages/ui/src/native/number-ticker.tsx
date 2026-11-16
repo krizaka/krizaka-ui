@@ -32,7 +32,7 @@ export type NumberTickerProps = {
 export function NumberTicker({ value, locale, format, trigger = "mount", duration = 1100, announce, variant = "display", tone = "text", style }: Readonly<NumberTickerProps>) {
   const reduce = useReducedMotion();
   const writer = React.useMemo(() => new Intl.NumberFormat(locale, format), [locale, format]);
-  const [shown, setShown] = React.useState(() => (reduce ? value : trigger === "mount" ? 0 : value));
+  const [shown, setShown] = React.useState(() => (!reduce && trigger === "mount" ? 0 : value));
   const [anim] = React.useState(() => new Animated.Value(trigger === "mount" ? 0 : value));
   const first = React.useRef(true);
   React.useEffect(() => {

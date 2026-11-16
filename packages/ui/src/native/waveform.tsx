@@ -4,6 +4,7 @@ import * as React from "react";
 import { Animated, AppState, Easing, StyleSheet, View, type ViewProps } from "react-native";
 
 import { resamplePeaks } from "../waveform/bars";
+import { keyed } from "./keyed";
 import { useReducedMotion, useTheme } from "./theme";
 
 export type WaveformProps = Omit<ViewProps, "children"> & {
@@ -70,9 +71,9 @@ export function Waveform({ peaks, bars = 32, size = "md", tone = "accent", playi
       importantForAccessibility={named ? "yes" : "no-hide-descendants"}
       style={[styles.root, { height: HEIGHT[size] }, style]}
     >
-      {shape.map((peak, i) => (
+      {keyed(shape, () => "bar").map(({ key, item: peak, index: i }) => (
         <Animated.View
-          key={i}
+          key={key}
           testID="waveform-bar"
           style={[
             styles.bar,

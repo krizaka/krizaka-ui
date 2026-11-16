@@ -6,6 +6,7 @@ import { StyleSheet, View, type ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
 import { Button } from "./button";
+import { choose } from "./choose";
 import { EmptyState } from "./empty-state";
 import { useTheme } from "./theme";
 import { Txt } from "./txt";
@@ -71,7 +72,7 @@ export function StateScreen({ kind, title, description, action, secondary, icon,
     />
   );
   return (
-    <View testID={testID} role={kind === "error" ? "alert" : kind === "offline" ? "status" : undefined} data-state={kind} style={[inline ? styles.inline : styles.fill, style]}>
+    <View testID={testID} role={choose<"alert" | "status" | undefined>(undefined, [kind === "error", "alert"], [kind === "offline", "status"])} data-state={kind} style={[inline ? styles.inline : styles.fill, style]}>
       {body}
     </View>
   );

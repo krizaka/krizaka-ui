@@ -2,6 +2,7 @@ import * as React from "react";
 import { Platform, type StyleProp, StyleSheet, Text, TextInput, type TextInputProps, View, type ViewStyle } from "react-native";
 
 import { composeDate, DATE_PART_LENGTH, type DatePart, datePartsOrder, splitDate as split } from "../date-picker/parts";
+import { choose } from "./choose";
 import { useTheme } from "./theme";
 
 type Part = DatePart;
@@ -57,6 +58,7 @@ export type DateFieldProps = {
  */
 export function DateField({ label, hint, error, value, defaultValue, onValueChange, onBlur, locale = "en-US", labels: given, autoComplete, disabled, inputRef, onSubmitEditing, returnKeyType = "done", style }: Readonly<DateFieldProps>) {
   const { theme, radius } = useTheme();
+  const bdayPrefix = Platform.OS === "web" ? "bday" : "birthdate";
   const labels = { ...dateFieldLabels, ...given };
   const order = React.useMemo(() => datePartsOrder(locale), [locale]);
   const [parts, setParts] = React.useState(() => split(value ?? defaultValue));
@@ -97,7 +99,7 @@ export function DateField({ label, hint, error, value, defaultValue, onValueChan
               keyboardType="number-pad"
               inputMode="numeric"
               maxLength={LENGTH[part]}
-              autoComplete={autoComplete === "bday" ? ((Platform.OS === "web" ? `bday-${part}` : `birthdate-${part}`) as TextInputProps["autoComplete"]) : "off"}
+              autoComplete={autoComplete === "bday" ? (`${bdayPrefix}-${part}` as TextInputProps["autoComplete"]) : "off"}
               returnKeyType={i === order.length - 1 ? returnKeyType : "next"}
               submitBehavior={i === order.length - 1 && returnKeyType !== "next" ? "blurAndSubmit" : "submit"}
               onSubmitEditing={() => {
@@ -113,7 +115,7 @@ export function DateField({ label, hint, error, value, defaultValue, onValueChan
               }}
               style={[
                 styles.input,
-                { color: theme.textPrimary, backgroundColor: theme.surface2, borderRadius: radius.md, borderColor: error ? theme.danger : focused === part ? theme.accent : theme.borderDefault },
+                { color: theme.textPrimary, backgroundColor: theme.surface2, borderRadius: radius.md, borderColor: choose(theme.borderDefault, [error, theme.danger], [focused === part, theme.accent]) },
               ]}
             />
           </View>
