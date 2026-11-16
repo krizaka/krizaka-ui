@@ -34,7 +34,8 @@ export function renderLlms(): string {
     const line = importLineOf(item.name);
     const url = absoluteUrl("en", `/components/${item.name}`);
     const importText = line ? " `" + line + "`" : "";
-    return `- [${item.title}](${url}): ${item.summary.replace(/`/g, "")}${importText}`;
+    const summary = item.summary.replaceAll("`", "");
+    return `- [${item.title}](${url}): ${summary}${importText}`;
   });
   return [
     "# Krizaka UI",

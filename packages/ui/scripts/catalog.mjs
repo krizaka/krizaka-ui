@@ -186,7 +186,7 @@ export function catalogGaps(catalog, pkg) {
 /** The source file of an entry (`@krizaka/ui/form/server` → `src/form/server.tsx`), or null. */
 export function sourceFileOf(src, module, exists) {
   const sub = module.replace(/^@krizaka\/ui\//, "");
-  return [`${sub}.ts`, `${sub}.tsx`, `${sub}/index.ts`, `${sub}/index.tsx`].map((file) => `${src}/${file}`).find(exists) ?? null;
+  return [`${sub}.ts`, `${sub}.tsx`, `${sub}/index.ts`, `${sub}/index.tsx`].map((file) => `${src}/${file}`).find((file) => exists(file)) ?? null;
 }
 
 /**
