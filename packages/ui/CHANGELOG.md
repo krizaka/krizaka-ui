@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 4.11.0
+
+### Minor Changes
+
+- [#1044](https://github.com/krizaka/krizaka-ui/pull/1044) [`065fe4b`](https://github.com/krizaka/krizaka-ui/commit/065fe4bf88f3f9ea1ddb06c7fc9eed72cb630e13) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Ship `@krizaka/ui/catalog.json`: the catalogue of the package in the `krizaka-catalog/v1` shape (krizaka-internal#3947). It has one entry per name a product imports, with its import line, props, an example that uses it, its rules (do / don't) and status. `scripts/build-catalog.mjs` writes it at build. `scripts/catalog.test.mjs` is the guard: an entry point without an entry, or an entry without an example, fails, apart from the gaps recorded in `scripts/catalog-gaps.json`, and that list can only shrink. The coding agents read the catalogue through the krizaka-docs MCP, and llms.txt now ends each component line with its import line, taken from the same catalogue.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@4.11.0
+  - @krizaka/tokens@4.11.0
+
 ## 4.10.1
 
 ### Patch Changes
