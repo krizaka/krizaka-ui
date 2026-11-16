@@ -1,0 +1,44 @@
+/* @krizaka/tokens — GÉNÉRÉ depuis src/brands/kridoc.brand.json par scripts/build.mjs : ne pas éditer.
+   Kridoc — le saphir de la grue (marque C, 2026-11-15) : un bleu franc (220) qui penche vers le cobalt, le logo est un dégradé saphir #2c6ae8 → #156fd5, identique dans les deux thèmes, ≥ 3:1 sur les surfaces 0–2. Le clair du cœur du logo est #eef4ff. info reste le bleu de Krizaka.
+   Importé après tokens.css (ou @krizaka/tailwind) : l'identité kridoc sur toute l'app, dans les deux thèmes. */
+
+:root, .theme-dark {
+  --kz-accent: hsl(220 80% 70%);
+  --kz-accent-hover: hsl(220 82% 76%);
+  --kz-accent-soft: hsl(220 80% 70% / 0.12);
+  --kz-accent-text: hsl(220 85% 76%);
+  --kz-accent-2: hsl(220 80% 74%);
+  --kz-on-accent: hsl(220 20% 5%);
+  --kz-ring: var(--kz-accent);
+  --kz-info: hsl(207 50% 58%);
+  --kz-info-text: hsl(206 58% 72%);
+  --kz-brand-gradient-from: var(--kz-surface-0);
+  --kz-brand-gradient-via: var(--kz-surface-0);
+  --kz-brand-gradient-to: var(--kz-surface-0);
+}
+
+html.light {
+  --kz-accent: hsl(220 76% 42%);
+  --kz-accent-hover: hsl(220 78% 36%);
+  --kz-accent-soft: hsl(220 76% 42% / 0.08);
+  --kz-accent-text: hsl(220 76% 40%);
+  --kz-accent-2: hsl(220 76% 40%);
+  --kz-on-accent: hsl(0 0% 100%);
+  --kz-info: hsl(208 54% 36%);
+  --kz-info-text: hsl(208 54% 33%);
+}
+
+.theme-light {
+  --kz-accent: hsl(220 76% 42%);
+  --kz-accent-hover: hsl(220 78% 36%);
+  --kz-accent-soft: hsl(220 76% 42% / 0.08);
+  --kz-accent-text: hsl(220 76% 40%);
+  --kz-accent-2: hsl(220 76% 40%);
+  --kz-on-accent: hsl(0 0% 100%);
+  --kz-ring: var(--kz-accent);
+  --kz-info: hsl(208 54% 36%);
+  --kz-info-text: hsl(208 54% 33%);
+  --kz-brand-gradient-from: var(--kz-surface-0);
+  --kz-brand-gradient-via: var(--kz-surface-0);
+  --kz-brand-gradient-to: var(--kz-surface-0);
+}

@@ -17,6 +17,7 @@ export const Krizaka: Story = {};
 export const Sovkora: Story = { args: { id: "sovkora" } };
 export const Verikora: Story = { args: { id: "verikora" } };
 export const Folioviv: Story = { args: { id: "folioviv" } };
+export const Kridoc: Story = { args: { id: "kridoc" } };
 
 /** Every mark, still (`animated={false}`). */
 export const AllStill: Story = {
@@ -26,6 +27,7 @@ export const AllStill: Story = {
       <ProductLogo {...args} id="sovkora" />
       <ProductLogo {...args} id="verikora" />
       <ProductLogo {...args} id="folioviv" />
+      <ProductLogo {...args} id="kridoc" />
     </div>
   ),
   args: { animated: false },

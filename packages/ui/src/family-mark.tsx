@@ -2,7 +2,7 @@
 // moves), or GitHub's, in the text colour. Shared by `NavBar.Family` and `SiteFooter` — not an entry of its own.
 import type * as React from "react";
 
-import { ProductLogo } from "./marks/ProductLogo";
+import { BrandLogo } from "./marks/BrandLogo";
 import type { SiteMark } from "./sites/sites";
 
 /** GitHub's mark, in the text colour (both themes). */
@@ -17,5 +17,5 @@ export function GitHubGlyph({ size = 16, className }: Readonly<{ size?: number; 
 /** A site's mark, decorative (its name is always written beside it). */
 export function FamilyMark({ mark, size }: Readonly<{ mark: SiteMark; size: number }>): React.ReactElement {
   if (mark === "github") return <GitHubGlyph size={Math.round(size * 0.8)} />;
-  return <ProductLogo id={mark} size={size} animated={false} />;
+  return <BrandLogo id={mark} size={size} animated={false} />;
 }

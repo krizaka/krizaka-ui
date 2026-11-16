@@ -357,11 +357,20 @@ describe("brands", async () => {
   const surfaces = ["surface0", "surface1", "surface2", "surface3"] as const;
 
   it("compiles one theme per brand and the scoped classes", () => {
-    expect(BRANDS).toEqual(["krizaka", "sovkora", "verikora", "folioviv"]);
+    expect(BRANDS).toEqual(["krizaka", "sovkora", "verikora", "folioviv", "kridoc"]);
     for (const id of BRANDS) expect(files[`brands/${id}.css`], id).toBeDefined();
     expect(files["brands/scoped.css"]).toContain(".brand-sovkora {");
     expect(Object.keys(index.brands)).toEqual(BRANDS);
     expect(Object.keys(native.brands)).toEqual(BRANDS);
+  });
+
+  it("native: brandAccents carries the accent and its text colour of every brand, as brands does", () => {
+    expect(Object.keys(native.brandAccents)).toEqual(BRANDS);
+    for (const id of BRANDS) {
+      for (const mode of ["dark", "light"] as const) {
+        expect(native.brandAccents[id][mode], `${id} ${mode}`).toEqual({ accent: native.brands[id][mode].accent, onAccent: native.brands[id][mode].onAccent });
+      }
+    }
   });
 
   it("matches the snapshots", async () => {
@@ -448,7 +457,7 @@ describe("brands", async () => {
       }
     });
 
-    it.each(["sovkora", "verikora", "folioviv"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
+    it.each(["sovkora", "verikora", "folioviv", "kridoc"])("keeps every stop of the %s mark ≥ 3:1 (a graphic object) on surfaces 0–2, dark and light", (id) => {
       for (const mode of ["dark", "light"] as const) {
         for (const s of ["surface0", "surface1", "surface2"] as const) {
           for (const [, c] of index.marks[id]) expect(contrast(parseHsl(c), parseHsl(index.values[mode][s])), `${mode} ${s} ${c}`).toBeGreaterThanOrEqual(3);
@@ -511,7 +520,7 @@ describe("brands", async () => {
     expect(index.marks.folioviv.map(([, c]: [string, string]) => hue(c))).toEqual([140, 22]);
   });
 
-  it.each(["folioviv"] as const)("gives %s the same roles as every brand, dark, light and native (key parity)", (id) => {
+  it.each(["folioviv", "kridoc"] as const)("gives %s the same roles as every brand, dark, light and native (key parity)", (id) => {
     for (const mode of ["dark", "light"] as const) {
       expect(Object.keys(index.brands[id][mode])).toEqual(Object.keys(index.brands.krizaka[mode]));
       expect(Object.keys(native.brands[id][mode])).toEqual(Object.keys(native.brands.krizaka[mode]));
@@ -781,7 +790,7 @@ describe("brands.json — the one source of the product colours", () => {
   const ROLES = ["logo", "accent", "accentText", "accent2", "onAccent"] as const;
 
   it("has each brand with its 5 roles, light and dark, in hsl and hex", () => {
-    expect(Object.keys(doc.brands)).toEqual(["krizaka", "sovkora", "verikora", "folioviv"]);
+    expect(Object.keys(doc.brands)).toEqual(["krizaka", "sovkora", "verikora", "folioviv", "kridoc"]);
     for (const id of Object.keys(doc.brands)) {
       expect(Object.keys(doc.brands[id]), id).toEqual([...ROLES]);
       for (const role of ROLES) {

@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { test } from "node:test";
 
-import { assertDistinctMarks, assertWritable, avatarFiles, brandFiles, brandIndex, emblem, hslToRgba, stalePaths, standalone, tokensOf } from "./export-brand.mjs";
+import { assertDistinctMarks, assertMarksOfficial, assertWritable, OFFICIAL_MARKS, shapesOf, avatarFiles, brandFiles, brandIndex, emblem, hslToRgba, stalePaths, standalone, tokensOf } from "./export-brand.mjs";
 
 test("reads the tokens of a theme block", () => {
   const css = ":root, .theme-dark {\n  --kz-text-primary: hsl(0 0% 96%); /* x */\n}\nhtml.light {\n  --kz-text-primary: hsl(240 6% 10%);\n}\n";
@@ -141,4 +142,15 @@ test("two brands never publish the same mark: Kridoc wearing Folioviv's file is 
   assert.doesNotThrow(() => assertDistinctMarks(files));
   // the dark and light files of one brand may be equal to each other; only another brand's file is refused
   assert.doesNotThrow(() => assertDistinctMarks(new Map([["brand/a/mark-dark.svg", same], ["brand/a/mark-light.svg", same]])));
+});
+
+test("a published mark must carry every shape of its official file", () => {
+  const official = readFileSync(new URL("./fixtures/brand-official/kridoc-embleme-clair.svg", import.meta.url));
+  const files = new Map([["brand/kridoc/mark-light.svg", official], ["brand/kridoc/mark-dark.svg", official]]);
+  assert.doesNotThrow(() => assertMarksOfficial(files));
+  assert.ok(shapesOf(official.toString()).length >= 6);
+  const orange = Buffer.from('<svg><path d="M0 0 L9 9"/></svg>');
+  assert.throws(() => assertMarksOfficial(new Map([...files, ["brand/kridoc/mark-light.svg", orange]])), /not the official kridoc-embleme-clair\.svg/);
+  assert.throws(() => assertMarksOfficial(new Map()), /is not published/);
+  assert.deepEqual(Object.keys(OFFICIAL_MARKS), ["kridoc"]);
 });
