@@ -99,8 +99,6 @@ export default defineConfig([
       "description-list": "src/description-list/index.ts",
       // One laid-out C4 view of @krizaka/architecture on the plate (server-safe: no id, no state; its types only, type-imported).
       "architecture-diagram": "src/architecture-diagram/index.ts",
-      // A screen drawn with the pen, its callouts and its legend (server-safe: seeded strokes, no state; the glyphs are @krizaka/icons's).
-      sketch: "src/sketch/index.ts",
       // The header beside a RailNav: the name as text, the mark below md (server-safe).
       "app-header": "src/app-header/index.ts",
       // A shop's storefront: the service card and the weekly hours (server-safe).
@@ -138,6 +136,13 @@ export default defineConfig([
       // The recipes: classes of the tokens, read by tv() on the web and by the phone's components (no React).
       recipes: "src/recipes/index.ts",
     },
+  },
+  {
+    // A screen drawn with the pen, its callouts and its legend (server-safe: seeded strokes, no state; the glyphs are
+    // @krizaka/icons's), in its own small build: one more entry in the largest declaration build ran the CI runner out
+    // of heap (krizaka-ui#1051).
+    ...shared,
+    entry: { sketch: "src/sketch/index.ts" },
   },
   {
     // Server too — the layouts that hold no state (the shells of whole screens), in their own build: one declaration
