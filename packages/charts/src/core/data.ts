@@ -115,8 +115,19 @@ export function summarize(series: Series, categories: readonly unknown[], writeC
     if (!max || v > max.value) max = { value: v, category: writeCategory(categories[i]) };
   });
   const change = first !== null && last !== null && first !== 0 && count > 1 ? (last as number) / first - 1 : null;
-  const trend = count < 2 || change === null ? (count < 2 ? "none" : last! > first! ? "up" : last! < first! ? "down" : "flat") : Math.abs(change) < 0.01 ? "flat" : change > 0 ? "up" : "down";
+  const trend = trendOf(count, first, last, change);
   return { label: series.label, count, min, max, first, last, total, change, trend };
+}
+
+/** The direction of a series: `none` under two points, else by the relative change (flat under 1 %), or the raw endpoints when the change is undefined. */
+function trendOf(count: number, first: number | null, last: number | null, change: number | null): "none" | "up" | "down" | "flat" {
+  if (count < 2) return "none";
+  if (change === null) {
+    if (last! > first!) return "up";
+    return last! < first! ? "down" : "flat";
+  }
+  if (Math.abs(change) < 0.01) return "flat";
+  return change > 0 ? "up" : "down";
 }
 
 /**
@@ -151,4 +162,11 @@ export function trimToActivity(table: Table, min = 7): { table: Table; start: nu
   }
   if (from === 0 && to === total - 1) return { table, start: 0, active, total };
   return { table: { categories: table.categories.slice(from, to + 1), series: table.series.map((s) => ({ ...s, values: s.values.slice(from, to + 1) })) }, start: from, active, total };
+}
+
+/** The tone a trend line takes: up is good unless the tone is `inverse` (a cost). `undefined` when the line has no trend tone. */
+export function trendColorTone(trendTone: boolean | "inverse" | undefined, up: boolean): "success" | "danger" | undefined {
+  if (!trendTone) return undefined;
+  const good = trendTone === "inverse" ? !up : up;
+  return good ? "success" : "danger";
 }

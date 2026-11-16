@@ -7,7 +7,7 @@ import Svg, { Circle, G, Line, Path, Text as SvgText } from "react-native-svg";
 import { extent, normalizeSeries, stack, tabulate } from "../core/data";
 import { describeSeries } from "../core/describe";
 import { categoryFormatter, shareFormatter, valueFormatter } from "../core/format";
-import { bandScale, linearScale, niceDomain, pointScale, thinLabels } from "../core/scale";
+import { bandScale, labelAnchor, linearScale, niceDomain, pointScale, thinLabels } from "../core/scale";
 import { areaPath, barPath, type Curve, linePath, type Point, segments } from "../core/shape";
 import type { Accessor, CategoryFormat, Datum, SeriesSpec, Threshold, ValueFormat } from "../core/types";
 import { NativeFrame, type NativeFrameProps, NativeLegend, useNativeSettings } from "./frame";
@@ -103,7 +103,7 @@ function NativeCartesian<T extends Datum>({ props, mode }: Readonly<{ props: Nat
               </G>
             ))}
             {labelsAt.map((i) => (
-              <SvgText key={i} x={at(i)} y={y1 + 16} fontSize={11} fill={theme.textSecondary} textAnchor={mode.kind !== "bar" && i === 0 ? "start" : mode.kind !== "bar" && i === count - 1 ? "end" : "middle"}>
+              <SvgText key={i} x={at(i)} y={y1 + 16} fontSize={11} fill={theme.textSecondary} textAnchor={labelAnchor(mode.kind === "bar", i, count)}>
                 {fmt.category(table.categories[i])}
               </SvgText>
             ))}

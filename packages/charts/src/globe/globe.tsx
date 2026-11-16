@@ -136,6 +136,8 @@ export function Globe3D(props: Readonly<Globe3DProps>) {
     setDragging(false);
   };
 
+  const point = active === null ? null : points[active]!;
+  const announcement = point ? `${point.label}${point.value != null ? `: ${fmt(point.value)}` : ""}` : "";
   return (
     <ChartFrame
       kind="globe"
@@ -145,7 +147,7 @@ export function Globe3D(props: Readonly<Globe3DProps>) {
       table={table}
       summary={summary}
       isEmpty={points.length === 0}
-      announcement={active === null ? "" : `${points[active]!.label}${points[active]!.value != null ? `: ${fmt(points[active]!.value)}` : ""}`}
+      announcement={announcement}
       handlers={{ onKeyDown, onBlur: () => setActive(null) }}
       plotRef={plotRef}
     >

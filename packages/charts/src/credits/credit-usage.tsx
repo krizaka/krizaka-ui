@@ -81,7 +81,11 @@ export function CreditUsage({
   const runOut = left == null || !now ? null : addDays(now, left);
   const renews = renewsAt ? new Date(renewsAt) : null;
   // The run-out date only matters when it comes before the renewal.
-  const projection = daily ? (runOut && (!renews || runOut < renews) ? fillIn(words.runsOut, { date: date(runOut) }) : left == null ? words.steady : null) : null;
+  let projection: string | null = null;
+  if (daily) {
+    if (runOut && (!renews || runOut < renews)) projection = fillIn(words.runsOut, { date: date(runOut) });
+    else if (left == null) projection = words.steady;
+  }
   return (
     <figure className={cx("kzc", className)} style={style} data-kzc="" data-brand={brand} data-kind="credits" aria-labelledby={`${uid}-t`} aria-busy={loading || undefined}>
       <ChartStyles />

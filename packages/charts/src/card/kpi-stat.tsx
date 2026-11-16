@@ -40,12 +40,25 @@ export interface KpiStatProps extends ChartsSettings, Omit<StatProps, "value" | 
 
 const FLAT = 0.005;
 
+/** The change against the previous period: `null` when there is nothing to compare with (no previous, or a change from zero). */
+function changeOf(value: number, previous: number | undefined): number | null {
+  if (previous === undefined) return null;
+  if (previous === 0) return value === 0 ? 0 : null;
+  return value / previous - 1;
+}
+
+function directionOf(change: number | null): "flat" | "up" | "down" | undefined {
+  if (change === null) return undefined;
+  if (Math.abs(change) < FLAT) return "flat";
+  return change > 0 ? "up" : "down";
+}
+
 /** A key figure, its change against the previous period and the shape of the period. */
 export function KpiStat({ label, value, format, previous, good = "up", data, categories, variant = "area", color, trendLabel, hint, locale, brand, labels, className, ...rest }: KpiStatProps) {
   const settings = useChartSettings({ locale, brand, labels });
   const write = valueFormatter(format, settings.locale, settings.labels.noValue);
-  const change = previous === undefined ? null : previous === 0 ? (value === 0 ? 0 : null) : value / previous - 1;
-  const direction = change === null ? undefined : Math.abs(change) < FLAT ? "flat" : change > 0 ? "up" : "down";
+  const change = changeOf(value, previous);
+  const direction = directionOf(change);
   const tag = Array.isArray(settings.locale) ? settings.locale[0] : (settings.locale as string);
   const pct = change === null ? null : getNumberFormat(settings.locale, { style: "percent", maximumFractionDigits: 0, signDisplay: "exceptZero" }).format(change);
   const words = trendLabel ?? (pct !== null ? fill(settings.labels.trendVsPrevious, { change: pct }) : undefined);

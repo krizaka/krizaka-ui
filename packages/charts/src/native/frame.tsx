@@ -73,7 +73,11 @@ export function useNativeSettings(own: NativeChartsSettings): Resolved {
       labels: mergeLabels(shared.labels, own.labels),
       theme,
       palette: colors,
-      color: (color, slot) => (color === undefined ? colors[(slot - 1) % 8]! : typeof color === "number" ? colors[color - 1]! : color in tones ? tones[color as Tone] : color),
+      color: (color, slot) => {
+        if (color === undefined) return colors[(slot - 1) % 8]!;
+        if (typeof color === "number") return colors[color - 1]!;
+        return color in tones ? tones[color as Tone] : color;
+      },
     };
   }, [scheme, brand, shared, own.locale, own.labels, own.theme]);
 }

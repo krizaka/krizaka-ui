@@ -79,7 +79,10 @@ function Headline({
   );
 }
 
-const good = (way: "up" | "down" | "flat" | null, up: boolean): Tone => (!way || way === "flat" ? "neutral" : (way === "up") === up ? "success" : "danger");
+const good = (way: "up" | "down" | "flat" | null, up: boolean): Tone => {
+  if (!way || way === "flat") return "neutral";
+  return (way === "up") === up ? "success" : "danger";
+};
 
 type Base<T extends Datum> = Omit<NativeCartesianProps<T>, "y" | "yLabel" | "series" | "format" | "x" | "xFormat" | "thresholds" | "labels">;
 
@@ -191,6 +194,8 @@ export function LatencyChart<T extends Datum>({
   const over = objective ? measured.filter((m) => m.value > objective.value).length : 0;
   const nameOf = (row: T, i: number) => String(typeof x === "function" ? x(row, i) : (row as Record<string, unknown>)[x]);
   const series: SeriesSpec<T>[] = [{ key: p50, label: words.p50, color: "neutral" }, ...(p95 ? [{ key: p95, label: words.p95, color: 1 as const }] : [])];
+  const overDelta = over > 0 ? fillIn(words.over, { count: over }) : words.within;
+  const overWay = over > 0 ? "up" : "flat";
   return (
     <View style={styles.root}>
       <Headline
@@ -199,8 +204,8 @@ export function LatencyChart<T extends Datum>({
         hideTitle={hideTitle}
         value={slowest ? formatDuration(slowest.value, resolved.locale) : "—"}
         label={slowest ? fillIn(words.slowest, { name: nameOf(slowest.row, slowest.i) }) : undefined}
-        delta={objective ? (over > 0 ? fillIn(words.over, { count: over }) : words.within) : null}
-        way={objective ? (over > 0 ? "up" : "flat") : null}
+        delta={objective ? overDelta : null}
+        way={objective ? overWay : null}
         tone={over > 0 ? "danger" : "success"}
       />
       <BarChart
@@ -256,8 +261,12 @@ export function CreditUsage({ title, hideTitle, used, limit, format = "integer",
   const left = daily ? daysLeft(remaining, daily) : null;
   const runOut = left == null ? null : addDays(now ?? new Date(), left);
   const renews = renewsAt ? new Date(renewsAt) : null;
-  const projection = daily ? (runOut && (!renews || runOut < renews) ? fillIn(words.runsOut, { date: date(runOut) }) : left == null ? words.steady : null) : null;
-  const fill = level === "danger" ? theme.danger : level === "warning" ? theme.warning : theme.accent;
+  let projection: string | null = null;
+  if (daily) {
+    if (runOut && (!renews || runOut < renews)) projection = fillIn(words.runsOut, { date: date(runOut) });
+    else if (left == null) projection = words.steady;
+  }
+  const fill = { danger: theme.danger, warning: theme.warning, ok: theme.accent }[level];
   return (
     <View style={[styles.root, style]}>
       <Headline resolved={resolved} title={title} hideTitle={hideTitle} value={write(remaining)} label={fillIn(words.remaining, { limit: write(limit) })} />

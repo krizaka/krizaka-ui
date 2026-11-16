@@ -14,7 +14,7 @@ export function niceStep(span: number, count: number): number {
   const raw = span / count;
   const power = 10 ** Math.floor(Math.log10(raw));
   const fraction = raw / power;
-  const nice = fraction <= 1 ? 1 : fraction <= 2 ? 2 : fraction <= 2.5 ? 2.5 : fraction <= 5 ? 5 : 10;
+  const nice = [1, 2, 2.5, 5].find((step) => fraction <= step) ?? 10;
   return nice * power;
 }
 
@@ -86,4 +86,11 @@ export function thinLabels(count: number, max: number): number[] {
     out.push(count - 1);
   }
   return out;
+}
+
+/** The `text-anchor` of a category label: the ends of a line or area lean inward, a bar's label is centred under it. */
+export function labelAnchor(bar: boolean, i: number, count: number): "start" | "middle" | "end" {
+  if (bar) return "middle";
+  if (i === 0) return "start";
+  return i === count - 1 ? "end" : "middle";
 }

@@ -145,7 +145,8 @@ export function PieChart<T extends Datum>(props: Readonly<PieChartProps<T>>) {
         });
         const current = active !== null ? arcs[active] : null;
         const mid = current ? (current.start + current.end) / 2 : 0;
-        const [tx, ty] = current ? polar(cx, cy, (radius + inner) / 2 + (donut ? 0 : radius * 0.2), mid) : [0, 0];
+        const labelRadius = (radius + inner) / 2 + (donut ? 0 : radius * 0.2);
+        const [tx, ty] = current ? polar(cx, cy, labelRadius, mid) : [0, 0];
         return (
           <>
             <svg className="kzc-svg" width={width} height={height} viewBox={`0 0 ${width} ${height}`} aria-hidden>
