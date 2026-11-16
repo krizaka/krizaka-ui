@@ -1,6 +1,7 @@
 import * as React from "react";
 import { type StyleProp, StyleSheet, Text, TextInput, type TextInputProps, View, type ViewStyle } from "react-native";
 
+import { choose } from "./choose";
 import { useTheme } from "./theme";
 
 export type TextFieldProps = Omit<TextInputProps, "value" | "defaultValue" | "onChangeText" | "style" | "editable"> & {
@@ -35,7 +36,7 @@ export function TextField({ label, hint, error, value, defaultValue, onValueChan
   const { theme, radius } = useTheme();
   const [focused, setFocused] = React.useState(false);
   const caption = error ?? hint;
-  const border = error ? theme.danger : focused ? theme.accent : theme.borderDefault;
+  const border = choose(theme.borderDefault, [error, theme.danger], [focused, theme.accent]);
   return (
     <View style={[styles.root, disabled ? styles.disabled : null, style]}>
       <Text style={[styles.label, { color: theme.textSecondary }]}>{label}</Text>

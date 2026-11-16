@@ -8,6 +8,7 @@ import { Image, Linking, ScrollView, type StyleProp, StyleSheet, Text, useWindow
 import { codeHighlighter } from "../code-block/highlighter";
 import { warnDeprecated } from "../deprecated";
 import { type BlockNode, type InlineNode, parseSource, textOf } from "../markdown/parse";
+import { keyed } from "./keyed";
 
 export type MarkdownProps = {
   /** The Markdown source. */
@@ -29,7 +30,7 @@ type Context = { theme: Theme; mono: string | undefined; measureKey: string; ope
 const SYSTEM = /^(https?:|mailto:|tel:)/i;
 
 function Inlines({ nodes, ctx }: { nodes: readonly InlineNode[]; ctx: Context }) {
-  return nodes.map((node, i) => <Inline key={i} node={node} ctx={ctx} />);
+  return keyed(nodes, (node) => node.type).map(({ key, item }) => <Inline key={key} node={item} ctx={ctx} />);
 }
 
 function Inline({ node, ctx }: { node: InlineNode; ctx: Context }): React.ReactNode {
@@ -108,8 +109,8 @@ function Code({ node, ctx }: Readonly<{ node: Extract<BlockNode, { type: "code" 
       ) : null}
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.codeBody}>
         <Text style={{ fontFamily: ctx.mono, fontSize: 12.5, lineHeight: 20, color: theme.textPrimary }}>
-          {tokens.map((token, i) => (
-            <Text key={i} style={token.className && colour[token.className] ? { color: colour[token.className] } : null}>
+          {keyed(tokens, (token) => `${token.className ?? ""}:${token.value}`).map(({ key, item: token }) => (
+            <Text key={key} style={token.className && colour[token.className] ? { color: colour[token.className] } : null}>
               {token.value}
             </Text>
           ))}
@@ -120,7 +121,7 @@ function Code({ node, ctx }: Readonly<{ node: Extract<BlockNode, { type: "code" 
 }
 
 function Blocks({ nodes, ctx }: { nodes: readonly BlockNode[]; ctx: Context }) {
-  return nodes.map((node, i) => <Block key={i} node={node} ctx={ctx} />);
+  return keyed(nodes, (node) => node.type).map(({ key, item }) => <Block key={key} node={item} ctx={ctx} />);
 }
 
 function Table({ node, ctx }: Readonly<{ node: Extract<BlockNode, { type: "table" }>; ctx: Context }>) {
@@ -135,11 +136,11 @@ function Table({ node, ctx }: Readonly<{ node: Extract<BlockNode, { type: "table
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator role="region" tabIndex={0} aria-label={node.header.map((cell) => textOf(cell.children)).join(", ")}>
       <View style={[styles.table, { borderColor: theme.borderSubtle }]}>
-        {[node.header, ...node.rows].map((row, r) => (
-          <View key={r} style={[styles.row, { borderBottomColor: theme.borderSubtle }, r === 0 ? { backgroundColor: theme.surface2 } : null]}>
-            {row.map((cell, c) => (
+        {keyed([node.header, ...node.rows], (row) => row.map((cell) => textOf(cell.children)).join("|")).map(({ key, item: row, index: r }) => (
+          <View key={key} style={[styles.row, { borderBottomColor: theme.borderSubtle }, r === 0 ? { backgroundColor: theme.surface2 } : null]}>
+            {keyed(row, (cell) => textOf(cell.children)).map(({ key: cellKey, item: cell, index: c }) => (
               <Txt
-                key={c}
+                key={cellKey}
                 variant={r === 0 ? "label" : "body"}
                 tone={r === 0 ? "secondary" : "text"}
                 style={[styles.cell, { width: widths[c], textAlign: node.align[c] ?? "left" }]}
@@ -164,19 +165,30 @@ function Table({ node, ctx }: Readonly<{ node: Extract<BlockNode, { type: "table
   );
 }
 
+function markerOf(node: Extract<BlockNode, { type: "list" }>, item: { checked?: boolean }, i: number): string {
+  if (item.checked !== undefined) return item.checked ? "☑" : "☐";
+  return node.ordered ? `${(node.start ?? 1) + i}.` : "•";
+}
+
 function Block({ node, ctx }: Readonly<{ node: BlockNode; ctx: Context }>): React.ReactNode {
   const { theme } = ctx;
   switch (node.type) {
     case "heading":
-      return node.depth === 1 ? (
-        <Txt variant="display">
-          <Inlines nodes={node.children} ctx={ctx} />
-        </Txt>
-      ) : node.depth === 2 ? (
-        <Txt variant="title" style={styles.h2}>
-          <Inlines nodes={node.children} ctx={ctx} />
-        </Txt>
-      ) : (
+      if (node.depth === 1) {
+        return (
+          <Txt variant="display">
+            <Inlines nodes={node.children} ctx={ctx} />
+          </Txt>
+        );
+      }
+      if (node.depth === 2) {
+        return (
+          <Txt variant="title" style={styles.h2}>
+            <Inlines nodes={node.children} ctx={ctx} />
+          </Txt>
+        );
+      }
+      return (
         <Txt variant="label" role="heading" style={styles.h3}>
           <Inlines nodes={node.children} ctx={ctx} />
         </Txt>
@@ -185,7 +197,7 @@ function Block({ node, ctx }: Readonly<{ node: BlockNode; ctx: Context }>): Reac
       const pictures = node.children.filter((child) => child.type === "image");
       const onlyPictures = pictures.length > 0 && node.children.every((child) => child.type === "image" || (child.type === "text" && !child.value.trim()));
       if (onlyPictures) {
-        return pictures.map((picture, i) => <Image key={i} source={{ uri: picture.src }} alt={picture.alt} accessibilityLabel={picture.alt} resizeMode="contain" style={styles.image} />);
+        return keyed(pictures, (picture) => picture.src).map(({ key, item: picture }) => <Image key={key} source={{ uri: picture.src }} alt={picture.alt} accessibilityLabel={picture.alt} resizeMode="contain" style={styles.image} />);
       }
       return (
         <Txt>
@@ -198,10 +210,10 @@ function Block({ node, ctx }: Readonly<{ node: BlockNode; ctx: Context }>): Reac
     case "list":
       return (
         <View role="list" style={styles.list}>
-          {node.items.map((item, i) => (
-            <View key={i} role="listitem" style={styles.item}>
+          {keyed(node.items, () => "item").map(({ key, item, index: i }) => (
+            <View key={key} role="listitem" style={styles.item}>
               <Txt tone="secondary" style={styles.marker}>
-                {item.checked !== undefined ? (item.checked ? "☑" : "☐") : node.ordered ? `${(node.start ?? 1) + i}.` : "•"}
+                {markerOf(node, item, i)}
               </Txt>
               <View style={styles.itemBody}>
                 <Blocks nodes={item.children} ctx={ctx} />

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Animated, Pressable, type StyleProp, StyleSheet, Text, View, type ViewStyle } from "react-native";
 
+import { choose } from "./choose";
 import { useTheme } from "./theme";
 
 export type SwitchProps = {
@@ -49,7 +50,7 @@ export function Switch({ label, checked, defaultChecked = false, onCheckedChange
     onCheckedChange?.(!on);
   };
   const track = (
-    <View style={[styles.track, { width: d.w, height: d.h, borderRadius: d.h / 2, backgroundColor: on ? theme.accent : theme.surface3, borderColor: error ? theme.danger : on ? theme.accent : theme.borderDefault }]}>
+    <View style={[styles.track, { width: d.w, height: d.h, borderRadius: d.h / 2, backgroundColor: on ? theme.accent : theme.surface3, borderColor: choose(theme.borderDefault, [error, theme.danger], [on, theme.accent]) }]}>
       <Animated.View
         style={[
           styles.knob,

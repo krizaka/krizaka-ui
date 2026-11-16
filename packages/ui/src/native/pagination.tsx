@@ -2,6 +2,7 @@ import * as React from "react";
 import { Pressable, type StyleProp, StyleSheet, Text, View, type ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
+import { choose } from "./choose";
 import { useTheme } from "./theme";
 
 export type PaginationLabels = {
@@ -67,7 +68,7 @@ export function Pagination({ page = 1, pageCount, onPageChange, hasPrevious, has
       onPress={onPress}
       style={({ pressed }) => [
         styles.button,
-        { borderRadius: radius.sm, borderColor: theme.borderDefault, backgroundColor: theme.surface1, opacity: enabled ? (pressed ? 0.8 : 1) : 0.4 },
+        { borderRadius: radius.sm, borderColor: theme.borderDefault, backgroundColor: theme.surface1, opacity: choose(0.4, [enabled && pressed, 0.8], [enabled, 1]) },
       ]}
     >
       <Chevron direction={direction} color={theme.textPrimary} />

@@ -120,15 +120,18 @@ export function List<T>({
     );
   }
 
-  const state = error ? (
-    <View role="alert" style={styles.state}>
-      {error}
-    </View>
-  ) : isWords(empty) ? (
-    <EmptyState title={empty.title} description={empty.description} action={empty.action} style={styles.state} />
-  ) : empty ? (
-    <View style={styles.state}>{empty}</View>
-  ) : null;
+  let state: React.ReactNode = null;
+  if (error) {
+    state = (
+      <View role="alert" style={styles.state}>
+        {error}
+      </View>
+    );
+  } else if (isWords(empty)) {
+    state = <EmptyState title={empty.title} description={empty.description} action={empty.action} style={styles.state} />;
+  } else if (empty) {
+    state = <View style={styles.state}>{empty}</View>;
+  }
 
   return (
     <FlashList

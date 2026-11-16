@@ -53,8 +53,8 @@ export function Meter({ label, value = 0, min = 0, max = 100, valueText, thresho
     : { role: "meter" as const, "aria-label": label, "aria-valuemin": min, "aria-valuemax": max, "aria-valuenow": Math.min(max, Math.max(min, value)), "aria-valuetext": words };
   const legend = parts ? (
     <View style={styles.legend} aria-hidden>
-      {shares.map((p, i) => (
-        <View key={i} style={styles.legendItem}>
+      {shares.map((p) => (
+        <View key={p.i} style={styles.legendItem}>
           <View style={[styles.swatch, { backgroundColor: p.color }]} />
           <Txt variant="caption">{p.label}</Txt>
           <Txt variant="caption" tone="secondary">
@@ -99,7 +99,7 @@ export function Meter({ label, value = 0, min = 0, max = 100, valueText, thresho
         </View>
       ) : null}
       <View style={[styles.track, { height: THICK[size], backgroundColor: theme.surface3 }]}>
-        {parts ? shares.map((p, i) => <View key={i} style={{ width: `${p.ratio * 100}%`, backgroundColor: p.color }} />) : <View style={[styles.fill, { width: `${ratio * 100}%`, backgroundColor: tone }]} />}
+        {parts ? shares.map((p) => <View key={p.i} style={{ width: `${p.ratio * 100}%`, backgroundColor: p.color }} />) : <View style={[styles.fill, { width: `${ratio * 100}%`, backgroundColor: tone }]} />}
       </View>
       {legend}
     </View>

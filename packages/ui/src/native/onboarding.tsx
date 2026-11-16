@@ -2,6 +2,7 @@ import * as React from "react";
 import { type NativeScrollEvent, type NativeSyntheticEvent, ScrollView, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 
 import { Button } from "./button";
+import { keyed } from "./keyed";
 import { useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -58,8 +59,8 @@ export function Onboarding({ slides, labels, onDone, style }: Readonly<Onboardin
         {!last ? <Button label={labels.skip} variant="ghost" size="sm" onPress={onDone} /> : <View style={styles.spacer} />}
       </View>
       <ScrollView ref={scroller} tabIndex={0} horizontal pagingEnabled showsHorizontalScrollIndicator={false} onMomentumScrollEnd={onScroll} style={styles.flex}>
-        {slides.map((slide, i) => (
-          <View key={i} style={[styles.slide, { width: width || undefined }]} accessible aria-label={`${labels.position(i + 1, slides.length)}. ${slide.title}. ${slide.description}`} aria-hidden={i !== page}>
+        {keyed(slides, (slide) => slide.title).map(({ key, item: slide, index: i }) => (
+          <View key={key} style={[styles.slide, { width: width || undefined }]} accessible aria-label={`${labels.position(i + 1, slides.length)}. ${slide.title}. ${slide.description}`} aria-hidden={i !== page}>
             {slide.visual ? <View style={styles.visual}>{slide.visual}</View> : null}
             <Txt variant="display" style={styles.centred}>
               {slide.title}
@@ -71,8 +72,8 @@ export function Onboarding({ slides, labels, onDone, style }: Readonly<Onboardin
         ))}
       </ScrollView>
       <View style={styles.dots} aria-hidden>
-        {slides.map((_, i) => (
-          <View key={i} style={[styles.dot, { width: i === page ? 22 : 8, backgroundColor: i === page ? theme.accent : theme.borderStrong }]} />
+        {keyed(slides, () => "dot").map(({ key, index: i }) => (
+          <View key={key} style={[styles.dot, { width: i === page ? 22 : 8, backgroundColor: i === page ? theme.accent : theme.borderStrong }]} />
         ))}
       </View>
       <View style={styles.bottom}>

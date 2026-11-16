@@ -2,6 +2,7 @@ import * as React from "react";
 import { AccessibilityInfo, Animated, Image, PanResponder, Platform, Pressable, type StyleProp, StyleSheet, useWindowDimensions, View, type ViewStyle } from "react-native";
 import Svg, { Defs, LinearGradient, Path, Rect, Stop } from "react-native-svg";
 
+import { keyed } from "./keyed";
 import { useReducedMotion, useSvgId, useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -48,8 +49,8 @@ export function PersonCard({ photos, name, age, badge, meta, bio, footer, photoL
       {photos.length > 1 ? (
         <>
           <View style={styles.bars} aria-hidden>
-            {photos.map((_, i) => (
-              <View key={i} style={[styles.bar, { backgroundColor: theme.textOnMedia, opacity: i === index ? 1 : 0.4 }]} />
+            {keyed(photos, () => "bar").map(({ key, index: i }) => (
+              <View key={key} style={[styles.bar, { backgroundColor: theme.textOnMedia, opacity: i === index ? 1 : 0.4 }]} />
             ))}
           </View>
           <Pressable aria-hidden accessible={false} focusable={false} tabIndex={-1} style={[styles.half, { left: 0 }]} onPress={() => setIndex((i) => Math.max(0, i - 1))} />

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Platform, Pressable, type StyleProp, StyleSheet, TextInput, View, type ViewStyle } from "react-native";
 
+import { choose } from "./choose";
 import { useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -62,7 +63,7 @@ export function OtpInput({ label, length = 6, value, onValueChange, onComplete, 
                 {
                   borderRadius: radius.md,
                   backgroundColor: theme.surface2,
-                  borderColor: invalid ? theme.danger : active ? theme.ring : theme.borderDefault,
+                  borderColor: choose(theme.borderDefault, [invalid, theme.danger], [active, theme.ring]),
                   borderWidth: invalid || active ? 2 : 1,
                 },
               ]}

@@ -98,7 +98,8 @@ export function SettingsGroup({ title, children, style, ...props }: Readonly<Set
       ) : null}
       <View style={[styles.card, { backgroundColor: theme.surface1, borderColor: theme.borderSubtle }]}>
         {rows.map((row, i) => (
-          <React.Fragment key={i}>
+          // `Children.toArray` keys the elements; a bare string is its own key.
+          <React.Fragment key={React.isValidElement(row) ? row.key : String(row)}>
             {i > 0 ? <View style={[styles.hairline, { backgroundColor: theme.borderSubtle }]} /> : null}
             {row}
           </React.Fragment>

@@ -25,6 +25,7 @@ import {
   weekStartOf,
   yearRange,
 } from "../date-picker/parts";
+import { choose } from "./choose";
 import { useTheme } from "./theme";
 import { Wheel, WheelDivider, type WheelOption, WheelPicker } from "./wheel";
 
@@ -100,6 +101,11 @@ export type CalendarProps = {
   style?: StyleProp<ViewStyle>;
 };
 
+function orderedRange(range: CalendarProps["range"]): readonly [string | null, string | null] {
+  if (!range?.end) return [null, null];
+  return range.start <= range.end ? [range.start, range.end] : [range.end, range.start];
+}
+
 /** A month to pick a day or the ends of a period — the web `Calendar`: 44-pt days, today's node, the range as a band. */
 export function Calendar({ locale, value, range, onSelect, defaultMonth, min, max, isDateDisabled, weekStartsOn, today: todayProp, labels: given, style }: Readonly<CalendarProps>) {
   const labels = { ...calendarLabels, ...given };
@@ -110,7 +116,7 @@ export function Calendar({ locale, value, range, onSelect, defaultMonth, min, ma
   const weeks = monthGrid(month, start);
   const weekday = new Intl.DateTimeFormat(locale, { weekday: "narrow" });
   const title = new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }).format(toLocalDate(month));
-  const [lo, hi] = range?.end ? (range.start <= range.end ? [range.start, range.end] : [range.end, range.start]) : [null, null];
+  const [lo, hi] = orderedRange(range);
   const off = (iso: string) => Boolean((min && iso < min) || (max && iso > max) || isDateDisabled?.(iso));
   return (
     <View style={[styles.calendar, { backgroundColor: theme.surface1, borderColor: theme.borderDefault, borderRadius: radius.xl }, style]}>
@@ -160,14 +166,14 @@ export function Calendar({ locale, value, range, onSelect, defaultMonth, min, ma
                   style={({ pressed }) => [
                     styles.day,
                     { borderRadius: radius.lg },
-                    selected ? { backgroundColor: theme.accent } : pressed ? { backgroundColor: theme.surface3 } : null,
+                    choose(null, [selected, { backgroundColor: theme.accent }], [pressed, { backgroundColor: theme.surface3 }]),
                   ]}
                 >
                   <Text
                     style={[
                       styles.dayText,
                       {
-                        color: selected ? theme.onAccent : disabled ? theme.textMuted : iso === today ? theme.accentText : outside ? theme.textSecondary : theme.textPrimary,
+                        color: choose(theme.textPrimary, [selected, theme.onAccent], [disabled, theme.textMuted], [iso === today, theme.accentText], [outside, theme.textSecondary]),
                         fontWeight: selected || iso === today ? "700" : "400",
                         textDecorationLine: disabled ? "line-through" : "none",
                       },
@@ -236,7 +242,7 @@ export function MonthPicker({ locale, value, onValueChange, min, max, labels, st
                 haptic("selection");
                 onValueChange?.(id);
               }}
-              style={({ pressed }) => [styles.month, { borderRadius: radius.lg, backgroundColor: selected ? theme.accent : pressed ? theme.surface3 : "transparent" }, disabled ? styles.disabled : null]}
+              style={({ pressed }) => [styles.month, { borderRadius: radius.lg, backgroundColor: choose("transparent", [selected, theme.accent], [pressed, theme.surface3]) }, disabled ? styles.disabled : null]}
             >
               <Text style={[styles.monthText, { color: selected ? theme.onAccent : theme.textPrimary, fontWeight: selected ? "700" : "500" }]}>{name}</Text>
             </Pressable>
@@ -307,7 +313,7 @@ export function DayStrip({ label, locale, value: valueProp, defaultValue = null,
               styles.stripDay,
               {
                 borderRadius: radius.xl,
-                backgroundColor: selected ? theme.accent : disabled ? "transparent" : theme.surface2,
+                backgroundColor: choose(theme.surface2, [selected, theme.accent], [disabled, "transparent"]),
                 borderColor: selected ? theme.accent : theme.borderDefault,
                 borderStyle: disabled ? "dashed" : "solid",
                 transform: [{ scale: pressed ? 0.95 : 1 }],
@@ -315,8 +321,8 @@ export function DayStrip({ label, locale, value: valueProp, defaultValue = null,
             ]}
           >
             {iso === today ? <Node color={selected ? theme.onAccent : theme.accent} style={styles.stripNode} /> : null}
-            <Text style={[styles.stripWeekday, { color: selected ? theme.onAccent : disabled ? theme.textMuted : theme.textSecondary }]}>{weekday.format(toLocalDate(iso)).replace(/\.$/, "").toUpperCase()}</Text>
-            <Text style={[styles.stripNumber, { color: selected ? theme.onAccent : disabled ? theme.textMuted : theme.textPrimary }]}>{Number(iso.slice(8))}</Text>
+            <Text style={[styles.stripWeekday, { color: choose(theme.textSecondary, [selected, theme.onAccent], [disabled, theme.textMuted]) }]}>{weekday.format(toLocalDate(iso)).replace(/\.$/, "").toUpperCase()}</Text>
+            <Text style={[styles.stripNumber, { color: choose(theme.textPrimary, [selected, theme.onAccent], [disabled, theme.textMuted]) }]}>{Number(iso.slice(8))}</Text>
             <View style={[styles.dot, marked ? { backgroundColor: selected ? theme.onAccent : theme.textSecondary } : null]} />
           </Pressable>
         );
@@ -393,14 +399,14 @@ export function TimePicker({ label, locale, value: valueProp, defaultValue = nul
                 styles.slot,
                 {
                   borderRadius: radius.lg,
-                  backgroundColor: selected ? theme.accent : off ? "transparent" : theme.surface2,
+                  backgroundColor: choose(theme.surface2, [selected, theme.accent], [off, "transparent"]),
                   borderColor: selected ? theme.accent : theme.borderDefault,
                   borderStyle: off ? "dashed" : "solid",
                   transform: [{ scale: pressed ? 0.97 : 1 }],
                 },
               ]}
             >
-              <Text style={[styles.slotText, { color: selected ? theme.onAccent : off ? theme.textMuted : theme.textPrimary, textDecorationLine: off ? "line-through" : "none" }]}>{formatTime(locale, t)}</Text>
+              <Text style={[styles.slotText, { color: choose(theme.textPrimary, [selected, theme.onAccent], [off, theme.textMuted]), textDecorationLine: off ? "line-through" : "none" }]}>{formatTime(locale, t)}</Text>
             </Pressable>
           );
         })}
@@ -419,7 +425,7 @@ export function TimePicker({ label, locale, value: valueProp, defaultValue = nul
   const [am, pmLabel] = dayPeriods(locale);
   return (
     <WheelPicker label={value ? `${label}, ${formatTime(locale, value)}` : label} style={style}>
-      <Wheel label={labels.hours} options={hours} disabled={disabled} value={twelve ? String(h24 % 12 === 0 ? 12 : h24 % 12) : String(h24)} onValueChange={(v) => put(twelve ? (Number(v) % 12) + (pm ? 12 : 0) : Number(v), minute)} />
+      <Wheel label={labels.hours} options={hours} disabled={disabled} value={String(twelve ? h24 % 12 || 12 : h24)} onValueChange={(v) => put(twelve ? (Number(v) % 12) + (pm ? 12 : 0) : Number(v), minute)} />
       <WheelDivider>:</WheelDivider>
       <Wheel label={labels.minutes} options={minutes} disabled={disabled} value={String(Math.min(60 - minuteStep, Math.round(minute / minuteStep) * minuteStep))} onValueChange={(v) => put(h24, Number(v))} />
       {twelve ? (

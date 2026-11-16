@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Pressable, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 
+import { choose } from "./choose";
 import { useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -27,8 +28,7 @@ export type FabProps = {
  */
 export function Fab({ label, icon, onPress, extended, placement = "end", offset = 0, style }: Readonly<FabProps>) {
   const { theme, insets, haptic } = useTheme();
-  const position: ViewStyle =
-    placement === "center" ? { alignSelf: "center" } : placement === "start" ? { left: 16 + insets.left } : { right: 16 + insets.right };
+  const position: ViewStyle = choose<ViewStyle>({ right: 16 + insets.right }, [placement === "center", { alignSelf: "center" }], [placement === "start", { left: 16 + insets.left }]);
   return (
     <View pointerEvents="box-none" style={[styles.layer, placement === "center" ? styles.centre : null]}>
       <Pressable

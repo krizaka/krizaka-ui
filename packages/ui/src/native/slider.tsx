@@ -2,6 +2,8 @@ import * as React from "react";
 import { type LayoutChangeEvent, PanResponder, type StyleProp, StyleSheet, Text, View, type ViewStyle } from "react-native";
 import Svg, { Defs, LinearGradient, Rect, Stop } from "react-native-svg";
 
+import { choose } from "./choose";
+import { keyed } from "./keyed";
 import { useSvgId, useTheme } from "./theme";
 
 export type SliderValue = number | [number, number];
@@ -46,7 +48,10 @@ export type SliderProps<V extends SliderValue = number> = {
 };
 
 const THUMB = 26;
-const toArray = (v: SliderValue | undefined) => (v === undefined ? undefined : typeof v === "number" ? [v] : [...v]);
+const toArray = (v: SliderValue | undefined) => {
+  if (v === undefined) return undefined;
+  return typeof v === "number" ? [v] : [...v];
+};
 
 /**
  * A slider for React Native — the web `Slider`: one value or a range, drawn by the theme, dragged anywhere on the track.
@@ -145,7 +150,8 @@ export function Slider<V extends SliderValue = number>({
 
   const lo = range ? Math.min(...current) : min;
   const hi = range ? Math.max(...current) : current[0]!;
-  const tickValues = ticks === true ? ((max - min) / step <= 40 ? Array.from({ length: Math.round((max - min) / step) + 1 }, (_, i) => min + i * step) : []) : ticks ? [...ticks] : [];
+  const evenTicks = (max - min) / step <= 40 ? Array.from({ length: Math.round((max - min) / step) + 1 }, (_, i) => min + i * step) : [];
+  const tickValues = ticks === true ? evenTicks : [...(ticks || [])];
   const along = (p: number) => (vertical ? { bottom: p * length } : { left: p * length });
   const onLayout = (e: LayoutChangeEvent) => setLength(vertical ? e.nativeEvent.layout.height : e.nativeEvent.layout.width);
   const fill = vertical ? { bottom: pct(lo) * length, height: (pct(hi) - pct(lo)) * length, left: 0, right: 0 } : { left: pct(lo) * length, width: (pct(hi) - pct(lo)) * length, top: 0, bottom: 0 };
@@ -179,9 +185,9 @@ export function Slider<V extends SliderValue = number>({
             <View key={t} style={[vertical ? styles.tickVertical : styles.tick, along(pct(t)), { backgroundColor: t > lo && t < hi ? theme.onAccent : theme.borderStrong }]} />
           ))}
         </View>
-        {current.map((v, i) => (
+        {keyed(current, () => "thumb").map(({ key, item: v, index: i }) => (
           <View
-            key={i}
+            key={key}
             accessible
             role="slider"
             aria-label={range ? (thumbLabels?.[i] ?? label) : label}
@@ -212,7 +218,7 @@ export function Slider<V extends SliderValue = number>({
       {marks?.length && !vertical ? (
         <View aria-hidden style={styles.marks}>
           {marks.map((m) => (
-            <Text key={m.value} style={[styles.mark, { left: pct(m.value) * length, color: theme.textSecondary, transform: [{ translateX: m.value === min ? 0 : m.value === max ? -40 : -20 }], textAlign: m.value === min ? "left" : m.value === max ? "right" : "center" }]}>
+            <Text key={m.value} style={[styles.mark, { left: pct(m.value) * length, color: theme.textSecondary, transform: [{ translateX: choose(-20, [m.value === min, 0], [m.value === max, -40]) }], textAlign: choose<"left" | "right" | "center">("center", [m.value === min, "left"], [m.value === max, "right"]) }]}>
               {m.label}
             </Text>
           ))}

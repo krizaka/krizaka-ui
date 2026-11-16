@@ -3,6 +3,7 @@ import { AccessibilityInfo, Animated, Easing, type StyleProp, StyleSheet, View, 
 import Svg, { Circle, Path } from "react-native-svg";
 
 import type { BrandId } from "../marks/ProductLogo";
+import { choose } from "./choose";
 import { ProductMark } from "./ProductMark";
 import { alpha, useReducedMotion, useTheme } from "./theme";
 import { Txt } from "./txt";
@@ -34,8 +35,8 @@ export function LoaderGlyph({ state = "loading", value, size = 20, color }: Read
     loop.start();
     return () => loop.stop();
   }, [state, known, reduce, spin]);
-  const stroke = color ?? (state === "success" ? theme.success : state === "error" ? theme.danger : theme.accent);
-  const fill = state !== "loading" ? 1 : known ? Math.min(1, Math.max(0, value)) : 0.3;
+  const stroke = color ?? choose(theme.accent, [state === "success", theme.success], [state === "error", theme.danger]);
+  const fill = choose(0.3, [state !== "loading", 1], [known, Math.min(1, Math.max(0, value ?? 0))]);
   const rotate = spin.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "360deg"] });
   return (
     <Animated.View aria-hidden style={{ width: size, height: size, transform: state === "loading" && !known ? [{ rotate }] : [] }}>
@@ -125,13 +126,13 @@ export function Loader({ label, status = "loading", successLabel, errorLabel, va
     };
   }, [waiting, status, endDuration]);
   const phase = waiting ? "loading" : ending;
-  const words = phase === "success" ? (successLabel ?? label) : phase === "error" ? (errorLabel ?? label) : label;
+  const words = choose(label, [phase === "success", successLabel ?? label], [phase === "error", errorLabel ?? label]);
   React.useEffect(() => {
     if (phase) AccessibilityInfo.announceForAccessibility(words);
   }, [phase, words]);
   if (!phase) return null;
   const known = phase === "loading" && typeof value === "number" && Number.isFinite(value);
-  const detail = phase === "loading" ? [known ? `${Math.round(Math.min(1, Math.max(0, value)) * 100)} %` : null, eta].filter(Boolean).join(" · ") : "";
+  const detail = phase === "loading" ? [known ? `${Math.round(Math.min(1, Math.max(0, value ?? 0)) * 100)} %` : null, eta].filter(Boolean).join(" · ") : "";
   const stacked = variant !== "inline";
   const box = (
     <View style={[stacked ? styles.stacked : styles.inline, variant === "overlay" ? { backgroundColor: alpha(theme.surface1, 0.92), borderColor: theme.borderDefault, borderRadius: radius.lg, ...styles.card } : null]}>

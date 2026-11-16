@@ -2,6 +2,8 @@ import * as React from "react";
 import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
 
+import { choose } from "./choose";
+import { keyed } from "./keyed";
 import { LoaderGlyph } from "./loader";
 import { useTheme } from "./theme";
 import { Txt } from "./txt";
@@ -45,25 +47,27 @@ export function Stepper({ steps, current = 0, orientation = "vertical", statusLa
   const vertical = orientation === "vertical";
   return (
     <View role="list" aria-label={label} style={[vertical ? styles.column : styles.row, style]}>
-      {steps.map((step, i) => {
-        const status: StepStatus = step.status ?? (i < current ? "done" : i === current ? "current" : "upcoming");
+      {keyed(steps, (step) => step.title).map(({ key, item: step, index: i }) => {
+        const status: StepStatus = step.status ?? choose<StepStatus>("upcoming", [i < current, "done"], [i === current, "current"]);
         const last = i === steps.length - 1;
-        const node =
-          status === "current" ? (
-            <LoaderGlyph value={step.value ?? null} size={24} />
-          ) : status === "error" ? (
-            <LoaderGlyph state="error" size={24} />
-          ) : (
+        let node: React.ReactNode;
+        if (status === "current") {
+          node = <LoaderGlyph value={step.value ?? null} size={24} />;
+        } else if (status === "error") {
+          node = <LoaderGlyph state="error" size={24} />;
+        } else {
+          node = (
             <Svg width={24} height={24} viewBox="0 0 24 24" aria-hidden>
               <Circle cx={12} cy={12} r={10} fill={status === "done" ? theme.accent : "none"} stroke={status === "done" ? theme.accent : theme.borderStrong} strokeWidth={2} />
               {status === "done" ? <Path d="M7.5 12.3l3 3 6-6.3" stroke={theme.onAccent} strokeWidth={2.2} fill="none" strokeLinecap="round" strokeLinejoin="round" /> : null}
             </Svg>
           );
+        }
         const connector = !last ? (
           <View aria-hidden style={[vertical ? styles.vLine : styles.hLine, { backgroundColor: status === "done" ? theme.accent : theme.borderDefault }]} />
         ) : null;
         return (
-          <View key={i} role="listitem" accessible aria-label={`${step.title}, ${words[status]}`} style={vertical ? styles.vStep : styles.hStep}>
+          <View key={key} role="listitem" accessible aria-label={`${step.title}, ${words[status]}`} style={vertical ? styles.vStep : styles.hStep}>
             <View style={vertical ? styles.vRail : styles.hRail}>
               {node}
               {connector}

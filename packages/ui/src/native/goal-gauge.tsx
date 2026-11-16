@@ -28,7 +28,8 @@ function Cell({ lit, animate, order, animated, arcade }: Readonly<{ lit: boolean
   const { theme } = useTheme();
   const t = useEntrance(animated && animate, 300 + order * 100, 350);
   const spentOpacity = arcade ? 0.14 : 1;
-  const opacity = !animate ? 1 : lit ? t.interpolate({ inputRange: [0, 1], outputRange: [0.25, 1] }) : t.interpolate({ inputRange: [0, 1], outputRange: [1, arcade ? 0.14 : 1] });
+  const opacityRange = lit ? [0.25, 1] : [1, spentOpacity];
+  const opacity = animate ? t.interpolate({ inputRange: [0, 1], outputRange: opacityRange }) : 1;
   const color = lit || arcade ? theme.accent : theme.surface3;
   return (
     <Animated.View

@@ -4,6 +4,7 @@ import Svg, { Defs, LinearGradient, Rect, Stop } from "react-native-svg";
 
 import { buttonRecipe } from "../button/recipe";
 import { nativeRecipe,type NativeText } from "../recipes/native";
+import { choose } from "./choose";
 import { type Theme, useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -59,7 +60,7 @@ function useButton({ variant = "secondary", size = "md", shape = "rounded", load
     borderRadius: shape === "pill" ? radius.full : radius.sm,
     backgroundColor: colors.bg,
     borderColor: colors.border,
-    opacity: inactive ? 0.4 : pressed ? 0.85 : 1,
+    opacity: choose(1, [inactive, 0.4], [pressed, 0.85]),
     transform: [{ scale: pressed ? 0.98 : 1 }],
   });
   return { colors, inactive, frame };
