@@ -261,7 +261,7 @@ export function CreditUsage({ title, hideTitle, used, limit, format = "integer",
   const left = daily ? daysLeft(remaining, daily) : null;
   const runOut = left == null ? null : addDays(now ?? new Date(), left);
   const renews = renewsAt ? new Date(renewsAt) : null;
-  const projection = runOutText(daily, { left, runOut, renews }, words, date);
+  const projection = runOutText(daily, left, runOut, renews, words, date);
   const fill = theme[level === "ok" ? "accent" : level];
   return (
     <View style={[styles.root, style]}>

@@ -96,7 +96,9 @@ export function roundMoney(currency: string): (value: number, locale: Locale) =>
 /** What a credit meter says about the pace: the day the balance runs out (when before the renewal), `steady` when it never does, else nothing. */
 export function runOutText(
   daily: unknown,
-  { left, runOut, renews }: { left: number | null; runOut: Date | null; renews: Date | null },
+  left: number | null,
+  runOut: Date | null,
+  renews: Date | null,
   words: { runsOut: string; steady: string },
   writeDate: (date: Date) => string,
 ): string | null {
