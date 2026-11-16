@@ -121,7 +121,8 @@ export function GeoMap<T extends Datum>(props: Readonly<GeoMapProps<T>>) {
   const announceOf = (at: NonNullable<typeof current>) => {
     if (at.kind === "region") return `${name(at.code)}: ${fmt.value(byCode.get(at.code)!.value)}`;
     const point = points[at.i]!;
-    return `${point.label}${point.value != null ? `: ${fmt.value(point.value)}` : ""}`;
+    const valueText = point.value != null ? `: ${fmt.value(point.value)}` : "";
+    return `${point.label}${valueText}`;
   };
   const announce = current ? announceOf(current) : "";
 

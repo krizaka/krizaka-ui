@@ -137,7 +137,8 @@ export function Globe3D(props: Readonly<Globe3DProps>) {
   };
 
   const point = active === null ? null : points[active]!;
-  const announcement = point ? `${point.label}${point.value != null ? `: ${fmt(point.value)}` : ""}` : "";
+  const pointValue = point?.value != null ? `: ${fmt(point.value)}` : "";
+  const announcement = point ? `${point.label}${pointValue}` : "";
   return (
     <ChartFrame
       kind="globe"

@@ -8,7 +8,7 @@ import { categoryFormatter, valueFormatter } from "../core/format";
 import type { ValueFormat } from "../core/types";
 import { Kpi } from "../needs/kpi";
 import { CREDIT_LABELS, type CreditLabels } from "../needs/labels";
-import { addDays, daysLeft, fillIn, quotaLevel } from "../needs/model";
+import { addDays, daysLeft, fillIn, quotaLevel, runOutText } from "../needs/model";
 import { Sparkline } from "../sparkline/sparkline";
 import type { ChartsSettings } from "../web/context";
 import { useSettings } from "../web/frame";
@@ -81,11 +81,7 @@ export function CreditUsage({
   const runOut = left == null || !now ? null : addDays(now, left);
   const renews = renewsAt ? new Date(renewsAt) : null;
   // The run-out date only matters when it comes before the renewal.
-  let projection: string | null = null;
-  if (daily) {
-    if (runOut && (!renews || runOut < renews)) projection = fillIn(words.runsOut, { date: date(runOut) });
-    else if (left == null) projection = words.steady;
-  }
+  const projection = runOutText(daily, { left, runOut, renews }, words, date);
   return (
     <figure className={cx("kzc", className)} style={style} data-kzc="" data-brand={brand} data-kind="credits" aria-labelledby={`${uid}-t`} aria-busy={loading || undefined}>
       <ChartStyles />

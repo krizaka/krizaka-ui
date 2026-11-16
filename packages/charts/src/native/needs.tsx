@@ -20,7 +20,7 @@ import {
   TICKER_LABELS,
   type TickerLabels,
 } from "../needs/labels";
-import { addDays, daysLeft, direction, fillIn, formatDuration, lastChange, numberOf, quotaLevel, roundMoney, signedPercent, successRate, total } from "../needs/model";
+import { addDays, daysLeft, direction, fillIn, formatDuration, lastChange, numberOf, quotaLevel, roundMoney, runOutText, signedPercent, successRate, total } from "../needs/model";
 import { DEFAULT_STATUSES, type JobStatus } from "../needs/statuses";
 import { type Bid, tickerModel } from "../needs/ticker";
 import { BarChart, LineChart, type NativeCartesianProps } from "./cartesian";
@@ -261,11 +261,7 @@ export function CreditUsage({ title, hideTitle, used, limit, format = "integer",
   const left = daily ? daysLeft(remaining, daily) : null;
   const runOut = left == null ? null : addDays(now ?? new Date(), left);
   const renews = renewsAt ? new Date(renewsAt) : null;
-  let projection: string | null = null;
-  if (daily) {
-    if (runOut && (!renews || runOut < renews)) projection = fillIn(words.runsOut, { date: date(runOut) });
-    else if (left == null) projection = words.steady;
-  }
+  const projection = runOutText(daily, { left, runOut, renews }, words, date);
   const fill = { danger: theme.danger, warning: theme.warning, ok: theme.accent }[level];
   return (
     <View style={[styles.root, style]}>
