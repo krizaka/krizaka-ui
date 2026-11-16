@@ -56,8 +56,8 @@ export function asDate(value: unknown): Date | null {
   if (typeof value === "number" && value > 10_000_000_000) return new Date(value);
   if (typeof value === "string" && /^\d{4}-\d{2}(-\d{2})?([T ][\d:.]+(Z|[+-]\d{2}:?\d{2})?)?$/.test(value)) {
     // `2026-04` is the first of April, at midnight UTC: a month never slips to March in a negative time zone.
-    const iso = value.length === 7 ? `${value}-01T00:00:00Z` : value.length === 10 ? `${value}T00:00:00Z` : value;
-    const date = new Date(iso);
+    const month = value.length === 7 ? `${value}-01T00:00:00Z` : value;
+    const date = new Date(value.length === 10 ? `${value}T00:00:00Z` : month);
     return Number.isNaN(date.getTime()) ? null : date;
   }
   return null;

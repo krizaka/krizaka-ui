@@ -107,6 +107,14 @@ interface FrameInternals {
   readonly pending?: boolean;
 }
 
+type FrameState = "error" | "loading" | "empty" | "ready";
+
+function frameState(error: unknown, loading: unknown, isEmpty: boolean): FrameState {
+  if (error) return "error";
+  if (loading) return "loading";
+  return isEmpty ? "empty" : "ready";
+}
+
 /** The settings of a chart (`useChartSettings` re-exported for the charts). */
 export function useSettings(frame: ChartFrameProps): { locale: Locale; brand?: BrandId; labels: ChartLabels } {
   return useChartSettings(frame);
@@ -157,7 +165,8 @@ export function ChartFrame({
     if (exportable === undefined) return actionsMenu ? all : [];
     return exportable === true ? all : exportable || [];
   }, [exportable, actionsMenu]);
-  const state = error ? "error" : loading ? "loading" : isEmpty ? "empty" : "ready";
+  const state = frameState(error, loading, isEmpty);
+  const liveText = live ? "" : announcement;
 
   const doExport = useCallback(
     async (format: ExportFormat) => {
@@ -282,7 +291,7 @@ export function ChartFrame({
                   !isEmpty &&
                   formats.map((format) => (
                     <button key={format} type="button" className="kzc-btn" onClick={() => void doExport(format)} aria-label={`${title} — ${format.toUpperCase()}`}>
-                      {format === "png" ? labels.exportPng : format === "svg" ? labels.exportSvg : labels.exportCsv}
+                      {{ png: labels.exportPng, svg: labels.exportSvg, csv: labels.exportCsv }[format]}
                     </button>
                   ))}
               </div>
@@ -319,7 +328,7 @@ export function ChartFrame({
         </span>
       )}
       <div className="kzc-live" aria-live="polite" aria-atomic="true">
-        {copied ? labels.copied : live ? "" : announcement}
+        {copied ? labels.copied : liveText}
       </div>
       {!isEmpty && (
         <div id={ids.table} className={showTable ? "kzc-table-wrap" : "kzc-sr"}>

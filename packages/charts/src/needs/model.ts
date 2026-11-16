@@ -31,7 +31,8 @@ export function lastChange(values: readonly (number | null)[]): number | null {
 /** `up`, `down` or `flat` (within ±0.5 %): the direction of a change, `null` when there is none. */
 export function direction(change: number | null): "up" | "down" | "flat" | null {
   if (change == null) return null;
-  return Math.abs(change) < 0.005 ? "flat" : change > 0 ? "up" : "down";
+  if (Math.abs(change) < 0.005) return "flat";
+  return change > 0 ? "up" : "down";
 }
 
 /** Succeeded out of finished (succeeded + failed); `null` when nothing finished. */
@@ -57,7 +58,8 @@ export const addDays = (from: Date, days: number) => new Date(from.getTime() + d
 
 /** The level of a quota: `ok` below `warning` (default 0.8), `warning` below `danger` (0.95), then `danger`. */
 export function quotaLevel(ratio: number, warning = 0.8, danger = 0.95): "ok" | "warning" | "danger" {
-  return ratio >= danger ? "danger" : ratio >= warning ? "warning" : "ok";
+  if (ratio >= danger) return "danger";
+  return ratio >= warning ? "warning" : "ok";
 }
 
 /** Replaces `{name}` placeholders. */
@@ -89,4 +91,17 @@ export function roundMoney(currency: string): (value: number, locale: Locale) =>
     const whole = minor % 10 ** digits === 0;
     return getNumberFormat(locale, { style: "currency", currency, minimumFractionDigits: whole ? 0 : digits, maximumFractionDigits: whole ? 0 : digits }).format(minor / 10 ** digits);
   };
+}
+
+/** What a credit meter says about the pace: the day the balance runs out (when before the renewal), `steady` when it never does, else nothing. */
+export function runOutText(
+  daily: unknown,
+  left: number | null,
+  runOut: Date | null,
+  renews: Date | null,
+  words: { runsOut: string; steady: string },
+  writeDate: (date: Date) => string,
+): string | null {
+  if (runOut && (!renews || runOut < renews)) return fillIn(words.runsOut, { date: writeDate(runOut) });
+  return daily && left == null ? words.steady : null;
 }
