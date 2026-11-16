@@ -217,7 +217,8 @@ export function VideoPlayer({
   const [started, setStarted] = React.useState(false);
   const idleTimer = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
-  const url = typeof src === "string" ? src : resolved?.attempt === attempt ? resolved.url : null;
+  const resolvedUrl = resolved?.attempt === attempt ? resolved.url : null;
+  const url = typeof src === "string" ? src : resolvedUrl;
   const needSource = typeof src === "function" && (preload !== "none" || wanted || (autoPlay && !reduce));
 
   // A signed source is resolved when it is needed, and again on "Try again".

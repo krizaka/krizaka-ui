@@ -43,13 +43,19 @@ export type ProductBarActionsProps = {
   placement?: "bar" | "panel";
 };
 
+/** The classes of an action: full width in the panel, a phone-hidden pill in the bar; the primary one is bold. */
+function buttonClass(panel: boolean, primary: boolean): string {
+  if (panel) return primary ? "mt-2 w-full font-bold" : "w-full";
+  return primary ? "ml-1 hidden font-bold md:inline-flex" : "hidden md:inline-flex";
+}
+
 /** The product bar's actions: use the app. Put it in `NavBar.Actions` (`placement="bar"`) or in `NavBar.Mobile` (`placement="panel"`). */
 export function ProductBarActions({ signIn, tryIt, signupOpen, linkAs: Link = "a", placement = "bar" }: Readonly<ProductBarActionsProps>) {
   const { primary, secondary } = productBarActions({ signupOpen, hasTry: Boolean(tryIt) });
   const link = (kind: ProductBarAction) => (kind === ProductBarAction.Try && tryIt ? tryIt : signIn);
   const panel = placement === "panel";
   const button = (kind: ProductBarAction, variant: "primary" | "ghost") => (
-    <Button key={kind} asChild data-signed-out-only="" variant={variant} size={panel ? "md" : "sm"} className={panel ? (variant === "primary" ? "mt-2 w-full font-bold" : "w-full") : variant === "primary" ? "ml-1 hidden font-bold md:inline-flex" : "hidden md:inline-flex"}>
+    <Button key={kind} asChild data-signed-out-only="" variant={variant} size={panel ? "md" : "sm"} className={buttonClass(panel, variant === "primary")}>
       <Link href={link(kind).href}>{link(kind).label}</Link>
     </Button>
   );
