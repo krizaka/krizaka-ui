@@ -2009,3 +2009,36 @@ svg[data-bird="beaver"]{--kzb-pivot:60px 56px;--kzb-head-a:kzb-beaver-head 10s e
 .kz-look-chip { display: inline-flex; }
 /* Signed-out-only actions (krizaka-ui#827): the app's head script sets html[data-session] from the readable kz-session hint before the first paint, so a signed-in visitor never sees « Sign in », not even in the static HTML. */
 html[data-session] [data-signed-out-only] { display: none !important; }
+
+/* ─── Sketch (krizaka-internal#4006): a screen drawn with the pen on the Seyès ruling, its callouts, its legend ───
+   The strokes keep the pen's width at any scale (non-scaling stroke): on a phone the drawing shrinks, the ink does not
+   thin out. Ink from the text tokens, washes from the surfaces and the accent, numbers in the margin red. */
+.kz-sketch { margin: 0; display: grid; gap: 16px; min-inline-size: 0; }
+.kz-sketch-plate { padding: 12px; border: 1px solid var(--kz-border-subtle); background-color: var(--kz-surface-0); }
+.kz-sketch-canvas { position: relative; margin-inline: auto; container-type: inline-size; }
+.kz-sketch-svg { display: block; inline-size: 100%; block-size: auto; overflow: visible; }
+.kz-sketch-svg path, .kz-sketch-svg circle { vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; }
+.kz-sketch-ink { fill: none; stroke: var(--kz-text-primary); stroke-width: 1.6px; }
+.kz-sketch-ink[data-dashed] { stroke-dasharray: 6 5; }
+.kz-sketch-node { fill: var(--kz-text-primary); stroke: none; }
+.kz-sketch-faint { fill: none; stroke: var(--kz-text-secondary); stroke-width: 1.2px; }
+.kz-sketch-wash { stroke: none; fill: var(--kz-surface-2); }
+.kz-sketch-wash[data-fill="accent"] { fill: var(--kz-accent-soft); }
+.kz-sketch-wash[data-fill="primary"] { fill: var(--kz-accent); }
+.kz-sketch-word { font-family: var(--kz-font-mono); fill: var(--kz-text-primary); }
+.kz-sketch-on-accent { fill: var(--kz-on-accent); }
+.kz-sketch-lead { fill: none; stroke: var(--kz-paper-rule-margin); stroke-width: 1.6px; }
+/* A callout's number: HTML over the drawing, 26 px on a phone up to 40 px on a wide drawing, never shrunk with it; its pen circle, filled with the paper, hides the lead's start. */
+.kz-sketch-badge { position: absolute; z-index: 0; inline-size: clamp(26px, 3.2cqi, 40px); block-size: clamp(26px, 3.2cqi, 40px); translate: -50% -50%; display: grid; place-items: center; font: 700 clamp(13px, 1.6cqi, 20px)/1 var(--kz-font-mono); color: var(--kz-paper-rule-margin); }
+.kz-sketch-badge svg { position: absolute; z-index: -1; inset: 0; overflow: visible; }
+.kz-sketch-badge path { fill: var(--kz-surface-0); stroke: var(--kz-paper-rule-margin); stroke-width: 1.6px; stroke-linecap: round; }
+.kz-sketch-legend { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--kz-text-secondary); font-size: 15px; line-height: 24px; }
+.kz-sketch-item { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 8px; align-items: baseline; overflow-wrap: anywhere; }
+.kz-sketch-item b { font-weight: 600; color: var(--kz-text-primary); }
+.kz-sketch-item-n { display: inline-grid; place-items: center; inline-size: 24px; block-size: 24px; border: 1.5px solid var(--kz-paper-rule-margin); border-radius: 999px; font-family: var(--kz-font-mono); font-size: 13px; font-weight: 700; color: var(--kz-paper-rule-margin); }
+.kz-sketch-caption { font-family: var(--kz-font-mono); font-size: 13px; line-height: 16px; color: var(--kz-text-secondary); }
+.kz-sketch-pair { container-type: inline-size; }
+.kz-sketch-pair-grid { display: grid; gap: 32px; }
+@container (min-width: 48rem) { .kz-sketch-pair-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.kz-sketch-side { display: grid; gap: 8px; align-content: start; min-inline-size: 0; }
+.kz-sketch-side-label { margin: 0; font-family: var(--kz-font-mono); font-size: 13px; line-height: 16px; color: var(--kz-paper-rule-margin); }

@@ -76,6 +76,7 @@ export const PLANNED: Record<string, string> = {
   "speed-lines": "The tool sites (krizaka/krizaka-ui#548): the motion lab's live demo, then the heroes of the other tool sites.",
   "site-cahier": "The frame of ui.krizaka.com, java., ts. and the motion lab (one issue each, krizaka/krizaka-ui#548).",
   "bird-plate": "The Cahier (ADR-004): the flock and each product's bird with its promise on www.krizaka.com, then /story and the product sites.",
+  sketch: "krizaka-blog explains its UI pieces with pen-on-notebook drawings in chapters 34 and 35 (krizaka-internal#3943, #4000); then krizaka.com and the docs sites (krizaka-internal#4006).",
   "anatomy-plate": "The Cahier (ADR-004): the anatomy of each component on ui.krizaka.com/components/<name>.",
   "page-index": "The Cahier (ADR-004): the index of ui.krizaka.com's components, numbered like a reference book.",
   chapter: "The Cahier (ADR-004, krizaka-ui#617): the chapters of the story on blog.krizaka.com's home (ChapterIndex), the head and foot of each chapter's page.",

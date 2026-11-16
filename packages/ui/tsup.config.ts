@@ -99,6 +99,8 @@ export default defineConfig([
       "description-list": "src/description-list/index.ts",
       // One laid-out C4 view of @krizaka/architecture on the plate (server-safe: no id, no state; its types only, type-imported).
       "architecture-diagram": "src/architecture-diagram/index.ts",
+      // A screen drawn with the pen, its callouts and its legend (server-safe: seeded strokes, no state; the glyphs are @krizaka/icons's).
+      sketch: "src/sketch/index.ts",
       // The header beside a RailNav: the name as text, the mark below md (server-safe).
       "app-header": "src/app-header/index.ts",
       // A shop's storefront: the service card and the weekly hours (server-safe).

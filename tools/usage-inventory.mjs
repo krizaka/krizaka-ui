@@ -135,7 +135,7 @@ const DOMAIN_OVERRIDES = {
   abuse: ["captcha"],
   conversation: ["chat", "genui", "proposal", "analysis-report", "markdown", "native/markdown", "engine-flow", "next-actions"],
   "page-blocks": ["blocks.css", "story.css", "marketing-layout", "docs-layout", "docs-nav", "toc", "page-index", "section-backdrop", "glow-card", "number-ticker"],
-  cahier: ["site-cahier", "doodle", "taped-photo", "stuck", "footnote", "specimen-tag", "bird-plate", "anatomy-plate", "chapter", "margin-layout", "grade-stamp", "speed-lines", "versus-card", "flock", "mascot-quote", "signature", "elephant"],
+  cahier: ["site-cahier", "doodle", "taped-photo", "stuck", "footnote", "specimen-tag", "bird-plate", "anatomy-plate", "sketch", "chapter", "margin-layout", "grade-stamp", "speed-lines", "versus-card", "flock", "mascot-quote", "signature", "elephant"],
 };
 const OVERRIDE = new Map(Object.entries(DOMAIN_OVERRIDES).flatMap(([d, names]) => names.map((n) => [n, d])));
 const byText = (a, b) => a.localeCompare(b);
