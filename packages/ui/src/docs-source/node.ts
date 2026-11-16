@@ -6,7 +6,12 @@ import type { DocsFile } from "./docs-source";
 
 async function walk(dir: string): Promise<string[]> {
   const entries = await readdir(dir, { withFileTypes: true });
-  const nested = await Promise.all(entries.map((e) => (e.isDirectory() ? walk(join(dir, e.name)) : e.name.endsWith(".md") ? [join(dir, e.name)] : [])));
+  const nested = await Promise.all(
+    entries.map(async (e): Promise<string[]> => {
+      if (e.isDirectory()) return walk(join(dir, e.name));
+      return e.name.endsWith(".md") ? [join(dir, e.name)] : [];
+    }),
+  );
   return nested.flat();
 }
 
@@ -17,6 +22,6 @@ async function walk(dir: string): Promise<string[]> {
  * const docs = docsSource(await readDocsFolder("docs/public"), { locale: "fr" });
  */
 export const readDocsFolder = async (dir: string): Promise<DocsFile[]> => {
-  const paths = (await walk(dir)).sort();
+  const paths = (await walk(dir)).sort((a, b) => a.localeCompare(b));
   return Promise.all(paths.map(async (p) => ({ path: relative(dir, p).split(sep).join("/"), content: await readFile(p, "utf8") })));
 };
