@@ -68,7 +68,8 @@ function Caption({ field, hint, ok }: Readonly<{ field: KrizakaField; hint?: str
         </span>
       </Field.Error>
     );
-  const text = field.available && ok ? (hint ? `${ok} · ${hint}` : ok) : hint;
+  const okWithHint = hint ? `${ok} · ${hint}` : ok;
+  const text = field.available && ok ? okWithHint : hint;
   return text ? <Field.Hint id={field.hintId}>{text}</Field.Hint> : null;
 }
 
@@ -165,7 +166,8 @@ export type TextFieldProps = Base & {
 /** A text field of the form: label, input, hint or error, an optional check on the server. */
 export function TextField({ name, label, hint, disabled, className, type = "text", transform, validateAsync, asyncDebounceMs, availableHint, checkingLabel = "Checking", start, ...input }: Readonly<TextFieldProps>) {
   const f = useKrizakaField<string>(name, { validateAsync, asyncDebounceMs });
-  const end = f.validating ? <Spinner size="sm" label={checkingLabel} /> : f.available ? <Check /> : null;
+  const availableMark = f.available ? <Check /> : null;
+  const end = f.validating ? <Spinner size="sm" label={checkingLabel} /> : availableMark;
   return (
     <Field.Root className={className}>
       <Field.Label htmlFor={f.id}>{label}</Field.Label>
@@ -265,6 +267,36 @@ export type RadioGroupProps = Base & {
 /** One choice among a few, all visible. */
 export function RadioGroup({ name, label, hint, disabled, className, options, variant = "list", orientation = "vertical" }: Readonly<RadioGroupProps>) {
   const f = useKrizakaField<string>(name);
+  const renderOption = (o: RadioGroupProps["options"][number]) => {
+    if (variant === "cards") {
+      return (
+        <RadioGroupControl.Card key={o.value} value={o.value} disabled={o.disabled}>
+          <span className="font-semibold">{o.label}</span>
+          {o.description ? <span className="text-xs text-fg-secondary">{o.description}</span> : null}
+        </RadioGroupControl.Card>
+      );
+    }
+    if (variant === "buttons") {
+      return (
+        <RadioGroupControl.Button key={o.value} value={o.value} disabled={o.disabled} hint={o.description}>
+          {o.label}
+        </RadioGroupControl.Button>
+      );
+    }
+    if (variant === "segmented") {
+      return (
+        <RadioGroupControl.Segment key={o.value} value={o.value} disabled={o.disabled}>
+          {o.label}
+        </RadioGroupControl.Segment>
+      );
+    }
+    return (
+      <RadioGroupControl.Item key={o.value} value={o.value} disabled={o.disabled}>
+        {o.label}
+        {o.description ? <span className="block text-xs text-fg-secondary">{o.description}</span> : null}
+      </RadioGroupControl.Item>
+    );
+  };
   return (
     <Field.Root className={className} role="group" aria-labelledby={`${f.id}-label`}>
       <span id={`${f.id}-label`} className="text-xs font-semibold text-fg-secondary">
@@ -283,27 +315,7 @@ export function RadioGroup({ name, label, hint, disabled, className, options, va
         variant={variant}
         className={variant === "segmented" ? "self-start" : undefined}
       >
-        {options.map((o) =>
-          variant === "cards" ? (
-            <RadioGroupControl.Card key={o.value} value={o.value} disabled={o.disabled}>
-              <span className="font-semibold">{o.label}</span>
-              {o.description ? <span className="text-xs text-fg-secondary">{o.description}</span> : null}
-            </RadioGroupControl.Card>
-          ) : variant === "buttons" ? (
-            <RadioGroupControl.Button key={o.value} value={o.value} disabled={o.disabled} hint={o.description}>
-              {o.label}
-            </RadioGroupControl.Button>
-          ) : variant === "segmented" ? (
-            <RadioGroupControl.Segment key={o.value} value={o.value} disabled={o.disabled}>
-              {o.label}
-            </RadioGroupControl.Segment>
-          ) : (
-            <RadioGroupControl.Item key={o.value} value={o.value} disabled={o.disabled}>
-              {o.label}
-              {o.description ? <span className="block text-xs text-fg-secondary">{o.description}</span> : null}
-            </RadioGroupControl.Item>
-          ),
-        )}
+        {options.map(renderOption)}
       </RadioGroupControl.Root>
       <Caption field={f} hint={hint} />
     </Field.Root>
@@ -503,6 +515,12 @@ export type MoneyProps = Base & {
   placeholder?: string;
 };
 
+/** What the form keeps of what was typed: nothing (`null`), an unreadable amount (`NaN`, for the schema to refuse) or the units. */
+function moneyValue(units: number | null | undefined): number | null {
+  if (units === undefined) return null;
+  return units === null ? Number.NaN : units;
+}
+
 /** An amount of the form, stored as integer minor units (cents: `1250` = 12.50), typed the locale's way. */
 export function Money({ name, label, hint, disabled, className, currency, placeholder }: Readonly<MoneyProps>) {
   const f = useKrizakaField<number | null>(name);
@@ -533,7 +551,7 @@ export function Money({ name, label, hint, disabled, className, currency, placeh
           onChange={(e) => {
             setText(e.target.value);
             const units = parseMoney(e.target.value, currency, f.locale);
-            f.setValue(units === undefined ? null : units === null ? Number.NaN : units);
+            f.setValue(moneyValue(units));
           }}
           onBlur={() => {
             setEditing(false);

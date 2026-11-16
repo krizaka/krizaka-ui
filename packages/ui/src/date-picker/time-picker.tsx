@@ -102,6 +102,8 @@ function TimeWheels({ label, locale, value: valueProp, defaultValue = null, onVa
   // A minute that is not on the step (an existing value) is rounded to the nearest one shown.
   const shownMinute = String(Math.min(60 - minuteStep, Math.round(minute / minuteStep) * minuteStep));
   const [am, pmLabel] = dayPeriods(locale);
+  const shown12 = h24 % 12 === 0 ? 12 : h24 % 12;
+  const pmOffset = pm ? 12 : 0;
   const set = (h: number, m: number) => setValue(`${two(h)}:${two(m)}`);
   return (
     <WheelPicker label={`${label}, ${value ? formatTime(locale, value) : ""}`.replace(/, $/, "")} className={className}>
@@ -109,8 +111,8 @@ function TimeWheels({ label, locale, value: valueProp, defaultValue = null, onVa
         label={labels.hours}
         options={hours}
         disabled={disabled}
-        value={twelve ? String(h24 % 12 === 0 ? 12 : h24 % 12) : String(h24)}
-        onValueChange={(v) => set(twelve ? (Number(v) % 12) + (pm ? 12 : 0) : Number(v), minute)}
+        value={String(twelve ? shown12 : h24)}
+        onValueChange={(v) => set(twelve ? (Number(v) % 12) + pmOffset : Number(v), minute)}
       />
       <WheelDivider>:</WheelDivider>
       <Wheel label={labels.minutes} options={minutes} disabled={disabled} value={shownMinute} onValueChange={(v) => set(h24, Number(v))} />
@@ -167,7 +169,8 @@ function TimeSlots({ label, locale, value: valueProp, defaultValue = null, onVal
   };
   const part = (t: TimeValue) => {
     const m = timeToMinutes(t) ?? 0;
-    return m < 12 * 60 ? "morning" : m < 18 * 60 ? "afternoon" : "evening";
+    if (m < 12 * 60) return "morning";
+    return m < 18 * 60 ? "afternoon" : "evening";
   };
   return (
     <div ref={root} role="radiogroup" aria-label={label} aria-disabled={disabled || undefined} className={className} onKeyDown={onKeyDown}>

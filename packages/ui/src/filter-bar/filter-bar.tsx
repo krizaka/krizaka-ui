@@ -140,7 +140,8 @@ export function FilterMenu(props: Readonly<FilterMenuProps>) {
   const { label, options, defaultOpen, className } = props;
   const s = filterBar();
   const m = menu();
-  const chosen = props.multiple === false ? (props.value ? [props.value] : []) : props.value;
+  const singleValue = props.value ? [props.value] : [];
+  const chosen = props.multiple === false ? singleValue : props.value;
   const single = props.multiple === false ? options.find((o) => o.value === props.value) : undefined;
   const content = (option: FilterOption) => (
     <>
@@ -194,11 +195,16 @@ export function readFilterParams(params: URLSearchParams, keys: readonly string[
   );
 }
 
+const filterValues = (value: string | readonly string[] | null | undefined): string[] => {
+  if (value == null) return [];
+  return typeof value === "string" ? [value] : [...value];
+};
+
 /** Filters written into an address (a copy of `base`): empty filters removed, several values comma-separated, the page reset. */
 export function writeFilterParams(base: URLSearchParams, filters: Record<string, string | readonly string[] | null | undefined>, resetKey = "page") {
   const next = new URLSearchParams(base);
   for (const [key, value] of Object.entries(filters)) {
-    const list = value == null ? [] : typeof value === "string" ? [value] : [...value];
+    const list = filterValues(value);
     if (list.filter(Boolean).length === 0) next.delete(key);
     else next.set(key, list.filter(Boolean).join(","));
   }

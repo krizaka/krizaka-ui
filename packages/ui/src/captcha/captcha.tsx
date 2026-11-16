@@ -102,8 +102,10 @@ export function Captcha({ siteKey, onToken, locale = "en", theme = "auto", label
   const retry = useCallback(() => setAttempt((n) => n + 1), []);
 
   if (!siteKey) return null;
+  const interactiveOrIdle = interactive ? "interactive" : "idle";
+  const phase = failed ? "error" : interactiveOrIdle;
   return (
-    <div className={root({ className })} role="group" aria-label={words.group} data-captcha={failed ? "error" : interactive ? "interactive" : "idle"}>
+    <div className={root({ className })} role="group" aria-label={words.group} data-captcha={phase}>
       {failed ? (
         <div role="alert" className={error()}>
           <span>{words.error}</span>

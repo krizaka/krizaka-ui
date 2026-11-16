@@ -109,7 +109,10 @@ export function LanguageSwitch({ label, current, languages, variant = "menu", li
           e.preventDefault();
           const all = links();
           const at = all.indexOf(document.activeElement as HTMLElement);
-          const next = e.key === "Home" ? 0 : e.key === "End" ? all.length - 1 : (at + (e.key === "ArrowDown" ? 1 : -1) + all.length) % all.length;
+          const step = e.key === "ArrowDown" ? 1 : -1;
+          const stepped = (at + step + all.length) % all.length;
+          const edge = e.key === "End" ? all.length - 1 : stepped;
+          const next = e.key === "Home" ? 0 : edge;
           all[next]?.focus();
         }
       }}

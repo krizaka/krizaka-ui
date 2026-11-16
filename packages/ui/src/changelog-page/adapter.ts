@@ -118,7 +118,8 @@ export function changeFromTitle(title: string, prUrl?: string): ChangeItem | nul
   const sentence = plain(body.replace(/^./, (c) => c.toUpperCase()));
   const tag = tagOf(m?.[3] ? `${type}!: ${body}` : sentence, type ? (TAG_OF_TYPE[type] ?? "change") : "change");
   const num = /\(#(\d+)\)\s*$/.exec(title)?.[1];
-  const pr = prUrl ? prOf(prUrl) : num ? { number: Number(num), url: "" } : undefined;
+  const prFromTitle = num ? { number: Number(num), url: "" } : undefined;
+  const pr = prUrl ? prOf(prUrl) : prFromTitle;
   return { tag, text: sentence.replace(/[.\s]*$/, "."), pr };
 }
 
@@ -186,8 +187,9 @@ export function changelogRss(opts: {
 }
 
 /** The template's kind for a tag: feature → added, fix → fixed, security and breaking stay themselves, the rest → changed. */
-export const kindOfTag = (tag: ChangeTag): ChangeKind =>
-  tag === "feature" ? "added" : tag === "fix" ? "fixed" : tag === "change" ? "changed" : tag;
+const KIND_OF_TAG: Partial<Record<ChangeTag, ChangeKind>> = { feature: "added", fix: "fixed", change: "changed" };
+
+export const kindOfTag = (tag: ChangeTag): ChangeKind => KIND_OF_TAG[tag] ?? (tag as ChangeKind);
 
 export interface MergedPull {
   title: string;
