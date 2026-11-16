@@ -2,8 +2,8 @@
   "generated": "2026-11-02",
   "package": {
     "name": "@krizaka/ui",
-    "version": "4.11.0",
-    "distMeasured": "packages/ui/dist (@krizaka/ui@4.11.0)"
+    "version": "4.12.0",
+    "distMeasured": "packages/ui/dist (@krizaka/ui@4.12.0)"
   },
   "consumers": [
     {
@@ -2350,7 +2350,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 20773,
+      "sizeGzip": 20872,
       "budget": 27600,
       "tests": 3,
       "stories": 1,
@@ -2569,11 +2569,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 12326,
+      "sizeGzip": 12506,
       "budget": 11000,
-      "tests": 2,
+      "tests": 3,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "14 live importer file(s)"
@@ -2609,11 +2609,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 1976,
+      "sizeGzip": 2075,
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-06",
+      "lastChange": "2026-11-16",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "16 live importer file(s)"
@@ -4855,7 +4855,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 22579,
+      "sizeGzip": 22760,
       "budget": 18000,
       "tests": 1,
       "stories": 1,
