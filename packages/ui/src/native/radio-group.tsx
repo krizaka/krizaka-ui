@@ -154,11 +154,7 @@ export function RadioGroup({ label, options, value: valueProp, defaultValue = nu
         style={
           variant === "segmented"
             ? [styles.track, { borderRadius: radius.lg, backgroundColor: theme.surface2, borderColor: error ? theme.danger : theme.borderDefault }]
-            : variant === "buttons"
-              ? styles.keys
-              : variant === "cards"
-                ? styles.cards
-                : styles.list
+            : { list: styles.list, cards: styles.cards, buttons: styles.keys }[variant]
         }
       >
         {body}

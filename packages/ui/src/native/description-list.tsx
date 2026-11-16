@@ -1,6 +1,7 @@
 import * as React from "react";
 import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 
+import { choose } from "./choose";
 import { useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -28,7 +29,7 @@ export type DescriptionListProps = {
 export function DescriptionList({ items, layout = "stacked", style }: Readonly<DescriptionListProps>) {
   const { theme, radius } = useTheme();
   return (
-    <View role="list" style={[layout === "grid" ? styles.grid : layout === "inline" ? null : styles.stacked, style]}>
+    <View role="list" style={[choose(styles.stacked, [layout === "grid", styles.grid], [layout === "inline", null]), style]}>
       {items.map((item, i) => {
         const value =
           typeof item.details === "string" || typeof item.details === "number" ? (

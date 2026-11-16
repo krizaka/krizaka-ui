@@ -33,6 +33,7 @@ import { Button, IconButton } from "./button";
 import { Chip } from "./chip";
 import { Select } from "./combobox";
 import { TextField } from "./field";
+import { keyed } from "./keyed";
 import { Switch } from "./switch";
 import { MarkerPicker, TagMarker } from "./tag-chip";
 import { useTheme } from "./theme";
@@ -96,10 +97,11 @@ export function TagSetEditor({ value, onChange, variant, roles, problems, labels
       <Problems title={labels.problems} problems={problems} />
       <Txt variant="title">{labels.presets}</Txt>
       {presets.length === 0 ? <Txt tone="secondary">{labels.empty}</Txt> : null}
-      {presets.map((preset, index) => {
+      {/* Presets have no id and are renamed and reordered in place: the rank keeps the row (and its focus) while its name is typed. */}
+      {keyed(presets, () => "preset").map(({ key, item: preset, index }) => {
         const shown = preset.name || String(index + 1);
         return (
-          <View key={index} style={styles.card}>
+          <View key={key} style={styles.card}>
             <View style={styles.line}>
               <TagMarker marker={preset.marker} />
               <TextField

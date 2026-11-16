@@ -1,6 +1,7 @@
 import * as React from "react";
 import { StyleSheet, Text, type TextProps } from "react-native";
 
+import { choose } from "./choose";
 import { type Theme, useTheme } from "./theme";
 
 export type TxtVariant = "display" | "title" | "body" | "caption" | "label" | "mono";
@@ -28,7 +29,7 @@ export type TxtProps = TextProps & {
 /** Text in the platform's scale, coloured by a role of the current theme. `title` and `display` are headers for screen readers. */
 export function Txt({ variant = "body", tone = "text", style, ...props }: Readonly<TxtProps>) {
   const { theme, fonts } = useTheme();
-  const family = variant === "display" || variant === "title" ? fonts.display : variant === "mono" ? fonts.mono : fonts.sans;
+  const family = choose(fonts.sans, [variant === "display" || variant === "title", fonts.display], [variant === "mono", fonts.mono]);
   return (
     <Text
       role={variant === "display" || variant === "title" ? "heading" : undefined}

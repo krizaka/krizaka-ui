@@ -1,6 +1,7 @@
 import * as React from "react";
 import { type NativeScrollEvent, type NativeSyntheticEvent, Pressable, ScrollView, type StyleProp, StyleSheet, Text, View, type ViewStyle } from "react-native";
 
+import { choose } from "./choose";
 import { useTheme } from "./theme";
 
 /** A value of a wheel: what is stored, and its words (passed translated or formatted for the locale). */
@@ -167,9 +168,9 @@ export function Wheel({ label, options, value: valueProp, defaultValue, onValueC
                 style={[
                   styles.itemText,
                   {
-                    color: o.disabled ? theme.textMuted : i === shown && !unset ? theme.textPrimary : theme.textSecondary,
+                    color: choose(theme.textSecondary, [Boolean(o.disabled), theme.textMuted], [i === shown && !unset, theme.textPrimary]),
                     fontWeight: i === shown && !unset ? "600" : "400",
-                    opacity: distance === 0 ? 1 : distance === 1 ? 0.7 : 0.4,
+                    opacity: choose(0.4, [distance === 0, 1], [distance === 1, 0.7]),
                     transform: [{ scale: distance === 0 ? 1 : 0.92 }],
                     textDecorationLine: o.disabled ? "line-through" : "none",
                   },

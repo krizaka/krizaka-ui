@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, View, type ViewProps } from "react-native";
 import Svg, { Circle, Defs, LinearGradient, Stop, SvgUri } from "react-native-svg";
 
 import { type DefaultAvatar, defaultAvatarUrl } from "../avatar/default-avatar";
+import { choose } from "./choose";
 import { useSvgId, useTheme } from "./theme";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -41,6 +42,8 @@ export function isSvgUri(uri: string): boolean {
   return /^data:image\/svg\+xml[;,]/i.test(uri) || /\.svg(?:[?#]|$)/i.test(uri);
 }
 
+const PRESENCE_TONE = { online: "success", away: "warning", busy: "danger", offline: "surface0" } as const;
+
 export function AvatarRoot({ src, svg, alt = "", fallback, fallbackSrc, defaultAvatar, size = "md", presence, presenceLabel, ring, style, ...props }: AvatarProps) {
   const { theme } = useTheme();
   const gradient = useSvgId("kz-ring-");
@@ -49,9 +52,22 @@ export function AvatarRoot({ src, svg, alt = "", fallback, fallbackSrc, defaultA
   const failedSrc = { has: (uri?: string) => Boolean(uri) && failedSrcs.includes(uri as string) };
   const side = typeof size === "number" ? size : SIDE[size];
   const backup = fallbackSrc ?? (defaultAvatar ? defaultAvatarUrl(defaultAvatar, { size: side > 40 ? 512 : 256 }) : undefined);
-  const shown = src && !failedSrc.has(src) ? src : backup && !failedSrc.has(backup) ? backup : null;
+  const usable = (uri?: string | null) => (uri && !failedSrc.has(uri) ? uri : null);
+  const shown = usable(src) ?? usable(backup);
   const initial = alt.trim().charAt(0).toUpperCase();
   const content = fallback ?? initial;
+  let inner: React.ReactNode = content;
+  if (shown && ((svg && shown === src) || isSvgUri(shown))) {
+    inner = (
+      <View style={StyleSheet.absoluteFill} pointerEvents="none">
+        <SvgUri testID={props.testID ? `${props.testID}.svg` : undefined} uri={shown} width="100%" height="100%" preserveAspectRatio="xMidYMid slice" onError={() => setFailedSrcs((all) => [...all, shown])} />
+      </View>
+    );
+  } else if (shown) {
+    inner = <Image testID={props.testID ? `${props.testID}.image` : undefined} source={{ uri: shown }} onError={() => setFailedSrcs((all) => [...all, shown])} resizeMode="cover" style={StyleSheet.absoluteFill} />;
+  } else if (typeof content === "string") {
+    inner = <Text style={[styles.initial, { color: theme.textSecondary, fontSize: Math.max(9, Math.round(side * 0.4)) }]}>{content}</Text>;
+  }
   const picture = (
     <View
       accessible={Boolean(alt) && !presence && !ring}
@@ -60,24 +76,14 @@ export function AvatarRoot({ src, svg, alt = "", fallback, fallbackSrc, defaultA
       {...(presence || ring ? {} : props)}
       style={[styles.root, { width: side, height: side, borderRadius: side / 2, backgroundColor: theme.surface3 }, presence || ring ? null : style]}
     >
-      {shown && ((svg && shown === src) || isSvgUri(shown)) ? (
-        <View style={StyleSheet.absoluteFill} pointerEvents="none">
-          <SvgUri testID={props.testID ? `${props.testID}.svg` : undefined} uri={shown} width="100%" height="100%" preserveAspectRatio="xMidYMid slice" onError={() => setFailedSrcs((all) => [...all, shown])} />
-        </View>
-      ) : shown ? (
-        <Image testID={props.testID ? `${props.testID}.image` : undefined} source={{ uri: shown }} onError={() => setFailedSrcs((all) => [...all, shown])} resizeMode="cover" style={StyleSheet.absoluteFill} />
-      ) : typeof content === "string" ? (
-        <Text style={[styles.initial, { color: theme.textSecondary, fontSize: Math.max(9, Math.round(side * 0.4)) }]}>{content}</Text>
-      ) : (
-        content
-      )}
+      {inner}
     </View>
   );
   if (!presence && !ring) return picture;
   const gap = ring ? Math.max(2.5, Math.round(side * 0.07)) : 0;
   const outer = side + gap * 4;
   const dot = Math.max(8, Math.round(side * 0.28));
-  const dotColor = presence === "online" ? theme.success : presence === "away" ? theme.warning : presence === "busy" ? theme.danger : theme.surface0;
+  const dotColor = presence ? theme[PRESENCE_TONE[presence]] : theme.surface0;
   const name = [alt, presence ? presenceLabel : null].filter(Boolean).join(", ");
   return (
     <View accessible={Boolean(name)} role={name ? "img" : undefined} aria-label={name || undefined} {...props} style={[{ width: outer, height: outer, alignItems: "center", justifyContent: "center" }, style]}>
@@ -95,7 +101,7 @@ export function AvatarRoot({ src, svg, alt = "", fallback, fallbackSrc, defaultA
             r={outer / 2 - gap / 2 - 0.5}
             fill="none"
             strokeWidth={gap}
-            stroke={ring === "story" ? `url(#${gradient})` : ring === "live" ? theme.danger : theme.borderStrong}
+            stroke={choose(theme.borderStrong, [ring === "story", `url(#${gradient})`], [ring === "live", theme.danger])}
           />
         </Svg>
       ) : null}
@@ -130,8 +136,9 @@ export function AvatarGroup({ max, size = "md", style, children, ...props }: Rea
   const ring = { borderWidth: 2, borderColor: theme.surface0, marginLeft: -side / 5 };
   return (
     <View {...props} style={[styles.group, { paddingLeft: side / 5 }, style]}>
-      {shown.map((child, i) => (
-        <View key={i} style={[ring, { borderRadius: side }]}>
+      {shown.map((child) => (
+        // `Children.toArray` keys the elements; a bare string is its own key.
+        <View key={React.isValidElement(child) ? child.key : String(child)} style={[ring, { borderRadius: side }]}>
           {React.isValidElement<AvatarProps>(child) ? React.cloneElement(child, { size }) : child}
         </View>
       ))}

@@ -3,6 +3,7 @@ import { Animated, Easing, Pressable, type StyleProp, StyleSheet, TextInput, Vie
 import Svg, { Path } from "react-native-svg";
 
 import { Avatar } from "./avatar";
+import { choose } from "./choose";
 import { useReducedMotion, useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -205,7 +206,7 @@ export function MessageComposer({ value, onValueChange, onSend, placeholder, sen
               haptic("impact");
               onSend();
             }}
-            style={({ pressed }) => [styles.send, { backgroundColor: ready ? (pressed ? theme.accentHover : theme.accent) : theme.surface3 }]}
+            style={({ pressed }) => [styles.send, { backgroundColor: choose(theme.surface3, [ready && pressed, theme.accentHover], [ready, theme.accent]) }]}
           >
             <Svg width={18} height={18} viewBox="0 0 24 24" aria-hidden>
               <Path d="M4 12l16-8-6 16-2.5-6.5L4 12z" fill={ready ? theme.onAccent : theme.textMuted} />
@@ -312,7 +313,7 @@ export function ConversationItem({ name, avatar, presence, presenceLabel, previe
           ) : null}
         </View>
         <View style={styles.top}>
-          <Txt variant="caption" tone={typing ? "accent" : unread > 0 ? "text" : "secondary"} numberOfLines={1} style={styles.flex}>
+          <Txt variant="caption" tone={choose("secondary" as const, [typing, "accent" as const], [unread > 0, "text" as const])} numberOfLines={1} style={styles.flex}>
             {preview}
           </Txt>
           {unread > 0 ? (

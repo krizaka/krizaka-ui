@@ -57,7 +57,8 @@ export type MediaPickerProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-const typesOf = (accept: MediaPickerProps["accept"]) => (accept === "videos" ? ["videos"] : accept === "all" ? ["images", "videos"] : ["images"]);
+const TYPES = { images: ["images"], videos: ["videos"], all: ["images", "videos"] } as const;
+const typesOf = (accept: MediaPickerProps["accept"]): readonly string[] => TYPES[accept ?? "images"];
 
 /**
  * Photos and videos picked from the library or the camera, as a grid of square tiles: an add tile (the system's

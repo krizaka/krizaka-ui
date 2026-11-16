@@ -153,7 +153,8 @@ function ChipGroup(props: Readonly<ChipGroupProps>) {
       disabled,
       isSelected: (v) => list.includes(v),
       toggle: (v) => {
-        const next = props.type === "single" ? v : list.includes(v) ? list.filter((x) => x !== v) : [...list, v];
+        const withToggled = list.includes(v) ? list.filter((x) => x !== v) : [...list, v];
+        const next = props.type === "single" ? v : withToggled;
         if (props.value === undefined) setOwn(next);
         (props.onValueChange as ((value: string | string[]) => void) | undefined)?.(next);
       },

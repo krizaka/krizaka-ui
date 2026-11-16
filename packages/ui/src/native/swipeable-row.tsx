@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Animated, PanResponder, Pressable, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 
+import { keyed } from "./keyed";
 import { type Theme, useReducedMotion, useTheme } from "./theme";
 import { Txt } from "./txt";
 
@@ -96,9 +97,9 @@ export function SwipeableRow({ children, trailing = [], leading = [], fullSwipe 
   /* eslint-enable react-hooks/refs */
   const side = (actions: readonly SwipeAction[], edge: "left" | "right") => (
     <View aria-hidden style={[styles.side, edge === "left" ? { left: 0 } : { right: 0, flexDirection: "row-reverse" }]}>
-      {actions.map((action, i) => (
+      {keyed(actions, (action) => action.label).map(({ key, item: action }) => (
         // eslint-disable-next-line react-hooks/refs -- runs on a press, never during render
-        <Pressable key={i} focusable={false} tabIndex={-1} onPress={() => run(action)} style={[styles.action, { width: actionWidth, backgroundColor: toneColor(theme, action.tone) }]}>
+        <Pressable key={key} focusable={false} tabIndex={-1} onPress={() => run(action)} style={[styles.action, { width: actionWidth, backgroundColor: toneColor(theme, action.tone) }]}>
           {action.icon}
           <Txt variant="caption" tone={toneText(action.tone)} style={styles.actionText} numberOfLines={1}>
             {action.label}

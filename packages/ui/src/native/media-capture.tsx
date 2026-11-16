@@ -7,6 +7,7 @@ import { Linking, Pressable, type StyleProp, StyleSheet, View, type ViewStyle } 
 import Svg, { Path } from "react-native-svg";
 
 import { warnDeprecated } from "../deprecated";
+import { choose } from "./choose";
 
 export type MediaCaptureLabels = {
   /** Why the camera is asked for, before the request ("Use your camera to take a photo"). */
@@ -124,7 +125,7 @@ export function MediaCapture({ mode = "photo", facing: initialFacing = "front", 
         <View style={styles.side} />
         <Pressable
           role="button"
-          aria-label={mode === "photo" ? labels.takePhoto : recording ? labels.stopRecording : labels.startRecording}
+          aria-label={choose(labels.startRecording, [mode === "photo", labels.takePhoto], [recording, labels.stopRecording])}
           aria-disabled={!ready}
           disabled={!ready}
           onPress={() => void shoot()}

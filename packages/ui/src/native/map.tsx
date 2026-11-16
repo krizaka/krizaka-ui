@@ -331,7 +331,7 @@ export function LocationPicker({ label, value, onValueChange, locale, zoom = 14,
       setStatus("unavailable");
     }
   };
-  const message = status === "locating" ? labels.locating : status === "denied" ? labels.denied : status === "unavailable" ? labels.unavailable : null;
+  const message = status === "idle" ? null : labels[status];
   return (
     <View role="group" aria-label={label} style={[styles.picker, style]}>
       <View style={styles.pickerFrame}>

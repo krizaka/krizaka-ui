@@ -3,6 +3,7 @@ import { AccessibilityInfo, Animated, Easing, View, type ViewStyle } from "react
 import Svg, { Circle, Defs, Ellipse, G, LinearGradient, Path, Rect, Stop } from "react-native-svg";
 
 import { archEye, BIRDS, brow, lidEye, LIGHT, type MascotBird, type MascotMood, type MascotPalette, type MascotTone, MOOD_PARTS, OWN_PALETTES, PARCEL, SHADE, upperLid } from "../mascots/geometry";
+import { choose } from "./choose";
 import { markA11y } from "./mark-motion";
 import { useSvgId, useTheme } from "./theme";
 
@@ -62,6 +63,32 @@ export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 
   const look = mood === "thinking" ? 1.4 : 0;
   const rot = (deg: number, [x, y]: readonly [number, number]) => `rotate(${deg} ${x} ${y})`;
   const [wl, wr] = g.wings;
+  const wings = [
+    { side: "left", wing: wl, turn: choose(0, [mood === "success", 28]) },
+    { side: "right", wing: wr, turn: choose(0, [mood === "success", -28], [mood === "welcome", -20]) },
+  ] as const;
+  const eye = (at: (typeof g.eyes.at)[number]) => {
+    const key = at.join(",");
+    if (mood === "empty" && g.eyes.white > 0) {
+      return (
+        <G key={key}>
+          <Circle cx={at[0]} cy={at[1]} r={g.eyes.white} fill={LIGHT} {...line} />
+          <Circle cx={at[0]} cy={at[1] + g.eyes.pupil * 0.7} r={g.eyes.pupil} fill={SHADE} />
+          <Path d={upperLid(at, g.eyes.white)} fill={p.detail} {...line} />
+        </G>
+      );
+    }
+    if (mood === "success" || mood === "empty") {
+      return <Path key={key} d={mood === "success" ? archEye(at, eyeR * 0.85) : lidEye(at, eyeR * 0.8)} stroke={g.visor ? p.eye : outline} strokeWidth={2.2} strokeLinecap="round" fill="none" />;
+    }
+    return (
+      <G key={key}>
+        {g.eyes.white > 0 && <Circle cx={at[0]} cy={at[1]} r={g.eyes.white} fill={LIGHT} {...line} />}
+        <Circle cx={at[0] + look} cy={at[1] - look} r={g.eyes.pupil} fill={g.visor ? p.eye : SHADE} />
+      </G>
+    );
+  };
+  const browSide = (i: number) => (g.eyes.at.length === 1 || i !== 0 ? 1 : -1);
   return (
     <View style={[{ width: size, height: size }, style]} {...markA11y(title)}>
       <Animated.View style={{ transform: [{ translateY: bob }] }}>
@@ -81,40 +108,22 @@ export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 
           {g.parcel?.map((d, i) => <Path key={d} d={d} fill={PARCEL[i]} {...line} />)}
           <Path d={g.body} fill={body} {...line} />
           <Path d={g.belly} fill={LIGHT} opacity={0.28} />
-          {[wl, wr].map((w, i) => {
-            const turn = mood === "success" ? (i === 0 ? 28 : -28) : mood === "welcome" && i === 1 ? -20 : 0;
-            return (
-              <G key={i} transform={turn ? rot(turn, w.pivot) : undefined}>
-                <Path d={w.d} fill={p.wing} {...line} />
-                <Path d={w.d} fill={SHADE} opacity={0.16} />
-              </G>
-            );
-          })}
+          {wings.map(({ side, wing: w, turn }) => (
+            <G key={side} transform={turn ? rot(turn, w.pivot) : undefined}>
+              <Path d={w.d} fill={p.wing} {...line} />
+              <Path d={w.d} fill={SHADE} opacity={0.16} />
+            </G>
+          ))}
           {g.neck && <Path d={g.neck.d} stroke={body} strokeWidth={g.neck.width} strokeLinecap="round" fill="none" />}
           {g.head.r > 0 && <Circle cx={g.head.cx} cy={g.head.cy} r={g.head.r} fill={body} {...line} />}
           {g.details.map((d) => (
             <Path key={d} d={d} fill={p.detail} {...line} />
           ))}
           {g.visor && <Rect x={g.visor.x} y={g.visor.y} width={g.visor.w} height={g.visor.h} rx={4} fill={theme.surface0} {...line} />}
-          {g.eyes.at.map((at, i) =>
-            mood === "empty" && g.eyes.white > 0 ? (
-              <G key={i}>
-                <Circle cx={at[0]} cy={at[1]} r={g.eyes.white} fill={LIGHT} {...line} />
-                <Circle cx={at[0]} cy={at[1] + g.eyes.pupil * 0.7} r={g.eyes.pupil} fill={SHADE} />
-                <Path d={upperLid(at, g.eyes.white)} fill={p.detail} {...line} />
-              </G>
-            ) : mood === "success" || mood === "empty" ? (
-              <Path key={i} d={mood === "success" ? archEye(at, eyeR * 0.85) : lidEye(at, eyeR * 0.8)} stroke={g.visor ? p.eye : outline} strokeWidth={2.2} strokeLinecap="round" fill="none" />
-            ) : (
-              <G key={i}>
-                {g.eyes.white > 0 && <Circle cx={at[0]} cy={at[1]} r={g.eyes.white} fill={LIGHT} {...line} />}
-                <Circle cx={at[0] + look} cy={at[1] - look} r={g.eyes.pupil} fill={g.visor ? p.eye : SHADE} />
-              </G>
-            ),
-          )}
+          {g.eyes.at.map(eye)}
           {g.glasses && g.eyes.at.map(([x, y]) => <Circle key={x} cx={x} cy={y} r={6.5} fill="none" stroke={outline} strokeWidth={1.3} />)}
           {mood === "error" &&
-            g.eyes.at.map((at, i) => <Path key={i} d={brow(at, eyeR, g.eyes.at.length === 1 ? 1 : i === 0 ? -1 : 1)} stroke={outline} strokeWidth={2} strokeLinecap="round" />)}
+            g.eyes.at.map((at, i) => <Path key={at.join(",")} d={brow(at, eyeR, browSide(i))} stroke={outline} strokeWidth={2} strokeLinecap="round" />)}
           <Path d={g.beak} fill={p.beak} {...line} />
           {mood === "thinking" && MOOD_PARTS.dots.map(([cx, cy, r], i) => <Circle key={cx} cx={cx} cy={cy} r={r} fill={theme.textSecondary} opacity={0.5 + i * 0.25} />)}
           {(mood === "success" || mood === "error") && (

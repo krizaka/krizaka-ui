@@ -97,9 +97,8 @@ export function VerticalVideo({
     <View role="group" aria-label={title} style={[styles.frame, { backgroundColor: theme.media }, style]}>
       {uri ? (
         <VideoPlayer source={{ uri }} title={title} aspectRatio={9 / 16} contentFit="cover" nativeControls={false} fullscreen={false} autoPlay loop muted paused={!active || paused} style={StyleSheet.absoluteFill} {...(posterUri ? { poster: { uri: posterUri } } : {})} />
-      ) : posterUri ? (
-        <Image source={{ uri: posterUri }} aria-hidden resizeMode="cover" style={StyleSheet.absoluteFill} />
       ) : null}
+      {!uri && posterUri ? <Image source={{ uri: posterUri }} aria-hidden resizeMode="cover" style={StyleSheet.absoluteFill} /> : null}
       <Pressable role="button" aria-label={paused ? labels.play : labels.pause} onPress={() => setPaused((p) => !p)} onLongPress={() => onLike?.(!liked)} style={StyleSheet.absoluteFill} />
       <View pointerEvents="none" style={[styles.shade, { backgroundColor: theme.scrim }]} />
       {topStart ? <View style={styles.topStart}>{topStart}</View> : null}

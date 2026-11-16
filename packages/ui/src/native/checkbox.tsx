@@ -2,6 +2,7 @@ import * as React from "react";
 import { Pressable, type StyleProp, StyleSheet, Text, View, type ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
+import { choose } from "./choose";
 import { useTheme } from "./theme";
 
 export type CheckboxProps = {
@@ -39,7 +40,7 @@ export function Checkbox({ children, label, checked, defaultChecked = false, onC
     <View
       style={[
         styles.box,
-        { borderRadius: radius.xs + 2, borderColor: error ? theme.danger : on ? theme.accent : theme.borderStrong, backgroundColor: on ? theme.accent : theme.surface1 },
+        { borderRadius: radius.xs + 2, borderColor: choose(theme.borderStrong, [error, theme.danger], [on, theme.accent]), backgroundColor: on ? theme.accent : theme.surface1 },
       ]}
     >
       {on ? (

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Modal, Pressable, StyleSheet, View } from "react-native";
 
+import { keyed } from "./keyed";
 import { type Controlled, modalName, useOpen } from "./overlay";
 import { useReducedMotion, useTheme } from "./theme";
 import { Txt } from "./txt";
@@ -51,9 +52,9 @@ export function ActionSheet({ title, description, actions, cancelLabel, ...contr
               </Txt>
             ) : null}
           </View>
-          {actions.map((action, i) => (
+          {keyed(actions, (action) => action.label).map(({ key, item: action }) => (
             <Pressable
-              key={i}
+              key={key}
               role="menuitem"
               aria-disabled={action.disabled}
               disabled={action.disabled}
