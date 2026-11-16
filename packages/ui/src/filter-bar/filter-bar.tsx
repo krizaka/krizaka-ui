@@ -195,10 +195,7 @@ export function readFilterParams(params: URLSearchParams, keys: readonly string[
   );
 }
 
-const filterValues = (value: string | readonly string[] | null | undefined): string[] => {
-  if (value == null) return [];
-  return typeof value === "string" ? [value] : [...value];
-};
+const filterValues = (value: string | readonly string[] | null | undefined): string[] => (value == null ? [] : [value].flat());
 
 /** Filters written into an address (a copy of `base`): empty filters removed, several values comma-separated, the page reset. */
 export function writeFilterParams(base: URLSearchParams, filters: Record<string, string | readonly string[] | null | undefined>, resetKey = "page") {

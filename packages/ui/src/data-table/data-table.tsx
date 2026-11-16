@@ -582,12 +582,8 @@ const placeOf = <T extends RowData>(titleColumn: DataTableColumn<T> | undefined,
   return priorityOf(column) === 2 ? "facts" : "away";
 };
 
-const SORT_DIRECTION: Record<"asc" | "desc", SortDirection> = { asc: "ascending", desc: "descending" };
-
-const cardOf = <T extends RowData>(column: DataTableColumn<T> | undefined) => {
-  if (column?.card === "title" || (column && !column.card && column.type === "title")) return "title";
-  return column?.card === "hidden" ? "hidden" : undefined;
-};
+const cardOf = <T extends RowData>(column: DataTableColumn<T> | undefined) =>
+  column?.card === "title" || (column && !column.card && column.type === "title") ? "title" : (column?.card === "hidden" && "hidden") || undefined;
 
 /** What the cells and the rows need to know about the table they are in. */
 type View<T extends RowData> = {
@@ -715,10 +711,7 @@ function contentOf<T extends RowData>(v: View<T>, column: DataTableColumn<T>, or
 
 // A group's row keeps its value as the title and its aggregates; a facts column is away (its value is in the title's line).
 function listPlace<T extends RowData>(v: View<T>, row: TableRow<T> | null, column: DataTableColumn<T>) {
-  if (row?.getIsGrouped()) {
-    if (row.groupingColumnId === column.id) return "title";
-    return column.aggregate ? "status" : "away";
-  }
+  if (row?.getIsGrouped()) return row.groupingColumnId === column.id ? "title" : (column.aggregate && "status") || "away";
   const place = placeOf(v.titleColumn, column);
   return place === "facts" || place === "hidden" ? "away" : place;
 }
@@ -970,7 +963,7 @@ function headerCell<T extends RowData>(v: View<T>, header: TableHeader<T>) {
   const column = v.byId.get(header.column.id);
   if (!column) return null;
   const sorted = header.column.getIsSorted();
-  const direction: SortDirection | undefined = sorted ? SORT_DIRECTION[sorted] : undefined;
+  const direction: SortDirection | undefined = sorted === "asc" ? "ascending" : (sorted && "descending") || undefined;
   const { style, ...pinnedProps } = pin(header.column);
   const level = priorityOf(column);
   const top = typeof v.stickyHeader === "number" ? { ["--dt-top" as string]: `${v.stickyHeader}px` } : {};
@@ -1008,7 +1001,7 @@ function headerRow<T extends RowData>(v: View<T>, headers: TableHeader<T>[]) {
       {v.selectable && (
         <th role="columnheader" scope="col" data-keep="" className={s.th({ className: s.select() })}>
           <Checkbox
-            checked={v.allChosen || (v.someChosen ? "indeterminate" : false)}
+            checked={v.allChosen || (v.someChosen && "indeterminate")}
             onCheckedChange={v.toggleAll}
             disabled={v.loading || v.selectableCount === 0}
             aria-label={labels.selectAll}
@@ -1215,7 +1208,7 @@ function usePaging<T extends RowData>(props: DataTableProps<T>, c: Controlled, c
   const { paginated, page, pageSize } = c;
   const leafCount = (manual?.pagination || manual?.filtering) && rowCount !== undefined ? rowCount : table.getFilteredRowModel().rows.length;
   const pages = manual?.pagination ? Math.ceil((rowCount ?? rows.length) / pageSize) : table.getPageCount();
-  const pageCount = paginated ? Math.max(1, pages) : 1;
+  const pageCount = (paginated && Math.max(1, pages)) || 1;
   React.useEffect(() => {
     if (paginated && !loading && page > pageCount) changes.changePage(pageCount);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- only when the count of pages drops under the page
