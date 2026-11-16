@@ -2,8 +2,8 @@
   "generated": "2026-11-02",
   "package": {
     "name": "@krizaka/ui",
-    "version": "4.11.0",
-    "distMeasured": "packages/ui/dist (@krizaka/ui@4.11.0)"
+    "version": "4.12.0",
+    "distMeasured": "packages/ui/dist (@krizaka/ui@4.12.0)"
   },
   "consumers": [
     {
@@ -52,7 +52,7 @@
       "absent": false,
       "head": null,
       "sha": null,
-      "files": 193
+      "files": 190
     },
     {
       "name": "java-site",
@@ -3065,6 +3065,7 @@
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
+        "docs-source",
         "native"
       ],
       "issue": null,
@@ -5625,6 +5626,58 @@
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "2 live importer file(s)"
+    },
+    {
+      "pkg": "ui",
+      "name": "docs-source",
+      "kind": "entry",
+      "title": "Docs source",
+      "category": "templates",
+      "status": "beta",
+      "domain": "page-blocks",
+      "adoption": null,
+      "importers": {},
+      "nativeUse": {},
+      "live": 0,
+      "paused": 0,
+      "pausedBy": [],
+      "builtOnBy": [],
+      "issue": null,
+      "mergeInto": null,
+      "sizeGzip": 2693,
+      "budget": 7200,
+      "tests": 1,
+      "stories": 1,
+      "lastChange": "2026-11-16",
+      "created": "2026-11-16",
+      "verdict": "ask",
+      "why": "unused, new (2026-11-16): its adoption issue?"
+    },
+    {
+      "pkg": "ui",
+      "name": "docs-source/node",
+      "kind": "entry",
+      "title": null,
+      "category": null,
+      "status": null,
+      "domain": "page-blocks",
+      "adoption": null,
+      "importers": {},
+      "nativeUse": {},
+      "live": 0,
+      "paused": 0,
+      "pausedBy": [],
+      "builtOnBy": [],
+      "issue": null,
+      "mergeInto": null,
+      "sizeGzip": 389,
+      "budget": 500,
+      "tests": 1,
+      "stories": 1,
+      "lastChange": "2026-11-16",
+      "created": "2026-11-16",
+      "verdict": "ask",
+      "why": "unused, new (2026-11-16): its adoption issue?"
     },
     {
       "pkg": "ui",
