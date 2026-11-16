@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 4.10.1
+
+### Patch Changes
+
+- [#1045](https://github.com/krizaka/krizaka-ui/pull/1045) [`c71d459`](https://github.com/krizaka/krizaka-ui/commit/c71d45910e02890e8f19be71d427d1df86919014) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - native: no nested ternary and no index keys in `@krizaka/ui/native` (Sonar S3358, S6479); behaviour unchanged.
+- Updated dependencies []:
+  - @krizaka/tailwind@4.10.1
+  - @krizaka/tokens@4.10.1
+
 ## 4.10.0
 
 ### Patch Changes
