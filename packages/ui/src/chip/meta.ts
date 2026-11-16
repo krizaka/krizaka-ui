@@ -37,7 +37,7 @@ export const meta = {
       "Radix Toggle and ToggleGroup: alone `aria-pressed`; in a single group a radio (`aria-checked`), in a multiple group pressed buttons.",
       "`Chip.Group` takes `label` as the group's accessible name.",
       "The remove button is a separate button named by `removeLabel`.",
-      "A marker is decorative (`aria-hidden`); the tag's name is the chip's name. `MarkerPicker` is a radio group of named swatches (arrow keys), the chosen one ticked.",
+      "A marker is decorative (`aria-hidden`); the tag's name is the chip's name. `MarkerPicker` is a radio group of named swatches (arrow keys), the chosen one ticked; `showNames` writes each name beside its swatch (44 px targets, wraps).",
     ],
   },
   related: ["tabs", "radio-group", "checkbox", "badge", "status-chip", "tag-selector"],

@@ -6,7 +6,7 @@ import { DropdownMenu as MenuPrimitive } from "radix-ui";
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
-import { Chip } from "../chip";
+import { Chip } from "../chip/chip";
 import { DropdownMenu, menu } from "../dropdown-menu";
 import { ChevronGlyph } from "../glyphs";
 import { SavedViews, type SavedViewsProps } from "./saved-views";

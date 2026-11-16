@@ -20,6 +20,7 @@ export const meta = {
   bestPractices: [
     "Name the row with `label`; add a `hint` that says how to choose.",
     "Mark the current choice with `selected`: `aria-current` says it, the accent shows it.",
+    "`marker` (a name of the closed palette) draws a leading dot, `count` a muted tabular number: the link is named by its label then its count; a longer `aria-label` (« Rosemont 6 documents ») must start with that visible text (WCAG 2.5.3); the dot is decorative and never tints the chip.",
     "One or two words per item; the badge is a word (« Soon »), never a sentence.",
   ],
   accessibility: {
@@ -40,6 +41,7 @@ export const meta = {
     imports: ["ChipRow"],
     examples: [
       { name: "audience", title: "Audience picker", description: "Who it is for: one selected, one with a « Soon » badge." },
+      { name: "filters", title: "Quick filters", description: "`marker` and `count`: a colour dot and a muted count on each link; the link is named by its label and count." },
       { name: "many", title: "Many items", description: "More than fit a phone: a swipeable row that wraps from md." },
     ],
   },

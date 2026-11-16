@@ -94,4 +94,17 @@ describe("TagSelector — markers and creatable (#627)", () => {
     await user.keyboard("{Backspace}");
     expect(screen.getByRole("button", { name: "Regular" }).getAttribute("aria-pressed")).toBe("false");
   });
+
+  it("showMarkerNames writes the six colour names beside the swatches of the new tag (#3992)", async () => {
+    const user = userEvent.setup();
+    render(
+      <TagSelector
+        label="Tags" options={OPTIONS} value={[]} onValueChange={() => {}} creatable onCreate={() => {}}
+        markerNames={NAMES} showMarkerNames markerLabel="Colour of the new tag"
+      />,
+    );
+    await user.type(screen.getByRole("textbox", { name: "Tags" }), "Brand new");
+    const radios = screen.getAllByRole("radio");
+    expect(radios.map((r) => r.textContent)).toEqual(["Blue", "Green", "Amber", "Red", "Violet", "Gray"]);
+  });
 });

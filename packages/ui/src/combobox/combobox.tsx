@@ -6,7 +6,7 @@ import { useDebouncedCallback } from "@krizaka/pacer/react";
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
-import { Chip } from "../chip";
+import { Chip } from "../chip/chip";
 import { CheckGlyph, ChevronGlyph, CloseGlyph, PlusGlyph } from "../glyphs";
 import { useListbox } from "../listbox";
 import { useControllable } from "../media";

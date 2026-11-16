@@ -1,10 +1,12 @@
 // Client (arrow-key focus only). A row of chip links that scrolls sideways with scroll-snap on a phone (the trailing edge
 // fades, no scrollbar) and wraps from `md`: an audience picker, the filters of a page. Each item is a `ChipLink`-style
 // link at least 44 px high; the current one carries `aria-current`. Tab goes through the links; ← → Home End move between them.
+import type { Marker } from "@krizaka/organize/contract";
 import { Slot } from "radix-ui";
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
+import { TagMarker } from "../chip/tag-marker";
 import { chipVariants } from "../chip-link";
 
 export const chipRow = tv({
@@ -15,6 +17,7 @@ export const chipRow = tv({
       "m-0 flex list-none snap-x snap-proximity gap-2 overflow-x-auto p-0 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden " +
       "[mask-image:linear-gradient(to_right,#000_calc(100%-2rem),transparent)] md:flex-wrap md:overflow-visible md:pb-0 md:[mask-image:none]",
     item: "snap-start",
+    count: "font-medium tabular-nums text-fg-muted",
     badge: "rounded-sm bg-surface-3 px-1.5 py-0.5 text-[0.625rem] font-semibold leading-none text-fg-muted",
   },
 });
@@ -59,6 +62,10 @@ function ChipRowRoot({ label, hint, className, children, ...props }: Readonly<Ch
 }
 
 export type ChipRowItemProps = React.ComponentProps<"a"> & {
+  /** A leading colour marker (a name of the closed palette), decorative: the dot carries the colour, the chip is not tinted. The link is named by its label then its count; an `aria-label` must start with that visible text. */
+  marker?: Marker;
+  /** A muted, tabular count after the label. */
+  count?: number;
   /** The current choice: the accent and `aria-current`. */
   selected?: boolean;
   /** What `aria-current` says when selected.
@@ -66,12 +73,12 @@ export type ChipRowItemProps = React.ComponentProps<"a"> & {
   current?: "page" | "true";
   /** A small tag after the label ("Soon"), passed translated. */
   badge?: React.ReactNode;
-  /** Renders your router's `<Link>` as the chip; put the label and the badge in your link's children yourself. */
+  /** Renders your router's `<Link>` as the chip; put the label (and the badge) in your link's children yourself; `marker` and `count` still wrap it. */
   asChild?: boolean;
 };
 
 /** One link of the row. */
-function ChipRowItem({ selected = false, current = "page", badge, asChild, className, children, ...props }: Readonly<ChipRowItemProps>) {
+function ChipRowItem({ selected = false, current = "page", badge, asChild, marker, count, className, children, ...props }: Readonly<ChipRowItemProps>) {
   const Comp = asChild ? Slot.Root : "a";
   return (
     <li className={s.item()}>
@@ -81,14 +88,11 @@ function ChipRowItem({ selected = false, current = "page", badge, asChild, class
         className={chipVariants({ selected, className: ["min-h-11", className] })}
         {...props}
       >
-        {asChild ? (
-          children
-        ) : (
-          <>
-            {children}
-            {badge ? <span className={s.badge()}>{badge}</span> : null}
-          </>
-        )}
+        {marker ? <TagMarker marker={marker} /> : null}
+        {/* With asChild the label is your link's own children: the Slottable keeps the marker and the count inside it. */}
+        {asChild ? <Slot.Slottable>{children}</Slot.Slottable> : children}
+        {count === undefined ? null : <span className={s.count()}>{count}</span>}
+        {!asChild && badge ? <span className={s.badge()}>{badge}</span> : null}
       </Comp>
     </li>
   );
