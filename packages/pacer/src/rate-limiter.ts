@@ -25,9 +25,15 @@ export type RateLimiterOptions = {
 
 const NOW = () => Date.now();
 
+function headersOf(hint: RetryHint): Headers | undefined {
+  if (hint instanceof Headers) return hint;
+  if (hint instanceof Response) return hint.headers;
+  return "headers" in hint ? hint.headers : undefined;
+}
+
 /** The epoch ms before which the same call is refused, or `undefined` when the hint says nothing. */
 export function retryAtOf(hint: RetryHint, now: number = NOW()): number | undefined {
-  const headers = hint instanceof Headers ? hint : hint instanceof Response ? hint.headers : "headers" in hint ? hint.headers : undefined;
+  const headers = headersOf(hint);
   const fromHeader = headers?.get("retry-after");
   const body = hint instanceof Headers || hint instanceof Response ? {} : hint;
   const header = fromHeader ?? body.retryAfter;

@@ -62,7 +62,10 @@ export function TypographyDoc({ locale }: Readonly<{ locale: Locale }>) {
   const t = getDictionary(locale);
   const c = t.docs.foundations;
   const ty = c.typography;
-  const sample = (role: keyof typeof ROLE_FONT) => (role === "display" || role === "product-display" ? ty.headline : role === "mono" ? ty.code : role === "cahier" ? ty.chalk : ty.paragraph);
+  const sampleByRole: Partial<Record<keyof typeof ROLE_FONT, string>> = { display: ty.headline, "product-display": ty.headline, mono: ty.code, cahier: ty.chalk };
+  const sample = (role: keyof typeof ROLE_FONT) => sampleByRole[role] ?? ty.paragraph;
+  const stepSampleByRole: Partial<Record<keyof typeof ROLE_FONT, string>> = { mono: ty.code, display: ty.headline };
+  const stepSample = (role: keyof typeof ROLE_FONT) => stepSampleByRole[role] ?? ty.paragraph;
 
   return (
     <>
@@ -150,7 +153,7 @@ export function TypographyDoc({ locale }: Readonly<{ locale: Locale }>) {
               </span>
               <span>{ty.roles[step.role]}</span>
             </div>
-            <p style={stepStyle(step.name, step.role)}>{step.role === "mono" ? ty.code : step.role === "display" ? ty.headline : ty.paragraph}</p>
+            <p style={stepStyle(step.name, step.role)}>{stepSample(step.role)}</p>
             <p className="kz-type-meta" lang="en">
               {step.description}
             </p>
