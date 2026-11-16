@@ -72,7 +72,7 @@ export type PageData = {
 
 const words = (en: string, fr: string): LocalizedText => ({ en, fr });
 
-/** The starter page: a neighbourhood bakery's booking page, in both languages. */
+/** The starter page: a dog walker's booking page, in both languages. */
 export function starterPage(): PageData {
   return {
     root: { props: {} },
@@ -81,14 +81,14 @@ export function starterPage(): PageData {
         type: "Hero",
         props: {
           id: "hero",
-          eyebrow: words("Bakery · Montréal", "Boulangerie · Montréal"),
-          title: words("Bread, baked at five.", "Du pain, cuit à cinq heures."),
+          eyebrow: words("Dog walker · Montréal", "Promeneur de chiens · Montréal"),
+          title: words("Your dog’s walk, on time.", "La promenade de votre chien, à l’heure."),
           lead: words(
-            "Sourdough, rye and croissants from a wood-fired oven. Order the night before, collect it warm.",
-            "Levain, seigle et croissants sortis d’un four à bois. Commandez la veille, récupérez-le chaud.",
+            "Small groups of four dogs at most, in the parks of Plateau and Mile End. Book a slot, get a photo at the end of the walk.",
+            "Des groupes de quatre chiens au plus, dans les parcs du Plateau et du Mile End. Réservez un créneau, recevez une photo à la fin de la promenade.",
           ),
-          primary: words("Order for tomorrow", "Commander pour demain"),
-          secondary: words("See the opening hours", "Voir les heures d’ouverture"),
+          primary: words("Book a walk", "Réserver une promenade"),
+          secondary: words("See the rounds", "Voir les tournées"),
           align: "left",
         },
       },
@@ -96,30 +96,30 @@ export function starterPage(): PageData {
         type: "Features",
         props: {
           id: "features",
-          heading: words("What we bake", "Ce que nous cuisons"),
+          heading: words("What I offer", "Ce que je propose"),
           items: [
             {
               type: "Feature",
               props: {
-                id: "feature-sourdough",
-                title: words("Sourdough", "Levain"),
-                body: words("A starter fed every day since 2019, a 36-hour rise.", "Un levain nourri chaque jour depuis 2019, une pousse de 36 heures."),
+                id: "feature-group",
+                title: words("Group walk", "Promenade en groupe"),
+                body: words("One hour in the park, four dogs at most, picked up and brought back to your door.", "Une heure au parc, quatre chiens au plus, récupéré et ramené à votre porte."),
               },
             },
             {
               type: "Feature",
               props: {
-                id: "feature-rye",
-                title: words("Rye and seeds", "Seigle et graines"),
-                body: words("Dense, sweet, keeps a week. Milled in Québec.", "Dense, sucré, se garde une semaine. Moulu au Québec."),
+                id: "feature-solo",
+                title: words("Solo walk", "Promenade en solo"),
+                body: words("For a puppy, a senior or a shy dog: your dog has the whole walk to itself.", "Pour un chiot, un chien âgé ou craintif : votre chien a toute la promenade pour lui."),
               },
             },
             {
               type: "Feature",
               props: {
-                id: "feature-pastry",
-                title: words("Viennoiserie", "Viennoiserie"),
-                body: words("Butter croissants, laminated by hand every morning.", "Croissants au beurre, laminés à la main chaque matin."),
+                id: "feature-visit",
+                title: words("Midday visit", "Visite du midi"),
+                body: words("Fifteen minutes at home: water, a short outing, a message when it is done.", "Quinze minutes à la maison : de l’eau, une courte sortie, un message quand c’est fait."),
               },
             },
           ],
@@ -129,16 +129,16 @@ export function starterPage(): PageData {
         type: "Quote",
         props: {
           id: "quote",
-          text: words("The only place where the line is part of the pleasure.", "Le seul endroit où la file d’attente fait partie du plaisir."),
-          author: words("Camille, neighbour since 2021", "Camille, voisine depuis 2021"),
+          text: words("Biscuit comes home tired and happy, and I get the photo at 12:30.", "Biscuit rentre fatigué et heureux, et je reçois la photo à 12 h 30."),
+          author: words("Camille, Biscuit’s owner", "Camille, propriétaire de Biscuit"),
         },
       },
       {
         type: "CallToAction",
         props: {
           id: "cta",
-          title: words("Tomorrow’s loaves are open for order until 8 pm.", "Les pains de demain se commandent jusqu’à 20 h."),
-          label: words("Order now", "Commander maintenant"),
+          title: words("Next week’s walks are open for booking until Friday.", "Les promenades de la semaine prochaine se réservent jusqu’à vendredi."),
+          label: words("Book now", "Réserver maintenant"),
         },
       },
     ],
