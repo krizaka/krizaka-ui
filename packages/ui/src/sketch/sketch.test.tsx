@@ -45,7 +45,9 @@ describe("Sketch", () => {
   it("is one image named by its title, the legend an ordered list numbered like the callouts, with no axe violation", async () => {
     const { container } = render(<Sketch title="A screen" spec={spec} legend={legend} caption="Fig. 1 — a screen" />);
     const svg = screen.getByRole("img", { name: "A screen" });
-    expect(svg.querySelector("title")?.textContent).toBe("A screen");
+    expect(svg.getAttribute("aria-label")).toBe("A screen");
+    // One <title> per page (the family SEO contract, krizaka-com AGENTS.md §2.4): the drawing is named by aria-label only.
+    expect(container.querySelectorAll("title")).toHaveLength(0);
     expect([...container.querySelectorAll("ol.kz-sketch-legend li")].map((li) => (li as HTMLLIElement).value)).toEqual([1, 2]);
     const badges = [...container.querySelectorAll(".kz-sketch-badge")];
     expect(badges.map((b) => [b.textContent, b.getAttribute("aria-hidden")])).toEqual([["1", "true"], ["2", "true"]]);
