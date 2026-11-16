@@ -14,10 +14,10 @@ an entry with itself over time, not with its budget).
 
 | Domain | Entries not retired | gzip sum (kB) | size-limit budgets sum (kB) |
 | :-- | --: | --: | --: |
-| Foundations | 25 | 60.9 | 115.0 |
+| Foundations | 25 | 61.0 | 115.0 |
 | Forms | 14 | 87.3 | 203.0 |
 | Data display | 12 | 77.6 | 75.5 |
-| Navigation & shell | 32 | 192.7 | 229.2 |
+| Navigation & shell | 32 | 193.0 | 229.2 |
 | Feedback & overlays | 12 | 25.1 | 112.9 |
 | Geolocation & maps | 5 | 25.0 | 34.1 |
 | Media | 9 | 54.6 | 66.1 |
@@ -26,7 +26,7 @@ an entry with itself over time, not with its budget).
 | Abuse protection | 1 | 5.7 | 5.0 |
 | Conversation & AI | 7 | 74.0 | 39.3 |
 | Page blocks & templates | 33 | 66.3 | 125.7 |
-| Cahier (sites register) | 15 | 80.0 | 76.5 |
+| Cahier (sites register) | 15 | 76.2 | 76.5 |
 
 | Entry | Domain | Status | Live importers (files) | Paused | Built on by | gzip kB / budget | Tests | Stories | Last change | Verdict | Why |
 | :-- | :-- | :-- | :-- | :-- | --: | :-- | --: | --: | :-- | :-- | :-- |
@@ -55,7 +55,7 @@ an entry with itself over time, not with its budget).
 | `recipes` | Foundations | beta | — | — | 5 | 2.6 / 3.0 | 1 | 1 | 2026-11-15 | **keep** | built on by badge, button, card… |
 | `router` | Foundations | beta | Yo 2 Oz 2 | — | 5 | 1.2 / 1.2 | 3 | 0 | 2026-11-14 | **keep** | 4 live importer file(s) |
 | `separator` | Foundations | stable | Ak 1 | — | — | 0.9 / 2.6 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
-| `sites` | Foundations | beta | Yo 1 Ak 1 Oz 1 www 2 blog 3 ui 4 java 2 ts 2 motion 1 | — | 3 | 2.0 / 2.0 | 1 | 1 | 2026-11-06 | **keep** | 16 live importer file(s) |
+| `sites` | Foundations | beta | Yo 1 Ak 1 Oz 1 www 2 blog 3 ui 4 java 2 ts 2 motion 1 | — | 3 | 2.1 / 2.0 | 1 | 1 | 2026-11-16 | **keep** | 16 live importer file(s) |
 | `skeleton` | Foundations | stable | Yo 2 Ak 1 Oz 3 | — | 1 | 0.6 / 1.0 | 1 | 2 | 2026-11-15 | **keep** | 6 live importer file(s) |
 | `skip-link` | Foundations | stable | Ak 2 blog 1 ui 2 java 1 ts 1 | — | 2 | 0.8 / 1.0 | 1 | 1 | 2026-11-15 | **keep** | 7 live importer file(s) |
 | `slot` | Foundations | stable | — | — | — | 0.2 / 2.0 | 1 | 0 | 2026-10-29 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
@@ -121,7 +121,7 @@ an entry with itself over time, not with its budget).
 | `native:screen` | Navigation & shell | beta | Yo 7 Ak 9 ui 1 | — | — | — / — | — | — | 2026-10-29 | **keep** | 17 live importer file(s) |
 | `native:segmented` | Navigation & shell | beta | Yo 3 Ak 1 | — | — | — / — | — | — | 2026-10-29 | **keep** | 4 live importer file(s) |
 | `native:tab-bar` | Navigation & shell | beta | Yo 1 Ak 1 | — | — | — / — | — | — | 2026-10-29 | **keep** | 2 live importer file(s) |
-| `nav-bar` | Navigation & shell | beta | Yo 2 Ak 4 Oz 3 www 2 blog 1 ui 2 java 1 ts 1 motion 3 | — | — | 20.8 / 27.6 | 3 | 1 | 2026-11-15 | **keep** | 16 live importer file(s) |
+| `nav-bar` | Navigation & shell | beta | Yo 2 Ak 4 Oz 3 www 2 blog 1 ui 2 java 1 ts 1 motion 3 | — | — | 20.9 / 27.6 | 3 | 1 | 2026-11-15 | **keep** | 16 live importer file(s) |
 | `nav-bar/me` | Navigation & shell | — | — | — | — | 0.5 / 1.0 | 3 | 1 | 2026-11-15 | **merge** → `nav-bar` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `page-header` | Navigation & shell | stable | Yo 12 Ak 14 | — | — | 0.6 / 1.0 | 1 | 1 | 2026-11-15 | **keep** | 26 live importer file(s) |
 | `pagination` | Navigation & shell | beta | ui 1 | — | 1 | 2.8 / 2.0 | 1 | 2 | 2026-11-15 | **keep** | 1 live importer file(s) |
@@ -129,7 +129,7 @@ an entry with itself over time, not with its budget).
 | `rail-nav` | Navigation & shell | beta | — | — | 1 | 5.3 / 3.0 | 1 | 1 | 2026-11-15 | **keep** | built on by app-frame |
 | `scroll-stage` | Navigation & shell | deprecated | — | — | — | 1.9 / 1.2 | 0 | 1 | 2026-11-15 | **merge** → `step-showcase` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `settings-layout` | Navigation & shell | beta | Yo 7 Ak 11 Oz 8 | — | 2 | 6.2 / 5.8 | 1 | 2 | 2026-11-15 | **keep** | 26 live importer file(s) |
-| `site-footer` | Navigation & shell | beta | Yo 2 Ak 2 Oz 2 www 3 blog 2 ui 1 java 1 ts 1 motion 1 | — | 2 | 12.3 / 11.0 | 2 | 1 | 2026-11-15 | **keep** | 14 live importer file(s) |
+| `site-footer` | Navigation & shell | beta | Yo 2 Ak 2 Oz 2 www 3 blog 2 ui 1 java 1 ts 1 motion 1 | — | 2 | 12.5 / 11.0 | 3 | 1 | 2026-11-16 | **keep** | 14 live importer file(s) |
 | `split-view` | Navigation & shell | beta | Ak 1 | — | — | 0.8 / 1.0 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
 | `step-progress` | Navigation & shell | beta | motion 2 | — | — | 0.6 / 1.0 | 1 | 2 | 2026-11-15 | **merge** → `stepper` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `stepper` | Navigation & shell | beta | Yo 4 Oz 1 www 1 motion 1 (native: Yo 1) | — | — | 2.1 / 2.0 | 1 | 2 | 2026-11-15 | **keep** | 7 live importer file(s) |
@@ -232,7 +232,7 @@ an entry with itself over time, not with its budget).
 | `proposal` | Conversation & AI | experimental | — | — | — | 6.6 / 6.5 | 1 | 1 | 2026-11-06 | **ask** | unused, new (2026-10-28): its adoption issue? |
 | `action-bar` | Page blocks & templates | beta | Oz 1 www 2 | — | — | 5.2 / 1.4 | 1 | 1 | 2026-11-15 | **keep** | 3 live importer file(s) |
 | `argument-card` | Page blocks & templates | beta | www 1 java 1 ts 1 | — | 1 | 4.8 / 1.4 | 1 | 1 | 2026-11-15 | **keep** | 3 live importer file(s) |
-| `blocks.css` | Page blocks & templates | — | Yo 3 Ak 3 Oz 1 www 1 blog 2 ui 1 java 1 ts 1 motion 1 cockpit 1 | — | — | — / — | — | — | 2026-11-16 | **keep** | 14 live importer file(s) |
+| `blocks.css` | Page blocks & templates | — | Yo 3 Ak 3 Oz 1 www 1 blog 2 ui 1 java 1 ts 1 motion 1 cockpit 1 | — | — | — / — | — | — | 2026-11-15 | **keep** | 14 live importer file(s) |
 | `card-grid` | Page blocks & templates | beta | Yo 1 Oz 1 www 4 blog 2 ui 1 java 1 ts 1 motion 1 cockpit 2 | — | 1 | 1.1 / 1.2 | 1 | 1 | 2026-11-15 | **keep** | 13 live importer file(s) |
 | `catalogue-page` | Page blocks & templates | beta | Yo 1 | — | — | 2.7 / 2.5 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
 | `changelog-page` | Page blocks & templates | beta | www 2 ui 3 java 3 | — | — | 3.4 / 2.7 | 2 | 1 | 2026-11-15 | **keep** | 8 live importer file(s) |
@@ -285,8 +285,8 @@ an entry with itself over time, not with its budget).
 | `margin-layout` | Cahier (sites register) | beta | — | — | — | 0.6 / 0.6 | 1 | 1 | 2026-11-15 | **ask** | unused, Cahier register (sites) |
 | `mascot-quote` | Cahier (sites register) | beta | www 1 java 1 | — | 2 | 8.7 / 6.1 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
 | `signature` | Cahier (sites register) | deprecated | — | — | — | 1.8 / 1.2 | 1 | 1 | 2026-11-15 | **retire** | already deprecated (#674), removed in 4.0 |
-| `site-cahier` | Cahier (sites register) | beta | ui 2 | — | — | 22.6 / 17.0 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
-| `sketch` | Cahier (sites register) | experimental | — | — | — | 4.0 / 3.0 | 1 | 1 | 2026-11-16 | **ask** | unused, Cahier register (sites) |
+| `site-cahier` | Cahier (sites register) | beta | ui 2 | — | — | 22.8 / 17.0 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
+| `sketch` | Cahier (sites register) | experimental | — | — | — | — / 3.0 | 1 | 1 | — | **ask** | unused, Cahier register (sites) |
 | `specimen-tag` | Cahier (sites register) | beta | Ak 2 www 2 | — | 2 | 1.2 / 0.8 | 1 | 1 | 2026-11-15 | **keep** | 4 live importer file(s) |
 | `speed-lines` | Cahier (sites register) | beta | — | — | — | 1.4 / 1.0 | 1 | 1 | 2026-11-15 | **ask** | unused, Cahier register (sites) |
 | `stuck` | Cahier (sites register) | beta | Ak 1 | — | 1 | 1.0 / 0.7 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |

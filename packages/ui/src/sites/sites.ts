@@ -8,7 +8,7 @@
 import type { OrgSocialLink } from "../site-footer/footer-config";
 
 /** A site of the family. */
-export type SiteId = "krizaka" | "sovkora" | "verikora" | "folioviv" | "ui" | "java" | "ts" | "motion" | "github";
+export type SiteId = "krizaka" | "sovkora" | "verikora" | "folioviv" | "ui" | "java" | "ts" | "motion" | "lab" | "kridoc" | "blog" | "github";
 
 /** What a site is: the company, a product, or an open-source project. It chooses the footer's signature line. */
 export type SiteKind = "company" | "product" | "open-source";
@@ -52,9 +52,11 @@ const site = (s: Omit<Site, "host">): Site => ({ ...s, host: hostOf(s.url) });
 /** Every site of the family, in reading order (the group order, then the order inside each group). */
 export const sites: readonly Site[] = [
   site({ id: "krizaka", name: "Krizaka", url: "https://www.krizaka.com", kind: "company", group: "krizaka", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-com" }),
+  site({ id: "blog", name: "Blog", url: "https://blog.krizaka.com", kind: "company", group: "krizaka", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-blog" }),
   site({ id: "sovkora", name: "Sovkora", url: "https://www.sovkora.com", kind: "product", group: "products", status: "development", mark: "sovkora", repo: "https://github.com/krizaka/sovkora" }),
   site({ id: "verikora", name: "Verikora", url: "https://www.verikora.com", kind: "product", group: "products", status: "development", mark: "verikora", repo: "https://github.com/krizaka/verikora" }),
   site({ id: "folioviv", name: "Folioviv", url: "https://www.folioviv.com", kind: "product", group: "products", status: "development", mark: "folioviv", repo: "https://github.com/krizaka/folioviv" }),
+  site({ id: "kridoc", name: "Kridoc", url: "https://www.kridoc.com", kind: "product", group: "products", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/kridoc" }),
   site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
   site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-java" }),
   site({ id: "ts", name: "Krizaka TypeScript", url: "https://ts.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ts" }),
@@ -68,7 +70,9 @@ export const siteGroups: readonly SiteGroup[] = ["krizaka", "products", "open-so
 
 /** A site by id. */
 export function siteById(id: SiteId): Site {
-  const found = sites.find((s) => s.id === id);
+  // `lab` is the org's id of Krizaka Lab; the registry's own id is `motion` (kept, so nothing that names it breaks).
+  const key = id === "lab" ? "motion" : id;
+  const found = sites.find((s) => s.id === key);
   if (!found) throw new Error(`Unknown Krizaka site "${id}".`);
   return found;
 }
@@ -81,13 +85,8 @@ export function sitesByGroup(): { group: SiteGroup; sites: Site[] }[] {
 /** The languages the family's words are written in. */
 export type SiteLocale = "en" | "fr";
 
-/** The company's own pages, the footer's « Krizaka » column (the brand's home is the signature line's link). */
+/** The company's own links the footer's « Krizaka » column words: the org's pages (`org.family` blog, `org.contact`), never typed addresses. */
 export type CompanyLinkId = "story" | "blog" | "contact";
-export const companyLinks: readonly { id: CompanyLinkId; url: Record<SiteLocale, string> }[] = [
-  { id: "story", url: { en: "https://www.krizaka.com/story", fr: "https://www.krizaka.com/fr/story" } },
-  { id: "blog", url: { en: "https://blog.krizaka.com", fr: "https://blog.krizaka.com" } },
-  { id: "contact", url: { en: "https://www.krizaka.com/contact", fr: "https://www.krizaka.com/fr/contact" } },
-];
 
 /** The words of the family: the switcher, the footer, each site's one line. */
 export interface FamilyLabels {
@@ -110,8 +109,11 @@ export interface FamilyLabels {
   /** The language of these words: the company links open in it. @default "en" */
   lang?: SiteLocale;
   /** The company's pages in the footer's « Krizaka » column. @default the English words */
-  company?: Record<CompanyLinkId, string>;
+  company?: Partial<Record<CompanyLinkId, string>>;
 }
+
+/** Krizaka Lab's line, shared by its two ids (`motion` is the registry's, `lab` the org's). */
+const LAB = { en: "The family lab: the kit's motion, played live with its knobs.", fr: "Le labo du mouvement : le mouvement du kit, joué en direct, avec ses réglages." } as const;
 
 /** The family's words in English and French. Pass `familyLabels[locale]`, or your own translation of the same shape. */
 export const familyLabels: Record<SiteLocale, FamilyLabels> = {
@@ -128,7 +130,10 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       ui: "Components, tokens, icons and charts — web and React Native.",
       java: "Spring Boot building blocks on Maven Central.",
       ts: "TypeScript backend building blocks on npm.",
-      motion: "The family lab: the kit's motion, played live with its knobs.",
+      motion: LAB.en,
+      lab: LAB.en,
+      kridoc: "Kridoc: documents, kept and found again.",
+      blog: "The Krizaka blog: what we build and what we learn from it.",
       github: "Every repository, in the open.",
     },
     signature: { company: "A Krizaka company", product: "A Krizaka product", "open-source": "A Krizaka open-source project" },
@@ -150,7 +155,10 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       ui: "Composants, jetons, icônes et graphiques — web et React Native.",
       java: "Des briques Spring Boot sur Maven Central.",
       ts: "Des briques backend TypeScript sur npm.",
-      motion: "Le labo du mouvement : le mouvement du kit, joué en direct, avec ses réglages.",
+      motion: LAB.fr,
+      lab: LAB.fr,
+      kridoc: "Kridoc : des documents, gardés et retrouvés.",
+      blog: "Le blogue de Krizaka : ce que nous construisons et ce que nous en apprenons.",
       github: "Tous les dépôts, au grand jour.",
     },
     signature: { company: "Une compagnie Krizaka", product: "Un produit Krizaka", "open-source": "Un projet open source de Krizaka" },
@@ -178,6 +186,8 @@ export interface OrgFacts {
    * name, libraries « Krizaka <X> ».
    */
   family?: readonly OrgFamilyEntry[];
+  /** The company's contact page (`org.contact` of `@krizaka/org`): the « Krizaka » column's last link. Optional so an older `org` still fits. */
+  contact?: { page: Record<SiteLocale, string> };
   footer: {
     /** « Une entreprise de Technologies Krizaka · Fait à Montréal ». */
     line: Record<SiteLocale, string>;
