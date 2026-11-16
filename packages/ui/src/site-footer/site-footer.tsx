@@ -10,9 +10,9 @@ import { Slot } from "radix-ui";
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
-// ProductLogo, not KrizakaLogo: one import path keeps every mark in one shared chunk (KrizakaLogo alone split it: +871 B gzip on the typical page).
+// BrandLogo, not KrizakaLogo: one import path keeps every mark in one shared chunk (KrizakaLogo alone split it: +871 B gzip on the typical page); never ProductLogo, which carries Kridoc.
 import type { LinkComponent } from "../block-link";
-import { ProductLogo } from "../marks/ProductLogo";
+import { BrandLogo } from "../marks/BrandLogo";
 import { columnStatus, familyGroups, orgIdOf } from "../sites/family-groups";
 import { type FamilyLabels, familyLabels, type OrgFacts, siteById, type SiteGroup, type SiteId, type SiteStatus } from "../sites/sites";
 import type { FooterLink, SiteFooterConfig } from "./footer-config";
@@ -309,7 +309,7 @@ export function SiteFooter({
           ) : (
           <div className={s.bottom()}>
             <a href={krizaka.url} className={s.signature()}>
-              <ProductLogo id="krizaka" size={18} animated={false} />
+              <BrandLogo id="krizaka" size={18} animated={false} />
               {org ? org.footer.line[lang] : `${labels.signature[site.kind]} · ${labels.place}`}
             </a>
             {tag && (
@@ -369,7 +369,7 @@ function ConfigBottom({
     <div className={s.bottom()}>
       {/* The company named once: its mark (home) beside its legal identity — never a second « by Technologies Krizaka ». */}
       <a href={krizaka} className={s.signature()} aria-label={brand}>
-        <ProductLogo id="krizaka" size={18} animated={false} />
+        <BrandLogo id="krizaka" size={18} animated={false} />
       </a>
       <span className={s.identity()}>{identity}</span>
       {shown &&

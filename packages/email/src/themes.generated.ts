@@ -23,6 +23,20 @@ export const BRAND_COLOURS = {
       "dark": "#7dd48b"
     }
   },
+  "kridoc": {
+    "accent": {
+      "light": "#1a50bc",
+      "dark": "#759ef0"
+    },
+    "onAccent": {
+      "light": "#ffffff",
+      "dark": "#0a0c0f"
+    },
+    "link": {
+      "light": "#184cb4",
+      "dark": "#8eb0f6"
+    }
+  },
   "krizaka": {
     "accent": {
       "light": "#2a5f8d",

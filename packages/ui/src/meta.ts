@@ -26,6 +26,7 @@ export type ComponentName =
   | "achievement"
   | "anatomy-plate"
   | "architecture-diagram"
+  | "sketch"
   | "bird-plate"
   | "taped-photo"
   | "stuck"

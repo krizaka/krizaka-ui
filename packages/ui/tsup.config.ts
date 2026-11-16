@@ -138,6 +138,13 @@ export default defineConfig([
     },
   },
   {
+    // A screen drawn with the pen, its callouts and its legend (server-safe: seeded strokes, no state; the glyphs are
+    // @krizaka/icons's), in its own small build: one more entry in the largest declaration build ran the CI runner out
+    // of heap (krizaka-ui#1051).
+    ...shared,
+    entry: { sketch: "src/sketch/index.ts" },
+  },
+  {
     // Server too — the layouts that hold no state (the shells of whole screens), in their own build: one declaration
     // build for every server entry would exhaust the heap.
     ...shared,

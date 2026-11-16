@@ -240,13 +240,34 @@ export function assertDistinctMarks(files) {
   }
 }
 
+/** The official marks (the brand folder's `marques/svg`), kept as test fixtures: brand id → theme → file. */
+export const OFFICIAL_MARKS = { kridoc: { dark: "kridoc-embleme-sombre.svg", light: "kridoc-embleme-clair.svg" } };
+const OFFICIAL_DIR = resolve(HERE, "fixtures/brand-official");
+/** The shape data of an SVG: every path `d`, every circle `cx cy r`. */
+const SHAPE = /\sd="([^"]+)"|\scx="([^"]+)"\scy="([^"]+)"\sr="([^"]+)"/g;
+export const shapesOf = (svg) => [...svg.matchAll(SHAPE)].map((m) => m[1] ?? `${m[2]},${m[3]},${m[4]}`);
+
+/** Throws when a published `brand/<id>/mark-<theme>.svg` lacks a shape of its official file (krizaka-internal#3839: the CDN served another mark). */
+export function assertMarksOfficial(files, official = OFFICIAL_MARKS, dir = OFFICIAL_DIR) {
+  for (const [id, themes] of Object.entries(official)) {
+    for (const [theme, file] of Object.entries(themes)) {
+      const path = `brand/${id}/mark-${theme}.svg`;
+      const bytes = files.get(path);
+      if (!bytes) throw new Error(`${path} is not published`);
+      const published = new Set(shapesOf(bytes.toString()));
+      const missing = shapesOf(readFileSync(join(dir, file), "utf8")).filter((shape) => !published.has(shape));
+      if (missing.length) throw new Error(`${path} is not the official ${file}: ${missing.length} shape(s) missing (first: ${missing[0].slice(0, 40)})`);
+    }
+  }
+}
+
 /** All the files to publish: Map<path under the zone, Buffer>. */
 export async function build() {
   const k = await load();
   const out = new Map();
   const png = (svg, w, h = w) => k.sharp(Buffer.from(svg), { density: 384 }).resize(w, h, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
-  // ProductLogo has no Kridoc (it would draw Folioviv's mark, krizaka-internal#3627): Kridoc has its own component.
-  const markup = (brand, size) => k.renderToStaticMarkup(k.react.createElement(brand === "kridoc" ? k.KridocLogo : k.ProductLogo, { id: brand, size, animated: false }));
+  // ProductLogo draws every brand, Kridoc's crane included (mark C, krizaka-internal#3839).
+  const markup = (brand, size) => k.renderToStaticMarkup(k.react.createElement(k.ProductLogo, { id: brand, size, animated: false }));
 
   for (const brand of BRANDS) {
     const dir = `brand/${brand}`;
@@ -297,6 +318,7 @@ export async function build() {
     out.set(`${root}/manifest.json`, Buffer.from(`${JSON.stringify({ about: label, generatedFrom: `@krizaka/ui@${k.version}`, source: "https://github.com/krizaka/krizaka-ui/blob/main/tools/export-brand.mjs", files }, null, 2)}\n`));
   }
   assertDistinctMarks(out);
+  assertMarksOfficial(out);
   out.set("brand/index.json", Buffer.from(`${JSON.stringify(brandIndex(BRANDS, k.version, process.env.MEDIA_CDN_HOSTNAME || DEFAULT_CDN), null, 2)}\n`));
   return { files: out, version: k.version };
 }

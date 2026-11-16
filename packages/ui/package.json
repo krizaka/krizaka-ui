@@ -504,6 +504,10 @@
       "types": "./dist/architecture-diagram.d.ts",
       "import": "./dist/architecture-diagram.js"
     },
+    "./sketch": {
+      "types": "./dist/sketch.d.ts",
+      "import": "./dist/sketch.js"
+    },
     "./app-header": {
       "types": "./dist/app-header.d.ts",
       "import": "./dist/app-header.js"
@@ -1409,7 +1413,7 @@
     {
       "name": "./margin-layout",
       "path": "dist/margin-layout.js",
-      "limit": "1 kB",
+      "limit": "0.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2189,6 +2193,17 @@
       ]
     },
     {
+      "name": "./sketch",
+      "path": "dist/sketch.js",
+      "limit": "3 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/icons"
+      ]
+    },
+    {
       "name": "./app-header",
       "path": "dist/app-header.js",
       "limit": "1.5 kB",
@@ -2497,7 +2512,7 @@
     {
       "name": "./specimen-tag",
       "path": "dist/specimen-tag.js",
-      "limit": "1.2 kB",
+      "limit": "0.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2537,7 +2552,7 @@
     {
       "name": "./footnote",
       "path": "dist/footnote.js",
-      "limit": "1 kB",
+      "limit": "0.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2547,7 +2562,7 @@
     {
       "name": "./stuck",
       "path": "dist/stuck.js",
-      "limit": "1.2 kB",
+      "limit": "0.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2607,7 +2622,7 @@
     {
       "name": "./versus-card",
       "path": "dist/versus-card.js",
-      "limit": "7 kB",
+      "limit": "6.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2617,7 +2632,7 @@
     {
       "name": "./site-cahier",
       "path": "dist/site-cahier.js",
-      "limit": "18 kB",
+      "limit": "17 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

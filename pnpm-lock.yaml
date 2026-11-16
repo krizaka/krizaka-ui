@@ -674,6 +674,9 @@ importers:
       '@krizaka/config':
         specifier: ^0.9.1
         version: 0.9.1(eslint-config-next@16.4.2(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(prettier@3.9.10)(typescript@5.9.3)
+      '@krizaka/tokens':
+        specifier: workspace:^
+        version: link:../tokens
       '@types/node':
         specifier: ^22.15.0
         version: 22.20.5

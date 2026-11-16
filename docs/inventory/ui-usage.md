@@ -6,7 +6,7 @@ Package: @krizaka/ui@4.12.0; sizes measured from packages/ui/dist (@krizaka/ui@4
 Consumers: verikora f3b26763 · folioviv dd58a2d6 · sovkora-web 48b61699 · krizaka-com 30b70cec · blog e1c342f4 · ui-site · java-site abcedb11 · ts-site b252e48c · motion-lab dbb0339c · cockpit.
 Paused (counted apart): .
 
-Verdicts: keep 184 · retire 37 · merge 20 · ask 20.
+Verdicts: keep 184 · retire 37 · merge 20 · ask 21.
 
 Sizes: the gzip of an entry's own file and every chunk it pulls in (shared chunks are counted in each entry, so a sum
 over-counts); the budget is the entry's size-limit row in packages/ui/package.json (size-limit measures differently: compare
@@ -26,7 +26,7 @@ an entry with itself over time, not with its budget).
 | Abuse protection | 1 | 5.7 | 5.0 |
 | Conversation & AI | 7 | 74.0 | 39.3 |
 | Page blocks & templates | 33 | 66.3 | 125.7 |
-| Cahier (sites register) | 14 | 76.2 | 76.6 |
+| Cahier (sites register) | 15 | 76.2 | 76.5 |
 
 | Entry | Domain | Status | Live importers (files) | Paused | Built on by | gzip kB / budget | Tests | Stories | Last change | Verdict | Why |
 | :-- | :-- | :-- | :-- | :-- | --: | :-- | --: | --: | :-- | :-- | :-- |
@@ -280,14 +280,15 @@ an entry with itself over time, not with its budget).
 | `doodle` | Cahier (sites register) | beta | — | — | — | 2.1 / 1.5 | 1 | 1 | 2026-11-15 | **ask** | unused, Cahier register (sites) |
 | `elephant` | Cahier (sites register) | deprecated | — | — | — | 1.9 / 1.4 | 1 | 1 | 2026-11-14 | **retire** | already deprecated (#674), removed in 4.0 |
 | `flock` | Cahier (sites register) | beta | www 2 | — | — | 14.6 / 10.5 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
-| `footnote` | Cahier (sites register) | beta | Yo 2 www 2 motion 1 | — | — | 0.9 / 1.0 | 1 | 1 | 2026-11-15 | **keep** | 4 live importer file(s) |
+| `footnote` | Cahier (sites register) | beta | Yo 2 www 2 motion 1 | — | — | 0.9 / 0.7 | 1 | 1 | 2026-11-15 | **keep** | 4 live importer file(s) |
 | `grade-stamp` | Cahier (sites register) | beta | — | — | — | 1.6 / 19.4 | 1 | 1 | 2026-11-15 | **ask** | unused, Cahier register (sites) |
-| `margin-layout` | Cahier (sites register) | beta | — | — | — | 0.6 / 1.0 | 1 | 1 | 2026-11-15 | **ask** | unused, Cahier register (sites) |
+| `margin-layout` | Cahier (sites register) | beta | — | — | — | 0.6 / 0.6 | 1 | 1 | 2026-11-15 | **ask** | unused, Cahier register (sites) |
 | `mascot-quote` | Cahier (sites register) | beta | www 1 java 1 | — | 2 | 8.7 / 6.1 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
 | `signature` | Cahier (sites register) | deprecated | — | — | — | 1.8 / 1.2 | 1 | 1 | 2026-11-15 | **retire** | already deprecated (#674), removed in 4.0 |
-| `site-cahier` | Cahier (sites register) | beta | ui 2 | — | — | 22.8 / 18.0 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
-| `specimen-tag` | Cahier (sites register) | beta | Ak 2 www 2 | — | 2 | 1.2 / 1.2 | 1 | 1 | 2026-11-15 | **keep** | 4 live importer file(s) |
+| `site-cahier` | Cahier (sites register) | beta | ui 2 | — | — | 22.8 / 17.0 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
+| `sketch` | Cahier (sites register) | experimental | — | — | — | — / 3.0 | 1 | 1 | — | **ask** | unused, Cahier register (sites) |
+| `specimen-tag` | Cahier (sites register) | beta | Ak 2 www 2 | — | 2 | 1.2 / 0.8 | 1 | 1 | 2026-11-15 | **keep** | 4 live importer file(s) |
 | `speed-lines` | Cahier (sites register) | beta | — | — | — | 1.4 / 1.0 | 1 | 1 | 2026-11-15 | **ask** | unused, Cahier register (sites) |
-| `stuck` | Cahier (sites register) | beta | Ak 1 | — | 1 | 1.0 / 1.2 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
+| `stuck` | Cahier (sites register) | beta | Ak 1 | — | 1 | 1.0 / 0.7 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
 | `taped-photo` | Cahier (sites register) | beta | www 3 | — | 3 | 1.0 / 0.6 | 1 | 1 | 2026-11-15 | **keep** | 3 live importer file(s) |
-| `versus-card` | Cahier (sites register) | beta | ui 1 | — | — | 8.9 / 7.0 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
+| `versus-card` | Cahier (sites register) | beta | ui 1 | — | — | 8.9 / 6.5 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |

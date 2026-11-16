@@ -172,3 +172,46 @@ html .theme-dark .brand-folioviv, html .brand-folioviv.theme-dark {
   --kz-brand-gradient-via: var(--kz-surface-0);
   --kz-brand-gradient-to: var(--kz-surface-0);
 }
+
+.brand-kridoc {
+  --kz-accent: hsl(220 80% 70%);
+  --kz-accent-hover: hsl(220 82% 76%);
+  --kz-accent-soft: hsl(220 80% 70% / 0.12);
+  --kz-accent-text: hsl(220 85% 76%);
+  --kz-accent-2: hsl(220 80% 74%);
+  --kz-on-accent: hsl(220 20% 5%);
+  --kz-ring: var(--kz-accent);
+  --kz-info: hsl(207 50% 58%);
+  --kz-info-text: hsl(206 58% 72%);
+  --kz-brand-gradient-from: var(--kz-surface-0);
+  --kz-brand-gradient-via: var(--kz-surface-0);
+  --kz-brand-gradient-to: var(--kz-surface-0);
+}
+html.light .brand-kridoc, html .theme-light .brand-kridoc, html .brand-kridoc.theme-light {
+  --kz-accent: hsl(220 76% 42%);
+  --kz-accent-hover: hsl(220 78% 36%);
+  --kz-accent-soft: hsl(220 76% 42% / 0.08);
+  --kz-accent-text: hsl(220 76% 40%);
+  --kz-accent-2: hsl(220 76% 40%);
+  --kz-on-accent: hsl(0 0% 100%);
+  --kz-ring: var(--kz-accent);
+  --kz-info: hsl(208 54% 36%);
+  --kz-info-text: hsl(208 54% 33%);
+  --kz-brand-gradient-from: var(--kz-surface-0);
+  --kz-brand-gradient-via: var(--kz-surface-0);
+  --kz-brand-gradient-to: var(--kz-surface-0);
+}
+html .theme-dark .brand-kridoc, html .brand-kridoc.theme-dark {
+  --kz-accent: hsl(220 80% 70%);
+  --kz-accent-hover: hsl(220 82% 76%);
+  --kz-accent-soft: hsl(220 80% 70% / 0.12);
+  --kz-accent-text: hsl(220 85% 76%);
+  --kz-accent-2: hsl(220 80% 74%);
+  --kz-on-accent: hsl(220 20% 5%);
+  --kz-ring: var(--kz-accent);
+  --kz-info: hsl(207 50% 58%);
+  --kz-info-text: hsl(206 58% 72%);
+  --kz-brand-gradient-from: var(--kz-surface-0);
+  --kz-brand-gradient-via: var(--kz-surface-0);
+  --kz-brand-gradient-to: var(--kz-surface-0);
+}
