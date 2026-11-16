@@ -2,13 +2,13 @@
 // (@protomaps/basemaps) painted with a flavour drawn from `@krizaka/tokens` — the surfaces for the land, the accent
 // softened for the water, the text roles for the labels — in dark or light, the product's accent where a brand asks.
 // Platform-neutral: the web `Map` and the native `Map` both read it.
-import { brands, themes } from "@krizaka/tokens/native";
+import { brandAccents, themes } from "@krizaka/tokens/native";
 import { type Flavor, layers, namedFlavor } from "@protomaps/basemaps";
 
 import { MAP_ATTRIBUTION, mapAssets } from "./assets";
 
 /** A product of the family: its accent paints the map. */
-export type MapBrand = keyof typeof brands;
+export type MapBrand = keyof typeof brandAccents;
 
 /** A colour mixed into another (`#rrggbb` only): `t` = 0 gives `a`, 1 gives `b`. */
 export function mix(a: string, b: string, t: number): string {
@@ -83,7 +83,7 @@ function notebookPalette(plain: Palette, t: Tokens, dark: boolean): Palette {
 
 /** The colours of the map in a scheme (and a brand, a variant): what the style, the markers, the clusters and the static map share. */
 export function mapPalette(scheme: "dark" | "light", brand: MapBrand = "krizaka", variant: MapVariant = "plain") {
-  const t = { ...themes[scheme], ...(brands as Record<string, Partial<Record<"dark" | "light", Partial<typeof themes.dark>>>>)[brand]?.[scheme] } as unknown as Tokens;
+  const t = { ...themes[scheme], ...(brandAccents as Record<string, Partial<Record<"dark" | "light", Partial<typeof themes.dark>>>>)[brand]?.[scheme] } as unknown as Tokens;
   const dark = scheme === "dark";
   const plain = plainPalette(t, dark);
   if (variant === "notebook") return notebookPalette(plain, t, dark);

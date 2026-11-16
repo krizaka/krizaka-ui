@@ -364,6 +364,15 @@ describe("brands", async () => {
     expect(Object.keys(native.brands)).toEqual(BRANDS);
   });
 
+  it("native: brandAccents carries the accent and its text colour of every brand, as brands does", () => {
+    expect(Object.keys(native.brandAccents)).toEqual(BRANDS);
+    for (const id of BRANDS) {
+      for (const mode of ["dark", "light"] as const) {
+        expect(native.brandAccents[id][mode], `${id} ${mode}`).toEqual({ accent: native.brands[id][mode].accent, onAccent: native.brands[id][mode].onAccent });
+      }
+    }
+  });
+
   it("matches the snapshots", async () => {
     for (const id of BRANDS) await expect(files[`brands/${id}.css`]).toMatchFileSnapshot(`./__snapshots__/brands/${id}.css`);
     await expect(files["brands/scoped.css"]).toMatchFileSnapshot("./__snapshots__/brands/scoped.css");

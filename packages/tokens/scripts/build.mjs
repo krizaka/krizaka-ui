@@ -22,6 +22,10 @@ import { compileShopPresets, shopPresetsModule } from "./shop-presets.mjs";
 
 /** Source files, in output order. */
 export const SOURCES = ["color", "radius", "shadow", "material", "motion", "typography"];
+/** @param {Record<string, any>} native @returns {Record<string, any>} */
+const accentsOf = (native) =>
+  Object.fromEntries(Object.entries(native).map(([id, b]) => [id, Object.fromEntries(["dark", "light"].map((m) => [m, { accent: b[m].accent, onAccent: b[m].onAccent }]))]));
+
 /** The brands (src/brands/<id>.brand.json), in output order: the parent first. */
 export const BRANDS = ["krizaka", "sovkora", "verikora", "folioviv", "kridoc"];
 /** The roles a brand sets — all of them, so that a brand never inherits another brand's accent. */
@@ -468,6 +472,8 @@ export declare const marks: { readonly [B in BrandId]: readonly MarkStop[] };\n`
   const brandsNativeJs = brands.ids.length
     ? `\n/** The brand themes as ThemeProvider overrides (\`overrides={brands.sovkora}\`): the accent family per theme. */
 export const brands = Object.freeze(${json(brands.native)});
+/** The accent and its text colour per brand and theme: all a map or a chart needs of a brand, without the rest of its theme. */
+export const brandAccents = Object.freeze(${json(accentsOf(brands.native))});
 /** The marks' emblem gradients: [offset, #rrggbb] stops, the same in both themes. */
 export const marks = Object.freeze(${json(brands.marksNative)});\n`
     : "";
@@ -477,6 +483,8 @@ export type BrandId = ${brands.ids.length ? brands.ids.map((b) => json(b)).join(
 export type BrandTheme = { readonly dark: { readonly [R in ${BRAND_ROLES.map((r) => json(camel(r))).join(" | ")}]: string }; readonly light: { readonly [R in ${BRAND_ROLES.map((r) => json(camel(r))).join(" | ")}]: string } };
 /** The brand themes as ThemeProvider overrides (\`overrides={brands.sovkora}\`): the accent family per theme. */
 export declare const brands: { readonly [B in BrandId]: BrandTheme };
+/** The accent and its text colour per brand and theme. */
+export declare const brandAccents: { readonly [B in BrandId]: { readonly dark: { readonly accent: string; readonly onAccent: string }; readonly light: { readonly accent: string; readonly onAccent: string } } };
 /** A gradient stop of a mark: [offset, #rrggbb]. */
 export type MarkStop = readonly [offset: string, color: string];
 /** The marks' emblem gradients: [offset, #rrggbb] stops, the same in both themes. */
