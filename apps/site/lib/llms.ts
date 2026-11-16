@@ -4,6 +4,7 @@ import path from "node:path";
 import { getSource, pageText } from "@/lib/docs-source";
 import { getDictionary } from "@/lib/i18n";
 import { KRIZAKA_JAVA_URL, KRIZAKA_UI_REPO_URL, KRIZAKA_URL, SITE_URL } from "@/lib/site";
+import { importLineOf } from "@/lib/ui-catalog";
 import { getRegistryItems } from "@/lib/ui-registry";
 import { absoluteUrl } from "@/lib/urls";
 
@@ -29,13 +30,16 @@ export function renderLlms(): string {
       const { title, description } = pageText(page, t);
       return `- [${title}](${absoluteUrl("en", page.url)}): ${description}`;
     });
-  const components = getRegistryItems().map((item) => `- [${item.title}](${absoluteUrl("en", `/components/${item.name}`)}): ${item.summary.replace(/`/g, "")}`);
+  const components = getRegistryItems().map((item) => {
+    const line = importLineOf(item.name);
+    return `- [${item.title}](${absoluteUrl("en", `/components/${item.name}`)}): ${item.summary.replace(/`/g, "")}${line ? ` \`${line}\`` : ""}`;
+  });
   return [
     "# Krizaka UI",
     "",
     `> ${t.site.meta.description}`,
     "",
-    `Every page is generated from the code of the packages in ${KRIZAKA_UI_REPO_URL} (apps/site), at every change: a component's page comes from its meta.ts, its named examples and the JSDoc of its props. French: ${SITE_URL}/fr/.`,
+    `Every page is generated from the code of the packages in ${KRIZAKA_UI_REPO_URL} (apps/site), at every change: a component's page comes from its meta.ts, its named examples and the JSDoc of its props. Each component line ends with its import, from the catalogue the package ships (@krizaka/ui/catalog.json, krizaka-catalog/v1). French: ${SITE_URL}/fr/.`,
     `Krizaka UI is an open-source project of Krizaka (${KRIZAKA_URL}); its Java half is Krizaka Java (${KRIZAKA_JAVA_URL}).`,
     "",
     "## Guides",

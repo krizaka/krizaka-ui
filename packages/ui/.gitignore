@@ -3,3 +3,5 @@ registry/*.json
 registry/examples/**/*.js
 registry/examples/**/*.d.ts
 registry/examples/**/*.png
+# Written by the build (scripts/build-catalog.mjs): the catalogue, published as @krizaka/ui/catalog.json.
+catalog.json
