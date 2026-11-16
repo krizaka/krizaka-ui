@@ -4,6 +4,7 @@ import AppExample from "../../registry/examples/site-footer/app";
 import CompanyExample from "../../registry/examples/site-footer/company";
 import ConfiguredExample from "../../registry/examples/site-footer/configured";
 import DocsExample from "../../registry/examples/site-footer/docs";
+import EverySiteExample from "../../registry/examples/site-footer/every-site";
 import FamilyExample from "../../registry/examples/site-footer/family";
 import HostedExample from "../../registry/examples/site-footer/hosted";
 import OpenSourceFrExample from "../../registry/examples/site-footer/open-source-fr";
@@ -43,3 +44,6 @@ export const Family: Story = { render: () => <FamilyExample /> };
 export const Hosted360: Story = { tags: ["pb3746"], render: () => <HostedExample />, parameters: { viewportWidth: 360, noOverflow: true } };
 export const Hosted390: Story = { tags: ["pb3746"], render: () => <HostedExample />, parameters: { viewportWidth: 390, noOverflow: true } };
 export const Hosted1440: Story = { tags: ["pb3746"], render: () => <HostedExample />, parameters: { viewportWidth: 1440, noOverflow: true } };
+/** Every site id draws the same footer from the org's data, at 390 and 1440 px. */
+export const EverySite390: Story = { render: () => <EverySiteExample />, parameters: { viewportWidth: 390, noOverflow: true } };
+export const EverySite1440: Story = { render: () => <EverySiteExample />, parameters: { viewportWidth: 1440, noOverflow: true } };

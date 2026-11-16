@@ -1061,7 +1061,7 @@
     "@jest/globals": "30.5.2",
     "@krizaka/architecture": "0.3.0",
     "@krizaka/config": "^0.9.1",
-    "@krizaka/org": "^1.1.0",
+    "@krizaka/org": "^1.11.0",
     "@krizaka/query": "workspace:*",
     "@maplibre/maplibre-react-native": "11.5.0",
     "@react-native/babel-preset": "0.86.3",

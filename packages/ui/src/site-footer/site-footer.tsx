@@ -14,7 +14,7 @@ import { tv } from "tailwind-variants";
 import type { LinkComponent } from "../block-link";
 import { ProductLogo } from "../marks/ProductLogo";
 import { columnStatus, familyGroups, orgIdOf } from "../sites/family-groups";
-import { companyLinks, type FamilyLabels, familyLabels, type OrgFacts, siteById, type SiteGroup, type SiteId, type SiteStatus } from "../sites/sites";
+import { type FamilyLabels, familyLabels, type OrgFacts, siteById, type SiteGroup, type SiteId, type SiteStatus } from "../sites/sites";
 import type { FooterLink, SiteFooterConfig } from "./footer-config";
 
 export const siteFooter = tv({
@@ -244,7 +244,11 @@ export function SiteFooter({
       .map((g) => ({ ...g, entries: productIds ? g.entries.filter((e) => productIds.includes(e.id) || e.id === currentId) : g.entries })),
     { group: "open-source" as const, entries: groups.filter((g) => g.group === "open-source" || g.group === "github").flatMap((g) => g.entries) },
   ];
-  const companyEntries = companyLinks.map((l) => ({ id: l.id, name: company[l.id], url: l.url[lang] }));
+  // The « Krizaka » column is the org's: its other sites of the company group (the blog), then its contact page.
+  const companyEntries = [
+    ...(groups.find((g) => g.group === "krizaka")?.entries ?? []).filter((e) => e.id !== "krizaka").map((e) => ({ id: e.id, name: e.id === "blog" ? (company.blog ?? e.name) : e.name, url: e.url })),
+    ...(org?.contact ? [{ id: "contact", name: company.contact ?? familyLabels.en.company!.contact!, url: org.contact.page[lang] }] : []),
+  ];
   return (
     <ToneContext.Provider value={tone}>
       <footer className={s.root({ className })} {...props}>
