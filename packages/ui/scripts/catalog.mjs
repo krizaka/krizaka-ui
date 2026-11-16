@@ -6,18 +6,29 @@
 
 export const CATALOG_SCHEMA = "krizaka-catalog/v1";
 
+/** The text between the first `{` and the next `}` of a statement, or null. */
+function braced(text) {
+  const open = text.indexOf("{");
+  const close = text.indexOf("}", open);
+  return open < 0 || close < 0 ? null : { inside: text.slice(open + 1, close), before: text.slice(0, open), after: text.slice(close + 1) };
+}
+
 /** The `import { … } from "@krizaka/ui…"` statements of a code sample: `[module, name, typeOnly]`. */
 export function importsOf(code) {
   const found = [];
-  // The examples are formatted (Prettier): one space between the words of an import.
-  for (const match of code.matchAll(/import (type )?\{([^}]*)\} from "(@krizaka\/ui[^"]*)"/g)) {
-    const [, typeAll, names, module] = match;
+  // The examples are formatted (Prettier): a statement starts a line, one space between its words.
+  for (const statement of code.split(/^import /m).slice(1)) {
+    const parts = braced(statement);
+    const from = parts?.after.trimStart() ?? "";
+    if (!parts || !from.startsWith('from "@krizaka/ui')) continue;
+    const module = from.slice(6, from.indexOf('"', 6));
     if (module.startsWith("@krizaka/ui/registry")) continue;
-    for (const raw of names.split(",")) {
+    const typeAll = parts.before.trim() === "type";
+    for (const raw of parts.inside.split(",")) {
       const part = raw.trim();
       if (!part) continue;
-      const typeOnly = Boolean(typeAll) || part.startsWith("type ");
-      found.push([module, part.replace(/^type\s+/, "").split(/\s+as\s+/)[0].trim(), typeOnly]);
+      const typeOnly = typeAll || part.startsWith("type ");
+      found.push([module, part.replace(/^type /, "").split(" as ")[0].trim(), typeOnly]);
     }
   }
   return found;
@@ -67,7 +78,7 @@ const exampleOf = (example) => ({ name: example.name, title: example.title, desc
 const sidesOf = (item) => ["web", "native"].filter((platform) => item[platform]).map((platform) => [platform, item[platform]]);
 
 /** The names of an import line, in its order: the first is the component the item is named after. */
-const namesOf = (line) => (/\{([^}]*)\}/.exec(line)?.[1] ?? "").split(",").map((name) => name.trim()).filter(Boolean);
+const namesOf = (line) => (braced(line)?.inside ?? "").split(",").map((name) => name.trim()).filter(Boolean);
 
 /** Every example of the registry with the `[module, name]` pairs it imports. */
 const examplesWithImports = (items) =>
