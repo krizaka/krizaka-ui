@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 4.12.0
+
+### Minor Changes
+
+- [#1049](https://github.com/krizaka/krizaka-ui/pull/1049) [`b7c0980`](https://github.com/krizaka/krizaka-ui/commit/b7c09802e1bc9bc7645cfacca02129c22c6ff867) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ChipRow.Item` and `ChipLink` take `marker` (a leading colour dot, decorative) and `count` (a muted tabular number), also with `asChild`; `MarkerPicker` takes `showNames` and `TagSelector` takes `showMarkerNames` (each colour's name written beside its swatch, 44 px targets). `TagMarker` is now server-safe.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@4.12.0
+  - @krizaka/tokens@4.12.0
+
 ## 4.11.0
 
 ### Minor Changes
