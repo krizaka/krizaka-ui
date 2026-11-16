@@ -19,7 +19,9 @@ export type HeroSectionProps = Omit<React.ComponentProps<"header">, "title"> & {
   variant?: HeroVariant;
   /** The shop's name: the page's `h1`. */
   title: string;
-  /** A short mono line above the name (`Saint-Henri · Montréal`). */
+  /** The shop's mark (logo or avatar), above the name. */
+  mark?: React.ReactNode;
+  /** A short line above the name (`Saint-Henri · Montréal`). */
   eyebrow?: React.ReactNode;
   /** One line: what the shop promises. */
   lead?: React.ReactNode;
@@ -36,13 +38,14 @@ export type HeroSectionProps = Omit<React.ComponentProps<"header">, "title"> & {
 };
 
 const lead = "m-0 max-w-xl text-base leading-relaxed text-fg-secondary sm:text-lg";
-const eyebrowClass = "m-0 font-mono text-[13px] text-fg-accent";
+const eyebrowClass = "m-0 text-sm font-semibold text-fg-accent";
 // The weight comes from the preset (`--kz-shop-title-weight`: Young Serif has one, Plus Jakarta Sans 650): `blocks.css`.
 const titleClass = "kz-shop-title m-0 font-display text-4xl leading-[1.05] tracking-tight text-fg sm:text-5xl";
 
-function Text({ title, eyebrow, lead: leadText, facts, actions }: Readonly<Pick<HeroSectionProps, "title" | "eyebrow" | "lead" | "facts" | "actions">>) {
+function Text({ title, mark, eyebrow, lead: leadText, facts, actions }: Readonly<Pick<HeroSectionProps, "title" | "mark" | "eyebrow" | "lead" | "facts" | "actions">>) {
   return (
     <div className="flex min-w-0 flex-col items-start gap-3">
+      {mark && <div className="flex items-center">{mark}</div>}
       {eyebrow && <p className={eyebrowClass}>{eyebrow}</p>}
       <h1 className={titleClass}>{title}</h1>
       {leadText && <p className={lead}>{leadText}</p>}
@@ -52,8 +55,21 @@ function Text({ title, eyebrow, lead: leadText, facts, actions }: Readonly<Pick<
   );
 }
 
+/** The facts of a shop page's header (open now, the score, the area): one list, one line of text each, no chip, no typewriter face. */
+export function HeroFacts({ items, label, className }: Readonly<{ items: readonly React.ReactNode[]; label: string; className?: string }>) {
+  return (
+    <ul aria-label={label} className={cn("m-0 flex list-none flex-wrap items-center gap-x-4 gap-y-1 p-0 text-sm font-medium", className)}>
+      {items.map((item, i) => (
+        <li key={i} className="min-w-0">
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /** The first section of a shop page: poster, split, banner or tv. */
-export function HeroSection({ variant = "poster", title, eyebrow, lead: leadText, facts, actions, cover, focus = "center", tv, className, ...props }: Readonly<HeroSectionProps>) {
+export function HeroSection({ variant = "poster", title, mark, eyebrow, lead: leadText, facts, actions, cover, focus = "center", tv, className, ...props }: Readonly<HeroSectionProps>) {
   if (variant === "poster") {
     return (
       <CoverHero
@@ -61,6 +77,7 @@ export function HeroSection({ variant = "poster", title, eyebrow, lead: leadText
         data-variant="poster"
         className={cn("kz-shop-section min-h-[24rem] sm:min-h-[28rem] lg:min-h-[31rem]", className)}
         cover={cover && { src: cover.src, alt: cover.alt, video: cover.video, phone: cover.phone, focus }}
+        mark={mark}
         eyebrow={eyebrow}
         title={title}
         lead={leadText}
@@ -70,7 +87,7 @@ export function HeroSection({ variant = "poster", title, eyebrow, lead: leadText
       />
     );
   }
-  const text = <Text title={title} eyebrow={eyebrow} lead={leadText} facts={facts} actions={actions} />;
+  const text = <Text title={title} mark={mark} eyebrow={eyebrow} lead={leadText} facts={facts} actions={actions} />;
   if (variant === "split") {
     return (
       <header data-first="" data-variant="split" className={cn("kz-shop-section", className)} {...props}>

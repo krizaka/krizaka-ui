@@ -1,7 +1,7 @@
 // Server-safe: no hook. The services of a shop (ADR-007 §3). `menu` — the compact price board, the default of every preset:
 // one row per service (an optional 56 px square thumbnail of the service's own photo, the name, « Popular », a dotted leader,
 // the price in tabular figures, the duration and one line, a « Choose » button that names the service), grouped by category
-// under a lower-case typewriter note, in one column beside an `aside` (a plain block, never a landmark) or in two. `cards` (4:3, six at most), `index` (the
+// under a plain heading note; the row is one link (the « Choose » button stretched over it), in one column beside an `aside` (a plain block, never a landmark) or in two. `cards` (4:3, six at most), `index` (the
 // Cahier's stamped cards), `carousel` (a snap strip, phone first). The section receives resolved services; it never fetches.
 import { Badge } from "@krizaka/ui/badge";
 import { buttonVariants } from "@krizaka/ui/button";
@@ -29,7 +29,7 @@ export type ShopService = {
   duration?: string;
   /** `Up to 5 dogs`. */
   capacity?: string;
-  /** One line: what it is (truncated in the menu). */
+  /** One line: what it is (wrapped, never cut, in the menu). */
   description?: string;
   /** What is included, one short line each (cards and index). */
   included?: readonly string[];
@@ -66,7 +66,7 @@ export type ServicesSectionProps = Omit<React.ComponentProps<"section">, "title"
   linkAs?: LinkComponent;
 };
 
-const GROUP_NOTE = "m-0 font-mono text-[13px] lowercase text-fg-secondary";
+const GROUP_NOTE = "m-0 text-sm font-semibold text-fg-secondary";
 
 function groupsOf(services: readonly ShopService[], by: "category" | "none") {
   if (by === "none") return [{ name: undefined as string | undefined, items: services }];
@@ -83,13 +83,13 @@ function groupsOf(services: readonly ShopService[], by: "category" | "none") {
 function MenuRow({ service, chooseLabel, popularLabel, linkAs }: Readonly<{ service: ShopService; chooseLabel: string; popularLabel: string; linkAs?: LinkComponent }>) {
   const facts = [service.duration, service.capacity].filter(Boolean).join(" · ");
   return (
-    <li className="flex items-center gap-3 border-b border-border-subtle py-2.5 last:border-b-0" data-service={service.id}>
+    <li className="relative flex items-center gap-3 border-b border-border-subtle py-2.5 last:border-b-0" data-service={service.id}>
       {service.photo && (
         <Photo photo={service.photo} ratio="1/1" sizes="56px" className="h-12 w-12 shrink-0 rounded-md sm:h-14 sm:w-14" />
       )}
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
-          <h3 className="m-0 shrink truncate text-[15px] font-semibold leading-tight text-fg">{service.name}</h3>
+          <h3 className="m-0 shrink text-[15px] font-semibold leading-tight text-fg">{service.name}</h3>
           {service.popular && <Badge tone="accent" size="sm" className="hidden shrink-0 self-center sm:inline-flex">{popularLabel}</Badge>}
           <span aria-hidden className="min-w-4 flex-1 -translate-y-0.5 border-b border-dotted border-border-control" />
           <span className="shrink-0 whitespace-nowrap text-[15px] font-bold tabular-nums text-fg">
@@ -97,9 +97,9 @@ function MenuRow({ service, chooseLabel, popularLabel, linkAs }: Readonly<{ serv
             {service.price}
           </span>
         </div>
-        <p className="m-0 mt-0.5 truncate text-[13px] leading-snug text-fg-secondary">
+        <p className="m-0 mt-0.5 text-[13px] leading-snug text-fg-secondary">
           {service.popular && <Badge tone="accent" size="sm" className="mr-1.5 sm:hidden">{popularLabel}</Badge>}
-          <span className="font-mono tabular-nums">{facts}</span>
+          <span className="tabular-nums">{facts}</span>
           {facts && service.description && <span aria-hidden> · </span>}
           {service.description}
         </p>
@@ -109,7 +109,7 @@ function MenuRow({ service, chooseLabel, popularLabel, linkAs }: Readonly<{ serv
           href={service.href}
           linkAs={linkAs}
           aria-label={`${chooseLabel} ${service.name}`}
-          className={cn(buttonVariants({ variant: "secondary", size: "md" }), "min-h-11 shrink-0 no-underline")}
+          className={cn(buttonVariants({ variant: "secondary", size: "md" }), "min-h-11 shrink-0 no-underline after:absolute after:inset-0")}
         >
           {chooseLabel}
         </BlockLink>

@@ -1,6 +1,7 @@
 // Client (the reader's motion preference). The first screen of a shop or a place: its cover — a photo, or a muted loop that
 // stays a still under reduced motion — behind the name, a one-line promise, a few facts and the main action. The words sit
-// on a veil that reads in both themes; without a cover the brand's colours take its place.
+// on a veil that reads in both themes (white over at least 60 % black: 4.5:1 on the brightest photo); without a cover a flat
+// surface takes its place.
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
@@ -12,11 +13,12 @@ export const coverHero = tv({
   slots: {
     root: "relative isolate flex min-h-[26rem] items-end overflow-hidden bg-surface-1 text-fg data-[cover]:text-fg-on-media sm:min-h-[30rem] lg:min-h-[34rem]",
     media: "absolute inset-0 -z-20 h-full w-full object-cover data-[focus=top]:object-top data-[focus=bottom]:object-bottom",
-    veil: "absolute inset-0 -z-10 bg-linear-to-t from-scrim-strong via-scrim/55 to-scrim/10",
-    plain: "absolute inset-0 -z-10 bg-linear-to-br from-accent/25 via-surface-1 to-accent-2/20",
+    veil: "absolute inset-0 -z-10 bg-linear-to-t from-scrim-strong via-scrim-strong/75 to-scrim/20",
+    plain: "absolute inset-0 -z-10 bg-surface-2",
     body: "flex flex-col gap-4 pb-8 pt-24 sm:pb-12",
     back: "inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-current no-underline opacity-90 hover:opacity-100",
-    eyebrow: "m-0 font-mono text-xs font-semibold opacity-90",
+    mark: "flex items-center",
+    eyebrow: "m-0 text-sm font-semibold opacity-90",
     title: "m-0 max-w-3xl font-display text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl",
     lead: "m-0 max-w-2xl text-base leading-relaxed opacity-95 sm:text-lg",
     facts: "flex flex-wrap items-center gap-2",
@@ -41,7 +43,9 @@ export type CoverMedia = {
 export type CoverHeroProps = Omit<React.ComponentProps<"header">, "title"> & {
   /** The cover. Without it the hero wears the brand's colours. */
   cover?: CoverMedia;
-  /** A short mono line above the name (where the shop is: `Saint-Henri · Montréal`). */
+  /** The shop's mark (logo or avatar), above the eyebrow. */
+  mark?: React.ReactNode;
+  /** A short line above the name (where the shop is: `Saint-Henri · Montréal`). */
   eyebrow?: React.ReactNode;
   /** The name: the page's `h1`. */
   title: React.ReactNode;
@@ -71,7 +75,7 @@ function usePlayLoop(enabled: boolean) {
 }
 
 /** A shop's first screen: the cover, the name, the promise, the facts and the main action. */
-export function CoverHero({ cover, eyebrow, title, lead, facts, actions, back, linkAs, className, ...props }: Readonly<CoverHeroProps>) {
+export function CoverHero({ cover, mark, eyebrow, title, lead, facts, actions, back, linkAs, className, ...props }: Readonly<CoverHeroProps>) {
   const play = usePlayLoop(Boolean(cover?.video));
   return (
     <header data-cover={cover ? "" : undefined} className={s.root({ className })} {...props}>
@@ -99,6 +103,7 @@ export function CoverHero({ cover, eyebrow, title, lead, facts, actions, back, l
               <ArrowGlyph direction="left" className="h-3.5 w-3.5" /> {back.label}
             </BlockLink>
           )}
+          {mark && <div className={s.mark()}>{mark}</div>}
           {eyebrow && <p className={s.eyebrow()}>{eyebrow}</p>}
           <h1 className={s.title()}>{title}</h1>
           {lead && <p className={s.lead()}>{lead}</p>}
