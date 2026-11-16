@@ -1,5 +1,11 @@
 # @krizaka/email
 
+## 1.2.2
+
+### Patch Changes
+
+- [#1052](https://github.com/krizaka/krizaka-ui/pull/1052) [`e89a078`](https://github.com/krizaka/krizaka-ui/commit/e89a0780b0941f92f2cac610c039319a8eec01cb) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The email themes know Kridoc (generated from its brand in @krizaka/tokens), and `@krizaka/email` declares `@krizaka/tokens`, so a brand change runs its tests.
+
 ## 1.2.1
 
 ### Patch Changes
