@@ -7,7 +7,7 @@ import { DropdownMenu as MenuPrimitive } from "radix-ui";
 import * as React from "react";
 
 import type { LinkComponent } from "../block-link";
-import { Chip } from "../chip";
+import { Chip } from "../chip/chip";
 import { ChipLink } from "../chip-link";
 import { cn } from "../cn";
 import { DropdownMenu } from "../dropdown-menu";

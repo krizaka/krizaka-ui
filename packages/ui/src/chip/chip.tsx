@@ -17,7 +17,7 @@ const ChipGroupContext = React.createContext<GroupContext | null>(null);
 
 function RemoveIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
+    <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
       <path d="M18 6 6 18M6 6l12 12" />
     </svg>
   );

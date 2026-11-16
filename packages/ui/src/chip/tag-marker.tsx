@@ -29,7 +29,7 @@ export function TagMarker({ marker, shape = "dot", className, style, ...props }:
       data-marker={marker}
       data-shape={shape}
       className={cn(
-        "inline-block shrink-0 bg-(--kz-marker) data-[shape=dot]:h-2.5 data-[shape=dot]:w-2.5 data-[shape=dot]:rounded-full",
+        "inline-block shrink-0 bg-(--kz-marker) data-[shape=dot]:size-2.5 data-[shape=dot]:rounded-full",
         "data-[shape=ribbon]:h-3.5 data-[shape=ribbon]:w-2.5 data-[shape=ribbon]:[clip-path:polygon(0_0,100%_0,100%_100%,50%_72%,0_100%)]",
         className,
       )}

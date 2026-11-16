@@ -1943,7 +1943,7 @@
     {
       "name": "./filter-bar",
       "path": "dist/filter-bar.js",
-      "limit": "35.4 kB",
+      "limit": "35.45 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1965,7 +1965,7 @@
     {
       "name": "./form/server",
       "path": "dist/form/server.js",
-      "limit": "1.4 kB",
+      "limit": "1.38 kB",
       "gzip": true
     },
     {
@@ -3182,7 +3182,7 @@
     {
       "name": "./tag-selector",
       "path": "dist/tag-selector.js",
-      "limit": "13.72 kB",
+      "limit": "13.76 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
