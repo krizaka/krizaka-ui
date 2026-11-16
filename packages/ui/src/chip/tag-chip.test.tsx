@@ -81,4 +81,20 @@ describe("MarkerPicker (#627)", () => {
     render(<MarkerPicker label="Colour" names={NAMES} markers={["blue", "red"]} />);
     expect(screen.getAllByRole("radio")).toHaveLength(2);
   });
+
+  it("showNames writes the six names beside the swatches, 44 px targets, the tick kept (#3992)", async () => {
+    const { container } = render(<MarkerPicker label="Colour" names={NAMES} showNames defaultValue="red" />);
+    const radios = screen.getAllByRole("radio");
+    expect(radios.map((r) => r.textContent)).toEqual(["Blue", "Green", "Amber", "Red", "Violet", "Gray"]);
+    expect(screen.getByRole("radio", { name: "Red" }).getAttribute("aria-checked")).toBe("true");
+    for (const r of radios) expect(r.className).toContain("min-h-11");
+    expect(screen.getByRole("radiogroup").className).toContain("flex-wrap");
+    expect(screen.getByRole("radiogroup").querySelectorAll('[data-state="checked"] svg')).toHaveLength(1);
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("writes no name by default", () => {
+    render(<MarkerPicker label="Colour" names={NAMES} />);
+    expect(screen.getAllByRole("radio").every((r) => r.textContent === "")).toBe(true);
+  });
 });

@@ -3,7 +3,7 @@
   "note": "ADR-008 §5: only goes down. node tools/usage-inventory.mjs --budgets --update",
   "domains": {
     "foundations": 115000,
-    "forms": 203000,
+    "forms": 202920,
     "data-display": 75500,
     "navigation-shell": 229200,
     "feedback": 112900,

@@ -70,4 +70,61 @@ describe("ChipRow", () => {
     expect(link.getAttribute("aria-current")).toBe("page");
     expect(link.className).toContain("min-h-11");
   });
+
+  it("shows a decorative marker and a muted count; aria-current is kept (#3992)", async () => {
+    const { container } = render(
+      <ChipRow label="Filter your documents">
+        <ChipRow.Item href="#r" selected marker="red" count={6} aria-label="Rosemont 6 documents">
+          Rosemont
+        </ChipRow.Item>
+        <ChipRow.Item href="#v" marker="blue" count={3}>
+          Villeray
+        </ChipRow.Item>
+      </ChipRow>,
+    );
+    const link = screen.getByRole("link", { name: "Rosemont 6 documents" });
+    expect(link.getAttribute("aria-current")).toBe("page");
+    const marker = link.querySelector("[data-marker]") as HTMLElement;
+    expect(marker.dataset.marker).toBe("red");
+    expect(marker.getAttribute("aria-hidden")).toBe("true");
+    expect(link.firstElementChild).toBe(marker);
+    const count = link.lastElementChild as HTMLElement;
+    expect(count.textContent).toBe("6");
+    expect(count.className).toContain("tabular-nums");
+    expect(count.className).toContain("text-fg-muted");
+    expect(link.className).not.toMatch(/bg-\(--kz-marker\)/);
+    expect(screen.getByRole("link", { name: "Villeray 3" })).toBeTruthy();
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("keeps the marker and the count when the chip is your router's link (asChild)", () => {
+    render(
+      <ChipRow label="Tags">
+        <ChipRow.Item asChild marker="amber" count={0}>
+          <a href="/x" data-router>
+            To review
+          </a>
+        </ChipRow.Item>
+      </ChipRow>,
+    );
+    const link = screen.getByRole("link", { name: /To review/ });
+    expect(link.hasAttribute("data-router")).toBe(true);
+    expect(link.querySelector("[data-marker]")?.getAttribute("data-marker")).toBe("amber");
+    expect(link.textContent).toBe("To review0");
+  });
+
+  it("passes axe on a row of six markers", async () => {
+    const markers = ["blue", "green", "amber", "red", "violet", "gray"] as const;
+    const { container } = render(
+      <ChipRow label="Filter">
+        {markers.map((m, i) => (
+          <ChipRow.Item key={m} href={`#${m}`} marker={m} count={i + 1}>
+            {m}
+          </ChipRow.Item>
+        ))}
+      </ChipRow>,
+    );
+    expect(container.querySelectorAll("[data-marker]")).toHaveLength(6);
+    expect(await axeViolations(container)).toEqual([]);
+  });
 });

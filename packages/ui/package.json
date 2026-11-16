@@ -1965,7 +1965,7 @@
     {
       "name": "./form/server",
       "path": "dist/form/server.js",
-      "limit": "1.5 kB",
+      "limit": "1.4 kB",
       "gzip": true
     },
     {
@@ -3182,7 +3182,7 @@
     {
       "name": "./tag-selector",
       "path": "dist/tag-selector.js",
-      "limit": "13.7 kB",
+      "limit": "13.72 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

@@ -26,6 +26,8 @@ type CreatableProps = {
   createLabel?: (name: string) => string;
   /** The name of each colour, passed translated: shows the colour choice beside the field. */
   markerNames?: Readonly<Record<Marker, string>>;
+  /** Writes each colour's name beside its swatch (`MarkerPicker` `showNames`): the colour is never only a hue. */
+  showMarkerNames?: boolean;
   /** The colour choice's accessible name ("Colour of the new tag"). */
   markerLabel?: string;
   /** The colour a new tag starts with (default `blue`). */
@@ -134,6 +136,7 @@ export function TagSelector({
   placeholder,
   createLabel = (name) => `Create “${name}”`,
   markerNames,
+  showMarkerNames,
   markerLabel,
   defaultMarker = "blue",
   maxLength = 80,
@@ -175,7 +178,7 @@ export function TagSelector({
           />
           {canCreate ? (
             <>
-              {markerNames ? <MarkerPicker label={markerLabel ?? label} names={markerNames} value={marker} onValueChange={setMarker} /> : null}
+              {markerNames ? <MarkerPicker label={markerLabel ?? label} names={markerNames} showNames={showMarkerNames} value={marker} onValueChange={setMarker} /> : null}
               <button
                 type="button"
                 onClick={commit}

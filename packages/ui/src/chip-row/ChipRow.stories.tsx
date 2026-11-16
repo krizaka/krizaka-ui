@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import AudienceExample from "../../registry/examples/chip-row/audience";
+import FiltersExample from "../../registry/examples/chip-row/filters";
 import ManyExample from "../../registry/examples/chip-row/many";
 import { ChipRow } from "./chip-row";
 
@@ -16,3 +17,4 @@ type Story = StoryObj<typeof meta>;
 
 export const Audience: Story = { render: () => <AudienceExample /> };
 export const Many: Story = { render: () => <ManyExample />, parameters: { viewport: { defaultViewport: "mobile1" } } };
+export const Filters: Story = { render: () => <FiltersExample />, parameters: { viewport: { defaultViewport: "mobile1" } } };

@@ -17,7 +17,7 @@ export default function TagSelectorCreatable() {
   return (
     <TagSelector
       className="max-w-lg" label="Tags of Eric" options={options} value={chosen} onValueChange={setChosen}
-      creatable inputLabel="Add a tag" placeholder="Add a tag…" markerNames={NAMES} markerLabel="Colour of the new tag"
+      creatable inputLabel="Add a tag" placeholder="Add a tag…" markerNames={NAMES} showMarkerNames markerLabel="Colour of the new tag"
       createLabel={(name) => `Create “${name}”`} max={6} countLabel={(n, max) => `${n} of ${max} tags`}
       onCreate={(name, marker) => {
         const value = name.toLowerCase().replace(/\s+/g, "-");
