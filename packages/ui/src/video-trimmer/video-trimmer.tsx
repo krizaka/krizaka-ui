@@ -148,7 +148,7 @@ export function VideoTrimmer({
   };
 
   const keys = (which: Grip) => (event: React.KeyboardEvent) => {
-    const current = which === "start" ? start : which === "end" ? end : (time ?? start);
+    const current = { start, end, playhead: time ?? start }[which];
     const big = largeStep;
     const small = event.shiftKey ? largeStep : step;
     const target: Record<string, number> = {
@@ -221,7 +221,8 @@ export function VideoTrimmer({
           if (disabled) return;
           track.current?.setPointerCapture?.(event.pointerId);
           const t = at(event.clientX);
-          grip.current = onSeek ? "playhead" : Math.abs(t - start) < Math.abs(t - end) ? "start" : "end";
+          const nearest = Math.abs(t - start) < Math.abs(t - end) ? "start" : "end";
+          grip.current = onSeek ? "playhead" : nearest;
           if (grip.current === "playhead") seek(t);
           else move(grip.current, t);
         }}

@@ -127,7 +127,10 @@ export function TreeView({
       ArrowUp: () => move(rows[i - 1]?.node.id),
       Home: () => move(rows[0]?.node.id),
       End: () => move(rows.at(-1)?.node.id),
-      ArrowRight: () => (isBranch(node) && !open.has(node.id) ? toggle(node, true) : isBranch(node) ? move(rows[i + 1]?.node.id) : undefined),
+      ArrowRight: () => {
+        if (!isBranch(node)) return undefined;
+        return open.has(node.id) ? move(rows[i + 1]?.node.id) : toggle(node, true);
+      },
       ArrowLeft: () => (open.has(node.id) ? toggle(node, false) : move(row.parent ?? undefined)),
       Enter: () => choose(node),
       " ": () => choose(node),

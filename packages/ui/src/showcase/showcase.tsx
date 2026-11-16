@@ -156,7 +156,7 @@ export function Showcase<T>({
     if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) return;
     const target = event.target as HTMLElement;
     if (target.closest("input, textarea, select, [contenteditable='true']")) return;
-    const to = event.key === "ArrowRight" ? current + 1 : event.key === "ArrowLeft" ? current - 1 : event.key === "Home" ? 0 : event.key === "End" ? total - 1 : null;
+    const to = ({ ArrowRight: current + 1, ArrowLeft: current - 1, Home: 0, End: total - 1 } as Record<string, number | undefined>)[event.key] ?? null;
     if (to === null) return;
     event.preventDefault();
     move(to, true);
