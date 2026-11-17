@@ -518,7 +518,7 @@ export type MoneyProps = Base & {
 /** What the form keeps of what was typed: nothing (`null`), an unreadable amount (`NaN`, for the schema to refuse) or the units. */
 function moneyValue(units: number | null | undefined): number | null {
   if (units === undefined) return null;
-  return units === null ? Number.NaN : units;
+  return units ?? Number.NaN;
 }
 
 /** An amount of the form, stored as integer minor units (cents: `1250` = 12.50), typed the locale's way. */

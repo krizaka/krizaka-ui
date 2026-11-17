@@ -191,7 +191,7 @@ export function Mascot({ bird = "owl", mood = "welcome", tone = "brand", size = 
               {mood === "error" &&
                 g.eyes.at.map((at, i) => {
                   const side = i === 0 && g.eyes.at.length > 1 ? -1 : 1;
-                  return <path key={i} d={brow(at, eyeR, side)} stroke={OUTLINE} strokeWidth={2} strokeLinecap="round" />;
+                  return <path key={`${at[0]}-${at[1]}`} d={brow(at, eyeR, side)} stroke={OUTLINE} strokeWidth={2} strokeLinecap="round" />;
                 })}
               <path d={g.beak} fill={p.beak} {...line} />
             </g>

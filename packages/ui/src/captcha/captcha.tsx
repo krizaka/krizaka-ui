@@ -8,7 +8,7 @@ import { loadTurnstile, pageTheme, TURNSTILE_PRIVACY, TURNSTILE_TERMS } from "./
 
 const captcha = tv({
   slots: {
-    root: "w-full",
+    root: "w-full min-w-0 border-0 p-0",
     frame: "overflow-hidden rounded-lg border border-border-default bg-surface-2 p-2",
     error: "flex flex-wrap items-center gap-3 rounded-lg border border-border-default bg-surface-2 p-3 text-sm text-fg-danger",
     disclosure: "text-xs text-fg-muted",
@@ -105,7 +105,7 @@ export function Captcha({ siteKey, onToken, locale = "en", theme = "auto", label
   const interactiveOrIdle = interactive ? "interactive" : "idle";
   const phase = failed ? "error" : interactiveOrIdle;
   return (
-    <div className={root({ className })} role="group" aria-label={words.group} data-captcha={phase}>
+    <fieldset className={root({ className })} aria-label={words.group} data-captcha={phase}>
       {failed ? (
         <div role="alert" className={error()}>
           <span>{words.error}</span>
@@ -118,7 +118,7 @@ export function Captcha({ siteKey, onToken, locale = "en", theme = "auto", label
       <div className={interactive && !failed ? frame() : undefined} hidden={failed} style={interactive ? undefined : { height: 0, overflow: "hidden" }}>
         <div ref={host} />
       </div>
-    </div>
+    </fieldset>
   );
 }
 
