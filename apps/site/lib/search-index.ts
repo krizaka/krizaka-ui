@@ -17,6 +17,11 @@ function withExtra(data: StructuredData | undefined, extra: SearchContent[]): St
 
 /** The search index of one language, built once at build time and downloaded by the search dialog (no server). A component
     page is found by its synonyms, props and examples; the tokens page by every --kz-* name. */
+function extraContents(component: string | undefined, slug: string) {
+  if (component) return componentSearchContents(getRegistryItem(component));
+  return slug === TOKENS_PAGE ? tokenSearchContents(tokens) : [];
+}
+
 export function searchIndex(locale: Locale) {
   const t = getDictionary(locale);
   return createSearchAPI("advanced", {
@@ -27,7 +32,7 @@ export function searchIndex(locale: Locale) {
         const { title, description } = pageText(page, t);
         const { component } = page.data as ComponentPageData;
         const own = (page.data as { structuredData?: StructuredData }).structuredData;
-        const extra = component ? componentSearchContents(getRegistryItem(component)) : page.slugs.join("/") === TOKENS_PAGE ? tokenSearchContents(tokens) : [];
+        const extra = extraContents(component, page.slugs.join("/"));
         return { id: page.url, title, description, url: page.url, structuredData: withExtra(own, extra) };
       }),
   });

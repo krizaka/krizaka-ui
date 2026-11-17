@@ -25,7 +25,10 @@ export function chartFormat(format: unknown, currency: unknown): ValueFormat {
   return "number";
 }
 
-const text = (value: unknown) => (typeof value === "string" ? value : typeof value === "number" ? String(value) : "");
+const text = (value: unknown) => {
+  if (typeof value === "string") return value;
+  return typeof value === "number" ? String(value) : "";
+};
 const num = (value: unknown) => (typeof value === "number" && Number.isFinite(value) ? value : undefined);
 
 const kpiStat: GenUiEntry = {

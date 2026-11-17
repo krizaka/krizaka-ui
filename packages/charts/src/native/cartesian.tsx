@@ -102,11 +102,14 @@ function NativeCartesian<T extends Datum>({ props, mode }: Readonly<{ props: Nat
                 </SvgText>
               </G>
             ))}
-            {labelsAt.map((i) => (
-              <SvgText key={i} x={at(i)} y={y1 + 16} fontSize={11} fill={theme.textSecondary} textAnchor={mode.kind !== "bar" && i === 0 ? "start" : mode.kind !== "bar" && i === count - 1 ? "end" : "middle"}>
-                {fmt.category(table.categories[i])}
-              </SvgText>
-            ))}
+            {labelsAt.map((i) => {
+              const edge = i === 0 ? "start" : "end";
+              return (
+                <SvgText key={i} x={at(i)} y={y1 + 16} fontSize={11} fill={theme.textSecondary} textAnchor={mode.kind === "bar" || (i > 0 && i < count - 1) ? "middle" : edge}>
+                  {fmt.category(table.categories[i])}
+                </SvgText>
+              );
+            })}
             {active !== null && <Line x1={at(active)} x2={at(active)} y1={y0} y2={y1} stroke={theme.borderDefault} strokeWidth={1} />}
             {table.series.map((s, k) => {
               if (mode.kind === "bar") {

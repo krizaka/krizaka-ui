@@ -54,13 +54,15 @@ export function LatencyChart<T extends Datum>({
   const slowest = measured.reduce<(typeof measured)[number] | null>((a, m) => (!a || (m.value ?? 0) > (a.value ?? 0) ? m : a), null);
   const over = objective ? measured.filter((m) => (m.value ?? 0) > objective.value).length : 0;
   const nameOf = (row: T, i: number) => String(typeof x === "function" ? x(row, i) : (row as Record<string, unknown>)[x]);
+  const overDelta = over > 0 ? fillIn(words.over, { count: over }) : words.within;
+  const overDirection = over > 0 ? "up" : "flat";
   const summary =
     hideSummary || !slowest ? null : (
       <Kpi
         value={formatDuration(slowest.value ?? 0, locale)}
         label={fillIn(words.slowest, { name: nameOf(slowest.row, slowest.i) })}
-        delta={objective ? (over > 0 ? fillIn(words.over, { count: over }) : words.within) : null}
-        direction={objective ? (over > 0 ? "up" : "flat") : null}
+        delta={objective ? overDelta : null}
+        direction={objective ? overDirection : null}
         tone={over > 0 ? "danger" : "success"}
       />
     );

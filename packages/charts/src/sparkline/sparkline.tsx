@@ -3,6 +3,7 @@
 // the server too (no placeholder); otherwise it fills its container. No axes: its title and summary carry the figures.
 import { useMemo } from "react";
 
+import { trendColorTone } from "../core/data";
 import { describeSeries } from "../core/describe";
 import { categoryFormatter, shareFormatter, valueFormatter } from "../core/format";
 import { niceDomain } from "../core/scale";
@@ -42,7 +43,7 @@ export function Sparkline(props: Readonly<SparklineProps>) {
   const first = values[0] ?? 0;
   const last = values.at(-1) ?? 0;
   const up = last >= first;
-  const tone = trendTone ? ((trendTone === "inverse" ? !up : up) ? "success" : "danger") : undefined;
+  const tone = trendColorTone(trendTone, up);
   const stroke = colorOf(color ?? tone, 1);
 
   return (
@@ -68,7 +69,10 @@ export function Sparkline(props: Readonly<SparklineProps>) {
         const pad = variant === "bar" ? 0 : 3;
         const yOf = (v: number) => pad + (1 - (v - d0) / (d1 - d0 || 1)) * (h - pad * 2);
         const n = data.length;
-        const xOf = (i: number) => (variant === "bar" ? (i + 0.5) * (width / n) : n > 1 ? pad + (i / (n - 1)) * (width - pad * 2) : width / 2);
+        const xOf = (i: number) => {
+          if (variant === "bar") return (i + 0.5) * (width / n);
+          return n > 1 ? pad + (i / (n - 1)) * (width - pad * 2) : width / 2;
+        };
         const pts = data.map((v, i) => (v == null ? null : ([xOf(i), yOf(v)] as Point)));
         const lastPoint = [...pts].reverse().find(Boolean);
         return (

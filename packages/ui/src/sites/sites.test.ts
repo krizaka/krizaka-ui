@@ -2,7 +2,7 @@ import { familyLabels, type OrgFacts, orgFamilyLabels, siteById, siteGroups, sit
 
 describe("sites — the Krizaka family", () => {
   it("lists every site once, with an https address and a repository on GitHub", () => {
-    expect(sites.map((s) => s.id)).toEqual(["krizaka", "sovkora", "verikora", "folioviv", "ui", "java", "ts", "motion", "github"]);
+    expect(sites.map((s) => s.id)).toEqual(["krizaka", "blog", "sovkora", "verikora", "folioviv", "kridoc", "ui", "java", "ts", "motion", "github"]);
     for (const site of sites) {
       expect(site.url).toMatch(/^https:\/\//);
       expect(site.repo).toMatch(/^https:\/\/github\.com\/krizaka(\/[a-z-]+)?$/);
@@ -14,9 +14,11 @@ describe("sites — the Krizaka family", () => {
   it("names the family's addresses: www, www.<product>, ui., java., ts., GitHub", () => {
     expect(sites.map((s) => s.host)).toEqual([
       "www.krizaka.com",
+      "blog.krizaka.com",
       "www.sovkora.com",
       "www.verikora.com",
       "www.folioviv.com",
+      "www.kridoc.com",
       "ui.krizaka.com",
       "java.krizaka.com",
       "ts.krizaka.com",
@@ -27,7 +29,7 @@ describe("sites — the Krizaka family", () => {
 
   it("says each kind and status: the company, the three products in focus (Verikora and Folioviv in development), open source", () => {
     expect(siteById("krizaka").kind).toBe("company");
-    expect(sites.filter((s) => s.kind === "product").map((s) => s.id)).toEqual(["sovkora", "verikora", "folioviv"]);
+    expect(sites.filter((s) => s.kind === "product").map((s) => s.id)).toEqual(["sovkora", "verikora", "folioviv", "kridoc"]);
     // In development, with a www site each.
     for (const id of ["verikora", "folioviv"] as const) {
       expect(siteById(id).status).toBe("development");
@@ -44,11 +46,15 @@ describe("sites — the Krizaka family", () => {
   it("groups them in reading order: Krizaka · Products · Open source · GitHub", () => {
     expect(siteGroups).toEqual(["krizaka", "products", "open-source", "github"]);
     expect(sitesByGroup().map((g) => [g.group, g.sites.map((s) => s.id)])).toEqual([
-      ["krizaka", ["krizaka"]],
-      ["products", ["sovkora", "verikora", "folioviv"]],
+      ["krizaka", ["krizaka", "blog"]],
+      ["products", ["sovkora", "verikora", "folioviv", "kridoc"]],
       ["open-source", ["ui", "java", "ts", "motion"]],
       ["github", ["github"]],
     ]);
+  });
+
+  it("answers to `lab`, the org's id of the lab registered here as `motion`", () => {
+    expect(siteById("lab")).toBe(siteById("motion"));
   });
 
   it("refuses an unknown site", () => {

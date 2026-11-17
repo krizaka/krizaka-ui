@@ -187,8 +187,8 @@ function SketchDrawing({ spec, title }: Readonly<{ spec: SketchSpec; title: stri
   // The numbers are HTML over the drawing, a fixed size at any width: on a phone the drawing shrinks, they stay legible.
   return (
     <div className="kz-sketch-canvas" style={{ maxInlineSize: `${vw}px` }}>
+      {/* Named by aria-label only: a page keeps one <title> (the family SEO contract), the legend carries the meaning. */}
       <svg className="kz-sketch-svg" viewBox={`${vx} ${vy} ${vw} ${vh}`} role="img" aria-label={title}>
-        <title>{title}</title>
         {out.washes}
         {out.faint && <path className="kz-sketch-faint" d={out.faint} />}
         {out.ink && <path className="kz-sketch-ink" d={out.ink} />}

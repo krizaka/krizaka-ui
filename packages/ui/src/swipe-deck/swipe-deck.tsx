@@ -146,14 +146,17 @@ export function SwipeDeck<T>({ items, getId, getName, renderCard, onSwipe, empty
     const finish = () => {
       setLeaving(null);
       setDx(0);
-      setMessage(labels.decided ? labels.decided(getName(top), direction) : `${getName(top)}: ${direction === "like" ? labels.like : labels.pass}`);
+      const verdict = direction === "like" ? labels.like : labels.pass;
+      setMessage(labels.decided ? labels.decided(getName(top), direction) : `${getName(top)}: ${verdict}`);
       onSwipe(top, direction);
     };
     if (reduce) return finish();
     setLeaving(direction);
     setTimeout(finish, 220);
   };
-  const offset = leaving ? (leaving === "like" ? 1 : -1) * 900 : dx;
+  const leaveSign = leaving === "like" ? 1 : -1;
+  const offset = leaving ? leaveSign * 900 : dx;
+  const topTransition = (dragging && !leaving) || reduce ? "none" : "transform 220ms var(--kz-ease, ease-out)";
   const stampOpacity = (dir: 1 | -1) => Math.max(0, Math.min(1, (dir * offset) / 120));
   return (
     <div className={s.root({ className })}>
@@ -184,7 +187,7 @@ export function SwipeDeck<T>({ items, getId, getName, renderCard, onSwipe, empty
                 className={s.layer()}
                 style={
                   isTop
-                    ? { transform: `translateX(${offset}px) rotate(${offset / 22}deg)`, transition: dragging && !leaving ? "none" : reduce ? "none" : "transform 220ms var(--kz-ease, ease-out)" }
+                    ? { transform: `translateX(${offset}px) rotate(${offset / 22}deg)`, transition: topTransition }
                     : { transform: "scale(0.96)", opacity: 0.9 }
                 }
                 onPointerDown={(e) => {

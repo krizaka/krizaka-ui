@@ -68,8 +68,11 @@ export function Toaster({ label, closeLabel, position = "bottom-right", closeBut
 }
 
 /** The time-left hairline of one toast: its own duration (none when it stays). */
-const timer = (duration: number | undefined, style?: React.CSSProperties) =>
-  ({ ...style, "--kz-toast-duration": duration === undefined ? undefined : Number.isFinite(duration) ? `${duration}ms` : "none" }) as React.CSSProperties;
+const durationVar = (duration: number | undefined) => {
+  if (duration === undefined) return undefined;
+  return Number.isFinite(duration) ? `${duration}ms` : "none";
+};
+const timer = (duration: number | undefined, style?: React.CSSProperties) => ({ ...style, "--kz-toast-duration": durationVar(duration) }) as React.CSSProperties;
 
 export interface UndoToastOptions extends Omit<ExternalToast, "action" | "cancel"> {
   /** The label of the undo button (“Undo”) — passed translated. */

@@ -1058,6 +1058,14 @@ html:not(.light) .kz-builder-editor {
   color: var(--puck-color-text-secondary);
 }
 
+/* Puck fades a disabled rail item (« undo ») to 40 % opacity: its label falls to 1.9:1 (light) and 3.1:1 (dark), under WCAG AA, and
+   axe flags it whenever it does not skip the disabled control (krizaka-internal#4128). The item stays disabled for assistive
+   technology; the fade is now in the text colour (90 % of the secondary text, 5.4:1 light and above 9:1 dark). */
+.kz-builder-editor [class*="_NavItem-link_"]:disabled {
+  opacity: 1;
+  color: color-mix(in srgb, var(--puck-color-text-secondary) 90%, transparent);
+}
+
 /* The workspace page (the builder demo, krizaka-ui#3549): the whole width and the height of the window, no docs menu.
    The first screen is the title and the editor, together one window tall; the editor's slot takes what the title leaves
    (never under 560 px). The title is the Cahier's: Young Serif, one weight. Nothing here moves. */

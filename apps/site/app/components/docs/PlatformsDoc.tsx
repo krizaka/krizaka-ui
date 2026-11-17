@@ -25,7 +25,10 @@ const NATIVE_CODE = `import { ThemeProvider, Button } from "@krizaka/ui/native";
 /** How many components are there (✓), missing and tracked (✗), not meant for it (n/a), per platform. */
 function countsOf(rows: MatrixRow[]) {
   const counts = Object.fromEntries(PLATFORMS.map((p) => [p, { yes: 0, gap: 0, na: 0 }])) as Record<PlatformId, { yes: number; gap: number; na: number }>;
-  const bucket = (cell: ParityCell) => (cell.state === "gap" ? "gap" : cell.state === "n/a" ? "na" : "yes");
+  const bucket = (cell: ParityCell) => {
+    if (cell.state === "gap") return "gap";
+    return cell.state === "n/a" ? "na" : "yes";
+  };
   for (const row of rows) for (const p of PLATFORMS) counts[p][bucket(row[p])] += 1;
   return counts;
 }

@@ -69,4 +69,5 @@ export interface RealtimeBus {
 export const DEFAULT_PRESENCE: PresenceOptions = { ttlMs: 45_000, graceMs: 10_000 };
 
 /** The rank of a state: a person is as present as their most present connection. */
-export const rank = (state: PresenceState) => (state === "online" ? 2 : state === "away" ? 1 : 0);
+const RANKS: Record<PresenceState, number> = { online: 2, away: 1, offline: 0 };
+export const rank = (state: PresenceState) => RANKS[state];

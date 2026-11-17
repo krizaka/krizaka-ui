@@ -1,5 +1,45 @@
 # @krizaka/ui
 
+## 4.15.0
+
+### Minor Changes
+
+- [#1068](https://github.com/krizaka/krizaka-ui/pull/1068) [`d9ba05f`](https://github.com/krizaka/krizaka-ui/commit/d9ba05ffa2df264b0f9b5b434f80e24f6dba94cc) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ProductBarActions`: `signIn` is now optional. A public site passes neither `signIn` nor `tryIt` and the block renders nothing; with `tryIt` alone only « Try » shows. `productBarActions` gains `hasSignIn` (default `true`) and returns `primary: null` when there is no way in. Callers that pass `signIn` render exactly as before.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@4.15.0
+  - @krizaka/tokens@4.15.0
+
+## 4.14.0
+
+### Minor Changes
+
+- [#1054](https://github.com/krizaka/krizaka-ui/pull/1054) [`e682e5d`](https://github.com/krizaka/krizaka-ui/commit/e682e5d9f3a0ed111890537f68d6dd295450622b) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - One footer for every family site: `FamilyFooter` answers for every site id of `@krizaka/org` (company, blog, the products' pages, Kridoc, the developer sites), `SiteId` adds `blog`, `kridoc` and `lab`, and the family registry lists the blog and Kridoc. The « Krizaka » column is the org's (the blog from `org.family`, the contact page from the new `contact` prop / `org.contact`); the typed `companyLinks` list is removed (krizaka-internal#4008). Needs `@krizaka/org` ≥ 1.11.0.
+
+### Patch Changes
+
+- [#1059](https://github.com/krizaka/krizaka-ui/pull/1059) [`8fd9894`](https://github.com/krizaka/krizaka-ui/commit/8fd989450807f9f07e682789e928abfaa2ec249d) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Internal: nested ternaries replaced by named functions and lookups in the components n–z (Sonar S3358); behaviour unchanged.
+- Updated dependencies [[`75cca36`](https://github.com/krizaka/krizaka-ui/commit/75cca36b98d2bd1c95e421e3db4beea758f7f31e)]:
+  - @krizaka/pacer@0.2.1
+  - @krizaka/tailwind@4.14.0
+  - @krizaka/tokens@4.14.0
+
+## 4.13.0
+
+### Minor Changes
+
+- [#1041](https://github.com/krizaka/krizaka-ui/pull/1041) [`e8a29d2`](https://github.com/krizaka/krizaka-ui/commit/e8a29d28aab4aa1393a75137bdcd311724bb1904) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - feat(ui): `ProductLogo` draws Kridoc — `id="kridoc"` is mark C, the crane (sapphire `#2c6ae8` → `#156fd5`), and the old document glyph is gone. `KridocLogo` is now a deprecated alias of `ProductLogo id="kridoc"` (removed in the next major); `MarkId` is the type of `ProductLogo`'s `id`. feat(tokens): the `kridoc` brand (`brands/kridoc.css`, `.brand-kridoc`, `marks.kridoc`, `brands.json`); `@krizaka/tokens/native` exports `brandAccents` (the accent and its text colour per brand), which the map reads instead of bundling every brand theme. krizaka-internal#3839.
+
+- [#1051](https://github.com/krizaka/krizaka-ui/pull/1051) [`3740d06`](https://github.com/krizaka/krizaka-ui/commit/3740d0664fb82cdb88db9235fdce60c90e95bc21) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/sketch`: `Sketch` and `SketchPair`, a screen drawn as with a pen in a school notebook. Boxes, buttons, scribbled lines, a few words, `@krizaka/icons` glyphs and hatched areas wobble like ink, deterministic from the spec's `seed` (server-rendered, no client JavaScript). Numbered callouts in the margin red point at the items, and a real HTML legend says what each one is for. A callout without a legend line, or the reverse, warns in development, and an unknown icon throws `SketchIconError`. `SketchPair` sets a before and an after side by side from 48rem of room.
+
+### Patch Changes
+
+- Updated dependencies [[`e8a29d2`](https://github.com/krizaka/krizaka-ui/commit/e8a29d28aab4aa1393a75137bdcd311724bb1904)]:
+  - @krizaka/tokens@4.13.0
+  - @krizaka/tailwind@4.13.0
+
 ## 4.12.0
 
 ### Minor Changes
