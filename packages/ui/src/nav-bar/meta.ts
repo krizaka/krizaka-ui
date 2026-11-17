@@ -65,6 +65,7 @@ export const meta = {
       { name: "family-ui", title: "ui.krizaka.com", description: "Krizaka UI: the family, the version of the packages, Get started · Foundations · Components · Templates, the repository." },
       { name: "family-java", title: "java.krizaka.com", description: "Krizaka Java: the family, the version of the building blocks, Get started · Building blocks · Guides." },
       { name: "family-product", title: "dev.<product>", description: "A product's site, the standard of every Krizaka product: its mark alone, Product ▾ · Platforms ▾ · Docs with menus (icon · title · a description of two lines), the repository, the theme, the language, Sign in and “Talk to us”; the phone panel groups the same entries and ends with the preferences." },
+      { name: "public-site", title: "A public site", description: "A product's public page (a shared export): no sign-in and no try action, so the actions block renders nothing and the bar shows no way in." },
       { name: "family-admin", title: "admin.<product>", description: "A console: the mark, the family and `DEV`, no sections, a full-width bar." },
       { name: "site", title: "A site's bar", description: "Brand, a Products menu, links, a call to action, a mobile panel — hover the items: one light glides between them." },
       { name: "menu-open", title: "A rich menu", description: "Two columns of links with icons whose node lights up, the current page tinted." },
