@@ -36,7 +36,7 @@ export const App: Story = { render: () => <AppExample /> };
 export const Docs: Story = { render: () => <DocsExample /> };
 /** The footer as the admin configured it (`config`): real columns, then one legal line that names the company once. */
 export const Configured: Story = { render: () => <ConfiguredExample /> };
-/** The company's Instagram from `org.links.social`, drawn as its icon on the last line. */
+/** The company's accounts (Instagram, Facebook, LinkedIn, YouTube) from `org.links.social`, drawn as its icon on the last line. */
 export const Socials: Story = { render: () => <SocialsExample /> };
 /** The developer sites' footer from the org JSON (`footerFor`): at most three lines on a desktop, folded groups at 360 px. */
 export const Family: Story = { render: () => <FamilyExample /> };

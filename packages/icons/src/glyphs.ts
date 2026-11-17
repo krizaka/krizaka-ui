@@ -191,6 +191,10 @@ export const mute: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M3.5 9.5H7l5-4.5
 export const instagram: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M8 3H16L21 8V16L16 21H8L3 16V8Z","M17.5 6.5h.01"], c: [[12,12,4]] });
 /** youtube video watch social account link */
 export const youtube: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5 5H19L21 7V17L19 19H5L3 17V7Z","M9.5 9L16.5 12L9.5 15Z"] });
+/** facebook social account link */
+export const facebook: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M6 3H18L21 6V18L18 21H6L3 18V6Z","M13.5 21V9.5L14.8 8H17","M10.5 12.5H17"] });
+/** linkedin social account link professional */
+export const linkedin: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M6 3H18L21 6V18L18 21H6L3 18V6Z","M8 8.5h.01","M8 11.5v5","M12 11.5v5","M12 13.5a2.2 2.2 0 0 1 4.4 0v3"] });
 /** flag report abuse moderation */
 export const flag: Glyph = /* @__PURE__ */ Object.freeze({ p: ["M5 21V3.5","M5 4.5c2.3-1.4 4.7-1.4 7 0s4.7 1.4 7 0v8.5c-2.3 1.4-4.7 1.4-7 0s-4.7-1.4-7 0"] });
 
@@ -670,6 +674,16 @@ export const glyphIndex = {
     "component": "YoutubeIcon",
     "group": "interface",
     "keywords": "youtube video watch social account link"
+  },
+  "facebook": {
+    "component": "FacebookIcon",
+    "group": "interface",
+    "keywords": "facebook social account link"
+  },
+  "linkedin": {
+    "component": "LinkedinIcon",
+    "group": "interface",
+    "keywords": "linkedin social account link professional"
   },
   "flag": {
     "component": "FlagIcon",

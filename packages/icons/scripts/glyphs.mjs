@@ -148,6 +148,9 @@ export const GLYPHS = {
   instagram: { group: "interface", keywords: "instagram social account link camera photo", p: [cut(3, 3, 18, 18, 5), "M17.5 6.5h.01"], c: [[12, 12, 4]] },
   // YouTube's brand guidelines allow the monochrome glyph as a link: a cut-cornered screen with a play triangle.
   youtube: { group: "interface", keywords: "youtube video watch social account link", p: [cut(3, 5, 18, 14, 2), "M9.5 9L16.5 12L9.5 15Z"] },
+  // Facebook and LinkedIn: the same account-link glyphs, monochrome, in the cut-cornered frame (the platforms' brand rules allow the mark, not their colours; drawn here, no third-party artwork, krizaka-internal#4114).
+  facebook: { group: "interface", keywords: "facebook social account link", p: [cut(3, 3, 18, 18, 3), "M13.5 21V9.5L14.8 8H17", "M10.5 12.5H17"] },
+  linkedin: { group: "interface", keywords: "linkedin social account link professional", p: [cut(3, 3, 18, 18, 3), "M8 8.5h.01", "M8 11.5v5", "M12 11.5v5", "M12 13.5a2.2 2.2 0 0 1 4.4 0v3"] },
   flag: { group: "interface", keywords: "flag report abuse moderation", p: ["M5 21V3.5", "M5 4.5c2.3-1.4 4.7-1.4 7 0s4.7 1.4 7 0v8.5c-2.3 1.4-4.7 1.4-7 0s-4.7-1.4-7 0"] },
 };
 

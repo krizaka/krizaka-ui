@@ -192,5 +192,9 @@ export const MuteIcon = /* @__PURE__ */ createIcon("MuteIcon", g.mute);
 export const InstagramIcon = /* @__PURE__ */ createIcon("InstagramIcon", g.instagram);
 /** youtube video watch social account link */
 export const YoutubeIcon = /* @__PURE__ */ createIcon("YoutubeIcon", g.youtube);
+/** facebook social account link */
+export const FacebookIcon = /* @__PURE__ */ createIcon("FacebookIcon", g.facebook);
+/** linkedin social account link professional */
+export const LinkedinIcon = /* @__PURE__ */ createIcon("LinkedinIcon", g.linkedin);
 /** flag report abuse moderation */
 export const FlagIcon = /* @__PURE__ */ createIcon("FlagIcon", g.flag);

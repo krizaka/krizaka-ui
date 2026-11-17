@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { render } from "@testing-library/react";
+import type { ReactElement } from "react";
 
 import { GLYPHS, outputs } from "../scripts/glyphs.mjs";
 import * as catalog from "../src/catalog";
@@ -15,7 +16,7 @@ describe("the set", () => {
   it("covers the product vocabulary and the usual navigation (40–100 icons)", () => {
     expect(names.length).toBeGreaterThanOrEqual(40);
     expect(names.length).toBeLessThanOrEqual(100);
-    for (const word of ["tip", "unlock", "paid", "auction", "challenge", "goal", "creator", "story", "story24h", "payout", "wallet", "share90", "lock", "follow", "message", "upload", "video", "chat", "ai", "agent", "studio", "pack", "automation", "knowledge", "shield", "local", "server", "billing", "credits", "theme", "search", "settings", "notification", "soccer", "hockey", "basketball", "trophy", "medal", "podium", "star", "bolt", "wave", "flame", "crown", "leaf", "mountain", "instagram", "youtube"]) {
+    for (const word of ["tip", "unlock", "paid", "auction", "challenge", "goal", "creator", "story", "story24h", "payout", "wallet", "share90", "lock", "follow", "message", "upload", "video", "chat", "ai", "agent", "studio", "pack", "automation", "knowledge", "shield", "local", "server", "billing", "credits", "theme", "search", "settings", "notification", "soccer", "hockey", "basketball", "trophy", "medal", "podium", "star", "bolt", "wave", "flame", "crown", "leaf", "mountain", "instagram", "youtube", "facebook", "linkedin"]) {
       expect(names, word).toContain(word);
     }
   });
@@ -41,6 +42,16 @@ describe("the set", () => {
     const { container } = render(<icons.YoutubeIcon title="YouTube" />);
     const svg = container.querySelector("svg")!;
     expect(svg.getAttribute("aria-label")).toBe("YouTube");
+    expect(container.innerHTML).not.toMatch(/gradient|#[0-9a-f]{3,6}|rgb/i);
+  });
+
+  it.each([["facebook", "FacebookIcon", "Facebook"], ["linkedin", "LinkedinIcon", "LinkedIn"]] as const)("draws the %s glyph as a bare monochrome outline (krizaka-internal#4114)", (id, comp, label) => {
+    const g = (GLYPHS as Record<string, { group: string; n?: unknown[]; p?: string[]; c?: unknown[][] }>)[id];
+    expect(g.group).toBe("interface");
+    expect(g.n).toBeUndefined();
+    const Icon = icons[comp as keyof typeof icons] as (p: { title: string }) => ReactElement;
+    const { container } = render(<Icon title={label} />);
+    expect(container.querySelector("svg")!.getAttribute("aria-label")).toBe(label);
     expect(container.innerHTML).not.toMatch(/gradient|#[0-9a-f]{3,6}|rgb/i);
   });
 
