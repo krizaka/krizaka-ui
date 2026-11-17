@@ -66,6 +66,11 @@ export type DateFieldProps = Common & {
   autoComplete?: "bday" | "off";
 };
 
+function describedByOf(id: string, error?: string, hint?: string) {
+  if (error) return `${id}-error`;
+  return hint ? `${id}-hint` : undefined;
+}
+
 function Caption({ id, hint, error }: Readonly<{ id: string; hint?: string; error?: string }>) {
   const s = dateField();
   if (error)
@@ -92,7 +97,7 @@ export function DateField({ label, locale, hint, error, disabled, name, labels: 
   // A value set from outside (a reset, a suggestion) replaces what is in the boxes.
   if ((value ?? "") !== composeDate(parts) && composeDate(splitDate(value)) === (value ?? "")) setParts(splitDate(value));
   const refs = { day: React.useRef<HTMLInputElement>(null), month: React.useRef<HTMLInputElement>(null), year: React.useRef<HTMLInputElement>(null) };
-  const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
+  const describedBy = describedByOf(id, error, hint);
   return (
     <fieldset className={s.root({ className })} aria-describedby={describedBy} onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node | null) && onBlur?.()}>
       <legend className={s.legend()}>{label}</legend>
@@ -203,7 +208,7 @@ export function DateWheel({ label, locale, hint, error, disabled, name, labels: 
       <span aria-hidden className={dateField().legend()}>
         {label}
       </span>
-      <WheelPicker label={label} aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined} invalid={Boolean(error)} unset={!value}>{order.map((part) => columns[part])}</WheelPicker>
+      <WheelPicker label={label} aria-describedby={describedByOf(id, error, hint)} invalid={Boolean(error)} unset={!value}>{order.map((part) => columns[part])}</WheelPicker>
       {name ? <input type="hidden" name={name} value={value ?? ""} /> : null}
       <Caption id={id} hint={hint} error={error} />
     </div>

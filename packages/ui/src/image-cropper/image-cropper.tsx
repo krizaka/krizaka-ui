@@ -143,6 +143,25 @@ export function ImageCropper({
     top: pct(50 - y * heightPct),
   };
 
+  const renderMedia = () => {
+    if (children) return React.cloneElement(children, { className: s.media({ className: children.props.className }), style: { ...children.props.style, ...style } });
+    if (!src) return null;
+    return (
+      <img
+        src={src}
+        alt={alt}
+        draggable={false}
+        className={s.media()}
+        style={style}
+        // A picture already in the cache (or rendered on the server) is complete before React attaches: no load event.
+        ref={(img) => {
+          if (img?.complete && img.naturalWidth > 0) setLoaded((was) => (was?.width === img.naturalWidth && was.height === img.naturalHeight ? was : { width: img.naturalWidth, height: img.naturalHeight }));
+        }}
+        onLoad={(event) => setLoaded({ width: event.currentTarget.naturalWidth, height: event.currentTarget.naturalHeight })}
+      />
+    );
+  };
+  const media = renderMedia();
   return (
     <div className={s.root({ className })}>
       <div
@@ -192,22 +211,7 @@ export function ImageCropper({
           set(next);
         }}
       >
-        {children ? (
-          React.cloneElement(children, { className: s.media({ className: children.props.className }), style: { ...children.props.style, ...style } })
-        ) : src ? (
-          <img
-            src={src}
-            alt={alt}
-            draggable={false}
-            className={s.media()}
-            style={style}
-            // A picture already in the cache (or rendered on the server) is complete before React attaches: no load event.
-            ref={(img) => {
-              if (img?.complete && img.naturalWidth > 0) setLoaded((was) => (was?.width === img.naturalWidth && was.height === img.naturalHeight ? was : { width: img.naturalWidth, height: img.naturalHeight }));
-            }}
-            onLoad={(event) => setLoaded({ width: event.currentTarget.naturalWidth, height: event.currentTarget.naturalHeight })}
-          />
-        ) : null}
+        {media}
         <span className={round ? s.round() : s.grid()} aria-hidden />
         <span id={`${id}-help`} className="sr-only">
           {labels.instructions}

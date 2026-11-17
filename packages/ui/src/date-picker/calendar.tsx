@@ -62,7 +62,15 @@ export const calendar = tv({
 });
 
 const monthOf = (iso: IsoDate) => `${iso.slice(0, 7)}-01`;
-const clampIso = (iso: IsoDate, min?: IsoDate, max?: IsoDate) => (min && iso < min ? min : max && iso > max ? max : iso);
+const clampIso = (iso: IsoDate, min?: IsoDate, max?: IsoDate) => {
+  if (min && iso < min) return min;
+  return max && iso > max ? max : iso;
+};
+const slideOf = (to: IsoDate, from: IsoDate) => {
+  if (to > from) return "next";
+  return to < from ? "previous" : null;
+};
+const orderedPair = (a: IsoDate, b: IsoDate): [IsoDate, IsoDate] => (a <= b ? [a, b] : [b, a]);
 const monthsBetween = (a: IsoDate, b: IsoDate) => (Number(b.slice(0, 4)) - Number(a.slice(0, 4))) * 12 + Number(b.slice(5, 7)) - Number(a.slice(5, 7));
 
 export type CalendarLabels = {
@@ -162,7 +170,7 @@ export function Calendar({
 
   const setMonth = (next: IsoDate) => {
     const m = monthOf(next);
-    setDirection(m > month ? "next" : m < month ? "previous" : null);
+    setDirection(slideOf(m, month));
     if (!monthProp) setInnerMonth(m);
     onMonthChange?.(m);
   };
@@ -184,7 +192,7 @@ export function Calendar({
   const fullTitle = numberOfMonths === 2 ? `${title} – ${titleFormat.format(toLocalDate(lastShown))}` : title;
 
   const rangeEnd = range ? (range.end ?? hover) : null;
-  const [lo, hi] = range && rangeEnd ? (range.start <= rangeEnd ? [range.start, rangeEnd] : [rangeEnd, range.start]) : [null, null];
+  const [lo, hi] = range && rangeEnd ? orderedPair(range.start, rangeEnd) : [null, null];
   const previewing = Boolean(range && !range.end);
 
   const focusDay = (iso: IsoDate) => {
@@ -218,8 +226,9 @@ export function Calendar({
     if (!lo || !hi) return undefined;
     if (iso < lo || iso > hi) return undefined;
     if (lo === hi) return undefined;
-    if (previewing && iso !== range?.start) return iso === lo ? "start" : iso === hi ? "end" : "preview";
-    return iso === lo ? "start" : iso === hi ? "end" : "middle";
+    if (iso === lo) return "start";
+    if (iso === hi) return "end";
+    return previewing && iso !== range?.start ? "preview" : "middle";
   };
 
   const renderMonth = (first: IsoDate, index: number) => {

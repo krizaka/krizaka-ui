@@ -90,7 +90,8 @@ export function LocationPicker({ label, value, onValueChange, locale, zoom = 14,
     );
   };
   const distance = origin ? formatDistance(distanceMeters(origin, value), locale) : null;
-  const message = status === "locating" ? labels.locating : status === "denied" ? labels.denied : status === "unavailable" ? labels.unavailable : "";
+  const statusWords: Partial<Record<typeof status, string>> = { locating: labels.locating, denied: labels.denied, unavailable: labels.unavailable };
+  const message = statusWords[status] ?? "";
   return (
     <div className={s.root({ className })} role="group" aria-label={label}>
       <div className={s.frame()}>

@@ -56,7 +56,10 @@ export function acceptsFile(file: File, accept?: string): boolean {
     .split(",")
     .map((rule) => rule.trim().toLowerCase())
     .filter(Boolean)
-    .some((rule) => (rule.startsWith(".") ? name.endsWith(rule) : rule.endsWith("/*") ? type.startsWith(rule.slice(0, -1)) : type === rule));
+    .some((rule) => {
+      if (rule.startsWith(".")) return name.endsWith(rule);
+      return rule.endsWith("/*") ? type.startsWith(rule.slice(0, -1)) : type === rule;
+    });
 }
 
 /** A size in the locale's words (`"1.4 GB"`, `"820 kB"`), through `@krizaka/intl`. */
@@ -307,6 +310,7 @@ export function UploadList({ items, onPause, onResume, onRetry, onCancel, onRemo
   return (
     <ul aria-label={labels.list} className={s.list({ className })}>
       {items.map((item) => {
+        const remove = item.status === "done" || item.status === "error" ? onRemove : undefined;
         const left = item.status === "uploading" && item.speed ? ((1 - item.progress) * item.size) / item.speed : null;
         return (
           <li key={item.id} className={s.item()} data-status={item.status}>
@@ -334,11 +338,8 @@ export function UploadList({ items, onPause, onResume, onRetry, onCancel, onRemo
               {item.status === "uploading" && onPause && action(labels.pause(item.name), () => onPause(item.id), <PauseGlyph className="h-4 w-4" />)}
               {item.status === "paused" && onResume && action(labels.resume(item.name), () => onResume(item.id), <PlayGlyph className="h-4 w-4" />)}
               {item.status === "error" && onRetry && action(labels.retry(item.name), () => onRetry(item.id), <RetryGlyph className="h-4 w-4" />)}
-              {(item.status === "done" || item.status === "error") && onRemove
-                ? action(labels.remove(item.name), () => onRemove(item.id), <CloseGlyph className="h-4 w-4" />)
-                : item.status !== "done" && onCancel
-                  ? action(labels.cancel(item.name), () => onCancel(item.id), <CloseGlyph className="h-4 w-4" />)
-                  : null}
+              {remove && action(labels.remove(item.name), () => remove(item.id), <CloseGlyph className="h-4 w-4" />)}
+              {!remove && item.status !== "done" && onCancel && action(labels.cancel(item.name), () => onCancel(item.id), <CloseGlyph className="h-4 w-4" />)}
             </div>
           </li>
         );

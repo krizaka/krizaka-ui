@@ -105,6 +105,25 @@ export type ListProps<T> = {
   className?: string;
 };
 
+/** The main part of a row: a link, a button when the row can be selected, else plain text. */
+function rowMain(r: Pick<ListRow, "href" | "onSelect">, content: React.ReactNode, className: string) {
+  if (r.href) {
+    return (
+      <a href={r.href} data-main="" className={className}>
+        {content}
+      </a>
+    );
+  }
+  if (r.onSelect) {
+    return (
+      <button type="button" data-main="" onClick={r.onSelect} className={className}>
+        {content}
+      </button>
+    );
+  }
+  return <div className={className}>{content}</div>;
+}
+
 /** A list of records: dense or comfortable, selectable, actions beside each row, windowed when long, with its states. */
 export function List<T>({
   items,
@@ -180,20 +199,11 @@ export function List<T>({
           {chevrons && (r.href || r.onSelect) ? <ChevronGlyph direction="right" className={s.chevron()} /> : null}
         </>
       );
+      const main = rowMain(r, content, s.main());
       return (
         <li key={id} data-state={isChosen ? "selected" : undefined} className={s.item()} style={virtualize ? { height: virtualize.rowHeight } : undefined}>
           {selectable ? <Checkbox checked={isChosen} onCheckedChange={() => toggle(id)} aria-label={labels.selectRow(r.title)} className="relative z-10" /> : null}
-          {r.href ? (
-            <a href={r.href} data-main="" className={s.main()}>
-              {content}
-            </a>
-          ) : r.onSelect ? (
-            <button type="button" data-main="" onClick={r.onSelect} className={s.main()}>
-              {content}
-            </button>
-          ) : (
-            <div className={s.main()}>{content}</div>
-          )}
+          {main}
           {r.actions ? <div className={s.actions()}>{r.actions}</div> : null}
         </li>
       );

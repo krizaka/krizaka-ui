@@ -46,7 +46,10 @@ export function groupActivity<T extends ActivityEvent>(
     const key = dayKey(date);
     if (!current || key !== currentKey) {
       currentKey = key;
-      current = { label: key === todayKey ? today : key === yesterdayKey ? yesterday : day.format(date), events: [] };
+      let label = day.format(date);
+      if (key === todayKey) label = today;
+      else if (key === yesterdayKey) label = yesterday;
+      current = { label, events: [] };
       groups.push(current);
     }
     const last = current.events.at(-1);

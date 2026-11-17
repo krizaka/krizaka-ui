@@ -168,11 +168,16 @@ export type TimelineProps<T extends ActivityEvent> = {
   className?: string;
 };
 
+const TIME_OPTIONS = {
+  time: { hour: "2-digit", minute: "2-digit" },
+  date: { dateStyle: "medium" },
+  datetime: { dateStyle: "medium", timeStyle: "short" },
+} as const satisfies Record<string, Intl.DateTimeFormatOptions>;
+
 /** One thing's history on a rail, oldest first: each event a marker in its tone, its time and its words. */
 export function Timeline<T extends ActivityEvent>({ events, "aria-label": label, locale = "en-US", timeStyle = "time", className }: Readonly<TimelineProps<T>>) {
   const s = activityFeed();
-  const options: Intl.DateTimeFormatOptions =
-    timeStyle === "time" ? { hour: "2-digit", minute: "2-digit" } : timeStyle === "date" ? { dateStyle: "medium" } : { dateStyle: "medium", timeStyle: "short" };
+  const options = TIME_OPTIONS[timeStyle];
   const write = new Intl.DateTimeFormat(locale, options);
   return (
     <ol aria-label={label} className={s.ol({ className })}>

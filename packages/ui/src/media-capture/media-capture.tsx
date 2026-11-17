@@ -115,6 +115,7 @@ export type MediaCaptureProps = {
 type State = "idle" | "starting" | "live" | "denied" | "unavailable";
 
 const supported = () => typeof navigator !== "undefined" && Boolean(navigator.mediaDevices?.getUserMedia);
+const ACCEPT_OF = { video: "video/*", photo: "image/*" } as const;
 const recorderType = () =>
   typeof MediaRecorder === "undefined" ? undefined : ["video/webm;codecs=vp9,opus", "video/webm", "video/mp4"].find((t) => MediaRecorder.isTypeSupported?.(t));
 
@@ -264,7 +265,11 @@ export function MediaCapture({
     void start(side);
   };
 
-  const accept = mode === "video" ? "video/*" : mode === "photo" ? "image/*" : "image/*,video/*";
+  const accept = mode === "video" || mode === "photo" ? ACCEPT_OF[mode] : "image/*,video/*";
+  const recordingLabel = recording ? labels.stopRecording : labels.startRecording;
+  const shutterLabel = kind === "photo" ? labels.takePhoto : recordingLabel;
+  const panelText: Partial<Record<State, string>> = { denied: labels.denied, unavailable: labels.unavailable };
+  const panelWords = panelText[state] ?? labels.prompt;
   const fallback = (
     <>
       <button type="button" className={s.secondary()} onClick={() => file.current?.click()}>
@@ -296,7 +301,7 @@ export function MediaCapture({
             <span className={s.panelIcon()} aria-hidden>
               <CameraGlyph className="h-6 w-6" />
             </span>
-            <p className="max-w-xs">{state === "denied" ? labels.denied : state === "unavailable" ? labels.unavailable : labels.prompt}</p>
+            <p className="max-w-xs">{panelWords}</p>
             <div className="flex flex-wrap justify-center gap-2">
               {(state === "idle" || state === "starting") && (
                 <button type="button" className={s.primary()} disabled={state === "starting"} onClick={() => void start(facing)}>
@@ -335,7 +340,7 @@ export function MediaCapture({
               data-mode={kind}
               data-recording={recording ? "" : undefined}
               data-reduce={reduce ? "" : undefined}
-              aria-label={kind === "photo" ? labels.takePhoto : recording ? labels.stopRecording : labels.startRecording}
+              aria-label={shutterLabel}
               onClick={kind === "photo" ? takePhoto : toggleRecording}
             />
             <button type="button" className={s.round()} aria-label={labels.switchCamera} disabled={cameras < 2 || recording} onClick={flip}>
