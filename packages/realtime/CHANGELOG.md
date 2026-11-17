@@ -1,5 +1,11 @@
 # @krizaka/realtime
 
+## 0.2.2
+
+### Patch Changes
+
+- [#1056](https://github.com/krizaka/krizaka-ui/pull/1056) [`75cca36`](https://github.com/krizaka/krizaka-ui/commit/75cca36b98d2bd1c95e421e3db4beea758f7f31e) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Internal: nested ternaries replaced by named functions and lookups (Sonar S3358); behaviour unchanged.
+
 ## 0.2.1
 
 ### Patch Changes

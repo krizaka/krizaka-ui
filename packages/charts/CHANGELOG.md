@@ -1,5 +1,13 @@
 # @krizaka/charts
 
+## 1.0.2
+
+### Patch Changes
+
+- [#1057](https://github.com/krizaka/krizaka-ui/pull/1057) [`a95c742`](https://github.com/krizaka/krizaka-ui/commit/a95c74215c6f08e76f3aa3bfec39f2ca44aae64f) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Internal: nested ternaries replaced by named functions and lookups (Sonar S3358); behaviour unchanged.
+- Updated dependencies [[`e682e5d`](https://github.com/krizaka/krizaka-ui/commit/e682e5d9f3a0ed111890537f68d6dd295450622b), [`8fd9894`](https://github.com/krizaka/krizaka-ui/commit/8fd989450807f9f07e682789e928abfaa2ec249d)]:
+  - @krizaka/ui@4.14.0
+
 ## 1.0.1
 
 ### Patch Changes
