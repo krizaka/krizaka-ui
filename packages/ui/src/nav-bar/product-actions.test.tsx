@@ -16,6 +16,10 @@ describe("productBarActions: the one rule of every product's bar", () => {
     [{ signupOpen: false, hasTry: false }, ProductBarAction.SignIn, null],
     [{ signupOpen: true, hasTry: false }, ProductBarAction.SignIn, null],
     [{ signupOpen: true, hasTry: true }, ProductBarAction.Try, ProductBarAction.SignIn],
+    [{ signupOpen: true, hasTry: true, hasSignIn: false }, ProductBarAction.Try, null],
+    [{ signupOpen: false, hasTry: true, hasSignIn: false }, ProductBarAction.Try, null],
+    [{ signupOpen: true, hasTry: false, hasSignIn: false }, null, null],
+    [{ signupOpen: false, hasTry: false, hasSignIn: false }, null, null],
   ])("%j → primary %s, secondary %s", (state, primary, secondary) => {
     expect(productBarActions(state)).toEqual({ primary, secondary });
   });
@@ -56,5 +60,38 @@ describe("ProductBarActions", () => {
   it("ships the rule that hides them under html[data-session], beating the buttons' own display", () => {
     const css = readFileSync(join(import.meta.dirname, "..", "blocks.css"), "utf8");
     expect(css).toMatch(/html\[data-session\] \[data-signed-out-only\]\s*\{\s*display:\s*none\s*!important/);
+  });
+
+  describe.each(["bar", "panel"] as const)("in the %s placement", (placement) => {
+    const show = (props: Partial<Parameters<typeof ProductBarActions>[0]>) =>
+      render(
+        <NavBarRoot label="Menu">
+          <ProductBarActions signupOpen placement={placement} {...props} />
+        </NavBarRoot>,
+      );
+
+    it("sign-in only: one primary « Sign in »", () => {
+      show({ signIn });
+      expect(screen.getAllByRole("link")).toHaveLength(1);
+      expect(screen.getByRole("link", { name: "Se connecter" }).getAttribute("data-variant")).toBe("primary");
+    });
+
+    it("try + sign-in: « Try » primary, « Sign in » quiet", () => {
+      show({ signIn, tryIt: attempt });
+      expect(screen.getByRole("link", { name: "Essayer gratuitement" }).getAttribute("data-variant")).toBe("primary");
+      expect(screen.getByRole("link", { name: "Se connecter" }).getAttribute("data-variant")).toBe("ghost");
+    });
+
+    it("try without sign-in: only « Try »", () => {
+      show({ tryIt: attempt });
+      expect(screen.getAllByRole("link")).toHaveLength(1);
+      expect(screen.getByRole("link", { name: "Essayer gratuitement" }).getAttribute("data-variant")).toBe("primary");
+    });
+
+    it("neither: nothing at all, no button and no wrapper", () => {
+      const { container } = show({});
+      expect(screen.queryAllByRole("link")).toHaveLength(0);
+      expect(container.querySelector("nav")?.childElementCount ?? 0).toBe(0);
+    });
   });
 });

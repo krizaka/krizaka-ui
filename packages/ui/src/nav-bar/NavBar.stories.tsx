@@ -8,6 +8,7 @@ import FamilyProductExample from "../../registry/examples/nav-bar/family-product
 import FamilyUiExample from "../../registry/examples/nav-bar/family-ui";
 import FamilyWwwExample from "../../registry/examples/nav-bar/family-www";
 import MenuOpenExample from "../../registry/examples/nav-bar/menu-open";
+import PublicSiteExample from "../../registry/examples/nav-bar/public-site";
 import SiteExample from "../../registry/examples/nav-bar/site";
 import { NavBar, NavBarRoot } from "./nav-bar";
 
@@ -45,6 +46,7 @@ export const FamilyOpen: Story = {
 export const FamilyUi: Story = { render: () => <FamilyUiExample /> };
 export const FamilyJava: Story = { render: () => <FamilyJavaExample /> };
 export const FamilyProduct: Story = { render: () => <FamilyProductExample /> };
+export const PublicSite: Story = { render: () => <PublicSiteExample /> };
 export const FamilyAdmin: Story = { render: () => <FamilyAdminExample /> };
 
 /** The French descriptions of Verikora's menu — the ones that used to be cut mid-sentence. */
