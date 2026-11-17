@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 4.15.0
+
+### Minor Changes
+
+- [#1068](https://github.com/krizaka/krizaka-ui/pull/1068) [`d9ba05f`](https://github.com/krizaka/krizaka-ui/commit/d9ba05ffa2df264b0f9b5b434f80e24f6dba94cc) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ProductBarActions`: `signIn` is now optional. A public site passes neither `signIn` nor `tryIt` and the block renders nothing; with `tryIt` alone only « Try » shows. `productBarActions` gains `hasSignIn` (default `true`) and returns `primary: null` when there is no way in. Callers that pass `signIn` render exactly as before.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@4.15.0
+  - @krizaka/tokens@4.15.0
+
 ## 4.14.0
 
 ### Minor Changes
