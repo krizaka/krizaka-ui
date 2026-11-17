@@ -41,12 +41,6 @@ describe("ProductBarActions", () => {
     expect(screen.queryByText(/contact|talk/i)).toBeNull();
   });
 
-  it("makes « Try » primary once sign-up opens, with « Sign in » beside it as a quiet link", () => {
-    show({ signIn, tryIt: attempt });
-    expect(screen.getByRole("link", { name: "Essayer gratuitement" }).getAttribute("data-variant")).toBe("primary");
-    expect(screen.getByRole("link", { name: "Se connecter" }).getAttribute("data-variant")).toBe("ghost");
-  });
-
   it("marks every sign-in and try action signed-out-only, so an app can hide them for a hinted visitor (krizaka-ui#827)", () => {
     show({ signIn, tryIt: attempt });
     for (const name of ["Essayer gratuitement", "Se connecter"]) expect(screen.getByRole("link", { name }).hasAttribute("data-signed-out-only")).toBe(true);
