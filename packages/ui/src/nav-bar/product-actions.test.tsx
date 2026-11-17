@@ -10,6 +10,13 @@ import { ProductBarAction, ProductBarActions, productBarActions } from "./produc
 const signIn = { href: "/sign-in", label: "Se connecter" };
 const attempt = { href: "/sign-up", label: "Essayer gratuitement" };
 
+const show = (props: Partial<Parameters<typeof ProductBarActions>[0]>) =>
+  render(
+    <NavBarRoot label="Menu">
+      <ProductBarActions signupOpen {...props} />
+    </NavBarRoot>,
+  );
+
 describe("productBarActions: the one rule of every product's bar", () => {
   it.each([
     [{ signupOpen: false, hasTry: true }, ProductBarAction.SignIn, null],
@@ -27,11 +34,7 @@ describe("productBarActions: the one rule of every product's bar", () => {
 
 describe("ProductBarActions", () => {
   it("shows « Sign in » as the one primary action while sign-up is closed, and no contact", () => {
-    render(
-      <NavBarRoot label="Menu">
-        <ProductBarActions signIn={signIn} tryIt={attempt} signupOpen={false} />
-      </NavBarRoot>,
-    );
+    show({ signIn, tryIt: attempt, signupOpen: false });
     const link = screen.getByRole("link", { name: "Se connecter" });
     expect(link.getAttribute("data-variant")).toBe("primary");
     expect(screen.getAllByRole("link")).toHaveLength(1);
@@ -39,21 +42,13 @@ describe("ProductBarActions", () => {
   });
 
   it("makes « Try » primary once sign-up opens, with « Sign in » beside it as a quiet link", () => {
-    render(
-      <NavBarRoot label="Menu">
-        <ProductBarActions signIn={signIn} tryIt={attempt} signupOpen />
-      </NavBarRoot>,
-    );
+    show({ signIn, tryIt: attempt });
     expect(screen.getByRole("link", { name: "Essayer gratuitement" }).getAttribute("data-variant")).toBe("primary");
     expect(screen.getByRole("link", { name: "Se connecter" }).getAttribute("data-variant")).toBe("ghost");
   });
 
   it("marks every sign-in and try action signed-out-only, so an app can hide them for a hinted visitor (krizaka-ui#827)", () => {
-    render(
-      <NavBarRoot label="Menu">
-        <ProductBarActions signIn={signIn} tryIt={attempt} signupOpen />
-      </NavBarRoot>,
-    );
+    show({ signIn, tryIt: attempt });
     for (const name of ["Essayer gratuitement", "Se connecter"]) expect(screen.getByRole("link", { name }).hasAttribute("data-signed-out-only")).toBe(true);
   });
 
@@ -63,33 +58,26 @@ describe("ProductBarActions", () => {
   });
 
   describe.each(["bar", "panel"] as const)("in the %s placement", (placement) => {
-    const show = (props: Partial<Parameters<typeof ProductBarActions>[0]>) =>
-      render(
-        <NavBarRoot label="Menu">
-          <ProductBarActions signupOpen placement={placement} {...props} />
-        </NavBarRoot>,
-      );
-
     it("sign-in only: one primary « Sign in »", () => {
-      show({ signIn });
+      show({ signIn, placement });
       expect(screen.getAllByRole("link")).toHaveLength(1);
       expect(screen.getByRole("link", { name: "Se connecter" }).getAttribute("data-variant")).toBe("primary");
     });
 
     it("try + sign-in: « Try » primary, « Sign in » quiet", () => {
-      show({ signIn, tryIt: attempt });
+      show({ signIn, tryIt: attempt, placement });
       expect(screen.getByRole("link", { name: "Essayer gratuitement" }).getAttribute("data-variant")).toBe("primary");
       expect(screen.getByRole("link", { name: "Se connecter" }).getAttribute("data-variant")).toBe("ghost");
     });
 
     it("try without sign-in: only « Try »", () => {
-      show({ tryIt: attempt });
+      show({ tryIt: attempt, placement });
       expect(screen.getAllByRole("link")).toHaveLength(1);
       expect(screen.getByRole("link", { name: "Essayer gratuitement" }).getAttribute("data-variant")).toBe("primary");
     });
 
     it("neither: nothing at all, no button and no wrapper", () => {
-      const { container } = show({});
+      const { container } = show({ placement });
       expect(screen.queryAllByRole("link")).toHaveLength(0);
       expect(container.querySelector("nav")?.childElementCount ?? 0).toBe(0);
     });
