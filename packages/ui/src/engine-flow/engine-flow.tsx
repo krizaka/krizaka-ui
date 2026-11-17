@@ -180,7 +180,8 @@ function Stage({
               animationDelay: `${(-(((i * stagger) / 1000 + (dir === "out" ? period / 2 : 0)) % period)).toFixed(2)}s`,
               ...(easing !== "linear" ? { animationTimingFunction: easing } : {}),
             }) as React.CSSProperties;
-          const lanes = node.planned || particles === "none" ? [] : flow === "both" ? (["in", "out"] as const) : [flow];
+          const flowLanes = flow === "both" ? (["in", "out"] as const) : [flow];
+          const lanes = node.planned || particles === "none" ? [] : flowLanes;
           return (
             <g
               key={node.id}
@@ -257,6 +258,16 @@ function flowData({ chosen, calm, saveData, trigger, density, compact }: FlowDat
 
 /** What the chosen node says, or the hint when none is chosen. */
 function FlowDetail({ id, chosen, hint }: Readonly<{ id: string; chosen: EngineFlowNode | undefined; hint: React.ReactNode }>) {
+  const target = chosen?.external ? { target: "_blank", rel: "noopener" } : {};
+  const link = chosen?.href ? (
+    <>
+      {" "}
+      <a href={chosen.href} {...target}>
+        {chosen.linkLabel ?? chosen.label}
+        <span aria-hidden="true"> →</span>
+      </a>
+    </>
+  ) : null;
   return (
     <figcaption id={id} className={cn("kz-flow-detail", chosen?.className)} aria-live="polite">
       {chosen ? (
@@ -264,15 +275,7 @@ function FlowDetail({ id, chosen, hint }: Readonly<{ id: string; chosen: EngineF
           <strong>{chosen.label}</strong>
           {chosen.status ? <span className="kz-flow-status">{chosen.status}</span> : null}
           {chosen.description ? <span> {chosen.description}</span> : null}
-          {chosen.href ? (
-            <>
-              {" "}
-              <a href={chosen.href} {...(chosen.external ? { target: "_blank", rel: "noopener" } : {})}>
-                {chosen.linkLabel ?? chosen.label}
-                <span aria-hidden="true"> →</span>
-              </a>
-            </>
-          ) : null}
+          {link}
         </>
       ) : (
         hint

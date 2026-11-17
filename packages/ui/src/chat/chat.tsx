@@ -286,6 +286,8 @@ export type ConversationItemProps = {
 /** A conversation in the list: avatar, name, the last message or typing, the time, the unread count. */
 export function ConversationItem({ name, avatar, preview, typing, time, unread = 0, unreadLabel, online, onlineLabel, href, onSelect, className }: Readonly<ConversationItemProps>) {
   const s = chat();
+  const unreadTone = unread > 0 ? "text-fg" : "text-fg-secondary";
+  const previewTone = typing ? "text-fg-accent" : unreadTone;
   const body = (
     <>
       <span className="relative shrink-0">
@@ -301,7 +303,7 @@ export function ConversationItem({ name, avatar, preview, typing, time, unread =
           {time ? <span className={["shrink-0 text-xs tabular-nums", unread > 0 ? "text-fg-accent" : "text-fg-secondary"].join(" ")}>{time}</span> : null}
         </span>
         <span className="flex items-center gap-2">
-          <span className={["min-w-0 flex-1 truncate text-xs", typing ? "text-fg-accent" : unread > 0 ? "text-fg" : "text-fg-secondary"].join(" ")}>{preview}</span>
+          <span className={["min-w-0 flex-1 truncate text-xs", previewTone].join(" ")}>{preview}</span>
           {unread > 0 ? (
             <span className={s.count()}>
               <span aria-hidden>{unread > 99 ? "99+" : unread}</span>

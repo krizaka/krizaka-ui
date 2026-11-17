@@ -157,8 +157,10 @@ export function Loader({
   const phase = waiting ? "loading" : ending;
   const s = loader({ variant, ended: phase === "success" || phase === "error" ? phase : undefined });
   const known = phase === "loading" && typeof value === "number" && Number.isFinite(value);
-  const words = phase === "success" ? (successLabel ?? label) : phase === "error" ? (errorLabel ?? label) : label;
-  const detail = phase === "loading" ? [known ? `${Math.round(Math.min(1, Math.max(0, value)) * 100)} %` : null, eta].filter(Boolean).join(" · ") : "";
+  const endedWords = phase === "error" ? (errorLabel ?? label) : label;
+  const words = phase === "success" ? (successLabel ?? label) : endedWords;
+  const percent = known ? `${Math.round(Math.min(1, Math.max(0, value)) * 100)} %` : null;
+  const detail = phase === "loading" ? [percent, eta].filter(Boolean).join(" · ") : "";
   return (
     <div role="status" aria-live="polite" data-phase={phase ?? "idle"} className={s.root({ className })} {...props}>
       {phase && (
@@ -225,23 +227,30 @@ export function LoadingRegion({
   const waiting = useDelayedWait(loading, delay, minDuration);
   const slow = useDelayedWait(waiting && loading, slowAfter, 0);
   const busy = loading || waiting;
+  const waitingPhase = slow ? "slow" : "skeleton";
+  const busyPhase = busy ? "pending" : "ready";
+  const waitingWords = slow ? (slowLabel ?? label) : label;
+  let body = <div className="kz-fade">{children}</div>;
+  if (waiting) {
+    body = (
+      <div aria-hidden className="kz-fade">
+        {skeleton}
+      </div>
+    );
+  } else if (busy) {
+    // Within the delay: the skeleton holds the place, invisible — nothing flashes, nothing jumps.
+    body = (
+      <div aria-hidden className="invisible">
+        {skeleton}
+      </div>
+    );
+  }
   return (
-    <div aria-busy={busy} data-phase={waiting ? (slow ? "slow" : "skeleton") : busy ? "pending" : "ready"} className={["relative", className].filter(Boolean).join(" ")} {...props}>
+    <div aria-busy={busy} data-phase={waiting ? waitingPhase : busyPhase} className={["relative", className].filter(Boolean).join(" ")} {...props}>
       <span role="status" className="sr-only">
-        {waiting ? (slow ? (slowLabel ?? label) : label) : ""}
+        {waiting ? waitingWords : ""}
       </span>
-      {waiting ? (
-        <div aria-hidden className="kz-fade">
-          {skeleton}
-        </div>
-      ) : busy ? (
-        // Within the delay: the skeleton holds the place, invisible — nothing flashes, nothing jumps.
-        <div aria-hidden className="invisible">
-          {skeleton}
-        </div>
-      ) : (
-        <div className="kz-fade">{children}</div>
-      )}
+      {body}
       {waiting && slow && <Loader label={slowLabel ?? label} variant="overlay" delay={0} minDuration={0} endDuration={0} aria-live="off" role="presentation" />}
     </div>
   );
