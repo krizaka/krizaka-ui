@@ -95,7 +95,7 @@ export function ShortFeed<T>({ label, items, getId, renderItem, window: around =
             aria-label={`${index + 1} / ${items.length}`}
             className="mx-auto flex h-full max-w-[calc(100dvh*9/16)] snap-start snap-always items-center"
           >
-            {near ? renderItem(item, { active: index === active, preload: index === active + 1 ? "auto" : index === active ? "auto" : "none", index }) : null}
+            {near ? renderItem(item, { active: index === active, preload: index === active + 1 || index === active ? "auto" : "none", index }) : null}
           </div>
         );
       })}

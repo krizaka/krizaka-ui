@@ -201,12 +201,8 @@ export function TerminalReplay({
       setPhase("playing");
     }
   };
-  const control =
-    state === "playing"
-      ? { text: pauseLabel, Glyph: PauseGlyph }
-      : state === "done"
-        ? { text: replayLabel, Glyph: RetryGlyph }
-        : { text: playLabel, Glyph: PlayGlyph };
+  const idleControl = state === "done" ? { text: replayLabel, Glyph: RetryGlyph } : { text: playLabel, Glyph: PlayGlyph };
+  const control = state === "playing" ? { text: pauseLabel, Glyph: PauseGlyph } : idleControl;
   const commands = steps.map((s) => s.command).join("\n");
   const transcript = steps.map((s) => [`${prompt} ${s.command}`, ...(s.output ?? []).map((o) => line(o).text)].join("\n")).join("\n\n");
 

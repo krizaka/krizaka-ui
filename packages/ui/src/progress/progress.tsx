@@ -108,7 +108,8 @@ export function Progress({
   const known = typeof value === "number" && Number.isFinite(value);
   const ratio = known ? Math.min(1, Math.max(0, value / (max || 1))) : 0;
   const percent = Math.round(ratio * 100);
-  const state = !known ? "indeterminate" : ratio >= 1 ? "complete" : "loading";
+  const loadingState = ratio >= 1 ? "complete" : "loading";
+  const state = known ? loadingState : "indeterminate";
   const aria = {
     role: "progressbar" as const,
     "aria-label": label,

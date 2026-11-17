@@ -1,5 +1,31 @@
 # @krizaka/ui
 
+## 4.15.0
+
+### Minor Changes
+
+- [#1068](https://github.com/krizaka/krizaka-ui/pull/1068) [`d9ba05f`](https://github.com/krizaka/krizaka-ui/commit/d9ba05ffa2df264b0f9b5b434f80e24f6dba94cc) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ProductBarActions`: `signIn` is now optional. A public site passes neither `signIn` nor `tryIt` and the block renders nothing; with `tryIt` alone only « Try » shows. `productBarActions` gains `hasSignIn` (default `true`) and returns `primary: null` when there is no way in. Callers that pass `signIn` render exactly as before.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@4.15.0
+  - @krizaka/tokens@4.15.0
+
+## 4.14.0
+
+### Minor Changes
+
+- [#1054](https://github.com/krizaka/krizaka-ui/pull/1054) [`e682e5d`](https://github.com/krizaka/krizaka-ui/commit/e682e5d9f3a0ed111890537f68d6dd295450622b) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - One footer for every family site: `FamilyFooter` answers for every site id of `@krizaka/org` (company, blog, the products' pages, Kridoc, the developer sites), `SiteId` adds `blog`, `kridoc` and `lab`, and the family registry lists the blog and Kridoc. The « Krizaka » column is the org's (the blog from `org.family`, the contact page from the new `contact` prop / `org.contact`); the typed `companyLinks` list is removed (krizaka-internal#4008). Needs `@krizaka/org` ≥ 1.11.0.
+
+### Patch Changes
+
+- [#1059](https://github.com/krizaka/krizaka-ui/pull/1059) [`8fd9894`](https://github.com/krizaka/krizaka-ui/commit/8fd989450807f9f07e682789e928abfaa2ec249d) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Internal: nested ternaries replaced by named functions and lookups in the components n–z (Sonar S3358); behaviour unchanged.
+- Updated dependencies [[`75cca36`](https://github.com/krizaka/krizaka-ui/commit/75cca36b98d2bd1c95e421e3db4beea758f7f31e)]:
+  - @krizaka/pacer@0.2.1
+  - @krizaka/tailwind@4.14.0
+  - @krizaka/tokens@4.14.0
+
 ## 4.13.0
 
 ### Minor Changes

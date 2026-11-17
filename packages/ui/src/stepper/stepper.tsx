@@ -8,6 +8,11 @@ import { LoaderGlyph } from "../spinner/glyph";
 
 export type StepStatus = "done" | "current" | "upcoming" | "error";
 
+const stepStatusAt = (i: number, current: number): StepStatus => {
+  if (i < current) return "done";
+  return i === current ? "current" : "upcoming";
+};
+
 export interface Step {
   /** Its name — passed translated. */
   title: string;
@@ -76,7 +81,7 @@ export function Stepper({ steps, current = 0, labels, orientation = "vertical", 
   return (
     <ol className={s.root({ className })} data-orientation={orientation} {...props}>
       {steps.map((step, i) => {
-        const status: StepStatus = step.status ?? (i < current ? "done" : i === current ? "current" : "upcoming");
+        const status: StepStatus = step.status ?? stepStatusAt(i, current);
         const glyph = GLYPH[status];
         return (
           <li key={i} data-status={status} aria-current={status === "current" ? "step" : undefined} className={s.step()}>

@@ -102,7 +102,16 @@ export type SliderProps<V extends SliderValue = number> = Omit<
   size?: "md" | "lg";
 };
 
-const toArray = (v: SliderValue | undefined) => (v === undefined ? undefined : typeof v === "number" ? [v] : v);
+const toArray = (v: SliderValue | undefined) => {
+  if (v === undefined) return undefined;
+  return typeof v === "number" ? [v] : v;
+};
+
+/** The values the ticks mark: every step when `ticks` is `true` (up to 40 of them), or the ones given. */
+const tickValuesOf = (ticks: SliderProps["ticks"], min: number, max: number, step: number): number[] => {
+  if (ticks === true) return (max - min) / step <= 40 ? Array.from({ length: Math.round((max - min) / step) + 1 }, (_, i) => min + i * step) : [];
+  return ticks ? [...ticks] : [];
+};
 
 /** A slider on one value or a range: `value`/`defaultValue` + `onValueChange`, `min`, `max`, `step`, `orientation`. */
 export function Slider<V extends SliderValue = number>({
@@ -140,7 +149,8 @@ export function Slider<V extends SliderValue = number>({
       : undefined;
   const lo = range ? Math.min(...current) : (origin ?? min);
   const hi = range ? Math.max(...current) : current[0]!;
-  const tickValues = ticks === true ? (max - min) / step <= 40 ? Array.from({ length: Math.round((max - min) / step) + 1 }, (_, i) => min + i * step) : [] : ticks ? [...ticks] : [];
+  const tickValues = tickValuesOf(ticks, min, max, step);
+  const singleLabel = showLabel ? undefined : label;
   const id = React.useId();
   return (
     <div className={s.root({ className })} data-range={range ? "" : undefined} data-orientation={orientation}>
@@ -185,7 +195,7 @@ export function Slider<V extends SliderValue = number>({
         {current.map((v, i) => (
           <SliderPrimitive.Thumb
             key={i}
-            aria-label={range ? (thumbLabels?.[i] ?? label) : showLabel ? undefined : label}
+            aria-label={range ? (thumbLabels?.[i] ?? label) : singleLabel}
             aria-labelledby={!range && showLabel ? `${id}-label` : undefined}
             aria-valuetext={formatValue(v)}
             className={s.thumb()}

@@ -57,7 +57,10 @@ type Config = {
 
 const BASE = "base";
 
-const words = (value: unknown): string[] => (typeof value === "string" ? value.split(/\s+/).filter(Boolean) : Array.isArray(value) ? value.flatMap(words) : []);
+const words = (value: unknown): string[] => {
+  if (typeof value === "string") return value.split(/\s+/).filter(Boolean);
+  return Array.isArray(value) ? value.flatMap(words) : [];
+};
 
 /** `#rrggbb` at an opacity (`rgba()`); any other form passes through. */
 export function withAlpha(color: string, opacity: number): string {

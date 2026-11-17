@@ -93,10 +93,11 @@ export function VerticalVideo({
   const [paused, setPaused] = React.useState(false);
   const count = (n?: number) => (n === undefined ? undefined : formatCompact(n, { locale }));
   const on = theme.textOnMedia;
+  const poster = posterUri ? { poster: { uri: posterUri } } : {};
   return (
     <View role="group" aria-label={title} style={[styles.frame, { backgroundColor: theme.media }, style]}>
       {uri ? (
-        <VideoPlayer source={{ uri }} title={title} aspectRatio={9 / 16} contentFit="cover" nativeControls={false} fullscreen={false} autoPlay loop muted paused={!active || paused} style={StyleSheet.absoluteFill} {...(posterUri ? { poster: { uri: posterUri } } : {})} />
+        <VideoPlayer source={{ uri }} title={title} aspectRatio={9 / 16} contentFit="cover" nativeControls={false} fullscreen={false} autoPlay loop muted paused={!active || paused} style={StyleSheet.absoluteFill} {...poster} />
       ) : null}
       {!uri && posterUri ? <Image source={{ uri: posterUri }} aria-hidden resizeMode="cover" style={StyleSheet.absoluteFill} /> : null}
       <Pressable role="button" aria-label={paused ? labels.play : labels.pause} onPress={() => setPaused((p) => !p)} onLongPress={() => onLike?.(!liked)} style={StyleSheet.absoluteFill} />

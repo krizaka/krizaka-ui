@@ -183,6 +183,27 @@ for (const [locale, w] of Object.entries(WORDS)) {
         const sentences = await status.locator("xpath=following-sibling::ul[1]").innerText();
         if (/blocks\.\d|props\./.test(sentences)) problems.push(`${tag}: a raw path in the missing list: ${sentences.slice(0, 100)}`);
 
+        // The rail's disabled « undo » is faded by Puck (opacity .4): its label must still read at 4.5:1 in every state, not only
+        // when axe chooses to skip a disabled control (krizaka-internal#4128: axe flagged it on one CI run and not on the next).
+        if (width < 600) {
+          const ratios = await page.evaluate(() => {
+            const parse = (c) => { const n = (c.match(/[\d.]+/g) ?? []).map(Number); return c.startsWith("color(srgb") ? [n[0] * 255, n[1] * 255, n[2] * 255, ...n.slice(3)] : n; };
+            const lum = ([r, g, b]) => [r, g, b].map((v) => ((v /= 255) <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)).reduce((a, v, i) => a + v * [0.2126, 0.7152, 0.0722][i], 0);
+            const backdrop = (el) => { for (let n = el; n; n = n.parentElement) { const c = parse(getComputedStyle(n).backgroundColor); if (c.length >= 3 && (c[3] ?? 1) === 1) return c; } return [255, 255, 255]; };
+            return [...document.querySelectorAll('[class*="_NavItem--mobileOnly"] button[class*="_NavItem-link"]')].map((button) => {
+              const label = button.querySelectorAll("span")[1] ?? button;
+              const [r, g, b, a = 1] = parse(getComputedStyle(label).color);
+              let alpha = a * Number(getComputedStyle(button).opacity);
+              for (let n = button.parentElement; n; n = n.parentElement) alpha *= Number(getComputedStyle(n).opacity);
+              const back = backdrop(button);
+              const mix = [r, g, b].map((v, i) => v * alpha + back[i] * (1 - alpha));
+              const [hi, lo] = [lum(mix), lum(back)].sort((x, y) => y - x);
+              return { name: label.textContent, disabled: button.disabled, ratio: (hi + 0.05) / (lo + 0.05) };
+            });
+          });
+          for (const x of ratios) if (x.ratio < 4.5) problems.push(`${tag}: the rail item « ${x.name} »${x.disabled ? " (disabled)" : ""} reads at ${x.ratio.toFixed(2)}:1, under 4.5:1`);
+        }
+
         const defects = await axeDefects(page);
         if (defects.length) problems.push(`${tag}: axe: ${defects.join(" | ")}`);
         if (shots) await page.screenshot({ path: `${shots}/builder-${locale}-${theme}-${width}.png`, fullPage: false });
