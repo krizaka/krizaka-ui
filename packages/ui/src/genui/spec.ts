@@ -69,7 +69,7 @@ export function checkId(value: unknown, where: string): string | null {
 
 /** The segments of a JSON pointer (`/a/b/0`), or why it is refused — `__proto__` and friends never pass. */
 export function parsePath(path: unknown): GenUiResult<readonly string[]> {
-  if (typeof path !== "string" || (path !== "/" && !path.startsWith("/")) || path.length > 512) return fail("a path is a JSON pointer: /a/b");
+  if (typeof path !== "string" || !path.startsWith("/") || path.length > 512) return fail("a path is a JSON pointer: /a/b");
   if (path === "/") return { ok: true, value: [] };
   const segments = path
     .slice(1)
