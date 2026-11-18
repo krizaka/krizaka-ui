@@ -12,7 +12,7 @@ import { warnDeprecated } from "../deprecated";
 const FILL_CSS = ".kz-showcase-fill{transform-origin:left;animation:kz-showcase-fill 6s linear forwards}@keyframes kz-showcase-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}";
 const REDUCED = "(prefers-reduced-motion: reduce)";
 const subscribeNothing = () => () => undefined;
-const readReduced = () => Boolean(typeof window !== "undefined" && globalThis.matchMedia?.(REDUCED).matches);
+const readReduced = () => Boolean(typeof globalThis.window !== "undefined" && globalThis.matchMedia?.(REDUCED).matches);
 function subscribeReduced(notify: () => void) {
   const query = globalThis.matchMedia?.(REDUCED);
   query?.addEventListener?.("change", notify);

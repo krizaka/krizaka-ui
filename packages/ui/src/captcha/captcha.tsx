@@ -94,7 +94,7 @@ export function Captcha({ siteKey, onToken, locale = "en", theme = "auto", label
     return () => {
       cancelled = true;
       watcher?.disconnect();
-      if (widget.current && window.turnstile) window.turnstile.remove(widget.current);
+      if (widget.current && globalThis.window.turnstile) globalThis.window.turnstile.remove(widget.current);
       widget.current = null;
     };
   }, [siteKey, locale, theme, attempt]);

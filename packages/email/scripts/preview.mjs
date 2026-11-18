@@ -33,7 +33,7 @@ for (const id of TEMPLATE_IDS) {
   }
 }
 
-const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const esc = (s) => s.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 const index = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Krizaka emails — preview</title>
 <style>body{font:14px/1.4 system-ui,sans-serif;margin:0;background:#eef0f5;color:#12141a}header{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9dce6;padding:10px 16px;display:flex;gap:8px;align-items:center;z-index:1}
 main{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:16px;padding:16px}figure{margin:0;background:#fff;border:1px solid #d9dce6;border-radius:8px;overflow:hidden}figcaption{padding:8px 12px;font-weight:600;display:flex;justify-content:space-between}

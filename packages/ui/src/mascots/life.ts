@@ -163,4 +163,4 @@ export function lifeCss(): string {
 }
 
 /** A phase between 0 and 1 from any string (an id), so two instances of one bird do not move together. */
-export const phaseOf = (seed: string): number => [...seed].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 997, 7) / 997;
+export const phaseOf = (seed: string): number => [...seed].reduce((h, c) => (h * 31 + (c.codePointAt(0) ?? 0)) % 997, 7) / 997;

@@ -122,7 +122,7 @@ for (const theme of ["dark", "light"]) {
       for (const issue of found) problems.push(`${where}: ${issue}`);
       for (const error of errors.splice(0)) problems.push(`${where}: console ${error}`);
       if (out) {
-        const name = `${out}/${theme}-${view.name}${path.replace(/\//g, "_") || "_"}`;
+        const name = `${out}/${theme}-${view.name}${path.replaceAll("/", "_") || "_"}`;
         await page.evaluate(() => window.scrollTo(0, 0));
         await page.waitForTimeout(400);
         await page.screenshot({ path: `${name}.png` });

@@ -210,7 +210,7 @@ async function main() {
     if (DEBUG) console.log(`  ${view} ${path}: interactions ${Date.now() - t0} ms`);
 
     if (opts.out && problems.some((p) => p.page === path && p.view === view && !p.tolerated)) {
-      await page.screenshot({ path: `${opts.out}/${view}${path.replace(/\//g, "_") || "_"}.png` }).catch(() => {});
+      await page.screenshot({ path: `${opts.out}/${view}${path.replaceAll("/", "_") || "_"}.png` }).catch(() => {});
     }
     await page.close();
   };

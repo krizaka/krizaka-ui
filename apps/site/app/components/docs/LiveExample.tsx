@@ -18,7 +18,7 @@ import { UI_EXAMPLES } from "@/lib/ui-examples";
 type AnyExample = ComponentType<Record<string, unknown>>;
 
 // The server's renderers: one lazy wrapper per example, made once.
-const ON_SERVER = typeof window === "undefined";
+const ON_SERVER = typeof globalThis.window === "undefined";
 const SERVER_EXAMPLES = ON_SERVER
   ? (Object.fromEntries(Object.entries(UI_EXAMPLES).map(([key, load]) => [key, lazy(async () => ({ default: (await load()).default as AnyExample }))])) as Partial<Record<string, AnyExample>>)
   : {};
