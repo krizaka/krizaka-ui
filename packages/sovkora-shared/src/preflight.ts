@@ -6,9 +6,16 @@
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 const INDEX: Readonly<Record<string, number>> = Object.fromEntries(Array.from(ALPHABET, (c, i) => [c, i]));
 
+/** The characters of `text` that belong to the base64 alphabet, in order (padding, line breaks and anything else dropped). */
+function keepAlphabet(text: string): string {
+  return Array.from(text)
+    .filter((char) => Object.hasOwn(INDEX, char))
+    .join("");
+}
+
 /** Base64 (padded or not, line breaks ignored) to bytes. No `atob`, no `Buffer`: the phone's runtime has neither for sure. */
 export function base64ToBytes(base64: string): Uint8Array {
-  const clean = base64.replace(/[^A-Za-z0-9+/]/g, "");
+  const clean = keepAlphabet(base64);
   const out = new Uint8Array(Math.floor((clean.length * 3) / 4));
   let bits = 0;
   let acc = 0;
@@ -142,21 +149,74 @@ const MIME: Readonly<Record<string, FileKind>> = {
   "application/zip": "zip",
 };
 
+const ALPHANUMERIC = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const isAsciiAlphanumeric = (char: string): boolean => ALPHANUMERIC.includes(char);
+
+/** The extension of a file name, lower-cased: what follows its last dot when that is only letters and digits, else none. */
+function extensionOf(name: string): string | undefined {
+  const dot = name.lastIndexOf(".");
+  const extension = name.slice(dot + 1);
+  return dot >= 0 && extension.length > 0 && Array.from(extension).every(isAsciiAlphanumeric) ? extension.toLowerCase() : undefined;
+}
+
 /** The kind the picker claims (extension first, then MIME type), or null when it claims nothing known. */
 function claimed(declared: { readonly name: string; readonly type: string }): FileKind | null {
-  const extension = /\.([a-z0-9]+)$/i.exec(declared.name)?.[1]?.toLowerCase();
+  const extension = extensionOf(declared.name);
   return (extension ? EXTENSIONS[extension] : undefined) ?? MIME[declared.type] ?? null;
+}
+
+/** The longest name read: a PDF name beyond it is cut, the rest is not a name. */
+const MAX_NAME_LENGTH = 40;
+const NAME_START = "/";
+const ESCAPE = "#";
+const NAME_CHARACTERS = new Set(`${ALPHANUMERIC}_#.+-`);
+const HEX_DIGITS = "0123456789abcdefABCDEF";
+/** An escape is `#` and two hex digits. */
+const ESCAPE_DIGITS = 2;
+
+const isHexDigit = (char: string | undefined): boolean => char !== undefined && HEX_DIGITS.includes(char);
+
+/** A name's text with every `#xx` escape decoded; an escape that is not `#` and two hex digits stays as written. */
+function decodeEscapes(name: string): string {
+  let out = "";
+  let at = 0;
+  while (at < name.length) {
+    const digits = name.slice(at + 1, at + 1 + ESCAPE_DIGITS);
+    if (name[at] === ESCAPE && digits.length === ESCAPE_DIGITS && Array.from(digits).every(isHexDigit)) {
+      out += String.fromCodePoint(Number.parseInt(digits, 16));
+      at += 1 + ESCAPE_DIGITS;
+    } else {
+      out += name[at];
+      at += 1;
+    }
+  }
+  return out;
 }
 
 /** `/Name` tokens of a PDF's raw bytes, `#xx` escapes decoded (an obfuscated /J#61vaScript is still JavaScript). */
 function pdfNames(raw: string): Set<string> {
   const names = new Set<string>();
-  for (const match of raw.matchAll(/\/([A-Za-z0-9_#.+-]{1,40})/g)) {
-    names.add(
-      (match[1] ?? "").replace(/#([0-9a-fA-F]{2})/g, (_, hex: string) => String.fromCodePoint(Number.parseInt(hex, 16))),
-    );
+  let at = 0;
+  while (at < raw.length) {
+    if (raw[at] !== NAME_START) {
+      at += 1;
+      continue;
+    }
+    let end = at + 1;
+    while (end < raw.length && end - at - 1 < MAX_NAME_LENGTH && NAME_CHARACTERS.has(raw[end]!)) end += 1;
+    if (end > at + 1) names.add(decodeEscapes(raw.slice(at + 1, end)));
+    at = end;
   }
   return names;
+}
+
+/** How much of a file's end is searched for its trailer. */
+const TRAILER_WINDOW = 2048;
+
+/** Whole PDFs end with `startxref`, an offset and `%%EOF`: both markers must be in the last bytes, or the file was cut. */
+function hasTrailer(raw: string): boolean {
+  const tail = raw.slice(-TRAILER_WINDOW);
+  return tail.includes("startxref") && tail.includes("%%EOF");
 }
 
 const reject = (reason: RejectReason, detail?: string): Inspection => ({
@@ -180,8 +240,7 @@ export function createInspector(rules: PreflightRules): DocumentPreflight {
       if (detected !== "pdf") return reject("UNSUPPORTED_TYPE", detected);
 
       const raw = bytesToLatin1(bytes);
-      const tail = raw.slice(-2048);
-      if (!/startxref/.test(tail) || !/%%EOF/.test(tail)) return reject("TRUNCATED");
+      if (!hasTrailer(raw)) return reject("TRUNCATED");
       const names = pdfNames(raw);
       if (names.has("Encrypt")) return reject("ENCRYPTED");
       // Sorted by code unit (the order `Array#sort` gives strings), into a new array.
