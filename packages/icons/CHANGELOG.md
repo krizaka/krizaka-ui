@@ -1,5 +1,11 @@
 # @krizaka/icons
 
+## 0.11.0
+
+### Minor Changes
+
+- [#1065](https://github.com/krizaka/krizaka-ui/pull/1065) [`18d9935`](https://github.com/krizaka/krizaka-ui/commit/18d993533ae89b1e978660a59cab7b7a69c02421) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `FacebookIcon` and `LinkedinIcon` (web and `/native`), monochrome, in the cut-cornered account frame of `InstagramIcon` and `YoutubeIcon`. The site footer draws every account of `@krizaka/org` `links.social` as its icon (instagram, facebook, linkedin, youtube); a test fails when an account has none (krizaka-internal#4114).
+
 ## 0.10.1
 
 ### Patch Changes
