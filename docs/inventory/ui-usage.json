@@ -1,50 +1,50 @@
 {
-  "generated": "2026-11-02",
+  "generated": "2026-11-18",
   "package": {
     "name": "@krizaka/ui",
-    "version": "4.12.0",
-    "distMeasured": "packages/ui/dist (@krizaka/ui@4.12.0)"
+    "version": "4.15.1",
+    "distMeasured": "packages/ui/dist (@krizaka/ui@4.15.1)"
   },
   "consumers": [
     {
       "name": "verikora",
       "kind": "product",
       "absent": false,
-      "head": "f3b26763",
-      "sha": "f3b26763087e1b06af2d705f0eccd9f5f92e68c4",
-      "files": 1232
+      "head": "cd7cc3b2",
+      "sha": "cd7cc3b26e03002f13e6dd40c609eb0548e80d40",
+      "files": 1391
     },
     {
       "name": "folioviv",
       "kind": "product",
       "absent": false,
-      "head": "dd58a2d6",
-      "sha": "dd58a2d650391dd8a88b6e70ae323ad8a9faec4d",
-      "files": 1198
+      "head": "c6a0d094",
+      "sha": "c6a0d09419e47ca907bd39a1546e152cf3ece1c7",
+      "files": 1234
     },
     {
       "name": "sovkora-web",
       "kind": "product",
       "absent": false,
-      "head": "48b61699",
-      "sha": "48b6169921d119e584c0c79af168bb80454a1182",
-      "files": 817
+      "head": "62abc5e5",
+      "sha": "62abc5e559b357bd24e129c12e9a6c126cf01008",
+      "files": 832
     },
     {
       "name": "krizaka-com",
       "kind": "site",
       "absent": false,
-      "head": "30b70cec",
-      "sha": "30b70cecaffe76f0018654a33289c16b1d88a16e",
-      "files": 284
+      "head": "51bf6832",
+      "sha": "51bf6832849fce5109b95fcdb09d0561248fbb87",
+      "files": 363
     },
     {
       "name": "blog",
       "kind": "site",
       "absent": false,
-      "head": "e1c342f4",
-      "sha": "e1c342f4914c68395eebfb86159ab5fae1f6a1b5",
-      "files": 297
+      "head": "585b59d1",
+      "sha": "585b59d1a0b6c2b992398d6c73899749bf343823",
+      "files": 423
     },
     {
       "name": "ui-site",
@@ -52,31 +52,31 @@
       "absent": false,
       "head": null,
       "sha": null,
-      "files": 193
+      "files": 186
     },
     {
       "name": "java-site",
       "kind": "site",
       "absent": false,
-      "head": "abcedb11",
-      "sha": "abcedb1159c474febc4395e27ed9d013bca68dbc",
-      "files": 139
+      "head": "e6ebf83e",
+      "sha": "e6ebf83e42abc5d2ca246544d164eddaed832742",
+      "files": 145
     },
     {
       "name": "ts-site",
       "kind": "site",
       "absent": false,
-      "head": "b252e48c",
-      "sha": "b252e48c93e9531c9bf3acc5b8a8052035ea7ec8",
-      "files": 59
+      "head": "4ec7c4d9",
+      "sha": "4ec7c4d9dac120886dbb0bc396d782ecc4c2850b",
+      "files": 61
     },
     {
       "name": "motion-lab",
       "kind": "site",
       "absent": false,
-      "head": "dbb0339c",
-      "sha": "dbb0339c3eb94893b642a07de360dc05d34a8ca2",
-      "files": 102
+      "head": "3475d83b",
+      "sha": "3475d83ba932b4b9cf2194d58b0f6d79b727e059",
+      "files": 104
     },
     {
       "name": "cockpit",
@@ -102,7 +102,7 @@
         "verikora": 7,
         "folioviv": 4,
         "sovkora-web": 8,
-        "krizaka-com": 12,
+        "krizaka-com": 11,
         "blog": 5,
         "ui-site": 3,
         "java-site": 1,
@@ -111,20 +111,20 @@
         "cockpit": 3
       },
       "nativeUse": {},
-      "live": 48,
+      "live": 47,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 8144,
+      "sizeGzip": 8362,
       "budget": 8000,
       "tests": null,
       "stories": null,
       "lastChange": null,
       "created": null,
       "verdict": "keep",
-      "why": "44 live importer file(s)"
+      "why": "43 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -288,15 +288,15 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "verikora": 54,
-        "folioviv": 58,
+        "verikora": 59,
+        "folioviv": 57,
         "sovkora-web": 92,
-        "krizaka-com": 8,
-        "blog": 14,
+        "krizaka-com": 9,
+        "blog": 12,
         "ui-site": 10,
         "java-site": 3,
         "ts-site": 2,
-        "motion-lab": 17,
+        "motion-lab": 18,
         "cockpit": 9
       },
       "nativeUse": {
@@ -305,7 +305,7 @@
         "blog": 2,
         "ui-site": 2
       },
-      "live": 287,
+      "live": 291,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -349,7 +349,7 @@
       "lastChange": "2026-11-16",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "270 live importer file(s)"
+      "why": "273 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -408,8 +408,8 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "verikora": 6,
-        "folioviv": 15,
+        "verikora": 8,
+        "folioviv": 16,
         "sovkora-web": 23,
         "blog": 1,
         "ui-site": 2,
@@ -419,7 +419,7 @@
         "verikora": 1,
         "folioviv": 2
       },
-      "live": 51,
+      "live": 54,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -441,7 +441,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "51 live importer file(s)"
+      "why": "54 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -485,7 +485,7 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "verikora": 9,
+        "verikora": 10,
         "folioviv": 6,
         "sovkora-web": 2,
         "cockpit": 8
@@ -494,7 +494,7 @@
         "verikora": 4,
         "folioviv": 3
       },
-      "live": 32,
+      "live": 33,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -507,7 +507,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "32 live importer file(s)"
+      "why": "33 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -696,7 +696,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "verikora": 11,
+        "verikora": 12,
         "folioviv": 7,
         "sovkora-web": 17,
         "krizaka-com": 2,
@@ -712,7 +712,7 @@
         "folioviv": 6,
         "ui-site": 2
       },
-      "live": 65,
+      "live": 66,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -728,7 +728,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "64 live importer file(s)"
+      "why": "65 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -749,11 +749,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 5745,
+      "sizeGzip": 5785,
       "budget": 5000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -796,7 +796,7 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "verikora": 17,
+        "verikora": 15,
         "folioviv": 30,
         "sovkora-web": 27,
         "krizaka-com": 1,
@@ -809,7 +809,7 @@
         "verikora": 7,
         "folioviv": 8
       },
-      "live": 100,
+      "live": 98,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -825,7 +825,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "96 live importer file(s)"
+      "why": "94 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -837,7 +837,7 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "verikora": 7,
+        "verikora": 8,
         "folioviv": 5,
         "sovkora-web": 16,
         "krizaka-com": 3,
@@ -845,7 +845,7 @@
         "cockpit": 6
       },
       "nativeUse": {},
-      "live": 40,
+      "live": 41,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -864,7 +864,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "37 live importer file(s)"
+      "why": "38 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -886,11 +886,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2979,
+      "sizeGzip": 3004,
       "budget": 11500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "8 live importer file(s)"
@@ -1101,11 +1101,11 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "verikora": 12,
+        "verikora": 13,
         "folioviv": 14
       },
       "nativeUse": {},
-      "live": 26,
+      "live": 27,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -1118,7 +1118,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "26 live importer file(s)"
+      "why": "27 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -1309,8 +1309,8 @@
       "stories": 1,
       "lastChange": "2026-11-15",
       "created": "2026-10-26",
-      "verdict": "ask",
-      "why": "unused, new (2026-10-26): its adoption issue?"
+      "verdict": "retire",
+      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
     },
     {
       "pkg": "ui",
@@ -1321,9 +1321,11 @@
       "status": "beta",
       "domain": "conversation",
       "adoption": null,
-      "importers": {},
+      "importers": {
+        "verikora": 2
+      },
       "nativeUse": {},
-      "live": 0,
+      "live": 2,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -1338,7 +1340,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-26",
       "verdict": "keep",
-      "why": "built on by native"
+      "why": "2 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -1350,7 +1352,7 @@
       "domain": "feedback",
       "adoption": null,
       "importers": {
-        "verikora": 54,
+        "verikora": 56,
         "folioviv": 53,
         "sovkora-web": 25,
         "blog": 1,
@@ -1358,7 +1360,7 @@
         "cockpit": 2
       },
       "nativeUse": {},
-      "live": 136,
+      "live": 138,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -1374,7 +1376,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "136 live importer file(s)"
+      "why": "138 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -1662,13 +1664,13 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "verikora": 2,
+        "verikora": 3,
         "folioviv": 5,
         "krizaka-com": 1,
         "cockpit": 2
       },
       "nativeUse": {},
-      "live": 10,
+      "live": 11,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -1684,7 +1686,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "10 live importer file(s)"
+      "why": "11 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -1703,11 +1705,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": "chip",
-      "sizeGzip": 2600,
+      "sizeGzip": 2626,
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-16",
+      "lastChange": "2026-11-17",
       "created": "2026-10-20",
       "verdict": "merge",
       "into": "chip",
@@ -1806,11 +1808,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 3000,
+      "sizeGzip": 3059,
       "budget": 12000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -1825,13 +1827,13 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "verikora": 3,
-        "folioviv": 2,
+        "verikora": 4,
+        "folioviv": 3,
         "sovkora-web": 2,
         "ui-site": 1
       },
       "nativeUse": {},
-      "live": 8,
+      "live": 10,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -1848,7 +1850,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-09",
       "verdict": "keep",
-      "why": "8 live importer file(s)"
+      "why": "10 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -1970,11 +1972,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2059,
+      "sizeGzip": 2072,
       "budget": 1800,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "6 live importer file(s)"
@@ -2032,8 +2034,8 @@
       "stories": 1,
       "lastChange": "2026-11-06",
       "created": "2026-10-28",
-      "verdict": "ask",
-      "why": "unused, new (2026-10-28): its adoption issue?"
+      "verdict": "retire",
+      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
     },
     {
       "pkg": "ui",
@@ -2090,8 +2092,8 @@
       "stories": 1,
       "lastChange": "2026-11-15",
       "created": "2026-10-31",
-      "verdict": "ask",
-      "why": "unused, new (2026-10-31): its adoption issue?"
+      "verdict": "retire",
+      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
     },
     {
       "pkg": "ui",
@@ -2194,15 +2196,15 @@
       "domain": "foundations",
       "adoption": null,
       "importers": {
-        "verikora": 11,
+        "verikora": 12,
         "folioviv": 11,
         "sovkora-web": 11,
-        "krizaka-com": 10,
+        "krizaka-com": 7,
         "blog": 1,
         "java-site": 1
       },
       "nativeUse": {},
-      "live": 45,
+      "live": 43,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -2218,14 +2220,14 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 9405,
+      "sizeGzip": 9433,
       "budget": 6600,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "45 live importer file(s)"
+      "why": "43 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -2246,7 +2248,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": "empty-state",
-      "sizeGzip": 9188,
+      "sizeGzip": 9216,
       "budget": 6600,
       "tests": 1,
       "stories": 2,
@@ -2314,11 +2316,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2717,
+      "sizeGzip": 2713,
       "budget": 2000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "5 live importer file(s)"
@@ -2350,11 +2352,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 20891,
+      "sizeGzip": 20993,
       "budget": 27600,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "16 live importer file(s)"
@@ -2380,7 +2382,7 @@
       "budget": 1000,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "nav-bar",
@@ -2408,7 +2410,7 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 18216,
+      "sizeGzip": 18229,
       "budget": null,
       "tests": 2,
       "stories": 1,
@@ -2502,11 +2504,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2578,
+      "sizeGzip": 2601,
       "budget": 2400,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "14 live importer file(s)"
@@ -2534,7 +2536,7 @@
       "budget": 1000,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by nav-bar"
@@ -2553,14 +2555,14 @@
         "folioviv": 2,
         "sovkora-web": 2,
         "krizaka-com": 3,
-        "blog": 2,
+        "blog": 3,
         "ui-site": 1,
         "java-site": 1,
         "ts-site": 1,
         "motion-lab": 1
       },
       "nativeUse": {},
-      "live": 15,
+      "live": 16,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -2569,14 +2571,14 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 12524,
+      "sizeGzip": 12526,
       "budget": 11000,
       "tests": 3,
       "stories": 1,
       "lastChange": "2026-11-16",
       "created": "2026-10-14",
       "verdict": "keep",
-      "why": "14 live importer file(s)"
+      "why": "15 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -2592,14 +2594,14 @@
         "folioviv": 1,
         "sovkora-web": 1,
         "krizaka-com": 2,
-        "blog": 3,
+        "blog": 1,
         "ui-site": 4,
         "java-site": 2,
         "ts-site": 2,
         "motion-lab": 1
       },
       "nativeUse": {},
-      "live": 17,
+      "live": 15,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -2616,7 +2618,7 @@
       "lastChange": "2026-11-16",
       "created": "2026-10-14",
       "verdict": "keep",
-      "why": "16 live importer file(s)"
+      "why": "14 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -2632,11 +2634,10 @@
         "krizaka-com": 2,
         "blog": 1,
         "java-site": 1,
-        "ts-site": 1,
         "motion-lab": 4
       },
       "nativeUse": {},
-      "live": 12,
+      "live": 11,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -2649,7 +2650,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "8 live importer file(s)"
+      "why": "7 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -2668,11 +2669,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": "code-block",
-      "sizeGzip": 4316,
+      "sizeGzip": 4327,
       "budget": 2500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "code-block",
@@ -2729,11 +2730,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 3688,
+      "sizeGzip": 3718,
       "budget": 2700,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-20",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -2813,11 +2814,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 4181,
+      "sizeGzip": 4182,
       "budget": 3000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-14",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -2832,9 +2833,8 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "verikora": 4,
+        "verikora": 5,
         "sovkora-web": 1,
-        "krizaka-com": 1,
         "motion-lab": 1
       },
       "nativeUse": {
@@ -2846,11 +2846,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2116,
+      "sizeGzip": 2144,
       "budget": 2000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "7 live importer file(s)"
@@ -2933,7 +2933,7 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "verikora": 15,
+        "verikora": 16,
         "folioviv": 10,
         "sovkora-web": 22,
         "krizaka-com": 1,
@@ -2942,7 +2942,7 @@
         "cockpit": 6
       },
       "nativeUse": {},
-      "live": 60,
+      "live": 61,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -2957,7 +2957,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "56 live importer file(s)"
+      "why": "57 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -3038,11 +3038,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2590,
+      "sizeGzip": 2594,
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "built on by badge, button, card…"
@@ -3069,11 +3069,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2468,
+      "sizeGzip": 2470,
       "budget": 17000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "6 live importer file(s)"
@@ -3119,7 +3119,7 @@
       "domain": "forms",
       "adoption": null,
       "importers": {
-        "verikora": 19,
+        "verikora": 21,
         "folioviv": 22,
         "sovkora-web": 19
       },
@@ -3127,7 +3127,7 @@
         "verikora": 1,
         "folioviv": 2
       },
-      "live": 63,
+      "live": 65,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -3136,14 +3136,14 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 9325,
+      "sizeGzip": 9422,
       "budget": 24500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
-      "why": "63 live importer file(s)"
+      "why": "65 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -3165,11 +3165,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 1216,
+      "sizeGzip": 1218,
       "budget": 1370,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "built on by native, shop-composer"
@@ -3251,11 +3251,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 9441,
+      "sizeGzip": 9460,
       "budget": 15500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-16",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3281,7 +3281,7 @@
       ],
       "issue": null,
       "mergeInto": "tag-selector",
-      "sizeGzip": 10013,
+      "sizeGzip": 10033,
       "budget": 16000,
       "tests": 1,
       "stories": 1,
@@ -3313,11 +3313,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 17147,
+      "sizeGzip": 17226,
       "budget": 35000,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3346,11 +3346,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 12970,
+      "sizeGzip": 12661,
       "budget": 17250,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -3379,7 +3379,7 @@
       "budget": 1050,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "built on by native, shop"
@@ -3408,7 +3408,7 @@
       "budget": 1200,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "built on by native, shop"
@@ -3437,7 +3437,7 @@
       "budget": 1400,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "built on by native, shop"
@@ -3497,11 +3497,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 10687,
+      "sizeGzip": 10686,
       "budget": 7100,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "built on by native"
@@ -3529,11 +3529,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 10374,
+      "sizeGzip": 10442,
       "budget": 15500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -3587,11 +3587,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 13885,
+      "sizeGzip": 13955,
       "budget": 22000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -3666,11 +3666,11 @@
       "domain": "media",
       "adoption": null,
       "importers": {
-        "verikora": 4,
+        "verikora": 5,
         "sovkora-web": 1
       },
       "nativeUse": {},
-      "live": 5,
+      "live": 6,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -3679,14 +3679,14 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 7969,
+      "sizeGzip": 7995,
       "budget": 9000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "5 live importer file(s)"
+      "why": "6 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -3705,11 +3705,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 6426,
+      "sizeGzip": 6500,
       "budget": 3800,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -3731,11 +3731,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 4030,
+      "sizeGzip": 4040,
       "budget": 2400,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -3757,11 +3757,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 6767,
+      "sizeGzip": 6851,
       "budget": 12800,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -3805,25 +3805,25 @@
       "domain": "data-display",
       "adoption": null,
       "importers": {
-        "verikora": 9,
+        "verikora": 10,
         "folioviv": 1,
         "sovkora-web": 3
       },
       "nativeUse": {},
-      "live": 13,
+      "live": 14,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 5378,
+      "sizeGzip": 5427,
       "budget": 8000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
-      "why": "13 live importer file(s)"
+      "why": "14 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -3870,9 +3870,11 @@
       "status": "experimental",
       "domain": "data-display",
       "adoption": "krizaka-blog#340",
-      "importers": {},
+      "importers": {
+        "blog": 2
+      },
       "nativeUse": {},
-      "live": 0,
+      "live": 2,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -3884,8 +3886,8 @@
       "stories": 1,
       "lastChange": "2026-11-15",
       "created": "2026-11-15",
-      "verdict": "ask",
-      "why": "unused, new (2026-11-15): its adoption issue?"
+      "verdict": "keep",
+      "why": "2 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -3896,22 +3898,24 @@
       "status": "experimental",
       "domain": "cahier",
       "adoption": "krizaka-internal#4006",
-      "importers": {},
+      "importers": {
+        "blog": 15
+      },
       "nativeUse": {},
-      "live": 0,
+      "live": 15,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": null,
+      "sizeGzip": 3958,
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": null,
-      "created": null,
-      "verdict": "ask",
-      "why": "unused, Cahier register (sites)"
+      "lastChange": "2026-11-16",
+      "created": "2026-11-16",
+      "verdict": "keep",
+      "why": "15 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -3933,11 +3937,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 1699,
+      "sizeGzip": 1712,
       "budget": 1500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by app-frame, native"
@@ -3968,7 +3972,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4154,22 +4158,24 @@
       "status": null,
       "domain": null,
       "adoption": null,
-      "importers": {},
+      "importers": {
+        "krizaka-com": 1
+      },
       "nativeUse": {},
-      "live": 0,
+      "live": 1,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 10831,
+      "sizeGzip": 10904,
       "budget": 29900,
       "tests": null,
       "stories": null,
       "lastChange": null,
       "created": null,
-      "verdict": "retire",
-      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
+      "verdict": "keep",
+      "why": "1 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -4188,7 +4194,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 18934,
+      "sizeGzip": 19009,
       "budget": 34000,
       "tests": null,
       "stories": null,
@@ -4206,9 +4212,11 @@
       "status": null,
       "domain": null,
       "adoption": null,
-      "importers": {},
+      "importers": {
+        "krizaka-com": 1
+      },
       "nativeUse": {},
-      "live": 0,
+      "live": 1,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -4220,8 +4228,8 @@
       "stories": null,
       "lastChange": null,
       "created": null,
-      "verdict": "retire",
-      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
+      "verdict": "keep",
+      "why": "1 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -4259,11 +4267,10 @@
       "domain": "navigation-shell",
       "adoption": null,
       "importers": {
-        "verikora": 1,
         "folioviv": 1
       },
       "nativeUse": {},
-      "live": 2,
+      "live": 1,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -4278,7 +4285,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-17",
       "verdict": "keep",
-      "why": "2 live importer file(s)"
+      "why": "1 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -4329,11 +4336,11 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2463,
+      "sizeGzip": 2491,
       "budget": 2500,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4357,11 +4364,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": "list",
-      "sizeGzip": 5040,
+      "sizeGzip": 5046,
       "budget": 2500,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-13",
       "verdict": "merge",
       "into": "list",
@@ -4403,18 +4410,18 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "verikora": 8,
+        "verikora": 9,
         "folioviv": 12,
         "sovkora-web": 4,
-        "krizaka-com": 13,
-        "blog": 8,
+        "krizaka-com": 14,
+        "blog": 9,
         "java-site": 1,
         "ts-site": 1,
         "motion-lab": 5,
         "cockpit": 10
       },
       "nativeUse": {},
-      "live": 62,
+      "live": 65,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -4446,7 +4453,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "57 live importer file(s)"
+      "why": "60 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -4458,16 +4465,17 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "verikora": 5,
-        "folioviv": 6,
+        "verikora": 6,
+        "folioviv": 7,
         "sovkora-web": 1,
-        "krizaka-com": 4,
+        "krizaka-com": 6,
         "blog": 5,
+        "ts-site": 1,
         "motion-lab": 3,
         "cockpit": 6
       },
       "nativeUse": {},
-      "live": 30,
+      "live": 35,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -4494,7 +4502,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "27 live importer file(s)"
+      "why": "32 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -4506,9 +4514,8 @@
       "domain": "page-blocks",
       "adoption": null,
       "importers": {
-        "verikora": 1,
         "sovkora-web": 1,
-        "krizaka-com": 4,
+        "krizaka-com": 2,
         "blog": 2,
         "ui-site": 1,
         "java-site": 1,
@@ -4517,7 +4524,7 @@
         "cockpit": 2
       },
       "nativeUse": {},
-      "live": 14,
+      "live": 11,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -4532,7 +4539,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "13 live importer file(s)"
+      "why": "10 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -4572,7 +4579,7 @@
       "adoption": null,
       "importers": {
         "sovkora-web": 2,
-        "krizaka-com": 3,
+        "krizaka-com": 1,
         "blog": 1,
         "ui-site": 1,
         "java-site": 1,
@@ -4580,7 +4587,7 @@
         "motion-lab": 1
       },
       "nativeUse": {},
-      "live": 10,
+      "live": 8,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -4596,7 +4603,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "9 live importer file(s)"
+      "why": "7 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -4640,11 +4647,10 @@
       "domain": "cahier",
       "adoption": null,
       "importers": {
-        "krizaka-com": 1,
-        "java-site": 1
+        "krizaka-com": 1
       },
       "nativeUse": {},
-      "live": 2,
+      "live": 1,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -4653,14 +4659,14 @@
       ],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 8658,
+      "sizeGzip": 8683,
       "budget": 6100,
       "tests": 1,
       "stories": 1,
       "lastChange": "2026-11-15",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "2 live importer file(s)"
+      "why": "1 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -4703,10 +4709,13 @@
       "adoption": null,
       "importers": {
         "folioviv": 2,
-        "krizaka-com": 2
+        "krizaka-com": 3,
+        "blog": 1,
+        "java-site": 1,
+        "ts-site": 1
       },
       "nativeUse": {},
-      "live": 4,
+      "live": 8,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -4722,7 +4731,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-20",
       "verdict": "keep",
-      "why": "4 live importer file(s)"
+      "why": "8 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -4741,7 +4750,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 8916,
+      "sizeGzip": 8942,
       "budget": 6300,
       "tests": 1,
       "stories": 1,
@@ -4759,11 +4768,9 @@
       "status": "beta",
       "domain": "cahier",
       "adoption": null,
-      "importers": {
-        "krizaka-com": 3
-      },
+      "importers": {},
       "nativeUse": {},
-      "live": 3,
+      "live": 0,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -4780,7 +4787,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-23",
       "verdict": "keep",
-      "why": "3 live importer file(s)"
+      "why": "built on by chapter, site-cahier, wall"
     },
     {
       "pkg": "ui",
@@ -4853,7 +4860,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 8946,
+      "sizeGzip": 8971,
       "budget": 6500,
       "tests": 1,
       "stories": 1,
@@ -4881,7 +4888,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 22781,
+      "sizeGzip": 22813,
       "budget": 17000,
       "tests": 1,
       "stories": 1,
@@ -4925,24 +4932,22 @@
       "status": "beta",
       "domain": "cahier",
       "adoption": null,
-      "importers": {
-        "krizaka-com": 2
-      },
+      "importers": {},
       "nativeUse": {},
-      "live": 2,
+      "live": 0,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 14614,
+      "sizeGzip": 14638,
       "budget": 10500,
       "tests": 1,
       "stories": 1,
       "lastChange": "2026-11-15",
       "created": "2026-10-21",
-      "verdict": "keep",
-      "why": "2 live importer file(s)"
+      "verdict": "ask",
+      "why": "unused, Cahier register (sites)"
     },
     {
       "pkg": "ui",
@@ -5008,10 +5013,10 @@
       "domain": "cahier",
       "adoption": null,
       "importers": {
-        "blog": 2
+        "blog": 3
       },
       "nativeUse": {},
-      "live": 2,
+      "live": 3,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -5024,7 +5029,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-24",
       "verdict": "keep",
-      "why": "2 live importer file(s)"
+      "why": "3 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -5036,12 +5041,12 @@
       "domain": "cahier",
       "adoption": null,
       "importers": {
-        "verikora": 2,
+        "verikora": 3,
         "krizaka-com": 2,
         "motion-lab": 1
       },
       "nativeUse": {},
-      "live": 5,
+      "live": 6,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -5054,7 +5059,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-20",
       "verdict": "keep",
-      "why": "4 live importer file(s)"
+      "why": "5 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -5275,10 +5280,11 @@
       "adoption": null,
       "importers": {
         "krizaka-com": 3,
-        "ui-site": 1
+        "ui-site": 1,
+        "ts-site": 1
       },
       "nativeUse": {},
-      "live": 4,
+      "live": 5,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [
@@ -5296,7 +5302,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-11",
       "verdict": "keep",
-      "why": "4 live importer file(s)"
+      "why": "5 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -5443,8 +5449,8 @@
       "stories": 1,
       "lastChange": "2026-11-15",
       "created": "2026-10-28",
-      "verdict": "ask",
-      "why": "unused, new (2026-10-28): its adoption issue?"
+      "verdict": "retire",
+      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
     },
     {
       "pkg": "ui",
@@ -5910,11 +5916,10 @@
         "verikora": 1,
         "folioviv": 2,
         "sovkora-web": 1,
-        "java-site": 1,
-        "ts-site": 1
+        "java-site": 1
       },
       "nativeUse": {},
-      "live": 6,
+      "live": 5,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -5927,7 +5932,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-12",
       "verdict": "keep",
-      "why": "6 live importer file(s)"
+      "why": "5 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -5994,11 +5999,10 @@
       "adoption": null,
       "importers": {
         "folioviv": 1,
-        "sovkora-web": 1,
-        "krizaka-com": 1
+        "sovkora-web": 1
       },
       "nativeUse": {},
-      "live": 3,
+      "live": 2,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -6011,7 +6015,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-12",
       "verdict": "keep",
-      "why": "3 live importer file(s)"
+      "why": "2 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -6079,11 +6083,9 @@
       "status": "beta",
       "domain": "page-blocks",
       "adoption": null,
-      "importers": {
-        "verikora": 1
-      },
+      "importers": {},
       "nativeUse": {},
-      "live": 1,
+      "live": 0,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -6095,8 +6097,8 @@
       "stories": 1,
       "lastChange": "2026-11-15",
       "created": "2026-10-12",
-      "verdict": "keep",
-      "why": "1 live importer file(s)"
+      "verdict": "retire",
+      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
     },
     {
       "pkg": "ui",
@@ -6146,11 +6148,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 3376,
+      "sizeGzip": 3393,
       "budget": 2700,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "8 live importer file(s)"
@@ -6278,12 +6280,10 @@
       "adoption": null,
       "importers": {
         "verikora": 1,
-        "folioviv": 1,
-        "sovkora-web": 1,
-        "krizaka-com": 1
+        "sovkora-web": 1
       },
       "nativeUse": {},
-      "live": 4,
+      "live": 2,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -6296,7 +6296,7 @@
       "lastChange": "2026-11-15",
       "created": "2026-10-12",
       "verdict": "keep",
-      "why": "4 live importer file(s)"
+      "why": "2 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -6318,11 +6318,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 6205,
+      "sizeGzip": 6230,
       "budget": 7600,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6344,11 +6344,11 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 4132,
+      "sizeGzip": 4163,
       "budget": 3000,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -6528,7 +6528,7 @@
       "budget": null,
       "tests": null,
       "stories": null,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "14 live importer file(s)"
@@ -6580,7 +6580,7 @@
         "folioviv": 1,
         "sovkora-web": 1,
         "krizaka-com": 4,
-        "blog": 1,
+        "blog": 3,
         "ui-site": 4,
         "java-site": 1,
         "ts-site": 1,
@@ -6588,7 +6588,7 @@
         "cockpit": 1
       },
       "nativeUse": {},
-      "live": 17,
+      "live": 19,
       "paused": 0,
       "pausedBy": [],
       "builtOnBy": [],
@@ -6601,7 +6601,7 @@
       "lastChange": null,
       "created": null,
       "verdict": "keep",
-      "why": "16 live importer file(s)"
+      "why": "18 live importer file(s)"
     },
     {
       "pkg": "ui",
@@ -6625,7 +6625,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 95937,
+      "sizeGzip": 95974,
       "budget": 75000,
       "tests": null,
       "stories": null,
@@ -6651,7 +6651,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 2998,
+      "sizeGzip": 3005,
       "budget": 6000,
       "tests": null,
       "stories": null,
@@ -6784,7 +6784,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 8486,
+      "sizeGzip": 8535,
       "budget": 23000,
       "tests": null,
       "stories": null,
@@ -6810,7 +6810,7 @@
       "builtOnBy": [],
       "issue": "folioviv#235",
       "mergeInto": null,
-      "sizeGzip": 8027,
+      "sizeGzip": 7707,
       "budget": 13200,
       "tests": null,
       "stories": null,
@@ -6836,7 +6836,7 @@
       "builtOnBy": [],
       "issue": null,
       "mergeInto": null,
-      "sizeGzip": 3922,
+      "sizeGzip": 3923,
       "budget": null,
       "tests": null,
       "stories": null,
@@ -7481,8 +7481,8 @@
       "stories": 1,
       "lastChange": "2026-11-14",
       "created": "2026-10-27",
-      "verdict": "ask",
-      "why": "unused, new (2026-10-27): its adoption issue?"
+      "verdict": "retire",
+      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
     },
     {
       "pkg": "ui",
@@ -7507,8 +7507,8 @@
       "stories": 1,
       "lastChange": "2026-11-14",
       "created": "2026-10-27",
-      "verdict": "ask",
-      "why": "unused, new (2026-10-27): its adoption issue?"
+      "verdict": "retire",
+      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
     },
     {
       "pkg": "ui",
@@ -7647,8 +7647,8 @@
       "stories": 1,
       "lastChange": "2026-11-14",
       "created": "2026-10-27",
-      "verdict": "ask",
-      "why": "unused, new (2026-10-27): its adoption issue?"
+      "verdict": "retire",
+      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
     },
     {
       "pkg": "ui",
@@ -7725,8 +7725,8 @@
       "stories": null,
       "lastChange": "2026-11-06",
       "created": "2026-10-27",
-      "verdict": "ask",
-      "why": "unused, new (2026-10-27): its adoption issue?"
+      "verdict": "retire",
+      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
     },
     {
       "pkg": "ui",
@@ -8077,8 +8077,8 @@
       "stories": null,
       "lastChange": "2026-11-06",
       "created": "2026-10-27",
-      "verdict": "ask",
-      "why": "unused, new (2026-10-27): its adoption issue?"
+      "verdict": "retire",
+      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
     },
     {
       "pkg": "ui",
