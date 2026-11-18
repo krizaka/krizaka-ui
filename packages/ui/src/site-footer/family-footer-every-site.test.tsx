@@ -34,6 +34,16 @@ describe("FamilyFooter for every site id of the org", () => {
     }
   });
 
+  it("draws every account of the org as an icon, never a text link (krizaka-internal#4114)", () => {
+    draw("verikora");
+    for (const a of org.links.social) {
+      const link = screen.getByRole("link", { name: a.label });
+      expect(link.querySelector("svg"), a.id).not.toBeNull();
+      expect(link.textContent, a.id).toBe(a.label);
+      expect(link.querySelector(".sr-only"), a.id).not.toBeNull();
+    }
+  });
+
   it("lists Kridoc and the coming-soon products, and the company's blog and contact page, from the org", () => {
     draw("verikora");
     const columns = Object.fromEntries(columnsOf() as [string, string[][]][]);

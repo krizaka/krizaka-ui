@@ -2,7 +2,7 @@ import { SiteFooter } from "@krizaka/ui/site-footer";
 import { familyLabels } from "@krizaka/ui/sites";
 
 // The company's accounts come from the org (`org.links.social` of `@krizaka/org`, a footer never types an address):
-// each known account (Instagram, YouTube) is drawn as its icon, named for screen readers.
+// each known account (Instagram, Facebook, LinkedIn, YouTube) is drawn as its icon, named for screen readers.
 const org = {
   brand: { name: "Krizaka" },
   footer: {
@@ -12,6 +12,8 @@ const org = {
   links: {
     social: [
       { id: "instagram", label: "Instagram", url: "https://www.instagram.com/krizakahq" },
+      { id: "facebook", label: "Facebook", url: "https://example.com/facebook" },
+      { id: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/company/krizaka-technologies-inc" },
       { id: "youtube", label: "YouTube", url: "https://www.youtube.com/@krizakahq" },
     ],
   },
