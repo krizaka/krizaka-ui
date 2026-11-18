@@ -58,16 +58,13 @@ export function AppHeader({ name, mark, href, homeLink, homeClassName, chips, se
       <span className={s.name()}>{name}</span>
     </>
   );
+  let home: React.ReactNode = <div className={s.brand()}>{brand}</div>;
+  if (homeLink) home = React.cloneElement(homeLink, { className: s.brand({ className: [homeLink.props.className, homeClassName] }) }, brand);
+  else if (href) home = <a href={href} className={s.brand({ className: homeClassName })}>{brand}</a>;
   const hasControls = [search, language, actions, messages, notifications, primary, account].some(Boolean);
   return (
     <header className={s.root({ className })} {...props}>
-      {homeLink ? (
-        React.cloneElement(homeLink, { className: s.brand({ className: [homeLink.props.className, homeClassName] }) }, brand)
-      ) : href ? (
-        <a href={href} className={s.brand({ className: homeClassName })}>{brand}</a>
-      ) : (
-        <div className={s.brand()}>{brand}</div>
-      )}
+      {home}
       {chips && <div className={s.chips()}>{chips}</div>}
       {/* The order is the family's, not the host's: the same bar in every product. */}
       {hasControls && (

@@ -32,6 +32,13 @@ export type ChipRowProps = Omit<React.ComponentProps<"nav">, "aria-label"> & {
 };
 
 /** A scroll-snap row of chip links; wraps from `md`. Items: `ChipRow.Item`. */
+/** The chip a key moves to: Home and End are the ends, the arrows step one and stop at the ends. */
+function focusTarget(key: string, at: number, last: number): number {
+  if (key === "Home") return 0;
+  if (key === "End") return last;
+  return Math.min(last, Math.max(0, at + (key === "ArrowRight" ? 1 : -1)));
+}
+
 function ChipRowRoot({ label, hint, className, children, ...props }: Readonly<ChipRowProps>) {
   const id = React.useId();
   const list = React.useRef<HTMLUListElement>(null);
@@ -42,7 +49,7 @@ function ChipRowRoot({ label, hint, className, children, ...props }: Readonly<Ch
     const at = links.indexOf(event.target as HTMLElement);
     if (at < 0) return;
     const last = links.length - 1;
-    const to = event.key === "Home" ? 0 : event.key === "End" ? last : Math.min(last, Math.max(0, at + (event.key === "ArrowRight" ? 1 : -1)));
+    const to = focusTarget(event.key, at, last);
     event.preventDefault();
     links[to]?.focus();
     links[to]?.scrollIntoView?.({ block: "nearest", inline: "nearest" });

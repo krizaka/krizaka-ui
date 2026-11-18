@@ -28,7 +28,8 @@ function healLink(text: string): string {
   const cut = close < 0 || after === "" || (after.startsWith("(") && !after.includes(")"));
   if (!cut) return text;
   const head = text.slice(0, image ? open - 1 : open);
-  return image ? head : head + (close < 0 ? rest : rest.slice(0, close));
+  if (image) return head;
+  return head + (close < 0 ? rest : rest.slice(0, close));
 }
 
 /**

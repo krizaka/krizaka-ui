@@ -144,6 +144,12 @@ export type ComboboxProps = SingleProps | MultipleProps;
 const fold = (text: string) => text.normalize("NFD").replaceAll(/\p{Diacritic}/gu, "").toLowerCase();
 const defaultFilter = (option: ComboboxOption, query: string) => fold(option.label).includes(fold(query.trim()));
 
+/** The chosen options as a list: several as given, a single one wrapped, none empty. */
+function optionsOf(value: unknown, multiple: boolean): readonly ComboboxOption[] {
+  if (multiple) return (value as readonly ComboboxOption[] | undefined) ?? [];
+  return value ? [value as ComboboxOption] : [];
+}
+
 type Item = { kind: "option"; option: ComboboxOption } | { kind: "create"; query: string };
 
 /** A text field that suggests, filters and completes: one value or several (chips), static or fetched, creatable. */
@@ -176,8 +182,8 @@ export function Combobox(props: ComboboxProps) {
   const multiple = props.multiple === true;
 
   const [values, setValues] = useControllable<readonly ComboboxOption[]>(
-    props.value === undefined ? undefined : multiple ? (props.value as readonly ComboboxOption[]) : props.value ? [props.value as ComboboxOption] : [],
-    multiple ? ((props.defaultValue as readonly ComboboxOption[]) ?? []) : props.defaultValue ? [props.defaultValue as ComboboxOption] : [],
+    props.value === undefined ? undefined : optionsOf(props.value, multiple),
+    optionsOf(props.defaultValue, multiple),
     (next) => (multiple ? (props.onValueChange as ((v: ComboboxOption[]) => void) | undefined)?.([...next]) : (props.onValueChange as ((v: ComboboxOption | null) => void) | undefined)?.(next[0] ?? null)),
   );
   const single = multiple ? null : (values[0] ?? null);

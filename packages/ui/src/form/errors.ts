@@ -111,7 +111,9 @@ export function issueError(issue: SchemaIssue, prefix = "form.errors"): FormFiel
   const collection = issue.origin === "array" || issue.origin === "set";
   switch (issue.code) {
     case "invalid_type":
-      return issue.input === undefined || issue.input === null || issue.input === "" ? key("required") : issue.expected === "number" ? key("invalidNumber") : issue.expected === "date" ? key("invalidDate") : key("invalid");
+      if (issue.input === undefined || issue.input === null || issue.input === "") return key("required");
+      if (issue.expected === "number") return key("invalidNumber");
+      return issue.expected === "date" ? key("invalidDate") : key("invalid");
     case "too_small": {
       const minimum = num(issue.minimum)!;
       if (issue.origin === "string") return minimum <= 1 ? key("required") : key("tooShort", { minimum });
@@ -120,7 +122,8 @@ export function issueError(issue: SchemaIssue, prefix = "form.errors"): FormFiel
     }
     case "too_big": {
       const maximum = num(issue.maximum)!;
-      return issue.origin === "string" ? key("tooLong", { maximum }) : collection ? key("tooMany", { maximum }) : key("tooBig", { maximum });
+      if (issue.origin === "string") return key("tooLong", { maximum });
+      return collection ? key("tooMany", { maximum }) : key("tooBig", { maximum });
     }
     case "invalid_format":
       if (issue.format === "email") return key("invalidEmail");
@@ -171,6 +174,21 @@ export function isFormProblem(value: unknown): value is FormProblem {
   return typeof value === "object" && value !== null && ("fields" in value || "code" in value || "status" in value);
 }
 
+/** The error of one refused field: a bare key, a ready error, or a code the form's catalogue prefixes. */
+function refusalError(refusal: NonNullable<FormProblem["fields"]>[string], prefix: string): FormFieldError {
+  if (typeof refusal === "string") return { key: refusal };
+  if ("key" in refusal) return refusal;
+  const code = refusal.code ?? "invalid";
+  const key = refusal.code && KEY.test(refusal.code) ? refusal.code : `${prefix}.${code}`;
+  return { key, message: refusal.message };
+}
+
+/** The code of a problem that names none: the network, the server, or an invalid request. */
+function statusCode(status: number | undefined): string {
+  if (status === 0) return "network";
+  return status && status >= 500 ? "server" : "invalid";
+}
+
 /** A problem as field errors (by name) and the whole form's error (or `null` when every refusal has its field). */
 export function problemToErrors(
   problem: FormProblem,
@@ -192,17 +210,12 @@ export function problemToErrors(
       unplaced = true;
       continue;
     }
-    const error: FormFieldError =
-      typeof refusal === "string"
-        ? { key: refusal }
-        : "key" in refusal
-          ? refusal
-          : { key: refusal.code ? (KEY.test(refusal.code) ? refusal.code : `${prefix}.${refusal.code}`) : `${prefix}.invalid`, message: refusal.message };
+    const error = refusalError(refusal, prefix);
     fields[name] = { ...error, source: "server" };
   }
   const placed = Object.keys(fields).length > 0;
   if (placed && !unplaced) return { fields, form: null };
-  const code = problem.code ?? (problem.status === 0 ? "network" : problem.status && problem.status >= 500 ? "server" : "invalid");
+  const code = problem.code ?? statusCode(problem.status);
   const retryIn = problem.retryAt ? Math.max(1, Math.ceil((problem.retryAt - Date.now()) / 1000)) : undefined;
   return {
     fields,
