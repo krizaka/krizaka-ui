@@ -4,8 +4,8 @@ import BuildingBlockExample from "../../registry/examples/argument-card/building
 import GridExample from "../../registry/examples/argument-card/grid";
 import HoverQuietExample from "../../registry/examples/argument-card/hover-quiet";
 import UnfoldExample from "../../registry/examples/argument-card/unfold";
-import { ArgumentCard } from "./argument-card";
 import { expectQuietHover } from "../quiet-hover.story-check";
+import { ArgumentCard } from "./argument-card";
 
 /** Argument card — a page block. Each story renders a named example. */
 const meta = {

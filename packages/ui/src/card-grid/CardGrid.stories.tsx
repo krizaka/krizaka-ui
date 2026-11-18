@@ -6,8 +6,8 @@ import FoundationExample from "../../registry/examples/card-grid/foundation";
 import HoverQuietExample from "../../registry/examples/card-grid/hover-quiet";
 import ProductsExample from "../../registry/examples/card-grid/products";
 import RevealExample from "../../registry/examples/card-grid/reveal";
-import { CardGrid } from "./card-grid";
 import { expectQuietHover } from "../quiet-hover.story-check";
+import { CardGrid } from "./card-grid";
 
 /** Card grid — a page block. Each story renders a named example. */
 const meta = {

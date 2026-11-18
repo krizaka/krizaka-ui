@@ -4,8 +4,8 @@ import DocsHubExample from "../../registry/examples/link-card/docs-hub";
 import ExternalExample from "../../registry/examples/link-card/external";
 import HoverQuietExample from "../../registry/examples/link-card/hover-quiet";
 import StackExample from "../../registry/examples/link-card/stack";
-import { LinkCard } from "./link-card";
 import { expectQuietHover } from "../quiet-hover.story-check";
+import { LinkCard } from "./link-card";
 
 /** Link card — a page block. Each story renders a named example. */
 const meta = {
