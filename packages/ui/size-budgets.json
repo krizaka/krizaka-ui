@@ -2,10 +2,10 @@
   "unit": "bytes",
   "note": "ADR-008 §5: only goes down. node tools/usage-inventory.mjs --budgets --update",
   "domains": {
-    "foundations": 115000,
+    "foundations": 115300,
     "forms": 202990,
     "data-display": 75500,
-    "navigation-shell": 229200,
+    "navigation-shell": 229900,
     "feedback": 112900,
     "maps": 34100,
     "media": 66100,
@@ -14,6 +14,6 @@
     "abuse": 5000,
     "conversation": 39300,
     "page-blocks": 133350,
-    "cahier": 76500
+    "cahier": 76900
   }
 }

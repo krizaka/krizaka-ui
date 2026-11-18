@@ -16,7 +16,7 @@ import type { ReactNode } from "react";
 import { fontVariables } from "@/app/fonts";
 import { loadReleases, releaseId } from "@/lib/changelog";
 import { changelogHref } from "@/lib/changelog-link";
-import { format, getDictionary, type Locale } from "@/lib/i18n";
+import { getDictionary, type Locale } from "@/lib/i18n";
 import { packageVersion } from "@/lib/package-version";
 import { SITE_URL } from "@/lib/site";
 import { buildSiteGraph } from "@/lib/structured-data";
@@ -87,18 +87,14 @@ export async function SiteRoot({ locale, children }: Readonly<{ locale: Locale; 
             <DocsChrome>
               {children}
               <FamilyFooter
-                footer={footer}
+                footer={{ ...footer, releaseNotes: changelogHref(localePath(locale, "/changelog"), packageVersion("ui"), releases) }}
                 current="ui"
+                kind="developer"
+                company={org.company}
+                version={packageVersion("ui")}
                 contact={org.contact.page}
                 labels={familyLabels[locale]}
                 sourceLabel={t.site.footer.source}
-                extra={
-                  footer.version && (
-                    <SiteFooterLink href={changelogHref(localePath(locale, "/changelog"), packageVersion("ui"), releases)}>
-                      {format(t.site.footer.changelog, { version: packageVersion("ui") })}
-                    </SiteFooterLink>
-                  )
-                }
               >
                 <SiteFooterColumn title={t.site.footer.docs}>
                   {ownLinks.map((l) => (

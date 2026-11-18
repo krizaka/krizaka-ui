@@ -9,17 +9,24 @@ const footer: FamilyFooterData = {
     { group: "products", entries: [{ id: "verikora", name: "Verikora", group: "products", status: "released", url: "https://www.verikora.com" }] },
     { group: "open-source", entries: [{ id: "ui", name: "Krizaka UI", group: "open-source", status: "released", url: "https://ui.krizaka.com" }] },
   ],
-  social: [{ id: "instagram", label: "Instagram", url: "https://www.instagram.com/krizakahq" }],
+  social: [
+    { id: "instagram", label: "Instagram", url: "https://www.instagram.com/krizakahq" },
+    { id: "facebook", label: "Facebook", url: "https://www.facebook.com/krizaka" },
+    { id: "youtube", label: "YouTube", url: "https://www.youtube.com/@krizaka" },
+    { id: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/company/krizaka" },
+  ],
+  releaseNotes: "#changelog",
   source: "https://github.com/krizaka/krizaka-ui",
   license: "Apache-2.0",
   legal: [{ id: "privacy", label: { fr: "Confidentialité", en: "Privacy" }, url: { fr: "#privacy", en: "#privacy" } }],
   line: { fr: "Une entreprise de Technologies Krizaka · Fait à Montréal", en: "A Technologies Krizaka company · Made in Montréal" },
   version: true,
 };
+const company = { legalName: "Technologies Krizaka Inc.", neq: "1182652231", city: "Montréal", region: "Québec" };
 
 export default function SiteFooterFamily() {
   return (
-    <FamilyFooter footer={footer} current="ui" labels={familyLabels.en} sourceLabel="Source code" version="2.0.0">
+    <FamilyFooter footer={footer} current="ui" labels={familyLabels.en} kind="developer" company={company} version="2.0.0">
       <FamilyFooter.Column title="Docs">
         <FamilyFooter.Link href="#components">Components</FamilyFooter.Link>
       </FamilyFooter.Column>

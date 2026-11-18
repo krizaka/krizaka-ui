@@ -149,6 +149,8 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
   madeWith?: React.ReactNode;
   /** The host's controls at the end of the last line: the language switch, the theme toggle. */
   controls?: React.ReactNode;
+  /** Replaces the bottom line with these rows (`FamilyFooter`'s rows B to E); the family and the site's own links stay above. */
+  rows?: React.ReactNode;
   /**
    * `site` — every public site. `docs` — the same under documentation, on its width. `app` — inside a signed-in product:
    * the last line only; render it once, in the layout. `hosted` — the footer of a page a platform hosts for its customer
@@ -185,6 +187,7 @@ export function SiteFooter({
   path,
   legal: legalProp,
   controls,
+  rows,
   madeWith,
   org,
   family: familyProp,
@@ -304,7 +307,9 @@ export function SiteFooter({
                 ))}
             </nav>
           )}
-          {config ? (
+          {rows ? (
+            rows
+          ) : config ? (
             <ConfigBottom s={s} config={config} krizaka={krizaka.url} brand={org?.brand.name ?? "Krizaka"} tag={tag} env={env} versionLabel={labels.version} linkAs={linkAs} path={path} controls={controls} />
           ) : (
           <div className={s.bottom()}>
@@ -388,10 +393,10 @@ function ConfigBottom({
 }
 
 /** Icons of the accounts a glyph exists for; any other account stays a text link. */
-const SOCIAL_ICONS: Readonly<Partial<Record<string, typeof InstagramIcon>>> = { instagram: InstagramIcon, facebook: FacebookIcon, linkedin: LinkedinIcon, youtube: YoutubeIcon };
+export const SOCIAL_ICONS: Readonly<Partial<Record<string, typeof InstagramIcon>>> = { instagram: InstagramIcon, facebook: FacebookIcon, linkedin: LinkedinIcon, youtube: YoutubeIcon };
 
 /** The company's accounts: each is its icon (decorative) in a link named by the account, opening in a new tab. */
-function FooterSocials({ s, links }: Readonly<{ s: ReturnType<typeof siteFooter>; links: readonly { id: string; label: string; href: string }[] }>) {
+export function FooterSocials({ s, links }: Readonly<{ s: ReturnType<typeof siteFooter>; links: readonly { id: string; label: string; href: string }[] }>) {
   if (links.length === 0) return null;
   return (
     <div className={s.socials()}>

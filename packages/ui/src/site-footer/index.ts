@@ -1,5 +1,5 @@
 /** @krizaka/ui/site-footer — `FamilyFooter` (the developer sites' block, from `footerFor`), `SiteFooter` (with `.Column`, `.Link`), `SiteFooterColumn`, `SiteFooterLink`, `siteFooter`. Client. */
-export { FamilyFooter, type FamilyFooterData, type FamilyFooterProps } from "./family-footer";
+export { FamilyFooter, type FamilyFooterCompany, type FamilyFooterData, type FamilyFooterKind, type FamilyFooterProps } from "./family-footer";
 export {
   FOOTER_LIMITS,
   type FooterColumn,

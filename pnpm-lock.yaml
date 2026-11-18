@@ -50,8 +50,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/icons
       '@krizaka/org':
-        specifier: ^1.11.0
-        version: 1.11.0
+        specifier: ^1.13.0
+        version: 1.13.0
       '@krizaka/query':
         specifier: workspace:*
         version: link:../../packages/query
@@ -2839,6 +2839,11 @@ packages:
         optional: true
       prettier:
         optional: true
+
+  '@krizaka/org@1.13.0':
+    resolution: {integrity: sha512-OdNO/g2TpeKWYLHKMZqgCZfNwExZuCiIPij9nK2R+enUWNeJQmduDrq5jOxCRx1ZN9/gbVdJGcQPyNGxYq8OXg==}
+    engines: {node: '>=22'}
+    hasBin: true
 
   '@krizaka/org@1.11.0':
     resolution: {integrity: sha512-GWCmVU7hRi1kblkjhB3gsqVUwtm4ln7l5vxIBWS7bS92L6RZsxl2PX8HJHpKgIiHDqSm323S4z9pcUyqjx4jGA==}
@@ -12658,6 +12663,8 @@ snapshots:
       - supports-color
 
   '@krizaka/org@1.11.0': {}
+
+  '@krizaka/org@1.13.0': {}
 
   '@krizaka/organize@0.4.0(vitest@5.0.5)':
     optionalDependencies:

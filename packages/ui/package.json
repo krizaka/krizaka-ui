@@ -1775,9 +1775,9 @@
       ]
     },
     {
-      "name": "./site-footer (the family's marks, still)",
+      "name": "./site-footer (the family's marks, still) // 2026-11-18: rows A–E of FamilyFooter, 11 → 11.7 kB (krizaka-internal#3562)",
       "path": "dist/site-footer.js",
-      "limit": "11 kB",
+      "limit": "11.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1785,9 +1785,9 @@
       ]
     },
     {
-      "name": "./sites (data)",
+      "name": "./sites (data) // 2026-11-18: rust, agents and the footer's words, 2 → 2.3 kB (krizaka-internal#3562)",
       "path": "dist/sites.js",
-      "limit": "2 kB",
+      "limit": "2.3 kB",
       "gzip": true
     },
     {
@@ -2654,9 +2654,9 @@
       ]
     },
     {
-      "name": "./site-cahier",
+      "name": "./site-cahier // 2026-11-18: carries the footer rows, 17 → 17.4 kB (krizaka-internal#3562)",
       "path": "dist/site-cahier.js",
-      "limit": "17 kB",
+      "limit": "17.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

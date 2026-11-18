@@ -17,6 +17,8 @@ test("the root renders the library's family footer once, from footerFor('ui')", 
   assert.equal(root.match(/<FamilyFooter\b/g)?.length, 1);
   assert.match(root, /import \{[^}]*\bFamilyFooter\b[^}]*\} from "@krizaka\/ui\/site-footer"/);
   assert.match(root, /footerFor\("ui"\)/);
+  assert.match(root, /kind="developer"/, "a developer footer: source, licence, version and release notes");
+  assert.match(root, /company=\{org\.company\}/, "row D is the org's company");
 });
 
 test("GUARD: no local footer component comes back — no *Footer file, no <footer>, no SiteFooter of the app", () => {
@@ -44,6 +46,7 @@ test("the org selects what ui shows: the family, the source, the licence, the le
   assert.deepEqual(f.legal.map((l) => l.id), ["privacy", "terms"]);
   assert.match(f.social.find((x) => x.id === "instagram")?.url ?? "", /^https:\/\/www\.instagram\.com\/krizakahq\/?$/);
   assert.equal(f.version, true);
+  assert.deepEqual(f.social.map((x) => x.id).sort(), ["facebook", "instagram", "linkedin", "youtube"], "the four accounts, Facebook included");
 });
 
 test("the footer's source label exists in both languages", () => {
