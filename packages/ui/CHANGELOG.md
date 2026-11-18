@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 4.15.1
+
+### Patch Changes
+
+- [#1058](https://github.com/krizaka/krizaka-ui/pull/1058) [`b8ea9ff`](https://github.com/krizaka/krizaka-ui/commit/b8ea9ff49af5408d6e31b9b6038a06bb13a2f56a) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Internal: nested ternaries replaced by named functions and lookups in the components a–m (Sonar S3358); behaviour unchanged.
+- Updated dependencies []:
+  - @krizaka/tailwind@4.15.1
+  - @krizaka/tokens@4.15.1
+
 ## 4.15.0
 
 ### Minor Changes
