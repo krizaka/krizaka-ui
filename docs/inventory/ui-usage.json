@@ -2,7 +2,7 @@
   "generated": "2026-11-02",
   "package": {
     "name": "@krizaka/ui",
-    "version": "4.15.0",
+    "version": "4.15.1",
     "distMeasured": "packages/ui/dist (@krizaka/ui@4.12.0)"
   },
   "consumers": [
@@ -52,7 +52,7 @@
       "absent": false,
       "head": null,
       "sha": null,
-      "files": 190
+      "files": 186
     },
     {
       "name": "java-site",
@@ -753,7 +753,7 @@
       "budget": 5000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -890,7 +890,7 @@
       "budget": 11500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "8 live importer file(s)"
@@ -1707,7 +1707,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-16",
+      "lastChange": "2026-11-17",
       "created": "2026-10-20",
       "verdict": "merge",
       "into": "chip",
@@ -1810,7 +1810,7 @@
       "budget": 12000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -1974,7 +1974,7 @@
       "budget": 1800,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-09",
       "verdict": "keep",
       "why": "6 live importer file(s)"
@@ -2222,7 +2222,7 @@
       "budget": 6600,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "45 live importer file(s)"
@@ -2318,7 +2318,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "5 live importer file(s)"
@@ -2354,7 +2354,7 @@
       "budget": 27600,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "16 live importer file(s)"
@@ -2380,7 +2380,7 @@
       "budget": 1000,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "nav-bar",
@@ -2506,7 +2506,7 @@
       "budget": 2400,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "14 live importer file(s)"
@@ -2534,7 +2534,7 @@
       "budget": 1000,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by nav-bar"
@@ -2613,7 +2613,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-06",
+      "lastChange": "2026-11-16",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "16 live importer file(s)"
@@ -2672,7 +2672,7 @@
       "budget": 2500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "code-block",
@@ -2733,7 +2733,7 @@
       "budget": 2700,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-20",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -2817,7 +2817,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-14",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -2850,7 +2850,7 @@
       "budget": 2000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "7 live importer file(s)"
@@ -3042,7 +3042,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "built on by badge, button, card…"
@@ -3074,7 +3074,7 @@
       "budget": 17000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "6 live importer file(s)"
@@ -3141,7 +3141,7 @@
       "budget": 24500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "63 live importer file(s)"
@@ -3170,7 +3170,7 @@
       "budget": 1370,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "built on by native, shop-composer"
@@ -3256,7 +3256,7 @@
       "budget": 15500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-16",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3318,7 +3318,7 @@
       "budget": 35000,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3351,7 +3351,7 @@
       "budget": 17250,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-16",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -3380,7 +3380,7 @@
       "budget": 1050,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-16",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "built on by native, shop"
@@ -3409,7 +3409,7 @@
       "budget": 1200,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-16",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "built on by native, shop"
@@ -3438,7 +3438,7 @@
       "budget": 1400,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-16",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "built on by native, shop"
@@ -3502,7 +3502,7 @@
       "budget": 7100,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "built on by native"
@@ -3534,7 +3534,7 @@
       "budget": 15500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -3592,7 +3592,7 @@
       "budget": 22000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -3684,7 +3684,7 @@
       "budget": 9000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "5 live importer file(s)"
@@ -3710,7 +3710,7 @@
       "budget": 3800,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -3736,7 +3736,7 @@
       "budget": 2400,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -3762,7 +3762,7 @@
       "budget": 12800,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-11",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
@@ -3821,7 +3821,7 @@
       "budget": 8000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "13 live importer file(s)"
@@ -3938,7 +3938,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by app-frame, native"
@@ -3969,7 +3969,7 @@
       "budget": 1500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4334,7 +4334,7 @@
       "budget": 2500,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -4362,7 +4362,7 @@
       "budget": 2500,
       "tests": 0,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-13",
       "verdict": "merge",
       "into": "list",
@@ -5674,10 +5674,10 @@
       "budget": 7200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-16",
-      "created": "2026-11-16",
+      "lastChange": "2026-11-18",
+      "created": "2026-11-18",
       "verdict": "ask",
-      "why": "unused, new (2026-11-16): its adoption issue?"
+      "why": "unused, new (2026-11-18): its adoption issue?"
     },
     {
       "pkg": "ui",
@@ -5700,10 +5700,10 @@
       "budget": 500,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-16",
-      "created": "2026-11-16",
+      "lastChange": "2026-11-18",
+      "created": "2026-11-18",
       "verdict": "ask",
-      "why": "unused, new (2026-11-16): its adoption issue?"
+      "why": "unused, new (2026-11-18): its adoption issue?"
     },
     {
       "pkg": "ui",
@@ -6203,7 +6203,7 @@
       "budget": 2700,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-12",
       "verdict": "keep",
       "why": "8 live importer file(s)"
@@ -6375,7 +6375,7 @@
       "budget": 7600,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-17",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6401,7 +6401,7 @@
       "budget": 3000,
       "tests": 0,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-16",
       "created": "2026-10-13",
       "verdict": "retire",
       "why": "already deprecated (#674), removed in 4.0"
