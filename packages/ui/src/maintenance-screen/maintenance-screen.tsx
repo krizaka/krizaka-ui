@@ -6,6 +6,7 @@ import { tv } from "tailwind-variants";
 
 import { warnDeprecated } from "../deprecated";
 
+/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const maintenanceScreen = tv({
   slots: {
     root: "mx-auto flex min-h-dvh w-full max-w-md flex-col items-center justify-center gap-4 px-6 py-12 text-center text-fg",

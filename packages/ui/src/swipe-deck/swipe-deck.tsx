@@ -7,6 +7,7 @@ import { tv } from "tailwind-variants";
 import { warnDeprecated } from "../deprecated";
 import { usePrefersReducedMotion } from "../media";
 
+/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const swipeDeck = tv({
   slots: {
     root: "flex w-full flex-col items-center gap-5",
