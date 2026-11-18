@@ -125,7 +125,7 @@ export type TypingIndicatorProps = {
 export function TypingIndicator({ label, showLabel, className }: Readonly<TypingIndicatorProps>) {
   const s = chat();
   return (
-    <div role="status" className={["flex items-center gap-2", className].filter(Boolean).join(" ")}>
+    <output className={["flex items-center gap-2", className].filter(Boolean).join(" ")}>
       <style href="krizaka-typing" precedence="default">{"@keyframes kz-typing{0%,60%,100%{opacity:.35;transform:none}30%{opacity:1;transform:translateY(-2px)}}"}</style>
       <span className={s.typing()} aria-hidden>
         {[0, 1, 2].map((i) => (
@@ -133,7 +133,7 @@ export function TypingIndicator({ label, showLabel, className }: Readonly<Typing
         ))}
       </span>
       <span className={showLabel ? "text-xs text-fg-secondary" : "sr-only"}>{label}</span>
-    </div>
+    </output>
   );
 }
 

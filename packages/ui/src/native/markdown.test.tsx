@@ -65,7 +65,7 @@ describe("Markdown (native)", () => {
         <Markdown>{"| Identifier | Related |\n| --- | --- |\n| short | next |"}</Markdown>
       </ThemeProvider>,
     );
-    expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance === regionInstance).toBe(true);
+    expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance).toBe(regionInstance);
     expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
     await fireEvent(screen.getByText("short"), "layout", { nativeEvent: { layout: { width: 140 } } });
     expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBe(140);
@@ -74,7 +74,7 @@ describe("Markdown (native)", () => {
         <Markdown>{"| Identifier | Related |\n| --- | --- |\n| short | next |"}</Markdown>
       </ThemeProvider>,
     );
-    expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance === regionInstance).toBe(true);
+    expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance).toBe(regionInstance);
     expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
     await fireEvent(screen.getByText("short"), "layout", { nativeEvent: { layout: { width: 140 } } });
     const originalWindow = Dimensions.get("window");
@@ -84,7 +84,7 @@ describe("Markdown (native)", () => {
         screen: Dimensions.get("screen"),
       });
     });
-    expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance === regionInstance).toBe(true);
+    expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance).toBe(regionInstance);
     expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
     await act(async () => {
       Dimensions.set({ window: originalWindow, screen: Dimensions.get("screen") });

@@ -63,7 +63,7 @@ describe("Calendar", () => {
     expect(screen.getByRole("grid", { name: "November 2026" })).toBeTruthy();
     expect(container.querySelector('[data-band="start"] [data-date="2026-10-28"]')).toBeTruthy();
     expect(container.querySelector('[data-band="end"] [data-date="2026-11-03"]')).toBeTruthy();
-    expect(container.querySelectorAll('[data-band="middle"]').length).toBe(5);
+    expect(container.querySelectorAll('[data-band="middle"]')).toHaveLength(5);
   });
 
   it("marks today with the node", () => {

@@ -11,7 +11,7 @@ const items = [
 describe("DescriptionList", () => {
   it("pairs each term with its value in a description list, with no axe violation", async () => {
     const { container } = render(<DescriptionList items={items} />);
-    expect(container.querySelectorAll("dt").length).toBe(2);
+    expect(container.querySelectorAll("dt")).toHaveLength(2);
     expect(screen.getByText("Status").nextElementSibling?.textContent).toBe("PaidNov 15");
     expect(await axeViolations(container)).toEqual([]);
   });
@@ -19,12 +19,12 @@ describe("DescriptionList", () => {
   it("changes the layout, not the markup", () => {
     const { container } = render(<DescriptionList items={items} layout="inline" />);
     expect(container.querySelector("dl")?.className).toContain("divide-y");
-    expect(container.querySelectorAll("dd").length).toBe(2);
+    expect(container.querySelectorAll("dd")).toHaveLength(2);
   });
 
   it("keeps a stable key for terms that are not strings", () => {
     const { container } = render(<DescriptionList items={[{ id: "a", term: <b>A</b>, details: "1" }, { id: "b", term: <b>B</b>, details: "2" }]} />);
-    expect(container.querySelectorAll("dt").length).toBe(2);
+    expect(container.querySelectorAll("dt")).toHaveLength(2);
   });
 });
 

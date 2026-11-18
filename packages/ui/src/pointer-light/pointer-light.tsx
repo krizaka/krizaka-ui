@@ -4,7 +4,6 @@ import type * as React from "react";
 
 import { warnDeprecated } from "../deprecated";
 
-/** @deprecated Since 3.31: no card carries it any more. */
 export const POINTER_LIGHT_TARGET = "[data-kz-light]";
 
 /** @deprecated Since 3.31 (krizaka-ui#393): does nothing. Removed in 4.0. */

@@ -9,7 +9,6 @@
 export const SAND = "#a4773d";
 export const SAGE = "#5d894d";
 
-/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const ELEPHANT = {
   viewBox: "0 0 200 200",
   stroke: 8,

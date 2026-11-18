@@ -18,7 +18,7 @@ describe("GoalGauge", () => {
     const meter = screen.getByRole("meter");
     expect(meter.getAttribute("aria-valuenow")).toBe("4");
     expect(meter.getAttribute("aria-valuetext")).toBe("All done");
-    expect(meter.querySelectorAll("[data-lit]").length).toBe(4);
+    expect(meter.querySelectorAll("[data-lit]")).toHaveLength(4);
   });
 
   it("keeps at least one segment and hides the label row on demand", () => {

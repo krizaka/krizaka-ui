@@ -6,7 +6,6 @@ import { tv } from "tailwind-variants";
 
 import { warnDeprecated } from "../deprecated";
 
-/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const kanban = tv({
   slots: {
     root: "flex w-full gap-3 overflow-x-auto pb-2",
@@ -57,7 +56,6 @@ export type KanbanLabels = {
   empty: string;
 };
 
-/** @deprecated Since 3.55 (ADR-006, krizaka-ui#674): no product uses it. Removed in 4.0. */
 export const kanbanLabels: KanbanLabels = {
   instructions: "Press Space to pick it up, the arrow keys to move it, Space to drop it, Escape to cancel.",
   grabbed: (card, column) => `${card} picked up, in ${column}.`,

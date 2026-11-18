@@ -95,7 +95,7 @@ export function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, 
   return (
     <>
     <style>{styles}</style>
-    <div ref={region} role="region" aria-label={title ?? current?.title} tabIndex={0} className="kz-rtv-playlist" data-active={active ? "true" : undefined} onKeyDown={onKey} onPointerMove={wake} onPointerDown={wake} onFocus={wake} style={{ position: "absolute", inset: 0, "--kz-rtv-p": p } as React.CSSProperties}>
+    <section ref={region} aria-label={title ?? current?.title} tabIndex={0} className="kz-rtv-playlist" data-active={active ? "true" : undefined} onKeyDown={onKey} onPointerMove={wake} onPointerDown={wake} onFocus={wake} style={{ position: "absolute", inset: 0, "--kz-rtv-p": p } as React.CSSProperties}>
       {prev !== null && layer(prev, "out")}
       {layer(index, "in")}
       {prev !== null && transition === "channel" && <div className="kz-rtv-static" aria-hidden="true"><span className="kz-rtv-noise" style={{ position: "absolute", inset: 0, background: "repeating-linear-gradient(0deg,var(--kz-text-on-media) 0 1px,var(--kz-scrim-strong) 1px 3px)" }} /></div>}
@@ -110,7 +110,7 @@ export function PlaylistScreen({ playlist, transition, labels, muted, autoPlay, 
         {hasCaptions && <button type="button" aria-label={labels.captions} aria-pressed={captionsOn} onClick={() => setCaptionsOn(!captionsOn)}><CaptionsGlyph /></button>}
       </div>
       <span className="sr-only" aria-live="polite">{labels.nowPlaying}: {current?.title} ({index + 1}/{n})</span>
-    </div>
+    </section>
     </>
   );
 }

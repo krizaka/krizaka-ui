@@ -98,7 +98,7 @@ describe("LanguageSwitch", () => {
   it("lays the languages in a row for a panel (inline)", async () => {
     const { container } = render(<LanguageSwitch variant="inline" label="Langue" current="fr" languages={languages} />);
     const group = screen.getByRole("group", { name: "Langue" });
-    expect(group.querySelectorAll("a").length).toBe(2);
+    expect(group.querySelectorAll("a")).toHaveLength(2);
     expect(screen.getByRole("link", { name: "Français" }).getAttribute("aria-current")).toBe("true");
     expect(await axeViolations(container)).toEqual([]);
   });

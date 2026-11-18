@@ -12,7 +12,7 @@ describe("DocsNav", () => {
   it("marks only the current page and opens only its group", async () => {
     const { container } = render(<DocsNav label="Docs" groups={groups} current="/b" />);
     expect(screen.getByRole("link", { name: "B" }).getAttribute("aria-current")).toBe("page");
-    expect(container.querySelectorAll("[aria-current]").length).toBe(1);
+    expect(container.querySelectorAll("[aria-current]")).toHaveLength(1);
     const open = [...container.querySelectorAll("details")].map((d) => d.open);
     expect(open).toEqual([true, false]);
     expect(await axeViolations(container)).toEqual([]);

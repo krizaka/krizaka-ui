@@ -220,9 +220,9 @@ export function AnalysisReport({ title, summary, status, findings, limits, nextS
           </div>
         )}
       </header>
-      <p role="status" className="sr-only">
+      <output className="sr-only">
         {announcement}
-      </p>
+      </output>
       <div aria-live={streaming ? "polite" : undefined} className="flex flex-col gap-6">
         {findings.length === 0 && !streaming ? <p className={s.live()}>{labels.noFindings}</p> : null}
         {groupFindings(findings).map((g) => {
