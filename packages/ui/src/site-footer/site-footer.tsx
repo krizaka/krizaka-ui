@@ -252,6 +252,25 @@ export function SiteFooter({
     ...(groups.find((g) => g.group === "krizaka")?.entries ?? []).filter((e) => e.id !== "krizaka").map((e) => ({ id: e.id, name: e.id === "blog" ? (company.blog ?? e.name) : e.name, url: e.url })),
     ...(org?.contact ? [{ id: "contact", name: company.contact ?? familyLabels.en.company!.contact!, url: org.contact.page[lang] }] : []),
   ];
+  const plainBottom = (
+    <div className={s.bottom()}>
+      <a href={krizaka.url} className={s.signature()}>
+        <BrandLogo id="krizaka" size={18} animated={false} />
+        {org ? org.footer.line[lang] : `${labels.signature[site.kind]} · ${labels.place}`}
+      </a>
+      {tag && (
+        <span className={s.version()}>
+          <span className="sr-only">{labels.version} </span>
+          {tag}
+        </span>
+      )}
+      {legal && <div className={s.legal()}>{legal}</div>}
+      <FooterSocials s={s} links={(org?.links?.social ?? []).map((x) => ({ id: x.id, label: x.label, href: x.url }))} />
+      {controls && <div className={s.controls()}>{controls}</div>}
+    </div>
+  );
+  const configured = config && <ConfigBottom s={s} config={config} krizaka={krizaka.url} brand={org?.brand.name ?? "Krizaka"} tag={tag} env={env} versionLabel={labels.version} linkAs={linkAs} path={path} controls={controls} />;
+  const bottom = rows ?? configured ?? plainBottom;
   return (
     <ToneContext.Provider value={tone}>
       <footer className={s.root({ className })} {...props}>
@@ -307,27 +326,7 @@ export function SiteFooter({
                 ))}
             </nav>
           )}
-          {rows ? (
-            rows
-          ) : config ? (
-            <ConfigBottom s={s} config={config} krizaka={krizaka.url} brand={org?.brand.name ?? "Krizaka"} tag={tag} env={env} versionLabel={labels.version} linkAs={linkAs} path={path} controls={controls} />
-          ) : (
-          <div className={s.bottom()}>
-            <a href={krizaka.url} className={s.signature()}>
-              <BrandLogo id="krizaka" size={18} animated={false} />
-              {org ? org.footer.line[lang] : `${labels.signature[site.kind]} · ${labels.place}`}
-            </a>
-            {tag && (
-              <span className={s.version()}>
-                <span className="sr-only">{labels.version} </span>
-                {tag}
-              </span>
-            )}
-            {legal && <div className={s.legal()}>{legal}</div>}
-            <FooterSocials s={s} links={(org?.links?.social ?? []).map((x) => ({ id: x.id, label: x.label, href: x.url }))} />
-            {controls && <div className={s.controls()}>{controls}</div>}
-          </div>
-          )}
+          {bottom}
         </div>
       </footer>
     </ToneContext.Provider>

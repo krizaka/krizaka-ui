@@ -8,7 +8,7 @@
 // takes the resolved footer as a prop; the host passes only its own controls and, for the build, its version.
 import * as React from "react";
 
-import type { FamilyLabels, OrgFamilyEntry, SiteGroup, SiteId, SiteLocale } from "../sites/sites";
+import type { FamilyLabels, OrgFamilyEntry, SiteGroup, SiteId, SiteKind, SiteLocale } from "../sites/sites";
 import { familyLabels, siteById } from "../sites/sites";
 import type { OrgSocialLink } from "./footer-config";
 import { FooterSocials, SiteFooter, siteFooter, SiteFooterColumn, SiteFooterLink, type SiteFooterProps } from "./site-footer";
@@ -76,12 +76,14 @@ export type FamilyFooterProps = Omit<SiteFooterProps, "current" | "org" | "legal
 };
 
 const WORDS = familyLabels.en.footer!;
+/** Row C by the site's kind, when the host does not say: the open-source sites are the developer ones. */
+const DEFAULT_KIND: Record<SiteKind, FamilyFooterKind> = { company: "company", product: "company", "open-source": "developer" };
 
 /** The family footer of every site: the five rows, from the org's selection. */
 export function FamilyFooter({ footer, current, labels, sourceLabel, kind, company, version, contact, brand = "Krizaka", extra, controls, variant = "docs", children, ...props }: Readonly<FamilyFooterProps>) {
   const lang = labels.lang ?? "en";
   const words = { ...WORDS, ...familyLabels[lang].footer, ...labels.footer };
-  const rowKind: FamilyFooterKind = kind ?? (siteById(current).kind === "open-source" ? "developer" : "company");
+  const rowKind: FamilyFooterKind = kind ?? DEFAULT_KIND[siteById(current).kind];
   const developer = rowKind === "developer";
   const s = siteFooter({ variant, tone: "cahier" });
   const entries = footer.groups.flatMap((g) => g.entries);
