@@ -1,5 +1,20 @@
 # @krizaka/ui
 
+## 4.16.0
+
+### Minor Changes
+
+- [#1053](https://github.com/krizaka/krizaka-ui/pull/1053) [`38b1ba4`](https://github.com/krizaka/krizaka-ui/commit/38b1ba485c071c8463e6a29dbd856d18f336d146) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/docs-source`: `docsSource(files, { locale })` turns a folder of `<page>.<locale>.md` into the page list, the `DocsNav` groups, the headings for `Toc` and the previous / next of `DocsArticlePage`, with the heading ids `Markdown` gives; `@krizaka/ui/docs-source/node` reads the folder (`readDocsFolder`). Pure, no network, no Fumadocs in its API.
+
+- [#1065](https://github.com/krizaka/krizaka-ui/pull/1065) [`18d9935`](https://github.com/krizaka/krizaka-ui/commit/18d993533ae89b1e978660a59cab7b7a69c02421) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `FacebookIcon` and `LinkedinIcon` (web and `/native`), monochrome, in the cut-cornered account frame of `InstagramIcon` and `YoutubeIcon`. The site footer draws every account of `@krizaka/org` `links.social` as its icon (instagram, facebook, linkedin, youtube); a test fails when an account has none (krizaka-internal#4114).
+
+### Patch Changes
+
+- Updated dependencies [[`18d9935`](https://github.com/krizaka/krizaka-ui/commit/18d993533ae89b1e978660a59cab7b7a69c02421)]:
+  - @krizaka/icons@0.11.0
+  - @krizaka/tailwind@4.16.0
+  - @krizaka/tokens@4.16.0
+
 ## 4.15.1
 
 ### Patch Changes

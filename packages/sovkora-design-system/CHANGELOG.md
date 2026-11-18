@@ -3,6 +3,16 @@
 All notable changes to `@krizaka/sovkora-design-system` (published as `@krizaka/orazaka-design-system` up to 3.4.0). Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## 4.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`38b1ba4`](https://github.com/krizaka/krizaka-ui/commit/38b1ba485c071c8463e6a29dbd856d18f336d146), [`18d9935`](https://github.com/krizaka/krizaka-ui/commit/18d993533ae89b1e978660a59cab7b7a69c02421)]:
+  - @krizaka/ui@4.16.0
+  - @krizaka/icons@0.11.0
+  - @krizaka/tailwind@4.16.0
+  - @krizaka/tokens@4.16.0
+
 ## 4.0.2
 
 ### Patch Changes
