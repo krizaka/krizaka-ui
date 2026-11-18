@@ -131,3 +131,39 @@ describe("resolveHighlight", () => {
     expect(resolveHighlight(pages, { quote: "Le locateur peut augmenter", region: { ...region, page: 9 } })?.match).toBe("exact");
   });
 });
+
+describe("the advance widths (krizaka-internal#4317)", () => {
+  // An item `i<c>i` of width 1000 on a 1000-wide page: the box of <c> is 1000 × advance(c) / (222 + advance(c) + 222).
+  const widthOf = (c: string): number => {
+    const found = locateQuote([{ page: 1, width: 1000, height: 800, items: [item(`i${c}i`, 0, 500, 1000)] }], c)!;
+    return found.boxes[0]!.width * 1000;
+  };
+  const share = (advance: number) => (1000 * advance) / (444 + advance);
+
+  it.each([
+    ["i", 222],
+    ["W", 944],
+    ["z", 500],
+    ["0", 556],
+    ["!", 278],
+    ["A", 667],
+  ])("reads %s from the table: %i", (c, advance) => {
+    expect(widthOf(c)).toBeCloseTo(share(advance), 6);
+  });
+
+  it.each([
+    ["{", "past the table (123–126)"],
+    ["~", "the last printable ASCII"],
+    ["é", "an accent: its base letter e (556)"],
+    ["€", "outside ASCII: the default advance"],
+    ["—", "outside ASCII: the default advance"],
+  ])("gives %s the default advance 556 (%s)", (c) => {
+    expect(widthOf(c)).toBeCloseTo(share(556), 6);
+  });
+
+  it("counts a space inside an item at its own advance (278) when sharing the item's width", () => {
+    const found = locateQuote([{ page: 1, width: 1000, height: 800, items: [item("i i", 0, 500, 1000)] }], "i")!;
+    // the first "i" (222) of 222 + 278 + 222
+    expect(found.boxes[0]!.width * 1000).toBeCloseTo((1000 * 222) / 722, 6);
+  });
+});

@@ -52,16 +52,36 @@ function indexPage(items: readonly TextItem[]): Index {
 }
 
 // Proportional faces: "locataire" is not as wide as nine capitals. pdf.js gives one width per item, so a position inside an
-// item is shared out by the Helvetica advance widths (per 1000 em) — close for any sans text, far better than a flat share.
-const ADVANCE =
-  "278 278 355 556 556 889 667 191 333 333 389 584 278 333 278 278 556 556 556 556 556 556 556 556 556 556 278 278 584 584 584 556 1015 " +
-  "667 667 722 722 667 611 778 722 278 500 667 556 833 722 778 667 778 722 667 611 722 667 944 667 667 611 278 278 278 469 556 333 " +
-  "556 556 500 556 556 278 556 556 222 222 500 222 833 556 556 556 556 333 500 278 556 500 722 500 500 500";
-const ADVANCES = ADVANCE.split(" ").map(Number);
+// item is shared out by the advance widths of the font below (per 1000 em) — close for any sans text, far better than a flat share.
+
+/** The first printable ASCII character (space): the table starts here. */
+const FIRST_PRINTABLE = 32;
+/** The last printable ASCII character (`~`): past it, a character has no entry of its own. */
+const LAST_PRINTABLE = 126;
+/** The advance (per 1000 em) of a character the table does not list: Helvetica's digit width, a fair average. */
+const DEFAULT_ADVANCE = 556;
+
+/** Helvetica's advance widths (Adobe Core 14 AFM, per 1000 em) from the space (32) to `z` (122), one entry per code. `{ | } ~` fall back to the default. */
+const HELVETICA_ADVANCES: readonly number[] = [
+  // space ! " # $ % & ' ( ) * + , - . /
+  278, 278, 355, 556, 556, 889, 667, 191, 333, 333, 389, 584, 278, 333, 278, 278,
+  // 0 1 2 3 4 5 6 7 8 9 : ; < = > ?
+  556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 278, 278, 584, 584, 584, 556,
+  // @ A B C D E F G H I J K L M N O
+  1015, 667, 667, 722, 722, 667, 611, 778, 722, 278, 500, 667, 556, 833, 722, 778,
+  // P Q R S T U V W X Y Z [ \ ] ^ _
+  667, 778, 722, 667, 611, 722, 667, 944, 667, 667, 611, 278, 278, 278, 469, 556,
+  // ` a b c d e f g h i j k l m n o
+  333, 556, 556, 500, 556, 556, 278, 556, 556, 222, 222, 500, 222, 833, 556, 556,
+  // p q r s t u v w x y z
+  556, 556, 333, 500, 278, 556, 500, 722, 500, 500, 500,
+];
+
 function advance(ch: string): number {
   const base = ch.normalize("NFD")[0] ?? ch;
   const code = base.codePointAt(0) ?? 0;
-  return code >= 32 && code <= 126 ? (ADVANCES[code - 32] ?? 556) : 556;
+  const printable = code >= FIRST_PRINTABLE && code <= LAST_PRINTABLE;
+  return (printable ? HELVETICA_ADVANCES[code - FIRST_PRINTABLE] : undefined) ?? DEFAULT_ADVANCE;
 }
 /** The share (0–1) of an item's width that lies before character `n` of `text`. */
 function shareBefore(text: string, n: number): number {

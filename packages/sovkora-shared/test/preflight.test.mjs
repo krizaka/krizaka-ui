@@ -65,3 +65,70 @@ test("the balance shown is never negative (a dev account at -860 reads 0), while
   assert.equal(spendableCredits({ balanceGranted: 500, balancePurchased: 300, held: 100 }), 700);
   assert.equal(spendableCredits({ balanceGranted: 0, balancePurchased: 0, held: 860 }), 0);
 });
+
+// --- The readers pinned (krizaka-internal#4317): the outputs of the PDF checks, refusals included. ---
+
+test("base64 ignores every character outside its alphabet (spaces, '=', '-', '_', non-ASCII)", () => {
+  assert.deepEqual(Array.from(base64ToBytes("JV BE\r\nRi0=")), [0x25, 0x50, 0x44, 0x46, 0x2d]);
+  assert.deepEqual(Array.from(base64ToBytes("J-V_B é E=Ri0")), [0x25, 0x50, 0x44, 0x46, 0x2d]);
+  assert.equal(base64ToBytes("").length, 0);
+  assert.equal(base64ToBytes("====").length, 0);
+});
+
+for (const [label, name, type, bytes, expected] of [
+  ["an upper-case extension", "LEASE.PDF", "", pdf(), "accepted"],
+  ["the last extension decides", "lease.pdf.png", "", pdf(), "TYPE_MISMATCH"],
+  ["a dot-file named .pdf", ".pdf", "", pdf(), "accepted"],
+  ["no extension: the MIME type decides", "lease", "application/pdf", pdf(), "accepted"],
+  ["a trailing dot is no extension: the MIME type decides", "lease.", "application/pdf", pdf(), "accepted"],
+  ["a trailing space is no extension: the MIME type decides", "lease.png ", "application/pdf", pdf(), "accepted"],
+  ["an extension with a symbol is no extension", "lease.p-df", "image/png", pdf(), "TYPE_MISMATCH"],
+  ["a slash after the last dot is no extension", "a.pdf/b", "image/png", pdf(), "TYPE_MISMATCH"],
+  ["an unknown extension falls back to the MIME type", "lease.xyz", "image/png", pdf(), "TYPE_MISMATCH"],
+  ["an unknown extension and MIME claim nothing", "lease.xyz", "", pdf(), "accepted"],
+  ["a text name on text bytes with NUL is allowed", "notes.txt", "", enc("a\0b"), "UNSUPPORTED_TYPE"],
+]) {
+  test(`the claimed kind: ${label}`, async () => {
+    const result = await inspect(bytes, name, type);
+    assert.equal(result.kind === "accepted" ? "accepted" : result.reason, expected);
+  });
+}
+
+for (const [label, body, expected, detail] of [
+  ["a name of 41+ characters is cut at 40, the rest is not a name", `<< /${"A".repeat(45)} >>`, "accepted"],
+  ["JavaScript followed by more name characters is another name", "<< /JavaScriptX 1 0 R >>", "accepted"],
+  ["JavaScript ending the name before a delimiter is active", "<< /JavaScript(x) >>", "ACTIVE_CONTENT", "JavaScript"],
+  ["names glued by a slash are both read", "<< /Foo/JS 1 0 R >>", "ACTIVE_CONTENT", "JS"],
+  ["a double slash does not hide the name", "<< //Launch >>", "ACTIVE_CONTENT", "Launch"],
+  ["#xx escapes decode, either case of hex", "<< /Java#53cript /#4Cunch /#45ncrypt >>", "ENCRYPTED"],
+  ["an incomplete escape stays literal", "<< /JS#6 >>", "accepted"],
+  ["a non-hex escape stays literal", "<< /JS#zz >>", "accepted"],
+  ["an escape yields the character even if it is a symbol", "<< /J#53 >>", "ACTIVE_CONTENT", "JS"],
+  ["the found names are sorted and joined", "<< /OpenAction /JavaScript /AA >>", "ACTIVE_CONTENT", "AA, JavaScript, OpenAction"],
+  ["an empty name is nothing", "<< / >>", "accepted"],
+  ["a name starting with an escape of a slash is read as it decodes", "<< /#2FJS >>", "accepted"],
+]) {
+  test(`the names: ${label}`, async () => {
+    const result = await inspect(pdf(body));
+    if (expected === "accepted") assert.deepEqual(result, { kind: "accepted", fileKind: "pdf" });
+    else {
+      assert.equal(result.reason, expected);
+      if (detail) assert.equal(result.detail, detail);
+    }
+  });
+}
+
+test("the trailer: both startxref and %%EOF must sit in the last 2048 bytes", async () => {
+  const filler = "x".repeat(2100);
+  const big = (text) => inspect(enc(text), "lease.pdf", "application/pdf", 10_000);
+  assert.equal((await big(`%PDF-1.7\n${filler}\nstartxref\n9\n%%EOF`)).kind, "accepted");
+  assert.equal((await big(`%PDF-1.7\nstartxref\n${filler}\n%%EOF`)).reason, "TRUNCATED");
+  assert.equal((await big(`%PDF-1.7\n%%EOF\n${filler}\nstartxref`)).reason, "TRUNCATED");
+  assert.equal((await inspect(enc("%PDF-1.7\nstartxref\n9\n"))).reason, "TRUNCATED");
+  assert.equal((await inspect(enc("%PDF-1.7\n9\n%%EOF\n"))).reason, "TRUNCATED");
+  assert.equal((await inspect(enc("%PDF-1.7\nSTARTXREF\n%%eof\n"))).reason, "TRUNCATED");
+});
+
+test("an active name before the cut-off trailer check is not reached: TRUNCATED first", async () => {
+  assert.equal((await inspect(enc("%PDF-1.7\n<< /JavaScript 1 0 R >>\n"))).reason, "TRUNCATED");
+});
