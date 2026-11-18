@@ -7,6 +7,7 @@ import HoverQuietExample from "../../registry/examples/card-grid/hover-quiet";
 import ProductsExample from "../../registry/examples/card-grid/products";
 import RevealExample from "../../registry/examples/card-grid/reveal";
 import { CardGrid } from "./card-grid";
+import { expectQuietHover } from "../quiet-hover.story-check";
 
 /** Card grid — a page block. Each story renders a named example. */
 const meta = {
@@ -52,14 +53,5 @@ export const Aligned: Story = {
 /** The grid adds no hover of its own: each card keeps the one quiet hover. */
 export const HoverQuiet: Story = {
   render: () => <HoverQuietExample />,
-  play: async ({ canvasElement }) => {
-    const cards = [...canvasElement.querySelectorAll<HTMLElement>(".kz-link-card")];
-    expect(cards).toHaveLength(3);
-    // One quiet hover (krizaka-ui#393): no class says it, no light layer, nothing follows the pointer.
-    for (const card of cards) {
-      expect(card.className).not.toMatch(/kz-hover-/);
-      expect("kzLight" in card.dataset).toBe(false);
-      expect(getComputedStyle(card, "::after").content).toBe("none");
-    }
-  },
+  play: ({ canvasElement }) => expectQuietHover(canvasElement, ".kz-link-card"),
 };
