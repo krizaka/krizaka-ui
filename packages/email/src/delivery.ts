@@ -47,7 +47,9 @@ export const hashAddress = (email: string) => createHash("sha256").update(normal
 
 export function memoryLog(): DeliveryLog & { entries: DeliveryLogEntry[] } {
   const entries: DeliveryLogEntry[] = [];
-  return { entries, record: (entry) => void entries.push(entry) };
+  return { entries, record: (entry) => {
+      entries.push(entry);
+    } };
 }
 
 /** One JSON line per email on the standard output: what DigitalOcean and every log drain keep. */
@@ -57,13 +59,17 @@ export function consoleLog(write: (line: string) => void = (line) => console.log
 
 export function memorySuppression(): SuppressionList & { reasons: Map<string, SuppressionReason> } {
   const reasons = new Map<string, SuppressionReason>();
-  return { reasons, has: (email) => reasons.has(normalizeAddress(email)), add: (email, reason) => void reasons.set(normalizeAddress(email), reason) };
+  return { reasons, has: (email) => reasons.has(normalizeAddress(email)), add: (email, reason) => {
+      reasons.set(normalizeAddress(email), reason);
+    } };
 }
 
 export function memoryIdempotency(): IdempotencyStore {
   const used = new Set<string>();
   return {
     claim: (key) => (used.has(key) ? false : (used.add(key), true)),
-    release: (key) => void used.delete(key),
+    release: (key) => {
+      used.delete(key);
+    },
   };
 }

@@ -154,7 +154,9 @@ export function createAppConfigClient(options: AppConfigClientOptions): AppConfi
     getState: () => state,
     subscribe(listener) {
       listeners.add(listener);
-      return () => void listeners.delete(listener);
+      return () => {
+        listeners.delete(listener);
+      };
     },
     async check({ force = false } = {}) {
       if (!force && now() - lastCheck < interval) return;
