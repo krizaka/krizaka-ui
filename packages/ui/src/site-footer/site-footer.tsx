@@ -149,6 +149,8 @@ export type SiteFooterProps = Omit<React.ComponentProps<"footer">, "children"> &
   madeWith?: React.ReactNode;
   /** The host's controls at the end of the last line: the language switch, the theme toggle. */
   controls?: React.ReactNode;
+  /** Replaces the bottom line with these rows (`FamilyFooter`'s rows B to E); the family and the site's own links stay above. */
+  rows?: React.ReactNode;
   /**
    * `site` — every public site. `docs` — the same under documentation, on its width. `app` — inside a signed-in product:
    * the last line only; render it once, in the layout. `hosted` — the footer of a page a platform hosts for its customer
@@ -185,6 +187,7 @@ export function SiteFooter({
   path,
   legal: legalProp,
   controls,
+  rows,
   madeWith,
   org,
   family: familyProp,
@@ -249,6 +252,25 @@ export function SiteFooter({
     ...(groups.find((g) => g.group === "krizaka")?.entries ?? []).filter((e) => e.id !== "krizaka").map((e) => ({ id: e.id, name: e.id === "blog" ? (company.blog ?? e.name) : e.name, url: e.url })),
     ...(org?.contact ? [{ id: "contact", name: company.contact ?? familyLabels.en.company!.contact!, url: org.contact.page[lang] }] : []),
   ];
+  const plainBottom = (
+    <div className={s.bottom()}>
+      <a href={krizaka.url} className={s.signature()}>
+        <BrandLogo id="krizaka" size={18} animated={false} />
+        {org ? org.footer.line[lang] : `${labels.signature[site.kind]} · ${labels.place}`}
+      </a>
+      {tag && (
+        <span className={s.version()}>
+          <span className="sr-only">{labels.version} </span>
+          {tag}
+        </span>
+      )}
+      {legal && <div className={s.legal()}>{legal}</div>}
+      <FooterSocials s={s} links={(org?.links?.social ?? []).map((x) => ({ id: x.id, label: x.label, href: x.url }))} />
+      {controls && <div className={s.controls()}>{controls}</div>}
+    </div>
+  );
+  const configured = config && <ConfigBottom s={s} config={config} krizaka={krizaka.url} brand={org?.brand.name ?? "Krizaka"} tag={tag} env={env} versionLabel={labels.version} linkAs={linkAs} path={path} controls={controls} />;
+  const bottom = rows ?? configured ?? plainBottom;
   return (
     <ToneContext.Provider value={tone}>
       <footer className={s.root({ className })} {...props}>
@@ -304,25 +326,7 @@ export function SiteFooter({
                 ))}
             </nav>
           )}
-          {config ? (
-            <ConfigBottom s={s} config={config} krizaka={krizaka.url} brand={org?.brand.name ?? "Krizaka"} tag={tag} env={env} versionLabel={labels.version} linkAs={linkAs} path={path} controls={controls} />
-          ) : (
-          <div className={s.bottom()}>
-            <a href={krizaka.url} className={s.signature()}>
-              <BrandLogo id="krizaka" size={18} animated={false} />
-              {org ? org.footer.line[lang] : `${labels.signature[site.kind]} · ${labels.place}`}
-            </a>
-            {tag && (
-              <span className={s.version()}>
-                <span className="sr-only">{labels.version} </span>
-                {tag}
-              </span>
-            )}
-            {legal && <div className={s.legal()}>{legal}</div>}
-            <FooterSocials s={s} links={(org?.links?.social ?? []).map((x) => ({ id: x.id, label: x.label, href: x.url }))} />
-            {controls && <div className={s.controls()}>{controls}</div>}
-          </div>
-          )}
+          {bottom}
         </div>
       </footer>
     </ToneContext.Provider>
@@ -388,10 +392,10 @@ function ConfigBottom({
 }
 
 /** Icons of the accounts a glyph exists for; any other account stays a text link. */
-const SOCIAL_ICONS: Readonly<Partial<Record<string, typeof InstagramIcon>>> = { instagram: InstagramIcon, facebook: FacebookIcon, linkedin: LinkedinIcon, youtube: YoutubeIcon };
+export const SOCIAL_ICONS: Readonly<Partial<Record<string, typeof InstagramIcon>>> = { instagram: InstagramIcon, facebook: FacebookIcon, linkedin: LinkedinIcon, youtube: YoutubeIcon };
 
 /** The company's accounts: each is its icon (decorative) in a link named by the account, opening in a new tab. */
-function FooterSocials({ s, links }: Readonly<{ s: ReturnType<typeof siteFooter>; links: readonly { id: string; label: string; href: string }[] }>) {
+export function FooterSocials({ s, links }: Readonly<{ s: ReturnType<typeof siteFooter>; links: readonly { id: string; label: string; href: string }[] }>) {
   if (links.length === 0) return null;
   return (
     <div className={s.socials()}>

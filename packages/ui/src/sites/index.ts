@@ -2,6 +2,7 @@
 export { familyGroups, orgIdOf } from "./family-groups";
 export {
   type CompanyLinkId,
+  type FamilyFooterWords,
   type FamilyLabels,
   familyLabels,
   type OrgFacts,

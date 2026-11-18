@@ -8,7 +8,7 @@
 import type { OrgSocialLink } from "../site-footer/footer-config";
 
 /** A site of the family. */
-export type SiteId = "krizaka" | "sovkora" | "verikora" | "folioviv" | "ui" | "java" | "ts" | "motion" | "lab" | "kridoc" | "blog" | "github";
+export type SiteId = "krizaka" | "sovkora" | "verikora" | "folioviv" | "ui" | "java" | "ts" | "rust" | "motion" | "lab" | "kridoc" | "blog" | "agents" | "github";
 
 /** What a site is: the company, a product, or an open-source project. It chooses the footer's signature line. */
 export type SiteKind = "company" | "product" | "open-source";
@@ -60,9 +60,18 @@ export const sites: readonly Site[] = [
   site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
   site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-java" }),
   site({ id: "ts", name: "Krizaka TypeScript", url: "https://ts.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ts" }),
+  site({ id: "rust", name: "Krizaka Rust", url: "https://rust.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-rust" }),
   // The family lab: built in the open, served at lab.krizaka.com; what proves itself there moves into Krizaka UI.
   site({ id: "motion", name: "Krizaka Lab", url: "https://lab.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-lab" }),
   site({ id: "github", name: "GitHub", url: "https://github.com/krizaka", kind: "open-source", group: "github", status: "released", mark: "github", repo: "https://github.com/krizaka" }),
+];
+
+/**
+ * A site the family does not list yet: it has a footer (`footerFor("agents")`) but no public address answers, so it stays out of
+ * every list (the bar, the family columns) until the org flips its member to public and it moves into `sites`.
+ */
+const unlisted: readonly Site[] = [
+  site({ id: "agents", name: "Krizaka Agents", url: "https://agents.krizaka.com", kind: "company", group: "krizaka", status: "upcoming", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-agents" }),
 ];
 
 /** The groups, in reading order. */
@@ -72,7 +81,7 @@ export const siteGroups: readonly SiteGroup[] = ["krizaka", "products", "open-so
 export function siteById(id: SiteId): Site {
   // `lab` is the org's id of Krizaka Lab; the registry's own id is `motion` (kept, so nothing that names it breaks).
   const key = id === "lab" ? "motion" : id;
-  const found = sites.find((s) => s.id === key);
+  const found = sites.find((s) => s.id === key) ?? unlisted.find((s) => s.id === key);
   if (!found) throw new Error(`Unknown Krizaka site "${id}".`);
   return found;
 }
@@ -87,6 +96,20 @@ export type SiteLocale = "en" | "fr";
 
 /** The company's own links the footer's « Krizaka » column words: the org's pages (`org.family` blog, `org.contact`), never typed addresses. */
 export type CompanyLinkId = "story" | "blog" | "contact";
+
+/** The words of `FamilyFooter`'s rows: the accessible name of each group, and the row C links. */
+export interface FamilyFooterWords {
+  /** Row B's navigation (“Krizaka on social media”). */
+  social: string;
+  /** Row C's navigation (“This project”). */
+  project: string;
+  /** Row D's navigation (“Legal”). */
+  legal: string;
+  /** “Source code”. */
+  source: string;
+  /** “Release notes”. */
+  releaseNotes: string;
+}
 
 /** The words of the family: the switcher, the footer, each site's one line. */
 export interface FamilyLabels {
@@ -106,6 +129,8 @@ export interface FamilyLabels {
   place: string;
   /** The accessible name of the version (“Version”). */
   version: string;
+  /** The words of `FamilyFooter`'s own rows. @default the English words */
+  footer?: FamilyFooterWords;
   /** The language of these words: the company links open in it. @default "en" */
   lang?: SiteLocale;
   /** The company's pages in the footer's « Krizaka » column. @default the English words */
@@ -130,6 +155,8 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       ui: "Components, tokens, icons and charts — web and React Native.",
       java: "Spring Boot building blocks on Maven Central.",
       ts: "TypeScript backend building blocks on npm.",
+      rust: "Rust crates for the desktop apps, on crates.io.",
+      agents: "Krizaka Agents: how our software agents work, in the open.",
       motion: LAB.en,
       lab: LAB.en,
       kridoc: "Kridoc: documents, kept and found again.",
@@ -141,6 +168,7 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
     version: "Version",
     lang: "en",
     company: { story: "Our story", blog: "Blog", contact: "Contact us" },
+    footer: { social: "Krizaka on social media", project: "This project", legal: "Legal", source: "Source code", releaseNotes: "Release notes" },
   },
   fr: {
     family: "Famille Krizaka",
@@ -155,6 +183,8 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       ui: "Composants, jetons, icônes et graphiques — web et React Native.",
       java: "Des briques Spring Boot sur Maven Central.",
       ts: "Des briques backend TypeScript sur npm.",
+      rust: "Des crates Rust pour les apps bureau, sur crates.io.",
+      agents: "Krizaka Agents : comment travaillent nos agents logiciels, au grand jour.",
       motion: LAB.fr,
       lab: LAB.fr,
       kridoc: "Kridoc : des documents, gardés et retrouvés.",
@@ -166,6 +196,7 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
     version: "Version",
     lang: "fr",
     company: { story: "Notre histoire", blog: "Blogue", contact: "Nous écrire" },
+    footer: { social: "Krizaka sur les réseaux", project: "Ce projet", legal: "Mentions légales", source: "Code source", releaseNotes: "Notes de version" },
   },
 };
 

@@ -441,7 +441,7 @@ describe("FamilyFooter", () => {
   });
 
   it("shows no source, no licence, no version when the selection says none", () => {
-    draw({ footer: { ...footer, source: null, license: null, version: false } });
+    draw({ kind: "company", footer: { ...footer, source: null, license: null, version: false } });
     expect(screen.queryByRole("link", { name: "Source code" })) .toBeNull();
     expect(screen.queryByText("Apache-2.0")).toBeNull();
     expect(screen.queryByText("v2.0.0")).toBeNull();

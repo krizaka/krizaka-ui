@@ -2,7 +2,7 @@ import { familyLabels, type OrgFacts, orgFamilyLabels, siteById, siteGroups, sit
 
 describe("sites — the Krizaka family", () => {
   it("lists every site once, with an https address and a repository on GitHub", () => {
-    expect(sites.map((s) => s.id)).toEqual(["krizaka", "blog", "sovkora", "verikora", "folioviv", "kridoc", "ui", "java", "ts", "motion", "github"]);
+    expect(sites.map((s) => s.id)).toEqual(["krizaka", "blog", "sovkora", "verikora", "folioviv", "kridoc", "ui", "java", "ts", "rust", "motion", "github"]);
     for (const site of sites) {
       expect(site.url).toMatch(/^https:\/\//);
       expect(site.repo).toMatch(/^https:\/\/github\.com\/krizaka(\/[a-z-]+)?$/);
@@ -22,6 +22,7 @@ describe("sites — the Krizaka family", () => {
       "ui.krizaka.com",
       "java.krizaka.com",
       "ts.krizaka.com",
+      "rust.krizaka.com",
       "lab.krizaka.com",
       "github.com/krizaka",
     ]);
@@ -48,7 +49,7 @@ describe("sites — the Krizaka family", () => {
     expect(sitesByGroup().map((g) => [g.group, g.sites.map((s) => s.id)])).toEqual([
       ["krizaka", ["krizaka", "blog"]],
       ["products", ["sovkora", "verikora", "folioviv", "kridoc"]],
-      ["open-source", ["ui", "java", "ts", "motion"]],
+      ["open-source", ["ui", "java", "ts", "rust", "motion"]],
       ["github", ["github"]],
     ]);
   });
