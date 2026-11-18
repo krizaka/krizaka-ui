@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 4.17.0
+
+### Minor Changes
+
+- [#1073](https://github.com/krizaka/krizaka-ui/pull/1073) [`e6e2e14`](https://github.com/krizaka/krizaka-ui/commit/e6e2e1434496e2727cfe49cb5dca0110cdf2494a) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `FamilyFooter` is the one footer of the family: five rows under one `<footer>` (family groups and at most one site column · the four accounts in a fixed order, each its own glyph · source, licence, version, release notes · the company with its NEQ and city and the legal links · the signature line), each group a labelled `<nav>`. `kind="company" | "developer"` changes row C only; the data gains the optional `column`, `releaseNotes` and `licenceHref`; `company` fills row D; `labels.footer` carries the rows' words in English and French. `SiteId` gains `rust` (listed) and `agents` (known, not listed yet). `SiteFooter` gains a `rows` slot.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@4.17.0
+  - @krizaka/tokens@4.17.0
+
 ## 4.16.0
 
 ### Minor Changes
