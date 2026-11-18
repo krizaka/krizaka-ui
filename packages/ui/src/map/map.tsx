@@ -395,7 +395,7 @@ export function Marker({ position, label, onPress, selected, size = 18, children
   usePlace(id, label, places);
   React.useEffect(() => {
     if (!m || !lib || !el) return;
-    el.dataset.kzMarker = "";
+    Object.assign(el.dataset, { kzMarker: "" });
     const marker = new lib.Marker({ element: el, anchor: "center" }).setLngLat([...position] as [number, number]).addTo(m);
     return () => void marker.remove();
   }, [m, lib, el, position[0], position[1]]); // eslint-disable-line react-hooks/exhaustive-deps
