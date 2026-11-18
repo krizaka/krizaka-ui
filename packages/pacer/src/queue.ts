@@ -250,7 +250,9 @@ export function createQueue<M = undefined>(initial: QueueOptions = {}): Queue<M>
     snapshot: () => view,
     subscribe(listener) {
       listeners.add(listener);
-      return () => void listeners.delete(listener);
+      return () => {
+        listeners.delete(listener);
+      };
     },
     dispose() {
       for (const job of jobs.values()) stop(job);
