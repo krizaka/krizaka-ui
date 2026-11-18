@@ -12,7 +12,7 @@ import { DeviceFrame, type DeviceKind } from "./device-frame";
 const FILL_CSS = ".kz-step-fill{transform-origin:left;animation:kz-step-fill var(--kz-step-ms,6000ms) linear forwards}@keyframes kz-step-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}";
 const REDUCED = "(prefers-reduced-motion: reduce)";
 const noop = () => () => undefined;
-const readReduced = () => Boolean(typeof window !== "undefined" && globalThis.matchMedia?.(REDUCED).matches);
+const readReduced = () => Boolean(typeof globalThis.window !== "undefined" && globalThis.matchMedia?.(REDUCED).matches);
 const subscribeReduced = (notify: () => void) => {
   const q = globalThis.matchMedia?.(REDUCED);
   q?.addEventListener?.("change", notify);

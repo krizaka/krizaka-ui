@@ -120,7 +120,7 @@ function PageCanvas({ page, doc, caption, onReady, className }: Readonly<{ page:
       const ctx = canvas?.getContext("2d");
       if (cancelled || !canvas || !ctx) return;
       const base = p.getViewport({ scale: 1 });
-      const dpr = typeof window === "undefined" ? 1 : Math.min(2, window.devicePixelRatio || 1);
+      const dpr = typeof globalThis.window === "undefined" ? 1 : Math.min(2, globalThis.window.devicePixelRatio || 1);
       const scale = Math.min(2.5, Math.max(1, (canvas.parentElement?.clientWidth || base.width) / base.width)) * dpr;
       const viewport = p.getViewport({ scale });
       canvas.width = Math.floor(viewport.width);

@@ -78,7 +78,7 @@ function useMayMove(): boolean {
   React.useEffect(() => {
     const query = globalThis.matchMedia("(prefers-reduced-motion: reduce)");
     // The page settles first: `html[data-motion="settling"]` (MotionObserver) holds every loop until it is `ready`.
-    const settled = () => document.documentElement.getAttribute("data-motion") !== "settling";
+    const settled = () => document.documentElement.dataset.motion !== "settling";
     const update = () => setMay(!query.matches && document.visibilityState !== "hidden" && settled());
     update();
     query.addEventListener("change", update);

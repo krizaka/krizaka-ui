@@ -29,7 +29,7 @@ export const HoverQuiet: Story = {
     // One quiet hover (krizaka-ui#393): no class says it, no light layer, nothing follows the pointer.
     for (const card of cards) {
       expect(card.className).not.toMatch(/kz-hover-/);
-      expect(card.hasAttribute("data-kz-light")).toBe(false);
+      expect("kzLight" in card.dataset).toBe(false);
       expect(getComputedStyle(card, "::after").content).toBe("none");
     }
   },

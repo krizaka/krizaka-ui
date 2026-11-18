@@ -60,7 +60,7 @@ const ADVANCE =
 const ADVANCES = ADVANCE.split(" ").map(Number);
 function advance(ch: string): number {
   const base = ch.normalize("NFD")[0] ?? ch;
-  const code = base.charCodeAt(0);
+  const code = base.codePointAt(0) ?? 0;
   return code >= 32 && code <= 126 ? (ADVANCES[code - 32] ?? 556) : 556;
 }
 /** The share (0–1) of an item's width that lies before character `n` of `text`. */

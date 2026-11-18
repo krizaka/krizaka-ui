@@ -60,7 +60,9 @@ const writeFilters = (filters: ReturnType<typeof readFilters>) => {
   if (filters.status !== "all") params.set("status", filters.status);
   if (filters.used !== "all") params.set("by", filters.used);
   const query = params.toString();
-  window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`);
+  const { history, location } = globalThis.window;
+  const search = query ? `?${query}` : "";
+  history.replaceState(null, "", `${location.pathname}${search}${location.hash}`);
   listeners.forEach((listener) => listener());
 };
 

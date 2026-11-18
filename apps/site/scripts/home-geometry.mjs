@@ -170,7 +170,7 @@ for (const path of PATHS) {
         }
         if (axePath) {
           await page.addScriptTag({ path: axePath });
-          const serious = await page.evaluate(async () => (await window.axe.run(document, { resultTypes: ["violations"] })).violations.filter((v) => v.impact === "serious" || v.impact === "critical").map((v) => `${v.id} on ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`));
+          const serious = await page.evaluate(async () => (await globalThis.window.axe.run(document, { resultTypes: ["violations"] })).violations.filter((v) => v.impact === "serious" || v.impact === "critical").map((v) => `${v.id} on ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`));
           if (serious.length) problems.push(`${where}: axe serious/critical: ${serious.join(", ")}`);
         }
         await page.locator(".kz-home-builder a").click();

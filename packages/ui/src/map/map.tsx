@@ -395,7 +395,7 @@ export function Marker({ position, label, onPress, selected, size = 18, children
   usePlace(id, label, places);
   React.useEffect(() => {
     if (!m || !lib || !el) return;
-    el.setAttribute("data-kz-marker", "");
+    el.dataset.kzMarker = "";
     const marker = new lib.Marker({ element: el, anchor: "center" }).setLngLat([...position] as [number, number]).addTo(m);
     return () => void marker.remove();
   }, [m, lib, el, position[0], position[1]]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -465,7 +465,7 @@ export function Pulse({ position, label, size = 56, tone = "accent" }: PulseProp
     if (!m || !lib) return;
     const el = document.createElement("div");
     el.className = "kz-map-pulse";
-    el.setAttribute("data-tone", tone);
+    el.dataset.tone = tone;
     el.setAttribute("aria-hidden", "true");
     el.style.setProperty("--kz-map-pulse-size", `${size}px`);
     const marker = new lib.Marker({ element: el, anchor: "center" }).setLngLat([...position] as [number, number]).addTo(m);

@@ -74,7 +74,7 @@ export function parsePath(path: unknown): GenUiResult<readonly string[]> {
   const segments = path
     .slice(1)
     .split("/")
-    .map((s) => s.replace(/~1/g, "/").replace(/~0/g, "~"));
+    .map((s) => s.replaceAll("~1", "/").replaceAll("~0", "~"));
   if (segments.length > GENUI_LIMITS.pathSegments) return fail(`a path has at most ${GENUI_LIMITS.pathSegments} segments`);
   for (const s of segments) {
     if (s === "" || FORBIDDEN_SEGMENTS.has(s)) return fail(`a path may not hold the segment "${s}"`);

@@ -218,7 +218,7 @@ export function captionHtml({ kit, aspect, text }) {
     css: `.cap { position: absolute; left: 50%; top: ${L.caption}px; transform: translate(-50%, -50%); max-width: ${L.captionMax}px; width: max-content;
   padding: ${Math.round(L.captionSize * 0.42)}px ${Math.round(L.captionSize * 0.8)}px; border-radius: 999px; background: rgba(9,9,12,.62);
   font-family: var(--kz-font-display); font-weight: 650; font-size: ${L.captionSize}px; line-height: 1.25; letter-spacing: -0.01em; color: #fff; text-align: center; text-wrap: balance; }`,
-    body: `<div class="cap">${text.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</div>`,
+    body: `<div class="cap">${text.replaceAll("&", "&amp;").replaceAll("<", "&lt;")}</div>`,
   });
 }
 

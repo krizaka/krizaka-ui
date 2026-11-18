@@ -17,12 +17,12 @@ export const TURNSTILE_TERMS = "https://www.cloudflare.com/website-terms/";
 let loading: Promise<TurnstileApi> | null = null;
 
 export function loadTurnstile(): Promise<TurnstileApi> {
-  if (window.turnstile) return Promise.resolve(window.turnstile);
+  if (globalThis.window.turnstile) return Promise.resolve(globalThis.window.turnstile);
   loading ??= new Promise<TurnstileApi>((resolve, reject) => {
     const s = document.createElement("script");
     s.src = TURNSTILE_SCRIPT;
     s.async = true;
-    s.onload = () => (window.turnstile ? resolve(window.turnstile) : reject(new Error("turnstile")));
+    s.onload = () => (globalThis.window.turnstile ? resolve(globalThis.window.turnstile) : reject(new Error("turnstile")));
     s.onerror = () => {
       loading = null;
       reject(new Error("turnstile"));

@@ -51,7 +51,7 @@ export interface WallProps extends Omit<React.ComponentProps<"ul">, "children" |
 /** A tilt of 1 to 2 degrees, either way, derived from the id: the same wall draws the same everywhere (server and client). */
 export function tidyTilt(id: string): number {
   let h = 2166136261;
-  for (let i = 0; i < id.length; i += 1) h = Math.imul(h ^ id.charCodeAt(i), 16777619);
+  for (let i = 0; i < id.length; i += 1) h = Math.imul(h ^ (id.codePointAt(i) ?? 0), 16777619);
   const n = (h >>> 0) % 4; // 0..3
   return [-2, -1, 1, 2][n]!;
 }
