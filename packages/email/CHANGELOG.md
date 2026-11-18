@@ -1,5 +1,11 @@
 # @krizaka/email
 
+## 1.2.3
+
+### Patch Changes
+
+- [#1076](https://github.com/krizaka/krizaka-ui/pull/1076) [`af9acfd`](https://github.com/krizaka/krizaka-ui/commit/af9acfdb3b28875694982c8384c1962edc8bef39) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Internal cleanup: no `void` operator in the in-memory delivery log, suppression list, idempotency store and the subscribe callbacks (Sonar S3735). No behaviour change.
+
 ## 1.2.2
 
 ### Patch Changes
