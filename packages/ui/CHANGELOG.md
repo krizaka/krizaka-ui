@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 5.1.0
+
+### Minor Changes
+
+- [#1085](https://github.com/krizaka/krizaka-ui/pull/1085) [`d6140f2`](https://github.com/krizaka/krizaka-ui/commit/d6140f20eee584164ad40bed9f507e4561ed1fec) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `terminal-replay` (`TerminalReplay`) is back, and no longer deprecated: it was removed in the last major with the unused deprecated entries, but agents.krizaka.com replays agent logs with it.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@5.1.0
+  - @krizaka/tokens@5.1.0
+
 ## 5.0.0
 
 ### Major Changes
