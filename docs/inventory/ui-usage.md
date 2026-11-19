@@ -14,9 +14,9 @@ an entry with itself over time, not with its budget).
 
 | Domain | Entries not retired | gzip sum (kB) | size-limit budgets sum (kB) |
 | :-- | --: | --: | --: |
-| Foundations | 25 | 61.4 | 115.3 |
-| Forms | 14 | 87.1 | 203.0 |
-| Data display | 12 | 77.3 | 75.5 |
+| Foundations | 25 | 61.5 | 115.3 |
+| Forms | 14 | 87.2 | 203.0 |
+| Data display | 12 | 77.5 | 75.5 |
 | Navigation & shell | 32 | 192.8 | 229.9 |
 | Feedback & overlays | 12 | 25.1 | 112.9 |
 | Geolocation & maps | 5 | 24.3 | 34.1 |
@@ -25,7 +25,7 @@ an entry with itself over time, not with its budget).
 | Identity & people | 10 | 48.5 | 24.6 |
 | Abuse protection | 1 | 5.8 | 5.0 |
 | Conversation & AI | 7 | 74.0 | 39.3 |
-| Page blocks & templates | 35 | 69.3 | 133.3 |
+| Page blocks & templates | 35 | 68.4 | 133.3 |
 | Cahier (sites register) | 15 | 80.7 | 76.9 |
 
 | Entry | Domain | Status | Live importers (files) | Paused | Built on by | gzip kB / budget | Tests | Stories | Last change | Verdict | Why |
@@ -43,7 +43,7 @@ an entry with itself over time, not with its budget).
 | `chip-link` | Foundations | beta | Yo 2 Ak 5 www 1 cockpit 2 | — | 2 | 0.8 / 2.0 | 1 | 1 | 2026-11-15 | **keep** | 10 live importer file(s) |
 | `chip-row` | Foundations | beta | — | — | — | 2.6 / 3.0 | 1 | 1 | 2026-11-17 | **merge** → `chip` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `cn` | Foundations | stable | Ak 5 Oz 30 www 4 blog 2 ui 3 java 3 ts 2 cockpit 2 | — | 81 | 0.5 / 14.0 | — | — | 2026-11-15 | **keep** | 51 live importer file(s) |
-| `copy-button` | Foundations | beta | cockpit 1 | — | — | 5.0 / 4.0 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
+| `copy-button` | Foundations | beta | cockpit 1 | — | — | 5.2 / 4.0 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
 | `kbd` | Foundations | stable | www 2 ui 4 java 1 ts 1 | — | 3 | 0.4 / 1.0 | 1 | 1 | 2026-11-15 | **keep** | 8 live importer file(s) |
 | `loader` | Foundations | beta | Oz 3 ui 1 (native: ui 1) | — | — | 2.7 / 2.0 | 1 | 2 | 2026-11-17 | **keep** | 5 live importer file(s) |
 | `mascots` | Foundations | beta | Yo 11 Ak 11 Oz 11 www 10 blog 1 java 1 | — | 8 | 9.4 / 6.6 | 2 | 1 | 2026-11-19 | **keep** | 45 live importer file(s) |
@@ -72,8 +72,8 @@ an entry with itself over time, not with its budget).
 | `form` | Forms | beta | Yo 19 Ak 22 Oz 19 (native: Yo 1 Ak 2) | — | 2 | 9.4 / 24.5 | 1 | 2 | 2026-11-17 | **keep** | 63 live importer file(s) |
 | `form/server` | Forms | — | — | — | 2 | 1.2 / 1.4 | 1 | 2 | 2026-11-17 | **keep** | built on by native, shop-composer |
 | `native:otp-input` | Forms | beta | — | — | — | — / — | — | — | 2026-10-29 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
-| `native/form` | Forms | — | — | — | — | 8.5 / 23.0 | — | — | 2026-11-18 | **keep** | a filed need (its repository left the organisation) |
-| `radio-group` | Forms | beta | Yo 5 Oz 4 | — | 4 | 4.2 / 12.7 | 1 | 2 | 2026-11-15 | **keep** | 9 live importer file(s) |
+| `native/form` | Forms | — | — | — | — | 8.5 / 23.0 | — | — | 2026-11-19 | **keep** | a filed need (its repository left the organisation) |
+| `radio-group` | Forms | beta | Yo 5 Oz 4 | — | 4 | 4.3 / 12.7 | 1 | 2 | 2026-11-15 | **keep** | 9 live importer file(s) |
 | `schema-form` | Forms | experimental | — | — | — | 10.7 / 10.5 | 1 | 1 | 2026-11-15 | **ask** | unused, new (2026-10-28): its adoption issue? |
 | `search-field` | Forms | beta | Yo 3 Ak 2 Oz 2 ui 1 cockpit 1 (native: Ak 1) | — | 1 | 5.8 / 5.5 | 1 | 2 | 2026-11-15 | **keep** | 10 live importer file(s) |
 | `slider` | Forms | beta | Ak 1 ui 1 motion 2 | — | 3 | 3.1 / 12.0 | 1 | 2 | 2026-11-16 | **keep** | 2 live importer file(s) |
@@ -81,18 +81,18 @@ an entry with itself over time, not with its budget).
 | `tag-input` | Forms | beta | cockpit 1 | — | 1 | 9.9 / 16.0 | 1 | 1 | 2026-11-15 | **merge** → `tag-selector` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `tag-selector` | Forms | beta | Yo 3 Ak 1 | — | — | 4.9 / 13.8 | 1 | 2 | 2026-11-16 | **keep** | 4 live importer file(s) |
 | `activity-feed` | Data display | beta | cockpit 1 | — | 1 | 2.5 / 2.5 | 0 | 2 | 2026-11-17 | **keep** | 1 live importer file(s) |
-| `architecture-diagram` | Data display | experimental | — | — | — | 4.5 / 3.5 | 1 | 1 | 2026-11-15 | **ask** | unused, new (2026-11-15): its adoption issue? |
+| `architecture-diagram` | Data display | experimental | — | — | — | 4.6 / 3.5 | 1 | 1 | 2026-11-19 | **ask** | unused, new (2026-11-15): its adoption issue? |
 | `countdown` | Data display | stable | — | — | 1 | 1.2 / 2.0 | 1 | 2 | 2026-11-15 | **keep** | built on by native |
 | `data-table` | Data display | beta | Yo 15 Ak 10 Oz 22 www 1 ui 2 motion 4 cockpit 6 | — | 1 | 39.2 / — | 3 | 1 | 2026-11-15 | **keep** | 56 live importer file(s) |
 | `description-list` | Data display | beta | Yo 7 Ak 6 Oz 3 cockpit 2 (native: Yo 1 Ak 1) | — | 1 | 0.9 / 1.0 | 1 | 2 | 2026-11-19 | **keep** | 20 live importer file(s) |
 | `goal-gauge` | Data display | beta | — | — | — | 1.2 / 1.0 | 1 | 2 | 2026-11-19 | **merge** → `meter` | ADR-006 merge (#675), or deprecated in favour of another entry |
-| `list` | Data display | beta | Yo 9 Ak 1 Oz 3 | — | — | 5.3 / 8.0 | 1 | 2 | 2026-11-18 | **keep** | 13 live importer file(s) |
+| `list` | Data display | beta | Yo 9 Ak 1 Oz 3 | — | — | 5.3 / 8.0 | 1 | 2 | 2026-11-19 | **keep** | 13 live importer file(s) |
 | `meter` | Data display | beta | Yo 1 Ak 3 Oz 1 www 1 ui 1 | — | 5 | 2.4 / 2.0 | 2 | 2 | 2026-11-15 | **keep** | 7 live importer file(s) |
 | `native:swipeable-row` | Data display | beta | — | — | — | — / — | — | — | 2026-10-29 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
-| `native/list` | Data display | — | Yo 3 Ak 1 | — | — | 1.8 / 2.0 | — | — | 2026-11-18 | **keep** | 4 live importer file(s) |
+| `native/list` | Data display | — | Yo 3 Ak 1 | — | — | 1.8 / 2.0 | — | — | 2026-11-19 | **keep** | 4 live importer file(s) |
 | `qr-code` | Data display | beta | Ak 1 cockpit 1 | — | 2 | 9.1 / 9.0 | 3 | 2 | 2026-11-19 | **keep** | 2 live importer file(s) |
 | `stat` | Data display | stable | Yo 1 Ak 3 Oz 4 www 1 blog 2 motion 4 cockpit 2 | — | 1 | 1.7 / 1.5 | 1 | 1 | 2026-11-15 | **keep** | 13 live importer file(s) |
-| `status-chip` | Data display | beta | Yo 2 Ak 1 cockpit 1 | — | — | 4.9 / 32.0 | 1 | 2 | 2026-11-15 | **keep** | 4 live importer file(s) |
+| `status-chip` | Data display | beta | Yo 2 Ak 1 cockpit 1 | — | — | 5.1 / 32.0 | 1 | 2 | 2026-11-15 | **keep** | 4 live importer file(s) |
 | `swipe-deck` | Data display | deprecated | — | — | — | 4.2 / 3.0 | 0 | 2 | 2026-11-16 | **retire** | already deprecated (#674), removed in 4.0 |
 | `virtual` | Data display | beta | — | — | 1 | 3.8 / 12.0 | 1 | 1 | 2026-11-15 | **keep** | built on by data-table |
 | `app-frame` | Navigation & shell | beta | Yo 1 Ak 4 Oz 2 | — | — | 2.6 / 2.3 | 1 | 1 | 2026-11-14 | **keep** | 7 live importer file(s) |
@@ -108,7 +108,7 @@ an entry with itself over time, not with its budget).
 | `detail-layout` | Navigation & shell | beta | Yo 3 Ak 2 | — | — | 2.9 / 2.4 | 1 | 1 | 2026-11-15 | **keep** | 5 live importer file(s) |
 | `language-switch` | Navigation & shell | beta | Yo 3 Ak 3 Oz 1 www 1 blog 1 ui 2 java 1 ts 1 cockpit 1 | — | 1 | 2.6 / 2.4 | 2 | 1 | 2026-11-19 | **keep** | 14 live importer file(s) |
 | `language-switch/server` | Navigation & shell | — | — | — | 1 | 0.5 / 1.0 | 2 | 1 | 2026-11-19 | **keep** | built on by nav-bar |
-| `native` | Navigation & shell | — | Yo 17 Ak 22 blog 2 ui 3 | — | — | 94.4 / 75.0 | — | — | 2026-11-18 | **keep** | 44 live importer file(s) |
+| `native` | Navigation & shell | — | Yo 17 Ak 22 blog 2 ui 3 | — | — | 94.4 / 75.0 | — | — | 2026-11-19 | **keep** | 44 live importer file(s) |
 | `native:form-flow` | Navigation & shell | experimental | — | — | — | — / — | — | — | 2026-11-06 | **ask** | unused, new (2026-10-27): its adoption issue? |
 | `native:grid` | Navigation & shell | beta | Ak 1 | — | — | — / — | — | — | 2026-11-14 | **keep** | 1 live importer file(s) |
 | `native:header` | Navigation & shell | beta | Yo 3 Ak 3 | — | — | — / — | — | — | 2026-10-29 | **keep** | 6 live importer file(s) |
@@ -138,7 +138,7 @@ an entry with itself over time, not with its budget).
 | `dropdown-menu` | Feedback & overlays | stable | Yo 4 Ak 2 Oz 1 | — | 5 | 2.2 / 32.0 | 1 | 1 | 2026-11-15 | **keep** | 7 live importer file(s) |
 | `empty-state` | Feedback & overlays | stable | Yo 9 Ak 6 Oz 2 cockpit 8 (native: Yo 4 Ak 3) | — | — | 0.6 / 1.0 | 1 | 2 | 2026-11-15 | **keep** | 32 live importer file(s) |
 | `force-update-screen` | Feedback & overlays | deprecated | — | — | — | 4.7 / 3.5 | 1 | 2 | 2026-11-15 | **retire** | already deprecated (#674), removed in 4.0 |
-| `maintenance-screen` | Feedback & overlays | deprecated | — | — | — | 4.7 / 3.5 | 1 | 2 | 2026-11-18 | **retire** | already deprecated (#674), removed in 4.0 |
+| `maintenance-screen` | Feedback & overlays | deprecated | — | — | — | 4.7 / 3.5 | 1 | 2 | 2026-11-19 | **retire** | already deprecated (#674), removed in 4.0 |
 | `mascot-state` | Feedback & overlays | beta | — (native: Ak 2) | — | — | 9.2 / 6.6 | 1 | 2 | 2026-11-15 | **merge** → `empty-state` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `match-dialog` | Feedback & overlays | deprecated | — | — | — | 10.0 / 20.0 | 0 | 2 | 2026-11-15 | **retire** | already deprecated (#674), removed in 4.0 |
 | `native:action-sheet` | Feedback & overlays | beta | — | — | — | — / — | — | — | 2026-10-29 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
@@ -156,18 +156,18 @@ an entry with itself over time, not with its budget).
 | `map/cards` | Geolocation & maps | — | — | — | 2 | 1.5 / 1.4 | 2 | 2 | 2026-11-18 | **keep** | built on by native, shop |
 | `map/pin` | Geolocation & maps | — | — | — | 2 | 1.3 / 1.2 | 2 | 2 | 2026-11-18 | **keep** | built on by native, shop |
 | `map/sheet` | Geolocation & maps | — | — | — | 2 | 1.1 / 1.1 | 2 | 2 | 2026-11-18 | **keep** | built on by native, shop |
-| `native/map` | Geolocation & maps | — | — | — | — | 7.7 / 13.2 | — | — | 2026-11-18 | **keep** | filed need folioviv#235 |
+| `native/map` | Geolocation & maps | — | — | — | — | 7.7 / 13.2 | — | — | 2026-11-19 | **keep** | filed need folioviv#235 |
 | `document-viewer` | Media | beta | Yo 6 cockpit 1 | — | — | 6.1 / 5.0 | 2 | 1 | 2026-11-19 | **keep** | 7 live importer file(s) |
 | `embed-facade` | Media | beta | Ak 2 | — | 1 | 2.2 / 2.0 | 2 | 1 | 2026-11-14 | **keep** | 2 live importer file(s) |
 | `file-upload` | Media | beta | Yo 4 Oz 1 | — | 2 | 7.9 / 9.0 | 1 | 1 | 2026-11-17 | **keep** | 5 live importer file(s) |
 | `media-gallery` | Media | beta | — | — | 1 | 1.2 / 2.0 | 5 | 1 | 2026-11-15 | **keep** | built on by shop |
 | `native:image-viewer` | Media | beta | — | — | — | — / — | — | — | 2026-10-29 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native:media-picker` | Media | beta | — | — | — | — / — | — | — | 2026-10-29 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
-| `native/media-picker` | Media | — | — | — | — | 1.7 / 2.5 | — | — | 2026-11-18 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
-| `native/vertical-video` | Media | — | — | — | — | 3.0 / 6.0 | — | — | 2026-11-18 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
-| `native/video-player` | Media | — | — | — | — | 1.0 / 2.0 | — | — | 2026-11-18 | **keep** | a filed need (its repository left the organisation) |
+| `native/media-picker` | Media | — | — | — | — | 1.7 / 2.5 | — | — | 2026-11-19 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
+| `native/vertical-video` | Media | — | — | — | — | 3.0 / 6.0 | — | — | 2026-11-19 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
+| `native/video-player` | Media | — | — | — | — | 1.0 / 2.0 | — | — | 2026-11-19 | **keep** | a filed need (its repository left the organisation) |
 | `retro-tv` | Media | beta | Ak 3 | — | 1 | 13.4 / 22.0 | 1 | 1 | 2026-11-19 | **keep** | 3 live importer file(s) |
-| `terminal-replay` | Media | stable | — | — | — | — / 2.5 | 1 | 1 | 2026-11-18 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
+| `terminal-replay` | Media | stable | — | — | — | 4.0 / 2.6 | 1 | 1 | 2026-11-18 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `vertical-video` | Media | beta | — | — | 1 | 10.7 / 7.1 | 1 | 2 | 2026-11-16 | **keep** | built on by native |
 | `video-player` | Media | beta | www 2 ui 1 | — | 2 | 9.9 / 15.5 | 1 | 2 | 2026-11-16 | **keep** | 3 live importer file(s) |
 | `waveform` | Media | beta | motion 1 | — | 1 | 1.4 / 1.5 | 1 | 2 | 2026-11-15 | **keep** | built on by native |
@@ -218,11 +218,11 @@ an entry with itself over time, not with its budget).
 | `engine-flow` | Conversation & AI | beta | www 2 ui 1 motion 2 | — | — | 3.7 / 2.7 | 1 | 1 | 2026-11-17 | **keep** | 3 live importer file(s) |
 | `genui` | Conversation & AI | beta | Oz 3 | — | — | 47.0 / — | 1 | 1 | 2026-11-19 | **keep** | 3 live importer file(s) |
 | `markdown` | Conversation & AI | beta | Oz 2 cockpit 4 | — | 2 | 2.5 / 17.0 | 1 | 2 | 2026-11-19 | **keep** | 6 live importer file(s) |
-| `native/markdown` | Conversation & AI | — | — | — | — | 3.9 / — | — | — | 2026-11-18 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
+| `native/markdown` | Conversation & AI | — | — | — | — | 3.9 / — | — | — | 2026-11-19 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `next-actions` | Conversation & AI | beta | Ak 1 | — | — | 0.5 / 1.0 | 1 | 1 | 2026-11-14 | **keep** | 1 live importer file(s) |
 | `proposal` | Conversation & AI | experimental | — | — | — | 6.6 / 6.5 | 1 | 1 | 2026-11-06 | **ask** | unused, new (2026-10-28): its adoption issue? |
 | `action-bar` | Page blocks & templates | beta | Oz 1 www 2 | — | — | 5.2 / 1.4 | 1 | 1 | 2026-11-15 | **keep** | 3 live importer file(s) |
-| `argument-card` | Page blocks & templates | beta | www 1 java 1 ts 1 | — | — | 4.8 / 1.4 | 1 | 1 | 2026-11-19 | **keep** | 3 live importer file(s) |
+| `argument-card` | Page blocks & templates | beta | www 1 java 1 ts 1 | — | — | 4.1 / 1.4 | 1 | 1 | 2026-11-19 | **keep** | 3 live importer file(s) |
 | `blocks.css` | Page blocks & templates | — | Yo 3 Ak 3 Oz 1 www 1 blog 2 ui 1 java 1 ts 1 motion 1 cockpit 1 | — | — | — / — | — | — | 2026-11-16 | **keep** | 14 live importer file(s) |
 | `card-grid` | Page blocks & templates | beta | Yo 1 Oz 1 www 4 blog 2 ui 1 java 1 ts 1 motion 1 cockpit 2 | — | — | 1.1 / 1.2 | 1 | 1 | 2026-11-18 | **keep** | 13 live importer file(s) |
 | `catalogue-page` | Page blocks & templates | beta | Yo 1 | — | — | 2.7 / 2.5 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
@@ -248,7 +248,7 @@ an entry with itself over time, not with its budget).
 | `kpi-explained` | Page blocks & templates | beta | Ak 1 | — | — | 1.1 / 3.0 | 1 | 1 | 2026-11-19 | **merge** → `stat` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `landing-page` | Page blocks & templates | beta | Yo 1 Ak 2 Oz 1 java 1 ts 1 | — | — | 1.0 / 1.5 | 1 | 1 | 2026-11-15 | **keep** | 6 live importer file(s) |
 | `legal-page` | Page blocks & templates | beta | www 1 | — | — | 0.5 / 1.5 | 1 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
-| `link-card` | Page blocks & templates | beta | Oz 2 www 3 blog 1 ui 1 java 1 ts 1 motion 1 | — | 2 | 2.3 / 1.3 | 1 | 1 | 2026-11-19 | **keep** | 9 live importer file(s) |
+| `link-card` | Page blocks & templates | beta | Oz 2 www 3 blog 1 ui 1 java 1 ts 1 motion 1 | — | 2 | 2.1 / 1.3 | 1 | 1 | 2026-11-19 | **keep** | 9 live importer file(s) |
 | `longform-page` | Page blocks & templates | beta | — | — | — | 0.9 / 1.5 | 1 | 1 | 2026-11-15 | **merge** → `docs-article-page` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `marketing-layout` | Page blocks & templates | beta | — | — | — | 0.9 / 1.0 | 1 | 1 | 2026-11-15 | **merge** → `landing-page` | ADR-006 merge (#675), or deprecated in favour of another entry |
 | `number-ticker` | Page blocks & templates | beta | Oz 3 www 2 blog 1 java 1 ts 1 motion 4 | — | — | 1.4 / 1.5 | 1 | 2 | 2026-11-15 | **keep** | 8 live importer file(s) |
