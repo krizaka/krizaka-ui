@@ -47,3 +47,6 @@ export const Hosted1440: Story = { tags: ["pb3746"], render: () => <HostedExampl
 /** Every site id draws the same footer from the org's data, at 390 and 1440 px. */
 export const EverySite390: Story = { render: () => <EverySiteExample />, parameters: { viewportWidth: 390, noOverflow: true } };
 export const EverySite1440: Story = { render: () => <EverySiteExample />, parameters: { viewportWidth: 1440, noOverflow: true } };
+/** From 1024 px the family's groups are columns (title on top, links stacked); at 360 px they fold and nothing scrolls sideways (#4336). */
+export const Family1440: Story = { tags: ["pb4336"], render: () => <FamilyExample />, parameters: { viewportWidth: 1440, noOverflow: true } };
+export const Family360: Story = { tags: ["pb4336"], render: () => <FamilyExample />, parameters: { viewportWidth: 360, noOverflow: true } };
