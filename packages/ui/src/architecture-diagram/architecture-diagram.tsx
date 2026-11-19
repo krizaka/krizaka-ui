@@ -158,13 +158,16 @@ function pathOf(points: readonly Point[]): string {
   return parts.join(" ");
 }
 
+/** A computed coordinate to a tenth of a pixel: the drawing cannot tell, and the page does not carry a float's long tail. */
+const tenth = (n: number) => Math.round(n * 10) / 10;
+
 /** The arrowhead at the last point, pointing along the last segment. */
 function arrowOf(points: readonly Point[]): string | null {
   const tip = points.at(-1);
   const from = points.at(-2);
   if (!tip || !from) return null;
   const angle = Math.atan2(tip[1] - from[1], tip[0] - from[0]);
-  const wing = (da: number) => `${tip[0] - SIZE.arrow * Math.cos(angle + da)},${tip[1] - SIZE.arrow * Math.sin(angle + da)}`;
+  const wing = (da: number) => `${tenth(tip[0] - SIZE.arrow * Math.cos(angle + da))},${tenth(tip[1] - SIZE.arrow * Math.sin(angle + da))}`;
   return `${tip[0]},${tip[1]} ${wing(SIZE.arrowAngle)} ${wing(-SIZE.arrowAngle)}`;
 }
 
@@ -172,7 +175,7 @@ function arrowOf(points: readonly Point[]): string | null {
 function Lines({ rows, x, y, size, leading, className }: Readonly<{ rows: string[]; x: number; y: number; size: number; leading: number; className: string }>) {
   /* A row's text is its identity: the same line twice in one block is told apart by its place. */
   return rows.map((row, i) => (
-    <text key={`${i}:${row}`} x={x} y={y + i * size * leading} fontSize={size} textAnchor="middle" className={className}>
+    <text key={`${i}:${row}`} x={tenth(x)} y={tenth(y + i * size * leading)} fontSize={size} textAnchor="middle" className={className}>
       {row}
     </text>
   ));
@@ -242,7 +245,7 @@ function ShapeOf({ node, shape }: Readonly<{ node: ArchNode; shape: Shape }>) {
             <rect
               key={k}
               x={x - SIZE.tab.width / 2}
-              y={y + h * k}
+              y={tenth(y + h * k)}
               width={SIZE.tab.width}
               height={SIZE.tab.height}
               className="kz-arch-body kz-arch-tab"
@@ -326,7 +329,7 @@ function EdgeLabel({ edge, dynamic }: Readonly<{ edge: ArchEdge; dynamic: boolea
     <g className="kz-arch-label">
       {rows.length > 0 && (
         <>
-          <rect x={cx - width / 2} y={cy - height / 2} width={width} height={height} className="kz-arch-label-plate" />
+          <rect x={tenth(cx - width / 2)} y={tenth(cy - height / 2)} width={tenth(width)} height={tenth(height)} className="kz-arch-label-plate" />
           <Lines
             rows={rows}
             x={cx}
@@ -339,8 +342,8 @@ function EdgeLabel({ edge, dynamic }: Readonly<{ edge: ArchEdge; dynamic: boolea
       )}
       {step !== null && (
         <g className="kz-arch-step" data-step={step}>
-          <circle cx={badgeX} cy={cy} r={SIZE.badge} className="kz-arch-step-badge" />
-          <text x={badgeX} y={cy} fontSize={SIZE.badgeText} textAnchor="middle" dominantBaseline="central" className="kz-arch-step-number">
+          <circle cx={tenth(badgeX)} cy={tenth(cy)} r={SIZE.badge} className="kz-arch-step-badge" />
+          <text x={tenth(badgeX)} y={tenth(cy)} fontSize={SIZE.badgeText} textAnchor="middle" dominantBaseline="central" className="kz-arch-step-number">
             {step}
           </text>
         </g>
