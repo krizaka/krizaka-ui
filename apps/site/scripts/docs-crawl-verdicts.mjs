@@ -37,6 +37,14 @@ export const TOLERATED = [
     contains: ["tiktok.com", "tiktokcdn-us.com"],
     why: "TikTok's own embed answers 400 / 429 to a headless browser and complains about its permissions policy: the platform's, behind a facade a visitor opens on purpose",
   },
+  {
+    all: ["https://www.instagram.com/accounts/login/", "net::ERR_BLOCKED_BY_RESPONSE"],
+    why: "Instagram's login wall: to a runner's address its reel embed redirects to the login page, which refuses to be framed (X-Frame-Options: deny); the platform's, behind a facade a visitor opens on purpose",
+  },
+  {
+    all: ["Refused to display 'https://www.instagram.com/' in a frame", "(chrome-error://chromewebdata/)"],
+    why: "Instagram's login wall, as the blocked frame's own error page reports it (chrome-error://, never our page)",
+  },
   { contains: ["net::ERR_ABORTED"], why: "a request cancelled by a navigation or a prefetch" },
   {
     contains: ["[from a third-party frame]"],

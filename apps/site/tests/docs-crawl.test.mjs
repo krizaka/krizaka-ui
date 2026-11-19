@@ -177,3 +177,20 @@ test("a link is dead when its host is unreachable, on our site at any 4xx/5xx, e
   assert.equal(isDeadLink(404, false), true);
   assert.equal(isDeadLink(410, false), true);
 });
+
+// The CI of d6140f20 (krizaka-ui#1087 frozen): a click on the Instagram facade of retro-tv sent its frame to Instagram's login
+// wall, which refuses to be framed (X-Frame-Options: deny) to a runner's address. Only that wall is tolerated.
+test("tolerated: Instagram's login wall in an embed's frame; any other Instagram failure still counts", () => {
+  const wall = "GET https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Freel%2FC1abcDEF123%2Fembed&is_from_rle — net::ERR_BLOCKED_BY_RESPONSE";
+  assert.match(toleratedBy(`[during an interaction] ${wall}`), /login wall/);
+  const refused = "Refused to display 'https://www.instagram.com/' in a frame because it set 'X-Frame-Options' to 'deny'. (chrome-error://chromewebdata/)";
+  assert.match(toleratedBy(refused), /login wall/);
+  assert.match(toleratedBy(`[during an interaction] ${refused}`), /login wall/);
+  for (const text of [
+    "GET https://www.instagram.com/reel/C1abcDEF123/embed — net::ERR_CONNECTION_REFUSED",
+    "GET https://www.instagram.com/reel/C1abcDEF123/embed — net::ERR_BLOCKED_BY_RESPONSE",
+    "Refused to display 'https://ui.krizaka.com/' in a frame because it set 'X-Frame-Options' to 'deny'.",
+    "Refused to display 'https://www.instagram.com/' in a frame because it set 'X-Frame-Options' to 'deny'. (https://ui.krizaka.com/components/retro-tv/)",
+  ])
+    assert.equal(toleratedBy(text), null, text);
+});
