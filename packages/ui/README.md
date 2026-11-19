@@ -165,17 +165,12 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/meter` | `Meter` (`label`, `value`/`min`/`max`, `valueText`, `thresholds`, `optimum` low·high, `parts` with their legend, `variant` bar·ring, `size`, `showLabel`), `MeterValue` | server |
 | `@krizaka/ui/stepper` | `Stepper` (`steps`: `title`, `description`, `status`, `value`, `content`; `current`, `labels` of the states, `orientation`) | server |
 | `@krizaka/ui/number-ticker` | `NumberTicker` (`value`, `locale`, `format`, `trigger` view·change, `duration`, `announce`, `align`) | client |
-| `@krizaka/ui/terminal-replay` | `TerminalReplay` (`steps` command + output lines with a tone, `label`, `title`, `prompt`, `playLabel`/`pauseLabel`/`replayLabel`, `copyLabel`/`copiedLabel`, `typingSpeed`, `lineDelay`, `stepDelay`, `rows`, `autoPlay`) | client |
-| `@krizaka/ui/scroll-stage` | `ScrollStage` (`variant`, `threshold`, `as`) and `Scene` (`brand`, `as`): chapters played once as they scroll in, one loop each while on screen — the storytelling kit, styles in `@krizaka/ui/story.css` | client |
 | `@krizaka/ui/choice-grid` | `ChoiceGrid` (`items` with `badge`/`eyebrow`/`extra`/`meta`/`href`, `label`, `tag`, `caption`, `prompt`, `value`/`defaultValue`/`onValueChange`, `linkAs`, `columns`, `variant`, `brand`): choices as tiles — a radio group when selectable, links with `href` | client |
 | `@krizaka/ui/profile-card` | `ProfileCard` (`visual`, `name`, `statLabel`/`value`/`figure`, `stats`, `caption`, `variant`, `brand`): a profile at a glance; `StatGauge` (`label`, `value`, `max`, `valueText`, `figure`): one measured strength; native too | server |
 | `@krizaka/ui/platform-bar` | `PlatformBar` (`label`, `brand`, `notice`, `end`: the platform's strip above a hosted page — static, no client code; pair with `SiteFooter variant="hosted"`) | server |
 | `@krizaka/ui/stage-banner` | `StageBanner` (`stage`, `name`, `size="lg"` with `title`/`subtitle`, `variant`) | server |
 | `@krizaka/ui/goal-gauge` | `GoalGauge` (`label`, `segments`, `value`, `mode` fill · drain, `variant`): a goal in steps, a meter; native too | server |
-| `@krizaka/ui/promise-card` | `PromiseCard` (`label`, `promise`, `keys`, `bearer`, `bearerLabel`, `bearerName`, `variant`): a promise, the keys that call it, who carries it | server |
-| `@krizaka/ui/continue-prompt` | `ContinuePrompt` (`title`, `count`/`countdown`, children, `actionLabel`, `onAction`/`href`, `actionKey`, `highlight`, `hint`, `status`, `variant`) | server |
 | `@krizaka/ui/achievement` | `Achievement` (`title`, `eyebrow`, `badge`, `replaced`, `locked`), `AchievementList`, `Emblem` (`sword` · `mirror` · `jewel`) | server |
-| `@krizaka/ui/landscape` | `Landscape` (`tone` own · brand, `flock`, `phoenix`, `animated`, `position`, `fade`): the Krizaka valley at dusk, decorative | client |
 | `@krizaka/ui/glow-card` | `GlowCard` (`glow` border·spotlight·both, `alive`, `asChild`) | client |
 | `@krizaka/ui/engine-flow` | `EngineFlow` (`label`, `hub`, `nodes` with `flow` in·out·both, `planned`, `status`, `description`, `href`; `layout` radial·top-to-bottom·left-to-right, `compactLayout` under 560 px, `particles`, `conduit` bezier·straight, `hint`, `speed`): an engine and the apps it serves, photons along SVG conduits (motion.css), no animation frame | client |
 | `@krizaka/ui/architecture-diagram` | `ArchitectureDiagram` (`view`: one laid-out C4 view of `@krizaka/architecture` — groups, elements by shape, labelled edges, numbered steps in a dynamic view; `title`, `subtitle`, `links` by element id through `safeHref`, `words`, `textOpen`) on the plate (blocks.css), with its text version in a `<details>`; the view types re-exported | server-safe |
@@ -195,19 +190,15 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/shop-gallery` | `ShopGallery` (`photos` with `srcSet` / `fullSrcSet`, `label`, `labels`: a bento mosaic, a snap strip with a counter on a phone, a lazy lightbox with swipe and arrow keys; `shopGalleryLabelsFr`) | client |
 | `@krizaka/ui/retro-tv` | `RetroTv` (vertical `VideoPlayer` in a `cabinet` or `portable` frame, `channel`, `off`, `tracks`; muted autoplay while on screen, lazy by default) | client |
 | `@krizaka/ui/file-upload` | `Dropzone` (`accept`, `maxSize`, `maxFiles`, refusals with reasons), `UploadList` (preview, progress, speed, pause/resume/retry/cancel), `useUploadQueue` (`upload(file, { signal, onProgress, resumed })`: Tus-ready without depending on it; `retries`, `backoff`, `shouldRetry` — a queue of `@krizaka/pacer`), `acceptsFile`, `formatBytes` | client |
-| `@krizaka/ui/media-capture` | `MediaCapture` (`mode` photo·video·both, `facing`, `maxDuration`, permission asked on a gesture, the file picker as the way out, `onCapture({ blob, kind, url })`) | client |
-| `@krizaka/ui/video-trimmer` | `VideoTrimmer` (`duration`, `value` [start, end], `minLength`, `step`/`largeStep`, `frames` or children, `time` + `onSeek`, `classNames` per part, `renderHandle`) | client |
 | `@krizaka/ui/waveform` | `Waveform` (`peaks`, `bars`, `size` sm·md·lg, `tone` accent·neutral, `playing`, `label`): the bars of a sound, decorative by default (`aria-hidden`), breathing gently while it plays, still under reduced motion and off screen; `/native` has the same | client |
 | `@krizaka/ui/qr-code` | `QrCode` (`value`, `label`, `size`, `quietZone`, `level` L·M·Q·H, `copyLabel` / `copiedLabel` / `onCopy`) and the pure `encodeQr` / `qrPath`: a QR code drawn offline, dark modules on a light tile in both themes, an image named by `label`; `/native` has the same (`onCopy` receives the text) | client |
 | `@krizaka/ui/identity-card` | `IdentityCard` (`mark`, `name`, `subtitle`, `chips`, `qr`): the identity of a business or a person at the top of a sheet, with a contact QR code (`vCard(fields)` of `qr-code` writes the text) | client |
 | `@krizaka/ui/entity-header` | `EntityHeader` (`name` / `onNameChange`, `description` / `onDescriptionChange`, `avatar`, `avatarPicker`, `tags`, `refusal` + `refusals` by `OrganizeCode`, `actions`): the head of a collection, shop or studio, edited in place; `/native` has the same (`onAvatarPress`) | client |
 | `@krizaka/ui/collection-switcher` | `CollectionSwitcher` (`collections` with `parentId` / `isDefault` / `count`, `value` from the URL, `onValueChange` or `href`, `layout` list·tree, `mode` collection·entity, `onRemove` never on the default one, `onCreate`), `collectionTree`; `/native` has the same | client |
-| `@krizaka/ui/image-cropper` | `ImageCropper` (`aspect`, `round`, an image or a `<video>`, a focus point + zoom out, keyboard and zoom slider), `cropRect` | client |
 | `@krizaka/ui/document-viewer` | `DocumentViewer` (a PDF drawn by pdf.js — `loadPdfjs={() => import("pdfjs-dist")}`, an optional peer — with `highlights` lit where their quotes sit, `activeId` / `onActiveChange`, `onLocate`; page + quote when the text layer cannot place one), `locateQuote` | client |
 | `@krizaka/ui/page` | the page frame: `Page` (`size` narrow·default·wide·full, `as`), `Section` (`id`, `eyebrow`, `title`, `lead`, `actions`, `divider`, `spacing` sm·md·lg, `backdrop`, `size`, `reveal`), `SectionHeading`, `Facts` (`items`: `label`, `tone` ok·wip·neutral, `href`), `Ticks` (backticks read as code) — see [Page blocks](#page-blocks) | server |
 | `@krizaka/ui/page-hero` | `PageHero` (`title` → the h1, `eyebrow`, `lead`, `back`, `aside`, `backdrop` grid·plain·none, `align`, `size`, `linkAs`; facts or actions as children) | server |
 | `@krizaka/ui/card-grid` | `CardGrid` (`min`, `fit` fill·fit, `align`, `reveal` staggered by `columns`, `as` div·ul·ol; `light` and `hover` deprecated no-ops) | client |
-| `@krizaka/ui/pointer-light` | Deprecated since 3.31 (krizaka-ui#393): `PointerLight`, `usePointerLight` do nothing — the cards have one quiet hover | client |
 | `@krizaka/ui/link-card` | `LinkCard` (the whole card one link: `href`, `icon`, `meta`, `title`, `titleAs`, `description`, `extra`, `cta`, `layout` row·stack, `linkAs`) | server |
 | `@krizaka/ui/argument-card` | `ArgumentCard` (compact: `icon`, `title`, `meta`, `facts`, `hook` — the trap in one line —, `more`, `actions`; in a panel: `points`, `rule`, `details`, `panelLabel`) | server |
 | `@krizaka/ui/mascot-quote` | `MascotQuote` (`bird`, `mood`, `label`, the sentence as children, `variant` inline·callout, `animated`) | client |
@@ -238,22 +229,17 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/docs-layout` | `DocsLayout` (`sidebar`, `sidebarLabel`, `toc`) | server |
 | `@krizaka/ui/docs-nav` | `DocsNav` (`label`, `groups`, `current`) | server |
 | `@krizaka/ui/landing-page` | `LandingPage` — a page template, see [Page templates](#page-templates) | server |
-| `@krizaka/ui/product-page` | `ProductPage` — a page template, see [Page templates](#page-templates) | server |
-| `@krizaka/ui/gallery-page` | `GalleryPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/docs-hub-page` | `DocsHubPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/docs-article-page` | `DocsArticlePage` — a page template, see [Page templates](#page-templates) | server |
-| `@krizaka/ui/component-page` | `ComponentPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/catalogue-page` | `CataloguePage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/longform-page` | `LongformPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/changelog-page` | `ChangelogPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/contact-page` | `ContactPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/legal-page` | `LegalPage` — a page template, see [Page templates](#page-templates) | server |
-| `@krizaka/ui/status-page` | `StatusPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/error-page` | `ErrorPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/pricing-page` | `PricingPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/native/video-player` | React Native `VideoPlayer` on expo-video (optional peer) | native |
 | `@krizaka/ui/native/list` | React Native `List` on FlashList v2 and `useInfiniteList` on `useInfiniteQuery` of `@krizaka/query` (optional peers): separators, skeleton rows, empty/error, pull to refresh, the next page near the end | native |
-| `@krizaka/ui/native/media-capture` | React Native `MediaCapture` on expo-camera (optional peer) | native |
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |
 | `@krizaka/ui/native` | React Native: `ThemeProvider`/`useTheme`, `Txt`, `Button`, `IconButton`, `Card.*`, `Badge`, `Chip` (+ `Group`), `Avatar` (+ `Group`), `Skeleton`, `EmptyState`, `Spinner`, `Countdown`, `Segmented`, `Progress`, `Toaster`/`toast`, `Pagination`, `SearchField`, `TextField`, `Checkbox`, `DateField` (day · month · year), the marks — see [React Native](#react-native) | native |
 | `@krizaka/ui/motion.css`, `@krizaka/ui/blocks.css`, `@krizaka/ui/tailwind.css` | the motion signature; the page blocks' styles (imported once by the app); the `@source` of the primitives' classes | CSS |
@@ -308,14 +294,13 @@ import { LinkCard } from "@krizaka/ui/link-card";
 
 > Category **templates** of ui.krizaka.com: every page of a Krizaka site has its template.
 
-Fifteen templates, each a **distinct composition** of the blocks — not the same card grid everywhere: `LandingPage`
-(split hero with the product alive, a band of proofs, a bento), `ProductPage` (split hero in the product's brand,
-compact argument cards, decisions, the bird's promise), `GalleryPage` (filters, staggered columns of media), `DocsHubPage` (search first, the collections in
+Ten templates, each a **distinct composition** of the blocks — not the same card grid everywhere: `LandingPage`
+(split hero with the product alive, a band of proofs, a bento), `DocsHubPage` (search first, the collections in
 their brand with quick links, quick starts, most read, what is new), `DocsArticlePage` (pages · article · contents,
-pager), `ComponentPage` (preview, install, sections, related), `CataloguePage` (sticky filters beside the results),
+pager), `CataloguePage` (sticky filters beside the results),
 `LongformPage` (chapters with outlined numbers, pull quotes in the margin), `ChangelogPage` (a sticky date beside each
 entry, changes by kind), `ContactPage` (channels beside the form, what happens next), `LegalPage` (summary, sections,
-contents), `StatusPage` (the state in words, each service — or « under construction »), `ErrorPage` (the code drawn,
+contents), `ErrorPage` (the code drawn,
 the bird, a search, the ways back) and `PricingPage` (plans, comparison, credits, questions).
 
 Words and content are props or slots; `brand` puts a page under `.brand-<id>`; calls to action use the cut button;

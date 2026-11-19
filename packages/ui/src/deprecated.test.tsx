@@ -1,6 +1,6 @@
-// ADR-006 §7, krizaka-ui#674 — the first reduction batch: 28 entries with no user and no filed need are deprecated in 3.55
-// and removed in 4.0. This test lists them, so a deprecation cannot be dropped, nothing kept can lean on them, and the
-// development warning does what it says: once, in development, never in production. Nothing is removed in this minor.
+// ADR-006 §7, krizaka-ui#674 — the first reduction batch deprecated 28 entries in 3.55 for removal in 4.0. The 18 that no
+// product or app imports are gone (krizaka-internal#4273); this test lists the six that something still imports, so a deprecation cannot be dropped, nothing kept can lean on them, and the development
+// warning does what it says: once, in development, never in production.
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
@@ -8,35 +8,28 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { DEPRECATED_SINCE, REMOVED_IN, resetDeprecationWarnings, warnDeprecated } from "./deprecated";
-import { PointerLight } from "./pointer-light";
+import { UpdatePrompt } from "./update-prompt";
 
 const SRC = import.meta.dirname;
 const SITE = join(SRC, "..", "..", "..", "apps", "site");
 const EXAMPLES = join(SRC, "..", "registry", "examples");
 
-/** Showcase and effects (8; RetroTv came back for Folioviv's shop pages, krizaka-ui#605), data views (2), engagement (4), web media editors (3), web lifecycle screens (3), page templates (4). */
-const WEB_ENTRIES = [
-  "terminal-replay", "showcase", "pointer-light", "scroll-stage", "landscape", "signature", "anatomy-plate", "elephant",
-  "tree-view", "kanban",
-  "continue-prompt", "promise-card", "swipe-deck", "match-dialog",
-  "media-capture", "video-trimmer", "image-cropper",
-  "update-prompt", "force-update-screen", "maintenance-screen",
-  "product-page", "gallery-page", "component-page", "status-page",
-] as const;
+/** Entries still deprecated: sovkora-mobile imports the native twin of `ForceUpdateScreen` and `MaintenanceScreen` (`UpdatePrompt` is their contract), kitlive-native those of `SwipeDeck` and `MatchDialog`, the cockpit imports `@krizaka/ui/tree-view`. */
+const WEB_ENTRIES = ["update-prompt", "force-update-screen", "maintenance-screen", "swipe-deck", "match-dialog", "tree-view"] as const;
 /** Deprecated in the batch, then brought back by a filed need: they work without a warning. */
 const RETURNED = ["retro-tv"] as const; // krizaka/folioviv#312 (the shop's reel), krizaka-ui#605
-/** Native entries no app imports: the web entry of `vertical-video` and `markdown` stays (products use it); `media-capture` is in the list above. */
+/** Native entries no app imports, kept because a kept example leans on them (`chat`, `screen`): the web entry of `vertical-video` and `markdown` stays (products use it). */
 const NATIVE_ONLY_DEPRECATIONS = ["vertical-video", "markdown"] as const;
 /** On watch (kept now, deprecated in the next pass if still unused): never deprecated here. */
 const ON_WATCH = ["pricing-page", "contact-page", "docs-layout"] as const;
 /** Deprecated in an earlier minor: their own release, not this one's. */
-const EARLIER = { "tree-view": "3.6.0", "pointer-light": "3.31.0" } as Record<string, string>;
+const EARLIER = { "tree-view": "3.6.0" } as Record<string, string>;
 
 const metaText = (entry: string) => readFileSync(join(SRC, entry, "meta.ts"), "utf8");
 
-describe("the first reduction batch (#674): 28 entries", () => {
-  it("counts the 28 of the issue: 25 whole entries and 3 native entries (media-capture is both)", () => {
-    expect(WEB_ENTRIES.length + RETURNED.length + NATIVE_ONLY_DEPRECATIONS.length + 1).toBe(28); // + native/media-capture, deprecated with its component
+describe("what is left of the first reduction batch (#674)", () => {
+  it("lists what is kept: six entries, one returned, two native entries", () => {
+    expect(WEB_ENTRIES.length + RETURNED.length + NATIVE_ONLY_DEPRECATIONS.length).toBe(9);
   });
 
   it.each(WEB_ENTRIES)("%s: meta says status deprecated, since its release, removed in 4.0.0, with a reason", (entry) => {
@@ -64,7 +57,7 @@ describe("the first reduction batch (#674): 28 entries", () => {
     expect(text, entry).toContain(`warnDeprecated("${entry}"`);
   });
 
-  it.each(["media-capture", "vertical-video", "markdown"])("native/%s: its components carry @deprecated JSDoc and the development warning", (entry) => {
+  it.each(NATIVE_ONLY_DEPRECATIONS)("native/%s: its components carry @deprecated JSDoc and the development warning", (entry) => {
     const text = readFileSync(join(SRC, "native", `${entry}.tsx`), "utf8");
     expect(text).toContain("@deprecated");
     expect(text).toContain(`warnDeprecated("native/${entry}"`);
@@ -132,22 +125,22 @@ describe("warnDeprecated", () => {
   it("warns once per entry, in development, naming the entry, the release, the major and where to object", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     vi.stubEnv("NODE_ENV", "development");
-    warnDeprecated("kanban");
-    warnDeprecated("kanban");
-    warnDeprecated("showcase");
+    warnDeprecated("swipe-deck");
+    warnDeprecated("swipe-deck");
+    warnDeprecated("match-dialog");
     expect(warn).toHaveBeenCalledTimes(2);
     const message = String(warn.mock.calls[0]![0]);
-    expect(message).toContain("@krizaka/ui/kanban");
+    expect(message).toContain("@krizaka/ui/swipe-deck");
     expect(message).toContain(`since ${DEPRECATED_SINCE}`);
     expect(message).toContain(REMOVED_IN);
     expect(message).toContain("krizaka-ui#674");
-    expect(message).toContain("https://ui.krizaka.com/components/kanban");
+    expect(message).toContain("https://ui.krizaka.com/components/swipe-deck");
   });
 
   it("says the release of an earlier deprecation, and the page of a native entry", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     vi.stubEnv("NODE_ENV", "development");
-    warnDeprecated("tree-view", "3.6.0");
+    warnDeprecated("update-prompt", "3.6.0");
     warnDeprecated("native/markdown");
     expect(String(warn.mock.calls[0]![0])).toContain("since 3.6.0");
     expect(String(warn.mock.calls[1]![0])).toContain("https://ui.krizaka.com/components/markdown");
@@ -156,15 +149,15 @@ describe("warnDeprecated", () => {
   it("is silent in production", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     vi.stubEnv("NODE_ENV", "production");
-    warnDeprecated("kanban");
+    warnDeprecated("swipe-deck");
     expect(warn).not.toHaveBeenCalled();
   });
 
   it("is what a deprecated component does when it renders (and it still renders)", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     vi.stubEnv("NODE_ENV", "development");
-    expect(renderToStaticMarkup(<PointerLight />)).toBe("<span hidden=\"\"></span>");
+    expect(renderToStaticMarkup(<UpdatePrompt title="Update" updateLabel="Update" onUpdate={() => {}} laterLabel="Later" onLater={() => {}} />)).toContain("Update");
     expect(warn).toHaveBeenCalledTimes(1);
-    expect(String(warn.mock.calls[0]![0])).toContain("@krizaka/ui/pointer-light");
+    expect(String(warn.mock.calls[0]![0])).toContain("@krizaka/ui/update-prompt");
   });
 });

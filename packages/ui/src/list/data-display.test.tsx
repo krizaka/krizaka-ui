@@ -1,4 +1,4 @@
-// The data display primitives: List, DescriptionList, ActivityFeed (+ Timeline), TreeView, Kanban, StatGrid and the
+// The data display primitives: List, DescriptionList, ActivityFeed (+ Timeline), TreeView, StatGrid and the
 // DataTable additions (pinned columns, groups, inline edit, CSV) — their roles, keyboard and words, with no axe violation.
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -6,7 +6,6 @@ import { renderToStaticMarkup } from "react-dom/server";
 
 import JobActivity from "../../registry/examples/activity-feed/job-activity";
 import Receipt from "../../registry/examples/description-list/receipt";
-import Moderation from "../../registry/examples/kanban/moderation";
 import Selectable from "../../registry/examples/list/selectable";
 import Virtualized from "../../registry/examples/list/virtualized";
 import Grid from "../../registry/examples/stat/grid";
@@ -74,22 +73,6 @@ describe("TreeView", () => {
     expect(screen.getByRole("treeitem", { name: "Studios 12" }).getAttribute("aria-expanded")).toBe("false");
     fireEvent.keyDown(document.activeElement!, { key: "v" });
     expect(document.activeElement?.textContent).toMatch(/^Verikora/);
-    expect(await axeViolations(container)).toEqual([]);
-  });
-});
-
-describe("Kanban", () => {
-  it("moves a card with Space and the arrows, and announces it", async () => {
-    const { container } = render(<Moderation />);
-    const card = screen.getByText("Backflip on the beach").closest("li")!;
-    card.focus();
-    fireEvent.keyDown(card, { key: " " });
-    expect(screen.getByText(/picked up, in To review/)).toBeTruthy();
-    fireEvent.keyDown(document.activeElement!, { key: "ArrowRight" });
-    fireEvent.keyDown(document.activeElement!, { key: " " });
-    expect(screen.getByText(/dropped in Reviewing, position 1/)).toBeTruthy();
-    const reviewing = screen.getByRole("region", { name: "Reviewing" });
-    expect(within(reviewing).getByText("Backflip on the beach")).toBeTruthy();
     expect(await axeViolations(container)).toEqual([]);
   });
 });

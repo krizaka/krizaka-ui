@@ -125,14 +125,12 @@ export default defineConfig([
       "specimen-tag": "src/specimen-tag/index.ts",
       // The retro pieces of the Krizaka style, pure SVG (the doodle is below, with Stuck).
       "speed-lines": "src/speed-lines/index.ts",
-      "anatomy-plate": "src/anatomy-plate/index.ts",
       "page-index": "src/page-index/index.ts",
       chapter: "src/chapter/index.ts",
       footnote: "src/footnote/index.ts",
       // Stuck into the notebook: the hold, the margin doodle, the house's signature (server-safe).
       stuck: "src/stuck/index.ts",
       doodle: "src/doodle/index.ts",
-      signature: "src/signature/index.ts",
       // The recipes: classes of the tokens, read by tv() on the web and by the phone's components (no React).
       recipes: "src/recipes/index.ts",
     },
@@ -169,17 +167,13 @@ export default defineConfig([
     ...shared,
     entry: {
       "landing-page": "src/landing-page/index.ts",
-      "product-page": "src/product-page/index.ts",
-      "gallery-page": "src/gallery-page/index.ts",
       "docs-hub-page": "src/docs-hub-page/index.ts",
       "docs-article-page": "src/docs-article-page/index.ts",
-      "component-page": "src/component-page/index.ts",
       "catalogue-page": "src/catalogue-page/index.ts",
       "longform-page": "src/longform-page/index.ts",
       "changelog-page": "src/changelog-page/index.ts",
       "contact-page": "src/contact-page/index.ts",
       "legal-page": "src/legal-page/index.ts",
-      "status-page": "src/status-page/index.ts",
       "error-page": "src/error-page/index.ts",
       "pricing-page": "src/pricing-page/index.ts",
     },
@@ -227,7 +221,6 @@ export default defineConfig([
     ...shared,
     entry: {
       "card-grid": "src/card-grid/index.ts",
-      "pointer-light": "src/pointer-light/index.ts",
       "mascot-quote": "src/mascot-quote/index.ts",
       // The bird plate: each bird has an id per instance (Mascot).
       "bird-plate": "src/bird-plate/index.ts",
@@ -237,7 +230,6 @@ export default defineConfig([
       // The tool sites' template: the Cahier, the site's bird and hue.
       "site-cahier": "src/site-cahier/index.ts",
       flock: "src/flock/index.ts",
-      elephant: "src/elephant/index.ts",
       "code-block": "src/code-block/index.ts",
       toc: "src/toc/index.ts",
       // The application shell: its collapse and its drawer (Radix Dialog).
@@ -310,9 +302,7 @@ export default defineConfig([
       // The engine and the apps it serves: conduits and photons in SVG + CSS (motion.css), a node chosen by hover or focus.
       "engine-flow": "src/engine-flow/index.ts",
       "comparison-table": "src/comparison-table/index.ts",
-      showcase: "src/showcase/index.ts",
       "step-showcase": "src/step-showcase/index.ts",
-      "terminal-replay": "src/terminal-replay/index.ts",
     },
     banner: { js: '"use client";' },
   },
@@ -339,14 +329,10 @@ export default defineConfig([
       "embed-facade": "src/embed-facade/index.ts",
       "vertical-video": "src/vertical-video/index.ts",
       "file-upload": "src/file-upload/index.ts",
-      "media-capture": "src/media-capture/index.ts",
-      "video-trimmer": "src/video-trimmer/index.ts",
-      "image-cropper": "src/image-cropper/index.ts",
       "document-viewer": "src/document-viewer/index.ts",
       list: "src/list/index.ts",
       "activity-feed": "src/activity-feed/index.ts",
       "tree-view": "src/tree-view/index.ts",
-      kanban: "src/kanban/index.ts",
       "swipe-deck": "src/swipe-deck/index.ts",
       "match-dialog": "src/match-dialog/index.ts",
       "tag-selector": "src/tag-selector/index.ts",
@@ -436,18 +422,14 @@ export default defineConfig([
       "profile-card": "src/profile-card/index.ts",
       "stage-banner": "src/stage-banner/index.ts",
       "goal-gauge": "src/goal-gauge/index.ts",
-      "continue-prompt": "src/continue-prompt/index.ts",
       achievement: "src/achievement/index.ts",
-      "promise-card": "src/promise-card/index.ts",
     },
   },
   {
     // Client — the storytelling kit's conductor, the selectable grid and the landscape (an id per instance).
     ...shared,
     entry: {
-      "scroll-stage": "src/scroll-stage/index.ts",
       "choice-grid": "src/choice-grid/index.ts",
-      landscape: "src/landscape/index.ts",
     },
     banner: { js: '"use client";' },
   },
@@ -465,7 +447,6 @@ export default defineConfig([
     entry: {
       "native/video-player": "src/native/video-player.tsx",
       "native/vertical-video": "src/native/vertical-video.tsx",
-      "native/media-capture": "src/native/media-capture.tsx",
       "native/media-picker": "src/native/media-picker.tsx",
       "native/list": "src/native/list.tsx",
       // The form: TanStack Form (a dependency, as on the web) on the native fields of @krizaka/ui/native.

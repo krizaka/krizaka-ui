@@ -1,6 +1,6 @@
 {
   "_why": "Today's gaps of src/coverage-guard.test.ts (krizaka-ui#597). The lists only go down: close a gap, remove its line. router and slot draw nothing (no story); document-viewer and vertical-video are audited but not screenshot-compared (a PDF loaded from a CDN, a video decoder).",
   "noStory": ["router", "slot"],
-  "noTest": ["activity-feed", "choice-grid", "continue-prompt", "kanban", "landscape", "match-dialog", "promise-card", "scroll-stage", "stage-banner", "swipe-deck", "tree-view"],
+  "noTest": ["activity-feed", "choice-grid", "match-dialog", "stage-banner", "swipe-deck", "tree-view"],
   "noBaseline": ["document-viewer", "vertical-video"]
 }
