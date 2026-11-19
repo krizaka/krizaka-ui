@@ -30,7 +30,6 @@ const isChunk = (spec) => /^\.\.\/chunk-[\w-]+\.js$/.test(spec);
 for (const [entry, ...modules] of [
   ["video-player", "expo-video"],
   ["vertical-video", "@krizaka/ui/native/video-player", "@krizaka/intl"],
-  ["media-capture", "expo-camera"],
   ["media-picker", "expo-image-picker"],
   // The list: FlashList v2 and the app's @krizaka/query (one QueryClient context) — never @tanstack/* directly.
   ["list", "@shopify/flash-list", "@krizaka/query"],

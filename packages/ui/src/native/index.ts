@@ -135,7 +135,6 @@ export { Screen, type ScreenProps } from "./screen";
 export { SearchField, type SearchFieldProps } from "./search-field";
 export { Segmented, type SegmentedOption, type SegmentedProps } from "./segmented";
 export { SettingsGroup, type SettingsGroupProps, SettingsRow, type SettingsRowProps } from "./settings-layout";
-export { Showcase, type ShowcaseLabels, showcaseLabels,type ShowcaseProps } from "./showcase";
 export { Skeleton, type SkeletonProps } from "./skeleton";
 export { Slider, type SliderProps, type SliderValue } from "./slider";
 export { SovkoraMark } from "./SovkoraMark";

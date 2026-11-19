@@ -1,10 +1,9 @@
-// The data and media primitives of /native: Pagination, SearchField, and the entries that need an Expo module
-// (VideoPlayer on expo-video, MediaCapture on expo-camera — mocked here, see src/native/mocks).
+// The data and media primitives of /native: Pagination, SearchField, and the entry that needs an Expo module
+// (VideoPlayer on expo-video — mocked here, see src/native/mocks).
 import { describe, expect, jest, test } from "@jest/globals";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import * as React from "react";
 
-import { MediaCapture } from "./media-capture";
 import { Pagination } from "./pagination";
 import { SearchField } from "./search-field";
 import { VideoPlayer } from "./video-player";
@@ -54,27 +53,5 @@ describe("VideoPlayer (expo-video)", () => {
     await render(<VideoPlayer title="Video: sunset" source={{ uri: "https://example.com/a.m3u8", contentType: "hls" }} poster={{ uri: "https://example.com/a.jpg" }} />);
     expect(screen.getByLabelText("Video: sunset")).toBeTruthy();
     expect(screen.getByTestId("expo-video-view", { includeHiddenElements: true })).toBeTruthy();
-  });
-});
-
-describe("MediaCapture (expo-camera)", () => {
-  test("explains why before asking, with the button that asks", async () => {
-    await render(
-      <MediaCapture
-        onCapture={() => undefined}
-        labels={{
-          prompt: "Take a profile picture.",
-          start: "Turn on the camera",
-          denied: "Camera access is off.",
-          settings: "Open Settings",
-          takePhoto: "Take photo",
-          startRecording: "Record",
-          stopRecording: "Stop",
-          switchCamera: "Switch camera",
-        }}
-      />,
-    );
-    expect(screen.getByText("Take a profile picture.")).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Turn on the camera" })).toBeTruthy();
   });
 });

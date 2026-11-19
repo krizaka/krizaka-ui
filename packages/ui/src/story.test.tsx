@@ -1,19 +1,14 @@
-// The storytelling kit: ScrollStage, Scene, ChoiceGrid, ProfileCard, StageBanner, GoalGauge, ContinuePrompt, Achievement,
-// Landscape and the Phoenix.
+// The storytelling kit: ChoiceGrid, ProfileCard, StageBanner, GoalGauge, Achievement and the Phoenix.
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import { Achievement, AchievementList, Emblem } from "./achievement";
 import { ChoiceGrid } from "./choice-grid";
-import { ContinuePrompt } from "./continue-prompt";
 import { GoalGauge } from "./goal-gauge";
-import { Landscape } from "./landscape";
 import { Phoenix } from "./mascots";
 import { ProfileCard, StatGauge } from "./profile-card";
-import { PromiseCard } from "./promise-card";
-import { Scene, ScrollStage } from "./scroll-stage";
 import { StageBanner } from "./stage-banner";
 import { axeViolations } from "./test/axe";
 
@@ -22,66 +17,6 @@ const items = [
   { id: "b", visual: <span />, name: "Creator" },
   { id: "c", visual: <span />, name: "Studio", disabled: true },
 ];
-
-function mockMotion(reduce: boolean) {
-  const observed: Element[] = [];
-  let callback: IntersectionObserverCallback = () => {};
-  vi.stubGlobal("matchMedia", (q: string) => ({ matches: reduce && q.includes("reduce"), media: q, addEventListener() {}, removeEventListener() {} }));
-  vi.stubGlobal(
-    "IntersectionObserver",
-    class {
-      constructor(cb: IntersectionObserverCallback) {
-        callback = cb;
-      }
-      observe(el: Element) {
-        observed.push(el);
-      }
-      disconnect() {}
-      unobserve() {}
-    },
-  );
-  const fire = (el: Element, isIntersecting: boolean) => act(() => callback([{ target: el, isIntersecting } as IntersectionObserverEntry], {} as IntersectionObserver));
-  return { observed, fire };
-}
-
-describe("ScrollStage", () => {
-  afterEach(() => vi.unstubAllGlobals());
-
-  it("plays a scene once (data-in stays) and runs its loop only while visible (data-live)", () => {
-    const { observed, fire } = mockMotion(false);
-    render(
-      <ScrollStage variant="arcade" data-testid="stage">
-        <Scene brand="verikora" data-testid="scene">
-          <p>Chapter</p>
-        </Scene>
-      </ScrollStage>,
-    );
-    const stage = screen.getByTestId("stage");
-    const scene = screen.getByTestId("scene");
-    expect(stage.getAttribute("data-kzs-stage")).toBe("on");
-    expect(stage.className).toContain("kzs-arcade");
-    expect(scene.className).toBe("brand-verikora");
-    expect(observed).toContain(scene);
-    fire(scene, true);
-    expect(scene.hasAttribute("data-in") && scene.hasAttribute("data-live")).toBe(true);
-    fire(scene, false);
-    expect(scene.hasAttribute("data-in")).toBe(true);
-    expect(scene.hasAttribute("data-live")).toBe(false);
-  });
-
-  it("never switches motion on under prefers-reduced-motion", () => {
-    const { observed } = mockMotion(true);
-    render(
-      <ScrollStage data-testid="stage">
-        <Scene>
-          <p>Chapter</p>
-        </Scene>
-      </ScrollStage>,
-    );
-    expect(screen.getByTestId("stage").hasAttribute("data-kzs-stage")).toBe(false);
-    expect(observed).toEqual([]);
-  });
-});
 
 describe("ChoiceGrid", () => {
   it("selectable: a radio group, one tab stop, the arrows choose and skip what is disabled", async () => {
@@ -146,24 +81,11 @@ describe("GoalGauge", () => {
   });
 });
 
-describe("StageBanner, ContinuePrompt, Achievement", () => {
+describe("StageBanner, Achievement", () => {
   it("announces a chapter, large with a heading", () => {
     render(<StageBanner size="lg" titleAs="h2" stage="Final round" title="The last boss" />);
     expect(screen.getByRole("heading", { level: 2, name: "The last boss" })).toBeTruthy();
   });
-
-  it("the prompt's action is a button with onAction, a link with href", async () => {
-    const onAction = vi.fn();
-    const { container, rerender } = render(<ContinuePrompt title="Continue?" countdown={{ from: 9, to: 7 }} actionKey="1P Start" actionLabel="Back to the top" onAction={onAction} variant="arcade" />);
-    fireEvent.click(screen.getByRole("button", { name: "Back to the top" }));
-    expect(onAction).toHaveBeenCalledOnce();
-    expect(container.querySelector(".kzs-prompt-screen")?.className).toContain("theme-dark");
-    expect(container.querySelector("style")?.textContent).toContain("kzs-count-9-7");
-    expect(await axeViolations(container)).toEqual([]);
-    rerender(<ContinuePrompt title="Keep your studio?" actionLabel="Continue" href="#plans" />);
-    expect(screen.getByRole("link", { name: "Continue" }).getAttribute("href")).toBe("#plans");
-  });
-
   it("achievements are an ordered list, what they replaced deleted text, each staggered", async () => {
     const { container } = render(
       <AchievementList>
@@ -180,7 +102,7 @@ describe("StageBanner, ContinuePrompt, Achievement", () => {
   });
 });
 
-describe("ChoiceGrid links, StatGauge, PromiseCard", () => {
+describe("ChoiceGrid links, StatGauge", () => {
   it("tiles with href are links in a named list", async () => {
     const { container } = render(
       <ChoiceGrid label="The products" items={[{ id: "a", visual: <span />, name: "Sovkora", href: "#a", badge: "P1", extra: <StatGauge label="Share" value={90} />, meta: "Stage 01" }]} />,
@@ -190,34 +112,9 @@ describe("ChoiceGrid links, StatGauge, PromiseCard", () => {
     expect(screen.getByRole("meter", { name: "Share" }).getAttribute("aria-valuetext")).toBe("90 %");
     expect(await axeViolations(container)).toEqual([]);
   });
-
-  it("a promise reads its label, words and bearer; the keys are hidden", async () => {
-    const { container } = render(<PromiseCard label="Our promise" promise="Your data never leaves home." keys={["⌘", "K"]} bearer={<span />} bearerName="The owl" />);
-    expect(container.textContent).toContain("Your data never leaves home.");
-    expect(container.querySelector(".kzs-promise-keys")?.getAttribute("aria-hidden")).toBe("true");
-    expect(container.querySelectorAll("kbd")).toHaveLength(2);
-    expect(await axeViolations(container)).toEqual([]);
-  });
 });
 
-describe("Landscape and Phoenix", () => {
-  it("the landscape is decorative, its ids unique per instance, its loops held when still", () => {
-    const { container } = render(
-      <>
-        <Landscape animated={false} />
-        <Landscape tone="brand" flock={false} phoenix={false} />
-      </>,
-    );
-    const [a, b] = Array.from(container.querySelectorAll(".kzl"));
-    expect(a!.getAttribute("aria-hidden")).toBe("true");
-    expect(a!.hasAttribute("data-still")).toBe(true);
-    const ids = Array.from(container.querySelectorAll("[id]")).map((el) => el.id);
-    expect(new Set(ids).size).toBe(ids.length);
-    expect(b!.querySelector(".kzl-falcon-bot")).toBeNull();
-    expect(b!.querySelector(".kzl-cyber-phoenix")).toBeNull();
-    expect(a!.querySelector(".kzl-falcon-bot")).not.toBeNull();
-  });
-
+describe("Phoenix", () => {
   it("the phoenix is an image only with a title", () => {
     render(<Phoenix title="The phoenix" tone="brand" />);
     expect(screen.getByRole("img", { name: "The phoenix" })).toBeTruthy();

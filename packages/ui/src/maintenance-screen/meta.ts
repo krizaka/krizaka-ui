@@ -20,7 +20,7 @@ export const meta = {
     keyboard: [],
     notes: ["The title and message are a polite `status`; the mark is decorative."],
   },
-  related: ["force-update-screen", "status-page", "error-page"],
+  related: ["force-update-screen", "error-page"],
   web: {
     imports: ["MaintenanceScreen"],
     examples: [{ name: "default", title: "Default", description: "The title, the operator's message and “Try again”." }],

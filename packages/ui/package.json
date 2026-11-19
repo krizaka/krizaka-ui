@@ -340,10 +340,6 @@
       "types": "./dist/number-ticker.d.ts",
       "import": "./dist/number-ticker.js"
     },
-    "./terminal-replay": {
-      "types": "./dist/terminal-replay.d.ts",
-      "import": "./dist/terminal-replay.js"
-    },
     "./glow-card": {
       "types": "./dist/glow-card.d.ts",
       "import": "./dist/glow-card.js"
@@ -359,10 +355,6 @@
     "./step-showcase": {
       "types": "./dist/step-showcase.d.ts",
       "import": "./dist/step-showcase.js"
-    },
-    "./showcase": {
-      "types": "./dist/showcase.d.ts",
-      "import": "./dist/showcase.js"
     },
     "./stepper": {
       "types": "./dist/stepper.d.ts",
@@ -476,18 +468,6 @@
       "types": "./dist/file-upload.d.ts",
       "import": "./dist/file-upload.js"
     },
-    "./media-capture": {
-      "types": "./dist/media-capture.d.ts",
-      "import": "./dist/media-capture.js"
-    },
-    "./video-trimmer": {
-      "types": "./dist/video-trimmer.d.ts",
-      "import": "./dist/video-trimmer.js"
-    },
-    "./image-cropper": {
-      "types": "./dist/image-cropper.d.ts",
-      "import": "./dist/image-cropper.js"
-    },
     "./document-viewer": {
       "types": "./dist/document-viewer.d.ts",
       "import": "./dist/document-viewer.js"
@@ -572,10 +552,6 @@
       "types": "./dist/tree-view.d.ts",
       "import": "./dist/tree-view.js"
     },
-    "./kanban": {
-      "types": "./dist/kanban.d.ts",
-      "import": "./dist/kanban.js"
-    },
     "./page": {
       "types": "./dist/page.d.ts",
       "import": "./dist/page.js"
@@ -587,10 +563,6 @@
     "./card-grid": {
       "types": "./dist/card-grid.d.ts",
       "import": "./dist/card-grid.js"
-    },
-    "./pointer-light": {
-      "types": "./dist/pointer-light.d.ts",
-      "import": "./dist/pointer-light.js"
     },
     "./link-card": {
       "types": "./dist/link-card.d.ts",
@@ -636,17 +608,9 @@
       "types": "./dist/site-cahier.d.ts",
       "import": "./dist/site-cahier.js"
     },
-    "./elephant": {
-      "types": "./dist/elephant.d.ts",
-      "import": "./dist/elephant.js"
-    },
     "./flock": {
       "types": "./dist/flock.d.ts",
       "import": "./dist/flock.js"
-    },
-    "./anatomy-plate": {
-      "types": "./dist/anatomy-plate.d.ts",
-      "import": "./dist/anatomy-plate.js"
     },
     "./page-index": {
       "types": "./dist/page-index.d.ts",
@@ -667,10 +631,6 @@
     "./doodle": {
       "types": "./dist/doodle.d.ts",
       "import": "./dist/doodle.js"
-    },
-    "./signature": {
-      "types": "./dist/signature.d.ts",
-      "import": "./dist/signature.js"
     },
     "./code-block": {
       "types": "./dist/code-block.d.ts",
@@ -748,10 +708,6 @@
       "types": "./dist/docs-source/node.d.ts",
       "import": "./dist/docs-source/node.js"
     },
-    "./scroll-stage": {
-      "types": "./dist/scroll-stage.d.ts",
-      "import": "./dist/scroll-stage.js"
-    },
     "./choice-grid": {
       "types": "./dist/choice-grid.d.ts",
       "import": "./dist/choice-grid.js"
@@ -768,33 +724,13 @@
       "types": "./dist/goal-gauge.d.ts",
       "import": "./dist/goal-gauge.js"
     },
-    "./continue-prompt": {
-      "types": "./dist/continue-prompt.d.ts",
-      "import": "./dist/continue-prompt.js"
-    },
     "./achievement": {
       "types": "./dist/achievement.d.ts",
       "import": "./dist/achievement.js"
     },
-    "./promise-card": {
-      "types": "./dist/promise-card.d.ts",
-      "import": "./dist/promise-card.js"
-    },
-    "./landscape": {
-      "types": "./dist/landscape.d.ts",
-      "import": "./dist/landscape.js"
-    },
     "./landing-page": {
       "types": "./dist/landing-page.d.ts",
       "import": "./dist/landing-page.js"
-    },
-    "./product-page": {
-      "types": "./dist/product-page.d.ts",
-      "import": "./dist/product-page.js"
-    },
-    "./gallery-page": {
-      "types": "./dist/gallery-page.d.ts",
-      "import": "./dist/gallery-page.js"
     },
     "./docs-hub-page": {
       "types": "./dist/docs-hub-page.d.ts",
@@ -803,10 +739,6 @@
     "./docs-article-page": {
       "types": "./dist/docs-article-page.d.ts",
       "import": "./dist/docs-article-page.js"
-    },
-    "./component-page": {
-      "types": "./dist/component-page.d.ts",
-      "import": "./dist/component-page.js"
     },
     "./catalogue-page": {
       "types": "./dist/catalogue-page.d.ts",
@@ -827,10 +759,6 @@
     "./legal-page": {
       "types": "./dist/legal-page.d.ts",
       "import": "./dist/legal-page.js"
-    },
-    "./status-page": {
-      "types": "./dist/status-page.d.ts",
-      "import": "./dist/status-page.js"
     },
     "./error-page": {
       "types": "./dist/error-page.d.ts",
@@ -879,10 +807,6 @@
     "./native/video-player": {
       "types": "./dist/native/video-player.d.ts",
       "import": "./dist/native/video-player.js"
-    },
-    "./native/media-capture": {
-      "types": "./dist/native/media-capture.d.ts",
-      "import": "./dist/native/media-capture.js"
     },
     "./native/media-picker": {
       "types": "./dist/native/media-picker.d.ts",
@@ -1801,16 +1725,6 @@
       ]
     },
     {
-      "name": "./terminal-replay",
-      "path": "dist/terminal-replay.js",
-      "limit": "2.5 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./glow-card",
       "path": "dist/glow-card.js",
       "limit": "2 kB",
@@ -1844,16 +1758,6 @@
       "name": "./step-showcase",
       "path": "dist/step-showcase.js",
       "limit": "3.2 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
-      "name": "./showcase",
-      "path": "dist/showcase.js",
-      "limit": "3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2131,36 +2035,6 @@
       ]
     },
     {
-      "name": "./media-capture",
-      "path": "dist/media-capture.js",
-      "limit": "3.8 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
-      "name": "./video-trimmer",
-      "path": "dist/video-trimmer.js",
-      "limit": "2.4 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
-      "name": "./image-cropper",
-      "path": "dist/image-cropper.js",
-      "limit": "12.8 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./document-viewer",
       "path": "dist/document-viewer.js",
       "limit": "5 kB",
@@ -2385,16 +2259,6 @@
       ]
     },
     {
-      "name": "./kanban",
-      "path": "dist/kanban.js",
-      "limit": "3 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./native/vertical-video (expo-video is the app's)",
       "path": "dist/native/vertical-video.js",
       "limit": "6 kB",
@@ -2412,17 +2276,6 @@
       "name": "./native/video-player (expo-video is the app's)",
       "path": "dist/native/video-player.js",
       "limit": "2 kB",
-      "gzip": true,
-      "ignore": [
-        "expo-video",
-        "expo-camera",
-        "@krizaka/ui"
-      ]
-    },
-    {
-      "name": "./native/media-capture (expo-camera is the app's)",
-      "path": "dist/native/media-capture.js",
-      "limit": "2.5 kB",
       "gzip": true,
       "ignore": [
         "expo-video",
@@ -2484,16 +2337,6 @@
       ]
     },
     {
-      "name": "./pointer-light",
-      "path": "dist/pointer-light.js",
-      "limit": "1 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./link-card",
       "path": "dist/link-card.js",
       "limit": "1.25 kB",
@@ -2544,16 +2387,6 @@
       ]
     },
     {
-      "name": "./anatomy-plate",
-      "path": "dist/anatomy-plate.js",
-      "limit": "1 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./page-index",
       "path": "dist/page-index.js",
       "limit": "1.2 kB",
@@ -2587,16 +2420,6 @@
       "name": "./stuck",
       "path": "dist/stuck.js",
       "limit": "0.7 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
-      "name": "./signature",
-      "path": "dist/signature.js",
-      "limit": "1.2 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2667,16 +2490,6 @@
       "name": "./bird-plate",
       "path": "dist/bird-plate.js",
       "limit": "6.3 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
-      "name": "./elephant",
-      "path": "dist/elephant.js",
-      "limit": "1.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2875,16 +2688,6 @@
       ]
     },
     {
-      "name": "./scroll-stage",
-      "path": "dist/scroll-stage.js",
-      "limit": "1.2 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./choice-grid",
       "path": "dist/choice-grid.js",
       "limit": "2.2 kB",
@@ -2925,16 +2728,6 @@
       ]
     },
     {
-      "name": "./continue-prompt",
-      "path": "dist/continue-prompt.js",
-      "limit": "4 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./achievement",
       "path": "dist/achievement.js",
       "limit": "1.2 kB",
@@ -2945,50 +2738,8 @@
       ]
     },
     {
-      "name": "./promise-card",
-      "path": "dist/promise-card.js",
-      "limit": "1 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
-      "name": "./landscape",
-      "path": "dist/landscape.js",
-      "limit": "8 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx"
-      ]
-    },
-    {
       "name": "./landing-page",
       "path": "dist/landing-page.js",
-      "limit": "1.5 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx",
-        "@krizaka/ui"
-      ]
-    },
-    {
-      "name": "./product-page",
-      "path": "dist/product-page.js",
-      "limit": "1.5 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx",
-        "@krizaka/ui"
-      ]
-    },
-    {
-      "name": "./gallery-page",
-      "path": "dist/gallery-page.js",
       "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
@@ -3011,17 +2762,6 @@
     {
       "name": "./docs-article-page",
       "path": "dist/docs-article-page.js",
-      "limit": "1.5 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx",
-        "@krizaka/ui"
-      ]
-    },
-    {
-      "name": "./component-page",
-      "path": "dist/component-page.js",
       "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
@@ -3077,17 +2817,6 @@
     {
       "name": "./legal-page",
       "path": "dist/legal-page.js",
-      "limit": "1.5 kB",
-      "gzip": true,
-      "ignore": [
-        "tailwind-variants",
-        "clsx",
-        "@krizaka/ui"
-      ]
-    },
-    {
-      "name": "./status-page",
-      "path": "dist/status-page.js",
       "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
