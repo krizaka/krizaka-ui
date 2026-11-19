@@ -2,8 +2,8 @@
   "generated": "2026-11-02",
   "package": {
     "name": "@krizaka/ui",
-    "version": "4.17.0",
-    "distMeasured": "packages/ui/dist (@krizaka/ui@4.17.0)"
+    "version": "4.17.1",
+    "distMeasured": "packages/ui/dist (@krizaka/ui@4.17.1)"
   },
   "consumers": [
     {
@@ -223,6 +223,7 @@
         "stuck",
         "tabs",
         "taped-photo",
+        "terminal-replay",
         "toast",
         "toc",
         "tooltip",
@@ -1073,7 +1074,7 @@
       "budget": 3000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-24",
       "verdict": "merge",
       "into": "stat",
@@ -1217,7 +1218,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-26",
       "verdict": "keep",
       "why": "7 live importer file(s)"
@@ -1323,7 +1324,7 @@
       "budget": 4500,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-26",
       "verdict": "keep",
       "why": "built on by native"
@@ -1605,7 +1606,7 @@
       "budget": 21200,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -2049,7 +2050,7 @@
       "budget": 9000,
       "tests": 3,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -2207,7 +2208,7 @@
       "budget": 6600,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-18",
+      "lastChange": "2026-11-19",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "45 live importer file(s)"
@@ -2491,7 +2492,7 @@
       "budget": 2400,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-17",
+      "lastChange": "2026-11-19",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "14 live importer file(s)"
@@ -2519,7 +2520,7 @@
       "budget": 1000,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-17",
+      "lastChange": "2026-11-19",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "built on by nav-bar"
@@ -2558,7 +2559,7 @@
       "budget": 11700,
       "tests": 4,
       "stories": 1,
-      "lastChange": "2026-11-18",
+      "lastChange": "2026-11-19",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "14 live importer file(s)"
@@ -2635,6 +2636,32 @@
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "8 live importer file(s)"
+    },
+    {
+      "pkg": "ui",
+      "name": "terminal-replay",
+      "kind": "entry",
+      "title": "Terminal replay",
+      "category": "media",
+      "status": "stable",
+      "domain": "media",
+      "adoption": null,
+      "importers": {},
+      "nativeUse": {},
+      "live": 0,
+      "paused": 0,
+      "pausedBy": [],
+      "builtOnBy": [],
+      "issue": null,
+      "mergeInto": null,
+      "sizeGzip": null,
+      "budget": 2500,
+      "tests": 1,
+      "stories": 1,
+      "lastChange": "2026-11-18",
+      "created": "2026-10-11",
+      "verdict": "retire",
+      "why": "no live importer, no paused importer, no filed need, no kept entry built on it"
     },
     {
       "pkg": "ui",
@@ -2914,7 +2941,7 @@
       "budget": null,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-18",
+      "lastChange": "2026-11-19",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -3006,7 +3033,7 @@
       "budget": 17000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-17",
+      "lastChange": "2026-11-19",
       "created": "2026-10-14",
       "verdict": "keep",
       "why": "6 live importer file(s)"
@@ -3250,7 +3277,7 @@
       "budget": 35000,
       "tests": 2,
       "stories": 2,
-      "lastChange": "2026-11-17",
+      "lastChange": "2026-11-19",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -3524,7 +3551,7 @@
       "budget": 22000,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-16",
+      "lastChange": "2026-11-19",
       "created": "2026-10-25",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -3645,7 +3672,7 @@
       "budget": 5000,
       "tests": 2,
       "stories": 1,
-      "lastChange": "2026-11-18",
+      "lastChange": "2026-11-19",
       "created": "2026-10-15",
       "verdict": "keep",
       "why": "7 live importer file(s)"
@@ -3711,7 +3738,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-13",
       "verdict": "keep",
       "why": "20 live importer file(s)"
@@ -4386,7 +4413,7 @@
       "budget": 1250,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-18",
+      "lastChange": "2026-11-19",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "9 live importer file(s)"
@@ -4416,7 +4443,7 @@
       "budget": 1400,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-18",
+      "lastChange": "2026-11-19",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -5063,7 +5090,7 @@
       "budget": 18000,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-11",
       "verdict": "keep",
       "why": "4 live importer file(s)"
@@ -5352,7 +5379,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-17",
       "verdict": "keep",
       "why": "2 live importer file(s)"
@@ -5515,7 +5542,7 @@
       "budget": 1000,
       "tests": 1,
       "stories": 2,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-11",
       "verdict": "merge",
       "into": "meter",
@@ -5544,7 +5571,7 @@
       "budget": 1200,
       "tests": 1,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-11",
       "verdict": "ask",
       "why": "used only by the motion lab"
@@ -6468,7 +6495,7 @@
       "budget": 4300,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "11 live importer file(s)"
@@ -6498,7 +6525,7 @@
       "budget": 1600,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6528,7 +6555,7 @@
       "budget": 3000,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6558,7 +6585,7 @@
       "budget": 2400,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "3 live importer file(s)"
@@ -6588,7 +6615,7 @@
       "budget": 2500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6616,7 +6643,7 @@
       "budget": 3300,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "built on by shop-composer"
@@ -6646,7 +6673,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6676,7 +6703,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6706,7 +6733,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6736,7 +6763,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6766,7 +6793,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6796,7 +6823,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6826,7 +6853,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6856,7 +6883,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6886,7 +6913,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
@@ -6914,7 +6941,7 @@
       "budget": 2600,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "built on by shop-composer"
@@ -6942,7 +6969,7 @@
       "budget": 1500,
       "tests": 7,
       "stories": 3,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "built on by shop-composer"
@@ -7052,7 +7079,7 @@
       "budget": 25500,
       "tests": 3,
       "stories": 1,
-      "lastChange": "2026-11-15",
+      "lastChange": "2026-11-19",
       "created": "2026-10-27",
       "verdict": "keep",
       "why": "1 live importer file(s)"
