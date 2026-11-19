@@ -1,5 +1,18 @@
 # @krizaka/ui
 
+## 4.17.1
+
+### Patch Changes
+
+- [#1080](https://github.com/krizaka/krizaka-ui/pull/1080) [`5bf3d4b`](https://github.com/krizaka/krizaka-ui/commit/5bf3d4b6e5ac15989707b228908fa005410ae1d2) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Refactor, behaviour unchanged: `document-viewer/locate` names its character-range constants and holds the Helvetica width table as a typed array; the PDF pre-flight reads names, extensions, base64 and the trailer with named readers instead of regular expressions.
+
+- [#1081](https://github.com/krizaka/krizaka-ui/pull/1081) [`2eea804`](https://github.com/krizaka/krizaka-ui/commit/2eea804a4703a49d03d19e0920d3469be41523d0) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Native elements instead of ARIA roles where they are equivalent (`<section aria-label>` for scrollable regions, `<output>` for status text), the internal style factories of the deprecated components no longer carry the deprecation tag, and the test assertions use `toHaveLength`. No change to the public API.
+
+- [#1077](https://github.com/krizaka/krizaka-ui/pull/1077) [`1226c70`](https://github.com/krizaka/krizaka-ui/commit/1226c708be3ef27c7755b8fcc5c3003e18eb8448) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Code quality: `globalThis.window`, `replaceAll`, `codePointAt` and `dataset` instead of the older forms, with no change of behaviour.
+- Updated dependencies []:
+  - @krizaka/tailwind@4.17.1
+  - @krizaka/tokens@4.17.1
+
 ## 4.17.0
 
 ### Minor Changes
