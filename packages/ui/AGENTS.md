@@ -8,7 +8,7 @@
 - The **primitives** (level 1 of the root contract): `cn`, `slot`, `button`, `badge`, `avatar`, `field`, `theme`,
   `skeleton`, `empty-state`, `spinner`, `countdown`, `card`, `dialog`, `toast`, `popover`, `dropdown-menu`, `tooltip`,
   `stat`, `page-header`, `alert`, `separator`, `kbd`, `tabs`, `chip`, `status-chip`, `switch`, `slider`, `checkbox`, `radio-group`,
-  `command`, `confirm-button`, `progress`, `section-backdrop`, `loader`, `meter`, `stepper`, `number-ticker`,
+  `command`, `confirm-button`, `progress`, `section-backdrop`, `loader`, `meter`, `stepper`, `number-ticker`, `terminal-replay`,
   `nav-bar` (with the family switcher `NavBar.Family`), `language-switch` (the one language control of the family), `platform-bar` (the platform's strip above a page it hosts for a customer: server-only, static), `sites` (the Krizaka family as data), `site-footer`, `chip-link`, `glow-card`, `mascots`, and the data and media primitives `pagination`,
   `data-table` (TanStack Table v9), `virtual` (TanStack Virtual v3), `form` (TanStack Form v1: `./form`, `./form/server`, `./native/form`), `filter-bar`, `combobox`, `tag-input`, `date-picker`, `search-field`, `video-player`, `file-upload`,
   `document-viewer` (pdf.js, an optional peer loaded by the app; passages lit from the PDF's text positions), `map` (MapLibre over Protomaps PMTiles on the Krizaka CDN, the style generated from the tokens; `maplibre-gl` an optional peer, loaded on demand; native `./native/map` on `@maplibre/maplibre-react-native`, an optional peer), and the **page blocks** (category `blocks`) `page`,
@@ -70,7 +70,7 @@
   without that runtime (Radix included): `./button` ≤ 3.5 kB (it draws the loader glyph), `./avatar` ≤ 6 kB, `./theme` ≤ 2 kB, `./countdown` ≤ 2 kB,
   `./slot` ≤ 2 kB, `./field` ≤ 1.5 kB, `./card` ≤ 3 kB, `./separator` ≤ 2.6 kB (Radix's `Primitive` and `Slot`; the hand-drawn shapes' paths),
   `./confirm-button` ≤ 4 kB, `./progress` ≤ 1.8 kB, `./section-backdrop` ≤ 1 kB, `./mascots` ≤ 5.5 kB (seven birds' geometry and the phoenix; the crane +0.27 kB), `./loader`, `./meter`, `./stepper`, `./glow-card`, `./chip-link` ≤ 2 kB, `./motion`, `./number-ticker`,
-  `./update-prompt`, `./force-update-screen` and `./maintenance-screen` ≤ 3.5 kB (the screens of the app-version contract, on the `./button` entry), the other atoms ≤ 1 kB. The controls carry Radix's roving focus
+  `./update-prompt`, `./force-update-screen` and `./maintenance-screen` ≤ 3.5 kB (the screens of the app-version contract, on the `./button` entry), `./terminal-replay` ≤ 2.5 kB (its timer, observer and controls), the other atoms ≤ 1 kB. The controls carry Radix's roving focus
   or its form plumbing: `./switch` ≤ 6 kB, `./checkbox` ≤ 6 kB, `./chip` ≤ 13 kB (3.57: `TagChip` and `MarkerPicker` on Radix's radio group, #627), `./status-chip` ≤ 32 kB (the badge, Radix's menu and `@krizaka/organize/contract`), `./tabs` ≤ 12.3 kB (3.56: the binder dividers, #648), `./radio-group`
   ≤ 12.5 kB (3.2: the tactile keys, the cards' check and the segments' gliding light), `./slider` ≤ 12 kB. What opens over the page carries Radix's machinery (dismissable layer, focus scope, scroll lock,
   and Floating UI for what is placed next to a trigger) — shared between these entries in an app, but counted in
@@ -98,7 +98,7 @@
   `./field`, `./theme`, `./skeleton`, `./empty-state`, `./spinner`, `./countdown`, `./card`, `./dialog`, `./toast`,
   `./popover`, `./dropdown-menu`, `./tooltip`, `./stat`, `./page-header`, `./alert`, `./separator`, `./kbd`, `./tabs`,
   `./chip`, `./status-chip`, `./chip-link`, `./switch`, `./slider`, `./checkbox`, `./radio-group`, `./command`, `./confirm-button`, `./progress`,
-  `./section-backdrop`, `./motion`, `./loader`, `./nav-bar`, `./language-switch`, `./sites`, `./site-footer`, `./number-ticker`, `./glow-card`, `./stepper`,
+  `./section-backdrop`, `./motion`, `./loader`, `./nav-bar`, `./language-switch`, `./sites`, `./site-footer`, `./number-ticker`, `./terminal-replay`, `./glow-card`, `./stepper`,
   `./meter`, `./mascots`, `./pagination`, `./data-table`, `./filter-bar`, `./combobox`, `./tag-input`, `./date-picker`,
   `./search-field`, `./video-player`, `./file-upload`,
   `./media-gallery`, `./media-player`, `./media-carousel`, `./pausable-loop`, `./media-guard` (Node: the carousel's media guard, ADR-010; bin `krizaka-media-guard`), `./page`, `./page-hero`, `./card-grid`, `./link-card`, `./argument-card`,

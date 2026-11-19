@@ -303,6 +303,7 @@ export default defineConfig([
       "engine-flow": "src/engine-flow/index.ts",
       "comparison-table": "src/comparison-table/index.ts",
       "step-showcase": "src/step-showcase/index.ts",
+      "terminal-replay": "src/terminal-replay/index.ts",
     },
     banner: { js: '"use client";' },
   },

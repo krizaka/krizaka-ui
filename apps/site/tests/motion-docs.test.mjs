@@ -11,7 +11,7 @@ test("states the config vocabulary every animated primitive follows", () => {
 });
 
 test("lists the primitives that move, with what they offer", () => {
-  for (const name of ["EngineFlow", "Route", "Pulse", "NumberTicker", "Stepper", "data-kz-arrive", "kz-grow"]) assert.ok(page.includes(name), name);
+  for (const name of ["EngineFlow", "Route", "Pulse", "NumberTicker", "TerminalReplay", "Stepper", "data-kz-arrive", "kz-grow"]) assert.ok(page.includes(name), name);
 });
 
 test("says what the conductor guarantees and what reduced motion keeps", () => {

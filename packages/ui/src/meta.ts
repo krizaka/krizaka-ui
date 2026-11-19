@@ -194,6 +194,7 @@ export type ComponentName =
   | "tabs"
   | "tag-input"
   | "tag-selector"
+  | "terminal-replay"
   | "theme"
   | "toast"
   | "toc"

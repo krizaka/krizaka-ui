@@ -40,6 +40,7 @@ export const PLANNED: Record<string, string> = {
   "app-frame": "The one signed-in frame of Verikora, Folioviv and Sovkora (UX audit F1, F2; verikora#429, folioviv#396, sovkora-web#294).",
   "platform-bar": "The platform's strip above a shop page it hosts for a customer: Folioviv's hosted storefronts (krizaka-internal#3746).",
   "docs-source": "A folder of Markdown rendered as docs pages, nav, headings and pager: the products' documentation sites adopt it (krizaka-internal#3886).",
+  "terminal-replay": "agents.krizaka.com's console: real, sanitised agent log lines replayed as proof (krizaka-internal#4338, #4184).",
   "activity-feed": "Sovkora's job history (the adoption of Elements, PS-E).",
   captcha: "krizaka.com's contact form and the blog's newsletter form (the public forms, behind Cloudflare Turnstile).",
   "contact-page": `${SITE}: /contact.`,
