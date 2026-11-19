@@ -1,7 +1,7 @@
 // Client (the mark holds an id). The footer shared by every site and app of the Krizaka family — compact (founder,
 // 2026-10-30, krizaka/krizaka-internal#754: « des footers de 10 lignes »): at most three lines on a desktop —
-//   1. the site's own links, each group inline (`Docs  Get started · Components`);
-//   2. the family, grouped inline (Products · Open source · Krizaka), names read from `org.family` of `@krizaka/org`;
+//   1. the site's own links, one column per group from `lg` (title on top, links stacked);
+//   2. the family, one column per group from `lg` (Products · Open source · Krizaka), names read from `org.family` of `@krizaka/org`;
 //   3. one line: the mark and the org's signature, the version, the legal links, the host's controls (language, theme).
 // On a phone the family's groups fold (`<details>`), the rest wraps. `variant="app"` keeps line 3 only. Same structure on
 // the Cahier sites and the products (`tone`). No link twice, no site block, no names typed here when `org` is given.
@@ -22,18 +22,18 @@ export const siteFooter = tv({
     root: "w-full border-t border-border-subtle bg-surface-0 text-fg",
     inner:
       "mx-auto grid w-full max-w-[calc(var(--kz-page-max,72rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))] grid-cols-[minmax(0,1fr)] gap-3 px-[var(--kz-page-gutter,clamp(16px,3.2vw,32px))] py-6",
-    row: "flex min-w-0 flex-wrap items-baseline gap-x-6 gap-y-2",
-    family: "grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 lg:flex lg:flex-wrap lg:items-baseline lg:gap-x-6 lg:gap-y-2",
+    row: "flex min-w-0 flex-wrap items-baseline gap-x-6 gap-y-2 lg:grid lg:grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] lg:items-start lg:gap-x-6 lg:gap-y-6",
+    family: "grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 lg:grid lg:grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] lg:items-start lg:gap-x-6 lg:gap-y-6",
     group:
-      "group/fold min-w-0 lg:[&::details-content]:[content-visibility:visible] lg:[&::details-content]:contents lg:[&>summary]:pointer-events-none lg:inline-flex lg:items-baseline lg:gap-2",
+      "group/fold min-w-0 lg:[&::details-content]:[content-visibility:visible] lg:[&::details-content]:contents lg:[&>summary]:pointer-events-none lg:flex lg:flex-col lg:items-start lg:gap-2",
     summary:
       "flex min-h-11 cursor-pointer list-none items-center justify-between rounded-md text-xs font-semibold text-fg-secondary [&::-webkit-details-marker]:hidden " +
-      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring lg:inline lg:min-h-0 lg:cursor-default",
+      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring lg:block lg:min-h-0 lg:cursor-default",
     chevron: "size-4 shrink-0 transition-transform group-open/fold:rotate-180 motion-reduce:transition-none lg:hidden",
-    column: "inline-flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1",
+    column: "inline-flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1 lg:flex lg:flex-col lg:items-start lg:gap-2",
     title: "text-xs font-semibold text-fg-secondary",
     note: "font-normal",
-    list: "flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1 pb-2 lg:pb-0",
+    list: "flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1 pb-2 lg:flex-col lg:flex-nowrap lg:items-start lg:pb-0",
     link:
       "inline-flex min-h-6 min-w-0 items-center rounded-md text-sm [overflow-wrap:anywhere] text-fg-secondary no-underline transition-colors hover:text-fg " +
       "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:text-fg aria-[current=page]:font-semibold aria-[current=true]:text-fg aria-[current=true]:font-semibold",

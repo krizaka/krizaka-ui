@@ -162,13 +162,27 @@ describe("SiteFooter", () => {
     expect(within(screen.getByRole("list", { name: "Folioviv" })).getAllByRole("listitem")).toHaveLength(1);
   });
 
-  it("the site's own groups sit inline on one wrapping line, never in stacked columns (« des footers de 10 lignes », #754)", () => {
+  it("from lg the site's own groups are grid columns, each a title over stacked links (#4336); unchanged below", () => {
     const { container } = render(<Footer family={false} />);
     const group = container.querySelector("footer ul")!.parentElement!;
     const row = group.parentElement!;
+    expect(row.className).toMatch(/lg:grid /);
+    expect(row.className).toMatch(/lg:grid-cols-\[repeat\(auto-fit/);
     expect(row.className).toMatch(/flex-wrap/);
-    expect(group.className).toMatch(/inline-flex/);
+    expect(group.className).toMatch(/lg:flex-col/);
+    expect(container.querySelector("footer ul")!.className).toMatch(/lg:flex-col/);
     expect(container.querySelector("footer ul")!.className).toMatch(/flex-wrap/);
+  });
+
+  it("from lg the family's groups are grid columns with their links stacked (#4336)", () => {
+    const { container } = render(<Footer />);
+    const nav = container.querySelector("nav")!;
+    expect(nav.className).toMatch(/lg:grid /);
+    expect(nav.className).not.toMatch(/lg:flex-wrap/);
+    for (const d of Array.from(nav.querySelectorAll("details"))) {
+      expect(d.className).toMatch(/lg:flex-col/);
+      expect(d.querySelector("ul")!.className).toMatch(/lg:flex-col/);
+    }
   });
 
   it("folds the family's groups on a phone (details/summary) and opens them as one line on a desktop", () => {
