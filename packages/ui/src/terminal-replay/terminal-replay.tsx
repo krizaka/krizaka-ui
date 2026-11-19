@@ -230,7 +230,9 @@ export function TerminalReplay({
         {copyLabel && (
           <button
             type="button"
-            onClick={() => navigator.clipboard?.writeText(commands).then(() => setCopied(true))}
+            onClick={() => {
+              navigator.clipboard?.writeText(commands).then(() => setCopied(true), () => undefined);
+            }}
             data-copied={copied ? "" : undefined}
             className="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 font-medium text-fg-secondary transition-colors hover:bg-surface-3 hover:text-fg focus-visible:outline-2 focus-visible:outline-ring"
           >
