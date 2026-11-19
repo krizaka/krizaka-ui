@@ -160,7 +160,7 @@ export function TypographyDoc({ locale }: Readonly<{ locale: Locale }>) {
           </li>
         ))}
       </ol>
-      <div className="kz-table-scroll not-prose" tabIndex={0} role="region" aria-label={ty.scale}>
+      <section className="kz-table-scroll not-prose" tabIndex={0} aria-label={ty.scale}>
         <table className="kz-table">
           <thead>
             <tr>
@@ -183,7 +183,7 @@ export function TypographyDoc({ locale }: Readonly<{ locale: Locale }>) {
             ))}
           </tbody>
         </table>
-      </div>
+      </section>
 
       <h2 id="installation">{c.installation}</h2>
       <h3 id="install-web">{ty.web}</h3>
@@ -209,7 +209,7 @@ export function TypographyDoc({ locale }: Readonly<{ locale: Locale }>) {
 
       <h2 id="licences">{ty.licences}</h2>
       <p>{ty.licenceIntro}</p>
-      <div className="kz-table-scroll not-prose" tabIndex={0} role="region" aria-label={ty.licences}>
+      <section className="kz-table-scroll not-prose" tabIndex={0} aria-label={ty.licences}>
         <table className="kz-table">
           <thead>
             <tr>
@@ -241,7 +241,7 @@ export function TypographyDoc({ locale }: Readonly<{ locale: Locale }>) {
             ))}
           </tbody>
         </table>
-      </div>
+      </section>
 
       <p className="kz-component-source not-prose">
         <span>{format(c.source, { packages: `@krizaka/fonts@${packageVersion("fonts")} · @krizaka/tokens@${packageVersion("tokens")}` })}</span>

@@ -93,7 +93,7 @@ describe("GenUi — malicious and malformed specs are refused", () => {
     expect(refused({ version: V, updateDataModel: { surfaceId: "s1", path: "/a/constructor/prototype", value: true } }).ok).toBe(false);
     expect(refused({ version: V, updateDataModel: { surfaceId: "s1", path: "/a", value: JSON.parse('{"__proto__":{"polluted":true}}') } }).ok).toBe(false);
     const state = readStream(answer(create(), data("/__proto__/polluted", true)), baseGenUiCatalog);
-    expect(state.errors.length).toBe(1);
+    expect(state.errors).toHaveLength(1);
     expect(({} as Record<string, unknown>).polluted).toBeUndefined();
   });
 

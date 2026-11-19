@@ -219,11 +219,11 @@ export function List<T>({
   );
   return (
     <div className={s.root({ className })}>
-      {loading ? <span className="sr-only" role="status">{labels.loading}</span> : null}
+      {loading ? <output className="sr-only">{labels.loading}</output> : null}
       {virtualize ? (
-        <div tabIndex={0} role="region" aria-label={label} className={s.scroller()} style={{ height: virtualize.height }} onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}>
+        <section tabIndex={0} aria-label={label} className={s.scroller()} style={{ height: virtualize.height }} onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}>
           {ul}
-        </div>
+        </section>
       ) : (
         ul
       )}

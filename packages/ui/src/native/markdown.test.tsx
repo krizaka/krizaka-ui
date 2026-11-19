@@ -31,6 +31,12 @@ const a = 1;
 \`\`\`
 `;
 
+/** The table region keeps the same native instance across re-renders, and its first column is not measured yet. */
+function expectSameRegionUnmeasured(regionInstance: unknown) {
+  expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance).toBe(regionInstance);
+  expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
+}
+
 describe("Markdown (native)", () => {
   test("lets table columns fit long identifiers inside a horizontal scroller", async () => {
     await render(<Markdown>{"| Identifier | Related |\n| --- | --- |\n| `profile-photo-check` | `account-access-review` |"}</Markdown>);
@@ -65,8 +71,7 @@ describe("Markdown (native)", () => {
         <Markdown>{"| Identifier | Related |\n| --- | --- |\n| short | next |"}</Markdown>
       </ThemeProvider>,
     );
-    expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance === regionInstance).toBe(true);
-    expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
+    expectSameRegionUnmeasured(regionInstance);
     await fireEvent(screen.getByText("short"), "layout", { nativeEvent: { layout: { width: 140 } } });
     expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBe(140);
     await rerender(
@@ -74,8 +79,7 @@ describe("Markdown (native)", () => {
         <Markdown>{"| Identifier | Related |\n| --- | --- |\n| short | next |"}</Markdown>
       </ThemeProvider>,
     );
-    expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance === regionInstance).toBe(true);
-    expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
+    expectSameRegionUnmeasured(regionInstance);
     await fireEvent(screen.getByText("short"), "layout", { nativeEvent: { layout: { width: 140 } } });
     const originalWindow = Dimensions.get("window");
     await act(async () => {
@@ -84,8 +88,7 @@ describe("Markdown (native)", () => {
         screen: Dimensions.get("screen"),
       });
     });
-    expect((screen.getByLabelText("Identifier, Related") as unknown as { instance: unknown }).instance === regionInstance).toBe(true);
-    expect(StyleSheet.flatten(screen.getByText("Identifier").props.style).width).toBeUndefined();
+    expectSameRegionUnmeasured(regionInstance);
     await act(async () => {
       Dimensions.set({ window: originalWindow, screen: Dimensions.get("screen") });
     });

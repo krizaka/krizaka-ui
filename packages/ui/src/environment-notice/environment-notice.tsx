@@ -37,7 +37,7 @@ export function EnvironmentNotice({ stage, title, message, link, linkAs, classNa
   const s = environmentNoticeStyles();
   const Link = linkAs ?? "a";
   return (
-    <div role="region" aria-label={content.title} data-stage={content.stage} className={s.root({ className })} {...props}>
+    <section aria-label={content.title} data-stage={content.stage} className={s.root({ className })} {...props}>
       <div className={s.inner()}>
         <span aria-hidden className={s.dot()} />
         <p className={s.text()}>
@@ -49,6 +49,6 @@ export function EnvironmentNotice({ stage, title, message, link, linkAs, classNa
           </Link>
         ) : null}
       </div>
-    </div>
+    </section>
   );
 }

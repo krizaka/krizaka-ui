@@ -114,7 +114,7 @@ describe("the shop catalogue", () => {
 
     it("has an h1 only in the hero", () => {
       const { container } = render(renderers[type]![variant]!(demoSalon));
-      expect(container.querySelectorAll("h1").length).toBe(type === "hero" ? 1 : 0);
+      expect(container.querySelectorAll("h1")).toHaveLength(type === "hero" ? 1 : 0);
     });
 
     it("draws every image in a box of a fixed ratio (CLS 0), once", () => {
@@ -138,7 +138,7 @@ describe("services · menu", () => {
     expect(groups.map((g) => g.getAttribute("aria-labelledby") !== null)).toEqual([true, true, true]);
     expect(screen.getByText("cuts")).toBeTruthy();
     expect(screen.getByText("$45")).toBeTruthy();
-    expect(screen.getAllByRole("listitem").length).toBe(5);
+    expect(screen.getAllByRole("listitem")).toHaveLength(5);
   });
 
   it("names the service in each button, so « Choose » is never ambiguous", () => {
@@ -165,8 +165,8 @@ describe("services · menu", () => {
   it("marks « Popular » only where the data says so, and « from » before a varying price", () => {
     render(<ServicesSection title="Services" services={demoSalon.services} chooseLabel="Choose" popularLabel="Popular" />);
     // drawn twice (beside the name from `sm`, in the line below on a phone): one of the two is `display: none` at any width
-    expect(screen.getAllByText("Popular").length).toBe(2);
-    expect(screen.getAllByText("from").length).toBe(2);
+    expect(screen.getAllByText("Popular")).toHaveLength(2);
+    expect(screen.getAllByText("from")).toHaveLength(2);
   });
 
   it("puts the aside beside the list, and two columns only when nothing is beside it", () => {
@@ -190,7 +190,7 @@ describe("services · menu", () => {
 
   it("does not group when asked not to", () => {
     render(<ServicesSection title="Services" services={demoSalon.services} chooseLabel="Choose" popularLabel="Popular" groupBy="none" listLabel="All services" />);
-    expect(screen.getAllByRole("list").length).toBe(1);
+    expect(screen.getAllByRole("list")).toHaveLength(1);
     expect(screen.getByRole("list", { name: "All services" })).toBeTruthy();
   });
 });
@@ -199,20 +199,20 @@ describe("services · cards", () => {
   it("draws six cards at most", () => {
     const many = Array.from({ length: 9 }, (_, i) => ({ ...demoSalon.services[0]!, id: `s${i}`, name: `Service ${i}` }));
     render(<ServicesSection variant="cards" title="Services" services={many} chooseLabel="Choose" popularLabel="Popular" />);
-    expect(screen.getAllByRole("article").length).toBe(6);
+    expect(screen.getAllByRole("article")).toHaveLength(6);
   });
 });
 
 describe("gallery", () => {
   it("shows fewer tiles when it runs out of photos, never a repeat", () => {
     const { container } = render(<GallerySection variant="mosaic" title="Photos" label="Photos" photos={demoSalon.photos.slice(0, 3)} />);
-    expect(container.querySelectorAll("img").length).toBe(3);
+    expect(container.querySelectorAll("img")).toHaveLength(3);
   });
 
   it("holds twelve photos at most", () => {
     const many = Array.from({ length: 20 }, (_, i) => ({ id: `p${i}`, photo: { src: `/p${i}.jpg`, alt: `p${i}` } }));
     const { container } = render(<GallerySection variant="filmstrip" title="Photos" label="Photos" photos={many} />);
-    expect(container.querySelectorAll("img").length).toBe(12);
+    expect(container.querySelectorAll("img")).toHaveLength(12);
   });
 
   it("hangs the wall the same way every time (no random: no hydration mismatch)", async () => {
@@ -228,7 +228,7 @@ describe("gallery", () => {
 describe("booking", () => {
   it("lists the next free times as links, and says so when there are none", () => {
     const { rerender } = render(<BookingSection label="Next free times" times={demoSalon.times} href="#book" actionLabel="All times" />);
-    expect(screen.getAllByRole("link").length).toBe(5);
+    expect(screen.getAllByRole("link")).toHaveLength(5);
     rerender(<BookingSection label="Next free times" times={[]} emptyLabel="Nothing free this week" href="#book" actionLabel="All times" />);
     expect(screen.getByText("Nothing free this week")).toBeTruthy();
   });
@@ -360,7 +360,7 @@ describe("bulletin", () => {
     expect(liveFlyers(flyers, "2026-11-28").map((f) => f.id)).toEqual(["new", "keep", "extra"]);
     render(<BulletinSection title="News" today="2026-10-27" flyers={flyers} />);
     expect(screen.queryByText("Summer hours")).toBeNull();
-    expect(screen.getAllByRole("listitem").length).toBe(3);
+    expect(screen.getAllByRole("listitem")).toHaveLength(3);
   });
 
   it("draws nothing when every flyer has expired, and the banner is one line of text, never an image", () => {
@@ -376,7 +376,7 @@ describe("faq", () => {
   it("is native details, with the FAQPage JSON-LD of the same answers", () => {
     const questions = [{ id: "q1", question: "Do I need to book?", answer: "Yes, online." }, { id: "q2", question: "Can I </script> cancel?", answer: "Up to 24 h before." }];
     const { container } = render(<FaqSection title="Questions" questions={questions} />);
-    expect(container.querySelectorAll("details").length).toBe(2);
+    expect(container.querySelectorAll("details")).toHaveLength(2);
     const json = container.querySelector("script[type='application/ld+json']")!.textContent!;
     const data = JSON.parse(json);
     expect(data["@type"]).toBe("FAQPage");
@@ -389,7 +389,7 @@ describe("faq", () => {
 describe("a whole page", () => {
   it("is one document: one h1, one h2 per section, unique landmarks, no axe violation", async () => {
     const { container } = render(<ShopPageExample />);
-    expect(container.querySelectorAll("h1").length).toBe(1);
+    expect(container.querySelectorAll("h1")).toHaveLength(1);
     const h2 = [...container.querySelectorAll("h2")].map((h) => h.textContent);
     expect(new Set(h2).size).toBe(h2.length);
     const photos = [...container.querySelectorAll("img")].map((i) => i.getAttribute("src"));

@@ -460,7 +460,7 @@ describe("FamilyFooter", () => {
   it("is three lines at most: the host's links, the family, then the last line — on the documentation's width", () => {
     const { container } = draw({ children: <FamilyFooter.Column title="Docs"><FamilyFooter.Link href="/c">Components</FamilyFooter.Link></FamilyFooter.Column> });
     const inner = container.querySelector("footer > div")!;
-    expect(inner.children.length).toBe(3);
+    expect(inner.children).toHaveLength(3);
     expect(inner.className).toContain("--kz-page-max-docs");
   });
 });

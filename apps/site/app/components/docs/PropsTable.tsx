@@ -20,7 +20,7 @@ export function PropsTable({ groups: all, locale }: Readonly<{ groups: RegistryC
               <InlineCode text={group.description} />
             </p>
           )}
-          <div className="kz-table-scroll" tabIndex={0} role="region" aria-label={group.component}>
+          <section className="kz-table-scroll" tabIndex={0} aria-label={group.component}>
             <table className="kz-table">
               <thead>
                 <tr>
@@ -46,7 +46,7 @@ export function PropsTable({ groups: all, locale }: Readonly<{ groups: RegistryC
                 ))}
               </tbody>
             </table>
-          </div>
+          </section>
         </section>
       ))}
     </div>

@@ -373,7 +373,7 @@ export async function ComponentDoc({ name, locale, notes }: Readonly<{ name: str
       {item.accessibility.keyboard.length > 0 && (
         <>
           <h3 id="keyboard">{c.keyboard}</h3>
-          <div className="kz-table-scroll not-prose" tabIndex={0} role="region" aria-label={c.keyboard}>
+          <section className="kz-table-scroll not-prose" tabIndex={0} aria-label={c.keyboard}>
             <table className="kz-table">
               <thead>
                 <tr>
@@ -394,7 +394,7 @@ export async function ComponentDoc({ name, locale, notes }: Readonly<{ name: str
                 ))}
               </tbody>
             </table>
-          </div>
+          </section>
         </>
       )}
 
