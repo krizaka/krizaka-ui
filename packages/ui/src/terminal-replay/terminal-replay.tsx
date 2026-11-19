@@ -241,30 +241,28 @@ export function TerminalReplay({
           </button>
         )}
       </figcaption>
-      <div
+      <section
         ref={screenRef}
-        role="region"
         aria-label={label}
-        tabIndex={0}
-        className="kz-replay-screen relative overflow-auto bg-surface-0 px-4 py-3 font-mono text-[0.8125rem] leading-relaxed text-fg focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+        className="kz-replay-screen relative overflow-auto bg-surface-0 px-4 py-3 font-mono text-[0.8125rem] leading-relaxed text-fg"
       >
         <div aria-hidden className="kz-replay-live">
-          {steps.slice(0, state === "idle" ? 0 : shown + 1).map((step, i) => {
+          {withKeys(steps.slice(0, state === "idle" ? 0 : shown + 1), (step) => step.command).map(({ item: step, key, index: i }) => {
             const current = !whole && i === shown;
             const typed = current ? step.command.slice(0, pos.chars) : step.command;
             const output = (step.output ?? []).slice(0, current ? pos.lines : undefined);
             const typing = current && pos.chars < step.command.length;
             return (
-              <div key={i} className={i > 0 ? "mt-3" : undefined}>
+              <div key={key} className={i > 0 ? "mt-3" : undefined}>
                 <div className="whitespace-pre">
                   <span className="text-fg-accent select-none">{prompt} </span>
                   <span className="font-medium">{typed}</span>
                   {typing && <span className="kz-replay-caret" />}
                 </div>
-                {output.map((entry, j) => {
+                {withKeys(output, (entry) => line(entry).text).map(({ item: entry, key: lineKey }) => {
                   const { text, tone } = line(entry);
                   return (
-                    <div key={j} className={cn("min-h-[1lh] whitespace-pre", tone ? TONE[tone] : "text-fg")}>
+                    <div key={lineKey} className={cn("min-h-[1lh] whitespace-pre", tone ? TONE[tone] : "text-fg")}>
                       {text}
                     </div>
                   );
@@ -280,9 +278,19 @@ export function TerminalReplay({
           )}
         </div>
         <pre className="sr-only">{transcript}</pre>
-      </div>
+      </section>
     </figure>
   );
+}
+
+/** A key from the line's own text, made unique by how many identical lines came before it (no array index). */
+function withKeys<T>(items: readonly T[], textOf: (item: T) => string) {
+  const seen: Record<string, number> = {};
+  return items.map((item, index) => {
+    const text = textOf(item);
+    seen[text] = (seen[text] ?? -1) + 1;
+    return { item, key: `${text}\u0000${seen[text]}`, index };
+  });
 }
 
 /** Two sheets, one over the other: copy. Drawn here, like the other glyphs of the primitives (decorative). */

@@ -34,6 +34,9 @@ describe("TerminalReplay", () => {
     motion(true);
     const { container } = render(<TerminalReplay steps={steps} {...words} copyLabel="Copy" copiedLabel="Copied" />);
     const region = screen.getByRole("region", { name: "Terminal session" });
+    expect(region.tagName).toBe("SECTION");
+    expect(region.hasAttribute("role")).toBe(false);
+    expect(region.hasAttribute("tabindex")).toBe(false);
     expect(region.querySelector("pre")?.textContent).toBe("$ npx tool install\nPhase 1\n✔ done\n\n$ npx tool start\nready");
     expect(await axeViolations(container)).toEqual([]);
   });
