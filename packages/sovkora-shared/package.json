@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/sovkora-shared",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Sovkora shared contracts: TypeScript types, Zod schemas and design tokens (framework-agnostic).",
   "keywords": [
     "sovkora",

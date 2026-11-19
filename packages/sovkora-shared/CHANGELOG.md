@@ -1,5 +1,11 @@
 # @krizaka/sovkora-shared
 
+## 2.0.1
+
+### Patch Changes
+
+- [#1080](https://github.com/krizaka/krizaka-ui/pull/1080) [`5bf3d4b`](https://github.com/krizaka/krizaka-ui/commit/5bf3d4b6e5ac15989707b228908fa005410ae1d2) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Refactor, behaviour unchanged: `document-viewer/locate` names its character-range constants and holds the Helvetica width table as a typed array; the PDF pre-flight reads names, extensions, base64 and the trailer with named readers instead of regular expressions.
+
 ## 2.0.0
 
 ### Major Changes
