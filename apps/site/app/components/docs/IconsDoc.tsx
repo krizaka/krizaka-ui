@@ -78,7 +78,7 @@ export function IconsDoc({ locale }: Readonly<{ locale: Locale }>) {
       <List items={iconGuidelines.grammar} />
 
       <h2 id="sizes">{ic.sizeGuide}</h2>
-      <div className="kz-table-scroll not-prose" tabIndex={0} role="region" aria-label={ic.sizeGuide}>
+      <section className="kz-table-scroll not-prose" tabIndex={0} aria-label={ic.sizeGuide}>
         <table className="kz-table">
           <thead>
             <tr>
@@ -97,7 +97,7 @@ export function IconsDoc({ locale }: Readonly<{ locale: Locale }>) {
             ))}
           </tbody>
         </table>
-      </div>
+      </section>
 
       <h2 id="color">{ic.color}</h2>
       <List items={iconGuidelines.color} />

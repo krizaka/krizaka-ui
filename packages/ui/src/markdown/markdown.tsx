@@ -148,7 +148,7 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
       );
     case "table":
       return (
-        <div className="kz-md-table" role="region" tabIndex={0} aria-label={node.header.map((cell) => textOf(cell.children)).join(", ")}>
+        <section className="kz-md-table" tabIndex={0} aria-label={node.header.map((cell) => textOf(cell.children)).join(", ")}>
           <table>
             <thead>
               <tr>
@@ -171,7 +171,7 @@ function Block({ node, ctx }: { node: BlockNode; ctx: Context }): React.ReactNod
               ))}
             </tbody>
           </table>
-        </div>
+        </section>
       );
     case "thematicBreak":
       return <hr />;

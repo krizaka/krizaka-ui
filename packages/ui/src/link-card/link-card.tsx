@@ -59,7 +59,7 @@ export function LinkCard({ href, title, description, icon, meta, cta, extra, tit
       href={href}
       linkAs={linkAs}
       external={external}
-      className={cn("kz-block-card kz-link-card", cardHoverClass(hover), className)}
+      className={cn("kz-block-card kz-link-card", className)}
       data-layout={layout === "row" ? undefined : layout}
       data-footer={footerAlign === "top" ? "top" : undefined}
       {...props}

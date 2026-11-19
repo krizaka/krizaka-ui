@@ -7,7 +7,7 @@ import type * as React from "react";
 import { BlockLink, type LinkComponent } from "../block-link";
 import { cn } from "../cn";
 import { ArrowGlyph, ChevronGlyph } from "../glyphs";
-import { type CardHover, cardHoverClass } from "../link-card/link-card";
+import type { CardHover } from "../link-card/link-card";
 import { type Fact, Facts } from "../page/page";
 
 export type ArgumentCardProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & {
@@ -63,7 +63,7 @@ export function ArgumentCard({ id, title, icon, meta, mark, facts, hook, points,
   const H = `h${level}` as "h2" | "h3" | "h4";
   const fold = !more && panelLabel && (points || rule || (details && details.length > 0));
   return (
-    <article className={cn("kz-block-card kz-arg", cardHoverClass(hover), className)} aria-labelledby={id} {...props}>
+    <article className={cn("kz-block-card kz-arg", className)} aria-labelledby={id} {...props}>
       <div className="kz-arg-head">
         {icon && (
           <span className="kz-block-icon" aria-hidden>

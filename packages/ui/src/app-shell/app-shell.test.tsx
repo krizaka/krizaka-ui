@@ -104,7 +104,7 @@ describe("AppShell", () => {
     );
     const search = screen.getByRole("button", { name: "Search" });
     expect(search.getAttribute("aria-keyshortcuts")).toMatch(/^(Meta|Control)\+K$/);
-    expect(search.querySelectorAll("kbd").length).toBe(2);
+    expect(search.querySelectorAll("kbd")).toHaveLength(2);
     fireEvent.click(search);
     fireEvent.keyDown(document.body, { key: "k", ctrlKey: true });
     expect(onOpen).toHaveBeenCalledTimes(2);

@@ -27,6 +27,6 @@ describe("AchievementList", () => {
         <Achievement title="Two" />
       </AchievementList>,
     );
-    expect(screen.getByRole("list", { name: "Achievements" }).querySelectorAll("li").length).toBe(2);
+    expect(screen.getByRole("list", { name: "Achievements" }).querySelectorAll("li")).toHaveLength(2);
   });
 });

@@ -125,7 +125,7 @@ export function KpiExplained({
       <p className="kz-kpi-freshness">
         <span>{freshness.lastReadLabel}: </span>
         <time dateTime={lastRead.toISOString()}>{formatDate(lastRead, { locale, style: "medium", timeStyle: "short", timeZone })}</time>
-        {stale ? <span className="kz-kpi-stale" role="status">{freshness.staleLabel}</span> : null}
+        {stale ? <output className="kz-kpi-stale">{freshness.staleLabel}</output> : null}
       </p>
       {sparkline ? <div className="kz-kpi-sparkline">{sparkline}</div> : null}
     </article>

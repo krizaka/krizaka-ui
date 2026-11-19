@@ -434,7 +434,7 @@ export function StatusSetEditor({ value, onChange, roles, locale = "en", problem
         ))}
 
         {open && chosen ? (
-          <div role="region" aria-label={labels.moveDetail(nameOf(open.from), nameOf(open.to))} className="flex flex-col gap-3 rounded-lg border border-border-default bg-surface-1 p-3">
+          <section aria-label={labels.moveDetail(nameOf(open.from), nameOf(open.to))} className="flex flex-col gap-3 rounded-lg border border-border-default bg-surface-1 p-3">
             <h4 className="m-0 text-sm font-semibold text-fg">{labels.moveDetail(nameOf(open.from), nameOf(open.to))}</h4>
             <div className="flex flex-col gap-1.5">
               <span className="text-xs font-semibold text-fg-secondary">{labels.roles}</span>
@@ -493,7 +493,7 @@ export function StatusSetEditor({ value, onChange, roles, locale = "en", problem
             </div>
             </>
             ) : null}
-          </div>
+          </section>
         ) : null}
       </section>
     </div>

@@ -46,14 +46,14 @@ describe("the composer's commands", () => {
     expect(applyCommand(added, { type: "addSection", sectionType: "faq", key: "s_faq" })).toBe(added);
     let full = page;
     for (let i = 0; full.sections.length < SHOP_LIMITS.sections; i++) full = applyCommand(full, { type: "addSection", sectionType: "booking", key: `s_${i}` });
-    expect(full.sections.length).toBe(SHOP_LIMITS.sections);
+    expect(full.sections).toHaveLength(SHOP_LIMITS.sections);
     expect(applyCommand(full, { type: "addSection", sectionType: "booking", key: "s_over" })).toBe(full);
   });
 
   it("keeps the last section", () => {
     let page: ShopPage = { ...start(), sections: [start().sections[1]!] };
     page = applyCommand(page, { type: "removeSection", key: page.sections[0]!.key });
-    expect(page.sections.length).toBe(1);
+    expect(page.sections).toHaveLength(1);
   });
 
   it("adds, moves and removes blocks within the type's block kinds and the 24-block limit", () => {
@@ -70,7 +70,7 @@ describe("the composer's commands", () => {
     page = applyCommand(page, { type: "removeBlock", key: g, blockKey: "b_2" });
     expect(page.sections.find((s) => s.key === g)!.blocks).toBeUndefined();
     for (let i = 0; i < SHOP_LIMITS.blocks + 3; i++) page = applyCommand(page, { type: "addBlock", key: g, blockKey: `b_${i}`, blockType: "note", settings: { text: "x" } });
-    expect((page.sections.find((s) => s.key === g)!.blocks ?? []).length).toBe(SHOP_LIMITS.blocks);
+    expect((page.sections.find((s) => s.key === g)!.blocks ?? [])).toHaveLength(SHOP_LIMITS.blocks);
   });
 
   it("toggles visibility without losing the section, edits the words, and changes the look", () => {
@@ -111,10 +111,10 @@ describe("history", () => {
     let h = createHistory(start());
     const initial = h.present;
     for (const en of ["O", "Ou", "Our"]) h = run(h, { type: "setText", key: "s_services", field: "title", value: { en } }, "text:s_services:title");
-    expect(h.past.length).toBe(1);
+    expect(h.past).toHaveLength(1);
     h = run(h, { type: "toggleDisabled", key: "s_book" });
     h = run(h, { type: "setText", key: "s_services", field: "title", value: { en: "Our care" } }, "text:s_services:title");
-    expect(h.past.length).toBe(3);
+    expect(h.past).toHaveLength(3);
     h = undo(undo(undo(h)));
     expect(h.present).toEqual(initial);
   });
@@ -122,7 +122,7 @@ describe("history", () => {
   it("keeps 100 steps", () => {
     let h = createHistory(start());
     for (let i = 0; i < HISTORY_LIMIT + 20; i++) h = run(h, { type: "setDensity", density: i % 2 ? "airy" : "compact" });
-    expect(h.past.length).toBe(HISTORY_LIMIT);
+    expect(h.past).toHaveLength(HISTORY_LIMIT);
   });
 
   // The property: for any random sequence of commands, every step is a valid document, and undoing every step restores the

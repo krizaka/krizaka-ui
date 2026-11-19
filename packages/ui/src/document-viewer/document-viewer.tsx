@@ -216,7 +216,7 @@ export function DocumentViewer({ src, loadPdfjs, workerSrc, highlights = [], act
           {where?.match === "page" ? fill(words.onPage, { page: where.page }) : words.notFound} {active.quote ? <q>{active.quote}</q> : null}
         </p>
       ) : null}
-      <div ref={containerRef} className={s.pages()} role="region" aria-label={words.region} tabIndex={0}>
+      <section ref={containerRef} className={s.pages()} aria-label={words.region} tabIndex={0}>
         {phase.state === "loading" ? <p className={s.status()}>{words.loading}</p> : null}
         {phase.state === "error" ? <p role="alert" className={s.status()}>{words.failed}</p> : null}
         {phase.state === "ready"
@@ -246,7 +246,7 @@ export function DocumentViewer({ src, loadPdfjs, workerSrc, highlights = [], act
               );
             })
           : null}
-      </div>
+      </section>
     </div>
   );
 }

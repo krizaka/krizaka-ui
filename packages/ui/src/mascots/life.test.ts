@@ -13,10 +13,10 @@ describe("the life of the flock", () => {
       for (const name of ["head", "lid", "flutter"]) expect(css).toContain(`@keyframes kzb-${bird}-${name}`);
       expect(css).toContain(`svg[data-bird="${bird}"]{--kzb-pivot:${x}px ${y}px`);
       // Braces balance: a stray one would swallow the rules after it.
-      expect(css.split("{").length).toBe(css.split("}").length);
+      expect(css.split("{")).toHaveLength(css.split("}").length);
       expect(CHARACTERS[bird].head.seconds).toBeGreaterThan(0);
     }
-    expect(sharedLifeCss().split("{").length).toBe(sharedLifeCss().split("}").length);
+    expect(sharedLifeCss().split("{")).toHaveLength(sharedLifeCss().split("}").length);
   });
 
   it("keeps the birds in character: the falcon scans, the owl blinks twice, the duck nods in bursts, the pigeon bobs", () => {
