@@ -100,6 +100,23 @@ describe("ArchitectureDiagram", () => {
     expect(arrows).toEqual(["30,30", "30,30", "0,0"]);
   });
 
+  it("writes every computed coordinate to a tenth of a pixel, never a float's long tail", () => {
+    const awkward: ArchView = {
+      ...dynamicView,
+      nodes: [...dynamicView.nodes, node({ id: "lib", title: "Library", shape: "component", height: 101 })],
+      edges: [
+        edge({ id: "s1", source: "a", target: "ci", label: "a label on two lines, long enough to wrap", step: 1, labelBBox: { x: 10.3, y: 10.7, width: 60.1, height: 18.3 } }),
+        edge({ id: "s2", source: "ci", target: "t", step: 2, points: [[0, 0], [7, 3], [11, 13], [17, 29]] }),
+      ],
+    };
+    const { container } = render(<ArchitectureDiagram view={awkward} />);
+    const numbers = [...container.querySelectorAll("svg *")].flatMap((el) =>
+      ["x", "y", "width", "height", "cx", "cy", "points"].flatMap((name) => (el.getAttribute(name) ?? "").split(/[ ,]/).filter(Boolean)),
+    );
+    expect(numbers.length).toBeGreaterThan(20);
+    for (const n of numbers) expect(n).toMatch(/^-?\d+(\.\d)?$/);
+  });
+
   it("shows a dynamic view's flow: a numbered badge per step, and the steps in order in the text version", () => {
     const { container } = render(<ArchitectureDiagram view={dynamicView} />);
     expect([...container.querySelectorAll<SVGGElement>(".kz-arch-step")].map((g) => g.textContent)).toEqual(["2", "1", "3"]);
