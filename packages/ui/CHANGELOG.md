@@ -1,5 +1,22 @@
 # @krizaka/ui
 
+## 5.0.0
+
+### Major Changes
+
+- [#1082](https://github.com/krizaka/krizaka-ui/pull/1082) [`7d98989`](https://github.com/krizaka/krizaka-ui/commit/7d98989a05efeb8bde6c5ec733cc74518bc0731e) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - Removed (announced in 3.55, ADR-006, krizaka-ui#674): the 18 entries deprecated since 3.55 (3.31 for `pointer-light`) that no product or app imports — `terminal-replay`, `showcase` (and its React Native twin), `scroll-stage`, `landscape`, `signature`, `anatomy-plate`, `elephant`, `kanban`, `continue-prompt`, `promise-card`, `media-capture` (web and `./native/media-capture`), `video-trimmer`, `image-cropper`, `product-page`, `gallery-page`, `component-page`, `status-page` and `pointer-light`. Their documentation, stories, examples and size budgets go with them. Kept, because something still imports them: `tree-view` (the cockpit), the React Native `swipe-deck` and `match-dialog` (kitlive-native), `force-update-screen`, `maintenance-screen` (sovkora mobile) and their `update-prompt` contract.
+
+### Minor Changes
+
+- [#1084](https://github.com/krizaka/krizaka-ui/pull/1084) [`ced1eb8`](https://github.com/krizaka/krizaka-ui/commit/ced1eb87ddf4acf899820900670f470ed2ee9b1f) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `SiteFooter`: from 1024 px the family's groups (Products, Open source, Krizaka) and the site's own `SiteFooter.Column` groups are grid columns of equal width, the title on top and the links stacked under it, instead of one line of words. Below 1024 px nothing changes.
+
+### Patch Changes
+
+- [#1083](https://github.com/krizaka/krizaka-ui/pull/1083) [`823c2a5`](https://github.com/krizaka/krizaka-ui/commit/823c2a5b3c957fa105963d879dffac5c68878175) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `ArchitectureDiagram` writes every coordinate it computes (arrowheads, label plates, text lines, step badges, component tabs) to a tenth of a pixel: no float's long tail in the page (`579.6999999999999`), which a site's publication check read as a card number (krizaka-internal#4184).
+- Updated dependencies []:
+  - @krizaka/tailwind@5.0.0
+  - @krizaka/tokens@5.0.0
+
 ## 4.17.1
 
 ### Patch Changes
