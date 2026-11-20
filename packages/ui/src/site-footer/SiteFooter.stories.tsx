@@ -50,3 +50,6 @@ export const EverySite1440: Story = { render: () => <EverySiteExample />, parame
 /** From 1024 px the family's groups are columns (title on top, links stacked); at 360 px they fold and nothing scrolls sideways (#4336). */
 export const Family1440: Story = { tags: ["pb4336"], render: () => <FamilyExample />, parameters: { viewportWidth: 1440, noOverflow: true } };
 export const Family360: Story = { tags: ["pb4336"], render: () => <FamilyExample />, parameters: { viewportWidth: 360, noOverflow: true } };
+/** The site's own column and the family's columns in ONE row from 1024 px (up to 4 columns), the legal line at the small size, said once; stacked at 390 px (#4470). */
+export const OneRow1440: Story = { tags: ["pb4470"], render: () => <FamilyExample />, parameters: { viewportWidth: 1440, noOverflow: true } };
+export const OneRow390: Story = { tags: ["pb4470"], render: () => <FamilyExample />, parameters: { viewportWidth: 390, noOverflow: true } };

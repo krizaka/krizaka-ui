@@ -62,8 +62,28 @@ describe("SiteFooter", () => {
       const only = Array.from(list.querySelectorAll("a")).map((a) => a.getAttribute("href"));
       expect(only).not.toEqual(["https://www.krizaka.com"]);
     }
-    // Compact (krizaka/krizaka-internal#754): at most three lines — the site's links, the family, the signature line.
-    expect(footer.firstElementChild!.children).toHaveLength(3);
+    // Compact (krizaka/krizaka-internal#754, #4470): the site's links and the family share one grid, then the signature line.
+    expect(footer.firstElementChild!.children).toHaveLength(2);
+    expect(footer.firstElementChild!.firstElementChild!.children).toHaveLength(2);
+  });
+
+  it("draws the site's column and the family's columns in ONE grid (#4470): both dissolve into it from lg", () => {
+    const { container } = render(<Footer />);
+    const grid = container.querySelector("footer > div > div")!;
+    expect(grid.className).toMatch(/lg:grid-cols-\[repeat\(auto-fit,minmax\(10rem,1fr\)\)\]/);
+    const blocks = Array.from(grid.children);
+    expect(blocks).toHaveLength(2);
+    for (const b of blocks) expect(b.className).toMatch(/lg:contents/);
+    // 1 site column + Products, Open source, Krizaka = up to 4 columns on the one row.
+    expect(blocks[0]!.querySelectorAll(":scope > div")).toHaveLength(1);
+    expect(blocks[1]!.querySelectorAll(":scope > details")).toHaveLength(3);
+  });
+
+  it("the legal line is at the small size, links included (#4470)", () => {
+    render(<SiteFooter current="ui" org={org} />);
+    const legal = screen.getByRole("link", { name: "Privacy" }).parentElement!;
+    expect(legal.className).toMatch(/\btext-xs\b/);
+    expect(legal.className).toMatch(/\[&_a\]:text-xs/);
   });
 
   it("the company's pages open in the reader's language", () => {
@@ -166,8 +186,8 @@ describe("SiteFooter", () => {
     const { container } = render(<Footer family={false} />);
     const group = container.querySelector("footer ul")!.parentElement!;
     const row = group.parentElement!;
-    expect(row.className).toMatch(/lg:grid /);
-    expect(row.className).toMatch(/lg:grid-cols-\[repeat\(auto-fit/);
+    expect(row.className).toMatch(/lg:contents/);
+    expect(row.parentElement!.className).toMatch(/lg:grid-cols-\[repeat\(auto-fit/);
     expect(row.className).toMatch(/flex-wrap/);
     expect(group.className).toMatch(/lg:flex-col/);
     expect(container.querySelector("footer ul")!.className).toMatch(/lg:flex-col/);
@@ -177,7 +197,8 @@ describe("SiteFooter", () => {
   it("from lg the family's groups are grid columns with their links stacked (#4336)", () => {
     const { container } = render(<Footer />);
     const nav = container.querySelector("nav")!;
-    expect(nav.className).toMatch(/lg:grid /);
+    expect(nav.className).toMatch(/lg:contents/);
+    expect(nav.parentElement!.className).toMatch(/lg:grid-cols-\[repeat\(auto-fit/);
     expect(nav.className).not.toMatch(/lg:flex-wrap/);
     for (const d of Array.from(nav.querySelectorAll("details"))) {
       expect(d.className).toMatch(/lg:flex-col/);
@@ -474,7 +495,8 @@ describe("FamilyFooter", () => {
   it("is three lines at most: the host's links, the family, then the last line — on the documentation's width", () => {
     const { container } = draw({ children: <FamilyFooter.Column title="Docs"><FamilyFooter.Link href="/c">Components</FamilyFooter.Link></FamilyFooter.Column> });
     const inner = container.querySelector("footer > div")!;
-    expect(inner.children).toHaveLength(3);
+    expect(inner.children).toHaveLength(2);
+    expect(inner.firstElementChild!.children).toHaveLength(2);
     expect(inner.className).toContain("--kz-page-max-docs");
   });
 });

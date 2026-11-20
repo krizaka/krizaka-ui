@@ -22,8 +22,10 @@ export const siteFooter = tv({
     root: "w-full border-t border-border-subtle bg-surface-0 text-fg",
     inner:
       "mx-auto grid w-full max-w-[calc(var(--kz-page-max,72rem)_+_2*var(--kz-page-gutter,clamp(16px,3.2vw,32px)))] grid-cols-[minmax(0,1fr)] gap-3 px-[var(--kz-page-gutter,clamp(16px,3.2vw,32px))] py-6",
-    row: "flex min-w-0 flex-wrap items-baseline gap-x-6 gap-y-2 lg:grid lg:grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] lg:items-start lg:gap-x-6 lg:gap-y-6",
-    family: "grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 lg:grid lg:grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] lg:items-start lg:gap-x-6 lg:gap-y-6",
+    // One grid for the site's own column and the family's: from `lg` both blocks dissolve (`contents`) into it, one row.
+    cols: "grid min-w-0 grid-cols-[minmax(0,1fr)] gap-3 lg:grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] lg:items-start lg:gap-x-6 lg:gap-y-6",
+    row: "flex min-w-0 flex-wrap items-baseline gap-x-6 gap-y-2 lg:contents",
+    family: "grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 lg:contents",
     group:
       "group/fold min-w-0 lg:[&::details-content]:[content-visibility:visible] lg:[&::details-content]:contents lg:[&>summary]:pointer-events-none lg:flex lg:flex-col lg:items-start lg:gap-2",
     summary:
@@ -42,7 +44,8 @@ export const siteFooter = tv({
       "inline-flex items-center gap-2 rounded-md font-medium text-fg no-underline hover:text-fg-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
     version:
       "rounded-sm border border-border-subtle bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-fg-secondary",
-    legal: "flex flex-wrap items-center gap-x-4 gap-y-2",
+    // The legal line is the small size, links included (`link` is text-sm).
+    legal: "flex flex-wrap items-center gap-x-4 gap-y-2 text-xs [&_a]:text-xs",
     controls: "flex flex-wrap items-center gap-2 sm:ml-auto",
     // `hosted`: « made with … » at the end of the one line (after the shop's legal links, before the controls).
     made: "flex flex-wrap items-center gap-x-3 gap-y-1 sm:ml-auto",
@@ -50,7 +53,7 @@ export const siteFooter = tv({
     columns: "grid min-w-0 grid-cols-2 gap-x-6 gap-y-6 pb-2 sm:grid-flow-col sm:grid-cols-none sm:auto-cols-[minmax(0,13rem)] sm:gap-x-10",
     stack: "flex min-w-0 flex-col gap-2",
     stackList: "flex min-w-0 flex-col gap-1",
-    identity: "text-fg-secondary",
+    identity: "text-xs text-fg-secondary",
     // The accounts drawn as their icon (the name stays for screen readers): colour change only on hover, never movement.
     socials: "flex flex-wrap items-center gap-x-3 gap-y-2",
     social:
@@ -275,8 +278,10 @@ export function SiteFooter({
     <ToneContext.Provider value={tone}>
       <footer className={s.root({ className })} {...props}>
         <div className={s.inner()}>
-          {own && <div className={s.row()}>{children}</div>}
           {config && !slim && <ConfigColumns s={s} config={config} id={id} labels={labels} linkAs={linkAs} path={path} />}
+          {(own || family) && (
+            <div className={s.cols()}>
+          {own && <div className={s.row()}>{children}</div>}
           {family && (
             <nav aria-label={labels.family} className={s.family()}>
               {[
@@ -325,6 +330,8 @@ export function SiteFooter({
                   </details>
                 ))}
             </nav>
+          )}
+            </div>
           )}
           {bottom}
         </div>
