@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 5.1.1
+
+### Patch Changes
+
+- [#1091](https://github.com/krizaka/krizaka-ui/pull/1091) [`7f64d6b`](https://github.com/krizaka/krizaka-ui/commit/7f64d6b8b6115c21c9d1cc1f1b9f49641efa7690) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - fix(site-footer): the site's own column and the family's columns share one grid (one row from 1024 px), the legal line is at the small size, and the signature line is not repeated when the legal line already names the company.
+- Updated dependencies []:
+  - @krizaka/tailwind@5.1.1
+  - @krizaka/tokens@5.1.1
+
 ## 5.1.0
 
 ### Minor Changes
