@@ -144,7 +144,8 @@ export function FamilyFooter({ footer, current, labels, sourceLabel, kind, compa
         )}
       </div>
       <div className={s.bottom()}>
-        <p className={s.identity()}>{footer.line[lang]}</p>
+        {/* The company named once: the signature line only when the legal line above does not already name it. */}
+        {!identity && <p className={s.identity()}>{footer.line[lang]}</p>}
         {controls && <div className={s.controls()}>{controls}</div>}
       </div>
     </div>

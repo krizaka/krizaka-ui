@@ -83,6 +83,13 @@ describe("FamilyFooter rows", () => {
     draw("developer");
     expect(screen.getByText("Technologies Krizaka Inc. · NEQ 1182652231 · Montréal (Québec)")).toBeTruthy();
     expect(within(screen.getByRole("navigation", { name: "Legal" })).getAllByRole("link").map((a) => a.getAttribute("href"))).toEqual(["https://x/en/privacy", "https://x/en/terms"]);
+    // Said once (#4470): the legal line names the company, so the signature line is not repeated.
+    expect(screen.queryByText("A Technologies Krizaka company · Made in Montréal")).toBeNull();
+    expect(screen.getByText(/Technologies Krizaka Inc\./).closest("div")!.className).toMatch(/text-xs/);
+  });
+
+  it("without the company's facts, the signature line stays (#4470)", () => {
+    render(<FamilyFooter footer={data()} current="ui" labels={familyLabels.en} />);
     expect(screen.getByText("A Technologies Krizaka company · Made in Montréal")).toBeTruthy();
   });
 
@@ -122,5 +129,5 @@ describe("FamilyFooter rows", () => {
 /** What is outside row C: the socials, the legal row and the signature, as text. */
 function outside() {
   const text = (name: string) => within(screen.getByRole("navigation", { name })).getAllByRole("link").map((a) => `${a.textContent}|${a.getAttribute("href")}`);
-  return { social: text("Krizaka on social media"), legal: text("Legal"), family: text("Krizaka family"), line: screen.getByText(/Made in Montréal/).textContent };
+  return { social: text("Krizaka on social media"), legal: text("Legal"), family: text("Krizaka family"), line: screen.queryByText(/Made in Montréal/) };
 }
