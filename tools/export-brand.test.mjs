@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 
-import { assertDistinctMarks, assertMarksOfficial, assertWritable, OFFICIAL_MARKS, shapesOf, avatarFiles, brandFiles, brandIndex, emblem, hslToRgba, stalePaths, standalone, tokensOf } from "./export-brand.mjs";
+import { assertDistinctMarks, assertMarksDeclared, assertMarksOfficial, assertWritable, BRANDS, DECLARED_MARKS, OFFICIAL_MARKS, shapesOf, avatarFiles, brandFiles, brandIndex, emblem, hslToRgba, stalePaths, standalone, tokensOf } from "./export-brand.mjs";
 
 test("reads the tokens of a theme block", () => {
   const css = ":root, .theme-dark {\n  --kz-text-primary: hsl(0 0% 96%); /* x */\n}\nhtml.light {\n  --kz-text-primary: hsl(240 6% 10%);\n}\n";
@@ -153,4 +154,32 @@ test("a published mark must carry every shape of its official file", () => {
   assert.throws(() => assertMarksOfficial(new Map([...files, ["brand/kridoc/mark-light.svg", orange]])), /not the official kridoc-embleme-clair\.svg/);
   assert.throws(() => assertMarksOfficial(new Map()), /is not published/);
   assert.deepEqual(Object.keys(OFFICIAL_MARKS), ["kridoc"]);
+});
+
+test("a published mark is the declared one: changed content, or a light and dark that became identical, is refused (krizaka-internal#4592)", () => {
+  const dark = Buffer.from("<svg>dark</svg>");
+  const light = Buffer.from("<svg>light</svg>");
+  const short = (b) => createHash("sha256").update(b).digest("hex").slice(0, 10);
+  const declared = { kridoc: { light: short(light), dark: short(dark) } };
+  const ok = new Map([["brand/kridoc/mark-light.svg", light], ["brand/kridoc/mark-dark.svg", dark]]);
+  assert.doesNotThrow(() => assertMarksDeclared(ok, declared));
+  // today's Kridoc state: both themes serve one file, matching neither declared hash
+  const same = new Map([["brand/kridoc/mark-light.svg", dark], ["brand/kridoc/mark-dark.svg", dark]]);
+  assert.throws(() => assertMarksDeclared(same, declared), /kridoc mark-light\.svg changed content under the declared \?v=/);
+  // a changed file without a new declaration is refused, even when light and dark stay different
+  const changed = new Map([...ok, ["brand/kridoc/mark-dark.svg", Buffer.from("<svg>other</svg>")]]);
+  assert.throws(() => assertMarksDeclared(changed, declared), /mark-dark\.svg changed content/);
+  // light and dark identical is refused unless the declaration says so
+  const sameDeclared = { kridoc: { light: short(dark), dark: short(dark) } };
+  assert.doesNotThrow(() => assertMarksDeclared(same, sameDeclared));
+  assert.throws(() => assertMarksDeclared(same, { kridoc: { light: "aaaaaaaaaa", dark: short(dark) } }), /changed content/);
+  // a brand with no declaration, and a declared mark that is not published, are refused
+  assert.throws(() => assertMarksDeclared(ok, {}, ["kridoc"]), /kridoc has no declared marks/);
+  assert.throws(() => assertMarksDeclared(new Map(), declared), /brand\/kridoc\/mark-light\.svg is declared but not published/);
+});
+
+test("the committed declaration names every brand and its marks", () => {
+  assert.deepEqual(Object.keys(DECLARED_MARKS).sort(), [...BRANDS].sort());
+  for (const themes of Object.values(DECLARED_MARKS)) assert.match(`${themes.light}${themes.dark}`, /^[0-9a-f]{20}$/);
+  assert.notEqual(DECLARED_MARKS.krizaka.light, DECLARED_MARKS.krizaka.dark);
 });
