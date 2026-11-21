@@ -16,7 +16,8 @@ function packageLine(name: string): string {
   const file = path.join(process.cwd(), "..", "..", "packages", name, "package.json");
   const pkg = JSON.parse(readFileSync(file, "utf8")) as { name: string; version: string; description?: string };
   const about = pkg.description?.split(/(?<=\.)\s/)[0] ?? "";
-  return `- ${pkg.name}@${pkg.version}${about ? ` — ${about}` : ""}: https://www.npmjs.com/package/${pkg.name}`;
+  const aboutText = about ? ` — ${about}` : "";
+  return `- ${pkg.name}@${pkg.version}${aboutText}: https://www.npmjs.com/package/${pkg.name}`;
 }
 
 /** llms.txt (https://llmstxt.org) of ui.krizaka.com, rendered at build from the same source as the pages. */

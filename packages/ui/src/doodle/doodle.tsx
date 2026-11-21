@@ -89,7 +89,7 @@ export function Doodle({ kind, children, word, side = "left", place = "margin", 
       role={said ? "img" : undefined}
       aria-label={said ? label : undefined}
       aria-hidden={wraps || said ? undefined : true}
-      style={{ ...style, ["--kz-doodle-tilt" as string]: `${Math.round(seedUnit(`${kind}${seed}`) * 80) / 10}deg`, ...(top ? { ["--kz-doodle-top" as string]: top } : {}) }}
+      style={{ ...style, ["--kz-doodle-tilt" as string]: `${Math.round(seedUnit(kind + seed) * 80) / 10}deg`, ...(top ? { ["--kz-doodle-top" as string]: top } : {}) }}
       {...props}
     >
       {wraps ? (

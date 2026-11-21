@@ -81,6 +81,7 @@ export function playgroundJsx(spec: PlaygroundSpec, controls: PlaygroundControl[
   }
   if (spec.number) attr(spec.number.prop, number);
   if (spec.text && spec.text.prop !== "children") attr(spec.text.prop, text);
-  const open = `<${spec.component}${attrs.length ? ` ${attrs.join(" ")}` : ""}`;
+  const attrList = attrs.length ? ` ${attrs.join(" ")}` : "";
+  const open = `<${spec.component}${attrList}`;
   return spec.text?.prop === "children" ? `${open}>${text}</${spec.component}>` : `${open} />`;
 }

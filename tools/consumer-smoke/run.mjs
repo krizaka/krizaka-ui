@@ -83,7 +83,10 @@ function entriesStep(app, entries) {
   return missing.length ? { ok: false, note: `not exported: ${missing.join(", ")}` } : { ok: true, note: entries.join(", ") };
 }
 
-const specs = (versions, pkgs) => pkgs.map((p) => `@krizaka/${p}@${versions[`@krizaka/${p}`]}`);
+const specs = (versions, pkgs) => pkgs.map((p) => {
+  const name = `@krizaka/${p}`;
+  return `${name}@${versions[name]}`;
+});
 
 function nextConsumer(versions) {
   const app = join(work, "next");

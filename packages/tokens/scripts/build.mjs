@@ -198,9 +198,10 @@ function block(tokens, selector, scheme, pick, target, intro) {
 function densityBlock(tokens) {
   const dense = tokens.filter((t) => t.compact !== undefined);
   if (!dense.length) return [];
+  const rules = dense.map((t) => `  ${PREFIX}${t.name}: ${t.compact};`).join("\n");
   return [
     "/* Densité compacte : [data-density=\"compact\"] sur un sous-arbre resserre les contrôles (tableau dense, console). */",
-    `[data-density="compact"] {\n${dense.map((t) => `  ${PREFIX}${t.name}: ${t.compact};`).join("\n")}\n}`,
+    `[data-density="compact"] {\n${rules}\n}`,
     "",
   ];
 }
@@ -212,9 +213,10 @@ function densityBlock(tokens) {
 function reducedMotionBlock(tokens) {
   const durations = tokens.filter((t) => t.type === "duration");
   if (!durations.length) return [];
+  const rules = durations.map((t) => `    ${PREFIX}${t.name}: 0ms;`).join("\n");
   return [
     "/* Mouvement réduit : les micro-interactions deviennent instantanées. */",
-    `@media (prefers-reduced-motion: reduce) {\n  :root {\n${durations.map((t) => `    ${PREFIX}${t.name}: 0ms;`).join("\n")}\n  }\n}`,
+    `@media (prefers-reduced-motion: reduce) {\n  :root {\n${rules}\n  }\n}`,
     "",
   ];
 }
@@ -297,10 +299,15 @@ export function compile(sources, brandSources = {}, appearanceSource = null, sho
   /** @param {unknown} o */
   const json = (o) => JSON.stringify(o, null, 2);
   /** @param {Record<string, string | number>} o @param {string} indent */
-  const literalType = (o, indent = "  ") =>
-    `{\n${Object.entries(o).map(([k, v]) => `${indent}readonly ${/^[a-z_$][\w$]*$/i.test(k) ? k : json(k)}: ${json(v)};`).join("\n")}\n${indent.slice(2)}}`;
+  const literalType = (o, indent = "  ") => {
+    const entries = Object.entries(o).map(([k, v]) => `${indent}readonly ${/^[a-z_$][\w$]*$/i.test(k) ? k : json(k)}: ${json(v)};`).join("\n");
+    return `{\n${entries}\n${indent.slice(2)}}`;
+  };
   /** @param {Record<string, unknown>} o @param {string} indent */
-  const stringType = (o, indent = "  ") => `{\n${Object.keys(o).map((k) => `${indent}readonly ${k}: string;`).join("\n")}\n${indent.slice(2)}}`;
+  const stringType = (o, indent = "  ") => {
+    const entries = Object.keys(o).map((k) => `${indent}readonly ${k}: string;`).join("\n");
+    return `{\n${entries}\n${indent.slice(2)}}`;
+  };
 
   const indexJs = `${header}
 /** Every token as a CSS reference, \`var(--kz-…)\`: follows the active theme. */
@@ -587,7 +594,11 @@ export function compileBrands(base, brandSources) {
     const decls = (mode, aliases) =>
       ordered
         .filter((t) => aliases || !isAlias(t.dark))
-        .map((t) => `  ${PREFIX}${t.name}: ${isAlias(t.dark) ? `var(${PREFIX}${target(/** @type {string} */ (t.dark)).name})` : String(mode === "light" ? (t.light ?? t.dark) : t.dark)};`)
+        .map((t) => {
+          const literal = String(mode === "light" ? (t.light ?? t.dark) : t.dark);
+          const value = isAlias(t.dark) ? `var(${PREFIX}${target(/** @type {string} */ (t.dark)).name})` : literal;
+          return `  ${PREFIX}${t.name}: ${value};`;
+        })
         .join("\n");
     const description = isObject(brandSources[id]) && typeof brandSources[id].$description === "string" ? brandSources[id].$description : id;
     css[`brands/${id}.css`] = [

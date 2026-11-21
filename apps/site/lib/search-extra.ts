@@ -80,7 +80,8 @@ export function componentSearchContents(item: SearchableItem): SearchContent[] {
   for (const use of item.whenToUse ?? []) out.push({ content: use });
   for (const group of item.web?.props ?? []) {
     const names = group.props.map((p) => p.name).filter((n) => !/^on[A-Z]|^(className|asChild|children|ref)$/.test(n));
-    out.push({ heading: group.component, content: `${group.component}${names.length ? `: ${names.join(", ")}` : ""}` });
+    const suffix = names.length ? `: ${names.join(", ")}` : "";
+    out.push({ heading: group.component, content: `${group.component}${suffix}` });
   }
   const examples = [...(item.web?.examples ?? []), ...(item.native?.examples ?? [])].map((e) => e.title);
   if (examples.length) out.push({ content: [...new Set(examples)].join(" · ") });

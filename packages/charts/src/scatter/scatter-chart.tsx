@@ -88,15 +88,20 @@ export function ScatterChart<T extends Datum>(props: Readonly<ScatterChartProps<
   const isEmpty = points.length === 0;
   const r = correlation(points);
   const range = (values: number[], write: (v: number) => string) => `${write(Math.min(...values))} – ${write(Math.max(...values))}`;
+  const correlationText =
+    r === null ? "" : `; ${fill(labels.summaryCorrelation, { r: formatNumber(r, { locale, maximumFractionDigits: 2, minimumFractionDigits: 2 }) })}`;
   const summary = isEmpty
     ? labels.empty
     : [
         fill(labels.summaryIntro, { kind: labels.kinds.scatter, count: points.length }),
-        `${xLabel}: ${range(points.map((p) => p.x), fmt.x)}; ${yLabel}: ${range(points.map((p) => p.y), fmt.y)}${r === null ? "" : `; ${fill(labels.summaryCorrelation, { r: formatNumber(r, { locale, maximumFractionDigits: 2, minimumFractionDigits: 2 }) })}`}.`,
+        `${xLabel}: ${range(points.map((p) => p.x), fmt.x)}; ${yLabel}: ${range(points.map((p) => p.y), fmt.y)}${correlationText}.`,
       ].join(" ");
   const bySeries = useMemo(() => groups.map((g) => points.filter((p) => p.g === g)), [groups, points]);
   const items: WalkItem[] = bySeries.flatMap((list, s) =>
-    list.map((p, i) => ({ seriesIndex: s, dataIndex: i, text: `${p.n || p.g}${p.n || p.g ? ": " : ""}${xLabel} ${fmt.x(p.x)}, ${yLabel} ${fmt.y(p.y)}${p.s != null && sizeLabel ? `, ${sizeLabel} ${fmt.size(p.s)}` : ""}` })),
+    list.map((p, i) => {
+      const sizeText = p.s != null && sizeLabel ? `, ${sizeLabel} ${fmt.size(p.s)}` : "";
+      return { seriesIndex: s, dataIndex: i, text: `${p.n || p.g}${p.n || p.g ? ": " : ""}${xLabel} ${fmt.x(p.x)}, ${yLabel} ${fmt.y(p.y)}${sizeText}` };
+    }),
   );
   const maxSize = Math.max(0, ...points.map((p) => p.s ?? 0));
 

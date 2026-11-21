@@ -16,8 +16,12 @@ const f = (v) => +v.toFixed(2);
 export const cut = (x, y, w, h, c = 2.5) =>
   `M${f(x + c)} ${f(y)}H${f(x + w - c)}L${f(x + w)} ${f(y + c)}V${f(y + h - c)}L${f(x + w - c)} ${f(y + h)}H${f(x + c)}L${f(x)} ${f(y + h - c)}V${f(y + c)}Z`;
 /** A pointy-top hexagon. */
-export const hex = (cx, cy, r) =>
-  `M${[-90, -30, 30, 90, 150, 210].map((a) => `${f(cx + r * Math.cos((a * Math.PI) / 180))} ${f(cy + r * Math.sin((a * Math.PI) / 180))}`).join("L")}Z`;
+export const hex = (cx, cy, r) => {
+  const points = [-90, -30, 30, 90, 150, 210]
+    .map((a) => `${f(cx + r * Math.cos((a * Math.PI) / 180))} ${f(cy + r * Math.sin((a * Math.PI) / 180))}`)
+    .join("L");
+  return `M${points}Z`;
+};
 /** A point on a circle, at an angle in degrees (clockwise from 3 o'clock). */
 export const pt = (cx, cy, r, a) => `${f(cx + r * Math.cos((a * Math.PI) / 180))} ${f(cy + r * Math.sin((a * Math.PI) / 180))}`;
 /** An arc from angle a0 to a1 (degrees, clockwise from 3 o'clock) on a circle. */

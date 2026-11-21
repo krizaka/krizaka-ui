@@ -341,7 +341,8 @@ export async function build() {
 
   for (const [root, label] of [["brand", "Brand marks, logos, avatars and social previews"], ["people/defaults/v1", "Default profile pictures"]]) {
     const files = [...out].filter(([p]) => p.startsWith(`${root}/`)).map(([p, b]) => ({ path: p, bytes: b.length, sha256: sha(b) }));
-    out.set(`${root}/manifest.json`, Buffer.from(`${JSON.stringify({ about: label, generatedFrom: `@krizaka/ui@${k.version}`, source: "https://github.com/krizaka/krizaka-ui/blob/main/tools/export-brand.mjs", files }, null, 2)}\n`));
+    const manifest = JSON.stringify({ about: label, generatedFrom: `@krizaka/ui@${k.version}`, source: "https://github.com/krizaka/krizaka-ui/blob/main/tools/export-brand.mjs", files }, null, 2);
+    out.set(`${root}/manifest.json`, Buffer.from(`${manifest}\n`));
   }
   assertDistinctMarks(out);
   assertMarksOfficial(out);

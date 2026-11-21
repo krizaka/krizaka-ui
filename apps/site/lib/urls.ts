@@ -59,7 +59,8 @@ export function resolveDocHref(href: string | undefined, locale: string): string
   const [pathPart, hash = ""] = href.split("#");
   const legacy = /^\/docs\/ui(?:\/(.*))?$/.exec(pathPart);
   const path = legacy ? pathOfLegacySlug(legacy[1] ?? "") : pathPart;
-  return `${localePath(locale, path)}${hash ? `#${hash}` : ""}`;
+  const suffix = hash ? `#${hash}` : "";
+  return `${localePath(locale, path)}${suffix}`;
 }
 
 /** The address of a component's page. */
@@ -68,7 +69,8 @@ export const componentPath = (locale: string, name: string) => localePath(locale
 /** The absolute address of a page as the static host serves it (one folder per page: a trailing slash). */
 export function absoluteUrl(locale: string, path: string): string {
   const p = localePath(locale, path);
-  return `${SITE_URL}${p.endsWith("/") ? p : `${p}/`}`;
+  const normalized = p.endsWith("/") ? p : `${p}/`;
+  return `${SITE_URL}${normalized}`;
 }
 
 /** The address of a domain's page (ADR-008 §3). */

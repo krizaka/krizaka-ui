@@ -91,8 +91,9 @@ export function Globe3D(props: Readonly<Globe3DProps>) {
     return p ? [p.lon, p.lat] : null;
   };
 
+  const pointList = points.map((p) => (p.value == null ? p.label : `${p.label} ${fmt(p.value)}`)).join(", ");
   const summary = points.length
-    ? `${fill(labels.summaryIntro, { kind: labels.kinds.globe, count: points.length })} ${points.map((p) => (p.value == null ? p.label : `${p.label} ${fmt(p.value)}`)).join(", ")}.`
+    ? `${fill(labels.summaryIntro, { kind: labels.kinds.globe, count: points.length })} ${pointList}.`
     : labels.empty;
   const table = { columns: [pointLabel ?? labels.category, valueLabel ?? labels.value, "lon", "lat"], rows: points.map((p) => [p.label, p.value == null ? labels.noValue : fmt(p.value), p.lon.toFixed(2), p.lat.toFixed(2)]) };
 

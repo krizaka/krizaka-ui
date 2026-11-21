@@ -88,9 +88,10 @@ export async function sendEmail<K extends TemplateId>(id: K, props: TemplateProp
   const from = configured(env.MAIL_FROM) ? env.MAIL_FROM.trim() : `Krizaka <contact@${env.MAIL_DOMAIN}>`;
   const form = mailgunForm(email, { from, to, replyTo: options.replyTo, idempotencyKey, testLabel: options.testLabel });
   try {
+    const auth = Buffer.from(`api:${env.MAIL_API_KEY}`).toString("base64");
     const res = await (options.fetch ?? fetch)(`${base}/v3/${env.MAIL_DOMAIN}/messages`, {
       method: "POST",
-      headers: { Authorization: `Basic ${Buffer.from(`api:${env.MAIL_API_KEY}`).toString("base64")}`, "Content-Type": "application/x-www-form-urlencoded" },
+      headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/x-www-form-urlencoded" },
       body: form.toString(),
     });
     if (!res.ok) return fail(`provider-${res.status}`);

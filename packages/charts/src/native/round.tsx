@@ -128,7 +128,7 @@ export function Gauge(props: Readonly<NativeGaugeProps>) {
       frame={props}
       defaultHeight={170}
       resolved={resolved}
-      summary={`${labels.kinds.gauge}: ${text} / ${fmt(max)}${zone?.label ? `, ${zone.label}` : ""}.`}
+      summary={`${labels.kinds.gauge}: ${text} / ${fmt(max)}` + (zone?.label ? ", " + zone.label : "") + "."}
       isEmpty={false}
       points={[]}
       active={null}

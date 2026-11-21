@@ -32,6 +32,8 @@ const ORDER = { yes: 0, desktop: 0, gap: 1, "n/a": 2 } as const;
 /** One cell: the state as a chip, and — when it is not there — why, the issue that tracks it or what to use instead. */
 function Cell({ cell, labels, titleOf }: Readonly<{ cell: ParityCell; labels: MatrixLabels; titleOf: (name: string) => { title: string; href: string } | null }>) {
   const use = cell.state === "n/a" && cell.use ? titleOf(cell.use) : null;
+  const issueNumber = cell.state === "gap" ? cell.issue.split("#")[1] : null;
+  const issueRef = issueNumber ? `#${issueNumber}` : null;
   return (
     <span className="kz-parity-cell">
       <span className="kz-chip-meta" data-tone={cellTone(cell)}>
@@ -43,7 +45,7 @@ function Cell({ cell, labels, titleOf }: Readonly<{ cell: ParityCell; labels: Ma
           {cell.state === "gap" ? (
             <>
               {" "}
-              <a href={issueUrl(cell.issue)}>{`${labels.issue} ${cell.issue.split("#")[1] ? `#${cell.issue.split("#")[1]}` : cell.issue}`}</a>
+              <a href={issueUrl(cell.issue)}>{`${labels.issue} ${issueRef ?? cell.issue}`}</a>
             </>
           ) : null}
           {use ? (

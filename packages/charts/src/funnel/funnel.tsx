@@ -54,7 +54,10 @@ export function Funnel<T extends Datum>(props: Readonly<FunnelProps<T>>) {
           .join(", ")}.`,
         `${capitalize(fill(labels.summaryOverall, { rate: fmt.share(overall) }))}.`,
       ].join(" ");
-  const items: WalkItem[] = stages.map((s, i) => ({ seriesIndex: 0, dataIndex: i, text: `${s.label}: ${fmt.value(s.value)}${i ? ` (${fmt.share(rate(i))})` : ""}` }));
+  const items: WalkItem[] = stages.map((s, i) => {
+    const share = i ? ` (${fmt.share(rate(i))})` : "";
+    return { seriesIndex: 0, dataIndex: i, text: `${s.label}: ${fmt.value(s.value)}${share}` };
+  });
 
   const build = useCallback(
     (theme: ResolvedTheme, size: { width: number }) => {
@@ -97,7 +100,8 @@ export function Funnel<T extends Datum>(props: Readonly<FunnelProps<T>>) {
               fontSize: 12,
               formatter: (p: { dataIndex: number }) => {
                 const i = p.dataIndex;
-                return `{name|${stages[i]!.label}}  {value|${fmt.value(stages[i]!.value)}}${i ? `  {rate|${fmt.share(rate(i))}}` : ""}`;
+                const ratePart = i ? `  {rate|${fmt.share(rate(i))}}` : "";
+                return `{name|${stages[i]!.label}}  {value|${fmt.value(stages[i]!.value)}}${ratePart}`;
               },
               rich: { name: { color: theme.text2, fontSize: 12 }, value: { color: theme.text, fontWeight: 600, fontSize: 12 }, rate: { color: theme.text3, fontSize: 11 } },
             },

@@ -50,7 +50,7 @@ export function Sankey<T extends Datum>(props: Readonly<SankeyProps<T>>) {
   const top = [...model.links].sort((a, b) => b.value - a.value).slice(0, 3);
   const summary = isEmpty
     ? labels.empty
-    : `${fill(labels.summaryIntro, { kind: labels.kinds.sankey, count: `${model.nodes.length} · ${model.links.length}` })} ${top.map((l) => fill(labels.summaryShare, { label: `${l.source} → ${l.target}`, value: fmt.value(l.value), share: fmt.share(total ? l.value / total : 0) })).join(", ")}. ${capitalize(fill(labels.summaryTotal, { total: fmt.value(total) }))}.`;
+    : `${fill(labels.summaryIntro, { kind: labels.kinds.sankey, count: model.nodes.length + " · " + model.links.length })} ${top.map((l) => fill(labels.summaryShare, { label: l.source + " → " + l.target, value: fmt.value(l.value), share: fmt.share(total ? l.value / total : 0) })).join(", ")}. ${capitalize(fill(labels.summaryTotal, { total: fmt.value(total) }))}.`;
   const items: WalkItem[] = model.links.map((l, i) => ({ seriesIndex: 0, dataIndex: i, dataType: "edge", text: `${l.source} → ${l.target}: ${fmt.value(l.value)}` }));
 
   const build = useCallback(

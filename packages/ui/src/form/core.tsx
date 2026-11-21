@@ -264,7 +264,10 @@ export function useKrizakaFieldArray<T = unknown>(name: string): KrizakaFieldArr
     push: (item) => field.pushValue(item as never),
     remove: (index) => void field.removeValue(index),
     move: (from, to) => field.moveValue(from, to),
-    fieldName: (index, key) => `${name}[${index}]${key ? `.${key}` : ""}`,
+    fieldName: (index, key) => {
+      const suffix = key ? `.${key}` : "";
+      return `${name}[${index}]${suffix}`;
+    },
     error: first && (attempts > 0 || first.source === "server" || field.state.meta.isDirty) ? formMessage(first, ctx.i18n) : undefined,
   };
 }
