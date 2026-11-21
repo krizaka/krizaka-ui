@@ -8,7 +8,7 @@ export default function PageFacts() {
       <Facts
         aria-label="Status"
         items={[
-          { label: "Maven Central 0.1.0", tone: "ok", href: "https://central.sonatype.com/namespace/com.krizaka" },
+          { label: "Maven 0.1.0", tone: "ok", href: "https://java.krizaka.com" },
           { label: "Apache-2.0" },
           { label: "Gradle plugin — in progress", tone: "wip" },
         ]}

@@ -35,7 +35,7 @@ export default function LandingPageKrizaka() {
         { id: "sovkora", size: "lg", title: "Sovkora — the AI that never leaves home", text: "Chat, image, voice and video on your own server, one governed pipeline." },
         { id: "verikora", title: "Verikora", text: "Reads your leases, contracts and invoices." },
         { id: "folioviv", title: "Folioviv", text: "Running a shop in Québec, for less — coming." },
-        { id: "blocks", size: "md", title: "Open building blocks", text: "Users, billing, notifications — on Maven Central and npm." },
+        { id: "blocks", size: "md", title: "Open building blocks", text: "Users, billing, notifications — on npm and our own Maven repository." },
         { id: "ui", size: "md", title: "One design system", text: "Krizaka UI, web and mobile, documented from its code." },
       ]}
       closing={{ title: "Something to build together?", body: "Tell us what you need; a person answers within two days.", actions: <Button variant="primary" size="lg">Contact us</Button> }}

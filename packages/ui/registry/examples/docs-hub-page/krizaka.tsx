@@ -30,7 +30,7 @@ export default function DocsHubPageKrizaka() {
       collections={COLLECTIONS}
       quickstarts={{ title: "Start in one line", children: <CodeBlock code="npx sovkora install" language="bash" file="Terminal" copyLabel="Copy" copiedLabel="Copied" /> }}
       popular={{ title: "Most read", items: [{ href: "#cli", title: "The CLI", meta: "Sovkora" }, { href: "#button", title: "Button", meta: "Krizaka UI" }, { href: "#bom", title: "The BOM", meta: "Java" }] }}
-      whatsNew={{ title: "What's new", items: [{ href: "#ui-260", title: "Page blocks: frame, hero, cards, decisions", meta: "@krizaka/ui 2.6.0" }, { href: "#java-010", title: "The platform kit on Maven Central", meta: "0.1.0" }] }}
+      whatsNew={{ title: "What's new", items: [{ href: "#ui-260", title: "Page blocks: frame, hero, cards, decisions", meta: "@krizaka/ui 2.6.0" }, { href: "#java-010", title: "The platform kit, in our Maven repository", meta: "0.1.0" }] }}
       promise={{ label: "The owl's promise", text: "Every page here is generated from the code it documents — when the code changes, the page does." }}
     />
   );

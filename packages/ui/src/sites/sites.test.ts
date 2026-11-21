@@ -124,4 +124,23 @@ describe("the published @krizaka/org", () => {
       expect([...statuses], `${group} column`).toEqual(["development"]);
     }
   });
+
+  it("never names a registry the site does not publish on (#4606)", () => {
+    const registries = { "Maven Central": /maven central/i, "crates.io": /crates\.io/i, npm: /\bnpm\b/i } as const;
+    for (const locale of ["en", "fr"] as const) {
+      for (const site of sites) {
+        const line = familyLabels[locale].descriptions[site.id];
+        for (const [name, pattern] of Object.entries(registries)) {
+          if (pattern.test(line)) expect(site.published, `${site.id} (${locale}) says "${name}"`).toContain(name);
+        }
+      }
+    }
+  });
+
+  it("lists where each package family is published: npm for ts and ui, nowhere yet for java and rust", () => {
+    expect(siteById("ui").published).toEqual(["npm"]);
+    expect(siteById("ts").published).toEqual(["npm"]);
+    expect(siteById("java").published).toEqual([]);
+    expect(siteById("rust").published).toEqual([]);
+  });
 });
